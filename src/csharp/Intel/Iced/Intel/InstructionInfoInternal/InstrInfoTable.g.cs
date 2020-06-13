@@ -319,9 +319,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0x00000000,// Mov_rm16_Sreg
 			0x00000037, 0x05000000,// Mov_r32m16_Sreg
 			0x00000037, 0x0C000000,// Mov_r64m16_Sreg
-			0x80000027, 0x00000000,// Lea_r16_m
-			0x80000027, 0x05000000,// Lea_r32_m
-			0x80000027, 0x0C000000,// Lea_r64_m
+			0x86700027, 0x00000000,// Lea_r16_m
+			0x86700027, 0x05000000,// Lea_r32_m
+			0x86700027, 0x0C000000,// Lea_r64_m
 			0x00000037, 0x00000000,// Mov_Sreg_rm16
 			0x04200037, 0x05000000,// Mov_Sreg_r32m16
 			0x04200037, 0x0C000000,// Mov_Sreg_r64m16

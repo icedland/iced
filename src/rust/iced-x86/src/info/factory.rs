@@ -3103,6 +3103,36 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::Lea => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					debug_assert!(info.used_registers.len() >= 1);
+					debug_assert_eq!(OpKind::Register, instruction.op0_kind());
+					let reg = instruction.op0_register();
+					for reg_info in info.used_registers.iter_mut().skip(1) {
+						if reg >= Register::EAX && reg <= Register::R15D {
+							if reg_info.register() >= Register::RAX && reg_info.register() <= Register::R15 {
+								reg_info.register = unsafe {
+									mem::transmute(
+										(reg_info.register as u32).wrapping_sub(Register::RAX as u32).wrapping_add(Register::EAX as u32) as u8
+									)
+								};
+							}
+						} else if reg >= Register::AX && reg <= Register::R15W {
+							if reg_info.register() >= Register::EAX && reg_info.register() <= Register::R15 {
+								reg_info.register = unsafe {
+									mem::transmute(
+										((reg_info.register as u32).wrapping_sub(Register::EAX as u32) & 0xF).wrapping_add(Register::AX as u32) as u8,
+									)
+								};
+							}
+						} else {
+							debug_assert!(reg >= Register::RAX && reg <= Register::R15);
+							break;
+						}
+					}
+				}
+			}
+
 			CodeInfo::None => {}
 		}
 	}

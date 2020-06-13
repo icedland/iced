@@ -162,6 +162,7 @@ namespace Generator.InstructionInfo {
 		Pvalidate,
 		CW_EAX,
 		Arpl,
+		Lea,
 	}
 
 	sealed class InstrInfo {

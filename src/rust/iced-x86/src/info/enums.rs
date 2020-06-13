@@ -419,10 +419,11 @@ pub(crate) enum CodeInfo {
 	Pvalidate,
 	CW_EAX,
 	Arpl,
+	Lea,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 103] = [
+static GEN_DEBUG_CODE_INFO: [&str; 104] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -526,6 +527,7 @@ static GEN_DEBUG_CODE_INFO: [&str; 103] = [
 	"Pvalidate",
 	"CW_EAX",
 	"Arpl",
+	"Lea",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {

@@ -262,6 +262,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Pvalidate,
 		CW_EAX,
 		Arpl,
+		Lea,
 	}
 	// GENERATOR-END: CodeInfo
 

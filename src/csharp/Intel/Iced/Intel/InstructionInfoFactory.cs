@@ -2118,6 +2118,34 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Lea:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					Debug.Assert(info.usedRegisters.ValidLength >= 1);
+					Debug.Assert(instruction.Op0Kind == OpKind.Register);
+					var reg = instruction.Op0Register;
+					// The memory operand's regs start at index 1
+					for (int i = 1; i < info.usedRegisters.ValidLength; i++) {
+						var regInfo = info.usedRegisters.Array[i];
+						if (reg >= Register.EAX && reg <= Register.R15D) {
+							if (regInfo.Register >= Register.RAX && regInfo.Register <= Register.R15) {
+								var memReg = regInfo.Register - Register.RAX + Register.EAX;
+								info.usedRegisters.Array[i] = new UsedRegister(memReg, regInfo.Access);
+							}
+						}
+						else if (reg >= Register.AX && reg <= Register.R15W) {
+							if (regInfo.Register >= Register.EAX && regInfo.Register <= Register.R15) {
+								var memReg = ((regInfo.Register - Register.EAX) & 0xF) + Register.AX;
+								info.usedRegisters.Array[i] = new UsedRegister(memReg, regInfo.Access);
+							}
+						}
+						else {
+							Debug.Assert(reg >= Register.RAX && reg <= Register.R15);
+							break;
+						}
+					}
+				}
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

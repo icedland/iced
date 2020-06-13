@@ -860,15 +860,27 @@
 # mov [rax],ds
 48 8C 18, Mov_r64m16_Sreg, Legacy, X64, op0=w op1=r r=rax r=ds wm=ds:rax;UInt16
 # lea bx,[rax]
-66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=rax
+66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=ax
+# lea si,[rcx+rdx*8]
+66 8D 34 D1, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=si r=cx;dx
+# lea si,[ecx+edx*8]
+67 66 8D 34 D1, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=si r=cx;dx
 # lea bx,[rax]
-64 66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=rax
+64 66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=ax
 # lea ebx,[rax]
-8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=rbx r=rax
+8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=rbx r=eax
+# lea esi,[rcx+rdx*8]
+8D 34 D1, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=rsi r=ecx;edx
+# lea esi,[ecx+edx*8]
+67 8D 34 D1, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=rsi r=ecx;edx
 # lea ebx,[rax]
-64 8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=rbx r=rax
+64 8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=rbx r=eax
 # lea rbx,[rax]
 48 8D 18, Lea_r64_m, Legacy, X64, op0=w op1=nma w=rbx r=rax
+# lea rsi,[rcx+rdx*8]
+48 8D 34 D1, Lea_r64_m, Legacy, X64, op0=w op1=nma w=rsi r=rcx;rdx
+# lea rsi,[ecx+edx*8]
+67 48 8D 34 D1, Lea_r64_m, Legacy, X64, op0=w op1=nma w=rsi r=ecx;edx
 # lea rbx,[rax]
 64 48 8D 18, Lea_r64_m, Legacy, X64, op0=w op1=nma w=rbx r=rax
 # mov ss,si
