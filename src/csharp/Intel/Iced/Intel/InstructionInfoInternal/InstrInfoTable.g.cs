@@ -4204,8 +4204,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x200E40B7, 0x85000003,// XOP_Bextr_r64_rm64_imm32
 			0x200980B4, 0x54000003,// XOP_Lwpins_r32_rm32_imm32
 			0x200980B4, 0x54000003,// XOP_Lwpins_r64_rm32_imm32
-			0x200000B4, 0x54000003,// XOP_Lwpval_r32_rm32_imm32
-			0x200000B4, 0x54000003,// XOP_Lwpval_r64_rm32_imm32
+			0x20000094, 0x54000003,// XOP_Lwpval_r32_rm32_imm32
+			0x20000094, 0x54000003,// XOP_Lwpval_r64_rm32_imm32
 			0x00000037, 0x3D000004,// D3NOW_Pi2fw_mm_mmm64
 			0x00000037, 0x3C000004,// D3NOW_Pi2fd_mm_mmm64
 			0x00000037, 0x3D000004,// D3NOW_Pf2iw_mm_mmm64

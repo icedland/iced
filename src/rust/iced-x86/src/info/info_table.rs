@@ -4200,8 +4200,8 @@ pub(crate) static TABLE: [u32; 8448] = [
 	0x200E_40B7, 0x8500_0003,// XOP_Bextr_r64_rm64_imm32
 	0x2009_80B4, 0x5400_0003,// XOP_Lwpins_r32_rm32_imm32
 	0x2009_80B4, 0x5400_0003,// XOP_Lwpins_r64_rm32_imm32
-	0x2000_00B4, 0x5400_0003,// XOP_Lwpval_r32_rm32_imm32
-	0x2000_00B4, 0x5400_0003,// XOP_Lwpval_r64_rm32_imm32
+	0x2000_0094, 0x5400_0003,// XOP_Lwpval_r32_rm32_imm32
+	0x2000_0094, 0x5400_0003,// XOP_Lwpval_r64_rm32_imm32
 	0x0000_0037, 0x3D00_0004,// D3NOW_Pi2fw_mm_mmm64
 	0x0000_0037, 0x3C00_0004,// D3NOW_Pi2fd_mm_mmm64
 	0x0000_0037, 0x3D00_0004,// D3NOW_Pf2iw_mm_mmm64
