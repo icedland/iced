@@ -1753,3 +1753,11 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 0FB1 CE, Cmpxchg_rm32_r32, Legacy, INTEL486, op0=rcw op1=r fw=acopsz rcw=esi r=ecx r=eax cw=eax
 # cmpxchg [eax],ebx
 0FB1 18, Cmpxchg_rm32_r32, Legacy, INTEL486, op0=rcw op1=r fw=acopsz r=eax r=ebx r=eax cw=eax r=ds rcwm=ds:eax;UInt32
+# lea bx,[eax]
+66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=eax
+# lea bx,[eax]
+64 66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=eax
+# lea ebx,[eax]
+8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=ebx r=eax
+# lea ebx,[eax]
+64 8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=ebx r=eax
