@@ -702,7 +702,7 @@ addr16 xcryptofb
 addr16 pvalidate
 pvalidate
 serialize
-xsuspldtrk
+xsusldtrk
 xresldtrk
 addr16 invlpgb
 invlpgb

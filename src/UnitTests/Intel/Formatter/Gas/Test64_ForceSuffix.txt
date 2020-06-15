@@ -8354,7 +8354,7 @@ psmash
 addr32 pvalidate
 pvalidate
 serialize
-xsuspldtrk
+xsusldtrk
 xresldtrk
 addr32 invlpgb
 invlpgb

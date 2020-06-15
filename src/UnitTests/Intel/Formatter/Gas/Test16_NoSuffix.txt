@@ -536,5 +536,5 @@ addr32 clzero
 pvalidate
 addr32 pvalidate
 serialize
-xsuspldtrk
+xsusldtrk
 xresldtrk

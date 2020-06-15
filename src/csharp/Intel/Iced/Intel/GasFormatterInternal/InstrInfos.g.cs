@@ -17479,30 +17479,30 @@ namespace Iced.Intel.GasFormatterInternal {
 
 				// Xsusldtrk
 				0x01,// Normal_1
-				0xFD, 0x0A,// 1405 = "xsuspldtrk"
+				0xFC, 0x0A,// 1404 = "xsusldtrk"
 
 				// Xresldtrk
 				0x01,// Normal_1
-				0xFE, 0x0A,// 1406 = "xresldtrk"
+				0xFD, 0x0A,// 1405 = "xresldtrk"
 
 				// Invlpgbw
 				0x07,// asz
-				0xFF, 0x0A,// 1407 = "invlpgb"
+				0xFE, 0x0A,// 1406 = "invlpgb"
 				0x10,// 0x10
 
 				// Invlpgbd
 				0x07,// asz
-				0xFF, 0x0A,// 1407 = "invlpgb"
+				0xFE, 0x0A,// 1406 = "invlpgb"
 				0x20,// 0x20
 
 				// Invlpgbq
 				0x07,// asz
-				0xFF, 0x0A,// 1407 = "invlpgb"
+				0xFE, 0x0A,// 1406 = "invlpgb"
 				0x40,// 0x40
 
 				// Tlbsync
 				0x01,// Normal_1
-				0x80, 0x0B,// 1408 = "tlbsync"
+				0xFF, 0x0A,// 1407 = "tlbsync"
 
 				// PrefetchReserved3_m8
 				0x01,// Normal_1
@@ -17527,7 +17527,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 				// Vmgexit
 				0x81,// 'v', Normal_1
-				0x82, 0x0B,// 1410 = "vmgexit"
+				0x81, 0x0B,// 1409 = "vmgexit"
 
 				// Getsecq
 				0x03,// Normal_2b

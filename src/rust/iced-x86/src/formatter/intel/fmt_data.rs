@@ -15678,26 +15678,26 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Xresldtrk
 	0x01,// Normal_1
-	0xFE, 0x0A,// 1406 = "xresldtrk"
+	0xFD, 0x0A,// 1405 = "xresldtrk"
 
 	// Invlpgbw
 	0x23,// reg
-	0xFF, 0x0A,// 1407 = "invlpgb"
+	0xFE, 0x0A,// 1406 = "invlpgb"
 	0x15,// AX
 
 	// Invlpgbd
 	0x23,// reg
-	0xFF, 0x0A,// 1407 = "invlpgb"
+	0xFE, 0x0A,// 1406 = "invlpgb"
 	0x25,// EAX
 
 	// Invlpgbq
 	0x23,// reg
-	0xFF, 0x0A,// 1407 = "invlpgb"
+	0xFE, 0x0A,// 1406 = "invlpgb"
 	0x35,// RAX
 
 	// Tlbsync
 	0x01,// Normal_1
-	0x80, 0x0B,// 1408 = "tlbsync"
+	0xFF, 0x0A,// 1407 = "tlbsync"
 
 	// PrefetchReserved3_m8
 	0x01,// Normal_1
@@ -15705,7 +15705,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// PrefetchReserved4_m8
 	0x01,// Normal_1
-	0x81, 0x0B,// 1409 = "prefetch_reserved"
+	0x80, 0x0B,// 1408 = "prefetch_reserved"
 
 	// PrefetchReserved5_m8
 	0x00,// Previous
@@ -15722,9 +15722,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Vmgexit
 	0x81,// 'v', Normal_1
-	0x82, 0x0B,// 1410 = "vmgexit"
+	0x81, 0x0B,// 1409 = "vmgexit"
 
 	// Getsecq
 	0x01,// Normal_1
-	0x83, 0x0B,// 1411 = "getsecq"
+	0x82, 0x0B,// 1410 = "getsecq"
 ];

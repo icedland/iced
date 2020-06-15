@@ -4246,7 +4246,7 @@ namespace Generator.Formatters.Gas {
 				new object[] { ctorKind[nameof(CtorKind.asz)], code[nameof(Code.Pvalidated)], "pvalidate", 32 },
 				new object[] { ctorKind[nameof(CtorKind.asz)], code[nameof(Code.Pvalidateq)], "pvalidate", 64 },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Serialize)], "serialize" },
-				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Xsusldtrk)], "xsuspldtrk" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Xsusldtrk)], "xsusldtrk" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Xresldtrk)], "xresldtrk" },
 				new object[] { ctorKind[nameof(CtorKind.asz)], code[nameof(Code.Invlpgbw)], "invlpgb", 16 },
 				new object[] { ctorKind[nameof(CtorKind.asz)], code[nameof(Code.Invlpgbd)], "invlpgb", 32 },
