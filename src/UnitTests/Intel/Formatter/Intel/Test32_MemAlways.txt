@@ -707,3 +707,4 @@ xresldtrk
 invlpgb ax
 invlpgb eax
 tlbsync
+cl1invmb

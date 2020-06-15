@@ -3829,11 +3829,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xA4,// Simple
 				0xEE, 0x06,// Cl1invmb
 			0x80, 0x08,// Cl1invmb
-		0x0A,// Options3
-			0x02,// Invalid
-			0xA4,// Simple
-				0xEE, 0x06,// Cl1invmb
-			0x80, 0x08,// Cl1invmb
+		0x02,// Invalid
 
 	// 11 = 0x0B
 	0xA4,// Simple

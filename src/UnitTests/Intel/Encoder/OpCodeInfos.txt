@@ -899,7 +899,7 @@ Sysretq, legacy, , 0F, 07, REX.W 0F 07, SYSRET, 64b o64
 Invd, legacy, , 0F, 08, 0F 08, INVD, 16b 32b 64b
 Wbinvd, legacy, , 0F, 09, 0F 09, WBINVD, 16b 32b 64b
 Wbnoinvd, legacy, F3, 0F, 09, F3 0F 09, WBNOINVD, 16b 32b 64b
-Cl1invmb, legacy, , 0F, 0A, 0F 0A, CL1INVMB, 16b 32b 64b
+Cl1invmb, legacy, , 0F, 0A, 0F 0A, CL1INVMB, 16b 32b
 Ud2, legacy, , 0F, 0B, 0F 0B, UD2, 16b 32b 64b
 ReservedNop_rm16_r16_0F0D, legacy, , 0F, 0D, o16 0F 0D /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
 ReservedNop_rm32_r32_0F0D, legacy, , 0F, 0D, o32 0F 0D /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg

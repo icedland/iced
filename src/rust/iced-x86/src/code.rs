@@ -7036,7 +7036,7 @@ pub enum Code {
 	///
 	/// `CL1INVMB`
 	///
-	/// `16/32/64-bit`
+	/// `16/32-bit`
 	Cl1invmb = 878,
 	/// `UD2`
 	///

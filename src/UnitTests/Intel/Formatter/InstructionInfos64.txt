@@ -7921,7 +7921,6 @@ F3 0F01 28, Rstorssp_m64
 F3 0F01 E8, Setssbsy
 F3 0F01 EA, Saveprevssp
 F3 0F09, Wbnoinvd
-0F0A, Cl1invmb, Cl1invmb
 66 0F0D CE, ReservedNop_rm16_r16_0F0D, ForceReservedNop
 66 0F0D 18, ReservedNop_rm16_r16_0F0D, ForceReservedNop
 0F0D CE, ReservedNop_rm32_r32_0F0D, ForceReservedNop

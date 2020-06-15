@@ -1845,11 +1845,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void cl1invmb() {
-			TestAssembler(c => c.cl1invmb(), Instruction.Create(Code.Cl1invmb));
-		}
-
-		[Fact]
 		public void clac() {
 			TestAssembler(c => c.clac(), Instruction.Create(Code.Clac));
 		}

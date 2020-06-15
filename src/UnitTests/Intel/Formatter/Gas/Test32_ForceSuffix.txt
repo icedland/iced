@@ -707,3 +707,4 @@ xresldtrk
 addr16 invlpgb
 invlpgb
 tlbsync
+cl1invmb

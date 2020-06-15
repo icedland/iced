@@ -207,3 +207,4 @@ Xsha256_16
 Xstore_16
 Pvalidatew
 Invlpgbw
+Cl1invmb

@@ -4984,7 +4984,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>CL1INVMB</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		public void cl1invmb() {
 			Code op;
 			op = Code.Cl1invmb;

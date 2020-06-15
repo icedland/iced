@@ -17781,8 +17781,6 @@ F3 0F01 E8, Setssbsy, Legacy, CET_SS, priv pm
 F3 0F01 EA, Saveprevssp, Legacy, CET_SS, pm fr=c
 # wbnoinvd
 F3 0F09, Wbnoinvd, Legacy, WBNOINVD, priv
-# cl1invmb
-0F0A, Cl1invmb, Legacy, CL1INVMB, decopt=Cl1invmb priv
 # reserved-nop si,cx
 66 0F0D CE, ReservedNop_rm16_r16_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx

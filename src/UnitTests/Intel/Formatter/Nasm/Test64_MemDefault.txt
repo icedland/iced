@@ -7921,7 +7921,6 @@ pconfig
 setssbsy
 saveprevssp
 wbnoinvd
-cl1invmb
 nop si,cx
 nop [rax],bx
 nop esi,ecx

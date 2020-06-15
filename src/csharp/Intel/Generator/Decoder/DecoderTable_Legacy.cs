@@ -3239,10 +3239,7 @@ namespace Generator.Decoder {
 							invalid,
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Cl1invmb)] }, decoderOptionsEnum[nameof(DecoderOptions.Cl1invmb)]
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options3)],
-							invalid,
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Cl1invmb)] }, decoderOptionsEnum[nameof(DecoderOptions.Cl1invmb)],
-						},
+						invalid,
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Ud2)] },
 					invalid,

@@ -707,3 +707,4 @@ F2 0F 01 E9, Xresldtrk
 67 0F 01 FE, Invlpgbw
 0F 01 FE, Invlpgbd
 0F 01 FF, Tlbsync
+0F0A, Cl1invmb, Cl1invmb

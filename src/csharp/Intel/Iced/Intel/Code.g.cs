@@ -7028,7 +7028,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>CL1INVMB</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		Cl1invmb = 878,
 		/// <summary><c>UD2</c><br/>
 		/// <br/>

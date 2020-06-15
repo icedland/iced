@@ -1769,3 +1769,5 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 64 8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=ebx r=eax
 # lea ebx,[ecx+edx*8]
 8D 34 D1, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=esi r=ecx;edx
+# cl1invmb
+0F0A, Cl1invmb, Legacy, CL1INVMB, decopt=Cl1invmb priv
