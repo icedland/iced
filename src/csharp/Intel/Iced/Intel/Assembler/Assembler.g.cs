@@ -21052,7 +21052,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MWAITX</c><br/>
 		/// <br/>
-		/// <c>0F 01 FB</c><br/>
+		/// <c>NP 0F 01 FB</c><br/>
 		/// <br/>
 		/// <c>MONITORX</c><br/>
 		/// <br/>

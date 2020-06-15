@@ -1671,8 +1671,12 @@ namespace Iced.Intel.DecoderInternal {
 					0x03,// Invalid_NoModRM
 
 				// 59 = 0x3B
-				0xA4,// Simple
-					0xD9, 0x06,// Mwaitx
+				0x14,// MandatoryPrefix_NoModRM
+					0xA4,// Simple
+						0xD9, 0x06,// Mwaitx
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 60 = 0x3C
 				0xAB,// Simple5

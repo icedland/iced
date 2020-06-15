@@ -878,7 +878,7 @@ Monitorxw, legacy, NP, 0F, 01FA, a16 NP 0F 01 FA, MONITORX, 16b 32b a16
 Monitorxd, legacy, NP, 0F, 01FA, a32 NP 0F 01 FA, MONITORX, 16b 32b 64b a32
 Monitorxq, legacy, NP, 0F, 01FA, NP 0F 01 FA, MONITORX, 64b
 Mcommit, legacy, F3, 0F, 01FA, F3 0F 01 FA, MCOMMIT, 16b 32b 64b
-Mwaitx, legacy, , 0F, 01FB, 0F 01 FB, MWAITX, 16b 32b 64b
+Mwaitx, legacy, NP, 0F, 01FB, NP 0F 01 FB, MWAITX, 16b 32b 64b
 Clzerow, legacy, , 0F, 01FC, a16 0F 01 FC, CLZERO, 16b 32b a16
 Clzerod, legacy, , 0F, 01FC, a32 0F 01 FC, CLZERO, 16b 32b 64b a32
 Clzeroq, legacy, , 0F, 01FC, 0F 01 FC, CLZERO, 64b

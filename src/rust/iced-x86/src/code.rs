@@ -6864,7 +6864,7 @@ pub enum Code {
 	Mcommit = 856,
 	/// `MWAITX`
 	///
-	/// `0F 01 FB`
+	/// `NP 0F 01 FB`
 	///
 	/// `MONITORX`
 	///
