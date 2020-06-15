@@ -6536,6 +6536,8 @@ C4E1F9 17 10, VEX_Vmovhpd_m64_xmm, Vmovhpd, 2, op0=m;ds;rax;;1;0;0;Float64 op1=r
 66 0F1A F8, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
 66 0F1A C4, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx noinvalidcheck
 66 0F1A E0, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx noinvalidcheck
+66 0F1A 0D 34125AA5, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Bnd64 co=0;0;0;0;4;4 mpx
+67 66 0F1A 0D 34125AA5, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Bnd64 co=0;0;0;0;5;4 mpx enc=660F1A0D35125AA5
 
 F3 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
 F3 48 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1A08
@@ -6552,6 +6554,8 @@ F3 0F1A 28, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
 F3 0F1A 30, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
 F3 0F1A 38, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
 F3 0F1A 28, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx noinvalidcheck
+F3 0F1A 0D 34125AA5, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;4;4 mpx
+67 F3 0F1A 0D 34125AA5, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;5;4 mpx enc=F30F1A0D35125AA5
 
 F2 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
 F2 48 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1A08
@@ -6568,6 +6572,8 @@ F2 0F1A 28, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
 F2 0F1A 30, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
 F2 0F1A 38, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
 F2 0F1A 30, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx noinvalidcheck
+F2 0F1A 0D 34125AA5, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;4;4 mpx
+67 F2 0F1A 0D 34125AA5, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;5;4 mpx enc=F20F1A0D35125AA5
 
 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 mpx
 48 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 mpx enc=0F1B08
@@ -6608,6 +6614,8 @@ F2 0F1A 30, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx noinvalidcheck
 66 0F1B F8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
 66 0F1B C5, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx noinvalidcheck
 66 0F1B F8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx noinvalidcheck
+66 0F1B 0D 34125AA5, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rip;;1;0xA55A1234;8;Bnd64 op1=r;bnd1 co=0;0;0;0;4;4 mpx
+67 66 0F1B 0D 34125AA5, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rip;;1;0xA55A1234;8;Bnd64 op1=r;bnd1 co=0;0;0;0;5;4 mpx enc=660F1B0D35125AA5
 
 F3 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
 F3 48 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1B08
@@ -6620,6 +6628,10 @@ F3 0F1B 28, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
 F3 0F1B 30, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
 F3 0F1B 38, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
 F3 0F1B 30, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx noinvalidcheck
+F3 0F1B 0D 34125AA5, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
+67 F3 0F1B 0D 34125AA5, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
+F3 0F1B 0D 34125AA5, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;4;4 mpx noinvalidcheck
+67 F3 0F1B 0D 34125AA5, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;5;4 mpx noinvalidcheck enc=F30F1B0D35125AA5
 
 F2 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
 F2 48 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1B08
@@ -6636,6 +6648,8 @@ F2 0F1B 28, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
 F2 0F1B 30, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
 F2 0F1B 38, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
 F2 0F1B 38, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx noinvalidcheck
+F2 0F1B 0D 34125AA5, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;4;4 mpx
+67 F2 0F1B 0D 34125AA5, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;UInt64 co=0;0;0;0;5;4 mpx enc=F20F1B0D35125AA5
 
 0F1C 00, Cldemote_m8, Cldemote, 1, op0=m;ds;rax;;1;0;0;UInt8
 44 0F1C 00, Cldemote_m8, Cldemote, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F1C00

@@ -5892,8 +5892,7 @@ impl OpCodeHandler_B_BM {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		if (decoder.state.reg | decoder.state.rm) > 3
-			|| (((decoder.state.extra_register_base | decoder.state.extra_base_register_base) & decoder.invalid_check_mask) != 0)
+		if decoder.state.reg > 3 || (((decoder.state.extra_register_base | decoder.state.extra_base_register_base) & decoder.invalid_check_mask) != 0)
 		{
 			decoder.set_invalid_instruction();
 		}
@@ -5909,6 +5908,9 @@ impl OpCodeHandler_B_BM {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::BND0 as u32);
+			if decoder.state.rm > 3 {
+				decoder.set_invalid_instruction();
+			}
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem_mpx(instruction);
@@ -5933,8 +5935,7 @@ impl OpCodeHandler_BM_B {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		if (decoder.state.reg | decoder.state.rm) > 3
-			|| (((decoder.state.extra_register_base | decoder.state.extra_base_register_base) & decoder.invalid_check_mask) != 0)
+		if decoder.state.reg > 3 || (((decoder.state.extra_register_base | decoder.state.extra_base_register_base) & decoder.invalid_check_mask) != 0)
 		{
 			decoder.set_invalid_instruction();
 		}
@@ -5947,6 +5948,9 @@ impl OpCodeHandler_BM_B {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.rm + Register::BND0 as u32);
+			if decoder.state.rm > 3 {
+				decoder.set_invalid_instruction();
+			}
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem_mpx(instruction);
@@ -5964,11 +5968,12 @@ pub(super) struct OpCodeHandler_B_Ev {
 	has_modrm: bool,
 	code32: u32,
 	code64: u32,
+	rip_rel_mask: u32,
 }
 
 impl OpCodeHandler_B_Ev {
-	pub(super) fn new(code32: u32, code64: u32) -> Self {
-		Self { decode: OpCodeHandler_B_Ev::decode, has_modrm: true, code32, code64 }
+	pub(super) fn new(code32: u32, code64: u32, supports_rip_rel: bool) -> Self {
+		Self { decode: OpCodeHandler_B_Ev::decode, has_modrm: true, code32, code64, rip_rel_mask: if supports_rip_rel { 0 } else { u32::MAX } }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
@@ -5998,6 +6003,10 @@ impl OpCodeHandler_B_Ev {
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem_mpx(instruction);
+			// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
+			if (this.rip_rel_mask & decoder.invalid_check_mask) != 0 && instruction.memory_base() == Register::RIP {
+				decoder.set_invalid_instruction();
+			}
 		}
 	}
 }

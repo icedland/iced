@@ -4054,8 +4054,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x8E, 0x08,// Bndmov_bnd_bndm64
 				0x1E,// B_Ev
 					0x90, 0x08,// Bndcl_bnd_rm32
+					0x01,// true
 				0x1E,// B_Ev
 					0x92, 0x08,// Bndcu_bnd_rm32
+					0x01,// true
 			0x80, 0x80, 0x20,// MPX
 
 	// 27 = 0x1B
@@ -4078,8 +4080,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 						0x35,// 0x35 = reservedNop_0F1B
 					0x1E,// B_Ev
 						0x97, 0x08,// Bndmk_bnd_m32
+						0x00,// false
 				0x1E,// B_Ev
 					0x99, 0x08,// Bndcn_bnd_rm32
+					0x01,// true
 			0x80, 0x80, 0x20,// MPX
 
 	// 28 = 0x1C

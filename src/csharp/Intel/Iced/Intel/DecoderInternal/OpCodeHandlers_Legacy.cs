@@ -4917,7 +4917,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if ((state.reg | state.rm) > 3 || (((state.extraRegisterBase | state.extraBaseRegisterBase) & decoder.invalidCheckMask) != 0))
+			if (state.reg > 3 || (((state.extraRegisterBase | state.extraBaseRegisterBase) & decoder.invalidCheckMask) != 0))
 				decoder.SetInvalidInstruction();
 			if (decoder.is64Mode)
 				instruction.InternalCode = code64;
@@ -4930,6 +4930,8 @@ namespace Iced.Intel.DecoderInternal {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)state.rm + Register.BND0;
+				if (state.rm > 3)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
@@ -4950,7 +4952,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if ((state.reg | state.rm) > 3 || (((state.extraRegisterBase | state.extraBaseRegisterBase) & decoder.invalidCheckMask) != 0))
+			if (state.reg > 3 || (((state.extraRegisterBase | state.extraBaseRegisterBase) & decoder.invalidCheckMask) != 0))
 				decoder.SetInvalidInstruction();
 			if (decoder.is64Mode)
 				instruction.InternalCode = code64;
@@ -4960,6 +4962,8 @@ namespace Iced.Intel.DecoderInternal {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = (int)state.rm + Register.BND0;
+				if (state.rm > 3)
+					decoder.SetInvalidInstruction();
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
@@ -4974,10 +4978,12 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_B_Ev : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
+		readonly uint ripRelMask;
 
-		public OpCodeHandler_B_Ev(Code code32, Code code64) {
+		public OpCodeHandler_B_Ev(Code code32, Code code64, bool supportsRipRel) {
 			this.code32 = code32;
 			this.code64 = code64;
+			ripRelMask = supportsRipRel ? 0 : uint.MaxValue;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -5005,6 +5011,9 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem_MPX(ref instruction);
+				// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
+				if ((ripRelMask & decoder.invalidCheckMask) != 0 && instruction.MemoryBase == Register.RIP)
+					decoder.SetInvalidInstruction();
 			}
 		}
 	}

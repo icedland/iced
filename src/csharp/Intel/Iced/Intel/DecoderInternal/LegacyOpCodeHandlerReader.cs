@@ -157,7 +157,7 @@ namespace Iced.Intel.DecoderInternal {
 
 			case OpCodeHandlerKind.B_Ev:
 				code = deserializer.ReadCode();
-				elem = new OpCodeHandler_B_Ev(code, code + 1);
+				elem = new OpCodeHandler_B_Ev(code, code + 1, deserializer.ReadBoolean());
 				return 1;
 
 			case OpCodeHandlerKind.B_MIB:

@@ -3360,8 +3360,8 @@ namespace Generator.Decoder {
 									new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_MIB)], codeEnum[nameof(Code.Bndldx_bnd_mib)] }
 								},
 								new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_BM)], codeEnum[nameof(Code.Bndmov_bnd_bndm64)], codeEnum[nameof(Code.Bndmov_bnd_bndm128)] },
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndcl_bnd_rm32)], codeEnum[nameof(Code.Bndcl_bnd_rm64)] },
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndcu_bnd_rm32)], codeEnum[nameof(Code.Bndcu_bnd_rm64)] }
+								new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndcl_bnd_rm32)], codeEnum[nameof(Code.Bndcl_bnd_rm64)], true },
+								new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndcu_bnd_rm32)], codeEnum[nameof(Code.Bndcu_bnd_rm64)], true }
 							}, decoderOptionsEnum[nameof(DecoderOptions.MPX)]
 						}
 					},
@@ -3377,9 +3377,9 @@ namespace Generator.Decoder {
 								new object[] { legacyEnum[nameof(OpCodeHandlerKind.BM_B)], codeEnum[nameof(Code.Bndmov_bndm64_bnd)], codeEnum[nameof(Code.Bndmov_bndm128_bnd)] },
 								new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 									"reservedNop_0F1B",
-									new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndmk_bnd_m32)], codeEnum[nameof(Code.Bndmk_bnd_m64)] }
+									new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndmk_bnd_m32)], codeEnum[nameof(Code.Bndmk_bnd_m64)], false }
 								},
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndcn_bnd_rm32)], codeEnum[nameof(Code.Bndcn_bnd_rm64)] }
+								new object[] { legacyEnum[nameof(OpCodeHandlerKind.B_Ev)], codeEnum[nameof(Code.Bndcn_bnd_rm32)], codeEnum[nameof(Code.Bndcn_bnd_rm64)], true }
 							}, decoderOptionsEnum[nameof(DecoderOptions.MPX)]
 						}
 					},
