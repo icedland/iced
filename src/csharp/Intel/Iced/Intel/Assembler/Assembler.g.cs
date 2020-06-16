@@ -18240,7 +18240,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C8</c><br/>
+		/// <c>0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -18248,7 +18248,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>a32 NP 0F 01 C8</c><br/>
+		/// <c>a32 0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -18256,7 +18256,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>a16 NP 0F 01 C8</c><br/>
+		/// <c>a16 0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -21038,7 +21038,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MWAIT</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C9</c><br/>
+		/// <c>0F 01 C9</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -65574,7 +65574,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VMCALL</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C1</c><br/>
+		/// <c>0F 01 C1</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
@@ -65958,7 +65958,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VMLAUNCH</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C2</c><br/>
+		/// <c>0F 01 C2</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
@@ -69076,7 +69076,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VMRESUME</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C3</c><br/>
+		/// <c>0F 01 C3</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
@@ -69538,7 +69538,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VMXOFF</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C4</c><br/>
+		/// <c>0F 01 C4</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
