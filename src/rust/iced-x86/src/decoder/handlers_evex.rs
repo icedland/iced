@@ -309,7 +309,7 @@ impl OpCodeHandler_EVEX_VkHW_er {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.only_sae {
@@ -391,7 +391,7 @@ impl OpCodeHandler_EVEX_VkW_er {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.only_sae {
@@ -454,7 +454,7 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
@@ -511,7 +511,7 @@ impl OpCodeHandler_EVEX_VkW {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -584,7 +584,7 @@ impl OpCodeHandler_EVEX_WkV {
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg1 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg1 as u32,
 			);
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
@@ -679,7 +679,7 @@ impl OpCodeHandler_EVEX_VkWIb {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -729,7 +729,7 @@ impl OpCodeHandler_EVEX_WkVIb {
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg1 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg1 as u32,
 			);
 		} else {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
@@ -779,7 +779,7 @@ impl OpCodeHandler_EVEX_HkWIb {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -832,7 +832,7 @@ impl OpCodeHandler_EVEX_HWIb {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -875,7 +875,7 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg1 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg1 as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
@@ -930,7 +930,7 @@ impl OpCodeHandler_EVEX_VW_er {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
@@ -983,7 +983,7 @@ impl OpCodeHandler_EVEX_VW {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -1024,7 +1024,7 @@ impl OpCodeHandler_EVEX_WV {
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -1155,7 +1155,7 @@ impl OpCodeHandler_EVEX_KR {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 		} else {
 			decoder.set_invalid_instruction();
@@ -1201,7 +1201,7 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
@@ -1272,7 +1272,7 @@ impl OpCodeHandler_EVEX_VkHW {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -1383,7 +1383,7 @@ impl OpCodeHandler_EVEX_VkHWIb {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -1450,7 +1450,7 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
@@ -1503,7 +1503,7 @@ impl OpCodeHandler_EVEX_KkHW {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -1559,7 +1559,7 @@ impl OpCodeHandler_EVEX_KP1HW {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -1612,7 +1612,7 @@ impl OpCodeHandler_EVEX_KkHWIb {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
@@ -1664,7 +1664,7 @@ impl OpCodeHandler_EVEX_WkHV {
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
-			decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+			decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 		);
 		if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
@@ -1718,7 +1718,7 @@ impl OpCodeHandler_EVEX_VHWIb {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 		} else {
 			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
@@ -1791,7 +1791,7 @@ impl OpCodeHandler_EVEX_VHW {
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
 			);
 		} else {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code_m);
@@ -1890,7 +1890,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.only_sae {
@@ -2057,7 +2057,7 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
-			decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+			decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 		);
 		super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Immediate8);
 		super::instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
@@ -2357,7 +2357,7 @@ impl OpCodeHandler_EVEX_KkWIb {
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
+				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32,
 			);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();

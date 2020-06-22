@@ -201,8 +201,8 @@ struct State {
 	// ***************************
 	vvvv: u32, // V`vvvv. Not stored in inverted form. If 16/32-bit, bits [4:3] are cleared
 	aaa: u32,
-	extra_register_base_evex: u32,
-	extra_base_register_base_evex: u32,
+	extra_register_base_evex: u32,      // EVEX.R' << 4
+	extra_base_register_base_evex: u32, // EVEX.XB << 3
 	vector_length: u32,
 	operand_size: OpSize,
 	address_size: OpSize,
@@ -1332,16 +1332,16 @@ impl<'a> Decoder<'a> {
 				self.state.vector_length = (p2 >> 5) & 3;
 
 				if self.is64_mode {
-					self.state.vvvv = (!p1 >> 3) & 0x0F;
 					let tmp = (!p2 & 8) << 1;
-					self.state.vvvv += tmp;
 					self.state.extra_index_register_base_vsib = tmp;
-					let p0x = !p0;
+					self.state.vvvv = tmp + ((!p1 >> 3) & 0x0F);
+					let mut p0x = !p0;
 					self.state.extra_register_base = (p0x >> 4) & 8;
-					self.state.extra_index_register_base = (p0x & 0x40) >> 3;
-					self.state.extra_base_register_base_evex = (p0x & 0x40) >> 2;
-					self.state.extra_base_register_base = (p0x >> 2) & 8;
+					self.state.extra_index_register_base = (p0x >> 3) & 8;
 					self.state.extra_register_base_evex = p0x & 0x10;
+					p0x >>= 2;
+					self.state.extra_base_register_base_evex = p0x & 0x18;
+					self.state.extra_base_register_base = p0x & 8;
 				} else {
 					self.state.vvvv = (!p1 >> 3) & 0x07;
 				}
@@ -1362,8 +1362,9 @@ impl<'a> Decoder<'a> {
 				self.state.mod_ = m >> 6;
 				self.state.reg = (m >> 3) & 7;
 				self.state.rm = m & 7;
-				// Invalid if LL=3 and (mem or (reg and no rc))
-				if (self.invalid_check_mask & self.state.vector_length) == 3 && (m < 0xC0 || (self.state.flags & StateFlags::B) == 0) {
+				// Invalid if LL=3 and no rc
+				const_assert!(StateFlags::B > 3);
+				if (((self.state.flags & StateFlags::B) | self.state.vector_length) & self.invalid_check_mask) == 3 {
 					self.set_invalid_instruction();
 				}
 				(handler.decode)(handler, self, instruction);

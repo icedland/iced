@@ -107,8 +107,8 @@ namespace Iced.Intel {
 			public MandatoryPrefixByte mandatoryPrefix;
 			public uint vvvv;// V`vvvv. Not stored in inverted form. If 16/32-bit, bits [4:3] are cleared
 			public uint aaa;
-			public uint extraRegisterBaseEVEX;
-			public uint extraBaseRegisterBaseEVEX;
+			public uint extraRegisterBaseEVEX;		// EVEX.R' << 4
+			public uint extraBaseRegisterBaseEVEX;	// EVEX.XB << 3
 			public uint vectorLength;
 			public OpSize operandSize;
 			public OpSize addressSize;
@@ -692,16 +692,16 @@ namespace Iced.Intel {
 					state.vectorLength = (p2 >> 5) & 3;
 
 					if (is64Mode) {
-						state.vvvv = (~p1 >> 3) & 0x0F;
 						uint tmp = (~p2 & 8) << 1;
-						state.vvvv += tmp;
 						state.extraIndexRegisterBaseVSIB = tmp;
+						state.vvvv = tmp + ((~p1 >> 3) & 0x0F);
 						uint p0x = ~p0;
 						state.extraRegisterBase = (p0x >> 4) & 8;
-						state.extraIndexRegisterBase = (p0x & 0x40) >> 3;
-						state.extraBaseRegisterBaseEVEX = (p0x & 0x40) >> 2;
-						state.extraBaseRegisterBase = (p0x >> 2) & 8;
+						state.extraIndexRegisterBase = (p0x >> 3) & 8;
 						state.extraRegisterBaseEVEX = p0x & 0x10;
+						p0x >>= 2;
+						state.extraBaseRegisterBaseEVEX = p0x & 0x18;
+						state.extraBaseRegisterBase = p0x & 8;
 					}
 					else
 						state.vvvv = (~p1 >> 3) & 0x07;
@@ -725,8 +725,9 @@ namespace Iced.Intel {
 					state.mod = m >> 6;
 					state.reg = (m >> 3) & 7;
 					state.rm = m & 7;
-					// Invalid if LL=3 and (mem or (reg and no rc))
-					if ((invalidCheckMask & state.vectorLength) == 3 && (m < 0xC0 || (state.flags & StateFlags.b) == 0))
+					// Invalid if LL=3 and no rc
+					Static.Assert((uint)StateFlags.b > 3 ? 0 : -1);
+					if ((((uint)(state.flags & StateFlags.b) | state.vectorLength) & invalidCheckMask) == 3)
 						SetInvalidInstruction();
 					handler.Decode(this, ref instruction);
 				}
