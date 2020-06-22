@@ -239,7 +239,10 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
@@ -375,7 +378,7 @@ impl OpCodeHandler_EVEX_VkW_er {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
+		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -438,7 +441,7 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
+		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -495,7 +498,7 @@ impl OpCodeHandler_EVEX_VkW {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
+		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -574,7 +577,7 @@ impl OpCodeHandler_EVEX_WkV {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -623,7 +626,7 @@ impl OpCodeHandler_EVEX_VkM {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -663,7 +666,7 @@ impl OpCodeHandler_EVEX_VkWIb {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
+		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -719,7 +722,7 @@ impl OpCodeHandler_EVEX_WkVIb {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -865,7 +868,7 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
+		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -942,7 +945,7 @@ impl OpCodeHandler_EVEX_VW_er {
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
-		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv_invalid_check | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 	}
@@ -967,7 +970,10 @@ impl OpCodeHandler_EVEX_VW {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1014,7 +1020,10 @@ impl OpCodeHandler_EVEX_WV {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1060,7 +1069,10 @@ impl OpCodeHandler_EVEX_VM {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1097,7 +1109,10 @@ impl OpCodeHandler_EVEX_VK {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1136,7 +1151,7 @@ impl OpCodeHandler_EVEX_KR {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
-			| decoder.state.vvvv
+			| decoder.state.vvvv_invalid_check
 			| decoder.state.aaa
 			| decoder.state.extra_register_base
 			| decoder.state.extra_register_base_evex)
@@ -1862,7 +1877,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.aaa | decoder.state.extra_register_base_evex)
+		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv_invalid_check | decoder.state.aaa | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
 			!= 0
 		{
@@ -1933,7 +1948,10 @@ impl OpCodeHandler_EVEX_VX_Ev {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
@@ -1983,7 +2001,10 @@ impl OpCodeHandler_EVEX_Ev_VX {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
@@ -2033,7 +2054,7 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
-			| decoder.state.vvvv
+			| decoder.state.vvvv_invalid_check
 			| decoder.state.aaa
 			| decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
@@ -2082,7 +2103,10 @@ impl OpCodeHandler_EVEX_MV {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -2120,7 +2144,7 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
@@ -2169,7 +2193,7 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
-			&& (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | (decoder.state.vvvv & 0xF)) != 0 || decoder.state.aaa == 0)
+			&& (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | (decoder.state.vvvv_invalid_check & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
 			decoder.set_invalid_instruction();
 		}
@@ -2213,7 +2237,7 @@ impl OpCodeHandler_EVEX_VSIB_k1_VX {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
-			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv & 0xF)) != 0 || decoder.state.aaa == 0)
+			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv_invalid_check & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
 			decoder.set_invalid_instruction();
 		}
@@ -2253,7 +2277,7 @@ impl OpCodeHandler_EVEX_VSIB_k1 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
-			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv & 0xF)) != 0 || decoder.state.aaa == 0)
+			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv_invalid_check & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
 			decoder.set_invalid_instruction();
 		}
@@ -2288,7 +2312,10 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
@@ -2341,7 +2368,10 @@ impl OpCodeHandler_EVEX_KkWIb {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
-		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
+		if (((decoder.state.flags & StateFlags::Z)
+			| decoder.state.vvvv_invalid_check
+			| decoder.state.extra_register_base
+			| decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
 			!= 0
 		{

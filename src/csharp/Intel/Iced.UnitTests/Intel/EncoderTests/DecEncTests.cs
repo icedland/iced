@@ -846,14 +846,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(info.Code, instruction.Code);
 							Assert.True(Instruction.EqualsAllBits(origInstr, instruction));
 						}
-						if (info.Bitness != 64 && !isVEX2) {
-							// vvvv[3] is ignored in 16/32-bit modes, clear it (it's inverted, so 'set' it)
-							bytes[b2i] = (byte)(b2 & ~0x40);
-							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
-							decoder.Decode(out var instruction);
-							Assert.Equal(info.Code, instruction.Code);
-							Assert.True(Instruction.EqualsAllBits(origInstr, instruction));
-						}
 					}
 				}
 				else if (opCode.Encoding == EncodingKind.EVEX) {
@@ -868,6 +860,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						decoder.Decode(out origInstr);
 						Assert.Equal(info.Code, origInstr.Code);
 					}
+
 					bytes[evexIndex + 2] = (byte)(b2 & 0x87);
 					if (!isVsib)
 						bytes[evexIndex + 3] = (byte)(b3 & 0xF7);
@@ -890,8 +883,32 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						Assert.Equal(info.Code, instruction.Code);
 						Assert.True(Instruction.EqualsAllBits(origInstr, instruction));
 					}
-					// V'vvvv[4:3] is ignored in 16/32-bit modes (vvvv[3] if it's a vsib instruction)
-					bytes[evexIndex + 2] = (byte)(b2 & ~0x40);
+
+					// vvvv[3] isn't ignored in 16/32-bit mode if the operand doesn't use the vvvv bits
+					bytes[evexIndex + 2] = (byte)(b2 & 0xBF);
+					bytes[evexIndex + 3] = b3;
+					{
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+						decoder.Decode(out var instruction);
+						if (uses_vvvv)
+							Assert.Equal(info.Code, instruction.Code);
+						else {
+							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
+							decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+							decoder.Decode(out instruction);
+							Assert.Equal(info.Code, instruction.Code);
+						}
+					}
+					if (!uses_vvvv) {
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+						decoder.Decode(out var instruction);
+						Assert.Equal(info.Code, instruction.Code);
+						Assert.True(Instruction.EqualsAllBits(origInstr, instruction));
+					}
+
+					// V' is ignored in 16/32-bit modes
+					bytes[evexIndex + 2] = b2;
 					if (!isVsib)
 						bytes[evexIndex + 3] = (byte)(b3 & 0xF7);
 					if (info.Bitness != 64) {

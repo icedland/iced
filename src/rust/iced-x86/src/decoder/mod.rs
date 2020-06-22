@@ -199,7 +199,8 @@ struct State {
 	flags: u32, // StateFlags
 	mandatory_prefix: u32,
 	// ***************************
-	vvvv: u32, // V`vvvv. Not stored in inverted form. If 16/32-bit, bits [4:3] are cleared
+	vvvv: u32,               // V`vvvv. Not stored in inverted form. If 16/32-bit, bits [4:3] are cleared
+	vvvv_invalid_check: u32, // vvvv bits, even in 16/32-bit mode.
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX.XB << 3
@@ -1145,12 +1146,10 @@ impl<'a> Decoder<'a> {
 			self.state.flags |= EncodingKind::VEX as u32;
 		}
 
-		let b = self.state.modrm;
+		let mut b = self.state.modrm;
 		if self.is64_mode {
 			self.state.extra_register_base = ((b & 0x80) >> 4) ^ 8;
 		}
-		// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
-		self.state.vvvv = (!b >> 3) & 0x0F;
 
 		const_assert_eq!(0, VectorLength::L128 as u32);
 		const_assert_eq!(1, VectorLength::L256 as u32);
@@ -1161,6 +1160,11 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
 		self.state.mandatory_prefix = b & 3;
+
+		// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
+		b = (!b >> 3) & 0x0F;
+		self.state.vvvv = b;
+		self.state.vvvv_invalid_check = b;
 
 		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let tmp_handlers = self.handlers_vex_0fxx;
@@ -1185,7 +1189,7 @@ impl<'a> Decoder<'a> {
 		}
 
 		let b1 = self.state.modrm;
-		let b2 = self.read_u8() as u32;
+		let mut b2 = self.read_u8() as u32;
 
 		const_assert_eq!(0x80, StateFlags::W);
 		self.state.flags |= b2 & 0x80;
@@ -1200,14 +1204,18 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
 		self.state.mandatory_prefix = b2 & 3;
 
+		b2 = !b2 >> 3;
 		if self.is64_mode {
-			self.state.vvvv = (!b2 >> 3) & 0x0F;
+			b2 &= 0x0F;
+			self.state.vvvv = b2;
+			self.state.vvvv_invalid_check = b2;
 			let b1x = !b1;
 			self.state.extra_register_base = (b1x >> 4) & 8;
 			self.state.extra_index_register_base = (b1x >> 3) & 8;
 			self.state.extra_base_register_base = (b1x >> 2) & 8;
 		} else {
-			self.state.vvvv = (!b2 >> 3) & 0x07;
+			self.state.vvvv = b2 & 0x07;
+			self.state.vvvv_invalid_check = b2 & 0x0F;
 		}
 
 		let table = match b1 & 0x1F {
@@ -1240,7 +1248,7 @@ impl<'a> Decoder<'a> {
 		}
 
 		let b1 = self.state.modrm;
-		let b2 = self.read_u8() as u32;
+		let mut b2 = self.read_u8() as u32;
 
 		const_assert_eq!(0x80, StateFlags::W);
 		self.state.flags |= b2 & 0x80;
@@ -1255,14 +1263,18 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
 		self.state.mandatory_prefix = b2 & 3;
 
+		b2 = !b2 >> 3;
 		if self.is64_mode {
-			self.state.vvvv = (!b2 >> 3) & 0x0F;
+			b2 &= 0x0F;
+			self.state.vvvv = b2;
+			self.state.vvvv_invalid_check = b2;
 			let b1x = !b1;
 			self.state.extra_register_base = (b1x >> 4) & 8;
 			self.state.extra_index_register_base = (b1x >> 3) & 8;
 			self.state.extra_base_register_base = (b1x >> 2) & 8;
 		} else {
-			self.state.vvvv = (!b2 >> 3) & 0x07;
+			self.state.vvvv = b2 & 0x07;
+			self.state.vvvv_invalid_check = b2 & 0x0F;
 		}
 
 		let table = match b1 & 0x1F {
@@ -1332,9 +1344,11 @@ impl<'a> Decoder<'a> {
 				self.state.vector_length = (p2 >> 5) & 3;
 
 				if self.is64_mode {
-					let tmp = (!p2 & 8) << 1;
+					let mut tmp = (!p2 & 8) << 1;
 					self.state.extra_index_register_base_vsib = tmp;
-					self.state.vvvv = tmp + ((!p1 >> 3) & 0x0F);
+					tmp += (!p1 >> 3) & 0x0F;
+					self.state.vvvv = tmp;
+					self.state.vvvv_invalid_check = tmp;
 					let mut p0x = !p0;
 					self.state.extra_register_base = (p0x >> 4) & 8;
 					self.state.extra_index_register_base = (p0x >> 3) & 8;
@@ -1343,7 +1357,9 @@ impl<'a> Decoder<'a> {
 					self.state.extra_base_register_base_evex = p0x & 0x18;
 					self.state.extra_base_register_base = p0x & 8;
 				} else {
-					self.state.vvvv = (!p1 >> 3) & 0x07;
+					p1 = !p1 >> 3;
+					self.state.vvvv = p1 & 0x07;
+					self.state.vvvv_invalid_check = p1 & 0x0F;
 				}
 
 				let table = match p0 & 3 {
