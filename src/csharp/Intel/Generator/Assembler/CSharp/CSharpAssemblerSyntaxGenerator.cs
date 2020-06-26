@@ -116,6 +116,7 @@ namespace Generator.Assembler.CSharp {
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.CodeAssemblerDefine}");
+				writer.WriteLine("using System;");
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("public partial class Assembler {");
@@ -128,6 +129,7 @@ namespace Generator.Assembler.CSharp {
 
 						GenerateDeclareDataCode(writer);
 					}
+					GenerateDeclareByteArray(writer);
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
@@ -171,6 +173,33 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 			}
+		}
+
+		void GenerateDeclareByteArray(FileWriter writer) {
+			writer.WriteLine("#if HAS_SPAN");
+			docWriter.WriteSummary(writer, $"Creates a db asm directive with the typebyte.", "");
+			writer.WriteLine($"public void db(byte[] array) {{");
+
+			using (writer.Indent()) {
+				writer.WriteLine("if (array.Length < 0) throw new ArgumentOutOfRangeException(nameof(array));");
+				writer.WriteLine("if (array.Length == 0) return;");
+				writer.WriteLine("const int maxLength = 16;");
+				writer.WriteLine("int cycles = Math.DivRem(array.Length, maxLength, out int rest);");
+				writer.WriteLine("int currentPosition = 0;");
+				writer.WriteLine("for (int i = 0; i < cycles; i++) {");
+				using (writer.Indent()) {
+					writer.WriteLine("AddInstruction(Instruction.CreateDeclareByte(array.AsSpan().Slice(currentPosition, maxLength)));");
+					writer.WriteLine("currentPosition += maxLength;");
+				}
+				writer.WriteLine("}");
+				writer.WriteLine("if (rest > 0) {");
+				using (writer.Indent()) {
+					writer.WriteLine("AddInstruction(Instruction.CreateDeclareByte(array.AsSpan().Slice(currentPosition, rest)));");
+				}
+				writer.WriteLine("}");
+			}
+			writer.WriteLine("}");
+			writer.WriteLine("#endif");
 		}
 
 		void GenerateTests(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
@@ -227,6 +256,7 @@ namespace Generator.Assembler.CSharp {
 
 					if (bitness == 64) {
 						GenerateDeclareDataTests(writerTests);
+						GenerateDeclareByteArrayTest(writerTests);
 					}
 
 					writerTests.WriteLine("}");
@@ -266,6 +296,30 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 			}
+		}
+
+		void GenerateDeclareByteArrayTest(FileWriter writer) {
+			writer.WriteLine("#if HAS_SPAN");
+			docWriter.WriteSummary(writer, $"Creates a db asm directive with the type byte.", "");
+			writer.WriteLine("[Fact]");
+			writer.WriteLine($"public void TestDeclareData_db_array() {{");
+			using (writer.Indent()) {
+				writer.Write($"TestAssemblerDeclareData(c => c.db(");
+				writer.Write($"new byte[] {{");
+				for (int j = 0; j < 20; j++) {
+					if (j > 0) writer.Write(", ");
+					writer.Write($"(byte){j + 1}");
+				}
+				writer.Write($"}}), new byte[] {{");
+				for (int j = 0; j < 20; j++) {
+					if (j > 0) writer.Write(", ");
+					writer.Write($"(byte){j + 1}");
+				}
+				writer.WriteLine("});");
+			}
+
+			writer.WriteLine("}");
+			writer.WriteLine("#endif");
 		}
 
 		List<RenderArg> GetRenderArgs(OpCodeInfoGroup group) {
@@ -502,7 +556,8 @@ namespace Generator.Assembler.CSharp {
 		EncodingFlags GetEncodingFlags(OpCodeInfoGroup group) {
 			var flags = EncodingFlags.None;
 			foreach (var def in group.Items.Select(a => defs[(int)a.Code.Value])) {
-				flags |= def.OpCodeInfo.Encoding switch {
+				flags |= def.OpCodeInfo.Encoding switch
+				{
 					EncodingKind.Legacy => EncodingFlags.Legacy,
 					EncodingKind.VEX => EncodingFlags.VEX,
 					EncodingKind.EVEX => EncodingFlags.EVEX,
