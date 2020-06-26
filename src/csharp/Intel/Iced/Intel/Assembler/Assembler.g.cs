@@ -111268,7 +111268,7 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.CreateDeclareQword(*(ulong*)&imm0, *(ulong*)&imm1));
 		}
 	#if HAS_SPAN
-	/// <summary>Creates a db asm directive with the typebyte.</summary>
+	/// <summary>Creates a db asm directive with the type byte.</summary>
 	public void db(byte[] array) {
 		if (array.Length < 0) throw new ArgumentOutOfRangeException(nameof(array));
 		if (array.Length == 0) return;
