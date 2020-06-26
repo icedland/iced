@@ -177,7 +177,7 @@ namespace Generator.Assembler.CSharp {
 
 		void GenerateDeclareByteArray(FileWriter writer) {
 			writer.WriteLine("#if HAS_SPAN");
-			docWriter.WriteSummary(writer, $"Creates a db asm directive with the typebyte.", "");
+			docWriter.WriteSummary(writer, $"Creates a db asm directive with the type byte.", "");
 			writer.WriteLine($"public void db(byte[] array) {{");
 
 			using (writer.Indent()) {
