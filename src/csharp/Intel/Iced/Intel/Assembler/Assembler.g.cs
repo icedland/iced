@@ -26,6 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #nullable enable
 
 #if ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER
+using System;
 namespace Iced.Intel {
 	public partial class Assembler {
 		/// <summary>aaa instruction.<br/>
@@ -111266,6 +111267,23 @@ namespace Iced.Intel {
 		public unsafe void dq(double imm0, double imm1) {
 			AddInstruction(Instruction.CreateDeclareQword(*(ulong*)&imm0, *(ulong*)&imm1));
 		}
+	#if HAS_SPAN
+	/// <summary>Creates a db asm directive with the typebyte.</summary>
+	public void db(byte[] array) {
+		if (array.Length < 0) throw new ArgumentOutOfRangeException(nameof(array));
+		if (array.Length == 0) return;
+		const int maxLength = 16;
+		int cycles = Math.DivRem(array.Length, maxLength, out int rest);
+		int currentPosition = 0;
+		for (int i = 0; i < cycles; i++) {
+			AddInstruction(Instruction.CreateDeclareByte(array.AsSpan().Slice(currentPosition, maxLength)));
+			currentPosition += maxLength;
+		}
+		if (rest > 0) {
+			AddInstruction(Instruction.CreateDeclareByte(array.AsSpan().Slice(currentPosition, rest)));
+		}
+	}
+	#endif
 	}
 }
 #endif
