@@ -106,7 +106,6 @@ namespace Iced.Intel {
 			public StateFlags flags;
 			public MandatoryPrefixByte mandatoryPrefix;
 			public uint vvvv;// V`vvvv. Not stored in inverted form. If 16/32-bit, bits [4:3] are cleared
-			public uint vvvv_invalidCheck;// vvvv bits, even in 16/32-bit mode.
 			public uint aaa;
 			public uint extraRegisterBaseEVEX;		// EVEX.R' << 4
 			public uint extraBaseRegisterBaseEVEX;	// EVEX.XB << 3
@@ -527,6 +526,8 @@ namespace Iced.Intel {
 			uint b = state.modrm;
 			if (is64Mode)
 				state.extraRegisterBase = ((b & 0x80) >> 4) ^ 8;
+			// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
+			state.vvvv = (~b >> 3) & 0x0F;
 
 			Static.Assert((int)VectorLength.L128 == 0 ? 0 : -1);
 			Static.Assert((int)VectorLength.L256 == 1 ? 0 : -1);
@@ -537,11 +538,6 @@ namespace Iced.Intel {
 			Static.Assert((int)MandatoryPrefixByte.PF3 == 2 ? 0 : -1);
 			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b & 3);
-
-			// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
-			b = (~b >> 3) & 0x0F;
-			state.vvvv = b;
-			state.vvvv_invalidCheck = b;
 
 			DecodeTable(handlers_VEX_0FXX, ref instruction);
 #endif
@@ -575,20 +571,15 @@ namespace Iced.Intel {
 			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
-			b2 = ~b2 >> 3;
 			if (is64Mode) {
-				b2 &= 0x0F;
-				state.vvvv = b2;
-				state.vvvv_invalidCheck = b2;
+				state.vvvv = (~b2 >> 3) & 0x0F;
 				uint b1x = ~b1;
 				state.extraRegisterBase = (b1x >> 4) & 8;
 				state.extraIndexRegisterBase = (b1x >> 3) & 8;
 				state.extraBaseRegisterBase = (b1x >> 2) & 8;
 			}
-			else {
-				state.vvvv = b2 & 0x07;
-				state.vvvv_invalidCheck = b2 & 0x0F;
-			}
+			else
+				state.vvvv = (~b2 >> 3) & 0x07;
 
 			int table = (int)(b1 & 0x1F);
 			if (table == 1)
@@ -630,20 +621,15 @@ namespace Iced.Intel {
 			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
-			b2 = ~b2 >> 3;
 			if (is64Mode) {
-				b2 &= 0x0F;
-				state.vvvv = b2;
-				state.vvvv_invalidCheck = b2;
+				state.vvvv = (~b2 >> 3) & 0x0F;
 				uint b1x = ~b1;
 				state.extraRegisterBase = (b1x >> 4) & 8;
 				state.extraIndexRegisterBase = (b1x >> 3) & 8;
 				state.extraBaseRegisterBase = (b1x >> 2) & 8;
 			}
-			else {
-				state.vvvv = b2 & 0x07;
-				state.vvvv_invalidCheck = b2 & 0x0F;
-			}
+			else
+				state.vvvv = (~b2 >> 3) & 0x07;
 
 			int table = (int)(b1 & 0x1F);
 			if (table == 8)
@@ -708,9 +694,7 @@ namespace Iced.Intel {
 					if (is64Mode) {
 						uint tmp = (~p2 & 8) << 1;
 						state.extraIndexRegisterBaseVSIB = tmp;
-						tmp += ((~p1 >> 3) & 0x0F);
-						state.vvvv = tmp;
-						state.vvvv_invalidCheck = tmp;
+						state.vvvv = tmp + ((~p1 >> 3) & 0x0F);
 						uint p0x = ~p0;
 						state.extraRegisterBase = (p0x >> 4) & 8;
 						state.extraIndexRegisterBase = (p0x >> 3) & 8;
@@ -719,11 +703,8 @@ namespace Iced.Intel {
 						state.extraBaseRegisterBaseEVEX = p0x & 0x18;
 						state.extraBaseRegisterBase = p0x & 8;
 					}
-					else {
-						p1 = ~p1 >> 3;
-						state.vvvv = p1 & 0x07;
-						state.vvvv_invalidCheck = p1 & 0x0F;
-					}
+					else
+						state.vvvv = (~p1 >> 3) & 0x07;
 
 					int table = (int)(p0 & 3);
 					OpCodeHandler[] handlers;

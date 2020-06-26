@@ -803,6 +803,14 @@ fn verify_invalid_vvvv() {
 					assert_eq!(info.code(), instruction.code());
 					assert!(orig_instr.eq_all_bits(&instruction));
 				}
+				if info.bitness() != 64 && !is_vex2 {
+					// vvvv[3] is ignored in 16/32-bit modes, clear it (it's inverted, so 'set' it)
+					bytes[b2i] = b2 & !0x40;
+					let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
+					let instruction = decoder.decode();
+					assert_eq!(info.code(), instruction.code());
+					assert!(orig_instr.eq_all_bits(&instruction));
+				}
 			}
 		} else if op_code.encoding() == EncodingKind::EVEX {
 			debug_assert_eq!(0x1F, vvvv_mask);
@@ -816,7 +824,6 @@ fn verify_invalid_vvvv() {
 				orig_instr = decoder.decode();
 				assert_eq!(info.code(), orig_instr.code());
 			}
-
 			bytes[evex_index + 2] = b2 & 0x87;
 			if !is_vsib {
 				bytes[evex_index + 3] = b3 & 0xF7;
@@ -840,32 +847,8 @@ fn verify_invalid_vvvv() {
 				assert_eq!(info.code(), instruction.code());
 				assert!(orig_instr.eq_all_bits(&instruction));
 			}
-
-			// vvvv[3] isn't ignored in 16/32-bit mode if the operand doesn't use the vvvv bits
-			bytes[evex_index + 2] = b2 & 0xBF;
-			bytes[evex_index + 3] = b3;
-			{
-				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
-				let instruction = decoder.decode();
-				if uses_vvvv {
-					assert_eq!(info.code(), instruction.code());
-				} else {
-					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
-					decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
-					let instruction = decoder.decode();
-					assert_eq!(info.code(), instruction.code());
-				}
-			}
-			if !uses_vvvv {
-				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
-				let instruction = decoder.decode();
-				assert_eq!(info.code(), instruction.code());
-				assert!(orig_instr.eq_all_bits(&instruction));
-			}
-
-			// V' is ignored in 16/32-bit modes
-			bytes[evex_index + 2] = b2;
+			// V'vvvv[4:3] is ignored in 16/32-bit modes (vvvv[3] if it's a vsib instruction)
+			bytes[evex_index + 2] = b2 & !0x40;
 			if !is_vsib {
 				bytes[evex_index + 3] = b3 & 0xF7;
 			}
