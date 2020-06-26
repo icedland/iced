@@ -556,8 +556,7 @@ namespace Generator.Assembler.CSharp {
 		EncodingFlags GetEncodingFlags(OpCodeInfoGroup group) {
 			var flags = EncodingFlags.None;
 			foreach (var def in group.Items.Select(a => defs[(int)a.Code.Value])) {
-				flags |= def.OpCodeInfo.Encoding switch
-				{
+				flags |= def.OpCodeInfo.Encoding switch {
 					EncodingKind.Legacy => EncodingFlags.Legacy,
 					EncodingKind.VEX => EncodingFlags.VEX,
 					EncodingKind.EVEX => EncodingFlags.EVEX,
