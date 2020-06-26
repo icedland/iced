@@ -342,6 +342,21 @@ namespace Iced.Intel {
 			}
 		}
 
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte[] array) {
+			if (array == null) throw new ArgumentNullException(nameof(array));
+			const int maxLength = 16;
+			int cycles = Math.DivRem(array.Length, maxLength, out int rest);
+			int currentPosition = 0;
+			for (int i = 0; i < cycles; i++) {
+				AddInstruction(Instruction.CreateDeclareByte(array, currentPosition, maxLength));
+				currentPosition += maxLength;
+			}
+			if (rest > 0) {
+				AddInstruction(Instruction.CreateDeclareByte(array, currentPosition, rest));
+			}
+		}
+
 		/// <summary>call selector:offset instruction.</summary>
 		public void call(ushort selector, uint offset) {
 			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Call_ptr1632 : Code.Call_ptr1616, selector, offset));

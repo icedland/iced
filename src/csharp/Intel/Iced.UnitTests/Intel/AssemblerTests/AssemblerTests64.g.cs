@@ -52977,13 +52977,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 	public void TestDeclareData_dq_double_2() {
 		TestAssemblerDeclareData(c => c.dq((double)1, (double)2), new double[] {(double)1, (double)2});
 	}
-	#if HAS_SPAN
-	/// <summary>Creates a db asm directive with the type byte.</summary>
-	[Fact]
-	public void TestDeclareData_db_array() {
-		TestAssemblerDeclareData(c => c.db(new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14, (byte)15, (byte)16, (byte)17, (byte)18, (byte)19, (byte)20}), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14, (byte)15, (byte)16, (byte)17, (byte)18, (byte)19, (byte)20});
-	}
-	#endif
 	}
 }
 #endif
