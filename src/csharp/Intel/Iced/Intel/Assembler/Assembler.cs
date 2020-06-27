@@ -454,9 +454,6 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
 		public AssemblerResult Assemble(CodeWriter writer, ulong rip, BlockEncoderOptions options = BlockEncoderOptions.None) {
-			if (writer is null)
-				ThrowHelper.ThrowArgumentNullException_writer();
-
 			if (!TryAssemble(writer, rip, out var errorMessage, out var assemblerResult, options)) {
 				throw new InvalidOperationException(errorMessage);
 			}
