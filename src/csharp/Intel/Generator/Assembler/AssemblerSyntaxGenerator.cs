@@ -1987,7 +1987,7 @@ namespace Generator.Assembler {
 			}
 		}
 
-		[DebuggerDisplay("{" + nameof(Name) + "} {" + nameof(Kind) + "}")]
+		[DebuggerDisplay("{" + nameof(Name) + "}")]
 		protected readonly struct GroupKey : IEquatable<GroupKey>, IComparable<GroupKey> {
 			public GroupKey(string name, Signature signature) {
 				Name = name;
