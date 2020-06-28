@@ -262,9 +262,13 @@ namespace Iced.Intel.EncoderInternal {
 			bbb = opCode.RmGroupIndex;
 			bool hasModrmInfo = bbb >= 0;
 			switch (opCode.Code) {
+#if !NO_VEX
 			case Code.VEX_Ldtilecfg_m512:
 			case Code.VEX_Sttilecfg_m512:
 				hasModrmInfo = true;
+				break;
+#endif
+			default:
 				break;
 			}
 			int opCount = opCode.OpCount;

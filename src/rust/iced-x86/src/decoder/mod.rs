@@ -1415,6 +1415,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
+	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 	pub(self) fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
 		debug_assert_ne!(EncodingKind::EVEX, self.state.encoding());
 		let is_valid = if self.state.address_size == OpSize::Size64 {

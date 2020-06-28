@@ -258,6 +258,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		let mut bbb = self.op_code.rm_group_index();
 		let mut has_modrm_info = bbb >= 0;
 		match self.op_code.code() {
+			#[cfg(not(feature = "no_vex"))]
 			Code::VEX_Ldtilecfg_m512 | Code::VEX_Sttilecfg_m512 => has_modrm_info = true,
 			_ => {}
 		}
