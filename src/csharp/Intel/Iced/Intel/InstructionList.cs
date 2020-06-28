@@ -34,7 +34,7 @@ namespace Iced.Intel {
 	/// methods to get references to the elements so no <see cref="Instruction"/> gets copied.
 	/// Use 'foreach (ref var instr in list)' to use the foreach ref iterator.
 	/// </summary>
-	[DebuggerDisplay("Count = {Count}")]
+	[DebuggerDisplay("Count = {" + nameof(Count) + "}")]
 	[DebuggerTypeProxy(typeof(InstructionListDebugView))]
 	public sealed class InstructionList : IList<Instruction>, IReadOnlyList<Instruction>, IList {
 		Instruction[] elements;

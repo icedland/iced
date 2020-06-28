@@ -36,7 +36,7 @@ namespace Generator.Formatters {
 		public bool IsFrozen => isFrozen;
 		public Info[] Infos => sortedInfos ?? throw new InvalidOperationException();
 
-		[DebuggerDisplay("{Count} {String}")]
+		[DebuggerDisplay("{" + nameof(Count) + "} {" + nameof(String) + "}")]
 		public sealed class Info {
 			public readonly string String;
 			// Since the first 'v' char isn't stored in the strings table, multiple Code values can share the same Info instance
