@@ -1260,7 +1260,7 @@ namespace Generator.Assembler {
 			return addressSize * 8;
 		}
 
-		[DebuggerDisplay("Count = {Count}")]
+		[DebuggerDisplay("Count = {" + nameof(Count) + "}")]
 		private class OrderedSelectorList : List<(OpCodeSelectorKind, List<OpCodeInfo>)> {
 			public OrderedSelectorList() {
 				ArgIndex = -1;
@@ -1987,7 +1987,7 @@ namespace Generator.Assembler {
 			}
 		}
 
-		[DebuggerDisplay("{Name} {Kind}")]
+		[DebuggerDisplay("{" + nameof(Name) + "} {" + nameof(Kind) + "}")]
 		protected readonly struct GroupKey : IEquatable<GroupKey>, IComparable<GroupKey> {
 			public GroupKey(string name, Signature signature) {
 				Name = name;
