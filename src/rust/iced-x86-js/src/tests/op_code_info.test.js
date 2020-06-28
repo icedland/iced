@@ -69,6 +69,8 @@ test("OpCodeInfo", () => {
 	expect(info1.opCode).toBe(0x01);
 	expect(info1.isGroup).toBe(false);
 	expect(info1.groupIndex).toBe(-1);
+	expect(info1.isRmGroup).toBe(false);
+	expect(info1.rmGroupIndex).toBe(-1);
 	expect(info1.opCount).toBe(2);
 	expect(info1.op0Kind).toBe(OpCodeOperandKind.r64_or_mem);
 	expect(info1.op1Kind).toBe(OpCodeOperandKind.r64_reg);
