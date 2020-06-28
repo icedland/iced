@@ -30,7 +30,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Defines an assembly memory operand used with <see cref="Assembler"/>.
 	/// </summary>
-	[DebuggerDisplay("{Base} + {Index} * {Scale} + {Displacement}")]
+	[DebuggerDisplay("{" + nameof(Base) + "} + {" + nameof(Index) + "} * {" + nameof(Scale) + "} + {" + nameof(Displacement) + "}")]
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly struct AssemblerMemoryOperand : IEquatable<AssemblerMemoryOperand> {
 		/// <summary>
