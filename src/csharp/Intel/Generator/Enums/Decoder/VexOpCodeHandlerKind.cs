@@ -88,5 +88,12 @@ namespace Generator.Enums.Decoder {
 		WHV,
 		WV,
 		WVIb,
+		VT_SIBMEM,
+		SIBMEM_VT,
+		VT,
+		VT_RT_HT,
+		Group8x64,
+		Bitness,
+		Null,
 	}
 }

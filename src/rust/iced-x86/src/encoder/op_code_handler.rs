@@ -40,6 +40,7 @@ pub(crate) struct OpCodeHandler {
 	pub(crate) operands: Box<[&'static (Op + Sync)]>,
 	pub(super) op_code: u32,
 	pub(super) group_index: i32,
+	pub(super) rm_group_index: i32,
 	pub(super) flags: u32, // OpCodeHandlerFlags
 	pub(super) encodable: Encodable,
 	pub(super) op_size: OperandSize,
@@ -59,7 +60,8 @@ impl InvalidHandler {
 				try_convert_to_disp8n: None,
 				operands: Box::new([]),
 				op_code: 0,
-				group_index: 0,
+				group_index: -1,
+				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: Encodable::Any,
 				op_size: OperandSize::None,
@@ -89,7 +91,8 @@ impl DeclareDataHandler {
 				try_convert_to_disp8n: None,
 				operands: Box::new([]),
 				op_code: 0,
-				group_index: 0,
+				group_index: -1,
+				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::DECLARE_DATA,
 				encodable: Encodable::Any,
 				op_size: OperandSize::None,
@@ -191,6 +194,7 @@ impl LegacyHandler {
 				operands: operands.into_boxed_slice(),
 				op_code: get_op_code(dword1),
 				group_index,
+				rm_group_index: -1,
 				flags,
 				encodable: unsafe { mem::transmute(((dword2 >> LegacyFlags::ENCODABLE_SHIFT) & LegacyFlags::ENCODABLE_MASK) as u8) },
 				op_size: unsafe { mem::transmute(((dword2 >> LegacyFlags::OPERAND_SIZE_SHIFT) & LegacyFlags::OPERAND_SIZE_MASK) as u8) },
@@ -252,6 +256,7 @@ pub(super) struct VexHandler {
 impl VexHandler {
 	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		let group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
+		let rm_group_index = if (dword2 & VexFlags::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
 		let wbit: WBit = unsafe { mem::transmute(((dword2 >> VexFlags::WBIT_SHIFT) & VexFlags::WBIT_MASK) as u8) };
 		let w1 = if wbit == WBit::W1 { u32::MAX } else { 0 };
 		let vex_flags: VexVectorLength =
@@ -326,6 +331,7 @@ impl VexHandler {
 				operands: operands.into_boxed_slice(),
 				op_code: get_op_code(dword1),
 				group_index,
+				rm_group_index,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> VexFlags::ENCODABLE_SHIFT) & VexFlags::ENCODABLE_MASK) as u8) },
 				op_size: OperandSize::None,
@@ -443,6 +449,7 @@ impl XopHandler {
 				operands: operands.into_boxed_slice(),
 				op_code: get_op_code(dword1),
 				group_index,
+				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> XopFlags::ENCODABLE_SHIFT) & XopFlags::ENCODABLE_MASK) as u8) },
 				op_size: OperandSize::None,
@@ -551,6 +558,7 @@ impl EvexHandler {
 				operands: operands.into_boxed_slice(),
 				op_code: get_op_code(dword1),
 				group_index,
+				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> EvexFlags::ENCODABLE_SHIFT) & EvexFlags::ENCODABLE_MASK) as u8) },
 				op_size: OperandSize::None,
@@ -778,6 +786,7 @@ impl D3nowHandler {
 				operands: operands.into_boxed_slice(),
 				op_code: 0x0F,
 				group_index: -1,
+				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> D3nowFlags::ENCODABLE_SHIFT) & D3nowFlags::ENCODABLE_MASK) as u8) },
 				op_size: OperandSize::None,

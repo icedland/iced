@@ -46,5 +46,6 @@ namespace Generator.Enums.InstructionInfo {
 		TR					= 0x8000,
 		ST					= 0x10000,
 		MM					= 0x20000,
+		TMM					= 0x40000,
 	}
 }

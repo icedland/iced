@@ -278,3 +278,12 @@ tr4, 4, tr0, tr4, tr4, 4, tr
 tr5, 5, tr0, tr5, tr5, 4, tr
 tr6, 6, tr0, tr6, tr6, 4, tr
 tr7, 7, tr0, tr7, tr7, 4, tr
+
+tmm0, 0, tmm0, tmm0, tmm0, 1024, tmm
+tmm1, 1, tmm0, tmm1, tmm1, 1024, tmm
+tmm2, 2, tmm0, tmm2, tmm2, 1024, tmm
+tmm3, 3, tmm0, tmm3, tmm3, 1024, tmm
+tmm4, 4, tmm0, tmm4, tmm4, 1024, tmm
+tmm5, 5, tmm0, tmm5, tmm5, 1024, tmm
+tmm6, 6, tmm0, tmm6, tmm6, 1024, tmm
+tmm7, 7, tmm0, tmm7, tmm7, 1024, tmm

@@ -519,6 +519,28 @@ fn register_info() {
 		assert_eq!(tc.full_register32, tc.register.full_register32());
 		assert_eq!(tc.size, tc.register.size());
 
+		const ALL_FLAGS: u32 = RegisterFlags::SEGMENT_REGISTER
+			| RegisterFlags::GPR
+			| RegisterFlags::GPR8
+			| RegisterFlags::GPR16
+			| RegisterFlags::GPR32
+			| RegisterFlags::GPR64
+			| RegisterFlags::XMM
+			| RegisterFlags::YMM
+			| RegisterFlags::ZMM
+			| RegisterFlags::VECTOR_REGISTER
+			| RegisterFlags::IP
+			| RegisterFlags::K
+			| RegisterFlags::BND
+			| RegisterFlags::CR
+			| RegisterFlags::DR
+			| RegisterFlags::TR
+			| RegisterFlags::ST
+			| RegisterFlags::MM
+			| RegisterFlags::TMM;
+		// If it fails, update the flags above and the code below, eg. add a is_tmm() test
+		assert_eq!(tc.flags, tc.flags & ALL_FLAGS);
+
 		assert_eq!((tc.flags & RegisterFlags::SEGMENT_REGISTER) != 0, tc.register.is_segment_register());
 		assert_eq!((tc.flags & RegisterFlags::GPR) != 0, tc.register.is_gpr());
 		assert_eq!((tc.flags & RegisterFlags::GPR8) != 0, tc.register.is_gpr8());
@@ -537,6 +559,7 @@ fn register_info() {
 		assert_eq!((tc.flags & RegisterFlags::TR) != 0, tc.register.is_tr());
 		assert_eq!((tc.flags & RegisterFlags::ST) != 0, tc.register.is_st());
 		assert_eq!((tc.flags & RegisterFlags::MM) != 0, tc.register.is_mm());
+		assert_eq!((tc.flags & RegisterFlags::TMM) != 0, tc.register.is_tmm());
 	}
 }
 

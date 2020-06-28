@@ -4252,6 +4252,18 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Ud0,// Ud0
 			(ushort)Mnemonic.Vmgexit,// Vmgexit
 			(ushort)Mnemonic.Getsecq,// Getsecq
+			(ushort)Mnemonic.Ldtilecfg,// VEX_Ldtilecfg_m512
+			(ushort)Mnemonic.Tilerelease,// VEX_Tilerelease
+			(ushort)Mnemonic.Sttilecfg,// VEX_Sttilecfg_m512
+			(ushort)Mnemonic.Tilezero,// VEX_Tilezero_tmm
+			(ushort)Mnemonic.Tileloaddt1,// VEX_Tileloaddt1_tmm_sibmem
+			(ushort)Mnemonic.Tilestored,// VEX_Tilestored_sibmem_tmm
+			(ushort)Mnemonic.Tileloadd,// VEX_Tileloadd_tmm_sibmem
+			(ushort)Mnemonic.Tdpbf16ps,// VEX_Tdpbf16ps_tmm_tmm_tmm
+			(ushort)Mnemonic.Tdpbuud,// VEX_Tdpbuud_tmm_tmm_tmm
+			(ushort)Mnemonic.Tdpbusd,// VEX_Tdpbusd_tmm_tmm_tmm
+			(ushort)Mnemonic.Tdpbsud,// VEX_Tdpbsud_tmm_tmm_tmm
+			(ushort)Mnemonic.Tdpbssd,// VEX_Tdpbssd_tmm_tmm_tmm
 		};
 	}
 }

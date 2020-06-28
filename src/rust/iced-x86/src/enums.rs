@@ -829,10 +829,18 @@ pub enum OpCodeOperandKind {
 	brdisp_2 = 103,
 	/// 4-byte branch offset (`JMPE` instruction)
 	brdisp_4 = 104,
+	/// Memory (modrm) and the sib byte must be present
+	sibmem = 105,
+	/// TMM register encoded in the `reg` field of the modrm byte
+	tmm_reg = 106,
+	/// TMM register encoded in the `mod + r/m` fields of the modrm byte
+	tmm_rm = 107,
+	/// TMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	tmm_vvvv = 108,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 105] = [
+static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 109] = [
 	"None",
 	"farbr2_2",
 	"farbr4_2",
@@ -938,6 +946,10 @@ static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 105] = [
 	"xbegin_4",
 	"brdisp_2",
 	"brdisp_4",
+	"sibmem",
+	"tmm_reg",
+	"tmm_rm",
+	"tmm_vvvv",
 ];
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for OpCodeOperandKind {
@@ -1243,10 +1255,16 @@ pub enum CpuidFeature {
 	TSXLDTRK = 132,
 	/// CPUID.80000001H:EDX.INVLPGB\[bit ??\]
 	INVLPGB = 133,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.AMX-BF16\[bit 22\]
+	AMX_BF16 = 134,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.AMX-TILE\[bit 24\]
+	AMX_TILE = 135,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.AMX-INT8\[bit 25\]
+	AMX_INT8 = 136,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 134] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 137] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1381,6 +1399,9 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 134] = [
 	"SERIALIZE",
 	"TSXLDTRK",
 	"INVLPGB",
+	"AMX_BF16",
+	"AMX_TILE",
+	"AMX_INT8",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

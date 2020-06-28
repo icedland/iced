@@ -48,8 +48,13 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 	sealed class OpModRM_rm_mem_only : Op {
-		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+		readonly bool mustUseSib;
+		public OpModRM_rm_mem_only(bool mustUseSib) => this.mustUseSib = mustUseSib;
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			if (mustUseSib)
+				encoder.EncoderFlags |= EncoderFlags.MustUseSib;
 			encoder.AddRegOrMem(instruction, operand, Register.None, Register.None, allowMemOp: true, allowRegOp: false);
+		}
 	}
 
 	sealed class OpModRM_rm : Op {
@@ -478,8 +483,10 @@ namespace Iced.Intel.EncoderInternal {
 			vsibIndexRegHi = regHi;
 		}
 
-		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			encoder.EncoderFlags |= EncoderFlags.MustUseSib;
 			encoder.AddRegOrMem(instruction, operand, Register.None, Register.None, vsibIndexRegLo, vsibIndexRegHi, allowMemOp: true, allowRegOp: false);
+		}
 	}
 #endif
 

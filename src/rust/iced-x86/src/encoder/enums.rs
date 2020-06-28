@@ -153,6 +153,7 @@ impl EncoderFlags {
 	pub(crate) const DISPL: u32 = 0x0000_1000;
 	pub(crate) const PF0: u32 = 0x0000_2000;
 	pub(crate) const REG_IS_MEMORY: u32 = 0x0000_4000;
+	pub(crate) const MUST_USE_SIB: u32 = 0x0000_8000;
 	pub(crate) const VVVVV_SHIFT: u32 = 0x0000_001B;
 	pub(crate) const VVVVV_MASK: u32 = 0x0000_001F;
 }
@@ -711,6 +712,7 @@ impl VexFlags {
 	pub(crate) const VEX_VECTOR_LENGTH_SHIFT: u32 = 0x0000_000A;
 	pub(crate) const WBIT_MASK: u32 = 0x0000_0003;
 	pub(crate) const WBIT_SHIFT: u32 = 0x0000_000D;
+	pub(crate) const HAS_RM_GROUP_INDEX: u32 = 0x0000_8000;
 }
 // GENERATOR-END: VexFlags
 
@@ -1106,10 +1108,14 @@ pub(crate) enum VexOpKind {
 	WK,
 	WX,
 	WY,
+	Sibmem,
+	VT,
+	RT,
+	HT,
 }
 #[cfg(not(feature = "no_vex"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_VEX_OP_KIND: [&str; 39] = [
+static GEN_DEBUG_VEX_OP_KIND: [&str; 43] = [
 	"None",
 	"Ed",
 	"Eq",
@@ -1149,6 +1155,10 @@ static GEN_DEBUG_VEX_OP_KIND: [&str; 39] = [
 	"WK",
 	"WX",
 	"WY",
+	"Sibmem",
+	"VT",
+	"RT",
+	"HT",
 ];
 #[cfg(not(feature = "no_vex"))]
 impl fmt::Debug for VexOpKind {

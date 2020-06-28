@@ -57,7 +57,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			{ "bcst", MemorySizeFlags.Broadcast },
 			{ "packed", MemorySizeFlags.Packed },
 		};
-		internal static readonly Dictionary<string, RegisterFlags> RegisterFlagsTable = new Dictionary<string, RegisterFlags>(18, StringComparer.Ordinal) {
+		internal static readonly Dictionary<string, RegisterFlags> RegisterFlagsTable = new Dictionary<string, RegisterFlags>(19, StringComparer.Ordinal) {
 			{ "seg", RegisterFlags.SegmentRegister },
 			{ "gpr", RegisterFlags.GPR },
 			{ "gpr8", RegisterFlags.GPR8 },
@@ -76,6 +76,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			{ "tr", RegisterFlags.TR },
 			{ "st", RegisterFlags.ST },
 			{ "mm", RegisterFlags.MM },
+			{ "tmm", RegisterFlags.TMM },
 		};
 		// GENERATOR-END: Dicts
 	}
@@ -164,6 +165,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		TR = 0x00008000,
 		ST = 0x00010000,
 		MM = 0x00020000,
+		TMM = 0x00040000,
 	}
 	// GENERATOR-END: RegisterFlags
 }

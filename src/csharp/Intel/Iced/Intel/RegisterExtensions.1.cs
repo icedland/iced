@@ -39,30 +39,31 @@ namespace Iced.Intel {
 #else
 			var data = new byte[] {
 #endif
-				(byte)Register.AL, (byte)Register.R15L, (byte)Register.RAX, 1,
-				(byte)Register.AX, (byte)Register.R15W, (byte)Register.RAX, 2,
-				(byte)Register.EAX, (byte)Register.R15D, (byte)Register.RAX, 4,
-				(byte)Register.RAX, (byte)Register.R15, (byte)Register.RAX, 8,
-				(byte)Register.ES, (byte)Register.GS, (byte)Register.ES, 2,
-				(byte)Register.XMM0, (byte)Register.XMM31, (byte)Register.ZMM0, 16,
-				(byte)Register.YMM0, (byte)Register.YMM31, (byte)Register.ZMM0, 32,
-				(byte)Register.ZMM0, (byte)Register.ZMM31, (byte)Register.ZMM0, 64,
-				(byte)Register.K0, (byte)Register.K7, (byte)Register.K0, 8,
-				(byte)Register.BND0, (byte)Register.BND3, (byte)Register.BND0, 16,
-				(byte)Register.CR0, (byte)Register.CR15, (byte)Register.CR0, 8,
-				(byte)Register.DR0, (byte)Register.DR15, (byte)Register.DR0, 8,
-				(byte)Register.ST0, (byte)Register.ST7, (byte)Register.ST0, 10,
-				(byte)Register.MM0, (byte)Register.MM7, (byte)Register.MM0, 8,
-				(byte)Register.TR0, (byte)Register.TR7, (byte)Register.TR0, 4,
+				(byte)Register.AL, (byte)Register.R15L, (byte)Register.RAX, 1, 0,
+				(byte)Register.AX, (byte)Register.R15W, (byte)Register.RAX, 2, 0,
+				(byte)Register.EAX, (byte)Register.R15D, (byte)Register.RAX, 4, 0,
+				(byte)Register.RAX, (byte)Register.R15, (byte)Register.RAX, 8, 0,
+				(byte)Register.ES, (byte)Register.GS, (byte)Register.ES, 2, 0,
+				(byte)Register.XMM0, (byte)Register.XMM31, (byte)Register.ZMM0, 16, 0,
+				(byte)Register.YMM0, (byte)Register.YMM31, (byte)Register.ZMM0, 32, 0,
+				(byte)Register.ZMM0, (byte)Register.ZMM31, (byte)Register.ZMM0, 64, 0,
+				(byte)Register.K0, (byte)Register.K7, (byte)Register.K0, 8, 0,
+				(byte)Register.BND0, (byte)Register.BND3, (byte)Register.BND0, 16, 0,
+				(byte)Register.CR0, (byte)Register.CR15, (byte)Register.CR0, 8, 0,
+				(byte)Register.DR0, (byte)Register.DR15, (byte)Register.DR0, 8, 0,
+				(byte)Register.ST0, (byte)Register.ST7, (byte)Register.ST0, 10, 0,
+				(byte)Register.MM0, (byte)Register.MM7, (byte)Register.MM0, 8, 0,
+				(byte)Register.TR0, (byte)Register.TR7, (byte)Register.TR0, 4, 0,
+				(byte)Register.TMM0, (byte)Register.TMM7, (byte)Register.TMM0, 0, 4,
 			};
 
 			int i;
-			for (i = 0; i < data.Length; i += 4) {
+			for (i = 0; i < data.Length; i += 5) {
 				var baseReg = (Register)data[i];
 				var reg = baseReg;
 				var regEnd = (Register)data[i + 1];
 				var fullReg = (Register)data[i + 2];
-				int size = data[i + 3];
+				int size = data[i + 3] | (data[i + 4] << 8);
 				while (reg <= regEnd) {
 					regInfos[(int)reg] = new RegisterInfo(reg, baseReg, fullReg, size);
 					reg++;
@@ -133,7 +134,10 @@ namespace Iced.Intel {
 		readonly byte register;
 		readonly byte baseRegister;
 		readonly byte fullRegister;
-		readonly byte size;
+		readonly ushort size;
+#pragma warning disable CS0414
+		readonly byte pad1, pad2, pad3;
+#pragma warning restore CS0414
 
 		/// <summary>
 		/// Gets the register
@@ -190,8 +194,11 @@ namespace Iced.Intel {
 			this.baseRegister = (byte)baseRegister;
 			Debug.Assert((uint)fullRegister <= byte.MaxValue);
 			this.fullRegister = (byte)fullRegister;
-			Debug.Assert((uint)size <= byte.MaxValue);
-			this.size = (byte)size;
+			Debug.Assert((uint)size <= ushort.MaxValue);
+			this.size = (ushort)size;
+			pad1 = 0;
+			pad2 = 0;
+			pad3 = 0;
 		}
 	}
 }

@@ -375,6 +375,7 @@ namespace Generator.Encoder {
 			switch (kind) {
 			case OpCodeOperandKind.mem_offs:
 			case OpCodeOperandKind.mem:
+			case OpCodeOperandKind.sibmem:
 			case OpCodeOperandKind.mem_mpx:
 			case OpCodeOperandKind.mem_mib:
 			case OpCodeOperandKind.mem_vsib32x:
@@ -456,6 +457,9 @@ namespace Generator.Encoder {
 			case OpCodeOperandKind.rax:
 			case OpCodeOperandKind.st0:
 			case OpCodeOperandKind.sti_opcode:
+			case OpCodeOperandKind.tmm_reg:
+			case OpCodeOperandKind.tmm_rm:
+			case OpCodeOperandKind.tmm_vvvv:
 				return new[] { InstructionOperand.Register };
 
 			case OpCodeOperandKind.imm2_m2z:

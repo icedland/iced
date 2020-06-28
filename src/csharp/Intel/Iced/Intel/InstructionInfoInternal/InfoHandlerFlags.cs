@@ -263,6 +263,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		CW_EAX,
 		Arpl,
 		Lea,
+		Tilerelease,
 	}
 	// GENERATOR-END: CodeInfo
 

@@ -63,5 +63,9 @@ namespace Generator.Enums.Encoder {
 		WK,
 		WX,
 		WY,
+		Sibmem,
+		VT,
+		RT,
+		HT,
 	}
 }

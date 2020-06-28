@@ -271,6 +271,14 @@ pub enum Register {
 	TR5 = 238,
 	TR6 = 239,
 	TR7 = 240,
+	TMM0 = 241,
+	TMM1 = 242,
+	TMM2 = 243,
+	TMM3 = 244,
+	TMM4 = 245,
+	TMM5 = 246,
+	TMM6 = 247,
+	TMM7 = 248,
 }
 // GENERATOR-END: Enum
 

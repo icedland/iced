@@ -45,14 +45,19 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 
 		VexOpCodeHandlerKind::Dup => {
 			let count = deserializer.read_u32();
-			let handler = deserializer.read_handler();
+			let handler = deserializer.read_handler_or_null_instance();
 			for _ in 0..count {
 				result.push(unsafe { &*handler });
 			}
 			return;
 		}
 
+		VexOpCodeHandlerKind::Null => &NULL_HANDLER as *const _ as *const OpCodeHandler,
 		VexOpCodeHandlerKind::Invalid_NoModRM => &INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler,
+
+		VexOpCodeHandlerKind::Bitness => {
+			Box::into_raw(Box::new(OpCodeHandler_Bitness::new(deserializer.read_handler(), deserializer.read_handler()))) as *const OpCodeHandler
+		}
 
 		VexOpCodeHandlerKind::Bitness_DontReadModRM => {
 			Box::into_raw(Box::new(OpCodeHandler_Bitness_DontReadModRM::new(deserializer.read_handler(), deserializer.read_handler())))
@@ -70,6 +75,11 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 			Box::into_raw(Box::new(OpCodeHandler_Group::new(deserializer.read_array_reference(VexOpCodeHandlerKind::ArrayReference as u32))))
 				as *const OpCodeHandler
 		}
+
+		VexOpCodeHandlerKind::Group8x64 => Box::into_raw(Box::new(OpCodeHandler_Group8x64::new(
+			deserializer.read_array_reference(VexOpCodeHandlerKind::ArrayReference as u32),
+			deserializer.read_array_reference(VexOpCodeHandlerKind::ArrayReference as u32),
+		))) as *const OpCodeHandler,
 
 		VexOpCodeHandlerKind::W => {
 			Box::into_raw(Box::new(OpCodeHandler_W::new(deserializer.read_handler(), deserializer.read_handler()))) as *const OpCodeHandler
@@ -332,6 +342,15 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 			Box::into_raw(Box::new(OpCodeHandler_VEX_WVIb::new(deserializer.read_register(), deserializer.read_register(), deserializer.read_code())))
 				as *const OpCodeHandler
 		}
+
+		VexOpCodeHandlerKind::VT_SIBMEM => {
+			Box::into_raw(Box::new(OpCodeHandler_VEX_VT_SIBMEM::new(deserializer.read_code()))) as *const OpCodeHandler
+		}
+		VexOpCodeHandlerKind::SIBMEM_VT => {
+			Box::into_raw(Box::new(OpCodeHandler_VEX_SIBMEM_VT::new(deserializer.read_code()))) as *const OpCodeHandler
+		}
+		VexOpCodeHandlerKind::VT => Box::into_raw(Box::new(OpCodeHandler_VEX_VT::new(deserializer.read_code()))) as *const OpCodeHandler,
+		VexOpCodeHandlerKind::VT_RT_HT => Box::into_raw(Box::new(OpCodeHandler_VEX_VT_RT_HT::new(deserializer.read_code()))) as *const OpCodeHandler,
 	};
 	result.push(unsafe { &*elem });
 }

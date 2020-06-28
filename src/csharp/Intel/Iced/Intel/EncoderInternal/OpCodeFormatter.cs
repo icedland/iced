@@ -208,6 +208,9 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.dr_reg:
 				case OpCodeOperandKind.tr_reg:
 				case OpCodeOperandKind.bnd_reg:
+				case OpCodeOperandKind.sibmem:
+				case OpCodeOperandKind.tmm_reg:
+				case OpCodeOperandKind.tmm_rm:
 					return true;
 				// GENERATOR-END: HasModRM
 				default:
@@ -253,16 +256,72 @@ namespace Iced.Intel.EncoderInternal {
 			return OpCodeOperandKind.None;
 		}
 
-		void AppendRest() {
-			bool isVsib = opCode.Encoding == EncodingKind.EVEX && HasVsib();
-			if (opCode.IsGroup) {
-				sb.Append(" /");
-				sb.Append(opCode.GroupIndex);
+		bool TryGetModrmInfo(out bool isRegOnly, out int rrr, out int bbb) {
+			isRegOnly = true;
+			rrr = opCode.GroupIndex;
+			bbb = opCode.RmGroupIndex;
+			bool hasModrmInfo = bbb >= 0;
+			switch (opCode.Code) {
+			case Code.VEX_Ldtilecfg_m512:
+			case Code.VEX_Sttilecfg_m512:
+				hasModrmInfo = true;
+				break;
 			}
-			else if (!isVsib && HasModRM())
-				sb.Append(" /r");
-			if (isVsib)
-				sb.Append(" /vsib");
+			int opCount = opCode.OpCount;
+			for (int i = 0; i < opCount; i++) {
+				switch (opCode.GetOpKind(i)) {
+				case OpCodeOperandKind.mem:
+					isRegOnly = false;
+					break;
+				case OpCodeOperandKind.sibmem:
+					hasModrmInfo = true;
+					isRegOnly = false;
+					bbb = 4;
+					break;
+				case OpCodeOperandKind.tmm_reg:
+				case OpCodeOperandKind.tmm_rm:
+				case OpCodeOperandKind.tmm_vvvv:
+					hasModrmInfo = true;
+					break;
+				}
+			}
+			return hasModrmInfo;
+		}
+
+		void AppendBits(string name, int bits, int numBits) {
+			if (bits < 0)
+				sb.Append(name);
+			else {
+				for (int i = numBits - 1; i >= 0; i--) {
+					if (((bits >> i) & 1) != 0)
+						sb.Append("1");
+					else
+						sb.Append("0");
+				}
+			}
+		}
+
+		void AppendRest() {
+			if (TryGetModrmInfo(out var isRegOnly, out var rrr, out var bbb)) {
+				if (isRegOnly)
+					sb.Append(" 11:");
+				else
+					sb.Append(" !(11):");
+				AppendBits("rrr", rrr, 3);
+				sb.Append(":");
+				AppendBits("bbb", bbb, 3);
+			}
+			else {
+				bool isVsib = opCode.Encoding == EncodingKind.EVEX && HasVsib();
+				if (opCode.IsGroup) {
+					sb.Append(" /");
+					sb.Append(opCode.GroupIndex);
+				}
+				else if (!isVsib && HasModRM())
+					sb.Append(" /r");
+				if (isVsib)
+					sb.Append(" /vsib");
+			}
 
 			int opCount = opCode.OpCount;
 			for (int i = 0; i < opCount; i++) {

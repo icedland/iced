@@ -4255,6 +4255,18 @@ namespace Generator.Enums {
 		Ud0,
 		Vmgexit,
 		Getsecq,
+		VEX_Ldtilecfg_m512,
+		VEX_Tilerelease,
+		VEX_Sttilecfg_m512,
+		VEX_Tilezero_tmm,
+		VEX_Tileloaddt1_tmm_sibmem,
+		VEX_Tilestored_sibmem_tmm,
+		VEX_Tileloadd_tmm_sibmem,
+		VEX_Tdpbf16ps_tmm_tmm_tmm,
+		VEX_Tdpbuud_tmm_tmm_tmm,
+		VEX_Tdpbusd_tmm_tmm_tmm,
+		VEX_Tdpbsud_tmm_tmm_tmm,
+		VEX_Tdpbssd_tmm_tmm_tmm,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

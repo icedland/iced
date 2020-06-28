@@ -32,6 +32,7 @@ namespace Generator.Constants.Encoder {
 		static Constant[] GetConstants() =>
 			new Constant[] {
 				new Constant(ConstantKind.String, "GroupIndex", "g"),
+				new Constant(ConstantKind.String, "RmGroupIndex", "rmg"),
 				new Constant(ConstantKind.String, "OpCodeOperandKind", "op"),
 				new Constant(ConstantKind.String, "TupleType", "tt"),
 			};

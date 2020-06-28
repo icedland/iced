@@ -157,9 +157,9 @@ namespace Iced.Intel.EncoderInternal {
 		};
 #if !NO_VEX
 #if HAS_SPAN
-		public static System.ReadOnlySpan<byte> VexOpKinds => new byte[39] {
+		public static System.ReadOnlySpan<byte> VexOpKinds => new byte[43] {
 #else
-		public static readonly byte[] VexOpKinds = new byte[39] {
+		public static readonly byte[] VexOpKinds = new byte[43] {
 #endif
 			(byte)OpCodeOperandKind.None,// None
 			(byte)OpCodeOperandKind.r32_or_mem,// Ed
@@ -200,6 +200,10 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.k_or_mem,// WK
 			(byte)OpCodeOperandKind.xmm_or_mem,// WX
 			(byte)OpCodeOperandKind.ymm_or_mem,// WY
+			(byte)OpCodeOperandKind.sibmem,// Sibmem
+			(byte)OpCodeOperandKind.tmm_reg,// VT
+			(byte)OpCodeOperandKind.tmm_rm,// RT
+			(byte)OpCodeOperandKind.tmm_vvvv,// HT
 		};
 #endif
 #if !NO_XOP

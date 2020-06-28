@@ -133,6 +133,9 @@ namespace Generator {
 				CpuidFeature.D3NOWEXT => "3DNOWEXT",
 				CpuidFeature.SSE4_1 => "SSE4.1",
 				CpuidFeature.SSE4_2 => "SSE4.2",
+				CpuidFeature.AMX_BF16 => "AMX-BF16",
+				CpuidFeature.AMX_TILE => "AMX-TILE",
+				CpuidFeature.AMX_INT8 => "AMX-INT8",
 				_ => c.RawName,
 			};
 	}

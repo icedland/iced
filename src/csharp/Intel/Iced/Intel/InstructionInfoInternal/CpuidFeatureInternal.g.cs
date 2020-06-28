@@ -181,6 +181,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		SERIALIZE,
 		TSXLDTRK,
 		INVLPGB,
+		AMX_BF16,
+		AMX_TILE,
+		AMX_INT8,
 	}
 }
 #endif

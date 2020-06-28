@@ -361,6 +361,20 @@ impl OpCodeInfo {
 		self.0.group_index()
 	}
 
+	/// `true` if it's part of a modrm.rm group
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isRmGroup")]
+	pub fn is_rm_group(&self) -> bool {
+		self.0.is_rm_group()
+	}
+
+	/// Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "rmGroupIndex")]
+	pub fn rm_group_index(&self) -> i32 {
+		self.0.rm_group_index()
+	}
+
 	/// Gets the number of operands
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "opCount")]

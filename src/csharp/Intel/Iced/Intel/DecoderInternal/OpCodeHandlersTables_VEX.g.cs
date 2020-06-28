@@ -275,6 +275,137 @@ namespace Iced.Intel.DecoderInternal {
 					0x04,// 4
 					0x00,// Invalid
 
+				// handlers_Grp_128_NP_0F38_W0_49_lo
+				0x01,// ArrayReference
+				0x08,// 0x8
+				// 0 = 0x00
+				0x07,// RM
+					0x00,// Invalid
+					0x1D,// M
+						0x80, 0x21,// VEX_Ldtilecfg_m512
+
+				// 1 = 0x01
+				0x02,// Dup
+					0x07,// 7
+					0x00,// Invalid
+
+				// handlers_Grp_128_NP_0F38_W0_49_hi
+				0x01,// ArrayReference
+				0x40,// 0x40
+				// 0 = 0x00
+				0x23,// Simple
+					0x81, 0x21,// VEX_Tilerelease
+
+				// 1 = 0x01
+				0x02,// Dup
+					0x3F,// 63
+					0x46,// Null
+
+				// handlers_Grp_128_66_0F38_W0_49_lo
+				0x01,// ArrayReference
+				0x08,// 0x8
+				// 0 = 0x00
+				0x07,// RM
+					0x00,// Invalid
+					0x1D,// M
+						0x82, 0x21,// VEX_Sttilecfg_m512
+
+				// 1 = 0x01
+				0x02,// Dup
+					0x07,// 7
+					0x00,// Invalid
+
+				// handlers_Grp_128_66_0F38_W0_49_hi
+				0x01,// ArrayReference
+				0x40,// 0x40
+				// 0 = 0x00
+				0x02,// Dup
+					0x40,// 64
+					0x46,// Null
+
+				// handlers_Grp_128_F2_0F38_W0_49_lo
+				0x01,// ArrayReference
+				0x08,// 0x8
+				// 0 = 0x00
+				0x02,// Dup
+					0x08,// 8
+					0x00,// Invalid
+
+				// handlers_Grp_128_F2_0F38_W0_49_hi
+				0x01,// ArrayReference
+				0x40,// 0x40
+				// 0 = 0x00
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 1 = 0x01
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
+				// 8 = 0x08
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 9 = 0x09
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
+				// 16 = 0x10
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 17 = 0x11
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
+				// 24 = 0x18
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 25 = 0x19
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
+				// 32 = 0x20
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 33 = 0x21
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
+				// 40 = 0x28
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 41 = 0x29
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
+				// 48 = 0x30
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 49 = 0x31
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
+				// 56 = 0x38
+				0x42,// VT
+					0x83, 0x21,// VEX_Tilezero_tmm
+
+				// 57 = 0x39
+				0x02,// Dup
+					0x07,// 7
+					0x46,// Null
+
 				// ThreeByteHandlers_0F38XX
 				0x01,// ArrayReference
 				0x80, 0x02,// 0x100
@@ -1146,8 +1277,77 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Invalid
 
 				// 72 = 0x48
+				0x00,// Invalid
+
+				// 73 = 0x49
+				0x45,// Bitness
+					0x00,// Invalid
+					0x0B,// MandatoryPrefix2_4
+						0x09,// W
+							0x0E,// VectorLength
+								0x44,// Group8x64
+									0x06,// ArrayReference
+										0x05,// 0x5 = handlers_Grp_128_NP_0F38_W0_49_lo
+									0x06,// ArrayReference
+										0x06,// 0x6 = handlers_Grp_128_NP_0F38_W0_49_hi
+								0x00,// Invalid
+							0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x44,// Group8x64
+									0x06,// ArrayReference
+										0x07,// 0x7 = handlers_Grp_128_66_0F38_W0_49_lo
+									0x06,// ArrayReference
+										0x08,// 0x8 = handlers_Grp_128_66_0F38_W0_49_hi
+								0x00,// Invalid
+							0x00,// Invalid
+						0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x44,// Group8x64
+									0x06,// ArrayReference
+										0x09,// 0x9 = handlers_Grp_128_F2_0F38_W0_49_lo
+									0x06,// ArrayReference
+										0x0A,// 0xA = handlers_Grp_128_F2_0F38_W0_49_hi
+								0x00,// Invalid
+							0x00,// Invalid
+
+				// 74 = 0x4A
+				0x00,// Invalid
+
+				// 75 = 0x4B
+				0x45,// Bitness
+					0x00,// Invalid
+					0x0B,// MandatoryPrefix2_4
+						0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x00,// Invalid
+									0x40,// VT_SIBMEM
+										0x84, 0x21,// VEX_Tileloaddt1_tmm_sibmem
+								0x00,// Invalid
+							0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x00,// Invalid
+									0x41,// SIBMEM_VT
+										0x85, 0x21,// VEX_Tilestored_sibmem_tmm
+								0x00,// Invalid
+							0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x00,// Invalid
+									0x40,// VT_SIBMEM
+										0x86, 0x21,// VEX_Tileloadd_tmm_sibmem
+								0x00,// Invalid
+							0x00,// Invalid
+
+				// 76 = 0x4C
 				0x02,// Dup
-					0x10,// 16
+					0x0C,// 12
 					0x00,// Invalid
 
 				// 88 = 0x58
@@ -1198,8 +1398,67 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Invalid
 
 				// 91 = 0x5B
+				0x00,// Invalid
+
+				// 92 = 0x5C
+				0x45,// Bitness
+					0x00,// Invalid
+					0x0B,// MandatoryPrefix2_4
+						0x00,// Invalid
+						0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x43,// VT_RT_HT
+										0x87, 0x21,// VEX_Tdpbf16ps_tmm_tmm_tmm
+									0x00,// Invalid
+								0x00,// Invalid
+							0x00,// Invalid
+						0x00,// Invalid
+
+				// 93 = 0x5D
+				0x00,// Invalid
+
+				// 94 = 0x5E
+				0x45,// Bitness
+					0x00,// Invalid
+					0x0B,// MandatoryPrefix2_4
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x43,// VT_RT_HT
+										0x88, 0x21,// VEX_Tdpbuud_tmm_tmm_tmm
+									0x00,// Invalid
+								0x00,// Invalid
+							0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x43,// VT_RT_HT
+										0x89, 0x21,// VEX_Tdpbusd_tmm_tmm_tmm
+									0x00,// Invalid
+								0x00,// Invalid
+							0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x43,// VT_RT_HT
+										0x8A, 0x21,// VEX_Tdpbsud_tmm_tmm_tmm
+									0x00,// Invalid
+								0x00,// Invalid
+							0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x43,// VT_RT_HT
+										0x8B, 0x21,// VEX_Tdpbssd_tmm_tmm_tmm
+									0x00,// Invalid
+								0x00,// Invalid
+							0x00,// Invalid
+
+				// 95 = 0x5F
 				0x02,// Dup
-					0x1D,// 29
+					0x19,// 25
 					0x00,// Invalid
 
 				// 120 = 0x78
@@ -5258,10 +5517,10 @@ namespace Iced.Intel.DecoderInternal {
 				// 255 = 0xFF
 				0x00,// Invalid
 			};
-		const int MaxIdNames = 8;
-		const uint ThreeByteHandlers_0F38XXIndex = 5;
-		const uint ThreeByteHandlers_0F3AXXIndex = 6;
-		const uint TwoByteHandlers_0FXXIndex = 7;
+		const int MaxIdNames = 14;
+		const uint ThreeByteHandlers_0F38XXIndex = 11;
+		const uint ThreeByteHandlers_0F3AXXIndex = 12;
+		const uint TwoByteHandlers_0FXXIndex = 13;
 	}
 }
 #endif

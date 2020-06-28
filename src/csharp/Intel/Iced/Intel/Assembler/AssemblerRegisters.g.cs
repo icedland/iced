@@ -267,6 +267,14 @@ namespace Iced.Intel {
 		public static readonly AssemblerRegisterTR tr5 = new AssemblerRegisterTR(Register.TR5);
 		public static readonly AssemblerRegisterTR tr6 = new AssemblerRegisterTR(Register.TR6);
 		public static readonly AssemblerRegisterTR tr7 = new AssemblerRegisterTR(Register.TR7);
+		public static readonly AssemblerRegisterTMM tmm0 = new AssemblerRegisterTMM(Register.TMM0);
+		public static readonly AssemblerRegisterTMM tmm1 = new AssemblerRegisterTMM(Register.TMM1);
+		public static readonly AssemblerRegisterTMM tmm2 = new AssemblerRegisterTMM(Register.TMM2);
+		public static readonly AssemblerRegisterTMM tmm3 = new AssemblerRegisterTMM(Register.TMM3);
+		public static readonly AssemblerRegisterTMM tmm4 = new AssemblerRegisterTMM(Register.TMM4);
+		public static readonly AssemblerRegisterTMM tmm5 = new AssemblerRegisterTMM(Register.TMM5);
+		public static readonly AssemblerRegisterTMM tmm6 = new AssemblerRegisterTMM(Register.TMM6);
+		public static readonly AssemblerRegisterTMM tmm7 = new AssemblerRegisterTMM(Register.TMM7);
 	}
 }
 #endif

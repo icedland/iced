@@ -147,6 +147,13 @@ namespace Iced.Intel {
 		public static bool IsMM(this Register register) => Register.MM0 <= register && register <= Register.MM7;
 
 		/// <summary>
+		/// Checks if it's a tile register (<c>TMM0</c>-<c>TMM7</c>)
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsTMM(this Register register) => Register.TMM0 <= register && register <= IcedConstants.TMM_last;
+
+		/// <summary>
 		/// Checks if it's an <c>XMM</c>, <c>YMM</c> or <c>ZMM</c> register
 		/// </summary>
 		/// <param name="register">Register</param>

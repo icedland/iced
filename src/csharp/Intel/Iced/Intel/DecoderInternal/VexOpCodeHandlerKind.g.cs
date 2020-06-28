@@ -92,6 +92,13 @@ namespace Iced.Intel.DecoderInternal {
 		WHV,
 		WV,
 		WVIb,
+		VT_SIBMEM,
+		SIBMEM_VT,
+		VT,
+		VT_RT_HT,
+		Group8x64,
+		Bitness,
+		Null,
 	}
 }
 #endif

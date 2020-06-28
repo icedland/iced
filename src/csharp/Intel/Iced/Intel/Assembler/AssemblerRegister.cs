@@ -1472,6 +1472,60 @@ namespace Iced.Intel {
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	[EditorBrowsable(EditorBrowsableState.Never)]
+	public readonly partial struct AssemblerRegisterTMM : IEquatable<AssemblerRegisterTMM> {
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		internal AssemblerRegisterTMM(Register value) {
+			if (!value.IsTMM()) throw new ArgumentException($"Invalid register {value}. Must be a TMM register", nameof(value));
+			Value = value;
+		} 
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegisterTMM"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegisterTMM</param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegisterTMM reg) {
+			return reg.Value;
+		}
+
+		/// <inheritdoc />
+		public bool Equals(AssemblerRegisterTMM other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegisterTMM other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegisterTMM"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegisterTMM left, AssemblerRegisterTMM right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegisterTMM"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegisterTMM left, AssemblerRegisterTMM right) => !left.Equals(right);
+	}
+
+	/// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterSegment : IEquatable<AssemblerRegisterSegment> {
 		/// <summary>
 		/// Creates a new instance.

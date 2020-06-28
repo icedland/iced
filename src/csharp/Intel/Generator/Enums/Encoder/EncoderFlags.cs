@@ -46,6 +46,7 @@ namespace Generator.Enums.Encoder {
 		Displ				= 0x00001000,
 		PF0					= 0x00002000,
 		RegIsMemory			= 0x00004000,
+		MustUseSib			= 0x00008000,
 
 		VvvvvShift			= 27,// 5 bits
 		VvvvvMask			= 0x1F,

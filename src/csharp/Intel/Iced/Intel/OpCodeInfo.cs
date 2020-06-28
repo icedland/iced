@@ -76,6 +76,7 @@ namespace Iced.Intel {
 		readonly byte table;
 		readonly byte mandatoryPrefix;
 		readonly sbyte groupIndex;
+		readonly sbyte rmGroupIndex;
 		readonly byte op0Kind;
 		readonly byte op1Kind;
 		readonly byte op2Kind;
@@ -124,6 +125,7 @@ namespace Iced.Intel {
 				};
 
 				groupIndex = (sbyte)((dword2 & (uint)LegacyFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)LegacyFlags.GroupShift) & 7));
+				rmGroupIndex = -1;
 				tupleType = (byte)TupleType.None;
 
 				if (!IsInstruction)
@@ -200,6 +202,7 @@ namespace Iced.Intel {
 				};
 
 				groupIndex = (sbyte)((dword2 & (uint)VexFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)VexFlags.GroupShift) & 7));
+				rmGroupIndex = (sbyte)((dword2 & (uint)VexFlags.HasRmGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)VexFlags.GroupShift) & 7));
 				tupleType = (byte)TupleType.None;
 
 				flags |= (Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask) switch {
@@ -283,6 +286,7 @@ namespace Iced.Intel {
 				};
 
 				groupIndex = (sbyte)((dword2 & (uint)EvexFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)EvexFlags.GroupShift) & 7));
+				rmGroupIndex = -1;
 				tupleType = (byte)((dword2 >> (int)EvexFlags.TupleTypeShift) & (uint)EvexFlags.TupleTypeMask);
 
 				flags |= (Encodable)((dword2 >> (int)EvexFlags.EncodableShift) & (uint)EvexFlags.EncodableMask) switch {
@@ -423,6 +427,7 @@ namespace Iced.Intel {
 				};
 
 				groupIndex = (sbyte)((dword2 & (uint)XopFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)XopFlags.GroupShift) & 7));
+				rmGroupIndex = -1;
 				tupleType = (byte)TupleType.None;
 
 				flags |= (Encodable)((dword2 >> (int)XopFlags.EncodableShift) & (uint)XopFlags.EncodableMask) switch {
@@ -479,6 +484,7 @@ namespace Iced.Intel {
 				mandatoryPrefix = (byte)MandatoryPrefix.None;
 				table = (byte)OpCodeTableKind.T0F;
 				groupIndex = -1;
+				rmGroupIndex = -1;
 				tupleType = (byte)TupleType.None;
 
 				flags |= (Encodable)((dword2 >> (int)D3nowFlags.EncodableShift) & (uint)D3nowFlags.EncodableMask) switch {
@@ -680,6 +686,16 @@ namespace Iced.Intel {
 		/// Group index (0-7) or -1. If it's 0-7, it's stored in the <c>reg</c> field of the <c>modrm</c> byte.
 		/// </summary>
 		public int GroupIndex => groupIndex;
+
+		/// <summary>
+		/// <see langword="true"/> if it's part of a modrm.rm group
+		/// </summary>
+		public bool IsRmGroup => RmGroupIndex >= 0;
+
+		/// <summary>
+		/// modrm.rm group index (0-7) or -1. If it's 0-7, it's stored in the <c>rm</c> field of the <c>modrm</c> byte.
+		/// </summary>
+		public int RmGroupIndex => rmGroupIndex;
 
 		/// <summary>
 		/// Gets the number of operands

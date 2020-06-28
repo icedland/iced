@@ -163,6 +163,7 @@ namespace Generator.InstructionInfo {
 		CW_EAX,
 		Arpl,
 		Lea,
+		Tilerelease,
 	}
 
 	sealed class InstrInfo {

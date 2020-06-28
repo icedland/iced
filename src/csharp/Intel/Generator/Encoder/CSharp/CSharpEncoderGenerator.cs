@@ -135,6 +135,9 @@ namespace Generator.Encoder.CSharp {
 							case int value:
 								writer.Write(value.ToString());
 								break;
+							case bool value:
+								writer.Write(value ? "true" : "false");
+								break;
 							default:
 								throw new InvalidOperationException();
 							}

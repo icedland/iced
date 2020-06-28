@@ -68,7 +68,7 @@ namespace Generator.Decoder {
 			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).VEX,
 				new string[] { DecoderTable_VEX.ThreeByteHandlers_0F38XX, DecoderTable_VEX.ThreeByteHandlers_0F3AXX, DecoderTable_VEX.TwoByteHandlers_0FXX },
 				CSharpConstants.DecoderVexDefine,
-				null,
+				enumType[nameof(VexOpCodeHandlerKind.Null)],
 				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
 				enumType[nameof(VexOpCodeHandlerKind.ArrayReference)],
 				enumType[nameof(VexOpCodeHandlerKind.Invalid2)],

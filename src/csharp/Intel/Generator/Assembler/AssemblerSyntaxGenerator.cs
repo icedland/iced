@@ -356,6 +356,12 @@ namespace Generator.Assembler {
 						argKind = ArgKind.RegisterK;
 						break;
 
+					case OpCodeOperandKind.tmm_reg:
+					case OpCodeOperandKind.tmm_rm:
+					case OpCodeOperandKind.tmm_vvvv:
+						argKind = ArgKind.RegisterTMM;
+						break;
+
 					case OpCodeOperandKind.cr_reg:
 						argKind = ArgKind.RegisterCR;
 						break;
@@ -421,6 +427,7 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.mem_vsib64y:
 					case OpCodeOperandKind.mem_vsib32z:
 					case OpCodeOperandKind.mem_vsib64z:
+					case OpCodeOperandKind.sibmem:
 						argKind = ArgKind.Memory;
 						break;
 
@@ -1194,6 +1201,7 @@ namespace Generator.Assembler {
 			case ArgKind.RegisterCR:
 			case ArgKind.RegisterDR:
 			case ArgKind.RegisterTR:
+			case ArgKind.RegisterTMM:
 				return true;
 			}
 			return false;
@@ -1368,6 +1376,7 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.mem_vsib64y:
 			case OpCodeOperandKind.mem_vsib32x:
 			case OpCodeOperandKind.mem_vsib64x:
+			case OpCodeOperandKind.sibmem:
 				switch (addressSize) {
 				case 80:
 					return 05;
@@ -1562,6 +1571,10 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.mm_reg:
 			case OpCodeOperandKind.mm_rm:
 				return ArgKind.RegisterMM;
+			case OpCodeOperandKind.tmm_reg:
+			case OpCodeOperandKind.tmm_vvvv:
+			case OpCodeOperandKind.tmm_rm:
+				return ArgKind.RegisterTMM;
 			}
 
 			if (allowMemory) {
@@ -1592,6 +1605,7 @@ namespace Generator.Assembler {
 				case OpCodeOperandKind.mem_offs:
 				case OpCodeOperandKind.mem_mpx:
 				case OpCodeOperandKind.mem_mib:
+				case OpCodeOperandKind.sibmem:
 					switch (addressSize) {
 					case 64:
 						return ArgKind.Register64;
@@ -1626,13 +1640,12 @@ namespace Generator.Assembler {
 		protected OpCodeSelectorKind GetSelectorKindForRegisterOrMemory(OpCodeInfo opCodeInfo, OpCodeOperandKind opKind, bool returnMemoryAsRegister) {
 
 			switch (opKind) {
-
 			case OpCodeOperandKind.mem:
 			case OpCodeOperandKind.mem_offs:
 			case OpCodeOperandKind.mem_mpx:
-			case OpCodeOperandKind.mem_mib: {
+			case OpCodeOperandKind.mem_mib:
+			case OpCodeOperandKind.sibmem:
 				return GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory);
-			}
 
 			case OpCodeOperandKind.mem_vsib32x:
 				return OpCodeSelectorKind.MemoryIndex32Xmm;
@@ -1741,6 +1754,11 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.zmm_vvvv:
 			case OpCodeOperandKind.zmmp3_vvvv:
 				return OpCodeSelectorKind.RegisterZMM;
+
+			case OpCodeOperandKind.tmm_reg:
+			case OpCodeOperandKind.tmm_rm:
+			case OpCodeOperandKind.tmm_vvvv:
+				return OpCodeSelectorKind.RegisterTMM;
 
 			case OpCodeOperandKind.cr_reg:
 				return OpCodeSelectorKind.RegisterCR;
@@ -2049,6 +2067,7 @@ namespace Generator.Assembler {
 			RegisterCR,
 			RegisterDR,
 			RegisterTR,
+			RegisterTMM,
 
 			Register8Memory,
 			Register16Memory,
@@ -2490,6 +2509,15 @@ namespace Generator.Assembler {
 			case Register.TR6:
 			case Register.TR7:
 				return "TR";
+			case Register.TMM0:
+			case Register.TMM1:
+			case Register.TMM2:
+			case Register.TMM3:
+			case Register.TMM4:
+			case Register.TMM5:
+			case Register.TMM6:
+			case Register.TMM7:
+				return "TMM";
 			default:
 				throw new ArgumentOutOfRangeException(nameof(register), register, null);
 			}
@@ -2673,6 +2701,8 @@ namespace Generator.Assembler {
 			RegisterXMM,
 			RegisterYMM,
 			RegisterZMM,
+
+			RegisterTMM,
 
 			Memory,
 

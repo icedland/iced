@@ -950,6 +950,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					isVsib = true;
 					break;
 				case OpCodeOperandKind.k_vvvv:
+				case OpCodeOperandKind.tmm_vvvv:
 					uses_vvvv = true;
 					vvvv_mask = 0x7;
 					break;
@@ -1014,6 +1015,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.tmm_rm:
 						other_rm = true;
 						break;
 					case OpCodeOperandKind.k_reg:
@@ -1021,6 +1023,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.xmm_reg:
 					case OpCodeOperandKind.ymm_reg:
 					case OpCodeOperandKind.zmm_reg:
+					case OpCodeOperandKind.tmm_reg:
 						other_reg = true;
 						break;
 					}
@@ -1219,11 +1222,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.tmm_rm:
 						other_rm = true;
 						break;
 					case OpCodeOperandKind.xmm_reg:
 					case OpCodeOperandKind.ymm_reg:
 					case OpCodeOperandKind.zmm_reg:
+					case OpCodeOperandKind.tmm_reg:
 					case OpCodeOperandKind.r32_reg:
 					case OpCodeOperandKind.r64_reg:
 						other_reg = true;
@@ -2454,6 +2459,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.tmm_rm:
 						return true;
 					}
 				}
@@ -2464,6 +2470,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.sibmem:
 					case OpCodeOperandKind.mem_mpx:
 					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
@@ -2504,6 +2511,26 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.sibmem:
+					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_mib:
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib64z:
+						// The memory test tests all combinations
+						return false;
+					}
+				}
+
+				for (int i = 0; i < opCode.OpCount; i++) {
+					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.tmm_rm:
+						return false;
+
 					case OpCodeOperandKind.k_rm:
 					case OpCodeOperandKind.mm_rm:
 					case OpCodeOperandKind.r16_rm:
@@ -2528,18 +2555,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW)
 							return bitness == 64;
 						return true;
-
-					case OpCodeOperandKind.mem:
-					case OpCodeOperandKind.mem_mpx:
-					case OpCodeOperandKind.mem_mib:
-					case OpCodeOperandKind.mem_vsib32x:
-					case OpCodeOperandKind.mem_vsib32y:
-					case OpCodeOperandKind.mem_vsib32z:
-					case OpCodeOperandKind.mem_vsib64x:
-					case OpCodeOperandKind.mem_vsib64y:
-					case OpCodeOperandKind.mem_vsib64z:
-						// The memory test tests all combinations
-						return false;
 					}
 				}
 				if (opCode.Encoding == EncodingKind.Legacy || opCode.Encoding == EncodingKind.D3NOW)
@@ -2558,6 +2573,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.tmm_rm:
 
 					case OpCodeOperandKind.bnd_or_mem_mpx:
 					case OpCodeOperandKind.k_or_mem:
@@ -2574,6 +2590,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						return true;
 
 					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.sibmem:
 					case OpCodeOperandKind.mem_mpx:
 					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
@@ -2596,6 +2613,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.kp1_reg:
 					case OpCodeOperandKind.tr_reg:
 					case OpCodeOperandKind.bnd_reg:
+					case OpCodeOperandKind.tmm_reg:
 						return false;
 
 					case OpCodeOperandKind.cr_reg:
@@ -2630,6 +2648,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.r64_reg:
 					case OpCodeOperandKind.r8_reg:
 					case OpCodeOperandKind.seg_reg:
+					case OpCodeOperandKind.tmm_reg:
 						return false;
 
 					case OpCodeOperandKind.xmm_reg:
@@ -2647,6 +2666,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.k_vvvv:
 					case OpCodeOperandKind.r32_vvvv:
 					case OpCodeOperandKind.r64_vvvv:
+					case OpCodeOperandKind.tmm_vvvv:
 						return false;
 
 					case OpCodeOperandKind.xmm_vvvv:
@@ -2673,6 +2693,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.sibmem:
 					case OpCodeOperandKind.mem_mpx:
 					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
@@ -2712,6 +2733,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_reg:
 					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.tmm_reg:
+					case OpCodeOperandKind.tmm_rm:
 					case OpCodeOperandKind.cr_reg:
 					case OpCodeOperandKind.dr_reg:
 					case OpCodeOperandKind.tr_reg:
@@ -3045,6 +3068,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
 					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.sibmem:
 					case OpCodeOperandKind.mem_mpx:
 					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
@@ -3061,6 +3085,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.ymm_rm:
 					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.tmm_rm:
 						return true;
 					}
 				}

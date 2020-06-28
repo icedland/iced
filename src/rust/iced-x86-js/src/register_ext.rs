@@ -641,4 +641,26 @@ impl RegisterExt {
 	pub fn is_mm(value: Register) -> bool {
 		register_to_iced(value).is_mm()
 	}
+
+	/// Checks if it's a tile register (`TMM0`-`TMM7`)
+	///
+	/// # Arguments
+	///
+	/// - `value`: A [`Register`] enum value
+	///
+	/// [`Register`]: enum.Register.html
+	///
+	/// # Examples
+	///
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86");
+	///
+	/// assert.ok(!RegisterExt.isTMM(Register.R13D));
+	/// assert.ok(RegisterExt.isTMM(Register.TMM3));
+	/// ```
+	#[wasm_bindgen(js_name = "isTMM")]
+	pub fn is_tmm(value: Register) -> bool {
+		register_to_iced(value).is_tmm()
+	}
 }

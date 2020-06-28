@@ -32,7 +32,7 @@ using System.ComponentModel;
 
 namespace Iced.Intel {
 <#
-	foreach(var r in new string[] { "8", "16", "32", "64", "MM", "XMM", "YMM", "ZMM", "K", "CR", "TR", "DR", "ST", "Segment", "BND" })
+	foreach(var r in new string[] { "8", "16", "32", "64", "MM", "XMM", "YMM", "ZMM", "K", "CR", "TR", "DR", "ST", "TMM", "Segment", "BND" })
 	{
 		var isName = r switch {
 			"8" => "GPR8",

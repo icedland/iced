@@ -89,6 +89,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.IsGroup = true;
 						break;
 
+					case OpCodeInfoKeys.RmGroupIndex:
+						if (!uint.TryParse(value, out uint rmGroupIndex) || rmGroupIndex > 7)
+							throw new InvalidOperationException($"Invalid group index: {value}");
+						tc.RmGroupIndex = (int)rmGroupIndex;
+						tc.IsRmGroup = true;
+						break;
+
 					case OpCodeInfoKeys.OpCodeOperandKind:
 						var opParts = value.Split(opseps);
 						tc.OpCount = opParts.Length;

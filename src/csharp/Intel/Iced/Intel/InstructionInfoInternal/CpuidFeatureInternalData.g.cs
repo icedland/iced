@@ -209,6 +209,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x83,// SERIALIZE
 				0x84,// TSXLDTRK
 				0x85,// INVLPGB
+				0x86,// AMX_BF16
+				0x87,// AMX_TILE
+				0x88,// AMX_INT8
 			};
 	}
 }

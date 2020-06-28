@@ -364,6 +364,9 @@ namespace Generator.Encoder {
 				opCodeOperandKind[nameof(OpCodeOperandKind.dr_reg)],
 				opCodeOperandKind[nameof(OpCodeOperandKind.tr_reg)],
 				opCodeOperandKind[nameof(OpCodeOperandKind.bnd_reg)],
+				opCodeOperandKind[nameof(OpCodeOperandKind.sibmem)],
+				opCodeOperandKind[nameof(OpCodeOperandKind.tmm_reg)],
+				opCodeOperandKind[nameof(OpCodeOperandKind.tmm_rm)],
 			};
 			var hasVsib = new EnumValue[] {
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32x)],
@@ -663,6 +666,7 @@ namespace Generator.Encoder {
 			var vexOpCodeTableShift = (int)vexFlags["VexOpCodeTableShift"].Value;
 			var vexEncodableShift = (int)vexFlags["EncodableShift"].Value;
 			var vexHasGroupIndex = vexFlags["HasGroupIndex"].Value;
+			var vexHasRmGroupIndex = vexFlags["HasRmGroupIndex"].Value;
 			var vexGroupShift = (int)vexFlags["GroupShift"].Value;
 			var vexVectorLengthShift = (int)vexFlags["VexVectorLengthShift"].Value;
 			var vexWBitShift = (int)vexFlags["WBitShift"].Value;
@@ -735,9 +739,16 @@ namespace Generator.Encoder {
 					dword2 |= (uint)GetMandatoryPrefixByte(opCode.MandatoryPrefix) << vexMandatoryPrefixShift;
 					dword2 |= (uint)GetVexTable(vinfo.Table) << vexOpCodeTableShift;
 					dword2 |= (uint)GetEncodable(opCode) << vexEncodableShift;
+					// They both use the same 3 bits
+					if (opCode.GroupIndex >= 0 && opCode.RmGroupIndex >= 0)
+						throw new InvalidOperationException();
 					if (opCode.GroupIndex >= 0) {
 						dword2 |= vexHasGroupIndex;
 						dword2 |= (uint)opCode.GroupIndex << vexGroupShift;
+					}
+					if (opCode.RmGroupIndex >= 0) {
+						dword2 |= vexHasRmGroupIndex;
+						dword2 |= (uint)opCode.RmGroupIndex << vexGroupShift;
 					}
 					dword2 |= (uint)vinfo.VectorLength << vexVectorLengthShift;
 					dword2 |= (uint)GetWBit(opCode) << vexWBitShift;

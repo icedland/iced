@@ -4254,6 +4254,18 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Ud0
 	MemorySize::Unknown,// Vmgexit
 	MemorySize::Unknown,// Getsecq
+	MemorySize::Tilecfg,// VEX_Ldtilecfg_m512
+	MemorySize::Unknown,// VEX_Tilerelease
+	MemorySize::Tilecfg,// VEX_Sttilecfg_m512
+	MemorySize::Unknown,// VEX_Tilezero_tmm
+	MemorySize::Tile,// VEX_Tileloaddt1_tmm_sibmem
+	MemorySize::Tile,// VEX_Tilestored_sibmem_tmm
+	MemorySize::Tile,// VEX_Tileloadd_tmm_sibmem
+	MemorySize::Unknown,// VEX_Tdpbf16ps_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbuud_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbusd_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbsud_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbssd_tmm_tmm_tmm
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8478,4 +8490,16 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Ud0
 	MemorySize::Unknown,// Vmgexit
 	MemorySize::Unknown,// Getsecq
+	MemorySize::Unknown,// VEX_Ldtilecfg_m512
+	MemorySize::Unknown,// VEX_Tilerelease
+	MemorySize::Unknown,// VEX_Sttilecfg_m512
+	MemorySize::Unknown,// VEX_Tilezero_tmm
+	MemorySize::Unknown,// VEX_Tileloaddt1_tmm_sibmem
+	MemorySize::Unknown,// VEX_Tilestored_sibmem_tmm
+	MemorySize::Unknown,// VEX_Tileloadd_tmm_sibmem
+	MemorySize::Unknown,// VEX_Tdpbf16ps_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbuud_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbusd_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbsud_tmm_tmm_tmm
+	MemorySize::Unknown,// VEX_Tdpbssd_tmm_tmm_tmm
 ];

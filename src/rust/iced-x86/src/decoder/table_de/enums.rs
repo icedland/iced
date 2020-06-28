@@ -730,10 +730,17 @@ pub(crate) enum VexOpCodeHandlerKind {
 	WHV,
 	WV,
 	WVIb,
+	VT_SIBMEM,
+	SIBMEM_VT,
+	VT,
+	VT_RT_HT,
+	Group8x64,
+	Bitness,
+	Null,
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 64] = [
+static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 71] = [
 	"Invalid",
 	"Invalid2",
 	"Dup",
@@ -798,6 +805,13 @@ static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 64] = [
 	"WHV",
 	"WV",
 	"WVIb",
+	"VT_SIBMEM",
+	"SIBMEM_VT",
+	"VT",
+	"VT_RT_HT",
+	"Group8x64",
+	"Bitness",
+	"Null",
 ];
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 impl fmt::Debug for VexOpCodeHandlerKind {

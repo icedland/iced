@@ -156,6 +156,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 				(byte)MemoryKeywords.None,
 				(byte)MemoryKeywords.None,
 				(byte)MemoryKeywords.tword,
+				(byte)MemoryKeywords.None,
+				(byte)MemoryKeywords.None,
 				(byte)MemoryKeywords.word,
 				(byte)MemoryKeywords.word,
 				(byte)MemoryKeywords.dword,

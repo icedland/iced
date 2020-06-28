@@ -297,6 +297,12 @@ namespace Iced.Intel {
 		TSXLDTRK = 132,
 		/// <summary>CPUID.80000001H:EDX.INVLPGB[bit ??]</summary>
 		INVLPGB = 133,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AMX-BF16[bit 22]</summary>
+		AMX_BF16 = 134,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AMX-TILE[bit 24]</summary>
+		AMX_TILE = 135,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AMX-INT8[bit 25]</summary>
+		AMX_INT8 = 136,
 	}
 }
 #endif

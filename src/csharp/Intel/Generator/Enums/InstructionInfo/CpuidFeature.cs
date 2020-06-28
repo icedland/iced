@@ -292,5 +292,11 @@ namespace Generator.Enums.InstructionInfo {
 		TSXLDTRK,
 		[Comment("CPUID.80000001H:EDX.INVLPGB[bit ??]")]
 		INVLPGB,
+		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.AMX-BF16[bit 22]")]
+		AMX_BF16,
+		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.AMX-TILE[bit 24]")]
+		AMX_TILE,
+		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.AMX-INT8[bit 25]")]
+		AMX_INT8,
 	}
 }

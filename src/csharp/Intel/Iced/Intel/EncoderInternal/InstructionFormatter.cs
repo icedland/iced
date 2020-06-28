@@ -37,6 +37,7 @@ namespace Iced.Intel.EncoderInternal {
 		int r32_index, r64_index, bnd_index;
 		int k_index;
 		int vec_index;
+		int tmm_index;
 		int opCount;
 		// true: k2 {k1}, false: k1 {k2}
 		readonly bool opMaskIsK1;
@@ -74,6 +75,11 @@ namespace Iced.Intel.EncoderInternal {
 			return vec_index;
 		}
 
+		int GetTmmIndex() {
+			tmm_index++;
+			return tmm_index;
+		}
+
 		public InstructionFormatter(OpCodeInfo opCode, StringBuilder sb) {
 			this.opCode = opCode;
 			this.sb = sb;
@@ -87,6 +93,7 @@ namespace Iced.Intel.EncoderInternal {
 			r64_index = 0;
 			k_index = 0;
 			vec_index = 0;
+			tmm_index = 0;
 			bnd_index = 0;
 			opCount = opCode.OpCount;
 			opMaskIsK1 = false;
@@ -454,6 +461,10 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.xbegin_4:
 				case OpCodeOperandKind.brdisp_2:
 				case OpCodeOperandKind.brdisp_4:
+				case OpCodeOperandKind.sibmem:
+				case OpCodeOperandKind.tmm_reg:
+				case OpCodeOperandKind.tmm_rm:
+				case OpCodeOperandKind.tmm_vvvv:
 					break;
 
 				case OpCodeOperandKind.seg_rSI:
@@ -521,11 +532,12 @@ namespace Iced.Intel.EncoderInternal {
 						break;
 
 					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.mem_mpx:
 						WriteMemory();
 						break;
 
-					case OpCodeOperandKind.mem_mpx:
-						WriteMemory();
+					case OpCodeOperandKind.sibmem:
+						sb.Append("sibmem");
 						break;
 
 					case OpCodeOperandKind.mem_mib:
@@ -588,6 +600,12 @@ namespace Iced.Intel.EncoderInternal {
 
 					case OpCodeOperandKind.zmm_or_mem:
 						WriteRegMem("zmm", GetVecIndex());
+						break;
+
+					case OpCodeOperandKind.tmm_reg:
+					case OpCodeOperandKind.tmm_rm:
+					case OpCodeOperandKind.tmm_vvvv:
+						WriteRegOp("tmm", GetTmmIndex());
 						break;
 
 					case OpCodeOperandKind.bnd_or_mem_mpx:

@@ -41,13 +41,21 @@ namespace Iced.Intel.DecoderInternal {
 
 			case VexOpCodeHandlerKind.Dup:
 				int count = deserializer.ReadInt32();
-				var handler = deserializer.ReadHandler();
+				var handler = deserializer.ReadHandlerOrNull();
 				for (int i = 0; i < count; i++)
 					result[resultIndex + i] = handler;
 				return count;
 
+			case VexOpCodeHandlerKind.Null:
+				elem = null;
+				return 1;
+
 			case VexOpCodeHandlerKind.Invalid_NoModRM:
 				elem = OpCodeHandler_Invalid_NoModRM.Instance;
+				return 1;
+
+			case VexOpCodeHandlerKind.Bitness:
+				elem = new OpCodeHandler_Bitness(deserializer.ReadHandler(), deserializer.ReadHandler());
 				return 1;
 
 			case VexOpCodeHandlerKind.Bitness_DontReadModRM:
@@ -67,6 +75,10 @@ namespace Iced.Intel.DecoderInternal {
 
 			case VexOpCodeHandlerKind.Group:
 				elem = new OpCodeHandler_Group(deserializer.ReadArrayReference((uint)VexOpCodeHandlerKind.ArrayReference));
+				return 1;
+
+			case VexOpCodeHandlerKind.Group8x64:
+				elem = new OpCodeHandler_Group8x64(deserializer.ReadArrayReference((uint)VexOpCodeHandlerKind.ArrayReference), deserializer.ReadArrayReference((uint)VexOpCodeHandlerKind.ArrayReference));
 				return 1;
 
 			case VexOpCodeHandlerKind.W:
@@ -296,6 +308,22 @@ namespace Iced.Intel.DecoderInternal {
 
 			case VexOpCodeHandlerKind.WVIb:
 				elem = new OpCodeHandler_VEX_WVIb(deserializer.ReadRegister(), deserializer.ReadRegister(), deserializer.ReadCode());
+				return 1;
+
+			case VexOpCodeHandlerKind.VT_SIBMEM:
+				elem = new OpCodeHandler_VEX_VT_SIBMEM(deserializer.ReadCode());
+				return 1;
+
+			case VexOpCodeHandlerKind.SIBMEM_VT:
+				elem = new OpCodeHandler_VEX_SIBMEM_VT(deserializer.ReadCode());
+				return 1;
+
+			case VexOpCodeHandlerKind.VT:
+				elem = new OpCodeHandler_VEX_VT(deserializer.ReadCode());
+				return 1;
+
+			case VexOpCodeHandlerKind.VT_RT_HT:
+				elem = new OpCodeHandler_VEX_VT_RT_HT(deserializer.ReadCode());
 				return 1;
 
 			default:

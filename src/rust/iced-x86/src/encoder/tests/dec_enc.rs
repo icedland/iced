@@ -897,7 +897,7 @@ fn get_vvvvv_info(op_code: &OpCodeInfo) -> (bool, bool, u8) {
 			| OpCodeOperandKind::mem_vsib64y
 			| OpCodeOperandKind::mem_vsib32z
 			| OpCodeOperandKind::mem_vsib64z => is_vsib = true,
-			OpCodeOperandKind::k_vvvv => {
+			OpCodeOperandKind::k_vvvv | OpCodeOperandKind::tmm_vvvv => {
 				uses_vvvv = true;
 				vvvv_mask = 0x7;
 			}
@@ -948,12 +948,14 @@ fn verify_gpr_rrxb_bits() {
 				| OpCodeOperandKind::zmm_or_mem
 				| OpCodeOperandKind::xmm_rm
 				| OpCodeOperandKind::ymm_rm
-				| OpCodeOperandKind::zmm_rm => other_rm = true,
+				| OpCodeOperandKind::zmm_rm
+				| OpCodeOperandKind::tmm_rm => other_rm = true,
 				OpCodeOperandKind::k_reg
 				| OpCodeOperandKind::kp1_reg
 				| OpCodeOperandKind::xmm_reg
 				| OpCodeOperandKind::ymm_reg
-				| OpCodeOperandKind::zmm_reg => other_reg = true,
+				| OpCodeOperandKind::zmm_reg
+				| OpCodeOperandKind::tmm_reg => other_reg = true,
 				_ => {}
 			}
 		}
@@ -1137,10 +1139,12 @@ fn verify_k_reg_rrxb_bits() {
 				| OpCodeOperandKind::zmm_or_mem
 				| OpCodeOperandKind::xmm_rm
 				| OpCodeOperandKind::ymm_rm
-				| OpCodeOperandKind::zmm_rm => other_rm = true,
+				| OpCodeOperandKind::zmm_rm
+				| OpCodeOperandKind::tmm_rm => other_rm = true,
 				OpCodeOperandKind::xmm_reg
 				| OpCodeOperandKind::ymm_reg
 				| OpCodeOperandKind::zmm_reg
+				| OpCodeOperandKind::tmm_reg
 				| OpCodeOperandKind::r32_reg
 				| OpCodeOperandKind::r64_reg => other_reg = true,
 				_ => {}
@@ -2472,7 +2476,8 @@ fn verify_that_test_cases_test_enough_bits() {
 				| OpCodeOperandKind::mm_rm
 				| OpCodeOperandKind::xmm_rm
 				| OpCodeOperandKind::ymm_rm
-				| OpCodeOperandKind::zmm_rm => return true,
+				| OpCodeOperandKind::zmm_rm
+				| OpCodeOperandKind::tmm_rm => return true,
 				_ => {}
 			}
 		}
@@ -2483,6 +2488,7 @@ fn verify_that_test_cases_test_enough_bits() {
 		for i in 0..op_code.op_count() {
 			match op_code.op_kind(i) {
 				OpCodeOperandKind::mem
+				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx
 				| OpCodeOperandKind::mem_mib
 				| OpCodeOperandKind::mem_vsib32x
@@ -2521,6 +2527,26 @@ fn verify_that_test_cases_test_enough_bits() {
 
 		for i in 0..op_code.op_count() {
 			match op_code.op_kind(i) {
+				OpCodeOperandKind::mem
+				| OpCodeOperandKind::sibmem
+				| OpCodeOperandKind::mem_mpx
+				| OpCodeOperandKind::mem_mib
+				| OpCodeOperandKind::mem_vsib32x
+				| OpCodeOperandKind::mem_vsib32y
+				| OpCodeOperandKind::mem_vsib32z
+				| OpCodeOperandKind::mem_vsib64x
+				| OpCodeOperandKind::mem_vsib64y
+				| OpCodeOperandKind::mem_vsib64z => {
+					// The memory test tests all combinations
+					return false;
+				}
+
+				_ => {}
+			}
+		}
+		for i in 0..op_code.op_count() {
+			match op_code.op_kind(i) {
+				OpCodeOperandKind::tmm_rm => return false,
 				OpCodeOperandKind::k_rm
 				| OpCodeOperandKind::mm_rm
 				| OpCodeOperandKind::r16_rm
@@ -2547,19 +2573,6 @@ fn verify_that_test_cases_test_enough_bits() {
 					return true;
 				}
 
-				OpCodeOperandKind::mem
-				| OpCodeOperandKind::mem_mpx
-				| OpCodeOperandKind::mem_mib
-				| OpCodeOperandKind::mem_vsib32x
-				| OpCodeOperandKind::mem_vsib32y
-				| OpCodeOperandKind::mem_vsib32z
-				| OpCodeOperandKind::mem_vsib64x
-				| OpCodeOperandKind::mem_vsib64y
-				| OpCodeOperandKind::mem_vsib64z => {
-					// The memory test tests all combinations
-					return false;
-				}
-
 				_ => {}
 			}
 		}
@@ -2581,6 +2594,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				| OpCodeOperandKind::xmm_rm
 				| OpCodeOperandKind::ymm_rm
 				| OpCodeOperandKind::zmm_rm
+				| OpCodeOperandKind::tmm_rm
 				| OpCodeOperandKind::bnd_or_mem_mpx
 				| OpCodeOperandKind::k_or_mem
 				| OpCodeOperandKind::mm_or_mem
@@ -2594,6 +2608,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				| OpCodeOperandKind::ymm_or_mem
 				| OpCodeOperandKind::zmm_or_mem => return true,
 				OpCodeOperandKind::mem
+				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx
 				| OpCodeOperandKind::mem_mib
 				| OpCodeOperandKind::mem_vsib32x
@@ -2614,7 +2629,11 @@ fn verify_that_test_cases_test_enough_bits() {
 	fn can_use_r(op_code: &OpCodeInfo) -> bool {
 		for i in 0..op_code.op_count() {
 			match op_code.op_kind(i) {
-				OpCodeOperandKind::k_reg | OpCodeOperandKind::kp1_reg | OpCodeOperandKind::tr_reg | OpCodeOperandKind::bnd_reg => return false,
+				OpCodeOperandKind::k_reg
+				| OpCodeOperandKind::kp1_reg
+				| OpCodeOperandKind::tr_reg
+				| OpCodeOperandKind::bnd_reg
+				| OpCodeOperandKind::tmm_reg => return false,
 				OpCodeOperandKind::cr_reg
 				| OpCodeOperandKind::dr_reg
 				| OpCodeOperandKind::mm_reg
@@ -2646,7 +2665,8 @@ fn verify_that_test_cases_test_enough_bits() {
 				| OpCodeOperandKind::r32_reg
 				| OpCodeOperandKind::r64_reg
 				| OpCodeOperandKind::r8_reg
-				| OpCodeOperandKind::seg_reg => return false,
+				| OpCodeOperandKind::seg_reg
+				| OpCodeOperandKind::tmm_reg => return false,
 				OpCodeOperandKind::xmm_reg | OpCodeOperandKind::ymm_reg | OpCodeOperandKind::zmm_reg => return true,
 				_ => {}
 			}
@@ -2657,7 +2677,7 @@ fn verify_that_test_cases_test_enough_bits() {
 	fn can_use_v2(op_code: &OpCodeInfo) -> bool {
 		for i in 0..op_code.op_count() {
 			match op_code.op_kind(i) {
-				OpCodeOperandKind::k_vvvv | OpCodeOperandKind::r32_vvvv | OpCodeOperandKind::r64_vvvv => return false,
+				OpCodeOperandKind::k_vvvv | OpCodeOperandKind::r32_vvvv | OpCodeOperandKind::r64_vvvv | OpCodeOperandKind::tmm_vvvv => return false,
 				OpCodeOperandKind::xmm_vvvv
 				| OpCodeOperandKind::xmmp3_vvvv
 				| OpCodeOperandKind::ymm_vvvv
@@ -2682,6 +2702,7 @@ fn verify_that_test_cases_test_enough_bits() {
 		for i in 0..op_code.op_count() {
 			match op_code.op_kind(i) {
 				OpCodeOperandKind::mem
+				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx
 				| OpCodeOperandKind::mem_mib
 				| OpCodeOperandKind::mem_vsib32x
@@ -2721,6 +2742,8 @@ fn verify_that_test_cases_test_enough_bits() {
 				| OpCodeOperandKind::ymm_rm
 				| OpCodeOperandKind::zmm_reg
 				| OpCodeOperandKind::zmm_rm
+				| OpCodeOperandKind::tmm_reg
+				| OpCodeOperandKind::tmm_rm
 				| OpCodeOperandKind::cr_reg
 				| OpCodeOperandKind::dr_reg
 				| OpCodeOperandKind::tr_reg
@@ -3061,6 +3084,7 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 		for i in 0..op_code.op_count() {
 			match op_code.op_kind(i) {
 				OpCodeOperandKind::mem
+				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx
 				| OpCodeOperandKind::mem_mib
 				| OpCodeOperandKind::mem_vsib32x
@@ -3076,7 +3100,8 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 				| OpCodeOperandKind::mm_rm
 				| OpCodeOperandKind::xmm_rm
 				| OpCodeOperandKind::ymm_rm
-				| OpCodeOperandKind::zmm_rm => return true,
+				| OpCodeOperandKind::zmm_rm
+				| OpCodeOperandKind::tmm_rm => return true,
 				_ => {}
 			}
 		}

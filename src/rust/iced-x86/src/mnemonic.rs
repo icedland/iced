@@ -1580,9 +1580,21 @@ pub enum Mnemonic {
 	Vmgexit = 1547,
 	Getsecq = 1548,
 	Sysexitq = 1549,
+	Ldtilecfg = 1550,
+	Tilerelease = 1551,
+	Sttilecfg = 1552,
+	Tilezero = 1553,
+	Tileloaddt1 = 1554,
+	Tilestored = 1555,
+	Tileloadd = 1556,
+	Tdpbf16ps = 1557,
+	Tdpbuud = 1558,
+	Tdpbusd = 1559,
+	Tdpbsud = 1560,
+	Tdpbssd = 1561,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1550] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1562] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3133,6 +3145,18 @@ static GEN_DEBUG_MNEMONIC: [&str; 1550] = [
 	"Vmgexit",
 	"Getsecq",
 	"Sysexitq",
+	"Ldtilecfg",
+	"Tilerelease",
+	"Sttilecfg",
+	"Tilezero",
+	"Tileloaddt1",
+	"Tilestored",
+	"Tileloadd",
+	"Tdpbf16ps",
+	"Tdpbuud",
+	"Tdpbusd",
+	"Tdpbsud",
+	"Tdpbssd",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

@@ -1579,6 +1579,18 @@ namespace Iced.Intel {
 		Vmgexit = 1547,
 		Getsecq = 1548,
 		Sysexitq = 1549,
+		Ldtilecfg = 1550,
+		Tilerelease = 1551,
+		Sttilecfg = 1552,
+		Tilezero = 1553,
+		Tileloaddt1 = 1554,
+		Tilestored = 1555,
+		Tileloadd = 1556,
+		Tdpbf16ps = 1557,
+		Tdpbuud = 1558,
+		Tdpbusd = 1559,
+		Tdpbsud = 1560,
+		Tdpbssd = 1561,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

@@ -3133,6 +3133,15 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::Tilerelease => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					for i in 0..IcedConstants::TMM_LAST as u32 - Register::TMM0 as u32 + 1 {
+						let reg = unsafe { mem::transmute((Register::TMM0 as u32 + i) as u8) };
+						Self::add_register(flags, info, reg, OpAccess::Write);
+					}
+				}
+			}
+
 			CodeInfo::None => {}
 		}
 	}

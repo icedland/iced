@@ -125,8 +125,6 @@ fn encode_test(info: &DecoderTestInfo) {
 		new_instr.set_memory_displacement(displ);
 	}
 	assert!(orig_instr.eq_all_bits(&new_instr));
-	// Some tests use useless or extra prefixes, so we can't verify the exact length
-	assert!(encoded_bytes.len() <= orig_bytes.len(), "Unexpected encoded prefixes: {}", slice_u8_to_string(encoded_bytes.as_slice()));
 }
 
 fn fix_constant_offsets(co: &mut ConstantOffsets, orig_len: usize, new_len: usize) {
@@ -826,6 +824,8 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.op_code, info.op_code());
 	assert_eq!(tc.is_group, info.is_group());
 	assert_eq!(tc.group_index, info.group_index());
+	assert_eq!(tc.is_rm_group, info.is_rm_group());
+	assert_eq!(tc.rm_group_index, info.rm_group_index());
 	assert_eq!(tc.op_count, info.op_count());
 	assert_eq!(tc.op0_kind, info.op0_kind());
 	assert_eq!(tc.op1_kind, info.op1_kind());

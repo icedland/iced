@@ -248,6 +248,14 @@ pub enum OpCodeOperandKind {
 	brdisp_2 = 103,
 	/// 4-byte branch offset (`JMPE` instruction)
 	brdisp_4 = 104,
+	/// Memory (modrm) and the sib byte must be present
+	sibmem = 105,
+	/// TMM register encoded in the `reg` field of the modrm byte
+	tmm_reg = 106,
+	/// TMM register encoded in the `mod + r/m` fields of the modrm byte
+	tmm_rm = 107,
+	/// TMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	tmm_vvvv = 108,
 }
 // GENERATOR-END: Enum
 

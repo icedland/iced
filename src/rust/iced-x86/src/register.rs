@@ -280,6 +280,14 @@ mod info {
 		RegisterInfo { register: Register::TR5, base: Register::TR0, full_register: Register::TR5, size: 4 },
 		RegisterInfo { register: Register::TR6, base: Register::TR0, full_register: Register::TR6, size: 4 },
 		RegisterInfo { register: Register::TR7, base: Register::TR0, full_register: Register::TR7, size: 4 },
+		RegisterInfo { register: Register::TMM0, base: Register::TMM0, full_register: Register::TMM0, size: 1024 },
+		RegisterInfo { register: Register::TMM1, base: Register::TMM0, full_register: Register::TMM1, size: 1024 },
+		RegisterInfo { register: Register::TMM2, base: Register::TMM0, full_register: Register::TMM2, size: 1024 },
+		RegisterInfo { register: Register::TMM3, base: Register::TMM0, full_register: Register::TMM3, size: 1024 },
+		RegisterInfo { register: Register::TMM4, base: Register::TMM0, full_register: Register::TMM4, size: 1024 },
+		RegisterInfo { register: Register::TMM5, base: Register::TMM0, full_register: Register::TMM5, size: 1024 },
+		RegisterInfo { register: Register::TMM6, base: Register::TMM0, full_register: Register::TMM6, size: 1024 },
+		RegisterInfo { register: Register::TMM7, base: Register::TMM0, full_register: Register::TMM7, size: 1024 },
 		// GENERATOR-END: RegisterInfoTable
 	];
 
@@ -291,7 +299,7 @@ mod info {
 		register: Register,
 		base: Register,
 		full_register: Register,
-		size: u8,
+		size: u16,
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
@@ -918,6 +926,21 @@ impl Register {
 	pub fn is_mm(self) -> bool {
 		Register::MM0 <= self && self <= Register::MM7
 	}
+
+	/// Checks if it's a tile register (`TMM0`-`TMM7`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_tmm());
+	/// assert!(Register::TMM3.is_tmm());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_tmm(self) -> bool {
+		Register::TMM0 <= self && self <= IcedConstants::TMM_LAST
+	}
 }
 
 // GENERATOR-BEGIN: Register
@@ -1168,9 +1191,17 @@ pub enum Register {
 	TR5 = 238,
 	TR6 = 239,
 	TR7 = 240,
+	TMM0 = 241,
+	TMM1 = 242,
+	TMM2 = 243,
+	TMM3 = 244,
+	TMM4 = 245,
+	TMM5 = 246,
+	TMM6 = 247,
+	TMM7 = 248,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_REGISTER: [&str; 241] = [
+static GEN_DEBUG_REGISTER: [&str; 249] = [
 	"None",
 	"AL",
 	"CL",
@@ -1412,6 +1443,14 @@ static GEN_DEBUG_REGISTER: [&str; 241] = [
 	"TR5",
 	"TR6",
 	"TR7",
+	"TMM0",
+	"TMM1",
+	"TMM2",
+	"TMM3",
+	"TMM4",
+	"TMM5",
+	"TMM6",
+	"TMM7",
 ];
 impl fmt::Debug for Register {
 	#[inline]

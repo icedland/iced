@@ -64,6 +64,8 @@ pub(super) struct OpCodeInfoTestCase {
 	pub(super) op_code: u32,
 	pub(super) is_group: bool,
 	pub(super) group_index: i32,
+	pub(super) is_rm_group: bool,
+	pub(super) rm_group_index: i32,
 	pub(super) op_count: u32,
 	pub(super) op0_kind: OpCodeOperandKind,
 	pub(super) op1_kind: OpCodeOperandKind,

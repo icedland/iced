@@ -8365,3 +8365,21 @@ prefetch (%rax)
 prefetch (%rax)
 ud0
 vmgexit
+ldtilecfg (%rax)
+tilerelease
+sttilecfg (%rax)
+tilezero %tmm2
+tileloaddt1 (%rcx, %rdx, 4),%tmm2
+tileloaddt1 (%rsp),%tmm2
+tilestored %tmm2,(%rcx, %rdx, 4)
+tilestored %tmm2,(%rsp)
+tileloadd (%rcx, %rdx, 4),%tmm2
+tileloadd (%rsp),%tmm2
+tdpbf16ps %tmm4,%tmm3,%tmm2
+tdpbuud %tmm4,%tmm3,%tmm2
+tdpbusd %tmm4,%tmm3,%tmm2
+tdpbsud %tmm4,%tmm3,%tmm2
+tdpbssd %tmm4,%tmm3,%tmm2
+tdpbf16ps %tmm2,%tmm1,%tmm0
+tdpbf16ps %tmm5,%tmm4,%tmm3
+tdpbf16ps %tmm0,%tmm7,%tmm6

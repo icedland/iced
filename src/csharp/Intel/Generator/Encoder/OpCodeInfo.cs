@@ -62,6 +62,7 @@ namespace Generator.Encoder {
 		public OpCodeTableKind Table { get; protected set; }
 		public uint OpCode { get; protected set; }
 		public int GroupIndex { get; protected set; }
+		public int RmGroupIndex { get; protected set; }
 		public OpCodeFlags Flags { get; protected set; }
 
 		public abstract int OpKindsLength { get; }
@@ -83,14 +84,19 @@ namespace Generator.Encoder {
 		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
 			return (OpCodeOperandKind)encoderTypes.LegacyOpHandlers[(int)kind].opCodeOperandKind.Value;
-		} 
+		}
 
-		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds) {
+		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds)
+			: this(code, mandatoryPrefix, table, opCode, groupIndex, -1, operandSize, addressSize, flags, opKinds) {
+		}
+
+		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, int rmGroupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
 			OpCode = opCode;
 			GroupIndex = groupIndex;
+			RmGroupIndex = rmGroupIndex;
 			Flags = flags;
 			OperandSize = operandSize;
 			AddressSize = addressSize;
@@ -110,12 +116,17 @@ namespace Generator.Encoder {
 			return (OpCodeOperandKind)encoderTypes.VexOpHandlers[(int)kind].opCodeOperandKind.Value;
 		}
 
-		public VexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, VexVectorLength vecLen, OpCodeFlags flags, VexOpKind[] opKinds) {
+		public VexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, VexVectorLength vecLen, OpCodeFlags flags, VexOpKind[] opKinds)
+			: this(code, mandatoryPrefix, table, opCode, groupIndex, -1, vecLen, flags, opKinds) {
+		}
+
+		public VexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, int rmGroupIndex, VexVectorLength vecLen, OpCodeFlags flags, VexOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
 			OpCode = opCode;
 			GroupIndex = groupIndex;
+			RmGroupIndex = rmGroupIndex;
 			Flags = flags;
 			VectorLength = vecLen;
 			OpKinds = opKinds;
@@ -132,14 +143,19 @@ namespace Generator.Encoder {
 		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
 			return (OpCodeOperandKind)encoderTypes.XopOpHandlers[(int)kind].opCodeOperandKind.Value;
-		} 
+		}
 
-		public XopOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, XopVectorLength vecLen, OpCodeFlags flags, XopOpKind[] opKinds) {
+		public XopOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, XopVectorLength vecLen, OpCodeFlags flags, XopOpKind[] opKinds)
+			: this(code, mandatoryPrefix, table, opCode, groupIndex, -1, vecLen, flags, opKinds) {
+		}
+
+		public XopOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, int rmGroupIndex, XopVectorLength vecLen, OpCodeFlags flags, XopOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
 			OpCode = opCode;
 			GroupIndex = groupIndex;
+			RmGroupIndex = rmGroupIndex;
 			Flags = flags;
 			VectorLength = vecLen;
 			OpKinds = opKinds;
@@ -157,14 +173,20 @@ namespace Generator.Encoder {
 		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
 			return (OpCodeOperandKind)encoderTypes.EvexOpHandlers[(int)kind].opCodeOperandKind.Value;
-		} 
+		}
 
-		public EvexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, EvexVectorLength vecLen, TupleType tupleType, OpCodeFlags flags, EvexOpKind[] opKinds) {
+		public EvexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, EvexVectorLength vecLen, TupleType tupleType, OpCodeFlags flags, EvexOpKind[] opKinds)
+			: this(code, mandatoryPrefix, table, opCode, groupIndex, -1, vecLen, tupleType, flags, opKinds) {
+		}
+
+
+		public EvexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, int rmGroupIndex, EvexVectorLength vecLen, TupleType tupleType, OpCodeFlags flags, EvexOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
 			OpCode = opCode;
 			GroupIndex = groupIndex;
+			RmGroupIndex = rmGroupIndex;
 			Flags = flags;
 			VectorLength = vecLen;
 			OpKinds = opKinds;
@@ -190,6 +212,7 @@ namespace Generator.Encoder {
 			Table = OpCodeTableKind.T0F;
 			OpCode = 0x0F;
 			GroupIndex = -1;
+			RmGroupIndex = -1;
 			Flags = flags;
 			Immediate8 = immediate8;
 		}

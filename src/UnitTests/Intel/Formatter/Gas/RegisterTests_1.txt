@@ -262,3 +262,11 @@
 %tr5
 %tr6
 %tr7
+%tmm0
+%tmm1
+%tmm2
+%tmm3
+%tmm4
+%tmm5
+%tmm6
+%tmm7

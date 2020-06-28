@@ -100,8 +100,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			if (origBytes.Length != expectedBytes.Length && (origInstr.MemoryBase == Register.EIP || origInstr.MemoryBase == Register.RIP))
 				newInstr.MemoryDisplacement += (uint)(expectedBytes.Length - origBytes.Length);
 			Assert.True(Instruction.EqualsAllBits(origInstr, newInstr));
-			// Some tests use useless or extra prefixes, so we can't verify the exact length
-			Assert.True(encodedBytes.Length <= origBytes.Length, "Unexpected encoded prefixes: " + ToString(encodedBytes));
 		}
 
 		static void FixConstantOffsets(ref ConstantOffsets co, int origInstrLen, int newInstrLen) {

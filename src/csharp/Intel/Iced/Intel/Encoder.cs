@@ -217,6 +217,11 @@ namespace Iced.Intel {
 				EncoderFlags = EncoderFlags.ModRM;
 				ModRM = (byte)(handler.GroupIndex << 3);
 			}
+			if (handler.RmGroupIndex >= 0) {
+				Debug.Assert(EncoderFlags == 0 || EncoderFlags == EncoderFlags.ModRM);
+				EncoderFlags = EncoderFlags.ModRM;
+				ModRM |= (byte)(handler.RmGroupIndex | 0xC0);
+			}
 
 			switch (handler.Encodable) {
 			case Encodable.Any:
@@ -846,6 +851,10 @@ namespace Iced.Intel {
 					ErrorMessage = $"Operand {operand}: RIP/EIP relative addressing is only available in 64-bit mode";
 					return;
 				}
+				if ((EncoderFlags & EncoderFlags.MustUseSib) != 0) {
+					ErrorMessage = $"Operand {operand}: RIP/EIP relative addressing isn't supported";
+					return;
+				}
 				ModRM |= 5;
 				if (baseReg == Register.RIP) {
 					DisplSize = DisplSize.RipRelSize4_Target64;
@@ -865,7 +874,7 @@ namespace Iced.Intel {
 					ErrorMessage = $"Operand {operand}: VSIB addressing can't use an offset-only address";
 					return;
 				}
-				if (bitness == 64 || scale != 0) {
+				if (bitness == 64 || scale != 0 || (EncoderFlags & EncoderFlags.MustUseSib) != 0) {
 					ModRM |= 4;
 					DisplSize = DisplSize.Size4;
 					EncoderFlags |= EncoderFlags.Sib;
@@ -911,7 +920,7 @@ namespace Iced.Intel {
 			else if (displSize != 0)
 				throw new ArgumentException($"Invalid displSize = {displSize}");
 
-			if (indexReg == Register.None && (baseNum & 7) != 4 && scale == 0) {
+			if (indexReg == Register.None && (baseNum & 7) != 4 && scale == 0 && (EncoderFlags & EncoderFlags.MustUseSib) == 0) {
 				// Tested earlier in the method
 				Debug.Assert(baseReg != Register.None);
 				ModRM |= (byte)(baseNum & 7);

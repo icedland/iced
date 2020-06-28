@@ -84,6 +84,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.OpCode, info.OpCode);
 			Assert.Equal(tc.IsGroup, info.IsGroup);
 			Assert.Equal(tc.GroupIndex, info.GroupIndex);
+			Assert.Equal(tc.IsRmGroup, info.IsRmGroup);
+			Assert.Equal(tc.RmGroupIndex, info.RmGroupIndex);
 			Assert.Equal(tc.OpCount, info.OpCount);
 			Assert.Equal(tc.Op0Kind, info.Op0Kind);
 			Assert.Equal(tc.Op1Kind, info.Op1Kind);

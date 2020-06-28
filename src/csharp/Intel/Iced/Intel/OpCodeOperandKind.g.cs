@@ -247,6 +247,14 @@ namespace Iced.Intel {
 		brdisp_2 = 103,
 		/// <summary>4-byte branch offset (<c>JMPE</c> instruction)</summary>
 		brdisp_4 = 104,
+		/// <summary>Memory (modrm) and the sib byte must be present</summary>
+		sibmem = 105,
+		/// <summary>TMM register encoded in the <c>reg</c> field of the modrm byte</summary>
+		tmm_reg = 106,
+		/// <summary>TMM register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
+		tmm_rm = 107,
+		/// <summary>TMM register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		tmm_vvvv = 108,
 	}
 }
 #endif

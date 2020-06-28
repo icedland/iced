@@ -293,6 +293,14 @@ namespace Generator.Tables {
 				new RegisterInfo(reg[nameof(Register.TR5)], reg[nameof(Register.TR0)], reg[nameof(Register.TR5)], 4),
 				new RegisterInfo(reg[nameof(Register.TR6)], reg[nameof(Register.TR0)], reg[nameof(Register.TR6)], 4),
 				new RegisterInfo(reg[nameof(Register.TR7)], reg[nameof(Register.TR0)], reg[nameof(Register.TR7)], 4),
+				new RegisterInfo(reg[nameof(Register.TMM0)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM0)], 1024),
+				new RegisterInfo(reg[nameof(Register.TMM1)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM1)], 1024),
+				new RegisterInfo(reg[nameof(Register.TMM2)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM2)], 1024),
+				new RegisterInfo(reg[nameof(Register.TMM3)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM3)], 1024),
+				new RegisterInfo(reg[nameof(Register.TMM4)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM4)], 1024),
+				new RegisterInfo(reg[nameof(Register.TMM5)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM5)], 1024),
+				new RegisterInfo(reg[nameof(Register.TMM6)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM6)], 1024),
+				new RegisterInfo(reg[nameof(Register.TMM7)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM7)], 1024),
 			}.ToArray();
 			if (result.Length != reg.Values.Length)
 				throw new InvalidOperationException();

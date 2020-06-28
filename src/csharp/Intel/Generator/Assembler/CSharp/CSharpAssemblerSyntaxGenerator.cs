@@ -310,6 +310,9 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.RegisterZMM:
 					argType = "AssemblerRegisterZMM";
 					break;
+				case ArgKind.RegisterTMM:
+					argType = "AssemblerRegisterTMM";
+					break;
 				case ArgKind.RegisterK:
 					argType = "AssemblerRegisterK";
 					break;
@@ -557,6 +560,7 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.RegisterCR:
 				case ArgKind.RegisterDR:
 				case ArgKind.RegisterTR:
+				case ArgKind.RegisterTMM:
 					fullMethodName.Append(renderArg.Kind.ToString().Replace("Register", "reg"));
 					break;
 				case ArgKind.Memory:
@@ -870,7 +874,17 @@ namespace Generator.Assembler.CSharp {
 				else if (bitness == 16) {
 					return "__[si]";
 				}
-
+				break;
+			case OpCodeOperandKind.sibmem:
+				if (bitness == 64) {
+					return "__[rcx+rdx*4]";
+				}
+				else if (bitness == 32) {
+					return "__[ecx+edx*2]";
+				}
+				else if (bitness == 16) {
+					return "__[ecx+edx*1]";
+				}
 				break;
 			case OpCodeOperandKind.mem_mib:
 				if (bitness == 64) {
@@ -886,37 +900,37 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.mem_vsib32x:
 			case OpCodeOperandKind.mem_vsib64x:
 				if (bitness == 16) {
-					return $"__[esi + xmm{index}]";
+					return $"__[esi + xmm{index + 2}]";
 				}
 				else if (bitness == 32) {
-					return $"__[edx + xmm{index}]";
+					return $"__[edx + xmm{index + 2}]";
 				}
 				else if (bitness == 64) {
-					return $"__[rdx + xmm{index}]";
+					return $"__[rdx + xmm{index + 2}]";
 				}
 				break;
 			case OpCodeOperandKind.mem_vsib32y:
 			case OpCodeOperandKind.mem_vsib64y:
 				if (bitness == 16) {
-					return $"__[esi + ymm{index}]";
+					return $"__[esi + ymm{index + 2}]";
 				}
 				else if (bitness == 32) {
-					return $"__[edx + ymm{index}]";
+					return $"__[edx + ymm{index + 2}]";
 				}
 				else if (bitness == 64) {
-					return $"__[rdx + ymm{index}]";
+					return $"__[rdx + ymm{index + 2}]";
 				}
 				break;
 			case OpCodeOperandKind.mem_vsib32z:
 			case OpCodeOperandKind.mem_vsib64z:
 				if (bitness == 16) {
-					return $"__[esi + zmm{index}]";
+					return $"__[esi + zmm{index + 2}]";
 				}
 				else if (bitness == 32) {
-					return $"__[edx + zmm{index}]";
+					return $"__[edx + zmm{index + 2}]";
 				}
 				else if (bitness == 64) {
-					return $"__[rdx + zmm{index}]";
+					return $"__[rdx + zmm{index + 2}]";
 				}
 				break;
 			case OpCodeOperandKind.r8_or_mem:
@@ -1036,7 +1050,7 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 				else {
-					return $"ymm{index}";
+					return $"ymm{index + 2}";
 				}
 				break;
 			case OpCodeOperandKind.zmm_or_mem:
@@ -1052,7 +1066,7 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 				else {
-					return $"zmm{index}";
+					return $"zmm{index + 2}";
 				}
 
 				break;
@@ -1124,18 +1138,22 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.xmmp3_vvvv:
 			case OpCodeOperandKind.xmm_is4:
 			case OpCodeOperandKind.xmm_is5:
-				return $"xmm{index}";
+				return $"xmm{index + 2}";
 			case OpCodeOperandKind.ymm_reg:
 			case OpCodeOperandKind.ymm_rm:
 			case OpCodeOperandKind.ymm_vvvv:
 			case OpCodeOperandKind.ymm_is4:
 			case OpCodeOperandKind.ymm_is5:
-				return $"ymm{index}";
+				return $"ymm{index + 2}";
 			case OpCodeOperandKind.zmm_reg:
 			case OpCodeOperandKind.zmm_rm:
 			case OpCodeOperandKind.zmm_vvvv:
 			case OpCodeOperandKind.zmmp3_vvvv:
-				return $"zmm{index}";
+				return $"zmm{index + 2}";
+			case OpCodeOperandKind.tmm_reg:
+			case OpCodeOperandKind.tmm_rm:
+			case OpCodeOperandKind.tmm_vvvv:
+				return $"tmm{index + 2}";
 			case OpCodeOperandKind.cr_reg:
 				return "cr2";
 			case OpCodeOperandKind.dr_reg:
@@ -1397,6 +1415,8 @@ namespace Generator.Assembler.CSharp {
 				return $"{regName}.IsYMM()";
 			case OpCodeSelectorKind.RegisterZMM:
 				return $"{regName}.IsZMM()";
+			case OpCodeSelectorKind.RegisterTMM:
+				return $"{regName}.IsTMM()";
 			case OpCodeSelectorKind.Memory8:
 				return $"{regName}.Size == MemoryOperandSize.BytePtr";
 			case OpCodeSelectorKind.Memory16:
@@ -1819,7 +1839,7 @@ namespace Generator.Assembler.CSharp {
 				break;
 			case OpCodeSelectorKind.RegisterMM:
 				if (!isElseBranch) {
-					yield return $"mm{index}";
+					yield return $"mm{index + 2}";
 				}
 				else {
 					yield return null;
@@ -1827,7 +1847,7 @@ namespace Generator.Assembler.CSharp {
 				break;
 			case OpCodeSelectorKind.RegisterXMM:
 				if (!isElseBranch) {
-					yield return $"xmm{index}";
+					yield return $"xmm{index + 2}";
 				}
 				else {
 					yield return null;
@@ -1835,7 +1855,7 @@ namespace Generator.Assembler.CSharp {
 				break;
 			case OpCodeSelectorKind.RegisterYMM:
 				if (!isElseBranch) {
-					yield return $"ymm{index}";
+					yield return $"ymm{index + 2}";
 				}
 				else {
 					yield return null;
@@ -1843,7 +1863,15 @@ namespace Generator.Assembler.CSharp {
 				break;
 			case OpCodeSelectorKind.RegisterZMM:
 				if (!isElseBranch) {
-					yield return $"zmm{index}";
+					yield return $"zmm{index + 2}";
+				}
+				else {
+					yield return null;
+				}
+				break;
+			case OpCodeSelectorKind.RegisterTMM:
+				if (!isElseBranch) {
+					yield return $"tmm{index + 2}";
 				}
 				else {
 					yield return null;
@@ -1997,13 +2025,13 @@ namespace Generator.Assembler.CSharp {
 					yield return null;
 				}
 				else if (bitness == 16) {
-					yield return $"__[edi + xmm{index}]";
+					yield return $"__[edi + xmm{index + 2}]";
 				}
 				else if (bitness == 32) {
-					yield return $"__[edx + xmm{index}]";
+					yield return $"__[edx + xmm{index + 2}]";
 				}
 				else if (bitness == 64) {
-					yield return $"__[rdx + xmm{index}]";
+					yield return $"__[rdx + xmm{index + 2}]";
 				}
 				break;
 			case OpCodeSelectorKind.MemoryIndex32Ymm:
@@ -2012,13 +2040,13 @@ namespace Generator.Assembler.CSharp {
 					yield return null;
 				}
 				else if (bitness == 16) {
-					yield return $"__[edi + ymm{index}]";
+					yield return $"__[edi + ymm{index + 2}]";
 				}
 				else if (bitness == 32) {
-					yield return $"__[edx + ymm{index}]";
+					yield return $"__[edx + ymm{index + 2}]";
 				}
 				else if (bitness == 64) {
-					yield return $"__[rdx + ymm{index}]";
+					yield return $"__[rdx + ymm{index + 2}]";
 				}
 				break;
 			case OpCodeSelectorKind.MemoryIndex32Zmm:
@@ -2027,13 +2055,13 @@ namespace Generator.Assembler.CSharp {
 					yield return null;
 				}
 				else if (bitness == 16) {
-					yield return $"__[edi + zmm{index}]";
+					yield return $"__[edi + zmm{index + 2}]";
 				}
 				else if (bitness == 32) {
-					yield return $"__[edx + zmm{index}]";
+					yield return $"__[edx + zmm{index + 2}]";
 				}
 				else if (bitness == 64) {
-					yield return $"__[rdx + zmm{index}]";
+					yield return $"__[rdx + zmm{index + 2}]";
 				}
 				break;
 			default:

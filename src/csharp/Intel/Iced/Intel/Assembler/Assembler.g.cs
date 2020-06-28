@@ -16802,6 +16802,20 @@ namespace Iced.Intel {
 			op = Code.Lds_r32_m1632;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>ldtilecfg instruction.<br/>
+		/// <br/>
+		/// <c>LDTILECFG m512</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 49 !(11):000:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void ldtilecfg(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.VEX_Ldtilecfg_m512;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>lea instruction.<br/>
 		/// <br/>
 		/// <c>LEA r16, m</c><br/>
@@ -38822,6 +38836,20 @@ namespace Iced.Intel {
 			op = Bitness >= 32 ? Code.Str_r32m16 : Code.Str_rm16;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>sttilecfg instruction.<br/>
+		/// <br/>
+		/// <c>STTILECFG m512</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 49 !(11):000:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void sttilecfg(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.VEX_Sttilecfg_m512;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>sub instruction.<br/>
 		/// <br/>
 		/// <c>SUB r/m8, r8</c><br/>
@@ -39586,6 +39614,76 @@ namespace Iced.Intel {
 			op = Code.XOP_T1mskc_r64_rm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>tdpbf16ps instruction.<br/>
+		/// <br/>
+		/// <c>TDPBF16PS tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 5C 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-BF16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tdpbf16ps(AssemblerRegisterTMM dst, AssemblerRegisterTMM src1, AssemblerRegisterTMM src2) {
+			Code op;
+			op = Code.VEX_Tdpbf16ps_tmm_tmm_tmm;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>tdpbssd instruction.<br/>
+		/// <br/>
+		/// <c>TDPBSSD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tdpbssd(AssemblerRegisterTMM dst, AssemblerRegisterTMM src1, AssemblerRegisterTMM src2) {
+			Code op;
+			op = Code.VEX_Tdpbssd_tmm_tmm_tmm;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>tdpbsud instruction.<br/>
+		/// <br/>
+		/// <c>TDPBSUD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tdpbsud(AssemblerRegisterTMM dst, AssemblerRegisterTMM src1, AssemblerRegisterTMM src2) {
+			Code op;
+			op = Code.VEX_Tdpbsud_tmm_tmm_tmm;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>tdpbusd instruction.<br/>
+		/// <br/>
+		/// <c>TDPBUSD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tdpbusd(AssemblerRegisterTMM dst, AssemblerRegisterTMM src1, AssemblerRegisterTMM src2) {
+			Code op;
+			op = Code.VEX_Tdpbusd_tmm_tmm_tmm;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>tdpbuud instruction.<br/>
+		/// <br/>
+		/// <c>TDPBUUD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tdpbuud(AssemblerRegisterTMM dst, AssemblerRegisterTMM src1, AssemblerRegisterTMM src2) {
+			Code op;
+			op = Code.VEX_Tdpbuud_tmm_tmm_tmm;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
 		/// <summary>test instruction.<br/>
 		/// <br/>
 		/// <c>TEST r/m8, r8</c><br/>
@@ -39937,6 +40035,76 @@ namespace Iced.Intel {
 				throw NoOpCodeFoundFor(Mnemonic.Test, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
+		}
+		/// <summary>tileloadd instruction.<br/>
+		/// <br/>
+		/// <c>TILELOADD tmm1, sibmem</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 4B !(11):rrr:100</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tileloadd(AssemblerRegisterTMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.VEX_Tileloadd_tmm_sibmem;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>tileloaddt1 instruction.<br/>
+		/// <br/>
+		/// <c>TILELOADDT1 tmm1, sibmem</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 4B !(11):rrr:100</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tileloaddt1(AssemblerRegisterTMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.VEX_Tileloaddt1_tmm_sibmem;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>tilerelease instruction.<br/>
+		/// <br/>
+		/// <c>TILERELEASE</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 49 C0</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tilerelease() {
+			Code op;
+			op = Code.VEX_Tilerelease;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>tilestored instruction.<br/>
+		/// <br/>
+		/// <c>TILESTORED sibmem, tmm1</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 4B !(11):rrr:100</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tilestored(AssemblerMemoryOperand dst, AssemblerRegisterTMM src) {
+			Code op;
+			op = Code.VEX_Tilestored_sibmem_tmm;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
+		}
+		/// <summary>tilezero instruction.<br/>
+		/// <br/>
+		/// <c>TILEZERO tmm1</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 49 11:rrr:000</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void tilezero(AssemblerRegisterTMM dst) {
+			Code op;
+			op = Code.VEX_Tilezero_tmm;
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>tlbsync instruction.<br/>
 		/// <br/>

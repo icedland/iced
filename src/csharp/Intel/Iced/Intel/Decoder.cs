@@ -575,9 +575,8 @@ namespace Iced.Intel {
 			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
-			b2 = ~b2 >> 3;
+			b2 = (~b2 >> 3) & 0x0F;
 			if (is64Mode) {
-				b2 &= 0x0F;
 				state.vvvv = b2;
 				state.vvvv_invalidCheck = b2;
 				uint b1x = ~b1;
@@ -586,8 +585,8 @@ namespace Iced.Intel {
 				state.extraBaseRegisterBase = (b1x >> 2) & 8;
 			}
 			else {
+				state.vvvv_invalidCheck = b2;
 				state.vvvv = b2 & 0x07;
-				state.vvvv_invalidCheck = b2 & 0x0F;
 			}
 
 			int table = (int)(b1 & 0x1F);
@@ -630,9 +629,8 @@ namespace Iced.Intel {
 			Static.Assert((int)MandatoryPrefixByte.PF2 == 3 ? 0 : -1);
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b2 & 3);
 
-			b2 = ~b2 >> 3;
+			b2 = (~b2 >> 3) & 0x0F;
 			if (is64Mode) {
-				b2 &= 0x0F;
 				state.vvvv = b2;
 				state.vvvv_invalidCheck = b2;
 				uint b1x = ~b1;
@@ -641,8 +639,8 @@ namespace Iced.Intel {
 				state.extraBaseRegisterBase = (b1x >> 2) & 8;
 			}
 			else {
+				state.vvvv_invalidCheck = b2;
 				state.vvvv = b2 & 0x07;
-				state.vvvv_invalidCheck = b2 & 0x0F;
 			}
 
 			int table = (int)(b1 & 0x1F);
@@ -705,10 +703,11 @@ namespace Iced.Intel {
 					Static.Assert((int)VectorLength.Unknown == 3 ? 0 : -1);
 					state.vectorLength = (p2 >> 5) & 3;
 
+					p1 = (~p1 >> 3) & 0x0F;
 					if (is64Mode) {
 						uint tmp = (~p2 & 8) << 1;
 						state.extraIndexRegisterBaseVSIB = tmp;
-						tmp += ((~p1 >> 3) & 0x0F);
+						tmp += p1;
 						state.vvvv = tmp;
 						state.vvvv_invalidCheck = tmp;
 						uint p0x = ~p0;
@@ -720,9 +719,8 @@ namespace Iced.Intel {
 						state.extraBaseRegisterBase = p0x & 8;
 					}
 					else {
-						p1 = ~p1 >> 3;
+						state.vvvv_invalidCheck = p1;
 						state.vvvv = p1 & 0x07;
-						state.vvvv_invalidCheck = p1 & 0x0F;
 					}
 
 					int table = (int)(p0 & 3);
@@ -770,14 +768,32 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void ReadOpMem(ref Instruction instruction) {
+		internal bool ReadOpMem(ref Instruction instruction) {
 			Debug.Assert(state.Encoding != EncodingKind.EVEX);
 			if (state.addressSize == OpSize.Size64)
-				ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.None, false);
+				return ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.None, false);
 			else if (state.addressSize == OpSize.Size32)
-				ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
-			else
+				return ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
+			else {
 				ReadOpMem16(ref instruction, TupleType.None);
+				return false;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void ReadOpMemSib(ref Instruction instruction) {
+			Debug.Assert(state.Encoding != EncodingKind.EVEX);
+			bool isValid;
+			if (state.addressSize == OpSize.Size64)
+				isValid = ReadOpMem32Or64(ref instruction, Register.RAX, Register.RAX, TupleType.None, false);
+			else if (state.addressSize == OpSize.Size32)
+				isValid = ReadOpMem32Or64(ref instruction, Register.EAX, Register.EAX, TupleType.None, false);
+			else {
+				ReadOpMem16(ref instruction, TupleType.None);
+				isValid = false;
+			}
+			if (invalidCheckMask != 0 && !isValid)
+				SetInvalidInstruction();
 		}
 
 		// All MPX instructions in 64-bit mode force 64-bit addressing, and

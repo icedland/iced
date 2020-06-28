@@ -274,6 +274,11 @@ impl Encoder {
 			self.encoder_flags |= EncoderFlags::MOD_RM;
 			self.mod_rm = (group_index as u8) << 3;
 		}
+		let rm_group_index = handler.rm_group_index;
+		if rm_group_index >= 0 {
+			self.encoder_flags |= EncoderFlags::MOD_RM;
+			self.mod_rm |= (rm_group_index as u8) | 0xC0;
+		}
 
 		match handler.encodable {
 			Encodable::Any => {}
@@ -954,6 +959,10 @@ impl Encoder {
 				self.set_error_message(format!("Operand {}: RIP/EIP relative addressing is only available in 64-bit mode", operand));
 				return;
 			}
+			if (self.encoder_flags & EncoderFlags::MUST_USE_SIB) != 0 {
+				self.set_error_message(format!("Operand {}: RIP/EIP relative addressing isn't supported", operand));
+				return;
+			}
 			self.mod_rm |= 5;
 			if base == Register::RIP {
 				self.displ_size = DisplSize::RipRelSize4_Target64;
@@ -972,7 +981,7 @@ impl Encoder {
 				self.set_error_message(format!("Operand {}: VSIB addressing can't use an offset-only address", operand));
 				return;
 			}
-			if self.bitness == 64 || scale != 0 {
+			if self.bitness == 64 || scale != 0 || (self.encoder_flags & EncoderFlags::MUST_USE_SIB) != 0 {
 				self.mod_rm |= 4;
 				self.displ_size = DisplSize::Size4;
 				self.encoder_flags |= EncoderFlags::SIB;
@@ -1018,7 +1027,7 @@ impl Encoder {
 			self.set_error_message_str("Invalid memory_displ_size() value");
 		}
 
-		if index == Register::None && (base_num & 7) != 4 && scale == 0 {
+		if index == Register::None && (base_num & 7) != 4 && scale == 0 && (self.encoder_flags & EncoderFlags::MUST_USE_SIB) == 0 {
 			// Tested earlier in the method
 			debug_assert!(base != Register::None);
 			self.mod_rm |= (base_num & 7) as u8;

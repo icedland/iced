@@ -420,10 +420,11 @@ pub(crate) enum CodeInfo {
 	CW_EAX,
 	Arpl,
 	Lea,
+	Tilerelease,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 104] = [
+static GEN_DEBUG_CODE_INFO: [&str; 105] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -528,6 +529,7 @@ static GEN_DEBUG_CODE_INFO: [&str; 104] = [
 	"CW_EAX",
 	"Arpl",
 	"Lea",
+	"Tilerelease",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -855,10 +857,13 @@ pub(crate) enum CpuidFeatureInternal {
 	SERIALIZE,
 	TSXLDTRK,
 	INVLPGB,
+	AMX_BF16,
+	AMX_TILE,
+	AMX_INT8,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 153] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 156] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1012,6 +1017,9 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 153] = [
 	"SERIALIZE",
 	"TSXLDTRK",
 	"INVLPGB",
+	"AMX_BF16",
+	"AMX_TILE",
+	"AMX_INT8",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

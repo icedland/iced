@@ -19153,3 +19153,27 @@ F2 0F 01 E9, Xresldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend
 0FFF, Ud0, Legacy, INTEL286, flow=Exception decopt=AMD
 # vmgexit
 F3 0F01 D9, Vmgexit, Legacy, SVM, flow=Call
+# ldtilecfg [rax]
+C4E278 49 00, VEX_Ldtilecfg_m512, VEX, AMX_TILE, pm op0=r r=rax rm=ds:rax;Tilecfg w=tmm0;tmm1;tmm2;tmm3;tmm4;tmm5;tmm6;tmm7
+# tilerelease
+C4E278 49 C0, VEX_Tilerelease, VEX, AMX_TILE, pm w=tmm0;tmm1;tmm2;tmm3;tmm4;tmm5;tmm6;tmm7
+# sttilecfg [rax]
+C4E279 49 00, VEX_Sttilecfg_m512, VEX, AMX_TILE, pm op0=w r=rax wm=ds:rax;Tilecfg
+# tilezero tmm2
+C4E27B 49 D0, VEX_Tilezero_tmm, VEX, AMX_TILE, pm op0=w w=tmm2
+# tileloaddt1 tmm2,[rcx+rdx*4]
+C4E279 4B 14 91, VEX_Tileloaddt1_tmm_sibmem, VEX, AMX_TILE, pm op0=w op1=r w=tmm2 r=rcx;rdx rm=ds:rcx+rdx*4;Tile
+# tilestored [rcx+rdx*4],tmm2
+C4E27A 4B 14 91, VEX_Tilestored_sibmem_tmm, VEX, AMX_TILE, pm op0=w op1=r r=tmm2;rcx;rdx wm=ds:rcx+rdx*4;Tile
+# tileloadd tmm2,[rcx+rdx*4]
+C4E27B 4B 14 91, VEX_Tileloadd_tmm_sibmem, VEX, AMX_TILE, pm op0=w op1=r w=tmm2 r=rcx;rdx rm=ds:rcx+rdx*4;Tile
+# tdpbf16ps tmm2,tmm3,tmm4
+C4E25A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, VEX, AMX_BF16, pm op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4
+# tdpbuud tmm2,tmm3,tmm4
+C4E258 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4
+# tdpbusd tmm2,tmm3,tmm4
+C4E259 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4
+# tdpbsud tmm2,tmm3,tmm4
+C4E25A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4
+# tdpbssd tmm2,tmm3,tmm4
+C4E25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4

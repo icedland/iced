@@ -2146,6 +2146,13 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Tilerelease:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					for (int i = 0; i < IcedConstants.TMM_last - Register.TMM0 + 1; i++)
+						AddRegister(flags, Register.TMM0 + i, OpAccess.Write);
+				}
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

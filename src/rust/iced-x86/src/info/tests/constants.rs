@@ -71,5 +71,6 @@ impl RegisterFlags {
 	pub(crate) const TR: u32 = 0x0000_8000;
 	pub(crate) const ST: u32 = 0x0001_0000;
 	pub(crate) const MM: u32 = 0x0002_0000;
+	pub(crate) const TMM: u32 = 0x0004_0000;
 }
 // GENERATOR-END: RegisterFlags

@@ -265,5 +265,13 @@ namespace Generator.Enums {
 		TR5,
 		TR6,
 		TR7,
+		TMM0,
+		TMM1,
+		TMM2,
+		TMM3,
+		TMM4,
+		TMM5,
+		TMM6,
+		TMM7,
 	}
 }

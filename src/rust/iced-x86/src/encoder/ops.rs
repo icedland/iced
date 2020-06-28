@@ -53,9 +53,14 @@ impl Op for InvalidOpHandler {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct OpModRM_rm_mem_only;
+pub(super) struct OpModRM_rm_mem_only {
+	pub(super) must_use_sib: bool,
+}
 impl Op for OpModRM_rm_mem_only {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
+		if self.must_use_sib {
+			encoder.encoder_flags |= EncoderFlags::MUST_USE_SIB;
+		}
 		encoder.add_reg_or_mem(instruction, operand, Register::None, Register::None, true, false);
 	}
 }
@@ -539,6 +544,7 @@ pub(super) struct OpVMx {
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
 impl Op for OpVMx {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
+		encoder.encoder_flags |= EncoderFlags::MUST_USE_SIB;
 		encoder.add_reg_or_mem_full(
 			instruction,
 			operand,

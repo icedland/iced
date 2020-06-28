@@ -1204,9 +1204,8 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
 		self.state.mandatory_prefix = b2 & 3;
 
-		b2 = !b2 >> 3;
+		b2 = (!b2 >> 3) & 0x0F;
 		if self.is64_mode {
-			b2 &= 0x0F;
 			self.state.vvvv = b2;
 			self.state.vvvv_invalid_check = b2;
 			let b1x = !b1;
@@ -1214,8 +1213,8 @@ impl<'a> Decoder<'a> {
 			self.state.extra_index_register_base = (b1x >> 3) & 8;
 			self.state.extra_base_register_base = (b1x >> 2) & 8;
 		} else {
+			self.state.vvvv_invalid_check = b2;
 			self.state.vvvv = b2 & 0x07;
-			self.state.vvvv_invalid_check = b2 & 0x0F;
 		}
 
 		let table = match b1 & 0x1F {
@@ -1263,9 +1262,8 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
 		self.state.mandatory_prefix = b2 & 3;
 
-		b2 = !b2 >> 3;
+		b2 = (!b2 >> 3) & 0x0F;
 		if self.is64_mode {
-			b2 &= 0x0F;
 			self.state.vvvv = b2;
 			self.state.vvvv_invalid_check = b2;
 			let b1x = !b1;
@@ -1273,8 +1271,8 @@ impl<'a> Decoder<'a> {
 			self.state.extra_index_register_base = (b1x >> 3) & 8;
 			self.state.extra_base_register_base = (b1x >> 2) & 8;
 		} else {
+			self.state.vvvv_invalid_check = b2;
 			self.state.vvvv = b2 & 0x07;
-			self.state.vvvv_invalid_check = b2 & 0x0F;
 		}
 
 		let table = match b1 & 0x1F {
@@ -1343,10 +1341,11 @@ impl<'a> Decoder<'a> {
 				const_assert_eq!(3, VectorLength::Unknown as u32);
 				self.state.vector_length = (p2 >> 5) & 3;
 
+				p1 = (!p1 >> 3) & 0x0F;
 				if self.is64_mode {
 					let mut tmp = (!p2 & 8) << 1;
 					self.state.extra_index_register_base_vsib = tmp;
-					tmp += (!p1 >> 3) & 0x0F;
+					tmp += p1;
 					self.state.vvvv = tmp;
 					self.state.vvvv_invalid_check = tmp;
 					let mut p0x = !p0;
@@ -1357,9 +1356,8 @@ impl<'a> Decoder<'a> {
 					self.state.extra_base_register_base_evex = p0x & 0x18;
 					self.state.extra_base_register_base = p0x & 8;
 				} else {
-					p1 = !p1 >> 3;
+					self.state.vvvv_invalid_check = p1;
 					self.state.vvvv = p1 & 0x07;
-					self.state.vvvv_invalid_check = p1 & 0x0F;
 				}
 
 				let table = match p0 & 3 {
@@ -1413,6 +1411,22 @@ impl<'a> Decoder<'a> {
 			let _ = self.read_op_mem_32_or_64(instruction, Register::EAX, Register::EAX, TupleType::None, false);
 		} else {
 			self.read_op_mem_16(instruction, TupleType::None);
+		}
+	}
+
+	#[inline(always)]
+	pub(self) fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
+		debug_assert_ne!(EncodingKind::EVEX, self.state.encoding());
+		let is_valid = if self.state.address_size == OpSize::Size64 {
+			self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, TupleType::None, false)
+		} else if self.state.address_size == OpSize::Size32 {
+			self.read_op_mem_32_or_64(instruction, Register::EAX, Register::EAX, TupleType::None, false)
+		} else {
+			self.read_op_mem_16(instruction, TupleType::None);
+			false
+		};
+		if self.invalid_check_mask != 0 && !is_valid {
+			self.set_invalid_instruction();
 		}
 	}
 

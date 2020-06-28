@@ -33798,9 +33798,105 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Getsecq = 4223,
+	/// `LDTILECFG m512`
+	///
+	/// `VEX.128.0F38.W0 49 !(11):000:bbb`
+	///
+	/// `AMX-TILE`
+	///
+	/// `64-bit`
+	VEX_Ldtilecfg_m512 = 4224,
+	/// `TILERELEASE`
+	///
+	/// `VEX.128.0F38.W0 49 C0`
+	///
+	/// `AMX-TILE`
+	///
+	/// `64-bit`
+	VEX_Tilerelease = 4225,
+	/// `STTILECFG m512`
+	///
+	/// `VEX.128.66.0F38.W0 49 !(11):000:bbb`
+	///
+	/// `AMX-TILE`
+	///
+	/// `64-bit`
+	VEX_Sttilecfg_m512 = 4226,
+	/// `TILEZERO tmm1`
+	///
+	/// `VEX.128.F2.0F38.W0 49 11:rrr:000`
+	///
+	/// `AMX-TILE`
+	///
+	/// `64-bit`
+	VEX_Tilezero_tmm = 4227,
+	/// `TILELOADDT1 tmm1, sibmem`
+	///
+	/// `VEX.128.66.0F38.W0 4B !(11):rrr:100`
+	///
+	/// `AMX-TILE`
+	///
+	/// `64-bit`
+	VEX_Tileloaddt1_tmm_sibmem = 4228,
+	/// `TILESTORED sibmem, tmm1`
+	///
+	/// `VEX.128.F3.0F38.W0 4B !(11):rrr:100`
+	///
+	/// `AMX-TILE`
+	///
+	/// `64-bit`
+	VEX_Tilestored_sibmem_tmm = 4229,
+	/// `TILELOADD tmm1, sibmem`
+	///
+	/// `VEX.128.F2.0F38.W0 4B !(11):rrr:100`
+	///
+	/// `AMX-TILE`
+	///
+	/// `64-bit`
+	VEX_Tileloadd_tmm_sibmem = 4230,
+	/// `TDPBF16PS tmm1, tmm2, tmm3`
+	///
+	/// `VEX.128.F3.0F38.W0 5C 11:rrr:bbb`
+	///
+	/// `AMX-BF16`
+	///
+	/// `64-bit`
+	VEX_Tdpbf16ps_tmm_tmm_tmm = 4231,
+	/// `TDPBUUD tmm1, tmm2, tmm3`
+	///
+	/// `VEX.128.0F38.W0 5E 11:rrr:bbb`
+	///
+	/// `AMX-INT8`
+	///
+	/// `64-bit`
+	VEX_Tdpbuud_tmm_tmm_tmm = 4232,
+	/// `TDPBUSD tmm1, tmm2, tmm3`
+	///
+	/// `VEX.128.66.0F38.W0 5E 11:rrr:bbb`
+	///
+	/// `AMX-INT8`
+	///
+	/// `64-bit`
+	VEX_Tdpbusd_tmm_tmm_tmm = 4233,
+	/// `TDPBSUD tmm1, tmm2, tmm3`
+	///
+	/// `VEX.128.F3.0F38.W0 5E 11:rrr:bbb`
+	///
+	/// `AMX-INT8`
+	///
+	/// `64-bit`
+	VEX_Tdpbsud_tmm_tmm_tmm = 4234,
+	/// `TDPBSSD tmm1, tmm2, tmm3`
+	///
+	/// `VEX.128.F2.0F38.W0 5E 11:rrr:bbb`
+	///
+	/// `AMX-INT8`
+	///
+	/// `64-bit`
+	VEX_Tdpbssd_tmm_tmm_tmm = 4235,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4224] = [
+static GEN_DEBUG_CODE: [&str; 4236] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38025,6 +38121,18 @@ static GEN_DEBUG_CODE: [&str; 4224] = [
 	"Ud0",
 	"Vmgexit",
 	"Getsecq",
+	"VEX_Ldtilecfg_m512",
+	"VEX_Tilerelease",
+	"VEX_Sttilecfg_m512",
+	"VEX_Tilezero_tmm",
+	"VEX_Tileloaddt1_tmm_sibmem",
+	"VEX_Tilestored_sibmem_tmm",
+	"VEX_Tileloadd_tmm_sibmem",
+	"VEX_Tdpbf16ps_tmm_tmm_tmm",
+	"VEX_Tdpbuud_tmm_tmm_tmm",
+	"VEX_Tdpbusd_tmm_tmm_tmm",
+	"VEX_Tdpbsud_tmm_tmm_tmm",
+	"VEX_Tdpbssd_tmm_tmm_tmm",
 ];
 impl fmt::Debug for Code {
 	#[inline]

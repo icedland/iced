@@ -4255,6 +4255,18 @@ pub enum Code {
 	Ud0 = 4221,
 	Vmgexit = 4222,
 	Getsecq = 4223,
+	VEX_Ldtilecfg_m512 = 4224,
+	VEX_Tilerelease = 4225,
+	VEX_Sttilecfg_m512 = 4226,
+	VEX_Tilezero_tmm = 4227,
+	VEX_Tileloaddt1_tmm_sibmem = 4228,
+	VEX_Tilestored_sibmem_tmm = 4229,
+	VEX_Tileloadd_tmm_sibmem = 4230,
+	VEX_Tdpbf16ps_tmm_tmm_tmm = 4231,
+	VEX_Tdpbuud_tmm_tmm_tmm = 4232,
+	VEX_Tdpbusd_tmm_tmm_tmm = 4233,
+	VEX_Tdpbsud_tmm_tmm_tmm = 4234,
+	VEX_Tdpbssd_tmm_tmm_tmm = 4235,
 }
 // GENERATOR-END: Enum
 

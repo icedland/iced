@@ -4245,3 +4245,15 @@ Invlpgbq, legacy, NP, 0F, 01FE, NP 0F 01 FE, INVLPGB, 64b
 Tlbsync, legacy, NP, 0F, 01FF, NP 0F 01 FF, TLBSYNC, 16b 32b 64b
 Ud0, legacy, , 0F, FF, 0F FF, UD0, 16b 32b 64b
 Vmgexit, legacy, F3, 0F, 01D9, F3 0F 01 D9, VMGEXIT, 16b 32b 64b
+VEX_Ldtilecfg_m512, VEX, NP, 0F38, 49, VEX.128.0F38.W0 49 !(11):000:bbb, LDTILECFG m512, g=0 64b L128 W0 op=mem
+VEX_Tilerelease, VEX, NP, 0F38, 49C0, VEX.128.0F38.W0 49 C0, TILERELEASE, 64b L128 W0
+VEX_Sttilecfg_m512, VEX, 66, 0F38, 49, VEX.128.66.0F38.W0 49 !(11):000:bbb, STTILECFG m512, g=0 64b L128 W0 op=mem
+VEX_Tilezero_tmm, VEX, F2, 0F38, 49, VEX.128.F2.0F38.W0 49 11:rrr:000, TILEZERO tmm1, rmg=0 64b L128 W0 op=tmm_reg
+VEX_Tileloaddt1_tmm_sibmem, VEX, 66, 0F38, 4B, VEX.128.66.0F38.W0 4B !(11):rrr:100, TILELOADDT1 tmm1| sibmem, 64b L128 W0 op=tmm_reg;sibmem
+VEX_Tilestored_sibmem_tmm, VEX, F3, 0F38, 4B, VEX.128.F3.0F38.W0 4B !(11):rrr:100, TILESTORED sibmem| tmm1, 64b L128 W0 op=sibmem;tmm_reg
+VEX_Tileloadd_tmm_sibmem, VEX, F2, 0F38, 4B, VEX.128.F2.0F38.W0 4B !(11):rrr:100, TILELOADD tmm1| sibmem, 64b L128 W0 op=tmm_reg;sibmem
+VEX_Tdpbf16ps_tmm_tmm_tmm, VEX, F3, 0F38, 5C, VEX.128.F3.0F38.W0 5C 11:rrr:bbb, TDPBF16PS tmm1| tmm2| tmm3, 64b L128 W0 op=tmm_reg;tmm_rm;tmm_vvvv
+VEX_Tdpbuud_tmm_tmm_tmm, VEX, NP, 0F38, 5E, VEX.128.0F38.W0 5E 11:rrr:bbb, TDPBUUD tmm1| tmm2| tmm3, 64b L128 W0 op=tmm_reg;tmm_rm;tmm_vvvv
+VEX_Tdpbusd_tmm_tmm_tmm, VEX, 66, 0F38, 5E, VEX.128.66.0F38.W0 5E 11:rrr:bbb, TDPBUSD tmm1| tmm2| tmm3, 64b L128 W0 op=tmm_reg;tmm_rm;tmm_vvvv
+VEX_Tdpbsud_tmm_tmm_tmm, VEX, F3, 0F38, 5E, VEX.128.F3.0F38.W0 5E 11:rrr:bbb, TDPBSUD tmm1| tmm2| tmm3, 64b L128 W0 op=tmm_reg;tmm_rm;tmm_vvvv
+VEX_Tdpbssd_tmm_tmm_tmm, VEX, F2, 0F38, 5E, VEX.128.F2.0F38.W0 5E 11:rrr:bbb, TDPBSSD tmm1| tmm2| tmm3, 64b L128 W0 op=tmm_reg;tmm_rm;tmm_vvvv

@@ -68,6 +68,7 @@ namespace Generator.Tables {
 				("tr", genTypes[TypeIds.RegisterFlags][nameof(RegisterFlags.TR)]),
 				("st", genTypes[TypeIds.RegisterFlags][nameof(RegisterFlags.ST)]),
 				("mm", genTypes[TypeIds.RegisterFlags][nameof(RegisterFlags.MM)]),
+				("tmm", genTypes[TypeIds.RegisterFlags][nameof(RegisterFlags.TMM)]),
 			};
 	}
 

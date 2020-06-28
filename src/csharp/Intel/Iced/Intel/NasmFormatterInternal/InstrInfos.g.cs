@@ -16419,6 +16419,54 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x02,// Normal_2
 				0xF8, 0x03,// 504 = "getsec"
 				0x18,// 0x18 = OpSize64
+
+				// VEX_Ldtilecfg_m512
+				0x01,// Normal_1
+				0x83, 0x0B,// 1411 = "ldtilecfg"
+
+				// VEX_Tilerelease
+				0x01,// Normal_1
+				0x84, 0x0B,// 1412 = "tilerelease"
+
+				// VEX_Sttilecfg_m512
+				0x01,// Normal_1
+				0x85, 0x0B,// 1413 = "sttilecfg"
+
+				// VEX_Tilezero_tmm
+				0x01,// Normal_1
+				0x86, 0x0B,// 1414 = "tilezero"
+
+				// VEX_Tileloaddt1_tmm_sibmem
+				0x01,// Normal_1
+				0x87, 0x0B,// 1415 = "tileloaddt1"
+
+				// VEX_Tilestored_sibmem_tmm
+				0x01,// Normal_1
+				0x88, 0x0B,// 1416 = "tilestored"
+
+				// VEX_Tileloadd_tmm_sibmem
+				0x01,// Normal_1
+				0x89, 0x0B,// 1417 = "tileloadd"
+
+				// VEX_Tdpbf16ps_tmm_tmm_tmm
+				0x01,// Normal_1
+				0x8A, 0x0B,// 1418 = "tdpbf16ps"
+
+				// VEX_Tdpbuud_tmm_tmm_tmm
+				0x01,// Normal_1
+				0x8B, 0x0B,// 1419 = "tdpbuud"
+
+				// VEX_Tdpbusd_tmm_tmm_tmm
+				0x01,// Normal_1
+				0x8C, 0x0B,// 1420 = "tdpbusd"
+
+				// VEX_Tdpbsud_tmm_tmm_tmm
+				0x01,// Normal_1
+				0x8D, 0x0B,// 1421 = "tdpbsud"
+
+				// VEX_Tdpbssd_tmm_tmm_tmm
+				0x01,// Normal_1
+				0x8E, 0x0B,// 1422 = "tdpbssd"
 			};
 	}
 }

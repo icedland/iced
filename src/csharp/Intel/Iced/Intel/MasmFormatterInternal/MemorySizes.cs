@@ -158,6 +158,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				(ushort)((uint)MemoryKeywords.None | ((uint)Size.S0 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.None | ((uint)Size.S0 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.tbyte_ptr | ((uint)Size.S10 << SizeKindShift)),
+				(ushort)((uint)MemoryKeywords.None | ((uint)Size.S64 << SizeKindShift)),
+				(ushort)((uint)MemoryKeywords.None | ((uint)Size.S0 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.word_ptr | ((uint)Size.S2 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.word_ptr | ((uint)Size.S2 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.dword_ptr | ((uint)Size.S4 << SizeKindShift)),

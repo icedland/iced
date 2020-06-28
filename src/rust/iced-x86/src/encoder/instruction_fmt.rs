@@ -42,6 +42,7 @@ pub(super) struct InstructionFormatter<'a, 'b> {
 	bnd_index: u32,
 	k_index: u32,
 	vec_index: u32,
+	tmm_index: u32,
 	op_count: u32,
 	// true: k2 {k1}, false: k1 {k2}
 	op_mask_is_k1: bool,
@@ -62,6 +63,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		let r64_index = 0;
 		let k_index = 0;
 		let mut vec_index = 0;
+		let tmm_index = 0;
 		let bnd_index = 0;
 		let mut op_count = op_code.op_count();
 		let mut op_mask_is_k1 = false;
@@ -421,7 +423,11 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				| OpCodeOperandKind::xbegin_2
 				| OpCodeOperandKind::xbegin_4
 				| OpCodeOperandKind::brdisp_2
-				| OpCodeOperandKind::brdisp_4 => {}
+				| OpCodeOperandKind::brdisp_4
+				| OpCodeOperandKind::sibmem
+				| OpCodeOperandKind::tmm_reg
+				| OpCodeOperandKind::tmm_rm
+				| OpCodeOperandKind::tmm_vvvv => {}
 
 				OpCodeOperandKind::seg_rSI | OpCodeOperandKind::es_rDI | OpCodeOperandKind::seg_rBX_al => {
 					// string instructions, xlat
@@ -442,6 +448,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 			bnd_index,
 			k_index,
 			vec_index,
+			tmm_index,
 			op_count,
 			op_mask_is_k1,
 			no_vec_index,
@@ -485,6 +492,11 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 			}
 		}
 		self.vec_index
+	}
+
+	fn get_tmm_index(&mut self) -> u32 {
+		self.tmm_index += 1;
+		self.tmm_index
 	}
 
 	fn get_memory_size(&self, is_broadcast: bool) -> MemorySize {
@@ -543,6 +555,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					}
 
 					OpCodeOperandKind::mem | OpCodeOperandKind::mem_mpx => self.write_memory(),
+					OpCodeOperandKind::sibmem => self.sb.push_str("sibmem"),
 					OpCodeOperandKind::mem_mib => self.sb.push_str("mib"),
 
 					OpCodeOperandKind::mem_vsib32x => self.sb.push_str("vm32x"),
@@ -667,6 +680,11 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 						tmp = self.get_vec_index();
 						self.write_reg_op2("zmm", tmp);
 						self.sb.push_str("+3");
+					}
+
+					OpCodeOperandKind::tmm_reg | OpCodeOperandKind::tmm_rm | OpCodeOperandKind::tmm_vvvv => {
+						tmp = self.get_tmm_index();
+						self.write_reg_op2("tmm", tmp);
 					}
 
 					OpCodeOperandKind::bnd_reg => {

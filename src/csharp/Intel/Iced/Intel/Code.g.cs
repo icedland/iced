@@ -33790,5 +33790,101 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Getsecq = 4223,
+		/// <summary><c>LDTILECFG m512</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 49 !(11):000:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Ldtilecfg_m512 = 4224,
+		/// <summary><c>TILERELEASE</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 49 C0</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tilerelease = 4225,
+		/// <summary><c>STTILECFG m512</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 49 !(11):000:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Sttilecfg_m512 = 4226,
+		/// <summary><c>TILEZERO tmm1</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 49 11:rrr:000</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tilezero_tmm = 4227,
+		/// <summary><c>TILELOADDT1 tmm1, sibmem</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 4B !(11):rrr:100</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tileloaddt1_tmm_sibmem = 4228,
+		/// <summary><c>TILESTORED sibmem, tmm1</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 4B !(11):rrr:100</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tilestored_sibmem_tmm = 4229,
+		/// <summary><c>TILELOADD tmm1, sibmem</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 4B !(11):rrr:100</c><br/>
+		/// <br/>
+		/// <c>AMX-TILE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tileloadd_tmm_sibmem = 4230,
+		/// <summary><c>TDPBF16PS tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 5C 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-BF16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tdpbf16ps_tmm_tmm_tmm = 4231,
+		/// <summary><c>TDPBUUD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tdpbuud_tmm_tmm_tmm = 4232,
+		/// <summary><c>TDPBUSD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tdpbusd_tmm_tmm_tmm = 4233,
+		/// <summary><c>TDPBSUD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tdpbsud_tmm_tmm_tmm = 4234,
+		/// <summary><c>TDPBSSD tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 5E 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-INT8</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tdpbssd_tmm_tmm_tmm = 4235,
 	}
 }

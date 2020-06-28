@@ -63,6 +63,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		public uint OpCode = 0;
 		public bool IsGroup = false;
 		public int GroupIndex = -1;
+		public bool IsRmGroup = false;
+		public int RmGroupIndex = -1;
 		public int OpCount = 0;
 		public OpCodeOperandKind Op0Kind = OpCodeOperandKind.None;
 		public OpCodeOperandKind Op1Kind = OpCodeOperandKind.None;

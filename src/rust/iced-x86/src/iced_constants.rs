@@ -31,9 +31,9 @@ impl IcedConstants {
 	pub(crate) const MAX_OP_COUNT: usize = 5;
 	pub(crate) const MAX_INSTRUCTION_LENGTH: usize = 15;
 	pub(crate) const REGISTER_BITS: u32 = 8;
-	pub(crate) const NUMBER_OF_CODE_VALUES: usize = 4224;
-	pub(crate) const NUMBER_OF_REGISTERS: usize = 241;
-	pub(crate) const NUMBER_OF_MEMORY_SIZES: usize = 136;
+	pub(crate) const NUMBER_OF_CODE_VALUES: usize = 4236;
+	pub(crate) const NUMBER_OF_REGISTERS: usize = 249;
+	pub(crate) const NUMBER_OF_MEMORY_SIZES: usize = 138;
 	pub(crate) const NUMBER_OF_ENCODING_KINDS: usize = 5;
 	pub(crate) const NUMBER_OF_OP_KINDS: usize = 26;
 	pub(crate) const NUMBER_OF_CODE_SIZES: usize = 4;
@@ -44,7 +44,8 @@ impl IcedConstants {
 	pub(crate) const XMM_LAST: Register = Register::XMM31;
 	pub(crate) const YMM_LAST: Register = Register::YMM31;
 	pub(crate) const ZMM_LAST: Register = Register::ZMM31;
-	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 153;
+	pub(crate) const TMM_LAST: Register = Register::TMM7;
+	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 156;
 	pub(crate) const FIRST_BROADCAST_MEMORY_SIZE: MemorySize = MemorySize::Broadcast64_UInt32;
 }
 // GENERATOR-END: IcedConstants

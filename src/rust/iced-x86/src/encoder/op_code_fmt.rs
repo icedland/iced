@@ -206,6 +206,9 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				| OpCodeOperandKind::dr_reg
 				| OpCodeOperandKind::tr_reg
 				| OpCodeOperandKind::bnd_reg
+				| OpCodeOperandKind::sibmem
+				| OpCodeOperandKind::tmm_reg
+				| OpCodeOperandKind::tmm_rm
 				=> return true,
 				// GENERATOR-END: HasModRM
 
@@ -249,16 +252,61 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		OpCodeOperandKind::None
 	}
 
-	fn append_rest(&mut self) {
-		let is_vsib = self.op_code.encoding() == EncodingKind::EVEX && self.has_vsib();
-		if self.op_code.is_group() {
-			self.sb.push_str(" /");
-			write!(self.sb, "{}", self.op_code.group_index()).unwrap();
-		} else if !is_vsib && self.has_mod_rm() {
-			self.sb.push_str(" /r");
+	fn get_modrm_info(&self) -> Option<(bool, i32, i32)> {
+		let mut is_reg_only = true;
+		let rrr = self.op_code.group_index();
+		let mut bbb = self.op_code.rm_group_index();
+		let mut has_modrm_info = bbb >= 0;
+		match self.op_code.code() {
+			Code::VEX_Ldtilecfg_m512 | Code::VEX_Sttilecfg_m512 => has_modrm_info = true,
+			_ => {}
 		}
-		if is_vsib {
-			self.sb.push_str(" /vsib");
+		for i in 0..self.op_code.op_count() {
+			match self.op_code.op_kind(i) {
+				OpCodeOperandKind::mem => is_reg_only = false,
+				OpCodeOperandKind::sibmem => {
+					has_modrm_info = true;
+					is_reg_only = false;
+					bbb = 4;
+				}
+				OpCodeOperandKind::tmm_reg | OpCodeOperandKind::tmm_rm | OpCodeOperandKind::tmm_vvvv => has_modrm_info = true,
+				_ => {}
+			}
+		}
+		if has_modrm_info {
+			Some((is_reg_only, rrr, bbb))
+		} else {
+			None
+		}
+	}
+
+	fn append_bits(&mut self, name: &str, bits: i32, num_bits: u32) {
+		if bits < 0 {
+			self.sb.push_str(name);
+		} else {
+			for bit in (0..num_bits).rev() {
+				self.sb.push(if ((bits >> bit) & 1) != 0 { '1' } else { '0' });
+			}
+		}
+	}
+
+	fn append_rest(&mut self) {
+		if let Some((is_reg_only, rrr, bbb)) = self.get_modrm_info() {
+			self.sb.push_str(if is_reg_only { " 11:" } else { " !(11):" });
+			self.append_bits("rrr", rrr, 3);
+			self.sb.push_str(":");
+			self.append_bits("bbb", bbb, 3);
+		} else {
+			let is_vsib = self.op_code.encoding() == EncodingKind::EVEX && self.has_vsib();
+			if self.op_code.is_group() {
+				self.sb.push_str(" /");
+				write!(self.sb, "{}", self.op_code.group_index()).unwrap();
+			} else if !is_vsib && self.has_mod_rm() {
+				self.sb.push_str(" /r");
+			}
+			if is_vsib {
+				self.sb.push_str(" /vsib");
+			}
 		}
 
 		for i in 0..self.op_code.op_count() {

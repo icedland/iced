@@ -99,6 +99,8 @@ namespace Generator.Tables {
 				new MemorySizeInfo(memSize[nameof(MemorySize.Xsave)], 0, 0, memSize[nameof(MemorySize.Xsave)], false, false),
 				new MemorySizeInfo(memSize[nameof(MemorySize.Xsave64)], 0, 0, memSize[nameof(MemorySize.Xsave64)], false, false),
 				new MemorySizeInfo(memSize[nameof(MemorySize.Bcd)], 10, 10, memSize[nameof(MemorySize.Bcd)], true, false),
+				new MemorySizeInfo(memSize[nameof(MemorySize.Tilecfg)], 64, 64, memSize[nameof(MemorySize.Tilecfg)], false, false),
+				new MemorySizeInfo(memSize[nameof(MemorySize.Tile)], 0, 0, memSize[nameof(MemorySize.Tile)], false, false),
 				new MemorySizeInfo(memSize[nameof(MemorySize.Packed16_UInt8)], 2, 1, memSize[nameof(MemorySize.UInt8)], false, false),
 				new MemorySizeInfo(memSize[nameof(MemorySize.Packed16_Int8)], 2, 1, memSize[nameof(MemorySize.Int8)], true, false),
 				new MemorySizeInfo(memSize[nameof(MemorySize.Packed32_UInt8)], 4, 1, memSize[nameof(MemorySize.UInt8)], false, false),

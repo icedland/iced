@@ -4262,6 +4262,18 @@ namespace Generator.Formatters.Nasm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Ud0)], "ud0" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Vmgexit)], "vmgexit" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_2)], code[nameof(Code.Getsecq)], "getsec", instrOpInfoFlags[nameof(InstrOpInfoFlags.OpSize64)] },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Ldtilecfg_m512)], "ldtilecfg" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tilerelease)], "tilerelease" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Sttilecfg_m512)], "sttilecfg" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tilezero_tmm)], "tilezero" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tileloaddt1_tmm_sibmem)], "tileloaddt1" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tilestored_sibmem_tmm)], "tilestored" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tileloadd_tmm_sibmem)], "tileloadd" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbf16ps_tmm_tmm_tmm)], "tdpbf16ps" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbuud_tmm_tmm_tmm)], "tdpbuud" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbusd_tmm_tmm_tmm)], "tdpbusd" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbsud_tmm_tmm_tmm)], "tdpbsud" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbssd_tmm_tmm_tmm)], "tdpbssd" },
 			});
 		}
 	}

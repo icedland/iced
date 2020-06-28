@@ -1574,5 +1574,17 @@ namespace Generator.Enums {
 		Vmgexit,
 		Getsecq,
 		Sysexitq,
+		Ldtilecfg,
+		Tilerelease,
+		Sttilecfg,
+		Tilezero,
+		Tileloaddt1,
+		Tilestored,
+		Tileloadd,
+		Tdpbf16ps,
+		Tdpbuud,
+		Tdpbusd,
+		Tdpbsud,
+		Tdpbssd,
 	}
 }

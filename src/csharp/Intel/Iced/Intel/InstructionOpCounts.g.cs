@@ -4256,6 +4256,18 @@ namespace Iced.Intel {
 			0,// Ud0
 			0,// Vmgexit
 			0,// Getsecq
+			1,// VEX_Ldtilecfg_m512
+			0,// VEX_Tilerelease
+			1,// VEX_Sttilecfg_m512
+			1,// VEX_Tilezero_tmm
+			2,// VEX_Tileloaddt1_tmm_sibmem
+			2,// VEX_Tilestored_sibmem_tmm
+			2,// VEX_Tileloadd_tmm_sibmem
+			3,// VEX_Tdpbf16ps_tmm_tmm_tmm
+			3,// VEX_Tdpbuud_tmm_tmm_tmm
+			3,// VEX_Tdpbusd_tmm_tmm_tmm
+			3,// VEX_Tdpbsud_tmm_tmm_tmm
+			3,// VEX_Tdpbssd_tmm_tmm_tmm
 		};
 	}
 }

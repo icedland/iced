@@ -32127,3 +32127,123 @@ F3 0F01 D9, Vmgexit, Vmgexit, 0,
 F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 F3 4F 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 F2 4F 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
+
+C4E278 49 00, VEX_Ldtilecfg_m512, Ldtilecfg, 1, op0=m;ds;rax;;1;0;0;Tilecfg
+C46278 49 00, VEX_Ldtilecfg_m512, Ldtilecfg, 1, op0=m;ds;rax;;1;0;0;Tilecfg enc=C4E2784900
+
+C4E278 49 C0, VEX_Tilerelease, Tilerelease, 0,
+C40278 49 C0, VEX_Tilerelease, Tilerelease, 0, enc=C4E27849C0
+
+C4E279 49 00, VEX_Sttilecfg_m512, Sttilecfg, 1, op0=m;ds;rax;;1;0;0;Tilecfg
+C46279 49 00, VEX_Sttilecfg_m512, Sttilecfg, 1, op0=m;ds;rax;;1;0;0;Tilecfg enc=C4E2794900
+
+C4E27B 49 D0, VEX_Tilezero_tmm, Tilezero, 1, op0=r;tmm2
+C4827B 49 D0, VEX_Tilezero_tmm, Tilezero, 1, op0=r;tmm2 enc=C4E27B49D0
+C4627B 49 D0, VEX_Tilezero_tmm, Tilezero, 1, op0=r;tmm2 noinvalidcheck enc=C4E27B49D0
+C4627B 49 D0, INVALID, INVALID, 0, code=VEX_Tilezero_tmm
+
+C4E279 4B 14 91, VEX_Tileloaddt1_tmm_sibmem, Tileloaddt1, 2, op0=r;tmm2 op1=m;ds;rcx;rdx;4;0;0;Tile
+C4E279 4B 14 24, VEX_Tileloaddt1_tmm_sibmem, Tileloaddt1, 2, op0=r;tmm2 op1=m;ss;rsp;;1;0;0;Tile
+C46279 4B 14 91, VEX_Tileloaddt1_tmm_sibmem, Tileloaddt1, 2, op0=r;tmm2 op1=m;ds;rcx;rdx;4;0;0;Tile noinvalidcheck enc=C4E2794B1491
+C46279 4B 14 91, INVALID, INVALID, 0, code=VEX_Tileloaddt1_tmm_sibmem
+C4E279 4B 08, VEX_Tileloaddt1_tmm_sibmem, Tileloaddt1, 2, op0=r;tmm1 op1=m;ds;rax;;1;0;0;Tile noinvalidcheck enc=C4E2794B0C20
+C4E279 4B 08, INVALID, INVALID, 0, code=VEX_Tileloaddt1_tmm_sibmem
+
+C4E27A 4B 14 91, VEX_Tilestored_sibmem_tmm, Tilestored, 2, op0=m;ds;rcx;rdx;4;0;0;Tile op1=r;tmm2
+C4E27A 4B 14 24, VEX_Tilestored_sibmem_tmm, Tilestored, 2, op0=m;ss;rsp;;1;0;0;Tile op1=r;tmm2
+C4627A 4B 14 91, VEX_Tilestored_sibmem_tmm, Tilestored, 2, op0=m;ds;rcx;rdx;4;0;0;Tile op1=r;tmm2 noinvalidcheck enc=C4E27A4B1491
+C4627A 4B 14 91, INVALID, INVALID, 0, code=VEX_Tilestored_sibmem_tmm
+C4E27A 4B 08, VEX_Tilestored_sibmem_tmm, Tilestored, 2, op0=m;ds;rax;;1;0;0;Tile op1=r;tmm1 noinvalidcheck enc=C4E27A4B0C20
+C4E27A 4B 08, INVALID, INVALID, 0, code=VEX_Tilestored_sibmem_tmm
+
+C4E27B 4B 14 91, VEX_Tileloadd_tmm_sibmem, Tileloadd, 2, op0=r;tmm2 op1=m;ds;rcx;rdx;4;0;0;Tile
+C4E27B 4B 14 24, VEX_Tileloadd_tmm_sibmem, Tileloadd, 2, op0=r;tmm2 op1=m;ss;rsp;;1;0;0;Tile
+C4627B 4B 14 91, VEX_Tileloadd_tmm_sibmem, Tileloadd, 2, op0=r;tmm2 op1=m;ds;rcx;rdx;4;0;0;Tile noinvalidcheck enc=C4E27B4B1491
+C4627B 4B 14 91, INVALID, INVALID, 0, code=VEX_Tileloadd_tmm_sibmem
+C4E27B 4B 08, VEX_Tileloadd_tmm_sibmem, Tileloadd, 2, op0=r;tmm1 op1=m;ds;rax;;1;0;0;Tile noinvalidcheck enc=C4E27B4B0C20
+C4E27B 4B 08, INVALID, INVALID, 0, code=VEX_Tileloadd_tmm_sibmem
+
+C4E25A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4
+C4A25A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 enc=C4E25A5CD3
+C4625A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25A5CD3
+C4625A 5C D3, INVALID, INVALID, 0, code=VEX_Tdpbf16ps_tmm_tmm_tmm
+C4C25A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25A5CD3
+C4C25A 5C D3, INVALID, INVALID, 0, code=VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E21A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25A5CD3
+C4E21A 5C D3, INVALID, INVALID, 0, code=VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E25A 5C D2, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm4 noinvalidcheck
+C4E25A 5C D2, INVALID, INVALID, 0, code=VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E26A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm2 noinvalidcheck
+C4E26A 5C D3, INVALID, INVALID, 0, code=VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E262 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm3 noinvalidcheck
+C4E262 5C D3, INVALID, INVALID, 0, code=VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E26A 5C D2, VEX_Tdpbf16ps_tmm_tmm_tmm, Tdpbf16ps, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm2 noinvalidcheck
+C4E26A 5C D2, INVALID, INVALID, 0, code=VEX_Tdpbf16ps_tmm_tmm_tmm
+
+C4E258 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4
+C4A258 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 enc=C4E2585ED3
+C46258 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E2585ED3
+C46258 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbuud_tmm_tmm_tmm
+C4C258 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E2585ED3
+C4C258 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbuud_tmm_tmm_tmm
+C4E218 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E2585ED3
+C4E218 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbuud_tmm_tmm_tmm
+C4E258 5E D2, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm4 noinvalidcheck
+C4E258 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbuud_tmm_tmm_tmm
+C4E268 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm2 noinvalidcheck
+C4E268 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbuud_tmm_tmm_tmm
+C4E260 5E D3, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm3 noinvalidcheck
+C4E260 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbuud_tmm_tmm_tmm
+C4E268 5E D2, VEX_Tdpbuud_tmm_tmm_tmm, Tdpbuud, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm2 noinvalidcheck
+C4E268 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbuud_tmm_tmm_tmm
+
+C4E259 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4
+C4A259 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 enc=C4E2595ED3
+C46259 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E2595ED3
+C46259 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbusd_tmm_tmm_tmm
+C4C259 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E2595ED3
+C4C259 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbusd_tmm_tmm_tmm
+C4E219 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E2595ED3
+C4E219 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbusd_tmm_tmm_tmm
+C4E259 5E D2, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm4 noinvalidcheck
+C4E259 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbusd_tmm_tmm_tmm
+C4E269 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm2 noinvalidcheck
+C4E269 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbusd_tmm_tmm_tmm
+C4E261 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm3 noinvalidcheck
+C4E261 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbusd_tmm_tmm_tmm
+C4E269 5E D2, VEX_Tdpbusd_tmm_tmm_tmm, Tdpbusd, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm2 noinvalidcheck
+C4E269 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbusd_tmm_tmm_tmm
+
+C4E25A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4
+C4A25A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 enc=C4E25A5ED3
+C4625A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25A5ED3
+C4625A 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbsud_tmm_tmm_tmm
+C4C25A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25A5ED3
+C4C25A 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbsud_tmm_tmm_tmm
+C4E21A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25A5ED3
+C4E21A 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbsud_tmm_tmm_tmm
+C4E25A 5E D2, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm4 noinvalidcheck
+C4E25A 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbsud_tmm_tmm_tmm
+C4E26A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm2 noinvalidcheck
+C4E26A 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbsud_tmm_tmm_tmm
+C4E262 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm3 noinvalidcheck
+C4E262 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbsud_tmm_tmm_tmm
+C4E26A 5E D2, VEX_Tdpbsud_tmm_tmm_tmm, Tdpbsud, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm2 noinvalidcheck
+C4E26A 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbsud_tmm_tmm_tmm
+
+C4E25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4
+C4A25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 enc=C4E25B5ED3
+C4625B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25B5ED3
+C4625B 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
+C4C25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25B5ED3
+C4C25B 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
+C4E21B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm4 noinvalidcheck enc=C4E25B5ED3
+C4E21B 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
+C4E25B 5E D2, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm4 noinvalidcheck
+C4E25B 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
+C4E26B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm2 noinvalidcheck
+C4E26B 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
+C4E263 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;tmm3 noinvalidcheck
+C4E263 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
+C4E26B 5E D2, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm2 noinvalidcheck
+C4E26B 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm

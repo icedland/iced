@@ -56,6 +56,12 @@ static OP_HX_RAX_R15: OpHx = OpHx {
 	reg_lo: Register::RAX,
 	reg_hi: Register::R15,
 };
+#[cfg(not(feature = "no_vex"))]
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static OP_HX_TMM0_TMM7: OpHx = OpHx {
+	reg_lo: Register::TMM0,
+	reg_hi: Register::TMM7,
+};
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static OP_HX_XMM0_XMM15: OpHx = OpHx {
@@ -254,6 +260,12 @@ static OP_MOD_RM_REG_RAX_R15: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::RAX,
 	reg_hi: Register::R15,
 };
+#[cfg(not(feature = "no_vex"))]
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static OP_MOD_RM_REG_TMM0_TMM7: OpModRM_reg = OpModRM_reg {
+	reg_lo: Register::TMM0,
+	reg_hi: Register::TMM7,
+};
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static OP_MOD_RM_REG_TR0_TR7: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::TR0,
@@ -315,7 +327,14 @@ static OP_MOD_RM_RM_K0_K7: OpModRM_rm = OpModRM_rm {
 	reg_hi: Register::K7,
 };
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static OP_MOD_RM_RM_MEM_ONLY: OpModRM_rm_mem_only = OpModRM_rm_mem_only;
+static OP_MOD_RM_RM_MEM_ONLY_FALSE: OpModRM_rm_mem_only = OpModRM_rm_mem_only {
+	must_use_sib: false,
+};
+#[cfg(not(feature = "no_vex"))]
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static OP_MOD_RM_RM_MEM_ONLY_TRUE: OpModRM_rm_mem_only = OpModRM_rm_mem_only {
+	must_use_sib: true,
+};
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static OP_MOD_RM_RM_MM0_MM7: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::MM0,
@@ -351,6 +370,12 @@ static OP_MOD_RM_RM_REG_ONLY_MM0_MM7: OpModRM_rm_reg_only = OpModRM_rm_reg_only 
 static OP_MOD_RM_RM_REG_ONLY_RAX_R15: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
 	reg_lo: Register::RAX,
 	reg_hi: Register::R15,
+};
+#[cfg(not(feature = "no_vex"))]
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+static OP_MOD_RM_RM_REG_ONLY_TMM0_TMM7: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
+	reg_lo: Register::TMM0,
+	reg_hi: Register::TMM7,
 };
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static OP_MOD_RM_RM_REG_ONLY_XMM0_XMM15: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
@@ -528,29 +553,29 @@ pub(super) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 	&NONE,// None
 	&OP_A_2,// Aww
 	&OP_A_4,// Adw
-	&OP_MOD_RM_RM_MEM_ONLY,// M
-	&OP_MOD_RM_RM_MEM_ONLY,// Mfbcd
-	&OP_MOD_RM_RM_MEM_ONLY,// Mf32
-	&OP_MOD_RM_RM_MEM_ONLY,// Mf64
-	&OP_MOD_RM_RM_MEM_ONLY,// Mf80
-	&OP_MOD_RM_RM_MEM_ONLY,// Mfi16
-	&OP_MOD_RM_RM_MEM_ONLY,// Mfi32
-	&OP_MOD_RM_RM_MEM_ONLY,// Mfi64
-	&OP_MOD_RM_RM_MEM_ONLY,// M14
-	&OP_MOD_RM_RM_MEM_ONLY,// M28
-	&OP_MOD_RM_RM_MEM_ONLY,// M98
-	&OP_MOD_RM_RM_MEM_ONLY,// M108
-	&OP_MOD_RM_RM_MEM_ONLY,// Mp
-	&OP_MOD_RM_RM_MEM_ONLY,// Ms
-	&OP_MOD_RM_RM_MEM_ONLY,// Mo
-	&OP_MOD_RM_RM_MEM_ONLY,// Mb
-	&OP_MOD_RM_RM_MEM_ONLY,// Mw
-	&OP_MOD_RM_RM_MEM_ONLY,// Md
-	&OP_MOD_RM_RM_MEM_ONLY,// Md_MPX
-	&OP_MOD_RM_RM_MEM_ONLY,// Mq
-	&OP_MOD_RM_RM_MEM_ONLY,// Mq_MPX
-	&OP_MOD_RM_RM_MEM_ONLY,// Mw2
-	&OP_MOD_RM_RM_MEM_ONLY,// Md2
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// M
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mfbcd
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mf32
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mf64
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mf80
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mfi16
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mfi32
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mfi64
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// M14
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// M28
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// M98
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// M108
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mp
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Ms
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mo
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mb
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mw
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Md
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Md_MPX
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mq
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mq_MPX
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Mw2
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Md2
 	&OP_MOD_RM_RM_AL_R15_L,// Eb
 	&OP_MOD_RM_RM_AX_R15_W,// Ew
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed
@@ -559,9 +584,9 @@ pub(super) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 	&OP_MOD_RM_RM_RAX_R15,// Ew_q
 	&OP_MOD_RM_RM_RAX_R15,// Eq
 	&OP_MOD_RM_RM_RAX_R15,// Eq_MPX
-	&OP_MOD_RM_RM_MEM_ONLY,// Eww
-	&OP_MOD_RM_RM_MEM_ONLY,// Edw
-	&OP_MOD_RM_RM_MEM_ONLY,// Eqw
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Eww
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Edw
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Eqw
 	&OP_MOD_RM_RM_EAX_R15_D,// RdMb
 	&OP_MOD_RM_RM_RAX_R15,// RqMb
 	&OP_MOD_RM_RM_EAX_R15_D,// RdMw
@@ -619,7 +644,7 @@ pub(super) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 	&OP_MOD_RM_REG_BND0_BND3,// B
 	&OP_MOD_RM_RM_BND0_BND3,// BMq
 	&OP_MOD_RM_RM_BND0_BND3,// BMo
-	&OP_MOD_RM_RM_MEM_ONLY,// MIB
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// MIB
 	&OP_MOD_RM_RM_REG_ONLY_MM0_MM7,// N
 	&OP_MOD_RM_REG_MM0_MM7,// P
 	&OP_MOD_RM_RM_MM0_MM7,// Q
@@ -649,7 +674,7 @@ pub(super) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 ];
 #[cfg(not(feature = "no_vex"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(super) static VEX_TABLE: [&(Op + Sync); 39] = [
+pub(super) static VEX_TABLE: [&(Op + Sync); 43] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed
 	&OP_MOD_RM_RM_RAX_R15,// Eq
@@ -672,9 +697,9 @@ pub(super) static VEX_TABLE: [&(Op + Sync); 39] = [
 	&OP_IS4X_YMM0_YMM15,// Is4Y
 	&OP_IS4X_XMM0_XMM15,// Is5X
 	&OP_IS4X_YMM0_YMM15,// Is5Y
-	&OP_MOD_RM_RM_MEM_ONLY,// M
-	&OP_MOD_RM_RM_MEM_ONLY,// Md
-	&OP_MOD_RM_RM_MEM_ONLY,// MK
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// M
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// Md
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// MK
 	&OPR_DI,// rDI
 	&OP_MOD_RM_RM_REG_ONLY_K0_K7,// RK
 	&OP_MOD_RM_RM_REG_ONLY_XMM0_XMM15,// RX
@@ -689,6 +714,10 @@ pub(super) static VEX_TABLE: [&(Op + Sync); 39] = [
 	&OP_MOD_RM_RM_K0_K7,// WK
 	&OP_MOD_RM_RM_XMM0_XMM15,// WX
 	&OP_MOD_RM_RM_YMM0_YMM15,// WY
+	&OP_MOD_RM_RM_MEM_ONLY_TRUE,// Sibmem
+	&OP_MOD_RM_REG_TMM0_TMM7,// VT
+	&OP_MOD_RM_RM_REG_ONLY_TMM0_TMM7,// RT
+	&OP_HX_TMM0_TMM7,// HT
 ];
 #[cfg(not(feature = "no_xop"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -731,7 +760,7 @@ pub(super) static EVEX_TABLE: [&(Op + Sync); 36] = [
 	&OP_HX_XMM0_XMM31,// HXP3
 	&OP_HX_ZMM0_ZMM31,// HZP3
 	&OP_IB_IMMEDIATE8,// Ib
-	&OP_MOD_RM_RM_MEM_ONLY,// M
+	&OP_MOD_RM_RM_MEM_ONLY_FALSE,// M
 	&OP_MOD_RM_RM_REG_ONLY_EAX_R15_D,// Rd
 	&OP_MOD_RM_RM_REG_ONLY_RAX_R15,// Rq
 	&OP_MOD_RM_RM_REG_ONLY_XMM0_XMM31,// RX

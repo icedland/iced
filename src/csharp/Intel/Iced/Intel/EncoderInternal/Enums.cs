@@ -88,6 +88,7 @@ namespace Iced.Intel.EncoderInternal {
 		Displ = 0x00001000,
 		PF0 = 0x00002000,
 		RegIsMemory = 0x00004000,
+		MustUseSib = 0x00008000,
 		VvvvvShift = 0x0000001B,
 		VvvvvMask = 0x0000001F,
 	}
@@ -334,6 +335,7 @@ namespace Iced.Intel.EncoderInternal {
 		VexVectorLengthShift = 0x0000000A,
 		WBitMask = 0x00000003,
 		WBitShift = 0x0000000D,
+		HasRmGroupIndex = 0x00008000,
 	}
 	// GENERATOR-END: VexFlags
 #endif
@@ -580,6 +582,10 @@ namespace Iced.Intel.EncoderInternal {
 		WK,
 		WX,
 		WY,
+		Sibmem,
+		VT,
+		RT,
+		HT,
 	}
 	// GENERATOR-END: VexOpKind
 #endif

@@ -234,5 +234,13 @@ namespace Generator.Enums.Encoder {
 		brdisp_2,
 		[Comment("4-byte branch offset (#(c:JMPE)# instruction)")]
 		brdisp_4,
+		[Comment("Memory (modrm) and the sib byte must be present")]
+		sibmem,
+		[Comment("TMM register encoded in the #(c:reg)# field of the modrm byte")]
+		tmm_reg,
+		[Comment("TMM register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
+		tmm_rm,
+		[Comment("TMM register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		tmm_vvvv,
 	}
 }

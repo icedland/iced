@@ -69,6 +69,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Register, "XMM_last", regEnum[Get_VEC_last("XMM")].Value),
 				new Constant(ConstantKind.Register, "YMM_last", regEnum[Get_VEC_last("YMM")].Value),
 				new Constant(ConstantKind.Register, "ZMM_last", regEnum[Get_VEC_last("ZMM")].Value),
+				new Constant(ConstantKind.Register, "TMM_last", Get_TMM_last().Value),
 				new Constant(ConstantKind.Index, "MaxCpuidFeatureInternalValues", (uint)genTypes[TypeIds.CpuidFeatureInternal].Values.Length),
 				new Constant(ConstantKind.MemorySize, IcedConstants.FirstBroadcastMemorySizeName, GetFirstBroadcastMemorySize()),
 			};
@@ -85,6 +86,22 @@ namespace Generator.Constants {
 			if (genTypes[TypeIds.Register].Values.Any(a => a.RawName == vmmShouldNotExistStr))
 				throw new InvalidOperationException($"Register {vmmShouldNotExistStr} exists so {vmmLast.RawName} isn't the last one");
 			return vmmLast.RawName;
+		}
+		EnumValue Get_TMM_last() {
+			int lastIndex = -1;
+			EnumValue? tmm = null;
+			var regs = genTypes[TypeIds.Register];
+			const string TMMPrefix = "TMM";
+			foreach (var reg in regs.Values) {
+				if (!reg.RawName.StartsWith(TMMPrefix))
+					continue;
+				int index = int.Parse(reg.RawName.Substring(TMMPrefix.Length));
+				if (index > lastIndex) {
+					lastIndex = index;
+					tmm = reg;
+				}
+			}
+			return tmm ?? throw new InvalidOperationException();
 		}
 
 		uint GetFirstBroadcastMemorySize() {

@@ -110,6 +110,10 @@ namespace Generator.Enums {
 		Xsave64,
 		[Comment("Memory location contains a 10-byte #(t:bcd)# value (#(c:FBLD)#/#(c:FBSTP)#)")]
 		Bcd,
+		[Comment("64-bit location: TILECFG (#(c:LDTILECFG)#/#(c:STTILECFG)#)")]
+		Tilecfg,
+		[Comment("Tile data")]
+		Tile,
 		[Comment("16 bit location: 2 x #(t:u8)#")]
 		Packed16_UInt8,
 		[Comment("16 bit location: 2 x #(t:i8)#")]

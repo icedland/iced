@@ -255,7 +255,6 @@ namespace Generator.Encoder.Rust {
 					case OpHandlerKind.OpIb21:
 					case OpHandlerKind.OpIq:
 					case OpHandlerKind.OpIw:
-					case OpHandlerKind.OpModRM_rm_mem_only:
 					case OpHandlerKind.OpMRBX:
 					case OpHandlerKind.OpO:
 					case OpHandlerKind.OprDI:
@@ -265,6 +264,15 @@ namespace Generator.Encoder.Rust {
 						if (info.Args.Length != 0)
 							throw new InvalidOperationException();
 						writer.WriteLine(";");
+						break;
+
+					case OpHandlerKind.OpModRM_rm_mem_only:
+						if (info.Args.Length != 1)
+							throw new InvalidOperationException();
+						writer.WriteLine(" {");
+						using (writer.Indent())
+							WriteFieldBool(writer, "must_use_sib", (bool)info.Args[0]);
+						writer.WriteLine("};");
 						break;
 
 					default:
@@ -317,6 +325,9 @@ namespace Generator.Encoder.Rust {
 			void WriteField(FileWriter writer, string name, EnumValue value) =>
 				writer.WriteLine($"{name}: {value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)},");
 
+			void WriteFieldBool(FileWriter writer, string name, bool value) =>
+				writer.WriteLine($"{name}: {(value ? "true" : "false")},");
+
 			void Add(StringBuilder sb, Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo> dict, IEnumerable<(OpHandlerKind opHandlerKind, object[] args)> values, OpInfoFlags flags) {
 				foreach (var value in values) {
 					if (!dict.TryGetValue(value, out var opInfo))
@@ -336,6 +347,9 @@ namespace Generator.Encoder.Rust {
 						break;
 					case int value:
 						sb.Append(value.ToString());
+						break;
+					case bool value:
+						sb.Append(value ? "true" : "false");
 						break;
 					default:
 						throw new InvalidOperationException();

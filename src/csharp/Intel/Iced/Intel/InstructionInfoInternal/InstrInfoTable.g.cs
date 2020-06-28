@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[8448] {
+		internal static readonly uint[] Data = new uint[8472] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -4253,6 +4253,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000000, 0x03900000,// Ud0
 			0x00000000, 0x83500000,// Vmgexit
 			0x08000000, 0x7A000000,// Getsecq
+			0x26800004, 0x9A000001,// VEX_Ldtilecfg_m512
+			0x26800000, 0x9A000001,// VEX_Tilerelease
+			0x20000007, 0x9A000001,// VEX_Sttilecfg_m512
+			0x20000007, 0x9A000001,// VEX_Tilezero_tmm
+			0x20000037, 0x9A000001,// VEX_Tileloaddt1_tmm_sibmem
+			0x20000037, 0x9A000001,// VEX_Tilestored_sibmem_tmm
+			0x20000037, 0x9A000001,// VEX_Tileloadd_tmm_sibmem
+			0x200000B6, 0x99000001,// VEX_Tdpbf16ps_tmm_tmm_tmm
+			0x200000B6, 0x9B000001,// VEX_Tdpbuud_tmm_tmm_tmm
+			0x200000B6, 0x9B000001,// VEX_Tdpbusd_tmm_tmm_tmm
+			0x200000B6, 0x9B000001,// VEX_Tdpbsud_tmm_tmm_tmm
+			0x200000B6, 0x9B000001,// VEX_Tdpbssd_tmm_tmm_tmm
 		};
 	}
 }

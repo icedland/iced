@@ -64,6 +64,8 @@ Fxsave64_512Byte, 512, 512, Fxsave64_512Byte, 1,
 Xsave, 0, 0, Xsave, 1,
 Xsave64, 0, 0, Xsave64, 1,
 Bcd, 10, 10, Bcd, 1, signed
+Tilecfg, 64, 64, Tilecfg, 1,
+Tile, 0, 0, Tile, 1,
 Packed16_UInt8, 2, 1, UInt8, 2, packed
 Packed16_Int8, 2, 1, Int8, 2, packed signed
 Packed32_UInt8, 4, 1, UInt8, 4, packed

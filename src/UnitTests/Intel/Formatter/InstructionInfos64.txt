@@ -8365,3 +8365,21 @@ F2 0F 01 E9, Xresldtrk
 0F0D 38, PrefetchReserved7_m8
 0FFF, Ud0, AMD
 F3 0F01 D9, Vmgexit
+C4E278 49 00, VEX_Ldtilecfg_m512
+C4E278 49 C0, VEX_Tilerelease
+C4E279 49 00, VEX_Sttilecfg_m512
+C4E27B 49 D0, VEX_Tilezero_tmm
+C4E279 4B 14 91, VEX_Tileloaddt1_tmm_sibmem
+C4E279 4B 14 24, VEX_Tileloaddt1_tmm_sibmem
+C4E27A 4B 14 91, VEX_Tilestored_sibmem_tmm
+C4E27A 4B 14 24, VEX_Tilestored_sibmem_tmm
+C4E27B 4B 14 91, VEX_Tileloadd_tmm_sibmem
+C4E27B 4B 14 24, VEX_Tileloadd_tmm_sibmem
+C4E25A 5C D3, VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E258 5E D3, VEX_Tdpbuud_tmm_tmm_tmm
+C4E259 5E D3, VEX_Tdpbusd_tmm_tmm_tmm
+C4E25A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm
+C4E25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm
+C4E26A 5C C1, VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E252 5C DC, VEX_Tdpbf16ps_tmm_tmm_tmm
+C4E27A 5C F7, VEX_Tdpbf16ps_tmm_tmm_tmm

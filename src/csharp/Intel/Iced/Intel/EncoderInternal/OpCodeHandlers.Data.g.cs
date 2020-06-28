@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel.EncoderInternal {
 	static partial class OpCodeHandlers {
 		public static uint[] GetData() =>
-			new uint[4224 * 3] {
+			new uint[4236 * 3] {
 				0x00000000, 0x00000000, 0x00000000,// INVALID
 				0x00000000, 0x00000000, 0x00000000,// DeclareByte
 				0x00000000, 0x00000000, 0x00000000,// DeclareWord
@@ -4254,6 +4254,18 @@ namespace Iced.Intel.EncoderInternal {
 				0x00FF0000, 0x00000004, 0x00000000,// Ud0
 				0x01D90000, 0x00008006, 0x00000000,// Vmgexit
 				0x00370000, 0x00038024, 0x00000000,// Getsecq
+				0x00490001, 0x00000C68, 0x00000016,// VEX_Ldtilecfg_m512
+				0x49C00001, 0x00000C28, 0x00000000,// VEX_Tilerelease
+				0x00490001, 0x00000C69, 0x00000016,// VEX_Sttilecfg_m512
+				0x00490001, 0x00008C2B, 0x00000028,// VEX_Tilezero_tmm
+				0x004B0001, 0x00000C29, 0x000009E8,// VEX_Tileloaddt1_tmm_sibmem
+				0x004B0001, 0x00000C2A, 0x00000A27,// VEX_Tilestored_sibmem_tmm
+				0x004B0001, 0x00000C2B, 0x000009E8,// VEX_Tileloadd_tmm_sibmem
+				0x005C0001, 0x00000C2A, 0x0002AA68,// VEX_Tdpbf16ps_tmm_tmm_tmm
+				0x005E0001, 0x00000C28, 0x0002AA68,// VEX_Tdpbuud_tmm_tmm_tmm
+				0x005E0001, 0x00000C29, 0x0002AA68,// VEX_Tdpbusd_tmm_tmm_tmm
+				0x005E0001, 0x00000C2A, 0x0002AA68,// VEX_Tdpbsud_tmm_tmm_tmm
+				0x005E0001, 0x00000C2B, 0x0002AA68,// VEX_Tdpbssd_tmm_tmm_tmm
 			};
 	}
 }

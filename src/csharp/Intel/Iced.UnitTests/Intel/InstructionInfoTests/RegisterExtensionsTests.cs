@@ -58,6 +58,29 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(fullRegister32, register.GetFullRegister32());
 			Assert.Equal(size, register.GetSize());
 
+			const RegisterFlags allFlags =
+				RegisterFlags.SegmentRegister |
+				RegisterFlags.GPR |
+				RegisterFlags.GPR8 |
+				RegisterFlags.GPR16 |
+				RegisterFlags.GPR32 |
+				RegisterFlags.GPR64 |
+				RegisterFlags.XMM |
+				RegisterFlags.YMM |
+				RegisterFlags.ZMM |
+				RegisterFlags.VectorRegister |
+				RegisterFlags.IP |
+				RegisterFlags.K |
+				RegisterFlags.BND |
+				RegisterFlags.CR |
+				RegisterFlags.DR |
+				RegisterFlags.TR |
+				RegisterFlags.ST |
+				RegisterFlags.MM |
+				RegisterFlags.TMM;
+			// If it fails, update the flags above and the code below, eg. add a IsTMM() test
+			Assert.Equal(flags, flags & allFlags);
+
 			Assert.Equal((flags & RegisterFlags.SegmentRegister) != 0, register.IsSegmentRegister());
 			Assert.Equal((flags & RegisterFlags.GPR) != 0, register.IsGPR());
 			Assert.Equal((flags & RegisterFlags.GPR8) != 0, register.IsGPR8());
@@ -76,6 +99,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal((flags & RegisterFlags.TR) != 0, register.IsTR());
 			Assert.Equal((flags & RegisterFlags.ST) != 0, register.IsST());
 			Assert.Equal((flags & RegisterFlags.MM) != 0, register.IsMM());
+			Assert.Equal((flags & RegisterFlags.TMM) != 0, register.IsTMM());
 		}
 		public static IEnumerable<object[]> VerifyRegisterProperties_Data {
 			get {

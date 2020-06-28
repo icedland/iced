@@ -80,6 +80,7 @@ pub struct OpCodeInfo {
 	table: OpCodeTableKind,
 	mandatory_prefix: MandatoryPrefix,
 	group_index: i8,
+	rm_group_index: i8,
 	op0_kind: OpCodeOperandKind,
 	op1_kind: OpCodeOperandKind,
 	op2_kind: OpCodeOperandKind,
@@ -106,6 +107,7 @@ impl OpCodeInfo {
 		let mandatory_prefix;
 		let table;
 		let group_index;
+		let rm_group_index;
 		let tuple_type;
 		let operand_size;
 		let address_size;
@@ -146,6 +148,7 @@ impl OpCodeInfo {
 				};
 
 				group_index = if (dword2 & LegacyFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> LegacyFlags::GROUP_SHIFT) & 7) as i8 };
+				rm_group_index = -1;
 				tuple_type = TupleType::None;
 
 				if (flags & Flags::NO_INSTRUCTION) != 0 {
@@ -205,6 +208,7 @@ impl OpCodeInfo {
 				mandatory_prefix = MandatoryPrefix::None;
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
+				rm_group_index = -1;
 				tuple_type = TupleType::None;
 				operand_size = 0;
 				address_size = 0;
@@ -237,6 +241,7 @@ impl OpCodeInfo {
 				};
 
 				group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i8 };
+				rm_group_index = if (dword2 & VexFlags::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i8 };
 				tuple_type = TupleType::None;
 
 				flags |= match unsafe { mem::transmute(((dword2 >> VexFlags::ENCODABLE_SHIFT) & VexFlags::ENCODABLE_MASK) as u8) } {
@@ -292,6 +297,7 @@ impl OpCodeInfo {
 				mandatory_prefix = MandatoryPrefix::None;
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
+				rm_group_index = -1;
 				tuple_type = TupleType::None;
 				operand_size = 0;
 				address_size = 0;
@@ -325,6 +331,7 @@ impl OpCodeInfo {
 				};
 
 				group_index = if (dword2 & EvexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> EvexFlags::GROUP_SHIFT) & 7) as i8 };
+				rm_group_index = -1;
 				tuple_type = unsafe { mem::transmute(((dword2 >> EvexFlags::TUPLE_TYPE_SHIFT) & EvexFlags::TUPLE_TYPE_MASK) as u8) };
 
 				flags |= match unsafe { mem::transmute(((dword2 >> EvexFlags::ENCODABLE_SHIFT) & EvexFlags::ENCODABLE_MASK) as u8) } {
@@ -446,6 +453,7 @@ impl OpCodeInfo {
 				mandatory_prefix = MandatoryPrefix::None;
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
+				rm_group_index = -1;
 				tuple_type = TupleType::None;
 				operand_size = 0;
 				address_size = 0;
@@ -478,6 +486,7 @@ impl OpCodeInfo {
 				};
 
 				group_index = if (dword2 & XopFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> XopFlags::GROUP_SHIFT) & 7) as i8 };
+				rm_group_index = -1;
 				tuple_type = TupleType::None;
 
 				flags |= match unsafe { mem::transmute(((dword2 >> XopFlags::ENCODABLE_SHIFT) & XopFlags::ENCODABLE_MASK) as u8) } {
@@ -524,6 +533,7 @@ impl OpCodeInfo {
 				mandatory_prefix = MandatoryPrefix::None;
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
+				rm_group_index = -1;
 				tuple_type = TupleType::None;
 				operand_size = 0;
 				address_size = 0;
@@ -542,6 +552,7 @@ impl OpCodeInfo {
 				mandatory_prefix = MandatoryPrefix::None;
 				table = OpCodeTableKind::T0F;
 				group_index = -1;
+				rm_group_index = -1;
 				tuple_type = TupleType::None;
 
 				flags |= match unsafe { mem::transmute(((dword2 >> D3nowFlags::ENCODABLE_SHIFT) & D3nowFlags::ENCODABLE_MASK) as u8) } {
@@ -570,6 +581,7 @@ impl OpCodeInfo {
 			table,
 			mandatory_prefix,
 			group_index,
+			rm_group_index,
 			op0_kind,
 			op1_kind,
 			op2_kind,
@@ -883,6 +895,20 @@ impl OpCodeInfo {
 	#[inline]
 	pub fn group_index(&self) -> i32 {
 		self.group_index as i32
+	}
+
+	/// `true` if it's part of a modrm.rm group
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_rm_group(&self) -> bool {
+		self.rm_group_index >= 0
+	}
+
+	/// Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn rm_group_index(&self) -> i32 {
+		self.rm_group_index as i32
 	}
 
 	/// Gets the number of operands

@@ -4252,4 +4252,16 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Ud0,// Ud0
 	Mnemonic::Vmgexit,// Vmgexit
 	Mnemonic::Getsecq,// Getsecq
+	Mnemonic::Ldtilecfg,// VEX_Ldtilecfg_m512
+	Mnemonic::Tilerelease,// VEX_Tilerelease
+	Mnemonic::Sttilecfg,// VEX_Sttilecfg_m512
+	Mnemonic::Tilezero,// VEX_Tilezero_tmm
+	Mnemonic::Tileloaddt1,// VEX_Tileloaddt1_tmm_sibmem
+	Mnemonic::Tilestored,// VEX_Tilestored_sibmem_tmm
+	Mnemonic::Tileloadd,// VEX_Tileloadd_tmm_sibmem
+	Mnemonic::Tdpbf16ps,// VEX_Tdpbf16ps_tmm_tmm_tmm
+	Mnemonic::Tdpbuud,// VEX_Tdpbuud_tmm_tmm_tmm
+	Mnemonic::Tdpbusd,// VEX_Tdpbusd_tmm_tmm_tmm
+	Mnemonic::Tdpbsud,// VEX_Tdpbsud_tmm_tmm_tmm
+	Mnemonic::Tdpbssd,// VEX_Tdpbssd_tmm_tmm_tmm
 ];
