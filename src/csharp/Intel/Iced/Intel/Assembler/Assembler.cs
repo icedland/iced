@@ -347,11 +347,27 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="array">Data</param>
 		public void db(byte[] array) {
-			if (array == null)
-				throw new ArgumentNullException(nameof(array));
+			if (array is null)
+				ThrowHelper.ThrowArgumentNullException_array();
+			db(array, 0, array.Length);
+		}
+
+		/// <summary>
+		/// Adds data
+		/// </summary>
+		/// <param name="array">Data</param>
+		/// <param name="index">Start index</param>
+		/// <param name="length">Length in bytes</param>
+		public void db(byte[] array, int index, int length) {
+			if (array is null)
+				ThrowHelper.ThrowArgumentNullException_array();
+			if (index < 0)
+				ThrowHelper.ThrowArgumentOutOfRangeException_index();
+			if (length < 0 || (uint)(index + length) > (uint)array.Length)
+				ThrowHelper.ThrowArgumentOutOfRangeException_length();
 			const int maxLength = 16;
-			int cycles = Math.DivRem(array.Length, maxLength, out int rest);
-			int currentPosition = 0;
+			int cycles = Math.DivRem(length, maxLength, out int rest);
+			int currentPosition = index;
 			for (int i = 0; i < cycles; i++) {
 				AddInstruction(Instruction.CreateDeclareByte(array, currentPosition, maxLength));
 				currentPosition += maxLength;
@@ -359,6 +375,24 @@ namespace Iced.Intel {
 			if (rest > 0)
 				AddInstruction(Instruction.CreateDeclareByte(array, currentPosition, rest));
 		}
+
+#if HAS_SPAN
+		/// <summary>
+		/// Adds data
+		/// </summary>
+		/// <param name="data">Data</param>
+		public void db(ReadOnlySpan<byte> data) {
+			const int maxLength = 16;
+			int cycles = Math.DivRem(data.Length, maxLength, out int rest);
+			int currentPosition = 0;
+			for (int i = 0; i < cycles; i++) {
+				AddInstruction(Instruction.CreateDeclareByte(data.Slice(currentPosition, maxLength)));
+				currentPosition += maxLength;
+			}
+			if (rest > 0)
+				AddInstruction(Instruction.CreateDeclareByte(data.Slice(currentPosition, rest)));
+		}
+#endif
 
 		/// <summary>call selector:offset instruction.</summary>
 		public void call(ushort selector, uint offset) {
