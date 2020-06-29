@@ -902,7 +902,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Clts,// Clts
 	Mnemonic::Loadall,// Loadall386
 	Mnemonic::Sysret,// Sysretd
-	Mnemonic::Sysret,// Sysretq
+	Mnemonic::Sysretq,// Sysretq
 	Mnemonic::Invd,// Invd
 	Mnemonic::Wbinvd,// Wbinvd
 	Mnemonic::Wbnoinvd,// Wbnoinvd

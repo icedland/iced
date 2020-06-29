@@ -902,7 +902,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Clts,// Clts
 			(ushort)Mnemonic.Loadall,// Loadall386
 			(ushort)Mnemonic.Sysret,// Sysretd
-			(ushort)Mnemonic.Sysret,// Sysretq
+			(ushort)Mnemonic.Sysretq,// Sysretq
 			(ushort)Mnemonic.Invd,// Invd
 			(ushort)Mnemonic.Wbinvd,// Wbinvd
 			(ushort)Mnemonic.Wbnoinvd,// Wbnoinvd

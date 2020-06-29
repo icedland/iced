@@ -6990,7 +6990,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Sysretd = 873,
-		/// <summary><c>SYSRET</c><br/>
+		/// <summary><c>SYSRETQ</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 07</c><br/>
 		/// <br/>

@@ -895,7 +895,7 @@ Syscall, legacy, , 0F, 05, 0F 05, SYSCALL, 16b 32b 64b
 Clts, legacy, , 0F, 06, 0F 06, CLTS, 16b 32b 64b
 Loadall386, legacy, , 0F, 07, 0F 07, LOADALL, 16b 32b
 Sysretd, legacy, , 0F, 07, 0F 07, SYSRET, 16b 32b 64b
-Sysretq, legacy, , 0F, 07, REX.W 0F 07, SYSRET, 64b o64
+Sysretq, legacy, , 0F, 07, REX.W 0F 07, SYSRETQ, 64b o64
 Invd, legacy, , 0F, 08, 0F 08, INVD, 16b 32b 64b
 Wbinvd, legacy, , 0F, 09, 0F 09, WBINVD, 16b 32b 64b
 Wbnoinvd, legacy, F3, 0F, 09, F3 0F 09, WBNOINVD, 16b 32b 64b

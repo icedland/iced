@@ -1592,9 +1592,10 @@ pub enum Mnemonic {
 	Tdpbusd = 1559,
 	Tdpbsud = 1560,
 	Tdpbssd = 1561,
+	Sysretq = 1562,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1562] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1563] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3157,6 +3158,7 @@ static GEN_DEBUG_MNEMONIC: [&str; 1562] = [
 	"Tdpbusd",
 	"Tdpbsud",
 	"Tdpbssd",
+	"Sysretq",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

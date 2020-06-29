@@ -5300,9 +5300,9 @@ F3 4F 0F01 FA, Mcommit, Mcommit, 0, enc=F30F01FA
 0F07, Sysretd, Sysret, 0, loadall386
 47 0F07, Sysretd, Sysret, 0, enc=0F07
 
-48 0F07, Sysretq, Sysret, 0,
-48 0F07, Sysretq, Sysret, 0, loadall386
-4F 0F07, Sysretq, Sysret, 0, enc=480F07
+48 0F07, Sysretq, Sysretq, 0,
+48 0F07, Sysretq, Sysretq, 0, loadall386
+4F 0F07, Sysretq, Sysretq, 0, enc=480F07
 
 0F08, Invd, Invd, 0,
 4F 0F08, Invd, Invd, 0, enc=0F08

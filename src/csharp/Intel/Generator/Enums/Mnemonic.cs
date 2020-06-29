@@ -1586,5 +1586,6 @@ namespace Generator.Enums {
 		Tdpbusd,
 		Tdpbsud,
 		Tdpbssd,
+		Sysretq,
 	}
 }

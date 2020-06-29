@@ -6998,7 +6998,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Sysretd = 873,
-	/// `SYSRET`
+	/// `SYSRETQ`
 	///
 	/// `REX.W 0F 07`
 	///

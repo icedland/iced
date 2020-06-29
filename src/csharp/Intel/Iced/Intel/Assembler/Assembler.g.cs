@@ -39546,7 +39546,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>sysretq instruction.<br/>
 		/// <br/>
-		/// <c>SYSRET</c><br/>
+		/// <c>SYSRETQ</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 07</c><br/>
 		/// <br/>
