@@ -435,12 +435,12 @@ Enterq_imm16_imm8, legacy, , legacy, C8, C8 iw ib, ENTER imm16| imm8, 64b op=imm
 Leavew, legacy, , legacy, C9, o16 C9, LEAVE, 16b 32b 64b o16
 Leaved, legacy, , legacy, C9, o32 C9, LEAVE, 16b 32b o32
 Leaveq, legacy, , legacy, C9, C9, LEAVE, 64b
-Retfw_imm16, legacy, , legacy, CA, o16 CA iw, RET imm16, 16b 32b 64b o16 op=imm16
-Retfd_imm16, legacy, , legacy, CA, o32 CA iw, RET imm16, 16b 32b 64b o32 op=imm16
-Retfq_imm16, legacy, , legacy, CA, REX.W CA iw, RET imm16, 64b o64 op=imm16
-Retfw, legacy, , legacy, CB, o16 CB, RET, 16b 32b 64b o16
-Retfd, legacy, , legacy, CB, o32 CB, RET, 16b 32b 64b o32
-Retfq, legacy, , legacy, CB, REX.W CB, RET, 64b o64
+Retfw_imm16, legacy, , legacy, CA, o16 CA iw, RETF imm16, 16b 32b 64b o16 op=imm16
+Retfd_imm16, legacy, , legacy, CA, o32 CA iw, RETF imm16, 16b 32b 64b o32 op=imm16
+Retfq_imm16, legacy, , legacy, CA, REX.W CA iw, RETF imm16, 64b o64 op=imm16
+Retfw, legacy, , legacy, CB, o16 CB, RETF, 16b 32b 64b o16
+Retfd, legacy, , legacy, CB, o32 CB, RETF, 16b 32b 64b o32
+Retfq, legacy, , legacy, CB, REX.W CB, RETF, 64b o64
 Int3, legacy, , legacy, CC, CC, INT3, 16b 32b 64b
 Int_imm8, legacy, , legacy, CD, CD ib, INT imm8, 16b 32b 64b op=imm8
 Into, legacy, , legacy, CE, CE, INTO, 16b 32b

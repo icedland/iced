@@ -1077,15 +1077,6 @@ namespace Iced.Intel.EncoderInternal {
 			var code = opCode.Code;
 			var mnemonic = code.Mnemonic();
 			switch (code) {
-			case Code.Retfw:
-			case Code.Retfw_imm16:
-			case Code.Retfd:
-			case Code.Retfd_imm16:
-			case Code.Retfq:
-			case Code.Retfq_imm16:
-				mnemonic = Mnemonic.Ret;
-				goto default;
-
 			case Code.Iretd:
 			case Code.Iretq:
 			case Code.Pushad:

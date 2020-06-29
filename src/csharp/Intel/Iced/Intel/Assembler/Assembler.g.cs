@@ -32882,7 +32882,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>retf instruction.<br/>
 		/// <br/>
-		/// <c>RET</c><br/>
+		/// <c>RETF</c><br/>
 		/// <br/>
 		/// <c>REX.W CB</c><br/>
 		/// <br/>
@@ -32890,7 +32890,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c><br/>
 		/// <br/>
-		/// <c>RET</c><br/>
+		/// <c>RETF</c><br/>
 		/// <br/>
 		/// <c>o32 CB</c><br/>
 		/// <br/>
@@ -32898,7 +32898,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
-		/// <c>RET</c><br/>
+		/// <c>RETF</c><br/>
 		/// <br/>
 		/// <c>o16 CB</c><br/>
 		/// <br/>
@@ -32914,7 +32914,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>retf instruction.<br/>
 		/// <br/>
-		/// <c>RET imm16</c><br/>
+		/// <c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>REX.W CA iw</c><br/>
 		/// <br/>
@@ -32922,7 +32922,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c><br/>
 		/// <br/>
-		/// <c>RET imm16</c><br/>
+		/// <c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>o32 CA iw</c><br/>
 		/// <br/>
@@ -32930,7 +32930,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
-		/// <c>RET imm16</c><br/>
+		/// <c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>o16 CA iw</c><br/>
 		/// <br/>
@@ -32946,7 +32946,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>retf instruction.<br/>
 		/// <br/>
-		/// <c>RET imm16</c><br/>
+		/// <c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>REX.W CA iw</c><br/>
 		/// <br/>
@@ -32954,7 +32954,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c><br/>
 		/// <br/>
-		/// <c>RET imm16</c><br/>
+		/// <c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>o32 CA iw</c><br/>
 		/// <br/>
@@ -32962,7 +32962,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
-		/// <c>RET imm16</c><br/>
+		/// <c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>o16 CA iw</c><br/>
 		/// <br/>

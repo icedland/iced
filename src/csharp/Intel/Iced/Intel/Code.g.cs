@@ -3310,7 +3310,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Leaveq = 413,
-		/// <summary><c>RET imm16</c><br/>
+		/// <summary><c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>o16 CA iw</c><br/>
 		/// <br/>
@@ -3318,7 +3318,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Retfw_imm16 = 414,
-		/// <summary><c>RET imm16</c><br/>
+		/// <summary><c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>o32 CA iw</c><br/>
 		/// <br/>
@@ -3326,7 +3326,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Retfd_imm16 = 415,
-		/// <summary><c>RET imm16</c><br/>
+		/// <summary><c>RETF imm16</c><br/>
 		/// <br/>
 		/// <c>REX.W CA iw</c><br/>
 		/// <br/>
@@ -3334,7 +3334,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Retfq_imm16 = 416,
-		/// <summary><c>RET</c><br/>
+		/// <summary><c>RETF</c><br/>
 		/// <br/>
 		/// <c>o16 CB</c><br/>
 		/// <br/>
@@ -3342,7 +3342,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Retfw = 417,
-		/// <summary><c>RET</c><br/>
+		/// <summary><c>RETF</c><br/>
 		/// <br/>
 		/// <c>o32 CB</c><br/>
 		/// <br/>
@@ -3350,7 +3350,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Retfd = 418,
-		/// <summary><c>RET</c><br/>
+		/// <summary><c>RETF</c><br/>
 		/// <br/>
 		/// <c>REX.W CB</c><br/>
 		/// <br/>

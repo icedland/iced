@@ -3318,7 +3318,7 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Leaveq = 413,
-	/// `RET imm16`
+	/// `RETF imm16`
 	///
 	/// `o16 CA iw`
 	///
@@ -3326,7 +3326,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Retfw_imm16 = 414,
-	/// `RET imm16`
+	/// `RETF imm16`
 	///
 	/// `o32 CA iw`
 	///
@@ -3334,7 +3334,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Retfd_imm16 = 415,
-	/// `RET imm16`
+	/// `RETF imm16`
 	///
 	/// `REX.W CA iw`
 	///
@@ -3342,7 +3342,7 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Retfq_imm16 = 416,
-	/// `RET`
+	/// `RETF`
 	///
 	/// `o16 CB`
 	///
@@ -3350,7 +3350,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Retfw = 417,
-	/// `RET`
+	/// `RETF`
 	///
 	/// `o32 CB`
 	///
@@ -3358,7 +3358,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Retfd = 418,
-	/// `RET`
+	/// `RETF`
 	///
 	/// `REX.W CB`
 	///

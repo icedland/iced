@@ -946,7 +946,6 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 	fn get_mnemonic(&self) -> &'static str {
 		let code = self.op_code.code();
 		match code {
-			Code::Retfw | Code::Retfw_imm16 | Code::Retfd | Code::Retfd_imm16 | Code::Retfq | Code::Retfq_imm16 => "ret",
 			Code::Iretd => "iretd",
 			Code::Iretq => "iretq",
 			Code::Pushad => "pushad",
