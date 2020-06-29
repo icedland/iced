@@ -302,6 +302,7 @@ namespace Generator.InstructionInfo {
 			opInfoHashes[0].Add(OpInfo.ReadWriteVmm);
 			opInfoHashes[0].Add(OpInfo.WriteForce);
 			opInfoHashes[0].Add(OpInfo.WriteMem_ReadWriteReg);
+			opInfoHashes[1].Add(OpInfo.ReadP3);
 
 			// InstructionInfoFactory assumes these have exactly two values: None, Read.
 			// It can be less than that if some instructions were filtered out.
