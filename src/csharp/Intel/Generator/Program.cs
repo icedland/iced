@@ -29,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Generator.Enums.InstructionInfo;
 
 namespace Generator {
 	sealed class GeneratorInfoComparer : IComparer<GeneratorInfo> {
@@ -238,6 +239,8 @@ Options:
 
 				case "--no-3dnow":
 					options.GeneratorFlags |= GeneratorFlags.No3DNow;
+					// Remove FEMMS too
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.D3NOW));
 					break;
 
 				case "--include-cpuid":
