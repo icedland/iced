@@ -47,7 +47,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
 			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, options);
 			var instruction = decoder.Decode();
-			Assert.False(decoder.InvalidNoMoreBytes);
+			Assert.Equal(DecoderError.None, decoder.LastError);
 			Assert.Equal(canRead, codeReader.CanReadByte);
 
 			Assert.Equal(code, instruction.Code);
@@ -105,7 +105,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
 			ulong rip = decoder.IP;
 			decoder.Decode(out var instruction);
-			Assert.Equal(tc.InvalidNoMoreBytes, decoder.InvalidNoMoreBytes);
+			Assert.Equal(tc.DecoderError, decoder.LastError);
 			Assert.Equal(canRead, codeReader.CanReadByte);
 			Assert.Equal(tc.Code, instruction.Code);
 			Assert.Equal(tc.Mnemonic, instruction.Mnemonic);

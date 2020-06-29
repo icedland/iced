@@ -42,6 +42,7 @@ namespace Generator.Decoder.Rust {
 			var infos = new (string id, EnumType enumType, bool lowerCase, string filename)[] {
 				("CodeHash", genTypes[TypeIds.Code], false, "test_utils/from_str_conv/code_table.rs"),
 				("CpuidFeatureHash", genTypes[TypeIds.CpuidFeature], false, "test_utils/from_str_conv/cpuid_feature_table.rs"),
+				("DecoderErrorHash", genTypes[TypeIds.DecoderError], false, "test_utils/from_str_conv/decoder_error_table.rs"),
 				("DecoderOptionsHash", genTypes[TypeIds.DecoderOptions], false, "test_utils/from_str_conv/decoder_options_table.rs"),
 				("EncodingKindHash", genTypes[TypeIds.EncodingKind], false, "test_utils/from_str_conv/encoding_kind_table.rs"),
 				("FlowControlHash", genTypes[TypeIds.FlowControl], false, "test_utils/from_str_conv/flow_control_table.rs"),

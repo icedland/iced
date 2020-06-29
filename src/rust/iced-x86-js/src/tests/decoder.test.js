@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-const { Code, Decoder, DecoderOptions, Instruction, OpKind, Register } = require("iced-x86");
+const { Code, Decoder, DecoderError, DecoderOptions, Instruction, OpKind, Register } = require("iced-x86");
 
 test("Create a Decoder with no bytes", () => {
 	const bytes = new Uint8Array([]);
@@ -29,7 +29,7 @@ test("Create a Decoder with no bytes", () => {
 	expect(decoder.canDecode).toBe(false);
 	const instr = decoder.decode();
 	expect(instr.code).toBe(Code.INVALID);
-	expect(decoder.invalidNoMoreBytes).toBe(true);
+	expect(decoder.lastError).toBe(DecoderError.NoMoreBytes);
 	instr.free();
 	decoder.free();
 });
@@ -186,7 +186,7 @@ test("Decode with DecoderOptions.NoInvalidCheck", () => {
 	const instra = decodera.decode();
 	const instrb = decoderb.decode();
 	expect(instra.code).toBe(Code.INVALID);
-	expect(decodera.invalidNoMoreBytes).toBe(false);
+	expect(decodera.lastError).toBe(DecoderError.InvalidInstruction);
 	expect(instrb.code).toBe(Code.Add_r8_rm8);
 
 	decodera.free();
@@ -274,16 +274,16 @@ test("Set Decoder position", () => {
 	instrs6.forEach(a => a.free());
 });
 
-test("Decoder invalidNoMoreBytes prop", () => {
+test("Decoder lastError prop", () => {
 	const bytes = new Uint8Array([0xF0, 0x00, 0xCE, 0xF3]);
 	const decoder = new Decoder(64, bytes, DecoderOptions.None);
 
 	const instr1 = decoder.decode();
 	expect(instr1.code).toBe(Code.INVALID);
-	expect(decoder.invalidNoMoreBytes).toBe(false);
+	expect(decoder.lastError).toBe(DecoderError.InvalidInstruction);
 	const instr2 = decoder.decode();
 	expect(instr2.code).toBe(Code.INVALID);
-	expect(decoder.invalidNoMoreBytes).toBe(true);
+	expect(decoder.lastError).toBe(DecoderError.NoMoreBytes);
 
 	decoder.free();
 	instr1.free();

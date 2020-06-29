@@ -78,7 +78,7 @@ lazy_static! {
 	pub(super) static ref TO_DECODER_TEST_PARSER_CONSTANTS: HashMap<&'static str, u32> = {
 		let mut h = HashMap::with_capacity(84);
 		h.insert("noencode", DecoderTestParserConstants::NO_ENCODE);
-		h.insert("nobytes", DecoderTestParserConstants::INVALID_NO_MORE_BYTES);
+		h.insert("err", DecoderTestParserConstants::DECODER_ERROR);
 		h.insert("bcst", DecoderTestParserConstants::BROADCAST);
 		h.insert("xacquire", DecoderTestParserConstants::XACQUIRE);
 		h.insert("xrelease", DecoderTestParserConstants::XRELEASE);
@@ -169,7 +169,7 @@ pub(crate) struct DecoderTestParserConstants;
 #[allow(dead_code)]
 impl DecoderTestParserConstants {
 	pub(crate) const NO_ENCODE: u32 = 0;
-	pub(crate) const INVALID_NO_MORE_BYTES: u32 = 1;
+	pub(crate) const DECODER_ERROR: u32 = 1;
 	pub(crate) const BROADCAST: u32 = 2;
 	pub(crate) const XACQUIRE: u32 = 3;
 	pub(crate) const XRELEASE: u32 = 4;
@@ -309,6 +309,7 @@ impl IntoIter {
 		tc.code = to_code(parts[1])?;
 		tc.mnemonic = to_mnemonic(parts[2])?;
 		tc.op_count = to_u32(parts[3])?;
+		tc.decoder_error = if tc.code == Code::INVALID { DecoderError::InvalidInstruction } else { DecoderError::None };
 
 		let mut found_code = false;
 		for key in parts[4].split_whitespace() {
@@ -327,7 +328,7 @@ impl IntoIter {
 
 			match *(*TO_DECODER_TEST_PARSER_CONSTANTS).get(key).unwrap_or(&u32::MAX) {
 				DecoderTestParserConstants::NO_ENCODE => tc.can_encode = false,
-				DecoderTestParserConstants::INVALID_NO_MORE_BYTES => tc.invalid_no_more_bytes = true,
+				DecoderTestParserConstants::DECODER_ERROR => tc.decoder_error = to_decoder_error(value)?,
 				DecoderTestParserConstants::BROADCAST => tc.is_broadcast = true,
 				DecoderTestParserConstants::XACQUIRE => tc.has_xacquire_prefix = true,
 				DecoderTestParserConstants::XRELEASE => tc.has_xrelease_prefix = true,

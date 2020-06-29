@@ -28,6 +28,7 @@ mod code_table;
 mod condition_code_table;
 #[cfg(feature = "instr_info")]
 mod cpuid_feature_table;
+mod decoder_error_table;
 #[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod decoder_options_table;
 #[cfg(feature = "instr_info")]
@@ -56,6 +57,7 @@ use self::code_table::*;
 use self::condition_code_table::*;
 #[cfg(feature = "instr_info")]
 use self::cpuid_feature_table::*;
+use self::decoder_error_table::*;
 #[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::decoder_options_table::*;
 #[cfg(feature = "instr_info")]
@@ -296,6 +298,14 @@ pub(crate) fn to_memory_size(value: &str) -> Result<MemorySize, String> {
 	match TO_MEMORY_SIZE_HASH.get(value) {
 		Some(memory_size) => Ok(*memory_size),
 		None => Err(format!("Invalid MemorySize value: {}", value)),
+	}
+}
+
+pub(crate) fn to_decoder_error(value: &str) -> Result<DecoderError, String> {
+	let value = value.trim();
+	match TO_DECODER_ERROR_HASH.get(value) {
+		Some(decoder_error) => Ok(*decoder_error),
+		None => Err(format!("Invalid DecoderError value: {}", value)),
 	}
 }
 

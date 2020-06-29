@@ -69,7 +69,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(AddLock(info.HexBytes, hasLock)), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
-						Assert.False(decoder.InvalidNoMoreBytes);
+						Assert.NotEqual(DecoderError.None, decoder.LastError);
 						Assert.False(instruction.HasLockPrefix);
 					}
 					{
@@ -178,7 +178,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
-						Assert.False(decoder.InvalidNoMoreBytes);
+						Assert.NotEqual(DecoderError.None, decoder.LastError);
 					}
 				}
 			}
@@ -329,13 +329,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
-						Assert.False(decoder.InvalidNoMoreBytes);
+						Assert.NotEqual(DecoderError.None, decoder.LastError);
 					}
 					{
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
-						Assert.False(decoder.InvalidNoMoreBytes);
+						Assert.NotEqual(DecoderError.None, decoder.LastError);
 					}
 				}
 			}
@@ -473,7 +473,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out instruction2);
 								Assert.Equal(Code.INVALID, instruction2.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 
 								decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
 								decoder.Decode(out instruction2);
@@ -643,7 +643,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						}
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 						}
 					}
 				}
@@ -700,7 +700,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(newCode, instruction.Code);
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 						}
 						Assert.False(instruction.IsBroadcast);
 					}
@@ -823,7 +823,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -838,7 +838,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -871,7 +871,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(info.Code, instruction.Code);
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 							decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out instruction);
 							Assert.Equal(info.Code, instruction.Code);
@@ -894,7 +894,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(info.Code, instruction.Code);
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 							decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out instruction);
 							Assert.Equal(info.Code, instruction.Code);
@@ -1138,7 +1138,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1288,7 +1288,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1355,7 +1355,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1368,7 +1368,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1454,7 +1454,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1596,7 +1596,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -2784,7 +2784,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 					decoder.Decode(out var instruction);
 					Assert.Equal(Code.INVALID, instruction.Code);
-					Assert.False(decoder.InvalidNoMoreBytes);
+					Assert.NotEqual(DecoderError.None, decoder.LastError);
 				}
 				{
 					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -2865,13 +2865,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
-						Assert.False(decoder.InvalidNoMoreBytes);
+						Assert.NotEqual(DecoderError.None, decoder.LastError);
 					}
 					{
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
-						Assert.False(decoder.InvalidNoMoreBytes);
+						Assert.NotEqual(DecoderError.None, decoder.LastError);
 					}
 				}
 				else if (opCode.Encoding == EncodingKind.VEX) {
@@ -2891,13 +2891,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
-							Assert.False(decoder.InvalidNoMoreBytes);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
 						}
 					}
 				}
@@ -2919,7 +2919,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								Assert.NotEqual(info.Code, instruction.Code);
 							else {
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 						}
 						{
@@ -2929,7 +2929,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								Assert.NotEqual(info.Code, instruction.Code);
 							else {
 								Assert.Equal(Code.INVALID, instruction.Code);
-								Assert.False(decoder.InvalidNoMoreBytes);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
 							}
 						}
 					}

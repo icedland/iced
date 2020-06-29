@@ -44,6 +44,7 @@ namespace Generator {
 		public static readonly TypeId CodeSize = new TypeId(nameof(CodeSize));
 		public static readonly TypeId CpuidFeature = new TypeId(nameof(CpuidFeature));
 		public static readonly TypeId CpuidFeatureInternal = new TypeId(nameof(CpuidFeatureInternal));
+		public static readonly TypeId DecoderError = new TypeId(nameof(DecoderError));
 		public static readonly TypeId DecoderOptions = new TypeId(nameof(DecoderOptions));
 		public static readonly TypeId EvexOpCodeHandlerKind = new TypeId(nameof(EvexOpCodeHandlerKind));
 		public static readonly TypeId HandlerFlags = new TypeId(nameof(HandlerFlags));

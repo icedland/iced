@@ -104,6 +104,8 @@ mod cpuid_feature;
 #[cfg(feature = "decoder")]
 mod decoder;
 #[cfg(feature = "decoder")]
+mod decoder_error;
+#[cfg(feature = "decoder")]
 mod decoder_options;
 #[cfg(feature = "encoder")]
 mod encoder;
@@ -174,6 +176,8 @@ pub use constant_offsets::*;
 pub use cpuid_feature::*;
 #[cfg(feature = "decoder")]
 pub use decoder::*;
+#[cfg(feature = "decoder")]
+pub use decoder_error::*;
 #[cfg(feature = "decoder")]
 pub use decoder_options::*;
 #[cfg(feature = "encoder")]

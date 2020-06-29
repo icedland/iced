@@ -38,16 +38,16 @@ F2 48 0FB8 CE, INVALID, INVALID, 0, code=INVALID
 0F00 F2, INVALID, INVALID, 0, code=INVALID
 0F00 30, INVALID, INVALID, 0, code=INVALID
 
-9E, INVALID, INVALID, 0, code=INVALID nolahfsahf64 nobytes
-9F, INVALID, INVALID, 0, code=INVALID nolahfsahf64 nobytes
-DB E5, INVALID, INVALID, 0, code=INVALID nobytes
-DB E5, INVALID, INVALID, 0, code=INVALID oldfpu nobytes
-DF E1, INVALID, INVALID, 0, code=INVALID nobytes
-DF E1, INVALID, INVALID, 0, code=INVALID oldfpu nobytes
-DF E2, INVALID, INVALID, 0, code=INVALID nobytes
-DF E2, INVALID, INVALID, 0, code=INVALID oldfpu nobytes
-0F04, INVALID, INVALID, 0, code=INVALID nobytes
-0F04, INVALID, INVALID, 0, code=INVALID loadall286 nobytes
+9E, INVALID, INVALID, 0, code=INVALID nolahfsahf64 err=NoMoreBytes
+9F, INVALID, INVALID, 0, code=INVALID nolahfsahf64 err=NoMoreBytes
+DB E5, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+DB E5, INVALID, INVALID, 0, code=INVALID oldfpu err=NoMoreBytes
+DF E1, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+DF E1, INVALID, INVALID, 0, code=INVALID oldfpu err=NoMoreBytes
+DF E2, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+DF E2, INVALID, INVALID, 0, code=INVALID oldfpu err=NoMoreBytes
+0F04, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+0F04, INVALID, INVALID, 0, code=INVALID loadall286 err=NoMoreBytes
 0F24 DE, INVALID, INVALID, 0, code=INVALID
 0F24 DE, INVALID, INVALID, 0, code=INVALID movtr
 0F26 DE, INVALID, INVALID, 0, code=INVALID

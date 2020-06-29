@@ -28,15 +28,15 @@
 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx es: enc=2601CE
 
 # not enough bytes
-, INVALID, INVALID, 0, code=INVALID nobytes
-66, INVALID, INVALID, 0, code=INVALID nobytes
-01, INVALID, INVALID, 0, code=Add_rm16_r16 nobytes
+, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+66, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+01, INVALID, INVALID, 0, code=Add_rm16_r16 err=NoMoreBytes
 # Mov_r16_imm16, missing 1 byte (immediate)
-B8 5A, INVALID, INVALID, 0, code=Mov_r16_imm16 nobytes
+B8 5A, INVALID, INVALID, 0, code=Mov_r16_imm16 err=NoMoreBytes
 # Mov_r32_imm32, missing 1-3 bytes (immediate)
-66 B8 5AA512, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
-66 B8 5AA5, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
-66 B8 5A, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
+66 B8 5AA512, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
+66 B8 5AA5, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
+66 B8 5A, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
 
 # Verify that 16-bit vsib addressing is invalid
 C4E249 90 54 01, INVALID, INVALID, 0, code=VEX_Vpgatherdd_xmm_vm32x_xmm

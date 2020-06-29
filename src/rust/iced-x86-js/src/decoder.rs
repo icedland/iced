@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #[cfg(feature = "instr_info")]
 use super::constant_offsets::ConstantOffsets;
+use super::decoder_error::{iced_to_decoder_error, DecoderError};
 use super::decoder_options::DecoderOptions;
 use super::instruction::Instruction;
 use std::slice;
@@ -365,23 +366,28 @@ impl Decoder {
 		self.decoder.iter().take(count).map(|i| JsValue::from(Instruction(i))).collect()
 	}
 
-	/// This method can be called after calling [`decode()`] and [`decodeOut()`] to check if the
-	/// decoded instruction is invalid because there's no more bytes left or because of bad input data.
+	/// Gets the last decoder error. Call it after calling [`decode()`] and [`decodeOut()`] to
+	/// check if there was an error decoding the instruction. If there's an error, the returned
+	/// instruction will be invalid ([`Code.INVALID`]).
+	///
+	/// It returns a [`DecoderError`] enum value.
 	///
 	/// [`decode()`]: #method.decode
 	/// [`decodeOut()`]: #method.decode_out
+	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
+	/// [`DecoderError`]: enum.DecoderError.html
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "invalidNoMoreBytes")]
-	pub fn invalid_no_more_bytes(&self) -> bool {
-		self.decoder.invalid_no_more_bytes()
+	#[wasm_bindgen(js_name = "lastError")]
+	pub fn last_error(&self) -> DecoderError {
+		iced_to_decoder_error(self.decoder.last_error())
 	}
 
 	/// Decodes and returns the next instruction, see also [`decodeOut()`]
 	/// which avoids allocating a new instruction.
-	/// See also [`invalidNoMoreBytes`].
+	/// See also [`lastError`].
 	///
 	/// [`decodeOut()`]: #method.decode_out
-	/// [`invalidNoMoreBytes`]: #method.invalid_no_more_bytes
+	/// [`lastError`]: #method.last_error
 	///
 	/// # Examples
 	///
@@ -426,10 +432,10 @@ impl Decoder {
 
 	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
 	/// method doesn't need to allocate a new instruction.
-	/// See also [`invalidNoMoreBytes`].
+	/// See also [`lastError`].
 	///
 	/// [`decode()`]: #method.decode
-	/// [`invalidNoMoreBytes`]: #method.invalid_no_more_bytes
+	/// [`lastError`]: #method.last_error
 	///
 	/// # Arguments
 	///

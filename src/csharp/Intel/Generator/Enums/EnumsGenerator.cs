@@ -36,6 +36,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.CodeSize],
 				genTypes[TypeIds.ConditionCode],
 				genTypes[TypeIds.CpuidFeature],
+				genTypes[TypeIds.DecoderError],
 				genTypes[TypeIds.DecoderOptions],
 				genTypes[TypeIds.EvexOpCodeHandlerKind],
 				genTypes[TypeIds.HandlerFlags],

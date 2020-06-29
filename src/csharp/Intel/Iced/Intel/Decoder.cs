@@ -265,13 +265,28 @@ namespace Iced.Intel {
 		/// This property can be tested after calling <see cref="Decode()"/> and <see cref="Decode(out Instruction)"/>
 		/// to check if the decoded instruction is invalid because there's no more bytes left or because of bad input data.
 		/// </summary>
+		[System.Obsolete("Use " + nameof(LastError) + " instead", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool InvalidNoMoreBytes => (state.flags & StateFlags.NoMoreBytes) != 0;
+
+		/// <summary>
+		/// Gets the last decoder error. Call it after calling <see cref="Decode()"/> or <see cref="Decode(out Instruction)"/>
+		/// </summary>
+		public DecoderError LastError {
+			get {
+				if ((state.flags & StateFlags.NoMoreBytes) != 0)
+					return DecoderError.NoMoreBytes;
+				if ((state.flags & StateFlags.IsInvalid) != 0)
+					return DecoderError.InvalidInstruction;
+				return DecoderError.None;
+			}
+		}
 
 		/// <summary>
 		/// Decodes the next instruction, see also <see cref="Decode(out Instruction)"/> which is faster
 		/// if you already have an <see cref="Instruction"/> local, array element or field.
 		/// <br/>
-		/// See also <see cref="InvalidNoMoreBytes"/>
+		/// See also <see cref="LastError"/>
 		/// </summary>
 		/// <returns></returns>
 		public Instruction Decode() {
@@ -280,7 +295,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Decodes the next instruction, see also <see cref="InvalidNoMoreBytes"/>
+		/// Decodes the next instruction, see also <see cref="LastError"/>
 		/// </summary>
 		/// <param name="instruction">Decoded instruction</param>
 		public void Decode(out Instruction instruction) {
@@ -412,6 +427,7 @@ namespace Iced.Intel {
 					instruction = default;
 					Static.Assert(Code.INVALID == 0 ? 0 : -1);
 					//instruction.InternalCode = Code.INVALID;
+					state.flags = flags | StateFlags.IsInvalid;
 				}
 			}
 			instruction.InternalCodeSize = defaultCodeSize;

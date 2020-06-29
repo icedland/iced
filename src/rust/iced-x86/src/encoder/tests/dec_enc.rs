@@ -74,7 +74,7 @@ fn verify_invalid_and_valid_lock_prefix() {
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
 				assert_eq!(Code::INVALID, instruction.code());
-				assert!(!decoder.invalid_no_more_bytes());
+				assert_ne!(DecoderError::None, decoder.last_error());
 				assert!(!instruction.has_lock_prefix());
 			}
 			{
@@ -173,7 +173,7 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
 				assert_eq!(Code::INVALID, instruction.code());
-				assert!(!decoder.invalid_no_more_bytes());
+				assert_ne!(DecoderError::None, decoder.last_error());
 			}
 		}
 	}
@@ -310,13 +310,13 @@ fn test_evex_reserved_bits() {
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
 				assert_eq!(Code::INVALID, instruction.code());
-				assert!(!decoder.invalid_no_more_bytes());
+				assert_ne!(DecoderError::None, decoder.last_error());
 			}
 			{
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() ^ DecoderOptions::NO_INVALID_CHECK);
 				let instruction = decoder.decode();
 				assert_eq!(Code::INVALID, instruction.code());
-				assert!(!decoder.invalid_no_more_bytes());
+				assert_ne!(DecoderError::None, decoder.last_error());
 			}
 		}
 	}
@@ -445,7 +445,7 @@ fn test_lig_instructions_ignore_l() {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						instruction2 = decoder.decode();
 						assert_eq!(Code::INVALID, instruction2.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 
 						decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
 						instruction2 = decoder.decode();
@@ -609,7 +609,7 @@ fn test_evex_k1_z_bits() {
 					}
 				} else {
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 				}
 			}
 		}
@@ -668,7 +668,7 @@ fn test_evex_b_bit() {
 					assert_eq!(new_code.unwrap(), instruction.code());
 				} else {
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 				}
 				assert!(!instruction.is_broadcast());
 			}
@@ -781,7 +781,7 @@ fn verify_invalid_vvvv() {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						let instruction = decoder.decode();
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 					{
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -795,7 +795,7 @@ fn verify_invalid_vvvv() {
 					let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 					let instruction = decoder.decode();
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 				}
 				{
 					let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -828,7 +828,7 @@ fn verify_invalid_vvvv() {
 					assert_eq!(info.code(), instruction.code());
 				} else {
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 					decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
 					let instruction = decoder.decode();
 					assert_eq!(info.code(), instruction.code());
@@ -851,7 +851,7 @@ fn verify_invalid_vvvv() {
 					assert_eq!(info.code(), instruction.code());
 				} else {
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 					decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
 					let instruction = decoder.decode();
 					assert_eq!(info.code(), instruction.code());
@@ -1074,7 +1074,7 @@ fn verify_gpr_rrxb_bits() {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						let instruction = decoder.decode();
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 					{
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -1207,7 +1207,7 @@ fn verify_k_reg_rrxb_bits() {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						let instruction = decoder.decode();
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 					{
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -1276,7 +1276,7 @@ fn verify_k_reg_rrxb_bits() {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						let instruction = decoder.decode();
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 					{
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -1289,7 +1289,7 @@ fn verify_k_reg_rrxb_bits() {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						let instruction = decoder.decode();
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 					{
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -1378,7 +1378,7 @@ fn verify_vsib_with_invalid_index_register_evex() {
 					let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 					let instruction = decoder.decode();
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 				}
 				{
 					let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -1530,7 +1530,7 @@ fn verify_vsib_with_invalid_index_mask_dest_register_vex() {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						let instruction = decoder.decode();
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 					{
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -2797,7 +2797,7 @@ fn test_invalid_zero_opmask_reg() {
 			let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 			let instruction = decoder.decode();
 			assert_eq!(Code::INVALID, instruction.code());
-			assert!(!decoder.invalid_no_more_bytes());
+			assert_ne!(DecoderError::None, decoder.last_error());
 		}
 		{
 			let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
@@ -2877,13 +2877,13 @@ fn verify_invalid_table_encoding() {
 				let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options());
 				let instruction = decoder.decode();
 				assert_eq!(Code::INVALID, instruction.code());
-				assert!(!decoder.invalid_no_more_bytes());
+				assert_ne!(DecoderError::None, decoder.last_error());
 			}
 			{
 				let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options() ^ DecoderOptions::NO_INVALID_CHECK);
 				let instruction = decoder.decode();
 				assert_eq!(Code::INVALID, instruction.code());
-				assert!(!decoder.invalid_no_more_bytes());
+				assert_ne!(DecoderError::None, decoder.last_error());
 			}
 		} else if op_code.encoding() == EncodingKind::VEX {
 			let mut hex_bytes = to_vec_u8(info.hex_bytes()).unwrap();
@@ -2901,13 +2901,13 @@ fn verify_invalid_table_encoding() {
 					let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options());
 					let instruction = decoder.decode();
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 				}
 				{
 					let mut decoder = Decoder::new(info.bitness(), &hex_bytes, info.decoder_options() ^ DecoderOptions::NO_INVALID_CHECK);
 					let instruction = decoder.decode();
 					assert_eq!(Code::INVALID, instruction.code());
-					assert!(!decoder.invalid_no_more_bytes());
+					assert_ne!(DecoderError::None, decoder.last_error());
 				}
 			}
 		} else if op_code.encoding() == EncodingKind::XOP {
@@ -2926,7 +2926,7 @@ fn verify_invalid_table_encoding() {
 						assert_ne!(info.code(), instruction.code());
 					} else {
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 				}
 				{
@@ -2936,7 +2936,7 @@ fn verify_invalid_table_encoding() {
 						assert_ne!(info.code(), instruction.code());
 					} else {
 						assert_eq!(Code::INVALID, instruction.code());
-						assert!(!decoder.invalid_no_more_bytes());
+						assert_ne!(DecoderError::None, decoder.last_error());
 					}
 				}
 			}

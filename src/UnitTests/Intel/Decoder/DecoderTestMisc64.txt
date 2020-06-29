@@ -28,23 +28,23 @@
 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx es: enc=2601CE
 
 # not enough bytes
-, INVALID, INVALID, 0, code=INVALID nobytes
-66, INVALID, INVALID, 0, code=INVALID nobytes
-01, INVALID, INVALID, 0, code=Add_rm32_r32 nobytes
+, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+66, INVALID, INVALID, 0, code=INVALID err=NoMoreBytes
+01, INVALID, INVALID, 0, code=Add_rm32_r32 err=NoMoreBytes
 # Mov_r16_imm16, missing 1 byte (immediate)
-66 B8 5A, INVALID, INVALID, 0, code=Mov_r16_imm16 nobytes
+66 B8 5A, INVALID, INVALID, 0, code=Mov_r16_imm16 err=NoMoreBytes
 # Mov_r32_imm32, missing 1-3 bytes (immediate)
-B8 5AA512, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
-B8 5AA5, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
-B8 5A, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
+B8 5AA512, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
+B8 5AA5, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
+B8 5A, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
 # Mov_r64_imm64, missing 1-7 bytes (immediate)
-48 B8 041526375AA512, INVALID, INVALID, 0, code=Mov_r64_imm64 nobytes
-48 B8 041526375AA5, INVALID, INVALID, 0, code=Mov_r64_imm64 nobytes
-48 B8 041526375A, INVALID, INVALID, 0, code=Mov_r64_imm64 nobytes
-48 B8 04152637, INVALID, INVALID, 0, code=Mov_r64_imm64 nobytes
-48 B8 041526, INVALID, INVALID, 0, code=Mov_r64_imm64 nobytes
-48 B8 0415, INVALID, INVALID, 0, code=Mov_r64_imm64 nobytes
-48 B8 04, INVALID, INVALID, 0, code=Mov_r64_imm64 nobytes
+48 B8 041526375AA512, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
+48 B8 041526375AA5, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
+48 B8 041526375A, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
+48 B8 04152637, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
+48 B8 041526, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
+48 B8 0415, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
+48 B8 04, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
 
 # test extra mandatory prefixes
 0F10 08, Movups_xmm_xmmm128, Movups, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float32

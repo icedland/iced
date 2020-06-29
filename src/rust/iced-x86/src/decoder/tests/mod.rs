@@ -110,7 +110,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	assert_eq!(bytes.len(), decoder.max_position());
 	let rip = decoder.ip();
 	let instr = decoder.decode();
-	assert_eq!(tc.invalid_no_more_bytes, decoder.invalid_no_more_bytes());
+	assert_eq!(tc.decoder_error, decoder.last_error());
 	assert_eq!(len, decoder.position());
 	assert_eq!(can_read, decoder.can_decode());
 	assert_eq!(tc.code, instr.code());
@@ -282,7 +282,7 @@ fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	assert_eq!(0, decoder.position());
 	assert_eq!(bytes.len(), decoder.max_position());
 	let instr = decoder.decode();
-	assert!(!decoder.invalid_no_more_bytes());
+	assert_eq!(DecoderError::None, decoder.last_error());
 	assert_eq!(len, decoder.position());
 	assert_eq!(can_read, decoder.can_decode());
 

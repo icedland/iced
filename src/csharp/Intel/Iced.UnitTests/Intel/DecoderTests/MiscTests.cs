@@ -236,7 +236,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					decoder.Decode(out var instr);
 					Assert.Equal(0x1000UL + (ulong)i, decoder.IP);
 					Assert.Equal(Code.INVALID, instr.Code);
-					Assert.True(decoder.InvalidNoMoreBytes);
+					Assert.Equal(DecoderError.NoMoreBytes, decoder.LastError);
 				}
 			}
 		}

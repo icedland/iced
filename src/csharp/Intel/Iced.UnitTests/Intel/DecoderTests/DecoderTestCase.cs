@@ -28,7 +28,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 	sealed class DecoderTestCase {
 		public int LineNumber;
 		public bool CanEncode;
-		public bool InvalidNoMoreBytes;
+		public DecoderError DecoderError;
 		public DecoderOptions DecoderOptions;
 		public int Bitness;
 		public string HexBytes;

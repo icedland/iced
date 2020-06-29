@@ -42,6 +42,7 @@ namespace Generator.Decoder.CSharp {
 			var infos = new (string id, EnumType enumType, bool lowerCase, string filename)[] {
 				("CodeHash", genTypes[TypeIds.Code], false, "Intel/ToEnumConverter.Code.cs"),
 				("CpuidFeatureHash", genTypes[TypeIds.CpuidFeature], false, "Intel/ToEnumConverter.CpuidFeature.cs"),
+				("DecoderErrorHash", genTypes[TypeIds.DecoderError], false, "Intel/ToEnumConverter.DecoderError.cs"),
 				("DecoderOptionsHash", genTypes[TypeIds.DecoderOptions], false, "Intel/ToEnumConverter.DecoderOptions.cs"),
 				("EncodingKindHash", genTypes[TypeIds.EncodingKind], false, "Intel/ToEnumConverter.EncodingKind.cs"),
 				("FlowControlHash", genTypes[TypeIds.FlowControl], false, "Intel/ToEnumConverter.FlowControl.cs"),
