@@ -161,6 +161,8 @@ Options:
     Don't include XOP instructions
 --no-3dnow
     Don't include 3DNow! instructions
+--no-via
+    Don't include VIA instructions
 --include-cpuid <name>
     Include instructions with these CPUID features, remove everything else
     eg. --include-cpuid intel8086;intel186;intel286;intel386;intel486;x64;wbnoinvd
@@ -241,6 +243,13 @@ Options:
 					options.GeneratorFlags |= GeneratorFlags.No3DNow;
 					// Remove FEMMS too
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.D3NOW));
+					break;
+
+				case "--no-via":
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_ACE));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_PHE));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_PMM));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_RNG));
 					break;
 
 				case "--include-cpuid":
