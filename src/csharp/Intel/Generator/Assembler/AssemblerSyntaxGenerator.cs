@@ -1261,7 +1261,7 @@ namespace Generator.Assembler {
 		}
 
 		[DebuggerDisplay("Count = {" + nameof(Count) + "}")]
-		private class OrderedSelectorList : List<(OpCodeSelectorKind, List<OpCodeInfo>)> {
+		sealed class OrderedSelectorList : List<(OpCodeSelectorKind, List<OpCodeInfo>)> {
 			public OrderedSelectorList() {
 				ArgIndex = -1;
 			}
@@ -1461,7 +1461,7 @@ namespace Generator.Assembler {
 			}
 		}
 
-		private ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKind opKind, int addressSize, bool allowMemory) {
+		ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKind opKind, int addressSize, bool allowMemory) {
 			switch (opKind) {
 			case OpCodeOperandKind.st0:
 			case OpCodeOperandKind.sti_opcode:
@@ -2104,7 +2104,7 @@ namespace Generator.Assembler {
 			FilterImmediate8,
 		}
 
-		protected class OpCodeInfoGroup {
+		protected sealed class OpCodeInfoGroup {
 			readonly EncoderTypes encoderTypes;
 			readonly MemorySizeInfoTable memorySizeInfoTable;
 			readonly InstructionDef[] defs;
@@ -2523,7 +2523,7 @@ namespace Generator.Assembler {
 			}
 		}
 
-		private bool IsR64M16(OpCodeInfo opCodeInfo) {
+		bool IsR64M16(OpCodeInfo opCodeInfo) {
 			switch (GetOrigCodeValue(opCodeInfo.Code)) {
 			case Code.Mov_r64m16_Sreg:
 			case Code.Mov_Sreg_r64m16:
@@ -2617,7 +2617,7 @@ namespace Generator.Assembler {
 			public static implicit operator OpCodeNode(OpCodeSelector selector) => new OpCodeNode(selector);
 		}
 
-		protected class OpCodeSelector {
+		protected sealed class OpCodeSelector {
 			public OpCodeSelector(OpCodeSelectorKind kind) {
 				ArgIndex = -1;
 				Kind = kind;
