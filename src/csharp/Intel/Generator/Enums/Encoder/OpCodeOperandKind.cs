@@ -34,7 +34,7 @@ namespace Generator.Enums.Encoder {
 		mem_offs,
 		[Comment("Memory (modrm)")]
 		mem,
-		[Comment("Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced")]
+		[Comment("Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced and must not be RIP relative")]
 		mem_mpx,
 		[Comment("Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced and must not be RIP relative")]
 		mem_mib,

@@ -44,7 +44,7 @@ pub enum OpCodeOperandKind {
 	///
 	/// 16/32-bit mode: must be 32-bit addressing
 	///
-	/// 64-bit mode: 64-bit addressing is forced
+	/// 64-bit mode: 64-bit addressing is forced and must not be RIP relative
 	mem_mpx = 5,
 	/// Memory (modrm), MPX:
 	///
