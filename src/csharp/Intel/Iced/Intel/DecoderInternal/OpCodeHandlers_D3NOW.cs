@@ -72,19 +72,16 @@ namespace Iced.Intel.DecoderInternal {
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = (int)state.reg + Register.MM0;
-			uint ib;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)state.rm + Register.MM0;
-				ib = decoder.ReadByte();
 			}
 			else {
 				instruction.InternalOp1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
-				ib = decoder.ReadByte();
 			}
-			var code = codeValues[(int)ib];
+			var code = codeValues[(int)decoder.ReadByte()];
 			instruction.InternalCode = code;
 			if (code == Code.INVALID)
 				decoder.SetInvalidInstruction();
