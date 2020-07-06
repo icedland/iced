@@ -448,9 +448,6 @@ namespace Iced.Intel {
 		internal void ClearMandatoryPrefix(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			switch (state.mandatoryPrefix) {
-			case MandatoryPrefixByte.P66:
-				state.operandSize = defaultOperandSize;
-				break;
 			case MandatoryPrefixByte.PF3:
 				instruction.InternalClearHasRepePrefix();
 				break;

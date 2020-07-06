@@ -121,21 +121,15 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 			deserializer.read_handler(),
 		))) as *const OpCodeHandler,
 
-		OpCodeHandlerKind::MandatoryPrefix_F3_F2 => Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix_F3_F2::new(
-			deserializer.read_handler(),
-			deserializer.read_handler(),
-			true,
-			deserializer.read_handler(),
-			true,
-		))) as *const OpCodeHandler,
-
-		OpCodeHandlerKind::LegacyMandatoryPrefix_F3_F2 => Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix_F3_F2::new(
-			deserializer.read_handler(),
-			deserializer.read_handler(),
-			deserializer.read_boolean(),
-			deserializer.read_handler(),
-			deserializer.read_boolean(),
-		))) as *const OpCodeHandler,
+		OpCodeHandlerKind::MandatoryPrefix_F3_F2 | OpCodeHandlerKind::LegacyMandatoryPrefix_F3_F2 => {
+			Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix_F3_F2::new(
+				deserializer.read_handler(),
+				deserializer.read_handler(),
+				deserializer.read_handler(),
+				deserializer.read_handler(),
+				deserializer.read_u32(),
+			))) as *const OpCodeHandler
+		}
 
 		OpCodeHandlerKind::MandatoryPrefix_NoModRM => Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix::new(
 			false,

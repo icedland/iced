@@ -3224,41 +3224,41 @@ fn disable_decoder_option_disables_instruction() {
 				| Code::Loopne_rel8_64_RCX
 				| Code::Retnq
 				| Code::Retnq_imm16 => continue,
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::CL1INVMB => match info.code() {
 				Code::Cl1invmb => {}
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::CMPXCHG486A => match info.code() {
 				Code::Cmpxchg486_rm16_r16 | Code::Cmpxchg486_rm32_r32 | Code::Cmpxchg486_rm8_r8 => {}
 				Code::Montmul_32 | Code::Montmul_64 | Code::Xsha1_32 | Code::Xsha1_64 | Code::Xsha256_32 | Code::Xsha256_64 => continue,
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::JMPE => match info.code() {
 				Code::Jmpe_disp16 | Code::Jmpe_disp32 | Code::Jmpe_rm16 | Code::Jmpe_rm32 => {}
 				Code::Popcnt_r16_rm16 | Code::Popcnt_r32_rm32 | Code::Popcnt_r64_rm64 => continue,
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::LOADALL286 => match info.code() {
 				Code::Loadall286 | Code::Loadallreset286 => {}
 				Code::Syscall => continue,
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::LOADALL386 => match info.code() {
 				Code::Loadall386 => {}
 				Code::Sysretd | Code::Sysretq => continue,
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::MOV_TR => match info.code() {
 				Code::Mov_r32_tr | Code::Mov_tr_r32 => {}
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::MPX => match info.code() {
@@ -3276,17 +3276,17 @@ fn disable_decoder_option_disables_instruction() {
 				| Code::Bndmov_bndm128_bnd
 				| Code::Bndmov_bndm64_bnd
 				| Code::Bndstx_mib_bnd => {}
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::OLD_FPU => match info.code() {
 				Code::Frstpm | Code::Fstdw_AX | Code::Fstsg_AX => {}
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::PCOMMIT => match info.code() {
 				Code::Pcommit => {}
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::UMOV => match info.code() {
@@ -3306,13 +3306,13 @@ fn disable_decoder_option_disables_instruction() {
 				| Code::Movddup_xmm_xmmm64
 				| Code::Movlps_m64_xmm
 				| Code::Movlpd_m64_xmm => continue,
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			DecoderOptions::XBTS => match info.code() {
 				Code::Ibts_rm16_r16 | Code::Ibts_rm32_r32 | Code::Xbts_r16_rm16 | Code::Xbts_r32_rm32 => {}
 				Code::Montmul_32 | Code::Montmul_64 | Code::Xsha1_32 | Code::Xsha1_64 | Code::Xsha256_32 | Code::Xsha256_64 => continue,
-				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+				_ => unreachable!(format!("Update this code: `=> continue` or `=> {{}}` code() = {:?}", info.code())),
 			},
 
 			_ => unreachable!("Update this code"),

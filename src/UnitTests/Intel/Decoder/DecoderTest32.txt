@@ -3472,9 +3472,19 @@ C4E1F9 17 10, VEX_Vmovhpd_m64_xmm, Vmovhpd, 2, op0=m;ds;eax;;1;0;0;Float64 op1=r
 
 66 0F1C CE, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=r;si op1=r;cx resnop
 66 0F1C 18, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx resnop
+66 0F1C 04 48, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt16 op1=r;ax resnop
+66 F3 0F1C 04 48, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt16 op1=r;ax resnop rep
+66 F2 0F1C 04 48, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt16 op1=r;ax resnop repne
+66 0F1C 04 48, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt16 op1=r;ax
+66 F3 0F1C 04 48, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt16 op1=r;ax rep
+66 F2 0F1C 04 48, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt16 op1=r;ax repne
 
 0F1C CE, ReservedNop_rm32_r32_0F1C, ReservedNop, 2, op0=r;esi op1=r;ecx resnop
 0F1C 18, ReservedNop_rm32_r32_0F1C, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx resnop
+F3 0F1C 04 48, ReservedNop_rm32_r32_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt32 op1=r;eax resnop rep
+F2 0F1C 04 48, ReservedNop_rm32_r32_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt32 op1=r;eax resnop repne
+F3 0F1C 04 48, ReservedNop_rm32_r32_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt32 op1=r;eax rep
+F2 0F1C 04 48, ReservedNop_rm32_r32_0F1C, ReservedNop, 2, op0=m;ds;eax;ecx;2;0;0;UInt32 op1=r;eax repne
 
 66 0F1D CE, ReservedNop_rm16_r16_0F1D, ReservedNop, 2, op0=r;si op1=r;cx resnop
 66 0F1D 18, ReservedNop_rm16_r16_0F1D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx resnop
@@ -3484,6 +3494,12 @@ C4E1F9 17 10, VEX_Vmovhpd_m64_xmm, Vmovhpd, 2, op0=m;ds;eax;;1;0;0;Float64 op1=r
 
 66 0F1E CE, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=r;si op1=r;cx resnop
 66 0F1E 18, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx resnop
+66 0F1E CA, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=r;dx op1=r;cx resnop
+66 0F1E FA, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=r;dx op1=r;di resnop
+66 0F1E FB, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=r;bx op1=r;di resnop
+66 0F1E CA, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=r;dx op1=r;cx
+66 0F1E FA, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=r;dx op1=r;di
+66 0F1E FB, ReservedNop_rm16_r16_0F1E, ReservedNop, 2, op0=r;bx op1=r;di
 
 0F1E CE, ReservedNop_rm32_r32_0F1E, ReservedNop, 2, op0=r;esi op1=r;ecx resnop
 0F1E 18, ReservedNop_rm32_r32_0F1E, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx resnop

@@ -1098,13 +1098,11 @@ impl<'a> Decoder<'a> {
 	}
 
 	// It's not possible to use 'as u32' on the left side in a match arm
-	const P66: u32 = MandatoryPrefixByte::P66 as u32;
 	const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
 	const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
 	pub(self) fn clear_mandatory_prefix(&mut self, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
 		match self.state.mandatory_prefix {
-			Decoder::P66 => self.state.operand_size = self.default_operand_size,
 			Decoder::PF3 => instruction_internal::internal_clear_has_repe_prefix(instruction),
 			Decoder::PF2 => instruction_internal::internal_clear_has_repne_prefix(instruction),
 			_ => {}

@@ -43,7 +43,7 @@ namespace Generator.Enums.Decoder {
 		Group8x8,
 		MandatoryPrefix,
 		MandatoryPrefix_F3_F2,
-		LegacyMandatoryPrefix_F3_F2,
+		LegacyMandatoryPrefix_F3_F2,//TODO: unused
 		MandatoryPrefix_NoModRM,
 		MandatoryPrefix3,
 		D3NOW,
@@ -224,5 +224,6 @@ namespace Generator.Enums.Decoder {
 		Yv_Reg2,
 		Yv_Xv,
 		Simple4b,
+		// Rename LegacyMandatoryPrefix_F3_F2 instead of adding a new one
 	}
 }

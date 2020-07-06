@@ -3211,7 +3211,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Retnq_imm16:
 						continue;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3220,7 +3220,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Cl1invmb:
 						break;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3238,7 +3238,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Xsha256_64:
 						continue;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3254,7 +3254,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Popcnt_r64_rm64:
 						continue;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3266,7 +3266,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Syscall:
 						continue;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3278,7 +3278,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Sysretq:
 						continue;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3288,7 +3288,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Mov_tr_r32:
 						break;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3310,7 +3310,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Bndstx_mib_bnd:
 						break;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3321,7 +3321,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Fstsg_AX:
 						break;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3330,7 +3330,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Pcommit:
 						break;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3360,7 +3360,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Movlpd_m64_xmm:
 						continue;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 
@@ -3379,7 +3379,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Xsha256_64:
 						continue;
 					default:
-						throw new InvalidOperationException("Update this code: continue or break");
+						throw new InvalidOperationException($"Update this code: continue or break. Code = {info.Code}");
 					}
 					break;
 

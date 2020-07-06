@@ -411,51 +411,58 @@ impl OpCodeHandler_MandatoryPrefix3 {
 pub(super) struct OpCodeHandler_MandatoryPrefix_F3_F2 {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	handler_normal: &'static OpCodeHandler,
+	handler_np: &'static OpCodeHandler,
+	handler_66: &'static OpCodeHandler,
 	handler_f3: &'static OpCodeHandler,
 	handler_f2: &'static OpCodeHandler,
-	clear_f3: bool,
-	clear_f2: bool,
+	flags: u32,
 }
 
 impl OpCodeHandler_MandatoryPrefix_F3_F2 {
 	pub(super) fn new(
-		handler_normal: *const OpCodeHandler, handler_f3: *const OpCodeHandler, clear_f3: bool, handler_f2: *const OpCodeHandler, clear_f2: bool,
+		handler_np: *const OpCodeHandler, handler_66: *const OpCodeHandler, handler_f3: *const OpCodeHandler, handler_f2: *const OpCodeHandler,
+		flags: u32,
 	) -> Self {
-		assert!(!is_null_instance_handler(handler_normal));
+		assert!(!is_null_instance_handler(handler_np));
+		assert!(!is_null_instance_handler(handler_66));
 		assert!(!is_null_instance_handler(handler_f3));
 		assert!(!is_null_instance_handler(handler_f2));
 		Self {
 			decode: OpCodeHandler_MandatoryPrefix_F3_F2::decode,
 			has_modrm: false,
-			handler_normal: unsafe { &*handler_normal },
+			handler_np: unsafe { &*handler_np },
+			handler_66: unsafe { &*handler_66 },
 			handler_f3: unsafe { &*handler_f3 },
-			clear_f3,
 			handler_f2: unsafe { &*handler_f2 },
-			clear_f2,
+			flags,
 		}
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		let handler;
-		let prefix = decoder.state.mandatory_prefix;
-		if prefix == MandatoryPrefixByte::PF3 as u32 {
-			if this.clear_f3 {
-				decoder.clear_mandatory_prefix_f3(instruction);
+		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
+		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
+		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
+		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
+		let handler = match decoder.state.mandatory_prefix {
+			0 => this.handler_np,
+			1 => this.handler_66,
+			2 => {
+				if (this.flags & 4) != 0 {
+					decoder.clear_mandatory_prefix_f3(instruction);
+				}
+				this.handler_f3
 			}
-			handler = this.handler_f3;
-		} else if prefix == MandatoryPrefixByte::PF2 as u32 {
-			if this.clear_f2 {
-				decoder.clear_mandatory_prefix_f2(instruction);
+			3 => {
+				if (this.flags & 8) != 0 {
+					decoder.clear_mandatory_prefix_f2(instruction);
+				}
+				this.handler_f2
 			}
-			handler = this.handler_f2;
-		} else {
-			debug_assert!(prefix == MandatoryPrefixByte::None as u32 || prefix == MandatoryPrefixByte::P66 as u32);
-			handler = this.handler_normal;
-		}
-		if handler.has_modrm {
+			_ => unreachable!(),
+		};
+		if handler.has_modrm && (this.flags & 0x10) != 0 {
 			decoder.read_modrm();
 		}
 		(handler.decode)(handler, decoder, instruction);

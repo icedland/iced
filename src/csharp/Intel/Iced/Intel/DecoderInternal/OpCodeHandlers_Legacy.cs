@@ -280,39 +280,45 @@ namespace Iced.Intel.DecoderInternal {
 	}
 
 	sealed class OpCodeHandler_MandatoryPrefix_F3_F2 : OpCodeHandler {
-		readonly OpCodeHandler handlerNormal;
+		readonly OpCodeHandler handlerNP;
+		readonly OpCodeHandler handler66;
 		readonly OpCodeHandler handlerF3;
 		readonly OpCodeHandler handlerF2;
-		readonly bool clearF3;
-		readonly bool clearF2;
+		readonly uint flags;
 
-		public OpCodeHandler_MandatoryPrefix_F3_F2(OpCodeHandler handlerNormal, OpCodeHandler handlerF3, bool clearF3, OpCodeHandler handlerF2, bool clearF2) {
-			this.handlerNormal = handlerNormal ?? throw new ArgumentNullException(nameof(handlerNormal));
+		public OpCodeHandler_MandatoryPrefix_F3_F2(OpCodeHandler handlerNP, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2, uint flags) {
+			this.handlerNP = handlerNP ?? throw new ArgumentNullException(nameof(handlerNP));
+			this.handler66 = handler66 ?? throw new ArgumentNullException(nameof(handler66));
 			this.handlerF3 = handlerF3 ?? throw new ArgumentNullException(nameof(handlerF3));
-			this.clearF3 = clearF3;
 			this.handlerF2 = handlerF2 ?? throw new ArgumentNullException(nameof(handlerF2));
-			this.clearF2 = clearF2;
+			this.flags = flags;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			OpCodeHandler handler;
 			var prefix = decoder.state.mandatoryPrefix;
-			if (prefix == MandatoryPrefixByte.PF3) {
-				if (clearF3)
+			switch (prefix) {
+			case MandatoryPrefixByte.None:
+				handler = handlerNP;
+				break;
+			case MandatoryPrefixByte.P66:
+				handler = handler66;
+				break;
+			case MandatoryPrefixByte.PF3:
+				if ((flags & 4) != 0)
 					decoder.ClearMandatoryPrefixF3(ref instruction);
 				handler = handlerF3;
-			}
-			else if (prefix == MandatoryPrefixByte.PF2) {
-				if (clearF2)
+				break;
+			case MandatoryPrefixByte.PF2:
+				if ((flags & 8) != 0)
 					decoder.ClearMandatoryPrefixF2(ref instruction);
 				handler = handlerF2;
+				break;
+			default:
+				throw new InvalidOperationException();
 			}
-			else {
-				Debug.Assert(prefix == MandatoryPrefixByte.None || prefix == MandatoryPrefixByte.P66);
-				handler = handlerNormal;
-			}
-			if (handler.HasModRM)
+			if (handler.HasModRM && (flags & 0x10) != 0)
 				decoder.ReadModRM();
 			handler.Decode(decoder, ref instruction);
 		}

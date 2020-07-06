@@ -106,11 +106,8 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case OpCodeHandlerKind.MandatoryPrefix_F3_F2:
-				elem = new OpCodeHandler_MandatoryPrefix_F3_F2(deserializer.ReadHandler(), deserializer.ReadHandler(), true, deserializer.ReadHandler(), true);
-				return 1;
-
 			case OpCodeHandlerKind.LegacyMandatoryPrefix_F3_F2:
-				elem = new OpCodeHandler_MandatoryPrefix_F3_F2(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadBoolean(), deserializer.ReadHandler(), deserializer.ReadBoolean());
+				elem = new OpCodeHandler_MandatoryPrefix_F3_F2(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler(), (uint)deserializer.ReadInt32());
 				return 1;
 
 			case OpCodeHandlerKind.MandatoryPrefix_NoModRM:

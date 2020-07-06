@@ -518,7 +518,7 @@ namespace Generator.Decoder {
 
 			case int value:
 				writer.WriteCompressedUInt32((uint)value);
-				writer.WriteCommentLine("0x" + value.ToString());
+				writer.WriteCommentLine("0x" + value.ToString("X"));
 				break;
 
 			default:
