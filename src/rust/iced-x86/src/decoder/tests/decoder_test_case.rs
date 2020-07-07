@@ -28,7 +28,7 @@ use alloc::string::String;
 #[derive(Default)]
 pub(crate) struct DecoderTestCase {
 	pub(crate) line_number: u32,
-	pub(crate) can_encode: bool,
+	pub(crate) test_options: u32,
 	pub(crate) decoder_error: DecoderError,
 	pub(crate) decoder_options: u32,
 	pub(crate) bitness: u32,

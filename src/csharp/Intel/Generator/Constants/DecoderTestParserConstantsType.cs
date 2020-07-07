@@ -31,7 +31,6 @@ namespace Generator.Constants {
 
 		static Constant[] GetConstants() =>
 			new Constant[] {
-				new Constant(ConstantKind.String, "NoEncode", "noencode", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderError", "err", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "Broadcast", "bcst", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "Xacquire", "xacquire", ConstantsTypeFlags.None),
@@ -115,6 +114,8 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.String, "OpKind_MemoryESRDI", "esrdi", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "OpKind_Memory64", "m64", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "OpKind_Memory", "m", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "DecoderTestOptions_NoEncode", "noencode", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "DecoderTestOptions_NoOptDisableTest", "no_opt_disable_test", ConstantsTypeFlags.None),
 			};
 	}
 }

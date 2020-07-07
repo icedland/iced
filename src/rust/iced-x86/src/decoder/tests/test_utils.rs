@@ -26,6 +26,7 @@ use super::super::super::test_utils::*;
 use super::super::super::*;
 use super::decoder_mem_test_case::*;
 use super::decoder_test_case::*;
+use super::enums::DecoderTestOptions;
 use super::test_cases::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -46,6 +47,7 @@ pub(crate) struct DecoderTestInfo {
 	#[allow(dead_code)]
 	encoded_hex_bytes: String,
 	decoder_options: u32,
+	decoder_test_options: u32,
 }
 
 impl DecoderTestInfo {
@@ -64,6 +66,9 @@ impl DecoderTestInfo {
 	}
 	pub(crate) fn decoder_options(&self) -> u32 {
 		self.decoder_options
+	}
+	pub(crate) fn decoder_test_options(&self) -> u32 {
+		self.decoder_test_options
 	}
 }
 
@@ -165,7 +170,8 @@ fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderTestCase], include_in
 			continue;
 		}
 		if let Some(can_encode) = can_encode {
-			if tc.can_encode != can_encode {
+			let tc_can_encode = (tc.test_options & DecoderTestOptions::NO_ENCODE) == 0;
+			if tc_can_encode != can_encode {
 				continue;
 			}
 		}
@@ -175,6 +181,7 @@ fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderTestCase], include_in
 			hex_bytes: tc.hex_bytes.clone(),
 			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
 			decoder_options: tc.decoder_options,
+			decoder_test_options: tc.test_options,
 		});
 	}
 }
@@ -185,7 +192,8 @@ fn add_tests_mem(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderMemoryTestCase], 
 			continue;
 		}
 		if let Some(can_encode) = can_encode {
-			if tc.can_encode != can_encode {
+			let tc_can_encode = (tc.test_options & DecoderTestOptions::NO_ENCODE) == 0;
+			if tc_can_encode != can_encode {
 				continue;
 			}
 		}
@@ -195,6 +203,7 @@ fn add_tests_mem(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderMemoryTestCase], 
 			hex_bytes: tc.hex_bytes.clone(),
 			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
 			decoder_options: tc.decoder_options,
+			decoder_test_options: tc.test_options,
 		});
 	}
 }

@@ -73,7 +73,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				throw new InvalidOperationException($"Invalid ConstantOffsets: '{coStr}'");
 			tc.EncodedHexBytes = parts.Length > 11 ? parts[11].Trim() : tc.HexBytes;
 			tc.DecoderOptions = DecoderOptions.None;
-			tc.CanEncode = true;
+			tc.TestOptions = DecoderTestOptions.None;
 			return tc;
 		}
 

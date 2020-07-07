@@ -38,6 +38,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.CpuidFeature],
 				genTypes[TypeIds.DecoderError],
 				genTypes[TypeIds.DecoderOptions],
+				genTypes[TypeIds.DecoderTestOptions],
 				genTypes[TypeIds.EvexOpCodeHandlerKind],
 				genTypes[TypeIds.HandlerFlags],
 				genTypes[TypeIds.LegacyHandlerFlags],

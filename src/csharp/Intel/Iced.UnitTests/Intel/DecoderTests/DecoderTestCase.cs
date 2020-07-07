@@ -27,7 +27,7 @@ using Iced.Intel;
 namespace Iced.UnitTests.Intel.DecoderTests {
 	sealed class DecoderTestCase {
 		public int LineNumber;
-		public bool CanEncode;
+		public DecoderTestOptions TestOptions;
 		public DecoderError DecoderError;
 		public DecoderOptions DecoderOptions;
 		public int Bitness;
@@ -123,7 +123,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public int Scale;
 		public uint Displacement;
 		public int DisplacementSize;
-		public bool CanEncode;
+		public DecoderTestOptions TestOptions;
 		public ConstantOffsets ConstantOffsets;
 	}
 }

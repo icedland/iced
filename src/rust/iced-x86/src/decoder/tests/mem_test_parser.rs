@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::*;
 use super::decoder_mem_test_case::*;
+use super::enums::DecoderTestOptions;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
@@ -124,7 +125,7 @@ impl IntoIter {
 		let encoded_hex_bytes = if parts.len() == 11 { hex_bytes } else { parts[11].trim() };
 		let _ = to_vec_u8(encoded_hex_bytes)?;
 		let decoder_options = DecoderOptions::NONE;
-		let can_encode = true;
+		let test_options = DecoderTestOptions::NONE;
 
 		Ok(Some(DecoderMemoryTestCase {
 			bitness: self.bitness,
@@ -142,7 +143,7 @@ impl IntoIter {
 			encoded_hex_bytes: encoded_hex_bytes.to_string(),
 			decoder_options,
 			line_number,
-			can_encode,
+			test_options,
 		}))
 	}
 }
