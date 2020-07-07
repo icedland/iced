@@ -67,6 +67,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case OpCodeHandlerKind.ArrayReference:
+			case OpCodeHandlerKind.Unused1:
 				throw new InvalidOperationException();
 
 			case OpCodeHandlerKind.RM:
@@ -105,9 +106,8 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_MandatoryPrefix(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler());
 				return 1;
 
-			case OpCodeHandlerKind.MandatoryPrefix_F3_F2:
-			case OpCodeHandlerKind.LegacyMandatoryPrefix_F3_F2:
-				elem = new OpCodeHandler_MandatoryPrefix_F3_F2(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler(), (uint)deserializer.ReadInt32());
+			case OpCodeHandlerKind.MandatoryPrefix4:
+				elem = new OpCodeHandler_MandatoryPrefix4(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadHandler(), (uint)deserializer.ReadInt32());
 				return 1;
 
 			case OpCodeHandlerKind.MandatoryPrefix_NoModRM:

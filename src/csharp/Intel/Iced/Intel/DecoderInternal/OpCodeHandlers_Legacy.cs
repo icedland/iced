@@ -279,14 +279,14 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
-	sealed class OpCodeHandler_MandatoryPrefix_F3_F2 : OpCodeHandler {
+	sealed class OpCodeHandler_MandatoryPrefix4 : OpCodeHandler {
 		readonly OpCodeHandler handlerNP;
 		readonly OpCodeHandler handler66;
 		readonly OpCodeHandler handlerF3;
 		readonly OpCodeHandler handlerF2;
 		readonly uint flags;
 
-		public OpCodeHandler_MandatoryPrefix_F3_F2(OpCodeHandler handlerNP, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2, uint flags) {
+		public OpCodeHandler_MandatoryPrefix4(OpCodeHandler handlerNP, OpCodeHandler handler66, OpCodeHandler handlerF3, OpCodeHandler handlerF2, uint flags) {
 			this.handlerNP = handlerNP ?? throw new ArgumentNullException(nameof(handlerNP));
 			this.handler66 = handler66 ?? throw new ArgumentNullException(nameof(handler66));
 			this.handlerF3 = handlerF3 ?? throw new ArgumentNullException(nameof(handlerF3));

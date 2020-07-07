@@ -2617,7 +2617,7 @@ namespace Iced.Intel.DecoderInternal {
 				0x01,// ArrayReference
 				0x08,// 0x8
 				// 0 = 0x00
-				0x12,// MandatoryPrefix_F3_F2
+				0x12,// MandatoryPrefix4
 					0x6E,// M_1
 						0x9B, 0x08,// Cldemote_m8
 					0x07,// HandlerReference
@@ -3399,7 +3399,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 
 				// 240 = 0xF0
-				0x12,// MandatoryPrefix_F3_F2
+				0x12,// MandatoryPrefix4
 					0x5E,// Gv_Mv
 						0xCC, 0x1C,// Movbe_r16_m16
 					0x5E,// Gv_Mv
@@ -3410,7 +3410,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x1C,// 0x1C
 
 				// 241 = 0xF1
-				0x12,// MandatoryPrefix_F3_F2
+				0x12,// MandatoryPrefix4
 					0x7A,// Mv_Gv
 						0xD1, 0x1C,// Movbe_m16_r16
 					0x7A,// Mv_Gv
@@ -5162,7 +5162,7 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 184 = 0xB8
 				0x0A,// Options3
-					0x12,// MandatoryPrefix_F3_F2
+					0x12,// MandatoryPrefix4
 						0x02,// Invalid
 						0x02,// Invalid
 						0x50,// Gv_Ev_3a
@@ -5172,7 +5172,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Bitness
 						0x6B,// Jdisp
 							0xAF, 0x10,// Jmpe_disp16
-						0x12,// MandatoryPrefix_F3_F2
+						0x12,// MandatoryPrefix4
 							0x02,// Invalid
 							0x02,// Invalid
 							0x50,// Gv_Ev_3a
@@ -5197,7 +5197,7 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 188 = 0xBC
 				0x0A,// Options3
-					0x12,// MandatoryPrefix_F3_F2
+					0x12,// MandatoryPrefix4
 						0x50,// Gv_Ev_3a
 							0xC6, 0x10,// Bsf_r16_rm16
 						0x50,// Gv_Ev_3a
@@ -5213,7 +5213,7 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 189 = 0xBD
 				0x0A,// Options3
-					0x12,// MandatoryPrefix_F3_F2
+					0x12,// MandatoryPrefix4
 						0x50,// Gv_Ev_3a
 							0xCC, 0x10,// Bsr_r16_rm16
 						0x50,// Gv_Ev_3a

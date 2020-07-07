@@ -68,7 +68,7 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 
 		OpCodeHandlerKind::Null => &NULL_HANDLER as *const _ as *const OpCodeHandler,
 		OpCodeHandlerKind::HandlerReference => deserializer.read_handler_reference(),
-		OpCodeHandlerKind::ArrayReference => unreachable!(),
+		OpCodeHandlerKind::ArrayReference | OpCodeHandlerKind::Unused1 => unreachable!(),
 
 		OpCodeHandlerKind::RM => {
 			Box::into_raw(Box::new(OpCodeHandler_RM::new(deserializer.read_handler(), deserializer.read_handler()))) as *const OpCodeHandler
@@ -121,15 +121,13 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 			deserializer.read_handler(),
 		))) as *const OpCodeHandler,
 
-		OpCodeHandlerKind::MandatoryPrefix_F3_F2 | OpCodeHandlerKind::LegacyMandatoryPrefix_F3_F2 => {
-			Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix_F3_F2::new(
-				deserializer.read_handler(),
-				deserializer.read_handler(),
-				deserializer.read_handler(),
-				deserializer.read_handler(),
-				deserializer.read_u32(),
-			))) as *const OpCodeHandler
-		}
+		OpCodeHandlerKind::MandatoryPrefix4 => Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix4::new(
+			deserializer.read_handler(),
+			deserializer.read_handler(),
+			deserializer.read_handler(),
+			deserializer.read_handler(),
+			deserializer.read_u32(),
+		))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::MandatoryPrefix_NoModRM => Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix::new(
 			false,

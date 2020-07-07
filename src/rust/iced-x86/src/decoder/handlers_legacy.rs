@@ -408,7 +408,7 @@ impl OpCodeHandler_MandatoryPrefix3 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_MandatoryPrefix_F3_F2 {
+pub(super) struct OpCodeHandler_MandatoryPrefix4 {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
 	handler_np: &'static OpCodeHandler,
@@ -418,7 +418,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix_F3_F2 {
 	flags: u32,
 }
 
-impl OpCodeHandler_MandatoryPrefix_F3_F2 {
+impl OpCodeHandler_MandatoryPrefix4 {
 	pub(super) fn new(
 		handler_np: *const OpCodeHandler, handler_66: *const OpCodeHandler, handler_f3: *const OpCodeHandler, handler_f2: *const OpCodeHandler,
 		flags: u32,
@@ -428,7 +428,7 @@ impl OpCodeHandler_MandatoryPrefix_F3_F2 {
 		assert!(!is_null_instance_handler(handler_f3));
 		assert!(!is_null_instance_handler(handler_f2));
 		Self {
-			decode: OpCodeHandler_MandatoryPrefix_F3_F2::decode,
+			decode: OpCodeHandler_MandatoryPrefix4::decode,
 			has_modrm: false,
 			handler_np: unsafe { &*handler_np },
 			handler_66: unsafe { &*handler_66 },
