@@ -2315,7 +2315,8 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, must be a memory operand
 	/// * `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
-	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register.
+	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register, or `None` for unsupported
+	///    registers.
 	///
 	/// # Call-back function args
 	///
@@ -2333,24 +2334,24 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// let va = instr.virtual_address(0, 0, |register, element_index, element_size| {
+	/// let va = instr.try_virtual_address(0, 0, |register, element_index, element_size| {
 	///     match register {
 	///         // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
-	///         Register::DS => 0x0000_0000_0000_0000,
-	///         Register::RDI => 0x0000_0000_1000_0000,
-	///         Register::R12 => 0x0000_0004_0000_0000,
-	///         _ => unimplemented!(),
+	///         Register::DS => Some(0x0000_0000_0000_0000),
+	///         Register::RDI => Some(0x0000_0000_1000_0000),
+	///         Register::R12 => Some(0x0000_0004_0000_0000),
+	///         _ => None,
 	///     }
 	/// });
-	/// assert_eq!(0x0000_001F_B55A_1234, va);
+	/// assert_eq!(Some(0x0000_001F_B55A_1234), va);
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, get_register_value: F) -> u64
+	pub fn try_virtual_address<F>(&self, operand: u32, element_index: usize, get_register_value: F) -> Option<u64>
 	where
-		F: Fn(Register, usize, usize) -> u64,
+		F: Fn(Register, usize, usize) -> Option<u64>,
 	{
-		match self.op_kind(operand) {
+		Some(match self.op_kind(operand) {
 			OpKind::Register
 			| OpKind::NearBranch16
 			| OpKind::NearBranch32
@@ -2367,20 +2368,24 @@ impl Instruction {
 			| OpKind::Immediate8to64
 			| OpKind::Immediate32to64 => 0,
 
-			OpKind::MemorySegSI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::SI, 0, 0) as u16 as u64),
+			OpKind::MemorySegSI => {
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::SI, 0, 0)? as u16 as u64)
+			}
 			OpKind::MemorySegESI => {
-				get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::ESI, 0, 0) as u32 as u64)
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::ESI, 0, 0)? as u32 as u64)
 			}
-			OpKind::MemorySegRSI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::RSI, 0, 0)),
-			OpKind::MemorySegDI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::DI, 0, 0) as u16 as u64),
+			OpKind::MemorySegRSI => get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::RSI, 0, 0)?),
+			OpKind::MemorySegDI => {
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::DI, 0, 0)? as u16 as u64)
+			}
 			OpKind::MemorySegEDI => {
-				get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::EDI, 0, 0) as u32 as u64)
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::EDI, 0, 0)? as u32 as u64)
 			}
-			OpKind::MemorySegRDI => get_register_value(self.memory_segment(), 0, 0).wrapping_add(get_register_value(Register::RDI, 0, 0)),
-			OpKind::MemoryESDI => get_register_value(Register::ES, 0, 0).wrapping_add(get_register_value(Register::DI, 0, 0) as u16 as u64),
-			OpKind::MemoryESEDI => get_register_value(Register::ES, 0, 0).wrapping_add(get_register_value(Register::EDI, 0, 0) as u32 as u64),
-			OpKind::MemoryESRDI => get_register_value(Register::ES, 0, 0).wrapping_add(get_register_value(Register::RDI, 0, 0)),
-			OpKind::Memory64 => get_register_value(self.memory_segment(), 0, 0).wrapping_add(self.memory_address64()),
+			OpKind::MemorySegRDI => get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::RDI, 0, 0)?),
+			OpKind::MemoryESDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::DI, 0, 0)? as u16 as u64),
+			OpKind::MemoryESEDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::EDI, 0, 0)? as u32 as u64),
+			OpKind::MemoryESRDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::RDI, 0, 0)?),
+			OpKind::Memory64 => get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(self.memory_address64()),
 
 			OpKind::Memory => {
 				let base_reg = self.memory_base();
@@ -2403,30 +2408,39 @@ impl Instruction {
 					Register::None => {}
 					Register::RIP => offset = offset.wrapping_add(self.next_ip()),
 					Register::EIP => offset = offset.wrapping_add(self.next_ip32() as u64),
-					_ => offset = offset.wrapping_add(get_register_value(base_reg, 0, 0)),
+					_ => offset = offset.wrapping_add(get_register_value(base_reg, 0, 0)?),
 				}
 				if index_reg != Register::None {
 					if let Some(is_vsib64) = self.vsib() {
 						if is_vsib64 {
 							offset = offset.wrapping_add(
-								get_register_value(index_reg, element_index, 8) << super::instruction_internal::internal_get_memory_index_scale(self),
+								get_register_value(index_reg, element_index, 8)?
+									<< super::instruction_internal::internal_get_memory_index_scale(self),
 							);
 						} else {
 							offset = offset.wrapping_add(
-								(get_register_value(index_reg, element_index, 4) as u32 as u64)
+								(get_register_value(index_reg, element_index, 4)? as u32 as u64)
 									<< super::instruction_internal::internal_get_memory_index_scale(self),
 							);
 						}
 					} else {
 						offset = offset.wrapping_add(
-							get_register_value(index_reg, element_index, 0) << super::instruction_internal::internal_get_memory_index_scale(self),
+							get_register_value(index_reg, element_index, 0)? << super::instruction_internal::internal_get_memory_index_scale(self),
 						);
 					}
 				}
 				offset &= offset_mask;
-				get_register_value(self.memory_segment(), 0, 0).wrapping_add(offset)
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(offset)
 			}
-		}
+		})
+	}
+
+	/// Identical to `try_virtual_address` save for taking an infallible `get_register_value`.
+	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, get_register_value: F) -> u64
+	where
+		F: Fn(Register, usize, usize) -> u64,
+	{
+		self.try_virtual_address(operand, element_index, |x, y, z| Some(get_register_value(x, y, z))).unwrap()
 	}
 }
 
