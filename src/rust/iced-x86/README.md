@@ -1033,6 +1033,7 @@ pub(crate) fn how_to_get_virtual_address() {
     let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
     let instr = decoder.decode();
 
+    // There's also try_virtual_address() which returns an Option<u64>
     let va = instr.virtual_address(0, 0, |register, _element_index, _element_size| {
         match register {
             // The base address of ES, CS, SS and DS is always 0 in 64-bit mode

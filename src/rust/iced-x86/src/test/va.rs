@@ -33,6 +33,7 @@ fn va_tests() {
 		let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
 		let mut decoder = create_decoder(tc.bitness, &bytes, 0).0;
 		let instruction = decoder.decode();
+
 		let value1 = instruction.virtual_address(tc.operand, tc.element_index, |register, element_index, element_size| {
 			for reg_value in &tc.register_values {
 				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
@@ -42,5 +43,18 @@ fn va_tests() {
 			panic!();
 		});
 		assert_eq!(tc.expected_value, value1);
+
+		let value2 = instruction.try_virtual_address(tc.operand, tc.element_index, |register, element_index, element_size| {
+			for reg_value in &tc.register_values {
+				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
+					return Some(reg_value.value);
+				}
+			}
+			None
+		});
+		assert_eq!(Some(tc.expected_value), value2);
+
+		let value3 = instruction.try_virtual_address(tc.operand, tc.element_index, |_register, _element_index, _element_size| None);
+		assert_eq!(None, value3);
 	}
 }

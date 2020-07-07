@@ -47,6 +47,7 @@ pub(crate) struct DecoderTestInfo {
 	#[allow(dead_code)]
 	encoded_hex_bytes: String,
 	decoder_options: u32,
+	#[allow(dead_code)]
 	decoder_test_options: u32,
 }
 
@@ -67,6 +68,7 @@ impl DecoderTestInfo {
 	pub(crate) fn decoder_options(&self) -> u32 {
 		self.decoder_options
 	}
+	#[cfg(feature = "op_code_info")]
 	pub(crate) fn decoder_test_options(&self) -> u32 {
 		self.decoder_test_options
 	}
