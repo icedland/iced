@@ -2347,9 +2347,9 @@ impl Instruction {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn try_virtual_address<F>(&self, operand: u32, element_index: usize, get_register_value: F) -> Option<u64>
+	pub fn try_virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> Option<u64>
 	where
-		F: Fn(Register, usize, usize) -> Option<u64>,
+		F: FnMut(Register, usize, usize) -> Option<u64>,
 	{
 		Some(match self.op_kind(operand) {
 			OpKind::Register
@@ -2436,9 +2436,9 @@ impl Instruction {
 	}
 
 	/// Identical to `try_virtual_address` save for taking an infallible `get_register_value`.
-	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, get_register_value: F) -> u64
+	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> u64
 	where
-		F: Fn(Register, usize, usize) -> u64,
+		F: FnMut(Register, usize, usize) -> u64,
 	{
 		self.try_virtual_address(operand, element_index, |x, y, z| Some(get_register_value(x, y, z))).unwrap()
 	}
