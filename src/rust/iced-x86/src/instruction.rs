@@ -910,7 +910,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn immediate(&self, operand: u32) -> u64 {
-		self.try_immediate(operand).expect("operand is not immediate")
+		self.try_immediate(operand).unwrap()
 	}
 
 	/// Sets an operand's immediate value
