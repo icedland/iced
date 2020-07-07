@@ -1090,6 +1090,20 @@ fn get_set_op_kind_panics_if_invalid_input() {
 }
 
 #[test]
+fn try_immediate_fails_if_invalid_input() {
+	let instr = Instruction::with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX);
+
+	assert!(instr.try_immediate(0).is_none());
+	assert!(instr.try_immediate(1).is_some());
+	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
+		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
+			continue;
+		}
+		assert!(instr.try_immediate(i).is_none());
+	}
+}
+
+#[test]
 fn get_set_immediate_panics_if_invalid_input() {
 	let mut instr = Instruction::with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX);
 

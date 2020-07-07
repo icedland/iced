@@ -535,69 +535,89 @@ fn verify_get_set_immediate() {
 	instr.set_op1_kind(OpKind::Immediate8);
 	instr.set_immediate_i32(1, 0x5A);
 	assert_eq!(0x5A, instr.immediate(1));
+	assert_eq!(Some(0x5A), instr.try_immediate(1));
 	instr.set_immediate_i32(1, 0xA5);
 	assert_eq!(0xA5, instr.immediate(1));
+	assert_eq!(Some(0xA5), instr.try_immediate(1));
 
 	instr.set_code(Code::Add_AX_imm16);
 	instr.set_op1_kind(OpKind::Immediate16);
 	instr.set_immediate_i32(1, 0x5AA5);
 	assert_eq!(0x5AA5, instr.immediate(1));
+	assert_eq!(Some(0x5AA5), instr.try_immediate(1));
 	instr.set_immediate_i32(1, 0xA55A);
 	assert_eq!(0xA55A, instr.immediate(1));
+	assert_eq!(Some(0xA55A), instr.try_immediate(1));
 
 	instr.set_code(Code::Add_EAX_imm32);
 	instr.set_op1_kind(OpKind::Immediate32);
 	instr.set_immediate_i32(1, 0x5AA5_1234);
 	assert_eq!(0x5AA5_1234, instr.immediate(1));
+	assert_eq!(Some(0x5AA5_1234), instr.try_immediate(1));
 	instr.set_immediate_u32(1, 0xA54A_1234);
 	assert_eq!(0xA54A_1234, instr.immediate(1));
+	assert_eq!(Some(0xA54A_1234), instr.try_immediate(1));
 
 	instr.set_code(Code::Add_RAX_imm32);
 	instr.set_op1_kind(OpKind::Immediate32to64);
 	instr.set_immediate_i32(1, 0x5AA5_1234);
 	assert_eq!(0x5AA5_1234, instr.immediate(1));
+	assert_eq!(Some(0x5AA5_1234), instr.try_immediate(1));
 	instr.set_immediate_u32(1, 0xA54A_1234);
 	assert_eq!(0xFFFF_FFFF_A54A_1234, instr.immediate(1));
+	assert_eq!(Some(0xFFFF_FFFF_A54A_1234), instr.try_immediate(1));
 
 	instr.set_code(Code::Enterq_imm16_imm8);
 	instr.set_op1_kind(OpKind::Immediate8_2nd);
 	instr.set_immediate_i32(1, 0x5A);
 	assert_eq!(0x5A, instr.immediate(1));
+	assert_eq!(Some(0x5A), instr.try_immediate(1));
 	instr.set_immediate_i32(1, 0xA5);
 	assert_eq!(0xA5, instr.immediate(1));
+	assert_eq!(Some(0xA5), instr.try_immediate(1));
 
 	instr.set_code(Code::Adc_rm16_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to16);
 	instr.set_immediate_i32(1, 0x5A);
 	assert_eq!(0x5A, instr.immediate(1));
+	assert_eq!(Some(0x5A), instr.try_immediate(1));
 	instr.set_immediate_i32(1, 0xA5);
 	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.immediate(1));
+	assert_eq!(Some(0xFFFF_FFFF_FFFF_FFA5), instr.try_immediate(1));
 
 	instr.set_code(Code::Adc_rm32_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to32);
 	instr.set_immediate_i32(1, 0x5A);
 	assert_eq!(0x5A, instr.immediate(1));
+	assert_eq!(Some(0x5A), instr.try_immediate(1));
 	instr.set_immediate_i32(1, 0xA5);
 	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.immediate(1));
+	assert_eq!(Some(0xFFFF_FFFF_FFFF_FFA5), instr.try_immediate(1));
 
 	instr.set_code(Code::Adc_rm64_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to64);
 	instr.set_immediate_i32(1, 0x5A);
 	assert_eq!(0x5A, instr.immediate(1));
+	assert_eq!(Some(0x5A), instr.try_immediate(1));
 	instr.set_immediate_i32(1, 0xA5);
 	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.immediate(1));
+	assert_eq!(Some(0xFFFF_FFFF_FFFF_FFA5), instr.try_immediate(1));
 
 	instr.set_code(Code::Mov_r64_imm64);
 	instr.set_op1_kind(OpKind::Immediate64);
 	instr.set_immediate_i64(1, 0x5AA5_1234_5678_9ABC);
 	assert_eq!(0x5AA5_1234_5678_9ABC, instr.immediate(1));
+	assert_eq!(Some(0x5AA5_1234_5678_9ABC), instr.try_immediate(1));
 	instr.set_immediate_u64(1, 0xA54A_1234_5678_9ABC);
 	assert_eq!(0xA54A_1234_5678_9ABC, instr.immediate(1));
+	assert_eq!(Some(0xA54A_1234_5678_9ABC), instr.try_immediate(1));
 	instr.set_immediate_i64(1, -0x5AB5_EDCB_A987_6544);
 	assert_eq!(0xA54A_1234_5678_9ABC, instr.immediate(1));
+	assert_eq!(Some(0xA54A_1234_5678_9ABC), instr.try_immediate(1));
 
 	{
 		let instr = instr;
+		assert!(instr.try_immediate(0).is_none());
 		assert!(panic::catch_unwind(move || instr.immediate(0)).is_err());
 	}
 	{
