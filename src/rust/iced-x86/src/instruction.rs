@@ -1523,6 +1523,26 @@ impl Instruction {
 		}
 	}
 
+	/// Gets the operand's register value, or `None` if the operand does not have kind [`OpKind::Register`]
+	///
+	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn try_op_register(&self, operand: u32) -> Option<Register> {
+		if self.op_kind(operand) != OpKind::Register {
+			return None;
+		}
+		Some(self.op_register(operand))
+	}
+
 	/// Gets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
 	///
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
