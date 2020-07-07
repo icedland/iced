@@ -872,19 +872,19 @@ impl Instruction {
 		self.mem_displ as i32 as u64
 	}
 
-	/// Gets an operand's immediate value
+	/// Gets an operand's immediate value, or `None` if the operand is not immediate
 	///
 	/// # Panics
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn immediate(&self, operand: u32) -> u64 {
-		match self.op_kind(operand) {
+	pub fn try_immediate(&self, operand: u32) -> Option<u64> {
+		Some(match self.op_kind(operand) {
 			OpKind::Immediate8 => self.immediate8() as u64,
 			OpKind::Immediate8_2nd => self.immediate8_2nd() as u64,
 			OpKind::Immediate16 => self.immediate16() as u64,
@@ -894,8 +894,23 @@ impl Instruction {
 			OpKind::Immediate8to32 => self.immediate8to32() as u64,
 			OpKind::Immediate8to64 => self.immediate8to64() as u64,
 			OpKind::Immediate32to64 => self.immediate32to64() as u64,
-			_ => panic!(),
-		}
+			_ => return None,
+		})
+	}
+
+	/// Gets an operand's immediate value
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or not immediate.
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn immediate(&self, operand: u32) -> u64 {
+		self.try_immediate(operand).expect("operand is not immediate")
 	}
 
 	/// Sets an operand's immediate value
