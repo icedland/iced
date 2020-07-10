@@ -598,6 +598,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public override string ToString() {
+			if (count == 0)
+				return string.Empty;
 			StringBuilder sb = new StringBuilder();
 			foreach (Instruction instruction in elements)
 				sb.AppendLine(instruction.ToString());
