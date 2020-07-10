@@ -1,5 +1,17 @@
 name: GitHub CI
-on: push
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '!**/*.md'
+    branches:
+      - master
+  pull_request:
+    paths:
+      - 'src/**'
+      - '!**/*.md'
+    branches:
+      - master
 
 jobs:
   build-csharp-windows:
@@ -78,23 +90,28 @@ jobs:
           .\build.ps1
 
       - name: upload-artifact doesn't support wildcards
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
         shell: pwsh
         run: |
           New-Item -ItemType Directory nuget_files > $null
           Copy-Item src\csharp\Intel\Iced\bin\Release\*.*nupkg nuget_files
 
       - uses: actions/upload-artifact@v1
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
         with:
           name: nupkg
           path: nuget_files
 
       - uses: actions/upload-artifact@v1
+        if: github.ref == 'refs/heads/master'
         with:
           name: coverage.info
           path: src/csharp/Intel/Iced.UnitTests/coverage.netcoreapp3.1.info
 
       - name: Upload coverage report
+        if: github.ref == 'refs/heads/master'
         shell: bash
+        continue-on-error: true
         run: |
           curl https://codecov.io/bash -o codecov
           chmod +x codecov
