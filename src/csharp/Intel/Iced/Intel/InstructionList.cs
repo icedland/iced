@@ -600,7 +600,7 @@ namespace Iced.Intel {
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
 			foreach (Instruction instruction in elements)
-				sb.Append(instruction + Environment.NewLine);
+				sb.AppendLine(instruction.ToString());
 			return sb.ToString();
 		}
 	}
