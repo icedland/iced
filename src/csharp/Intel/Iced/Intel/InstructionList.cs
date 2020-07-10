@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Iced.Intel {
 	/// <summary>
@@ -590,6 +591,17 @@ namespace Iced.Intel {
 			var res = new Instruction[count];
 			Array.Copy(elements, 0, res, 0, res.Length);
 			return res;
+		}
+
+		/// <summary>
+		/// Returns a string with each instruction per line
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			foreach (Instruction instruction in elements)
+				sb.Append(instruction + Environment.NewLine);
+			return sb.ToString();
 		}
 	}
 }
