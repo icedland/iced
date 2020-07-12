@@ -760,14 +760,16 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_Ev_REXW : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;
+		readonly uint flags;
 		readonly uint disallowReg;
 		readonly uint disallowMem;
 
-		public OpCodeHandler_Ev_REXW(Code code32, Code code64, bool allowReg, bool allowMem) {
+		public OpCodeHandler_Ev_REXW(Code code32, Code code64, uint flags) {
 			this.code32 = code32;
 			this.code64 = code64;
-			disallowReg = allowReg ? 0 : uint.MaxValue;
-			disallowMem = allowMem ? 0 : uint.MaxValue;
+			this.flags = flags;
+			disallowReg = (flags & 1) != 0 ? 0 : uint.MaxValue;
+			disallowMem = (flags & 2) != 0 ? 0 : uint.MaxValue;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
@@ -777,6 +779,16 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code64;
 			else
 				instruction.InternalCode = code32;
+			if ((flags & 4) != 0) {
+				if (decoder.Bitness != 16) {
+					if (state.operandSize == OpSize.Size16)
+						decoder.SetInvalidInstruction();
+				}
+				else {
+					if (state.operandSize != OpSize.Size16)
+						decoder.SetInvalidInstruction();
+				}
+			}
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp0Kind = OpKind.Register;

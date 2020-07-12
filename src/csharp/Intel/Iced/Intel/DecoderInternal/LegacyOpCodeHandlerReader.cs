@@ -332,7 +332,7 @@ namespace Iced.Intel.DecoderInternal {
 
 			case OpCodeHandlerKind.Ev_REXW:
 				code = deserializer.ReadCode();
-				elem = new OpCodeHandler_Ev_REXW(code, code + 1, deserializer.ReadBoolean(), deserializer.ReadBoolean());
+				elem = new OpCodeHandler_Ev_REXW(code, code + 1, (uint)deserializer.ReadInt32());
 				return 1;
 
 			case OpCodeHandlerKind.Ev_Sw:

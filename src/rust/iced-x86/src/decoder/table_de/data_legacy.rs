@@ -1856,8 +1856,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x02,// Invalid
 			0x44,// Ev_REXW
 				0x92, 0x11,// Xsaves_mem
-				0x00,// false
-				0x01,// true
+				0x02,// 0x2
 		0x02,// Invalid
 		0x02,// Invalid
 		0x02,// Invalid
@@ -2106,8 +2105,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// RM
 				0x44,// Ev_REXW
 					0xDA, 0x0F,// Rdfsbase_r32
-					0x01,// true
-					0x00,// false
+					0x01,// 0x1
 				0x02,// Invalid
 		0x02,// Invalid
 
@@ -2121,8 +2119,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// RM
 				0x44,// Ev_REXW
 					0xDE, 0x0F,// Rdgsbase_r32
-					0x01,// true
-					0x00,// false
+					0x01,// 0x1
 				0x02,// Invalid
 		0x02,// Invalid
 
@@ -2136,8 +2133,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// RM
 				0x44,// Ev_REXW
 					0xE1, 0x0F,// Wrfsbase_r32
-					0x01,// true
-					0x00,// false
+					0x01,// 0x1
 				0x02,// Invalid
 		0x02,// Invalid
 
@@ -2151,8 +2147,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// RM
 				0x44,// Ev_REXW
 					0xE5, 0x0F,// Wrgsbase_r32
-					0x01,// true
-					0x00,// false
+					0x01,// 0x1
 				0x02,// Invalid
 		0x02,// Invalid
 
@@ -2163,8 +2158,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEA, 0x0F,// Ptwrite_rm32
-			0x01,// true
-			0x01,// true
+			0x07,// 0x7
 		0x02,// Invalid
 
 	// 5 = 0x05
@@ -2209,8 +2203,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 41 = 0x29
@@ -2220,8 +2213,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 42 = 0x2A
@@ -2231,8 +2223,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 43 = 0x2B
@@ -2242,8 +2233,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 44 = 0x2C
@@ -2253,8 +2243,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 45 = 0x2D
@@ -2264,8 +2253,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 46 = 0x2E
@@ -2275,8 +2263,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 47 = 0x2F
@@ -2286,8 +2273,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x44,// Ev_REXW
 			0xEE, 0x0F,// Incsspd_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0x02,// Invalid
 
 	// 48 = 0x30
@@ -2296,14 +2282,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x85, 0x10,// Mfence
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 49 = 0x31
 	0x11,// MandatoryPrefix
@@ -2311,14 +2295,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x86, 0x10,// Mfence_F1
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 50 = 0x32
 	0x11,// MandatoryPrefix
@@ -2326,14 +2308,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x87, 0x10,// Mfence_F2
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 51 = 0x33
 	0x11,// MandatoryPrefix
@@ -2341,14 +2321,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x88, 0x10,// Mfence_F3
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 52 = 0x34
 	0x11,// MandatoryPrefix
@@ -2356,14 +2334,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x89, 0x10,// Mfence_F4
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 53 = 0x35
 	0x11,// MandatoryPrefix
@@ -2371,14 +2347,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x8A, 0x10,// Mfence_F5
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 54 = 0x36
 	0x11,// MandatoryPrefix
@@ -2386,14 +2360,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x8B, 0x10,// Mfence_F6
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 55 = 0x37
 	0x11,// MandatoryPrefix
@@ -2401,14 +2373,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x8C, 0x10,// Mfence_F7
 		0x44,// Ev_REXW
 			0xF3, 0x0F,// Tpause_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 		0xAC,// Simple5_ModRM_as
 			0xF6, 0x0F,// Umonitor_r16
 		0x44,// Ev_REXW
 			0xF9, 0x0F,// Umwait_r32
-			0x01,// true
-			0x00,// false
+			0x01,// 0x1
 
 	// 56 = 0x38
 	0x11,// MandatoryPrefix
@@ -2656,8 +2626,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x09,// RM
 			0x44,// Ev_REXW
 				0x9C, 0x08,// Rdsspd_r32
-				0x01,// true
-				0x00,// false
+				0x01,// 0x1
 			0x07,// HandlerReference
 				0x38,// 0x38 = reservedNop_0F1E
 		0x07,// HandlerReference

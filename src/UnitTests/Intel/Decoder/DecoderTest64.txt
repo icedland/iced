@@ -14737,11 +14737,15 @@ F3 0FAE 20, Ptwrite_rm32, Ptwrite, 1, op0=m;ds;rax;;1;0;0;UInt32
 F3 0FAE E5, Ptwrite_rm32, Ptwrite, 1, op0=r;ebp
 F3 41 0FAE E5, Ptwrite_rm32, Ptwrite, 1, op0=r;r13d
 F3 46 0FAE E5, Ptwrite_rm32, Ptwrite, 1, op0=r;ebp enc=F30FAEE5
+66 F3 0FAE 20, INVALID, INVALID, 0, code=Ptwrite_rm32
+66 F3 0FAE E5, INVALID, INVALID, 0, code=Ptwrite_rm32
 
 F3 48 0FAE 20, Ptwrite_rm64, Ptwrite, 1, op0=m;ds;rax;;1;0;0;UInt64
 F3 48 0FAE E5, Ptwrite_rm64, Ptwrite, 1, op0=r;rbp
 F3 49 0FAE E5, Ptwrite_rm64, Ptwrite, 1, op0=r;r13
 F3 4E 0FAE E5, Ptwrite_rm64, Ptwrite, 1, op0=r;rbp enc=F3480FAEE5
+66 F3 48 0FAE 20, Ptwrite_rm64, Ptwrite, 1, op0=m;ds;rax;;1;0;0;UInt64 enc=F3480FAE20
+66 F3 48 0FAE E5, Ptwrite_rm64, Ptwrite, 1, op0=r;rbp enc=F3480FAEE5
 
 0FAE 28, Xrstor_mem, Xrstor, 1, op0=m;ds;rax;;1;0;0;Xsave
 44 0FAE 28, Xrstor_mem, Xrstor, 1, op0=m;ds;rax;;1;0;0;Xsave enc=0FAE28

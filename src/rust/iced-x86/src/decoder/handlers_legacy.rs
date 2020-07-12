@@ -920,6 +920,7 @@ impl OpCodeHandler_Rv_32_64 {
 pub(super) struct OpCodeHandler_Ev_REXW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	flags: u32,
 	disallow_reg: u32,
 	disallow_mem: u32,
 	code32: u32,
@@ -927,14 +928,15 @@ pub(super) struct OpCodeHandler_Ev_REXW {
 }
 
 impl OpCodeHandler_Ev_REXW {
-	pub(super) fn new(code32: u32, code64: u32, allow_reg: bool, allow_mem: bool) -> Self {
+	pub(super) fn new(code32: u32, code64: u32, flags: u32) -> Self {
 		Self {
 			decode: OpCodeHandler_Ev_REXW::decode,
 			has_modrm: true,
 			code32,
 			code64,
-			disallow_reg: if allow_reg { 0 } else { u32::MAX },
-			disallow_mem: if allow_mem { 0 } else { u32::MAX },
+			flags,
+			disallow_reg: if (flags & 1) != 0 { 0 } else { u32::MAX },
+			disallow_mem: if (flags & 2) != 0 { 0 } else { u32::MAX },
 		}
 	}
 
@@ -945,6 +947,17 @@ impl OpCodeHandler_Ev_REXW {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 		} else {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code32);
+		}
+		if (this.flags & 4) != 0 {
+			if decoder.bitness != 16 {
+				if decoder.state.operand_size == OpSize::Size16 {
+					decoder.set_invalid_instruction();
+				}
+			} else {
+				if decoder.state.operand_size != OpSize::Size16 {
+					decoder.set_invalid_instruction();
+				}
+			}
 		}
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
