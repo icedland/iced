@@ -1955,11 +1955,11 @@ VEX_Kmovb_m8_kr, VEX, 66, 0F, 91, VEX.L0.66.0F.W0 91 /r, KMOVB m8| k1, 16b 32b 6
 VEX_Kmovd_m32_kr, VEX, 66, 0F, 91, VEX.L0.66.0F.W1 91 /r, KMOVD m32| k1, 16b 32b 64b L0 W1 op=mem;k_reg
 VEX_Kmovw_kr_r32, VEX, NP, 0F, 92, VEX.L0.0F.W0 92 /r, KMOVW k1| r32, 16b 32b 64b L0 W0 op=k_reg;r32_rm
 VEX_Kmovb_kr_r32, VEX, 66, 0F, 92, VEX.L0.66.0F.W0 92 /r, KMOVB k1| r32, 16b 32b 64b L0 W0 op=k_reg;r32_rm
-VEX_Kmovd_kr_r32, VEX, F2, 0F, 92, VEX.L0.F2.0F.W0 92 /r, KMOVD k1| r32, 16b 32b 64b L0 W0 op=k_reg;r32_rm
+VEX_Kmovd_kr_r32, VEX, F2, 0F, 92, VEX.L0.F2.0F.W0 92 /r, KMOVD k1| r32, 16b 32b 64b L0 WIG32 op=k_reg;r32_rm
 VEX_Kmovq_kr_r64, VEX, F2, 0F, 92, VEX.L0.F2.0F.W1 92 /r, KMOVQ k1| r64, 64b L0 W1 op=k_reg;r64_rm
 VEX_Kmovw_r32_kr, VEX, NP, 0F, 93, VEX.L0.0F.W0 93 /r, KMOVW r32| k1, 16b 32b 64b L0 W0 op=r32_reg;k_rm
 VEX_Kmovb_r32_kr, VEX, 66, 0F, 93, VEX.L0.66.0F.W0 93 /r, KMOVB r32| k1, 16b 32b 64b L0 W0 op=r32_reg;k_rm
-VEX_Kmovd_r32_kr, VEX, F2, 0F, 93, VEX.L0.F2.0F.W0 93 /r, KMOVD r32| k1, 16b 32b 64b L0 W0 op=r32_reg;k_rm
+VEX_Kmovd_r32_kr, VEX, F2, 0F, 93, VEX.L0.F2.0F.W0 93 /r, KMOVD r32| k1, 16b 32b 64b L0 WIG32 op=r32_reg;k_rm
 VEX_Kmovq_r64_kr, VEX, F2, 0F, 93, VEX.L0.F2.0F.W1 93 /r, KMOVQ r64| k1, 64b L0 W1 op=r64_reg;k_rm
 VEX_Kortestw_kr_kr, VEX, NP, 0F, 98, VEX.L0.0F.W0 98 /r, KORTESTW k1| k2, 16b 32b 64b L0 W0 op=k_reg;k_rm
 VEX_Kortestq_kr_kr, VEX, NP, 0F, 98, VEX.L0.0F.W1 98 /r, KORTESTQ k1| k2, 16b 32b 64b L0 W1 op=k_reg;k_rm

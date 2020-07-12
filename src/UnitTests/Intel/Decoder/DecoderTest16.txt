@@ -8707,6 +8707,7 @@ C4C179 92 D3, VEX_Kmovb_kr_r32, Kmovb, 2, op0=r;k2 op1=r;ebx enc=C5F992D3
 C5FB 92 D3, VEX_Kmovd_kr_r32, Kmovd, 2, op0=r;k2 op1=r;ebx
 C4E17B 92 D3, VEX_Kmovd_kr_r32, Kmovd, 2, op0=r;k2 op1=r;ebx enc=C5FB92D3
 C4C17B 92 D3, VEX_Kmovd_kr_r32, Kmovd, 2, op0=r;k2 op1=r;ebx enc=C5FB92D3
+C4E1FB 92 D3, VEX_Kmovd_kr_r32, Kmovd, 2, op0=r;k2 op1=r;ebx enc=C5FB92D3
 
 C5F8 93 D3, VEX_Kmovw_r32_kr, Kmovw, 2, op0=r;edx op1=r;k3
 C4E178 93 D3, VEX_Kmovw_r32_kr, Kmovw, 2, op0=r;edx op1=r;k3 enc=C5F893D3
@@ -8719,6 +8720,7 @@ C4C179 93 D3, VEX_Kmovb_r32_kr, Kmovb, 2, op0=r;edx op1=r;k3 enc=C5F993D3
 C5FB 93 D3, VEX_Kmovd_r32_kr, Kmovd, 2, op0=r;edx op1=r;k3
 C4E17B 93 D3, VEX_Kmovd_r32_kr, Kmovd, 2, op0=r;edx op1=r;k3 enc=C5FB93D3
 C4C17B 93 D3, VEX_Kmovd_r32_kr, Kmovd, 2, op0=r;edx op1=r;k3 enc=C5FB93D3
+C4E1FB 93 D3, VEX_Kmovd_r32_kr, Kmovd, 2, op0=r;edx op1=r;k3 enc=C5FB93D3
 
 C5F8 98 D3, VEX_Kortestw_kr_kr, Kortestw, 2, op0=r;k2 op1=r;k3
 C4E178 98 D3, VEX_Kortestw_kr_kr, Kortestw, 2, op0=r;k2 op1=r;k3 enc=C5F898D3

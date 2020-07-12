@@ -4680,7 +4680,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x88, 0x0F,// VEX_Kmovd_kr_r32
 					0x25,// EAX
 				0x04,// Bitness_DontReadModRM
-					0x00,// Invalid
+					0x31,// VK_R
+						0x88, 0x0F,// VEX_Kmovd_kr_r32
+						0x25,// EAX
 					0x31,// VK_R
 						0x89, 0x0F,// VEX_Kmovq_kr_r64
 						0x35,// RAX
@@ -4709,7 +4711,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x8C, 0x0F,// VEX_Kmovd_r32_kr
 					0x25,// EAX
 				0x04,// Bitness_DontReadModRM
-					0x00,// Invalid
+					0x11,// G_VK
+						0x8C, 0x0F,// VEX_Kmovd_r32_kr
+						0x25,// EAX
 					0x11,// G_VK
 						0x8D, 0x0F,// VEX_Kmovq_r64_kr
 						0x35,// RAX
