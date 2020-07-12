@@ -992,7 +992,7 @@ impl OpCodeHandler_Evj {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		if decoder.is64_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size == OpSize::Size32 {
+			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
@@ -1000,7 +1000,7 @@ impl OpCodeHandler_Evj {
 			if decoder.state.mod_ == 3 {
 				const_assert_eq!(0, OpKind::Register as u32);
 				//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
-				if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size == OpSize::Size32 {
+				if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 					super::instruction_internal::internal_set_op0_register_u32(
 						instruction,
 						decoder.state.rm + decoder.state.extra_base_register_base + Register::RAX as u32,
@@ -1634,7 +1634,7 @@ impl OpCodeHandler_Jb {
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		decoder.state.flags |= StateFlags::BRANCH_IMM8;
 		if decoder.is64_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size == OpSize::Size32 {
+			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
 				instruction.set_near_branch64((decoder.read_u8() as i8 as u64).wrapping_add(decoder.current_ip64()));
@@ -1731,7 +1731,7 @@ impl OpCodeHandler_Jz {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		if decoder.is64_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size == OpSize::Size32 {
+			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 				super::instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
 				instruction.set_near_branch64((decoder.read_u32() as i32 as u64).wrapping_add(decoder.current_ip64()));
@@ -1784,7 +1784,7 @@ impl OpCodeHandler_Jb2 {
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		decoder.state.flags |= StateFlags::BRANCH_IMM8;
 		if decoder.is64_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size == OpSize::Size32 {
+			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				if decoder.state.address_size == OpSize::Size64 {
 					super::instruction_internal::internal_set_code_u32(instruction, this.code64_64);
 				} else {
@@ -4172,7 +4172,7 @@ impl OpCodeHandler_BranchIw {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		if decoder.is64_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size == OpSize::Size32 {
+			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
@@ -4208,7 +4208,7 @@ impl OpCodeHandler_BranchSimple {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		if decoder.is64_mode {
-			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size == OpSize::Size32 {
+			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
 				super::instruction_internal::internal_set_code_u32(instruction, this.code16);
