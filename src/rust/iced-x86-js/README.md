@@ -1,8 +1,9 @@
 iced-x86 JavaScript bindings (Rust -> WebAssembly) [![npm](https://img.shields.io/npm/v/iced-x86.svg)](https://www.npmjs.com/package/iced-x86) [![GitHub builds](https://github.com/0xd4d/iced/workflows/GitHub%20CI/badge.svg)](https://github.com/0xd4d/iced/actions) ![Minimum rustc version](https://img.shields.io/badge/rustc-1.20.0+-yellow.svg) ![License](https://img.shields.io/crates/l/iced-x86.svg)
 
-x86/x64 disassembler for JavaScript (WebAssembly).
+iced-x86 is a high performance and correct x86 (16/32/64-bit) disassembler for JavaScript (WebAssembly).
 
 - ✔️Supports all Intel and AMD instructions
+- ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc

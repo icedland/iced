@@ -16,6 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B30C9637
 		Intel\README.md = Intel\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IcedFuzzer", "IcedFuzzer", "{CF0D8174-316A-4F39-8305-D3852A039AFF}"
+	ProjectSection(SolutionItems) = preProject
+		Intel\IcedFuzzer\README.md = Intel\IcedFuzzer\README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IcedFuzzer", "Intel\IcedFuzzer\IcedFuzzer\IcedFuzzer.csproj", "{A89245C7-C09D-4297-98E5-4CD08CEDA60B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IcedFuzzer.Core", "Intel\IcedFuzzer\IcedFuzzer.Core\IcedFuzzer.Core.csproj", "{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,9 +43,21 @@ Global
 		{0990E973-7216-4968-9D54-33DCEAD123EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0990E973-7216-4968-9D54-33DCEAD123EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0990E973-7216-4968-9D54-33DCEAD123EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A89245C7-C09D-4297-98E5-4CD08CEDA60B} = {CF0D8174-316A-4F39-8305-D3852A039AFF}
+		{2BDA2EF5-F387-4FD8-948E-01ACBECC830C} = {CF0D8174-316A-4F39-8305-D3852A039AFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {699E470D-9D53-4638-9A18-B0D388E05B2C}

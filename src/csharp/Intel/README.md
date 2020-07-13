@@ -2,11 +2,12 @@
 
 <img align="right" width="160px" height="160px" src="../../../logo.png">
 
-Iced is a high performance x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in C#.
+Iced is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in C#.
 
 It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
 
 - ✔️Supports all Intel and AMD instructions
+- ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - ✔️100% C# code
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - ✔️The decoder is 2x+ faster than other similar libraries and doesn't allocate any memory
@@ -14,7 +15,6 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - ✔️High level [Assembler](#assemble-instructions) providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
-- ✔️All instructions are tested (decode, encode, format, instruction info)
 - ✔️Supports `.NET Standard 2.0/2.1+` and `.NET Framework 4.5+`
 - ✔️License: MIT
 
