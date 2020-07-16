@@ -2053,16 +2053,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000004, 0x49000000,// Wrgsbase_r32
 			0x00000004, 0x49000000,// Wrgsbase_r64
 			0x20000007, 0x0F000001,// VEX_Vstmxcsr_m32
-			0x0B900007, 0x91000000,// Xsave_mem
-			0x0B900007, 0x91000000,// Xsave64_mem
+			0x0B900006, 0x91000000,// Xsave_mem
+			0x0B900006, 0x91000000,// Xsave64_mem
 			0x00000004, 0x6D000000,// Ptwrite_rm32
 			0x00000004, 0x6D000000,// Ptwrite_rm64
 			0x0B900004, 0x91000000,// Xrstor_mem
 			0x0B900004, 0x91000000,// Xrstor64_mem
 			0x24000004, 0x31000000,// Incsspd_r32
 			0x24000004, 0x31000000,// Incsspq_r64
-			0x0B900007, 0x93000000,// Xsaveopt_mem
-			0x0B900007, 0x93000000,// Xsaveopt64_mem
+			0x0B900006, 0x93000000,// Xsaveopt_mem
+			0x0B900006, 0x93000000,// Xsaveopt64_mem
 			0x00000003, 0x36000000,// Clwb_m8
 			0x0449C004, 0x8E000000,// Tpause_r32
 			0x0449C004, 0x8E000000,// Tpause_r64

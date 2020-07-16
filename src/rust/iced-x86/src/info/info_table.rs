@@ -2049,16 +2049,16 @@ pub(crate) static TABLE: [u32; 8472] = [
 	0x0000_0004, 0x4900_0000,// Wrgsbase_r32
 	0x0000_0004, 0x4900_0000,// Wrgsbase_r64
 	0x2000_0007, 0x0F00_0001,// VEX_Vstmxcsr_m32
-	0x0B90_0007, 0x9100_0000,// Xsave_mem
-	0x0B90_0007, 0x9100_0000,// Xsave64_mem
+	0x0B90_0006, 0x9100_0000,// Xsave_mem
+	0x0B90_0006, 0x9100_0000,// Xsave64_mem
 	0x0000_0004, 0x6D00_0000,// Ptwrite_rm32
 	0x0000_0004, 0x6D00_0000,// Ptwrite_rm64
 	0x0B90_0004, 0x9100_0000,// Xrstor_mem
 	0x0B90_0004, 0x9100_0000,// Xrstor64_mem
 	0x2400_0004, 0x3100_0000,// Incsspd_r32
 	0x2400_0004, 0x3100_0000,// Incsspq_r64
-	0x0B90_0007, 0x9300_0000,// Xsaveopt_mem
-	0x0B90_0007, 0x9300_0000,// Xsaveopt64_mem
+	0x0B90_0006, 0x9300_0000,// Xsaveopt_mem
+	0x0B90_0006, 0x9300_0000,// Xsaveopt64_mem
 	0x0000_0003, 0x3600_0000,// Clwb_m8
 	0x0449_C004, 0x8E00_0000,// Tpause_r32
 	0x0449_C004, 0x8E00_0000,// Tpause_r64

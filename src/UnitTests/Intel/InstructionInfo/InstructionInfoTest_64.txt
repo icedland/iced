@@ -7612,9 +7612,9 @@ F3 48 0FAE DD, Wrgsbase_r64, Legacy, FSGSBASE, op0=r r=rbp
 # vstmxcsr dword ptr [rax]
 C5F8 AE 18, VEX_Vstmxcsr_m32, VEX, AVX, pm op0=w r=rax wm=ds:rax;UInt32
 # xsave [rdi]
-0FAE 27, Xsave_mem, Legacy, XSAVE, saverestore op0=w r=eax;edx r=rdi wm=ds:rdi;Xsave
+0FAE 27, Xsave_mem, Legacy, XSAVE, saverestore op0=rw r=eax;edx r=rdi rwm=ds:rdi;Xsave
 # xsave64 [rdi]
-48 0FAE 27, Xsave64_mem, Legacy, XSAVE, saverestore op0=w r=eax;edx r=rdi wm=ds:rdi;Xsave64
+48 0FAE 27, Xsave64_mem, Legacy, XSAVE, saverestore op0=rw r=eax;edx r=rdi rwm=ds:rdi;Xsave64
 # ptwrite ebp
 F3 0FAE E5, Ptwrite_rm32, Legacy, PTWRITE, op0=r r=ebp
 # ptwrite dword ptr [rax]
@@ -7628,9 +7628,9 @@ F3 48 0FAE 20, Ptwrite_rm64, Legacy, PTWRITE, op0=r r=rax rm=ds:rax;UInt64
 # xrstor64 [rdi]
 48 0FAE 2F, Xrstor64_mem, Legacy, XSAVE, saverestore op0=r r=eax;edx r=rdi rm=ds:rdi;Xsave64
 # xsaveopt [rdi]
-0FAE 37, Xsaveopt_mem, Legacy, XSAVEOPT, saverestore op0=w r=eax;edx r=rdi wm=ds:rdi;Xsave
+0FAE 37, Xsaveopt_mem, Legacy, XSAVEOPT, saverestore op0=rw r=eax;edx r=rdi rwm=ds:rdi;Xsave
 # xsaveopt64 [rdi]
-48 0FAE 37, Xsaveopt64_mem, Legacy, XSAVEOPT, saverestore op0=w r=eax;edx r=rdi wm=ds:rdi;Xsave64
+48 0FAE 37, Xsaveopt64_mem, Legacy, XSAVEOPT, saverestore op0=rw r=eax;edx r=rdi rwm=ds:rdi;Xsave64
 # clwb [rax]
 66 0FAE 30, Clwb_m8, Legacy, CLWB, op0=nma r=rax
 # clflush [rax]
