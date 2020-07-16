@@ -38,6 +38,12 @@ namespace IcedFuzzer.Core {
 		public readonly HashSet<Code> IncludeCode = new HashSet<Code>();
 		public readonly HashSet<Code> ExcludeCode = new HashSet<Code>();
 
+		public bool WasRemoved(CpuidFeature cpu) {
+			if (IncludeCpuid.Count != 0)
+				return !IncludeCpuid.Contains(cpu);
+			return ExcludeCpuid.Contains(cpu);
+		}
+
 		public bool ShouldInclude(Code code, bool? isMemOp) {
 			if (ExcludeCpuid.Count != 0) {
 				if (CodeUtils.IsSpecialAvxAvx2(code)) {

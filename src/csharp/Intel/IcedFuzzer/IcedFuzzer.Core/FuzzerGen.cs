@@ -332,7 +332,7 @@ namespace IcedFuzzer.Core {
 			new byte[] { 0xF3, 0xF3 },
 			new byte[] { 0x4F, 0x40 },
 
-			// two prefixes from the same group, all combos, except same prefixes (already tested)
+			// two prefixes from the same group, all combos, except same prefixes (already gen'd)
 			new byte[] { 0xF3, 0xF2 },
 			new byte[] { 0xF2, 0xF3 },
 
@@ -894,10 +894,10 @@ namespace IcedFuzzer.Core {
 	// If AMD and mov to/from CR/DR/TR, generate a LOCK prefix as an extra reg bit.
 	// Also gens instructions with ignored bits set to 1 (W R X B R').
 	sealed class AllRegsFuzzerGen : FuzzerGen {
-		static IEnumerable<(RegisterFuzzerOperand regOp, bool forceREX)> GetRegisterOperands(FuzzerInstruction instruction, int bitness) {
+		static IEnumerable<(RegisterFuzzerOperand regOp, bool forceREX)> GetRegisterOperands(FuzzerInstruction instruction, int bitness, FuzzerEncodingKind encoding) {
 			foreach (var regOp in instruction.RegisterOperands) {
 				yield return (regOp, false);
-				if (bitness == 64 && regOp.Register == FuzzerRegisterKind.GPR8)
+				if (bitness == 64 && regOp.Register == FuzzerRegisterKind.GPR8 && encoding == FuzzerEncodingKind.Legacy)
 					yield return (regOp, true);
 			}
 		}
@@ -919,7 +919,7 @@ namespace IcedFuzzer.Core {
 			for (uint lockCount = 0; lockCount <= lockTestMax; lockCount++) {
 				bool useLockPrefix = lockCount == 1;
 				for (uint mod = 0; mod <= modMax; mod++) {
-					foreach (var (regOp, forceREX) in GetRegisterOperands(context.Instruction, context.Bitness)) {
+					foreach (var (regOp, forceREX) in GetRegisterOperands(context.Instruction, context.Bitness, context.Encoding)) {
 						var regInfo = regOp.GetRegisterInfo(context.Bitness, context.Encoding);
 						// xchg reg,rAX is NOP if reg==rAX
 						uint startNum = context.Instruction.IsXchgRegAcc ? 1U : 0;

@@ -120,9 +120,9 @@ namespace IcedFuzzer {
 				genFlags |= InstrGenFlags.NoEVEX;
 			if (!options.OpCodeInfoOptions.Include3DNow)
 				genFlags |= InstrGenFlags.No3DNow;
-			if (options.OpCodeInfoOptions.Filter.ExcludeCpuid.Contains(CpuidFeature.AVX))
+			if (options.OpCodeInfoOptions.Filter.WasRemoved(CpuidFeature.AVX))
 				genFlags |= InstrGenFlags.NoAVX;
-			if (options.OpCodeInfoOptions.Filter.ExcludeCpuid.Contains(CpuidFeature.AVX2))
+			if (options.OpCodeInfoOptions.Filter.WasRemoved(CpuidFeature.AVX2))
 				genFlags |= InstrGenFlags.NoAVX2;
 			var encodingTables = InstrGen.Create(options.OpCodeInfoOptions.Bitness, infos, genFlags);
 
@@ -149,7 +149,7 @@ namespace IcedFuzzer {
 					FuzzerOptions.NoTZCNT | FuzzerOptions.NoLZCNT;
 				if (options.OpCodeInfoOptions.Filter.FilterEnabled || options.Filter.FilterEnabled)
 					fuzzerOptions |= FuzzerOptions.NoVerifyInstrs;
-				if (!options.OpCodeInfoOptions.Filter.ExcludeCpuid.Contains(CpuidFeature.MPX))
+				if (!options.OpCodeInfoOptions.Filter.WasRemoved(CpuidFeature.MPX))
 					fuzzerOptions |= FuzzerOptions.HasMPX;
 				foreach (var instr in instructions) {
 					switch (instr.Code) {
@@ -198,6 +198,8 @@ namespace IcedFuzzer {
 					if (writer is object) {
 						if (writeCodeValue) {
 							uint code = (uint)info.Instruction.Code;
+							if (code > ushort.MaxValue)
+								throw new InvalidOperationException();
 							data2[0] = (byte)code;
 							data2[1] = (byte)(code >> 8);
 							writer.Write(data2, 0, 2);
@@ -251,10 +253,10 @@ namespace IcedFuzzer {
 			Console.WriteLine($"--no-vex                  No VEX instructions");
 			Console.WriteLine($"--no-xop                  No XOP instructions");
 			Console.WriteLine($"--no-evex                 No EVEX instructions");
-			Console.WriteLine($"--no-3dnow                No 3DNow! instructions");
+			Console.WriteLine($"--no-3dnow                No 3DNow! instructions (implies --no-geode)");
 			Console.WriteLine($"--no-geode                No AMD Geode LX/GX 3DNow! instructions");
 			Console.WriteLine($"--no-via                  No VIA instructions");
-			Console.WriteLine($"--no-unused-tables        Don't gen unused VEX/EVEX/XOP opcode tables (eg. EVEX.mm=00)");
+			Console.WriteLine($"--no-unused-tables        Don't gen unused VEX/EVEX/XOP opcode tables (eg. EVEX.mm=00). Smaller output files.");
 			Console.WriteLine($"--include-cpuid names     Only include instructions with these CPUID names, {sep}-separated");
 			Console.WriteLine($"--exclude-cpuid names     Exclude instructions with these CPUID names, {sep}-separated");
 			Console.WriteLine($"--include-code names      Only include instructions with these Code names, {sep}-separated");
@@ -276,7 +278,8 @@ namespace IcedFuzzer {
 			Console.WriteLine($"-ovlc filename            Valid bytes filename with instr length bytes and Code value");
 			Console.WriteLine($"-ov filename              Valid bytes filename without instr length bytes");
 			Console.WriteLine();
-			Console.WriteLine($"At least one filename is needed.");
+			Console.WriteLine($"At least one filename is required.");
+			Console.WriteLine();
 			Console.WriteLine($"-oil / -ovl format: <byte length> <length instruction bytes> ...");
 			Console.WriteLine($"-ovlc format: <2-byte Code value LE> <byte length> <length instruction bytes> ...");
 			Console.WriteLine($"-ov format: <all instruction bytes>");
@@ -295,6 +298,7 @@ namespace IcedFuzzer {
 			Console.WriteLine($@"{filename} -32 --show-instructions --include-cpuid ""intel8086;intel186;intel286;intel386;intel486""");
 			Console.WriteLine($@"{filename} -64 -oil invalid.bin -ov valid.bin");
 			Console.WriteLine($@"{filename} -32 -oil invalid.bin -ov valid.bin --include-cpuid ""intel8086;intel186;intel286;intel386;intel486""");
+			Console.WriteLine($@"{filename} -64 -oil invalid.bin -ov valid.bin --gen-include-cpuid ""avx;avx2""");
 		}
 
 		static Options ParseOptions(string[] args) {
@@ -353,6 +357,7 @@ namespace IcedFuzzer {
 				case "--no-3dnow":
 					options.OpCodeInfoOptions.Include3DNow = false;
 					options.OpCodeInfoOptions.Filter.ExcludeCode.Add(Code.Femms);
+					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.GEODE);
 					break;
 
 				case "--no-geode":

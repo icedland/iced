@@ -103,20 +103,13 @@ namespace IcedFuzzer.Core {
 		CanUseRoundingControl			= 0x00000080,
 		CanSuppressAllExceptions		= 0x00000100,
 		CanUseLockPrefix				= 0x00000200,
-		CanUseXacquirePrefix			= 0x00000400,
-		CanUseXreleasePrefix			= 0x00000800,
-		CanUseRepPrefix					= 0x00001000,
-		CanUseRepnePrefix				= 0x00002000,
-		CanUseBndPrefix					= 0x00004000,
-		CanUseHintTakenPrefix			= 0x00008000,
-		CanUseNotrackPrefix				= 0x00010000,
-		RequireNonZeroOpMaskRegister	= 0x00020000,
-		IsXchgRegAcc					= 0x00040000,
-		IsNop							= 0x00080000,
-		IsVsib							= 0x00100000,
-		CanUseZeroingMasking			= 0x00200000,
-		CanUseOpMaskRegister			= 0x00400000,
-		IsNFx							= 0x00800000,
+		RequireNonZeroOpMaskRegister	= 0x00000400,
+		IsXchgRegAcc					= 0x00000800,
+		IsNop							= 0x00001000,
+		IsVsib							= 0x00002000,
+		CanUseZeroingMasking			= 0x00004000,
+		CanUseOpMaskRegister			= 0x00008000,
+		IsNFx							= 0x00010000,
 	}
 
 	[DebuggerDisplay("Mem={" + nameof(IsModrmMemory) + "} {" + nameof(MandatoryPrefix) + "} L{" + nameof(L) + ",d} W{" + nameof(W) + ",d} {" + nameof(Code) + "}")]
@@ -132,13 +125,6 @@ namespace IcedFuzzer.Core {
 		public bool CanUseRoundingControl => (Flags & FuzzerInstructionFlags.CanUseRoundingControl) != 0;
 		public bool CanSuppressAllExceptions => (Flags & FuzzerInstructionFlags.CanSuppressAllExceptions) != 0;
 		public bool CanUseLockPrefix => (Flags & FuzzerInstructionFlags.CanUseLockPrefix) != 0;
-		public bool CanUseXacquirePrefix => (Flags & FuzzerInstructionFlags.CanUseXacquirePrefix) != 0;
-		public bool CanUseXreleasePrefix => (Flags & FuzzerInstructionFlags.CanUseXreleasePrefix) != 0;
-		public bool CanUseRepPrefix => (Flags & FuzzerInstructionFlags.CanUseRepPrefix) != 0;
-		public bool CanUseRepnePrefix => (Flags & FuzzerInstructionFlags.CanUseRepnePrefix) != 0;
-		public bool CanUseBndPrefix => (Flags & FuzzerInstructionFlags.CanUseBndPrefix) != 0;
-		public bool CanUseHintTakenPrefix => (Flags & FuzzerInstructionFlags.CanUseHintTakenPrefix) != 0;
-		public bool CanUseNotrackPrefix => (Flags & FuzzerInstructionFlags.CanUseNotrackPrefix) != 0;
 		public bool RequireNonZeroOpMaskRegister => (Flags & FuzzerInstructionFlags.RequireNonZeroOpMaskRegister) != 0;
 		public bool IsXchgRegAcc => (Flags & FuzzerInstructionFlags.IsXchgRegAcc) != 0;
 		public bool IsNop => (Flags & FuzzerInstructionFlags.IsNop) != 0;
@@ -187,10 +173,6 @@ namespace IcedFuzzer.Core {
 					flags |= FuzzerInstructionFlags.CanBroadcast;
 				if (opc.CanUseLockPrefix)
 					flags |= FuzzerInstructionFlags.CanUseLockPrefix;
-				if (opc.CanUseXacquirePrefix)
-					flags |= FuzzerInstructionFlags.CanUseXacquirePrefix;
-				if (opc.CanUseXreleasePrefix)
-					flags |= FuzzerInstructionFlags.CanUseXreleasePrefix;
 			}
 			else {
 				if (opc.CanUseRoundingControl)
@@ -198,16 +180,6 @@ namespace IcedFuzzer.Core {
 				if (opc.CanSuppressAllExceptions)
 					flags |= FuzzerInstructionFlags.CanSuppressAllExceptions;
 			}
-			if (opc.CanUseRepPrefix)
-				flags |= FuzzerInstructionFlags.CanUseRepPrefix;
-			if (opc.CanUseRepnePrefix)
-				flags |= FuzzerInstructionFlags.CanUseRepnePrefix;
-			if (opc.CanUseBndPrefix)
-				flags |= FuzzerInstructionFlags.CanUseBndPrefix;
-			if (opc.CanUseHintTakenPrefix)
-				flags |= FuzzerInstructionFlags.CanUseHintTakenPrefix;
-			if (opc.CanUseNotrackPrefix)
-				flags |= FuzzerInstructionFlags.CanUseNotrackPrefix;
 			if (opc.RequireNonZeroOpMaskRegister)
 				flags |= FuzzerInstructionFlags.RequireNonZeroOpMaskRegister;
 			if (opc.CanUseZeroingMasking)

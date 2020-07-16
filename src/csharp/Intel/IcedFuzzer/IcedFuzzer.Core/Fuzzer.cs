@@ -26,18 +26,13 @@ using System.Collections.Generic;
 using Iced.Intel;
 
 namespace IcedFuzzer.Core {
-	abstract class CodeWriter {
-		public abstract int Length { get; }
-		public abstract void WriteByte(byte b);
-	}
-
-	sealed class CodeWriterImpl : CodeWriter {
+	sealed class CodeWriter {
 		readonly byte[] data;
 		int dataLen;
 
-		public override int Length => dataLen;
+		public int Length => dataLen;
 		public byte[] Data => data;
-		public CodeWriterImpl() => data = new byte[0x20];
+		public CodeWriter() => data = new byte[0x20];
 
 		public void SetLength(int length) {
 			Assert.True((uint)length <= (uint)data.Length);
@@ -45,7 +40,7 @@ namespace IcedFuzzer.Core {
 		}
 
 		public void Clear() => dataLen = 0;
-		public override void WriteByte(byte b) {
+		public void WriteByte(byte b) {
 			Assert.True(dataLen < data.Length);
 			data[dataLen++] = b;
 		}
@@ -76,16 +71,16 @@ namespace IcedFuzzer.Core {
 	}
 
 	public sealed class Fuzzer {
-		internal CodeWriterImpl Writer => writer;
+		internal CodeWriter Writer => writer;
 		internal CpuDecoder CpuDecoder => cpuDecoder;
 		internal int Bitness => bitness;
-		readonly CodeWriterImpl writer;
+		readonly CodeWriter writer;
 		readonly int bitness;
 		readonly FuzzerOptions options;
 		readonly CpuDecoder cpuDecoder;
 
 		public Fuzzer(int bitness, FuzzerOptions options, CpuDecoder cpuDecoder) {
-			writer = new CodeWriterImpl();
+			writer = new CodeWriter();
 			this.bitness = bitness;
 			this.options = options;
 			this.cpuDecoder = cpuDecoder;
@@ -128,7 +123,7 @@ namespace IcedFuzzer.Core {
 				return false;
 			}
 
-			bool IEqualityComparer<CodeHash.Key>.Equals(Key x, Key y) {
+			bool IEqualityComparer<Key>.Equals(Key x, Key y) {
 				if (x.Length != y.Length)
 					return false;
 				var data = this.data;
@@ -139,7 +134,7 @@ namespace IcedFuzzer.Core {
 				return true;
 			}
 
-			int IEqualityComparer<CodeHash.Key>.GetHashCode(Key obj) {
+			int IEqualityComparer<Key>.GetHashCode(Key obj) {
 				var data = this.data;
 				int hc = 0;
 				for (int i = 0; i < obj.Length; i++)

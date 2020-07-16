@@ -354,13 +354,13 @@ namespace IcedFuzzer.Core {
 		public void SetImmediate(uint size, ulong value) {
 			Assert.True(size > 0);
 			if (imm0Size == 0) {
-				Assert.True((uint)size <= 8);
+				Assert.True(size <= 8);
 				imm0Size = (byte)size;
 				imm0 = (uint)value;
 				imm0Hi = (uint)(value >> 32);
 			}
 			else if (imm1Size == 0) {
-				Assert.True((uint)size <= 4);
+				Assert.True(size <= 4);
 				imm1Size = (byte)size;
 				imm1 = (uint)value;
 			}
@@ -544,6 +544,7 @@ namespace IcedFuzzer.Core {
 			case FuzzerEncodingKind.Legacy:
 				Assert.True(regNum <= 15);
 				Assert.True((Flags & EncodedInfoFlags.HasOpCodeBits) == 0);
+				Flags |= EncodedInfoFlags.HasOpCodeBits;
 				opCodeBits = (byte)(regNum & 7);
 				b = regNum >> 3;
 				break;
