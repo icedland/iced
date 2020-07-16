@@ -779,16 +779,9 @@ namespace Iced.Intel.DecoderInternal {
 				instruction.InternalCode = code64;
 			else
 				instruction.InternalCode = code32;
-			if ((flags & 4) != 0) {
-				if (decoder.Bitness != 16) {
-					if (state.operandSize == OpSize.Size16)
-						decoder.SetInvalidInstruction();
-				}
-				else {
-					if (state.operandSize != OpSize.Size16)
-						decoder.SetInvalidInstruction();
-				}
-			}
+			Static.Assert((uint)StateFlags.Has66 != 4 ? 0 : -1);
+			if ((((flags & 4) | (uint)(state.flags & StateFlags.Has66)) & decoder.invalidCheckMask) == (4 | (uint)StateFlags.Has66))
+				decoder.SetInvalidInstruction();
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp0Kind = OpKind.Register;

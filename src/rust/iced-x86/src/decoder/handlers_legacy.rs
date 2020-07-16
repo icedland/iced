@@ -948,16 +948,9 @@ impl OpCodeHandler_Ev_REXW {
 		} else {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code32);
 		}
-		if (this.flags & 4) != 0 {
-			if decoder.bitness != 16 {
-				if decoder.state.operand_size == OpSize::Size16 {
-					decoder.set_invalid_instruction();
-				}
-			} else {
-				if decoder.state.operand_size != OpSize::Size16 {
-					decoder.set_invalid_instruction();
-				}
-			}
+		const_assert_ne!(4, StateFlags::HAS66);
+		if (((this.flags & 4) | (decoder.state.flags & StateFlags::HAS66)) & decoder.invalid_check_mask) == (4 | StateFlags::HAS66) {
+			decoder.set_invalid_instruction();
 		}
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);

@@ -8951,6 +8951,8 @@ F3 0FAE 20, Ptwrite_rm32, Ptwrite, 1, op0=m;ds;bx;si;1;0;0;UInt32
 F3 0FAE E5, Ptwrite_rm32, Ptwrite, 1, op0=r;ebp
 66 F3 0FAE 20, INVALID, INVALID, 0, code=Ptwrite_rm32
 66 F3 0FAE E5, INVALID, INVALID, 0, code=Ptwrite_rm32
+66 F3 0FAE 20, Ptwrite_rm32, Ptwrite, 1, op0=m;ds;bx;si;1;0;0;UInt32 noinvalidcheck enc=F30FAE20
+66 F3 0FAE E5, Ptwrite_rm32, Ptwrite, 1, op0=r;ebp noinvalidcheck enc=F30FAEE5
 
 0FAE 28, Xrstor_mem, Xrstor, 1, op0=m;ds;bx;si;1;0;0;Xsave
 

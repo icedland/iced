@@ -409,7 +409,16 @@ namespace IcedFuzzer.Core {
 				throw ThrowHelpers.Unreachable;
 			}
 
-			bool no66 = context.Instruction.Code == Code.Ptwrite_rm32;
+			bool no66;
+			switch (context.Instruction.Code) {
+			case Code.Ptwrite_rm32:
+			case Code.Ptwrite_rm64:
+				no66 = true;
+				break;
+			default:
+				no66 = false;
+				break;
+			}
 
 			var writePrefixes = context.WritePrefixes;
 			var prefixesTmp1 = context.PrefixesTmp1;

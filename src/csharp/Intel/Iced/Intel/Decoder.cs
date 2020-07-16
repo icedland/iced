@@ -56,6 +56,7 @@ namespace Iced.Intel {
 		Lock = 0x00001000,
 		AllowLock = 0x00002000,
 		NoMoreBytes = 0x00004000,
+		Has66 = 0x00008000,
 	}
 	// GENERATOR-END: StateFlags
 
@@ -372,6 +373,7 @@ namespace Iced.Intel {
 					break;
 
 				case 0x66:
+					state.flags |= StateFlags.Has66;
 					state.operandSize = defaultInvertedOperandSize;
 					if (state.mandatoryPrefix == MandatoryPrefixByte.None)
 						state.mandatoryPrefix = MandatoryPrefixByte.P66;

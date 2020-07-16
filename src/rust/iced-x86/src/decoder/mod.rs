@@ -215,6 +215,7 @@ impl StateFlags {
 	pub(crate) const LOCK: u32 = 0x0000_1000;
 	pub(crate) const ALLOW_LOCK: u32 = 0x0000_2000;
 	pub(crate) const NO_MORE_BYTES: u32 = 0x0000_4000;
+	pub(crate) const HAS66: u32 = 0x0000_8000;
 }
 // GENERATOR-END: StateFlags
 
@@ -1010,6 +1011,7 @@ impl<'a> Decoder<'a> {
 					rex_prefix = 0;
 				}
 				0x66 => {
+					self.state.flags |= StateFlags::HAS66;
 					self.state.operand_size = self.default_inverted_operand_size;
 					if self.state.mandatory_prefix == MandatoryPrefixByte::None as u32 {
 						self.state.mandatory_prefix = MandatoryPrefixByte::P66 as u32;

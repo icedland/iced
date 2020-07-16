@@ -41,6 +41,7 @@ namespace Generator.Enums.Decoder {
 		Lock					= 0x00001000,
 		AllowLock				= 0x00002000,
 		NoMoreBytes				= 0x00004000,
+		Has66					= 0x00008000,
 	}
 
 	[TypeGen(TypeGenOrders.NoDeps)]
