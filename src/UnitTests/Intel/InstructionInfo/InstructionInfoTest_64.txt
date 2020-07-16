@@ -2880,7 +2880,7 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # enclv
 67 64 48 0F01 C0, Enclv, Legacy, ENCLV, fw=acopsz priv pm r=eax cw=rax cr=rcx;rdx;rbx cw=rcx;rdx;rbx
 # vmcall
-0F01 C1, Vmcall, Legacy, VMX, priv fc=aops fw=cz flow=Call
+0F01 C1, Vmcall, Legacy, VMX, fc=aops fw=cz flow=Call
 # vmlaunch
 0F01 C2, Vmlaunch, Legacy, VMX, fw=acopszidA priv pm flow=Return
 # vmresume

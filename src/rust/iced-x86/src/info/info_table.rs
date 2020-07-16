@@ -838,7 +838,7 @@ pub(crate) static TABLE: [u32; 8472] = [
 	0x4480_0004, 0x0C00_0000,// Lmsw_r64m16
 	0x4000_0003, 0x0800_0000,// Invlpg_m
 	0x60C8_4000, 0x3E00_0000,// Enclv
-	0x400C_8000, 0x8A50_0000,// Vmcall
+	0x000C_8000, 0x8A50_0000,// Vmcall
 	0x6008_C000, 0x8A40_0000,// Vmlaunch
 	0x6008_C000, 0x8A40_0000,// Vmresume
 	0x600C_8000, 0x8A00_0000,// Vmxoff

@@ -842,7 +842,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x44800004, 0x0C000000,// Lmsw_r64m16
 			0x40000003, 0x08000000,// Invlpg_m
 			0x60C84000, 0x3E000000,// Enclv
-			0x400C8000, 0x8A500000,// Vmcall
+			0x000C8000, 0x8A500000,// Vmcall
 			0x6008C000, 0x8A400000,// Vmlaunch
 			0x6008C000, 0x8A400000,// Vmresume
 			0x600C8000, 0x8A000000,// Vmxoff
