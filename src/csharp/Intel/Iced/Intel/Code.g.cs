@@ -6504,7 +6504,7 @@ namespace Iced.Intel {
 		Enclv = 812,
 		/// <summary><c>VMCALL</c><br/>
 		/// <br/>
-		/// <c>0F 01 C1</c><br/>
+		/// <c>NP 0F 01 C1</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
@@ -6512,7 +6512,7 @@ namespace Iced.Intel {
 		Vmcall = 813,
 		/// <summary><c>VMLAUNCH</c><br/>
 		/// <br/>
-		/// <c>0F 01 C2</c><br/>
+		/// <c>NP 0F 01 C2</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
@@ -6520,7 +6520,7 @@ namespace Iced.Intel {
 		Vmlaunch = 814,
 		/// <summary><c>VMRESUME</c><br/>
 		/// <br/>
-		/// <c>0F 01 C3</c><br/>
+		/// <c>NP 0F 01 C3</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
@@ -6528,7 +6528,7 @@ namespace Iced.Intel {
 		Vmresume = 815,
 		/// <summary><c>VMXOFF</c><br/>
 		/// <br/>
-		/// <c>0F 01 C4</c><br/>
+		/// <c>NP 0F 01 C4</c><br/>
 		/// <br/>
 		/// <c>VMX</c><br/>
 		/// <br/>
@@ -6544,7 +6544,7 @@ namespace Iced.Intel {
 		Pconfig = 817,
 		/// <summary><c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>a16 0F 01 C8</c><br/>
+		/// <c>a16 NP 0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -6552,7 +6552,7 @@ namespace Iced.Intel {
 		Monitorw = 818,
 		/// <summary><c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>a32 0F 01 C8</c><br/>
+		/// <c>a32 NP 0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -6560,7 +6560,7 @@ namespace Iced.Intel {
 		Monitord = 819,
 		/// <summary><c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>0F 01 C8</c><br/>
+		/// <c>NP 0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -6568,7 +6568,7 @@ namespace Iced.Intel {
 		Monitorq = 820,
 		/// <summary><c>MWAIT</c><br/>
 		/// <br/>
-		/// <c>0F 01 C9</c><br/>
+		/// <c>NP 0F 01 C9</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>

@@ -6512,7 +6512,7 @@ pub enum Code {
 	Enclv = 812,
 	/// `VMCALL`
 	///
-	/// `0F 01 C1`
+	/// `NP 0F 01 C1`
 	///
 	/// `VMX`
 	///
@@ -6520,7 +6520,7 @@ pub enum Code {
 	Vmcall = 813,
 	/// `VMLAUNCH`
 	///
-	/// `0F 01 C2`
+	/// `NP 0F 01 C2`
 	///
 	/// `VMX`
 	///
@@ -6528,7 +6528,7 @@ pub enum Code {
 	Vmlaunch = 814,
 	/// `VMRESUME`
 	///
-	/// `0F 01 C3`
+	/// `NP 0F 01 C3`
 	///
 	/// `VMX`
 	///
@@ -6536,7 +6536,7 @@ pub enum Code {
 	Vmresume = 815,
 	/// `VMXOFF`
 	///
-	/// `0F 01 C4`
+	/// `NP 0F 01 C4`
 	///
 	/// `VMX`
 	///
@@ -6552,7 +6552,7 @@ pub enum Code {
 	Pconfig = 817,
 	/// `MONITOR`
 	///
-	/// `a16 0F 01 C8`
+	/// `a16 NP 0F 01 C8`
 	///
 	/// `MONITOR`
 	///
@@ -6560,7 +6560,7 @@ pub enum Code {
 	Monitorw = 818,
 	/// `MONITOR`
 	///
-	/// `a32 0F 01 C8`
+	/// `a32 NP 0F 01 C8`
 	///
 	/// `MONITOR`
 	///
@@ -6568,7 +6568,7 @@ pub enum Code {
 	Monitord = 819,
 	/// `MONITOR`
 	///
-	/// `0F 01 C8`
+	/// `NP 0F 01 C8`
 	///
 	/// `MONITOR`
 	///
@@ -6576,7 +6576,7 @@ pub enum Code {
 	Monitorq = 820,
 	/// `MWAIT`
 	///
-	/// `0F 01 C9`
+	/// `NP 0F 01 C9`
 	///
 	/// `MONITOR`
 	///

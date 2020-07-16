@@ -834,15 +834,15 @@ Lmsw_r32m16, legacy, , 0F, 01, o32 0F 01 /6, LMSW r32/m16, g=6 16b 32b 64b o32 o
 Lmsw_r64m16, legacy, , 0F, 01, REX.W 0F 01 /6, LMSW r64/m16, g=6 64b o64 op=r64_or_mem
 Invlpg_m, legacy, , 0F, 01, 0F 01 /7, INVLPG m, g=7 16b 32b 64b op=mem
 Enclv, legacy, NP, 0F, 01C0, NP 0F 01 C0, ENCLV, 16b 32b 64b
-Vmcall, legacy, , 0F, 01C1, 0F 01 C1, VMCALL, 16b 32b 64b
-Vmlaunch, legacy, , 0F, 01C2, 0F 01 C2, VMLAUNCH, 16b 32b 64b
-Vmresume, legacy, , 0F, 01C3, 0F 01 C3, VMRESUME, 16b 32b 64b
-Vmxoff, legacy, , 0F, 01C4, 0F 01 C4, VMXOFF, 16b 32b 64b
+Vmcall, legacy, NP, 0F, 01C1, NP 0F 01 C1, VMCALL, 16b 32b 64b
+Vmlaunch, legacy, NP, 0F, 01C2, NP 0F 01 C2, VMLAUNCH, 16b 32b 64b
+Vmresume, legacy, NP, 0F, 01C3, NP 0F 01 C3, VMRESUME, 16b 32b 64b
+Vmxoff, legacy, NP, 0F, 01C4, NP 0F 01 C4, VMXOFF, 16b 32b 64b
 Pconfig, legacy, NP, 0F, 01C5, NP 0F 01 C5, PCONFIG, 16b 32b 64b
-Monitorw, legacy, , 0F, 01C8, a16 0F 01 C8, MONITOR, 16b 32b a16
-Monitord, legacy, , 0F, 01C8, a32 0F 01 C8, MONITOR, 16b 32b 64b a32
-Monitorq, legacy, , 0F, 01C8, 0F 01 C8, MONITOR, 64b
-Mwait, legacy, , 0F, 01C9, 0F 01 C9, MWAIT, 16b 32b 64b
+Monitorw, legacy, NP, 0F, 01C8, a16 NP 0F 01 C8, MONITOR, 16b 32b a16
+Monitord, legacy, NP, 0F, 01C8, a32 NP 0F 01 C8, MONITOR, 16b 32b 64b a32
+Monitorq, legacy, NP, 0F, 01C8, NP 0F 01 C8, MONITOR, 64b
+Mwait, legacy, NP, 0F, 01C9, NP 0F 01 C9, MWAIT, 16b 32b 64b
 Clac, legacy, NP, 0F, 01CA, NP 0F 01 CA, CLAC, 16b 32b 64b
 Stac, legacy, NP, 0F, 01CB, NP 0F 01 CB, STAC, 16b 32b 64b
 Encls, legacy, NP, 0F, 01CF, NP 0F 01 CF, ENCLS, 16b 32b 64b

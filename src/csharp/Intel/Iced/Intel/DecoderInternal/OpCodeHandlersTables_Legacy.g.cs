@@ -1423,20 +1423,36 @@ namespace Iced.Intel.DecoderInternal {
 					0x03,// Invalid_NoModRM
 
 				// 1 = 0x01
-				0xA4,// Simple
-					0xAD, 0x06,// Vmcall
+				0x14,// MandatoryPrefix_NoModRM
+					0xA4,// Simple
+						0xAD, 0x06,// Vmcall
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 2 = 0x02
-				0xA4,// Simple
-					0xAE, 0x06,// Vmlaunch
+				0x14,// MandatoryPrefix_NoModRM
+					0xA4,// Simple
+						0xAE, 0x06,// Vmlaunch
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 3 = 0x03
-				0xA4,// Simple
-					0xAF, 0x06,// Vmresume
+				0x14,// MandatoryPrefix_NoModRM
+					0xA4,// Simple
+						0xAF, 0x06,// Vmresume
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 4 = 0x04
-				0xA4,// Simple
-					0xB0, 0x06,// Vmxoff
+				0x14,// MandatoryPrefix_NoModRM
+					0xA4,// Simple
+						0xB0, 0x06,// Vmxoff
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 5 = 0x05
 				0x14,// MandatoryPrefix_NoModRM
@@ -1452,12 +1468,20 @@ namespace Iced.Intel.DecoderInternal {
 					0x06,// Null
 
 				// 8 = 0x08
-				0xAB,// Simple5
-					0xB2, 0x06,// Monitorw
+				0x14,// MandatoryPrefix_NoModRM
+					0xAB,// Simple5
+						0xB2, 0x06,// Monitorw
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 9 = 0x09
-				0xA4,// Simple
-					0xB5, 0x06,// Mwait
+				0x14,// MandatoryPrefix_NoModRM
+					0xA4,// Simple
+						0xB5, 0x06,// Mwait
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 10 = 0x0A
 				0x14,// MandatoryPrefix_NoModRM
