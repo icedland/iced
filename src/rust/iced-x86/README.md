@@ -27,14 +27,14 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-iced-x86 = "1.2.0"
+iced-x86 = "1.8.0"
 ```
 
 Or to customize which features to use:
 
 ```toml
 [dependencies.iced-x86]
-version = "1.2.0"
+version = "1.8.0"
 default-features = false
 # See below for all features
 features = ["std", "decoder", "masm"]
@@ -82,8 +82,8 @@ No VEX, EVEX, XOP, 3DNow!:
 dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex --no-xop --no-3dnow
 ```
 
-[`BlockEncoder`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.BlockEncoder.html
-[`OpCodeInfo`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.OpCodeInfo.html
+[`BlockEncoder`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.BlockEncoder.html
+[`OpCodeInfo`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.OpCodeInfo.html
 
 ## How-tos
 
@@ -100,12 +100,12 @@ dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex 
 This example uses a [`Decoder`] and one of the [`Formatter`]s to decode and format the code,
 eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`].
 
-[`Decoder`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.Decoder.html
-[`Formatter`]: https://docs.rs/iced-x86/1.2.0/iced_x86/trait.Formatter.html
-[`GasFormatter`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.GasFormatter.html
-[`IntelFormatter`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.IntelFormatter.html
-[`MasmFormatter`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.MasmFormatter.html
-[`NasmFormatter`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.NasmFormatter.html
+[`Decoder`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.Decoder.html
+[`Formatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/trait.Formatter.html
+[`GasFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.GasFormatter.html
+[`IntelFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.IntelFormatter.html
+[`MasmFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.MasmFormatter.html
+[`NasmFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.NasmFormatter.html
 
 ```rust
 use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
@@ -190,8 +190,8 @@ static EXAMPLE_CODE: &[u8] = &[
 
 This example uses a [`BlockEncoder`] to encode created [`Instruction`]s. This example needs the `db` feature because it creates `db` "instructions".
 
-[`BlockEncoder`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.BlockEncoder.html
-[`Instruction`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.Instruction.html
+[`BlockEncoder`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.BlockEncoder.html
+[`Instruction`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.Instruction.html
 
 ```rust
 use iced_x86::{
@@ -322,8 +322,8 @@ Output:
 
 Creates a custom [`SymbolResolver`] that is called by a [`Formatter`].
 
-[`SymbolResolver`]: https://docs.rs/iced-x86/1.2.0/iced_x86/trait.SymbolResolver.html
-[`Formatter`]: https://docs.rs/iced-x86/1.2.0/iced_x86/trait.Formatter.html
+[`SymbolResolver`]: https://docs.rs/iced-x86/1.8.0/iced_x86/trait.SymbolResolver.html
+[`Formatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/trait.Formatter.html
 
 ```rust
 use iced_x86::{
@@ -379,8 +379,8 @@ Creates a custom [`FormatterOutput`] that is called by a [`Formatter`].
 
 This example will fail to compile unless you install the `colored` crate, see below.
 
-[`FormatterOutput`]: https://docs.rs/iced-x86/1.2.0/iced_x86/trait.FormatterOutput.html
-[`Formatter`]: https://docs.rs/iced-x86/1.2.0/iced_x86/trait.Formatter.html
+[`FormatterOutput`]: https://docs.rs/iced-x86/1.8.0/iced_x86/trait.FormatterOutput.html
+[`Formatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/trait.Formatter.html
 
 ```rust compile_fail
 // This example uses crate colored = "1.9.2"
@@ -645,8 +645,8 @@ static EXAMPLE_CODE: &[u8] = &[
 Shows how to get used registers/memory and other info. It uses [`Instruction`] methods
 and an [`InstructionInfoFactory`] to get this info.
 
-[`Instruction`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.Instruction.html
-[`InstructionInfoFactory`]: https://docs.rs/iced-x86/1.2.0/iced_x86/struct.InstructionInfoFactory.html
+[`Instruction`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.Instruction.html
+[`InstructionInfoFactory`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.InstructionInfoFactory.html
 
 ```rust
 use iced_x86::{
