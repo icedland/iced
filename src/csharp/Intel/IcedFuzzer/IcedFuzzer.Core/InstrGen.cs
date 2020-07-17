@@ -574,6 +574,7 @@ namespace IcedFuzzer.Core {
 				case 0xF0: // lock
 				case 0xF2: // repne
 				case 0xF3: // rep/repe
+					Assert.True(instructions.Count == 0);
 					yield break;
 
 				case 0x62:
@@ -587,7 +588,7 @@ namespace IcedFuzzer.Core {
 					break;
 
 				case 0x8F:
-					// XOP uses reg=1-3 and reg=5-7 so we need special checks below
+					// XOP uses reg=1-7 so we need special checks below
 					xopCheck = (genFlags & InstrGenFlags.NoXOP) == 0;
 					break;
 
@@ -752,9 +753,7 @@ namespace IcedFuzzer.Core {
 
 						if (xopCheck) {
 							// Make sure there are no instructions in the XOP range
-							for (int i = 0; i < 8; i++) {
-								if (i == 0 || i == 4)
-									continue;
+							for (int i = 1; i < 8; i++) {
 								Assert.True(groupInfos[i].IsInvalidMandatoryPrefixInstructions(InvalidInstructionKind.Group));
 								groupInfos[i].ClearAll();
 							}
@@ -918,9 +917,7 @@ namespace IcedFuzzer.Core {
 
 						if (xopCheck) {
 							// Make sure there are no instructions in the XOP range
-							for (int i = 0; i < 8; i++) {
-								if (i == 0 || i == 4)
-									continue;
+							for (int i = 1; i < 8; i++) {
 								Assert.True(infos[i << 3].IsInvalidMandatoryPrefixInstructions(InvalidInstructionKind.Group));
 								infos[i << 3].ClearAll();
 							}
@@ -956,9 +953,8 @@ namespace IcedFuzzer.Core {
 					if (xopCheck && !instructions.Any(a => GetRealGroupIndex(a) >= 0)) {
 						// Seems like `pop r/m` was removed
 						Assert.True(instrs.Count == 0);
-						// XOP only uses reg=1-3 and reg=5-7 (reg=4 sets XOP.B=1 and uses XOP tables 0-7, reg=0 is pop rm)
+						// XOP only uses reg=1-7 (reg=4 sets XOP.B=1 and uses XOP tables 0-7, reg=0 is pop rm)
 						yield return FuzzerInstruction.CreateInvalidLegacy(table, new OpCode(opCode), 0, isModrmMemory, MandatoryPrefix.None);
-						yield return FuzzerInstruction.CreateInvalidLegacy(table, new OpCode(opCode), 4, isModrmMemory, MandatoryPrefix.None);
 						yield break;
 					}
 
