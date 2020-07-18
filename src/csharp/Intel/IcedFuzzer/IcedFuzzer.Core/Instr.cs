@@ -28,6 +28,24 @@ using System.Linq;
 using Iced.Intel;
 
 namespace IcedFuzzer.Core {
+	public static class OpCodeTableIndexes {
+		public const int D3nowTable = 1;
+
+		public const int LegacyTable_Normal = 0;
+		public const int LegacyTable_0F = 1;
+		public const int LegacyTable_0F38 = 2;
+		public const int LegacyTable_0F3A = 3;
+		// Not used, so any index can be used
+		public const int LegacyTable_0F39 = 4;
+		public const int LegacyTable_0F3B = 5;
+		public const int LegacyTable_0F3C = 6;
+		public const int LegacyTable_0F3D = 7;
+		public const int LegacyTable_0F3E = 8;
+		public const int LegacyTable_0F3F = 9;
+		public const int LegacyTable_MaxUsed = LegacyTable_0F3A;
+		public const int LegacyTable_Max = LegacyTable_0F3F;
+	}
+
 	[DebuggerDisplay("{" + nameof(Encoding) + "} {" + nameof(TableIndex) + ",d}")]
 	public readonly struct FuzzerOpCodeTable : IEquatable<FuzzerOpCodeTable> {
 		public readonly EncodingKind Encoding;
@@ -307,7 +325,7 @@ namespace IcedFuzzer.Core {
 		internal static FuzzerInstruction CreateInvalidLegacy(FuzzerOpCodeTable table, OpCode opCode, int groupIndex, bool isModrmMemory, MandatoryPrefix mandatoryPrefix) =>
 			new FuzzerInstruction(Code.INVALID, FuzzerInstructionFlags.None, 0, 0, mandatoryPrefix, table, opCode, groupIndex, -1, isModrmMemory, 0, 0);
 		internal static FuzzerInstruction CreateInvalid3dnow(OpCode opCode, bool isModrmMemory) =>
-			new FuzzerInstruction(Code.INVALID, FuzzerInstructionFlags.None, 0, 0, MandatoryPrefix.None, new FuzzerOpCodeTable(EncodingKind.D3NOW, 1), opCode, -1, -1, isModrmMemory, 0, 0);
+			new FuzzerInstruction(Code.INVALID, FuzzerInstructionFlags.None, 0, 0, MandatoryPrefix.None, new FuzzerOpCodeTable(EncodingKind.D3NOW, OpCodeTableIndexes.D3nowTable), opCode, -1, -1, isModrmMemory, 0, 0);
 		internal static FuzzerInstruction CreateInvalidVec(FuzzerOpCodeTable table, OpCode opCode, int groupIndex, int rmGroupIndex, bool isModrmMemory, MandatoryPrefix mandatoryPrefix, uint w, uint l, FuzzerInstructionFlags flags) =>
 			new FuzzerInstruction(Code.INVALID, flags, w, l, mandatoryPrefix, table, opCode, groupIndex, rmGroupIndex, isModrmMemory, 0, 0);
 
@@ -322,10 +340,10 @@ namespace IcedFuzzer.Core {
 		static FuzzerOpCodeTable GetTable(EncodingKind encoding, OpCodeTableKind table) =>
 			encoding switch {
 				EncodingKind.Legacy => table switch {
-					OpCodeTableKind.Normal => new FuzzerOpCodeTable(encoding, 0),
-					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, 1),
-					OpCodeTableKind.T0F38 => new FuzzerOpCodeTable(encoding, 2),
-					OpCodeTableKind.T0F3A => new FuzzerOpCodeTable(encoding, 3),
+					OpCodeTableKind.Normal => new FuzzerOpCodeTable(encoding, OpCodeTableIndexes.LegacyTable_Normal),
+					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, OpCodeTableIndexes.LegacyTable_0F),
+					OpCodeTableKind.T0F38 => new FuzzerOpCodeTable(encoding, OpCodeTableIndexes.LegacyTable_0F38),
+					OpCodeTableKind.T0F3A => new FuzzerOpCodeTable(encoding, OpCodeTableIndexes.LegacyTable_0F3A),
 					_ => throw ThrowHelpers.Unreachable,
 				},
 				EncodingKind.VEX => table switch {
@@ -347,7 +365,7 @@ namespace IcedFuzzer.Core {
 					_ => throw ThrowHelpers.Unreachable,
 				},
 				EncodingKind.D3NOW => table switch {
-					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, 1),
+					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, OpCodeTableIndexes.D3nowTable),
 					_ => throw ThrowHelpers.Unreachable,
 				},
 				_ => throw ThrowHelpers.Unreachable,

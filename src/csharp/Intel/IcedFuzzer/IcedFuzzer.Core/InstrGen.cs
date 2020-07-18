@@ -113,21 +113,14 @@ namespace IcedFuzzer.Core {
 			return false;
 		}
 
-		[Flags]
-		enum UsedOpCodes : uint {
-			None			= 0,
-			Table0F			= 0x00000001,
-			Table0F38		= 0x00000002,
-			Table0F3A		= 0x00000004,
-		}
-
 		public static EncodingTables Create(int bitness, OpCodeInfo[] opCodes, InstrGenFlags genFlags) {
 			var encodingTables = new EncodingTables();
 
 			var legacy = new Dictionary<OpCodeKey, FuzzerInstructions[]>();
 			for (int i = 0; i < 2; i++) {
 				bool isModrmMemory = i != 0;
-				for (int table = 0; table <= 3; table++)
+				var maxTable = (genFlags & InstrGenFlags.UnusedTables) != 0 ? OpCodeTableIndexes.LegacyTable_Max : OpCodeTableIndexes.LegacyTable_MaxUsed;
+				for (int table = 0; table <= maxTable; table++)
 					legacy.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.Legacy, table), isModrmMemory), CreateOpCodes(isModrmMemory));
 			}
 
@@ -135,7 +128,7 @@ namespace IcedFuzzer.Core {
 			if ((genFlags & InstrGenFlags.No3DNow) == 0) {
 				for (int i = 0; i < 2; i++) {
 					bool isModrmMemory = i != 0;
-					d3now.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.D3NOW, 1), isModrmMemory), CreateOpCodes(isModrmMemory));
+					d3now.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.D3NOW, OpCodeTableIndexes.D3nowTable), isModrmMemory), CreateOpCodes(isModrmMemory));
 				}
 			}
 
@@ -169,19 +162,11 @@ namespace IcedFuzzer.Core {
 				}
 			}
 
-			var usedOpCodes = UsedOpCodes.None;
 			foreach (var (hasModrm, instr) in GetInstructions(bitness, opCodes)) {
 				OpCodeKey key;
 				byte byteOpCode = instr.GetByteOpCode();
 				switch (instr.Table.Encoding) {
 				case EncodingKind.Legacy:
-					switch (instr.Table.TableIndex) {
-					case 0: break;
-					case 1: usedOpCodes |= UsedOpCodes.Table0F; break;
-					case 2: usedOpCodes |= UsedOpCodes.Table0F | UsedOpCodes.Table0F38; break;
-					case 3: usedOpCodes |= UsedOpCodes.Table0F | UsedOpCodes.Table0F3A; break;
-					default: throw ThrowHelpers.Unreachable;
-					}
 					key = new OpCodeKey(instr.Table, instr.IsModrmMemory);
 					var legacyInstrs = legacy[key];
 					legacyInstrs[byteOpCode].Add(hasModrm, instr);
@@ -283,7 +268,7 @@ namespace IcedFuzzer.Core {
 						continue;
 					}
 					var fuzzerOpCode = new FuzzerOpCode(key.Table, (byte)opCode, key.IsModrmMemory);
-					fuzzerOpCode.Instructions.AddRange(GetLegacyInstructions(bitness, usedOpCodes, genFlags, flags, key.Table, (byte)opCode, kv.Value[opCode].Instructions, kv.Value[opCode].IsModrmMemory));
+					fuzzerOpCode.Instructions.AddRange(GetLegacyInstructions(bitness, genFlags, flags, key.Table, (byte)opCode, kv.Value[opCode].Instructions, kv.Value[opCode].IsModrmMemory));
 					if (fuzzerOpCode.Instructions.Count != 0)
 						encodingTables.Legacy.Add(fuzzerOpCode);
 				}
@@ -549,7 +534,7 @@ namespace IcedFuzzer.Core {
 			throw ThrowHelpers.Unreachable;
 		}
 
-		static IEnumerable<FuzzerInstruction> GetLegacyInstructions(int bitness, UsedOpCodes usedOpCodes, InstrGenFlags genFlags, LegacyFlags[] flags, FuzzerOpCodeTable table, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
+		static IEnumerable<FuzzerInstruction> GetLegacyInstructions(int bitness, InstrGenFlags genFlags, LegacyFlags[] flags, FuzzerOpCodeTable table, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
 			Assert.True(table.Encoding == EncodingKind.Legacy);
 			Assert.True(flags.Length == 0x40);
 
@@ -558,11 +543,8 @@ namespace IcedFuzzer.Core {
 			if (table.TableIndex == 0) {
 				switch (opCode) {
 				case 0x0F:
-					if ((usedOpCodes & UsedOpCodes.Table0F) != 0) {
-						Assert.True(instructions.Count == 0);
-						yield break;
-					}
-					break;
+					Assert.True(instructions.Count == 0);
+					yield break;
 
 				case 0x26: // es
 				case 0x2E: // cs
@@ -624,18 +606,15 @@ namespace IcedFuzzer.Core {
 					break;
 
 				case 0x38:
-					if ((usedOpCodes & UsedOpCodes.Table0F38) != 0) {
-						Assert.True(instructions.Count == 0);
-						yield break;
-					}
-					break;
-
+				case 0x39:
 				case 0x3A:
-					if ((usedOpCodes & UsedOpCodes.Table0F3A) != 0) {
-						Assert.True(instructions.Count == 0);
-						yield break;
-					}
-					break;
+				case 0x3B:
+				case 0x3C:
+				case 0x3D:
+				case 0x3E:
+				case 0x3F:
+					Assert.True(instructions.Count == 0);
+					yield break;
 				}
 			}
 

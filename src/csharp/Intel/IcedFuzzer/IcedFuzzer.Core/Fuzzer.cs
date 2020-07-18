@@ -462,18 +462,42 @@ namespace IcedFuzzer.Core {
 			WritePrefixes(info);
 
 			switch (info.mmmmm) {
-			case 0:
+			case OpCodeTableIndexes.LegacyTable_Normal:
 				break;
-			case 1:
+			case OpCodeTableIndexes.LegacyTable_0F:
 				writer.WriteByte(0x0F);
 				break;
-			case 2:
+			case OpCodeTableIndexes.LegacyTable_0F38:
 				writer.WriteByte(0x0F);
 				writer.WriteByte(0x38);
 				break;
-			case 3:
+			case OpCodeTableIndexes.LegacyTable_0F39:
+				writer.WriteByte(0x0F);
+				writer.WriteByte(0x39);
+				break;
+			case OpCodeTableIndexes.LegacyTable_0F3A:
 				writer.WriteByte(0x0F);
 				writer.WriteByte(0x3A);
+				break;
+			case OpCodeTableIndexes.LegacyTable_0F3B:
+				writer.WriteByte(0x0F);
+				writer.WriteByte(0x3B);
+				break;
+			case OpCodeTableIndexes.LegacyTable_0F3C:
+				writer.WriteByte(0x0F);
+				writer.WriteByte(0x3C);
+				break;
+			case OpCodeTableIndexes.LegacyTable_0F3D:
+				writer.WriteByte(0x0F);
+				writer.WriteByte(0x3D);
+				break;
+			case OpCodeTableIndexes.LegacyTable_0F3E:
+				writer.WriteByte(0x0F);
+				writer.WriteByte(0x3E);
+				break;
+			case OpCodeTableIndexes.LegacyTable_0F3F:
+				writer.WriteByte(0x0F);
+				writer.WriteByte(0x3F);
 				break;
 			default:
 				throw ThrowHelpers.Unreachable;
@@ -484,6 +508,7 @@ namespace IcedFuzzer.Core {
 
 		void WriteD3NOW(in InstructionInfo info) {
 			Assert.True(info.Encoding == FuzzerEncodingKind.D3NOW);
+			Assert.True(info.mmmmm == OpCodeTableIndexes.D3nowTable);
 			WritePrefixes(info);
 			writer.WriteByte(0x0F);
 			writer.WriteByte(0x0F);
