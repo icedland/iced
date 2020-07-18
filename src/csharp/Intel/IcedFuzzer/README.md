@@ -14,6 +14,7 @@ It uses iced's instruction definitions that weren't filtered out by the user. Fo
 - encoding (legacy, 3DNow!, VEX, XOP, EVEX)
 - table (eg. 0F, 0F38, etc)
 - mandatory prefix (NP 66 F3 F2). In the case of legacy/3DNow! instructions it can also be None.
+- opcode
 - modrm mem op or not
 - legacy: operand size and address size
 - W, L, L'
