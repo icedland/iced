@@ -550,6 +550,7 @@ namespace IcedFuzzer.Core {
 		}
 
 		static IEnumerable<FuzzerInstruction> GetLegacyInstructions(int bitness, UsedOpCodes usedOpCodes, InstrGenFlags genFlags, LegacyFlags[] flags, FuzzerOpCodeTable table, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
+			Assert.True(table.Encoding == EncodingKind.Legacy);
 			Assert.True(flags.Length == 0x40);
 
 			bool xopCheck = false;
@@ -1237,6 +1238,7 @@ namespace IcedFuzzer.Core {
 		};
 		// Returns all combinations of mandatory prefix, W, L. If it's a group, also modrm.reg=0-7, modrm.rm=0-7 and/or modrm=C0-FFh.
 		static IEnumerable<FuzzerInstruction> GetVecInstructions(FuzzerOpCodeTable table, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
+			Assert.True(table.Encoding == EncodingKind.VEX || table.Encoding == EncodingKind.XOP || table.Encoding == EncodingKind.EVEX);
 			const int L_er_or_sae = 2;
 
 			Func<uint, uint, int> getKeyIndex;
