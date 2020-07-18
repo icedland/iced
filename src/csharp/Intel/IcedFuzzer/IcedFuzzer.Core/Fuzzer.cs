@@ -414,14 +414,12 @@ namespace IcedFuzzer.Core {
 				}
 			}
 			else {
-				Assert.True(info.displSize == 0);
 				Assert.True(modrmFlags == UsedBits.None);
 				Assert.True((info.Flags & EncodedInfoFlags.HasSib) == 0);
 			}
 
-			Assert.True(info.displSize <= 4 && info.imm1Size <= 4);
+			Assert.True(info.imm1Size <= 4);
 			Assert.False(info.imm1Size > 0 && info.imm0Size == 0);
-			WriteImm(info.displSize, info.displ, 0);
 			WriteImm(info.imm0Size, info.imm0, info.imm0Hi);
 			WriteImm(info.imm1Size, info.imm1, 0);
 		}

@@ -193,11 +193,9 @@ namespace IcedFuzzer.Core {
 		public uint EVEX_res10;
 		public uint modrm;
 		public uint sib;
-		public uint displ;
 		public uint imm0;
 		public uint imm0Hi;
 		public uint imm1;
-		public byte displSize;
 		public byte imm0Size;
 		public byte imm1Size;
 
@@ -259,11 +257,9 @@ namespace IcedFuzzer.Core {
 				}
 			}
 			sib = 0;
-			displ = 0;
 			imm0 = 0;
 			imm0Hi = 0;
 			imm1 = 0;
-			displSize = 0;
 			imm0Size = 0;
 			imm1Size = 0;
 			addressSize = (byte)instruction.AddressSize;
