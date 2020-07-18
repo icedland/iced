@@ -681,7 +681,7 @@ namespace IcedFuzzer.Core {
 				var key = new LegacyKey(instruction.MandatoryPrefix, instruction.OperandSize, instruction.AddressSize, instruction.OpCode, instruction.GroupIndex);
 				if (!instrHash.Add(key)) {
 					if (!IsNopXchgDupe(instructions, instruction.Code))
-						throw new InvalidOperationException($"Dupe instruction: {instruction.Code}");
+						Assert.Fail($"Dupe instruction: {instruction.Code}");
 				}
 
 				if (GetRealGroupIndex(instruction) >= 0)
@@ -1136,11 +1136,11 @@ namespace IcedFuzzer.Core {
 				// If there's a legacy instruction, NP instructions can't be used since they both use the same opcode without a prefix
 				if (info.HasNP) {
 					var (opCode, groupIndex) = getOpCode(MandatoryPrefix.None);
-					throw new InvalidOperationException($"OpCode {opCode:X2} (g={groupIndex}) table {table.TableIndex}: Legacy + NP instruction");
+					Assert.Fail($"OpCode {opCode:X2} (g={groupIndex}) table {table.TableIndex}: Legacy + NP instruction");
 				}
 				if (info.Has66 && info.Legacy_OpSize_1632) {
 					var (opCode, groupIndex) = getOpCode(MandatoryPrefix.None);
-					throw new InvalidOperationException($"OpCode {opCode:X2} (g={groupIndex}) table {table.TableIndex}: o16/32/64 legacy + 66 mandatory prefix instruction");
+					Assert.Fail($"OpCode {opCode:X2} (g={groupIndex}) table {table.TableIndex}: o16/32/64 legacy + 66 mandatory prefix instruction");
 				}
 
 				if (info.Has66)
@@ -1228,7 +1228,8 @@ namespace IcedFuzzer.Core {
 				break;
 
 			default:
-				throw new InvalidOperationException($"Dupe instruction {instructions[0].Code} vs {instructions[1].Code}");
+				Assert.Fail($"Dupe instruction {instructions[0].Code} vs {instructions[1].Code}");
+				throw ThrowHelpers.Unreachable;
 			}
 		}
 
@@ -1297,7 +1298,7 @@ namespace IcedFuzzer.Core {
 							var group = groupInstrs[GetRealGroupIndex(instr)];
 							int keyIndex = getKeyIndex(instr.W, instr.L);
 							if (group[keyIndex] is object)
-								throw new InvalidOperationException($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
+								Assert.Fail($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
 							group[keyIndex] = instr;
 						}
 
@@ -1336,7 +1337,7 @@ namespace IcedFuzzer.Core {
 							var group = groupInstrs[groupIndex];
 							int keyIndex = getKeyIndex(instr.W, instr.L);
 							if (group[keyIndex] is object)
-								throw new InvalidOperationException($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
+								Assert.Fail($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
 							group[keyIndex] = instr;
 						}
 
@@ -1370,7 +1371,7 @@ namespace IcedFuzzer.Core {
 											for (int i = 1; i < 0x40; i += 8) {
 												group = groupInstrs[rmGroupIndex + i];
 												if (group[keyIndex] is object)
-													throw new InvalidOperationException($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
+													Assert.Fail($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
 											}
 										}
 										else {
@@ -1406,7 +1407,7 @@ namespace IcedFuzzer.Core {
 											for (int i = 1; i < 8; i++) {
 												group = groupInstrs[groupIndex + i];
 												if (group[keyIndex] is object)
-													throw new InvalidOperationException($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
+													Assert.Fail($"Dupe instruction {group[keyIndex]!.Code} vs {instr.Code}");
 											}
 										}
 										else {
@@ -1456,7 +1457,7 @@ namespace IcedFuzzer.Core {
 					foreach (var instr in prefixInstrs) {
 						int keyIndex = getKeyIndex(instr.W, instr.L);
 						if (instrs[keyIndex] is object)
-							throw new InvalidOperationException($"Dupe instruction {instrs[keyIndex]!.Code} vs {instr.Code}");
+							Assert.Fail($"Dupe instruction {instrs[keyIndex]!.Code} vs {instr.Code}");
 						instrs[keyIndex] = instr;
 					}
 
