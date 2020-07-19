@@ -344,14 +344,16 @@ jobs:
 
       - name: iced-x86-js tests
         shell: bash
-        # 1.45.0 crashes so ignore errors for now
-        continue-on-error: true
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
           export RUSTFLAGS="-D warnings"
           
           cd src/rust/iced-x86-js
+          # 1.45.0 can't build it without a stack overflow
+          rustup default 1.44.1
           wasm-pack build --mode force --target nodejs
+          # Restore default toolchain
+          rustup default stable
           cd src/tests
           npm install
           npm test
