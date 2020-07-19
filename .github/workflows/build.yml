@@ -12,6 +12,8 @@ on:
       - '!**/*.md'
     branches:
       - master
+  release:
+    types: released
 
 jobs:
   build-csharp-windows:
