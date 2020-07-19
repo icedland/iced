@@ -533,6 +533,8 @@ impl<'a> Decoder<'a> {
 
 	/// Sets the current `IP`/`EIP`/`RIP` value, see also [`set_position()`]
 	///
+	/// This method only updates the IP value, it does not change the data position, use [`set_position()`] to change the position.
+	///
 	/// [`set_position()`]: #method.set_position
 	///
 	/// # Arguments

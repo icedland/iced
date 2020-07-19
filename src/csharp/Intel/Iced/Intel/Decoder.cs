@@ -118,7 +118,10 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Current <c>IP</c>/<c>EIP</c>/<c>RIP</c> value
+		/// Current <c>IP</c>/<c>EIP</c>/<c>RIP</c> value.<br/>
+		/// <br/>
+		/// Writing to this property only updates the IP value, it does not change a <see cref="CodeReader"/>'s byte position.
+		/// You can use <see cref="ByteArrayCodeReader.Position"/> to change its position.
 		/// </summary>
 		public ulong IP {
 			get => instructionPointer;

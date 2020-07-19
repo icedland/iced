@@ -167,6 +167,8 @@ impl Decoder {
 
 	/// Sets the low 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
 	///
+	/// Writing to this property only updates the IP value, it does not change the data position, use [`position`] to change the position.
+	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`position`]: #method.set_position
@@ -184,6 +186,8 @@ impl Decoder {
 
 	/// Sets the high 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
 	///
+	/// Writing to this property only updates the IP value, it does not change the data position, use [`position`] to change the position.
+	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`position`]: #method.set_position
@@ -200,6 +204,8 @@ impl Decoder {
 	}
 
 	/// Sets the current `IP`/`EIP`/`RIP` value, see also [`position`]
+	///
+	/// Writing to this property only updates the IP value, it does not change the data position, use [`position`] to change the position.
 	///
 	/// [`position`]: #method.set_position
 	///
