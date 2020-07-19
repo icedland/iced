@@ -458,6 +458,7 @@ namespace IcedFuzzer.Core {
 
 		void WriteLegacy(in InstructionInfo info) {
 			Assert.True(info.Encoding == FuzzerEncodingKind.Legacy);
+			Assert.True(info.r2 == 0 && info.vvvv == 0 && info.z == 0 && info.bcst == 0 && info.v2 == 0 && info.aaa == 0);
 
 			WritePrefixes(info);
 
@@ -509,6 +510,7 @@ namespace IcedFuzzer.Core {
 		void WriteD3NOW(in InstructionInfo info) {
 			Assert.True(info.Encoding == FuzzerEncodingKind.D3NOW);
 			Assert.True(info.mmmmm == OpCodeTableIndexes.D3nowTable);
+			Assert.True(info.r2 == 0 && info.vvvv == 0 && info.z == 0 && info.bcst == 0 && info.v2 == 0 && info.aaa == 0);
 			WritePrefixes(info);
 			writer.WriteByte(0x0F);
 			writer.WriteByte(0x0F);
@@ -522,6 +524,7 @@ namespace IcedFuzzer.Core {
 			WritePrefixes(info);
 
 			Assert.True(info.r <= 1 && info.x <= 1 && info.b <= 1 && info.w <= 1 && info.l <= 1 && info.vvvv <= 0xF && info.mmmmm <= 0x1F);
+			Assert.True(info.r2 == 0 && info.z == 0 && info.bcst == 0 && info.v2 == 0 && info.aaa == 0);
 
 			uint r = info.r;
 			uint x = info.x;
@@ -562,6 +565,7 @@ namespace IcedFuzzer.Core {
 
 			Assert.True(info.r <= 1 && info.x <= 1 && info.b <= 1 && info.w <= 1 && info.l <= 1 && info.vvvv <= 0xF && info.mmmmm <= 0x1F);
 			Assert.True(info.mmmmm >= 8 || info.b == 0);
+			Assert.True(info.r2 == 0 && info.z == 0 && info.bcst == 0 && info.v2 == 0 && info.aaa == 0);
 
 			uint r = info.r;
 			uint x = info.x;
