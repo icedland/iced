@@ -200,7 +200,7 @@ namespace IcedFuzzer.Core {
 			case FuzzerEncodingKind.XOP:
 				switch (RegLocation) {
 				case FuzzerOperandRegLocation.ModrmRegBits:
-					if (bitness < 64)
+					if (bitness < 64 && encoding != FuzzerEncodingKind.XOP)
 						return new RegisterInfo(bitness, RegLocation, 8);
 					else
 						return new RegisterInfo(bitness, RegLocation, 16);

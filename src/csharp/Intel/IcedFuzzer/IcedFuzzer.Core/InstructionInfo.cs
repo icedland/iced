@@ -477,7 +477,9 @@ namespace IcedFuzzer.Core {
 			case FuzzerEncodingKind.EVEX:
 				Assert.True(regNum <= 31);
 				r = (regNum >> 3) & 1;
-				r2 = regNum >> 4;
+				// Don't write to r2 in 16/32-bit mode so we can test ignored R' bit
+				if (Bitness == 64 || regNum >= 16)
+					r2 = regNum >> 4;
 				break;
 
 			default:
