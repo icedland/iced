@@ -513,6 +513,19 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Gets whether a specific operand's kind exists
+		/// </summary>
+		/// <param name="opKind">Operand kind</param>
+		/// <returns></returns>
+		public readonly bool HasOpKind(OpKind opKind) {
+			for (int i = 0; i < OpCount; i++) {
+				if (GetOpKind(i) == opKind)
+					return true;
+			}
+			return false;
+		}
+
+		/// <summary>
 		/// Sets an operand's kind
 		/// </summary>
 		/// <param name="operand">Operand number, 0-4</param>
