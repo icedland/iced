@@ -739,6 +739,8 @@ namespace Iced.Intel {
 					else {
 						state.vvvv_invalidCheck = p1;
 						state.vvvv = p1 & 0x07;
+						Static.Assert((int)StateFlags.IsInvalid == 0x40 ? 0 : -1);
+						state.flags |= (StateFlags)((~p2 & 8) << 3);
 					}
 
 					int table = (int)(p0 & 3);

@@ -1560,16 +1560,9 @@ namespace IcedFuzzer.Core {
 					v2vvvvMask = 0xF;
 				}
 				else {
-					if (context.Bitness < 64) {
-						// vvvv bits, V' is ignored in 16/32-bit mode
-						v2vvvvCount = 0x1F;
-						v2vvvvMask = 0xF;
-					}
-					else {
-						// V' and vvvv bits
-						v2vvvvCount = 0x1F;
-						v2vvvvMask = 0x1F;
-					}
+					// V' and vvvv bits
+					v2vvvvCount = 0x1F;
+					v2vvvvMask = 0x1F;
 				}
 				break;
 

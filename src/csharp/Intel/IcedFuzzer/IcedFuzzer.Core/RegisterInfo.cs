@@ -43,7 +43,7 @@ namespace IcedFuzzer.Core {
 				regNum &= 0xF;
 
 			if (bitness < 64 && regLoc == FuzzerOperandRegLocation.VvvvBits)
-				regNum &= 7;
+				return regNum & 0x17; // V' (bit 4) must not be used and is not ignored
 
 			switch (register) {
 			case FuzzerRegisterKind.K:
@@ -127,10 +127,14 @@ namespace IcedFuzzer.Core {
 			case FuzzerRegisterKind.TR:
 			case FuzzerRegisterKind.BND:
 			case FuzzerRegisterKind.MM:
+			case FuzzerRegisterKind.TMM:
+				break;
+
 			case FuzzerRegisterKind.XMM:
 			case FuzzerRegisterKind.YMM:
 			case FuzzerRegisterKind.ZMM:
-			case FuzzerRegisterKind.TMM:
+				if (bitness != 64 && regNum >= 8)
+					return false;
 				break;
 
 			default:

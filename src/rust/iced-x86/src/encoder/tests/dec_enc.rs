@@ -825,7 +825,10 @@ fn verify_invalid_vvvv() {
 			{
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
-				if uses_vvvv {
+				if info.bitness() != 64 {
+					assert_eq!(Code::INVALID, instruction.code());
+					assert_ne!(DecoderError::None, decoder.last_error());
+				} else if uses_vvvv {
 					assert_eq!(info.code(), instruction.code());
 				} else {
 					assert_eq!(Code::INVALID, instruction.code());
@@ -835,7 +838,7 @@ fn verify_invalid_vvvv() {
 					assert_eq!(info.code(), instruction.code());
 				}
 			}
-			if !uses_vvvv {
+			if !uses_vvvv && info.bitness() == 64 {
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
 				let instruction = decoder.decode();
 				assert_eq!(info.code(), instruction.code());
@@ -865,16 +868,14 @@ fn verify_invalid_vvvv() {
 				assert!(orig_instr.eq_all_bits(&instruction));
 			}
 
-			// V' is ignored in 16/32-bit modes
+			// V' must be 1 in 16/32-bit modes
 			bytes[evex_index + 2] = b2;
-			if !is_vsib {
-				bytes[evex_index + 3] = b3 & 0xF7;
-			}
+			bytes[evex_index + 3] = b3 & 0xF7;
 			if info.bitness() != 64 {
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
-				assert_eq!(info.code(), instruction.code());
-				assert!(orig_instr.eq_all_bits(&instruction));
+				assert_eq!(Code::INVALID, instruction.code());
+				assert_ne!(DecoderError::None, decoder.last_error());
 			}
 		} else {
 			panic!();
@@ -1364,6 +1365,7 @@ fn verify_vsib_with_invalid_index_register_evex() {
 			let s = bytes[evex_index + 6];
 			for i in 0..32 {
 				let reg_num = if info.bitness() == 64 { i } else { i & 7 } as u32;
+				let always_invalid = info.bitness() != 64 && (i & 0x10) != 0;
 				let t = i ^ 0x1F;
 				// reg  = R' R modrm.reg
 				// vidx = V' X sib.index
@@ -1384,12 +1386,17 @@ fn verify_vsib_with_invalid_index_register_evex() {
 				{
 					let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options() | DecoderOptions::NO_INVALID_CHECK);
 					let instruction = decoder.decode();
-					assert_eq!(info.code(), instruction.code());
-					assert_eq!(OpKind::Register, instruction.op0_kind());
-					assert_eq!(OpKind::Memory, instruction.op1_kind());
-					assert_ne!(Register::None, instruction.memory_index());
-					assert_eq!(reg_num, reg_number(instruction.op0_register()));
-					assert_eq!(reg_num, reg_number(instruction.memory_index()));
+					if always_invalid {
+						assert_eq!(Code::INVALID, instruction.code());
+						assert_ne!(DecoderError::None, decoder.last_error());
+					} else {
+						assert_eq!(info.code(), instruction.code());
+						assert_eq!(OpKind::Register, instruction.op0_kind());
+						assert_eq!(OpKind::Memory, instruction.op1_kind());
+						assert_ne!(Register::None, instruction.memory_index());
+						assert_eq!(reg_num, reg_number(instruction.op0_register()));
+						assert_eq!(reg_num, reg_number(instruction.memory_index()));
+					}
 				}
 			}
 		} else {

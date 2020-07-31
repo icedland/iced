@@ -862,12 +862,17 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					}
 
 					bytes[evexIndex + 2] = (byte)(b2 & 0x87);
-					if (!isVsib)
+					if (!isVsib) {
 						bytes[evexIndex + 3] = (byte)(b3 & 0xF7);
+					}
 					{
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out var instruction);
-						if (uses_vvvv)
+						if (info.Bitness != 64) {
+							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.NotEqual(DecoderError.None, decoder.LastError);
+						}
+						else if (uses_vvvv)
 							Assert.Equal(info.Code, instruction.Code);
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
@@ -877,7 +882,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(info.Code, instruction.Code);
 						}
 					}
-					if (!uses_vvvv) {
+					if (!uses_vvvv && info.Bitness == 64) {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
 						decoder.Decode(out var instruction);
 						Assert.Equal(info.Code, instruction.Code);
@@ -907,15 +912,14 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						Assert.True(Instruction.EqualsAllBits(origInstr, instruction));
 					}
 
-					// V' is ignored in 16/32-bit modes
+					// V' must be 1 in 16/32-bit modes
 					bytes[evexIndex + 2] = b2;
-					if (!isVsib)
-						bytes[evexIndex + 3] = (byte)(b3 & 0xF7);
+					bytes[evexIndex + 3] = (byte)(b3 & 0xF7);
 					if (info.Bitness != 64) {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out var instruction);
-						Assert.Equal(info.Code, instruction.Code);
-						Assert.True(Instruction.EqualsAllBits(origInstr, instruction));
+						Assert.Equal(Code.INVALID, instruction.Code);
+						Assert.NotEqual(DecoderError.None, decoder.LastError);
 					}
 				}
 				else
@@ -1440,6 +1444,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					var s = bytes[evexIndex + 6];
 					for (int i = 0; i < 32; i++) {
 						int regNum = info.Bitness == 64 ? i : i & 7;
+						bool alwaysInvalid = info.Bitness != 64 && (i & 0x10) != 0;
 						int t = i ^ 0x1F;
 						// reg  = R' R modrm.reg
 						// vidx = V' X sib.index
@@ -1459,12 +1464,18 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out var instruction);
-							Assert.Equal(info.Code, instruction.Code);
-							Assert.Equal(OpKind.Register, instruction.Op0Kind);
-							Assert.Equal(OpKind.Memory, instruction.Op1Kind);
-							Assert.NotEqual(Register.None, instruction.MemoryIndex);
-							Assert.Equal(regNum, GetNumber(instruction.Op0Register));
-							Assert.Equal(regNum, GetNumber(instruction.MemoryIndex));
+							if (alwaysInvalid) {
+								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.NotEqual(DecoderError.None, decoder.LastError);
+							}
+							else {
+								Assert.Equal(info.Code, instruction.Code);
+								Assert.Equal(OpKind.Register, instruction.Op0Kind);
+								Assert.Equal(OpKind.Memory, instruction.Op1Kind);
+								Assert.NotEqual(Register.None, instruction.MemoryIndex);
+								Assert.Equal(regNum, GetNumber(instruction.Op0Register));
+								Assert.Equal(regNum, GetNumber(instruction.MemoryIndex));
+							}
 						}
 					}
 				}

@@ -1416,6 +1416,8 @@ impl<'a> Decoder<'a> {
 				} else {
 					self.state.vvvv_invalid_check = p1;
 					self.state.vvvv = p1 & 0x07;
+					const_assert_eq!(0x40, StateFlags::IS_INVALID);
+					self.state.flags |= (!p2 & 8) << 3;
 				}
 
 				let table = match p0 & 3 {
