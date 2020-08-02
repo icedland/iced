@@ -1118,7 +1118,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::cargo_common_metadata))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::clone_on_ref_ptr))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::dbg_macro))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::debug_assert_with_mut_call))]
