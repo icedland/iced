@@ -83,14 +83,14 @@ jobs:
       - name: Build, test
         shell: pwsh
         run: |
-          .\build.ps1
+          ./build.ps1
 
       - name: upload-artifact doesn't support wildcards
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
         shell: pwsh
         run: |
           New-Item -ItemType Directory nuget_files > $null
-          Copy-Item src\csharp\Intel\Iced\bin\Release\*.*nupkg nuget_files
+          Copy-Item src/csharp/Intel/Iced/bin/Release/*.*nupkg nuget_files
 
       - uses: actions/upload-artifact@v1
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
@@ -120,7 +120,7 @@ jobs:
         shell: pwsh
         run: |
           Invoke-WebRequest -Uri https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -UseBasicParsing -OutFile nuget.exe
-          Get-ChildItem src\csharp\Intel\Iced\bin\Release\Iced.*.nupkg | ForEach-Object { .\nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
+          Get-ChildItem src/csharp/Intel/Iced/bin/Release/Iced.*.nupkg | ForEach-Object { ./nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
 
   # Make sure it builds on Linux too
   build-csharp:
@@ -187,6 +187,31 @@ jobs:
         shell: bash
         run: |
           npm install -g wasm-pack
+
+      - uses: actions/setup-dotnet@v1
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          dotnet-version: '3.1.100'
+      - name: Test valid/invalid instructions
+        shell: bash
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          export RUSTFLAGS="-D warnings"
+          echo dotnet version
+          dotnet --version
+          valid_file=$(mktemp)
+          invalid_file=$(mktemp)
+          for bitness in 16 32 64; do
+              echo ==== ${bitness}-bit: Generating valid/invalid files ====
+              dotnet run -c:Release -p src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj -- -$bitness -oil $invalid_file -ovlc $valid_file
+              echo ==== ${bitness}-bit: Testing valid instructions ====
+              cargo run --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $valid_file
+              echo ==== ${bitness}-bit: Testing invalid instructions ====
+              cargo run --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $invalid_file --invalid
+          done
+          rm $valid_file
+          rm $invalid_file
 
       - name: Build no_std
         shell: bash
