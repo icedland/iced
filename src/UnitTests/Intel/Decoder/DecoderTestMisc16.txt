@@ -38,6 +38,9 @@ B8 5A, INVALID, INVALID, 0, code=Mov_r16_imm16 err=NoMoreBytes
 66 B8 5AA5, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
 66 B8 5A, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
 
+# NoMoreBytes has higher prio than InvalidInstruction
+F0 04, INVALID, INVALID, 0, code=Add_AL_imm8 err=NoMoreBytes
+
 # Verify that 16-bit vsib addressing is invalid
 C4E249 90 54 01, INVALID, INVALID, 0, code=VEX_Vpgatherdd_xmm_vm32x_xmm
 C4E249 90 54 01, VEX_Vpgatherdd_xmm_vm32x_xmm, Vpgatherdd, 3, op0=r;xmm2 op1=m;ds;si;;1;1;1;Int32 op2=r;xmm6 vsib32 co=0;0;0;0;5;1 noinvalidcheck noencode

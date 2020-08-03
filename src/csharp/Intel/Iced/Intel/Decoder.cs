@@ -278,6 +278,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public DecoderError LastError {
 			get {
+				// NoMoreBytes error has highest priority
 				if ((state.flags & StateFlags.NoMoreBytes) != 0)
 					return DecoderError.NoMoreBytes;
 				if ((state.flags & StateFlags.IsInvalid) != 0)

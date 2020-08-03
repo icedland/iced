@@ -46,6 +46,9 @@ B8 5A, INVALID, INVALID, 0, code=Mov_r32_imm32 err=NoMoreBytes
 48 B8 0415, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
 48 B8 04, INVALID, INVALID, 0, code=Mov_r64_imm64 err=NoMoreBytes
 
+# NoMoreBytes has higher prio than InvalidInstruction
+F0 04, INVALID, INVALID, 0, code=Add_AL_imm8 err=NoMoreBytes
+
 # test extra mandatory prefixes
 0F10 08, Movups_xmm_xmmm128, Movups, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float32
 66 0F10 08, Movupd_xmm_xmmm128, Movupd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float64

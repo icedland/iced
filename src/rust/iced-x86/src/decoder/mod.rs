@@ -793,6 +793,7 @@ impl<'a> Decoder<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn last_error(&self) -> DecoderError {
+		// NoMoreBytes error has highest priority
 		if (self.state.flags & StateFlags::NO_MORE_BYTES) != 0 {
 			DecoderError::NoMoreBytes
 		} else if (self.state.flags & StateFlags::IS_INVALID) != 0 {
