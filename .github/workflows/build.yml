@@ -2,6 +2,7 @@ name: GitHub CI
 on:
   push:
     paths:
+      - '.github/workflows/**'
       - 'src/**'
       - '!**/*.md'
     branches:
@@ -203,6 +204,7 @@ jobs:
           dotnet --version
           valid_file=$(mktemp)
           invalid_file=$(mktemp)
+          
           for bitness in 16 32 64; do
               echo ==== ${bitness}-bit: Generating valid/invalid files ====
               dotnet run -c:Release -p src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj -- -$bitness -oil $invalid_file -ovlc $valid_file
@@ -211,6 +213,16 @@ jobs:
               echo ==== ${bitness}-bit: Testing invalid instructions ====
               cargo run --color always --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $invalid_file --invalid
           done
+          
+          for bitness in 16 32 64; do
+              echo "==== ${bitness}-bit (AMD): Generating valid/invalid files ===="
+              dotnet run -c:Release -p src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj -- -$bitness -oil $invalid_file -ovlc $valid_file --amd
+              echo "==== ${bitness}-bit (AMD): Testing valid instructions ===="
+              cargo run --color always --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $valid_file --amd
+              echo "==== ${bitness}-bit (AMD): Testing invalid instructions ===="
+              cargo run --color always --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $invalid_file --invalid --amd
+          done
+          
           rm $valid_file
           rm $invalid_file
 
@@ -418,7 +430,7 @@ jobs:
           export PATH="$HOME/.cargo/bin:$PATH"
           export RUSTFLAGS="-D warnings"
           cd src/rust/iced-x86
-          sed -i 's/"iced-x86-fzgt",/#"iced-x86-fzgt",/' ../Cargo.toml
+          sed -i -e 's/"iced-x86-fzgt",/#"iced-x86-fzgt",/' ../Cargo.toml
           echo ==== UPDATE Cargo.lock ====
           cargo +1.20.0 generate-lockfile
           cargo +1.20.0 update --package lazy_static --precise 1.1.1
