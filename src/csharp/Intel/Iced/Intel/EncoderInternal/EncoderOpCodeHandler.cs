@@ -150,8 +150,8 @@ namespace Iced.Intel.EncoderInternal {
 				throw new InvalidOperationException();
 			}
 
-			mandatoryPrefix = ((MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixByteShift) & (uint)LegacyFlags.MandatoryPrefixByteMask)) switch {
-				MandatoryPrefixByte.None => 0,
+			mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixByteShift) & (uint)LegacyFlags.MandatoryPrefixByteMask) switch {
+				MandatoryPrefixByte.None => 0x00,
 				MandatoryPrefixByte.P66 => 0x66,
 				MandatoryPrefixByte.PF3 => 0xF3,
 				MandatoryPrefixByte.PF2 => 0xF2,
