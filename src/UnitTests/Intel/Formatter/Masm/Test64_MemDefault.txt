@@ -8286,40 +8286,24 @@ fs umonitor ebp
 fs umonitor rbp
 rep montmul
 rep montmul
-montmul
-montmul
 rep xsha1
 rep xsha1
-xsha1
-xsha1
 rep xsha256
 rep xsha256
-xsha256
-xsha256
 rep xstore
 rep xstore
 xstore
 xstore
 rep xcryptecb
 rep xcryptecb
-xcryptecb
-xcryptecb
 rep xcryptcbc
 rep xcryptcbc
-xcryptcbc
-xcryptcbc
 rep xcryptctr
 rep xcryptctr
-xcryptctr
-xcryptctr
 rep xcryptcfb
 rep xcryptcfb
-xcryptcfb
-xcryptcfb
 rep xcryptofb
 rep xcryptofb
-xcryptofb
-xcryptofb
 vdpbf16ps xmm18{k3},xmm14,xmm3
 vdpbf16ps xmm2,xmm6,[rax+10h]
 vdpbf16ps xmm2{k5}{z},xmm6,dword bcst [rax+4]

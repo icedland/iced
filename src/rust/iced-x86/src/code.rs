@@ -15672,7 +15672,7 @@ pub enum Code {
 	Shld_rm64_r64_CL = 1957,
 	/// `MONTMUL`
 	///
-	/// `a16 0F A6 C0`
+	/// `a16 F3 0F A6 C0`
 	///
 	/// `PADLOCK_PMM`
 	///
@@ -15680,7 +15680,7 @@ pub enum Code {
 	Montmul_16 = 1958,
 	/// `MONTMUL`
 	///
-	/// `a32 0F A6 C0`
+	/// `a32 F3 0F A6 C0`
 	///
 	/// `PADLOCK_PMM`
 	///
@@ -15688,7 +15688,7 @@ pub enum Code {
 	Montmul_32 = 1959,
 	/// `MONTMUL`
 	///
-	/// `0F A6 C0`
+	/// `F3 0F A6 C0`
 	///
 	/// `PADLOCK_PMM`
 	///
@@ -15696,7 +15696,7 @@ pub enum Code {
 	Montmul_64 = 1960,
 	/// `XSHA1`
 	///
-	/// `a16 0F A6 C8`
+	/// `a16 F3 0F A6 C8`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15704,7 +15704,7 @@ pub enum Code {
 	Xsha1_16 = 1961,
 	/// `XSHA1`
 	///
-	/// `a32 0F A6 C8`
+	/// `a32 F3 0F A6 C8`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15712,7 +15712,7 @@ pub enum Code {
 	Xsha1_32 = 1962,
 	/// `XSHA1`
 	///
-	/// `0F A6 C8`
+	/// `F3 0F A6 C8`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15720,7 +15720,7 @@ pub enum Code {
 	Xsha1_64 = 1963,
 	/// `XSHA256`
 	///
-	/// `a16 0F A6 D0`
+	/// `a16 F3 0F A6 D0`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15728,7 +15728,7 @@ pub enum Code {
 	Xsha256_16 = 1964,
 	/// `XSHA256`
 	///
-	/// `a32 0F A6 D0`
+	/// `a32 F3 0F A6 D0`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15736,7 +15736,7 @@ pub enum Code {
 	Xsha256_32 = 1965,
 	/// `XSHA256`
 	///
-	/// `0F A6 D0`
+	/// `F3 0F A6 D0`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15784,7 +15784,7 @@ pub enum Code {
 	Xstore_64 = 1971,
 	/// `XCRYPTECB`
 	///
-	/// `a16 0F A7 C8`
+	/// `a16 F3 0F A7 C8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15792,7 +15792,7 @@ pub enum Code {
 	XcryptEcb_16 = 1972,
 	/// `XCRYPTECB`
 	///
-	/// `a32 0F A7 C8`
+	/// `a32 F3 0F A7 C8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15800,7 +15800,7 @@ pub enum Code {
 	XcryptEcb_32 = 1973,
 	/// `XCRYPTECB`
 	///
-	/// `0F A7 C8`
+	/// `F3 0F A7 C8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15808,7 +15808,7 @@ pub enum Code {
 	XcryptEcb_64 = 1974,
 	/// `XCRYPTCBC`
 	///
-	/// `a16 0F A7 D0`
+	/// `a16 F3 0F A7 D0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15816,7 +15816,7 @@ pub enum Code {
 	XcryptCbc_16 = 1975,
 	/// `XCRYPTCBC`
 	///
-	/// `a32 0F A7 D0`
+	/// `a32 F3 0F A7 D0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15824,7 +15824,7 @@ pub enum Code {
 	XcryptCbc_32 = 1976,
 	/// `XCRYPTCBC`
 	///
-	/// `0F A7 D0`
+	/// `F3 0F A7 D0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15832,7 +15832,7 @@ pub enum Code {
 	XcryptCbc_64 = 1977,
 	/// `XCRYPTCTR`
 	///
-	/// `a16 0F A7 D8`
+	/// `a16 F3 0F A7 D8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15840,7 +15840,7 @@ pub enum Code {
 	XcryptCtr_16 = 1978,
 	/// `XCRYPTCTR`
 	///
-	/// `a32 0F A7 D8`
+	/// `a32 F3 0F A7 D8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15848,7 +15848,7 @@ pub enum Code {
 	XcryptCtr_32 = 1979,
 	/// `XCRYPTCTR`
 	///
-	/// `0F A7 D8`
+	/// `F3 0F A7 D8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15856,7 +15856,7 @@ pub enum Code {
 	XcryptCtr_64 = 1980,
 	/// `XCRYPTCFB`
 	///
-	/// `a16 0F A7 E0`
+	/// `a16 F3 0F A7 E0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15864,7 +15864,7 @@ pub enum Code {
 	XcryptCfb_16 = 1981,
 	/// `XCRYPTCFB`
 	///
-	/// `a32 0F A7 E0`
+	/// `a32 F3 0F A7 E0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15872,7 +15872,7 @@ pub enum Code {
 	XcryptCfb_32 = 1982,
 	/// `XCRYPTCFB`
 	///
-	/// `0F A7 E0`
+	/// `F3 0F A7 E0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15880,7 +15880,7 @@ pub enum Code {
 	XcryptCfb_64 = 1983,
 	/// `XCRYPTOFB`
 	///
-	/// `a16 0F A7 E8`
+	/// `a16 F3 0F A7 E8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15888,7 +15888,7 @@ pub enum Code {
 	XcryptOfb_16 = 1984,
 	/// `XCRYPTOFB`
 	///
-	/// `a32 0F A7 E8`
+	/// `a32 F3 0F A7 E8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15896,7 +15896,7 @@ pub enum Code {
 	XcryptOfb_32 = 1985,
 	/// `XCRYPTOFB`
 	///
-	/// `0F A7 E8`
+	/// `F3 0F A7 E8`
 	///
 	/// `PADLOCK_ACE`
 	///

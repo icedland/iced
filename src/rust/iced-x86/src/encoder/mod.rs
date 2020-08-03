@@ -323,8 +323,6 @@ impl Encoder {
 				self.write_byte_internal(0x9B);
 			}
 
-			self.write_prefixes(instruction);
-
 			(handler.encode)(handler, self, instruction);
 
 			let op_code = self.op_code;
@@ -1064,7 +1062,7 @@ impl Encoder {
 		}
 	}
 
-	fn write_prefixes(&mut self, instruction: &Instruction) {
+	pub(self) fn write_prefixes(&mut self, instruction: &Instruction, write_f3: bool) {
 		debug_assert!((self.handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0);
 		let seg = instruction.segment_prefix();
 		if seg != Register::None {
@@ -1081,7 +1079,7 @@ impl Encoder {
 		if (self.encoder_flags & EncoderFlags::P67) != 0 {
 			self.write_byte_internal(0x67);
 		}
-		if super::instruction_internal::internal_has_repe_prefix_has_xrelease_prefix(instruction) {
+		if write_f3 && super::instruction_internal::internal_has_repe_prefix_has_xrelease_prefix(instruction) {
 			self.write_byte_internal(0xF3);
 		}
 		if super::instruction_internal::internal_has_repne_prefix_has_xacquire_prefix(instruction) {

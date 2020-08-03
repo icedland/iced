@@ -1725,8 +1725,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x01,// ArrayReference
 	0x40,// 0x40
 	// 0 = 0x00
-	0xAB,// Simple5
-		0xA6, 0x0F,// Montmul_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xA6, 0x0F,// Montmul_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 1 = 0x01
 	0x05,// Dup
@@ -1734,8 +1739,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 8 = 0x08
-	0xAB,// Simple5
-		0xA9, 0x0F,// Xsha1_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xA9, 0x0F,// Xsha1_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 9 = 0x09
 	0x05,// Dup
@@ -1743,8 +1753,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 16 = 0x10
-	0xAB,// Simple5
-		0xAC, 0x0F,// Xsha256_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xAC, 0x0F,// Xsha256_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 17 = 0x11
 	0x05,// Dup
@@ -1772,8 +1787,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 8 = 0x08
-	0xAB,// Simple5
-		0xB4, 0x0F,// XcryptEcb_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xB4, 0x0F,// XcryptEcb_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 9 = 0x09
 	0x05,// Dup
@@ -1781,8 +1801,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 16 = 0x10
-	0xAB,// Simple5
-		0xB7, 0x0F,// XcryptCbc_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xB7, 0x0F,// XcryptCbc_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 17 = 0x11
 	0x05,// Dup
@@ -1790,8 +1815,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 24 = 0x18
-	0xAB,// Simple5
-		0xBA, 0x0F,// XcryptCtr_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xBA, 0x0F,// XcryptCtr_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 25 = 0x19
 	0x05,// Dup
@@ -1799,8 +1829,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 32 = 0x20
-	0xAB,// Simple5
-		0xBD, 0x0F,// XcryptCfb_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xBD, 0x0F,// XcryptCfb_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 33 = 0x21
 	0x05,// Dup
@@ -1808,8 +1843,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 40 = 0x28
-	0xAB,// Simple5
-		0xC0, 0x0F,// XcryptOfb_16
+	0x12,// MandatoryPrefix4
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0xAB,// Simple5
+			0xC0, 0x0F,// XcryptOfb_16
+		0x03,// Invalid_NoModRM
+		0x00,// 0x0
 
 	// 41 = 0x29
 	0x05,// Dup

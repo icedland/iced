@@ -166,6 +166,35 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
 			var decodedInst = decoder.Decode();
+			switch (inst.Code) {
+			case Code.Montmul_16:
+			case Code.Montmul_32:
+			case Code.Montmul_64:
+			case Code.Xsha1_16:
+			case Code.Xsha1_32:
+			case Code.Xsha1_64:
+			case Code.Xsha256_16:
+			case Code.Xsha256_32:
+			case Code.Xsha256_64:
+			case Code.XcryptEcb_16:
+			case Code.XcryptEcb_32:
+			case Code.XcryptEcb_64:
+			case Code.XcryptCbc_16:
+			case Code.XcryptCbc_32:
+			case Code.XcryptCbc_64:
+			case Code.XcryptCtr_16:
+			case Code.XcryptCtr_32:
+			case Code.XcryptCtr_64:
+			case Code.XcryptCfb_16:
+			case Code.XcryptCfb_32:
+			case Code.XcryptCfb_64:
+			case Code.XcryptOfb_16:
+			case Code.XcryptOfb_32:
+			case Code.XcryptOfb_64:
+				// They're mandatory prefix instructions but the REP prefix isn't cleared since it's shown in disassembly
+				decodedInst.HasRepPrefix = false;
+				break;
+			}
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
 				Assert.Equal(decodedInst, Instruction.Create(Code.Wait));
 				decodedInst = decoder.Decode();

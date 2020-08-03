@@ -665,40 +665,24 @@ addr16 fs clzero
 fs umonitor bp
 rep montmul
 addr16 rep montmul
-montmul
-addr16 montmul
 rep xsha1
 addr16 rep xsha1
-xsha1
-addr16 xsha1
 rep xsha256
 addr16 rep xsha256
-xsha256
-addr16 xsha256
 rep xstore
 addr16 rep xstore
 xstore
 addr16 xstore
 rep xcryptecb
 addr16 rep xcryptecb
-xcryptecb
-addr16 xcryptecb
 rep xcryptcbc
 addr16 rep xcryptcbc
-xcryptcbc
-addr16 xcryptcbc
 rep xcryptctr
 addr16 rep xcryptctr
-xcryptctr
-addr16 xcryptctr
 rep xcryptcfb
 addr16 rep xcryptcfb
-xcryptcfb
-addr16 xcryptcfb
 rep xcryptofb
 addr16 rep xcryptofb
-xcryptofb
-addr16 xcryptofb
 addr16 pvalidate
 pvalidate
 serialize

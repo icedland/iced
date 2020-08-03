@@ -206,9 +206,10 @@ impl LegacyHandler {
 		}
 	}
 
-	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction) {
+	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut b = this.mandatory_prefix;
+		encoder.write_prefixes(instruction, b != 0xF3);
 		if b != 0 {
 			encoder.write_byte_internal(b);
 		}
@@ -345,8 +346,9 @@ impl VexHandler {
 		}
 	}
 
-	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction) {
+	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		encoder.write_prefixes(instruction, true);
 		let encoder_flags = encoder.encoder_flags;
 
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
@@ -460,8 +462,9 @@ impl XopHandler {
 		}
 	}
 
-	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction) {
+	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		encoder.write_prefixes(instruction, true);
 		encoder.write_byte_internal(0x8F);
 
 		let encoder_flags = encoder.encoder_flags;
@@ -692,6 +695,7 @@ impl EvexHandler {
 
 	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		encoder.write_prefixes(instruction, true);
 		let encoder_flags = encoder.encoder_flags;
 
 		encoder.write_byte_internal(0x62);
@@ -796,8 +800,9 @@ impl D3nowHandler {
 		}
 	}
 
-	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction) {
+	fn encode(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		encoder.write_prefixes(instruction, true);
 		encoder.write_byte_internal(0x0F);
 		encoder.imm_size = ImmSize::Size1OpCode;
 		encoder.immediate = this.immediate;

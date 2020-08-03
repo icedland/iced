@@ -150,8 +150,8 @@ namespace Iced.Intel.EncoderInternal {
 				throw new InvalidOperationException();
 			}
 
-			mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixByteShift) & (uint)LegacyFlags.MandatoryPrefixByteMask) switch {
-				MandatoryPrefixByte.None => 0x00,
+			mandatoryPrefix = ((MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixByteShift) & (uint)LegacyFlags.MandatoryPrefixByteMask)) switch {
+				MandatoryPrefixByte.None => 0,
 				MandatoryPrefixByte.P66 => 0x66,
 				MandatoryPrefixByte.PF3 => 0xF3,
 				MandatoryPrefixByte.PF2 => 0xF2,
@@ -160,8 +160,9 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
-			uint b;
-			if ((b = mandatoryPrefix) != 0)
+			uint b = mandatoryPrefix;
+			encoder.WritePrefixes(instruction, b != 0xF3);
+			if (b != 0)
 				encoder.WriteByteInternal(b);
 
 			Static.Assert((int)EncoderFlags.B == 0x01 ? 0 : -1);
@@ -264,6 +265,8 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
+			encoder.WritePrefixes(instruction);
+
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 
 			Static.Assert((int)MandatoryPrefixByte.None == 0 ? 0 : -1);
@@ -346,6 +349,8 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
+			encoder.WritePrefixes(instruction);
+
 			encoder.WriteByteInternal(0x8F);
 
 			uint encoderFlags = (uint)encoder.EncoderFlags;
@@ -596,6 +601,8 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
+			encoder.WritePrefixes(instruction);
+
 			uint encoderFlags = (uint)encoder.EncoderFlags;
 
 			encoder.WriteByteInternal(0x62);
@@ -678,6 +685,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
+			encoder.WritePrefixes(instruction);
 			encoder.WriteByteInternal(0x0F);
 			encoder.ImmSize = ImmSize.Size1OpCode;
 			encoder.Immediate = immediate;

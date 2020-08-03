@@ -8779,34 +8779,34 @@ C4C1F9 99 D3, VEX_Ktestd_kr_kr, Ktestd, 2, op0=r;k2 op1=r;k3 enc=C4E1F999D3
 66 0FA5 18, Shld_rm32_r32_CL, Shld, 3, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx op2=r;cl
 
 F3 0FA6 C0, Montmul_16, Montmul, 0, rep
-F2 0FA6 C0, Montmul_16, Montmul, 0, repne
+F2 0FA6 C0, INVALID, INVALID, 0, code=Montmul_16
 F2 F3 0FA6 C0, Montmul_16, Montmul, 0, rep enc=F30FA6C0
-F3 F2 0FA6 C0, Montmul_16, Montmul, 0, repne enc=F20FA6C0
-0FA6 C0, Montmul_16, Montmul, 0,
+F3 F2 0FA6 C0, INVALID, INVALID, 0, code=Montmul_16
+0FA6 C0, INVALID, INVALID, 0, code=Montmul_16
 
 F3 67 0FA6 C0, Montmul_32, Montmul, 0, rep enc=67F30FA6C0
 67 F3 0FA6 C0, Montmul_32, Montmul, 0, rep
-67 0FA6 C0, Montmul_32, Montmul, 0,
+67 0FA6 C0, INVALID, INVALID, 0, code=Montmul_32
 
 F3 0FA6 C8, Xsha1_16, Xsha1, 0, rep
-F2 0FA6 C8, Xsha1_16, Xsha1, 0, repne
+F2 0FA6 C8, INVALID, INVALID, 0, code=Xsha1_16
 F2 F3 0FA6 C8, Xsha1_16, Xsha1, 0, rep enc=F30FA6C8
-F3 F2 0FA6 C8, Xsha1_16, Xsha1, 0, repne enc=F20FA6C8
-0FA6 C8, Xsha1_16, Xsha1, 0,
+F3 F2 0FA6 C8, INVALID, INVALID, 0, code=Xsha1_16
+0FA6 C8, INVALID, INVALID, 0, code=Xsha1_16
 
 F3 67 0FA6 C8, Xsha1_32, Xsha1, 0, rep enc=67F30FA6C8
 67 F3 0FA6 C8, Xsha1_32, Xsha1, 0, rep
-67 0FA6 C8, Xsha1_32, Xsha1, 0,
+67 0FA6 C8, INVALID, INVALID, 0, code=Xsha1_32
 
 F3 0FA6 D0, Xsha256_16, Xsha256, 0, rep
-F2 0FA6 D0, Xsha256_16, Xsha256, 0, repne
+F2 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_16
 F2 F3 0FA6 D0, Xsha256_16, Xsha256, 0, rep enc=F30FA6D0
-F3 F2 0FA6 D0, Xsha256_16, Xsha256, 0, repne enc=F20FA6D0
-0FA6 D0, Xsha256_16, Xsha256, 0,
+F3 F2 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_16
+0FA6 D0, INVALID, INVALID, 0, code=Xsha256_16
 
 F3 67 0FA6 D0, Xsha256_32, Xsha256, 0, rep enc=67F30FA6D0
 67 F3 0FA6 D0, Xsha256_32, Xsha256, 0, rep
-67 0FA6 D0, Xsha256_32, Xsha256, 0,
+67 0FA6 D0, INVALID, INVALID, 0, code=Xsha256_32
 
 0FA6 CE, Xbts_r16_rm16, Xbts, 2, op0=r;cx op1=r;si xbts
 0FA6 CE, Xbts_r16_rm16, Xbts, 2, op0=r;cx op1=r;si xbts cmpxchg486a
@@ -8838,54 +8838,54 @@ F3 67 0FA7 C0, Xstore_32, Xstore, 0, rep enc=67F30FA7C0
 67 0FA7 C0, Xstore_32, Xstore, 0,
 
 F3 0FA7 C8, XcryptEcb_16, Xcryptecb, 0, rep
-F2 0FA7 C8, XcryptEcb_16, Xcryptecb, 0, repne
+F2 0FA7 C8, INVALID, INVALID, 0, code=XcryptEcb_16
 F2 F3 0FA7 C8, XcryptEcb_16, Xcryptecb, 0, rep enc=F30FA7C8
-F3 F2 0FA7 C8, XcryptEcb_16, Xcryptecb, 0, repne enc=F20FA7C8
-0FA7 C8, XcryptEcb_16, Xcryptecb, 0,
+F3 F2 0FA7 C8, INVALID, INVALID, 0, code=XcryptEcb_16
+0FA7 C8, INVALID, INVALID, 0, code=XcryptEcb_16
 
 F3 67 0FA7 C8, XcryptEcb_32, Xcryptecb, 0, rep enc=67F30FA7C8
 67 F3 0FA7 C8, XcryptEcb_32, Xcryptecb, 0, rep
-67 0FA7 C8, XcryptEcb_32, Xcryptecb, 0,
+67 0FA7 C8, INVALID, INVALID, 0, code=XcryptEcb_32
 
 F3 0FA7 D0, XcryptCbc_16, Xcryptcbc, 0, rep
-F2 0FA7 D0, XcryptCbc_16, Xcryptcbc, 0, repne
+F2 0FA7 D0, INVALID, INVALID, 0, code=XcryptCbc_16
 F2 F3 0FA7 D0, XcryptCbc_16, Xcryptcbc, 0, rep enc=F30FA7D0
-F3 F2 0FA7 D0, XcryptCbc_16, Xcryptcbc, 0, repne enc=F20FA7D0
-0FA7 D0, XcryptCbc_16, Xcryptcbc, 0,
+F3 F2 0FA7 D0, INVALID, INVALID, 0, code=XcryptCbc_16
+0FA7 D0, INVALID, INVALID, 0, code=XcryptCbc_16
 
 F3 67 0FA7 D0, XcryptCbc_32, Xcryptcbc, 0, rep enc=67F30FA7D0
 67 F3 0FA7 D0, XcryptCbc_32, Xcryptcbc, 0, rep
-67 0FA7 D0, XcryptCbc_32, Xcryptcbc, 0,
+67 0FA7 D0, INVALID, INVALID, 0, code=XcryptCbc_32
 
 F3 0FA7 D8, XcryptCtr_16, Xcryptctr, 0, rep
-F2 0FA7 D8, XcryptCtr_16, Xcryptctr, 0, repne
+F2 0FA7 D8, INVALID, INVALID, 0, code=XcryptCtr_16
 F2 F3 0FA7 D8, XcryptCtr_16, Xcryptctr, 0, rep enc=F30FA7D8
-F3 F2 0FA7 D8, XcryptCtr_16, Xcryptctr, 0, repne enc=F20FA7D8
-0FA7 D8, XcryptCtr_16, Xcryptctr, 0,
+F3 F2 0FA7 D8, INVALID, INVALID, 0, code=XcryptCtr_16
+0FA7 D8, INVALID, INVALID, 0, code=XcryptCtr_16
 
 F3 67 0FA7 D8, XcryptCtr_32, Xcryptctr, 0, rep enc=67F30FA7D8
 67 F3 0FA7 D8, XcryptCtr_32, Xcryptctr, 0, rep
-67 0FA7 D8, XcryptCtr_32, Xcryptctr, 0,
+67 0FA7 D8, INVALID, INVALID, 0, code=XcryptCtr_32
 
 F3 0FA7 E0, XcryptCfb_16, Xcryptcfb, 0, rep
-F2 0FA7 E0, XcryptCfb_16, Xcryptcfb, 0, repne
+F2 0FA7 E0, INVALID, INVALID, 0, code=XcryptCfb_16
 F2 F3 0FA7 E0, XcryptCfb_16, Xcryptcfb, 0, rep enc=F30FA7E0
-F3 F2 0FA7 E0, XcryptCfb_16, Xcryptcfb, 0, repne enc=F20FA7E0
-0FA7 E0, XcryptCfb_16, Xcryptcfb, 0,
+F3 F2 0FA7 E0, INVALID, INVALID, 0, code=XcryptCfb_16
+0FA7 E0, INVALID, INVALID, 0, code=XcryptCfb_16
 
 F3 67 0FA7 E0, XcryptCfb_32, Xcryptcfb, 0, rep enc=67F30FA7E0
 67 F3 0FA7 E0, XcryptCfb_32, Xcryptcfb, 0, rep
-67 0FA7 E0, XcryptCfb_32, Xcryptcfb, 0,
+67 0FA7 E0, INVALID, INVALID, 0, code=XcryptCfb_32
 
 F3 0FA7 E8, XcryptOfb_16, Xcryptofb, 0, rep
-F2 0FA7 E8, XcryptOfb_16, Xcryptofb, 0, repne
+F2 0FA7 E8, INVALID, INVALID, 0, code=XcryptOfb_16
 F2 F3 0FA7 E8, XcryptOfb_16, Xcryptofb, 0, rep enc=F30FA7E8
-F3 F2 0FA7 E8, XcryptOfb_16, Xcryptofb, 0, repne enc=F20FA7E8
-0FA7 E8, XcryptOfb_16, Xcryptofb, 0,
+F3 F2 0FA7 E8, INVALID, INVALID, 0, code=XcryptOfb_16
+0FA7 E8, INVALID, INVALID, 0, code=XcryptOfb_16
 
 F3 67 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, rep enc=67F30FA7E8
 67 F3 0FA7 E8, XcryptOfb_32, Xcryptofb, 0, rep
-67 0FA7 E8, XcryptOfb_32, Xcryptofb, 0,
+67 0FA7 E8, INVALID, INVALID, 0, code=XcryptOfb_32
 
 0FA7 CE, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=r;si op1=r;cx cmpxchg486a
 0FA7 18, Cmpxchg486_rm16_r16, Cmpxchg, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx cmpxchg486a

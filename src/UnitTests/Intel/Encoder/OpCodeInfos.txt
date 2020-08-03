@@ -1985,35 +1985,35 @@ Shld_rm64_r64_imm8, legacy, , 0F, A4, REX.W 0F A4 /r ib, SHLD r/m64| r64| imm8, 
 Shld_rm16_r16_CL, legacy, , 0F, A5, o16 0F A5 /r, SHLD r/m16| r16| CL, 16b 32b 64b o16 op=r16_or_mem;r16_reg;cl
 Shld_rm32_r32_CL, legacy, , 0F, A5, o32 0F A5 /r, SHLD r/m32| r32| CL, 16b 32b 64b o32 op=r32_or_mem;r32_reg;cl
 Shld_rm64_r64_CL, legacy, , 0F, A5, REX.W 0F A5 /r, SHLD r/m64| r64| CL, 64b o64 op=r64_or_mem;r64_reg;cl
-Montmul_16, legacy, , 0F, A6C0, a16 0F A6 C0, MONTMUL, 16b 32b a16 rep
-Montmul_32, legacy, , 0F, A6C0, a32 0F A6 C0, MONTMUL, 16b 32b 64b a32 rep
-Montmul_64, legacy, , 0F, A6C0, 0F A6 C0, MONTMUL, 64b rep
-Xsha1_16, legacy, , 0F, A6C8, a16 0F A6 C8, XSHA1, 16b 32b a16 rep
-Xsha1_32, legacy, , 0F, A6C8, a32 0F A6 C8, XSHA1, 16b 32b 64b a32 rep
-Xsha1_64, legacy, , 0F, A6C8, 0F A6 C8, XSHA1, 64b rep
-Xsha256_16, legacy, , 0F, A6D0, a16 0F A6 D0, XSHA256, 16b 32b a16 rep
-Xsha256_32, legacy, , 0F, A6D0, a32 0F A6 D0, XSHA256, 16b 32b 64b a32 rep
-Xsha256_64, legacy, , 0F, A6D0, 0F A6 D0, XSHA256, 64b rep
+Montmul_16, legacy, F3, 0F, A6C0, a16 F3 0F A6 C0, MONTMUL, 16b 32b a16
+Montmul_32, legacy, F3, 0F, A6C0, a32 F3 0F A6 C0, MONTMUL, 16b 32b 64b a32
+Montmul_64, legacy, F3, 0F, A6C0, F3 0F A6 C0, MONTMUL, 64b
+Xsha1_16, legacy, F3, 0F, A6C8, a16 F3 0F A6 C8, XSHA1, 16b 32b a16
+Xsha1_32, legacy, F3, 0F, A6C8, a32 F3 0F A6 C8, XSHA1, 16b 32b 64b a32
+Xsha1_64, legacy, F3, 0F, A6C8, F3 0F A6 C8, XSHA1, 64b
+Xsha256_16, legacy, F3, 0F, A6D0, a16 F3 0F A6 D0, XSHA256, 16b 32b a16
+Xsha256_32, legacy, F3, 0F, A6D0, a32 F3 0F A6 D0, XSHA256, 16b 32b 64b a32
+Xsha256_64, legacy, F3, 0F, A6D0, F3 0F A6 D0, XSHA256, 64b
 Xbts_r16_rm16, legacy, , 0F, A6, o16 0F A6 /r, XBTS r16| r/m16, 16b 32b o16 op=r16_reg;r16_or_mem
 Xbts_r32_rm32, legacy, , 0F, A6, o32 0F A6 /r, XBTS r32| r/m32, 16b 32b o32 op=r32_reg;r32_or_mem
 Xstore_16, legacy, , 0F, A7C0, a16 0F A7 C0, XSTORE, 16b 32b a16 rep
 Xstore_32, legacy, , 0F, A7C0, a32 0F A7 C0, XSTORE, 16b 32b 64b a32 rep
 Xstore_64, legacy, , 0F, A7C0, 0F A7 C0, XSTORE, 64b rep
-XcryptEcb_16, legacy, , 0F, A7C8, a16 0F A7 C8, XCRYPTECB, 16b 32b a16 rep
-XcryptEcb_32, legacy, , 0F, A7C8, a32 0F A7 C8, XCRYPTECB, 16b 32b 64b a32 rep
-XcryptEcb_64, legacy, , 0F, A7C8, 0F A7 C8, XCRYPTECB, 64b rep
-XcryptCbc_16, legacy, , 0F, A7D0, a16 0F A7 D0, XCRYPTCBC, 16b 32b a16 rep
-XcryptCbc_32, legacy, , 0F, A7D0, a32 0F A7 D0, XCRYPTCBC, 16b 32b 64b a32 rep
-XcryptCbc_64, legacy, , 0F, A7D0, 0F A7 D0, XCRYPTCBC, 64b rep
-XcryptCtr_16, legacy, , 0F, A7D8, a16 0F A7 D8, XCRYPTCTR, 16b 32b a16 rep
-XcryptCtr_32, legacy, , 0F, A7D8, a32 0F A7 D8, XCRYPTCTR, 16b 32b 64b a32 rep
-XcryptCtr_64, legacy, , 0F, A7D8, 0F A7 D8, XCRYPTCTR, 64b rep
-XcryptCfb_16, legacy, , 0F, A7E0, a16 0F A7 E0, XCRYPTCFB, 16b 32b a16 rep
-XcryptCfb_32, legacy, , 0F, A7E0, a32 0F A7 E0, XCRYPTCFB, 16b 32b 64b a32 rep
-XcryptCfb_64, legacy, , 0F, A7E0, 0F A7 E0, XCRYPTCFB, 64b rep
-XcryptOfb_16, legacy, , 0F, A7E8, a16 0F A7 E8, XCRYPTOFB, 16b 32b a16 rep
-XcryptOfb_32, legacy, , 0F, A7E8, a32 0F A7 E8, XCRYPTOFB, 16b 32b 64b a32 rep
-XcryptOfb_64, legacy, , 0F, A7E8, 0F A7 E8, XCRYPTOFB, 64b rep
+XcryptEcb_16, legacy, F3, 0F, A7C8, a16 F3 0F A7 C8, XCRYPTECB, 16b 32b a16
+XcryptEcb_32, legacy, F3, 0F, A7C8, a32 F3 0F A7 C8, XCRYPTECB, 16b 32b 64b a32
+XcryptEcb_64, legacy, F3, 0F, A7C8, F3 0F A7 C8, XCRYPTECB, 64b
+XcryptCbc_16, legacy, F3, 0F, A7D0, a16 F3 0F A7 D0, XCRYPTCBC, 16b 32b a16
+XcryptCbc_32, legacy, F3, 0F, A7D0, a32 F3 0F A7 D0, XCRYPTCBC, 16b 32b 64b a32
+XcryptCbc_64, legacy, F3, 0F, A7D0, F3 0F A7 D0, XCRYPTCBC, 64b
+XcryptCtr_16, legacy, F3, 0F, A7D8, a16 F3 0F A7 D8, XCRYPTCTR, 16b 32b a16
+XcryptCtr_32, legacy, F3, 0F, A7D8, a32 F3 0F A7 D8, XCRYPTCTR, 16b 32b 64b a32
+XcryptCtr_64, legacy, F3, 0F, A7D8, F3 0F A7 D8, XCRYPTCTR, 64b
+XcryptCfb_16, legacy, F3, 0F, A7E0, a16 F3 0F A7 E0, XCRYPTCFB, 16b 32b a16
+XcryptCfb_32, legacy, F3, 0F, A7E0, a32 F3 0F A7 E0, XCRYPTCFB, 16b 32b 64b a32
+XcryptCfb_64, legacy, F3, 0F, A7E0, F3 0F A7 E0, XCRYPTCFB, 64b
+XcryptOfb_16, legacy, F3, 0F, A7E8, a16 F3 0F A7 E8, XCRYPTOFB, 16b 32b a16
+XcryptOfb_32, legacy, F3, 0F, A7E8, a32 F3 0F A7 E8, XCRYPTOFB, 16b 32b 64b a32
+XcryptOfb_64, legacy, F3, 0F, A7E8, F3 0F A7 E8, XCRYPTOFB, 64b
 Ibts_rm16_r16, legacy, , 0F, A7, o16 0F A7 /r, IBTS r/m16| r16, 16b 32b o16 op=r16_or_mem;r16_reg
 Ibts_rm32_r32, legacy, , 0F, A7, o32 0F A7 /r, IBTS r/m32| r32, 16b 32b o32 op=r32_or_mem;r32_reg
 Cmpxchg486_rm8_r8, legacy, , 0F, A6, 0F A6 /r, CMPXCHG r/m8| r8, 16b 32b op=r8_or_mem;r8_reg

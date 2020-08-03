@@ -3326,15 +3326,6 @@ repne scas (%rdi),%al
 repne scas (%rdi),%ax
 repne scas (%rdi),%eax
 repne scas (%rdi),%rax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%edi)
 rep insw %dx,(%edi)
@@ -3388,15 +3379,6 @@ repne lods (%esi),%eax
 repne scas (%edi),%al
 repne scas (%edi),%ax
 repne scas (%edi),%eax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%di)
 rep insw %dx,(%di)
@@ -3450,15 +3432,6 @@ repne lods (%si),%eax
 repne scas (%di),%al
 repne scas (%di),%ax
 repne scas (%di),%eax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%rdi)
 rep insw %dx,(%rdi)
@@ -3522,15 +3495,6 @@ repne scas (%rdi),%al
 repne scas (%rdi),%ax
 repne scas (%rdi),%eax
 repne scas (%rdi),%rax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%edi)
 rep insw %dx,(%edi)
@@ -3584,15 +3548,6 @@ repne lods (%esi),%eax
 repne scas (%edi),%al
 repne scas (%edi),%ax
 repne scas (%edi),%eax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%di)
 rep insw %dx,(%di)
@@ -3646,15 +3601,6 @@ repne lods (%si),%eax
 repne scas (%di),%al
 repne scas (%di),%ax
 repne scas (%di),%eax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%rdi)
 rep insw %dx,(%rdi)
@@ -3718,15 +3664,6 @@ repne scas (%rdi),%al
 repne scas (%rdi),%ax
 repne scas (%rdi),%eax
 repne scas (%rdi),%rax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%edi)
 rep insw %dx,(%edi)
@@ -3780,15 +3717,6 @@ repne lods (%esi),%eax
 repne scas (%edi),%al
 repne scas (%edi),%ax
 repne scas (%edi),%eax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%di)
 rep insw %dx,(%di)
@@ -3842,15 +3770,6 @@ repne lods (%si),%eax
 repne scas (%di),%al
 repne scas (%di),%ax
 repne scas (%di),%eax
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb %dx,(%rdi)
 rep insw %dx,(%rdi)
@@ -3914,15 +3833,6 @@ repnz scas (%rdi),%al
 repnz scas (%rdi),%ax
 repnz scas (%rdi),%eax
 repnz scas (%rdi),%rax
-repnz montmul
-repnz xsha1
-repnz xsha256
-repnz xstore
-repnz xcryptecb
-repnz xcryptcbc
-repnz xcryptctr
-repnz xcryptcfb
-repnz xcryptofb
 
 rep insb %dx,(%edi)
 rep insw %dx,(%edi)
@@ -3976,15 +3886,6 @@ repnz lods (%esi),%eax
 repnz scas (%edi),%al
 repnz scas (%edi),%ax
 repnz scas (%edi),%eax
-repnz montmul
-repnz xsha1
-repnz xsha256
-repnz xstore
-repnz xcryptecb
-repnz xcryptcbc
-repnz xcryptctr
-repnz xcryptcfb
-repnz xcryptofb
 
 rep insb %dx,(%di)
 rep insw %dx,(%di)
@@ -4038,12 +3939,3 @@ repnz lods (%si),%eax
 repnz scas (%di),%al
 repnz scas (%di),%ax
 repnz scas (%di),%eax
-repnz montmul
-repnz xsha1
-repnz xsha256
-repnz xstore
-repnz xcryptecb
-repnz xcryptcbc
-repnz xcryptctr
-repnz xcryptcfb
-repnz xcryptofb

@@ -3326,15 +3326,6 @@ repne scasb
 repne scasw
 repne scasd
 repne scasq
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3388,15 +3379,6 @@ repne lodsd
 repne scasb
 repne scasw
 repne scasd
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3450,15 +3432,6 @@ repne lodsd
 repne scasb
 repne scasw
 repne scasd
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3522,15 +3495,6 @@ repne scasb
 repne scasw
 repne scasd
 repne scasq
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3584,15 +3548,6 @@ repne lodsd
 repne scasb
 repne scasw
 repne scasd
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3646,15 +3601,6 @@ repne lodsd
 repne scasb
 repne scasw
 repne scasd
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3718,15 +3664,6 @@ repne scasb
 repne scasw
 repne scasd
 repne scasq
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3780,15 +3717,6 @@ repne lodsd
 repne scasb
 repne scasw
 repne scasd
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3842,15 +3770,6 @@ repne lodsd
 repne scasb
 repne scasw
 repne scasd
-repne montmul
-repne xsha1
-repne xsha256
-repne xstore
-repne xcryptecb
-repne xcryptcbc
-repne xcryptctr
-repne xcryptcfb
-repne xcryptofb
 
 rep insb
 rep insw
@@ -3914,15 +3833,6 @@ repnz scasb
 repnz scasw
 repnz scasd
 repnz scasq
-repnz montmul
-repnz xsha1
-repnz xsha256
-repnz xstore
-repnz xcryptecb
-repnz xcryptcbc
-repnz xcryptctr
-repnz xcryptcfb
-repnz xcryptofb
 
 rep insb
 rep insw
@@ -3976,15 +3886,6 @@ repnz lodsd
 repnz scasb
 repnz scasw
 repnz scasd
-repnz montmul
-repnz xsha1
-repnz xsha256
-repnz xstore
-repnz xcryptecb
-repnz xcryptcbc
-repnz xcryptctr
-repnz xcryptcfb
-repnz xcryptofb
 
 rep insb
 rep insw
@@ -4038,12 +3939,3 @@ repnz lodsd
 repnz scasb
 repnz scasw
 repnz scasd
-repnz montmul
-repnz xsha1
-repnz xsha256
-repnz xstore
-repnz xcryptecb
-repnz xcryptcbc
-repnz xcryptctr
-repnz xcryptcfb
-repnz xcryptofb

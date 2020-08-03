@@ -1076,7 +1076,13 @@ namespace Generator.Decoder {
 				("handlers_Grp_0FA6_hi",
 				new object?[0x40] {
 					// C0
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Montmul_16)], codeEnum[nameof(Code.Montmul_32)], codeEnum[nameof(Code.Montmul_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Montmul_16)], codeEnum[nameof(Code.Montmul_32)], codeEnum[nameof(Code.Montmul_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1086,7 +1092,13 @@ namespace Generator.Decoder {
 					null,
 
 					// C8
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Xsha1_16)], codeEnum[nameof(Code.Xsha1_32)], codeEnum[nameof(Code.Xsha1_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Xsha1_16)], codeEnum[nameof(Code.Xsha1_32)], codeEnum[nameof(Code.Xsha1_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1096,7 +1108,13 @@ namespace Generator.Decoder {
 					null,
 
 					// D0
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Xsha256_16)], codeEnum[nameof(Code.Xsha256_32)], codeEnum[nameof(Code.Xsha256_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Xsha256_16)], codeEnum[nameof(Code.Xsha256_32)], codeEnum[nameof(Code.Xsha256_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1181,7 +1199,13 @@ namespace Generator.Decoder {
 					null,
 
 					// C8
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptEcb_16)], codeEnum[nameof(Code.XcryptEcb_32)], codeEnum[nameof(Code.XcryptEcb_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptEcb_16)], codeEnum[nameof(Code.XcryptEcb_32)], codeEnum[nameof(Code.XcryptEcb_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1191,7 +1215,13 @@ namespace Generator.Decoder {
 					null,
 
 					// D0
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptCbc_16)], codeEnum[nameof(Code.XcryptCbc_32)], codeEnum[nameof(Code.XcryptCbc_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptCbc_16)], codeEnum[nameof(Code.XcryptCbc_32)], codeEnum[nameof(Code.XcryptCbc_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1201,7 +1231,13 @@ namespace Generator.Decoder {
 					null,
 
 					// D8
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptCtr_16)], codeEnum[nameof(Code.XcryptCtr_32)], codeEnum[nameof(Code.XcryptCtr_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptCtr_16)], codeEnum[nameof(Code.XcryptCtr_32)], codeEnum[nameof(Code.XcryptCtr_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1211,7 +1247,13 @@ namespace Generator.Decoder {
 					null,
 
 					// E0
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptCfb_16)], codeEnum[nameof(Code.XcryptCfb_32)], codeEnum[nameof(Code.XcryptCfb_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptCfb_16)], codeEnum[nameof(Code.XcryptCfb_32)], codeEnum[nameof(Code.XcryptCfb_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1221,7 +1263,13 @@ namespace Generator.Decoder {
 					null,
 
 					// E8
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptOfb_16)], codeEnum[nameof(Code.XcryptOfb_32)], codeEnum[nameof(Code.XcryptOfb_64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.XcryptOfb_16)], codeEnum[nameof(Code.XcryptOfb_32)], codeEnum[nameof(Code.XcryptOfb_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,

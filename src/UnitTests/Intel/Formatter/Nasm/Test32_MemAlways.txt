@@ -665,40 +665,24 @@ a16 fs clzero
 fs umonitor bp
 rep montmul
 a16 rep montmul
-montmul
-a16 montmul
 rep xsha1
 a16 rep xsha1
-xsha1
-a16 xsha1
 rep xsha256
 a16 rep xsha256
-xsha256
-a16 xsha256
 rep xstore
 a16 rep xstore
 xstore
 a16 xstore
 rep xcryptecb
 a16 rep xcryptecb
-xcryptecb
-a16 xcryptecb
 rep xcryptcbc
 a16 rep xcryptcbc
-xcryptcbc
-a16 xcryptcbc
 rep xcryptctr
 a16 rep xcryptctr
-xcryptctr
-a16 xcryptctr
 rep xcryptcfb
 a16 rep xcryptcfb
-xcryptcfb
-a16 xcryptcfb
 rep xcryptofb
 a16 rep xcryptofb
-xcryptofb
-a16 xcryptofb
 a16 pvalidate
 pvalidate
 serialize

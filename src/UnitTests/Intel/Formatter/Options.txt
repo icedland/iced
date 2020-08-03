@@ -3326,15 +3326,6 @@
 64, F2 66 AF, Scasw_AX_m16, ShowUselessPrefixes=false
 64, F2 AF, Scasd_EAX_m32, ShowUselessPrefixes=false
 64, F2 48 AF, Scasq_RAX_m64, ShowUselessPrefixes=false
-64, F2 0FA6 C0, Montmul_64, ShowUselessPrefixes=false
-64, F2 0FA6 C8, Xsha1_64, ShowUselessPrefixes=false
-64, F2 0FA6 D0, Xsha256_64, ShowUselessPrefixes=false
-64, F2 0FA7 C0, Xstore_64, ShowUselessPrefixes=false
-64, F2 0FA7 C8, XcryptEcb_64, ShowUselessPrefixes=false
-64, F2 0FA7 D0, XcryptCbc_64, ShowUselessPrefixes=false
-64, F2 0FA7 D8, XcryptCtr_64, ShowUselessPrefixes=false
-64, F2 0FA7 E0, XcryptCfb_64, ShowUselessPrefixes=false
-64, F2 0FA7 E8, XcryptOfb_64, ShowUselessPrefixes=false
 
 32, F3 6C, Insb_m8_DX, ShowUselessPrefixes=false
 32, F3 66 6D, Insw_m16_DX, ShowUselessPrefixes=false
@@ -3388,15 +3379,6 @@
 32, F2 AE, Scasb_AL_m8, ShowUselessPrefixes=false
 32, F2 66 AF, Scasw_AX_m16, ShowUselessPrefixes=false
 32, F2 AF, Scasd_EAX_m32, ShowUselessPrefixes=false
-32, F2 0FA6 C0, Montmul_32, ShowUselessPrefixes=false
-32, F2 0FA6 C8, Xsha1_32, ShowUselessPrefixes=false
-32, F2 0FA6 D0, Xsha256_32, ShowUselessPrefixes=false
-32, F2 0FA7 C0, Xstore_32, ShowUselessPrefixes=false
-32, F2 0FA7 C8, XcryptEcb_32, ShowUselessPrefixes=false
-32, F2 0FA7 D0, XcryptCbc_32, ShowUselessPrefixes=false
-32, F2 0FA7 D8, XcryptCtr_32, ShowUselessPrefixes=false
-32, F2 0FA7 E0, XcryptCfb_32, ShowUselessPrefixes=false
-32, F2 0FA7 E8, XcryptOfb_32, ShowUselessPrefixes=false
 
 16, F3 6C, Insb_m8_DX, ShowUselessPrefixes=false
 16, F3 6D, Insw_m16_DX, ShowUselessPrefixes=false
@@ -3450,15 +3432,6 @@
 16, F2 AE, Scasb_AL_m8, ShowUselessPrefixes=false
 16, F2 AF, Scasw_AX_m16, ShowUselessPrefixes=false
 16, F2 66 AF, Scasd_EAX_m32, ShowUselessPrefixes=false
-16, F2 0FA6 C0, Montmul_16, ShowUselessPrefixes=false
-16, F2 0FA6 C8, Xsha1_16, ShowUselessPrefixes=false
-16, F2 0FA6 D0, Xsha256_16, ShowUselessPrefixes=false
-16, F2 0FA7 C0, Xstore_16, ShowUselessPrefixes=false
-16, F2 0FA7 C8, XcryptEcb_16, ShowUselessPrefixes=false
-16, F2 0FA7 D0, XcryptCbc_16, ShowUselessPrefixes=false
-16, F2 0FA7 D8, XcryptCtr_16, ShowUselessPrefixes=false
-16, F2 0FA7 E0, XcryptCfb_16, ShowUselessPrefixes=false
-16, F2 0FA7 E8, XcryptOfb_16, ShowUselessPrefixes=false
 
 64, F3 6C, Insb_m8_DX, ShowUselessPrefixes=true
 64, F3 66 6D, Insw_m16_DX, ShowUselessPrefixes=true
@@ -3522,15 +3495,6 @@
 64, F2 66 AF, Scasw_AX_m16, ShowUselessPrefixes=true
 64, F2 AF, Scasd_EAX_m32, ShowUselessPrefixes=true
 64, F2 48 AF, Scasq_RAX_m64, ShowUselessPrefixes=true
-64, F2 0FA6 C0, Montmul_64, ShowUselessPrefixes=true
-64, F2 0FA6 C8, Xsha1_64, ShowUselessPrefixes=true
-64, F2 0FA6 D0, Xsha256_64, ShowUselessPrefixes=true
-64, F2 0FA7 C0, Xstore_64, ShowUselessPrefixes=true
-64, F2 0FA7 C8, XcryptEcb_64, ShowUselessPrefixes=true
-64, F2 0FA7 D0, XcryptCbc_64, ShowUselessPrefixes=true
-64, F2 0FA7 D8, XcryptCtr_64, ShowUselessPrefixes=true
-64, F2 0FA7 E0, XcryptCfb_64, ShowUselessPrefixes=true
-64, F2 0FA7 E8, XcryptOfb_64, ShowUselessPrefixes=true
 
 32, F3 6C, Insb_m8_DX, ShowUselessPrefixes=true
 32, F3 66 6D, Insw_m16_DX, ShowUselessPrefixes=true
@@ -3584,15 +3548,6 @@
 32, F2 AE, Scasb_AL_m8, ShowUselessPrefixes=true
 32, F2 66 AF, Scasw_AX_m16, ShowUselessPrefixes=true
 32, F2 AF, Scasd_EAX_m32, ShowUselessPrefixes=true
-32, F2 0FA6 C0, Montmul_32, ShowUselessPrefixes=true
-32, F2 0FA6 C8, Xsha1_32, ShowUselessPrefixes=true
-32, F2 0FA6 D0, Xsha256_32, ShowUselessPrefixes=true
-32, F2 0FA7 C0, Xstore_32, ShowUselessPrefixes=true
-32, F2 0FA7 C8, XcryptEcb_32, ShowUselessPrefixes=true
-32, F2 0FA7 D0, XcryptCbc_32, ShowUselessPrefixes=true
-32, F2 0FA7 D8, XcryptCtr_32, ShowUselessPrefixes=true
-32, F2 0FA7 E0, XcryptCfb_32, ShowUselessPrefixes=true
-32, F2 0FA7 E8, XcryptOfb_32, ShowUselessPrefixes=true
 
 16, F3 6C, Insb_m8_DX, ShowUselessPrefixes=true
 16, F3 6D, Insw_m16_DX, ShowUselessPrefixes=true
@@ -3646,15 +3601,6 @@
 16, F2 AE, Scasb_AL_m8, ShowUselessPrefixes=true
 16, F2 AF, Scasw_AX_m16, ShowUselessPrefixes=true
 16, F2 66 AF, Scasd_EAX_m32, ShowUselessPrefixes=true
-16, F2 0FA6 C0, Montmul_16, ShowUselessPrefixes=true
-16, F2 0FA6 C8, Xsha1_16, ShowUselessPrefixes=true
-16, F2 0FA6 D0, Xsha256_16, ShowUselessPrefixes=true
-16, F2 0FA7 C0, Xstore_16, ShowUselessPrefixes=true
-16, F2 0FA7 C8, XcryptEcb_16, ShowUselessPrefixes=true
-16, F2 0FA7 D0, XcryptCbc_16, ShowUselessPrefixes=true
-16, F2 0FA7 D8, XcryptCtr_16, ShowUselessPrefixes=true
-16, F2 0FA7 E0, XcryptCfb_16, ShowUselessPrefixes=true
-16, F2 0FA7 E8, XcryptOfb_16, ShowUselessPrefixes=true
 
 64, F3 6C, Insb_m8_DX, CC_e=e
 64, F3 66 6D, Insw_m16_DX, CC_e=e
@@ -3718,15 +3664,6 @@
 64, F2 66 AF, Scasw_AX_m16, CC_ne=ne
 64, F2 AF, Scasd_EAX_m32, CC_ne=ne
 64, F2 48 AF, Scasq_RAX_m64, CC_ne=ne
-64, F2 0FA6 C0, Montmul_64, CC_ne=ne
-64, F2 0FA6 C8, Xsha1_64, CC_ne=ne
-64, F2 0FA6 D0, Xsha256_64, CC_ne=ne
-64, F2 0FA7 C0, Xstore_64, CC_ne=ne
-64, F2 0FA7 C8, XcryptEcb_64, CC_ne=ne
-64, F2 0FA7 D0, XcryptCbc_64, CC_ne=ne
-64, F2 0FA7 D8, XcryptCtr_64, CC_ne=ne
-64, F2 0FA7 E0, XcryptCfb_64, CC_ne=ne
-64, F2 0FA7 E8, XcryptOfb_64, CC_ne=ne
 
 32, F3 6C, Insb_m8_DX, CC_e=e
 32, F3 66 6D, Insw_m16_DX, CC_e=e
@@ -3780,15 +3717,6 @@
 32, F2 AE, Scasb_AL_m8, CC_ne=ne
 32, F2 66 AF, Scasw_AX_m16, CC_ne=ne
 32, F2 AF, Scasd_EAX_m32, CC_ne=ne
-32, F2 0FA6 C0, Montmul_32, CC_ne=ne
-32, F2 0FA6 C8, Xsha1_32, CC_ne=ne
-32, F2 0FA6 D0, Xsha256_32, CC_ne=ne
-32, F2 0FA7 C0, Xstore_32, CC_ne=ne
-32, F2 0FA7 C8, XcryptEcb_32, CC_ne=ne
-32, F2 0FA7 D0, XcryptCbc_32, CC_ne=ne
-32, F2 0FA7 D8, XcryptCtr_32, CC_ne=ne
-32, F2 0FA7 E0, XcryptCfb_32, CC_ne=ne
-32, F2 0FA7 E8, XcryptOfb_32, CC_ne=ne
 
 16, F3 6C, Insb_m8_DX, CC_e=e
 16, F3 6D, Insw_m16_DX, CC_e=e
@@ -3842,15 +3770,6 @@
 16, F2 AE, Scasb_AL_m8, CC_ne=ne
 16, F2 AF, Scasw_AX_m16, CC_ne=ne
 16, F2 66 AF, Scasd_EAX_m32, CC_ne=ne
-16, F2 0FA6 C0, Montmul_16, CC_ne=ne
-16, F2 0FA6 C8, Xsha1_16, CC_ne=ne
-16, F2 0FA6 D0, Xsha256_16, CC_ne=ne
-16, F2 0FA7 C0, Xstore_16, CC_ne=ne
-16, F2 0FA7 C8, XcryptEcb_16, CC_ne=ne
-16, F2 0FA7 D0, XcryptCbc_16, CC_ne=ne
-16, F2 0FA7 D8, XcryptCtr_16, CC_ne=ne
-16, F2 0FA7 E0, XcryptCfb_16, CC_ne=ne
-16, F2 0FA7 E8, XcryptOfb_16, CC_ne=ne
 
 64, F3 6C, Insb_m8_DX, CC_e=z
 64, F3 66 6D, Insw_m16_DX, CC_e=z
@@ -3914,15 +3833,6 @@
 64, F2 66 AF, Scasw_AX_m16, CC_ne=nz
 64, F2 AF, Scasd_EAX_m32, CC_ne=nz
 64, F2 48 AF, Scasq_RAX_m64, CC_ne=nz
-64, F2 0FA6 C0, Montmul_64, CC_ne=nz
-64, F2 0FA6 C8, Xsha1_64, CC_ne=nz
-64, F2 0FA6 D0, Xsha256_64, CC_ne=nz
-64, F2 0FA7 C0, Xstore_64, CC_ne=nz
-64, F2 0FA7 C8, XcryptEcb_64, CC_ne=nz
-64, F2 0FA7 D0, XcryptCbc_64, CC_ne=nz
-64, F2 0FA7 D8, XcryptCtr_64, CC_ne=nz
-64, F2 0FA7 E0, XcryptCfb_64, CC_ne=nz
-64, F2 0FA7 E8, XcryptOfb_64, CC_ne=nz
 
 32, F3 6C, Insb_m8_DX, CC_e=z
 32, F3 66 6D, Insw_m16_DX, CC_e=z
@@ -3976,15 +3886,6 @@
 32, F2 AE, Scasb_AL_m8, CC_ne=nz
 32, F2 66 AF, Scasw_AX_m16, CC_ne=nz
 32, F2 AF, Scasd_EAX_m32, CC_ne=nz
-32, F2 0FA6 C0, Montmul_32, CC_ne=nz
-32, F2 0FA6 C8, Xsha1_32, CC_ne=nz
-32, F2 0FA6 D0, Xsha256_32, CC_ne=nz
-32, F2 0FA7 C0, Xstore_32, CC_ne=nz
-32, F2 0FA7 C8, XcryptEcb_32, CC_ne=nz
-32, F2 0FA7 D0, XcryptCbc_32, CC_ne=nz
-32, F2 0FA7 D8, XcryptCtr_32, CC_ne=nz
-32, F2 0FA7 E0, XcryptCfb_32, CC_ne=nz
-32, F2 0FA7 E8, XcryptOfb_32, CC_ne=nz
 
 16, F3 6C, Insb_m8_DX, CC_e=z
 16, F3 6D, Insw_m16_DX, CC_e=z
@@ -4038,12 +3939,3 @@
 16, F2 AE, Scasb_AL_m8, CC_ne=nz
 16, F2 AF, Scasw_AX_m16, CC_ne=nz
 16, F2 66 AF, Scasd_EAX_m32, CC_ne=nz
-16, F2 0FA6 C0, Montmul_16, CC_ne=nz
-16, F2 0FA6 C8, Xsha1_16, CC_ne=nz
-16, F2 0FA6 D0, Xsha256_16, CC_ne=nz
-16, F2 0FA7 C0, Xstore_16, CC_ne=nz
-16, F2 0FA7 C8, XcryptEcb_16, CC_ne=nz
-16, F2 0FA7 D0, XcryptCbc_16, CC_ne=nz
-16, F2 0FA7 D8, XcryptCtr_16, CC_ne=nz
-16, F2 0FA7 E0, XcryptCfb_16, CC_ne=nz
-16, F2 0FA7 E8, XcryptOfb_16, CC_ne=nz
