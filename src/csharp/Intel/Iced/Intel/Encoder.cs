@@ -961,7 +961,7 @@ namespace Iced.Intel {
 #endif
 			new byte[6] { 0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65 };
 
-		internal void WritePrefixes(in Instruction instruction, bool writeF3 = true) {
+		internal void WritePrefixes(in Instruction instruction, bool canWriteF3 = true) {
 			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
 			var seg = instruction.SegmentPrefix;
 			if (seg != Register.None) {
@@ -974,7 +974,7 @@ namespace Iced.Intel {
 				WriteByteInternal(0x66);
 			if ((EncoderFlags & EncoderFlags.P67) != 0)
 				WriteByteInternal(0x67);
-			if (writeF3 && instruction.Internal_HasRepePrefix_HasXreleasePrefix)
+			if (canWriteF3 && instruction.Internal_HasRepePrefix_HasXreleasePrefix)
 				WriteByteInternal(0xF3);
 			if (instruction.Internal_HasRepnePrefix_HasXacquirePrefix)
 				WriteByteInternal(0xF2);
