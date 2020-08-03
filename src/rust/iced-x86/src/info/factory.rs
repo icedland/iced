@@ -2383,72 +2383,39 @@ impl InstructionInfoFactory {
 				const_assert_eq!(Code::Montmul_64 as u32, Code::Montmul_16 as u32 + 2);
 				const_assert_eq!(Register::EAX as u32, Register::AX as u32 + 16);
 				const_assert_eq!(Register::RAX as u32, Register::AX as u32 + 32);
-				if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
-					reg_index = (instruction.code() as u32).wrapping_sub(Code::Montmul_16 as u32) << 4;
-					if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							MemorySize::Unknown,
-							OpAccess::CondRead,
-						);
+				reg_index = (instruction.code() as u32).wrapping_sub(Code::Montmul_16 as u32) << 4;
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondRead,
+					);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					debug_assert_eq!(0, info.used_registers.len());
+					Self::add_register(
+						flags,
+						info,
+						if reg_index == 0 { Register::ECX } else { unsafe { mem::transmute((Register::CX as u32).wrapping_add(reg_index) as u8) } },
+						OpAccess::ReadCondWrite,
+					);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
 					}
-					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-						debug_assert_eq!(0, info.used_registers.len());
-						Self::add_register(
-							flags,
-							info,
-							if reg_index == 0 {
-								Register::ECX
-							} else {
-								unsafe { mem::transmute((Register::CX as u32).wrapping_add(reg_index) as u8) }
-							},
-							OpAccess::ReadCondWrite,
-						);
-						if (flags & Flags::IS_64BIT) == 0 {
-							Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
-						}
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondRead,
-						);
-						Self::add_register(flags, info, Register::EAX, OpAccess::CondRead);
-						Self::add_register(flags, info, Register::EAX, OpAccess::CondWrite);
-						Self::add_register(flags, info, Register::EDX, OpAccess::CondWrite);
-					}
-				} else {
-					reg_index = (instruction.code() as u32).wrapping_sub(Code::Montmul_16 as u32) << 4;
-					if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							instruction.memory_size(),
-							OpAccess::Read,
-						);
-					}
-					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-						if (flags & Flags::IS_64BIT) == 0 {
-							Self::add_register(flags, info, Register::ES, OpAccess::Read);
-						}
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::Read,
-						);
-						Self::add_register(flags, info, Register::EAX, OpAccess::ReadWrite);
-						Self::add_register(flags, info, Register::EDX, OpAccess::Write);
-					}
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(flags, info, Register::EAX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::EAX, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::EDX, OpAccess::CondWrite);
 				}
 			}
 
@@ -2460,129 +2427,86 @@ impl InstructionInfoFactory {
 				const_assert_eq!(0, (Code::Xsha256_16 as u32 - Code::Xsha1_16 as u32) % 3);
 				const_assert_eq!(Register::EAX as u32, Register::AX as u32 + 16);
 				const_assert_eq!(Register::RAX as u32, Register::AX as u32 + 32);
-				if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
-					reg_index = ((instruction.code() as u32).wrapping_sub(Code::Xsha1_16 as u32) % 3) << 4;
-					if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							MemorySize::Unknown,
-							OpAccess::CondRead,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							MemorySize::Unknown,
-							OpAccess::CondRead,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							MemorySize::Unknown,
-							OpAccess::CondWrite,
-						);
+				reg_index = ((instruction.code() as u32).wrapping_sub(Code::Xsha1_16 as u32) % 3) << 4;
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondRead,
+					);
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondRead,
+					);
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondWrite,
+					);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					debug_assert_eq!(0, info.used_registers.len());
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::CX as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::ReadCondWrite,
+					);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
 					}
-					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-						debug_assert_eq!(0, info.used_registers.len());
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::CX as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::ReadCondWrite,
-						);
-						if (flags & Flags::IS_64BIT) == 0 {
-							Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
-						}
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondRead,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondWrite,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondRead,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondWrite,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondRead,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondWrite,
-						);
-					}
-				} else {
-					reg_index = ((instruction.code() as u32).wrapping_sub(Code::Xsha1_16 as u32) % 3) << 4;
-					if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							instruction.memory_size(),
-							OpAccess::Read,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							instruction.memory_size(),
-							OpAccess::ReadWrite,
-						);
-					}
-					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-						if (flags & Flags::IS_64BIT) == 0 {
-							Self::add_register(flags, info, Register::ES, OpAccess::Read);
-						}
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::ReadWrite,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::ReadWrite,
-						);
-					}
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondWrite,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondWrite,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondWrite,
+					);
 				}
 			}
 
@@ -2603,42 +2527,20 @@ impl InstructionInfoFactory {
 				const_assert_eq!(0, (Code::XcryptOfb_16 as u32 - Code::XcryptEcb_16 as u32) % 3);
 				const_assert_eq!(Register::EAX as u32, Register::AX as u32 + 16);
 				const_assert_eq!(Register::RAX as u32, Register::AX as u32 + 32);
-				if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
-					const_assert_eq!(OpKind::MemoryESEDI as u32, OpKind::MemoryESDI as u32 + 1);
-					const_assert_eq!(OpKind::MemoryESRDI as u32, OpKind::MemoryESDI as u32 + 2);
-					const_assert_eq!(Register::EDI as u32, Register::DI as u32 + 16);
-					const_assert_eq!(Register::RDI as u32, Register::DI as u32 + 32);
-					const_assert_eq!(Register::ECX as u32, Register::CX as u32 + 16);
-					const_assert_eq!(Register::RCX as u32, Register::CX as u32 + 32);
-					reg_index = ((instruction.code() as u32).wrapping_sub(Code::XcryptEcb_16 as u32) % 3) << 4;
-					if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-						// Check if not XcryptEcb
-						if instruction.code() >= Code::XcryptCbc_16 {
-							Self::add_memory(
-								info,
-								Register::ES,
-								unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-								Register::None,
-								1,
-								0,
-								MemorySize::Unknown,
-								OpAccess::CondRead,
-							);
-							Self::add_memory(
-								info,
-								Register::ES,
-								unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-								Register::None,
-								1,
-								0,
-								MemorySize::Unknown,
-								OpAccess::CondWrite,
-							);
-						}
+				const_assert_eq!(OpKind::MemoryESEDI as u32, OpKind::MemoryESDI as u32 + 1);
+				const_assert_eq!(OpKind::MemoryESRDI as u32, OpKind::MemoryESDI as u32 + 2);
+				const_assert_eq!(Register::EDI as u32, Register::DI as u32 + 16);
+				const_assert_eq!(Register::RDI as u32, Register::DI as u32 + 32);
+				const_assert_eq!(Register::ECX as u32, Register::CX as u32 + 16);
+				const_assert_eq!(Register::RCX as u32, Register::CX as u32 + 32);
+				reg_index = ((instruction.code() as u32).wrapping_sub(Code::XcryptEcb_16 as u32) % 3) << 4;
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					// Check if not XcryptEcb
+					if instruction.code() >= Code::XcryptCbc_16 {
 						Self::add_memory(
 							info,
 							Register::ES,
-							unsafe { mem::transmute((Register::DX as u32).wrapping_add(reg_index) as u8) },
+							unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
 							Register::None,
 							1,
 							0,
@@ -2648,27 +2550,7 @@ impl InstructionInfoFactory {
 						Self::add_memory(
 							info,
 							Register::ES,
-							unsafe { mem::transmute((Register::BX as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							MemorySize::Unknown,
-							OpAccess::CondRead,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							MemorySize::Unknown,
-							OpAccess::CondRead,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+							unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
 							Register::None,
 							1,
 							0,
@@ -2676,168 +2558,109 @@ impl InstructionInfoFactory {
 							OpAccess::CondWrite,
 						);
 					}
-					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-						debug_assert_eq!(0, info.used_registers.len());
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::DX as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondRead,
+					);
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::BX as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondRead,
+					);
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondRead,
+					);
+					Self::add_memory(
+						info,
+						Register::ES,
+						unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+						Register::None,
+						1,
+						0,
+						MemorySize::Unknown,
+						OpAccess::CondWrite,
+					);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					debug_assert_eq!(0, info.used_registers.len());
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::CX as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::ReadCondWrite,
+					);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
+					}
+					// Check if not XcryptEcb
+					if instruction.code() >= Code::XcryptCbc_16 {
 						Self::add_register(
 							flags,
 							info,
-							unsafe { mem::transmute((Register::CX as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::ReadCondWrite,
-						);
-						if (flags & Flags::IS_64BIT) == 0 {
-							Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
-						}
-						// Check if not XcryptEcb
-						if instruction.code() >= Code::XcryptCbc_16 {
-							Self::add_register(
-								flags,
-								info,
-								unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-								OpAccess::CondRead,
-							);
-							Self::add_register(
-								flags,
-								info,
-								unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-								OpAccess::CondWrite,
-							);
-						}
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DX as u32).wrapping_add(reg_index) as u8) },
+							unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
 							OpAccess::CondRead,
 						);
 						Self::add_register(
 							flags,
 							info,
-							unsafe { mem::transmute((Register::BX as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondRead,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondRead,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+							unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
 							OpAccess::CondWrite,
 						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondRead,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::CondWrite,
-						);
 					}
-				} else {
-					const_assert_eq!(OpKind::MemoryESEDI as u32, OpKind::MemoryESDI as u32 + 1);
-					const_assert_eq!(OpKind::MemoryESRDI as u32, OpKind::MemoryESDI as u32 + 2);
-					const_assert_eq!(Register::EDI as u32, Register::DI as u32 + 16);
-					const_assert_eq!(Register::RDI as u32, Register::DI as u32 + 32);
-					reg_index = ((instruction.code() as u32).wrapping_sub(Code::XcryptEcb_16 as u32) % 3) << 4;
-					if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-						// Check if not XcryptEcb
-						if instruction.code() >= Code::XcryptCbc_16 {
-							Self::add_memory(
-								info,
-								Register::ES,
-								unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-								Register::None,
-								1,
-								0,
-								instruction.memory_size(),
-								OpAccess::ReadWrite,
-							);
-						}
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::DX as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							instruction.memory_size(),
-							OpAccess::Read,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::BX as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							instruction.memory_size(),
-							OpAccess::Read,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							instruction.memory_size(),
-							OpAccess::Read,
-						);
-						Self::add_memory(
-							info,
-							Register::ES,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							Register::None,
-							1,
-							0,
-							instruction.memory_size(),
-							OpAccess::Write,
-						);
-					}
-					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-						if (flags & Flags::IS_64BIT) == 0 {
-							Self::add_register(flags, info, Register::ES, OpAccess::Read);
-						}
-						// Check if not XcryptEcb
-						if instruction.code() >= Code::XcryptCbc_16 {
-							Self::add_register(
-								flags,
-								info,
-								unsafe { mem::transmute((Register::AX as u32).wrapping_add(reg_index) as u8) },
-								OpAccess::ReadWrite,
-							);
-						}
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DX as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::Read,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::BX as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::Read,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::ReadWrite,
-						);
-						Self::add_register(
-							flags,
-							info,
-							unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
-							OpAccess::ReadWrite,
-						);
-					}
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::DX as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::BX as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::SI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondWrite,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondRead,
+					);
+					Self::add_register(
+						flags,
+						info,
+						unsafe { mem::transmute((Register::DI as u32).wrapping_add(reg_index) as u8) },
+						OpAccess::CondWrite,
+					);
 				}
 			}
 
