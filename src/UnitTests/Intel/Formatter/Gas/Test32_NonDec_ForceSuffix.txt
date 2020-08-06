@@ -40,6 +40,8 @@ fsavel fs:(eax)
 fstsww (eax)
 fstsww fs:(eax)
 fstsw ax
+fstdw ax
+fstsg ax
 .byte 0x77
 .byte 0x77, -0x57
 .byte 0x77, -0x57, -0x32

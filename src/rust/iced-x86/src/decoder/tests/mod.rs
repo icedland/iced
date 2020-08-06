@@ -42,7 +42,7 @@ use alloc::string::String;
 use core::fmt::Write;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static NON_DECODED_CODE_VALUES: [Code; 17] = [
+pub(crate) static NON_DECODED_CODE_VALUES: [Code; 19] = [
 	Code::DeclareByte,
 	Code::DeclareDword,
 	Code::DeclareQword,
@@ -60,6 +60,8 @@ pub(crate) static NON_DECODED_CODE_VALUES: [Code; 17] = [
 	Code::Fstsw_AX,
 	Code::Fstsw_m2byte,
 	Code::Popw_CS,
+	Code::Fstdw_AX,
+	Code::Fstsg_AX,
 ];
 
 #[test]

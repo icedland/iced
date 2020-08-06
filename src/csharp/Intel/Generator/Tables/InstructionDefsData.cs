@@ -1999,10 +1999,10 @@ namespace Generator.Tables {
 				new LegacyOpCodeInfo(code[nameof(Code.Fstsw_AX)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE0, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.Fwait, new[] { LegacyOpKind.AX }),
 				new InstrInfo(code[nameof(Code.Fstsw_AX)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.FPU287)] }, new[] { OpInfo.Write }, InstrInfoFlags.None)),
 				(1, mnemonic[nameof(Mnemonic.Fstdw)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
-				new LegacyOpCodeInfo(code[nameof(Code.Fstdw_AX)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE1, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32, new[] { LegacyOpKind.AX }),
+				new LegacyOpCodeInfo(code[nameof(Code.Fstdw_AX)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE1, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Fwait, new[] { LegacyOpKind.AX }),
 				new InstrInfo(code[nameof(Code.Fstdw_AX)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.FPU387SL_ONLY)] }, new[] { OpInfo.Write }, InstrInfoFlags.None)),
 				(1, mnemonic[nameof(Mnemonic.Fstsg)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
-				new LegacyOpCodeInfo(code[nameof(Code.Fstsg_AX)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE2, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32, new[] { LegacyOpKind.AX }),
+				new LegacyOpCodeInfo(code[nameof(Code.Fstsg_AX)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE2, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Fwait, new[] { LegacyOpKind.AX }),
 				new InstrInfo(code[nameof(Code.Fstsg_AX)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.FPU387SL_ONLY)] }, new[] { OpInfo.Write }, InstrInfoFlags.None)),
 				(2, mnemonic[nameof(Mnemonic.Fucomip)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Fucomip_st0_sti)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE8, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.ST, LegacyOpKind.STi }),
@@ -12747,6 +12747,12 @@ namespace Generator.Tables {
 				(3, mnemonic[nameof(Mnemonic.Tdpbssd)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new VexOpCodeInfo(code[nameof(Code.VEX_Tdpbssd_tmm_tmm_tmm)], MandatoryPrefix.PF2, OpCodeTableKind.T0F38, 0x5E, -1, -1, VexVectorLength.L128, OpCodeFlags.Mode64, new[] { VexOpKind.VT, VexOpKind.RT, VexOpKind.HT }),
 				new InstrInfo(code[nameof(Code.VEX_Tdpbssd_tmm_tmm_tmm)], CodeInfo.None, encoding[nameof(EncodingKind.VEX)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.AMX_INT8)] }, new[] { OpInfo.ReadWrite, OpInfo.Read, OpInfo.Read }, InstrInfoFlags.ProtectedMode)),
+				(1, mnemonic[nameof(Mnemonic.Fnstdw)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Fnstdw_AX)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE1, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32, new[] { LegacyOpKind.AX }),
+				new InstrInfo(code[nameof(Code.Fnstdw_AX)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.FPU387SL_ONLY)] }, new[] { OpInfo.Write }, InstrInfoFlags.None)),
+				(1, mnemonic[nameof(Mnemonic.Fnstsg)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Fnstsg_AX)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFE2, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32, new[] { LegacyOpKind.AX }),
+				new InstrInfo(code[nameof(Code.Fnstsg_AX)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.FPU387SL_ONLY)] }, new[] { OpInfo.Write }, InstrInfoFlags.None)),
 			};
 
 			if (result.Length != code.Values.Length)

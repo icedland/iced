@@ -602,8 +602,8 @@ DD 30, Fnsave_m108byte
 82 F8 A5, Cmp_rm8_imm8_82
 82 38 A5, Cmp_rm8_imm8_82
 DB E5, Frstpm, OldFpu
-DF E1, Fstdw_AX, OldFpu
-DF E2, Fstsg_AX, OldFpu
+DF E1, Fnstdw_AX, OldFpu
+DF E2, Fnstsg_AX, OldFpu
 66 0F00 F1, Jmpe_rm16, Jmpe
 66 0F00 30, Jmpe_rm16, Jmpe
 0F00 F2, Jmpe_rm32, Jmpe

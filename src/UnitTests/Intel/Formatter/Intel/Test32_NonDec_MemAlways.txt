@@ -40,6 +40,8 @@ fsave fs:[eax]
 fstsw word ptr [eax]
 fstsw word ptr fs:[eax]
 fstsw ax
+fstdw ax
+fstsg ax
 db 0x77
 db 0x77, -0x57
 db 0x77, -0x57, -0x32

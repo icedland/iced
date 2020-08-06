@@ -4270,6 +4270,8 @@ namespace Iced.Intel {
 			0,// VEX_Tdpbusd_tmm_tmm_tmm
 			0,// VEX_Tdpbsud_tmm_tmm_tmm
 			0,// VEX_Tdpbssd_tmm_tmm_tmm
+			0,// Fnstdw_AX
+			0,// Fnstsg_AX
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8506,6 +8508,8 @@ namespace Iced.Intel {
 			0,// VEX_Tdpbusd_tmm_tmm_tmm
 			0,// VEX_Tdpbsud_tmm_tmm_tmm
 			0,// VEX_Tdpbssd_tmm_tmm_tmm
+			0,// Fnstdw_AX
+			0,// Fnstsg_AX
 		};
 	}
 }

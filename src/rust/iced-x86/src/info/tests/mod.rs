@@ -155,6 +155,8 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 					Code::Fnsave_m108byte => instr.set_code(Code::Fsave_m108byte),
 					Code::Fnstsw_m2byte => instr.set_code(Code::Fstsw_m2byte),
 					Code::Fnstsw_AX => instr.set_code(Code::Fstsw_AX),
+					Code::Fnstdw_AX => instr.set_code(Code::Fstdw_AX),
+					Code::Fnstsg_AX => instr.set_code(Code::Fstsg_AX),
 					_ => unreachable!(),
 				}
 			} else {

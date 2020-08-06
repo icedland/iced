@@ -40,6 +40,8 @@ o32 fsave [fs:bx+si]
 fstsw [bx+si]
 fstsw [fs:bx+si]
 fstsw ax
+fstdw ax
+fstsg ax
 db 0x77
 db 0x77,0xa9
 db 0x77,0xa9,0xce

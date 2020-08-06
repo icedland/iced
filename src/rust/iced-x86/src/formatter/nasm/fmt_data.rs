@@ -16458,4 +16458,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// VEX_Tdpbssd_tmm_tmm_tmm
 	0x01,// Normal_1
 	0x8E, 0x0B,// 1422 = "tdpbssd"
+
+	// Fnstdw_AX
+	0x01,// Normal_1
+	0x8F, 0x0B,// 1423 = "fnstdw"
+
+	// Fnstsg_AX
+	0x01,// Normal_1
+	0x90, 0x0B,// 1424 = "fnstsg"
 ];

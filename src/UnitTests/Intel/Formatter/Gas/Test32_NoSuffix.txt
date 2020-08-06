@@ -602,8 +602,8 @@ xorb $0x5a,(%eax)
 cmp $0xa5,%al
 cmpb $0xa5,(%eax)
 frstpm
-fstdw %ax
-fstsg %ax
+fnstdw %ax
+fnstsg %ax
 jmpe *%cx
 jmpe *(%eax)
 jmpe *%edx

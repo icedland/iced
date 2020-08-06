@@ -5232,7 +5232,7 @@ pub enum Code {
 	Fstsw_AX = 652,
 	/// `FSTDW AX`
 	///
-	/// `DF E1`
+	/// `9B DF E1`
 	///
 	/// `387 SL`
 	///
@@ -5240,7 +5240,7 @@ pub enum Code {
 	Fstdw_AX = 653,
 	/// `FSTSG AX`
 	///
-	/// `DF E2`
+	/// `9B DF E2`
 	///
 	/// `387 SL`
 	///
@@ -33894,9 +33894,25 @@ pub enum Code {
 	///
 	/// `64-bit`
 	VEX_Tdpbssd_tmm_tmm_tmm = 4235,
+	/// `FNSTDW AX`
+	///
+	/// `DF E1`
+	///
+	/// `387 SL`
+	///
+	/// `16/32-bit`
+	Fnstdw_AX = 4236,
+	/// `FNSTSG AX`
+	///
+	/// `DF E2`
+	///
+	/// `387 SL`
+	///
+	/// `16/32-bit`
+	Fnstsg_AX = 4237,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4236] = [
+static GEN_DEBUG_CODE: [&str; 4238] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38133,6 +38149,8 @@ static GEN_DEBUG_CODE: [&str; 4236] = [
 	"VEX_Tdpbusd_tmm_tmm_tmm",
 	"VEX_Tdpbsud_tmm_tmm_tmm",
 	"VEX_Tdpbssd_tmm_tmm_tmm",
+	"Fnstdw_AX",
+	"Fnstsg_AX",
 ];
 impl fmt::Debug for Code {
 	#[inline]

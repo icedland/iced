@@ -4264,4 +4264,6 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Tdpbusd,// VEX_Tdpbusd_tmm_tmm_tmm
 	Mnemonic::Tdpbsud,// VEX_Tdpbsud_tmm_tmm_tmm
 	Mnemonic::Tdpbssd,// VEX_Tdpbssd_tmm_tmm_tmm
+	Mnemonic::Fnstdw,// Fnstdw_AX
+	Mnemonic::Fnstsg,// Fnstsg_AX
 ];

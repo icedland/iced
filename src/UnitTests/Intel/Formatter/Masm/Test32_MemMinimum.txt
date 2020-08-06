@@ -602,8 +602,8 @@ xor byte ptr [eax], 5Ah
 cmp al, -5Bh
 cmp byte ptr [eax], -5Bh
 frstpm
-fstdw ax
-fstsg ax
+fnstdw ax
+fnstsg ax
 jmpe cx
 jmpe word ptr [eax]
 jmpe edx

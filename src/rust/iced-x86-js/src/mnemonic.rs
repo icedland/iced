@@ -1593,6 +1593,8 @@ pub enum Mnemonic {
 	Tdpbsud = 1560,
 	Tdpbssd = 1561,
 	Sysretq = 1562,
+	Fnstdw = 1563,
+	Fnstsg = 1564,
 }
 // GENERATOR-END: Enum
 

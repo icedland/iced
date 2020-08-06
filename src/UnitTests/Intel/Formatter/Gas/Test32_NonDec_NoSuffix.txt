@@ -40,6 +40,8 @@ fsave %fs:(%eax)
 fstsw (%eax)
 fstsw %fs:(%eax)
 fstsw %ax
+fstdw %ax
+fstsg %ax
 .byte 0x77
 .byte 0x77,0xa9
 .byte 0x77,0xa9,0xce

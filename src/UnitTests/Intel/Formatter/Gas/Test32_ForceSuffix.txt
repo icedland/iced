@@ -602,8 +602,8 @@ xorb $0x5a, (eax)
 cmpb $-0x5b, al
 cmpb $-0x5b, (eax)
 frstpm
-fstdw ax
-fstsg ax
+fnstdw ax
+fnstsg ax
 jmpew *cx
 jmpew *(eax)
 jmpel *edx

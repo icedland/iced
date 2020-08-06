@@ -602,8 +602,8 @@ xor byte [eax],0x5a
 cmp al,0xa5
 cmp byte [eax],0xa5
 frstpm
-fstdw ax
-fstsg ax
+fnstdw ax
+fnstsg ax
 jmpe cx
 jmpe word [eax]
 jmpe edx

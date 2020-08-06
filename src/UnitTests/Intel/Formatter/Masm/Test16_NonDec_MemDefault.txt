@@ -40,6 +40,8 @@ fsave fpustate108 ptr fs:[bx+si]
 fstsw [bx+si]
 fstsw fs:[bx+si]
 fstsw ax
+fstdw ax
+fstsg ax
 db 77h
 db 77h,0A9h
 db 77h,0A9h,0CEh

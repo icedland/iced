@@ -2214,13 +2214,13 @@ DF DB, Fstp_sti_DFD8, Fstp, 1, op0=r;st3
 DF E0, Fnstsw_AX, Fnstsw, 1, op0=r;ax
 66 DF E0, Fnstsw_AX, Fnstsw, 1, op0=r;ax enc=DFE0
 
-DF E1, Fstdw_AX, Fstdw, 1, op0=r;ax oldfpu
-DF E1, INVALID, INVALID, 0, code=Fstdw_AX err=NoMoreBytes
-66 DF E1, Fstdw_AX, Fstdw, 1, op0=r;ax oldfpu enc=DFE1
+DF E1, Fnstdw_AX, Fnstdw, 1, op0=r;ax oldfpu
+DF E1, INVALID, INVALID, 0, code=Fnstdw_AX err=NoMoreBytes
+66 DF E1, Fnstdw_AX, Fnstdw, 1, op0=r;ax oldfpu enc=DFE1
 
-DF E2, Fstsg_AX, Fstsg, 1, op0=r;ax oldfpu
-DF E2, INVALID, INVALID, 0, code=Fstsg_AX err=NoMoreBytes
-66 DF E2, Fstsg_AX, Fstsg, 1, op0=r;ax oldfpu enc=DFE2
+DF E2, Fnstsg_AX, Fnstsg, 1, op0=r;ax oldfpu
+DF E2, INVALID, INVALID, 0, code=Fnstsg_AX err=NoMoreBytes
+66 DF E2, Fnstsg_AX, Fnstsg, 1, op0=r;ax oldfpu enc=DFE2
 
 DF EB, Fucomip_st0_sti, Fucomip, 2, op0=r;st0 op1=r;st3
 66 DF EE, Fucomip_st0_sti, Fucomip, 2, op0=r;st0 op1=r;st6 enc=DFEE

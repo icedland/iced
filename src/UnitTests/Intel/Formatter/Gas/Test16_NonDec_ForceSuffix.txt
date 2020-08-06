@@ -40,6 +40,8 @@ fsavel fs:(bx,si)
 fstsww (bx,si)
 fstsww fs:(bx,si)
 fstsw ax
+fstdw ax
+fstsg ax
 .byte 0x77
 .byte 0x77, -0x57
 .byte 0x77, -0x57, -0x32

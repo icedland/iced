@@ -86,7 +86,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				decoderOptions = DecoderOptions.Xbts;
 				break;
 			case Code.Frstpm:
+			case Code.Fnstdw_AX:
 			case Code.Fstdw_AX:
+			case Code.Fnstsg_AX:
 			case Code.Fstsg_AX:
 				decoderOptions = DecoderOptions.OldFpu;
 				break;
@@ -235,6 +237,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					break;
 				case Code.Fnstsw_AX:
 					decodedInst.Code = Code.Fstsw_AX;
+					break;
+				case Code.Fnstdw_AX:
+					decodedInst.Code = Code.Fstdw_AX;
+					break;
+				case Code.Fnstsg_AX:
+					decodedInst.Code = Code.Fstsg_AX;
 					break;
 				}
 			}

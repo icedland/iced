@@ -28,7 +28,7 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class CodeValueTests {
-		public static readonly Code[] NonDecodedCodeValues = new Code[17] {
+		public static readonly Code[] NonDecodedCodeValues = new Code[19] {
 			Code.DeclareByte,
 			Code.DeclareDword,
 			Code.DeclareQword,
@@ -46,6 +46,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Code.Fstsw_AX,
 			Code.Fstsw_m2byte,
 			Code.Popw_CS,
+			Code.Fstdw_AX,
+			Code.Fstsg_AX,
 		};
 
 		[Fact]

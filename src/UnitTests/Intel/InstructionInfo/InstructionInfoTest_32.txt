@@ -1077,10 +1077,14 @@ DB E5, Frstpm, Legacy, FPU287XL_ONLY, decopt=OldFpu
 9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState94 special
 # fsave [eax]
 9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState108 special
+# fnstdw ax
+DF E1, Fnstdw_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
 # fstdw ax
-DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
+9B DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax special
+# fnstsg ax
+DF E2, Fnstsg_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
 # fstsg ax
-DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
+9B DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax special
 # jmpe cx
 66 0F00 F1, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=cx decopt=Jmpe
 # jmpe word ptr [eax]

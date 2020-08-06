@@ -3647,10 +3647,20 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void fnstdw_reg16() {
+			TestAssembler(c => c.fnstdw(ax), Instruction.Create(Code.Fnstdw_AX, ax));
+		}
+
+		[Fact]
 		public void fnstenv_m() {
 			{ /* if (Bitness >= 32) */
 				TestAssembler(c => c.fnstenv(__[ecx]), Instruction.Create(Code.Fnstenv_m28byte, __[ecx].ToMemoryOperand(Bitness)));
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
+		}
+
+		[Fact]
+		public void fnstsg_reg16() {
+			TestAssembler(c => c.fnstsg(ax), Instruction.Create(Code.Fnstsg_AX, ax));
 		}
 
 		[Fact]
@@ -3758,7 +3768,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fstdw_reg16() {
-			TestAssembler(c => c.fstdw(ax), Instruction.Create(Code.Fstdw_AX, ax));
+			TestAssembler(c => c.fstdw(ax), Instruction.Create(Code.Fstdw_AX, ax), LocalOpCodeFlags.Fwait);
 		}
 
 		[Fact]
@@ -3796,7 +3806,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fstsg_reg16() {
-			TestAssembler(c => c.fstsg(ax), Instruction.Create(Code.Fstsg_AX, ax));
+			TestAssembler(c => c.fstsg(ax), Instruction.Create(Code.Fstsg_AX, ax), LocalOpCodeFlags.Fwait);
 		}
 
 		[Fact]

@@ -10942,6 +10942,20 @@ namespace Iced.Intel {
 			op = Code.Fnstcw_m2byte;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>fnstdw instruction.<br/>
+		/// <br/>
+		/// <c>FNSTDW AX</c><br/>
+		/// <br/>
+		/// <c>DF E1</c><br/>
+		/// <br/>
+		/// <c>387 SL</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void fnstdw(AssemblerRegister16 dst) {
+			Code op;
+			op = Code.Fnstdw_AX;
+			AddInstruction(Instruction.Create(op, dst));
+		}
 		/// <summary>fnstenv instruction.<br/>
 		/// <br/>
 		/// <c>FNSTENV m28byte</c><br/>
@@ -10963,6 +10977,20 @@ namespace Iced.Intel {
 			Code op;
 			op = Bitness >= 32 ? Code.Fnstenv_m28byte : Code.Fnstenv_m14byte;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>fnstsg instruction.<br/>
+		/// <br/>
+		/// <c>FNSTSG AX</c><br/>
+		/// <br/>
+		/// <c>DF E2</c><br/>
+		/// <br/>
+		/// <c>387 SL</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void fnstsg(AssemblerRegister16 dst) {
+			Code op;
+			op = Code.Fnstsg_AX;
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fnstsw instruction.<br/>
 		/// <br/>
@@ -11250,7 +11278,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FSTDW AX</c><br/>
 		/// <br/>
-		/// <c>DF E1</c><br/>
+		/// <c>9B DF E1</c><br/>
 		/// <br/>
 		/// <c>387 SL</c><br/>
 		/// <br/>
@@ -11352,7 +11380,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FSTSG AX</c><br/>
 		/// <br/>
-		/// <c>DF E2</c><br/>
+		/// <c>9B DF E2</c><br/>
 		/// <br/>
 		/// <c>387 SL</c><br/>
 		/// <br/>

@@ -556,14 +556,14 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options3)],
 							invalid,
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg)], codeEnum[nameof(Code.Fstdw_AX)], registerEnum[nameof(Register.AX)] }, decoderOptionsEnum[nameof(DecoderOptions.OldFpu)]
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg)], codeEnum[nameof(Code.Fnstdw_AX)], registerEnum[nameof(Register.AX)] }, decoderOptionsEnum[nameof(DecoderOptions.OldFpu)]
 						},
 						invalid,
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options3)],
 							invalid,
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg)], codeEnum[nameof(Code.Fstsg_AX)], registerEnum[nameof(Register.AX)] }, decoderOptionsEnum[nameof(DecoderOptions.OldFpu)]
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg)], codeEnum[nameof(Code.Fnstsg_AX)], registerEnum[nameof(Register.AX)] }, decoderOptionsEnum[nameof(DecoderOptions.OldFpu)]
 						},
 						invalid,
 					},

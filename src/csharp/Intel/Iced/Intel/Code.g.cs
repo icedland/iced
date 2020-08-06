@@ -5224,7 +5224,7 @@ namespace Iced.Intel {
 		Fstsw_AX = 652,
 		/// <summary><c>FSTDW AX</c><br/>
 		/// <br/>
-		/// <c>DF E1</c><br/>
+		/// <c>9B DF E1</c><br/>
 		/// <br/>
 		/// <c>387 SL</c><br/>
 		/// <br/>
@@ -5232,7 +5232,7 @@ namespace Iced.Intel {
 		Fstdw_AX = 653,
 		/// <summary><c>FSTSG AX</c><br/>
 		/// <br/>
-		/// <c>DF E2</c><br/>
+		/// <c>9B DF E2</c><br/>
 		/// <br/>
 		/// <c>387 SL</c><br/>
 		/// <br/>
@@ -33886,5 +33886,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		VEX_Tdpbssd_tmm_tmm_tmm = 4235,
+		/// <summary><c>FNSTDW AX</c><br/>
+		/// <br/>
+		/// <c>DF E1</c><br/>
+		/// <br/>
+		/// <c>387 SL</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Fnstdw_AX = 4236,
+		/// <summary><c>FNSTSG AX</c><br/>
+		/// <br/>
+		/// <c>DF E2</c><br/>
+		/// <br/>
+		/// <c>387 SL</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Fnstsg_AX = 4237,
 	}
 }

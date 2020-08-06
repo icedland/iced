@@ -1592,6 +1592,8 @@ namespace Iced.Intel {
 		Tdpbsud = 1560,
 		Tdpbssd = 1561,
 		Sysretq = 1562,
+		Fnstdw = 1563,
+		Fnstsg = 1564,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

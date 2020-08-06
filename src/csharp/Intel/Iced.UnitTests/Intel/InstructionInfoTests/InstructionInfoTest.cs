@@ -123,6 +123,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 							Code.Fnsave_m108byte => Code.Fsave_m108byte,
 							Code.Fnstsw_m2byte => Code.Fstsw_m2byte,
 							Code.Fnstsw_AX => Code.Fstsw_AX,
+							Code.Fnstdw_AX => Code.Fstdw_AX,
+							Code.Fnstsg_AX => Code.Fstsg_AX,
 							_ => throw new InvalidOperationException(),
 						};
 					}

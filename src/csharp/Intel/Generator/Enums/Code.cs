@@ -4267,6 +4267,8 @@ namespace Generator.Enums {
 		VEX_Tdpbusd_tmm_tmm_tmm,
 		VEX_Tdpbsud_tmm_tmm_tmm,
 		VEX_Tdpbssd_tmm_tmm_tmm,
+		Fnstdw_AX,
+		Fnstsg_AX,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

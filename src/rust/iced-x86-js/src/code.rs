@@ -4267,6 +4267,8 @@ pub enum Code {
 	VEX_Tdpbusd_tmm_tmm_tmm = 4233,
 	VEX_Tdpbsud_tmm_tmm_tmm = 4234,
 	VEX_Tdpbssd_tmm_tmm_tmm = 4235,
+	Fnstdw_AX = 4236,
+	Fnstsg_AX = 4237,
 }
 // GENERATOR-END: Enum
 

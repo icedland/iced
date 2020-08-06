@@ -4264,6 +4264,8 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Tdpbusd,// VEX_Tdpbusd_tmm_tmm_tmm
 			(ushort)Mnemonic.Tdpbsud,// VEX_Tdpbsud_tmm_tmm_tmm
 			(ushort)Mnemonic.Tdpbssd,// VEX_Tdpbssd_tmm_tmm_tmm
+			(ushort)Mnemonic.Fnstdw,// Fnstdw_AX
+			(ushort)Mnemonic.Fnstsg,// Fnstsg_AX
 		};
 	}
 }

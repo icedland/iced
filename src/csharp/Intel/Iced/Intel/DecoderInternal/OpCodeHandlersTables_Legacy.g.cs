@@ -770,7 +770,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x0A,// Options3
 						0x02,// Invalid
 						0x91,// Reg
-							0x8D, 0x05,// Fstdw_AX
+							0x8C, 0x21,// Fnstdw_AX
 							0x15,// AX
 						0x40,// OldFpu
 					0x02,// Invalid
@@ -780,7 +780,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x0A,// Options3
 						0x02,// Invalid
 						0x91,// Reg
-							0x8E, 0x05,// Fstsg_AX
+							0x8D, 0x21,// Fnstsg_AX
 							0x15,// AX
 						0x40,// OldFpu
 					0x02,// Invalid

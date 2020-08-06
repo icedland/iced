@@ -4263,4 +4263,6 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	3,// VEX_Tdpbusd_tmm_tmm_tmm
 	3,// VEX_Tdpbsud_tmm_tmm_tmm
 	3,// VEX_Tdpbssd_tmm_tmm_tmm
+	1,// Fnstdw_AX
+	1,// Fnstsg_AX
 ];

@@ -4272,6 +4272,8 @@ namespace Generator.Formatters.Masm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbusd_tmm_tmm_tmm)], "tdpbusd" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbsud_tmm_tmm_tmm)], "tdpbsud" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Tdpbssd_tmm_tmm_tmm)], "tdpbssd" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Fnstdw_AX)], "fnstdw" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Fnstsg_AX)], "fnstsg" },
 			});
 		}
 	}

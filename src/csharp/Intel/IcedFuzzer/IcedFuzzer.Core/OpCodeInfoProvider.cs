@@ -143,7 +143,9 @@ namespace IcedFuzzer.Core {
 				switch (code) {
 				// DecoderOptions.OldFpu
 				case Code.Frstpm:
+				case Code.Fnstdw_AX:
 				case Code.Fstdw_AX:
+				case Code.Fnstsg_AX:
 				case Code.Fstsg_AX:
 					continue;
 				// DecoderOptions.Jmpe

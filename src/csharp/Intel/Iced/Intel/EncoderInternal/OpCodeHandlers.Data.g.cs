@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel.EncoderInternal {
 	static partial class OpCodeHandlers {
 		public static uint[] GetData() =>
-			new uint[4236 * 3] {
+			new uint[4238 * 3] {
 				0x00000000, 0x00000000, 0x00000000,// INVALID
 				0x00000000, 0x00000000, 0x00000000,// DeclareByte
 				0x00000000, 0x00000000, 0x00000000,// DeclareWord
@@ -683,8 +683,8 @@ namespace Iced.Intel.EncoderInternal {
 				0xDFD80000, 0x00000000, 0x00000074,// Fstp_sti_DFD8
 				0xDFE00000, 0x00000000, 0x0000006F,// Fnstsw_AX
 				0xDFE00000, 0x00004000, 0x0000006F,// Fstsw_AX
-				0xDFE10000, 0x00000010, 0x0000006F,// Fstdw_AX
-				0xDFE20000, 0x00000010, 0x0000006F,// Fstsg_AX
+				0xDFE10000, 0x00004010, 0x0000006F,// Fstdw_AX
+				0xDFE20000, 0x00004010, 0x0000006F,// Fstsg_AX
 				0xDFE80000, 0x00000000, 0x00003A73,// Fucomip_st0_sti
 				0xDFF00000, 0x00000000, 0x00003A73,// Fcomip_st0_sti
 				0x00E00000, 0x00050010, 0x0000004B,// Loopne_rel8_16_CX
@@ -4266,6 +4266,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x005E0001, 0x00000C29, 0x0002AA68,// VEX_Tdpbusd_tmm_tmm_tmm
 				0x005E0001, 0x00000C2A, 0x0002AA68,// VEX_Tdpbsud_tmm_tmm_tmm
 				0x005E0001, 0x00000C2B, 0x0002AA68,// VEX_Tdpbssd_tmm_tmm_tmm
+				0xDFE10000, 0x00000010, 0x0000006F,// Fnstdw_AX
+				0xDFE20000, 0x00000010, 0x0000006F,// Fnstsg_AX
 			};
 	}
 }

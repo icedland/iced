@@ -55,8 +55,8 @@ Enqcmd_r16_m512
 Enqcmds_r16_m512
 Enterd_imm16_imm8
 Frstpm
-Fstdw_AX
-Fstsg_AX
+Fnstdw_AX
+Fnstsg_AX
 Ibts_rm16_r16
 Ibts_rm32_r32
 Inc_r16

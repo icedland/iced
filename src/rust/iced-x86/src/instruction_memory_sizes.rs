@@ -4266,6 +4266,8 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Tdpbusd_tmm_tmm_tmm
 	MemorySize::Unknown,// VEX_Tdpbsud_tmm_tmm_tmm
 	MemorySize::Unknown,// VEX_Tdpbssd_tmm_tmm_tmm
+	MemorySize::Unknown,// Fnstdw_AX
+	MemorySize::Unknown,// Fnstsg_AX
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8502,4 +8504,6 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Tdpbusd_tmm_tmm_tmm
 	MemorySize::Unknown,// VEX_Tdpbsud_tmm_tmm_tmm
 	MemorySize::Unknown,// VEX_Tdpbssd_tmm_tmm_tmm
+	MemorySize::Unknown,// Fnstdw_AX
+	MemorySize::Unknown,// Fnstsg_AX
 ];
