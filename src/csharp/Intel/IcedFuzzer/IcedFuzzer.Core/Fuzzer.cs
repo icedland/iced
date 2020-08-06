@@ -382,6 +382,7 @@ namespace IcedFuzzer.Core {
 			case FuzzerEncodingKind.VEX3:
 			case FuzzerEncodingKind.XOP:
 			case FuzzerEncodingKind.EVEX:
+				Assert.True((info.Flags & EncodedInfoFlags.HasREX) == 0);
 				break;
 
 			default:

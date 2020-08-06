@@ -25,7 +25,7 @@ namespace IcedFuzzer.Core {
 	static class RegisterUtils {
 		public static uint GetRegisterCount(FuzzerRegisterKind register) {
 			switch (register) {
-			case FuzzerRegisterKind.GPR8: return 16;
+			case FuzzerRegisterKind.GPR8:
 			case FuzzerRegisterKind.GPR16:
 			case FuzzerRegisterKind.GPR32:
 			case FuzzerRegisterKind.GPR64:
