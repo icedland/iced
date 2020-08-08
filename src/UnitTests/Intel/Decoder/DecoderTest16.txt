@@ -21534,6 +21534,8 @@ F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 66 0F36 00, Rdshr_rm32, Rdshr, 1, op0=m;ds;bx;si;1;0;0;UInt32 cyrix enc=0F3600
 0F36 C2, Rdshr_rm32, Rdshr, 1, op0=r;edx cyrix
 66 0F36 C2, Rdshr_rm32, Rdshr, 1, op0=r;edx cyrix enc=0F36C2
+0F36 08, INVALID, INVALID, 0, code=INVALID cyrix
+0F36 10, INVALID, INVALID, 0, code=INVALID cyrix
 0F36 18, INVALID, INVALID, 0, code=INVALID cyrix
 0F36 20, INVALID, INVALID, 0, code=INVALID cyrix
 0F36 28, INVALID, INVALID, 0, code=INVALID cyrix
@@ -21544,6 +21546,8 @@ F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 66 0F37 00, Wrshr_rm32, Wrshr, 1, op0=m;ds;bx;si;1;0;0;UInt32 cyrix enc=0F3700
 0F37 C2, Wrshr_rm32, Wrshr, 1, op0=r;edx cyrix
 66 0F37 C2, Wrshr_rm32, Wrshr, 1, op0=r;edx cyrix enc=0F37C2
+0F37 08, INVALID, INVALID, 0, code=INVALID cyrix
+0F37 10, INVALID, INVALID, 0, code=INVALID cyrix
 0F37 18, INVALID, INVALID, 0, code=INVALID cyrix
 0F37 20, INVALID, INVALID, 0, code=INVALID cyrix
 0F37 28, INVALID, INVALID, 0, code=INVALID cyrix
@@ -21554,9 +21558,11 @@ F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 66 0F38, Smint, Smint, 0, cyrix enc=0F38
 
 0F39, Dmint, Dmint, 0, cyrix_dmi
+0F39, Dmint, Dmint, 0, cyrix cyrix_dmi
 66 0F39, Dmint, Dmint, 0, cyrix_dmi enc=0F39
 
 0F3A, Rdm, Rdm, 0, cyrix_dmi
+0F3A, Rdm, Rdm, 0, cyrix cyrix_dmi
 66 0F3A, Rdm, Rdm, 0, cyrix_dmi enc=0F3A
 
 0F78 CE, INVALID, INVALID, 0, code=INVALID cyrix
@@ -21580,6 +21586,8 @@ F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 0F7A 00, Svldt_m80, Svldt, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix
 66 0F7A 00, Svldt_m80, Svldt, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix enc=0F7A00
 0F7A C2, INVALID, INVALID, 0, code=INVALID cyrix
+0F7A 08, INVALID, INVALID, 0, code=INVALID cyrix
+0F7A 10, INVALID, INVALID, 0, code=INVALID cyrix
 0F7A 18, INVALID, INVALID, 0, code=INVALID cyrix
 0F7A 20, INVALID, INVALID, 0, code=INVALID cyrix
 0F7A 28, INVALID, INVALID, 0, code=INVALID cyrix
@@ -21589,6 +21597,8 @@ F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 0F7B 00, Rsldt_m80, Rsldt, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix
 66 0F7B 00, Rsldt_m80, Rsldt, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix enc=0F7B00
 0F7B C2, INVALID, INVALID, 0, code=INVALID cyrix
+0F7B 08, INVALID, INVALID, 0, code=INVALID cyrix
+0F7B 10, INVALID, INVALID, 0, code=INVALID cyrix
 0F7B 18, INVALID, INVALID, 0, code=INVALID cyrix
 0F7B 20, INVALID, INVALID, 0, code=INVALID cyrix
 0F7B 28, INVALID, INVALID, 0, code=INVALID cyrix
@@ -21598,6 +21608,8 @@ F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 0F7C 00, Svts_m80, Svts, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix
 66 0F7C 00, Svts_m80, Svts, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix enc=0F7C00
 0F7C C2, INVALID, INVALID, 0, code=INVALID cyrix
+0F7C 08, INVALID, INVALID, 0, code=INVALID cyrix
+0F7C 10, INVALID, INVALID, 0, code=INVALID cyrix
 0F7C 18, INVALID, INVALID, 0, code=INVALID cyrix
 0F7C 20, INVALID, INVALID, 0, code=INVALID cyrix
 0F7C 28, INVALID, INVALID, 0, code=INVALID cyrix
@@ -21607,6 +21619,8 @@ F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
 0F7D 00, Rsts_m80, Rsts, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix
 66 0F7D 00, Rsts_m80, Rsts, 1, op0=m;ds;bx;si;1;0;0;SegmentDescSelector cyrix enc=0F7D00
 0F7D C2, INVALID, INVALID, 0, code=INVALID cyrix
+0F7D 08, INVALID, INVALID, 0, code=INVALID cyrix
+0F7D 10, INVALID, INVALID, 0, code=INVALID cyrix
 0F7D 18, INVALID, INVALID, 0, code=INVALID cyrix
 0F7D 20, INVALID, INVALID, 0, code=INVALID cyrix
 0F7D 28, INVALID, INVALID, 0, code=INVALID cyrix
