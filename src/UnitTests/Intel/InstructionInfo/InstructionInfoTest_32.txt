@@ -1743,3 +1743,227 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 8D 34 D1, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=esi r=ecx;edx
 # cl1invmb
 0F0A, Cl1invmb, Legacy, CL1INVMB, decopt=Cl1invmb priv
+# rdshr [eax]
+0F36 00, Rdshr_rm32, Legacy, CYRIX_SHR, priv op0=w r=ds r=eax wm=ds:eax;UInt32 decopt=Cyrix
+# rdshr edx
+0F36 C2, Rdshr_rm32, Legacy, CYRIX_SHR, priv op0=w w=edx decopt=Cyrix
+# wrshr [eax]
+0F37 00, Wrshr_rm32, Legacy, CYRIX_SHR, priv op0=r r=ds r=eax rm=ds:eax;UInt32 decopt=Cyrix
+# wrshr edx
+0F37 C2, Wrshr_rm32, Legacy, CYRIX_SHR, priv op0=r r=edx decopt=Cyrix
+# smint
+0F38, Smint, Legacy, CYRIX_SMINT, priv flow=Interrupt decopt=Cyrix
+# dmint
+0F39, Dmint, Legacy, CYRIX_DMI, priv flow=Interrupt decopt=Cyrix_DMI
+# rdm
+0F3A, Rdm, Legacy, CYRIX_DMI, priv saverestore fw=acopszidA flow=Return decopt=Cyrix_DMI
+# svdc [eax],cs
+0F78 08, Svdc_m80_Sreg, Legacy, CYRIX_SMM, priv op0=w op1=r r=cs r=ds r=eax wm=ds:eax;SegmentDescSelector decopt=Cyrix
+# rsdc cs,[eax]
+0F79 08, Rsdc_Sreg_m80, Legacy, CYRIX_SMM, priv op0=w op1=r w=cs r=ds r=eax rm=ds:eax;SegmentDescSelector decopt=Cyrix
+# svldt [eax]
+0F7A 00, Svldt_m80, Legacy, CYRIX_SMM, priv op0=w r=ds r=eax wm=ds:eax;SegmentDescSelector decopt=Cyrix
+# rsldt [eax]
+0F7B 00, Rsldt_m80, Legacy, CYRIX_SMM, priv op0=r r=ds r=eax rm=ds:eax;SegmentDescSelector decopt=Cyrix
+# svts [eax]
+0F7C 00, Svts_m80, Legacy, CYRIX_SMM, priv op0=w r=ds r=eax wm=ds:eax;SegmentDescSelector decopt=Cyrix
+# rsts [eax]
+0F7D 00, Rsts_m80, Legacy, CYRIX_SMM, priv op0=r r=ds r=eax rm=ds:eax;SegmentDescSelector decopt=Cyrix
+# smint
+0F7E, Smint_0F7E, Legacy, CYRIX_SMINT_6X86, priv flow=Interrupt decopt=Cyrix_SMINT_0F7E
+# bb0_reset
+0F3A, Bb0_reset, Legacy, CYRIX_DDI, priv decopt=Cyrix
+# bb1_reset
+0F3B, Bb1_reset, Legacy, CYRIX_DDI, priv decopt=Cyrix
+# cpu_write
+0F3C, Cpu_write, Legacy, CYRIX_DDI, priv r=eax;ebx decopt=Cyrix
+# cpu_read
+0F3D, Cpu_read, Legacy, CYRIX_DDI, priv r=ebx w=eax decopt=Cyrix
+# cpu_read
+0F3F, Altinst, Legacy, CENTAUR_AIS, flow=UnconditionalBranch r=eax decopt=ALTINST
+# paveb mm1,[eax]
+0F50 08, Paveb_mm_mmm64, Legacy, CYRIX_EMMI, op0=rw op1=r rw=mm1 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# paveb mm1,mm5
+0F50 CD, Paveb_mm_mmm64, Legacy, CYRIX_EMMI, op0=rw op1=r rw=mm1 r=mm5 decopt=Cyrix
+# paddsiw mm0,[eax]
+0F51 00, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm1 r=mm0 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm1,[eax]
+0F51 08, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm0 r=mm1 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm2,[eax]
+0F51 10, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm3 r=mm2 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm3,[eax]
+0F51 18, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm2 r=mm3 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm4,[eax]
+0F51 20, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm5 r=mm4 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm5,[eax]
+0F51 28, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm4 r=mm5 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm6,[eax]
+0F51 30, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm7 r=mm6 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm7,[eax]
+0F51 38, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm6 r=mm7 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# paddsiw mm0,mm5
+0F51 CD, Paddsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm0 r=mm1 r=mm5 decopt=Cyrix
+# pmagw mm1,[eax]
+0F52 08, Pmagw_mm_mmm64, Legacy, CYRIX_EMMI, op0=rcw op1=r rcw=mm1 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmagw mm1,mm5
+0F52 CD, Pmagw_mm_mmm64, Legacy, CYRIX_EMMI, op0=rcw op1=r rcw=mm1 r=mm5 decopt=Cyrix
+# pdistib mm0,[eax]
+0F54 00, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm1 r=mm0 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pdistib mm1,[eax]
+0F54 08, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm0 r=mm1 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pdistib mm2,[eax]
+0F54 10, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm3 r=mm2 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pdistib mm3,[eax]
+0F54 18, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm2 r=mm3 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pdistib mm4,[eax]
+0F54 20, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm5 r=mm4 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pdistib mm5,[eax]
+0F54 28, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm4 r=mm5 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pdistib mm6,[eax]
+0F54 30, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm7 r=mm6 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pdistib mm7,[eax]
+0F54 38, Pdistib_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm6 r=mm7 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# psubsiw mm0,[eax]
+0F55 00, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm1 r=mm0 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm1,[eax]
+0F55 08, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm0 r=mm1 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm2,[eax]
+0F55 10, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm3 r=mm2 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm3,[eax]
+0F55 18, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm2 r=mm3 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm4,[eax]
+0F55 20, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm5 r=mm4 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm5,[eax]
+0F55 28, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm4 r=mm5 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm6,[eax]
+0F55 30, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm7 r=mm6 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm7,[eax]
+0F55 38, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm6 r=mm7 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# psubsiw mm0,mm5
+0F55 CD, Psubsiw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm0 r=mm1 r=mm5 decopt=Cyrix
+# pmvzb mm0,[eax]
+0F58 00, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm1 rcw=mm0 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvzb mm1,[eax]
+0F58 08, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm0 rcw=mm1 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvzb mm2,[eax]
+0F58 10, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm3 rcw=mm2 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvzb mm3,[eax]
+0F58 18, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm2 rcw=mm3 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvzb mm4,[eax]
+0F58 20, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm5 rcw=mm4 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvzb mm5,[eax]
+0F58 28, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm4 rcw=mm5 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvzb mm6,[eax]
+0F58 30, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm7 rcw=mm6 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvzb mm7,[eax]
+0F58 38, Pmvzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm6 rcw=mm7 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmulhrw mm1,[eax]
+0F59 08, Pmulhrw_mm_mmm64, Legacy, CYRIX_EMMI, op0=rw op1=r rw=mm1 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhrw mm1,mm5
+0F59 CD, Pmulhrw_mm_mmm64, Legacy, CYRIX_EMMI, op0=rw op1=r rw=mm1 r=mm5 decopt=Cyrix
+# pmvnzb mm0,[eax]
+0F5A 00, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm1 rcw=mm0 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvnzb mm1,[eax]
+0F5A 08, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm0 rcw=mm1 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvnzb mm2,[eax]
+0F5A 10, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm3 rcw=mm2 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvnzb mm3,[eax]
+0F5A 18, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm2 rcw=mm3 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvnzb mm4,[eax]
+0F5A 20, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm5 rcw=mm4 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvnzb mm5,[eax]
+0F5A 28, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm4 rcw=mm5 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvnzb mm6,[eax]
+0F5A 30, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm7 rcw=mm6 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvnzb mm7,[eax]
+0F5A 38, Pmvnzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm6 rcw=mm7 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix
+# pmvlzb mm0,[eax]
+0F5B 00, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm1 rcw=mm0 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvlzb mm1,[eax]
+0F5B 08, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm0 rcw=mm1 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvlzb mm2,[eax]
+0F5B 10, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm3 rcw=mm2 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvlzb mm3,[eax]
+0F5B 18, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm2 rcw=mm3 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvlzb mm4,[eax]
+0F5B 20, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm5 rcw=mm4 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvlzb mm5,[eax]
+0F5B 28, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm4 rcw=mm5 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvlzb mm6,[eax]
+0F5B 30, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm7 rcw=mm6 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvlzb mm7,[eax]
+0F5B 38, Pmvlzb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm6 rcw=mm7 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm0,[eax]
+0F5C 00, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm1 rcw=mm0 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm1,[eax]
+0F5C 08, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm0 rcw=mm1 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm2,[eax]
+0F5C 10, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm3 rcw=mm2 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm3,[eax]
+0F5C 18, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm2 rcw=mm3 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm4,[eax]
+0F5C 20, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm5 rcw=mm4 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm5,[eax]
+0F5C 28, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm4 rcw=mm5 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm6,[eax]
+0F5C 30, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm7 rcw=mm6 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmvgezb mm7,[eax]
+0F5C 38, Pmvgezb_mm_m64, Legacy, CYRIX_EMMI, op0=rcw op1=r r=mm6 rcw=mm7 r=ds r=eax rm=ds:eax;Packed64_Int8 decopt=Cyrix
+# pmulhriw mm0,[eax]
+0F5D 00, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm1 r=mm0 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm1,[eax]
+0F5D 08, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm0 r=mm1 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm2,[eax]
+0F5D 10, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm3 r=mm2 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm3,[eax]
+0F5D 18, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm2 r=mm3 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm4,[eax]
+0F5D 20, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm5 r=mm4 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm5,[eax]
+0F5D 28, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm4 r=mm5 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm6,[eax]
+0F5D 30, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm7 r=mm6 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm7,[eax]
+0F5D 38, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm6 r=mm7 r=ds r=eax rm=ds:eax;Packed64_Int16 decopt=Cyrix
+# pmulhriw mm0,mm5
+0F5D CD, Pmulhriw_mm_mmm64, Legacy, CYRIX_EMMI, op0=r op1=r w=mm0 r=mm1 r=mm5 decopt=Cyrix
+# pmachriw mm0,[eax]
+0F5E 00, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm1 r=mm0 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmachriw mm1,[eax]
+0F5E 08, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm0 r=mm1 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmachriw mm2,[eax]
+0F5E 10, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm3 r=mm2 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmachriw mm3,[eax]
+0F5E 18, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm2 r=mm3 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmachriw mm4,[eax]
+0F5E 20, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm5 r=mm4 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmachriw mm5,[eax]
+0F5E 28, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm4 r=mm5 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmachriw mm6,[eax]
+0F5E 30, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm7 r=mm6 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# pmachriw mm7,[eax]
+0F5E 38, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm6 r=mm7 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
+# cyrix_d9d7
+D9 D7, Cyrix_D9D7, Legacy, CYRIX_FPU, decopt=Cyrix
+# cyrix_d9e2
+D9 E2, Cyrix_D9E2, Legacy, CYRIX_FPU, decopt=Cyrix
+# ftstp
+D9 E6, Ftstp, Legacy, CYRIX_FPU, r=st0 decopt=Cyrix
+# cyrix_d9e7
+D9 E7, Cyrix_D9E7, Legacy, CYRIX_FPU, decopt=Cyrix
+# frint2
+DB FC, Frint2, Legacy, CYRIX_FPU, rw=st0 decopt=Cyrix
+# frichop
+DD FC, Frichop, Legacy, CYRIX_FPU, rw=st0 decopt=Cyrix
+# cyrix_ded8
+DE D8, Cyrix_DED8, Legacy, CYRIX_FPU, decopt=Cyrix
+# cyrix_deda
+DE DA, Cyrix_DEDA, Legacy, CYRIX_FPU, decopt=Cyrix
+# cyrix_dedc
+DE DC, Cyrix_DEDC, Legacy, CYRIX_FPU, decopt=Cyrix
+# cyrix_dedd
+DE DD, Cyrix_DEDD, Legacy, CYRIX_FPU, decopt=Cyrix
+# cyrix_dede
+DE DE, Cyrix_DEDE, Legacy, CYRIX_FPU, decopt=Cyrix
+# frinear
+DF FC, Frinear, Legacy, CYRIX_FPU, rw=st0 decopt=Cyrix

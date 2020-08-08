@@ -68,11 +68,25 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 
 		OpCodeHandlerKind::Null => &NULL_HANDLER as *const _ as *const OpCodeHandler,
 		OpCodeHandlerKind::HandlerReference => deserializer.read_handler_reference(),
-		OpCodeHandlerKind::ArrayReference | OpCodeHandlerKind::Unused1 => unreachable!(),
+		OpCodeHandlerKind::ArrayReference => unreachable!(),
 
 		OpCodeHandlerKind::RM => {
 			Box::into_raw(Box::new(OpCodeHandler_RM::new(deserializer.read_handler(), deserializer.read_handler()))) as *const OpCodeHandler
 		}
+
+		OpCodeHandlerKind::Options1632_1 => Box::into_raw(Box::new(OpCodeHandler_Options1632::new(
+			deserializer.read_handler(),
+			deserializer.read_handler(),
+			deserializer.read_decoder_options(),
+		))) as *const OpCodeHandler,
+
+		OpCodeHandlerKind::Options1632_2 => Box::into_raw(Box::new(OpCodeHandler_Options1632::new2(
+			deserializer.read_handler(),
+			deserializer.read_handler(),
+			deserializer.read_decoder_options(),
+			deserializer.read_handler(),
+			deserializer.read_decoder_options(),
+		))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Options3 => Box::into_raw(Box::new(OpCodeHandler_Options::new(
 			deserializer.read_handler(),
@@ -330,6 +344,11 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 		OpCodeHandlerKind::Ev_P => {
 			code = deserializer.read_code();
 			Box::into_raw(Box::new(OpCodeHandler_Ev_P::new(code, code + 1))) as *const OpCodeHandler
+		}
+
+		OpCodeHandlerKind::Ev_REXW_1a => {
+			code = deserializer.read_code();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_REXW::new(code, Code::INVALID as u32, deserializer.read_u32()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_REXW => {
@@ -902,6 +921,16 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 		OpCodeHandlerKind::Yv_Xv => {
 			code = deserializer.read_code();
 			Box::into_raw(Box::new(OpCodeHandler_Yv_Xv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+		}
+
+		OpCodeHandlerKind::M_Sw => {
+			code = deserializer.read_code();
+			Box::into_raw(Box::new(OpCodeHandler_M_Sw::new(code))) as *const OpCodeHandler
+		}
+
+		OpCodeHandlerKind::Sw_M => {
+			code = deserializer.read_code();
+			Box::into_raw(Box::new(OpCodeHandler_Sw_M::new(code))) as *const OpCodeHandler
 		}
 	};
 	result.push(unsafe { &*elem });

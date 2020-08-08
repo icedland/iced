@@ -163,6 +163,20 @@ namespace Generator.Assembler {
 				Code.Xlat_m8,
 				Code.Jmp_ptr1616,
 				Code.Jmp_ptr1632,
+
+				// Cyrix FPU instructions
+				Code.Cyrix_D9D7,
+				Code.Cyrix_D9E2,
+				Code.Ftstp,
+				Code.Cyrix_D9E7,
+				Code.Frint2,
+				Code.Frichop,
+				Code.Cyrix_DED8,
+				Code.Cyrix_DEDA,
+				Code.Cyrix_DEDC,
+				Code.Cyrix_DEDD,
+				Code.Cyrix_DEDE,
+				Code.Frinear,
 			}).ToHashSet();
 			var removed = genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues);
 			mapOpCodeToNewName = new[] {
@@ -211,6 +225,8 @@ namespace Generator.Assembler {
 				(Code.ReservedNop_rm16_r16_0F1F, "reserved_nop_0f1f"),
 				(Code.ReservedNop_rm32_r32_0F1F, "reserved_nop_0f1f"),
 				(Code.ReservedNop_rm64_r64_0F1F, "reserved_nop_0f1f"),
+				(Code.Smint_0F7E, "smint_0f7e"),
+				(Code.Pmulhrw_mm_mmm64, "pmulhrw_cyrix"),
 			}.Select(a => (code: origCode[(int)a.Item1], name: a.Item2)).Where(a => !removed.Contains(a.code)).ToDictionary(a => a.code, a => a.name);
 		}
 
@@ -1039,13 +1055,13 @@ namespace Generator.Assembler {
 
 			if (testDiscard) {
 				switch (GetOrigCodeValue(opCode.Code)) {
-				case Code.Pextrb_r64m8_xmm_imm8:             // => Code.Pextrb_r32m8_xmm_imm8
-				case Code.Extractps_r64m32_xmm_imm8:         // => Code.Extractps_rm32_xmm_imm8	
-				case Code.Pinsrb_xmm_r64m8_imm8:             // => Code.Pinsrb_xmm_r32m8_imm8
-				case Code.Movq_rm64_xmm:                     // => Code.Movq_xmmm64_xmm
-				case Code.Movq_rm64_mm:                      // => Code.Movq_mmm64_mm
-				case Code.Movq_xmm_rm64:                     // => Code.Movq_xmm_rm64
-				case Code.Movq_mm_rm64:                      // => Code.Movq_mm_rm64					
+				case Code.Pextrb_r64m8_xmm_imm8:             // => Pextrb_r32m8_xmm_imm8
+				case Code.Extractps_r64m32_xmm_imm8:         // => Extractps_rm32_xmm_imm8	
+				case Code.Pinsrb_xmm_r64m8_imm8:             // => Pinsrb_xmm_r32m8_imm8
+				case Code.Movq_rm64_xmm:                     // => Movq_xmmm64_xmm
+				case Code.Movq_rm64_mm:                      // => Movq_mmm64_mm
+				case Code.Movq_xmm_rm64:                     // => Movq_xmm_rm64
+				case Code.Movq_mm_rm64:                      // => Movq_mm_rm64					
 				case Code.EVEX_Vextractps_r64m32_xmm_imm8:   // => EVEX_Vextractps_rm32_xmm_imm8
 				case Code.EVEX_Vmovq_rm64_xmm:               // => EVEX_Vmovq_xmmm64_xmm
 				case Code.EVEX_Vmovq_xmm_rm64:               // => EVEX_Vmovq_xmm_xmmm64

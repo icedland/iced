@@ -67,11 +67,18 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case OpCodeHandlerKind.ArrayReference:
-			case OpCodeHandlerKind.Unused1:
 				throw new InvalidOperationException();
 
 			case OpCodeHandlerKind.RM:
 				elem = new OpCodeHandler_RM(deserializer.ReadHandler(), deserializer.ReadHandler());
+				return 1;
+
+			case OpCodeHandlerKind.Options1632_1:
+				elem = new OpCodeHandler_Options1632(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadDecoderOptions());
+				return 1;
+
+			case OpCodeHandlerKind.Options1632_2:
+				elem = new OpCodeHandler_Options1632(deserializer.ReadHandler(), deserializer.ReadHandler(), deserializer.ReadDecoderOptions(), deserializer.ReadHandler(), deserializer.ReadDecoderOptions());
 				return 1;
 
 			case OpCodeHandlerKind.Options3:
@@ -328,6 +335,11 @@ namespace Iced.Intel.DecoderInternal {
 			case OpCodeHandlerKind.Ev_P:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Ev_P(code, code + 1);
+				return 1;
+
+			case OpCodeHandlerKind.Ev_REXW_1a:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Ev_REXW(code, Code.INVALID, (uint)deserializer.ReadInt32());
 				return 1;
 
 			case OpCodeHandlerKind.Ev_REXW:
@@ -929,6 +941,16 @@ namespace Iced.Intel.DecoderInternal {
 			case OpCodeHandlerKind.Yv_Xv:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Yv_Xv(code, code + 1, code + 2);
+				return 1;
+
+			case OpCodeHandlerKind.M_Sw:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_M_Sw(code);
+				return 1;
+
+			case OpCodeHandlerKind.Sw_M:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_Sw_M(code);
 				return 1;
 
 			default:

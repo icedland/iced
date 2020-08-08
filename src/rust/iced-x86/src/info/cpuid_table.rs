@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::CpuidFeature;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static CPUID: [&[CpuidFeature]; 156] = [
+pub(crate) static CPUID: [&[CpuidFeature]; 165] = [
 	&[CpuidFeature::INTEL8086],// INTEL8086
 	&[CpuidFeature::INTEL8086_ONLY],// INTEL8086_ONLY
 	&[CpuidFeature::INTEL186],// INTEL186
@@ -102,7 +102,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 156] = [
 	&[CpuidFeature::FPU387SL_ONLY],// FPU387SL_ONLY
 	&[CpuidFeature::FSGSBASE],// FSGSBASE
 	&[CpuidFeature::FXSR],// FXSR
-	&[CpuidFeature::GEODE],// GEODE
+	&[CpuidFeature::CYRIX_D3NOW],// CYRIX_D3NOW
 	&[CpuidFeature::GFNI],// GFNI
 	&[CpuidFeature::AVX, CpuidFeature::GFNI],// AVX_and_GFNI
 	&[CpuidFeature::AVX512F, CpuidFeature::GFNI],// AVX512F_and_GFNI
@@ -183,4 +183,13 @@ pub(crate) static CPUID: [&[CpuidFeature]; 156] = [
 	&[CpuidFeature::AMX_BF16],// AMX_BF16
 	&[CpuidFeature::AMX_TILE],// AMX_TILE
 	&[CpuidFeature::AMX_INT8],// AMX_INT8
+	&[CpuidFeature::CYRIX_FPU],// CYRIX_FPU
+	&[CpuidFeature::CYRIX_SMM],// CYRIX_SMM
+	&[CpuidFeature::CYRIX_SMINT],// CYRIX_SMINT
+	&[CpuidFeature::CYRIX_SMINT_6X86],// CYRIX_SMINT_6X86
+	&[CpuidFeature::CYRIX_SHR],// CYRIX_SHR
+	&[CpuidFeature::CYRIX_DDI],// CYRIX_DDI
+	&[CpuidFeature::CYRIX_EMMI],// CYRIX_EMMI
+	&[CpuidFeature::CYRIX_DMI],// CYRIX_DMI
+	&[CpuidFeature::CENTAUR_AIS],// CENTAUR_AIS
 ];

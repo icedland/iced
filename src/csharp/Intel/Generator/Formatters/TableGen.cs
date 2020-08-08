@@ -147,6 +147,7 @@ namespace Generator.Formatters {
 				(memSize[nameof(MemorySize.Bcd)], BroadcastToKind.None, IntelMemoryKeywords.tbyte_ptr, MasmMemoryKeywords.tbyte_ptr, NasmMemoryKeywords.tword),
 				(memSize[nameof(MemorySize.Tilecfg)], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
 				(memSize[nameof(MemorySize.Tile)], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
+				(memSize[nameof(MemorySize.SegmentDescSelector)], BroadcastToKind.None, IntelMemoryKeywords.tbyte_ptr, MasmMemoryKeywords.tbyte_ptr, NasmMemoryKeywords.tword),
 				(memSize[nameof(MemorySize.Packed16_UInt8)], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
 				(memSize[nameof(MemorySize.Packed16_Int8)], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
 				(memSize[nameof(MemorySize.Packed32_UInt8)], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),

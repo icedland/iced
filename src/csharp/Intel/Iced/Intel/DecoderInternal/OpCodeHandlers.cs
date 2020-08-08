@@ -267,15 +267,56 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	sealed class OpCodeHandler_Options1632 : OpCodeHandler {
+		readonly OpCodeHandler defaultHandler;
+		readonly HandlerOptions[] infos;
+		readonly DecoderOptions infoOptions;
+
+		public OpCodeHandler_Options1632(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
+			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
+			infos = new HandlerOptions[] {
+				new HandlerOptions(handler1, options1),
+			};
+			infoOptions = options1;
+		}
+
+		public OpCodeHandler_Options1632(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
+			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
+			infos = new HandlerOptions[] {
+				new HandlerOptions(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
+				new HandlerOptions(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
+			};
+			infoOptions = options1 | options2;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			var handler = defaultHandler;
+			var options = decoder.options;
+			if (!decoder.is64Mode && (decoder.options & infoOptions) != 0) {
+				foreach (var info in infos) {
+					if ((options & info.options) != 0) {
+						handler = info.handler;
+						break;
+					}
+				}
+			}
+			if (handler.HasModRM)
+				decoder.ReadModRM();
+			handler.Decode(decoder, ref instruction);
+		}
+	}
+
 	sealed class OpCodeHandler_Options : OpCodeHandler {
 		readonly OpCodeHandler defaultHandler;
 		readonly HandlerOptions[] infos;
+		readonly DecoderOptions infoOptions;
 
 		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1) {
 			this.defaultHandler = defaultHandler ?? throw new ArgumentNullException(nameof(defaultHandler));
 			infos = new HandlerOptions[] {
 				new HandlerOptions(handler1, options1),
 			};
+			infoOptions = options1;
 		}
 
 		public OpCodeHandler_Options(OpCodeHandler defaultHandler, OpCodeHandler handler1, DecoderOptions options1, OpCodeHandler handler2, DecoderOptions options2) {
@@ -284,15 +325,18 @@ namespace Iced.Intel.DecoderInternal {
 				new HandlerOptions(handler1 ?? throw new ArgumentNullException(nameof(handler1)), options1),
 				new HandlerOptions(handler2 ?? throw new ArgumentNullException(nameof(handler2)), options2),
 			};
+			infoOptions = options1 | options2;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			var handler = defaultHandler;
 			var options = decoder.options;
-			foreach (var info in infos) {
-				if ((options & info.options) != 0) {
-					handler = info.handler;
-					break;
+			if ((decoder.options & infoOptions) != 0) {
+				foreach (var info in infos) {
+					if ((options & info.options) != 0) {
+						handler = info.handler;
+						break;
+					}
 				}
 			}
 			if (handler.HasModRM)

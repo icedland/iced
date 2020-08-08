@@ -131,6 +131,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				(byte)((uint)MemoryKeywords.tbyte_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.None | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.None | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
+				(byte)((uint)MemoryKeywords.tbyte_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.word_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.word_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.dword_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),

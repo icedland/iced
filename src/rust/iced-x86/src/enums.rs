@@ -556,13 +556,13 @@ pub enum FlowControl {
 	IndirectBranch = 2,
 	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`
 	ConditionalBranch = 3,
-	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`
+	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`, `RDM`
 	Return = 4,
 	/// It's a call instruction: `CALL NEAR`, `CALL FAR`, `SYSCALL`, `SYSENTER`, `VMCALL`, `VMMCALL`, `VMGEXIT`
 	Call = 5,
 	/// It's an indirect call instruction: `CALL NEAR reg`, `CALL NEAR [mem]`, `CALL FAR [mem]`
 	IndirectCall = 6,
-	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`
+	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`, `SMINT`, `DMINT`
 	Interrupt = 7,
 	/// It's `XBEGIN`, `XABORT`, `XEND`, `XSUSLDTRK`, `XRESLDTRK`
 	XbeginXabortXend = 8,
@@ -1101,8 +1101,8 @@ pub enum CpuidFeature {
 	FSGSBASE = 60,
 	/// CPUID.01H:EDX.FXSR\[bit 24\]
 	FXSR = 61,
-	/// AMD Geode LX/GX CPU
-	GEODE = 62,
+	/// Cyrix (AMD Geode GX/LX) 3DNow! instructions
+	CYRIX_D3NOW = 62,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.GFNI\[bit 8\]
 	GFNI = 63,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.HLE\[bit 4\]
@@ -1261,10 +1261,28 @@ pub enum CpuidFeature {
 	AMX_TILE = 135,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.AMX-INT8\[bit 25\]
 	AMX_INT8 = 136,
+	/// Cyrix FPU instructions (Cyrix, AMD Geode GX/LX)
+	CYRIX_FPU = 137,
+	/// Cyrix SMM instructions: `SVDC`, `RSDC`, `SVLDT`, `RSLDT`, `SVTS`, `RSTS` (Cyrix, AMD Geode GX/LX)
+	CYRIX_SMM = 138,
+	/// Cyrix `SMINT 0F38` (6x86MX and later, AMD Geode GX/LX)
+	CYRIX_SMINT = 139,
+	/// Cyrix `SMINT 0F7E` (6x86)
+	CYRIX_SMINT_6X86 = 140,
+	/// Cyrix SMM instructions: `RDSHR`, `WRSHR` (6x86MX, M II, Cyrix III)
+	CYRIX_SHR = 141,
+	/// Cyrix DDI instructions: `BB0_Reset`, `BB1_Reset`, `CPU_READ`, `CPU_WRITE` (MediaGX, GXm, GXLV, GX1)
+	CYRIX_DDI = 142,
+	/// Cyrix AND CPUID.80000001H:EDX.EMMI\[bit 24\]
+	CYRIX_EMMI = 143,
+	/// Cyrix DMI instructions: `DMINT`, `RDM` (AMD Geode GX/LX)
+	CYRIX_DMI = 144,
+	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.AIS\[Bits 1:0\] = 11B (\[0\] = exists, \[1\] = enabled)
+	CENTAUR_AIS = 145,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 137] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 146] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1327,7 +1345,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 137] = [
 	"FPU387SL_ONLY",
 	"FSGSBASE",
 	"FXSR",
-	"GEODE",
+	"CYRIX_D3NOW",
 	"GFNI",
 	"HLE",
 	"HLE_or_RTM",
@@ -1402,6 +1420,15 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 137] = [
 	"AMX_BF16",
 	"AMX_TILE",
 	"AMX_INT8",
+	"CYRIX_FPU",
+	"CYRIX_SMM",
+	"CYRIX_SMINT",
+	"CYRIX_SMINT_6X86",
+	"CYRIX_SHR",
+	"CYRIX_DDI",
+	"CYRIX_EMMI",
+	"CYRIX_DMI",
+	"CENTAUR_AIS",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

@@ -33458,7 +33458,7 @@ pub enum Code {
 	///
 	/// `0F 0F /r 86`
 	///
-	/// `AMD Geode LX/GX`
+	/// `AMD Geode GX/LX`
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrcpv_mm_mmm64 = 4181,
@@ -33466,7 +33466,7 @@ pub enum Code {
 	///
 	/// `0F 0F /r 87`
 	///
-	/// `AMD Geode LX/GX`
+	/// `AMD Geode GX/LX`
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrsqrtv_mm_mmm64 = 4182,
@@ -33910,9 +33910,337 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Fnstsg_AX = 4237,
+	/// `RDSHR r/m32`
+	///
+	/// `0F 36 /0`
+	///
+	/// `Cyrix 6x86MX, M II, III`
+	///
+	/// `16/32-bit`
+	Rdshr_rm32 = 4238,
+	/// `WRSHR r/m32`
+	///
+	/// `0F 37 /0`
+	///
+	/// `Cyrix 6x86MX, M II, III`
+	///
+	/// `16/32-bit`
+	Wrshr_rm32 = 4239,
+	/// `SMINT`
+	///
+	/// `0F 38`
+	///
+	/// `Cyrix 6x86MX+, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Smint = 4240,
+	/// `DMINT`
+	///
+	/// `0F 39`
+	///
+	/// `AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Dmint = 4241,
+	/// `RDM`
+	///
+	/// `0F 3A`
+	///
+	/// `AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Rdm = 4242,
+	/// `SVDC m80, Sreg`
+	///
+	/// `0F 78 /r`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Svdc_m80_Sreg = 4243,
+	/// `RSDC Sreg, m80`
+	///
+	/// `0F 79 /r`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Rsdc_Sreg_m80 = 4244,
+	/// `SVLDT m80`
+	///
+	/// `0F 7A /0`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Svldt_m80 = 4245,
+	/// `RSLDT m80`
+	///
+	/// `0F 7B /0`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Rsldt_m80 = 4246,
+	/// `SVTS m80`
+	///
+	/// `0F 7C /0`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Svts_m80 = 4247,
+	/// `RSTS m80`
+	///
+	/// `0F 7D /0`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Rsts_m80 = 4248,
+	/// `SMINT`
+	///
+	/// `0F 7E`
+	///
+	/// `Cyrix 6x86`
+	///
+	/// `16/32-bit`
+	Smint_0F7E = 4249,
+	/// `BB0_RESET`
+	///
+	/// `0F 3A`
+	///
+	/// `Cyrix MediaGX, GXm, GXLV, GX1`
+	///
+	/// `16/32-bit`
+	Bb0_reset = 4250,
+	/// `BB1_RESET`
+	///
+	/// `0F 3B`
+	///
+	/// `Cyrix MediaGX, GXm, GXLV, GX1`
+	///
+	/// `16/32-bit`
+	Bb1_reset = 4251,
+	/// `CPU_WRITE`
+	///
+	/// `0F 3C`
+	///
+	/// `Cyrix MediaGX, GXm, GXLV, GX1`
+	///
+	/// `16/32-bit`
+	Cpu_write = 4252,
+	/// `CPU_READ`
+	///
+	/// `0F 3D`
+	///
+	/// `Cyrix MediaGX, GXm, GXLV, GX1`
+	///
+	/// `16/32-bit`
+	Cpu_read = 4253,
+	/// `ALTINST`
+	///
+	/// `0F 3F`
+	///
+	/// `Centaur AIS`
+	///
+	/// `16/32-bit`
+	Altinst = 4254,
+	/// `PAVEB mm1, mm2/m64`
+	///
+	/// `NP 0F 50 /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Paveb_mm_mmm64 = 4255,
+	/// `PADDSIW mm1, mm2/m64`
+	///
+	/// `NP 0F 51 /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Paddsiw_mm_mmm64 = 4256,
+	/// `PMAGW mm1, mm2/m64`
+	///
+	/// `NP 0F 52 /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmagw_mm_mmm64 = 4257,
+	/// `PDISTIB mm1, m64`
+	///
+	/// `NP 0F 54 /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pdistib_mm_m64 = 4258,
+	/// `PSUBSIW mm1, mm2/m64`
+	///
+	/// `NP 0F 55 /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Psubsiw_mm_mmm64 = 4259,
+	/// `PMVZB mm1, m64`
+	///
+	/// `NP 0F 58 /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmvzb_mm_m64 = 4260,
+	/// `PMULHRW mm1, mm2/m64`
+	///
+	/// `NP 0F 59 /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmulhrw_mm_mmm64 = 4261,
+	/// `PMVNZB mm1, m64`
+	///
+	/// `NP 0F 5A /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmvnzb_mm_m64 = 4262,
+	/// `PMVLZB mm1, m64`
+	///
+	/// `NP 0F 5B /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmvlzb_mm_m64 = 4263,
+	/// `PMVGEZB mm1, m64`
+	///
+	/// `NP 0F 5C /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmvgezb_mm_m64 = 4264,
+	/// `PMULHRIW mm1, mm2/m64`
+	///
+	/// `NP 0F 5D /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmulhriw_mm_mmm64 = 4265,
+	/// `PMACHRIW mm1, m64`
+	///
+	/// `NP 0F 5E /r`
+	///
+	/// `CYRIX_EMMI`
+	///
+	/// `16/32-bit`
+	Pmachriw_mm_m64 = 4266,
+	/// `UNDOC`
+	///
+	/// `D9 D7`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_D9D7 = 4267,
+	/// `UNDOC`
+	///
+	/// `D9 E2`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_D9E2 = 4268,
+	/// `FTSTP`
+	///
+	/// `D9 E6`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Ftstp = 4269,
+	/// `UNDOC`
+	///
+	/// `D9 E7`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_D9E7 = 4270,
+	/// `FRINT2`
+	///
+	/// `DB FC`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Frint2 = 4271,
+	/// `FRICHOP`
+	///
+	/// `DD FC`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Frichop = 4272,
+	/// `UNDOC`
+	///
+	/// `DE D8`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_DED8 = 4273,
+	/// `UNDOC`
+	///
+	/// `DE DA`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_DEDA = 4274,
+	/// `UNDOC`
+	///
+	/// `DE DC`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_DEDC = 4275,
+	/// `UNDOC`
+	///
+	/// `DE DD`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_DEDD = 4276,
+	/// `UNDOC`
+	///
+	/// `DE DE`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Cyrix_DEDE = 4277,
+	/// `FRINEAR`
+	///
+	/// `DF FC`
+	///
+	/// `Cyrix, AMD Geode GX/LX`
+	///
+	/// `16/32-bit`
+	Frinear = 4278,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4238] = [
+static GEN_DEBUG_CODE: [&str; 4279] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38151,6 +38479,47 @@ static GEN_DEBUG_CODE: [&str; 4238] = [
 	"VEX_Tdpbssd_tmm_tmm_tmm",
 	"Fnstdw_AX",
 	"Fnstsg_AX",
+	"Rdshr_rm32",
+	"Wrshr_rm32",
+	"Smint",
+	"Dmint",
+	"Rdm",
+	"Svdc_m80_Sreg",
+	"Rsdc_Sreg_m80",
+	"Svldt_m80",
+	"Rsldt_m80",
+	"Svts_m80",
+	"Rsts_m80",
+	"Smint_0F7E",
+	"Bb0_reset",
+	"Bb1_reset",
+	"Cpu_write",
+	"Cpu_read",
+	"Altinst",
+	"Paveb_mm_mmm64",
+	"Paddsiw_mm_mmm64",
+	"Pmagw_mm_mmm64",
+	"Pdistib_mm_m64",
+	"Psubsiw_mm_mmm64",
+	"Pmvzb_mm_m64",
+	"Pmulhrw_mm_mmm64",
+	"Pmvnzb_mm_m64",
+	"Pmvlzb_mm_m64",
+	"Pmvgezb_mm_m64",
+	"Pmulhriw_mm_mmm64",
+	"Pmachriw_mm_m64",
+	"Cyrix_D9D7",
+	"Cyrix_D9E2",
+	"Ftstp",
+	"Cyrix_D9E7",
+	"Frint2",
+	"Frichop",
+	"Cyrix_DED8",
+	"Cyrix_DEDA",
+	"Cyrix_DEDC",
+	"Cyrix_DEDD",
+	"Cyrix_DEDE",
+	"Frinear",
 ];
 impl fmt::Debug for Code {
 	#[inline]

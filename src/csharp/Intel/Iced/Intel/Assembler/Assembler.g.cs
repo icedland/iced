@@ -1584,6 +1584,20 @@ namespace Iced.Intel {
 			op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm));
 		}
+		/// <summary>altinst instruction.<br/>
+		/// <br/>
+		/// <c>ALTINST</c><br/>
+		/// <br/>
+		/// <c>0F 3F</c><br/>
+		/// <br/>
+		/// <c>Centaur AIS</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void altinst() {
+			Code op;
+			op = Code.Altinst;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>and instruction.<br/>
 		/// <br/>
 		/// <c>AND r/m8, r8</c><br/>
@@ -2305,6 +2319,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Arpl_r32m16_r32;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
+		}
+		/// <summary>bb0_reset instruction.<br/>
+		/// <br/>
+		/// <c>BB0_RESET</c><br/>
+		/// <br/>
+		/// <c>0F 3A</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void bb0_reset() {
+			Code op;
+			op = Code.Bb0_reset;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>bb1_reset instruction.<br/>
+		/// <br/>
+		/// <c>BB1_RESET</c><br/>
+		/// <br/>
+		/// <c>0F 3B</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void bb1_reset() {
+			Code op;
+			op = Code.Bb1_reset;
+			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>bextr instruction.<br/>
 		/// <br/>
@@ -7756,6 +7798,34 @@ namespace Iced.Intel {
 			op = Code.Comiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>cpu_read instruction.<br/>
+		/// <br/>
+		/// <c>CPU_READ</c><br/>
+		/// <br/>
+		/// <c>0F 3D</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void cpu_read() {
+			Code op;
+			op = Code.Cpu_read;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>cpu_write instruction.<br/>
+		/// <br/>
+		/// <c>CPU_WRITE</c><br/>
+		/// <br/>
+		/// <c>0F 3C</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void cpu_write() {
+			Code op;
+			op = Code.Cpu_write;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>cpuid instruction.<br/>
 		/// <br/>
 		/// <c>CPUID</c><br/>
@@ -9095,6 +9165,20 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Divss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>dmint instruction.<br/>
+		/// <br/>
+		/// <c>DMINT</c><br/>
+		/// <br/>
+		/// <c>0F 39</c><br/>
+		/// <br/>
+		/// <c>AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void dmint() {
+			Code op;
+			op = Code.Dmint;
+			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>dppd instruction.<br/>
 		/// <br/>
@@ -22718,6 +22802,34 @@ namespace Iced.Intel {
 			op = Code.Paddsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>paddsiw instruction.<br/>
+		/// <br/>
+		/// <c>PADDSIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 51 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void paddsiw(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
+			Code op;
+			op = Code.Paddsiw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>paddsiw instruction.<br/>
+		/// <br/>
+		/// <c>PADDSIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 51 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void paddsiw(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Paddsiw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>paddsw instruction.<br/>
 		/// <br/>
 		/// <c>PADDSW mm, mm/m64</c><br/>
@@ -23179,6 +23291,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Pause;
 			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>paveb instruction.<br/>
+		/// <br/>
+		/// <c>PAVEB mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 50 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void paveb(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
+			Code op;
+			op = Code.Paveb_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>paveb instruction.<br/>
+		/// <br/>
+		/// <c>PAVEB mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 50 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void paveb(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Paveb_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>pavgb instruction.<br/>
 		/// <br/>
@@ -24304,6 +24444,20 @@ namespace Iced.Intel {
 			op = Code.VEX_Pdep_r64_r64_rm64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>pdistib instruction.<br/>
+		/// <br/>
+		/// <c>PDISTIB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 54 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pdistib(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pdistib_mm_m64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>pext instruction.<br/>
 		/// <br/>
 		/// <c>PEXT r32a, r32b, r/m32</c><br/>
@@ -25122,7 +25276,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 0F /r 86</c><br/>
 		/// <br/>
-		/// <c>AMD Geode LX/GX</c><br/>
+		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pfrcpv(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
@@ -25136,7 +25290,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 0F /r 86</c><br/>
 		/// <br/>
-		/// <c>AMD Geode LX/GX</c><br/>
+		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pfrcpv(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
@@ -25206,7 +25360,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 0F /r 87</c><br/>
 		/// <br/>
-		/// <c>AMD Geode LX/GX</c><br/>
+		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pfrsqrtv(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
@@ -25220,7 +25374,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 0F /r 87</c><br/>
 		/// <br/>
-		/// <c>AMD Geode LX/GX</c><br/>
+		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pfrsqrtv(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
@@ -26068,6 +26222,20 @@ namespace Iced.Intel {
 			op = Code.Pinsrw_xmm_r32m16_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm));
 		}
+		/// <summary>pmachriw instruction.<br/>
+		/// <br/>
+		/// <c>PMACHRIW mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5E /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmachriw(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmachriw_mm_m64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>pmaddubsw instruction.<br/>
 		/// <br/>
 		/// <c>PMADDUBSW mm1, mm2/m64</c><br/>
@@ -26178,6 +26346,34 @@ namespace Iced.Intel {
 		public void pmaddwd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Pmaddwd_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>pmagw instruction.<br/>
+		/// <br/>
+		/// <c>PMAGW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 52 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmagw(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
+			Code op;
+			op = Code.Pmagw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pmagw instruction.<br/>
+		/// <br/>
+		/// <c>PMAGW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 52 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmagw(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmagw_mm_mmm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>pmaxsb instruction.<br/>
@@ -27048,6 +27244,34 @@ namespace Iced.Intel {
 			op = Code.Pmuldq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>pmulhriw instruction.<br/>
+		/// <br/>
+		/// <c>PMULHRIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5D /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmulhriw(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
+			Code op;
+			op = Code.Pmulhriw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pmulhriw instruction.<br/>
+		/// <br/>
+		/// <c>PMULHRIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5D /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmulhriw(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmulhriw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>pmulhrsw instruction.<br/>
 		/// <br/>
 		/// <c>PMULHRSW mm1, mm2/m64</c><br/>
@@ -27130,6 +27354,34 @@ namespace Iced.Intel {
 		public void pmulhrw(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.D3NOW_Pmulhrw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>pmulhrw_cyrix instruction.<br/>
+		/// <br/>
+		/// <c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 59 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmulhrw_cyrix(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
+			Code op;
+			op = Code.Pmulhrw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pmulhrw_cyrix instruction.<br/>
+		/// <br/>
+		/// <c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 59 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmulhrw_cyrix(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmulhrw_mm_mmm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>pmulhuw instruction.<br/>
@@ -27382,6 +27634,62 @@ namespace Iced.Intel {
 		public void pmuludq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Pmuludq_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>pmvgezb instruction.<br/>
+		/// <br/>
+		/// <c>PMVGEZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5C /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmvgezb(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmvgezb_mm_m64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>pmvlzb instruction.<br/>
+		/// <br/>
+		/// <c>PMVLZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5B /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmvlzb(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmvlzb_mm_m64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>pmvnzb instruction.<br/>
+		/// <br/>
+		/// <c>PMVNZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5A /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmvnzb(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmvnzb_mm_m64;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>pmvzb instruction.<br/>
+		/// <br/>
+		/// <c>PMVZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 58 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pmvzb(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Pmvzb_mm_m64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>pop instruction.<br/>
@@ -29582,6 +29890,34 @@ namespace Iced.Intel {
 		public void psubsb(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Psubsb_xmm_xmmm128;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>psubsiw instruction.<br/>
+		/// <br/>
+		/// <c>PSUBSIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 55 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void psubsiw(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
+			Code op;
+			op = Code.Psubsiw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>psubsiw instruction.<br/>
+		/// <br/>
+		/// <c>PSUBSIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 55 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void psubsiw(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Psubsiw_mm_mmm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>psubsw instruction.<br/>
@@ -31832,6 +32168,20 @@ namespace Iced.Intel {
 			op = Code.Rdgsbase_r64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
+		/// <summary>rdm instruction.<br/>
+		/// <br/>
+		/// <c>RDM</c><br/>
+		/// <br/>
+		/// <c>0F 3A</c><br/>
+		/// <br/>
+		/// <c>AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void rdm() {
+			Code op;
+			op = Code.Rdm;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>rdmsr instruction.<br/>
 		/// <br/>
 		/// <c>RDMSR</c><br/>
@@ -31999,6 +32349,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Rdseed_r64;
 			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>rdshr instruction.<br/>
+		/// <br/>
+		/// <c>RDSHR r/m32</c><br/>
+		/// <br/>
+		/// <c>0F 36 /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX, M II, III</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void rdshr(AssemblerRegister32 dst) {
+			Code op;
+			op = Code.Rdshr_rm32;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>rdshr instruction.<br/>
+		/// <br/>
+		/// <c>RDSHR r/m32</c><br/>
+		/// <br/>
+		/// <c>0F 36 /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX, M II, III</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void rdshr(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Rdshr_rm32;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>rdsspd instruction.<br/>
 		/// <br/>
@@ -34296,6 +34674,34 @@ namespace Iced.Intel {
 			op = Code.Roundss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm));
 		}
+		/// <summary>rsdc instruction.<br/>
+		/// <br/>
+		/// <c>RSDC Sreg, m80</c><br/>
+		/// <br/>
+		/// <c>0F 79 /r</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void rsdc(AssemblerRegisterSegment dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Rsdc_Sreg_m80;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>rsldt instruction.<br/>
+		/// <br/>
+		/// <c>RSLDT m80</c><br/>
+		/// <br/>
+		/// <c>0F 7B /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void rsldt(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Rsldt_m80;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>rsm instruction.<br/>
 		/// <br/>
 		/// <c>RSM</c><br/>
@@ -34378,6 +34784,20 @@ namespace Iced.Intel {
 		public void rstorssp(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Rstorssp_m64;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>rsts instruction.<br/>
+		/// <br/>
+		/// <c>RSTS m80</c><br/>
+		/// <br/>
+		/// <c>0F 7D /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void rsts(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Rsts_m80;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>sahf instruction.<br/>
@@ -38492,6 +38912,34 @@ namespace Iced.Intel {
 			op = Code.XOP_Slwpcb_r64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
+		/// <summary>smint instruction.<br/>
+		/// <br/>
+		/// <c>SMINT</c><br/>
+		/// <br/>
+		/// <c>0F 38</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX+, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void smint() {
+			Code op;
+			op = Code.Smint;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>smint_0f7e instruction.<br/>
+		/// <br/>
+		/// <c>SMINT</c><br/>
+		/// <br/>
+		/// <c>0F 7E</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void smint_0f7e() {
+			Code op;
+			op = Code.Smint_0F7E;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>smsw instruction.<br/>
 		/// <br/>
 		/// <c>SMSW r/m16</c><br/>
@@ -39487,6 +39935,48 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Subss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>svdc instruction.<br/>
+		/// <br/>
+		/// <c>SVDC m80, Sreg</c><br/>
+		/// <br/>
+		/// <c>0F 78 /r</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void svdc(AssemblerMemoryOperand dst, AssemblerRegisterSegment src) {
+			Code op;
+			op = Code.Svdc_m80_Sreg;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
+		}
+		/// <summary>svldt instruction.<br/>
+		/// <br/>
+		/// <c>SVLDT m80</c><br/>
+		/// <br/>
+		/// <c>0F 7A /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void svldt(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Svldt_m80;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>svts instruction.<br/>
+		/// <br/>
+		/// <c>SVTS m80</c><br/>
+		/// <br/>
+		/// <c>0F 7C /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void svts(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Svts_m80;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>swapgs instruction.<br/>
 		/// <br/>
@@ -109707,6 +110197,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Wrpkru;
 			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>wrshr instruction.<br/>
+		/// <br/>
+		/// <c>WRSHR r/m32</c><br/>
+		/// <br/>
+		/// <c>0F 37 /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX, M II, III</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void wrshr(AssemblerRegister32 dst) {
+			Code op;
+			op = Code.Wrshr_rm32;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>wrshr instruction.<br/>
+		/// <br/>
+		/// <c>WRSHR r/m32</c><br/>
+		/// <br/>
+		/// <c>0F 37 /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX, M II, III</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void wrshr(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Wrshr_rm32;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>wrssd instruction.<br/>
 		/// <br/>

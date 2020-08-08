@@ -78,7 +78,7 @@ pub(crate) enum OpCodeHandlerKind {
 	Group8x8,
 	MandatoryPrefix,
 	MandatoryPrefix4,
-	Unused1,
+	Ev_REXW_1a,
 	MandatoryPrefix_NoModRM,
 	MandatoryPrefix3,
 	D3NOW,
@@ -259,9 +259,13 @@ pub(crate) enum OpCodeHandlerKind {
 	Yv_Reg2,
 	Yv_Xv,
 	Simple4b,
+	Options1632_1,
+	Options1632_2,
+	M_Sw,
+	Sw_M,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 200] = [
+static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 204] = [
 	"Bitness",
 	"Bitness_DontReadModRM",
 	"Invalid",
@@ -281,7 +285,7 @@ static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 200] = [
 	"Group8x8",
 	"MandatoryPrefix",
 	"MandatoryPrefix4",
-	"Unused1",
+	"Ev_REXW_1a",
 	"MandatoryPrefix_NoModRM",
 	"MandatoryPrefix3",
 	"D3NOW",
@@ -462,6 +466,10 @@ static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 200] = [
 	"Yv_Reg2",
 	"Yv_Xv",
 	"Simple4b",
+	"Options1632_1",
+	"Options1632_2",
+	"M_Sw",
+	"Sw_M",
 ];
 impl fmt::Debug for OpCodeHandlerKind {
 	#[inline]

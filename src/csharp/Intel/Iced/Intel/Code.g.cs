@@ -33450,7 +33450,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 0F /r 86</c><br/>
 		/// <br/>
-		/// <c>AMD Geode LX/GX</c><br/>
+		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrcpv_mm_mmm64 = 4181,
@@ -33458,7 +33458,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 0F /r 87</c><br/>
 		/// <br/>
-		/// <c>AMD Geode LX/GX</c><br/>
+		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrsqrtv_mm_mmm64 = 4182,
@@ -33902,5 +33902,333 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Fnstsg_AX = 4237,
+		/// <summary><c>RDSHR r/m32</c><br/>
+		/// <br/>
+		/// <c>0F 36 /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX, M II, III</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Rdshr_rm32 = 4238,
+		/// <summary><c>WRSHR r/m32</c><br/>
+		/// <br/>
+		/// <c>0F 37 /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX, M II, III</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Wrshr_rm32 = 4239,
+		/// <summary><c>SMINT</c><br/>
+		/// <br/>
+		/// <c>0F 38</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86MX+, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Smint = 4240,
+		/// <summary><c>DMINT</c><br/>
+		/// <br/>
+		/// <c>0F 39</c><br/>
+		/// <br/>
+		/// <c>AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Dmint = 4241,
+		/// <summary><c>RDM</c><br/>
+		/// <br/>
+		/// <c>0F 3A</c><br/>
+		/// <br/>
+		/// <c>AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Rdm = 4242,
+		/// <summary><c>SVDC m80, Sreg</c><br/>
+		/// <br/>
+		/// <c>0F 78 /r</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Svdc_m80_Sreg = 4243,
+		/// <summary><c>RSDC Sreg, m80</c><br/>
+		/// <br/>
+		/// <c>0F 79 /r</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Rsdc_Sreg_m80 = 4244,
+		/// <summary><c>SVLDT m80</c><br/>
+		/// <br/>
+		/// <c>0F 7A /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Svldt_m80 = 4245,
+		/// <summary><c>RSLDT m80</c><br/>
+		/// <br/>
+		/// <c>0F 7B /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Rsldt_m80 = 4246,
+		/// <summary><c>SVTS m80</c><br/>
+		/// <br/>
+		/// <c>0F 7C /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Svts_m80 = 4247,
+		/// <summary><c>RSTS m80</c><br/>
+		/// <br/>
+		/// <c>0F 7D /0</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Rsts_m80 = 4248,
+		/// <summary><c>SMINT</c><br/>
+		/// <br/>
+		/// <c>0F 7E</c><br/>
+		/// <br/>
+		/// <c>Cyrix 6x86</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Smint_0F7E = 4249,
+		/// <summary><c>BB0_RESET</c><br/>
+		/// <br/>
+		/// <c>0F 3A</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Bb0_reset = 4250,
+		/// <summary><c>BB1_RESET</c><br/>
+		/// <br/>
+		/// <c>0F 3B</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Bb1_reset = 4251,
+		/// <summary><c>CPU_WRITE</c><br/>
+		/// <br/>
+		/// <c>0F 3C</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cpu_write = 4252,
+		/// <summary><c>CPU_READ</c><br/>
+		/// <br/>
+		/// <c>0F 3D</c><br/>
+		/// <br/>
+		/// <c>Cyrix MediaGX, GXm, GXLV, GX1</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cpu_read = 4253,
+		/// <summary><c>ALTINST</c><br/>
+		/// <br/>
+		/// <c>0F 3F</c><br/>
+		/// <br/>
+		/// <c>Centaur AIS</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Altinst = 4254,
+		/// <summary><c>PAVEB mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 50 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Paveb_mm_mmm64 = 4255,
+		/// <summary><c>PADDSIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 51 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Paddsiw_mm_mmm64 = 4256,
+		/// <summary><c>PMAGW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 52 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmagw_mm_mmm64 = 4257,
+		/// <summary><c>PDISTIB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 54 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pdistib_mm_m64 = 4258,
+		/// <summary><c>PSUBSIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 55 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Psubsiw_mm_mmm64 = 4259,
+		/// <summary><c>PMVZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 58 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmvzb_mm_m64 = 4260,
+		/// <summary><c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 59 /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmulhrw_mm_mmm64 = 4261,
+		/// <summary><c>PMVNZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5A /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmvnzb_mm_m64 = 4262,
+		/// <summary><c>PMVLZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5B /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmvlzb_mm_m64 = 4263,
+		/// <summary><c>PMVGEZB mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5C /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmvgezb_mm_m64 = 4264,
+		/// <summary><c>PMULHRIW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5D /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmulhriw_mm_mmm64 = 4265,
+		/// <summary><c>PMACHRIW mm1, m64</c><br/>
+		/// <br/>
+		/// <c>NP 0F 5E /r</c><br/>
+		/// <br/>
+		/// <c>CYRIX_EMMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pmachriw_mm_m64 = 4266,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>D9 D7</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_D9D7 = 4267,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>D9 E2</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_D9E2 = 4268,
+		/// <summary><c>FTSTP</c><br/>
+		/// <br/>
+		/// <c>D9 E6</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Ftstp = 4269,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>D9 E7</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_D9E7 = 4270,
+		/// <summary><c>FRINT2</c><br/>
+		/// <br/>
+		/// <c>DB FC</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Frint2 = 4271,
+		/// <summary><c>FRICHOP</c><br/>
+		/// <br/>
+		/// <c>DD FC</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Frichop = 4272,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>DE D8</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_DED8 = 4273,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>DE DA</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_DEDA = 4274,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>DE DC</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_DEDC = 4275,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>DE DD</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_DEDD = 4276,
+		/// <summary><c>UNDOC</c><br/>
+		/// <br/>
+		/// <c>DE DE</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Cyrix_DEDE = 4277,
+		/// <summary><c>FRINEAR</c><br/>
+		/// <br/>
+		/// <c>DF FC</c><br/>
+		/// <br/>
+		/// <c>Cyrix, AMD Geode GX/LX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Frinear = 4278,
 	}
 }

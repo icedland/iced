@@ -4266,6 +4266,47 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Tdpbssd,// VEX_Tdpbssd_tmm_tmm_tmm
 			(ushort)Mnemonic.Fnstdw,// Fnstdw_AX
 			(ushort)Mnemonic.Fnstsg,// Fnstsg_AX
+			(ushort)Mnemonic.Rdshr,// Rdshr_rm32
+			(ushort)Mnemonic.Wrshr,// Wrshr_rm32
+			(ushort)Mnemonic.Smint,// Smint
+			(ushort)Mnemonic.Dmint,// Dmint
+			(ushort)Mnemonic.Rdm,// Rdm
+			(ushort)Mnemonic.Svdc,// Svdc_m80_Sreg
+			(ushort)Mnemonic.Rsdc,// Rsdc_Sreg_m80
+			(ushort)Mnemonic.Svldt,// Svldt_m80
+			(ushort)Mnemonic.Rsldt,// Rsldt_m80
+			(ushort)Mnemonic.Svts,// Svts_m80
+			(ushort)Mnemonic.Rsts,// Rsts_m80
+			(ushort)Mnemonic.Smint,// Smint_0F7E
+			(ushort)Mnemonic.Bb0_reset,// Bb0_reset
+			(ushort)Mnemonic.Bb1_reset,// Bb1_reset
+			(ushort)Mnemonic.Cpu_write,// Cpu_write
+			(ushort)Mnemonic.Cpu_read,// Cpu_read
+			(ushort)Mnemonic.Altinst,// Altinst
+			(ushort)Mnemonic.Paveb,// Paveb_mm_mmm64
+			(ushort)Mnemonic.Paddsiw,// Paddsiw_mm_mmm64
+			(ushort)Mnemonic.Pmagw,// Pmagw_mm_mmm64
+			(ushort)Mnemonic.Pdistib,// Pdistib_mm_m64
+			(ushort)Mnemonic.Psubsiw,// Psubsiw_mm_mmm64
+			(ushort)Mnemonic.Pmvzb,// Pmvzb_mm_m64
+			(ushort)Mnemonic.Pmulhrw,// Pmulhrw_mm_mmm64
+			(ushort)Mnemonic.Pmvnzb,// Pmvnzb_mm_m64
+			(ushort)Mnemonic.Pmvlzb,// Pmvlzb_mm_m64
+			(ushort)Mnemonic.Pmvgezb,// Pmvgezb_mm_m64
+			(ushort)Mnemonic.Pmulhriw,// Pmulhriw_mm_mmm64
+			(ushort)Mnemonic.Pmachriw,// Pmachriw_mm_m64
+			(ushort)Mnemonic.Undoc,// Cyrix_D9D7
+			(ushort)Mnemonic.Undoc,// Cyrix_D9E2
+			(ushort)Mnemonic.Ftstp,// Ftstp
+			(ushort)Mnemonic.Undoc,// Cyrix_D9E7
+			(ushort)Mnemonic.Frint2,// Frint2
+			(ushort)Mnemonic.Frichop,// Frichop
+			(ushort)Mnemonic.Undoc,// Cyrix_DED8
+			(ushort)Mnemonic.Undoc,// Cyrix_DEDA
+			(ushort)Mnemonic.Undoc,// Cyrix_DEDC
+			(ushort)Mnemonic.Undoc,// Cyrix_DEDD
+			(ushort)Mnemonic.Undoc,// Cyrix_DEDE
+			(ushort)Mnemonic.Frinear,// Frinear
 		};
 	}
 }

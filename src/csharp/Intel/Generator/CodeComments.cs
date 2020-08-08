@@ -121,7 +121,7 @@ namespace Generator {
 				CpuidFeature.FPU287XL_ONLY => "287 XL",
 				CpuidFeature.FPU387 => "387+",
 				CpuidFeature.FPU387SL_ONLY => "387 SL",
-				CpuidFeature.GEODE => "AMD Geode LX/GX",
+				CpuidFeature.CYRIX_D3NOW => "AMD Geode GX/LX",
 				CpuidFeature.HLE_or_RTM => "HLE or RTM",
 				CpuidFeature.SKINIT_or_SVML => "SKINIT or SVML",
 				CpuidFeature.INVEPT => "VMX and IA32_VMX_EPT_VPID_CAP[bit 20]",
@@ -136,6 +136,14 @@ namespace Generator {
 				CpuidFeature.AMX_BF16 => "AMX-BF16",
 				CpuidFeature.AMX_TILE => "AMX-TILE",
 				CpuidFeature.AMX_INT8 => "AMX-INT8",
+				CpuidFeature.CYRIX_FPU => "Cyrix, AMD Geode GX/LX",
+				CpuidFeature.CYRIX_SMM => "Cyrix, AMD Geode GX/LX",
+				CpuidFeature.CYRIX_SMINT => "Cyrix 6x86MX+, AMD Geode GX/LX",
+				CpuidFeature.CYRIX_SMINT_6X86 => "Cyrix 6x86",
+				CpuidFeature.CYRIX_SHR => "Cyrix 6x86MX, M II, III",
+				CpuidFeature.CYRIX_DDI => "Cyrix MediaGX, GXm, GXLV, GX1",
+				CpuidFeature.CYRIX_DMI => "AMD Geode GX/LX",
+				CpuidFeature.CENTAUR_AIS => "Centaur AIS",
 				_ => c.RawName,
 			};
 	}

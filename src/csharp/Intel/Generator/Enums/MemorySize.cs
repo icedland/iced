@@ -114,6 +114,8 @@ namespace Generator.Enums {
 		Tilecfg,
 		[Comment("Tile data")]
 		Tile,
+		[Comment("80-bit segment descriptor and selector: 0-7 = descriptor, 8-9 = selector")]
+		SegmentDescSelector,
 		[Comment("16 bit location: 2 x #(t:u8)#")]
 		Packed16_UInt8,
 		[Comment("16 bit location: 2 x #(t:i8)#")]

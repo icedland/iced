@@ -141,6 +141,8 @@ namespace Generator {
 				"XOPAIndex" => "XOPA_INDEX",
 				"Handler66Reg" => "HANDLER_66_REG",
 				"Handler66Mem" => "HANDLER_66_MEM",
+				"Cyrix_SMINT_0F7E" => "CYRIX_SMINT_0F7E",
+				"DecoderOptions_Cyrix_SMINT_0F7E" => "DECODER_OPTIONS_CYRIX_SMINT_0F7E",
 				_ => ToScreamingSnakeCase(name),
 			};
 

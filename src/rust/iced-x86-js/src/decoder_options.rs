@@ -76,5 +76,13 @@ pub enum DecoderOptions {
 	NoLahfSahf64 = 0x0004_0000,
 	/// Decode `MPX` instructions
 	MPX = 0x0008_0000,
+	/// Decode most Cyrix instructions: `FPU`, `EMMI`, `SMM`, `DDI`
+	Cyrix = 0x0010_0000,
+	/// Decode Cyrix `SMINT 0F7E` (Cyrix 6x86)
+	Cyrix_SMINT_0F7E = 0x0020_0000,
+	/// Decode Cyrix `DMI` instructions (AMD Geode GX/LX)
+	Cyrix_DMI = 0x0040_0000,
+	/// Decode Centaur `ALTINST`
+	ALTINST = 0x0080_0000,
 }
 // GENERATOR-END: Enum

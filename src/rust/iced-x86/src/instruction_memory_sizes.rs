@@ -4268,6 +4268,47 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Tdpbssd_tmm_tmm_tmm
 	MemorySize::Unknown,// Fnstdw_AX
 	MemorySize::Unknown,// Fnstsg_AX
+	MemorySize::UInt32,// Rdshr_rm32
+	MemorySize::UInt32,// Wrshr_rm32
+	MemorySize::Unknown,// Smint
+	MemorySize::Unknown,// Dmint
+	MemorySize::Unknown,// Rdm
+	MemorySize::SegmentDescSelector,// Svdc_m80_Sreg
+	MemorySize::SegmentDescSelector,// Rsdc_Sreg_m80
+	MemorySize::SegmentDescSelector,// Svldt_m80
+	MemorySize::SegmentDescSelector,// Rsldt_m80
+	MemorySize::SegmentDescSelector,// Svts_m80
+	MemorySize::SegmentDescSelector,// Rsts_m80
+	MemorySize::Unknown,// Smint_0F7E
+	MemorySize::Unknown,// Bb0_reset
+	MemorySize::Unknown,// Bb1_reset
+	MemorySize::Unknown,// Cpu_write
+	MemorySize::Unknown,// Cpu_read
+	MemorySize::Unknown,// Altinst
+	MemorySize::Packed64_UInt8,// Paveb_mm_mmm64
+	MemorySize::Packed64_Int16,// Paddsiw_mm_mmm64
+	MemorySize::Packed64_UInt16,// Pmagw_mm_mmm64
+	MemorySize::Packed64_UInt8,// Pdistib_mm_m64
+	MemorySize::Packed64_Int16,// Psubsiw_mm_mmm64
+	MemorySize::Packed64_UInt8,// Pmvzb_mm_m64
+	MemorySize::Packed64_Int16,// Pmulhrw_mm_mmm64
+	MemorySize::Packed64_UInt8,// Pmvnzb_mm_m64
+	MemorySize::Packed64_Int8,// Pmvlzb_mm_m64
+	MemorySize::Packed64_Int8,// Pmvgezb_mm_m64
+	MemorySize::Packed64_Int16,// Pmulhriw_mm_mmm64
+	MemorySize::Packed64_UInt16,// Pmachriw_mm_m64
+	MemorySize::Unknown,// Cyrix_D9D7
+	MemorySize::Unknown,// Cyrix_D9E2
+	MemorySize::Unknown,// Ftstp
+	MemorySize::Unknown,// Cyrix_D9E7
+	MemorySize::Unknown,// Frint2
+	MemorySize::Unknown,// Frichop
+	MemorySize::Unknown,// Cyrix_DED8
+	MemorySize::Unknown,// Cyrix_DEDA
+	MemorySize::Unknown,// Cyrix_DEDC
+	MemorySize::Unknown,// Cyrix_DEDD
+	MemorySize::Unknown,// Cyrix_DEDE
+	MemorySize::Unknown,// Frinear
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8506,4 +8547,45 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Tdpbssd_tmm_tmm_tmm
 	MemorySize::Unknown,// Fnstdw_AX
 	MemorySize::Unknown,// Fnstsg_AX
+	MemorySize::Unknown,// Rdshr_rm32
+	MemorySize::Unknown,// Wrshr_rm32
+	MemorySize::Unknown,// Smint
+	MemorySize::Unknown,// Dmint
+	MemorySize::Unknown,// Rdm
+	MemorySize::Unknown,// Svdc_m80_Sreg
+	MemorySize::Unknown,// Rsdc_Sreg_m80
+	MemorySize::Unknown,// Svldt_m80
+	MemorySize::Unknown,// Rsldt_m80
+	MemorySize::Unknown,// Svts_m80
+	MemorySize::Unknown,// Rsts_m80
+	MemorySize::Unknown,// Smint_0F7E
+	MemorySize::Unknown,// Bb0_reset
+	MemorySize::Unknown,// Bb1_reset
+	MemorySize::Unknown,// Cpu_write
+	MemorySize::Unknown,// Cpu_read
+	MemorySize::Unknown,// Altinst
+	MemorySize::Unknown,// Paveb_mm_mmm64
+	MemorySize::Unknown,// Paddsiw_mm_mmm64
+	MemorySize::Unknown,// Pmagw_mm_mmm64
+	MemorySize::Unknown,// Pdistib_mm_m64
+	MemorySize::Unknown,// Psubsiw_mm_mmm64
+	MemorySize::Unknown,// Pmvzb_mm_m64
+	MemorySize::Unknown,// Pmulhrw_mm_mmm64
+	MemorySize::Unknown,// Pmvnzb_mm_m64
+	MemorySize::Unknown,// Pmvlzb_mm_m64
+	MemorySize::Unknown,// Pmvgezb_mm_m64
+	MemorySize::Unknown,// Pmulhriw_mm_mmm64
+	MemorySize::Unknown,// Pmachriw_mm_m64
+	MemorySize::Unknown,// Cyrix_D9D7
+	MemorySize::Unknown,// Cyrix_D9E2
+	MemorySize::Unknown,// Ftstp
+	MemorySize::Unknown,// Cyrix_D9E7
+	MemorySize::Unknown,// Frint2
+	MemorySize::Unknown,// Frichop
+	MemorySize::Unknown,// Cyrix_DED8
+	MemorySize::Unknown,// Cyrix_DEDA
+	MemorySize::Unknown,// Cyrix_DEDC
+	MemorySize::Unknown,// Cyrix_DEDD
+	MemorySize::Unknown,// Cyrix_DEDE
+	MemorySize::Unknown,// Frinear
 ];

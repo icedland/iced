@@ -159,6 +159,55 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			case Code.Ud0:
 				decoderOptions = DecoderOptions.AMD;
 				break;
+			case Code.Rdshr_rm32:
+			case Code.Wrshr_rm32:
+			case Code.Smint:
+			case Code.Svdc_m80_Sreg:
+			case Code.Rsdc_Sreg_m80:
+			case Code.Svldt_m80:
+			case Code.Rsldt_m80:
+			case Code.Svts_m80:
+			case Code.Rsts_m80:
+			case Code.Bb0_reset:
+			case Code.Bb1_reset:
+			case Code.Cpu_write:
+			case Code.Cpu_read:
+			case Code.Paveb_mm_mmm64:
+			case Code.Paddsiw_mm_mmm64:
+			case Code.Pmagw_mm_mmm64:
+			case Code.Pdistib_mm_m64:
+			case Code.Psubsiw_mm_mmm64:
+			case Code.Pmvzb_mm_m64:
+			case Code.Pmulhrw_mm_mmm64:
+			case Code.Pmvnzb_mm_m64:
+			case Code.Pmvlzb_mm_m64:
+			case Code.Pmvgezb_mm_m64:
+			case Code.Pmulhriw_mm_mmm64:
+			case Code.Pmachriw_mm_m64:
+			case Code.Cyrix_D9D7:
+			case Code.Cyrix_D9E2:
+			case Code.Ftstp:
+			case Code.Cyrix_D9E7:
+			case Code.Frint2:
+			case Code.Frichop:
+			case Code.Cyrix_DED8:
+			case Code.Cyrix_DEDA:
+			case Code.Cyrix_DEDC:
+			case Code.Cyrix_DEDD:
+			case Code.Cyrix_DEDE:
+			case Code.Frinear:
+				decoderOptions = DecoderOptions.Cyrix;
+				break;
+			case Code.Dmint:
+			case Code.Rdm:
+				decoderOptions = DecoderOptions.Cyrix_DMI;
+				break;
+			case Code.Smint_0F7E:
+				decoderOptions = DecoderOptions.Cyrix_SMINT_0F7E;
+				break;
+			case Code.Altinst:
+				decoderOptions = DecoderOptions.ALTINST;
+				break;
 			}
 
 			// Check decoding back against the original instruction

@@ -101,6 +101,7 @@ namespace Iced.Intel {
 				(byte)MemorySize.Bcd, (byte)((uint)SizeKind.S10 | ((uint)SizeKind.S10 << 4)), 1,
 				(byte)MemorySize.Tilecfg, (byte)((uint)SizeKind.S64 | ((uint)SizeKind.S64 << 4)), 0,
 				(byte)MemorySize.Tile, (byte)((uint)SizeKind.S0 | ((uint)SizeKind.S0 << 4)), 0,
+				(byte)MemorySize.SegmentDescSelector, (byte)((uint)SizeKind.S10 | ((uint)SizeKind.S10 << 4)), 0,
 				(byte)MemorySize.UInt8, (byte)((uint)SizeKind.S2 | ((uint)SizeKind.S1 << 4)), 0,
 				(byte)MemorySize.Int8, (byte)((uint)SizeKind.S2 | ((uint)SizeKind.S1 << 4)), 1,
 				(byte)MemorySize.UInt8, (byte)((uint)SizeKind.S4 | ((uint)SizeKind.S1 << 4)), 0,

@@ -153,8 +153,8 @@ namespace Iced.Intel {
 		FSGSBASE = 60,
 		/// <summary>CPUID.01H:EDX.FXSR[bit 24]</summary>
 		FXSR = 61,
-		/// <summary>AMD Geode LX/GX CPU</summary>
-		GEODE = 62,
+		/// <summary>Cyrix (AMD Geode GX/LX) 3DNow! instructions</summary>
+		CYRIX_D3NOW = 62,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.GFNI[bit 8]</summary>
 		GFNI = 63,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EBX.HLE[bit 4]</summary>
@@ -303,6 +303,24 @@ namespace Iced.Intel {
 		AMX_TILE = 135,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AMX-INT8[bit 25]</summary>
 		AMX_INT8 = 136,
+		/// <summary>Cyrix FPU instructions (Cyrix, AMD Geode GX/LX)</summary>
+		CYRIX_FPU = 137,
+		/// <summary>Cyrix SMM instructions: <c>SVDC</c>, <c>RSDC</c>, <c>SVLDT</c>, <c>RSLDT</c>, <c>SVTS</c>, <c>RSTS</c> (Cyrix, AMD Geode GX/LX)</summary>
+		CYRIX_SMM = 138,
+		/// <summary>Cyrix <c>SMINT 0F38</c> (6x86MX and later, AMD Geode GX/LX)</summary>
+		CYRIX_SMINT = 139,
+		/// <summary>Cyrix <c>SMINT 0F7E</c> (6x86)</summary>
+		CYRIX_SMINT_6X86 = 140,
+		/// <summary>Cyrix SMM instructions: <c>RDSHR</c>, <c>WRSHR</c> (6x86MX, M II, Cyrix III)</summary>
+		CYRIX_SHR = 141,
+		/// <summary>Cyrix DDI instructions: <c>BB0_Reset</c>, <c>BB1_Reset</c>, <c>CPU_READ</c>, <c>CPU_WRITE</c> (MediaGX, GXm, GXLV, GX1)</summary>
+		CYRIX_DDI = 142,
+		/// <summary>Cyrix AND CPUID.80000001H:EDX.EMMI[bit 24]</summary>
+		CYRIX_EMMI = 143,
+		/// <summary>Cyrix DMI instructions: <c>DMINT</c>, <c>RDM</c> (AMD Geode GX/LX)</summary>
+		CYRIX_DMI = 144,
+		/// <summary>CPUID.0C0000000H:EAX &gt;= 0C0000001H AND CPUID.0C0000001H:EDX.AIS[Bits 1:0] = 11B ([0] = exists, [1] = enabled)</summary>
+		CENTAUR_AIS = 145,
 	}
 }
 #endif

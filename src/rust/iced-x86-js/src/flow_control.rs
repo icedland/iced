@@ -37,13 +37,13 @@ pub enum FlowControl {
 	IndirectBranch = 2,
 	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`
 	ConditionalBranch = 3,
-	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`
+	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`, `RDM`
 	Return = 4,
 	/// It's a call instruction: `CALL NEAR`, `CALL FAR`, `SYSCALL`, `SYSENTER`, `VMCALL`, `VMMCALL`, `VMGEXIT`
 	Call = 5,
 	/// It's an indirect call instruction: `CALL NEAR reg`, `CALL NEAR [mem]`, `CALL FAR [mem]`
 	IndirectCall = 6,
-	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`
+	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`, `SMINT`, `DMINT`
 	Interrupt = 7,
 	/// It's `XBEGIN`, `XABORT`, `XEND`, `XSUSLDTRK`, `XRESLDTRK`
 	XbeginXabortXend = 8,

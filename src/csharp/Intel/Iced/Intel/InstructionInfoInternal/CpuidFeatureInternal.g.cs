@@ -103,7 +103,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		FPU387SL_ONLY,
 		FSGSBASE,
 		FXSR,
-		GEODE,
+		CYRIX_D3NOW,
 		GFNI,
 		AVX_and_GFNI,
 		AVX512F_and_GFNI,
@@ -184,6 +184,15 @@ namespace Iced.Intel.InstructionInfoInternal {
 		AMX_BF16,
 		AMX_TILE,
 		AMX_INT8,
+		CYRIX_FPU,
+		CYRIX_SMM,
+		CYRIX_SMINT,
+		CYRIX_SMINT_6X86,
+		CYRIX_SHR,
+		CYRIX_DDI,
+		CYRIX_EMMI,
+		CYRIX_DMI,
+		CENTAUR_AIS,
 	}
 }
 #endif

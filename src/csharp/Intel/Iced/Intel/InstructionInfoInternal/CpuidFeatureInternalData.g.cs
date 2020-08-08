@@ -55,6 +55,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x33,
 				0x00,
 				0x00,
+				0x00,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -131,7 +132,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x3B,// FPU387SL_ONLY
 				0x3C,// FSGSBASE
 				0x3D,// FXSR
-				0x3E,// GEODE
+				0x3E,// CYRIX_D3NOW
 				0x3F,// GFNI
 				0x0F, 0x3F,// AVX_and_GFNI
 				0x1F, 0x3F,// AVX512F_and_GFNI
@@ -212,6 +213,15 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x86,// AMX_BF16
 				0x87,// AMX_TILE
 				0x88,// AMX_INT8
+				0x89,// CYRIX_FPU
+				0x8A,// CYRIX_SMM
+				0x8B,// CYRIX_SMINT
+				0x8C,// CYRIX_SMINT_6X86
+				0x8D,// CYRIX_SHR
+				0x8E,// CYRIX_DDI
+				0x8F,// CYRIX_EMMI
+				0x90,// CYRIX_DMI
+				0x91,// CENTAUR_AIS
 			};
 	}
 }

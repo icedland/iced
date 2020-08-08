@@ -78,6 +78,14 @@ namespace Iced.Intel {
 		NoLahfSahf64 = 0x00040000,
 		/// <summary>Decode <c>MPX</c> instructions</summary>
 		MPX = 0x00080000,
+		/// <summary>Decode most Cyrix instructions: <c>FPU</c>, <c>EMMI</c>, <c>SMM</c>, <c>DDI</c></summary>
+		Cyrix = 0x00100000,
+		/// <summary>Decode Cyrix <c>SMINT 0F7E</c> (Cyrix 6x86)</summary>
+		Cyrix_SMINT_0F7E = 0x00200000,
+		/// <summary>Decode Cyrix <c>DMI</c> instructions (AMD Geode GX/LX)</summary>
+		Cyrix_DMI = 0x00400000,
+		/// <summary>Decode Centaur <c>ALTINST</c></summary>
+		ALTINST = 0x00800000,
 	}
 }
 #endif

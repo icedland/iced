@@ -346,11 +346,70 @@ impl OpCodeHandler_RM {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(super) struct OpCodeHandler_Options1632 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	default_handler: &'static OpCodeHandler,
+	infos: [(&'static OpCodeHandler, u32); 2],
+	info_options: u32,
+}
+
+impl OpCodeHandler_Options1632 {
+	#[allow(trivial_casts)]
+	pub(super) fn new(default_handler: *const OpCodeHandler, handler1: *const OpCodeHandler, options1: u32) -> Self {
+		assert!(!is_null_instance_handler(default_handler));
+		assert!(!is_null_instance_handler(handler1));
+		Self {
+			decode: OpCodeHandler_Options1632::decode,
+			has_modrm: false,
+			default_handler: unsafe { &*default_handler },
+			infos: [(unsafe { &*handler1 }, options1), (unsafe { &*(&INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler) }, 0)],
+			info_options: options1,
+		}
+	}
+
+	pub(super) fn new2(
+		default_handler: *const OpCodeHandler, handler1: *const OpCodeHandler, options1: u32, handler2: *const OpCodeHandler, options2: u32,
+	) -> Self {
+		assert!(!is_null_instance_handler(default_handler));
+		assert!(!is_null_instance_handler(handler1));
+		assert!(!is_null_instance_handler(handler2));
+		Self {
+			decode: OpCodeHandler_Options1632::decode,
+			has_modrm: false,
+			default_handler: unsafe { &*default_handler },
+			infos: [(unsafe { &*handler1 }, options1), (unsafe { &*handler2 }, options2)],
+			info_options: options1 | options2,
+		}
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		let mut handler = this.default_handler;
+		let options = decoder.options;
+		if !decoder.is64_mode && (decoder.options & this.info_options) != 0 {
+			for info in &this.infos {
+				if (options & info.1) != 0 {
+					handler = info.0;
+					break;
+				}
+			}
+		}
+		if handler.has_modrm {
+			decoder.read_modrm();
+		}
+		(handler.decode)(handler, decoder, instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(super) struct OpCodeHandler_Options {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
 	default_handler: &'static OpCodeHandler,
 	infos: [(&'static OpCodeHandler, u32); 2],
+	info_options: u32,
 }
 
 impl OpCodeHandler_Options {
@@ -363,6 +422,7 @@ impl OpCodeHandler_Options {
 			has_modrm: false,
 			default_handler: unsafe { &*default_handler },
 			infos: [(unsafe { &*handler1 }, options1), (unsafe { &*(&INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler) }, 0)],
+			info_options: options1,
 		}
 	}
 
@@ -377,6 +437,7 @@ impl OpCodeHandler_Options {
 			has_modrm: false,
 			default_handler: unsafe { &*default_handler },
 			infos: [(unsafe { &*handler1 }, options1), (unsafe { &*handler2 }, options2)],
+			info_options: options1 | options2,
 		}
 	}
 
@@ -384,10 +445,12 @@ impl OpCodeHandler_Options {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut handler = this.default_handler;
 		let options = decoder.options;
-		for info in &this.infos {
-			if (options & info.1) != 0 {
-				handler = info.0;
-				break;
+		if (decoder.options & this.info_options) != 0 {
+			for info in &this.infos {
+				if (options & info.1) != 0 {
+					handler = info.0;
+					break;
+				}
 			}
 		}
 		if handler.has_modrm {

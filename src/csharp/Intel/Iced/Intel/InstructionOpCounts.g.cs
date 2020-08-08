@@ -4270,6 +4270,47 @@ namespace Iced.Intel {
 			3,// VEX_Tdpbssd_tmm_tmm_tmm
 			1,// Fnstdw_AX
 			1,// Fnstsg_AX
+			1,// Rdshr_rm32
+			1,// Wrshr_rm32
+			0,// Smint
+			0,// Dmint
+			0,// Rdm
+			2,// Svdc_m80_Sreg
+			2,// Rsdc_Sreg_m80
+			1,// Svldt_m80
+			1,// Rsldt_m80
+			1,// Svts_m80
+			1,// Rsts_m80
+			0,// Smint_0F7E
+			0,// Bb0_reset
+			0,// Bb1_reset
+			0,// Cpu_write
+			0,// Cpu_read
+			0,// Altinst
+			2,// Paveb_mm_mmm64
+			2,// Paddsiw_mm_mmm64
+			2,// Pmagw_mm_mmm64
+			2,// Pdistib_mm_m64
+			2,// Psubsiw_mm_mmm64
+			2,// Pmvzb_mm_m64
+			2,// Pmulhrw_mm_mmm64
+			2,// Pmvnzb_mm_m64
+			2,// Pmvlzb_mm_m64
+			2,// Pmvgezb_mm_m64
+			2,// Pmulhriw_mm_mmm64
+			2,// Pmachriw_mm_m64
+			0,// Cyrix_D9D7
+			0,// Cyrix_D9E2
+			0,// Ftstp
+			0,// Cyrix_D9E7
+			0,// Frint2
+			0,// Frichop
+			0,// Cyrix_DED8
+			0,// Cyrix_DEDA
+			0,// Cyrix_DEDC
+			0,// Cyrix_DEDD
+			0,// Cyrix_DEDE
+			0,// Frinear
 		};
 	}
 }

@@ -692,3 +692,52 @@ invlpgb ax
 invlpgb eax
 tlbsync
 cl1invmb
+rdshr [eax]
+rdshr edx
+wrshr [eax]
+wrshr edx
+smint
+dmint
+rdm
+svdc [eax],cs
+rsdc cs,[eax]
+svldt [eax]
+rsldt [eax]
+svts [eax]
+rsts [eax]
+smint
+bb0_reset
+bb1_reset
+cpu_write
+cpu_read
+altinst
+paveb mm1,[eax]
+paveb mm1,mm5
+paddsiw mm1,[eax]
+paddsiw mm1,mm5
+pmagw mm1,[eax]
+pmagw mm1,mm5
+pdistib mm1,[eax]
+psubsiw mm1,[eax]
+psubsiw mm1,mm5
+pmvzb mm1,[eax]
+pmulhrw mm1,[eax]
+pmulhrw mm1,mm5
+pmvnzb mm1,[eax]
+pmvlzb mm1,[eax]
+pmvgezb mm1,[eax]
+pmulhriw mm1,[eax]
+pmulhriw mm1,mm5
+pmachriw mm1,[eax]
+undoc
+undoc
+ftstp
+undoc
+frint2
+frichop
+undoc
+undoc
+undoc
+undoc
+undoc
+frinear

@@ -692,3 +692,52 @@ invlpgb
 invlpgb
 tlbsync
 cl1invmb
+rdshr dword ptr [eax]
+rdshr edx
+wrshr dword ptr [eax]
+wrshr edx
+smint
+dmint
+rdm
+svdc tbyte ptr [eax], cs
+rsdc cs, tbyte ptr [eax]
+svldt tbyte ptr [eax]
+rsldt tbyte ptr [eax]
+svts tbyte ptr [eax]
+rsts tbyte ptr [eax]
+smint
+bb0_reset
+bb1_reset
+cpu_write
+cpu_read
+altinst
+paveb mm1, qword ptr [eax]
+paveb mm1, mm5
+paddsiw mm1, qword ptr [eax]
+paddsiw mm1, mm5
+pmagw mm1, qword ptr [eax]
+pmagw mm1, mm5
+pdistib mm1, qword ptr [eax]
+psubsiw mm1, qword ptr [eax]
+psubsiw mm1, mm5
+pmvzb mm1, qword ptr [eax]
+pmulhrw mm1, qword ptr [eax]
+pmulhrw mm1, mm5
+pmvnzb mm1, qword ptr [eax]
+pmvlzb mm1, qword ptr [eax]
+pmvgezb mm1, qword ptr [eax]
+pmulhriw mm1, qword ptr [eax]
+pmulhriw mm1, mm5
+pmachriw mm1, qword ptr [eax]
+undoc
+undoc
+ftstp
+undoc
+frint2
+frichop
+undoc
+undoc
+undoc
+undoc
+undoc
+frinear

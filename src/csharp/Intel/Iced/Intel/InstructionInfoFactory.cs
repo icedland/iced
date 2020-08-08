@@ -2095,6 +2095,54 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.R_EAX:
+				if ((flags & Flags.NoRegisterUsage) == 0)
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+				break;
+
+			case CodeInfo.EMMI_R_ImpliedReg:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					if (instruction.Op0Kind == OpKind.Register) {
+						var reg = instruction.Op0Register;
+						if (reg >= Register.MM0 && reg <= Register.MM7) {
+							reg = ((reg - Register.MM0) ^ 1) + Register.MM0;
+							AddRegister(flags, reg, OpAccess.Read);
+						}
+					}
+				}
+				break;
+
+			case CodeInfo.EMMI_W_ImpliedReg:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					if (instruction.Op0Kind == OpKind.Register) {
+						var reg = instruction.Op0Register;
+						if (reg >= Register.MM0 && reg <= Register.MM7) {
+							reg = ((reg - Register.MM0) ^ 1) + Register.MM0;
+							AddRegister(flags, reg, OpAccess.Write);
+						}
+					}
+				}
+				break;
+
+			case CodeInfo.EMMI_RW_ImpliedReg:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					if (instruction.Op0Kind == OpKind.Register) {
+						var reg = instruction.Op0Register;
+						if (reg >= Register.MM0 && reg <= Register.MM7) {
+							reg = ((reg - Register.MM0) ^ 1) + Register.MM0;
+							AddRegister(flags, reg, OpAccess.ReadWrite);
+						}
+					}
+				}
+				break;
+
+			case CodeInfo.CPURW:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, instruction.Code == Code.Cpu_write ? OpAccess.Read : OpAccess.Write);
+					AddRegister(flags, Register.EBX, OpAccess.Read);
+				}
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

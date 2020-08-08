@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[8476] {
+		internal static readonly uint[] Data = new uint[8558] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -4267,6 +4267,47 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x200000B6, 0x9B000001,// VEX_Tdpbssd_tmm_tmm_tmm
 			0x00000007, 0x48000000,// Fnstdw_AX
 			0x00000007, 0x48000000,// Fnstsg_AX
+			0x40000007, 0xA0000000,// Rdshr_rm32
+			0x40000004, 0xA0000000,// Wrshr_rm32
+			0x40000000, 0x9E700000,// Smint
+			0x40000000, 0xA3700000,// Dmint
+			0x4808C000, 0xA3400000,// Rdm
+			0x40000037, 0x9D000000,// Svdc_m80_Sreg
+			0x40000037, 0x9D000000,// Rsdc_Sreg_m80
+			0x40000007, 0x9D000000,// Svldt_m80
+			0x40000004, 0x9D000000,// Rsldt_m80
+			0x40000007, 0x9D000000,// Svts_m80
+			0x40000004, 0x9D000000,// Rsts_m80
+			0x40000000, 0x9F700000,// Smint_0F7E
+			0x40000000, 0xA1000000,// Bb0_reset
+			0x40000000, 0xA1000000,// Bb1_reset
+			0x46D00000, 0xA1000000,// Cpu_write
+			0x46D00000, 0xA1000000,// Cpu_read
+			0x06900000, 0xA4100000,// Altinst
+			0x00000036, 0xA2000000,// Paveb_mm_mmm64
+			0x06B00034, 0xA2000000,// Paddsiw_mm_mmm64
+			0x00000035, 0xA2000000,// Pmagw_mm_mmm64
+			0x06C00034, 0xA2000000,// Pdistib_mm_m64
+			0x06B00034, 0xA2000000,// Psubsiw_mm_mmm64
+			0x06A00035, 0xA2000000,// Pmvzb_mm_m64
+			0x00000036, 0xA2000000,// Pmulhrw_mm_mmm64
+			0x06A00035, 0xA2000000,// Pmvnzb_mm_m64
+			0x06A00035, 0xA2000000,// Pmvlzb_mm_m64
+			0x06A00035, 0xA2000000,// Pmvgezb_mm_m64
+			0x06B00034, 0xA2000000,// Pmulhriw_mm_mmm64
+			0x06C00034, 0xA2000000,// Pmachriw_mm_m64
+			0x00000000, 0x9C000000,// Cyrix_D9D7
+			0x00000000, 0x9C000000,// Cyrix_D9E2
+			0x03B00000, 0x9C000000,// Ftstp
+			0x00000000, 0x9C000000,// Cyrix_D9E7
+			0x04900000, 0x9C000000,// Frint2
+			0x04900000, 0x9C000000,// Frichop
+			0x00000000, 0x9C000000,// Cyrix_DED8
+			0x00000000, 0x9C000000,// Cyrix_DEDA
+			0x00000000, 0x9C000000,// Cyrix_DEDC
+			0x00000000, 0x9C000000,// Cyrix_DEDD
+			0x00000000, 0x9C000000,// Cyrix_DEDE
+			0x04900000, 0x9C000000,// Frinear
 		};
 	}
 }

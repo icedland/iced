@@ -120,192 +120,194 @@ pub enum MemorySize {
 	Tilecfg = 43,
 	/// Tile data
 	Tile = 44,
+	/// 80-bit segment descriptor and selector: 0-7 = descriptor, 8-9 = selector
+	SegmentDescSelector = 45,
 	/// 16 bit location: 2 x `u8`
-	Packed16_UInt8 = 45,
+	Packed16_UInt8 = 46,
 	/// 16 bit location: 2 x `i8`
-	Packed16_Int8 = 46,
+	Packed16_Int8 = 47,
 	/// 32 bit location: 4 x `u8`
-	Packed32_UInt8 = 47,
+	Packed32_UInt8 = 48,
 	/// 32 bit location: 4 x `i8`
-	Packed32_Int8 = 48,
+	Packed32_Int8 = 49,
 	/// 32 bit location: 2 x `u16`
-	Packed32_UInt16 = 49,
+	Packed32_UInt16 = 50,
 	/// 32 bit location: 2 x `i16`
-	Packed32_Int16 = 50,
+	Packed32_Int16 = 51,
 	/// 32 bit location: 2 x `bfloat16`
-	Packed32_BFloat16 = 51,
+	Packed32_BFloat16 = 52,
 	/// 64-bit location: 8 x `u8`
-	Packed64_UInt8 = 52,
+	Packed64_UInt8 = 53,
 	/// 64-bit location: 8 x `i8`
-	Packed64_Int8 = 53,
+	Packed64_Int8 = 54,
 	/// 64-bit location: 4 x `u16`
-	Packed64_UInt16 = 54,
+	Packed64_UInt16 = 55,
 	/// 64-bit location: 4 x `i16`
-	Packed64_Int16 = 55,
+	Packed64_Int16 = 56,
 	/// 64-bit location: 2 x `u32`
-	Packed64_UInt32 = 56,
+	Packed64_UInt32 = 57,
 	/// 64-bit location: 2 x `i32`
-	Packed64_Int32 = 57,
+	Packed64_Int32 = 58,
 	/// 64-bit location: 4 x `f16`
-	Packed64_Float16 = 58,
+	Packed64_Float16 = 59,
 	/// 64-bit location: 2 x `f32`
-	Packed64_Float32 = 59,
+	Packed64_Float32 = 60,
 	/// 128 bit location: 16 x `u8`
-	Packed128_UInt8 = 60,
+	Packed128_UInt8 = 61,
 	/// 128 bit location: 16 x `i8`
-	Packed128_Int8 = 61,
+	Packed128_Int8 = 62,
 	/// 128 bit location: 8 x `u16`
-	Packed128_UInt16 = 62,
+	Packed128_UInt16 = 63,
 	/// 128 bit location: 8 x `i16`
-	Packed128_Int16 = 63,
+	Packed128_Int16 = 64,
 	/// 128 bit location: 4 x `u32`
-	Packed128_UInt32 = 64,
+	Packed128_UInt32 = 65,
 	/// 128 bit location: 4 x `i32`
-	Packed128_Int32 = 65,
+	Packed128_Int32 = 66,
 	/// 128 bit location: 2 x `u52`
-	Packed128_UInt52 = 66,
+	Packed128_UInt52 = 67,
 	/// 128 bit location: 2 x `u64`
-	Packed128_UInt64 = 67,
+	Packed128_UInt64 = 68,
 	/// 128 bit location: 2 x `i64`
-	Packed128_Int64 = 68,
+	Packed128_Int64 = 69,
 	/// 128 bit location: 8 x `f16`
-	Packed128_Float16 = 69,
+	Packed128_Float16 = 70,
 	/// 128 bit location: 4 x `f32`
-	Packed128_Float32 = 70,
+	Packed128_Float32 = 71,
 	/// 128 bit location: 2 x `f64`
-	Packed128_Float64 = 71,
+	Packed128_Float64 = 72,
 	/// 128 bit location: 4 x (2 x `bfloat16`)
-	Packed128_2xBFloat16 = 72,
+	Packed128_2xBFloat16 = 73,
 	/// 256 bit location: 32 x `u8`
-	Packed256_UInt8 = 73,
+	Packed256_UInt8 = 74,
 	/// 256 bit location: 32 x `i8`
-	Packed256_Int8 = 74,
+	Packed256_Int8 = 75,
 	/// 256 bit location: 16 x `u16`
-	Packed256_UInt16 = 75,
+	Packed256_UInt16 = 76,
 	/// 256 bit location: 16 x `i16`
-	Packed256_Int16 = 76,
+	Packed256_Int16 = 77,
 	/// 256 bit location: 8 x `u32`
-	Packed256_UInt32 = 77,
+	Packed256_UInt32 = 78,
 	/// 256 bit location: 8 x `i32`
-	Packed256_Int32 = 78,
+	Packed256_Int32 = 79,
 	/// 256 bit location: 4 x `u52`
-	Packed256_UInt52 = 79,
+	Packed256_UInt52 = 80,
 	/// 256 bit location: 4 x `u64`
-	Packed256_UInt64 = 80,
+	Packed256_UInt64 = 81,
 	/// 256 bit location: 4 x `i64`
-	Packed256_Int64 = 81,
+	Packed256_Int64 = 82,
 	/// 256 bit location: 2 x `u128`
-	Packed256_UInt128 = 82,
+	Packed256_UInt128 = 83,
 	/// 256 bit location: 2 x `i128`
-	Packed256_Int128 = 83,
+	Packed256_Int128 = 84,
 	/// 256 bit location: 16 x `f16`
-	Packed256_Float16 = 84,
+	Packed256_Float16 = 85,
 	/// 256 bit location: 8 x `f32`
-	Packed256_Float32 = 85,
+	Packed256_Float32 = 86,
 	/// 256 bit location: 4 x `f64`
-	Packed256_Float64 = 86,
+	Packed256_Float64 = 87,
 	/// 256 bit location: 2 x `f128`
-	Packed256_Float128 = 87,
+	Packed256_Float128 = 88,
 	/// 256 bit location: 8 x (2 x `bfloat16`)
-	Packed256_2xBFloat16 = 88,
+	Packed256_2xBFloat16 = 89,
 	/// 512 bit location: 64 x `u8`
-	Packed512_UInt8 = 89,
+	Packed512_UInt8 = 90,
 	/// 512 bit location: 64 x `i8`
-	Packed512_Int8 = 90,
+	Packed512_Int8 = 91,
 	/// 512 bit location: 32 x `u16`
-	Packed512_UInt16 = 91,
+	Packed512_UInt16 = 92,
 	/// 512 bit location: 32 x `i16`
-	Packed512_Int16 = 92,
+	Packed512_Int16 = 93,
 	/// 512 bit location: 16 x `u32`
-	Packed512_UInt32 = 93,
+	Packed512_UInt32 = 94,
 	/// 512 bit location: 16 x `i32`
-	Packed512_Int32 = 94,
+	Packed512_Int32 = 95,
 	/// 512 bit location: 8 x `u52`
-	Packed512_UInt52 = 95,
+	Packed512_UInt52 = 96,
 	/// 512 bit location: 8 x `u64`
-	Packed512_UInt64 = 96,
+	Packed512_UInt64 = 97,
 	/// 512 bit location: 8 x `i64`
-	Packed512_Int64 = 97,
+	Packed512_Int64 = 98,
 	/// 256 bit location: 4 x `u128`
-	Packed512_UInt128 = 98,
+	Packed512_UInt128 = 99,
 	/// 512 bit location: 16 x `f32`
-	Packed512_Float32 = 99,
+	Packed512_Float32 = 100,
 	/// 512 bit location: 8 x `f64`
-	Packed512_Float64 = 100,
+	Packed512_Float64 = 101,
 	/// 512 bit location: 16 x (2 x `bfloat16`)
-	Packed512_2xBFloat16 = 101,
+	Packed512_2xBFloat16 = 102,
 	/// Broadcast `u32` to 64 bits
-	Broadcast64_UInt32 = 102,
+	Broadcast64_UInt32 = 103,
 	/// Broadcast `i32` to 64 bits
-	Broadcast64_Int32 = 103,
+	Broadcast64_Int32 = 104,
 	/// Broadcast `f32` to 64 bits
-	Broadcast64_Float32 = 104,
+	Broadcast64_Float32 = 105,
 	/// Broadcast `u32` to 128 bits
-	Broadcast128_UInt32 = 105,
+	Broadcast128_UInt32 = 106,
 	/// Broadcast `i32` to 128 bits
-	Broadcast128_Int32 = 106,
+	Broadcast128_Int32 = 107,
 	/// Broadcast `u52` to 128 bits
-	Broadcast128_UInt52 = 107,
+	Broadcast128_UInt52 = 108,
 	/// Broadcast `u64` to 128 bits
-	Broadcast128_UInt64 = 108,
+	Broadcast128_UInt64 = 109,
 	/// Broadcast `i64` to 128 bits
-	Broadcast128_Int64 = 109,
+	Broadcast128_Int64 = 110,
 	/// Broadcast `f32` to 128 bits
-	Broadcast128_Float32 = 110,
+	Broadcast128_Float32 = 111,
 	/// Broadcast `f64` to 128 bits
-	Broadcast128_Float64 = 111,
+	Broadcast128_Float64 = 112,
 	/// Broadcast `u32` to 256 bits
-	Broadcast256_UInt32 = 112,
+	Broadcast256_UInt32 = 113,
 	/// Broadcast `i32` to 256 bits
-	Broadcast256_Int32 = 113,
+	Broadcast256_Int32 = 114,
 	/// Broadcast `u52` to 256 bits
-	Broadcast256_UInt52 = 114,
+	Broadcast256_UInt52 = 115,
 	/// Broadcast `u64` to 256 bits
-	Broadcast256_UInt64 = 115,
+	Broadcast256_UInt64 = 116,
 	/// Broadcast `i64` to 256 bits
-	Broadcast256_Int64 = 116,
+	Broadcast256_Int64 = 117,
 	/// Broadcast `f32` to 256 bits
-	Broadcast256_Float32 = 117,
+	Broadcast256_Float32 = 118,
 	/// Broadcast `f64` to 256 bits
-	Broadcast256_Float64 = 118,
+	Broadcast256_Float64 = 119,
 	/// Broadcast `u32` to 512 bits
-	Broadcast512_UInt32 = 119,
+	Broadcast512_UInt32 = 120,
 	/// Broadcast `i32` to 512 bits
-	Broadcast512_Int32 = 120,
+	Broadcast512_Int32 = 121,
 	/// Broadcast `u52` to 512 bits
-	Broadcast512_UInt52 = 121,
+	Broadcast512_UInt52 = 122,
 	/// Broadcast `u64` to 512 bits
-	Broadcast512_UInt64 = 122,
+	Broadcast512_UInt64 = 123,
 	/// Broadcast `i64` to 512 bits
-	Broadcast512_Int64 = 123,
+	Broadcast512_Int64 = 124,
 	/// Broadcast `f32` to 512 bits
-	Broadcast512_Float32 = 124,
+	Broadcast512_Float32 = 125,
 	/// Broadcast `f64` to 512 bits
-	Broadcast512_Float64 = 125,
+	Broadcast512_Float64 = 126,
 	/// Broadcast 2 x `i16` to 128 bits
-	Broadcast128_2xInt16 = 126,
+	Broadcast128_2xInt16 = 127,
 	/// Broadcast 2 x `i16` to 256 bits
-	Broadcast256_2xInt16 = 127,
+	Broadcast256_2xInt16 = 128,
 	/// Broadcast 2 x `i16` to 512 bits
-	Broadcast512_2xInt16 = 128,
+	Broadcast512_2xInt16 = 129,
 	/// Broadcast 2 x `u32` to 128 bits
-	Broadcast128_2xUInt32 = 129,
+	Broadcast128_2xUInt32 = 130,
 	/// Broadcast 2 x `u32` to 256 bits
-	Broadcast256_2xUInt32 = 130,
+	Broadcast256_2xUInt32 = 131,
 	/// Broadcast 2 x `u32` to 512 bits
-	Broadcast512_2xUInt32 = 131,
+	Broadcast512_2xUInt32 = 132,
 	/// Broadcast 2 x `i32` to 128 bits
-	Broadcast128_2xInt32 = 132,
+	Broadcast128_2xInt32 = 133,
 	/// Broadcast 2 x `i32` to 256 bits
-	Broadcast256_2xInt32 = 133,
+	Broadcast256_2xInt32 = 134,
 	/// Broadcast 2 x `i32` to 512 bits
-	Broadcast512_2xInt32 = 134,
+	Broadcast512_2xInt32 = 135,
 	/// Broadcast 2 x `bfloat16` to 128 bits
-	Broadcast128_2xBFloat16 = 135,
+	Broadcast128_2xBFloat16 = 136,
 	/// Broadcast 2 x `bfloat16` to 256 bits
-	Broadcast256_2xBFloat16 = 136,
+	Broadcast256_2xBFloat16 = 137,
 	/// Broadcast 2 x `bfloat16` to 512 bits
-	Broadcast512_2xBFloat16 = 137,
+	Broadcast512_2xBFloat16 = 138,
 }
 // GENERATOR-END: Enum
 

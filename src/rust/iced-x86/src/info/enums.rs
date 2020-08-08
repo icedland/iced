@@ -421,10 +421,15 @@ pub(crate) enum CodeInfo {
 	Arpl,
 	Lea,
 	Tilerelease,
+	R_EAX,
+	EMMI_R_ImpliedReg,
+	EMMI_W_ImpliedReg,
+	EMMI_RW_ImpliedReg,
+	CPURW,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 105] = [
+static GEN_DEBUG_CODE_INFO: [&str; 110] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -530,6 +535,11 @@ static GEN_DEBUG_CODE_INFO: [&str; 105] = [
 	"Arpl",
 	"Lea",
 	"Tilerelease",
+	"R_EAX",
+	"EMMI_R_ImpliedReg",
+	"EMMI_W_ImpliedReg",
+	"EMMI_RW_ImpliedReg",
+	"CPURW",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -779,7 +789,7 @@ pub(crate) enum CpuidFeatureInternal {
 	FPU387SL_ONLY,
 	FSGSBASE,
 	FXSR,
-	GEODE,
+	CYRIX_D3NOW,
 	GFNI,
 	AVX_and_GFNI,
 	AVX512F_and_GFNI,
@@ -860,10 +870,19 @@ pub(crate) enum CpuidFeatureInternal {
 	AMX_BF16,
 	AMX_TILE,
 	AMX_INT8,
+	CYRIX_FPU,
+	CYRIX_SMM,
+	CYRIX_SMINT,
+	CYRIX_SMINT_6X86,
+	CYRIX_SHR,
+	CYRIX_DDI,
+	CYRIX_EMMI,
+	CYRIX_DMI,
+	CENTAUR_AIS,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 156] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 165] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -939,7 +958,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 156] = [
 	"FPU387SL_ONLY",
 	"FSGSBASE",
 	"FXSR",
-	"GEODE",
+	"CYRIX_D3NOW",
 	"GFNI",
 	"AVX_and_GFNI",
 	"AVX512F_and_GFNI",
@@ -1020,6 +1039,15 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 156] = [
 	"AMX_BF16",
 	"AMX_TILE",
 	"AMX_INT8",
+	"CYRIX_FPU",
+	"CYRIX_SMM",
+	"CYRIX_SMINT",
+	"CYRIX_SMINT_6X86",
+	"CYRIX_SHR",
+	"CYRIX_DDI",
+	"CYRIX_EMMI",
+	"CYRIX_DMI",
+	"CENTAUR_AIS",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

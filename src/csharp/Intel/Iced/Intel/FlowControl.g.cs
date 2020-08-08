@@ -37,13 +37,13 @@ namespace Iced.Intel {
 		IndirectBranch = 2,
 		/// <summary>It&apos;s a conditional branch instruction: <c>Jcc SHORT</c>, <c>Jcc NEAR</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>JRCXZ</c></summary>
 		ConditionalBranch = 3,
-		/// <summary>It&apos;s a return instruction: <c>RET NEAR</c>, <c>RET FAR</c>, <c>IRET</c>, <c>SYSRET</c>, <c>SYSEXIT</c>, <c>RSM</c>, <c>VMLAUNCH</c>, <c>VMRESUME</c>, <c>VMRUN</c>, <c>SKINIT</c></summary>
+		/// <summary>It&apos;s a return instruction: <c>RET NEAR</c>, <c>RET FAR</c>, <c>IRET</c>, <c>SYSRET</c>, <c>SYSEXIT</c>, <c>RSM</c>, <c>VMLAUNCH</c>, <c>VMRESUME</c>, <c>VMRUN</c>, <c>SKINIT</c>, <c>RDM</c></summary>
 		Return = 4,
 		/// <summary>It&apos;s a call instruction: <c>CALL NEAR</c>, <c>CALL FAR</c>, <c>SYSCALL</c>, <c>SYSENTER</c>, <c>VMCALL</c>, <c>VMMCALL</c>, <c>VMGEXIT</c></summary>
 		Call = 5,
 		/// <summary>It&apos;s an indirect call instruction: <c>CALL NEAR reg</c>, <c>CALL NEAR [mem]</c>, <c>CALL FAR [mem]</c></summary>
 		IndirectCall = 6,
-		/// <summary>It&apos;s an interrupt instruction: <c>INT n</c>, <c>INT3</c>, <c>INT1</c>, <c>INTO</c></summary>
+		/// <summary>It&apos;s an interrupt instruction: <c>INT n</c>, <c>INT3</c>, <c>INT1</c>, <c>INTO</c>, <c>SMINT</c>, <c>DMINT</c></summary>
 		Interrupt = 7,
 		/// <summary>It&apos;s <c>XBEGIN</c>, <c>XABORT</c>, <c>XEND</c>, <c>XSUSLDTRK</c>, <c>XRESLDTRK</c></summary>
 		XbeginXabortXend = 8,

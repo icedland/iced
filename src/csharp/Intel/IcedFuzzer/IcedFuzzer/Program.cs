@@ -253,9 +253,9 @@ namespace IcedFuzzer {
 			Console.WriteLine($"--no-vex                  No VEX instructions");
 			Console.WriteLine($"--no-xop                  No XOP instructions");
 			Console.WriteLine($"--no-evex                 No EVEX instructions");
-			Console.WriteLine($"--no-3dnow                No 3DNow! instructions (implies --no-geode)");
-			Console.WriteLine($"--no-geode                No AMD Geode LX/GX 3DNow! instructions");
-			Console.WriteLine($"--no-via                  No VIA instructions");
+			Console.WriteLine($"--no-3dnow                No 3DNow! instructions (implies --no-geode-3dnow)");
+			Console.WriteLine($"--no-geode-3dnow          No AMD Geode GX/LX 3DNow! instructions");
+			Console.WriteLine($"--no-padlock              No Centaur (VIA) PadLock instructions");
 			Console.WriteLine($"--no-unused-tables        Don't gen unused VEX/EVEX/XOP opcode tables (eg. EVEX.mm=00). Smaller output files.");
 			Console.WriteLine($"--include-cpuid names     Only include instructions with these CPUID names, {sep}-separated");
 			Console.WriteLine($"--exclude-cpuid names     Exclude instructions with these CPUID names, {sep}-separated");
@@ -357,14 +357,14 @@ namespace IcedFuzzer {
 				case "--no-3dnow":
 					options.OpCodeInfoOptions.Include3DNow = false;
 					options.OpCodeInfoOptions.Filter.ExcludeCode.Add(Code.Femms);
-					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.GEODE);
+					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.CYRIX_D3NOW);
 					break;
 
-				case "--no-geode":
-					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.GEODE);
+				case "--no-geode-3dnow":
+					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.CYRIX_D3NOW);
 					break;
 
-				case "--no-via":
+				case "--no-padlock":
 					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.PADLOCK_ACE);
 					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.PADLOCK_PHE);
 					options.OpCodeInfoOptions.Filter.ExcludeCpuid.Add(CpuidFeature.PADLOCK_PMM);

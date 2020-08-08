@@ -4266,4 +4266,45 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Tdpbssd,// VEX_Tdpbssd_tmm_tmm_tmm
 	Mnemonic::Fnstdw,// Fnstdw_AX
 	Mnemonic::Fnstsg,// Fnstsg_AX
+	Mnemonic::Rdshr,// Rdshr_rm32
+	Mnemonic::Wrshr,// Wrshr_rm32
+	Mnemonic::Smint,// Smint
+	Mnemonic::Dmint,// Dmint
+	Mnemonic::Rdm,// Rdm
+	Mnemonic::Svdc,// Svdc_m80_Sreg
+	Mnemonic::Rsdc,// Rsdc_Sreg_m80
+	Mnemonic::Svldt,// Svldt_m80
+	Mnemonic::Rsldt,// Rsldt_m80
+	Mnemonic::Svts,// Svts_m80
+	Mnemonic::Rsts,// Rsts_m80
+	Mnemonic::Smint,// Smint_0F7E
+	Mnemonic::Bb0_reset,// Bb0_reset
+	Mnemonic::Bb1_reset,// Bb1_reset
+	Mnemonic::Cpu_write,// Cpu_write
+	Mnemonic::Cpu_read,// Cpu_read
+	Mnemonic::Altinst,// Altinst
+	Mnemonic::Paveb,// Paveb_mm_mmm64
+	Mnemonic::Paddsiw,// Paddsiw_mm_mmm64
+	Mnemonic::Pmagw,// Pmagw_mm_mmm64
+	Mnemonic::Pdistib,// Pdistib_mm_m64
+	Mnemonic::Psubsiw,// Psubsiw_mm_mmm64
+	Mnemonic::Pmvzb,// Pmvzb_mm_m64
+	Mnemonic::Pmulhrw,// Pmulhrw_mm_mmm64
+	Mnemonic::Pmvnzb,// Pmvnzb_mm_m64
+	Mnemonic::Pmvlzb,// Pmvlzb_mm_m64
+	Mnemonic::Pmvgezb,// Pmvgezb_mm_m64
+	Mnemonic::Pmulhriw,// Pmulhriw_mm_mmm64
+	Mnemonic::Pmachriw,// Pmachriw_mm_m64
+	Mnemonic::Undoc,// Cyrix_D9D7
+	Mnemonic::Undoc,// Cyrix_D9E2
+	Mnemonic::Ftstp,// Ftstp
+	Mnemonic::Undoc,// Cyrix_D9E7
+	Mnemonic::Frint2,// Frint2
+	Mnemonic::Frichop,// Frichop
+	Mnemonic::Undoc,// Cyrix_DED8
+	Mnemonic::Undoc,// Cyrix_DEDA
+	Mnemonic::Undoc,// Cyrix_DEDC
+	Mnemonic::Undoc,// Cyrix_DEDD
+	Mnemonic::Undoc,// Cyrix_DEDE
+	Mnemonic::Frinear,// Frinear
 ];

@@ -181,6 +181,14 @@ impl DecoderOptions {
 	pub const NO_LAHF_SAHF_64: u32 = 0x0004_0000;
 	/// Decode `MPX` instructions
 	pub const MPX: u32 = 0x0008_0000;
+	/// Decode most Cyrix instructions: `FPU`, `EMMI`, `SMM`, `DDI`
+	pub const CYRIX: u32 = 0x0010_0000;
+	/// Decode Cyrix `SMINT 0F7E` (Cyrix 6x86)
+	pub const CYRIX_SMINT_0F7E: u32 = 0x0020_0000;
+	/// Decode Cyrix `DMI` instructions (AMD Geode GX/LX)
+	pub const CYRIX_DMI: u32 = 0x0040_0000;
+	/// Decode Centaur `ALTINST`
+	pub const ALTINST: u32 = 0x0080_0000;
 }
 // GENERATOR-END: DecoderOptions
 

@@ -518,6 +518,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void altinst() {
+			TestAssembler(c => c.altinst(), Instruction.Create(Code.Altinst));
+		}
+
+		[Fact]
 		public void and_reg8_reg8() {
 			TestAssembler(c => c.and(bl, cl), Instruction.Create(Code.And_rm8_r8, bl, cl));
 		}
@@ -741,6 +746,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void arpl_m_reg32() {
 			TestAssembler(c => c.arpl(__dword_ptr[si], edx), Instruction.Create(Code.Arpl_r32m16_r32, __dword_ptr[si].ToMemoryOperand(Bitness), edx));
+		}
+
+		[Fact]
+		public void bb0_reset() {
+			TestAssembler(c => c.bb0_reset(), Instruction.Create(Code.Bb0_reset));
+		}
+
+		[Fact]
+		public void bb1_reset() {
+			TestAssembler(c => c.bb1_reset(), Instruction.Create(Code.Bb1_reset));
 		}
 
 #if !NO_VEX
@@ -2536,6 +2551,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void cpu_read() {
+			TestAssembler(c => c.cpu_read(), Instruction.Create(Code.Cpu_read));
+		}
+
+		[Fact]
+		public void cpu_write() {
+			TestAssembler(c => c.cpu_write(), Instruction.Create(Code.Cpu_write));
+		}
+
+		[Fact]
 		public void cpuid() {
 			TestAssembler(c => c.cpuid(), Instruction.Create(Code.Cpuid));
 		}
@@ -2943,6 +2968,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void divss_regXMM_m() {
 			TestAssembler(c => c.divss(xmm2, __xmmword_ptr[si]), Instruction.Create(Code.Divss_xmm_xmmm32, xmm2, __xmmword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void dmint() {
+			TestAssembler(c => c.dmint(), Instruction.Create(Code.Dmint));
 		}
 
 		[Fact]
@@ -7158,6 +7188,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void paddsiw_regMM_regMM() {
+			TestAssembler(c => c.paddsiw(mm1, mm7), Instruction.Create(Code.Paddsiw_mm_mmm64, mm1, mm7));
+		}
+
+		[Fact]
+		public void paddsiw_regMM_m() {
+			TestAssembler(c => c.paddsiw(mm1, __qword_ptr[si]), Instruction.Create(Code.Paddsiw_mm_mmm64, mm1, __qword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
 		public void paddsw_regMM_regMM() {
 			TestAssembler(c => c.paddsw(mm1, mm7), Instruction.Create(Code.Paddsw_mm_mmm64, mm1, mm7));
 		}
@@ -7320,6 +7360,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void pause() {
 			TestAssembler(c => c.pause(), Instruction.Create(Code.Pause));
+		}
+
+		[Fact]
+		public void paveb_regMM_regMM() {
+			TestAssembler(c => c.paveb(mm1, mm7), Instruction.Create(Code.Paveb_mm_mmm64, mm1, mm7));
+		}
+
+		[Fact]
+		public void paveb_regMM_m() {
+			TestAssembler(c => c.paveb(mm1, __qword_ptr[si]), Instruction.Create(Code.Paveb_mm_mmm64, mm1, __qword_ptr[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -7709,6 +7759,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.pdep(ecx, edx, __dword_ptr[si]), Instruction.Create(Code.VEX_Pdep_r32_r32_rm32, ecx, edx, __dword_ptr[si].ToMemoryOperand(Bitness)));
 		}
 #endif
+
+		[Fact]
+		public void pdistib_regMM_m() {
+			TestAssembler(c => c.pdistib(mm1, __[si]), Instruction.Create(Code.Pdistib_mm_m64, mm1, __[si].ToMemoryOperand(Bitness)));
+		}
 
 #if !NO_VEX
 		[Fact]
@@ -8327,6 +8382,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void pmachriw_regMM_m() {
+			TestAssembler(c => c.pmachriw(mm1, __[si]), Instruction.Create(Code.Pmachriw_mm_m64, mm1, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
 		public void pmaddubsw_regMM_regMM() {
 			TestAssembler(c => c.pmaddubsw(mm1, mm7), Instruction.Create(Code.Pmaddubsw_mm_mmm64, mm1, mm7));
 		}
@@ -8364,6 +8424,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void pmaddwd_regXMM_m() {
 			TestAssembler(c => c.pmaddwd(xmm2, __xmmword_ptr[si]), Instruction.Create(Code.Pmaddwd_xmm_xmmm128, xmm2, __xmmword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void pmagw_regMM_regMM() {
+			TestAssembler(c => c.pmagw(mm1, mm7), Instruction.Create(Code.Pmagw_mm_mmm64, mm1, mm7));
+		}
+
+		[Fact]
+		public void pmagw_regMM_m() {
+			TestAssembler(c => c.pmagw(mm1, __qword_ptr[si]), Instruction.Create(Code.Pmagw_mm_mmm64, mm1, __qword_ptr[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -8667,6 +8737,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void pmulhriw_regMM_regMM() {
+			TestAssembler(c => c.pmulhriw(mm1, mm7), Instruction.Create(Code.Pmulhriw_mm_mmm64, mm1, mm7));
+		}
+
+		[Fact]
+		public void pmulhriw_regMM_m() {
+			TestAssembler(c => c.pmulhriw(mm1, __qword_ptr[si]), Instruction.Create(Code.Pmulhriw_mm_mmm64, mm1, __qword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
 		public void pmulhrsw_regMM_regMM() {
 			TestAssembler(c => c.pmulhrsw(mm1, mm7), Instruction.Create(Code.Pmulhrsw_mm_mmm64, mm1, mm7));
 		}
@@ -8699,6 +8779,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.pmulhrw(mm1, __qword_ptr[si]), Instruction.Create(Code.D3NOW_Pmulhrw_mm_mmm64, mm1, __qword_ptr[si].ToMemoryOperand(Bitness)));
 		}
 #endif
+
+		[Fact]
+		public void pmulhrw_cyrix_regMM_regMM() {
+			TestAssembler(c => c.pmulhrw_cyrix(mm1, mm7), Instruction.Create(Code.Pmulhrw_mm_mmm64, mm1, mm7));
+		}
+
+		[Fact]
+		public void pmulhrw_cyrix_regMM_m() {
+			TestAssembler(c => c.pmulhrw_cyrix(mm1, __qword_ptr[si]), Instruction.Create(Code.Pmulhrw_mm_mmm64, mm1, __qword_ptr[si].ToMemoryOperand(Bitness)));
+		}
 
 		[Fact]
 		public void pmulhuw_regMM_regMM() {
@@ -8788,6 +8878,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void pmuludq_regXMM_m() {
 			TestAssembler(c => c.pmuludq(xmm2, __xmmword_ptr[si]), Instruction.Create(Code.Pmuludq_xmm_xmmm128, xmm2, __xmmword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void pmvgezb_regMM_m() {
+			TestAssembler(c => c.pmvgezb(mm1, __[si]), Instruction.Create(Code.Pmvgezb_mm_m64, mm1, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void pmvlzb_regMM_m() {
+			TestAssembler(c => c.pmvlzb(mm1, __[si]), Instruction.Create(Code.Pmvlzb_mm_m64, mm1, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void pmvnzb_regMM_m() {
+			TestAssembler(c => c.pmvnzb(mm1, __[si]), Instruction.Create(Code.Pmvnzb_mm_m64, mm1, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void pmvzb_regMM_m() {
+			TestAssembler(c => c.pmvzb(mm1, __[si]), Instruction.Create(Code.Pmvzb_mm_m64, mm1, __[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -9539,6 +9649,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void psubsiw_regMM_regMM() {
+			TestAssembler(c => c.psubsiw(mm1, mm7), Instruction.Create(Code.Psubsiw_mm_mmm64, mm1, mm7));
+		}
+
+		[Fact]
+		public void psubsiw_regMM_m() {
+			TestAssembler(c => c.psubsiw(mm1, __qword_ptr[si]), Instruction.Create(Code.Psubsiw_mm_mmm64, mm1, __qword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
 		public void psubsw_regMM_regMM() {
 			TestAssembler(c => c.psubsw(mm1, mm7), Instruction.Create(Code.Psubsw_mm_mmm64, mm1, mm7));
 		}
@@ -10250,6 +10370,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void rdm() {
+			TestAssembler(c => c.rdm(), Instruction.Create(Code.Rdm));
+		}
+
+		[Fact]
 		public void rdmsr() {
 			TestAssembler(c => c.rdmsr(), Instruction.Create(Code.Rdmsr));
 		}
@@ -10292,6 +10417,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void rdseed_reg32() {
 			TestAssembler(c => c.rdseed(ecx), Instruction.Create(Code.Rdseed_r32, ecx));
+		}
+
+		[Fact]
+		public void rdshr_reg32() {
+			TestAssembler(c => c.rdshr(ebx), Instruction.Create(Code.Rdshr_rm32, ebx));
+		}
+
+		[Fact]
+		public void rdshr_m() {
+			TestAssembler(c => c.rdshr(__dword_ptr[si]), Instruction.Create(Code.Rdshr_rm32, __dword_ptr[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -10934,6 +11069,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void rsdc_regSegment_m() {
+			TestAssembler(c => c.rsdc(ds, __[si]), Instruction.Create(Code.Rsdc_Sreg_m80, ds, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void rsldt_m() {
+			TestAssembler(c => c.rsldt(__[si]), Instruction.Create(Code.Rsldt_m80, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
 		public void rsm() {
 			TestAssembler(c => c.rsm(), Instruction.Create(Code.Rsm));
 		}
@@ -10961,6 +11106,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void rstorssp_m() {
 			TestAssembler(c => c.rstorssp(__[si]), Instruction.Create(Code.Rstorssp_m64, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void rsts_m() {
+			TestAssembler(c => c.rsts(__[si]), Instruction.Create(Code.Rsts_m80, __[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -12233,6 +12383,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 #endif
 
 		[Fact]
+		public void smint() {
+			TestAssembler(c => c.smint(), Instruction.Create(Code.Smint));
+		}
+
+		[Fact]
+		public void smint_0f7e() {
+			TestAssembler(c => c.smint_0f7e(), Instruction.Create(Code.Smint_0F7E));
+		}
+
+		[Fact]
 		public void smsw_reg16() {
 			TestAssembler(c => c.smsw(bx), Instruction.Create(Code.Smsw_rm16, bx));
 		}
@@ -12539,6 +12699,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void subss_regXMM_m() {
 			TestAssembler(c => c.subss(xmm2, __xmmword_ptr[si]), Instruction.Create(Code.Subss_xmm_xmmm32, xmm2, __xmmword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void svdc_m_regSegment() {
+			TestAssembler(c => c.svdc(__[si], ds), Instruction.Create(Code.Svdc_m80_Sreg, __[si].ToMemoryOperand(Bitness), ds));
+		}
+
+		[Fact]
+		public void svldt_m() {
+			TestAssembler(c => c.svldt(__[si]), Instruction.Create(Code.Svldt_m80, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void svts_m() {
+			TestAssembler(c => c.svts(__[si]), Instruction.Create(Code.Svts_m80, __[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -50142,6 +50317,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void wrpkru() {
 			TestAssembler(c => c.wrpkru(), Instruction.Create(Code.Wrpkru));
+		}
+
+		[Fact]
+		public void wrshr_reg32() {
+			TestAssembler(c => c.wrshr(ebx), Instruction.Create(Code.Wrshr_rm32, ebx));
+		}
+
+		[Fact]
+		public void wrshr_m() {
+			TestAssembler(c => c.wrshr(__dword_ptr[si]), Instruction.Create(Code.Wrshr_rm32, __dword_ptr[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]

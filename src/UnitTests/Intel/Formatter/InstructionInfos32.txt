@@ -692,3 +692,52 @@ F2 0F 01 E9, Xresldtrk
 0F 01 FE, Invlpgbd
 0F 01 FF, Tlbsync
 0F0A, Cl1invmb, Cl1invmb
+0F36 00, Rdshr_rm32, Cyrix
+0F36 C2, Rdshr_rm32, Cyrix
+0F37 00, Wrshr_rm32, Cyrix
+0F37 C2, Wrshr_rm32, Cyrix
+0F38, Smint, Cyrix
+0F39, Dmint, Cyrix_DMI
+0F3A, Rdm, Cyrix_DMI
+0F78 08, Svdc_m80_Sreg, Cyrix
+0F79 08, Rsdc_Sreg_m80, Cyrix
+0F7A 00, Svldt_m80, Cyrix
+0F7B 00, Rsldt_m80, Cyrix
+0F7C 00, Svts_m80, Cyrix
+0F7D 00, Rsts_m80, Cyrix
+0F7E, Smint_0F7E, Cyrix_SMINT_0F7E
+0F3A, Bb0_reset, Cyrix
+0F3B, Bb1_reset, Cyrix
+0F3C, Cpu_write, Cyrix
+0F3D, Cpu_read, Cyrix
+0F3F, Altinst, ALTINST
+0F50 08, Paveb_mm_mmm64, Cyrix
+0F50 CD, Paveb_mm_mmm64, Cyrix
+0F51 08, Paddsiw_mm_mmm64, Cyrix
+0F51 CD, Paddsiw_mm_mmm64, Cyrix
+0F52 08, Pmagw_mm_mmm64, Cyrix
+0F52 CD, Pmagw_mm_mmm64, Cyrix
+0F54 08, Pdistib_mm_m64, Cyrix
+0F55 08, Psubsiw_mm_mmm64, Cyrix
+0F55 CD, Psubsiw_mm_mmm64, Cyrix
+0F58 08, Pmvzb_mm_m64, Cyrix
+0F59 08, Pmulhrw_mm_mmm64, Cyrix
+0F59 CD, Pmulhrw_mm_mmm64, Cyrix
+0F5A 08, Pmvnzb_mm_m64, Cyrix
+0F5B 08, Pmvlzb_mm_m64, Cyrix
+0F5C 08, Pmvgezb_mm_m64, Cyrix
+0F5D 08, Pmulhriw_mm_mmm64, Cyrix
+0F5D CD, Pmulhriw_mm_mmm64, Cyrix
+0F5E 08, Pmachriw_mm_m64, Cyrix
+D9 D7, Cyrix_D9D7, Cyrix
+D9 E2, Cyrix_D9E2, Cyrix
+D9 E6, Ftstp, Cyrix
+D9 E7, Cyrix_D9E7, Cyrix
+DB FC, Frint2, Cyrix
+DD FC, Frichop, Cyrix
+DE D8, Cyrix_DED8, Cyrix
+DE DA, Cyrix_DEDA, Cyrix
+DE DC, Cyrix_DEDC, Cyrix
+DE DD, Cyrix_DEDD, Cyrix
+DE DE, Cyrix_DEDE, Cyrix
+DF FC, Frinear, Cyrix

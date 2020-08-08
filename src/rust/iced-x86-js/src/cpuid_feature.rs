@@ -154,8 +154,8 @@ pub enum CpuidFeature {
 	FSGSBASE = 60,
 	/// CPUID.01H:EDX.FXSR\[bit 24\]
 	FXSR = 61,
-	/// AMD Geode LX/GX CPU
-	GEODE = 62,
+	/// Cyrix (AMD Geode GX/LX) 3DNow! instructions
+	CYRIX_D3NOW = 62,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.GFNI\[bit 8\]
 	GFNI = 63,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.HLE\[bit 4\]
@@ -314,5 +314,23 @@ pub enum CpuidFeature {
 	AMX_TILE = 135,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.AMX-INT8\[bit 25\]
 	AMX_INT8 = 136,
+	/// Cyrix FPU instructions (Cyrix, AMD Geode GX/LX)
+	CYRIX_FPU = 137,
+	/// Cyrix SMM instructions: `SVDC`, `RSDC`, `SVLDT`, `RSLDT`, `SVTS`, `RSTS` (Cyrix, AMD Geode GX/LX)
+	CYRIX_SMM = 138,
+	/// Cyrix `SMINT 0F38` (6x86MX and later, AMD Geode GX/LX)
+	CYRIX_SMINT = 139,
+	/// Cyrix `SMINT 0F7E` (6x86)
+	CYRIX_SMINT_6X86 = 140,
+	/// Cyrix SMM instructions: `RDSHR`, `WRSHR` (6x86MX, M II, Cyrix III)
+	CYRIX_SHR = 141,
+	/// Cyrix DDI instructions: `BB0_Reset`, `BB1_Reset`, `CPU_READ`, `CPU_WRITE` (MediaGX, GXm, GXLV, GX1)
+	CYRIX_DDI = 142,
+	/// Cyrix AND CPUID.80000001H:EDX.EMMI\[bit 24\]
+	CYRIX_EMMI = 143,
+	/// Cyrix DMI instructions: `DMINT`, `RDM` (AMD Geode GX/LX)
+	CYRIX_DMI = 144,
+	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.AIS\[Bits 1:0\] = 11B (\[0\] = exists, \[1\] = enabled)
+	CENTAUR_AIS = 145,
 }
 // GENERATOR-END: Enum

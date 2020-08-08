@@ -2965,6 +2965,62 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::R_EAX => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+				}
+			}
+
+			CodeInfo::EMMI_R_ImpliedReg => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					if instruction.op0_kind() == OpKind::Register {
+						let mut reg = instruction.op0_register();
+						if reg >= Register::MM0 && reg <= Register::MM7 {
+							reg = unsafe { mem::transmute((((reg as u32 - Register::MM0 as u32) ^ 1) + Register::MM0 as u32) as u8) };
+							Self::add_register(flags, info, reg, OpAccess::Read);
+						}
+					}
+				}
+			}
+
+			CodeInfo::EMMI_W_ImpliedReg => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					if instruction.op0_kind() == OpKind::Register {
+						let mut reg = instruction.op0_register();
+						if reg >= Register::MM0 && reg <= Register::MM7 {
+							reg = unsafe { mem::transmute((((reg as u32 - Register::MM0 as u32) ^ 1) + Register::MM0 as u32) as u8) };
+							Self::add_register(flags, info, reg, OpAccess::Write);
+						}
+					}
+				}
+			}
+
+			CodeInfo::EMMI_RW_ImpliedReg => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					if instruction.op0_kind() == OpKind::Register {
+						let mut reg = instruction.op0_register();
+						if reg >= Register::MM0 && reg <= Register::MM7 {
+							reg = unsafe { mem::transmute((((reg as u32 - Register::MM0 as u32) ^ 1) + Register::MM0 as u32) as u8) };
+							Self::add_register(flags, info, reg, OpAccess::ReadWrite);
+						}
+					}
+				}
+			}
+
+			CodeInfo::CPURW => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					if instruction.op0_kind() == OpKind::Register {
+						Self::add_register(
+							flags,
+							info,
+							Register::EAX,
+							if instruction.code() == Code::Cpu_write { OpAccess::Read } else { OpAccess::Write },
+						);
+						Self::add_register(flags, info, Register::EBX, OpAccess::Read);
+					}
+				}
+			}
+
 			CodeInfo::None => {}
 		}
 	}

@@ -43,7 +43,7 @@ namespace Generator.Enums.Decoder {
 		Group8x8,
 		MandatoryPrefix,
 		MandatoryPrefix4,
-		Unused1,//TODO: unused
+		Ev_REXW_1a,
 		MandatoryPrefix_NoModRM,
 		MandatoryPrefix3,
 		D3NOW,
@@ -224,6 +224,9 @@ namespace Generator.Enums.Decoder {
 		Yv_Reg2,
 		Yv_Xv,
 		Simple4b,
-		// Rename Unused1 instead of adding a new one
+		Options1632_1,
+		Options1632_2,
+		M_Sw,
+		Sw_M,
 	}
 }

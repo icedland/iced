@@ -692,3 +692,52 @@ addr16 invlpgb
 invlpgb
 tlbsync
 cl1invmb
+rdshrl (eax)
+rdshrl edx
+wrshrl (eax)
+wrshrl edx
+smint
+dmint
+rdm
+svdc cs, (eax)
+rsdc (eax), cs
+svldt (eax)
+rsldt (eax)
+svts (eax)
+rsts (eax)
+smint
+bb0_reset
+bb1_reset
+cpu_write
+cpu_read
+altinst
+paveb (eax), mm1
+paveb mm5, mm1
+paddsiw (eax), mm1
+paddsiw mm5, mm1
+pmagw (eax), mm1
+pmagw mm5, mm1
+pdistib (eax), mm1
+psubsiw (eax), mm1
+psubsiw mm5, mm1
+pmvzb (eax), mm1
+pmulhrw (eax), mm1
+pmulhrw mm5, mm1
+pmvnzb (eax), mm1
+pmvlzb (eax), mm1
+pmvgezb (eax), mm1
+pmulhriw (eax), mm1
+pmulhriw mm5, mm1
+pmachriw (eax), mm1
+undoc
+undoc
+ftstp
+undoc
+frint2
+frichop
+undoc
+undoc
+undoc
+undoc
+undoc
+frinear

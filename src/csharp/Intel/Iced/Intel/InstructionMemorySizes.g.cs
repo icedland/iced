@@ -4272,6 +4272,47 @@ namespace Iced.Intel {
 			0,// VEX_Tdpbssd_tmm_tmm_tmm
 			0,// Fnstdw_AX
 			0,// Fnstsg_AX
+			(byte)MemorySize.UInt32,// Rdshr_rm32
+			(byte)MemorySize.UInt32,// Wrshr_rm32
+			0,// Smint
+			0,// Dmint
+			0,// Rdm
+			(byte)MemorySize.SegmentDescSelector,// Svdc_m80_Sreg
+			(byte)MemorySize.SegmentDescSelector,// Rsdc_Sreg_m80
+			(byte)MemorySize.SegmentDescSelector,// Svldt_m80
+			(byte)MemorySize.SegmentDescSelector,// Rsldt_m80
+			(byte)MemorySize.SegmentDescSelector,// Svts_m80
+			(byte)MemorySize.SegmentDescSelector,// Rsts_m80
+			0,// Smint_0F7E
+			0,// Bb0_reset
+			0,// Bb1_reset
+			0,// Cpu_write
+			0,// Cpu_read
+			0,// Altinst
+			(byte)MemorySize.Packed64_UInt8,// Paveb_mm_mmm64
+			(byte)MemorySize.Packed64_Int16,// Paddsiw_mm_mmm64
+			(byte)MemorySize.Packed64_UInt16,// Pmagw_mm_mmm64
+			(byte)MemorySize.Packed64_UInt8,// Pdistib_mm_m64
+			(byte)MemorySize.Packed64_Int16,// Psubsiw_mm_mmm64
+			(byte)MemorySize.Packed64_UInt8,// Pmvzb_mm_m64
+			(byte)MemorySize.Packed64_Int16,// Pmulhrw_mm_mmm64
+			(byte)MemorySize.Packed64_UInt8,// Pmvnzb_mm_m64
+			(byte)MemorySize.Packed64_Int8,// Pmvlzb_mm_m64
+			(byte)MemorySize.Packed64_Int8,// Pmvgezb_mm_m64
+			(byte)MemorySize.Packed64_Int16,// Pmulhriw_mm_mmm64
+			(byte)MemorySize.Packed64_UInt16,// Pmachriw_mm_m64
+			0,// Cyrix_D9D7
+			0,// Cyrix_D9E2
+			0,// Ftstp
+			0,// Cyrix_D9E7
+			0,// Frint2
+			0,// Frichop
+			0,// Cyrix_DED8
+			0,// Cyrix_DEDA
+			0,// Cyrix_DEDC
+			0,// Cyrix_DEDD
+			0,// Cyrix_DEDE
+			0,// Frinear
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8510,6 +8551,47 @@ namespace Iced.Intel {
 			0,// VEX_Tdpbssd_tmm_tmm_tmm
 			0,// Fnstdw_AX
 			0,// Fnstsg_AX
+			0,// Rdshr_rm32
+			0,// Wrshr_rm32
+			0,// Smint
+			0,// Dmint
+			0,// Rdm
+			0,// Svdc_m80_Sreg
+			0,// Rsdc_Sreg_m80
+			0,// Svldt_m80
+			0,// Rsldt_m80
+			0,// Svts_m80
+			0,// Rsts_m80
+			0,// Smint_0F7E
+			0,// Bb0_reset
+			0,// Bb1_reset
+			0,// Cpu_write
+			0,// Cpu_read
+			0,// Altinst
+			0,// Paveb_mm_mmm64
+			0,// Paddsiw_mm_mmm64
+			0,// Pmagw_mm_mmm64
+			0,// Pdistib_mm_m64
+			0,// Psubsiw_mm_mmm64
+			0,// Pmvzb_mm_m64
+			0,// Pmulhrw_mm_mmm64
+			0,// Pmvnzb_mm_m64
+			0,// Pmvlzb_mm_m64
+			0,// Pmvgezb_mm_m64
+			0,// Pmulhriw_mm_mmm64
+			0,// Pmachriw_mm_m64
+			0,// Cyrix_D9D7
+			0,// Cyrix_D9E2
+			0,// Ftstp
+			0,// Cyrix_D9E7
+			0,// Frint2
+			0,// Frichop
+			0,// Cyrix_DED8
+			0,// Cyrix_DEDA
+			0,// Cyrix_DEDC
+			0,// Cyrix_DEDD
+			0,// Cyrix_DEDE
+			0,// Frinear
 		};
 	}
 }

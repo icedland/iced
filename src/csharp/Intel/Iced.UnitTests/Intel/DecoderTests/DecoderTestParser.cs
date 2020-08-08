@@ -73,6 +73,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string DecoderOptions_NoLahfSahf64 = "nolahfsahf64";
 		internal const string DecoderOptions_NoInvalidCheck = "noinvalidcheck";
 		internal const string DecoderOptions_MPX = "mpx";
+		internal const string DecoderOptions_Cyrix = "cyrix";
+		internal const string DecoderOptions_Cyrix_SMINT_0F7E = "smint_0f7e";
+		internal const string DecoderOptions_Cyrix_DMI = "cyrix_dmi";
+		internal const string DecoderOptions_ALTINST = "altinst";
 		internal const string SegmentPrefix_ES = "es:";
 		internal const string SegmentPrefix_CS = "cs:";
 		internal const string SegmentPrefix_SS = "ss:";
@@ -358,6 +362,22 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				case DecoderTestParserConstants.DecoderOptions_MPX:
 					tc.DecoderOptions |= DecoderOptions.MPX;
+					break;
+
+				case DecoderTestParserConstants.DecoderOptions_Cyrix:
+					tc.DecoderOptions |= DecoderOptions.Cyrix;
+					break;
+
+				case DecoderTestParserConstants.DecoderOptions_Cyrix_SMINT_0F7E:
+					tc.DecoderOptions |= DecoderOptions.Cyrix_SMINT_0F7E;
+					break;
+
+				case DecoderTestParserConstants.DecoderOptions_Cyrix_DMI:
+					tc.DecoderOptions |= DecoderOptions.Cyrix_DMI;
+					break;
+
+				case DecoderTestParserConstants.DecoderOptions_ALTINST:
+					tc.DecoderOptions |= DecoderOptions.ALTINST;
 					break;
 
 				case DecoderTestParserConstants.SegmentPrefix_ES:
