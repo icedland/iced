@@ -28,6 +28,7 @@ use wasm_bindgen::prelude::*;
 /// Mnemonic
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
+#[allow(non_camel_case_types)]
 #[allow(missing_docs)]
 pub enum Mnemonic {
 	INVALID = 0,
