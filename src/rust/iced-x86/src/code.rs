@@ -34048,7 +34048,7 @@ pub enum Code {
 	Altinst = 4254,
 	/// `PAVEB mm1, mm2/m64`
 	///
-	/// `NP 0F 50 /r`
+	/// `0F 50 /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34056,7 +34056,7 @@ pub enum Code {
 	Paveb_mm_mmm64 = 4255,
 	/// `PADDSIW mm1, mm2/m64`
 	///
-	/// `NP 0F 51 /r`
+	/// `0F 51 /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34064,7 +34064,7 @@ pub enum Code {
 	Paddsiw_mm_mmm64 = 4256,
 	/// `PMAGW mm1, mm2/m64`
 	///
-	/// `NP 0F 52 /r`
+	/// `0F 52 /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34072,7 +34072,7 @@ pub enum Code {
 	Pmagw_mm_mmm64 = 4257,
 	/// `PDISTIB mm1, m64`
 	///
-	/// `NP 0F 54 /r`
+	/// `0F 54 /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34080,7 +34080,7 @@ pub enum Code {
 	Pdistib_mm_m64 = 4258,
 	/// `PSUBSIW mm1, mm2/m64`
 	///
-	/// `NP 0F 55 /r`
+	/// `0F 55 /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34088,7 +34088,7 @@ pub enum Code {
 	Psubsiw_mm_mmm64 = 4259,
 	/// `PMVZB mm1, m64`
 	///
-	/// `NP 0F 58 /r`
+	/// `0F 58 /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34096,7 +34096,7 @@ pub enum Code {
 	Pmvzb_mm_m64 = 4260,
 	/// `PMULHRW mm1, mm2/m64`
 	///
-	/// `NP 0F 59 /r`
+	/// `0F 59 /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34104,7 +34104,7 @@ pub enum Code {
 	Pmulhrw_mm_mmm64 = 4261,
 	/// `PMVNZB mm1, m64`
 	///
-	/// `NP 0F 5A /r`
+	/// `0F 5A /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34112,7 +34112,7 @@ pub enum Code {
 	Pmvnzb_mm_m64 = 4262,
 	/// `PMVLZB mm1, m64`
 	///
-	/// `NP 0F 5B /r`
+	/// `0F 5B /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34120,7 +34120,7 @@ pub enum Code {
 	Pmvlzb_mm_m64 = 4263,
 	/// `PMVGEZB mm1, m64`
 	///
-	/// `NP 0F 5C /r`
+	/// `0F 5C /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34128,7 +34128,7 @@ pub enum Code {
 	Pmvgezb_mm_m64 = 4264,
 	/// `PMULHRIW mm1, mm2/m64`
 	///
-	/// `NP 0F 5D /r`
+	/// `0F 5D /r`
 	///
 	/// `CYRIX_EMMI`
 	///
@@ -34136,7 +34136,7 @@ pub enum Code {
 	Pmulhriw_mm_mmm64 = 4265,
 	/// `PMACHRIW mm1, m64`
 	///
-	/// `NP 0F 5E /r`
+	/// `0F 5E /r`
 	///
 	/// `CYRIX_EMMI`
 	///

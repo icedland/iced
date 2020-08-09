@@ -4661,12 +4661,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0xE6, 0x09,// Movmskpd_r32_xmm
 			0x02,// Invalid
 			0x02,// Invalid
-		0x11,// MandatoryPrefix
-			0x81,// P_Q
-				0x9F, 0x21,// Paveb_mm_mmm64
-			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+		0x81,// P_Q
+			0x9F, 0x21,// Paveb_mm_mmm64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 81 = 0x51
@@ -4684,12 +4680,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xB7,// VW_2
 				0x4D,// XMM0
 				0xFB, 0x09,// Sqrtsd_xmm_xmmm64
-		0x11,// MandatoryPrefix
-			0x81,// P_Q
-				0xA0, 0x21,// Paddsiw_mm_mmm64
-			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+		0x81,// P_Q
+			0xA0, 0x21,// Paddsiw_mm_mmm64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 82 = 0x52
@@ -4703,12 +4695,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0x4D,// XMM0
 				0x81, 0x0A,// Rsqrtss_xmm_xmmm32
 			0x02,// Invalid
-		0x11,// MandatoryPrefix
-			0x81,// P_Q
-				0xA1, 0x21,// Pmagw_mm_mmm64
-			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+		0x81,// P_Q
+			0xA1, 0x21,// Pmagw_mm_mmm64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 83 = 0x53
@@ -4733,14 +4721,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0x8E, 0x0A,// Andpd_xmm_xmmm128
 			0x02,// Invalid
 			0x02,// Invalid
-		0x11,// MandatoryPrefix
-			0x09,// RM
-				0x02,// Invalid
-				0x81,// P_Q
-					0xA2, 0x21,// Pdistib_mm_m64
+		0x09,// RM
 			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+			0x81,// P_Q
+				0xA2, 0x21,// Pdistib_mm_m64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 85 = 0x55
@@ -4754,12 +4738,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0x9A, 0x0A,// Andnpd_xmm_xmmm128
 			0x02,// Invalid
 			0x02,// Invalid
-		0x11,// MandatoryPrefix
-			0x81,// P_Q
-				0xA3, 0x21,// Psubsiw_mm_mmm64
-			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+		0x81,// P_Q
+			0xA3, 0x21,// Psubsiw_mm_mmm64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 86 = 0x56
@@ -4799,14 +4779,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xB7,// VW_2
 				0x4D,// XMM0
 				0xC7, 0x0A,// Addsd_xmm_xmmm64
-		0x11,// MandatoryPrefix
-			0x09,// RM
-				0x02,// Invalid
-				0x81,// P_Q
-					0xA4, 0x21,// Pmvzb_mm_m64
+		0x09,// RM
 			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+			0x81,// P_Q
+				0xA4, 0x21,// Pmvzb_mm_m64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 89 = 0x59
@@ -4824,12 +4800,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xB7,// VW_2
 				0x4D,// XMM0
 				0xD9, 0x0A,// Mulsd_xmm_xmmm64
-		0x11,// MandatoryPrefix
-			0x81,// P_Q
-				0xA5, 0x21,// Pmulhrw_mm_mmm64
-			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+		0x81,// P_Q
+			0xA5, 0x21,// Pmulhrw_mm_mmm64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 90 = 0x5A
@@ -4847,14 +4819,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xB7,// VW_2
 				0x4D,// XMM0
 				0xEB, 0x0A,// Cvtsd2ss_xmm_xmmm64
-		0x11,// MandatoryPrefix
-			0x09,// RM
-				0x02,// Invalid
-				0x81,// P_Q
-					0xA6, 0x21,// Pmvnzb_mm_m64
+		0x09,// RM
 			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+			0x81,// P_Q
+				0xA6, 0x21,// Pmvnzb_mm_m64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 91 = 0x5B
@@ -4870,14 +4838,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0x4D,// XMM0
 				0xFD, 0x0A,// Cvttps2dq_xmm_xmmm128
 			0x02,// Invalid
-		0x11,// MandatoryPrefix
-			0x09,// RM
-				0x02,// Invalid
-				0x81,// P_Q
-					0xA7, 0x21,// Pmvlzb_mm_m64
+		0x09,// RM
 			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+			0x81,// P_Q
+				0xA7, 0x21,// Pmvlzb_mm_m64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 92 = 0x5C
@@ -4895,14 +4859,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xB7,// VW_2
 				0x4D,// XMM0
 				0x92, 0x0B,// Subsd_xmm_xmmm64
-		0x11,// MandatoryPrefix
-			0x09,// RM
-				0x02,// Invalid
-				0x81,// P_Q
-					0xA8, 0x21,// Pmvgezb_mm_m64
+		0x09,// RM
 			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+			0x81,// P_Q
+				0xA8, 0x21,// Pmvgezb_mm_m64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 93 = 0x5D
@@ -4920,12 +4880,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xB7,// VW_2
 				0x4D,// XMM0
 				0xA4, 0x0B,// Minsd_xmm_xmmm64
-		0x11,// MandatoryPrefix
-			0x81,// P_Q
-				0xA9, 0x21,// Pmulhriw_mm_mmm64
-			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+		0x81,// P_Q
+			0xA9, 0x21,// Pmulhriw_mm_mmm64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 94 = 0x5E
@@ -4943,14 +4899,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xB7,// VW_2
 				0x4D,// XMM0
 				0xB6, 0x0B,// Divsd_xmm_xmmm64
-		0x11,// MandatoryPrefix
-			0x09,// RM
-				0x02,// Invalid
-				0x81,// P_Q
-					0xAA, 0x21,// Pmachriw_mm_m64
+		0x09,// RM
 			0x02,// Invalid
-			0x02,// Invalid
-			0x02,// Invalid
+			0x81,// P_Q
+				0xAA, 0x21,// Pmachriw_mm_m64
 		0x80, 0x80, 0x40,// Cyrix
 
 	// 95 = 0x5F

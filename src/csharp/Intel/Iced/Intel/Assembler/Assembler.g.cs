@@ -22806,7 +22806,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PADDSIW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 51 /r</c><br/>
+		/// <c>0F 51 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -22820,7 +22820,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PADDSIW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 51 /r</c><br/>
+		/// <c>0F 51 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -23296,7 +23296,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PAVEB mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 50 /r</c><br/>
+		/// <c>0F 50 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -23310,7 +23310,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PAVEB mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 50 /r</c><br/>
+		/// <c>0F 50 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -24448,7 +24448,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PDISTIB mm1, m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 54 /r</c><br/>
+		/// <c>0F 54 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -26226,7 +26226,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMACHRIW mm1, m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 5E /r</c><br/>
+		/// <c>0F 5E /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -26352,7 +26352,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMAGW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 52 /r</c><br/>
+		/// <c>0F 52 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -26366,7 +26366,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMAGW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 52 /r</c><br/>
+		/// <c>0F 52 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27248,7 +27248,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMULHRIW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 5D /r</c><br/>
+		/// <c>0F 5D /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27262,7 +27262,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMULHRIW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 5D /r</c><br/>
+		/// <c>0F 5D /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27360,7 +27360,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMULHRW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 59 /r</c><br/>
+		/// <c>0F 59 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27374,7 +27374,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMULHRW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 59 /r</c><br/>
+		/// <c>0F 59 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27640,7 +27640,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMVGEZB mm1, m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 5C /r</c><br/>
+		/// <c>0F 5C /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27654,7 +27654,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMVLZB mm1, m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 5B /r</c><br/>
+		/// <c>0F 5B /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27668,7 +27668,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMVNZB mm1, m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 5A /r</c><br/>
+		/// <c>0F 5A /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -27682,7 +27682,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PMVZB mm1, m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 58 /r</c><br/>
+		/// <c>0F 58 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -29896,7 +29896,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PSUBSIW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 55 /r</c><br/>
+		/// <c>0F 55 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>
@@ -29910,7 +29910,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PSUBSIW mm1, mm2/m64</c><br/>
 		/// <br/>
-		/// <c>NP 0F 55 /r</c><br/>
+		/// <c>0F 55 /r</c><br/>
 		/// <br/>
 		/// <c>CYRIX_EMMI</c><br/>
 		/// <br/>

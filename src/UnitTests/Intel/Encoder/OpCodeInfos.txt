@@ -4276,18 +4276,18 @@ Bb1_reset, legacy, , 0F, 3B, 0F 3B, BB1_RESET, 16b 32b
 Cpu_write, legacy, , 0F, 3C, 0F 3C, CPU_WRITE, 16b 32b
 Cpu_read, legacy, , 0F, 3D, 0F 3D, CPU_READ, 16b 32b
 Altinst, legacy, , 0F, 3F, 0F 3F, ALTINST, 16b 32b
-Paveb_mm_mmm64, legacy, NP, 0F, 50, NP 0F 50 /r, PAVEB mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Paddsiw_mm_mmm64, legacy, NP, 0F, 51, NP 0F 51 /r, PADDSIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmagw_mm_mmm64, legacy, NP, 0F, 52, NP 0F 52 /r, PMAGW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pdistib_mm_m64, legacy, NP, 0F, 54, NP 0F 54 /r, PDISTIB mm1| m64, 16b 32b op=mm_reg;mem
-Psubsiw_mm_mmm64, legacy, NP, 0F, 55, NP 0F 55 /r, PSUBSIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmvzb_mm_m64, legacy, NP, 0F, 58, NP 0F 58 /r, PMVZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmulhrw_mm_mmm64, legacy, NP, 0F, 59, NP 0F 59 /r, PMULHRW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmvnzb_mm_m64, legacy, NP, 0F, 5A, NP 0F 5A /r, PMVNZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmvlzb_mm_m64, legacy, NP, 0F, 5B, NP 0F 5B /r, PMVLZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmvgezb_mm_m64, legacy, NP, 0F, 5C, NP 0F 5C /r, PMVGEZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmulhriw_mm_mmm64, legacy, NP, 0F, 5D, NP 0F 5D /r, PMULHRIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmachriw_mm_m64, legacy, NP, 0F, 5E, NP 0F 5E /r, PMACHRIW mm1| m64, 16b 32b op=mm_reg;mem
+Paveb_mm_mmm64, legacy, , 0F, 50, 0F 50 /r, PAVEB mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
+Paddsiw_mm_mmm64, legacy, , 0F, 51, 0F 51 /r, PADDSIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmagw_mm_mmm64, legacy, , 0F, 52, 0F 52 /r, PMAGW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
+Pdistib_mm_m64, legacy, , 0F, 54, 0F 54 /r, PDISTIB mm1| m64, 16b 32b op=mm_reg;mem
+Psubsiw_mm_mmm64, legacy, , 0F, 55, 0F 55 /r, PSUBSIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmvzb_mm_m64, legacy, , 0F, 58, 0F 58 /r, PMVZB mm1| m64, 16b 32b op=mm_reg;mem
+Pmulhrw_mm_mmm64, legacy, , 0F, 59, 0F 59 /r, PMULHRW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmvnzb_mm_m64, legacy, , 0F, 5A, 0F 5A /r, PMVNZB mm1| m64, 16b 32b op=mm_reg;mem
+Pmvlzb_mm_m64, legacy, , 0F, 5B, 0F 5B /r, PMVLZB mm1| m64, 16b 32b op=mm_reg;mem
+Pmvgezb_mm_m64, legacy, , 0F, 5C, 0F 5C /r, PMVGEZB mm1| m64, 16b 32b op=mm_reg;mem
+Pmulhriw_mm_mmm64, legacy, , 0F, 5D, 0F 5D /r, PMULHRIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmachriw_mm_m64, legacy, , 0F, 5E, 0F 5E /r, PMACHRIW mm1| m64, 16b 32b op=mm_reg;mem
 Cyrix_D9D7, legacy, , legacy, D9D7, D9 D7, UNDOC, 16b 32b
 Cyrix_D9E2, legacy, , legacy, D9E2, D9 E2, UNDOC, 16b 32b
 Ftstp, legacy, , legacy, D9E6, D9 E6, FTSTP, 16b 32b

@@ -3800,12 +3800,7 @@ namespace Generator.Decoder {
 							invalid,
 							invalid,
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Paveb_mm_mmm64)] },
-							invalid,
-							invalid,
-							invalid,
-						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Paveb_mm_mmm64)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
@@ -3814,12 +3809,7 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Sqrtss_xmm_xmmm32)] },
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Sqrtsd_xmm_xmmm64)] }
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Paddsiw_mm_mmm64)] },
-							invalid,
-							invalid,
-							invalid,
-						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Paddsiw_mm_mmm64)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
@@ -3828,12 +3818,7 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Rsqrtss_xmm_xmmm32)] },
 							invalid,
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmagw_mm_mmm64)] },
-							invalid,
-							invalid,
-							invalid,
-						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmagw_mm_mmm64)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Rcpps_xmm_xmmm128)] },
@@ -3848,14 +3833,9 @@ namespace Generator.Decoder {
 							invalid,
 							invalid,
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
-								invalid,
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pdistib_mm_m64)] }
-							},
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 							invalid,
-							invalid,
-							invalid,
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pdistib_mm_m64)] }
 						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
@@ -3865,12 +3845,7 @@ namespace Generator.Decoder {
 							invalid,
 							invalid,
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Psubsiw_mm_mmm64)] },
-							invalid,
-							invalid,
-							invalid,
-						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Psubsiw_mm_mmm64)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Orps_xmm_xmmm128)] },
@@ -3893,14 +3868,9 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Addss_xmm_xmmm32)] },
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Addsd_xmm_xmmm64)] }
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
-								invalid,
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvzb_mm_m64)] }
-							},
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 							invalid,
-							invalid,
-							invalid,
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvzb_mm_m64)] }
 						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
@@ -3910,12 +3880,7 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Mulss_xmm_xmmm32)] },
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Mulsd_xmm_xmmm64)] }
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmulhrw_mm_mmm64)] },
-							invalid,
-							invalid,
-							invalid,
-						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmulhrw_mm_mmm64)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
@@ -3924,14 +3889,9 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Cvtss2sd_xmm_xmmm32)] },
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Cvtsd2ss_xmm_xmmm64)] }
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
-								invalid,
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvnzb_mm_m64)] }
-							},
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 							invalid,
-							invalid,
-							invalid,
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvnzb_mm_m64)] }
 						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
@@ -3941,14 +3901,9 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Cvttps2dq_xmm_xmmm128)] },
 							invalid,
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
-								invalid,
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvlzb_mm_m64)] }
-							},
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 							invalid,
-							invalid,
-							invalid,
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvlzb_mm_m64)] }
 						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
@@ -3958,14 +3913,9 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Subss_xmm_xmmm32)] },
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Subsd_xmm_xmmm64)] }
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
-								invalid,
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvgezb_mm_m64)] }
-							},
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 							invalid,
-							invalid,
-							invalid,
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmvgezb_mm_m64)] }
 						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
@@ -3975,12 +3925,7 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Minss_xmm_xmmm32)] },
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Minsd_xmm_xmmm64)] }
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmulhriw_mm_mmm64)] },
-							invalid,
-							invalid,
-							invalid,
-						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmulhriw_mm_mmm64)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
@@ -3989,14 +3934,9 @@ namespace Generator.Decoder {
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Divss_xmm_xmmm32)] },
 							new object[] { legacyEnum[nameof(OpCodeHandlerKind.VW_2)], registerEnum[nameof(Register.XMM0)], codeEnum[nameof(Code.Divsd_xmm_xmmm64)] }
 						},
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
-								invalid,
-								new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmachriw_mm_m64)] }
-							},
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 							invalid,
-							invalid,
-							invalid,
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.P_Q)], codeEnum[nameof(Code.Pmachriw_mm_m64)] }
 						}, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
