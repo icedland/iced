@@ -1779,7 +1779,7 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 0F3C, Cpu_write, Legacy, CYRIX_DDI, priv r=eax;ebx decopt=Cyrix
 # cpu_read
 0F3D, Cpu_read, Legacy, CYRIX_DDI, priv r=ebx w=eax decopt=Cyrix
-# cpu_read
+# altinst
 0F3F, Altinst, Legacy, CENTAUR_AIS, flow=UnconditionalBranch r=eax decopt=ALTINST
 # paveb mm1,[eax]
 0F50 08, Paveb_mm_mmm64, Legacy, CYRIX_EMMI, op0=rw op1=r rw=mm1 r=ds r=eax rm=ds:eax;Packed64_UInt8 decopt=Cyrix

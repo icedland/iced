@@ -683,3 +683,15 @@ C7 F8 5AA5, Xbegin_rel16, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 64 66 8D 18, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=ebx r=bx;si
 # lea esi,[ecx+edx*8]
 67 66 8D 34 D1, Lea_r32_m, Legacy, INTEL386, op0=w op1=nma w=esi r=ecx;edx
+# rdshr [bx+si]
+0F36 00, Rdshr_rm32, Legacy, CYRIX_SHR, priv op0=w r=ds r=bx;si wm=ds:bx+si*1;UInt32 decopt=Cyrix
+# rdshr edx
+0F36 C2, Rdshr_rm32, Legacy, CYRIX_SHR, priv op0=w w=edx decopt=Cyrix
+# wrshr [bx+si]
+0F37 00, Wrshr_rm32, Legacy, CYRIX_SHR, priv op0=r r=ds r=bx;si rm=ds:bx+si*1;UInt32 decopt=Cyrix
+# wrshr edx
+0F37 C2, Wrshr_rm32, Legacy, CYRIX_SHR, priv op0=r r=edx decopt=Cyrix
+# cpu_write
+0F3C, Cpu_write, Legacy, CYRIX_DDI, priv r=eax;ebx decopt=Cyrix
+# cpu_read
+0F3D, Cpu_read, Legacy, CYRIX_DDI, priv r=ebx w=eax decopt=Cyrix
