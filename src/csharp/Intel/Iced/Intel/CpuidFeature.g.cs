@@ -49,8 +49,8 @@ namespace Iced.Intel {
 		INTEL486 = 8,
 		/// <summary>Intel486 A stepping only (<c>CMPXCHG</c>)</summary>
 		INTEL486_A_ONLY = 9,
-		/// <summary>80386 and Intel486 only</summary>
-		INTEL386_486_ONLY = 10,
+		/// <summary>UMOV (80386 and Intel486)</summary>
+		UMOV = 10,
 		/// <summary>IA-64</summary>
 		IA64 = 11,
 		/// <summary>CPUID.80000001H:EDX.LM[bit 29]</summary>
@@ -321,6 +321,8 @@ namespace Iced.Intel {
 		CYRIX_DMI = 144,
 		/// <summary>CPUID.0C0000000H:EAX &gt;= 0C0000001H AND CPUID.0C0000001H:EDX.AIS[Bits 1:0] = 11B ([0] = exists, [1] = enabled)</summary>
 		CENTAUR_AIS = 145,
+		/// <summary>MOV to/from TR (80386, Intel486, Cyrix, Geode)</summary>
+		MOV_TR = 146,
 	}
 }
 #endif

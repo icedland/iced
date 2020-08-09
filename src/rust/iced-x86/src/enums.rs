@@ -997,8 +997,8 @@ pub enum CpuidFeature {
 	INTEL486 = 8,
 	/// Intel486 A stepping only (`CMPXCHG`)
 	INTEL486_A_ONLY = 9,
-	/// 80386 and Intel486 only
-	INTEL386_486_ONLY = 10,
+	/// UMOV (80386 and Intel486)
+	UMOV = 10,
 	/// IA-64
 	IA64 = 11,
 	/// CPUID.80000001H:EDX.LM\[bit 29\]
@@ -1279,10 +1279,12 @@ pub enum CpuidFeature {
 	CYRIX_DMI = 144,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.AIS\[Bits 1:0\] = 11B (\[0\] = exists, \[1\] = enabled)
 	CENTAUR_AIS = 145,
+	/// MOV to/from TR (80386, Intel486, Cyrix, Geode)
+	MOV_TR = 146,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 146] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 147] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1293,7 +1295,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 146] = [
 	"INTEL386_A0_ONLY",
 	"INTEL486",
 	"INTEL486_A_ONLY",
-	"INTEL386_486_ONLY",
+	"UMOV",
 	"IA64",
 	"X64",
 	"ADX",
@@ -1429,6 +1431,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 146] = [
 	"CYRIX_EMMI",
 	"CYRIX_DMI",
 	"CENTAUR_AIS",
+	"MOV_TR",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

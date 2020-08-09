@@ -1092,8 +1092,8 @@ pub(crate) static TABLE: [u32; 8558] = [
 	0x4008_0037, 0x0C00_0000,// Mov_cr_r64
 	0x4008_0037, 0x0500_0000,// Mov_dr_r32
 	0x4008_0037, 0x0C00_0000,// Mov_dr_r64
-	0x4008_0037, 0x0A00_0000,// Mov_r32_tr
-	0x4008_0037, 0x0A00_0000,// Mov_tr_r32
+	0x4008_0037, 0xA500_0000,// Mov_r32_tr
+	0x4008_0037, 0xA500_0000,// Mov_tr_r32
 	0x0000_0037, 0x7B00_0000,// Movaps_xmm_xmmm128
 	0x2000_0037, 0x0F00_0001,// VEX_Vmovaps_xmm_xmmm128
 	0x2000_0037, 0x0F00_0001,// VEX_Vmovaps_ymm_ymmm256

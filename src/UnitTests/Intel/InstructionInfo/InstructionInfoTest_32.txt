@@ -1100,33 +1100,33 @@ DF E2, Fnstsg_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
 # loadall386
 0F07, Loadall386, Legacy, INTEL386_ONLY, decopt=Loadall386 priv saverestore r=es;edi
 # umov dh,cl
-0F10 CE, Umov_rm8_r8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=dh r=cl
+0F10 CE, Umov_rm8_r8, Legacy, UMOV, decopt=Umov op0=w op1=r w=dh r=cl
 # umov [eax],bl
-0F10 18, Umov_rm8_r8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt8 r=bl
+0F10 18, Umov_rm8_r8, Legacy, UMOV, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt8 r=bl
 # umov si,cx
-66 0F11 CE, Umov_rm16_r16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=si r=cx
+66 0F11 CE, Umov_rm16_r16, Legacy, UMOV, decopt=Umov op0=w op1=r w=si r=cx
 # umov [eax],bx
-66 0F11 18, Umov_rm16_r16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt16 r=bx
+66 0F11 18, Umov_rm16_r16, Legacy, UMOV, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt16 r=bx
 # umov esi,ecx
-0F11 CE, Umov_rm32_r32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=esi r=ecx
+0F11 CE, Umov_rm32_r32, Legacy, UMOV, decopt=Umov op0=w op1=r w=esi r=ecx
 # umov [eax],ebx
-0F11 18, Umov_rm32_r32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt32 r=ebx
+0F11 18, Umov_rm32_r32, Legacy, UMOV, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt32 r=ebx
 # umov cl,dh
-0F12 CE, Umov_r8_rm8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=cl r=dh
+0F12 CE, Umov_r8_rm8, Legacy, UMOV, decopt=Umov op0=w op1=r w=cl r=dh
 # umov bl,[eax]
-0F12 18, Umov_r8_rm8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=bl r=ds r=eax rm=ds:eax;UInt8
+0F12 18, Umov_r8_rm8, Legacy, UMOV, decopt=Umov op0=w op1=r w=bl r=ds r=eax rm=ds:eax;UInt8
 # umov cx,si
-66 0F13 CE, Umov_r16_rm16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=cx r=si
+66 0F13 CE, Umov_r16_rm16, Legacy, UMOV, decopt=Umov op0=w op1=r w=cx r=si
 # umov bx,[eax]
-66 0F13 18, Umov_r16_rm16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=bx r=ds r=eax rm=ds:eax;UInt16
+66 0F13 18, Umov_r16_rm16, Legacy, UMOV, decopt=Umov op0=w op1=r w=bx r=ds r=eax rm=ds:eax;UInt16
 # umov ecx,esi
-0F13 CE, Umov_r32_rm32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=ecx r=esi
+0F13 CE, Umov_r32_rm32, Legacy, UMOV, decopt=Umov op0=w op1=r w=ecx r=esi
 # umov ebx,[eax]
-0F13 18, Umov_r32_rm32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=ebx r=ds r=eax rm=ds:eax;UInt32
+0F13 18, Umov_r32_rm32, Legacy, UMOV, decopt=Umov op0=w op1=r w=ebx r=ds r=eax rm=ds:eax;UInt32
 # mov esi,tr3
-0F24 DE, Mov_r32_tr, Legacy, INTEL386_486_ONLY, decopt=MovTr priv fu=oszacp op0=w op1=r w=esi r=tr3
+0F24 DE, Mov_r32_tr, Legacy, MOV_TR, decopt=MovTr priv fu=oszacp op0=w op1=r w=esi r=tr3
 # mov tr3,esi
-0F26 DE, Mov_tr_r32, Legacy, INTEL386_486_ONLY, decopt=MovTr priv fu=oszacp op0=w op1=r w=tr3 r=esi
+0F26 DE, Mov_tr_r32, Legacy, MOV_TR, decopt=MovTr priv fu=oszacp op0=w op1=r w=tr3 r=esi
 # xbts cx,si
 66 0FA6 CE, Xbts_r16_rm16, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r rw=cx r=si r=ax;cl
 # xbts bx,[eax]

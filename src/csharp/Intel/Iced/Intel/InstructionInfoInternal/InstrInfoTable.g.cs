@@ -1096,8 +1096,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x40080037, 0x0C000000,// Mov_cr_r64
 			0x40080037, 0x05000000,// Mov_dr_r32
 			0x40080037, 0x0C000000,// Mov_dr_r64
-			0x40080037, 0x0A000000,// Mov_r32_tr
-			0x40080037, 0x0A000000,// Mov_tr_r32
+			0x40080037, 0xA5000000,// Mov_r32_tr
+			0x40080037, 0xA5000000,// Mov_tr_r32
 			0x00000037, 0x7B000000,// Movaps_xmm_xmmm128
 			0x20000037, 0x0F000001,// VEX_Vmovaps_xmm_xmmm128
 			0x20000037, 0x0F000001,// VEX_Vmovaps_ymm_ymmm256

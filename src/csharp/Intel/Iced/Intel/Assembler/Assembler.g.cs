@@ -18614,7 +18614,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 26 /r</c><br/>
 		/// <br/>
-		/// <c>386/486</c><br/>
+		/// <c>386/486/Cyrix/Geode</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		public void mov(AssemblerRegisterTR dst, AssemblerRegister32 src) {
@@ -18856,7 +18856,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 24 /r</c><br/>
 		/// <br/>
-		/// <c>386/486</c><br/>
+		/// <c>386/486/Cyrix/Geode</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		public void mov(AssemblerRegister32 dst, AssemblerRegisterTR src) {

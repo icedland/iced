@@ -67,7 +67,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x07,// INTEL386_A0_ONLY
 				0x08,// INTEL486
 				0x09,// INTEL486_A_ONLY
-				0x0A,// INTEL386_486_ONLY
+				0x0A,// UMOV
 				0x0B,// IA64
 				0x0C,// X64
 				0x0D,// ADX
@@ -222,6 +222,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x8F,// CYRIX_EMMI
 				0x90,// CYRIX_DMI
 				0x91,// CENTAUR_AIS
+				0x92,// MOV_TR
 			};
 	}
 }

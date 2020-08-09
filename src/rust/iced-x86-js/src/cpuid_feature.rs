@@ -50,8 +50,8 @@ pub enum CpuidFeature {
 	INTEL486 = 8,
 	/// Intel486 A stepping only (`CMPXCHG`)
 	INTEL486_A_ONLY = 9,
-	/// 80386 and Intel486 only
-	INTEL386_486_ONLY = 10,
+	/// UMOV (80386 and Intel486)
+	UMOV = 10,
 	/// IA-64
 	IA64 = 11,
 	/// CPUID.80000001H:EDX.LM\[bit 29\]
@@ -332,5 +332,7 @@ pub enum CpuidFeature {
 	CYRIX_DMI = 144,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.AIS\[Bits 1:0\] = 11B (\[0\] = exists, \[1\] = enabled)
 	CENTAUR_AIS = 145,
+	/// MOV to/from TR (80386, Intel486, Cyrix, Geode)
+	MOV_TR = 146,
 }
 // GENERATOR-END: Enum

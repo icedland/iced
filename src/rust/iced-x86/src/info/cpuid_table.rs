@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::CpuidFeature;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static CPUID: [&[CpuidFeature]; 165] = [
+pub(crate) static CPUID: [&[CpuidFeature]; 166] = [
 	&[CpuidFeature::INTEL8086],// INTEL8086
 	&[CpuidFeature::INTEL8086_ONLY],// INTEL8086_ONLY
 	&[CpuidFeature::INTEL186],// INTEL186
@@ -37,7 +37,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 165] = [
 	&[CpuidFeature::INTEL386_A0_ONLY],// INTEL386_A0_ONLY
 	&[CpuidFeature::INTEL486],// INTEL486
 	&[CpuidFeature::INTEL486_A_ONLY],// INTEL486_A_ONLY
-	&[CpuidFeature::INTEL386_486_ONLY],// INTEL386_486_ONLY
+	&[CpuidFeature::UMOV],// UMOV
 	&[CpuidFeature::IA64],// IA64
 	&[CpuidFeature::X64],// X64
 	&[CpuidFeature::ADX],// ADX
@@ -192,4 +192,5 @@ pub(crate) static CPUID: [&[CpuidFeature]; 165] = [
 	&[CpuidFeature::CYRIX_EMMI],// CYRIX_EMMI
 	&[CpuidFeature::CYRIX_DMI],// CYRIX_DMI
 	&[CpuidFeature::CENTAUR_AIS],// CENTAUR_AIS
+	&[CpuidFeature::MOV_TR],// MOV_TR
 ];

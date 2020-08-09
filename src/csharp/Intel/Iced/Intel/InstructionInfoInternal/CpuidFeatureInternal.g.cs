@@ -38,7 +38,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		INTEL386_A0_ONLY,
 		INTEL486,
 		INTEL486_A_ONLY,
-		INTEL386_486_ONLY,
+		UMOV,
 		IA64,
 		X64,
 		ADX,
@@ -193,6 +193,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		CYRIX_EMMI,
 		CYRIX_DMI,
 		CENTAUR_AIS,
+		MOV_TR,
 	}
 }
 #endif

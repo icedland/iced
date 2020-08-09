@@ -44,8 +44,8 @@ namespace Generator.Enums.InstructionInfo {
 		INTEL486,
 		[Comment("Intel486 A stepping only (#(c:CMPXCHG)#)")]
 		INTEL486_A_ONLY,
-		[Comment("80386 and Intel486 only")]
-		INTEL386_486_ONLY,
+		[Comment("UMOV (80386 and Intel486)")]
+		UMOV,
 		[Comment("IA-64")]
 		IA64,
 		[Comment("CPUID.80000001H:EDX.LM[bit 29]")]
@@ -316,5 +316,7 @@ namespace Generator.Enums.InstructionInfo {
 		CYRIX_DMI,
 		[Comment("CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.AIS[Bits 1:0] = 11B ([0] = exists, [1] = enabled)")]
 		CENTAUR_AIS,
+		[Comment("MOV to/from TR (80386, Intel486, Cyrix, Geode)")]
+		MOV_TR,
 	}
 }

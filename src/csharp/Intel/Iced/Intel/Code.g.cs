@@ -8538,7 +8538,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 24 /r</c><br/>
 		/// <br/>
-		/// <c>386/486</c><br/>
+		/// <c>386/486/Cyrix/Geode</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Mov_r32_tr = 1067,
@@ -8546,7 +8546,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 26 /r</c><br/>
 		/// <br/>
-		/// <c>386/486</c><br/>
+		/// <c>386/486/Cyrix/Geode</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Mov_tr_r32 = 1068,
