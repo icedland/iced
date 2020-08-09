@@ -16522,76 +16522,76 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Smint_0F7E
 				0x01,// Normal_1
-				0x94, 0x0B,// 1428 = "smint"
+				0x9D, 0x0B,// 1437 = "smintold"
 
 				// Bb0_reset
 				0x01,// Normal_1
-				0x9D, 0x0B,// 1437 = "bb0_reset"
+				0x9E, 0x0B,// 1438 = "bb0_reset"
 
 				// Bb1_reset
 				0x01,// Normal_1
-				0x9E, 0x0B,// 1438 = "bb1_reset"
+				0x9F, 0x0B,// 1439 = "bb1_reset"
 
 				// Cpu_write
 				0x01,// Normal_1
-				0x9F, 0x0B,// 1439 = "cpu_write"
+				0xA0, 0x0B,// 1440 = "cpu_write"
 
 				// Cpu_read
 				0x01,// Normal_1
-				0xA0, 0x0B,// 1440 = "cpu_read"
+				0xA1, 0x0B,// 1441 = "cpu_read"
 
 				// Altinst
 				0x01,// Normal_1
-				0xA1, 0x0B,// 1441 = "altinst"
+				0xA2, 0x0B,// 1442 = "altinst"
 
 				// Paveb_mm_mmm64
 				0x01,// Normal_1
-				0xA2, 0x0B,// 1442 = "paveb"
+				0xA3, 0x0B,// 1443 = "paveb"
 
 				// Paddsiw_mm_mmm64
 				0x01,// Normal_1
-				0xA3, 0x0B,// 1443 = "paddsiw"
+				0xA4, 0x0B,// 1444 = "paddsiw"
 
 				// Pmagw_mm_mmm64
 				0x01,// Normal_1
-				0xA4, 0x0B,// 1444 = "pmagw"
+				0xA5, 0x0B,// 1445 = "pmagw"
 
 				// Pdistib_mm_m64
 				0x02,// Normal_2
-				0xA5, 0x0B,// 1445 = "pdistib"
+				0xA6, 0x0B,// 1446 = "pdistib"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Psubsiw_mm_mmm64
 				0x01,// Normal_1
-				0xA6, 0x0B,// 1446 = "psubsiw"
+				0xA7, 0x0B,// 1447 = "psubsiw"
 
 				// Pmvzb_mm_m64
 				0x01,// Normal_1
-				0xA7, 0x0B,// 1447 = "pmvzb"
+				0xA8, 0x0B,// 1448 = "pmvzb"
 
 				// Pmulhrw_mm_mmm64
 				0x01,// Normal_1
-				0xF4, 0x0A,// 1396 = "pmulhrw"
+				0xA9, 0x0B,// 1449 = "pmulhrwc"
 
 				// Pmvnzb_mm_m64
 				0x01,// Normal_1
-				0xA8, 0x0B,// 1448 = "pmvnzb"
+				0xAA, 0x0B,// 1450 = "pmvnzb"
 
 				// Pmvlzb_mm_m64
 				0x01,// Normal_1
-				0xA9, 0x0B,// 1449 = "pmvlzb"
+				0xAB, 0x0B,// 1451 = "pmvlzb"
 
 				// Pmvgezb_mm_m64
 				0x01,// Normal_1
-				0xAA, 0x0B,// 1450 = "pmvgezb"
+				0xAC, 0x0B,// 1452 = "pmvgezb"
 
 				// Pmulhriw_mm_mmm64
 				0x01,// Normal_1
-				0xAB, 0x0B,// 1451 = "pmulhriw"
+				0xAD, 0x0B,// 1453 = "pmulhriw"
 
 				// Pmachriw_mm_m64
 				0x02,// Normal_2
-				0xAC, 0x0B,// 1452 = "pmachriw"
+				0xAE, 0x0B,// 1454 = "pmachriw"
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Cyrix_D9D7
@@ -16603,7 +16603,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Ftstp
 				0x01,// Normal_1
-				0xAD, 0x0B,// 1453 = "ftstp"
+				0xAF, 0x0B,// 1455 = "ftstp"
 
 				// Cyrix_D9E7
 				0x01,// Normal_1
@@ -16611,11 +16611,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Frint2
 				0x01,// Normal_1
-				0xAE, 0x0B,// 1454 = "frint2"
+				0xB0, 0x0B,// 1456 = "frint2"
 
 				// Frichop
 				0x01,// Normal_1
-				0xAF, 0x0B,// 1455 = "frichop"
+				0xB1, 0x0B,// 1457 = "frichop"
 
 				// Cyrix_DED8
 				0x01,// Normal_1
@@ -16635,7 +16635,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Frinear
 				0x01,// Normal_1
-				0xB0, 0x0B,// 1456 = "frinear"
+				0xB2, 0x0B,// 1458 = "frinear"
 			};
 	}
 }

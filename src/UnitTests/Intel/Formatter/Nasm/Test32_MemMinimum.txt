@@ -705,7 +705,7 @@ svldt [eax]
 rsldt [eax]
 svts [eax]
 rsts [eax]
-smint
+smintold
 bb0_reset
 bb1_reset
 cpu_write
@@ -721,8 +721,8 @@ pdistib mm1, [eax]
 psubsiw mm1, [eax]
 psubsiw mm1, mm5
 pmvzb mm1, [eax]
-pmulhrw mm1, [eax]
-pmulhrw mm1, mm5
+pmulhrwc mm1, [eax]
+pmulhrwc mm1, mm5
 pmvnzb mm1, [eax]
 pmvlzb mm1, [eax]
 pmvgezb mm1, [eax]

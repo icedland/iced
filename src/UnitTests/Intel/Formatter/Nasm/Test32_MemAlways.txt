@@ -705,7 +705,7 @@ svldt tword [eax]
 rsldt tword [eax]
 svts tword [eax]
 rsts tword [eax]
-smint
+smintold
 bb0_reset
 bb1_reset
 cpu_write
@@ -721,8 +721,8 @@ pdistib mm1, [eax]
 psubsiw mm1, qword [eax]
 psubsiw mm1, mm5
 pmvzb mm1, qword [eax]
-pmulhrw mm1, qword [eax]
-pmulhrw mm1, mm5
+pmulhrwc mm1, qword [eax]
+pmulhrwc mm1, mm5
 pmvnzb mm1, qword [eax]
 pmvlzb mm1, qword [eax]
 pmvgezb mm1, qword [eax]
