@@ -16548,8 +16548,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA4, 0x0B,// 1444 = "pmagw"
 
 	// Pdistib_mm_m64
-	0x01,// Normal_1
+	0x02,// Normal_2
 	0xA5, 0x0B,// 1445 = "pdistib"
+	0x01,// 0x1 = MemSize_Nothing
 
 	// Psubsiw_mm_mmm64
 	0x01,// Normal_1
@@ -16580,8 +16581,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xAB, 0x0B,// 1451 = "pmulhriw"
 
 	// Pmachriw_mm_m64
-	0x01,// Normal_1
+	0x02,// Normal_2
 	0xAC, 0x0B,// 1452 = "pmachriw"
+	0x01,// 0x1 = MemSize_Nothing
 
 	// Cyrix_D9D7
 	0x01,// Normal_1
