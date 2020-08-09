@@ -53,30 +53,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string Op4Kind = "op4";
 		internal const string EncodedHexBytes = "enc";
 		internal const string Code = "code";
-		internal const string DecoderOptions_AMD = "amd";
-		internal const string DecoderOptions_ForceReservedNop = "resnop";
-		internal const string DecoderOptions_Umov = "umov";
-		internal const string DecoderOptions_Xbts = "xbts";
-		internal const string DecoderOptions_Cmpxchg486A = "cmpxchg486a";
-		internal const string DecoderOptions_OldFpu = "oldfpu";
-		internal const string DecoderOptions_Pcommit = "pcommit";
-		internal const string DecoderOptions_Loadall286 = "loadall286";
-		internal const string DecoderOptions_Loadall386 = "loadall386";
-		internal const string DecoderOptions_Cl1invmb = "cl1invmb";
-		internal const string DecoderOptions_MovTr = "movtr";
-		internal const string DecoderOptions_Jmpe = "jmpe";
-		internal const string DecoderOptions_NoPause = "nopause";
-		internal const string DecoderOptions_NoWbnoinvd = "nowbnoinvd";
-		internal const string DecoderOptions_NoLockMovCR0 = "nolockmovcr0";
-		internal const string DecoderOptions_NoMPFX_0FBC = "nompfx_0fbc";
-		internal const string DecoderOptions_NoMPFX_0FBD = "nompfx_0fbd";
-		internal const string DecoderOptions_NoLahfSahf64 = "nolahfsahf64";
-		internal const string DecoderOptions_NoInvalidCheck = "noinvalidcheck";
-		internal const string DecoderOptions_MPX = "mpx";
-		internal const string DecoderOptions_Cyrix = "cyrix";
-		internal const string DecoderOptions_Cyrix_SMINT_0F7E = "smint_0f7e";
-		internal const string DecoderOptions_Cyrix_DMI = "cyrix_dmi";
-		internal const string DecoderOptions_ALTINST = "altinst";
+		internal const string DecoderOptions = "decopt";
 		internal const string SegmentPrefix_ES = "es:";
 		internal const string SegmentPrefix_CS = "cs:";
 		internal const string SegmentPrefix_SS = "ss:";
@@ -143,6 +120,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		static readonly char[] seps = new char[] { ',' };
 		static readonly char[] extraSeps = new char[] { ' ' };
+		static readonly char[] semicolonSeparator = new char[] { ';' };
 		static DecoderTestCase ReadTestCase(int bitness, string line, int lineNumber) {
 			var parts = line.Split(seps);
 			if (parts.Length != 5)
@@ -284,100 +262,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					foundCode = true;
 					break;
 
-				case DecoderTestParserConstants.DecoderOptions_AMD:
-					tc.DecoderOptions |= DecoderOptions.AMD;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_ForceReservedNop:
-					tc.DecoderOptions |= DecoderOptions.ForceReservedNop;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Umov:
-					tc.DecoderOptions |= DecoderOptions.Umov;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Xbts:
-					tc.DecoderOptions |= DecoderOptions.Xbts;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Cmpxchg486A:
-					tc.DecoderOptions |= DecoderOptions.Cmpxchg486A;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_OldFpu:
-					tc.DecoderOptions |= DecoderOptions.OldFpu;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Pcommit:
-					tc.DecoderOptions |= DecoderOptions.Pcommit;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Loadall286:
-					tc.DecoderOptions |= DecoderOptions.Loadall286;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Loadall386:
-					tc.DecoderOptions |= DecoderOptions.Loadall386;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Cl1invmb:
-					tc.DecoderOptions |= DecoderOptions.Cl1invmb;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_MovTr:
-					tc.DecoderOptions |= DecoderOptions.MovTr;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Jmpe:
-					tc.DecoderOptions |= DecoderOptions.Jmpe;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_NoPause:
-					tc.DecoderOptions |= DecoderOptions.NoPause;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_NoWbnoinvd:
-					tc.DecoderOptions |= DecoderOptions.NoWbnoinvd;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_NoLockMovCR0:
-					tc.DecoderOptions |= DecoderOptions.NoLockMovCR0;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_NoMPFX_0FBC:
-					tc.DecoderOptions |= DecoderOptions.NoMPFX_0FBC;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_NoMPFX_0FBD:
-					tc.DecoderOptions |= DecoderOptions.NoMPFX_0FBD;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_NoLahfSahf64:
-					tc.DecoderOptions |= DecoderOptions.NoLahfSahf64;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_NoInvalidCheck:
-					tc.DecoderOptions |= DecoderOptions.NoInvalidCheck;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_MPX:
-					tc.DecoderOptions |= DecoderOptions.MPX;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Cyrix:
-					tc.DecoderOptions |= DecoderOptions.Cyrix;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Cyrix_SMINT_0F7E:
-					tc.DecoderOptions |= DecoderOptions.Cyrix_SMINT_0F7E;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_Cyrix_DMI:
-					tc.DecoderOptions |= DecoderOptions.Cyrix_DMI;
-					break;
-
-				case DecoderTestParserConstants.DecoderOptions_ALTINST:
-					tc.DecoderOptions |= DecoderOptions.ALTINST;
+				case DecoderTestParserConstants.DecoderOptions:
+					if (string.IsNullOrWhiteSpace(value))
+						throw new InvalidOperationException($"Invalid DecoderOption value: '{value}'");
+					if (!TryParseDecoderOptions(value.Split(semicolonSeparator), ref tc.DecoderOptions))
+						throw new Exception($"Invalid DecoderOptions value, '{value}'");
 					break;
 
 				case DecoderTestParserConstants.SegmentPrefix_ES:
@@ -454,6 +343,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				throw new InvalidOperationException($"Test case decodes to {nameof(Code.INVALID)} but there's no {DecoderTestParserConstants.Code}=xxx showing the original {nameof(Code)} value so it can be filtered out if needed");
 
 			return tc;
+		}
+
+		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
+			foreach (var opt in stringOptions) {
+				if (!ToEnumConverter.TryDecoderOptions(opt.Trim(), out var decOpts))
+					return false;
+				options |= decOpts;
+			}
+			return true;
 		}
 
 		static readonly char[] coSeps = new char[] { ';' };

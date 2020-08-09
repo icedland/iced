@@ -127,10 +127,6 @@ namespace Generator {
 				"NoMPFX_0FBC" => "NO_MPFX_0FBC",
 				"NoMPFX_0FBD" => "NO_MPFX_0FBD",
 				"NoLahfSahf64" => "NO_LAHF_SAHF_64",
-				"DecoderOptions_Cmpxchg486A" => "DECODER_OPTIONS_CMPXCHG486A",
-				"DecoderOptions_NoMPFX_0FBC" => "DECODER_OPTIONS_NO_MPFX_0FBC",
-				"DecoderOptions_NoMPFX_0FBD" => "DECODER_OPTIONS_NO_MPFX_0FBD",
-				"DecoderOptions_NoLahfSahf64" => "DECODER_OPTIONS_NO_LAHF_SAHF_64",
 				"OpKind_MemoryESDI" => "OP_KIND_MEMORY_ES_DI",
 				"OpKind_MemoryESEDI" => "OP_KIND_MEMORY_ES_EDI",
 				"OpKind_MemoryESRDI" => "OP_KIND_MEMORY_ES_RDI",
@@ -142,7 +138,6 @@ namespace Generator {
 				"Handler66Reg" => "HANDLER_66_REG",
 				"Handler66Mem" => "HANDLER_66_MEM",
 				"Cyrix_SMINT_0F7E" => "CYRIX_SMINT_0F7E",
-				"DecoderOptions_Cyrix_SMINT_0F7E" => "DECODER_OPTIONS_CYRIX_SMINT_0F7E",
 				_ => ToScreamingSnakeCase(name),
 			};
 
