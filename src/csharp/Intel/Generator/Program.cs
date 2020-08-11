@@ -161,8 +161,10 @@ Options:
     Don't include XOP instructions
 --no-3dnow
     Don't include 3DNow! instructions
---no-via
-    Don't include VIA instructions
+--no-padlock
+    Don't include Centaur (VIA) PadLock instructions
+--no-cyrix
+    Don't include Cyrix / AMD Geode GX/LX instructions
 --include-cpuid <name>
     Include instructions with these CPUID features, remove everything else
     eg. --include-cpuid intel8086;intel186;intel286;intel386;intel486;x64;wbnoinvd
@@ -245,11 +247,23 @@ Options:
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.D3NOW));
 					break;
 
-				case "--no-via":
+				case "--no-padlock":
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_ACE));
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_PHE));
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_PMM));
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_RNG));
+					break;
+
+				case "--no-cyrix":
+					// Don't include CYRIX_D3NOW
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_FPU));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_SMM));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_SMINT));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_SMINT_6X86));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_SHR));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_DDI));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_EMMI));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_DMI));
 					break;
 
 				case "--include-cpuid":

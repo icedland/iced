@@ -243,18 +243,28 @@ namespace Generator.Decoder {
 		bool CanReplaceHandlerWithInvalid(object?[] handler) {
 			if (handler[0] == invalid || handler[0] == invalid_NoModRM)
 				return false;
+			bool foundInvalidHandler = false;
+			bool otherArgs = false;
 			for (int i = 1; i < handler.Length; i++) {
 				switch (handler[i]) {
 				case object?[] h:
 					if (h[0] != invalid && h[0] != invalid_NoModRM)
 						return false;
+					foundInvalidHandler = true;
 					break;
 
-				default:
+				case string _:
+					// Handler ref
 					return false;
+
+				default:
+					otherArgs = true;
+					break;
 				}
 			}
-			return true;
+			if (!otherArgs)
+				return true;
+			return foundInvalidHandler;
 		}
 	}
 }
