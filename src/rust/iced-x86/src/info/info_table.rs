@@ -4277,7 +4277,7 @@ pub(crate) static TABLE: [u32; 8558] = [
 	0x4000_0000, 0x9F70_0000,// Smint_0F7E
 	0x4000_0000, 0xA100_0000,// Bb0_reset
 	0x4000_0000, 0xA100_0000,// Bb1_reset
-	0x46D0_0000, 0xA100_0000,// Cpu_write
+	0x46E0_0000, 0xA100_0000,// Cpu_write
 	0x46D0_0000, 0xA100_0000,// Cpu_read
 	0x0690_0000, 0xA410_0000,// Altinst
 	0x0000_0036, 0xA200_0000,// Paveb_mm_mmm64

@@ -425,11 +425,12 @@ pub(crate) enum CodeInfo {
 	EMMI_R_ImpliedReg,
 	EMMI_W_ImpliedReg,
 	EMMI_RW_ImpliedReg,
-	CPURW,
+	CPUR,
+	CPUW,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 110] = [
+static GEN_DEBUG_CODE_INFO: [&str; 111] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -539,7 +540,8 @@ static GEN_DEBUG_CODE_INFO: [&str; 110] = [
 	"EMMI_R_ImpliedReg",
 	"EMMI_W_ImpliedReg",
 	"EMMI_RW_ImpliedReg",
-	"CPURW",
+	"CPUR",
+	"CPUW",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {

@@ -4281,7 +4281,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x40000000, 0x9F700000,// Smint_0F7E
 			0x40000000, 0xA1000000,// Bb0_reset
 			0x40000000, 0xA1000000,// Bb1_reset
-			0x46D00000, 0xA1000000,// Cpu_write
+			0x46E00000, 0xA1000000,// Cpu_write
 			0x46D00000, 0xA1000000,// Cpu_read
 			0x06900000, 0xA4100000,// Altinst
 			0x00000036, 0xA2000000,// Paveb_mm_mmm64

@@ -3007,17 +3007,17 @@ impl InstructionInfoFactory {
 				}
 			}
 
-			CodeInfo::CPURW => {
+			CodeInfo::CPUR => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.op0_kind() == OpKind::Register {
-						Self::add_register(
-							flags,
-							info,
-							Register::EAX,
-							if instruction.code() == Code::Cpu_write { OpAccess::Read } else { OpAccess::Write },
-						);
-						Self::add_register(flags, info, Register::EBX, OpAccess::Read);
-					}
+					Self::add_register(flags, info, Register::EAX, OpAccess::Write);
+					Self::add_register(flags, info, Register::EBX, OpAccess::Read);
+				}
+			}
+
+			CodeInfo::CPUW => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EBX, OpAccess::Read);
 				}
 			}
 

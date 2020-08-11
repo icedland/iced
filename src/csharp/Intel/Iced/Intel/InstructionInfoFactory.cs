@@ -2136,9 +2136,16 @@ namespace Iced.Intel {
 				}
 				break;
 
-			case CodeInfo.CPURW:
+			case CodeInfo.CPUR:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, Register.EAX, instruction.Code == Code.Cpu_write ? OpAccess.Read : OpAccess.Write);
+					AddRegister(flags, Register.EAX, OpAccess.Write);
+					AddRegister(flags, Register.EBX, OpAccess.Read);
+				}
+				break;
+
+			case CodeInfo.CPUW:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, OpAccess.Read);
 					AddRegister(flags, Register.EBX, OpAccess.Read);
 				}
 				break;
