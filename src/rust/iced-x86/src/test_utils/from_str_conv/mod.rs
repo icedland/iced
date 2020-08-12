@@ -29,7 +29,7 @@ mod condition_code_table;
 #[cfg(feature = "instr_info")]
 mod cpuid_feature_table;
 mod decoder_error_table;
-#[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "decoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod decoder_options_table;
 #[cfg(feature = "instr_info")]
 mod encoding_kind_table;
@@ -58,7 +58,7 @@ use self::condition_code_table::*;
 #[cfg(feature = "instr_info")]
 use self::cpuid_feature_table::*;
 use self::decoder_error_table::*;
-#[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "decoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::decoder_options_table::*;
 #[cfg(feature = "instr_info")]
 use self::encoding_kind_table::*;
@@ -309,7 +309,7 @@ pub(crate) fn to_decoder_error(value: &str) -> Result<DecoderError, String> {
 	}
 }
 
-#[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "decoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn to_decoder_options(value: &str) -> Result<u32, String> {
 	let value = value.trim();
 	match TO_DECODER_OPTIONS_HASH.get(value) {
