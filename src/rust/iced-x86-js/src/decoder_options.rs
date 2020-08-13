@@ -58,7 +58,7 @@ pub enum DecoderOptions {
 	Loadall386 = 0x0000_0200,
 	/// Decode `CL1INVMB`
 	Cl1invmb = 0x0000_0400,
-	/// Decode `MOV r32,tr` and `Mov tr,r32`
+	/// Decode `MOV r32,tr` and `MOV tr,r32`
 	MovTr = 0x0000_0800,
 	/// Decode `JMPE` instructions
 	Jmpe = 0x0000_1000,

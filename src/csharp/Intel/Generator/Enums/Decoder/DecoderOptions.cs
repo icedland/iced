@@ -50,7 +50,7 @@ namespace Generator.Enums.Decoder {
 		Loadall386				= 0x00000200,
 		[Comment("Decode #(c:CL1INVMB)#")]
 		Cl1invmb				= 0x00000400,
-		[Comment("Decode #(c:MOV r32,tr)# and #(c:Mov tr,r32)#")]
+		[Comment("Decode #(c:MOV r32,tr)# and #(c:MOV tr,r32)#")]
 		MovTr					= 0x00000800,
 		[Comment("Decode #(c:JMPE)# instructions")]
 		Jmpe					= 0x00001000,

@@ -60,7 +60,7 @@ namespace Iced.Intel {
 		Loadall386 = 0x00000200,
 		/// <summary>Decode <c>CL1INVMB</c></summary>
 		Cl1invmb = 0x00000400,
-		/// <summary>Decode <c>MOV r32,tr</c> and <c>Mov tr,r32</c></summary>
+		/// <summary>Decode <c>MOV r32,tr</c> and <c>MOV tr,r32</c></summary>
 		MovTr = 0x00000800,
 		/// <summary>Decode <c>JMPE</c> instructions</summary>
 		Jmpe = 0x00001000,

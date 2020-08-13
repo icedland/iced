@@ -163,7 +163,7 @@ impl DecoderOptions {
 	pub const LOADALL386: u32 = 0x0000_0200;
 	/// Decode `CL1INVMB`
 	pub const CL1INVMB: u32 = 0x0000_0400;
-	/// Decode `MOV r32,tr` and `Mov tr,r32`
+	/// Decode `MOV r32,tr` and `MOV tr,r32`
 	pub const MOV_TR: u32 = 0x0000_0800;
 	/// Decode `JMPE` instructions
 	pub const JMPE: u32 = 0x0000_1000;
