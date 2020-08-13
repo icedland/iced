@@ -94,6 +94,7 @@ dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex 
 - [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
 - [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
 - [Get the virtual address of a memory operand](#get-the-virtual-address-of-a-memory-operand)
+- [Disassemble old/deprecated CPU instructions](#disassemble-olddeprecated-cpu-instructions)
 
 ## Disassemble (decode and format instructions)
 
@@ -1044,6 +1045,76 @@ pub(crate) fn how_to_get_virtual_address() {
         }
     });
     assert_eq!(0x0000_001F_B55A_1234, va);
+}
+```
+
+## Disassemble old/deprecated CPU instructions
+
+```rust
+use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
+
+/*
+This method produces the following output:
+731E0A03 bndmov bnd1, [eax]
+731E0A07 mov tr3, esi
+731E0A0A rdshr [eax]
+731E0A0D dmint
+731E0A0F svdc [eax], cs
+731E0A12 cpu_read
+731E0A14 pmvzb mm1, [eax]
+731E0A17 frinear
+731E0A19 altinst
+*/
+pub(crate) fn how_to_disassemble_old_instrs() {
+    #[rustfmt::skip]
+    let bytes = &[
+        // bndmov bnd1,[eax]
+        0x66, 0x0F, 0x1A, 0x08,
+        // mov tr3,esi
+        0x0F, 0x26, 0xDE,
+        // rdshr [eax]
+        0x0F, 0x36, 0x00,
+        // dmint
+        0x0F, 0x39,
+        // svdc [eax],cs
+        0x0F, 0x78, 0x08,
+        // cpu_read
+        0x0F, 0x3D,
+        // pmvzb mm1,[eax]
+        0x0F, 0x58, 0x08,
+        // frinear
+        0xDF, 0xFC,
+        // altinst
+        0x0F, 0x3F,
+    ];
+
+    // Enable decoding of Cyrix/Geode instructions, Centaur ALTINST, MOV to/from TR
+    // and MPX instructions.
+    // There are other options to enable other instructions such as UMOV, etc.
+    // These are deprecated instructions or only used by old CPUs so they're not
+    // enabled by default. Some newer instructions also use the same opcodes as
+    // some of these old instructions.
+    const DECODER_OPTIONS: u32 = DecoderOptions::MPX
+        | DecoderOptions::MOV_TR
+        | DecoderOptions::CYRIX
+        | DecoderOptions::CYRIX_DMI
+        | DecoderOptions::ALTINST;
+    let mut decoder = Decoder::new(32, bytes, DECODER_OPTIONS);
+    decoder.set_ip(0x731E0A03);
+
+    let mut formatter = NasmFormatter::new();
+    formatter.options_mut().set_space_after_operand_separator(true);
+    let mut output = String::new();
+
+    let mut instruction = Instruction::default();
+    while decoder.can_decode() {
+        decoder.decode_out(&mut instruction);
+
+        output.clear();
+        formatter.format(&instruction, &mut output);
+
+        println!("{:08X} {}", instruction.ip(), &output);
+    }
 }
 ```
 

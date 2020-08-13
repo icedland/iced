@@ -78,6 +78,7 @@ Instruction info:
 - [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
 - [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
 - [Get the virtual address of a memory operand](#get-the-virtual-address-of-a-memory-operand)
+- [Disassemble old/deprecated CPU instructions](#disassemble-olddeprecated-cpu-instructions)
 
 ## Disassemble (decode and format instructions)
 
@@ -912,6 +913,72 @@ static class HowTo_GetVirtualAddress {
             }
         });
         Debug.Assert(va == 0x0000_001F_B55A_1234);
+    }
+}
+```
+
+## Disassemble old/deprecated CPU instructions
+
+```C#
+using System;
+using Iced.Intel;
+
+static class HowTo_DisassembleOldInstructions {
+    /*
+     * This method produces the following output:
+731E0A03 bndmov bnd1, [eax]
+731E0A07 mov tr3, esi
+731E0A0A rdshr [eax]
+731E0A0D dmint
+731E0A0F svdc [eax], cs
+731E0A12 cpu_read
+731E0A14 pmvzb mm1, [eax]
+731E0A17 frinear
+731E0A19 altinst
+    */
+    public static void Example() {
+        var codeBytes = new byte[] {
+            // bndmov bnd1,[eax]
+            0x66, 0x0F, 0x1A, 0x08,
+            // mov tr3,esi
+            0x0F, 0x26, 0xDE,
+            // rdshr [eax]
+            0x0F, 0x36, 0x00,
+            // dmint
+            0x0F, 0x39,
+            // svdc [eax],cs
+            0x0F, 0x78, 0x08,
+            // cpu_read
+            0x0F, 0x3D,
+            // pmvzb mm1,[eax]
+            0x0F, 0x58, 0x08,
+            // frinear
+            0xDF, 0xFC,
+            // altinst
+            0x0F, 0x3F,
+        };
+
+        // Enable decoding of Cyrix/Geode instructions, Centaur ALTINST, MOV to/from TR
+        // and MPX instructions.
+        // There are other options to enable other instructions such as UMOV, etc.
+        // These are deprecated instructions or only used by old CPUs so they're not
+        // enabled by default. Some newer instructions also use the same opcodes as
+        // some of these old instructions.
+        const DecoderOptions decoderOptions = DecoderOptions.MPX | DecoderOptions.MovTr |
+            DecoderOptions.Cyrix | DecoderOptions.Cyrix_DMI | DecoderOptions.ALTINST;
+        var codeReader = new ByteArrayCodeReader(codeBytes);
+        var decoder = Decoder.Create(32, codeReader, decoderOptions);
+        decoder.IP = 0x731E0A03;
+
+        var formatter = new NasmFormatter();
+        formatter.Options.SpaceAfterOperandSeparator = true;
+        var output = new StringOutput();
+
+        while (codeReader.CanReadByte) {
+            decoder.Decode(out var instr);
+            formatter.Format(instr, output);
+            Console.WriteLine($"{instr.IP:X8} {output.ToStringAndReset()}");
+        }
     }
 }
 ```
