@@ -335,6 +335,10 @@ namespace IcedFuzzer.Core {
 			// two prefixes from the same group, all combos, except same prefixes (already gen'd)
 			new byte[] { 0xF3, 0xF2 },
 			new byte[] { 0xF2, 0xF3 },
+			new byte[] { 0x66, 0xF3 },
+			new byte[] { 0x66, 0xF2 },
+			new byte[] { 0xF3, 0x66 },
+			new byte[] { 0xF2, 0x66 },
 
 			new byte[] { 0x26, 0x2E },
 			new byte[] { 0x26, 0x36 },
@@ -441,6 +445,7 @@ namespace IcedFuzzer.Core {
 					byte effectiveMP = 0;
 					byte rex = 0;
 					bool ignoreThis = false;
+					bool has66 = false;
 					foreach (var prefix in prefixes) {
 						if ((prefix & 0xF0) == 0x40) {
 							if (context.Bitness < 64) {
@@ -462,6 +467,7 @@ namespace IcedFuzzer.Core {
 							case 0x66:
 								if (effectiveMP == 0)
 									effectiveMP = prefix;
+								has66 = true;
 								break;
 							case 0xF2:
 							case 0xF3:
@@ -485,8 +491,6 @@ namespace IcedFuzzer.Core {
 					case 0:
 						break;
 					case 0x66:
-						if (no66)
-							isValid = false;
 						if (!canUseMPREX)
 							isValid = false;
 						else {
@@ -541,6 +545,23 @@ namespace IcedFuzzer.Core {
 						context.UsedRegs.Add(FuzzerRegisterClass.GPR, 0);
 					var info = OpHelpers.InitializeInstruction(context, flags | OpHelpersFlags.NoClearUsedRegs);
 
+					if ((info.UsedBits & UsedBits.w) != 0 || (info.Flags & EncodedInfoFlags.HasREX) != 0 || (beforeMP && realMP > MandatoryPrefix.PNP)) {
+						// Last REX prefix wins so this one will be ignored
+						rex = 0;
+					}
+
+					if (has66) {
+						if (no66)
+							isValid = false;
+
+						// REX.W overrides 66
+						if ((rex & 8) == 0 && context.Instruction.OperandSize != 64) {
+							int opSize = context.Bitness == 16 ? 32 : 16;
+							if (context.Instruction.DontUsePrefix66 && context.Instruction.OperandSize != opSize)
+								continue;
+						}
+					}
+
 					if (rex != 0) {
 						Assert.True(prefixes[prefixes.Length - 1] == rex);
 						if (context.Bitness < 64)
@@ -548,28 +569,20 @@ namespace IcedFuzzer.Core {
 						if (!canUseMPREX)
 							isValid = false;
 						else {
-							bool rexIgnored = (info.UsedBits & UsedBits.w) != 0 || (info.Flags & EncodedInfoFlags.HasREX) != 0;
-							if (beforeMP)
-								rexIgnored |= realMP > MandatoryPrefix.PNP;
-							if (rexIgnored) {
-								// Last REX prefix wins so this one will be ignored
-							}
-							else {
-								if (context.Instruction.DontUsePrefixREXW)
-									rex &= 0xF7;
-								if ((info.UsedBits & UsedBits.r) != 0)
-									rex &= 0xFB;
-								if ((info.UsedBits & UsedBits.x) != 0)
-									rex &= 0xFD;
-								if ((info.UsedBits & UsedBits.b) != 0)
-									rex &= 0xFE;
-								Assert.True(prefixes.Length == 1 || prefixes.Length == 2);
-								var prefixesTmp = prefixes.Length == 1 ? prefixesTmp1 : prefixesTmp2;
-								for (int j = 0; j < prefixes.Length; j++)
-									prefixesTmp[j] = prefixes[j];
-								prefixesTmp[prefixesTmp.Length - 1] = rex;
-								prefixes = prefixesTmp;
-							}
+							if (context.Instruction.DontUsePrefixREXW)
+								rex &= 0xF7;
+							if ((info.UsedBits & UsedBits.r) != 0)
+								rex &= 0xFB;
+							if ((info.UsedBits & UsedBits.x) != 0)
+								rex &= 0xFD;
+							if ((info.UsedBits & UsedBits.b) != 0)
+								rex &= 0xFE;
+							Assert.True(prefixes.Length == 1 || prefixes.Length == 2);
+							var prefixesTmp = prefixes.Length == 1 ? prefixesTmp1 : prefixesTmp2;
+							for (int j = 0; j < prefixes.Length; j++)
+								prefixesTmp[j] = prefixes[j];
+							prefixesTmp[prefixesTmp.Length - 1] = rex;
+							prefixes = prefixesTmp;
 						}
 					}
 
