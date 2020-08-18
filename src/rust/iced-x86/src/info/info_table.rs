@@ -539,12 +539,12 @@ pub(crate) static TABLE: [u32; 8558] = [
 	0x03B0_0007, 0x4300_0000,// Fst_m32fp
 	0x03B0_0007, 0x4300_0000,// Fstp_m32fp
 	0x0000_0004, 0x4300_0000,// Fldenv_m14byte
-	0x0000_0004, 0x4300_0000,// Fldenv_m28byte
+	0x0000_0004, 0x4700_0000,// Fldenv_m28byte
 	0x0000_0004, 0x4300_0000,// Fldcw_m2byte
 	0x0000_0007, 0x4300_0000,// Fnstenv_m14byte
 	0x0000_0007, 0x4300_0000,// Fstenv_m14byte
-	0x0000_0007, 0x4300_0000,// Fnstenv_m28byte
-	0x0000_0007, 0x4300_0000,// Fstenv_m28byte
+	0x0000_0007, 0x4700_0000,// Fnstenv_m28byte
+	0x0000_0007, 0x4700_0000,// Fstenv_m28byte
 	0x0000_0007, 0x4300_0000,// Fnstcw_m2byte
 	0x0000_0007, 0x4300_0000,// Fstcw_m2byte
 	0x0000_0037, 0x4300_0000,// Fld_st0_sti
@@ -635,11 +635,11 @@ pub(crate) static TABLE: [u32; 8558] = [
 	0x03B0_0007, 0x4300_0000,// Fst_m64fp
 	0x03B0_0007, 0x4300_0000,// Fstp_m64fp
 	0x0800_0004, 0x4300_0000,// Frstor_m94byte
-	0x0800_0004, 0x4300_0000,// Frstor_m108byte
+	0x0800_0004, 0x4700_0000,// Frstor_m108byte
 	0x0800_0007, 0x4300_0000,// Fnsave_m94byte
 	0x0800_0007, 0x4300_0000,// Fsave_m94byte
-	0x0800_0007, 0x4300_0000,// Fnsave_m108byte
-	0x0800_0007, 0x4300_0000,// Fsave_m108byte
+	0x0800_0007, 0x4700_0000,// Fnsave_m108byte
+	0x0800_0007, 0x4700_0000,// Fsave_m108byte
 	0x0000_0007, 0x4300_0000,// Fnstsw_m2byte
 	0x0000_0007, 0x4300_0000,// Fstsw_m2byte
 	0x0000_0000, 0x4300_0000,// Ffree_sti

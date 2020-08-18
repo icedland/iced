@@ -543,12 +543,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x03B00007, 0x43000000,// Fst_m32fp
 			0x03B00007, 0x43000000,// Fstp_m32fp
 			0x00000004, 0x43000000,// Fldenv_m14byte
-			0x00000004, 0x43000000,// Fldenv_m28byte
+			0x00000004, 0x47000000,// Fldenv_m28byte
 			0x00000004, 0x43000000,// Fldcw_m2byte
 			0x00000007, 0x43000000,// Fnstenv_m14byte
 			0x00000007, 0x43000000,// Fstenv_m14byte
-			0x00000007, 0x43000000,// Fnstenv_m28byte
-			0x00000007, 0x43000000,// Fstenv_m28byte
+			0x00000007, 0x47000000,// Fnstenv_m28byte
+			0x00000007, 0x47000000,// Fstenv_m28byte
 			0x00000007, 0x43000000,// Fnstcw_m2byte
 			0x00000007, 0x43000000,// Fstcw_m2byte
 			0x00000037, 0x43000000,// Fld_st0_sti
@@ -639,11 +639,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x03B00007, 0x43000000,// Fst_m64fp
 			0x03B00007, 0x43000000,// Fstp_m64fp
 			0x08000004, 0x43000000,// Frstor_m94byte
-			0x08000004, 0x43000000,// Frstor_m108byte
+			0x08000004, 0x47000000,// Frstor_m108byte
 			0x08000007, 0x43000000,// Fnsave_m94byte
 			0x08000007, 0x43000000,// Fsave_m94byte
-			0x08000007, 0x43000000,// Fnsave_m108byte
-			0x08000007, 0x43000000,// Fsave_m108byte
+			0x08000007, 0x47000000,// Fnsave_m108byte
+			0x08000007, 0x47000000,// Fsave_m108byte
 			0x00000007, 0x43000000,// Fnstsw_m2byte
 			0x00000007, 0x43000000,// Fstsw_m2byte
 			0x00000000, 0x43000000,// Ffree_sti

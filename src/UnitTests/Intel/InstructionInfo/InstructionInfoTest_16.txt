@@ -566,11 +566,11 @@ F3 66 AF, Scasd_EAX_m32, Legacy, INTEL386, fr=d fw=oszacp op0=cr op1=cr cr=eax r
 # fstenv [bx+si]
 9B D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv14 special
 # fstenv [bx+si]
-9B 66 D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv28 special
+9B 66 D9 30, Fstenv_m28byte, Legacy, FPU387, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv28 special
 # fsave [bx+si]
 9B DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=ds r=bx r=si wm=ds:bx+si;FpuState94 special
 # fsave [bx+si]
-9B 66 DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=ds r=bx r=si wm=ds:bx+si;FpuState108 special
+9B 66 DD 30, Fsave_m108byte, Legacy, FPU387, saverestore op0=w r=ds r=bx r=si wm=ds:bx+si;FpuState108 special
 # umonitor bp
 F3 0FAE F5, Umonitor_r16, Legacy, WAITPKG, op0=r r=ds;bp rm=ds:bp;UInt8
 # umonitor ebp

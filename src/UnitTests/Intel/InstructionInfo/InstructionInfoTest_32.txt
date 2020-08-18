@@ -1070,13 +1070,13 @@ C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, pm fw=cosz fc=ap op0
 # fstenv [eax]
 9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv14 special
 # fstenv [eax]
-9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv28 special
+9B D9 30, Fstenv_m28byte, Legacy, FPU387, op0=w r=ds r=eax wm=ds:eax;FpuEnv28 special
 # frstpm
 DB E5, Frstpm, Legacy, FPU287XL_ONLY, decopt=OldFpu
 # fsave [eax]
 9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState94 special
 # fsave [eax]
-9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState108 special
+9B DD 30, Fsave_m108byte, Legacy, FPU387, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState108 special
 # fnstdw ax
 DF E1, Fnstdw_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
 # fstdw ax

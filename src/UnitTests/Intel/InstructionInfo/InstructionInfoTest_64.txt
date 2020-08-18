@@ -2266,13 +2266,13 @@ D9 18, Fstp_m32fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float32 r=st0
 # fldenv fpuenv14 ptr [rax]
 66 D9 20, Fldenv_m14byte, Legacy, FPU, op0=r r=rax rm=ds:rax;FpuEnv14
 # fldenv [rax]
-D9 20, Fldenv_m28byte, Legacy, FPU, op0=r r=rax rm=ds:rax;FpuEnv28
+D9 20, Fldenv_m28byte, Legacy, FPU387, op0=r r=rax rm=ds:rax;FpuEnv28
 # fldcw [rax]
 D9 28, Fldcw_m2byte, Legacy, FPU, op0=r r=rax rm=ds:rax;UInt16
 # fnstenv fpuenv14 ptr [rax]
 66 D9 30, Fnstenv_m14byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv14
 # fnstenv [rax]
-D9 30, Fnstenv_m28byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv28
+D9 30, Fnstenv_m28byte, Legacy, FPU387, op0=w r=rax wm=ds:rax;FpuEnv28
 # fnstcw [rax]
 D9 38, Fnstcw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
 # fld st(3)
@@ -2428,11 +2428,11 @@ DD 18, Fstp_m64fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
 # frstor fpustate94 ptr [rax]
 66 DD 20, Frstor_m94byte, Legacy, FPU, saverestore op0=r r=rax rm=ds:rax;FpuState94
 # frstor [rax]
-DD 20, Frstor_m108byte, Legacy, FPU, saverestore op0=r r=rax rm=ds:rax;FpuState108
+DD 20, Frstor_m108byte, Legacy, FPU387, saverestore op0=r r=rax rm=ds:rax;FpuState108
 # fnsave fpustate94 ptr [rax]
 66 DD 30, Fnsave_m94byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState94
 # fnsave [rax]
-DD 30, Fnsave_m108byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState108
+DD 30, Fnsave_m108byte, Legacy, FPU387, saverestore op0=w r=rax wm=ds:rax;FpuState108
 # fnstsw [rax]
 DD 38, Fnstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
 # ffree st(3)
@@ -17708,7 +17708,7 @@ C4E3C9 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, VEX, FMA4, pm op0=w op1=r op2
 # fstenv [rax]
 9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv14 special
 # fstenv [rax]
-9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv28 special
+9B D9 30, Fstenv_m28byte, Legacy, FPU387, op0=w r=rax wm=ds:rax;FpuEnv28 special
 # fstcw [rax]
 9B D9 38, Fstcw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
 # fstp st(3)
@@ -17736,7 +17736,7 @@ DC DB, Fcomp_st0_sti_DCD8, Legacy, FPU, op0=r op1=r r=st0 r=st3
 # fsave [rax]
 9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState94 special
 # fsave [rax]
-9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState108 special
+9B DD 30, Fsave_m108byte, Legacy, FPU387, saverestore op0=w r=rax wm=ds:rax;FpuState108 special
 # fstsw [rax]
 9B DD 38, Fstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
 # fxch st(3)

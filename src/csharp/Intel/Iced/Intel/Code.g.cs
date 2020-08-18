@@ -4114,7 +4114,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>o32 D9 /4</c><br/>
 		/// <br/>
-		/// <c>8087+</c><br/>
+		/// <c>387+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Fldenv_m28byte = 514,
@@ -4146,7 +4146,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>o32 D9 /6</c><br/>
 		/// <br/>
-		/// <c>8087+</c><br/>
+		/// <c>387+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Fnstenv_m28byte = 518,
@@ -4154,7 +4154,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>9B o32 D9 /6</c><br/>
 		/// <br/>
-		/// <c>8087+</c><br/>
+		/// <c>387+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Fstenv_m28byte = 519,
@@ -4882,7 +4882,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>o32 DD /4</c><br/>
 		/// <br/>
-		/// <c>8087+</c><br/>
+		/// <c>387+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Frstor_m108byte = 610,
@@ -4906,7 +4906,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>o32 DD /6</c><br/>
 		/// <br/>
-		/// <c>8087+</c><br/>
+		/// <c>387+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Fnsave_m108byte = 613,
@@ -4914,7 +4914,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>9B o32 DD /6</c><br/>
 		/// <br/>
-		/// <c>8087+</c><br/>
+		/// <c>387+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Fsave_m108byte = 614,
