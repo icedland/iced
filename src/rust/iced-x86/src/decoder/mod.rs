@@ -1214,9 +1214,7 @@ impl<'a> Decoder<'a> {
 		}
 
 		let mut b = self.state.modrm;
-		if self.is64_mode {
-			self.state.extra_register_base = ((b & 0x80) >> 4) ^ 8;
-		}
+		self.state.extra_register_base = ((b >> 4) ^ 8) & 8;
 
 		const_assert_eq!(0, VectorLength::L128 as u32);
 		const_assert_eq!(1, VectorLength::L256 as u32);
