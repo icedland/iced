@@ -223,6 +223,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x90,// CYRIX_DMI
 				0x91,// CENTAUR_AIS
 				0x92,// MOV_TR
+				0x93,// SMM
 			};
 	}
 }

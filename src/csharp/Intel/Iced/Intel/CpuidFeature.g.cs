@@ -323,6 +323,8 @@ namespace Iced.Intel {
 		CENTAUR_AIS = 145,
 		/// <summary>MOV to/from TR (80386, Intel486, Cyrix, Geode)</summary>
 		MOV_TR = 146,
+		/// <summary><c>RSM</c> instruction (some 386s, some 486s, Pentium and later)</summary>
+		SMM = 147,
 	}
 }
 #endif

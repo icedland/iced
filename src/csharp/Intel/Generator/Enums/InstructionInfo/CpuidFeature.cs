@@ -318,5 +318,7 @@ namespace Generator.Enums.InstructionInfo {
 		CENTAUR_AIS,
 		[Comment("MOV to/from TR (80386, Intel486, Cyrix, Geode)")]
 		MOV_TR,
+		[Comment("#(c:RSM)# instruction (some 386s, some 486s, Pentium and later)")]
+		SMM,
 	}
 }

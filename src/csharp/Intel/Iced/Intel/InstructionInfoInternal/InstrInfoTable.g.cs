@@ -2027,7 +2027,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x12600007, 0x05000000,// Popw_GS
 			0x12800007, 0x05000000,// Popd_GS
 			0x12A00007, 0x0C000000,// Popq_GS
-			0x4808C000, 0x05400000,// Rsm
+			0x4808C000, 0xA6400000,// Rsm
 			0x000A0036, 0x05000000,// Bts_rm16_r16
 			0x000A0036, 0x05000000,// Bts_rm32_r32
 			0x000A0036, 0x0C000000,// Bts_rm64_r64

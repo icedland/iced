@@ -882,10 +882,11 @@ pub(crate) enum CpuidFeatureInternal {
 	CYRIX_DMI,
 	CENTAUR_AIS,
 	MOV_TR,
+	SMM,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 166] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 167] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1052,6 +1053,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 166] = [
 	"CYRIX_DMI",
 	"CENTAUR_AIS",
 	"MOV_TR",
+	"SMM",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

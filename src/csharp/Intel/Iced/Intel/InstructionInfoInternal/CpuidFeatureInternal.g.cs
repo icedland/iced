@@ -194,6 +194,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		CYRIX_DMI,
 		CENTAUR_AIS,
 		MOV_TR,
+		SMM,
 	}
 }
 #endif

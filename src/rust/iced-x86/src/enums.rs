@@ -1281,10 +1281,12 @@ pub enum CpuidFeature {
 	CENTAUR_AIS = 145,
 	/// MOV to/from TR (80386, Intel486, Cyrix, Geode)
 	MOV_TR = 146,
+	/// `RSM` instruction (some 386s, some 486s, Pentium and later)
+	SMM = 147,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 147] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 148] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1432,6 +1434,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 147] = [
 	"CYRIX_DMI",
 	"CENTAUR_AIS",
 	"MOV_TR",
+	"SMM",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

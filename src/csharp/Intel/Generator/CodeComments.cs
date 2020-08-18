@@ -114,6 +114,7 @@ namespace Generator {
 				CpuidFeature.INTEL386_A0_ONLY => "386 A0",
 				CpuidFeature.INTEL486 => "486+",
 				CpuidFeature.INTEL486_A_ONLY => "486 A",
+				CpuidFeature.SMM => "386+",
 				CpuidFeature.UMOV => "386/486",
 				CpuidFeature.MOV_TR => "386/486/Cyrix/Geode",
 				CpuidFeature.IA64 => "IA-64",

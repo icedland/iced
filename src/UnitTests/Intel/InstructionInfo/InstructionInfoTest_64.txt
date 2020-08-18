@@ -7502,7 +7502,7 @@ C4E1F9 99 D3, VEX_Ktestd_kr_kr, VEX, AVX512BW, pm fw=cz fc=aops op0=r op1=r r=k2
 # pop gs
 0FA9, Popq_GS, Legacy, X64, op0=w rw=xsp w=gs rm=ss:xsp;UInt64 stack=8
 # rsm
-0FAA, Rsm, Legacy, INTEL386, priv saverestore fw=acopszidA flow=Return
+0FAA, Rsm, Legacy, SMM, priv saverestore fw=acopszidA flow=Return
 # bts si,cx
 66 0FAB CE, Bts_rm16_r16, Legacy, INTEL386, fw=c fu=osap op0=rw op1=r rw=si r=cx
 # bts [rax],bx

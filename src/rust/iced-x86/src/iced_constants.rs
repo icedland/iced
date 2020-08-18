@@ -45,7 +45,7 @@ impl IcedConstants {
 	pub(crate) const YMM_LAST: Register = Register::YMM31;
 	pub(crate) const ZMM_LAST: Register = Register::ZMM31;
 	pub(crate) const TMM_LAST: Register = Register::TMM7;
-	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 166;
+	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 167;
 	pub(crate) const FIRST_BROADCAST_MEMORY_SIZE: MemorySize = MemorySize::Broadcast64_UInt32;
 }
 // GENERATOR-END: IcedConstants

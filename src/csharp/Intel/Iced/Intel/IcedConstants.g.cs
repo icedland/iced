@@ -44,7 +44,7 @@ namespace Iced.Intel {
 		internal const Register YMM_last = Register.YMM31;
 		internal const Register ZMM_last = Register.ZMM31;
 		internal const Register TMM_last = Register.TMM7;
-		internal const int MaxCpuidFeatureInternalValues = 166;
+		internal const int MaxCpuidFeatureInternalValues = 167;
 		internal const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast64_UInt32;
 	}
 }
