@@ -174,7 +174,7 @@ lazy_static! {
 		h.insert("CYRIX_FPU", CpuidFeature::CYRIX_FPU);
 		h.insert("CYRIX_SMM", CpuidFeature::CYRIX_SMM);
 		h.insert("CYRIX_SMINT", CpuidFeature::CYRIX_SMINT);
-		h.insert("CYRIX_SMINT_6X86", CpuidFeature::CYRIX_SMINT_6X86);
+		h.insert("CYRIX_SMINT_0F7E", CpuidFeature::CYRIX_SMINT_0F7E);
 		h.insert("CYRIX_SHR", CpuidFeature::CYRIX_SHR);
 		h.insert("CYRIX_DDI", CpuidFeature::CYRIX_DDI);
 		h.insert("CYRIX_EMMI", CpuidFeature::CYRIX_EMMI);

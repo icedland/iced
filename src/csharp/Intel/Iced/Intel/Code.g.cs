@@ -33994,7 +33994,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 7E</c><br/>
 		/// <br/>
-		/// <c>Cyrix 6x86</c><br/>
+		/// <c>Cyrix 6x86 or earlier</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Smint_0F7E = 4249,

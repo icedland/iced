@@ -186,7 +186,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 167] = [
 	&[CpuidFeature::CYRIX_FPU],// CYRIX_FPU
 	&[CpuidFeature::CYRIX_SMM],// CYRIX_SMM
 	&[CpuidFeature::CYRIX_SMINT],// CYRIX_SMINT
-	&[CpuidFeature::CYRIX_SMINT_6X86],// CYRIX_SMINT_6X86
+	&[CpuidFeature::CYRIX_SMINT_0F7E],// CYRIX_SMINT_0F7E
 	&[CpuidFeature::CYRIX_SHR],// CYRIX_SHR
 	&[CpuidFeature::CYRIX_DDI],// CYRIX_DDI
 	&[CpuidFeature::CYRIX_EMMI],// CYRIX_EMMI

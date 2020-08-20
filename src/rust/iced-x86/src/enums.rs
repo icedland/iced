@@ -1267,8 +1267,8 @@ pub enum CpuidFeature {
 	CYRIX_SMM = 138,
 	/// Cyrix `SMINT 0F38` (6x86MX and later, AMD Geode GX/LX)
 	CYRIX_SMINT = 139,
-	/// Cyrix `SMINT 0F7E` (6x86)
-	CYRIX_SMINT_6X86 = 140,
+	/// Cyrix `SMINT 0F7E` (6x86 or earlier)
+	CYRIX_SMINT_0F7E = 140,
 	/// Cyrix SMM instructions: `RDSHR`, `WRSHR` (6x86MX, M II, Cyrix III)
 	CYRIX_SHR = 141,
 	/// Cyrix DDI instructions: `BB0_Reset`, `BB1_Reset`, `CPU_READ`, `CPU_WRITE` (MediaGX, GXm, GXLV, GX1)
@@ -1427,7 +1427,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 148] = [
 	"CYRIX_FPU",
 	"CYRIX_SMM",
 	"CYRIX_SMINT",
-	"CYRIX_SMINT_6X86",
+	"CYRIX_SMINT_0F7E",
 	"CYRIX_SHR",
 	"CYRIX_DDI",
 	"CYRIX_EMMI",

@@ -70,7 +70,7 @@ namespace Generator.Enums.Decoder {
 		MPX						= 0x00080000,
 		[Comment("Decode most Cyrix instructions: #(c:FPU)#, #(c:EMMI)#, #(c:SMM)#, #(c:DDI)#")]
 		Cyrix					= 0x00100000,
-		[Comment("Decode Cyrix #(c:SMINT 0F7E)# (Cyrix 6x86)")]
+		[Comment("Decode Cyrix #(c:SMINT 0F7E)# (Cyrix 6x86 or earlier)")]
 		Cyrix_SMINT_0F7E		= 0x00200000,
 		[Comment("Decode Cyrix #(c:DMI)# instructions (AMD Geode GX/LX)")]
 		Cyrix_DMI				= 0x00400000,

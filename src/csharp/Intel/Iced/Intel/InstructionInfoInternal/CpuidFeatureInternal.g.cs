@@ -187,7 +187,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		CYRIX_FPU,
 		CYRIX_SMM,
 		CYRIX_SMINT,
-		CYRIX_SMINT_6X86,
+		CYRIX_SMINT_0F7E,
 		CYRIX_SHR,
 		CYRIX_DDI,
 		CYRIX_EMMI,

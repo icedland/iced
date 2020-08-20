@@ -34002,7 +34002,7 @@ pub enum Code {
 	///
 	/// `0F 7E`
 	///
-	/// `Cyrix 6x86`
+	/// `Cyrix 6x86 or earlier`
 	///
 	/// `16/32-bit`
 	Smint_0F7E = 4249,

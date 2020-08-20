@@ -78,7 +78,7 @@ pub enum DecoderOptions {
 	MPX = 0x0008_0000,
 	/// Decode most Cyrix instructions: `FPU`, `EMMI`, `SMM`, `DDI`
 	Cyrix = 0x0010_0000,
-	/// Decode Cyrix `SMINT 0F7E` (Cyrix 6x86)
+	/// Decode Cyrix `SMINT 0F7E` (Cyrix 6x86 or earlier)
 	Cyrix_SMINT_0F7E = 0x0020_0000,
 	/// Decode Cyrix `DMI` instructions (AMD Geode GX/LX)
 	Cyrix_DMI = 0x0040_0000,

@@ -304,8 +304,8 @@ namespace Generator.Enums.InstructionInfo {
 		CYRIX_SMM,
 		[Comment("Cyrix #(c:SMINT 0F38)# (6x86MX and later, AMD Geode GX/LX)")]
 		CYRIX_SMINT,
-		[Comment("Cyrix #(c:SMINT 0F7E)# (6x86)")]
-		CYRIX_SMINT_6X86,
+		[Comment("Cyrix #(c:SMINT 0F7E)# (6x86 or earlier)")]
+		CYRIX_SMINT_0F7E,
 		[Comment("Cyrix SMM instructions: #(c:RDSHR)#, #(c:WRSHR)# (6x86MX, M II, Cyrix III)")]
 		CYRIX_SHR,
 		[Comment("Cyrix DDI instructions: #(c:BB0_Reset)#, #(c:BB1_Reset)#, #(c:CPU_READ)#, #(c:CPU_WRITE)# (MediaGX, GXm, GXLV, GX1)")]

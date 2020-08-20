@@ -1770,7 +1770,7 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 # rsts [eax]
 0F7D 00, Rsts_m80, Legacy, CYRIX_SMM, priv op0=r r=ds r=eax rm=ds:eax;SegmentDescSelector decopt=Cyrix
 # smint
-0F7E, Smint_0F7E, Legacy, CYRIX_SMINT_6X86, priv flow=Interrupt decopt=Cyrix_SMINT_0F7E
+0F7E, Smint_0F7E, Legacy, CYRIX_SMINT_0F7E, priv flow=Interrupt decopt=Cyrix_SMINT_0F7E
 # bb0_reset
 0F3A, Bb0_reset, Legacy, CYRIX_DDI, priv decopt=Cyrix
 # bb1_reset

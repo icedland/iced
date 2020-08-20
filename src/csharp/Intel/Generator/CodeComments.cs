@@ -141,7 +141,7 @@ namespace Generator {
 				CpuidFeature.CYRIX_FPU => "Cyrix, AMD Geode GX/LX",
 				CpuidFeature.CYRIX_SMM => "Cyrix, AMD Geode GX/LX",
 				CpuidFeature.CYRIX_SMINT => "Cyrix 6x86MX+, AMD Geode GX/LX",
-				CpuidFeature.CYRIX_SMINT_6X86 => "Cyrix 6x86",
+				CpuidFeature.CYRIX_SMINT_0F7E => "Cyrix 6x86 or earlier",
 				CpuidFeature.CYRIX_SHR => "Cyrix 6x86MX, M II, III",
 				CpuidFeature.CYRIX_DDI => "Cyrix MediaGX, GXm, GXLV, GX1",
 				CpuidFeature.CYRIX_DMI => "AMD Geode GX/LX",

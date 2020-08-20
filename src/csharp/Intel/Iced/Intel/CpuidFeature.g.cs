@@ -309,8 +309,8 @@ namespace Iced.Intel {
 		CYRIX_SMM = 138,
 		/// <summary>Cyrix <c>SMINT 0F38</c> (6x86MX and later, AMD Geode GX/LX)</summary>
 		CYRIX_SMINT = 139,
-		/// <summary>Cyrix <c>SMINT 0F7E</c> (6x86)</summary>
-		CYRIX_SMINT_6X86 = 140,
+		/// <summary>Cyrix <c>SMINT 0F7E</c> (6x86 or earlier)</summary>
+		CYRIX_SMINT_0F7E = 140,
 		/// <summary>Cyrix SMM instructions: <c>RDSHR</c>, <c>WRSHR</c> (6x86MX, M II, Cyrix III)</summary>
 		CYRIX_SHR = 141,
 		/// <summary>Cyrix DDI instructions: <c>BB0_Reset</c>, <c>BB1_Reset</c>, <c>CPU_READ</c>, <c>CPU_WRITE</c> (MediaGX, GXm, GXLV, GX1)</summary>
