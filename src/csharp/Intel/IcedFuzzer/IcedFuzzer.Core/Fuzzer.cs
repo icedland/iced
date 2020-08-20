@@ -202,11 +202,15 @@ namespace IcedFuzzer.Core {
 					if ((options & FuzzerOptions.NoVerifyInstrs) == 0) {
 						if (instr.Code != Code.INVALID)
 							Assert.Fail($"Decoded an invalid instruction! {instr}");
+						else if (decoder.LastError == DecoderError.None)
+							Assert.Fail("Expected an error");
 					}
 				}
 				else {
 					if (instr.Code == Code.INVALID)
 						Assert.Fail($"Couldn't decode a valid instruction: {info.Instruction.Code} {info.Instruction.Code.ToOpCode().ToOpCodeString()}");
+					else if (decoder.LastError != DecoderError.None)
+						Assert.Fail($"Got a decoder error: {decoder.LastError}");
 					else if (reader.CanReadByte)
 						Assert.Fail($"Didn't decode all bytes: {info.Instruction.Code} = {instr}");
 					else if (info.Instruction.Code != instr.Code)
