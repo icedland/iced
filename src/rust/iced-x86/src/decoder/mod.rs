@@ -853,10 +853,11 @@ impl<'a> Decoder<'a> {
 	#[cfg(has_maybe_uninit)]
 	#[inline]
 	pub fn decode(&mut self) -> Instruction {
-		// Safe, decode_out() initializes the whole thing
-		let mut instruction = unsafe { mem::MaybeUninit::uninit().assume_init() };
-		self.decode_out(&mut instruction);
-		instruction
+		let mut instruction = mem::MaybeUninit::uninit();
+		unsafe {
+			self.decode_out_ptr(instruction.as_mut_ptr());
+			instruction.assume_init()
+		}
 	}
 
 	/// Decodes and returns the next instruction, see also [`decode_out(&mut Instruction)`]
@@ -902,10 +903,12 @@ impl<'a> Decoder<'a> {
 	#[cfg(not(has_maybe_uninit))]
 	#[inline]
 	pub fn decode(&mut self) -> Instruction {
-		// Safe, decode_out() initializes the whole thing
-		let mut instruction = unsafe { mem::uninitialized() };
-		self.decode_out(&mut instruction);
-		instruction
+		unsafe {
+			// Relatively safe, decode_out_ptr() initializes the whole thing
+			let mut instruction = mem::uninitialized();
+			self.decode_out_ptr(&mut instruction);
+			instruction
+		}
 	}
 
 	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
@@ -928,9 +931,6 @@ impl<'a> Decoder<'a> {
 	/// let bytes = b"\xF0\xF3\x01\x18";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// decoder.set_ip(0x1234_5678);
-	/// // or use core::mem::MaybeUninit:
-	/// //    let mut instr = unsafe { core::mem::MaybeUninit::uninit().assume_init() };
-	/// // to not clear `instr` more than once (`decode_out()` initializes all its fields).
 	/// let mut instr = Instruction::default();
 	/// decoder.decode_out(&mut instr);
 	///
@@ -954,9 +954,16 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
 	/// ```
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	pub fn decode_out(&mut self, instruction: &mut Instruction) {
-		*instruction = Instruction::default();
+		unsafe {
+			self.decode_out_ptr(instruction);
+		}
+	}
+
+	unsafe fn decode_out_ptr(&mut self, instruction: *mut Instruction) {
+		ptr::write(instruction, Instruction::default());
+		let instruction = &mut *instruction;
 
 		self.state.extra_register_base = 0;
 		self.state.extra_index_register_base = 0;
@@ -971,14 +978,14 @@ impl<'a> Decoder<'a> {
 		let data_ptr = self.data_ptr;
 		self.instr_start_data_ptr = data_ptr;
 		// The ctor has verified that the two expressions used in min() don't overflow and are >= data_ptr.
-		self.max_data_ptr = unsafe { cmp::min(data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end) };
+		self.max_data_ptr = cmp::min(data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end);
 
 		let mut default_ds_segment = Register::DS;
 		let mut rex_prefix: usize = 0;
 		let mut b;
 		loop {
 			b = self.read_u8();
-			if unsafe { (((*self.prefixes.get_unchecked(b / 32)) >> (b & 31)) & 1) == 0 } {
+			if (((*self.prefixes.get_unchecked(b / 32)) >> (b & 31)) & 1) == 0 {
 				break;
 			}
 
@@ -1067,7 +1074,7 @@ impl<'a> Decoder<'a> {
 			self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 		}
 		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let tmp_handler = unsafe { *self.handlers_xx.offset(b as isize) };
+		let tmp_handler = *self.handlers_xx.offset(b as isize);
 		self.decode_table2(tmp_handler, instruction);
 		let flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) != 0 {
