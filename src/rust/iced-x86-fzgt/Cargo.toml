@@ -5,6 +5,7 @@ authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "Test FuzzerGen output"
 edition = "2018"
+publish = false
 
 [dependencies]
 structopt = "0.3.15"

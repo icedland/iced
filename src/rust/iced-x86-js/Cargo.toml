@@ -11,6 +11,7 @@ readme = "README.md"
 keywords = ["disassembler", "javascript", "assembler", "x86", "amd64"]
 categories = ["wasm", "development-tools::debugging", "encoding", "hardware-support"]
 edition = "2018"
+publish = false
 
 [lib]
 # Adding "rlib" increases the wasm file size, so ... don't do it
