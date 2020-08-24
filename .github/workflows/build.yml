@@ -24,8 +24,7 @@ jobs:
       - name: Run generator, verify no diff
         shell: pwsh
         run: |
-          cd src/csharp/Intel/Generator
-          dotnet run -c Release
+          dotnet run -c Release -p src/csharp/Intel/Generator/Generator.csproj
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           git diff --exit-code
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -194,6 +193,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         with:
           dotnet-version: '3.1.100'
+
       - name: Test valid/invalid instructions
         shell: bash
         if: matrix.os == 'ubuntu-latest'
