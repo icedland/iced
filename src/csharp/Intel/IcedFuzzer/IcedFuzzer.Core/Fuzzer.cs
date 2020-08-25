@@ -172,7 +172,7 @@ namespace IcedFuzzer.Core {
 				Assert.True(info.EncodedDataLength <= 0xFF, "An instruction must be at most 0xFF bytes in length");
 
 				if (decoder is null) {
-					var decoderOptions = DecoderOptions.NoLockMovCR0;
+					var decoderOptions = DecoderOptions.NoLockMovCR;
 					if ((options & FuzzerOptions.HasMPX) != 0)
 						decoderOptions |= DecoderOptions.MPX;
 					if ((options & FuzzerOptions.NoPAUSE) != 0)
@@ -188,7 +188,7 @@ namespace IcedFuzzer.Core {
 						break;
 					case CpuDecoder.AMD:
 						decoderOptions |= DecoderOptions.AMD;
-						decoderOptions &= ~DecoderOptions.NoLockMovCR0;
+						decoderOptions &= ~DecoderOptions.NoLockMovCR;
 						break;
 					default:
 						throw ThrowHelpers.Unreachable;

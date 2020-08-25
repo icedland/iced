@@ -172,6 +172,9 @@ impl DecoderOptions {
 	/// Don't decode `WBNOINVD`, decode `WBINVD` instead
 	pub const NO_WBNOINVD: u32 = 0x0000_4000;
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
+	pub const NO_LOCK_MOV_CR: u32 = 0x0000_8000;
+	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
+	#[deprecated(since = "1.9.0", note = "Use NO_LOCK_MOV_CR instead")]
 	pub const NO_LOCK_MOV_CR0: u32 = 0x0000_8000;
 	/// Don't decode `TZCNT`, decode `BSF` instead
 	pub const NO_MPFX_0FBC: u32 = 0x0001_0000;

@@ -50,7 +50,7 @@ namespace Iced.UnitTests.Intel {
 				{ "Jmpe", DecoderOptions.Jmpe },
 				{ "NoPause", DecoderOptions.NoPause },
 				{ "NoWbnoinvd", DecoderOptions.NoWbnoinvd },
-				{ "NoLockMovCR0", DecoderOptions.NoLockMovCR0 },
+				{ "NoLockMovCR", DecoderOptions.NoLockMovCR },
 				{ "NoMPFX_0FBC", DecoderOptions.NoMPFX_0FBC },
 				{ "NoMPFX_0FBD", DecoderOptions.NoMPFX_0FBD },
 				{ "NoLahfSahf64", DecoderOptions.NoLahfSahf64 },

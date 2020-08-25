@@ -69,6 +69,10 @@ namespace Iced.Intel {
 		/// <summary>Don&apos;t decode <c>WBNOINVD</c>, decode <c>WBINVD</c> instead</summary>
 		NoWbnoinvd = 0x00004000,
 		/// <summary>Don&apos;t decode <c>LOCK MOV CR0</c> as <c>MOV CR8</c> (AMD)</summary>
+		NoLockMovCR = 0x00008000,
+		/// <summary>Don&apos;t decode <c>LOCK MOV CR0</c> as <c>MOV CR8</c> (AMD)</summary>
+		[System.Obsolete("Use " + nameof(NoLockMovCR) + " instead", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		NoLockMovCR0 = 0x00008000,
 		/// <summary>Don&apos;t decode <c>TZCNT</c>, decode <c>BSF</c> instead</summary>
 		NoMPFX_0FBC = 0x00010000,

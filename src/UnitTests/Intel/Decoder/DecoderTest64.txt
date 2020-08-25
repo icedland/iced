@@ -6818,14 +6818,14 @@ F0 0F20 E1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr12 decopt=NoInvalidCheck enc=4
 F0 0F20 E9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr13 decopt=NoInvalidCheck enc=440F20E9
 F0 0F20 F1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 decopt=NoInvalidCheck enc=440F20F1
 F0 0F20 F9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr15 decopt=NoInvalidCheck enc=440F20F9
-F0 0F20 C1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
-F0 0F20 C9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
-F0 0F20 D1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
-F0 0F20 D9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
-F0 0F20 E1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
-F0 0F20 E9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
-F0 0F20 F1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
-F0 0F20 F9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR0
+F0 0F20 C1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
+F0 0F20 C9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
+F0 0F20 D1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
+F0 0F20 D9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
+F0 0F20 E1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
+F0 0F20 E9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
+F0 0F20 F1, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
+F0 0F20 F9, INVALID, INVALID, 0, code=Mov_r64_cr decopt=NoLockMovCR
 F0 0F20 C9, INVALID, INVALID, 0, code=Mov_r64_cr
 F0 0F20 D1, INVALID, INVALID, 0, code=Mov_r64_cr
 F0 0F20 D9, INVALID, INVALID, 0, code=Mov_r64_cr
@@ -6833,14 +6833,14 @@ F0 0F20 E1, INVALID, INVALID, 0, code=Mov_r64_cr
 F0 0F20 E9, INVALID, INVALID, 0, code=Mov_r64_cr
 F0 0F20 F1, INVALID, INVALID, 0, code=Mov_r64_cr
 F0 0F20 F9, INVALID, INVALID, 0, code=Mov_r64_cr
-F0 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F20 C9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr1 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F20 D1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr2 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F20 D9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr3 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F20 E1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr4 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F20 E9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr5 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F20 F1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F20 F9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr7 decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
+F0 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0 decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F20 C9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr1 decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F20 D1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr2 decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F20 D9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr3 decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F20 E1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr4 decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F20 E9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr5 decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F20 F1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F20 F9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr7 decopt=NoInvalidCheck decopt=NoLockMovCR lock
 
 0F21 81, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr0 enc=0F21C1
 0F21 41, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr0 enc=0F21C1
@@ -6919,14 +6919,14 @@ F0 0F22 E1, Mov_cr_r64, Mov, 2, op0=r;cr12 op1=r;rcx decopt=NoInvalidCheck enc=4
 F0 0F22 E9, Mov_cr_r64, Mov, 2, op0=r;cr13 op1=r;rcx decopt=NoInvalidCheck enc=440F22E9
 F0 0F22 F1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx decopt=NoInvalidCheck enc=440F22F1
 F0 0F22 F9, Mov_cr_r64, Mov, 2, op0=r;cr15 op1=r;rcx decopt=NoInvalidCheck enc=440F22F9
-F0 0F22 C1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
-F0 0F22 C9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
-F0 0F22 D1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
-F0 0F22 D9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
-F0 0F22 E1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
-F0 0F22 E9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
-F0 0F22 F1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
-F0 0F22 F9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR0
+F0 0F22 C1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
+F0 0F22 C9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
+F0 0F22 D1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
+F0 0F22 D9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
+F0 0F22 E1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
+F0 0F22 E9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
+F0 0F22 F1, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
+F0 0F22 F9, INVALID, INVALID, 0, code=Mov_cr_r64 decopt=NoLockMovCR
 F0 0F22 C9, INVALID, INVALID, 0, code=Mov_cr_r64
 F0 0F22 D1, INVALID, INVALID, 0, code=Mov_cr_r64
 F0 0F22 D9, INVALID, INVALID, 0, code=Mov_cr_r64
@@ -6934,14 +6934,14 @@ F0 0F22 E1, INVALID, INVALID, 0, code=Mov_cr_r64
 F0 0F22 E9, INVALID, INVALID, 0, code=Mov_cr_r64
 F0 0F22 F1, INVALID, INVALID, 0, code=Mov_cr_r64
 F0 0F22 F9, INVALID, INVALID, 0, code=Mov_cr_r64
-F0 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F22 C9, Mov_cr_r64, Mov, 2, op0=r;cr1 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F22 D1, Mov_cr_r64, Mov, 2, op0=r;cr2 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F22 D9, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F22 E1, Mov_cr_r64, Mov, 2, op0=r;cr4 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F22 E9, Mov_cr_r64, Mov, 2, op0=r;cr5 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F22 F1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
-F0 0F22 F9, Mov_cr_r64, Mov, 2, op0=r;cr7 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR0 lock
+F0 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F22 C9, Mov_cr_r64, Mov, 2, op0=r;cr1 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F22 D1, Mov_cr_r64, Mov, 2, op0=r;cr2 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F22 D9, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F22 E1, Mov_cr_r64, Mov, 2, op0=r;cr4 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F22 E9, Mov_cr_r64, Mov, 2, op0=r;cr5 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F22 F1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
+F0 0F22 F9, Mov_cr_r64, Mov, 2, op0=r;cr7 op1=r;rcx decopt=NoInvalidCheck decopt=NoLockMovCR lock
 
 0F23 81, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;rcx enc=0F23C1
 0F23 41, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;rcx enc=0F23C1

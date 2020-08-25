@@ -3127,7 +3127,7 @@ fn disable_decoder_option_disables_instruction() {
 		const NO_OPTIONS: u32 = DecoderOptions::NO_INVALID_CHECK
 			| DecoderOptions::NO_PAUSE
 			| DecoderOptions::NO_WBNOINVD
-			| DecoderOptions::NO_LOCK_MOV_CR0
+			| DecoderOptions::NO_LOCK_MOV_CR
 			| DecoderOptions::NO_MPFX_0FBC
 			| DecoderOptions::NO_MPFX_0FBD
 			| DecoderOptions::NO_LAHF_SAHF_64;

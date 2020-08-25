@@ -50,7 +50,7 @@ lazy_static! {
 		h.insert("Jmpe", DecoderOptions::JMPE);
 		h.insert("NoPause", DecoderOptions::NO_PAUSE);
 		h.insert("NoWbnoinvd", DecoderOptions::NO_WBNOINVD);
-		h.insert("NoLockMovCR0", DecoderOptions::NO_LOCK_MOV_CR0);
+		h.insert("NoLockMovCR", DecoderOptions::NO_LOCK_MOV_CR);
 		h.insert("NoMPFX_0FBC", DecoderOptions::NO_MPFX_0FBC);
 		h.insert("NoMPFX_0FBD", DecoderOptions::NO_MPFX_0FBD);
 		h.insert("NoLahfSahf64", DecoderOptions::NO_LAHF_SAHF_64);

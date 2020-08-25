@@ -67,7 +67,7 @@ pub enum DecoderOptions {
 	/// Don't decode `WBNOINVD`, decode `WBINVD` instead
 	NoWbnoinvd = 0x0000_4000,
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
-	NoLockMovCR0 = 0x0000_8000,
+	NoLockMovCR = 0x0000_8000,
 	/// Don't decode `TZCNT`, decode `BSF` instead
 	NoMPFX_0FBC = 0x0001_0000,
 	/// Don't decode `LZCNT`, decode `BSR` instead

@@ -59,7 +59,9 @@ namespace Generator.Enums.Decoder {
 		[Comment("Don't decode #(c:WBNOINVD)#, decode #(c:WBINVD)# instead")]
 		NoWbnoinvd				= 0x00004000,
 		[Comment("Don't decode #(c:LOCK MOV CR0)# as #(c:MOV CR8)# (AMD)")]
-		NoLockMovCR0			= 0x00008000,
+		NoLockMovCR				= 0x00008000,
+		[Deprecated("1.9.0", nameof(NoLockMovCR))]
+		NoLockMovCR0,
 		[Comment("Don't decode #(c:TZCNT)#, decode #(c:BSF)# instead")]
 		NoMPFX_0FBC				= 0x00010000,
 		[Comment("Don't decode #(c:LZCNT)#, decode #(c:BSR)# instead")]

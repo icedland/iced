@@ -1528,7 +1528,7 @@ impl OpCodeHandler_R_C {
 		if this.base_reg == Register::CR0
 			&& extra_register_base == 0
 			&& instruction.has_lock_prefix()
-			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR0) == 0
+			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR) == 0
 		{
 			extra_register_base = 8;
 			super::instruction_internal::internal_clear_has_lock_prefix(instruction);
@@ -1594,7 +1594,7 @@ impl OpCodeHandler_C_R {
 		if this.base_reg == Register::CR0
 			&& extra_register_base == 0
 			&& instruction.has_lock_prefix()
-			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR0) == 0
+			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR) == 0
 		{
 			extra_register_base = 8;
 			super::instruction_internal::internal_clear_has_lock_prefix(instruction);
