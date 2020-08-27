@@ -26,7 +26,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Formatters {
-	abstract class FormatterTableSerializer {
+	abstract class FormatterTableSerializer : IFormatterTableSerializer {
 		protected readonly object[][] infos;
 		protected readonly IdentifierConverter idConverter;
 		readonly EnumValue previousCtorKind;
@@ -36,6 +36,8 @@ namespace Generator.Formatters {
 			this.idConverter = idConverter;
 			this.previousCtorKind = previousCtorKind;
 		}
+
+		public abstract string GetFilename(GeneratorContext generatorContext);
 
 		public void Initialize(GenTypes genTypes, StringsTable stringsTable) {
 			var expectedLength = genTypes[TypeIds.Code].Values.Length;
@@ -52,6 +54,8 @@ namespace Generator.Formatters {
 				}
 			}
 		}
+
+		public abstract void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable);
 
 		protected void SerializeTable(FileWriter writer, StringsTable stringsTable) {
 			int index = -1;

@@ -21,11 +21,21 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod enums;
+mod enums_shared;
+#[cfg(feature = "fast_fmt")]
+mod fast;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod fmt_consts;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod fmt_opt_provider;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod fmt_opts;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod fmt_utils;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+mod fmt_utils_all;
 #[cfg(feature = "gas")]
 mod gas;
 #[cfg(feature = "intel")]
@@ -34,10 +44,13 @@ mod intel;
 mod masm;
 #[cfg(feature = "nasm")]
 mod nasm;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod num_fmt;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod num_fmt_opts;
 mod pseudo_ops;
 mod regs_tbl;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod string_output;
 mod strings_data;
 mod strings_tbl;
@@ -45,8 +58,14 @@ mod symres;
 #[cfg(test)]
 pub(crate) mod tests;
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use self::enums::*;
+pub use self::enums_shared::*;
+#[cfg(feature = "fast_fmt")]
+pub use self::fast::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use self::fmt_opt_provider::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use self::fmt_opts::*;
 #[cfg(feature = "gas")]
 pub use self::gas::*;
@@ -56,8 +75,11 @@ pub use self::intel::*;
 pub use self::masm::*;
 #[cfg(feature = "nasm")]
 pub use self::nasm::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::num_fmt::NumberFormatter;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use self::num_fmt_opts::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use self::string_output::*;
 pub use self::symres::*;
 use super::*;
@@ -65,11 +87,14 @@ use super::*;
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-use core::{i16, i32, i8, u16, u32, u8};
+use core::{i16, i32};
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use core::{i8, u16, u32, u8};
 
 #[derive(Debug, Default, Clone)]
 struct FormatterString {
 	lower: String,
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	upper: String,
 }
 
@@ -77,9 +102,17 @@ impl FormatterString {
 	#[cfg_attr(has_must_use, must_use)]
 	fn new(lower: String) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
-		Self { upper: lower.to_uppercase(), lower }
+		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+		{
+			Self { upper: lower.to_uppercase(), lower }
+		}
+		#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
+		{
+			Self { lower }
+		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[cfg_attr(has_must_use, must_use)]
 	fn with_strings(strings: Vec<String>) -> Vec<Self> {
 		strings.into_iter().map(FormatterString::new).collect()
@@ -88,9 +121,17 @@ impl FormatterString {
 	#[cfg_attr(has_must_use, must_use)]
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
-		Self { lower: String::from(lower), upper: lower.to_uppercase() }
+		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+		{
+			Self { lower: String::from(lower), upper: lower.to_uppercase() }
+		}
+		#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
+		{
+			Self { lower: String::from(lower) }
+		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn len(&self) -> usize {
@@ -104,6 +145,7 @@ impl FormatterString {
 		self.lower.is_empty()
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn get(&self, upper: bool) -> &str {
@@ -113,6 +155,13 @@ impl FormatterString {
 			&self.lower
 		}
 	}
+
+	#[cfg(feature = "fast_fmt")]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn lower(&self) -> &str {
+		&self.lower
+	}
 }
 
 /// Used by a [`Formatter`] to write all text. `String` also implements this trait.
@@ -121,6 +170,7 @@ impl FormatterString {
 ///
 /// [`Formatter`]: trait.Formatter.html
 /// [`write()`]: #tymethod.write
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub trait FormatterOutput {
 	/// Writes text and text kind
 	///
@@ -240,7 +290,9 @@ pub trait FormatterOutput {
 	}
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 struct FormatterOutputMethods;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 impl FormatterOutputMethods {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	fn write1(
@@ -336,6 +388,7 @@ impl FormatterOutputMethods {
 /// Formats instructions
 ///
 /// This trait is sealed and cannot be implemented by your own types.
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub trait Formatter: private::Sealed {
 	/// Formats the whole instruction: prefixes, mnemonic, operands
 	///
@@ -607,6 +660,7 @@ pub trait Formatter: private::Sealed {
 	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str;
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod private {
 	pub trait Sealed {}
 	#[cfg(feature = "gas")]
@@ -626,6 +680,7 @@ fn to_owned<'a>(sym_res: Option<SymbolResult>, vec: &'a mut Vec<SymResTextPart<'
 	}
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn get_mnemonic_cc<'a, 'b>(options: &'a FormatterOptions, cc_index: u32, mnemonics: &'b [FormatterString]) -> &'b FormatterString {
 	let index = match cc_index {
 		// o

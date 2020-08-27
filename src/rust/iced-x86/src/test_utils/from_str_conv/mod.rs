@@ -36,7 +36,7 @@ mod encoding_kind_table;
 #[cfg(feature = "instr_info")]
 mod flow_control_table;
 mod ignored_code_table;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 mod memory_size_options_table;
 mod memory_size_table;
 mod mnemonic_table;
@@ -44,7 +44,7 @@ mod mnemonic_table;
 mod number_base_table;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod op_code_operand_kind_table;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 mod options_props_table;
 mod register_table;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -65,7 +65,7 @@ use self::encoding_kind_table::*;
 #[cfg(feature = "instr_info")]
 use self::flow_control_table::*;
 use self::ignored_code_table::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use self::memory_size_options_table::*;
 use self::memory_size_table::*;
 use self::mnemonic_table::*;
@@ -73,12 +73,12 @@ use self::mnemonic_table::*;
 use self::number_base_table::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 use self::op_code_operand_kind_table::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use self::options_props_table::*;
 use self::register_table::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 use self::tuple_type_table::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use super::super::formatter::tests::enums::OptionsProps;
 use super::super::*;
 #[cfg(not(feature = "std"))]
@@ -144,7 +144,8 @@ pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 	feature = "gas",
 	feature = "intel",
 	feature = "masm",
-	feature = "nasm"
+	feature = "nasm",
+	feature = "fast_fmt"
 ))]
 pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 	let mut unsigned_value = value.trim();
@@ -177,7 +178,8 @@ pub(crate) fn to_u32(value: &str) -> Result<u32, String> {
 	feature = "gas",
 	feature = "intel",
 	feature = "masm",
-	feature = "nasm"
+	feature = "nasm",
+	feature = "fast_fmt"
 ))]
 pub(crate) fn to_i32(value: &str) -> Result<i32, String> {
 	let value = value.trim();
@@ -372,7 +374,7 @@ pub(crate) fn to_condition_code(value: &str) -> Result<ConditionCode, String> {
 	}
 }
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 pub(crate) fn to_options_props(value: &str) -> Result<OptionsProps, String> {
 	let value = value.trim();
 	match TO_OPTIONS_PROPS_HASH.get(value) {
@@ -381,7 +383,7 @@ pub(crate) fn to_options_props(value: &str) -> Result<OptionsProps, String> {
 	}
 }
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 pub(crate) fn to_memory_size_options(value: &str) -> Result<MemorySizeOptions, String> {
 	let value = value.trim();
 	match TO_MEMORY_SIZE_OPTIONS_HASH.get(value) {
@@ -404,7 +406,7 @@ pub(crate) fn number_base_len() -> usize {
 	TO_NUMBER_BASE_HASH.len()
 }
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 pub(crate) fn to_boolean(value: &str) -> Result<bool, String> {
 	let value = value.trim();
 	match value {

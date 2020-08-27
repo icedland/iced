@@ -35,7 +35,7 @@ namespace Generator.Formatters.Rust {
 
 		public void Generate() {
 			var genTypes = generatorContext.Types;
-			var serializers = new List<RustFormatterTableSerializer>();
+			var serializers = new List<IFormatterTableSerializer>();
 			var basePath = Path.Combine(generatorContext.RustDir, "formatter");
 			if (genTypes.Options.HasGasFormatter)
 				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "gas", "fmt_data.rs"), genTypes.GetObject<Gas.CtorInfos>(TypeIds.GasCtorInfos).Infos, genTypes[TypeIds.GasCtorKind]));
@@ -45,6 +45,8 @@ namespace Generator.Formatters.Rust {
 				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "masm", "fmt_data.rs"), genTypes.GetObject<Masm.CtorInfos>(TypeIds.MasmCtorInfos).Infos, genTypes[TypeIds.MasmCtorKind]));
 			if (genTypes.Options.HasNasmFormatter)
 				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "nasm", "fmt_data.rs"), genTypes.GetObject<Nasm.CtorInfos>(TypeIds.NasmCtorInfos).Infos, genTypes[TypeIds.NasmCtorKind]));
+			if (genTypes.Options.HasFastFormatter)
+				serializers.Add(new RustFastFormatterTableSerializer(Path.Combine(basePath, "fast", "fmt_data.rs"), genTypes.GetObject<Fast.FmtTblInfos>(TypeIds.FastFmtTblInfos).Infos));
 
 			var stringsTable = new StringsTable();
 
@@ -59,8 +61,8 @@ namespace Generator.Formatters.Rust {
 			}
 
 			foreach (var serializer in serializers) {
-				using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(serializer.Filename)))
-					serializer.Serialize(writer, stringsTable);
+				using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(serializer.GetFilename(generatorContext))))
+					serializer.Serialize(genTypes, writer, stringsTable);
 			}
 		}
 	}

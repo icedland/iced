@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::*;
 use super::super::test_utils::get_formatter_unit_tests_dir;
-use super::options_test_case_parser::*;
+use super::options_test_case_parser::OptionsTestParser;
 use super::opts_info::*;
 use super::{filter_removed_code_tests, opts_infos};
 #[cfg(not(feature = "std"))]
@@ -51,10 +51,11 @@ fn read_lines(filename: PathBuf) -> Vec<String> {
 		.collect()
 }
 
-pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<Formatter>) {
-	let tmp_infos: Vec<OptionsInstructionInfo>;
+fn read_infos<'a>(
+	dir: &str, file_part: &str, options_file: &str, tmp_infos: &'a mut Vec<OptionsInstructionInfo>,
+) -> Vec<(&'a OptionsInstructionInfo, String)> {
 	let mut tmp_ignored: HashSet<u32>;
-	let (all_infos, ignored) = if options_file.is_empty() {
+	let (all_infos, ignored): (&Vec<OptionsInstructionInfo>, &HashSet<u32>) = if options_file.is_empty() {
 		let infos = &*opts_infos::ALL_INFOS;
 		(&infos.0, &infos.1)
 	} else {
@@ -62,8 +63,8 @@ pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_fil
 		opts_filename.push(dir);
 		opts_filename.push(format!("{}.txt", options_file));
 		tmp_ignored = HashSet::new();
-		tmp_infos = OptionsTestParser::new(opts_filename.as_path(), &mut tmp_ignored).into_iter().collect();
-		(&tmp_infos, &tmp_ignored)
+		tmp_infos.extend(OptionsTestParser::new(opts_filename.as_path(), &mut tmp_ignored).into_iter());
+		(tmp_infos, &tmp_ignored)
 	};
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);
@@ -73,10 +74,17 @@ pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_fil
 	if lines.len() != all_infos.len() {
 		panic!("lines.len() ({}) != all_infos.len() ({}), file: {}", lines.len(), all_infos.len(), display_filename);
 	}
-	let infos: Vec<_> = all_infos.iter().zip(lines.into_iter()).map(|a| (a.0, a.1)).collect();
+	all_infos.iter().zip(lines.into_iter()).map(|a| (a.0, a.1)).collect()
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<Formatter>) {
+	let mut tmp_infos: Vec<OptionsInstructionInfo> = Vec::new();
+	let infos = read_infos(dir, file_part, options_file, &mut tmp_infos);
 	test_format(infos, fmt_factory);
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() -> Box<Formatter>) {
 	for &(tc, ref formatted_string) in &infos {
 		let mut formatter = fmt_factory();
@@ -84,5 +92,29 @@ fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() 
 		super::simple_format_test(tc.bitness, &tc.hex_bytes, tc.code, tc.decoder_options, formatted_string.as_str(), formatter.as_mut(), |decoder| {
 			tc.initialize_decoder(decoder)
 		});
+	}
+}
+
+#[cfg(feature = "fast_fmt")]
+pub(in super::super) fn test_format_file_fast(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<FastFormatter>) {
+	let mut tmp_infos: Vec<OptionsInstructionInfo> = Vec::new();
+	let infos = read_infos(dir, file_part, options_file, &mut tmp_infos);
+	test_format_fast(infos, fmt_factory);
+}
+
+#[cfg(feature = "fast_fmt")]
+fn test_format_fast(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() -> Box<FastFormatter>) {
+	for &(tc, ref formatted_string) in &infos {
+		let mut formatter = fmt_factory();
+		tc.initialize_options_fast(formatter.options_mut());
+		super::simple_format_test_fast(
+			tc.bitness,
+			&tc.hex_bytes,
+			tc.code,
+			tc.decoder_options,
+			formatted_string.as_str(),
+			formatter.as_mut(),
+			|decoder| tc.initialize_decoder(decoder),
+		);
 	}
 }

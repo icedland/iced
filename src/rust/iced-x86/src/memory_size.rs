@@ -954,7 +954,10 @@ impl MemorySize {
 	pub fn element_count(self) -> usize {
 		self.info().element_count()
 	}
+}
 
+#[cfg(any(feature = "instr_info", feature = "encoder", feature = "fast_fmt"))]
+impl MemorySize {
 	/// Checks if it is a broadcast memory type
 	///
 	/// # Examples

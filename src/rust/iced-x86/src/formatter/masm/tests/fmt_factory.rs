@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::super::enums::MemorySizeOptions;
+use super::super::super::enums_shared::MemorySizeOptions;
 use super::super::super::MasmFormatter;
 use super::super::super::{Formatter, FormatterOptionsProvider, SymbolResolver};
 #[cfg(not(feature = "std"))]

@@ -38677,14 +38677,6 @@ impl Code {
 		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::SAVE_RESTORE) != 0 }
 	}
 
-	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn is_jcc_short_or_near(self) -> bool {
-		(self as u32).wrapping_sub(Code::Jo_rel8_16 as u32) <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32)
-			|| (self as u32).wrapping_sub(Code::Jo_rel16 as u32) <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32)
-	}
-
 	/// Checks if it's a `Jcc NEAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -38819,6 +38811,17 @@ impl Code {
 		}
 
 		ConditionCode::None
+	}
+}
+
+#[cfg(any(feature = "instr_info", feature = "fast_fmt"))]
+impl Code {
+	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_jcc_short_or_near(self) -> bool {
+		(self as u32).wrapping_sub(Code::Jo_rel8_16 as u32) <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32)
+			|| (self as u32).wrapping_sub(Code::Jo_rel16 as u32) <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32)
 	}
 }
 

@@ -303,43 +303,49 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_output();
 			bool needSpace = false;
 			if ((mnemonicOptions & FormatMnemonicOptions.NoPrefixes) == 0 && (opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) == 0) {
-				FormatterString prefix;
-
-				prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
-				if (!prefix.IsDefault)
-					FormatPrefix(output, instruction, ref column, prefix, PrefixKind.OperandSize, ref needSpace);
-
-				prefix = addrSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.AddrSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
-				if (!prefix.IsDefault)
-					FormatPrefix(output, instruction, ref column, prefix, PrefixKind.AddressSize, ref needSpace);
-
 				var prefixSeg = instruction.SegmentPrefix;
-				bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code);
-				if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(instruction, opInfo))
-					FormatPrefix(output, instruction, ref column, allRegisters[(int)prefixSeg], FormatterUtils.GetSegmentRegisterPrefixKind(prefixSeg), ref needSpace);
 
-				if (instruction.HasXacquirePrefix)
-					FormatPrefix(output, instruction, ref column, str_xacquire, PrefixKind.Xacquire, ref needSpace);
-				if (instruction.HasXreleasePrefix)
-					FormatPrefix(output, instruction, ref column, str_xrelease, PrefixKind.Xrelease, ref needSpace);
-				if (instruction.HasLockPrefix)
-					FormatPrefix(output, instruction, ref column, str_lock, PrefixKind.Lock, ref needSpace);
+				const uint PrefixFlags =
+					((uint)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.OpSizeShift) |
+					((uint)InstrOpInfoFlags.SizeOverrideMask << (int)InstrOpInfoFlags.AddrSizeShift) |
+					(uint)InstrOpInfoFlags.BndPrefix;
+				if (((uint)prefixSeg | instruction.HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix | ((uint)opInfo.Flags & PrefixFlags)) != 0) {
+					FormatterString prefix;
 
-				bool hasBnd = (opInfo.Flags & InstrOpInfoFlags.BndPrefix) != 0;
-				if (instruction.HasRepePrefix && FormatterUtils.ShowRepOrRepePrefix(instruction.Code, options)) {
-					if (FormatterUtils.IsRepeOrRepneInstruction(instruction.Code))
-						FormatPrefix(output, instruction, ref column, MnemonicCC.GetMnemonicCC(options, 4, str_repe), PrefixKind.Repe, ref needSpace);
-					else
-						FormatPrefix(output, instruction, ref column, str_rep, PrefixKind.Rep, ref needSpace);
+					prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
+					if (!prefix.IsDefault)
+						FormatPrefix(output, instruction, ref column, prefix, PrefixKind.OperandSize, ref needSpace);
+
+					prefix = addrSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.AddrSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
+					if (!prefix.IsDefault)
+						FormatPrefix(output, instruction, ref column, prefix, PrefixKind.AddressSize, ref needSpace);
+
+					bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code);
+					if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(instruction, opInfo))
+						FormatPrefix(output, instruction, ref column, allRegisters[(int)prefixSeg], FormatterUtils.GetSegmentRegisterPrefixKind(prefixSeg), ref needSpace);
+
+					if (instruction.HasXacquirePrefix)
+						FormatPrefix(output, instruction, ref column, str_xacquire, PrefixKind.Xacquire, ref needSpace);
+					if (instruction.HasXreleasePrefix)
+						FormatPrefix(output, instruction, ref column, str_xrelease, PrefixKind.Xrelease, ref needSpace);
+					if (instruction.HasLockPrefix)
+						FormatPrefix(output, instruction, ref column, str_lock, PrefixKind.Lock, ref needSpace);
+
+					if (hasNoTrackPrefix)
+						FormatPrefix(output, instruction, ref column, str_notrack, PrefixKind.Notrack, ref needSpace);
+					bool hasBnd = (opInfo.Flags & InstrOpInfoFlags.BndPrefix) != 0;
+					if (hasBnd)
+						FormatPrefix(output, instruction, ref column, str_bnd, PrefixKind.Bnd, ref needSpace);
+
+					if (instruction.HasRepePrefix && FormatterUtils.ShowRepOrRepePrefix(instruction.Code, options)) {
+						if (FormatterUtils.IsRepeOrRepneInstruction(instruction.Code))
+							FormatPrefix(output, instruction, ref column, MnemonicCC.GetMnemonicCC(options, 4, str_repe), PrefixKind.Repe, ref needSpace);
+						else
+							FormatPrefix(output, instruction, ref column, str_rep, PrefixKind.Rep, ref needSpace);
+					}
+					if (instruction.HasRepnePrefix && !hasBnd && FormatterUtils.ShowRepnePrefix(instruction.Code, options))
+						FormatPrefix(output, instruction, ref column, MnemonicCC.GetMnemonicCC(options, 5, str_repne), PrefixKind.Repne, ref needSpace);
 				}
-				if (instruction.HasRepnePrefix && !hasBnd && FormatterUtils.ShowRepnePrefix(instruction.Code, options))
-					FormatPrefix(output, instruction, ref column, MnemonicCC.GetMnemonicCC(options, 5, str_repne), PrefixKind.Repne, ref needSpace);
-
-				if (hasNoTrackPrefix)
-					FormatPrefix(output, instruction, ref column, str_notrack, PrefixKind.Notrack, ref needSpace);
-
-				if (hasBnd)
-					FormatPrefix(output, instruction, ref column, str_bnd, PrefixKind.Bnd, ref needSpace);
 			}
 
 			if ((mnemonicOptions & FormatMnemonicOptions.NoMnemonic) == 0) {

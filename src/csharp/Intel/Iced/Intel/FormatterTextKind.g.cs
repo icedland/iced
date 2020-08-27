@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if GAS || INTEL || MASM || NASM
+#if GAS || INTEL || MASM || NASM || FAST_FMT
 namespace Iced.Intel {
 	/// <summary>Formatter text kind</summary>
 	public enum FormatterTextKind {

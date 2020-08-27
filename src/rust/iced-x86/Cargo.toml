@@ -17,7 +17,7 @@ maintenance = { status = "actively-developed" }
 
 # These features are documented in the module docs (lib.rs)
 [features]
-default = ["std", "decoder", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
+default = ["std", "decoder", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm", "fast_fmt"]
 decoder = []
 encoder = []
 block_encoder = ["encoder"]
@@ -27,6 +27,7 @@ gas = []
 intel = []
 masm = []
 nasm = []
+fast_fmt = []
 db = []
 std = ["lazy_static"]
 # no_std feature is needed since std and no_std require different deps
@@ -41,7 +42,7 @@ no_d3now = []
 # if: always
 static_assertions = "0.3.4"
 
-# if: decoder or encoder or gas or intel or masm or nasm
+# if: decoder or encoder or gas or intel or masm or nasm or fast_fmt
 # It's not really optional, std or no_std must be used and they both require it.
 lazy_static = { version = "1.1.1", optional = true }
 

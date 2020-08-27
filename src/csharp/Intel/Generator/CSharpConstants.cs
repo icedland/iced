@@ -36,6 +36,7 @@ namespace Generator {
 		public const string IntelFormatterNamespace = "Iced.Intel.IntelFormatterInternal";
 		public const string MasmFormatterNamespace = "Iced.Intel.MasmFormatterInternal";
 		public const string NasmFormatterNamespace = "Iced.Intel.NasmFormatterInternal";
+		public const string FastFormatterNamespace = "Iced.Intel.FastFormatterInternal";
 
 		public const string IcedUnitTestsNamespace = "Iced.UnitTests.Intel";
 
@@ -55,11 +56,12 @@ namespace Generator {
 		public const string InstructionInfoDefine = "INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "DECODER || ENCODER";
 		public const string DecoderOrEncoderOrInstrInfoDefine = "DECODER || ENCODER || INSTR_INFO";
-		public const string AnyFormatterDefine = "GAS || INTEL || MASM || NASM";
+		public const string AnyFormatterDefine = "GAS || INTEL || MASM || NASM || FAST_FMT";
 		public const string GasFormatterDefine = "GAS";
 		public const string IntelFormatterDefine = "INTEL";
 		public const string MasmFormatterDefine = "MASM";
 		public const string NasmFormatterDefine = "NASM";
+		public const string FastFormatterDefine = "FAST_FMT";
 
 		public const string PragmaMissingDocsDisable = "#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member";
 		public const string PragmaMissingDocsRestore = "#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member";

@@ -1,0 +1,139 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+cs jo 7FF3h
+cs jno 7FF3h
+cs jb 7FF3h
+cs jae 7FF3h
+cs je 7FF3h
+cs jne 7FF3h
+cs jbe 7FF3h
+cs ja 7FF3h
+cs js 7FF3h
+cs jns 7FF3h
+cs jp 7FF3h
+cs jnp 7FF3h
+cs jl 7FF3h
+cs jge 7FF3h
+cs jle 7FF3h
+cs jg 7FF3h
+ds jo 7FF3h
+ds jno 7FF3h
+ds jb 7FF3h
+ds jae 7FF3h
+ds je 7FF3h
+ds jne 7FF3h
+ds jbe 7FF3h
+ds ja 7FF3h
+ds js 7FF3h
+ds jns 7FF3h
+ds jp 7FF3h
+ds jnp 7FF3h
+ds jl 7FF3h
+ds jge 7FF3h
+ds jle 7FF3h
+ds jg 7FF3h
+cs jo 7FF5h
+cs jno 7FF5h
+cs jb 7FF5h
+cs jae 7FF5h
+cs je 7FF5h
+cs jne 7FF5h
+cs jbe 7FF5h
+cs ja 7FF5h
+cs js 7FF5h
+cs jns 7FF5h
+cs jp 7FF5h
+cs jnp 7FF5h
+cs jl 7FF5h
+cs jge 7FF5h
+cs jle 7FF5h
+cs jg 7FF5h
+ds jo 7FF5h
+ds jno 7FF5h
+ds jb 7FF5h
+ds jae 7FF5h
+ds je 7FF5h
+ds jne 7FF5h
+ds jbe 7FF5h
+ds ja 7FF5h
+ds js 7FF5h
+ds jns 7FF5h
+ds jp 7FF5h
+ds jnp 7FF5h
+ds jl 7FF5h
+ds jge 7FF5h
+ds jle 7FF5h
+ds jg 7FF5h
+bnd jo 7FF3h
+bnd jno 7FF3h
+bnd jb 7FF3h
+bnd jae 7FF3h
+bnd je 7FF3h
+bnd jne 7FF3h
+bnd jbe 7FF3h
+bnd ja 7FF3h
+bnd js 7FF3h
+bnd jns 7FF3h
+bnd jp 7FF3h
+bnd jnp 7FF3h
+bnd jl 7FF3h
+bnd jge 7FF3h
+bnd jle 7FF3h
+bnd jg 7FF3h
+bnd jo 7FF5h
+bnd jno 7FF5h
+bnd jb 7FF5h
+bnd jae 7FF5h
+bnd je 7FF5h
+bnd jne 7FF5h
+bnd jbe 7FF5h
+bnd ja 7FF5h
+bnd js 7FF5h
+bnd jns 7FF5h
+bnd jp 7FF5h
+bnd jnp 7FF5h
+bnd jl 7FF5h
+bnd jge 7FF5h
+bnd jle 7FF5h
+bnd jg 7FF5h
+bnd jmp 7FF4h
+bnd jmp word ptr [bx+si]
+bnd jmp ax
+bnd call 7FF4h
+bnd call word ptr [bx+si]
+bnd call ax
+bnd ret 0h
+bnd ret
+notrack call word ptr [bx+si]
+notrack call word ptr ds:[bp+11h]
+notrack call cx
+notrack jmp word ptr [bx+si]
+notrack jmp word ptr ds:[bp+11h]
+notrack jmp cx
+notrack bnd call cx
+notrack call word ptr [bx+si]
+call word ptr fs:[bx+si]
+notrack bnd jmp cx
+notrack jmp word ptr [bx+si]
+jmp word ptr fs:[bx+si]

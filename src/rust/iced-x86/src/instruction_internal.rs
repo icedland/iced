@@ -95,6 +95,13 @@ pub(crate) fn internal_set_has_repe_prefix(this: &mut Instruction) {
 	this.code_flags = (this.code_flags & !CodeFlags::REPNE_PREFIX) | CodeFlags::REPE_PREFIX
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+#[inline]
+pub(crate) fn internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(this: &Instruction) -> u32 {
+	this.code_flags
+		& (CodeFlags::XACQUIRE_PREFIX | CodeFlags::XRELEASE_PREFIX | CodeFlags::LOCK_PREFIX | CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)
+}
+
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_clear_has_repe_prefix(this: &mut Instruction) {
@@ -343,6 +350,12 @@ pub(crate) fn internal_set_zeroing_masking(this: &mut Instruction) {
 #[inline]
 pub(crate) fn internal_set_rounding_control(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::ROUNDING_CONTROL_SHIFT;
+}
+
+#[cfg(any(feature = "intel", feature = "masm", feature = "fast_fmt"))]
+#[inline]
+pub(crate) fn internal_has_rounding_control_or_sae(this: &Instruction) -> bool {
+	(this.code_flags & ((CodeFlags::ROUNDING_CONTROL_MASK << CodeFlags::ROUNDING_CONTROL_SHIFT) | CodeFlags::SUPPRESS_ALL_EXCEPTIONS)) != 0
 }
 
 #[cfg(feature = "encoder")]

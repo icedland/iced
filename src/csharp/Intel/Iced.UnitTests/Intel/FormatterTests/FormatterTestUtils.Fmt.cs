@@ -27,7 +27,7 @@ using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
-	static class FormatterTestUtils {
+	static partial class FormatterTestUtils {
 		public static void FormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, Formatter formatter) {
 			var decoder = CreateDecoder(bitness, hexBytes, options, out ulong nextRip);
 			var instruction = decoder.Decode();
@@ -80,41 +80,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		public static void SimpleFormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, Formatter formatter, Action<Decoder> initDecoder) {
-			var decoder = CreateDecoder(bitness, hexBytes, options, out _);
-			initDecoder?.Invoke(decoder);
-			var nextRip = decoder.IP;
-			var instruction = decoder.Decode();
-			Assert.Equal(code, instruction.Code);
-			Assert.Equal((ushort)nextRip, instruction.IP16);
-			Assert.Equal((uint)nextRip, instruction.IP32);
-			Assert.Equal(nextRip, instruction.IP);
-			nextRip += (uint)instruction.Length;
-			Assert.Equal(nextRip, decoder.IP);
-			Assert.Equal((ushort)nextRip, instruction.NextIP16);
-			Assert.Equal((uint)nextRip, instruction.NextIP32);
-			Assert.Equal(nextRip, instruction.NextIP);
-
-			var output = new StringOutput();
-			formatter.Format(instruction, output);
-			var actualFormattedString = output.ToStringAndReset();
-#pragma warning disable xUnit2006 // Do not use invalid string equality check
-			// Show the full string without ellipses by using Equal<string>() instead of Equal()
-			Assert.Equal<string>(formattedString, actualFormattedString);
-#pragma warning restore xUnit2006 // Do not use invalid string equality check
-		}
-
-		static Decoder CreateDecoder(int bitness, string hexBytes, DecoderOptions options, out ulong rip) {
-			var codeReader = new ByteArrayCodeReader(hexBytes);
-			var decoder = Decoder.Create(bitness, codeReader, options);
-			rip = bitness switch {
-				16 => DecoderConstants.DEFAULT_IP16,
-				32 => DecoderConstants.DEFAULT_IP32,
-				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			FormatInstr format = (in Instruction instruction) => {
+				var output = new StringOutput();
+				formatter.Format(instruction, output);
+				return output.ToStringAndReset();
 			};
-			Assert.Equal(bitness, decoder.Bitness);
-			decoder.IP = rip;
-			return decoder;
+			SimpleFormatTest(bitness, hexBytes, code, options, formattedString, format, initDecoder);
 		}
 
 		public static void TestFormatterDoesNotThrow(Formatter formatter) {

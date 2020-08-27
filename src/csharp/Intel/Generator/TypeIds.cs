@@ -32,6 +32,7 @@ namespace Generator {
 		public static readonly TypeId IntelCtorInfos = new TypeId(nameof(IntelCtorInfos));
 		public static readonly TypeId MasmCtorInfos = new TypeId(nameof(MasmCtorInfos));
 		public static readonly TypeId NasmCtorInfos = new TypeId(nameof(NasmCtorInfos));
+		public static readonly TypeId FastFmtTblInfos = new TypeId(nameof(FastFmtTblInfos));
 		public static readonly TypeId MemorySizeInfoTable = new TypeId(nameof(MemorySizeInfoTable));
 		public static readonly TypeId RegisterInfoTable = new TypeId(nameof(RegisterInfoTable));
 		public static readonly TypeId DecoderTables = new TypeId(nameof(DecoderTables));
@@ -74,6 +75,7 @@ namespace Generator {
 		public static readonly TypeId NasmInstrOpInfoFlags = new TypeId(nameof(NasmInstrOpInfoFlags));
 		public static readonly TypeId NasmMemorySizeInfo = new TypeId(nameof(NasmMemorySizeInfo));
 		public static readonly TypeId NasmFarMemorySizeInfo = new TypeId(nameof(NasmFarMemorySizeInfo));
+		public static readonly TypeId FastFmtFlags = new TypeId(nameof(FastFmtFlags));
 		public static readonly TypeId RoundingControl = new TypeId(nameof(RoundingControl));
 		public static readonly TypeId OpKind = new TypeId(nameof(OpKind));
 		public static readonly TypeId Instruction_MemoryFlags = new TypeId(nameof(Instruction_MemoryFlags));

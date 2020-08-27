@@ -24,50 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if GAS || INTEL || MASM || NASM
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Iced.Intel;
-using Iced.UnitTests.Intel.DecoderTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public sealed class MiscTests {
-		[Fact]
-		void Make_sure_all_Code_values_are_formatted() {
-			var tested = new byte[IcedConstants.NumberOfCodeValues];
-
-			var allArgs = new (int bitness, bool isMisc)[] {
-				(16, false),
-				(32, false),
-				(64, false),
-				(16, true),
-				(32, true),
-				(64, true),
-			};
-			foreach (var args in allArgs) {
-				var data = FormatterTest.GetInstructionInfos(args.bitness, args.isMisc);
-				foreach (var info in data.infos)
-					tested[(int)info.Code] = 1;
-			}
-#if ENCODER
-			foreach (var info in NonDecodedInstructions.GetTests())
-				tested[(int)info.instruction.Code] = 1;
-#else
-			foreach (var code in CodeValueTests.NonDecodedCodeValues)
-				tested[(int)code] = 1;
-#endif
-
-			var sb = new StringBuilder();
-			int missing = 0;
-			var codeNames = ToEnumConverter.GetCodeNames();
-			for (int i = 0; i < tested.Length; i++) {
-				if (tested[i] != 1 && !CodeUtils.IsIgnored(codeNames[i])) {
-					sb.Append(codeNames[i] + " ");
-					missing++;
-				}
-			}
-			Assert.Equal("Fmt: 0 ins ", $"Fmt: {missing} ins " + sb.ToString());
-		}
-
 		[Fact]
 		void Test_FormatterOperandOptions_properties() {
 			FormatterOperandOptions options = default;
@@ -282,7 +243,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		[Fact]
 		void StringOutput_uses_input_sb() {
-			var sb = new StringBuilder();
+			var sb = new System.Text.StringBuilder();
 			sb.Append("Text");
 			var output = new StringOutput(sb);
 			output.Write("hello", FormatterTextKind.Text);

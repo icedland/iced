@@ -31,12 +31,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		[Theory]
 		[MemberData(nameof(Format_Data))]
 		void Format(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Nasm", "OptionsResult");
+		public static IEnumerable<object[]> Format_Data => OptionsTestsUtils.GetFormatData("Nasm", "OptionsResult");
 
 		[Theory]
 		[MemberData(nameof(Format2_Data))]
 		void Format2(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format2_Data => GetFormatData("Nasm", "OptionsResult2", "Options2");
+		public static IEnumerable<object[]> Format2_Data => OptionsTestsUtils.GetFormatData("Nasm", "OptionsResult2", "Options2");
 
 		[Fact]
 		public void TestOptions() {

@@ -59,6 +59,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
+- `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` which is ~1.6x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions.
 - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
@@ -99,7 +100,7 @@ dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex 
 ## Disassemble (decode and format instructions)
 
 This example uses a [`Decoder`] and one of the [`Formatter`]s to decode and format the code,
-eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`].
+eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`], [`FastFormatter`].
 
 [`Decoder`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.Decoder.html
 [`Formatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/trait.Formatter.html
@@ -107,6 +108,7 @@ eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`].
 [`IntelFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.IntelFormatter.html
 [`MasmFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.MasmFormatter.html
 [`NasmFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.NasmFormatter.html
+[`FastFormatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.FastFormatter.html
 
 ```rust
 use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
@@ -132,7 +134,9 @@ pub(crate) fn how_to_disassemble() {
     let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, bytes, DecoderOptions::NONE);
     decoder.set_ip(EXAMPLE_CODE_RIP);
 
-    // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED)
+    // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
+    // There's also `FastFormatter` which is ~1.6x faster. Use it if formatting speed is more
+    // important than being able to re-assemble formatted instructions.
     let mut formatter = NasmFormatter::new();
 
     // Change some options, there are many more

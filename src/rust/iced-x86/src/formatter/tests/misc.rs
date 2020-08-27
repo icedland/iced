@@ -23,59 +23,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::iced_constants::IcedConstants;
 use super::super::decoder::tests::test_utils;
-#[cfg(feature = "encoder")]
-use super::super::encoder::tests::non_decoded_tests;
 use super::super::test_utils::create_decoder;
 use super::super::test_utils::from_str_conv::*;
 use super::super::*;
-use super::instr_infos::*;
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 use std::panic;
-
-#[test]
-fn make_sure_all_code_values_are_formatted() {
-	let mut tested = [0u8; IcedConstants::NUMBER_OF_CODE_VALUES];
-
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	let all_args: [(u32, bool); 6] = [
-		(16, false),
-		(32, false),
-		(64, false),
-		(16, true),
-		(32, true),
-		(64, true),
-	];
-	for &(bitness, is_misc) in &all_args {
-		for info in &get_infos(bitness, is_misc).0 {
-			tested[info.code as usize] = 1;
-		}
-	}
-	if cfg!(feature = "encoder") {
-		#[cfg(feature = "encoder")] // needed...
-		for info in non_decoded_tests::get_tests() {
-			tested[info.2.code() as usize] = 1;
-		}
-	} else {
-		for &code in &super::super::super::decoder::tests::NON_DECODED_CODE_VALUES {
-			tested[code as usize] = 1;
-		}
-	}
-
-	let mut sb = String::new();
-	let mut missing = 0;
-	let code_names = code_names();
-	for (i, &t) in tested.iter().enumerate() {
-		if t != 1 && !is_ignored_code(code_names[i]) {
-			sb.push_str(code_names[i]);
-			sb.push(' ');
-			missing += 1;
-		}
-	}
-	assert_eq!("Fmt: 0 ins ", format!("Fmt: {} ins {}", missing, sb));
-}
 
 #[test]
 fn test_formatter_operand_options_methods() {

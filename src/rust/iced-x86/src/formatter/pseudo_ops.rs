@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::enums::PseudoOpsKind;
+use super::enums_shared::PseudoOpsKind;
 use super::FormatterString;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;

@@ -55,6 +55,13 @@ impl IcedFeatures {
 		cfg!(feature = "nasm")
 	}
 
+	/// `true` if the fast formatter is available
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn has_fast_fmt() -> bool {
+		cfg!(feature = "fast_fmt")
+	}
+
 	/// `true` if the decoder is available
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]

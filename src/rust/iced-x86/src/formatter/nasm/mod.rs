@@ -39,6 +39,7 @@ use self::regs::*;
 use super::super::*;
 use super::fmt_consts::*;
 use super::fmt_utils::*;
+use super::fmt_utils_all::*;
 use super::instruction_internal::get_address_size_in_bytes;
 use super::num_fmt::*;
 use super::*;
@@ -164,102 +165,119 @@ impl NasmFormatter {
 	) {
 		let mut need_space = false;
 		if (mnemonic_options & FormatMnemonicOptions::NO_PREFIXES) == 0 && (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE) == 0 {
-			let mut prefix;
-
-			prefix = &self.d.vec_.nasm_op_size_strings
-				[((op_info.flags as usize) >> InstrOpInfoFlags::OP_SIZE_SHIFT) & InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize];
-			if !prefix.is_default() {
-				NasmFormatter::format_prefix(&self.d.options, output, instruction, column, prefix, PrefixKind::OperandSize, &mut need_space);
-			}
-
-			prefix = &self.d.vec_.nasm_addr_size_strings
-				[((op_info.flags as usize) >> InstrOpInfoFlags::ADDR_SIZE_SHIFT) & InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize];
-			if !prefix.is_default() {
-				NasmFormatter::format_prefix(&self.d.options, output, instruction, column, prefix, PrefixKind::AddressSize, &mut need_space);
-			}
-
 			let prefix_seg = instruction.segment_prefix();
-			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(instruction.code());
-			if !has_notrack_prefix && prefix_seg != Register::None && self.show_segment_prefix(instruction, op_info) {
-				NasmFormatter::format_prefix(
-					&self.d.options,
-					output,
-					instruction,
-					column,
-					&self.d.all_registers[prefix_seg as usize],
-					get_segment_register_prefix_kind(prefix_seg),
-					&mut need_space,
-				);
-			}
 
-			if instruction.has_xacquire_prefix() {
-				NasmFormatter::format_prefix(
-					&self.d.options,
-					output,
-					instruction,
-					column,
-					&self.d.str_.xacquire,
-					PrefixKind::Xacquire,
-					&mut need_space,
-				);
-			}
-			if instruction.has_xrelease_prefix() {
-				NasmFormatter::format_prefix(
-					&self.d.options,
-					output,
-					instruction,
-					column,
-					&self.d.str_.xrelease,
-					PrefixKind::Xrelease,
-					&mut need_space,
-				);
-			}
-			if instruction.has_lock_prefix() {
-				NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.lock, PrefixKind::Lock, &mut need_space);
-			}
+			const PREFIX_FLAGS: u32 = (InstrOpInfoFlags::SIZE_OVERRIDE_MASK << InstrOpInfoFlags::OP_SIZE_SHIFT)
+				| (InstrOpInfoFlags::SIZE_OVERRIDE_MASK << InstrOpInfoFlags::ADDR_SIZE_SHIFT)
+				| InstrOpInfoFlags::BND_PREFIX;
+			if ((prefix_seg as u32)
+				| super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)
+				| (op_info.flags & PREFIX_FLAGS))
+				!= 0
+			{
+				let mut prefix;
 
-			let has_bnd = (op_info.flags & InstrOpInfoFlags::BND_PREFIX) != 0;
-			if instruction.has_repe_prefix() && show_rep_or_repe_prefix(instruction.code(), &self.d.options) {
-				if is_repe_or_repne_instruction(instruction.code()) {
+				prefix = &self.d.vec_.nasm_op_size_strings
+					[((op_info.flags as usize) >> InstrOpInfoFlags::OP_SIZE_SHIFT) & InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize];
+				if !prefix.is_default() {
+					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, prefix, PrefixKind::OperandSize, &mut need_space);
+				}
+
+				prefix = &self.d.vec_.nasm_addr_size_strings
+					[((op_info.flags as usize) >> InstrOpInfoFlags::ADDR_SIZE_SHIFT) & InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize];
+				if !prefix.is_default() {
+					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, prefix, PrefixKind::AddressSize, &mut need_space);
+				}
+
+				let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(instruction.code());
+				if !has_notrack_prefix && prefix_seg != Register::None && self.show_segment_prefix(instruction, op_info) {
 					NasmFormatter::format_prefix(
 						&self.d.options,
 						output,
 						instruction,
 						column,
-						get_mnemonic_cc(&self.d.options, 4, &self.d.str_.repe),
-						PrefixKind::Repe,
+						&self.d.all_registers[prefix_seg as usize],
+						get_segment_register_prefix_kind(prefix_seg),
 						&mut need_space,
 					);
-				} else {
-					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.rep, PrefixKind::Rep, &mut need_space);
 				}
-			}
-			if instruction.has_repne_prefix() && !has_bnd && show_repne_prefix(instruction.code(), &self.d.options) {
-				NasmFormatter::format_prefix(
-					&self.d.options,
-					output,
-					instruction,
-					column,
-					get_mnemonic_cc(&self.d.options, 5, &self.d.str_.repne),
-					PrefixKind::Repne,
-					&mut need_space,
-				);
-			}
 
-			if has_notrack_prefix {
-				NasmFormatter::format_prefix(
-					&self.d.options,
-					output,
-					instruction,
-					column,
-					&self.d.str_.notrack,
-					PrefixKind::Notrack,
-					&mut need_space,
-				);
-			}
+				if instruction.has_xacquire_prefix() {
+					NasmFormatter::format_prefix(
+						&self.d.options,
+						output,
+						instruction,
+						column,
+						&self.d.str_.xacquire,
+						PrefixKind::Xacquire,
+						&mut need_space,
+					);
+				}
+				if instruction.has_xrelease_prefix() {
+					NasmFormatter::format_prefix(
+						&self.d.options,
+						output,
+						instruction,
+						column,
+						&self.d.str_.xrelease,
+						PrefixKind::Xrelease,
+						&mut need_space,
+					);
+				}
+				if instruction.has_lock_prefix() {
+					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.lock, PrefixKind::Lock, &mut need_space);
+				}
 
-			if has_bnd {
-				NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.bnd, PrefixKind::Bnd, &mut need_space);
+				if has_notrack_prefix {
+					NasmFormatter::format_prefix(
+						&self.d.options,
+						output,
+						instruction,
+						column,
+						&self.d.str_.notrack,
+						PrefixKind::Notrack,
+						&mut need_space,
+					);
+				}
+				let has_bnd = (op_info.flags & InstrOpInfoFlags::BND_PREFIX) != 0;
+				if has_bnd {
+					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.bnd, PrefixKind::Bnd, &mut need_space);
+				}
+
+				if instruction.has_repe_prefix() && show_rep_or_repe_prefix(instruction.code(), &self.d.options) {
+					if is_repe_or_repne_instruction(instruction.code()) {
+						NasmFormatter::format_prefix(
+							&self.d.options,
+							output,
+							instruction,
+							column,
+							get_mnemonic_cc(&self.d.options, 4, &self.d.str_.repe),
+							PrefixKind::Repe,
+							&mut need_space,
+						);
+					} else {
+						NasmFormatter::format_prefix(
+							&self.d.options,
+							output,
+							instruction,
+							column,
+							&self.d.str_.rep,
+							PrefixKind::Rep,
+							&mut need_space,
+						);
+					}
+				}
+				if instruction.has_repne_prefix() && !has_bnd && show_repne_prefix(instruction.code(), &self.d.options) {
+					NasmFormatter::format_prefix(
+						&self.d.options,
+						output,
+						instruction,
+						column,
+						get_mnemonic_cc(&self.d.options, 5, &self.d.str_.repne),
+						PrefixKind::Repne,
+						&mut need_space,
+					);
+				}
 			}
 		}
 

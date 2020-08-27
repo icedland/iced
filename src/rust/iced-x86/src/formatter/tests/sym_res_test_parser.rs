@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::MemorySize;
-use super::super::enums::SymbolFlags;
+use super::super::enums_shared::SymbolFlags;
 use super::enums::OptionsProps;
 use super::opt_value::OptionValue;
 use super::options_parser::parse_option;

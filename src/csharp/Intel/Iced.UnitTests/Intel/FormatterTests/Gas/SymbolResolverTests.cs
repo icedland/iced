@@ -30,7 +30,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 		[Theory]
 		[MemberData(nameof(Format_Data))]
 		void Format(int index, SymbolResolverTestCase info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Resolver(new TestSymbolResolver(info)));
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Gas", "SymbolResolverTests");
+		public static IEnumerable<object[]> Format_Data => SymbolResolverTestUtils.GetFormatData("Gas", "SymbolResolverTests");
 	}
 }
 #endif
