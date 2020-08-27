@@ -7,6 +7,12 @@ on:
       - '!**/*.md'
     branches:
       - master
+  pull_request:
+    paths:
+      - 'src/**'
+      - '!**/*.md'
+    branches:
+      - master
   release:
     types: released
 
