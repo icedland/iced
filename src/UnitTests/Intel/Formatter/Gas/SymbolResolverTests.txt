@@ -150,3 +150,5 @@ movl $0x12345678,symbol-0x123(%rax)
 movl $0x12345678,symbol(%rax)
 movl $0x12345678,symbol+0x123(%rax)
 movl $0x12345678,symbol-0x123(%rax)
+movabs $-symbolmin-0x8000000000000000,%rax
+movabs $symbolmin-0x8000000000000000,%rax

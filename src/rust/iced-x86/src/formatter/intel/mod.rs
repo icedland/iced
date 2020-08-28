@@ -1357,7 +1357,7 @@ impl IntelFormatter {
 							output.write("+", FormatterTextKind::Operator);
 						} else if (displ as i32) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							displ = (-(displ as i32)) as u32 as i64;
+							displ = (displ as i32).wrapping_neg() as u32 as i64;
 						} else {
 							output.write("+", FormatterTextKind::Operator);
 						}
@@ -1370,7 +1370,7 @@ impl IntelFormatter {
 							output.write("+", FormatterTextKind::Operator);
 						} else if displ < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							displ = -displ;
+							displ = displ.wrapping_neg();
 						} else {
 							output.write("+", FormatterTextKind::Operator);
 						}
@@ -1384,7 +1384,7 @@ impl IntelFormatter {
 							output.write("+", FormatterTextKind::Operator);
 						} else if (displ as i16) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							displ = (-(displ as i16)) as u16 as i64;
+							displ = (displ as i16).wrapping_neg() as u16 as i64;
 						} else {
 							output.write("+", FormatterTextKind::Operator);
 						}

@@ -3939,3 +3939,11 @@ repnz lods (%si),%eax
 repnz scas (%di),%al
 repnz scas (%di),%ax
 repnz scas (%di),%eax
+
+mov $-0x80,%al
+mov $-0x8000,%ax
+mov $-0x80000000,%eax
+movabs $-0x8000000000000000,%rax
+enter $0,$-0x80
+mov -0x8000(%bx),%al
+mov -0x80000000(%eax),%al

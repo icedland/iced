@@ -3939,3 +3939,11 @@ repnz lodsd
 repnz scasb
 repnz scasw
 repnz scasd
+
+mov al,-80h
+mov ax,-8000h
+mov eax,-80000000h
+mov rax,-8000000000000000h
+enter 0,-80h
+mov al,[bx-8000h]
+mov al,[eax-80000000h]

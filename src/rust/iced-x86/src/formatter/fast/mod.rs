@@ -1011,7 +1011,7 @@ impl FastFormatter {
 			if write_minus_if_signed {
 				output.push('-');
 			}
-			displ = -displ;
+			displ = displ.wrapping_neg();
 		}
 
 		match symbol.text {
@@ -1037,7 +1037,7 @@ impl FastFormatter {
 		if displ != 0 {
 			if displ < 0 {
 				output.push('-');
-				displ = -displ;
+				displ = displ.wrapping_neg();
 			} else {
 				output.push('+');
 			}
@@ -1156,14 +1156,14 @@ impl FastFormatter {
 				if addr_size == 4 {
 					if (displ as i32) < 0 {
 						output.push('-');
-						displ = (-(displ as i32)) as u32 as i64;
+						displ = (displ as i32).wrapping_neg() as u32 as i64;
 					} else {
 						output.push('+');
 					}
 				} else if addr_size == 8 {
 					if displ < 0 {
 						output.push('-');
-						displ = -displ;
+						displ = displ.wrapping_neg();
 					} else {
 						output.push('+');
 					}
@@ -1171,7 +1171,7 @@ impl FastFormatter {
 					debug_assert_eq!(2, addr_size);
 					if (displ as i16) < 0 {
 						output.push('-');
-						displ = (-(displ as i16)) as u16 as i64;
+						displ = (displ as i16).wrapping_neg() as u16 as i64;
 					} else {
 						output.push('+');
 					}

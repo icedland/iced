@@ -707,7 +707,7 @@ impl GasFormatter {
 						number_kind = NumberKind::Int8;
 						if (imm8 as i8) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							imm8 = -(imm8 as i8) as u8;
+							imm8 = (imm8 as i8).wrapping_neg() as u8;
 						}
 					} else {
 						imm64 = imm8 as u64;
@@ -757,7 +757,7 @@ impl GasFormatter {
 						number_kind = NumberKind::Int16;
 						if (imm16 as i16) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							imm16 = -(imm16 as i16) as u16;
+							imm16 = (imm16 as i16).wrapping_neg() as u16;
 						}
 					} else {
 						imm64 = imm16 as u64;
@@ -807,7 +807,7 @@ impl GasFormatter {
 						number_kind = NumberKind::Int32;
 						if (imm32 as i32) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							imm32 = -(imm32 as i32) as u32;
+							imm32 = (imm32 as i32).wrapping_neg() as u32;
 						}
 					} else {
 						imm64 = imm32 as u64;
@@ -859,7 +859,7 @@ impl GasFormatter {
 						number_kind = NumberKind::Int64;
 						if (imm64 as i64) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							imm64 = -(imm64 as i64) as u64;
+							imm64 = (imm64 as i64).wrapping_neg() as u64;
 						}
 					} else {
 						number_kind = NumberKind::UInt64;
@@ -1236,7 +1236,7 @@ impl GasFormatter {
 					if addr_size == 4 {
 						if number_options.signed_number && (displ as i32) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							displ = (-(displ as i32)) as u32 as i64;
+							displ = (displ as i32).wrapping_neg() as u32 as i64;
 						}
 						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 4);
@@ -1245,7 +1245,7 @@ impl GasFormatter {
 					} else if addr_size == 8 {
 						if number_options.signed_number && displ < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							displ = -displ;
+							displ = displ.wrapping_neg();
 						}
 						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 8);
@@ -1255,7 +1255,7 @@ impl GasFormatter {
 						debug_assert_eq!(2, addr_size);
 						if number_options.signed_number && (displ as i16) < 0 {
 							output.write("-", FormatterTextKind::Operator);
-							displ = (-(displ as i16)) as u16 as i64;
+							displ = (displ as i16).wrapping_neg() as u16 as i64;
 						}
 						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 2);

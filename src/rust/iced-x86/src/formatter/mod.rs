@@ -327,7 +327,7 @@ impl FormatterOutputMethods {
 			if write_minus_if_signed {
 				output.write("-", FormatterTextKind::Operator);
 			}
-			displ = -displ;
+			displ = displ.wrapping_neg();
 		}
 		output.write_symbol(instruction, operand, instruction_operand, address, symbol);
 		let mut number_kind: NumberKind;
@@ -338,7 +338,7 @@ impl FormatterOutputMethods {
 			let orig_displ = displ as u64;
 			if displ < 0 {
 				output.write("-", FormatterTextKind::Operator);
-				displ = -displ;
+				displ = displ.wrapping_neg();
 				if displ <= i8::MAX as i64 + 1 {
 					number_kind = NumberKind::Int8;
 				} else if displ <= i16::MAX as i64 + 1 {

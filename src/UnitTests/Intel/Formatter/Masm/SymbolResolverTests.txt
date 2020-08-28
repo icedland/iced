@@ -150,3 +150,5 @@ mov [rax+symbol-123h],12345678h
 mov dword ptr [rax+symbol],12345678h
 mov [rax+symbol+123h],12345678h
 mov dword ptr [rax+symbol-123h],12345678h
+mov rax,offset -symbolmin-8000000000000000h
+mov rax,offset symbolmin-8000000000000000h
