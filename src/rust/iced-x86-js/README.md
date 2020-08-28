@@ -79,7 +79,7 @@ Here's a list of all features you can enable when building the wasm file
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
-- `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` which uses less code (smaller wasm files)
+- `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` (masm syntax) which uses less code (smaller wasm files)
 - `bigint`: Enables public APIs with `i64`/`u64` arguments and return values (requires JavaScript `BigInt` type, eg. Node.js >= 10.4.0)
 - `no_vex`: Disables all `VEX` instructions. See below for more info.
 - `no_evex`: Disables all `EVEX` instructions. See below for more info.
