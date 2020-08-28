@@ -21,12 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if GAS || INTEL || MASM || NASM
+#if GAS || INTEL || MASM || NASM || FAST_FMT
 using System;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Used by a <see cref="Formatter"/> to resolve symbols
+	/// Used by a formatter to resolve symbols
 	/// </summary>
 	public interface ISymbolResolver {
 		/// <summary>

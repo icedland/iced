@@ -21,13 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if GAS || INTEL || MASM || NASM
+#if GAS || INTEL || MASM || NASM || FAST_FMT
 using System.Diagnostics;
 
 namespace Iced.Intel.FormatterInternal {
 	readonly struct FormatterString {
 		readonly string lower;
+#if GAS || INTEL || MASM || NASM
 		readonly string upper;
+#endif
 
 		public bool IsDefault => lower is null;
 		public int Length => lower.Length;
@@ -35,7 +37,9 @@ namespace Iced.Intel.FormatterInternal {
 		public FormatterString(string lower) {
 			Debug.Assert(lower.ToLowerInvariant() == lower);
 			this.lower = lower;
+#if GAS || INTEL || MASM || NASM
 			upper = string.Intern(lower.ToUpperInvariant());
+#endif
 		}
 
 		public static FormatterString[] Create(string[] strings) {
@@ -45,10 +49,16 @@ namespace Iced.Intel.FormatterInternal {
 			return res;
 		}
 
+#if GAS || INTEL || MASM || NASM
 		public string Get(bool upper) {
 			Debug.Assert(!IsDefault);
 			return upper ? this.upper : lower;
 		}
+#endif
+
+#if FAST_FMT
+		public string Lower => lower;
+#endif
 	}
 }
 #endif

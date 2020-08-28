@@ -36,10 +36,10 @@ namespace Generator.Formatters.CSharp {
 			this.@namespace = @namespace;
 		}
 
-		public string GetFilename(GeneratorContext generatorContext) =>
+		public override string GetFilename(GeneratorContext generatorContext) =>
 			Path.Combine(CSharpConstants.GetDirectory(generatorContext, @namespace), "InstrInfos.g.cs");
 
-		public void Serialize(FileWriter writer, StringsTable stringsTable) {
+		public override void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();
 			writer.WriteLineNoIndent($"#if {define}");
 			writer.WriteLine($"namespace {@namespace} {{");

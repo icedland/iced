@@ -72,7 +72,7 @@ impl<'a> SymbolResolver for SymbolResolverImpl<'a> {
 	}
 }
 
-pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<SymbolResolver>) -> Box<Formatter>) {
+fn get_infos_and_lines(dir: &str, filename: &str) -> (&'static [SymbolResolverTestCase], Vec<String>) {
 	let mut path = get_formatter_unit_tests_dir();
 	path.push(dir);
 	path.push(format!("{}.txt", filename));
@@ -81,7 +81,12 @@ pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_fact
 	if infos.len() != formatted_lines.len() {
 		panic!("infos.len() ({}) != formatted_lines.len() ({})", infos.len(), formatted_lines.len());
 	}
+	(infos, formatted_lines)
+}
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<SymbolResolver>) -> Box<Formatter>) {
+	let (infos, formatted_lines) = get_infos_and_lines(dir, filename);
 	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {
 		let symbol_resolver = Box::new(SymbolResolverImpl { info, vec: Vec::new() });
 		let mut formatter = fmt_factory(symbol_resolver);
@@ -89,6 +94,33 @@ pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_fact
 			props.1.initialize_options(formatter.options_mut(), props.0);
 		}
 		super::simple_format_test(
+			info.bitness,
+			&info.hex_bytes,
+			info.code,
+			info.decoder_options,
+			formatted_line.as_str(),
+			formatter.as_mut(),
+			|decoder| {
+				for props in &info.options {
+					props.1.initialize_decoder(decoder, props.0);
+				}
+			},
+		);
+	}
+}
+
+#[cfg(feature = "fast_fmt")]
+pub(in super::super) fn symbol_resolver_test_fast(
+	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<SymbolResolver>) -> Box<FastFormatter>,
+) {
+	let (infos, formatted_lines) = get_infos_and_lines(dir, filename);
+	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {
+		let symbol_resolver = Box::new(SymbolResolverImpl { info, vec: Vec::new() });
+		let mut formatter = fmt_factory(symbol_resolver);
+		for props in &info.options {
+			props.1.initialize_options_fast(formatter.options_mut(), props.0);
+		}
+		super::simple_format_test_fast(
 			info.bitness,
 			&info.hex_bytes,
 			info.code,

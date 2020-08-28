@@ -128,16 +128,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's a <c>Jcc SHORT</c> or <c>Jcc NEAR</c> instruction
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsJccShortOrNear(this Code code) =>
-			(uint)(code - Code.Jo_rel8_16) <= (uint)(Code.Jg_rel8_64 - Code.Jo_rel8_16) ||
-			(uint)(code - Code.Jo_rel16) <= (uint)(Code.Jg_rel32_64 - Code.Jo_rel16);
-
-		/// <summary>
 		/// Checks if it's a <c>Jcc NEAR</c> instruction
 		/// </summary>
 		/// <param name="code">Code value</param>

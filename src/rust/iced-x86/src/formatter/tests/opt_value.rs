@@ -30,23 +30,38 @@ use alloc::vec::Vec;
 
 #[allow(non_camel_case_types)]
 pub(in super::super) enum OptionValue {
+	#[allow(dead_code)]
+	Ignore,
 	Boolean(bool),
 	Int32(i32),
 	UInt64(u64),
 	String(String),
 	MemorySizeOptions(MemorySizeOptions),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	NumberBase(NumberBase),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_b(CC_b),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_ae(CC_ae),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_e(CC_e),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_ne(CC_ne),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_be(CC_be),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_a(CC_a),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_p(CC_p),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_np(CC_np),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_l(CC_l),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_ge(CC_ge),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_le(CC_le),
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	CC_g(CC_g),
 	DecoderOptions(u32),
 }
@@ -60,6 +75,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_i32_as_u32(&self) -> u32 {
 		if let &OptionValue::Int32(value) = self {
 			if value <= 0 {
@@ -96,6 +112,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_number_base(&self) -> NumberBase {
 		if let &OptionValue::NumberBase(value) = self {
 			value
@@ -104,6 +121,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_b(&self) -> CC_b {
 		if let &OptionValue::CC_b(value) = self {
 			value
@@ -112,6 +130,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_ae(&self) -> CC_ae {
 		if let &OptionValue::CC_ae(value) = self {
 			value
@@ -120,6 +139,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_e(&self) -> CC_e {
 		if let &OptionValue::CC_e(value) = self {
 			value
@@ -128,6 +148,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_ne(&self) -> CC_ne {
 		if let &OptionValue::CC_ne(value) = self {
 			value
@@ -136,6 +157,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_be(&self) -> CC_be {
 		if let &OptionValue::CC_be(value) = self {
 			value
@@ -144,6 +166,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_a(&self) -> CC_a {
 		if let &OptionValue::CC_a(value) = self {
 			value
@@ -152,6 +175,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_p(&self) -> CC_p {
 		if let &OptionValue::CC_p(value) = self {
 			value
@@ -160,6 +184,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_np(&self) -> CC_np {
 		if let &OptionValue::CC_np(value) = self {
 			value
@@ -168,6 +193,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_l(&self) -> CC_l {
 		if let &OptionValue::CC_l(value) = self {
 			value
@@ -176,6 +202,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_ge(&self) -> CC_ge {
 		if let &OptionValue::CC_ge(value) = self {
 			value
@@ -184,6 +211,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_le(&self) -> CC_le {
 		if let &OptionValue::CC_le(value) = self {
 			value
@@ -192,6 +220,7 @@ impl OptionValue {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	fn to_cc_g(&self) -> CC_g {
 		if let &OptionValue::CC_g(value) = self {
 			value
@@ -210,6 +239,7 @@ impl OptionValue {
 		decoder_options
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	pub(super) fn initialize_options(&self, options: &mut FormatterOptions, property: OptionsProps) {
 		match property {
 			OptionsProps::AddLeadingZeroToHexNumbers => options.set_add_leading_zero_to_hex_numbers(self.to_bool()),
@@ -274,6 +304,83 @@ impl OptionValue {
 			OptionsProps::CC_le => options.set_cc_le(self.to_cc_le()),
 			OptionsProps::CC_g => options.set_cc_g(self.to_cc_g()),
 			OptionsProps::ShowUselessPrefixes => options.set_show_useless_prefixes(self.to_bool()),
+			OptionsProps::IP | OptionsProps::DecoderOptions => {}
+		}
+	}
+
+	#[cfg(feature = "fast_fmt")]
+	pub(super) fn initialize_options_fast(&self, options: &mut FastFormatterOptions, property: OptionsProps) {
+		match property {
+			OptionsProps::AddLeadingZeroToHexNumbers
+			| OptionsProps::AlwaysShowScale
+			| OptionsProps::BinaryDigitGroupSize
+			| OptionsProps::BinaryPrefix
+			| OptionsProps::BinarySuffix
+			| OptionsProps::BranchLeadingZeroes
+			| OptionsProps::DecimalDigitGroupSize
+			| OptionsProps::DecimalPrefix
+			| OptionsProps::DecimalSuffix
+			| OptionsProps::DigitSeparator
+			| OptionsProps::DisplacementLeadingZeroes
+			| OptionsProps::FirstOperandCharIndex
+			| OptionsProps::GasNakedRegisters
+			| OptionsProps::GasShowMnemonicSizeSuffix
+			| OptionsProps::GasSpaceAfterMemoryOperandComma
+			| OptionsProps::HexDigitGroupSize
+			| OptionsProps::LeadingZeroes
+			| OptionsProps::MasmAddDsPrefix32
+			| OptionsProps::NasmShowSignExtendedImmediateSize
+			| OptionsProps::NumberBase
+			| OptionsProps::OctalDigitGroupSize
+			| OptionsProps::OctalPrefix
+			| OptionsProps::OctalSuffix
+			| OptionsProps::PreferST0
+			| OptionsProps::ScaleBeforeIndex
+			| OptionsProps::ShowBranchSize
+			| OptionsProps::ShowZeroDisplacements
+			| OptionsProps::SignedImmediateOperands
+			| OptionsProps::SignedMemoryDisplacements
+			| OptionsProps::SmallHexNumbersInDecimal
+			| OptionsProps::SpaceAfterMemoryBracket
+			| OptionsProps::SpaceBetweenMemoryAddOperators
+			| OptionsProps::SpaceBetweenMemoryMulOperators
+			| OptionsProps::TabSize
+			| OptionsProps::UppercaseAll
+			| OptionsProps::UppercaseDecorators
+			| OptionsProps::UppercaseKeywords
+			| OptionsProps::UppercaseMnemonics
+			| OptionsProps::UppercasePrefixes
+			| OptionsProps::UppercaseRegisters
+			| OptionsProps::CC_b
+			| OptionsProps::CC_ae
+			| OptionsProps::CC_e
+			| OptionsProps::CC_ne
+			| OptionsProps::CC_be
+			| OptionsProps::CC_a
+			| OptionsProps::CC_p
+			| OptionsProps::CC_np
+			| OptionsProps::CC_l
+			| OptionsProps::CC_ge
+			| OptionsProps::CC_le
+			| OptionsProps::CC_g
+			| OptionsProps::ShowUselessPrefixes => {}
+			OptionsProps::AlwaysShowSegmentRegister => options.set_always_show_segment_register(self.to_bool()),
+			OptionsProps::RipRelativeAddresses => options.set_rip_relative_addresses(self.to_bool()),
+			OptionsProps::ShowSymbolAddress => options.set_show_symbol_address(self.to_bool()),
+			OptionsProps::SpaceAfterOperandSeparator => options.set_space_after_operand_separator(self.to_bool()),
+			OptionsProps::UppercaseHex => options.set_uppercase_hex(self.to_bool()),
+			OptionsProps::UsePseudoOps => options.set_use_pseudo_ops(self.to_bool()),
+			OptionsProps::MemorySizeOptions => options.set_always_show_memory_size(self.to_memory_size_options() == MemorySizeOptions::Always),
+			OptionsProps::HexPrefix => {
+				if self.to_str() == "0x" {
+					options.set_use_hex_prefix(true);
+				}
+			}
+			OptionsProps::HexSuffix => {
+				if self.to_str() == "h" {
+					options.set_use_hex_prefix(false);
+				}
+			}
 			OptionsProps::IP | OptionsProps::DecoderOptions => {}
 		}
 	}

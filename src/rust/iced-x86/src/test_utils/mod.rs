@@ -69,7 +69,7 @@ pub(crate) fn get_instr_info_unit_tests_dir() -> PathBuf {
 	path
 }
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 pub(crate) fn get_formatter_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("Formatter");

@@ -111,6 +111,8 @@ mod decoder_options;
 mod encoder;
 #[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
 mod encoding_kind;
+#[cfg(feature = "fast_fmt")]
+mod fast_fmt;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instr_api")))]
 mod flow_control;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -184,6 +186,8 @@ pub use decoder_options::*;
 pub use encoder::*;
 #[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
 pub use encoding_kind::*;
+#[cfg(feature = "fast_fmt")]
+pub use fast_fmt::*;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instr_api")))]
 pub use flow_control::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]

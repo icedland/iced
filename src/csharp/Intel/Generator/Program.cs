@@ -153,6 +153,8 @@ Options:
     Don't include the masm formatter
 --no-nasm
     Don't include the nasm formatter
+--no-fast-fmt
+    Don't include the fast formatter
 --no-vex
     Don't include VEX instructions
 --no-evex
@@ -229,6 +231,10 @@ Options:
 					options.GeneratorFlags |= GeneratorFlags.NoNasmFormatter;
 					break;
 
+				case "--no-fast-fmt":
+					options.GeneratorFlags |= GeneratorFlags.NoFastFormatter;
+					break;
+
 				case "--no-vex":
 					options.GeneratorFlags |= GeneratorFlags.NoVEX;
 					break;
@@ -255,7 +261,7 @@ Options:
 					break;
 
 				case "--no-cyrix":
-					// Don't include CYRIX_D3NOW
+					// Don't include CYRIX_D3NOW. They must be removed by --no-3dnow because the 3DNow! opcode handler has refs to all 3DNow! Code values
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_FPU));
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_SMM));
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.CYRIX_SMINT));

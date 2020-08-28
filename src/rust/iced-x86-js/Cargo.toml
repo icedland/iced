@@ -18,7 +18,7 @@ publish = false
 crate-type = ["cdylib"]
 
 [features]
-default = ["instr_api", "decoder", "encoder", "block_encoder", "instr_create", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
+default = ["instr_api", "decoder", "encoder", "block_encoder", "instr_create", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm", "fast_fmt"]
 base = ["iced-x86-rust/std"]
 instr_api = ["base"]
 decoder = ["base", "iced-x86-rust/decoder"]
@@ -31,6 +31,7 @@ gas = ["base", "iced-x86-rust/gas"]
 intel = ["base", "iced-x86-rust/intel"]
 masm = ["base", "iced-x86-rust/masm"]
 nasm = ["base", "iced-x86-rust/nasm"]
+fast_fmt = ["base", "iced-x86-rust/fast_fmt"]
 bigint = ["base"]
 no_vex = ["iced-x86-rust/no_vex"]
 no_evex = ["iced-x86-rust/no_evex"]
@@ -39,7 +40,8 @@ no_d3now = ["iced-x86-rust/no_d3now"]
 
 [dependencies]
 static_assertions = "1.1.0"
-wasm-bindgen = { version = "0.2.61", features = ["strict-macro"] }
+#TODO: force version 0.2.65, see https://github.com/rustwasm/wasm-pack/issues/886
+wasm-bindgen = { version = "=0.2.65", features = ["strict-macro"] }
 js-sys = "0.3.37"
 
 [dependencies.iced-x86-rust]

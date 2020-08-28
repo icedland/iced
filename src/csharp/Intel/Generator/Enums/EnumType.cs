@@ -188,6 +188,17 @@ namespace Generator.Enums {
 			this.values = newValues;
 		}
 
+		public OrEnumValue(EnumType enumType, params EnumValue[] values) {
+			DeclaringType = enumType;
+			for (int i = 0; i < values.Length; i++) {
+				var value = values[i];
+				if (value.DeclaringType != enumType)
+					throw new ArgumentException();
+				Value |= value.Value;
+			}
+			this.values = values;
+		}
+
 		// Need to override this since the decoder/formatter table generators call Equals()
 		public override bool Equals(object? obj) {
 			if (!(obj is OrEnumValue other))

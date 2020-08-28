@@ -1,0 +1,743 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+push es
+push es
+pop es
+pop es
+push cs
+push cs
+push ss
+push ss
+pop ss
+pop ss
+push ds
+push ds
+pop ds
+pop ds
+daa
+das
+aaa
+aas
+inc ax
+inc eax
+inc cx
+inc ecx
+inc dx
+inc edx
+inc bx
+inc ebx
+inc sp
+inc esp
+inc bp
+inc ebp
+inc si
+inc esi
+inc di
+inc edi
+dec ax
+dec eax
+dec cx
+dec ecx
+dec dx
+dec edx
+dec bx
+dec ebx
+dec sp
+dec esp
+dec bp
+dec ebp
+dec si
+dec esi
+dec di
+dec edi
+push eax
+push ecx
+push edx
+push ebx
+push esp
+push ebp
+push esi
+push edi
+pop eax
+pop ecx
+pop edx
+pop ebx
+pop esp
+pop ebp
+pop esi
+pop edi
+pusha
+pushad
+popa
+popad
+bound bx,[eax]
+bound ebx,[eax]
+arpl edx,esi
+arpl [eax],ebx
+push 3412A55Ah
+push 0FFFFFFA5h
+jo 4Dh
+jo 8000004Ch
+jno 4Dh
+jno 8000004Ch
+jb 4Dh
+jb 8000004Ch
+jae 4Dh
+jae 8000004Ch
+je 4Dh
+je 8000004Ch
+jne 4Dh
+jne 8000004Ch
+jbe 4Dh
+jbe 8000004Ch
+ja 4Dh
+ja 8000004Ch
+js 4Dh
+js 8000004Ch
+jns 4Dh
+jns 8000004Ch
+jp 4Dh
+jp 8000004Ch
+jnp 4Dh
+jnp 8000004Ch
+jl 4Dh
+jl 8000004Ch
+jge 4Dh
+jge 8000004Ch
+jle 4Dh
+jle 8000004Ch
+jg 4Dh
+jg 8000004Ch
+pop esi
+pop dword ptr [eax]
+call 7856h:3412h
+call 0BC9Ah:78563412h
+pushfd
+popfd
+ret 0A55Ah
+ret 0A55Ah
+ret
+ret
+rep ret
+rep ret
+les bx,[eax]
+les ebx,[eax]
+lds bx,[eax]
+lds ebx,[eax]
+enter 0A55Ah,0A6h
+leave
+into
+aam 0Ah
+aad 0Ah
+loopne 4Eh
+loopne 8000004Dh
+loopne 4Dh
+loopne 8000004Ch
+loope 4Eh
+loope 8000004Dh
+loope 4Dh
+loope 8000004Ch
+loop 4Eh
+loop 8000004Dh
+loop 4Dh
+loop 8000004Ch
+jcxz 4Eh
+jcxz 8000004Dh
+jecxz 4Dh
+jecxz 8000004Ch
+call 0A54Eh
+call 255A3407h
+jmp 0A54Eh
+jmp 255A3407h
+jmp 7856h:3412h
+jmp 0BCEAh:78563412h
+jmp 4Dh
+jmp 8000004Ch
+call cx
+call word ptr [eax]
+call ecx
+call dword ptr [eax]
+jmp dx
+jmp word ptr [eax]
+jmp edx
+jmp dword ptr [eax]
+push esi
+push dword ptr [eax]
+bndmov bnd1,bnd2
+bndmov bnd1,[eax]
+bndcl bnd1,edx
+bndcl bnd1,[eax]
+bndcu bnd1,edx
+bndcu bnd1,[eax]
+bndmov bnd2,bnd1
+bndmov [eax],bnd1
+bndmk bnd1,[eax]
+bndcn bnd1,edx
+bndcn bnd1,[eax]
+mov esi,cr3
+mov esi,dr3
+mov cr3,esi
+mov dr3,esi
+vmread esi,ecx
+vmread [eax],ebx
+vmwrite ecx,esi
+vmwrite ebx,[eax]
+jo 0A54Fh
+jo 0B412A550h
+jno 0A54Fh
+jno 0B412A550h
+jb 0A54Fh
+jb 0B412A550h
+jae 0A54Fh
+jae 0B412A550h
+je 0A54Fh
+je 0B412A550h
+jne 0A54Fh
+jne 0B412A550h
+jbe 0A54Fh
+jbe 0B412A550h
+ja 0A54Fh
+ja 0B412A550h
+js 0A54Fh
+js 0B412A550h
+jns 0A54Fh
+jns 0B412A550h
+jp 0A54Fh
+jp 0B412A550h
+jnp 0A54Fh
+jnp 0B412A550h
+jl 0A54Fh
+jl 0B412A550h
+jge 0A54Fh
+jge 0B412A550h
+jle 0A54Fh
+jle 0B412A550h
+jg 0A54Fh
+jg 0B412A550h
+push fs
+pop fs
+push gs
+pop gs
+rdpid edx
+invept edx,[eax]
+invvpid edx,[eax]
+invpcid edx,[eax]
+salc
+push 0A55Ah
+push 0FFA5h
+ins byte ptr [di],dx
+ins byte ptr [edi],dx
+ins word ptr [di],dx
+ins word ptr [edi],dx
+ins dword ptr [di],dx
+ins dword ptr [edi],dx
+outs dx,byte ptr [si]
+outs dx,byte ptr [esi]
+outs dx,word ptr [si]
+outs dx,word ptr [esi]
+outs dx,dword ptr [si]
+outs dx,dword ptr [esi]
+mov fs,si
+mov ds,[eax]
+mov fs,esi
+mov ds,[eax]
+pop si
+pop word ptr [eax]
+nop
+nop
+pushf
+popf
+mov al,[0F0DEBC9Ah]
+mov al,[0F0DEh]
+mov ax,[0F0DEBC9Ah]
+mov ax,[0F0DEh]
+mov eax,[0F0DEBC9Ah]
+mov eax,[0F0DEh]
+mov [0F0DEBC9Ah],al
+mov [0F0DEh],al
+mov [0F0DEBC9Ah],ax
+mov [0F0DEh],ax
+mov [0F0DEBC9Ah],eax
+mov [0F0DEh],eax
+movs byte ptr [di],byte ptr [si]
+movs byte ptr [edi],byte ptr [esi]
+movs word ptr [di],word ptr [si]
+movs word ptr [edi],word ptr [esi]
+movs dword ptr [di],dword ptr [si]
+movs dword ptr [edi],dword ptr [esi]
+cmps byte ptr [si],byte ptr [di]
+cmps byte ptr [esi],byte ptr [edi]
+cmps word ptr [si],word ptr [di]
+cmps word ptr [esi],word ptr [edi]
+cmps dword ptr [si],dword ptr [di]
+cmps dword ptr [esi],dword ptr [edi]
+stos byte ptr [di],al
+stos byte ptr [edi],al
+stos word ptr [di],ax
+stos word ptr [edi],ax
+stos dword ptr [di],eax
+stos dword ptr [edi],eax
+lods al,byte ptr [si]
+lods al,byte ptr [esi]
+lods ax,word ptr [si]
+lods ax,word ptr [esi]
+lods eax,dword ptr [si]
+lods eax,dword ptr [esi]
+scas al,byte ptr [di]
+scas al,byte ptr [edi]
+scas ax,word ptr [di]
+scas ax,word ptr [edi]
+scas eax,dword ptr [di]
+scas eax,dword ptr [edi]
+xbegin 7FFFA54Fh
+xbegin 0B412A550h
+enter 0A55Ah,0A6h
+leave
+retf 0A55Ah
+retf 0A55Ah
+retf
+retf
+iret
+iretd
+rol cl,cl
+rol byte ptr [eax],cl
+ror dl,cl
+ror byte ptr [eax],cl
+rcl bl,cl
+rcl byte ptr [eax],cl
+rcr ah,cl
+rcr byte ptr [eax],cl
+shl ch,cl
+shl byte ptr [eax],cl
+shr dh,cl
+shr byte ptr [eax],cl
+sar al,cl
+sar byte ptr [eax],cl
+rol cx,cl
+rol word ptr [eax],cl
+rol ecx,cl
+rol dword ptr [eax],cl
+ror dx,cl
+ror word ptr [eax],cl
+ror edx,cl
+ror dword ptr [eax],cl
+rcl bx,cl
+rcl word ptr [eax],cl
+rcl ebx,cl
+rcl dword ptr [eax],cl
+rcr sp,cl
+rcr word ptr [eax],cl
+rcr esp,cl
+rcr dword ptr [eax],cl
+shl bp,cl
+shl word ptr [eax],cl
+shl ebp,cl
+shl dword ptr [eax],cl
+shr si,cl
+shr word ptr [eax],cl
+shr esi,cl
+shr dword ptr [eax],cl
+sar ax,cl
+sar word ptr [eax],cl
+sar eax,cl
+sar dword ptr [eax],cl
+fldcw [eax]
+fnstcw [eax]
+fnstsw [eax]
+callf dword ptr [eax]
+callf fword ptr [eax]
+jmpf dword ptr [eax]
+jmpf fword ptr [eax]
+push si
+push word ptr [eax]
+sgdt [eax]
+sgdt [eax]
+sidt [eax]
+sidt [eax]
+lgdt [eax]
+lgdt [eax]
+lidt [eax]
+lidt [eax]
+lar cx,si
+lar bx,[eax]
+lar ecx,esi
+lar ebx,[eax]
+lsl cx,si
+lsl bx,[eax]
+lsl ecx,esi
+lsl ebx,[eax]
+bndldx bnd1,[eax]
+bndstx [eax],bnd1
+kmovw k2,k3
+kmovw k1,[eax]
+kmovb k2,k3
+kmovb k1,[eax]
+kmovd k2,k3
+kmovd k1,[eax]
+kmovw [eax],k1
+kmovb [eax],k1
+kmovd [eax],k1
+kmovw k2,ebx
+kmovb k2,ebx
+kmovd k2,ebx
+kmovw edx,k3
+kmovb edx,k3
+kmovd edx,k3
+kortestw k2,k3
+kortestq k2,k3
+kortestb k2,k3
+kortestd k2,k3
+ktestw k2,k3
+ktestq k2,k3
+ktestb k2,k3
+ktestd k2,k3
+push fs
+pop fs
+shld si,cx,cl
+shld [eax],bx,cl
+shld esi,ecx,cl
+shld [eax],ebx,cl
+push gs
+pop gs
+shrd si,cx,cl
+shrd [eax],bx,cl
+shrd esi,ecx,cl
+shrd [eax],ebx,cl
+lss bx,[eax]
+lss ebx,[eax]
+lfs bx,[eax]
+lfs ebx,[eax]
+lgs bx,[eax]
+lgs ebx,[eax]
+movzx cx,dh
+movzx bx,byte ptr [eax]
+movzx ecx,dh
+movzx ebx,byte ptr [eax]
+movzx cx,si
+movzx bx,word ptr [eax]
+movzx ecx,si
+movzx ebx,word ptr [eax]
+movsx cx,dh
+movsx bx,byte ptr [eax]
+movsx ecx,dh
+movsx ebx,byte ptr [eax]
+movsx cx,si
+movsx bx,word ptr [eax]
+movsx ecx,si
+movsx ebx,word ptr [eax]
+cmpxchg8b [eax]
+crc32 ecx,dh
+crc32 ebx,byte ptr [eax]
+crc32 ecx,si
+crc32 ebx,word ptr [eax]
+crc32 ecx,esi
+crc32 ebx,dword ptr [eax]
+maskmovq [di],mm2,mm3
+maskmovq [edi],mm2,mm3
+maskmovdqu [di],xmm2,xmm3
+maskmovdqu [edi],xmm2,xmm3
+vmaskmovdqu [di],xmm2,xmm3
+vmaskmovdqu [edi],xmm2,xmm3
+outs dx,byte ptr fs:[esi]
+outs dx,word ptr fs:[esi]
+outs dx,dword ptr fs:[esi]
+movs byte ptr es:[edi],byte ptr fs:[esi]
+movs word ptr es:[edi],word ptr fs:[esi]
+movs dword ptr es:[edi],dword ptr fs:[esi]
+cmps byte ptr fs:[esi],byte ptr es:[edi]
+cmps word ptr fs:[esi],word ptr es:[edi]
+cmps dword ptr fs:[esi],dword ptr es:[edi]
+lods al,byte ptr fs:[esi]
+lods ax,word ptr fs:[esi]
+lods eax,dword ptr fs:[esi]
+xlat [bx]
+xlat fs:[ebx]
+maskmovq fs:[edi],mm2,mm3
+maskmovdqu fs:[edi],xmm2,xmm3
+vmaskmovdqu fs:[edi],xmm2,xmm3
+xlat [ebx]
+aam 0FAh
+aad 0FAh
+fldenv fpuenv14 ptr [eax]
+fldenv fpuenv28 ptr [eax]
+fnstenv fpuenv14 ptr [eax]
+fnstenv fpuenv28 ptr [eax]
+frstor fpustate94 ptr [eax]
+frstor fpustate108 ptr [eax]
+fnsave fpustate94 ptr [eax]
+fnsave fpustate108 ptr [eax]
+monitor
+monitor
+mwait
+mov al,fs:[0F0DEBC9Ah]
+mov al,fs:[0F0DEh]
+mov ax,fs:[0F0DEBC9Ah]
+mov ax,fs:[0F0DEh]
+mov eax,fs:[0F0DEBC9Ah]
+mov eax,fs:[0F0DEh]
+mov fs:[0F0DEBC9Ah],al
+mov fs:[0F0DEh],al
+mov fs:[0F0DEBC9Ah],ax
+mov fs:[0F0DEh],ax
+mov fs:[0F0DEBC9Ah],eax
+mov fs:[0F0DEh],eax
+mov cl,[eax]
+mov cl,[eax-12h]
+mov cl,[eax-12345678h]
+mov cl,[0EDCBA988h]
+mov cl,[eax+12h]
+mov cl,[eax+12345678h]
+mov cl,[12345678h]
+mov cl,[eax+ecx]
+mov cl,[eax+ecx*2]
+mov cl,[eax+ecx*4]
+mov cl,[eax+ecx*8]
+mov cl,[eax+ecx-12h]
+mov cl,[eax+ecx*2-12h]
+mov cl,[eax+ecx*4-12h]
+mov cl,[eax+ecx*8-12h]
+mov cl,[eax+ecx+12h]
+mov cl,[eax+ecx*2+12h]
+mov cl,[eax+ecx*4+12h]
+mov cl,[eax+ecx*8+12h]
+mov cl,[eax+ecx-12345678h]
+mov cl,[eax+ecx*2-12345678h]
+mov cl,[eax+ecx*4-12345678h]
+mov cl,[eax+ecx*8-12345678h]
+mov cl,[eax+ecx+12345678h]
+mov cl,[eax+ecx*2+12345678h]
+mov cl,[eax+ecx*4+12345678h]
+mov cl,[eax+ecx*8+12345678h]
+mov cl,[ecx*1-12345678h]
+mov cl,[ebp+ecx*2-12h]
+mov cl,[ebp+ecx*4-12345678h]
+mov cl,[ecx*8-12345678h]
+mov cl,[ecx*1+12345678h]
+mov cl,[ebp+ecx*2+12h]
+mov cl,[ebp+ecx*4+12345678h]
+mov cl,[ecx*8+12345678h]
+mov cl,fs:[eax]
+mov cl,fs:[eax-12h]
+mov cl,fs:[eax-12345678h]
+mov cl,fs:[0EDCBA988h]
+mov cl,fs:[eax+12h]
+mov cl,fs:[eax+12345678h]
+mov cl,fs:[12345678h]
+mov cl,fs:[eax+ecx]
+mov cl,fs:[eax+ecx*2]
+mov cl,fs:[eax+ecx*4]
+mov cl,fs:[eax+ecx*8]
+mov cl,fs:[eax+ecx-12h]
+mov cl,fs:[eax+ecx*2-12h]
+mov cl,fs:[eax+ecx*4-12h]
+mov cl,fs:[eax+ecx*8-12h]
+mov cl,fs:[eax+ecx+12h]
+mov cl,fs:[eax+ecx*2+12h]
+mov cl,fs:[eax+ecx*4+12h]
+mov cl,fs:[eax+ecx*8+12h]
+mov cl,fs:[eax+ecx-12345678h]
+mov cl,fs:[eax+ecx*2-12345678h]
+mov cl,fs:[eax+ecx*4-12345678h]
+mov cl,fs:[eax+ecx*8-12345678h]
+mov cl,fs:[eax+ecx+12345678h]
+mov cl,fs:[eax+ecx*2+12345678h]
+mov cl,fs:[eax+ecx*4+12345678h]
+mov cl,fs:[eax+ecx*8+12345678h]
+mov cl,fs:[ecx*1-12345678h]
+mov cl,fs:[ebp+ecx*2-12h]
+mov cl,fs:[ebp+ecx*4-12345678h]
+mov cl,fs:[ecx*8-12345678h]
+mov cl,fs:[ecx*1+12345678h]
+mov cl,fs:[ebp+ecx*2+12h]
+mov cl,fs:[ebp+ecx*4+12345678h]
+mov cl,fs:[ecx*8+12345678h]
+vmrun
+vmrun
+vmload
+vmload
+vmsave
+vmsave
+invlpga
+invlpga
+monitorx
+monitorx
+clzero
+clzero
+rdpru
+add cl,5Ah
+add byte ptr [eax],5Ah
+or dl,0A5h
+or byte ptr [eax],0A5h
+adc bl,5Ah
+adc byte ptr [eax],5Ah
+sbb ah,0A5h
+sbb byte ptr [eax],0A5h
+and ch,5Ah
+and byte ptr [eax],5Ah
+sub dh,0A5h
+sub byte ptr [eax],0A5h
+xor bh,5Ah
+xor byte ptr [eax],5Ah
+cmp al,0A5h
+cmp byte ptr [eax],0A5h
+frstpm
+fnstdw ax
+fnstsg ax
+jmpe cx
+jmpe word ptr [eax]
+jmpe edx
+jmpe dword ptr [eax]
+loadallreset286
+loadall286
+loadall386
+umov dh,cl
+umov [eax],bl
+umov si,cx
+umov [eax],bx
+umov esi,ecx
+umov [eax],ebx
+umov cl,dh
+umov bl,[eax]
+umov cx,si
+umov bx,[eax]
+umov ecx,esi
+umov ebx,[eax]
+mov esi,tr3
+mov tr3,esi
+xbts cx,si
+xbts bx,[eax]
+xbts ecx,esi
+xbts ebx,[eax]
+ibts si,cx
+ibts [eax],bx
+ibts esi,ecx
+ibts [eax],ebx
+cmpxchg486 dh,cl
+cmpxchg486 [eax],bl
+cmpxchg486 si,cx
+cmpxchg486 [eax],bx
+cmpxchg486 esi,ecx
+cmpxchg486 [eax],ebx
+umonitor bp
+umonitor ebp
+jmpe 0A55Ah
+jmpe 0A55A3412h
+movdir64b bx,[bx+si]
+movdir64b ebx,[eax]
+enqcmds bx,[bx+si]
+enqcmds ebx,[eax]
+enqcmd bx,[bx+si]
+enqcmd ebx,[eax]
+mov eax,tr0
+mov eax,tr1
+mov eax,tr2
+mov eax,tr3
+mov eax,tr4
+mov eax,tr5
+mov eax,tr6
+mov eax,tr7
+syscall
+sysret
+fs monitor
+fs monitorx
+fs clzero
+fs umonitor bp
+rep montmul
+rep montmul
+rep xsha1
+rep xsha1
+rep xsha256
+rep xsha256
+rep xstore
+rep xstore
+xstore
+xstore
+rep xcryptecb
+rep xcryptecb
+rep xcryptcbc
+rep xcryptcbc
+rep xcryptctr
+rep xcryptctr
+rep xcryptcfb
+rep xcryptcfb
+rep xcryptofb
+rep xcryptofb
+pvalidate
+pvalidate
+serialize
+xsusldtrk
+xresldtrk
+invlpgb
+invlpgb
+tlbsync
+cl1invmb
+rdshr [eax]
+rdshr edx
+wrshr [eax]
+wrshr edx
+smint
+dmint
+rdm
+svdc [eax],cs
+rsdc cs,[eax]
+svldt [eax]
+rsldt [eax]
+svts [eax]
+rsts [eax]
+smint
+bb0_reset
+bb1_reset
+cpu_write
+cpu_read
+altinst
+paveb mm1,[eax]
+paveb mm1,mm5
+paddsiw mm1,[eax]
+paddsiw mm1,mm5
+pmagw mm1,[eax]
+pmagw mm1,mm5
+pdistib mm1,[eax]
+psubsiw mm1,[eax]
+psubsiw mm1,mm5
+pmvzb mm1,[eax]
+pmulhrw mm1,[eax]
+pmulhrw mm1,mm5
+pmvnzb mm1,[eax]
+pmvlzb mm1,[eax]
+pmvgezb mm1,[eax]
+pmulhriw mm1,[eax]
+pmulhriw mm1,mm5
+pmachriw mm1,[eax]
+undoc
+undoc
+ftstp
+undoc
+frint2
+frichop
+undoc
+undoc
+undoc
+undoc
+undoc
+frinear

@@ -26,14 +26,16 @@ using Generator.IO;
 
 namespace Generator.Formatters.Rust {
 	sealed class RustFormatterTableSerializer : FormatterTableSerializer {
-		public string Filename { get; }
+		readonly string filename;
 
 		public RustFormatterTableSerializer(string filename, object[][] infos, EnumType ctorKindEnum)
 			: base(infos, RustIdentifierConverter.Create(), ctorKindEnum["Previous"]) {
-			Filename = filename;
+			this.filename = filename;
 		}
 
-		public void Serialize(FileWriter writer, StringsTable stringsTable) {
+		public override string GetFilename(GeneratorContext generatorContext) => filename;
+
+		public override void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"pub(super) static FORMATTER_TBL_DATA: &[u8] = &[");

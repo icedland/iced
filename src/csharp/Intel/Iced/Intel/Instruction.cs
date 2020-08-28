@@ -320,6 +320,11 @@ namespace Iced.Intel {
 			get => (codeFlags & (uint)(CodeFlags.RepePrefix | CodeFlags.RepnePrefix)) != 0;
 		}
 
+		internal readonly uint HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => codeFlags & (uint)(CodeFlags.XacquirePrefix | CodeFlags.XreleasePrefix | CodeFlags.LockPrefix | CodeFlags.RepePrefix | CodeFlags.RepnePrefix);
+		}
+
 		/// <summary>
 		/// <see langword="true"/> if the instruction has the <c>XACQUIRE</c> prefix (<c>F2</c>)
 		/// </summary>
@@ -1143,6 +1148,11 @@ namespace Iced.Intel {
 			set => codeFlags |= value << (int)CodeFlags.RoundingControlShift;
 		}
 
+		internal readonly bool HasRoundingControlOrSae {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => (codeFlags & (((uint)CodeFlags.RoundingControlMask << (int)CodeFlags.RoundingControlShift) | (uint)CodeFlags.SuppressAllExceptions)) != 0;
+		}
+
 		/// <summary>
 		/// Number of elements in a db/dw/dd/dq directive: <c>db</c>: 1-16; <c>dw</c>: 1-8; <c>dd</c>: 1-4; <c>dq</c>: 1-2.
 		/// Can only be called if <see cref="Code"/> is <see cref="Code.DeclareByte"/>, <see cref="Code.DeclareWord"/>, <see cref="Code.DeclareDword"/>, <see cref="Code.DeclareQword"/>
@@ -1615,6 +1625,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public override readonly string ToString() {
+			// If the order of #if/elif checks gets updated, also update the `Instruction_ToString()` test method
 #if MASM
 			var output = new StringOutput();
 			new MasmFormatter().Format(this, output);
@@ -1630,6 +1641,10 @@ namespace Iced.Intel {
 #elif GAS
 			var output = new StringOutput();
 			new GasFormatter().Format(this, output);
+			return output.ToString();
+#elif FAST_FMT
+			var output = new System.Text.StringBuilder();
+			new FastFormatter().Format(this, output);
 			return output.ToString();
 #else
 			return base.ToString() ?? string.Empty;

@@ -72,6 +72,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.NasmMemorySizeInfo],
 				genTypes[TypeIds.NasmFarMemorySizeInfo],
 				genTypes[TypeIds.NasmInstrOpKind],
+				genTypes[TypeIds.FastFmtFlags],
 				genTypes[TypeIds.MemorySizeOptions],
 				genTypes[TypeIds.NumberBase],
 				genTypes[TypeIds.FormatMnemonicOptions],

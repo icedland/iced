@@ -42,7 +42,7 @@ namespace Generator.Formatters.Rust {
 			idConverter = RustIdentifierConverter.Create();
 		}
 
-		protected override void Generate((EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm)[] memInfos) {
+		protected override void Generate((EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm, FastMemoryKeywords fast)[] memInfos) {
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var sizeTbl = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
 			{
@@ -105,6 +105,20 @@ namespace Generator.Formatters.Rust {
 						foreach (var info in memInfos) {
 							int size = sizeTbl[(int)info.memSize.Value].Size;
 							writer.WriteLine($"MemoryKeywords::{info.nasm},");
+						}
+					}
+					writer.WriteLine("];");
+				});
+			}
+			{
+				var filename = Path.Combine(generatorContext.RustDir, "formatter", "fast", "mem_size_tbl.rs");
+				new FileUpdater(TargetLanguage.Rust, "MemorySizes", filename).Generate(writer => {
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"static MEM_SIZE_TBL_DATA: [MemoryKeywords; {memInfos.Length}] = [");
+					using (writer.Indent()) {
+						foreach (var info in memInfos) {
+							int size = sizeTbl[(int)info.memSize.Value].Size;
+							writer.WriteLine($"MemoryKeywords::{info.fast},");
 						}
 					}
 					writer.WriteLine("];");

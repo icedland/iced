@@ -1,0 +1,743 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+push es
+push es
+pop es
+pop es
+push cs
+push cs
+push ss
+push ss
+pop ss
+pop ss
+push ds
+push ds
+pop ds
+pop ds
+daa
+das
+aaa
+aas
+inc ax
+inc eax
+inc cx
+inc ecx
+inc dx
+inc edx
+inc bx
+inc ebx
+inc sp
+inc esp
+inc bp
+inc ebp
+inc si
+inc esi
+inc di
+inc edi
+dec ax
+dec eax
+dec cx
+dec ecx
+dec dx
+dec edx
+dec bx
+dec ebx
+dec sp
+dec esp
+dec bp
+dec ebp
+dec si
+dec esi
+dec di
+dec edi
+push eax
+push ecx
+push edx
+push ebx
+push esp
+push ebp
+push esi
+push edi
+pop eax
+pop ecx
+pop edx
+pop ebx
+pop esp
+pop ebp
+pop esi
+pop edi
+pusha
+pushad
+popa
+popad
+bound bx, dword ptr ds:[eax]
+bound ebx, qword ptr ds:[eax]
+arpl edx, esi
+arpl word ptr ds:[eax], ebx
+push 0x3412a55a
+push 0xffffffa5
+jo 0x4d
+jo 0x8000004c
+jno 0x4d
+jno 0x8000004c
+jb 0x4d
+jb 0x8000004c
+jae 0x4d
+jae 0x8000004c
+je 0x4d
+je 0x8000004c
+jne 0x4d
+jne 0x8000004c
+jbe 0x4d
+jbe 0x8000004c
+ja 0x4d
+ja 0x8000004c
+js 0x4d
+js 0x8000004c
+jns 0x4d
+jns 0x8000004c
+jp 0x4d
+jp 0x8000004c
+jnp 0x4d
+jnp 0x8000004c
+jl 0x4d
+jl 0x8000004c
+jge 0x4d
+jge 0x8000004c
+jle 0x4d
+jle 0x8000004c
+jg 0x4d
+jg 0x8000004c
+pop esi
+pop dword ptr ds:[eax]
+call 0x7856:0x3412
+call 0xbc9a:0x78563412
+pushfd
+popfd
+ret 0xa55a
+ret 0xa55a
+ret
+ret
+rep ret
+rep ret
+les bx, dword ptr ds:[eax]
+les ebx, fword ptr ds:[eax]
+lds bx, dword ptr ds:[eax]
+lds ebx, fword ptr ds:[eax]
+enter 0xa55a, 0xa6
+leave
+into
+aam 0xa
+aad 0xa
+loopne 0x4e
+loopne 0x8000004d
+loopne 0x4d
+loopne 0x8000004c
+loope 0x4e
+loope 0x8000004d
+loope 0x4d
+loope 0x8000004c
+loop 0x4e
+loop 0x8000004d
+loop 0x4d
+loop 0x8000004c
+jcxz 0x4e
+jcxz 0x8000004d
+jecxz 0x4d
+jecxz 0x8000004c
+call 0xa54e
+call 0x255a3407
+jmp 0xa54e
+jmp 0x255a3407
+jmp 0x7856:0x3412
+jmp 0xbcea:0x78563412
+jmp 0x4d
+jmp 0x8000004c
+call cx
+call word ptr ds:[eax]
+call ecx
+call dword ptr ds:[eax]
+jmp dx
+jmp word ptr ds:[eax]
+jmp edx
+jmp dword ptr ds:[eax]
+push esi
+push dword ptr ds:[eax]
+bndmov bnd1, bnd2
+bndmov bnd1, qword ptr ds:[eax]
+bndcl bnd1, edx
+bndcl bnd1, dword ptr ds:[eax]
+bndcu bnd1, edx
+bndcu bnd1, dword ptr ds:[eax]
+bndmov bnd2, bnd1
+bndmov qword ptr ds:[eax], bnd1
+bndmk bnd1, dword ptr ds:[eax]
+bndcn bnd1, edx
+bndcn bnd1, dword ptr ds:[eax]
+mov esi, cr3
+mov esi, dr3
+mov cr3, esi
+mov dr3, esi
+vmread esi, ecx
+vmread dword ptr ds:[eax], ebx
+vmwrite ecx, esi
+vmwrite ebx, dword ptr ds:[eax]
+jo 0xa54f
+jo 0xb412a550
+jno 0xa54f
+jno 0xb412a550
+jb 0xa54f
+jb 0xb412a550
+jae 0xa54f
+jae 0xb412a550
+je 0xa54f
+je 0xb412a550
+jne 0xa54f
+jne 0xb412a550
+jbe 0xa54f
+jbe 0xb412a550
+ja 0xa54f
+ja 0xb412a550
+js 0xa54f
+js 0xb412a550
+jns 0xa54f
+jns 0xb412a550
+jp 0xa54f
+jp 0xb412a550
+jnp 0xa54f
+jnp 0xb412a550
+jl 0xa54f
+jl 0xb412a550
+jge 0xa54f
+jge 0xb412a550
+jle 0xa54f
+jle 0xb412a550
+jg 0xa54f
+jg 0xb412a550
+push fs
+pop fs
+push gs
+pop gs
+rdpid edx
+invept edx, xmmword ptr ds:[eax]
+invvpid edx, xmmword ptr ds:[eax]
+invpcid edx, xmmword ptr ds:[eax]
+salc
+push 0xa55a
+push 0xffa5
+ins byte ptr es:[di], dx
+ins byte ptr es:[edi], dx
+ins word ptr es:[di], dx
+ins word ptr es:[edi], dx
+ins dword ptr es:[di], dx
+ins dword ptr es:[edi], dx
+outs dx, byte ptr ds:[si]
+outs dx, byte ptr ds:[esi]
+outs dx, word ptr ds:[si]
+outs dx, word ptr ds:[esi]
+outs dx, dword ptr ds:[si]
+outs dx, dword ptr ds:[esi]
+mov fs, si
+mov ds, word ptr ds:[eax]
+mov fs, esi
+mov ds, word ptr ds:[eax]
+pop si
+pop word ptr ds:[eax]
+nop
+nop
+pushf
+popf
+mov al, byte ptr ds:[0xf0debc9a]
+mov al, byte ptr ds:[0xf0de]
+mov ax, word ptr ds:[0xf0debc9a]
+mov ax, word ptr ds:[0xf0de]
+mov eax, dword ptr ds:[0xf0debc9a]
+mov eax, dword ptr ds:[0xf0de]
+mov byte ptr ds:[0xf0debc9a], al
+mov byte ptr ds:[0xf0de], al
+mov word ptr ds:[0xf0debc9a], ax
+mov word ptr ds:[0xf0de], ax
+mov dword ptr ds:[0xf0debc9a], eax
+mov dword ptr ds:[0xf0de], eax
+movs byte ptr es:[di], byte ptr ds:[si]
+movs byte ptr es:[edi], byte ptr ds:[esi]
+movs word ptr es:[di], word ptr ds:[si]
+movs word ptr es:[edi], word ptr ds:[esi]
+movs dword ptr es:[di], dword ptr ds:[si]
+movs dword ptr es:[edi], dword ptr ds:[esi]
+cmps byte ptr ds:[si], byte ptr es:[di]
+cmps byte ptr ds:[esi], byte ptr es:[edi]
+cmps word ptr ds:[si], word ptr es:[di]
+cmps word ptr ds:[esi], word ptr es:[edi]
+cmps dword ptr ds:[si], dword ptr es:[di]
+cmps dword ptr ds:[esi], dword ptr es:[edi]
+stos byte ptr es:[di], al
+stos byte ptr es:[edi], al
+stos word ptr es:[di], ax
+stos word ptr es:[edi], ax
+stos dword ptr es:[di], eax
+stos dword ptr es:[edi], eax
+lods al, byte ptr ds:[si]
+lods al, byte ptr ds:[esi]
+lods ax, word ptr ds:[si]
+lods ax, word ptr ds:[esi]
+lods eax, dword ptr ds:[si]
+lods eax, dword ptr ds:[esi]
+scas al, byte ptr es:[di]
+scas al, byte ptr es:[edi]
+scas ax, word ptr es:[di]
+scas ax, word ptr es:[edi]
+scas eax, dword ptr es:[di]
+scas eax, dword ptr es:[edi]
+xbegin 0x7fffa54f
+xbegin 0xb412a550
+enter 0xa55a, 0xa6
+leave
+retf 0xa55a
+retf 0xa55a
+retf
+retf
+iret
+iretd
+rol cl, cl
+rol byte ptr ds:[eax], cl
+ror dl, cl
+ror byte ptr ds:[eax], cl
+rcl bl, cl
+rcl byte ptr ds:[eax], cl
+rcr ah, cl
+rcr byte ptr ds:[eax], cl
+shl ch, cl
+shl byte ptr ds:[eax], cl
+shr dh, cl
+shr byte ptr ds:[eax], cl
+sar al, cl
+sar byte ptr ds:[eax], cl
+rol cx, cl
+rol word ptr ds:[eax], cl
+rol ecx, cl
+rol dword ptr ds:[eax], cl
+ror dx, cl
+ror word ptr ds:[eax], cl
+ror edx, cl
+ror dword ptr ds:[eax], cl
+rcl bx, cl
+rcl word ptr ds:[eax], cl
+rcl ebx, cl
+rcl dword ptr ds:[eax], cl
+rcr sp, cl
+rcr word ptr ds:[eax], cl
+rcr esp, cl
+rcr dword ptr ds:[eax], cl
+shl bp, cl
+shl word ptr ds:[eax], cl
+shl ebp, cl
+shl dword ptr ds:[eax], cl
+shr si, cl
+shr word ptr ds:[eax], cl
+shr esi, cl
+shr dword ptr ds:[eax], cl
+sar ax, cl
+sar word ptr ds:[eax], cl
+sar eax, cl
+sar dword ptr ds:[eax], cl
+fldcw word ptr ds:[eax]
+fnstcw word ptr ds:[eax]
+fnstsw word ptr ds:[eax]
+callf dword ptr ds:[eax]
+callf fword ptr ds:[eax]
+jmpf dword ptr ds:[eax]
+jmpf fword ptr ds:[eax]
+push si
+push word ptr ds:[eax]
+sgdt fword ptr ds:[eax]
+sgdt fword ptr ds:[eax]
+sidt fword ptr ds:[eax]
+sidt fword ptr ds:[eax]
+lgdt fword ptr ds:[eax]
+lgdt fword ptr ds:[eax]
+lidt fword ptr ds:[eax]
+lidt fword ptr ds:[eax]
+lar cx, si
+lar bx, word ptr ds:[eax]
+lar ecx, esi
+lar ebx, word ptr ds:[eax]
+lsl cx, si
+lsl bx, word ptr ds:[eax]
+lsl ecx, esi
+lsl ebx, word ptr ds:[eax]
+bndldx bnd1, ds:[eax]
+bndstx ds:[eax], bnd1
+kmovw k2, k3
+kmovw k1, word ptr ds:[eax]
+kmovb k2, k3
+kmovb k1, byte ptr ds:[eax]
+kmovd k2, k3
+kmovd k1, dword ptr ds:[eax]
+kmovw word ptr ds:[eax], k1
+kmovb byte ptr ds:[eax], k1
+kmovd dword ptr ds:[eax], k1
+kmovw k2, ebx
+kmovb k2, ebx
+kmovd k2, ebx
+kmovw edx, k3
+kmovb edx, k3
+kmovd edx, k3
+kortestw k2, k3
+kortestq k2, k3
+kortestb k2, k3
+kortestd k2, k3
+ktestw k2, k3
+ktestq k2, k3
+ktestb k2, k3
+ktestd k2, k3
+push fs
+pop fs
+shld si, cx, cl
+shld word ptr ds:[eax], bx, cl
+shld esi, ecx, cl
+shld dword ptr ds:[eax], ebx, cl
+push gs
+pop gs
+shrd si, cx, cl
+shrd word ptr ds:[eax], bx, cl
+shrd esi, ecx, cl
+shrd dword ptr ds:[eax], ebx, cl
+lss bx, dword ptr ds:[eax]
+lss ebx, fword ptr ds:[eax]
+lfs bx, dword ptr ds:[eax]
+lfs ebx, fword ptr ds:[eax]
+lgs bx, dword ptr ds:[eax]
+lgs ebx, fword ptr ds:[eax]
+movzx cx, dh
+movzx bx, byte ptr ds:[eax]
+movzx ecx, dh
+movzx ebx, byte ptr ds:[eax]
+movzx cx, si
+movzx bx, word ptr ds:[eax]
+movzx ecx, si
+movzx ebx, word ptr ds:[eax]
+movsx cx, dh
+movsx bx, byte ptr ds:[eax]
+movsx ecx, dh
+movsx ebx, byte ptr ds:[eax]
+movsx cx, si
+movsx bx, word ptr ds:[eax]
+movsx ecx, si
+movsx ebx, word ptr ds:[eax]
+cmpxchg8b qword ptr ds:[eax]
+crc32 ecx, dh
+crc32 ebx, byte ptr ds:[eax]
+crc32 ecx, si
+crc32 ebx, word ptr ds:[eax]
+crc32 ecx, esi
+crc32 ebx, dword ptr ds:[eax]
+maskmovq qword ptr ds:[di], mm2, mm3
+maskmovq qword ptr ds:[edi], mm2, mm3
+maskmovdqu xmmword ptr ds:[di], xmm2, xmm3
+maskmovdqu xmmword ptr ds:[edi], xmm2, xmm3
+vmaskmovdqu xmmword ptr ds:[di], xmm2, xmm3
+vmaskmovdqu xmmword ptr ds:[edi], xmm2, xmm3
+outs dx, byte ptr fs:[esi]
+outs dx, word ptr fs:[esi]
+outs dx, dword ptr fs:[esi]
+movs byte ptr es:[edi], byte ptr fs:[esi]
+movs word ptr es:[edi], word ptr fs:[esi]
+movs dword ptr es:[edi], dword ptr fs:[esi]
+cmps byte ptr fs:[esi], byte ptr es:[edi]
+cmps word ptr fs:[esi], word ptr es:[edi]
+cmps dword ptr fs:[esi], dword ptr es:[edi]
+lods al, byte ptr fs:[esi]
+lods ax, word ptr fs:[esi]
+lods eax, dword ptr fs:[esi]
+xlat byte ptr ds:[bx]
+xlat byte ptr fs:[ebx]
+maskmovq qword ptr fs:[edi], mm2, mm3
+maskmovdqu xmmword ptr fs:[edi], xmm2, xmm3
+vmaskmovdqu xmmword ptr fs:[edi], xmm2, xmm3
+xlat byte ptr ds:[ebx]
+aam 0xfa
+aad 0xfa
+fldenv fpuenv14 ptr ds:[eax]
+fldenv fpuenv28 ptr ds:[eax]
+fnstenv fpuenv14 ptr ds:[eax]
+fnstenv fpuenv28 ptr ds:[eax]
+frstor fpustate94 ptr ds:[eax]
+frstor fpustate108 ptr ds:[eax]
+fnsave fpustate94 ptr ds:[eax]
+fnsave fpustate108 ptr ds:[eax]
+monitor
+monitor
+mwait
+mov al, byte ptr fs:[0xf0debc9a]
+mov al, byte ptr fs:[0xf0de]
+mov ax, word ptr fs:[0xf0debc9a]
+mov ax, word ptr fs:[0xf0de]
+mov eax, dword ptr fs:[0xf0debc9a]
+mov eax, dword ptr fs:[0xf0de]
+mov byte ptr fs:[0xf0debc9a], al
+mov byte ptr fs:[0xf0de], al
+mov word ptr fs:[0xf0debc9a], ax
+mov word ptr fs:[0xf0de], ax
+mov dword ptr fs:[0xf0debc9a], eax
+mov dword ptr fs:[0xf0de], eax
+mov cl, byte ptr ds:[eax]
+mov cl, byte ptr ds:[eax-0x12]
+mov cl, byte ptr ds:[eax-0x12345678]
+mov cl, byte ptr ds:[0xedcba988]
+mov cl, byte ptr ds:[eax+0x12]
+mov cl, byte ptr ds:[eax+0x12345678]
+mov cl, byte ptr ds:[0x12345678]
+mov cl, byte ptr ds:[eax+ecx]
+mov cl, byte ptr ds:[eax+ecx*2]
+mov cl, byte ptr ds:[eax+ecx*4]
+mov cl, byte ptr ds:[eax+ecx*8]
+mov cl, byte ptr ds:[eax+ecx-0x12]
+mov cl, byte ptr ds:[eax+ecx*2-0x12]
+mov cl, byte ptr ds:[eax+ecx*4-0x12]
+mov cl, byte ptr ds:[eax+ecx*8-0x12]
+mov cl, byte ptr ds:[eax+ecx+0x12]
+mov cl, byte ptr ds:[eax+ecx*2+0x12]
+mov cl, byte ptr ds:[eax+ecx*4+0x12]
+mov cl, byte ptr ds:[eax+ecx*8+0x12]
+mov cl, byte ptr ds:[eax+ecx-0x12345678]
+mov cl, byte ptr ds:[eax+ecx*2-0x12345678]
+mov cl, byte ptr ds:[eax+ecx*4-0x12345678]
+mov cl, byte ptr ds:[eax+ecx*8-0x12345678]
+mov cl, byte ptr ds:[eax+ecx+0x12345678]
+mov cl, byte ptr ds:[eax+ecx*2+0x12345678]
+mov cl, byte ptr ds:[eax+ecx*4+0x12345678]
+mov cl, byte ptr ds:[eax+ecx*8+0x12345678]
+mov cl, byte ptr ds:[ecx*1-0x12345678]
+mov cl, byte ptr ss:[ebp+ecx*2-0x12]
+mov cl, byte ptr ss:[ebp+ecx*4-0x12345678]
+mov cl, byte ptr ds:[ecx*8-0x12345678]
+mov cl, byte ptr ds:[ecx*1+0x12345678]
+mov cl, byte ptr ss:[ebp+ecx*2+0x12]
+mov cl, byte ptr ss:[ebp+ecx*4+0x12345678]
+mov cl, byte ptr ds:[ecx*8+0x12345678]
+mov cl, byte ptr fs:[eax]
+mov cl, byte ptr fs:[eax-0x12]
+mov cl, byte ptr fs:[eax-0x12345678]
+mov cl, byte ptr fs:[0xedcba988]
+mov cl, byte ptr fs:[eax+0x12]
+mov cl, byte ptr fs:[eax+0x12345678]
+mov cl, byte ptr fs:[0x12345678]
+mov cl, byte ptr fs:[eax+ecx]
+mov cl, byte ptr fs:[eax+ecx*2]
+mov cl, byte ptr fs:[eax+ecx*4]
+mov cl, byte ptr fs:[eax+ecx*8]
+mov cl, byte ptr fs:[eax+ecx-0x12]
+mov cl, byte ptr fs:[eax+ecx*2-0x12]
+mov cl, byte ptr fs:[eax+ecx*4-0x12]
+mov cl, byte ptr fs:[eax+ecx*8-0x12]
+mov cl, byte ptr fs:[eax+ecx+0x12]
+mov cl, byte ptr fs:[eax+ecx*2+0x12]
+mov cl, byte ptr fs:[eax+ecx*4+0x12]
+mov cl, byte ptr fs:[eax+ecx*8+0x12]
+mov cl, byte ptr fs:[eax+ecx-0x12345678]
+mov cl, byte ptr fs:[eax+ecx*2-0x12345678]
+mov cl, byte ptr fs:[eax+ecx*4-0x12345678]
+mov cl, byte ptr fs:[eax+ecx*8-0x12345678]
+mov cl, byte ptr fs:[eax+ecx+0x12345678]
+mov cl, byte ptr fs:[eax+ecx*2+0x12345678]
+mov cl, byte ptr fs:[eax+ecx*4+0x12345678]
+mov cl, byte ptr fs:[eax+ecx*8+0x12345678]
+mov cl, byte ptr fs:[ecx*1-0x12345678]
+mov cl, byte ptr fs:[ebp+ecx*2-0x12]
+mov cl, byte ptr fs:[ebp+ecx*4-0x12345678]
+mov cl, byte ptr fs:[ecx*8-0x12345678]
+mov cl, byte ptr fs:[ecx*1+0x12345678]
+mov cl, byte ptr fs:[ebp+ecx*2+0x12]
+mov cl, byte ptr fs:[ebp+ecx*4+0x12345678]
+mov cl, byte ptr fs:[ecx*8+0x12345678]
+vmrun
+vmrun
+vmload
+vmload
+vmsave
+vmsave
+invlpga
+invlpga
+monitorx
+monitorx
+clzero
+clzero
+rdpru
+add cl, 0x5a
+add byte ptr ds:[eax], 0x5a
+or dl, 0xa5
+or byte ptr ds:[eax], 0xa5
+adc bl, 0x5a
+adc byte ptr ds:[eax], 0x5a
+sbb ah, 0xa5
+sbb byte ptr ds:[eax], 0xa5
+and ch, 0x5a
+and byte ptr ds:[eax], 0x5a
+sub dh, 0xa5
+sub byte ptr ds:[eax], 0xa5
+xor bh, 0x5a
+xor byte ptr ds:[eax], 0x5a
+cmp al, 0xa5
+cmp byte ptr ds:[eax], 0xa5
+frstpm
+fnstdw ax
+fnstsg ax
+jmpe cx
+jmpe word ptr ds:[eax]
+jmpe edx
+jmpe dword ptr ds:[eax]
+loadallreset286
+loadall286
+loadall386
+umov dh, cl
+umov byte ptr ds:[eax], bl
+umov si, cx
+umov word ptr ds:[eax], bx
+umov esi, ecx
+umov dword ptr ds:[eax], ebx
+umov cl, dh
+umov bl, byte ptr ds:[eax]
+umov cx, si
+umov bx, word ptr ds:[eax]
+umov ecx, esi
+umov ebx, dword ptr ds:[eax]
+mov esi, tr3
+mov tr3, esi
+xbts cx, si
+xbts bx, word ptr ds:[eax]
+xbts ecx, esi
+xbts ebx, dword ptr ds:[eax]
+ibts si, cx
+ibts word ptr ds:[eax], bx
+ibts esi, ecx
+ibts dword ptr ds:[eax], ebx
+cmpxchg486 dh, cl
+cmpxchg486 byte ptr ds:[eax], bl
+cmpxchg486 si, cx
+cmpxchg486 word ptr ds:[eax], bx
+cmpxchg486 esi, ecx
+cmpxchg486 dword ptr ds:[eax], ebx
+umonitor bp
+umonitor ebp
+jmpe 0xa55a
+jmpe 0xa55a3412
+movdir64b bx, zmmword ptr ds:[bx+si]
+movdir64b ebx, zmmword ptr ds:[eax]
+enqcmds bx, zmmword ptr ds:[bx+si]
+enqcmds ebx, zmmword ptr ds:[eax]
+enqcmd bx, zmmword ptr ds:[bx+si]
+enqcmd ebx, zmmword ptr ds:[eax]
+mov eax, tr0
+mov eax, tr1
+mov eax, tr2
+mov eax, tr3
+mov eax, tr4
+mov eax, tr5
+mov eax, tr6
+mov eax, tr7
+syscall
+sysret
+fs monitor
+fs monitorx
+fs clzero
+fs umonitor bp
+rep montmul
+rep montmul
+rep xsha1
+rep xsha1
+rep xsha256
+rep xsha256
+rep xstore
+rep xstore
+xstore
+xstore
+rep xcryptecb
+rep xcryptecb
+rep xcryptcbc
+rep xcryptcbc
+rep xcryptctr
+rep xcryptctr
+rep xcryptcfb
+rep xcryptcfb
+rep xcryptofb
+rep xcryptofb
+pvalidate
+pvalidate
+serialize
+xsusldtrk
+xresldtrk
+invlpgb
+invlpgb
+tlbsync
+cl1invmb
+rdshr dword ptr ds:[eax]
+rdshr edx
+wrshr dword ptr ds:[eax]
+wrshr edx
+smint
+dmint
+rdm
+svdc tbyte ptr ds:[eax], cs
+rsdc cs, tbyte ptr ds:[eax]
+svldt tbyte ptr ds:[eax]
+rsldt tbyte ptr ds:[eax]
+svts tbyte ptr ds:[eax]
+rsts tbyte ptr ds:[eax]
+smint
+bb0_reset
+bb1_reset
+cpu_write
+cpu_read
+altinst
+paveb mm1, qword ptr ds:[eax]
+paveb mm1, mm5
+paddsiw mm1, qword ptr ds:[eax]
+paddsiw mm1, mm5
+pmagw mm1, qword ptr ds:[eax]
+pmagw mm1, mm5
+pdistib mm1, qword ptr ds:[eax]
+psubsiw mm1, qword ptr ds:[eax]
+psubsiw mm1, mm5
+pmvzb mm1, qword ptr ds:[eax]
+pmulhrw mm1, qword ptr ds:[eax]
+pmulhrw mm1, mm5
+pmvnzb mm1, qword ptr ds:[eax]
+pmvlzb mm1, qword ptr ds:[eax]
+pmvgezb mm1, qword ptr ds:[eax]
+pmulhriw mm1, qword ptr ds:[eax]
+pmulhriw mm1, mm5
+pmachriw mm1, qword ptr ds:[eax]
+undoc
+undoc
+ftstp
+undoc
+frint2
+frichop
+undoc
+undoc
+undoc
+undoc
+undoc
+frinear

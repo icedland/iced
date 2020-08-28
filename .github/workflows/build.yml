@@ -49,11 +49,12 @@ jobs:
               "INTEL",
               "MASM",
               "NASM",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_EVEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_XOP",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_D3NOW",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
+              "FAST_FMT",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
               ) {
             git clean -xdf
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -72,11 +73,12 @@ jobs:
               "DECODER;INTEL",
               "DECODER;MASM",
               "DECODER;NASM",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_EVEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_XOP",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_D3NOW",
-              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
+              "DECODER;FAST_FMT",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW",
+              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
               ) {
             git clean -xdf
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -241,7 +243,7 @@ jobs:
           cd src/rust/iced-x86
           
           echo ==== BUILD DEBUG ====
-          cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm db"
+          cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt db"
           
           cd ../../..
           git clean -xdf
@@ -263,6 +265,7 @@ jobs:
               "std intel"
               "std masm"
               "std nasm"
+              "std fast_fmt"
           )
           for features in "${allFeatures[@]}"; do
               echo ==== $features ====
@@ -291,6 +294,7 @@ jobs:
               "no_std intel"
               "no_std masm"
               "no_std nasm"
+              "no_std fast_fmt"
           )
           for features in "${allFeatures[@]}"; do
               echo ==== $features ====
@@ -307,6 +311,7 @@ jobs:
               "std decoder intel"
               "std decoder masm"
               "std decoder nasm"
+              "std decoder fast_fmt"
           )
           for features in "${allFeatures[@]}"; do
               echo ==== TEST $features ====
@@ -337,10 +342,10 @@ jobs:
           
           echo ==== FORMAT CHECK ====
           cargo fmt -- --color always --check
-          echo ==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm ====
-          cargo +1.44.1 clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm"
-          echo ==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm bigint ====
-          cargo +1.44.1 clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm bigint"
+          echo ==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt ====
+          cargo +1.44.1 clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt"
+          echo ==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt bigint ====
+          cargo +1.44.1 clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt bigint"
           
           allFeatures=(
               "decoder"
@@ -358,6 +363,7 @@ jobs:
               "intel"
               "masm"
               "nasm"
+              "fast_fmt"
               "instr_api nasm"
           )
           for features in "${allFeatures[@]}"; do
@@ -420,7 +426,10 @@ jobs:
           echo ==== BUILD RELEASE ====
           cargo build --color always --features "db" --release
           echo ==== TEST RELEASE ====
-          cargo test --color always --features "db" --release
+          #TODO: workaround for https://github.com/rust-lang/cargo/issues/8654
+          cargo +1.44.1 test --color always --features "db" --release
+          echo ==== TEST DEBUG ====
+          cargo test --color always --features "db"
           echo ==== BUILD RELEASE wasm32-unknown-unknown ====
           cargo check --color always --features "db" --target wasm32-unknown-unknown --release
           echo ==== PUBLISH DRY-RUN ====

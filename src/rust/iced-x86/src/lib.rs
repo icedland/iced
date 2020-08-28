@@ -82,6 +82,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 //! - `masm`: (✔️Enabled by default) Enables the masm formatter
 //! - `nasm`: (✔️Enabled by default) Enables the nasm formatter
+//! - `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` which is ~1.6x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
 //! - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 //! - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 //! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
@@ -117,11 +118,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
 //! - [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
 //! - [Get the virtual address of a memory operand](#get-the-virtual-address-of-a-memory-operand)
+//! - [Disassemble old/deprecated CPU instructions](#disassemble-olddeprecated-cpu-instructions)
 //!
 //! ## Disassemble (decode and format instructions)
 //!
 //! This example uses a [`Decoder`] and one of the [`Formatter`]s to decode and format the code,
-//! eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`].
+//! eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`], [`FastFormatter`].
 //!
 //! [`Decoder`]: struct.Decoder.html
 //! [`Formatter`]: trait.Formatter.html
@@ -129,6 +131,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! [`IntelFormatter`]: struct.IntelFormatter.html
 //! [`MasmFormatter`]: struct.MasmFormatter.html
 //! [`NasmFormatter`]: struct.NasmFormatter.html
+//! [`FastFormatter`]: struct.FastFormatter.html
 //!
 //! ```rust
 //! use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
@@ -154,7 +157,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!     let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, bytes, DecoderOptions::NONE);
 //!     decoder.set_ip(EXAMPLE_CODE_RIP);
 //!
-//!     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED)
+//!     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
+//!     // There's also `FastFormatter` which is ~1.6x faster. Use it if formatting speed is more
+//!     // important than being able to re-assemble formatted instructions.
 //!     let mut formatter = NasmFormatter::new();
 //!
 //!     // Change some options, there are many more
@@ -1070,6 +1075,76 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! }
 //! ```
 //!
+//! ## Disassemble old/deprecated CPU instructions
+//!
+//! ```rust
+//! use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
+//!
+//! /*
+//! This method produces the following output:
+//! 731E0A03 bndmov bnd1, [eax]
+//! 731E0A07 mov tr3, esi
+//! 731E0A0A rdshr [eax]
+//! 731E0A0D dmint
+//! 731E0A0F svdc [eax], cs
+//! 731E0A12 cpu_read
+//! 731E0A14 pmvzb mm1, [eax]
+//! 731E0A17 frinear
+//! 731E0A19 altinst
+//! */
+//! pub(crate) fn how_to_disassemble_old_instrs() {
+//!     #[rustfmt::skip]
+//!     let bytes = &[
+//!         // bndmov bnd1,[eax]
+//!         0x66, 0x0F, 0x1A, 0x08,
+//!         // mov tr3,esi
+//!         0x0F, 0x26, 0xDE,
+//!         // rdshr [eax]
+//!         0x0F, 0x36, 0x00,
+//!         // dmint
+//!         0x0F, 0x39,
+//!         // svdc [eax],cs
+//!         0x0F, 0x78, 0x08,
+//!         // cpu_read
+//!         0x0F, 0x3D,
+//!         // pmvzb mm1,[eax]
+//!         0x0F, 0x58, 0x08,
+//!         // frinear
+//!         0xDF, 0xFC,
+//!         // altinst
+//!         0x0F, 0x3F,
+//!     ];
+//!
+//!     // Enable decoding of Cyrix/Geode instructions, Centaur ALTINST, MOV to/from TR
+//!     // and MPX instructions.
+//!     // There are other options to enable other instructions such as UMOV, etc.
+//!     // These are deprecated instructions or only used by old CPUs so they're not
+//!     // enabled by default. Some newer instructions also use the same opcodes as
+//!     // some of these old instructions.
+//!     const DECODER_OPTIONS: u32 = DecoderOptions::MPX
+//!         | DecoderOptions::MOV_TR
+//!         | DecoderOptions::CYRIX
+//!         | DecoderOptions::CYRIX_DMI
+//!         | DecoderOptions::ALTINST;
+//!     let mut decoder = Decoder::new(32, bytes, DECODER_OPTIONS);
+//!     decoder.set_ip(0x731E0A03);
+//!
+//!     let mut formatter = NasmFormatter::new();
+//!     formatter.options_mut().set_space_after_operand_separator(true);
+//!     let mut output = String::new();
+//!
+//!     let mut instruction = Instruction::default();
+//!     while decoder.can_decode() {
+//!         decoder.decode_out(&mut instruction);
+//!
+//!         output.clear();
+//!         formatter.format(&instruction, &mut output);
+//!
+//!         println!("{:08X} {}", instruction.ip(), &output);
+//!     }
+//! }
+//! ```
+//!
 //! ## Minimum supported `rustc` version
 //!
 //! iced-x86 supports `rustc` `1.20.0` or later.
@@ -1149,13 +1224,22 @@ compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 
-#[cfg(all(has_alloc, any(not(feature = "std"), feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
-#[cfg_attr(all(has_alloc, any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm")), macro_use)]
+#[cfg(all(
+	has_alloc,
+	any(not(feature = "std"), feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt")
+))]
+#[cfg_attr(
+	all(has_alloc, any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt")),
+	macro_use
+)]
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;
-#[cfg(any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-#[cfg_attr(any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"), macro_use)]
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+#[cfg_attr(
+	any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"),
+	macro_use
+)]
 extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
@@ -1168,14 +1252,14 @@ mod block_enc;
 mod code;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 mod constant_offsets;
-#[cfg(any(feature = "decoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "decoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 mod data_reader;
 #[cfg(feature = "decoder")]
 mod decoder;
 #[cfg(feature = "encoder")]
 mod encoder;
 mod enums;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 mod formatter;
 pub(crate) mod iced_constants;
 mod iced_features;
@@ -1204,7 +1288,7 @@ pub use self::decoder::*;
 #[cfg(feature = "encoder")]
 pub use self::encoder::*;
 pub use self::enums::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 pub use self::formatter::*;
 pub use self::iced_features::*;
 #[cfg(feature = "instr_info")]

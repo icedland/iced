@@ -25,7 +25,10 @@ use super::iced_constants::IcedConstants;
 #[cfg(feature = "instr_info")]
 use super::info::enums::*;
 use super::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(all(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")), feature = "fast_fmt"))]
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use core::fmt;
 use core::hash::{Hash, Hasher};
 #[cfg(feature = "encoder")]
@@ -7434,24 +7437,38 @@ impl<'a, 'b: 'a> FormatterOutput for FmtFormatterOutput<'a, 'b> {
 	}
 }
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		#[cfg(feature = "masm")]
-		let mut formatter = MasmFormatter::new();
+		//
+		// if the order of #[cfg()] checks gets updated, also update the `display_trait()` test method
+		//
+		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+		{
+			#[cfg(feature = "masm")]
+			let mut formatter = MasmFormatter::new();
 
-		#[cfg(all(not(feature = "masm"), feature = "nasm"))]
-		let mut formatter = NasmFormatter::new();
+			#[cfg(all(not(feature = "masm"), feature = "nasm"))]
+			let mut formatter = NasmFormatter::new();
 
-		#[cfg(all(not(feature = "masm"), not(feature = "nasm"), feature = "intel"))]
-		let mut formatter = IntelFormatter::new();
+			#[cfg(all(not(feature = "masm"), not(feature = "nasm"), feature = "intel"))]
+			let mut formatter = IntelFormatter::new();
 
-		#[cfg(all(not(feature = "masm"), not(feature = "nasm"), not(feature = "intel"), feature = "gas"))]
-		let mut formatter = GasFormatter::new();
+			#[cfg(all(not(feature = "masm"), not(feature = "nasm"), not(feature = "intel"), feature = "gas"))]
+			let mut formatter = GasFormatter::new();
 
-		let mut output = FmtFormatterOutput::new(f);
-		formatter.format(self, &mut output);
-		output.result
+			let mut output = FmtFormatterOutput::new(f);
+			formatter.format(self, &mut output);
+			output.result
+		}
+		#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
+		{
+			let mut formatter = FastFormatter::new();
+
+			let mut output = String::new();
+			formatter.format(self, &mut output);
+			f.write_str(&output)
+		}
 	}
 }

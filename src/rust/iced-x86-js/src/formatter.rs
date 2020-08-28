@@ -75,7 +75,7 @@ impl Formatter {
 	/// const formatter = new Formatter(FormatterSyntax.Masm);
 	/// formatter.uppercaseMnemonics = true;
 	/// const disasm = formatter.format(instr);
-	/// assert.equal("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", disasm);
+	/// assert.equal(disasm, "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]");
 	///
 	/// // Free wasm memory
 	/// decoder.free();

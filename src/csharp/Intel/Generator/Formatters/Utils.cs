@@ -31,12 +31,17 @@ namespace Generator.Formatters {
 		public const int CodeValueIndex = 1;
 
 		public static object[][] Filter(HashSet<EnumValue> filteredCodeValues, object[][] infos) =>
-			infos.Where(a => filteredCodeValues.Contains((EnumValue)a[CodeValueIndex])).ToArray();
+			Filter(filteredCodeValues, infos, CodeValueIndex);
 
-		public static object[][] Sort(object[][] infos) {
+		public static object[][] Filter(HashSet<EnumValue> filteredCodeValues, object[][] infos, int codeValueIndex) =>
+			infos.Where(a => filteredCodeValues.Contains((EnumValue)a[codeValueIndex])).ToArray();
+
+		public static object[][] Sort(object[][] infos) => Sort(infos, CodeValueIndex);
+
+		public static object[][] Sort(object[][] infos, int codeValueIndex) {
 			Array.Sort(infos, (a, b) => {
-				var ca = (EnumValue)a[CodeValueIndex];
-				var cb = (EnumValue)b[CodeValueIndex];
+				var ca = (EnumValue)a[codeValueIndex];
+				var cb = (EnumValue)b[codeValueIndex];
 				return ca.Value.CompareTo(cb.Value);
 			});
 			return infos;
