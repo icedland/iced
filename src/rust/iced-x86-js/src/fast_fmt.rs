@@ -65,6 +65,7 @@ impl FastFormatter {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
+	#[wasm_bindgen]
 	pub fn format(&mut self, instruction: &Instruction) -> String {
 		let mut output = String::new();
 		self.0.format(&instruction.0, &mut output);
