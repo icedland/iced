@@ -495,7 +495,7 @@ impl FastFormatter {
 
 		let prefix_seg = instruction.segment_prefix();
 		if ((prefix_seg as u32) | super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
-			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(instruction.code());
+			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg != Register::None && FastFormatter::show_segment_prefix(instruction, op_count) {
 				FastFormatter::format_register(&self.d, output, prefix_seg);
 				output.push(' ');
@@ -515,8 +515,8 @@ impl FastFormatter {
 				output.push_str("notrack ");
 			}
 
-			if instruction.has_repe_prefix() && show_rep_or_repe_prefix_bool(instruction.code(), FastFormatter::SHOW_USELESS_PREFIXES) {
-				if is_repe_or_repne_instruction(instruction.code()) {
+			if instruction.has_repe_prefix() && show_rep_or_repe_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES) {
+				if is_repe_or_repne_instruction(code) {
 					output.push_str("repe ");
 				} else {
 					output.push_str("rep ");
@@ -530,7 +530,7 @@ impl FastFormatter {
 					|| code.is_jcc_short_or_near()
 				{
 					output.push_str("bnd ");
-				} else if show_repne_prefix_bool(instruction.code(), FastFormatter::SHOW_USELESS_PREFIXES) {
+				} else if show_repne_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES) {
 					output.push_str("repne ");
 				}
 			}

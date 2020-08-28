@@ -121,7 +121,7 @@ namespace Iced.Intel {
 
 			var prefixSeg = instruction.SegmentPrefix;
 			if (((uint)prefixSeg | instruction.HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix) != 0) {
-				bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code);
+				bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(code);
 				if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(instruction, opCount)) {
 					FormatRegister(output, prefixSeg);
 					output.Append(' ');
@@ -137,8 +137,8 @@ namespace Iced.Intel {
 				if (hasNoTrackPrefix)
 					output.Append("notrack ");
 
-				if (instruction.HasRepePrefix && FormatterUtils.ShowRepOrRepePrefix(instruction.Code, ShowUselessPrefixes)) {
-					if (FormatterUtils.IsRepeOrRepneInstruction(instruction.Code))
+				if (instruction.HasRepePrefix && FormatterUtils.ShowRepOrRepePrefix(code, ShowUselessPrefixes)) {
+					if (FormatterUtils.IsRepeOrRepneInstruction(code))
 						output.Append("repe ");
 					else
 						output.Append("rep ");
@@ -151,7 +151,7 @@ namespace Iced.Intel {
 						code.IsJccShortOrNear()) {
 						output.Append("bnd ");
 					}
-					else if (FormatterUtils.ShowRepnePrefix(instruction.Code, ShowUselessPrefixes))
+					else if (FormatterUtils.ShowRepnePrefix(code, ShowUselessPrefixes))
 						output.Append("repne ");
 				}
 			}
