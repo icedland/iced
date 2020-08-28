@@ -54,6 +54,7 @@ impl FastFormatter {
 	/// ```
 	///
 	/// [`FormatterSyntax`]: enum.FormatterSyntax.html
+	#[allow(clippy::new_without_default)]
 	#[wasm_bindgen(constructor)]
 	pub fn new() -> Self {
 		Self(iced_x86_rust::FastFormatter::new())
