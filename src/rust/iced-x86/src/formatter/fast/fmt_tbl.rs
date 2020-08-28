@@ -37,7 +37,7 @@ lazy_static! {
 }
 
 fn read() -> FmtTableData {
-	let mut mnemonics: Vec<String> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
+	let mut mnemonics: Vec<&'static str> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
 	let mut flags: Vec<u8> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
 	let strings = get_strings_table();
@@ -62,6 +62,9 @@ fn read() -> FmtTableData {
 			strings[reader.read_compressed_u32() as usize].clone()
 		};
 
+		let mnemonic = Box::into_raw(Box::new(mnemonic));
+		// Safe, it's stored in 'static data
+		let mnemonic: &'static str = unsafe { (*mnemonic).as_str() };
 		flags.push(f as u8);
 		mnemonics.push(mnemonic);
 

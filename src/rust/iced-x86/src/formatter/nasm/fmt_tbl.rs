@@ -47,13 +47,6 @@ fn add_suffix(s: &str, c: char) -> String {
 	res
 }
 
-fn add_prefix(s: &str, c: char) -> String {
-	let mut res = String::with_capacity(s.len() + 1);
-	res.push(c);
-	res.push_str(s);
-	res
-}
-
 fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 	let mut infos: Vec<Box<InstrInfo + Sync + Send>> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
@@ -72,7 +65,11 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			prev_index = reader.index() as isize - 1;
 		}
 		let s = if (f & 0x80) != 0 {
-			add_prefix(&strings[reader.read_compressed_u32() as usize], 'v')
+			let s = &strings[reader.read_compressed_u32() as usize];
+			let mut res = String::with_capacity(s.len() + 1);
+			res.push('v');
+			res.push_str(s);
+			res
 		} else {
 			strings[reader.read_compressed_u32() as usize].clone()
 		};

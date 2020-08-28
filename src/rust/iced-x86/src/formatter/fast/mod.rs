@@ -47,7 +47,7 @@ static SCALE_NUMBERS: [&str; 4] = ["*1", "*2", "*4", "*8"];
 static RC_STRINGS: [&str; 4] = ["{rn-sae}", "{rd-sae}", "{ru-sae}", "{rz-sae}"];
 
 struct FmtTableData {
-	mnemonics: Vec<String>,
+	mnemonics: Vec<&'static str>,
 	flags: Vec<u8>, // FastFmtFlags
 }
 
@@ -76,6 +76,9 @@ impl FastFormatterOptions {
 	fn new() -> Self {
 		Self { options1: Flags1::USE_PSEUDO_OPS | Flags1::UPPERCASE_HEX }
 	}
+
+	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
+	// An extra `-` is needed for `cargo doc`.
 
 	/// Add a space after the operand separator
 	///
@@ -402,7 +405,7 @@ impl Default for FastFormatter {
 struct SelfData {
 	options: FastFormatterOptions,
 	all_registers: &'static [FormatterString],
-	code_mnemonics: &'static [String],
+	code_mnemonics: &'static [&'static str],
 	code_flags: &'static [u8],
 	all_memory_sizes: &'static [&'static str],
 }
@@ -462,7 +465,7 @@ impl FastFormatter {
 		let code = instruction.code();
 
 		// Safe, all Code values are valid indexes
-		let mut mnemonic = unsafe { self.d.code_mnemonics.get_unchecked(code as usize) }.as_str();
+		let mut mnemonic = unsafe { *self.d.code_mnemonics.get_unchecked(code as usize) };
 		// Safe, all Code values are valid indexes
 		let flags = unsafe { *self.d.code_flags.get_unchecked(code as usize) };
 
@@ -624,9 +627,7 @@ impl FastFormatter {
 							output.push(':');
 							FastFormatter::write_symbol(output, imm64, symbol, &self.d.options);
 						} else {
-							{
-								FastFormatter::format_number(output, instruction.far_branch_selector() as u64, &self.d.options);
-							}
+							FastFormatter::format_number(output, instruction.far_branch_selector() as u64, &self.d.options);
 							output.push(':');
 							FastFormatter::format_number(output, imm64, &self.d.options);
 						}
@@ -999,6 +1000,7 @@ impl FastFormatter {
 		}
 	}
 
+	#[inline]
 	fn write_symbol(output: &mut String, address: u64, symbol: &SymbolResult, options: &FastFormatterOptions) {
 		FastFormatter::write_symbol2(output, address, symbol, options, true);
 	}

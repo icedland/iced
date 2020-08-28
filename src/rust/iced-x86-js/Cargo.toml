@@ -40,7 +40,8 @@ no_d3now = ["iced-x86-rust/no_d3now"]
 
 [dependencies]
 static_assertions = "1.1.0"
-wasm-bindgen = { version = "0.2.61", features = ["strict-macro"] }
+#TODO: force version 0.2.65, see https://github.com/rustwasm/wasm-pack/issues/886
+wasm-bindgen = { version = "=0.2.65", features = ["strict-macro"] }
 js-sys = "0.3.37"
 
 [dependencies.iced-x86-rust]

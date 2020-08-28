@@ -22,11 +22,11 @@ Prerequisites:
 
 You can override which features to build to reduce the size of the wasm/ts/js files, see [Feature flags](#feature-flags).
 
-This example assumes you need features `decoder` and `masm` and use a JavaScript bundler eg. webpack (change `bundler` to `nodejs` for Node.js support):
+This example assumes you need features `decoder` and `fast_fmt` and use a JavaScript bundler eg. webpack (change `bundler` to `nodejs` for Node.js support):
 
 ```sh
 cd src/rust/iced-x86-js
-wasm-pack build --mode force --target bundler -- --no-default-features --features "decoder masm"
+wasm-pack build --mode force --target bundler -- --no-default-features --features "decoder fast_fmt"
 ```
 
 `--target` docs [are here](https://rustwasm.github.io/docs/wasm-bindgen/reference/deployment.html) (`bundler`, `web`, `nodejs`, `no-modules`).
@@ -79,16 +79,16 @@ Here's a list of all features you can enable when building the wasm file
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
-- `fast_fmt`: (✔️Enabled by default) TODO:
+- `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` which uses less code (smaller wasm files)
 - `bigint`: Enables public APIs with `i64`/`u64` arguments and return values (requires JavaScript `BigInt` type, eg. Node.js >= 10.4.0)
 - `no_vex`: Disables all `VEX` instructions. See below for more info.
 - `no_evex`: Disables all `EVEX` instructions. See below for more info.
 - `no_xop`: Disables all `XOP` instructions. See below for more info.
 - `no_d3now`: Disables all `3DNow!` instructions. See below for more info.
 
-`"decoder masm"` is all you need to disassemble code.
+`"decoder fast_fmt"` is all you need to disassemble code (or replace `fast_fmt` with eg. `nasm` or `gas`).
 
-`"decoder masm instr_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
+`"decoder fast_fmt instr_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
 
 If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
 
@@ -157,7 +157,9 @@ decoder.ipHi = exampleRipHi;
 // which overwrites an existing instruction.
 const instructions = decoder.decodeAll();
 
-// Create a nasm formatter. It supports: Masm, Nasm, Gas (AT&T) and Intel (XED)
+// Create a nasm formatter. It supports: Masm, Nasm, Gas (AT&T) and Intel (XED).
+// There's also `FastFormatter` which uses less code (smaller wasm files).
+//     const formatter = new FastFormatter();
 const formatter = new Formatter(FormatterSyntax.Nasm);
 
 // Change some options, there are many more
