@@ -260,6 +260,17 @@ impl Instruction {
 			| (((new_value as u32) & OpKindFlags::CODE_SIZE_MASK) << OpKindFlags::CODE_SIZE_SHIFT);
 	}
 
+	/// Checks if it's an invalid instruction ([`code()`] == [`Code::INVALID`])
+	///
+	/// [`code()`]: #method.code
+	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_invalid(&self) -> bool {
+		const_assert_eq!(0, Code::INVALID as u32);
+		(self.code_flags & CodeFlags::CODE_MASK) == 0
+	}
+
 	/// Gets the instruction code, see also [`mnemonic()`]
 	///
 	/// [`mnemonic()`]: #method.mnemonic

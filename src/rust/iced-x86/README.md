@@ -532,7 +532,7 @@ pub(crate) fn how_to_move_code() {
     for instr in &mut decoder {
         orig_instructions.push(instr);
         total_bytes += instr.len() as u32;
-        if instr.code() == Code::INVALID {
+        if instr.is_invalid() {
             panic!("Found garbage");
         }
         if total_bytes >= required_bytes {

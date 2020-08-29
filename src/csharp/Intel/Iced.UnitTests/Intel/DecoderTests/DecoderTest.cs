@@ -51,6 +51,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(canRead, codeReader.CanReadByte);
 
 			Assert.Equal(code, instruction.Code);
+			Assert.Equal(code == Code.INVALID, instruction.IsInvalid);
 			Assert.Equal(2, instruction.OpCount);
 			Assert.Equal(length, instruction.Length);
 			Assert.False(instruction.HasRepPrefix);
@@ -108,6 +109,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(tc.DecoderError, decoder.LastError);
 			Assert.Equal(canRead, codeReader.CanReadByte);
 			Assert.Equal(tc.Code, instruction.Code);
+			Assert.Equal(tc.Code == Code.INVALID, instruction.IsInvalid);
 			Assert.Equal(tc.Mnemonic, instruction.Mnemonic);
 			Assert.Equal(instruction.Mnemonic, instruction.Code.Mnemonic());
 			Assert.Equal(length, instruction.Length);

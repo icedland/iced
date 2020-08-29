@@ -455,7 +455,7 @@ Moved code:
             decoder.Decode(out var instr);
             origInstructions.Add(instr);
             totalBytes += (uint)instr.Length;
-            if (instr.Code == Code.INVALID)
+            if (instr.IsInvalid)
                 throw new Exception("Found garbage");
             if (totalBytes >= requiredBytes)
                 break;

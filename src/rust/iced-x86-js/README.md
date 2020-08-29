@@ -429,7 +429,7 @@ while (decoder.canDecode) {
     const instr = decoder.decode();
     origInstructions.push(instr);
     totalBytes += instr.length;
-    if (instr.code === Code.INVALID)
+    if (instr.isInvalid)
         throw new Error("Found garbage");
     if (totalBytes >= requiredBytes)
         break;

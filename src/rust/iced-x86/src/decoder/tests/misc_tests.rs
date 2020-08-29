@@ -105,7 +105,7 @@ fn decode_multiple_instrs_with_one_instance() {
 		let co1 = decoder.get_constant_offsets(&instr1);
 		let co2 = decoder_all.get_constant_offsets(&instr2);
 		assert_eq!(instr1.code(), instr2.code());
-		if instr1.code() == Code::INVALID {
+		if instr1.is_invalid() {
 			// decoder_all has a bigger buffer and can decode more bytes
 			decoder_all.set_position(position + bytes.len());
 			instr2.set_len(bytes.len());

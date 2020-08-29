@@ -343,6 +343,16 @@ impl Instruction {
 		self.0.set_code_size(code_size_to_iced(newValue))
 	}
 
+	/// Checks if it's an invalid instruction ([`code`] == [`Code.INVALID`])
+	///
+	/// [`code`]: #method.code
+	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isInvalid")]
+	pub fn is_invalid(&self) -> bool {
+		self.0.is_invalid()
+	}
+
 	/// Gets the instruction code (a [`Code`] enum value), see also [`mnemonic`].
 	///
 	/// [`mnemonic`]: #method.mnemonic

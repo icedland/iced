@@ -241,6 +241,17 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Checks if it's an invalid instruction (<see cref="Code"/> == <see cref="Code.INVALID"/>)
+		/// </summary>
+		public readonly bool IsInvalid {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get {
+				Static.Assert((int)Code.INVALID == 0 ? 0 : -1);
+				return (codeFlags & (uint)CodeFlags.CodeMask) == 0;
+			}
+		}
+
+		/// <summary>
 		/// Instruction code, see also <see cref="Mnemonic"/>
 		/// </summary>
 		public Code Code {

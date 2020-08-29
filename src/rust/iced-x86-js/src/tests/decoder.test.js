@@ -28,6 +28,7 @@ test("Create a Decoder with no bytes", () => {
 	const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	expect(decoder.canDecode).toBe(false);
 	const instr = decoder.decode();
+	expect(instr.isInvalid).toBe(true);
 	expect(instr.code).toBe(Code.INVALID);
 	expect(decoder.lastError).toBe(DecoderError.NoMoreBytes);
 	instr.free();
@@ -40,6 +41,7 @@ test("Create a 16-bit Decoder", () => {
 
 	expect(decoder.bitness).toBe(16);
 	const instr = decoder.decode();
+	expect(instr.isInvalid).toBe(false);
 	expect(instr.code).toBe(Code.Add_rm16_r16);
 	expect(instr.op0Kind).toBe(OpKind.Memory);
 	expect(instr.memoryBase).toBe(Register.BX);
@@ -55,6 +57,7 @@ test("Create a 32-bit Decoder", () => {
 
 	expect(decoder.bitness).toBe(32);
 	const instr = decoder.decode();
+	expect(instr.isInvalid).toBe(false);
 	expect(instr.code).toBe(Code.Add_rm32_r32);
 	expect(instr.op0Kind).toBe(OpKind.Memory);
 	expect(instr.memoryBase).toBe(Register.EAX);
@@ -70,6 +73,7 @@ test("Create a 64-bit Decoder", () => {
 
 	expect(decoder.bitness).toBe(64);
 	const instr = decoder.decode();
+	expect(instr.isInvalid).toBe(false);
 	expect(instr.code).toBe(Code.Add_rm64_r64);
 	expect(instr.op0Kind).toBe(OpKind.Memory);
 	expect(instr.memoryBase).toBe(Register.RAX);
