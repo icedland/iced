@@ -14914,17 +14914,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vfmaddss_xmm_xmm_xmmm32_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x84, 0x0A,// 1284 = "vfmaddss"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfmaddss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x85, 0x0A,// 1285 = "vfmaddsd"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
@@ -14956,17 +14954,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsubss_xmm_xmm_xmmm32_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x88, 0x0A,// 1288 = "vfmsubss"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfmsubss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x89, 0x0A,// 1289 = "vfmsubsd"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
@@ -15058,17 +15054,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x92, 0x0A,// 1298 = "vfnmaddss"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x93, 0x0A,// 1299 = "vfnmaddsd"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
@@ -15100,17 +15094,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x96, 0x0A,// 1302 = "vfnmsubss"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0x97, 0x0A,// 1303 = "vfnmsubsd"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
@@ -15390,14 +15382,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// XOP_Vfrczss_xmm_xmmm32
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0xC4, 0x0A,// 1348 = "vfrczss"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// XOP_Vfrczsd_xmm_xmmm64
-	0x82,// 'v', Normal_2
+	0x81,// 'v', Normal_1
 	0xC5, 0x0A,// 1349 = "vfrczsd"
-	0x04,// 0x4 = MemSize_XmmwordPtr
 
 	// XOP_Vprotb_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
