@@ -1342,5 +1342,10 @@
 64, 62 F36D48 44 F4 11, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=true
 64, 62 F36D48 44 F4 FF, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=true
 
+64, B0 80, Mov_r8_imm8, SignedImmediateOperands=true
+64, 66 B8 0080, Mov_r16_imm16, SignedImmediateOperands=true
+64, B8 00000080, Mov_r32_imm32, SignedImmediateOperands=true
+64, 48 B8 0000000000000080, Mov_r64_imm64, SignedImmediateOperands=true
+64, C8 0000 80, Enterq_imm16_imm8, SignedImmediateOperands=true
 16, 8A 87 0080, Mov_r8_rm8, SignedMemoryDisplacements=true
 32, 8A 80 00000080, Mov_r8_rm8, SignedMemoryDisplacements=true

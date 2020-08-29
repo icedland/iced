@@ -1342,5 +1342,10 @@ vpclmullqhqdq zmm6,zmm2,zmm4
 vpclmulhqhqdq zmm6,zmm2,zmm4
 vpclmulqdq zmm6,zmm2,zmm4,0FFh
 
+mov al,80h
+mov ax,8000h
+mov eax,80000000h
+mov rax,8000000000000000h
+enter 0h,80h
 mov al,[bx-8000h]
 mov al,[eax-80000000h]
