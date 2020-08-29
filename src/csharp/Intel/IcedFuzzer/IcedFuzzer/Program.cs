@@ -459,6 +459,8 @@ namespace IcedFuzzer {
 				if (options.ValidFilename is null && options.InvalidFilename is null)
 					throw new CommandLineParserException("At least one of -oil, -ovl, -ovlc and -ov must be used");
 			}
+			if (options.InvalidFilename is null)
+				options.IncludeInvalidInstructions = false;
 			return options;
 		}
 
