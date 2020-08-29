@@ -411,7 +411,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! [`Formatter`]: trait.Formatter.html
 //!
 //! ```rust compile_fail
-//! // This example uses crate colored = "1.9.2"
+//! // This example uses crate colored = "2.0.0"
 //! use colored::{ColoredString, Colorize};
 //! use iced_x86::{
 //!     Decoder, DecoderOptions, Formatter, FormatterOutput, FormatterTextKind, IntelFormatter,

@@ -388,7 +388,7 @@ This example will fail to compile unless you install the `colored` crate, see be
 [`Formatter`]: https://docs.rs/iced-x86/1.8.0/iced_x86/trait.Formatter.html
 
 ```rust compile_fail
-// This example uses crate colored = "1.9.2"
+// This example uses crate colored = "2.0.0"
 use colored::{ColoredString, Colorize};
 use iced_x86::{
     Decoder, DecoderOptions, Formatter, FormatterOutput, FormatterTextKind, IntelFormatter,
