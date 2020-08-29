@@ -274,7 +274,8 @@ namespace Iced.Intel {
 		public bool InvalidNoMoreBytes => (state.flags & StateFlags.NoMoreBytes) != 0;
 
 		/// <summary>
-		/// Gets the last decoder error. Call it after calling <see cref="Decode()"/> or <see cref="Decode(out Instruction)"/>
+		/// Gets the last decoder error. Unless you need to know the reason it failed,
+		/// it's better to check if <see cref="Instruction.Code"/> == <see cref="Code.INVALID"/>.
 		/// </summary>
 		public DecoderError LastError {
 			get {

@@ -372,14 +372,12 @@ impl Decoder {
 		self.decoder.iter().take(count).map(|i| JsValue::from(Instruction(i))).collect()
 	}
 
-	/// Gets the last decoder error. Call it after calling [`decode()`] and [`decodeOut()`] to
-	/// check if there was an error decoding the instruction. If there's an error, the returned
-	/// instruction will be invalid ([`Code.INVALID`]).
+	/// Gets the last decoder error. Unless you need to know the reason it failed,
+	/// it's better to check if [`instruction.code`] == [`Code.INVALID`].
 	///
 	/// It returns a [`DecoderError`] enum value.
 	///
-	/// [`decode()`]: #method.decode
-	/// [`decodeOut()`]: #method.decode_out
+	/// [`instruction.code`]: struct.Instruction.html#method.code
 	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
 	/// [`DecoderError`]: enum.DecoderError.html
 	#[wasm_bindgen(getter)]

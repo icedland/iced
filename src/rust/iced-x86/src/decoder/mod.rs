@@ -794,12 +794,10 @@ impl<'a> Decoder<'a> {
 		(self.state.flags & StateFlags::NO_MORE_BYTES) != 0
 	}
 
-	/// Gets the last decoder error. Call it after calling [`decode()`] and [`decode_out()`] to
-	/// check if there was an error decoding the instruction. If there's an error, the returned
-	/// instruction will be invalid ([`Code::INVALID`]).
+	/// Gets the last decoder error. Unless you need to know the reason it failed,
+	/// it's better to check if [`instruction.code()`] == [`Code::INVALID`].
 	///
-	/// [`decode()`]: #method.decode
-	/// [`decode_out()`]: #method.decode_out
+	/// [`instruction.code()`]: struct.Instruction.html#method.code
 	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
