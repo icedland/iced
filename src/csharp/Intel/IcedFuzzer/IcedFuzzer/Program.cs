@@ -229,7 +229,7 @@ namespace IcedFuzzer {
 		}
 
 		static void PrintHelp() {
-			var filename = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
+			var filename = Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName ?? "???");
 			var sep = seps[0];
 			Console.WriteLine($"{filename} <-16|-32|-64> [other options]");
 			Console.WriteLine();

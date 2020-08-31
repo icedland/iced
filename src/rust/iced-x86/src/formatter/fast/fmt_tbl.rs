@@ -65,7 +65,6 @@ fn read() -> FmtTableData {
 		};
 
 		let mnemonic = Box::into_raw(Box::new(mnemonic));
-		// Safe, it's stored in 'static data
 		let mnemonic: &'static str = unsafe { (*mnemonic).as_str() };
 		flags.push(f as u8);
 		mnemonics.push(mnemonic);

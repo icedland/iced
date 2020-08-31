@@ -96,8 +96,8 @@ namespace Iced.Intel {
 			var code = instruction.Code;
 			var mnemonic = codeMnemonics[(int)code];
 			var flags = codeFlags[(int)code];
-			var pseudoOpsNum = (uint)flags >> (int)FastFmtFlags.PseudoOpsKindShift;
 			var opCount = instruction.OpCount;
+			var pseudoOpsNum = (uint)flags >> (int)FastFmtFlags.PseudoOpsKindShift;
 			if (pseudoOpsNum != 0 && options.UsePseudoOps && instruction.GetOpKind(opCount - 1) == OpKind.Immediate8) {
 				int index = instruction.Immediate8;
 				var pseudoOpKind = (PseudoOpsKind)(pseudoOpsNum - 1);
@@ -120,6 +120,7 @@ namespace Iced.Intel {
 			}
 
 			var prefixSeg = instruction.SegmentPrefix;
+			Static.Assert(Register.None == 0 ? 0 : -1);
 			if (((uint)prefixSeg | instruction.HasAnyOf_Xacquire_Xrelease_Lock_Rep_Repne_Prefix) != 0) {
 				bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(code);
 				if (!hasNoTrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(instruction, opCount)) {
@@ -137,7 +138,7 @@ namespace Iced.Intel {
 				if (hasNoTrackPrefix)
 					output.Append("notrack ");
 
-				if (instruction.HasRepePrefix && FormatterUtils.ShowRepOrRepePrefix(code, ShowUselessPrefixes)) {
+				if (instruction.HasRepePrefix && (ShowUselessPrefixes || FormatterUtils.ShowRepOrRepePrefix(code, ShowUselessPrefixes))) {
 					if (FormatterUtils.IsRepeOrRepneInstruction(code))
 						output.Append("repe ");
 					else
@@ -151,7 +152,7 @@ namespace Iced.Intel {
 						code.IsJccShortOrNear()) {
 						output.Append("bnd ");
 					}
-					else if (FormatterUtils.ShowRepnePrefix(code, ShowUselessPrefixes))
+					else if (ShowUselessPrefixes || FormatterUtils.ShowRepnePrefix(code, ShowUselessPrefixes))
 						output.Append("repne ");
 				}
 			}
@@ -589,7 +590,8 @@ namespace Iced.Intel {
 			var codeSize = instruction.CodeSize;
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
-			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix && FormatterUtils.ShowSegmentPrefix(Register.None, instruction, ShowUselessPrefixes))) {
+			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix &&
+				(ShowUselessPrefixes || FormatterUtils.ShowSegmentPrefix(Register.None, instruction, ShowUselessPrefixes)))) {
 				FormatRegister(output, segReg);
 				output.Append(':');
 			}
@@ -627,16 +629,16 @@ namespace Iced.Intel {
 				if (needPlus) {
 					if (addrSize == 4) {
 						if ((int)displ < 0) {
-							output.Append('-');
 							displ = (uint)-(int)displ;
+							output.Append('-');
 						}
 						else
 							output.Append('+');
 					}
 					else if (addrSize == 8) {
 						if (displ < 0) {
-							output.Append('-');
 							displ = -displ;
+							output.Append('-');
 						}
 						else
 							output.Append('+');
@@ -644,8 +646,8 @@ namespace Iced.Intel {
 					else {
 						Debug.Assert(addrSize == 2);
 						if ((short)displ < 0) {
-							output.Append('-');
 							displ = (ushort)-(short)displ;
+							output.Append('-');
 						}
 						else
 							output.Append('+');

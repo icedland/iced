@@ -55,7 +55,7 @@ namespace Iced.Intel.FormatterInternal {
 		}
 
 		public static bool ShowRepOrRepePrefix(Code code, bool showUselessPrefixes) {
-			if (IsRepRepeRepneInstruction(code))
+			if (showUselessPrefixes || IsRepRepeRepneInstruction(code))
 				return true;
 
 			switch (code) {
@@ -72,7 +72,7 @@ namespace Iced.Intel.FormatterInternal {
 
 		public static bool ShowRepnePrefix(Code code, bool showUselessPrefixes) {
 			// If it's a 'rep/repne' instruction, always show the prefix
-			if (IsRepRepeRepneInstruction(code))
+			if (showUselessPrefixes || IsRepRepeRepneInstruction(code))
 				return true;
 			return showUselessPrefixes;
 		}

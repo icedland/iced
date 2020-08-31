@@ -1021,8 +1021,8 @@ namespace Iced.Intel {
 						if (!numberOptions.SignedNumber)
 							output.Write("+", FormatterTextKind.Operator);
 						else if ((int)displ < 0) {
-							output.Write("-", FormatterTextKind.Operator);
 							displ = (uint)-(int)displ;
+							output.Write("-", FormatterTextKind.Operator);
 						}
 						else
 							output.Write("+", FormatterTextKind.Operator);
@@ -1035,8 +1035,8 @@ namespace Iced.Intel {
 						if (!numberOptions.SignedNumber)
 							output.Write("+", FormatterTextKind.Operator);
 						else if (displ < 0) {
-							output.Write("-", FormatterTextKind.Operator);
 							displ = -displ;
+							output.Write("-", FormatterTextKind.Operator);
 						}
 						else
 							output.Write("+", FormatterTextKind.Operator);
@@ -1050,8 +1050,8 @@ namespace Iced.Intel {
 						if (!numberOptions.SignedNumber)
 							output.Write("+", FormatterTextKind.Operator);
 						else if ((short)displ < 0) {
-							output.Write("-", FormatterTextKind.Operator);
 							displ = (ushort)-(short)displ;
+							output.Write("-", FormatterTextKind.Operator);
 						}
 						else
 							output.Write("+", FormatterTextKind.Operator);

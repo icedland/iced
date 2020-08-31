@@ -1374,8 +1374,8 @@ impl MasmFormatter {
 					if !number_options.signed_number {
 						output.write("+", FormatterTextKind::Operator);
 					} else if (displ as i32) < 0 {
-						output.write("-", FormatterTextKind::Operator);
 						displ = (displ as i32).wrapping_neg() as u32 as i64;
+						output.write("-", FormatterTextKind::Operator);
 					} else {
 						output.write("+", FormatterTextKind::Operator);
 					}
@@ -1387,8 +1387,8 @@ impl MasmFormatter {
 					if !number_options.signed_number {
 						output.write("+", FormatterTextKind::Operator);
 					} else if displ < 0 {
-						output.write("-", FormatterTextKind::Operator);
 						displ = displ.wrapping_neg();
+						output.write("-", FormatterTextKind::Operator);
 					} else {
 						output.write("+", FormatterTextKind::Operator);
 					}
@@ -1401,8 +1401,8 @@ impl MasmFormatter {
 					if !number_options.signed_number {
 						output.write("+", FormatterTextKind::Operator);
 					} else if (displ as i16) < 0 {
-						output.write("-", FormatterTextKind::Operator);
 						displ = (displ as i16).wrapping_neg() as u16 as i64;
+						output.write("-", FormatterTextKind::Operator);
 					} else {
 						output.write("+", FormatterTextKind::Operator);
 					}

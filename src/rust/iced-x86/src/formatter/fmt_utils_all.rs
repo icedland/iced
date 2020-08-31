@@ -86,7 +86,7 @@ pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn show_rep_or_repe_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
-	if is_rep_repe_repne_instruction(code) {
+	if show_useless_prefixes || is_rep_repe_repne_instruction(code) {
 		true
 	} else {
 		// We allow 'rep ret' too since some old code use it to work around an old AMD bug
@@ -100,7 +100,7 @@ pub(super) fn show_rep_or_repe_prefix_bool(code: Code, show_useless_prefixes: bo
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn show_repne_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
 	// If it's a 'rep/repne' instruction, always show the prefix
-	if is_rep_repe_repne_instruction(code) {
+	if show_useless_prefixes || is_rep_repe_repne_instruction(code) {
 		true
 	} else {
 		show_useless_prefixes

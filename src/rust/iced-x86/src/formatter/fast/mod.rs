@@ -469,8 +469,8 @@ impl FastFormatter {
 		// Safe, all Code values are valid indexes
 		let flags = unsafe { *self.d.code_flags.get_unchecked(code as usize) };
 
-		let pseudo_ops_num = flags >> FastFmtFlags::PSEUDO_OPS_KIND_SHIFT;
 		let mut op_count = instruction.op_count();
+		let pseudo_ops_num = flags >> FastFmtFlags::PSEUDO_OPS_KIND_SHIFT;
 		if pseudo_ops_num != 0 && self.d.options.use_pseudo_ops() && instruction.op_kind(op_count - 1) == OpKind::Immediate8 {
 			let mut index = instruction.immediate8() as usize;
 			// Safe, the generator generates only valid values (1-based)
@@ -494,6 +494,7 @@ impl FastFormatter {
 		}
 
 		let prefix_seg = instruction.segment_prefix();
+		const_assert_eq!(0, Register::None as u32);
 		if ((prefix_seg as u32) | super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg != Register::None && FastFormatter::show_segment_prefix(instruction, op_count) {
@@ -515,7 +516,9 @@ impl FastFormatter {
 				output.push_str("notrack ");
 			}
 
-			if instruction.has_repe_prefix() && show_rep_or_repe_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES) {
+			if instruction.has_repe_prefix()
+				&& (FastFormatter::SHOW_USELESS_PREFIXES || show_rep_or_repe_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES))
+			{
 				if is_repe_or_repne_instruction(code) {
 					output.push_str("repe ");
 				} else {
@@ -530,7 +533,7 @@ impl FastFormatter {
 					|| code.is_jcc_short_or_near()
 				{
 					output.push_str("bnd ");
-				} else if show_repne_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES) {
+				} else if FastFormatter::SHOW_USELESS_PREFIXES || show_repne_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES) {
 					output.push_str("repne ");
 				}
 			}
@@ -1005,6 +1008,7 @@ impl FastFormatter {
 		FastFormatter::write_symbol2(output, address, symbol, options, true);
 	}
 
+	#[cold]
 	fn write_symbol2(output: &mut String, address: u64, symbol: &SymbolResult, options: &FastFormatterOptions, write_minus_if_signed: bool) {
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
 		if (symbol.flags & SymbolFlags::SIGNED) != 0 {
@@ -1113,7 +1117,8 @@ impl FastFormatter {
 		if self.d.options.always_show_segment_register()
 			|| (seg_override != Register::None
 				&& !notrack_prefix
-				&& show_segment_prefix_bool(Register::None, instruction, FastFormatter::SHOW_USELESS_PREFIXES))
+				&& (FastFormatter::SHOW_USELESS_PREFIXES
+					|| show_segment_prefix_bool(Register::None, instruction, FastFormatter::SHOW_USELESS_PREFIXES)))
 		{
 			FastFormatter::format_register(&self.d, output, seg_reg);
 			output.push(':');
@@ -1155,23 +1160,23 @@ impl FastFormatter {
 			if need_plus {
 				if addr_size == 4 {
 					if (displ as i32) < 0 {
-						output.push('-');
 						displ = (displ as i32).wrapping_neg() as u32 as i64;
+						output.push('-');
 					} else {
 						output.push('+');
 					}
 				} else if addr_size == 8 {
 					if displ < 0 {
-						output.push('-');
 						displ = displ.wrapping_neg();
+						output.push('-');
 					} else {
 						output.push('+');
 					}
 				} else {
 					debug_assert_eq!(2, addr_size);
 					if (displ as i16) < 0 {
-						output.push('-');
 						displ = (displ as i16).wrapping_neg() as u16 as i64;
+						output.push('-');
 					} else {
 						output.push('+');
 					}
