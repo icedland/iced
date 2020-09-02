@@ -267,18 +267,18 @@ imul ecx, esi, 0xffffffa5
 imul ebx, dword ptr ds:[rax], 0xffffffa5
 imul rcx, rsi, 0xffffffffffffffa5
 imul rbx, qword ptr ds:[rax], 0xffffffffffffffa5
-ins byte ptr es:[edi], dx
-ins byte ptr es:[rdi], dx
-ins word ptr es:[edi], dx
-ins word ptr es:[rdi], dx
-ins dword ptr es:[edi], dx
-ins dword ptr es:[rdi], dx
-outs dx, byte ptr ds:[esi]
-outs dx, byte ptr ds:[rsi]
-outs dx, word ptr ds:[esi]
-outs dx, word ptr ds:[rsi]
-outs dx, dword ptr ds:[esi]
-outs dx, dword ptr ds:[rsi]
+insb byte ptr es:[edi], dx
+insb byte ptr es:[rdi], dx
+insw word ptr es:[edi], dx
+insw word ptr es:[rdi], dx
+insd dword ptr es:[edi], dx
+insd dword ptr es:[rdi], dx
+outsb dx, byte ptr ds:[esi]
+outsb dx, byte ptr ds:[rsi]
+outsw dx, word ptr ds:[esi]
+outsw dx, word ptr ds:[rsi]
+outsd dx, dword ptr ds:[esi]
+outsd dx, dword ptr ds:[rsi]
 jo 0x800000000000004c
 jno 0x800000000000004c
 jb 0x800000000000004c
@@ -536,50 +536,50 @@ mov dword ptr ds:[0xf0debc9a78563412], eax
 mov dword ptr ds:[0x78563412], eax
 mov qword ptr ds:[0xf0debc9a78563412], rax
 mov qword ptr ds:[0x78563412], rax
-movs byte ptr es:[edi], byte ptr ds:[esi]
-movs byte ptr es:[rdi], byte ptr ds:[rsi]
-movs word ptr es:[edi], word ptr ds:[esi]
-movs word ptr es:[rdi], word ptr ds:[rsi]
-movs dword ptr es:[edi], dword ptr ds:[esi]
-movs dword ptr es:[rdi], dword ptr ds:[rsi]
-movs qword ptr es:[edi], qword ptr ds:[esi]
-movs qword ptr es:[rdi], qword ptr ds:[rsi]
-cmps byte ptr ds:[esi], byte ptr es:[edi]
-cmps byte ptr ds:[rsi], byte ptr es:[rdi]
-cmps word ptr ds:[esi], word ptr es:[edi]
-cmps word ptr ds:[rsi], word ptr es:[rdi]
-cmps dword ptr ds:[esi], dword ptr es:[edi]
-cmps dword ptr ds:[rsi], dword ptr es:[rdi]
-cmps qword ptr ds:[esi], qword ptr es:[edi]
-cmps qword ptr ds:[rsi], qword ptr es:[rdi]
+movsb byte ptr es:[edi], byte ptr ds:[esi]
+movsb byte ptr es:[rdi], byte ptr ds:[rsi]
+movsw word ptr es:[edi], word ptr ds:[esi]
+movsw word ptr es:[rdi], word ptr ds:[rsi]
+movsd dword ptr es:[edi], dword ptr ds:[esi]
+movsd dword ptr es:[rdi], dword ptr ds:[rsi]
+movsq qword ptr es:[edi], qword ptr ds:[esi]
+movsq qword ptr es:[rdi], qword ptr ds:[rsi]
+cmpsb byte ptr ds:[esi], byte ptr es:[edi]
+cmpsb byte ptr ds:[rsi], byte ptr es:[rdi]
+cmpsw word ptr ds:[esi], word ptr es:[edi]
+cmpsw word ptr ds:[rsi], word ptr es:[rdi]
+cmpsd dword ptr ds:[esi], dword ptr es:[edi]
+cmpsd dword ptr ds:[rsi], dword ptr es:[rdi]
+cmpsq qword ptr ds:[esi], qword ptr es:[edi]
+cmpsq qword ptr ds:[rsi], qword ptr es:[rdi]
 test al, 0xa5
 test ax, 0x5aa5
 test eax, 0x12345aa5
 test rax, 0xffffffff82345aa5
-stos byte ptr es:[edi], al
-stos byte ptr es:[rdi], al
-stos word ptr es:[edi], ax
-stos word ptr es:[rdi], ax
-stos dword ptr es:[edi], eax
-stos dword ptr es:[rdi], eax
-stos qword ptr es:[edi], rax
-stos qword ptr es:[rdi], rax
-lods al, byte ptr ds:[esi]
-lods al, byte ptr ds:[rsi]
-lods ax, word ptr ds:[esi]
-lods ax, word ptr ds:[rsi]
-lods eax, dword ptr ds:[esi]
-lods eax, dword ptr ds:[rsi]
-lods rax, qword ptr ds:[esi]
-lods rax, qword ptr ds:[rsi]
-scas al, byte ptr es:[edi]
-scas al, byte ptr es:[rdi]
-scas ax, word ptr es:[edi]
-scas ax, word ptr es:[rdi]
-scas eax, dword ptr es:[edi]
-scas eax, dword ptr es:[rdi]
-scas rax, qword ptr es:[edi]
-scas rax, qword ptr es:[rdi]
+stosb byte ptr es:[edi], al
+stosb byte ptr es:[rdi], al
+stosw word ptr es:[edi], ax
+stosw word ptr es:[rdi], ax
+stosd dword ptr es:[edi], eax
+stosd dword ptr es:[rdi], eax
+stosq qword ptr es:[edi], rax
+stosq qword ptr es:[rdi], rax
+lodsb al, byte ptr ds:[esi]
+lodsb al, byte ptr ds:[rsi]
+lodsw ax, word ptr ds:[esi]
+lodsw ax, word ptr ds:[rsi]
+lodsd eax, dword ptr ds:[esi]
+lodsd eax, dword ptr ds:[rsi]
+lodsq rax, qword ptr ds:[esi]
+lodsq rax, qword ptr ds:[rsi]
+scasb al, byte ptr es:[edi]
+scasb al, byte ptr es:[rdi]
+scasw ax, word ptr es:[edi]
+scasw ax, word ptr es:[rdi]
+scasd eax, dword ptr es:[edi]
+scasd eax, dword ptr es:[rdi]
+scasq rax, qword ptr es:[edi]
+scasq rax, qword ptr es:[rdi]
 mov al, 0x5a
 mov r8b, 0x5a
 mov cl, 0xa5
@@ -7067,21 +7067,21 @@ rorx edx, ebx, 0xa5
 rorx edx, dword ptr ds:[rax], 0x5a
 rorx rdx, rbx, 0xa5
 rorx rdx, qword ptr ds:[rax], 0xa5
-outs dx, byte ptr fs:[rsi]
-outs dx, word ptr fs:[rsi]
-outs dx, dword ptr fs:[rsi]
-movs byte ptr es:[rdi], byte ptr fs:[rsi]
-movs word ptr es:[rdi], word ptr fs:[rsi]
-movs dword ptr es:[rdi], dword ptr fs:[rsi]
-movs qword ptr es:[rdi], qword ptr fs:[rsi]
-cmps byte ptr fs:[rsi], byte ptr es:[rdi]
-cmps word ptr fs:[rsi], word ptr es:[rdi]
-cmps dword ptr fs:[rsi], dword ptr es:[rdi]
-cmps qword ptr fs:[rsi], qword ptr es:[rdi]
-lods al, byte ptr fs:[rsi]
-lods ax, word ptr fs:[rsi]
-lods eax, dword ptr fs:[rsi]
-lods rax, qword ptr fs:[rsi]
+outsb dx, byte ptr fs:[rsi]
+outsw dx, word ptr fs:[rsi]
+outsd dx, dword ptr fs:[rsi]
+movsb byte ptr es:[rdi], byte ptr fs:[rsi]
+movsw word ptr es:[rdi], word ptr fs:[rsi]
+movsd dword ptr es:[rdi], dword ptr fs:[rsi]
+movsq qword ptr es:[rdi], qword ptr fs:[rsi]
+cmpsb byte ptr fs:[rsi], byte ptr es:[rdi]
+cmpsw word ptr fs:[rsi], word ptr es:[rdi]
+cmpsd dword ptr fs:[rsi], dword ptr es:[rdi]
+cmpsq qword ptr fs:[rsi], qword ptr es:[rdi]
+lodsb al, byte ptr fs:[rsi]
+lodsw ax, word ptr fs:[rsi]
+lodsd eax, dword ptr fs:[rsi]
+lodsq rax, qword ptr fs:[rsi]
 xlat byte ptr ds:[ebx]
 xlat byte ptr fs:[rbx]
 maskmovq qword ptr fs:[rdi], mm2, mm3

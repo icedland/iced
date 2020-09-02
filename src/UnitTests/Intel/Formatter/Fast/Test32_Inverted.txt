@@ -246,18 +246,18 @@ invpcid edx, xmmword ptr ds:[eax]
 salc
 push 0xa55a
 push 0xffa5
-ins byte ptr es:[di], dx
-ins byte ptr es:[edi], dx
-ins word ptr es:[di], dx
-ins word ptr es:[edi], dx
-ins dword ptr es:[di], dx
-ins dword ptr es:[edi], dx
-outs dx, byte ptr ds:[si]
-outs dx, byte ptr ds:[esi]
-outs dx, word ptr ds:[si]
-outs dx, word ptr ds:[esi]
-outs dx, dword ptr ds:[si]
-outs dx, dword ptr ds:[esi]
+insb byte ptr es:[di], dx
+insb byte ptr es:[edi], dx
+insw word ptr es:[di], dx
+insw word ptr es:[edi], dx
+insd dword ptr es:[di], dx
+insd dword ptr es:[edi], dx
+outsb dx, byte ptr ds:[si]
+outsb dx, byte ptr ds:[esi]
+outsw dx, word ptr ds:[si]
+outsw dx, word ptr ds:[esi]
+outsd dx, dword ptr ds:[si]
+outsd dx, dword ptr ds:[esi]
 mov fs, si
 mov ds, word ptr ds:[eax]
 mov fs, esi
@@ -280,36 +280,36 @@ mov word ptr ds:[0xf0debc9a], ax
 mov word ptr ds:[0xf0de], ax
 mov dword ptr ds:[0xf0debc9a], eax
 mov dword ptr ds:[0xf0de], eax
-movs byte ptr es:[di], byte ptr ds:[si]
-movs byte ptr es:[edi], byte ptr ds:[esi]
-movs word ptr es:[di], word ptr ds:[si]
-movs word ptr es:[edi], word ptr ds:[esi]
-movs dword ptr es:[di], dword ptr ds:[si]
-movs dword ptr es:[edi], dword ptr ds:[esi]
-cmps byte ptr ds:[si], byte ptr es:[di]
-cmps byte ptr ds:[esi], byte ptr es:[edi]
-cmps word ptr ds:[si], word ptr es:[di]
-cmps word ptr ds:[esi], word ptr es:[edi]
-cmps dword ptr ds:[si], dword ptr es:[di]
-cmps dword ptr ds:[esi], dword ptr es:[edi]
-stos byte ptr es:[di], al
-stos byte ptr es:[edi], al
-stos word ptr es:[di], ax
-stos word ptr es:[edi], ax
-stos dword ptr es:[di], eax
-stos dword ptr es:[edi], eax
-lods al, byte ptr ds:[si]
-lods al, byte ptr ds:[esi]
-lods ax, word ptr ds:[si]
-lods ax, word ptr ds:[esi]
-lods eax, dword ptr ds:[si]
-lods eax, dword ptr ds:[esi]
-scas al, byte ptr es:[di]
-scas al, byte ptr es:[edi]
-scas ax, word ptr es:[di]
-scas ax, word ptr es:[edi]
-scas eax, dword ptr es:[di]
-scas eax, dword ptr es:[edi]
+movsb byte ptr es:[di], byte ptr ds:[si]
+movsb byte ptr es:[edi], byte ptr ds:[esi]
+movsw word ptr es:[di], word ptr ds:[si]
+movsw word ptr es:[edi], word ptr ds:[esi]
+movsd dword ptr es:[di], dword ptr ds:[si]
+movsd dword ptr es:[edi], dword ptr ds:[esi]
+cmpsb byte ptr ds:[si], byte ptr es:[di]
+cmpsb byte ptr ds:[esi], byte ptr es:[edi]
+cmpsw word ptr ds:[si], word ptr es:[di]
+cmpsw word ptr ds:[esi], word ptr es:[edi]
+cmpsd dword ptr ds:[si], dword ptr es:[di]
+cmpsd dword ptr ds:[esi], dword ptr es:[edi]
+stosb byte ptr es:[di], al
+stosb byte ptr es:[edi], al
+stosw word ptr es:[di], ax
+stosw word ptr es:[edi], ax
+stosd dword ptr es:[di], eax
+stosd dword ptr es:[edi], eax
+lodsb al, byte ptr ds:[si]
+lodsb al, byte ptr ds:[esi]
+lodsw ax, word ptr ds:[si]
+lodsw ax, word ptr ds:[esi]
+lodsd eax, dword ptr ds:[si]
+lodsd eax, dword ptr ds:[esi]
+scasb al, byte ptr es:[di]
+scasb al, byte ptr es:[edi]
+scasw ax, word ptr es:[di]
+scasw ax, word ptr es:[edi]
+scasd eax, dword ptr es:[di]
+scasd eax, dword ptr es:[edi]
 xbegin 0x7fffa54f
 xbegin 0xb412a550
 enter 0xa55a, 0xa6
@@ -459,18 +459,18 @@ maskmovdqu xmmword ptr ds:[di], xmm2, xmm3
 maskmovdqu xmmword ptr ds:[edi], xmm2, xmm3
 vmaskmovdqu xmmword ptr ds:[di], xmm2, xmm3
 vmaskmovdqu xmmword ptr ds:[edi], xmm2, xmm3
-outs dx, byte ptr fs:[esi]
-outs dx, word ptr fs:[esi]
-outs dx, dword ptr fs:[esi]
-movs byte ptr es:[edi], byte ptr fs:[esi]
-movs word ptr es:[edi], word ptr fs:[esi]
-movs dword ptr es:[edi], dword ptr fs:[esi]
-cmps byte ptr fs:[esi], byte ptr es:[edi]
-cmps word ptr fs:[esi], word ptr es:[edi]
-cmps dword ptr fs:[esi], dword ptr es:[edi]
-lods al, byte ptr fs:[esi]
-lods ax, word ptr fs:[esi]
-lods eax, dword ptr fs:[esi]
+outsb dx, byte ptr fs:[esi]
+outsw dx, word ptr fs:[esi]
+outsd dx, dword ptr fs:[esi]
+movsb byte ptr es:[edi], byte ptr fs:[esi]
+movsw word ptr es:[edi], word ptr fs:[esi]
+movsd dword ptr es:[edi], dword ptr fs:[esi]
+cmpsb byte ptr fs:[esi], byte ptr es:[edi]
+cmpsw word ptr fs:[esi], word ptr es:[edi]
+cmpsd dword ptr fs:[esi], dword ptr es:[edi]
+lodsb al, byte ptr fs:[esi]
+lodsw ax, word ptr fs:[esi]
+lodsd eax, dword ptr fs:[esi]
 xlat byte ptr ds:[bx]
 xlat byte ptr fs:[ebx]
 maskmovq qword ptr fs:[edi], mm2, mm3

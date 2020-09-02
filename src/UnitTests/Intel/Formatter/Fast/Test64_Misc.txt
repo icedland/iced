@@ -146,40 +146,40 @@ lock xchg [rax],ecx
 lock xchg [rax],rcx
 lock cmpxchg8b [rax]
 lock cmpxchg16b [rax]
-rep ins byte ptr [rdi],dx
-rep ins word ptr [rdi],dx
-rep ins dword ptr [rdi],dx
-rep outs dx,byte ptr [rsi]
-rep outs dx,word ptr [rsi]
-rep outs dx,dword ptr [rsi]
-rep movs byte ptr [rdi],byte ptr [rsi]
-rep movs word ptr [rdi],word ptr [rsi]
-rep movs dword ptr [rdi],dword ptr [rsi]
-rep movs qword ptr [rdi],qword ptr [rsi]
-repe cmps byte ptr [rsi],byte ptr [rdi]
-repne cmps byte ptr [rsi],byte ptr [rdi]
-repe cmps word ptr [rsi],word ptr [rdi]
-repne cmps word ptr [rsi],word ptr [rdi]
-repe cmps dword ptr [rsi],dword ptr [rdi]
-repne cmps dword ptr [rsi],dword ptr [rdi]
-repe cmps qword ptr [rsi],qword ptr [rdi]
-repne cmps qword ptr [rsi],qword ptr [rdi]
-rep stos [rdi],al
-rep stos [rdi],ax
-rep stos [rdi],eax
-rep stos [rdi],rax
-rep lods al,[rsi]
-rep lods ax,[rsi]
-rep lods eax,[rsi]
-rep lods rax,[rsi]
-repe scas al,[rdi]
-repne scas al,[rdi]
-repe scas ax,[rdi]
-repne scas ax,[rdi]
-repe scas eax,[rdi]
-repne scas eax,[rdi]
-repe scas rax,[rdi]
-repne scas rax,[rdi]
+rep insb [rdi],dx
+rep insw [rdi],dx
+rep insd [rdi],dx
+rep outsb dx,[rsi]
+rep outsw dx,[rsi]
+rep outsd dx,[rsi]
+rep movsb [rdi],[rsi]
+rep movsw [rdi],[rsi]
+rep movsd [rdi],[rsi]
+rep movsq [rdi],[rsi]
+repe cmpsb [rsi],[rdi]
+repne cmpsb [rsi],[rdi]
+repe cmpsw [rsi],[rdi]
+repne cmpsw [rsi],[rdi]
+repe cmpsd [rsi],[rdi]
+repne cmpsd [rsi],[rdi]
+repe cmpsq [rsi],[rdi]
+repne cmpsq [rsi],[rdi]
+rep stosb [rdi],al
+rep stosw [rdi],ax
+rep stosd [rdi],eax
+rep stosq [rdi],rax
+rep lodsb al,[rsi]
+rep lodsw ax,[rsi]
+rep lodsd eax,[rsi]
+rep lodsq rax,[rsi]
+repe scasb al,[rdi]
+repne scasb al,[rdi]
+repe scasw ax,[rdi]
+repne scasw ax,[rdi]
+repe scasd eax,[rdi]
+repne scasd eax,[rdi]
+repe scasq rax,[rdi]
+repne scasq rax,[rdi]
 xacquire lock adc [rax],cl
 xacquire lock adc byte ptr [rax],0A5h
 xacquire lock adc [rax],cx

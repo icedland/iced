@@ -525,24 +525,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// Insb_m8_DX
-	0x04,// ForceMemSize
-	0x95, 0x01,// 149 = "ins"
+	0x00,// No flags set
+	0x96, 0x01,// 150 = "insb"
 
 	// Insw_m16_DX
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0x97, 0x01,// 151 = "insw"
 
 	// Insd_m32_DX
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0x98, 0x01,// 152 = "insd"
 
 	// Outsb_DX_m8
-	0x04,// ForceMemSize
-	0x99, 0x01,// 153 = "outs"
+	0x00,// No flags set
+	0x9A, 0x01,// 154 = "outsb"
 
 	// Outsw_DX_m16
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0x9B, 0x01,// 155 = "outsw"
 
 	// Outsd_DX_m32
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0x9C, 0x01,// 156 = "outsd"
 
 	// Jo_rel8_16
 	0x00,// No flags set
@@ -1135,30 +1139,36 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// Movsb_m8_m8
-	0x04,// ForceMemSize
-	0xC5, 0x01,// 197 = "movs"
+	0x00,// No flags set
+	0xC6, 0x01,// 198 = "movsb"
 
 	// Movsw_m16_m16
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0xC7, 0x01,// 199 = "movsw"
 
 	// Movsd_m32_m32
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0x24,// 36 = "movsd"
 
 	// Movsq_m64_m64
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0xC8, 0x01,// 200 = "movsq"
 
 	// Cmpsb_m8_m8
-	0x04,// ForceMemSize
-	0xC9, 0x01,// 201 = "cmps"
+	0x00,// No flags set
+	0xCA, 0x01,// 202 = "cmpsb"
 
 	// Cmpsw_m16_m16
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0xCB, 0x01,// 203 = "cmpsw"
 
 	// Cmpsd_m32_m32
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0x96, 0x06,// 790 = "cmpsd"
 
 	// Cmpsq_m64_m64
-	0x06,// SameAsPrev, ForceMemSize
+	0x00,// No flags set
+	0xCC, 0x01,// 204 = "cmpsq"
 
 	// Test_AL_imm8
 	0x00,// No flags set
@@ -1175,42 +1185,51 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Stosb_m8_AL
 	0x00,// No flags set
-	0xCD, 0x01,// 205 = "stos"
+	0xCE, 0x01,// 206 = "stosb"
 
 	// Stosw_m16_AX
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xCF, 0x01,// 207 = "stosw"
 
 	// Stosd_m32_EAX
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xD0, 0x01,// 208 = "stosd"
 
 	// Stosq_m64_RAX
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xD1, 0x01,// 209 = "stosq"
 
 	// Lodsb_AL_m8
 	0x00,// No flags set
-	0xD2, 0x01,// 210 = "lods"
+	0xD3, 0x01,// 211 = "lodsb"
 
 	// Lodsw_AX_m16
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xD4, 0x01,// 212 = "lodsw"
 
 	// Lodsd_EAX_m32
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xD5, 0x01,// 213 = "lodsd"
 
 	// Lodsq_RAX_m64
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xD6, 0x01,// 214 = "lodsq"
 
 	// Scasb_AL_m8
 	0x00,// No flags set
-	0xD7, 0x01,// 215 = "scas"
+	0xD8, 0x01,// 216 = "scasb"
 
 	// Scasw_AX_m16
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xD9, 0x01,// 217 = "scasw"
 
 	// Scasd_EAX_m32
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xDA, 0x01,// 218 = "scasd"
 
 	// Scasq_RAX_m64
-	0x02,// SameAsPrev
+	0x00,// No flags set
+	0xDB, 0x01,// 219 = "scasq"
 
 	// Mov_r8_imm8
 	0x00,// No flags set
