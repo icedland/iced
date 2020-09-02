@@ -556,30 +556,30 @@ test al,0A5h
 test ax,5AA5h
 test eax,12345AA5h
 test rax,0FFFFFFFF82345AA5h
-stos byte ptr [edi],al
-stos byte ptr [rdi],al
-stos word ptr [edi],ax
-stos word ptr [rdi],ax
-stos dword ptr [edi],eax
-stos dword ptr [rdi],eax
-stos qword ptr [edi],rax
-stos qword ptr [rdi],rax
-lods al,byte ptr [esi]
-lods al,byte ptr [rsi]
-lods ax,word ptr [esi]
-lods ax,word ptr [rsi]
-lods eax,dword ptr [esi]
-lods eax,dword ptr [rsi]
-lods rax,qword ptr [esi]
-lods rax,qword ptr [rsi]
-scas al,byte ptr [edi]
-scas al,byte ptr [rdi]
-scas ax,word ptr [edi]
-scas ax,word ptr [rdi]
-scas eax,dword ptr [edi]
-scas eax,dword ptr [rdi]
-scas rax,qword ptr [edi]
-scas rax,qword ptr [rdi]
+stos [edi],al
+stos [rdi],al
+stos [edi],ax
+stos [rdi],ax
+stos [edi],eax
+stos [rdi],eax
+stos [edi],rax
+stos [rdi],rax
+lods al,[esi]
+lods al,[rsi]
+lods ax,[esi]
+lods ax,[rsi]
+lods eax,[esi]
+lods eax,[rsi]
+lods rax,[esi]
+lods rax,[rsi]
+scas al,[edi]
+scas al,[rdi]
+scas ax,[edi]
+scas ax,[rdi]
+scas eax,[edi]
+scas eax,[rdi]
+scas rax,[edi]
+scas rax,[rdi]
 mov al,5Ah
 mov r8b,5Ah
 mov cl,0A5h
@@ -7078,10 +7078,10 @@ cmps byte ptr fs:[rsi],byte ptr es:[rdi]
 cmps word ptr fs:[rsi],word ptr es:[rdi]
 cmps dword ptr fs:[rsi],dword ptr es:[rdi]
 cmps qword ptr fs:[rsi],qword ptr es:[rdi]
-lods al,byte ptr fs:[rsi]
-lods ax,word ptr fs:[rsi]
-lods eax,dword ptr fs:[rsi]
-lods rax,qword ptr fs:[rsi]
+lods al,fs:[rsi]
+lods ax,fs:[rsi]
+lods eax,fs:[rsi]
+lods rax,fs:[rsi]
 xlat [ebx]
 xlat fs:[rbx]
 maskmovq fs:[rdi],mm2,mm3

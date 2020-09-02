@@ -164,22 +164,22 @@ repe cmps dword ptr [rsi],dword ptr [rdi]
 repne cmps dword ptr [rsi],dword ptr [rdi]
 repe cmps qword ptr [rsi],qword ptr [rdi]
 repne cmps qword ptr [rsi],qword ptr [rdi]
-rep stos byte ptr [rdi],al
-rep stos word ptr [rdi],ax
-rep stos dword ptr [rdi],eax
-rep stos qword ptr [rdi],rax
-rep lods al,byte ptr [rsi]
-rep lods ax,word ptr [rsi]
-rep lods eax,dword ptr [rsi]
-rep lods rax,qword ptr [rsi]
-repe scas al,byte ptr [rdi]
-repne scas al,byte ptr [rdi]
-repe scas ax,word ptr [rdi]
-repne scas ax,word ptr [rdi]
-repe scas eax,dword ptr [rdi]
-repne scas eax,dword ptr [rdi]
-repe scas rax,qword ptr [rdi]
-repne scas rax,qword ptr [rdi]
+rep stos [rdi],al
+rep stos [rdi],ax
+rep stos [rdi],eax
+rep stos [rdi],rax
+rep lods al,[rsi]
+rep lods ax,[rsi]
+rep lods eax,[rsi]
+rep lods rax,[rsi]
+repe scas al,[rdi]
+repne scas al,[rdi]
+repe scas ax,[rdi]
+repne scas ax,[rdi]
+repe scas eax,[rdi]
+repne scas eax,[rdi]
+repe scas rax,[rdi]
+repne scas rax,[rdi]
 xacquire lock adc [rax],cl
 xacquire lock adc byte ptr [rax],0A5h
 xacquire lock adc [rax],cx

@@ -1183,43 +1183,43 @@ namespace Iced.Intel.FastFormatterInternal {
 				0x02,// SameAsPrev
 
 				// Stosb_m8_AL
-				0x04,// ForceMemSize
+				0x00,// No flags set
 				0xCD, 0x01,// 205 = "stos"
 
 				// Stosw_m16_AX
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Stosd_m32_EAX
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Stosq_m64_RAX
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Lodsb_AL_m8
-				0x04,// ForceMemSize
+				0x00,// No flags set
 				0xD2, 0x01,// 210 = "lods"
 
 				// Lodsw_AX_m16
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Lodsd_EAX_m32
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Lodsq_RAX_m64
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Scasb_AL_m8
-				0x04,// ForceMemSize
+				0x00,// No flags set
 				0xD7, 0x01,// 215 = "scas"
 
 				// Scasw_AX_m16
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Scasd_EAX_m32
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Scasq_RAX_m64
-				0x06,// SameAsPrev, ForceMemSize
+				0x02,// SameAsPrev
 
 				// Mov_r8_imm8
 				0x00,// No flags set

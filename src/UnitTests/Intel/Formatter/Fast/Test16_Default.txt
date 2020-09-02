@@ -225,24 +225,24 @@ cmps word ptr [esi],word ptr [edi]
 cmps word ptr [si],word ptr [di]
 cmps dword ptr [esi],dword ptr [edi]
 cmps dword ptr [si],dword ptr [di]
-stos byte ptr [edi],al
-stos byte ptr [di],al
-stos word ptr [edi],ax
-stos word ptr [di],ax
-stos dword ptr [edi],eax
-stos dword ptr [di],eax
-lods al,byte ptr [esi]
-lods al,byte ptr [si]
-lods ax,word ptr [esi]
-lods ax,word ptr [si]
-lods eax,dword ptr [esi]
-lods eax,dword ptr [si]
-scas al,byte ptr [edi]
-scas al,byte ptr [di]
-scas ax,word ptr [edi]
-scas ax,word ptr [di]
-scas eax,dword ptr [edi]
-scas eax,dword ptr [di]
+stos [edi],al
+stos [di],al
+stos [edi],ax
+stos [di],ax
+stos [edi],eax
+stos [di],eax
+lods al,[esi]
+lods al,[si]
+lods ax,[esi]
+lods ax,[si]
+lods eax,[esi]
+lods eax,[si]
+scas al,[edi]
+scas al,[di]
+scas ax,[edi]
+scas ax,[di]
+scas eax,[edi]
+scas eax,[di]
 xbegin 254Eh
 xbegin 34132551h
 enter 0A55Ah,0A6h
@@ -401,9 +401,9 @@ movs dword ptr es:[di],dword ptr fs:[si]
 cmps byte ptr fs:[si],byte ptr es:[di]
 cmps word ptr fs:[si],word ptr es:[di]
 cmps dword ptr fs:[si],dword ptr es:[di]
-lods al,byte ptr fs:[si]
-lods ax,word ptr fs:[si]
-lods eax,dword ptr fs:[si]
+lods al,fs:[si]
+lods ax,fs:[si]
+lods eax,fs:[si]
 xlat [ebx]
 xlat fs:[bx]
 maskmovq fs:[di],mm2,mm3
