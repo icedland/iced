@@ -76,7 +76,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov rax, rcx`
+	/// &nbsp; | `true` | `mov rax, rcx`
 	/// ✔️ | `false` | `mov rax,rcx`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "spaceAfterOperandSeparator")]
@@ -88,7 +88,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov rax, rcx`
+	/// &nbsp; | `true` | `mov rax, rcx`
 	/// ✔️ | `false` | `mov rax,rcx`
 	///
 	/// # Arguments
@@ -104,7 +104,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[rip+12345678h]`
+	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
 	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ripRelativeAddresses")]
@@ -116,7 +116,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[rip+12345678h]`
+	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
 	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
 	///
 	/// # Arguments
@@ -133,7 +133,7 @@ impl FastFormatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "usePseudoOps")]
 	pub fn use_pseudo_ops(&self) -> bool {
@@ -145,7 +145,7 @@ impl FastFormatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	///
 	/// # Arguments
 	///
@@ -160,7 +160,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[myfield (12345678)]`
+	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
 	/// ✔️ | `false` | `mov eax,[myfield]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "showSymbolAddress")]
@@ -172,7 +172,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[myfield (12345678)]`
+	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
 	/// ✔️ | `false` | `mov eax,[myfield]`
 	///
 	/// # Arguments
@@ -189,7 +189,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,ds:[ecx]`
+	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
 	/// ✔️ | `false` | `mov eax,[ecx]`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "alwaysShowSegmentRegister")]
@@ -202,7 +202,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,ds:[ecx]`
+	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
 	/// ✔️ | `false` | `mov eax,[ecx]`
 	///
 	/// # Arguments
@@ -214,11 +214,11 @@ impl FastFormatter {
 		self.0.options_mut().set_always_show_segment_register(value);
 	}
 
-	/// Always show memory operands' size
+	/// Always show the size of memory operands
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
 	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "alwaysShowMemorySize")]
@@ -226,11 +226,11 @@ impl FastFormatter {
 		self.0.options().always_show_memory_size()
 	}
 
-	/// Always show memory operands' size
+	/// Always show the size of memory operands
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
 	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
 	///
 	/// # Arguments
@@ -247,7 +247,7 @@ impl FastFormatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `0xFF`
-	/// - | `false` | `0xff`
+	/// &nbsp; | `false` | `0xff`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "uppercaseHex")]
 	pub fn uppercase_hex(&self) -> bool {
@@ -259,7 +259,7 @@ impl FastFormatter {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `0xFF`
-	/// - | `false` | `0xff`
+	/// &nbsp; | `false` | `0xff`
 	///
 	/// # Arguments
 	///
@@ -274,7 +274,7 @@ impl FastFormatter {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `0x5A`
+	/// &nbsp; | `true` | `0x5A`
 	/// ✔️ | `false` | `5Ah`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "useHexPrefix")]
@@ -282,12 +282,12 @@ impl FastFormatter {
 		self.0.options().use_hex_prefix()
 	}
 
-	/// Always show memory operands' size
+	/// Use a hex prefix (`0x`) or a hex suffix (`h`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
-	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
+	/// &nbsp; | `true` | `0x5A`
+	/// ✔️ | `false` | `5Ah`
 	///
 	/// # Arguments
 	///

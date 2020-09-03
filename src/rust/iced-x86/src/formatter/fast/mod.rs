@@ -78,13 +78,13 @@ impl FastFormatterOptions {
 	}
 
 	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
-	// An extra `-` is needed for `cargo doc`.
+	// An extra `&nbsp;` is needed for `cargo doc`.
 
 	/// Add a space after the operand separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov rax, rcx`
+	/// &nbsp; | `true` | `mov rax, rcx`
 	/// ✔️ | `false` | `mov rax,rcx`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -96,7 +96,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov rax, rcx`
+	/// &nbsp; | `true` | `mov rax, rcx`
 	/// ✔️ | `false` | `mov rax,rcx`
 	///
 	/// # Arguments
@@ -115,7 +115,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[rip+12345678h]`
+	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
 	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -127,7 +127,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[rip+12345678h]`
+	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
 	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
 	///
 	/// # Arguments
@@ -147,7 +147,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn use_pseudo_ops(&self) -> bool {
@@ -159,7 +159,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	///
 	/// # Arguments
 	///
@@ -177,7 +177,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[myfield (12345678)]`
+	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
 	/// ✔️ | `false` | `mov eax,[myfield]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -189,7 +189,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,[myfield (12345678)]`
+	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
 	/// ✔️ | `false` | `mov eax,[myfield]`
 	///
 	/// # Arguments
@@ -209,7 +209,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,ds:[ecx]`
+	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
 	/// ✔️ | `false` | `mov eax,[ecx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -222,7 +222,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,ds:[ecx]`
+	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
 	/// ✔️ | `false` | `mov eax,[ecx]`
 	///
 	/// # Arguments
@@ -237,11 +237,11 @@ impl FastFormatterOptions {
 		}
 	}
 
-	/// Always show memory operands' size
+	/// Always show the size of memory operands
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
 	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -249,11 +249,11 @@ impl FastFormatterOptions {
 		(self.options1 & Flags1::ALWAYS_SHOW_MEMORY_SIZE) != 0
 	}
 
-	/// Always show memory operands' size
+	/// Always show the size of memory operands
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
 	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
 	///
 	/// # Arguments
@@ -273,7 +273,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `0xFF`
-	/// - | `false` | `0xff`
+	/// &nbsp; | `false` | `0xff`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn uppercase_hex(&self) -> bool {
@@ -285,7 +285,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `0xFF`
-	/// - | `false` | `0xff`
+	/// &nbsp; | `false` | `0xff`
 	///
 	/// # Arguments
 	///
@@ -303,7 +303,7 @@ impl FastFormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `0x5A`
+	/// &nbsp; | `true` | `0x5A`
 	/// ✔️ | `false` | `5Ah`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -311,12 +311,12 @@ impl FastFormatterOptions {
 		(self.options1 & Flags1::USE_HEX_PREFIX) != 0
 	}
 
-	/// Always show memory operands' size
+	/// Use a hex prefix (`0x`) or a hex suffix (`h`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
-	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
+	/// &nbsp; | `true` | `0x5A`
+	/// ✔️ | `false` | `5Ah`
 	///
 	/// # Arguments
 	///
