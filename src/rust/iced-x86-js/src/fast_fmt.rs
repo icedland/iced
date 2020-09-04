@@ -72,6 +72,8 @@ impl FastFormatter {
 		output
 	}
 
+	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
+
 	/// Add a space after the operand separator
 	///
 	/// Default | Value | Example
@@ -216,10 +218,10 @@ impl FastFormatter {
 
 	/// Always show the size of memory operands
 	///
-	/// Default | Value | Example
-	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
-	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
+	/// Default | Value | Example | Example
+	/// --------|-------|---------|--------
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
+	/// ✔️ | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "alwaysShowMemorySize")]
 	pub fn always_show_memory_size(&self) -> bool {
@@ -228,10 +230,10 @@ impl FastFormatter {
 
 	/// Always show the size of memory operands
 	///
-	/// Default | Value | Example
-	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
-	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
+	/// Default | Value | Example | Example
+	/// --------|-------|---------|--------
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
+	/// ✔️ | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	///
 	/// # Arguments
 	///

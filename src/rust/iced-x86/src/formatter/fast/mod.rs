@@ -78,7 +78,6 @@ impl FastFormatterOptions {
 	}
 
 	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
-	// An extra `&nbsp;` is needed for `cargo doc`.
 
 	/// Add a space after the operand separator
 	///
@@ -239,10 +238,10 @@ impl FastFormatterOptions {
 
 	/// Always show the size of memory operands
 	///
-	/// Default | Value | Example
-	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
-	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
+	/// Default | Value | Example | Example
+	/// --------|-------|---------|--------
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
+	/// ✔️ | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn always_show_memory_size(&self) -> bool {
@@ -251,10 +250,10 @@ impl FastFormatterOptions {
 
 	/// Always show the size of memory operands
 	///
-	/// Default | Value | Example
-	/// --------|-------|--------
-	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` / `add byte ptr [eax],0x12`
-	/// ✔️ | `false` | `mov eax,[ebx]` / `add byte ptr [eax],0x12`
+	/// Default | Value | Example | Example
+	/// --------|-------|---------|--------
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
+	/// ✔️ | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
 	///
 	/// # Arguments
 	///

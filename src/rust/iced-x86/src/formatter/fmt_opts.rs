@@ -245,7 +245,6 @@ impl FormatterOptions {
 	}
 
 	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
-	// An extra `&nbsp;` is needed for `cargo doc`.
 
 	/// Prefixes are upper cased
 	///
