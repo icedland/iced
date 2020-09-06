@@ -725,43 +725,43 @@ namespace Iced.Intel {
 				break;
 
 			case InstrOpKind.MemorySegSI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.SI, Register.None, 0, 0, 0, 2);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.SI, Register.None, 0, 0, 0, 2);
 				break;
 
 			case InstrOpKind.MemorySegESI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.ESI, Register.None, 0, 0, 0, 4);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.ESI, Register.None, 0, 0, 0, 4);
 				break;
 
 			case InstrOpKind.MemorySegRSI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.RSI, Register.None, 0, 0, 0, 8);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.RSI, Register.None, 0, 0, 0, 8);
 				break;
 
 			case InstrOpKind.MemorySegDI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.DI, Register.None, 0, 0, 0, 2);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.DI, Register.None, 0, 0, 0, 2);
 				break;
 
 			case InstrOpKind.MemorySegEDI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.EDI, Register.None, 0, 0, 0, 4);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.EDI, Register.None, 0, 0, 0, 4);
 				break;
 
 			case InstrOpKind.MemorySegRDI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.RDI, Register.None, 0, 0, 0, 8);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.RDI, Register.None, 0, 0, 0, 8);
 				break;
 
 			case InstrOpKind.MemoryESDI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.DI, Register.None, 0, 0, 0, 2);
+				FormatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.DI, Register.None, 0, 0, 0, 2);
 				break;
 
 			case InstrOpKind.MemoryESEDI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.EDI, Register.None, 0, 0, 0, 4);
+				FormatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.EDI, Register.None, 0, 0, 0, 4);
 				break;
 
 			case InstrOpKind.MemoryESRDI:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8);
+				FormatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8);
 				break;
 
 			case InstrOpKind.Memory64:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8);
 				break;
 
 			case InstrOpKind.Memory:
@@ -776,7 +776,7 @@ namespace Iced.Intel {
 					displ = instruction.MemoryDisplacement;
 				if ((opInfo.Flags & InstrOpInfoFlags.IgnoreIndexReg) != 0)
 					indexReg = Register.None;
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize);
+				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize);
 				break;
 
 			case InstrOpKind.Sae:
@@ -833,7 +833,7 @@ namespace Iced.Intel {
 			output.WriteRegister(instruction, operand, instructionOperand, ToRegisterString(regNum), regNum == Registers.Register_ST ? Register.ST0 : (Register)regNum);
 		}
 
-		void FormatMemory(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, MemorySize memSize, Register segOverride, Register segReg, Register baseReg, Register indexReg, int scale, int displSize, long displ, int addrSize) {
+		void FormatMemory(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register segReg, Register baseReg, Register indexReg, int scale, int displSize, long displ, int addrSize) {
 			Debug.Assert((uint)scale < (uint)scaleNumbers.Length);
 			Debug.Assert(InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, displSize, instruction.CodeSize) == addrSize);
 
@@ -882,6 +882,7 @@ namespace Iced.Intel {
 			bool hasBaseOrIndexReg = baseReg != Register.None || indexReg != Register.None;
 
 			var codeSize = instruction.CodeSize;
+			var segOverride = instruction.SegmentPrefix;
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix && FormatterUtils.ShowSegmentPrefix(Register.None, instruction, options))) {
@@ -986,6 +987,7 @@ namespace Iced.Intel {
 				output.Write(")", FormatterTextKind.Punctuation);
 			}
 
+			var memSize = instruction.MemorySize;
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var bcstTo = allMemorySizes[(int)memSize];
 			if (!bcstTo.IsDefault)

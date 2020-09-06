@@ -333,13 +333,13 @@ pub struct Decoder<'a> {
 	is64_mode_and_w: u32,
 	// 7 in 16/32-bit mode, 15 in 64-bit mode
 	reg15_mask: u32,
-	default_code_size: CodeSize,
+	bitness: u32,
 	default_operand_size: OpSize,
 	default_address_size: OpSize,
 	default_inverted_operand_size: OpSize,
 	default_inverted_address_size: OpSize,
 	is64_mode: bool,
-	bitness: u32,
+	default_code_size: CodeSize,
 }
 
 impl<'a> Decoder<'a> {
@@ -1093,9 +1093,9 @@ impl<'a> Decoder<'a> {
 		}
 		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 		debug_assert_eq!(self.instr_start_data_ptr, data_ptr);
-		let instr_len = self.data_ptr as usize - data_ptr as usize;
-		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH); // Could be 0 if there were no bytes available
-		super::instruction_internal::internal_set_len(instruction, instr_len as u32);
+		let instr_len = self.data_ptr as u32 - data_ptr as u32;
+		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32); // Could be 0 if there were no bytes available
+		super::instruction_internal::internal_set_len(instruction, instr_len);
 
 		let ip = self.ip.wrapping_add(instr_len as u64);
 		self.ip = ip;

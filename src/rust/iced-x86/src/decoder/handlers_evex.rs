@@ -153,11 +153,11 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 				super::instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
 			}
 		} else {
-			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tuple_type(instruction, tuple_type);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
 			}
+			super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem_tuple_type(instruction, tuple_type);
 		}
 	}
 }
@@ -582,6 +582,15 @@ impl OpCodeHandler_EVEX_WkV {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
+		const_assert_eq!(0, OpKind::Register as u32);
+		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register_u32(
+			instruction,
+			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg2 as u32,
+		);
+		if ((decoder.state.flags & StateFlags::Z) & this.disallow_zeroing_masking & decoder.invalid_check_mask) != 0 {
+			decoder.set_invalid_instruction();
+		}
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -595,15 +604,6 @@ impl OpCodeHandler_EVEX_WkV {
 				decoder.set_invalid_instruction();
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
-		}
-		const_assert_eq!(0, OpKind::Register as u32);
-		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register_u32(
-			instruction,
-			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg2 as u32,
-		);
-		if ((decoder.state.flags & StateFlags::Z) & this.disallow_zeroing_masking & decoder.invalid_check_mask) != 0 {
-			decoder.set_invalid_instruction();
 		}
 	}
 }
@@ -928,6 +928,9 @@ impl OpCodeHandler_EVEX_VW_er {
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
+		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv_invalid_check | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
+			decoder.set_invalid_instruction();
+		}
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -944,9 +947,6 @@ impl OpCodeHandler_EVEX_VW_er {
 				decoder.set_invalid_instruction();
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
-		}
-		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv_invalid_check | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
-			decoder.set_invalid_instruction();
 		}
 	}
 }
@@ -1028,6 +1028,12 @@ impl OpCodeHandler_EVEX_WV {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
+		const_assert_eq!(0, OpKind::Register as u32);
+		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register_u32(
+			instruction,
+			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
+		);
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -1042,12 +1048,6 @@ impl OpCodeHandler_EVEX_WV {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
-		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register_u32(
-			instruction,
-			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
-		);
 	}
 }
 
@@ -1513,6 +1513,12 @@ impl OpCodeHandler_EVEX_KkHW {
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
+		if (((decoder.state.flags & StateFlags::Z) | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
+			decoder.set_invalid_instruction();
+		}
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
@@ -1533,12 +1539,6 @@ impl OpCodeHandler_EVEX_KkHW {
 				}
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
-		}
-		if (((decoder.state.flags & StateFlags::Z) | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
-			& decoder.invalid_check_mask)
-			!= 0
-		{
-			decoder.set_invalid_instruction();
 		}
 	}
 }
@@ -1569,6 +1569,12 @@ impl OpCodeHandler_EVEX_KP1HW {
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
+		if (((decoder.state.flags & StateFlags::Z) | decoder.state.aaa | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
+			& decoder.invalid_check_mask)
+			!= 0
+		{
+			decoder.set_invalid_instruction();
+		}
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
@@ -1585,12 +1591,6 @@ impl OpCodeHandler_EVEX_KP1HW {
 				super::instruction_internal::internal_set_is_broadcast(instruction);
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
-		}
-		if (((decoder.state.flags & StateFlags::Z) | decoder.state.aaa | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
-			& decoder.invalid_check_mask)
-			!= 0
-		{
-			decoder.set_invalid_instruction();
 		}
 	}
 }
@@ -1920,11 +1920,11 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 				}
 			}
 		} else {
-			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 				decoder.set_invalid_instruction();
 			}
+			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
 	}
 }
@@ -2018,6 +2018,12 @@ impl OpCodeHandler_EVEX_Ev_VX {
 			tuple_type = this.tuple_type_w0;
 			gpr = Register::EAX as u32;
 		}
+		const_assert_eq!(0, OpKind::Register as u32);
+		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op1_register_u32(
+			instruction,
+			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + Register::XMM0 as u32,
+		);
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -2026,12 +2032,6 @@ impl OpCodeHandler_EVEX_Ev_VX {
 			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem_tuple_type(instruction, tuple_type);
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
-		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register_u32(
-			instruction,
-			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + Register::XMM0 as u32,
-		);
 	}
 }
 
@@ -2110,19 +2110,18 @@ impl OpCodeHandler_EVEX_MV {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
-
-		if decoder.state.mod_ == 3 {
-			decoder.set_invalid_instruction();
-		} else {
-			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
-		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
+		if decoder.state.mod_ == 3 {
+			decoder.set_invalid_instruction();
+		} else {
+			super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
+		}
 	}
 }
 

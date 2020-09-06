@@ -339,43 +339,43 @@ namespace Iced.Intel {
 						break;
 
 					case OpKind.MemorySegSI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.SI, Register.None, 0, 0, 0, 2);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.SI, Register.None, 0, 0, 0, 2);
 						break;
 
 					case OpKind.MemorySegESI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.ESI, Register.None, 0, 0, 0, 4);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.ESI, Register.None, 0, 0, 0, 4);
 						break;
 
 					case OpKind.MemorySegRSI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.RSI, Register.None, 0, 0, 0, 8);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.RSI, Register.None, 0, 0, 0, 8);
 						break;
 
 					case OpKind.MemorySegDI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.DI, Register.None, 0, 0, 0, 2);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.DI, Register.None, 0, 0, 0, 2);
 						break;
 
 					case OpKind.MemorySegEDI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.EDI, Register.None, 0, 0, 0, 4);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.EDI, Register.None, 0, 0, 0, 4);
 						break;
 
 					case OpKind.MemorySegRDI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.RDI, Register.None, 0, 0, 0, 8);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.RDI, Register.None, 0, 0, 0, 8);
 						break;
 
 					case OpKind.MemoryESDI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.DI, Register.None, 0, 0, 0, 2);
+						FormatMemory(output, instruction, operand, Register.ES, Register.DI, Register.None, 0, 0, 0, 2);
 						break;
 
 					case OpKind.MemoryESEDI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.EDI, Register.None, 0, 0, 0, 4);
+						FormatMemory(output, instruction, operand, Register.ES, Register.EDI, Register.None, 0, 0, 0, 4);
 						break;
 
 					case OpKind.MemoryESRDI:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8);
+						FormatMemory(output, instruction, operand, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8);
 						break;
 
 					case OpKind.Memory64:
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8);
 						break;
 
 					case OpKind.Memory:
@@ -390,7 +390,7 @@ namespace Iced.Intel {
 							displ = instruction.MemoryDisplacement;
 						if (code == Code.Xlat_m8)
 							indexReg = Register.None;
-						FormatMemory(output, instruction, operand, instruction.MemorySize, instruction.SegmentPrefix, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize);
+						FormatMemory(output, instruction, operand, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize);
 						break;
 
 					default:
@@ -474,20 +474,20 @@ namespace Iced.Intel {
 			if (useHexPrefix)
 				output.Append("0x");
 
-			int digits = 1;
+			int digits = 0;
 			for (ulong tmp = value; ;) {
+				digits++;
 				tmp >>= 4;
 				if (tmp == 0)
 					break;
-				digits++;
 			}
 
+			if (!useHexPrefix && (int)((value >> ((digits - 1) << 2)) & 0xF) > 9)
+				output.Append('0');
 			int hexHigh = options.UppercaseHex ? 'A' - 10 : 'a' - 10;
-			if (!useHexPrefix && digits < 17 && (int)((value >> ((digits - 1) << 2)) & 0xF) > 9)
-				digits++;// Another 0
 			for (int i = 0; i < digits; i++) {
 				int index = digits - i - 1;
-				int digit = index >= 16 ? 0 : (int)((value >> (index << 2)) & 0xF);
+				int digit = (int)((value >> (index << 2)) & 0xF);
 				if (digit > 9)
 					output.Append((char)(digit + hexHigh));
 				else
@@ -534,7 +534,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		void FormatMemory(StringBuilder output, in Instruction instruction, int operand, MemorySize memSize, Register segOverride, Register segReg, Register baseReg, Register indexReg, int scale, int displSize, long displ, int addrSize) {
+		void FormatMemory(StringBuilder output, in Instruction instruction, int operand, Register segReg, Register baseReg, Register indexReg, int scale, int displSize, long displ, int addrSize) {
 			Debug.Assert((uint)scale < (uint)scaleNumbers.Length);
 			Debug.Assert(InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, displSize, instruction.CodeSize) == addrSize);
 
@@ -580,14 +580,15 @@ namespace Iced.Intel {
 				useScale = false;
 
 			var flags = codeFlags[(int)instruction.Code];
-			bool showMemSize = (flags & FastFmtFlags.ForceMemSize) != 0 || memSize.IsBroadcast() || options.AlwaysShowMemorySize;
+			bool showMemSize = (flags & FastFmtFlags.ForceMemSize) != 0 || instruction.IsBroadcast || options.AlwaysShowMemorySize;
 			if (showMemSize) {
-				Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
-				var keywords = allMemorySizes[(int)memSize];
+				Debug.Assert((uint)instruction.MemorySize < (uint)allMemorySizes.Length);
+				var keywords = allMemorySizes[(int)instruction.MemorySize];
 				output.Append(keywords);
 			}
 
 			var codeSize = instruction.CodeSize;
+			var segOverride = instruction.SegmentPrefix;
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix &&

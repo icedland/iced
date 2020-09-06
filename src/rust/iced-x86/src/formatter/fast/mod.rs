@@ -333,7 +333,7 @@ impl FastFormatterOptions {
 /// Fast formatter with less formatting options and with masm-like syntax.
 /// Use it if formatting speed is more important than being able to re-assemble formatted instructions.
 ///
-/// This formatter is 1.6-1.8x faster than the other formatters (the time includes decoding + formatting).
+/// This formatter is 1.8-1.9x faster than the other formatters (the time includes decoding + formatting).
 ///
 /// # Examples
 ///
@@ -729,138 +729,31 @@ impl FastFormatter {
 						}
 					}
 
-					OpKind::MemorySegSI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						instruction.memory_segment(),
-						Register::SI,
-						Register::None,
-						0,
-						0,
-						0,
-						2,
-					),
-					OpKind::MemorySegESI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						instruction.memory_segment(),
-						Register::ESI,
-						Register::None,
-						0,
-						0,
-						0,
-						4,
-					),
-					OpKind::MemorySegRSI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						instruction.memory_segment(),
-						Register::RSI,
-						Register::None,
-						0,
-						0,
-						0,
-						8,
-					),
-					OpKind::MemorySegDI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						instruction.memory_segment(),
-						Register::DI,
-						Register::None,
-						0,
-						0,
-						0,
-						2,
-					),
-					OpKind::MemorySegEDI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						instruction.memory_segment(),
-						Register::EDI,
-						Register::None,
-						0,
-						0,
-						0,
-						4,
-					),
-					OpKind::MemorySegRDI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						instruction.memory_segment(),
-						Register::RDI,
-						Register::None,
-						0,
-						0,
-						0,
-						8,
-					),
-					OpKind::MemoryESDI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						Register::ES,
-						Register::DI,
-						Register::None,
-						0,
-						0,
-						0,
-						2,
-					),
-					OpKind::MemoryESEDI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						Register::ES,
-						Register::EDI,
-						Register::None,
-						0,
-						0,
-						0,
-						4,
-					),
-					OpKind::MemoryESRDI => self.format_memory(
-						output,
-						instruction,
-						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
-						Register::ES,
-						Register::RDI,
-						Register::None,
-						0,
-						0,
-						0,
-						8,
-					),
+					OpKind::MemorySegSI => {
+						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::SI, Register::None, 0, 0, 0, 2)
+					}
+					OpKind::MemorySegESI => {
+						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::ESI, Register::None, 0, 0, 0, 4)
+					}
+					OpKind::MemorySegRSI => {
+						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::RSI, Register::None, 0, 0, 0, 8)
+					}
+					OpKind::MemorySegDI => {
+						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::DI, Register::None, 0, 0, 0, 2)
+					}
+					OpKind::MemorySegEDI => {
+						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::EDI, Register::None, 0, 0, 0, 4)
+					}
+					OpKind::MemorySegRDI => {
+						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::RDI, Register::None, 0, 0, 0, 8)
+					}
+					OpKind::MemoryESDI => self.format_memory(output, instruction, operand, Register::ES, Register::DI, Register::None, 0, 0, 0, 2),
+					OpKind::MemoryESEDI => self.format_memory(output, instruction, operand, Register::ES, Register::EDI, Register::None, 0, 0, 0, 4),
+					OpKind::MemoryESRDI => self.format_memory(output, instruction, operand, Register::ES, Register::RDI, Register::None, 0, 0, 0, 8),
 					OpKind::Memory64 => self.format_memory(
 						output,
 						instruction,
 						operand,
-						instruction.memory_size(),
-						instruction.segment_prefix(),
 						instruction.memory_segment(),
 						Register::None,
 						Register::None,
@@ -884,8 +777,6 @@ impl FastFormatter {
 							output,
 							instruction,
 							operand,
-							instruction.memory_size(),
-							instruction.segment_prefix(),
 							instruction.memory_segment(),
 							base_reg,
 							index_reg,
@@ -973,28 +864,25 @@ impl FastFormatter {
 			output.push_str("0x");
 		}
 
-		let mut digits = 1;
+		let mut digits = 0;
 		let mut tmp = value;
 		loop {
+			digits += 1;
 			tmp >>= 4;
 			if tmp == 0 {
 				break;
 			}
-			digits += 1;
 		}
 
-		let hex_high = if options.uppercase_hex() { 'A' as u32 - 10 } else { 'a' as u32 - 10 };
-		if !options.use_hex_prefix() && digits < 17 && ((value >> ((digits - 1) << 2)) & 0xF) > 9 {
-			digits += 1; // Another 0
+		if !options.use_hex_prefix() && ((value >> ((digits - 1) << 2)) & 0xF) > 9 {
+			output.push('0');
 		}
+		let hex_high = if options.uppercase_hex() { 'A' as u32 - 10 } else { 'a' as u32 - 10 };
 		for i in 0..digits {
 			let index = digits - i - 1;
-			let digit = if index >= 16 { 0 } else { ((value >> (index << 2)) & 0xF) as u32 };
-			if digit > 9 {
-				output.push((digit + hex_high) as u8 as char);
-			} else {
-				output.push((digit + '0' as u32) as u8 as char);
-			}
+			let digit = ((value >> (index << 2)) & 0xF) as u32;
+			let c: char = if digit > 9 { (digit + hex_high) as u8 as char } else { (digit + '0' as u32) as u8 as char };
+			output.push(c);
 		}
 
 		if !options.use_hex_prefix() {
@@ -1054,8 +942,8 @@ impl FastFormatter {
 	}
 
 	fn format_memory(
-		&mut self, output: &mut String, instruction: &Instruction, operand: u32, mem_size: MemorySize, seg_override: Register, seg_reg: Register,
-		mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
+		&mut self, output: &mut String, instruction: &Instruction, operand: u32, seg_reg: Register, mut base_reg: Register, index_reg: Register,
+		scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
 	) {
 		debug_assert!((scale as usize) < SCALE_NUMBERS.len());
 		debug_assert!(get_address_size_in_bytes(base_reg, index_reg, displ_size, instruction.code_size()) == addr_size);
@@ -1101,14 +989,15 @@ impl FastFormatter {
 		// Safe, all Code values are valid indexes
 		let flags = unsafe { *self.d.code_flags.get_unchecked(instruction.code() as usize) };
 		let show_mem_size =
-			(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || mem_size.is_broadcast() || self.d.options.always_show_memory_size();
+			(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || instruction.is_broadcast() || self.d.options.always_show_memory_size();
 		if show_mem_size {
 			// Safe, all MemorySize values are valid indexes
-			let keywords = unsafe { *self.d.all_memory_sizes.get_unchecked(mem_size as usize) };
+			let keywords = unsafe { *self.d.all_memory_sizes.get_unchecked(instruction.memory_size() as usize) };
 			output.push_str(keywords);
 		}
 
 		let code_size = instruction.code_size();
+		let seg_override = instruction.segment_prefix();
 		let notrack_prefix = seg_override == Register::DS
 			&& is_notrack_prefix_branch(instruction.code())
 			&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)

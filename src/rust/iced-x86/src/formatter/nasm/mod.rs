@@ -849,7 +849,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::SI,
 				Register::None,
@@ -865,7 +864,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::ESI,
 				Register::None,
@@ -881,7 +879,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::RSI,
 				Register::None,
@@ -897,7 +894,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::DI,
 				Register::None,
@@ -913,7 +909,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::EDI,
 				Register::None,
@@ -929,7 +924,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::RDI,
 				Register::None,
@@ -945,7 +939,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				Register::ES,
 				Register::DI,
 				Register::None,
@@ -961,7 +954,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				Register::ES,
 				Register::EDI,
 				Register::None,
@@ -977,7 +969,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				Register::ES,
 				Register::RDI,
 				Register::None,
@@ -993,7 +984,6 @@ impl NasmFormatter {
 				operand,
 				instruction_operand,
 				op_info.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::None,
 				Register::None,
@@ -1016,7 +1006,6 @@ impl NasmFormatter {
 					operand,
 					instruction_operand,
 					op_info.memory_size(),
-					instruction.segment_prefix(),
 					instruction.memory_segment(),
 					base_reg,
 					index_reg,
@@ -1159,8 +1148,8 @@ impl NasmFormatter {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	fn format_memory(
 		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, mem_size: MemorySize,
-		seg_override: Register, seg_reg: Register, mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64,
-		addr_size: u32, mut flags: u32,
+		seg_reg: Register, mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
+		mut flags: u32,
 	) {
 		debug_assert!((scale as usize) < SCALE_NUMBERS.len());
 		debug_assert!(get_address_size_in_bytes(base_reg, index_reg, displ_size, instruction.code_size()) == addr_size);
@@ -1237,6 +1226,7 @@ impl NasmFormatter {
 		}
 
 		let code_size = instruction.code_size();
+		let seg_override = instruction.segment_prefix();
 		let notrack_prefix = seg_override == Register::DS
 			&& is_notrack_prefix_branch(instruction.code())
 			&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)

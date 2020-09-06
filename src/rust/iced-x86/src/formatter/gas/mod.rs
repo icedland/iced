@@ -874,8 +874,6 @@ impl GasFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::SI,
 				Register::None,
@@ -889,8 +887,6 @@ impl GasFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::ESI,
 				Register::None,
@@ -904,8 +900,6 @@ impl GasFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::RSI,
 				Register::None,
@@ -919,8 +913,6 @@ impl GasFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::DI,
 				Register::None,
@@ -934,8 +926,6 @@ impl GasFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::EDI,
 				Register::None,
@@ -949,8 +939,6 @@ impl GasFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::RDI,
 				Register::None,
@@ -959,58 +947,20 @@ impl GasFormatter {
 				0,
 				8,
 			),
-			InstrOpKind::MemoryESDI => self.format_memory(
-				output,
-				instruction,
-				operand,
-				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
-				Register::ES,
-				Register::DI,
-				Register::None,
-				0,
-				0,
-				0,
-				2,
-			),
-			InstrOpKind::MemoryESEDI => self.format_memory(
-				output,
-				instruction,
-				operand,
-				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
-				Register::ES,
-				Register::EDI,
-				Register::None,
-				0,
-				0,
-				0,
-				4,
-			),
-			InstrOpKind::MemoryESRDI => self.format_memory(
-				output,
-				instruction,
-				operand,
-				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
-				Register::ES,
-				Register::RDI,
-				Register::None,
-				0,
-				0,
-				0,
-				8,
-			),
+			InstrOpKind::MemoryESDI => {
+				self.format_memory(output, instruction, operand, instruction_operand, Register::ES, Register::DI, Register::None, 0, 0, 0, 2)
+			}
+			InstrOpKind::MemoryESEDI => {
+				self.format_memory(output, instruction, operand, instruction_operand, Register::ES, Register::EDI, Register::None, 0, 0, 0, 4)
+			}
+			InstrOpKind::MemoryESRDI => {
+				self.format_memory(output, instruction, operand, instruction_operand, Register::ES, Register::RDI, Register::None, 0, 0, 0, 8)
+			}
 			InstrOpKind::Memory64 => self.format_memory(
 				output,
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::None,
 				Register::None,
@@ -1034,8 +984,6 @@ impl GasFormatter {
 					instruction,
 					operand,
 					instruction_operand,
-					instruction.memory_size(),
-					instruction.segment_prefix(),
 					instruction.memory_segment(),
 					base_reg,
 					index_reg,
@@ -1152,9 +1100,8 @@ impl GasFormatter {
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	fn format_memory(
-		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, mem_size: MemorySize,
-		seg_override: Register, seg_reg: Register, mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64,
-		addr_size: u32,
+		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, seg_reg: Register,
+		mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
 	) {
 		debug_assert!((scale as usize) < SCALE_NUMBERS.len());
 		debug_assert!(get_address_size_in_bytes(base_reg, index_reg, displ_size, instruction.code_size()) == addr_size);
@@ -1199,6 +1146,7 @@ impl GasFormatter {
 		let has_base_or_index_reg = base_reg != Register::None || index_reg != Register::None;
 
 		let code_size = instruction.code_size();
+		let seg_override = instruction.segment_prefix();
 		let notrack_prefix = seg_override == Register::DS
 			&& is_notrack_prefix_branch(instruction.code())
 			&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
@@ -1339,6 +1287,7 @@ impl GasFormatter {
 			output.write(")", FormatterTextKind::Punctuation);
 		}
 
+		let mem_size = instruction.memory_size();
 		debug_assert!((mem_size as usize) < self.d.all_memory_sizes.len());
 		let bcst_to = self.d.all_memory_sizes[mem_size as usize];
 		if !bcst_to.is_default() {

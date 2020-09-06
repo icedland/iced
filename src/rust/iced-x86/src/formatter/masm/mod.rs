@@ -849,8 +849,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::SI,
 				Register::None,
@@ -865,8 +863,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::ESI,
 				Register::None,
@@ -881,8 +877,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::RSI,
 				Register::None,
@@ -897,8 +891,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::DI,
 				Register::None,
@@ -913,8 +905,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::EDI,
 				Register::None,
@@ -929,8 +919,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::RDI,
 				Register::None,
@@ -945,8 +933,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				Register::ES,
 				Register::DI,
 				Register::None,
@@ -961,8 +947,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				Register::ES,
 				Register::EDI,
 				Register::None,
@@ -977,8 +961,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				Register::ES,
 				Register::RDI,
 				Register::None,
@@ -993,8 +975,6 @@ impl MasmFormatter {
 				instruction,
 				operand,
 				instruction_operand,
-				instruction.memory_size(),
-				instruction.segment_prefix(),
 				instruction.memory_segment(),
 				Register::None,
 				Register::None,
@@ -1019,8 +999,6 @@ impl MasmFormatter {
 					instruction,
 					operand,
 					instruction_operand,
-					instruction.memory_size(),
-					instruction.segment_prefix(),
 					instruction.memory_segment(),
 					base_reg,
 					index_reg,
@@ -1123,9 +1101,8 @@ impl MasmFormatter {
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	fn format_memory(
-		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, mem_size: MemorySize,
-		seg_override: Register, seg_reg: Register, mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64,
-		addr_size: u32, flags: u32,
+		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, seg_reg: Register,
+		mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32, flags: u32,
 	) {
 		debug_assert!((scale as usize) < SCALE_NUMBERS.len());
 		debug_assert!(get_address_size_in_bytes(base_reg, index_reg, displ_size, instruction.code_size()) == addr_size);
@@ -1179,6 +1156,7 @@ impl MasmFormatter {
 		let code_size = instruction.code_size();
 		let is1632 = code_size == CodeSize::Code16 || code_size == CodeSize::Code32;
 		let has_mem_reg = base_reg != Register::None || index_reg != Register::None;
+		let seg_override = instruction.segment_prefix();
 		let displ_in_brackets = if (!is1632 && !has_mem_reg && symbol.is_none())
 			|| (is1632 && !has_mem_reg && symbol.is_none() && !self.d.options.masm_add_ds_prefix32() && seg_override == Register::None)
 		{
@@ -1192,7 +1170,7 @@ impl MasmFormatter {
 		};
 		let need_brackets = has_mem_reg || displ_in_brackets;
 
-		MasmFormatter::format_memory_size(&self.d, output, instruction, &symbol, mem_size, flags, operand_options);
+		MasmFormatter::format_memory_size(&self.d, output, instruction, &symbol, instruction.memory_size(), flags, operand_options);
 
 		let notrack_prefix = seg_override == Register::DS
 			&& is_notrack_prefix_branch(instruction.code())
