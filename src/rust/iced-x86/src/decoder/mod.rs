@@ -272,7 +272,7 @@ impl State {
 }
 
 /// Decodes 16/32/64-bit x86 instructions
-#[derive(Debug)]
+#[allow(missing_debug_implementations)]
 pub struct Decoder<'a> {
 	ip: u64,
 
@@ -1974,7 +1974,7 @@ impl<'a> Decoder<'a> {
 ///
 /// [`Decoder`]: struct.Decoder.html
 /// [`Decoder::iter()`]: struct.Decoder.html#method.iter
-#[derive(Debug)]
+#[allow(missing_debug_implementations)]
 pub struct DecoderIter<'a: 'b, 'b> {
 	decoder: &'b mut Decoder<'a>,
 }
@@ -1999,7 +1999,7 @@ impl<'a, 'b> FusedIterator for DecoderIter<'a, 'b> {}
 /// no more data available.
 ///
 /// [`Decoder`]: struct.Decoder.html
-#[derive(Debug)]
+#[allow(missing_debug_implementations)]
 pub struct DecoderIntoIter<'a> {
 	decoder: Decoder<'a>,
 }
