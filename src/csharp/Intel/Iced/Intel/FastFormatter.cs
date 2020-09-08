@@ -161,7 +161,7 @@ namespace Iced.Intel {
 
 			bool isDeclareData;
 			OpKind declareDataOpKind;
-			if ((uint)code - 1 <= (uint)Code.DeclareQword - 1) {
+			if ((uint)code - (uint)Code.DeclareByte <= (uint)Code.DeclareQword - (uint)Code.DeclareByte) {
 				opCount = instruction.DeclareDataCount;
 				isDeclareData = true;
 				switch (code) {

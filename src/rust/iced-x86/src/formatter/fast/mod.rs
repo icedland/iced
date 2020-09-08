@@ -541,7 +541,7 @@ impl FastFormatter {
 		output.push_str(mnemonic);
 
 		let is_declare_data;
-		let declare_data_kind = if (code as u32).wrapping_sub(1) <= (Code::DeclareQword as u32 - 1) {
+		let declare_data_kind = if (code as u32).wrapping_sub(Code::DeclareByte as u32) <= (Code::DeclareQword as u32 - Code::DeclareByte as u32) {
 			op_count = instruction.declare_data_len() as u32;
 			is_declare_data = true;
 			match code {
