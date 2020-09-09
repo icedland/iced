@@ -44,7 +44,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		public static void FormatTest(in Instruction instruction, string formattedString, FastFormatter formatter) {
-			var output = new System.Text.StringBuilder();
+			var output = new FastStringOutput();
 
 			formatter.Format(instruction, output);
 			var actualFormattedString = output.ToString();
@@ -56,7 +56,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		public static void SimpleFormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, FastFormatter formatter, Action<Decoder> initDecoder) {
 			FormatInstr format = (in Instruction instruction) => {
-				var output = new System.Text.StringBuilder();
+				var output = new FastStringOutput();
 				formatter.Format(instruction, output);
 				return output.ToString();
 			};

@@ -1654,7 +1654,7 @@ namespace Iced.Intel {
 			new GasFormatter().Format(this, output);
 			return output.ToString();
 #elif FAST_FMT
-			var output = new System.Text.StringBuilder();
+			var output = new FastStringOutput();
 			new FastFormatter().Format(this, output);
 			return output.ToString();
 #else
