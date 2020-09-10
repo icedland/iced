@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if FAST_FMT
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
@@ -32,6 +33,11 @@ namespace Iced.Intel {
 	public sealed class FastStringOutput {
 		char[] buffer;
 		int bufferLen;
+
+		/// <summary>
+		/// Gets the current length
+		/// </summary>
+		public int Length => bufferLen;
 
 		/// <summary>
 		/// Constructor
@@ -88,6 +94,23 @@ namespace Iced.Intel {
 			int newCount = checked(Math.Max(capacity * 2, capacity + extraCount));
 			Array.Resize(ref buffer, newCount);
 		}
+
+#if HAS_SPAN
+		/// <summary>
+		/// Returns the current string as a span. The return value is valid until this instance gets mutated.
+		/// </summary>
+		/// <returns></returns>
+		public ReadOnlySpan<char> AsSpan() =>
+			new ReadOnlySpan<char>(buffer, 0, bufferLen);
+#endif
+
+		/// <summary>
+		/// Copies all data to <paramref name="array"/>
+		/// </summary>
+		/// <param name="array">Destination array</param>
+		/// <param name="arrayIndex">Destination array index</param>
+		public void CopyTo(char[] array, int arrayIndex) =>
+			Array.Copy(buffer, 0, array, arrayIndex, bufferLen);
 
 		/// <summary>
 		/// Resets the buffer to an empty string

@@ -92,6 +92,59 @@ namespace Iced.UnitTests.Intel.FormatterTests.Fast {
 			output.Clear();
 			Assert.Empty(output.ToString());
 		}
+
+		[Fact]
+		void LengthWorks() {
+			var output = new FastStringOutput();
+			Assert.Equal(0, output.Length);
+			output.Append('a');
+			Assert.Equal(1, output.Length);
+			output.Append('b');
+			Assert.Equal(2, output.Length);
+			output.Append("cde");
+			Assert.Equal(5, output.Length);
+			output.Clear();
+			Assert.Equal(0, output.Length);
+			output.Append("abc");
+			Assert.Equal(3, output.Length);
+			output.Clear();
+			Assert.Equal(0, output.Length);
+		}
+
+#if HAS_SPAN
+		[Fact]
+		void AsSpanWorks() {
+			var output = new FastStringOutput();
+			Assert.Empty(output.AsSpan().ToString());
+			output.Append('a');
+			Assert.Equal("a", output.AsSpan().ToString());
+			output.Append('b');
+			Assert.Equal("ab", output.AsSpan().ToString());
+			for (int i = 0; i < 1000; i++)
+				output.Append('c');
+			Assert.Equal("ab" + new string('c', 1000), output.AsSpan().ToString());
+			output.Clear();
+			Assert.Empty(output.AsSpan().ToString());
+		}
+#endif
+
+		[Theory]
+		[InlineData(0, "", "abcdefgh")]
+		[InlineData(8, "", "abcdefgh")]
+		[InlineData(0, "x", "xbcdefgh")]
+		[InlineData(3, "x", "abcxefgh")]
+		[InlineData(7, "x", "abcdefgx")]
+		[InlineData(0, "xyz", "xyzdefgh")]
+		[InlineData(3, "xyz", "abcxyzgh")]
+		[InlineData(5, "xyz", "abcdexyz")]
+		void CopyToWorks(int index, string data, string expected) {
+			var charData = "abcdefgh".ToCharArray();
+			var output = new FastStringOutput();
+			output.Append(data);
+			output.CopyTo(charData, index);
+			var s = new string(charData);
+			Assert.Equal(expected, s);
+		}
 	}
 }
 #endif
