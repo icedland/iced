@@ -631,17 +631,17 @@ namespace Iced.Intel {
 			}
 			else if (!needPlus || (displSize != 0 && displ != 0)) {
 				if (needPlus) {
-					if (addrSize == 4) {
-						if ((int)displ < 0) {
-							displ = (uint)-(int)displ;
+					if (addrSize == 8) {
+						if (displ < 0) {
+							displ = -displ;
 							output.Append('-');
 						}
 						else
 							output.Append('+');
 					}
-					else if (addrSize == 8) {
-						if (displ < 0) {
-							displ = -displ;
+					else if (addrSize == 4) {
+						if ((int)displ < 0) {
+							displ = (uint)-(int)displ;
 							output.Append('-');
 						}
 						else

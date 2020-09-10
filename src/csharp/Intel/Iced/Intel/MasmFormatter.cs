@@ -919,21 +919,7 @@ namespace Iced.Intel {
 					if (options.SpaceBetweenMemoryAddOperators)
 						output.Write(" ", FormatterTextKind.Text);
 
-					if (addrSize == 4) {
-						if (!numberOptions.SignedNumber)
-							output.Write("+", FormatterTextKind.Operator);
-						else if ((int)displ < 0) {
-							displ = (uint)-(int)displ;
-							output.Write("-", FormatterTextKind.Operator);
-						}
-						else
-							output.Write("+", FormatterTextKind.Operator);
-						if (numberOptions.DisplacementLeadingZeroes) {
-							Debug.Assert(displSize <= 4);
-							displSize = 4;
-						}
-					}
-					else if (addrSize == 8) {
+					if (addrSize == 8) {
 						if (!numberOptions.SignedNumber)
 							output.Write("+", FormatterTextKind.Operator);
 						else if (displ < 0) {
@@ -945,6 +931,20 @@ namespace Iced.Intel {
 						if (numberOptions.DisplacementLeadingZeroes) {
 							Debug.Assert(displSize <= 8);
 							displSize = 8;
+						}
+					}
+					else if (addrSize == 4) {
+						if (!numberOptions.SignedNumber)
+							output.Write("+", FormatterTextKind.Operator);
+						else if ((int)displ < 0) {
+							displ = (uint)-(int)displ;
+							output.Write("-", FormatterTextKind.Operator);
+						}
+						else
+							output.Write("+", FormatterTextKind.Operator);
+						if (numberOptions.DisplacementLeadingZeroes) {
+							Debug.Assert(displSize <= 4);
+							displSize = 4;
 						}
 					}
 					else {

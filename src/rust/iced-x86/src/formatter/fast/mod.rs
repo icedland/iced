@@ -1048,16 +1048,16 @@ impl FastFormatter {
 			FastFormatter::write_symbol2(output, abs_addr, symbol, &self.d.options, false);
 		} else if !need_plus || (displ_size != 0 && displ != 0) {
 			if need_plus {
-				if addr_size == 4 {
-					if (displ as i32) < 0 {
-						displ = (displ as i32).wrapping_neg() as u32 as i64;
+				if addr_size == 8 {
+					if displ < 0 {
+						displ = displ.wrapping_neg();
 						output.push('-');
 					} else {
 						output.push('+');
 					}
-				} else if addr_size == 8 {
-					if displ < 0 {
-						displ = displ.wrapping_neg();
+				} else if addr_size == 4 {
+					if (displ as i32) < 0 {
+						displ = (displ as i32).wrapping_neg() as u32 as i64;
 						output.push('-');
 					} else {
 						output.push('+');

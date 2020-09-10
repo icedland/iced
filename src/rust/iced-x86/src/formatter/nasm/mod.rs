@@ -1345,20 +1345,7 @@ impl NasmFormatter {
 						output.write(" ", FormatterTextKind::Text);
 					}
 
-					if addr_size == 4 {
-						if !number_options.signed_number {
-							output.write("+", FormatterTextKind::Operator);
-						} else if (displ as i32) < 0 {
-							displ = (displ as i32).wrapping_neg() as u32 as i64;
-							output.write("-", FormatterTextKind::Operator);
-						} else {
-							output.write("+", FormatterTextKind::Operator);
-						}
-						if number_options.displacement_leading_zeroes {
-							debug_assert!(displ_size <= 4);
-							displ_size = 4;
-						}
-					} else if addr_size == 8 {
+					if addr_size == 8 {
 						if !number_options.signed_number {
 							output.write("+", FormatterTextKind::Operator);
 						} else if displ < 0 {
@@ -1370,6 +1357,19 @@ impl NasmFormatter {
 						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 8);
 							displ_size = 8;
+						}
+					} else if addr_size == 4 {
+						if !number_options.signed_number {
+							output.write("+", FormatterTextKind::Operator);
+						} else if (displ as i32) < 0 {
+							displ = (displ as i32).wrapping_neg() as u32 as i64;
+							output.write("-", FormatterTextKind::Operator);
+						} else {
+							output.write("+", FormatterTextKind::Operator);
+						}
+						if number_options.displacement_leading_zeroes {
+							debug_assert!(displ_size <= 4);
+							displ_size = 4;
 						}
 					} else {
 						debug_assert_eq!(2, addr_size);

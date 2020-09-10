@@ -899,17 +899,7 @@ namespace Iced.Intel {
 				bool isSigned;
 				if (hasBaseOrIndexReg) {
 					isSigned = numberOptions.SignedNumber;
-					if (addrSize == 4) {
-						if (numberOptions.SignedNumber && (int)displ < 0) {
-							output.Write("-", FormatterTextKind.Operator);
-							displ = (uint)-(int)displ;
-						}
-						if (numberOptions.DisplacementLeadingZeroes) {
-							Debug.Assert(displSize <= 4);
-							displSize = 4;
-						}
-					}
-					else if (addrSize == 8) {
+					if (addrSize == 8) {
 						if (numberOptions.SignedNumber && displ < 0) {
 							output.Write("-", FormatterTextKind.Operator);
 							displ = -displ;
@@ -917,6 +907,16 @@ namespace Iced.Intel {
 						if (numberOptions.DisplacementLeadingZeroes) {
 							Debug.Assert(displSize <= 8);
 							displSize = 8;
+						}
+					}
+					else if (addrSize == 4) {
+						if (numberOptions.SignedNumber && (int)displ < 0) {
+							output.Write("-", FormatterTextKind.Operator);
+							displ = (uint)-(int)displ;
+						}
+						if (numberOptions.DisplacementLeadingZeroes) {
+							Debug.Assert(displSize <= 4);
+							displSize = 4;
 						}
 					}
 					else {
