@@ -1011,10 +1011,12 @@ impl MasmFormatter {
 			}
 		}
 
-		if operand == 0 && instruction.has_op_mask() {
-			output.write("{", FormatterTextKind::Punctuation);
-			MasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
-			output.write("}", FormatterTextKind::Punctuation);
+		if operand == 0 && super::super::instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
+			if instruction.has_op_mask() {
+				output.write("{", FormatterTextKind::Punctuation);
+				MasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
+				output.write("}", FormatterTextKind::Punctuation);
+			}
 			if instruction.zeroing_masking() {
 				MasmFormatter::format_decorator(
 					&self.d.options,

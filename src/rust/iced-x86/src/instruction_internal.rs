@@ -102,6 +102,12 @@ pub(crate) fn internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(this: 
 		& (CodeFlags::XACQUIRE_PREFIX | CodeFlags::XRELEASE_PREFIX | CodeFlags::LOCK_PREFIX | CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+#[inline]
+pub(crate) fn internal_has_op_mask_or_zeroing_masking(this: &Instruction) -> bool {
+	(this.code_flags & ((CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT) | CodeFlags::ZEROING_MASKING)) != 0
+}
+
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_clear_has_repe_prefix(this: &mut Instruction) {

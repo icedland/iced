@@ -788,10 +788,12 @@ impl FastFormatter {
 					}
 				}
 
-				if operand == 0 && instruction.has_op_mask() {
-					output.push('{');
-					FastFormatter::format_register(&self.d, output, instruction.op_mask());
-					output.push('}');
+				if operand == 0 && super::super::instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
+					if instruction.has_op_mask() {
+						output.push('{');
+						FastFormatter::format_register(&self.d, output, instruction.op_mask());
+						output.push('}');
+					}
 					if instruction.zeroing_masking() {
 						output.push_str("{z}");
 					}

@@ -396,10 +396,12 @@ namespace Iced.Intel {
 						throw new InvalidOperationException();
 					}
 
-					if (operand == 0 && instruction.HasOpMask) {
-						output.Append('{');
-						FormatRegister(output, instruction.OpMask);
-						output.Append('}');
+					if (operand == 0 && instruction.HasOpMask_or_ZeroingMasking) {
+						if (instruction.HasOpMask) {
+							output.Append('{');
+							FormatRegister(output, instruction.OpMask);
+							output.Append('}');
+						}
 						if (instruction.ZeroingMasking)
 							output.AppendNotNull("{z}");
 					}

@@ -1112,6 +1112,11 @@ namespace Iced.Intel {
 			get => (codeFlags & ((uint)CodeFlags.OpMaskMask << (int)CodeFlags.OpMaskShift)) != 0;
 		}
 
+		internal readonly bool HasOpMask_or_ZeroingMasking {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => (codeFlags & (((uint)CodeFlags.OpMaskMask << (int)CodeFlags.OpMaskShift) | (uint)CodeFlags.ZeroingMasking)) != 0;
+		}
+
 		/// <summary>
 		/// <see langword="true"/> if zeroing-masking, <see langword="false"/> if merging-masking.
 		/// Only used by most EVEX encoded instructions that use opmask registers.

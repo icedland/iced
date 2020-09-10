@@ -803,10 +803,12 @@ namespace Iced.Intel {
 				throw new InvalidOperationException();
 			}
 
-			if (operand + 1 == opInfo.OpCount && instruction.HasOpMask) {
-				output.Write("{", FormatterTextKind.Punctuation);
-				FormatRegister(output, instruction, operand, instructionOperand, (int)instruction.OpMask);
-				output.Write("}", FormatterTextKind.Punctuation);
+			if (operand + 1 == opInfo.OpCount && instruction.HasOpMask_or_ZeroingMasking) {
+				if (instruction.HasOpMask) {
+					output.Write("{", FormatterTextKind.Punctuation);
+					FormatRegister(output, instruction, operand, instructionOperand, (int)instruction.OpMask);
+					output.Write("}", FormatterTextKind.Punctuation);
+				}
 				if (instruction.ZeroingMasking)
 					FormatDecorator(output, instruction, operand, instructionOperand, str_z, DecoratorKind.ZeroingMasking);
 			}
