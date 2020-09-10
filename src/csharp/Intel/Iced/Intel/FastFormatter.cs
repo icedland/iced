@@ -485,14 +485,10 @@ namespace Iced.Intel {
 
 			if (!useHexPrefix && (int)((value >> ((digits - 1) << 2)) & 0xF) > 9)
 				output.Append('0');
-			int hexHigh = options.UppercaseHex ? 'A' - 10 : 'a' - 10;
-			for (int i = 0; i < digits; i++) {
-				int index = digits - i - 1;
-				int digit = (int)((value >> (index << 2)) & 0xF);
-				if (digit > 9)
-					output.Append((char)(digit + hexHigh));
-				else
-					output.Append((char)(digit + '0'));
+			var hexDigits = options.UppercaseHex ? "0123456789ABCDEF" : "0123456789abcdef";
+			for (int i = 0, indexShift = (digits - 1) << 2; i < digits; i++, indexShift -= 4) {
+				int digit = (int)(value >> indexShift) & 0xF;
+				output.Append(hexDigits[digit]);
 			}
 
 			if (!useHexPrefix)
