@@ -496,9 +496,9 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		void WriteSymbol(FastStringOutput output, ulong address, SymbolResult symbol) => WriteSymbol(output, address, symbol, true);
+		void WriteSymbol(FastStringOutput output, ulong address, in SymbolResult symbol) => WriteSymbol(output, address, symbol, true);
 
-		void WriteSymbol(FastStringOutput output, ulong address, SymbolResult symbol, bool writeMinusIfSigned) {
+		void WriteSymbol(FastStringOutput output, ulong address, in SymbolResult symbol, bool writeMinusIfSigned) {
 			long displ = (long)(address - symbol.Address);
 			if ((symbol.Flags & SymbolFlags.Signed) != 0) {
 				if (writeMinusIfSigned)
