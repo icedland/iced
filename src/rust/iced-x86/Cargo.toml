@@ -15,7 +15,7 @@ categories = ["no-std", "development-tools::debugging", "encoding", "hardware-su
 codecov = { repository = "0xd4d/iced", branch = "master", service = "github" }
 maintenance = { status = "actively-developed" }
 
-# These features are documented in the module docs (lib.rs)
+# These features are documented in README.md / lib.rs
 [features]
 default = ["std", "decoder", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm", "fast_fmt"]
 decoder = []
