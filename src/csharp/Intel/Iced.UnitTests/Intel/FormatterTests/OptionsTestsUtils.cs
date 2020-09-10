@@ -29,16 +29,24 @@ using System.Linq;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class OptionsTestsUtils {
-		public static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedStringsFile, string optionsFile = null) {
-			OptionsInstructionInfo[] infos;
-			HashSet<int> ignored;
-			if (optionsFile is null)
-				(infos, ignored) = FormatterOptionsTests.AllInfos;
-			else {
-				var infosFilename = FileUtils.GetFormatterFilename(Path.Combine(formatterDir, optionsFile));
-				ignored = new HashSet<int>();
-				infos = OptionsTestsReader.ReadFile(infosFilename, ignored).ToArray();
-			}
+		public static IEnumerable<object[]> GetFormatData_Common(string formatterDir, string formattedStringsFile) {
+			var (infos, ignored) = FormatterOptionsTests.CommonInfos;
+			return GetFormatData(formatterDir, formattedStringsFile, infos, ignored);
+		}
+
+		public static IEnumerable<object[]> GetFormatData_All(string formatterDir, string formattedStringsFile) {
+			var (infos, ignored) = FormatterOptionsTests.AllInfos;
+			return GetFormatData(formatterDir, formattedStringsFile, infos, ignored);
+		}
+
+		public static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedStringsFile, string optionsFile) {
+			var infosFilename = FileUtils.GetFormatterFilename(Path.Combine(formatterDir, optionsFile));
+			var ignored = new HashSet<int>();
+			var infos = OptionsTestsReader.ReadFile(infosFilename, ignored).ToArray();
+			return GetFormatData(formatterDir, formattedStringsFile, infos, ignored);
+		}
+
+		static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedStringsFile, OptionsInstructionInfo[] infos, HashSet<int> ignored) {
 			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedStringsFile)).ToArray();
 			formattedStrings = Utils.Filter(formattedStrings, ignored);
 			if (infos.Length != formattedStrings.Length)

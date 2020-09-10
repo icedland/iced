@@ -27,12 +27,13 @@ using System.Linq;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class FormatterOptionsTests {
-		public static readonly (OptionsInstructionInfo[] testCases, HashSet<int> ignored) AllInfos = ReadAllInfos();
+		public static readonly (OptionsInstructionInfo[] testCases, HashSet<int> ignored) CommonInfos = ReadAllInfos("Options.Common.txt", "Formatter");
+		public static readonly (OptionsInstructionInfo[] testCases, HashSet<int> ignored) AllInfos = ReadAllInfos("Options.txt", "Formatter");
 
-		static (OptionsInstructionInfo[] testCases, HashSet<int> ignored) ReadAllInfos() {
-			var filename = PathUtils.GetTestTextFilename("Options.txt", "Formatter");
+		static (OptionsInstructionInfo[] testCases, HashSet<int> ignored) ReadAllInfos(string filename, params string[] directories) {
+			var optionsFilename = PathUtils.GetTestTextFilename(filename, directories);
 			var ignored = new HashSet<int>();
-			return (OptionsTestsReader.ReadFile(filename, ignored).ToArray(), ignored);
+			return (OptionsTestsReader.ReadFile(optionsFilename, ignored).ToArray(), ignored);
 		}
 	}
 }

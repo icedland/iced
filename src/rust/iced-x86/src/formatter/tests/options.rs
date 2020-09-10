@@ -54,18 +54,18 @@ fn read_lines(filename: PathBuf) -> Vec<String> {
 fn read_infos<'a>(
 	dir: &str, file_part: &str, options_file: &str, tmp_infos: &'a mut Vec<OptionsInstructionInfo>,
 ) -> Vec<(&'a OptionsInstructionInfo, String)> {
-	let mut tmp_ignored: HashSet<u32>;
-	let (all_infos, ignored): (&Vec<OptionsInstructionInfo>, &HashSet<u32>) = if options_file.is_empty() {
-		let infos = &*opts_infos::ALL_INFOS;
-		(&infos.0, &infos.1)
-	} else {
-		let mut opts_filename = get_formatter_unit_tests_dir();
-		opts_filename.push(dir);
-		opts_filename.push(format!("{}.txt", options_file));
-		tmp_ignored = HashSet::new();
-		tmp_infos.extend(OptionsTestParser::new(opts_filename.as_path(), &mut tmp_ignored).into_iter());
-		(tmp_infos, &tmp_ignored)
-	};
+	let mut ignored: HashSet<u32>;
+	let mut opts_filename = get_formatter_unit_tests_dir();
+	opts_filename.push(dir);
+	opts_filename.push(format!("{}.txt", options_file));
+	ignored = HashSet::new();
+	tmp_infos.extend(OptionsTestParser::new(opts_filename.as_path(), &mut ignored).into_iter());
+	filter_infos(dir, file_part, tmp_infos, &ignored)
+}
+
+fn filter_infos<'a, 'b>(
+	dir: &str, file_part: &str, all_infos: &'a [OptionsInstructionInfo], ignored: &'b HashSet<u32>,
+) -> Vec<(&'a OptionsInstructionInfo, String)> {
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);
 	filename.push(format!("{}.txt", file_part));
@@ -75,6 +75,26 @@ fn read_infos<'a>(
 		panic!("lines.len() ({}) != all_infos.len() ({}), file: {}", lines.len(), all_infos.len(), display_filename);
 	}
 	all_infos.iter().zip(lines.into_iter()).map(|a| (a.0, a.1)).collect()
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(in super::super) fn test_format_file_common(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
+	let (all_infos, ignored): (&[OptionsInstructionInfo], &HashSet<u32>) = {
+		let infos = &*opts_infos::COMMON_INFOS;
+		(&infos.0, &infos.1)
+	};
+	let infos = filter_infos(dir, file_part, all_infos, ignored);
+	test_format(infos, fmt_factory);
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(in super::super) fn test_format_file_all(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
+	let (all_infos, ignored): (&[OptionsInstructionInfo], &HashSet<u32>) = {
+		let infos = &*opts_infos::ALL_INFOS;
+		(&infos.0, &infos.1)
+	};
+	let infos = filter_infos(dir, file_part, all_infos, ignored);
+	test_format(infos, fmt_factory);
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -93,6 +113,16 @@ fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() 
 			tc.initialize_decoder(decoder)
 		});
 	}
+}
+
+#[cfg(feature = "fast_fmt")]
+pub(in super::super) fn test_format_file_common_fast(dir: &str, file_part: &str, fmt_factory: fn() -> Box<FastFormatter>) {
+	let (all_infos, ignored): (&[OptionsInstructionInfo], &HashSet<u32>) = {
+		let infos = &*opts_infos::COMMON_INFOS;
+		(&infos.0, &infos.1)
+	};
+	let infos = filter_infos(dir, file_part, all_infos, ignored);
+	test_format_fast(infos, fmt_factory);
 }
 
 #[cfg(feature = "fast_fmt")]

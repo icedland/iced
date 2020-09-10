@@ -32,6 +32,16 @@ use hashbrown::HashSet;
 use std::collections::HashSet;
 
 lazy_static! {
+	pub(super) static ref COMMON_INFOS: (Vec<OptionsInstructionInfo>, HashSet<u32>) = {
+		let mut filename = get_formatter_unit_tests_dir();
+		filename.push("Options.Common.txt");
+		let mut ignored: HashSet<u32> = HashSet::new();
+		let v = OptionsTestParser::new(filename.as_path(), &mut ignored).into_iter().collect();
+		(v, ignored)
+	};
+}
+
+lazy_static! {
 	pub(super) static ref ALL_INFOS: (Vec<OptionsInstructionInfo>, HashSet<u32>) = {
 		let mut filename = get_formatter_unit_tests_dir();
 		filename.push("Options.txt");

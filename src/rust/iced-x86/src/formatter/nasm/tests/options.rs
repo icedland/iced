@@ -21,12 +21,17 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::super::tests::options::test_format_file;
+use super::super::super::tests::options::{test_format_file, test_format_file_all, test_format_file_common};
 use super::fmt_factory;
 
 #[test]
-fn test_options() {
-	test_format_file("Nasm", "OptionsResult", "", || fmt_factory::create_options());
+fn test_options_common() {
+	test_format_file_common("Nasm", "OptionsResult.Common", || fmt_factory::create_options());
+}
+
+#[test]
+fn test_options_all() {
+	test_format_file_all("Nasm", "OptionsResult", || fmt_factory::create_options());
 }
 
 #[test]
