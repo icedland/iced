@@ -4313,6 +4313,10 @@ namespace Iced.Intel {
 			0,// Cyrix_DEDD
 			0,// Cyrix_DEDE
 			0,// Frinear
+			0,// Tdcall
+			0,// Seamret
+			0,// Seamops
+			0,// Seamcall
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8592,6 +8596,10 @@ namespace Iced.Intel {
 			0,// Cyrix_DEDD
 			0,// Cyrix_DEDE
 			0,// Frinear
+			0,// Tdcall
+			0,// Seamret
+			0,// Seamops
+			0,// Seamcall
 		};
 	}
 }

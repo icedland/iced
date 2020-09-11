@@ -3021,6 +3021,16 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::Seamops => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::ReadWrite);
+					Self::add_register(flags, info, Register::RCX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::RDX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::R8, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::R9, OpAccess::CondRead);
+				}
+			}
+
 			CodeInfo::None => {}
 		}
 	}

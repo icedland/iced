@@ -4317,6 +4317,10 @@ namespace Generator.Formatters.Nasm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Cyrix_DEDD)], "undoc" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Cyrix_DEDE)], "undoc" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Frinear)], "frinear" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Tdcall)], "tdcall" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Seamret)], "seamret" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Seamops)], "seamops" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Seamcall)], "seamcall" },
 			});
 		}
 	}

@@ -12870,6 +12870,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 #endif
 
 		[Fact]
+		public void tdcall() {
+			TestAssembler(c => c.tdcall(), Instruction.Create(Code.Tdcall));
+		}
+
+		[Fact]
 		public void test_reg8_reg8() {
 			TestAssembler(c => c.test(bl, cl), Instruction.Create(Code.Test_rm8_r8, bl, cl));
 		}

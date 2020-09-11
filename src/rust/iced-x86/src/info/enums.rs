@@ -427,10 +427,11 @@ pub(crate) enum CodeInfo {
 	EMMI_RW_ImpliedReg,
 	CPUR,
 	CPUW,
+	Seamops,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 111] = [
+static GEN_DEBUG_CODE_INFO: [&str; 112] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -542,6 +543,7 @@ static GEN_DEBUG_CODE_INFO: [&str; 111] = [
 	"EMMI_RW_ImpliedReg",
 	"CPUR",
 	"CPUW",
+	"Seamops",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -883,10 +885,11 @@ pub(crate) enum CpuidFeatureInternal {
 	CENTAUR_AIS,
 	MOV_TR,
 	SMM,
+	TDX,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 167] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 168] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1054,6 +1057,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 167] = [
 	"CENTAUR_AIS",
 	"MOV_TR",
 	"SMM",
+	"TDX",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

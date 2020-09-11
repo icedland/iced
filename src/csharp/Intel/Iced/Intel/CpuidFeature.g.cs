@@ -325,6 +325,8 @@ namespace Iced.Intel {
 		MOV_TR = 146,
 		/// <summary><c>RSM</c> instruction (some 386s, some 486s, Pentium and later)</summary>
 		SMM = 147,
+		/// <summary>CPUID.(EAX=??H, ECX=?H):EDX.????[bit ??]</summary>
+		TDX = 148,
 	}
 }
 #endif

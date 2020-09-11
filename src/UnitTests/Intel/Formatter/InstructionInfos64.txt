@@ -8368,3 +8368,7 @@ C4E26A 5C C1, VEX_Tdpbf16ps_tmm_tmm_tmm
 C4E252 5C DC, VEX_Tdpbf16ps_tmm_tmm_tmm
 C4E27A 5C F7, VEX_Tdpbf16ps_tmm_tmm_tmm
 62 F14C98 14 50 01, EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, NoInvalidCheck
+66 0F01 CC, Tdcall
+66 0F01 CD, Seamret
+66 0F01 CE, Seamops
+66 0F01 CF, Seamcall

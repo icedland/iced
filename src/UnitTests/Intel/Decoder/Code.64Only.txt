@@ -456,3 +456,6 @@ VEX_Tdpbuud_tmm_tmm_tmm
 VEX_Tdpbusd_tmm_tmm_tmm
 VEX_Tdpbsud_tmm_tmm_tmm
 VEX_Tdpbssd_tmm_tmm_tmm
+Seamret
+Seamops
+Seamcall

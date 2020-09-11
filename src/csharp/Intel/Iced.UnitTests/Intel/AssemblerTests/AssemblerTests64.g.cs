@@ -12814,6 +12814,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void seamcall() {
+			TestAssembler(c => c.seamcall(), Instruction.Create(Code.Seamcall));
+		}
+
+		[Fact]
+		public void seamops() {
+			TestAssembler(c => c.seamops(), Instruction.Create(Code.Seamops));
+		}
+
+		[Fact]
+		public void seamret() {
+			TestAssembler(c => c.seamret(), Instruction.Create(Code.Seamret));
+		}
+
+		[Fact]
 		public void serialize() {
 			TestAssembler(c => c.serialize(), Instruction.Create(Code.Serialize));
 		}
@@ -14125,6 +14140,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.t1mskc(rcx, __qword_ptr[rcx]), Instruction.Create(Code.XOP_T1mskc_r64_rm64, rcx, __qword_ptr[rcx].ToMemoryOperand(Bitness)));
 		}
 #endif
+
+		[Fact]
+		public void tdcall() {
+			TestAssembler(c => c.tdcall(), Instruction.Create(Code.Tdcall));
+		}
 
 #if !NO_VEX
 		[Fact]

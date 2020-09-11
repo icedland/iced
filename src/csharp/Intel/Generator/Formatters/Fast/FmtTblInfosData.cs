@@ -4313,6 +4313,10 @@ namespace Generator.Formatters.Fast {
 				new object[] { code[nameof(Code.Cyrix_DEDD)], "undoc" },
 				new object[] { code[nameof(Code.Cyrix_DEDE)], "undoc" },
 				new object[] { code[nameof(Code.Frinear)], "frinear" },
+				new object[] { code[nameof(Code.Tdcall)], "tdcall" },
+				new object[] { code[nameof(Code.Seamret)], "seamret" },
+				new object[] { code[nameof(Code.Seamops)], "seamops" },
+				new object[] { code[nameof(Code.Seamcall)], "seamcall" },
 			}, CodeValueIndex);
 		}
 	}

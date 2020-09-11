@@ -32383,3 +32383,15 @@ C4E263 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm3 op2=r;t
 C4E263 5E D3, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
 C4E26B 5E D2, VEX_Tdpbssd_tmm_tmm_tmm, Tdpbssd, 3, op0=r;tmm2 op1=r;tmm2 op2=r;tmm2 decopt=NoInvalidCheck
 C4E26B 5E D2, INVALID, INVALID, 0, code=VEX_Tdpbssd_tmm_tmm_tmm
+
+66 0F01 CC, Tdcall, Tdcall, 0,
+66 4F 0F01 CC, Tdcall, Tdcall, 0, enc=660F01CC
+
+66 0F01 CD, Seamret, Seamret, 0,
+66 4F 0F01 CD, Seamret, Seamret, 0, enc=660F01CD
+
+66 0F01 CE, Seamops, Seamops, 0,
+66 4F 0F01 CE, Seamops, Seamops, 0, enc=660F01CE
+
+66 0F01 CF, Seamcall, Seamcall, 0,
+66 4F 0F01 CF, Seamcall, Seamcall, 0, enc=660F01CF

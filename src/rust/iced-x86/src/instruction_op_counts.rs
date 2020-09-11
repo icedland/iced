@@ -4306,4 +4306,8 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	0,// Cyrix_DEDD
 	0,// Cyrix_DEDE
 	0,// Frinear
+	0,// Tdcall
+	0,// Seamret
+	0,// Seamops
+	0,// Seamcall
 ];

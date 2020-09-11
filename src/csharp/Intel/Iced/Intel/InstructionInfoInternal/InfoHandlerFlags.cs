@@ -270,6 +270,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		EMMI_RW_ImpliedReg,
 		CPUR,
 		CPUW,
+		Seamops,
 	}
 	// GENERATOR-END: CodeInfo
 

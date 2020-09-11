@@ -1628,9 +1628,13 @@ pub enum Mnemonic {
 	Frichop = 1594,
 	Frinear = 1595,
 	Undoc = 1596,
+	Tdcall = 1597,
+	Seamret = 1598,
+	Seamops = 1599,
+	Seamcall = 1600,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1597] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1601] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3228,6 +3232,10 @@ static GEN_DEBUG_MNEMONIC: [&str; 1597] = [
 	"Frichop",
 	"Frinear",
 	"Undoc",
+	"Tdcall",
+	"Seamret",
+	"Seamops",
+	"Seamcall",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

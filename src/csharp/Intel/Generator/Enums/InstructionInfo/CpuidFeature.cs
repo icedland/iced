@@ -320,5 +320,7 @@ namespace Generator.Enums.InstructionInfo {
 		MOV_TR,
 		[Comment("#(c:RSM)# instruction (some 386s, some 486s, Pentium and later)")]
 		SMM,
+		[Comment("CPUID.(EAX=??H, ECX=?H):EDX.????[bit ??]")]
+		TDX,
 	}
 }

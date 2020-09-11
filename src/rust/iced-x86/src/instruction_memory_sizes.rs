@@ -4309,6 +4309,10 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Cyrix_DEDD
 	MemorySize::Unknown,// Cyrix_DEDE
 	MemorySize::Unknown,// Frinear
+	MemorySize::Unknown,// Tdcall
+	MemorySize::Unknown,// Seamret
+	MemorySize::Unknown,// Seamops
+	MemorySize::Unknown,// Seamcall
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8588,4 +8592,8 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Cyrix_DEDD
 	MemorySize::Unknown,// Cyrix_DEDE
 	MemorySize::Unknown,// Frinear
+	MemorySize::Unknown,// Tdcall
+	MemorySize::Unknown,// Seamret
+	MemorySize::Unknown,// Seamops
+	MemorySize::Unknown,// Seamcall
 ];

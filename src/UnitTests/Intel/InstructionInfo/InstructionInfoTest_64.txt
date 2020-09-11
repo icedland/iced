@@ -19145,3 +19145,11 @@ C4E259 5E D3, VEX_Tdpbusd_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=t
 C4E25A 5E D3, VEX_Tdpbsud_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4
 # tdpbssd tmm2,tmm3,tmm4
 C4E25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4
+# tdcall
+66 0F01 CC, Tdcall, Legacy, TDX, priv flow=Call
+# seamret
+66 0F01 CD, Seamret, Legacy, TDX, priv fc=aops fw=cz flow=Return
+# seamops
+66 0F01 CE, Seamops, Legacy, TDX, priv fc=caops fw=z rw=rax cr=rcx;rdx;r8;r9
+# seamcall
+66 0F01 CF, Seamcall, Legacy, TDX, priv fc=zaops fw=c flow=Call

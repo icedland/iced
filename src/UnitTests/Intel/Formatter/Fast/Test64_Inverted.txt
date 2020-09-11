@@ -8368,3 +8368,7 @@ tdpbf16ps tmm0, tmm1, tmm2
 tdpbf16ps tmm3, tmm4, tmm5
 tdpbf16ps tmm6, tmm7, tmm0
 vunpcklps xmm2{z}, xmm6, dword bcst ds:[rax+0x4]
+tdcall
+seamret
+seamops
+seamcall

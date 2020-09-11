@@ -556,9 +556,9 @@ pub enum FlowControl {
 	IndirectBranch = 2,
 	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`
 	ConditionalBranch = 3,
-	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`, `RDM`
+	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`, `RDM`, `SEAMRET`
 	Return = 4,
-	/// It's a call instruction: `CALL NEAR`, `CALL FAR`, `SYSCALL`, `SYSENTER`, `VMCALL`, `VMMCALL`, `VMGEXIT`
+	/// It's a call instruction: `CALL NEAR`, `CALL FAR`, `SYSCALL`, `SYSENTER`, `VMCALL`, `VMMCALL`, `VMGEXIT`, `TDCALL`, `SEAMCALL`
 	Call = 5,
 	/// It's an indirect call instruction: `CALL NEAR reg`, `CALL NEAR [mem]`, `CALL FAR [mem]`
 	IndirectCall = 6,
@@ -1283,10 +1283,12 @@ pub enum CpuidFeature {
 	MOV_TR = 146,
 	/// `RSM` instruction (some 386s, some 486s, Pentium and later)
 	SMM = 147,
+	/// CPUID.(EAX=??H, ECX=?H):EDX.????\[bit ??\]
+	TDX = 148,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 148] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 149] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1435,6 +1437,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 148] = [
 	"CENTAUR_AIS",
 	"MOV_TR",
 	"SMM",
+	"TDX",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

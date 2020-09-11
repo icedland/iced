@@ -14611,4 +14611,20 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Frinear
 	0x00,// No flags set
 	0xB4, 0x0B,// 1460 = "frinear"
+
+	// Tdcall
+	0x00,// No flags set
+	0xB5, 0x0B,// 1461 = "tdcall"
+
+	// Seamret
+	0x00,// No flags set
+	0xB6, 0x0B,// 1462 = "seamret"
+
+	// Seamops
+	0x00,// No flags set
+	0xB7, 0x0B,// 1463 = "seamops"
+
+	// Seamcall
+	0x00,// No flags set
+	0xB8, 0x0B,// 1464 = "seamcall"
 ];

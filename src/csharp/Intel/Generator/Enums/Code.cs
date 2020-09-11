@@ -4310,6 +4310,10 @@ namespace Generator.Enums {
 		Cyrix_DEDD,
 		Cyrix_DEDE,
 		Frinear,
+		Tdcall,
+		Seamret,
+		Seamops,
+		Seamcall,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

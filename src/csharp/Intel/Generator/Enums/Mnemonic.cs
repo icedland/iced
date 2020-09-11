@@ -1621,5 +1621,9 @@ namespace Generator.Enums {
 		Frichop,
 		Frinear,
 		Undoc,
+		Tdcall,
+		Seamret,
+		Seamops,
+		Seamcall,
 	}
 }

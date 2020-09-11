@@ -195,6 +195,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		CENTAUR_AIS,
 		MOV_TR,
 		SMM,
+		TDX,
 	}
 }
 #endif

@@ -4307,4 +4307,8 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Undoc,// Cyrix_DEDD
 	Mnemonic::Undoc,// Cyrix_DEDE
 	Mnemonic::Frinear,// Frinear
+	Mnemonic::Tdcall,// Tdcall
+	Mnemonic::Seamret,// Seamret
+	Mnemonic::Seamops,// Seamops
+	Mnemonic::Seamcall,// Seamcall
 ];

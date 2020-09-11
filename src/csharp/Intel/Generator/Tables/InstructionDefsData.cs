@@ -12876,6 +12876,18 @@ namespace Generator.Tables {
 				(0, mnemonic[nameof(Mnemonic.Frinear)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Frinear)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xDFFC, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Frinear)], CodeInfo.RW_ST0, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.CYRIX_FPU)] }, Array.Empty<OpInfo>(), InstrInfoFlags.None)),
+				(0, mnemonic[nameof(Mnemonic.Tdcall)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Tdcall)], MandatoryPrefix.P66, OpCodeTableKind.T0F, 0x01CC, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Tdcall)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Call)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.TDX)] }, Array.Empty<OpInfo>(), InstrInfoFlags.Privileged)),
+				(0, mnemonic[nameof(Mnemonic.Seamret)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Seamret)], MandatoryPrefix.P66, OpCodeTableKind.T0F, 0x01CD, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Seamret)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Return)], RflagsBits.None, RflagsBits.None, RflagsBits.ZF | RflagsBits.CF, RflagsBits.OF | RflagsBits.SF | RflagsBits.AF | RflagsBits.PF, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.TDX)] }, Array.Empty<OpInfo>(), InstrInfoFlags.Privileged)),
+				(0, mnemonic[nameof(Mnemonic.Seamops)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Seamops)], MandatoryPrefix.P66, OpCodeTableKind.T0F, 0x01CE, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Seamops)], CodeInfo.Seamops, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.ZF, RflagsBits.CF | RflagsBits.OF | RflagsBits.SF | RflagsBits.AF | RflagsBits.PF, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.TDX)] }, Array.Empty<OpInfo>(), InstrInfoFlags.Privileged)),
+				(0, mnemonic[nameof(Mnemonic.Seamcall)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Seamcall)], MandatoryPrefix.P66, OpCodeTableKind.T0F, 0x01CF, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Seamcall)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Call)], RflagsBits.None, RflagsBits.None, RflagsBits.CF, RflagsBits.ZF | RflagsBits.OF | RflagsBits.SF | RflagsBits.AF | RflagsBits.PF, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.TDX)] }, Array.Empty<OpInfo>(), InstrInfoFlags.Privileged)),
 			};
 
 			if (result.Length != code.Values.Length)

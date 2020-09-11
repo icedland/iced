@@ -4307,6 +4307,10 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Undoc,// Cyrix_DEDD
 			(ushort)Mnemonic.Undoc,// Cyrix_DEDE
 			(ushort)Mnemonic.Frinear,// Frinear
+			(ushort)Mnemonic.Tdcall,// Tdcall
+			(ushort)Mnemonic.Seamret,// Seamret
+			(ushort)Mnemonic.Seamops,// Seamops
+			(ushort)Mnemonic.Seamcall,// Seamcall
 		};
 	}
 }

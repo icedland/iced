@@ -1628,6 +1628,10 @@ pub enum Mnemonic {
 	Frichop = 1594,
 	Frinear = 1595,
 	Undoc = 1596,
+	Tdcall = 1597,
+	Seamret = 1598,
+	Seamops = 1599,
+	Seamcall = 1600,
 }
 // GENERATOR-END: Enum
 

@@ -1626,6 +1626,10 @@ namespace Iced.Intel {
 		Frichop = 1594,
 		Frinear = 1595,
 		Undoc = 1596,
+		Tdcall = 1597,
+		Seamret = 1598,
+		Seamops = 1599,
+		Seamcall = 1600,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

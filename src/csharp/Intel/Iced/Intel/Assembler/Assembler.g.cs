@@ -36372,6 +36372,48 @@ namespace Iced.Intel {
 		public void scasw() {
 			AddInstruction(Instruction.CreateScasw(Bitness));
 		}
+		/// <summary>seamcall instruction.<br/>
+		/// <br/>
+		/// <c>SEAMCALL</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CF</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void seamcall() {
+			Code op;
+			op = Code.Seamcall;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>seamops instruction.<br/>
+		/// <br/>
+		/// <c>SEAMOPS</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CE</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void seamops() {
+			Code op;
+			op = Code.Seamops;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>seamret instruction.<br/>
+		/// <br/>
+		/// <c>SEAMRET</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CD</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void seamret() {
+			Code op;
+			op = Code.Seamret;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>serialize instruction.<br/>
 		/// <br/>
 		/// <c>SERIALIZE</c><br/>
@@ -40131,6 +40173,20 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.XOP_T1mskc_r64_rm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>tdcall instruction.<br/>
+		/// <br/>
+		/// <c>TDCALL</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CC</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void tdcall() {
+			Code op;
+			op = Code.Tdcall;
+			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>tdpbf16ps instruction.<br/>
 		/// <br/>

@@ -34230,5 +34230,37 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Frinear = 4278,
+		/// <summary><c>TDCALL</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CC</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Tdcall = 4279,
+		/// <summary><c>SEAMRET</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CD</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Seamret = 4280,
+		/// <summary><c>SEAMOPS</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CE</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Seamops = 4281,
+		/// <summary><c>SEAMCALL</c><br/>
+		/// <br/>
+		/// <c>66 0F 01 CF</c><br/>
+		/// <br/>
+		/// <c>TDX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Seamcall = 4282,
 	}
 }

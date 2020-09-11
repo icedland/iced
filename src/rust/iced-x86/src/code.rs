@@ -34238,9 +34238,41 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Frinear = 4278,
+	/// `TDCALL`
+	///
+	/// `66 0F 01 CC`
+	///
+	/// `TDX`
+	///
+	/// `16/32/64-bit`
+	Tdcall = 4279,
+	/// `SEAMRET`
+	///
+	/// `66 0F 01 CD`
+	///
+	/// `TDX`
+	///
+	/// `64-bit`
+	Seamret = 4280,
+	/// `SEAMOPS`
+	///
+	/// `66 0F 01 CE`
+	///
+	/// `TDX`
+	///
+	/// `64-bit`
+	Seamops = 4281,
+	/// `SEAMCALL`
+	///
+	/// `66 0F 01 CF`
+	///
+	/// `TDX`
+	///
+	/// `64-bit`
+	Seamcall = 4282,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4279] = [
+static GEN_DEBUG_CODE: [&str; 4283] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38520,6 +38552,10 @@ static GEN_DEBUG_CODE: [&str; 4279] = [
 	"Cyrix_DEDD",
 	"Cyrix_DEDE",
 	"Frinear",
+	"Tdcall",
+	"Seamret",
+	"Seamops",
+	"Seamcall",
 ];
 impl fmt::Debug for Code {
 	#[inline]

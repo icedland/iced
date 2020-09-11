@@ -170,6 +170,7 @@ namespace Generator.InstructionInfo {
 		EMMI_RW_ImpliedReg,
 		CPUR,
 		CPUW,
+		Seamops,
 	}
 
 	sealed class InstrInfo {

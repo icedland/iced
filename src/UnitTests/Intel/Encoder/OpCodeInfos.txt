@@ -4300,3 +4300,7 @@ Cyrix_DEDC, legacy, , legacy, DEDC, DE DC, UNDOC, 16b 32b
 Cyrix_DEDD, legacy, , legacy, DEDD, DE DD, UNDOC, 16b 32b
 Cyrix_DEDE, legacy, , legacy, DEDE, DE DE, UNDOC, 16b 32b
 Frinear, legacy, , legacy, DFFC, DF FC, FRINEAR, 16b 32b
+Tdcall, legacy, 66, 0F, 01CC, 66 0F 01 CC, TDCALL, 16b 32b 64b
+Seamret, legacy, 66, 0F, 01CD, 66 0F 01 CD, SEAMRET, 64b
+Seamops, legacy, 66, 0F, 01CE, 66 0F 01 CE, SEAMOPS, 64b
+Seamcall, legacy, 66, 0F, 01CF, 66 0F 01 CF, SEAMCALL, 64b

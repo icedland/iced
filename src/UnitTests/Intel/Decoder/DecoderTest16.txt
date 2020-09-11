@@ -21704,3 +21704,5 @@ DE DD, Cyrix_DEDD, Undoc, 0, decopt=Cyrix
 DE DE, Cyrix_DEDE, Undoc, 0, decopt=Cyrix
 
 DF FC, Frinear, Frinear, 0, decopt=Cyrix
+
+66 0F01 CC, Tdcall, Tdcall, 0,

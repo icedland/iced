@@ -1608,15 +1608,41 @@ namespace Iced.Intel.DecoderInternal {
 					0x03,// Invalid_NoModRM
 
 				// 12 = 0x0C
-				0x05,// Dup
-					0x03,// 3
-					0x06,// Null
+				0x14,// MandatoryPrefix_NoModRM
+					0x03,// Invalid_NoModRM
+					0xA4,// Simple
+						0xB7, 0x21,// Tdcall
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+
+				// 13 = 0x0D
+				0x14,// MandatoryPrefix_NoModRM
+					0x03,// Invalid_NoModRM
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xB8, 0x21,// Seamret
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+
+				// 14 = 0x0E
+				0x14,// MandatoryPrefix_NoModRM
+					0x03,// Invalid_NoModRM
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xB9, 0x21,// Seamops
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
 
 				// 15 = 0x0F
 				0x14,// MandatoryPrefix_NoModRM
 					0xA4,// Simple
 						0xB8, 0x06,// Encls
-					0x03,// Invalid_NoModRM
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xBA, 0x21,// Seamcall
 					0x03,// Invalid_NoModRM
 					0x03,// Invalid_NoModRM
 

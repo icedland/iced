@@ -2150,6 +2150,16 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Seamops:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.ReadWrite);
+					AddRegister(flags, Register.RCX, OpAccess.CondRead);
+					AddRegister(flags, Register.RDX, OpAccess.CondRead);
+					AddRegister(flags, Register.R8, OpAccess.CondRead);
+					AddRegister(flags, Register.R9, OpAccess.CondRead);
+				}
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

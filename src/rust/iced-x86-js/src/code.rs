@@ -4310,6 +4310,10 @@ pub enum Code {
 	Cyrix_DEDD = 4276,
 	Cyrix_DEDE = 4277,
 	Frinear = 4278,
+	Tdcall = 4279,
+	Seamret = 4280,
+	Seamops = 4281,
+	Seamcall = 4282,
 }
 // GENERATOR-END: Enum
 
