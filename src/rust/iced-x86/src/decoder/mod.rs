@@ -273,6 +273,7 @@ impl State {
 
 /// Decodes 16/32/64-bit x86 instructions
 #[allow(missing_debug_implementations)]
+#[allow(dead_code)]
 pub struct Decoder<'a> {
 	ip: u64,
 
