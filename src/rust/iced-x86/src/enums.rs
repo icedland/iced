@@ -1283,7 +1283,7 @@ pub enum CpuidFeature {
 	MOV_TR = 146,
 	/// `RSM` instruction (some 386s, some 486s, Pentium and later)
 	SMM = 147,
-	/// CPUID.(EAX=??H, ECX=?H):EDX.????\[bit ??\]
+	/// CPUID.(EAX=??H, ECX=?H):???.????\[bit ??\]
 	TDX = 148,
 }
 #[cfg(feature = "instr_info")]
