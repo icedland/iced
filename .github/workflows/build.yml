@@ -2,7 +2,7 @@ name: GitHub CI
 on:
   push:
     paths:
-      - '.github/workflows/**'
+      - '.github/workflows/build.yml'
       - 'src/**'
       - '!**/*.md'
     branches:
