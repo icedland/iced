@@ -1481,10 +1481,8 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	pub(self) fn read_op_mem(&mut self, instruction: &mut Instruction) {
 		debug_assert_ne!(EncodingKind::EVEX, self.state.encoding());
-		if self.state.address_size == OpSize::Size64 {
-			let _ = self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, TupleType::None, false);
-		} else if self.state.address_size == OpSize::Size32 {
-			let _ = self.read_op_mem_32_or_64(instruction, Register::EAX, Register::EAX, TupleType::None, false);
+		if self.state.address_size != OpSize::Size16 {
+			let _ = self.read_op_mem_32_or_64(instruction);
 		} else {
 			self.read_op_mem_16(instruction, TupleType::None);
 		}
@@ -1494,10 +1492,8 @@ impl<'a> Decoder<'a> {
 	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 	pub(self) fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
 		debug_assert_ne!(EncodingKind::EVEX, self.state.encoding());
-		let is_valid = if self.state.address_size == OpSize::Size64 {
-			self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, TupleType::None, false)
-		} else if self.state.address_size == OpSize::Size32 {
-			self.read_op_mem_32_or_64(instruction, Register::EAX, Register::EAX, TupleType::None, false)
+		let is_valid = if self.state.address_size != OpSize::Size16 {
+			self.read_op_mem_32_or_64(instruction)
 		} else {
 			self.read_op_mem_16(instruction, TupleType::None);
 			false
@@ -1515,9 +1511,9 @@ impl<'a> Decoder<'a> {
 		debug_assert_ne!(EncodingKind::EVEX, self.state.encoding());
 		if self.is64_mode {
 			self.state.address_size = OpSize::Size64;
-			let _ = self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, TupleType::None, false);
-		} else if self.state.address_size == OpSize::Size32 {
-			let _ = self.read_op_mem_32_or_64(instruction, Register::EAX, Register::EAX, TupleType::None, false);
+			let _ = self.read_op_mem_32_or_64(instruction);
+		} else if self.state.address_size != OpSize::Size16 {
+			let _ = self.read_op_mem_32_or_64(instruction);
 		} else {
 			self.read_op_mem_16(instruction, TupleType::None);
 			if self.invalid_check_mask != 0 {
@@ -1530,10 +1526,9 @@ impl<'a> Decoder<'a> {
 	#[cfg(not(feature = "no_evex"))]
 	pub(self) fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert_eq!(EncodingKind::EVEX, self.state.encoding());
-		if self.state.address_size == OpSize::Size64 {
-			let _ = self.read_op_mem_32_or_64(instruction, Register::RAX, Register::RAX, tuple_type, false);
-		} else if self.state.address_size == OpSize::Size32 {
-			let _ = self.read_op_mem_32_or_64(instruction, Register::EAX, Register::EAX, tuple_type, false);
+		if self.state.address_size != OpSize::Size16 {
+			let index_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
+			let _ = self.read_op_mem_32_or_64_vsib(instruction, index_reg, tuple_type, false);
 		} else {
 			self.read_op_mem_16(instruction, tuple_type);
 		}
@@ -1543,10 +1538,8 @@ impl<'a> Decoder<'a> {
 	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 	pub(self) fn read_op_mem_vsib(&mut self, instruction: &mut Instruction, vsib_index: Register, tuple_type: TupleType) {
 		let is_valid;
-		if self.state.address_size == OpSize::Size64 {
-			is_valid = self.read_op_mem_32_or_64(instruction, Register::RAX, vsib_index, tuple_type, true);
-		} else if self.state.address_size == OpSize::Size32 {
-			is_valid = self.read_op_mem_32_or_64(instruction, Register::EAX, vsib_index, tuple_type, true);
+		if self.state.address_size != OpSize::Size16 {
+			is_valid = self.read_op_mem_32_or_64_vsib(instruction, vsib_index, tuple_type, true);
 		} else {
 			self.read_op_mem_16(instruction, tuple_type);
 			is_valid = false;
@@ -1559,6 +1552,7 @@ impl<'a> Decoder<'a> {
 	// It's small enough that the compiler wants to inline it but almost no-one will
 	// disassemble code with 16-bit addressing.
 	#[inline(never)]
+	#[cold]
 	fn read_op_mem_16(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert!(self.state.address_size == OpSize::Size16);
 		debug_assert!(self.state.rm <= 7);
@@ -1594,14 +1588,124 @@ impl<'a> Decoder<'a> {
 	}
 
 	// Returns `true` if the SIB byte was read
+	// This is a specialized version of read_op_mem_32_or_64_vsib() which takes less arguments. Keep them in sync.
 	#[cfg_attr(has_must_use, must_use)]
-	fn read_op_mem_32_or_64(
-		&mut self, instruction: &mut Instruction, base_reg: Register, index_reg: Register, tuple_type: TupleType, is_vsib: bool,
-	) -> bool {
+	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
 		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
 		let sib: u32;
 		let displ_size_scale: u32;
 		let displ: u32;
+		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
+		match self.state.mod_ {
+			0 => match self.state.rm {
+				4 => {
+					sib = self.read_u8() as u32;
+					displ_size_scale = 0;
+					displ = 0;
+				}
+				5 => {
+					if self.state.address_size == OpSize::Size64 {
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+					} else {
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+					}
+					self.displ_index = self.data_ptr as usize;
+					instruction.set_memory_displacement(self.read_u32() as u32);
+					if self.is64_mode {
+						if self.state.address_size == OpSize::Size64 {
+							super::instruction_internal::internal_set_memory_base(instruction, Register::RIP);
+						} else {
+							super::instruction_internal::internal_set_memory_base(instruction, Register::EIP);
+						}
+					}
+					return false;
+				}
+				_ => {
+					debug_assert!(self.state.rm <= 7 && self.state.rm != 4 && self.state.rm != 5);
+					super::instruction_internal::internal_set_memory_base_u32(
+						instruction,
+						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
+					);
+					return false;
+				}
+			},
+			1 => {
+				if self.state.rm == 4 {
+					sib = self.read_u8() as u32;
+					displ_size_scale = 1;
+					self.displ_index = self.data_ptr as usize;
+					displ = self.read_u8() as i8 as u32;
+				} else {
+					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
+					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
+					self.displ_index = self.data_ptr as usize;
+					instruction.set_memory_displacement(self.read_u8() as i8 as u32);
+					super::instruction_internal::internal_set_memory_base_u32(
+						instruction,
+						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
+					);
+					return false;
+				}
+			}
+			_ => {
+				debug_assert_eq!(2, self.state.mod_);
+				if self.state.rm == 4 {
+					sib = self.read_u8() as u32;
+					displ_size_scale = if self.state.address_size == OpSize::Size64 { 4 } else { 3 };
+					self.displ_index = self.data_ptr as usize;
+					displ = self.read_u32() as u32;
+				} else {
+					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
+					if self.state.address_size == OpSize::Size64 {
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+					} else {
+						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+					}
+					self.displ_index = self.data_ptr as usize;
+					instruction.set_memory_displacement(self.read_u32() as u32);
+					super::instruction_internal::internal_set_memory_base_u32(
+						instruction,
+						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
+					);
+					return false;
+				}
+			}
+		}
+
+		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
+		let base = sib & 7;
+
+		super::instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+		if index != 4 {
+			super::instruction_internal::internal_set_memory_index_u32(instruction, index + base_reg as u32);
+		}
+
+		if base == 5 && self.state.mod_ == 0 {
+			if self.state.address_size == OpSize::Size64 {
+				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+			} else {
+				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+			}
+			self.displ_index = self.data_ptr as usize;
+			instruction.set_memory_displacement(self.read_u32() as u32);
+		} else {
+			super::instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
+			super::instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
+			instruction.set_memory_displacement(displ);
+		}
+		true
+	}
+
+	// Returns `true` if the SIB byte was read
+	// Same as read_op_mem_32_or_64() except it works with vsib memory operands. Keep them in sync.
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+	fn read_op_mem_32_or_64_vsib(&mut self, instruction: &mut Instruction, index_reg: Register, tuple_type: TupleType, is_vsib: bool) -> bool {
+		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
+		let sib: u32;
+		let displ_size_scale: u32;
+		let displ: u32;
+		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		match self.state.mod_ {
 			0 => match self.state.rm {
 				4 => {
