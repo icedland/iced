@@ -25,72 +25,32 @@ namespace Generator.Enums {
 	[Enum("TupleType", Documentation = "Tuple type (EVEX) which can be used to get the disp8 scale factor #(c:N)#", Public = true)]
 	enum TupleType {
 		[Comment("#(c:N = 1)#")]
-		None,
-		[Comment("#(c:N = b ? (W ? 8 : 4) : 16)#")]
-		Full_128,
-		[Comment("#(c:N = b ? (W ? 8 : 4) : 32)#")]
-		Full_256,
-		[Comment("#(c:N = b ? (W ? 8 : 4) : 64)#")]
-		Full_512,
+		N1,
+		[Comment("#(c:N = 2)#")]
+		N2,
+		[Comment("#(c:N = 4)#")]
+		N4,
+		[Comment("#(c:N = 8)#")]
+		N8,
+		[Comment("#(c:N = 16)#")]
+		N16,
+		[Comment("#(c:N = 32)#")]
+		N32,
+		[Comment("#(c:N = 64)#")]
+		N64,
 		[Comment("#(c:N = b ? 4 : 8)#")]
-		Half_128,
+		N8b4,
 		[Comment("#(c:N = b ? 4 : 16)#")]
-		Half_256,
+		N16b4,
 		[Comment("#(c:N = b ? 4 : 32)#")]
-		Half_512,
-		[Comment("#(c:N = 16)#")]
-		Full_Mem_128,
-		[Comment("#(c:N = 32)#")]
-		Full_Mem_256,
-		[Comment("#(c:N = 64)#")]
-		Full_Mem_512,
-		[Comment("#(c:N = W ? 8 : 4)#")]
-		Tuple1_Scalar,
-		[Comment("#(c:N = 1)#")]
-		Tuple1_Scalar_1,
-		[Comment("#(c:N = 2)#")]
-		Tuple1_Scalar_2,
-		[Comment("#(c:N = 4)#")]
-		Tuple1_Scalar_4,
-		[Comment("#(c:N = 8)#")]
-		Tuple1_Scalar_8,
-		[Comment("#(c:N = 4)#")]
-		Tuple1_Fixed_4,
-		[Comment("#(c:N = 8)#")]
-		Tuple1_Fixed_8,
-		[Comment("#(c:N = W ? 16 : 8)#")]
-		Tuple2,
-		[Comment("#(c:N = W ? 32 : 16)#")]
-		Tuple4,
-		[Comment("#(c:N = W ? error : 32)#")]
-		Tuple8,
-		[Comment("#(c:N = 16)#")]
-		Tuple1_4X,
-		[Comment("#(c:N = 8)#")]
-		Half_Mem_128,
-		[Comment("#(c:N = 16)#")]
-		Half_Mem_256,
-		[Comment("#(c:N = 32)#")]
-		Half_Mem_512,
-		[Comment("#(c:N = 4)#")]
-		Quarter_Mem_128,
-		[Comment("#(c:N = 8)#")]
-		Quarter_Mem_256,
-		[Comment("#(c:N = 16)#")]
-		Quarter_Mem_512,
-		[Comment("#(c:N = 2)#")]
-		Eighth_Mem_128,
-		[Comment("#(c:N = 4)#")]
-		Eighth_Mem_256,
-		[Comment("#(c:N = 8)#")]
-		Eighth_Mem_512,
-		[Comment("#(c:N = 16)#")]
-		Mem128,
-		[Comment("#(c:N = 8)#")]
-		MOVDDUP_128,
-		[Comment("#(c:N = 32)#")]
-		MOVDDUP_256,
-		[Comment("#(c:N = 64)#")]
-		MOVDDUP_512,
+		N32b4,
+		[Comment("#(c:N = b ? 4 : 64)#")]
+		N64b4,
+		[Comment("#(c:N = b ? 8 : 16)#")]
+		N16b8,
+		[Comment("#(c:N = b ? 8 : 32)#")]
+		N32b8,
+		[Comment("#(c:N = b ? 8 : 64)#")]
+		N64b8,
 	}
 }

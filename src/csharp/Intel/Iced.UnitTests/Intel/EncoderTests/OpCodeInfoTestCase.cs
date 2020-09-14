@@ -43,7 +43,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		public bool IsLIG;
 		public bool IsWIG;
 		public bool IsWIG32;
-		public TupleType TupleType = TupleType.None;
+		public TupleType TupleType = TupleType.N1;
 		public bool CanBroadcast;
 		public bool CanUseRoundingControl;
 		public bool CanSuppressAllExceptions;

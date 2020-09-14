@@ -1576,7 +1576,7 @@ impl OpCodeHandler_VEX_VX_VSIB_HX {
 			decoder.set_invalid_instruction();
 		} else {
 			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem_vsib(instruction, this.vsib_index, TupleType::None);
+			decoder.read_op_mem_vsib(instruction, this.vsib_index, TupleType::N1);
 			if decoder.invalid_check_mask != 0 {
 				let index_num = (instruction.memory_index() as u32).wrapping_sub(Register::XMM0 as u32) % IcedConstants::VMM_COUNT;
 				if reg_num == index_num || decoder.state.vvvv == index_num || reg_num == decoder.state.vvvv {

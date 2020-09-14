@@ -757,15 +757,15 @@ impl EvexFlags {
 	pub(crate) const EVEX_VECTOR_LENGTH_SHIFT: u32 = 0x0000_000A;
 	pub(crate) const WBIT_MASK: u32 = 0x0000_0003;
 	pub(crate) const WBIT_SHIFT: u32 = 0x0000_000C;
-	pub(crate) const TUPLE_TYPE_MASK: u32 = 0x0000_003F;
+	pub(crate) const TUPLE_TYPE_MASK: u32 = 0x0000_000F;
 	pub(crate) const TUPLE_TYPE_SHIFT: u32 = 0x0000_000E;
-	pub(crate) const LIG: u32 = 0x0010_0000;
-	pub(crate) const B: u32 = 0x0020_0000;
-	pub(crate) const ER: u32 = 0x0040_0000;
-	pub(crate) const SAE: u32 = 0x0080_0000;
-	pub(crate) const K1: u32 = 0x0100_0000;
-	pub(crate) const Z: u32 = 0x0200_0000;
-	pub(crate) const NON_ZERO_OP_MASK_REGISTER: u32 = 0x0400_0000;
+	pub(crate) const LIG: u32 = 0x0004_0000;
+	pub(crate) const B: u32 = 0x0008_0000;
+	pub(crate) const ER: u32 = 0x0010_0000;
+	pub(crate) const SAE: u32 = 0x0020_0000;
+	pub(crate) const K1: u32 = 0x0040_0000;
+	pub(crate) const Z: u32 = 0x0080_0000;
+	pub(crate) const NON_ZERO_OP_MASK_REGISTER: u32 = 0x0100_0000;
 }
 // GENERATOR-END: EvexFlags
 

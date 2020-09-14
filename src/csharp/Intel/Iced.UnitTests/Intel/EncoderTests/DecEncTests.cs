@@ -747,12 +747,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				var opCode = ((Code)i).ToOpCode();
 				bool expectedBcst;
 				switch (opCode.TupleType) {
-				case TupleType.Full_128:
-				case TupleType.Full_256:
-				case TupleType.Full_512:
-				case TupleType.Half_128:
-				case TupleType.Half_256:
-				case TupleType.Half_512:
+				case TupleType.N8b4:
+				case TupleType.N16b4:
+				case TupleType.N32b4:
+				case TupleType.N64b4:
+				case TupleType.N16b8:
+				case TupleType.N32b8:
+				case TupleType.N64b8:
 					expectedBcst = true;
 					break;
 				default:

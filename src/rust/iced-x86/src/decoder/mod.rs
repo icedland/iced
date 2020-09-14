@@ -1484,7 +1484,7 @@ impl<'a> Decoder<'a> {
 		if self.state.address_size != OpSize::Size16 {
 			let _ = self.read_op_mem_32_or_64(instruction);
 		} else {
-			self.read_op_mem_16(instruction, TupleType::None);
+			self.read_op_mem_16(instruction, TupleType::N1);
 		}
 	}
 
@@ -1495,7 +1495,7 @@ impl<'a> Decoder<'a> {
 		let is_valid = if self.state.address_size != OpSize::Size16 {
 			self.read_op_mem_32_or_64(instruction)
 		} else {
-			self.read_op_mem_16(instruction, TupleType::None);
+			self.read_op_mem_16(instruction, TupleType::N1);
 			false
 		};
 		if self.invalid_check_mask != 0 && !is_valid {
@@ -1515,7 +1515,7 @@ impl<'a> Decoder<'a> {
 		} else if self.state.address_size != OpSize::Size16 {
 			let _ = self.read_op_mem_32_or_64(instruction);
 		} else {
-			self.read_op_mem_16(instruction, TupleType::None);
+			self.read_op_mem_16(instruction, TupleType::N1);
 			if self.invalid_check_mask != 0 {
 				self.set_invalid_instruction();
 			}
@@ -1570,7 +1570,7 @@ impl<'a> Decoder<'a> {
 			1 => {
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 				self.displ_index = self.data_ptr as usize;
-				if tuple_type == TupleType::None {
+				if tuple_type == TupleType::N1 {
 					instruction.set_memory_displacement(self.read_u8() as i8 as u16 as u32);
 				} else {
 					instruction.set_memory_displacement(self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32) as u16 as u32);
@@ -1744,7 +1744,7 @@ impl<'a> Decoder<'a> {
 					sib = self.read_u8() as u32;
 					displ_size_scale = 1;
 					self.displ_index = self.data_ptr as usize;
-					if tuple_type == TupleType::None {
+					if tuple_type == TupleType::N1 {
 						displ = self.read_u8() as i8 as u32;
 					} else {
 						displ = self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32);
@@ -1753,7 +1753,7 @@ impl<'a> Decoder<'a> {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
 					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 					self.displ_index = self.data_ptr as usize;
-					if tuple_type == TupleType::None {
+					if tuple_type == TupleType::N1 {
 						instruction.set_memory_displacement(self.read_u8() as i8 as u32);
 					} else {
 						instruction.set_memory_displacement(self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32));
@@ -1824,109 +1824,62 @@ impl<'a> Decoder<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	fn disp8n(&self, tuple_type: TupleType) -> u32 {
 		match tuple_type {
-			TupleType::None => 1,
-			TupleType::Full_128 => {
+			TupleType::N1 => 1,
+			TupleType::N2 => 2,
+			TupleType::N4 => 4,
+			TupleType::N8 => 8,
+			TupleType::N16 => 16,
+			TupleType::N32 => 32,
+			TupleType::N64 => 64,
+			TupleType::N8b4 => {
 				if (self.state.flags & StateFlags::B) != 0 {
-					if (self.state.flags & StateFlags::W) != 0 {
-						8
-					} else {
-						4
-					}
+					4
+				} else {
+					8
+				}
+			}
+			TupleType::N16b4 => {
+				if (self.state.flags & StateFlags::B) != 0 {
+					4
 				} else {
 					16
 				}
 			}
-			TupleType::Full_256 => {
+			TupleType::N32b4 => {
 				if (self.state.flags & StateFlags::B) != 0 {
-					if (self.state.flags & StateFlags::W) != 0 {
-						8
-					} else {
-						4
-					}
+					4
 				} else {
 					32
 				}
 			}
-			TupleType::Full_512 => {
+			TupleType::N64b4 => {
 				if (self.state.flags & StateFlags::B) != 0 {
-					if (self.state.flags & StateFlags::W) != 0 {
-						8
-					} else {
-						4
-					}
+					4
 				} else {
 					64
 				}
 			}
-			TupleType::Half_128 => {
+			TupleType::N16b8 => {
 				if (self.state.flags & StateFlags::B) != 0 {
-					4
-				} else {
 					8
-				}
-			}
-			TupleType::Half_256 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					4
 				} else {
 					16
 				}
 			}
-			TupleType::Half_512 => {
+			TupleType::N32b8 => {
 				if (self.state.flags & StateFlags::B) != 0 {
-					4
+					8
 				} else {
 					32
 				}
 			}
-			TupleType::Full_Mem_128 => 16,
-			TupleType::Full_Mem_256 => 32,
-			TupleType::Full_Mem_512 => 64,
-			TupleType::Tuple1_Scalar => {
-				if (self.state.flags & StateFlags::W) != 0 {
+			TupleType::N64b8 => {
+				if (self.state.flags & StateFlags::B) != 0 {
 					8
 				} else {
-					4
+					64
 				}
 			}
-			TupleType::Tuple1_Scalar_1 => 1,
-			TupleType::Tuple1_Scalar_2 => 2,
-			TupleType::Tuple1_Scalar_4 => 4,
-			TupleType::Tuple1_Scalar_8 => 8,
-			TupleType::Tuple1_Fixed_4 => 4,
-			TupleType::Tuple1_Fixed_8 => 8,
-			TupleType::Tuple2 => {
-				if (self.state.flags & StateFlags::W) != 0 {
-					16
-				} else {
-					8
-				}
-			}
-			TupleType::Tuple4 => {
-				if (self.state.flags & StateFlags::W) != 0 {
-					32
-				} else {
-					16
-				}
-			}
-			TupleType::Tuple8 => {
-				debug_assert!((self.state.flags & StateFlags::W) == 0);
-				32
-			}
-			TupleType::Tuple1_4X => 16,
-			TupleType::Half_Mem_128 => 8,
-			TupleType::Half_Mem_256 => 16,
-			TupleType::Half_Mem_512 => 32,
-			TupleType::Quarter_Mem_128 => 4,
-			TupleType::Quarter_Mem_256 => 8,
-			TupleType::Quarter_Mem_512 => 16,
-			TupleType::Eighth_Mem_128 => 2,
-			TupleType::Eighth_Mem_256 => 4,
-			TupleType::Eighth_Mem_512 => 8,
-			TupleType::Mem128 => 16,
-			TupleType::MOVDDUP_128 => 8,
-			TupleType::MOVDDUP_256 => 32,
-			TupleType::MOVDDUP_512 => 64,
 		}
 	}
 

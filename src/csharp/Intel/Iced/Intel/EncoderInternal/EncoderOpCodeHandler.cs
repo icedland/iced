@@ -26,7 +26,7 @@ using System;
 using System.Diagnostics;
 
 namespace Iced.Intel.EncoderInternal {
-	delegate bool TryConvertToDisp8N(Encoder encoder, in Instruction instruction, OpCodeHandler handler, int displ, out sbyte compressedValue);
+	delegate bool TryConvertToDisp8N(Encoder encoder, OpCodeHandler handler, int displ, out sbyte compressedValue);
 
 	abstract class OpCodeHandler {
 		internal readonly uint OpCode;
@@ -435,160 +435,25 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		sealed class TryConvertToDisp8NImpl {
-			public bool TryConvertToDisp8N(Encoder encoder, in Instruction instruction, OpCodeHandler handler, int displ, out sbyte compressedValue) {
+			public bool TryConvertToDisp8N(Encoder encoder, OpCodeHandler handler, int displ, out sbyte compressedValue) {
 				var evexHandler = (EvexHandler)handler;
-				int n;
-				switch (evexHandler.tupleType) {
-				case TupleType.None:
-					n = 1;
-					break;
-
-				case TupleType.Full_128:
-					if ((encoder.EncoderFlags & EncoderFlags.Broadcast) != 0)
-						n = evexHandler.wbit == WBit.W1 ? 8 : 4;
-					else
-						n = 16;
-					break;
-
-				case TupleType.Full_256:
-					if ((encoder.EncoderFlags & EncoderFlags.Broadcast) != 0)
-						n = evexHandler.wbit == WBit.W1 ? 8 : 4;
-					else
-						n = 32;
-					break;
-
-				case TupleType.Full_512:
-					if ((encoder.EncoderFlags & EncoderFlags.Broadcast) != 0)
-						n = evexHandler.wbit == WBit.W1 ? 8 : 4;
-					else
-						n = 64;
-					break;
-
-				case TupleType.Half_128:
-					n = (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 8;
-					break;
-
-				case TupleType.Half_256:
-					n = (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 16;
-					break;
-
-				case TupleType.Half_512:
-					n = (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 32;
-					break;
-
-				case TupleType.Full_Mem_128:
-					n = 16;
-					break;
-
-				case TupleType.Full_Mem_256:
-					n = 32;
-					break;
-
-				case TupleType.Full_Mem_512:
-					n = 64;
-					break;
-
-				case TupleType.Tuple1_Scalar:
-					n = evexHandler.wbit == WBit.W1 ? 8 : 4;
-					break;
-
-				case TupleType.Tuple1_Scalar_1:
-					n = 1;
-					break;
-
-				case TupleType.Tuple1_Scalar_2:
-					n = 2;
-					break;
-
-				case TupleType.Tuple1_Scalar_4:
-					n = 4;
-					break;
-
-				case TupleType.Tuple1_Scalar_8:
-					n = 8;
-					break;
-
-				case TupleType.Tuple1_Fixed_4:
-					n = 4;
-					break;
-
-				case TupleType.Tuple1_Fixed_8:
-					n = 8;
-					break;
-
-				case TupleType.Tuple2:
-					n = evexHandler.wbit == WBit.W1 ? 16 : 8;
-					break;
-
-				case TupleType.Tuple4:
-					n = evexHandler.wbit == WBit.W1 ? 32 : 16;
-					break;
-
-				case TupleType.Tuple8:
-					Debug.Assert(evexHandler.wbit != WBit.W1);
-					n = 32;
-					break;
-
-				case TupleType.Tuple1_4X:
-					n = 16;
-					break;
-
-				case TupleType.Half_Mem_128:
-					n = 8;
-					break;
-
-				case TupleType.Half_Mem_256:
-					n = 16;
-					break;
-
-				case TupleType.Half_Mem_512:
-					n = 32;
-					break;
-
-				case TupleType.Quarter_Mem_128:
-					n = 4;
-					break;
-
-				case TupleType.Quarter_Mem_256:
-					n = 8;
-					break;
-
-				case TupleType.Quarter_Mem_512:
-					n = 16;
-					break;
-
-				case TupleType.Eighth_Mem_128:
-					n = 2;
-					break;
-
-				case TupleType.Eighth_Mem_256:
-					n = 4;
-					break;
-
-				case TupleType.Eighth_Mem_512:
-					n = 8;
-					break;
-
-				case TupleType.Mem128:
-					n = 16;
-					break;
-
-				case TupleType.MOVDDUP_128:
-					n = 8;
-					break;
-
-				case TupleType.MOVDDUP_256:
-					n = 32;
-					break;
-
-				case TupleType.MOVDDUP_512:
-					n = 64;
-					break;
-
-				default:
-					throw new InvalidOperationException();
-				}
-
+				var n = evexHandler.tupleType switch {
+					TupleType.N1 => 1,
+					TupleType.N2 => 2,
+					TupleType.N4 => 4,
+					TupleType.N8 => 8,
+					TupleType.N16 => 16,
+					TupleType.N32 => 32,
+					TupleType.N64 => 64,
+					TupleType.N8b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 8,
+					TupleType.N16b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 16,
+					TupleType.N32b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 32,
+					TupleType.N64b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 64,
+					TupleType.N16b8 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 8 : 16,
+					TupleType.N32b8 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 8 : 32,
+					TupleType.N64b8 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 8 : 64,
+					_ => throw new InvalidOperationException(),
+				};
 				int res = displ / n;
 				if (res * n == displ && sbyte.MinValue <= res && res <= sbyte.MaxValue) {
 					compressedValue = (sbyte)res;

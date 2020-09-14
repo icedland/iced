@@ -722,7 +722,7 @@ fn verify_only_full_ddd_and_half_ddd_support_bcst() {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let op_code = code.op_code();
 		let expected_bcst = match op_code.tuple_type() {
-			TupleType::Full_128 | TupleType::Full_256 | TupleType::Full_512 | TupleType::Half_128 | TupleType::Half_256 | TupleType::Half_512 => true,
+			TupleType::N8b4 | TupleType::N16b4 | TupleType::N32b4 | TupleType::N64b4 | TupleType::N16b8 | TupleType::N32b8 | TupleType::N64b8 => true,
 			_ => false,
 		};
 		assert_eq!(expected_bcst, op_code.can_broadcast());

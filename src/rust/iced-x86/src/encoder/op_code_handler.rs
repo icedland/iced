@@ -35,8 +35,7 @@ use core::{i8, mem, u32};
 #[repr(C)]
 pub(crate) struct OpCodeHandler {
 	pub(super) encode: fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction),
-	pub(super) try_convert_to_disp8n:
-		Option<fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction, displ: i32) -> Option<i8>>,
+	pub(super) try_convert_to_disp8n: Option<fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, displ: i32) -> Option<i8>>,
 	pub(crate) operands: Box<[&'static (Op + Sync)]>,
 	pub(super) op_code: u32,
 	pub(super) group_index: i32,
@@ -578,112 +577,65 @@ impl EvexHandler {
 		}
 	}
 
-	fn try_convert_to_disp8n(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction, displ: i32) -> Option<i8> {
+	fn try_convert_to_disp8n(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, displ: i32) -> Option<i8> {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let n = match this.tuple_type {
-			TupleType::None => 1,
-			TupleType::Full_128 => {
+			TupleType::N1 => 1,
+			TupleType::N2 => 2,
+			TupleType::N4 => 4,
+			TupleType::N8 => 8,
+			TupleType::N16 => 16,
+			TupleType::N32 => 32,
+			TupleType::N64 => 64,
+			TupleType::N8b4 => {
 				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					if this.wbit == WBit::W1 {
-						8
-					} else {
-						4
-					}
+					4
+				} else {
+					8
+				}
+			}
+			TupleType::N16b4 => {
+				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
+					4
 				} else {
 					16
 				}
 			}
-			TupleType::Full_256 => {
+			TupleType::N32b4 => {
 				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					if this.wbit == WBit::W1 {
-						8
-					} else {
-						4
-					}
+					4
 				} else {
 					32
 				}
 			}
-			TupleType::Full_512 => {
+			TupleType::N64b4 => {
 				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					if this.wbit == WBit::W1 {
-						8
-					} else {
-						4
-					}
+					4
 				} else {
 					64
 				}
 			}
-			TupleType::Half_128 => {
+			TupleType::N16b8 => {
 				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					4
-				} else {
 					8
-				}
-			}
-			TupleType::Half_256 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					4
 				} else {
 					16
 				}
 			}
-			TupleType::Half_512 => {
+			TupleType::N32b8 => {
 				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					4
+					8
 				} else {
 					32
 				}
 			}
-			TupleType::Full_Mem_128 => 16,
-			TupleType::Full_Mem_256 => 32,
-			TupleType::Full_Mem_512 => 64,
-			TupleType::Tuple1_Scalar => {
-				if this.wbit == WBit::W1 {
+			TupleType::N64b8 => {
+				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
 					8
 				} else {
-					4
+					64
 				}
 			}
-			TupleType::Tuple1_Scalar_1 => 1,
-			TupleType::Tuple1_Scalar_2 => 2,
-			TupleType::Tuple1_Scalar_4 => 4,
-			TupleType::Tuple1_Scalar_8 => 8,
-			TupleType::Tuple1_Fixed_4 => 4,
-			TupleType::Tuple1_Fixed_8 => 8,
-			TupleType::Tuple2 => {
-				if this.wbit == WBit::W1 {
-					16
-				} else {
-					8
-				}
-			}
-			TupleType::Tuple4 => {
-				if this.wbit == WBit::W1 {
-					32
-				} else {
-					16
-				}
-			}
-			TupleType::Tuple8 => {
-				debug_assert!(this.wbit != WBit::W1);
-				32
-			}
-			TupleType::Tuple1_4X => 16,
-			TupleType::Half_Mem_128 => 8,
-			TupleType::Half_Mem_256 => 16,
-			TupleType::Half_Mem_512 => 32,
-			TupleType::Quarter_Mem_128 => 4,
-			TupleType::Quarter_Mem_256 => 8,
-			TupleType::Quarter_Mem_512 => 16,
-			TupleType::Eighth_Mem_128 => 2,
-			TupleType::Eighth_Mem_256 => 4,
-			TupleType::Eighth_Mem_512 => 8,
-			TupleType::Mem128 => 16,
-			TupleType::MOVDDUP_128 => 8,
-			TupleType::MOVDDUP_256 => 32,
-			TupleType::MOVDDUP_512 => 64,
 		};
 		let res = displ / n;
 		if res.wrapping_mul(n) == displ && i8::MIN as i32 <= res && res <= i8::MAX as i32 {

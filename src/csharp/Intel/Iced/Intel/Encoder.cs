@@ -722,10 +722,10 @@ namespace Iced.Intel {
 			return 0;
 		}
 
-		bool TryConvertToDisp8N(in Instruction instruction, int displ, out sbyte compressedValue) {
+		bool TryConvertToDisp8N(int displ, out sbyte compressedValue) {
 			var tryConvertToDisp8N = handler.TryConvertToDisp8N;
 			if (!(tryConvertToDisp8N is null))
-				return tryConvertToDisp8N(this, instruction, handler, displ, out compressedValue);
+				return tryConvertToDisp8N(this, handler, displ, out compressedValue);
 			if (sbyte.MinValue <= displ && displ <= sbyte.MaxValue) {
 				compressedValue = (sbyte)displ;
 				return true;
@@ -777,7 +777,7 @@ namespace Iced.Intel {
 					Displ = 0;
 				}
 				if (displSize == 1) {
-					if (TryConvertToDisp8N(instruction, (short)Displ, out sbyte compressedValue))
+					if (TryConvertToDisp8N((short)Displ, out sbyte compressedValue))
 						Displ = (byte)compressedValue;
 					else
 						displSize = 2;
@@ -896,7 +896,7 @@ namespace Iced.Intel {
 			}
 
 			if (displSize == 1) {
-				if (TryConvertToDisp8N(instruction, (short)Displ, out sbyte compressedValue))
+				if (TryConvertToDisp8N((short)Displ, out sbyte compressedValue))
 					Displ = (byte)compressedValue;
 				else
 					displSize = addrSize / 8;

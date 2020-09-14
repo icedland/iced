@@ -378,15 +378,15 @@ namespace Iced.Intel.EncoderInternal {
 		EvexVectorLengthShift = 0x0000000A,
 		WBitMask = 0x00000003,
 		WBitShift = 0x0000000C,
-		TupleTypeMask = 0x0000003F,
+		TupleTypeMask = 0x0000000F,
 		TupleTypeShift = 0x0000000E,
-		LIG = 0x00100000,
-		b = 0x00200000,
-		er = 0x00400000,
-		sae = 0x00800000,
-		k1 = 0x01000000,
-		z = 0x02000000,
-		NonZeroOpMaskRegister = 0x04000000,
+		LIG = 0x00040000,
+		b = 0x00080000,
+		er = 0x00100000,
+		sae = 0x00200000,
+		k1 = 0x00400000,
+		z = 0x00800000,
+		NonZeroOpMaskRegister = 0x01000000,
 	}
 	// GENERATOR-END: EvexFlags
 #endif

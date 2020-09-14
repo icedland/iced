@@ -825,9 +825,9 @@ impl Encoder {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	fn try_convert_to_disp8n(&mut self, instruction: &Instruction, displ: i32) -> Option<i8> {
+	fn try_convert_to_disp8n(&mut self, displ: i32) -> Option<i8> {
 		if let Some(try_convert_to_disp8n) = self.handler.try_convert_to_disp8n {
-			(try_convert_to_disp8n)(self.handler, self, instruction, displ)
+			(try_convert_to_disp8n)(self.handler, self, displ)
 		} else if i8::MIN as i32 <= displ && displ <= i8::MAX as i32 {
 			Some(displ as i8)
 		} else {
@@ -885,7 +885,7 @@ impl Encoder {
 			if displ_size == 1 {
 				// Temp needed if rustc < 1.36.0 (2015 edition)
 				let tmp_displ = self.displ;
-				if let Some(compressed_value) = self.try_convert_to_disp8n(instruction, tmp_displ as i16 as i32) {
+				if let Some(compressed_value) = self.try_convert_to_disp8n(tmp_displ as i16 as i32) {
 					self.displ = compressed_value as u8 as u32;
 				} else {
 					displ_size = 2;
@@ -1004,7 +1004,7 @@ impl Encoder {
 		if displ_size == 1 {
 			// Temp needed if rustc < 1.36.0 (2015 edition)
 			let tmp_displ = self.displ;
-			if let Some(compressed_value) = self.try_convert_to_disp8n(instruction, tmp_displ as i16 as i32) {
+			if let Some(compressed_value) = self.try_convert_to_disp8n(tmp_displ as i16 as i32) {
 				self.displ = compressed_value as u8 as u32;
 			} else {
 				displ_size = addr_size / 8;

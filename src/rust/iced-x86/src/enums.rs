@@ -418,111 +418,51 @@ impl Default for EncodingKind {
 #[allow(non_camel_case_types)]
 pub enum TupleType {
 	/// `N = 1`
-	None = 0,
-	/// `N = b ? (W ? 8 : 4) : 16`
-	Full_128 = 1,
-	/// `N = b ? (W ? 8 : 4) : 32`
-	Full_256 = 2,
-	/// `N = b ? (W ? 8 : 4) : 64`
-	Full_512 = 3,
+	N1 = 0,
+	/// `N = 2`
+	N2 = 1,
+	/// `N = 4`
+	N4 = 2,
+	/// `N = 8`
+	N8 = 3,
+	/// `N = 16`
+	N16 = 4,
+	/// `N = 32`
+	N32 = 5,
+	/// `N = 64`
+	N64 = 6,
 	/// `N = b ? 4 : 8`
-	Half_128 = 4,
+	N8b4 = 7,
 	/// `N = b ? 4 : 16`
-	Half_256 = 5,
+	N16b4 = 8,
 	/// `N = b ? 4 : 32`
-	Half_512 = 6,
-	/// `N = 16`
-	Full_Mem_128 = 7,
-	/// `N = 32`
-	Full_Mem_256 = 8,
-	/// `N = 64`
-	Full_Mem_512 = 9,
-	/// `N = W ? 8 : 4`
-	Tuple1_Scalar = 10,
-	/// `N = 1`
-	Tuple1_Scalar_1 = 11,
-	/// `N = 2`
-	Tuple1_Scalar_2 = 12,
-	/// `N = 4`
-	Tuple1_Scalar_4 = 13,
-	/// `N = 8`
-	Tuple1_Scalar_8 = 14,
-	/// `N = 4`
-	Tuple1_Fixed_4 = 15,
-	/// `N = 8`
-	Tuple1_Fixed_8 = 16,
-	/// `N = W ? 16 : 8`
-	Tuple2 = 17,
-	/// `N = W ? 32 : 16`
-	Tuple4 = 18,
-	/// `N = W ? error : 32`
-	Tuple8 = 19,
-	/// `N = 16`
-	Tuple1_4X = 20,
-	/// `N = 8`
-	Half_Mem_128 = 21,
-	/// `N = 16`
-	Half_Mem_256 = 22,
-	/// `N = 32`
-	Half_Mem_512 = 23,
-	/// `N = 4`
-	Quarter_Mem_128 = 24,
-	/// `N = 8`
-	Quarter_Mem_256 = 25,
-	/// `N = 16`
-	Quarter_Mem_512 = 26,
-	/// `N = 2`
-	Eighth_Mem_128 = 27,
-	/// `N = 4`
-	Eighth_Mem_256 = 28,
-	/// `N = 8`
-	Eighth_Mem_512 = 29,
-	/// `N = 16`
-	Mem128 = 30,
-	/// `N = 8`
-	MOVDDUP_128 = 31,
-	/// `N = 32`
-	MOVDDUP_256 = 32,
-	/// `N = 64`
-	MOVDDUP_512 = 33,
+	N32b4 = 9,
+	/// `N = b ? 4 : 64`
+	N64b4 = 10,
+	/// `N = b ? 8 : 16`
+	N16b8 = 11,
+	/// `N = b ? 8 : 32`
+	N32b8 = 12,
+	/// `N = b ? 8 : 64`
+	N64b8 = 13,
 }
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_TUPLE_TYPE: [&str; 34] = [
-	"None",
-	"Full_128",
-	"Full_256",
-	"Full_512",
-	"Half_128",
-	"Half_256",
-	"Half_512",
-	"Full_Mem_128",
-	"Full_Mem_256",
-	"Full_Mem_512",
-	"Tuple1_Scalar",
-	"Tuple1_Scalar_1",
-	"Tuple1_Scalar_2",
-	"Tuple1_Scalar_4",
-	"Tuple1_Scalar_8",
-	"Tuple1_Fixed_4",
-	"Tuple1_Fixed_8",
-	"Tuple2",
-	"Tuple4",
-	"Tuple8",
-	"Tuple1_4X",
-	"Half_Mem_128",
-	"Half_Mem_256",
-	"Half_Mem_512",
-	"Quarter_Mem_128",
-	"Quarter_Mem_256",
-	"Quarter_Mem_512",
-	"Eighth_Mem_128",
-	"Eighth_Mem_256",
-	"Eighth_Mem_512",
-	"Mem128",
-	"MOVDDUP_128",
-	"MOVDDUP_256",
-	"MOVDDUP_512",
+static GEN_DEBUG_TUPLE_TYPE: [&str; 14] = [
+	"N1",
+	"N2",
+	"N4",
+	"N8",
+	"N16",
+	"N32",
+	"N64",
+	"N8b4",
+	"N16b4",
+	"N32b4",
+	"N64b4",
+	"N16b8",
+	"N32b8",
+	"N64b8",
 ];
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for TupleType {
@@ -537,7 +477,7 @@ impl Default for TupleType {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn default() -> Self {
-		TupleType::None
+		TupleType::N1
 	}
 }
 // GENERATOR-END: TupleType

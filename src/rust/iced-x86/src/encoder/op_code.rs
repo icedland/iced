@@ -149,7 +149,7 @@ impl OpCodeInfo {
 
 				group_index = if (dword2 & LegacyFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> LegacyFlags::GROUP_SHIFT) & 7) as i8 };
 				rm_group_index = -1;
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 
 				if (flags & Flags::NO_INSTRUCTION) != 0 {
 					flags |= Flags::MODE16 | Flags::MODE32 | Flags::MODE64;
@@ -209,7 +209,7 @@ impl OpCodeInfo {
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
 				rm_group_index = -1;
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 				operand_size = 0;
 				address_size = 0;
 				l = 0;
@@ -242,7 +242,7 @@ impl OpCodeInfo {
 
 				group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i8 };
 				rm_group_index = if (dword2 & VexFlags::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i8 };
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 
 				flags |= match unsafe { mem::transmute(((dword2 >> VexFlags::ENCODABLE_SHIFT) & VexFlags::ENCODABLE_MASK) as u8) } {
 					Encodable::Any => Flags::MODE16 | Flags::MODE32 | Flags::MODE64,
@@ -298,7 +298,7 @@ impl OpCodeInfo {
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
 				rm_group_index = -1;
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 				operand_size = 0;
 				address_size = 0;
 				l = 0;
@@ -454,7 +454,7 @@ impl OpCodeInfo {
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
 				rm_group_index = -1;
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 				operand_size = 0;
 				address_size = 0;
 				l = 0;
@@ -487,7 +487,7 @@ impl OpCodeInfo {
 
 				group_index = if (dword2 & XopFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> XopFlags::GROUP_SHIFT) & 7) as i8 };
 				rm_group_index = -1;
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 
 				flags |= match unsafe { mem::transmute(((dword2 >> XopFlags::ENCODABLE_SHIFT) & XopFlags::ENCODABLE_MASK) as u8) } {
 					Encodable::Any => Flags::MODE16 | Flags::MODE32 | Flags::MODE64,
@@ -534,7 +534,7 @@ impl OpCodeInfo {
 				table = OpCodeTableKind::Normal;
 				group_index = -1;
 				rm_group_index = -1;
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 				operand_size = 0;
 				address_size = 0;
 				l = 0;
@@ -553,7 +553,7 @@ impl OpCodeInfo {
 				table = OpCodeTableKind::T0F;
 				group_index = -1;
 				rm_group_index = -1;
-				tuple_type = TupleType::None;
+				tuple_type = TupleType::N1;
 
 				flags |= match unsafe { mem::transmute(((dword2 >> D3nowFlags::ENCODABLE_SHIFT) & D3nowFlags::ENCODABLE_MASK) as u8) } {
 					Encodable::Any => Flags::MODE16 | Flags::MODE32 | Flags::MODE64,

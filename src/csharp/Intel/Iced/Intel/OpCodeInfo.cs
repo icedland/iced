@@ -126,7 +126,7 @@ namespace Iced.Intel {
 
 				groupIndex = (sbyte)((dword2 & (uint)LegacyFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)LegacyFlags.GroupShift) & 7));
 				rmGroupIndex = -1;
-				tupleType = (byte)TupleType.None;
+				tupleType = (byte)TupleType.N1;
 
 				if (!IsInstruction)
 					flags |= Flags.Mode16 | Flags.Mode32 | Flags.Mode64;
@@ -203,7 +203,7 @@ namespace Iced.Intel {
 
 				groupIndex = (sbyte)((dword2 & (uint)VexFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)VexFlags.GroupShift) & 7));
 				rmGroupIndex = (sbyte)((dword2 & (uint)VexFlags.HasRmGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)VexFlags.GroupShift) & 7));
-				tupleType = (byte)TupleType.None;
+				tupleType = (byte)TupleType.N1;
 
 				flags |= (Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask) switch {
 					Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
@@ -428,7 +428,7 @@ namespace Iced.Intel {
 
 				groupIndex = (sbyte)((dword2 & (uint)XopFlags.HasGroupIndex) == 0 ? -1 : (int)((dword2 >> (int)XopFlags.GroupShift) & 7));
 				rmGroupIndex = -1;
-				tupleType = (byte)TupleType.None;
+				tupleType = (byte)TupleType.N1;
 
 				flags |= (Encodable)((dword2 >> (int)XopFlags.EncodableShift) & (uint)XopFlags.EncodableMask) switch {
 					Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
@@ -485,7 +485,7 @@ namespace Iced.Intel {
 				table = (byte)OpCodeTableKind.T0F;
 				groupIndex = -1;
 				rmGroupIndex = -1;
-				tupleType = (byte)TupleType.None;
+				tupleType = (byte)TupleType.N1;
 
 				flags |= (Encodable)((dword2 >> (int)D3nowFlags.EncodableShift) & (uint)D3nowFlags.EncodableMask) switch {
 					Encodable.Any => Flags.Mode16 | Flags.Mode32 | Flags.Mode64,
