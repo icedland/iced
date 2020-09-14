@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Tables {
@@ -197,6 +198,8 @@ namespace Generator.Tables {
 				new MemorySizeInfo(memSize[nameof(MemorySize.Broadcast512_2xBFloat16)], 4, 2, memSize[nameof(MemorySize.BFloat16)], true, true),
 			}.ToArray();
 			if (result.Length != memSize.Values.Length)
+				throw new InvalidOperationException();
+			if (result.Select(a => a.MemorySize).ToHashSet().Count != memSize.Values.Length)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.MemorySize.Value.CompareTo(b.MemorySize.Value));
 			return result;

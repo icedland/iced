@@ -12892,7 +12892,7 @@ namespace Generator.Tables {
 
 			if (result.Length != code.Values.Length)
 				throw new InvalidOperationException();
-			if (result.Select(a => a.opCodeInfo.Code).ToHashSet<EnumValue>().Count != code.Values.Length)
+			if (result.Select(a => a.opCodeInfo.Code).ToHashSet().Count != code.Values.Length)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.opCodeInfo.Code.Value.CompareTo(b.opCodeInfo.Code.Value));
 			return result.Select(a => new InstructionDef(a.opCount, a.mnemonic, a.mem, a.bcst, a.opCodeInfo, a.instrInfo)).ToArray();

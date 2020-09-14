@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::tuple_type_tbl::get_disp8n;
 use super::super::*;
 use super::enums::*;
 use super::ops::*;
@@ -579,64 +580,7 @@ impl EvexHandler {
 
 	fn try_convert_to_disp8n(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, displ: i32) -> Option<i8> {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		let n = match this.tuple_type {
-			TupleType::N1 => 1,
-			TupleType::N2 => 2,
-			TupleType::N4 => 4,
-			TupleType::N8 => 8,
-			TupleType::N16 => 16,
-			TupleType::N32 => 32,
-			TupleType::N64 => 64,
-			TupleType::N8b4 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					4
-				} else {
-					8
-				}
-			}
-			TupleType::N16b4 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					4
-				} else {
-					16
-				}
-			}
-			TupleType::N32b4 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					4
-				} else {
-					32
-				}
-			}
-			TupleType::N64b4 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					4
-				} else {
-					64
-				}
-			}
-			TupleType::N16b8 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					8
-				} else {
-					16
-				}
-			}
-			TupleType::N32b8 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					8
-				} else {
-					32
-				}
-			}
-			TupleType::N64b8 => {
-				if (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0 {
-					8
-				} else {
-					64
-				}
-			}
-		};
+		let n = get_disp8n(this.tuple_type, (encoder.encoder_flags & EncoderFlags::BROADCAST) != 0) as i32;
 		let res = displ / n;
 		if res.wrapping_mul(n) == displ && i8::MIN as i32 <= res && res <= i8::MAX as i32 {
 			Some(res as i8)

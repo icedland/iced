@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Tables {
@@ -303,6 +304,8 @@ namespace Generator.Tables {
 				new RegisterInfo(reg[nameof(Register.TMM7)], reg[nameof(Register.TMM0)], reg[nameof(Register.TMM7)], 1024),
 			}.ToArray();
 			if (result.Length != reg.Values.Length)
+				throw new InvalidOperationException();
+			if (result.Select(a => a.Register).ToHashSet().Count != reg.Values.Length)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.Register.Value.CompareTo(b.Register.Value));
 			return result;

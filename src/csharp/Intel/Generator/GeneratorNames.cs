@@ -50,6 +50,9 @@ namespace Generator {
 		/// <summary>Generates the MemorySizeInfo table</summary>
 		public const string MemorySizeInfo_Table = "memsize/info";
 
+		/// <summary>Generates the TupleType table</summary>
+		public const string TupleType_Table = "tupletypetbl";
+
 		/// <summary>Generates the RegisterInfo table</summary>
 		public const string RegisterInfo_Table = "register/info";
 

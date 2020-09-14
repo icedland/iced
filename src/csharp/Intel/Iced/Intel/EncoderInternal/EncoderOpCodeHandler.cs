@@ -437,23 +437,7 @@ namespace Iced.Intel.EncoderInternal {
 		sealed class TryConvertToDisp8NImpl {
 			public bool TryConvertToDisp8N(Encoder encoder, OpCodeHandler handler, int displ, out sbyte compressedValue) {
 				var evexHandler = (EvexHandler)handler;
-				var n = evexHandler.tupleType switch {
-					TupleType.N1 => 1,
-					TupleType.N2 => 2,
-					TupleType.N4 => 4,
-					TupleType.N8 => 8,
-					TupleType.N16 => 16,
-					TupleType.N32 => 32,
-					TupleType.N64 => 64,
-					TupleType.N8b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 8,
-					TupleType.N16b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 16,
-					TupleType.N32b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 32,
-					TupleType.N64b4 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 4 : 64,
-					TupleType.N16b8 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 8 : 16,
-					TupleType.N32b8 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 8 : 32,
-					TupleType.N64b8 => (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0 ? 8 : 64,
-					_ => throw new InvalidOperationException(),
-				};
+				int n = (int)TupleTypeTable.GetDisp8N(evexHandler.tupleType, (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0);
 				int res = displ / n;
 				if (res * n == displ && sbyte.MinValue <= res && res <= sbyte.MaxValue) {
 					compressedValue = (sbyte)res;

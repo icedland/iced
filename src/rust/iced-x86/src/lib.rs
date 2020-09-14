@@ -1277,6 +1277,8 @@ mod register;
 mod test;
 #[cfg(test)]
 pub(crate) mod test_utils;
+#[cfg(any(feature = "decoder", feature = "encoder"))]
+mod tuple_type_tbl;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use self::block_enc::*;

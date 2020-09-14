@@ -38,6 +38,7 @@ pub(crate) mod tests;
 use self::handlers::OpCodeHandler;
 use self::handlers_tables::TABLES;
 use super::iced_constants::IcedConstants;
+use super::tuple_type_tbl::get_disp8n;
 use super::*;
 #[cfg(has_fused_iterator)]
 use core::iter::FusedIterator;
@@ -1822,65 +1823,9 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
+	#[inline(always)]
 	fn disp8n(&self, tuple_type: TupleType) -> u32 {
-		match tuple_type {
-			TupleType::N1 => 1,
-			TupleType::N2 => 2,
-			TupleType::N4 => 4,
-			TupleType::N8 => 8,
-			TupleType::N16 => 16,
-			TupleType::N32 => 32,
-			TupleType::N64 => 64,
-			TupleType::N8b4 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					4
-				} else {
-					8
-				}
-			}
-			TupleType::N16b4 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					4
-				} else {
-					16
-				}
-			}
-			TupleType::N32b4 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					4
-				} else {
-					32
-				}
-			}
-			TupleType::N64b4 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					4
-				} else {
-					64
-				}
-			}
-			TupleType::N16b8 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					8
-				} else {
-					16
-				}
-			}
-			TupleType::N32b8 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					8
-				} else {
-					32
-				}
-			}
-			TupleType::N64b8 => {
-				if (self.state.flags & StateFlags::B) != 0 {
-					8
-				} else {
-					64
-				}
-			}
-		}
+		get_disp8n(tuple_type, (self.state.flags & StateFlags::B) != 0)
 	}
 
 	/// Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.

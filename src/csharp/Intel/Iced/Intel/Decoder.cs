@@ -154,6 +154,9 @@ namespace Iced.Intel {
 #endif
 			_ = InstructionOpCounts.OpCount;
 			_ = MnemonicUtilsData.toMnemonic;
+#if !HAS_SPAN
+			_ = TupleTypeTable.tupleTypeData;
+#endif
 #if INSTR_INFO
 			_ = RegisterExtensions.RegisterInfos;
 			_ = MemorySizeExtensions.MemorySizeInfos;
@@ -1025,28 +1028,9 @@ namespace Iced.Intel {
 			return true;
 		}
 
-		uint GetDisp8N(TupleType tupleType) {
-			switch (tupleType) {
-			case TupleType.N1: return 1;
-			case TupleType.N2: return 2;
-			case TupleType.N4: return 4;
-			case TupleType.N8: return 8;
-			case TupleType.N16: return 16;
-			case TupleType.N32: return 32;
-			case TupleType.N64: return 64;
-			case TupleType.N8b4: return (state.flags & StateFlags.b) != 0 ? 4U : 8;
-			case TupleType.N16b4: return (state.flags & StateFlags.b) != 0 ? 4U : 16;
-			case TupleType.N32b4: return (state.flags & StateFlags.b) != 0 ? 4U : 32;
-			case TupleType.N64b4: return (state.flags & StateFlags.b) != 0 ? 4U : 64;
-			case TupleType.N16b8: return (state.flags & StateFlags.b) != 0 ? 8U : 16;
-			case TupleType.N32b8: return (state.flags & StateFlags.b) != 0 ? 8U : 32;
-			case TupleType.N64b8: return (state.flags & StateFlags.b) != 0 ? 8U : 64;
-
-			default:
-				Debug.Fail($"Unreachable code");
-				return 0;
-			}
-		}
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		uint GetDisp8N(TupleType tupleType) =>
+			TupleTypeTable.GetDisp8N(tupleType, (state.flags & StateFlags.b) != 0);
 
 		/// <summary>
 		/// Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
