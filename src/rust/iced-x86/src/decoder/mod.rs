@@ -1538,13 +1538,12 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 	pub(self) fn read_op_mem_vsib(&mut self, instruction: &mut Instruction, vsib_index: Register, tuple_type: TupleType) {
-		let is_valid;
-		if self.state.address_size != OpSize::Size16 {
-			is_valid = self.read_op_mem_32_or_64_vsib(instruction, vsib_index, tuple_type, true);
+		let is_valid = if self.state.address_size != OpSize::Size16 {
+			self.read_op_mem_32_or_64_vsib(instruction, vsib_index, tuple_type, true)
 		} else {
 			self.read_op_mem_16(instruction, tuple_type);
-			is_valid = false;
-		}
+			false
+		};
 		if self.invalid_check_mask != 0 && !is_valid {
 			self.set_invalid_instruction();
 		}

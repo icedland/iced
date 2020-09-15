@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(not(feature = "no_evex"))]
 use super::super::tuple_type_tbl::get_disp8n;
 use super::super::*;
 use super::enums::*;
