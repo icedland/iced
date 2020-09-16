@@ -905,7 +905,7 @@ namespace Iced.Intel.EncoderInternal {
 
 			case Code.Loadiwkey_xmm_xmm:
 				WriteOpSeparator();
-				Write("<EAX>", upper: true);
+				Write("<eax>", upper: true);
 				WriteOpSeparator();
 				Write("<XMM0>", upper: true);
 				break;

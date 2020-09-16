@@ -799,7 +799,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 
 			Code::Loadiwkey_xmm_xmm => {
 				self.write_op_separator();
-				self.write("<EAX>", true);
+				self.write("<eax>", true);
 				self.write_op_separator();
 				self.write("<XMM0>", true);
 			}
