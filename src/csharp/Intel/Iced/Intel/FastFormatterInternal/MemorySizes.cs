@@ -45,6 +45,7 @@ namespace Iced.Intel.FastFormatterInternal {
 			xmmword_ptr,
 			ymmword_ptr,
 			zmmword_ptr,
+			mem384_ptr,
 		}
 		static string[] GetMemorySizes() {
 			var memSizes = new string[IcedConstants.NumberOfMemorySizes];
@@ -102,6 +103,8 @@ namespace Iced.Intel.FastFormatterInternal {
 				(byte)MemoryKeywords.None,
 				(byte)MemoryKeywords.None,
 				(byte)MemoryKeywords.tbyte_ptr,
+				(byte)MemoryKeywords.mem384_ptr,
+				(byte)MemoryKeywords.xmmword_ptr,
 				(byte)MemoryKeywords.word_ptr,
 				(byte)MemoryKeywords.word_ptr,
 				(byte)MemoryKeywords.dword_ptr,
@@ -217,6 +220,7 @@ namespace Iced.Intel.FastFormatterInternal {
 					MemoryKeywords.xmmword_ptr => "xmmword ptr ",
 					MemoryKeywords.ymmword_ptr => "ymmword ptr ",
 					MemoryKeywords.zmmword_ptr => "zmmword ptr ",
+					MemoryKeywords.mem384_ptr => "mem384 ptr ",
 					_ => throw new InvalidOperationException(),
 				};
 				memSizes[i] = keywords;

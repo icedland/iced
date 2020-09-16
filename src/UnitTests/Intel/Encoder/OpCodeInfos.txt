@@ -4304,3 +4304,14 @@ Tdcall, legacy, 66, 0F, 01CC, 66 0F 01 CC, TDCALL, 16b 32b 64b
 Seamret, legacy, 66, 0F, 01CD, 66 0F 01 CD, SEAMRET, 64b
 Seamops, legacy, 66, 0F, 01CE, 66 0F 01 CE, SEAMOPS, 64b
 Seamcall, legacy, 66, 0F, 01CF, 66 0F 01 CF, SEAMCALL, 64b
+Aesencwide128kl_m384, legacy, F3, 0F38, D8, F3 0F 38 D8 !(11):000:bbb, AESENCWIDE128KL m384| <XMM0-7>, g=0 16b 32b 64b op=mem
+Aesdecwide128kl_m384, legacy, F3, 0F38, D8, F3 0F 38 D8 !(11):001:bbb, AESDECWIDE128KL m384| <XMM0-7>, g=1 16b 32b 64b op=mem
+Aesencwide256kl_m512, legacy, F3, 0F38, D8, F3 0F 38 D8 !(11):010:bbb, AESENCWIDE256KL m512| <XMM0-7>, g=2 16b 32b 64b op=mem
+Aesdecwide256kl_m512, legacy, F3, 0F38, D8, F3 0F 38 D8 !(11):011:bbb, AESDECWIDE256KL m512| <XMM0-7>, g=3 16b 32b 64b op=mem
+Loadiwkey_xmm_xmm, legacy, F3, 0F38, DC, F3 0F 38 DC 11:rrr:bbb, LOADIWKEY xmm1| xmm2| <EAX>| <XMM0>, 16b 32b 64b op=xmm_reg;xmm_rm
+Aesenc128kl_xmm_m384, legacy, F3, 0F38, DC, F3 0F 38 DC !(11):rrr:bbb, AESENC128KL xmm| m384, 16b 32b 64b op=xmm_reg;mem
+Aesdec128kl_xmm_m384, legacy, F3, 0F38, DD, F3 0F 38 DD !(11):rrr:bbb, AESDEC128KL xmm| m384, 16b 32b 64b op=xmm_reg;mem
+Aesenc256kl_xmm_m512, legacy, F3, 0F38, DE, F3 0F 38 DE !(11):rrr:bbb, AESENC256KL xmm| m512, 16b 32b 64b op=xmm_reg;mem
+Aesdec256kl_xmm_m512, legacy, F3, 0F38, DF, F3 0F 38 DF !(11):rrr:bbb, AESDEC256KL xmm| m512, 16b 32b 64b op=xmm_reg;mem
+Encodekey128_r32_r32, legacy, F3, 0F38, FA, F3 0F 38 FA 11:rrr:bbb, ENCODEKEY128 r32a| r32b| <XMM0-2>| <XMM4-6>, 16b 32b 64b op=r32_reg;r32_rm
+Encodekey256_r32_r32, legacy, F3, 0F38, FB, F3 0F 38 FB 11:rrr:bbb, ENCODEKEY256 r32a| r32b| <XMM0-6>, 16b 32b 64b op=r32_reg;r32_rm

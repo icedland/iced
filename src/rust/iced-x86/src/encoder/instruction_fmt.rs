@@ -227,6 +227,10 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 			| Code::Pcmpgtb_mm_mmm64
 			| Code::Pcmpgtw_mm_mmm64
 			| Code::Pcmpgtd_mm_mmm64
+			| Code::Aesenc128kl_xmm_m384
+			| Code::Aesdec128kl_xmm_m384
+			| Code::Aesenc256kl_xmm_m512
+			| Code::Aesdec256kl_xmm_m512
 			=> no_vec_index = true,
 			// GENERATOR-END: NoVecIndex
 
@@ -786,6 +790,30 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				self.write("<edx>", false);
 				self.write_op_separator();
 				self.write("<eax>", false);
+			}
+
+			Code::Aesencwide128kl_m384 | Code::Aesdecwide128kl_m384 | Code::Aesencwide256kl_m512 | Code::Aesdecwide256kl_m512 => {
+				self.write_op_separator();
+				self.write("<XMM0-7>", true);
+			}
+
+			Code::Loadiwkey_xmm_xmm => {
+				self.write_op_separator();
+				self.write("<EAX>", true);
+				self.write_op_separator();
+				self.write("<XMM0>", true);
+			}
+
+			Code::Encodekey128_r32_r32 => {
+				self.write_op_separator();
+				self.write("<XMM0-2>", true);
+				self.write_op_separator();
+				self.write("<XMM4-6>", true);
+			}
+
+			Code::Encodekey256_r32_r32 => {
+				self.write_op_separator();
+				self.write("<XMM0-6>", true);
 			}
 
 			_ => {}

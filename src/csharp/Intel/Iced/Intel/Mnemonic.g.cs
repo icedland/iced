@@ -1630,6 +1630,17 @@ namespace Iced.Intel {
 		Seamret = 1598,
 		Seamops = 1599,
 		Seamcall = 1600,
+		Aesencwide128kl = 1601,
+		Aesdecwide128kl = 1602,
+		Aesencwide256kl = 1603,
+		Aesdecwide256kl = 1604,
+		Loadiwkey = 1605,
+		Aesenc128kl = 1606,
+		Aesdec128kl = 1607,
+		Aesenc256kl = 1608,
+		Aesdec256kl = 1609,
+		Encodekey128 = 1610,
+		Encodekey256 = 1611,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

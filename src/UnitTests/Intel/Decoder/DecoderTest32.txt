@@ -21707,3 +21707,27 @@ DE DE, Cyrix_DEDE, Undoc, 0, decopt=Cyrix
 DF FC, Frinear, Frinear, 0, decopt=Cyrix
 
 66 0F01 CC, Tdcall, Tdcall, 0,
+
+F3 0F38 D8 00, Aesencwide128kl_m384, Aesencwide128kl, 1, op0=m;ds;eax;;1;0;0;KLHandleAes128
+
+F3 0F38 D8 08, Aesdecwide128kl_m384, Aesdecwide128kl, 1, op0=m;ds;eax;;1;0;0;KLHandleAes128
+
+F3 0F38 D8 10, Aesencwide256kl_m512, Aesencwide256kl, 1, op0=m;ds;eax;;1;0;0;KLHandleAes256
+
+F3 0F38 D8 18, Aesdecwide256kl_m512, Aesdecwide256kl, 1, op0=m;ds;eax;;1;0;0;KLHandleAes256
+
+F3 0F38 DC D3, Loadiwkey_xmm_xmm, Loadiwkey, 2, op0=r;xmm2 op1=r;xmm3
+
+F3 0F38 DC 10, Aesenc128kl_xmm_m384, Aesenc128kl, 2, op0=r;xmm2 op1=m;ds;eax;;1;0;0;KLHandleAes128
+
+F3 0F38 DD 10, Aesdec128kl_xmm_m384, Aesdec128kl, 2, op0=r;xmm2 op1=m;ds;eax;;1;0;0;KLHandleAes128
+
+F3 0F38 DE 10, Aesenc256kl_xmm_m512, Aesenc256kl, 2, op0=r;xmm2 op1=m;ds;eax;;1;0;0;KLHandleAes256
+
+F3 0F38 DF 10, Aesdec256kl_xmm_m512, Aesdec256kl, 2, op0=r;xmm2 op1=m;ds;eax;;1;0;0;KLHandleAes256
+
+F3 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;ebx
+66 F3 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;ebx enc=F30F38FAD3
+
+F3 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx
+66 F3 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx enc=F30F38FBD3

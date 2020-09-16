@@ -240,6 +240,10 @@ namespace Generator.Encoder {
 				Code.Pcmpgtb_mm_mmm64,
 				Code.Pcmpgtw_mm_mmm64,
 				Code.Pcmpgtd_mm_mmm64,
+				Code.Aesenc128kl_xmm_m384,
+				Code.Aesdec128kl_xmm_m384,
+				Code.Aesenc256kl_xmm_m512,
+				Code.Aesdec256kl_xmm_m512,
 			});
 			var swapVecIndex12 = genTypes.GetKeptCodeValues(new[] {
 				Code.Movapd_xmmm128_xmm,

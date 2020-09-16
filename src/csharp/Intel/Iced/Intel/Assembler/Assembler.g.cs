@@ -1416,6 +1416,34 @@ namespace Iced.Intel {
 			op = Code.Aesdec_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>aesdec128kl instruction.<br/>
+		/// <br/>
+		/// <c>AESDEC128KL xmm, m384</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DD !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesdec128kl(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Aesdec128kl_xmm_m384;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>aesdec256kl instruction.<br/>
+		/// <br/>
+		/// <c>AESDEC256KL xmm, m512</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DF !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesdec256kl(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Aesdec256kl_xmm_m512;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>aesdeclast instruction.<br/>
 		/// <br/>
 		/// <c>AESDECLAST xmm1, xmm2/m128</c><br/>
@@ -1443,6 +1471,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Aesdeclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>aesdecwide128kl instruction.<br/>
+		/// <br/>
+		/// <c>AESDECWIDE128KL m384, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):001:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesdecwide128kl(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Aesdecwide128kl_m384;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>aesdecwide256kl instruction.<br/>
+		/// <br/>
+		/// <c>AESDECWIDE256KL m512, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):011:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesdecwide256kl(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Aesdecwide256kl_m512;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>aesenc instruction.<br/>
 		/// <br/>
@@ -1472,6 +1528,34 @@ namespace Iced.Intel {
 			op = Code.Aesenc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>aesenc128kl instruction.<br/>
+		/// <br/>
+		/// <c>AESENC128KL xmm, m384</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesenc128kl(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Aesenc128kl_xmm_m384;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>aesenc256kl instruction.<br/>
+		/// <br/>
+		/// <c>AESENC256KL xmm, m512</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DE !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesenc256kl(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.Aesenc256kl_xmm_m512;
+			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
 		/// <summary>aesenclast instruction.<br/>
 		/// <br/>
 		/// <c>AESENCLAST xmm1, xmm2/m128</c><br/>
@@ -1499,6 +1583,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Aesenclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>aesencwide128kl instruction.<br/>
+		/// <br/>
+		/// <c>AESENCWIDE128KL m384, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):000:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesencwide128kl(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Aesencwide128kl_m384;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>aesencwide256kl instruction.<br/>
+		/// <br/>
+		/// <c>AESENCWIDE256KL m512, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):010:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void aesencwide256kl(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Code.Aesencwide256kl_m512;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>aesimc instruction.<br/>
 		/// <br/>
@@ -9347,6 +9459,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Enclv;
 			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>encodekey128 instruction.<br/>
+		/// <br/>
+		/// <c>ENCODEKEY128 r32a, r32b, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 FA 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void encodekey128(AssemblerRegister32 dst, AssemblerRegister32 src) {
+			Code op;
+			op = Code.Encodekey128_r32_r32;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>encodekey256 instruction.<br/>
+		/// <br/>
+		/// <c>ENCODEKEY256 r32a, r32b, &lt;XMM0-6&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 FB 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void encodekey256(AssemblerRegister32 dst, AssemblerRegister32 src) {
+			Code op;
+			op = Code.Encodekey256_r32_r32;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>endbr32 instruction.<br/>
 		/// <br/>
@@ -17361,6 +17501,20 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Loadall386;
 			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>loadiwkey instruction.<br/>
+		/// <br/>
+		/// <c>LOADIWKEY xmm1, xmm2, &lt;EAX&gt;, &lt;XMM0&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DC 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void loadiwkey(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
+			Code op;
+			op = Code.Loadiwkey_xmm_xmm;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>lodsb instruction.<br/>
 		/// <br/>

@@ -255,6 +255,10 @@ namespace Iced.Intel.EncoderInternal {
 			case Code.Pcmpgtb_mm_mmm64:
 			case Code.Pcmpgtw_mm_mmm64:
 			case Code.Pcmpgtd_mm_mmm64:
+			case Code.Aesenc128kl_xmm_m384:
+			case Code.Aesdec128kl_xmm_m384:
+			case Code.Aesenc256kl_xmm_m512:
+			case Code.Aesdec256kl_xmm_m512:
 				noVecIndex = true;
 				break;
 			// GENERATOR-END: NoVecIndex
@@ -889,6 +893,33 @@ namespace Iced.Intel.EncoderInternal {
 				Write("<edx>", upper: false);
 				WriteOpSeparator();
 				Write("<eax>", upper: false);
+				break;
+
+			case Code.Aesencwide128kl_m384:
+			case Code.Aesdecwide128kl_m384:
+			case Code.Aesencwide256kl_m512:
+			case Code.Aesdecwide256kl_m512:
+				WriteOpSeparator();
+				Write("<XMM0-7>", upper: true);
+				break;
+
+			case Code.Loadiwkey_xmm_xmm:
+				WriteOpSeparator();
+				Write("<EAX>", upper: true);
+				WriteOpSeparator();
+				Write("<XMM0>", upper: true);
+				break;
+
+			case Code.Encodekey128_r32_r32:
+				WriteOpSeparator();
+				Write("<XMM0-2>", upper: true);
+				WriteOpSeparator();
+				Write("<XMM4-6>", upper: true);
+				break;
+
+			case Code.Encodekey256_r32_r32:
+				WriteOpSeparator();
+				Write("<XMM0-6>", upper: true);
 				break;
 			}
 

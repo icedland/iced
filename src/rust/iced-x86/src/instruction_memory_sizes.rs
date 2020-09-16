@@ -4313,6 +4313,17 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Seamret
 	MemorySize::Unknown,// Seamops
 	MemorySize::Unknown,// Seamcall
+	MemorySize::KLHandleAes128,// Aesencwide128kl_m384
+	MemorySize::KLHandleAes128,// Aesdecwide128kl_m384
+	MemorySize::KLHandleAes256,// Aesencwide256kl_m512
+	MemorySize::KLHandleAes256,// Aesdecwide256kl_m512
+	MemorySize::Unknown,// Loadiwkey_xmm_xmm
+	MemorySize::KLHandleAes128,// Aesenc128kl_xmm_m384
+	MemorySize::KLHandleAes128,// Aesdec128kl_xmm_m384
+	MemorySize::KLHandleAes256,// Aesenc256kl_xmm_m512
+	MemorySize::KLHandleAes256,// Aesdec256kl_xmm_m512
+	MemorySize::Unknown,// Encodekey128_r32_r32
+	MemorySize::Unknown,// Encodekey256_r32_r32
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8596,4 +8607,15 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Seamret
 	MemorySize::Unknown,// Seamops
 	MemorySize::Unknown,// Seamcall
+	MemorySize::Unknown,// Aesencwide128kl_m384
+	MemorySize::Unknown,// Aesdecwide128kl_m384
+	MemorySize::Unknown,// Aesencwide256kl_m512
+	MemorySize::Unknown,// Aesdecwide256kl_m512
+	MemorySize::Unknown,// Loadiwkey_xmm_xmm
+	MemorySize::Unknown,// Aesenc128kl_xmm_m384
+	MemorySize::Unknown,// Aesdec128kl_xmm_m384
+	MemorySize::Unknown,// Aesenc256kl_xmm_m512
+	MemorySize::Unknown,// Aesdec256kl_xmm_m512
+	MemorySize::Unknown,// Encodekey128_r32_r32
+	MemorySize::Unknown,// Encodekey256_r32_r32
 ];

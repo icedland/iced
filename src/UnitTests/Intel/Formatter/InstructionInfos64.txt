@@ -8372,3 +8372,14 @@ C4E27A 5C F7, VEX_Tdpbf16ps_tmm_tmm_tmm
 66 0F01 CD, Seamret
 66 0F01 CE, Seamops
 66 0F01 CF, Seamcall
+F3 0F38 D8 00, Aesencwide128kl_m384
+F3 0F38 D8 08, Aesdecwide128kl_m384
+F3 0F38 D8 10, Aesencwide256kl_m512
+F3 0F38 D8 18, Aesdecwide256kl_m512
+F3 0F38 DC D3, Loadiwkey_xmm_xmm
+F3 0F38 DC 10, Aesenc128kl_xmm_m384
+F3 0F38 DD 10, Aesdec128kl_xmm_m384
+F3 0F38 DE 10, Aesenc256kl_xmm_m512
+F3 0F38 DF 10, Aesdec256kl_xmm_m512
+F3 0F38 FA D3, Encodekey128_r32_r32
+F3 0F38 FB D3, Encodekey256_r32_r32

@@ -50,6 +50,7 @@ namespace Generator.Formatters {
 		word,
 		yword,
 		zword,
+		mem384,
 	}
 
 	enum MasmMemoryKeywords {
@@ -70,6 +71,7 @@ namespace Generator.Formatters {
 		xmmword_ptr,
 		ymmword_ptr,
 		zmmword_ptr,
+		mem384_ptr,
 	}
 
 	enum FastMemoryKeywords {
@@ -90,6 +92,7 @@ namespace Generator.Formatters {
 		xmmword_ptr,
 		ymmword_ptr,
 		zmmword_ptr,
+		mem384_ptr,
 	}
 
 	enum IntelMemoryKeywords {
@@ -107,6 +110,7 @@ namespace Generator.Formatters {
 		xmmword_ptr,
 		ymmword_ptr,
 		zmmword_ptr,
+		mem384_ptr,
 	}
 
 	abstract class TableGen {
@@ -168,6 +172,8 @@ namespace Generator.Formatters {
 				(memSize[nameof(MemorySize.Tilecfg)], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None, FastMemoryKeywords.None),
 				(memSize[nameof(MemorySize.Tile)], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None, FastMemoryKeywords.None),
 				(memSize[nameof(MemorySize.SegmentDescSelector)], BroadcastToKind.None, IntelMemoryKeywords.tbyte_ptr, MasmMemoryKeywords.tbyte_ptr, NasmMemoryKeywords.tword, FastMemoryKeywords.tbyte_ptr),
+				(memSize[nameof(MemorySize.KLHandleAes128)], BroadcastToKind.None, IntelMemoryKeywords.mem384_ptr, MasmMemoryKeywords.mem384_ptr, NasmMemoryKeywords.mem384, FastMemoryKeywords.mem384_ptr),
+				(memSize[nameof(MemorySize.KLHandleAes256)], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword, FastMemoryKeywords.xmmword_ptr),
 				(memSize[nameof(MemorySize.Packed16_UInt8)], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word, FastMemoryKeywords.word_ptr),
 				(memSize[nameof(MemorySize.Packed16_Int8)], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word, FastMemoryKeywords.word_ptr),
 				(memSize[nameof(MemorySize.Packed32_UInt8)], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword, FastMemoryKeywords.dword_ptr),

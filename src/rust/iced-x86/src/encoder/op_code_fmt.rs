@@ -260,6 +260,17 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		match self.op_code.code() {
 			#[cfg(not(feature = "no_vex"))]
 			Code::VEX_Ldtilecfg_m512 | Code::VEX_Sttilecfg_m512 => has_modrm_info = true,
+			Code::Aesencwide128kl_m384
+			| Code::Aesdecwide128kl_m384
+			| Code::Aesencwide256kl_m512
+			| Code::Aesdecwide256kl_m512
+			| Code::Loadiwkey_xmm_xmm
+			| Code::Aesenc128kl_xmm_m384
+			| Code::Aesdec128kl_xmm_m384
+			| Code::Aesenc256kl_xmm_m512
+			| Code::Aesdec256kl_xmm_m512
+			| Code::Encodekey128_r32_r32
+			| Code::Encodekey256_r32_r32 => has_modrm_info = true,
 			_ => {}
 		}
 		for i in 0..self.op_code.op_count() {
@@ -270,6 +281,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 					is_reg_only = false;
 					bbb = 4;
 				}
+				OpCodeOperandKind::r32_reg | OpCodeOperandKind::xmm_reg => is_reg_only = true,
 				OpCodeOperandKind::tmm_reg | OpCodeOperandKind::tmm_rm | OpCodeOperandKind::tmm_vvvv => has_modrm_info = true,
 				_ => {}
 			}

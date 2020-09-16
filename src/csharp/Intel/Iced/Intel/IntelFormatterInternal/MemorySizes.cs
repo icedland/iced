@@ -51,6 +51,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			xmmword_ptr,
 			ymmword_ptr,
 			zmmword_ptr,
+			mem384_ptr,
 		}
 		enum BroadcastToKind {
 			None,
@@ -68,6 +69,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			var xmmword_ptr = new[] { new FormatterString("xmmword"), ptr };
 			var ymmword_ptr = new[] { new FormatterString("ymmword"), ptr };
 			var zmmword_ptr = new[] { new FormatterString("zmmword"), ptr };
+			var mem384_ptr = new[] { new FormatterString("mem384"), ptr };
 			var fword_ptr = new[] { new FormatterString("fword"), ptr };
 			var tbyte_ptr = new[] { new FormatterString("tbyte"), ptr };
 			var fpuenv14_ptr = new[] { new FormatterString("fpuenv14"), ptr };
@@ -132,6 +134,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 				(byte)((uint)MemoryKeywords.None | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.None | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.tbyte_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
+				(byte)((uint)MemoryKeywords.mem384_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
+				(byte)((uint)MemoryKeywords.xmmword_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.word_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.word_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
 				(byte)((uint)MemoryKeywords.dword_ptr | ((uint)BroadcastToKind.None << BroadcastToKindShift)),
@@ -249,6 +253,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 					MemoryKeywords.xmmword_ptr => xmmword_ptr,
 					MemoryKeywords.ymmword_ptr => ymmword_ptr,
 					MemoryKeywords.zmmword_ptr => zmmword_ptr,
+					MemoryKeywords.mem384_ptr => mem384_ptr,
 					_ => throw new InvalidOperationException(),
 				};
 				var bcstTo = ((BroadcastToKind)(d >> BroadcastToKindShift)) switch {

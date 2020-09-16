@@ -458,6 +458,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void aesdec128kl_regXMM_m() {
+			TestAssembler(c => c.aesdec128kl(xmm2, __[si]), Instruction.Create(Code.Aesdec128kl_xmm_m384, xmm2, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void aesdec256kl_regXMM_m() {
+			TestAssembler(c => c.aesdec256kl(xmm2, __[si]), Instruction.Create(Code.Aesdec256kl_xmm_m512, xmm2, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
 		public void aesdeclast_regXMM_regXMM() {
 			TestAssembler(c => c.aesdeclast(xmm2, xmm7), Instruction.Create(Code.Aesdeclast_xmm_xmmm128, xmm2, xmm7));
 		}
@@ -465,6 +475,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void aesdeclast_regXMM_m() {
 			TestAssembler(c => c.aesdeclast(xmm2, __xmmword_ptr[si]), Instruction.Create(Code.Aesdeclast_xmm_xmmm128, xmm2, __xmmword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void aesdecwide128kl_m() {
+			TestAssembler(c => c.aesdecwide128kl(__[si]), Instruction.Create(Code.Aesdecwide128kl_m384, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void aesdecwide256kl_m() {
+			TestAssembler(c => c.aesdecwide256kl(__[si]), Instruction.Create(Code.Aesdecwide256kl_m512, __[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -478,6 +498,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void aesenc128kl_regXMM_m() {
+			TestAssembler(c => c.aesenc128kl(xmm2, __[si]), Instruction.Create(Code.Aesenc128kl_xmm_m384, xmm2, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void aesenc256kl_regXMM_m() {
+			TestAssembler(c => c.aesenc256kl(xmm2, __[si]), Instruction.Create(Code.Aesenc256kl_xmm_m512, xmm2, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
 		public void aesenclast_regXMM_regXMM() {
 			TestAssembler(c => c.aesenclast(xmm2, xmm7), Instruction.Create(Code.Aesenclast_xmm_xmmm128, xmm2, xmm7));
 		}
@@ -485,6 +515,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void aesenclast_regXMM_m() {
 			TestAssembler(c => c.aesenclast(xmm2, __xmmword_ptr[si]), Instruction.Create(Code.Aesenclast_xmm_xmmm128, xmm2, __xmmword_ptr[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void aesencwide128kl_m() {
+			TestAssembler(c => c.aesencwide128kl(__[si]), Instruction.Create(Code.Aesencwide128kl_m384, __[si].ToMemoryOperand(Bitness)));
+		}
+
+		[Fact]
+		public void aesencwide256kl_m() {
+			TestAssembler(c => c.aesencwide256kl(__[si]), Instruction.Create(Code.Aesencwide256kl_m512, __[si].ToMemoryOperand(Bitness)));
 		}
 
 		[Fact]
@@ -3036,6 +3076,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void encodekey128_reg32_reg32() {
+			TestAssembler(c => c.encodekey128(ecx, edx), Instruction.Create(Code.Encodekey128_r32_r32, ecx, edx));
+		}
+
+		[Fact]
+		public void encodekey256_reg32_reg32() {
+			TestAssembler(c => c.encodekey256(ecx, edx), Instruction.Create(Code.Encodekey256_r32_r32, ecx, edx));
+		}
+
+		[Fact]
 		public void endbr32() {
 			TestAssembler(c => c.endbr32(), Instruction.Create(Code.Endbr32));
 		}
@@ -5555,6 +5605,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void loadall() {
 			TestAssembler(c => c.loadall(), Instruction.Create(Code.Loadall386));
+		}
+
+		[Fact]
+		public void loadiwkey_regXMM_regXMM() {
+			TestAssembler(c => c.loadiwkey(xmm2, xmm3), Instruction.Create(Code.Loadiwkey_xmm_xmm, xmm2, xmm3));
 		}
 
 		[Fact]

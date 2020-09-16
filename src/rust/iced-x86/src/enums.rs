@@ -1225,10 +1225,16 @@ pub enum CpuidFeature {
 	SMM = 147,
 	/// CPUID.(EAX=??H, ECX=?H):???.????\[bit ??\]
 	TDX = 148,
+	/// CPUID.(EAX=07H, ECX=0H):ECX.KL\[bit 23\]
+	KL = 149,
+	/// CPUID.19H:EBX.AESKLE\[bit 0\]
+	AESKLE = 150,
+	/// CPUID.19H:EBX.WIDE_KL\[bit 2\]
+	WIDE_KL = 151,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 149] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 152] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1378,6 +1384,9 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 149] = [
 	"MOV_TR",
 	"SMM",
 	"TDX",
+	"KL",
+	"AESKLE",
+	"WIDE_KL",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

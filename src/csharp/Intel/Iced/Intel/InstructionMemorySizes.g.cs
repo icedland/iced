@@ -4317,6 +4317,17 @@ namespace Iced.Intel {
 			0,// Seamret
 			0,// Seamops
 			0,// Seamcall
+			(byte)MemorySize.KLHandleAes128,// Aesencwide128kl_m384
+			(byte)MemorySize.KLHandleAes128,// Aesdecwide128kl_m384
+			(byte)MemorySize.KLHandleAes256,// Aesencwide256kl_m512
+			(byte)MemorySize.KLHandleAes256,// Aesdecwide256kl_m512
+			0,// Loadiwkey_xmm_xmm
+			(byte)MemorySize.KLHandleAes128,// Aesenc128kl_xmm_m384
+			(byte)MemorySize.KLHandleAes128,// Aesdec128kl_xmm_m384
+			(byte)MemorySize.KLHandleAes256,// Aesenc256kl_xmm_m512
+			(byte)MemorySize.KLHandleAes256,// Aesdec256kl_xmm_m512
+			0,// Encodekey128_r32_r32
+			0,// Encodekey256_r32_r32
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8600,6 +8611,17 @@ namespace Iced.Intel {
 			0,// Seamret
 			0,// Seamops
 			0,// Seamcall
+			0,// Aesencwide128kl_m384
+			0,// Aesdecwide128kl_m384
+			0,// Aesencwide256kl_m512
+			0,// Aesdecwide256kl_m512
+			0,// Loadiwkey_xmm_xmm
+			0,// Aesenc128kl_xmm_m384
+			0,// Aesdec128kl_xmm_m384
+			0,// Aesenc256kl_xmm_m512
+			0,// Aesdec256kl_xmm_m512
+			0,// Encodekey128_r32_r32
+			0,// Encodekey256_r32_r32
 		};
 	}
 }

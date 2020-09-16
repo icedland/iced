@@ -54,7 +54,7 @@ impl InstrInfoConstants {
 	pub(crate) const OP_INFO2_COUNT: usize = 3;
 	pub(crate) const OP_INFO3_COUNT: usize = 2;
 	pub(crate) const OP_INFO4_COUNT: usize = 2;
-	pub(crate) const RFLAGS_INFO_COUNT: usize = 59;
+	pub(crate) const RFLAGS_INFO_COUNT: usize = 60;
 	pub(crate) const DEFAULT_USED_REGISTER_COLL_CAPACITY: usize = 10;
 	pub(crate) const DEFAULT_USED_MEMORY_COLL_CAPACITY: usize = 8;
 }
@@ -428,10 +428,13 @@ pub(crate) enum CodeInfo {
 	CPUR,
 	CPUW,
 	Seamops,
+	RW_XMM0to7,
+	R_EAX_XMM0,
+	Encodekey,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 112] = [
+static GEN_DEBUG_CODE_INFO: [&str; 115] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -544,6 +547,9 @@ static GEN_DEBUG_CODE_INFO: [&str; 112] = [
 	"CPUR",
 	"CPUW",
 	"Seamops",
+	"RW_XMM0to7",
+	"R_EAX_XMM0",
+	"Encodekey",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -572,6 +578,7 @@ impl Default for CodeInfo {
 pub(crate) enum RflagsInfo {
 	None,
 	C_AC,
+	C_acopsz,
 	C_acos_S_pz,
 	C_c,
 	C_cos_S_pz_U_a,
@@ -632,9 +639,10 @@ pub(crate) enum RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_RFLAGS_INFO: [&str; 59] = [
+static GEN_DEBUG_RFLAGS_INFO: [&str; 60] = [
 	"None",
 	"C_AC",
+	"C_acopsz",
 	"C_acos_S_pz",
 	"C_c",
 	"C_cos_S_pz_U_a",
@@ -886,10 +894,13 @@ pub(crate) enum CpuidFeatureInternal {
 	MOV_TR,
 	SMM,
 	TDX,
+	KL,
+	AESKLE,
+	AESKLE_and_WIDE_KL,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 168] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1058,6 +1069,9 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 168] = [
 	"MOV_TR",
 	"SMM",
 	"TDX",
+	"KL",
+	"AESKLE",
+	"AESKLE_and_WIDE_KL",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

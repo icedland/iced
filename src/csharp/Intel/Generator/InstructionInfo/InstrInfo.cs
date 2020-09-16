@@ -171,6 +171,9 @@ namespace Generator.InstructionInfo {
 		CPUR,
 		CPUW,
 		Seamops,
+		RW_XMM0to7,
+		R_EAX_XMM0,
+		Encodekey,
 	}
 
 	sealed class InstrInfo {

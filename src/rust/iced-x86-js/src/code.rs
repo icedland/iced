@@ -4314,6 +4314,17 @@ pub enum Code {
 	Seamret = 4280,
 	Seamops = 4281,
 	Seamcall = 4282,
+	Aesencwide128kl_m384 = 4283,
+	Aesdecwide128kl_m384 = 4284,
+	Aesencwide256kl_m512 = 4285,
+	Aesdecwide256kl_m512 = 4286,
+	Loadiwkey_xmm_xmm = 4287,
+	Aesenc128kl_xmm_m384 = 4288,
+	Aesdec128kl_xmm_m384 = 4289,
+	Aesenc256kl_xmm_m512 = 4290,
+	Aesdec256kl_xmm_m512 = 4291,
+	Encodekey128_r32_r32 = 4292,
+	Encodekey256_r32_r32 = 4293,
 }
 // GENERATOR-END: Enum
 

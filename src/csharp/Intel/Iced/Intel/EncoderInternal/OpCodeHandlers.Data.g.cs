@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel.EncoderInternal {
 	static partial class OpCodeHandlers {
 		public static uint[] GetData() =>
-			new uint[4283 * 3] {
+			new uint[4294 * 3] {
 				0x00000000, 0x00000000, 0x00000000,// INVALID
 				0x00000000, 0x00000000, 0x00000000,// DeclareByte
 				0x00000000, 0x00000000, 0x00000000,// DeclareWord
@@ -4313,6 +4313,17 @@ namespace Iced.Intel.EncoderInternal {
 				0x01CD0000, 0x00008025, 0x00000000,// Seamret
 				0x01CE0000, 0x00008025, 0x00000000,// Seamops
 				0x01CF0000, 0x00008025, 0x00000000,// Seamcall
+				0x00D80000, 0x0000804A, 0x00000003,// Aesencwide128kl_m384
+				0x00D80000, 0x000080CA, 0x00000003,// Aesdecwide128kl_m384
+				0x00D80000, 0x0000814A, 0x00000003,// Aesencwide256kl_m512
+				0x00D80000, 0x000081CA, 0x00000003,// Aesdecwide256kl_m512
+				0x00DC0000, 0x0000800A, 0x00003163,// Loadiwkey_xmm_xmm
+				0x00DC0000, 0x0000800A, 0x000001E3,// Aesenc128kl_xmm_m384
+				0x00DD0000, 0x0000800A, 0x000001E3,// Aesdec128kl_xmm_m384
+				0x00DE0000, 0x0000800A, 0x000001E3,// Aesenc256kl_xmm_m512
+				0x00DF0000, 0x0000800A, 0x000001E3,// Aesdec256kl_xmm_m512
+				0x00FA0000, 0x0000800A, 0x000018AB,// Encodekey128_r32_r32
+				0x00FB0000, 0x0000800A, 0x000018AB,// Encodekey256_r32_r32
 			};
 	}
 }

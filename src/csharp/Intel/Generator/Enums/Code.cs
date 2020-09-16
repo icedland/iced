@@ -4314,6 +4314,17 @@ namespace Generator.Enums {
 		Seamret,
 		Seamops,
 		Seamcall,
+		Aesencwide128kl_m384,
+		Aesdecwide128kl_m384,
+		Aesencwide256kl_m512,
+		Aesdecwide256kl_m512,
+		Loadiwkey_xmm_xmm,
+		Aesenc128kl_xmm_m384,
+		Aesdec128kl_xmm_m384,
+		Aesenc256kl_xmm_m512,
+		Aesdec256kl_xmm_m512,
+		Encodekey128_r32_r32,
+		Encodekey256_r32_r32,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

@@ -19153,3 +19153,25 @@ C4E25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, VEX, AMX_INT8, pm op0=rw op1=r op2=r rw=t
 66 0F01 CE, Seamops, Legacy, TDX, priv fc=caops fw=z rw=rax cr=rcx;rdx;r8;r9
 # seamcall
 66 0F01 CF, Seamcall, Legacy, TDX, priv fc=zaops fw=c flow=Call
+# aesencwide128kl [rax]
+F3 0F38 D8 00, Aesencwide128kl_m384, Legacy, AESKLE;WIDE_KL, fc=acops fw=z op0=r r=rax rm=ds:rax;KLHandleAes128 rw=xmm0;xmm1;xmm2;xmm3;xmm4;xmm5;xmm6;xmm7
+# aesdecwide128kl [rax]
+F3 0F38 D8 08, Aesdecwide128kl_m384, Legacy, AESKLE;WIDE_KL, fc=acops fw=z op0=r r=rax rm=ds:rax;KLHandleAes128 rw=xmm0;xmm1;xmm2;xmm3;xmm4;xmm5;xmm6;xmm7
+# aesencwide256kl [rax]
+F3 0F38 D8 10, Aesencwide256kl_m512, Legacy, AESKLE;WIDE_KL, fc=acops fw=z op0=r r=rax rm=ds:rax;KLHandleAes256 rw=xmm0;xmm1;xmm2;xmm3;xmm4;xmm5;xmm6;xmm7
+# aesdecwide256kl [rax]
+F3 0F38 D8 18, Aesdecwide256kl_m512, Legacy, AESKLE;WIDE_KL, fc=acops fw=z op0=r r=rax rm=ds:rax;KLHandleAes256 rw=xmm0;xmm1;xmm2;xmm3;xmm4;xmm5;xmm6;xmm7
+# loadiwkey xmm2,xmm3
+F3 0F38 DC D3, Loadiwkey_xmm_xmm, Legacy, KL, priv fc=acops fw=z op0=r op1=r r=xmm2;xmm3;eax;xmm0
+# aesenc128kl xmm2,[rax]
+F3 0F38 DC 10, Aesenc128kl_xmm_m384, Legacy, AESKLE, fc=acops fw=z op0=rw op1=r rw=xmm2 r=rax rm=ds:rax;KLHandleAes128
+# aesdec128kl xmm2,[rax]
+F3 0F38 DD 10, Aesdec128kl_xmm_m384, Legacy, AESKLE, fc=acops fw=z op0=rw op1=r rw=xmm2 r=rax rm=ds:rax;KLHandleAes128
+# aesenc256kl xmm2,[rax]
+F3 0F38 DE 10, Aesenc256kl_xmm_m512, Legacy, AESKLE, fc=acops fw=z op0=rw op1=r rw=xmm2 r=rax rm=ds:rax;KLHandleAes256
+# aesdec256kl xmm2,[rax]
+F3 0F38 DF 10, Aesdec256kl_xmm_m512, Legacy, AESKLE, fc=acops fw=z op0=rw op1=r rw=xmm2 r=rax rm=ds:rax;KLHandleAes256
+# encodekey128 edx,ebx
+F3 0F38 FA D3, Encodekey128_r32_r32, Legacy, AESKLE, fc=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0 w=xmm1;xmm2;xmm4;xmm5;xmm6
+# encodekey256 edx,ebx
+F3 0F38 FB D3, Encodekey256_r32_r32, Legacy, AESKLE, fc=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0;xmm1 w=xmm2;xmm3;xmm4;xmm5;xmm6

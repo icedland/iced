@@ -46,6 +46,7 @@ pub(super) struct FormatterConstants {
 	pub(super) oword: FormatterString,
 	pub(super) yword: FormatterString,
 	pub(super) zword: FormatterString,
+	pub(super) mem384: FormatterString,
 	pub(super) fword: FormatterString,
 	pub(super) tword: FormatterString,
 	pub(super) tbyte: FormatterString,
@@ -114,6 +115,7 @@ lazy_static! {
 			xmmword: FormatterString::new_str("xmmword"),
 			ymmword: FormatterString::new_str("ymmword"),
 			zmmword: FormatterString::new_str("zmmword"),
+			mem384: FormatterString::new_str("mem384"),
 			oword: FormatterString::new_str("oword"),
 			yword: FormatterString::new_str("yword"),
 			zword: FormatterString::new_str("zword"),
@@ -186,6 +188,7 @@ pub(super) struct FormatterArrayConstants {
 	pub(super) xmmword_ptr: [&'static FormatterString; 2],
 	pub(super) ymmword_ptr: [&'static FormatterString; 2],
 	pub(super) zmmword_ptr: [&'static FormatterString; 2],
+	pub(super) mem384_ptr: [&'static FormatterString; 2],
 	pub(super) oword_ptr: [&'static FormatterString; 2],
 	pub(super) dword_bcst: [&'static FormatterString; 2],
 	pub(super) qword_bcst: [&'static FormatterString; 2],
@@ -252,6 +255,7 @@ lazy_static! {
 		let xmmword_ptr: [&'static FormatterString; 2] = [&c.xmmword, &c.ptr];
 		let ymmword_ptr: [&'static FormatterString; 2] = [&c.ymmword, &c.ptr];
 		let zmmword_ptr: [&'static FormatterString; 2] = [&c.zmmword, &c.ptr];
+		let mem384_ptr: [&'static FormatterString; 2] = [&c.mem384, &c.ptr];
 		let fword_ptr: [&'static FormatterString; 2] = [&c.fword, &c.ptr];
 		let tbyte_ptr: [&'static FormatterString; 2] = [&c.tbyte, &c.ptr];
 		let fpuenv14_ptr: [&'static FormatterString; 2] = [&c.fpuenv14, &c.ptr];
@@ -400,6 +404,7 @@ lazy_static! {
 			xmmword_ptr,
 			ymmword_ptr,
 			zmmword_ptr,
+			mem384_ptr,
 			oword_ptr,
 			dword_bcst,
 			qword_bcst,

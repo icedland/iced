@@ -4317,6 +4317,17 @@ namespace Generator.Formatters.Fast {
 				new object[] { code[nameof(Code.Seamret)], "seamret" },
 				new object[] { code[nameof(Code.Seamops)], "seamops" },
 				new object[] { code[nameof(Code.Seamcall)], "seamcall" },
+				new object[] { code[nameof(Code.Aesencwide128kl_m384)], "aesencwide128kl" },
+				new object[] { code[nameof(Code.Aesdecwide128kl_m384)], "aesdecwide128kl" },
+				new object[] { code[nameof(Code.Aesencwide256kl_m512)], "aesencwide256kl" },
+				new object[] { code[nameof(Code.Aesdecwide256kl_m512)], "aesdecwide256kl" },
+				new object[] { code[nameof(Code.Loadiwkey_xmm_xmm)], "loadiwkey" },
+				new object[] { code[nameof(Code.Aesenc128kl_xmm_m384)], "aesenc128kl" },
+				new object[] { code[nameof(Code.Aesdec128kl_xmm_m384)], "aesdec128kl" },
+				new object[] { code[nameof(Code.Aesenc256kl_xmm_m512)], "aesenc256kl" },
+				new object[] { code[nameof(Code.Aesdec256kl_xmm_m512)], "aesdec256kl" },
+				new object[] { code[nameof(Code.Encodekey128_r32_r32)], "encodekey128" },
+				new object[] { code[nameof(Code.Encodekey256_r32_r32)], "encodekey256" },
 			}, CodeValueIndex);
 		}
 	}

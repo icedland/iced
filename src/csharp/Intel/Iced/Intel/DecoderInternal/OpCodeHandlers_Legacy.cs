@@ -1035,6 +1035,28 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	sealed class OpCodeHandler_Gd_Rd : OpCodeHandlerModRM {
+		readonly Code code;
+
+		public OpCodeHandler_Gd_Rd(Code code) => this.code = code;
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.Legacy);
+			instruction.InternalCode = code;
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
+			if (state.mod == 3) {
+				Static.Assert(OpKind.Register == 0 ? 0 : -1);
+				//instruction.InternalOp1Kind = OpKind.Register;
+				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.EAX;
+			}
+			else
+				decoder.SetInvalidInstruction();
+		}
+	}
+
 	sealed class OpCodeHandler_Gv_M_as : OpCodeHandlerModRM {
 		readonly Code code16;
 		readonly Code code32;

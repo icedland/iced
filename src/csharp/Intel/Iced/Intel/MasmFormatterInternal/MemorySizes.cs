@@ -59,6 +59,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			S16,
 			S28,
 			S32,
+			S48,
 			S64,
 			S94,
 			S108,
@@ -82,6 +83,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			xmmword_ptr,
 			ymmword_ptr,
 			zmmword_ptr,
+			mem384_ptr,
 		}
 		static Info[] GetMemorySizes() {
 			var ptr = new FormatterString("ptr");
@@ -100,6 +102,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			var word_ptr = new[] { new FormatterString("word"), ptr };
 			var ymmword_ptr = new[] { new FormatterString("ymmword"), ptr };
 			var zmmword_ptr = new[] { new FormatterString("zmmword"), ptr };
+			var mem384_ptr = new[] { new FormatterString("mem384"), ptr };
 			var fword_ptr = new[] { new FormatterString("fword"), ptr };
 			var tbyte_ptr = new[] { new FormatterString("tbyte"), ptr };
 			var fpuenv14_ptr = new[] { new FormatterString("fpuenv14"), ptr };
@@ -161,6 +164,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				(ushort)((uint)MemoryKeywords.None | ((uint)Size.S64 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.None | ((uint)Size.S0 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.tbyte_ptr | ((uint)Size.S10 << SizeKindShift)),
+				(ushort)((uint)MemoryKeywords.mem384_ptr | ((uint)Size.S48 << SizeKindShift)),
+				(ushort)((uint)MemoryKeywords.xmmword_ptr | ((uint)Size.S64 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.word_ptr | ((uint)Size.S2 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.word_ptr | ((uint)Size.S2 << SizeKindShift)),
 				(ushort)((uint)MemoryKeywords.dword_ptr | ((uint)Size.S4 << SizeKindShift)),
@@ -268,6 +273,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				16,
 				28,
 				32,
+				48,
 				64,
 				94,
 				108,
@@ -294,6 +300,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 					MemoryKeywords.xmmword_ptr => xmmword_ptr,
 					MemoryKeywords.ymmword_ptr => ymmword_ptr,
 					MemoryKeywords.zmmword_ptr => zmmword_ptr,
+					MemoryKeywords.mem384_ptr => mem384_ptr,
 					_ => throw new InvalidOperationException(),
 				};
 				infos[i] = new Info(i >= (int)IcedConstants.FirstBroadcastMemorySize, sizes[d >> SizeKindShift], keywords);

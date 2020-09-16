@@ -268,6 +268,19 @@ namespace Iced.Intel.EncoderInternal {
 				hasModrmInfo = true;
 				break;
 #endif
+			case Code.Aesencwide128kl_m384:
+			case Code.Aesdecwide128kl_m384:
+			case Code.Aesencwide256kl_m512:
+			case Code.Aesdecwide256kl_m512:
+			case Code.Loadiwkey_xmm_xmm:
+			case Code.Aesenc128kl_xmm_m384:
+			case Code.Aesdec128kl_xmm_m384:
+			case Code.Aesenc256kl_xmm_m512:
+			case Code.Aesdec256kl_xmm_m512:
+			case Code.Encodekey128_r32_r32:
+			case Code.Encodekey256_r32_r32:
+				hasModrmInfo = true;
+				break;
 			default:
 				break;
 			}
@@ -281,6 +294,10 @@ namespace Iced.Intel.EncoderInternal {
 					hasModrmInfo = true;
 					isRegOnly = false;
 					bbb = 4;
+					break;
+				case OpCodeOperandKind.r32_reg:
+				case OpCodeOperandKind.xmm_reg:
+					isRegOnly = true;
 					break;
 				case OpCodeOperandKind.tmm_reg:
 				case OpCodeOperandKind.tmm_rm:

@@ -67,6 +67,8 @@ Bcd, 10, 10, Bcd, 1, signed
 Tilecfg, 64, 64, Tilecfg, 1,
 Tile, 0, 0, Tile, 1,
 SegmentDescSelector, 10, 10, SegmentDescSelector, 1,
+KLHandleAes128, 48, 48, KLHandleAes128, 1,
+KLHandleAes256, 64, 64, KLHandleAes256, 1,
 Packed16_UInt8, 2, 1, UInt8, 2, packed
 Packed16_Int8, 2, 1, Int8, 2, packed signed
 Packed32_UInt8, 4, 1, UInt8, 4, packed

@@ -4311,6 +4311,17 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Seamret,// Seamret
 			(ushort)Mnemonic.Seamops,// Seamops
 			(ushort)Mnemonic.Seamcall,// Seamcall
+			(ushort)Mnemonic.Aesencwide128kl,// Aesencwide128kl_m384
+			(ushort)Mnemonic.Aesdecwide128kl,// Aesdecwide128kl_m384
+			(ushort)Mnemonic.Aesencwide256kl,// Aesencwide256kl_m512
+			(ushort)Mnemonic.Aesdecwide256kl,// Aesdecwide256kl_m512
+			(ushort)Mnemonic.Loadiwkey,// Loadiwkey_xmm_xmm
+			(ushort)Mnemonic.Aesenc128kl,// Aesenc128kl_xmm_m384
+			(ushort)Mnemonic.Aesdec128kl,// Aesdec128kl_xmm_m384
+			(ushort)Mnemonic.Aesenc256kl,// Aesenc256kl_xmm_m512
+			(ushort)Mnemonic.Aesdec256kl,// Aesdec256kl_xmm_m512
+			(ushort)Mnemonic.Encodekey128,// Encodekey128_r32_r32
+			(ushort)Mnemonic.Encodekey256,// Encodekey256_r32_r32
 		};
 	}
 }

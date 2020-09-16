@@ -56,6 +56,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x00,
 				0x00,
 				0x00,
+				0x04,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -225,6 +226,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x92,// MOV_TR
 				0x93,// SMM
 				0x94,// TDX
+				0x95,// KL
+				0x96,// AESKLE
+				0x96, 0x97,// AESKLE_and_WIDE_KL
 			};
 	}
 }

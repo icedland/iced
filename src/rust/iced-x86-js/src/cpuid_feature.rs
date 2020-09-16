@@ -338,5 +338,11 @@ pub enum CpuidFeature {
 	SMM = 147,
 	/// CPUID.(EAX=??H, ECX=?H):???.????\[bit ??\]
 	TDX = 148,
+	/// CPUID.(EAX=07H, ECX=0H):ECX.KL\[bit 23\]
+	KL = 149,
+	/// CPUID.19H:EBX.AESKLE\[bit 0\]
+	AESKLE = 150,
+	/// CPUID.19H:EBX.WIDE_KL\[bit 2\]
+	WIDE_KL = 151,
 }
 // GENERATOR-END: Enum

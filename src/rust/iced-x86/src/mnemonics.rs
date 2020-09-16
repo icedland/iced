@@ -4311,4 +4311,15 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Seamret,// Seamret
 	Mnemonic::Seamops,// Seamops
 	Mnemonic::Seamcall,// Seamcall
+	Mnemonic::Aesencwide128kl,// Aesencwide128kl_m384
+	Mnemonic::Aesdecwide128kl,// Aesdecwide128kl_m384
+	Mnemonic::Aesencwide256kl,// Aesencwide256kl_m512
+	Mnemonic::Aesdecwide256kl,// Aesdecwide256kl_m512
+	Mnemonic::Loadiwkey,// Loadiwkey_xmm_xmm
+	Mnemonic::Aesenc128kl,// Aesenc128kl_xmm_m384
+	Mnemonic::Aesdec128kl,// Aesdec128kl_xmm_m384
+	Mnemonic::Aesenc256kl,// Aesenc256kl_xmm_m512
+	Mnemonic::Aesdec256kl,// Aesdec256kl_xmm_m512
+	Mnemonic::Encodekey128,// Encodekey128_r32_r32
+	Mnemonic::Encodekey256,// Encodekey256_r32_r32
 ];

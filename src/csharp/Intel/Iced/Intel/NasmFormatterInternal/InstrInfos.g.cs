@@ -16652,6 +16652,50 @@ namespace Iced.Intel.NasmFormatterInternal {
 				// Seamcall
 				0x01,// Normal_1
 				0xB8, 0x0B,// 1464 = "seamcall"
+
+				// Aesencwide128kl_m384
+				0x01,// Normal_1
+				0xB9, 0x0B,// 1465 = "aesencwide128kl"
+
+				// Aesdecwide128kl_m384
+				0x01,// Normal_1
+				0xBA, 0x0B,// 1466 = "aesdecwide128kl"
+
+				// Aesencwide256kl_m512
+				0x01,// Normal_1
+				0xBB, 0x0B,// 1467 = "aesencwide256kl"
+
+				// Aesdecwide256kl_m512
+				0x01,// Normal_1
+				0xBC, 0x0B,// 1468 = "aesdecwide256kl"
+
+				// Loadiwkey_xmm_xmm
+				0x01,// Normal_1
+				0xBD, 0x0B,// 1469 = "loadiwkey"
+
+				// Aesenc128kl_xmm_m384
+				0x01,// Normal_1
+				0xBE, 0x0B,// 1470 = "aesenc128kl"
+
+				// Aesdec128kl_xmm_m384
+				0x01,// Normal_1
+				0xBF, 0x0B,// 1471 = "aesdec128kl"
+
+				// Aesenc256kl_xmm_m512
+				0x01,// Normal_1
+				0xC0, 0x0B,// 1472 = "aesenc256kl"
+
+				// Aesdec256kl_xmm_m512
+				0x01,// Normal_1
+				0xC1, 0x0B,// 1473 = "aesdec256kl"
+
+				// Encodekey128_r32_r32
+				0x01,// Normal_1
+				0xC2, 0x0B,// 1474 = "encodekey128"
+
+				// Encodekey256_r32_r32
+				0x01,// Normal_1
+				0xC3, 0x0B,// 1475 = "encodekey256"
 			};
 	}
 }

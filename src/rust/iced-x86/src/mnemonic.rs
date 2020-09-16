@@ -1632,9 +1632,20 @@ pub enum Mnemonic {
 	Seamret = 1598,
 	Seamops = 1599,
 	Seamcall = 1600,
+	Aesencwide128kl = 1601,
+	Aesdecwide128kl = 1602,
+	Aesencwide256kl = 1603,
+	Aesdecwide256kl = 1604,
+	Loadiwkey = 1605,
+	Aesenc128kl = 1606,
+	Aesdec128kl = 1607,
+	Aesenc256kl = 1608,
+	Aesdec256kl = 1609,
+	Encodekey128 = 1610,
+	Encodekey256 = 1611,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1601] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1612] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3236,6 +3247,17 @@ static GEN_DEBUG_MNEMONIC: [&str; 1601] = [
 	"Seamret",
 	"Seamops",
 	"Seamcall",
+	"Aesencwide128kl",
+	"Aesdecwide128kl",
+	"Aesencwide256kl",
+	"Aesdecwide256kl",
+	"Loadiwkey",
+	"Aesenc128kl",
+	"Aesdec128kl",
+	"Aesenc256kl",
+	"Aesdec256kl",
+	"Encodekey128",
+	"Encodekey256",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

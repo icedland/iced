@@ -30,9 +30,9 @@ namespace Iced.Intel {
 		internal const int MaxOpCount = 5;
 		internal const int MaxInstructionLength = 15;
 		internal const int RegisterBits = 8;
-		internal const int NumberOfCodeValues = 4283;
+		internal const int NumberOfCodeValues = 4294;
 		internal const int NumberOfRegisters = 249;
-		internal const int NumberOfMemorySizes = 139;
+		internal const int NumberOfMemorySizes = 141;
 		internal const int NumberOfEncodingKinds = 5;
 		internal const int NumberOfOpKinds = 26;
 		internal const int NumberOfCodeSizes = 4;
@@ -44,7 +44,7 @@ namespace Iced.Intel {
 		internal const Register YMM_last = Register.YMM31;
 		internal const Register ZMM_last = Register.ZMM31;
 		internal const Register TMM_last = Register.TMM7;
-		internal const int MaxCpuidFeatureInternalValues = 168;
+		internal const int MaxCpuidFeatureInternalValues = 171;
 		internal const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast64_UInt32;
 	}
 }

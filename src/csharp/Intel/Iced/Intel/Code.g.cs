@@ -34262,5 +34262,93 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Seamcall = 4282,
+		/// <summary><c>AESENCWIDE128KL m384, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):000:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesencwide128kl_m384 = 4283,
+		/// <summary><c>AESDECWIDE128KL m384, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):001:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesdecwide128kl_m384 = 4284,
+		/// <summary><c>AESENCWIDE256KL m512, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):010:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesencwide256kl_m512 = 4285,
+		/// <summary><c>AESDECWIDE256KL m512, &lt;XMM0-7&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 D8 !(11):011:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE and WIDE_KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesdecwide256kl_m512 = 4286,
+		/// <summary><c>LOADIWKEY xmm1, xmm2, &lt;EAX&gt;, &lt;XMM0&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DC 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>KL</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Loadiwkey_xmm_xmm = 4287,
+		/// <summary><c>AESENC128KL xmm, m384</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesenc128kl_xmm_m384 = 4288,
+		/// <summary><c>AESDEC128KL xmm, m384</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DD !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesdec128kl_xmm_m384 = 4289,
+		/// <summary><c>AESENC256KL xmm, m512</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DE !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesenc256kl_xmm_m512 = 4290,
+		/// <summary><c>AESDEC256KL xmm, m512</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 DF !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aesdec256kl_xmm_m512 = 4291,
+		/// <summary><c>ENCODEKEY128 r32a, r32b, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 FA 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Encodekey128_r32_r32 = 4292,
+		/// <summary><c>ENCODEKEY256 r32a, r32b, &lt;XMM0-6&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 FB 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Encodekey256_r32_r32 = 4293,
 	}
 }

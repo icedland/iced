@@ -34270,9 +34270,97 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Seamcall = 4282,
+	/// `AESENCWIDE128KL m384, <XMM0-7>`
+	///
+	/// `F3 0F 38 D8 !(11):000:bbb`
+	///
+	/// `AESKLE and WIDE_KL`
+	///
+	/// `16/32/64-bit`
+	Aesencwide128kl_m384 = 4283,
+	/// `AESDECWIDE128KL m384, <XMM0-7>`
+	///
+	/// `F3 0F 38 D8 !(11):001:bbb`
+	///
+	/// `AESKLE and WIDE_KL`
+	///
+	/// `16/32/64-bit`
+	Aesdecwide128kl_m384 = 4284,
+	/// `AESENCWIDE256KL m512, <XMM0-7>`
+	///
+	/// `F3 0F 38 D8 !(11):010:bbb`
+	///
+	/// `AESKLE and WIDE_KL`
+	///
+	/// `16/32/64-bit`
+	Aesencwide256kl_m512 = 4285,
+	/// `AESDECWIDE256KL m512, <XMM0-7>`
+	///
+	/// `F3 0F 38 D8 !(11):011:bbb`
+	///
+	/// `AESKLE and WIDE_KL`
+	///
+	/// `16/32/64-bit`
+	Aesdecwide256kl_m512 = 4286,
+	/// `LOADIWKEY xmm1, xmm2, <EAX>, <XMM0>`
+	///
+	/// `F3 0F 38 DC 11:rrr:bbb`
+	///
+	/// `KL`
+	///
+	/// `16/32/64-bit`
+	Loadiwkey_xmm_xmm = 4287,
+	/// `AESENC128KL xmm, m384`
+	///
+	/// `F3 0F 38 DC !(11):rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `16/32/64-bit`
+	Aesenc128kl_xmm_m384 = 4288,
+	/// `AESDEC128KL xmm, m384`
+	///
+	/// `F3 0F 38 DD !(11):rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `16/32/64-bit`
+	Aesdec128kl_xmm_m384 = 4289,
+	/// `AESENC256KL xmm, m512`
+	///
+	/// `F3 0F 38 DE !(11):rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `16/32/64-bit`
+	Aesenc256kl_xmm_m512 = 4290,
+	/// `AESDEC256KL xmm, m512`
+	///
+	/// `F3 0F 38 DF !(11):rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `16/32/64-bit`
+	Aesdec256kl_xmm_m512 = 4291,
+	/// `ENCODEKEY128 r32a, r32b, <XMM0-2>, <XMM4-6>`
+	///
+	/// `F3 0F 38 FA 11:rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `16/32/64-bit`
+	Encodekey128_r32_r32 = 4292,
+	/// `ENCODEKEY256 r32a, r32b, <XMM0-6>`
+	///
+	/// `F3 0F 38 FB 11:rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `16/32/64-bit`
+	Encodekey256_r32_r32 = 4293,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4283] = [
+static GEN_DEBUG_CODE: [&str; 4294] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38556,6 +38644,17 @@ static GEN_DEBUG_CODE: [&str; 4283] = [
 	"Seamret",
 	"Seamops",
 	"Seamcall",
+	"Aesencwide128kl_m384",
+	"Aesdecwide128kl_m384",
+	"Aesencwide256kl_m512",
+	"Aesdecwide256kl_m512",
+	"Loadiwkey_xmm_xmm",
+	"Aesenc128kl_xmm_m384",
+	"Aesdec128kl_xmm_m384",
+	"Aesenc256kl_xmm_m512",
+	"Aesdec256kl_xmm_m512",
+	"Encodekey128_r32_r32",
+	"Encodekey256_r32_r32",
 ];
 impl fmt::Debug for Code {
 	#[inline]

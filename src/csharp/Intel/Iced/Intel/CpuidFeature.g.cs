@@ -327,6 +327,12 @@ namespace Iced.Intel {
 		SMM = 147,
 		/// <summary>CPUID.(EAX=??H, ECX=?H):???.????[bit ??]</summary>
 		TDX = 148,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.KL[bit 23]</summary>
+		KL = 149,
+		/// <summary>CPUID.19H:EBX.AESKLE[bit 0]</summary>
+		AESKLE = 150,
+		/// <summary>CPUID.19H:EBX.WIDE_KL[bit 2]</summary>
+		WIDE_KL = 151,
 	}
 }
 #endif

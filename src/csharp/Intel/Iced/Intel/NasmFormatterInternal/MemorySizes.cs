@@ -51,6 +51,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			word,
 			yword,
 			zword,
+			mem384,
 		}
 		enum BroadcastToKind {
 			b1to2,
@@ -159,6 +160,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 				(byte)MemoryKeywords.None,
 				(byte)MemoryKeywords.None,
 				(byte)MemoryKeywords.tword,
+				(byte)MemoryKeywords.mem384,
+				(byte)MemoryKeywords.oword,
 				(byte)MemoryKeywords.word,
 				(byte)MemoryKeywords.word,
 				(byte)MemoryKeywords.dword,
@@ -273,6 +276,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			var str_word = new FormatterString("word");
 			var str_yword = new FormatterString("yword");
 			var str_zword = new FormatterString("zword");
+			var str_mem384 = new FormatterString("mem384");
 			for (int i = 0; i < infos.Length; i++) {
 				var d = data[i];
 				var keyword = ((MemoryKeywords)d) switch {
@@ -290,6 +294,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					MemoryKeywords.word => str_word,
 					MemoryKeywords.yword => str_yword,
 					MemoryKeywords.zword => str_zword,
+					MemoryKeywords.mem384 => str_mem384,
 					_ => throw new InvalidOperationException(),
 				};
 				FormatterString bcstTo;

@@ -2160,6 +2160,34 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.RW_XMM0to7:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					for (int i = 0; i < 8; i++)
+						AddRegister(flags, Register.XMM0 + i, OpAccess.ReadWrite);
+				}
+				break;
+
+			case CodeInfo.R_EAX_XMM0:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+					AddRegister(flags, Register.XMM0, OpAccess.Read);
+				}
+				break;
+
+			case CodeInfo.Encodekey:
+				Debug.Assert(instruction.Code == Code.Encodekey128_r32_r32 || instruction.Code == Code.Encodekey256_r32_r32);
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.XMM0, OpAccess.ReadWrite);
+					bool is128 = instruction.Code == Code.Encodekey128_r32_r32;
+					AddRegister(flags, Register.XMM1, is128 ? OpAccess.Write : OpAccess.ReadWrite);
+					for (int i = 2; i < 7; i++) {
+						if (is128 && i == 3)
+							continue;
+						AddRegister(flags, Register.XMM0 + i, OpAccess.Write);
+					}
+				}
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

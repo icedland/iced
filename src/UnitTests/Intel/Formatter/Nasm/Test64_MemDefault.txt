@@ -8372,3 +8372,14 @@ tdcall
 seamret
 seamops
 seamcall
+aesencwide128kl [rax]
+aesdecwide128kl [rax]
+aesencwide256kl [rax]
+aesdecwide256kl [rax]
+loadiwkey xmm2,xmm3
+aesenc128kl xmm2,[rax]
+aesdec128kl xmm2,[rax]
+aesenc256kl xmm2,[rax]
+aesdec256kl xmm2,[rax]
+encodekey128 edx,ebx
+encodekey256 edx,ebx

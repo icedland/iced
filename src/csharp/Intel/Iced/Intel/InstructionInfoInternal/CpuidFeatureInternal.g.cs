@@ -196,6 +196,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		MOV_TR,
 		SMM,
 		TDX,
+		KL,
+		AESKLE,
+		AESKLE_and_WIDE_KL,
 	}
 }
 #endif

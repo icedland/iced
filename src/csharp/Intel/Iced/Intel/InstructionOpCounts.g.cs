@@ -4315,6 +4315,17 @@ namespace Iced.Intel {
 			0,// Seamret
 			0,// Seamops
 			0,// Seamcall
+			1,// Aesencwide128kl_m384
+			1,// Aesdecwide128kl_m384
+			1,// Aesencwide256kl_m512
+			1,// Aesdecwide256kl_m512
+			2,// Loadiwkey_xmm_xmm
+			2,// Aesenc128kl_xmm_m384
+			2,// Aesdec128kl_xmm_m384
+			2,// Aesenc256kl_xmm_m512
+			2,// Aesdec256kl_xmm_m512
+			2,// Encodekey128_r32_r32
+			2,// Encodekey256_r32_r32
 		};
 	}
 }

@@ -322,5 +322,11 @@ namespace Generator.Enums.InstructionInfo {
 		SMM,
 		[Comment("CPUID.(EAX=??H, ECX=?H):???.????[bit ??]")]
 		TDX,
+		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.KL[bit 23]")]
+		KL,
+		[Comment("CPUID.19H:EBX.AESKLE[bit 0]")]
+		AESKLE,
+		[Comment("CPUID.19H:EBX.WIDE_KL[bit 2]")]
+		WIDE_KL,
 	}
 }

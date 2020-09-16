@@ -1625,5 +1625,16 @@ namespace Generator.Enums {
 		Seamret,
 		Seamops,
 		Seamcall,
+		Aesencwide128kl,
+		Aesdecwide128kl,
+		Aesencwide256kl,
+		Aesdecwide256kl,
+		Loadiwkey,
+		Aesenc128kl,
+		Aesdec128kl,
+		Aesenc256kl,
+		Aesdec256kl,
+		Encodekey128,
+		Encodekey256,
 	}
 }

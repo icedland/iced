@@ -116,19 +116,23 @@ namespace Generator.Enums {
 		Tile,
 		[Comment("80-bit segment descriptor and selector: 0-7 = descriptor, 8-9 = selector")]
 		SegmentDescSelector,
-		[Comment("16 bit location: 2 x #(t:u8)#")]
+		[Comment("384-bit AES 128 handle (Key Locker)")]
+		KLHandleAes128,
+		[Comment("512-bit AES 256 handle (Key Locker)")]
+		KLHandleAes256,
+		[Comment("16-bit location: 2 x #(t:u8)#")]
 		Packed16_UInt8,
-		[Comment("16 bit location: 2 x #(t:i8)#")]
+		[Comment("16-bit location: 2 x #(t:i8)#")]
 		Packed16_Int8,
-		[Comment("32 bit location: 4 x #(t:u8)#")]
+		[Comment("32-bit location: 4 x #(t:u8)#")]
 		Packed32_UInt8,
-		[Comment("32 bit location: 4 x #(t:i8)#")]
+		[Comment("32-bit location: 4 x #(t:i8)#")]
 		Packed32_Int8,
-		[Comment("32 bit location: 2 x #(t:u16)#")]
+		[Comment("32-bit location: 2 x #(t:u16)#")]
 		Packed32_UInt16,
-		[Comment("32 bit location: 2 x #(t:i16)#")]
+		[Comment("32-bit location: 2 x #(t:i16)#")]
 		Packed32_Int16,
-		[Comment("32 bit location: 2 x #(t:bf16)#")]
+		[Comment("32-bit location: 2 x #(t:bf16)#")]
 		Packed32_BFloat16,
 		[Comment("64-bit location: 8 x #(t:u8)#")]
 		Packed64_UInt8,
@@ -146,161 +150,161 @@ namespace Generator.Enums {
 		Packed64_Float16,
 		[Comment("64-bit location: 2 x #(t:f32)#")]
 		Packed64_Float32,
-		[Comment("128 bit location: 16 x #(t:u8)#")]
+		[Comment("128-bit location: 16 x #(t:u8)#")]
 		Packed128_UInt8,
-		[Comment("128 bit location: 16 x #(t:i8)#")]
+		[Comment("128-bit location: 16 x #(t:i8)#")]
 		Packed128_Int8,
-		[Comment("128 bit location: 8 x #(t:u16)#")]
+		[Comment("128-bit location: 8 x #(t:u16)#")]
 		Packed128_UInt16,
-		[Comment("128 bit location: 8 x #(t:i16)#")]
+		[Comment("128-bit location: 8 x #(t:i16)#")]
 		Packed128_Int16,
-		[Comment("128 bit location: 4 x #(t:u32)#")]
+		[Comment("128-bit location: 4 x #(t:u32)#")]
 		Packed128_UInt32,
-		[Comment("128 bit location: 4 x #(t:i32)#")]
+		[Comment("128-bit location: 4 x #(t:i32)#")]
 		Packed128_Int32,
-		[Comment("128 bit location: 2 x #(t:u52)#")]
+		[Comment("128-bit location: 2 x #(t:u52)#")]
 		Packed128_UInt52,
-		[Comment("128 bit location: 2 x #(t:u64)#")]
+		[Comment("128-bit location: 2 x #(t:u64)#")]
 		Packed128_UInt64,
-		[Comment("128 bit location: 2 x #(t:i64)#")]
+		[Comment("128-bit location: 2 x #(t:i64)#")]
 		Packed128_Int64,
-		[Comment("128 bit location: 8 x #(t:f16)#")]
+		[Comment("128-bit location: 8 x #(t:f16)#")]
 		Packed128_Float16,
-		[Comment("128 bit location: 4 x #(t:f32)#")]
+		[Comment("128-bit location: 4 x #(t:f32)#")]
 		Packed128_Float32,
-		[Comment("128 bit location: 2 x #(t:f64)#")]
+		[Comment("128-bit location: 2 x #(t:f64)#")]
 		Packed128_Float64,
-		[Comment("128 bit location: 4 x (2 x #(t:bf16)#)")]
+		[Comment("128-bit location: 4 x (2 x #(t:bf16)#)")]
 		Packed128_2xBFloat16,
-		[Comment("256 bit location: 32 x #(t:u8)#")]
+		[Comment("256-bit location: 32 x #(t:u8)#")]
 		Packed256_UInt8,
-		[Comment("256 bit location: 32 x #(t:i8)#")]
+		[Comment("256-bit location: 32 x #(t:i8)#")]
 		Packed256_Int8,
-		[Comment("256 bit location: 16 x #(t:u16)#")]
+		[Comment("256-bit location: 16 x #(t:u16)#")]
 		Packed256_UInt16,
-		[Comment("256 bit location: 16 x #(t:i16)#")]
+		[Comment("256-bit location: 16 x #(t:i16)#")]
 		Packed256_Int16,
-		[Comment("256 bit location: 8 x #(t:u32)#")]
+		[Comment("256-bit location: 8 x #(t:u32)#")]
 		Packed256_UInt32,
-		[Comment("256 bit location: 8 x #(t:i32)#")]
+		[Comment("256-bit location: 8 x #(t:i32)#")]
 		Packed256_Int32,
-		[Comment("256 bit location: 4 x #(t:u52)#")]
+		[Comment("256-bit location: 4 x #(t:u52)#")]
 		Packed256_UInt52,
-		[Comment("256 bit location: 4 x #(t:u64)#")]
+		[Comment("256-bit location: 4 x #(t:u64)#")]
 		Packed256_UInt64,
-		[Comment("256 bit location: 4 x #(t:i64)#")]
+		[Comment("256-bit location: 4 x #(t:i64)#")]
 		Packed256_Int64,
-		[Comment("256 bit location: 2 x #(t:u128)#")]
+		[Comment("256-bit location: 2 x #(t:u128)#")]
 		Packed256_UInt128,
-		[Comment("256 bit location: 2 x #(t:i128)#")]
+		[Comment("256-bit location: 2 x #(t:i128)#")]
 		Packed256_Int128,
-		[Comment("256 bit location: 16 x #(t:f16)#")]
+		[Comment("256-bit location: 16 x #(t:f16)#")]
 		Packed256_Float16,
-		[Comment("256 bit location: 8 x #(t:f32)#")]
+		[Comment("256-bit location: 8 x #(t:f32)#")]
 		Packed256_Float32,
-		[Comment("256 bit location: 4 x #(t:f64)#")]
+		[Comment("256-bit location: 4 x #(t:f64)#")]
 		Packed256_Float64,
-		[Comment("256 bit location: 2 x #(t:f128)#")]
+		[Comment("256-bit location: 2 x #(t:f128)#")]
 		Packed256_Float128,
-		[Comment("256 bit location: 8 x (2 x #(t:bf16)#)")]
+		[Comment("256-bit location: 8 x (2 x #(t:bf16)#)")]
 		Packed256_2xBFloat16,
-		[Comment("512 bit location: 64 x #(t:u8)#")]
+		[Comment("512-bit location: 64 x #(t:u8)#")]
 		Packed512_UInt8,
-		[Comment("512 bit location: 64 x #(t:i8)#")]
+		[Comment("512-bit location: 64 x #(t:i8)#")]
 		Packed512_Int8,
-		[Comment("512 bit location: 32 x #(t:u16)#")]
+		[Comment("512-bit location: 32 x #(t:u16)#")]
 		Packed512_UInt16,
-		[Comment("512 bit location: 32 x #(t:i16)#")]
+		[Comment("512-bit location: 32 x #(t:i16)#")]
 		Packed512_Int16,
-		[Comment("512 bit location: 16 x #(t:u32)#")]
+		[Comment("512-bit location: 16 x #(t:u32)#")]
 		Packed512_UInt32,
-		[Comment("512 bit location: 16 x #(t:i32)#")]
+		[Comment("512-bit location: 16 x #(t:i32)#")]
 		Packed512_Int32,
-		[Comment("512 bit location: 8 x #(t:u52)#")]
+		[Comment("512-bit location: 8 x #(t:u52)#")]
 		Packed512_UInt52,
-		[Comment("512 bit location: 8 x #(t:u64)#")]
+		[Comment("512-bit location: 8 x #(t:u64)#")]
 		Packed512_UInt64,
-		[Comment("512 bit location: 8 x #(t:i64)#")]
+		[Comment("512-bit location: 8 x #(t:i64)#")]
 		Packed512_Int64,
-		[Comment("256 bit location: 4 x #(t:u128)#")]
+		[Comment("256-bit location: 4 x #(t:u128)#")]
 		Packed512_UInt128,
-		[Comment("512 bit location: 16 x #(t:f32)#")]
+		[Comment("512-bit location: 16 x #(t:f32)#")]
 		Packed512_Float32,
-		[Comment("512 bit location: 8 x #(t:f64)#")]
+		[Comment("512-bit location: 8 x #(t:f64)#")]
 		Packed512_Float64,
-		[Comment("512 bit location: 16 x (2 x #(t:bf16)#)")]
+		[Comment("512-bit location: 16 x (2 x #(t:bf16)#)")]
 		Packed512_2xBFloat16,
-		[Comment("Broadcast #(t:u32)# to 64 bits")]
+		[Comment("Broadcast #(t:u32)# to 64-bits")]
 		Broadcast64_UInt32,
-		[Comment("Broadcast #(t:i32)# to 64 bits")]
+		[Comment("Broadcast #(t:i32)# to 64-bits")]
 		Broadcast64_Int32,
-		[Comment("Broadcast #(t:f32)# to 64 bits")]
+		[Comment("Broadcast #(t:f32)# to 64-bits")]
 		Broadcast64_Float32,
-		[Comment("Broadcast #(t:u32)# to 128 bits")]
+		[Comment("Broadcast #(t:u32)# to 128-bits")]
 		Broadcast128_UInt32,
-		[Comment("Broadcast #(t:i32)# to 128 bits")]
+		[Comment("Broadcast #(t:i32)# to 128-bits")]
 		Broadcast128_Int32,
-		[Comment("Broadcast #(t:u52)# to 128 bits")]
+		[Comment("Broadcast #(t:u52)# to 128-bits")]
 		Broadcast128_UInt52,
-		[Comment("Broadcast #(t:u64)# to 128 bits")]
+		[Comment("Broadcast #(t:u64)# to 128-bits")]
 		Broadcast128_UInt64,
-		[Comment("Broadcast #(t:i64)# to 128 bits")]
+		[Comment("Broadcast #(t:i64)# to 128-bits")]
 		Broadcast128_Int64,
-		[Comment("Broadcast #(t:f32)# to 128 bits")]
+		[Comment("Broadcast #(t:f32)# to 128-bits")]
 		Broadcast128_Float32,
-		[Comment("Broadcast #(t:f64)# to 128 bits")]
+		[Comment("Broadcast #(t:f64)# to 128-bits")]
 		Broadcast128_Float64,
-		[Comment("Broadcast #(t:u32)# to 256 bits")]
+		[Comment("Broadcast #(t:u32)# to 256-bits")]
 		Broadcast256_UInt32,
-		[Comment("Broadcast #(t:i32)# to 256 bits")]
+		[Comment("Broadcast #(t:i32)# to 256-bits")]
 		Broadcast256_Int32,
-		[Comment("Broadcast #(t:u52)# to 256 bits")]
+		[Comment("Broadcast #(t:u52)# to 256-bits")]
 		Broadcast256_UInt52,
-		[Comment("Broadcast #(t:u64)# to 256 bits")]
+		[Comment("Broadcast #(t:u64)# to 256-bits")]
 		Broadcast256_UInt64,
-		[Comment("Broadcast #(t:i64)# to 256 bits")]
+		[Comment("Broadcast #(t:i64)# to 256-bits")]
 		Broadcast256_Int64,
-		[Comment("Broadcast #(t:f32)# to 256 bits")]
+		[Comment("Broadcast #(t:f32)# to 256-bits")]
 		Broadcast256_Float32,
-		[Comment("Broadcast #(t:f64)# to 256 bits")]
+		[Comment("Broadcast #(t:f64)# to 256-bits")]
 		Broadcast256_Float64,
-		[Comment("Broadcast #(t:u32)# to 512 bits")]
+		[Comment("Broadcast #(t:u32)# to 512-bits")]
 		Broadcast512_UInt32,
-		[Comment("Broadcast #(t:i32)# to 512 bits")]
+		[Comment("Broadcast #(t:i32)# to 512-bits")]
 		Broadcast512_Int32,
-		[Comment("Broadcast #(t:u52)# to 512 bits")]
+		[Comment("Broadcast #(t:u52)# to 512-bits")]
 		Broadcast512_UInt52,
-		[Comment("Broadcast #(t:u64)# to 512 bits")]
+		[Comment("Broadcast #(t:u64)# to 512-bits")]
 		Broadcast512_UInt64,
-		[Comment("Broadcast #(t:i64)# to 512 bits")]
+		[Comment("Broadcast #(t:i64)# to 512-bits")]
 		Broadcast512_Int64,
-		[Comment("Broadcast #(t:f32)# to 512 bits")]
+		[Comment("Broadcast #(t:f32)# to 512-bits")]
 		Broadcast512_Float32,
-		[Comment("Broadcast #(t:f64)# to 512 bits")]
+		[Comment("Broadcast #(t:f64)# to 512-bits")]
 		Broadcast512_Float64,
-		[Comment("Broadcast 2 x #(t:i16)# to 128 bits")]
+		[Comment("Broadcast 2 x #(t:i16)# to 128-bits")]
 		Broadcast128_2xInt16,
-		[Comment("Broadcast 2 x #(t:i16)# to 256 bits")]
+		[Comment("Broadcast 2 x #(t:i16)# to 256-bits")]
 		Broadcast256_2xInt16,
-		[Comment("Broadcast 2 x #(t:i16)# to 512 bits")]
+		[Comment("Broadcast 2 x #(t:i16)# to 512-bits")]
 		Broadcast512_2xInt16,
-		[Comment("Broadcast 2 x #(t:u32)# to 128 bits")]
+		[Comment("Broadcast 2 x #(t:u32)# to 128-bits")]
 		Broadcast128_2xUInt32,
-		[Comment("Broadcast 2 x #(t:u32)# to 256 bits")]
+		[Comment("Broadcast 2 x #(t:u32)# to 256-bits")]
 		Broadcast256_2xUInt32,
-		[Comment("Broadcast 2 x #(t:u32)# to 512 bits")]
+		[Comment("Broadcast 2 x #(t:u32)# to 512-bits")]
 		Broadcast512_2xUInt32,
-		[Comment("Broadcast 2 x #(t:i32)# to 128 bits")]
+		[Comment("Broadcast 2 x #(t:i32)# to 128-bits")]
 		Broadcast128_2xInt32,
-		[Comment("Broadcast 2 x #(t:i32)# to 256 bits")]
+		[Comment("Broadcast 2 x #(t:i32)# to 256-bits")]
 		Broadcast256_2xInt32,
-		[Comment("Broadcast 2 x #(t:i32)# to 512 bits")]
+		[Comment("Broadcast 2 x #(t:i32)# to 512-bits")]
 		Broadcast512_2xInt32,
-		[Comment("Broadcast 2 x #(t:bf16)# to 128 bits")]
+		[Comment("Broadcast 2 x #(t:bf16)# to 128-bits")]
 		Broadcast128_2xBFloat16,
-		[Comment("Broadcast 2 x #(t:bf16)# to 256 bits")]
+		[Comment("Broadcast 2 x #(t:bf16)# to 256-bits")]
 		Broadcast256_2xBFloat16,
-		[Comment("Broadcast 2 x #(t:bf16)# to 512 bits")]
+		[Comment("Broadcast 2 x #(t:bf16)# to 512-bits")]
 		Broadcast512_2xBFloat16,
 	}
 }

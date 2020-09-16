@@ -3031,6 +3031,41 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::RW_XMM0to7 => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					for i in 0..8 {
+						Self::add_register(
+							flags,
+							info,
+							unsafe { mem::transmute((Register::XMM0 as u32).wrapping_add(i) as u8) },
+							OpAccess::ReadWrite,
+						);
+					}
+				}
+			}
+
+			CodeInfo::R_EAX_XMM0 => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::XMM0, OpAccess::Read);
+				}
+			}
+
+			CodeInfo::Encodekey => {
+				debug_assert!(instruction.code() == Code::Encodekey128_r32_r32 || instruction.code() == Code::Encodekey256_r32_r32);
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::XMM0, OpAccess::ReadWrite);
+					let is128 = instruction.code() == Code::Encodekey128_r32_r32;
+					Self::add_register(flags, info, Register::XMM1, if is128 { OpAccess::Write } else { OpAccess::ReadWrite });
+					for i in 2..7 {
+						if is128 && i == 3 {
+							continue;
+						}
+						Self::add_register(flags, info, unsafe { mem::transmute((Register::XMM0 as u32).wrapping_add(i) as u8) }, OpAccess::Write);
+					}
+				}
+			}
+
 			CodeInfo::None => {}
 		}
 	}
