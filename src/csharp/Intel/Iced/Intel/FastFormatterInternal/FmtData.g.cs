@@ -6795,54 +6795,54 @@ namespace Iced.Intel.FastFormatterInternal {
 				// Xstore_64
 				0x02,// SameAsPrev
 
-				// XcryptEcb_16
+				// Xcryptecb_16
 				0x00,// No flags set
 				0xD4, 0x05,// 724 = "xcryptecb"
 
-				// XcryptEcb_32
+				// Xcryptecb_32
 				0x02,// SameAsPrev
 
-				// XcryptEcb_64
+				// Xcryptecb_64
 				0x02,// SameAsPrev
 
-				// XcryptCbc_16
+				// Xcryptcbc_16
 				0x00,// No flags set
 				0xD5, 0x05,// 725 = "xcryptcbc"
 
-				// XcryptCbc_32
+				// Xcryptcbc_32
 				0x02,// SameAsPrev
 
-				// XcryptCbc_64
+				// Xcryptcbc_64
 				0x02,// SameAsPrev
 
-				// XcryptCtr_16
+				// Xcryptctr_16
 				0x00,// No flags set
 				0xD6, 0x05,// 726 = "xcryptctr"
 
-				// XcryptCtr_32
+				// Xcryptctr_32
 				0x02,// SameAsPrev
 
-				// XcryptCtr_64
+				// Xcryptctr_64
 				0x02,// SameAsPrev
 
-				// XcryptCfb_16
+				// Xcryptcfb_16
 				0x00,// No flags set
 				0xD7, 0x05,// 727 = "xcryptcfb"
 
-				// XcryptCfb_32
+				// Xcryptcfb_32
 				0x02,// SameAsPrev
 
-				// XcryptCfb_64
+				// Xcryptcfb_64
 				0x02,// SameAsPrev
 
-				// XcryptOfb_16
+				// Xcryptofb_16
 				0x00,// No flags set
 				0xD8, 0x05,// 728 = "xcryptofb"
 
-				// XcryptOfb_32
+				// Xcryptofb_32
 				0x02,// SameAsPrev
 
-				// XcryptOfb_64
+				// Xcryptofb_64
 				0x02,// SameAsPrev
 
 				// Ibts_rm16_r16

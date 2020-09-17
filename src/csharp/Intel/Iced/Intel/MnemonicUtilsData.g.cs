@@ -2000,21 +2000,21 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Xstore,// Xstore_16
 			(ushort)Mnemonic.Xstore,// Xstore_32
 			(ushort)Mnemonic.Xstore,// Xstore_64
-			(ushort)Mnemonic.Xcryptecb,// XcryptEcb_16
-			(ushort)Mnemonic.Xcryptecb,// XcryptEcb_32
-			(ushort)Mnemonic.Xcryptecb,// XcryptEcb_64
-			(ushort)Mnemonic.Xcryptcbc,// XcryptCbc_16
-			(ushort)Mnemonic.Xcryptcbc,// XcryptCbc_32
-			(ushort)Mnemonic.Xcryptcbc,// XcryptCbc_64
-			(ushort)Mnemonic.Xcryptctr,// XcryptCtr_16
-			(ushort)Mnemonic.Xcryptctr,// XcryptCtr_32
-			(ushort)Mnemonic.Xcryptctr,// XcryptCtr_64
-			(ushort)Mnemonic.Xcryptcfb,// XcryptCfb_16
-			(ushort)Mnemonic.Xcryptcfb,// XcryptCfb_32
-			(ushort)Mnemonic.Xcryptcfb,// XcryptCfb_64
-			(ushort)Mnemonic.Xcryptofb,// XcryptOfb_16
-			(ushort)Mnemonic.Xcryptofb,// XcryptOfb_32
-			(ushort)Mnemonic.Xcryptofb,// XcryptOfb_64
+			(ushort)Mnemonic.Xcryptecb,// Xcryptecb_16
+			(ushort)Mnemonic.Xcryptecb,// Xcryptecb_32
+			(ushort)Mnemonic.Xcryptecb,// Xcryptecb_64
+			(ushort)Mnemonic.Xcryptcbc,// Xcryptcbc_16
+			(ushort)Mnemonic.Xcryptcbc,// Xcryptcbc_32
+			(ushort)Mnemonic.Xcryptcbc,// Xcryptcbc_64
+			(ushort)Mnemonic.Xcryptctr,// Xcryptctr_16
+			(ushort)Mnemonic.Xcryptctr,// Xcryptctr_32
+			(ushort)Mnemonic.Xcryptctr,// Xcryptctr_64
+			(ushort)Mnemonic.Xcryptcfb,// Xcryptcfb_16
+			(ushort)Mnemonic.Xcryptcfb,// Xcryptcfb_32
+			(ushort)Mnemonic.Xcryptcfb,// Xcryptcfb_64
+			(ushort)Mnemonic.Xcryptofb,// Xcryptofb_16
+			(ushort)Mnemonic.Xcryptofb,// Xcryptofb_32
+			(ushort)Mnemonic.Xcryptofb,// Xcryptofb_64
 			(ushort)Mnemonic.Ibts,// Ibts_rm16_r16
 			(ushort)Mnemonic.Ibts,// Ibts_rm32_r32
 			(ushort)Mnemonic.Cmpxchg,// Cmpxchg486_rm8_r8

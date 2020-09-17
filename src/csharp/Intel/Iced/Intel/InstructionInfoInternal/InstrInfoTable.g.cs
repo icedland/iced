@@ -2001,21 +2001,21 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x06000000, 0x63000000,// Xstore_16
 			0x06000000, 0x63000000,// Xstore_32
 			0x06000000, 0x63000000,// Xstore_64
-			0x05E00000, 0x60000000,// XcryptEcb_16
-			0x05E00000, 0x60000000,// XcryptEcb_32
-			0x05E00000, 0x60000000,// XcryptEcb_64
-			0x05E00000, 0x60000000,// XcryptCbc_16
-			0x05E00000, 0x60000000,// XcryptCbc_32
-			0x05E00000, 0x60000000,// XcryptCbc_64
-			0x05E00000, 0x60000000,// XcryptCtr_16
-			0x05E00000, 0x60000000,// XcryptCtr_32
-			0x05E00000, 0x60000000,// XcryptCtr_64
-			0x05E00000, 0x60000000,// XcryptCfb_16
-			0x05E00000, 0x60000000,// XcryptCfb_32
-			0x05E00000, 0x60000000,// XcryptCfb_64
-			0x05E00000, 0x60000000,// XcryptOfb_16
-			0x05E00000, 0x60000000,// XcryptOfb_32
-			0x05E00000, 0x60000000,// XcryptOfb_64
+			0x05E00000, 0x60000000,// Xcryptecb_16
+			0x05E00000, 0x60000000,// Xcryptecb_32
+			0x05E00000, 0x60000000,// Xcryptecb_64
+			0x05E00000, 0x60000000,// Xcryptcbc_16
+			0x05E00000, 0x60000000,// Xcryptcbc_32
+			0x05E00000, 0x60000000,// Xcryptcbc_64
+			0x05E00000, 0x60000000,// Xcryptctr_16
+			0x05E00000, 0x60000000,// Xcryptctr_32
+			0x05E00000, 0x60000000,// Xcryptctr_64
+			0x05E00000, 0x60000000,// Xcryptcfb_16
+			0x05E00000, 0x60000000,// Xcryptcfb_32
+			0x05E00000, 0x60000000,// Xcryptcfb_64
+			0x05E00000, 0x60000000,// Xcryptofb_16
+			0x05E00000, 0x60000000,// Xcryptofb_32
+			0x05E00000, 0x60000000,// Xcryptofb_64
 			0x05D00036, 0x07000000,// Ibts_rm16_r16
 			0x05D00036, 0x07000000,// Ibts_rm32_r32
 			0x00588035, 0x09000000,// Cmpxchg486_rm8_r8

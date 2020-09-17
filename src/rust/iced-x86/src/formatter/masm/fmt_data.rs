@@ -7721,54 +7721,54 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Xstore_64
 	0x00,// Previous
 
-	// XcryptEcb_16
+	// Xcryptecb_16
 	0x01,// Normal_1
 	0xD4, 0x05,// 724 = "xcryptecb"
 
-	// XcryptEcb_32
+	// Xcryptecb_32
 	0x00,// Previous
 
-	// XcryptEcb_64
+	// Xcryptecb_64
 	0x00,// Previous
 
-	// XcryptCbc_16
+	// Xcryptcbc_16
 	0x01,// Normal_1
 	0xD5, 0x05,// 725 = "xcryptcbc"
 
-	// XcryptCbc_32
+	// Xcryptcbc_32
 	0x00,// Previous
 
-	// XcryptCbc_64
+	// Xcryptcbc_64
 	0x00,// Previous
 
-	// XcryptCtr_16
+	// Xcryptctr_16
 	0x01,// Normal_1
 	0xD6, 0x05,// 726 = "xcryptctr"
 
-	// XcryptCtr_32
+	// Xcryptctr_32
 	0x00,// Previous
 
-	// XcryptCtr_64
+	// Xcryptctr_64
 	0x00,// Previous
 
-	// XcryptCfb_16
+	// Xcryptcfb_16
 	0x01,// Normal_1
 	0xD7, 0x05,// 727 = "xcryptcfb"
 
-	// XcryptCfb_32
+	// Xcryptcfb_32
 	0x00,// Previous
 
-	// XcryptCfb_64
+	// Xcryptcfb_64
 	0x00,// Previous
 
-	// XcryptOfb_16
+	// Xcryptofb_16
 	0x01,// Normal_1
 	0xD8, 0x05,// 728 = "xcryptofb"
 
-	// XcryptOfb_32
+	// Xcryptofb_32
 	0x00,// Previous
 
-	// XcryptOfb_64
+	// Xcryptofb_64
 	0x00,// Previous
 
 	// Ibts_rm16_r16

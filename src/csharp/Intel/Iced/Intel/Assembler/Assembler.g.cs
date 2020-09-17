@@ -110892,8 +110892,8 @@ namespace Iced.Intel {
 		public void xcryptcbc() {
 			Code op;
 			if (Bitness == 64) {
-				op = Code.XcryptCbc_64;
-			} else op = Bitness >= 32 ? Code.XcryptCbc_32 : Code.XcryptCbc_16;
+				op = Code.Xcryptcbc_64;
+			} else op = Bitness >= 32 ? Code.Xcryptcbc_32 : Code.Xcryptcbc_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptcfb instruction.<br/>
@@ -110924,8 +110924,8 @@ namespace Iced.Intel {
 		public void xcryptcfb() {
 			Code op;
 			if (Bitness == 64) {
-				op = Code.XcryptCfb_64;
-			} else op = Bitness >= 32 ? Code.XcryptCfb_32 : Code.XcryptCfb_16;
+				op = Code.Xcryptcfb_64;
+			} else op = Bitness >= 32 ? Code.Xcryptcfb_32 : Code.Xcryptcfb_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptctr instruction.<br/>
@@ -110956,8 +110956,8 @@ namespace Iced.Intel {
 		public void xcryptctr() {
 			Code op;
 			if (Bitness == 64) {
-				op = Code.XcryptCtr_64;
-			} else op = Bitness >= 32 ? Code.XcryptCtr_32 : Code.XcryptCtr_16;
+				op = Code.Xcryptctr_64;
+			} else op = Bitness >= 32 ? Code.Xcryptctr_32 : Code.Xcryptctr_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptecb instruction.<br/>
@@ -110988,8 +110988,8 @@ namespace Iced.Intel {
 		public void xcryptecb() {
 			Code op;
 			if (Bitness == 64) {
-				op = Code.XcryptEcb_64;
-			} else op = Bitness >= 32 ? Code.XcryptEcb_32 : Code.XcryptEcb_16;
+				op = Code.Xcryptecb_64;
+			} else op = Bitness >= 32 ? Code.Xcryptecb_32 : Code.Xcryptecb_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptofb instruction.<br/>
@@ -111020,8 +111020,8 @@ namespace Iced.Intel {
 		public void xcryptofb() {
 			Code op;
 			if (Bitness == 64) {
-				op = Code.XcryptOfb_64;
-			} else op = Bitness >= 32 ? Code.XcryptOfb_32 : Code.XcryptOfb_16;
+				op = Code.Xcryptofb_64;
+			} else op = Bitness >= 32 ? Code.Xcryptofb_32 : Code.Xcryptofb_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xend instruction.<br/>

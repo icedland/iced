@@ -405,11 +405,11 @@ Wrussq_m64_r64
 Xadd_rm64_r64
 Xchg_r64_RAX
 Xchg_rm64_r64
-XcryptCbc_64
-XcryptCfb_64
-XcryptCtr_64
-XcryptEcb_64
-XcryptOfb_64
+Xcryptcbc_64
+Xcryptcfb_64
+Xcryptctr_64
+Xcryptecb_64
+Xcryptofb_64
 XOP_Bextr_r64_rm64_imm32
 XOP_Blcfill_r64_rm64
 XOP_Blci_r64_rm64

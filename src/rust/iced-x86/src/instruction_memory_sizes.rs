@@ -2002,21 +2002,21 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Xstore_16
 	MemorySize::Unknown,// Xstore_32
 	MemorySize::Unknown,// Xstore_64
-	MemorySize::Unknown,// XcryptEcb_16
-	MemorySize::Unknown,// XcryptEcb_32
-	MemorySize::Unknown,// XcryptEcb_64
-	MemorySize::Unknown,// XcryptCbc_16
-	MemorySize::Unknown,// XcryptCbc_32
-	MemorySize::Unknown,// XcryptCbc_64
-	MemorySize::Unknown,// XcryptCtr_16
-	MemorySize::Unknown,// XcryptCtr_32
-	MemorySize::Unknown,// XcryptCtr_64
-	MemorySize::Unknown,// XcryptCfb_16
-	MemorySize::Unknown,// XcryptCfb_32
-	MemorySize::Unknown,// XcryptCfb_64
-	MemorySize::Unknown,// XcryptOfb_16
-	MemorySize::Unknown,// XcryptOfb_32
-	MemorySize::Unknown,// XcryptOfb_64
+	MemorySize::Unknown,// Xcryptecb_16
+	MemorySize::Unknown,// Xcryptecb_32
+	MemorySize::Unknown,// Xcryptecb_64
+	MemorySize::Unknown,// Xcryptcbc_16
+	MemorySize::Unknown,// Xcryptcbc_32
+	MemorySize::Unknown,// Xcryptcbc_64
+	MemorySize::Unknown,// Xcryptctr_16
+	MemorySize::Unknown,// Xcryptctr_32
+	MemorySize::Unknown,// Xcryptctr_64
+	MemorySize::Unknown,// Xcryptcfb_16
+	MemorySize::Unknown,// Xcryptcfb_32
+	MemorySize::Unknown,// Xcryptcfb_64
+	MemorySize::Unknown,// Xcryptofb_16
+	MemorySize::Unknown,// Xcryptofb_32
+	MemorySize::Unknown,// Xcryptofb_64
 	MemorySize::UInt16,// Ibts_rm16_r16
 	MemorySize::UInt32,// Ibts_rm32_r32
 	MemorySize::UInt8,// Cmpxchg486_rm8_r8
@@ -6299,21 +6299,21 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Xstore_16
 	MemorySize::Unknown,// Xstore_32
 	MemorySize::Unknown,// Xstore_64
-	MemorySize::Unknown,// XcryptEcb_16
-	MemorySize::Unknown,// XcryptEcb_32
-	MemorySize::Unknown,// XcryptEcb_64
-	MemorySize::Unknown,// XcryptCbc_16
-	MemorySize::Unknown,// XcryptCbc_32
-	MemorySize::Unknown,// XcryptCbc_64
-	MemorySize::Unknown,// XcryptCtr_16
-	MemorySize::Unknown,// XcryptCtr_32
-	MemorySize::Unknown,// XcryptCtr_64
-	MemorySize::Unknown,// XcryptCfb_16
-	MemorySize::Unknown,// XcryptCfb_32
-	MemorySize::Unknown,// XcryptCfb_64
-	MemorySize::Unknown,// XcryptOfb_16
-	MemorySize::Unknown,// XcryptOfb_32
-	MemorySize::Unknown,// XcryptOfb_64
+	MemorySize::Unknown,// Xcryptecb_16
+	MemorySize::Unknown,// Xcryptecb_32
+	MemorySize::Unknown,// Xcryptecb_64
+	MemorySize::Unknown,// Xcryptcbc_16
+	MemorySize::Unknown,// Xcryptcbc_32
+	MemorySize::Unknown,// Xcryptcbc_64
+	MemorySize::Unknown,// Xcryptctr_16
+	MemorySize::Unknown,// Xcryptctr_32
+	MemorySize::Unknown,// Xcryptctr_64
+	MemorySize::Unknown,// Xcryptcfb_16
+	MemorySize::Unknown,// Xcryptcfb_32
+	MemorySize::Unknown,// Xcryptcfb_64
+	MemorySize::Unknown,// Xcryptofb_16
+	MemorySize::Unknown,// Xcryptofb_32
+	MemorySize::Unknown,// Xcryptofb_64
 	MemorySize::Unknown,// Ibts_rm16_r16
 	MemorySize::Unknown,// Ibts_rm32_r32
 	MemorySize::Unknown,// Cmpxchg486_rm8_r8

@@ -2011,7 +2011,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x03,// Invalid_NoModRM
 		0x03,// Invalid_NoModRM
 		0xAB,// Simple5
-			0xB4, 0x0F,// XcryptEcb_16
+			0xB4, 0x0F,// Xcryptecb_16
 		0x03,// Invalid_NoModRM
 		0x00,// 0x0
 
@@ -2025,7 +2025,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x03,// Invalid_NoModRM
 		0x03,// Invalid_NoModRM
 		0xAB,// Simple5
-			0xB7, 0x0F,// XcryptCbc_16
+			0xB7, 0x0F,// Xcryptcbc_16
 		0x03,// Invalid_NoModRM
 		0x00,// 0x0
 
@@ -2039,7 +2039,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x03,// Invalid_NoModRM
 		0x03,// Invalid_NoModRM
 		0xAB,// Simple5
-			0xBA, 0x0F,// XcryptCtr_16
+			0xBA, 0x0F,// Xcryptctr_16
 		0x03,// Invalid_NoModRM
 		0x00,// 0x0
 
@@ -2053,7 +2053,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x03,// Invalid_NoModRM
 		0x03,// Invalid_NoModRM
 		0xAB,// Simple5
-			0xBD, 0x0F,// XcryptCfb_16
+			0xBD, 0x0F,// Xcryptcfb_16
 		0x03,// Invalid_NoModRM
 		0x00,// 0x0
 
@@ -2067,7 +2067,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x03,// Invalid_NoModRM
 		0x03,// Invalid_NoModRM
 		0xAB,// Simple5
-			0xC0, 0x0F,// XcryptOfb_16
+			0xC0, 0x0F,// Xcryptofb_16
 		0x03,// Invalid_NoModRM
 		0x00,// 0x0
 

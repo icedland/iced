@@ -2006,21 +2006,21 @@ namespace Iced.Intel {
 			0,// Xstore_16
 			0,// Xstore_32
 			0,// Xstore_64
-			0,// XcryptEcb_16
-			0,// XcryptEcb_32
-			0,// XcryptEcb_64
-			0,// XcryptCbc_16
-			0,// XcryptCbc_32
-			0,// XcryptCbc_64
-			0,// XcryptCtr_16
-			0,// XcryptCtr_32
-			0,// XcryptCtr_64
-			0,// XcryptCfb_16
-			0,// XcryptCfb_32
-			0,// XcryptCfb_64
-			0,// XcryptOfb_16
-			0,// XcryptOfb_32
-			0,// XcryptOfb_64
+			0,// Xcryptecb_16
+			0,// Xcryptecb_32
+			0,// Xcryptecb_64
+			0,// Xcryptcbc_16
+			0,// Xcryptcbc_32
+			0,// Xcryptcbc_64
+			0,// Xcryptctr_16
+			0,// Xcryptctr_32
+			0,// Xcryptctr_64
+			0,// Xcryptcfb_16
+			0,// Xcryptcfb_32
+			0,// Xcryptcfb_64
+			0,// Xcryptofb_16
+			0,// Xcryptofb_32
+			0,// Xcryptofb_64
 			(byte)MemorySize.UInt16,// Ibts_rm16_r16
 			(byte)MemorySize.UInt32,// Ibts_rm32_r32
 			(byte)MemorySize.UInt8,// Cmpxchg486_rm8_r8
@@ -6303,21 +6303,21 @@ namespace Iced.Intel {
 			0,// Xstore_16
 			0,// Xstore_32
 			0,// Xstore_64
-			0,// XcryptEcb_16
-			0,// XcryptEcb_32
-			0,// XcryptEcb_64
-			0,// XcryptCbc_16
-			0,// XcryptCbc_32
-			0,// XcryptCbc_64
-			0,// XcryptCtr_16
-			0,// XcryptCtr_32
-			0,// XcryptCtr_64
-			0,// XcryptCfb_16
-			0,// XcryptCfb_32
-			0,// XcryptCfb_64
-			0,// XcryptOfb_16
-			0,// XcryptOfb_32
-			0,// XcryptOfb_64
+			0,// Xcryptecb_16
+			0,// Xcryptecb_32
+			0,// Xcryptecb_64
+			0,// Xcryptcbc_16
+			0,// Xcryptcbc_32
+			0,// Xcryptcbc_64
+			0,// Xcryptctr_16
+			0,// Xcryptctr_32
+			0,// Xcryptctr_64
+			0,// Xcryptcfb_16
+			0,// Xcryptcfb_32
+			0,// Xcryptcfb_64
+			0,// Xcryptofb_16
+			0,// Xcryptofb_32
+			0,// Xcryptofb_64
 			0,// Ibts_rm16_r16
 			0,// Ibts_rm32_r32
 			0,// Cmpxchg486_rm8_r8

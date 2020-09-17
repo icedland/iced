@@ -196,11 +196,11 @@ Vmsavew
 Vmwrite_r32_rm32
 Xbts_r16_rm16
 Xbts_r32_rm32
-XcryptCbc_16
-XcryptCfb_16
-XcryptCtr_16
-XcryptEcb_16
-XcryptOfb_16
+Xcryptcbc_16
+Xcryptcfb_16
+Xcryptctr_16
+Xcryptecb_16
+Xcryptofb_16
 Xor_rm8_imm8_82
 Xsha1_16
 Xsha256_16

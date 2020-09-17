@@ -227,21 +227,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			case Code.Xsha256_16:
 			case Code.Xsha256_32:
 			case Code.Xsha256_64:
-			case Code.XcryptEcb_16:
-			case Code.XcryptEcb_32:
-			case Code.XcryptEcb_64:
-			case Code.XcryptCbc_16:
-			case Code.XcryptCbc_32:
-			case Code.XcryptCbc_64:
-			case Code.XcryptCtr_16:
-			case Code.XcryptCtr_32:
-			case Code.XcryptCtr_64:
-			case Code.XcryptCfb_16:
-			case Code.XcryptCfb_32:
-			case Code.XcryptCfb_64:
-			case Code.XcryptOfb_16:
-			case Code.XcryptOfb_32:
-			case Code.XcryptOfb_64:
+			case Code.Xcryptecb_16:
+			case Code.Xcryptecb_32:
+			case Code.Xcryptecb_64:
+			case Code.Xcryptcbc_16:
+			case Code.Xcryptcbc_32:
+			case Code.Xcryptcbc_64:
+			case Code.Xcryptctr_16:
+			case Code.Xcryptctr_32:
+			case Code.Xcryptctr_64:
+			case Code.Xcryptcfb_16:
+			case Code.Xcryptcfb_32:
+			case Code.Xcryptcfb_64:
+			case Code.Xcryptofb_16:
+			case Code.Xcryptofb_32:
+			case Code.Xcryptofb_64:
 				// They're mandatory prefix instructions but the REP prefix isn't cleared since it's shown in disassembly
 				decodedInst.HasRepPrefix = false;
 				break;

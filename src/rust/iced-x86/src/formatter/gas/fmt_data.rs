@@ -9221,77 +9221,77 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xD3, 0x05,// 723 = "xstore"
 	0x40,// 0x40
 
-	// XcryptEcb_16
+	// Xcryptecb_16
 	0x07,// asz
 	0xD4, 0x05,// 724 = "xcryptecb"
 	0x10,// 0x10
 
-	// XcryptEcb_32
+	// Xcryptecb_32
 	0x07,// asz
 	0xD4, 0x05,// 724 = "xcryptecb"
 	0x20,// 0x20
 
-	// XcryptEcb_64
+	// Xcryptecb_64
 	0x07,// asz
 	0xD4, 0x05,// 724 = "xcryptecb"
 	0x40,// 0x40
 
-	// XcryptCbc_16
+	// Xcryptcbc_16
 	0x07,// asz
 	0xD5, 0x05,// 725 = "xcryptcbc"
 	0x10,// 0x10
 
-	// XcryptCbc_32
+	// Xcryptcbc_32
 	0x07,// asz
 	0xD5, 0x05,// 725 = "xcryptcbc"
 	0x20,// 0x20
 
-	// XcryptCbc_64
+	// Xcryptcbc_64
 	0x07,// asz
 	0xD5, 0x05,// 725 = "xcryptcbc"
 	0x40,// 0x40
 
-	// XcryptCtr_16
+	// Xcryptctr_16
 	0x07,// asz
 	0xD6, 0x05,// 726 = "xcryptctr"
 	0x10,// 0x10
 
-	// XcryptCtr_32
+	// Xcryptctr_32
 	0x07,// asz
 	0xD6, 0x05,// 726 = "xcryptctr"
 	0x20,// 0x20
 
-	// XcryptCtr_64
+	// Xcryptctr_64
 	0x07,// asz
 	0xD6, 0x05,// 726 = "xcryptctr"
 	0x40,// 0x40
 
-	// XcryptCfb_16
+	// Xcryptcfb_16
 	0x07,// asz
 	0xD7, 0x05,// 727 = "xcryptcfb"
 	0x10,// 0x10
 
-	// XcryptCfb_32
+	// Xcryptcfb_32
 	0x07,// asz
 	0xD7, 0x05,// 727 = "xcryptcfb"
 	0x20,// 0x20
 
-	// XcryptCfb_64
+	// Xcryptcfb_64
 	0x07,// asz
 	0xD7, 0x05,// 727 = "xcryptcfb"
 	0x40,// 0x40
 
-	// XcryptOfb_16
+	// Xcryptofb_16
 	0x07,// asz
 	0xD8, 0x05,// 728 = "xcryptofb"
 	0x10,// 0x10
 
-	// XcryptOfb_32
+	// Xcryptofb_32
 	0x07,// asz
 	0xD8, 0x05,// 728 = "xcryptofb"
 	0x20,// 0x20
 
-	// XcryptOfb_64
+	// Xcryptofb_64
 	0x07,// asz
 	0xD8, 0x05,// 728 = "xcryptofb"
 	0x40,// 0x40

@@ -8294,16 +8294,16 @@ F3 0FA7 C0, Xstore_64
 67 F3 0FA7 C0, Xstore_32
 0FA7 C0, Xstore_64
 67 0FA7 C0, Xstore_32
-F3 0FA7 C8, XcryptEcb_64
-67 F3 0FA7 C8, XcryptEcb_32
-F3 0FA7 D0, XcryptCbc_64
-67 F3 0FA7 D0, XcryptCbc_32
-F3 0FA7 D8, XcryptCtr_64
-67 F3 0FA7 D8, XcryptCtr_32
-F3 0FA7 E0, XcryptCfb_64
-67 F3 0FA7 E0, XcryptCfb_32
-F3 0FA7 E8, XcryptOfb_64
-67 F3 0FA7 E8, XcryptOfb_32
+F3 0FA7 C8, Xcryptecb_64
+67 F3 0FA7 C8, Xcryptecb_32
+F3 0FA7 D0, Xcryptcbc_64
+67 F3 0FA7 D0, Xcryptcbc_32
+F3 0FA7 D8, Xcryptctr_64
+67 F3 0FA7 D8, Xcryptctr_32
+F3 0FA7 E0, Xcryptcfb_64
+67 F3 0FA7 E0, Xcryptcfb_32
+F3 0FA7 E8, Xcryptofb_64
+67 F3 0FA7 E8, Xcryptofb_32
 62 E20E0B 52 D3, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
 62 F24E08 52 50 01, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
 62 F24E9D 52 50 01, EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32

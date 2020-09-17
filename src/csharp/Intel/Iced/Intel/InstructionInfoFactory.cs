@@ -1816,20 +1816,20 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Xcrypt:
-				Static.Assert(Code.XcryptEcb_16 + 1 == Code.XcryptEcb_32 ? 0 : -1);
-				Static.Assert(Code.XcryptEcb_16 + 2 == Code.XcryptEcb_64 ? 0 : -1);
-				Static.Assert(Code.XcryptCbc_16 + 1 == Code.XcryptCbc_32 ? 0 : -1);
-				Static.Assert(Code.XcryptCbc_16 + 2 == Code.XcryptCbc_64 ? 0 : -1);
-				Static.Assert(Code.XcryptCtr_16 + 1 == Code.XcryptCtr_32 ? 0 : -1);
-				Static.Assert(Code.XcryptCtr_16 + 2 == Code.XcryptCtr_64 ? 0 : -1);
-				Static.Assert(Code.XcryptCfb_16 + 1 == Code.XcryptCfb_32 ? 0 : -1);
-				Static.Assert(Code.XcryptCfb_16 + 2 == Code.XcryptCfb_64 ? 0 : -1);
-				Static.Assert(Code.XcryptOfb_16 + 1 == Code.XcryptOfb_32 ? 0 : -1);
-				Static.Assert(Code.XcryptOfb_16 + 2 == Code.XcryptOfb_64 ? 0 : -1);
-				Static.Assert((Code.XcryptCbc_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
-				Static.Assert((Code.XcryptCtr_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
-				Static.Assert((Code.XcryptCfb_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
-				Static.Assert((Code.XcryptOfb_16 - Code.XcryptEcb_16) % 3 == 0 ? 0 : -1);
+				Static.Assert(Code.Xcryptecb_16 + 1 == Code.Xcryptecb_32 ? 0 : -1);
+				Static.Assert(Code.Xcryptecb_16 + 2 == Code.Xcryptecb_64 ? 0 : -1);
+				Static.Assert(Code.Xcryptcbc_16 + 1 == Code.Xcryptcbc_32 ? 0 : -1);
+				Static.Assert(Code.Xcryptcbc_16 + 2 == Code.Xcryptcbc_64 ? 0 : -1);
+				Static.Assert(Code.Xcryptctr_16 + 1 == Code.Xcryptctr_32 ? 0 : -1);
+				Static.Assert(Code.Xcryptctr_16 + 2 == Code.Xcryptctr_64 ? 0 : -1);
+				Static.Assert(Code.Xcryptcfb_16 + 1 == Code.Xcryptcfb_32 ? 0 : -1);
+				Static.Assert(Code.Xcryptcfb_16 + 2 == Code.Xcryptcfb_64 ? 0 : -1);
+				Static.Assert(Code.Xcryptofb_16 + 1 == Code.Xcryptofb_32 ? 0 : -1);
+				Static.Assert(Code.Xcryptofb_16 + 2 == Code.Xcryptofb_64 ? 0 : -1);
+				Static.Assert((Code.Xcryptcbc_16 - Code.Xcryptecb_16) % 3 == 0 ? 0 : -1);
+				Static.Assert((Code.Xcryptctr_16 - Code.Xcryptecb_16) % 3 == 0 ? 0 : -1);
+				Static.Assert((Code.Xcryptcfb_16 - Code.Xcryptecb_16) % 3 == 0 ? 0 : -1);
+				Static.Assert((Code.Xcryptofb_16 - Code.Xcryptecb_16) % 3 == 0 ? 0 : -1);
 				Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
 				Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
 				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
@@ -1838,10 +1838,10 @@ namespace Iced.Intel {
 				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
 				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
 				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = (Register)(((instruction.Code - Code.XcryptEcb_16) % 3) << 4);
+				baseReg = (Register)(((instruction.Code - Code.Xcryptecb_16) % 3) << 4);
 				if ((flags & Flags.NoMemoryUsage) == 0) {
-					// Check if not XcryptEcb
-					if (instruction.Code >= Code.XcryptCbc_16) {
+					// Check if not Xcryptecb
+					if (instruction.Code >= Code.Xcryptcbc_16) {
 						AddMemory(Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 						AddMemory(Register.ES, Register.AX + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 					}
@@ -1855,8 +1855,8 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.CX + (int)baseReg, OpAccess.ReadCondWrite);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					// Check if not XcryptEcb
-					if (instruction.Code >= Code.XcryptCbc_16) {
+					// Check if not Xcryptecb
+					if (instruction.Code >= Code.Xcryptcbc_16) {
 						AddRegister(flags, Register.AX + (int)baseReg, OpAccess.CondRead);
 						AddRegister(flags, Register.AX + (int)baseReg, OpAccess.CondWrite);
 					}

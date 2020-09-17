@@ -64,21 +64,21 @@ pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 		| Code::Xstore_16
 		| Code::Xstore_32
 		| Code::Xstore_64
-		| Code::XcryptEcb_16
-		| Code::XcryptEcb_32
-		| Code::XcryptEcb_64
-		| Code::XcryptCbc_16
-		| Code::XcryptCbc_32
-		| Code::XcryptCbc_64
-		| Code::XcryptCtr_16
-		| Code::XcryptCtr_32
-		| Code::XcryptCtr_64
-		| Code::XcryptCfb_16
-		| Code::XcryptCfb_32
-		| Code::XcryptCfb_64
-		| Code::XcryptOfb_16
-		| Code::XcryptOfb_32
-		| Code::XcryptOfb_64 => true,
+		| Code::Xcryptecb_16
+		| Code::Xcryptecb_32
+		| Code::Xcryptecb_64
+		| Code::Xcryptcbc_16
+		| Code::Xcryptcbc_32
+		| Code::Xcryptcbc_64
+		| Code::Xcryptctr_16
+		| Code::Xcryptctr_32
+		| Code::Xcryptctr_64
+		| Code::Xcryptcfb_16
+		| Code::Xcryptcfb_32
+		| Code::Xcryptcfb_64
+		| Code::Xcryptofb_16
+		| Code::Xcryptofb_32
+		| Code::Xcryptofb_64 => true,
 
 		_ => false,
 	}

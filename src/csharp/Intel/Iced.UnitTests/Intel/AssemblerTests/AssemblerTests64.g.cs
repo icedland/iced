@@ -52472,35 +52472,35 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void xcryptcbc() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.XcryptCbc_64));
+				TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.Xcryptcbc_64));
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptcfb() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.XcryptCfb_64));
+				TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.Xcryptcfb_64));
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptctr() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.XcryptCtr_64));
+				TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.Xcryptctr_64));
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptecb() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.XcryptEcb_64));
+				TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.Xcryptecb_64));
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void xcryptofb() {
 			{ /* if (Bitness == 64) */
-				TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.XcryptOfb_64));
+				TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.Xcryptofb_64));
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 

@@ -50631,7 +50631,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xcryptcbc() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { /* if (Bitness >= 32) */
-				TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.XcryptCbc_32));
+				TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.Xcryptcbc_32));
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
@@ -50639,7 +50639,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xcryptcfb() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { /* if (Bitness >= 32) */
-				TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.XcryptCfb_32));
+				TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.Xcryptcfb_32));
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
@@ -50647,7 +50647,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xcryptctr() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { /* if (Bitness >= 32) */
-				TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.XcryptCtr_32));
+				TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.Xcryptctr_32));
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
@@ -50655,7 +50655,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xcryptecb() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { /* if (Bitness >= 32) */
-				TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.XcryptEcb_32));
+				TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.Xcryptecb_32));
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
@@ -50663,7 +50663,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xcryptofb() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { /* if (Bitness >= 32) */
-				TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.XcryptOfb_32));
+				TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.Xcryptofb_32));
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 

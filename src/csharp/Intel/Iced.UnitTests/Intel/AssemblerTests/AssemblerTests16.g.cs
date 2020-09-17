@@ -50507,35 +50507,35 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xcryptcbc() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
-			} /* else */ TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.XcryptCbc_16));
+			} /* else */ TestAssembler(c => c.xcryptcbc(), Instruction.Create(Code.Xcryptcbc_16));
 		}
 
 		[Fact]
 		public void xcryptcfb() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
-			} /* else */ TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.XcryptCfb_16));
+			} /* else */ TestAssembler(c => c.xcryptcfb(), Instruction.Create(Code.Xcryptcfb_16));
 		}
 
 		[Fact]
 		public void xcryptctr() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
-			} /* else */ TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.XcryptCtr_16));
+			} /* else */ TestAssembler(c => c.xcryptctr(), Instruction.Create(Code.Xcryptctr_16));
 		}
 
 		[Fact]
 		public void xcryptecb() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
-			} /* else */ TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.XcryptEcb_16));
+			} /* else */ TestAssembler(c => c.xcryptecb(), Instruction.Create(Code.Xcryptecb_16));
 		}
 
 		[Fact]
 		public void xcryptofb() {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
-			} /* else */ TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.XcryptOfb_16));
+			} /* else */ TestAssembler(c => c.xcryptofb(), Instruction.Create(Code.Xcryptofb_16));
 		}
 
 		[Fact]

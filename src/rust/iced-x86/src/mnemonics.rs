@@ -2000,21 +2000,21 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Xstore,// Xstore_16
 	Mnemonic::Xstore,// Xstore_32
 	Mnemonic::Xstore,// Xstore_64
-	Mnemonic::Xcryptecb,// XcryptEcb_16
-	Mnemonic::Xcryptecb,// XcryptEcb_32
-	Mnemonic::Xcryptecb,// XcryptEcb_64
-	Mnemonic::Xcryptcbc,// XcryptCbc_16
-	Mnemonic::Xcryptcbc,// XcryptCbc_32
-	Mnemonic::Xcryptcbc,// XcryptCbc_64
-	Mnemonic::Xcryptctr,// XcryptCtr_16
-	Mnemonic::Xcryptctr,// XcryptCtr_32
-	Mnemonic::Xcryptctr,// XcryptCtr_64
-	Mnemonic::Xcryptcfb,// XcryptCfb_16
-	Mnemonic::Xcryptcfb,// XcryptCfb_32
-	Mnemonic::Xcryptcfb,// XcryptCfb_64
-	Mnemonic::Xcryptofb,// XcryptOfb_16
-	Mnemonic::Xcryptofb,// XcryptOfb_32
-	Mnemonic::Xcryptofb,// XcryptOfb_64
+	Mnemonic::Xcryptecb,// Xcryptecb_16
+	Mnemonic::Xcryptecb,// Xcryptecb_32
+	Mnemonic::Xcryptecb,// Xcryptecb_64
+	Mnemonic::Xcryptcbc,// Xcryptcbc_16
+	Mnemonic::Xcryptcbc,// Xcryptcbc_32
+	Mnemonic::Xcryptcbc,// Xcryptcbc_64
+	Mnemonic::Xcryptctr,// Xcryptctr_16
+	Mnemonic::Xcryptctr,// Xcryptctr_32
+	Mnemonic::Xcryptctr,// Xcryptctr_64
+	Mnemonic::Xcryptcfb,// Xcryptcfb_16
+	Mnemonic::Xcryptcfb,// Xcryptcfb_32
+	Mnemonic::Xcryptcfb,// Xcryptcfb_64
+	Mnemonic::Xcryptofb,// Xcryptofb_16
+	Mnemonic::Xcryptofb,// Xcryptofb_32
+	Mnemonic::Xcryptofb,// Xcryptofb_64
 	Mnemonic::Ibts,// Ibts_rm16_r16
 	Mnemonic::Ibts,// Ibts_rm32_r32
 	Mnemonic::Cmpxchg,// Cmpxchg486_rm8_r8

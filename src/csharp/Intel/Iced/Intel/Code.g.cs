@@ -15781,7 +15781,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		XcryptEcb_16 = 1972,
+		Xcryptecb_16 = 1972,
 		/// <summary><c>XCRYPTECB</c><br/>
 		/// <br/>
 		/// <c>a32 F3 0F A7 C8</c><br/>
@@ -15789,7 +15789,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		XcryptEcb_32 = 1973,
+		Xcryptecb_32 = 1973,
 		/// <summary><c>XCRYPTECB</c><br/>
 		/// <br/>
 		/// <c>a64 F3 0F A7 C8</c><br/>
@@ -15797,7 +15797,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		XcryptEcb_64 = 1974,
+		Xcryptecb_64 = 1974,
 		/// <summary><c>XCRYPTCBC</c><br/>
 		/// <br/>
 		/// <c>a16 F3 0F A7 D0</c><br/>
@@ -15805,7 +15805,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		XcryptCbc_16 = 1975,
+		Xcryptcbc_16 = 1975,
 		/// <summary><c>XCRYPTCBC</c><br/>
 		/// <br/>
 		/// <c>a32 F3 0F A7 D0</c><br/>
@@ -15813,7 +15813,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		XcryptCbc_32 = 1976,
+		Xcryptcbc_32 = 1976,
 		/// <summary><c>XCRYPTCBC</c><br/>
 		/// <br/>
 		/// <c>a64 F3 0F A7 D0</c><br/>
@@ -15821,7 +15821,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		XcryptCbc_64 = 1977,
+		Xcryptcbc_64 = 1977,
 		/// <summary><c>XCRYPTCTR</c><br/>
 		/// <br/>
 		/// <c>a16 F3 0F A7 D8</c><br/>
@@ -15829,7 +15829,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		XcryptCtr_16 = 1978,
+		Xcryptctr_16 = 1978,
 		/// <summary><c>XCRYPTCTR</c><br/>
 		/// <br/>
 		/// <c>a32 F3 0F A7 D8</c><br/>
@@ -15837,7 +15837,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		XcryptCtr_32 = 1979,
+		Xcryptctr_32 = 1979,
 		/// <summary><c>XCRYPTCTR</c><br/>
 		/// <br/>
 		/// <c>a64 F3 0F A7 D8</c><br/>
@@ -15845,7 +15845,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		XcryptCtr_64 = 1980,
+		Xcryptctr_64 = 1980,
 		/// <summary><c>XCRYPTCFB</c><br/>
 		/// <br/>
 		/// <c>a16 F3 0F A7 E0</c><br/>
@@ -15853,7 +15853,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		XcryptCfb_16 = 1981,
+		Xcryptcfb_16 = 1981,
 		/// <summary><c>XCRYPTCFB</c><br/>
 		/// <br/>
 		/// <c>a32 F3 0F A7 E0</c><br/>
@@ -15861,7 +15861,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		XcryptCfb_32 = 1982,
+		Xcryptcfb_32 = 1982,
 		/// <summary><c>XCRYPTCFB</c><br/>
 		/// <br/>
 		/// <c>a64 F3 0F A7 E0</c><br/>
@@ -15869,7 +15869,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		XcryptCfb_64 = 1983,
+		Xcryptcfb_64 = 1983,
 		/// <summary><c>XCRYPTOFB</c><br/>
 		/// <br/>
 		/// <c>a16 F3 0F A7 E8</c><br/>
@@ -15877,7 +15877,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		XcryptOfb_16 = 1984,
+		Xcryptofb_16 = 1984,
 		/// <summary><c>XCRYPTOFB</c><br/>
 		/// <br/>
 		/// <c>a32 F3 0F A7 E8</c><br/>
@@ -15885,7 +15885,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		XcryptOfb_32 = 1985,
+		Xcryptofb_32 = 1985,
 		/// <summary><c>XCRYPTOFB</c><br/>
 		/// <br/>
 		/// <c>a64 F3 0F A7 E8</c><br/>
@@ -15893,7 +15893,7 @@ namespace Iced.Intel {
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		XcryptOfb_64 = 1986,
+		Xcryptofb_64 = 1986,
 		/// <summary><c>IBTS r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F A7 /r</c><br/>

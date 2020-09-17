@@ -15789,7 +15789,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptEcb_16 = 1972,
+	Xcryptecb_16 = 1972,
 	/// `XCRYPTECB`
 	///
 	/// `a32 F3 0F A7 C8`
@@ -15797,7 +15797,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptEcb_32 = 1973,
+	Xcryptecb_32 = 1973,
 	/// `XCRYPTECB`
 	///
 	/// `a64 F3 0F A7 C8`
@@ -15805,7 +15805,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptEcb_64 = 1974,
+	Xcryptecb_64 = 1974,
 	/// `XCRYPTCBC`
 	///
 	/// `a16 F3 0F A7 D0`
@@ -15813,7 +15813,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptCbc_16 = 1975,
+	Xcryptcbc_16 = 1975,
 	/// `XCRYPTCBC`
 	///
 	/// `a32 F3 0F A7 D0`
@@ -15821,7 +15821,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptCbc_32 = 1976,
+	Xcryptcbc_32 = 1976,
 	/// `XCRYPTCBC`
 	///
 	/// `a64 F3 0F A7 D0`
@@ -15829,7 +15829,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptCbc_64 = 1977,
+	Xcryptcbc_64 = 1977,
 	/// `XCRYPTCTR`
 	///
 	/// `a16 F3 0F A7 D8`
@@ -15837,7 +15837,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptCtr_16 = 1978,
+	Xcryptctr_16 = 1978,
 	/// `XCRYPTCTR`
 	///
 	/// `a32 F3 0F A7 D8`
@@ -15845,7 +15845,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptCtr_32 = 1979,
+	Xcryptctr_32 = 1979,
 	/// `XCRYPTCTR`
 	///
 	/// `a64 F3 0F A7 D8`
@@ -15853,7 +15853,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptCtr_64 = 1980,
+	Xcryptctr_64 = 1980,
 	/// `XCRYPTCFB`
 	///
 	/// `a16 F3 0F A7 E0`
@@ -15861,7 +15861,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptCfb_16 = 1981,
+	Xcryptcfb_16 = 1981,
 	/// `XCRYPTCFB`
 	///
 	/// `a32 F3 0F A7 E0`
@@ -15869,7 +15869,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptCfb_32 = 1982,
+	Xcryptcfb_32 = 1982,
 	/// `XCRYPTCFB`
 	///
 	/// `a64 F3 0F A7 E0`
@@ -15877,7 +15877,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptCfb_64 = 1983,
+	Xcryptcfb_64 = 1983,
 	/// `XCRYPTOFB`
 	///
 	/// `a16 F3 0F A7 E8`
@@ -15885,7 +15885,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptOfb_16 = 1984,
+	Xcryptofb_16 = 1984,
 	/// `XCRYPTOFB`
 	///
 	/// `a32 F3 0F A7 E8`
@@ -15893,7 +15893,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptOfb_32 = 1985,
+	Xcryptofb_32 = 1985,
 	/// `XCRYPTOFB`
 	///
 	/// `a64 F3 0F A7 E8`
@@ -15901,7 +15901,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptOfb_64 = 1986,
+	Xcryptofb_64 = 1986,
 	/// `IBTS r/m16, r16`
 	///
 	/// `o16 0F A7 /r`
@@ -36357,21 +36357,21 @@ static GEN_DEBUG_CODE: [&str; 4297] = [
 	"Xstore_16",
 	"Xstore_32",
 	"Xstore_64",
-	"XcryptEcb_16",
-	"XcryptEcb_32",
-	"XcryptEcb_64",
-	"XcryptCbc_16",
-	"XcryptCbc_32",
-	"XcryptCbc_64",
-	"XcryptCtr_16",
-	"XcryptCtr_32",
-	"XcryptCtr_64",
-	"XcryptCfb_16",
-	"XcryptCfb_32",
-	"XcryptCfb_64",
-	"XcryptOfb_16",
-	"XcryptOfb_32",
-	"XcryptOfb_64",
+	"Xcryptecb_16",
+	"Xcryptecb_32",
+	"Xcryptecb_64",
+	"Xcryptcbc_16",
+	"Xcryptcbc_32",
+	"Xcryptcbc_64",
+	"Xcryptctr_16",
+	"Xcryptctr_32",
+	"Xcryptctr_64",
+	"Xcryptcfb_16",
+	"Xcryptcfb_32",
+	"Xcryptcfb_64",
+	"Xcryptofb_16",
+	"Xcryptofb_32",
+	"Xcryptofb_64",
 	"Ibts_rm16_r16",
 	"Ibts_rm32_r32",
 	"Cmpxchg486_rm8_r8",

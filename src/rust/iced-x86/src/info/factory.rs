@@ -2506,20 +2506,20 @@ impl InstructionInfoFactory {
 			}
 
 			CodeInfo::Xcrypt => {
-				const_assert_eq!(Code::XcryptEcb_32 as u32, Code::XcryptEcb_16 as u32 + 1);
-				const_assert_eq!(Code::XcryptEcb_64 as u32, Code::XcryptEcb_16 as u32 + 2);
-				const_assert_eq!(Code::XcryptCbc_32 as u32, Code::XcryptCbc_16 as u32 + 1);
-				const_assert_eq!(Code::XcryptCbc_64 as u32, Code::XcryptCbc_16 as u32 + 2);
-				const_assert_eq!(Code::XcryptCtr_32 as u32, Code::XcryptCtr_16 as u32 + 1);
-				const_assert_eq!(Code::XcryptCtr_64 as u32, Code::XcryptCtr_16 as u32 + 2);
-				const_assert_eq!(Code::XcryptCfb_32 as u32, Code::XcryptCfb_16 as u32 + 1);
-				const_assert_eq!(Code::XcryptCfb_64 as u32, Code::XcryptCfb_16 as u32 + 2);
-				const_assert_eq!(Code::XcryptOfb_32 as u32, Code::XcryptOfb_16 as u32 + 1);
-				const_assert_eq!(Code::XcryptOfb_64 as u32, Code::XcryptOfb_16 as u32 + 2);
-				const_assert_eq!(0, (Code::XcryptCbc_16 as u32 - Code::XcryptEcb_16 as u32) % 3);
-				const_assert_eq!(0, (Code::XcryptCtr_16 as u32 - Code::XcryptEcb_16 as u32) % 3);
-				const_assert_eq!(0, (Code::XcryptCfb_16 as u32 - Code::XcryptEcb_16 as u32) % 3);
-				const_assert_eq!(0, (Code::XcryptOfb_16 as u32 - Code::XcryptEcb_16 as u32) % 3);
+				const_assert_eq!(Code::Xcryptecb_32 as u32, Code::Xcryptecb_16 as u32 + 1);
+				const_assert_eq!(Code::Xcryptecb_64 as u32, Code::Xcryptecb_16 as u32 + 2);
+				const_assert_eq!(Code::Xcryptcbc_32 as u32, Code::Xcryptcbc_16 as u32 + 1);
+				const_assert_eq!(Code::Xcryptcbc_64 as u32, Code::Xcryptcbc_16 as u32 + 2);
+				const_assert_eq!(Code::Xcryptctr_32 as u32, Code::Xcryptctr_16 as u32 + 1);
+				const_assert_eq!(Code::Xcryptctr_64 as u32, Code::Xcryptctr_16 as u32 + 2);
+				const_assert_eq!(Code::Xcryptcfb_32 as u32, Code::Xcryptcfb_16 as u32 + 1);
+				const_assert_eq!(Code::Xcryptcfb_64 as u32, Code::Xcryptcfb_16 as u32 + 2);
+				const_assert_eq!(Code::Xcryptofb_32 as u32, Code::Xcryptofb_16 as u32 + 1);
+				const_assert_eq!(Code::Xcryptofb_64 as u32, Code::Xcryptofb_16 as u32 + 2);
+				const_assert_eq!(0, (Code::Xcryptcbc_16 as u32 - Code::Xcryptecb_16 as u32) % 3);
+				const_assert_eq!(0, (Code::Xcryptctr_16 as u32 - Code::Xcryptecb_16 as u32) % 3);
+				const_assert_eq!(0, (Code::Xcryptcfb_16 as u32 - Code::Xcryptecb_16 as u32) % 3);
+				const_assert_eq!(0, (Code::Xcryptofb_16 as u32 - Code::Xcryptecb_16 as u32) % 3);
 				const_assert_eq!(Register::EAX as u32, Register::AX as u32 + 16);
 				const_assert_eq!(Register::RAX as u32, Register::AX as u32 + 32);
 				const_assert_eq!(OpKind::MemoryESEDI as u32, OpKind::MemoryESDI as u32 + 1);
@@ -2528,10 +2528,10 @@ impl InstructionInfoFactory {
 				const_assert_eq!(Register::RDI as u32, Register::DI as u32 + 32);
 				const_assert_eq!(Register::ECX as u32, Register::CX as u32 + 16);
 				const_assert_eq!(Register::RCX as u32, Register::CX as u32 + 32);
-				reg_index = ((instruction.code() as u32).wrapping_sub(Code::XcryptEcb_16 as u32) % 3) << 4;
+				reg_index = ((instruction.code() as u32).wrapping_sub(Code::Xcryptecb_16 as u32) % 3) << 4;
 				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-					// Check if not XcryptEcb
-					if instruction.code() >= Code::XcryptCbc_16 {
+					// Check if not Xcryptecb
+					if instruction.code() >= Code::Xcryptcbc_16 {
 						Self::add_memory(
 							info,
 							Register::ES,
@@ -2605,8 +2605,8 @@ impl InstructionInfoFactory {
 					if (flags & Flags::IS_64BIT) == 0 {
 						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
 					}
-					// Check if not XcryptEcb
-					if instruction.code() >= Code::XcryptCbc_16 {
+					// Check if not Xcryptecb
+					if instruction.code() >= Code::Xcryptcbc_16 {
 						Self::add_register(
 							flags,
 							info,

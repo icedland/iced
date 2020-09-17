@@ -1997,21 +1997,21 @@ pub(crate) static TABLE: [u32; 8594] = [
 	0x0600_0000, 0x6300_0000,// Xstore_16
 	0x0600_0000, 0x6300_0000,// Xstore_32
 	0x0600_0000, 0x6300_0000,// Xstore_64
-	0x05E0_0000, 0x6000_0000,// XcryptEcb_16
-	0x05E0_0000, 0x6000_0000,// XcryptEcb_32
-	0x05E0_0000, 0x6000_0000,// XcryptEcb_64
-	0x05E0_0000, 0x6000_0000,// XcryptCbc_16
-	0x05E0_0000, 0x6000_0000,// XcryptCbc_32
-	0x05E0_0000, 0x6000_0000,// XcryptCbc_64
-	0x05E0_0000, 0x6000_0000,// XcryptCtr_16
-	0x05E0_0000, 0x6000_0000,// XcryptCtr_32
-	0x05E0_0000, 0x6000_0000,// XcryptCtr_64
-	0x05E0_0000, 0x6000_0000,// XcryptCfb_16
-	0x05E0_0000, 0x6000_0000,// XcryptCfb_32
-	0x05E0_0000, 0x6000_0000,// XcryptCfb_64
-	0x05E0_0000, 0x6000_0000,// XcryptOfb_16
-	0x05E0_0000, 0x6000_0000,// XcryptOfb_32
-	0x05E0_0000, 0x6000_0000,// XcryptOfb_64
+	0x05E0_0000, 0x6000_0000,// Xcryptecb_16
+	0x05E0_0000, 0x6000_0000,// Xcryptecb_32
+	0x05E0_0000, 0x6000_0000,// Xcryptecb_64
+	0x05E0_0000, 0x6000_0000,// Xcryptcbc_16
+	0x05E0_0000, 0x6000_0000,// Xcryptcbc_32
+	0x05E0_0000, 0x6000_0000,// Xcryptcbc_64
+	0x05E0_0000, 0x6000_0000,// Xcryptctr_16
+	0x05E0_0000, 0x6000_0000,// Xcryptctr_32
+	0x05E0_0000, 0x6000_0000,// Xcryptctr_64
+	0x05E0_0000, 0x6000_0000,// Xcryptcfb_16
+	0x05E0_0000, 0x6000_0000,// Xcryptcfb_32
+	0x05E0_0000, 0x6000_0000,// Xcryptcfb_64
+	0x05E0_0000, 0x6000_0000,// Xcryptofb_16
+	0x05E0_0000, 0x6000_0000,// Xcryptofb_32
+	0x05E0_0000, 0x6000_0000,// Xcryptofb_64
 	0x05D0_0036, 0x0700_0000,// Ibts_rm16_r16
 	0x05D0_0036, 0x0700_0000,// Ibts_rm32_r32
 	0x0058_8035, 0x0900_0000,// Cmpxchg486_rm8_r8
