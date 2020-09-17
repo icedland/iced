@@ -3657,7 +3657,7 @@ namespace Generator.Formatters.Nasm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Sha1msg2_xmm_xmmm128)], "sha1msg2" },
 				new object[] { ctorKind[nameof(CtorKind.sae)], code[nameof(Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae)], "vrcp28ps", 2 },
 				new object[] { ctorKind[nameof(CtorKind.sae)], code[nameof(Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae)], "vrcp28pd", 2 },
-				new object[] { ctorKind[nameof(CtorKind.pblendvb_2)], code[nameof(Code.Sha256rnds2_xmm_xmmm128)], "sha256rnds2", memorySize[nameof(MemorySize.UInt128)] },
+				new object[] { ctorKind[nameof(CtorKind.pblendvb_2)], code[nameof(Code.Sha256rnds2_xmm_xmmm128)], "sha256rnds2", memorySize[nameof(MemorySize.Packed128_UInt32)] },
 				new object[] { ctorKind[nameof(CtorKind.sae)], code[nameof(Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae)], "vrcp28ss", 3 },
 				new object[] { ctorKind[nameof(CtorKind.sae)], code[nameof(Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae)], "vrcp28sd", 3 },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Sha256msg1_xmm_xmmm128)], "sha256msg1" },

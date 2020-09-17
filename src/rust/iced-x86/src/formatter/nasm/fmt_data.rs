@@ -14177,7 +14177,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Sha256rnds2_xmm_xmmm128
 	0x2E,// pblendvb_2
 	0xF3, 0x08,// 1139 = "sha256rnds2"
-	0x06,// UInt128
+	0x43,// Packed128_UInt32
 
 	// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
 	0xB5,// 'v', sae
