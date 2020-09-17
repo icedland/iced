@@ -368,6 +368,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			0 => {}
 			16 => self.sb.push_str("a16 "),
 			32 => self.sb.push_str("a32 "),
+			64 => self.sb.push_str("a64 "),
 			_ => unreachable!(),
 		}
 

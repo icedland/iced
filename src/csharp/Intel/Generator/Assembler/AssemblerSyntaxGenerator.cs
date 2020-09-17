@@ -481,11 +481,9 @@ namespace Generator.Assembler {
 							case "jcxz":
 							case "jecxz":
 							case "jrcxz":
-								if (legacy.OperandSize != OperandSize.None || legacy.AddressSize != AddressSize.None) {
-									if (legacy.OperandSize != (OperandSize)legacy.AddressSize) {
-										argKind = ArgKind.Unknown;
-										discardReason = $"Duplicated";
-									}
+								if (legacy.OperandSize != (OperandSize)legacy.AddressSize && legacy.OperandSize != OperandSize.None) {
+									argKind = ArgKind.Unknown;
+									discardReason = "Duplicated";
 								}
 								break;
 							}

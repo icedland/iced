@@ -685,29 +685,29 @@ Loopne_rel8_32_CX, legacy, , legacy, E0, a16 o32 E0 cb, LOOPNE rel8, 16b 32b o32
 Loopne_rel8_16_ECX, legacy, , legacy, E0, a32 o16 E0 cb, LOOPNE rel8, 16b 32b 64b o16 a32 op=br16_1
 Loopne_rel8_32_ECX, legacy, , legacy, E0, a32 o32 E0 cb, LOOPNE rel8, 16b 32b o32 a32 op=br32_1
 Loopne_rel8_64_ECX, legacy, , legacy, E0, a32 E0 cb, LOOPNE rel8, 64b a32 op=br64_1
-Loopne_rel8_16_RCX, legacy, , legacy, E0, o16 E0 cb, LOOPNE rel8, 64b o16 op=br16_1
-Loopne_rel8_64_RCX, legacy, , legacy, E0, E0 cb, LOOPNE rel8, 64b op=br64_1
+Loopne_rel8_16_RCX, legacy, , legacy, E0, a64 o16 E0 cb, LOOPNE rel8, 64b o16 a64 op=br16_1
+Loopne_rel8_64_RCX, legacy, , legacy, E0, a64 E0 cb, LOOPNE rel8, 64b a64 op=br64_1
 Loope_rel8_16_CX, legacy, , legacy, E1, a16 o16 E1 cb, LOOPE rel8, 16b 32b o16 a16 op=br16_1
 Loope_rel8_32_CX, legacy, , legacy, E1, a16 o32 E1 cb, LOOPE rel8, 16b 32b o32 a16 op=br32_1
 Loope_rel8_16_ECX, legacy, , legacy, E1, a32 o16 E1 cb, LOOPE rel8, 16b 32b 64b o16 a32 op=br16_1
 Loope_rel8_32_ECX, legacy, , legacy, E1, a32 o32 E1 cb, LOOPE rel8, 16b 32b o32 a32 op=br32_1
 Loope_rel8_64_ECX, legacy, , legacy, E1, a32 E1 cb, LOOPE rel8, 64b a32 op=br64_1
-Loope_rel8_16_RCX, legacy, , legacy, E1, o16 E1 cb, LOOPE rel8, 64b o16 op=br16_1
-Loope_rel8_64_RCX, legacy, , legacy, E1, E1 cb, LOOPE rel8, 64b op=br64_1
+Loope_rel8_16_RCX, legacy, , legacy, E1, a64 o16 E1 cb, LOOPE rel8, 64b o16 a64 op=br16_1
+Loope_rel8_64_RCX, legacy, , legacy, E1, a64 E1 cb, LOOPE rel8, 64b a64 op=br64_1
 Loop_rel8_16_CX, legacy, , legacy, E2, a16 o16 E2 cb, LOOP rel8, 16b 32b o16 a16 op=br16_1
 Loop_rel8_32_CX, legacy, , legacy, E2, a16 o32 E2 cb, LOOP rel8, 16b 32b o32 a16 op=br32_1
 Loop_rel8_16_ECX, legacy, , legacy, E2, a32 o16 E2 cb, LOOP rel8, 16b 32b 64b o16 a32 op=br16_1
 Loop_rel8_32_ECX, legacy, , legacy, E2, a32 o32 E2 cb, LOOP rel8, 16b 32b o32 a32 op=br32_1
 Loop_rel8_64_ECX, legacy, , legacy, E2, a32 E2 cb, LOOP rel8, 64b a32 op=br64_1
-Loop_rel8_16_RCX, legacy, , legacy, E2, o16 E2 cb, LOOP rel8, 64b o16 op=br16_1
-Loop_rel8_64_RCX, legacy, , legacy, E2, E2 cb, LOOP rel8, 64b op=br64_1
+Loop_rel8_16_RCX, legacy, , legacy, E2, a64 o16 E2 cb, LOOP rel8, 64b o16 a64 op=br16_1
+Loop_rel8_64_RCX, legacy, , legacy, E2, a64 E2 cb, LOOP rel8, 64b a64 op=br64_1
 Jcxz_rel8_16, legacy, , legacy, E3, a16 o16 E3 cb, JCXZ rel8, 16b 32b o16 a16 op=br16_1
 Jcxz_rel8_32, legacy, , legacy, E3, a16 o32 E3 cb, JCXZ rel8, 16b 32b o32 a16 op=br32_1
 Jecxz_rel8_16, legacy, , legacy, E3, a32 o16 E3 cb, JECXZ rel8, 16b 32b 64b o16 a32 op=br16_1
 Jecxz_rel8_32, legacy, , legacy, E3, a32 o32 E3 cb, JECXZ rel8, 16b 32b o32 a32 op=br32_1
 Jecxz_rel8_64, legacy, , legacy, E3, a32 E3 cb, JECXZ rel8, 64b a32 op=br64_1
-Jrcxz_rel8_16, legacy, , legacy, E3, o16 E3 cb, JRCXZ rel8, 64b o16 op=br16_1
-Jrcxz_rel8_64, legacy, , legacy, E3, E3 cb, JRCXZ rel8, 64b op=br64_1
+Jrcxz_rel8_16, legacy, , legacy, E3, a64 o16 E3 cb, JRCXZ rel8, 64b o16 a64 op=br16_1
+Jrcxz_rel8_64, legacy, , legacy, E3, a64 E3 cb, JRCXZ rel8, 64b a64 op=br64_1
 In_AL_imm8, legacy, , legacy, E4, E4 ib, IN AL| imm8, 16b 32b 64b op=al;imm8
 In_AX_imm8, legacy, , legacy, E5, o16 E5 ib, IN AX| imm8, 16b 32b 64b o16 op=ax;imm8
 In_EAX_imm8, legacy, , legacy, E5, o32 E5 ib, IN EAX| imm8, 16b 32b 64b o32 op=eax;imm8
@@ -843,7 +843,7 @@ Vmxoff, legacy, NP, 0F, 01C4, NP 0F 01 C4, VMXOFF, 16b 32b 64b
 Pconfig, legacy, NP, 0F, 01C5, NP 0F 01 C5, PCONFIG, 16b 32b 64b
 Monitorw, legacy, NP, 0F, 01C8, a16 NP 0F 01 C8, MONITOR, 16b 32b a16
 Monitord, legacy, NP, 0F, 01C8, a32 NP 0F 01 C8, MONITOR, 16b 32b 64b a32
-Monitorq, legacy, NP, 0F, 01C8, NP 0F 01 C8, MONITOR, 64b
+Monitorq, legacy, NP, 0F, 01C8, a64 NP 0F 01 C8, MONITOR, 64b a64
 Mwait, legacy, NP, 0F, 01C9, NP 0F 01 C9, MWAIT, 16b 32b 64b
 Clac, legacy, NP, 0F, 01CA, NP 0F 01 CA, CLAC, 16b 32b 64b
 Stac, legacy, NP, 0F, 01CB, NP 0F 01 CB, STAC, 16b 32b 64b
@@ -856,20 +856,20 @@ Xtest, legacy, NP, 0F, 01D6, NP 0F 01 D6, XTEST, 16b 32b 64b
 Enclu, legacy, NP, 0F, 01D7, NP 0F 01 D7, ENCLU, 16b 32b 64b
 Vmrunw, legacy, , 0F, 01D8, a16 0F 01 D8, VMRUN, 16b 32b a16
 Vmrund, legacy, , 0F, 01D8, a32 0F 01 D8, VMRUN, 16b 32b 64b a32
-Vmrunq, legacy, , 0F, 01D8, 0F 01 D8, VMRUN, 64b
+Vmrunq, legacy, , 0F, 01D8, a64 0F 01 D8, VMRUN, 64b a64
 Vmmcall, legacy, , 0F, 01D9, 0F 01 D9, VMMCALL, 16b 32b 64b
 Vmloadw, legacy, , 0F, 01DA, a16 0F 01 DA, VMLOAD, 16b 32b a16
 Vmloadd, legacy, , 0F, 01DA, a32 0F 01 DA, VMLOAD, 16b 32b 64b a32
-Vmloadq, legacy, , 0F, 01DA, 0F 01 DA, VMLOAD, 64b
+Vmloadq, legacy, , 0F, 01DA, a64 0F 01 DA, VMLOAD, 64b a64
 Vmsavew, legacy, , 0F, 01DB, a16 0F 01 DB, VMSAVE, 16b 32b a16
 Vmsaved, legacy, , 0F, 01DB, a32 0F 01 DB, VMSAVE, 16b 32b 64b a32
-Vmsaveq, legacy, , 0F, 01DB, 0F 01 DB, VMSAVE, 64b
+Vmsaveq, legacy, , 0F, 01DB, a64 0F 01 DB, VMSAVE, 64b a64
 Stgi, legacy, , 0F, 01DC, 0F 01 DC, STGI, 16b 32b 64b
 Clgi, legacy, , 0F, 01DD, 0F 01 DD, CLGI, 16b 32b 64b
 Skinit, legacy, , 0F, 01DE, 0F 01 DE, SKINIT, 16b 32b 64b
 Invlpgaw, legacy, , 0F, 01DF, a16 0F 01 DF, INVLPGA, 16b 32b a16
 Invlpgad, legacy, , 0F, 01DF, a32 0F 01 DF, INVLPGA, 16b 32b 64b a32
-Invlpgaq, legacy, , 0F, 01DF, 0F 01 DF, INVLPGA, 64b
+Invlpgaq, legacy, , 0F, 01DF, a64 0F 01 DF, INVLPGA, 64b a64
 Setssbsy, legacy, F3, 0F, 01E8, F3 0F 01 E8, SETSSBSY, 16b 32b 64b
 Saveprevssp, legacy, F3, 0F, 01EA, F3 0F 01 EA, SAVEPREVSSP, 16b 32b 64b
 Rdpkru, legacy, NP, 0F, 01EE, NP 0F 01 EE, RDPKRU, 16b 32b 64b
@@ -878,12 +878,12 @@ Swapgs, legacy, , 0F, 01F8, 0F 01 F8, SWAPGS, 64b
 Rdtscp, legacy, , 0F, 01F9, 0F 01 F9, RDTSCP, 16b 32b 64b
 Monitorxw, legacy, NP, 0F, 01FA, a16 NP 0F 01 FA, MONITORX, 16b 32b a16
 Monitorxd, legacy, NP, 0F, 01FA, a32 NP 0F 01 FA, MONITORX, 16b 32b 64b a32
-Monitorxq, legacy, NP, 0F, 01FA, NP 0F 01 FA, MONITORX, 64b
+Monitorxq, legacy, NP, 0F, 01FA, a64 NP 0F 01 FA, MONITORX, 64b a64
 Mcommit, legacy, F3, 0F, 01FA, F3 0F 01 FA, MCOMMIT, 16b 32b 64b
 Mwaitx, legacy, NP, 0F, 01FB, NP 0F 01 FB, MWAITX, 16b 32b 64b
 Clzerow, legacy, , 0F, 01FC, a16 0F 01 FC, CLZERO, 16b 32b a16
 Clzerod, legacy, , 0F, 01FC, a32 0F 01 FC, CLZERO, 16b 32b 64b a32
-Clzeroq, legacy, , 0F, 01FC, 0F 01 FC, CLZERO, 64b
+Clzeroq, legacy, , 0F, 01FC, a64 0F 01 FC, CLZERO, 64b a64
 Rdpru, legacy, , 0F, 01FD, 0F 01 FD, RDPRU, 16b 32b 64b
 Lar_r16_rm16, legacy, , 0F, 02, o16 0F 02 /r, LAR r16| r/m16, 16b 32b 64b o16 op=r16_reg;r16_or_mem
 Lar_r32_r32m16, legacy, , 0F, 02, o32 0F 02 /r, LAR r32| r32/m16, 16b 32b 64b o32 op=r32_reg;r32_or_mem
@@ -1989,33 +1989,33 @@ Shld_rm32_r32_CL, legacy, , 0F, A5, o32 0F A5 /r, SHLD r/m32| r32| CL, 16b 32b 6
 Shld_rm64_r64_CL, legacy, , 0F, A5, REX.W 0F A5 /r, SHLD r/m64| r64| CL, 64b o64 op=r64_or_mem;r64_reg;cl
 Montmul_16, legacy, F3, 0F, A6C0, a16 F3 0F A6 C0, MONTMUL, 16b 32b a16
 Montmul_32, legacy, F3, 0F, A6C0, a32 F3 0F A6 C0, MONTMUL, 16b 32b 64b a32
-Montmul_64, legacy, F3, 0F, A6C0, F3 0F A6 C0, MONTMUL, 64b
+Montmul_64, legacy, F3, 0F, A6C0, a64 F3 0F A6 C0, MONTMUL, 64b a64
 Xsha1_16, legacy, F3, 0F, A6C8, a16 F3 0F A6 C8, XSHA1, 16b 32b a16
 Xsha1_32, legacy, F3, 0F, A6C8, a32 F3 0F A6 C8, XSHA1, 16b 32b 64b a32
-Xsha1_64, legacy, F3, 0F, A6C8, F3 0F A6 C8, XSHA1, 64b
+Xsha1_64, legacy, F3, 0F, A6C8, a64 F3 0F A6 C8, XSHA1, 64b a64
 Xsha256_16, legacy, F3, 0F, A6D0, a16 F3 0F A6 D0, XSHA256, 16b 32b a16
 Xsha256_32, legacy, F3, 0F, A6D0, a32 F3 0F A6 D0, XSHA256, 16b 32b 64b a32
-Xsha256_64, legacy, F3, 0F, A6D0, F3 0F A6 D0, XSHA256, 64b
+Xsha256_64, legacy, F3, 0F, A6D0, a64 F3 0F A6 D0, XSHA256, 64b a64
 Xbts_r16_rm16, legacy, , 0F, A6, o16 0F A6 /r, XBTS r16| r/m16, 16b 32b o16 op=r16_reg;r16_or_mem
 Xbts_r32_rm32, legacy, , 0F, A6, o32 0F A6 /r, XBTS r32| r/m32, 16b 32b o32 op=r32_reg;r32_or_mem
 Xstore_16, legacy, , 0F, A7C0, a16 0F A7 C0, XSTORE, 16b 32b a16 rep
 Xstore_32, legacy, , 0F, A7C0, a32 0F A7 C0, XSTORE, 16b 32b 64b a32 rep
-Xstore_64, legacy, , 0F, A7C0, 0F A7 C0, XSTORE, 64b rep
+Xstore_64, legacy, , 0F, A7C0, a64 0F A7 C0, XSTORE, 64b rep a64
 XcryptEcb_16, legacy, F3, 0F, A7C8, a16 F3 0F A7 C8, XCRYPTECB, 16b 32b a16
 XcryptEcb_32, legacy, F3, 0F, A7C8, a32 F3 0F A7 C8, XCRYPTECB, 16b 32b 64b a32
-XcryptEcb_64, legacy, F3, 0F, A7C8, F3 0F A7 C8, XCRYPTECB, 64b
+XcryptEcb_64, legacy, F3, 0F, A7C8, a64 F3 0F A7 C8, XCRYPTECB, 64b a64
 XcryptCbc_16, legacy, F3, 0F, A7D0, a16 F3 0F A7 D0, XCRYPTCBC, 16b 32b a16
 XcryptCbc_32, legacy, F3, 0F, A7D0, a32 F3 0F A7 D0, XCRYPTCBC, 16b 32b 64b a32
-XcryptCbc_64, legacy, F3, 0F, A7D0, F3 0F A7 D0, XCRYPTCBC, 64b
+XcryptCbc_64, legacy, F3, 0F, A7D0, a64 F3 0F A7 D0, XCRYPTCBC, 64b a64
 XcryptCtr_16, legacy, F3, 0F, A7D8, a16 F3 0F A7 D8, XCRYPTCTR, 16b 32b a16
 XcryptCtr_32, legacy, F3, 0F, A7D8, a32 F3 0F A7 D8, XCRYPTCTR, 16b 32b 64b a32
-XcryptCtr_64, legacy, F3, 0F, A7D8, F3 0F A7 D8, XCRYPTCTR, 64b
+XcryptCtr_64, legacy, F3, 0F, A7D8, a64 F3 0F A7 D8, XCRYPTCTR, 64b a64
 XcryptCfb_16, legacy, F3, 0F, A7E0, a16 F3 0F A7 E0, XCRYPTCFB, 16b 32b a16
 XcryptCfb_32, legacy, F3, 0F, A7E0, a32 F3 0F A7 E0, XCRYPTCFB, 16b 32b 64b a32
-XcryptCfb_64, legacy, F3, 0F, A7E0, F3 0F A7 E0, XCRYPTCFB, 64b
+XcryptCfb_64, legacy, F3, 0F, A7E0, a64 F3 0F A7 E0, XCRYPTCFB, 64b a64
 XcryptOfb_16, legacy, F3, 0F, A7E8, a16 F3 0F A7 E8, XCRYPTOFB, 16b 32b a16
 XcryptOfb_32, legacy, F3, 0F, A7E8, a32 F3 0F A7 E8, XCRYPTOFB, 16b 32b 64b a32
-XcryptOfb_64, legacy, F3, 0F, A7E8, F3 0F A7 E8, XCRYPTOFB, 64b
+XcryptOfb_64, legacy, F3, 0F, A7E8, a64 F3 0F A7 E8, XCRYPTOFB, 64b a64
 Ibts_rm16_r16, legacy, , 0F, A7, o16 0F A7 /r, IBTS r/m16| r16, 16b 32b o16 op=r16_or_mem;r16_reg
 Ibts_rm32_r32, legacy, , 0F, A7, o32 0F A7 /r, IBTS r/m32| r32, 16b 32b o32 op=r32_or_mem;r32_reg
 Cmpxchg486_rm8_r8, legacy, , 0F, A6, 0F A6 /r, CMPXCHG r/m8| r8, 16b 32b op=r8_or_mem;r8_reg
@@ -2069,7 +2069,7 @@ Tpause_r64, legacy, 66, 0F, AE, 66 REX.W 0F AE /6, TPAUSE r64| <edx>| <eax>, g=6
 Clrssbsy_m64, legacy, F3, 0F, AE, F3 0F AE /6, CLRSSBSY m64, g=6 16b 32b 64b op=mem
 Umonitor_r16, legacy, F3, 0F, AE, a16 F3 0F AE /6, UMONITOR r16, g=6 16b 32b a16 op=r16_rm
 Umonitor_r32, legacy, F3, 0F, AE, a32 F3 0F AE /6, UMONITOR r32, g=6 16b 32b 64b a32 op=r32_rm
-Umonitor_r64, legacy, F3, 0F, AE, F3 0F AE /6, UMONITOR r64, g=6 64b op=r64_rm
+Umonitor_r64, legacy, F3, 0F, AE, a64 F3 0F AE /6, UMONITOR r64, g=6 64b a64 op=r64_rm
 Umwait_r32, legacy, F2, 0F, AE, F2 0F AE /6, UMWAIT r32| <edx>| <eax>, g=6 16b 32b 64b op=r32_rm
 Umwait_r64, legacy, F2, 0F, AE, F2 REX.W 0F AE /6, UMWAIT r64| <edx>| <eax>, g=6 64b o64 op=r64_rm
 Clflush_m8, legacy, NP, 0F, AE, NP 0F AE /7, CLFLUSH m8, g=7 16b 32b 64b op=mem
@@ -3737,13 +3737,13 @@ VEX_Shrx_r32_rm32_r32, VEX, F2, 0F38, F7, VEX.LZ.F2.0F38.W0 F7 /r, SHRX r32a| r/
 VEX_Shrx_r64_rm64_r64, VEX, F2, 0F38, F7, VEX.LZ.F2.0F38.W1 F7 /r, SHRX r64a| r/m64| r64b, 64b L0 W1 op=r64_reg;r64_or_mem;r64_vvvv
 Movdir64b_r16_m512, legacy, 66, 0F38, F8, a16 66 0F 38 F8 /r, MOVDIR64B r16| m512, 16b 32b a16 op=r16_reg_mem;mem
 Movdir64b_r32_m512, legacy, 66, 0F38, F8, a32 66 0F 38 F8 /r, MOVDIR64B r32| m512, 16b 32b 64b a32 op=r32_reg_mem;mem
-Movdir64b_r64_m512, legacy, 66, 0F38, F8, 66 0F 38 F8 /r, MOVDIR64B r64| m512, 64b op=r64_reg_mem;mem
+Movdir64b_r64_m512, legacy, 66, 0F38, F8, a64 66 0F 38 F8 /r, MOVDIR64B r64| m512, 64b a64 op=r64_reg_mem;mem
 Enqcmds_r16_m512, legacy, F3, 0F38, F8, a16 F3 0F 38 F8 /r, ENQCMDS r16| m512, 16b 32b a16 op=r16_reg_mem;mem
 Enqcmds_r32_m512, legacy, F3, 0F38, F8, a32 F3 0F 38 F8 /r, ENQCMDS r32| m512, 16b 32b 64b a32 op=r32_reg_mem;mem
-Enqcmds_r64_m512, legacy, F3, 0F38, F8, F3 0F 38 F8 /r, ENQCMDS r64| m512, 64b op=r64_reg_mem;mem
+Enqcmds_r64_m512, legacy, F3, 0F38, F8, a64 F3 0F 38 F8 /r, ENQCMDS r64| m512, 64b a64 op=r64_reg_mem;mem
 Enqcmd_r16_m512, legacy, F2, 0F38, F8, a16 F2 0F 38 F8 /r, ENQCMD r16| m512, 16b 32b a16 op=r16_reg_mem;mem
 Enqcmd_r32_m512, legacy, F2, 0F38, F8, a32 F2 0F 38 F8 /r, ENQCMD r32| m512, 16b 32b 64b a32 op=r32_reg_mem;mem
-Enqcmd_r64_m512, legacy, F2, 0F38, F8, F2 0F 38 F8 /r, ENQCMD r64| m512, 64b op=r64_reg_mem;mem
+Enqcmd_r64_m512, legacy, F2, 0F38, F8, a64 F2 0F 38 F8 /r, ENQCMD r64| m512, 64b a64 op=r64_reg_mem;mem
 Movdiri_m32_r32, legacy, NP, 0F38, F9, NP 0F 38 F9 /r, MOVDIRI m32| r32, 16b 32b 64b op=mem;r32_reg
 Movdiri_m64_r64, legacy, NP, 0F38, F9, NP REX.W 0F 38 F9 /r, MOVDIRI m64| r64, 64b o64 op=mem;r64_reg
 VEX_Vpermq_ymm_ymmm256_imm8, VEX, 66, 0F3A, 00, VEX.256.66.0F3A.W1 00 /r ib, VPERMQ ymm1| ymm2/m256| imm8, 16b 32b 64b L256 W1 op=ymm_reg;ymm_or_mem;imm8
@@ -4240,13 +4240,13 @@ Rmpupdate, legacy, F2, 0F, 01FE, F2 0F 01 FE, RMPUPDATE, 64b
 Psmash, legacy, F3, 0F, 01FF, F3 0F 01 FF, PSMASH, 64b
 Pvalidatew, legacy, F2, 0F, 01FF, a16 F2 0F 01 FF, PVALIDATE, 16b 32b a16
 Pvalidated, legacy, F2, 0F, 01FF, a32 F2 0F 01 FF, PVALIDATE, 16b 32b 64b a32
-Pvalidateq, legacy, F2, 0F, 01FF, F2 0F 01 FF, PVALIDATE, 64b
+Pvalidateq, legacy, F2, 0F, 01FF, a64 F2 0F 01 FF, PVALIDATE, 64b a64
 Serialize, legacy, NP, 0F, 01E8, NP 0F 01 E8, SERIALIZE, 16b 32b 64b
 Xsusldtrk, legacy, F2, 0F, 01E8, F2 0F 01 E8, XSUSLDTRK, 16b 32b 64b
 Xresldtrk, legacy, F2, 0F, 01E9, F2 0F 01 E9, XRESLDTRK, 16b 32b 64b
 Invlpgbw, legacy, NP, 0F, 01FE, a16 NP 0F 01 FE, INVLPGB, 16b 32b a16
 Invlpgbd, legacy, NP, 0F, 01FE, a32 NP 0F 01 FE, INVLPGB, 16b 32b 64b a32
-Invlpgbq, legacy, NP, 0F, 01FE, NP 0F 01 FE, INVLPGB, 64b
+Invlpgbq, legacy, NP, 0F, 01FE, a64 NP 0F 01 FE, INVLPGB, 64b a64
 Tlbsync, legacy, NP, 0F, 01FF, NP 0F 01 FF, TLBSYNC, 16b 32b 64b
 Ud0, legacy, , 0F, FF, 0F FF, UD0, 16b 32b 64b
 Vmgexit, legacy, F3, 0F, 01D9, F3 0F 01 D9, VMGEXIT, 16b 32b 64b

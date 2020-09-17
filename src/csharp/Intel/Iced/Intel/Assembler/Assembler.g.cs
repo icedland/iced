@@ -5302,7 +5302,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>CLZERO</c><br/>
 		/// <br/>
-		/// <c>0F 01 FC</c><br/>
+		/// <c>a64 0F 01 FC</c><br/>
 		/// <br/>
 		/// <c>CLZERO</c><br/>
 		/// <br/>
@@ -9548,7 +9548,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>ENQCMD r64, m512</c><br/>
 		/// <br/>
-		/// <c>F2 0F 38 F8 /r</c><br/>
+		/// <c>a64 F2 0F 38 F8 /r</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -9590,7 +9590,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>ENQCMDS r64, m512</c><br/>
 		/// <br/>
-		/// <c>F3 0F 38 F8 /r</c><br/>
+		/// <c>a64 F3 0F 38 F8 /r</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -13380,7 +13380,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>INVLPGA</c><br/>
 		/// <br/>
-		/// <c>0F 01 DF</c><br/>
+		/// <c>a64 0F 01 DF</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -13412,7 +13412,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>INVLPGB</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 FE</c><br/>
+		/// <c>a64 NP 0F 01 FE</c><br/>
 		/// <br/>
 		/// <c>INVLPGB</c><br/>
 		/// <br/>
@@ -15720,7 +15720,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>JRCXZ rel8</c><br/>
 		/// <br/>
-		/// <c>E3 cb</c><br/>
+		/// <c>a64 E3 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -15734,7 +15734,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>JRCXZ rel8</c><br/>
 		/// <br/>
-		/// <c>E3 cb</c><br/>
+		/// <c>a64 E3 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -17568,7 +17568,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOP rel8</c><br/>
 		/// <br/>
-		/// <c>E2 cb</c><br/>
+		/// <c>a64 E2 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -17600,7 +17600,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOP rel8</c><br/>
 		/// <br/>
-		/// <c>E2 cb</c><br/>
+		/// <c>a64 E2 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -17632,7 +17632,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOPE rel8</c><br/>
 		/// <br/>
-		/// <c>E1 cb</c><br/>
+		/// <c>a64 E1 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -17664,7 +17664,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOPE rel8</c><br/>
 		/// <br/>
-		/// <c>E1 cb</c><br/>
+		/// <c>a64 E1 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -17696,7 +17696,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOPNE rel8</c><br/>
 		/// <br/>
-		/// <c>E0 cb</c><br/>
+		/// <c>a64 E0 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -17728,7 +17728,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOPNE rel8</c><br/>
 		/// <br/>
-		/// <c>E0 cb</c><br/>
+		/// <c>a64 E0 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -18520,7 +18520,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C8</c><br/>
+		/// <c>a64 NP 0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -18552,7 +18552,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MONITORX</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 FA</c><br/>
+		/// <c>a64 NP 0F 01 FA</c><br/>
 		/// <br/>
 		/// <c>MONITORX</c><br/>
 		/// <br/>
@@ -18584,7 +18584,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MONTMUL</c><br/>
 		/// <br/>
-		/// <c>F3 0F A6 C0</c><br/>
+		/// <c>a64 F3 0F A6 C0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_PMM</c><br/>
 		/// <br/>
@@ -19682,7 +19682,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>MOVDIR64B r64, m512</c><br/>
 		/// <br/>
-		/// <c>66 0F 38 F8 /r</c><br/>
+		/// <c>a64 66 0F 38 F8 /r</c><br/>
 		/// <br/>
 		/// <c>MOVDIR64B</c><br/>
 		/// <br/>
@@ -31198,7 +31198,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>PVALIDATE</c><br/>
 		/// <br/>
-		/// <c>F2 0F 01 FF</c><br/>
+		/// <c>a64 F2 0F 01 FF</c><br/>
 		/// <br/>
 		/// <c>SNP</c><br/>
 		/// <br/>
@@ -41300,7 +41300,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>UMONITOR r64</c><br/>
 		/// <br/>
-		/// <c>F3 0F AE /6</c><br/>
+		/// <c>a64 F3 0F AE /6</c><br/>
 		/// <br/>
 		/// <c>WAITPKG</c><br/>
 		/// <br/>
@@ -66868,7 +66868,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VMLOAD</c><br/>
 		/// <br/>
-		/// <c>0F 01 DA</c><br/>
+		/// <c>a64 0F 01 DA</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -69986,7 +69986,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VMRUN</c><br/>
 		/// <br/>
-		/// <c>0F 01 D8</c><br/>
+		/// <c>a64 0F 01 D8</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -70018,7 +70018,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VMSAVE</c><br/>
 		/// <br/>
-		/// <c>0F 01 DB</c><br/>
+		/// <c>a64 0F 01 DB</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -110868,7 +110868,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XCRYPTCBC</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 D0</c><br/>
+		/// <c>a64 F3 0F A7 D0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -110900,7 +110900,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XCRYPTCFB</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 E0</c><br/>
+		/// <c>a64 F3 0F A7 E0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -110932,7 +110932,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XCRYPTCTR</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 D8</c><br/>
+		/// <c>a64 F3 0F A7 D8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -110964,7 +110964,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XCRYPTECB</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 C8</c><br/>
+		/// <c>a64 F3 0F A7 C8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -110996,7 +110996,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XCRYPTOFB</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 E8</c><br/>
+		/// <c>a64 F3 0F A7 E8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -111806,7 +111806,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XSHA1</c><br/>
 		/// <br/>
-		/// <c>F3 0F A6 C8</c><br/>
+		/// <c>a64 F3 0F A6 C8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_PHE</c><br/>
 		/// <br/>
@@ -111838,7 +111838,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XSHA256</c><br/>
 		/// <br/>
-		/// <c>F3 0F A6 D0</c><br/>
+		/// <c>a64 F3 0F A6 D0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_PHE</c><br/>
 		/// <br/>
@@ -111870,7 +111870,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>XSTORE</c><br/>
 		/// <br/>
-		/// <c>0F A7 C0</c><br/>
+		/// <c>a64 0F A7 C0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_RNG</c><br/>
 		/// <br/>

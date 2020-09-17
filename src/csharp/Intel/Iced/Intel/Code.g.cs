@@ -5296,7 +5296,7 @@ namespace Iced.Intel {
 		Loopne_rel8_64_ECX = 661,
 		/// <summary><c>LOOPNE rel8</c><br/>
 		/// <br/>
-		/// <c>o16 E0 cb</c><br/>
+		/// <c>a64 o16 E0 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -5304,7 +5304,7 @@ namespace Iced.Intel {
 		Loopne_rel8_16_RCX = 662,
 		/// <summary><c>LOOPNE rel8</c><br/>
 		/// <br/>
-		/// <c>E0 cb</c><br/>
+		/// <c>a64 E0 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -5352,7 +5352,7 @@ namespace Iced.Intel {
 		Loope_rel8_64_ECX = 668,
 		/// <summary><c>LOOPE rel8</c><br/>
 		/// <br/>
-		/// <c>o16 E1 cb</c><br/>
+		/// <c>a64 o16 E1 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -5360,7 +5360,7 @@ namespace Iced.Intel {
 		Loope_rel8_16_RCX = 669,
 		/// <summary><c>LOOPE rel8</c><br/>
 		/// <br/>
-		/// <c>E1 cb</c><br/>
+		/// <c>a64 E1 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -5408,7 +5408,7 @@ namespace Iced.Intel {
 		Loop_rel8_64_ECX = 675,
 		/// <summary><c>LOOP rel8</c><br/>
 		/// <br/>
-		/// <c>o16 E2 cb</c><br/>
+		/// <c>a64 o16 E2 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -5416,7 +5416,7 @@ namespace Iced.Intel {
 		Loop_rel8_16_RCX = 676,
 		/// <summary><c>LOOP rel8</c><br/>
 		/// <br/>
-		/// <c>E2 cb</c><br/>
+		/// <c>a64 E2 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -5464,7 +5464,7 @@ namespace Iced.Intel {
 		Jecxz_rel8_64 = 682,
 		/// <summary><c>JRCXZ rel8</c><br/>
 		/// <br/>
-		/// <c>o16 E3 cb</c><br/>
+		/// <c>a64 o16 E3 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -5472,7 +5472,7 @@ namespace Iced.Intel {
 		Jrcxz_rel8_16 = 683,
 		/// <summary><c>JRCXZ rel8</c><br/>
 		/// <br/>
-		/// <c>E3 cb</c><br/>
+		/// <c>a64 E3 cb</c><br/>
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
@@ -6560,7 +6560,7 @@ namespace Iced.Intel {
 		Monitord = 819,
 		/// <summary><c>MONITOR</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 C8</c><br/>
+		/// <c>a64 NP 0F 01 C8</c><br/>
 		/// <br/>
 		/// <c>MONITOR</c><br/>
 		/// <br/>
@@ -6664,7 +6664,7 @@ namespace Iced.Intel {
 		Vmrund = 832,
 		/// <summary><c>VMRUN</c><br/>
 		/// <br/>
-		/// <c>0F 01 D8</c><br/>
+		/// <c>a64 0F 01 D8</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -6696,7 +6696,7 @@ namespace Iced.Intel {
 		Vmloadd = 836,
 		/// <summary><c>VMLOAD</c><br/>
 		/// <br/>
-		/// <c>0F 01 DA</c><br/>
+		/// <c>a64 0F 01 DA</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -6720,7 +6720,7 @@ namespace Iced.Intel {
 		Vmsaved = 839,
 		/// <summary><c>VMSAVE</c><br/>
 		/// <br/>
-		/// <c>0F 01 DB</c><br/>
+		/// <c>a64 0F 01 DB</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -6768,7 +6768,7 @@ namespace Iced.Intel {
 		Invlpgad = 845,
 		/// <summary><c>INVLPGA</c><br/>
 		/// <br/>
-		/// <c>0F 01 DF</c><br/>
+		/// <c>a64 0F 01 DF</c><br/>
 		/// <br/>
 		/// <c>SVM</c><br/>
 		/// <br/>
@@ -6840,7 +6840,7 @@ namespace Iced.Intel {
 		Monitorxd = 854,
 		/// <summary><c>MONITORX</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 FA</c><br/>
+		/// <c>a64 NP 0F 01 FA</c><br/>
 		/// <br/>
 		/// <c>MONITORX</c><br/>
 		/// <br/>
@@ -6880,7 +6880,7 @@ namespace Iced.Intel {
 		Clzerod = 859,
 		/// <summary><c>CLZERO</c><br/>
 		/// <br/>
-		/// <c>0F 01 FC</c><br/>
+		/// <c>a64 0F 01 FC</c><br/>
 		/// <br/>
 		/// <c>CLZERO</c><br/>
 		/// <br/>
@@ -15680,7 +15680,7 @@ namespace Iced.Intel {
 		Montmul_32 = 1959,
 		/// <summary><c>MONTMUL</c><br/>
 		/// <br/>
-		/// <c>F3 0F A6 C0</c><br/>
+		/// <c>a64 F3 0F A6 C0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_PMM</c><br/>
 		/// <br/>
@@ -15704,7 +15704,7 @@ namespace Iced.Intel {
 		Xsha1_32 = 1962,
 		/// <summary><c>XSHA1</c><br/>
 		/// <br/>
-		/// <c>F3 0F A6 C8</c><br/>
+		/// <c>a64 F3 0F A6 C8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_PHE</c><br/>
 		/// <br/>
@@ -15728,7 +15728,7 @@ namespace Iced.Intel {
 		Xsha256_32 = 1965,
 		/// <summary><c>XSHA256</c><br/>
 		/// <br/>
-		/// <c>F3 0F A6 D0</c><br/>
+		/// <c>a64 F3 0F A6 D0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_PHE</c><br/>
 		/// <br/>
@@ -15768,7 +15768,7 @@ namespace Iced.Intel {
 		Xstore_32 = 1970,
 		/// <summary><c>XSTORE</c><br/>
 		/// <br/>
-		/// <c>0F A7 C0</c><br/>
+		/// <c>a64 0F A7 C0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_RNG</c><br/>
 		/// <br/>
@@ -15792,7 +15792,7 @@ namespace Iced.Intel {
 		XcryptEcb_32 = 1973,
 		/// <summary><c>XCRYPTECB</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 C8</c><br/>
+		/// <c>a64 F3 0F A7 C8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -15816,7 +15816,7 @@ namespace Iced.Intel {
 		XcryptCbc_32 = 1976,
 		/// <summary><c>XCRYPTCBC</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 D0</c><br/>
+		/// <c>a64 F3 0F A7 D0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -15840,7 +15840,7 @@ namespace Iced.Intel {
 		XcryptCtr_32 = 1979,
 		/// <summary><c>XCRYPTCTR</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 D8</c><br/>
+		/// <c>a64 F3 0F A7 D8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -15864,7 +15864,7 @@ namespace Iced.Intel {
 		XcryptCfb_32 = 1982,
 		/// <summary><c>XCRYPTCFB</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 E0</c><br/>
+		/// <c>a64 F3 0F A7 E0</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -15888,7 +15888,7 @@ namespace Iced.Intel {
 		XcryptOfb_32 = 1985,
 		/// <summary><c>XCRYPTOFB</c><br/>
 		/// <br/>
-		/// <c>F3 0F A7 E8</c><br/>
+		/// <c>a64 F3 0F A7 E8</c><br/>
 		/// <br/>
 		/// <c>PADLOCK_ACE</c><br/>
 		/// <br/>
@@ -16320,7 +16320,7 @@ namespace Iced.Intel {
 		Umonitor_r32 = 2039,
 		/// <summary><c>UMONITOR r64</c><br/>
 		/// <br/>
-		/// <c>F3 0F AE /6</c><br/>
+		/// <c>a64 F3 0F AE /6</c><br/>
 		/// <br/>
 		/// <c>WAITPKG</c><br/>
 		/// <br/>
@@ -29640,7 +29640,7 @@ namespace Iced.Intel {
 		Movdir64b_r32_m512 = 3704,
 		/// <summary><c>MOVDIR64B r64, m512</c><br/>
 		/// <br/>
-		/// <c>66 0F 38 F8 /r</c><br/>
+		/// <c>a64 66 0F 38 F8 /r</c><br/>
 		/// <br/>
 		/// <c>MOVDIR64B</c><br/>
 		/// <br/>
@@ -29664,7 +29664,7 @@ namespace Iced.Intel {
 		Enqcmds_r32_m512 = 3707,
 		/// <summary><c>ENQCMDS r64, m512</c><br/>
 		/// <br/>
-		/// <c>F3 0F 38 F8 /r</c><br/>
+		/// <c>a64 F3 0F 38 F8 /r</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -29688,7 +29688,7 @@ namespace Iced.Intel {
 		Enqcmd_r32_m512 = 3710,
 		/// <summary><c>ENQCMD r64, m512</c><br/>
 		/// <br/>
-		/// <c>F2 0F 38 F8 /r</c><br/>
+		/// <c>a64 F2 0F 38 F8 /r</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -33664,7 +33664,7 @@ namespace Iced.Intel {
 		Pvalidated = 4207,
 		/// <summary><c>PVALIDATE</c><br/>
 		/// <br/>
-		/// <c>F2 0F 01 FF</c><br/>
+		/// <c>a64 F2 0F 01 FF</c><br/>
 		/// <br/>
 		/// <c>SNP</c><br/>
 		/// <br/>
@@ -33712,7 +33712,7 @@ namespace Iced.Intel {
 		Invlpgbd = 4213,
 		/// <summary><c>INVLPGB</c><br/>
 		/// <br/>
-		/// <c>NP 0F 01 FE</c><br/>
+		/// <c>a64 NP 0F 01 FE</c><br/>
 		/// <br/>
 		/// <c>INVLPGB</c><br/>
 		/// <br/>

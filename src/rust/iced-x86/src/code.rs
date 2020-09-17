@@ -5304,7 +5304,7 @@ pub enum Code {
 	Loopne_rel8_64_ECX = 661,
 	/// `LOOPNE rel8`
 	///
-	/// `o16 E0 cb`
+	/// `a64 o16 E0 cb`
 	///
 	/// `X64`
 	///
@@ -5312,7 +5312,7 @@ pub enum Code {
 	Loopne_rel8_16_RCX = 662,
 	/// `LOOPNE rel8`
 	///
-	/// `E0 cb`
+	/// `a64 E0 cb`
 	///
 	/// `X64`
 	///
@@ -5360,7 +5360,7 @@ pub enum Code {
 	Loope_rel8_64_ECX = 668,
 	/// `LOOPE rel8`
 	///
-	/// `o16 E1 cb`
+	/// `a64 o16 E1 cb`
 	///
 	/// `X64`
 	///
@@ -5368,7 +5368,7 @@ pub enum Code {
 	Loope_rel8_16_RCX = 669,
 	/// `LOOPE rel8`
 	///
-	/// `E1 cb`
+	/// `a64 E1 cb`
 	///
 	/// `X64`
 	///
@@ -5416,7 +5416,7 @@ pub enum Code {
 	Loop_rel8_64_ECX = 675,
 	/// `LOOP rel8`
 	///
-	/// `o16 E2 cb`
+	/// `a64 o16 E2 cb`
 	///
 	/// `X64`
 	///
@@ -5424,7 +5424,7 @@ pub enum Code {
 	Loop_rel8_16_RCX = 676,
 	/// `LOOP rel8`
 	///
-	/// `E2 cb`
+	/// `a64 E2 cb`
 	///
 	/// `X64`
 	///
@@ -5472,7 +5472,7 @@ pub enum Code {
 	Jecxz_rel8_64 = 682,
 	/// `JRCXZ rel8`
 	///
-	/// `o16 E3 cb`
+	/// `a64 o16 E3 cb`
 	///
 	/// `X64`
 	///
@@ -5480,7 +5480,7 @@ pub enum Code {
 	Jrcxz_rel8_16 = 683,
 	/// `JRCXZ rel8`
 	///
-	/// `E3 cb`
+	/// `a64 E3 cb`
 	///
 	/// `X64`
 	///
@@ -6568,7 +6568,7 @@ pub enum Code {
 	Monitord = 819,
 	/// `MONITOR`
 	///
-	/// `NP 0F 01 C8`
+	/// `a64 NP 0F 01 C8`
 	///
 	/// `MONITOR`
 	///
@@ -6672,7 +6672,7 @@ pub enum Code {
 	Vmrund = 832,
 	/// `VMRUN`
 	///
-	/// `0F 01 D8`
+	/// `a64 0F 01 D8`
 	///
 	/// `SVM`
 	///
@@ -6704,7 +6704,7 @@ pub enum Code {
 	Vmloadd = 836,
 	/// `VMLOAD`
 	///
-	/// `0F 01 DA`
+	/// `a64 0F 01 DA`
 	///
 	/// `SVM`
 	///
@@ -6728,7 +6728,7 @@ pub enum Code {
 	Vmsaved = 839,
 	/// `VMSAVE`
 	///
-	/// `0F 01 DB`
+	/// `a64 0F 01 DB`
 	///
 	/// `SVM`
 	///
@@ -6776,7 +6776,7 @@ pub enum Code {
 	Invlpgad = 845,
 	/// `INVLPGA`
 	///
-	/// `0F 01 DF`
+	/// `a64 0F 01 DF`
 	///
 	/// `SVM`
 	///
@@ -6848,7 +6848,7 @@ pub enum Code {
 	Monitorxd = 854,
 	/// `MONITORX`
 	///
-	/// `NP 0F 01 FA`
+	/// `a64 NP 0F 01 FA`
 	///
 	/// `MONITORX`
 	///
@@ -6888,7 +6888,7 @@ pub enum Code {
 	Clzerod = 859,
 	/// `CLZERO`
 	///
-	/// `0F 01 FC`
+	/// `a64 0F 01 FC`
 	///
 	/// `CLZERO`
 	///
@@ -15688,7 +15688,7 @@ pub enum Code {
 	Montmul_32 = 1959,
 	/// `MONTMUL`
 	///
-	/// `F3 0F A6 C0`
+	/// `a64 F3 0F A6 C0`
 	///
 	/// `PADLOCK_PMM`
 	///
@@ -15712,7 +15712,7 @@ pub enum Code {
 	Xsha1_32 = 1962,
 	/// `XSHA1`
 	///
-	/// `F3 0F A6 C8`
+	/// `a64 F3 0F A6 C8`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15736,7 +15736,7 @@ pub enum Code {
 	Xsha256_32 = 1965,
 	/// `XSHA256`
 	///
-	/// `F3 0F A6 D0`
+	/// `a64 F3 0F A6 D0`
 	///
 	/// `PADLOCK_PHE`
 	///
@@ -15776,7 +15776,7 @@ pub enum Code {
 	Xstore_32 = 1970,
 	/// `XSTORE`
 	///
-	/// `0F A7 C0`
+	/// `a64 0F A7 C0`
 	///
 	/// `PADLOCK_RNG`
 	///
@@ -15800,7 +15800,7 @@ pub enum Code {
 	XcryptEcb_32 = 1973,
 	/// `XCRYPTECB`
 	///
-	/// `F3 0F A7 C8`
+	/// `a64 F3 0F A7 C8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15824,7 +15824,7 @@ pub enum Code {
 	XcryptCbc_32 = 1976,
 	/// `XCRYPTCBC`
 	///
-	/// `F3 0F A7 D0`
+	/// `a64 F3 0F A7 D0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15848,7 +15848,7 @@ pub enum Code {
 	XcryptCtr_32 = 1979,
 	/// `XCRYPTCTR`
 	///
-	/// `F3 0F A7 D8`
+	/// `a64 F3 0F A7 D8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15872,7 +15872,7 @@ pub enum Code {
 	XcryptCfb_32 = 1982,
 	/// `XCRYPTCFB`
 	///
-	/// `F3 0F A7 E0`
+	/// `a64 F3 0F A7 E0`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -15896,7 +15896,7 @@ pub enum Code {
 	XcryptOfb_32 = 1985,
 	/// `XCRYPTOFB`
 	///
-	/// `F3 0F A7 E8`
+	/// `a64 F3 0F A7 E8`
 	///
 	/// `PADLOCK_ACE`
 	///
@@ -16328,7 +16328,7 @@ pub enum Code {
 	Umonitor_r32 = 2039,
 	/// `UMONITOR r64`
 	///
-	/// `F3 0F AE /6`
+	/// `a64 F3 0F AE /6`
 	///
 	/// `WAITPKG`
 	///
@@ -29648,7 +29648,7 @@ pub enum Code {
 	Movdir64b_r32_m512 = 3704,
 	/// `MOVDIR64B r64, m512`
 	///
-	/// `66 0F 38 F8 /r`
+	/// `a64 66 0F 38 F8 /r`
 	///
 	/// `MOVDIR64B`
 	///
@@ -29672,7 +29672,7 @@ pub enum Code {
 	Enqcmds_r32_m512 = 3707,
 	/// `ENQCMDS r64, m512`
 	///
-	/// `F3 0F 38 F8 /r`
+	/// `a64 F3 0F 38 F8 /r`
 	///
 	/// `ENQCMD`
 	///
@@ -29696,7 +29696,7 @@ pub enum Code {
 	Enqcmd_r32_m512 = 3710,
 	/// `ENQCMD r64, m512`
 	///
-	/// `F2 0F 38 F8 /r`
+	/// `a64 F2 0F 38 F8 /r`
 	///
 	/// `ENQCMD`
 	///
@@ -33672,7 +33672,7 @@ pub enum Code {
 	Pvalidated = 4207,
 	/// `PVALIDATE`
 	///
-	/// `F2 0F 01 FF`
+	/// `a64 F2 0F 01 FF`
 	///
 	/// `SNP`
 	///
@@ -33720,7 +33720,7 @@ pub enum Code {
 	Invlpgbd = 4213,
 	/// `INVLPGB`
 	///
-	/// `NP 0F 01 FE`
+	/// `a64 NP 0F 01 FE`
 	///
 	/// `INVLPGB`
 	///
