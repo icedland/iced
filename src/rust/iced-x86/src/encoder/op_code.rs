@@ -181,17 +181,17 @@ impl OpCodeInfo {
 				}
 
 				operand_size = match unsafe { mem::transmute(((dword2 >> LegacyFlags::OPERAND_SIZE_SHIFT) & LegacyFlags::OPERAND_SIZE_MASK) as u8) } {
-					OperandSize::None => 0,
-					OperandSize::Size16 => 16,
-					OperandSize::Size32 => 32,
-					OperandSize::Size64 => 64,
+					CodeSize::Unknown => 0,
+					CodeSize::Code16 => 16,
+					CodeSize::Code32 => 32,
+					CodeSize::Code64 => 64,
 				};
 
 				address_size = match unsafe { mem::transmute(((dword2 >> LegacyFlags::ADDRESS_SIZE_SHIFT) & LegacyFlags::ADDRESS_SIZE_MASK) as u8) } {
-					AddressSize::None => 0,
-					AddressSize::Size16 => 16,
-					AddressSize::Size32 => 32,
-					AddressSize::Size64 => 64,
+					CodeSize::Unknown => 0,
+					CodeSize::Code16 => 16,
+					CodeSize::Code32 => 32,
+					CodeSize::Code64 => 64,
 				};
 
 				l = 0;

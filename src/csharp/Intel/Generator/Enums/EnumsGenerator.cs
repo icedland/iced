@@ -122,8 +122,6 @@ namespace Generator.Enums {
 				genTypes[TypeIds.EvexOpKind],
 				genTypes[TypeIds.MandatoryPrefix],
 				genTypes[TypeIds.OpCodeTableKind],
-				genTypes[TypeIds.OperandSize],
-				genTypes[TypeIds.AddressSize],
 				genTypes[TypeIds.VexVectorLength],
 				genTypes[TypeIds.XopVectorLength],
 				genTypes[TypeIds.EvexVectorLength],

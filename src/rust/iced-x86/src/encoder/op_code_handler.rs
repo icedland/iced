@@ -44,8 +44,8 @@ pub(crate) struct OpCodeHandler {
 	pub(super) rm_group_index: i32,
 	pub(super) flags: u32, // OpCodeHandlerFlags
 	pub(super) encodable: Encodable,
-	pub(super) op_size: OperandSize,
-	pub(super) addr_size: AddressSize,
+	pub(super) op_size: CodeSize,
+	pub(super) addr_size: CodeSize,
 }
 
 #[repr(C)]
@@ -65,8 +65,8 @@ impl InvalidHandler {
 				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: Encodable::Any,
-				op_size: OperandSize::None,
-				addr_size: AddressSize::None,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
 			},
 		}
 	}
@@ -96,8 +96,8 @@ impl DeclareDataHandler {
 				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::DECLARE_DATA,
 				encodable: Encodable::Any,
-				op_size: OperandSize::None,
-				addr_size: AddressSize::None,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
 			},
 			elem_size: match code {
 				Code::DeclareByte => 1,
@@ -336,8 +336,8 @@ impl VexHandler {
 				rm_group_index,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> VexFlags::ENCODABLE_SHIFT) & VexFlags::ENCODABLE_MASK) as u8) },
-				op_size: OperandSize::None,
-				addr_size: AddressSize::None,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
 			},
 			table: (dword2 >> VexFlags::VEX_OP_CODE_TABLE_SHIFT) & VexFlags::VEX_OP_CODE_TABLE_MASK,
 			last_byte,
@@ -455,8 +455,8 @@ impl XopHandler {
 				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> XopFlags::ENCODABLE_SHIFT) & XopFlags::ENCODABLE_MASK) as u8) },
-				op_size: OperandSize::None,
-				addr_size: AddressSize::None,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
 			},
 			table: 8 + ((dword2 >> XopFlags::XOP_OP_CODE_TABLE_SHIFT) & XopFlags::XOP_OP_CODE_TABLE_MASK),
 			last_byte,
@@ -565,8 +565,8 @@ impl EvexHandler {
 				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> EvexFlags::ENCODABLE_SHIFT) & EvexFlags::ENCODABLE_MASK) as u8) },
-				op_size: OperandSize::None,
-				addr_size: AddressSize::None,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
 			},
 			flags: dword2,
 			table: (dword2 >> EvexFlags::EVEX_OP_CODE_TABLE_SHIFT) & EvexFlags::EVEX_OP_CODE_TABLE_MASK,
@@ -690,8 +690,8 @@ impl D3nowHandler {
 				rm_group_index: -1,
 				flags: OpCodeHandlerFlags::NONE,
 				encodable: unsafe { mem::transmute(((dword2 >> D3nowFlags::ENCODABLE_SHIFT) & D3nowFlags::ENCODABLE_MASK) as u8) },
-				op_size: OperandSize::None,
-				addr_size: AddressSize::None,
+				op_size: CodeSize::Unknown,
+				addr_size: CodeSize::Unknown,
 			},
 			immediate: get_op_code(dword1),
 		}

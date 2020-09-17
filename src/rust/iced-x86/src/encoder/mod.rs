@@ -297,16 +297,16 @@ impl Encoder {
 		}
 
 		match handler.op_size {
-			OperandSize::None => {}
-			OperandSize::Size16 => self.encoder_flags |= self.opsize16_flags,
-			OperandSize::Size32 => self.encoder_flags |= self.opsize32_flags,
-			OperandSize::Size64 => self.encoder_flags |= EncoderFlags::W,
+			CodeSize::Unknown => {}
+			CodeSize::Code16 => self.encoder_flags |= self.opsize16_flags,
+			CodeSize::Code32 => self.encoder_flags |= self.opsize32_flags,
+			CodeSize::Code64 => self.encoder_flags |= EncoderFlags::W,
 		}
 
 		match handler.addr_size {
-			AddressSize::None | AddressSize::Size64 => {}
-			AddressSize::Size16 => self.encoder_flags |= self.adrsize16_flags,
-			AddressSize::Size32 => self.encoder_flags |= self.adrsize32_flags,
+			CodeSize::Unknown | CodeSize::Code64 => {}
+			CodeSize::Code16 => self.encoder_flags |= self.adrsize16_flags,
+			CodeSize::Code32 => self.encoder_flags |= self.adrsize32_flags,
 		}
 
 		if (handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0 {

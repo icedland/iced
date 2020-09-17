@@ -242,18 +242,18 @@ namespace Iced.Intel {
 			}
 
 			switch (handler.OpSize) {
-			case OperandSize.None:
+			case CodeSize.Unknown:
 				break;
 
-			case OperandSize.Size16:
+			case CodeSize.Code16:
 				EncoderFlags |= opSize16Flags;
 				break;
 
-			case OperandSize.Size32:
+			case CodeSize.Code32:
 				EncoderFlags |= opSize32Flags;
 				break;
 
-			case OperandSize.Size64:
+			case CodeSize.Code64:
 				EncoderFlags |= EncoderFlags.W;
 				break;
 
@@ -262,18 +262,18 @@ namespace Iced.Intel {
 			}
 
 			switch (handler.AddrSize) {
-			case AddressSize.None:
+			case CodeSize.Unknown:
 				break;
 
-			case AddressSize.Size16:
+			case CodeSize.Code16:
 				EncoderFlags |= adrSize16Flags;
 				break;
 
-			case AddressSize.Size32:
+			case CodeSize.Code32:
 				EncoderFlags |= adrSize32Flags;
 				break;
 
-			case AddressSize.Size64:
+			case CodeSize.Code64:
 				break;
 
 			default:

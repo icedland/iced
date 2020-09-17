@@ -157,19 +157,19 @@ namespace Iced.Intel {
 				if ((dword2 & (uint)LegacyFlags.Fwait) != 0)
 					flags |= Flags.Fwait;
 
-				operandSize = ((OperandSize)((dword2 >> (int)LegacyFlags.OperandSizeShift) & (uint)LegacyFlags.OperandSizeMask)) switch {
-					EncoderInternal.OperandSize.None => 0,
-					EncoderInternal.OperandSize.Size16 => 16,
-					EncoderInternal.OperandSize.Size32 => 32,
-					EncoderInternal.OperandSize.Size64 => 64,
+				operandSize = ((CodeSize)((dword2 >> (int)LegacyFlags.OperandSizeShift) & (uint)LegacyFlags.OperandSizeMask)) switch {
+					CodeSize.Unknown => 0,
+					CodeSize.Code16 => 16,
+					CodeSize.Code32 => 32,
+					CodeSize.Code64 => 64,
 					_ => throw new InvalidOperationException(),
 				};
 
-				addressSize = ((AddressSize)((dword2 >> (int)LegacyFlags.AddressSizeShift) & (uint)LegacyFlags.AddressSizeMask)) switch {
-					EncoderInternal.AddressSize.None => 0,
-					EncoderInternal.AddressSize.Size16 => 16,
-					EncoderInternal.AddressSize.Size32 => 32,
-					EncoderInternal.AddressSize.Size64 => 64,
+				addressSize = ((CodeSize)((dword2 >> (int)LegacyFlags.AddressSizeShift) & (uint)LegacyFlags.AddressSizeMask)) switch {
+					CodeSize.Unknown => 0,
+					CodeSize.Code16 => 16,
+					CodeSize.Code32 => 32,
+					CodeSize.Code64 => 64,
 					_ => throw new InvalidOperationException(),
 				};
 

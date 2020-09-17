@@ -259,8 +259,8 @@ namespace Generator.Encoder {
 			AddAllowedPrefixes(values, ref bit);
 			AddFlag(values, ref bit, "Fwait");
 			AddFlag(values, ref bit, "HasMandatoryPrefix");
-			AddMaskShift<OperandSize>(values, ref bit, "OperandSizeMask", "OperandSizeShift");
-			AddMaskShift<AddressSize>(values, ref bit, "AddressSizeMask", "AddressSizeShift");
+			AddMaskShift<CodeSize>(values, ref bit, "OperandSizeMask", "OperandSizeShift");
+			AddMaskShift<CodeSize>(values, ref bit, "AddressSizeMask", "AddressSizeShift");
 
 			VerifyBit(bit);
 			LegacyFlags = new EnumType(TypeIds.LegacyFlags, null, values.ToArray(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);

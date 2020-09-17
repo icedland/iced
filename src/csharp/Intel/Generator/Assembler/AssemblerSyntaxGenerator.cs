@@ -481,7 +481,7 @@ namespace Generator.Assembler {
 							case "jcxz":
 							case "jecxz":
 							case "jrcxz":
-								if (legacy.OperandSize != (OperandSize)legacy.AddressSize && legacy.OperandSize != OperandSize.None) {
+								if (legacy.OperandSize != legacy.AddressSize && legacy.OperandSize != CodeSize.Unknown) {
 									argKind = ArgKind.Unknown;
 									discardReason = "Duplicated";
 								}
@@ -1082,23 +1082,14 @@ namespace Generator.Assembler {
 		}
 
 		static int GetBitness(LegacyOpCodeInfo legacy) {
-			int bitness = 64;
 			var sizeFlags = legacy.Flags & (OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64);
-			var operandSize = legacy.OperandSize == OperandSize.None ? (OperandSize)legacy.AddressSize : legacy.OperandSize;
-			switch (sizeFlags) {
-			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32:
-				bitness = operandSize == OperandSize.None || operandSize == OperandSize.Size16 ? 16 : 32;
-				break;
-			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64:
-				bitness = operandSize == OperandSize.Size16 ? 16 : 32;
-				break;
-			case OpCodeFlags.Mode64:
-				bitness = operandSize == OperandSize.Size16 ? 16 : operandSize == OperandSize.Size32 ? 32 : 64;
-				break;
-			default:
-				throw new InvalidOperationException();
-			}
-			return bitness;
+			var operandSize = legacy.OperandSize == CodeSize.Unknown ? legacy.AddressSize : legacy.OperandSize;
+			return sizeFlags switch {
+				OpCodeFlags.Mode16 | OpCodeFlags.Mode32 => operandSize == CodeSize.Unknown || operandSize == CodeSize.Code16 ? 16 : 32,
+				OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 => operandSize == CodeSize.Code16 ? 16 : 32,
+				OpCodeFlags.Mode64 => operandSize == CodeSize.Code16 ? 16 : operandSize == CodeSize.Code32 ? 32 : 64,
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
 		List<int> CollectByOperandKindPredicate(List<OpCodeInfo> opcodes, Func<OpCodeOperandKind, bool?> predicate, List<OpCodeInfo> opcodesMatchingPredicate, List<OpCodeInfo> opcodesNotMatchingPredicate) {

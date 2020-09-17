@@ -119,8 +119,6 @@ namespace Generator {
 		public static readonly TypeId EvexOpKind = new TypeId(nameof(EvexOpKind));
 		public static readonly TypeId MandatoryPrefix = new TypeId(nameof(MandatoryPrefix));
 		public static readonly TypeId OpCodeTableKind = new TypeId(nameof(OpCodeTableKind));
-		public static readonly TypeId OperandSize = new TypeId(nameof(OperandSize));
-		public static readonly TypeId AddressSize = new TypeId(nameof(AddressSize));
 		public static readonly TypeId VexVectorLength = new TypeId(nameof(VexVectorLength));
 		public static readonly TypeId XopVectorLength = new TypeId(nameof(XopVectorLength));
 		public static readonly TypeId EvexVectorLength = new TypeId(nameof(EvexVectorLength));

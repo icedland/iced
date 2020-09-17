@@ -75,8 +75,8 @@ namespace Generator.Encoder {
 
 	sealed class LegacyOpCodeInfo : OpCodeInfo {
 		public override EncodingKind Encoding => EncodingKind.Legacy;
-		public OperandSize OperandSize { get; }
-		public AddressSize AddressSize { get; }
+		public CodeSize OperandSize { get; }
+		public CodeSize AddressSize { get; }
 		public LegacyOpKind[] OpKinds { get; }
 
 		public override int OpKindsLength => OpKinds.Length;
@@ -86,11 +86,11 @@ namespace Generator.Encoder {
 			return (OpCodeOperandKind)encoderTypes.LegacyOpHandlers[(int)kind].opCodeOperandKind.Value;
 		}
 
-		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds)
+		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, CodeSize operandSize, CodeSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds)
 			: this(code, mandatoryPrefix, table, opCode, groupIndex, -1, operandSize, addressSize, flags, opKinds) {
 		}
 
-		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, int rmGroupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds) {
+		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
