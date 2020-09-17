@@ -32,7 +32,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Encoder.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.Encoder)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustEncoderGenerator : EncoderGenerator {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;

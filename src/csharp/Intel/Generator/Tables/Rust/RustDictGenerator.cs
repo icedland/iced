@@ -28,7 +28,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.Dictionaries)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustDictGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

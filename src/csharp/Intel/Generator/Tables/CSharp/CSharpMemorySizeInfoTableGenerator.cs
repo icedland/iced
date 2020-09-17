@@ -25,7 +25,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.MemorySizeInfo_Table)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

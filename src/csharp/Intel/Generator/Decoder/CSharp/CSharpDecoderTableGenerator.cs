@@ -25,7 +25,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Decoder_Table)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpDecoderTableGenerator {
 		readonly GeneratorContext generatorContext;
 

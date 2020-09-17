@@ -25,7 +25,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.MemorySizeInfo_Table)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

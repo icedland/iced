@@ -28,7 +28,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Decoder.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_Mnemonic)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpMnemonicsTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

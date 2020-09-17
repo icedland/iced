@@ -27,7 +27,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.D3now_Table)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustD3nowCodeValuesTableGenerator : D3nowCodeValuesTableGenerator {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;

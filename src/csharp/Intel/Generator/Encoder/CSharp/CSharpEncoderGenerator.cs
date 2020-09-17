@@ -30,7 +30,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Encoder.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Encoder)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpEncoderGenerator : EncoderGenerator {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;

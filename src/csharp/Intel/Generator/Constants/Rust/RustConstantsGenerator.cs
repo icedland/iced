@@ -28,7 +28,7 @@ using Generator.Documentation.Rust;
 using Generator.IO;
 
 namespace Generator.Constants.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.Constants)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustConstantsGenerator : ConstantsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, PartialConstantsFileInfo?> toPartialFileInfo;

@@ -28,7 +28,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Decoder.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_MemorySize)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpInstructionMemorySizesGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

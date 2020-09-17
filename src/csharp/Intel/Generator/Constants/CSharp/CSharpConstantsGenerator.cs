@@ -30,7 +30,7 @@ using Generator.Documentation.CSharp;
 using Generator.IO;
 
 namespace Generator.Constants.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Constants)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpConstantsGenerator : ConstantsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullConstantsFileInfo> toFullFileInfo;

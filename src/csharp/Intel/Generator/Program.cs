@@ -37,7 +37,7 @@ namespace Generator {
 			int c = GetOrder(x!.Language).CompareTo(GetOrder(y!.Language));
 			if (c != 0)
 				return c;
-			return StringComparer.OrdinalIgnoreCase.Compare(x.Name, y.Name);
+			return StringComparer.Ordinal.Compare(x.TypeName, y.TypeName);
 		}
 
 		static int GetOrder(TargetLanguage language) => (int)language;
@@ -49,11 +49,11 @@ namespace Generator {
 		readonly MethodInfo method;
 
 		public TargetLanguage Language { get; }
-		public string Name { get; }
+		public string TypeName { get; }
 
-		public GeneratorInfo(TargetLanguage language, string name, Type type) {
+		public GeneratorInfo(TargetLanguage language, Type type) {
 			Language = language;
-			Name = name;
+			TypeName = type.FullName ?? throw new InvalidOperationException();
 
 			var ctor = type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.Standard, new[] { typeof(GeneratorContext) }, null);
 			if (ctor is null)
@@ -315,7 +315,7 @@ Options:
 				var attr = (GeneratorAttribute?)type.GetCustomAttribute(typeof(GeneratorAttribute));
 				if (attr is null)
 					continue;
-				result.Add(new GeneratorInfo(attr.Language, attr.Name, type));
+				result.Add(new GeneratorInfo(attr.Language, type));
 			}
 			result.Sort(new GeneratorInfoComparer());
 			return result;

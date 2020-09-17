@@ -26,7 +26,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.TupleType_Table)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpTupleTypeTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

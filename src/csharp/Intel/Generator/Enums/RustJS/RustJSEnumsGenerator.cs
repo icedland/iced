@@ -30,7 +30,7 @@ using Generator.Documentation.RustJS;
 using Generator.IO;
 
 namespace Generator.Enums.RustJS {
-	[Generator(TargetLanguage.RustJS, GeneratorNames.Enums)]
+	[Generator(TargetLanguage.RustJS)]
 	sealed class RustJSEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;

@@ -32,7 +32,7 @@ using Generator.Documentation.Rust;
 using Generator.IO;
 
 namespace Generator.Enums.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.Enums)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;

@@ -32,7 +32,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Encoder.RustJS {
-	[Generator(TargetLanguage.RustJS, GeneratorNames.InstrCreateGen)]
+	[Generator(TargetLanguage.RustJS)]
 	sealed class RustJSInstrCreateGen : InstrCreateGen {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;

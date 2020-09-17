@@ -27,7 +27,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Decoder.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_OpCount)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpInstructionOpCountsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

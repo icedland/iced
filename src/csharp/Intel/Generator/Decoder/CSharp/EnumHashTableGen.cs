@@ -27,7 +27,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Enums_Table)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class EnumHashTableGen {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

@@ -26,7 +26,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Formatters.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Formatter_Table)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpFormatterTableGenerator {
 		readonly GeneratorContext generatorContext;
 

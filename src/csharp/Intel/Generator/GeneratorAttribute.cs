@@ -27,11 +27,7 @@ namespace Generator {
 	[AttributeUsage(AttributeTargets.Class)]
 	sealed class GeneratorAttribute : Attribute {
 		public TargetLanguage Language { get; }
-		public string Name { get; }
 
-		public GeneratorAttribute(TargetLanguage language, string name) {
-			Language = language;
-			Name = name;
-		}
+		public GeneratorAttribute(TargetLanguage language) => Language = language;
 	}
 }

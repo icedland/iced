@@ -27,7 +27,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Dictionaries)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpDictGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

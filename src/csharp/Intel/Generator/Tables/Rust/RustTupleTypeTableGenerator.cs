@@ -26,7 +26,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.TupleType_Table)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustTupleTypeTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

@@ -30,7 +30,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Formatters.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.FormatterMemSize)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpTableGen : TableGen {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;

@@ -27,7 +27,7 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.D3now_Table)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpD3nowCodeValuesTableGenerator : D3nowCodeValuesTableGenerator {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;

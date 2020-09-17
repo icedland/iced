@@ -28,7 +28,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Decoder.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.Code_MemorySize)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustInstructionMemorySizesGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

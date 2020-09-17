@@ -26,7 +26,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Formatters.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.Formatter_Table)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustFormatterTableGenerator {
 		readonly GeneratorContext generatorContext;
 

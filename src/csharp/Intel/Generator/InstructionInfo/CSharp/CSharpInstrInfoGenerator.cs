@@ -31,7 +31,7 @@ using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
 namespace Generator.InstructionInfo.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.InstrInfo)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpInstrInfoGenerator : InstrInfoGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly CSharpEnumsGenerator enumGenerator;

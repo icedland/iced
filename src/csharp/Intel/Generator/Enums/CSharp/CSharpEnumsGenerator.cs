@@ -29,7 +29,7 @@ using Generator.Documentation.CSharp;
 using Generator.IO;
 
 namespace Generator.Enums.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Enums)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullEnumFileInfo> toFullFileInfo;

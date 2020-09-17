@@ -32,7 +32,7 @@ using Generator.Enums.Rust;
 using Generator.IO;
 
 namespace Generator.InstructionInfo.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.InstrInfo)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustInstrInfoGenerator : InstrInfoGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly RustEnumsGenerator enumGenerator;

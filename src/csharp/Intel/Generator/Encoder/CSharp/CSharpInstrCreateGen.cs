@@ -30,7 +30,7 @@ using Generator.Enums.Encoder;
 using Generator.IO;
 
 namespace Generator.Encoder.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.InstrCreateGen)]
+	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpInstrCreateGen : InstrCreateGen {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;

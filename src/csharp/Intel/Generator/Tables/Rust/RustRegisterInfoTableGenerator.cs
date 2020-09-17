@@ -26,7 +26,7 @@ using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.RegisterInfo_Table)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustRegisterInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorContext generatorContext;

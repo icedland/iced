@@ -31,7 +31,7 @@ using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Formatters.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.FormatterMemSize)]
+	[Generator(TargetLanguage.Rust)]
 	sealed class RustTableGen : TableGen {
 		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
