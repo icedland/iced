@@ -4246,11 +4246,11 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Invlpgbd
 	MemorySize::Unknown,// Invlpgbq
 	MemorySize::Unknown,// Tlbsync
-	MemorySize::UInt8,// PrefetchReserved3_m8
-	MemorySize::UInt8,// PrefetchReserved4_m8
-	MemorySize::UInt8,// PrefetchReserved5_m8
-	MemorySize::UInt8,// PrefetchReserved6_m8
-	MemorySize::UInt8,// PrefetchReserved7_m8
+	MemorySize::UInt8,// Prefetchreserved3_m8
+	MemorySize::UInt8,// Prefetchreserved4_m8
+	MemorySize::UInt8,// Prefetchreserved5_m8
+	MemorySize::UInt8,// Prefetchreserved6_m8
+	MemorySize::UInt8,// Prefetchreserved7_m8
 	MemorySize::Unknown,// Ud0
 	MemorySize::Unknown,// Vmgexit
 	MemorySize::Unknown,// Getsecq
@@ -8543,11 +8543,11 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Invlpgbd
 	MemorySize::Unknown,// Invlpgbq
 	MemorySize::Unknown,// Tlbsync
-	MemorySize::Unknown,// PrefetchReserved3_m8
-	MemorySize::Unknown,// PrefetchReserved4_m8
-	MemorySize::Unknown,// PrefetchReserved5_m8
-	MemorySize::Unknown,// PrefetchReserved6_m8
-	MemorySize::Unknown,// PrefetchReserved7_m8
+	MemorySize::Unknown,// Prefetchreserved3_m8
+	MemorySize::Unknown,// Prefetchreserved4_m8
+	MemorySize::Unknown,// Prefetchreserved5_m8
+	MemorySize::Unknown,// Prefetchreserved6_m8
+	MemorySize::Unknown,// Prefetchreserved7_m8
 	MemorySize::Unknown,// Ud0
 	MemorySize::Unknown,// Vmgexit
 	MemorySize::Unknown,// Getsecq

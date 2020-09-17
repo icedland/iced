@@ -5430,20 +5430,20 @@ F3 4F 0F09, Wbnoinvd, Wbnoinvd, 0, enc=F30F09
 0F0D 10, Prefetchwt1_m8, Prefetchwt1, 1, op0=m;ds;rax;;1;0;0;UInt8
 44 0F0D 10, Prefetchwt1_m8, Prefetchwt1, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D10
 
-0F0D 18, PrefetchReserved3_m8, Prefetchw, 1, op0=m;ds;rax;;1;0;0;UInt8
-44 0F0D 18, PrefetchReserved3_m8, Prefetchw, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D18
+0F0D 18, Prefetchreserved3_m8, Prefetchw, 1, op0=m;ds;rax;;1;0;0;UInt8
+44 0F0D 18, Prefetchreserved3_m8, Prefetchw, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D18
 
-0F0D 20, PrefetchReserved4_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
-44 0F0D 20, PrefetchReserved4_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D20
+0F0D 20, Prefetchreserved4_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
+44 0F0D 20, Prefetchreserved4_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D20
 
-0F0D 28, PrefetchReserved5_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
-44 0F0D 28, PrefetchReserved5_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D28
+0F0D 28, Prefetchreserved5_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
+44 0F0D 28, Prefetchreserved5_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D28
 
-0F0D 30, PrefetchReserved6_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
-44 0F0D 30, PrefetchReserved6_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D30
+0F0D 30, Prefetchreserved6_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
+44 0F0D 30, Prefetchreserved6_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D30
 
-0F0D 38, PrefetchReserved7_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
-44 0F0D 38, PrefetchReserved7_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D38
+0F0D 38, Prefetchreserved7_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8
+44 0F0D 38, Prefetchreserved7_m8, Prefetch, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F0D38
 
 0F0E, Femms, Femms, 0,
 4F 0F0E, Femms, Femms, 0, enc=0F0E

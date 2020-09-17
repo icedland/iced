@@ -15699,21 +15699,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// Normal_1
 	0x82, 0x0B,// 1410 = "tlbsync"
 
-	// PrefetchReserved3_m8
+	// Prefetchreserved3_m8
 	0x01,// Normal_1
 	0xC0, 0x03,// 448 = "prefetchw"
 
-	// PrefetchReserved4_m8
+	// Prefetchreserved4_m8
 	0x01,// Normal_1
 	0x83, 0x0B,// 1411 = "prefetch_reserved"
 
-	// PrefetchReserved5_m8
+	// Prefetchreserved5_m8
 	0x00,// Previous
 
-	// PrefetchReserved6_m8
+	// Prefetchreserved6_m8
 	0x00,// Previous
 
-	// PrefetchReserved7_m8
+	// Prefetchreserved7_m8
 	0x00,// Previous
 
 	// Ud0

@@ -4244,11 +4244,11 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Invlpgb,// Invlpgbd
 	Mnemonic::Invlpgb,// Invlpgbq
 	Mnemonic::Tlbsync,// Tlbsync
-	Mnemonic::Prefetchw,// PrefetchReserved3_m8
-	Mnemonic::Prefetch,// PrefetchReserved4_m8
-	Mnemonic::Prefetch,// PrefetchReserved5_m8
-	Mnemonic::Prefetch,// PrefetchReserved6_m8
-	Mnemonic::Prefetch,// PrefetchReserved7_m8
+	Mnemonic::Prefetchw,// Prefetchreserved3_m8
+	Mnemonic::Prefetch,// Prefetchreserved4_m8
+	Mnemonic::Prefetch,// Prefetchreserved5_m8
+	Mnemonic::Prefetch,// Prefetchreserved6_m8
+	Mnemonic::Prefetch,// Prefetchreserved7_m8
 	Mnemonic::Ud0,// Ud0
 	Mnemonic::Vmgexit,// Vmgexit
 	Mnemonic::Getsecq,// Getsecq

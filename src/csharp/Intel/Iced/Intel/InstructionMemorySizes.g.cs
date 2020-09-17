@@ -4250,11 +4250,11 @@ namespace Iced.Intel {
 			0,// Invlpgbd
 			0,// Invlpgbq
 			0,// Tlbsync
-			(byte)MemorySize.UInt8,// PrefetchReserved3_m8
-			(byte)MemorySize.UInt8,// PrefetchReserved4_m8
-			(byte)MemorySize.UInt8,// PrefetchReserved5_m8
-			(byte)MemorySize.UInt8,// PrefetchReserved6_m8
-			(byte)MemorySize.UInt8,// PrefetchReserved7_m8
+			(byte)MemorySize.UInt8,// Prefetchreserved3_m8
+			(byte)MemorySize.UInt8,// Prefetchreserved4_m8
+			(byte)MemorySize.UInt8,// Prefetchreserved5_m8
+			(byte)MemorySize.UInt8,// Prefetchreserved6_m8
+			(byte)MemorySize.UInt8,// Prefetchreserved7_m8
 			0,// Ud0
 			0,// Vmgexit
 			0,// Getsecq
@@ -8547,11 +8547,11 @@ namespace Iced.Intel {
 			0,// Invlpgbd
 			0,// Invlpgbq
 			0,// Tlbsync
-			0,// PrefetchReserved3_m8
-			0,// PrefetchReserved4_m8
-			0,// PrefetchReserved5_m8
-			0,// PrefetchReserved6_m8
-			0,// PrefetchReserved7_m8
+			0,// Prefetchreserved3_m8
+			0,// Prefetchreserved4_m8
+			0,// Prefetchreserved5_m8
+			0,// Prefetchreserved6_m8
+			0,// Prefetchreserved7_m8
 			0,// Ud0
 			0,// Vmgexit
 			0,// Getsecq

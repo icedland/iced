@@ -16388,23 +16388,23 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x01,// Normal_1
 				0x82, 0x0B,// 1410 = "tlbsync"
 
-				// PrefetchReserved3_m8
+				// Prefetchreserved3_m8
 				0x02,// Normal_2
 				0xC0, 0x03,// 448 = "prefetchw"
 				0x01,// 0x1 = MemSize_Nothing
 
-				// PrefetchReserved4_m8
+				// Prefetchreserved4_m8
 				0x02,// Normal_2
 				0xBE, 0x03,// 446 = "prefetch"
 				0x01,// 0x1 = MemSize_Nothing
 
-				// PrefetchReserved5_m8
+				// Prefetchreserved5_m8
 				0x00,// Previous
 
-				// PrefetchReserved6_m8
+				// Prefetchreserved6_m8
 				0x00,// Previous
 
-				// PrefetchReserved7_m8
+				// Prefetchreserved7_m8
 				0x00,// Previous
 
 				// Ud0

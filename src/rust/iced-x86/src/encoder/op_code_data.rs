@@ -4241,11 +4241,11 @@ pub(super) static OP_CODE_DATA: [u32; 4297 * 3] = [
 	0x01FE_0000, 0x0008_8004, 0x0000_0000,// Invlpgbd
 	0x01FE_0000, 0x000C_8024, 0x0000_0000,// Invlpgbq
 	0x01FF_0000, 0x0000_8004, 0x0000_0000,// Tlbsync
-	0x000D_0000, 0x0000_01C4, 0x0000_0012,// PrefetchReserved3_m8
-	0x000D_0000, 0x0000_0244, 0x0000_0012,// PrefetchReserved4_m8
-	0x000D_0000, 0x0000_02C4, 0x0000_0012,// PrefetchReserved5_m8
-	0x000D_0000, 0x0000_0344, 0x0000_0012,// PrefetchReserved6_m8
-	0x000D_0000, 0x0000_03C4, 0x0000_0012,// PrefetchReserved7_m8
+	0x000D_0000, 0x0000_01C4, 0x0000_0012,// Prefetchreserved3_m8
+	0x000D_0000, 0x0000_0244, 0x0000_0012,// Prefetchreserved4_m8
+	0x000D_0000, 0x0000_02C4, 0x0000_0012,// Prefetchreserved5_m8
+	0x000D_0000, 0x0000_0344, 0x0000_0012,// Prefetchreserved6_m8
+	0x000D_0000, 0x0000_03C4, 0x0000_0012,// Prefetchreserved7_m8
 	0x00FF_0000, 0x0000_0004, 0x0000_0000,// Ud0
 	0x01D9_0000, 0x0000_8006, 0x0000_0000,// Vmgexit
 	0x0037_0000, 0x0003_8024, 0x0000_0000,// Getsecq

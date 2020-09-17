@@ -2794,23 +2794,23 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 3 = 0x03
 	0x6E,// M_1
-		0xF8, 0x20,// PrefetchReserved3_m8
+		0xF8, 0x20,// Prefetchreserved3_m8
 
 	// 4 = 0x04
 	0x6E,// M_1
-		0xF9, 0x20,// PrefetchReserved4_m8
+		0xF9, 0x20,// Prefetchreserved4_m8
 
 	// 5 = 0x05
 	0x6E,// M_1
-		0xFA, 0x20,// PrefetchReserved5_m8
+		0xFA, 0x20,// Prefetchreserved5_m8
 
 	// 6 = 0x06
 	0x6E,// M_1
-		0xFB, 0x20,// PrefetchReserved6_m8
+		0xFB, 0x20,// Prefetchreserved6_m8
 
 	// 7 = 0x07
 	0x6E,// M_1
-		0xFC, 0x20,// PrefetchReserved7_m8
+		0xFC, 0x20,// Prefetchreserved7_m8
 
 	// grp0F0D
 	0x00,// HandlerReference

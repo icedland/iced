@@ -2754,15 +2754,15 @@ F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 
 0F0D 10, Prefetchwt1_m8, Prefetchwt1, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
-0F0D 18, PrefetchReserved3_m8, Prefetchw, 1, op0=m;ds;bx;si;1;0;0;UInt8
+0F0D 18, Prefetchreserved3_m8, Prefetchw, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
-0F0D 20, PrefetchReserved4_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
+0F0D 20, Prefetchreserved4_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
-0F0D 28, PrefetchReserved5_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
+0F0D 28, Prefetchreserved5_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
-0F0D 30, PrefetchReserved6_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
+0F0D 30, Prefetchreserved6_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
-0F0D 38, PrefetchReserved7_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
+0F0D 38, Prefetchreserved7_m8, Prefetch, 1, op0=m;ds;bx;si;1;0;0;UInt8
 
 0F0E, Femms, Femms, 0,
 

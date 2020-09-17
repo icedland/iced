@@ -4250,11 +4250,11 @@ lazy_static! {
 		h.insert("Invlpgbd", Code::Invlpgbd);
 		h.insert("Invlpgbq", Code::Invlpgbq);
 		h.insert("Tlbsync", Code::Tlbsync);
-		h.insert("PrefetchReserved3_m8", Code::PrefetchReserved3_m8);
-		h.insert("PrefetchReserved4_m8", Code::PrefetchReserved4_m8);
-		h.insert("PrefetchReserved5_m8", Code::PrefetchReserved5_m8);
-		h.insert("PrefetchReserved6_m8", Code::PrefetchReserved6_m8);
-		h.insert("PrefetchReserved7_m8", Code::PrefetchReserved7_m8);
+		h.insert("Prefetchreserved3_m8", Code::Prefetchreserved3_m8);
+		h.insert("Prefetchreserved4_m8", Code::Prefetchreserved4_m8);
+		h.insert("Prefetchreserved5_m8", Code::Prefetchreserved5_m8);
+		h.insert("Prefetchreserved6_m8", Code::Prefetchreserved6_m8);
+		h.insert("Prefetchreserved7_m8", Code::Prefetchreserved7_m8);
 		h.insert("Ud0", Code::Ud0);
 		h.insert("Vmgexit", Code::Vmgexit);
 		h.insert("Getsecq", Code::Getsecq);

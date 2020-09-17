@@ -4241,11 +4241,11 @@ pub(crate) static TABLE: [u32; 8594] = [
 	0x6450_0000, 0x9800_0000,// Invlpgbd
 	0x6450_0000, 0x9800_0000,// Invlpgbq
 	0x6000_0000, 0x9800_0000,// Tlbsync
-	0x0000_0003, 0x6B00_0000,// PrefetchReserved3_m8
-	0x0000_0003, 0x6B00_0000,// PrefetchReserved4_m8
-	0x0000_0003, 0x6B00_0000,// PrefetchReserved5_m8
-	0x0000_0003, 0x6B00_0000,// PrefetchReserved6_m8
-	0x0000_0003, 0x6B00_0000,// PrefetchReserved7_m8
+	0x0000_0003, 0x6B00_0000,// Prefetchreserved3_m8
+	0x0000_0003, 0x6B00_0000,// Prefetchreserved4_m8
+	0x0000_0003, 0x6B00_0000,// Prefetchreserved5_m8
+	0x0000_0003, 0x6B00_0000,// Prefetchreserved6_m8
+	0x0000_0003, 0x6B00_0000,// Prefetchreserved7_m8
 	0x0000_0000, 0x0390_0000,// Ud0
 	0x0000_0000, 0x8350_0000,// Vmgexit
 	0x0800_0000, 0x7A00_0000,// Getsecq

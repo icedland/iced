@@ -32588,7 +32588,7 @@ namespace Iced.Intel {
 			op = Code.Rdtscp;
 			AddInstruction(Instruction.Create(op));
 		}
-		/// <summary>reserved_nop_0f0d instruction.<br/>
+		/// <summary>reservednop_0f0d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32597,12 +32597,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f0d(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f0d(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F0D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f0d instruction.<br/>
+		/// <summary>reservednop_0f0d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32611,12 +32611,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F0D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f0d instruction.<br/>
+		/// <summary>reservednop_0f0d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32625,12 +32625,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f0d(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f0d(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F0D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f0d instruction.<br/>
+		/// <summary>reservednop_0f0d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32639,12 +32639,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F0D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f0d instruction.<br/>
+		/// <summary>reservednop_0f0d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32653,12 +32653,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f0d(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f0d(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F0D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f0d instruction.<br/>
+		/// <summary>reservednop_0f0d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32667,12 +32667,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F0D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f18 instruction.<br/>
+		/// <summary>reservednop_0f18 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32681,12 +32681,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f18(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f18(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F18;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f18 instruction.<br/>
+		/// <summary>reservednop_0f18 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32695,12 +32695,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f18(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f18(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F18;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f18 instruction.<br/>
+		/// <summary>reservednop_0f18 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32709,12 +32709,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f18(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f18(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F18;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f18 instruction.<br/>
+		/// <summary>reservednop_0f18 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32723,12 +32723,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f18(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f18(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F18;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f18 instruction.<br/>
+		/// <summary>reservednop_0f18 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32737,12 +32737,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f18(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f18(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F18;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f18 instruction.<br/>
+		/// <summary>reservednop_0f18 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32751,12 +32751,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f18(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f18(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F18;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f19 instruction.<br/>
+		/// <summary>reservednop_0f19 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32765,12 +32765,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f19(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f19(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F19;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f19 instruction.<br/>
+		/// <summary>reservednop_0f19 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32779,12 +32779,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f19(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f19(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F19;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f19 instruction.<br/>
+		/// <summary>reservednop_0f19 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32793,12 +32793,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f19(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f19(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F19;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f19 instruction.<br/>
+		/// <summary>reservednop_0f19 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32807,12 +32807,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f19(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f19(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F19;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f19 instruction.<br/>
+		/// <summary>reservednop_0f19 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32821,12 +32821,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f19(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f19(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F19;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f19 instruction.<br/>
+		/// <summary>reservednop_0f19 instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32835,12 +32835,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f19(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f19(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F19;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1a instruction.<br/>
+		/// <summary>reservednop_0f1a instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32849,12 +32849,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1a(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f1a(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1A;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1a instruction.<br/>
+		/// <summary>reservednop_0f1a instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32863,12 +32863,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1A;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1a instruction.<br/>
+		/// <summary>reservednop_0f1a instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32877,12 +32877,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1a(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f1a(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1A;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1a instruction.<br/>
+		/// <summary>reservednop_0f1a instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32891,12 +32891,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1A;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1a instruction.<br/>
+		/// <summary>reservednop_0f1a instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32905,12 +32905,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1a(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f1a(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1A;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1a instruction.<br/>
+		/// <summary>reservednop_0f1a instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32919,12 +32919,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1A;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1b instruction.<br/>
+		/// <summary>reservednop_0f1b instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32933,12 +32933,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1b(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f1b(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1B;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1b instruction.<br/>
+		/// <summary>reservednop_0f1b instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -32947,12 +32947,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1B;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1b instruction.<br/>
+		/// <summary>reservednop_0f1b instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32961,12 +32961,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1b(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f1b(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1B;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1b instruction.<br/>
+		/// <summary>reservednop_0f1b instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -32975,12 +32975,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1B;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1b instruction.<br/>
+		/// <summary>reservednop_0f1b instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -32989,12 +32989,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1b(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f1b(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1B;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1b instruction.<br/>
+		/// <summary>reservednop_0f1b instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33003,12 +33003,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1B;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1c instruction.<br/>
+		/// <summary>reservednop_0f1c instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33017,12 +33017,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1c(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f1c(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1C;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1c instruction.<br/>
+		/// <summary>reservednop_0f1c instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33031,12 +33031,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1C;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1c instruction.<br/>
+		/// <summary>reservednop_0f1c instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33045,12 +33045,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1c(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f1c(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1C;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1c instruction.<br/>
+		/// <summary>reservednop_0f1c instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33059,12 +33059,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1C;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1c instruction.<br/>
+		/// <summary>reservednop_0f1c instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33073,12 +33073,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1c(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f1c(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1C;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1c instruction.<br/>
+		/// <summary>reservednop_0f1c instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33087,12 +33087,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1C;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1d instruction.<br/>
+		/// <summary>reservednop_0f1d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33101,12 +33101,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1d(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f1d(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1d instruction.<br/>
+		/// <summary>reservednop_0f1d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33115,12 +33115,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1d instruction.<br/>
+		/// <summary>reservednop_0f1d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33129,12 +33129,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1d(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f1d(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1d instruction.<br/>
+		/// <summary>reservednop_0f1d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33143,12 +33143,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1d instruction.<br/>
+		/// <summary>reservednop_0f1d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33157,12 +33157,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1d(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f1d(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1d instruction.<br/>
+		/// <summary>reservednop_0f1d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33171,12 +33171,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1e instruction.<br/>
+		/// <summary>reservednop_0f1e instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33185,12 +33185,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1e(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f1e(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1E;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1e instruction.<br/>
+		/// <summary>reservednop_0f1e instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33199,12 +33199,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1E;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1e instruction.<br/>
+		/// <summary>reservednop_0f1e instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33213,12 +33213,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1e(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f1e(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1E;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1e instruction.<br/>
+		/// <summary>reservednop_0f1e instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33227,12 +33227,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1E;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1e instruction.<br/>
+		/// <summary>reservednop_0f1e instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33241,12 +33241,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1e(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f1e(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1E;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1e instruction.<br/>
+		/// <summary>reservednop_0f1e instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33255,12 +33255,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1E;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1f instruction.<br/>
+		/// <summary>reservednop_0f1f instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33269,12 +33269,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1f(AssemblerRegister16 dst, AssemblerRegister16 src) {
+		public void reservednop_0f1f(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1F;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1f instruction.<br/>
+		/// <summary>reservednop_0f1f instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
@@ -33283,12 +33283,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+		public void reservednop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
 			op = Code.Reservednop_rm16_r16_0F1F;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1f instruction.<br/>
+		/// <summary>reservednop_0f1f instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33297,12 +33297,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1f(AssemblerRegister32 dst, AssemblerRegister32 src) {
+		public void reservednop_0f1f(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1F;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1f instruction.<br/>
+		/// <summary>reservednop_0f1f instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
@@ -33311,12 +33311,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void reserved_nop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+		public void reservednop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Reservednop_rm32_r32_0F1F;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
-		/// <summary>reserved_nop_0f1f instruction.<br/>
+		/// <summary>reservednop_0f1f instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33325,12 +33325,12 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1f(AssemblerRegister64 dst, AssemblerRegister64 src) {
+		public void reservednop_0f1f(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1F;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>reserved_nop_0f1f instruction.<br/>
+		/// <summary>reservednop_0f1f instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
@@ -33339,7 +33339,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void reserved_nop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+		public void reservednop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
 			op = Code.Reservednop_rm64_r64_0F1F;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));

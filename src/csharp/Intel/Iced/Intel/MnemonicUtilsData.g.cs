@@ -4244,11 +4244,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Invlpgb,// Invlpgbd
 			(ushort)Mnemonic.Invlpgb,// Invlpgbq
 			(ushort)Mnemonic.Tlbsync,// Tlbsync
-			(ushort)Mnemonic.Prefetchw,// PrefetchReserved3_m8
-			(ushort)Mnemonic.Prefetch,// PrefetchReserved4_m8
-			(ushort)Mnemonic.Prefetch,// PrefetchReserved5_m8
-			(ushort)Mnemonic.Prefetch,// PrefetchReserved6_m8
-			(ushort)Mnemonic.Prefetch,// PrefetchReserved7_m8
+			(ushort)Mnemonic.Prefetchw,// Prefetchreserved3_m8
+			(ushort)Mnemonic.Prefetch,// Prefetchreserved4_m8
+			(ushort)Mnemonic.Prefetch,// Prefetchreserved5_m8
+			(ushort)Mnemonic.Prefetch,// Prefetchreserved6_m8
+			(ushort)Mnemonic.Prefetch,// Prefetchreserved7_m8
 			(ushort)Mnemonic.Ud0,// Ud0
 			(ushort)Mnemonic.Vmgexit,// Vmgexit
 			(ushort)Mnemonic.Getsecq,// Getsecq

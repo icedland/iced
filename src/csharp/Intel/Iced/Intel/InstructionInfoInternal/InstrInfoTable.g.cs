@@ -4245,11 +4245,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x64500000, 0x98000000,// Invlpgbd
 			0x64500000, 0x98000000,// Invlpgbq
 			0x60000000, 0x98000000,// Tlbsync
-			0x00000003, 0x6B000000,// PrefetchReserved3_m8
-			0x00000003, 0x6B000000,// PrefetchReserved4_m8
-			0x00000003, 0x6B000000,// PrefetchReserved5_m8
-			0x00000003, 0x6B000000,// PrefetchReserved6_m8
-			0x00000003, 0x6B000000,// PrefetchReserved7_m8
+			0x00000003, 0x6B000000,// Prefetchreserved3_m8
+			0x00000003, 0x6B000000,// Prefetchreserved4_m8
+			0x00000003, 0x6B000000,// Prefetchreserved5_m8
+			0x00000003, 0x6B000000,// Prefetchreserved6_m8
+			0x00000003, 0x6B000000,// Prefetchreserved7_m8
 			0x00000000, 0x03900000,// Ud0
 			0x00000000, 0x83500000,// Vmgexit
 			0x08000000, 0x7A000000,// Getsecq

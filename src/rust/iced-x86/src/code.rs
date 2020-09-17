@@ -33741,7 +33741,7 @@ pub enum Code {
 	/// `PREFETCHW`
 	///
 	/// `16/32/64-bit`
-	PrefetchReserved3_m8 = 4216,
+	Prefetchreserved3_m8 = 4216,
 	/// `PREFETCH m8`
 	///
 	/// `0F 0D /4`
@@ -33749,7 +33749,7 @@ pub enum Code {
 	/// `PREFETCHW`
 	///
 	/// `16/32/64-bit`
-	PrefetchReserved4_m8 = 4217,
+	Prefetchreserved4_m8 = 4217,
 	/// `PREFETCH m8`
 	///
 	/// `0F 0D /5`
@@ -33757,7 +33757,7 @@ pub enum Code {
 	/// `PREFETCHW`
 	///
 	/// `16/32/64-bit`
-	PrefetchReserved5_m8 = 4218,
+	Prefetchreserved5_m8 = 4218,
 	/// `PREFETCH m8`
 	///
 	/// `0F 0D /6`
@@ -33765,7 +33765,7 @@ pub enum Code {
 	/// `PREFETCHW`
 	///
 	/// `16/32/64-bit`
-	PrefetchReserved6_m8 = 4219,
+	Prefetchreserved6_m8 = 4219,
 	/// `PREFETCH m8`
 	///
 	/// `0F 0D /7`
@@ -33773,7 +33773,7 @@ pub enum Code {
 	/// `PREFETCHW`
 	///
 	/// `16/32/64-bit`
-	PrefetchReserved7_m8 = 4220,
+	Prefetchreserved7_m8 = 4220,
 	/// `UD0`
 	///
 	/// `0F FF`
@@ -38601,11 +38601,11 @@ static GEN_DEBUG_CODE: [&str; 4297] = [
 	"Invlpgbd",
 	"Invlpgbq",
 	"Tlbsync",
-	"PrefetchReserved3_m8",
-	"PrefetchReserved4_m8",
-	"PrefetchReserved5_m8",
-	"PrefetchReserved6_m8",
-	"PrefetchReserved7_m8",
+	"Prefetchreserved3_m8",
+	"Prefetchreserved4_m8",
+	"Prefetchreserved5_m8",
+	"Prefetchreserved6_m8",
+	"Prefetchreserved7_m8",
 	"Ud0",
 	"Vmgexit",
 	"Getsecq",
