@@ -2719,12 +2719,12 @@ pub enum Code {
 	Ptest_xmm_xmmm128 = 2685,
 	VEX_Vptest_xmm_xmmm128 = 2686,
 	VEX_Vptest_ymm_ymmm256 = 2687,
-	VEX_Vbroadcastss_xmm_xmmm32 = 2688,
-	VEX_Vbroadcastss_ymm_xmmm32 = 2689,
+	VEX_Vbroadcastss_xmm_m32 = 2688,
+	VEX_Vbroadcastss_ymm_m32 = 2689,
 	EVEX_Vbroadcastss_xmm_k1z_xmmm32 = 2690,
 	EVEX_Vbroadcastss_ymm_k1z_xmmm32 = 2691,
 	EVEX_Vbroadcastss_zmm_k1z_xmmm32 = 2692,
-	VEX_Vbroadcastsd_ymm_xmmm64 = 2693,
+	VEX_Vbroadcastsd_ymm_m64 = 2693,
 	EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64 = 2694,
 	EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64 = 2695,
 	EVEX_Vbroadcastsd_ymm_k1z_xmmm64 = 2696,
@@ -4325,6 +4325,9 @@ pub enum Code {
 	Aesdec256kl_xmm_m512 = 4291,
 	Encodekey128_r32_r32 = 4292,
 	Encodekey256_r32_r32 = 4293,
+	VEX_Vbroadcastss_xmm_xmm = 4294,
+	VEX_Vbroadcastss_ymm_xmm = 4295,
+	VEX_Vbroadcastsd_ymm_xmm = 4296,
 }
 // GENERATOR-END: Enum
 

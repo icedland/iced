@@ -98,7 +98,6 @@ pub(crate) struct InfoFlags2;
 impl InfoFlags2 {
 	pub(crate) const ENCODING_SHIFT: u32 = 0x0000_0000;
 	pub(crate) const ENCODING_MASK: u32 = 0x0000_0007;
-	pub(crate) const AVX2_CHECK: u32 = 0x0004_0000;
 	pub(crate) const OP_MASK_REG_READ_WRITE: u32 = 0x0008_0000;
 	pub(crate) const FLOW_CONTROL_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const FLOW_CONTROL_MASK: u32 = 0x0000_000F;

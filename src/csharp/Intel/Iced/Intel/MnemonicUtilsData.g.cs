@@ -2716,12 +2716,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Ptest,// Ptest_xmm_xmmm128
 			(ushort)Mnemonic.Vptest,// VEX_Vptest_xmm_xmmm128
 			(ushort)Mnemonic.Vptest,// VEX_Vptest_ymm_ymmm256
-			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_xmm_xmmm32
-			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_ymm_xmmm32
+			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_xmm_m32
+			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_ymm_m32
 			(ushort)Mnemonic.Vbroadcastss,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 			(ushort)Mnemonic.Vbroadcastss,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 			(ushort)Mnemonic.Vbroadcastss,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-			(ushort)Mnemonic.Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmmm64
+			(ushort)Mnemonic.Vbroadcastsd,// VEX_Vbroadcastsd_ymm_m64
 			(ushort)Mnemonic.Vbroadcastf32x2,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 			(ushort)Mnemonic.Vbroadcastf32x2,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 			(ushort)Mnemonic.Vbroadcastsd,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -4322,6 +4322,9 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Aesdec256kl,// Aesdec256kl_xmm_m512
 			(ushort)Mnemonic.Encodekey128,// Encodekey128_r32_r32
 			(ushort)Mnemonic.Encodekey256,// Encodekey256_r32_r32
+			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_xmm_xmm
+			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_ymm_xmm
+			(ushort)Mnemonic.Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmm
 		};
 	}
 }

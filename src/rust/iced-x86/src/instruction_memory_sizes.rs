@@ -2718,12 +2718,12 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::UInt128,// Ptest_xmm_xmmm128
 	MemorySize::UInt128,// VEX_Vptest_xmm_xmmm128
 	MemorySize::UInt256,// VEX_Vptest_ymm_ymmm256
-	MemorySize::Float32,// VEX_Vbroadcastss_xmm_xmmm32
-	MemorySize::Float32,// VEX_Vbroadcastss_ymm_xmmm32
+	MemorySize::Float32,// VEX_Vbroadcastss_xmm_m32
+	MemorySize::Float32,// VEX_Vbroadcastss_ymm_m32
 	MemorySize::Float32,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 	MemorySize::Float32,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 	MemorySize::Float32,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-	MemorySize::Float64,// VEX_Vbroadcastsd_ymm_xmmm64
+	MemorySize::Float64,// VEX_Vbroadcastsd_ymm_m64
 	MemorySize::Packed64_Float32,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 	MemorySize::Packed64_Float32,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 	MemorySize::Float64,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -4324,6 +4324,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::KLHandleAes256,// Aesdec256kl_xmm_m512
 	MemorySize::Unknown,// Encodekey128_r32_r32
 	MemorySize::Unknown,// Encodekey256_r32_r32
+	MemorySize::Float32,// VEX_Vbroadcastss_xmm_xmm
+	MemorySize::Float32,// VEX_Vbroadcastss_ymm_xmm
+	MemorySize::Float64,// VEX_Vbroadcastsd_ymm_xmm
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -7012,12 +7015,12 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Ptest_xmm_xmmm128
 	MemorySize::Unknown,// VEX_Vptest_xmm_xmmm128
 	MemorySize::Unknown,// VEX_Vptest_ymm_ymmm256
-	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_xmmm32
-	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_xmmm32
+	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_m32
+	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_m32
 	MemorySize::Unknown,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 	MemorySize::Unknown,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 	MemorySize::Unknown,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_xmmm64
+	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_m64
 	MemorySize::Unknown,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 	MemorySize::Unknown,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 	MemorySize::Unknown,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -8618,4 +8621,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Aesdec256kl_xmm_m512
 	MemorySize::Unknown,// Encodekey128_r32_r32
 	MemorySize::Unknown,// Encodekey256_r32_r32
+	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_xmm
+	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_xmm
+	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_xmm
 ];

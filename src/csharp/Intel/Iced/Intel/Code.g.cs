@@ -21502,22 +21502,22 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		VEX_Vptest_ymm_ymmm256 = 2687,
-		/// <summary><c>VBROADCASTSS xmm1, xmm2/m32</c><br/>
+		/// <summary><c>VBROADCASTSS xmm1, m32</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F38.W0 18 /r</c><br/>
 		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
+		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vbroadcastss_xmm_xmmm32 = 2688,
-		/// <summary><c>VBROADCASTSS ymm1, xmm2/m32</c><br/>
+		VEX_Vbroadcastss_xmm_m32 = 2688,
+		/// <summary><c>VBROADCASTSS ymm1, m32</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F38.W0 18 /r</c><br/>
 		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
+		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vbroadcastss_ymm_xmmm32 = 2689,
+		VEX_Vbroadcastss_ymm_m32 = 2689,
 		/// <summary><c>VBROADCASTSS xmm1 {k1}{z}, xmm2/m32</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F38.W0 18 /r</c><br/>
@@ -21542,14 +21542,14 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		EVEX_Vbroadcastss_zmm_k1z_xmmm32 = 2692,
-		/// <summary><c>VBROADCASTSD ymm1, xmm2/m64</c><br/>
+		/// <summary><c>VBROADCASTSD ymm1, m64</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F38.W0 19 /r</c><br/>
 		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
+		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vbroadcastsd_ymm_xmmm64 = 2693,
+		VEX_Vbroadcastsd_ymm_m64 = 2693,
 		/// <summary><c>VBROADCASTF32X2 ymm1 {k1}{z}, xmm2/m64</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W0 19 /r</c><br/>
@@ -34350,5 +34350,29 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Encodekey256_r32_r32 = 4293,
+		/// <summary><c>VBROADCASTSS xmm1, xmm2</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>AVX2</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vbroadcastss_xmm_xmm = 4294,
+		/// <summary><c>VBROADCASTSS ymm1, xmm2</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>AVX2</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vbroadcastss_ymm_xmm = 4295,
+		/// <summary><c>VBROADCASTSD ymm1, xmm2</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 19 /r</c><br/>
+		/// <br/>
+		/// <c>AVX2</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vbroadcastsd_ymm_xmm = 4296,
 	}
 }

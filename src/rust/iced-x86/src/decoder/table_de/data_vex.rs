@@ -672,14 +672,24 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Invalid
 		0x09,// W
 			0x0E,// VectorLength
-				0x37,// VW_3
-					0x4D,// XMM0
-					0x4D,// XMM0
-					0x80, 0x15,// VEX_Vbroadcastss_xmm_xmmm32
-				0x37,// VW_3
-					0x6D,// YMM0
-					0x4D,// XMM0
-					0x81, 0x15,// VEX_Vbroadcastss_ymm_xmmm32
+				0x07,// RM
+					0x37,// VW_3
+						0x4D,// XMM0
+						0x4D,// XMM0
+						0xC6, 0x21,// VEX_Vbroadcastss_xmm_xmm
+					0x37,// VW_3
+						0x4D,// XMM0
+						0x4D,// XMM0
+						0x80, 0x15,// VEX_Vbroadcastss_xmm_m32
+				0x07,// RM
+					0x37,// VW_3
+						0x6D,// YMM0
+						0x4D,// XMM0
+						0xC7, 0x21,// VEX_Vbroadcastss_ymm_xmm
+					0x37,// VW_3
+						0x6D,// YMM0
+						0x4D,// XMM0
+						0x81, 0x15,// VEX_Vbroadcastss_ymm_m32
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -690,10 +700,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x09,// W
 			0x0E,// VectorLength
 				0x00,// Invalid
-				0x37,// VW_3
-					0x6D,// YMM0
-					0x4D,// XMM0
-					0x85, 0x15,// VEX_Vbroadcastsd_ymm_xmmm64
+				0x07,// RM
+					0x37,// VW_3
+						0x6D,// YMM0
+						0x4D,// XMM0
+						0xC8, 0x21,// VEX_Vbroadcastsd_ymm_xmm
+					0x37,// VW_3
+						0x6D,// YMM0
+						0x4D,// XMM0
+						0x85, 0x15,// VEX_Vbroadcastsd_ymm_m64
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid

@@ -44278,11 +44278,11 @@ namespace Iced.Intel {
 		}
 		/// <summary>vbroadcastsd instruction.<br/>
 		/// <br/>
-		/// <c>VBROADCASTSD ymm1, xmm2/m64</c><br/>
+		/// <c>VBROADCASTSD ymm1, xmm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F38.W0 19 /r</c><br/>
 		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
@@ -44295,7 +44295,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastsd(AssemblerRegisterYMM dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vbroadcastsd_ymm_xmmm64 : Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64;
+			op = PreferVex ? Code.VEX_Vbroadcastsd_ymm_xmm : Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastsd instruction.<br/>
@@ -44314,24 +44314,24 @@ namespace Iced.Intel {
 		}
 		/// <summary>vbroadcastsd instruction.<br/>
 		/// <br/>
-		/// <c>VBROADCASTSD ymm1, xmm2/m64</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F38.W0 19 /r</c><br/>
-		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
 		/// <c>VBROADCASTSD ymm1 {k1}{z}, xmm2/m64</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W1 19 /r</c><br/>
 		/// <br/>
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSD ymm1, m64</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 19 /r</c><br/>
+		/// <br/>
+		/// <c>AVX</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastsd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vbroadcastsd_ymm_xmmm64 : Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64;
+			op = PreferVex ? Code.VEX_Vbroadcastsd_ymm_m64 : Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vbroadcastsd instruction.<br/>
@@ -44350,11 +44350,11 @@ namespace Iced.Intel {
 		}
 		/// <summary>vbroadcastss instruction.<br/>
 		/// <br/>
-		/// <c>VBROADCASTSS xmm1, xmm2/m32</c><br/>
+		/// <c>VBROADCASTSS xmm1, xmm2</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F38.W0 18 /r</c><br/>
 		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
@@ -44367,16 +44367,16 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vbroadcastss_xmm_xmmm32 : Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32;
+			op = PreferVex ? Code.VEX_Vbroadcastss_xmm_xmm : Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastss instruction.<br/>
 		/// <br/>
-		/// <c>VBROADCASTSS ymm1, xmm2/m32</c><br/>
+		/// <c>VBROADCASTSS ymm1, xmm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F38.W0 18 /r</c><br/>
 		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
@@ -44389,7 +44389,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastss(AssemblerRegisterYMM dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vbroadcastss_ymm_xmmm32 : Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32;
+			op = PreferVex ? Code.VEX_Vbroadcastss_ymm_xmm : Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastss instruction.<br/>
@@ -44408,35 +44408,27 @@ namespace Iced.Intel {
 		}
 		/// <summary>vbroadcastss instruction.<br/>
 		/// <br/>
-		/// <c>VBROADCASTSS xmm1, xmm2/m32</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F38.W0 18 /r</c><br/>
-		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
 		/// <c>VBROADCASTSS xmm1 {k1}{z}, xmm2/m32</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F38.W0 18 /r</c><br/>
 		/// <br/>
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSS xmm1, m32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>AVX</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastss(AssemblerRegisterXMM dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vbroadcastss_xmm_xmmm32 : Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32;
+			op = PreferVex ? Code.VEX_Vbroadcastss_xmm_m32 : Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vbroadcastss instruction.<br/>
-		/// <br/>
-		/// <c>VBROADCASTSS ymm1, xmm2/m32</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F38.W0 18 /r</c><br/>
-		/// <br/>
-		/// <c>AVX (reg,mem) or AVX2 (reg,reg)</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <c>VBROADCASTSS ymm1 {k1}{z}, xmm2/m32</c><br/>
 		/// <br/>
@@ -44444,10 +44436,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VBROADCASTSS ymm1, m32</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 18 /r</c><br/>
+		/// <br/>
+		/// <c>AVX</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastss(AssemblerRegisterYMM dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vbroadcastss_ymm_xmmm32 : Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32;
+			op = PreferVex ? Code.VEX_Vbroadcastss_ymm_m32 : Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vbroadcastss instruction.<br/>

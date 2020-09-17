@@ -2724,12 +2724,12 @@ namespace Generator.Formatters.Gas {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Ptest_xmm_xmmm128)], "ptest" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vptest_xmm_xmmm128)], "vptest" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vptest_ymm_ymmm256)], "vptest" },
-				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastss_xmm_xmmm32)], "vbroadcastss" },
-				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastss_ymm_xmmm32)], "vbroadcastss" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastss_xmm_m32)], "vbroadcastss" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastss_ymm_m32)], "vbroadcastss" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32)], "vbroadcastss" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32)], "vbroadcastss" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.EVEX_Vbroadcastss_zmm_k1z_xmmm32)], "vbroadcastss" },
-				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastsd_ymm_xmmm64)], "vbroadcastsd" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastsd_ymm_m64)], "vbroadcastsd" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64)], "vbroadcastf32x2" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64)], "vbroadcastf32x2" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64)], "vbroadcastsd" },
@@ -4330,6 +4330,9 @@ namespace Generator.Formatters.Gas {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Aesdec256kl_xmm_m512)], "aesdec256kl" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Encodekey128_r32_r32)], "encodekey128" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Encodekey256_r32_r32)], "encodekey256" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastss_xmm_xmm)], "vbroadcastss" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastss_ymm_xmm)], "vbroadcastss" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.VEX_Vbroadcastsd_ymm_xmm)], "vbroadcastsd" },
 			});
 		}
 	}

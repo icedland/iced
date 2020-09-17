@@ -2719,12 +2719,12 @@ namespace Generator.Enums {
 		Ptest_xmm_xmmm128,
 		VEX_Vptest_xmm_xmmm128,
 		VEX_Vptest_ymm_ymmm256,
-		VEX_Vbroadcastss_xmm_xmmm32,
-		VEX_Vbroadcastss_ymm_xmmm32,
+		VEX_Vbroadcastss_xmm_m32,
+		VEX_Vbroadcastss_ymm_m32,
 		EVEX_Vbroadcastss_xmm_k1z_xmmm32,
 		EVEX_Vbroadcastss_ymm_k1z_xmmm32,
 		EVEX_Vbroadcastss_zmm_k1z_xmmm32,
-		VEX_Vbroadcastsd_ymm_xmmm64,
+		VEX_Vbroadcastsd_ymm_m64,
 		EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64,
 		EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64,
 		EVEX_Vbroadcastsd_ymm_k1z_xmmm64,
@@ -4325,6 +4325,9 @@ namespace Generator.Enums {
 		Aesdec256kl_xmm_m512,
 		Encodekey128_r32_r32,
 		Encodekey256_r32_r32,
+		VEX_Vbroadcastss_xmm_xmm,
+		VEX_Vbroadcastss_ymm_xmm,
+		VEX_Vbroadcastsd_ymm_xmm,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

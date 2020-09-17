@@ -2716,12 +2716,12 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Ptest,// Ptest_xmm_xmmm128
 	Mnemonic::Vptest,// VEX_Vptest_xmm_xmmm128
 	Mnemonic::Vptest,// VEX_Vptest_ymm_ymmm256
-	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_xmm_xmmm32
-	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_ymm_xmmm32
+	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_xmm_m32
+	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_ymm_m32
 	Mnemonic::Vbroadcastss,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 	Mnemonic::Vbroadcastss,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 	Mnemonic::Vbroadcastss,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-	Mnemonic::Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmmm64
+	Mnemonic::Vbroadcastsd,// VEX_Vbroadcastsd_ymm_m64
 	Mnemonic::Vbroadcastf32x2,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 	Mnemonic::Vbroadcastf32x2,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 	Mnemonic::Vbroadcastsd,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -4322,4 +4322,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Aesdec256kl,// Aesdec256kl_xmm_m512
 	Mnemonic::Encodekey128,// Encodekey128_r32_r32
 	Mnemonic::Encodekey256,// Encodekey256_r32_r32
+	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_xmm_xmm
+	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_ymm_xmm
+	Mnemonic::Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmm
 ];

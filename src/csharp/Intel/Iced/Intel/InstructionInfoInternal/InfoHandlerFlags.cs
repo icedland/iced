@@ -91,7 +91,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 	enum InfoFlags2 : uint {
 		EncodingShift = 0x00000000,
 		EncodingMask = 0x00000007,
-		AVX2_Check = 0x00040000,
 		OpMaskRegReadWrite = 0x00080000,
 		FlowControlShift = 0x00000014,
 		FlowControlMask = 0x0000000F,

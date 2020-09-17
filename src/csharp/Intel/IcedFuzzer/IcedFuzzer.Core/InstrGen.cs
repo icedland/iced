@@ -51,8 +51,6 @@ namespace IcedFuzzer.Core {
 		NoXOP				= 0x00000004,
 		NoEVEX				= 0x00000008,
 		No3DNow				= 0x00000010,
-		NoAVX				= 0x00000020,
-		NoAVX2				= 0x00000040,
 	}
 
 	public static class InstrGen {
@@ -183,17 +181,6 @@ namespace IcedFuzzer.Core {
 
 				case EncodingKind.VEX:
 					Assert.True((genFlags & InstrGenFlags.NoVEX) == 0);
-					if (CodeUtils.IsSpecialAvxAvx2(instr.Code)) {
-						// AVX (reg,mem) or AVX2 (reg,reg)
-						if (instr.IsModrmMemory) {
-							if ((genFlags & InstrGenFlags.NoAVX) != 0)
-								continue;
-						}
-						else {
-							if ((genFlags & InstrGenFlags.NoAVX2) != 0)
-								continue;
-						}
-					}
 					key = new OpCodeKey(instr.Table, instr.IsModrmMemory);
 					var vexInstrs = vex[key];
 					vexInstrs[byteOpCode].Add(hasModrm, instr);

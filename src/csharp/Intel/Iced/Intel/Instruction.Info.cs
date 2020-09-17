@@ -218,8 +218,6 @@ namespace Iced.Intel {
 				var code = Code;
 				uint flags2 = InstructionInfoInternal.InstrInfoTable.Data[(int)code * 2 + 1];
 				var cpuidFeature = (InstructionInfoInternal.CpuidFeatureInternal)(flags2 >> (int)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalShift & (uint)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalMask);
-				if ((flags2 & (uint)InstructionInfoInternal.InfoFlags2.AVX2_Check) != 0 && Op1Kind == OpKind.Register)
-					cpuidFeature = InstructionInfoInternal.CpuidFeatureInternal.AVX2;
 				return InstructionInfoInternal.CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
 			}
 		}

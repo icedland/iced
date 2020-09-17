@@ -21510,22 +21510,22 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	VEX_Vptest_ymm_ymmm256 = 2687,
-	/// `VBROADCASTSS xmm1, xmm2/m32`
+	/// `VBROADCASTSS xmm1, m32`
 	///
 	/// `VEX.128.66.0F38.W0 18 /r`
 	///
-	/// `AVX (reg,mem) or AVX2 (reg,reg)`
+	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_xmm_xmmm32 = 2688,
-	/// `VBROADCASTSS ymm1, xmm2/m32`
+	VEX_Vbroadcastss_xmm_m32 = 2688,
+	/// `VBROADCASTSS ymm1, m32`
 	///
 	/// `VEX.256.66.0F38.W0 18 /r`
 	///
-	/// `AVX (reg,mem) or AVX2 (reg,reg)`
+	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_ymm_xmmm32 = 2689,
+	VEX_Vbroadcastss_ymm_m32 = 2689,
 	/// `VBROADCASTSS xmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.128.66.0F38.W0 18 /r`
@@ -21550,14 +21550,14 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	EVEX_Vbroadcastss_zmm_k1z_xmmm32 = 2692,
-	/// `VBROADCASTSD ymm1, xmm2/m64`
+	/// `VBROADCASTSD ymm1, m64`
 	///
 	/// `VEX.256.66.0F38.W0 19 /r`
 	///
-	/// `AVX (reg,mem) or AVX2 (reg,reg)`
+	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastsd_ymm_xmmm64 = 2693,
+	VEX_Vbroadcastsd_ymm_m64 = 2693,
 	/// `VBROADCASTF32X2 ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.W0 19 /r`
@@ -34358,9 +34358,33 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Encodekey256_r32_r32 = 4293,
+	/// `VBROADCASTSS xmm1, xmm2`
+	///
+	/// `VEX.128.66.0F38.W0 18 /r`
+	///
+	/// `AVX2`
+	///
+	/// `16/32/64-bit`
+	VEX_Vbroadcastss_xmm_xmm = 4294,
+	/// `VBROADCASTSS ymm1, xmm2`
+	///
+	/// `VEX.256.66.0F38.W0 18 /r`
+	///
+	/// `AVX2`
+	///
+	/// `16/32/64-bit`
+	VEX_Vbroadcastss_ymm_xmm = 4295,
+	/// `VBROADCASTSD ymm1, xmm2`
+	///
+	/// `VEX.256.66.0F38.W0 19 /r`
+	///
+	/// `AVX2`
+	///
+	/// `16/32/64-bit`
+	VEX_Vbroadcastsd_ymm_xmm = 4296,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4294] = [
+static GEN_DEBUG_CODE: [&str; 4297] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -37049,12 +37073,12 @@ static GEN_DEBUG_CODE: [&str; 4294] = [
 	"Ptest_xmm_xmmm128",
 	"VEX_Vptest_xmm_xmmm128",
 	"VEX_Vptest_ymm_ymmm256",
-	"VEX_Vbroadcastss_xmm_xmmm32",
-	"VEX_Vbroadcastss_ymm_xmmm32",
+	"VEX_Vbroadcastss_xmm_m32",
+	"VEX_Vbroadcastss_ymm_m32",
 	"EVEX_Vbroadcastss_xmm_k1z_xmmm32",
 	"EVEX_Vbroadcastss_ymm_k1z_xmmm32",
 	"EVEX_Vbroadcastss_zmm_k1z_xmmm32",
-	"VEX_Vbroadcastsd_ymm_xmmm64",
+	"VEX_Vbroadcastsd_ymm_m64",
 	"EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64",
 	"EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64",
 	"EVEX_Vbroadcastsd_ymm_k1z_xmmm64",
@@ -38655,6 +38679,9 @@ static GEN_DEBUG_CODE: [&str; 4294] = [
 	"Aesdec256kl_xmm_m512",
 	"Encodekey128_r32_r32",
 	"Encodekey256_r32_r32",
+	"VEX_Vbroadcastss_xmm_xmm",
+	"VEX_Vbroadcastss_ymm_xmm",
+	"VEX_Vbroadcastsd_ymm_xmm",
 ];
 impl fmt::Debug for Code {
 	#[inline]

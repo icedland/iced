@@ -10624,13 +10624,13 @@ C4E27D 17 CD, VEX_Vptest_ymm_ymmm256, VEX, AVX, pm fw=cz fc=aops op0=r op1=r r=y
 # vptest ymm2,ymmword ptr [rax]
 C4E27D 17 10, VEX_Vptest_ymm_ymmm256, VEX, AVX, pm fw=cz fc=aops op0=r op1=r r=ymm2 r=rax rm=ds:rax;UInt256
 # vbroadcastss xmm1,xmm5
-C4E279 18 CD, VEX_Vbroadcastss_xmm_xmmm32, VEX, AVX2, pm op0=w op1=r w=vmm1 r=xmm5
+C4E279 18 CD, VEX_Vbroadcastss_xmm_xmm, VEX, AVX2, pm op0=w op1=r w=vmm1 r=xmm5
 # vbroadcastss xmm2,dword ptr [rax]
-C4E279 18 10, VEX_Vbroadcastss_xmm_xmmm32, VEX, AVX, pm op0=w op1=r w=vmm2 r=rax rm=ds:rax;Float32
+C4E279 18 10, VEX_Vbroadcastss_xmm_m32, VEX, AVX, pm op0=w op1=r w=vmm2 r=rax rm=ds:rax;Float32
 # vbroadcastss ymm1,xmm5
-C4E27D 18 CD, VEX_Vbroadcastss_ymm_xmmm32, VEX, AVX2, pm op0=w op1=r w=vmm1 r=xmm5
+C4E27D 18 CD, VEX_Vbroadcastss_ymm_xmm, VEX, AVX2, pm op0=w op1=r w=vmm1 r=xmm5
 # vbroadcastss ymm2,dword ptr [rax]
-C4E27D 18 10, VEX_Vbroadcastss_ymm_xmmm32, VEX, AVX, pm op0=w op1=r w=vmm2 r=rax rm=ds:rax;Float32
+C4E27D 18 10, VEX_Vbroadcastss_ymm_m32, VEX, AVX, pm op0=w op1=r w=vmm2 r=rax rm=ds:rax;Float32
 # vbroadcastss xmm2,xmm3
 62 F27D08 18 D3, EVEX_Vbroadcastss_xmm_k1z_xmmm32, EVEX, AVX512VL;AVX512F, pm op0=w op1=r w=vmm2 r=xmm3
 # vbroadcastss xmm2,dword ptr [rax+4]
@@ -10656,9 +10656,9 @@ C4E27D 18 10, VEX_Vbroadcastss_ymm_xmmm32, VEX, AVX, pm op0=w op1=r w=vmm2 r=rax
 # vbroadcastss zmm10{k3}{z},xmm19
 62 327DCB 18 D3, EVEX_Vbroadcastss_zmm_k1z_xmmm32, EVEX, AVX512F, pm op0=w op1=r w=vmm10 r=k3 r=xmm19
 # vbroadcastsd ymm1,xmm5
-C4E27D 19 CD, VEX_Vbroadcastsd_ymm_xmmm64, VEX, AVX2, pm op0=w op1=r w=vmm1 r=xmm5
+C4E27D 19 CD, VEX_Vbroadcastsd_ymm_xmm, VEX, AVX2, pm op0=w op1=r w=vmm1 r=xmm5
 # vbroadcastsd ymm2,qword ptr [rax]
-C4E27D 19 10, VEX_Vbroadcastsd_ymm_xmmm64, VEX, AVX, pm op0=w op1=r w=vmm2 r=rax rm=ds:rax;Float64
+C4E27D 19 10, VEX_Vbroadcastsd_ymm_m64, VEX, AVX, pm op0=w op1=r w=vmm2 r=rax rm=ds:rax;Float64
 # vbroadcastf32x2 ymm2,xmm3
 62 F27D28 19 D3, EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64, EVEX, AVX512VL;AVX512DQ, pm op0=w op1=r w=vmm2 r=xmm3
 # vbroadcastf32x2 ymm2,qword ptr [rax+8]

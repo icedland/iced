@@ -102,11 +102,6 @@ namespace Iced.Intel {
 			var flags1 = data[(int)index];
 			var flags2 = data[(int)index + 1];
 
-			if ((flags2 & (uint)InfoFlags2.AVX2_Check) != 0 && instruction.Op1Kind == OpKind.Register) {
-				flags2 = (flags2 & ~((uint)InfoFlags2.CpuidFeatureInternalMask << (int)InfoFlags2.CpuidFeatureInternalShift)) |
-					((uint)CpuidFeatureInternal.AVX2 << (int)InfoFlags2.CpuidFeatureInternalShift);
-			}
-
 			var codeSize = instruction.CodeSize;
 			Static.Assert((uint)InstructionInfoOptions.NoMemoryUsage == (uint)Flags.NoMemoryUsage ? 0 : -1);
 			Static.Assert((uint)InstructionInfoOptions.NoRegisterUsage == (uint)Flags.NoRegisterUsage ? 0 : -1);

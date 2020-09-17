@@ -120,10 +120,6 @@ namespace IcedFuzzer {
 				genFlags |= InstrGenFlags.NoEVEX;
 			if (!options.OpCodeInfoOptions.Include3DNow)
 				genFlags |= InstrGenFlags.No3DNow;
-			if (options.OpCodeInfoOptions.Filter.WasRemoved(CpuidFeature.AVX))
-				genFlags |= InstrGenFlags.NoAVX;
-			if (options.OpCodeInfoOptions.Filter.WasRemoved(CpuidFeature.AVX2))
-				genFlags |= InstrGenFlags.NoAVX2;
 			var encodingTables = InstrGen.Create(options.OpCodeInfoOptions.Bitness, infos, genFlags);
 
 			var instructions = encodingTables.GetOpCodeGroups().SelectMany(a => a.opCodes).SelectMany(a => a.Instructions).Where(instr => {

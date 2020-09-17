@@ -34,8 +34,7 @@ namespace Generator.InstructionInfo {
 		ProtectedMode			= 0x00000004,
 		Privileged				= 0x00000008,
 		NoSegmentRead			= 0x00000010,
-		AVX2_Check				= 0x00000020,
-		OpMaskRegReadWrite		= 0x00000040,
+		OpMaskRegReadWrite		= 0x00000020,
 	}
 
 	enum OpInfo {

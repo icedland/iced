@@ -2717,12 +2717,15 @@ EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64, EVEX, 66, 0F38, 16, EVEX.512.66.0F38.W1 16 
 Ptest_xmm_xmmm128, legacy, 66, 0F38, 17, 66 0F 38 17 /r, PTEST xmm1| xmm2/m128, 16b 32b 64b op=xmm_reg;xmm_or_mem
 VEX_Vptest_xmm_xmmm128, VEX, 66, 0F38, 17, VEX.128.66.0F38.WIG 17 /r, VPTEST xmm1| xmm2/m128, 16b 32b 64b L128 WIG op=xmm_reg;xmm_or_mem
 VEX_Vptest_ymm_ymmm256, VEX, 66, 0F38, 17, VEX.256.66.0F38.WIG 17 /r, VPTEST ymm1| ymm2/m256, 16b 32b 64b L256 WIG op=ymm_reg;ymm_or_mem
-VEX_Vbroadcastss_xmm_xmmm32, VEX, 66, 0F38, 18, VEX.128.66.0F38.W0 18 /r, VBROADCASTSS xmm1| xmm2/m32, 16b 32b 64b L128 W0 op=xmm_reg;xmm_or_mem
-VEX_Vbroadcastss_ymm_xmmm32, VEX, 66, 0F38, 18, VEX.256.66.0F38.W0 18 /r, VBROADCASTSS ymm1| xmm2/m32, 16b 32b 64b L256 W0 op=ymm_reg;xmm_or_mem
+VEX_Vbroadcastss_xmm_m32, VEX, 66, 0F38, 18, VEX.128.66.0F38.W0 18 /r, VBROADCASTSS xmm1| m32, 16b 32b 64b L128 W0 op=xmm_reg;mem
+VEX_Vbroadcastss_xmm_xmm, VEX, 66, 0F38, 18, VEX.128.66.0F38.W0 18 /r, VBROADCASTSS xmm1| xmm2, 16b 32b 64b L128 W0 op=xmm_reg;xmm_rm
+VEX_Vbroadcastss_ymm_m32, VEX, 66, 0F38, 18, VEX.256.66.0F38.W0 18 /r, VBROADCASTSS ymm1| m32, 16b 32b 64b L256 W0 op=ymm_reg;mem
+VEX_Vbroadcastss_ymm_xmm, VEX, 66, 0F38, 18, VEX.256.66.0F38.W0 18 /r, VBROADCASTSS ymm1| xmm2, 16b 32b 64b L256 W0 op=ymm_reg;xmm_rm
 EVEX_Vbroadcastss_xmm_k1z_xmmm32, EVEX, 66, 0F38, 18, EVEX.128.66.0F38.W0 18 /r, VBROADCASTSS xmm1 {k1}{z}| xmm2/m32, 16b 32b 64b L128 W0 op=xmm_reg;xmm_or_mem tt=N4 k z
 EVEX_Vbroadcastss_ymm_k1z_xmmm32, EVEX, 66, 0F38, 18, EVEX.256.66.0F38.W0 18 /r, VBROADCASTSS ymm1 {k1}{z}| xmm2/m32, 16b 32b 64b L256 W0 op=ymm_reg;xmm_or_mem tt=N4 k z
 EVEX_Vbroadcastss_zmm_k1z_xmmm32, EVEX, 66, 0F38, 18, EVEX.512.66.0F38.W0 18 /r, VBROADCASTSS zmm1 {k1}{z}| xmm2/m32, 16b 32b 64b L512 W0 op=zmm_reg;xmm_or_mem tt=N4 k z
-VEX_Vbroadcastsd_ymm_xmmm64, VEX, 66, 0F38, 19, VEX.256.66.0F38.W0 19 /r, VBROADCASTSD ymm1| xmm2/m64, 16b 32b 64b L256 W0 op=ymm_reg;xmm_or_mem
+VEX_Vbroadcastsd_ymm_m64, VEX, 66, 0F38, 19, VEX.256.66.0F38.W0 19 /r, VBROADCASTSD ymm1| m64, 16b 32b 64b L256 W0 op=ymm_reg;mem
+VEX_Vbroadcastsd_ymm_xmm, VEX, 66, 0F38, 19, VEX.256.66.0F38.W0 19 /r, VBROADCASTSD ymm1| xmm2, 16b 32b 64b L256 W0 op=ymm_reg;xmm_rm
 EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64, EVEX, 66, 0F38, 19, EVEX.256.66.0F38.W0 19 /r, VBROADCASTF32X2 ymm1 {k1}{z}| xmm2/m64, 16b 32b 64b L256 W0 op=ymm_reg;xmm_or_mem tt=N8 k z
 EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64, EVEX, 66, 0F38, 19, EVEX.512.66.0F38.W0 19 /r, VBROADCASTF32X2 zmm1 {k1}{z}| xmm2/m64, 16b 32b 64b L512 W0 op=zmm_reg;xmm_or_mem tt=N8 k z
 EVEX_Vbroadcastsd_ymm_k1z_xmmm64, EVEX, 66, 0F38, 19, EVEX.256.66.0F38.W1 19 /r, VBROADCASTSD ymm1 {k1}{z}| xmm2/m64, 16b 32b 64b L256 W1 op=ymm_reg;xmm_or_mem tt=N8 k z

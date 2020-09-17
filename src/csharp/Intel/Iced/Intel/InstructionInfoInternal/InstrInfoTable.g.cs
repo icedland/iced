@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[8588] {
+		internal static readonly uint[] Data = new uint[8594] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -2717,12 +2717,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000CC034, 0x7F000000,// Ptest_xmm_xmmm128
 			0x200CC034, 0x0F000001,// VEX_Vptest_xmm_xmmm128
 			0x200CC034, 0x0F000001,// VEX_Vptest_ymm_ymmm256
-			0x20000037, 0x0F040001,// VEX_Vbroadcastss_xmm_xmmm32
-			0x20000037, 0x0F040001,// VEX_Vbroadcastss_ymm_xmmm32
+			0x20000037, 0x0F000001,// VEX_Vbroadcastss_xmm_m32
+			0x20000037, 0x0F000001,// VEX_Vbroadcastss_ymm_m32
 			0x20000037, 0x2D000002,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 			0x20000037, 0x2D000002,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 			0x20000038, 0x1E000002,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-			0x20000037, 0x0F040001,// VEX_Vbroadcastsd_ymm_xmmm64
+			0x20000037, 0x0F000001,// VEX_Vbroadcastsd_ymm_m64
 			0x20000037, 0x2C000002,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 			0x20000038, 0x1C000002,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 			0x20000037, 0x2D000002,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -4323,6 +4323,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000E4036, 0xA9000000,// Aesdec256kl_xmm_m512
 			0x07208037, 0xA9000000,// Encodekey128_r32_r32
 			0x07208037, 0xA9000000,// Encodekey256_r32_r32
+			0x20000037, 0x11000001,// VEX_Vbroadcastss_xmm_xmm
+			0x20000037, 0x11000001,// VEX_Vbroadcastss_ymm_xmm
+			0x20000037, 0x11000001,// VEX_Vbroadcastsd_ymm_xmm
 		};
 	}
 }

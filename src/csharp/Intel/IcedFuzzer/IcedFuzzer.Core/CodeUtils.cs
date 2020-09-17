@@ -25,10 +25,6 @@ using Iced.Intel;
 
 namespace IcedFuzzer.Core {
 	static class CodeUtils {
-		public static bool IsSpecialAvxAvx2(Code code) =>
-			// AVX (reg,mem) or AVX2 (reg,reg)
-			code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64;
-
 		public static bool IsReservedNop(Code code) {
 			switch (code) {
 			case Code.ReservedNop_rm16_r16_0F0D:

@@ -254,21 +254,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	{
 		assert_eq!(tc.code.op_code().encoding(), instr.code().encoding());
 	}
-	let mut cf = instr.code().cpuid_features();
-	#[cfg(not(feature = "no_vex"))]
-	{
-		if cf.len() == 1
-			&& cf[0] == CpuidFeature::AVX
-			&& instr.op1_kind() == OpKind::Register
-			&& (tc.code == Code::VEX_Vbroadcastss_xmm_xmmm32
-				|| tc.code == Code::VEX_Vbroadcastss_ymm_xmmm32
-				|| tc.code == Code::VEX_Vbroadcastsd_ymm_xmmm64)
-		{
-			static CPUID_FEATURE_AVX2: [CpuidFeature; 1] = [CpuidFeature::AVX2];
-			cf = &CPUID_FEATURE_AVX2;
-		}
-	}
-	assert_eq!(info.cpuid_features(), cf);
+	assert_eq!(info.cpuid_features(), instr.code().cpuid_features());
 	assert_eq!(info.flow_control(), instr.code().flow_control());
 	assert_eq!(info.is_protected_mode(), instr.code().is_protected_mode());
 	assert_eq!(info.is_privileged(), instr.code().is_privileged());

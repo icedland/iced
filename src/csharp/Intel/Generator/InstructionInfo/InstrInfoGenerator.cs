@@ -90,7 +90,6 @@ namespace Generator.InstructionInfo {
 					if ((info.Flags & InstrInfoFlags.NoSegmentRead) != 0) dword1 |= (uint)InfoFlags1.NoSegmentRead;
 
 					dword2 |= info.Encoding.Value << (int)InfoFlags2.EncodingShift;
-					if ((info.Flags & InstrInfoFlags.AVX2_Check) != 0) dword2 |= (uint)InfoFlags2.AVX2_Check;
 					if ((info.Flags & InstrInfoFlags.OpMaskRegReadWrite) != 0) dword2 |= (uint)InfoFlags2.OpMaskRegReadWrite;
 					dword2 |= info.FlowControl.Value << (int)InfoFlags2.FlowControlShift;
 					var cpuidInternal = info.CpuidInternal ?? throw new InvalidOperationException();

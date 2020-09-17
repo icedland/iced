@@ -14527,7 +14527,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vbroadcastsd_regYMM_regXMM() {
 			{ /* if (PreferVex) */
-				TestAssembler(c => c.vbroadcastsd(ymm2, xmm7), Instruction.Create(Code.VEX_Vbroadcastsd_ymm_xmmm64, ymm2, xmm7), LocalOpCodeFlags.PreferVex);
+				TestAssembler(c => c.vbroadcastsd(ymm2, xmm3), Instruction.Create(Code.VEX_Vbroadcastsd_ymm_xmm, ymm2, xmm3), LocalOpCodeFlags.PreferVex);
 			} /* else */ TestAssembler(c => c.vbroadcastsd(ymm2.k1, xmm7), ApplyK1(Instruction.Create(Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64, ymm2.k1, xmm7)), LocalOpCodeFlags.PreferEvex);
 		}
 #endif
@@ -14543,7 +14543,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vbroadcastsd_regYMM_m() {
 			{ /* if (PreferVex) */
-				TestAssembler(c => c.vbroadcastsd(ymm2, __xmmword_ptr[ecx]), Instruction.Create(Code.VEX_Vbroadcastsd_ymm_xmmm64, ymm2, __xmmword_ptr[ecx].ToMemoryOperand(Bitness)), LocalOpCodeFlags.PreferVex);
+				TestAssembler(c => c.vbroadcastsd(ymm2, __[ecx]), Instruction.Create(Code.VEX_Vbroadcastsd_ymm_m64, ymm2, __[ecx].ToMemoryOperand(Bitness)), LocalOpCodeFlags.PreferVex);
 			} /* else */ TestAssembler(c => c.vbroadcastsd(ymm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vbroadcastsd_ymm_k1z_xmmm64, ymm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))), LocalOpCodeFlags.PreferEvex);
 		}
 #endif
@@ -14559,7 +14559,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vbroadcastss_regXMM_regXMM() {
 			{ /* if (PreferVex) */
-				TestAssembler(c => c.vbroadcastss(xmm2, xmm7), Instruction.Create(Code.VEX_Vbroadcastss_xmm_xmmm32, xmm2, xmm7), LocalOpCodeFlags.PreferVex);
+				TestAssembler(c => c.vbroadcastss(xmm2, xmm3), Instruction.Create(Code.VEX_Vbroadcastss_xmm_xmm, xmm2, xmm3), LocalOpCodeFlags.PreferVex);
 			} /* else */ TestAssembler(c => c.vbroadcastss(xmm2.k1, xmm7), ApplyK1(Instruction.Create(Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32, xmm2.k1, xmm7)), LocalOpCodeFlags.PreferEvex);
 		}
 #endif
@@ -14568,7 +14568,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vbroadcastss_regYMM_regXMM() {
 			{ /* if (PreferVex) */
-				TestAssembler(c => c.vbroadcastss(ymm2, xmm7), Instruction.Create(Code.VEX_Vbroadcastss_ymm_xmmm32, ymm2, xmm7), LocalOpCodeFlags.PreferVex);
+				TestAssembler(c => c.vbroadcastss(ymm2, xmm3), Instruction.Create(Code.VEX_Vbroadcastss_ymm_xmm, ymm2, xmm3), LocalOpCodeFlags.PreferVex);
 			} /* else */ TestAssembler(c => c.vbroadcastss(ymm2.k1, xmm7), ApplyK1(Instruction.Create(Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32, ymm2.k1, xmm7)), LocalOpCodeFlags.PreferEvex);
 		}
 #endif
@@ -14584,7 +14584,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vbroadcastss_regXMM_m() {
 			{ /* if (PreferVex) */
-				TestAssembler(c => c.vbroadcastss(xmm2, __xmmword_ptr[ecx]), Instruction.Create(Code.VEX_Vbroadcastss_xmm_xmmm32, xmm2, __xmmword_ptr[ecx].ToMemoryOperand(Bitness)), LocalOpCodeFlags.PreferVex);
+				TestAssembler(c => c.vbroadcastss(xmm2, __[ecx]), Instruction.Create(Code.VEX_Vbroadcastss_xmm_m32, xmm2, __[ecx].ToMemoryOperand(Bitness)), LocalOpCodeFlags.PreferVex);
 			} /* else */ TestAssembler(c => c.vbroadcastss(xmm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vbroadcastss_xmm_k1z_xmmm32, xmm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))), LocalOpCodeFlags.PreferEvex);
 		}
 #endif
@@ -14593,7 +14593,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vbroadcastss_regYMM_m() {
 			{ /* if (PreferVex) */
-				TestAssembler(c => c.vbroadcastss(ymm2, __xmmword_ptr[ecx]), Instruction.Create(Code.VEX_Vbroadcastss_ymm_xmmm32, ymm2, __xmmword_ptr[ecx].ToMemoryOperand(Bitness)), LocalOpCodeFlags.PreferVex);
+				TestAssembler(c => c.vbroadcastss(ymm2, __[ecx]), Instruction.Create(Code.VEX_Vbroadcastss_ymm_m32, ymm2, __[ecx].ToMemoryOperand(Bitness)), LocalOpCodeFlags.PreferVex);
 			} /* else */ TestAssembler(c => c.vbroadcastss(ymm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vbroadcastss_ymm_k1z_xmmm32, ymm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))), LocalOpCodeFlags.PreferEvex);
 		}
 #endif

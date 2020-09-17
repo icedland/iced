@@ -56,7 +56,6 @@ namespace Generator.InstructionInfo {
 
 		// Free bits
 
-		AVX2_Check					= 0x00040000,
 		OpMaskRegReadWrite			= 0x00080000,
 		FlowControlShift			= 20,
 		FlowControlMask				= 0xF,
@@ -136,8 +135,6 @@ namespace Generator.InstructionInfo {
 			var cpuidFeatures = new List<(EnumValue cpuidInternal, EnumValue[] cpuidFeatures)>();
 			foreach (var def in defs)
 				Add(cpuidToInternalDict, cpuidFeatures, def.InstrInfo.Cpuid);
-			// Always include AVX2 since we have code that checks AVX2_Check and it references CpuidFeature.AVX2
-			Add(cpuidToInternalDict, cpuidFeatures, new[] { genTypes[TypeIds.CpuidFeature][nameof(CpuidFeature.AVX2)] });
 
 			cpuidFeatures.Sort(CompareCpuidInternalEnums);
 

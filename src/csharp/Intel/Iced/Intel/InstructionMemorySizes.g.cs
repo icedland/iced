@@ -2722,12 +2722,12 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt128,// Ptest_xmm_xmmm128
 			(byte)MemorySize.UInt128,// VEX_Vptest_xmm_xmmm128
 			(byte)MemorySize.UInt256,// VEX_Vptest_ymm_ymmm256
-			(byte)MemorySize.Float32,// VEX_Vbroadcastss_xmm_xmmm32
-			(byte)MemorySize.Float32,// VEX_Vbroadcastss_ymm_xmmm32
+			(byte)MemorySize.Float32,// VEX_Vbroadcastss_xmm_m32
+			(byte)MemorySize.Float32,// VEX_Vbroadcastss_ymm_m32
 			(byte)MemorySize.Float32,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 			(byte)MemorySize.Float32,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 			(byte)MemorySize.Float32,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-			(byte)MemorySize.Float64,// VEX_Vbroadcastsd_ymm_xmmm64
+			(byte)MemorySize.Float64,// VEX_Vbroadcastsd_ymm_m64
 			(byte)MemorySize.Packed64_Float32,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 			(byte)MemorySize.Packed64_Float32,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 			(byte)MemorySize.Float64,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -4328,6 +4328,9 @@ namespace Iced.Intel {
 			(byte)MemorySize.KLHandleAes256,// Aesdec256kl_xmm_m512
 			0,// Encodekey128_r32_r32
 			0,// Encodekey256_r32_r32
+			(byte)MemorySize.Float32,// VEX_Vbroadcastss_xmm_xmm
+			(byte)MemorySize.Float32,// VEX_Vbroadcastss_ymm_xmm
+			(byte)MemorySize.Float64,// VEX_Vbroadcastsd_ymm_xmm
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -7016,12 +7019,12 @@ namespace Iced.Intel {
 			0,// Ptest_xmm_xmmm128
 			0,// VEX_Vptest_xmm_xmmm128
 			0,// VEX_Vptest_ymm_ymmm256
-			0,// VEX_Vbroadcastss_xmm_xmmm32
-			0,// VEX_Vbroadcastss_ymm_xmmm32
+			0,// VEX_Vbroadcastss_xmm_m32
+			0,// VEX_Vbroadcastss_ymm_m32
 			0,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 			0,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 			0,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-			0,// VEX_Vbroadcastsd_ymm_xmmm64
+			0,// VEX_Vbroadcastsd_ymm_m64
 			0,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 			0,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 			0,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -8622,6 +8625,9 @@ namespace Iced.Intel {
 			0,// Aesdec256kl_xmm_m512
 			0,// Encodekey128_r32_r32
 			0,// Encodekey256_r32_r32
+			0,// VEX_Vbroadcastss_xmm_xmm
+			0,// VEX_Vbroadcastss_ymm_xmm
+			0,// VEX_Vbroadcastsd_ymm_xmm
 		};
 	}
 }

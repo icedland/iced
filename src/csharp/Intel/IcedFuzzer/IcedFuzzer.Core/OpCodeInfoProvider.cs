@@ -46,27 +46,9 @@ namespace IcedFuzzer.Core {
 
 		public bool ShouldInclude(Code code, bool? isMemOp) {
 			if (ExcludeCpuid.Count != 0) {
-				if (CodeUtils.IsSpecialAvxAvx2(code)) {
-					// AVX (reg,mem) or AVX2 (reg,reg).
-					if (isMemOp is null) {
-						// Remove the instruction if both AVX and AVX2 should be excluded.
-						if (ExcludeCpuid.Contains(CpuidFeature.AVX) && ExcludeCpuid.Contains(CpuidFeature.AVX2))
-							return false;
-					}
-					else if (isMemOp.GetValueOrDefault()) {
-						if (ExcludeCpuid.Contains(CpuidFeature.AVX))
-							return false;
-					}
-					else {
-						if (ExcludeCpuid.Contains(CpuidFeature.AVX2))
-							return false;
-					}
-				}
-				else {
-					foreach (var cpuid in code.CpuidFeatures()) {
-						if (ExcludeCpuid.Contains(cpuid))
-							return false;
-					}
+				foreach (var cpuid in code.CpuidFeatures()) {
+					if (ExcludeCpuid.Contains(cpuid))
+						return false;
 				}
 			}
 			if (IncludeCpuid.Count != 0) {

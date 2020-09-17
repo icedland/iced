@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel.EncoderInternal {
 	static partial class OpCodeHandlers {
 		public static uint[] GetData() =>
-			new uint[4294 * 3] {
+			new uint[4297 * 3] {
 				0x00000000, 0x00000000, 0x00000000,// INVALID
 				0x00000000, 0x00000000, 0x00000000,// DeclareByte
 				0x00000000, 0x00000000, 0x00000000,// DeclareWord
@@ -2718,12 +2718,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x00170000, 0x00008009, 0x00003263,// Ptest_xmm_xmmm128
 				0x00170001, 0x00004C09, 0x00000962,// VEX_Vptest_xmm_xmmm128
 				0x00170001, 0x00005009, 0x000009A3,// VEX_Vptest_ymm_ymmm256
-				0x00180001, 0x00000C09, 0x00000962,// VEX_Vbroadcastss_xmm_xmmm32
-				0x00180001, 0x00001009, 0x00000963,// VEX_Vbroadcastss_ymm_xmmm32
+				0x00180001, 0x00000C09, 0x000005A2,// VEX_Vbroadcastss_xmm_m32
+				0x00180001, 0x00001009, 0x000005A3,// VEX_Vbroadcastss_ymm_m32
 				0x00180002, 0x00C08009, 0x0000085E,// EVEX_Vbroadcastss_xmm_k1z_xmmm32
 				0x00180002, 0x00C08409, 0x0000085F,// EVEX_Vbroadcastss_ymm_k1z_xmmm32
 				0x00180002, 0x00C08809, 0x00000860,// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-				0x00190001, 0x00001009, 0x00000963,// VEX_Vbroadcastsd_ymm_xmmm64
+				0x00190001, 0x00001009, 0x000005A3,// VEX_Vbroadcastsd_ymm_m64
 				0x00190002, 0x00C0C409, 0x0000085F,// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 				0x00190002, 0x00C0C809, 0x00000860,// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 				0x00190002, 0x00C0D409, 0x0000085F,// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
@@ -4324,6 +4324,9 @@ namespace Iced.Intel.EncoderInternal {
 				0x00DF0000, 0x0000800A, 0x000001E3,// Aesdec256kl_xmm_m512
 				0x00FA0000, 0x0000800A, 0x000018AB,// Encodekey128_r32_r32
 				0x00FB0000, 0x0000800A, 0x000018AB,// Encodekey256_r32_r32
+				0x00180001, 0x00000C09, 0x000006E2,// VEX_Vbroadcastss_xmm_xmm
+				0x00180001, 0x00001009, 0x000006E3,// VEX_Vbroadcastss_ymm_xmm
+				0x00190001, 0x00001009, 0x000006E3,// VEX_Vbroadcastsd_ymm_xmm
 			};
 	}
 }

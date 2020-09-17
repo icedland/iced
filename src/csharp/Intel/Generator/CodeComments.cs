@@ -96,11 +96,8 @@ namespace Generator {
 			return sb.ToString();
 		}
 
-		static string GetCpuid(InstrInfo info) {
-			if ((info.Flags & InstrInfoFlags.AVX2_Check) != 0)
-				return "AVX (reg,mem) or AVX2 (reg,reg)";
-			return string.Join(" and ", info.Cpuid.Select(a => GetCpuid(a)));
-		}
+		static string GetCpuid(InstrInfo info) =>
+			string.Join(" and ", info.Cpuid.Select(a => GetCpuid(a)));
 
 		static string GetCpuid(EnumValue c) =>
 			(CpuidFeature)c.Value switch {

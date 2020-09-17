@@ -4539,18 +4539,18 @@ C4E279 17 CD, VEX_Vptest_xmm_xmmm128
 C4E279 17 10, VEX_Vptest_xmm_xmmm128
 C4E27D 17 CD, VEX_Vptest_ymm_ymmm256
 C4E27D 17 10, VEX_Vptest_ymm_ymmm256
-C4E279 18 CD, VEX_Vbroadcastss_xmm_xmmm32
-C4E279 18 10, VEX_Vbroadcastss_xmm_xmmm32
-C4E27D 18 CD, VEX_Vbroadcastss_ymm_xmmm32
-C4E27D 18 10, VEX_Vbroadcastss_ymm_xmmm32
+C4E279 18 CD, VEX_Vbroadcastss_xmm_xmm
+C4E279 18 10, VEX_Vbroadcastss_xmm_m32
+C4E27D 18 CD, VEX_Vbroadcastss_ymm_xmm
+C4E27D 18 10, VEX_Vbroadcastss_ymm_m32
 62 F27D08 18 D3, EVEX_Vbroadcastss_xmm_k1z_xmmm32
 62 F27D08 18 50 01, EVEX_Vbroadcastss_xmm_k1z_xmmm32
 62 F27D28 18 D3, EVEX_Vbroadcastss_ymm_k1z_xmmm32
 62 F27D28 18 50 01, EVEX_Vbroadcastss_ymm_k1z_xmmm32
 62 F27D48 18 D3, EVEX_Vbroadcastss_zmm_k1z_xmmm32
 62 F27D48 18 50 01, EVEX_Vbroadcastss_zmm_k1z_xmmm32
-C4E27D 19 CD, VEX_Vbroadcastsd_ymm_xmmm64
-C4E27D 19 10, VEX_Vbroadcastsd_ymm_xmmm64
+C4E27D 19 CD, VEX_Vbroadcastsd_ymm_xmm
+C4E27D 19 10, VEX_Vbroadcastsd_ymm_m64
 62 F27D28 19 D3, EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 62 F27D28 19 50 01, EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 62 F27D48 19 D3, EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64

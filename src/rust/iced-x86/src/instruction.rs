@@ -2766,11 +2766,7 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
 		let flags2 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
-		let index = if (flags2 & InfoFlags2::AVX2_CHECK) != 0 && self.op1_kind() == OpKind::Register {
-			CpuidFeatureInternal::AVX2 as usize
-		} else {
-			((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize
-		};
+		let index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
 		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 

@@ -193,12 +193,7 @@ impl InstructionInfoFactory {
 
 		let index = (instruction.code() as usize) << 1;
 		let flags1 = unsafe { *super::info_table::TABLE.get_unchecked(index) };
-		let mut flags2 = unsafe { *super::info_table::TABLE.get_unchecked(index + 1) };
-
-		if (flags2 & InfoFlags2::AVX2_CHECK) != 0 && instruction.op1_kind() == OpKind::Register {
-			flags2 = (flags2 & !(InfoFlags2::CPUID_FEATURE_INTERNAL_MASK << InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT))
-				| ((CpuidFeatureInternal::AVX2 as u32) << InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT);
-		}
+		let flags2 = unsafe { *super::info_table::TABLE.get_unchecked(index + 1) };
 
 		info.cpuid_feature_internal = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
 		info.flow_control = unsafe { mem::transmute(((flags2 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as u8) };

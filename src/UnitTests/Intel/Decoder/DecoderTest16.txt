@@ -12533,13 +12533,17 @@ C4E2FD 17 10, VEX_Vptest_ymm_ymmm256, Vptest, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0
 C4E27D 17 CD, VEX_Vptest_ymm_ymmm256, Vptest, 2, op0=r;ymm1 op1=r;ymm5
 C4C27D 17 10, VEX_Vptest_ymm_ymmm256, Vptest, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;UInt256 enc=C4E27D1710
 
-C4E279 18 10, VEX_Vbroadcastss_xmm_xmmm32, Vbroadcastss, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Float32
-C4E279 18 CD, VEX_Vbroadcastss_xmm_xmmm32, Vbroadcastss, 2, op0=r;xmm1 op1=r;xmm5
-C4C279 18 10, VEX_Vbroadcastss_xmm_xmmm32, Vbroadcastss, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Float32 enc=C4E2791810
+C4E279 18 10, VEX_Vbroadcastss_xmm_m32, Vbroadcastss, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Float32
+C4C279 18 10, VEX_Vbroadcastss_xmm_m32, Vbroadcastss, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Float32 enc=C4E2791810
 
-C4E27D 18 10, VEX_Vbroadcastss_ymm_xmmm32, Vbroadcastss, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float32
-C4E27D 18 CD, VEX_Vbroadcastss_ymm_xmmm32, Vbroadcastss, 2, op0=r;ymm1 op1=r;xmm5
-C4C27D 18 10, VEX_Vbroadcastss_ymm_xmmm32, Vbroadcastss, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float32 enc=C4E27D1810
+C4E279 18 CD, VEX_Vbroadcastss_xmm_xmm, Vbroadcastss, 2, op0=r;xmm1 op1=r;xmm5
+C4C279 18 CD, VEX_Vbroadcastss_xmm_xmm, Vbroadcastss, 2, op0=r;xmm1 op1=r;xmm5 enc=C4E27918CD
+
+C4E27D 18 10, VEX_Vbroadcastss_ymm_m32, Vbroadcastss, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float32
+C4C27D 18 10, VEX_Vbroadcastss_ymm_m32, Vbroadcastss, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float32 enc=C4E27D1810
+
+C4E27D 18 CD, VEX_Vbroadcastss_ymm_xmm, Vbroadcastss, 2, op0=r;ymm1 op1=r;xmm5
+C4C27D 18 CD, VEX_Vbroadcastss_ymm_xmm, Vbroadcastss, 2, op0=r;ymm1 op1=r;xmm5 enc=C4E27D18CD
 
 62 F27D08 18 50 01, EVEX_Vbroadcastss_xmm_k1z_xmmm32, Vbroadcastss, 2, op0=r;xmm2 op1=m;ds;bx;si;1;4;1;Float32 co=0;0;0;0;6;1
 62 F27D8B 18 50 01, EVEX_Vbroadcastss_xmm_k1z_xmmm32, Vbroadcastss, 2, op0=r;xmm2 op1=m;ds;bx;si;1;4;1;Float32 k3 zmsk co=0;0;0;0;6;1
@@ -12565,9 +12569,11 @@ C4C27D 18 10, VEX_Vbroadcastss_ymm_xmmm32, Vbroadcastss, 2, op0=r;ymm2 op1=m;ds;
 62 D27D48 18 50 01, EVEX_Vbroadcastss_zmm_k1z_xmmm32, Vbroadcastss, 2, op0=r;zmm2 op1=m;ds;bx;si;1;4;1;Float32 co=0;0;0;0;6;1 enc=62F27D48185001
 62 E27D48 18 50 01, EVEX_Vbroadcastss_zmm_k1z_xmmm32, Vbroadcastss, 2, op0=r;zmm2 op1=m;ds;bx;si;1;4;1;Float32 co=0;0;0;0;6;1 enc=62F27D48185001
 
-C4E27D 19 10, VEX_Vbroadcastsd_ymm_xmmm64, Vbroadcastsd, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float64
-C4E27D 19 CD, VEX_Vbroadcastsd_ymm_xmmm64, Vbroadcastsd, 2, op0=r;ymm1 op1=r;xmm5
-C4C27D 19 10, VEX_Vbroadcastsd_ymm_xmmm64, Vbroadcastsd, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float64 enc=C4E27D1910
+C4E27D 19 10, VEX_Vbroadcastsd_ymm_m64, Vbroadcastsd, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float64
+C4C27D 19 10, VEX_Vbroadcastsd_ymm_m64, Vbroadcastsd, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float64 enc=C4E27D1910
+
+C4E27D 19 CD, VEX_Vbroadcastsd_ymm_xmm, Vbroadcastsd, 2, op0=r;ymm1 op1=r;xmm5
+C4C27D 19 CD, VEX_Vbroadcastsd_ymm_xmm, Vbroadcastsd, 2, op0=r;ymm1 op1=r;xmm5 enc=C4E27D19CD
 
 62 F27D28 19 50 01, EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64, Vbroadcastf32x2, 2, op0=r;ymm2 op1=m;ds;bx;si;1;8;1;Packed64_Float32 co=0;0;0;0;6;1
 62 F27DAB 19 50 01, EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64, Vbroadcastf32x2, 2, op0=r;ymm2 op1=m;ds;bx;si;1;8;1;Packed64_Float32 k3 zmsk co=0;0;0;0;6;1
