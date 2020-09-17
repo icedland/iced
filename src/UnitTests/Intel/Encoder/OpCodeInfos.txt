@@ -903,9 +903,9 @@ Wbinvd, legacy, , 0F, 09, 0F 09, WBINVD, 16b 32b 64b
 Wbnoinvd, legacy, F3, 0F, 09, F3 0F 09, WBNOINVD, 16b 32b 64b
 Cl1invmb, legacy, , 0F, 0A, 0F 0A, CL1INVMB, 16b 32b
 Ud2, legacy, , 0F, 0B, 0F 0B, UD2, 16b 32b 64b
-ReservedNop_rm16_r16_0F0D, legacy, , 0F, 0D, o16 0F 0D /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F0D, legacy, , 0F, 0D, o32 0F 0D /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F0D, legacy, , 0F, 0D, REX.W 0F 0D /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F0D, legacy, , 0F, 0D, o16 0F 0D /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F0D, legacy, , 0F, 0D, o32 0F 0D /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F0D, legacy, , 0F, 0D, REX.W 0F 0D /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
 Prefetch_m8, legacy, , 0F, 0D, 0F 0D /0, PREFETCH m8, g=0 16b 32b 64b op=mem
 Prefetchw_m8, legacy, , 0F, 0D, 0F 0D /1, PREFETCHW m8, g=1 16b 32b 64b op=mem
 Prefetchwt1_m8, legacy, , 0F, 0D, 0F 0D /2, PREFETCHWT1 m8, g=2 16b 32b 64b op=mem
@@ -1037,30 +1037,30 @@ EVEX_Vmovhps_m64_xmm, EVEX, NP, 0F, 17, EVEX.128.0F.W0 17 /r, VMOVHPS m64| xmm1,
 Movhpd_m64_xmm, legacy, 66, 0F, 17, 66 0F 17 /r, MOVHPD m64| xmm1, 16b 32b 64b op=mem;xmm_reg
 VEX_Vmovhpd_m64_xmm, VEX, 66, 0F, 17, VEX.128.66.0F.WIG 17 /r, VMOVHPD m64| xmm1, 16b 32b 64b L128 WIG op=mem;xmm_reg
 EVEX_Vmovhpd_m64_xmm, EVEX, 66, 0F, 17, EVEX.128.66.0F.W1 17 /r, VMOVHPD m64| xmm1, 16b 32b 64b L128 W1 op=mem;xmm_reg tt=N8
-ReservedNop_rm16_r16_0F18, legacy, , 0F, 18, o16 0F 18 /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F18, legacy, , 0F, 18, o32 0F 18 /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F18, legacy, , 0F, 18, REX.W 0F 18 /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
-ReservedNop_rm16_r16_0F19, legacy, , 0F, 19, o16 0F 19 /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F19, legacy, , 0F, 19, o32 0F 19 /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F19, legacy, , 0F, 19, REX.W 0F 19 /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
-ReservedNop_rm16_r16_0F1A, legacy, , 0F, 1A, o16 0F 1A /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F1A, legacy, , 0F, 1A, o32 0F 1A /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F1A, legacy, , 0F, 1A, REX.W 0F 1A /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
-ReservedNop_rm16_r16_0F1B, legacy, , 0F, 1B, o16 0F 1B /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F1B, legacy, , 0F, 1B, o32 0F 1B /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F1B, legacy, , 0F, 1B, REX.W 0F 1B /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
-ReservedNop_rm16_r16_0F1C, legacy, , 0F, 1C, o16 0F 1C /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F1C, legacy, , 0F, 1C, o32 0F 1C /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F1C, legacy, , 0F, 1C, REX.W 0F 1C /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
-ReservedNop_rm16_r16_0F1D, legacy, , 0F, 1D, o16 0F 1D /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F1D, legacy, , 0F, 1D, o32 0F 1D /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F1D, legacy, , 0F, 1D, REX.W 0F 1D /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
-ReservedNop_rm16_r16_0F1E, legacy, , 0F, 1E, o16 0F 1E /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F1E, legacy, , 0F, 1E, o32 0F 1E /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F1E, legacy, , 0F, 1E, REX.W 0F 1E /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
-ReservedNop_rm16_r16_0F1F, legacy, , 0F, 1F, o16 0F 1F /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
-ReservedNop_rm32_r32_0F1F, legacy, , 0F, 1F, o32 0F 1F /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
-ReservedNop_rm64_r64_0F1F, legacy, , 0F, 1F, REX.W 0F 1F /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F18, legacy, , 0F, 18, o16 0F 18 /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F18, legacy, , 0F, 18, o32 0F 18 /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F18, legacy, , 0F, 18, REX.W 0F 18 /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F19, legacy, , 0F, 19, o16 0F 19 /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F19, legacy, , 0F, 19, o32 0F 19 /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F19, legacy, , 0F, 19, REX.W 0F 19 /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F1A, legacy, , 0F, 1A, o16 0F 1A /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F1A, legacy, , 0F, 1A, o32 0F 1A /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F1A, legacy, , 0F, 1A, REX.W 0F 1A /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F1B, legacy, , 0F, 1B, o16 0F 1B /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F1B, legacy, , 0F, 1B, o32 0F 1B /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F1B, legacy, , 0F, 1B, REX.W 0F 1B /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F1C, legacy, , 0F, 1C, o16 0F 1C /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F1C, legacy, , 0F, 1C, o32 0F 1C /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F1C, legacy, , 0F, 1C, REX.W 0F 1C /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F1D, legacy, , 0F, 1D, o16 0F 1D /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F1D, legacy, , 0F, 1D, o32 0F 1D /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F1D, legacy, , 0F, 1D, REX.W 0F 1D /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F1E, legacy, , 0F, 1E, o16 0F 1E /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F1E, legacy, , 0F, 1E, o32 0F 1E /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F1E, legacy, , 0F, 1E, REX.W 0F 1E /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
+Reservednop_rm16_r16_0F1F, legacy, , 0F, 1F, o16 0F 1F /r, RESERVEDNOP r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg
+Reservednop_rm32_r32_0F1F, legacy, , 0F, 1F, o32 0F 1F /r, RESERVEDNOP r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg
+Reservednop_rm64_r64_0F1F, legacy, , 0F, 1F, REX.W 0F 1F /r, RESERVEDNOP r/m64| r64, 64b o64 op=r64_or_mem;r64_reg
 Prefetchnta_m8, legacy, , 0F, 18, 0F 18 /0, PREFETCHNTA m8, g=0 16b 32b 64b op=mem
 Prefetcht0_m8, legacy, , 0F, 18, 0F 18 /1, PREFETCHT0 m8, g=1 16b 32b 64b op=mem
 Prefetcht1_m8, legacy, , 0F, 18, 0F 18 /2, PREFETCHT1 m8, g=2 16b 32b 64b op=mem

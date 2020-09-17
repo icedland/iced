@@ -7045,7 +7045,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F0D = 880,
+		Reservednop_rm16_r16_0F0D = 880,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 0D /r</c><br/>
@@ -7053,7 +7053,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F0D = 881,
+		Reservednop_rm32_r32_0F0D = 881,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 0D /r</c><br/>
@@ -7061,7 +7061,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F0D = 882,
+		Reservednop_rm64_r64_0F0D = 882,
 		/// <summary><c>PREFETCH m8</c><br/>
 		/// <br/>
 		/// <c>0F 0D /0</c><br/>
@@ -8077,7 +8077,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F18 = 1009,
+		Reservednop_rm16_r16_0F18 = 1009,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 18 /r</c><br/>
@@ -8085,7 +8085,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F18 = 1010,
+		Reservednop_rm32_r32_0F18 = 1010,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 18 /r</c><br/>
@@ -8093,7 +8093,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F18 = 1011,
+		Reservednop_rm64_r64_0F18 = 1011,
 		/// <summary><c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 19 /r</c><br/>
@@ -8101,7 +8101,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F19 = 1012,
+		Reservednop_rm16_r16_0F19 = 1012,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 19 /r</c><br/>
@@ -8109,7 +8109,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F19 = 1013,
+		Reservednop_rm32_r32_0F19 = 1013,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 19 /r</c><br/>
@@ -8117,7 +8117,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F19 = 1014,
+		Reservednop_rm64_r64_0F19 = 1014,
 		/// <summary><c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 1A /r</c><br/>
@@ -8125,7 +8125,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F1A = 1015,
+		Reservednop_rm16_r16_0F1A = 1015,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 1A /r</c><br/>
@@ -8133,7 +8133,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F1A = 1016,
+		Reservednop_rm32_r32_0F1A = 1016,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 1A /r</c><br/>
@@ -8141,7 +8141,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F1A = 1017,
+		Reservednop_rm64_r64_0F1A = 1017,
 		/// <summary><c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 1B /r</c><br/>
@@ -8149,7 +8149,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F1B = 1018,
+		Reservednop_rm16_r16_0F1B = 1018,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 1B /r</c><br/>
@@ -8157,7 +8157,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F1B = 1019,
+		Reservednop_rm32_r32_0F1B = 1019,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 1B /r</c><br/>
@@ -8165,7 +8165,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F1B = 1020,
+		Reservednop_rm64_r64_0F1B = 1020,
 		/// <summary><c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 1C /r</c><br/>
@@ -8173,7 +8173,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F1C = 1021,
+		Reservednop_rm16_r16_0F1C = 1021,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 1C /r</c><br/>
@@ -8181,7 +8181,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F1C = 1022,
+		Reservednop_rm32_r32_0F1C = 1022,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 1C /r</c><br/>
@@ -8189,7 +8189,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F1C = 1023,
+		Reservednop_rm64_r64_0F1C = 1023,
 		/// <summary><c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 1D /r</c><br/>
@@ -8197,7 +8197,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F1D = 1024,
+		Reservednop_rm16_r16_0F1D = 1024,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 1D /r</c><br/>
@@ -8205,7 +8205,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F1D = 1025,
+		Reservednop_rm32_r32_0F1D = 1025,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 1D /r</c><br/>
@@ -8213,7 +8213,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F1D = 1026,
+		Reservednop_rm64_r64_0F1D = 1026,
 		/// <summary><c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 1E /r</c><br/>
@@ -8221,7 +8221,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F1E = 1027,
+		Reservednop_rm16_r16_0F1E = 1027,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 1E /r</c><br/>
@@ -8229,7 +8229,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F1E = 1028,
+		Reservednop_rm32_r32_0F1E = 1028,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 1E /r</c><br/>
@@ -8237,7 +8237,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F1E = 1029,
+		Reservednop_rm64_r64_0F1E = 1029,
 		/// <summary><c>RESERVEDNOP r/m16, r16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 1F /r</c><br/>
@@ -8245,7 +8245,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm16_r16_0F1F = 1030,
+		Reservednop_rm16_r16_0F1F = 1030,
 		/// <summary><c>RESERVEDNOP r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F 1F /r</c><br/>
@@ -8253,7 +8253,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		ReservedNop_rm32_r32_0F1F = 1031,
+		Reservednop_rm32_r32_0F1F = 1031,
 		/// <summary><c>RESERVEDNOP r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 1F /r</c><br/>
@@ -8261,7 +8261,7 @@ namespace Iced.Intel {
 		/// <c>CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		ReservedNop_rm64_r64_0F1F = 1032,
+		Reservednop_rm64_r64_0F1F = 1032,
 		/// <summary><c>PREFETCHNTA m8</c><br/>
 		/// <br/>
 		/// <c>0F 18 /0</c><br/>

@@ -695,7 +695,7 @@ lazy_static! {
 		h.insert("Rdsspq", Mnemonic::Rdsspq);
 		h.insert("Rdtsc", Mnemonic::Rdtsc);
 		h.insert("Rdtscp", Mnemonic::Rdtscp);
-		h.insert("ReservedNop", Mnemonic::ReservedNop);
+		h.insert("Reservednop", Mnemonic::Reservednop);
 		h.insert("Ret", Mnemonic::Ret);
 		h.insert("Retf", Mnemonic::Retf);
 		h.insert("Rol", Mnemonic::Rol);

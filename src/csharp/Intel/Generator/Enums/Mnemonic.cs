@@ -685,7 +685,7 @@ namespace Generator.Enums {
 		Rdsspq,
 		Rdtsc,
 		Rdtscp,
-		ReservedNop,
+		Reservednop,
 		Ret,
 		Retf,
 		Rol,

@@ -910,9 +910,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Wbnoinvd
 	MemorySize::Unknown,// Cl1invmb
 	MemorySize::Unknown,// Ud2
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F0D
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F0D
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F0D
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F0D
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F0D
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F0D
 	MemorySize::UInt8,// Prefetch_m8
 	MemorySize::UInt8,// Prefetchw_m8
 	MemorySize::UInt8,// Prefetchwt1_m8
@@ -1039,30 +1039,30 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Float64,// Movhpd_m64_xmm
 	MemorySize::Float64,// VEX_Vmovhpd_m64_xmm
 	MemorySize::Float64,// EVEX_Vmovhpd_m64_xmm
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F18
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F18
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F18
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F19
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F19
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F19
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F1A
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F1A
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F1A
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F1B
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F1B
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F1B
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F1C
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F1C
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F1C
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F1D
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F1D
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F1D
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F1E
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F1E
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F1E
-	MemorySize::UInt16,// ReservedNop_rm16_r16_0F1F
-	MemorySize::UInt32,// ReservedNop_rm32_r32_0F1F
-	MemorySize::UInt64,// ReservedNop_rm64_r64_0F1F
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F18
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F18
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F18
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F19
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F19
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F19
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F1A
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F1A
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F1A
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F1B
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F1B
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F1B
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F1C
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F1C
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F1C
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F1D
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F1D
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F1D
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F1E
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F1E
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F1E
+	MemorySize::UInt16,// Reservednop_rm16_r16_0F1F
+	MemorySize::UInt32,// Reservednop_rm32_r32_0F1F
+	MemorySize::UInt64,// Reservednop_rm64_r64_0F1F
 	MemorySize::UInt8,// Prefetchnta_m8
 	MemorySize::UInt8,// Prefetcht0_m8
 	MemorySize::UInt8,// Prefetcht1_m8
@@ -5207,9 +5207,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Wbnoinvd
 	MemorySize::Unknown,// Cl1invmb
 	MemorySize::Unknown,// Ud2
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F0D
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F0D
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F0D
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F0D
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F0D
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F0D
 	MemorySize::Unknown,// Prefetch_m8
 	MemorySize::Unknown,// Prefetchw_m8
 	MemorySize::Unknown,// Prefetchwt1_m8
@@ -5336,30 +5336,30 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Movhpd_m64_xmm
 	MemorySize::Unknown,// VEX_Vmovhpd_m64_xmm
 	MemorySize::Unknown,// EVEX_Vmovhpd_m64_xmm
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F18
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F18
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F18
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F19
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F19
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F19
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F1A
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F1A
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F1A
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F1B
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F1B
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F1B
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F1C
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F1C
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F1C
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F1D
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F1D
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F1D
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F1E
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F1E
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F1E
-	MemorySize::Unknown,// ReservedNop_rm16_r16_0F1F
-	MemorySize::Unknown,// ReservedNop_rm32_r32_0F1F
-	MemorySize::Unknown,// ReservedNop_rm64_r64_0F1F
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F18
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F18
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F18
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F19
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F19
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F19
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F1A
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F1A
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F1A
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F1B
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F1B
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F1B
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F1C
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F1C
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F1C
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F1D
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F1D
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F1D
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F1E
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F1E
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F1E
+	MemorySize::Unknown,// Reservednop_rm16_r16_0F1F
+	MemorySize::Unknown,// Reservednop_rm32_r32_0F1F
+	MemorySize::Unknown,// Reservednop_rm64_r64_0F1F
 	MemorySize::Unknown,// Prefetchnta_m8
 	MemorySize::Unknown,// Prefetcht0_m8
 	MemorySize::Unknown,// Prefetcht1_m8

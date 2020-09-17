@@ -32599,7 +32599,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f0d(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F0D;
+			op = Code.Reservednop_rm16_r16_0F0D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f0d instruction.<br/>
@@ -32613,7 +32613,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F0D;
+			op = Code.Reservednop_rm16_r16_0F0D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f0d instruction.<br/>
@@ -32627,7 +32627,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f0d(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F0D;
+			op = Code.Reservednop_rm32_r32_0F0D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f0d instruction.<br/>
@@ -32641,7 +32641,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F0D;
+			op = Code.Reservednop_rm32_r32_0F0D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f0d instruction.<br/>
@@ -32655,7 +32655,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f0d(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F0D;
+			op = Code.Reservednop_rm64_r64_0F0D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f0d instruction.<br/>
@@ -32669,7 +32669,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f0d(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F0D;
+			op = Code.Reservednop_rm64_r64_0F0D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f18 instruction.<br/>
@@ -32683,7 +32683,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f18(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F18;
+			op = Code.Reservednop_rm16_r16_0F18;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f18 instruction.<br/>
@@ -32697,7 +32697,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f18(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F18;
+			op = Code.Reservednop_rm16_r16_0F18;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f18 instruction.<br/>
@@ -32711,7 +32711,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f18(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F18;
+			op = Code.Reservednop_rm32_r32_0F18;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f18 instruction.<br/>
@@ -32725,7 +32725,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f18(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F18;
+			op = Code.Reservednop_rm32_r32_0F18;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f18 instruction.<br/>
@@ -32739,7 +32739,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f18(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F18;
+			op = Code.Reservednop_rm64_r64_0F18;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f18 instruction.<br/>
@@ -32753,7 +32753,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f18(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F18;
+			op = Code.Reservednop_rm64_r64_0F18;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f19 instruction.<br/>
@@ -32767,7 +32767,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f19(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F19;
+			op = Code.Reservednop_rm16_r16_0F19;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f19 instruction.<br/>
@@ -32781,7 +32781,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f19(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F19;
+			op = Code.Reservednop_rm16_r16_0F19;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f19 instruction.<br/>
@@ -32795,7 +32795,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f19(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F19;
+			op = Code.Reservednop_rm32_r32_0F19;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f19 instruction.<br/>
@@ -32809,7 +32809,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f19(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F19;
+			op = Code.Reservednop_rm32_r32_0F19;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f19 instruction.<br/>
@@ -32823,7 +32823,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f19(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F19;
+			op = Code.Reservednop_rm64_r64_0F19;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f19 instruction.<br/>
@@ -32837,7 +32837,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f19(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F19;
+			op = Code.Reservednop_rm64_r64_0F19;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1a instruction.<br/>
@@ -32851,7 +32851,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1a(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1A;
+			op = Code.Reservednop_rm16_r16_0F1A;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1a instruction.<br/>
@@ -32865,7 +32865,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1A;
+			op = Code.Reservednop_rm16_r16_0F1A;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1a instruction.<br/>
@@ -32879,7 +32879,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1a(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1A;
+			op = Code.Reservednop_rm32_r32_0F1A;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1a instruction.<br/>
@@ -32893,7 +32893,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1A;
+			op = Code.Reservednop_rm32_r32_0F1A;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1a instruction.<br/>
@@ -32907,7 +32907,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1a(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1A;
+			op = Code.Reservednop_rm64_r64_0F1A;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1a instruction.<br/>
@@ -32921,7 +32921,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1a(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1A;
+			op = Code.Reservednop_rm64_r64_0F1A;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1b instruction.<br/>
@@ -32935,7 +32935,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1b(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1B;
+			op = Code.Reservednop_rm16_r16_0F1B;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1b instruction.<br/>
@@ -32949,7 +32949,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1B;
+			op = Code.Reservednop_rm16_r16_0F1B;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1b instruction.<br/>
@@ -32963,7 +32963,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1b(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1B;
+			op = Code.Reservednop_rm32_r32_0F1B;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1b instruction.<br/>
@@ -32977,7 +32977,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1B;
+			op = Code.Reservednop_rm32_r32_0F1B;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1b instruction.<br/>
@@ -32991,7 +32991,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1b(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1B;
+			op = Code.Reservednop_rm64_r64_0F1B;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1b instruction.<br/>
@@ -33005,7 +33005,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1b(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1B;
+			op = Code.Reservednop_rm64_r64_0F1B;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1c instruction.<br/>
@@ -33019,7 +33019,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1c(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1C;
+			op = Code.Reservednop_rm16_r16_0F1C;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1c instruction.<br/>
@@ -33033,7 +33033,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1C;
+			op = Code.Reservednop_rm16_r16_0F1C;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1c instruction.<br/>
@@ -33047,7 +33047,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1c(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1C;
+			op = Code.Reservednop_rm32_r32_0F1C;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1c instruction.<br/>
@@ -33061,7 +33061,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1C;
+			op = Code.Reservednop_rm32_r32_0F1C;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1c instruction.<br/>
@@ -33075,7 +33075,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1c(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1C;
+			op = Code.Reservednop_rm64_r64_0F1C;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1c instruction.<br/>
@@ -33089,7 +33089,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1c(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1C;
+			op = Code.Reservednop_rm64_r64_0F1C;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1d instruction.<br/>
@@ -33103,7 +33103,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1d(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1D;
+			op = Code.Reservednop_rm16_r16_0F1D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1d instruction.<br/>
@@ -33117,7 +33117,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1D;
+			op = Code.Reservednop_rm16_r16_0F1D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1d instruction.<br/>
@@ -33131,7 +33131,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1d(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1D;
+			op = Code.Reservednop_rm32_r32_0F1D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1d instruction.<br/>
@@ -33145,7 +33145,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1D;
+			op = Code.Reservednop_rm32_r32_0F1D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1d instruction.<br/>
@@ -33159,7 +33159,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1d(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1D;
+			op = Code.Reservednop_rm64_r64_0F1D;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1d instruction.<br/>
@@ -33173,7 +33173,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1d(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1D;
+			op = Code.Reservednop_rm64_r64_0F1D;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1e instruction.<br/>
@@ -33187,7 +33187,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1e(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1E;
+			op = Code.Reservednop_rm16_r16_0F1E;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1e instruction.<br/>
@@ -33201,7 +33201,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1E;
+			op = Code.Reservednop_rm16_r16_0F1E;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1e instruction.<br/>
@@ -33215,7 +33215,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1e(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1E;
+			op = Code.Reservednop_rm32_r32_0F1E;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1e instruction.<br/>
@@ -33229,7 +33229,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1E;
+			op = Code.Reservednop_rm32_r32_0F1E;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1e instruction.<br/>
@@ -33243,7 +33243,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1e(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1E;
+			op = Code.Reservednop_rm64_r64_0F1E;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1e instruction.<br/>
@@ -33257,7 +33257,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1e(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1E;
+			op = Code.Reservednop_rm64_r64_0F1E;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1f instruction.<br/>
@@ -33271,7 +33271,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1f(AssemblerRegister16 dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1F;
+			op = Code.Reservednop_rm16_r16_0F1F;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1f instruction.<br/>
@@ -33285,7 +33285,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = Code.ReservedNop_rm16_r16_0F1F;
+			op = Code.Reservednop_rm16_r16_0F1F;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1f instruction.<br/>
@@ -33299,7 +33299,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1f(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1F;
+			op = Code.Reservednop_rm32_r32_0F1F;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1f instruction.<br/>
@@ -33313,7 +33313,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void reserved_nop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.ReservedNop_rm32_r32_0F1F;
+			op = Code.Reservednop_rm32_r32_0F1F;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>reserved_nop_0f1f instruction.<br/>
@@ -33327,7 +33327,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1f(AssemblerRegister64 dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1F;
+			op = Code.Reservednop_rm64_r64_0F1F;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>reserved_nop_0f1f instruction.<br/>
@@ -33341,7 +33341,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void reserved_nop_0f1f(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.ReservedNop_rm64_r64_0F1F;
+			op = Code.Reservednop_rm64_r64_0F1F;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>ret instruction.<br/>

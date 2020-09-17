@@ -909,9 +909,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x40000000, 0x8F000000,// Wbnoinvd
 			0x40000000, 0x32000000,// Cl1invmb
 			0x00000000, 0x03900000,// Ud2
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F0D
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F0D
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F0D
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F0D
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F0D
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F0D
 			0x00000003, 0x6B000000,// Prefetch_m8
 			0x00000003, 0x6B000000,// Prefetchw_m8
 			0x00000003, 0x6C000000,// Prefetchwt1_m8
@@ -1038,30 +1038,30 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0x7C000000,// Movhpd_m64_xmm
 			0x20000037, 0x0F000001,// VEX_Vmovhpd_m64_xmm
 			0x20000037, 0x1E000002,// EVEX_Vmovhpd_m64_xmm
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F18
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F18
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F18
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F19
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F19
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F19
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F1A
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F1A
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F1A
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F1B
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F1B
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F1B
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F1C
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F1C
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F1C
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F1D
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F1D
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F1D
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F1E
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F1E
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F1E
-			0x00000000, 0x5F000000,// ReservedNop_rm16_r16_0F1F
-			0x00000000, 0x5F000000,// ReservedNop_rm32_r32_0F1F
-			0x00000000, 0x5F000000,// ReservedNop_rm64_r64_0F1F
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F18
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F18
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F18
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F19
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F19
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F19
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F1A
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F1A
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F1A
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F1B
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F1B
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F1B
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F1C
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F1C
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F1C
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F1D
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F1D
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F1D
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F1E
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F1E
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F1E
+			0x00000000, 0x5F000000,// Reservednop_rm16_r16_0F1F
+			0x00000000, 0x5F000000,// Reservednop_rm32_r32_0F1F
+			0x00000000, 0x5F000000,// Reservednop_rm64_r64_0F1F
 			0x00000003, 0x7B000000,// Prefetchnta_m8
 			0x00000003, 0x7B000000,// Prefetcht0_m8
 			0x00000003, 0x7B000000,// Prefetcht1_m8

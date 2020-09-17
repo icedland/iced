@@ -4730,17 +4730,17 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x01,// Normal_1
 				0xBD, 0x03,// 445 = "ud2"
 
-				// ReservedNop_rm16_r16_0F0D
+				// Reservednop_rm16_r16_0F0D
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F0D
+				// Reservednop_rm32_r32_0F0D
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F0D
+				// Reservednop_rm64_r64_0F0D
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
@@ -5191,122 +5191,122 @@ namespace Iced.Intel.GasFormatterInternal {
 				// EVEX_Vmovhpd_m64_xmm
 				0x80,// 'v', Previous
 
-				// ReservedNop_rm16_r16_0F18
+				// Reservednop_rm16_r16_0F18
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F18
+				// Reservednop_rm32_r32_0F18
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F18
+				// Reservednop_rm64_r64_0F18
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
 
-				// ReservedNop_rm16_r16_0F19
+				// Reservednop_rm16_r16_0F19
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F19
+				// Reservednop_rm32_r32_0F19
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F19
+				// Reservednop_rm64_r64_0F19
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
 
-				// ReservedNop_rm16_r16_0F1A
+				// Reservednop_rm16_r16_0F1A
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F1A
+				// Reservednop_rm32_r32_0F1A
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F1A
+				// Reservednop_rm64_r64_0F1A
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
 
-				// ReservedNop_rm16_r16_0F1B
+				// Reservednop_rm16_r16_0F1B
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F1B
+				// Reservednop_rm32_r32_0F1B
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F1B
+				// Reservednop_rm64_r64_0F1B
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
 
-				// ReservedNop_rm16_r16_0F1C
+				// Reservednop_rm16_r16_0F1C
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F1C
+				// Reservednop_rm32_r32_0F1C
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F1C
+				// Reservednop_rm64_r64_0F1C
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
 
-				// ReservedNop_rm16_r16_0F1D
+				// Reservednop_rm16_r16_0F1D
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F1D
+				// Reservednop_rm32_r32_0F1D
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F1D
+				// Reservednop_rm64_r64_0F1D
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
 
-				// ReservedNop_rm16_r16_0F1E
+				// Reservednop_rm16_r16_0F1E
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F1E
+				// Reservednop_rm32_r32_0F1E
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F1E
+				// Reservednop_rm64_r64_0F1E
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'
 
-				// ReservedNop_rm16_r16_0F1F
+				// Reservednop_rm16_r16_0F1F
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x77,// 'w'
 
-				// ReservedNop_rm32_r32_0F1F
+				// Reservednop_rm32_r32_0F1F
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x6C,// 'l'
 
-				// ReservedNop_rm64_r64_0F1F
+				// Reservednop_rm64_r64_0F1F
 				0x02,// Normal_2a
 				0x01,// 1 = "nop"
 				0x71,// 'q'

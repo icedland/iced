@@ -42,8 +42,8 @@ namespace Iced.Intel {
 		[System.Obsolete("Use " + nameof(AMD) + " instead", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		AmdBranches = 0x00000002,
-		/// <summary>Decode opcodes <c>0F0D</c> and <c>0F18-0F1F</c> as reserved-nop instructions (eg. <see cref="Code.ReservedNop_rm32_r32_0F1D"/>)</summary>
-		ForceReservedNop = 0x00000004,
+		/// <summary>Decode opcodes <c>0F0D</c> and <c>0F18-0F1F</c> as reserved-nop instructions (eg. <see cref="Code.Reservednop_rm32_r32_0F1D"/>)</summary>
+		ForceReservednop = 0x00000004,
 		/// <summary>Decode <c>UMOV</c> instructions</summary>
 		Umov = 0x00000008,
 		/// <summary>Decode <c>XBTS</c>/<c>IBTS</c></summary>

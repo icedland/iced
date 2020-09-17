@@ -905,9 +905,9 @@ pub(crate) static TABLE: [u32; 8594] = [
 	0x4000_0000, 0x8F00_0000,// Wbnoinvd
 	0x4000_0000, 0x3200_0000,// Cl1invmb
 	0x0000_0000, 0x0390_0000,// Ud2
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F0D
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F0D
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F0D
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F0D
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F0D
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F0D
 	0x0000_0003, 0x6B00_0000,// Prefetch_m8
 	0x0000_0003, 0x6B00_0000,// Prefetchw_m8
 	0x0000_0003, 0x6C00_0000,// Prefetchwt1_m8
@@ -1034,30 +1034,30 @@ pub(crate) static TABLE: [u32; 8594] = [
 	0x0000_0037, 0x7C00_0000,// Movhpd_m64_xmm
 	0x2000_0037, 0x0F00_0001,// VEX_Vmovhpd_m64_xmm
 	0x2000_0037, 0x1E00_0002,// EVEX_Vmovhpd_m64_xmm
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F18
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F18
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F18
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F19
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F19
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F19
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F1A
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F1A
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F1A
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F1B
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F1B
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F1B
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F1C
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F1C
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F1C
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F1D
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F1D
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F1D
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F1E
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F1E
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F1E
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm16_r16_0F1F
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm32_r32_0F1F
-	0x0000_0000, 0x5F00_0000,// ReservedNop_rm64_r64_0F1F
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F18
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F18
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F18
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F19
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F19
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F19
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F1A
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F1A
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F1A
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F1B
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F1B
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F1B
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F1C
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F1C
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F1C
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F1D
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F1D
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F1D
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F1E
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F1E
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F1E
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm16_r16_0F1F
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm32_r32_0F1F
+	0x0000_0000, 0x5F00_0000,// Reservednop_rm64_r64_0F1F
 	0x0000_0003, 0x7B00_0000,// Prefetchnta_m8
 	0x0000_0003, 0x7B00_0000,// Prefetcht0_m8
 	0x0000_0003, 0x7B00_0000,// Prefetcht1_m8

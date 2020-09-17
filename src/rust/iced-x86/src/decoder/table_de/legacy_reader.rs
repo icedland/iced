@@ -752,8 +752,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 		OpCodeHandlerKind::RegIb3 => Box::into_raw(Box::new(OpCodeHandler_RegIb3::new(deserializer.read_u32()))) as *const OpCodeHandler,
 		OpCodeHandlerKind::RegIz2 => Box::into_raw(Box::new(OpCodeHandler_RegIz2::new(deserializer.read_u32()))) as *const OpCodeHandler,
 
-		OpCodeHandlerKind::ReservedNop => {
-			Box::into_raw(Box::new(OpCodeHandler_ReservedNop::new(deserializer.read_handler(), deserializer.read_handler()))) as *const OpCodeHandler
+		OpCodeHandlerKind::Reservednop => {
+			Box::into_raw(Box::new(OpCodeHandler_Reservednop::new(deserializer.read_handler(), deserializer.read_handler()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::RIb => {

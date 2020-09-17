@@ -372,18 +372,18 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
-	sealed class OpCodeHandler_ReservedNop : OpCodeHandlerModRM {
+	sealed class OpCodeHandler_Reservednop : OpCodeHandlerModRM {
 		readonly OpCodeHandler reservedNopHandler;
 		readonly OpCodeHandler otherHandler;
 
-		public OpCodeHandler_ReservedNop(OpCodeHandler reservedNopHandler, OpCodeHandler otherHandler) {
+		public OpCodeHandler_Reservednop(OpCodeHandler reservedNopHandler, OpCodeHandler otherHandler) {
 			this.reservedNopHandler = reservedNopHandler ?? throw new ArgumentNullException(nameof(reservedNopHandler));
 			this.otherHandler = otherHandler ?? throw new ArgumentNullException(nameof(otherHandler));
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			((decoder.options & DecoderOptions.ForceReservedNop) != 0 ? reservedNopHandler : otherHandler).Decode(decoder, ref instruction);
+			((decoder.options & DecoderOptions.ForceReservednop) != 0 ? reservedNopHandler : otherHandler).Decode(decoder, ref instruction);
 		}
 	}
 

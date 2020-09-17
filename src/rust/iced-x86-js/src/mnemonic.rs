@@ -692,7 +692,7 @@ pub enum Mnemonic {
 	Rdsspq = 658,
 	Rdtsc = 659,
 	Rdtscp = 660,
-	ReservedNop = 661,
+	Reservednop = 661,
 	Ret = 662,
 	Retf = 663,
 	Rol = 664,

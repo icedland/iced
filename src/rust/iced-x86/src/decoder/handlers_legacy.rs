@@ -500,19 +500,19 @@ impl OpCodeHandler_NIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_ReservedNop {
+pub(super) struct OpCodeHandler_Reservednop {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
 	reserved_nop_handler: &'static OpCodeHandler,
 	other_handler: &'static OpCodeHandler,
 }
 
-impl OpCodeHandler_ReservedNop {
+impl OpCodeHandler_Reservednop {
 	pub(super) fn new(reserved_nop_handler: *const OpCodeHandler, other_handler: *const OpCodeHandler) -> Self {
 		assert!(!is_null_instance_handler(reserved_nop_handler));
 		assert!(!is_null_instance_handler(other_handler));
 		Self {
-			decode: OpCodeHandler_ReservedNop::decode,
+			decode: OpCodeHandler_Reservednop::decode,
 			has_modrm: true,
 			reserved_nop_handler: unsafe { &*reserved_nop_handler },
 			other_handler: unsafe { &*other_handler },
@@ -522,7 +522,7 @@ impl OpCodeHandler_ReservedNop {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		let handler = if (decoder.options & DecoderOptions::FORCE_RESERVED_NOP) != 0 { this.reserved_nop_handler } else { this.other_handler };
+		let handler = if (decoder.options & DecoderOptions::FORCE_RESERVEDNOP) != 0 { this.reserved_nop_handler } else { this.other_handler };
 		(handler.decode)(handler, decoder, instruction);
 	}
 }

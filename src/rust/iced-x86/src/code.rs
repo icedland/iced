@@ -7053,7 +7053,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F0D = 880,
+	Reservednop_rm16_r16_0F0D = 880,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 0D /r`
@@ -7061,7 +7061,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F0D = 881,
+	Reservednop_rm32_r32_0F0D = 881,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 0D /r`
@@ -7069,7 +7069,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F0D = 882,
+	Reservednop_rm64_r64_0F0D = 882,
 	/// `PREFETCH m8`
 	///
 	/// `0F 0D /0`
@@ -8085,7 +8085,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F18 = 1009,
+	Reservednop_rm16_r16_0F18 = 1009,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 18 /r`
@@ -8093,7 +8093,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F18 = 1010,
+	Reservednop_rm32_r32_0F18 = 1010,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 18 /r`
@@ -8101,7 +8101,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F18 = 1011,
+	Reservednop_rm64_r64_0F18 = 1011,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 19 /r`
@@ -8109,7 +8109,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F19 = 1012,
+	Reservednop_rm16_r16_0F19 = 1012,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 19 /r`
@@ -8117,7 +8117,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F19 = 1013,
+	Reservednop_rm32_r32_0F19 = 1013,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 19 /r`
@@ -8125,7 +8125,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F19 = 1014,
+	Reservednop_rm64_r64_0F19 = 1014,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1A /r`
@@ -8133,7 +8133,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1A = 1015,
+	Reservednop_rm16_r16_0F1A = 1015,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1A /r`
@@ -8141,7 +8141,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1A = 1016,
+	Reservednop_rm32_r32_0F1A = 1016,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1A /r`
@@ -8149,7 +8149,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1A = 1017,
+	Reservednop_rm64_r64_0F1A = 1017,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1B /r`
@@ -8157,7 +8157,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1B = 1018,
+	Reservednop_rm16_r16_0F1B = 1018,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1B /r`
@@ -8165,7 +8165,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1B = 1019,
+	Reservednop_rm32_r32_0F1B = 1019,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1B /r`
@@ -8173,7 +8173,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1B = 1020,
+	Reservednop_rm64_r64_0F1B = 1020,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1C /r`
@@ -8181,7 +8181,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1C = 1021,
+	Reservednop_rm16_r16_0F1C = 1021,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1C /r`
@@ -8189,7 +8189,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1C = 1022,
+	Reservednop_rm32_r32_0F1C = 1022,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1C /r`
@@ -8197,7 +8197,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1C = 1023,
+	Reservednop_rm64_r64_0F1C = 1023,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1D /r`
@@ -8205,7 +8205,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1D = 1024,
+	Reservednop_rm16_r16_0F1D = 1024,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1D /r`
@@ -8213,7 +8213,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1D = 1025,
+	Reservednop_rm32_r32_0F1D = 1025,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1D /r`
@@ -8221,7 +8221,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1D = 1026,
+	Reservednop_rm64_r64_0F1D = 1026,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1E /r`
@@ -8229,7 +8229,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1E = 1027,
+	Reservednop_rm16_r16_0F1E = 1027,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1E /r`
@@ -8237,7 +8237,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1E = 1028,
+	Reservednop_rm32_r32_0F1E = 1028,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1E /r`
@@ -8245,7 +8245,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1E = 1029,
+	Reservednop_rm64_r64_0F1E = 1029,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1F /r`
@@ -8253,7 +8253,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1F = 1030,
+	Reservednop_rm16_r16_0F1F = 1030,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1F /r`
@@ -8261,7 +8261,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1F = 1031,
+	Reservednop_rm32_r32_0F1F = 1031,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1F /r`
@@ -8269,7 +8269,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1F = 1032,
+	Reservednop_rm64_r64_0F1F = 1032,
 	/// `PREFETCHNTA m8`
 	///
 	/// `0F 18 /0`
@@ -35265,9 +35265,9 @@ static GEN_DEBUG_CODE: [&str; 4297] = [
 	"Wbnoinvd",
 	"Cl1invmb",
 	"Ud2",
-	"ReservedNop_rm16_r16_0F0D",
-	"ReservedNop_rm32_r32_0F0D",
-	"ReservedNop_rm64_r64_0F0D",
+	"Reservednop_rm16_r16_0F0D",
+	"Reservednop_rm32_r32_0F0D",
+	"Reservednop_rm64_r64_0F0D",
 	"Prefetch_m8",
 	"Prefetchw_m8",
 	"Prefetchwt1_m8",
@@ -35394,30 +35394,30 @@ static GEN_DEBUG_CODE: [&str; 4297] = [
 	"Movhpd_m64_xmm",
 	"VEX_Vmovhpd_m64_xmm",
 	"EVEX_Vmovhpd_m64_xmm",
-	"ReservedNop_rm16_r16_0F18",
-	"ReservedNop_rm32_r32_0F18",
-	"ReservedNop_rm64_r64_0F18",
-	"ReservedNop_rm16_r16_0F19",
-	"ReservedNop_rm32_r32_0F19",
-	"ReservedNop_rm64_r64_0F19",
-	"ReservedNop_rm16_r16_0F1A",
-	"ReservedNop_rm32_r32_0F1A",
-	"ReservedNop_rm64_r64_0F1A",
-	"ReservedNop_rm16_r16_0F1B",
-	"ReservedNop_rm32_r32_0F1B",
-	"ReservedNop_rm64_r64_0F1B",
-	"ReservedNop_rm16_r16_0F1C",
-	"ReservedNop_rm32_r32_0F1C",
-	"ReservedNop_rm64_r64_0F1C",
-	"ReservedNop_rm16_r16_0F1D",
-	"ReservedNop_rm32_r32_0F1D",
-	"ReservedNop_rm64_r64_0F1D",
-	"ReservedNop_rm16_r16_0F1E",
-	"ReservedNop_rm32_r32_0F1E",
-	"ReservedNop_rm64_r64_0F1E",
-	"ReservedNop_rm16_r16_0F1F",
-	"ReservedNop_rm32_r32_0F1F",
-	"ReservedNop_rm64_r64_0F1F",
+	"Reservednop_rm16_r16_0F18",
+	"Reservednop_rm32_r32_0F18",
+	"Reservednop_rm64_r64_0F18",
+	"Reservednop_rm16_r16_0F19",
+	"Reservednop_rm32_r32_0F19",
+	"Reservednop_rm64_r64_0F19",
+	"Reservednop_rm16_r16_0F1A",
+	"Reservednop_rm32_r32_0F1A",
+	"Reservednop_rm64_r64_0F1A",
+	"Reservednop_rm16_r16_0F1B",
+	"Reservednop_rm32_r32_0F1B",
+	"Reservednop_rm64_r64_0F1B",
+	"Reservednop_rm16_r16_0F1C",
+	"Reservednop_rm32_r32_0F1C",
+	"Reservednop_rm64_r64_0F1C",
+	"Reservednop_rm16_r16_0F1D",
+	"Reservednop_rm32_r32_0F1D",
+	"Reservednop_rm64_r64_0F1D",
+	"Reservednop_rm16_r16_0F1E",
+	"Reservednop_rm32_r32_0F1E",
+	"Reservednop_rm64_r64_0F1E",
+	"Reservednop_rm16_r16_0F1F",
+	"Reservednop_rm32_r32_0F1F",
+	"Reservednop_rm64_r64_0F1F",
 	"Prefetchnta_m8",
 	"Prefetcht0_m8",
 	"Prefetcht1_m8",

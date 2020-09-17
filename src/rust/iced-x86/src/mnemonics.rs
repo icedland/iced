@@ -908,9 +908,9 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Wbnoinvd,// Wbnoinvd
 	Mnemonic::Cl1invmb,// Cl1invmb
 	Mnemonic::Ud2,// Ud2
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F0D
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F0D
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F0D
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F0D
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F0D
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F0D
 	Mnemonic::Prefetch,// Prefetch_m8
 	Mnemonic::Prefetchw,// Prefetchw_m8
 	Mnemonic::Prefetchwt1,// Prefetchwt1_m8
@@ -1037,30 +1037,30 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Movhpd,// Movhpd_m64_xmm
 	Mnemonic::Vmovhpd,// VEX_Vmovhpd_m64_xmm
 	Mnemonic::Vmovhpd,// EVEX_Vmovhpd_m64_xmm
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F18
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F18
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F18
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F19
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F19
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F19
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F1A
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F1A
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F1A
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F1B
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F1B
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F1B
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F1C
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F1C
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F1C
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F1D
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F1D
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F1D
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F1E
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F1E
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F1E
-	Mnemonic::ReservedNop,// ReservedNop_rm16_r16_0F1F
-	Mnemonic::ReservedNop,// ReservedNop_rm32_r32_0F1F
-	Mnemonic::ReservedNop,// ReservedNop_rm64_r64_0F1F
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F18
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F18
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F18
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F19
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F19
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F19
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F1A
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F1A
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F1A
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F1B
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F1B
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F1B
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F1C
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F1C
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F1C
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F1D
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F1D
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F1D
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F1E
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F1E
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F1E
+	Mnemonic::Reservednop,// Reservednop_rm16_r16_0F1F
+	Mnemonic::Reservednop,// Reservednop_rm32_r32_0F1F
+	Mnemonic::Reservednop,// Reservednop_rm64_r64_0F1F
 	Mnemonic::Prefetchnta,// Prefetchnta_m8
 	Mnemonic::Prefetcht0,// Prefetcht0_m8
 	Mnemonic::Prefetcht1,// Prefetcht1_m8

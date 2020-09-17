@@ -695,7 +695,7 @@ namespace Iced.UnitTests.Intel {
 				{ "Rdsspq", Mnemonic.Rdsspq },
 				{ "Rdtsc", Mnemonic.Rdtsc },
 				{ "Rdtscp", Mnemonic.Rdtscp },
-				{ "ReservedNop", Mnemonic.ReservedNop },
+				{ "Reservednop", Mnemonic.Reservednop },
 				{ "Ret", Mnemonic.Ret },
 				{ "Retf", Mnemonic.Retf },
 				{ "Rol", Mnemonic.Rol },

@@ -2744,47 +2744,47 @@ namespace Iced.Intel.DecoderInternal {
 				// reservedNop_0F0D
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0xF0, 0x06,// ReservedNop_rm16_r16_0F0D
+					0xF0, 0x06,// Reservednop_rm16_r16_0F0D
 
 				// reservedNop_0F18
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0xF1, 0x07,// ReservedNop_rm16_r16_0F18
+					0xF1, 0x07,// Reservednop_rm16_r16_0F18
 
 				// reservedNop_0F19
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0xF4, 0x07,// ReservedNop_rm16_r16_0F19
+					0xF4, 0x07,// Reservednop_rm16_r16_0F19
 
 				// reservedNop_0F1A
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0xF7, 0x07,// ReservedNop_rm16_r16_0F1A
+					0xF7, 0x07,// Reservednop_rm16_r16_0F1A
 
 				// reservedNop_0F1B
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0xFA, 0x07,// ReservedNop_rm16_r16_0F1B
+					0xFA, 0x07,// Reservednop_rm16_r16_0F1B
 
 				// reservedNop_0F1C
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0xFD, 0x07,// ReservedNop_rm16_r16_0F1C
+					0xFD, 0x07,// Reservednop_rm16_r16_0F1C
 
 				// reservedNop_0F1D
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0x80, 0x08,// ReservedNop_rm16_r16_0F1D
+					0x80, 0x08,// Reservednop_rm16_r16_0F1D
 
 				// reservedNop_0F1E
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0x83, 0x08,// ReservedNop_rm16_r16_0F1E
+					0x83, 0x08,// Reservednop_rm16_r16_0F1E
 
 				// reservedNop_0F1F
 				0x00,// HandlerReference
 				0x37,// Ev_Gv_3a
-					0x86, 0x08,// ReservedNop_rm16_r16_0F1F
+					0x86, 0x08,// Reservednop_rm16_r16_0F1F
 
 				// handlers_Grp_0F0D_mem
 				0x01,// ArrayReference
@@ -2857,7 +2857,7 @@ namespace Iced.Intel.DecoderInternal {
 
 				// grp0F18
 				0x00,// HandlerReference
-				0x9E,// ReservedNop
+				0x9E,// Reservednop
 					0x07,// HandlerReference
 						0x38,// 0x38 = reservedNop_0F18
 					0x09,// RM
@@ -2890,7 +2890,7 @@ namespace Iced.Intel.DecoderInternal {
 
 				// grp0F1C
 				0x00,// HandlerReference
-				0x9E,// ReservedNop
+				0x9E,// Reservednop
 					0x07,// HandlerReference
 						0x3C,// 0x3C = reservedNop_0F1C
 					0x09,// RM
@@ -2973,7 +2973,7 @@ namespace Iced.Intel.DecoderInternal {
 
 				// grp0F1E
 				0x00,// HandlerReference
-				0x9E,// ReservedNop
+				0x9E,// Reservednop
 					0x07,// HandlerReference
 						0x3E,// 0x3E = reservedNop_0F1E
 					0x09,// RM
@@ -3000,7 +3000,7 @@ namespace Iced.Intel.DecoderInternal {
 
 				// grp0F1F
 				0x00,// HandlerReference
-				0x9E,// ReservedNop
+				0x9E,// Reservednop
 					0x07,// HandlerReference
 						0x3F,// 0x3F = reservedNop_0F1F
 					0x0E,// Group
@@ -4186,7 +4186,7 @@ namespace Iced.Intel.DecoderInternal {
 				0x02,// Invalid
 
 				// 13 = 0x0D
-				0x9E,// ReservedNop
+				0x9E,// Reservednop
 					0x07,// HandlerReference
 						0x37,// 0x37 = reservedNop_0F0D
 					0x07,// HandlerReference
@@ -4381,7 +4381,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x39,// 0x39 = reservedNop_0F19
 
 				// 26 = 0x1A
-				0x9E,// ReservedNop
+				0x9E,// Reservednop
 					0x07,// HandlerReference
 						0x3A,// 0x3A = reservedNop_0F1A
 					0x0C,// Options_DontReadModRM
@@ -4404,7 +4404,7 @@ namespace Iced.Intel.DecoderInternal {
 						0x80, 0x80, 0x20,// MPX
 
 				// 27 = 0x1B
-				0x9E,// ReservedNop
+				0x9E,// Reservednop
 					0x07,// HandlerReference
 						0x3B,// 0x3B = reservedNop_0F1B
 					0x0C,// Options_DontReadModRM

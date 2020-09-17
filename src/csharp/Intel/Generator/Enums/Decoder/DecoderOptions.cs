@@ -32,8 +32,8 @@ namespace Generator.Enums.Decoder {
 		AMD						= 0x00000002,
 		[Deprecated("1.8.0", nameof(AMD))]
 		AmdBranches,
-		[Comment("Decode opcodes #(c:0F0D)# and #(c:0F18-0F1F)# as reserved-nop instructions (eg. #(e:Code.ReservedNop_rm32_r32_0F1D)#)")]
-		ForceReservedNop		= 0x00000004,
+		[Comment("Decode opcodes #(c:0F0D)# and #(c:0F18-0F1F)# as reserved-nop instructions (eg. #(e:Code.Reservednop_rm32_r32_0F1D)#)")]
+		ForceReservednop		= 0x00000004,
 		[Comment("Decode #(c:UMOV)# instructions")]
 		Umov					= 0x00000008,
 		[Comment("Decode #(c:XBTS)#/#(c:IBTS)#")]

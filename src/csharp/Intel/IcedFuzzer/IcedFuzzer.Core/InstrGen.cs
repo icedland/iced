@@ -323,8 +323,8 @@ namespace IcedFuzzer.Core {
 
 			// Verify that all input Code values are used. Reserved-nops aren't guaranteed to be used
 			// since other instructions can override them.
-			const bool filterOutReservedNop = true;
-			var hash = opCodes.Select(a => a.Code).Where(a => !filterOutReservedNop || !CodeUtils.IsReservedNop(a)).ToHashSet();
+			const bool filterOutReservednop = true;
+			var hash = opCodes.Select(a => a.Code).Where(a => !filterOutReservednop || !CodeUtils.IsReservednop(a)).ToHashSet();
 			foreach (var (_, fuzzerOpCodes) in encodingTables.GetOpCodeGroups()) {
 				foreach (var fuzzerOpCode in fuzzerOpCodes) {
 					foreach (var instr in fuzzerOpCode.Instructions)
@@ -498,7 +498,7 @@ namespace IcedFuzzer.Core {
 			return false;
 		}
 
-		sealed class ReservedNopInfo {
+		sealed class ReservednopInfo {
 			public FuzzerInstruction? Instr16;
 			public FuzzerInstruction? Instr32;
 			public FuzzerInstruction? Instr64;
@@ -617,12 +617,12 @@ namespace IcedFuzzer.Core {
 			const int INDEX_NORMAL = 0;
 			const int INDEX_GROUP = 1;
 			var instrHash = new HashSet<LegacyKey>();
-			ReservedNopInfo? resNop = null;
+			ReservednopInfo? resNop = null;
 			foreach (var instruction in instructions) {
 				Assert.True(instruction.RmGroupIndex < 0, "Not supported");
-				if (CodeUtils.IsReservedNop(instruction.Code)) {
+				if (CodeUtils.IsReservednop(instruction.Code)) {
 					if (resNop is null)
-						resNop = new ReservedNopInfo();
+						resNop = new ReservednopInfo();
 					// We assume they don't use mandatory prefixes and only use OperandSize (16,32,64)
 					Assert.True(instruction.MandatoryPrefix == MandatoryPrefix.None);
 					switch (instruction.OperandSize) {
@@ -943,7 +943,7 @@ namespace IcedFuzzer.Core {
 			}
 		}
 
-		static void InitializeResNop(int bitness, LegacyFlags[] flags, FuzzerOpCodeTable table, Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode, bool isModrmMemory, ref LegacyInfo info, int flagsIndex, ReservedNopInfo resNop, InvalidInstructionKind invalidKind, LegacyFlags ignoredPrefixes) {
+		static void InitializeResNop(int bitness, LegacyFlags[] flags, FuzzerOpCodeTable table, Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode, bool isModrmMemory, ref LegacyInfo info, int flagsIndex, ReservednopInfo resNop, InvalidInstructionKind invalidKind, LegacyFlags ignoredPrefixes) {
 			var resNopInstrs = resNop.GetInstructions();
 			if (ignoredPrefixes == 0 && info.IsInvalidMandatoryPrefixInstructions(invalidKind)) {
 				var (opCode, groupIndex) = getOpCode(MandatoryPrefix.None);

@@ -912,9 +912,9 @@ namespace Iced.Intel {
 			0,// Wbnoinvd
 			0,// Cl1invmb
 			0,// Ud2
-			2,// ReservedNop_rm16_r16_0F0D
-			2,// ReservedNop_rm32_r32_0F0D
-			2,// ReservedNop_rm64_r64_0F0D
+			2,// Reservednop_rm16_r16_0F0D
+			2,// Reservednop_rm32_r32_0F0D
+			2,// Reservednop_rm64_r64_0F0D
 			1,// Prefetch_m8
 			1,// Prefetchw_m8
 			1,// Prefetchwt1_m8
@@ -1041,30 +1041,30 @@ namespace Iced.Intel {
 			2,// Movhpd_m64_xmm
 			2,// VEX_Vmovhpd_m64_xmm
 			2,// EVEX_Vmovhpd_m64_xmm
-			2,// ReservedNop_rm16_r16_0F18
-			2,// ReservedNop_rm32_r32_0F18
-			2,// ReservedNop_rm64_r64_0F18
-			2,// ReservedNop_rm16_r16_0F19
-			2,// ReservedNop_rm32_r32_0F19
-			2,// ReservedNop_rm64_r64_0F19
-			2,// ReservedNop_rm16_r16_0F1A
-			2,// ReservedNop_rm32_r32_0F1A
-			2,// ReservedNop_rm64_r64_0F1A
-			2,// ReservedNop_rm16_r16_0F1B
-			2,// ReservedNop_rm32_r32_0F1B
-			2,// ReservedNop_rm64_r64_0F1B
-			2,// ReservedNop_rm16_r16_0F1C
-			2,// ReservedNop_rm32_r32_0F1C
-			2,// ReservedNop_rm64_r64_0F1C
-			2,// ReservedNop_rm16_r16_0F1D
-			2,// ReservedNop_rm32_r32_0F1D
-			2,// ReservedNop_rm64_r64_0F1D
-			2,// ReservedNop_rm16_r16_0F1E
-			2,// ReservedNop_rm32_r32_0F1E
-			2,// ReservedNop_rm64_r64_0F1E
-			2,// ReservedNop_rm16_r16_0F1F
-			2,// ReservedNop_rm32_r32_0F1F
-			2,// ReservedNop_rm64_r64_0F1F
+			2,// Reservednop_rm16_r16_0F18
+			2,// Reservednop_rm32_r32_0F18
+			2,// Reservednop_rm64_r64_0F18
+			2,// Reservednop_rm16_r16_0F19
+			2,// Reservednop_rm32_r32_0F19
+			2,// Reservednop_rm64_r64_0F19
+			2,// Reservednop_rm16_r16_0F1A
+			2,// Reservednop_rm32_r32_0F1A
+			2,// Reservednop_rm64_r64_0F1A
+			2,// Reservednop_rm16_r16_0F1B
+			2,// Reservednop_rm32_r32_0F1B
+			2,// Reservednop_rm64_r64_0F1B
+			2,// Reservednop_rm16_r16_0F1C
+			2,// Reservednop_rm32_r32_0F1C
+			2,// Reservednop_rm64_r64_0F1C
+			2,// Reservednop_rm16_r16_0F1D
+			2,// Reservednop_rm32_r32_0F1D
+			2,// Reservednop_rm64_r64_0F1D
+			2,// Reservednop_rm16_r16_0F1E
+			2,// Reservednop_rm32_r32_0F1E
+			2,// Reservednop_rm64_r64_0F1E
+			2,// Reservednop_rm16_r16_0F1F
+			2,// Reservednop_rm32_r32_0F1F
+			2,// Reservednop_rm64_r64_0F1F
 			1,// Prefetchnta_m8
 			1,// Prefetcht0_m8
 			1,// Prefetcht1_m8

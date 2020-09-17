@@ -38,10 +38,10 @@ pub enum DecoderOptions {
 	NoInvalidCheck = 0x0000_0001,
 	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte
 	AMD = 0x0000_0002,
-	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code.ReservedNop_rm32_r32_0F1D`])
+	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code.Reservednop_rm32_r32_0F1D`])
 	///
-	/// [`Code.ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D
-	ForceReservedNop = 0x0000_0004,
+	/// [`Code.Reservednop_rm32_r32_0F1D`]: enum.Code.html#variant.Reservednop_rm32_r32_0F1D
+	ForceReservednop = 0x0000_0004,
 	/// Decode `UMOV` instructions
 	Umov = 0x0000_0008,
 	/// Decode `XBTS`/`IBTS`

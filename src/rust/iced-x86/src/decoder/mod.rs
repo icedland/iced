@@ -144,10 +144,10 @@ impl DecoderOptions {
 	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte
 	#[deprecated(since = "1.8.0", note = "Use AMD instead")]
 	pub const AMD_BRANCHES: u32 = 0x0000_0002;
-	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::ReservedNop_rm32_r32_0F1D`])
+	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::Reservednop_rm32_r32_0F1D`])
 	///
-	/// [`Code::ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D
-	pub const FORCE_RESERVED_NOP: u32 = 0x0000_0004;
+	/// [`Code::Reservednop_rm32_r32_0F1D`]: enum.Code.html#variant.Reservednop_rm32_r32_0F1D
+	pub const FORCE_RESERVEDNOP: u32 = 0x0000_0004;
 	/// Decode `UMOV` instructions
 	pub const UMOV: u32 = 0x0000_0008;
 	/// Decode `XBTS`/`IBTS`

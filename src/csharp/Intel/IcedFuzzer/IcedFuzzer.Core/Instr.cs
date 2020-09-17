@@ -246,13 +246,13 @@ namespace IcedFuzzer.Core {
 			OperandSize = operandSize;
 			AddressSize = addressSize;
 
-			if (MandatoryPrefix == MandatoryPrefix.P66 && operandSize != 64 && CodeUtils.IsReservedNop(Code))
+			if (MandatoryPrefix == MandatoryPrefix.P66 && operandSize != 64 && CodeUtils.IsReservednop(Code))
 				MandatoryPrefix = MandatoryPrefix.None;
 
 			FuzzerOperand[]? operands = null;
 			// Special support for reserved nop instructions since we may have transformed them to
 			// a 2-byte opcode (no ops) or a reg or rm group (one operand).
-			if (CodeUtils.IsReservedNop(code)) {
+			if (CodeUtils.IsReservednop(code)) {
 				// Verify our assumptions
 				Assert.True(opc.OpCount == 2);
 				const int RM_INDEX = 0;

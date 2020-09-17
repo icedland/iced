@@ -25,35 +25,35 @@ using Iced.Intel;
 
 namespace IcedFuzzer.Core {
 	static class CodeUtils {
-		public static bool IsReservedNop(Code code) {
+		public static bool IsReservednop(Code code) {
 			switch (code) {
-			case Code.ReservedNop_rm16_r16_0F0D:
-			case Code.ReservedNop_rm32_r32_0F0D:
-			case Code.ReservedNop_rm64_r64_0F0D:
-			case Code.ReservedNop_rm16_r16_0F18:
-			case Code.ReservedNop_rm32_r32_0F18:
-			case Code.ReservedNop_rm64_r64_0F18:
-			case Code.ReservedNop_rm16_r16_0F19:
-			case Code.ReservedNop_rm32_r32_0F19:
-			case Code.ReservedNop_rm64_r64_0F19:
-			case Code.ReservedNop_rm16_r16_0F1A:
-			case Code.ReservedNop_rm32_r32_0F1A:
-			case Code.ReservedNop_rm64_r64_0F1A:
-			case Code.ReservedNop_rm16_r16_0F1B:
-			case Code.ReservedNop_rm32_r32_0F1B:
-			case Code.ReservedNop_rm64_r64_0F1B:
-			case Code.ReservedNop_rm16_r16_0F1C:
-			case Code.ReservedNop_rm32_r32_0F1C:
-			case Code.ReservedNop_rm64_r64_0F1C:
-			case Code.ReservedNop_rm16_r16_0F1D:
-			case Code.ReservedNop_rm32_r32_0F1D:
-			case Code.ReservedNop_rm64_r64_0F1D:
-			case Code.ReservedNop_rm16_r16_0F1E:
-			case Code.ReservedNop_rm32_r32_0F1E:
-			case Code.ReservedNop_rm64_r64_0F1E:
-			case Code.ReservedNop_rm16_r16_0F1F:
-			case Code.ReservedNop_rm32_r32_0F1F:
-			case Code.ReservedNop_rm64_r64_0F1F:
+			case Code.Reservednop_rm16_r16_0F0D:
+			case Code.Reservednop_rm32_r32_0F0D:
+			case Code.Reservednop_rm64_r64_0F0D:
+			case Code.Reservednop_rm16_r16_0F18:
+			case Code.Reservednop_rm32_r32_0F18:
+			case Code.Reservednop_rm64_r64_0F18:
+			case Code.Reservednop_rm16_r16_0F19:
+			case Code.Reservednop_rm32_r32_0F19:
+			case Code.Reservednop_rm64_r64_0F19:
+			case Code.Reservednop_rm16_r16_0F1A:
+			case Code.Reservednop_rm32_r32_0F1A:
+			case Code.Reservednop_rm64_r64_0F1A:
+			case Code.Reservednop_rm16_r16_0F1B:
+			case Code.Reservednop_rm32_r32_0F1B:
+			case Code.Reservednop_rm64_r64_0F1B:
+			case Code.Reservednop_rm16_r16_0F1C:
+			case Code.Reservednop_rm32_r32_0F1C:
+			case Code.Reservednop_rm64_r64_0F1C:
+			case Code.Reservednop_rm16_r16_0F1D:
+			case Code.Reservednop_rm32_r32_0F1D:
+			case Code.Reservednop_rm64_r64_0F1D:
+			case Code.Reservednop_rm16_r16_0F1E:
+			case Code.Reservednop_rm32_r32_0F1E:
+			case Code.Reservednop_rm64_r64_0F1E:
+			case Code.Reservednop_rm16_r16_0F1F:
+			case Code.Reservednop_rm32_r32_0F1F:
+			case Code.Reservednop_rm64_r64_0F1F:
 				return true;
 			default:
 				return false;
