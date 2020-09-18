@@ -448,7 +448,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Retf,// Retfw
 			(ushort)Mnemonic.Retf,// Retfd
 			(ushort)Mnemonic.Retf,// Retfq
-			(ushort)Mnemonic.Int,// Int3
+			(ushort)Mnemonic.Int3,// Int3
 			(ushort)Mnemonic.Int,// Int_imm8
 			(ushort)Mnemonic.Into,// Into
 			(ushort)Mnemonic.Iret,// Iretw

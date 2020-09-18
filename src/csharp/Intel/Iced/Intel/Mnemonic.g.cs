@@ -1649,6 +1649,7 @@ namespace Iced.Intel {
 		Popfq = 1617,
 		Iretd = 1618,
 		Iretq = 1619,
+		Int3 = 1620,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

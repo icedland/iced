@@ -1651,6 +1651,7 @@ pub enum Mnemonic {
 	Popfq = 1617,
 	Iretd = 1618,
 	Iretq = 1619,
+	Int3 = 1620,
 }
 // GENERATOR-END: Enum
 

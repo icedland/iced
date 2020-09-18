@@ -508,7 +508,7 @@ namespace Iced.Intel.EncoderInternal {
 
 			sb.Length = 0;
 
-			Write(GetMnemonic(), upper: true);
+			Write(opCode.Code.Mnemonic().ToString(), upper: true);
 			if (startOpIndex < opCount) {
 				sb.Append(' ');
 				int saeErIndex = opCount - 1;
@@ -1102,18 +1102,6 @@ namespace Iced.Intel.EncoderInternal {
 			WriteMemorySize(memorySize);
 			if (isBroadcast)
 				sb.Append("bcst");
-		}
-
-		string GetMnemonic() {
-			var code = opCode.Code;
-			var mnemonic = code.Mnemonic();
-			switch (code) {
-			case Code.Int3:
-				return code.ToString();
-
-			default:
-				return mnemonic.ToString();
-			}
 		}
 
 		static bool IsFpuInstruction(Code code) =>

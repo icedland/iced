@@ -1633,7 +1633,7 @@ CA A55A, Retfd_imm16, Retf, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
 
 CB, Retfd, Retf, 0,
 
-CC, Int3, Int, 0,
+CC, Int3, Int3, 0,
 
 CD 5A, Int_imm8, Int, 1, op0=i8;0x5A co=1;1;0;0;0;0
 CD A5, Int_imm8, Int, 1, op0=i8;0xA5 co=1;1;0;0;0;0

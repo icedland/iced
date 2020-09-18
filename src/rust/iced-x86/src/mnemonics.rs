@@ -448,7 +448,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Retf,// Retfw
 	Mnemonic::Retf,// Retfd
 	Mnemonic::Retf,// Retfq
-	Mnemonic::Int,// Int3
+	Mnemonic::Int3,// Int3
 	Mnemonic::Int,// Int_imm8
 	Mnemonic::Into,// Into
 	Mnemonic::Iret,// Iretw

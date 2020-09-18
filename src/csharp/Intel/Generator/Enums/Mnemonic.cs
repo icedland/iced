@@ -1644,5 +1644,6 @@ namespace Generator.Enums {
 		Popfq,
 		Iretd,
 		Iretq,
+		Int3,
 	}
 }

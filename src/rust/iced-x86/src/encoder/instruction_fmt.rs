@@ -529,7 +529,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		self.sb.clear();
 
 		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let tmp_mnemonic = self.get_mnemonic();
+		let tmp_mnemonic = TO_MNEMONIC_STR[self.op_code.code().mnemonic() as usize];
 		self.write(tmp_mnemonic, true);
 		if self.start_op_index < self.op_count {
 			self.sb.push(' ');
@@ -968,14 +968,6 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		self.write_memory_size(memory_size);
 		if is_broadcast {
 			self.sb.push_str("bcst");
-		}
-	}
-
-	fn get_mnemonic(&self) -> &'static str {
-		let code = self.op_code.code();
-		match code {
-			Code::Int3 => "int3",
-			_ => TO_MNEMONIC_STR[code.mnemonic() as usize],
 		}
 	}
 

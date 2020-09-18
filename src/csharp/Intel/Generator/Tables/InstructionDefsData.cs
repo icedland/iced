@@ -1299,7 +1299,7 @@ namespace Generator.Tables {
 				(0, mnemonic[nameof(Mnemonic.Retf)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Retfq)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xCB, -1, CodeSize.Code64, CodeSize.Unknown, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Retfq)], CodeInfo.Pop_8_8, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Return)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.X64)] }, Array.Empty<OpInfo>(), InstrInfoFlags.StackInstruction)),
-				(0, mnemonic[nameof(Mnemonic.Int)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				(0, mnemonic[nameof(Mnemonic.Int3)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Int3)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0xCC, -1, CodeSize.Unknown, CodeSize.Unknown, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Int3)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Interrupt)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.INTEL8086)] }, Array.Empty<OpInfo>(), InstrInfoFlags.None)),
 				(1, mnemonic[nameof(Mnemonic.Int)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],

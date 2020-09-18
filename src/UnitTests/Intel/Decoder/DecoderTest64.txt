@@ -3384,8 +3384,8 @@ CB, Retfd, Retf, 0,
 48 CB, Retfq, Retf, 0,
 4F CB, Retfq, Retf, 0, enc=48CB
 
-CC, Int3, Int, 0,
-4F CC, Int3, Int, 0, enc=CC
+CC, Int3, Int3, 0,
+4F CC, Int3, Int3, 0, enc=CC
 
 CD 5A, Int_imm8, Int, 1, op0=i8;0x5A co=1;1;0;0;0;0
 CD A5, Int_imm8, Int, 1, op0=i8;0xA5 co=1;1;0;0;0;0
