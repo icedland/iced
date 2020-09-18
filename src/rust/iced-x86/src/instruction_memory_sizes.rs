@@ -4324,9 +4324,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::KLHandleAes256,// Aesdec256kl_xmm_m512
 	MemorySize::Unknown,// Encodekey128_r32_r32
 	MemorySize::Unknown,// Encodekey256_r32_r32
-	MemorySize::Float32,// VEX_Vbroadcastss_xmm_xmm
-	MemorySize::Float32,// VEX_Vbroadcastss_ymm_xmm
-	MemorySize::Float64,// VEX_Vbroadcastsd_ymm_xmm
+	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_xmm
+	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_xmm
+	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_xmm
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
