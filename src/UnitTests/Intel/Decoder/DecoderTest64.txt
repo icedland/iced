@@ -2400,14 +2400,14 @@ F3 47 90, Pause, Pause, 0, enc=F390
 66 9C, Pushfw, Pushf, 0,
 66 47 9C, Pushfw, Pushf, 0, enc=669C
 
-9C, Pushfq, Pushf, 0,
-47 9C, Pushfq, Pushf, 0, enc=9C
+9C, Pushfq, Pushfq, 0,
+47 9C, Pushfq, Pushfq, 0, enc=9C
 
 66 9D, Popfw, Popf, 0,
 66 47 9D, Popfw, Popf, 0, enc=669D
 
-9D, Popfq, Popf, 0,
-47 9D, Popfq, Popf, 0, enc=9D
+9D, Popfq, Popfq, 0,
+47 9D, Popfq, Popfq, 0, enc=9D
 
 9E, Sahf, Sahf, 0,
 66 9E, Sahf, Sahf, 0, enc=9E
@@ -3394,11 +3394,11 @@ CD A5, Int_imm8, Int, 1, op0=i8;0xA5 co=1;1;0;0;0;0
 66 CF, Iretw, Iret, 0,
 66 47 CF, Iretw, Iret, 0, enc=66CF
 
-CF, Iretd, Iret, 0,
-47 CF, Iretd, Iret, 0, enc=CF
+CF, Iretd, Iretd, 0,
+47 CF, Iretd, Iretd, 0, enc=CF
 
-48 CF, Iretq, Iret, 0,
-4F CF, Iretq, Iret, 0, enc=48CF
+48 CF, Iretq, Iretq, 0,
+4F CF, Iretq, Iretq, 0, enc=48CF
 
 D0 00, Rol_rm8_1, Rol, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;1
 44 D0 00, Rol_rm8_1, Rol, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;1 enc=D000

@@ -159,9 +159,9 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Pop,// Pop_r32
 	Mnemonic::Pop,// Pop_r64
 	Mnemonic::Pusha,// Pushaw
-	Mnemonic::Pusha,// Pushad
+	Mnemonic::Pushad,// Pushad
 	Mnemonic::Popa,// Popaw
-	Mnemonic::Popa,// Popad
+	Mnemonic::Popad,// Popad
 	Mnemonic::Bound,// Bound_r16_m1616
 	Mnemonic::Bound,// Bound_r32_m3232
 	Mnemonic::Arpl,// Arpl_rm16_r16
@@ -344,11 +344,11 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Call,// Call_ptr1632
 	Mnemonic::Wait,// Wait
 	Mnemonic::Pushf,// Pushfw
-	Mnemonic::Pushf,// Pushfd
-	Mnemonic::Pushf,// Pushfq
+	Mnemonic::Pushfd,// Pushfd
+	Mnemonic::Pushfq,// Pushfq
 	Mnemonic::Popf,// Popfw
-	Mnemonic::Popf,// Popfd
-	Mnemonic::Popf,// Popfq
+	Mnemonic::Popfd,// Popfd
+	Mnemonic::Popfq,// Popfq
 	Mnemonic::Sahf,// Sahf
 	Mnemonic::Lahf,// Lahf
 	Mnemonic::Mov,// Mov_AL_moffs8
@@ -452,8 +452,8 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Int,// Int_imm8
 	Mnemonic::Into,// Into
 	Mnemonic::Iret,// Iretw
-	Mnemonic::Iret,// Iretd
-	Mnemonic::Iret,// Iretq
+	Mnemonic::Iretd,// Iretd
+	Mnemonic::Iretq,// Iretq
 	Mnemonic::Rol,// Rol_rm8_1
 	Mnemonic::Ror,// Ror_rm8_1
 	Mnemonic::Rcl,// Rcl_rm8_1

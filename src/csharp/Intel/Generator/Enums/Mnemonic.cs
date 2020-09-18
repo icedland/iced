@@ -1636,5 +1636,13 @@ namespace Generator.Enums {
 		Aesdec256kl,
 		Encodekey128,
 		Encodekey256,
+		Pushad,
+		Popad,
+		Pushfd,
+		Pushfq,
+		Popfd,
+		Popfq,
+		Iretd,
+		Iretq,
 	}
 }

@@ -974,14 +974,6 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 	fn get_mnemonic(&self) -> &'static str {
 		let code = self.op_code.code();
 		match code {
-			Code::Iretd => "iretd",
-			Code::Iretq => "iretq",
-			Code::Pushad => "pushad",
-			Code::Popad => "popad",
-			Code::Pushfd => "pushfd",
-			Code::Pushfq => "pushfq",
-			Code::Popfd => "popfd",
-			Code::Popfq => "popfq",
 			Code::Int3 => "int3",
 			_ => TO_MNEMONIC_STR[code.mnemonic() as usize],
 		}

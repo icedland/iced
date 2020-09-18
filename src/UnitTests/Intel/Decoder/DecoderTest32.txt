@@ -424,11 +424,11 @@ F0 F2 31 18, Xor_rm32_r32, Xor, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx lock xac
 
 66 60, Pushaw, Pusha, 0,
 
-60, Pushad, Pusha, 0,
+60, Pushad, Pushad, 0,
 
 66 61, Popaw, Popa, 0,
 
-61, Popad, Popa, 0,
+61, Popad, Popad, 0,
 
 66 62 18, Bound_r16_m1616, Bound, 2, op0=r;bx op1=m;ds;eax;;1;0;0;Bound16_WordWord
 
@@ -1143,11 +1143,11 @@ F3 90, Pause, Pause, 0,
 
 66 9C, Pushfw, Pushf, 0,
 
-9C, Pushfd, Pushf, 0,
+9C, Pushfd, Pushfd, 0,
 
 66 9D, Popfw, Popf, 0,
 
-9D, Popfd, Popf, 0,
+9D, Popfd, Popfd, 0,
 
 9E, Sahf, Sahf, 0,
 9E, Sahf, Sahf, 0, decopt=NoLahfSahf64
@@ -1642,7 +1642,7 @@ CE, Into, Into, 0,
 
 66 CF, Iretw, Iret, 0,
 
-CF, Iretd, Iret, 0,
+CF, Iretd, Iretd, 0,
 
 D0 00, Rol_rm8_1, Rol, 2, op0=m;ds;eax;;1;0;0;UInt8 op1=i8;1
 D0 C1, Rol_rm8_1, Rol, 2, op0=r;cl op1=i8;1

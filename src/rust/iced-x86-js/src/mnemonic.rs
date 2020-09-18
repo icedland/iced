@@ -1643,6 +1643,14 @@ pub enum Mnemonic {
 	Aesdec256kl = 1609,
 	Encodekey128 = 1610,
 	Encodekey256 = 1611,
+	Pushad = 1612,
+	Popad = 1613,
+	Pushfd = 1614,
+	Pushfq = 1615,
+	Popfd = 1616,
+	Popfq = 1617,
+	Iretd = 1618,
+	Iretq = 1619,
 }
 // GENERATOR-END: Enum
 

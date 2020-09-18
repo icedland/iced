@@ -1108,14 +1108,6 @@ namespace Iced.Intel.EncoderInternal {
 			var code = opCode.Code;
 			var mnemonic = code.Mnemonic();
 			switch (code) {
-			case Code.Iretd:
-			case Code.Iretq:
-			case Code.Pushad:
-			case Code.Popad:
-			case Code.Pushfd:
-			case Code.Pushfq:
-			case Code.Popfd:
-			case Code.Popfq:
 			case Code.Int3:
 				return code.ToString();
 

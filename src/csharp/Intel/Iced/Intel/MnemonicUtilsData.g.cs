@@ -159,9 +159,9 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Pop,// Pop_r32
 			(ushort)Mnemonic.Pop,// Pop_r64
 			(ushort)Mnemonic.Pusha,// Pushaw
-			(ushort)Mnemonic.Pusha,// Pushad
+			(ushort)Mnemonic.Pushad,// Pushad
 			(ushort)Mnemonic.Popa,// Popaw
-			(ushort)Mnemonic.Popa,// Popad
+			(ushort)Mnemonic.Popad,// Popad
 			(ushort)Mnemonic.Bound,// Bound_r16_m1616
 			(ushort)Mnemonic.Bound,// Bound_r32_m3232
 			(ushort)Mnemonic.Arpl,// Arpl_rm16_r16
@@ -344,11 +344,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Call,// Call_ptr1632
 			(ushort)Mnemonic.Wait,// Wait
 			(ushort)Mnemonic.Pushf,// Pushfw
-			(ushort)Mnemonic.Pushf,// Pushfd
-			(ushort)Mnemonic.Pushf,// Pushfq
+			(ushort)Mnemonic.Pushfd,// Pushfd
+			(ushort)Mnemonic.Pushfq,// Pushfq
 			(ushort)Mnemonic.Popf,// Popfw
-			(ushort)Mnemonic.Popf,// Popfd
-			(ushort)Mnemonic.Popf,// Popfq
+			(ushort)Mnemonic.Popfd,// Popfd
+			(ushort)Mnemonic.Popfq,// Popfq
 			(ushort)Mnemonic.Sahf,// Sahf
 			(ushort)Mnemonic.Lahf,// Lahf
 			(ushort)Mnemonic.Mov,// Mov_AL_moffs8
@@ -452,8 +452,8 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Int,// Int_imm8
 			(ushort)Mnemonic.Into,// Into
 			(ushort)Mnemonic.Iret,// Iretw
-			(ushort)Mnemonic.Iret,// Iretd
-			(ushort)Mnemonic.Iret,// Iretq
+			(ushort)Mnemonic.Iretd,// Iretd
+			(ushort)Mnemonic.Iretq,// Iretq
 			(ushort)Mnemonic.Rol,// Rol_rm8_1
 			(ushort)Mnemonic.Ror,// Ror_rm8_1
 			(ushort)Mnemonic.Rcl,// Rcl_rm8_1
