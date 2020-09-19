@@ -479,10 +479,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x93, 0x01,// 147 = "movsxd"
 
 	// Movsxd_r32_rm32
-	0x06,// SameAsPrev, ForceMemSize
+	0x02,// SameAsPrev
 
 	// Movsxd_r64_rm32
-	0x06,// SameAsPrev, ForceMemSize
+	0x02,// SameAsPrev
 
 	// Push_imm16
 	0x00,// No flags set

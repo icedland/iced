@@ -248,9 +248,9 @@ pop r15
 movsxd cx,si
 movsxd bx,[rax]
 movsxd ecx,esi
-movsxd ebx,dword ptr [rax]
+movsxd ebx,[rax]
 movsxd rcx,esi
-movsxd rbx,dword ptr [rax]
+movsxd rbx,[rax]
 push 0A55Ah
 push 0FFFFFFFF8412A55Ah
 imul cx,si,5AA5h

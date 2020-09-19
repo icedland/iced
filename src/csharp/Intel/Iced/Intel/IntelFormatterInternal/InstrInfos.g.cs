@@ -507,9 +507,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0x00,// Previous
 
 				// Movsxd_r16_rm16
-				0x02,// Normal_2
+				0x01,// Normal_1
 				0x93, 0x01,// 147 = "movsxd"
-				0x02,// 0x2 = ShowNoMemSize_ForceSize
 
 				// Movsxd_r32_rm32
 				0x00,// Previous

@@ -246,11 +246,11 @@ pop r15w
 pop rdi
 pop r15
 movsxd cx,si
-movsxd bx,word ptr [rax]
+movsxd bx,[rax]
 movsxd ecx,esi
-movsxd ebx,dword ptr [rax]
+movsxd ebx,[rax]
 movsxd rcx,esi
-movsxd rbx,dword ptr [rax]
+movsxd rbx,[rax]
 data16 push 0xa55a
 push 0xffffffff8412a55a
 imul cx,si,0x5aa5
