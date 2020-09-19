@@ -717,7 +717,7 @@ paddsiw mm1, qword [eax]
 paddsiw mm1, mm5
 pmagw mm1, qword [eax]
 pmagw mm1, mm5
-pdistib mm1, [eax]
+pdistib mm1, qword [eax]
 psubsiw mm1, qword [eax]
 psubsiw mm1, mm5
 pmvzb mm1, qword [eax]
@@ -728,7 +728,7 @@ pmvlzb mm1, qword [eax]
 pmvgezb mm1, qword [eax]
 pmulhriw mm1, qword [eax]
 pmulhriw mm1, mm5
-pmachriw mm1, [eax]
+pmachriw mm1, qword [eax]
 undoc
 undoc
 ftstp
