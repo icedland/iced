@@ -36,10 +36,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 		StringIg1,
 		bcst,
 		bnd,
-		STi_ST,
+		ST2,
 		DeclareData,
-		fpu_ST_STi,
-		fpu_STi_ST,
+		ST_STi,
+		STi_ST,
 		imul,
 		opmask_op,
 		invlpga,
@@ -66,10 +66,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 		reg,
 		Reg16,
 		Reg32,
-		ST_STi,
 		ST1_2,
 		ST1_3,
-		ST2,
 	}
 }
 #endif

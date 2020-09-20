@@ -99,12 +99,18 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_DeclareData((Code)i, s);
 					break;
 
-				case CtorKind.fpu_ST_STi:
-					instrInfo = new SimpleInstrInfo_fpu_ST_STi(s);
+				case CtorKind.ST_STi:
+					v = reader.ReadByte();
+					if (v > 1)
+						throw new InvalidOperationException();
+					instrInfo = new SimpleInstrInfo_ST_STi(s, v != 0);
 					break;
 
-				case CtorKind.fpu_STi_ST:
-					instrInfo = new SimpleInstrInfo_fpu_STi_ST(s);
+				case CtorKind.STi_ST:
+					v = reader.ReadByte();
+					if (v > 1)
+						throw new InvalidOperationException();
+					instrInfo = new SimpleInstrInfo_STi_ST(s, v != 0);
 					break;
 
 				case CtorKind.imul:
@@ -252,10 +258,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_Reg32(s);
 					break;
 
-				case CtorKind.ST_STi:
-					instrInfo = new SimpleInstrInfo_ST_STi(s);
-					break;
-
 				case CtorKind.ST1_2:
 					v = reader.ReadCompressedUInt32();
 					instrInfo = new SimpleInstrInfo_ST1(s, (InstrOpInfoFlags)v);
@@ -272,10 +274,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 				case CtorKind.ST2:
 					v = reader.ReadCompressedUInt32();
 					instrInfo = new SimpleInstrInfo_ST2(s, (InstrOpInfoFlags)v);
-					break;
-
-				case CtorKind.STi_ST:
-					instrInfo = new SimpleInstrInfo_STi_ST(s);
 					break;
 
 				case CtorKind.invlpga:

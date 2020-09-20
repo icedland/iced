@@ -99,10 +99,24 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::DeclareData => Box::new(SimpleInstrInfo_DeclareData::new(unsafe { mem::transmute(i as u16) }, s)),
-			CtorKind::fpu_ST_STi => Box::new(SimpleInstrInfo_fpu_ST_STi::new(s)),
-			CtorKind::fpu_STi_ST => Box::new(SimpleInstrInfo_fpu_STi_ST::new(s)),
 			CtorKind::imul => Box::new(SimpleInstrInfo_imul::new(s)),
 			CtorKind::opmask_op => Box::new(SimpleInstrInfo_opmask_op::new(s)),
+
+			CtorKind::ST_STi => {
+				v = reader.read_u8() as u32;
+				if v > 1 {
+					panic!();
+				}
+				Box::new(SimpleInstrInfo_ST_STi::new(s, v != 0))
+			}
+
+			CtorKind::STi_ST => {
+				v = reader.read_u8() as u32;
+				if v > 1 {
+					panic!();
+				}
+				Box::new(SimpleInstrInfo_STi_ST::new(s, v != 0))
+			}
 
 			CtorKind::maskmovq => {
 				v = reader.read_compressed_u32();
@@ -235,7 +249,6 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 
 			CtorKind::Reg16 => Box::new(SimpleInstrInfo_Reg16::new(s)),
 			CtorKind::Reg32 => Box::new(SimpleInstrInfo_Reg32::new(s)),
-			CtorKind::ST_STi => Box::new(SimpleInstrInfo_ST_STi::new(s)),
 
 			CtorKind::ST1_2 => {
 				v = reader.read_compressed_u32();
@@ -255,8 +268,6 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				v = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_ST2::new(s, v))
 			}
-
-			CtorKind::STi_ST => Box::new(SimpleInstrInfo_STi_ST::new(s)),
 
 			CtorKind::invlpga => {
 				v = reader.read_compressed_u32();

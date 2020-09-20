@@ -797,11 +797,11 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_os_mem_reg16 : InstrInfo {
+	sealed class SimpleInstrInfo_Reg16 : InstrInfo {
 		readonly FormatterString mnemonic;
 		readonly FormatterString mnemonic_suffix;
 
-		public SimpleInstrInfo_os_mem_reg16(string mnemonic, string mnemonic_suffix) {
+		public SimpleInstrInfo_Reg16(string mnemonic, string mnemonic_suffix) {
 			this.mnemonic = new FormatterString(mnemonic);
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
@@ -820,12 +820,12 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_os_mem16 : InstrInfo {
+	sealed class SimpleInstrInfo_mem16 : InstrInfo {
 		readonly FormatterString mnemonic;
 		readonly FormatterString mnemonic_reg_suffix;
 		readonly FormatterString mnemonic_mem_suffix;
 
-		public SimpleInstrInfo_os_mem16(string mnemonic, string mnemonic_reg_suffix, string mnemonic_mem_suffix) {
+		public SimpleInstrInfo_mem16(string mnemonic, string mnemonic_reg_suffix, string mnemonic_mem_suffix) {
 			this.mnemonic = new FormatterString(mnemonic);
 			this.mnemonic_reg_suffix = new FormatterString(mnemonic_reg_suffix);
 			this.mnemonic_mem_suffix = new FormatterString(mnemonic_mem_suffix);
@@ -1085,12 +1085,12 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_bnd2 : InstrInfo {
+	sealed class SimpleInstrInfo_bnd : InstrInfo {
 		readonly FormatterString mnemonic;
 		readonly FormatterString mnemonic_suffix;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_bnd2(string mnemonic, string mnemonic_suffix, InstrOpInfoFlags flags) {
+		public SimpleInstrInfo_bnd(string mnemonic, string mnemonic_suffix, InstrOpInfoFlags flags) {
 			this.mnemonic = new FormatterString(mnemonic);
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 			this.flags = flags;

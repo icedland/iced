@@ -334,12 +334,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_SEX1 : InstrInfo {
+	sealed class SimpleInstrInfo_push_imm8 : InstrInfo {
 		readonly int bitness;
 		readonly SignExtendInfo sexInfo;
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_SEX1(int bitness, SignExtendInfo sexInfo, string mnemonic) {
+		public SimpleInstrInfo_push_imm8(int bitness, SignExtendInfo sexInfo, string mnemonic) {
 			this.bitness = bitness;
 			this.sexInfo = sexInfo;
 			this.mnemonic = new FormatterString(mnemonic);
@@ -362,12 +362,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_SEX1a : InstrInfo {
+	sealed class SimpleInstrInfo_push_imm : InstrInfo {
 		readonly int bitness;
 		readonly SignExtendInfo sexInfo;
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_SEX1a(int bitness, SignExtendInfo sexInfo, string mnemonic) {
+		public SimpleInstrInfo_push_imm(int bitness, SignExtendInfo sexInfo, string mnemonic) {
 			this.bitness = bitness;
 			this.sexInfo = sexInfo;
 			this.mnemonic = new FormatterString(mnemonic);
@@ -392,15 +392,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_SEX2 : InstrInfo {
+	sealed class SimpleInstrInfo_SignExt : InstrInfo {
 		readonly SignExtendInfo sexInfoReg;
 		readonly SignExtendInfo sexInfoMem;
 		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_SEX2(SignExtendInfo sexInfo, string mnemonic, InstrOpInfoFlags flags) : this(sexInfo, sexInfo, mnemonic, flags) { }
+		public SimpleInstrInfo_SignExt(SignExtendInfo sexInfo, string mnemonic, InstrOpInfoFlags flags) : this(sexInfo, sexInfo, mnemonic, flags) { }
 
-		public SimpleInstrInfo_SEX2(SignExtendInfo sexInfoReg, SignExtendInfo sexInfoMem, string mnemonic, InstrOpInfoFlags flags) {
+		public SimpleInstrInfo_SignExt(SignExtendInfo sexInfoReg, SignExtendInfo sexInfoMem, string mnemonic, InstrOpInfoFlags flags) {
 			this.sexInfoReg = sexInfoReg;
 			this.sexInfoMem = sexInfoMem;
 			this.mnemonic = new FormatterString(mnemonic);
@@ -416,11 +416,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_SEX3 : InstrInfo {
+	sealed class SimpleInstrInfo_imul : InstrInfo {
 		readonly SignExtendInfo sexInfo;
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_SEX3(SignExtendInfo sexInfo, string mnemonic) {
+		public SimpleInstrInfo_imul(SignExtendInfo sexInfo, string mnemonic) {
 			this.sexInfo = sexInfo;
 			this.mnemonic = new FormatterString(mnemonic);
 		}

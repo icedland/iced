@@ -312,34 +312,34 @@ namespace Iced.Intel.NasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_sae((int)v, s);
 					break;
 
-				case CtorKind.SEX1:
+				case CtorKind.push_imm8:
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_SEX1((int)v, (SignExtendInfo)v2, s);
+					instrInfo = new SimpleInstrInfo_push_imm8((int)v, (SignExtendInfo)v2, s);
 					break;
 
-				case CtorKind.SEX1a:
+				case CtorKind.push_imm:
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_SEX1a((int)v, (SignExtendInfo)v2, s);
+					instrInfo = new SimpleInstrInfo_push_imm((int)v, (SignExtendInfo)v2, s);
 					break;
 
-				case CtorKind.SEX2_3:
+				case CtorKind.SignExt_3:
 					v = reader.ReadByte();
 					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_SEX2((SignExtendInfo)v, s, (InstrOpInfoFlags)v2);
+					instrInfo = new SimpleInstrInfo_SignExt((SignExtendInfo)v, s, (InstrOpInfoFlags)v2);
 					break;
 
-				case CtorKind.SEX2_4:
+				case CtorKind.SignExt_4:
 					v = reader.ReadByte();
 					v2 = reader.ReadByte();
 					v3 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_SEX2((SignExtendInfo)v, (SignExtendInfo)v2, s, (InstrOpInfoFlags)v3);
+					instrInfo = new SimpleInstrInfo_SignExt((SignExtendInfo)v, (SignExtendInfo)v2, s, (InstrOpInfoFlags)v3);
 					break;
 
-				case CtorKind.SEX3:
+				case CtorKind.imul:
 					v = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_SEX3((SignExtendInfo)v, s);
+					instrInfo = new SimpleInstrInfo_imul((SignExtendInfo)v, s);
 					break;
 
 				case CtorKind.STIG1:

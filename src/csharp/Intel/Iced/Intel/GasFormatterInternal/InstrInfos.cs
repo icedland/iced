@@ -102,11 +102,11 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_as((int)v, s);
 					break;
 
-				case CtorKind.bnd2:
+				case CtorKind.bnd:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_bnd2(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_bnd(s, s2, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.DeclareData:
@@ -264,10 +264,10 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_os_mem((int)v, s, s2);
 					break;
 
-				case CtorKind.os_mem_reg16:
+				case CtorKind.Reg16:
 					ca[0] = 'w';
 					s2 = AddSuffix(s, ca);
-					instrInfo = new SimpleInstrInfo_os_mem_reg16(s, s2);
+					instrInfo = new SimpleInstrInfo_Reg16(s, s2);
 					break;
 
 				case CtorKind.os_mem2:
@@ -315,12 +315,12 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_pops(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v), v2 != 0);
 					break;
 
-				case CtorKind.os_mem16:
+				case CtorKind.mem16:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
 					ca[0] = 'w';
 					s3 = AddSuffix(s, ca);
-					instrInfo = new SimpleInstrInfo_os_mem16(s, s2, s3);
+					instrInfo = new SimpleInstrInfo_mem16(s, s2, s3);
 					break;
 
 				case CtorKind.Reg32:

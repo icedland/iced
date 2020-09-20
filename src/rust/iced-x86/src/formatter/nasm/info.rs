@@ -335,19 +335,19 @@ impl InstrInfo for SimpleInstrInfo_cc {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_SEX1 {
+pub(super) struct SimpleInstrInfo_push_imm8 {
 	mnemonic: FormatterString,
 	bitness: u32,
 	sex_info: SignExtendInfo,
 }
 
-impl SimpleInstrInfo_SEX1 {
+impl SimpleInstrInfo_push_imm8 {
 	pub(super) fn new(bitness: u32, sex_info: SignExtendInfo, mnemonic: String) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), bitness, sex_info }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_SEX1 {
+impl InstrInfo for SimpleInstrInfo_push_imm8 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = (self.sex_info as u32) << InstrOpInfoFlags::SIGN_EXTEND_INFO_SHIFT;
 
@@ -367,19 +367,19 @@ impl InstrInfo for SimpleInstrInfo_SEX1 {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_SEX1a {
+pub(super) struct SimpleInstrInfo_push_imm {
 	mnemonic: FormatterString,
 	bitness: u32,
 	sex_info: SignExtendInfo,
 }
 
-impl SimpleInstrInfo_SEX1a {
+impl SimpleInstrInfo_push_imm {
 	pub(super) fn new(bitness: u32, sex_info: SignExtendInfo, mnemonic: String) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), bitness, sex_info }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_SEX1a {
+impl InstrInfo for SimpleInstrInfo_push_imm {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = InstrOpInfoFlags::NONE;
 
@@ -402,14 +402,14 @@ impl InstrInfo for SimpleInstrInfo_SEX1a {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_SEX2 {
+pub(super) struct SimpleInstrInfo_SignExt {
 	mnemonic: FormatterString,
 	sex_info_reg: SignExtendInfo,
 	sex_info_mem: SignExtendInfo,
 	flags: u32,
 }
 
-impl SimpleInstrInfo_SEX2 {
+impl SimpleInstrInfo_SignExt {
 	pub(super) fn new3(sex_info: SignExtendInfo, mnemonic: String, flags: u32) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), sex_info_reg: sex_info, sex_info_mem: sex_info, flags }
 	}
@@ -418,7 +418,7 @@ impl SimpleInstrInfo_SEX2 {
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_SEX2 {
+impl InstrInfo for SimpleInstrInfo_SignExt {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		debug_assert_eq!(2, instruction.op_count());
 		let sex_info =
@@ -429,18 +429,18 @@ impl InstrInfo for SimpleInstrInfo_SEX2 {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_SEX3 {
+pub(super) struct SimpleInstrInfo_imul {
 	mnemonic: FormatterString,
 	sex_info: SignExtendInfo,
 }
 
-impl SimpleInstrInfo_SEX3 {
+impl SimpleInstrInfo_imul {
 	pub(super) fn new(sex_info: SignExtendInfo, mnemonic: String) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), sex_info }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_SEX3 {
+impl InstrInfo for SimpleInstrInfo_imul {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let flags = (self.sex_info as u32) << InstrOpInfoFlags::SIGN_EXTEND_INFO_SHIFT;
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, flags);

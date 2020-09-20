@@ -897,18 +897,18 @@ impl InstrInfo for SimpleInstrInfo_os_mem2 {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_os_mem_reg16 {
+pub(super) struct SimpleInstrInfo_Reg16 {
 	mnemonic: FormatterString,
 	mnemonic_suffix: FormatterString,
 }
 
-impl SimpleInstrInfo_os_mem_reg16 {
+impl SimpleInstrInfo_Reg16 {
 	pub(super) fn new(mnemonic: String, mnemonic_suffix: String) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), mnemonic_suffix: FormatterString::new(mnemonic_suffix) }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_os_mem_reg16 {
+impl InstrInfo for SimpleInstrInfo_Reg16 {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let flags = InstrOpInfoFlags::NONE;
 		let mut info = InstrOpInfo::new(get_mnemonic(options, instruction, &self.mnemonic, &self.mnemonic_suffix, flags), instruction, flags);
@@ -925,13 +925,13 @@ impl InstrInfo for SimpleInstrInfo_os_mem_reg16 {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_os_mem16 {
+pub(super) struct SimpleInstrInfo_mem16 {
 	mnemonic: FormatterString,
 	mnemonic_reg_suffix: FormatterString,
 	mnemonic_mem_suffix: FormatterString,
 }
 
-impl SimpleInstrInfo_os_mem16 {
+impl SimpleInstrInfo_mem16 {
 	pub(super) fn new(mnemonic: String, mnemonic_reg_suffix: String, mnemonic_mem_suffix: String) -> Self {
 		Self {
 			mnemonic: FormatterString::new(mnemonic),
@@ -941,7 +941,7 @@ impl SimpleInstrInfo_os_mem16 {
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_os_mem16 {
+impl InstrInfo for SimpleInstrInfo_mem16 {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		const FLAGS: u32 = InstrOpInfoFlags::NONE;
 		let mnemonic_suffix = if instruction.op0_kind() == OpKind::Memory || instruction.op1_kind() == OpKind::Memory {
@@ -1229,19 +1229,19 @@ impl InstrInfo for SimpleInstrInfo_far {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_bnd2 {
+pub(super) struct SimpleInstrInfo_bnd {
 	mnemonic: FormatterString,
 	mnemonic_suffix: FormatterString,
 	flags: u32,
 }
 
-impl SimpleInstrInfo_bnd2 {
+impl SimpleInstrInfo_bnd {
 	pub(super) fn new(mnemonic: String, mnemonic_suffix: String, flags: u32) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), mnemonic_suffix: FormatterString::new(mnemonic_suffix), flags }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_bnd2 {
+impl InstrInfo for SimpleInstrInfo_bnd {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = self.flags;
 		if instruction.has_repne_prefix() {

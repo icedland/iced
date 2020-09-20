@@ -307,34 +307,34 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_sae::new(v, s))
 			}
 
-			CtorKind::SEX1 => {
+			CtorKind::push_imm8 => {
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_SEX1::new(v, unsafe { mem::transmute(v2 as u8) }, s))
+				Box::new(SimpleInstrInfo_push_imm8::new(v, unsafe { mem::transmute(v2 as u8) }, s))
 			}
 
-			CtorKind::SEX1a => {
+			CtorKind::push_imm => {
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_SEX1a::new(v, unsafe { mem::transmute(v2 as u8) }, s))
+				Box::new(SimpleInstrInfo_push_imm::new(v, unsafe { mem::transmute(v2 as u8) }, s))
 			}
 
-			CtorKind::SEX2_3 => {
+			CtorKind::SignExt_3 => {
 				v = reader.read_u8() as u32;
 				v2 = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_SEX2::new3(unsafe { mem::transmute(v as u8) }, s, v2))
+				Box::new(SimpleInstrInfo_SignExt::new3(unsafe { mem::transmute(v as u8) }, s, v2))
 			}
 
-			CtorKind::SEX2_4 => {
+			CtorKind::SignExt_4 => {
 				v = reader.read_u8() as u32;
 				v2 = reader.read_u8() as u32;
 				v3 = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_SEX2::new(unsafe { mem::transmute(v as u8) }, unsafe { mem::transmute(v2 as u8) }, s, v3))
+				Box::new(SimpleInstrInfo_SignExt::new(unsafe { mem::transmute(v as u8) }, unsafe { mem::transmute(v2 as u8) }, s, v3))
 			}
 
-			CtorKind::SEX3 => {
+			CtorKind::imul => {
 				v = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_SEX3::new(unsafe { mem::transmute(v as u8) }, s))
+				Box::new(SimpleInstrInfo_imul::new(unsafe { mem::transmute(v as u8) }, s))
 			}
 
 			CtorKind::STIG1 => {

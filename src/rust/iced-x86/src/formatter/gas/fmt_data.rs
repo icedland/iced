@@ -727,7 +727,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80, 0x01,// 0x80 = KeepOperandOrder
 
 	// Arpl_rm16_r16
-	0x21,// os_mem_reg16
+	0x21,// Reg16
 	0x92, 0x01,// 146 = "arpl"
 
 	// Arpl_r32m16_r32
@@ -1643,17 +1643,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// Mov_rm16_Sreg
-	0x29,// os_mem16
+	0x29,// mem16
 	0x00,// 0 = "mov"
 	0x77,// 'w'
 
 	// Mov_r32m16_Sreg
-	0x29,// os_mem16
+	0x29,// mem16
 	0x00,// 0 = "mov"
 	0x6C,// 'l'
 
 	// Mov_r64m16_Sreg
-	0x29,// os_mem16
+	0x29,// mem16
 	0x00,// 0 = "mov"
 	0x71,// 'q'
 
@@ -1673,17 +1673,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// Mov_Sreg_rm16
-	0x29,// os_mem16
+	0x29,// mem16
 	0x00,// 0 = "mov"
 	0x77,// 'w'
 
 	// Mov_Sreg_r32m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0x00,// 0 = "mov"
 	0x6C,// 'l'
 
 	// Mov_Sreg_r64m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0x00,// 0 = "mov"
 	0x71,// 'q'
 
@@ -2233,7 +2233,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xDE, 0x01,// 222 = "retl"
 
 	// Retnq_imm16
-	0x08,// bnd2
+	0x08,// bnd
 	0x29,// 41 = "ret"
 	0x71,// 'q'
 	0x00,// 0x0 = None
@@ -2253,7 +2253,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xDE, 0x01,// 222 = "retl"
 
 	// Retnq
-	0x08,// bnd2
+	0x08,// bnd
 	0x29,// 41 = "ret"
 	0x71,// 'q'
 	0x00,// 0x0 = None
@@ -4212,19 +4212,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// Call_rm16
-	0x08,// bnd2
+	0x08,// bnd
 	0x2A,// 42 = "call"
 	0x77,// 'w'
 	0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 	// Call_rm32
-	0x08,// bnd2
+	0x08,// bnd
 	0x2A,// 42 = "call"
 	0x6C,// 'l'
 	0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 	// Call_rm64
-	0x08,// bnd2
+	0x08,// bnd
 	0x2A,// 42 = "call"
 	0x71,// 'q'
 	0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
@@ -4248,19 +4248,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x40,// 0x40
 
 	// Jmp_rm16
-	0x08,// bnd2
+	0x08,// bnd
 	0x19,// 25 = "jmp"
 	0x77,// 'w'
 	0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 	// Jmp_rm32
-	0x08,// bnd2
+	0x08,// bnd
 	0x19,// 25 = "jmp"
 	0x6C,// 'l'
 	0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 	// Jmp_rm64
-	0x08,// bnd2
+	0x08,// bnd
 	0x19,// 25 = "jmp"
 	0x71,// 'q'
 	0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
@@ -4302,37 +4302,37 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// Sldt_rm16
-	0x29,// os_mem16
+	0x29,// mem16
 	0xFC, 0x02,// 380 = "sldt"
 	0x77,// 'w'
 
 	// Sldt_r32m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0xFC, 0x02,// 380 = "sldt"
 	0x6C,// 'l'
 
 	// Sldt_r64m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0xFC, 0x02,// 380 = "sldt"
 	0x71,// 'q'
 
 	// Str_rm16
-	0x29,// os_mem16
+	0x29,// mem16
 	0xFD, 0x02,// 381 = "str"
 	0x77,// 'w'
 
 	// Str_r32m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0xFD, 0x02,// 381 = "str"
 	0x6C,// 'l'
 
 	// Str_r64m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0xFD, 0x02,// 381 = "str"
 	0x71,// 'q'
 
 	// Lldt_rm16
-	0x21,// os_mem_reg16
+	0x21,// Reg16
 	0xFE, 0x02,// 382 = "lldt"
 
 	// Lldt_r32m16
@@ -4342,7 +4342,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Ltr_rm16
-	0x21,// os_mem_reg16
+	0x21,// Reg16
 	0xFF, 0x02,// 383 = "ltr"
 
 	// Ltr_r32m16
@@ -4352,7 +4352,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Verr_rm16
-	0xA1,// 'v', os_mem_reg16
+	0xA1,// 'v', Reg16
 	0x80, 0x03,// 384 = "verr"
 
 	// Verr_r32m16
@@ -4362,7 +4362,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// Verw_rm16
-	0xA1,// 'v', os_mem_reg16
+	0xA1,// 'v', Reg16
 	0x81, 0x03,// 385 = "verw"
 
 	// Verw_r32m16
@@ -4468,17 +4468,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// False
 
 	// Smsw_rm16
-	0x29,// os_mem16
+	0x29,// mem16
 	0x87, 0x03,// 391 = "smsw"
 	0x77,// 'w'
 
 	// Smsw_r32m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0x87, 0x03,// 391 = "smsw"
 	0x6C,// 'l'
 
 	// Smsw_r64m16
-	0x29,// os_mem16
+	0x29,// mem16
 	0x87, 0x03,// 391 = "smsw"
 	0x71,// 'q'
 
@@ -4487,7 +4487,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x88, 0x03,// 392 = "rstorssp"
 
 	// Lmsw_rm16
-	0x21,// os_mem_reg16
+	0x21,// Reg16
 	0x89, 0x03,// 393 = "lmsw"
 
 	// Lmsw_r32m16

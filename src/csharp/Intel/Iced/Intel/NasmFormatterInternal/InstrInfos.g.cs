@@ -89,7 +89,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Add_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x03,// 3 = "add"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -149,7 +149,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Or_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x04,// 4 = "or"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -204,7 +204,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Adc_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x05,// 5 = "adc"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -264,7 +264,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Sbb_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x06,// 6 = "sbb"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -324,7 +324,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// And_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x07,// 7 = "and"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -368,7 +368,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Sub_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x08,// 8 = "sub"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -412,7 +412,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Xor_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x09,// 9 = "xor"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -456,7 +456,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Cmp_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0A,// 10 = "cmp"
 				0x04,// Sex4to8
 				0x00,// 0x0 = None
@@ -544,68 +544,68 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Push_imm16
-				0x1E,// SEX1a
+				0x1E,// push_imm
 				0x02,// 2 = "push"
 				0x10,// 0x10
 				0x05,// Sex2
 
 				// Pushd_imm32
-				0x1E,// SEX1a
+				0x1E,// push_imm
 				0x02,// 2 = "push"
 				0x20,// 0x20
 				0x06,// Sex4
 
 				// Pushq_imm32
-				0x1E,// SEX1a
+				0x1E,// push_imm
 				0x02,// 2 = "push"
 				0x40,// 0x40
 				0x04,// Sex4to8
 
 				// Imul_r16_rm16_imm16
-				0x31,// SEX3
+				0x31,// imul
 				0x18,// 24 = "imul"
 				0x05,// Sex2
 
 				// Imul_r32_rm32_imm32
-				0x31,// SEX3
+				0x31,// imul
 				0x18,// 24 = "imul"
 				0x06,// Sex4
 
 				// Imul_r64_rm64_imm32
-				0x31,// SEX3
+				0x31,// imul
 				0x18,// 24 = "imul"
 				0x04,// Sex4to8
 
 				// Pushw_imm8
-				0x2E,// SEX1
+				0x2E,// push_imm8
 				0x02,// 2 = "push"
 				0x10,// 0x10
 				0x01,// Sex1to2
 
 				// Pushd_imm8
-				0x2E,// SEX1
+				0x2E,// push_imm8
 				0x02,// 2 = "push"
 				0x20,// 0x20
 				0x02,// Sex1to4
 
 				// Pushq_imm8
-				0x2E,// SEX1
+				0x2E,// push_imm8
 				0x02,// 2 = "push"
 				0x40,// 0x40
 				0x03,// Sex1to8
 
 				// Imul_r16_rm16_imm8
-				0x31,// SEX3
+				0x31,// imul
 				0x18,// 24 = "imul"
 				0x01,// Sex1to2
 
 				// Imul_r32_rm32_imm8
-				0x31,// SEX3
+				0x31,// imul
 				0x18,// 24 = "imul"
 				0x02,// Sex1to4
 
 				// Imul_r64_rm64_imm8
-				0x31,// SEX3
+				0x31,// imul
 				0x18,// 24 = "imul"
 				0x03,// Sex1to8
 
@@ -1060,7 +1060,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Add_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x03,// 3 = "add"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1074,7 +1074,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Or_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x04,// 4 = "or"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1088,7 +1088,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Adc_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x05,// 5 = "adc"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1102,7 +1102,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Sbb_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x06,// 6 = "sbb"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1116,7 +1116,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// And_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x07,// 7 = "and"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1130,7 +1130,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Sub_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x08,// 8 = "sub"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1144,7 +1144,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Xor_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x09,// 9 = "xor"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1158,7 +1158,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Cmp_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0A,// 10 = "cmp"
 				0x04,// Sex4to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1204,145 +1204,145 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Add_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x03,// 3 = "add"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Add_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x03,// 3 = "add"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Add_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x03,// 3 = "add"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Or_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x04,// 4 = "or"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Or_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x04,// 4 = "or"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Or_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x04,// 4 = "or"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Adc_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x05,// 5 = "adc"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Adc_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x05,// 5 = "adc"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Adc_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x05,// 5 = "adc"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Sbb_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x06,// 6 = "sbb"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Sbb_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x06,// 6 = "sbb"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Sbb_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x06,// 6 = "sbb"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// And_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x07,// 7 = "and"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// And_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x07,// 7 = "and"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// And_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x07,// 7 = "and"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Sub_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x08,// 8 = "sub"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Sub_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x08,// 8 = "sub"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Sub_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x08,// 8 = "sub"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Xor_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x09,// 9 = "xor"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Xor_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x09,// 9 = "xor"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Xor_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x09,// 9 = "xor"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Cmp_rm16_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0A,// 10 = "cmp"
 				0x01,// Sex1to2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Cmp_rm32_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0A,// 10 = "cmp"
 				0x02,// Sex1to4
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Cmp_rm64_imm8
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0A,// 10 = "cmp"
 				0x03,// Sex1to8
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1628,7 +1628,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Test_RAX_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0C,// 12 = "test"
 				0x00,// None
 				0x00,// 0x0 = None
@@ -1894,7 +1894,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Mov_rm64_imm32
-				0x09,// SEX2_4
+				0x09,// SignExt_4
 				0x00,// 0 = "mov"
 				0x06,// Sex4
 				0x04,// Sex4to8
@@ -3396,7 +3396,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Test_rm64_imm32
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0C,// 12 = "test"
 				0x00,// None
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -3410,7 +3410,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Test_rm64_imm32_F7r1
-				0x12,// SEX2_3
+				0x12,// SignExt_3
 				0x0C,// 12 = "test"
 				0x00,// None
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
