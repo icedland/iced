@@ -352,17 +352,17 @@ impl InstrInfo for SimpleInstrInfo_memsize {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_YA {
+pub(super) struct SimpleInstrInfo_StringIg1 {
 	mnemonic: FormatterString,
 }
 
-impl SimpleInstrInfo_YA {
+impl SimpleInstrInfo_StringIg1 {
 	pub(super) fn new(mnemonic: String) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic) }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_YA {
+impl InstrInfo for SimpleInstrInfo_StringIg1 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		info.op_count = 1;
@@ -372,38 +372,17 @@ impl InstrInfo for SimpleInstrInfo_YA {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_AX {
+pub(super) struct SimpleInstrInfo_StringIg0 {
 	mnemonic: FormatterString,
 }
 
-impl SimpleInstrInfo_AX {
+impl SimpleInstrInfo_StringIg0 {
 	pub(super) fn new(mnemonic: String) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic) }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_AX {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
-		let mut info = InstrOpInfo::default(&self.mnemonic);
-		info.op_count = 1;
-		info.op0_kind = unsafe { mem::transmute(instruction.op1_kind() as u8) };
-		info.op0_index = info.op1_index;
-		info
-	}
-}
-
-#[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_AY {
-	mnemonic: FormatterString,
-}
-
-impl SimpleInstrInfo_AY {
-	pub(super) fn new(mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic) }
-	}
-}
-
-impl InstrInfo for SimpleInstrInfo_AY {
+impl InstrInfo for SimpleInstrInfo_StringIg0 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		info.op_count = 1;
@@ -798,48 +777,20 @@ impl InstrInfo for SimpleInstrInfo_movabs {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_k1 {
+pub(super) struct SimpleInstrInfo_opmask_op {
 	mnemonic: FormatterString,
 }
 
-impl SimpleInstrInfo_k1 {
+impl SimpleInstrInfo_opmask_op {
 	pub(super) fn new(mnemonic: String) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic) }
 	}
 }
 
-impl InstrInfo for SimpleInstrInfo_k1 {
+impl InstrInfo for SimpleInstrInfo_opmask_op {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		debug_assert!(instruction.op_count() <= 2);
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, InstrOpInfoFlags::NONE);
-		debug_assert_eq!(1, instruction.op_count());
-		let kreg = instruction.op_mask();
-		if kreg != Register::None {
-			info.op_count += 1;
-			info.op1_kind = InstrOpKind::Register;
-			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
-			info.op1_register = kreg as u8;
-			info.op1_index = InstrInfoConstants::OP_ACCESS_READ;
-			info.flags |= InstrOpInfoFlags::IGNORE_OP_MASK as u16;
-		}
-		info
-	}
-}
-
-#[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_k2 {
-	mnemonic: FormatterString,
-}
-
-impl SimpleInstrInfo_k2 {
-	pub(super) fn new(mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic) }
-	}
-}
-
-impl InstrInfo for SimpleInstrInfo_k2 {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
-		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, InstrOpInfoFlags::NONE);
-		debug_assert_eq!(2, instruction.op_count());
 		let kreg = instruction.op_mask();
 		if kreg != Register::None {
 			info.op_count += 1;
@@ -863,9 +814,6 @@ pub(super) struct SimpleInstrInfo_bnd {
 }
 
 impl SimpleInstrInfo_bnd {
-	pub(super) fn with_mnemonic(mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), flags: InstrOpInfoFlags::NONE }
-	}
 	pub(super) fn new(mnemonic: String, flags: u32) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), flags }
 	}

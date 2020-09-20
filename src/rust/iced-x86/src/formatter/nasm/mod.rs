@@ -1096,7 +1096,7 @@ impl NasmFormatter {
 			SignExtendInfo::Sex1to2 | SignExtendInfo::Sex1to4 | SignExtendInfo::Sex1to8 => &d.str_.byte,
 			SignExtendInfo::Sex2 => &d.str_.word,
 			SignExtendInfo::Sex4 => &d.str_.dword,
-			SignExtendInfo::Sex4to8 | SignExtendInfo::Sex4to8Qword => &d.str_.qword,
+			SignExtendInfo::Sex4to8 => &d.str_.qword,
 		};
 
 		NasmFormatter::format_keyword(&d.options, output, keyword);

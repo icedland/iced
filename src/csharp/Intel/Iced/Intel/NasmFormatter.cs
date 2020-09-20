@@ -833,7 +833,6 @@ namespace Iced.Intel {
 				break;
 
 			case SignExtendInfo.Sex4to8:
-			case SignExtendInfo.Sex4to8Qword:
 				keyword = str_qword;
 				break;
 

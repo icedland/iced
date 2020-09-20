@@ -92,11 +92,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_AY(s, s2, (InstrOpInfoFlags)v);
 					break;
 
-				case CtorKind.bnd_1:
-					instrInfo = new SimpleInstrInfo_bnd(s);
-					break;
-
-				case CtorKind.bnd_2:
+				case CtorKind.bnd:
 					v = reader.ReadCompressedUInt32();
 					instrInfo = new SimpleInstrInfo_bnd(s, (InstrOpInfoFlags)v);
 					break;
@@ -116,14 +112,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
 					v = reader.ReadByte();
-					v2 = reader.ReadByte();
-					if (v2 > 1)
-						throw new InvalidOperationException();
-					instrInfo = new SimpleInstrInfo_fword((CodeSize)v, v2 != 0, s, s2);
+					v2 = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_fword((CodeSize)v, (InstrOpInfoFlags)v2, s, s2);
 					break;
 
-				case CtorKind.Ib:
-					instrInfo = new SimpleInstrInfo_Ib(s);
+				case CtorKind.Int3:
+					instrInfo = new SimpleInstrInfo_Int3(s);
 					break;
 
 				case CtorKind.imul:
@@ -218,15 +212,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_memsize((int)v, s);
 					break;
 
-				case CtorKind.mmxmem_1:
-					instrInfo = new SimpleInstrInfo_mmxmem(s);
-					break;
-
-				case CtorKind.mmxmem_2:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_mmxmem(s, (InstrOpInfoFlags)v);
-					break;
-
 				case CtorKind.monitor:
 					v = reader.ReadByte();
 					v2 = reader.ReadByte();
@@ -270,14 +255,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 					s2 = strings[reader.ReadCompressedUInt32()];
 					s3 = strings[reader.ReadCompressedUInt32()];
 					s4 = strings[reader.ReadCompressedUInt32()];
-					instrInfo = new SimpleInstrInfo_OpSize2(s, s2, s3, s4);
-					break;
-
-				case CtorKind.OpSize2_bnd:
-					s2 = strings[reader.ReadCompressedUInt32()];
-					s3 = strings[reader.ReadCompressedUInt32()];
-					s4 = strings[reader.ReadCompressedUInt32()];
-					instrInfo = new SimpleInstrInfo_OpSize2_bnd(s, s2, s3, s4);
+					v = reader.ReadByte();
+					if (v > 1)
+						throw new InvalidOperationException();
+					instrInfo = new SimpleInstrInfo_OpSize2(s, s2, s3, s4, v != 0);
 					break;
 
 				case CtorKind.pblendvb:
@@ -300,11 +281,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_pops(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v), (InstrOpInfoFlags)v2);
 					break;
 
-				case CtorKind.pushm:
-					v = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_pushm((CodeSize)v, s);
-					break;
-
 				case CtorKind.reg:
 					v = reader.ReadByte();
 					instrInfo = new SimpleInstrInfo_reg(s, (Register)v);
@@ -320,8 +296,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_Reg32(s, (InstrOpInfoFlags)v);
 					break;
 
-				case CtorKind.reverse2:
-					instrInfo = new SimpleInstrInfo_reverse2(s);
+				case CtorKind.reverse:
+					instrInfo = new SimpleInstrInfo_reverse(s);
 					break;
 
 				case CtorKind.ST_STi:
@@ -329,11 +305,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 					break;
 
 				case CtorKind.STi_ST:
-					instrInfo = new SimpleInstrInfo_STi_ST(s);
-					break;
-
-				case CtorKind.STi_ST2:
-					instrInfo = new SimpleInstrInfo_STi_ST2(s);
+					v = reader.ReadByte();
+					if (v > 1)
+						throw new InvalidOperationException();
+					instrInfo = new SimpleInstrInfo_STi_ST(s, v != 0);
 					break;
 
 				case CtorKind.STIG1_1:

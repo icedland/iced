@@ -457,7 +457,7 @@ mov ds,[rax]
 pop si
 pop word ptr [rax]
 pop rsi
-pop [rax]
+pop qword ptr [rax]
 xchg ax,ax
 xchg r8w,ax
 nop
@@ -1108,7 +1108,7 @@ jmp tbyte ptr [rax]
 push si
 push word ptr [rax]
 push rsi
-push [rax]
+push qword ptr [rax]
 sldt cx
 sldt word ptr [rax]
 sldt ecx

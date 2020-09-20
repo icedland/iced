@@ -102,13 +102,7 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_as((int)v, s);
 					break;
 
-				case CtorKind.bnd2_2:
-					ca[0] = (char)reader.ReadByte();
-					s2 = AddSuffix(s, ca);
-					instrInfo = new SimpleInstrInfo_bnd2(s, s2);
-					break;
-
-				case CtorKind.bnd2_3:
+				case CtorKind.bnd2:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
 					v = reader.ReadCompressedUInt32();
@@ -187,20 +181,13 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_OpSize3((int)v, s, s2);
 					break;
 
-				case CtorKind.os_A:
+				case CtorKind.os:
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os((int)v, s);
-					break;
-
-				case CtorKind.os_B:
-					v = reader.ReadCompressedUInt32();
-					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os((int)v, s, (InstrOpInfoFlags)v2);
-					break;
-
-				case CtorKind.os_bnd:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_bnd((int)v, s);
+					v2 = reader.ReadByte();
+					if (v2 > 1)
+						throw new InvalidOperationException();
+					v3 = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_os((int)v, s, v2 != 0, (InstrOpInfoFlags)v3);
 					break;
 
 				case CtorKind.CC_1:
@@ -294,22 +281,21 @@ namespace Iced.Intel.GasFormatterInternal {
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os2((int)v, s, s2);
+					v2 = reader.ReadByte();
+					if (v2 > 1)
+						throw new InvalidOperationException();
+					instrInfo = new SimpleInstrInfo_os2((int)v, s, s2, v2 != 0, InstrOpInfoFlags.None);
 					break;
 
 				case CtorKind.os2_4:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
 					v = reader.ReadCompressedUInt32();
-					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os2((int)v, s, s2, (InstrOpInfoFlags)v2);
-					break;
-
-				case CtorKind.os2_bnd:
-					ca[0] = (char)reader.ReadByte();
-					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os2_bnd((int)v, s, s2);
+					v2 = reader.ReadByte();
+					if (v2 > 1)
+						throw new InvalidOperationException();
+					v3 = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_os2((int)v, s, s2, v2 != 0, (InstrOpInfoFlags)v3);
 					break;
 
 				case CtorKind.pblendvb:
@@ -323,7 +309,10 @@ namespace Iced.Intel.GasFormatterInternal {
 
 				case CtorKind.pops:
 					v = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_pops(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v));
+					v2 = reader.ReadByte();
+					if (v2 > 1)
+						throw new InvalidOperationException();
+					instrInfo = new SimpleInstrInfo_pops(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v), v2 != 0);
 					break;
 
 				case CtorKind.os_mem16:
@@ -343,22 +332,15 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_sae((int)v, s);
 					break;
 
-				case CtorKind.sae_pops:
-					v = reader.ReadCompressedUInt32();
-					v2 = reader.ReadByte();
-					instrInfo = new SimpleInstrInfo_sae_pops((int)v, s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v2));
-					break;
-
 				case CtorKind.ST_STi:
 					instrInfo = new SimpleInstrInfo_ST_STi(s);
 					break;
 
 				case CtorKind.STi_ST:
-					instrInfo = new SimpleInstrInfo_STi_ST(s);
-					break;
-
-				case CtorKind.STi_ST2:
-					instrInfo = new SimpleInstrInfo_STi_ST2(s);
+					v = reader.ReadByte();
+					if (v > 1)
+						throw new InvalidOperationException();
+					instrInfo = new SimpleInstrInfo_STi_ST(s, v != 0);
 					break;
 
 				case CtorKind.STIG_1a:

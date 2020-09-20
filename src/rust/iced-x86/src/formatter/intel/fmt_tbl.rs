@@ -84,8 +84,8 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_as::new(v, s))
 			}
 
-			CtorKind::AX => Box::new(SimpleInstrInfo_AX::new(s)),
-			CtorKind::AY => Box::new(SimpleInstrInfo_AY::new(s)),
+			CtorKind::StringIg0 => Box::new(SimpleInstrInfo_StringIg0::new(s)),
+			CtorKind::StringIg1 => Box::new(SimpleInstrInfo_StringIg1::new(s)),
 
 			CtorKind::bcst => {
 				v = reader.read_compressed_u32();
@@ -93,9 +93,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_bcst::new(s, v, v2))
 			}
 
-			CtorKind::bnd_1 => Box::new(SimpleInstrInfo_bnd::with_mnemonic(s)),
-
-			CtorKind::bnd_2 => {
+			CtorKind::bnd => {
 				v = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_bnd::new(s, v))
 			}
@@ -104,8 +102,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::fpu_ST_STi => Box::new(SimpleInstrInfo_fpu_ST_STi::new(s)),
 			CtorKind::fpu_STi_ST => Box::new(SimpleInstrInfo_fpu_STi_ST::new(s)),
 			CtorKind::imul => Box::new(SimpleInstrInfo_imul::new(s)),
-			CtorKind::k1 => Box::new(SimpleInstrInfo_k1::new(s)),
-			CtorKind::k2 => Box::new(SimpleInstrInfo_k2::new(s)),
+			CtorKind::opmask_op => Box::new(SimpleInstrInfo_opmask_op::new(s)),
 
 			CtorKind::maskmovq => {
 				v = reader.read_compressed_u32();
@@ -260,8 +257,6 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::STi_ST => Box::new(SimpleInstrInfo_STi_ST::new(s)),
-
-			CtorKind::YA => Box::new(SimpleInstrInfo_YA::new(s)),
 
 			CtorKind::invlpga => {
 				v = reader.read_compressed_u32();

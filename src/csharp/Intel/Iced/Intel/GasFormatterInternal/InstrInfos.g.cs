@@ -119,24 +119,28 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_ES
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Popw_ES
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Popd_ES
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Or_rm8_r8
 				0x02,// Normal_2a
@@ -203,12 +207,14 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_CS
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Popw_CS
 				0x02,// Normal_2a
@@ -280,24 +286,28 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_SS
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Popw_SS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Popd_SS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Sbb_rm8_r8
 				0x02,// Normal_2a
@@ -364,24 +374,28 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_DS
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Popw_DS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Popd_DS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// And_rm8_r8
 				0x02,// Normal_2a
@@ -746,18 +760,21 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_imm32
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Pushq_imm32
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Imul_r16_rm16_imm16
 				0x0E,// imul
@@ -779,18 +796,21 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_imm8
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Pushq_imm8
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Imul_r16_rm16_imm8
 				0x0E,// imul
@@ -1760,12 +1780,14 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xB9, 0x01,// 185 = "lcall"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Call_ptr1632
 				0x23,// os2_3
 				0xB9, 0x01,// 185 = "lcall"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Wait
 				0x01,// Normal_1
@@ -2220,9 +2242,10 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xDE, 0x01,// 222 = "retl"
 
 				// Retnq_imm16
-				0x08,// bnd2_2
+				0x08,// bnd2
 				0x29,// 41 = "ret"
 				0x71,// 'q'
+				0x00,// 0x0 = None
 
 				// Retnw
 				0x13,// OpSize2_bnd
@@ -2239,9 +2262,10 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xDE, 0x01,// 222 = "retl"
 
 				// Retnq
-				0x08,// bnd2_2
+				0x08,// bnd2
 				0x29,// 41 = "ret"
 				0x71,// 'q'
+				0x00,// 0x0 = None
 
 				// Les_r16_m1616
 				0x02,// Normal_2a
@@ -2303,6 +2327,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xE4, 0x01,// 228 = "enter"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 				0x80, 0x01,// 0x80 = KeepOperandOrder
 
 				// Enterd_imm16_imm8
@@ -2310,6 +2335,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xE4, 0x01,// 228 = "enter"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 				0x80, 0x01,// 0x80 = KeepOperandOrder
 
 				// Enterq_imm16_imm8
@@ -2317,6 +2343,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xE4, 0x01,// 228 = "enter"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 				0x80, 0x01,// 0x80 = KeepOperandOrder
 
 				// Leavew
@@ -2324,18 +2351,21 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xE5, 0x01,// 229 = "leave"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Leaved
 				0x23,// os2_3
 				0xE5, 0x01,// 229 = "leave"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Leaveq
 				0x23,// os2_3
 				0xE5, 0x01,// 229 = "leave"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Retfw_imm16
 				0x14,// OpSize3
@@ -2846,37 +2876,37 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x73,// 's'
 
 				// Fadd_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xF6, 0x01,// 246 = "fadd"
 
 				// Fmul_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xF7, 0x01,// 247 = "fmul"
 
 				// Fcom_st0_sti
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0xF8, 0x01,// 248 = "fcom"
 				0x01,// True
 
 				// Fcomp_st0_sti
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0xF9, 0x01,// 249 = "fcomp"
 				0x01,// True
 
 				// Fsub_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xFA, 0x01,// 250 = "fsub"
 
 				// Fsubr_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xFB, 0x01,// 251 = "fsubr"
 
 				// Fdiv_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xFC, 0x01,// 252 = "fdiv"
 
 				// Fdivr_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xFD, 0x01,// 253 = "fdivr"
 
 				// Fld_m32fp
@@ -2946,11 +2976,11 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x77,// 'w'
 
 				// Fld_st0_sti
-				0x30,// STIG_1a
+				0x25,// STIG_1a
 				0xFE, 0x01,// 254 = "fld"
 
 				// Fxch_st0_sti
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0x86, 0x02,// 262 = "fxch"
 				0x01,// True
 
@@ -3111,19 +3141,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x6C,// 'l'
 
 				// Fcmovb_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xAC, 0x02,// 300 = "fcmovb"
 
 				// Fcmove_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xAD, 0x02,// 301 = "fcmove"
 
 				// Fcmovbe_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xAE, 0x02,// 302 = "fcmovbe"
 
 				// Fcmovu_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xAF, 0x02,// 303 = "fcmovu"
 
 				// Fucompp
@@ -3162,19 +3192,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x74,// 't'
 
 				// Fcmovnb_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xB6, 0x02,// 310 = "fcmovnb"
 
 				// Fcmovne_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xB7, 0x02,// 311 = "fcmovne"
 
 				// Fcmovnbe_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xB8, 0x02,// 312 = "fcmovnbe"
 
 				// Fcmovnu_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xB9, 0x02,// 313 = "fcmovnu"
 
 				// Fneni
@@ -3222,11 +3252,11 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xC4, 0x02,// 324 = "frstpm"
 
 				// Fucomi_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xC5, 0x02,// 325 = "fucomi"
 
 				// Fcomi_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xC6, 0x02,// 326 = "fcomi"
 
 				// Fadd_m64fp
@@ -3270,38 +3300,44 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x6C,// 'l'
 
 				// Fadd_sti_st0
-				0x2E,// STi_ST
+				0x16,// STi_ST
 				0xF6, 0x01,// 246 = "fadd"
+				0x00,// False
 
 				// Fmul_sti_st0
-				0x2E,// STi_ST
+				0x16,// STi_ST
 				0xF7, 0x01,// 247 = "fmul"
+				0x00,// False
 
 				// Fcom_st0_sti_DCD0
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0xF8, 0x01,// 248 = "fcom"
 				0x01,// True
 
 				// Fcomp_st0_sti_DCD8
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0xF9, 0x01,// 249 = "fcomp"
 				0x01,// True
 
 				// Fsubr_sti_st0
-				0x2E,// STi_ST
+				0x16,// STi_ST
 				0xFA, 0x01,// 250 = "fsub"
+				0x00,// False
 
 				// Fsub_sti_st0
-				0x2E,// STi_ST
+				0x16,// STi_ST
 				0xFB, 0x01,// 251 = "fsubr"
+				0x00,// False
 
 				// Fdivr_sti_st0
-				0x2E,// STi_ST
+				0x16,// STi_ST
 				0xFC, 0x01,// 252 = "fdiv"
+				0x00,// False
 
 				// Fdiv_sti_st0
-				0x2E,// STi_ST
+				0x16,// STi_ST
 				0xFD, 0x01,// 253 = "fdivr"
+				0x00,// False
 
 				// Fld_m64fp
 				0x04,// Normal_2c
@@ -3373,7 +3409,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xCD, 0x02,// 333 = "ffree"
 
 				// Fxch_st0_sti_DDC8
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0x86, 0x02,// 262 = "fxch"
 				0x01,// True
 
@@ -3386,12 +3422,12 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x6A,// 106 = "fstp"
 
 				// Fucom_st0_sti
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0xCE, 0x02,// 334 = "fucom"
 				0x01,// True
 
 				// Fucomp_st0_sti
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0xB0, 0x02,// 304 = "fucomp"
 				0x01,// True
 
@@ -3436,15 +3472,17 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x73,// 's'
 
 				// Faddp_sti_st0
-				0x2F,// STi_ST2
+				0x16,// STi_ST
 				0xCF, 0x02,// 335 = "faddp"
+				0x01,// True
 
 				// Fmulp_sti_st0
-				0x2F,// STi_ST2
+				0x16,// STi_ST
 				0xD0, 0x02,// 336 = "fmulp"
+				0x01,// True
 
 				// Fcomp_st0_sti_DED0
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0xF9, 0x01,// 249 = "fcomp"
 				0x01,// True
 
@@ -3453,20 +3491,24 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xD1, 0x02,// 337 = "fcompp"
 
 				// Fsubrp_sti_st0
-				0x2F,// STi_ST2
+				0x16,// STi_ST
 				0xD2, 0x02,// 338 = "fsubp"
+				0x01,// True
 
 				// Fsubp_sti_st0
-				0x2F,// STi_ST2
+				0x16,// STi_ST
 				0xD3, 0x02,// 339 = "fsubrp"
+				0x01,// True
 
 				// Fdivrp_sti_st0
-				0x2F,// STi_ST2
+				0x16,// STi_ST
 				0xD4, 0x02,// 340 = "fdivp"
+				0x01,// True
 
 				// Fdivp_sti_st0
-				0x2F,// STi_ST2
+				0x16,// STi_ST
 				0xD5, 0x02,// 341 = "fdivrp"
+				0x01,// True
 
 				// Fild_m16int
 				0x04,// Normal_2c
@@ -3509,7 +3551,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xDA, 0x02,// 346 = "ffreep"
 
 				// Fxch_st0_sti_DFC8
-				0x31,// STIG_1b
+				0x17,// STIG_1b
 				0x86, 0x02,// 262 = "fxch"
 				0x01,// True
 
@@ -3537,11 +3579,11 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xDC, 0x02,// 348 = "fstsg"
 
 				// Fucomip_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xDD, 0x02,// 349 = "fucomip"
 
 				// Fcomip_st0_sti
-				0x2D,// ST_STi
+				0x09,// ST_STi
 				0xDE, 0x02,// 350 = "fcomip"
 
 				// Loopne_rel8_16_CX
@@ -3720,44 +3762,53 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x40,// 0x40
 
 				// Jcxz_rel8_16
-				0x16,// os_B
+				0x15,// os
 				0xE6, 0x02,// 358 = "jcxz"
 				0x10,// 0x10
+				0x00,// False
 				0x40,// 0x40 = OpSizeIsByteDirective
 
 				// Jcxz_rel8_32
-				0x16,// os_B
+				0x15,// os
 				0xE6, 0x02,// 358 = "jcxz"
 				0x20,// 0x20
+				0x00,// False
 				0x40,// 0x40 = OpSizeIsByteDirective
 
 				// Jecxz_rel8_16
-				0x16,// os_B
+				0x15,// os
 				0xE7, 0x02,// 359 = "jecxz"
 				0x10,// 0x10
+				0x00,// False
 				0x40,// 0x40 = OpSizeIsByteDirective
 
 				// Jecxz_rel8_32
-				0x16,// os_B
+				0x15,// os
 				0xE7, 0x02,// 359 = "jecxz"
 				0x20,// 0x20
+				0x00,// False
 				0x40,// 0x40 = OpSizeIsByteDirective
 
 				// Jecxz_rel8_64
-				0x15,// os_A
+				0x15,// os
 				0xE7, 0x02,// 359 = "jecxz"
 				0x40,// 0x40
+				0x00,// False
+				0x00,// 0x0 = None
 
 				// Jrcxz_rel8_16
-				0x16,// os_B
+				0x15,// os
 				0xE8, 0x02,// 360 = "jrcxz"
 				0x10,// 0x10
+				0x00,// False
 				0x40,// 0x40 = OpSizeIsByteDirective
 
 				// Jrcxz_rel8_64
-				0x15,// os_A
+				0x15,// os
 				0xE8, 0x02,// 360 = "jrcxz"
 				0x40,// 0x40
+				0x00,// False
+				0x00,// 0x0 = None
 
 				// In_AL_imm8
 				0x02,// Normal_2a
@@ -3790,64 +3841,81 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x6C,// 'l'
 
 				// Call_rel16
-				0x25,// os2_bnd
+				0x23,// os2_3
 				0x2A,// 42 = "call"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x01,// True
 
 				// Call_rel32_32
-				0x25,// os2_bnd
+				0x23,// os2_3
 				0x2A,// 42 = "call"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x01,// True
 
 				// Call_rel32_64
-				0x25,// os2_bnd
+				0x23,// os2_3
 				0x2A,// 42 = "call"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x01,// True
 
 				// Jmp_rel16
-				0x17,// os_bnd
+				0x15,// os
 				0x19,// 25 = "jmp"
 				0x10,// 0x10
+				0x01,// True
+				0x00,// 0x0 = None
 
 				// Jmp_rel32_32
-				0x17,// os_bnd
+				0x15,// os
 				0x19,// 25 = "jmp"
 				0x20,// 0x20
+				0x01,// True
+				0x00,// 0x0 = None
 
 				// Jmp_rel32_64
-				0x17,// os_bnd
+				0x15,// os
 				0x19,// 25 = "jmp"
 				0x40,// 0x40
+				0x01,// True
+				0x00,// 0x0 = None
 
 				// Jmp_ptr1616
 				0x23,// os2_3
 				0xEB, 0x02,// 363 = "ljmp"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Jmp_ptr1632
 				0x23,// os2_3
 				0xEB, 0x02,// 363 = "ljmp"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Jmp_rel8_16
-				0x15,// os_A
+				0x15,// os
 				0x19,// 25 = "jmp"
 				0x10,// 0x10
+				0x00,// False
+				0x00,// 0x0 = None
 
 				// Jmp_rel8_32
-				0x15,// os_A
+				0x15,// os
 				0x19,// 25 = "jmp"
 				0x20,// 0x20
+				0x00,// False
+				0x00,// 0x0 = None
 
 				// Jmp_rel8_64
-				0x15,// os_A
+				0x15,// os
 				0x19,// 25 = "jmp"
 				0x40,// 0x40
+				0x00,// False
+				0x00,// 0x0 = None
 
 				// In_AL_DX
 				0x02,// Normal_2a
@@ -4153,19 +4221,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Call_rm16
-				0x09,// bnd2_3
+				0x08,// bnd2
 				0x2A,// 42 = "call"
 				0x77,// 'w'
 				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Call_rm32
-				0x09,// bnd2_3
+				0x08,// bnd2
 				0x2A,// 42 = "call"
 				0x6C,// 'l'
 				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Call_rm64
-				0x09,// bnd2_3
+				0x08,// bnd2
 				0x2A,// 42 = "call"
 				0x71,// 'q'
 				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
@@ -4189,19 +4257,19 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x40,// 0x40
 
 				// Jmp_rm16
-				0x09,// bnd2_3
+				0x08,// bnd2
 				0x19,// 25 = "jmp"
 				0x77,// 'w'
 				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Jmp_rm32
-				0x09,// bnd2_3
+				0x08,// bnd2
 				0x19,// 25 = "jmp"
 				0x6C,// 'l'
 				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
 
 				// Jmp_rm64
-				0x09,// bnd2_3
+				0x08,// bnd2
 				0x19,// 25 = "jmp"
 				0x71,// 'q'
 				0x21,// 0x21 = MnemonicSuffixIfMem, IndirectOperand
@@ -4329,72 +4397,84 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x83, 0x03,// 387 = "sgdt"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Sgdt_m1632
 				0x23,// os2_3
 				0x83, 0x03,// 387 = "sgdt"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Sgdt_m1664
 				0x23,// os2_3
 				0x83, 0x03,// 387 = "sgdt"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Sidt_m1632_16
 				0x23,// os2_3
 				0x84, 0x03,// 388 = "sidt"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Sidt_m1632
 				0x23,// os2_3
 				0x84, 0x03,// 388 = "sidt"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Sidt_m1664
 				0x23,// os2_3
 				0x84, 0x03,// 388 = "sidt"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Lgdt_m1632_16
 				0x23,// os2_3
 				0x85, 0x03,// 389 = "lgdt"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Lgdt_m1632
 				0x23,// os2_3
 				0x85, 0x03,// 389 = "lgdt"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Lgdt_m1664
 				0x23,// os2_3
 				0x85, 0x03,// 389 = "lgdt"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Lidt_m1632_16
 				0x23,// os2_3
 				0x86, 0x03,// 390 = "lidt"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Lidt_m1632
 				0x23,// os2_3
 				0x86, 0x03,// 390 = "lidt"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Lidt_m1664
 				0x23,// os2_3
 				0x86, 0x03,// 390 = "lidt"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Smsw_rm16
 				0x29,// os_mem16
@@ -9080,36 +9160,42 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_FS
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Pushq_FS
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Popw_FS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Popd_FS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Popq_FS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Cpuid
 				0x01,// Normal_1
@@ -9335,36 +9421,42 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x02,// 2 = "push"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Pushd_GS
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Pushq_GS
 				0x23,// os2_3
 				0x02,// 2 = "push"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Popw_GS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x77,// 'w'
 				0x10,// 0x10
+				0x00,// False
 
 				// Popd_GS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x6C,// 'l'
 				0x20,// 0x20
+				0x00,// False
 
 				// Popq_GS
 				0x23,// os2_3
 				0x0B,// 11 = "pop"
 				0x71,// 'q'
 				0x40,// 0x40
+				0x00,// False
 
 				// Rsm
 				0x01,// Normal_1
@@ -9766,14 +9858,18 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x00,// 0x0 = None
 
 				// Jmpe_disp16
-				0x15,// os_A
+				0x15,// os
 				0x82, 0x03,// 386 = "jmpe"
 				0x10,// 0x10
+				0x00,// False
+				0x00,// 0x0 = None
 
 				// Jmpe_disp32
-				0x15,// os_A
+				0x15,// os
 				0x82, 0x03,// 386 = "jmpe"
 				0x20,// 0x20
+				0x00,// False
+				0x00,// 0x0 = None
 
 				// Popcnt_r16_rm16
 				0x02,// Normal_2a
@@ -10006,11 +10102,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x28,// pops
 				0x94, 0x06,// 788 = "cmpps"
 				0x00,// cmpps
+				0x00,// False
 
 				// VEX_Vcmpps_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0x94, 0x06,// 788 = "vcmpps"
 				0x01,// vcmpps
+				0x00,// False
 
 				// VEX_Vcmpps_ymm_ymm_ymmm256_imm8
 				0x80,// 'v', Previous
@@ -10022,20 +10120,22 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
-				0xAC,// 'v', sae_pops
+				0xA8,// 'v', pops
 				0x94, 0x06,// 788 = "vcmpps"
-				0x01,// 0x1
 				0x01,// vcmpps
+				0x01,// True
 
 				// Cmppd_xmm_xmmm128_imm8
 				0x28,// pops
 				0x95, 0x06,// 789 = "cmppd"
 				0x02,// cmppd
+				0x00,// False
 
 				// VEX_Vcmppd_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0x95, 0x06,// 789 = "vcmppd"
 				0x03,// vcmppd
+				0x00,// False
 
 				// VEX_Vcmppd_ymm_ymm_ymmm256_imm8
 				0x80,// 'v', Previous
@@ -10047,42 +10147,46 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
-				0xAC,// 'v', sae_pops
+				0xA8,// 'v', pops
 				0x95, 0x06,// 789 = "vcmppd"
-				0x01,// 0x1
 				0x03,// vcmppd
+				0x01,// True
 
 				// Cmpss_xmm_xmmm32_imm8
 				0x28,// pops
 				0x96, 0x06,// 790 = "cmpss"
 				0x04,// cmpss
+				0x00,// False
 
 				// VEX_Vcmpss_xmm_xmm_xmmm32_imm8
 				0xA8,// 'v', pops
 				0x96, 0x06,// 790 = "vcmpss"
 				0x05,// vcmpss
+				0x00,// False
 
 				// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
-				0xAC,// 'v', sae_pops
+				0xA8,// 'v', pops
 				0x96, 0x06,// 790 = "vcmpss"
-				0x01,// 0x1
 				0x05,// vcmpss
+				0x01,// True
 
 				// Cmpsd_xmm_xmmm64_imm8
 				0x28,// pops
 				0x97, 0x06,// 791 = "cmpsd"
 				0x06,// cmpsd
+				0x00,// False
 
 				// VEX_Vcmpsd_xmm_xmm_xmmm64_imm8
 				0xA8,// 'v', pops
 				0x97, 0x06,// 791 = "vcmpsd"
 				0x07,// vcmpsd
+				0x00,// False
 
 				// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
-				0xAC,// 'v', sae_pops
+				0xA8,// 'v', pops
 				0x97, 0x06,// 791 = "vcmpsd"
-				0x01,// 0x1
 				0x07,// vcmpsd
+				0x01,// True
 
 				// Movnti_m32_r32
 				0x02,// Normal_2a
@@ -17012,41 +17116,49 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xA8,// 'v', pops
 				0xAF, 0x0A,// 1327 = "vpcomb"
 				0x0A,// vpcomb
+				0x00,// False
 
 				// XOP_Vpcomw_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0xB0, 0x0A,// 1328 = "vpcomw"
 				0x0B,// vpcomw
+				0x00,// False
 
 				// XOP_Vpcomd_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0xB1, 0x0A,// 1329 = "vpcomd"
 				0x0C,// vpcomd
+				0x00,// False
 
 				// XOP_Vpcomq_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0xB2, 0x0A,// 1330 = "vpcomq"
 				0x0D,// vpcomq
+				0x00,// False
 
 				// XOP_Vpcomub_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0xB3, 0x0A,// 1331 = "vpcomub"
 				0x0E,// vpcomub
+				0x00,// False
 
 				// XOP_Vpcomuw_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0xB4, 0x0A,// 1332 = "vpcomuw"
 				0x0F,// vpcomuw
+				0x00,// False
 
 				// XOP_Vpcomud_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0xB5, 0x0A,// 1333 = "vpcomud"
 				0x10,// vpcomud
+				0x00,// False
 
 				// XOP_Vpcomuq_xmm_xmm_xmmm128_imm8
 				0xA8,// 'v', pops
 				0xB6, 0x0A,// 1334 = "vpcomuq"
 				0x11,// vpcomuq
+				0x00,// False
 
 				// XOP_Blcfill_r32_rm32
 				0x02,// Normal_2a

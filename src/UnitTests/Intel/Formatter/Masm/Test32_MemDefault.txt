@@ -130,7 +130,7 @@ jle 8000004Ch
 jg 004Dh
 jg 8000004Ch
 pop esi
-pop [eax]
+pop dword ptr [eax]
 call 7856h:3412h
 call 0BC9Ah:78563412h
 pushfd
@@ -183,7 +183,7 @@ jmp word ptr [eax]
 jmp edx
 jmp dword ptr [eax]
 push esi
-push [eax]
+push dword ptr [eax]
 bndmov bnd1,bnd2
 bndmov bnd1,qword ptr [eax]
 bndcl bnd1,edx

@@ -74,7 +74,7 @@ jle short 0000804Dh
 jg short 804Ch
 jg short 0000804Dh
 pop esi
-pop [bx+si]
+pop dword ptr [bx+si]
 call far ptr 7856h:3412h
 call far ptr 0BC9Ah:78563412h
 pushfd
@@ -122,7 +122,7 @@ jmp word ptr [bx+si]
 jmp edx
 jmp dword ptr [bx+si]
 push esi
-push [bx+si]
+push dword ptr [bx+si]
 bndmov bnd1, bnd2
 bndmov bnd1, [eax]
 bndcl bnd1, edx
@@ -196,7 +196,7 @@ mov ds, [bx+si]
 mov fs, esi
 mov ds, [bx+si]
 pop si
-pop [bx+si]
+pop word ptr [bx+si]
 nop
 xchg eax, eax
 pushf
@@ -303,7 +303,7 @@ call fword ptr [bx+si]
 jmp dword ptr [bx+si]
 jmp fword ptr [bx+si]
 push si
-push [bx+si]
+push word ptr [bx+si]
 sgdt [bx+si]
 sgdtd [bx+si]
 sidt [bx+si]

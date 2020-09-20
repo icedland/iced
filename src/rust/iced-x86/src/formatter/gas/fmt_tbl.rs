@@ -117,13 +117,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_as::new(v, s))
 			}
 
-			CtorKind::bnd2_2 => {
-				c = reader.read_u8() as u8 as char;
-				let s2 = add_suffix(&s, c);
-				Box::new(SimpleInstrInfo_bnd2::with_mnemonic(s, s2))
-			}
-
-			CtorKind::bnd2_3 => {
+			CtorKind::bnd2 => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
 				v = reader.read_compressed_u32();
@@ -198,20 +192,14 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_OpSize3::new(v, s, s2))
 			}
 
-			CtorKind::os_A => {
+			CtorKind::os => {
 				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_os::with_mnemonic(v, s))
-			}
-
-			CtorKind::os_B => {
-				v = reader.read_compressed_u32();
-				v2 = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_os::new(v, s, v2))
-			}
-
-			CtorKind::os_bnd => {
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_os_bnd::new(v, s))
+				v2 = reader.read_u8() as u32;
+				if v2 > 1 {
+					panic!();
+				}
+				v3 = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_os::new(v, s, v2 != 0, v3))
 			}
 
 			CtorKind::CC_1 => {
@@ -304,22 +292,23 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
 				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_os2::with_mnemonic(v, s, s2))
+				v2 = reader.read_u8() as u32;
+				if v2 > 1 {
+					panic!();
+				}
+				Box::new(SimpleInstrInfo_os2::new(v, s, s2, v2 != 0, 0))
 			}
 
 			CtorKind::os2_4 => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
 				v = reader.read_compressed_u32();
-				v2 = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_os2::new(v, s, s2, v2))
-			}
-
-			CtorKind::os2_bnd => {
-				c = reader.read_u8() as u8 as char;
-				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_os2_bnd::new(v, s, s2))
+				v2 = reader.read_u8() as u32;
+				if v2 > 1 {
+					panic!();
+				}
+				v3 = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_os2::new(v, s, s2, v2 != 0, v3))
 			}
 
 			CtorKind::pblendvb => Box::new(SimpleInstrInfo_pblendvb::new(s)),
@@ -331,7 +320,11 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 
 			CtorKind::pops => {
 				v = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_pops::new(s, get_pseudo_ops(unsafe { mem::transmute(v as u8) })))
+				v2 = reader.read_u8() as u32;
+				if v2 > 1 {
+					panic!();
+				}
+				Box::new(SimpleInstrInfo_pops::new(s, get_pseudo_ops(unsafe { mem::transmute(v as u8) }), v2 != 0))
 			}
 
 			CtorKind::os_mem16 => {
@@ -348,15 +341,14 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_sae::new(v, s))
 			}
 
-			CtorKind::sae_pops => {
-				v = reader.read_compressed_u32();
-				v2 = reader.read_u8() as u32;
-				Box::new(SimpleInstrInfo_sae_pops::new(v, s, get_pseudo_ops(unsafe { mem::transmute(v2 as u8) })))
-			}
-
 			CtorKind::ST_STi => Box::new(SimpleInstrInfo_ST_STi::new(s)),
-			CtorKind::STi_ST => Box::new(SimpleInstrInfo_STi_ST::new(s)),
-			CtorKind::STi_ST2 => Box::new(SimpleInstrInfo_STi_ST2::new(s)),
+			CtorKind::STi_ST => {
+				v = reader.read_u8() as u32;
+				if v > 1 {
+					panic!();
+				}
+				Box::new(SimpleInstrInfo_STi_ST::new(s, v != 0))
+			}
 			CtorKind::STIG_1a => Box::new(SimpleInstrInfo_STIG1::with_mnemonic(s)),
 
 			CtorKind::STIG_1b => {

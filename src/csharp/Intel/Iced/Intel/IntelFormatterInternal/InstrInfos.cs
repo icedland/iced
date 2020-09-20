@@ -76,12 +76,12 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_as((int)v, s);
 					break;
 
-				case CtorKind.AX:
-					instrInfo = new SimpleInstrInfo_AX(s);
+				case CtorKind.StringIg0:
+					instrInfo = new SimpleInstrInfo_StringIg0(s);
 					break;
 
-				case CtorKind.AY:
-					instrInfo = new SimpleInstrInfo_AY(s);
+				case CtorKind.StringIg1:
+					instrInfo = new SimpleInstrInfo_StringIg1(s);
 					break;
 
 				case CtorKind.bcst:
@@ -90,11 +90,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_bcst(s, (InstrOpInfoFlags)v, (InstrOpInfoFlags)v2);
 					break;
 
-				case CtorKind.bnd_1:
-					instrInfo = new SimpleInstrInfo_bnd(s);
-					break;
-
-				case CtorKind.bnd_2:
+				case CtorKind.bnd:
 					v = reader.ReadCompressedUInt32();
 					instrInfo = new SimpleInstrInfo_bnd(s, (InstrOpInfoFlags)v);
 					break;
@@ -115,12 +111,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_imul(s);
 					break;
 
-				case CtorKind.k1:
-					instrInfo = new SimpleInstrInfo_k1(s);
-					break;
-
-				case CtorKind.k2:
-					instrInfo = new SimpleInstrInfo_k2(s);
+				case CtorKind.opmask_op:
+					instrInfo = new SimpleInstrInfo_opmask_op(s);
 					break;
 
 				case CtorKind.maskmovq:
@@ -284,10 +276,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				case CtorKind.STi_ST:
 					instrInfo = new SimpleInstrInfo_STi_ST(s);
-					break;
-
-				case CtorKind.YA:
-					instrInfo = new SimpleInstrInfo_YA(s);
 					break;
 
 				case CtorKind.invlpga:

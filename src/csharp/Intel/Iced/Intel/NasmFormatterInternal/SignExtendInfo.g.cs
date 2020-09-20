@@ -33,7 +33,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 		Sex1to4,
 		Sex1to8,
 		Sex4to8,
-		Sex4to8Qword,
 		Sex2,
 		Sex4,
 	}

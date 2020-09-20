@@ -196,7 +196,7 @@ mov ds,[bx+si]
 mov fs,esi
 mov ds,[bx+si]
 pop si
-pop [bx+si]
+pop word ptr [bx+si]
 nop
 xchg eax,eax
 pushf
@@ -303,7 +303,7 @@ call fword ptr [bx+si]
 jmp dword ptr [bx+si]
 jmp fword ptr [bx+si]
 push si
-push [bx+si]
+push word ptr [bx+si]
 sgdt [bx+si]
 sgdtd [bx+si]
 sidt [bx+si]

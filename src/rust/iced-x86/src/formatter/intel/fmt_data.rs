@@ -1485,51 +1485,51 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Stosb_m8_AL
-	0x2B,// YA
+	0x05,// StringIg1
 	0xCE, 0x01,// 206 = "stosb"
 
 	// Stosw_m16_AX
-	0x2B,// YA
+	0x05,// StringIg1
 	0xCF, 0x01,// 207 = "stosw"
 
 	// Stosd_m32_EAX
-	0x2B,// YA
+	0x05,// StringIg1
 	0xD0, 0x01,// 208 = "stosd"
 
 	// Stosq_m64_RAX
-	0x2B,// YA
+	0x05,// StringIg1
 	0xD1, 0x01,// 209 = "stosq"
 
 	// Lodsb_AL_m8
-	0x04,// AX
+	0x04,// StringIg0
 	0xD3, 0x01,// 211 = "lodsb"
 
 	// Lodsw_AX_m16
-	0x04,// AX
+	0x04,// StringIg0
 	0xD4, 0x01,// 212 = "lodsw"
 
 	// Lodsd_EAX_m32
-	0x04,// AX
+	0x04,// StringIg0
 	0xD5, 0x01,// 213 = "lodsd"
 
 	// Lodsq_RAX_m64
-	0x04,// AX
+	0x04,// StringIg0
 	0xD6, 0x01,// 214 = "lodsq"
 
 	// Scasb_AL_m8
-	0x05,// AY
+	0x04,// StringIg0
 	0xD8, 0x01,// 216 = "scasb"
 
 	// Scasw_AX_m16
-	0x05,// AY
+	0x04,// StringIg0
 	0xD9, 0x01,// 217 = "scasw"
 
 	// Scasd_EAX_m32
-	0x05,// AY
+	0x04,// StringIg0
 	0xDA, 0x01,// 218 = "scasd"
 
 	// Scasq_RAX_m64
-	0x05,// AY
+	0x04,// StringIg0
 	0xDB, 0x01,// 219 = "scasq"
 
 	// Mov_r8_imm8
@@ -1684,8 +1684,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x20,// 0x20
 
 	// Retnq_imm16
-	0x07,// bnd_1
+	0x07,// bnd
 	0x29,// 41 = "ret"
+	0x00,// 0x0 = None
 
 	// Retnw
 	0x15,// os_bnd
@@ -1698,8 +1699,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x20,// 0x20
 
 	// Retnq
-	0x07,// bnd_1
+	0x07,// bnd
 	0x29,// 41 = "ret"
+	0x00,// 0x0 = None
 
 	// Les_r16_m1616
 	0x01,// Normal_1
@@ -2559,11 +2561,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fadd_sti_st0
-	0x2A,// STi_ST
+	0x08,// STi_ST
 	0xF6, 0x01,// 246 = "fadd"
 
 	// Fmul_sti_st0
-	0x2A,// STi_ST
+	0x08,// STi_ST
 	0xF7, 0x01,// 247 = "fmul"
 
 	// Fcom_st0_sti_DCD0
@@ -2575,19 +2577,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF9, 0x01,// 249 = "fcomp"
 
 	// Fsubr_sti_st0
-	0x2A,// STi_ST
+	0x08,// STi_ST
 	0xFB, 0x01,// 251 = "fsubr"
 
 	// Fsub_sti_st0
-	0x2A,// STi_ST
+	0x08,// STi_ST
 	0xFA, 0x01,// 250 = "fsub"
 
 	// Fdivr_sti_st0
-	0x2A,// STi_ST
+	0x08,// STi_ST
 	0xFD, 0x01,// 253 = "fdivr"
 
 	// Fdiv_sti_st0
-	0x2A,// STi_ST
+	0x08,// STi_ST
 	0xFC, 0x01,// 252 = "fdiv"
 
 	// Fld_m64fp
@@ -3312,7 +3314,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Call_rm16
-	0x08,// bnd_2
+	0x07,// bnd
 	0x2A,// 42 = "call"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
@@ -3334,7 +3336,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Jmp_rm16
-	0x08,// bnd_2
+	0x07,// bnd
 	0x19,// 25 = "jmp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
@@ -3650,17 +3652,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x25,// EAX
 
 	// Invlpgaw
-	0x2C,// invlpga
+	0x0E,// invlpga
 	0xA3, 0x03,// 419 = "invlpga"
 	0x10,// 0x10
 
 	// Invlpgad
-	0x2C,// invlpga
+	0x0E,// invlpga
 	0xA3, 0x03,// 419 = "invlpga"
 	0x20,// 0x20
 
 	// Invlpgaq
-	0x2C,// invlpga
+	0x0E,// invlpga
 	0xA3, 0x03,// 419 = "invlpga"
 	0x40,// 0x40
 
@@ -12385,7 +12387,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpgatherdd_xmm_k1_vm32x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x88, 0x08,// 1032 = "vpgatherdd"
 
 	// EVEX_Vpgatherdd_ymm_k1_vm32y
@@ -12395,7 +12397,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpgatherdq_xmm_k1_vm32x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x89, 0x08,// 1033 = "vpgatherdq"
 
 	// EVEX_Vpgatherdq_ymm_k1_vm32x
@@ -12419,7 +12421,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x8A, 0x08,// 1034 = "vpgatherqd"
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64y
@@ -12429,7 +12431,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpgatherqq_xmm_k1_vm64x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x8B, 0x08,// 1035 = "vpgatherqq"
 
 	// EVEX_Vpgatherqq_ymm_k1_vm64y
@@ -12453,7 +12455,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgatherdps_xmm_k1_vm32x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x8C, 0x08,// 1036 = "vgatherdps"
 
 	// EVEX_Vgatherdps_ymm_k1_vm32y
@@ -12463,7 +12465,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgatherdpd_xmm_k1_vm32x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x8D, 0x08,// 1037 = "vgatherdpd"
 
 	// EVEX_Vgatherdpd_ymm_k1_vm32x
@@ -12487,7 +12489,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgatherqps_xmm_k1_vm64x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x8E, 0x08,// 1038 = "vgatherqps"
 
 	// EVEX_Vgatherqps_xmm_k1_vm64y
@@ -12497,7 +12499,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgatherqpd_xmm_k1_vm64x
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0x8F, 0x08,// 1039 = "vgatherqpd"
 
 	// EVEX_Vgatherqpd_ymm_k1_vm64y
@@ -12783,7 +12785,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA5, 0x08,// 1061 = "vfnmsub132sd"
 
 	// EVEX_Vpscatterdd_vm32x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xA6, 0x08,// 1062 = "vpscatterdd"
 
 	// EVEX_Vpscatterdd_vm32y_k1_ymm
@@ -12793,7 +12795,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpscatterdq_vm32x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xA7, 0x08,// 1063 = "vpscatterdq"
 
 	// EVEX_Vpscatterdq_vm32x_k1_ymm
@@ -12803,7 +12805,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpscatterqd_vm64x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xA8, 0x08,// 1064 = "vpscatterqd"
 
 	// EVEX_Vpscatterqd_vm64y_k1_xmm
@@ -12813,7 +12815,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpscatterqq_vm64x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xA9, 0x08,// 1065 = "vpscatterqq"
 
 	// EVEX_Vpscatterqq_vm64y_k1_ymm
@@ -12823,7 +12825,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vscatterdps_vm32x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xAA, 0x08,// 1066 = "vscatterdps"
 
 	// EVEX_Vscatterdps_vm32y_k1_ymm
@@ -12833,7 +12835,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vscatterdpd_vm32x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xAB, 0x08,// 1067 = "vscatterdpd"
 
 	// EVEX_Vscatterdpd_vm32x_k1_ymm
@@ -12843,7 +12845,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vscatterqps_vm64x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xAC, 0x08,// 1068 = "vscatterqps"
 
 	// EVEX_Vscatterqps_vm64y_k1_xmm
@@ -12853,7 +12855,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vscatterqpd_vm64x_k1_xmm
-	0x8E,// 'v', k2
+	0x8D,// 'v', opmask_op
 	0xAD, 0x08,// 1069 = "vscatterqpd"
 
 	// EVEX_Vscatterqpd_vm64y_k1_ymm
@@ -13447,67 +13449,67 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgatherpf0dps_vm32z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xDC, 0x08,// 1116 = "vgatherpf0dps"
 
 	// EVEX_Vgatherpf0dpd_vm32y_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xDD, 0x08,// 1117 = "vgatherpf0dpd"
 
 	// EVEX_Vgatherpf1dps_vm32z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xDE, 0x08,// 1118 = "vgatherpf1dps"
 
 	// EVEX_Vgatherpf1dpd_vm32y_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xDF, 0x08,// 1119 = "vgatherpf1dpd"
 
 	// EVEX_Vscatterpf0dps_vm32z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE0, 0x08,// 1120 = "vscatterpf0dps"
 
 	// EVEX_Vscatterpf0dpd_vm32y_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE1, 0x08,// 1121 = "vscatterpf0dpd"
 
 	// EVEX_Vscatterpf1dps_vm32z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE2, 0x08,// 1122 = "vscatterpf1dps"
 
 	// EVEX_Vscatterpf1dpd_vm32y_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE3, 0x08,// 1123 = "vscatterpf1dpd"
 
 	// EVEX_Vgatherpf0qps_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE4, 0x08,// 1124 = "vgatherpf0qps"
 
 	// EVEX_Vgatherpf0qpd_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE5, 0x08,// 1125 = "vgatherpf0qpd"
 
 	// EVEX_Vgatherpf1qps_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE6, 0x08,// 1126 = "vgatherpf1qps"
 
 	// EVEX_Vgatherpf1qpd_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE7, 0x08,// 1127 = "vgatherpf1qpd"
 
 	// EVEX_Vscatterpf0qps_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE8, 0x08,// 1128 = "vscatterpf0qps"
 
 	// EVEX_Vscatterpf0qpd_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xE9, 0x08,// 1129 = "vscatterpf0qpd"
 
 	// EVEX_Vscatterpf1qps_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xEA, 0x08,// 1130 = "vscatterpf1qps"
 
 	// EVEX_Vscatterpf1qpd_vm64z_k1
-	0x8D,// 'v', k1
+	0x8D,// 'v', opmask_op
 	0xEB, 0x08,// 1131 = "vscatterpf1qpd"
 
 	// Sha1nexte_xmm_xmmm128
