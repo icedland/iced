@@ -71,18 +71,6 @@ You can enable/disable these in your `Cargo.toml` file.
 
 If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
 
-[.NET Core](https://dotnet.microsoft.com/download) is required. Help:
-
-```sh
-dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --help
-```
-
-No VEX, EVEX, XOP, 3DNow!:
-
-```sh
-dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex --no-xop --no-3dnow
-```
-
 [`BlockEncoder`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.BlockEncoder.html
 [`OpCodeInfo`]: https://docs.rs/iced-x86/1.8.0/iced_x86/struct.OpCodeInfo.html
 

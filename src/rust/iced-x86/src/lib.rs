@@ -94,18 +94,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!
 //! If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
 //!
-//! [.NET Core](https://dotnet.microsoft.com/download) is required. Help:
-//!
-//! ```sh
-//! dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --help
-//! ```
-//!
-//! No VEX, EVEX, XOP, 3DNow!:
-//!
-//! ```sh
-//! dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex --no-xop --no-3dnow
-//! ```
-//!
 //! [`BlockEncoder`]: struct.BlockEncoder.html
 //! [`OpCodeInfo`]: struct.OpCodeInfo.html
 //!
