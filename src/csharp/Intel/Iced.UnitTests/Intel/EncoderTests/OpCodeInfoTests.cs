@@ -65,8 +65,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.CanUseRoundingControl, info.CanUseRoundingControl);
 			Assert.Equal(tc.CanSuppressAllExceptions, info.CanSuppressAllExceptions);
 			Assert.Equal(tc.CanUseOpMaskRegister, info.CanUseOpMaskRegister);
-			Assert.Equal(tc.RequireNonZeroOpMaskRegister, info.RequireNonZeroOpMaskRegister);
-			if (tc.RequireNonZeroOpMaskRegister) {
+			Assert.Equal(tc.RequireOpMaskRegister, info.RequireOpMaskRegister);
+			if (tc.RequireOpMaskRegister) {
 				Assert.True(info.CanUseOpMaskRegister);
 				Assert.False(info.CanUseZeroingMasking);
 			}

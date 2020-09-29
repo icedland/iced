@@ -1259,7 +1259,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.bndcl(bnd1, __qword_ptr[rdx]), Instruction.Create(Code.Bndcl_bnd_rm64, bnd1, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
 				{
-					// Skipping Bndcl_bnd_rm32 - Not supported for Mode64
+					// Skipping Bndcl_bnd_rm32 - Not supported for Bit64
 				}
 			}
 			{
@@ -1280,7 +1280,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.bndcn(bnd1, __qword_ptr[rdx]), Instruction.Create(Code.Bndcn_bnd_rm64, bnd1, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
 				{
-					// Skipping Bndcn_bnd_rm32 - Not supported for Mode64
+					// Skipping Bndcn_bnd_rm32 - Not supported for Bit64
 				}
 			}
 			{
@@ -1301,7 +1301,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.bndcu(bnd1, __qword_ptr[rdx]), Instruction.Create(Code.Bndcu_bnd_rm64, bnd1, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
 				{
-					// Skipping Bndcu_bnd_rm32 - Not supported for Mode64
+					// Skipping Bndcu_bnd_rm32 - Not supported for Bit64
 				}
 			}
 			{
@@ -1322,7 +1322,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.bndmk(bnd1, __qword_ptr[rdx]), Instruction.Create(Code.Bndmk_bnd_m64, bnd1, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
 				{
-					// Skipping Bndmk_bnd_m32 - Not supported for Mode64
+					// Skipping Bndmk_bnd_m32 - Not supported for Bit64
 				}
 			}
 			{
@@ -1842,7 +1842,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Call_rm32 - Not supported for Mode64
+						// Skipping Call_rm32 - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
@@ -5296,7 +5296,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Jmp_rm32 - Not supported for Mode64
+						// Skipping Jmp_rm32 - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
@@ -9962,19 +9962,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ { /* if (dst == Register.ES) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Popd_ES - Not supported for Mode64
+						// Skipping Popd_ES - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			} /* else */ { /* if (dst == Register.SS) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Popd_SS - Not supported for Mode64
+						// Skipping Popd_SS - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			} /* else */ { /* if (dst == Register.DS) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Popd_DS - Not supported for Mode64
+						// Skipping Popd_DS - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			}
@@ -9989,7 +9989,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.pop(__qword_ptr[rdx]), Instruction.Create(Code.Pop_rm64, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				{
-					// Skipping Pop_rm32 - Not supported for Mode64
+					// Skipping Pop_rm32 - Not supported for Bit64
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
 				TestAssembler(c => c.pop(__word_ptr[rdx]), Instruction.Create(Code.Pop_rm16, __word_ptr[rdx].ToMemoryOperand(Bitness)));
@@ -10992,25 +10992,25 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ { /* if (dst == Register.ES) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Pushd_ES - Not supported for Mode64
+						// Skipping Pushd_ES - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			} /* else */ { /* if (dst == Register.CS) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Pushd_CS - Not supported for Mode64
+						// Skipping Pushd_CS - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			} /* else */ { /* if (dst == Register.SS) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Pushd_SS - Not supported for Mode64
+						// Skipping Pushd_SS - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			} /* else */ { /* if (dst == Register.DS) */
 				{ /* if (Bitness >= 32) */
 					{
-						// Skipping Pushd_DS - Not supported for Mode64
+						// Skipping Pushd_DS - Not supported for Bit64
 					}
 				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 			}
@@ -11025,7 +11025,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.push(__qword_ptr[rdx]), Instruction.Create(Code.Push_rm64, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				{
-					// Skipping Push_rm32 - Not supported for Mode64
+					// Skipping Push_rm32 - Not supported for Bit64
 				}
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
 				TestAssembler(c => c.push(__word_ptr[rdx]), Instruction.Create(Code.Push_rm16, __word_ptr[rdx].ToMemoryOperand(Bitness)));
@@ -11052,13 +11052,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (Bitness >= 32) */
 				{ /* if (imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF)) */
 					{
-						// Skipping Pushd_imm8 - Not supported for Mode64
+						// Skipping Pushd_imm8 - Not supported for Bit64
 					}
 					{
-						// Skipping Pushd_imm8 - Not supported for Mode64
+						// Skipping Pushd_imm8 - Not supported for Bit64
 					}
 				} /* else */ {
-					// Skipping Pushd_imm32 - Not supported for Mode64
+					// Skipping Pushd_imm32 - Not supported for Bit64
 				}
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}

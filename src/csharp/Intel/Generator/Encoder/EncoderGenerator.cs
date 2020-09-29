@@ -36,8 +36,8 @@ namespace Generator.Encoder {
 		protected abstract void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex);
 		protected abstract void GenerateOpCodeInfo(InstructionDef[] defs);
 		protected abstract void Generate((EnumValue value, uint size)[] immSizes);
-		protected abstract void Generate((EnumValue allowedPrefixes, OpCodeFlags prefixes)[] infos, (EnumValue value, OpCodeFlags flag)[] flagsInfos);
-		protected abstract void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuStartOpIndex1);
+		protected abstract void Generate((EnumValue allowedPrefixes, InstructionDefFlags1 prefixes)[] infos, (EnumValue value, InstructionDefFlags1 flag)[] flagsInfos);
+		protected abstract void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuSkipOp0);
 		protected abstract void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib);
 		protected abstract void GenerateCore();
 		protected abstract void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr);
@@ -69,256 +69,29 @@ namespace Generator.Encoder {
 				Generate(enumType);
 
 			Generate(encoderTypes.LegacyOpHandlers, encoderTypes.VexOpHandlers, encoderTypes.XopOpHandlers, encoderTypes.EvexOpHandlers);
-			GenerateOpCodeInfo(genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs);
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
+			GenerateOpCodeInfo(defs);
 			Generate(encoderTypes.ImmSizes);
 			var opCodeFlags = genTypes[TypeIds.OpCodeFlags];
-			var flagsInfos = new (EnumValue value, OpCodeFlags flag)[] {
-				(opCodeFlags[nameof(OpCodeFlags.LockPrefix)], OpCodeFlags.LockPrefix),
-				(opCodeFlags[nameof(OpCodeFlags.XacquirePrefix)], OpCodeFlags.XacquirePrefix),
-				(opCodeFlags[nameof(OpCodeFlags.XreleasePrefix)], OpCodeFlags.XreleasePrefix),
-				(opCodeFlags[nameof(OpCodeFlags.RepPrefix)], OpCodeFlags.RepPrefix),
-				(opCodeFlags[nameof(OpCodeFlags.RepnePrefix)], OpCodeFlags.RepnePrefix),
-				(opCodeFlags[nameof(OpCodeFlags.BndPrefix)], OpCodeFlags.BndPrefix),
-				(opCodeFlags[nameof(OpCodeFlags.HintTakenPrefix)], OpCodeFlags.HintTakenPrefix),
-				(opCodeFlags[nameof(OpCodeFlags.NotrackPrefix)], OpCodeFlags.NotrackPrefix),
+			var flagsInfos = new (EnumValue value, InstructionDefFlags1 flag)[] {
+				(opCodeFlags[nameof(EncoderOpCodeFlags.LockPrefix)], InstructionDefFlags1.Lock),
+				(opCodeFlags[nameof(EncoderOpCodeFlags.XacquirePrefix)], InstructionDefFlags1.Xacquire),
+				(opCodeFlags[nameof(EncoderOpCodeFlags.XreleasePrefix)], InstructionDefFlags1.Xrelease),
+				(opCodeFlags[nameof(EncoderOpCodeFlags.RepPrefix)], InstructionDefFlags1.Rep),
+				(opCodeFlags[nameof(EncoderOpCodeFlags.RepnePrefix)], InstructionDefFlags1.Repne),
+				(opCodeFlags[nameof(EncoderOpCodeFlags.BndPrefix)], InstructionDefFlags1.Bnd),
+				(opCodeFlags[nameof(EncoderOpCodeFlags.HintTakenPrefix)], InstructionDefFlags1.HintTaken),
+				(opCodeFlags[nameof(EncoderOpCodeFlags.NotrackPrefix)], InstructionDefFlags1.Notrack),
 			};
 			Generate(encoderTypes.AllowedPrefixesMap.Select(a => (a.Value, a.Key)).OrderBy(a => a.Value.Value).ToArray(), flagsInfos);
-			var origCode = genTypes.GetObject<EnumValue[]>(TypeIds.OrigCodeValues);
-			var removed = genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues);
-			var notInstrStrings = new[] {
-				(Code.INVALID, "<invalid>"),
-				(Code.DeclareByte, "<db>"),
-				(Code.DeclareWord, "<dw>"),
-				(Code.DeclareDword, "<dd>"),
-				(Code.DeclareQword, "<dq>"),
-			}.Select(a => (code: origCode[(int)a.Item1], result: a.Item2)).Where(a => !removed.Contains(a.code)).ToArray();
-			var opMaskIsK1 = genTypes.GetKeptCodeValues(new[] {
-				Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8,
-				Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8,
-				Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8,
-				Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8,
-				Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8,
-				Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8,
-				Code.EVEX_Vfpclassss_kr_k1_xmmm32_imm8,
-				Code.EVEX_Vfpclasssd_kr_k1_xmmm64_imm8,
-				Code.EVEX_Vptestmb_kr_k1_xmm_xmmm128,
-				Code.EVEX_Vptestmb_kr_k1_ymm_ymmm256,
-				Code.EVEX_Vptestmb_kr_k1_zmm_zmmm512,
-				Code.EVEX_Vptestmw_kr_k1_xmm_xmmm128,
-				Code.EVEX_Vptestmw_kr_k1_ymm_ymmm256,
-				Code.EVEX_Vptestmw_kr_k1_zmm_zmmm512,
-				Code.EVEX_Vptestnmb_kr_k1_xmm_xmmm128,
-				Code.EVEX_Vptestnmb_kr_k1_ymm_ymmm256,
-				Code.EVEX_Vptestnmb_kr_k1_zmm_zmmm512,
-				Code.EVEX_Vptestnmw_kr_k1_xmm_xmmm128,
-				Code.EVEX_Vptestnmw_kr_k1_ymm_ymmm256,
-				Code.EVEX_Vptestnmw_kr_k1_zmm_zmmm512,
-				Code.EVEX_Vptestmd_kr_k1_xmm_xmmm128b32,
-				Code.EVEX_Vptestmd_kr_k1_ymm_ymmm256b32,
-				Code.EVEX_Vptestmd_kr_k1_zmm_zmmm512b32,
-				Code.EVEX_Vptestmq_kr_k1_xmm_xmmm128b64,
-				Code.EVEX_Vptestmq_kr_k1_ymm_ymmm256b64,
-				Code.EVEX_Vptestmq_kr_k1_zmm_zmmm512b64,
-				Code.EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32,
-				Code.EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32,
-				Code.EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32,
-				Code.EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64,
-				Code.EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64,
-				Code.EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64,
-			});
-			var incVecIndex = genTypes.GetKeptCodeValues(new[] {
-				Code.VEX_Vpextrw_r32m16_xmm_imm8,
-				Code.VEX_Vpextrw_r64m16_xmm_imm8,
-				Code.EVEX_Vpextrw_r32m16_xmm_imm8,
-				Code.EVEX_Vpextrw_r64m16_xmm_imm8,
-				Code.VEX_Vmovmskpd_r32_xmm,
-				Code.VEX_Vmovmskpd_r64_xmm,
-				Code.VEX_Vmovmskpd_r32_ymm,
-				Code.VEX_Vmovmskpd_r64_ymm,
-				Code.VEX_Vmovmskps_r32_xmm,
-				Code.VEX_Vmovmskps_r64_xmm,
-				Code.VEX_Vmovmskps_r32_ymm,
-				Code.VEX_Vmovmskps_r64_ymm,
-				Code.Pextrb_r32m8_xmm_imm8,
-				Code.Pextrb_r64m8_xmm_imm8,
-				Code.Pextrd_rm32_xmm_imm8,
-				Code.Pextrq_rm64_xmm_imm8,
-				Code.VEX_Vpextrb_r32m8_xmm_imm8,
-				Code.VEX_Vpextrb_r64m8_xmm_imm8,
-				Code.VEX_Vpextrd_rm32_xmm_imm8,
-				Code.VEX_Vpextrq_rm64_xmm_imm8,
-				Code.EVEX_Vpextrb_r32m8_xmm_imm8,
-				Code.EVEX_Vpextrb_r64m8_xmm_imm8,
-				Code.EVEX_Vpextrd_rm32_xmm_imm8,
-				Code.EVEX_Vpextrq_rm64_xmm_imm8,
-			});
-			var noVecIndex = genTypes.GetKeptCodeValues(new[] {
-				Code.Pxor_mm_mmm64,
-				Code.Punpckldq_mm_mmm32,
-				Code.Punpcklwd_mm_mmm32,
-				Code.Punpcklbw_mm_mmm32,
-				Code.Punpckhdq_mm_mmm64,
-				Code.Punpckhwd_mm_mmm64,
-				Code.Punpckhbw_mm_mmm64,
-				Code.Psubusb_mm_mmm64,
-				Code.Psubusw_mm_mmm64,
-				Code.Psubsw_mm_mmm64,
-				Code.Psubsb_mm_mmm64,
-				Code.Psubd_mm_mmm64,
-				Code.Psubw_mm_mmm64,
-				Code.Psubb_mm_mmm64,
-				Code.Psrlq_mm_imm8,
-				Code.Psrlq_mm_mmm64,
-				Code.Psrld_mm_imm8,
-				Code.Psrld_mm_mmm64,
-				Code.Psrlw_mm_imm8,
-				Code.Psrlw_mm_mmm64,
-				Code.Psrad_mm_imm8,
-				Code.Psrad_mm_mmm64,
-				Code.Psraw_mm_imm8,
-				Code.Psraw_mm_mmm64,
-				Code.Psllq_mm_imm8,
-				Code.Psllq_mm_mmm64,
-				Code.Pslld_mm_imm8,
-				Code.Pslld_mm_mmm64,
-				Code.Psllw_mm_mmm64,
-				Code.Por_mm_mmm64,
-				Code.Pmullw_mm_mmm64,
-				Code.Pmulhw_mm_mmm64,
-				Code.Pmovmskb_r32_mm,
-				Code.Pmovmskb_r64_mm,
-				Code.Pmovmskb_r32_xmm,
-				Code.Pmovmskb_r64_xmm,
-				Code.Pmaddwd_mm_mmm64,
-				Code.Pinsrw_mm_r32m16_imm8,
-				Code.Pinsrw_mm_r64m16_imm8,
-				Code.Pinsrw_xmm_r32m16_imm8,
-				Code.Pinsrw_xmm_r64m16_imm8,
-				Code.Pextrw_r32_xmm_imm8,
-				Code.Pextrw_r64_xmm_imm8,
-				Code.Pextrw_r32m16_xmm_imm8,
-				Code.Pextrw_r64m16_xmm_imm8,
-				Code.Pextrw_r32_mm_imm8,
-				Code.Pextrw_r64_mm_imm8,
-				Code.Cvtpd2pi_mm_xmmm128,
-				Code.Cvtpi2pd_xmm_mmm64,
-				Code.Cvtpi2ps_xmm_mmm64,
-				Code.Cvtps2pi_mm_xmmm64,
-				Code.Cvttpd2pi_mm_xmmm128,
-				Code.Cvttps2pi_mm_xmmm64,
-				Code.Movd_mm_rm32,
-				Code.Movq_mm_rm64,
-				Code.Movd_rm32_mm,
-				Code.Movq_rm64_mm,
-				Code.Movd_xmm_rm32,
-				Code.Movq_xmm_rm64,
-				Code.Movd_rm32_xmm,
-				Code.Movq_rm64_xmm,
-				Code.Movdq2q_mm_xmm,
-				Code.Movmskpd_r32_xmm,
-				Code.Movmskpd_r64_xmm,
-				Code.Movmskps_r32_xmm,
-				Code.Movmskps_r64_xmm,
-				Code.Movntq_m64_mm,
-				Code.Movq_mm_mmm64,
-				Code.Movq_mmm64_mm,
-				Code.Movq2dq_xmm_mm,
-				Code.Packuswb_mm_mmm64,
-				Code.Paddb_mm_mmm64,
-				Code.Paddw_mm_mmm64,
-				Code.Paddd_mm_mmm64,
-				Code.Paddq_mm_mmm64,
-				Code.Paddsb_mm_mmm64,
-				Code.Paddsw_mm_mmm64,
-				Code.Paddusb_mm_mmm64,
-				Code.Paddusw_mm_mmm64,
-				Code.Pand_mm_mmm64,
-				Code.Pandn_mm_mmm64,
-				Code.Pcmpeqb_mm_mmm64,
-				Code.Pcmpeqw_mm_mmm64,
-				Code.Pcmpeqd_mm_mmm64,
-				Code.Pcmpgtb_mm_mmm64,
-				Code.Pcmpgtw_mm_mmm64,
-				Code.Pcmpgtd_mm_mmm64,
-				Code.Aesenc128kl_xmm_m384,
-				Code.Aesdec128kl_xmm_m384,
-				Code.Aesenc256kl_xmm_m512,
-				Code.Aesdec256kl_xmm_m512,
-			});
-			var swapVecIndex12 = genTypes.GetKeptCodeValues(new[] {
-				Code.Movapd_xmmm128_xmm,
-				Code.VEX_Vmovapd_xmmm128_xmm,
-				Code.VEX_Vmovapd_ymmm256_ymm,
-				Code.EVEX_Vmovapd_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovapd_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovapd_zmmm512_k1z_zmm,
-				Code.Movaps_xmmm128_xmm,
-				Code.VEX_Vmovaps_xmmm128_xmm,
-				Code.VEX_Vmovaps_ymmm256_ymm,
-				Code.EVEX_Vmovaps_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovaps_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovaps_zmmm512_k1z_zmm,
-				Code.Movdqa_xmmm128_xmm,
-				Code.VEX_Vmovdqa_xmmm128_xmm,
-				Code.VEX_Vmovdqa_ymmm256_ymm,
-				Code.EVEX_Vmovdqa32_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovdqa32_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovdqa32_zmmm512_k1z_zmm,
-				Code.EVEX_Vmovdqa64_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovdqa64_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovdqa64_zmmm512_k1z_zmm,
-				Code.Movdqu_xmmm128_xmm,
-				Code.VEX_Vmovdqu_xmmm128_xmm,
-				Code.VEX_Vmovdqu_ymmm256_ymm,
-				Code.EVEX_Vmovdqu8_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovdqu8_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovdqu8_zmmm512_k1z_zmm,
-				Code.EVEX_Vmovdqu16_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovdqu16_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovdqu16_zmmm512_k1z_zmm,
-				Code.EVEX_Vmovdqu32_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovdqu32_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovdqu32_zmmm512_k1z_zmm,
-				Code.EVEX_Vmovdqu64_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovdqu64_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovdqu64_zmmm512_k1z_zmm,
-				Code.VEX_Vmovhpd_xmm_xmm_m64,
-				Code.EVEX_Vmovhpd_xmm_xmm_m64,
-				Code.VEX_Vmovhps_xmm_xmm_m64,
-				Code.EVEX_Vmovhps_xmm_xmm_m64,
-				Code.VEX_Vmovlpd_xmm_xmm_m64,
-				Code.EVEX_Vmovlpd_xmm_xmm_m64,
-				Code.VEX_Vmovlps_xmm_xmm_m64,
-				Code.EVEX_Vmovlps_xmm_xmm_m64,
-				Code.Movq_xmmm64_xmm,
-				Code.Movss_xmmm32_xmm,
-				Code.Movupd_xmmm128_xmm,
-				Code.VEX_Vmovupd_xmmm128_xmm,
-				Code.VEX_Vmovupd_ymmm256_ymm,
-				Code.EVEX_Vmovupd_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovupd_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovupd_zmmm512_k1z_zmm,
-				Code.Movups_xmmm128_xmm,
-				Code.VEX_Vmovups_xmmm128_xmm,
-				Code.VEX_Vmovups_ymmm256_ymm,
-				Code.EVEX_Vmovups_xmmm128_k1z_xmm,
-				Code.EVEX_Vmovups_ymmm256_k1z_ymm,
-				Code.EVEX_Vmovups_zmmm512_k1z_zmm,
-			});
-			var fpuStartOpIndex1 = genTypes.GetKeptCodeValues(new[] {
-				Code.Fcom_st0_sti,
-				Code.Fcom_st0_sti_DCD0,
-				Code.Fcomp_st0_sti,
-				Code.Fcomp_st0_sti_DCD8,
-				Code.Fcomp_st0_sti_DED0,
-				Code.Fld_st0_sti,
-				Code.Fucom_st0_sti,
-				Code.Fucomp_st0_sti,
-				Code.Fxch_st0_sti,
-				Code.Fxch_st0_sti_DDC8,
-				Code.Fxch_st0_sti_DFC8,
-			});
-			GenerateInstructionFormatter(notInstrStrings, opMaskIsK1, incVecIndex, noVecIndex, swapVecIndex12, fpuStartOpIndex1);
+			var notInstrOpCodeStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.OpCodeString)).ToArray();
+			var notInstrInstrStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.InstructionString)).ToArray();
+			var opMaskIsK1 = defs.Where(a => (a.IStringFlags & InstructionStringFlags.OpMaskIsK1) != 0).Select(a => a.Code).ToArray();
+			var incVecIndex = defs.Where(a => (a.IStringFlags & InstructionStringFlags.IncVecIndex) != 0).Select(a => a.Code).ToArray();
+			var noVecIndex = defs.Where(a => (a.IStringFlags & InstructionStringFlags.NoVecIndex) != 0).Select(a => a.Code).ToArray();
+			var swapVecIndex12 = defs.Where(a => (a.IStringFlags & InstructionStringFlags.SwapVecIndex12) != 0).Select(a => a.Code).ToArray();
+			var fpuSkipOp0 = defs.Where(a => (a.IStringFlags & InstructionStringFlags.FpuSkipOp0) != 0).Select(a => a.Code).ToArray();
+			GenerateInstructionFormatter(notInstrInstrStrs, opMaskIsK1, incVecIndex, noVecIndex, swapVecIndex12, fpuSkipOp0);
 			var opCodeOperandKind = genTypes[TypeIds.OpCodeOperandKind];
 			var hasModRM = new EnumValue[] {
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem)],
@@ -380,242 +153,24 @@ namespace Generator.Encoder {
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32z)],
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib64z)],
 			};
-			GenerateOpCodeFormatter(notInstrStrings, hasModRM, hasVsib);
+			GenerateOpCodeFormatter(notInstrOpCodeStrs, hasModRM, hasVsib);
 			GenerateCore();
-			var jccInstr = genTypes.GetKeptCodeValues(new[] {
-				Code.Jo_rel8_16,
-				Code.Jo_rel8_32,
-				Code.Jo_rel8_64,
-				Code.Jno_rel8_16,
-				Code.Jno_rel8_32,
-				Code.Jno_rel8_64,
-				Code.Jb_rel8_16,
-				Code.Jb_rel8_32,
-				Code.Jb_rel8_64,
-				Code.Jae_rel8_16,
-				Code.Jae_rel8_32,
-				Code.Jae_rel8_64,
-				Code.Je_rel8_16,
-				Code.Je_rel8_32,
-				Code.Je_rel8_64,
-				Code.Jne_rel8_16,
-				Code.Jne_rel8_32,
-				Code.Jne_rel8_64,
-				Code.Jbe_rel8_16,
-				Code.Jbe_rel8_32,
-				Code.Jbe_rel8_64,
-				Code.Ja_rel8_16,
-				Code.Ja_rel8_32,
-				Code.Ja_rel8_64,
-				Code.Js_rel8_16,
-				Code.Js_rel8_32,
-				Code.Js_rel8_64,
-				Code.Jns_rel8_16,
-				Code.Jns_rel8_32,
-				Code.Jns_rel8_64,
-				Code.Jp_rel8_16,
-				Code.Jp_rel8_32,
-				Code.Jp_rel8_64,
-				Code.Jnp_rel8_16,
-				Code.Jnp_rel8_32,
-				Code.Jnp_rel8_64,
-				Code.Jl_rel8_16,
-				Code.Jl_rel8_32,
-				Code.Jl_rel8_64,
-				Code.Jge_rel8_16,
-				Code.Jge_rel8_32,
-				Code.Jge_rel8_64,
-				Code.Jle_rel8_16,
-				Code.Jle_rel8_32,
-				Code.Jle_rel8_64,
-				Code.Jg_rel8_16,
-				Code.Jg_rel8_32,
-				Code.Jg_rel8_64,
-				Code.Jo_rel16,
-				Code.Jo_rel32_32,
-				Code.Jo_rel32_64,
-				Code.Jno_rel16,
-				Code.Jno_rel32_32,
-				Code.Jno_rel32_64,
-				Code.Jb_rel16,
-				Code.Jb_rel32_32,
-				Code.Jb_rel32_64,
-				Code.Jae_rel16,
-				Code.Jae_rel32_32,
-				Code.Jae_rel32_64,
-				Code.Je_rel16,
-				Code.Je_rel32_32,
-				Code.Je_rel32_64,
-				Code.Jne_rel16,
-				Code.Jne_rel32_32,
-				Code.Jne_rel32_64,
-				Code.Jbe_rel16,
-				Code.Jbe_rel32_32,
-				Code.Jbe_rel32_64,
-				Code.Ja_rel16,
-				Code.Ja_rel32_32,
-				Code.Ja_rel32_64,
-				Code.Js_rel16,
-				Code.Js_rel32_32,
-				Code.Js_rel32_64,
-				Code.Jns_rel16,
-				Code.Jns_rel32_32,
-				Code.Jns_rel32_64,
-				Code.Jp_rel16,
-				Code.Jp_rel32_32,
-				Code.Jp_rel32_64,
-				Code.Jnp_rel16,
-				Code.Jnp_rel32_32,
-				Code.Jnp_rel32_64,
-				Code.Jl_rel16,
-				Code.Jl_rel32_32,
-				Code.Jl_rel32_64,
-				Code.Jge_rel16,
-				Code.Jge_rel32_32,
-				Code.Jge_rel32_64,
-				Code.Jle_rel16,
-				Code.Jle_rel32_32,
-				Code.Jle_rel32_64,
-				Code.Jg_rel16,
-				Code.Jg_rel32_32,
-				Code.Jg_rel32_64,
-			});
-			var simpleBranchInstr = genTypes.GetKeptCodeValues(new[] {
-				Code.Loopne_rel8_16_CX,
-				Code.Loopne_rel8_32_CX,
-				Code.Loopne_rel8_16_ECX,
-				Code.Loopne_rel8_32_ECX,
-				Code.Loopne_rel8_64_ECX,
-				Code.Loopne_rel8_16_RCX,
-				Code.Loopne_rel8_64_RCX,
-				Code.Loope_rel8_16_CX,
-				Code.Loope_rel8_32_CX,
-				Code.Loope_rel8_16_ECX,
-				Code.Loope_rel8_32_ECX,
-				Code.Loope_rel8_64_ECX,
-				Code.Loope_rel8_16_RCX,
-				Code.Loope_rel8_64_RCX,
-				Code.Loop_rel8_16_CX,
-				Code.Loop_rel8_32_CX,
-				Code.Loop_rel8_16_ECX,
-				Code.Loop_rel8_32_ECX,
-				Code.Loop_rel8_64_ECX,
-				Code.Loop_rel8_16_RCX,
-				Code.Loop_rel8_64_RCX,
-				Code.Jcxz_rel8_16,
-				Code.Jcxz_rel8_32,
-				Code.Jecxz_rel8_16,
-				Code.Jecxz_rel8_32,
-				Code.Jecxz_rel8_64,
-				Code.Jrcxz_rel8_16,
-				Code.Jrcxz_rel8_64,
-			});
-			var callInstr = genTypes.GetKeptCodeValues(new[] {
-				Code.Call_rel16,
-				Code.Call_rel32_32,
-				Code.Call_rel32_64,
-			});
-			var jmpInstr = genTypes.GetKeptCodeValues(new[] {
-				Code.Jmp_rel16,
-				Code.Jmp_rel32_32,
-				Code.Jmp_rel32_64,
-				Code.Jmp_rel8_16,
-				Code.Jmp_rel8_32,
-				Code.Jmp_rel8_64,
-			});
-			var xbeginInstr = genTypes.GetKeptCodeValues(new[] {
-				Code.Xbegin_rel16,
-				Code.Xbegin_rel32,
-			});
+			var jccInstr = defs.Where(a => a.BranchKind == BranchKind.JccShort || a.BranchKind == BranchKind.JccNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
+			var simpleBranchInstr = defs.Where(a => a.BranchKind == BranchKind.Loop || a.BranchKind == BranchKind.Jrcxz).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
+			var callInstr = defs.Where(a => a.BranchKind == BranchKind.CallNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
+			var jmpInstr = defs.Where(a => a.BranchKind == BranchKind.JmpShort || a.BranchKind == BranchKind.JmpNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
+			var xbeginInstr = defs.Where(a => a.BranchKind == BranchKind.Xbegin).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			GenerateInstrSwitch(jccInstr, simpleBranchInstr, callInstr, jmpInstr, xbeginInstr);
-			var vsib32 = genTypes.GetKeptCodeValues(new[] {
-				Code.VEX_Vpgatherdd_xmm_vm32x_xmm,
-				Code.VEX_Vpgatherdd_ymm_vm32y_ymm,
-				Code.VEX_Vpgatherdq_xmm_vm32x_xmm,
-				Code.VEX_Vpgatherdq_ymm_vm32x_ymm,
-				Code.EVEX_Vpgatherdd_xmm_k1_vm32x,
-				Code.EVEX_Vpgatherdd_ymm_k1_vm32y,
-				Code.EVEX_Vpgatherdd_zmm_k1_vm32z,
-				Code.EVEX_Vpgatherdq_xmm_k1_vm32x,
-				Code.EVEX_Vpgatherdq_ymm_k1_vm32x,
-				Code.EVEX_Vpgatherdq_zmm_k1_vm32y,
-				Code.VEX_Vgatherdps_xmm_vm32x_xmm,
-				Code.VEX_Vgatherdps_ymm_vm32y_ymm,
-				Code.VEX_Vgatherdpd_xmm_vm32x_xmm,
-				Code.VEX_Vgatherdpd_ymm_vm32x_ymm,
-				Code.EVEX_Vgatherdps_xmm_k1_vm32x,
-				Code.EVEX_Vgatherdps_ymm_k1_vm32y,
-				Code.EVEX_Vgatherdps_zmm_k1_vm32z,
-				Code.EVEX_Vgatherdpd_xmm_k1_vm32x,
-				Code.EVEX_Vgatherdpd_ymm_k1_vm32x,
-				Code.EVEX_Vgatherdpd_zmm_k1_vm32y,
-				Code.EVEX_Vpscatterdd_vm32x_k1_xmm,
-				Code.EVEX_Vpscatterdd_vm32y_k1_ymm,
-				Code.EVEX_Vpscatterdd_vm32z_k1_zmm,
-				Code.EVEX_Vpscatterdq_vm32x_k1_xmm,
-				Code.EVEX_Vpscatterdq_vm32x_k1_ymm,
-				Code.EVEX_Vpscatterdq_vm32y_k1_zmm,
-				Code.EVEX_Vscatterdps_vm32x_k1_xmm,
-				Code.EVEX_Vscatterdps_vm32y_k1_ymm,
-				Code.EVEX_Vscatterdps_vm32z_k1_zmm,
-				Code.EVEX_Vscatterdpd_vm32x_k1_xmm,
-				Code.EVEX_Vscatterdpd_vm32x_k1_ymm,
-				Code.EVEX_Vscatterdpd_vm32y_k1_zmm,
-				Code.EVEX_Vgatherpf0dps_vm32z_k1,
-				Code.EVEX_Vgatherpf0dpd_vm32y_k1,
-				Code.EVEX_Vgatherpf1dps_vm32z_k1,
-				Code.EVEX_Vgatherpf1dpd_vm32y_k1,
-				Code.EVEX_Vscatterpf0dps_vm32z_k1,
-				Code.EVEX_Vscatterpf0dpd_vm32y_k1,
-				Code.EVEX_Vscatterpf1dps_vm32z_k1,
-				Code.EVEX_Vscatterpf1dpd_vm32y_k1,
-			});
-			var vsib64 = genTypes.GetKeptCodeValues(new[] {
-				Code.VEX_Vpgatherqd_xmm_vm64x_xmm,
-				Code.VEX_Vpgatherqd_xmm_vm64y_xmm,
-				Code.VEX_Vpgatherqq_xmm_vm64x_xmm,
-				Code.VEX_Vpgatherqq_ymm_vm64y_ymm,
-				Code.EVEX_Vpgatherqd_xmm_k1_vm64x,
-				Code.EVEX_Vpgatherqd_xmm_k1_vm64y,
-				Code.EVEX_Vpgatherqd_ymm_k1_vm64z,
-				Code.EVEX_Vpgatherqq_xmm_k1_vm64x,
-				Code.EVEX_Vpgatherqq_ymm_k1_vm64y,
-				Code.EVEX_Vpgatherqq_zmm_k1_vm64z,
-				Code.VEX_Vgatherqps_xmm_vm64x_xmm,
-				Code.VEX_Vgatherqps_xmm_vm64y_xmm,
-				Code.VEX_Vgatherqpd_xmm_vm64x_xmm,
-				Code.VEX_Vgatherqpd_ymm_vm64y_ymm,
-				Code.EVEX_Vgatherqps_xmm_k1_vm64x,
-				Code.EVEX_Vgatherqps_xmm_k1_vm64y,
-				Code.EVEX_Vgatherqps_ymm_k1_vm64z,
-				Code.EVEX_Vgatherqpd_xmm_k1_vm64x,
-				Code.EVEX_Vgatherqpd_ymm_k1_vm64y,
-				Code.EVEX_Vgatherqpd_zmm_k1_vm64z,
-				Code.EVEX_Vpscatterqd_vm64x_k1_xmm,
-				Code.EVEX_Vpscatterqd_vm64y_k1_xmm,
-				Code.EVEX_Vpscatterqd_vm64z_k1_ymm,
-				Code.EVEX_Vpscatterqq_vm64x_k1_xmm,
-				Code.EVEX_Vpscatterqq_vm64y_k1_ymm,
-				Code.EVEX_Vpscatterqq_vm64z_k1_zmm,
-				Code.EVEX_Vscatterqps_vm64x_k1_xmm,
-				Code.EVEX_Vscatterqps_vm64y_k1_xmm,
-				Code.EVEX_Vscatterqps_vm64z_k1_ymm,
-				Code.EVEX_Vscatterqpd_vm64x_k1_xmm,
-				Code.EVEX_Vscatterqpd_vm64y_k1_ymm,
-				Code.EVEX_Vscatterqpd_vm64z_k1_zmm,
-				Code.EVEX_Vgatherpf0qps_vm64z_k1,
-				Code.EVEX_Vgatherpf0qpd_vm64z_k1,
-				Code.EVEX_Vgatherpf1qps_vm64z_k1,
-				Code.EVEX_Vgatherpf1qpd_vm64z_k1,
-				Code.EVEX_Vscatterpf0qps_vm64z_k1,
-				Code.EVEX_Vscatterpf0qpd_vm64z_k1,
-				Code.EVEX_Vscatterpf1qps_vm64z_k1,
-				Code.EVEX_Vscatterpf1qpd_vm64z_k1,
-			});
+			var vsib32 = defs.Where(a => a.OpKinds.Any(b =>
+				b == OpCodeOperandKind.mem_vsib32x || b == OpCodeOperandKind.mem_vsib32y || b == OpCodeOperandKind.mem_vsib32z)).
+				Select(a => a.Code).OrderBy(a => a.Value).ToArray();
+			var vsib64 = defs.Where(a => a.OpKinds.Any(b =>
+				b == OpCodeOperandKind.mem_vsib64x || b == OpCodeOperandKind.mem_vsib64y || b == OpCodeOperandKind.mem_vsib64z)).
+				Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			GenerateVsib(vsib32, vsib64);
 		}
 
-		protected IEnumerable<(OpCodeInfo opCode, uint dword1, uint dword2, uint dword3)> GetData(InstructionDef[] defs) {
+		protected IEnumerable<(InstructionDef def, uint dword1, uint dword2, uint dword3)> GetData(InstructionDef[] defs) {
 			int encodingShift = (int)genTypes[TypeIds.EncFlags1]["EncodingShift"].Value;
 			int opCodeShift = (int)genTypes[TypeIds.EncFlags1]["OpCodeShift"].Value;
 
@@ -672,7 +227,7 @@ namespace Generator.Encoder {
 			var vexHasGroupIndex = vexFlags["HasGroupIndex"].Value;
 			var vexHasRmGroupIndex = vexFlags["HasRmGroupIndex"].Value;
 			var vexGroupShift = (int)vexFlags["GroupShift"].Value;
-			var vexVectorLengthShift = (int)vexFlags["VexVectorLengthShift"].Value;
+			var vexLBitShift = (int)vexFlags["LBitShift"].Value;
 			var vexWBitShift = (int)vexFlags["WBitShift"].Value;
 
 			var xopMandatoryPrefixShift = (int)xopFlags["MandatoryPrefixByteShift"].Value;
@@ -680,7 +235,7 @@ namespace Generator.Encoder {
 			var xopEncodableShift = (int)xopFlags["EncodableShift"].Value;
 			var xopHasGroupIndex = xopFlags["HasGroupIndex"].Value;
 			var xopGroupShift = (int)xopFlags["GroupShift"].Value;
-			var xopVectorLengthShift = (int)xopFlags["XopVectorLengthShift"].Value;
+			var xopLBitShift = (int)xopFlags["LBitShift"].Value;
 			var xopWBitShift = (int)xopFlags["WBitShift"].Value;
 
 			var evexMandatoryPrefixShift = (int)evexFlags["MandatoryPrefixByteShift"].Value;
@@ -688,144 +243,130 @@ namespace Generator.Encoder {
 			var evexEncodableShift = (int)evexFlags["EncodableShift"].Value;
 			var evexHasGroupIndex = evexFlags["HasGroupIndex"].Value;
 			var evexGroupShift = (int)evexFlags["GroupShift"].Value;
-			var evexVectorLengthShift = (int)evexFlags["EvexVectorLengthShift"].Value;
+			var evexLBitShift = (int)evexFlags["LBitShift"].Value;
 			var evexWBitShift = (int)evexFlags["WBitShift"].Value;
 			var evexTupleTypeShift = (int)evexFlags["TupleTypeShift"].Value;
-			var evex_LIG = evexFlags["LIG"].Value;
 			var evex_b = evexFlags["b"].Value;
 			var evex_er = evexFlags["er"].Value;
 			var evex_sae = evexFlags["sae"].Value;
 			var evex_k1 = evexFlags["k1"].Value;
 			var evex_z = evexFlags["z"].Value;
-			var evexNonZeroOpMaskRegister = evexFlags["NonZeroOpMaskRegister"].Value;
+			var evexRequireOpMaskRegister = evexFlags["RequireOpMaskRegister"].Value;
 
 			var d3nowEncodableShift = (int)d3nowFlags["EncodableShift"].Value;
 
 			foreach (var def in defs) {
-				var opCode = def.OpCodeInfo;
 				uint dword1, dword2, dword3;
 
-				dword1 = (uint)opCode.Encoding << encodingShift;
+				dword1 = (uint)def.Encoding << encodingShift;
 
-				switch (opCode.Encoding) {
+				switch (def.Encoding) {
 				case EncodingKind.Legacy:
-					var linfo = (LegacyOpCodeInfo)opCode;
-
-					dword1 |= opCode.OpCode << opCodeShift;
+					dword1 |= def.OpCode << opCodeShift;
 
 					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(opCode.MandatoryPrefix) << legacyMandatoryPrefixShift;
-					dword2 |= (uint)GetLegacyTable(linfo.Table) << legacyOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(opCode) << legacyEncodableShift;
-					if (opCode.GroupIndex >= 0) {
+					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << legacyMandatoryPrefixShift;
+					dword2 |= (uint)GetLegacyTable(def.Table) << legacyOpCodeTableShift;
+					dword2 |= (uint)GetEncodable(def) << legacyEncodableShift;
+					if (def.GroupIndex >= 0) {
 						dword2 |= legacyHasGroupIndex;
-						dword2 |= (uint)opCode.GroupIndex << legacyGroupShift;
+						dword2 |= (uint)def.GroupIndex << legacyGroupShift;
 					}
-					dword2 |= (uint)GetAllowedPrefixes(opCode) << legacyAllowedPrefixesShift;
-					if ((opCode.Flags & OpCodeFlags.Fwait) != 0)
+					dword2 |= GetAllowedPrefixes(def) << legacyAllowedPrefixesShift;
+					if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
 						dword2 |= legacyFwait;
-					if (opCode.MandatoryPrefix != MandatoryPrefix.None)
+					if (def.MandatoryPrefix != MandatoryPrefix.None)
 						dword2 |= legacyHasMandatoryPrefix;
-					dword2 |= (uint)linfo.OperandSize << legacyOperandSizeShift;
-					dword2 |= (uint)linfo.AddressSize << legacyAddressSizeShift;
+					dword2 |= (uint)def.OperandSize << legacyOperandSizeShift;
+					dword2 |= (uint)def.AddressSize << legacyAddressSizeShift;
 
 					dword3 = 0;
-					for (int i = 0; i < linfo.OpKinds.Length; i++)
-						dword3 |= (uint)linfo.OpKinds[i] << legacyOpShifts[i];
+					for (int i = 0; i < def.OpKinds.Length; i++)
+						dword3 |= (uint)encoderTypes.ToLegacy(def.OpKinds[i]) << legacyOpShifts[i];
 					break;
 
 				case EncodingKind.VEX:
-					var vinfo = (VexOpCodeInfo)opCode;
-
-					dword1 |= opCode.OpCode << opCodeShift;
+					dword1 |= def.OpCode << opCodeShift;
 
 					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(opCode.MandatoryPrefix) << vexMandatoryPrefixShift;
-					dword2 |= (uint)GetVexTable(vinfo.Table) << vexOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(opCode) << vexEncodableShift;
+					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << vexMandatoryPrefixShift;
+					dword2 |= (uint)GetVexTable(def.Table) << vexOpCodeTableShift;
+					dword2 |= (uint)GetEncodable(def) << vexEncodableShift;
 					// They both use the same 3 bits
-					if (opCode.GroupIndex >= 0 && opCode.RmGroupIndex >= 0)
+					if (def.GroupIndex >= 0 && def.RmGroupIndex >= 0)
 						throw new InvalidOperationException();
-					if (opCode.GroupIndex >= 0) {
+					if (def.GroupIndex >= 0) {
 						dword2 |= vexHasGroupIndex;
-						dword2 |= (uint)opCode.GroupIndex << vexGroupShift;
+						dword2 |= (uint)def.GroupIndex << vexGroupShift;
 					}
-					if (opCode.RmGroupIndex >= 0) {
+					if (def.RmGroupIndex >= 0) {
 						dword2 |= vexHasRmGroupIndex;
-						dword2 |= (uint)opCode.RmGroupIndex << vexGroupShift;
+						dword2 |= (uint)def.RmGroupIndex << vexGroupShift;
 					}
-					dword2 |= (uint)vinfo.VectorLength << vexVectorLengthShift;
-					dword2 |= (uint)GetWBit(opCode) << vexWBitShift;
+					dword2 |= (uint)GetLBit(def) << vexLBitShift;
+					dword2 |= (uint)GetWBit(def) << vexWBitShift;
 
 					dword3 = 0;
-					for (int i = 0; i < vinfo.OpKinds.Length; i++)
-						dword3 |= (uint)vinfo.OpKinds[i] << vexOpShifts[i];
+					for (int i = 0; i < def.OpKinds.Length; i++)
+						dword3 |= (uint)encoderTypes.ToVex(def.OpKinds[i]) << vexOpShifts[i];
 					break;
 
 				case EncodingKind.EVEX:
-					var einfo = (EvexOpCodeInfo)opCode;
-
-					dword1 |= opCode.OpCode << opCodeShift;
+					dword1 |= def.OpCode << opCodeShift;
 
 					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(opCode.MandatoryPrefix) << evexMandatoryPrefixShift;
-					dword2 |= (uint)GetEvexTable(einfo.Table) << evexOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(opCode) << evexEncodableShift;
-					if (opCode.GroupIndex >= 0) {
+					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << evexMandatoryPrefixShift;
+					dword2 |= (uint)GetEvexTable(def.Table) << evexOpCodeTableShift;
+					dword2 |= (uint)GetEncodable(def) << evexEncodableShift;
+					if (def.GroupIndex >= 0) {
 						dword2 |= evexHasGroupIndex;
-						dword2 |= (uint)opCode.GroupIndex << evexGroupShift;
+						dword2 |= (uint)def.GroupIndex << evexGroupShift;
 					}
-					dword2 |= (uint)einfo.VectorLength << evexVectorLengthShift;
-					dword2 |= (uint)GetWBit(opCode) << evexWBitShift;
-					dword2 |= (uint)einfo.TupleType << evexTupleTypeShift;
-					if ((opCode.Flags & OpCodeFlags.LIG) != 0)
-						dword2 |= evex_LIG;
-					if ((opCode.Flags & OpCodeFlags.Broadcast) != 0)
+					dword2 |= (uint)GetLBit(def) << evexLBitShift;
+					dword2 |= (uint)GetWBit(def) << evexWBitShift;
+					dword2 |= (uint)def.TupleType << evexTupleTypeShift;
+					if ((def.Flags1 & InstructionDefFlags1.Broadcast) != 0)
 						dword2 |= evex_b;
-					if ((opCode.Flags & OpCodeFlags.RoundingControl) != 0)
+					if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0)
 						dword2 |= evex_er;
-					if ((opCode.Flags & OpCodeFlags.SuppressAllExceptions) != 0)
+					if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0)
 						dword2 |= evex_sae;
-					if ((opCode.Flags & OpCodeFlags.OpMaskRegister) != 0)
+					if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0)
 						dword2 |= evex_k1;
-					if ((opCode.Flags & OpCodeFlags.ZeroingMasking) != 0)
+					if ((def.Flags1 & InstructionDefFlags1.ZeroingMasking) != 0)
 						dword2 |= evex_z;
-					if ((opCode.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0)
-						dword2 |= evexNonZeroOpMaskRegister;
+					if ((def.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0)
+						dword2 |= evexRequireOpMaskRegister;
 
 					dword3 = 0;
-					for (int i = 0; i < einfo.OpKinds.Length; i++)
-						dword3 |= (uint)einfo.OpKinds[i] << evexOpShifts[i];
+					for (int i = 0; i < def.OpKinds.Length; i++)
+						dword3 |= (uint)encoderTypes.ToEvex(def.OpKinds[i]) << evexOpShifts[i];
 					break;
 
 				case EncodingKind.XOP:
-					var xinfo = (XopOpCodeInfo)opCode;
-
-					dword1 |= opCode.OpCode << opCodeShift;
+					dword1 |= def.OpCode << opCodeShift;
 
 					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(opCode.MandatoryPrefix) << xopMandatoryPrefixShift;
-					dword2 |= (uint)GetXopTable(xinfo.Table) << xopOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(opCode) << xopEncodableShift;
-					if (opCode.GroupIndex >= 0) {
+					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << xopMandatoryPrefixShift;
+					dword2 |= (uint)GetXopTable(def.Table) << xopOpCodeTableShift;
+					dword2 |= (uint)GetEncodable(def) << xopEncodableShift;
+					if (def.GroupIndex >= 0) {
 						dword2 |= xopHasGroupIndex;
-						dword2 |= (uint)opCode.GroupIndex << xopGroupShift;
+						dword2 |= (uint)def.GroupIndex << xopGroupShift;
 					}
-					dword2 |= (uint)xinfo.VectorLength << xopVectorLengthShift;
-					dword2 |= (uint)GetWBit(opCode) << xopWBitShift;
+					dword2 |= (uint)GetLBit(def) << xopLBitShift;
+					dword2 |= (uint)GetWBit(def) << xopWBitShift;
 
 					dword3 = 0;
-					for (int i = 0; i < xinfo.OpKinds.Length; i++)
-						dword3 |= (uint)xinfo.OpKinds[i] << xopOpShifts[i];
+					for (int i = 0; i < def.OpKinds.Length; i++)
+						dword3 |= (uint)encoderTypes.ToXop(def.OpKinds[i]) << xopOpShifts[i];
 					break;
 
 				case EncodingKind.D3NOW:
-					var dinfo = (D3nowOpCodeInfo)opCode;
-
-					dword1 |= dinfo.Immediate8 << opCodeShift;
+					dword1 |= def.OpCode << opCodeShift;
 
 					dword2 = 0;
-					dword2 |= (uint)GetEncodable(opCode) << d3nowEncodableShift;
+					dword2 |= (uint)GetEncodable(def) << d3nowEncodableShift;
 
 					dword3 = 0;
 					break;
@@ -834,7 +375,7 @@ namespace Generator.Encoder {
 					throw new InvalidOperationException();
 				}
 
-				yield return (opCode, dword1, dword2, dword3);
+				yield return (def, dword1, dword2, dword3);
 			}
 		}
 
@@ -848,11 +389,12 @@ namespace Generator.Encoder {
 				_ => throw new InvalidOperationException(),
 			};
 
-		static Encodable GetEncodable(OpCodeInfo opCode) =>
-			(opCode.Flags & (OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64)) switch {
-				OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 => Encodable.Any,
-				OpCodeFlags.Mode16 | OpCodeFlags.Mode32 => Encodable.Only1632,
-				OpCodeFlags.Mode64 => Encodable.Only64,
+		static Encodable GetEncodable(InstructionDef def) =>
+			(def.Flags1 & (InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit64)) switch {
+				InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit64 => Encodable.Any,
+				InstructionDefFlags1.Bit16 => Encodable.Only1632,
+				InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 => Encodable.Only1632,
+				InstructionDefFlags1.Bit64 => Encodable.Only64,
 				_ => throw new InvalidOperationException(),
 			};
 
@@ -889,22 +431,36 @@ namespace Generator.Encoder {
 				_ => throw new InvalidOperationException(),
 			};
 
-		uint GetAllowedPrefixes(OpCodeInfo opCode) {
-			var flags = opCode.Flags & EncoderTypesGen.PrefixesMask;
+		uint GetAllowedPrefixes(InstructionDef def) {
+			var flags = def.Flags1 & EncoderTypesGen.PrefixesMask;
 			return encoderTypes.AllowedPrefixesMap[flags].Value;
 		}
 
-		static WBit GetWBit(OpCodeInfo opCode) {
-			if ((opCode.Flags & OpCodeFlags.WIG32) != 0)
+		static LBit GetLBit(InstructionDef def) =>
+			def.LBit switch {
+				OpCodeL.L0 => LBit.L0,
+				OpCodeL.L1 => LBit.L1,
+				OpCodeL.LIG => LBit.LIG,
+				OpCodeL.LZ => LBit.LZ,
+				OpCodeL.L128 => LBit.L128,
+				OpCodeL.L256 => LBit.L256,
+				OpCodeL.L512 => LBit.L512,
+				_ => throw new InvalidOperationException(),
+			};
+
+		static WBit GetWBit(InstructionDef def) {
+			if ((def.Flags1 & InstructionDefFlags1.WIG32) != 0)
 				return WBit.WIG32;
-			if ((opCode.Flags & OpCodeFlags.WIG) != 0)
-				return WBit.WIG;
-			if ((opCode.Flags & OpCodeFlags.W) != 0)
-				return WBit.W1;
-			return WBit.W0;
+			return def.WBit switch {
+				OpCodeW.W0 => WBit.W0,
+				OpCodeW.W1 => WBit.W1,
+				OpCodeW.WIG => WBit.WIG,
+				OpCodeW.WIG32 => WBit.WIG32,
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
-		protected void WriteFlags(FileWriter writer, IdentifierConverter idConverter, OpCodeFlags prefixes, (EnumValue value, OpCodeFlags flag)[] flagsInfos, string orSep, string enumItemSep, bool forceConstant) {
+		protected void WriteFlags(FileWriter writer, IdentifierConverter idConverter, InstructionDefFlags1 prefixes, (EnumValue value, InstructionDefFlags1 flag)[] flagsInfos, string orSep, string enumItemSep, bool forceConstant) {
 			bool printed = false;
 			foreach (var info in flagsInfos) {
 				if ((prefixes & info.flag) != 0) {
@@ -916,7 +472,7 @@ namespace Generator.Encoder {
 				}
 			}
 			if (!printed) {
-				var value = genTypes[TypeIds.OpCodeFlags][nameof(OpCodeFlags.None)];
+				var value = genTypes[TypeIds.OpCodeFlags][nameof(InstructionDefFlags1.None)];
 				WriteEnum(writer, idConverter, value, enumItemSep, forceConstant);
 			}
 			if (prefixes != 0)

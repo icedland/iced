@@ -148,7 +148,6 @@ namespace Iced.Intel.GasFormatterInternal {
 					s2 = AddSuffix(s, ca);
 					v = reader.ReadCompressedUInt32();
 					s3 = strings[reader.ReadCompressedUInt32()];
-					ca[0] = (char)reader.ReadByte();
 					s4 = AddSuffix(s3, ca);
 					instrInfo = new SimpleInstrInfo_movabs((int)v, s, s2, s3, s4);
 					break;
@@ -343,11 +342,7 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_STi_ST(s, v != 0);
 					break;
 
-				case CtorKind.STIG_1a:
-					instrInfo = new SimpleInstrInfo_STIG1(s);
-					break;
-
-				case CtorKind.STIG_1b:
+				case CtorKind.STIG1:
 					v = reader.ReadByte();
 					if (v > 1)
 						throw new InvalidOperationException();

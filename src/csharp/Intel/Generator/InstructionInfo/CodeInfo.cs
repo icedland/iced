@@ -22,41 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using Generator.Enums;
-using Generator.Enums.InstructionInfo;
 
 namespace Generator.InstructionInfo {
-	[Flags]
-	enum InstrInfoFlags : uint {
-		None					= 0,
-		SaveRestore				= 0x00000001,
-		StackInstruction		= 0x00000002,
-		ProtectedMode			= 0x00000004,
-		Privileged				= 0x00000008,
-		NoSegmentRead			= 0x00000010,
-		OpMaskRegReadWrite		= 0x00000020,
-	}
-
-	enum OpInfo {
-		None,
-		CondRead,
-		CondWrite,
-		// CMOVcc with GPR32 dest in 64-bit mode: upper 32 bits of full 64-bit reg are always cleared.
-		CondWrite32_ReadWrite64,
-		NoMemAccess,
-		Read,
-		ReadCondWrite,
-		ReadP3,
-		ReadWrite,
-		Write,
-		// Writes to zmm, can get converted to rcw
-		WriteVmm,
-		ReadWriteVmm,
-		// Don't convert Write to ReadWrite, eg. EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64 since it always overwrites dest
-		WriteForce,
-		WriteMem_ReadWriteReg,
-	}
-
+	[Enum("CodeInfo")]
 	enum CodeInfo {
 		None,
 		Cdq,
@@ -173,54 +141,5 @@ namespace Generator.InstructionInfo {
 		RW_XMM0to7,
 		R_EAX_XMM0,
 		Encodekey,
-	}
-
-	sealed class InstrInfo {
-		public EnumValue Code { get; }
-		public CodeInfo CodeInfo { get; }
-		public EnumValue Encoding { get; }
-		public EnumValue FlowControl { get; }
-		public RflagsBits RflagsRead { get; }
-		public RflagsBits RflagsUndefined { get; }
-		public RflagsBits RflagsWritten { get; }
-		public RflagsBits RflagsCleared { get; }
-		public RflagsBits RflagsSet { get; }
-		public EnumValue? RflagsInfo { get; internal set; }
-		public EnumValue[] Cpuid { get; }
-		public EnumValue? CpuidInternal { get; internal set; }
-		public InstrInfoFlags Flags { get; }
-		public OpInfo[] OpInfo { get; }
-		public EnumValue[] OpInfoEnum { get; }
-		public InstrInfo(EnumValue code, CodeInfo codeInfo, EnumValue encoding, EnumValue flowControl, RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set, EnumValue[] cpuid, OpInfo[] opInfo, InstrInfoFlags flags) {
-			Code = code;
-			CodeInfo = codeInfo;
-			Encoding = encoding;
-			FlowControl = flowControl;
-			RflagsRead = read;
-			RflagsUndefined = undefined;
-			RflagsWritten = written;
-			RflagsCleared = cleared;
-			RflagsSet = set;
-			RflagsInfo = null;
-			Cpuid = cpuid;
-			CpuidInternal = null;
-			opInfo = Create(opInfo);
-			OpInfo = opInfo;
-			OpInfoEnum = new EnumValue[opInfo.Length];
-			Flags = flags;
-		}
-
-		static OpInfo[] Create(OpInfo[] a) {
-			var res = new OpInfo[5];
-			for (int i = 0; i < res.Length; i++) {
-				OpInfo info;
-				if (i < a.Length)
-					info = a[i];
-				else
-					info = InstructionInfo.OpInfo.None;
-				res[i] = info;
-			}
-			return res;
-		}
 	}
 }

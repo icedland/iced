@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if FAST_FMT
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {

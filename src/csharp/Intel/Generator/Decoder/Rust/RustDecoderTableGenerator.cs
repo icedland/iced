@@ -41,7 +41,7 @@ namespace Generator.Decoder.Rust {
 			};
 
 			foreach (var serializer in serializers) {
-				var filename = Path.Combine(generatorContext.RustDir, "decoder", "table_de", $"data_{serializer.TableName}.rs");
+				var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "decoder", "table_de", $"data_{serializer.TableName}.rs");
 				using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename)))
 					serializer.Serialize(writer);
 			}

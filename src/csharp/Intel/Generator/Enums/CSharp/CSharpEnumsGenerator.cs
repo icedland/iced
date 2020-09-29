@@ -77,7 +77,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.CpuidFeatureInternal, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), nameof(TypeIds.CpuidFeatureInternal) + ".g.cs"), CSharpConstants.InstructionInfoNamespace, CSharpConstants.InstructionInfoDefine));
 			toFullFileInfo.Add(TypeIds.DecoderError, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.DecoderError) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderDefine));
 			toFullFileInfo.Add(TypeIds.DecoderOptions, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.DecoderOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
-			toFullFileInfo.Add(TypeIds.DecoderTestOptions, new FullEnumFileInfo(Path.Combine(generatorContext.CSharpTestsDir, "Intel", "DecoderTests", nameof(TypeIds.DecoderTestOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
+			toFullFileInfo.Add(TypeIds.DecoderTestOptions, new FullEnumFileInfo(Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "DecoderTests", nameof(TypeIds.DecoderTestOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
 			toFullFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.EvexOpCodeHandlerKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderEvexDefine, baseType: "byte"));
 			toFullFileInfo.Add(TypeIds.HandlerFlags, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.HandlerFlags) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
 			toFullFileInfo.Add(TypeIds.LegacyHandlerFlags, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.LegacyHandlerFlags) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
@@ -133,8 +133,8 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.OpInfo4, new PartialEnumFileInfo("OpInfo4", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs"), null));
 			toPartialFileInfo.Add(TypeIds.InfoFlags1, new PartialEnumFileInfo("InfoFlags1", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.InfoFlags2, new PartialEnumFileInfo("InfoFlags2", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs"), "uint"));
-			toPartialFileInfo.Add(TypeIds.MemorySizeFlags, new PartialEnumFileInfo("MemorySizeFlags", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs"), "uint"));
-			toPartialFileInfo.Add(TypeIds.RegisterFlags, new PartialEnumFileInfo("RegisterFlags", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs"), "uint"));
+			toPartialFileInfo.Add(TypeIds.MemorySizeFlags, new PartialEnumFileInfo("MemorySizeFlags", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs"), "uint"));
+			toPartialFileInfo.Add(TypeIds.RegisterFlags, new PartialEnumFileInfo("RegisterFlags", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs"), "uint"));
 
 			toPartialFileInfo.Add(TypeIds.LegacyOpCodeTable, new PartialEnumFileInfo("LegacyOpCodeTable", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.VexOpCodeTable, new PartialEnumFileInfo("VexOpCodeTable", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
@@ -151,15 +151,12 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.GasInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.GasFormatterNamespace), "InstrInfo.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.IntelInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IntelFormatterNamespace), "InstrInfo.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.MasmInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.MasmFormatterNamespace), "InstrInfo.cs"), "byte"));
-			toPartialFileInfo.Add(TypeIds.MasmSymbolTestFlags, new PartialEnumFileInfo("SymbolTestFlags", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs"), null));
+			toPartialFileInfo.Add(TypeIds.MasmSymbolTestFlags, new PartialEnumFileInfo("SymbolTestFlags", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs"), null));
 			toPartialFileInfo.Add(TypeIds.NasmInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.NasmFormatterNamespace), "InstrInfo.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.NasmMemorySizeInfo, new PartialEnumFileInfo("MemorySizeInfo", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.NasmFormatterNamespace), "InstrInfo.cs"), null));
 			toPartialFileInfo.Add(TypeIds.NasmFarMemorySizeInfo, new PartialEnumFileInfo("FarMemorySizeInfo", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.NasmFormatterNamespace), "InstrInfo.cs"), null));
 			toPartialFileInfo.Add(TypeIds.NumberBase, new PartialEnumFileInfo("NumberBase", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "FormatterOptions.cs"), null));
 
-			toPartialFileInfo.Add(TypeIds.VexVectorLength, new PartialEnumFileInfo("VexVectorLength", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
-			toPartialFileInfo.Add(TypeIds.XopVectorLength, new PartialEnumFileInfo("XopVectorLength", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
-			toPartialFileInfo.Add(TypeIds.EvexVectorLength, new PartialEnumFileInfo("EvexVectorLength", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.DisplSize, new PartialEnumFileInfo("DisplSize", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.ImmSize, new PartialEnumFileInfo("ImmSize", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.EncoderFlags, new PartialEnumFileInfo("EncoderFlags", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
@@ -175,6 +172,7 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.EvexFlags, new PartialEnumFileInfo("EvexFlags", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.D3nowFlags, new PartialEnumFileInfo("D3nowFlags", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.WBit, new PartialEnumFileInfo("WBit", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
+			toPartialFileInfo.Add(TypeIds.LBit, new PartialEnumFileInfo("LBit", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.LKind, new PartialEnumFileInfo("LKind", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeFormatter.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.OpCodeFlags, new PartialEnumFileInfo("Flags", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "OpCodeInfo.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.RepPrefixKind, new PartialEnumFileInfo("RepPrefixKind", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.Create.cs"), null));
@@ -198,7 +196,7 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.CC_le, new PartialEnumFileInfo("CC_le", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "FormatterOptions.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.CC_g, new PartialEnumFileInfo("CC_g", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "FormatterOptions.cs"), "byte"));
 
-			toPartialFileInfo.Add(TypeIds.OptionsProps, new PartialEnumFileInfo("OptionsProps", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "OptionsProps.cs"), null));
+			toPartialFileInfo.Add(TypeIds.OptionsProps, new PartialEnumFileInfo("OptionsProps", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "FormatterTests", "OptionsProps.cs"), null));
 		}
 
 		public override void Generate(EnumType enumType) {

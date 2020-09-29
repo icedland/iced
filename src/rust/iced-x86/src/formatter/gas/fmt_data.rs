@@ -734,17 +734,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Movsxd_r16_rm16
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x93, 0x01,// 147 = "movsxd"
-	0x00,// 0x0 = None
 
 	// Movsxd_r32_rm32
 	0x00,// Previous
 
 	// Movsxd_r64_rm32
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x94, 0x01,// 148 = "movslq"
-	0x00,// 0x0 = None
 
 	// Push_imm16
 	0x23,// os2_3
@@ -1828,7 +1826,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x62,// 'b'
 	0x01,// 0x1
 	0xC4, 0x01,// 196 = "movabs"
-	0x62,// 'b'
 
 	// Mov_AX_moffs16
 	0x10,// movabs
@@ -1836,7 +1833,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x77,// 'w'
 	0x01,// 0x1
 	0xC4, 0x01,// 196 = "movabs"
-	0x77,// 'w'
 
 	// Mov_EAX_moffs32
 	0x10,// movabs
@@ -1844,7 +1840,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x6C,// 'l'
 	0x01,// 0x1
 	0xC4, 0x01,// 196 = "movabs"
-	0x6C,// 'l'
 
 	// Mov_RAX_moffs64
 	0x10,// movabs
@@ -1852,7 +1847,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 	0x01,// 0x1
 	0xC4, 0x01,// 196 = "movabs"
-	0x71,// 'q'
 
 	// Mov_moffs8_AL
 	0x10,// movabs
@@ -1860,7 +1854,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x62,// 'b'
 	0x00,// 0x0
 	0xC4, 0x01,// 196 = "movabs"
-	0x62,// 'b'
 
 	// Mov_moffs16_AX
 	0x10,// movabs
@@ -1868,7 +1861,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x77,// 'w'
 	0x00,// 0x0
 	0xC4, 0x01,// 196 = "movabs"
-	0x77,// 'w'
 
 	// Mov_moffs32_EAX
 	0x10,// movabs
@@ -1876,7 +1868,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x6C,// 'l'
 	0x00,// 0x0
 	0xC4, 0x01,// 196 = "movabs"
-	0x6C,// 'l'
 
 	// Mov_moffs64_RAX
 	0x10,// movabs
@@ -1884,7 +1875,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 	0x00,// 0x0
 	0xC4, 0x01,// 196 = "movabs"
-	0x71,// 'q'
 
 	// Movsb_m8_m8
 	0x04,// Normal_2c
@@ -2875,12 +2865,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF7, 0x01,// 247 = "fmul"
 
 	// Fcom_st0_sti
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0xF8, 0x01,// 248 = "fcom"
 	0x01,// True
 
 	// Fcomp_st0_sti
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0xF9, 0x01,// 249 = "fcomp"
 	0x01,// True
 
@@ -2967,11 +2957,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x77,// 'w'
 
 	// Fld_st0_sti
-	0x25,// STIG_1a
+	0x25,// STIG1
 	0xFE, 0x01,// 254 = "fld"
+	0x00,// False
 
 	// Fxch_st0_sti
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0x86, 0x02,// 262 = "fxch"
 	0x01,// True
 
@@ -3301,12 +3292,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// False
 
 	// Fcom_st0_sti_DCD0
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0xF8, 0x01,// 248 = "fcom"
 	0x01,// True
 
 	// Fcomp_st0_sti_DCD8
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0xF9, 0x01,// 249 = "fcomp"
 	0x01,// True
 
@@ -3400,7 +3391,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xCD, 0x02,// 333 = "ffree"
 
 	// Fxch_st0_sti_DDC8
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0x86, 0x02,// 262 = "fxch"
 	0x01,// True
 
@@ -3413,12 +3404,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x6A,// 106 = "fstp"
 
 	// Fucom_st0_sti
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0xCE, 0x02,// 334 = "fucom"
 	0x01,// True
 
 	// Fucomp_st0_sti
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0xB0, 0x02,// 304 = "fucomp"
 	0x01,// True
 
@@ -3473,7 +3464,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// True
 
 	// Fcomp_st0_sti_DED0
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0xF9, 0x01,// 249 = "fcomp"
 	0x01,// True
 
@@ -3542,7 +3533,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xDA, 0x02,// 346 = "ffreep"
 
 	// Fxch_st0_sti_DFC8
-	0x17,// STIG_1b
+	0x25,// STIG1
 	0x86, 0x02,// 262 = "fxch"
 	0x01,// True
 
@@ -5769,7 +5760,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttss2si_r32_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEB, 0x03,// 491 = "vcvttss2si"
 	0x00,// 0x0
 
@@ -5791,7 +5782,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttsd2si_r32_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEC, 0x03,// 492 = "vcvttsd2si"
 	0x00,// 0x0
 
@@ -5859,7 +5850,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF1, 0x03,// 497 = "vucomiss"
 
 	// EVEX_Vucomiss_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF1, 0x03,// 497 = "vucomiss"
 	0x00,// 0x0
 
@@ -5872,7 +5863,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF2, 0x03,// 498 = "vucomisd"
 
 	// EVEX_Vucomisd_xmm_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF2, 0x03,// 498 = "vucomisd"
 	0x00,// 0x0
 
@@ -5893,12 +5884,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF4, 0x03,// 500 = "vcomisd"
 
 	// EVEX_Vcomiss_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF3, 0x03,// 499 = "vcomiss"
 	0x00,// 0x0
 
 	// EVEX_Vcomisd_xmm_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF4, 0x03,// 500 = "vcomisd"
 	0x00,// 0x0
 
@@ -6855,7 +6846,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xD4, 0x04,// 596 = "vcvtps2pd"
 	0x00,// 0x0
 
@@ -6901,7 +6892,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xD6, 0x04,// 598 = "vcvtss2sd"
 
 	// EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xD6, 0x04,// 598 = "vcvtss2sd"
 	0x00,// 0x0
 
@@ -6997,7 +6988,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xDB, 0x04,// 603 = "vcvttps2dq"
 	0x00,// 0x0
 
@@ -7089,7 +7080,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE0, 0x04,// 608 = "vminps"
 	0x00,// 0x0
 
@@ -7111,7 +7102,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE1, 0x04,// 609 = "vminpd"
 	0x00,// 0x0
 
@@ -7124,7 +7115,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xE2, 0x04,// 610 = "vminss"
 
 	// EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE2, 0x04,// 610 = "vminss"
 	0x00,// 0x0
 
@@ -7137,7 +7128,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xE3, 0x04,// 611 = "vminsd"
 
 	// EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE3, 0x04,// 611 = "vminsd"
 	0x00,// 0x0
 
@@ -7229,7 +7220,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE8, 0x04,// 616 = "vmaxps"
 	0x00,// 0x0
 
@@ -7251,7 +7242,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE9, 0x04,// 617 = "vmaxpd"
 	0x00,// 0x0
 
@@ -7264,7 +7255,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xEA, 0x04,// 618 = "vmaxss"
 
 	// EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEA, 0x04,// 618 = "vmaxss"
 	0x00,// 0x0
 
@@ -7277,7 +7268,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xEB, 0x04,// 619 = "vmaxsd"
 
 	// EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEB, 0x04,// 619 = "vmaxsd"
 	0x00,// 0x0
 
@@ -8152,7 +8143,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x85, 0x05,// 645 = "vcvttps2udq"
 	0x00,// 0x0
 
@@ -8169,7 +8160,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x86, 0x05,// 646 = "vcvttpd2udq"
 	0x00,// 0x0
 
@@ -8185,7 +8176,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x88, 0x05,// 648 = "vcvttps2uqq"
 	0x00,// 0x0
 
@@ -8197,12 +8188,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x89, 0x05,// 649 = "vcvttpd2uqq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttss2usi_r32_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x8A, 0x05,// 650 = "vcvttss2usi"
 	0x00,// 0x0
 
@@ -8214,7 +8205,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x8B, 0x05,// 651 = "insertq"
 
 	// EVEX_Vcvttsd2usi_r32_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x8C, 0x05,// 652 = "vcvttsd2usi"
 	0x00,// 0x0
 
@@ -8316,7 +8307,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x94, 0x05,// 660 = "vcvttps2qq"
 	0x00,// 0x0
 
@@ -8328,7 +8319,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x95, 0x05,// 661 = "vcvttpd2qq"
 	0x00,// 0x0
 
@@ -9819,34 +9810,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// Movzx_r16_rm8
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0xFE, 0x05,// 766 = "movzbw"
-	0x00,// 0x0 = None
 
 	// Movzx_r32_rm8
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x80, 0x06,// 768 = "movzbl"
-	0x00,// 0x0 = None
 
 	// Movzx_r64_rm8
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x81, 0x06,// 769 = "movzbq"
-	0x00,// 0x0 = None
 
 	// Movzx_r16_rm16
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x82, 0x06,// 770 = "movzxw"
-	0x00,// 0x0 = None
 
 	// Movzx_r32_rm16
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x83, 0x06,// 771 = "movzwl"
-	0x00,// 0x0 = None
 
 	// Movzx_r64_rm16
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x84, 0x06,// 772 = "movzwq"
-	0x00,// 0x0 = None
 
 	// Jmpe_disp16
 	0x15,// os
@@ -10040,34 +10025,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// Movsx_r16_rm8
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x8C, 0x06,// 780 = "movsbw"
-	0x00,// 0x0 = None
 
 	// Movsx_r32_rm8
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x8E, 0x06,// 782 = "movsbl"
-	0x00,// 0x0 = None
 
 	// Movsx_r64_rm8
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x8F, 0x06,// 783 = "movsbq"
-	0x00,// 0x0 = None
 
 	// Movsx_r16_rm16
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x90, 0x06,// 784 = "movsxw"
-	0x00,// 0x0 = None
 
 	// Movsx_r32_rm16
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x91, 0x06,// 785 = "movswl"
-	0x00,// 0x0 = None
 
 	// Movsx_r64_rm16
-	0x03,// Normal_2b
+	0x01,// Normal_1
 	0x92, 0x06,// 786 = "movswq"
-	0x00,// 0x0 = None
 
 	// Xadd_rm8_r8
 	0x02,// Normal_2a
@@ -10936,7 +10915,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xB5, 0x06,// 821 = "vcvttpd2dq"
 	0x00,// 0x0
 
@@ -11893,7 +11872,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xD7, 0x06,// 855 = "vcvtph2ps"
 	0x00,// 0x0
 
@@ -13107,7 +13086,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xB2, 0x07,// 946 = "vgetexpps"
 	0x00,// 0x0
 
@@ -13119,17 +13098,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xB3, 0x07,// 947 = "vgetexppd"
 	0x00,// 0x0
 
 	// EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xB4, 0x07,// 948 = "vgetexpss"
 	0x00,// 0x0
 
 	// EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xB5, 0x07,// 949 = "vgetexpsd"
 	0x00,// 0x0
 
@@ -15278,12 +15257,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xEC, 0x08,// 1132 = "sha1nexte"
 
 	// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xED, 0x08,// 1133 = "vexp2ps"
 	0x00,// 0x0
 
 	// EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEE, 0x08,// 1134 = "vexp2pd"
 	0x00,// 0x0
 
@@ -15296,12 +15275,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF0, 0x08,// 1136 = "sha1msg2"
 
 	// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF1, 0x08,// 1137 = "vrcp28ps"
 	0x00,// 0x0
 
 	// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF2, 0x08,// 1138 = "vrcp28pd"
 	0x00,// 0x0
 
@@ -15310,12 +15289,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF3, 0x08,// 1139 = "sha256rnds2"
 
 	// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF4, 0x08,// 1140 = "vrcp28ss"
 	0x00,// 0x0
 
 	// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF5, 0x08,// 1141 = "vrcp28sd"
 	0x00,// 0x0
 
@@ -15324,12 +15303,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF6, 0x08,// 1142 = "sha256msg1"
 
 	// EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF7, 0x08,// 1143 = "vrsqrt28ps"
 	0x00,// 0x0
 
 	// EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF8, 0x08,// 1144 = "vrsqrt28pd"
 	0x00,// 0x0
 
@@ -15338,12 +15317,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF9, 0x08,// 1145 = "sha256msg2"
 
 	// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xFA, 0x08,// 1146 = "vrsqrt28ss"
 	0x00,// 0x0
 
 	// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xFB, 0x08,// 1147 = "vrsqrt28sd"
 	0x00,// 0x0
 
@@ -15810,7 +15789,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0x9F, 0x09,// 1183 = "vrndscaleps"
 	0x01,// 0x1
 
@@ -15833,7 +15812,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xA1, 0x09,// 1185 = "vrndscalepd"
 	0x01,// 0x1
 
@@ -15846,7 +15825,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA2, 0x09,// 1186 = "vroundss"
 
 	// EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xA3, 0x09,// 1187 = "vrndscaless"
 	0x01,// 0x1
 
@@ -15859,7 +15838,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA4, 0x09,// 1188 = "vroundsd"
 
 	// EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xA5, 0x09,// 1189 = "vrndscalesd"
 	0x01,// 0x1
 
@@ -16069,7 +16048,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xB7, 0x09,// 1207 = "vcvtps2ph"
 	0x01,// 0x1
 
@@ -16210,7 +16189,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xC4, 0x09,// 1220 = "vgetmantps"
 	0x01,// 0x1
 
@@ -16222,17 +16201,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xC5, 0x09,// 1221 = "vgetmantpd"
 	0x01,// 0x1
 
 	// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xC6, 0x09,// 1222 = "vgetmantss"
 	0x01,// 0x1
 
 	// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xC7, 0x09,// 1223 = "vgetmantsd"
 	0x01,// 0x1
 
@@ -16495,7 +16474,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE8, 0x09,// 1256 = "vrangeps"
 	0x01,// 0x1
 
@@ -16507,17 +16486,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xE9, 0x09,// 1257 = "vrangepd"
 	0x01,// 0x1
 
 	// EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEA, 0x09,// 1258 = "vrangess"
 	0x01,// 0x1
 
 	// EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEB, 0x09,// 1259 = "vrangesd"
 	0x01,// 0x1
 
@@ -16529,7 +16508,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEC, 0x09,// 1260 = "vfixupimmps"
 	0x01,// 0x1
 
@@ -16541,17 +16520,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xED, 0x09,// 1261 = "vfixupimmpd"
 	0x01,// 0x1
 
 	// EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEE, 0x09,// 1262 = "vfixupimmss"
 	0x01,// 0x1
 
 	// EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xEF, 0x09,// 1263 = "vfixupimmsd"
 	0x01,// 0x1
 
@@ -16563,7 +16542,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF0, 0x09,// 1264 = "vreduceps"
 	0x01,// 0x1
 
@@ -16575,17 +16554,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF1, 0x09,// 1265 = "vreducepd"
 	0x01,// 0x1
 
 	// EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF2, 0x09,// 1266 = "vreducess"
 	0x01,// 0x1
 
 	// EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAB,// 'v', sae
+	0x97,// 'v', sae
 	0xF3, 0x09,// 1267 = "vreducesd"
 	0x01,// 0x1
 

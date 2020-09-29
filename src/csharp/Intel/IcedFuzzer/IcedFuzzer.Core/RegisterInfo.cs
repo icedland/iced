@@ -115,7 +115,7 @@ namespace IcedFuzzer.Core {
 				return regNum < 8;
 
 			case FuzzerRegisterKind.K:
-				if (regLoc == FuzzerOperandRegLocation.AaaBits && regNum == 0 && instruction.RequireNonZeroOpMaskRegister)
+				if (regLoc == FuzzerOperandRegLocation.AaaBits && regNum == 0 && instruction.RequireOpMaskRegister)
 					return false;
 				break;
 

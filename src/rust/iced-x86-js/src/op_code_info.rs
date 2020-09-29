@@ -230,9 +230,9 @@ impl OpCodeInfo {
 
 	/// (EVEX) `true` if a non-zero op mask register must be used
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "requireNonZeroOpMaskRegister")]
-	pub fn require_non_zero_op_mask_register(&self) -> bool {
-		self.0.require_non_zero_op_mask_register()
+	#[wasm_bindgen(js_name = "requireOpMaskRegister")]
+	pub fn require_op_mask_register(&self) -> bool {
+		self.0.require_op_mask_register()
 	}
 
 	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)

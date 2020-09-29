@@ -86,8 +86,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				case CtorKind.bcst:
 					v = reader.ReadCompressedUInt32();
-					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_bcst(s, (InstrOpInfoFlags)v, (InstrOpInfoFlags)v2);
+					instrInfo = new SimpleInstrInfo_bcst(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.bnd:
@@ -122,8 +121,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 					break;
 
 				case CtorKind.maskmovq:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_maskmovq(s, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_maskmovq(s);
 					break;
 
 				case CtorKind.memsize:

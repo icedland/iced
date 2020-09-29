@@ -39,26 +39,26 @@ namespace Generator.Tables.CSharp {
 
 		public void Generate() {
 			var genTypes = generatorContext.Types;
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")).Generate(writer => {
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")).Generate(writer => {
 				WriteDict(writer, InstrInfoDictConstants.OpAccessConstants(genTypes), "ToAccess");
 				WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable(genTypes), "MemorySizeFlagsTable");
 				WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable(genTypes), "RegisterFlagsTable");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")).Generate(writer => {
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")).Generate(writer => {
 				WriteDict(writer, EncoderConstants.EncodingKindTable(genTypes), "ToEncodingKind");
 				WriteDict(writer, EncoderConstants.MandatoryPrefixTable(genTypes), "ToMandatoryPrefix");
 				WriteDict(writer, EncoderConstants.OpCodeTableKindTable(genTypes), "ToOpCodeTableKind");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs")).Generate(writer => {
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs")).Generate(writer => {
 				WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable(genTypes), "ToSymbolTestFlags");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "MnemonicOptionsTestsReader.cs")).Generate(writer => {
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "FormatterTests", "MnemonicOptionsTestsReader.cs")).Generate(writer => {
 				WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable(genTypes), "ToFormatMnemonicOptions");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "SymbolResolverTestsReader.cs")).Generate(writer => {
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "FormatterTests", "SymbolResolverTestsReader.cs")).Generate(writer => {
 				WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes), "ToSymbolFlags");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "IgnoredCode", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "CodeUtils.cs")).Generate(writer => {
+			new FileUpdater(TargetLanguage.CSharp, "IgnoredCode", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "CodeUtils.cs")).Generate(writer => {
 				WriteHash(writer, genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues), "ignored", false);
 			});
 		}

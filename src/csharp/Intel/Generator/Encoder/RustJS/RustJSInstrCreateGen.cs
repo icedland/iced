@@ -62,7 +62,7 @@ namespace Generator.Encoder.RustJS {
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.RustJS, "Create", Path.Combine(generatorContext.RustJSDir, "instruction.rs"));
+			(TargetLanguage.RustJS, "Create", Path.Combine(generatorContext.Types.Dirs.RustJSDir, "instruction.rs"));
 
 		readonly struct SplitArg {
 			public readonly int OrigIndex;

@@ -576,37 +576,31 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x1B,// YD
 				0x95, 0x01,// 149 = "ins"
 				0x62,// 'b'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Insw_m16_DX
 				0x1B,// YD
 				0x95, 0x01,// 149 = "ins"
 				0x77,// 'w'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Insd_m32_DX
 				0x1B,// YD
 				0x95, 0x01,// 149 = "ins"
 				0x64,// 'd'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Outsb_DX_m8
 				0x09,// DX
 				0x99, 0x01,// 153 = "outs"
 				0x62,// 'b'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Outsw_DX_m16
 				0x09,// DX
 				0x99, 0x01,// 153 = "outs"
 				0x77,// 'w'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Outsd_DX_m32
 				0x09,// DX
 				0x99, 0x01,// 153 = "outs"
 				0x64,// 'd'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Jo_rel8_16
 				0x14,// jcc_1
@@ -1273,49 +1267,41 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x1C,// YX
 				0xC5, 0x01,// 197 = "movs"
 				0x62,// 'b'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Movsw_m16_m16
 				0x1C,// YX
 				0xC5, 0x01,// 197 = "movs"
 				0x77,// 'w'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Movsd_m32_m32
 				0x1C,// YX
 				0xC5, 0x01,// 197 = "movs"
 				0x64,// 'd'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Movsq_m64_m64
 				0x1C,// YX
 				0xC5, 0x01,// 197 = "movs"
 				0x71,// 'q'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Cmpsb_m8_m8
 				0x29,// XY
 				0xC9, 0x01,// 201 = "cmps"
 				0x62,// 'b'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Cmpsw_m16_m16
 				0x29,// XY
 				0xC9, 0x01,// 201 = "cmps"
 				0x77,// 'w'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Cmpsd_m32_m32
 				0x29,// XY
 				0xC9, 0x01,// 201 = "cmps"
 				0x64,// 'd'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Cmpsq_m64_m64
 				0x29,// XY
 				0xC9, 0x01,// 201 = "cmps"
 				0x71,// 'q'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Test_AL_imm8
 				0x01,// Normal_1
@@ -1334,73 +1320,61 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x24,// YA
 				0xCD, 0x01,// 205 = "stos"
 				0x62,// 'b'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Stosw_m16_AX
 				0x24,// YA
 				0xCD, 0x01,// 205 = "stos"
 				0x77,// 'w'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Stosd_m32_EAX
 				0x24,// YA
 				0xCD, 0x01,// 205 = "stos"
 				0x64,// 'd'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Stosq_m64_RAX
 				0x24,// YA
 				0xCD, 0x01,// 205 = "stos"
 				0x71,// 'q'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Lodsb_AL_m8
 				0x04,// AX
 				0xD2, 0x01,// 210 = "lods"
 				0x62,// 'b'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Lodsw_AX_m16
 				0x04,// AX
 				0xD2, 0x01,// 210 = "lods"
 				0x77,// 'w'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Lodsd_EAX_m32
 				0x04,// AX
 				0xD2, 0x01,// 210 = "lods"
 				0x64,// 'd'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Lodsq_RAX_m64
 				0x04,// AX
 				0xD2, 0x01,// 210 = "lods"
 				0x71,// 'q'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Scasb_AL_m8
 				0x05,// AY
 				0xD7, 0x01,// 215 = "scas"
 				0x62,// 'b'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Scasw_AX_m16
 				0x05,// AY
 				0xD7, 0x01,// 215 = "scas"
 				0x77,// 'w'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Scasd_EAX_m32
 				0x05,// AY
 				0xD7, 0x01,// 215 = "scas"
 				0x64,// 'd'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Scasq_RAX_m64
 				0x05,// AY
 				0xD7, 0x01,// 215 = "scas"
 				0x71,// 'q'
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Mov_r8_imm8
 				0x01,// Normal_1
@@ -1999,7 +1973,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Xlat_m8
 				0x30,// XLAT
 				0xF4, 0x01,// 244 = "xlat"
-				0x62,// 'b'
 
 				// Fadd_m32fp
 				0x02,// Normal_2
@@ -2050,12 +2023,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0xF7, 0x01,// 247 = "fmul"
 
 				// Fcom_st0_sti
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0xF8, 0x01,// 248 = "fcom"
 				0x01,// True
 
 				// Fcomp_st0_sti
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0xF9, 0x01,// 249 = "fcomp"
 				0x01,// True
 
@@ -2133,11 +2106,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x85, 0x02,// 261 = "fstcw"
 
 				// Fld_st0_sti
-				0x31,// STIG1_1
+				0x07,// STIG1
 				0xFE, 0x01,// 254 = "fld"
+				0x00,// False
 
 				// Fxch_st0_sti
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0x86, 0x02,// 262 = "fxch"
 				0x01,// True
 
@@ -2466,12 +2440,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x00,// False
 
 				// Fcom_st0_sti_DCD0
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0xF8, 0x01,// 248 = "fcom"
 				0x01,// True
 
 				// Fcomp_st0_sti_DCD8
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0xF9, 0x01,// 249 = "fcomp"
 				0x01,// True
 
@@ -2558,7 +2532,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0xCD, 0x02,// 333 = "ffree"
 
 				// Fxch_st0_sti_DDC8
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0x86, 0x02,// 262 = "fxch"
 				0x01,// True
 
@@ -2571,12 +2545,12 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x6A,// 106 = "fstp"
 
 				// Fucom_st0_sti
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0xCE, 0x02,// 334 = "fucom"
 				0x01,// True
 
 				// Fucomp_st0_sti
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0xB0, 0x02,// 304 = "fucomp"
 				0x01,// True
 
@@ -2631,7 +2605,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x01,// True
 
 				// Fcomp_st0_sti_DED0
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0xF9, 0x01,// 249 = "fcomp"
 				0x01,// True
 
@@ -2704,7 +2678,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0xDA, 0x02,// 346 = "ffreep"
 
 				// Fxch_st0_sti_DFC8
-				0x07,// STIG1_2
+				0x07,// STIG1
 				0x86, 0x02,// 262 = "fxch"
 				0x01,// True
 
@@ -4559,7 +4533,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Cvttps2pi_mm_xmmm64
 				0x02,// Normal_2
 				0xE9, 0x03,// 489 = "cvttps2pi"
-				0x09,// 0x9 = ShowNoMemSize_ForceSize, MemSize_Mmx
+				0x09,// 0x9 = MemSize_Mmx, ShowNoMemSize_ForceSize
 
 				// Cvttpd2pi_mm_xmmm128
 				0x02,// Normal_2
@@ -4613,7 +4587,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Cvtps2pi_mm_xmmm64
 				0x02,// Normal_2
 				0xED, 0x03,// 493 = "cvtps2pi"
-				0x09,// 0x9 = ShowNoMemSize_ForceSize, MemSize_Mmx
+				0x09,// 0x9 = MemSize_Mmx, ShowNoMemSize_ForceSize
 
 				// Cvtpd2pi_mm_xmmm128
 				0x02,// Normal_2
@@ -8443,7 +8417,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Pinsrw_mm_r32m16_imm8
 				0x02,// Normal_2
 				0x2F,// 47 = "pinsrw"
-				0x09,// 0x9 = ShowNoMemSize_ForceSize, MemSize_Mmx
+				0x09,// 0x9 = MemSize_Mmx, ShowNoMemSize_ForceSize
 
 				// Pinsrw_mm_r64m16_imm8
 				0x00,// Previous

@@ -239,26 +239,19 @@ namespace Iced.Intel.EncoderInternal {
 			table = ((dword2 >> (int)VexFlags.VexOpCodeTableShift) & (uint)VexFlags.VexOpCodeTableMask);
 			var wbit = (WBit)((dword2 >> (int)VexFlags.WBitShift) & (uint)VexFlags.WBitMask);
 			W1 = wbit == WBit.W1 ? uint.MaxValue : 0;
-			var vexFlags = (VexVectorLength)((dword2 >> (int)VexFlags.VexVectorLengthShift) & (int)VexFlags.VexVectorLengthMask);
-			switch (vexFlags) {
-			case VexVectorLength.LZ:
-			case VexVectorLength.L0:
-			case VexVectorLength.L128:
-			case VexVectorLength.LIG:
-				break;
-			case VexVectorLength.L1:
-			case VexVectorLength.L256:
+			var lbit = (LBit)((dword2 >> (int)VexFlags.LBitShift) & (int)VexFlags.LBitMask);
+			switch (lbit) {
+			case LBit.L1:
+			case LBit.L256:
 				lastByte = 4;
 				break;
-			default:
-				throw new InvalidOperationException();
 			}
 			if (W1 != 0)
 				lastByte |= 0x80;
 			lastByte |= (dword2 >> (int)VexFlags.MandatoryPrefixByteShift) & (uint)VexFlags.MandatoryPrefixByteMask;
 			if (wbit == WBit.WIG)
 				mask_W_L |= 0x80;
-			if (vexFlags == VexVectorLength.LIG) {
+			if (lbit == LBit.LIG) {
 				mask_W_L |= 4;
 				mask_L |= 4;
 			}
@@ -341,7 +334,12 @@ namespace Iced.Intel.EncoderInternal {
 			Static.Assert((int)XopOpCodeTable.XOPA == 2 ? 0 : -1);
 			table = 8 + ((dword2 >> (int)XopFlags.XopOpCodeTableShift) & (uint)XopFlags.XopOpCodeTableMask);
 			Debug.Assert(table == 8 || table == 9 || table == 10);
-			lastByte = (dword2 >> ((int)XopFlags.XopVectorLengthShift - 2)) & 4;
+			switch ((LBit)((dword2 >> (int)XopFlags.LBitShift) & (int)XopFlags.LBitMask)) {
+			case LBit.L1:
+			case LBit.L256:
+				lastByte = 4;
+				break;
+			}
 			var wbit = (WBit)((dword2 >> (int)XopFlags.WBitShift) & (uint)XopFlags.WBitMask);
 			if (wbit == WBit.W1)
 				lastByte |= 0x80;
@@ -426,12 +424,28 @@ namespace Iced.Intel.EncoderInternal {
 			wbit = (WBit)((dword2 >> (int)EvexFlags.WBitShift) & (uint)EvexFlags.WBitMask);
 			if (wbit == WBit.W1)
 				p1Bits |= 0x80;
-			Static.Assert((int)EvexFlags.EvexVectorLengthMask == 3 ? 0 : -1);
-			llBits = (dword2 >> ((int)EvexFlags.EvexVectorLengthShift - 5)) & 0x60;
+			switch ((LBit)((dword2 >> (int)EvexFlags.LBitShift) & (int)EvexFlags.LBitMask)) {
+			case LBit.LIG:
+				llBits = 0 << 5;
+				mask_LL = 3 << 5;
+				break;
+			case LBit.L0:
+			case LBit.LZ:
+			case LBit.L128:
+				llBits = 0 << 5;
+				break;
+			case LBit.L1:
+			case LBit.L256:
+				llBits = 1 << 5;
+				break;
+			case LBit.L512:
+				llBits = 2 << 5;
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
 			if (wbit == WBit.WIG)
 				mask_W |= 0x80;
-			if ((dword2 & (uint)EvexFlags.LIG) != 0)
-				mask_LL |= 0x60;
 		}
 
 		sealed class TryConvertToDisp8NImpl {
@@ -480,7 +494,7 @@ namespace Iced.Intel.EncoderInternal {
 					encoder.ErrorMessage = "The instruction doesn't support opmask registers";
 			}
 			else {
-				if ((flags & EvexFlags.NonZeroOpMaskRegister) != 0)
+				if ((flags & EvexFlags.RequireOpMaskRegister) != 0)
 					encoder.ErrorMessage = "The instruction must use an opmask register";
 			}
 			b |= (encoderFlags >> ((int)EncoderFlags.VvvvvShift + 4 - 3)) & 8;

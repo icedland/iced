@@ -1222,17 +1222,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 	sealed class SimpleInstrInfo_bcst : InstrInfo {
 		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flagsNoBroadcast;
-		readonly InstrOpInfoFlags flagsBroadcast;
 
-		public SimpleInstrInfo_bcst(string mnemonic, InstrOpInfoFlags flagsNoBroadcast, InstrOpInfoFlags flagsBroadcast) {
+		public SimpleInstrInfo_bcst(string mnemonic, InstrOpInfoFlags flagsNoBroadcast) {
 			this.mnemonic = new FormatterString(mnemonic);
 			this.flagsNoBroadcast = flagsNoBroadcast;
-			this.flagsBroadcast = flagsBroadcast;
 		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var memInfo = MemorySizes.AllMemorySizes[(int)instruction.MemorySize];
-			var flags = !memInfo.bcstTo.IsDefault ? flagsBroadcast : flagsNoBroadcast;
+			var flags = !memInfo.bcstTo.IsDefault ? InstrOpInfoFlags.None : flagsNoBroadcast;
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}

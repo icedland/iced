@@ -29,6 +29,7 @@ using Generator.Enums;
 using Generator.Enums.CSharp;
 using Generator.Enums.InstructionInfo;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.InstructionInfo.CSharp {
 	[Generator(TargetLanguage.CSharp)]
@@ -49,7 +50,7 @@ namespace Generator.InstructionInfo.CSharp {
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
-		protected override void Generate((InstrInfo info, uint dword1, uint dword2)[] infos) {
+		protected override void Generate((InstructionDef def, uint dword1, uint dword2)[] infos) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InstrInfoTable.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -61,7 +62,7 @@ namespace Generator.InstructionInfo.CSharp {
 						writer.WriteLine($"internal static readonly uint[] Data = new uint[{infos.Length * 2}] {{");
 						using (writer.Indent()) {
 							foreach (var info in infos)
-								writer.WriteLine($"0x{info.dword1:X8}, 0x{info.dword2:X8},// {info.info.Code.Name(idConverter)}");
+								writer.WriteLine($"0x{info.dword1:X8}, 0x{info.dword2:X8},// {info.def.Code.Name(idConverter)}");
 						}
 						writer.WriteLine("};");
 					}

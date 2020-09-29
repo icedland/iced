@@ -30,6 +30,7 @@ using Generator.Enums;
 using Generator.Enums.InstructionInfo;
 using Generator.Enums.Rust;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.InstructionInfo.Rust {
 	[Generator(TargetLanguage.Rust)]
@@ -50,22 +51,22 @@ namespace Generator.InstructionInfo.Rust {
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
-		protected override void Generate((InstrInfo info, uint dword1, uint dword2)[] infos) {
-			var filename = Path.Combine(generatorContext.RustDir, "info", "info_table.rs");
+		protected override void Generate((InstructionDef def, uint dword1, uint dword2)[] infos) {
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "info_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(crate) static TABLE: [u32; {infos.Length * 2}] = [");
 				using (writer.Indent()) {
 					foreach (var info in infos)
-						writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)},// {info.info.Code.Name(idConverter)}");
+						writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)},// {info.def.Code.Name(idConverter)}");
 				}
 				writer.WriteLine("];");
 			}
 		}
 
 		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
-			var filename = Path.Combine(generatorContext.RustDir, "info", "rflags_table.rs");
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "rflags_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				var infos = new (RflagsBits[] rflags, string name)[] {
@@ -98,7 +99,7 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		protected override void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures) {
-			var filename = Path.Combine(generatorContext.RustDir, "info", "cpuid_table.rs");
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "cpuid_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				var cpuidFeatureTypeStr = genTypes[TypeIds.CpuidFeature].Name(idConverter);
@@ -117,7 +118,7 @@ namespace Generator.InstructionInfo.Rust {
 		protected override void GenerateCore() => GenerateOpAccesses();
 
 		void GenerateOpAccesses() {
-			var filename = Path.Combine(generatorContext.RustDir, "info", "enums.rs");
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "enums.rs");
 			new FileUpdater(TargetLanguage.Rust, "OpAccesses", filename).Generate(writer => GenerateOpAccesses(writer));
 		}
 

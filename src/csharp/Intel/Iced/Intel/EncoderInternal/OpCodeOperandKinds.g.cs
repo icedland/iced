@@ -29,181 +29,130 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel.EncoderInternal {
 	static class OpCodeOperandKinds {
 #if HAS_SPAN
-		public static System.ReadOnlySpan<byte> LegacyOpKinds => new byte[121] {
+		public static System.ReadOnlySpan<byte> LegacyOpKinds => new byte[76] {
 #else
-		public static readonly byte[] LegacyOpKinds = new byte[121] {
+		public static readonly byte[] LegacyOpKinds = new byte[76] {
 #endif
 			(byte)OpCodeOperandKind.None,// None
-			(byte)OpCodeOperandKind.farbr2_2,// Aww
-			(byte)OpCodeOperandKind.farbr4_2,// Adw
-			(byte)OpCodeOperandKind.mem,// M
-			(byte)OpCodeOperandKind.mem,// Mfbcd
-			(byte)OpCodeOperandKind.mem,// Mf32
-			(byte)OpCodeOperandKind.mem,// Mf64
-			(byte)OpCodeOperandKind.mem,// Mf80
-			(byte)OpCodeOperandKind.mem,// Mfi16
-			(byte)OpCodeOperandKind.mem,// Mfi32
-			(byte)OpCodeOperandKind.mem,// Mfi64
-			(byte)OpCodeOperandKind.mem,// M14
-			(byte)OpCodeOperandKind.mem,// M28
-			(byte)OpCodeOperandKind.mem,// M98
-			(byte)OpCodeOperandKind.mem,// M108
-			(byte)OpCodeOperandKind.mem,// Mp
-			(byte)OpCodeOperandKind.mem,// Ms
-			(byte)OpCodeOperandKind.mem,// Mo
-			(byte)OpCodeOperandKind.mem,// Mb
-			(byte)OpCodeOperandKind.mem,// Mw
-			(byte)OpCodeOperandKind.mem,// Md
-			(byte)OpCodeOperandKind.mem_mpx,// Md_MPX
-			(byte)OpCodeOperandKind.mem,// Mq
-			(byte)OpCodeOperandKind.mem_mpx,// Mq_MPX
-			(byte)OpCodeOperandKind.mem,// Mw2
-			(byte)OpCodeOperandKind.mem,// Md2
-			(byte)OpCodeOperandKind.r8_or_mem,// Eb
-			(byte)OpCodeOperandKind.r16_or_mem,// Ew
-			(byte)OpCodeOperandKind.r32_or_mem,// Ed
-			(byte)OpCodeOperandKind.r32_or_mem_mpx,// Ed_MPX
-			(byte)OpCodeOperandKind.r32_or_mem,// Ew_d
-			(byte)OpCodeOperandKind.r64_or_mem,// Ew_q
-			(byte)OpCodeOperandKind.r64_or_mem,// Eq
-			(byte)OpCodeOperandKind.r64_or_mem_mpx,// Eq_MPX
-			(byte)OpCodeOperandKind.mem,// Eww
-			(byte)OpCodeOperandKind.mem,// Edw
-			(byte)OpCodeOperandKind.mem,// Eqw
-			(byte)OpCodeOperandKind.r32_or_mem,// RdMb
-			(byte)OpCodeOperandKind.r64_or_mem,// RqMb
-			(byte)OpCodeOperandKind.r32_or_mem,// RdMw
-			(byte)OpCodeOperandKind.r64_or_mem,// RqMw
-			(byte)OpCodeOperandKind.r8_reg,// Gb
-			(byte)OpCodeOperandKind.r16_reg,// Gw
-			(byte)OpCodeOperandKind.r32_reg,// Gd
-			(byte)OpCodeOperandKind.r64_reg,// Gq
-			(byte)OpCodeOperandKind.r16_reg_mem,// Gw_mem
-			(byte)OpCodeOperandKind.r32_reg_mem,// Gd_mem
-			(byte)OpCodeOperandKind.r64_reg_mem,// Gq_mem
-			(byte)OpCodeOperandKind.r16_rm,// Rw
-			(byte)OpCodeOperandKind.r32_rm,// Rd
-			(byte)OpCodeOperandKind.r64_rm,// Rq
-			(byte)OpCodeOperandKind.seg_reg,// Sw
-			(byte)OpCodeOperandKind.cr_reg,// Cd
-			(byte)OpCodeOperandKind.cr_reg,// Cq
-			(byte)OpCodeOperandKind.dr_reg,// Dd
-			(byte)OpCodeOperandKind.dr_reg,// Dq
-			(byte)OpCodeOperandKind.tr_reg,// Td
-			(byte)OpCodeOperandKind.imm8,// Ib
-			(byte)OpCodeOperandKind.imm8sex16,// Ib16
-			(byte)OpCodeOperandKind.imm8sex32,// Ib32
-			(byte)OpCodeOperandKind.imm8sex64,// Ib64
-			(byte)OpCodeOperandKind.imm16,// Iw
-			(byte)OpCodeOperandKind.imm32,// Id
-			(byte)OpCodeOperandKind.imm32sex64,// Id64
-			(byte)OpCodeOperandKind.imm64,// Iq
-			(byte)OpCodeOperandKind.imm8,// Ib21
-			(byte)OpCodeOperandKind.imm8,// Ib11
-			(byte)OpCodeOperandKind.seg_rSI,// Xb
-			(byte)OpCodeOperandKind.seg_rSI,// Xw
-			(byte)OpCodeOperandKind.seg_rSI,// Xd
-			(byte)OpCodeOperandKind.seg_rSI,// Xq
-			(byte)OpCodeOperandKind.es_rDI,// Yb
-			(byte)OpCodeOperandKind.es_rDI,// Yw
-			(byte)OpCodeOperandKind.es_rDI,// Yd
-			(byte)OpCodeOperandKind.es_rDI,// Yq
-			(byte)OpCodeOperandKind.br16_1,// wJb
-			(byte)OpCodeOperandKind.br32_1,// dJb
-			(byte)OpCodeOperandKind.br64_1,// qJb
-			(byte)OpCodeOperandKind.br16_2,// Jw
-			(byte)OpCodeOperandKind.br32_4,// wJd
-			(byte)OpCodeOperandKind.br32_4,// dJd
-			(byte)OpCodeOperandKind.br64_4,// qJd
-			(byte)OpCodeOperandKind.xbegin_2,// Jxw
-			(byte)OpCodeOperandKind.xbegin_4,// Jxd
-			(byte)OpCodeOperandKind.brdisp_2,// Jdisp16
-			(byte)OpCodeOperandKind.brdisp_4,// Jdisp32
-			(byte)OpCodeOperandKind.mem_offs,// Ob
-			(byte)OpCodeOperandKind.mem_offs,// Ow
-			(byte)OpCodeOperandKind.mem_offs,// Od
-			(byte)OpCodeOperandKind.mem_offs,// Oq
-			(byte)OpCodeOperandKind.imm8_const_1,// Imm1
-			(byte)OpCodeOperandKind.bnd_reg,// B
-			(byte)OpCodeOperandKind.bnd_or_mem_mpx,// BMq
-			(byte)OpCodeOperandKind.bnd_or_mem_mpx,// BMo
-			(byte)OpCodeOperandKind.mem_mib,// MIB
-			(byte)OpCodeOperandKind.mm_rm,// N
-			(byte)OpCodeOperandKind.mm_reg,// P
-			(byte)OpCodeOperandKind.mm_or_mem,// Q
-			(byte)OpCodeOperandKind.xmm_rm,// RX
-			(byte)OpCodeOperandKind.xmm_reg,// VX
-			(byte)OpCodeOperandKind.xmm_or_mem,// WX
-			(byte)OpCodeOperandKind.seg_rDI,// rDI
-			(byte)OpCodeOperandKind.seg_rBX_al,// MRBX
-			(byte)OpCodeOperandKind.es,// ES
-			(byte)OpCodeOperandKind.cs,// CS
-			(byte)OpCodeOperandKind.ss,// SS
-			(byte)OpCodeOperandKind.ds,// DS
-			(byte)OpCodeOperandKind.fs,// FS
-			(byte)OpCodeOperandKind.gs,// GS
-			(byte)OpCodeOperandKind.al,// AL
-			(byte)OpCodeOperandKind.cl,// CL
-			(byte)OpCodeOperandKind.ax,// AX
-			(byte)OpCodeOperandKind.dx,// DX
-			(byte)OpCodeOperandKind.eax,// EAX
-			(byte)OpCodeOperandKind.rax,// RAX
-			(byte)OpCodeOperandKind.st0,// ST
-			(byte)OpCodeOperandKind.sti_opcode,// STi
-			(byte)OpCodeOperandKind.r8_opcode,// r8_rb
-			(byte)OpCodeOperandKind.r16_opcode,// r16_rw
-			(byte)OpCodeOperandKind.r32_opcode,// r32_rd
-			(byte)OpCodeOperandKind.r64_opcode,// r64_ro
+			(byte)OpCodeOperandKind.al,// al
+			(byte)OpCodeOperandKind.ax,// ax
+			(byte)OpCodeOperandKind.bnd_or_mem_mpx,// bnd_or_mem_mpx
+			(byte)OpCodeOperandKind.bnd_reg,// bnd_reg
+			(byte)OpCodeOperandKind.br16_1,// br16_1
+			(byte)OpCodeOperandKind.br16_2,// br16_2
+			(byte)OpCodeOperandKind.br32_1,// br32_1
+			(byte)OpCodeOperandKind.br32_4,// br32_4
+			(byte)OpCodeOperandKind.br64_1,// br64_1
+			(byte)OpCodeOperandKind.br64_4,// br64_4
+			(byte)OpCodeOperandKind.brdisp_2,// brdisp_2
+			(byte)OpCodeOperandKind.brdisp_4,// brdisp_4
+			(byte)OpCodeOperandKind.cl,// cl
+			(byte)OpCodeOperandKind.cr_reg,// cr_reg
+			(byte)OpCodeOperandKind.cs,// cs
+			(byte)OpCodeOperandKind.dr_reg,// dr_reg
+			(byte)OpCodeOperandKind.ds,// ds
+			(byte)OpCodeOperandKind.dx,// dx
+			(byte)OpCodeOperandKind.eax,// eax
+			(byte)OpCodeOperandKind.es,// es
+			(byte)OpCodeOperandKind.es_rDI,// es_rDI
+			(byte)OpCodeOperandKind.farbr2_2,// farbr2_2
+			(byte)OpCodeOperandKind.farbr4_2,// farbr4_2
+			(byte)OpCodeOperandKind.fs,// fs
+			(byte)OpCodeOperandKind.gs,// gs
+			(byte)OpCodeOperandKind.imm16,// imm16
+			(byte)OpCodeOperandKind.imm32,// imm32
+			(byte)OpCodeOperandKind.imm32sex64,// imm32sex64
+			(byte)OpCodeOperandKind.imm64,// imm64
+			(byte)OpCodeOperandKind.imm8,// imm8
+			(byte)OpCodeOperandKind.imm8_const_1,// imm8_const_1
+			(byte)OpCodeOperandKind.imm8sex16,// imm8sex16
+			(byte)OpCodeOperandKind.imm8sex32,// imm8sex32
+			(byte)OpCodeOperandKind.imm8sex64,// imm8sex64
+			(byte)OpCodeOperandKind.mem,// mem
+			(byte)OpCodeOperandKind.mem_mib,// mem_mib
+			(byte)OpCodeOperandKind.mem_mpx,// mem_mpx
+			(byte)OpCodeOperandKind.mem_offs,// mem_offs
+			(byte)OpCodeOperandKind.mm_or_mem,// mm_or_mem
+			(byte)OpCodeOperandKind.mm_reg,// mm_reg
+			(byte)OpCodeOperandKind.mm_rm,// mm_rm
+			(byte)OpCodeOperandKind.r16_opcode,// r16_opcode
+			(byte)OpCodeOperandKind.r16_or_mem,// r16_or_mem
+			(byte)OpCodeOperandKind.r16_reg,// r16_reg
+			(byte)OpCodeOperandKind.r16_reg_mem,// r16_reg_mem
+			(byte)OpCodeOperandKind.r16_rm,// r16_rm
+			(byte)OpCodeOperandKind.r32_opcode,// r32_opcode
+			(byte)OpCodeOperandKind.r32_or_mem,// r32_or_mem
+			(byte)OpCodeOperandKind.r32_or_mem_mpx,// r32_or_mem_mpx
+			(byte)OpCodeOperandKind.r32_reg,// r32_reg
+			(byte)OpCodeOperandKind.r32_reg_mem,// r32_reg_mem
+			(byte)OpCodeOperandKind.r32_rm,// r32_rm
+			(byte)OpCodeOperandKind.r64_opcode,// r64_opcode
+			(byte)OpCodeOperandKind.r64_or_mem,// r64_or_mem
+			(byte)OpCodeOperandKind.r64_or_mem_mpx,// r64_or_mem_mpx
+			(byte)OpCodeOperandKind.r64_reg,// r64_reg
+			(byte)OpCodeOperandKind.r64_reg_mem,// r64_reg_mem
+			(byte)OpCodeOperandKind.r64_rm,// r64_rm
+			(byte)OpCodeOperandKind.r8_opcode,// r8_opcode
+			(byte)OpCodeOperandKind.r8_or_mem,// r8_or_mem
+			(byte)OpCodeOperandKind.r8_reg,// r8_reg
+			(byte)OpCodeOperandKind.rax,// rax
+			(byte)OpCodeOperandKind.seg_rBX_al,// seg_rBX_al
+			(byte)OpCodeOperandKind.seg_rDI,// seg_rDI
+			(byte)OpCodeOperandKind.seg_reg,// seg_reg
+			(byte)OpCodeOperandKind.seg_rSI,// seg_rSI
+			(byte)OpCodeOperandKind.ss,// ss
+			(byte)OpCodeOperandKind.st0,// st0
+			(byte)OpCodeOperandKind.sti_opcode,// sti_opcode
+			(byte)OpCodeOperandKind.tr_reg,// tr_reg
+			(byte)OpCodeOperandKind.xbegin_2,// xbegin_2
+			(byte)OpCodeOperandKind.xbegin_4,// xbegin_4
+			(byte)OpCodeOperandKind.xmm_or_mem,// xmm_or_mem
+			(byte)OpCodeOperandKind.xmm_reg,// xmm_reg
+			(byte)OpCodeOperandKind.xmm_rm,// xmm_rm
 		};
 #if !NO_VEX
 #if HAS_SPAN
-		public static System.ReadOnlySpan<byte> VexOpKinds => new byte[43] {
+		public static System.ReadOnlySpan<byte> VexOpKinds => new byte[37] {
 #else
-		public static readonly byte[] VexOpKinds = new byte[43] {
+		public static readonly byte[] VexOpKinds = new byte[37] {
 #endif
 			(byte)OpCodeOperandKind.None,// None
-			(byte)OpCodeOperandKind.r32_or_mem,// Ed
-			(byte)OpCodeOperandKind.r64_or_mem,// Eq
-			(byte)OpCodeOperandKind.r32_reg,// Gd
-			(byte)OpCodeOperandKind.r64_reg,// Gq
-			(byte)OpCodeOperandKind.r32_or_mem,// RdMb
-			(byte)OpCodeOperandKind.r64_or_mem,// RqMb
-			(byte)OpCodeOperandKind.r32_or_mem,// RdMw
-			(byte)OpCodeOperandKind.r64_or_mem,// RqMw
-			(byte)OpCodeOperandKind.r32_rm,// Rd
-			(byte)OpCodeOperandKind.r64_rm,// Rq
-			(byte)OpCodeOperandKind.r32_vvvv,// Hd
-			(byte)OpCodeOperandKind.r64_vvvv,// Hq
-			(byte)OpCodeOperandKind.k_vvvv,// HK
-			(byte)OpCodeOperandKind.xmm_vvvv,// HX
-			(byte)OpCodeOperandKind.ymm_vvvv,// HY
-			(byte)OpCodeOperandKind.imm8,// Ib
-			(byte)OpCodeOperandKind.imm2_m2z,// I2
-			(byte)OpCodeOperandKind.xmm_is4,// Is4X
-			(byte)OpCodeOperandKind.ymm_is4,// Is4Y
-			(byte)OpCodeOperandKind.xmm_is5,// Is5X
-			(byte)OpCodeOperandKind.ymm_is5,// Is5Y
-			(byte)OpCodeOperandKind.mem,// M
-			(byte)OpCodeOperandKind.mem,// Md
-			(byte)OpCodeOperandKind.mem,// MK
-			(byte)OpCodeOperandKind.seg_rDI,// rDI
-			(byte)OpCodeOperandKind.k_rm,// RK
-			(byte)OpCodeOperandKind.xmm_rm,// RX
-			(byte)OpCodeOperandKind.ymm_rm,// RY
-			(byte)OpCodeOperandKind.k_reg,// VK
-			(byte)OpCodeOperandKind.mem_vsib32x,// VM32X
-			(byte)OpCodeOperandKind.mem_vsib32y,// VM32Y
-			(byte)OpCodeOperandKind.mem_vsib64x,// VM64X
-			(byte)OpCodeOperandKind.mem_vsib64y,// VM64Y
-			(byte)OpCodeOperandKind.xmm_reg,// VX
-			(byte)OpCodeOperandKind.ymm_reg,// VY
-			(byte)OpCodeOperandKind.k_or_mem,// WK
-			(byte)OpCodeOperandKind.xmm_or_mem,// WX
-			(byte)OpCodeOperandKind.ymm_or_mem,// WY
-			(byte)OpCodeOperandKind.sibmem,// Sibmem
-			(byte)OpCodeOperandKind.tmm_reg,// VT
-			(byte)OpCodeOperandKind.tmm_rm,// RT
-			(byte)OpCodeOperandKind.tmm_vvvv,// HT
+			(byte)OpCodeOperandKind.imm2_m2z,// imm2_m2z
+			(byte)OpCodeOperandKind.imm8,// imm8
+			(byte)OpCodeOperandKind.k_or_mem,// k_or_mem
+			(byte)OpCodeOperandKind.k_reg,// k_reg
+			(byte)OpCodeOperandKind.k_rm,// k_rm
+			(byte)OpCodeOperandKind.k_vvvv,// k_vvvv
+			(byte)OpCodeOperandKind.mem,// mem
+			(byte)OpCodeOperandKind.mem_vsib32x,// mem_vsib32x
+			(byte)OpCodeOperandKind.mem_vsib32y,// mem_vsib32y
+			(byte)OpCodeOperandKind.mem_vsib64x,// mem_vsib64x
+			(byte)OpCodeOperandKind.mem_vsib64y,// mem_vsib64y
+			(byte)OpCodeOperandKind.r32_or_mem,// r32_or_mem
+			(byte)OpCodeOperandKind.r32_reg,// r32_reg
+			(byte)OpCodeOperandKind.r32_rm,// r32_rm
+			(byte)OpCodeOperandKind.r32_vvvv,// r32_vvvv
+			(byte)OpCodeOperandKind.r64_or_mem,// r64_or_mem
+			(byte)OpCodeOperandKind.r64_reg,// r64_reg
+			(byte)OpCodeOperandKind.r64_rm,// r64_rm
+			(byte)OpCodeOperandKind.r64_vvvv,// r64_vvvv
+			(byte)OpCodeOperandKind.seg_rDI,// seg_rDI
+			(byte)OpCodeOperandKind.sibmem,// sibmem
+			(byte)OpCodeOperandKind.tmm_reg,// tmm_reg
+			(byte)OpCodeOperandKind.tmm_rm,// tmm_rm
+			(byte)OpCodeOperandKind.tmm_vvvv,// tmm_vvvv
+			(byte)OpCodeOperandKind.xmm_is4,// xmm_is4
+			(byte)OpCodeOperandKind.xmm_is5,// xmm_is5
+			(byte)OpCodeOperandKind.xmm_or_mem,// xmm_or_mem
+			(byte)OpCodeOperandKind.xmm_reg,// xmm_reg
+			(byte)OpCodeOperandKind.xmm_rm,// xmm_rm
+			(byte)OpCodeOperandKind.xmm_vvvv,// xmm_vvvv
+			(byte)OpCodeOperandKind.ymm_is4,// ymm_is4
+			(byte)OpCodeOperandKind.ymm_is5,// ymm_is5
+			(byte)OpCodeOperandKind.ymm_or_mem,// ymm_or_mem
+			(byte)OpCodeOperandKind.ymm_reg,// ymm_reg
+			(byte)OpCodeOperandKind.ymm_rm,// ymm_rm
+			(byte)OpCodeOperandKind.ymm_vvvv,// ymm_vvvv
 		};
 #endif
 #if !NO_XOP
@@ -213,68 +162,64 @@ namespace Iced.Intel.EncoderInternal {
 		public static readonly byte[] XopOpKinds = new byte[19] {
 #endif
 			(byte)OpCodeOperandKind.None,// None
-			(byte)OpCodeOperandKind.r32_or_mem,// Ed
-			(byte)OpCodeOperandKind.r64_or_mem,// Eq
-			(byte)OpCodeOperandKind.r32_reg,// Gd
-			(byte)OpCodeOperandKind.r64_reg,// Gq
-			(byte)OpCodeOperandKind.r32_rm,// Rd
-			(byte)OpCodeOperandKind.r64_rm,// Rq
-			(byte)OpCodeOperandKind.r32_vvvv,// Hd
-			(byte)OpCodeOperandKind.r64_vvvv,// Hq
-			(byte)OpCodeOperandKind.xmm_vvvv,// HX
-			(byte)OpCodeOperandKind.ymm_vvvv,// HY
-			(byte)OpCodeOperandKind.imm8,// Ib
-			(byte)OpCodeOperandKind.imm32,// Id
-			(byte)OpCodeOperandKind.xmm_is4,// Is4X
-			(byte)OpCodeOperandKind.ymm_is4,// Is4Y
-			(byte)OpCodeOperandKind.xmm_reg,// VX
-			(byte)OpCodeOperandKind.ymm_reg,// VY
-			(byte)OpCodeOperandKind.xmm_or_mem,// WX
-			(byte)OpCodeOperandKind.ymm_or_mem,// WY
+			(byte)OpCodeOperandKind.imm32,// imm32
+			(byte)OpCodeOperandKind.imm8,// imm8
+			(byte)OpCodeOperandKind.r32_or_mem,// r32_or_mem
+			(byte)OpCodeOperandKind.r32_reg,// r32_reg
+			(byte)OpCodeOperandKind.r32_rm,// r32_rm
+			(byte)OpCodeOperandKind.r32_vvvv,// r32_vvvv
+			(byte)OpCodeOperandKind.r64_or_mem,// r64_or_mem
+			(byte)OpCodeOperandKind.r64_reg,// r64_reg
+			(byte)OpCodeOperandKind.r64_rm,// r64_rm
+			(byte)OpCodeOperandKind.r64_vvvv,// r64_vvvv
+			(byte)OpCodeOperandKind.xmm_is4,// xmm_is4
+			(byte)OpCodeOperandKind.xmm_or_mem,// xmm_or_mem
+			(byte)OpCodeOperandKind.xmm_reg,// xmm_reg
+			(byte)OpCodeOperandKind.xmm_vvvv,// xmm_vvvv
+			(byte)OpCodeOperandKind.ymm_is4,// ymm_is4
+			(byte)OpCodeOperandKind.ymm_or_mem,// ymm_or_mem
+			(byte)OpCodeOperandKind.ymm_reg,// ymm_reg
+			(byte)OpCodeOperandKind.ymm_vvvv,// ymm_vvvv
 		};
 #endif
 #if !NO_EVEX
 #if HAS_SPAN
-		public static System.ReadOnlySpan<byte> EvexOpKinds => new byte[36] {
+		public static System.ReadOnlySpan<byte> EvexOpKinds => new byte[32] {
 #else
-		public static readonly byte[] EvexOpKinds = new byte[36] {
+		public static readonly byte[] EvexOpKinds = new byte[32] {
 #endif
 			(byte)OpCodeOperandKind.None,// None
-			(byte)OpCodeOperandKind.r32_or_mem,// Ed
-			(byte)OpCodeOperandKind.r64_or_mem,// Eq
-			(byte)OpCodeOperandKind.r32_reg,// Gd
-			(byte)OpCodeOperandKind.r64_reg,// Gq
-			(byte)OpCodeOperandKind.r32_or_mem,// RdMb
-			(byte)OpCodeOperandKind.r64_or_mem,// RqMb
-			(byte)OpCodeOperandKind.r32_or_mem,// RdMw
-			(byte)OpCodeOperandKind.r64_or_mem,// RqMw
-			(byte)OpCodeOperandKind.xmm_vvvv,// HX
-			(byte)OpCodeOperandKind.ymm_vvvv,// HY
-			(byte)OpCodeOperandKind.zmm_vvvv,// HZ
-			(byte)OpCodeOperandKind.xmmp3_vvvv,// HXP3
-			(byte)OpCodeOperandKind.zmmp3_vvvv,// HZP3
-			(byte)OpCodeOperandKind.imm8,// Ib
-			(byte)OpCodeOperandKind.mem,// M
-			(byte)OpCodeOperandKind.r32_rm,// Rd
-			(byte)OpCodeOperandKind.r64_rm,// Rq
-			(byte)OpCodeOperandKind.xmm_rm,// RX
-			(byte)OpCodeOperandKind.ymm_rm,// RY
-			(byte)OpCodeOperandKind.zmm_rm,// RZ
-			(byte)OpCodeOperandKind.k_rm,// RK
-			(byte)OpCodeOperandKind.mem_vsib32x,// VM32X
-			(byte)OpCodeOperandKind.mem_vsib32y,// VM32Y
-			(byte)OpCodeOperandKind.mem_vsib32z,// VM32Z
-			(byte)OpCodeOperandKind.mem_vsib64x,// VM64X
-			(byte)OpCodeOperandKind.mem_vsib64y,// VM64Y
-			(byte)OpCodeOperandKind.mem_vsib64z,// VM64Z
-			(byte)OpCodeOperandKind.k_reg,// VK
-			(byte)OpCodeOperandKind.kp1_reg,// VKP1
-			(byte)OpCodeOperandKind.xmm_reg,// VX
-			(byte)OpCodeOperandKind.ymm_reg,// VY
-			(byte)OpCodeOperandKind.zmm_reg,// VZ
-			(byte)OpCodeOperandKind.xmm_or_mem,// WX
-			(byte)OpCodeOperandKind.ymm_or_mem,// WY
-			(byte)OpCodeOperandKind.zmm_or_mem,// WZ
+			(byte)OpCodeOperandKind.imm8,// imm8
+			(byte)OpCodeOperandKind.k_reg,// k_reg
+			(byte)OpCodeOperandKind.k_rm,// k_rm
+			(byte)OpCodeOperandKind.kp1_reg,// kp1_reg
+			(byte)OpCodeOperandKind.mem,// mem
+			(byte)OpCodeOperandKind.mem_vsib32x,// mem_vsib32x
+			(byte)OpCodeOperandKind.mem_vsib32y,// mem_vsib32y
+			(byte)OpCodeOperandKind.mem_vsib32z,// mem_vsib32z
+			(byte)OpCodeOperandKind.mem_vsib64x,// mem_vsib64x
+			(byte)OpCodeOperandKind.mem_vsib64y,// mem_vsib64y
+			(byte)OpCodeOperandKind.mem_vsib64z,// mem_vsib64z
+			(byte)OpCodeOperandKind.r32_or_mem,// r32_or_mem
+			(byte)OpCodeOperandKind.r32_reg,// r32_reg
+			(byte)OpCodeOperandKind.r32_rm,// r32_rm
+			(byte)OpCodeOperandKind.r64_or_mem,// r64_or_mem
+			(byte)OpCodeOperandKind.r64_reg,// r64_reg
+			(byte)OpCodeOperandKind.r64_rm,// r64_rm
+			(byte)OpCodeOperandKind.xmm_or_mem,// xmm_or_mem
+			(byte)OpCodeOperandKind.xmm_reg,// xmm_reg
+			(byte)OpCodeOperandKind.xmm_rm,// xmm_rm
+			(byte)OpCodeOperandKind.xmm_vvvv,// xmm_vvvv
+			(byte)OpCodeOperandKind.xmmp3_vvvv,// xmmp3_vvvv
+			(byte)OpCodeOperandKind.ymm_or_mem,// ymm_or_mem
+			(byte)OpCodeOperandKind.ymm_reg,// ymm_reg
+			(byte)OpCodeOperandKind.ymm_rm,// ymm_rm
+			(byte)OpCodeOperandKind.ymm_vvvv,// ymm_vvvv
+			(byte)OpCodeOperandKind.zmm_or_mem,// zmm_or_mem
+			(byte)OpCodeOperandKind.zmm_reg,// zmm_reg
+			(byte)OpCodeOperandKind.zmm_rm,// zmm_rm
+			(byte)OpCodeOperandKind.zmm_vvvv,// zmm_vvvv
+			(byte)OpCodeOperandKind.zmmp3_vvvv,// zmmp3_vvvv
 		};
 #endif
 	}

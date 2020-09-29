@@ -164,6 +164,42 @@ Call_m1616
 Call_m1632
 Call_m1664
 
+[loop]
+Loop_rel8_16_CX
+Loop_rel8_32_CX
+Loop_rel8_16_ECX
+Loop_rel8_32_ECX
+Loop_rel8_64_ECX
+Loop_rel8_16_RCX
+Loop_rel8_64_RCX
+Loopne_rel8_16_CX
+Loopne_rel8_32_CX
+Loopne_rel8_16_ECX
+Loopne_rel8_32_ECX
+Loopne_rel8_64_ECX
+Loopne_rel8_16_RCX
+Loopne_rel8_64_RCX
+Loope_rel8_16_CX
+Loope_rel8_32_CX
+Loope_rel8_16_ECX
+Loope_rel8_32_ECX
+Loope_rel8_64_ECX
+Loope_rel8_16_RCX
+Loope_rel8_64_RCX
+
+[jrcxz]
+Jcxz_rel8_16
+Jcxz_rel8_32
+Jecxz_rel8_16
+Jecxz_rel8_32
+Jecxz_rel8_64
+Jrcxz_rel8_16
+Jrcxz_rel8_64
+
+[xbegin]
+Xbegin_rel16
+Xbegin_rel32
+
 [jmp-info]
 # short, near
 Jmp_rel8_16, Jmp_rel16

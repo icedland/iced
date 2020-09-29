@@ -41,7 +41,7 @@ namespace Generator.Decoder.Rust {
 			var genTypes = generatorContext.Types;
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorContext.RustDir, "instruction_op_counts.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorContext.Types.Dirs.RustDir, "instruction_op_counts.rs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::iced_constants::{icedConstants.Name(idConverter)};");
 				writer.WriteLine();
@@ -49,7 +49,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine($"pub(super) static OP_COUNT: [u8; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] = [");
 				using (writer.Indent()) {
 					foreach (var def in defs)
-						writer.WriteLine($"{def.OpCount},// {def.OpCodeInfo.Code.Name(idConverter)}");
+						writer.WriteLine($"{def.OpCount},// {def.Code.Name(idConverter)}");
 				}
 				writer.WriteLine("];");
 			}

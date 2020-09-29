@@ -49134,7 +49134,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>vcvtdq2pd instruction.<br/>
 		/// <br/>
-		/// <c>VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <c>VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F.W0 E6 /r</c><br/>
 		/// <br/>
@@ -49196,7 +49196,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>vcvtdq2pd instruction.<br/>
 		/// <br/>
-		/// <c>VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <c>VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F.W0 E6 /r</c><br/>
 		/// <br/>
@@ -51336,7 +51336,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
-		/// <c>VCVTSI2SD xmm1, xmm2, r/m32</c><br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m32{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.F2.0F.W0 2A /r</c><br/>
 		/// <br/>
@@ -51396,7 +51396,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
-		/// <c>VCVTSI2SD xmm1, xmm2, r/m32</c><br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m32{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.F2.0F.W0 2A /r</c><br/>
 		/// <br/>
@@ -52808,7 +52808,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>vcvtudq2pd instruction.<br/>
 		/// <br/>
-		/// <c>VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <c>VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F.W0 7A /r</c><br/>
 		/// <br/>
@@ -52850,7 +52850,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>vcvtudq2pd instruction.<br/>
 		/// <br/>
-		/// <c>VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <c>VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F.W0 7A /r</c><br/>
 		/// <br/>
@@ -53146,7 +53146,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>vcvtusi2sd instruction.<br/>
 		/// <br/>
-		/// <c>VCVTUSI2SD xmm1, xmm2, r/m32</c><br/>
+		/// <c>VCVTUSI2SD xmm1, xmm2, r/m32{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.F2.0F.W0 7B /r</c><br/>
 		/// <br/>
@@ -53182,7 +53182,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c><br/>
 		/// <br/>
-		/// <c>VCVTUSI2SD xmm1, xmm2, r/m32</c><br/>
+		/// <c>VCVTUSI2SD xmm1, xmm2, r/m32{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.F2.0F.W0 7B /r</c><br/>
 		/// <br/>

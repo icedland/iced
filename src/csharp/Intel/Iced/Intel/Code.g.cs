@@ -284,7 +284,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086</c><br/>
 		/// <br/>
-		/// <c>16/32-bit</c></summary>
+		/// <c>16-bit</c></summary>
 		Popw_CS = 35,
 		/// <summary><c>ADC r/m8, r8</c><br/>
 		/// <br/>
@@ -8838,7 +8838,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		VEX_Vcvtsi2sd_xmm_xmm_rm64 = 1104,
-		/// <summary><c>VCVTSI2SD xmm1, xmm2, r/m32</c><br/>
+		/// <summary><c>VCVTSI2SD xmm1, xmm2, r/m32{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.F2.0F.W0 2A /r</c><br/>
 		/// <br/>
@@ -14286,7 +14286,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32 = 1785,
-		/// <summary><c>VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <summary><c>VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F.W0 7A /r</c><br/>
 		/// <br/>
@@ -14430,7 +14430,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		EVEX_Vcvtusi2ss_xmm_xmm_rm64_er = 1803,
-		/// <summary><c>VCVTUSI2SD xmm1, xmm2, r/m32</c><br/>
+		/// <summary><c>VCVTUSI2SD xmm1, xmm2, r/m32{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.F2.0F.W0 7B /r</c><br/>
 		/// <br/>
@@ -19062,7 +19062,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32 = 2382,
-		/// <summary><c>VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <summary><c>VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F.W0 E6 /r</c><br/>
 		/// <br/>

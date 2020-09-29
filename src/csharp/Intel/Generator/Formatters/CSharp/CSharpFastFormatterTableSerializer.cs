@@ -29,8 +29,8 @@ namespace Generator.Formatters.CSharp {
 		readonly string define;
 		readonly string @namespace;
 
-		public CSharpFastFormatterTableSerializer(object[][] infos, string define, string @namespace)
-			: base(infos, CSharpIdentifierConverter.Create()) {
+		public CSharpFastFormatterTableSerializer(FastFmtInstructionDef[] defs, string define, string @namespace)
+			: base(defs, CSharpIdentifierConverter.Create()) {
 			this.define = define;
 			this.@namespace = @namespace;
 		}

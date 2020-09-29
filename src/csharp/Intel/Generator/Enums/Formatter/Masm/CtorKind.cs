@@ -31,7 +31,7 @@ namespace Generator.Enums.Formatter.Masm {
 		AX,
 		AY,
 		bnd,
-		STIG1_2,
+		STIG1,
 		DeclareData,
 		DX,
 		fword,
@@ -73,6 +73,5 @@ namespace Generator.Enums.Formatter.Masm {
 		ST_STi,
 		STi_ST,
 		XLAT,
-		STIG1_1,
 	}
 }

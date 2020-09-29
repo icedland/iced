@@ -616,7 +616,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						p2Values = p2Values_k1z;
 				}
 				else if (opCode.CanUseOpMaskRegister) {
-					if (opCode.RequireNonZeroOpMaskRegister)
+					if (opCode.RequireOpMaskRegister)
 						p2Values = p2Values_k1_fk;
 					else
 						p2Values = p2Values_k1;
@@ -2218,7 +2218,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					if (opCode.CanUseOpMaskRegister) {
 						if (!tested.OpMask)
 							GetList(bitness, opmask_16, opmask_32, opmask_64).Add(code);
-						if (!tested.NoOpMask && !opCode.RequireNonZeroOpMaskRegister)
+						if (!tested.NoOpMask && !opCode.RequireOpMaskRegister)
 							GetList(bitness, noopmask_16, noopmask_32, noopmask_64).Add(code);
 					}
 					if (CanUseB(bitness, opCode)) {
@@ -2779,7 +2779,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
 					continue;
 				var opCode = info.Code.ToOpCode();
-				if (!opCode.RequireNonZeroOpMaskRegister)
+				if (!opCode.RequireOpMaskRegister)
 					continue;
 
 				var bytes = HexUtils.ToByteArray(info.HexBytes);

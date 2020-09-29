@@ -368,7 +368,7 @@ impl InstructionInfoFactory {
 				}
 
 				OpKind::Memory => {
-					const_assert_eq!(1 << 31, InfoFlags1::NO_SEGMENT_READ);
+					const_assert_eq!(1 << 31, InfoFlags1::IGNORE_SEGMENT);
 					const_assert_eq!(0, Register::None as u32);
 					let segment_register = unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as u8) };
 					let base_register = instruction.memory_base();
@@ -456,7 +456,7 @@ impl InstructionInfoFactory {
 				flags,
 				info,
 				instruction.op_mask(),
-				if (flags2 & InfoFlags2::OP_MASK_REG_READ_WRITE) != 0 { OpAccess::ReadWrite } else { OpAccess::Read },
+				if (flags2 & InfoFlags2::OP_MASK_READ_WRITE) != 0 { OpAccess::ReadWrite } else { OpAccess::Read },
 			);
 		}
 		info

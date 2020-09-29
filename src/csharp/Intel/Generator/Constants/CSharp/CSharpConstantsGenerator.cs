@@ -69,17 +69,17 @@ namespace Generator.Constants.CSharp {
 			var baseDir = CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
 			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
-			toFullFileInfo.Add(TypeIds.DecoderConstants, new FullConstantsFileInfo(Path.Combine(generatorContext.CSharpTestsDir, "Intel", nameof(TypeIds.DecoderConstants) + ".g.cs"), CSharpConstants.IcedUnitTestsNamespace));
+			toFullFileInfo.Add(TypeIds.DecoderConstants, new FullConstantsFileInfo(Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", nameof(TypeIds.DecoderConstants) + ".g.cs"), CSharpConstants.IcedUnitTestsNamespace));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();
-			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
+			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
 			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, new PartialConstantsFileInfo("InstrInfoConstants", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs")));
-			toPartialFileInfo.Add(TypeIds.MiscInstrInfoTestConstants, new PartialConstantsFileInfo("MiscConstants", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.InstructionInfoKeys, new PartialConstantsFileInfo("KeysConstants", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.RflagsBitsConstants, new PartialConstantsFileInfo("RflagsBitsConstants", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.MiscSectionNames, new PartialConstantsFileInfo("MiscSectionNames", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "MiscTestsData.cs")));
-			toPartialFileInfo.Add(TypeIds.OpCodeInfoKeys, new PartialConstantsFileInfo("OpCodeInfoKeys", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.OpCodeInfoFlags, new PartialConstantsFileInfo("OpCodeInfoFlags", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.MiscInstrInfoTestConstants, new PartialConstantsFileInfo("MiscConstants", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.InstructionInfoKeys, new PartialConstantsFileInfo("KeysConstants", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.RflagsBitsConstants, new PartialConstantsFileInfo("RflagsBitsConstants", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.MiscSectionNames, new PartialConstantsFileInfo("MiscSectionNames", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "InstructionInfoTests", "MiscTestsData.cs")));
+			toPartialFileInfo.Add(TypeIds.OpCodeInfoKeys, new PartialConstantsFileInfo("OpCodeInfoKeys", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.OpCodeInfoFlags, new PartialConstantsFileInfo("OpCodeInfoFlags", Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
 		}
 
 		public override void Generate(ConstantsType constantsType) {

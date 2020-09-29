@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Generator.Enums;
 
@@ -41,7 +42,8 @@ namespace Generator.Tables {
 		bool filtered;
 
 		InstructionDefs(GenTypes genTypes) {
-			defs = InstructionDefsData.CreateTable(genTypes);
+			var filename = Path.Combine(genTypes.Dirs.GeneratorDir, "Tables", "InstructionDefs.txt");
+			defs = new InstructionDefsReader(genTypes, filename).Read();
 			genTypes.AddObject(TypeIds.InstructionDefs, this);
 		}
 
@@ -51,8 +53,9 @@ namespace Generator.Tables {
 			return defs;
 		}
 
+		double ICreatedInstructions.Order => -10000;
 		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) {
-			defs = defs.Where(a => filteredCodeValues.Contains(a.OpCodeInfo.Code)).ToArray();
+			defs = defs.Where(a => filteredCodeValues.Contains(a.Code)).ToArray();
 			filtered = true;
 		}
 	}

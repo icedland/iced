@@ -50,6 +50,6 @@ namespace Generator.Enums.Encoder {
 		HintTakenPrefix,
 		NotrackPrefix,
 		NoInstruction,
-		NonZeroOpMaskRegister,
+		RequireOpMaskRegister,
 	}
 }

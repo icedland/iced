@@ -56,7 +56,7 @@ namespace Generator.Constants.Encoder {
 				new Constant(ConstantKind.String, "RoundingControl", "er"),
 				new Constant(ConstantKind.String, "SuppressAllExceptions", "sae"),
 				new Constant(ConstantKind.String, "OpMaskRegister", "k"),
-				new Constant(ConstantKind.String, "RequireNonZeroOpMaskRegister", "knz"),
+				new Constant(ConstantKind.String, "RequireOpMaskRegister", "knz"),
 				new Constant(ConstantKind.String, "ZeroingMasking", "z"),
 				new Constant(ConstantKind.String, "LockPrefix", "lock"),
 				new Constant(ConstantKind.String, "XacquirePrefix", "xacquire"),

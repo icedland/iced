@@ -21,30 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Generator.Enums;
-
-namespace Generator.Formatters {
-	static class Utils {
-		public const int CodeValueIndex = 1;
-
-		public static object[][] Filter(HashSet<EnumValue> filteredCodeValues, object[][] infos) =>
-			Filter(filteredCodeValues, infos, CodeValueIndex);
-
-		public static object[][] Filter(HashSet<EnumValue> filteredCodeValues, object[][] infos, int codeValueIndex) =>
-			infos.Where(a => filteredCodeValues.Contains((EnumValue)a[codeValueIndex])).ToArray();
-
-		public static object[][] Sort(object[][] infos) => Sort(infos, CodeValueIndex);
-
-		public static object[][] Sort(object[][] infos, int codeValueIndex) {
-			Array.Sort(infos, (a, b) => {
-				var ca = (EnumValue)a[codeValueIndex];
-				var cb = (EnumValue)b[codeValueIndex];
-				return ca.Value.CompareTo(cb.Value);
-			});
-			return infos;
-		}
+namespace Generator.Enums.Encoder {
+	[Enum("LBit")]
+	enum LBit {
+		L0,
+		L1,
+		LIG,
+		LZ,
+		L128,
+		L256,
+		L512,
 	}
 }

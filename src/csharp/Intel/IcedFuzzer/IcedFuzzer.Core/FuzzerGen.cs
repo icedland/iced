@@ -252,7 +252,7 @@ namespace IcedFuzzer.Core {
 			case FuzzerOperandKind.Register:
 				var regOp = (RegisterFuzzerOperand)op;
 				var regInfo = regOp.GetRegisterInfo(context.Bitness, info.Encoding);
-				uint startNum = regOp.RegLocation == FuzzerOperandRegLocation.AaaBits && context.Instruction.RequireNonZeroOpMaskRegister ? 1U : 0;
+				uint startNum = regOp.RegLocation == FuzzerOperandRegLocation.AaaBits && context.Instruction.RequireOpMaskRegister ? 1U : 0;
 				uint regNum = context.UsedRegs.GetNextUnusedReg(regOp.RegisterClass, startNum);
 				context.UsedRegs.Add(regInfo, regOp, regNum);
 				info.SetRegister(regOp.RegLocation, regNum);
@@ -764,7 +764,7 @@ namespace IcedFuzzer.Core {
 							bool isValid = true;
 							if (!op0RegInfo.IsValidRegister(context.Instruction, regNum) || !op1RegInfo.IsValidRegister(context.Instruction, regNum))
 								isValid = false;
-							if (((op0RegNum == 0 && op0RegInfo.IsOpMask) || (op1RegNum == 0 && op1RegInfo.IsOpMask)) && context.Instruction.RequireNonZeroOpMaskRegister)
+							if (((op0RegNum == 0 && op0RegInfo.IsOpMask) || (op1RegNum == 0 && op1RegInfo.IsOpMask)) && context.Instruction.RequireOpMaskRegister)
 								isValid = false;
 							if (op0RegNum == op1RegNum) {
 								if (uniqueOpRegClass == op0RegInfo.RegClass)
@@ -1490,7 +1490,7 @@ namespace IcedFuzzer.Core {
 					isValid = false;
 				if (z == 1 && (!context.Instruction.CanUseZeroingMasking || destOpIsMem))
 					isValid = false;
-				if (aaa == 0 && context.Instruction.RequireNonZeroOpMaskRegister)
+				if (aaa == 0 && context.Instruction.RequireOpMaskRegister)
 					isValid = false;
 				yield return new FuzzerGenResult(isValid);
 			}

@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static FLAGS_READ: [u16; 60] = [
 	0x0000_0000,// None
-	0x0000_0000,// C_AC
+	0x0000_0000,// C_A
 	0x0000_0000,// C_acopsz
 	0x0000_0000,// C_acos_S_pz
 	0x0000_0000,// C_c
@@ -36,8 +36,8 @@ pub(crate) static FLAGS_READ: [u16; 60] = [
 	0x0000_0008,// R_a_W_ac_U_opsz
 	0x0000_0018,// R_ac_W_acpsz_U_o
 	0x0000_00FF,// R_acopszid
-	0x0000_01FF,// R_acopszidAC
-	0x0000_01FF,// R_acopszidAC_W_acopszidAC
+	0x0000_01FF,// R_acopszidA
+	0x0000_01FF,// R_acopszidA_W_acopszidA
 	0x0000_003E,// R_acpsz
 	0x0000_0010,// R_c
 	0x0000_0010,// R_c_W_acopsz
@@ -54,14 +54,14 @@ pub(crate) static FLAGS_READ: [u16; 60] = [
 	0x0000_0020,// R_p
 	0x0000_0002,// R_s
 	0x0000_0004,// R_z
-	0x0000_0000,// S_AC
+	0x0000_0000,// S_A
 	0x0000_0000,// S_c
 	0x0000_0000,// S_d
 	0x0000_0000,// S_i
 	0x0000_0000,// U_acopsz
 	0x0000_0000,// W_acopsz
 	0x0000_0000,// W_acopszid
-	0x0000_0000,// W_acopszidAC
+	0x0000_0000,// W_acopszidA
 	0x0000_0000,// W_acpsz
 	0x0000_0000,// W_aopsz
 	0x0000_0000,// W_c
@@ -89,7 +89,7 @@ pub(crate) static FLAGS_READ: [u16; 60] = [
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static FLAGS_UNDEFINED: [u16; 60] = [
 	0x0000_0000,// None
-	0x0000_0000,// C_AC
+	0x0000_0000,// C_A
 	0x0000_0000,// C_acopsz
 	0x0000_0000,// C_acos_S_pz
 	0x0000_0000,// C_c
@@ -99,8 +99,8 @@ pub(crate) static FLAGS_UNDEFINED: [u16; 60] = [
 	0x0000_0027,// R_a_W_ac_U_opsz
 	0x0000_0001,// R_ac_W_acpsz_U_o
 	0x0000_0000,// R_acopszid
-	0x0000_0000,// R_acopszidAC
-	0x0000_0000,// R_acopszidAC_W_acopszidAC
+	0x0000_0000,// R_acopszidA
+	0x0000_0000,// R_acopszidA_W_acopszidA
 	0x0000_0000,// R_acpsz
 	0x0000_0000,// R_c
 	0x0000_0000,// R_c_W_acopsz
@@ -117,14 +117,14 @@ pub(crate) static FLAGS_UNDEFINED: [u16; 60] = [
 	0x0000_0000,// R_p
 	0x0000_0000,// R_s
 	0x0000_0000,// R_z
-	0x0000_0000,// S_AC
+	0x0000_0000,// S_A
 	0x0000_0000,// S_c
 	0x0000_0000,// S_d
 	0x0000_0000,// S_i
 	0x0000_003F,// U_acopsz
 	0x0000_0000,// W_acopsz
 	0x0000_0000,// W_acopszid
-	0x0000_0000,// W_acopszidAC
+	0x0000_0000,// W_acopszidA
 	0x0000_0000,// W_acpsz
 	0x0000_0000,// W_aopsz
 	0x0000_0000,// W_c
@@ -152,7 +152,7 @@ pub(crate) static FLAGS_UNDEFINED: [u16; 60] = [
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static FLAGS_WRITTEN: [u16; 60] = [
 	0x0000_0000,// None
-	0x0000_0000,// C_AC
+	0x0000_0000,// C_A
 	0x0000_0000,// C_acopsz
 	0x0000_0000,// C_acos_S_pz
 	0x0000_0000,// C_c
@@ -162,8 +162,8 @@ pub(crate) static FLAGS_WRITTEN: [u16; 60] = [
 	0x0000_0018,// R_a_W_ac_U_opsz
 	0x0000_003E,// R_ac_W_acpsz_U_o
 	0x0000_0000,// R_acopszid
-	0x0000_0000,// R_acopszidAC
-	0x0000_01FF,// R_acopszidAC_W_acopszidAC
+	0x0000_0000,// R_acopszidA
+	0x0000_01FF,// R_acopszidA_W_acopszidA
 	0x0000_0000,// R_acpsz
 	0x0000_0000,// R_c
 	0x0000_003F,// R_c_W_acopsz
@@ -180,14 +180,14 @@ pub(crate) static FLAGS_WRITTEN: [u16; 60] = [
 	0x0000_0000,// R_p
 	0x0000_0000,// R_s
 	0x0000_0000,// R_z
-	0x0000_0000,// S_AC
+	0x0000_0000,// S_A
 	0x0000_0000,// S_c
 	0x0000_0000,// S_d
 	0x0000_0000,// S_i
 	0x0000_0000,// U_acopsz
 	0x0000_003F,// W_acopsz
 	0x0000_00FF,// W_acopszid
-	0x0000_01FF,// W_acopszidAC
+	0x0000_01FF,// W_acopszidA
 	0x0000_003E,// W_acpsz
 	0x0000_002F,// W_aopsz
 	0x0000_0010,// W_c
@@ -215,7 +215,7 @@ pub(crate) static FLAGS_WRITTEN: [u16; 60] = [
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static FLAGS_CLEARED: [u16; 60] = [
 	0x0000_0000,// None
-	0x0000_0100,// C_AC
+	0x0000_0100,// C_A
 	0x0000_003F,// C_acopsz
 	0x0000_001B,// C_acos_S_pz
 	0x0000_0010,// C_c
@@ -225,8 +225,8 @@ pub(crate) static FLAGS_CLEARED: [u16; 60] = [
 	0x0000_0000,// R_a_W_ac_U_opsz
 	0x0000_0000,// R_ac_W_acpsz_U_o
 	0x0000_0000,// R_acopszid
-	0x0000_0000,// R_acopszidAC
-	0x0000_0000,// R_acopszidAC_W_acopszidAC
+	0x0000_0000,// R_acopszidA
+	0x0000_0000,// R_acopszidA_W_acopszidA
 	0x0000_0000,// R_acpsz
 	0x0000_0000,// R_c
 	0x0000_0000,// R_c_W_acopsz
@@ -243,14 +243,14 @@ pub(crate) static FLAGS_CLEARED: [u16; 60] = [
 	0x0000_0000,// R_p
 	0x0000_0000,// R_s
 	0x0000_0000,// R_z
-	0x0000_0000,// S_AC
+	0x0000_0000,// S_A
 	0x0000_0000,// S_c
 	0x0000_0000,// S_d
 	0x0000_0000,// S_i
 	0x0000_0000,// U_acopsz
 	0x0000_0000,// W_acopsz
 	0x0000_0000,// W_acopszid
-	0x0000_0000,// W_acopszidAC
+	0x0000_0000,// W_acopszidA
 	0x0000_0000,// W_acpsz
 	0x0000_0000,// W_aopsz
 	0x0000_0000,// W_c
@@ -278,7 +278,7 @@ pub(crate) static FLAGS_CLEARED: [u16; 60] = [
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static FLAGS_SET: [u16; 60] = [
 	0x0000_0000,// None
-	0x0000_0000,// C_AC
+	0x0000_0000,// C_A
 	0x0000_0000,// C_acopsz
 	0x0000_0024,// C_acos_S_pz
 	0x0000_0000,// C_c
@@ -288,8 +288,8 @@ pub(crate) static FLAGS_SET: [u16; 60] = [
 	0x0000_0000,// R_a_W_ac_U_opsz
 	0x0000_0000,// R_ac_W_acpsz_U_o
 	0x0000_0000,// R_acopszid
-	0x0000_0000,// R_acopszidAC
-	0x0000_0000,// R_acopszidAC_W_acopszidAC
+	0x0000_0000,// R_acopszidA
+	0x0000_0000,// R_acopszidA_W_acopszidA
 	0x0000_0000,// R_acpsz
 	0x0000_0000,// R_c
 	0x0000_0000,// R_c_W_acopsz
@@ -306,14 +306,14 @@ pub(crate) static FLAGS_SET: [u16; 60] = [
 	0x0000_0000,// R_p
 	0x0000_0000,// R_s
 	0x0000_0000,// R_z
-	0x0000_0100,// S_AC
+	0x0000_0100,// S_A
 	0x0000_0010,// S_c
 	0x0000_0040,// S_d
 	0x0000_0080,// S_i
 	0x0000_0000,// U_acopsz
 	0x0000_0000,// W_acopsz
 	0x0000_0000,// W_acopszid
-	0x0000_0000,// W_acopszidAC
+	0x0000_0000,// W_acopszidA
 	0x0000_0000,// W_acpsz
 	0x0000_0000,// W_aopsz
 	0x0000_0000,// W_c
@@ -341,7 +341,7 @@ pub(crate) static FLAGS_SET: [u16; 60] = [
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static FLAGS_MODIFIED: [u16; 60] = [
 	0x0000_0000,// None
-	0x0000_0100,// C_AC
+	0x0000_0100,// C_A
 	0x0000_003F,// C_acopsz
 	0x0000_003F,// C_acos_S_pz
 	0x0000_0010,// C_c
@@ -351,8 +351,8 @@ pub(crate) static FLAGS_MODIFIED: [u16; 60] = [
 	0x0000_003F,// R_a_W_ac_U_opsz
 	0x0000_003F,// R_ac_W_acpsz_U_o
 	0x0000_0000,// R_acopszid
-	0x0000_0000,// R_acopszidAC
-	0x0000_01FF,// R_acopszidAC_W_acopszidAC
+	0x0000_0000,// R_acopszidA
+	0x0000_01FF,// R_acopszidA_W_acopszidA
 	0x0000_0000,// R_acpsz
 	0x0000_0000,// R_c
 	0x0000_003F,// R_c_W_acopsz
@@ -369,14 +369,14 @@ pub(crate) static FLAGS_MODIFIED: [u16; 60] = [
 	0x0000_0000,// R_p
 	0x0000_0000,// R_s
 	0x0000_0000,// R_z
-	0x0000_0100,// S_AC
+	0x0000_0100,// S_A
 	0x0000_0010,// S_c
 	0x0000_0040,// S_d
 	0x0000_0080,// S_i
 	0x0000_003F,// U_acopsz
 	0x0000_003F,// W_acopsz
 	0x0000_00FF,// W_acopszid
-	0x0000_01FF,// W_acopszidAC
+	0x0000_01FF,// W_acopszidA
 	0x0000_003E,// W_acpsz
 	0x0000_002F,// W_aopsz
 	0x0000_0010,// W_c

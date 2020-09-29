@@ -69,7 +69,7 @@ namespace Generator.Decoder.Rust {
 				("CC_g_hash", genTypes[TypeIds.CC_g], false, "test_utils/from_str_conv/cc_table.rs"),
 			};
 			foreach (var info in infos) {
-				var filename = Path.Combine(generatorContext.RustDir, Path.Combine(info.filename.Split('/')));
+				var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, Path.Combine(info.filename.Split('/')));
 				new FileUpdater(TargetLanguage.Rust, info.id, filename).Generate(writer => WriteHash(writer, info.lowerCase, info.enumType));
 			}
 		}

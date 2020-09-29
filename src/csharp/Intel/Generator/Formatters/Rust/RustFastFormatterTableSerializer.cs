@@ -27,8 +27,8 @@ namespace Generator.Formatters.Rust {
 	sealed class RustFastFormatterTableSerializer : FastFormatterTableSerializer {
 		readonly string filename;
 
-		public RustFastFormatterTableSerializer(string filename, object[][] infos)
-			: base(infos, RustIdentifierConverter.Create()) {
+		public RustFastFormatterTableSerializer(string filename, FastFmtInstructionDef[] defs)
+			: base(defs, RustIdentifierConverter.Create()) {
 			this.filename = filename;
 		}
 

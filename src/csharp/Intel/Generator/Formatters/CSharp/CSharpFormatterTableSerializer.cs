@@ -30,8 +30,8 @@ namespace Generator.Formatters.CSharp {
 		readonly string define;
 		readonly string @namespace;
 
-		public CSharpFormatterTableSerializer(object[][] infos, EnumType ctorKindEnum, string define, string @namespace)
-			: base(infos, CSharpIdentifierConverter.Create(), ctorKindEnum["Previous"]) {
+		public CSharpFormatterTableSerializer(FmtInstructionDef[] defs, EnumType ctorKindEnum, string define, string @namespace)
+			: base(defs, CSharpIdentifierConverter.Create(), ctorKindEnum["Previous"]) {
 			this.define = define;
 			this.@namespace = @namespace;
 		}

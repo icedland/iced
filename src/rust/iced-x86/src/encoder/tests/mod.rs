@@ -805,8 +805,8 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.can_use_rounding_control, info.can_use_rounding_control());
 	assert_eq!(tc.can_suppress_all_exceptions, info.can_suppress_all_exceptions());
 	assert_eq!(tc.can_use_op_mask_register, info.can_use_op_mask_register());
-	assert_eq!(tc.require_non_zero_op_mask_register, info.require_non_zero_op_mask_register());
-	if tc.require_non_zero_op_mask_register {
+	assert_eq!(tc.require_op_mask_register, info.require_op_mask_register());
+	if tc.require_op_mask_register {
 		assert!(info.can_use_op_mask_register());
 		assert!(!info.can_use_zeroing_masking());
 	}

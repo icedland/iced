@@ -69,7 +69,7 @@ namespace Generator.Decoder.CSharp {
 				("CC_g_hash", genTypes[TypeIds.CC_g], false, "Intel/ToEnumConverter.CC.cs"),
 			};
 			foreach (var info in infos) {
-				var filename = Path.Combine(generatorContext.CSharpTestsDir, Path.Combine(info.filename.Split('/')));
+				var filename = Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, Path.Combine(info.filename.Split('/')));
 				new FileUpdater(TargetLanguage.CSharp, info.id, filename).Generate(writer => WriteHash(writer, info.lowerCase, info.enumType));
 			}
 		}

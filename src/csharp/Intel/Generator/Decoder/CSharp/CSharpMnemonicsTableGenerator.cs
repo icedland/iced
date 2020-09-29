@@ -56,7 +56,7 @@ namespace Generator.Decoder.CSharp {
 							foreach (var def in defs) {
 								if (def.Mnemonic.Value > ushort.MaxValue)
 									throw new InvalidOperationException();
-								writer.WriteLine($"(ushort){mnemonicName}.{def.Mnemonic.Name(idConverter)},// {def.OpCodeInfo.Code.Name(idConverter)}");
+								writer.WriteLine($"(ushort){mnemonicName}.{def.Mnemonic.Name(idConverter)},// {def.Code.Name(idConverter)}");
 							}
 						}
 						writer.WriteLine("};");

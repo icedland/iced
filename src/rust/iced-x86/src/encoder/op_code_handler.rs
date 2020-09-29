@@ -261,15 +261,14 @@ impl VexHandler {
 		let rm_group_index = if (dword2 & VexFlags::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
 		let wbit: WBit = unsafe { mem::transmute(((dword2 >> VexFlags::WBIT_SHIFT) & VexFlags::WBIT_MASK) as u8) };
 		let w1 = if wbit == WBit::W1 { u32::MAX } else { 0 };
-		let vex_flags: VexVectorLength =
-			unsafe { mem::transmute(((dword2 >> VexFlags::VEX_VECTOR_LENGTH_SHIFT) & VexFlags::VEX_VECTOR_LENGTH_MASK) as u8) };
-		let mut last_byte = if vex_flags == VexVectorLength::L1 || vex_flags == VexVectorLength::L256 { 4 } else { 0 };
+		let lbit: LBit = unsafe { mem::transmute(((dword2 >> VexFlags::LBIT_SHIFT) & VexFlags::LBIT_MASK) as u8) };
+		let mut last_byte = if lbit == LBit::L1 || lbit == LBit::L256 { 4 } else { 0 };
 		if w1 != 0 {
 			last_byte |= 0x80;
 		}
 		last_byte |= (dword2 >> VexFlags::MANDATORY_PREFIX_BYTE_SHIFT) & VexFlags::MANDATORY_PREFIX_BYTE_MASK;
 		let mut mask_w_l = if wbit == WBit::WIG { 0x80 } else { 0 };
-		let mask_l = if vex_flags == VexVectorLength::LIG {
+		let mask_l = if lbit == LBit::LIG {
 			mask_w_l |= 4;
 			4
 		} else {
@@ -401,7 +400,11 @@ impl XopHandler {
 		const_assert_eq!(1, XopOpCodeTable::XOP9 as u32);
 		const_assert_eq!(2, XopOpCodeTable::XOPA as u32);
 		let group_index = if (dword2 & XopFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> XopFlags::GROUP_SHIFT) & 7) as i32 };
-		let mut last_byte = (dword2 >> (XopFlags::XOP_VECTOR_LENGTH_SHIFT - 2)) & 4;
+		let lbit: LBit = unsafe { mem::transmute(((dword2 >> XopFlags::LBIT_SHIFT) & XopFlags::LBIT_MASK) as u8) };
+		let mut last_byte = match lbit {
+			LBit::L1 | LBit::L256 => 4,
+			_ => 0,
+		};
 		let wbit: WBit = unsafe { mem::transmute(((dword2 >> XopFlags::WBIT_SHIFT) & XopFlags::WBIT_MASK) as u8) };
 		if wbit == WBit::W1 {
 			last_byte |= 0x80;
@@ -513,10 +516,18 @@ impl EvexHandler {
 		if wbit == WBit::W1 {
 			p1_bits |= 0x80
 		}
-		const_assert_eq!(3, EvexFlags::EVEX_VECTOR_LENGTH_MASK);
-		let ll_bits = (dword2 >> (EvexFlags::EVEX_VECTOR_LENGTH_SHIFT - 5)) & 0x60;
+		let lbit: LBit = unsafe { mem::transmute(((dword2 >> EvexFlags::LBIT_SHIFT) & EvexFlags::LBIT_MASK) as u8) };
+		let mut mask_ll = 0;
+		let ll_bits = match lbit {
+			LBit::LIG => {
+				mask_ll = 3 << 5;
+				0 << 5
+			}
+			LBit::L0 | LBit::LZ | LBit::L128 => 0 << 5,
+			LBit::L1 | LBit::L256 => 1 << 5,
+			LBit::L512 => 2 << 5,
+		};
 		let mask_w = if wbit == WBit::WIG { 0x80 } else { 0 };
-		let mask_ll = if (dword2 & EvexFlags::LIG) != 0 { 0x60 } else { 0 };
 
 		let mut operands;
 		let op0: EvexOpKind = unsafe { mem::transmute(((dword3 >> EvexFlags3::OP0_SHIFT) & EvexFlags3::OP_MASK) as u8) };
@@ -621,7 +632,7 @@ impl EvexHandler {
 				encoder.set_error_message_str("The instruction doesn't support opmask registers");
 			}
 		} else {
-			if (this.flags & EvexFlags::NON_ZERO_OP_MASK_REGISTER) != 0 {
+			if (this.flags & EvexFlags::REQUIRE_OP_MASK_REGISTER) != 0 {
 				encoder.set_error_message_str("The instruction must use an opmask register");
 			}
 		}

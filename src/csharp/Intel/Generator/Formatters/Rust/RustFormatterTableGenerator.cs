@@ -36,7 +36,7 @@ namespace Generator.Formatters.Rust {
 		public void Generate() {
 			var genTypes = generatorContext.Types;
 			var serializers = new List<IFormatterTableSerializer>();
-			var basePath = Path.Combine(generatorContext.RustDir, "formatter");
+			var basePath = Path.Combine(generatorContext.Types.Dirs.RustDir, "formatter");
 			if (genTypes.Options.HasGasFormatter)
 				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "gas", "fmt_data.rs"), genTypes.GetObject<Gas.CtorInfos>(TypeIds.GasCtorInfos).Infos, genTypes[TypeIds.GasCtorKind]));
 			if (genTypes.Options.HasIntelFormatter)

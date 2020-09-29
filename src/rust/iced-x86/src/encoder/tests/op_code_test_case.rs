@@ -49,7 +49,7 @@ pub(super) struct OpCodeInfoTestCase {
 	pub(super) can_use_rounding_control: bool,
 	pub(super) can_suppress_all_exceptions: bool,
 	pub(super) can_use_op_mask_register: bool,
-	pub(super) require_non_zero_op_mask_register: bool,
+	pub(super) require_op_mask_register: bool,
 	pub(super) can_use_zeroing_masking: bool,
 	pub(super) can_use_lock_prefix: bool,
 	pub(super) can_use_xacquire_prefix: bool,

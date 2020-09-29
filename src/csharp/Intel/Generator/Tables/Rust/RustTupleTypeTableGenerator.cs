@@ -38,7 +38,7 @@ namespace Generator.Tables.Rust {
 
 		public void Generate() {
 			var infos = generatorContext.Types.GetObject<TupleTypeTable>(TypeIds.TupleTypeTable).Data;
-			var filename = Path.Combine(generatorContext.RustDir, "tuple_type_tbl.rs");
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "tuple_type_tbl.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "TupleTypeTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

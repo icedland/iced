@@ -89,8 +89,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				case CtorKind.bcst:
 					v = reader.ReadCompressedUInt32();
-					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_bcst(s, (InstrOpInfoFlags)v, (InstrOpInfoFlags)v2);
+					instrInfo = new SimpleInstrInfo_bcst(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.bnd:

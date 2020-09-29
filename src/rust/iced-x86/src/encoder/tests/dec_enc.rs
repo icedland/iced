@@ -583,7 +583,7 @@ fn test_evex_k1_z_bits() {
 				&p2_values_k1z
 			}
 		} else if op_code.can_use_op_mask_register() {
-			if op_code.require_non_zero_op_mask_register() {
+			if op_code.require_op_mask_register() {
 				&p2_values_k1_fk
 			} else {
 				&p2_values_k1
@@ -2149,7 +2149,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				if !tested.op_mask {
 					get_vec(bitness, &mut opmask_16, &mut opmask_32, &mut opmask_64).push(code);
 				}
-				if !tested.no_op_mask && !op_code.require_non_zero_op_mask_register() {
+				if !tested.no_op_mask && !op_code.require_op_mask_register() {
 					get_vec(bitness, &mut noopmask_16, &mut noopmask_32, &mut noopmask_64).push(code);
 				}
 			}
@@ -2787,7 +2787,7 @@ fn test_invalid_zero_opmask_reg() {
 			continue;
 		}
 		let op_code = info.code().op_code();
-		if !op_code.require_non_zero_op_mask_register() {
+		if !op_code.require_op_mask_register() {
 			continue;
 		}
 

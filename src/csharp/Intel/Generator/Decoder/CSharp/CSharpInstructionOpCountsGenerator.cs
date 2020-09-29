@@ -56,7 +56,7 @@ namespace Generator.Decoder.CSharp {
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							foreach (var def in defs)
-								writer.WriteLine($"{def.OpCount},// {def.OpCodeInfo.Code.Name(idConverter)}");
+								writer.WriteLine($"{def.OpCount},// {def.Code.Name(idConverter)}");
 						}
 						writer.WriteLine("};");
 					}

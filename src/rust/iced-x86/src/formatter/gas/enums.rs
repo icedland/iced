@@ -52,7 +52,7 @@ pub(crate) enum CtorKind {
 	OpSize3,
 	os,
 	STi_ST,
-	STIG_1b,
+	sae,
 	CC_1,
 	CC_2,
 	CC_3,
@@ -66,16 +66,15 @@ pub(crate) enum CtorKind {
 	os_mem2,
 	os2_3,
 	os2_4,
-	STIG_1a,
+	STIG1,
 	pblendvb,
 	pclmulqdq,
 	pops,
 	mem16,
 	Reg32,
-	sae,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CTOR_KIND: [&str; 44] = [
+static GEN_DEBUG_CTOR_KIND: [&str; 43] = [
 	"Previous",
 	"Normal_1",
 	"Normal_2a",
@@ -99,7 +98,7 @@ static GEN_DEBUG_CTOR_KIND: [&str; 44] = [
 	"OpSize3",
 	"os",
 	"STi_ST",
-	"STIG_1b",
+	"sae",
 	"CC_1",
 	"CC_2",
 	"CC_3",
@@ -113,13 +112,12 @@ static GEN_DEBUG_CTOR_KIND: [&str; 44] = [
 	"os_mem2",
 	"os2_3",
 	"os2_4",
-	"STIG_1a",
+	"STIG1",
 	"pblendvb",
 	"pclmulqdq",
 	"pops",
 	"mem16",
 	"Reg32",
-	"sae",
 ];
 impl fmt::Debug for CtorKind {
 	#[inline]

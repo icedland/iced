@@ -292,7 +292,7 @@ pub enum Code {
 	///
 	/// `8086`
 	///
-	/// `16/32-bit`
+	/// `16-bit`
 	Popw_CS = 35,
 	/// `ADC r/m8, r8`
 	///
@@ -8846,7 +8846,7 @@ pub enum Code {
 	///
 	/// `64-bit`
 	VEX_Vcvtsi2sd_xmm_xmm_rm64 = 1104,
-	/// `VCVTSI2SD xmm1, xmm2, r/m32`
+	/// `VCVTSI2SD xmm1, xmm2, r/m32{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W0 2A /r`
 	///
@@ -14294,7 +14294,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32 = 1785,
-	/// `VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst`
+	/// `VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}`
 	///
 	/// `EVEX.512.F3.0F.W0 7A /r`
 	///
@@ -14438,7 +14438,7 @@ pub enum Code {
 	///
 	/// `64-bit`
 	EVEX_Vcvtusi2ss_xmm_xmm_rm64_er = 1803,
-	/// `VCVTUSI2SD xmm1, xmm2, r/m32`
+	/// `VCVTUSI2SD xmm1, xmm2, r/m32{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W0 7B /r`
 	///
@@ -19070,7 +19070,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32 = 2382,
-	/// `VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst`
+	/// `VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er}`
 	///
 	/// `EVEX.512.F3.0F.W0 E6 /r`
 	///

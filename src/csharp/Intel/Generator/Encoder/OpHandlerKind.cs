@@ -28,8 +28,6 @@ namespace Generator.Encoder {
 		OpHx,
 		OpI2,
 		OpIb,
-		OpIb11,
-		OpIb21,
 		OpId,
 		OpImm,
 		OpIq,

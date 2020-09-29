@@ -32,7 +32,7 @@ namespace Generator.InstructionInfo {
 	abstract class InstrInfoGenerator {
 		protected abstract void Generate(EnumType enumType);
 		protected abstract void Generate(ConstantsType constantsType);
-		protected abstract void Generate((InstrInfo info, uint dword1, uint dword2)[] infos);
+		protected abstract void Generate((InstructionDef def, uint dword1, uint dword2)[] infos);
 		protected abstract void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified);
 		protected abstract void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures);
 		protected abstract void GenerateCore();
@@ -72,32 +72,32 @@ namespace Generator.InstructionInfo {
 					(int)genTypes[TypeIds.InfoFlags1]["OpInfo4Shift"].Value,
 				};
 				var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
-				var instrInfos = new (InstrInfo info, uint dword1, uint dword2)[defs.Length];
+				var infos = new (InstructionDef def, uint dword1, uint dword2)[defs.Length];
 				for (int i = 0; i < defs.Length; i++) {
-					var info = defs[i].InstrInfo;
+					var def = defs[i];
 					uint dword1 = 0;
 					uint dword2 = 0;
 
-					for (int j = 0; j < info.OpInfoEnum.Length; j++)
-						dword1 |= info.OpInfoEnum[j].Value << shifts[j];
-					var rflagsInfo = info.RflagsInfo ?? throw new InvalidOperationException();
+					for (int j = 0; j < def.OpInfoEnum.Length; j++)
+						dword1 |= def.OpInfoEnum[j].Value << shifts[j];
+					var rflagsInfo = def.RflagsInfo ?? throw new InvalidOperationException();
 					dword1 |= rflagsInfo.Value << (int)InfoFlags1.RflagsInfoShift;
-					dword1 |= (uint)info.CodeInfo << (int)InfoFlags1.CodeInfoShift;
-					if ((info.Flags & InstrInfoFlags.SaveRestore) != 0) dword1 |= (uint)InfoFlags1.SaveRestore;
-					if ((info.Flags & InstrInfoFlags.StackInstruction) != 0) dword1 |= (uint)InfoFlags1.StackInstruction;
-					if ((info.Flags & InstrInfoFlags.ProtectedMode) != 0) dword1 |= (uint)InfoFlags1.ProtectedMode;
-					if ((info.Flags & InstrInfoFlags.Privileged) != 0) dword1 |= (uint)InfoFlags1.Privileged;
-					if ((info.Flags & InstrInfoFlags.NoSegmentRead) != 0) dword1 |= (uint)InfoFlags1.NoSegmentRead;
+					dword1 |= (uint)def.CodeInfo << (int)InfoFlags1.CodeInfoShift;
+					if ((def.Flags1 & InstructionDefFlags1.SaveRestore) != 0) dword1 |= (uint)InfoFlags1.SaveRestore;
+					if ((def.Flags1 & InstructionDefFlags1.StackInstruction) != 0) dword1 |= (uint)InfoFlags1.StackInstruction;
+					if ((def.Flags2 & InstructionDefFlags2.ProtectedMode) != 0) dword1 |= (uint)InfoFlags1.ProtectedMode;
+					if (def.IsPrivileged) dword1 |= (uint)InfoFlags1.Privileged;
+					if ((def.Flags1 & InstructionDefFlags1.IgnoreSegment) != 0) dword1 |= (uint)InfoFlags1.IgnoreSegment;
 
-					dword2 |= info.Encoding.Value << (int)InfoFlags2.EncodingShift;
-					if ((info.Flags & InstrInfoFlags.OpMaskRegReadWrite) != 0) dword2 |= (uint)InfoFlags2.OpMaskRegReadWrite;
-					dword2 |= info.FlowControl.Value << (int)InfoFlags2.FlowControlShift;
-					var cpuidInternal = info.CpuidInternal ?? throw new InvalidOperationException();
+					dword2 |= def.EncodingValue.Value << (int)InfoFlags2.EncodingShift;
+					if ((def.Flags1 & InstructionDefFlags1.OpMaskReadWrite) != 0) dword2 |= (uint)InfoFlags2.OpMaskReadWrite;
+					dword2 |= def.ControlFlow.Value << (int)InfoFlags2.FlowControlShift;
+					var cpuidInternal = def.CpuidInternal ?? throw new InvalidOperationException();
 					dword2 |= cpuidInternal.Value << (int)InfoFlags2.CpuidFeatureInternalShift;
 
-					instrInfos[i] = (info, dword1, dword2);
+					infos[i] = (def, dword1, dword2);
 				}
-				Generate(instrInfos);
+				Generate(infos);
 			}
 
 			{

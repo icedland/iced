@@ -60,24 +60,24 @@ namespace Generator.Decoder.CSharp {
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							foreach (var def in defs) {
-								if (def.Mem.Value > byte.MaxValue)
+								if (def.Memory.Value > byte.MaxValue)
 									throw new InvalidOperationException();
 								string value;
-								if (def.Mem.Value == 0)
+								if (def.Memory.Value == 0)
 									value = "0";
 								else
-									value = $"(byte){memSizeName}.{def.Mem.Name(idConverter)}";
-								writer.WriteLine($"{value},// {def.OpCodeInfo.Code.Name(idConverter)}");
+									value = $"(byte){memSizeName}.{def.Memory.Name(idConverter)}";
+								writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 							}
 							foreach (var def in defs) {
-								if (def.Bcst.Value > byte.MaxValue)
+								if (def.MemoryBroadcast.Value > byte.MaxValue)
 									throw new InvalidOperationException();
 								string value;
-								if (def.Bcst.Value == 0)
+								if (def.MemoryBroadcast.Value == 0)
 									value = "0";
 								else
-									value = $"(byte){memSizeName}.{def.Bcst.Name(idConverter)}";
-								writer.WriteLine($"{value},// {def.OpCodeInfo.Code.Name(idConverter)}");
+									value = $"(byte){memSizeName}.{def.MemoryBroadcast.Name(idConverter)}";
+								writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 							}
 						}
 						writer.WriteLine("};");

@@ -23,12 +23,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
+using Generator.Tables;
 
 namespace Generator.Formatters.Fast {
 	[TypeGen(TypeGenOrders.PreCreateInstructions)]
 	sealed class FmtTblInfos : ICreatedInstructions {
-		public object[][] Infos {
+		public FastFmtInstructionDef[] Infos {
 			get {
 				if (!filtered)
 					throw new InvalidOperationException();
@@ -36,16 +38,17 @@ namespace Generator.Formatters.Fast {
 			}
 		}
 
-		object[][] infos;
+		FastFmtInstructionDef[] infos;
 		bool filtered;
 
 		FmtTblInfos(GenTypes genTypes) {
-			infos = FmtTblInfosData.GetData(genTypes);
+			infos = Array.Empty<FastFmtInstructionDef>();
 			genTypes.AddObject(TypeIds.FastFmtTblInfos, this);
 		}
 
 		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) {
-			infos = Utils.Filter(filteredCodeValues, infos, FmtTblInfosData.CodeValueIndex);
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
+			infos = defs.Select(a => a.Fast).ToArray();
 			filtered = true;
 		}
 	}

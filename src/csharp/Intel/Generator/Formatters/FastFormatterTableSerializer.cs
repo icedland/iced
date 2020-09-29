@@ -28,12 +28,24 @@ using Generator.Enums.Formatter.Fast;
 using Generator.IO;
 
 namespace Generator.Formatters {
+	sealed class FastFmtInstructionDef {
+		public readonly EnumValue Code;
+		public readonly string Mnemonic;
+		public readonly IEnumValue Flags;
+
+		public FastFmtInstructionDef(EnumValue code, string mnemonic, IEnumValue flags) {
+			Code = code;
+			Mnemonic = mnemonic;
+			Flags = flags;
+		}
+	}
+
 	abstract class FastFormatterTableSerializer : IFormatterTableSerializer {
-		readonly object[][] infos;
+		readonly FastFmtInstructionDef[] defs;
 		readonly IdentifierConverter idConverter;
 
-		protected FastFormatterTableSerializer(object[][] infos, IdentifierConverter idConverter) {
-			this.infos = infos;
+		protected FastFormatterTableSerializer(FastFmtInstructionDef[] infos, IdentifierConverter idConverter) {
+			this.defs = infos;
 			this.idConverter = idConverter;
 		}
 
@@ -41,17 +53,11 @@ namespace Generator.Formatters {
 
 		public void Initialize(GenTypes genTypes, StringsTable stringsTable) {
 			var expectedLength = genTypes[TypeIds.Code].Values.Length;
-			if (infos.Length != expectedLength)
-				throw new InvalidOperationException($"Found {infos.Length} elements, expected {expectedLength}");
-			for (int i = 0; i < infos.Length; i++) {
-				var info = infos[i];
-				bool ignoreVPrefix = true;
-				foreach (var o in info) {
-					if (o is string s) {
-						stringsTable.Add((uint)i, s, ignoreVPrefix);
-						ignoreVPrefix = false;
-					}
-				}
+			if (defs.Length != expectedLength)
+				throw new InvalidOperationException($"Found {defs.Length} elements, expected {expectedLength}");
+			for (int i = 0; i < defs.Length; i++) {
+				var def = defs[i];
+				stringsTable.Add((uint)i, def.Mnemonic, true);
 			}
 		}
 
@@ -65,11 +71,9 @@ namespace Generator.Formatters {
 			var flagsValues = new List<EnumValue>();
 			int index = -1;
 			uint prevMnemonicStringIndex = uint.MaxValue;
-			foreach (var info in infos) {
-				if (info.Length < 2)
-					throw new InvalidOperationException();
+			foreach (var def in defs) {
 				index++;
-				var code = (EnumValue)info[0];
+				var code = def.Code;
 				if (code.Value != (uint)index)
 					throw new InvalidOperationException();
 				flagsValues.Clear();
@@ -78,8 +82,9 @@ namespace Generator.Formatters {
 					writer.WriteLine();
 				writer.WriteCommentLine(code.ToStringValue(idConverter));
 
-				var mnemonic = info[1] as string ?? throw new InvalidOperationException();
+				var mnemonic = def.Mnemonic;
 				uint mnemonicStringIndex = stringsTable.GetIndex(mnemonic, ignoreVPrefix: true, out var hasVPrefix);
+				var flags = def.Flags;
 				if (hasVPrefix)
 					flagsValues.Add(hasVPrefixEnum);
 				bool isSame = false;
@@ -88,26 +93,12 @@ namespace Generator.Formatters {
 					flagsValues.Add(sameAsPrevEnum);
 				}
 
-				for (int i = 2; i < info.Length; i++) {
-					switch (info[i]) {
-					case IEnumValue enumValue:
-						var typeId = enumValue.DeclaringType.TypeId;
-						if (typeId == TypeIds.FastFmtFlags) {
-							if (enumValue is EnumValue enumValue2)
-								flagsValues.Add(enumValue2);
-							else if (enumValue is OrEnumValue orEnumValue)
-								flagsValues.AddRange(orEnumValue.Values);
-							else
-								throw new InvalidOperationException();
-						}
-						else
-							throw new InvalidOperationException();
-						break;
-
-					default:
-						throw new InvalidOperationException();
-					}
-				}
+				if (def.Flags is EnumValue flags2)
+					flagsValues.Add(flags2);
+				else if (def.Flags is OrEnumValue flags3)
+					flagsValues.AddRange(flags3.Values);
+				else
+					throw new InvalidOperationException();
 
 				uint flagsValue = 0;
 				foreach (var enumValue in flagsValues)
@@ -115,18 +106,11 @@ namespace Generator.Formatters {
 				if (flagsValue > byte.MaxValue)
 					throw new InvalidOperationException();
 				writer.WriteByte((byte)flagsValue);
-				string comment;
-				switch (flagsValues.Count) {
-				case 0:
-					comment = "No flags set";
-					break;
-				case 1:
-					comment = flagsValues[0].ToStringValue(idConverter);
-					break;
-				default:
-					comment = new OrEnumValue(fastFmtFlags, flagsValues.ToArray()).ToStringValue(idConverter);
-					break;
-				}
+				string comment = flagsValues.Count switch {
+					0 => "No flags set",
+					1 => flagsValues[0].ToStringValue(idConverter),
+					_ => new OrEnumValue(fastFmtFlags, flagsValues.ToArray()).ToStringValue(idConverter),
+				};
 				writer.WriteCommentLine(comment);
 
 				// We save 4KB (11,595 -> 7,435 bytes)

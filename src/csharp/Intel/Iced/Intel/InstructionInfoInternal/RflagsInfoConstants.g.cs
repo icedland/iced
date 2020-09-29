@@ -30,7 +30,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 	static class RflagsInfoConstants {
 		public static readonly ushort[] flagsRead = new ushort[60] {
 			0x0000,// None
-			0x0000,// C_AC
+			0x0000,// C_A
 			0x0000,// C_acopsz
 			0x0000,// C_acos_S_pz
 			0x0000,// C_c
@@ -40,8 +40,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0008,// R_a_W_ac_U_opsz
 			0x0018,// R_ac_W_acpsz_U_o
 			0x00FF,// R_acopszid
-			0x01FF,// R_acopszidAC
-			0x01FF,// R_acopszidAC_W_acopszidAC
+			0x01FF,// R_acopszidA
+			0x01FF,// R_acopszidA_W_acopszidA
 			0x003E,// R_acpsz
 			0x0010,// R_c
 			0x0010,// R_c_W_acopsz
@@ -58,14 +58,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0020,// R_p
 			0x0002,// R_s
 			0x0004,// R_z
-			0x0000,// S_AC
+			0x0000,// S_A
 			0x0000,// S_c
 			0x0000,// S_d
 			0x0000,// S_i
 			0x0000,// U_acopsz
 			0x0000,// W_acopsz
 			0x0000,// W_acopszid
-			0x0000,// W_acopszidAC
+			0x0000,// W_acopszidA
 			0x0000,// W_acpsz
 			0x0000,// W_aopsz
 			0x0000,// W_c
@@ -92,7 +92,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		};
 		public static readonly ushort[] flagsUndefined = new ushort[60] {
 			0x0000,// None
-			0x0000,// C_AC
+			0x0000,// C_A
 			0x0000,// C_acopsz
 			0x0000,// C_acos_S_pz
 			0x0000,// C_c
@@ -102,8 +102,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0027,// R_a_W_ac_U_opsz
 			0x0001,// R_ac_W_acpsz_U_o
 			0x0000,// R_acopszid
-			0x0000,// R_acopszidAC
-			0x0000,// R_acopszidAC_W_acopszidAC
+			0x0000,// R_acopszidA
+			0x0000,// R_acopszidA_W_acopszidA
 			0x0000,// R_acpsz
 			0x0000,// R_c
 			0x0000,// R_c_W_acopsz
@@ -120,14 +120,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// R_p
 			0x0000,// R_s
 			0x0000,// R_z
-			0x0000,// S_AC
+			0x0000,// S_A
 			0x0000,// S_c
 			0x0000,// S_d
 			0x0000,// S_i
 			0x003F,// U_acopsz
 			0x0000,// W_acopsz
 			0x0000,// W_acopszid
-			0x0000,// W_acopszidAC
+			0x0000,// W_acopszidA
 			0x0000,// W_acpsz
 			0x0000,// W_aopsz
 			0x0000,// W_c
@@ -154,7 +154,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		};
 		public static readonly ushort[] flagsWritten = new ushort[60] {
 			0x0000,// None
-			0x0000,// C_AC
+			0x0000,// C_A
 			0x0000,// C_acopsz
 			0x0000,// C_acos_S_pz
 			0x0000,// C_c
@@ -164,8 +164,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0018,// R_a_W_ac_U_opsz
 			0x003E,// R_ac_W_acpsz_U_o
 			0x0000,// R_acopszid
-			0x0000,// R_acopszidAC
-			0x01FF,// R_acopszidAC_W_acopszidAC
+			0x0000,// R_acopszidA
+			0x01FF,// R_acopszidA_W_acopszidA
 			0x0000,// R_acpsz
 			0x0000,// R_c
 			0x003F,// R_c_W_acopsz
@@ -182,14 +182,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// R_p
 			0x0000,// R_s
 			0x0000,// R_z
-			0x0000,// S_AC
+			0x0000,// S_A
 			0x0000,// S_c
 			0x0000,// S_d
 			0x0000,// S_i
 			0x0000,// U_acopsz
 			0x003F,// W_acopsz
 			0x00FF,// W_acopszid
-			0x01FF,// W_acopszidAC
+			0x01FF,// W_acopszidA
 			0x003E,// W_acpsz
 			0x002F,// W_aopsz
 			0x0010,// W_c
@@ -216,7 +216,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		};
 		public static readonly ushort[] flagsCleared = new ushort[60] {
 			0x0000,// None
-			0x0100,// C_AC
+			0x0100,// C_A
 			0x003F,// C_acopsz
 			0x001B,// C_acos_S_pz
 			0x0010,// C_c
@@ -226,8 +226,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// R_a_W_ac_U_opsz
 			0x0000,// R_ac_W_acpsz_U_o
 			0x0000,// R_acopszid
-			0x0000,// R_acopszidAC
-			0x0000,// R_acopszidAC_W_acopszidAC
+			0x0000,// R_acopszidA
+			0x0000,// R_acopszidA_W_acopszidA
 			0x0000,// R_acpsz
 			0x0000,// R_c
 			0x0000,// R_c_W_acopsz
@@ -244,14 +244,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// R_p
 			0x0000,// R_s
 			0x0000,// R_z
-			0x0000,// S_AC
+			0x0000,// S_A
 			0x0000,// S_c
 			0x0000,// S_d
 			0x0000,// S_i
 			0x0000,// U_acopsz
 			0x0000,// W_acopsz
 			0x0000,// W_acopszid
-			0x0000,// W_acopszidAC
+			0x0000,// W_acopszidA
 			0x0000,// W_acpsz
 			0x0000,// W_aopsz
 			0x0000,// W_c
@@ -278,7 +278,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		};
 		public static readonly ushort[] flagsSet = new ushort[60] {
 			0x0000,// None
-			0x0000,// C_AC
+			0x0000,// C_A
 			0x0000,// C_acopsz
 			0x0024,// C_acos_S_pz
 			0x0000,// C_c
@@ -288,8 +288,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// R_a_W_ac_U_opsz
 			0x0000,// R_ac_W_acpsz_U_o
 			0x0000,// R_acopszid
-			0x0000,// R_acopszidAC
-			0x0000,// R_acopszidAC_W_acopszidAC
+			0x0000,// R_acopszidA
+			0x0000,// R_acopszidA_W_acopszidA
 			0x0000,// R_acpsz
 			0x0000,// R_c
 			0x0000,// R_c_W_acopsz
@@ -306,14 +306,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// R_p
 			0x0000,// R_s
 			0x0000,// R_z
-			0x0100,// S_AC
+			0x0100,// S_A
 			0x0010,// S_c
 			0x0040,// S_d
 			0x0080,// S_i
 			0x0000,// U_acopsz
 			0x0000,// W_acopsz
 			0x0000,// W_acopszid
-			0x0000,// W_acopszidAC
+			0x0000,// W_acopszidA
 			0x0000,// W_acpsz
 			0x0000,// W_aopsz
 			0x0000,// W_c
@@ -340,7 +340,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		};
 		public static readonly ushort[] flagsModified = new ushort[60] {
 			0x0000,// None
-			0x0100,// C_AC
+			0x0100,// C_A
 			0x003F,// C_acopsz
 			0x003F,// C_acos_S_pz
 			0x0010,// C_c
@@ -350,8 +350,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x003F,// R_a_W_ac_U_opsz
 			0x003F,// R_ac_W_acpsz_U_o
 			0x0000,// R_acopszid
-			0x0000,// R_acopszidAC
-			0x01FF,// R_acopszidAC_W_acopszidAC
+			0x0000,// R_acopszidA
+			0x01FF,// R_acopszidA_W_acopszidA
 			0x0000,// R_acpsz
 			0x0000,// R_c
 			0x003F,// R_c_W_acopsz
@@ -368,14 +368,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// R_p
 			0x0000,// R_s
 			0x0000,// R_z
-			0x0100,// S_AC
+			0x0100,// S_A
 			0x0010,// S_c
 			0x0040,// S_d
 			0x0080,// S_i
 			0x003F,// U_acopsz
 			0x003F,// W_acopsz
 			0x00FF,// W_acopszid
-			0x01FF,// W_acopszidAC
+			0x01FF,// W_acopszidA
 			0x003E,// W_acpsz
 			0x002F,// W_aopsz
 			0x0010,// W_c

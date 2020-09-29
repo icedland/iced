@@ -178,6 +178,13 @@ namespace Iced.Intel {
 			if ((uint)operand >= (uint)operands.Length)
 				throw new ArgumentOutOfRangeException(nameof(operand), $"{code} doesn't have at least {operand + 1} operands");
 			var opKind = operands[operand].GetImmediateOpKind();
+			if (opKind == OpKind.Immediate8 &&
+				operand > 0 &&
+				operand + 1 == operands.Length &&
+				operands[operand - 1].GetImmediateOpKind() is OpKind opKindPrev &&
+				(opKindPrev == OpKind.Immediate8 || opKindPrev == OpKind.Immediate16)) {
+				opKind = OpKind.Immediate8_2nd;
+			}
 			if (opKind == (OpKind)(-1))
 				throw new ArgumentException($"{code}'s op{operand} isn't an immediate operand");
 			return opKind;

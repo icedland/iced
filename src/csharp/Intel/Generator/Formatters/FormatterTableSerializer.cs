@@ -26,13 +26,27 @@ using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Formatters {
+	sealed class FmtInstructionDef {
+		public readonly EnumValue Code;
+		public readonly string Mnemonic;
+		public readonly EnumValue CtorKind;
+		public readonly object[] Args;
+
+		public FmtInstructionDef(EnumValue code, string mnemonic, EnumValue ctorKind, object[] args) {
+			Code = code;
+			Mnemonic = mnemonic;
+			CtorKind = ctorKind;
+			Args = args;
+		}
+	}
+
 	abstract class FormatterTableSerializer : IFormatterTableSerializer {
-		protected readonly object[][] infos;
+		protected readonly FmtInstructionDef[] defs;
 		protected readonly IdentifierConverter idConverter;
 		readonly EnumValue previousCtorKind;
 
-		protected FormatterTableSerializer(object[][] infos, IdentifierConverter idConverter, EnumValue previousCtorKind) {
-			this.infos = infos;
+		protected FormatterTableSerializer(FmtInstructionDef[] infos, IdentifierConverter idConverter, EnumValue previousCtorKind) {
+			this.defs = infos;
 			this.idConverter = idConverter;
 			this.previousCtorKind = previousCtorKind;
 		}
@@ -41,16 +55,14 @@ namespace Generator.Formatters {
 
 		public void Initialize(GenTypes genTypes, StringsTable stringsTable) {
 			var expectedLength = genTypes[TypeIds.Code].Values.Length;
-			if (infos.Length != expectedLength)
-				throw new InvalidOperationException($"Found {infos.Length} elements, expected {expectedLength}");
-			for (int i = 0; i < infos.Length; i++) {
-				var info = infos[i];
-				bool ignoreVPrefix = true;
-				foreach (var o in info) {
-					if (o is string s) {
-						stringsTable.Add((uint)i, s, ignoreVPrefix);
-						ignoreVPrefix = false;
-					}
+			if (defs.Length != expectedLength)
+				throw new InvalidOperationException($"Found {defs.Length} elements, expected {expectedLength}");
+			for (int i = 0; i < defs.Length; i++) {
+				var def = defs[i];
+				stringsTable.Add((uint)i, def.Mnemonic, true);
+				foreach (var o in def.Args) {
+					if (o is string s)
+						stringsTable.Add((uint)i, s, false);
 				}
 			}
 		}
@@ -59,11 +71,11 @@ namespace Generator.Formatters {
 
 		protected void SerializeTable(FileWriter writer, StringsTable stringsTable) {
 			int index = -1;
-			for (int i = 0; i < infos.Length; i++) {
-				var info = infos[i];
+			for (int i = 0; i < defs.Length; i++) {
+				var def = defs[i];
 				index++;
-				var ctorKind = (EnumValue)info[0];
-				var code = (EnumValue)info[Utils.CodeValueIndex];
+				var ctorKind = def.CtorKind;
+				var code = def.Code;
 				if (code.Value != (uint)index)
 					throw new InvalidOperationException();
 
@@ -71,33 +83,29 @@ namespace Generator.Formatters {
 					writer.WriteLine();
 				writer.WriteCommentLine(code.ToStringValue(idConverter));
 
-				bool isSame = i > 0 && IsSame(infos[i - 1], info);
+				bool isSame = i > 0 && IsSame(defs[i - 1], def);
 				if (isSame)
 					ctorKind = previousCtorKind;
 
-				if ((uint)ctorKind.Value > 0x7F)
+				uint si = stringsTable.GetIndex(def.Mnemonic, ignoreVPrefix: true, out bool hasVPrefix);
+				if (ctorKind.Value > 0x7F)
 					throw new InvalidOperationException();
-				uint firstStringIndex = GetFirstStringIndex(stringsTable, info, out bool hasVPrefix);
-				writer.WriteByte((byte)((uint)ctorKind.Value | (hasVPrefix ? 0x80U : 0)));
+				writer.WriteByte((byte)(ctorKind.Value | (hasVPrefix ? 0x80U : 0)));
 				if (hasVPrefix)
 					writer.WriteCommentLine($"'v', {ctorKind.ToStringValue(idConverter)}");
 				else
 					writer.WriteCommentLine($"{ctorKind.ToStringValue(idConverter)}");
 				if (isSame)
 					continue;
-				uint si;
-				for (int j = 2; j < info.Length; j++) {
-					switch (info[j]) {
+
+				writer.WriteCompressedUInt32(si);
+				writer.WriteCommentLine($"{si} = \"{def.Mnemonic}\"");
+				foreach (var arg in def.Args) {
+					switch (arg) {
 					case string s:
-						if (firstStringIndex != uint.MaxValue) {
-							si = firstStringIndex;
-							firstStringIndex = uint.MaxValue;
-						}
-						else {
-							si = stringsTable.GetIndex(s, ignoreVPrefix: true, out hasVPrefix);
-							if (hasVPrefix)
-								throw new InvalidOperationException();
-						}
+						si = stringsTable.GetIndex(s, ignoreVPrefix: true, out hasVPrefix);
+						if (hasVPrefix)
+							throw new InvalidOperationException();
 						writer.WriteCompressedUInt32(si);
 						writer.WriteCommentLine($"{si} = \"{s}\"");
 						break;
@@ -125,47 +133,47 @@ namespace Generator.Formatters {
 					case IEnumValue enumValue:
 						var typeId = enumValue.DeclaringType.TypeId;
 						if (typeId == TypeIds.GasInstrOpInfoFlags) {
-							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
+							writer.WriteCompressedUInt32(enumValue.Value);
+							writer.WriteCommentLine($"0x{enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 						}
 						else if (typeId == TypeIds.IntelInstrOpInfoFlags) {
-							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
+							writer.WriteCompressedUInt32(enumValue.Value);
+							writer.WriteCommentLine($"0x{enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 						}
 						else if (typeId == TypeIds.MasmInstrOpInfoFlags) {
-							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
+							writer.WriteCompressedUInt32(enumValue.Value);
+							writer.WriteCommentLine($"0x{enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 						}
 						else if (typeId == TypeIds.NasmInstrOpInfoFlags) {
-							writer.WriteCompressedUInt32((uint)enumValue.Value);
-							writer.WriteCommentLine($"0x{(uint)enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
+							writer.WriteCompressedUInt32(enumValue.Value);
+							writer.WriteCommentLine($"0x{enumValue.Value:X} = {enumValue.ToStringValue(idConverter)}");
 						}
 						else if (typeId == TypeIds.PseudoOpsKind) {
-							if ((uint)enumValue.Value > byte.MaxValue)
+							if (enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 						}
 						else if (typeId == TypeIds.CodeSize) {
-							if ((uint)enumValue.Value > byte.MaxValue)
+							if (enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 						}
 						else if (typeId == TypeIds.Register) {
-							if ((uint)enumValue.Value > byte.MaxValue)
+							if (enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 						}
 						else if (typeId == TypeIds.MemorySize) {
-							if ((uint)enumValue.Value > byte.MaxValue)
+							if (enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 						}
 						else if (typeId == TypeIds.NasmSignExtendInfo) {
-							if ((uint)enumValue.Value > byte.MaxValue)
+							if (enumValue.Value > byte.MaxValue)
 								throw new InvalidOperationException();
 							writer.WriteByte((byte)enumValue.Value);
 							writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
@@ -181,23 +189,19 @@ namespace Generator.Formatters {
 			}
 		}
 
-		static uint GetFirstStringIndex(StringsTable stringsTable, object[] info, out bool hasVPrefix) {
-			if (!(info[2] is string s))
-				throw new InvalidOperationException();
-			return stringsTable.GetIndex(s, ignoreVPrefix: true, out hasVPrefix);
+		static bool IsSame(FmtInstructionDef a, FmtInstructionDef b) {
+			if (a.CtorKind != b.CtorKind)
+				return false;
+			if (!StringComparer.Ordinal.Equals(a.Mnemonic, b.Mnemonic))
+				return false;
+
+			return IsSame(a.Args, b.Args);
 		}
 
 		static bool IsSame(object[] a, object[] b) {
 			if (a.Length != b.Length)
 				return false;
 			for (int i = 0; i < a.Length; i++) {
-				if (i == 1) {
-					if (!(a[i] is EnumValue eva && eva.DeclaringType.TypeId == TypeIds.Code) ||
-						!(b[i] is EnumValue evb && evb.DeclaringType.TypeId == TypeIds.Code)) {
-						throw new InvalidOperationException();
-					}
-					continue;
-				}
 				bool same;
 				if (a[i] is string sa && b[i] is string sb)
 					same = StringComparer.Ordinal.Equals(sa, sb);

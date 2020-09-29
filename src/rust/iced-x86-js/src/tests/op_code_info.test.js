@@ -54,7 +54,7 @@ test("OpCodeInfo", () => {
 	expect(info1.canUseRoundingControl).toBe(false);
 	expect(info1.canSuppressAllExceptions).toBe(false);
 	expect(info1.canUseOpMaskRegister).toBe(false);
-	expect(info1.requireNonZeroOpMaskRegister).toBe(false);
+	expect(info1.requireOpMaskRegister).toBe(false);
 	expect(info1.canUseZeroingMasking).toBe(false);
 	expect(info1.canUseLockPrefix).toBe(true);
 	expect(info1.canUseXacquirePrefix).toBe(true);

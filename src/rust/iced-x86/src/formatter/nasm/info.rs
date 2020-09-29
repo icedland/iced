@@ -1370,19 +1370,18 @@ impl InstrInfo for SimpleInstrInfo_sae {
 pub(super) struct SimpleInstrInfo_bcst {
 	mnemonic: FormatterString,
 	flags_no_broadcast: u32,
-	flags_broadcast: u32,
 }
 
 impl SimpleInstrInfo_bcst {
-	pub(super) fn new(mnemonic: String, flags_no_broadcast: u32, flags_broadcast: u32) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), flags_no_broadcast, flags_broadcast }
+	pub(super) fn new(mnemonic: String, flags_no_broadcast: u32) -> Self {
+		Self { mnemonic: FormatterString::new(mnemonic), flags_no_broadcast }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_bcst {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let bcst_to = (&*MEM_SIZE_TBL)[instruction.memory_size() as usize].bcst_to;
-		let flags = if !bcst_to.is_default() { self.flags_broadcast } else { self.flags_no_broadcast };
+		let flags = if !bcst_to.is_default() { InstrOpInfoFlags::NONE } else { self.flags_no_broadcast };
 		InstrOpInfo::new(&self.mnemonic, instruction, flags)
 	}
 }

@@ -494,10 +494,6 @@ pub(super) struct SimpleInstrInfo_STIG1 {
 }
 
 impl SimpleInstrInfo_STIG1 {
-	pub(super) fn with_mnemonic(mnemonic: String) -> Self {
-		SimpleInstrInfo_STIG1::new(mnemonic, false)
-	}
-
 	pub(super) fn new(mnemonic: String, pseudo_op: bool) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), pseudo_op }
 	}

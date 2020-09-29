@@ -193,7 +193,7 @@ lazy_static! {
 		h.insert("er", OpCodeInfoFlags::ROUNDING_CONTROL);
 		h.insert("sae", OpCodeInfoFlags::SUPPRESS_ALL_EXCEPTIONS);
 		h.insert("k", OpCodeInfoFlags::OP_MASK_REGISTER);
-		h.insert("knz", OpCodeInfoFlags::REQUIRE_NON_ZERO_OP_MASK_REGISTER);
+		h.insert("knz", OpCodeInfoFlags::REQUIRE_OP_MASK_REGISTER);
 		h.insert("z", OpCodeInfoFlags::ZEROING_MASKING);
 		h.insert("lock", OpCodeInfoFlags::LOCK_PREFIX);
 		h.insert("xacquire", OpCodeInfoFlags::XACQUIRE_PREFIX);
@@ -236,7 +236,7 @@ impl OpCodeInfoFlags {
 	pub(crate) const ROUNDING_CONTROL: u32 = 22;
 	pub(crate) const SUPPRESS_ALL_EXCEPTIONS: u32 = 23;
 	pub(crate) const OP_MASK_REGISTER: u32 = 24;
-	pub(crate) const REQUIRE_NON_ZERO_OP_MASK_REGISTER: u32 = 25;
+	pub(crate) const REQUIRE_OP_MASK_REGISTER: u32 = 25;
 	pub(crate) const ZEROING_MASKING: u32 = 26;
 	pub(crate) const LOCK_PREFIX: u32 = 27;
 	pub(crate) const XACQUIRE_PREFIX: u32 = 28;
@@ -402,9 +402,9 @@ impl IntoIter {
 					OpCodeInfoFlags::SUPPRESS_ALL_EXCEPTIONS => tc.can_suppress_all_exceptions = true,
 					OpCodeInfoFlags::OP_MASK_REGISTER => tc.can_use_op_mask_register = true,
 
-					OpCodeInfoFlags::REQUIRE_NON_ZERO_OP_MASK_REGISTER => {
+					OpCodeInfoFlags::REQUIRE_OP_MASK_REGISTER => {
 						tc.can_use_op_mask_register = true;
-						tc.require_non_zero_op_mask_register = true;
+						tc.require_op_mask_register = true;
 					}
 
 					OpCodeInfoFlags::ZEROING_MASKING => tc.can_use_zeroing_masking = true,

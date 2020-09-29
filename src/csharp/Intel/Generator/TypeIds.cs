@@ -119,9 +119,6 @@ namespace Generator {
 		public static readonly TypeId EvexOpKind = new TypeId(nameof(EvexOpKind));
 		public static readonly TypeId MandatoryPrefix = new TypeId(nameof(MandatoryPrefix));
 		public static readonly TypeId OpCodeTableKind = new TypeId(nameof(OpCodeTableKind));
-		public static readonly TypeId VexVectorLength = new TypeId(nameof(VexVectorLength));
-		public static readonly TypeId XopVectorLength = new TypeId(nameof(XopVectorLength));
-		public static readonly TypeId EvexVectorLength = new TypeId(nameof(EvexVectorLength));
 		public static readonly TypeId DisplSize = new TypeId(nameof(DisplSize));
 		public static readonly TypeId ImmSize = new TypeId(nameof(ImmSize));
 		public static readonly TypeId EncoderFlags = new TypeId(nameof(EncoderFlags));
@@ -137,6 +134,7 @@ namespace Generator {
 		public static readonly TypeId EvexFlags = new TypeId(nameof(EvexFlags));
 		public static readonly TypeId D3nowFlags = new TypeId(nameof(D3nowFlags));
 		public static readonly TypeId WBit = new TypeId(nameof(WBit));
+		public static readonly TypeId LBit = new TypeId(nameof(LBit));
 		public static readonly TypeId OpCodeInfoKeys = new TypeId(nameof(OpCodeInfoKeys));
 		public static readonly TypeId OpCodeInfoFlags = new TypeId(nameof(OpCodeInfoFlags));
 		public static readonly TypeId LKind = new TypeId(nameof(LKind));

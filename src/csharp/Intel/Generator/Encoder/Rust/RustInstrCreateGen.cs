@@ -48,7 +48,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.Rust, "Create", Path.Combine(generatorContext.RustDir, "instruction.rs"));
+			(TargetLanguage.Rust, "Create", Path.Combine(generatorContext.Types.Dirs.RustDir, "instruction.rs"));
 
 		void WriteDocs(FileWriter writer, CreateMethod method, Action? writePanics = null) =>
 			gen.WriteDocs(writer, method, "Panics", writePanics);

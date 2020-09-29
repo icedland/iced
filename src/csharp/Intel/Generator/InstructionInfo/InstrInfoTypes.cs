@@ -35,7 +35,6 @@ namespace Generator.InstructionInfo {
 		InstrInfoTypes(GenTypes genTypes) {
 			var gen = new InstrInfoTypesGen(genTypes);
 			gen.Generate();
-			genTypes.Add(gen.EnumCodeInfo ?? throw new InvalidOperationException());
 			genTypes.Add(gen.EnumRflagsInfo ?? throw new InvalidOperationException());
 			EnumOpInfos = gen.EnumOpInfos ?? throw new InvalidOperationException();
 			foreach (var enumType in EnumOpInfos)

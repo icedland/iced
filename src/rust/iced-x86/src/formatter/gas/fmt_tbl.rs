@@ -78,7 +78,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			strings[reader.read_compressed_u32() as usize].clone()
 		};
 
-		let mut c;
+		let c;
 		let v;
 		let v2;
 		let v3;
@@ -159,7 +159,6 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				let s2 = add_suffix(&s, c);
 				v = reader.read_compressed_u32();
 				let s3 = strings[reader.read_compressed_u32() as usize].clone();
-				c = reader.read_u8() as u8 as char;
 				let s4 = add_suffix(&s3, c);
 				Box::new(SimpleInstrInfo_movabs::new(v, s, s2, s3, s4))
 			}
@@ -349,9 +348,8 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				}
 				Box::new(SimpleInstrInfo_STi_ST::new(s, v != 0))
 			}
-			CtorKind::STIG_1a => Box::new(SimpleInstrInfo_STIG1::with_mnemonic(s)),
 
-			CtorKind::STIG_1b => {
+			CtorKind::STIG1 => {
 				v = reader.read_u8() as u32;
 				if v > 1 {
 					panic!();

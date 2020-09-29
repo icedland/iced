@@ -551,21 +551,35 @@ pub(crate) fn initialize_unsigned_immediate(instruction: &mut Instruction, opera
 #[cfg(feature = "encoder")]
 pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
-	if operand >= operands.len() {
+	if let Some(op) = operands.get(operand) {
+		match op.immediate_op_kind() {
+			Some(op_kind) => {
+				if op_kind == OpKind::Immediate8 && operand > 0 && operand + 1 == operands.len() {
+					if let Some(op_prev) = operands.get(operand.wrapping_sub(1)) {
+						match op_prev.immediate_op_kind() {
+							Some(OpKind::Immediate8) | Some(OpKind::Immediate16) => OpKind::Immediate8_2nd,
+							_ => op_kind,
+						}
+					} else {
+						op_kind
+					}
+				} else {
+					op_kind
+				}
+			}
+			None => {
+				if cfg!(debug_assertions) {
+					panic!("{:?}'s op{} isn't an immediate operand", code, operand);
+				} else {
+					panic!("Code value {}'s op{} isn't an immediate operand", code as u32, operand);
+				}
+			}
+		}
+	} else {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
 			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
-		}
-	}
-	match operands[operand].immediate_op_kind() {
-		Some(op_kind) => op_kind,
-		None => {
-			if cfg!(debug_assertions) {
-				panic!("{:?}'s op{} isn't an immediate operand", code, operand);
-			} else {
-				panic!("Code value {}'s op{} isn't an immediate operand", code as u32, operand);
-			}
 		}
 	}
 }
@@ -573,21 +587,22 @@ pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 #[cfg(feature = "encoder")]
 pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
-	if operand >= operands.len() {
+	if let Some(op) = operands.get(operand) {
+		match op.near_branch_op_kind() {
+			Some(op_kind) => op_kind,
+			None => {
+				if cfg!(debug_assertions) {
+					panic!("{:?}'s op{} isn't a near branch operand", code, operand);
+				} else {
+					panic!("Code value {}'s op{} isn't a near branch operand", code as u32, operand);
+				}
+			}
+		}
+	} else {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
 			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
-		}
-	}
-	match operands[operand].near_branch_op_kind() {
-		Some(op_kind) => op_kind,
-		None => {
-			if cfg!(debug_assertions) {
-				panic!("{:?}'s op{} isn't a near branch operand", code, operand);
-			} else {
-				panic!("Code value {}'s op{} isn't a near branch operand", code as u32, operand);
-			}
 		}
 	}
 }
@@ -595,21 +610,22 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 #[cfg(feature = "encoder")]
 pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
 	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
-	if operand >= operands.len() {
+	if let Some(op) = operands.get(operand) {
+		match op.far_branch_op_kind() {
+			Some(op_kind) => op_kind,
+			None => {
+				if cfg!(debug_assertions) {
+					panic!("{:?}'s op{} isn't a far branch operand", code, operand);
+				} else {
+					panic!("Code value {}'s op{} isn't a far branch operand", code as u32, operand);
+				}
+			}
+		}
+	} else {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
 			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
-		}
-	}
-	match operands[operand].far_branch_op_kind() {
-		Some(op_kind) => op_kind,
-		None => {
-			if cfg!(debug_assertions) {
-				panic!("{:?}'s op{} isn't a far branch operand", code, operand);
-			} else {
-				panic!("Code value {}'s op{} isn't a far branch operand", code as u32, operand);
-			}
 		}
 	}
 }

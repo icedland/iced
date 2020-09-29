@@ -399,17 +399,17 @@ impl InstrInfo for SimpleInstrInfo_Int3 {
 pub(super) struct SimpleInstrInfo_YD {
 	mnemonic_args: FormatterString,
 	mnemonic_no_args: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_YD {
-	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String, flags: u32) -> Self {
-		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args), flags }
+	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String) -> Self {
+		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_YD {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE;
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op0_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -419,10 +419,10 @@ impl InstrInfo for SimpleInstrInfo_YD {
 		let short_form = instruction.op0_kind() == short_form_op_kind;
 		let mut info;
 		if !short_form {
-			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
+			info = InstrOpInfo::new(&self.mnemonic_args, instruction, FLAGS);
 		} else {
 			info = InstrOpInfo::default(&self.mnemonic_no_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 		}
 		info
 	}
@@ -432,17 +432,17 @@ impl InstrInfo for SimpleInstrInfo_YD {
 pub(super) struct SimpleInstrInfo_DX {
 	mnemonic_args: FormatterString,
 	mnemonic_no_args: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_DX {
-	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String, flags: u32) -> Self {
-		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args), flags }
+	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String) -> Self {
+		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_DX {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE;
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemorySegSI,
@@ -453,10 +453,10 @@ impl InstrInfo for SimpleInstrInfo_DX {
 		let short_form = instruction.op1_kind() == short_form_op_kind
 			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
-			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
+			info = InstrOpInfo::new(&self.mnemonic_args, instruction, FLAGS);
 		} else {
 			info = InstrOpInfo::default(&self.mnemonic_no_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 		}
 		info
 	}
@@ -466,17 +466,17 @@ impl InstrInfo for SimpleInstrInfo_DX {
 pub(super) struct SimpleInstrInfo_YX {
 	mnemonic_args: FormatterString,
 	mnemonic_no_args: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_YX {
-	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String, flags: u32) -> Self {
-		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args), flags }
+	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String) -> Self {
+		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_YX {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE;
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op0_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -487,10 +487,10 @@ impl InstrInfo for SimpleInstrInfo_YX {
 		let short_form = instruction.op0_kind() == short_form_op_kind
 			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
-			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
+			info = InstrOpInfo::new(&self.mnemonic_args, instruction, FLAGS);
 		} else {
 			info = InstrOpInfo::default(&self.mnemonic_no_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 		}
 		info
 	}
@@ -500,17 +500,17 @@ impl InstrInfo for SimpleInstrInfo_YX {
 pub(super) struct SimpleInstrInfo_XY {
 	mnemonic_args: FormatterString,
 	mnemonic_no_args: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_XY {
-	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String, flags: u32) -> Self {
-		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args), flags }
+	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String) -> Self {
+		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_XY {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE;
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -521,10 +521,10 @@ impl InstrInfo for SimpleInstrInfo_XY {
 		let short_form = instruction.op1_kind() == short_form_op_kind
 			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
-			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
+			info = InstrOpInfo::new(&self.mnemonic_args, instruction, FLAGS);
 		} else {
 			info = InstrOpInfo::default(&self.mnemonic_no_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 		}
 		info
 	}
@@ -534,17 +534,17 @@ impl InstrInfo for SimpleInstrInfo_XY {
 pub(super) struct SimpleInstrInfo_YA {
 	mnemonic_args: FormatterString,
 	mnemonic_no_args: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_YA {
-	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String, flags: u32) -> Self {
-		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args), flags }
+	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String) -> Self {
+		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_YA {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE;
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op0_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -555,12 +555,12 @@ impl InstrInfo for SimpleInstrInfo_YA {
 		let short_form = instruction.op0_kind() == short_form_op_kind;
 		if !short_form {
 			info = InstrOpInfo::default(&self.mnemonic_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 			info.op_count = 1;
 			info.op0_kind = unsafe { mem::transmute(instruction.op0_kind() as u8) };
 		} else {
 			info = InstrOpInfo::default(&self.mnemonic_no_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 		}
 		info
 	}
@@ -570,17 +570,17 @@ impl InstrInfo for SimpleInstrInfo_YA {
 pub(super) struct SimpleInstrInfo_AX {
 	mnemonic_args: FormatterString,
 	mnemonic_no_args: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_AX {
-	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String, flags: u32) -> Self {
-		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args), flags }
+	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String) -> Self {
+		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_AX {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE;
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemorySegSI,
@@ -592,13 +592,13 @@ impl InstrInfo for SimpleInstrInfo_AX {
 			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::default(&self.mnemonic_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 			info.op_count = 1;
 			info.op0_kind = unsafe { mem::transmute(instruction.op1_kind() as u8) };
 			info.op0_index = 1;
 		} else {
 			info = InstrOpInfo::default(&self.mnemonic_no_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 		}
 		info
 	}
@@ -608,17 +608,17 @@ impl InstrInfo for SimpleInstrInfo_AX {
 pub(super) struct SimpleInstrInfo_AY {
 	mnemonic_args: FormatterString,
 	mnemonic_no_args: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_AY {
-	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String, flags: u32) -> Self {
-		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args), flags }
+	pub(super) fn new(mnemonic_args: String, mnemonic_no_args: String) -> Self {
+		Self { mnemonic_args: FormatterString::new(mnemonic_args), mnemonic_no_args: FormatterString::new(mnemonic_no_args) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_AY {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE;
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -630,13 +630,13 @@ impl InstrInfo for SimpleInstrInfo_AY {
 			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::default(&self.mnemonic_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 			info.op_count = 1;
 			info.op0_kind = unsafe { mem::transmute(instruction.op1_kind() as u8) };
 			info.op0_index = 1;
 		} else {
 			info = InstrOpInfo::default(&self.mnemonic_no_args);
-			info.flags = self.flags as u16;
+			info.flags = FLAGS as u16;
 		}
 		info
 	}
@@ -715,9 +715,6 @@ pub(super) struct SimpleInstrInfo_STIG1 {
 }
 
 impl SimpleInstrInfo_STIG1 {
-	pub(super) fn with_mnemonic(mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), pseudo_op: false }
-	}
 	pub(super) fn new(mnemonic: String, pseudo_op: bool) -> Self {
 		Self { mnemonic: FormatterString::new(mnemonic), pseudo_op }
 	}

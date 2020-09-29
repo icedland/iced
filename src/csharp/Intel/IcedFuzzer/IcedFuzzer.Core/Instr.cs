@@ -121,7 +121,7 @@ namespace IcedFuzzer.Core {
 		CanUseRoundingControl			= 0x00000080,
 		CanSuppressAllExceptions		= 0x00000100,
 		CanUseLockPrefix				= 0x00000200,
-		RequireNonZeroOpMaskRegister	= 0x00000400,
+		RequireOpMaskRegister			= 0x00000400,
 		IsXchgRegAcc					= 0x00000800,
 		IsNop							= 0x00001000,
 		IsVsib							= 0x00002000,
@@ -143,7 +143,7 @@ namespace IcedFuzzer.Core {
 		public bool CanUseRoundingControl => (Flags & FuzzerInstructionFlags.CanUseRoundingControl) != 0;
 		public bool CanSuppressAllExceptions => (Flags & FuzzerInstructionFlags.CanSuppressAllExceptions) != 0;
 		public bool CanUseLockPrefix => (Flags & FuzzerInstructionFlags.CanUseLockPrefix) != 0;
-		public bool RequireNonZeroOpMaskRegister => (Flags & FuzzerInstructionFlags.RequireNonZeroOpMaskRegister) != 0;
+		public bool RequireOpMaskRegister => (Flags & FuzzerInstructionFlags.RequireOpMaskRegister) != 0;
 		public bool IsXchgRegAcc => (Flags & FuzzerInstructionFlags.IsXchgRegAcc) != 0;
 		public bool IsNop => (Flags & FuzzerInstructionFlags.IsNop) != 0;
 		// This is only true if it has a memory operand with VSIB addressing
@@ -198,8 +198,8 @@ namespace IcedFuzzer.Core {
 				if (opc.CanSuppressAllExceptions)
 					flags |= FuzzerInstructionFlags.CanSuppressAllExceptions;
 			}
-			if (opc.RequireNonZeroOpMaskRegister)
-				flags |= FuzzerInstructionFlags.RequireNonZeroOpMaskRegister;
+			if (opc.RequireOpMaskRegister)
+				flags |= FuzzerInstructionFlags.RequireOpMaskRegister;
 			if (opc.CanUseZeroingMasking)
 				flags |= FuzzerInstructionFlags.CanUseZeroingMasking;
 			if (opc.CanUseOpMaskRegister)

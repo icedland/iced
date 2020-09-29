@@ -81,15 +81,13 @@ namespace Iced.Intel.MasmFormatterInternal {
 				case CtorKind.AX:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_AX(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_AX(s, s2);
 					break;
 
 				case CtorKind.AY:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_AY(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_AY(s, s2);
 					break;
 
 				case CtorKind.bnd:
@@ -104,8 +102,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				case CtorKind.DX:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_DX(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_DX(s, s2);
 					break;
 
 				case CtorKind.fword:
@@ -311,11 +308,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_STi_ST(s, v != 0);
 					break;
 
-				case CtorKind.STIG1_1:
-					instrInfo = new SimpleInstrInfo_STIG1(s);
-					break;
-
-				case CtorKind.STIG1_2:
+				case CtorKind.STIG1:
 					v = reader.ReadByte();
 					if (v > 1)
 						throw new InvalidOperationException();
@@ -323,7 +316,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 					break;
 
 				case CtorKind.XLAT:
-					ca[0] = (char)reader.ReadByte();
+					ca[0] = 'b';
 					s2 = AddSuffix(s, ca);
 					instrInfo = new SimpleInstrInfo_XLAT(s, s2);
 					break;
@@ -331,29 +324,25 @@ namespace Iced.Intel.MasmFormatterInternal {
 				case CtorKind.XY:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_XY(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_XY(s, s2);
 					break;
 
 				case CtorKind.YA:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_YA(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_YA(s, s2);
 					break;
 
 				case CtorKind.YD:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_YD(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_YD(s, s2);
 					break;
 
 				case CtorKind.YX:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_YX(s, s2, (InstrOpInfoFlags)v);
+					instrInfo = new SimpleInstrInfo_YX(s, s2);
 					break;
 
 				default:

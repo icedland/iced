@@ -85,7 +85,7 @@ impl InfoFlags1 {
 	pub(crate) const STACK_INSTRUCTION: u32 = 0x1000_0000;
 	pub(crate) const PROTECTED_MODE: u32 = 0x2000_0000;
 	pub(crate) const PRIVILEGED: u32 = 0x4000_0000;
-	pub(crate) const NO_SEGMENT_READ: u32 = 0x8000_0000;
+	pub(crate) const IGNORE_SEGMENT: u32 = 0x8000_0000;
 }
 // GENERATOR-END: InfoFlags1
 
@@ -98,7 +98,7 @@ pub(crate) struct InfoFlags2;
 impl InfoFlags2 {
 	pub(crate) const ENCODING_SHIFT: u32 = 0x0000_0000;
 	pub(crate) const ENCODING_MASK: u32 = 0x0000_0007;
-	pub(crate) const OP_MASK_REG_READ_WRITE: u32 = 0x0008_0000;
+	pub(crate) const OP_MASK_READ_WRITE: u32 = 0x0008_0000;
 	pub(crate) const FLOW_CONTROL_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const FLOW_CONTROL_MASK: u32 = 0x0000_000F;
 	pub(crate) const CPUID_FEATURE_INTERNAL_SHIFT: u32 = 0x0000_0018;
@@ -576,7 +576,7 @@ impl Default for CodeInfo {
 #[allow(dead_code)]
 pub(crate) enum RflagsInfo {
 	None,
-	C_AC,
+	C_A,
 	C_acopsz,
 	C_acos_S_pz,
 	C_c,
@@ -586,8 +586,8 @@ pub(crate) enum RflagsInfo {
 	R_a_W_ac_U_opsz,
 	R_ac_W_acpsz_U_o,
 	R_acopszid,
-	R_acopszidAC,
-	R_acopszidAC_W_acopszidAC,
+	R_acopszidA,
+	R_acopszidA_W_acopszidA,
 	R_acpsz,
 	R_c,
 	R_c_W_acopsz,
@@ -604,14 +604,14 @@ pub(crate) enum RflagsInfo {
 	R_p,
 	R_s,
 	R_z,
-	S_AC,
+	S_A,
 	S_c,
 	S_d,
 	S_i,
 	U_acopsz,
 	W_acopsz,
 	W_acopszid,
-	W_acopszidAC,
+	W_acopszidA,
 	W_acpsz,
 	W_aopsz,
 	W_c,
@@ -640,7 +640,7 @@ pub(crate) enum RflagsInfo {
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_RFLAGS_INFO: [&str; 60] = [
 	"None",
-	"C_AC",
+	"C_A",
 	"C_acopsz",
 	"C_acos_S_pz",
 	"C_c",
@@ -650,8 +650,8 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 60] = [
 	"R_a_W_ac_U_opsz",
 	"R_ac_W_acpsz_U_o",
 	"R_acopszid",
-	"R_acopszidAC",
-	"R_acopszidAC_W_acopszidAC",
+	"R_acopszidA",
+	"R_acopszidA_W_acopszidA",
 	"R_acpsz",
 	"R_c",
 	"R_c_W_acopsz",
@@ -668,14 +668,14 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 60] = [
 	"R_p",
 	"R_s",
 	"R_z",
-	"S_AC",
+	"S_A",
 	"S_c",
 	"S_d",
 	"S_i",
 	"U_acopsz",
 	"W_acopsz",
 	"W_acopszid",
-	"W_acopszidAC",
+	"W_acopszidA",
 	"W_acpsz",
 	"W_aopsz",
 	"W_c",

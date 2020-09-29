@@ -89,8 +89,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 
 			CtorKind::bcst => {
 				v = reader.read_compressed_u32();
-				v2 = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_bcst::new(s, v, v2))
+				Box::new(SimpleInstrInfo_bcst::new(s, v))
 			}
 
 			CtorKind::bnd => {
@@ -118,10 +117,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_STi_ST::new(s, v != 0))
 			}
 
-			CtorKind::maskmovq => {
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_maskmovq::new(s, v))
-			}
+			CtorKind::maskmovq => Box::new(SimpleInstrInfo_maskmovq::new(s)),
 
 			CtorKind::memsize => {
 				v = reader.read_compressed_u32();

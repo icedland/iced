@@ -39,7 +39,7 @@ namespace Generator.Tables.Rust {
 		}
 
 		protected override void Generate((int index, EnumValue enumValue)[] infos) {
-			var filename = Path.Combine(generatorContext.RustDir, "decoder", "handlers_3dnow.rs");
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "decoder", "handlers_3dnow.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

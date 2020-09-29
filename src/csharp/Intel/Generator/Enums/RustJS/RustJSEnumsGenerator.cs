@@ -61,7 +61,7 @@ namespace Generator.Enums.RustJS {
 			docWriter = new RustDocCommentWriter(idConverter, ".");
 			deprecatedWriter = new RustJSDeprecatedWriter(idConverter);
 
-			var dir = generatorContext.RustJSDir;
+			var dir = generatorContext.Types.Dirs.RustJSDir;
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
 			toPartialFileInfo.Add(TypeIds.BlockEncoderOptions, new PartialEnumFileInfo("Enum", Path.Combine(dir, "block_encoder_options.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CC_a, new PartialEnumFileInfo("CC_a", Path.Combine(dir, "cc.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));

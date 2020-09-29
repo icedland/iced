@@ -59,7 +59,6 @@ namespace Generator {
 			if (ctor is null)
 				throw new InvalidOperationException($"Generator {type.FullName} doesn't have a constructor that takes a {nameof(GeneratorContext)} argument");
 			this.ctor = ctor;
-
 			var method = type.GetMethod(InvokeMethodName, 0, BindingFlags.Public | BindingFlags.Instance, null, CallingConventions.Standard, Array.Empty<Type>(), null);
 			if (method is null || method.ReturnType != typeof(void))
 				throw new InvalidOperationException($"Generator {type.FullName} doesn't have a public void {InvokeMethodName}() method");
@@ -92,7 +91,7 @@ namespace Generator {
 				}
 
 				var generatorContext = CreateGeneratorContext(options.GeneratorFlags, options.IncludeCpuid, options.ExcludeCpuid);
-				CodeComments.AddComments(generatorContext.Types, generatorContext.UnitTestsDir);
+				CodeComments.AddComments(generatorContext.Types);
 
 				// It's not much of an improvement in speed at the moment.
 				// Group by lang since different lang gens don't write to the same files.

@@ -44,6 +44,7 @@ namespace Generator {
 	/// its priority must be &lt; <see cref="TypeGenOrders.CreatedInstructions"/>
 	/// </summary>
 	interface ICreatedInstructions {
+		double Order => double.MaxValue;
 		void OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues);
 	}
 
@@ -54,10 +55,12 @@ namespace Generator {
 		bool canGetCodeEnum;
 
 		public GeneratorOptions Options { get; }
+		public GeneratorDirs Dirs { get; }
 
-		public GenTypes(GeneratorOptions options) {
+		public GenTypes(GeneratorOptions options, GeneratorDirs dirs) {
 			canGetCodeEnum = false;
 			Options = options;
+			Dirs = dirs;
 			constants = new Dictionary<TypeId, ConstantsType>();
 			objs = new Dictionary<TypeId, object>();
 			var assembly = GetType().Assembly;
@@ -143,10 +146,8 @@ namespace Generator {
 			var (origCodeValues, removedCodeHash, codeHash) = FilterCode();
 			AddObject(TypeIds.OrigCodeValues, origCodeValues);
 			AddObject(TypeIds.RemovedCodeValues, removedCodeHash);
-			for (int i = 0; i < index; i++) {
-				if (created[i] is ICreatedInstructions createdInstrs)
-					createdInstrs.OnCreatedInstructions(this, codeHash);
-			}
+			foreach (var ci in created.OfType<ICreatedInstructions>().OrderBy(a => a.Order))
+				ci.OnCreatedInstructions(this, codeHash);
 
 			int createdCount = created.Count;
 			CallTypeGens(created, typeGens, ref index, order => true);
@@ -185,9 +186,9 @@ namespace Generator {
 			var removedCodeHash = new HashSet<EnumValue>();
 			foreach (var def in defs) {
 				if (ShouldInclude(def))
-					newCodeValues.Add(def.OpCodeInfo.Code);
+					newCodeValues.Add(def.Code);
 				else
-					removedCodeHash.Add(def.OpCodeInfo.Code);
+					removedCodeHash.Add(def.Code);
 			}
 
 			var code = this[TypeIds.Code];
@@ -198,7 +199,7 @@ namespace Generator {
 		}
 
 		bool ShouldInclude(InstructionDef def) {
-			switch (def.OpCodeInfo.Encoding) {
+			switch (def.Encoding) {
 			case EncodingKind.Legacy:
 				break;
 			case EncodingKind.VEX:
@@ -222,14 +223,14 @@ namespace Generator {
 			}
 
 			if (Options.IncludeCpuid.Count != 0) {
-				foreach (var cpuid in def.InstrInfo.Cpuid) {
+				foreach (var cpuid in def.Cpuid) {
 					if (Options.IncludeCpuid.Contains(cpuid.RawName))
 						return true;
 				}
 				return false;
 			}
 			if (Options.ExcludeCpuid.Count != 0) {
-				foreach (var cpuid in def.InstrInfo.Cpuid) {
+				foreach (var cpuid in def.Cpuid) {
 					if (Options.ExcludeCpuid.Contains(cpuid.RawName))
 						return false;
 				}

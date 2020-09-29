@@ -235,9 +235,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.CanUseOpMaskRegister = true;
 						break;
 
-					case OpCodeInfoFlags.RequireNonZeroOpMaskRegister:
+					case OpCodeInfoFlags.RequireOpMaskRegister:
 						tc.CanUseOpMaskRegister = true;
-						tc.RequireNonZeroOpMaskRegister = true;
+						tc.RequireOpMaskRegister = true;
 						break;
 
 					case OpCodeInfoFlags.ZeroingMasking:

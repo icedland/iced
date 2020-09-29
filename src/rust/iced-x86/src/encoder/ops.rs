@@ -202,12 +202,30 @@ pub(super) struct OpIb {
 }
 impl Op for OpIb {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
-		let op_imm_kind = instruction.op_kind(operand);
-		if !encoder.verify_op_kind(operand, self.op_kind, op_imm_kind) {
-			return;
+		match encoder.imm_size {
+			ImmSize::Size1 => {
+				if !encoder.verify_op_kind(operand, OpKind::Immediate8_2nd, instruction.op_kind(operand)) {
+					return;
+				}
+				encoder.imm_size = ImmSize::Size1_1;
+				encoder.immediate_hi = instruction.immediate8_2nd() as u32;
+			}
+			ImmSize::Size2 => {
+				if !encoder.verify_op_kind(operand, OpKind::Immediate8_2nd, instruction.op_kind(operand)) {
+					return;
+				}
+				encoder.imm_size = ImmSize::Size2_1;
+				encoder.immediate_hi = instruction.immediate8_2nd() as u32;
+			}
+			_ => {
+				let op_imm_kind = instruction.op_kind(operand);
+				if !encoder.verify_op_kind(operand, self.op_kind, op_imm_kind) {
+					return;
+				}
+				encoder.imm_size = ImmSize::Size1;
+				encoder.immediate = instruction.immediate8() as u32;
+			}
 		}
-		encoder.imm_size = ImmSize::Size1;
-		encoder.immediate = instruction.immediate8() as u32;
 	}
 
 	fn immediate_op_kind(&self) -> Option<OpKind> {
@@ -265,40 +283,6 @@ impl Op for OpIq {
 
 	fn immediate_op_kind(&self) -> Option<OpKind> {
 		Some(OpKind::Immediate64)
-	}
-}
-
-#[allow(non_camel_case_types)]
-pub(super) struct OpIb21;
-impl Op for OpIb21 {
-	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
-		if !encoder.verify_op_kind(operand, OpKind::Immediate8_2nd, instruction.op_kind(operand)) {
-			return;
-		}
-		debug_assert_eq!(ImmSize::Size2, encoder.imm_size);
-		encoder.imm_size = ImmSize::Size2_1;
-		encoder.immediate_hi = instruction.immediate8_2nd() as u32;
-	}
-
-	fn immediate_op_kind(&self) -> Option<OpKind> {
-		Some(OpKind::Immediate8_2nd)
-	}
-}
-
-#[allow(non_camel_case_types)]
-pub(super) struct OpIb11;
-impl Op for OpIb11 {
-	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
-		if !encoder.verify_op_kind(operand, OpKind::Immediate8_2nd, instruction.op_kind(operand)) {
-			return;
-		}
-		debug_assert_eq!(ImmSize::Size1, encoder.imm_size);
-		encoder.imm_size = ImmSize::Size1_1;
-		encoder.immediate_hi = instruction.immediate8_2nd() as u32;
-	}
-
-	fn immediate_op_kind(&self) -> Option<OpKind> {
-		Some(OpKind::Immediate8_2nd)
 	}
 }
 

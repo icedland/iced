@@ -5914,7 +5914,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0xD5, 0x04,// 597 = "vcvtpd2ps"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64
 				0x80,// 'v', Previous
@@ -5976,7 +5975,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0xD9, 0x04,// 601 = "vcvtqq2ps"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64
 				0x80,// 'v', Previous
@@ -7186,7 +7184,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0x86, 0x05,// 646 = "vcvttpd2udq"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64
 				0x80,// 'v', Previous
@@ -7267,7 +7264,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0x8F, 0x05,// 655 = "vcvtpd2udq"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64
 				0x80,// 'v', Previous
@@ -7389,7 +7385,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0x99, 0x05,// 665 = "vcvtuqq2ps"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64
 				0x80,// 'v', Previous
@@ -9710,7 +9705,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0xB5, 0x06,// 821 = "vcvttpd2dq"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64
 				0x80,// 'v', Previous
@@ -9770,7 +9764,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0xB8, 0x06,// 824 = "vcvtpd2dq"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64
 				0x80,// 'v', Previous
@@ -12405,7 +12398,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0xE7, 0x07,// 999 = "vcvtneps2bf16"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
 				0x80,// 'v', Previous
@@ -15403,7 +15395,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0xFE, 0x09,// 1278 = "vfpclassps"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
 				0x80,// 'v', Previous
@@ -15415,7 +15406,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x87,// 'v', bcst
 				0xFF, 0x09,// 1279 = "vfpclasspd"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-				0x00,// 0x0 = None
 
 				// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
 				0x80,// 'v', Previous

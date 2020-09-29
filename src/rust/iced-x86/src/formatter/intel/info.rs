@@ -492,12 +492,11 @@ impl InstrInfo for SimpleInstrInfo_ST2 {
 #[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_maskmovq {
 	mnemonic: FormatterString,
-	flags: u32,
 }
 
 impl SimpleInstrInfo_maskmovq {
-	pub(super) fn new(mnemonic: String, flags: u32) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), flags: flags | InstrOpInfoFlags::IGNORE_SEGMENT_PREFIX }
+	pub(super) fn new(mnemonic: String) -> Self {
+		Self { mnemonic: FormatterString::new(mnemonic) }
 	}
 }
 
@@ -512,7 +511,7 @@ impl InstrInfo for SimpleInstrInfo_maskmovq {
 			CodeSize::Code32 => OpKind::MemorySegEDI,
 			CodeSize::Code64 => OpKind::MemorySegRDI,
 		};
-		let mut flags = self.flags;
+		let mut flags = InstrOpInfoFlags::IGNORE_SEGMENT_PREFIX;
 		if op_kind != short_form_op_kind {
 			if op_kind == OpKind::MemorySegDI {
 				flags |= InstrOpInfoFlags::ADDR_SIZE16;
@@ -1157,19 +1156,18 @@ impl InstrInfo for SimpleInstrInfo_DeclareData {
 pub(super) struct SimpleInstrInfo_bcst {
 	mnemonic: FormatterString,
 	flags_no_broadcast: u32,
-	flags_broadcast: u32,
 }
 
 impl SimpleInstrInfo_bcst {
-	pub(super) fn new(mnemonic: String, flags_no_broadcast: u32, flags_broadcast: u32) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), flags_no_broadcast, flags_broadcast }
+	pub(super) fn new(mnemonic: String, flags_no_broadcast: u32) -> Self {
+		Self { mnemonic: FormatterString::new(mnemonic), flags_no_broadcast }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_bcst {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let bcst_to = (&*MEM_SIZE_TBL)[instruction.memory_size() as usize].bcst_to;
-		let flags = if !bcst_to.is_default() { self.flags_broadcast } else { self.flags_no_broadcast };
+		let flags = if !bcst_to.is_default() { InstrOpInfoFlags::NONE } else { self.flags_no_broadcast };
 		InstrOpInfo::new(&self.mnemonic, instruction, flags)
 	}
 }

@@ -475,8 +475,6 @@ namespace Iced.Intel.GasFormatterInternal {
 		readonly FormatterString mnemonic;
 		readonly bool pseudoOp;
 
-		public SimpleInstrInfo_STIG1(string mnemonic) : this(mnemonic, false) { }
-
 		public SimpleInstrInfo_STIG1(string mnemonic, bool pseudoOp) {
 			this.mnemonic = new FormatterString(mnemonic);
 			this.pseudoOp = pseudoOp;

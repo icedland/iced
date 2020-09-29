@@ -35,7 +35,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		AX,
 		AY,
 		bnd,
-		STIG1_2,
+		STIG1,
 		DeclareData,
 		DX,
 		fword,
@@ -77,7 +77,6 @@ namespace Iced.Intel.MasmFormatterInternal {
 		ST_STi,
 		STi_ST,
 		XLAT,
-		STIG1_1,
 	}
 }
 #endif

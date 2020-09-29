@@ -41,6 +41,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string CallFar = "call-far";
 		internal const string CallNearIndirect = "call-near-indirect";
 		internal const string CallFarIndirect = "call-far-indirect";
+		internal const string Loop = "loop";
+		internal const string Jrcxz = "jrcxz";
+		internal const string Xbegin = "xbegin";
 		internal const string JmpInfo = "jmp-info";
 		internal const string JccShortInfo = "jcc-short-info";
 		internal const string JccNearInfo = "jcc-near-info";
@@ -62,6 +65,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public static readonly HashSet<Code> CallNear;
 		public static readonly HashSet<Code> CallNearIndirect;
 		public static readonly HashSet<Code> CallFarIndirect;
+		public static readonly HashSet<Code> Loop;
+		public static readonly HashSet<Code> Jrcxz;
+		public static readonly HashSet<Code> Xbegin;
 		public static readonly (Code jmpShort, Code jmpNear)[] JmpInfos;
 		public static readonly (Code jcc, Code negated, Code jccNear, ConditionCode cc)[] JccShortInfos;
 		public static readonly (Code jcc, Code negated, Code jccShort, ConditionCode cc)[] JccNearInfos;
@@ -81,6 +87,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var callNear = new HashSet<Code>();
 			var callNearIndirect = new HashSet<Code>();
 			var callFarIndirect = new HashSet<Code>();
+			var loop = new HashSet<Code>();
+			var jrcxz = new HashSet<Code>();
+			var xbegin = new HashSet<Code>();
 			var jmpInfos = new List<(Code jmpShort, Code jmpNear)>();
 			var jccShortInfos = new List<(Code jcc, Code negated, Code jccNear, ConditionCode cc)>();
 			var jccNearInfos = new List<(Code jcc, Code negated, Code jccShort, ConditionCode cc)>();
@@ -100,6 +109,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				(MiscSectionNames.CallNear, (_, line) => AddCode(callNear, line)),
 				(MiscSectionNames.CallNearIndirect, (_, line) => AddCode(callNearIndirect, line)),
 				(MiscSectionNames.CallFarIndirect, (_, line) => AddCode(callFarIndirect, line)),
+				(MiscSectionNames.Loop, (_, line) => AddCode(loop, line)),
+				(MiscSectionNames.Jrcxz, (_, line) => AddCode(jrcxz, line)),
+				(MiscSectionNames.Xbegin, (_, line) => AddCode(xbegin, line)),
 				(MiscSectionNames.JmpInfo, (_, line) => AddJmpInfo(jmpInfos, line)),
 				(MiscSectionNames.JccShortInfo, (_, line) => AddJccInfo(jccShortInfos, line)),
 				(MiscSectionNames.JccNearInfo, (_, line) => AddJccInfo(jccNearInfos, line)),
@@ -121,6 +133,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			CallNear = callNear;
 			CallNearIndirect = callNearIndirect;
 			CallFarIndirect = callFarIndirect;
+			Loop = loop;
+			Jrcxz = jrcxz;
+			Xbegin = xbegin;
 			JmpInfos = jmpInfos.ToArray();
 			JccShortInfos = jccShortInfos.ToArray();
 			JccNearInfos = jccNearInfos.ToArray();

@@ -69,19 +69,18 @@ namespace Generator {
 		}
 	}
 
-	sealed class GeneratorContext {
-		public GenTypes Types { get; }
+	sealed class GeneratorDirs {
 		public string UnitTestsDir { get; }
 		public string CSharpDir => langDirs[(int)TargetLanguage.CSharp];
 		public string CSharpTestsDir { get; }
 		public string RustDir => langDirs[(int)TargetLanguage.Rust];
 		public string RustJSDir => langDirs[(int)TargetLanguage.RustJS];
+		public string GeneratorDir { get; }
 		readonly string[] langDirs;
 
-		public GeneratorContext(string baseDir, GeneratorFlags flags, HashSet<string> includeCpuid, HashSet<string> excludeCpuid) {
-			Types = new GenTypes(new GeneratorOptions(flags, includeCpuid, excludeCpuid));
-
+		public GeneratorDirs(string baseDir) {
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
+			GeneratorDir = GetAndVerifyPath(baseDir, "csharp", "Intel", "Generator");
 			langDirs = new string[Enum.GetValues(typeof(TargetLanguage)).Length];
 			for (int i = 0; i < langDirs.Length; i++) {
 				string path = (TargetLanguage)i switch {
@@ -101,5 +100,12 @@ namespace Generator {
 				throw new InvalidOperationException($"Directory {path} doesn't exist");
 			return path;
 		}
+	}
+
+	sealed class GeneratorContext {
+		public GenTypes Types { get; }
+
+		public GeneratorContext(string baseDir, GeneratorFlags flags, HashSet<string> includeCpuid, HashSet<string> excludeCpuid) =>
+			Types = new GenTypes(new GeneratorOptions(flags, includeCpuid, excludeCpuid), new GeneratorDirs(baseDir));
 	}
 }

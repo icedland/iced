@@ -257,7 +257,7 @@ namespace Iced.Intel {
 					break;
 
 				case OpKind.Memory:
-					Static.Assert((uint)InfoFlags1.NoSegmentRead == (1U << 31) ? 0 : -1);
+					Static.Assert((uint)InfoFlags1.IgnoreSegment == (1U << 31) ? 0 : -1);
 					Static.Assert(Register.None == 0 ? 0 : -1);
 					var segReg = (Register)((uint)instruction.MemorySegment & ~(uint)((int)flags1 >> 31));
 					var baseReg = instruction.MemoryBase;
@@ -303,7 +303,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)info.rflagsInfo < (uint)InstrInfoConstants.RflagsInfo_Count);
 
 			if (instruction.HasOpMask && (flags & Flags.NoRegisterUsage) == 0)
-				AddRegister(flags, instruction.OpMask, (flags2 & (uint)InfoFlags2.OpMaskRegReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
+				AddRegister(flags, instruction.OpMask, (flags2 & (uint)InfoFlags2.OpMaskReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
 
 			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask) <= byte.MaxValue);
 			info.cpuidFeatureInternal = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask);

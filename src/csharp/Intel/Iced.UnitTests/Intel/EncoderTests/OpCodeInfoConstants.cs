@@ -94,7 +94,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		internal const string RoundingControl = "er";
 		internal const string SuppressAllExceptions = "sae";
 		internal const string OpMaskRegister = "k";
-		internal const string RequireNonZeroOpMaskRegister = "knz";
+		internal const string RequireOpMaskRegister = "knz";
 		internal const string ZeroingMasking = "z";
 		internal const string LockPrefix = "lock";
 		internal const string XacquirePrefix = "xacquire";

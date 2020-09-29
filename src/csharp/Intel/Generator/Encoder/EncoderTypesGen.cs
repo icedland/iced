@@ -39,7 +39,7 @@ namespace Generator.Encoder {
 		public EnumType? XopFlags3;
 		public EnumType? EvexFlags3;
 		public EnumType? AllowedPrefixes;
-		public Dictionary<OpCodeFlags, EnumValue>? AllowedPrefixesMap;
+		public Dictionary<InstructionDefFlags1, EnumValue>? AllowedPrefixesMap;
 		public EnumType? LegacyFlags;
 		public EnumType? VexFlags;
 		public EnumType? XopFlags;
@@ -133,17 +133,17 @@ namespace Generator.Encoder {
 		void GenerateXopFlags3() => XopFlags3 = GenerateFlags3(genTypes[TypeIds.XopOpKind], TypeIds.XopFlags3, 4);
 		void GenerateEvexFlags3() => EvexFlags3 = GenerateFlags3(genTypes[TypeIds.EvexOpKind], TypeIds.EvexFlags3, 4);
 
-		internal const OpCodeFlags PrefixesMask =
-			OpCodeFlags.LockPrefix | OpCodeFlags.XacquirePrefix | OpCodeFlags.XreleasePrefix | OpCodeFlags.RepPrefix |
-			OpCodeFlags.RepnePrefix | OpCodeFlags.BndPrefix | OpCodeFlags.HintTakenPrefix | OpCodeFlags.NotrackPrefix;
+		internal const InstructionDefFlags1 PrefixesMask =
+			InstructionDefFlags1.Lock | InstructionDefFlags1.Xacquire | InstructionDefFlags1.Xrelease | InstructionDefFlags1.Rep |
+			InstructionDefFlags1.Repne | InstructionDefFlags1.Bnd | InstructionDefFlags1.HintTaken | InstructionDefFlags1.Notrack;
 		void GenerateAllowedPrefixes() {
-			var maskHash = new HashSet<OpCodeFlags>();
-			maskHash.Add(OpCodeFlags.None);
+			var maskHash = new HashSet<InstructionDefFlags1>();
+			maskHash.Add(InstructionDefFlags1.None);
 			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs) {
-				maskHash.Add(def.OpCodeInfo.Flags & PrefixesMask);
+				maskHash.Add(def.Flags1 & PrefixesMask);
 			}
 
-			AllowedPrefixesMap = new Dictionary<OpCodeFlags, EnumValue>();
+			AllowedPrefixesMap = new Dictionary<InstructionDefFlags1, EnumValue>();
 			var values = new EnumValue[maskHash.Count];
 			var sb = new StringBuilder();
 			int i = 0;
@@ -164,43 +164,43 @@ namespace Generator.Encoder {
 
 			AllowedPrefixes = new EnumType(TypeIds.AllowedPrefixes, null, values, EnumTypeFlags.None);
 
-			static string GetName(StringBuilder sb, OpCodeFlags flags) {
-				if (flags == OpCodeFlags.None)
+			static string GetName(StringBuilder sb, InstructionDefFlags1 flags) {
+				if (flags == InstructionDefFlags1.None)
 					return "None";
 				sb.Clear();
-				if ((flags & OpCodeFlags.RepPrefix) != 0) {
-					flags &= ~OpCodeFlags.RepPrefix;
+				if ((flags & InstructionDefFlags1.Rep) != 0) {
+					flags &= ~InstructionDefFlags1.Rep;
 					sb.Append("Rep");
 				}
-				if ((flags & OpCodeFlags.RepnePrefix) != 0) {
-					flags &= ~OpCodeFlags.RepnePrefix;
+				if ((flags & InstructionDefFlags1.Repne) != 0) {
+					flags &= ~InstructionDefFlags1.Repne;
 					sb.Append("Repne");
 				}
-				if ((flags & OpCodeFlags.HintTakenPrefix) != 0) {
-					flags &= ~OpCodeFlags.HintTakenPrefix;
+				if ((flags & InstructionDefFlags1.HintTaken) != 0) {
+					flags &= ~InstructionDefFlags1.HintTaken;
 					sb.Append("HintTaken");
 				}
-				if ((flags & OpCodeFlags.BndPrefix) != 0) {
-					flags &= ~OpCodeFlags.BndPrefix;
+				if ((flags & InstructionDefFlags1.Bnd) != 0) {
+					flags &= ~InstructionDefFlags1.Bnd;
 					sb.Append("Bnd");
 				}
-				if ((flags & OpCodeFlags.NotrackPrefix) != 0) {
-					flags &= ~OpCodeFlags.NotrackPrefix;
+				if ((flags & InstructionDefFlags1.Notrack) != 0) {
+					flags &= ~InstructionDefFlags1.Notrack;
 					sb.Append("Notrack");
 				}
-				if ((flags & OpCodeFlags.XacquirePrefix) != 0) {
-					flags &= ~OpCodeFlags.XacquirePrefix;
+				if ((flags & InstructionDefFlags1.Xacquire) != 0) {
+					flags &= ~InstructionDefFlags1.Xacquire;
 					sb.Append("Xacquire");
 				}
-				if ((flags & OpCodeFlags.XreleasePrefix) != 0) {
-					flags &= ~OpCodeFlags.XreleasePrefix;
+				if ((flags & InstructionDefFlags1.Xrelease) != 0) {
+					flags &= ~InstructionDefFlags1.Xrelease;
 					sb.Append("Xrelease");
 				}
-				if ((flags & OpCodeFlags.LockPrefix) != 0) {
-					flags &= ~OpCodeFlags.LockPrefix;
+				if ((flags & InstructionDefFlags1.Lock) != 0) {
+					flags &= ~InstructionDefFlags1.Lock;
 					sb.Append("Lock");
 				}
-				if (flags != OpCodeFlags.None)
+				if (flags != InstructionDefFlags1.None)
 					throw new InvalidOperationException();
 				return sb.ToString();
 			}
@@ -275,7 +275,7 @@ namespace Generator.Encoder {
 			AddEncodable(values, ref bit);
 			AddFlag(values, ref bit, "HasGroupIndex");
 			AddMaskShift(values, ref bit, "GroupShift", 3);// group index: 0-7
-			AddMaskShift<VexVectorLength>(values, ref bit, "VexVectorLengthMask", "VexVectorLengthShift");
+			AddMaskShift<LBit>(values, ref bit, "LBitMask", "LBitShift");
 			AddMaskShift<WBit>(values, ref bit, "WBitMask", "WBitShift");
 			AddFlag(values, ref bit, "HasRmGroupIndex");
 
@@ -292,7 +292,7 @@ namespace Generator.Encoder {
 			AddEncodable(values, ref bit);
 			AddFlag(values, ref bit, "HasGroupIndex");
 			AddMaskShift(values, ref bit, "GroupShift", 3);// group index: 0-7
-			AddMaskShift<XopVectorLength>(values, ref bit, "XopVectorLengthMask", "XopVectorLengthShift");
+			AddMaskShift<LBit>(values, ref bit, "LBitMask", "LBitShift");
 			AddMaskShift<WBit>(values, ref bit, "WBitMask", "WBitShift");
 
 			VerifyBit(bit);
@@ -308,16 +308,15 @@ namespace Generator.Encoder {
 			AddEncodable(values, ref bit);
 			AddFlag(values, ref bit, "HasGroupIndex");
 			AddMaskShift(values, ref bit, "GroupShift", 3);// group index: 0-7
-			AddMaskShift<EvexVectorLength>(values, ref bit, "EvexVectorLengthMask", "EvexVectorLengthShift");
+			AddMaskShift<LBit>(values, ref bit, "LBitMask", "LBitShift");
 			AddMaskShift<WBit>(values, ref bit, "WBitMask", "WBitShift");
 			AddMaskShift<TupleType>(values, ref bit, "TupleTypeMask", "TupleTypeShift");
-			AddFlag(values, ref bit, "LIG");
 			AddFlag(values, ref bit, "b");
 			AddFlag(values, ref bit, "er");
 			AddFlag(values, ref bit, "sae");
 			AddFlag(values, ref bit, "k1");
 			AddFlag(values, ref bit, "z");
-			AddFlag(values, ref bit, "NonZeroOpMaskRegister");
+			AddFlag(values, ref bit, "RequireOpMaskRegister");
 
 			VerifyBit(bit);
 			EvexFlags = new EnumType(TypeIds.EvexFlags, null, values.ToArray(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);

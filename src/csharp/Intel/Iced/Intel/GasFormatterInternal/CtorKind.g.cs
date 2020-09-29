@@ -51,7 +51,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		OpSize3,
 		os,
 		STi_ST,
-		STIG_1b,
+		sae,
 		CC_1,
 		CC_2,
 		CC_3,
@@ -65,13 +65,12 @@ namespace Iced.Intel.GasFormatterInternal {
 		os_mem2,
 		os2_3,
 		os2_4,
-		STIG_1a,
+		STIG1,
 		pblendvb,
 		pclmulqdq,
 		pops,
 		mem16,
 		Reg32,
-		sae,
 	}
 }
 #endif

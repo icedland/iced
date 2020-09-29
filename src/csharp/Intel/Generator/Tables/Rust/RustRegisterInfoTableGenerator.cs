@@ -38,7 +38,7 @@ namespace Generator.Tables.Rust {
 
 		public void Generate() {
 			var infos = generatorContext.Types.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data;
-			var filename = Path.Combine(generatorContext.RustDir, "register.rs");
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "register.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "RegisterInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

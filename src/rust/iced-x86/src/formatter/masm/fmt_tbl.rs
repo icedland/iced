@@ -92,15 +92,13 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::AX => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_AX::new(s, s2, v))
+				Box::new(SimpleInstrInfo_AX::new(s, s2))
 			}
 
 			CtorKind::AY => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_AY::new(s, s2, v))
+				Box::new(SimpleInstrInfo_AY::new(s, s2))
 			}
 
 			CtorKind::bnd => {
@@ -113,8 +111,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::DX => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_DX::new(s, s2, v))
+				Box::new(SimpleInstrInfo_DX::new(s, s2))
 			}
 
 			CtorKind::fword => {
@@ -302,9 +299,8 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				}
 				Box::new(SimpleInstrInfo_STi_ST::new(s, v != 0))
 			}
-			CtorKind::STIG1_1 => Box::new(SimpleInstrInfo_STIG1::with_mnemonic(s)),
 
-			CtorKind::STIG1_2 => {
+			CtorKind::STIG1 => {
 				v = reader.read_u8() as u32;
 				if v > 1 {
 					panic!();
@@ -313,37 +309,32 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::XLAT => {
-				c = reader.read_u8() as u8 as char;
-				let s2 = add_suffix(&s, c);
+				let s2 = add_suffix(&s, 'b');
 				Box::new(SimpleInstrInfo_XLAT::new(s, s2))
 			}
 
 			CtorKind::XY => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_XY::new(s, s2, v))
+				Box::new(SimpleInstrInfo_XY::new(s, s2))
 			}
 
 			CtorKind::YA => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_YA::new(s, s2, v))
+				Box::new(SimpleInstrInfo_YA::new(s, s2))
 			}
 
 			CtorKind::YD => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_YD::new(s, s2, v))
+				Box::new(SimpleInstrInfo_YD::new(s, s2))
 			}
 
 			CtorKind::YX => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_YX::new(s, s2, v))
+				Box::new(SimpleInstrInfo_YX::new(s, s2))
 			}
 		};
 
