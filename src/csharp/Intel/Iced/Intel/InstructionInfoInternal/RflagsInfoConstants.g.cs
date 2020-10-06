@@ -28,10 +28,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class RflagsInfoConstants {
-		public static readonly ushort[] flagsRead = new ushort[60] {
+		public static readonly ushort[] flagsRead = new ushort[59] {
 			0x0000,// None
 			0x0000,// C_A
-			0x0000,// C_acopsz
 			0x0000,// C_acos_S_pz
 			0x0000,// C_c
 			0x0000,// C_cos_S_pz_U_a
@@ -90,10 +89,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// W_z_C_co_U_aps
 			0x0000,// W_z_U_acops
 		};
-		public static readonly ushort[] flagsUndefined = new ushort[60] {
+		public static readonly ushort[] flagsUndefined = new ushort[59] {
 			0x0000,// None
 			0x0000,// C_A
-			0x0000,// C_acopsz
 			0x0000,// C_acos_S_pz
 			0x0000,// C_c
 			0x0008,// C_cos_S_pz_U_a
@@ -152,10 +150,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x002A,// W_z_C_co_U_aps
 			0x003B,// W_z_U_acops
 		};
-		public static readonly ushort[] flagsWritten = new ushort[60] {
+		public static readonly ushort[] flagsWritten = new ushort[59] {
 			0x0000,// None
 			0x0000,// C_A
-			0x0000,// C_acopsz
 			0x0000,// C_acos_S_pz
 			0x0000,// C_c
 			0x0000,// C_cos_S_pz_U_a
@@ -214,10 +211,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0004,// W_z_C_co_U_aps
 			0x0004,// W_z_U_acops
 		};
-		public static readonly ushort[] flagsCleared = new ushort[60] {
+		public static readonly ushort[] flagsCleared = new ushort[59] {
 			0x0000,// None
 			0x0100,// C_A
-			0x003F,// C_acopsz
 			0x001B,// C_acos_S_pz
 			0x0010,// C_c
 			0x0013,// C_cos_S_pz_U_a
@@ -276,10 +272,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0011,// W_z_C_co_U_aps
 			0x0000,// W_z_U_acops
 		};
-		public static readonly ushort[] flagsSet = new ushort[60] {
+		public static readonly ushort[] flagsSet = new ushort[59] {
 			0x0000,// None
 			0x0000,// C_A
-			0x0000,// C_acopsz
 			0x0024,// C_acos_S_pz
 			0x0000,// C_c
 			0x0024,// C_cos_S_pz_U_a
@@ -338,10 +333,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0000,// W_z_C_co_U_aps
 			0x0000,// W_z_U_acops
 		};
-		public static readonly ushort[] flagsModified = new ushort[60] {
+		public static readonly ushort[] flagsModified = new ushort[59] {
 			0x0000,// None
 			0x0100,// C_A
-			0x003F,// C_acopsz
 			0x003F,// C_acos_S_pz
 			0x0010,// C_c
 			0x003F,// C_cos_S_pz_U_a

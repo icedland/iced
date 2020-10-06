@@ -84,7 +84,7 @@ lazy_static! {
 		h.insert("CX8", CpuidFeature::CX8);
 		h.insert("D3NOW", CpuidFeature::D3NOW);
 		h.insert("D3NOWEXT", CpuidFeature::D3NOWEXT);
-		h.insert("ENCLV", CpuidFeature::ENCLV);
+		h.insert("OSS", CpuidFeature::OSS);
 		h.insert("ENQCMD", CpuidFeature::ENQCMD);
 		h.insert("F16C", CpuidFeature::F16C);
 		h.insert("FMA", CpuidFeature::FMA);
@@ -139,7 +139,7 @@ lazy_static! {
 		h.insert("SGX1", CpuidFeature::SGX1);
 		h.insert("SHA", CpuidFeature::SHA);
 		h.insert("SKINIT", CpuidFeature::SKINIT);
-		h.insert("SKINIT_or_SVML", CpuidFeature::SKINIT_or_SVML);
+		h.insert("SKINIT_or_SVM", CpuidFeature::SKINIT_or_SVM);
 		h.insert("SMAP", CpuidFeature::SMAP);
 		h.insert("SMX", CpuidFeature::SMX);
 		h.insert("SSE", CpuidFeature::SSE);
@@ -150,7 +150,7 @@ lazy_static! {
 		h.insert("SSE4A", CpuidFeature::SSE4A);
 		h.insert("SSSE3", CpuidFeature::SSSE3);
 		h.insert("SVM", CpuidFeature::SVM);
-		h.insert("SVML", CpuidFeature::SVML);
+		h.insert("SEV_ES", CpuidFeature::SEV_ES);
 		h.insert("SYSCALL", CpuidFeature::SYSCALL);
 		h.insert("TBM", CpuidFeature::TBM);
 		h.insert("TSC", CpuidFeature::TSC);
@@ -164,7 +164,7 @@ lazy_static! {
 		h.insert("XSAVEC", CpuidFeature::XSAVEC);
 		h.insert("XSAVEOPT", CpuidFeature::XSAVEOPT);
 		h.insert("XSAVES", CpuidFeature::XSAVES);
-		h.insert("SNP", CpuidFeature::SNP);
+		h.insert("SEV_SNP", CpuidFeature::SEV_SNP);
 		h.insert("SERIALIZE", CpuidFeature::SERIALIZE);
 		h.insert("TSXLDTRK", CpuidFeature::TSXLDTRK);
 		h.insert("INVLPGB", CpuidFeature::INVLPGB);

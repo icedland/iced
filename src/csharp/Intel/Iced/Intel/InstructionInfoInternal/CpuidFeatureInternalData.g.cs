@@ -47,16 +47,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0xE0,
 				0x00,
 				0x00,
-				0x40,
+				0x10,
 				0x00,
 				0x00,
-				0x40,
+				0x10,
+				0x80,
+				0x6D,
 				0x00,
-				0x33,
 				0x00,
 				0x00,
-				0x00,
-				0x04,
+				0x08,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -120,7 +120,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x2F,// CX8
 				0x30,// D3NOW
 				0x31,// D3NOWEXT
-				0x32,// ENCLV
+				0x32,// OSS
 				0x33,// ENQCMD
 				0x34,// F16C
 				0x35,// FMA
@@ -139,9 +139,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x1F, 0x3F,// AVX512F_and_GFNI
 				0x21, 0x3F,// AVX512VL_and_GFNI
 				0x41,// HLE_or_RTM
-				0x42,// INVEPT
 				0x43,// INVPCID
-				0x44,// INVVPID
 				0x45,// LWP
 				0x46,// LZCNT
 				0x47,// MCOMMIT
@@ -178,7 +176,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x65,// SEP
 				0x66,// SGX1
 				0x67,// SHA
-				0x69,// SKINIT_or_SVML
+				0x69,// SKINIT_or_SVM
 				0x6A,// SMAP
 				0x6B,// SMX
 				0x6C,// SSE
@@ -190,6 +188,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x71,// SSE4A
 				0x72,// SSSE3
 				0x73,// SVM
+				0x74,// SEV_ES
 				0x75,// SYSCALL
 				0x76,// TBM
 				0x77,// TSC
@@ -197,6 +196,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x1F, 0x78,// AVX512F_and_VAES
 				0x21, 0x78,// AVX512VL_and_VAES
 				0x79,// VMX
+				0x79, 0x42,// VMX_and_INVEPT
+				0x79, 0x44,// VMX_and_INVVPID
 				0x7A,// VPCLMULQDQ
 				0x1F, 0x7A,// AVX512F_and_VPCLMULQDQ
 				0x21, 0x7A,// AVX512VL_and_VPCLMULQDQ
@@ -207,7 +208,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x7F,// XSAVEC
 				0x80,// XSAVEOPT
 				0x81,// XSAVES
-				0x82,// SNP
+				0x82,// SEV_SNP
 				0x83,// SERIALIZE
 				0x84,// TSXLDTRK
 				0x85,// INVLPGB

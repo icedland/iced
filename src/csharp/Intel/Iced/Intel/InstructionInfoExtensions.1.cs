@@ -71,20 +71,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if the instruction isn't available in real mode or virtual 8086 mode
-		/// </summary>
-		/// <param name="code">Code value</param>
-		/// <returns></returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool IsProtectedMode(this Code code) {
-			var data = InstrInfoTable.Data;
-			int index = (int)code * 2;
-			if ((uint)index >= (uint)data.Length)
-				ThrowHelper.ThrowArgumentOutOfRangeException_code();
-			return (data[index] & (uint)InfoFlags1.ProtectedMode) != 0;
-		}
-
-		/// <summary>
 		/// Checks if this is a privileged instruction
 		/// </summary>
 		/// <param name="code">Code value</param>
@@ -92,10 +78,10 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsPrivileged(this Code code) {
 			var data = InstrInfoTable.Data;
-			int index = (int)code * 2;
+			int index = (int)code * 2 + 1;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
-			return (data[index] & (uint)InfoFlags1.Privileged) != 0;
+			return (data[index] & (uint)InfoFlags2.Privileged) != 0;
 		}
 
 		/// <summary>
@@ -107,10 +93,10 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsStackInstruction(this Code code) {
 			var data = InstrInfoTable.Data;
-			int index = (int)code * 2;
+			int index = (int)code * 2 + 1;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
-			return (data[index] & (uint)InfoFlags1.StackInstruction) != 0;
+			return (data[index] & (uint)InfoFlags2.StackInstruction) != 0;
 		}
 
 		/// <summary>
@@ -121,10 +107,10 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsSaveRestoreInstruction(this Code code) {
 			var data = InstrInfoTable.Data;
-			int index = (int)code * 2;
+			int index = (int)code * 2 + 1;
 			if ((uint)index >= (uint)data.Length)
 				ThrowHelper.ThrowArgumentOutOfRangeException_code();
-			return (data[index] & (uint)InfoFlags1.SaveRestore) != 0;
+			return (data[index] & (uint)InfoFlags2.SaveRestore) != 0;
 		}
 
 		/// <summary>

@@ -42,10 +42,8 @@ namespace Generator.InstructionInfo {
 		RflagsInfoMask				= 0x3F,
 		CodeInfoShift				= 20,
 		CodeInfoMask				= 0x7F,
-		SaveRestore					= 0x08000000,
-		StackInstruction			= 0x10000000,
-		ProtectedMode				= 0x20000000,
-		Privileged					= 0x40000000,
+		// Free bits
+		OpMaskReadWrite				= 0x40000000,
 		IgnoreSegment				= 0x80000000,
 	}
 
@@ -56,7 +54,9 @@ namespace Generator.InstructionInfo {
 
 		// Free bits
 
-		OpMaskReadWrite				= 0x00080000,
+		SaveRestore					= 0x00020000,
+		StackInstruction			= 0x00040000,
+		Privileged					= 0x00080000,
 		FlowControlShift			= 20,
 		FlowControlMask				= 0xF,
 		CpuidFeatureInternalShift	= 24,

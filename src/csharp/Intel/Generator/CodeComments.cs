@@ -55,7 +55,9 @@ namespace Generator {
 			toCpuidName[cpuid[nameof(CpuidFeature.FPU387SL_ONLY)]] = "387 SL";
 			toCpuidName[cpuid[nameof(CpuidFeature.CYRIX_D3NOW)]] = "AMD Geode GX/LX";
 			toCpuidName[cpuid[nameof(CpuidFeature.HLE_or_RTM)]] = "HLE or RTM";
-			toCpuidName[cpuid[nameof(CpuidFeature.SKINIT_or_SVML)]] = "SKINIT or SVML";
+			toCpuidName[cpuid[nameof(CpuidFeature.SEV_ES)]] = "SEV-ES";
+			toCpuidName[cpuid[nameof(CpuidFeature.SEV_SNP)]] = "SEV-SNP";
+			toCpuidName[cpuid[nameof(CpuidFeature.SKINIT_or_SVM)]] = "SKINIT or SVM";
 			toCpuidName[cpuid[nameof(CpuidFeature.INVEPT)]] = "VMX and IA32_VMX_EPT_VPID_CAP[bit 20]";
 			toCpuidName[cpuid[nameof(CpuidFeature.INVVPID)]] = "VMX and IA32_VMX_EPT_VPID_CAP[bit 32]";
 			toCpuidName[cpuid[nameof(CpuidFeature.MULTIBYTENOP)]] = "CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B";

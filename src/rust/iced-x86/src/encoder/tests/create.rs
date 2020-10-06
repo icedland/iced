@@ -22,8 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::test_utils::from_str_conv::to_vec_u8;
-#[cfg(feature = "op_code_info")]
-use super::super::test_utils::from_str_conv::{code_names, is_ignored_code};
 use super::super::test_utils::*;
 use super::super::*;
 #[cfg(not(feature = "std"))]
@@ -1339,30 +1337,6 @@ fn create_panics_if_invalid_bitness_core(tests: Vec<fn(u32) -> Instruction>) {
 	for f in tests {
 		let result = panic::catch_unwind(|| f(128));
 		assert!(result.is_err());
-	}
-}
-
-#[test]
-#[cfg(feature = "op_code_info")]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
-fn verify_encoding_is_part_of_code_name() {
-	let code_names = code_names();
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
-		let code_name = code_names[i];
-		if is_ignored_code(code_name) {
-			continue;
-		}
-		let code: Code = unsafe { mem::transmute(i as u16) };
-		let prefix = match code.op_code().encoding() {
-			EncodingKind::Legacy => "",
-			EncodingKind::VEX => "VEX_",
-			EncodingKind::EVEX => "EVEX_",
-			EncodingKind::XOP => "XOP_",
-			EncodingKind::D3NOW => "D3NOW_",
-		};
-		if !prefix.is_empty() {
-			assert!(code_name.starts_with(prefix));
-		}
 	}
 }
 

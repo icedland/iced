@@ -83,14 +83,13 @@ namespace Generator.InstructionInfo {
 					var rflagsInfo = def.RflagsInfo ?? throw new InvalidOperationException();
 					dword1 |= rflagsInfo.Value << (int)InfoFlags1.RflagsInfoShift;
 					dword1 |= (uint)def.CodeInfo << (int)InfoFlags1.CodeInfoShift;
-					if ((def.Flags1 & InstructionDefFlags1.SaveRestore) != 0) dword1 |= (uint)InfoFlags1.SaveRestore;
-					if ((def.Flags1 & InstructionDefFlags1.StackInstruction) != 0) dword1 |= (uint)InfoFlags1.StackInstruction;
-					if ((def.Flags2 & InstructionDefFlags2.ProtectedMode) != 0) dword1 |= (uint)InfoFlags1.ProtectedMode;
-					if (def.IsPrivileged) dword1 |= (uint)InfoFlags1.Privileged;
+					if ((def.Flags1 & InstructionDefFlags1.OpMaskReadWrite) != 0) dword1 |= (uint)InfoFlags1.OpMaskReadWrite;
 					if ((def.Flags1 & InstructionDefFlags1.IgnoreSegment) != 0) dword1 |= (uint)InfoFlags1.IgnoreSegment;
 
 					dword2 |= def.EncodingValue.Value << (int)InfoFlags2.EncodingShift;
-					if ((def.Flags1 & InstructionDefFlags1.OpMaskReadWrite) != 0) dword2 |= (uint)InfoFlags2.OpMaskReadWrite;
+					if ((def.Flags1 & InstructionDefFlags1.SaveRestore) != 0) dword2 |= (uint)InfoFlags2.SaveRestore;
+					if ((def.Flags1 & InstructionDefFlags1.StackInstruction) != 0) dword2 |= (uint)InfoFlags2.StackInstruction;
+					if ((def.Flags3 & InstructionDefFlags3.Privileged) != 0) dword2 |= (uint)InfoFlags2.Privileged;
 					dword2 |= def.ControlFlow.Value << (int)InfoFlags2.FlowControlShift;
 					var cpuidInternal = def.CpuidInternal ?? throw new InvalidOperationException();
 					dword2 |= cpuidInternal.Value << (int)InfoFlags2.CpuidFeatureInternalShift;

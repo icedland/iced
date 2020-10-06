@@ -263,7 +263,14 @@ namespace Generator.Tables {
 			const InstructionDefFlags2 Decoder64 = InstructionDefFlags2.IntelDecoder64 | InstructionDefFlags2.AmdDecoder64;
 			const InstructionDefFlags2 AllDecoders = Decoder16 | Decoder32 | Decoder64;
 			state.Flags2 |= AllDecoders;
+			state.Flags2 |= InstructionDefFlags2.RealMode | InstructionDefFlags2.ProtectedMode | InstructionDefFlags2.Virtual8086Mode |
+				InstructionDefFlags2.CompatibilityMode | InstructionDefFlags2.LongMode;
+			state.Flags2 |= InstructionDefFlags2.UseOutsideSmm | InstructionDefFlags2.UseInSmm |
+				InstructionDefFlags2.UseOutsideVmxOp | InstructionDefFlags2.UseInVmxRootOp | InstructionDefFlags2.UseInVmxNonRootOp |
+				InstructionDefFlags2.UseOutsideSeam | InstructionDefFlags2.UseInSeam;
+			state.Flags2 |= InstructionDefFlags2.UseOutsideEnclaveSgx | InstructionDefFlags2.UseInEnclaveSgx1 | InstructionDefFlags2.UseInEnclaveSgx2;
 			fmtKeyValues.Clear();
+			bool? privileged = null;
 			for (; lineIndex < lines.Length; lineIndex++) {
 				line = lines[lineIndex].Trim();
 				if (line.Length == 0 || line[0] == '#')
@@ -420,8 +427,8 @@ namespace Generator.Tables {
 						case "r": state.RflagsRead |= rflagsValue; break;
 						case "u": state.RflagsUndefined |= rflagsValue; break;
 						case "w": state.RflagsWritten |= rflagsValue; break;
-						case "c": state.RflagsCleared |= rflagsValue; break;
-						case "s": state.RflagsSet |= rflagsValue; break;
+						case "0": state.RflagsCleared |= rflagsValue; break;
+						case "1": state.RflagsSet |= rflagsValue; break;
 						default:
 							Error(lineIndex, $"Unknown rflags access: `{key}`");
 							return false;
@@ -440,11 +447,11 @@ namespace Generator.Tables {
 						case "16": state.Flags1 |= InstructionDefFlags1.Bit16; break;
 						case "32": state.Flags1 |= InstructionDefFlags1.Bit32; break;
 						case "64": state.Flags1 |= InstructionDefFlags1.Bit64; break;
-						case "cpl0": state.Flags1 |= InstructionDefFlags1.CPL0; break;
-						case "cpl1": state.Flags1 |= InstructionDefFlags1.CPL1; break;
-						case "cpl2": state.Flags1 |= InstructionDefFlags1.CPL2; break;
-						case "cpl3": state.Flags1 |= InstructionDefFlags1.CPL3; break;
-						case "saverestore": state.Flags1 |= InstructionDefFlags1.SaveRestore; break;
+						case "cpl0": state.Flags1 |= InstructionDefFlags1.Cpl0; break;
+						case "cpl1": state.Flags1 |= InstructionDefFlags1.Cpl1; break;
+						case "cpl2": state.Flags1 |= InstructionDefFlags1.Cpl2; break;
+						case "cpl3": state.Flags1 |= InstructionDefFlags1.Cpl3; break;
+						case "save-restore": state.Flags1 |= InstructionDefFlags1.SaveRestore; break;
 						case "stack": state.Flags1 |= InstructionDefFlags1.StackInstruction; break;
 						case "ignore-seg": state.Flags1 |= InstructionDefFlags1.IgnoreSegment; break;
 						case "krw": state.Flags1 |= InstructionDefFlags1.OpMaskReadWrite; break;
@@ -469,15 +476,77 @@ namespace Generator.Tables {
 						case "ignore-mod": state.Flags1 |= InstructionDefFlags1.IgnoresModBits; break;
 						case "unique-reg-num": state.Flags1 |= InstructionDefFlags1.RequireUniqueRegNums; break;
 						case "no-66": state.Flags1 |= InstructionDefFlags1.No66; break;
+						case "nfx": state.Flags1 |= InstructionDefFlags1.NFx; break;
 
 						case "no-amd-dec": state.Flags2 &= ~(InstructionDefFlags2.AmdDecoder16 | InstructionDefFlags2.AmdDecoder32 | InstructionDefFlags2.AmdDecoder64); break;
 						case "no-amd-dec64": state.Flags2 &= ~InstructionDefFlags2.AmdDecoder64; break;
 						case "no-intel-dec": state.Flags2 &= ~(InstructionDefFlags2.IntelDecoder16 | InstructionDefFlags2.IntelDecoder32 | InstructionDefFlags2.IntelDecoder64); break;
 						case "no-intel-dec64": state.Flags2 &= ~InstructionDefFlags2.IntelDecoder64; break;
-						case "intel-fo64": state.Flags2 |= InstructionDefFlags2.IntelForceOpSize64; break;
-						case "do64": state.Flags2 |= InstructionDefFlags2.DefaultOpSize64; break;
-						case "fo64": state.Flags2 |= InstructionDefFlags2.ForceOpSize64; break;
-						case "pm": state.Flags2 |= InstructionDefFlags2.ProtectedMode; break;
+						case "no-rm": state.Flags2 &= ~InstructionDefFlags2.RealMode; break;
+						case "no-pm": state.Flags2 &= ~InstructionDefFlags2.ProtectedMode; break;
+						case "no-v86": state.Flags2 &= ~InstructionDefFlags2.Virtual8086Mode; break;
+						case "no-cm": state.Flags2 &= ~InstructionDefFlags2.CompatibilityMode; break;
+						case "no-lm": state.Flags2 &= ~InstructionDefFlags2.LongMode; break;
+						case "no-outside-smm": state.Flags2 &= ~InstructionDefFlags2.UseOutsideSmm; break;
+						case "no-in-smm": state.Flags2 &= ~InstructionDefFlags2.UseInSmm; break;
+						case "no-outside-vmx-op": state.Flags2 &= ~InstructionDefFlags2.UseOutsideVmxOp; break;
+						case "no-in-vmx-root": state.Flags2 &= ~InstructionDefFlags2.UseInVmxRootOp; break;
+						case "no-in-vmx-non-root": state.Flags2 &= ~InstructionDefFlags2.UseInVmxNonRootOp; break;
+						case "no-outside-seam": state.Flags2 &= ~InstructionDefFlags2.UseOutsideSeam; break;
+						case "no-in-seam": state.Flags2 &= ~InstructionDefFlags2.UseInSeam; break;
+						case "no-outside-sgx": state.Flags2 &= ~InstructionDefFlags2.UseOutsideEnclaveSgx; break;
+						case "no-in-sgx1": state.Flags2 &= ~InstructionDefFlags2.UseInEnclaveSgx1; break;
+						case "no-in-sgx2": state.Flags2 &= ~InstructionDefFlags2.UseInEnclaveSgx2; break;
+						case "tdx-non-root-ud": state.Flags2 &= ~InstructionDefFlags2.TdxNonRootGenUd; break;
+						case "tdx-non-root-ve": state.Flags2 &= ~InstructionDefFlags2.TdxNonRootGenVe; break;
+						case "tdx-non-root-may-gen-ex": state.Flags2 &= ~InstructionDefFlags2.TdxNonRootMayGenEx; break;
+						case "intel-vm-exit": state.Flags2 |= InstructionDefFlags2.IntelVmExit; break;
+						case "intel-may-vm-exit": state.Flags2 |= InstructionDefFlags2.IntelMayVmExit; break;
+						case "intel-smm-vm-exit": state.Flags2 |= InstructionDefFlags2.IntelSmmVmExit; break;
+						case "amd-vm-exit": state.Flags2 |= InstructionDefFlags2.AmdVmExit; break;
+						case "amd-may-vm-exit": state.Flags2 |= InstructionDefFlags2.AmdMayVmExit; break;
+						case "tsx-abort": state.Flags2 |= InstructionDefFlags2.TsxAbort; break;
+						case "tsx-impl-abort": state.Flags2 |= InstructionDefFlags2.TsxImplAbort; break;
+						case "tsx-may-abort": state.Flags2 |= InstructionDefFlags2.TsxMayAbort; break;
+
+						case "intel-fo64": state.Flags3 |= InstructionDefFlags3.IntelForceOpSize64; break;
+						case "do64": state.Flags3 |= InstructionDefFlags3.DefaultOpSize64; break;
+						case "fo64": state.Flags3 |= InstructionDefFlags3.ForceOpSize64; break;
+						case "io": state.Flags3 |= InstructionDefFlags3.InputOutput; break;
+						case "nop": state.Flags3 |= InstructionDefFlags3.Nop; break;
+						case "res-nop": state.Flags3 |= InstructionDefFlags3.ReservedNop; break;
+						case "ignore-er": state.Flags3 |= InstructionDefFlags3.IgnoreRoundingControl; break;
+						case "serialize-intel": state.Flags3 |= InstructionDefFlags3.SerializingIntel; break;
+						case "serialize-amd": state.Flags3 |= InstructionDefFlags3.SerializingAmd; break;
+						case "may-require-cpl0": state.Flags3 |= InstructionDefFlags3.MayRequireCpl0; break;
+						case "amd-lock-reg-bit": state.Flags3 |= InstructionDefFlags3.AmdLockRegBit; break;
+						case "cet-tracked": state.Flags3 |= InstructionDefFlags3.CetTracked; break;
+						case "non-temporal": state.Flags3 |= InstructionDefFlags3.NonTemporal; break;
+						case "no-wait": state.Flags3 |= InstructionDefFlags3.FpuNoWait; break;
+
+						case "vmx=op":
+						case "vmx=root":
+						case "vmx=non-root":
+							if (state.VmxMode != VmxMode.None) {
+								error = "Duplicate vmx value";
+								return false;
+							}
+							state.VmxMode = value switch {
+								"vmx=op" => VmxMode.VmxOp,
+								"vmx=root" => VmxMode.VmxRootOp,
+								"vmx=non-root" => VmxMode.VmxNonRootOp,
+								_ => throw new InvalidOperationException(),
+							};
+							break;
+
+						case "privileged":
+						case "no-privileged":
+							if (privileged is object) {
+								error = "Duplicate privileged/no-privileged value";
+								return false;
+							}
+							privileged = value == "privileged";
+							break;
 
 						default:
 							Error(lineIndex, $"Unknown flags value `{value}`");
@@ -628,6 +697,11 @@ namespace Generator.Tables {
 				return false;
 			}
 
+			var isPriv = privileged ??
+				(state.Flags1 & (InstructionDefFlags1.Cpl0 | InstructionDefFlags1.Cpl1 | InstructionDefFlags1.Cpl2 | InstructionDefFlags1.Cpl3)) == InstructionDefFlags1.Cpl0;
+			if (isPriv)
+				state.Flags3 |= InstructionDefFlags3.Privileged;
+
 			// The formatters depend on some other lines so parse the formatter lines later
 			foreach (var (key, value) in fmtKeyValues) {
 				switch (key) {
@@ -751,8 +825,8 @@ namespace Generator.Tables {
 			const InstructionDefFlags1 CpuModeBits = InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit64;
 			if ((state.Flags1 & CpuModeBits) == 0)
 				state.Flags1 |= CpuModeBits;
-			const InstructionDefFlags1 CplBits = InstructionDefFlags1.CPL0 | InstructionDefFlags1.CPL1 |
-												InstructionDefFlags1.CPL2 | InstructionDefFlags1.CPL3;
+			const InstructionDefFlags1 CplBits = InstructionDefFlags1.Cpl0 | InstructionDefFlags1.Cpl1 |
+												InstructionDefFlags1.Cpl2 | InstructionDefFlags1.Cpl3;
 			if ((state.Flags1 & CplBits) == 0)
 				state.Flags1 |= CplBits;
 			if (state.MemorySize_Broadcast != memorySizeUnknown)
@@ -765,6 +839,21 @@ namespace Generator.Tables {
 				state.Flags1 |= InstructionDefFlags1.OpMaskRegister;
 			if (instrStr.Contains("{z}", StringComparison.Ordinal))
 				state.Flags1 |= InstructionDefFlags1.ZeroingMasking;
+			switch (state.VmxMode) {
+			case VmxMode.None:
+				break;
+			case VmxMode.VmxOp:
+				state.Flags2 &= ~InstructionDefFlags2.UseOutsideVmxOp;
+				break;
+			case VmxMode.VmxRootOp:
+				state.Flags2 &= ~(InstructionDefFlags2.UseOutsideVmxOp | InstructionDefFlags2.UseInVmxNonRootOp);
+				break;
+			case VmxMode.VmxNonRootOp:
+				state.Flags2 &= ~(InstructionDefFlags2.UseOutsideVmxOp | InstructionDefFlags2.UseInVmxRootOp);
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
 
 			static string UppercaseFirstLetter(string s) =>
 				s.Substring(0, 1).ToUpperInvariant() + s.Substring(1).ToLowerInvariant();
@@ -788,20 +877,47 @@ namespace Generator.Tables {
 			case EncodingKind.VEX:
 			case EncodingKind.EVEX:
 			case EncodingKind.XOP:
-				state.Flags2 |= InstructionDefFlags2.ProtectedMode;
+				state.Flags2 &= ~(InstructionDefFlags2.RealMode | InstructionDefFlags2.Virtual8086Mode);
 				break;
 			default:
 				throw new InvalidOperationException();
 			}
 
-			if ((state.Flags1 & InstructionDefFlags1.Bit16) == 0)
+			if ((state.Flags1 & InstructionDefFlags1.Bit16) == 0) {
 				state.Flags2 &= ~Decoder16;
+				// It's possible to use a 32-bit code segment in RM but we assume it's 16-bit only
+				state.Flags2 &= ~(InstructionDefFlags2.RealMode | InstructionDefFlags2.Virtual8086Mode);
+			}
 			if ((state.Flags1 & InstructionDefFlags1.Bit32) == 0)
 				state.Flags2 &= ~Decoder32;
-			if ((state.Flags1 & InstructionDefFlags1.Bit64) == 0)
+			if ((state.Flags1 & InstructionDefFlags1.Bit64) == 0) {
 				state.Flags2 &= ~Decoder64;
+				state.Flags2 &= ~InstructionDefFlags2.LongMode;
+			}
+			if ((state.Flags1 & (InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32)) == 0) {
+				state.Flags2 &= ~(InstructionDefFlags2.RealMode | InstructionDefFlags2.ProtectedMode |
+					InstructionDefFlags2.Virtual8086Mode | InstructionDefFlags2.CompatibilityMode);
+			}
 			if ((state.Flags2 & AllDecoders) == 0) {
 				Error(state.LineIndex, "Instruction can't be decoded by any decoder");
+				return false;
+			}
+			if ((state.Flags2 & InstructionDefFlags2.LongMode) != 0 && (state.Flags1 & InstructionDefFlags1.Bit64) == 0) {
+				Error(state.LineIndex, "Long mode is enabled but 64-bit code is not allowed");
+				return false;
+			}
+
+			if ((state.Flags2 & InstructionDefFlags2.UseInSeam) != 0 && (state.Flags2 & (InstructionDefFlags2.UseInVmxRootOp | InstructionDefFlags2.UseInVmxNonRootOp)) == 0) {
+				Error(state.LineIndex, "In-SEAM but not (in-VMX-root or in-VMX-non-root)");
+				return false;
+			}
+
+			if ((state.Flags2 & (InstructionDefFlags2.IntelVmExit | InstructionDefFlags2.IntelMayVmExit)) == (InstructionDefFlags2.IntelVmExit | InstructionDefFlags2.IntelMayVmExit)) {
+				Error(state.LineIndex, "intel-vm-exit and intel-may-vm-exit can't both be used. Remove one of them.");
+				return false;
+			}
+			if ((state.Flags2 & (InstructionDefFlags2.AmdVmExit | InstructionDefFlags2.AmdMayVmExit)) == (InstructionDefFlags2.AmdVmExit | InstructionDefFlags2.AmdMayVmExit)) {
+				Error(state.LineIndex, "amd-vm-exit and amd-may-vm-exit can't both be used. Remove one of them.");
 				return false;
 			}
 
@@ -855,7 +971,7 @@ namespace Generator.Tables {
 				return false;
 			}
 			def = new InstructionDef(state.Code, state.OpCodeStr, state.InstrStr, state.Mnemonic, state.MemorySize,
-				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.IStringFlags,
+				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.VmxMode, state.IStringFlags,
 				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
 				state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
@@ -1341,14 +1457,12 @@ namespace Generator.Tables {
 
 				case "osz":
 					result.CtorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.os)];
-					operandSize = def.GetOperandSize(64);
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add((def.Flags1 & InstructionDefFlags1.Bnd) != 0);
 					result.Args.Add(CreateFlagsEnum(gasInstrOpInfoFlags, result.GetUsedFlags()));
 					break;
 
 				case "loop":
-					operandSize = def.GetOperandSize(64);
 					if (!def.TryGetAddressSize(out addressSize, out error))
 						return false;
 					if (TryGetLoopCcMnemonics(def, out ccIndex, out var extraLoopMnemonic)) {
@@ -1361,7 +1475,7 @@ namespace Generator.Tables {
 						result.CtorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.os_loop)];
 						result.Args.Add(result.GetUsedSuffix());
 					}
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add(addressSize);
 					break;
 
@@ -1374,9 +1488,8 @@ namespace Generator.Tables {
 					break;
 
 				case "osz-suffix-4":
-					operandSize = def.GetOperandSize(64);
 					result.Args.Add(result.GetUsedSuffix());
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add((def.Flags1 & InstructionDefFlags1.Bnd) != 0);
 					if (result.Flags.Count > 0) {
 						result.CtorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.os2_4)];
@@ -1488,7 +1601,6 @@ namespace Generator.Tables {
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
 					int ccIndex = def.OpCode.OpCode & 0x0F;
-					var opSize = def.GetOperandSize(64);
 					var extraMnemonics = jccOtherMnemonics[ccIndex];
 					ctorKind = extraMnemonics.Length switch {
 						0 => gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.os_jcc_1)],
@@ -1498,7 +1610,7 @@ namespace Generator.Tables {
 					};
 					state.Args.AddRange(extraMnemonics);
 					state.Args.Add(ccIndex);
-					state.Args.Add(opSize);
+					state.Args.Add(def.GetOperandSize(64));
 				}
 				else {
 					if (state.ForceSuffix) {
@@ -1702,12 +1814,10 @@ namespace Generator.Tables {
 
 				case "osz-bnd":
 					result.CtorKind = intelCtorKind[nameof(Enums.Formatter.Intel.CtorKind.os_bnd)];
-					operandSize = def.GetOperandSize(64);
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					break;
 
 				case "loop":
-					operandSize = def.GetOperandSize(64);
 					if (!def.TryGetAddressSize(out addressSize, out error))
 						return false;
 					var rcxReg = addressSize switch {
@@ -1723,13 +1833,12 @@ namespace Generator.Tables {
 					}
 					else
 						result.CtorKind = intelCtorKind[nameof(Enums.Formatter.Intel.CtorKind.os_loop)];
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add(rcxReg);
 					break;
 
 				case "osz":
-					operandSize = def.GetOperandSize(64);
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					if (result.Flags.Count > 0) {
 						result.Args.Add(CreateFlagsEnum(intelInstrOpInfoFlags, result.GetUsedFlags()));
 						result.CtorKind = intelCtorKind[nameof(Enums.Formatter.Intel.CtorKind.os3)];
@@ -1829,7 +1938,6 @@ namespace Generator.Tables {
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
 					int ccIndex = def.OpCode.OpCode & 0x0F;
-					var opSize = def.GetOperandSize(64);
 					var extraMnemonics = jccOtherMnemonics[ccIndex];
 					if (def.BranchKind == BranchKind.JccShort)
 						state.Flags.Add(intelInstrOpInfoFlags[nameof(Enums.Formatter.Intel.InstrOpInfoFlags.BranchSizeInfo_Short)]);
@@ -1851,7 +1959,7 @@ namespace Generator.Tables {
 					}
 					state.Args.AddRange(extraMnemonics);
 					state.Args.Add(ccIndex);
-					state.Args.Add(opSize);
+					state.Args.Add(def.GetOperandSize(64));
 					if (state.Flags.Count > 0)
 						state.Args.Add(CreateFlagsEnum(intelInstrOpInfoFlags, state.GetUsedFlags()));
 				}
@@ -2516,8 +2624,7 @@ namespace Generator.Tables {
 					break;
 
 				case "osz":
-					operandSize = def.GetOperandSize(64);
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					if (result.Flags.Count > 0) {
 						result.Args.Add(CreateFlagsEnum(nasmInstrOpInfoFlags, result.GetUsedFlags()));
 						result.CtorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.os_3)];
@@ -2528,13 +2635,11 @@ namespace Generator.Tables {
 
 				case "osz-call":
 					result.CtorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.os_call)];
-					operandSize = def.GetOperandSize(64);
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add((def.Flags1 & InstructionDefFlags1.Bnd) != 0);
 					break;
 
 				case "loop":
-					operandSize = def.GetOperandSize(64);
 					if (!def.TryGetAddressSize(out addressSize, out error))
 						return false;
 					var rcxReg = addressSize switch {
@@ -2550,14 +2655,13 @@ namespace Generator.Tables {
 					}
 					else
 						result.CtorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.os_loop)];
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add(rcxReg);
 					break;
 
 				case "osz-mem-1":
-					operandSize = def.GetOperandSize(64);
 					result.CtorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.os_mem)];
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					break;
 
 				case "osz-mem-2":
@@ -2569,9 +2673,8 @@ namespace Generator.Tables {
 					break;
 
 				case "osz-reg16":
-					operandSize = def.GetOperandSize(64);
 					result.CtorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.os_mem_reg16)];
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					break;
 
 				case "xmm0":
@@ -2589,19 +2692,17 @@ namespace Generator.Tables {
 
 				case "sx-push-imm8":
 					result.CtorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.push_imm8)];
-					operandSize = def.GetOperandSize(64);
 					if (!TryGetSignExtendInfo(def, result.NoSignExtend, out enumValue, out error))
 						return false;
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add(enumValue);
 					break;
 
 				case "sx-push-imm":
 					result.CtorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.push_imm)];
-					operandSize = def.GetOperandSize(64);
 					if (!TryGetSignExtendInfo(def, result.NoSignExtend, out enumValue, out error))
 						return false;
-					result.Args.Add(operandSize);
+					result.Args.Add(def.GetOperandSize(64));
 					result.Args.Add(enumValue);
 					break;
 
@@ -2739,7 +2840,6 @@ namespace Generator.Tables {
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
 					int ccIndex = def.OpCode.OpCode & 0x0F;
-					var opSize = def.GetOperandSize(64);
 					var extraMnemonics = jccOtherMnemonics[ccIndex];
 					if (def.BranchKind == BranchKind.JccShort)
 						state.Flags.Add(nasmInstrOpInfoFlags[nameof(Enums.Formatter.Nasm.InstrOpInfoFlags.BranchSizeInfo_Short)]);
@@ -2761,7 +2861,7 @@ namespace Generator.Tables {
 					}
 					state.Args.AddRange(extraMnemonics);
 					state.Args.Add(ccIndex);
-					state.Args.Add(opSize);
+					state.Args.Add(def.GetOperandSize(64));
 					if (state.Flags.Count > 0)
 						state.Args.Add(CreateFlagsEnum(nasmInstrOpInfoFlags, state.GetUsedFlags()));
 				}
@@ -2935,7 +3035,7 @@ namespace Generator.Tables {
 		public readonly string InstrStr;
 		public readonly EnumValue[] Cpuid;
 		public readonly EnumValue TupleType;
-		public EnumValue Encoding;
+		public readonly EnumValue Encoding;
 		public OpInfo[] OpAccess;
 		public OpCodeOperandKind[] OpKinds;
 		public BranchKind BranchKind;
@@ -2953,6 +3053,8 @@ namespace Generator.Tables {
 		public EnumValue? CodeInfo;
 		public InstructionDefFlags1 Flags1;
 		public InstructionDefFlags2 Flags2;
+		public InstructionDefFlags3 Flags3;
+		public VmxMode VmxMode;
 		public RflagsBits RflagsRead;
 		public RflagsBits RflagsUndefined;
 		public RflagsBits RflagsWritten;
@@ -3001,12 +3103,6 @@ namespace Generator.Tables {
 			case CodeSize.Code64: operandSize = 64; return true;
 			default: throw new InvalidOperationException();
 			}
-		}
-
-		public int GetAddressSize(int defaultValue) {
-			if (!TryGetAddressSize(out var addressSize, out _))
-				return defaultValue;
-			return addressSize;
 		}
 
 		public int GetOperandSize(int defaultValue) {

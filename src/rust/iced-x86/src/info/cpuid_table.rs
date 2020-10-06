@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::CpuidFeature;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static CPUID: [&[CpuidFeature]; 171] = [
+pub(crate) static CPUID: [&[CpuidFeature]; 172] = [
 	&[CpuidFeature::INTEL8086],// INTEL8086
 	&[CpuidFeature::INTEL8086_ONLY],// INTEL8086_ONLY
 	&[CpuidFeature::INTEL186],// INTEL186
@@ -89,7 +89,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 171] = [
 	&[CpuidFeature::CX8],// CX8
 	&[CpuidFeature::D3NOW],// D3NOW
 	&[CpuidFeature::D3NOWEXT],// D3NOWEXT
-	&[CpuidFeature::ENCLV],// ENCLV
+	&[CpuidFeature::OSS],// OSS
 	&[CpuidFeature::ENQCMD],// ENQCMD
 	&[CpuidFeature::F16C],// F16C
 	&[CpuidFeature::FMA],// FMA
@@ -108,9 +108,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 171] = [
 	&[CpuidFeature::AVX512F, CpuidFeature::GFNI],// AVX512F_and_GFNI
 	&[CpuidFeature::AVX512VL, CpuidFeature::GFNI],// AVX512VL_and_GFNI
 	&[CpuidFeature::HLE_or_RTM],// HLE_or_RTM
-	&[CpuidFeature::INVEPT],// INVEPT
 	&[CpuidFeature::INVPCID],// INVPCID
-	&[CpuidFeature::INVVPID],// INVVPID
 	&[CpuidFeature::LWP],// LWP
 	&[CpuidFeature::LZCNT],// LZCNT
 	&[CpuidFeature::MCOMMIT],// MCOMMIT
@@ -147,7 +145,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 171] = [
 	&[CpuidFeature::SEP],// SEP
 	&[CpuidFeature::SGX1],// SGX1
 	&[CpuidFeature::SHA],// SHA
-	&[CpuidFeature::SKINIT_or_SVML],// SKINIT_or_SVML
+	&[CpuidFeature::SKINIT_or_SVM],// SKINIT_or_SVM
 	&[CpuidFeature::SMAP],// SMAP
 	&[CpuidFeature::SMX],// SMX
 	&[CpuidFeature::SSE],// SSE
@@ -159,6 +157,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 171] = [
 	&[CpuidFeature::SSE4A],// SSE4A
 	&[CpuidFeature::SSSE3],// SSSE3
 	&[CpuidFeature::SVM],// SVM
+	&[CpuidFeature::SEV_ES],// SEV_ES
 	&[CpuidFeature::SYSCALL],// SYSCALL
 	&[CpuidFeature::TBM],// TBM
 	&[CpuidFeature::TSC],// TSC
@@ -166,6 +165,8 @@ pub(crate) static CPUID: [&[CpuidFeature]; 171] = [
 	&[CpuidFeature::AVX512F, CpuidFeature::VAES],// AVX512F_and_VAES
 	&[CpuidFeature::AVX512VL, CpuidFeature::VAES],// AVX512VL_and_VAES
 	&[CpuidFeature::VMX],// VMX
+	&[CpuidFeature::VMX, CpuidFeature::INVEPT],// VMX_and_INVEPT
+	&[CpuidFeature::VMX, CpuidFeature::INVVPID],// VMX_and_INVVPID
 	&[CpuidFeature::VPCLMULQDQ],// VPCLMULQDQ
 	&[CpuidFeature::AVX512F, CpuidFeature::VPCLMULQDQ],// AVX512F_and_VPCLMULQDQ
 	&[CpuidFeature::AVX512VL, CpuidFeature::VPCLMULQDQ],// AVX512VL_and_VPCLMULQDQ
@@ -176,7 +177,7 @@ pub(crate) static CPUID: [&[CpuidFeature]; 171] = [
 	&[CpuidFeature::XSAVEC],// XSAVEC
 	&[CpuidFeature::XSAVEOPT],// XSAVEOPT
 	&[CpuidFeature::XSAVES],// XSAVES
-	&[CpuidFeature::SNP],// SNP
+	&[CpuidFeature::SEV_SNP],// SEV_SNP
 	&[CpuidFeature::SERIALIZE],// SERIALIZE
 	&[CpuidFeature::TSXLDTRK],// TSXLDTRK
 	&[CpuidFeature::INVLPGB],// INVLPGB

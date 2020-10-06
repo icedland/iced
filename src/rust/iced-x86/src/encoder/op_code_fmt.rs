@@ -260,6 +260,12 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		match self.op_code.code() {
 			#[cfg(not(feature = "no_vex"))]
 			Code::VEX_Ldtilecfg_m512 | Code::VEX_Sttilecfg_m512 => has_modrm_info = true,
+			Code::Enqcmds_r16_m512
+			| Code::Enqcmds_r32_m512
+			| Code::Enqcmds_r64_m512
+			| Code::Enqcmd_r16_m512
+			| Code::Enqcmd_r32_m512
+			| Code::Enqcmd_r64_m512 => has_modrm_info = true,
 			Code::Aesencwide128kl_m384
 			| Code::Aesdecwide128kl_m384
 			| Code::Aesencwide256kl_m512

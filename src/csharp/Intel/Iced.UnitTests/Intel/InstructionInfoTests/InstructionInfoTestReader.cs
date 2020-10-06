@@ -113,12 +113,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				}
 
 				switch (key) {
-				case InstructionInfoKeys.IsProtectedMode:
-					if (value != string.Empty)
-						throw new Exception($"Invalid key-value value, '{keyValue}'");
-					testCase.IsProtectedMode = true;
-					break;
-
 				case InstructionInfoKeys.IsPrivileged:
 					if (value != string.Empty)
 						throw new Exception($"Invalid key-value value, '{keyValue}'");

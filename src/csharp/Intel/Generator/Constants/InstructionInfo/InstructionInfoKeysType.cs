@@ -31,7 +31,6 @@ namespace Generator.Constants.InstructionInfo {
 
 		static Constant[] GetConstants() =>
 			new Constant[] {
-				new Constant(ConstantKind.String, "IsProtectedMode", "pm"),
 				new Constant(ConstantKind.String, "IsPrivileged", "priv"),
 				new Constant(ConstantKind.String, "IsSaveRestoreInstruction", "saverestore"),
 				new Constant(ConstantKind.String, "IsStackInstruction", "stack"),

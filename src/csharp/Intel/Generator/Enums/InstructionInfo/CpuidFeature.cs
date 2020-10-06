@@ -125,7 +125,7 @@ namespace Generator.Enums.InstructionInfo {
 		[Comment("CPUID.80000001H:EDX.3DNOWEXT[bit 30]")]
 		D3NOWEXT,
 		[Comment("CPUID.(EAX=12H, ECX=0H):EAX.OSS[bit 5]")]
-		ENCLV,
+		OSS,
 		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.ENQCMD[bit 29]")]
 		ENQCMD,
 		[Comment("CPUID.01H:ECX.F16C[bit 29]")]
@@ -156,11 +156,11 @@ namespace Generator.Enums.InstructionInfo {
 		HLE,
 		[Comment("#(e:HLE)# or #(e:RTM)#")]
 		HLE_or_RTM,
-		[Comment("#(e:VMX)# and IA32_VMX_EPT_VPID_CAP[bit 20]")]
+		[Comment("IA32_VMX_EPT_VPID_CAP[bit 20]")]
 		INVEPT,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EBX.INVPCID[bit 10]")]
 		INVPCID,
-		[Comment("#(e:VMX)# and IA32_VMX_EPT_VPID_CAP[bit 32]")]
+		[Comment("IA32_VMX_EPT_VPID_CAP[bit 32]")]
 		INVVPID,
 		[Comment("CPUID.80000001H:ECX.LWP[bit 15]")]
 		LWP,
@@ -234,8 +234,8 @@ namespace Generator.Enums.InstructionInfo {
 		SHA,
 		[Comment("CPUID.80000001H:ECX.SKINIT[bit 12]")]
 		SKINIT,
-		[Comment("#(e:SKINIT)# or #(e:SVML)#")]
-		SKINIT_or_SVML,
+		[Comment("#(e:SKINIT)# or #(e:SVM)#")]
+		SKINIT_or_SVM,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EBX.SMAP[bit 20]")]
 		SMAP,
 		[Comment("CPUID.01H:ECX.SMX[bit 6]")]
@@ -256,8 +256,8 @@ namespace Generator.Enums.InstructionInfo {
 		SSSE3,
 		[Comment("CPUID.80000001H:ECX.SVM[bit 2]")]
 		SVM,
-		[Comment("CPUID.8000000AH:EDX.SVML[bit 2]")]
-		SVML,
+		[Comment("CPUID.8000001FH:EAX.SEV-ES[bit 3]")]
+		SEV_ES,
 		[Comment("CPUID.80000001H:EDX.SYSCALL[bit 11]")]
 		SYSCALL,
 		[Comment("CPUID.80000001H:ECX.TBM[bit 21]")]
@@ -284,8 +284,8 @@ namespace Generator.Enums.InstructionInfo {
 		XSAVEOPT,
 		[Comment("CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES[bit 3]")]
 		XSAVES,
-		[Comment("CPUID.8000001FH:EAX.SNP[bit 4]")]
-		SNP,
+		[Comment("CPUID.8000001FH:EAX.SEV-SNP[bit 4]")]
+		SEV_SNP,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.SERIALIZE[bit 14]")]
 		SERIALIZE,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK[bit 16]")]

@@ -53,7 +53,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		internal const int OpInfo2_Count = 3;
 		internal const int OpInfo3_Count = 2;
 		internal const int OpInfo4_Count = 2;
-		internal const int RflagsInfo_Count = 60;
+		internal const int RflagsInfo_Count = 59;
 		internal const int DefaultUsedRegisterCollCapacity = 10;
 		internal const int DefaultUsedMemoryCollCapacity = 8;
 	}
@@ -77,10 +77,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		RflagsInfoMask = 0x0000003F,
 		CodeInfoShift = 0x00000014,
 		CodeInfoMask = 0x0000007F,
-		SaveRestore = 0x08000000,
-		StackInstruction = 0x10000000,
-		ProtectedMode = 0x20000000,
-		Privileged = 0x40000000,
+		OpMaskReadWrite = 0x40000000,
 		IgnoreSegment = 0x80000000,
 	}
 	// GENERATOR-END: InfoFlags1
@@ -91,7 +88,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 	enum InfoFlags2 : uint {
 		EncodingShift = 0x00000000,
 		EncodingMask = 0x00000007,
-		OpMaskReadWrite = 0x00080000,
+		SaveRestore = 0x00020000,
+		StackInstruction = 0x00040000,
+		Privileged = 0x00080000,
 		FlowControlShift = 0x00000014,
 		FlowControlMask = 0x0000000F,
 		CpuidFeatureInternalShift = 0x00000018,
@@ -281,7 +280,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 	enum RflagsInfo {
 		None,
 		C_A,
-		C_acopsz,
 		C_acos_S_pz,
 		C_c,
 		C_cos_S_pz_U_a,

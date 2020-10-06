@@ -42,11 +42,10 @@ namespace Iced.Intel {
 		internal byte flags;
 
 		[Flags]
-		internal enum Flags : byte {
-			SaveRestore				= 0x01,
-			StackInstruction		= 0x02,
-			ProtectedMode			= 0x04,
-			Privileged				= 0x08,
+		internal enum Flags1 : byte {
+			SaveRestore				= 0x20,
+			StackInstruction		= 0x40,
+			Privileged				= 0x80,
 		}
 
 		internal InstructionInfo(bool dummy) {
@@ -144,26 +143,21 @@ namespace Iced.Intel {
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
-		/// <see langword="true"/> if the instruction isn't available in real mode or virtual 8086 mode
-		/// </summary>
-		public readonly bool IsProtectedMode => (flags & (uint)Flags.ProtectedMode) != 0;
-
-		/// <summary>
 		/// <see langword="true"/> if this is a privileged instruction
 		/// </summary>
-		public readonly bool IsPrivileged => (flags & (uint)Flags.Privileged) != 0;
+		public readonly bool IsPrivileged => (flags & (uint)Flags1.Privileged) != 0;
 
 		/// <summary>
 		/// <see langword="true"/> if this is an instruction that implicitly uses the stack pointer (<c>SP</c>/<c>ESP</c>/<c>RSP</c>), eg. <c>CALL</c>, <c>PUSH</c>, <c>POP</c>, <c>RET</c>, etc.
 		/// See also <see cref="Instruction.StackPointerIncrement"/>
 		/// </summary>
-		public readonly bool IsStackInstruction => (flags & (uint)Flags.StackInstruction) != 0;
+		public readonly bool IsStackInstruction => (flags & (uint)Flags1.StackInstruction) != 0;
 
 		/// <summary>
 		/// <see langword="true"/> if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// <see cref="GetUsedRegisters"/> won't return all accessed registers.
 		/// </summary>
-		public readonly bool IsSaveRestoreInstruction => (flags & (uint)Flags.SaveRestore) != 0;
+		public readonly bool IsSaveRestoreInstruction => (flags & (uint)Flags1.SaveRestore) != 0;
 
 		/// <summary>
 		/// Instruction encoding, eg. legacy, VEX, EVEX, ...

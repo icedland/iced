@@ -6498,7 +6498,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>NP 0F 01 C0</c><br/>
 		/// <br/>
-		/// <c>ENCLV</c><br/>
+		/// <c>OSS</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Enclv = 812,
@@ -6730,7 +6730,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 01 DC</c><br/>
 		/// <br/>
-		/// <c>SKINIT or SVML</c><br/>
+		/// <c>SKINIT or SVM</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Stgi = 841,
@@ -6746,7 +6746,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>0F 01 DE</c><br/>
 		/// <br/>
-		/// <c>SKINIT or SVML</c><br/>
+		/// <c>SKINIT or SVM</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Skinit = 843,
@@ -25906,7 +25906,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 80 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
+		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Invept_r32_m128 = 3238,
@@ -25914,7 +25914,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 80 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
+		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Invept_r64_m128 = 3239,
@@ -25922,7 +25922,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 81 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
+		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Invvpid_r32_m128 = 3240,
@@ -25930,7 +25930,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 81 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
+		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Invvpid_r64_m128 = 3241,
@@ -29648,7 +29648,7 @@ namespace Iced.Intel {
 		Movdir64b_r64_m512 = 3705,
 		/// <summary><c>ENQCMDS r16, m512</c><br/>
 		/// <br/>
-		/// <c>a16 F3 0F 38 F8 /r</c><br/>
+		/// <c>a16 F3 0F 38 F8 !(11):rrr:bbb</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -29656,7 +29656,7 @@ namespace Iced.Intel {
 		Enqcmds_r16_m512 = 3706,
 		/// <summary><c>ENQCMDS r32, m512</c><br/>
 		/// <br/>
-		/// <c>a32 F3 0F 38 F8 /r</c><br/>
+		/// <c>a32 F3 0F 38 F8 !(11):rrr:bbb</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -29664,7 +29664,7 @@ namespace Iced.Intel {
 		Enqcmds_r32_m512 = 3707,
 		/// <summary><c>ENQCMDS r64, m512</c><br/>
 		/// <br/>
-		/// <c>a64 F3 0F 38 F8 /r</c><br/>
+		/// <c>a64 F3 0F 38 F8 !(11):rrr:bbb</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -29672,7 +29672,7 @@ namespace Iced.Intel {
 		Enqcmds_r64_m512 = 3708,
 		/// <summary><c>ENQCMD r16, m512</c><br/>
 		/// <br/>
-		/// <c>a16 F2 0F 38 F8 /r</c><br/>
+		/// <c>a16 F2 0F 38 F8 !(11):rrr:bbb</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -29680,7 +29680,7 @@ namespace Iced.Intel {
 		Enqcmd_r16_m512 = 3709,
 		/// <summary><c>ENQCMD r32, m512</c><br/>
 		/// <br/>
-		/// <c>a32 F2 0F 38 F8 /r</c><br/>
+		/// <c>a32 F2 0F 38 F8 !(11):rrr:bbb</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -29688,7 +29688,7 @@ namespace Iced.Intel {
 		Enqcmd_r32_m512 = 3710,
 		/// <summary><c>ENQCMD r64, m512</c><br/>
 		/// <br/>
-		/// <c>a64 F2 0F 38 F8 /r</c><br/>
+		/// <c>a64 F2 0F 38 F8 !(11):rrr:bbb</c><br/>
 		/// <br/>
 		/// <c>ENQCMD</c><br/>
 		/// <br/>
@@ -33626,7 +33626,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>F3 0F 01 FE</c><br/>
 		/// <br/>
-		/// <c>SNP</c><br/>
+		/// <c>SEV-SNP</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Rmpadjust = 4203,
@@ -33634,7 +33634,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>F2 0F 01 FE</c><br/>
 		/// <br/>
-		/// <c>SNP</c><br/>
+		/// <c>SEV-SNP</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Rmpupdate = 4204,
@@ -33642,7 +33642,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>F3 0F 01 FF</c><br/>
 		/// <br/>
-		/// <c>SNP</c><br/>
+		/// <c>SEV-SNP</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Psmash = 4205,
@@ -33650,7 +33650,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>a16 F2 0F 01 FF</c><br/>
 		/// <br/>
-		/// <c>SNP</c><br/>
+		/// <c>SEV-SNP</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pvalidatew = 4206,
@@ -33658,7 +33658,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>a32 F2 0F 01 FF</c><br/>
 		/// <br/>
-		/// <c>SNP</c><br/>
+		/// <c>SEV-SNP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Pvalidated = 4207,
@@ -33666,7 +33666,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>a64 F2 0F 01 FF</c><br/>
 		/// <br/>
-		/// <c>SNP</c><br/>
+		/// <c>SEV-SNP</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Pvalidateq = 4208,
@@ -33778,7 +33778,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>F3 0F 01 D9</c><br/>
 		/// <br/>
-		/// <c>SVM</c><br/>
+		/// <c>SEV-ES</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Vmgexit = 4222,

@@ -303,7 +303,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)info.rflagsInfo < (uint)InstrInfoConstants.RflagsInfo_Count);
 
 			if (instruction.HasOpMask && (flags & Flags.NoRegisterUsage) == 0)
-				AddRegister(flags, instruction.OpMask, (flags2 & (uint)InfoFlags2.OpMaskReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
+				AddRegister(flags, instruction.OpMask, (flags1 & (uint)InfoFlags1.OpMaskReadWrite) != 0 ? OpAccess.ReadWrite : OpAccess.Read);
 
 			Debug.Assert(((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask) <= byte.MaxValue);
 			info.cpuidFeatureInternal = (byte)((flags2 >> (int)InfoFlags2.CpuidFeatureInternalShift) & (uint)InfoFlags2.CpuidFeatureInternalMask);
@@ -312,16 +312,13 @@ namespace Iced.Intel {
 			Debug.Assert(((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask) <= byte.MaxValue);
 			info.encoding = (byte)((flags2 >> (int)InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask);
 
-			Static.Assert((uint)InfoFlags1.SaveRestore == 0x08000000 ? 0 : -1);
-			Static.Assert((uint)InfoFlags1.StackInstruction == 0x10000000 ? 0 : -1);
-			Static.Assert((uint)InfoFlags1.ProtectedMode == 0x20000000 ? 0 : -1);
-			Static.Assert((uint)InfoFlags1.Privileged == 0x40000000 ? 0 : -1);
-			Static.Assert((uint)InstructionInfo.Flags.SaveRestore == 0x01 ? 0 : -1);
-			Static.Assert((uint)InstructionInfo.Flags.StackInstruction == 0x02 ? 0 : -1);
-			Static.Assert((uint)InstructionInfo.Flags.ProtectedMode == 0x04 ? 0 : -1);
-			Static.Assert((uint)InstructionInfo.Flags.Privileged == 0x08 ? 0 : -1);
-			// Bit 4 could be set but we don't use it so we don't need to mask it out
-			info.flags = (byte)(flags1 >> 27);
+			Static.Assert((uint)InfoFlags2.SaveRestore == 0x00020000 ? 0 : -1);
+			Static.Assert((uint)InfoFlags2.StackInstruction == 0x00040000 ? 0 : -1);
+			Static.Assert((uint)InfoFlags2.Privileged == 0x00080000 ? 0 : -1);
+			Static.Assert((uint)InstructionInfo.Flags1.SaveRestore == 0x20 ? 0 : -1);
+			Static.Assert((uint)InstructionInfo.Flags1.StackInstruction == 0x40 ? 0 : -1);
+			Static.Assert((uint)InstructionInfo.Flags1.Privileged == 0x80 ? 0 : -1);
+			info.flags = (byte)(flags2 >> 12);
 			return ref info;
 		}
 
@@ -1483,11 +1480,8 @@ namespace Iced.Intel {
 					baseReg = (flags & Flags.Is64Bit) != 0 ? Register.RAX : Register.EAX;
 					AddRegister(flags, Register.EAX, OpAccess.ReadWrite);
 					AddRegister(flags, baseReg + 1, OpAccess.CondRead);
-					AddRegister(flags, baseReg + 1, OpAccess.CondWrite);
 					AddRegister(flags, baseReg + 2, OpAccess.CondRead);
-					AddRegister(flags, baseReg + 2, OpAccess.CondWrite);
 					AddRegister(flags, baseReg + 3, OpAccess.CondRead);
-					AddRegister(flags, baseReg + 3, OpAccess.CondWrite);
 					AddMemorySegmentRegister(flags, Register.DS, OpAccess.CondRead);
 				}
 				break;

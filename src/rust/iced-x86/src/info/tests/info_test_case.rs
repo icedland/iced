@@ -43,7 +43,6 @@ pub(super) struct InstrInfoTestCase {
 	pub(super) rflags_set: u32,
 	pub(super) stack_pointer_increment: i32,
 	pub(super) is_privileged: bool,
-	pub(super) is_protected_mode: bool,
 	pub(super) is_stack_instruction: bool,
 	pub(super) is_save_restore_instruction: bool,
 	pub(super) is_special: bool,

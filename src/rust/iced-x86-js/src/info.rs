@@ -169,13 +169,6 @@ impl InstructionInfo {
 		self.0.used_memory().iter().map(|&m| JsValue::from(UsedMemory(m))).collect()
 	}
 
-	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "isProtectedMode")]
-	pub fn is_protected_mode(&self) -> bool {
-		self.0.is_protected_mode()
-	}
-
 	/// `true` if this is a privileged instruction
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isPrivileged")]

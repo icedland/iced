@@ -265,9 +265,15 @@ namespace Iced.Intel.EncoderInternal {
 #if !NO_VEX
 			case Code.VEX_Ldtilecfg_m512:
 			case Code.VEX_Sttilecfg_m512:
+#endif
+			case Code.Enqcmds_r16_m512:
+			case Code.Enqcmds_r32_m512:
+			case Code.Enqcmds_r64_m512:
+			case Code.Enqcmd_r16_m512:
+			case Code.Enqcmd_r32_m512:
+			case Code.Enqcmd_r64_m512:
 				hasModrmInfo = true;
 				break;
-#endif
 			case Code.Aesencwide128kl_m384:
 			case Code.Aesdecwide128kl_m384:
 			case Code.Aesencwide256kl_m512:

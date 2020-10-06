@@ -202,10 +202,9 @@ impl fmt::Debug for UsedMemory {
 
 struct IIFlags;
 impl IIFlags {
-	const SAVE_RESTORE: u8 = 0x01;
-	const STACK_INSTRUCTION: u8 = 0x02;
-	const PROTECTED_MODE: u8 = 0x04;
-	const PRIVILEGED: u8 = 0x08;
+	const SAVE_RESTORE: u8 = 0x20;
+	const STACK_INSTRUCTION: u8 = 0x40;
+	const PRIVILEGED: u8 = 0x80;
 }
 
 /// Contains information about an instruction, eg. read/written registers, read/written `RFLAGS` bits, `CPUID` feature bit, etc.
@@ -268,13 +267,6 @@ impl InstructionInfo {
 	#[inline]
 	pub fn used_memory(&self) -> &[UsedMemory] {
 		self.used_memory_locations.as_slice()
-	}
-
-	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn is_protected_mode(&self) -> bool {
-		(self.flags & IIFlags::PROTECTED_MODE) != 0
 	}
 
 	/// `true` if this is a privileged instruction

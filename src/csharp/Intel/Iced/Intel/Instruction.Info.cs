@@ -231,14 +231,6 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// <see langword="true"/> if the instruction isn't available in real mode or virtual 8086 mode
-		/// </summary>
-		public readonly bool IsProtectedMode {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			get => Code.IsProtectedMode();
-		}
-
-		/// <summary>
 		/// <see langword="true"/> if this is a privileged instruction
 		/// </summary>
 		public readonly bool IsPrivileged {

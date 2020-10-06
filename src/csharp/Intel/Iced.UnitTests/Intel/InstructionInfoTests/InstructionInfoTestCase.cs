@@ -38,7 +38,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public RflagsBits RflagsSet = RflagsBits.None;
 		public int StackPointerIncrement = 0;
 		public bool IsPrivileged = false;
-		public bool IsProtectedMode = false;
 		public bool IsStackInstruction = false;
 		public bool IsSaveRestoreInstruction = false;
 		public bool IsSpecial = false;

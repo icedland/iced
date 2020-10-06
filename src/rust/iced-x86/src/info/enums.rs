@@ -54,7 +54,7 @@ impl InstrInfoConstants {
 	pub(crate) const OP_INFO2_COUNT: usize = 3;
 	pub(crate) const OP_INFO3_COUNT: usize = 2;
 	pub(crate) const OP_INFO4_COUNT: usize = 2;
-	pub(crate) const RFLAGS_INFO_COUNT: usize = 60;
+	pub(crate) const RFLAGS_INFO_COUNT: usize = 59;
 	pub(crate) const DEFAULT_USED_REGISTER_COLL_CAPACITY: usize = 10;
 	pub(crate) const DEFAULT_USED_MEMORY_COLL_CAPACITY: usize = 8;
 }
@@ -81,10 +81,7 @@ impl InfoFlags1 {
 	pub(crate) const RFLAGS_INFO_MASK: u32 = 0x0000_003F;
 	pub(crate) const CODE_INFO_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const CODE_INFO_MASK: u32 = 0x0000_007F;
-	pub(crate) const SAVE_RESTORE: u32 = 0x0800_0000;
-	pub(crate) const STACK_INSTRUCTION: u32 = 0x1000_0000;
-	pub(crate) const PROTECTED_MODE: u32 = 0x2000_0000;
-	pub(crate) const PRIVILEGED: u32 = 0x4000_0000;
+	pub(crate) const OP_MASK_READ_WRITE: u32 = 0x4000_0000;
 	pub(crate) const IGNORE_SEGMENT: u32 = 0x8000_0000;
 }
 // GENERATOR-END: InfoFlags1
@@ -98,7 +95,9 @@ pub(crate) struct InfoFlags2;
 impl InfoFlags2 {
 	pub(crate) const ENCODING_SHIFT: u32 = 0x0000_0000;
 	pub(crate) const ENCODING_MASK: u32 = 0x0000_0007;
-	pub(crate) const OP_MASK_READ_WRITE: u32 = 0x0008_0000;
+	pub(crate) const SAVE_RESTORE: u32 = 0x0002_0000;
+	pub(crate) const STACK_INSTRUCTION: u32 = 0x0004_0000;
+	pub(crate) const PRIVILEGED: u32 = 0x0008_0000;
 	pub(crate) const FLOW_CONTROL_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const FLOW_CONTROL_MASK: u32 = 0x0000_000F;
 	pub(crate) const CPUID_FEATURE_INTERNAL_SHIFT: u32 = 0x0000_0018;
@@ -577,7 +576,6 @@ impl Default for CodeInfo {
 pub(crate) enum RflagsInfo {
 	None,
 	C_A,
-	C_acopsz,
 	C_acos_S_pz,
 	C_c,
 	C_cos_S_pz_U_a,
@@ -638,10 +636,9 @@ pub(crate) enum RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_RFLAGS_INFO: [&str; 60] = [
+static GEN_DEBUG_RFLAGS_INFO: [&str; 59] = [
 	"None",
 	"C_A",
-	"C_acopsz",
 	"C_acos_S_pz",
 	"C_c",
 	"C_cos_S_pz_U_a",
@@ -787,7 +784,7 @@ pub(crate) enum CpuidFeatureInternal {
 	CX8,
 	D3NOW,
 	D3NOWEXT,
-	ENCLV,
+	OSS,
 	ENQCMD,
 	F16C,
 	FMA,
@@ -806,9 +803,7 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX512F_and_GFNI,
 	AVX512VL_and_GFNI,
 	HLE_or_RTM,
-	INVEPT,
 	INVPCID,
-	INVVPID,
 	LWP,
 	LZCNT,
 	MCOMMIT,
@@ -845,7 +840,7 @@ pub(crate) enum CpuidFeatureInternal {
 	SEP,
 	SGX1,
 	SHA,
-	SKINIT_or_SVML,
+	SKINIT_or_SVM,
 	SMAP,
 	SMX,
 	SSE,
@@ -857,6 +852,7 @@ pub(crate) enum CpuidFeatureInternal {
 	SSE4A,
 	SSSE3,
 	SVM,
+	SEV_ES,
 	SYSCALL,
 	TBM,
 	TSC,
@@ -864,6 +860,8 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX512F_and_VAES,
 	AVX512VL_and_VAES,
 	VMX,
+	VMX_and_INVEPT,
+	VMX_and_INVVPID,
 	VPCLMULQDQ,
 	AVX512F_and_VPCLMULQDQ,
 	AVX512VL_and_VPCLMULQDQ,
@@ -874,7 +872,7 @@ pub(crate) enum CpuidFeatureInternal {
 	XSAVEC,
 	XSAVEOPT,
 	XSAVES,
-	SNP,
+	SEV_SNP,
 	SERIALIZE,
 	TSXLDTRK,
 	INVLPGB,
@@ -899,7 +897,7 @@ pub(crate) enum CpuidFeatureInternal {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 172] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -962,7 +960,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
 	"CX8",
 	"D3NOW",
 	"D3NOWEXT",
-	"ENCLV",
+	"OSS",
 	"ENQCMD",
 	"F16C",
 	"FMA",
@@ -981,9 +979,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
 	"AVX512F_and_GFNI",
 	"AVX512VL_and_GFNI",
 	"HLE_or_RTM",
-	"INVEPT",
 	"INVPCID",
-	"INVVPID",
 	"LWP",
 	"LZCNT",
 	"MCOMMIT",
@@ -1020,7 +1016,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
 	"SEP",
 	"SGX1",
 	"SHA",
-	"SKINIT_or_SVML",
+	"SKINIT_or_SVM",
 	"SMAP",
 	"SMX",
 	"SSE",
@@ -1032,6 +1028,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
 	"SSE4A",
 	"SSSE3",
 	"SVM",
+	"SEV_ES",
 	"SYSCALL",
 	"TBM",
 	"TSC",
@@ -1039,6 +1036,8 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
 	"AVX512F_and_VAES",
 	"AVX512VL_and_VAES",
 	"VMX",
+	"VMX_and_INVEPT",
+	"VMX_and_INVVPID",
 	"VPCLMULQDQ",
 	"AVX512F_and_VPCLMULQDQ",
 	"AVX512VL_and_VPCLMULQDQ",
@@ -1049,7 +1048,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 171] = [
 	"XSAVEC",
 	"XSAVEOPT",
 	"XSAVES",
-	"SNP",
+	"SEV_SNP",
 	"SERIALIZE",
 	"TSXLDTRK",
 	"INVLPGB",

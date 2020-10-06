@@ -181,7 +181,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(tc.rflags_cleared, info.rflags_cleared());
 	assert_eq!(tc.rflags_set, info.rflags_set());
 	assert_eq!(tc.is_privileged, info.is_privileged());
-	assert_eq!(tc.is_protected_mode, info.is_protected_mode());
 	assert_eq!(tc.is_stack_instruction, info.is_stack_instruction());
 	assert_eq!(tc.is_save_restore_instruction, info.is_save_restore_instruction());
 	assert_eq!(tc.flow_control, info.flow_control());
@@ -256,7 +255,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	}
 	assert_eq!(info.cpuid_features(), instr.code().cpuid_features());
 	assert_eq!(info.flow_control(), instr.code().flow_control());
-	assert_eq!(info.is_protected_mode(), instr.code().is_protected_mode());
 	assert_eq!(info.is_privileged(), instr.code().is_privileged());
 	assert_eq!(info.is_stack_instruction(), instr.code().is_stack_instruction());
 	assert_eq!(info.is_save_restore_instruction(), instr.code().is_save_restore_instruction());
@@ -264,7 +262,6 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(info.encoding(), instr.encoding());
 	assert_eq!(info.cpuid_features(), instr.cpuid_features());
 	assert_eq!(info.flow_control(), instr.flow_control());
-	assert_eq!(info.is_protected_mode(), instr.is_protected_mode());
 	assert_eq!(info.is_privileged(), instr.is_privileged());
 	assert_eq!(info.is_stack_instruction(), instr.is_stack_instruction());
 	assert_eq!(info.is_save_restore_instruction(), instr.is_save_restore_instruction());
@@ -287,7 +284,6 @@ fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool
 	} else {
 		assert!(info2.used_memory().is_empty());
 	}
-	assert_eq!(info1.is_protected_mode(), info2.is_protected_mode());
 	assert_eq!(info1.is_privileged(), info2.is_privileged());
 	assert_eq!(info1.is_stack_instruction(), info2.is_stack_instruction());
 	assert_eq!(info1.is_save_restore_instruction(), info2.is_save_restore_instruction());
@@ -609,22 +605,6 @@ fn is_branch_call() {
 
 		assert_eq!(call_far_indirect.contains(&code), code.is_call_far_indirect());
 		assert_eq!(code.is_call_far_indirect(), instr.is_call_far_indirect());
-	}
-}
-
-#[test]
-fn verify_protected_mode_is_true_if_vex_xop_evex() {
-	for tc in super::super::decoder::tests::test_utils::decoder_tests(false, false) {
-		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
-		let mut decoder = create_decoder(tc.bitness(), &bytes, tc.decoder_options()).0;
-		let instr = decoder.decode();
-		match instr.encoding() {
-			EncodingKind::Legacy | EncodingKind::D3NOW => {}
-			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {
-				assert!(instr.is_protected_mode());
-				assert!(tc.code().is_protected_mode());
-			}
-		}
 	}
 }
 

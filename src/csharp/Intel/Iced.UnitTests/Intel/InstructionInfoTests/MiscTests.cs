@@ -91,27 +91,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 
 		[Fact]
-		void Verify_ProtectedMode_is_true_if_VEX_XOP_EVEX() {
-			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
-				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
-				decoder.Decode(out var instruction);
-				switch (instruction.Encoding) {
-				case EncodingKind.Legacy:
-				case EncodingKind.D3NOW:
-					break;
-				case EncodingKind.VEX:
-				case EncodingKind.EVEX:
-				case EncodingKind.XOP:
-					Assert.True(instruction.IsProtectedMode);
-					Assert.True(info.Code.IsProtectedMode());
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
-			}
-		}
-
-		[Fact]
 		void Verify_NegateConditionCode() {
 			var toNegatedCodeValue = new Dictionary<Code, Code>();
 			foreach (var info in MiscTestsData.JccShortInfos)
@@ -247,12 +226,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		void InstructionInfoExtensions_FlowControl_throws_if_invalid_input() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).FlowControl());
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).FlowControl());
-		}
-
-		[Fact]
-		void InstructionInfoExtensions_IsProtectedMode_throws_if_invalid_input() {
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)(-1)).IsProtectedMode());
-			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).IsProtectedMode());
 		}
 
 		[Fact]

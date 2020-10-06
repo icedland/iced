@@ -2801,13 +2801,6 @@ impl Instruction {
 		self.code().flow_control()
 	}
 
-	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn is_protected_mode(&self) -> bool {
-		self.code().is_protected_mode()
-	}
-
 	/// `true` if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]

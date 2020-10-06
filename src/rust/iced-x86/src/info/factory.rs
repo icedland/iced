@@ -200,16 +200,13 @@ impl InstructionInfoFactory {
 		info.encoding = unsafe { mem::transmute(((flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as u8) };
 		info.rflags_info = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
 
-		const_assert_eq!(0x0800_0000, InfoFlags1::SAVE_RESTORE);
-		const_assert_eq!(0x1000_0000, InfoFlags1::STACK_INSTRUCTION);
-		const_assert_eq!(0x2000_0000, InfoFlags1::PROTECTED_MODE);
-		const_assert_eq!(0x4000_0000, InfoFlags1::PRIVILEGED);
-		const_assert_eq!(0x01, IIFlags::SAVE_RESTORE);
-		const_assert_eq!(0x02, IIFlags::STACK_INSTRUCTION);
-		const_assert_eq!(0x04, IIFlags::PROTECTED_MODE);
-		const_assert_eq!(0x08, IIFlags::PRIVILEGED);
-		// Bit 4 could be set but we don't use it so we don't need to mask it out
-		info.flags = (flags1 >> 27) as u8;
+		const_assert_eq!(0x0002_0000, InfoFlags2::SAVE_RESTORE);
+		const_assert_eq!(0x0004_0000, InfoFlags2::STACK_INSTRUCTION);
+		const_assert_eq!(0x0008_0000, InfoFlags2::PRIVILEGED);
+		const_assert_eq!(0x20, IIFlags::SAVE_RESTORE);
+		const_assert_eq!(0x40, IIFlags::STACK_INSTRUCTION);
+		const_assert_eq!(0x80, IIFlags::PRIVILEGED);
+		info.flags = (flags2 >> 12) as u8;
 
 		let code_size = instruction.code_size();
 		const_assert_eq!(Flags::NO_MEMORY_USAGE, InstructionInfoOptions::NO_MEMORY_USAGE);
@@ -456,7 +453,7 @@ impl InstructionInfoFactory {
 				flags,
 				info,
 				instruction.op_mask(),
-				if (flags2 & InfoFlags2::OP_MASK_READ_WRITE) != 0 { OpAccess::ReadWrite } else { OpAccess::Read },
+				if (flags1 & InfoFlags1::OP_MASK_READ_WRITE) != 0 { OpAccess::ReadWrite } else { OpAccess::Read },
 			);
 		}
 		info
@@ -2075,11 +2072,8 @@ impl InstructionInfoFactory {
 					base_register = if (flags & Flags::IS_64BIT) != 0 { Register::RAX } else { Register::EAX };
 					Self::add_register(flags, info, Register::EAX, OpAccess::ReadWrite);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(1) as u8) }, OpAccess::CondRead);
-					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(1) as u8) }, OpAccess::CondWrite);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(2) as u8) }, OpAccess::CondRead);
-					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(2) as u8) }, OpAccess::CondWrite);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(3) as u8) }, OpAccess::CondRead);
-					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(3) as u8) }, OpAccess::CondWrite);
 					Self::add_memory_segment_register(flags, info, Register::DS, OpAccess::CondRead);
 				}
 			}

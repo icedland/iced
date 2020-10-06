@@ -130,7 +130,7 @@ namespace Iced.Intel {
 		/// <summary>CPUID.80000001H:EDX.3DNOWEXT[bit 30]</summary>
 		D3NOWEXT = 49,
 		/// <summary>CPUID.(EAX=12H, ECX=0H):EAX.OSS[bit 5]</summary>
-		ENCLV = 50,
+		OSS = 50,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.ENQCMD[bit 29]</summary>
 		ENQCMD = 51,
 		/// <summary>CPUID.01H:ECX.F16C[bit 29]</summary>
@@ -161,11 +161,11 @@ namespace Iced.Intel {
 		HLE = 64,
 		/// <summary><see cref="HLE"/> or <see cref="RTM"/></summary>
 		HLE_or_RTM = 65,
-		/// <summary><see cref="VMX"/> and IA32_VMX_EPT_VPID_CAP[bit 20]</summary>
+		/// <summary>IA32_VMX_EPT_VPID_CAP[bit 20]</summary>
 		INVEPT = 66,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EBX.INVPCID[bit 10]</summary>
 		INVPCID = 67,
-		/// <summary><see cref="VMX"/> and IA32_VMX_EPT_VPID_CAP[bit 32]</summary>
+		/// <summary>IA32_VMX_EPT_VPID_CAP[bit 32]</summary>
 		INVVPID = 68,
 		/// <summary>CPUID.80000001H:ECX.LWP[bit 15]</summary>
 		LWP = 69,
@@ -239,8 +239,8 @@ namespace Iced.Intel {
 		SHA = 103,
 		/// <summary>CPUID.80000001H:ECX.SKINIT[bit 12]</summary>
 		SKINIT = 104,
-		/// <summary><see cref="SKINIT"/> or <see cref="SVML"/></summary>
-		SKINIT_or_SVML = 105,
+		/// <summary><see cref="SKINIT"/> or <see cref="SVM"/></summary>
+		SKINIT_or_SVM = 105,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EBX.SMAP[bit 20]</summary>
 		SMAP = 106,
 		/// <summary>CPUID.01H:ECX.SMX[bit 6]</summary>
@@ -261,8 +261,8 @@ namespace Iced.Intel {
 		SSSE3 = 114,
 		/// <summary>CPUID.80000001H:ECX.SVM[bit 2]</summary>
 		SVM = 115,
-		/// <summary>CPUID.8000000AH:EDX.SVML[bit 2]</summary>
-		SVML = 116,
+		/// <summary>CPUID.8000001FH:EAX.SEV-ES[bit 3]</summary>
+		SEV_ES = 116,
 		/// <summary>CPUID.80000001H:EDX.SYSCALL[bit 11]</summary>
 		SYSCALL = 117,
 		/// <summary>CPUID.80000001H:ECX.TBM[bit 21]</summary>
@@ -289,8 +289,8 @@ namespace Iced.Intel {
 		XSAVEOPT = 128,
 		/// <summary>CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES[bit 3]</summary>
 		XSAVES = 129,
-		/// <summary>CPUID.8000001FH:EAX.SNP[bit 4]</summary>
-		SNP = 130,
+		/// <summary>CPUID.8000001FH:EAX.SEV-SNP[bit 4]</summary>
+		SEV_SNP = 130,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.SERIALIZE[bit 14]</summary>
 		SERIALIZE = 131,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK[bit 16]</summary>

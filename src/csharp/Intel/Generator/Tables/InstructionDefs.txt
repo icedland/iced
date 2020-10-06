@@ -200,7 +200,7 @@ END
 INSTRUCTION: o16 07 | POP ES | INTEL8086
 	ops: w=es
 	code-mnemonic: popw
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -212,7 +212,7 @@ END
 INSTRUCTION: o32 07 | POP ES | INTEL386
 	ops: w=es
 	code-mnemonic: popd
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -223,7 +223,7 @@ END
 # Code: Or_rm8_r8
 INSTRUCTION: 08 /r | OR r/m8, r8 | INTEL8086
 	ops: rw=r8_or_mem r=r8_reg | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	gas: suffix=b
 END
@@ -231,7 +231,7 @@ END
 # Code: Or_rm16_r16
 INSTRUCTION: o16 09 /r | OR r/m16, r16 | INTEL8086
 	ops: rw=r16_or_mem r=r16_reg | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	gas: suffix=w
 END
@@ -239,7 +239,7 @@ END
 # Code: Or_rm32_r32
 INSTRUCTION: o32 09 /r | OR r/m32, r32 | INTEL386
 	ops: rw=r32_or_mem r=r32_reg | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	gas: suffix=l
 END
@@ -247,7 +247,7 @@ END
 # Code: Or_rm64_r64
 INSTRUCTION: REX.W 09 /r | OR r/m64, r64 | X64
 	ops: rw=r64_or_mem r=r64_reg | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	gas: suffix=q
 END
@@ -255,28 +255,28 @@ END
 # Code: Or_r8_rm8
 INSTRUCTION: 0A /r | OR r8, r/m8 | INTEL8086
 	ops: rw=r8_reg r=r8_or_mem | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=b
 END
 
 # Code: Or_r16_rm16
 INSTRUCTION: o16 0B /r | OR r16, r/m16 | INTEL8086
 	ops: rw=r16_reg r=r16_or_mem | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=w
 END
 
 # Code: Or_r32_rm32
 INSTRUCTION: o32 0B /r | OR r32, r/m32 | INTEL386
 	ops: rw=r32_reg r=r32_or_mem | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=l
 END
 
 # Code: Or_r64_rm64
 INSTRUCTION: REX.W 0B /r | OR r64, r/m64 | X64
 	ops: rw=r64_reg r=r64_or_mem | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	gas: suffix=q
 END
@@ -284,28 +284,28 @@ END
 # Code: Or_AL_imm8
 INSTRUCTION: 0C ib | OR AL, imm8 | INTEL8086
 	ops: rw=al r=imm8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=b
 END
 
 # Code: Or_AX_imm16
 INSTRUCTION: o16 0D iw | OR AX, imm16 | INTEL8086
 	ops: rw=ax r=imm16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=w
 END
 
 # Code: Or_EAX_imm32
 INSTRUCTION: o32 0D id | OR EAX, imm32 | INTEL386
 	ops: rw=eax r=imm32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=l
 END
 
 # Code: Or_RAX_imm32
 INSTRUCTION: REX.W 0D id | OR RAX, imm32 | X64
 	ops: rw=rax r=imm32sex64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	gas: suffix=q
 	nasm: sx
@@ -466,7 +466,7 @@ END
 INSTRUCTION: o16 17 | POP SS | INTEL8086
 	ops: w=ss
 	code-mnemonic: popw
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -478,7 +478,7 @@ END
 INSTRUCTION: o32 17 | POP SS | INTEL386
 	ops: w=ss
 	code-mnemonic: popd
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -605,7 +605,7 @@ END
 INSTRUCTION: o16 1F | POP DS | INTEL8086
 	ops: w=ds
 	code-mnemonic: popw
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -617,7 +617,7 @@ END
 INSTRUCTION: o32 1F | POP DS | INTEL386
 	ops: w=ds
 	code-mnemonic: popd
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -628,7 +628,7 @@ END
 # Code: And_rm8_r8
 INSTRUCTION: 20 /r | AND r/m8, r8 | INTEL8086
 	ops: rw=r8_or_mem r=r8_reg | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	gas: suffix=b
 END
@@ -636,7 +636,7 @@ END
 # Code: And_rm16_r16
 INSTRUCTION: o16 21 /r | AND r/m16, r16 | INTEL8086
 	ops: rw=r16_or_mem r=r16_reg | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	gas: suffix=w
 END
@@ -644,7 +644,7 @@ END
 # Code: And_rm32_r32
 INSTRUCTION: o32 21 /r | AND r/m32, r32 | INTEL386
 	ops: rw=r32_or_mem r=r32_reg | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	gas: suffix=l
 END
@@ -652,7 +652,7 @@ END
 # Code: And_rm64_r64
 INSTRUCTION: REX.W 21 /r | AND r/m64, r64 | X64
 	ops: rw=r64_or_mem r=r64_reg | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	gas: suffix=q
 END
@@ -660,28 +660,28 @@ END
 # Code: And_r8_rm8
 INSTRUCTION: 22 /r | AND r8, r/m8 | INTEL8086
 	ops: rw=r8_reg r=r8_or_mem | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=b
 END
 
 # Code: And_r16_rm16
 INSTRUCTION: o16 23 /r | AND r16, r/m16 | INTEL8086
 	ops: rw=r16_reg r=r16_or_mem | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=w
 END
 
 # Code: And_r32_rm32
 INSTRUCTION: o32 23 /r | AND r32, r/m32 | INTEL386
 	ops: rw=r32_reg r=r32_or_mem | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=l
 END
 
 # Code: And_r64_rm64
 INSTRUCTION: REX.W 23 /r | AND r64, r/m64 | X64
 	ops: rw=r64_reg r=r64_or_mem | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	gas: suffix=q
 END
@@ -689,28 +689,28 @@ END
 # Code: And_AL_imm8
 INSTRUCTION: 24 ib | AND AL, imm8 | INTEL8086
 	ops: rw=al r=imm8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=b
 END
 
 # Code: And_AX_imm16
 INSTRUCTION: o16 25 iw | AND AX, imm16 | INTEL8086
 	ops: rw=ax r=imm16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=w
 END
 
 # Code: And_EAX_imm32
 INSTRUCTION: o32 25 id | AND EAX, imm32 | INTEL386
 	ops: rw=eax r=imm32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=l
 END
 
 # Code: And_RAX_imm32
 INSTRUCTION: REX.W 25 id | AND RAX, imm32 | X64
 	ops: rw=rax r=imm32sex64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	gas: suffix=q
 	nasm: sx
@@ -832,7 +832,7 @@ END
 # Code: Xor_rm8_r8
 INSTRUCTION: 30 /r | XOR r/m8, r8 | INTEL8086
 	ops: rw=r8_or_mem r=r8_reg | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	iinfo: Clear_rflags
 	gas: suffix=b
@@ -841,7 +841,7 @@ END
 # Code: Xor_rm16_r16
 INSTRUCTION: o16 31 /r | XOR r/m16, r16 | INTEL8086
 	ops: rw=r16_or_mem r=r16_reg | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	iinfo: Clear_rflags
 	gas: suffix=w
@@ -850,7 +850,7 @@ END
 # Code: Xor_rm32_r32
 INSTRUCTION: o32 31 /r | XOR r/m32, r32 | INTEL386
 	ops: rw=r32_or_mem r=r32_reg | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	iinfo: Clear_rflags
 	gas: suffix=l
@@ -859,7 +859,7 @@ END
 # Code: Xor_rm64_r64
 INSTRUCTION: REX.W 31 /r | XOR r/m64, r64 | X64
 	ops: rw=r64_or_mem r=r64_reg | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	iinfo: Clear_rflags
 	gas: suffix=q
@@ -868,7 +868,7 @@ END
 # Code: Xor_r8_rm8
 INSTRUCTION: 32 /r | XOR r8, r/m8 | INTEL8086
 	ops: rw=r8_reg r=r8_or_mem | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	iinfo: Clear_rflags
 	gas: suffix=b
 END
@@ -876,7 +876,7 @@ END
 # Code: Xor_r16_rm16
 INSTRUCTION: o16 33 /r | XOR r16, r/m16 | INTEL8086
 	ops: rw=r16_reg r=r16_or_mem | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	iinfo: Clear_rflags
 	gas: suffix=w
 END
@@ -884,7 +884,7 @@ END
 # Code: Xor_r32_rm32
 INSTRUCTION: o32 33 /r | XOR r32, r/m32 | INTEL386
 	ops: rw=r32_reg r=r32_or_mem | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	iinfo: Clear_rflags
 	gas: suffix=l
 END
@@ -892,7 +892,7 @@ END
 # Code: Xor_r64_rm64
 INSTRUCTION: REX.W 33 /r | XOR r64, r/m64 | X64
 	ops: rw=r64_reg r=r64_or_mem | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	iinfo: Clear_rflags
 	gas: suffix=q
@@ -901,28 +901,28 @@ END
 # Code: Xor_AL_imm8
 INSTRUCTION: 34 ib | XOR AL, imm8 | INTEL8086
 	ops: rw=al r=imm8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=b
 END
 
 # Code: Xor_AX_imm16
 INSTRUCTION: o16 35 iw | XOR AX, imm16 | INTEL8086
 	ops: rw=ax r=imm16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=w
 END
 
 # Code: Xor_EAX_imm32
 INSTRUCTION: o32 35 id | XOR EAX, imm32 | INTEL386
 	ops: rw=eax r=imm32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=l
 END
 
 # Code: Xor_RAX_imm32
 INSTRUCTION: REX.W 35 id | XOR RAX, imm32 | X64
 	ops: rw=rax r=imm32sex64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	gas: suffix=q
 	nasm: sx
@@ -1152,7 +1152,9 @@ END
 INSTRUCTION: o16 62 /r | BOUND r16, m16&16 | INTEL186
 	ops: r=r16_reg r=mem | Bound16_WordWord
 	code-memory-size: 1616
-	flags: 16 32
+	# VM exit if #BR
+	# May cause a TSX abort if VM exit or #BR
+	flags: 16 32 intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: flags=keep-op-order suffix=w
 	intel: flags=force-size=default
 	masm: flags=force-size=default
@@ -1162,7 +1164,9 @@ END
 INSTRUCTION: o32 62 /r | BOUND r32, m32&32 | INTEL386
 	ops: r=r32_reg r=mem | Bound32_DwordDword
 	code-memory-size: 3232
-	flags: 16 32
+	# VM exit if #BR
+	# May cause a TSX abort if VM exit or #BR
+	flags: 16 32 intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: flags=keep-op-order suffix=l
 	intel: flags=force-size=default
 	masm: flags=force-size=default
@@ -1172,7 +1176,7 @@ END
 INSTRUCTION: o16 63 /r | ARPL r/m16, r16 | INTEL286
 	ops: rcw=r16_or_mem r=r16_reg | UInt16
 	rflags: w=z
-	flags: 16 32 pm
+	flags: 16 32 no-rm no-v86
 	iinfo: Arpl
 	gas: reg16
 	intel: reg16
@@ -1184,7 +1188,7 @@ END
 INSTRUCTION: o32 63 /r | ARPL r32/m16, r32 | INTEL386
 	ops: rcw=r32_or_mem r=r32_reg | UInt16
 	rflags: w=z
-	flags: 16 32 pm
+	flags: 16 32 no-rm no-v86
 	iinfo: Arpl
 	gas: reg16
 	intel: reg16
@@ -1351,7 +1355,7 @@ END
 INSTRUCTION: 6C | INSB | INTEL186
 	ops: w=es_rDI r=dx | UInt8
 	rflags: r=d
-	flags: cpl0 rep
+	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Ins
 	gas: mnemonic=ins flags=force-suffix suffix=b
 	masm: mnemonic=ins asz-string-yd b
@@ -1362,7 +1366,7 @@ END
 INSTRUCTION: o16 6D | INSW | INTEL186
 	ops: w=es_rDI r=dx | UInt16
 	rflags: r=d
-	flags: cpl0 rep
+	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Ins
 	gas: mnemonic=ins flags=force-suffix suffix=w
 	masm: mnemonic=ins asz-string-yd w
@@ -1373,7 +1377,7 @@ END
 INSTRUCTION: o32 6D | INSD | INTEL386
 	ops: w=es_rDI r=dx | UInt32
 	rflags: r=d
-	flags: cpl0 rep
+	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Ins
 	gas: mnemonic=ins flags=force-suffix suffix=l
 	masm: mnemonic=ins asz-string-yd d
@@ -1384,7 +1388,7 @@ END
 INSTRUCTION: 6E | OUTSB | INTEL186
 	ops: r=dx r=seg_rSI | UInt8
 	rflags: r=d
-	flags: cpl0 rep
+	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Outs
 	gas: mnemonic=outs flags=force-suffix suffix=b
 	masm: mnemonic=outs asz-string-dx b
@@ -1395,7 +1399,7 @@ END
 INSTRUCTION: o16 6F | OUTSW | INTEL186
 	ops: r=dx r=seg_rSI | UInt16
 	rflags: r=d
-	flags: cpl0 rep
+	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Outs
 	gas: mnemonic=outs flags=force-suffix suffix=w
 	masm: mnemonic=outs asz-string-dx w
@@ -1406,7 +1410,7 @@ END
 INSTRUCTION: o32 6F | OUTSD | INTEL386
 	ops: r=dx r=seg_rSI | UInt32
 	rflags: r=d
-	flags: cpl0 rep
+	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Outs
 	gas: mnemonic=outs flags=force-suffix suffix=l
 	masm: mnemonic=outs asz-string-dx d
@@ -1956,7 +1960,7 @@ END
 # Code: Or_rm8_imm8
 INSTRUCTION: 80 /1 ib | OR r/m8, imm8 | INTEL8086
 	ops: rw=r8_or_mem r=imm8 | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
@@ -1992,7 +1996,7 @@ END
 # Code: And_rm8_imm8
 INSTRUCTION: 80 /4 ib | AND r/m8, imm8 | INTEL8086
 	ops: rw=r8_or_mem r=imm8 | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
@@ -2016,7 +2020,7 @@ END
 # Code: Xor_rm8_imm8
 INSTRUCTION: 80 /6 ib | XOR r/m8, imm8 | INTEL8086
 	ops: rw=r8_or_mem r=imm8 | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
@@ -2075,7 +2079,7 @@ END
 # Code: Or_rm16_imm16
 INSTRUCTION: o16 81 /1 iw | OR r/m16, imm16 | INTEL8086
 	ops: rw=r16_or_mem r=imm16 | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
@@ -2087,7 +2091,7 @@ END
 # Code: Or_rm32_imm32
 INSTRUCTION: o32 81 /1 id | OR r/m32, imm32 | INTEL386
 	ops: rw=r32_or_mem r=imm32 | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
@@ -2099,7 +2103,7 @@ END
 # Code: Or_rm64_imm32
 INSTRUCTION: REX.W 81 /1 id | OR r/m64, imm32 | X64
 	ops: rw=r64_or_mem r=imm32sex64 | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -2183,7 +2187,7 @@ END
 # Code: And_rm16_imm16
 INSTRUCTION: o16 81 /4 iw | AND r/m16, imm16 | INTEL8086
 	ops: rw=r16_or_mem r=imm16 | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
@@ -2195,7 +2199,7 @@ END
 # Code: And_rm32_imm32
 INSTRUCTION: o32 81 /4 id | AND r/m32, imm32 | INTEL386
 	ops: rw=r32_or_mem r=imm32 | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
@@ -2207,7 +2211,7 @@ END
 # Code: And_rm64_imm32
 INSTRUCTION: REX.W 81 /4 id | AND r/m64, imm32 | X64
 	ops: rw=r64_or_mem r=imm32sex64 | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -2255,7 +2259,7 @@ END
 # Code: Xor_rm16_imm16
 INSTRUCTION: o16 81 /6 iw | XOR r/m16, imm16 | INTEL8086
 	ops: rw=r16_or_mem r=imm16 | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
@@ -2267,7 +2271,7 @@ END
 # Code: Xor_rm32_imm32
 INSTRUCTION: o32 81 /6 id | XOR r/m32, imm32 | INTEL386
 	ops: rw=r32_or_mem r=imm32 | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
@@ -2279,7 +2283,7 @@ END
 # Code: Xor_rm64_imm32
 INSTRUCTION: REX.W 81 /6 id | XOR r/m64, imm32 | X64
 	ops: rw=r64_or_mem r=imm32sex64 | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -2339,7 +2343,7 @@ END
 INSTRUCTION: 82 /1 ib | OR r/m8, imm8 | INTEL8086
 	ops: rw=r8_or_mem r=imm8 | UInt8
 	code-suffix: 82
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 16 32 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
@@ -2378,7 +2382,7 @@ END
 INSTRUCTION: 82 /4 ib | AND r/m8, imm8 | INTEL8086
 	ops: rw=r8_or_mem r=imm8 | UInt8
 	code-suffix: 82
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 16 32 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
@@ -2404,7 +2408,7 @@ END
 INSTRUCTION: 82 /6 ib | XOR r/m8, imm8 | INTEL8086
 	ops: rw=r8_or_mem r=imm8 | UInt8
 	code-suffix: 82
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 16 32 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
@@ -2465,7 +2469,7 @@ END
 # Code: Or_rm16_imm8
 INSTRUCTION: o16 83 /1 ib | OR r/m16, imm8 | INTEL8086
 	ops: rw=r16_or_mem r=imm8sex16 | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
@@ -2477,7 +2481,7 @@ END
 # Code: Or_rm32_imm8
 INSTRUCTION: o32 83 /1 ib | OR r/m32, imm8 | INTEL386
 	ops: rw=r32_or_mem r=imm8sex32 | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
@@ -2489,7 +2493,7 @@ END
 # Code: Or_rm64_imm8
 INSTRUCTION: REX.W 83 /1 ib | OR r/m64, imm8 | X64
 	ops: rw=r64_or_mem r=imm8sex64 | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -2573,7 +2577,7 @@ END
 # Code: And_rm16_imm8
 INSTRUCTION: o16 83 /4 ib | AND r/m16, imm8 | INTEL8086
 	ops: rw=r16_or_mem r=imm8sex16 | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
@@ -2585,7 +2589,7 @@ END
 # Code: And_rm32_imm8
 INSTRUCTION: o32 83 /4 ib | AND r/m32, imm8 | INTEL386
 	ops: rw=r32_or_mem r=imm8sex32 | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
@@ -2597,7 +2601,7 @@ END
 # Code: And_rm64_imm8
 INSTRUCTION: REX.W 83 /4 ib | AND r/m64, imm8 | X64
 	ops: rw=r64_or_mem r=imm8sex64 | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -2645,7 +2649,7 @@ END
 # Code: Xor_rm16_imm8
 INSTRUCTION: o16 83 /6 ib | XOR r/m16, imm8 | INTEL8086
 	ops: rw=r16_or_mem r=imm8sex16 | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
@@ -2657,7 +2661,7 @@ END
 # Code: Xor_rm32_imm8
 INSTRUCTION: o32 83 /6 ib | XOR r/m32, imm8 | INTEL386
 	ops: rw=r32_or_mem r=imm8sex32 | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
@@ -2669,7 +2673,7 @@ END
 # Code: Xor_rm64_imm8
 INSTRUCTION: REX.W 83 /6 ib | XOR r/m64, imm8 | X64
 	ops: rw=r64_or_mem r=imm8sex64 | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64 lock xacquire xrelease
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -2715,28 +2719,28 @@ END
 # Code: Test_rm8_r8
 INSTRUCTION: 84 /r | TEST r/m8, r8 | INTEL8086
 	ops: r=r8_or_mem r=r8_reg | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=b
 END
 
 # Code: Test_rm16_r16
 INSTRUCTION: o16 85 /r | TEST r/m16, r16 | INTEL8086
 	ops: r=r16_or_mem r=r16_reg | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=w
 END
 
 # Code: Test_rm32_r32
 INSTRUCTION: o32 85 /r | TEST r/m32, r32 | INTEL386
 	ops: r=r32_or_mem r=r32_reg | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=l
 END
 
 # Code: Test_rm64_r64
 INSTRUCTION: REX.W 85 /r | TEST r/m64, r64 | X64
 	ops: r=r64_or_mem r=r64_reg | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	gas: suffix=q
 END
@@ -2879,6 +2883,7 @@ END
 # Code: Mov_Sreg_rm16
 INSTRUCTION: o16 8E /r | MOV Sreg, r/m16 | INTEL8086
 	ops: w=seg_reg r=r16_or_mem | UInt16
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	gas: suffix=w mem16
 	nasm: osz-mem-1
 END
@@ -2886,6 +2891,7 @@ END
 # Code: Mov_Sreg_r32m16
 INSTRUCTION: o32 8E /r | MOV Sreg, r32/m16 | INTEL386
 	ops: w=seg_reg r=r32_or_mem | UInt16
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=l mem16
 	intel: reg16
@@ -2895,7 +2901,7 @@ END
 # Code: Mov_Sreg_r64m16
 INSTRUCTION: REX.W 8E /r | MOV Sreg, r64/m16 | X64
 	ops: w=seg_reg r=r64_or_mem | UInt16
-	flags: 64
+	flags: 64 no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=q mem16
 	intel: reg16
@@ -2941,6 +2947,7 @@ END
 # Code: Nopw
 INSTRUCTION: o16 90 | NOP | INTEL8086
 	code-mnemonic: nopw
+	flags: nop
 	gas: nop
 	intel: nop
 	masm: nop
@@ -2950,6 +2957,7 @@ END
 # Code: Nopd
 INSTRUCTION: o32 90 | NOP | INTEL8086
 	code-mnemonic: nopd
+	flags: nop
 	gas: nop
 	intel: nop
 	masm: nop
@@ -2959,7 +2967,7 @@ END
 # Code: Nopq
 INSTRUCTION: REX.W 90 | NOP | INTEL8086
 	code-mnemonic: nopq
-	flags: 64
+	flags: 64 nop
 	gas: nop
 	intel: nop
 	masm: nop
@@ -2987,6 +2995,7 @@ END
 
 # Code: Pause
 INSTRUCTION: F3 90 | PAUSE | PAUSE
+	flags: intel-may-vm-exit amd-may-vm-exit tsx-abort
 END
 
 # Code: Cbw
@@ -3030,7 +3039,8 @@ END
 # Code: Call_ptr1616
 INSTRUCTION: o16 9A cd | CALL ptr16:16 | INTEL8086
 	ops: r=farbr2_2
-	flags: 16 32 stack
+	# VM exit if task switch
+	flags: 16 32 stack intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: Call
 	branch: call-far
 	iinfo: Push_2_2
@@ -3042,7 +3052,8 @@ END
 # Code: Call_ptr1632
 INSTRUCTION: o32 9A cp | CALL ptr16:32 | INTEL386
 	ops: r=farbr4_2
-	flags: 16 32 stack
+	# VM exit if task switch
+	flags: 16 32 stack intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: Call
 	branch: call-far
 	iinfo: Push_4_4
@@ -3053,6 +3064,7 @@ END
 
 # Code: Wait
 INSTRUCTION: 9B | WAIT | INTEL8086
+	flags: tsx-impl-abort
 	gas: mnemonic=fwait
 	intel: mnemonic=fwait
 END
@@ -3061,7 +3073,7 @@ END
 INSTRUCTION: o16 9C | PUSHF | INTEL8086
 	code-mnemonic: pushfw
 	rflags: r=oszacpdi
-	flags: stack
+	flags: stack amd-may-vm-exit
 	iinfo: Push_2
 	gas: osz-suffix-1
 	nasm: osz-suffix-1
@@ -3070,7 +3082,7 @@ END
 # Code: Pushfd
 INSTRUCTION: o32 9C | PUSHFD | INTEL386
 	rflags: r=oszacpdiA
-	flags: 16 32 stack
+	flags: 16 32 stack amd-may-vm-exit
 	iinfo: Push_4
 	gas: mnemonic=pushf osz-suffix-1
 	nasm: mnemonic=pushf osz-suffix-1
@@ -3079,7 +3091,7 @@ END
 # Code: Pushfq
 INSTRUCTION: 9C | PUSHFQ | X64
 	rflags: r=oszacpdiA
-	flags: 64 stack do64
+	flags: 64 stack do64 amd-may-vm-exit
 	iinfo: Push_8
 	gas: mnemonic=pushf osz-suffix-1
 	nasm: mnemonic=pushf osz-suffix-1
@@ -3089,7 +3101,7 @@ END
 INSTRUCTION: o16 9D | POPF | INTEL8086
 	code-mnemonic: popfw
 	rflags: w=oszacpdi
-	flags: stack
+	flags: stack amd-may-vm-exit tsx-impl-abort
 	iinfo: Pop_2
 	gas: osz-suffix-1
 	nasm: osz-suffix-1
@@ -3098,7 +3110,7 @@ END
 # Code: Popfd
 INSTRUCTION: o32 9D | POPFD | INTEL386
 	rflags: w=oszacpdiA
-	flags: 16 32 stack
+	flags: 16 32 stack amd-may-vm-exit tsx-impl-abort
 	iinfo: Pop_4
 	gas: mnemonic=popf osz-suffix-1
 	nasm: mnemonic=popf osz-suffix-1
@@ -3107,7 +3119,7 @@ END
 # Code: Popfq
 INSTRUCTION: 9D | POPFQ | X64
 	rflags: w=oszacpdiA
-	flags: 64 stack do64
+	flags: 64 stack do64 amd-may-vm-exit tsx-impl-abort
 	iinfo: Pop_8
 	gas: mnemonic=popf osz-suffix-1
 	nasm: mnemonic=popf osz-suffix-1
@@ -3282,28 +3294,28 @@ END
 # Code: Test_AL_imm8
 INSTRUCTION: A8 ib | TEST AL, imm8 | INTEL8086
 	ops: r=al r=imm8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=b
 END
 
 # Code: Test_AX_imm16
 INSTRUCTION: o16 A9 iw | TEST AX, imm16 | INTEL8086
 	ops: r=ax r=imm16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=w
 END
 
 # Code: Test_EAX_imm32
 INSTRUCTION: o32 A9 id | TEST EAX, imm32 | INTEL386
 	ops: r=eax r=imm32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	gas: suffix=l
 END
 
 # Code: Test_RAX_imm32
 INSTRUCTION: REX.W A9 id | TEST RAX, imm32 | X64
 	ops: r=rax r=imm32sex64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	gas: suffix=q
 	nasm: flags=no-sx sx
@@ -3949,7 +3961,7 @@ END
 INSTRUCTION: o16 C4 /r | LES r16, m16:16 | INTEL8086
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: 16 32
+	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -3959,7 +3971,7 @@ END
 INSTRUCTION: o32 C4 /r | LES r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: 16 32
+	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -3969,7 +3981,7 @@ END
 INSTRUCTION: o16 C5 /r | LDS r16, m16:16 | INTEL8086
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: 16 32
+	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -3979,7 +3991,7 @@ END
 INSTRUCTION: o32 C5 /r | LDS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: 16 32
+	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -3999,7 +4011,7 @@ END
 # Code: Xabort_imm8
 INSTRUCTION: C6 F8 ib | XABORT imm8 | RTM
 	ops: r=imm8
-	flags: saverestore
+	flags: save-restore tsx-abort
 	cflow: XbeginXabortXend
 END
 
@@ -4039,6 +4051,7 @@ END
 # Code: Xbegin_rel16
 INSTRUCTION: o16 C7 F8 cw | XBEGIN rel16 | RTM
 	ops: r=xbegin_2
+	flags: tsx-may-abort
 	cflow: XbeginXabortXend
 	branch: xbegin
 	iinfo: CW_EAX
@@ -4047,6 +4060,7 @@ END
 # Code: Xbegin_rel32
 INSTRUCTION: o32 C7 F8 cd | XBEGIN rel32 | RTM
 	ops: r=xbegin_4
+	flags: tsx-may-abort
 	cflow: XbeginXabortXend
 	branch: xbegin
 	iinfo: CW_EAX
@@ -4125,7 +4139,7 @@ END
 INSTRUCTION: o16 CA iw | RETF imm16 | INTEL8086
 	ops: r=imm16
 	code-mnemonic: retfw
-	flags: stack
+	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_2_2
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
@@ -4138,7 +4152,7 @@ END
 INSTRUCTION: o32 CA iw | RETF imm16 | INTEL386
 	ops: r=imm16
 	code-mnemonic: retfd
-	flags: stack
+	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_4_4
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
@@ -4151,7 +4165,7 @@ END
 INSTRUCTION: REX.W CA iw | RETF imm16 | X64
 	ops: r=imm16
 	code-mnemonic: retfq
-	flags: 64 stack
+	flags: 64 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_8_8
 	fast: mnemonic=retfq
@@ -4164,7 +4178,7 @@ END
 # Code: Retfw
 INSTRUCTION: o16 CB | RETF | INTEL8086
 	code-mnemonic: retfw
-	flags: stack
+	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_2_2
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
@@ -4176,7 +4190,7 @@ END
 # Code: Retfd
 INSTRUCTION: o32 CB | RETF | INTEL386
 	code-mnemonic: retfd
-	flags: stack
+	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_4_4
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
@@ -4188,7 +4202,7 @@ END
 # Code: Retfq
 INSTRUCTION: REX.W CB | RETF | X64
 	code-mnemonic: retfq
-	flags: 64 stack
+	flags: 64 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_8_8
 	fast: mnemonic=retfq
@@ -4200,6 +4214,8 @@ END
 
 # Code: Int3
 INSTRUCTION: CC | INT3 | INTEL8086
+	# #BP always causes transactional aborts
+	flags: intel-vm-exit amd-may-vm-exit tsx-abort
 	cflow: Interrupt
 	masm: mnemonic=int int3
 END
@@ -4207,13 +4223,16 @@ END
 # Code: Int_imm8
 INSTRUCTION: CD ib | INT imm8 | INTEL8086
 	ops: r=imm8
+	# VM exit if task switch
+	flags: intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: Interrupt
 END
 
 # Code: Into
 INSTRUCTION: CE | INTO | INTEL8086
 	rflags: r=o
-	flags: 16 32
+	# VM exit if OF=1
+	flags: 16 32 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: Interrupt
 END
 
@@ -4221,7 +4240,8 @@ END
 INSTRUCTION: o16 CF | IRET | INTEL8086
 	code-mnemonic: iretw
 	rflags: w=oszacpdi
-	flags: stack
+	# VM exit if task switch
+	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	iinfo: Iret
 	gas: suffix=w osz-suffix-3 16
@@ -4231,7 +4251,8 @@ END
 # Code: Iretd
 INSTRUCTION: o32 CF | IRETD | INTEL386
 	rflags: w=oszacpdiA
-	flags: stack
+	# VM exit if task switch
+	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	iinfo: Iret
 	gas: mnemonic=iret suffix=l osz-suffix-3 32
@@ -4241,7 +4262,8 @@ END
 # Code: Iretq
 INSTRUCTION: REX.W CF | IRETQ | X64
 	rflags: w=oszacpdiA
-	flags: 64 stack
+	# VM exit if task switch
+	flags: 64 stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	iinfo: Iret
 	gas: mnemonic=iret suffix=q osz-suffix-3 0
@@ -5013,6 +5035,7 @@ END
 INSTRUCTION: D8 /0 | FADD m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5025,6 +5048,7 @@ END
 INSTRUCTION: D8 /1 | FMUL m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5037,6 +5061,7 @@ END
 INSTRUCTION: D8 /2 | FCOM m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5049,6 +5074,7 @@ END
 INSTRUCTION: D8 /3 | FCOMP m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5061,6 +5087,7 @@ END
 INSTRUCTION: D8 /4 | FSUB m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5073,6 +5100,7 @@ END
 INSTRUCTION: D8 /5 | FSUBR m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5085,6 +5113,7 @@ END
 INSTRUCTION: D8 /6 | FDIV m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5097,6 +5126,7 @@ END
 INSTRUCTION: D8 /7 | FDIVR m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5108,6 +5138,7 @@ END
 # Code: Fadd_st0_sti
 INSTRUCTION: D8 C0+i | FADD ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5117,6 +5148,7 @@ END
 # Code: Fmul_st0_sti
 INSTRUCTION: D8 C8+i | FMUL ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5126,6 +5158,7 @@ END
 # Code: Fcom_st0_sti
 INSTRUCTION: D8 D0+i | FCOM ST(i) | FPU
 	ops: r=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -5135,6 +5168,7 @@ END
 # Code: Fcomp_st0_sti
 INSTRUCTION: D8 D8+i | FCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -5144,6 +5178,7 @@ END
 # Code: Fsub_st0_sti
 INSTRUCTION: D8 E0+i | FSUB ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5153,6 +5188,7 @@ END
 # Code: Fsubr_st0_sti
 INSTRUCTION: D8 E8+i | FSUBR ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5162,6 +5198,7 @@ END
 # Code: Fdiv_st0_sti
 INSTRUCTION: D8 F0+i | FDIV ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5171,6 +5208,7 @@ END
 # Code: Fdivr_st0_sti
 INSTRUCTION: D8 F8+i | FDIVR ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5181,6 +5219,7 @@ END
 INSTRUCTION: D9 /0 | FLD m32fp | FPU
 	ops: r=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5193,6 +5232,7 @@ END
 INSTRUCTION: D9 /2 | FST m32fp | FPU
 	ops: w=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5205,6 +5245,7 @@ END
 INSTRUCTION: D9 /3 | FSTP m32fp | FPU
 	ops: w=mem | Float32
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5217,6 +5258,7 @@ END
 INSTRUCTION: o16 D9 /4 | FLDENV m14byte | FPU
 	ops: r=mem | FpuEnv14
 	code-memory-size: 14byte
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -5228,6 +5270,7 @@ END
 INSTRUCTION: o32 D9 /4 | FLDENV m28byte | FPU387
 	ops: r=mem | FpuEnv28
 	code-memory-size: 28byte
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -5239,6 +5282,7 @@ END
 INSTRUCTION: D9 /5 | FLDCW m2byte | FPU
 	ops: r=mem | UInt16
 	code-memory-size: 2byte
+	flags: tsx-impl-abort
 	gas: suffix=w
 END
 
@@ -5246,6 +5290,7 @@ END
 INSTRUCTION: o16 D9 /6 | FNSTENV m14byte | FPU
 	ops: w=mem | FpuEnv14
 	code-memory-size: 14byte
+	flags: tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -5257,6 +5302,7 @@ END
 INSTRUCTION: 9B o16 D9 /6 | FSTENV m14byte | FPU
 	ops: w=mem | FpuEnv14
 	code-memory-size: 14byte
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -5268,6 +5314,7 @@ END
 INSTRUCTION: o32 D9 /6 | FNSTENV m28byte | FPU387
 	ops: w=mem | FpuEnv28
 	code-memory-size: 28byte
+	flags: tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -5279,6 +5326,7 @@ END
 INSTRUCTION: 9B o32 D9 /6 | FSTENV m28byte | FPU387
 	ops: w=mem | FpuEnv28
 	code-memory-size: 28byte
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -5290,6 +5338,7 @@ END
 INSTRUCTION: D9 /7 | FNSTCW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	flags: tsx-impl-abort no-wait
 	gas: suffix=w
 END
 
@@ -5297,12 +5346,14 @@ END
 INSTRUCTION: 9B D9 /7 | FSTCW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	flags: tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Fld_st0_sti
 INSTRUCTION: D9 C0+i | FLD ST(i) | FPU
 	ops: w=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1
 	intel: st1
 	masm: st1-ignore-st1
@@ -5312,6 +5363,7 @@ END
 # Code: Fxch_st0_sti
 INSTRUCTION: D9 C8+i | FXCH ST(i) | FPU
 	ops: rw=st0 rw=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -5320,11 +5372,15 @@ END
 
 # Code: Fnop
 INSTRUCTION: D9 D0 | FNOP | FPU
+	# Intel documents that all X87 instructions may cause a TSX abort
+	# (it's not really a NOP, it can generate #NM/#MF)
+	flags: tsx-impl-abort
 END
 
 # Code: Fstpnce_sti
 INSTRUCTION: D9 D8+i | FSTPNCE ST(i) | FPU
 	ops: w=sti_opcode
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: mnemonic=fstp
 	gas: mnemonic=fstp
@@ -5334,134 +5390,161 @@ END
 
 # Code: Fchs
 INSTRUCTION: D9 E0 | FCHS | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Fabs
 INSTRUCTION: D9 E1 | FABS | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Ftst
 INSTRUCTION: D9 E4 | FTST | FPU
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 END
 
 # Code: Fxam
 INSTRUCTION: D9 E5 | FXAM | FPU
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 END
 
 # Code: Fld1
 INSTRUCTION: D9 E8 | FLD1 | FPU
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 END
 
 # Code: Fldl2t
 INSTRUCTION: D9 E9 | FLDL2T | FPU
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 END
 
 # Code: Fldl2e
 INSTRUCTION: D9 EA | FLDL2E | FPU
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 END
 
 # Code: Fldpi
 INSTRUCTION: D9 EB | FLDPI | FPU
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 END
 
 # Code: Fldlg2
 INSTRUCTION: D9 EC | FLDLG2 | FPU
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 END
 
 # Code: Fldln2
 INSTRUCTION: D9 ED | FLDLN2 | FPU
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 END
 
 # Code: Fldz
 INSTRUCTION: D9 EE | FLDZ | FPU
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 END
 
 # Code: F2xm1
 INSTRUCTION: D9 F0 | F2XM1 | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Fyl2x
 INSTRUCTION: D9 F1 | FYL2X | FPU
+	flags: tsx-impl-abort
 	iinfo: R_ST0_RW_ST1
 END
 
 # Code: Fptan
 INSTRUCTION: D9 F2 | FPTAN | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Fpatan
 INSTRUCTION: D9 F3 | FPATAN | FPU
+	flags: tsx-impl-abort
 	iinfo: R_ST0_RW_ST1
 END
 
 # Code: Fxtract
 INSTRUCTION: D9 F4 | FXTRACT | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Fprem1
 INSTRUCTION: D9 F5 | FPREM1 | FPU387
+	flags: tsx-impl-abort
 	iinfo: RW_ST0_R_ST1
 END
 
 # Code: Fdecstp
 INSTRUCTION: D9 F6 | FDECSTP | FPU
+	flags: tsx-impl-abort
 END
 
 # Code: Fincstp
 INSTRUCTION: D9 F7 | FINCSTP | FPU
+	flags: tsx-impl-abort
 END
 
 # Code: Fprem
 INSTRUCTION: D9 F8 | FPREM | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0_R_ST1
 END
 
 # Code: Fyl2xp1
 INSTRUCTION: D9 F9 | FYL2XP1 | FPU
+	flags: tsx-impl-abort
 	iinfo: R_ST0_RW_ST1
 END
 
 # Code: Fsqrt
 INSTRUCTION: D9 FA | FSQRT | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Fsincos
 INSTRUCTION: D9 FB | FSINCOS | FPU387
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Frndint
 INSTRUCTION: D9 FC | FRNDINT | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Fscale
 INSTRUCTION: D9 FD | FSCALE | FPU
+	flags: tsx-impl-abort
 	iinfo: RW_ST0_R_ST1
 END
 
 # Code: Fsin
 INSTRUCTION: D9 FE | FSIN | FPU387
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
 # Code: Fcos
 INSTRUCTION: D9 FF | FCOS | FPU387
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 END
 
@@ -5469,6 +5552,7 @@ END
 INSTRUCTION: DA /0 | FIADD m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5481,6 +5565,7 @@ END
 INSTRUCTION: DA /1 | FIMUL m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5493,6 +5578,7 @@ END
 INSTRUCTION: DA /2 | FICOM m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5505,6 +5591,7 @@ END
 INSTRUCTION: DA /3 | FICOMP m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5517,6 +5604,7 @@ END
 INSTRUCTION: DA /4 | FISUB m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5529,6 +5617,7 @@ END
 INSTRUCTION: DA /5 | FISUBR m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5541,6 +5630,7 @@ END
 INSTRUCTION: DA /6 | FIDIV m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5553,6 +5643,7 @@ END
 INSTRUCTION: DA /7 | FIDIVR m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5565,6 +5656,7 @@ END
 INSTRUCTION: DA C0+i | FCMOVB ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=c
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5575,6 +5667,7 @@ END
 INSTRUCTION: DA C8+i | FCMOVE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=z
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5585,6 +5678,7 @@ END
 INSTRUCTION: DA D0+i | FCMOVBE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=zc
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5595,6 +5689,7 @@ END
 INSTRUCTION: DA D8+i | FCMOVU ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=p
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5603,6 +5698,7 @@ END
 
 # Code: Fucompp
 INSTRUCTION: DA E9 | FUCOMPP | FPU387
+	flags: tsx-impl-abort
 	iinfo: R_ST0_R_ST1
 	gas: mnemonic=fucomp flags=force-suffix suffix=p
 END
@@ -5611,6 +5707,7 @@ END
 INSTRUCTION: DB /0 | FILD m32int | FPU
 	ops: r=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5623,6 +5720,7 @@ END
 INSTRUCTION: DB /1 | FISTTP m32int | FPU SSE3
 	ops: w=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5635,6 +5733,7 @@ END
 INSTRUCTION: DB /2 | FIST m32int | FPU
 	ops: w=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5647,6 +5746,7 @@ END
 INSTRUCTION: DB /3 | FISTP m32int | FPU
 	ops: w=mem | Int32
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5659,6 +5759,7 @@ END
 INSTRUCTION: DB /5 | FLD m80fp | FPU
 	ops: r=mem | Float80
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=t
@@ -5671,6 +5772,7 @@ END
 INSTRUCTION: DB /7 | FSTP m80fp | FPU
 	ops: w=mem | Float80
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=t
@@ -5683,6 +5785,7 @@ END
 INSTRUCTION: DB C0+i | FCMOVNB ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=c
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5693,6 +5796,7 @@ END
 INSTRUCTION: DB C8+i | FCMOVNE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=z
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5703,6 +5807,7 @@ END
 INSTRUCTION: DB D0+i | FCMOVNBE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=zc
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5713,6 +5818,7 @@ END
 INSTRUCTION: DB D8+i | FCMOVNU ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
 	rflags: r=p
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5721,54 +5827,65 @@ END
 
 # Code: Fneni
 INSTRUCTION: DB E0 | FNENI | FPU
+	flags: tsx-impl-abort no-wait
 END
 
 # Code: Feni
 INSTRUCTION: 9B DB E0 | FENI | FPU
+	flags: tsx-impl-abort
 END
 
 # Code: Fndisi
 INSTRUCTION: DB E1 | FNDISI | FPU
+	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fdisi
 INSTRUCTION: 9B DB E1 | FDISI | FPU
+	flags: tsx-impl-abort
 END
 
 # Code: Fnclex
 INSTRUCTION: DB E2 | FNCLEX | FPU
+	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fclex
 INSTRUCTION: 9B DB E2 | FCLEX | FPU
+	flags: tsx-impl-abort
 END
 
 # Code: Fninit
 INSTRUCTION: DB E3 | FNINIT | FPU
+	flags: tsx-impl-abort no-wait
 END
 
 # Code: Finit
 INSTRUCTION: 9B DB E3 | FINIT | FPU
+	flags: tsx-impl-abort
 END
 
 # Code: Fnsetpm
 INSTRUCTION: DB E4 | FNSETPM | FPU287
+	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fsetpm
 INSTRUCTION: 9B DB E4 | FSETPM | FPU287
+	flags: tsx-impl-abort
 END
 
 # Code: Frstpm
 INSTRUCTION: DB E5 | FRSTPM | FPU287XL_ONLY
-	flags: 16 32
+	flags: 16 32 tsx-impl-abort
 	decoder-option: OldFpu
 END
 
 # Code: Fucomi_st0_sti
 INSTRUCTION: DB E8+i | FUCOMI ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5778,7 +5895,8 @@ END
 # Code: Fcomi_st0_sti
 INSTRUCTION: DB F0+i | FCOMI ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -5789,6 +5907,7 @@ END
 INSTRUCTION: DC /0 | FADD m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5801,6 +5920,7 @@ END
 INSTRUCTION: DC /1 | FMUL m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5813,6 +5933,7 @@ END
 INSTRUCTION: DC /2 | FCOM m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5825,6 +5946,7 @@ END
 INSTRUCTION: DC /3 | FCOMP m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5837,6 +5959,7 @@ END
 INSTRUCTION: DC /4 | FSUB m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5849,6 +5972,7 @@ END
 INSTRUCTION: DC /5 | FSUBR m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5861,6 +5985,7 @@ END
 INSTRUCTION: DC /6 | FDIV m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5873,6 +5998,7 @@ END
 INSTRUCTION: DC /7 | FDIVR m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5884,6 +6010,7 @@ END
 # Code: Fadd_sti_st0
 INSTRUCTION: DC C0+i | FADD ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: st2
 	intel: st2
 	masm: st2
@@ -5893,6 +6020,7 @@ END
 # Code: Fmul_sti_st0
 INSTRUCTION: DC C8+i | FMUL ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: st2
 	intel: st2
 	masm: st2
@@ -5903,6 +6031,7 @@ END
 INSTRUCTION: DC D0+i | FCOM ST(i) | FPU
 	ops: r=st0 r=sti_opcode
 	code-suffix: DCD0
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -5913,6 +6042,7 @@ END
 INSTRUCTION: DC D8+i | FCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
 	code-suffix: DCD8
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -5923,6 +6053,7 @@ END
 INSTRUCTION: DC E0+i | FSUBR ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
 	gas: mnemonic=fsub st2
+	flags: tsx-impl-abort
 	intel: st2
 	masm: st2
 	nasm: st2 to
@@ -5932,6 +6063,7 @@ END
 INSTRUCTION: DC E8+i | FSUB ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
 	gas: mnemonic=fsubr st2
+	flags: tsx-impl-abort
 	intel: st2
 	masm: st2
 	nasm: st2 to
@@ -5941,6 +6073,7 @@ END
 INSTRUCTION: DC F0+i | FDIVR ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
 	gas: mnemonic=fdiv st2
+	flags: tsx-impl-abort
 	intel: st2
 	masm: st2
 	nasm: st2 to
@@ -5949,6 +6082,7 @@ END
 # Code: Fdiv_sti_st0
 INSTRUCTION: DC F8+i | FDIV ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: mnemonic=fdivr st2
 	intel: st2
 	masm: st2
@@ -5959,6 +6093,7 @@ END
 INSTRUCTION: DD /0 | FLD m64fp | FPU
 	ops: r=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5971,6 +6106,7 @@ END
 INSTRUCTION: DD /1 | FISTTP m64int | FPU SSE3
 	ops: w=mem | Int64
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: mnemonic=fisttpll
@@ -5983,6 +6119,7 @@ END
 INSTRUCTION: DD /2 | FST m64fp | FPU
 	ops: w=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5995,6 +6132,7 @@ END
 INSTRUCTION: DD /3 | FSTP m64fp | FPU
 	ops: w=mem | Float64
 	code-memory-size-suffix: fp
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -6007,7 +6145,7 @@ END
 INSTRUCTION: o16 DD /4 | FRSTOR m94byte | FPU
 	ops: r=mem | FpuState94
 	code-memory-size: 94byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6019,7 +6157,7 @@ END
 INSTRUCTION: o32 DD /4 | FRSTOR m108byte | FPU387
 	ops: r=mem | FpuState108
 	code-memory-size: 108byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6031,7 +6169,7 @@ END
 INSTRUCTION: o16 DD /6 | FNSAVE m94byte | FPU
 	ops: w=mem | FpuState94
 	code-memory-size: 94byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6043,7 +6181,7 @@ END
 INSTRUCTION: 9B o16 DD /6 | FSAVE m94byte | FPU
 	ops: w=mem | FpuState94
 	code-memory-size: 94byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6055,7 +6193,7 @@ END
 INSTRUCTION: o32 DD /6 | FNSAVE m108byte | FPU387
 	ops: w=mem | FpuState108
 	code-memory-size: 108byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6067,7 +6205,7 @@ END
 INSTRUCTION: 9B o32 DD /6 | FSAVE m108byte | FPU387
 	ops: w=mem | FpuState108
 	code-memory-size: 108byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6079,6 +6217,7 @@ END
 INSTRUCTION: DD /7 | FNSTSW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	flags: tsx-impl-abort no-wait
 	gas: suffix=w
 END
 
@@ -6086,18 +6225,21 @@ END
 INSTRUCTION: 9B DD /7 | FSTSW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	flags: tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Ffree_sti
 INSTRUCTION: DD C0+i | FFREE ST(i) | FPU
 	ops: n=sti_opcode
+	flags: tsx-impl-abort
 END
 
 # Code: Fxch_st0_sti_DDC8
 INSTRUCTION: DD C8+i | FXCH ST(i) | FPU
 	ops: rw=st0 rw=sti_opcode
 	code-suffix: DDC8
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6107,6 +6249,7 @@ END
 # Code: Fst_sti
 INSTRUCTION: DD D0+i | FST ST(i) | FPU
 	ops: w=sti_opcode
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	intel: add-st2
 END
@@ -6114,6 +6257,7 @@ END
 # Code: Fstp_sti
 INSTRUCTION: DD D8+i | FSTP ST(i) | FPU
 	ops: w=sti_opcode
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	intel: add-st2
 END
@@ -6121,6 +6265,7 @@ END
 # Code: Fucom_st0_sti
 INSTRUCTION: DD E0+i | FUCOM ST(i) | FPU
 	ops: r=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6130,6 +6275,7 @@ END
 # Code: Fucomp_st0_sti
 INSTRUCTION: DD E8+i | FUCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6140,6 +6286,7 @@ END
 INSTRUCTION: DE /0 | FIADD m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6152,6 +6299,7 @@ END
 INSTRUCTION: DE /1 | FIMUL m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6164,6 +6312,7 @@ END
 INSTRUCTION: DE /2 | FICOM m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6177,6 +6326,7 @@ INSTRUCTION: DE /3 | FICOMP m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
 	iinfo: R_ST0
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st1
@@ -6188,6 +6338,7 @@ END
 INSTRUCTION: DE /4 | FISUB m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6200,6 +6351,7 @@ END
 INSTRUCTION: DE /5 | FISUBR m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6212,6 +6364,7 @@ END
 INSTRUCTION: DE /6 | FIDIV m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6224,6 +6377,7 @@ END
 INSTRUCTION: DE /7 | FIDIVR m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: RW_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6235,6 +6389,7 @@ END
 # Code: Faddp_sti_st0
 INSTRUCTION: DE C0+i | FADDP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6244,6 +6399,7 @@ END
 # Code: Fmulp_sti_st0
 INSTRUCTION: DE C8+i | FMULP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6254,6 +6410,7 @@ END
 INSTRUCTION: DE D0+i | FCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
 	code-suffix: DED0
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6262,12 +6419,14 @@ END
 
 # Code: Fcompp
 INSTRUCTION: DE D9 | FCOMPP | FPU
+	flags: tsx-impl-abort
 	iinfo: R_ST0_ST1
 END
 
 # Code: Fsubrp_sti_st0
 INSTRUCTION: DE E0+i | FSUBRP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: mnemonic=fsubp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6277,6 +6436,7 @@ END
 # Code: Fsubp_sti_st0
 INSTRUCTION: DE E8+i | FSUBP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: mnemonic=fsubrp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6286,6 +6446,7 @@ END
 # Code: Fdivrp_sti_st0
 INSTRUCTION: DE F0+i | FDIVRP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: mnemonic=fdivp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6295,6 +6456,7 @@ END
 # Code: Fdivp_sti_st0
 INSTRUCTION: DE F8+i | FDIVP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	flags: tsx-impl-abort
 	gas: mnemonic=fdivrp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6305,6 +6467,7 @@ END
 INSTRUCTION: DF /0 | FILD m16int | FPU
 	ops: r=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6317,6 +6480,7 @@ END
 INSTRUCTION: DF /1 | FISTTP m16int | FPU SSE3
 	ops: w=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6329,6 +6493,7 @@ END
 INSTRUCTION: DF /2 | FIST m16int | FPU
 	ops: w=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6341,6 +6506,7 @@ END
 INSTRUCTION: DF /3 | FISTP m16int | FPU
 	ops: w=mem | Int16
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6353,6 +6519,7 @@ END
 INSTRUCTION: DF /4 | FBLD m80bcd | FPU
 	ops: r=mem | Bcd
 	code-memory-size-suffix: bcd
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 	fast: flags=force-size=always
 	intel: flags=force-size=default add-st1 load
@@ -6364,6 +6531,7 @@ END
 INSTRUCTION: DF /5 | FILD m64int | FPU
 	ops: r=mem | Int64
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: W_ST0
 	fast: flags=force-size=always
 	gas: mnemonic=fildll
@@ -6376,6 +6544,7 @@ END
 INSTRUCTION: DF /6 | FBSTP m80bcd | FPU
 	ops: w=mem | Bcd
 	code-memory-size-suffix: bcd
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	intel: flags=force-size=default add-st2
@@ -6387,6 +6556,7 @@ END
 INSTRUCTION: DF /7 | FISTP m64int | FPU
 	ops: w=mem | Int64
 	code-memory-size-suffix: int
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	fast: flags=force-size=always
 	gas: mnemonic=fistpll
@@ -6398,12 +6568,14 @@ END
 # Code: Ffreep_sti
 INSTRUCTION: DF C0+i | FFREEP ST(i) | FPU
 	ops: n=sti_opcode
+	flags: tsx-impl-abort
 END
 
 # Code: Fxch_st0_sti_DFC8
 INSTRUCTION: DF C8+i | FXCH ST(i) | FPU
 	ops: rw=st0 rw=sti_opcode
 	code-suffix: DFC8
+	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6414,6 +6586,7 @@ END
 INSTRUCTION: DF D0+i | FSTP ST(i) | FPU
 	ops: w=sti_opcode
 	code-suffix: DFD0
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	intel: add-st2
 END
@@ -6422,6 +6595,7 @@ END
 INSTRUCTION: DF D8+i | FSTP ST(i) | FPU
 	ops: w=sti_opcode
 	code-suffix: DFD8
+	flags: tsx-impl-abort
 	iinfo: R_ST0
 	intel: add-st2
 END
@@ -6429,31 +6603,34 @@ END
 # Code: Fnstsw_AX
 INSTRUCTION: DF E0 | FNSTSW AX | FPU287
 	ops: w=ax
+	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fstsw_AX
 INSTRUCTION: 9B DF E0 | FSTSW AX | FPU287
 	ops: w=ax
+	flags: tsx-impl-abort
 END
 
 # Code: Fstdw_AX
 INSTRUCTION: 9B DF E1 | FSTDW AX | FPU387SL_ONLY
 	ops: w=ax
-	flags: 16 32
+	flags: 16 32 tsx-impl-abort
 	decoder-option: OldFpu
 END
 
 # Code: Fstsg_AX
 INSTRUCTION: 9B DF E2 | FSTSG AX | FPU387SL_ONLY
 	ops: w=ax
-	flags: 16 32
+	flags: 16 32 tsx-impl-abort
 	decoder-option: OldFpu
 END
 
 # Code: Fucomip_st0_sti
 INSTRUCTION: DF E8+i | FUCOMIP ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -6463,7 +6640,8 @@ END
 # Code: Fcomip_st0_sti
 INSTRUCTION: DF F0+i | FCOMIP ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
+	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -6887,42 +7065,42 @@ END
 # Code: In_AL_imm8
 INSTRUCTION: E4 ib | IN AL, imm8 | INTEL8086
 	ops: w=al r=imm8
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: In_AX_imm8
 INSTRUCTION: o16 E5 ib | IN AX, imm8 | INTEL8086
 	ops: w=ax r=imm8
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: In_EAX_imm8
 INSTRUCTION: o32 E5 ib | IN EAX, imm8 | INTEL386
 	ops: w=eax r=imm8
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
 # Code: Out_imm8_AL
 INSTRUCTION: E6 ib | OUT imm8, AL | INTEL8086
 	ops: r=imm8 r=al
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: Out_imm8_AX
 INSTRUCTION: o16 E7 ib | OUT imm8, AX | INTEL8086
 	ops: r=imm8 r=ax
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Out_imm8_EAX
 INSTRUCTION: o32 E7 ib | OUT imm8, EAX | INTEL386
 	ops: r=imm8 r=eax
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
@@ -7008,7 +7186,8 @@ END
 # Code: Jmp_ptr1616
 INSTRUCTION: o16 EA cd | JMP ptr16:16 | INTEL8086
 	ops: r=farbr2_2
-	flags: 16 32
+	# VM exit if task switch
+	flags: 16 32 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: UnconditionalBranch
 	branch: jmp-far
 	gas: mnemonic=ljmp suffix=w osz-suffix-4
@@ -7019,7 +7198,8 @@ END
 # Code: Jmp_ptr1632
 INSTRUCTION: o32 EA cp | JMP ptr16:32 | INTEL386
 	ops: r=farbr4_2
-	flags: 16 32
+	# VM exit if task switch
+	flags: 16 32 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: UnconditionalBranch
 	branch: jmp-far
 	gas: mnemonic=ljmp suffix=l osz-suffix-4
@@ -7066,53 +7246,55 @@ END
 # Code: In_AL_DX
 INSTRUCTION: EC | IN AL, DX | INTEL8086
 	ops: w=al r=dx
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: In_AX_DX
 INSTRUCTION: o16 ED | IN AX, DX | INTEL8086
 	ops: w=ax r=dx
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: In_EAX_DX
 INSTRUCTION: o32 ED | IN EAX, DX | INTEL386
 	ops: w=eax r=dx
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
 # Code: Out_DX_AL
 INSTRUCTION: EE | OUT DX, AL | INTEL8086
 	ops: r=dx r=al
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: Out_DX_AX
 INSTRUCTION: o16 EF | OUT DX, AX | INTEL8086
 	ops: r=dx r=ax
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Out_DX_EAX
 INSTRUCTION: o32 EF | OUT DX, EAX | INTEL386
 	ops: r=dx r=eax
-	flags: cpl0
+	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
 # Code: Int1
 INSTRUCTION: F1 | INT1 | INTEL386
+	# #DB always causes transactional aborts
+	flags: intel-vm-exit amd-may-vm-exit tsx-abort
 	cflow: Interrupt
 END
 
 # Code: Hlt
 INSTRUCTION: F4 | HLT | INTEL8086
-	flags: cpl0
+	flags: cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 END
 
 # Code: Cmc
@@ -7123,7 +7305,7 @@ END
 # Code: Test_rm8_imm8
 INSTRUCTION: F6 /0 ib | TEST r/m8, imm8 | INTEL8086
 	ops: r=r8_or_mem r=imm8 | UInt8
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -7135,7 +7317,7 @@ END
 INSTRUCTION: F6 /1 ib | TEST r/m8, imm8 | INTEL8086
 	ops: r=r8_or_mem r=imm8 | UInt8
 	code-suffix: F6r1
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -7217,7 +7399,7 @@ END
 # Code: Test_rm16_imm16
 INSTRUCTION: o16 F7 /0 iw | TEST r/m16, imm16 | INTEL8086
 	ops: r=r16_or_mem r=imm16 | UInt16
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
 	intel: flags=force-size=always
@@ -7228,7 +7410,7 @@ END
 # Code: Test_rm32_imm32
 INSTRUCTION: o32 F7 /0 id | TEST r/m32, imm32 | INTEL386
 	ops: r=r32_or_mem r=imm32 | UInt32
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	intel: flags=force-size=always
@@ -7239,7 +7421,7 @@ END
 # Code: Test_rm64_imm32
 INSTRUCTION: REX.W F7 /0 id | TEST r/m64, imm32 | X64
 	ops: r=r64_or_mem r=imm32sex64 | UInt64
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -7252,7 +7434,7 @@ END
 INSTRUCTION: o16 F7 /1 iw | TEST r/m16, imm16 | INTEL8086
 	ops: r=r16_or_mem r=imm16 | UInt16
 	code-suffix: F7r1
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
 	intel: flags=force-size=always
@@ -7264,7 +7446,7 @@ END
 INSTRUCTION: o32 F7 /1 id | TEST r/m32, imm32 | INTEL386
 	ops: r=r32_or_mem r=imm32 | UInt32
 	code-suffix: F7r1
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	intel: flags=force-size=always
@@ -7276,7 +7458,7 @@ END
 INSTRUCTION: REX.W F7 /1 id | TEST r/m64, imm32 | X64
 	ops: r=r64_or_mem r=imm32sex64 | UInt64
 	code-suffix: F7r1
-	rflags: u=a w=szp c=oc
+	rflags: u=a w=szp 0=oc
 	flags: 64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
@@ -7504,34 +7686,36 @@ END
 
 # Code: Clc
 INSTRUCTION: F8 | CLC | INTEL8086
-	rflags: c=c
+	rflags: 0=c
 END
 
 # Code: Stc
 INSTRUCTION: F9 | STC | INTEL8086
-	rflags: s=c
+	rflags: 1=c
 END
 
 # Code: Cli
 INSTRUCTION: FA | CLI | INTEL8086
-	rflags: c=i
-	flags: cpl0
+	rflags: 0=i
+	flags: privileged tsx-impl-abort
 END
 
 # Code: Sti
 INSTRUCTION: FB | STI | INTEL8086
-	rflags: s=i
-	flags: cpl0
+	rflags: 1=i
+	flags: privileged tsx-impl-abort
 END
 
 # Code: Cld
 INSTRUCTION: FC | CLD | INTEL8086
-	rflags: c=d
+	rflags: 0=d
+	flags: tsx-impl-abort
 END
 
 # Code: Std
 INSTRUCTION: FD | STD | INTEL8086
-	rflags: s=d
+	rflags: 1=d
+	flags: tsx-impl-abort
 END
 
 # Code: Inc_rm8
@@ -7633,7 +7817,7 @@ END
 # Code: Call_rm16
 INSTRUCTION: o16 FF /2 | CALL r/m16 | INTEL8086
 	ops: r=r16_or_mem | WordOffset
-	flags: stack bnd notrack no-intel-dec64
+	flags: stack bnd notrack cet-tracked no-intel-dec64
 	cflow: IndirectCall
 	branch: call-near-indirect
 	iinfo: Push_2
@@ -7647,7 +7831,7 @@ END
 # Code: Call_rm32
 INSTRUCTION: o32 FF /2 | CALL r/m32 | INTEL386
 	ops: r=r32_or_mem | DwordOffset
-	flags: 16 32 stack bnd notrack
+	flags: 16 32 stack bnd notrack cet-tracked
 	cflow: IndirectCall
 	branch: call-near-indirect
 	iinfo: Push_4
@@ -7661,7 +7845,7 @@ END
 # Code: Call_rm64
 INSTRUCTION: FF /2 | CALL r/m64 | X64
 	ops: r=r64_or_mem | QwordOffset
-	flags: 64 stack bnd notrack intel-fo64 do64
+	flags: 64 stack bnd notrack cet-tracked intel-fo64 do64
 	cflow: IndirectCall
 	branch: call-near-indirect
 	iinfo: Push_8
@@ -7676,7 +7860,8 @@ END
 INSTRUCTION: o16 FF /3 | CALL m16:16 | INTEL8086
 	ops: r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: stack
+	# VM exit if task switch
+	flags: stack cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	iinfo: Push_2_2
@@ -7691,7 +7876,8 @@ END
 INSTRUCTION: o32 FF /3 | CALL m16:32 | INTEL386
 	ops: r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: stack
+	# VM exit if task switch
+	flags: stack cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	iinfo: Push_4_4
@@ -7706,7 +7892,8 @@ END
 INSTRUCTION: REX.W FF /3 | CALL m16:64 | X64
 	ops: r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 stack no-amd-dec
+	# VM exit if task switch
+	flags: 64 stack cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	iinfo: Push_8_8
@@ -7720,7 +7907,7 @@ END
 # Code: Jmp_rm16
 INSTRUCTION: o16 FF /4 | JMP r/m16 | INTEL8086
 	ops: r=r16_or_mem | WordOffset
-	flags: bnd notrack no-intel-dec64
+	flags: bnd notrack cet-tracked no-intel-dec64
 	cflow: IndirectBranch
 	branch: jmp-near-indirect
 	fast: flags=force-size=always
@@ -7733,7 +7920,7 @@ END
 # Code: Jmp_rm32
 INSTRUCTION: o32 FF /4 | JMP r/m32 | INTEL386
 	ops: r=r32_or_mem | DwordOffset
-	flags: 16 32 bnd notrack
+	flags: 16 32 bnd notrack cet-tracked
 	cflow: IndirectBranch
 	branch: jmp-near-indirect
 	fast: flags=force-size=always
@@ -7746,7 +7933,7 @@ END
 # Code: Jmp_rm64
 INSTRUCTION: FF /4 | JMP r/m64 | X64
 	ops: r=r64_or_mem | QwordOffset
-	flags: 64 bnd notrack intel-fo64 do64
+	flags: 64 bnd notrack cet-tracked intel-fo64 do64
 	cflow: IndirectBranch
 	branch: jmp-near-indirect
 	fast: flags=force-size=always
@@ -7760,6 +7947,8 @@ END
 INSTRUCTION: o16 FF /5 | JMP m16:16 | INTEL8086
 	ops: r=mem | SegPtr16
 	code-memory-size: 1616
+	# VM exit if task switch
+	flags: cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectBranch
 	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
@@ -7773,6 +7962,8 @@ END
 INSTRUCTION: o32 FF /5 | JMP m16:32 | INTEL386
 	ops: r=mem | SegPtr32
 	code-memory-size: 1632
+	# VM exit if task switch
+	flags: cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectBranch
 	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
@@ -7786,7 +7977,8 @@ END
 INSTRUCTION: REX.W FF /5 | JMP m16:64 | X64
 	ops: r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 no-amd-dec
+	# VM exit if task switch
+	flags: 64 no-amd-dec cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: IndirectBranch
 	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
@@ -7835,7 +8027,8 @@ END
 # Code: Sldt_rm16
 INSTRUCTION: o16 0F 00 /0 | SLDT r/m16 | INTEL286
 	ops: w=r16_or_mem | UInt16
-	flags: pm
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -7844,7 +8037,8 @@ END
 # Code: Sldt_r32m16
 INSTRUCTION: o32 0F 00 /0 | SLDT r32/m16 | INTEL386
 	ops: w=r32_or_mem | UInt16
-	flags: pm
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -7853,7 +8047,8 @@ END
 # Code: Sldt_r64m16
 INSTRUCTION: REX.W 0F 00 /0 | SLDT r64/m16 | X64
 	ops: w=r64_or_mem | UInt16
-	flags: 64 pm
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 64 no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -7862,7 +8057,8 @@ END
 # Code: Str_rm16
 INSTRUCTION: o16 0F 00 /1 | STR r/m16 | INTEL286
 	ops: w=r16_or_mem | UInt16
-	flags: pm
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -7871,7 +8067,8 @@ END
 # Code: Str_r32m16
 INSTRUCTION: o32 0F 00 /1 | STR r32/m16 | INTEL386
 	ops: w=r32_or_mem | UInt16
-	flags: pm
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -7880,7 +8077,8 @@ END
 # Code: Str_r64m16
 INSTRUCTION: REX.W 0F 00 /1 | STR r64/m16 | X64
 	ops: w=r64_or_mem | UInt16
-	flags: 64 pm
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 64 no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -7889,7 +8087,7 @@ END
 # Code: Lldt_rm16
 INSTRUCTION: o16 0F 00 /2 | LLDT r/m16 | INTEL286
 	ops: r=r16_or_mem | UInt16
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: reg16
 	masm: flags=force-size=default
 	nasm: osz-reg16
@@ -7898,7 +8096,7 @@ END
 # Code: Lldt_r32m16
 INSTRUCTION: o32 0F 00 /2 | LLDT r32/m16 | INTEL386
 	ops: r=r32_or_mem | UInt16
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -7909,7 +8107,7 @@ END
 # Code: Lldt_r64m16
 INSTRUCTION: REX.W 0F 00 /2 | LLDT r64/m16 | X64
 	ops: r=r64_or_mem | UInt16
-	flags: 64 cpl0 pm
+	flags: 64 cpl0 no-rm no-v86 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -7920,7 +8118,7 @@ END
 # Code: Ltr_rm16
 INSTRUCTION: o16 0F 00 /3 | LTR r/m16 | INTEL286
 	ops: r=r16_or_mem | UInt16
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: reg16
 	masm: flags=force-size=default
 	nasm: osz-reg16
@@ -7929,7 +8127,7 @@ END
 # Code: Ltr_r32m16
 INSTRUCTION: o32 0F 00 /3 | LTR r32/m16 | INTEL386
 	ops: r=r32_or_mem | UInt16
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -7940,7 +8138,7 @@ END
 # Code: Ltr_r64m16
 INSTRUCTION: REX.W 0F 00 /3 | LTR r64/m16 | X64
 	ops: r=r64_or_mem | UInt16
-	flags: 64 cpl0 pm
+	flags: 64 cpl0 no-rm no-v86 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -7952,7 +8150,7 @@ END
 INSTRUCTION: o16 0F 00 /4 | VERR r/m16 | INTEL286
 	ops: r=r16_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	gas: reg16
 	masm: flags=force-size=default
 	nasm: osz-reg16
@@ -7962,7 +8160,7 @@ END
 INSTRUCTION: o32 0F 00 /4 | VERR r32/m16 | INTEL386
 	ops: r=r32_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -7974,7 +8172,7 @@ END
 INSTRUCTION: REX.W 0F 00 /4 | VERR r64/m16 | X64
 	ops: r=r64_or_mem | UInt16
 	rflags: w=z
-	flags: 64 pm
+	flags: 64 no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -7986,7 +8184,7 @@ END
 INSTRUCTION: o16 0F 00 /5 | VERW r/m16 | INTEL286
 	ops: r=r16_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	gas: reg16
 	masm: flags=force-size=default
 	nasm: osz-reg16
@@ -7996,7 +8194,7 @@ END
 INSTRUCTION: o32 0F 00 /5 | VERW r32/m16 | INTEL386
 	ops: r=r32_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -8008,7 +8206,7 @@ END
 INSTRUCTION: REX.W 0F 00 /5 | VERW r64/m16 | X64
 	ops: r=r64_or_mem | UInt16
 	rflags: w=z
-	flags: 64 pm
+	flags: 64 no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: reg16
 	intel: reg16
@@ -8049,7 +8247,8 @@ INSTRUCTION: o16 0F 01 /0 | SGDT m | INTEL286
 	ops: w=mem | Fword6
 	code-memory-size: 1632
 	code-suffix: 16
-	flags: 16 32
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8059,7 +8258,8 @@ END
 INSTRUCTION: o32 0F 01 /0 | SGDT m | INTEL386
 	ops: w=mem | Fword6
 	code-memory-size: 1632
-	flags: 16 32
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8069,7 +8269,8 @@ END
 INSTRUCTION: 0F 01 /0 | SGDT m | X64
 	ops: w=mem | Fword10
 	code-memory-size: 1664
-	flags: 64 fo64
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 64 fo64 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	masm: gidt
 END
@@ -8079,7 +8280,8 @@ INSTRUCTION: o16 0F 01 /1 | SIDT m | INTEL286
 	ops: w=mem | Fword6
 	code-memory-size: 1632
 	code-suffix: 16
-	flags: 16 32
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8089,7 +8291,8 @@ END
 INSTRUCTION: o32 0F 01 /1 | SIDT m | INTEL386
 	ops: w=mem | Fword6
 	code-memory-size: 1632
-	flags: 16 32
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8099,7 +8302,8 @@ END
 INSTRUCTION: 0F 01 /1 | SIDT m | X64
 	ops: w=mem | Fword10
 	code-memory-size: 1664
-	flags: 64 fo64
+	# If CR4.UMIP=1, CPL=0 is required
+	flags: 64 fo64 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	masm: gidt
 END
@@ -8109,7 +8313,7 @@ INSTRUCTION: o16 0F 01 /2 | LGDT m16&32 | INTEL286
 	ops: r=mem | Fword6
 	code-memory-size: 1632
 	code-suffix: 16
-	flags: 16 32 cpl0
+	flags: 16 32 cpl0 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	masm: flags=force-size=default gidt
 	nasm: osz-mem-1
@@ -8119,7 +8323,7 @@ END
 INSTRUCTION: o32 0F 01 /2 | LGDT m16&32 | INTEL386
 	ops: r=mem | Fword6
 	code-memory-size: 1632
-	flags: 16 32 cpl0
+	flags: 16 32 cpl0 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	masm: flags=force-size=default gidt
 	nasm: osz-mem-1
@@ -8129,7 +8333,7 @@ END
 INSTRUCTION: 0F 01 /2 | LGDT m16&64 | X64
 	ops: r=mem | Fword10
 	code-memory-size: 1664
-	flags: 64 cpl0 fo64
+	flags: 64 cpl0 fo64 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	masm: flags=force-size=default gidt
 END
@@ -8139,7 +8343,7 @@ INSTRUCTION: o16 0F 01 /3 | LIDT m16&32 | INTEL286
 	ops: r=mem | Fword6
 	code-memory-size: 1632
 	code-suffix: 16
-	flags: 16 32 cpl0
+	flags: 16 32 cpl0 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	masm: flags=force-size=default gidt
 	nasm: osz-mem-1
@@ -8149,7 +8353,7 @@ END
 INSTRUCTION: o32 0F 01 /3 | LIDT m16&32 | INTEL386
 	ops: r=mem | Fword6
 	code-memory-size: 1632
-	flags: 16 32 cpl0
+	flags: 16 32 cpl0 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	masm: flags=force-size=default gidt
 	nasm: osz-mem-1
@@ -8159,7 +8363,7 @@ END
 INSTRUCTION: 0F 01 /3 | LIDT m16&64 | X64
 	ops: r=mem | Fword10
 	code-memory-size: 1664
-	flags: 64 cpl0 fo64
+	flags: 64 cpl0 fo64 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	masm: flags=force-size=default gidt
 END
@@ -8167,6 +8371,9 @@ END
 # Code: Smsw_rm16
 INSTRUCTION: o16 0F 01 /4 | SMSW r/m16 | INTEL286
 	ops: w=r16_or_mem | UInt16
+	# If CR4.UMIP=1, CPL=0 is required
+	# May cause a TSX abort if VM exit
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	iinfo: R_CR0
 	gas: suffix=w mem16
 	masm: flags=force-size=default
@@ -8176,6 +8383,9 @@ END
 # Code: Smsw_r32m16
 INSTRUCTION: o32 0F 01 /4 | SMSW r32/m16 | INTEL386
 	ops: w=r32_or_mem | UInt16
+	# If CR4.UMIP=1, CPL=0 is required
+	# May cause a TSX abort if VM exit
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	iinfo: R_CR0
 	gas: suffix=l mem16
 	masm: flags=force-size=default
@@ -8185,7 +8395,9 @@ END
 # Code: Smsw_r64m16
 INSTRUCTION: REX.W 0F 01 /4 | SMSW r64/m16 | X64
 	ops: w=r64_or_mem | UInt16
-	flags: 64
+	# If CR4.UMIP=1, CPL=0 is required
+	# May cause a TSX abort if VM exit
+	flags: 64 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	iinfo: R_CR0
 	gas: suffix=q mem16
 	masm: flags=force-size=default
@@ -8195,15 +8407,15 @@ END
 # Code: Rstorssp_m64
 INSTRUCTION: F3 0F 01 /5 | RSTORSSP m64 | CET_SS
 	ops: rw=mem | UInt64
-	rflags: w=c c=oszap
-	flags: pm
+	rflags: w=c 0=oszap
+	flags: no-rm no-v86
 	masm: flags=force-size=default
 END
 
 # Code: Lmsw_rm16
 INSTRUCTION: o16 0F 01 /6 | LMSW r/m16 | INTEL286
 	ops: r=r16_or_mem | UInt16
-	flags: cpl0
+	flags: cpl0 serialize-intel intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: RW_CR0
 	gas: reg16
 	masm: flags=force-size=default
@@ -8213,7 +8425,7 @@ END
 # Code: Lmsw_r32m16
 INSTRUCTION: o32 0F 01 /6 | LMSW r32/m16 | INTEL386
 	ops: r=r32_or_mem | UInt16
-	flags: cpl0
+	flags: cpl0 serialize-intel intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: RW_CR0
 	gas: reg16
 	intel: reg16
@@ -8224,7 +8436,7 @@ END
 # Code: Lmsw_r64m16
 INSTRUCTION: REX.W 0F 01 /6 | LMSW r64/m16 | X64
 	ops: r=r64_or_mem | UInt16
-	flags: 64 cpl0
+	flags: 64 cpl0 serialize-intel intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: RW_CR0
 	gas: reg16
 	intel: reg16
@@ -8235,21 +8447,24 @@ END
 # Code: Invlpg_m
 INSTRUCTION: 0F 01 /7 | INVLPG m | INTEL486
 	ops: nma=mem
-	flags: cpl0
+	flags: cpl0 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	intel: flags=mem-size=ignore
 END
 
 # Code: Enclv
-INSTRUCTION: NP 0F 01 C0 | ENCLV | ENCLV
+INSTRUCTION: NP 0F 01 C0 | ENCLV | OSS
 	rflags: w=oszacp
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 no-in-smm vmx=op intel-may-vm-exit tdx-non-root-ud tsx-abort
 	iinfo: Encls
 END
 
 # This instruction is NP, the SDM is wrong
 # Code: Vmcall
 INSTRUCTION: NP 0F 01 C1 | VMCALL | VMX
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
+	# It has CPL=0 but it can VM exit and the VMM doesn't need to require CPL=0, so shouldn't be marked privileged
+	#TODO: #UD if (v86 or compat) && VMX root operation
+	flags: cpl0 no-privileged vmx=op intel-vm-exit intel-smm-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve tsx-impl-abort
 	cflow: Call
 END
 
@@ -8257,7 +8472,7 @@ END
 # Code: Vmlaunch
 INSTRUCTION: NP 0F 01 C2 | VMLAUNCH | VMX
 	rflags: w=oszacpdiA
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	cflow: Return
 END
 
@@ -8265,21 +8480,22 @@ END
 # Code: Vmresume
 INSTRUCTION: NP 0F 01 C3 | VMRESUME | VMX
 	rflags: w=oszacpdiA
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	cflow: Return
 END
 
 # This instruction is NP, the SDM is wrong
 # Code: Vmxoff
 INSTRUCTION: NP 0F 01 C4 | VMXOFF | VMX
-	rflags: w=zc c=osap
-	flags: cpl0 pm
+	rflags: w=zc 0=osap
+	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 END
 
 # Code: Pconfig
 INSTRUCTION: NP 0F 01 C5 | PCONFIG | PCONFIG
-	rflags: w=z c=osacp
-	flags: cpl0
+	rflags: w=z 0=osacp
+	# May cause a TSX abort if VM exit
+	flags: cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve tsx-impl-abort
 	iinfo: Pconfig
 END
 
@@ -8287,7 +8503,7 @@ END
 # Code: Monitorw
 INSTRUCTION: a16 NP 0F 01 C8 | MONITOR | MONITOR
 	code-mnemonic: monitorw
-	flags: 16 32 cpl0
+	flags: 16 32 cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Monitor
 	gas: asz
 	intel: asz
@@ -8299,7 +8515,7 @@ END
 # Code: Monitord
 INSTRUCTION: a32 NP 0F 01 C8 | MONITOR | MONITOR
 	code-mnemonic: monitord
-	flags: cpl0
+	flags: cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Monitor
 	gas: asz
 	intel: asz
@@ -8311,7 +8527,7 @@ END
 # Code: Monitorq
 INSTRUCTION: a64 NP 0F 01 C8 | MONITOR | MONITOR
 	code-mnemonic: monitorq
-	flags: 64 cpl0
+	flags: 64 cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Monitor
 	gas: asz
 	intel: asz
@@ -8322,27 +8538,27 @@ END
 # This instruction is NP, the SDM is wrong
 # Code: Mwait
 INSTRUCTION: NP 0F 01 C9 | MWAIT | MONITOR
-	flags: cpl0
+	flags: cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Mwait
 	masm: mwait
 END
 
 # Code: Clac
 INSTRUCTION: NP 0F 01 CA | CLAC | SMAP
-	rflags: c=A
-	flags: cpl0
+	rflags: 0=A
+	flags: cpl0 no-v86 tsx-impl-abort
 END
 
 # Code: Stac
 INSTRUCTION: NP 0F 01 CB | STAC | SMAP
-	rflags: s=A
-	flags: cpl0
+	rflags: 1=A
+	flags: cpl0 no-v86 tsx-impl-abort
 END
 
 # Code: Encls
 INSTRUCTION: NP 0F 01 CF | ENCLS | SGX1
 	rflags: w=oszacp
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 no-in-smm intel-may-vm-exit tdx-non-root-ud tsx-abort
 	iinfo: Encls
 END
 
@@ -8353,30 +8569,36 @@ END
 
 # Code: Xsetbv
 INSTRUCTION: NP 0F 01 D1 | XSETBV | XSAVE
-	flags: cpl0
+	flags: cpl0 intel-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_ECX_EDX
 END
 
 # Code: Vmfunc
 INSTRUCTION: NP 0F 01 D4 | VMFUNC | VMX
+	#TODO: should be cond-write
 	rflags: w=oszacp
+	# VM exit if func EAX is disabled or if func EAX causes a VM exit
+	flags: vmx=non-root intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
 	iinfo: Vmfunc
 END
 
 # Code: Xend
 INSTRUCTION: NP 0F 01 D5 | XEND | RTM
+	flags: tsx-may-abort
 	cflow: XbeginXabortXend
 END
 
 # Code: Xtest
 INSTRUCTION: NP 0F 01 D6 | XTEST | HLE_or_RTM
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
 END
 
 # Code: Enclu
 INSTRUCTION: NP 0F 01 D7 | ENCLU | SGX1
 	rflags: w=oszacp
-	flags: cpl3 pm
+	# The only instruction that requires CPL=3 (will #UD if CPL<3).
+	# ENCLU[EENTER] is a serializing instruction.
+	flags: cpl3 no-rm no-v86 no-in-smm tsx-abort
 	iinfo: Encls
 END
 
@@ -8384,7 +8606,7 @@ END
 INSTRUCTION: a16 0F 01 D8 | VMRUN | SVM
 	code-mnemonic: vmrunw
 	rflags: r=oszacpdiA
-	flags: 16 32 cpl0 saverestore pm
+	flags: 16 32 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	cflow: Return
 	iinfo: Vmload
 	gas: asz
@@ -8397,7 +8619,7 @@ END
 INSTRUCTION: a32 0F 01 D8 | VMRUN | SVM
 	code-mnemonic: vmrund
 	rflags: r=oszacpdiA
-	flags: cpl0 saverestore pm
+	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	cflow: Return
 	iinfo: Vmload
 	gas: asz
@@ -8410,7 +8632,7 @@ END
 INSTRUCTION: a64 0F 01 D8 | VMRUN | SVM
 	code-mnemonic: vmrunq
 	rflags: r=oszacpdiA
-	flags: 64 cpl0 saverestore pm
+	flags: 64 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	cflow: Return
 	iinfo: Vmload
 	gas: asz
@@ -8421,13 +8643,15 @@ END
 
 # Code: Vmmcall
 INSTRUCTION: 0F 01 D9 | VMMCALL | SVM
+	# #UD if not intercepted
+	flags: amd-may-vm-exit
 	cflow: Call
 END
 
 # Code: Vmloadw
 INSTRUCTION: a16 0F 01 DA | VMLOAD | SVM
 	code-mnemonic: vmloadw
-	flags: 16 32 cpl0 saverestore pm
+	flags: 16 32 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	iinfo: Vmload
 	gas: asz
 	intel: reg ax
@@ -8438,7 +8662,7 @@ END
 # Code: Vmloadd
 INSTRUCTION: a32 0F 01 DA | VMLOAD | SVM
 	code-mnemonic: vmloadd
-	flags: cpl0 saverestore pm
+	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	iinfo: Vmload
 	gas: asz
 	intel: reg eax
@@ -8449,7 +8673,7 @@ END
 # Code: Vmloadq
 INSTRUCTION: a64 0F 01 DA | VMLOAD | SVM
 	code-mnemonic: vmloadq
-	flags: 64 cpl0 saverestore pm
+	flags: 64 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	iinfo: Vmload
 	gas: asz
 	intel: reg rax
@@ -8460,7 +8684,7 @@ END
 # Code: Vmsavew
 INSTRUCTION: a16 0F 01 DB | VMSAVE | SVM
 	code-mnemonic: vmsavew
-	flags: 16 32 cpl0 saverestore pm
+	flags: 16 32 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	iinfo: Vmload
 	gas: asz
 	intel: reg ax
@@ -8471,7 +8695,7 @@ END
 # Code: Vmsaved
 INSTRUCTION: a32 0F 01 DB | VMSAVE | SVM
 	code-mnemonic: vmsaved
-	flags: cpl0 saverestore pm
+	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	iinfo: Vmload
 	gas: asz
 	intel: reg eax
@@ -8482,7 +8706,7 @@ END
 # Code: Vmsaveq
 INSTRUCTION: a64 0F 01 DB | VMSAVE | SVM
 	code-mnemonic: vmsaveq
-	flags: 64 cpl0 saverestore pm
+	flags: 64 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	iinfo: Vmload
 	gas: asz
 	intel: reg rax
@@ -8491,19 +8715,19 @@ INSTRUCTION: a64 0F 01 DB | VMSAVE | SVM
 END
 
 # Code: Stgi
-INSTRUCTION: 0F 01 DC | STGI | SKINIT_or_SVML
-	flags: cpl0 pm
+INSTRUCTION: 0F 01 DC | STGI | SKINIT_or_SVM
+	flags: cpl0 no-rm no-v86 amd-may-vm-exit
 END
 
 # Code: Clgi
 INSTRUCTION: 0F 01 DD | CLGI | SVM
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 amd-may-vm-exit
 END
 
 # Code: Skinit
-INSTRUCTION: 0F 01 DE | SKINIT | SKINIT_or_SVML
+INSTRUCTION: 0F 01 DE | SKINIT | SKINIT_or_SVM
 	rflags: w=oszacpdiA
-	flags: cpl0 saverestore pm
+	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	cflow: Return
 	intel: reg eax
 	masm: reg eax
@@ -8512,7 +8736,7 @@ END
 # Code: Invlpgaw
 INSTRUCTION: a16 0F 01 DF | INVLPGA | SVM
 	code-mnemonic: invlpgaw
-	flags: 16 32 cpl0 pm
+	flags: 16 32 cpl0 no-rm no-v86 serialize-amd amd-may-vm-exit
 	iinfo: Invlpga
 	gas: asz
 	intel: invlpga
@@ -8523,7 +8747,7 @@ END
 # Code: Invlpgad
 INSTRUCTION: a32 0F 01 DF | INVLPGA | SVM
 	code-mnemonic: invlpgad
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 serialize-amd amd-may-vm-exit
 	iinfo: Invlpga
 	gas: asz
 	intel: invlpga
@@ -8534,7 +8758,7 @@ END
 # Code: Invlpgaq
 INSTRUCTION: a64 0F 01 DF | INVLPGA | SVM
 	code-mnemonic: invlpgaq
-	flags: 64 cpl0 pm
+	flags: 64 cpl0 no-rm no-v86 serialize-amd amd-may-vm-exit
 	iinfo: Invlpga
 	gas: asz
 	intel: invlpga
@@ -8544,13 +8768,13 @@ END
 
 # Code: Setssbsy
 INSTRUCTION: F3 0F 01 E8 | SETSSBSY | CET_SS
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86
 END
 
 # Code: Saveprevssp
 INSTRUCTION: F3 0F 01 EA | SAVEPREVSSP | CET_SS
 	rflags: r=c
-	flags: pm
+	flags: no-rm no-v86
 END
 
 # Code: Rdpkru
@@ -8560,23 +8784,27 @@ END
 
 # Code: Wrpkru
 INSTRUCTION: NP 0F 01 EF | WRPKRU | PKU
+	flags: tsx-impl-abort
 	iinfo: R_EAX_ECX_EDX
 END
 
 # Code: Swapgs
 INSTRUCTION: 0F 01 F8 | SWAPGS | X64
-	flags: 64 cpl0
+	flags: 64 cpl0 serialize-amd tsx-impl-abort
 END
 
 # Code: Rdtscp
 INSTRUCTION: 0F 01 F9 | RDTSCP | RDTSCP
+	# If CR4.TSD=1, CPL=0 is required
+	# May cause a TSX abort if VM exit
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 amd-may-vm-exit tsx-impl-abort
 	iinfo: W_EAX_ECX_EDX
 END
 
 # Code: Monitorxw
 INSTRUCTION: a16 NP 0F 01 FA | MONITORX | MONITORX
 	code-mnemonic: monitorxw
-	flags: 16 32
+	flags: 16 32 amd-may-vm-exit
 	iinfo: Monitor
 	gas: asz
 	intel: asz
@@ -8587,6 +8815,7 @@ END
 # Code: Monitorxd
 INSTRUCTION: a32 NP 0F 01 FA | MONITORX | MONITORX
 	code-mnemonic: monitorxd
+	flags: amd-may-vm-exit
 	iinfo: Monitor
 	gas: asz
 	intel: asz
@@ -8597,7 +8826,7 @@ END
 # Code: Monitorxq
 INSTRUCTION: a64 NP 0F 01 FA | MONITORX | MONITORX
 	code-mnemonic: monitorxq
-	flags: 64
+	flags: 64 amd-may-vm-exit
 	iinfo: Monitor
 	gas: asz
 	intel: asz
@@ -8607,11 +8836,13 @@ END
 
 # Code: Mcommit
 INSTRUCTION: F3 0F 01 FA | MCOMMIT | MCOMMIT
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	flags: amd-may-vm-exit
 END
 
 # Code: Mwaitx
 INSTRUCTION: NP 0F 01 FB | MWAITX | MONITORX
+	flags: amd-may-vm-exit
 	iinfo: Mwaitx
 	masm: mwaitx
 END
@@ -8619,7 +8850,7 @@ END
 # Code: Clzerow
 INSTRUCTION: a16 0F 01 FC | CLZERO | CLZERO
 	code-mnemonic: clzerow
-	flags: 16 32
+	flags: 16 32 non-temporal
 	iinfo: Clzero
 	gas: asz
 	intel: reg ax
@@ -8629,6 +8860,7 @@ END
 # Code: Clzerod
 INSTRUCTION: a32 0F 01 FC | CLZERO | CLZERO
 	code-mnemonic: clzerod
+	flags: non-temporal
 	iinfo: Clzero
 	gas: asz
 	intel: reg eax
@@ -8638,7 +8870,7 @@ END
 # Code: Clzeroq
 INSTRUCTION: a64 0F 01 FC | CLZERO | CLZERO
 	code-mnemonic: clzeroq
-	flags: 64
+	flags: 64 non-temporal
 	iinfo: Clzero
 	gas: asz
 	intel: reg rax
@@ -8647,7 +8879,9 @@ END
 
 # Code: Rdpru
 INSTRUCTION: 0F 01 FD | RDPRU | RDPRU
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	# If CR4.TSD=1, CPL=0 is required
+	flags: may-require-cpl0 amd-may-vm-exit
 	iinfo: R_ECX_W_EAX_EDX
 END
 
@@ -8655,7 +8889,7 @@ END
 INSTRUCTION: o16 0F 02 /r | LAR r16, r/m16 | INTEL286
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	gas: suffix=w
 	masm: flags=force-size=default
 END
@@ -8664,7 +8898,7 @@ END
 INSTRUCTION: o32 0F 02 /r | LAR r32, r32/m16 | INTEL386
 	ops: cw=r32_reg r=r32_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=l
 	masm: flags=force-size=default
@@ -8674,7 +8908,7 @@ END
 INSTRUCTION: REX.W 0F 02 /r | LAR r64, r64/m16 | X64
 	ops: cw=r64_reg r=r64_or_mem | UInt16
 	rflags: w=z
-	flags: 64 pm
+	flags: 64 no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=q
 	masm: flags=force-size=default
@@ -8684,7 +8918,7 @@ END
 INSTRUCTION: o16 0F 03 /r | LSL r16, r/m16 | INTEL286
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	gas: suffix=w
 	masm: flags=force-size=default
 END
@@ -8693,7 +8927,7 @@ END
 INSTRUCTION: o32 0F 03 /r | LSL r32, r32/m16 | INTEL386
 	ops: cw=r32_reg r=r32_or_mem | UInt16
 	rflags: w=z
-	flags: pm
+	flags: no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=l
 	masm: flags=force-size=default
@@ -8703,7 +8937,7 @@ END
 INSTRUCTION: REX.W 0F 03 /r | LSL r64, r64/m16 | X64
 	ops: cw=r64_reg r=r64_or_mem | UInt16
 	rflags: w=z
-	flags: 64 pm
+	flags: 64 no-rm no-v86
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=q
 	masm: flags=force-size=default
@@ -8712,7 +8946,7 @@ END
 # Code: Loadallreset286
 INSTRUCTION: 0F 04 | LOADALL | INTEL286_ONLY
 	code-mnemonic: loadallreset286
-	flags: 16 32 cpl0 saverestore
+	flags: 16 32 cpl0 save-restore
 	decoder-option: Loadall286
 	fast: mnemonic=loadallreset286
 	gas: mnemonic=loadallreset286
@@ -8724,7 +8958,7 @@ END
 # Code: Loadall286
 INSTRUCTION: 0F 05 | LOADALL | INTEL286_ONLY
 	code-mnemonic: loadall286
-	flags: 16 32 cpl0 saverestore
+	flags: 16 32 cpl0 save-restore
 	decoder-option: Loadall286
 	fast: mnemonic=loadall286
 	gas: mnemonic=loadall286
@@ -8736,20 +8970,22 @@ END
 # Code: Syscall
 INSTRUCTION: 0F 05 | SYSCALL | SYSCALL
 	rflags: r=oszacpdiA w=oszacpdiA
+	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Call
 	iinfo: Syscall
 END
 
 # Code: Clts
 INSTRUCTION: 0F 06 | CLTS | INTEL286
-	flags: cpl0
+	flags: cpl0 intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	iinfo: RW_CR0
 END
 
 # Code: Loadall386
 INSTRUCTION: 0F 07 | LOADALL | INTEL386_ONLY
 	code-mnemonic: loadall386
-	flags: 16 32 cpl0 saverestore
+	flags: 16 32 cpl0 save-restore
 	iinfo: Loadall386
 	decoder-option: Loadall386
 	fast: mnemonic=loadall386
@@ -8762,7 +8998,9 @@ END
 INSTRUCTION: 0F 07 | SYSRET | SYSCALL
 	code-mnemonic: sysretd
 	rflags: w=oszacpdiA
-	flags: cpl0 pm
+	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
+	# AMD: no-rm no-v86 or #GP(0)
+	flags: cpl0 tsx-impl-abort
 	cflow: Return
 	iinfo: Syscall
 	gas: suffix=l osz-suffix-3 16 32
@@ -8771,7 +9009,8 @@ END
 # Code: Sysretq
 INSTRUCTION: REX.W 0F 07 | SYSRETQ | SYSCALL
 	rflags: w=oszacpdiA
-	flags: 64 cpl0 pm
+	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
+	flags: 64 cpl0 tsx-impl-abort
 	cflow: Return
 	iinfo: Syscall
 	nasm: mnemonic=sysret flags=o64
@@ -8779,17 +9018,17 @@ END
 
 # Code: Invd
 INSTRUCTION: 0F 08 | INVD | INTEL486
-	flags: cpl0
+	flags: cpl0 serialize-intel serialize-amd intel-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 END
 
 # Code: Wbinvd
 INSTRUCTION: 0F 09 | WBINVD | INTEL486
-	flags: cpl0
+	flags: cpl0 serialize-intel serialize-amd intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 END
 
 # Code: Wbnoinvd
 INSTRUCTION: F3 0F 09 | WBNOINVD | WBNOINVD
-	flags: cpl0
+	flags: cpl0 serialize-intel serialize-amd intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 END
 
 # Code: Cl1invmb
@@ -8800,6 +9039,7 @@ END
 
 # Code: Ud2
 INSTRUCTION: 0F 0B | UD2 | INTEL286
+	flags: intel-vm-exit tsx-impl-abort
 	cflow: Exception
 END
 
@@ -8807,6 +9047,7 @@ END
 INSTRUCTION: o16 0F 0D /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F0D
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -8818,6 +9059,7 @@ END
 INSTRUCTION: o32 0F 0D /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F0D
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -8829,7 +9071,7 @@ END
 INSTRUCTION: REX.W 0F 0D /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F0D
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9555,6 +9797,7 @@ END
 INSTRUCTION: o16 0F 18 /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F18
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9566,6 +9809,7 @@ END
 INSTRUCTION: o32 0F 18 /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F18
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9577,7 +9821,7 @@ END
 INSTRUCTION: REX.W 0F 18 /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F18
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9589,6 +9833,7 @@ END
 INSTRUCTION: o16 0F 19 /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F19
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9600,6 +9845,7 @@ END
 INSTRUCTION: o32 0F 19 /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F19
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9611,7 +9857,7 @@ END
 INSTRUCTION: REX.W 0F 19 /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F19
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9623,6 +9869,7 @@ END
 INSTRUCTION: o16 0F 1A /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F1A
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9634,6 +9881,7 @@ END
 INSTRUCTION: o32 0F 1A /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F1A
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9645,7 +9893,7 @@ END
 INSTRUCTION: REX.W 0F 1A /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F1A
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9657,6 +9905,7 @@ END
 INSTRUCTION: o16 0F 1B /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F1B
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9668,6 +9917,7 @@ END
 INSTRUCTION: o32 0F 1B /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F1B
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9679,7 +9929,7 @@ END
 INSTRUCTION: REX.W 0F 1B /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F1B
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9691,6 +9941,7 @@ END
 INSTRUCTION: o16 0F 1C /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F1C
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9702,6 +9953,7 @@ END
 INSTRUCTION: o32 0F 1C /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F1C
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9713,7 +9965,7 @@ END
 INSTRUCTION: REX.W 0F 1C /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F1C
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9725,6 +9977,7 @@ END
 INSTRUCTION: o16 0F 1D /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F1D
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9736,6 +9989,7 @@ END
 INSTRUCTION: o32 0F 1D /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F1D
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9747,7 +10001,7 @@ END
 INSTRUCTION: REX.W 0F 1D /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F1D
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9759,6 +10013,7 @@ END
 INSTRUCTION: o16 0F 1E /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F1E
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9770,6 +10025,7 @@ END
 INSTRUCTION: o32 0F 1E /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F1E
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9781,7 +10037,7 @@ END
 INSTRUCTION: REX.W 0F 1E /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F1E
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9793,6 +10049,7 @@ END
 INSTRUCTION: o16 0F 1F /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=r16_or_mem n=r16_reg | UInt16
 	code-suffix: 0F1F
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9804,6 +10061,7 @@ END
 INSTRUCTION: o32 0F 1F /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=r32_or_mem n=r32_reg | UInt32
 	code-suffix: 0F1F
+	flags: nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9815,7 +10073,7 @@ END
 INSTRUCTION: REX.W 0F 1F /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=r64_or_mem n=r64_reg | UInt64
 	code-suffix: 0F1F
-	flags: 64
+	flags: 64 nop res-nop
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9826,6 +10084,8 @@ END
 # Code: Prefetchnta_m8
 INSTRUCTION: 0F 18 /0 | PREFETCHNTA m8 | SSE
 	ops: nma=mem | UInt8
+	# May cause TSX abort because of non-temporal hint
+	flags: tsx-impl-abort non-temporal
 END
 
 # Code: Prefetcht0_m8
@@ -9846,6 +10106,8 @@ END
 # Code: Bndldx_bnd_mib
 INSTRUCTION: NP 0F 1A /r | BNDLDX bnd, mib | MPX
 	ops: w=bnd_reg nma=mem_mib
+	# TSX abort if non-flat segment
+	flags: tsx-impl-abort
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default;mem-size=dorq
@@ -9911,6 +10173,8 @@ END
 # Code: Bndstx_mib_bnd
 INSTRUCTION: NP 0F 1B /r | BNDSTX mib, bnd | MPX
 	ops: nma=mem_mib r=bnd_reg
+	# TSX abort if non-flat segment
+	flags: tsx-impl-abort
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default;mem-size=dorq
@@ -9978,6 +10242,7 @@ END
 # Code: Cldemote_m8
 INSTRUCTION: NP 0F 1C /0 | CLDEMOTE m8 | CLDEMOTE
 	ops: nma=mem | UInt8
+	flags: tsx-impl-abort
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
@@ -10005,6 +10270,7 @@ END
 # Code: Nop_rm16
 INSTRUCTION: o16 0F 1F /0 | NOP r/m16 | MULTIBYTENOP
 	ops: n=r16_or_mem | UInt16
+	flags: nop
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
 	masm: flags=force-size=always
@@ -10014,6 +10280,7 @@ END
 # Code: Nop_rm32
 INSTRUCTION: o32 0F 1F /0 | NOP r/m32 | MULTIBYTENOP
 	ops: n=r32_or_mem | UInt32
+	flags: nop
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	masm: flags=force-size=always
@@ -10023,7 +10290,7 @@ END
 # Code: Nop_rm64
 INSTRUCTION: REX.W 0F 1F /0 | NOP r/m64 | MULTIBYTENOP
 	ops: n=r64_or_mem | UInt64
-	flags: 64
+	flags: 64 nop
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
 	masm: flags=force-size=always
@@ -10034,7 +10301,8 @@ END
 INSTRUCTION: 0F 20 /r | MOV r32, cr | INTEL386
 	ops: w=r32_rm r=cr_reg
 	rflags: u=oszacp
-	flags: 16 32 cpl0 ignore-mod
+	# May cause a TSX abort if VM exit
+	flags: 16 32 cpl0 ignore-mod amd-lock-reg-bit intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
@@ -10042,7 +10310,8 @@ END
 INSTRUCTION: 0F 20 /r | MOV r64, cr | X64
 	ops: w=r64_rm r=cr_reg
 	rflags: u=oszacp
-	flags: 64 cpl0 fo64 ignore-mod
+	# May cause a TSX abort if VM exit
+	flags: 64 cpl0 fo64 ignore-mod amd-lock-reg-bit intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q
 END
 
@@ -10050,7 +10319,8 @@ END
 INSTRUCTION: 0F 21 /r | MOV r32, dr | INTEL386
 	ops: w=r32_rm r=dr_reg
 	rflags: u=oszacp
-	flags: 16 32 cpl0 ignore-mod
+	# May cause a TSX abort if VM exit
+	flags: 16 32 cpl0 ignore-mod intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
@@ -10058,7 +10328,8 @@ END
 INSTRUCTION: 0F 21 /r | MOV r64, dr | X64
 	ops: w=r64_rm r=dr_reg
 	rflags: u=oszacp
-	flags: 64 cpl0 fo64 ignore-mod
+	# May cause a TSX abort if VM exit
+	flags: 64 cpl0 fo64 ignore-mod intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q
 END
 
@@ -10066,7 +10337,7 @@ END
 INSTRUCTION: 0F 22 /r | MOV cr, r32 | INTEL386
 	ops: w=cr_reg r=r32_rm
 	rflags: u=oszacp
-	flags: 16 32 cpl0 ignore-mod
+	flags: 16 32 cpl0 ignore-mod amd-lock-reg-bit serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
@@ -10074,7 +10345,8 @@ END
 INSTRUCTION: 0F 22 /r | MOV cr, r64 | X64
 	ops: w=cr_reg r=r64_rm
 	rflags: u=oszacp
-	flags: 64 cpl0 fo64 ignore-mod
+	# Not serializing if CR8 (Intel)
+	flags: 64 cpl0 fo64 ignore-mod amd-lock-reg-bit serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q
 END
 
@@ -10082,7 +10354,7 @@ END
 INSTRUCTION: 0F 23 /r | MOV dr, r32 | INTEL386
 	ops: w=dr_reg r=r32_rm
 	rflags: u=oszacp
-	flags: 16 32 cpl0 ignore-mod
+	flags: 16 32 cpl0 ignore-mod serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
@@ -10090,7 +10362,7 @@ END
 INSTRUCTION: 0F 23 /r | MOV dr, r64 | X64
 	ops: w=dr_reg r=r64_rm
 	rflags: u=oszacp
-	flags: 64 cpl0 fo64 ignore-mod
+	flags: 64 cpl0 fo64 ignore-mod serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q
 END
 
@@ -10235,12 +10507,14 @@ END
 # Code: Cvtpi2ps_xmm_mmm64
 INSTRUCTION: NP 0F 2A /r | CVTPI2PS xmm, mm/m64 | SSE
 	ops: w=xmm_reg r=mm_or_mem | Packed64_Int32
+	flags: tsx-impl-abort
 	masm: flags=force-size=default
 END
 
 # Code: Cvtpi2pd_xmm_mmm64
 INSTRUCTION: 66 0F 2A /r | CVTPI2PD xmm, mm/m64 | SSE2
 	ops: w=xmm_reg r=mm_or_mem | Packed64_Int32
+	flags: tsx-impl-abort
 	masm: flags=force-size=default
 END
 
@@ -10355,7 +10629,7 @@ END
 # Code: EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
 INSTRUCTION: EVEX.LIG.F2.0F.W0 2A /r | VCVTSI2SD xmm1, xmm2, r/m32{er} | AVX512F | N4
 	ops: w=xmm_reg r=xmm_vvvv r=r32_or_mem | Int32
-	flags: wig32
+	flags: wig32 ignore-er
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	intel: flags=force-size=always
@@ -10377,94 +10651,110 @@ END
 # Code: Movntps_m128_xmm
 INSTRUCTION: NP 0F 2B /r | MOVNTPS m128, xmm1 | SSE
 	ops: w=mem r=xmm_reg | Packed128_Float32
+	flags: tsx-impl-abort non-temporal
 END
 
 # Code: VEX_Vmovntps_m128_xmm
 INSTRUCTION: VEX.128.0F.WIG 2B /r | VMOVNTPS m128, xmm1 | AVX
 	ops: w=mem r=xmm_reg | Packed128_Float32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovntps_m256_ymm
 INSTRUCTION: VEX.256.0F.WIG 2B /r | VMOVNTPS m256, ymm1 | AVX
 	ops: w=mem r=ymm_reg | Packed256_Float32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntps_m128_xmm
 INSTRUCTION: EVEX.128.0F.W0 2B /r | VMOVNTPS m128, xmm1 | AVX512VL AVX512F | N16
 	ops: w=mem r=xmm_reg | Packed128_Float32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntps_m256_ymm
 INSTRUCTION: EVEX.256.0F.W0 2B /r | VMOVNTPS m256, ymm1 | AVX512VL AVX512F | N32
 	ops: w=mem r=ymm_reg | Packed256_Float32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntps_m512_zmm
 INSTRUCTION: EVEX.512.0F.W0 2B /r | VMOVNTPS m512, zmm1 | AVX512F | N64
 	ops: w=mem r=zmm_reg | Packed512_Float32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: Movntpd_m128_xmm
 INSTRUCTION: 66 0F 2B /r | MOVNTPD m128, xmm1 | SSE2
 	ops: w=mem r=xmm_reg | Packed128_Float64
+	flags: tsx-impl-abort non-temporal
 END
 
 # Code: VEX_Vmovntpd_m128_xmm
 INSTRUCTION: VEX.128.66.0F.WIG 2B /r | VMOVNTPD m128, xmm1 | AVX
 	ops: w=mem r=xmm_reg | Packed128_Float64
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovntpd_m256_ymm
 INSTRUCTION: VEX.256.66.0F.WIG 2B /r | VMOVNTPD m256, ymm1 | AVX
 	ops: w=mem r=ymm_reg | Packed256_Float64
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntpd_m128_xmm
 INSTRUCTION: EVEX.128.66.0F.W1 2B /r | VMOVNTPD m128, xmm1 | AVX512VL AVX512F | N16
 	ops: w=mem r=xmm_reg | Packed128_Float64
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntpd_m256_ymm
 INSTRUCTION: EVEX.256.66.0F.W1 2B /r | VMOVNTPD m256, ymm1 | AVX512VL AVX512F | N32
 	ops: w=mem r=ymm_reg | Packed256_Float64
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntpd_m512_zmm
 INSTRUCTION: EVEX.512.66.0F.W1 2B /r | VMOVNTPD m512, zmm1 | AVX512F | N64
 	ops: w=mem r=zmm_reg | Packed512_Float64
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: Movntss_m32_xmm
 INSTRUCTION: F3 0F 2B /r | MOVNTSS m32, xmm1 | SSE4A
 	ops: w=mem r=xmm_reg | Float32
+	flags: non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: Movntsd_m64_xmm
 INSTRUCTION: F2 0F 2B /r | MOVNTSD m64, xmm1 | SSE4A
 	ops: w=mem r=xmm_reg | Float64
+	flags: non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: Cvttps2pi_mm_xmmm64
 INSTRUCTION: NP 0F 2C /r | CVTTPS2PI mm, xmm/m64 | SSE
 	ops: w=mm_reg r=xmm_or_mem | Packed64_Float32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx;force-size=default
 END
 
 # Code: Cvttpd2pi_mm_xmmm128
 INSTRUCTION: 66 0F 2C /r | CVTTPD2PI mm, xmm/m128 | SSE2
 	ops: w=mm_reg r=xmm_or_mem | Packed128_Float64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -10553,12 +10843,14 @@ END
 # Code: Cvtps2pi_mm_xmmm64
 INSTRUCTION: NP 0F 2D /r | CVTPS2PI mm, xmm/m64 | SSE
 	ops: w=mm_reg r=xmm_or_mem | Packed64_Float32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx;force-size=default
 END
 
 # Code: Cvtpd2pi_mm_xmmm128
 INSTRUCTION: 66 0F 2D /r | CVTPD2PI mm, xmm/m128 | SSE2
 	ops: w=mm_reg r=xmm_or_mem | Packed128_Float64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -10647,112 +10939,121 @@ END
 # Code: Ucomiss_xmm_xmmm32
 INSTRUCTION: NP 0F 2E /r | UCOMISS xmm1, xmm2/m32 | SSE
 	ops: r=xmm_reg r=xmm_or_mem | Float32
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vucomiss_xmm_xmmm32
 INSTRUCTION: VEX.LIG.0F.WIG 2E /r | VUCOMISS xmm1, xmm2/m32 | AVX
 	ops: r=xmm_reg r=xmm_or_mem | Float32
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vucomiss_xmm_xmmm32_sae
 INSTRUCTION: EVEX.LIG.0F.W0 2E /r | VUCOMISS xmm1, xmm2/m32{sae} | AVX512F | N4
 	ops: r=xmm_reg r=xmm_or_mem | Float32
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: Ucomisd_xmm_xmmm64
 INSTRUCTION: 66 0F 2E /r | UCOMISD xmm1, xmm2/m64 | SSE2
 	ops: r=xmm_reg r=xmm_or_mem | Float64
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vucomisd_xmm_xmmm64
 INSTRUCTION: VEX.LIG.66.0F.WIG 2E /r | VUCOMISD xmm1, xmm2/m64 | AVX
 	ops: r=xmm_reg r=xmm_or_mem | Float64
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vucomisd_xmm_xmmm64_sae
 INSTRUCTION: EVEX.LIG.66.0F.W1 2E /r | VUCOMISD xmm1, xmm2/m64{sae} | AVX512F | N8
 	ops: r=xmm_reg r=xmm_or_mem | Float64
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: Comiss_xmm_xmmm32
 INSTRUCTION: NP 0F 2F /r | COMISS xmm1, xmm2/m32 | SSE
 	ops: r=xmm_reg r=xmm_or_mem | Float32
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: Comisd_xmm_xmmm64
 INSTRUCTION: 66 0F 2F /r | COMISD xmm1, xmm2/m64 | SSE2
 	ops: r=xmm_reg r=xmm_or_mem | Float64
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vcomiss_xmm_xmmm32
 INSTRUCTION: VEX.LIG.0F.WIG 2F /r | VCOMISS xmm1, xmm2/m32 | AVX
 	ops: r=xmm_reg r=xmm_or_mem | Float32
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vcomisd_xmm_xmmm64
 INSTRUCTION: VEX.LIG.66.0F.WIG 2F /r | VCOMISD xmm1, xmm2/m64 | AVX
 	ops: r=xmm_reg r=xmm_or_mem | Float64
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vcomiss_xmm_xmmm32_sae
 INSTRUCTION: EVEX.LIG.0F.W0 2F /r | VCOMISS xmm1, xmm2/m32{sae} | AVX512F | N4
 	ops: r=xmm_reg r=xmm_or_mem | Float32
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vcomisd_xmm_xmmm64_sae
 INSTRUCTION: EVEX.LIG.66.0F.W1 2F /r | VCOMISD xmm1, xmm2/m64{sae} | AVX512F | N8
 	ops: r=xmm_reg r=xmm_or_mem | Float64
-	rflags: w=zcp c=osa
+	rflags: w=zcp 0=osa
 	masm: flags=force-size=default
 END
 
 # Code: Wrmsr
 INSTRUCTION: 0F 30 | WRMSR | MSR
-	flags: cpl0
+	# Not serializing if writing to some MSRs (Intel)
+	flags: cpl0 serialize-intel serialize-amd intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_ECX_EDX
 END
 
 # Code: Rdtsc
 INSTRUCTION: 0F 31 | RDTSC | TSC
+	# If CR4.TSD=1, CPL=0 is required
+	# May cause a TSX abort if VM exit
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 amd-may-vm-exit tsx-impl-abort
 	iinfo: W_EAX_EDX
 END
 
 # Code: Rdmsr
 INSTRUCTION: 0F 32 | RDMSR | MSR
-	flags: cpl0
+	flags: cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
 	iinfo: R_ECX_W_EAX_EDX
 END
 
 # Code: Rdpmc
 INSTRUCTION: 0F 33 | RDPMC | RDPMC
+	# If CR4.PCE=0, CPL=0 is required
+	# May cause a TSX abort if VM exit
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
 	iinfo: R_ECX_W_EAX_EDX
 END
 
 # Code: Sysenter
 INSTRUCTION: 0F 34 | SYSENTER | SEP
-	rflags: c=i
+	rflags: 0=i
+	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	cflow: Call
 	iinfo: Syscall
 END
@@ -10760,14 +11061,17 @@ END
 # Code: Sysexitd
 INSTRUCTION: 0F 35 | SYSEXIT | SEP
 	code-mnemonic: sysexitd
-	flags: cpl0 pm
+	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
+	# AMD: no-rm no-v86 or #GP(0)
+	flags: cpl0 tsx-impl-abort
 	cflow: Return
 	iinfo: Syscall
 END
 
 # Code: Sysexitq
 INSTRUCTION: REX.W 0F 35 | SYSEXITQ | SEP
-	flags: 64 cpl0 pm
+	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
+	flags: 64 cpl0 tsx-impl-abort
 	cflow: Return
 	iinfo: Syscall
 	gas: mnemonic=sysexit flags=o64
@@ -10777,7 +11081,7 @@ END
 # Code: Getsecd
 INSTRUCTION: NP 0F 37 | GETSEC | SMX
 	code-mnemonic: getsecd
-	flags: saverestore
+	flags: save-restore intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
 END
 
 # Code: Cmovo_r16_rm16
@@ -12799,6 +13103,7 @@ END
 # Code: Punpcklbw_mm_mmm32
 INSTRUCTION: NP 0F 60 /r | PUNPCKLBW mm, mm/m32 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed32_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -12835,6 +13140,7 @@ END
 # Code: Punpcklwd_mm_mmm32
 INSTRUCTION: NP 0F 61 /r | PUNPCKLWD mm, mm/m32 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed32_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -12871,6 +13177,7 @@ END
 # Code: Punpckldq_mm_mmm32
 INSTRUCTION: NP 0F 62 /r | PUNPCKLDQ mm, mm/m32 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Int32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -12907,6 +13214,7 @@ END
 # Code: Packsswb_mm_mmm64
 INSTRUCTION: NP 0F 63 /r | PACKSSWB mm1, mm2/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -12943,6 +13251,7 @@ END
 # Code: Pcmpgtb_mm_mmm64
 INSTRUCTION: NP 0F 64 /r | PCMPGTB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -12979,6 +13288,7 @@ END
 # Code: Pcmpgtw_mm_mmm64
 INSTRUCTION: NP 0F 65 /r | PCMPGTW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13015,6 +13325,7 @@ END
 # Code: Pcmpgtd_mm_mmm64
 INSTRUCTION: NP 0F 66 /r | PCMPGTD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13051,6 +13362,7 @@ END
 # Code: Packuswb_mm_mmm64
 INSTRUCTION: NP 0F 67 /r | PACKUSWB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13087,6 +13399,7 @@ END
 # Code: Punpckhbw_mm_mmm64
 INSTRUCTION: NP 0F 68 /r | PUNPCKHBW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13123,6 +13436,7 @@ END
 # Code: Punpckhwd_mm_mmm64
 INSTRUCTION: NP 0F 69 /r | PUNPCKHWD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13159,6 +13473,7 @@ END
 # Code: Punpckhdq_mm_mmm64
 INSTRUCTION: NP 0F 6A /r | PUNPCKHDQ mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13195,6 +13510,7 @@ END
 # Code: Packssdw_mm_mmm64
 INSTRUCTION: NP 0F 6B /r | PACKSSDW mm1, mm2/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13291,13 +13607,14 @@ END
 # Code: Movd_mm_rm32
 INSTRUCTION: NP 0F 6E /r | MOVD mm, r/m32 | MMX
 	ops: w=mm_reg r=r32_or_mem | UInt32
+	flags: tsx-impl-abort
 	masm: flags=force-size=default
 END
 
 # Code: Movq_mm_rm64
 INSTRUCTION: NP REX.W 0F 6E /r | MOVQ mm, r/m64 | MMX
 	ops: w=mm_reg r=r64_or_mem | UInt64
-	flags: 64
+	flags: 64 tsx-impl-abort
 END
 
 # Code: Movd_xmm_rm32
@@ -13344,6 +13661,7 @@ END
 # Code: Movq_mm_mmm64
 INSTRUCTION: NP 0F 6F /r | MOVQ mm, mm/m64 | MMX
 	ops: w=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 END
 
 # Code: Movdqa_xmm_xmmm128
@@ -13473,6 +13791,7 @@ END
 # Code: Pshufw_mm_mmm64_imm8
 INSTRUCTION: NP 0F 70 /r ib | PSHUFW mm1, mm2/m64, imm8 | SSE
 	ops: w=mm_reg r=mm_or_mem r=imm8 | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -13569,6 +13888,7 @@ END
 # Code: Psrlw_mm_imm8
 INSTRUCTION: NP 0F 71 /2 ib | PSRLW mm, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Psrlw_xmm_imm8
@@ -13604,6 +13924,7 @@ END
 # Code: Psraw_mm_imm8
 INSTRUCTION: NP 0F 71 /4 ib | PSRAW mm, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Psraw_xmm_imm8
@@ -13639,6 +13960,7 @@ END
 # Code: Psllw_mm_imm8
 INSTRUCTION: NP 0F 71 /6 ib | PSLLW mm1, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Psllw_xmm_imm8
@@ -13734,6 +14056,7 @@ END
 # Code: Psrld_mm_imm8
 INSTRUCTION: NP 0F 72 /2 ib | PSRLD mm, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Psrld_xmm_imm8
@@ -13769,6 +14092,7 @@ END
 # Code: Psrad_mm_imm8
 INSTRUCTION: NP 0F 72 /4 ib | PSRAD mm, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Psrad_xmm_imm8
@@ -13819,6 +14143,7 @@ END
 # Code: Pslld_mm_imm8
 INSTRUCTION: NP 0F 72 /6 ib | PSLLD mm, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Pslld_xmm_imm8
@@ -13854,6 +14179,7 @@ END
 # Code: Psrlq_mm_imm8
 INSTRUCTION: NP 0F 73 /2 ib | PSRLQ mm, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Psrlq_xmm_imm8
@@ -13919,6 +14245,7 @@ END
 # Code: Psllq_mm_imm8
 INSTRUCTION: NP 0F 73 /6 ib | PSLLQ mm, imm8 | MMX
 	ops: rw=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Psllq_xmm_imm8
@@ -13984,6 +14311,7 @@ END
 # Code: Pcmpeqb_mm_mmm64
 INSTRUCTION: NP 0F 74 /r | PCMPEQB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -14020,6 +14348,7 @@ END
 # Code: Pcmpeqw_mm_mmm64
 INSTRUCTION: NP 0F 75 /r | PCMPEQW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -14056,6 +14385,7 @@ END
 # Code: Pcmpeqd_mm_mmm64
 INSTRUCTION: NP 0F 76 /r | PCMPEQD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -14091,10 +14421,12 @@ END
 
 # Code: Emms
 INSTRUCTION: NP 0F 77 | EMMS | MMX
+	flags: tsx-impl-abort
 END
 
 # Code: VEX_Vzeroupper
 INSTRUCTION: VEX.128.0F.WIG 77 | VZEROUPPER | AVX
+	flags: tsx-impl-abort
 	iinfo: Vzeroall
 END
 
@@ -14106,8 +14438,8 @@ END
 # Code: Vmread_rm32_r32
 INSTRUCTION: NP 0F 78 /r | VMREAD r/m32, r32 | VMX
 	ops: w=r32_or_mem r=r32_reg | UInt32
-	rflags: w=zc c=osap
-	flags: 16 32 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 16 32 cpl0 no-rm no-v86 no-cm vmx=op intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	gas: suffix=l
 	masm: flags=force-size=default
 END
@@ -14115,8 +14447,8 @@ END
 # Code: Vmread_rm64_r64
 INSTRUCTION: NP 0F 78 /r | VMREAD r/m64, r64 | VMX
 	ops: w=r64_or_mem r=r64_reg | UInt64
-	rflags: w=zc c=osap
-	flags: 64 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 64 cpl0 no-rm no-v86 no-cm vmx=op intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	gas: suffix=q
 	masm: flags=force-size=default
 END
@@ -14239,8 +14571,8 @@ END
 # Code: Vmwrite_r32_rm32
 INSTRUCTION: NP 0F 79 /r | VMWRITE r32, r/m32 | VMX
 	ops: r=r32_reg r=r32_or_mem | UInt32
-	rflags: w=zc c=osap
-	flags: 16 32 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 16 32 cpl0 no-rm no-v86 no-cm vmx=op intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	gas: suffix=l
 	masm: flags=force-size=default
 END
@@ -14248,8 +14580,8 @@ END
 # Code: Vmwrite_r64_rm64
 INSTRUCTION: NP 0F 79 /r | VMWRITE r64, r/m64 | VMX
 	ops: r=r64_reg r=r64_or_mem | UInt64
-	rflags: w=zc c=osap
-	flags: 64 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 64 cpl0 no-rm no-v86 no-cm vmx=op intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	gas: suffix=q
 	masm: flags=force-size=default
 END
@@ -14417,6 +14749,7 @@ END
 # Code: EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 INSTRUCTION: EVEX.512.F3.0F.W0 7A /r | VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er} | AVX512F | N32b4
 	ops: wvmm=zmm_reg r=ymm_or_mem | Packed256_UInt32 Broadcast256_UInt32
+	flags: ignore-er
 	masm: flags=force-size=default
 END
 
@@ -14537,7 +14870,7 @@ END
 # Code: EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 INSTRUCTION: EVEX.LIG.F2.0F.W0 7B /r | VCVTUSI2SD xmm1, xmm2, r/m32{er} | AVX512F | N4
 	ops: w=xmm_reg r=xmm_vvvv r=r32_or_mem | UInt32
-	flags: wig32
+	flags: wig32 ignore-er
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	intel: flags=force-size=always
@@ -14619,13 +14952,14 @@ END
 # Code: Movd_rm32_mm
 INSTRUCTION: NP 0F 7E /r | MOVD r/m32, mm | MMX
 	ops: w=r32_or_mem r=mm_reg | UInt32
+	flags: tsx-impl-abort
 	masm: flags=force-size=default
 END
 
 # Code: Movq_rm64_mm
 INSTRUCTION: NP REX.W 0F 7E /r | MOVQ r/m64, mm | MMX
 	ops: w=r64_or_mem r=mm_reg | UInt64
-	flags: 64
+	flags: 64 tsx-impl-abort
 END
 
 # Code: Movd_rm32_xmm
@@ -14690,6 +15024,7 @@ END
 # Code: Movq_mmm64_mm
 INSTRUCTION: NP 0F 7F /r | MOVQ mm/m64, mm | MMX
 	ops: w=mm_or_mem r=mm_reg | UInt64
+	flags: tsx-impl-abort
 END
 
 # Code: Movdqa_xmmm128_xmm
@@ -15599,49 +15934,49 @@ END
 # Code: VEX_Kortestw_kr_kr
 INSTRUCTION: VEX.L0.0F.W0 98 /r | KORTESTW k1, k2 | AVX512F
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Kortestq_kr_kr
 INSTRUCTION: VEX.L0.0F.W1 98 /r | KORTESTQ k1, k2 | AVX512BW
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Kortestb_kr_kr
 INSTRUCTION: VEX.L0.66.0F.W0 98 /r | KORTESTB k1, k2 | AVX512DQ
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Kortestd_kr_kr
 INSTRUCTION: VEX.L0.66.0F.W1 98 /r | KORTESTD k1, k2 | AVX512BW
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Ktestw_kr_kr
 INSTRUCTION: VEX.L0.0F.W0 99 /r | KTESTW k1, k2 | AVX512DQ
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Ktestq_kr_kr
 INSTRUCTION: VEX.L0.0F.W1 99 /r | KTESTQ k1, k2 | AVX512BW
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Ktestb_kr_kr
 INSTRUCTION: VEX.L0.66.0F.W0 99 /r | KTESTB k1, k2 | AVX512DQ
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Ktestd_kr_kr
 INSTRUCTION: VEX.L0.66.0F.W1 99 /r | KTESTD k1, k2 | AVX512BW
 	ops: r=k_reg r=k_rm
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: Pushw_FS
@@ -15684,7 +16019,7 @@ END
 INSTRUCTION: o16 0F A1 | POP FS | INTEL386
 	ops: w=fs
 	code-mnemonic: popw
-	flags: stack
+	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -15696,7 +16031,7 @@ END
 INSTRUCTION: o32 0F A1 | POP FS | INTEL386
 	ops: w=fs
 	code-mnemonic: popd
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -15708,7 +16043,7 @@ END
 INSTRUCTION: 0F A1 | POP FS | X64
 	ops: w=fs
 	code-mnemonic: popq
-	flags: 64 stack do64
+	flags: 64 stack do64 no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_8
 	gas: suffix=q osz-suffix-4
 	intel: osz
@@ -15718,6 +16053,7 @@ END
 
 # Code: Cpuid
 INSTRUCTION: 0F A2 | CPUID | CPUID
+	flags: serialize-intel serialize-amd intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-may-gen-ex amd-may-vm-exit tsx-abort
 	iinfo: Cpuid
 END
 
@@ -16173,7 +16509,7 @@ END
 INSTRUCTION: o16 0F A9 | POP GS | INTEL386
 	ops: w=gs
 	code-mnemonic: popw
-	flags: stack
+	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -16185,7 +16521,7 @@ END
 INSTRUCTION: o32 0F A9 | POP GS | INTEL386
 	ops: w=gs
 	code-mnemonic: popd
-	flags: 16 32 stack
+	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -16197,7 +16533,7 @@ END
 INSTRUCTION: 0F A9 | POP GS | X64
 	ops: w=gs
 	code-mnemonic: popq
-	flags: 64 stack do64
+	flags: 64 stack do64 no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Pop_8
 	gas: suffix=q osz-suffix-4
 	intel: osz
@@ -16208,7 +16544,9 @@ END
 # Code: Rsm
 INSTRUCTION: 0F AA | RSM | SMM
 	rflags: w=oszacpdiA
-	flags: cpl0 saverestore
+	# #UD if not in SMM, #UD if in SMM + VMX root operation, VM exit if in SMM + VMX non-root operation.
+	# This instruction doesn't require CPL=0 and SDMv3 8.3 says it's a "non-privileged serializing instruction".
+	flags: save-restore privileged serialize-intel serialize-amd no-outside-smm no-in-vmx-root intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 END
 
@@ -16287,14 +16625,14 @@ END
 INSTRUCTION: NP 0F AE /0 | FXSAVE m512byte | FXSR
 	ops: w=mem | Fxsave_512Byte
 	code-memory-size: 512byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort no-wait
 END
 
 # Code: Fxsave64_m512byte
 INSTRUCTION: NP REX.W 0F AE /0 | FXSAVE64 m512byte | FXSR
 	ops: w=mem | Fxsave64_512Byte
 	code-memory-size: 512byte
-	flags: 64 saverestore
+	flags: 64 save-restore tsx-impl-abort no-wait
 END
 
 # Code: Rdfsbase_r32
@@ -16313,14 +16651,14 @@ END
 INSTRUCTION: NP 0F AE /1 | FXRSTOR m512byte | FXSR
 	ops: r=mem | Fxsave_512Byte
 	code-memory-size: 512byte
-	flags: saverestore
+	flags: save-restore tsx-impl-abort no-wait
 END
 
 # Code: Fxrstor64_m512byte
 INSTRUCTION: NP REX.W 0F AE /1 | FXRSTOR64 m512byte | FXSR
 	ops: r=mem | Fxsave64_512Byte
 	code-memory-size: 512byte
-	flags: 64 saverestore
+	flags: 64 save-restore tsx-impl-abort no-wait
 END
 
 # Code: Rdgsbase_r32
@@ -16343,13 +16681,13 @@ END
 # Code: Wrfsbase_r32
 INSTRUCTION: F3 0F AE /2 | WRFSBASE r32 | FSGSBASE
 	ops: r=r32_rm
-	flags: 64
+	flags: 64 tsx-impl-abort
 END
 
 # Code: Wrfsbase_r64
 INSTRUCTION: F3 REX.W 0F AE /2 | WRFSBASE r64 | FSGSBASE
 	ops: r=r64_rm
-	flags: 64
+	flags: 64 tsx-impl-abort
 END
 
 # Code: VEX_Vldmxcsr_m32
@@ -16366,13 +16704,13 @@ END
 # Code: Wrgsbase_r32
 INSTRUCTION: F3 0F AE /3 | WRGSBASE r32 | FSGSBASE
 	ops: r=r32_rm
-	flags: 64
+	flags: 64 tsx-impl-abort
 END
 
 # Code: Wrgsbase_r64
 INSTRUCTION: F3 REX.W 0F AE /3 | WRGSBASE r64 | FSGSBASE
 	ops: r=r64_rm
-	flags: 64
+	flags: 64 tsx-impl-abort
 END
 
 # Code: VEX_Vstmxcsr_m32
@@ -16385,7 +16723,7 @@ END
 INSTRUCTION: NP 0F AE /4 | XSAVE mem | XSAVE
 	ops: rw=mem | Xsave
 	code-memory-size: em
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -16393,7 +16731,7 @@ END
 INSTRUCTION: NP REX.W 0F AE /4 | XSAVE64 mem | XSAVE
 	ops: rw=mem | Xsave64
 	code-memory-size: em
-	flags: 64 saverestore
+	flags: 64 save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -16423,7 +16761,7 @@ END
 INSTRUCTION: NP 0F AE /5 | XRSTOR mem | XSAVE
 	ops: r=mem | Xsave
 	code-memory-size: em
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -16431,21 +16769,21 @@ END
 INSTRUCTION: NP REX.W 0F AE /5 | XRSTOR64 mem | XSAVE
 	ops: r=mem | Xsave64
 	code-memory-size: em
-	flags: 64 saverestore
+	flags: 64 save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
 # Code: Incsspd_r32
 INSTRUCTION: F3 0F AE /5 | INCSSPD r32 | CET_SS
 	ops: r=r32_rm
-	flags: pm
+	flags: no-rm no-v86
 	iinfo: Read_Reg8_OpM1
 END
 
 # Code: Incsspq_r64
 INSTRUCTION: F3 REX.W 0F AE /5 | INCSSPQ r64 | CET_SS
 	ops: r=r64_rm
-	flags: 64 pm
+	flags: 64 no-rm no-v86
 	iinfo: Read_Reg8_OpM1
 END
 
@@ -16453,7 +16791,7 @@ END
 INSTRUCTION: NP 0F AE /6 | XSAVEOPT mem | XSAVEOPT
 	ops: rw=mem | Xsave
 	code-memory-size: em
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -16461,28 +16799,32 @@ END
 INSTRUCTION: NP REX.W 0F AE /6 | XSAVEOPT64 mem | XSAVEOPT
 	ops: rw=mem | Xsave64
 	code-memory-size: em
-	flags: 64 saverestore
+	flags: 64 save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
 # Code: Clwb_m8
 INSTRUCTION: 66 0F AE /6 | CLWB m8 | CLWB
 	ops: nma=mem | UInt8
+	flags: tsx-impl-abort
 	nasm: flags=mem-size=ignore
 END
 
 # Code: Tpause_r32
 INSTRUCTION: 66 0F AE /6 | TPAUSE r32, <edx>, <eax> | WAITPKG
 	ops: r=r32_rm
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: intel-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_EDX_Op0_GPR32
 END
 
 # Code: Tpause_r64
 INSTRUCTION: 66 REX.W 0F AE /6 | TPAUSE r64, <edx>, <eax> | WAITPKG
 	ops: r=r64_rm
-	rflags: w=c c=oszap
-	flags: 64
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: 64 intel-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_EDX_Op0_GPR32
 	gas: reg32
 	masm: reg32
@@ -16492,43 +16834,45 @@ END
 # Code: Clrssbsy_m64
 INSTRUCTION: F3 0F AE /6 | CLRSSBSY m64 | CET_SS
 	ops: rw=mem | UInt64
-	rflags: w=c c=oszap
-	flags: cpl0 pm
+	rflags: w=c 0=oszap
+	flags: cpl0 no-rm no-v86
 	masm: flags=force-size=default
 END
 
 # Code: Umonitor_r16
 INSTRUCTION: a16 F3 0F AE /6 | UMONITOR r16 | WAITPKG
 	ops: r=r16_rm
-	flags: 16 32
+	flags: 16 32 tsx-abort
 	iinfo: Umonitor
 END
 
 # Code: Umonitor_r32
 INSTRUCTION: a32 F3 0F AE /6 | UMONITOR r32 | WAITPKG
 	ops: r=r32_rm
+	flags: tsx-abort
 	iinfo: Umonitor
 END
 
 # Code: Umonitor_r64
 INSTRUCTION: a64 F3 0F AE /6 | UMONITOR r64 | WAITPKG
 	ops: r=r64_rm
-	flags: 64
+	flags: 64 tsx-abort
 	iinfo: Umonitor
 END
 
 # Code: Umwait_r32
 INSTRUCTION: F2 0F AE /6 | UMWAIT r32, <edx>, <eax> | WAITPKG
 	ops: r=r32_rm
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	flags: intel-may-vm-exit tsx-abort
 	iinfo: R_EAX_EDX_Op0_GPR32
 END
 
 # Code: Umwait_r64
 INSTRUCTION: F2 REX.W 0F AE /6 | UMWAIT r64, <edx>, <eax> | WAITPKG
 	ops: r=r64_rm
-	rflags: w=c c=oszap
-	flags: 64
+	rflags: w=c 0=oszap
+	flags: 64 intel-may-vm-exit tsx-abort
 	iinfo: R_EAX_EDX_Op0_GPR32
 	gas: reg32
 	masm: reg32
@@ -16538,12 +16882,14 @@ END
 # Code: Clflush_m8
 INSTRUCTION: NP 0F AE /7 | CLFLUSH m8 | CLFSH
 	ops: nma=mem | UInt8
+	flags: tsx-impl-abort
 	nasm: flags=mem-size=ignore
 END
 
 # Code: Clflushopt_m8
 INSTRUCTION: 66 0F AE /7 | CLFLUSHOPT m8 | CLFLUSHOPT
 	ops: nma=mem | UInt8
+	flags: tsx-impl-abort
 	nasm: flags=mem-size=ignore
 END
 
@@ -16588,41 +16934,49 @@ END
 
 # Code: Mfence
 INSTRUCTION: NP 0F AE F0 | MFENCE | SSE2
+	flags: serialize-amd
 END
 
 # Code: Mfence_F1
 INSTRUCTION: NP 0F AE F1 | MFENCE | SSE2
 	code-suffix: F1
+	flags: serialize-amd
 END
 
 # Code: Mfence_F2
 INSTRUCTION: NP 0F AE F2 | MFENCE | SSE2
 	code-suffix: F2
+	flags: serialize-amd
 END
 
 # Code: Mfence_F3
 INSTRUCTION: NP 0F AE F3 | MFENCE | SSE2
 	code-suffix: F3
+	flags: serialize-amd
 END
 
 # Code: Mfence_F4
 INSTRUCTION: NP 0F AE F4 | MFENCE | SSE2
 	code-suffix: F4
+	flags: serialize-amd
 END
 
 # Code: Mfence_F5
 INSTRUCTION: NP 0F AE F5 | MFENCE | SSE2
 	code-suffix: F5
+	flags: serialize-amd
 END
 
 # Code: Mfence_F6
 INSTRUCTION: NP 0F AE F6 | MFENCE | SSE2
 	code-suffix: F6
+	flags: serialize-amd
 END
 
 # Code: Mfence_F7
 INSTRUCTION: NP 0F AE F7 | MFENCE | SSE2
 	code-suffix: F7
+	flags: serialize-amd
 END
 
 # Code: Sfence
@@ -16731,6 +17085,7 @@ END
 INSTRUCTION: o16 0F B2 /r | LSS r16, m16:16 | INTEL386
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -16740,6 +17095,7 @@ END
 INSTRUCTION: o32 0F B2 /r | LSS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -16749,7 +17105,7 @@ END
 INSTRUCTION: REX.W 0F B2 /r | LSS r64, m16:64 | X64
 	ops: w=r64_reg r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 no-amd-dec
+	flags: 64 no-amd-dec no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=q
 	nasm: flags=mem-size=ignore
@@ -16783,6 +17139,7 @@ END
 INSTRUCTION: o16 0F B4 /r | LFS r16, m16:16 | INTEL386
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -16792,6 +17149,7 @@ END
 INSTRUCTION: o32 0F B4 /r | LFS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -16801,7 +17159,7 @@ END
 INSTRUCTION: REX.W 0F B4 /r | LFS r64, m16:64 | X64
 	ops: w=r64_reg r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 no-amd-dec
+	flags: 64 no-amd-dec no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=q
 	nasm: flags=mem-size=ignore
@@ -16811,6 +17169,7 @@ END
 INSTRUCTION: o16 0F B5 /r | LGS r16, m16:16 | INTEL386
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -16820,6 +17179,7 @@ END
 INSTRUCTION: o32 0F B5 /r | LGS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
+	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -16829,7 +17189,7 @@ END
 INSTRUCTION: REX.W 0F B5 /r | LGS r64, m16:64 | X64
 	ops: w=r64_reg r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 no-amd-dec
+	flags: 64 no-amd-dec no-in-sgx1 no-in-sgx2 tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=q
 	nasm: flags=mem-size=ignore
@@ -16922,21 +17282,21 @@ END
 # Code: Popcnt_r16_rm16
 INSTRUCTION: o16 F3 0F B8 /r | POPCNT r16, r/m16 | POPCNT
 	ops: w=r16_reg r=r16_or_mem | UInt16
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
 	gas: suffix=w
 END
 
 # Code: Popcnt_r32_rm32
 INSTRUCTION: o32 F3 0F B8 /r | POPCNT r32, r/m32 | POPCNT
 	ops: w=r32_reg r=r32_or_mem | UInt32
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
 	gas: suffix=l
 END
 
 # Code: Popcnt_r64_rm64
 INSTRUCTION: F3 REX.W 0F B8 /r | POPCNT r64, r/m64 | POPCNT
 	ops: w=r64_reg r=r64_or_mem | UInt64
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
 	flags: 64
 	gas: suffix=q
 END
@@ -16944,6 +17304,7 @@ END
 # Code: Ud1_r16_rm16
 INSTRUCTION: o16 0F B9 /r | UD1 r16, r/m16 | INTEL286
 	ops: n=r16_reg n=r16_or_mem | UInt16
+	flags: intel-vm-exit tsx-impl-abort
 	cflow: Exception
 	gas: suffix=w
 END
@@ -16951,6 +17312,7 @@ END
 # Code: Ud1_r32_rm32
 INSTRUCTION: o32 0F B9 /r | UD1 r32, r/m32 | INTEL386
 	ops: n=r32_reg n=r32_or_mem | UInt32
+	flags: intel-vm-exit tsx-impl-abort
 	cflow: Exception
 	gas: suffix=l
 END
@@ -16958,7 +17320,7 @@ END
 # Code: Ud1_r64_rm64
 INSTRUCTION: REX.W 0F B9 /r | UD1 r64, r/m64 | X64
 	ops: n=r64_reg n=r64_or_mem | UInt64
-	flags: 64
+	flags: 64 intel-vm-exit tsx-impl-abort
 	cflow: Exception
 	gas: suffix=q
 END
@@ -17428,19 +17790,21 @@ END
 # Code: Movnti_m32_r32
 INSTRUCTION: NP 0F C3 /r | MOVNTI m32, r32 | SSE2
 	ops: w=mem r=r32_reg | UInt32
+	flags: tsx-impl-abort non-temporal
 	gas: suffix=l
 END
 
 # Code: Movnti_m64_r64
 INSTRUCTION: NP REX.W 0F C3 /r | MOVNTI m64, r64 | SSE2
 	ops: w=mem r=r64_reg | UInt64
-	flags: 64
+	flags: 64 tsx-impl-abort non-temporal
 	gas: suffix=q
 END
 
 # Code: Pinsrw_mm_r32m16_imm8
 INSTRUCTION: NP 0F C4 /r ib | PINSRW mm, r32/m16, imm8 | SSE
 	ops: rw=mm_reg r=r32_or_mem r=imm8 | UInt16
+	flags: tsx-impl-abort
 	iinfo: Read_Reg16_OpM1_imm
 	masm: flags=mem-size=mmx;force-size=default
 END
@@ -17448,7 +17812,7 @@ END
 # Code: Pinsrw_mm_r64m16_imm8
 INSTRUCTION: NP REX.W 0F C4 /r ib | PINSRW mm, r64/m16, imm8 | SSE
 	ops: rw=mm_reg r=r64_or_mem r=imm8 | UInt16
-	flags: 64
+	flags: 64 tsx-impl-abort
 	iinfo: Read_Reg16_OpM1_imm
 	intel: reg32
 	masm: flags=mem-size=mmx;force-size=default
@@ -17510,12 +17874,13 @@ END
 # Code: Pextrw_r32_mm_imm8
 INSTRUCTION: NP 0F C5 /r ib | PEXTRW r32, mm, imm8 | SSE
 	ops: w=r32_reg r=mm_rm r=imm8
+	flags: tsx-impl-abort
 END
 
 # Code: Pextrw_r64_mm_imm8
 INSTRUCTION: NP REX.W 0F C5 /r ib | PEXTRW r64, mm, imm8 | SSE
 	ops: w=r64_reg r=mm_rm r=imm8
-	flags: 64
+	flags: 64 tsx-impl-abort
 	intel: reg32
 	nasm: reg32
 END
@@ -17642,7 +18007,7 @@ END
 INSTRUCTION: NP 0F C7 /3 | XRSTORS mem | XSAVES
 	ops: r=mem | Xsave
 	code-memory-size: em
-	flags: cpl0 saverestore
+	flags: cpl0 save-restore intel-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -17650,7 +18015,7 @@ END
 INSTRUCTION: NP REX.W 0F C7 /3 | XRSTORS64 mem | XSAVES
 	ops: r=mem | Xsave64
 	code-memory-size: em
-	flags: 64 cpl0 saverestore
+	flags: 64 cpl0 save-restore intel-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -17658,7 +18023,7 @@ END
 INSTRUCTION: NP 0F C7 /4 | XSAVEC mem | XSAVEC
 	ops: w=mem | Xsave
 	code-memory-size: em
-	flags: saverestore
+	flags: save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -17666,7 +18031,7 @@ END
 INSTRUCTION: NP REX.W 0F C7 /4 | XSAVEC64 mem | XSAVEC
 	ops: w=mem | Xsave64
 	code-memory-size: em
-	flags: 64 saverestore
+	flags: 64 save-restore tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -17674,7 +18039,7 @@ END
 INSTRUCTION: NP 0F C7 /5 | XSAVES mem | XSAVES
 	ops: w=mem | Xsave
 	code-memory-size: em
-	flags: cpl0 saverestore
+	flags: cpl0 save-restore intel-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
@@ -17682,15 +18047,15 @@ END
 INSTRUCTION: NP REX.W 0F C7 /5 | XSAVES64 mem | XSAVES
 	ops: w=mem | Xsave64
 	code-memory-size: em
-	flags: 64 cpl0 saverestore
+	flags: 64 cpl0 save-restore intel-may-vm-exit tsx-impl-abort
 	iinfo: R_EAX_EDX
 END
 
 # Code: Vmptrld_m64
 INSTRUCTION: NP 0F C7 /6 | VMPTRLD m64 | VMX
 	ops: r=mem | UInt64
-	rflags: w=zc c=osap
-	flags: cpl0 pm
+	rflags: w=zc 0=osap
+	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
 END
@@ -17698,8 +18063,8 @@ END
 # Code: Vmclear_m64
 INSTRUCTION: 66 0F C7 /6 | VMCLEAR m64 | VMX
 	ops: r=mem | UInt64
-	rflags: w=zc c=osap
-	flags: cpl0 pm
+	rflags: w=zc 0=osap
+	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
 END
@@ -17707,8 +18072,8 @@ END
 # Code: Vmxon_m64
 INSTRUCTION: F3 0F C7 /6 | VMXON m64 | VMX
 	ops: r=mem | UInt64
-	rflags: w=zc c=osap
-	flags: cpl0 pm
+	rflags: w=zc 0=osap
+	flags: cpl0 no-rm no-v86 no-cm intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
 END
@@ -17716,27 +18081,32 @@ END
 # Code: Rdrand_r16
 INSTRUCTION: o16 0F C7 /6 | RDRAND r16 | RDRAND
 	ops: w=r16_rm
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: nfx intel-may-vm-exit tsx-impl-abort
 END
 
 # Code: Rdrand_r32
 INSTRUCTION: o32 0F C7 /6 | RDRAND r32 | RDRAND
 	ops: w=r32_rm
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: nfx intel-may-vm-exit tsx-impl-abort
 END
 
 # Code: Rdrand_r64
 INSTRUCTION: REX.W 0F C7 /6 | RDRAND r64 | RDRAND
 	ops: w=r64_rm
-	rflags: w=c c=oszap
-	flags: 64
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: 64 nfx intel-may-vm-exit tsx-impl-abort
 END
 
 # Code: Vmptrst_m64
 INSTRUCTION: NP 0F C7 /7 | VMPTRST m64 | VMX
 	ops: w=mem | UInt64
-	rflags: w=zc c=osap
-	flags: cpl0 pm
+	rflags: w=zc 0=osap
+	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
 END
@@ -17744,20 +18114,25 @@ END
 # Code: Rdseed_r16
 INSTRUCTION: o16 0F C7 /7 | RDSEED r16 | RDSEED
 	ops: w=r16_rm
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: nfx intel-may-vm-exit tsx-impl-abort
 END
 
 # Code: Rdseed_r32
 INSTRUCTION: o32 0F C7 /7 | RDSEED r32 | RDSEED
 	ops: w=r32_rm
-	rflags: w=c c=oszap
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: nfx intel-may-vm-exit tsx-impl-abort
 END
 
 # Code: Rdseed_r64
 INSTRUCTION: REX.W 0F C7 /7 | RDSEED r64 | RDSEED
 	ops: w=r64_rm
-	rflags: w=c c=oszap
-	flags: 64
+	rflags: w=c 0=oszap
+	# May cause a TSX abort if VM exit
+	flags: 64 nfx intel-may-vm-exit tsx-impl-abort
 END
 
 # Code: Rdpid_r32
@@ -17824,6 +18199,7 @@ END
 # Code: Psrlw_mm_mmm64
 INSTRUCTION: NP 0F D1 /r | PSRLW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -17860,6 +18236,7 @@ END
 # Code: Psrld_mm_mmm64
 INSTRUCTION: NP 0F D2 /r | PSRLD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -17896,6 +18273,7 @@ END
 # Code: Psrlq_mm_mmm64
 INSTRUCTION: NP 0F D3 /r | PSRLQ mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -17932,6 +18310,7 @@ END
 # Code: Paddq_mm_mmm64
 INSTRUCTION: NP 0F D4 /r | PADDQ mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -17968,6 +18347,7 @@ END
 # Code: Pmullw_mm_mmm64
 INSTRUCTION: NP 0F D5 /r | PMULLW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18022,23 +18402,26 @@ END
 # Code: Movq2dq_xmm_mm
 INSTRUCTION: F3 0F D6 /r | MOVQ2DQ xmm, mm | SSE2
 	ops: w=xmm_reg r=mm_rm
+	flags: tsx-impl-abort
 END
 
 # Code: Movdq2q_mm_xmm
 INSTRUCTION: F2 0F D6 /r | MOVDQ2Q mm, xmm | SSE2
 	ops: w=mm_reg r=xmm_rm
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
 # Code: Pmovmskb_r32_mm
 INSTRUCTION: NP 0F D7 /r | PMOVMSKB r32, mm | SSE
 	ops: w=r32_reg r=mm_rm
+	flags: tsx-impl-abort
 END
 
 # Code: Pmovmskb_r64_mm
 INSTRUCTION: NP REX.W 0F D7 /r | PMOVMSKB r64, mm | SSE
 	ops: w=r64_reg r=mm_rm
-	flags: 64
+	flags: 64 tsx-impl-abort
 	intel: reg32
 	nasm: reg32
 END
@@ -18085,6 +18468,7 @@ END
 # Code: Psubusb_mm_mmm64
 INSTRUCTION: NP 0F D8 /r | PSUBUSB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -18128,6 +18512,7 @@ END
 # Code: Psubusw_mm_mmm64
 INSTRUCTION: NP 0F D9 /r | PSUBUSW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -18171,6 +18556,7 @@ END
 # Code: Pminub_mm_mmm64
 INSTRUCTION: NP 0F DA /r | PMINUB mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18207,6 +18593,7 @@ END
 # Code: Pand_mm_mmm64
 INSTRUCTION: NP 0F DB /r | PAND mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18258,6 +18645,7 @@ END
 # Code: Paddusb_mm_mmm64
 INSTRUCTION: NP 0F DC /r | PADDUSB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18294,6 +18682,7 @@ END
 # Code: Paddusw_mm_mmm64
 INSTRUCTION: NP 0F DD /r | PADDUSW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18330,6 +18719,7 @@ END
 # Code: Pmaxub_mm_mmm64
 INSTRUCTION: NP 0F DE /r | PMAXUB mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18366,6 +18756,7 @@ END
 # Code: Pandn_mm_mmm64
 INSTRUCTION: NP 0F DF /r | PANDN mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18417,6 +18808,7 @@ END
 # Code: Pavgb_mm_mmm64
 INSTRUCTION: NP 0F E0 /r | PAVGB mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18453,6 +18845,7 @@ END
 # Code: Psraw_mm_mmm64
 INSTRUCTION: NP 0F E1 /r | PSRAW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18489,6 +18882,7 @@ END
 # Code: Psrad_mm_mmm64
 INSTRUCTION: NP 0F E2 /r | PSRAD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18540,6 +18934,7 @@ END
 # Code: Pavgw_mm_mmm64
 INSTRUCTION: NP 0F E3 /r | PAVGW mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18576,6 +18971,7 @@ END
 # Code: Pmulhuw_mm_mmm64
 INSTRUCTION: NP 0F E4 /r | PMULHUW mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18612,6 +19008,7 @@ END
 # Code: Pmulhw_mm_mmm64
 INSTRUCTION: NP 0F E5 /r | PMULHW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18729,6 +19126,7 @@ END
 # Code: EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 INSTRUCTION: EVEX.512.F3.0F.W0 E6 /r | VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{er} | AVX512F | N32b4
 	ops: wvmm=zmm_reg r=ymm_or_mem | Packed256_Int32 Broadcast256_Int32
+	flags: ignore-er
 	masm: flags=force-size=default
 END
 
@@ -18801,47 +19199,55 @@ END
 # Code: Movntq_m64_mm
 INSTRUCTION: NP 0F E7 /r | MOVNTQ m64, mm | SSE
 	ops: w=mem r=mm_reg | Packed64_UInt32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=mem-size=mmx
 END
 
 # Code: Movntdq_m128_xmm
 INSTRUCTION: 66 0F E7 /r | MOVNTDQ m128, xmm1 | SSE2
 	ops: w=mem r=xmm_reg | Packed128_UInt32
+	flags: tsx-impl-abort non-temporal
 END
 
 # Code: VEX_Vmovntdq_m128_xmm
 INSTRUCTION: VEX.128.66.0F.WIG E7 /r | VMOVNTDQ m128, xmm1 | AVX
 	ops: w=mem r=xmm_reg | Packed128_UInt32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovntdq_m256_ymm
 INSTRUCTION: VEX.256.66.0F.WIG E7 /r | VMOVNTDQ m256, ymm1 | AVX
 	ops: w=mem r=ymm_reg | Packed256_UInt32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntdq_m128_xmm
 INSTRUCTION: EVEX.128.66.0F.W0 E7 /r | VMOVNTDQ m128, xmm1 | AVX512VL AVX512F | N16
 	ops: w=mem r=xmm_reg | Packed128_UInt32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntdq_m256_ymm
 INSTRUCTION: EVEX.256.66.0F.W0 E7 /r | VMOVNTDQ m256, ymm1 | AVX512VL AVX512F | N32
 	ops: w=mem r=ymm_reg | Packed256_UInt32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntdq_m512_zmm
 INSTRUCTION: EVEX.512.66.0F.W0 E7 /r | VMOVNTDQ m512, zmm1 | AVX512F | N64
 	ops: w=mem r=zmm_reg | Packed512_UInt32
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: Psubsb_mm_mmm64
 INSTRUCTION: NP 0F E8 /r | PSUBSB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int8
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -18885,6 +19291,7 @@ END
 # Code: Psubsw_mm_mmm64
 INSTRUCTION: NP 0F E9 /r | PSUBSW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -18928,6 +19335,7 @@ END
 # Code: Pminsw_mm_mmm64
 INSTRUCTION: NP 0F EA /r | PMINSW mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -18964,6 +19372,7 @@ END
 # Code: Por_mm_mmm64
 INSTRUCTION: NP 0F EB /r | POR mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19015,6 +19424,7 @@ END
 # Code: Paddsb_mm_mmm64
 INSTRUCTION: NP 0F EC /r | PADDSB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19051,6 +19461,7 @@ END
 # Code: Paddsw_mm_mmm64
 INSTRUCTION: NP 0F ED /r | PADDSW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19087,6 +19498,7 @@ END
 # Code: Pmaxsw_mm_mmm64
 INSTRUCTION: NP 0F EE /r | PMAXSW mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19123,6 +19535,7 @@ END
 # Code: Pxor_mm_mmm64
 INSTRUCTION: NP 0F EF /r | PXOR mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -19202,6 +19615,7 @@ END
 # Code: Psllw_mm_mmm64
 INSTRUCTION: NP 0F F1 /r | PSLLW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19238,6 +19652,7 @@ END
 # Code: Pslld_mm_mmm64
 INSTRUCTION: NP 0F F2 /r | PSLLD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19274,6 +19689,7 @@ END
 # Code: Psllq_mm_mmm64
 INSTRUCTION: NP 0F F3 /r | PSLLQ mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | UInt64
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19310,6 +19726,7 @@ END
 # Code: Pmuludq_mm_mmm64
 INSTRUCTION: NP 0F F4 /r | PMULUDQ mm1, mm2/m64 | SSE2
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19346,6 +19763,7 @@ END
 # Code: Pmaddwd_mm_mmm64
 INSTRUCTION: NP 0F F5 /r | PMADDWD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19382,6 +19800,7 @@ END
 # Code: Psadbw_mm_mmm64
 INSTRUCTION: NP 0F F6 /r | PSADBW mm1, mm2/m64 | SSE
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19418,6 +19837,7 @@ END
 # Code: Maskmovq_rDI_mm_mm
 INSTRUCTION: NP 0F F7 /r | MASKMOVQ mm1, mm2 | SSE
 	ops: w=seg_rDI r=mm_reg r=mm_rm | UInt64
+	flags: tsx-impl-abort non-temporal
 	iinfo: Maskmovq
 	gas: maskmovq
 	intel: maskmovq
@@ -19428,6 +19848,7 @@ END
 # Code: Maskmovdqu_rDI_xmm_xmm
 INSTRUCTION: 66 0F F7 /r | MASKMOVDQU xmm1, xmm2 | SSE2
 	ops: w=seg_rDI r=xmm_reg r=xmm_rm | UInt128
+	flags: tsx-impl-abort non-temporal
 	iinfo: Maskmovq
 	gas: maskmovq
 	intel: maskmovq
@@ -19438,6 +19859,7 @@ END
 # Code: VEX_Vmaskmovdqu_rDI_xmm_xmm
 INSTRUCTION: VEX.128.66.0F.WIG F7 /r | VMASKMOVDQU xmm1, xmm2 | AVX
 	ops: w=seg_rDI r=xmm_reg r=xmm_rm | UInt128
+	flags: tsx-impl-abort non-temporal
 	iinfo: Maskmovq
 	gas: maskmovq
 	intel: maskmovq
@@ -19448,6 +19870,7 @@ END
 # Code: Psubb_mm_mmm64
 INSTRUCTION: NP 0F F8 /r | PSUBB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -19491,6 +19914,7 @@ END
 # Code: Psubw_mm_mmm64
 INSTRUCTION: NP 0F F9 /r | PSUBW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -19534,6 +19958,7 @@ END
 # Code: Psubd_mm_mmm64
 INSTRUCTION: NP 0F FA /r | PSUBD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -19577,6 +20002,7 @@ END
 # Code: Psubq_mm_mmm64
 INSTRUCTION: NP 0F FB /r | PSUBQ mm1, mm2/m64 | SSE2
 	ops: rw=mm_reg r=mm_or_mem | Int64
+	flags: tsx-impl-abort
 	iinfo: Clear_reg_regmem
 	masm: flags=mem-size=mmx
 END
@@ -19620,6 +20046,7 @@ END
 # Code: Paddb_mm_mmm64
 INSTRUCTION: NP 0F FC /r | PADDB mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19656,6 +20083,7 @@ END
 # Code: Paddw_mm_mmm64
 INSTRUCTION: NP 0F FD /r | PADDW mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19692,6 +20120,7 @@ END
 # Code: Paddd_mm_mmm64
 INSTRUCTION: NP 0F FE /r | PADDD mm, mm/m64 | MMX
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19728,7 +20157,7 @@ END
 # Code: Ud0_r16_rm16
 INSTRUCTION: o16 0F FF /r | UD0 r16, r/m16 | INTEL286
 	ops: n=r16_reg n=r16_or_mem | UInt16
-	flags: no-amd-dec
+	flags: no-amd-dec intel-vm-exit tsx-impl-abort
 	cflow: Exception
 	gas: suffix=w
 END
@@ -19736,7 +20165,7 @@ END
 # Code: Ud0_r32_rm32
 INSTRUCTION: o32 0F FF /r | UD0 r32, r/m32 | INTEL386
 	ops: n=r32_reg n=r32_or_mem | UInt32
-	flags: no-amd-dec
+	flags: no-amd-dec intel-vm-exit tsx-impl-abort
 	cflow: Exception
 	gas: suffix=l
 END
@@ -19744,7 +20173,7 @@ END
 # Code: Ud0_r64_rm64
 INSTRUCTION: REX.W 0F FF /r | UD0 r64, r/m64 | X64
 	ops: n=r64_reg n=r64_or_mem | UInt64
-	flags: 64 no-amd-dec
+	flags: 64 no-amd-dec intel-vm-exit tsx-impl-abort
 	cflow: Exception
 	gas: suffix=q
 END
@@ -19752,6 +20181,7 @@ END
 # Code: Pshufb_mm_mmm64
 INSTRUCTION: NP 0F 38 00 /r | PSHUFB mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19788,6 +20218,7 @@ END
 # Code: Phaddw_mm_mmm64
 INSTRUCTION: NP 0F 38 01 /r | PHADDW mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19809,6 +20240,7 @@ END
 # Code: Phaddd_mm_mmm64
 INSTRUCTION: NP 0F 38 02 /r | PHADDD mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19830,6 +20262,7 @@ END
 # Code: Phaddsw_mm_mmm64
 INSTRUCTION: NP 0F 38 03 /r | PHADDSW mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19851,6 +20284,7 @@ END
 # Code: Pmaddubsw_mm_mmm64
 INSTRUCTION: NP 0F 38 04 /r | PMADDUBSW mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19887,6 +20321,7 @@ END
 # Code: Phsubw_mm_mmm64
 INSTRUCTION: NP 0F 38 05 /r | PHSUBW mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19908,6 +20343,7 @@ END
 # Code: Phsubd_mm_mmm64
 INSTRUCTION: NP 0F 38 06 /r | PHSUBD mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19929,6 +20365,7 @@ END
 # Code: Phsubsw_mm_mmm64
 INSTRUCTION: NP 0F 38 07 /r | PHSUBSW mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19950,6 +20387,7 @@ END
 # Code: Psignb_mm_mmm64
 INSTRUCTION: NP 0F 38 08 /r | PSIGNB mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19971,6 +20409,7 @@ END
 # Code: Psignw_mm_mmm64
 INSTRUCTION: NP 0F 38 09 /r | PSIGNW mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -19992,6 +20431,7 @@ END
 # Code: Psignd_mm_mmm64
 INSTRUCTION: NP 0F 38 0A /r | PSIGND mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -20013,6 +20453,7 @@ END
 # Code: Pmulhrsw_mm_mmm64
 INSTRUCTION: NP 0F 38 0B /r | PMULHRSW mm1, mm2/m64 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -20099,25 +20540,25 @@ END
 # Code: VEX_Vtestps_xmm_xmmm128
 INSTRUCTION: VEX.128.66.0F38.W0 0E /r | VTESTPS xmm1, xmm2/m128 | AVX
 	ops: r=xmm_reg r=xmm_or_mem | Packed128_Float32
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Vtestps_ymm_ymmm256
 INSTRUCTION: VEX.256.66.0F38.W0 0E /r | VTESTPS ymm1, ymm2/m256 | AVX
 	ops: r=ymm_reg r=ymm_or_mem | Packed256_Float32
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Vtestpd_xmm_xmmm128
 INSTRUCTION: VEX.128.66.0F38.W0 0F /r | VTESTPD xmm1, xmm2/m128 | AVX
 	ops: r=xmm_reg r=xmm_or_mem | Packed128_Float64
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: VEX_Vtestpd_ymm_ymmm256
 INSTRUCTION: VEX.256.66.0F38.W0 0F /r | VTESTPD ymm1, ymm2/m256 | AVX
 	ops: r=ymm_reg r=ymm_or_mem | Packed256_Float64
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 END
 
 # Code: Pblendvb_xmm_xmmm128
@@ -20418,21 +20859,21 @@ END
 # Code: Ptest_xmm_xmmm128
 INSTRUCTION: 66 0F 38 17 /r | PTEST xmm1, xmm2/m128 | SSE4_1
 	ops: r=xmm_reg r=xmm_or_mem | UInt128
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vptest_xmm_xmmm128
 INSTRUCTION: VEX.128.66.0F38.WIG 17 /r | VPTEST xmm1, xmm2/m128 | AVX
 	ops: r=xmm_reg r=xmm_or_mem | UInt128
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vptest_ymm_ymmm256
 INSTRUCTION: VEX.256.66.0F38.WIG 17 /r | VPTEST ymm1, ymm2/m256 | AVX
 	ops: r=ymm_reg r=ymm_or_mem | UInt256
-	rflags: w=zc c=osap
+	rflags: w=zc 0=osap
 	masm: flags=force-size=default
 END
 
@@ -20541,6 +20982,7 @@ END
 # Code: Pabsb_mm_mmm64
 INSTRUCTION: NP 0F 38 1C /r | PABSB mm1, mm2/m64 | SSSE3
 	ops: w=mm_reg r=mm_or_mem | Packed64_Int8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -20577,6 +21019,7 @@ END
 # Code: Pabsw_mm_mmm64
 INSTRUCTION: NP 0F 38 1D /r | PABSW mm1, mm2/m64 | SSSE3
 	ops: w=mm_reg r=mm_or_mem | Packed64_Int16
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -20613,6 +21056,7 @@ END
 # Code: Pabsd_mm_mmm64
 INSTRUCTION: NP 0F 38 1E /r | PABSD mm1, mm2/m64 | SSSE3
 	ops: w=mm_reg r=mm_or_mem | Packed64_Int32
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -21222,36 +21666,42 @@ END
 # Code: Movntdqa_xmm_m128
 INSTRUCTION: 66 0F 38 2A /r | MOVNTDQA xmm1, m128 | SSE4_1
 	ops: w=xmm_reg r=mem | UInt128
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovntdqa_xmm_m128
 INSTRUCTION: VEX.128.66.0F38.WIG 2A /r | VMOVNTDQA xmm1, m128 | AVX
 	ops: w=xmm_reg r=mem | UInt128
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovntdqa_ymm_m256
 INSTRUCTION: VEX.256.66.0F38.WIG 2A /r | VMOVNTDQA ymm1, m256 | AVX2
 	ops: w=ymm_reg r=mem | UInt256
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntdqa_xmm_m128
 INSTRUCTION: EVEX.128.66.0F38.W0 2A /r | VMOVNTDQA xmm1, m128 | AVX512VL AVX512F | N16
 	ops: w=xmm_reg r=mem | UInt128
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntdqa_ymm_m256
 INSTRUCTION: EVEX.256.66.0F38.W0 2A /r | VMOVNTDQA ymm1, m256 | AVX512VL AVX512F | N32
 	ops: w=ymm_reg r=mem | UInt256
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovntdqa_zmm_m512
 INSTRUCTION: EVEX.512.66.0F38.W0 2A /r | VMOVNTDQA zmm1, m512 | AVX512F | N64
 	ops: w=zmm_reg r=mem | UInt512
+	flags: tsx-impl-abort non-temporal
 	masm: flags=force-size=default
 END
 
@@ -23376,48 +23826,50 @@ INSTRUCTION: EVEX.512.66.0F38.W1 7F /r | VPERMT2PD zmm1 {k1}{z}, zmm2, zmm3/m512
 END
 
 # Code: Invept_r32_m128
-INSTRUCTION: 66 0F 38 80 /r | INVEPT r32, m128 | INVEPT
+INSTRUCTION: 66 0F 38 80 /r | INVEPT r32, m128 | VMX INVEPT
 	ops: r=r32_reg r=mem | UInt128
-	rflags: w=zc c=osap
-	flags: 16 32 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 16 32 cpl0 no-rm no-v86 no-cm serialize-intel vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=mem-size=normal;force-size=default
 END
 
 # Code: Invept_r64_m128
-INSTRUCTION: 66 0F 38 80 /r | INVEPT r64, m128 | INVEPT
+INSTRUCTION: 66 0F 38 80 /r | INVEPT r64, m128 | VMX INVEPT
 	ops: r=r64_reg r=mem | UInt128
-	rflags: w=zc c=osap
-	flags: 64 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 64 cpl0 no-rm no-v86 no-cm serialize-intel vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=mem-size=normal;force-size=default
 END
 
 # Code: Invvpid_r32_m128
-INSTRUCTION: 66 0F 38 81 /r | INVVPID r32, m128 | INVVPID
+INSTRUCTION: 66 0F 38 81 /r | INVVPID r32, m128 | VMX INVVPID
 	ops: r=r32_reg r=mem | UInt128
-	rflags: w=zc c=osap
-	flags: 16 32 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 16 32 cpl0 no-rm no-v86 no-cm serialize-intel vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=mem-size=normal;force-size=default
 END
 
 # Code: Invvpid_r64_m128
-INSTRUCTION: 66 0F 38 81 /r | INVVPID r64, m128 | INVVPID
+INSTRUCTION: 66 0F 38 81 /r | INVVPID r64, m128 | VMX INVVPID
 	ops: r=r64_reg r=mem | UInt128
-	rflags: w=zc c=osap
-	flags: 64 cpl0 pm
+	rflags: w=zc 0=osap
+	flags: 64 cpl0 no-rm no-v86 no-cm serialize-intel vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=mem-size=normal;force-size=default
 END
 
 # Code: Invpcid_r32_m128
 INSTRUCTION: 66 0F 38 82 /r | INVPCID r32, m128 | INVPCID
 	ops: r=r32_reg r=mem | UInt128
-	flags: 16 32 cpl0
+	# AMD: no-rm no-v86
+	flags: 16 32 cpl0 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	masm: flags=mem-size=normal;force-size=default
 END
 
 # Code: Invpcid_r64_m128
 INSTRUCTION: 66 0F 38 82 /r | INVPCID r64, m128 | INVPCID
 	ops: r=r64_reg r=mem | UInt128
-	flags: 64 cpl0
+	# AMD: no-rm no-v86
+	flags: 64 cpl0 serialize-intel serialize-amd intel-may-vm-exit amd-may-vm-exit tsx-impl-abort
 	masm: flags=mem-size=normal;force-size=default
 END
 
@@ -25659,19 +26111,21 @@ END
 # Code: Movbe_r16_m16
 INSTRUCTION: o16 0F 38 F0 /r | MOVBE r16, m16 | MOVBE
 	ops: w=r16_reg r=mem | UInt16
+	flags: nfx
 	gas: suffix=w
 END
 
 # Code: Movbe_r32_m32
 INSTRUCTION: o32 0F 38 F0 /r | MOVBE r32, m32 | MOVBE
 	ops: w=r32_reg r=mem | UInt32
+	flags: nfx
 	gas: suffix=l
 END
 
 # Code: Movbe_r64_m64
 INSTRUCTION: REX.W 0F 38 F0 /r | MOVBE r64, m64 | MOVBE
 	ops: w=r64_reg r=mem | UInt64
-	flags: 64
+	flags: 64 nfx
 	gas: suffix=q
 END
 
@@ -25699,19 +26153,21 @@ END
 # Code: Movbe_m16_r16
 INSTRUCTION: o16 0F 38 F1 /r | MOVBE m16, r16 | MOVBE
 	ops: w=mem r=r16_reg | UInt16
+	flags: nfx
 	gas: suffix=w
 END
 
 # Code: Movbe_m32_r32
 INSTRUCTION: o32 0F 38 F1 /r | MOVBE m32, r32 | MOVBE
 	ops: w=mem r=r32_reg | UInt32
+	flags: nfx
 	gas: suffix=l
 END
 
 # Code: Movbe_m64_r64
 INSTRUCTION: REX.W 0F 38 F1 /r | MOVBE m64, r64 | MOVBE
 	ops: w=mem r=r64_reg | UInt64
-	flags: 64
+	flags: 64 nfx
 	gas: suffix=q
 END
 
@@ -25749,7 +26205,7 @@ END
 # Code: VEX_Andn_r32_r32_rm32
 INSTRUCTION: VEX.LZ.0F38.W0 F2 /r | ANDN r32a, r32b, r/m32 | BMI1
 	ops: w=r32_reg r=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=sz c=oc
+	rflags: u=ap w=sz 0=oc
 	flags: wig32
 	gas: suffix=l
 END
@@ -25757,7 +26213,7 @@ END
 # Code: VEX_Andn_r64_r64_rm64
 INSTRUCTION: VEX.LZ.0F38.W1 F2 /r | ANDN r64a, r64b, r/m64 | BMI1
 	ops: w=r64_reg r=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=sz c=oc
+	rflags: u=ap w=sz 0=oc
 	flags: 64
 	gas: suffix=q
 END
@@ -25765,7 +26221,7 @@ END
 # Code: VEX_Blsr_r32_rm32
 INSTRUCTION: VEX.LZ.0F38.W0 F3 /1 | BLSR r32, r/m32 | BMI1
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -25773,7 +26229,7 @@ END
 # Code: VEX_Blsr_r64_rm64
 INSTRUCTION: VEX.LZ.0F38.W1 F3 /1 | BLSR r64, r/m64 | BMI1
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -25781,7 +26237,7 @@ END
 # Code: VEX_Blsmsk_r32_rm32
 INSTRUCTION: VEX.LZ.0F38.W0 F3 /2 | BLSMSK r32, r/m32 | BMI1
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=sc c=oz
+	rflags: u=ap w=sc 0=oz
 	flags: wig32
 	gas: suffix=l
 END
@@ -25789,7 +26245,7 @@ END
 # Code: VEX_Blsmsk_r64_rm64
 INSTRUCTION: VEX.LZ.0F38.W1 F3 /2 | BLSMSK r64, r/m64 | BMI1
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=sc c=oz
+	rflags: u=ap w=sc 0=oz
 	flags: 64
 	gas: suffix=q
 END
@@ -25797,7 +26253,7 @@ END
 # Code: VEX_Blsi_r32_rm32
 INSTRUCTION: VEX.LZ.0F38.W0 F3 /3 | BLSI r32, r/m32 | BMI1
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -25805,7 +26261,7 @@ END
 # Code: VEX_Blsi_r64_rm64
 INSTRUCTION: VEX.LZ.0F38.W1 F3 /3 | BLSI r64, r/m64 | BMI1
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -25813,7 +26269,7 @@ END
 # Code: VEX_Bzhi_r32_rm32_r32
 INSTRUCTION: VEX.LZ.0F38.W0 F5 /r | BZHI r32a, r/m32, r32b | BMI2
 	ops: w=r32_reg r=r32_or_mem r=r32_vvvv | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -25821,7 +26277,7 @@ END
 # Code: VEX_Bzhi_r64_rm64_r64
 INSTRUCTION: VEX.LZ.0F38.W1 F5 /r | BZHI r64a, r/m64, r64b | BMI2
 	ops: w=r64_reg r=r64_or_mem r=r64_vvvv | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -25829,13 +26285,13 @@ END
 # Code: Wrussd_m32_r32
 INSTRUCTION: 66 0F 38 F5 /r | WRUSSD m32, r32 | CET_SS
 	ops: w=mem r=r32_reg | UInt32
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86
 END
 
 # Code: Wrussq_m64_r64
 INSTRUCTION: 66 REX.W 0F 38 F5 /r | WRUSSQ m64, r64 | CET_SS
 	ops: w=mem r=r64_reg | UInt64
-	flags: 64 cpl0 pm
+	flags: 64 cpl0 no-rm no-v86
 END
 
 # Code: VEX_Pext_r32_r32_rm32
@@ -25869,13 +26325,13 @@ END
 # Code: Wrssd_m32_r32
 INSTRUCTION: NP 0F 38 F6 /r | WRSSD m32, r32 | CET_SS
 	ops: w=mem r=r32_reg | UInt32
-	flags: pm
+	flags: no-rm no-v86
 END
 
 # Code: Wrssq_m64_r64
 INSTRUCTION: NP REX.W 0F 38 F6 /r | WRSSQ m64, r64 | CET_SS
 	ops: w=mem r=r64_reg | UInt64
-	flags: 64 pm
+	flags: 64 no-rm no-v86
 END
 
 # Code: Adcx_r32_rm32
@@ -25927,7 +26383,7 @@ END
 # Code: VEX_Bextr_r32_rm32_r32
 INSTRUCTION: VEX.LZ.0F38.W0 F7 /r | BEXTR r32a, r/m32, r32b | BMI1
 	ops: w=r32_reg r=r32_or_mem r=r32_vvvv | UInt32
-	rflags: u=sap w=z c=oc
+	rflags: u=sap w=z 0=oc
 	flags: wig32
 	gas: suffix=l
 END
@@ -25935,7 +26391,7 @@ END
 # Code: VEX_Bextr_r64_rm64_r64
 INSTRUCTION: VEX.LZ.0F38.W1 F7 /r | BEXTR r64a, r/m64, r64b | BMI1
 	ops: w=r64_reg r=r64_or_mem r=r64_vvvv | UInt64
-	rflags: u=sap w=z c=oc
+	rflags: u=sap w=z 0=oc
 	flags: 64
 	gas: suffix=q
 END
@@ -26003,49 +26459,62 @@ INSTRUCTION: a64 66 0F 38 F8 /r | MOVDIR64B r64, m512 | MOVDIR64B
 END
 
 # Code: Enqcmds_r16_m512
-INSTRUCTION: a16 F3 0F 38 F8 /r | ENQCMDS r16, m512 | ENQCMD
+INSTRUCTION: a16 F3 0F 38 F8 !(11):rrr:bbb | ENQCMDS r16, m512 | ENQCMD
 	ops: r=r16_reg_mem r=mem | UInt512
-	rflags: w=z c=osacp
-	flags: 16 32 cpl0
+	rflags: w=z 0=osacp
+	# A VM exit may occur during the PASID translation process
+	# May cause a TSX abort if VM exit
+	flags: 16 32 cpl0 intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	iinfo: Movdir64b
 END
 
 # Code: Enqcmds_r32_m512
-INSTRUCTION: a32 F3 0F 38 F8 /r | ENQCMDS r32, m512 | ENQCMD
+INSTRUCTION: a32 F3 0F 38 F8 !(11):rrr:bbb | ENQCMDS r32, m512 | ENQCMD
 	ops: r=r32_reg_mem r=mem | UInt512
-	rflags: w=z c=osacp
-	flags: cpl0
+	rflags: w=z 0=osacp
+	# A VM exit may occur during the PASID translation process
+	# May cause a TSX abort if VM exit
+	flags: cpl0 intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	iinfo: Movdir64b
 END
 
 # Code: Enqcmds_r64_m512
-INSTRUCTION: a64 F3 0F 38 F8 /r | ENQCMDS r64, m512 | ENQCMD
+INSTRUCTION: a64 F3 0F 38 F8 !(11):rrr:bbb | ENQCMDS r64, m512 | ENQCMD
 	ops: r=r64_reg_mem r=mem | UInt512
-	rflags: w=z c=osacp
-	flags: 64 cpl0
+	rflags: w=z 0=osacp
+	# A VM exit may occur during the PASID translation process
+	# May cause a TSX abort if VM exit
+	flags: 64 cpl0 intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	iinfo: Movdir64b
 END
 
 # Code: Enqcmd_r16_m512
-INSTRUCTION: a16 F2 0F 38 F8 /r | ENQCMD r16, m512 | ENQCMD
+INSTRUCTION: a16 F2 0F 38 F8 !(11):rrr:bbb | ENQCMD r16, m512 | ENQCMD
 	ops: r=r16_reg_mem r=mem | UInt512
-	rflags: w=z c=osacp
-	flags: 16 32
+	rflags: w=z 0=osacp
+	# A VM exit may occur during the PASID translation process
+	# May cause a TSX abort if VM exit
+	flags: 16 32 intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	iinfo: Movdir64b
 END
 
 # Code: Enqcmd_r32_m512
-INSTRUCTION: a32 F2 0F 38 F8 /r | ENQCMD r32, m512 | ENQCMD
+INSTRUCTION: a32 F2 0F 38 F8 !(11):rrr:bbb | ENQCMD r32, m512 | ENQCMD
 	ops: r=r32_reg_mem r=mem | UInt512
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# A VM exit may occur during the PASID translation process
+	# May cause a TSX abort if VM exit
+	flags: intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	iinfo: Movdir64b
 END
 
 # Code: Enqcmd_r64_m512
-INSTRUCTION: a64 F2 0F 38 F8 /r | ENQCMD r64, m512 | ENQCMD
+INSTRUCTION: a64 F2 0F 38 F8 !(11):rrr:bbb | ENQCMD r64, m512 | ENQCMD
 	ops: r=r64_reg_mem r=mem | UInt512
-	rflags: w=z c=osacp
-	flags: 64
+	rflags: w=z 0=osacp
+	# A VM exit may occur during the PASID translation process
+	# May cause a TSX abort if VM exit
+	flags: 64 intel-may-vm-exit tdx-non-root-ud tsx-impl-abort
 	iinfo: Movdir64b
 END
 
@@ -26327,6 +26796,7 @@ END
 # Code: Palignr_mm_mmm64_imm8
 INSTRUCTION: NP 0F 3A 0F /r ib | PALIGNR mm1, mm2/m64, imm8 | SSSE3
 	ops: rw=mm_reg r=mm_or_mem r=imm8 | Packed64_UInt8
+	flags: tsx-impl-abort
 	masm: flags=mem-size=mmx
 END
 
@@ -27480,14 +27950,14 @@ END
 # Code: Pcmpestrm_xmm_xmmm128_imm8
 INSTRUCTION: 66 0F 3A 60 /r ib | PCMPESTRM xmm1, xmm2/m128, imm8 | SSE4_2
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	iinfo: PcmpXstrY
 END
 
 # Code: Pcmpestrm64_xmm_xmmm128_imm8
 INSTRUCTION: 66 REX.W 0F 3A 60 /r ib | PCMPESTRM64 xmm1, xmm2/m128, imm8 | SSE4_2
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	flags: 64
 	iinfo: PcmpXstrY
 	gas: mnemonic=pcmpestrm flags=force-suffix suffix=q
@@ -27496,7 +27966,7 @@ END
 # Code: VEX_Vpcmpestrm_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.W0 60 /r ib | VPCMPESTRM xmm1, xmm2/m128, imm8 | AVX
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	flags: wig32
 	iinfo: PcmpXstrY
 END
@@ -27504,7 +27974,7 @@ END
 # Code: VEX_Vpcmpestrm64_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.W1 60 /r ib | VPCMPESTRM64 xmm1, xmm2/m128, imm8 | AVX
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	flags: 64
 	iinfo: PcmpXstrY
 	gas: mnemonic=vpcmpestrm flags=force-suffix suffix=q
@@ -27513,14 +27983,14 @@ END
 # Code: Pcmpestri_xmm_xmmm128_imm8
 INSTRUCTION: 66 0F 3A 61 /r ib | PCMPESTRI xmm1, xmm2/m128, imm8 | SSE4_2
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	iinfo: PcmpXstrY
 END
 
 # Code: Pcmpestri64_xmm_xmmm128_imm8
 INSTRUCTION: 66 REX.W 0F 3A 61 /r ib | PCMPESTRI64 xmm1, xmm2/m128, imm8 | SSE4_2
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	flags: 64
 	iinfo: PcmpXstrY
 	gas: mnemonic=pcmpestri flags=force-suffix suffix=q
@@ -27529,7 +27999,7 @@ END
 # Code: VEX_Vpcmpestri_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.W0 61 /r ib | VPCMPESTRI xmm1, xmm2/m128, imm8 | AVX
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	flags: wig32
 	iinfo: PcmpXstrY
 END
@@ -27537,7 +28007,7 @@ END
 # Code: VEX_Vpcmpestri64_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.W1 61 /r ib | VPCMPESTRI64 xmm1, xmm2/m128, imm8 | AVX
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	flags: 64
 	iinfo: PcmpXstrY
 	gas: mnemonic=vpcmpestri flags=force-suffix suffix=q
@@ -27546,28 +28016,28 @@ END
 # Code: Pcmpistrm_xmm_xmmm128_imm8
 INSTRUCTION: 66 0F 3A 62 /r ib | PCMPISTRM xmm1, xmm2/m128, imm8 | SSE4_2
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	iinfo: PcmpXstrY
 END
 
 # Code: VEX_Vpcmpistrm_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.WIG 62 /r ib | VPCMPISTRM xmm1, xmm2/m128, imm8 | AVX
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	iinfo: PcmpXstrY
 END
 
 # Code: Pcmpistri_xmm_xmmm128_imm8
 INSTRUCTION: 66 0F 3A 63 /r ib | PCMPISTRI xmm1, xmm2/m128, imm8 | SSE4_2
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	iinfo: PcmpXstrY
 END
 
 # Code: VEX_Vpcmpistri_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.WIG 63 /r ib | VPCMPISTRI xmm1, xmm2/m128, imm8 | AVX
 	ops: r=xmm_reg r=xmm_or_mem r=imm8 | Packed128_UInt8
-	rflags: w=oszc c=ap
+	rflags: w=oszc 0=ap
 	iinfo: PcmpXstrY
 END
 
@@ -28223,7 +28693,7 @@ END
 # Code: XOP_Blcfill_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 01 /1 | BLCFILL r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28231,7 +28701,7 @@ END
 # Code: XOP_Blcfill_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 01 /1 | BLCFILL r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28239,7 +28709,7 @@ END
 # Code: XOP_Blsfill_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 01 /2 | BLSFILL r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28247,7 +28717,7 @@ END
 # Code: XOP_Blsfill_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 01 /2 | BLSFILL r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28255,7 +28725,7 @@ END
 # Code: XOP_Blcs_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 01 /3 | BLCS r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28263,7 +28733,7 @@ END
 # Code: XOP_Blcs_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 01 /3 | BLCS r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28271,7 +28741,7 @@ END
 # Code: XOP_Tzmsk_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 01 /4 | TZMSK r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28279,7 +28749,7 @@ END
 # Code: XOP_Tzmsk_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 01 /4 | TZMSK r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28287,7 +28757,7 @@ END
 # Code: XOP_Blcic_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 01 /5 | BLCIC r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28295,7 +28765,7 @@ END
 # Code: XOP_Blcic_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 01 /5 | BLCIC r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28303,7 +28773,7 @@ END
 # Code: XOP_Blsic_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 01 /6 | BLSIC r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28311,7 +28781,7 @@ END
 # Code: XOP_Blsic_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 01 /6 | BLSIC r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28319,7 +28789,7 @@ END
 # Code: XOP_T1mskc_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 01 /7 | T1MSKC r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28327,7 +28797,7 @@ END
 # Code: XOP_T1mskc_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 01 /7 | T1MSKC r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28335,7 +28805,7 @@ END
 # Code: XOP_Blcmsk_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 02 /1 | BLCMSK r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28343,7 +28813,7 @@ END
 # Code: XOP_Blcmsk_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 02 /1 | BLCMSK r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28351,7 +28821,7 @@ END
 # Code: XOP_Blci_r32_rm32
 INSTRUCTION: XOP.L0.X9.W0 02 /6 | BLCI r32, r/m32 | TBM
 	ops: w=r32_vvvv r=r32_or_mem | UInt32
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
 END
@@ -28359,7 +28829,7 @@ END
 # Code: XOP_Blci_r64_rm64
 INSTRUCTION: XOP.L0.X9.W1 02 /6 | BLCI r64, r/m64 | TBM
 	ops: w=r64_vvvv r=r64_or_mem | UInt64
-	rflags: u=ap w=szc c=o
+	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
 END
@@ -28618,7 +29088,7 @@ END
 # Code: XOP_Bextr_r32_rm32_imm32
 INSTRUCTION: XOP.L0.XA.W0 10 /r id | BEXTR r32, r/m32, imm32 | TBM
 	ops: w=r32_reg r=r32_or_mem r=imm32 | UInt32
-	rflags: u=sap w=z c=oc
+	rflags: u=sap w=z 0=oc
 	flags: wig32
 	gas: suffix=l
 END
@@ -28626,7 +29096,7 @@ END
 # Code: XOP_Bextr_r64_rm64_imm32
 INSTRUCTION: XOP.L0.XA.W1 10 /r id | BEXTR r64, r/m64, imm32 | TBM
 	ops: w=r64_reg r=r64_or_mem r=imm32 | UInt64
-	rflags: u=sap w=z c=oc
+	rflags: u=sap w=z 0=oc
 	flags: 64
 	gas: suffix=q
 END
@@ -28819,31 +29289,33 @@ INSTRUCTION: 0F 0F /r BF | PAVGUSB mm1, mm2/m64 | D3NOW
 END
 
 # Code: Rmpadjust
-INSTRUCTION: F3 0F 01 FE | RMPADJUST | SNP
+INSTRUCTION: F3 0F 01 FE | RMPADJUST | SEV_SNP
 	rflags: w=oszap
-	flags: 64 cpl0
+	# #VMEXIT(NPF)
+	flags: 64 cpl0 amd-may-vm-exit
 	iinfo: Rmpadjust
 END
 
 # Code: Rmpupdate
-INSTRUCTION: F2 0F 01 FE | RMPUPDATE | SNP
+INSTRUCTION: F2 0F 01 FE | RMPUPDATE | SEV_SNP
 	rflags: w=oszap
 	flags: 64 cpl0
 	iinfo: Rmpupdate
 END
 
 # Code: Psmash
-INSTRUCTION: F3 0F 01 FF | PSMASH | SNP
+INSTRUCTION: F3 0F 01 FF | PSMASH | SEV_SNP
 	rflags: w=oszap
 	flags: 64 cpl0
 	iinfo: Psmash
 END
 
 # Code: Pvalidatew
-INSTRUCTION: a16 F2 0F 01 FF | PVALIDATE | SNP
+INSTRUCTION: a16 F2 0F 01 FF | PVALIDATE | SEV_SNP
 	code-mnemonic: pvalidatew
 	rflags: w=oszacp
-	flags: 16 32 cpl0
+	# #VMEXIT(NPF)
+	flags: 16 32 cpl0 amd-may-vm-exit
 	iinfo: Pvalidate
 	gas: asz
 	intel: reg ax
@@ -28851,10 +29323,11 @@ INSTRUCTION: a16 F2 0F 01 FF | PVALIDATE | SNP
 END
 
 # Code: Pvalidated
-INSTRUCTION: a32 F2 0F 01 FF | PVALIDATE | SNP
+INSTRUCTION: a32 F2 0F 01 FF | PVALIDATE | SEV_SNP
 	code-mnemonic: pvalidated
 	rflags: w=oszacp
-	flags: cpl0
+	# #VMEXIT(NPF)
+	flags: cpl0 amd-may-vm-exit
 	iinfo: Pvalidate
 	gas: asz
 	intel: reg eax
@@ -28862,10 +29335,11 @@ INSTRUCTION: a32 F2 0F 01 FF | PVALIDATE | SNP
 END
 
 # Code: Pvalidateq
-INSTRUCTION: a64 F2 0F 01 FF | PVALIDATE | SNP
+INSTRUCTION: a64 F2 0F 01 FF | PVALIDATE | SEV_SNP
 	code-mnemonic: pvalidateq
 	rflags: w=oszacp
-	flags: 64 cpl0
+	# #VMEXIT(NPF)
+	flags: 64 cpl0 amd-may-vm-exit
 	iinfo: Pvalidate
 	gas: asz
 	intel: reg rax
@@ -28874,22 +29348,26 @@ END
 
 # Code: Serialize
 INSTRUCTION: NP 0F 01 E8 | SERIALIZE | SERIALIZE
+	# AMD doesn't support this instruction yet
+	flags: serialize-intel serialize-amd
 END
 
 # Code: Xsusldtrk
 INSTRUCTION: F2 0F 01 E8 | XSUSLDTRK | TSXLDTRK
+	flags: tsx-may-abort
 	cflow: XbeginXabortXend
 END
 
 # Code: Xresldtrk
 INSTRUCTION: F2 0F 01 E9 | XRESLDTRK | TSXLDTRK
+	flags: tsx-may-abort
 	cflow: XbeginXabortXend
 END
 
 # Code: Invlpgbw
 INSTRUCTION: a16 NP 0F 01 FE | INVLPGB | INVLPGB
 	code-mnemonic: invlpgbw
-	flags: 16 32 cpl0 pm
+	flags: 16 32 cpl0 no-rm no-v86 amd-may-vm-exit
 	iinfo: Invlpgb
 	gas: asz
 	intel: reg ax
@@ -28899,7 +29377,7 @@ END
 # Code: Invlpgbd
 INSTRUCTION: a32 NP 0F 01 FE | INVLPGB | INVLPGB
 	code-mnemonic: invlpgbd
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 amd-may-vm-exit
 	iinfo: Invlpgb
 	gas: asz
 	intel: reg eax
@@ -28909,7 +29387,7 @@ END
 # Code: Invlpgbq
 INSTRUCTION: a64 NP 0F 01 FE | INVLPGB | INVLPGB
 	code-mnemonic: invlpgbq
-	flags: 64 cpl0 pm
+	flags: 64 cpl0 no-rm no-v86 amd-may-vm-exit
 	iinfo: Invlpgb
 	gas: asz
 	intel: reg rax
@@ -28918,7 +29396,7 @@ END
 
 # Code: Tlbsync
 INSTRUCTION: NP 0F 01 FF | TLBSYNC | INVLPGB
-	flags: cpl0 pm
+	flags: cpl0 no-rm no-v86 serialize-amd amd-may-vm-exit
 END
 
 # Code: Prefetchreserved3_m8
@@ -28967,13 +29445,15 @@ INSTRUCTION: 0F FF | UD0 | INTEL286
 END
 
 # Code: Vmgexit
-INSTRUCTION: F3 0F 01 D9 | VMGEXIT | SVM
+INSTRUCTION: F3 0F 01 D9 | VMGEXIT | SEV_ES
+	# This is VMGEXIT iff in guest mode and SEV-ES is active, else it's VMMCALL.
+	flags: amd-vm-exit
 	cflow: Call
 END
 
 # Code: Getsecq
 INSTRUCTION: NP REX.W 0F 37 | GETSECQ | SMX
-	flags: 64 saverestore
+	flags: 64 save-restore intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
 	gas: mnemonic=getsec flags=o64
 	nasm: mnemonic=getsec flags=o64
 END
@@ -28981,94 +29461,94 @@ END
 # Code: VEX_Ldtilecfg_m512
 INSTRUCTION: VEX.128.0F38.W0 49 !(11):000:bbb | LDTILECFG m512 | AMX_TILE
 	ops: r=mem | Tilecfg
-	flags: 64
+	flags: 64 tsx-abort
 	iinfo: Tilerelease
 END
 
 # Code: VEX_Tilerelease
 INSTRUCTION: VEX.128.0F38.W0 49 C0 | TILERELEASE | AMX_TILE
-	flags: 64
+	flags: 64 tsx-abort
 	iinfo: Tilerelease
 END
 
 # Code: VEX_Sttilecfg_m512
 INSTRUCTION: VEX.128.66.0F38.W0 49 !(11):000:bbb | STTILECFG m512 | AMX_TILE
 	ops: w=mem | Tilecfg
-	flags: 64
+	flags: 64 tsx-abort
 END
 
 # Code: VEX_Tilezero_tmm
 INSTRUCTION: VEX.128.F2.0F38.W0 49 11:rrr:000 | TILEZERO tmm1 | AMX_TILE
 	ops: w=tmm_reg
-	flags: 64
+	flags: 64 tsx-abort
 END
 
 # Code: VEX_Tileloaddt1_tmm_sibmem
 INSTRUCTION: VEX.128.66.0F38.W0 4B !(11):rrr:100 | TILELOADDT1 tmm1, sibmem | AMX_TILE
 	ops: w=tmm_reg r=sibmem | Tile
-	flags: 64
+	flags: 64 tsx-abort
 END
 
 # Code: VEX_Tilestored_sibmem_tmm
 INSTRUCTION: VEX.128.F3.0F38.W0 4B !(11):rrr:100 | TILESTORED sibmem, tmm1 | AMX_TILE
 	ops: w=sibmem r=tmm_reg | Tile
-	flags: 64
+	flags: 64 tsx-abort
 END
 
 # Code: VEX_Tileloadd_tmm_sibmem
 INSTRUCTION: VEX.128.F2.0F38.W0 4B !(11):rrr:100 | TILELOADD tmm1, sibmem | AMX_TILE
 	ops: w=tmm_reg r=sibmem | Tile
-	flags: 64
+	flags: 64 tsx-abort
 END
 
 # Code: VEX_Tdpbf16ps_tmm_tmm_tmm
 INSTRUCTION: VEX.128.F3.0F38.W0 5C 11:rrr:bbb | TDPBF16PS tmm1, tmm2, tmm3 | AMX_BF16
 	ops: rw=tmm_reg r=tmm_rm r=tmm_vvvv
-	flags: 64 unique-reg-num
+	flags: 64 unique-reg-num tsx-abort
 END
 
 # Code: VEX_Tdpbuud_tmm_tmm_tmm
 INSTRUCTION: VEX.128.0F38.W0 5E 11:rrr:bbb | TDPBUUD tmm1, tmm2, tmm3 | AMX_INT8
 	ops: rw=tmm_reg r=tmm_rm r=tmm_vvvv
-	flags: 64 unique-reg-num
+	flags: 64 unique-reg-num tsx-abort
 END
 
 # Code: VEX_Tdpbusd_tmm_tmm_tmm
 INSTRUCTION: VEX.128.66.0F38.W0 5E 11:rrr:bbb | TDPBUSD tmm1, tmm2, tmm3 | AMX_INT8
 	ops: rw=tmm_reg r=tmm_rm r=tmm_vvvv
-	flags: 64 unique-reg-num
+	flags: 64 unique-reg-num tsx-abort
 END
 
 # Code: VEX_Tdpbsud_tmm_tmm_tmm
 INSTRUCTION: VEX.128.F3.0F38.W0 5E 11:rrr:bbb | TDPBSUD tmm1, tmm2, tmm3 | AMX_INT8
 	ops: rw=tmm_reg r=tmm_rm r=tmm_vvvv
-	flags: 64 unique-reg-num
+	flags: 64 unique-reg-num tsx-abort
 END
 
 # Code: VEX_Tdpbssd_tmm_tmm_tmm
 INSTRUCTION: VEX.128.F2.0F38.W0 5E 11:rrr:bbb | TDPBSSD tmm1, tmm2, tmm3 | AMX_INT8
 	ops: rw=tmm_reg r=tmm_rm r=tmm_vvvv
-	flags: 64 unique-reg-num
+	flags: 64 unique-reg-num tsx-abort
 END
 
 # Code: Fnstdw_AX
 INSTRUCTION: DF E1 | FNSTDW AX | FPU387SL_ONLY
 	ops: w=ax
-	flags: 16 32
+	flags: 16 32 tsx-impl-abort no-wait
 	decoder-option: OldFpu
 END
 
 # Code: Fnstsg_AX
 INSTRUCTION: DF E2 | FNSTSG AX | FPU387SL_ONLY
 	ops: w=ax
-	flags: 16 32
+	flags: 16 32 tsx-impl-abort no-wait
 	decoder-option: OldFpu
 END
 
 # Code: Rdshr_rm32
 INSTRUCTION: 0F 36 /0 | RDSHR r/m32 | CYRIX_SHR
 	ops: w=r32_or_mem | UInt32
-	flags: 16 32 cpl0
+	flags: 16 32 cpl0 no-outside-smm
 	decoder-option: Cyrix
 	gas: suffix=l
 END
@@ -29076,7 +29556,7 @@ END
 # Code: Wrshr_rm32
 INSTRUCTION: 0F 37 /0 | WRSHR r/m32 | CYRIX_SHR
 	ops: r=r32_or_mem | UInt32
-	flags: 16 32 cpl0
+	flags: 16 32 cpl0 no-outside-smm
 	decoder-option: Cyrix
 	gas: suffix=l
 END
@@ -29098,13 +29578,14 @@ END
 # Code: Rdm
 INSTRUCTION: 0F 3A | RDM | CYRIX_DMI
 	rflags: w=oszacpdiA
-	flags: 16 32 cpl0 saverestore
+	flags: 16 32 cpl0 save-restore
 	cflow: Return
 	decoder-option: Cyrix_DMI
 END
 
 # Code: Svdc_m80_Sreg
 INSTRUCTION: 0F 78 /r | SVDC m80, Sreg | CYRIX_SMM
+	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=mem r=seg_reg | SegmentDescSelector
 	flags: 16 32 cpl0
 	decoder-option: Cyrix
@@ -29112,6 +29593,8 @@ END
 
 # Code: Rsdc_Sreg_m80
 INSTRUCTION: 0F 79 /r | RSDC Sreg, m80 | CYRIX_SMM
+	# Some CPUs don't allow CS (#UD) as a target register (eg. Cyrix 6x86, Cyrix III), others allow it (eg. Geode LX)
+	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=seg_reg r=mem | SegmentDescSelector
 	flags: 16 32 cpl0
 	decoder-option: Cyrix
@@ -29119,6 +29602,7 @@ END
 
 # Code: Svldt_m80
 INSTRUCTION: 0F 7A /0 | SVLDT m80 | CYRIX_SMM
+	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=mem | SegmentDescSelector
 	flags: 16 32 cpl0
 	decoder-option: Cyrix
@@ -29126,6 +29610,7 @@ END
 
 # Code: Rsldt_m80
 INSTRUCTION: 0F 7B /0 | RSLDT m80 | CYRIX_SMM
+	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: r=mem | SegmentDescSelector
 	flags: 16 32 cpl0
 	decoder-option: Cyrix
@@ -29133,6 +29618,7 @@ END
 
 # Code: Svts_m80
 INSTRUCTION: 0F 7C /0 | SVTS m80 | CYRIX_SMM
+	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=mem | SegmentDescSelector
 	flags: 16 32 cpl0
 	decoder-option: Cyrix
@@ -29140,6 +29626,7 @@ END
 
 # Code: Rsts_m80
 INSTRUCTION: 0F 7D /0 | RSTS m80 | CYRIX_SMM
+	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: r=mem | SegmentDescSelector
 	flags: 16 32 cpl0
 	decoder-option: Cyrix
@@ -29183,7 +29670,7 @@ END
 # Code: Altinst
 INSTRUCTION: 0F 3F | ALTINST | CENTAUR_AIS
 	flags: 16 32
-	cflow: UnconditionalBranch
+	cflow: IndirectBranch
 	iinfo: R_EAX
 	decoder-option: ALTINST
 END
@@ -29376,102 +29863,130 @@ END
 
 # Code: Tdcall
 INSTRUCTION: 66 0F 01 CC | TDCALL | TDX
-	flags: cpl0
+	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
+	flags: cpl0 vmx=non-root intel-vm-exit tsx-impl-abort
 	cflow: Call
 END
 
 # Code: Seamret
 INSTRUCTION: 66 0F 01 CD | SEAMRET | TDX
-	rflags: w=zc c=osap
-	flags: 64 cpl0
+	rflags: w=zc 0=osap
+	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
+	flags: 64 cpl0 vmx=root no-outside-seam tsx-impl-abort
 	cflow: Return
 END
 
 # Code: Seamops
 INSTRUCTION: 66 0F 01 CE | SEAMOPS | TDX
-	rflags: w=z c=osacp
-	flags: 64 cpl0
+	#TODO: should be cond-write (no flags are written if rax==0)
+	rflags: w=z 0=osacp
+	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
+	flags: 64 cpl0 vmx=root no-outside-seam tsx-impl-abort
 	iinfo: Seamops
 END
 
 # Code: Seamcall
 INSTRUCTION: 66 0F 01 CF | SEAMCALL | TDX
-	rflags: w=c c=oszap
-	flags: 64 cpl0
+	rflags: w=c 0=oszap
+	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
+	flags: 64 cpl0 vmx=op intel-vm-exit no-in-smm no-in-seam tsx-impl-abort
 	cflow: Call
 END
 
 # Code: Aesencwide128kl_m384
 INSTRUCTION: F3 0F 38 D8 !(11):000:bbb | AESENCWIDE128KL m384, <XMM0-7> | AESKLE WIDE_KL
 	ops: r=mem | KLHandleAes128
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 	iinfo: RW_XMM0to7
 END
 
 # Code: Aesdecwide128kl_m384
 INSTRUCTION: F3 0F 38 D8 !(11):001:bbb | AESDECWIDE128KL m384, <XMM0-7> | AESKLE WIDE_KL
 	ops: r=mem | KLHandleAes128
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 	iinfo: RW_XMM0to7
 END
 
 # Code: Aesencwide256kl_m512
 INSTRUCTION: F3 0F 38 D8 !(11):010:bbb | AESENCWIDE256KL m512, <XMM0-7> | AESKLE WIDE_KL
 	ops: r=mem | KLHandleAes256
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 	iinfo: RW_XMM0to7
 END
 
 # Code: Aesdecwide256kl_m512
 INSTRUCTION: F3 0F 38 D8 !(11):011:bbb | AESDECWIDE256KL m512, <XMM0-7> | AESKLE WIDE_KL
 	ops: r=mem | KLHandleAes256
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 	iinfo: RW_XMM0to7
 END
 
 # Code: Loadiwkey_xmm_xmm
 INSTRUCTION: F3 0F 38 DC 11:rrr:bbb | LOADIWKEY xmm1, xmm2, <EAX>, <XMM0> | KL
 	ops: r=xmm_reg r=xmm_rm
-	rflags: w=z c=osacp
-	flags: cpl0
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: cpl0 tsx-impl-abort
 	iinfo: R_EAX_XMM0
 END
 
 # Code: Aesenc128kl_xmm_m384
 INSTRUCTION: F3 0F 38 DC !(11):rrr:bbb | AESENC128KL xmm, m384 | AESKLE
 	ops: rw=xmm_reg r=mem | KLHandleAes128
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 END
 
 # Code: Aesdec128kl_xmm_m384
 INSTRUCTION: F3 0F 38 DD !(11):rrr:bbb | AESDEC128KL xmm, m384 | AESKLE
 	ops: rw=xmm_reg r=mem | KLHandleAes128
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 END
 
 # Code: Aesenc256kl_xmm_m512
 INSTRUCTION: F3 0F 38 DE !(11):rrr:bbb | AESENC256KL xmm, m512 | AESKLE
 	ops: rw=xmm_reg r=mem | KLHandleAes256
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 END
 
 # Code: Aesdec256kl_xmm_m512
 INSTRUCTION: F3 0F 38 DF !(11):rrr:bbb | AESDEC256KL xmm, m512 | AESKLE
 	ops: rw=xmm_reg r=mem | KLHandleAes256
-	rflags: w=z c=osacp
+	rflags: w=z 0=osacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 END
 
 # Code: Encodekey128_r32_r32
 INSTRUCTION: F3 0F 38 FA 11:rrr:bbb | ENCODEKEY128 r32a, r32b, <XMM0-2>, <XMM4-6> | AESKLE
 	ops: w=r32_reg r=r32_rm
-	rflags: c=oszacp
+	# Future extensions may write non-zero values to the flags so use w=xxx instead of c=xxx
+	rflags: w=oszacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 	iinfo: Encodekey
 END
 
 # Code: Encodekey256_r32_r32
 INSTRUCTION: F3 0F 38 FB 11:rrr:bbb | ENCODEKEY256 r32a, r32b, <XMM0-6> | AESKLE
 	ops: w=r32_reg r=r32_rm
-	rflags: c=oszacp
+	# Future extensions may write non-zero values to the flags so use w=xxx instead of c=xxx
+	rflags: w=oszacp
+	# All Key Locker instructions may cause a TSX abort
+	flags: tsx-impl-abort
 	iinfo: Encodekey
 END
 

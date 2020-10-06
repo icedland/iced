@@ -149,7 +149,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(testCase.RflagsCleared, info.RflagsCleared);
 			Assert.Equal(testCase.RflagsSet, info.RflagsSet);
 			Assert.Equal(testCase.IsPrivileged, info.IsPrivileged);
-			Assert.Equal(testCase.IsProtectedMode, info.IsProtectedMode);
 			Assert.Equal(testCase.IsStackInstruction, info.IsStackInstruction);
 			Assert.Equal(testCase.IsSaveRestoreInstruction, info.IsSaveRestoreInstruction);
 			Assert.Equal(testCase.FlowControl, info.FlowControl);
@@ -217,7 +216,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 #endif
 			Assert.Equal(info.CpuidFeatures, instruction.Code.CpuidFeatures());
 			Assert.Equal(info.FlowControl, instruction.Code.FlowControl());
-			Assert.Equal(info.IsProtectedMode, instruction.Code.IsProtectedMode());
 			Assert.Equal(info.IsPrivileged, instruction.Code.IsPrivileged());
 			Assert.Equal(info.IsStackInstruction, instruction.Code.IsStackInstruction());
 			Assert.Equal(info.IsSaveRestoreInstruction, instruction.Code.IsSaveRestoreInstruction());
@@ -225,7 +223,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(info.Encoding, instruction.Encoding);
 			Assert.Equal(info.CpuidFeatures, instruction.CpuidFeatures);
 			Assert.Equal(info.FlowControl, instruction.FlowControl);
-			Assert.Equal(info.IsProtectedMode, instruction.IsProtectedMode);
 			Assert.Equal(info.IsPrivileged, instruction.IsPrivileged);
 			Assert.Equal(info.IsStackInstruction, instruction.IsStackInstruction);
 			Assert.Equal(info.IsSaveRestoreInstruction, instruction.IsSaveRestoreInstruction);
@@ -246,7 +243,6 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				Assert.Equal(info1.GetUsedMemory(), info2.GetUsedMemory(), UsedMemoryEqualityComparer.Instance);
 			else
 				Assert.Empty(info2.GetUsedMemory());
-			Assert.Equal(info1.IsProtectedMode, info2.IsProtectedMode);
 			Assert.Equal(info1.IsPrivileged, info2.IsPrivileged);
 			Assert.Equal(info1.IsStackInstruction, info2.IsStackInstruction);
 			Assert.Equal(info1.IsSaveRestoreInstruction, info2.IsSaveRestoreInstruction);

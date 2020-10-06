@@ -6506,7 +6506,7 @@ pub enum Code {
 	///
 	/// `NP 0F 01 C0`
 	///
-	/// `ENCLV`
+	/// `OSS`
 	///
 	/// `16/32/64-bit`
 	Enclv = 812,
@@ -6738,7 +6738,7 @@ pub enum Code {
 	///
 	/// `0F 01 DC`
 	///
-	/// `SKINIT or SVML`
+	/// `SKINIT or SVM`
 	///
 	/// `16/32/64-bit`
 	Stgi = 841,
@@ -6754,7 +6754,7 @@ pub enum Code {
 	///
 	/// `0F 01 DE`
 	///
-	/// `SKINIT or SVML`
+	/// `SKINIT or SVM`
 	///
 	/// `16/32/64-bit`
 	Skinit = 843,
@@ -25914,7 +25914,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 80 /r`
 	///
-	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
+	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
 	///
 	/// `16/32-bit`
 	Invept_r32_m128 = 3238,
@@ -25922,7 +25922,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 80 /r`
 	///
-	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
+	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
 	///
 	/// `64-bit`
 	Invept_r64_m128 = 3239,
@@ -25930,7 +25930,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 81 /r`
 	///
-	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
+	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
 	///
 	/// `16/32-bit`
 	Invvpid_r32_m128 = 3240,
@@ -25938,7 +25938,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 81 /r`
 	///
-	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
+	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
 	///
 	/// `64-bit`
 	Invvpid_r64_m128 = 3241,
@@ -29656,7 +29656,7 @@ pub enum Code {
 	Movdir64b_r64_m512 = 3705,
 	/// `ENQCMDS r16, m512`
 	///
-	/// `a16 F3 0F 38 F8 /r`
+	/// `a16 F3 0F 38 F8 !(11):rrr:bbb`
 	///
 	/// `ENQCMD`
 	///
@@ -29664,7 +29664,7 @@ pub enum Code {
 	Enqcmds_r16_m512 = 3706,
 	/// `ENQCMDS r32, m512`
 	///
-	/// `a32 F3 0F 38 F8 /r`
+	/// `a32 F3 0F 38 F8 !(11):rrr:bbb`
 	///
 	/// `ENQCMD`
 	///
@@ -29672,7 +29672,7 @@ pub enum Code {
 	Enqcmds_r32_m512 = 3707,
 	/// `ENQCMDS r64, m512`
 	///
-	/// `a64 F3 0F 38 F8 /r`
+	/// `a64 F3 0F 38 F8 !(11):rrr:bbb`
 	///
 	/// `ENQCMD`
 	///
@@ -29680,7 +29680,7 @@ pub enum Code {
 	Enqcmds_r64_m512 = 3708,
 	/// `ENQCMD r16, m512`
 	///
-	/// `a16 F2 0F 38 F8 /r`
+	/// `a16 F2 0F 38 F8 !(11):rrr:bbb`
 	///
 	/// `ENQCMD`
 	///
@@ -29688,7 +29688,7 @@ pub enum Code {
 	Enqcmd_r16_m512 = 3709,
 	/// `ENQCMD r32, m512`
 	///
-	/// `a32 F2 0F 38 F8 /r`
+	/// `a32 F2 0F 38 F8 !(11):rrr:bbb`
 	///
 	/// `ENQCMD`
 	///
@@ -29696,7 +29696,7 @@ pub enum Code {
 	Enqcmd_r32_m512 = 3710,
 	/// `ENQCMD r64, m512`
 	///
-	/// `a64 F2 0F 38 F8 /r`
+	/// `a64 F2 0F 38 F8 !(11):rrr:bbb`
 	///
 	/// `ENQCMD`
 	///
@@ -33634,7 +33634,7 @@ pub enum Code {
 	///
 	/// `F3 0F 01 FE`
 	///
-	/// `SNP`
+	/// `SEV-SNP`
 	///
 	/// `64-bit`
 	Rmpadjust = 4203,
@@ -33642,7 +33642,7 @@ pub enum Code {
 	///
 	/// `F2 0F 01 FE`
 	///
-	/// `SNP`
+	/// `SEV-SNP`
 	///
 	/// `64-bit`
 	Rmpupdate = 4204,
@@ -33650,7 +33650,7 @@ pub enum Code {
 	///
 	/// `F3 0F 01 FF`
 	///
-	/// `SNP`
+	/// `SEV-SNP`
 	///
 	/// `64-bit`
 	Psmash = 4205,
@@ -33658,7 +33658,7 @@ pub enum Code {
 	///
 	/// `a16 F2 0F 01 FF`
 	///
-	/// `SNP`
+	/// `SEV-SNP`
 	///
 	/// `16/32-bit`
 	Pvalidatew = 4206,
@@ -33666,7 +33666,7 @@ pub enum Code {
 	///
 	/// `a32 F2 0F 01 FF`
 	///
-	/// `SNP`
+	/// `SEV-SNP`
 	///
 	/// `16/32/64-bit`
 	Pvalidated = 4207,
@@ -33674,7 +33674,7 @@ pub enum Code {
 	///
 	/// `a64 F2 0F 01 FF`
 	///
-	/// `SNP`
+	/// `SEV-SNP`
 	///
 	/// `64-bit`
 	Pvalidateq = 4208,
@@ -33786,7 +33786,7 @@ pub enum Code {
 	///
 	/// `F3 0F 01 D9`
 	///
-	/// `SVM`
+	/// `SEV-ES`
 	///
 	/// `16/32/64-bit`
 	Vmgexit = 4222,
@@ -38799,18 +38799,11 @@ impl Code {
 		}
 	}
 
-	/// Checks if the instruction isn't available in real mode or virtual 8086 mode
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn is_protected_mode(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::PROTECTED_MODE) != 0 }
-	}
-
 	/// Checks if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_privileged(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::PRIVILEGED) != 0 }
+		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::PRIVILEGED) != 0 }
 	}
 
 	/// Checks if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
@@ -38829,14 +38822,14 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_stack_instruction(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::STACK_INSTRUCTION) != 0 }
+		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::STACK_INSTRUCTION) != 0 }
 	}
 
 	/// Checks if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_save_restore_instruction(self) -> bool {
-		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2) & InfoFlags1::SAVE_RESTORE) != 0 }
+		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::SAVE_RESTORE) != 0 }
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction
