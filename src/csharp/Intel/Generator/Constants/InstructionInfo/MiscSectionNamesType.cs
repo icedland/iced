@@ -42,6 +42,8 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.String, "CallFar", "call-far"),
 				new Constant(ConstantKind.String, "CallNearIndirect", "call-near-indirect"),
 				new Constant(ConstantKind.String, "CallFarIndirect", "call-far-indirect"),
+				new Constant(ConstantKind.String, "JmpeNear", "jmpe-near"),
+				new Constant(ConstantKind.String, "JmpeNearIndirect", "jmpe-near-indirect"),
 				new Constant(ConstantKind.String, "Loop", "loop"),
 				new Constant(ConstantKind.String, "Jrcxz", "jrcxz"),
 				new Constant(ConstantKind.String, "Xbegin", "xbegin"),

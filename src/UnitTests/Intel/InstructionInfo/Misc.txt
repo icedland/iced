@@ -164,6 +164,14 @@ Call_m1616
 Call_m1632
 Call_m1664
 
+[jmpe-near]
+Jmpe_disp16
+Jmpe_disp32
+
+[jmpe-near-indirect]
+Jmpe_rm16
+Jmpe_rm32
+
 [loop]
 Loop_rel8_16_CX
 Loop_rel8_32_CX

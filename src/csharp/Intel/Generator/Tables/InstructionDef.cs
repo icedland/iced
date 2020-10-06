@@ -185,6 +185,8 @@ namespace Generator.Tables {
 		CallFar,
 		CallNearIndirect,
 		CallFarIndirect,
+		JmpeNear,
+		JmpeNearIndirect,
 		Loop,
 		Jrcxz,
 		Xbegin,

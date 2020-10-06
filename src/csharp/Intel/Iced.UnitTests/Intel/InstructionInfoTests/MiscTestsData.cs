@@ -41,6 +41,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string CallFar = "call-far";
 		internal const string CallNearIndirect = "call-near-indirect";
 		internal const string CallFarIndirect = "call-far-indirect";
+		internal const string JmpeNear = "jmpe-near";
+		internal const string JmpeNearIndirect = "jmpe-near-indirect";
 		internal const string Loop = "loop";
 		internal const string Jrcxz = "jrcxz";
 		internal const string Xbegin = "xbegin";
@@ -65,6 +67,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public static readonly HashSet<Code> CallNear;
 		public static readonly HashSet<Code> CallNearIndirect;
 		public static readonly HashSet<Code> CallFarIndirect;
+		public static readonly HashSet<Code> JmpeNear;
+		public static readonly HashSet<Code> JmpeNearIndirect;
 		public static readonly HashSet<Code> Loop;
 		public static readonly HashSet<Code> Jrcxz;
 		public static readonly HashSet<Code> Xbegin;
@@ -87,6 +91,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var callNear = new HashSet<Code>();
 			var callNearIndirect = new HashSet<Code>();
 			var callFarIndirect = new HashSet<Code>();
+			var jmpeNear = new HashSet<Code>();
+			var jmpeNearIndirect = new HashSet<Code>();
 			var loop = new HashSet<Code>();
 			var jrcxz = new HashSet<Code>();
 			var xbegin = new HashSet<Code>();
@@ -109,6 +115,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				(MiscSectionNames.CallNear, (_, line) => AddCode(callNear, line)),
 				(MiscSectionNames.CallNearIndirect, (_, line) => AddCode(callNearIndirect, line)),
 				(MiscSectionNames.CallFarIndirect, (_, line) => AddCode(callFarIndirect, line)),
+				(MiscSectionNames.JmpeNear, (_, line) => AddCode(jmpeNear, line)),
+				(MiscSectionNames.JmpeNearIndirect, (_, line) => AddCode(jmpeNearIndirect, line)),
 				(MiscSectionNames.Loop, (_, line) => AddCode(loop, line)),
 				(MiscSectionNames.Jrcxz, (_, line) => AddCode(jrcxz, line)),
 				(MiscSectionNames.Xbegin, (_, line) => AddCode(xbegin, line)),
@@ -133,6 +141,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			CallNear = callNear;
 			CallNearIndirect = callNearIndirect;
 			CallFarIndirect = callFarIndirect;
+			JmpeNear = jmpeNear;
+			JmpeNearIndirect = jmpeNearIndirect;
 			Loop = loop;
 			Jrcxz = jrcxz;
 			Xbegin = xbegin;

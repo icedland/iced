@@ -50,6 +50,8 @@ impl MiscSectionNames {
 	pub(crate) const CALL_FAR: &'static str = "call-far";
 	pub(crate) const CALL_NEAR_INDIRECT: &'static str = "call-near-indirect";
 	pub(crate) const CALL_FAR_INDIRECT: &'static str = "call-far-indirect";
+	pub(crate) const JMPE_NEAR: &'static str = "jmpe-near";
+	pub(crate) const JMPE_NEAR_INDIRECT: &'static str = "jmpe-near-indirect";
 	pub(crate) const LOOP: &'static str = "loop";
 	pub(crate) const JRCXZ: &'static str = "jrcxz";
 	pub(crate) const XBEGIN: &'static str = "xbegin";
@@ -75,15 +77,17 @@ impl MiscSectionNameIds {
 	const CALL_FAR: u32 = 8;
 	const CALL_NEAR_INDIRECT: u32 = 9;
 	const CALL_FAR_INDIRECT: u32 = 10;
-	const LOOP: u32 = 11;
-	const JRCXZ: u32 = 12;
-	const XBEGIN: u32 = 13;
-	const JMP_INFO: u32 = 14;
-	const JCC_SHORT_INFO: u32 = 15;
-	const JCC_NEAR_INFO: u32 = 16;
-	const SETCC_INFO: u32 = 17;
-	const CMOVCC_INFO: u32 = 18;
-	const LOOPCC_INFO: u32 = 19;
+	const JMPE_NEAR: u32 = 11;
+	const JMPE_NEAR_INDIRECT: u32 = 12;
+	const LOOP: u32 = 13;
+	const JRCXZ: u32 = 14;
+	const XBEGIN: u32 = 15;
+	const JMP_INFO: u32 = 16;
+	const JCC_SHORT_INFO: u32 = 17;
+	const JCC_NEAR_INFO: u32 = 18;
+	const SETCC_INFO: u32 = 19;
+	const CMOVCC_INFO: u32 = 20;
+	const LOOPCC_INFO: u32 = 21;
 }
 
 pub(super) struct MiscTestsData {
@@ -98,6 +102,8 @@ pub(super) struct MiscTestsData {
 	pub(super) call_near: HashSet<Code>,
 	pub(super) call_near_indirect: HashSet<Code>,
 	pub(super) call_far_indirect: HashSet<Code>,
+	pub(super) jmpe_near: HashSet<Code>,
+	pub(super) jmpe_near_indirect: HashSet<Code>,
 	pub(super) loop_: HashSet<Code>,
 	pub(super) jrcxz: HashSet<Code>,
 	pub(super) xbegin: HashSet<Code>,
@@ -136,6 +142,8 @@ impl MiscTestsDataReader {
 				call_near: HashSet::new(),
 				call_near_indirect: HashSet::new(),
 				call_far_indirect: HashSet::new(),
+				jmpe_near: HashSet::new(),
+				jmpe_near_indirect: HashSet::new(),
 				loop_: HashSet::new(),
 				jrcxz: HashSet::new(),
 				xbegin: HashSet::new(),
@@ -162,6 +170,8 @@ impl MiscTestsDataReader {
 			(MiscSectionNames::CALL_NEAR, MiscSectionNameIds::CALL_NEAR),
 			(MiscSectionNames::CALL_NEAR_INDIRECT, MiscSectionNameIds::CALL_NEAR_INDIRECT),
 			(MiscSectionNames::CALL_FAR_INDIRECT, MiscSectionNameIds::CALL_FAR_INDIRECT),
+			(MiscSectionNames::JMPE_NEAR, MiscSectionNameIds::JMPE_NEAR),
+			(MiscSectionNames::JMPE_NEAR_INDIRECT, MiscSectionNameIds::JMPE_NEAR_INDIRECT),
 			(MiscSectionNames::LOOP, MiscSectionNameIds::LOOP),
 			(MiscSectionNames::JRCXZ, MiscSectionNameIds::JRCXZ),
 			(MiscSectionNames::XBEGIN, MiscSectionNameIds::XBEGIN),
@@ -236,6 +246,8 @@ impl SectionFileLineHandler for MiscTestsDataReader {
 			MiscSectionNameIds::CALL_NEAR => Self::add_code(&mut self.data.call_near, line),
 			MiscSectionNameIds::CALL_NEAR_INDIRECT => Self::add_code(&mut self.data.call_near_indirect, line),
 			MiscSectionNameIds::CALL_FAR_INDIRECT => Self::add_code(&mut self.data.call_far_indirect, line),
+			MiscSectionNameIds::JMPE_NEAR => Self::add_code(&mut self.data.jmpe_near, line),
+			MiscSectionNameIds::JMPE_NEAR_INDIRECT => Self::add_code(&mut self.data.jmpe_near_indirect, line),
 			MiscSectionNameIds::LOOP => Self::add_code(&mut self.data.loop_, line),
 			MiscSectionNameIds::JRCXZ => Self::add_code(&mut self.data.jrcxz, line),
 			MiscSectionNameIds::XBEGIN => Self::add_code(&mut self.data.xbegin, line),

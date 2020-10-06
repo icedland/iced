@@ -190,6 +190,9 @@ namespace Iced.Intel.FormatterInternal {
 			case Code.Call_rel32_32:
 			case Code.Call_rel32_64:
 				return FormatterFlowControl.NearCall;
+			case Code.Jmp_rel16:
+			case Code.Jmp_rel32_32:
+			case Code.Jmp_rel32_64:
 			case Code.Jo_rel16:
 			case Code.Jo_rel32_32:
 			case Code.Jo_rel32_64:
@@ -238,17 +241,14 @@ namespace Iced.Intel.FormatterInternal {
 			case Code.Jg_rel16:
 			case Code.Jg_rel32_32:
 			case Code.Jg_rel32_64:
-			case Code.Jmp_rel16:
-			case Code.Jmp_rel32_32:
-			case Code.Jmp_rel32_64:
 			case Code.Jmpe_disp16:
 			case Code.Jmpe_disp32:
 				return FormatterFlowControl.NearBranch;
-			case Code.Call_ptr1632:
 			case Code.Call_ptr1616:
+			case Code.Call_ptr1632:
 				return FormatterFlowControl.FarCall;
-			case Code.Jmp_ptr1632:
 			case Code.Jmp_ptr1616:
+			case Code.Jmp_ptr1632:
 				return FormatterFlowControl.FarBranch;
 			case Code.Xbegin_rel16:
 			case Code.Xbegin_rel32:

@@ -182,7 +182,10 @@ pub(super) fn get_flow_control(instruction: &Instruction) -> FormatterFlowContro
 		| Code::Call_rel32_32
 		| Code::Call_rel32_64
 		=> FormatterFlowControl::NearCall,
-		Code::Jo_rel16
+		Code::Jmp_rel16
+		| Code::Jmp_rel32_32
+		| Code::Jmp_rel32_64
+		| Code::Jo_rel16
 		| Code::Jo_rel32_32
 		| Code::Jo_rel32_64
 		| Code::Jno_rel16
@@ -230,17 +233,14 @@ pub(super) fn get_flow_control(instruction: &Instruction) -> FormatterFlowContro
 		| Code::Jg_rel16
 		| Code::Jg_rel32_32
 		| Code::Jg_rel32_64
-		| Code::Jmp_rel16
-		| Code::Jmp_rel32_32
-		| Code::Jmp_rel32_64
 		| Code::Jmpe_disp16
 		| Code::Jmpe_disp32
 		=> FormatterFlowControl::NearBranch,
-		Code::Call_ptr1632
-		| Code::Call_ptr1616
+		Code::Call_ptr1616
+		| Code::Call_ptr1632
 		=> FormatterFlowControl::FarCall,
-		Code::Jmp_ptr1632
-		| Code::Jmp_ptr1616
+		Code::Jmp_ptr1616
+		| Code::Jmp_ptr1632
 		=> FormatterFlowControl::FarBranch,
 		Code::Xbegin_rel16
 		| Code::Xbegin_rel32

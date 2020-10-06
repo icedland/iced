@@ -503,6 +503,8 @@ namespace Generator.Tables {
 					case "call-far": state.BranchKind = BranchKind.CallFar; break;
 					case "call-near-indirect": state.BranchKind = BranchKind.CallNearIndirect; break;
 					case "call-far-indirect": state.BranchKind = BranchKind.CallFarIndirect; break;
+					case "jmpe-near": state.BranchKind = BranchKind.JmpeNear; break;
+					case "jmpe-near-indirect": state.BranchKind = BranchKind.JmpeNearIndirect; break;
 					case "loop": state.BranchKind = BranchKind.Loop; break;
 					case "jrcxz": state.BranchKind = BranchKind.Jrcxz; break;
 					case "xbegin": state.BranchKind = BranchKind.Xbegin; break;

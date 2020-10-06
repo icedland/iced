@@ -8021,6 +8021,7 @@ INSTRUCTION: o16 0F 00 /6 | JMPE r/m16 | IA64
 	ops: r=r16_or_mem | WordOffset
 	flags: 16 32
 	cflow: IndirectBranch
+	branch: jmpe-near-indirect
 	decoder-option: Jmpe
 	fast: flags=force-size=always
 	gas: flags=indirect suffix=w
@@ -8034,6 +8035,7 @@ INSTRUCTION: o32 0F 00 /6 | JMPE r/m32 | IA64
 	ops: r=r32_or_mem | DwordOffset
 	flags: 16 32
 	cflow: IndirectBranch
+	branch: jmpe-near-indirect
 	decoder-option: Jmpe
 	fast: flags=force-size=always
 	gas: flags=indirect suffix=l
@@ -16900,6 +16902,7 @@ INSTRUCTION: o16 0F B8 cw | JMPE disp16 | IA64
 	ops: r=brdisp_2
 	flags: 16 32
 	cflow: UnconditionalBranch
+	branch: jmpe-near
 	decoder-option: Jmpe
 	gas: osz
 	nasm: osz-call
@@ -16910,6 +16913,7 @@ INSTRUCTION: o32 0F B8 cd | JMPE disp32 | IA64
 	ops: r=brdisp_4
 	flags: 16 32
 	cflow: UnconditionalBranch
+	branch: jmpe-near
 	decoder-option: Jmpe
 	gas: osz
 	nasm: osz-call
