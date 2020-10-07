@@ -29,7 +29,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
-using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
 using Generator.Enums.InstructionInfo;
@@ -55,7 +54,7 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toFlowControl;
 		readonly Dictionary<string, EnumValue> toCodeInfo;
 		readonly Dictionary<string, EnumValue> toPseudoOpsKind;
-		readonly Dictionary<string, EnumValue> toDecoderOptions;
+		readonly Dictionary<string, EnumValue> toDecOptionValue;
 		readonly Dictionary<string, EnumValue> toMemorySize;
 		readonly Dictionary<string, EnumValue> toOpCodeOperandKind;
 		readonly Dictionary<string, EnumValue> toRegisterIgnoreCase;
@@ -73,7 +72,7 @@ namespace Generator.Tables {
 		readonly EnumType signExtendInfoType;
 		readonly EnumValue memorySizeUnknown;
 		readonly EnumValue flowControlNext;
-		readonly EnumValue decoderOptionsNone;
+		readonly EnumValue decoderOptionNone;
 		readonly EnumValue codeInfoNone;
 		readonly List<OpInfo> opAccess;
 		readonly List<OpCodeOperandKind> opKinds;
@@ -103,7 +102,7 @@ namespace Generator.Tables {
 			toFlowControl = CreateEnumDict(genTypes[TypeIds.FlowControl]);
 			toCodeInfo = CreateEnumDict(genTypes[TypeIds.CodeInfo]);
 			toPseudoOpsKind = CreateEnumDict(genTypes[TypeIds.PseudoOpsKind]);
-			toDecoderOptions = CreateEnumDict(genTypes[TypeIds.DecoderOptions]);
+			toDecOptionValue = CreateEnumDict(genTypes[TypeIds.DecOptionValue]);
 			toMemorySize = CreateEnumDict(genTypes[TypeIds.MemorySize]);
 			toOpCodeOperandKind = CreateEnumDict(genTypes[TypeIds.OpCodeOperandKind]);
 			toRegisterIgnoreCase = CreateEnumDict(genTypes[TypeIds.Register], ignoreCase: true);
@@ -124,7 +123,7 @@ namespace Generator.Tables {
 			tupleTypeN1 = toTupleType[nameof(TupleType.N1)];
 			memorySizeUnknown = toMemorySize[nameof(MemorySize.Unknown)];
 			flowControlNext = toFlowControl[nameof(FlowControl.Next)];
-			decoderOptionsNone = toDecoderOptions[nameof(DecoderOptions.None)];
+			decoderOptionNone = toDecOptionValue[nameof(DecOptionValue.None)];
 			codeInfoNone = toCodeInfo[nameof(CodeInfo.None)];
 		}
 
@@ -245,6 +244,19 @@ namespace Generator.Tables {
 				Error(lineIndex, error);
 				return false;
 			}
+			switch (parsedOpCode.OpCodeLength) {
+			case 1:
+				if (parsedOpCode.OpCode > 0xFF)
+					throw new InvalidOperationException();
+				break;
+			case 2:
+				if (parsedOpCode.OpCode > 0xFFFF)
+					throw new InvalidOperationException();
+				break;
+			default:
+				Error(lineIndex, $"Invalid op code length: {parsedOpCode.OpCodeLength}");
+				return false;
+			}
 			var state = new InstructionDefState(lineIndex, opCodeStr, instrStr, cpuid,
 				tupleType ?? tupleTypeN1, toEncoding[parsedOpCode.Encoding.ToString()]);
 			lineIndex++;
@@ -253,7 +265,7 @@ namespace Generator.Tables {
 			if ((parsedOpCode.Flags & ParsedOpCodeFlags.Fwait) != 0)
 				state.Flags1 |= InstructionDefFlags1.Fwait;
 			if ((parsedOpCode.Flags & ParsedOpCodeFlags.ModRegRmString) != 0)
-				state.IStringFlags |= InstructionStringFlags.ModRegRmString;
+				state.InstrStrFlags |= InstructionStringFlags.ModRegRmString;
 
 			bool foundEnd = false;
 			bool hasRflags = false;
@@ -311,32 +323,31 @@ namespace Generator.Tables {
 					state.CodeMnemonic = lineValue;
 					break;
 
-				case "istring-flags":
-					if (state.IStringFlags != InstructionStringFlags.None) {
+				case "istring-option":
+					if (state.InstrStrFmtOption != InstrStrFmtOption.None) {
 						Error(lineIndex, $"Duplicate {lineKey}");
 						return false;
 					}
-					foreach (var name in lineValue.Split(' ', StringSplitOptions.RemoveEmptyEntries)) {
-						switch (name) {
-						case "op-mask-is-k1":
-							state.IStringFlags |= InstructionStringFlags.OpMaskIsK1;
-							break;
-						case "inc-vec-index":
-							state.IStringFlags |= InstructionStringFlags.IncVecIndex;
-							break;
-						case "no-vec-index":
-							state.IStringFlags |= InstructionStringFlags.NoVecIndex;
-							break;
-						case "swap-vec-index12":
-							state.IStringFlags |= InstructionStringFlags.SwapVecIndex12;
-							break;
-						case "fpu-skip-op0":
-							state.IStringFlags |= InstructionStringFlags.FpuSkipOp0;
-							break;
-						default:
-							Error(lineIndex, $"Unknown value `{name}`");
-							return false;
-						}
+					switch (lineValue) {
+					case "op-mask-is-k1":
+					case "no-gpr-suffix":
+						state.InstrStrFmtOption = InstrStrFmtOption.OpMaskIsK1_or_NoGprSuffix;
+						break;
+					case "inc-vec-index":
+						state.InstrStrFmtOption = InstrStrFmtOption.IncVecIndex;
+						break;
+					case "no-vec-index":
+						state.InstrStrFmtOption = InstrStrFmtOption.NoVecIndex;
+						break;
+					case "swap-vec-index12":
+						state.InstrStrFmtOption = InstrStrFmtOption.SwapVecIndex12;
+						break;
+					case "fpu-skip-op0":
+						state.InstrStrFmtOption = InstrStrFmtOption.SkipOp0;
+						break;
+					default:
+						Error(lineIndex, $"Unknown value `{lineValue}`");
+						return false;
 					}
 					break;
 
@@ -391,8 +402,8 @@ namespace Generator.Tables {
 						Error(lineIndex, $"Duplicate {lineKey}");
 						return false;
 					}
-					if (!TryGetValue(toDecoderOptions, lineValue, out state.DecoderOption, out error)) {
-						Error(lineIndex, error);
+					if (!TryGetValue(toDecOptionValue, lineValue, out state.DecoderOption, out _)) {
+						Error(lineIndex, $"Add missing decoder option value to {nameof(DecOptionValue)}: {lineValue}");
 						return false;
 					}
 					break;
@@ -453,7 +464,7 @@ namespace Generator.Tables {
 						case "cpl3": state.Flags1 |= InstructionDefFlags1.Cpl3; break;
 						case "save-restore": state.Flags1 |= InstructionDefFlags1.SaveRestore; break;
 						case "stack": state.Flags1 |= InstructionDefFlags1.StackInstruction; break;
-						case "ignore-seg": state.Flags1 |= InstructionDefFlags1.IgnoreSegment; break;
+						case "ignore-seg": state.Flags1 |= InstructionDefFlags1.IgnoresSegment; break;
 						case "krw": state.Flags1 |= InstructionDefFlags1.OpMaskReadWrite; break;
 						case "wig32":
 							if (state.OpCode.WBit != OpCodeW.W0 && state.OpCode.WBit != OpCodeW.WIG) {
@@ -474,7 +485,7 @@ namespace Generator.Tables {
 						case "no-instr": state.Flags1 |= InstructionDefFlags1.NoInstruction; break;
 						case "knz": state.Flags1 |= InstructionDefFlags1.RequireOpMaskRegister; break;
 						case "ignore-mod": state.Flags1 |= InstructionDefFlags1.IgnoresModBits; break;
-						case "unique-reg-num": state.Flags1 |= InstructionDefFlags1.RequireUniqueRegNums; break;
+						case "unique-reg-num": state.Flags1 |= InstructionDefFlags1.RequiresUniqueRegNums; break;
 						case "no-66": state.Flags1 |= InstructionDefFlags1.No66; break;
 						case "nfx": state.Flags1 |= InstructionDefFlags1.NFx; break;
 
@@ -515,7 +526,7 @@ namespace Generator.Tables {
 						case "io": state.Flags3 |= InstructionDefFlags3.InputOutput; break;
 						case "nop": state.Flags3 |= InstructionDefFlags3.Nop; break;
 						case "res-nop": state.Flags3 |= InstructionDefFlags3.ReservedNop; break;
-						case "ignore-er": state.Flags3 |= InstructionDefFlags3.IgnoreRoundingControl; break;
+						case "ignore-er": state.Flags3 |= InstructionDefFlags3.IgnoresRoundingControl; break;
 						case "serialize-intel": state.Flags3 |= InstructionDefFlags3.SerializingIntel; break;
 						case "serialize-amd": state.Flags3 |= InstructionDefFlags3.SerializingAmd; break;
 						case "may-require-cpl0": state.Flags3 |= InstructionDefFlags3.MayRequireCpl0; break;
@@ -766,39 +777,39 @@ namespace Generator.Tables {
 				}
 			}
 
-			var istringFlagsMask =
-				InstructionStringFlags.OpMaskIsK1 |
-				InstructionStringFlags.IncVecIndex |
-				InstructionStringFlags.NoVecIndex |
-				InstructionStringFlags.SwapVecIndex12 |
-				InstructionStringFlags.FpuSkipOp0;
-			if ((state.IStringFlags & istringFlagsMask) == InstructionStringFlags.None) {
+			if (state.InstrStrFmtOption == InstrStrFmtOption.None) {
+				int mm1Index = instrStr.IndexOf("mm1", StringComparison.Ordinal);
+				int mm2Index = instrStr.IndexOf("mm2", StringComparison.Ordinal);
 				if (instrStr.Contains("k2 {k1}", StringComparison.Ordinal))
-					state.IStringFlags |= InstructionStringFlags.OpMaskIsK1;
-				if (instrStr.Contains("mm2") && !instrStr.Contains("mm1") &&
+					state.InstrStrFmtOption = InstrStrFmtOption.OpMaskIsK1_or_NoGprSuffix;
+				else if (mm2Index >= 0 && mm1Index < 0 &&
 					!(state.OpKinds.Length > 2 &&
 					(state.OpKinds[0] == OpCodeOperandKind.k_reg ||
 					state.OpKinds[0] == OpCodeOperandKind.kp1_reg))) {
-					state.IStringFlags |= InstructionStringFlags.IncVecIndex;
+					state.InstrStrFmtOption = InstrStrFmtOption.IncVecIndex;
 				}
-				if ((instrStr.EndsWith("mm", StringComparison.Ordinal) || instrStr.Contains("mm,", StringComparison.Ordinal)) &&
+				else if ((instrStr.EndsWith("mm", StringComparison.Ordinal) || instrStr.Contains("mm,", StringComparison.Ordinal)) &&
 					!instrStr.Contains("mm1", StringComparison.Ordinal) && !instrStr.Contains("mm2", StringComparison.Ordinal)) {
-					state.IStringFlags |= InstructionStringFlags.NoVecIndex;
+					state.InstrStrFmtOption = InstrStrFmtOption.NoVecIndex;
 				}
-				int vecidx1 = instrStr.IndexOf("mm1", StringComparison.Ordinal);
-				int vecidx2 = instrStr.IndexOf("mm2", StringComparison.Ordinal);
-				if (vecidx1 >= 0 && vecidx2 >= 0 && vecidx2 < vecidx1)
-					state.IStringFlags |= InstructionStringFlags.SwapVecIndex12;
-				if (!instrStr.Contains(',') &&
+				else if (mm1Index >= 0 && mm2Index >= 0 && mm2Index < mm1Index)
+					state.InstrStrFmtOption = InstrStrFmtOption.SwapVecIndex12;
+				else if (!instrStr.Contains(',') &&
 					state.OpKinds.Length == 2 &&
 					state.OpKinds[0] == OpCodeOperandKind.st0 &&
 					state.OpKinds[1] == OpCodeOperandKind.sti_opcode) {
-					state.IStringFlags |= InstructionStringFlags.FpuSkipOp0;
+					state.InstrStrFmtOption = InstrStrFmtOption.SkipOp0;
+				}
+				else if (instrStr.Contains("r8, r8,", StringComparison.Ordinal) || instrStr.Contains("r16, r16,", StringComparison.Ordinal) ||
+					instrStr.Contains("r32, r32,", StringComparison.Ordinal) || instrStr.Contains("r64, r64,", StringComparison.Ordinal) ||
+					instrStr.EndsWith("r8, r8", StringComparison.Ordinal) || instrStr.EndsWith("r16, r16", StringComparison.Ordinal) ||
+					instrStr.EndsWith("r32, r32", StringComparison.Ordinal) || instrStr.EndsWith("r64, r64", StringComparison.Ordinal)) {
+					state.InstrStrFmtOption = InstrStrFmtOption.OpMaskIsK1_or_NoGprSuffix;
 				}
 			}
 
 			state.Cflow ??= flowControlNext;
-			state.DecoderOption ??= decoderOptionsNone;
+			state.DecoderOption ??= decoderOptionNone;
 			state.CodeInfo ??= codeInfoNone;
 			state.MemorySize ??= memorySizeUnknown;
 			state.MemorySize_Broadcast ??= memorySizeUnknown;
@@ -902,8 +913,8 @@ namespace Generator.Tables {
 				Error(state.LineIndex, "Instruction can't be decoded by any decoder");
 				return false;
 			}
-			if ((state.Flags2 & InstructionDefFlags2.LongMode) != 0 && (state.Flags1 & InstructionDefFlags1.Bit64) == 0) {
-				Error(state.LineIndex, "Long mode is enabled but 64-bit code is not allowed");
+			if (((state.Flags2 & InstructionDefFlags2.LongMode) != 0) != ((state.Flags1 & InstructionDefFlags1.Bit64) != 0)) {
+				Error(state.LineIndex, "is-long-mode != is-64-bit");
 				return false;
 			}
 
@@ -971,9 +982,9 @@ namespace Generator.Tables {
 				return false;
 			}
 			def = new InstructionDef(state.Code, state.OpCodeStr, state.InstrStr, state.Mnemonic, state.MemorySize,
-				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.VmxMode, state.IStringFlags,
-				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
-				state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
+				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.InstrStrFmtOption,
+				state.InstrStrFlags, state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
+				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
 				pseudoOp, (CodeInfo)state.CodeInfo.Value, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.RflagsRead,
 				state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
@@ -1074,7 +1085,7 @@ namespace Generator.Tables {
 		static readonly string[][] setccOtherMnemonics = CreateOtherCCMnemonics("set");
 
 		static bool TryGetCcMnemonics(InstructionDefState def, out int ccIndex, [NotNullWhen(true)] out string[]? extraMnemonics, [NotNullWhen(false)] out string? error) {
-			ccIndex = def.OpCode.OpCode & 0x0F;
+			ccIndex = (int)(def.OpCode.OpCode & 0x0F);
 			if (def.InstrStr.StartsWith("CMOV", StringComparison.OrdinalIgnoreCase))
 				extraMnemonics = cmovccOtherMnemonics[ccIndex];
 			else if (def.InstrStr.StartsWith("SET", StringComparison.OrdinalIgnoreCase))
@@ -1600,7 +1611,7 @@ namespace Generator.Tables {
 					}
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
-					int ccIndex = def.OpCode.OpCode & 0x0F;
+					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
 					var extraMnemonics = jccOtherMnemonics[ccIndex];
 					ctorKind = extraMnemonics.Length switch {
 						0 => gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.os_jcc_1)],
@@ -1937,7 +1948,7 @@ namespace Generator.Tables {
 						ctorKind = intelCtorKind[nameof(Enums.Formatter.Intel.CtorKind.pops)];
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
-					int ccIndex = def.OpCode.OpCode & 0x0F;
+					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
 					var extraMnemonics = jccOtherMnemonics[ccIndex];
 					if (def.BranchKind == BranchKind.JccShort)
 						state.Flags.Add(intelInstrOpInfoFlags[nameof(Enums.Formatter.Intel.InstrOpInfoFlags.BranchSizeInfo_Short)]);
@@ -2392,7 +2403,7 @@ namespace Generator.Tables {
 						ctorKind = masmCtorKind[nameof(Enums.Formatter.Masm.CtorKind.pops_2)];
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
-					int ccIndex = def.OpCode.OpCode & 0x0F;
+					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
 					var extraMnemonics = jccOtherMnemonics[ccIndex];
 					ctorKind = extraMnemonics.Length switch {
 						0 => masmCtorKind[nameof(Enums.Formatter.Masm.CtorKind.jcc_1)],
@@ -2839,7 +2850,7 @@ namespace Generator.Tables {
 						ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.er_2)];
 				}
 				else if (def.BranchKind == BranchKind.JccShort || def.BranchKind == BranchKind.JccNear) {
-					int ccIndex = def.OpCode.OpCode & 0x0F;
+					int ccIndex = (int)(def.OpCode.OpCode & 0x0F);
 					var extraMnemonics = jccOtherMnemonics[ccIndex];
 					if (def.BranchKind == BranchKind.JccShort)
 						state.Flags.Add(nasmInstrOpInfoFlags[nameof(Enums.Formatter.Nasm.InstrOpInfoFlags.BranchSizeInfo_Short)]);
@@ -3060,7 +3071,8 @@ namespace Generator.Tables {
 		public RflagsBits RflagsWritten;
 		public RflagsBits RflagsCleared;
 		public RflagsBits RflagsSet;
-		public InstructionStringFlags IStringFlags;
+		public InstrStrFmtOption InstrStrFmtOption;
+		public InstructionStringFlags InstrStrFlags;
 		public EnumValue? PseudoOpsKind;
 		public EnumValue? MemorySize;
 		public EnumValue? MemorySize_Broadcast;

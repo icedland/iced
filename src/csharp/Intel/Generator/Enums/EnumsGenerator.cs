@@ -114,8 +114,6 @@ namespace Generator.Enums {
 				genTypes[TypeIds.VexOpCodeTable],
 				genTypes[TypeIds.XopOpCodeTable],
 				genTypes[TypeIds.EvexOpCodeTable],
-				genTypes[TypeIds.Encodable],
-				genTypes[TypeIds.OpCodeHandlerFlags],
 				genTypes[TypeIds.LegacyOpKind],
 				genTypes[TypeIds.VexOpKind],
 				genTypes[TypeIds.XopOpKind],
@@ -128,10 +126,15 @@ namespace Generator.Enums {
 				genTypes[TypeIds.WBit],
 				genTypes[TypeIds.LBit],
 				genTypes[TypeIds.LKind],
-				genTypes[TypeIds.OpCodeFlags],
 				genTypes[TypeIds.RepPrefixKind],
 				genTypes[TypeIds.RelocKind],
 				genTypes[TypeIds.BlockEncoderOptions],
+				genTypes[TypeIds.EncFlags2],
+				genTypes[TypeIds.EncFlags3],
+				genTypes[TypeIds.OpCodeInfoFlags1],
+				genTypes[TypeIds.OpCodeInfoFlags2],
+				genTypes[TypeIds.DecOptionValue],
+				genTypes[TypeIds.InstrStrFmtOption],
 			};
 
 			foreach (var enumType in allEnums)

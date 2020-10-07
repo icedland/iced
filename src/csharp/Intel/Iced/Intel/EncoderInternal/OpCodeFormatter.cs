@@ -43,11 +43,13 @@ namespace Iced.Intel.EncoderInternal {
 		readonly OpCodeInfo opCode;
 		readonly StringBuilder sb;
 		readonly LKind lkind;
+		readonly bool hasModrmInfo;
 
-		public OpCodeFormatter(OpCodeInfo opCode, StringBuilder sb, LKind lkind) {
+		public OpCodeFormatter(OpCodeInfo opCode, StringBuilder sb, LKind lkind, bool hasModrmInfo) {
 			this.opCode = opCode;
 			this.sb = sb;
 			this.lkind = lkind;
+			this.hasModrmInfo = hasModrmInfo;
 		}
 
 		public string Format() {
@@ -260,59 +262,31 @@ namespace Iced.Intel.EncoderInternal {
 			isRegOnly = true;
 			rrr = opCode.GroupIndex;
 			bbb = opCode.RmGroupIndex;
-			bool hasModrmInfo = bbb >= 0;
-			switch (opCode.Code) {
-#if !NO_VEX
-			case Code.VEX_Ldtilecfg_m512:
-			case Code.VEX_Sttilecfg_m512:
-#endif
-			case Code.Enqcmds_r16_m512:
-			case Code.Enqcmds_r32_m512:
-			case Code.Enqcmds_r64_m512:
-			case Code.Enqcmd_r16_m512:
-			case Code.Enqcmd_r32_m512:
-			case Code.Enqcmd_r64_m512:
-				hasModrmInfo = true;
-				break;
-			case Code.Aesencwide128kl_m384:
-			case Code.Aesdecwide128kl_m384:
-			case Code.Aesencwide256kl_m512:
-			case Code.Aesdecwide256kl_m512:
-			case Code.Loadiwkey_xmm_xmm:
-			case Code.Aesenc128kl_xmm_m384:
-			case Code.Aesdec128kl_xmm_m384:
-			case Code.Aesenc256kl_xmm_m512:
-			case Code.Aesdec256kl_xmm_m512:
-			case Code.Encodekey128_r32_r32:
-			case Code.Encodekey256_r32_r32:
-				hasModrmInfo = true;
-				break;
-			default:
-				break;
-			}
+			if (!hasModrmInfo)
+				return false;
+
 			int opCount = opCode.OpCount;
 			for (int i = 0; i < opCount; i++) {
 				switch (opCode.GetOpKind(i)) {
+				case OpCodeOperandKind.mem_offs:
 				case OpCodeOperandKind.mem:
+				case OpCodeOperandKind.mem_mpx:
+				case OpCodeOperandKind.mem_mib:
 					isRegOnly = false;
 					break;
+				case OpCodeOperandKind.mem_vsib32x:
+				case OpCodeOperandKind.mem_vsib64x:
+				case OpCodeOperandKind.mem_vsib32y:
+				case OpCodeOperandKind.mem_vsib64y:
+				case OpCodeOperandKind.mem_vsib32z:
+				case OpCodeOperandKind.mem_vsib64z:
 				case OpCodeOperandKind.sibmem:
-					hasModrmInfo = true;
 					isRegOnly = false;
 					bbb = 4;
 					break;
-				case OpCodeOperandKind.r32_reg:
-				case OpCodeOperandKind.xmm_reg:
-					isRegOnly = true;
-					break;
-				case OpCodeOperandKind.tmm_reg:
-				case OpCodeOperandKind.tmm_rm:
-				case OpCodeOperandKind.tmm_vvvv:
-					hasModrmInfo = true;
-					break;
 				}
 			}
-			return hasModrmInfo;
+			return true;
 		}
 
 		void AppendBits(string name, int bits, int numBits) {

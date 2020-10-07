@@ -70,11 +70,12 @@ pub(super) struct OpCodeFormatter<'a, 'b> {
 	sb: &'b mut String,
 	#[allow(dead_code)]
 	lkind: LKind,
+	has_modrm_info: bool,
 }
 
 impl<'a, 'b> OpCodeFormatter<'a, 'b> {
-	pub(super) fn new(op_code: &'a OpCodeInfo, sb: &'b mut String, lkind: LKind) -> OpCodeFormatter<'a, 'b> {
-		Self { op_code, sb, lkind }
+	pub(super) fn new(op_code: &'a OpCodeInfo, sb: &'b mut String, lkind: LKind, has_modrm_info: bool) -> OpCodeFormatter<'a, 'b> {
+		Self { op_code, sb, lkind, has_modrm_info }
 	}
 
 	pub(super) fn format(&mut self) -> String {
@@ -256,46 +257,28 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		let mut is_reg_only = true;
 		let rrr = self.op_code.group_index();
 		let mut bbb = self.op_code.rm_group_index();
-		let mut has_modrm_info = bbb >= 0;
-		match self.op_code.code() {
-			#[cfg(not(feature = "no_vex"))]
-			Code::VEX_Ldtilecfg_m512 | Code::VEX_Sttilecfg_m512 => has_modrm_info = true,
-			Code::Enqcmds_r16_m512
-			| Code::Enqcmds_r32_m512
-			| Code::Enqcmds_r64_m512
-			| Code::Enqcmd_r16_m512
-			| Code::Enqcmd_r32_m512
-			| Code::Enqcmd_r64_m512 => has_modrm_info = true,
-			Code::Aesencwide128kl_m384
-			| Code::Aesdecwide128kl_m384
-			| Code::Aesencwide256kl_m512
-			| Code::Aesdecwide256kl_m512
-			| Code::Loadiwkey_xmm_xmm
-			| Code::Aesenc128kl_xmm_m384
-			| Code::Aesdec128kl_xmm_m384
-			| Code::Aesenc256kl_xmm_m512
-			| Code::Aesdec256kl_xmm_m512
-			| Code::Encodekey128_r32_r32
-			| Code::Encodekey256_r32_r32 => has_modrm_info = true,
-			_ => {}
-		}
-		for i in 0..self.op_code.op_count() {
-			match self.op_code.op_kind(i) {
-				OpCodeOperandKind::mem => is_reg_only = false,
-				OpCodeOperandKind::sibmem => {
-					has_modrm_info = true;
-					is_reg_only = false;
-					bbb = 4;
-				}
-				OpCodeOperandKind::r32_reg | OpCodeOperandKind::xmm_reg => is_reg_only = true,
-				OpCodeOperandKind::tmm_reg | OpCodeOperandKind::tmm_rm | OpCodeOperandKind::tmm_vvvv => has_modrm_info = true,
-				_ => {}
-			}
-		}
-		if has_modrm_info {
-			Some((is_reg_only, rrr, bbb))
-		} else {
+		if !self.has_modrm_info {
 			None
+		} else {
+			for i in 0..self.op_code.op_count() {
+				match self.op_code.op_kind(i) {
+					OpCodeOperandKind::mem_offs | OpCodeOperandKind::mem | OpCodeOperandKind::mem_mpx | OpCodeOperandKind::mem_mib => {
+						is_reg_only = false
+					}
+					OpCodeOperandKind::mem_vsib32x
+					| OpCodeOperandKind::mem_vsib64x
+					| OpCodeOperandKind::mem_vsib32y
+					| OpCodeOperandKind::mem_vsib64y
+					| OpCodeOperandKind::mem_vsib32z
+					| OpCodeOperandKind::mem_vsib64z
+					| OpCodeOperandKind::sibmem => {
+						is_reg_only = false;
+						bbb = 4;
+					}
+					_ => {}
+				}
+			}
+			Some((is_reg_only, rrr, bbb))
 		}
 	}
 

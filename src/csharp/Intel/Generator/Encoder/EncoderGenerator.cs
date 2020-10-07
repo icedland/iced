@@ -36,8 +36,7 @@ namespace Generator.Encoder {
 		protected abstract void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex);
 		protected abstract void GenerateOpCodeInfo(InstructionDef[] defs);
 		protected abstract void Generate((EnumValue value, uint size)[] immSizes);
-		protected abstract void Generate((EnumValue allowedPrefixes, InstructionDefFlags1 prefixes)[] infos, (EnumValue value, InstructionDefFlags1 flag)[] flagsInfos);
-		protected abstract void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuSkipOp0);
+		protected abstract void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings);
 		protected abstract void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib);
 		protected abstract void GenerateCore();
 		protected abstract void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr);
@@ -54,16 +53,6 @@ namespace Generator.Encoder {
 		public void Generate() {
 			var enumTypes = new EnumType[] {
 				genTypes[TypeIds.EncFlags1],
-				genTypes[TypeIds.LegacyFlags3],
-				genTypes[TypeIds.VexFlags3],
-				genTypes[TypeIds.XopFlags3],
-				genTypes[TypeIds.EvexFlags3],
-				genTypes[TypeIds.AllowedPrefixes],
-				genTypes[TypeIds.LegacyFlags],
-				genTypes[TypeIds.VexFlags],
-				genTypes[TypeIds.XopFlags],
-				genTypes[TypeIds.EvexFlags],
-				genTypes[TypeIds.D3nowFlags],
 			};
 			foreach (var enumType in enumTypes)
 				Generate(enumType);
@@ -72,26 +61,9 @@ namespace Generator.Encoder {
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			GenerateOpCodeInfo(defs);
 			Generate(encoderTypes.ImmSizes);
-			var opCodeFlags = genTypes[TypeIds.OpCodeFlags];
-			var flagsInfos = new (EnumValue value, InstructionDefFlags1 flag)[] {
-				(opCodeFlags[nameof(EncoderOpCodeFlags.LockPrefix)], InstructionDefFlags1.Lock),
-				(opCodeFlags[nameof(EncoderOpCodeFlags.XacquirePrefix)], InstructionDefFlags1.Xacquire),
-				(opCodeFlags[nameof(EncoderOpCodeFlags.XreleasePrefix)], InstructionDefFlags1.Xrelease),
-				(opCodeFlags[nameof(EncoderOpCodeFlags.RepPrefix)], InstructionDefFlags1.Rep),
-				(opCodeFlags[nameof(EncoderOpCodeFlags.RepnePrefix)], InstructionDefFlags1.Repne),
-				(opCodeFlags[nameof(EncoderOpCodeFlags.BndPrefix)], InstructionDefFlags1.Bnd),
-				(opCodeFlags[nameof(EncoderOpCodeFlags.HintTakenPrefix)], InstructionDefFlags1.HintTaken),
-				(opCodeFlags[nameof(EncoderOpCodeFlags.NotrackPrefix)], InstructionDefFlags1.Notrack),
-			};
-			Generate(encoderTypes.AllowedPrefixesMap.Select(a => (a.Value, a.Key)).OrderBy(a => a.Value.Value).ToArray(), flagsInfos);
 			var notInstrOpCodeStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.OpCodeString)).ToArray();
 			var notInstrInstrStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.InstructionString)).ToArray();
-			var opMaskIsK1 = defs.Where(a => (a.IStringFlags & InstructionStringFlags.OpMaskIsK1) != 0).Select(a => a.Code).ToArray();
-			var incVecIndex = defs.Where(a => (a.IStringFlags & InstructionStringFlags.IncVecIndex) != 0).Select(a => a.Code).ToArray();
-			var noVecIndex = defs.Where(a => (a.IStringFlags & InstructionStringFlags.NoVecIndex) != 0).Select(a => a.Code).ToArray();
-			var swapVecIndex12 = defs.Where(a => (a.IStringFlags & InstructionStringFlags.SwapVecIndex12) != 0).Select(a => a.Code).ToArray();
-			var fpuSkipOp0 = defs.Where(a => (a.IStringFlags & InstructionStringFlags.FpuSkipOp0) != 0).Select(a => a.Code).ToArray();
-			GenerateInstructionFormatter(notInstrInstrStrs, opMaskIsK1, incVecIndex, noVecIndex, swapVecIndex12, fpuSkipOp0);
+			GenerateInstructionFormatter(notInstrInstrStrs);
 			var opCodeOperandKind = genTypes[TypeIds.OpCodeOperandKind];
 			var hasModRM = new EnumValue[] {
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem)],
@@ -170,212 +142,231 @@ namespace Generator.Encoder {
 			GenerateVsib(vsib32, vsib64);
 		}
 
-		protected IEnumerable<(InstructionDef def, uint dword1, uint dword2, uint dword3)> GetData(InstructionDef[] defs) {
-			int encodingShift = (int)genTypes[TypeIds.EncFlags1]["EncodingShift"].Value;
-			int opCodeShift = (int)genTypes[TypeIds.EncFlags1]["OpCodeShift"].Value;
-
-			var legacyFlags3 = genTypes[TypeIds.LegacyFlags3];
-			var vexFlags3 = genTypes[TypeIds.VexFlags3];
-			var xopFlags3 = genTypes[TypeIds.XopFlags3];
-			var evexFlags3 = genTypes[TypeIds.EvexFlags3];
-			var legacyFlags = genTypes[TypeIds.LegacyFlags];
-			var vexFlags = genTypes[TypeIds.VexFlags];
-			var xopFlags = genTypes[TypeIds.XopFlags];
-			var evexFlags = genTypes[TypeIds.EvexFlags];
-			var d3nowFlags = genTypes[TypeIds.D3nowFlags];
+		protected IEnumerable<(InstructionDef def, uint encFlags1, uint encFlags2, uint encFlags3, uint opcFlags1, uint opcFlags2)> GetData(InstructionDef[] defs) {
+			var encFlags1Type = genTypes[TypeIds.EncFlags1];
+			var ignoreRoundingControl = encFlags1Type[nameof(InstructionDefFlags3.IgnoresRoundingControl)];
+			var amdLockRegBit = encFlags1Type[nameof(InstructionDefFlags3.AmdLockRegBit)];
 
 			var legacyOpShifts = new[] {
-				(int)legacyFlags3["Op0Shift"].Value,
-				(int)legacyFlags3["Op1Shift"].Value,
-				(int)legacyFlags3["Op2Shift"].Value,
-				(int)legacyFlags3["Op3Shift"].Value,
+				(int)encFlags1Type["Legacy_Op0Shift"].Value,
+				(int)encFlags1Type["Legacy_Op1Shift"].Value,
+				(int)encFlags1Type["Legacy_Op2Shift"].Value,
+				(int)encFlags1Type["Legacy_Op3Shift"].Value,
 			};
 			var vexOpShifts = new[] {
-				(int)vexFlags3["Op0Shift"].Value,
-				(int)vexFlags3["Op1Shift"].Value,
-				(int)vexFlags3["Op2Shift"].Value,
-				(int)vexFlags3["Op3Shift"].Value,
-				(int)vexFlags3["Op4Shift"].Value,
+				(int)encFlags1Type["VEX_Op0Shift"].Value,
+				(int)encFlags1Type["VEX_Op1Shift"].Value,
+				(int)encFlags1Type["VEX_Op2Shift"].Value,
+				(int)encFlags1Type["VEX_Op3Shift"].Value,
+				(int)encFlags1Type["VEX_Op4Shift"].Value,
 			};
 			var xopOpShifts = new[] {
-				(int)xopFlags3["Op0Shift"].Value,
-				(int)xopFlags3["Op1Shift"].Value,
-				(int)xopFlags3["Op2Shift"].Value,
-				(int)xopFlags3["Op3Shift"].Value,
+				(int)encFlags1Type["XOP_Op0Shift"].Value,
+				(int)encFlags1Type["XOP_Op1Shift"].Value,
+				(int)encFlags1Type["XOP_Op2Shift"].Value,
+				(int)encFlags1Type["XOP_Op3Shift"].Value,
 			};
 			var evexOpShifts = new[] {
-				(int)evexFlags3["Op0Shift"].Value,
-				(int)evexFlags3["Op1Shift"].Value,
-				(int)evexFlags3["Op2Shift"].Value,
-				(int)evexFlags3["Op3Shift"].Value,
+				(int)encFlags1Type["EVEX_Op0Shift"].Value,
+				(int)encFlags1Type["EVEX_Op1Shift"].Value,
+				(int)encFlags1Type["EVEX_Op2Shift"].Value,
+				(int)encFlags1Type["EVEX_Op3Shift"].Value,
 			};
 
-			var legacyMandatoryPrefixShift = (int)legacyFlags["MandatoryPrefixByteShift"].Value;
-			var legacyOpCodeTableShift = (int)legacyFlags["LegacyOpCodeTableShift"].Value;
-			var legacyEncodableShift = (int)legacyFlags["EncodableShift"].Value;
-			var legacyHasGroupIndex = legacyFlags["HasGroupIndex"].Value;
-			var legacyGroupShift = (int)legacyFlags["GroupShift"].Value;
-			var legacyAllowedPrefixesShift = (int)legacyFlags["AllowedPrefixesShift"].Value;
-			var legacyFwait = legacyFlags["Fwait"].Value;
-			var legacyHasMandatoryPrefix = legacyFlags["HasMandatoryPrefix"].Value;
-			var legacyOperandSizeShift = (int)legacyFlags["OperandSizeShift"].Value;
-			var legacyAddressSizeShift = (int)legacyFlags["AddressSizeShift"].Value;
-
-			var vexMandatoryPrefixShift = (int)vexFlags["MandatoryPrefixByteShift"].Value;
-			var vexOpCodeTableShift = (int)vexFlags["VexOpCodeTableShift"].Value;
-			var vexEncodableShift = (int)vexFlags["EncodableShift"].Value;
-			var vexHasGroupIndex = vexFlags["HasGroupIndex"].Value;
-			var vexHasRmGroupIndex = vexFlags["HasRmGroupIndex"].Value;
-			var vexGroupShift = (int)vexFlags["GroupShift"].Value;
-			var vexLBitShift = (int)vexFlags["LBitShift"].Value;
-			var vexWBitShift = (int)vexFlags["WBitShift"].Value;
-
-			var xopMandatoryPrefixShift = (int)xopFlags["MandatoryPrefixByteShift"].Value;
-			var xopOpCodeTableShift = (int)xopFlags["XopOpCodeTableShift"].Value;
-			var xopEncodableShift = (int)xopFlags["EncodableShift"].Value;
-			var xopHasGroupIndex = xopFlags["HasGroupIndex"].Value;
-			var xopGroupShift = (int)xopFlags["GroupShift"].Value;
-			var xopLBitShift = (int)xopFlags["LBitShift"].Value;
-			var xopWBitShift = (int)xopFlags["WBitShift"].Value;
-
-			var evexMandatoryPrefixShift = (int)evexFlags["MandatoryPrefixByteShift"].Value;
-			var evexOpCodeTableShift = (int)evexFlags["EvexOpCodeTableShift"].Value;
-			var evexEncodableShift = (int)evexFlags["EncodableShift"].Value;
-			var evexHasGroupIndex = evexFlags["HasGroupIndex"].Value;
-			var evexGroupShift = (int)evexFlags["GroupShift"].Value;
-			var evexLBitShift = (int)evexFlags["LBitShift"].Value;
-			var evexWBitShift = (int)evexFlags["WBitShift"].Value;
-			var evexTupleTypeShift = (int)evexFlags["TupleTypeShift"].Value;
-			var evex_b = evexFlags["b"].Value;
-			var evex_er = evexFlags["er"].Value;
-			var evex_sae = evexFlags["sae"].Value;
-			var evex_k1 = evexFlags["k1"].Value;
-			var evex_z = evexFlags["z"].Value;
-			var evexRequireOpMaskRegister = evexFlags["RequireOpMaskRegister"].Value;
-
-			var d3nowEncodableShift = (int)d3nowFlags["EncodableShift"].Value;
-
 			foreach (var def in defs) {
-				uint dword1, dword2, dword3;
+				uint encFlags1 = 0;
 
-				dword1 = (uint)def.Encoding << encodingShift;
+				if ((def.Flags3 & InstructionDefFlags3.IgnoresRoundingControl) != 0)
+					encFlags1 |= ignoreRoundingControl.Value;
+				if ((def.Flags3 & InstructionDefFlags3.AmdLockRegBit) != 0)
+					encFlags1 |= amdLockRegBit.Value;
 
+				var encFlags2 = EncFlags2.None;
+				encFlags2 |= (EncFlags2)(def.OpCode << (int)EncFlags2.OpCodeShift);
+				switch (def.OpCodeLength) {
+				case 1: break;
+				case 2: encFlags2 |= EncFlags2.OpCodeIs2Bytes; break;
+				default: throw new InvalidOperationException();
+				}
+
+				var mpByte = GetMandatoryPrefixByte(def.MandatoryPrefix);
+				if ((uint)mpByte > (uint)EncFlags2.MandatoryPrefixMask)
+					throw new InvalidOperationException();
+				encFlags2 |= (EncFlags2)((uint)mpByte << (int)EncFlags2.MandatoryPrefixShift);
+				if (def.MandatoryPrefix != MandatoryPrefix.None)
+					encFlags2 |= EncFlags2.HasMandatoryPrefix;
+
+				var lbit = GetLBit(def);
+				if ((uint)lbit > (uint)EncFlags2.LBitMask)
+					throw new InvalidOperationException();
+				encFlags2 |= (EncFlags2)((uint)lbit << (int)EncFlags2.LBitShift);
+
+				var wbit = GetWBit(def);
+				if ((uint)wbit > (uint)EncFlags2.WBitMask)
+					throw new InvalidOperationException();
+				encFlags2 |= (EncFlags2)((uint)wbit << (int)EncFlags2.WBitShift);
+
+				if (def.GroupIndex >= 0) {
+					if (def.RmGroupIndex >= 0)
+						throw new InvalidOperationException();
+					if ((uint)def.GroupIndex > (uint)EncFlags2.GroupIndexMask)
+						throw new InvalidOperationException();
+					encFlags2 |= EncFlags2.HasGroupIndex;
+					encFlags2 |= (EncFlags2)((uint)def.GroupIndex << (int)EncFlags2.GroupIndexShift);
+				}
+				else if (def.RmGroupIndex >= 0) {
+					if ((uint)def.RmGroupIndex > (uint)EncFlags2.GroupIndexMask)
+						throw new InvalidOperationException();
+					encFlags2 |= EncFlags2.HasRmGroupIndex;
+					encFlags2 |= (EncFlags2)((uint)def.RmGroupIndex << (int)EncFlags2.GroupIndexShift);
+				}
+
+				var encFlags3 = EncFlags3.None;
+				if ((uint)def.Encoding > (uint)EncFlags3.EncodingMask)
+					throw new InvalidOperationException();
+				encFlags3 |= (EncFlags3)((uint)def.Encoding << (int)EncFlags3.EncodingShift);
+
+				if ((uint)def.OperandSize > (uint)EncFlags3.OperandSizeMask)
+					throw new InvalidOperationException();
+				encFlags3 |= (EncFlags3)((uint)def.OperandSize << (int)EncFlags3.OperandSizeShift);
+
+				if ((uint)def.AddressSize > (uint)EncFlags3.AddressSizeMask)
+					throw new InvalidOperationException();
+				encFlags3 |= (EncFlags3)((uint)def.AddressSize << (int)EncFlags3.AddressSizeShift);
+
+				if ((uint)def.TupleType > (uint)EncFlags3.TupleTypeMask)
+					throw new InvalidOperationException();
+				encFlags3 |= (EncFlags3)((uint)def.TupleType << (int)EncFlags3.TupleTypeShift);
+
+				if ((def.Flags3 & InstructionDefFlags3.DefaultOpSize64) != 0) encFlags3 |= EncFlags3.DefaultOpSize64;
+				if ((def.Flags3 & InstructionDefFlags3.ForceOpSize64) != 0) encFlags3 |= EncFlags3.ForceOpSize64;
+				if ((def.Flags3 & InstructionDefFlags3.IntelForceOpSize64) != 0) encFlags3 |= EncFlags3.IntelForceOpSize64;
+				if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0) encFlags3 |= EncFlags3.Fwait;
+				if ((def.Flags1 & (InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32)) != 0) encFlags3 |= EncFlags3.Bit16or32;
+				if ((def.Flags1 & InstructionDefFlags1.Bit64) != 0) encFlags3 |= EncFlags3.Bit64;
+				if ((def.Flags1 & InstructionDefFlags1.Lock) != 0) encFlags3 |= EncFlags3.Lock;
+				if ((def.Flags1 & InstructionDefFlags1.Xacquire) != 0) encFlags3 |= EncFlags3.Xacquire;
+				if ((def.Flags1 & InstructionDefFlags1.Xrelease) != 0) encFlags3 |= EncFlags3.Xrelease;
+				if ((def.Flags1 & InstructionDefFlags1.Rep) != 0) encFlags3 |= EncFlags3.Rep;
+				if ((def.Flags1 & InstructionDefFlags1.Repne) != 0) encFlags3 |= EncFlags3.Repne;
+				if ((def.Flags1 & InstructionDefFlags1.Bnd) != 0) encFlags3 |= EncFlags3.Bnd;
+				if ((def.Flags1 & InstructionDefFlags1.HintTaken) != 0) encFlags3 |= EncFlags3.HintTaken;
+				if ((def.Flags1 & InstructionDefFlags1.Notrack) != 0) encFlags3 |= EncFlags3.Notrack;
+				if ((def.Flags1 & InstructionDefFlags1.Broadcast) != 0) encFlags3 |= EncFlags3.Broadcast;
+				if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) encFlags3 |= EncFlags3.RoundingControl;
+				if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) encFlags3 |= EncFlags3.SuppressAllExceptions;
+				if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0) encFlags3 |= EncFlags3.OpMaskRegister;
+				if ((def.Flags1 & InstructionDefFlags1.ZeroingMasking) != 0) encFlags3 |= EncFlags3.ZeroingMasking;
+				if ((def.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0) encFlags3 |= EncFlags3.RequireOpMaskRegister;
+
+				var opcFlags1 = OpCodeInfoFlags1.None;
+				const InstructionDefFlags1 CplBits =
+					InstructionDefFlags1.Cpl0 | InstructionDefFlags1.Cpl1 | InstructionDefFlags1.Cpl2 | InstructionDefFlags1.Cpl3;
+				opcFlags1 |= (def.Flags1 & CplBits) switch {
+					InstructionDefFlags1.Cpl0 => OpCodeInfoFlags1.Cpl0Only,
+					InstructionDefFlags1.Cpl3 => OpCodeInfoFlags1.Cpl3Only,
+					CplBits => OpCodeInfoFlags1.None,
+					_ => throw new InvalidOperationException(),
+				};
+				if ((def.Flags3 & InstructionDefFlags3.InputOutput) != 0) opcFlags1 |= OpCodeInfoFlags1.InputOutput;
+				if ((def.Flags3 & InstructionDefFlags3.Nop) != 0) opcFlags1 |= OpCodeInfoFlags1.Nop;
+				if ((def.Flags3 & InstructionDefFlags3.ReservedNop) != 0) opcFlags1 |= OpCodeInfoFlags1.ReservedNop;
+				if ((def.Flags3 & InstructionDefFlags3.SerializingIntel) != 0) opcFlags1 |= OpCodeInfoFlags1.SerializingIntel;
+				if ((def.Flags3 & InstructionDefFlags3.SerializingAmd) != 0) opcFlags1 |= OpCodeInfoFlags1.SerializingAmd;
+				if ((def.Flags3 & InstructionDefFlags3.MayRequireCpl0) != 0) opcFlags1 |= OpCodeInfoFlags1.MayRequireCpl0;
+				if ((def.Flags3 & InstructionDefFlags3.CetTracked) != 0) opcFlags1 |= OpCodeInfoFlags1.CetTracked;
+				if ((def.Flags3 & InstructionDefFlags3.NonTemporal) != 0) opcFlags1 |= OpCodeInfoFlags1.NonTemporal;
+				if ((def.Flags3 & InstructionDefFlags3.FpuNoWait) != 0) opcFlags1 |= OpCodeInfoFlags1.FpuNoWait;
+				if ((def.Flags1 & InstructionDefFlags1.IgnoresModBits) != 0) opcFlags1 |= OpCodeInfoFlags1.IgnoresModBits;
+				if ((def.Flags1 & InstructionDefFlags1.No66) != 0) opcFlags1 |= OpCodeInfoFlags1.No66;
+				if ((def.Flags1 & InstructionDefFlags1.NFx) != 0) opcFlags1 |= OpCodeInfoFlags1.NFx;
+				if ((def.Flags1 & InstructionDefFlags1.RequiresUniqueRegNums) != 0) opcFlags1 |= OpCodeInfoFlags1.RequiresUniqueRegNums;
+				if ((def.Flags3 & InstructionDefFlags3.Privileged) != 0) opcFlags1 |= OpCodeInfoFlags1.Privileged;
+				if ((def.Flags1 & InstructionDefFlags1.SaveRestore) != 0) opcFlags1 |= OpCodeInfoFlags1.SaveRestore;
+				if ((def.Flags1 & InstructionDefFlags1.StackInstruction) != 0) opcFlags1 |= OpCodeInfoFlags1.StackInstruction;
+				if ((def.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0) opcFlags1 |= OpCodeInfoFlags1.IgnoresSegment;
+				if ((def.Flags1 & InstructionDefFlags1.OpMaskReadWrite) != 0) opcFlags1 |= OpCodeInfoFlags1.OpMaskReadWrite;
+				if ((def.InstrStrFlags & InstructionStringFlags.ModRegRmString) != 0) opcFlags1 |= OpCodeInfoFlags1.ModRegRmString;
+
+				if (def.DecoderOption.DeclaringType.TypeId != TypeIds.DecOptionValue)
+					throw new InvalidOperationException();
+				if (def.DecoderOption.Value > (uint)OpCodeInfoFlags1.DecOptionValueMask)
+					throw new InvalidOperationException();
+				opcFlags1 |= (OpCodeInfoFlags1)(def.DecoderOption.Value << (int)OpCodeInfoFlags1.DecOptionValueShift);
+
+				var opcFlags2 = OpCodeInfoFlags2.None;
+				if ((def.Flags2 & InstructionDefFlags2.RealMode) != 0) opcFlags2 |= OpCodeInfoFlags2.RealMode;
+				if ((def.Flags2 & InstructionDefFlags2.ProtectedMode) != 0) opcFlags2 |= OpCodeInfoFlags2.ProtectedMode;
+				if ((def.Flags2 & InstructionDefFlags2.Virtual8086Mode) != 0) opcFlags2 |= OpCodeInfoFlags2.Virtual8086Mode;
+				if ((def.Flags2 & InstructionDefFlags2.CompatibilityMode) != 0) opcFlags2 |= OpCodeInfoFlags2.CompatibilityMode;
+				if ((def.Flags2 & InstructionDefFlags2.UseOutsideSmm) != 0) opcFlags2 |= OpCodeInfoFlags2.UseOutsideSmm;
+				if ((def.Flags2 & InstructionDefFlags2.UseInSmm) != 0) opcFlags2 |= OpCodeInfoFlags2.UseInSmm;
+				if ((def.Flags2 & InstructionDefFlags2.UseOutsideEnclaveSgx) != 0) opcFlags2 |= OpCodeInfoFlags2.UseOutsideEnclaveSgx;
+				if ((def.Flags2 & InstructionDefFlags2.UseInEnclaveSgx1) != 0) opcFlags2 |= OpCodeInfoFlags2.UseInEnclaveSgx1;
+				if ((def.Flags2 & InstructionDefFlags2.UseInEnclaveSgx2) != 0) opcFlags2 |= OpCodeInfoFlags2.UseInEnclaveSgx2;
+				if ((def.Flags2 & InstructionDefFlags2.UseOutsideVmxOp) != 0) opcFlags2 |= OpCodeInfoFlags2.UseOutsideVmxOp;
+				if ((def.Flags2 & InstructionDefFlags2.UseInVmxRootOp) != 0) opcFlags2 |= OpCodeInfoFlags2.UseInVmxRootOp;
+				if ((def.Flags2 & InstructionDefFlags2.UseInVmxNonRootOp) != 0) opcFlags2 |= OpCodeInfoFlags2.UseInVmxNonRootOp;
+				if ((def.Flags2 & InstructionDefFlags2.UseOutsideSeam) != 0) opcFlags2 |= OpCodeInfoFlags2.UseOutsideSeam;
+				if ((def.Flags2 & InstructionDefFlags2.UseInSeam) != 0) opcFlags2 |= OpCodeInfoFlags2.UseInSeam;
+				if ((def.Flags2 & InstructionDefFlags2.TdxNonRootGenUd) != 0) opcFlags2 |= OpCodeInfoFlags2.TdxNonRootGenUd;
+				if ((def.Flags2 & InstructionDefFlags2.TdxNonRootGenVe) != 0) opcFlags2 |= OpCodeInfoFlags2.TdxNonRootGenVe;
+				if ((def.Flags2 & InstructionDefFlags2.TdxNonRootMayGenEx) != 0) opcFlags2 |= OpCodeInfoFlags2.TdxNonRootMayGenEx;
+				if ((def.Flags2 & InstructionDefFlags2.IntelVmExit) != 0) opcFlags2 |= OpCodeInfoFlags2.IntelVmExit;
+				if ((def.Flags2 & InstructionDefFlags2.IntelMayVmExit) != 0) opcFlags2 |= OpCodeInfoFlags2.IntelMayVmExit;
+				if ((def.Flags2 & InstructionDefFlags2.IntelSmmVmExit) != 0) opcFlags2 |= OpCodeInfoFlags2.IntelSmmVmExit;
+				if ((def.Flags2 & InstructionDefFlags2.AmdVmExit) != 0) opcFlags2 |= OpCodeInfoFlags2.AmdVmExit;
+				if ((def.Flags2 & InstructionDefFlags2.AmdMayVmExit) != 0) opcFlags2 |= OpCodeInfoFlags2.AmdMayVmExit;
+				if ((def.Flags2 & InstructionDefFlags2.TsxAbort) != 0) opcFlags2 |= OpCodeInfoFlags2.TsxAbort;
+				if ((def.Flags2 & InstructionDefFlags2.TsxImplAbort) != 0) opcFlags2 |= OpCodeInfoFlags2.TsxImplAbort;
+				if ((def.Flags2 & InstructionDefFlags2.TsxMayAbort) != 0) opcFlags2 |= OpCodeInfoFlags2.TsxMayAbort;
+				if ((def.Flags2 & (InstructionDefFlags2.IntelDecoder16 | InstructionDefFlags2.IntelDecoder32)) != 0) opcFlags2 |= OpCodeInfoFlags2.IntelDecoder16or32;
+				if ((def.Flags2 & InstructionDefFlags2.IntelDecoder64) != 0) opcFlags2 |= OpCodeInfoFlags2.IntelDecoder64;
+				if ((def.Flags2 & (InstructionDefFlags2.AmdDecoder16 | InstructionDefFlags2.AmdDecoder32)) != 0) opcFlags2 |= OpCodeInfoFlags2.AmdDecoder16or32;
+				if ((def.Flags2 & InstructionDefFlags2.AmdDecoder64) != 0) opcFlags2 |= OpCodeInfoFlags2.AmdDecoder64;
+
+				if ((uint)def.InstrStrFmtOption > (uint)OpCodeInfoFlags2.InstrStrFmtOptionMask)
+					throw new InvalidOperationException();
+				opcFlags2 |= (OpCodeInfoFlags2)((uint)def.InstrStrFmtOption << (int)OpCodeInfoFlags2.InstrStrFmtOptionShift);
+
+				uint tableIndex;
 				switch (def.Encoding) {
 				case EncodingKind.Legacy:
-					dword1 |= def.OpCode << opCodeShift;
-
-					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << legacyMandatoryPrefixShift;
-					dword2 |= (uint)GetLegacyTable(def.Table) << legacyOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(def) << legacyEncodableShift;
-					if (def.GroupIndex >= 0) {
-						dword2 |= legacyHasGroupIndex;
-						dword2 |= (uint)def.GroupIndex << legacyGroupShift;
-					}
-					dword2 |= GetAllowedPrefixes(def) << legacyAllowedPrefixesShift;
-					if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0)
-						dword2 |= legacyFwait;
-					if (def.MandatoryPrefix != MandatoryPrefix.None)
-						dword2 |= legacyHasMandatoryPrefix;
-					dword2 |= (uint)def.OperandSize << legacyOperandSizeShift;
-					dword2 |= (uint)def.AddressSize << legacyAddressSizeShift;
-
-					dword3 = 0;
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						dword3 |= (uint)encoderTypes.ToLegacy(def.OpKinds[i]) << legacyOpShifts[i];
+						encFlags1 |= (uint)encoderTypes.ToLegacy(def.OpKinds[i]) << legacyOpShifts[i];
+					tableIndex = (uint)GetLegacyTable(def.Table);
 					break;
 
 				case EncodingKind.VEX:
-					dword1 |= def.OpCode << opCodeShift;
-
-					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << vexMandatoryPrefixShift;
-					dword2 |= (uint)GetVexTable(def.Table) << vexOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(def) << vexEncodableShift;
-					// They both use the same 3 bits
-					if (def.GroupIndex >= 0 && def.RmGroupIndex >= 0)
-						throw new InvalidOperationException();
-					if (def.GroupIndex >= 0) {
-						dword2 |= vexHasGroupIndex;
-						dword2 |= (uint)def.GroupIndex << vexGroupShift;
-					}
-					if (def.RmGroupIndex >= 0) {
-						dword2 |= vexHasRmGroupIndex;
-						dword2 |= (uint)def.RmGroupIndex << vexGroupShift;
-					}
-					dword2 |= (uint)GetLBit(def) << vexLBitShift;
-					dword2 |= (uint)GetWBit(def) << vexWBitShift;
-
-					dword3 = 0;
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						dword3 |= (uint)encoderTypes.ToVex(def.OpKinds[i]) << vexOpShifts[i];
+						encFlags1 |= (uint)encoderTypes.ToVex(def.OpKinds[i]) << vexOpShifts[i];
+					tableIndex = (uint)GetVexTable(def.Table);
 					break;
 
 				case EncodingKind.EVEX:
-					dword1 |= def.OpCode << opCodeShift;
-
-					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << evexMandatoryPrefixShift;
-					dword2 |= (uint)GetEvexTable(def.Table) << evexOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(def) << evexEncodableShift;
-					if (def.GroupIndex >= 0) {
-						dword2 |= evexHasGroupIndex;
-						dword2 |= (uint)def.GroupIndex << evexGroupShift;
-					}
-					dword2 |= (uint)GetLBit(def) << evexLBitShift;
-					dword2 |= (uint)GetWBit(def) << evexWBitShift;
-					dword2 |= (uint)def.TupleType << evexTupleTypeShift;
-					if ((def.Flags1 & InstructionDefFlags1.Broadcast) != 0)
-						dword2 |= evex_b;
-					if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0)
-						dword2 |= evex_er;
-					if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0)
-						dword2 |= evex_sae;
-					if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0)
-						dword2 |= evex_k1;
-					if ((def.Flags1 & InstructionDefFlags1.ZeroingMasking) != 0)
-						dword2 |= evex_z;
-					if ((def.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0)
-						dword2 |= evexRequireOpMaskRegister;
-
-					dword3 = 0;
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						dword3 |= (uint)encoderTypes.ToEvex(def.OpKinds[i]) << evexOpShifts[i];
+						encFlags1 |= (uint)encoderTypes.ToEvex(def.OpKinds[i]) << evexOpShifts[i];
+					tableIndex = (uint)GetEvexTable(def.Table);
 					break;
 
 				case EncodingKind.XOP:
-					dword1 |= def.OpCode << opCodeShift;
-
-					dword2 = 0;
-					dword2 |= (uint)GetMandatoryPrefixByte(def.MandatoryPrefix) << xopMandatoryPrefixShift;
-					dword2 |= (uint)GetXopTable(def.Table) << xopOpCodeTableShift;
-					dword2 |= (uint)GetEncodable(def) << xopEncodableShift;
-					if (def.GroupIndex >= 0) {
-						dword2 |= xopHasGroupIndex;
-						dword2 |= (uint)def.GroupIndex << xopGroupShift;
-					}
-					dword2 |= (uint)GetLBit(def) << xopLBitShift;
-					dword2 |= (uint)GetWBit(def) << xopWBitShift;
-
-					dword3 = 0;
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						dword3 |= (uint)encoderTypes.ToXop(def.OpKinds[i]) << xopOpShifts[i];
+						encFlags1 |= (uint)encoderTypes.ToXop(def.OpKinds[i]) << xopOpShifts[i];
+					tableIndex = (uint)GetXopTable(def.Table);
 					break;
 
 				case EncodingKind.D3NOW:
-					dword1 |= def.OpCode << opCodeShift;
-
-					dword2 = 0;
-					dword2 |= (uint)GetEncodable(def) << d3nowEncodableShift;
-
-					dword3 = 0;
+					tableIndex = 0;
 					break;
 
 				default:
 					throw new InvalidOperationException();
 				}
+				if (tableIndex > (uint)EncFlags2.TableMask)
+					throw new InvalidOperationException();
+				encFlags2 |= (EncFlags2)(tableIndex << (int)EncFlags2.TableShift);
 
-				yield return (def, dword1, dword2, dword3);
+				yield return (def, encFlags1, (uint)encFlags2, (uint)encFlags3, (uint)opcFlags1, (uint)opcFlags2);
 			}
 		}
 
@@ -386,15 +377,6 @@ namespace Generator.Encoder {
 				MandatoryPrefix.P66 => MandatoryPrefixByte.P66,
 				MandatoryPrefix.PF3 => MandatoryPrefixByte.PF3,
 				MandatoryPrefix.PF2 => MandatoryPrefixByte.PF2,
-				_ => throw new InvalidOperationException(),
-			};
-
-		static Encodable GetEncodable(InstructionDef def) =>
-			(def.Flags1 & (InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit64)) switch {
-				InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit64 => Encodable.Any,
-				InstructionDefFlags1.Bit16 => Encodable.Only1632,
-				InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32 => Encodable.Only1632,
-				InstructionDefFlags1.Bit64 => Encodable.Only64,
 				_ => throw new InvalidOperationException(),
 			};
 
@@ -431,13 +413,9 @@ namespace Generator.Encoder {
 				_ => throw new InvalidOperationException(),
 			};
 
-		uint GetAllowedPrefixes(InstructionDef def) {
-			var flags = def.Flags1 & EncoderTypesGen.PrefixesMask;
-			return encoderTypes.AllowedPrefixesMap[flags].Value;
-		}
-
 		static LBit GetLBit(InstructionDef def) =>
 			def.LBit switch {
+				OpCodeL.None => LBit.L0,
 				OpCodeL.L0 => LBit.L0,
 				OpCodeL.L1 => LBit.L1,
 				OpCodeL.LIG => LBit.LIG,
@@ -452,6 +430,7 @@ namespace Generator.Encoder {
 			if ((def.Flags1 & InstructionDefFlags1.WIG32) != 0)
 				return WBit.WIG32;
 			return def.WBit switch {
+				OpCodeW.None => WBit.W0,
 				OpCodeW.W0 => WBit.W0,
 				OpCodeW.W1 => WBit.W1,
 				OpCodeW.WIG => WBit.WIG,
@@ -472,7 +451,7 @@ namespace Generator.Encoder {
 				}
 			}
 			if (!printed) {
-				var value = genTypes[TypeIds.OpCodeFlags][nameof(InstructionDefFlags1.None)];
+				var value = genTypes[TypeIds.EncFlags2][nameof(EncFlags2.None)];
 				WriteEnum(writer, idConverter, value, enumItemSep, forceConstant);
 			}
 			if (prefixes != 0)

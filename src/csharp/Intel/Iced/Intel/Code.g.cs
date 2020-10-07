@@ -25906,7 +25906,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 80 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Invept_r32_m128 = 3238,
@@ -25914,7 +25914,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 80 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Invept_r64_m128 = 3239,
@@ -25922,7 +25922,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 81 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Invvpid_r32_m128 = 3240,
@@ -25930,7 +25930,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 81 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Invvpid_r64_m128 = 3241,
@@ -33414,7 +33414,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		XOP_Lwpval_r64_rm32_imm32 = 4176,
-		/// <summary><c>PI2FW mm1, mm2/m64</c><br/>
+		/// <summary><c>PI2FW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 0C</c><br/>
 		/// <br/>
@@ -33422,7 +33422,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pi2fw_mm_mmm64 = 4177,
-		/// <summary><c>PI2FD mm1, mm2/m64</c><br/>
+		/// <summary><c>PI2FD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 0D</c><br/>
 		/// <br/>
@@ -33430,7 +33430,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pi2fd_mm_mmm64 = 4178,
-		/// <summary><c>PF2IW mm1, mm2/m64</c><br/>
+		/// <summary><c>PF2IW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 1C</c><br/>
 		/// <br/>
@@ -33438,7 +33438,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pf2iw_mm_mmm64 = 4179,
-		/// <summary><c>PF2ID mm1, mm2/m64</c><br/>
+		/// <summary><c>PF2ID mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 1D</c><br/>
 		/// <br/>
@@ -33446,7 +33446,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pf2id_mm_mmm64 = 4180,
-		/// <summary><c>PFRCPV mm1, mm2/m64</c><br/>
+		/// <summary><c>PFRCPV mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 86</c><br/>
 		/// <br/>
@@ -33454,7 +33454,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrcpv_mm_mmm64 = 4181,
-		/// <summary><c>PFRSQRTV mm1, mm2/m64</c><br/>
+		/// <summary><c>PFRSQRTV mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 87</c><br/>
 		/// <br/>
@@ -33462,7 +33462,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrsqrtv_mm_mmm64 = 4182,
-		/// <summary><c>PFNACC mm1, mm2/m64</c><br/>
+		/// <summary><c>PFNACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 8A</c><br/>
 		/// <br/>
@@ -33470,7 +33470,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfnacc_mm_mmm64 = 4183,
-		/// <summary><c>PFPNACC mm1, mm2/m64</c><br/>
+		/// <summary><c>PFPNACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 8E</c><br/>
 		/// <br/>
@@ -33478,7 +33478,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfpnacc_mm_mmm64 = 4184,
-		/// <summary><c>PFCMPGE mm1, mm2/m64</c><br/>
+		/// <summary><c>PFCMPGE mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 90</c><br/>
 		/// <br/>
@@ -33486,7 +33486,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfcmpge_mm_mmm64 = 4185,
-		/// <summary><c>PFMIN mm1, mm2/m64</c><br/>
+		/// <summary><c>PFMIN mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 94</c><br/>
 		/// <br/>
@@ -33494,7 +33494,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfmin_mm_mmm64 = 4186,
-		/// <summary><c>PFRCP mm1, mm2/m64</c><br/>
+		/// <summary><c>PFRCP mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 96</c><br/>
 		/// <br/>
@@ -33502,7 +33502,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrcp_mm_mmm64 = 4187,
-		/// <summary><c>PFRSQRT mm1, mm2/m64</c><br/>
+		/// <summary><c>PFRSQRT mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 97</c><br/>
 		/// <br/>
@@ -33510,7 +33510,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrsqrt_mm_mmm64 = 4188,
-		/// <summary><c>PFSUB mm1, mm2/m64</c><br/>
+		/// <summary><c>PFSUB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 9A</c><br/>
 		/// <br/>
@@ -33518,7 +33518,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfsub_mm_mmm64 = 4189,
-		/// <summary><c>PFADD mm1, mm2/m64</c><br/>
+		/// <summary><c>PFADD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 9E</c><br/>
 		/// <br/>
@@ -33526,7 +33526,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfadd_mm_mmm64 = 4190,
-		/// <summary><c>PFCMPGT mm1, mm2/m64</c><br/>
+		/// <summary><c>PFCMPGT mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A0</c><br/>
 		/// <br/>
@@ -33534,7 +33534,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfcmpgt_mm_mmm64 = 4191,
-		/// <summary><c>PFMAX mm1, mm2/m64</c><br/>
+		/// <summary><c>PFMAX mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A4</c><br/>
 		/// <br/>
@@ -33542,7 +33542,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfmax_mm_mmm64 = 4192,
-		/// <summary><c>PFRCPIT1 mm1, mm2/m64</c><br/>
+		/// <summary><c>PFRCPIT1 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A6</c><br/>
 		/// <br/>
@@ -33550,7 +33550,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrcpit1_mm_mmm64 = 4193,
-		/// <summary><c>PFRSQIT1 mm1, mm2/m64</c><br/>
+		/// <summary><c>PFRSQIT1 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A7</c><br/>
 		/// <br/>
@@ -33558,7 +33558,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrsqit1_mm_mmm64 = 4194,
-		/// <summary><c>PFSUBR mm1, mm2/m64</c><br/>
+		/// <summary><c>PFSUBR mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r AA</c><br/>
 		/// <br/>
@@ -33566,7 +33566,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfsubr_mm_mmm64 = 4195,
-		/// <summary><c>PFACC mm1, mm2/m64</c><br/>
+		/// <summary><c>PFACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r AE</c><br/>
 		/// <br/>
@@ -33574,7 +33574,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfacc_mm_mmm64 = 4196,
-		/// <summary><c>PFCMPEQ mm1, mm2/m64</c><br/>
+		/// <summary><c>PFCMPEQ mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B0</c><br/>
 		/// <br/>
@@ -33582,7 +33582,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfcmpeq_mm_mmm64 = 4197,
-		/// <summary><c>PFMUL mm1, mm2/m64</c><br/>
+		/// <summary><c>PFMUL mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B4</c><br/>
 		/// <br/>
@@ -33590,7 +33590,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfmul_mm_mmm64 = 4198,
-		/// <summary><c>PFRCPIT2 mm1, mm2/m64</c><br/>
+		/// <summary><c>PFRCPIT2 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B6</c><br/>
 		/// <br/>
@@ -33598,7 +33598,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pfrcpit2_mm_mmm64 = 4199,
-		/// <summary><c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <summary><c>PMULHRW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B7</c><br/>
 		/// <br/>
@@ -33606,7 +33606,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pmulhrw_mm_mmm64 = 4200,
-		/// <summary><c>PSWAPD mm1, mm2/m64</c><br/>
+		/// <summary><c>PSWAPD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r BB</c><br/>
 		/// <br/>
@@ -33614,7 +33614,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pswapd_mm_mmm64 = 4201,
-		/// <summary><c>PAVGUSB mm1, mm2/m64</c><br/>
+		/// <summary><c>PAVGUSB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r BF</c><br/>
 		/// <br/>
@@ -34038,7 +34038,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Altinst = 4254,
-		/// <summary><c>PAVEB mm1, mm2/m64</c><br/>
+		/// <summary><c>PAVEB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 50 /r</c><br/>
 		/// <br/>
@@ -34046,7 +34046,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Paveb_mm_mmm64 = 4255,
-		/// <summary><c>PADDSIW mm1, mm2/m64</c><br/>
+		/// <summary><c>PADDSIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 51 /r</c><br/>
 		/// <br/>
@@ -34054,7 +34054,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Paddsiw_mm_mmm64 = 4256,
-		/// <summary><c>PMAGW mm1, mm2/m64</c><br/>
+		/// <summary><c>PMAGW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 52 /r</c><br/>
 		/// <br/>
@@ -34062,7 +34062,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pmagw_mm_mmm64 = 4257,
-		/// <summary><c>PDISTIB mm1, m64</c><br/>
+		/// <summary><c>PDISTIB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 54 /r</c><br/>
 		/// <br/>
@@ -34070,7 +34070,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pdistib_mm_m64 = 4258,
-		/// <summary><c>PSUBSIW mm1, mm2/m64</c><br/>
+		/// <summary><c>PSUBSIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 55 /r</c><br/>
 		/// <br/>
@@ -34078,7 +34078,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Psubsiw_mm_mmm64 = 4259,
-		/// <summary><c>PMVZB mm1, m64</c><br/>
+		/// <summary><c>PMVZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 58 /r</c><br/>
 		/// <br/>
@@ -34086,7 +34086,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pmvzb_mm_m64 = 4260,
-		/// <summary><c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <summary><c>PMULHRW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 59 /r</c><br/>
 		/// <br/>
@@ -34094,7 +34094,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pmulhrw_mm_mmm64 = 4261,
-		/// <summary><c>PMVNZB mm1, m64</c><br/>
+		/// <summary><c>PMVNZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5A /r</c><br/>
 		/// <br/>
@@ -34102,7 +34102,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pmvnzb_mm_m64 = 4262,
-		/// <summary><c>PMVLZB mm1, m64</c><br/>
+		/// <summary><c>PMVLZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5B /r</c><br/>
 		/// <br/>
@@ -34110,7 +34110,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pmvlzb_mm_m64 = 4263,
-		/// <summary><c>PMVGEZB mm1, m64</c><br/>
+		/// <summary><c>PMVGEZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5C /r</c><br/>
 		/// <br/>
@@ -34118,7 +34118,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pmvgezb_mm_m64 = 4264,
-		/// <summary><c>PMULHRIW mm1, mm2/m64</c><br/>
+		/// <summary><c>PMULHRIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 5D /r</c><br/>
 		/// <br/>
@@ -34126,7 +34126,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		Pmulhriw_mm_mmm64 = 4265,
-		/// <summary><c>PMACHRIW mm1, m64</c><br/>
+		/// <summary><c>PMACHRIW mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5E /r</c><br/>
 		/// <br/>
@@ -34334,7 +34334,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Aesdec256kl_xmm_m512 = 4291,
-		/// <summary><c>ENCODEKEY128 r32a, r32b, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
+		/// <summary><c>ENCODEKEY128 r32, r32, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
 		/// <br/>
 		/// <c>F3 0F 38 FA 11:rrr:bbb</c><br/>
 		/// <br/>
@@ -34342,7 +34342,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Encodekey128_r32_r32 = 4292,
-		/// <summary><c>ENCODEKEY256 r32a, r32b, &lt;XMM0-6&gt;</c><br/>
+		/// <summary><c>ENCODEKEY256 r32, r32, &lt;XMM0-6&gt;</c><br/>
 		/// <br/>
 		/// <c>F3 0F 38 FB 11:rrr:bbb</c><br/>
 		/// <br/>

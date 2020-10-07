@@ -5372,7 +5372,7 @@ END
 
 # Code: Fnop
 INSTRUCTION: D9 D0 | FNOP | FPU
-	# Intel documents that all X87 instructions may cause a TSX abort
+	# Intel documents that all x87 instructions may cause a TSX abort
 	# (it's not really a NOP, it can generate #NM/#MF)
 	flags: tsx-impl-abort
 END
@@ -29132,158 +29132,158 @@ INSTRUCTION: XOP.L0.XA.W1 12 /1 id | LWPVAL r64, r/m32, imm32 | LWP
 END
 
 # Code: D3NOW_Pi2fw_mm_mmm64
-INSTRUCTION: 0F 0F /r 0C | PI2FW mm1, mm2/m64 | D3NOWEXT
+INSTRUCTION: 0F 0F /r 0C | PI2FW mm, mm/m64 | D3NOWEXT
 	ops: w=mm_reg r=mm_or_mem | Packed64_Int16
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pi2fd_mm_mmm64
-INSTRUCTION: 0F 0F /r 0D | PI2FD mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 0D | PI2FD mm, mm/m64 | D3NOW
 	ops: w=mm_reg r=mm_or_mem | Packed64_Int32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pf2iw_mm_mmm64
-INSTRUCTION: 0F 0F /r 1C | PF2IW mm1, mm2/m64 | D3NOWEXT
+INSTRUCTION: 0F 0F /r 1C | PF2IW mm, mm/m64 | D3NOWEXT
 	ops: w=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pf2id_mm_mmm64
-INSTRUCTION: 0F 0F /r 1D | PF2ID mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 1D | PF2ID mm, mm/m64 | D3NOW
 	ops: w=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrcpv_mm_mmm64
-INSTRUCTION: 0F 0F /r 86 | PFRCPV mm1, mm2/m64 | CYRIX_D3NOW
+INSTRUCTION: 0F 0F /r 86 | PFRCPV mm, mm/m64 | CYRIX_D3NOW
 	ops: w=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrsqrtv_mm_mmm64
-INSTRUCTION: 0F 0F /r 87 | PFRSQRTV mm1, mm2/m64 | CYRIX_D3NOW
+INSTRUCTION: 0F 0F /r 87 | PFRSQRTV mm, mm/m64 | CYRIX_D3NOW
 	ops: w=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfnacc_mm_mmm64
-INSTRUCTION: 0F 0F /r 8A | PFNACC mm1, mm2/m64 | D3NOWEXT
+INSTRUCTION: 0F 0F /r 8A | PFNACC mm, mm/m64 | D3NOWEXT
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfpnacc_mm_mmm64
-INSTRUCTION: 0F 0F /r 8E | PFPNACC mm1, mm2/m64 | D3NOWEXT
+INSTRUCTION: 0F 0F /r 8E | PFPNACC mm, mm/m64 | D3NOWEXT
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfcmpge_mm_mmm64
-INSTRUCTION: 0F 0F /r 90 | PFCMPGE mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 90 | PFCMPGE mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfmin_mm_mmm64
-INSTRUCTION: 0F 0F /r 94 | PFMIN mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 94 | PFMIN mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrcp_mm_mmm64
-INSTRUCTION: 0F 0F /r 96 | PFRCP mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 96 | PFRCP mm, mm/m64 | D3NOW
 	ops: w=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrsqrt_mm_mmm64
-INSTRUCTION: 0F 0F /r 97 | PFRSQRT mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 97 | PFRSQRT mm, mm/m64 | D3NOW
 	ops: w=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfsub_mm_mmm64
-INSTRUCTION: 0F 0F /r 9A | PFSUB mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 9A | PFSUB mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfadd_mm_mmm64
-INSTRUCTION: 0F 0F /r 9E | PFADD mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r 9E | PFADD mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfcmpgt_mm_mmm64
-INSTRUCTION: 0F 0F /r A0 | PFCMPGT mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r A0 | PFCMPGT mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfmax_mm_mmm64
-INSTRUCTION: 0F 0F /r A4 | PFMAX mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r A4 | PFMAX mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrcpit1_mm_mmm64
-INSTRUCTION: 0F 0F /r A6 | PFRCPIT1 mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r A6 | PFRCPIT1 mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrsqit1_mm_mmm64
-INSTRUCTION: 0F 0F /r A7 | PFRSQIT1 mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r A7 | PFRSQIT1 mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfsubr_mm_mmm64
-INSTRUCTION: 0F 0F /r AA | PFSUBR mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r AA | PFSUBR mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfacc_mm_mmm64
-INSTRUCTION: 0F 0F /r AE | PFACC mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r AE | PFACC mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfcmpeq_mm_mmm64
-INSTRUCTION: 0F 0F /r B0 | PFCMPEQ mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r B0 | PFCMPEQ mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfmul_mm_mmm64
-INSTRUCTION: 0F 0F /r B4 | PFMUL mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r B4 | PFMUL mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrcpit2_mm_mmm64
-INSTRUCTION: 0F 0F /r B6 | PFRCPIT2 mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r B6 | PFRCPIT2 mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Float32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pmulhrw_mm_mmm64
-INSTRUCTION: 0F 0F /r B7 | PMULHRW mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r B7 | PMULHRW mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
 	masm: flags=mem-size=mmx
 	nasm: mnemonic=pmulhrwa
 END
 
 # Code: D3NOW_Pswapd_mm_mmm64
-INSTRUCTION: 0F 0F /r BB | PSWAPD mm1, mm2/m64 | D3NOWEXT
+INSTRUCTION: 0F 0F /r BB | PSWAPD mm, mm/m64 | D3NOWEXT
 	ops: w=mm_reg r=mm_or_mem | Packed64_UInt32
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pavgusb_mm_mmm64
-INSTRUCTION: 0F 0F /r BF | PAVGUSB mm1, mm2/m64 | D3NOW
+INSTRUCTION: 0F 0F /r BF | PAVGUSB mm, mm/m64 | D3NOW
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
 	masm: flags=mem-size=mmx
 END
@@ -29676,14 +29676,14 @@ INSTRUCTION: 0F 3F | ALTINST | CENTAUR_AIS
 END
 
 # Code: Paveb_mm_mmm64
-INSTRUCTION: 0F 50 /r | PAVEB mm1, mm2/m64 | CYRIX_EMMI
+INSTRUCTION: 0F 50 /r | PAVEB mm, mm/m64 | CYRIX_EMMI
 	ops: rw=mm_reg r=mm_or_mem | Packed64_UInt8
 	flags: 16 32
 	decoder-option: Cyrix
 END
 
 # Code: Paddsiw_mm_mmm64
-INSTRUCTION: 0F 51 /r | PADDSIW mm1, mm2/m64 | CYRIX_EMMI
+INSTRUCTION: 0F 51 /r | PADDSIW mm, mm/m64 | CYRIX_EMMI
 	ops: r=mm_reg r=mm_or_mem | Packed64_Int16
 	flags: 16 32
 	iinfo: EMMI_W_ImpliedReg
@@ -29691,14 +29691,14 @@ INSTRUCTION: 0F 51 /r | PADDSIW mm1, mm2/m64 | CYRIX_EMMI
 END
 
 # Code: Pmagw_mm_mmm64
-INSTRUCTION: 0F 52 /r | PMAGW mm1, mm2/m64 | CYRIX_EMMI
+INSTRUCTION: 0F 52 /r | PMAGW mm, mm/m64 | CYRIX_EMMI
 	ops: rcw=mm_reg r=mm_or_mem | Packed64_UInt16
 	flags: 16 32
 	decoder-option: Cyrix
 END
 
 # Code: Pdistib_mm_m64
-INSTRUCTION: 0F 54 /r | PDISTIB mm1, m64 | CYRIX_EMMI
+INSTRUCTION: 0F 54 /r | PDISTIB mm, m64 | CYRIX_EMMI
 	ops: r=mm_reg r=mem | Packed64_UInt8
 	flags: 16 32
 	iinfo: EMMI_RW_ImpliedReg
@@ -29706,7 +29706,7 @@ INSTRUCTION: 0F 54 /r | PDISTIB mm1, m64 | CYRIX_EMMI
 END
 
 # Code: Psubsiw_mm_mmm64
-INSTRUCTION: 0F 55 /r | PSUBSIW mm1, mm2/m64 | CYRIX_EMMI
+INSTRUCTION: 0F 55 /r | PSUBSIW mm, mm/m64 | CYRIX_EMMI
 	ops: r=mm_reg r=mm_or_mem | Packed64_Int16
 	flags: 16 32
 	iinfo: EMMI_W_ImpliedReg
@@ -29714,7 +29714,7 @@ INSTRUCTION: 0F 55 /r | PSUBSIW mm1, mm2/m64 | CYRIX_EMMI
 END
 
 # Code: Pmvzb_mm_m64
-INSTRUCTION: 0F 58 /r | PMVZB mm1, m64 | CYRIX_EMMI
+INSTRUCTION: 0F 58 /r | PMVZB mm, m64 | CYRIX_EMMI
 	ops: rcw=mm_reg r=mem | Packed64_UInt8
 	flags: 16 32
 	iinfo: EMMI_R_ImpliedReg
@@ -29722,7 +29722,7 @@ INSTRUCTION: 0F 58 /r | PMVZB mm1, m64 | CYRIX_EMMI
 END
 
 # Code: Pmulhrw_mm_mmm64
-INSTRUCTION: 0F 59 /r | PMULHRW mm1, mm2/m64 | CYRIX_EMMI
+INSTRUCTION: 0F 59 /r | PMULHRW mm, mm/m64 | CYRIX_EMMI
 	ops: rw=mm_reg r=mm_or_mem | Packed64_Int16
 	flags: 16 32
 	decoder-option: Cyrix
@@ -29730,7 +29730,7 @@ INSTRUCTION: 0F 59 /r | PMULHRW mm1, mm2/m64 | CYRIX_EMMI
 END
 
 # Code: Pmvnzb_mm_m64
-INSTRUCTION: 0F 5A /r | PMVNZB mm1, m64 | CYRIX_EMMI
+INSTRUCTION: 0F 5A /r | PMVNZB mm, m64 | CYRIX_EMMI
 	ops: rcw=mm_reg r=mem | Packed64_UInt8
 	flags: 16 32
 	iinfo: EMMI_R_ImpliedReg
@@ -29738,7 +29738,7 @@ INSTRUCTION: 0F 5A /r | PMVNZB mm1, m64 | CYRIX_EMMI
 END
 
 # Code: Pmvlzb_mm_m64
-INSTRUCTION: 0F 5B /r | PMVLZB mm1, m64 | CYRIX_EMMI
+INSTRUCTION: 0F 5B /r | PMVLZB mm, m64 | CYRIX_EMMI
 	ops: rcw=mm_reg r=mem | Packed64_Int8
 	flags: 16 32
 	iinfo: EMMI_R_ImpliedReg
@@ -29746,7 +29746,7 @@ INSTRUCTION: 0F 5B /r | PMVLZB mm1, m64 | CYRIX_EMMI
 END
 
 # Code: Pmvgezb_mm_m64
-INSTRUCTION: 0F 5C /r | PMVGEZB mm1, m64 | CYRIX_EMMI
+INSTRUCTION: 0F 5C /r | PMVGEZB mm, m64 | CYRIX_EMMI
 	ops: rcw=mm_reg r=mem | Packed64_Int8
 	flags: 16 32
 	iinfo: EMMI_R_ImpliedReg
@@ -29754,7 +29754,7 @@ INSTRUCTION: 0F 5C /r | PMVGEZB mm1, m64 | CYRIX_EMMI
 END
 
 # Code: Pmulhriw_mm_mmm64
-INSTRUCTION: 0F 5D /r | PMULHRIW mm1, mm2/m64 | CYRIX_EMMI
+INSTRUCTION: 0F 5D /r | PMULHRIW mm, mm/m64 | CYRIX_EMMI
 	ops: r=mm_reg r=mm_or_mem | Packed64_Int16
 	flags: 16 32
 	iinfo: EMMI_W_ImpliedReg
@@ -29762,7 +29762,7 @@ INSTRUCTION: 0F 5D /r | PMULHRIW mm1, mm2/m64 | CYRIX_EMMI
 END
 
 # Code: Pmachriw_mm_m64
-INSTRUCTION: 0F 5E /r | PMACHRIW mm1, m64 | CYRIX_EMMI
+INSTRUCTION: 0F 5E /r | PMACHRIW mm, m64 | CYRIX_EMMI
 	ops: r=mm_reg r=mem | Packed64_UInt16
 	flags: 16 32
 	iinfo: EMMI_RW_ImpliedReg
@@ -29971,9 +29971,9 @@ INSTRUCTION: F3 0F 38 DF !(11):rrr:bbb | AESDEC256KL xmm, m512 | AESKLE
 END
 
 # Code: Encodekey128_r32_r32
-INSTRUCTION: F3 0F 38 FA 11:rrr:bbb | ENCODEKEY128 r32a, r32b, <XMM0-2>, <XMM4-6> | AESKLE
+INSTRUCTION: F3 0F 38 FA 11:rrr:bbb | ENCODEKEY128 r32, r32, <XMM0-2>, <XMM4-6> | AESKLE
 	ops: w=r32_reg r=r32_rm
-	# Future extensions may write non-zero values to the flags so use w=xxx instead of c=xxx
+	# Future extensions may write non-zero values to the flags so use w=xxx instead of 0=xxx
 	rflags: w=oszacp
 	# All Key Locker instructions may cause a TSX abort
 	flags: tsx-impl-abort
@@ -29981,9 +29981,9 @@ INSTRUCTION: F3 0F 38 FA 11:rrr:bbb | ENCODEKEY128 r32a, r32b, <XMM0-2>, <XMM4-6
 END
 
 # Code: Encodekey256_r32_r32
-INSTRUCTION: F3 0F 38 FB 11:rrr:bbb | ENCODEKEY256 r32a, r32b, <XMM0-6> | AESKLE
+INSTRUCTION: F3 0F 38 FB 11:rrr:bbb | ENCODEKEY256 r32, r32, <XMM0-6> | AESKLE
 	ops: w=r32_reg r=r32_rm
-	# Future extensions may write non-zero values to the flags so use w=xxx instead of c=xxx
+	# Future extensions may write non-zero values to the flags so use w=xxx instead of 0=xxx
 	rflags: w=oszacp
 	# All Key Locker instructions may cause a TSX abort
 	flags: tsx-impl-abort

@@ -4209,32 +4209,32 @@ XOP_Lwpins_r32_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W0 12 /0 id, LWPINS r32| r
 XOP_Lwpins_r64_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W1 12 /0 id, LWPINS r64| r/m32| imm32, g=0 64b L0 W1 op=r64_vvvv;r32_or_mem;imm32
 XOP_Lwpval_r32_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W0 12 /1 id, LWPVAL r32| r/m32| imm32, g=1 16b 32b 64b L0 WIG32 op=r32_vvvv;r32_or_mem;imm32
 XOP_Lwpval_r64_rm32_imm32, XOP, NP, XA, 12, XOP.L0.XA.W1 12 /1 id, LWPVAL r64| r/m32| imm32, g=1 64b L0 W1 op=r64_vvvv;r32_or_mem;imm32
-D3NOW_Pi2fw_mm_mmm64, 3DNow!, , 0F, 0C, 0F 0F /r 0C, PI2FW mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pi2fd_mm_mmm64, 3DNow!, , 0F, 0D, 0F 0F /r 0D, PI2FD mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pf2iw_mm_mmm64, 3DNow!, , 0F, 1C, 0F 0F /r 1C, PF2IW mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pf2id_mm_mmm64, 3DNow!, , 0F, 1D, 0F 0F /r 1D, PF2ID mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfrcpv_mm_mmm64, 3DNow!, , 0F, 86, 0F 0F /r 86, PFRCPV mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfrsqrtv_mm_mmm64, 3DNow!, , 0F, 87, 0F 0F /r 87, PFRSQRTV mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfnacc_mm_mmm64, 3DNow!, , 0F, 8A, 0F 0F /r 8A, PFNACC mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfpnacc_mm_mmm64, 3DNow!, , 0F, 8E, 0F 0F /r 8E, PFPNACC mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfcmpge_mm_mmm64, 3DNow!, , 0F, 90, 0F 0F /r 90, PFCMPGE mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfmin_mm_mmm64, 3DNow!, , 0F, 94, 0F 0F /r 94, PFMIN mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfrcp_mm_mmm64, 3DNow!, , 0F, 96, 0F 0F /r 96, PFRCP mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfrsqrt_mm_mmm64, 3DNow!, , 0F, 97, 0F 0F /r 97, PFRSQRT mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfsub_mm_mmm64, 3DNow!, , 0F, 9A, 0F 0F /r 9A, PFSUB mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfadd_mm_mmm64, 3DNow!, , 0F, 9E, 0F 0F /r 9E, PFADD mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfcmpgt_mm_mmm64, 3DNow!, , 0F, A0, 0F 0F /r A0, PFCMPGT mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfmax_mm_mmm64, 3DNow!, , 0F, A4, 0F 0F /r A4, PFMAX mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfrcpit1_mm_mmm64, 3DNow!, , 0F, A6, 0F 0F /r A6, PFRCPIT1 mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfrsqit1_mm_mmm64, 3DNow!, , 0F, A7, 0F 0F /r A7, PFRSQIT1 mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfsubr_mm_mmm64, 3DNow!, , 0F, AA, 0F 0F /r AA, PFSUBR mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfacc_mm_mmm64, 3DNow!, , 0F, AE, 0F 0F /r AE, PFACC mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfcmpeq_mm_mmm64, 3DNow!, , 0F, B0, 0F 0F /r B0, PFCMPEQ mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfmul_mm_mmm64, 3DNow!, , 0F, B4, 0F 0F /r B4, PFMUL mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pfrcpit2_mm_mmm64, 3DNow!, , 0F, B6, 0F 0F /r B6, PFRCPIT2 mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pmulhrw_mm_mmm64, 3DNow!, , 0F, B7, 0F 0F /r B7, PMULHRW mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pswapd_mm_mmm64, 3DNow!, , 0F, BB, 0F 0F /r BB, PSWAPD mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-D3NOW_Pavgusb_mm_mmm64, 3DNow!, , 0F, BF, 0F 0F /r BF, PAVGUSB mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pi2fw_mm_mmm64, 3DNow!, , 0F, 0C, 0F 0F /r 0C, PI2FW mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pi2fd_mm_mmm64, 3DNow!, , 0F, 0D, 0F 0F /r 0D, PI2FD mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pf2iw_mm_mmm64, 3DNow!, , 0F, 1C, 0F 0F /r 1C, PF2IW mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pf2id_mm_mmm64, 3DNow!, , 0F, 1D, 0F 0F /r 1D, PF2ID mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfrcpv_mm_mmm64, 3DNow!, , 0F, 86, 0F 0F /r 86, PFRCPV mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfrsqrtv_mm_mmm64, 3DNow!, , 0F, 87, 0F 0F /r 87, PFRSQRTV mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfnacc_mm_mmm64, 3DNow!, , 0F, 8A, 0F 0F /r 8A, PFNACC mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfpnacc_mm_mmm64, 3DNow!, , 0F, 8E, 0F 0F /r 8E, PFPNACC mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfcmpge_mm_mmm64, 3DNow!, , 0F, 90, 0F 0F /r 90, PFCMPGE mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfmin_mm_mmm64, 3DNow!, , 0F, 94, 0F 0F /r 94, PFMIN mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfrcp_mm_mmm64, 3DNow!, , 0F, 96, 0F 0F /r 96, PFRCP mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfrsqrt_mm_mmm64, 3DNow!, , 0F, 97, 0F 0F /r 97, PFRSQRT mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfsub_mm_mmm64, 3DNow!, , 0F, 9A, 0F 0F /r 9A, PFSUB mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfadd_mm_mmm64, 3DNow!, , 0F, 9E, 0F 0F /r 9E, PFADD mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfcmpgt_mm_mmm64, 3DNow!, , 0F, A0, 0F 0F /r A0, PFCMPGT mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfmax_mm_mmm64, 3DNow!, , 0F, A4, 0F 0F /r A4, PFMAX mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfrcpit1_mm_mmm64, 3DNow!, , 0F, A6, 0F 0F /r A6, PFRCPIT1 mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfrsqit1_mm_mmm64, 3DNow!, , 0F, A7, 0F 0F /r A7, PFRSQIT1 mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfsubr_mm_mmm64, 3DNow!, , 0F, AA, 0F 0F /r AA, PFSUBR mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfacc_mm_mmm64, 3DNow!, , 0F, AE, 0F 0F /r AE, PFACC mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfcmpeq_mm_mmm64, 3DNow!, , 0F, B0, 0F 0F /r B0, PFCMPEQ mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfmul_mm_mmm64, 3DNow!, , 0F, B4, 0F 0F /r B4, PFMUL mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pfrcpit2_mm_mmm64, 3DNow!, , 0F, B6, 0F 0F /r B6, PFRCPIT2 mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pmulhrw_mm_mmm64, 3DNow!, , 0F, B7, 0F 0F /r B7, PMULHRW mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pswapd_mm_mmm64, 3DNow!, , 0F, BB, 0F 0F /r BB, PSWAPD mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
+D3NOW_Pavgusb_mm_mmm64, 3DNow!, , 0F, BF, 0F 0F /r BF, PAVGUSB mm| mm/m64, 16b 32b 64b op=mm_reg;mm_or_mem
 Rmpadjust, legacy, F3, 0F, 01FE, F3 0F 01 FE, RMPADJUST, 64b
 Rmpupdate, legacy, F2, 0F, 01FE, F2 0F 01 FE, RMPUPDATE, 64b
 Psmash, legacy, F3, 0F, 01FF, F3 0F 01 FF, PSMASH, 64b
@@ -4279,18 +4279,18 @@ Bb1_reset, legacy, , 0F, 3B, 0F 3B, BB1_RESET, 16b 32b
 Cpu_write, legacy, , 0F, 3C, 0F 3C, CPU_WRITE, 16b 32b
 Cpu_read, legacy, , 0F, 3D, 0F 3D, CPU_READ, 16b 32b
 Altinst, legacy, , 0F, 3F, 0F 3F, ALTINST, 16b 32b
-Paveb_mm_mmm64, legacy, , 0F, 50, 0F 50 /r, PAVEB mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Paddsiw_mm_mmm64, legacy, , 0F, 51, 0F 51 /r, PADDSIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmagw_mm_mmm64, legacy, , 0F, 52, 0F 52 /r, PMAGW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pdistib_mm_m64, legacy, , 0F, 54, 0F 54 /r, PDISTIB mm1| m64, 16b 32b op=mm_reg;mem
-Psubsiw_mm_mmm64, legacy, , 0F, 55, 0F 55 /r, PSUBSIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmvzb_mm_m64, legacy, , 0F, 58, 0F 58 /r, PMVZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmulhrw_mm_mmm64, legacy, , 0F, 59, 0F 59 /r, PMULHRW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmvnzb_mm_m64, legacy, , 0F, 5A, 0F 5A /r, PMVNZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmvlzb_mm_m64, legacy, , 0F, 5B, 0F 5B /r, PMVLZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmvgezb_mm_m64, legacy, , 0F, 5C, 0F 5C /r, PMVGEZB mm1| m64, 16b 32b op=mm_reg;mem
-Pmulhriw_mm_mmm64, legacy, , 0F, 5D, 0F 5D /r, PMULHRIW mm1| mm2/m64, 16b 32b op=mm_reg;mm_or_mem
-Pmachriw_mm_m64, legacy, , 0F, 5E, 0F 5E /r, PMACHRIW mm1| m64, 16b 32b op=mm_reg;mem
+Paveb_mm_mmm64, legacy, , 0F, 50, 0F 50 /r, PAVEB mm| mm/m64, 16b 32b op=mm_reg;mm_or_mem
+Paddsiw_mm_mmm64, legacy, , 0F, 51, 0F 51 /r, PADDSIW mm| mm/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmagw_mm_mmm64, legacy, , 0F, 52, 0F 52 /r, PMAGW mm| mm/m64, 16b 32b op=mm_reg;mm_or_mem
+Pdistib_mm_m64, legacy, , 0F, 54, 0F 54 /r, PDISTIB mm| m64, 16b 32b op=mm_reg;mem
+Psubsiw_mm_mmm64, legacy, , 0F, 55, 0F 55 /r, PSUBSIW mm| mm/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmvzb_mm_m64, legacy, , 0F, 58, 0F 58 /r, PMVZB mm| m64, 16b 32b op=mm_reg;mem
+Pmulhrw_mm_mmm64, legacy, , 0F, 59, 0F 59 /r, PMULHRW mm| mm/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmvnzb_mm_m64, legacy, , 0F, 5A, 0F 5A /r, PMVNZB mm| m64, 16b 32b op=mm_reg;mem
+Pmvlzb_mm_m64, legacy, , 0F, 5B, 0F 5B /r, PMVLZB mm| m64, 16b 32b op=mm_reg;mem
+Pmvgezb_mm_m64, legacy, , 0F, 5C, 0F 5C /r, PMVGEZB mm| m64, 16b 32b op=mm_reg;mem
+Pmulhriw_mm_mmm64, legacy, , 0F, 5D, 0F 5D /r, PMULHRIW mm| mm/m64, 16b 32b op=mm_reg;mm_or_mem
+Pmachriw_mm_m64, legacy, , 0F, 5E, 0F 5E /r, PMACHRIW mm| m64, 16b 32b op=mm_reg;mem
 Cyrix_D9D7, legacy, , legacy, D9D7, D9 D7, UNDOC, 16b 32b
 Cyrix_D9E2, legacy, , legacy, D9E2, D9 E2, UNDOC, 16b 32b
 Ftstp, legacy, , legacy, D9E6, D9 E6, FTSTP, 16b 32b
@@ -4316,5 +4316,5 @@ Aesenc128kl_xmm_m384, legacy, F3, 0F38, DC, F3 0F 38 DC !(11):rrr:bbb, AESENC128
 Aesdec128kl_xmm_m384, legacy, F3, 0F38, DD, F3 0F 38 DD !(11):rrr:bbb, AESDEC128KL xmm| m384, 16b 32b 64b op=xmm_reg;mem
 Aesenc256kl_xmm_m512, legacy, F3, 0F38, DE, F3 0F 38 DE !(11):rrr:bbb, AESENC256KL xmm| m512, 16b 32b 64b op=xmm_reg;mem
 Aesdec256kl_xmm_m512, legacy, F3, 0F38, DF, F3 0F 38 DF !(11):rrr:bbb, AESDEC256KL xmm| m512, 16b 32b 64b op=xmm_reg;mem
-Encodekey128_r32_r32, legacy, F3, 0F38, FA, F3 0F 38 FA 11:rrr:bbb, ENCODEKEY128 r32a| r32b| <XMM0-2>| <XMM4-6>, 16b 32b 64b op=r32_reg;r32_rm
-Encodekey256_r32_r32, legacy, F3, 0F38, FB, F3 0F 38 FB 11:rrr:bbb, ENCODEKEY256 r32a| r32b| <XMM0-6>, 16b 32b 64b op=r32_reg;r32_rm
+Encodekey128_r32_r32, legacy, F3, 0F38, FA, F3 0F 38 FA 11:rrr:bbb, ENCODEKEY128 r32| r32| <XMM0-2>| <XMM4-6>, 16b 32b 64b op=r32_reg;r32_rm
+Encodekey256_r32_r32, legacy, F3, 0F38, FB, F3 0F 38 FB 11:rrr:bbb, ENCODEKEY256 r32| r32| <XMM0-6>, 16b 32b 64b op=r32_reg;r32_rm

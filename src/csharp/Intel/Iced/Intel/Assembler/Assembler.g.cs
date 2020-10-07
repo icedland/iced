@@ -9462,7 +9462,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>encodekey128 instruction.<br/>
 		/// <br/>
-		/// <c>ENCODEKEY128 r32a, r32b, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
+		/// <c>ENCODEKEY128 r32, r32, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
 		/// <br/>
 		/// <c>F3 0F 38 FA 11:rrr:bbb</c><br/>
 		/// <br/>
@@ -9476,7 +9476,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>encodekey256 instruction.<br/>
 		/// <br/>
-		/// <c>ENCODEKEY256 r32a, r32b, &lt;XMM0-6&gt;</c><br/>
+		/// <c>ENCODEKEY256 r32, r32, &lt;XMM0-6&gt;</c><br/>
 		/// <br/>
 		/// <c>F3 0F 38 FB 11:rrr:bbb</c><br/>
 		/// <br/>
@@ -13340,7 +13340,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 80 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		public void invept(AssemblerRegister32 dst, AssemblerMemoryOperand src) {
@@ -13354,7 +13354,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 80 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 20]</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void invept(AssemblerRegister64 dst, AssemblerMemoryOperand src) {
@@ -13474,7 +13474,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 81 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		public void invvpid(AssemblerRegister32 dst, AssemblerMemoryOperand src) {
@@ -13488,7 +13488,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>66 0F 38 81 /r</c><br/>
 		/// <br/>
-		/// <c>VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
+		/// <c>VMX and IA32_VMX_EPT_VPID_CAP[bit 32]</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void invvpid(AssemblerRegister64 dst, AssemblerMemoryOperand src) {
@@ -22958,7 +22958,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>paddsiw instruction.<br/>
 		/// <br/>
-		/// <c>PADDSIW mm1, mm2/m64</c><br/>
+		/// <c>PADDSIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 51 /r</c><br/>
 		/// <br/>
@@ -22972,7 +22972,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>paddsiw instruction.<br/>
 		/// <br/>
-		/// <c>PADDSIW mm1, mm2/m64</c><br/>
+		/// <c>PADDSIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 51 /r</c><br/>
 		/// <br/>
@@ -23448,7 +23448,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>paveb instruction.<br/>
 		/// <br/>
-		/// <c>PAVEB mm1, mm2/m64</c><br/>
+		/// <c>PAVEB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 50 /r</c><br/>
 		/// <br/>
@@ -23462,7 +23462,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>paveb instruction.<br/>
 		/// <br/>
-		/// <c>PAVEB mm1, mm2/m64</c><br/>
+		/// <c>PAVEB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 50 /r</c><br/>
 		/// <br/>
@@ -23532,7 +23532,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pavgusb instruction.<br/>
 		/// <br/>
-		/// <c>PAVGUSB mm1, mm2/m64</c><br/>
+		/// <c>PAVGUSB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r BF</c><br/>
 		/// <br/>
@@ -23546,7 +23546,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pavgusb instruction.<br/>
 		/// <br/>
-		/// <c>PAVGUSB mm1, mm2/m64</c><br/>
+		/// <c>PAVGUSB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r BF</c><br/>
 		/// <br/>
@@ -24600,7 +24600,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pdistib instruction.<br/>
 		/// <br/>
-		/// <c>PDISTIB mm1, m64</c><br/>
+		/// <c>PDISTIB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 54 /r</c><br/>
 		/// <br/>
@@ -25006,7 +25006,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pf2id instruction.<br/>
 		/// <br/>
-		/// <c>PF2ID mm1, mm2/m64</c><br/>
+		/// <c>PF2ID mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 1D</c><br/>
 		/// <br/>
@@ -25020,7 +25020,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pf2id instruction.<br/>
 		/// <br/>
-		/// <c>PF2ID mm1, mm2/m64</c><br/>
+		/// <c>PF2ID mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 1D</c><br/>
 		/// <br/>
@@ -25034,7 +25034,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pf2iw instruction.<br/>
 		/// <br/>
-		/// <c>PF2IW mm1, mm2/m64</c><br/>
+		/// <c>PF2IW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 1C</c><br/>
 		/// <br/>
@@ -25048,7 +25048,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pf2iw instruction.<br/>
 		/// <br/>
-		/// <c>PF2IW mm1, mm2/m64</c><br/>
+		/// <c>PF2IW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 1C</c><br/>
 		/// <br/>
@@ -25062,7 +25062,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfacc instruction.<br/>
 		/// <br/>
-		/// <c>PFACC mm1, mm2/m64</c><br/>
+		/// <c>PFACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r AE</c><br/>
 		/// <br/>
@@ -25076,7 +25076,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfacc instruction.<br/>
 		/// <br/>
-		/// <c>PFACC mm1, mm2/m64</c><br/>
+		/// <c>PFACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r AE</c><br/>
 		/// <br/>
@@ -25090,7 +25090,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfadd instruction.<br/>
 		/// <br/>
-		/// <c>PFADD mm1, mm2/m64</c><br/>
+		/// <c>PFADD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 9E</c><br/>
 		/// <br/>
@@ -25104,7 +25104,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfadd instruction.<br/>
 		/// <br/>
-		/// <c>PFADD mm1, mm2/m64</c><br/>
+		/// <c>PFADD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 9E</c><br/>
 		/// <br/>
@@ -25118,7 +25118,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfcmpeq instruction.<br/>
 		/// <br/>
-		/// <c>PFCMPEQ mm1, mm2/m64</c><br/>
+		/// <c>PFCMPEQ mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B0</c><br/>
 		/// <br/>
@@ -25132,7 +25132,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfcmpeq instruction.<br/>
 		/// <br/>
-		/// <c>PFCMPEQ mm1, mm2/m64</c><br/>
+		/// <c>PFCMPEQ mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B0</c><br/>
 		/// <br/>
@@ -25146,7 +25146,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfcmpge instruction.<br/>
 		/// <br/>
-		/// <c>PFCMPGE mm1, mm2/m64</c><br/>
+		/// <c>PFCMPGE mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 90</c><br/>
 		/// <br/>
@@ -25160,7 +25160,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfcmpge instruction.<br/>
 		/// <br/>
-		/// <c>PFCMPGE mm1, mm2/m64</c><br/>
+		/// <c>PFCMPGE mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 90</c><br/>
 		/// <br/>
@@ -25174,7 +25174,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfcmpgt instruction.<br/>
 		/// <br/>
-		/// <c>PFCMPGT mm1, mm2/m64</c><br/>
+		/// <c>PFCMPGT mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A0</c><br/>
 		/// <br/>
@@ -25188,7 +25188,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfcmpgt instruction.<br/>
 		/// <br/>
-		/// <c>PFCMPGT mm1, mm2/m64</c><br/>
+		/// <c>PFCMPGT mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A0</c><br/>
 		/// <br/>
@@ -25202,7 +25202,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfmax instruction.<br/>
 		/// <br/>
-		/// <c>PFMAX mm1, mm2/m64</c><br/>
+		/// <c>PFMAX mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A4</c><br/>
 		/// <br/>
@@ -25216,7 +25216,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfmax instruction.<br/>
 		/// <br/>
-		/// <c>PFMAX mm1, mm2/m64</c><br/>
+		/// <c>PFMAX mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A4</c><br/>
 		/// <br/>
@@ -25230,7 +25230,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfmin instruction.<br/>
 		/// <br/>
-		/// <c>PFMIN mm1, mm2/m64</c><br/>
+		/// <c>PFMIN mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 94</c><br/>
 		/// <br/>
@@ -25244,7 +25244,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfmin instruction.<br/>
 		/// <br/>
-		/// <c>PFMIN mm1, mm2/m64</c><br/>
+		/// <c>PFMIN mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 94</c><br/>
 		/// <br/>
@@ -25258,7 +25258,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfmul instruction.<br/>
 		/// <br/>
-		/// <c>PFMUL mm1, mm2/m64</c><br/>
+		/// <c>PFMUL mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B4</c><br/>
 		/// <br/>
@@ -25272,7 +25272,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfmul instruction.<br/>
 		/// <br/>
-		/// <c>PFMUL mm1, mm2/m64</c><br/>
+		/// <c>PFMUL mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B4</c><br/>
 		/// <br/>
@@ -25286,7 +25286,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfnacc instruction.<br/>
 		/// <br/>
-		/// <c>PFNACC mm1, mm2/m64</c><br/>
+		/// <c>PFNACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 8A</c><br/>
 		/// <br/>
@@ -25300,7 +25300,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfnacc instruction.<br/>
 		/// <br/>
-		/// <c>PFNACC mm1, mm2/m64</c><br/>
+		/// <c>PFNACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 8A</c><br/>
 		/// <br/>
@@ -25314,7 +25314,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfpnacc instruction.<br/>
 		/// <br/>
-		/// <c>PFPNACC mm1, mm2/m64</c><br/>
+		/// <c>PFPNACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 8E</c><br/>
 		/// <br/>
@@ -25328,7 +25328,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfpnacc instruction.<br/>
 		/// <br/>
-		/// <c>PFPNACC mm1, mm2/m64</c><br/>
+		/// <c>PFPNACC mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 8E</c><br/>
 		/// <br/>
@@ -25342,7 +25342,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcp instruction.<br/>
 		/// <br/>
-		/// <c>PFRCP mm1, mm2/m64</c><br/>
+		/// <c>PFRCP mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 96</c><br/>
 		/// <br/>
@@ -25356,7 +25356,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcp instruction.<br/>
 		/// <br/>
-		/// <c>PFRCP mm1, mm2/m64</c><br/>
+		/// <c>PFRCP mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 96</c><br/>
 		/// <br/>
@@ -25370,7 +25370,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcpit1 instruction.<br/>
 		/// <br/>
-		/// <c>PFRCPIT1 mm1, mm2/m64</c><br/>
+		/// <c>PFRCPIT1 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A6</c><br/>
 		/// <br/>
@@ -25384,7 +25384,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcpit1 instruction.<br/>
 		/// <br/>
-		/// <c>PFRCPIT1 mm1, mm2/m64</c><br/>
+		/// <c>PFRCPIT1 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A6</c><br/>
 		/// <br/>
@@ -25398,7 +25398,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcpit2 instruction.<br/>
 		/// <br/>
-		/// <c>PFRCPIT2 mm1, mm2/m64</c><br/>
+		/// <c>PFRCPIT2 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B6</c><br/>
 		/// <br/>
@@ -25412,7 +25412,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcpit2 instruction.<br/>
 		/// <br/>
-		/// <c>PFRCPIT2 mm1, mm2/m64</c><br/>
+		/// <c>PFRCPIT2 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B6</c><br/>
 		/// <br/>
@@ -25426,7 +25426,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcpv instruction.<br/>
 		/// <br/>
-		/// <c>PFRCPV mm1, mm2/m64</c><br/>
+		/// <c>PFRCPV mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 86</c><br/>
 		/// <br/>
@@ -25440,7 +25440,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrcpv instruction.<br/>
 		/// <br/>
-		/// <c>PFRCPV mm1, mm2/m64</c><br/>
+		/// <c>PFRCPV mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 86</c><br/>
 		/// <br/>
@@ -25454,7 +25454,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrsqit1 instruction.<br/>
 		/// <br/>
-		/// <c>PFRSQIT1 mm1, mm2/m64</c><br/>
+		/// <c>PFRSQIT1 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A7</c><br/>
 		/// <br/>
@@ -25468,7 +25468,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrsqit1 instruction.<br/>
 		/// <br/>
-		/// <c>PFRSQIT1 mm1, mm2/m64</c><br/>
+		/// <c>PFRSQIT1 mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r A7</c><br/>
 		/// <br/>
@@ -25482,7 +25482,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrsqrt instruction.<br/>
 		/// <br/>
-		/// <c>PFRSQRT mm1, mm2/m64</c><br/>
+		/// <c>PFRSQRT mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 97</c><br/>
 		/// <br/>
@@ -25496,7 +25496,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrsqrt instruction.<br/>
 		/// <br/>
-		/// <c>PFRSQRT mm1, mm2/m64</c><br/>
+		/// <c>PFRSQRT mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 97</c><br/>
 		/// <br/>
@@ -25510,7 +25510,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrsqrtv instruction.<br/>
 		/// <br/>
-		/// <c>PFRSQRTV mm1, mm2/m64</c><br/>
+		/// <c>PFRSQRTV mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 87</c><br/>
 		/// <br/>
@@ -25524,7 +25524,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfrsqrtv instruction.<br/>
 		/// <br/>
-		/// <c>PFRSQRTV mm1, mm2/m64</c><br/>
+		/// <c>PFRSQRTV mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 87</c><br/>
 		/// <br/>
@@ -25538,7 +25538,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfsub instruction.<br/>
 		/// <br/>
-		/// <c>PFSUB mm1, mm2/m64</c><br/>
+		/// <c>PFSUB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 9A</c><br/>
 		/// <br/>
@@ -25552,7 +25552,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfsub instruction.<br/>
 		/// <br/>
-		/// <c>PFSUB mm1, mm2/m64</c><br/>
+		/// <c>PFSUB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 9A</c><br/>
 		/// <br/>
@@ -25566,7 +25566,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfsubr instruction.<br/>
 		/// <br/>
-		/// <c>PFSUBR mm1, mm2/m64</c><br/>
+		/// <c>PFSUBR mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r AA</c><br/>
 		/// <br/>
@@ -25580,7 +25580,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pfsubr instruction.<br/>
 		/// <br/>
-		/// <c>PFSUBR mm1, mm2/m64</c><br/>
+		/// <c>PFSUBR mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r AA</c><br/>
 		/// <br/>
@@ -25958,7 +25958,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pi2fd instruction.<br/>
 		/// <br/>
-		/// <c>PI2FD mm1, mm2/m64</c><br/>
+		/// <c>PI2FD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 0D</c><br/>
 		/// <br/>
@@ -25972,7 +25972,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pi2fd instruction.<br/>
 		/// <br/>
-		/// <c>PI2FD mm1, mm2/m64</c><br/>
+		/// <c>PI2FD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 0D</c><br/>
 		/// <br/>
@@ -25986,7 +25986,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pi2fw instruction.<br/>
 		/// <br/>
-		/// <c>PI2FW mm1, mm2/m64</c><br/>
+		/// <c>PI2FW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 0C</c><br/>
 		/// <br/>
@@ -26000,7 +26000,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pi2fw instruction.<br/>
 		/// <br/>
-		/// <c>PI2FW mm1, mm2/m64</c><br/>
+		/// <c>PI2FW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r 0C</c><br/>
 		/// <br/>
@@ -26378,7 +26378,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmachriw instruction.<br/>
 		/// <br/>
-		/// <c>PMACHRIW mm1, m64</c><br/>
+		/// <c>PMACHRIW mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5E /r</c><br/>
 		/// <br/>
@@ -26504,7 +26504,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmagw instruction.<br/>
 		/// <br/>
-		/// <c>PMAGW mm1, mm2/m64</c><br/>
+		/// <c>PMAGW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 52 /r</c><br/>
 		/// <br/>
@@ -26518,7 +26518,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmagw instruction.<br/>
 		/// <br/>
-		/// <c>PMAGW mm1, mm2/m64</c><br/>
+		/// <c>PMAGW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 52 /r</c><br/>
 		/// <br/>
@@ -27400,7 +27400,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmulhriw instruction.<br/>
 		/// <br/>
-		/// <c>PMULHRIW mm1, mm2/m64</c><br/>
+		/// <c>PMULHRIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 5D /r</c><br/>
 		/// <br/>
@@ -27414,7 +27414,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmulhriw instruction.<br/>
 		/// <br/>
-		/// <c>PMULHRIW mm1, mm2/m64</c><br/>
+		/// <c>PMULHRIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 5D /r</c><br/>
 		/// <br/>
@@ -27484,7 +27484,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmulhrw instruction.<br/>
 		/// <br/>
-		/// <c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <c>PMULHRW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B7</c><br/>
 		/// <br/>
@@ -27498,7 +27498,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmulhrw instruction.<br/>
 		/// <br/>
-		/// <c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <c>PMULHRW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r B7</c><br/>
 		/// <br/>
@@ -27512,7 +27512,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmulhrw_cyrix instruction.<br/>
 		/// <br/>
-		/// <c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <c>PMULHRW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 59 /r</c><br/>
 		/// <br/>
@@ -27526,7 +27526,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmulhrw_cyrix instruction.<br/>
 		/// <br/>
-		/// <c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <c>PMULHRW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 59 /r</c><br/>
 		/// <br/>
@@ -27792,7 +27792,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmvgezb instruction.<br/>
 		/// <br/>
-		/// <c>PMVGEZB mm1, m64</c><br/>
+		/// <c>PMVGEZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5C /r</c><br/>
 		/// <br/>
@@ -27806,7 +27806,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmvlzb instruction.<br/>
 		/// <br/>
-		/// <c>PMVLZB mm1, m64</c><br/>
+		/// <c>PMVLZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5B /r</c><br/>
 		/// <br/>
@@ -27820,7 +27820,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmvnzb instruction.<br/>
 		/// <br/>
-		/// <c>PMVNZB mm1, m64</c><br/>
+		/// <c>PMVNZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 5A /r</c><br/>
 		/// <br/>
@@ -27834,7 +27834,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pmvzb instruction.<br/>
 		/// <br/>
-		/// <c>PMVZB mm1, m64</c><br/>
+		/// <c>PMVZB mm, m64</c><br/>
 		/// <br/>
 		/// <c>0F 58 /r</c><br/>
 		/// <br/>
@@ -30048,7 +30048,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>psubsiw instruction.<br/>
 		/// <br/>
-		/// <c>PSUBSIW mm1, mm2/m64</c><br/>
+		/// <c>PSUBSIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 55 /r</c><br/>
 		/// <br/>
@@ -30062,7 +30062,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>psubsiw instruction.<br/>
 		/// <br/>
-		/// <c>PSUBSIW mm1, mm2/m64</c><br/>
+		/// <c>PSUBSIW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 55 /r</c><br/>
 		/// <br/>
@@ -30300,7 +30300,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pswapd instruction.<br/>
 		/// <br/>
-		/// <c>PSWAPD mm1, mm2/m64</c><br/>
+		/// <c>PSWAPD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r BB</c><br/>
 		/// <br/>
@@ -30314,7 +30314,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>pswapd instruction.<br/>
 		/// <br/>
-		/// <c>PSWAPD mm1, mm2/m64</c><br/>
+		/// <c>PSWAPD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>0F 0F /r BB</c><br/>
 		/// <br/>

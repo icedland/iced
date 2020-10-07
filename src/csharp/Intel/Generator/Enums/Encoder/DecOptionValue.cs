@@ -24,32 +24,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 
 namespace Generator.Enums.Encoder {
-	[Enum("Flags", "OpCodeFlags", Flags = true)]
-	[Flags]
-	enum EncoderOpCodeFlags : uint {
+	[Enum("DecOptionValue")]
+	enum DecOptionValue {
 		None,
-		Mode16,
-		Mode32,
-		Mode64,
-		Fwait,
-		LIG,
-		WIG,
-		WIG32,
-		W,
-		Broadcast,
-		RoundingControl,
-		SuppressAllExceptions,
-		OpMaskRegister,
-		ZeroingMasking,
-		LockPrefix,
-		XacquirePrefix,
-		XreleasePrefix,
-		RepPrefix,
-		RepnePrefix,
-		BndPrefix,
-		HintTakenPrefix,
-		NotrackPrefix,
-		NoInstruction,
-		RequireOpMaskRegister,
+		ALTINST,
+		Cl1invmb,
+		Cmpxchg486A,
+		Cyrix,
+		Cyrix_DMI,
+		Cyrix_SMINT_0F7E,
+		Jmpe,
+		Loadall286,
+		Loadall386,
+		MovTr,
+		MPX,
+		OldFpu,
+		Pcommit,
+		Umov,
+		Xbts,
 	}
 }

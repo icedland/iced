@@ -24,8 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::enums::EncodingKind;
 use super::super::iced_constants::IcedConstants;
 use super::super::*;
+use super::encoder_data::{ENC_FLAGS1, ENC_FLAGS2, ENC_FLAGS3};
 use super::enums::*;
-use super::op_code_data::OP_CODE_DATA;
 use super::op_code_handler::*;
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
@@ -36,14 +36,12 @@ use core::mem;
 lazy_static! {
 	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {
 		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
-		debug_assert_eq!(IcedConstants::NUMBER_OF_CODE_VALUES * 3, OP_CODE_DATA.len());
 		let invalid_handler = Box::into_raw(Box::new(InvalidHandler::new())) as *const OpCodeHandler;
 		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
-			let j = i * 3;
-			let dword1 = OP_CODE_DATA[j];
-			let dword2 = OP_CODE_DATA[j + 1];
-			let dword3 = OP_CODE_DATA[j + 2];
-			let encoding: EncodingKind = unsafe { mem::transmute(((dword1 >> EncFlags1::ENCODING_SHIFT) & EncFlags1::ENCODING_MASK) as u8) };
+			let enc_flags1 = ENC_FLAGS1[i];
+			let enc_flags2 = ENC_FLAGS2[i];
+			let enc_flags3 = ENC_FLAGS3[i];
+			let encoding: EncodingKind = unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ENCODING_SHIFT) & EncFlags3::ENCODING_MASK) as u8) };
 			let handler = match encoding {
 				EncodingKind::Legacy => {
 					let code: Code = unsafe { mem::transmute(i as u16) };
@@ -52,23 +50,23 @@ lazy_static! {
 					} else if code <= Code::DeclareQword {
 						Box::into_raw(Box::new(DeclareDataHandler::new(code))) as *const OpCodeHandler
 					} else {
-						Box::into_raw(Box::new(LegacyHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler
+						Box::into_raw(Box::new(LegacyHandler::new(enc_flags1, enc_flags2, enc_flags3))) as *const OpCodeHandler
 					}
 				}
 				#[cfg(not(feature = "no_vex"))]
-				EncodingKind::VEX => Box::into_raw(Box::new(VexHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				EncodingKind::VEX => Box::into_raw(Box::new(VexHandler::new(enc_flags1, enc_flags2, enc_flags3))) as *const OpCodeHandler,
 				#[cfg(feature = "no_vex")]
 				EncodingKind::VEX => invalid_handler,
 				#[cfg(not(feature = "no_evex"))]
-				EncodingKind::EVEX => Box::into_raw(Box::new(EvexHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				EncodingKind::EVEX => Box::into_raw(Box::new(EvexHandler::new(enc_flags1, enc_flags2, enc_flags3))) as *const OpCodeHandler,
 				#[cfg(feature = "no_evex")]
 				EncodingKind::EVEX => invalid_handler,
 				#[cfg(not(feature = "no_xop"))]
-				EncodingKind::XOP => Box::into_raw(Box::new(XopHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				EncodingKind::XOP => Box::into_raw(Box::new(XopHandler::new(enc_flags1, enc_flags2, enc_flags3))) as *const OpCodeHandler,
 				#[cfg(feature = "no_xop")]
 				EncodingKind::XOP => invalid_handler,
 				#[cfg(not(feature = "no_d3now"))]
-				EncodingKind::D3NOW => Box::into_raw(Box::new(D3nowHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				EncodingKind::D3NOW => Box::into_raw(Box::new(D3nowHandler::new(enc_flags2, enc_flags3))) as *const OpCodeHandler,
 				#[cfg(feature = "no_d3now")]
 				EncodingKind::D3NOW => invalid_handler,
 			};

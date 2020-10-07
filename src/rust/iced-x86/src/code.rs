@@ -25914,7 +25914,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 80 /r`
 	///
-	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
+	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
 	///
 	/// `16/32-bit`
 	Invept_r32_m128 = 3238,
@@ -25922,7 +25922,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 80 /r`
 	///
-	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
+	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
 	///
 	/// `64-bit`
 	Invept_r64_m128 = 3239,
@@ -25930,7 +25930,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 81 /r`
 	///
-	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
+	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
 	///
 	/// `16/32-bit`
 	Invvpid_r32_m128 = 3240,
@@ -25938,7 +25938,7 @@ pub enum Code {
 	///
 	/// `66 0F 38 81 /r`
 	///
-	/// `VMX and VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
+	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
 	///
 	/// `64-bit`
 	Invvpid_r64_m128 = 3241,
@@ -33422,7 +33422,7 @@ pub enum Code {
 	///
 	/// `64-bit`
 	XOP_Lwpval_r64_rm32_imm32 = 4176,
-	/// `PI2FW mm1, mm2/m64`
+	/// `PI2FW mm, mm/m64`
 	///
 	/// `0F 0F /r 0C`
 	///
@@ -33430,7 +33430,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pi2fw_mm_mmm64 = 4177,
-	/// `PI2FD mm1, mm2/m64`
+	/// `PI2FD mm, mm/m64`
 	///
 	/// `0F 0F /r 0D`
 	///
@@ -33438,7 +33438,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pi2fd_mm_mmm64 = 4178,
-	/// `PF2IW mm1, mm2/m64`
+	/// `PF2IW mm, mm/m64`
 	///
 	/// `0F 0F /r 1C`
 	///
@@ -33446,7 +33446,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pf2iw_mm_mmm64 = 4179,
-	/// `PF2ID mm1, mm2/m64`
+	/// `PF2ID mm, mm/m64`
 	///
 	/// `0F 0F /r 1D`
 	///
@@ -33454,7 +33454,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pf2id_mm_mmm64 = 4180,
-	/// `PFRCPV mm1, mm2/m64`
+	/// `PFRCPV mm, mm/m64`
 	///
 	/// `0F 0F /r 86`
 	///
@@ -33462,7 +33462,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrcpv_mm_mmm64 = 4181,
-	/// `PFRSQRTV mm1, mm2/m64`
+	/// `PFRSQRTV mm, mm/m64`
 	///
 	/// `0F 0F /r 87`
 	///
@@ -33470,7 +33470,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrsqrtv_mm_mmm64 = 4182,
-	/// `PFNACC mm1, mm2/m64`
+	/// `PFNACC mm, mm/m64`
 	///
 	/// `0F 0F /r 8A`
 	///
@@ -33478,7 +33478,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfnacc_mm_mmm64 = 4183,
-	/// `PFPNACC mm1, mm2/m64`
+	/// `PFPNACC mm, mm/m64`
 	///
 	/// `0F 0F /r 8E`
 	///
@@ -33486,7 +33486,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfpnacc_mm_mmm64 = 4184,
-	/// `PFCMPGE mm1, mm2/m64`
+	/// `PFCMPGE mm, mm/m64`
 	///
 	/// `0F 0F /r 90`
 	///
@@ -33494,7 +33494,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfcmpge_mm_mmm64 = 4185,
-	/// `PFMIN mm1, mm2/m64`
+	/// `PFMIN mm, mm/m64`
 	///
 	/// `0F 0F /r 94`
 	///
@@ -33502,7 +33502,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfmin_mm_mmm64 = 4186,
-	/// `PFRCP mm1, mm2/m64`
+	/// `PFRCP mm, mm/m64`
 	///
 	/// `0F 0F /r 96`
 	///
@@ -33510,7 +33510,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrcp_mm_mmm64 = 4187,
-	/// `PFRSQRT mm1, mm2/m64`
+	/// `PFRSQRT mm, mm/m64`
 	///
 	/// `0F 0F /r 97`
 	///
@@ -33518,7 +33518,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrsqrt_mm_mmm64 = 4188,
-	/// `PFSUB mm1, mm2/m64`
+	/// `PFSUB mm, mm/m64`
 	///
 	/// `0F 0F /r 9A`
 	///
@@ -33526,7 +33526,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfsub_mm_mmm64 = 4189,
-	/// `PFADD mm1, mm2/m64`
+	/// `PFADD mm, mm/m64`
 	///
 	/// `0F 0F /r 9E`
 	///
@@ -33534,7 +33534,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfadd_mm_mmm64 = 4190,
-	/// `PFCMPGT mm1, mm2/m64`
+	/// `PFCMPGT mm, mm/m64`
 	///
 	/// `0F 0F /r A0`
 	///
@@ -33542,7 +33542,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfcmpgt_mm_mmm64 = 4191,
-	/// `PFMAX mm1, mm2/m64`
+	/// `PFMAX mm, mm/m64`
 	///
 	/// `0F 0F /r A4`
 	///
@@ -33550,7 +33550,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfmax_mm_mmm64 = 4192,
-	/// `PFRCPIT1 mm1, mm2/m64`
+	/// `PFRCPIT1 mm, mm/m64`
 	///
 	/// `0F 0F /r A6`
 	///
@@ -33558,7 +33558,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrcpit1_mm_mmm64 = 4193,
-	/// `PFRSQIT1 mm1, mm2/m64`
+	/// `PFRSQIT1 mm, mm/m64`
 	///
 	/// `0F 0F /r A7`
 	///
@@ -33566,7 +33566,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrsqit1_mm_mmm64 = 4194,
-	/// `PFSUBR mm1, mm2/m64`
+	/// `PFSUBR mm, mm/m64`
 	///
 	/// `0F 0F /r AA`
 	///
@@ -33574,7 +33574,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfsubr_mm_mmm64 = 4195,
-	/// `PFACC mm1, mm2/m64`
+	/// `PFACC mm, mm/m64`
 	///
 	/// `0F 0F /r AE`
 	///
@@ -33582,7 +33582,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfacc_mm_mmm64 = 4196,
-	/// `PFCMPEQ mm1, mm2/m64`
+	/// `PFCMPEQ mm, mm/m64`
 	///
 	/// `0F 0F /r B0`
 	///
@@ -33590,7 +33590,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfcmpeq_mm_mmm64 = 4197,
-	/// `PFMUL mm1, mm2/m64`
+	/// `PFMUL mm, mm/m64`
 	///
 	/// `0F 0F /r B4`
 	///
@@ -33598,7 +33598,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfmul_mm_mmm64 = 4198,
-	/// `PFRCPIT2 mm1, mm2/m64`
+	/// `PFRCPIT2 mm, mm/m64`
 	///
 	/// `0F 0F /r B6`
 	///
@@ -33606,7 +33606,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pfrcpit2_mm_mmm64 = 4199,
-	/// `PMULHRW mm1, mm2/m64`
+	/// `PMULHRW mm, mm/m64`
 	///
 	/// `0F 0F /r B7`
 	///
@@ -33614,7 +33614,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pmulhrw_mm_mmm64 = 4200,
-	/// `PSWAPD mm1, mm2/m64`
+	/// `PSWAPD mm, mm/m64`
 	///
 	/// `0F 0F /r BB`
 	///
@@ -33622,7 +33622,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pswapd_mm_mmm64 = 4201,
-	/// `PAVGUSB mm1, mm2/m64`
+	/// `PAVGUSB mm, mm/m64`
 	///
 	/// `0F 0F /r BF`
 	///
@@ -34046,7 +34046,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Altinst = 4254,
-	/// `PAVEB mm1, mm2/m64`
+	/// `PAVEB mm, mm/m64`
 	///
 	/// `0F 50 /r`
 	///
@@ -34054,7 +34054,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Paveb_mm_mmm64 = 4255,
-	/// `PADDSIW mm1, mm2/m64`
+	/// `PADDSIW mm, mm/m64`
 	///
 	/// `0F 51 /r`
 	///
@@ -34062,7 +34062,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Paddsiw_mm_mmm64 = 4256,
-	/// `PMAGW mm1, mm2/m64`
+	/// `PMAGW mm, mm/m64`
 	///
 	/// `0F 52 /r`
 	///
@@ -34070,7 +34070,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pmagw_mm_mmm64 = 4257,
-	/// `PDISTIB mm1, m64`
+	/// `PDISTIB mm, m64`
 	///
 	/// `0F 54 /r`
 	///
@@ -34078,7 +34078,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pdistib_mm_m64 = 4258,
-	/// `PSUBSIW mm1, mm2/m64`
+	/// `PSUBSIW mm, mm/m64`
 	///
 	/// `0F 55 /r`
 	///
@@ -34086,7 +34086,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Psubsiw_mm_mmm64 = 4259,
-	/// `PMVZB mm1, m64`
+	/// `PMVZB mm, m64`
 	///
 	/// `0F 58 /r`
 	///
@@ -34094,7 +34094,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pmvzb_mm_m64 = 4260,
-	/// `PMULHRW mm1, mm2/m64`
+	/// `PMULHRW mm, mm/m64`
 	///
 	/// `0F 59 /r`
 	///
@@ -34102,7 +34102,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pmulhrw_mm_mmm64 = 4261,
-	/// `PMVNZB mm1, m64`
+	/// `PMVNZB mm, m64`
 	///
 	/// `0F 5A /r`
 	///
@@ -34110,7 +34110,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pmvnzb_mm_m64 = 4262,
-	/// `PMVLZB mm1, m64`
+	/// `PMVLZB mm, m64`
 	///
 	/// `0F 5B /r`
 	///
@@ -34118,7 +34118,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pmvlzb_mm_m64 = 4263,
-	/// `PMVGEZB mm1, m64`
+	/// `PMVGEZB mm, m64`
 	///
 	/// `0F 5C /r`
 	///
@@ -34126,7 +34126,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pmvgezb_mm_m64 = 4264,
-	/// `PMULHRIW mm1, mm2/m64`
+	/// `PMULHRIW mm, mm/m64`
 	///
 	/// `0F 5D /r`
 	///
@@ -34134,7 +34134,7 @@ pub enum Code {
 	///
 	/// `16/32-bit`
 	Pmulhriw_mm_mmm64 = 4265,
-	/// `PMACHRIW mm1, m64`
+	/// `PMACHRIW mm, m64`
 	///
 	/// `0F 5E /r`
 	///
@@ -34342,7 +34342,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Aesdec256kl_xmm_m512 = 4291,
-	/// `ENCODEKEY128 r32a, r32b, <XMM0-2>, <XMM4-6>`
+	/// `ENCODEKEY128 r32, r32, <XMM0-2>, <XMM4-6>`
 	///
 	/// `F3 0F 38 FA 11:rrr:bbb`
 	///
@@ -34350,7 +34350,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Encodekey128_r32_r32 = 4292,
-	/// `ENCODEKEY256 r32a, r32b, <XMM0-6>`
+	/// `ENCODEKEY256 r32, r32, <XMM0-6>`
 	///
 	/// `F3 0F 38 FB 11:rrr:bbb`
 	///

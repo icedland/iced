@@ -58,8 +58,8 @@ namespace Generator {
 			toCpuidName[cpuid[nameof(CpuidFeature.SEV_ES)]] = "SEV-ES";
 			toCpuidName[cpuid[nameof(CpuidFeature.SEV_SNP)]] = "SEV-SNP";
 			toCpuidName[cpuid[nameof(CpuidFeature.SKINIT_or_SVM)]] = "SKINIT or SVM";
-			toCpuidName[cpuid[nameof(CpuidFeature.INVEPT)]] = "VMX and IA32_VMX_EPT_VPID_CAP[bit 20]";
-			toCpuidName[cpuid[nameof(CpuidFeature.INVVPID)]] = "VMX and IA32_VMX_EPT_VPID_CAP[bit 32]";
+			toCpuidName[cpuid[nameof(CpuidFeature.INVEPT)]] = "IA32_VMX_EPT_VPID_CAP[bit 20]";
+			toCpuidName[cpuid[nameof(CpuidFeature.INVVPID)]] = "IA32_VMX_EPT_VPID_CAP[bit 32]";
 			toCpuidName[cpuid[nameof(CpuidFeature.MULTIBYTENOP)]] = "CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B";
 			toCpuidName[cpuid[nameof(CpuidFeature.PAUSE)]] = "Pentium 4 or later";
 			toCpuidName[cpuid[nameof(CpuidFeature.RDPMC)]] = "Pentium MMX or later, or Pentium Pro or later";

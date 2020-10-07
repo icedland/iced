@@ -42,10 +42,11 @@ pub(crate) struct OpCodeHandler {
 	pub(super) op_code: u32,
 	pub(super) group_index: i32,
 	pub(super) rm_group_index: i32,
-	pub(super) flags: u32, // OpCodeHandlerFlags
-	pub(super) encodable: Encodable,
+	pub(super) enc_flags3: u32, // EncFlags3
 	pub(super) op_size: CodeSize,
 	pub(super) addr_size: CodeSize,
+	pub(super) is_2byte_opcode: bool,
+	pub(super) is_declare_data: bool,
 }
 
 #[repr(C)]
@@ -63,10 +64,11 @@ impl InvalidHandler {
 				op_code: 0,
 				group_index: -1,
 				rm_group_index: -1,
-				flags: OpCodeHandlerFlags::NONE,
-				encodable: Encodable::Any,
+				enc_flags3: EncFlags3::NONE,
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: false,
+				is_declare_data: false,
 			},
 		}
 	}
@@ -94,10 +96,11 @@ impl DeclareDataHandler {
 				op_code: 0,
 				group_index: -1,
 				rm_group_index: -1,
-				flags: OpCodeHandlerFlags::DECLARE_DATA,
-				encodable: Encodable::Any,
+				enc_flags3: EncFlags3::NONE,
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: false,
+				is_declare_data: true,
 			},
 			elem_size: match code {
 				Code::DeclareByte => 1,
@@ -118,8 +121,8 @@ impl DeclareDataHandler {
 	}
 }
 
-fn get_op_code(dword1: u32) -> u32 {
-	dword1 >> EncFlags1::OP_CODE_SHIFT
+fn get_op_code(enc_flags2: u32) -> u32 {
+	(enc_flags2 >> EncFlags2::OP_CODE_SHIFT) as u16 as u32
 }
 
 #[repr(C)]
@@ -131,11 +134,11 @@ pub(super) struct LegacyHandler {
 }
 
 impl LegacyHandler {
-	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
-		let group_index = if (dword2 & LegacyFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> LegacyFlags::GROUP_SHIFT) & 7) as i32 };
-		let flags = if (dword2 & LegacyFlags::FWAIT) != 0 { OpCodeHandlerFlags::FWAIT } else { OpCodeHandlerFlags::NONE };
-		let table: LegacyOpCodeTable =
-			unsafe { mem::transmute(((dword2 >> LegacyFlags::LEGACY_OP_CODE_TABLE_SHIFT) & LegacyFlags::LEGACY_OP_CODE_TABLE_MASK) as u8) };
+	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
+		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let rm_group_index =
+			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let table: LegacyOpCodeTable = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) };
 		let (table_byte1, table_byte2) = match table {
 			LegacyOpCodeTable::Normal => (0, 0),
 			LegacyOpCodeTable::Table0F => (0x0F, 0),
@@ -143,7 +146,7 @@ impl LegacyHandler {
 			LegacyOpCodeTable::Table0F3A => (0x0F, 0x3A),
 		};
 		let mpb: MandatoryPrefixByte =
-			unsafe { mem::transmute(((dword2 >> LegacyFlags::MANDATORY_PREFIX_BYTE_SHIFT) & LegacyFlags::MANDATORY_PREFIX_BYTE_MASK) as u8) };
+			unsafe { mem::transmute(((enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK) as u8) };
 		let mandatory_prefix = match mpb {
 			MandatoryPrefixByte::None => 0,
 			MandatoryPrefixByte::P66 => 0x66,
@@ -152,10 +155,10 @@ impl LegacyHandler {
 		};
 
 		let mut operands;
-		let op0: LegacyOpKind = unsafe { mem::transmute(((dword3 >> LegacyFlags3::OP0_SHIFT) & LegacyFlags3::OP_MASK) as u8) };
-		let op1: LegacyOpKind = unsafe { mem::transmute(((dword3 >> LegacyFlags3::OP1_SHIFT) & LegacyFlags3::OP_MASK) as u8) };
-		let op2: LegacyOpKind = unsafe { mem::transmute(((dword3 >> LegacyFlags3::OP2_SHIFT) & LegacyFlags3::OP_MASK) as u8) };
-		let op3: LegacyOpKind = unsafe { mem::transmute(((dword3 >> LegacyFlags3::OP3_SHIFT) & LegacyFlags3::OP_MASK) as u8) };
+		let op0: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP0_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
+		let op1: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP1_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
+		let op2: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP2_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
+		let op3: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP3_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
 		if op3 != LegacyOpKind::None {
 			operands = Vec::with_capacity(4);
 			operands.push(LEGACY_TABLE[op0 as usize]);
@@ -193,13 +196,14 @@ impl LegacyHandler {
 				encode: Self::encode,
 				try_convert_to_disp8n: None,
 				operands: operands.into_boxed_slice(),
-				op_code: get_op_code(dword1),
+				op_code: get_op_code(enc_flags2),
 				group_index,
-				rm_group_index: -1,
-				flags,
-				encodable: unsafe { mem::transmute(((dword2 >> LegacyFlags::ENCODABLE_SHIFT) & LegacyFlags::ENCODABLE_MASK) as u8) },
-				op_size: unsafe { mem::transmute(((dword2 >> LegacyFlags::OPERAND_SIZE_SHIFT) & LegacyFlags::OPERAND_SIZE_MASK) as u8) },
-				addr_size: unsafe { mem::transmute(((dword2 >> LegacyFlags::ADDRESS_SIZE_SHIFT) & LegacyFlags::ADDRESS_SIZE_MASK) as u8) },
+				rm_group_index,
+				enc_flags3,
+				op_size: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::OPERAND_SIZE_SHIFT) & EncFlags3::OPERAND_SIZE_MASK) as u8) },
+				addr_size: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ADDRESS_SIZE_SHIFT) & EncFlags3::ADDRESS_SIZE_MASK) as u8) },
+				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
+				is_declare_data: false,
 			},
 			table_byte1,
 			table_byte2,
@@ -256,17 +260,18 @@ pub(super) struct VexHandler {
 
 #[cfg(not(feature = "no_vex"))]
 impl VexHandler {
-	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
-		let group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
-		let rm_group_index = if (dword2 & VexFlags::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
-		let wbit: WBit = unsafe { mem::transmute(((dword2 >> VexFlags::WBIT_SHIFT) & VexFlags::WBIT_MASK) as u8) };
+	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
+		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let rm_group_index =
+			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		let w1 = if wbit == WBit::W1 { u32::MAX } else { 0 };
-		let lbit: LBit = unsafe { mem::transmute(((dword2 >> VexFlags::LBIT_SHIFT) & VexFlags::LBIT_MASK) as u8) };
+		let lbit: LBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) };
 		let mut last_byte = if lbit == LBit::L1 || lbit == LBit::L256 { 4 } else { 0 };
 		if w1 != 0 {
 			last_byte |= 0x80;
 		}
-		last_byte |= (dword2 >> VexFlags::MANDATORY_PREFIX_BYTE_SHIFT) & VexFlags::MANDATORY_PREFIX_BYTE_MASK;
+		last_byte |= (enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK;
 		let mut mask_w_l = if wbit == WBit::WIG { 0x80 } else { 0 };
 		let mask_l = if lbit == LBit::LIG {
 			mask_w_l |= 4;
@@ -276,11 +281,11 @@ impl VexHandler {
 		};
 
 		let mut operands;
-		let op0: VexOpKind = unsafe { mem::transmute(((dword3 >> VexFlags3::OP0_SHIFT) & VexFlags3::OP_MASK) as u8) };
-		let op1: VexOpKind = unsafe { mem::transmute(((dword3 >> VexFlags3::OP1_SHIFT) & VexFlags3::OP_MASK) as u8) };
-		let op2: VexOpKind = unsafe { mem::transmute(((dword3 >> VexFlags3::OP2_SHIFT) & VexFlags3::OP_MASK) as u8) };
-		let op3: VexOpKind = unsafe { mem::transmute(((dword3 >> VexFlags3::OP3_SHIFT) & VexFlags3::OP_MASK) as u8) };
-		let op4: VexOpKind = unsafe { mem::transmute(((dword3 >> VexFlags3::OP4_SHIFT) & VexFlags3::OP_MASK) as u8) };
+		let op0: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP0_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
+		let op1: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP1_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
+		let op2: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP2_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
+		let op3: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP3_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
+		let op4: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP4_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
 		if op4 != VexOpKind::None {
 			operands = Vec::with_capacity(5);
 			operands.push(VEX_TABLE[op0 as usize]);
@@ -330,15 +335,16 @@ impl VexHandler {
 				encode: Self::encode,
 				try_convert_to_disp8n: None,
 				operands: operands.into_boxed_slice(),
-				op_code: get_op_code(dword1),
+				op_code: get_op_code(enc_flags2),
 				group_index,
 				rm_group_index,
-				flags: OpCodeHandlerFlags::NONE,
-				encodable: unsafe { mem::transmute(((dword2 >> VexFlags::ENCODABLE_SHIFT) & VexFlags::ENCODABLE_MASK) as u8) },
+				enc_flags3,
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
+				is_declare_data: false,
 			},
-			table: (dword2 >> VexFlags::VEX_OP_CODE_TABLE_SHIFT) & VexFlags::VEX_OP_CODE_TABLE_MASK,
+			table: (enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK,
 			last_byte,
 			mask_w_l,
 			mask_l,
@@ -395,27 +401,29 @@ pub(super) struct XopHandler {
 
 #[cfg(not(feature = "no_xop"))]
 impl XopHandler {
-	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
+	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
 		const_assert_eq!(0, XopOpCodeTable::XOP8 as u32);
 		const_assert_eq!(1, XopOpCodeTable::XOP9 as u32);
 		const_assert_eq!(2, XopOpCodeTable::XOPA as u32);
-		let group_index = if (dword2 & XopFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> XopFlags::GROUP_SHIFT) & 7) as i32 };
-		let lbit: LBit = unsafe { mem::transmute(((dword2 >> XopFlags::LBIT_SHIFT) & XopFlags::LBIT_MASK) as u8) };
+		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let rm_group_index =
+			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let lbit: LBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) };
 		let mut last_byte = match lbit {
 			LBit::L1 | LBit::L256 => 4,
 			_ => 0,
 		};
-		let wbit: WBit = unsafe { mem::transmute(((dword2 >> XopFlags::WBIT_SHIFT) & XopFlags::WBIT_MASK) as u8) };
+		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		if wbit == WBit::W1 {
 			last_byte |= 0x80;
 		}
-		last_byte |= (dword2 >> XopFlags::MANDATORY_PREFIX_BYTE_SHIFT) & XopFlags::MANDATORY_PREFIX_BYTE_MASK;
+		last_byte |= (enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK;
 
 		let mut operands;
-		let op0: XopOpKind = unsafe { mem::transmute(((dword3 >> XopFlags3::OP0_SHIFT) & XopFlags3::OP_MASK) as u8) };
-		let op1: XopOpKind = unsafe { mem::transmute(((dword3 >> XopFlags3::OP1_SHIFT) & XopFlags3::OP_MASK) as u8) };
-		let op2: XopOpKind = unsafe { mem::transmute(((dword3 >> XopFlags3::OP2_SHIFT) & XopFlags3::OP_MASK) as u8) };
-		let op3: XopOpKind = unsafe { mem::transmute(((dword3 >> XopFlags3::OP3_SHIFT) & XopFlags3::OP_MASK) as u8) };
+		let op0: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP0_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
+		let op1: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP1_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
+		let op2: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP2_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
+		let op3: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP3_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
 		if op3 != XopOpKind::None {
 			operands = Vec::with_capacity(4);
 			operands.push(XOP_TABLE[op0 as usize]);
@@ -453,15 +461,16 @@ impl XopHandler {
 				encode: Self::encode,
 				try_convert_to_disp8n: None,
 				operands: operands.into_boxed_slice(),
-				op_code: get_op_code(dword1),
+				op_code: get_op_code(enc_flags2),
 				group_index,
-				rm_group_index: -1,
-				flags: OpCodeHandlerFlags::NONE,
-				encodable: unsafe { mem::transmute(((dword2 >> XopFlags::ENCODABLE_SHIFT) & XopFlags::ENCODABLE_MASK) as u8) },
+				rm_group_index,
+				enc_flags3,
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
+				is_declare_data: false,
 			},
-			table: 8 + ((dword2 >> XopFlags::XOP_OP_CODE_TABLE_SHIFT) & XopFlags::XOP_OP_CODE_TABLE_MASK),
+			table: 8 + ((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK),
 			last_byte,
 		}
 	}
@@ -493,7 +502,6 @@ impl XopHandler {
 #[repr(C)]
 pub(super) struct EvexHandler {
 	base: OpCodeHandler,
-	flags: u32, // EvexFlags
 	table: u32,
 	p1_bits: u32,
 	ll_bits: u32,
@@ -505,18 +513,20 @@ pub(super) struct EvexHandler {
 
 #[cfg(not(feature = "no_evex"))]
 impl EvexHandler {
-	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
-		let group_index = if (dword2 & EvexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> EvexFlags::GROUP_SHIFT) & 7) as i32 };
+	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
+		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		let rm_group_index =
+			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
 		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
 		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
-		let mut p1_bits = 4 | ((dword2 >> EvexFlags::MANDATORY_PREFIX_BYTE_SHIFT) & EvexFlags::MANDATORY_PREFIX_BYTE_MASK);
-		let wbit: WBit = unsafe { mem::transmute(((dword2 >> EvexFlags::WBIT_SHIFT) & EvexFlags::WBIT_MASK) as u8) };
+		let mut p1_bits = 4 | ((enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK);
+		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		if wbit == WBit::W1 {
 			p1_bits |= 0x80
 		}
-		let lbit: LBit = unsafe { mem::transmute(((dword2 >> EvexFlags::LBIT_SHIFT) & EvexFlags::LBIT_MASK) as u8) };
+		let lbit: LBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) };
 		let mut mask_ll = 0;
 		let ll_bits = match lbit {
 			LBit::LIG => {
@@ -530,10 +540,10 @@ impl EvexHandler {
 		let mask_w = if wbit == WBit::WIG { 0x80 } else { 0 };
 
 		let mut operands;
-		let op0: EvexOpKind = unsafe { mem::transmute(((dword3 >> EvexFlags3::OP0_SHIFT) & EvexFlags3::OP_MASK) as u8) };
-		let op1: EvexOpKind = unsafe { mem::transmute(((dword3 >> EvexFlags3::OP1_SHIFT) & EvexFlags3::OP_MASK) as u8) };
-		let op2: EvexOpKind = unsafe { mem::transmute(((dword3 >> EvexFlags3::OP2_SHIFT) & EvexFlags3::OP_MASK) as u8) };
-		let op3: EvexOpKind = unsafe { mem::transmute(((dword3 >> EvexFlags3::OP3_SHIFT) & EvexFlags3::OP_MASK) as u8) };
+		let op0: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP0_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
+		let op1: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP1_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
+		let op2: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP2_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
+		let op3: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP3_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
 		if op3 != EvexOpKind::None {
 			operands = Vec::with_capacity(4);
 			operands.push(EVEX_TABLE[op0 as usize]);
@@ -571,21 +581,21 @@ impl EvexHandler {
 				encode: Self::encode,
 				try_convert_to_disp8n: Some(Self::try_convert_to_disp8n),
 				operands: operands.into_boxed_slice(),
-				op_code: get_op_code(dword1),
+				op_code: get_op_code(enc_flags2),
 				group_index,
-				rm_group_index: -1,
-				flags: OpCodeHandlerFlags::NONE,
-				encodable: unsafe { mem::transmute(((dword2 >> EvexFlags::ENCODABLE_SHIFT) & EvexFlags::ENCODABLE_MASK) as u8) },
+				rm_group_index,
+				enc_flags3,
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
+				is_declare_data: false,
 			},
-			flags: dword2,
-			table: (dword2 >> EvexFlags::EVEX_OP_CODE_TABLE_SHIFT) & EvexFlags::EVEX_OP_CODE_TABLE_MASK,
+			table: (enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK,
 			p1_bits,
 			ll_bits,
 			mask_w,
 			mask_ll,
-			tuple_type: unsafe { mem::transmute(((dword2 >> EvexFlags::TUPLE_TYPE_SHIFT) & EvexFlags::TUPLE_TYPE_MASK) as u8) },
+			tuple_type: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::TUPLE_TYPE_SHIFT) & EncFlags3::TUPLE_TYPE_MASK) as u8) },
 			wbit,
 		}
 	}
@@ -628,24 +638,24 @@ impl EvexHandler {
 
 		b = super::super::instruction_internal::internal_op_mask(instruction);
 		if b != 0 {
-			if (this.flags & EvexFlags::K1) == 0 {
+			if (this.base.enc_flags3 & EncFlags3::OP_MASK_REGISTER) == 0 {
 				encoder.set_error_message_str("The instruction doesn't support opmask registers");
 			}
 		} else {
-			if (this.flags & EvexFlags::REQUIRE_OP_MASK_REGISTER) != 0 {
+			if (this.base.enc_flags3 & EncFlags3::REQUIRE_OP_MASK_REGISTER) != 0 {
 				encoder.set_error_message_str("The instruction must use an opmask register");
 			}
 		}
 		b |= (encoder_flags >> (EncoderFlags::VVVVV_SHIFT + 4 - 3)) & 8;
 		if instruction.suppress_all_exceptions() {
-			if (this.flags & EvexFlags::SAE) == 0 {
+			if (this.base.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) == 0 {
 				encoder.set_error_message_str("The instruction doesn't support suppress-all-exceptions");
 			}
 			b |= 0x10;
 		}
 		let rc = instruction.rounding_control();
 		if rc != RoundingControl::None {
-			if (this.flags & EvexFlags::ER) == 0 {
+			if (this.base.enc_flags3 & EncFlags3::ROUNDING_CONTROL) == 0 {
 				encoder.set_error_message_str("The instruction doesn't support rounding control");
 			}
 			b |= 0x10;
@@ -654,17 +664,17 @@ impl EvexHandler {
 			const_assert_eq!(3, RoundingControl::RoundUp as u32);
 			const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
 			b |= (rc as u32 - RoundingControl::RoundToNearest as u32) << 5;
-		} else if (this.flags & EvexFlags::SAE) == 0 || !instruction.suppress_all_exceptions() {
+		} else if (this.base.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) == 0 || !instruction.suppress_all_exceptions() {
 			b |= this.ll_bits;
 		}
 		if (encoder_flags & EncoderFlags::BROADCAST) != 0 {
-			if (this.flags & EvexFlags::B) == 0 {
+			if (this.base.enc_flags3 & EncFlags3::BROADCAST) == 0 {
 				encoder.set_error_message_str("The instruction doesn't support broadcasting");
 			}
 			b |= 0x10;
 		}
 		if instruction.zeroing_masking() {
-			if (this.flags & EvexFlags::Z) == 0 {
+			if (this.base.enc_flags3 & EncFlags3::ZEROING_MASKING) == 0 {
 				encoder.set_error_message_str("The instruction doesn't support zeroing masking");
 			}
 			b |= 0x80;
@@ -684,7 +694,7 @@ pub(super) struct D3nowHandler {
 
 #[cfg(not(feature = "no_d3now"))]
 impl D3nowHandler {
-	pub(super) fn new(dword1: u32, dword2: u32, _dword3: u32) -> Self {
+	pub(super) fn new(enc_flags2: u32, enc_flags3: u32) -> Self {
 		let mut operands = Vec::with_capacity(2);
 		static D3NOW_TABLE: [&(Op + Sync); 2] =
 			[&OpModRM_reg { reg_lo: Register::MM0, reg_hi: Register::MM7 }, &OpModRM_rm { reg_lo: Register::MM0, reg_hi: Register::MM7 }];
@@ -699,12 +709,13 @@ impl D3nowHandler {
 				op_code: 0x0F,
 				group_index: -1,
 				rm_group_index: -1,
-				flags: OpCodeHandlerFlags::NONE,
-				encodable: unsafe { mem::transmute(((dword2 >> D3nowFlags::ENCODABLE_SHIFT) & D3nowFlags::ENCODABLE_MASK) as u8) },
+				enc_flags3,
 				op_size: CodeSize::Unknown,
 				addr_size: CodeSize::Unknown,
+				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
+				is_declare_data: false,
 			},
-			immediate: get_op_code(dword1),
+			immediate: get_op_code(enc_flags2),
 		}
 	}
 

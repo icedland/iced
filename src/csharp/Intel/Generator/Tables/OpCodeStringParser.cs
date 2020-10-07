@@ -52,6 +52,7 @@ namespace Generator.Tables {
 			// Check if it's INVALID, db, dw, dd, dq
 			if (opCodeStr.StartsWith("<", StringComparison.Ordinal) && opCodeStr.EndsWith(">", StringComparison.Ordinal)) {
 				result = OpCodeDef.CreateDefault(EncodingKind.Legacy);
+				result.OpCodeLength = 1;
 				error = null;
 				return true;
 			}
@@ -166,7 +167,7 @@ namespace Generator.Tables {
 				break;
 			}
 
-			ushort opCode = 0;
+			uint opCode = 0;
 			var table = OpCodeTableKind.Normal;
 			int opCodeByteCount = 0;
 			for (; index < parts.Length; index++) {
@@ -187,10 +188,11 @@ namespace Generator.Tables {
 						return false;
 					}
 					table = OpCodeTableKind.T0F;
+					opCode = (byte)opCode;
 				}
 				else
 					opCodeByteCount++;
-				opCode = (ushort)((opCode << 8) | opCodeByte);
+				opCode = (opCode << 8) | opCodeByte;
 			}
 			if (opCodeByteCount == 0) {
 				error = "Missing opcode byte";
@@ -198,10 +200,6 @@ namespace Generator.Tables {
 			}
 			if (opCodeByteCount == 2) {
 				byte hi = (byte)(opCode >> 8);
-				if (hi == 0) {
-					error = "First opcode byte is 00 which isn't supported";
-					return false;
-				}
 				switch (hi) {
 				case 0x0F:
 					if (table != OpCodeTableKind.Normal) {
@@ -210,12 +208,14 @@ namespace Generator.Tables {
 					}
 					opCode = (byte)opCode;
 					table = OpCodeTableKind.T0F;
+					opCodeByteCount--;
 					break;
 
 				case 0x38:
 					if (table == OpCodeTableKind.T0F) {
 						opCode = (byte)opCode;
 						table = OpCodeTableKind.T0F38;
+						opCodeByteCount--;
 					}
 					break;
 
@@ -223,6 +223,7 @@ namespace Generator.Tables {
 					if (table == OpCodeTableKind.T0F) {
 						opCode = (byte)opCode;
 						table = OpCodeTableKind.T0F3A;
+						opCodeByteCount--;
 					}
 					break;
 
@@ -243,6 +244,7 @@ namespace Generator.Tables {
 				}
 			}
 			result.OpCode = opCode;
+			result.OpCodeLength = opCodeByteCount;
 			result.Table = table;
 
 			for (; index < parts.Length; index++) {
@@ -280,6 +282,7 @@ namespace Generator.Tables {
 
 			result.Table = OpCodeTableKind.T0F;
 			result.OpCode = opCode;
+			result.OpCodeLength = 1;
 			return true;
 		}
 
@@ -480,11 +483,7 @@ namespace Generator.Tables {
 						error = $"Found an extra opcode byte `{part}";
 						return false;
 					}
-					if (result.OpCode == 0) {
-						error = "First opcode byte is 00 which isn't supported";
-						return false;
-					}
-					result.OpCode = (ushort)((result.OpCode << 8) | opCode2);
+					result.OpCode = (result.OpCode << 8) | opCode2;
 				}
 				else {
 					canParseOpCode = false;
@@ -496,6 +495,7 @@ namespace Generator.Tables {
 						return false;
 				}
 			}
+			result.OpCodeLength = opCodeByteCount;
 
 			switch (vecEnc) {
 			case VecEncoding.VEX:

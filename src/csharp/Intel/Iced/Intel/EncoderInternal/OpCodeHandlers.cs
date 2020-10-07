@@ -25,31 +25,33 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 
 namespace Iced.Intel.EncoderInternal {
-	static partial class OpCodeHandlers {
+	static class OpCodeHandlers {
 		public static readonly OpCodeHandler[] Handlers;
 
 		static OpCodeHandlers() {
-			var info = GetData();
+			var encFlags1 = EncoderData.EncFlags1;
+			var encFlags2 = EncoderData.EncFlags2;
+			var encFlags3Data = EncoderData.EncFlags3;
 			var handlers = new OpCodeHandler[IcedConstants.NumberOfCodeValues];
-			int j = 0;
+			int i = 0;
 			var invalidHandler = new InvalidHandler();
-			for (int i = 0; i < info.Length; i += 3, j++) {
-				uint dword1 = info[i];
+			for (; i < encFlags1.Length; i++) {
+				var encFlags3 = (EncFlags3)encFlags3Data[i];
 				OpCodeHandler handler;
-				switch ((EncodingKind)((dword1 >> (int)EncFlags1.EncodingShift) & (uint)EncFlags1.EncodingMask)) {
+				switch ((EncodingKind)(((uint)encFlags3 >> (int)EncFlags3.EncodingShift) & (uint)EncFlags3.EncodingMask)) {
 				case EncodingKind.Legacy:
-					var code = (Code)j;
+					var code = (Code)i;
 					if (code == Code.INVALID)
 						handler = invalidHandler;
 					else if (code <= Code.DeclareQword)
 						handler = new DeclareDataHandler(code);
 					else
-						handler = new LegacyHandler(dword1, info[i + 1], info[i + 2]);
+						handler = new LegacyHandler((EncFlags1)encFlags1[i], (EncFlags2)encFlags2[i], encFlags3);
 					break;
 
 				case EncodingKind.VEX:
 #if !NO_VEX
-					handler = new VexHandler(dword1, info[i + 1], info[i + 2]);
+					handler = new VexHandler((EncFlags1)encFlags1[i], (EncFlags2)encFlags2[i], encFlags3);
 #else
 					handler = invalidHandler;
 #endif
@@ -57,7 +59,7 @@ namespace Iced.Intel.EncoderInternal {
 
 				case EncodingKind.EVEX:
 #if !NO_EVEX
-					handler = new EvexHandler(dword1, info[i + 1], info[i + 2]);
+					handler = new EvexHandler((EncFlags1)encFlags1[i], (EncFlags2)encFlags2[i], encFlags3);
 #else
 					handler = invalidHandler;
 #endif
@@ -65,7 +67,7 @@ namespace Iced.Intel.EncoderInternal {
 
 				case EncodingKind.XOP:
 #if !NO_XOP
-					handler = new XopHandler(dword1, info[i + 1], info[i + 2]);
+					handler = new XopHandler((EncFlags1)encFlags1[i], (EncFlags2)encFlags2[i], encFlags3);
 #else
 					handler = invalidHandler;
 #endif
@@ -73,7 +75,7 @@ namespace Iced.Intel.EncoderInternal {
 
 				case EncodingKind.D3NOW:
 #if !NO_D3NOW
-					handler = new D3nowHandler(dword1, info[i + 1], info[i + 2]);
+					handler = new D3nowHandler((EncFlags2)encFlags2[i], encFlags3);
 #else
 					handler = invalidHandler;
 #endif
@@ -82,9 +84,9 @@ namespace Iced.Intel.EncoderInternal {
 				default:
 					throw new InvalidOperationException();
 				}
-				handlers[j] = handler;
+				handlers[i] = handler;
 			}
-			if (j != handlers.Length)
+			if (i != handlers.Length)
 				throw new InvalidOperationException();
 			Handlers = handlers;
 		}

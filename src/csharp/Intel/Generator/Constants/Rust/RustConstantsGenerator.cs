@@ -63,7 +63,6 @@ namespace Generator.Constants.Rust {
 			toPartialFileInfo.Add(TypeIds.MiscSectionNames, new PartialConstantsFileInfo("MiscSectionNames", Path.Combine(dir, "info", "tests", "misc_test_data.rs")));
 			toPartialFileInfo.Add(TypeIds.OpCodeInfoKeys, new PartialConstantsFileInfo("OpCodeInfoKeys", Path.Combine(dir, "encoder", "tests", "op_code_test_case_parser.rs"), true));
 			toPartialFileInfo.Add(TypeIds.OpCodeInfoFlags, new PartialConstantsFileInfo("OpCodeInfoFlags", Path.Combine(dir, "encoder", "tests", "op_code_test_case_parser.rs"), true));
-			toPartialFileInfo.Add(TypeIds.OpCodeFlags, new PartialConstantsFileInfo("Flags", Path.Combine(dir, "encoder", "op_code.rs")));
 		}
 
 		public override void Generate(ConstantsType constantsType) {

@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+mod encoder_data;
 mod enums;
 pub(crate) mod handlers_table;
 #[cfg(feature = "op_code_info")]
@@ -30,6 +31,7 @@ mod mem_op;
 mod mnemonic_str_tbl;
 #[cfg(feature = "op_code_info")]
 mod op_code;
+#[cfg(feature = "op_code_info")]
 mod op_code_data;
 #[cfg(feature = "op_code_info")]
 mod op_code_fmt;
@@ -280,20 +282,20 @@ impl Encoder {
 			self.mod_rm |= (rm_group_index as u8) | 0xC0;
 		}
 
-		match handler.encodable {
-			Encodable::Any => {}
-
-			Encodable::Only1632 => {
+		match handler.enc_flags3 & (EncFlags3::BIT16OR32 | EncFlags3::BIT64) {
+			EncFlags3::BIT16OR32 => {
 				if self.bitness == 64 {
 					self.set_error_message_str(Self::ERROR_ONLY_1632_BIT_MODE);
 				}
 			}
 
-			Encodable::Only64 => {
+			EncFlags3::BIT64 => {
 				if self.bitness != 64 {
 					self.set_error_message_str(Self::ERROR_ONLY_64_BIT_MODE);
 				}
 			}
+
+			_ => {}
 		}
 
 		match handler.op_size {
@@ -309,7 +311,7 @@ impl Encoder {
 			CodeSize::Code32 => self.encoder_flags |= self.adrsize32_flags,
 		}
 
-		if (handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0 {
+		if !handler.is_declare_data {
 			let ops = &*handler.operands;
 			if instruction.op_count() as usize != ops.len() {
 				self.set_error_message(format!("Expected {} operand(s) but the instruction has {} operand(s)", ops.len(), instruction.op_count()));
@@ -319,17 +321,16 @@ impl Encoder {
 				op.encode(self, instruction, i as u32);
 			}
 
-			if (handler.flags & OpCodeHandlerFlags::FWAIT) != 0 {
+			if (handler.enc_flags3 & EncFlags3::FWAIT) != 0 {
 				self.write_byte_internal(0x9B);
 			}
 
 			(handler.encode)(handler, self, instruction);
 
 			let op_code = self.op_code;
-			if op_code <= 0x0000_00FF {
+			if !handler.is_2byte_opcode {
 				self.write_byte_internal(op_code);
 			} else {
-				debug_assert!(op_code <= 0x0000_FFFF);
 				self.write_byte_internal(op_code >> 8);
 				self.write_byte_internal(op_code);
 			}
@@ -346,7 +347,7 @@ impl Encoder {
 		}
 
 		let instr_len = (self.current_rip as usize).wrapping_sub(rip as usize);
-		if instr_len > IcedConstants::MAX_INSTRUCTION_LENGTH && (handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0 {
+		if instr_len > IcedConstants::MAX_INSTRUCTION_LENGTH && !handler.is_declare_data {
 			self.set_error_message(format!("Instruction length > {} bytes", IcedConstants::MAX_INSTRUCTION_LENGTH));
 		}
 		if !self.error_message.is_empty() {
@@ -1063,7 +1064,7 @@ impl Encoder {
 	}
 
 	pub(self) fn write_prefixes(&mut self, instruction: &Instruction, can_write_f3: bool) {
-		debug_assert!((self.handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0);
+		debug_assert_eq!(false, self.handler.is_declare_data);
 		let seg = instruction.segment_prefix();
 		if seg != Register::None {
 			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
@@ -1088,7 +1089,7 @@ impl Encoder {
 	}
 
 	fn write_mod_rm(&mut self) {
-		debug_assert!((self.handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0);
+		debug_assert_eq!(false, self.handler.is_declare_data);
 		debug_assert!((self.encoder_flags & (EncoderFlags::MOD_RM | EncoderFlags::DISPL)) != 0);
 		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let mut tmp;
@@ -1167,7 +1168,7 @@ impl Encoder {
 	}
 
 	fn write_immediate(&mut self) {
-		debug_assert!((self.handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0);
+		debug_assert_eq!(false, self.handler.is_declare_data);
 		let ip;
 		let eip;
 		let rip;

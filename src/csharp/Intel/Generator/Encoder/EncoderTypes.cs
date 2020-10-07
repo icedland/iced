@@ -26,13 +26,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Generator.Enums;
 using Generator.Enums.Encoder;
-using Generator.Tables;
 
 namespace Generator.Encoder {
 	[TypeGen(TypeGenOrders.CreatedInstructions)]
 	sealed class EncoderTypes {
 		public (EnumValue value, uint size)[] ImmSizes { get; }
-		public Dictionary<InstructionDefFlags1, EnumValue> AllowedPrefixesMap { get; }
 		public (EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] LegacyOpHandlers { get; }
 		public (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] VexOpHandlers { get; }
 		public (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] XopOpHandlers { get; }
@@ -46,18 +44,7 @@ namespace Generator.Encoder {
 			var gen = new EncoderTypesGen(genTypes);
 			gen.Generate();
 			ImmSizes = gen.ImmSizes ?? throw new InvalidOperationException();
-			AllowedPrefixesMap = gen.AllowedPrefixesMap ?? throw new InvalidOperationException();
 			genTypes.Add(gen.EncFlags1 ?? throw new InvalidOperationException());
-			genTypes.Add(gen.LegacyFlags3 ?? throw new InvalidOperationException());
-			genTypes.Add(gen.VexFlags3 ?? throw new InvalidOperationException());
-			genTypes.Add(gen.XopFlags3 ?? throw new InvalidOperationException());
-			genTypes.Add(gen.EvexFlags3 ?? throw new InvalidOperationException());
-			genTypes.Add(gen.AllowedPrefixes ?? throw new InvalidOperationException());
-			genTypes.Add(gen.LegacyFlags ?? throw new InvalidOperationException());
-			genTypes.Add(gen.VexFlags ?? throw new InvalidOperationException());
-			genTypes.Add(gen.XopFlags ?? throw new InvalidOperationException());
-			genTypes.Add(gen.EvexFlags ?? throw new InvalidOperationException());
-			genTypes.Add(gen.D3nowFlags ?? throw new InvalidOperationException());
 
 			var opCodeOperandKind = genTypes[TypeIds.OpCodeOperandKind];
 			var legacyOpKind = genTypes[TypeIds.LegacyOpKind];

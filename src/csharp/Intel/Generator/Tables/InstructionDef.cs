@@ -49,19 +49,19 @@ namespace Generator.Tables {
 		/// <summary>
 		/// Can execute when CPL=0
 		/// </summary>
-		Cpl0					= 0x00000008,//TODO: Add to OpCodeInfo
+		Cpl0					= 0x00000008,
 		/// <summary>
 		/// Can execute when CPL=1
 		/// </summary>
-		Cpl1					= 0x00000010,//TODO: Add to OpCodeInfo
+		Cpl1					= 0x00000010,
 		/// <summary>
 		/// Can execute when CPL=2
 		/// </summary>
-		Cpl2					= 0x00000020,//TODO: Add to OpCodeInfo
+		Cpl2					= 0x00000020,
 		/// <summary>
 		/// Can execute when CPL=3
 		/// </summary>
-		Cpl3					= 0x00000040,//TODO: Add to OpCodeInfo
+		Cpl3					= 0x00000040,
 		/// <summary>
 		/// It reads/writes too many registers
 		/// </summary>
@@ -71,9 +71,9 @@ namespace Generator.Tables {
 		/// </summary>
 		StackInstruction		= 0x00000100,
 		/// <summary>
-		/// The instruction doesn't read the segment register
+		/// The instruction doesn't read the segment register if it uses a memory operand
 		/// </summary>
-		IgnoreSegment			= 0x00000200,
+		IgnoresSegment			= 0x00000200,
 		/// <summary>
 		/// The op mask register is read and written (instead of just read). This also implies that it can't be <c>K0</c>.
 		/// </summary>
@@ -149,20 +149,20 @@ namespace Generator.Tables {
 		/// <summary>
 		/// The mod bits are ignored and it's assumed modrm[7:6] == 11b
 		/// </summary>
-		IgnoresModBits			= 0x10000000,//TODO: Add to OpCodeInfo
+		IgnoresModBits			= 0x10000000,
 		/// <summary>
 		/// The index reg's reg-num (vsib op) (if any) and register ops' reg-num must be unique, eg. <c>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</c>
 		/// is invalid. Registers = <c>XMM</c>/<c>YMM</c>/<c>ZMM</c>/<c>TMM</c>.
 		/// </summary>
-		RequireUniqueRegNums	= 0x20000000,//TODO: Add to OpCodeInfo
+		RequiresUniqueRegNums	= 0x20000000,
 		/// <summary>
 		/// <c>66</c> prefix is not allowed (it will #UD)
 		/// </summary>
-		No66					= 0x40000000,//TODO: Add to OpCodeInfo
+		No66					= 0x40000000,
 		/// <summary>
 		/// <c>F2</c>/<c>F3</c> prefixes aren't allowed
 		/// </summary>
-		NFx						= 0x80000000,//TODO: Add to OpCodeInfo
+		NFx						= 0x80000000,
 	}
 
 	[Flags]
@@ -171,131 +171,131 @@ namespace Generator.Tables {
 		/// <summary>
 		/// Decoded by iced's 16-bit Intel decoder
 		/// </summary>
-		IntelDecoder16			= 0x00000001,//TODO: Add to OpCodeInfo
+		IntelDecoder16			= 0x00000001,
 		/// <summary>
 		/// Decoded by iced's 32-bit Intel decoder
 		/// </summary>
-		IntelDecoder32			= 0x00000002,//TODO: Add to OpCodeInfo
+		IntelDecoder32			= 0x00000002,
 		/// <summary>
 		/// Decoded by iced's 64-bit Intel decoder
 		/// </summary>
-		IntelDecoder64			= 0x00000004,//TODO: Add to OpCodeInfo
+		IntelDecoder64			= 0x00000004,
 		/// <summary>
 		/// Decoded by iced's 16-bit AMD decoder
 		/// </summary>
-		AmdDecoder16			= 0x00000008,//TODO: Add to OpCodeInfo
+		AmdDecoder16			= 0x00000008,
 		/// <summary>
 		/// Decoded by iced's 32-bit AMD decoder
 		/// </summary>
-		AmdDecoder32			= 0x00000010,//TODO: Add to OpCodeInfo
+		AmdDecoder32			= 0x00000010,
 		/// <summary>
 		/// Decoded by iced's 64-bit AMD decoder
 		/// </summary>
-		AmdDecoder64			= 0x00000020,//TODO: Add to OpCodeInfo
+		AmdDecoder64			= 0x00000020,
 		/// <summary>
 		/// Supported in real mode
 		/// </summary>
-		RealMode				= 0x00000040,//TODO: Add to OpCodeInfo
+		RealMode				= 0x00000040,
 		/// <summary>
 		/// Supported in protected mode
 		/// </summary>
-		ProtectedMode			= 0x00000080,//TODO: Add to OpCodeInfo
+		ProtectedMode			= 0x00000080,
 		/// <summary>
 		/// Supported in virtual 8086 mode
 		/// </summary>
-		Virtual8086Mode			= 0x00000100,//TODO: Add to OpCodeInfo
+		Virtual8086Mode			= 0x00000100,
 		/// <summary>
 		/// Supported in compatibility mode
 		/// </summary>
-		CompatibilityMode		= 0x00000200,//TODO: Add to OpCodeInfo
+		CompatibilityMode		= 0x00000200,
 		/// <summary>
 		/// Supported in 64-bit mode
 		/// </summary>
-		LongMode				= 0x00000400,//TODO: Add to OpCodeInfo
+		LongMode				= 0x00000400,
 		/// <summary>
 		/// Can be used outside SMM
 		/// </summary>
-		UseOutsideSmm			= 0x00000800,//TODO: Add to OpCodeInfo
+		UseOutsideSmm			= 0x00000800,
 		/// <summary>
 		/// Can be used in SMM
 		/// </summary>
-		UseInSmm				= 0x00001000,//TODO: Add to OpCodeInfo
+		UseInSmm				= 0x00001000,
 		/// <summary>
 		/// Can be used outside an enclave (SGX)
 		/// </summary>
-		UseOutsideEnclaveSgx	= 0x00002000,//TODO: Add to OpCodeInfo
+		UseOutsideEnclaveSgx	= 0x00002000,
 		/// <summary>
 		/// Can be used inside an enclave (SGX1)
 		/// </summary>
-		UseInEnclaveSgx1		= 0x00004000,//TODO: Add to OpCodeInfo
+		UseInEnclaveSgx1		= 0x00004000,
 		/// <summary>
 		/// Can be used inside an enclave (SGX2)
 		/// </summary>
-		UseInEnclaveSgx2		= 0x00008000,//TODO: Add to OpCodeInfo
+		UseInEnclaveSgx2		= 0x00008000,
 		/// <summary>
 		/// Can be used outside VMX operation
 		/// </summary>
-		UseOutsideVmxOp			= 0x00010000,//TODO: Add to OpCodeInfo
+		UseOutsideVmxOp			= 0x00010000,
 		/// <summary>
 		/// Can be used in VMX root operation
 		/// </summary>
-		UseInVmxRootOp			= 0x00020000,//TODO: Add to OpCodeInfo
+		UseInVmxRootOp			= 0x00020000,
 		/// <summary>
 		/// Can be used in VMX non-root operation
 		/// </summary>
-		UseInVmxNonRootOp		= 0x00040000,//TODO: Add to OpCodeInfo
+		UseInVmxNonRootOp		= 0x00040000,
 		/// <summary>
 		/// Can be used outside SEAM
 		/// </summary>
-		UseOutsideSeam			= 0x00080000,//TODO: Add to OpCodeInfo
+		UseOutsideSeam			= 0x00080000,
 		/// <summary>
 		/// Can be used in SEAM
 		/// </summary>
-		UseInSeam				= 0x00100000,//TODO: Add to OpCodeInfo
+		UseInSeam				= 0x00100000,
 		/// <summary>
 		/// #UD is generated in TDX non-root operation
 		/// </summary>
-		TdxNonRootGenUd			= 0x00200000,//TODO: Add to OpCodeInfo
+		TdxNonRootGenUd			= 0x00200000,
 		/// <summary>
 		/// #VE is generated in TDX non-root operation
 		/// </summary>
-		TdxNonRootGenVe			= 0x00400000,//TODO: Add to OpCodeInfo
+		TdxNonRootGenVe			= 0x00400000,
 		/// <summary>
 		/// An exception (eg. #GP(0), #VE) may be generated in TDX non-root operation
 		/// </summary>
-		TdxNonRootMayGenEx		= 0x00800000,//TODO: Add to OpCodeInfo
+		TdxNonRootMayGenEx		= 0x00800000,
 		/// <summary>
 		/// (Intel VMX) Causes a VM exit in VMX non-root operation
 		/// </summary>
-		IntelVmExit				= 0x01000000,//TODO: Add to OpCodeInfo
+		IntelVmExit				= 0x01000000,
 		/// <summary>
 		/// (Intel VMX) May cause a VM exit in VMX non-root operation
 		/// </summary>
-		IntelMayVmExit			= 0x02000000,//TODO: Add to OpCodeInfo
+		IntelMayVmExit			= 0x02000000,
 		/// <summary>
 		/// (Intel VMX) Causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)
 		/// </summary>
-		IntelSmmVmExit			= 0x04000000,//TODO: Add to OpCodeInfo
+		IntelSmmVmExit			= 0x04000000,
 		/// <summary>
 		/// (AMD SVM) Causes a #VMEXIT in guest mode
 		/// </summary>
-		AmdVmExit				= 0x08000000,//TODO: Add to OpCodeInfo
+		AmdVmExit				= 0x08000000,
 		/// <summary>
 		/// (AMD SVM) May cause a #VMEXIT in guest mode
 		/// </summary>
-		AmdMayVmExit			= 0x10000000,//TODO: Add to OpCodeInfo
+		AmdMayVmExit			= 0x10000000,
 		/// <summary>
 		/// Causes a TSX abort inside a TSX transaction
 		/// </summary>
-		TsxAbort				= 0x20000000,//TODO: Add to OpCodeInfo
+		TsxAbort				= 0x20000000,
 		/// <summary>
 		/// Causes a TSX abort inside a TSX transaction depending on the implementation
 		/// </summary>
-		TsxImplAbort			= 0x40000000,//TODO: Add to OpCodeInfo
+		TsxImplAbort			= 0x40000000,
 		/// <summary>
 		/// May cause a TSX abort inside a TSX transaction depending on some condition
 		/// </summary>
-		TsxMayAbort				= 0x80000000,//TODO: Add to OpCodeInfo
+		TsxMayAbort				= 0x80000000,
 	}
 
 	[Flags]
@@ -304,63 +304,63 @@ namespace Generator.Tables {
 		/// <summary>
 		/// Default operand size is 64 in 64-bit mode
 		/// </summary>
-		DefaultOpSize64			= 0x00000001,//TODO: Add to OpCodeInfo
+		DefaultOpSize64			= 0x00000001,
 		/// <summary>
 		/// The operand size is always 64 in 64-bit mode
 		/// </summary>
-		ForceOpSize64			= 0x00000002,//TODO: Add to OpCodeInfo
+		ForceOpSize64			= 0x00000002,
 		/// <summary>
 		/// Intel decoder forces 64-bit operand size
 		/// </summary>
-		IntelForceOpSize64		= 0x00000004,//TODO: Add to OpCodeInfo
+		IntelForceOpSize64		= 0x00000004,
 		/// <summary>
 		/// The instruction accesses the I/O address space (eg. <c>IN</c>, <c>OUT</c>, <c>INS</c>, <c>OUTS</c>)
 		/// </summary>
-		InputOutput				= 0x00000008,//TODO: Add to OpCodeInfo
+		InputOutput				= 0x00000008,
 		/// <summary>
 		/// It's one of the many nop instructions (does not include FPU nop instructions, eg. <c>FNOP</c>)
 		/// </summary>
-		Nop						= 0x00000010,//TODO: Add to OpCodeInfo
+		Nop						= 0x00000010,
 		/// <summary>
 		/// It's one of the many reserved nop instructions (eg. <c>0F0D</c>, <c>0F18-0F1F</c>)
 		/// </summary>
-		ReservedNop				= 0x00000020,//TODO: Add to OpCodeInfo
+		ReservedNop				= 0x00000020,
 		/// <summary>
 		/// The rounding control is ignored (#UD is not generated)
 		/// </summary>
-		IgnoreRoundingControl	= 0x00000040,//TODO: Add to OpCodeInfo
+		IgnoresRoundingControl	= 0x00000040,
 		/// <summary>
 		/// It's a serializing instruction (Intel CPUs)
 		/// </summary>
-		SerializingIntel		= 0x00000080,//TODO: Add to OpCodeInfo
+		SerializingIntel		= 0x00000080,
 		/// <summary>
 		/// It's a serializing instruction (AMD CPUs)
 		/// </summary>
-		SerializingAmd			= 0x00000100,//TODO: Add to OpCodeInfo
+		SerializingAmd			= 0x00000100,
 		/// <summary>
 		/// The instruction is either CPL=0 or CPL<=3 depending on some CPU option (eg. <c>CR4.TSD</c>, <c>CR4.PCE</c>, <c>CR4.UMIP</c>)
 		/// </summary>
-		MayRequireCpl0			= 0x00000200,//TODO: Add to OpCodeInfo
+		MayRequireCpl0			= 0x00000200,
 		/// <summary>
 		/// (AMD) The <c>LOCK</c> prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a <c>REX</c> prefix (eg. in 32-bit mode)
 		/// </summary>
-		AmdLockRegBit			= 0x00000400,//TODO: Add to OpCodeInfo
+		AmdLockRegBit			= 0x00000400,
 		/// <summary>
 		/// It's a tracked <c>JMP</c>/<c>CALL</c> indirect instruction (CET)
 		/// </summary>
-		CetTracked				= 0x00000800,//TODO: Add to OpCodeInfo
+		CetTracked				= 0x00000800,
 		/// <summary>
 		/// Non-temporal hint memory access (eg. <c>MOVNTDQ</c>, etc)
 		/// </summary>
-		NonTemporal				= 0x00001000,//TODO: Add to OpCodeInfo
+		NonTemporal				= 0x00001000,
 		/// <summary>
 		/// It's a no-wait FPU instruction, eg. <c>FNINIT</c>
 		/// </summary>
-		FpuNoWait				= 0x00002000,//TODO: Add to OpCodeInfo
+		FpuNoWait				= 0x00002000,
 		/// <summary>
 		/// It's a privileged instruction (usually requires CPL=0) and this includes <c>IN</c>, <c>OUT</c>, <c>CLI</c>, <c>STI</c>
 		/// </summary>
-		Privileged				= 0x00004000,//TODO: Add to OpCodeInfo
+		Privileged				= 0x00004000,
 	}
 
 	enum VmxMode {
@@ -382,36 +382,43 @@ namespace Generator.Tables {
 		VmxNonRootOp,
 	}
 
-	[Flags]
-	enum InstructionStringFlags : uint {
+	[Enum("InstrStrFmtOption")]
+	enum InstrStrFmtOption {
 		/// <summary>
 		/// No special code is needed to format the instruction string
 		/// </summary>
-		None					= 0,
+		None,
 		/// <summary>
-		/// Set if the op mask is `{k1}` even if the first operand is also a `k` reg, eg. `xxx k2 {k1}, xmm`
+		/// Used if the op mask is `{k1}` even if the first operand is also a `k` reg, eg. `xxx k2 {k1}, xmm3`
+		/// or
+		/// Don't print the GPR suffix (a, b, etc), eg. `xxx r32, r32` instead of `xxx r32a, r32b`
 		/// </summary>
-		OpMaskIsK1				= 0x01,
+		OpMaskIsK1_or_NoGprSuffix,
 		/// <summary>
 		/// Increment the vector index which causes the first vector register number to be `2` instead of `1`, eg. `xxx eax, xmm2`
 		/// </summary>
-		IncVecIndex				= 0x02,
+		IncVecIndex,
 		/// <summary>
 		/// Don't print the vector index (usually set if it's an MMX instruction), eg. `xxx mm, mm/m64`
 		/// </summary>
-		NoVecIndex				= 0x04,
+		NoVecIndex,
 		/// <summary>
 		/// The first operand should use index `2` and the next operand index `1`, eg. `xxx xmm2, xmm1`
 		/// </summary>
-		SwapVecIndex12			= 0x08,
+		SwapVecIndex12,
 		/// <summary>
-		/// If it's an FPU instruction with ops `st(0), st(i)`, don't print the first operand (`st(0)`), eg. `FCOM ST(i)`
+		/// Don't print the first operand
 		/// </summary>
-		FpuSkipOp0				= 0x10,
+		SkipOp0,
+	}
+
+	[Flags]
+	enum InstructionStringFlags : uint {
+		None					= 0,
 		/// <summary>
 		/// The modrm info is part of the string, eg. `!(11):000:bbb`
 		/// </summary>
-		ModRegRmString			= 0x20,
+		ModRegRmString			= 0x00000001,
 	}
 
 	enum BranchKind {
@@ -443,14 +450,14 @@ namespace Generator.Tables {
 		public readonly EnumValue Mnemonic;
 		public readonly EnumValue Memory;
 		public readonly EnumValue MemoryBroadcast;
-		public readonly EnumValue DecoderOption;//TODO: Add to OpCodeInfo
+		public readonly EnumValue DecoderOption;
 		public readonly EnumValue EncodingValue;
 		public EncodingKind Encoding => (EncodingKind)EncodingValue.Value;
 		public readonly InstructionDefFlags1 Flags1;
 		public readonly InstructionDefFlags2 Flags2;
 		public readonly InstructionDefFlags3 Flags3;
-		public readonly VmxMode VmxMode;//TODO: Add to OpCodeInfo
-		public readonly InstructionStringFlags IStringFlags;//TODO: Add to OpCodeInfo (used internally by the formatter)
+		public readonly InstrStrFmtOption InstrStrFmtOption;
+		public readonly InstructionStringFlags InstrStrFlags;
 
 		public readonly CodeSize OperandSize;
 		public readonly CodeSize AddressSize;
@@ -459,6 +466,7 @@ namespace Generator.Tables {
 		public readonly OpCodeL LBit;
 		public readonly OpCodeW WBit;
 		public readonly uint OpCode;
+		public readonly int OpCodeLength;
 		public readonly int GroupIndex;
 		public readonly int RmGroupIndex;
 		public readonly TupleType TupleType;
@@ -488,9 +496,9 @@ namespace Generator.Tables {
 
 		public InstructionDef(EnumValue code, string opCodeString, string instructionString, EnumValue mnemonic,
 			EnumValue mem, EnumValue bcst, EnumValue decoderOption, InstructionDefFlags1 flags1, InstructionDefFlags2 flags2,
-			InstructionDefFlags3 flags3, VmxMode vmxMode, InstructionStringFlags istringFlags,
-			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int groupIndex,
-			int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKind[] opKinds,
+			InstructionDefFlags3 flags3, InstrStrFmtOption instrStrFmtOption, InstructionStringFlags instrStrFlags,
+			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
+			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKind[] opKinds,
 			PseudoOpsKind? pseudoOp, CodeInfo codeInfo, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
 			BranchKind branchKind, RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
 			EnumValue[] cpuid, OpInfo[] opInfo,
@@ -506,14 +514,15 @@ namespace Generator.Tables {
 			Flags1 = flags1;
 			Flags2 = flags2;
 			Flags3 = flags3;
-			VmxMode = vmxMode;
-			IStringFlags = istringFlags;
+			InstrStrFmtOption = instrStrFmtOption;
+			InstrStrFlags = instrStrFlags;
 
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;
 			LBit = lBit;
 			WBit = wBit;
 			OpCode = opCode;
+			OpCodeLength = opCodeLength;
 			GroupIndex = groupIndex;
 			RmGroupIndex = rmGroupIndex;
 			TupleType = tupleType;

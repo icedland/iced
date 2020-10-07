@@ -50,7 +50,8 @@ namespace Generator.Tables {
 		public OpCodeW WBit;
 		public OpCodeL LBit;
 		public OpCodeTableKind Table;
-		public ushort OpCode;
+		public uint OpCode;
+		public int OpCodeLength;
 		public sbyte GroupIndex;
 		public sbyte RmGroupIndex;
 		public CodeSize OperandSize;

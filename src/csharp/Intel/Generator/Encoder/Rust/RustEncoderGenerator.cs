@@ -363,29 +363,44 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		protected override void GenerateOpCodeInfo(InstructionDef[] defs) {
+		protected override void GenerateOpCodeInfo(InstructionDef[] defs) =>
 			GenerateTable(defs);
-			GenerateRequireOpMaskRegisterCode(defs);
-		}
 
 		void GenerateTable(InstructionDef[] defs) {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "op_code_data.rs");
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
-				writer.WriteFileHeader();
-				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(super) static OP_CODE_DATA: [u32; {defs.Length} * 3] = [");
-				using (writer.Indent()) {
-					foreach (var info in GetData(defs))
-						writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword3)},// {info.def.Code.Name(idConverter)}");
-				}
-				writer.WriteLine("];");
-			}
+			var allData = GetData(defs).ToArray();
+			var encFlags1 = allData.Select(a => (a.def, a.encFlags1)).ToArray();
+			var encFlags2 = allData.Select(a => (a.def, a.encFlags2)).ToArray();
+			var encFlags3 = allData.Select(a => (a.def, a.encFlags3)).ToArray();
+			var opcFlags1 = allData.Select(a => (a.def, a.opcFlags1)).ToArray();
+			var opcFlags2 = allData.Select(a => (a.def, a.opcFlags2)).ToArray();
+			var encoderInfo = new (string name, (InstructionDef def, uint value)[] values)[] {
+				("ENC_FLAGS1", encFlags1),
+				("ENC_FLAGS2", encFlags2),
+				("ENC_FLAGS3", encFlags3),
+			};
+			var opCodeInfo = new (string name, (InstructionDef def, uint value)[] values)[] {
+				("OPC_FLAGS1", opcFlags1),
+				("OPC_FLAGS2", opcFlags2),
+			};
+
+			GenerateTables(defs, encoderInfo, "encoder_data.rs");
+			GenerateTables(defs, opCodeInfo, "op_code_data.rs");
 		}
 
-		void GenerateRequireOpMaskRegisterCode(InstructionDef[] defs) {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "op_code.rs");
-			var codeValues = defs.Where(def => (def.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0).Select(def => def.Code).ToArray();
-			GenerateCases(filename, "RequireOpMaskRegister", codeValues, "flags |= Flags::REQUIRE_OP_MASK_REGISTER");
+		void GenerateTables(InstructionDef[] defs, (string name, (InstructionDef def, uint value)[] values)[] encoderInfo, string filename) {
+			var fullFilename = Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", filename);
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(fullFilename))) {
+				writer.WriteFileHeader();
+				foreach (var info in encoderInfo) {
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"pub(super) static {info.name}: [u32; {defs.Length}] = [");
+					using (writer.Indent()) {
+						foreach (var vinfo in info.values)
+							writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(vinfo.value)},// {vinfo.def.Code.Name(idConverter)}");
+					}
+					writer.WriteLine("];");
+				}
+			}
 		}
 
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
@@ -398,17 +413,6 @@ namespace Generator.Encoder.Rust {
 						writer.WriteLine($"{info.size},// {info.value.Name(idConverter)}");
 				}
 				writer.WriteLine("];");
-			});
-		}
-
-		protected override void Generate((EnumValue allowedPrefixes, InstructionDefFlags1 prefixes)[] infos, (EnumValue value, InstructionDefFlags1 flag)[] flagsInfos) {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "op_code.rs");
-			new FileUpdater(TargetLanguage.Rust, "AllowedPrefixes", filename).Generate(writer => {
-				foreach (var info in infos) {
-					writer.Write($"{info.allowedPrefixes.DeclaringType.Name(idConverter)}::{info.allowedPrefixes.Name(idConverter)} => ");
-					WriteFlags(writer, idConverter, info.prefixes, flagsInfos, " | ", "::", true);
-					writer.WriteLine(",");
-				}
 			});
 		}
 
@@ -433,14 +437,9 @@ namespace Generator.Encoder.Rust {
 			});
 		}
 
-		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuSkipOp0) {
+		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings) {
 			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "instruction_fmt.rs");
 			GenerateNotInstrCases(filename, "InstrFmtNotInstructionString", notInstrStrings, true);
-			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1, "op_mask_is_k1 = true");
-			GenerateCases(filename, "IncVecIndex", incVecIndex, "vec_index += 1");
-			GenerateCases(filename, "NoVecIndex", noVecIndex, "no_vec_index = true");
-			GenerateCases(filename, "SwapVecIndex12", swapVecIndex12, "swap_vec_index_12 = true");
-			GenerateCases(filename, "FpuSkipOp0", fpuSkipOp0, "start_op_index = 1");
 		}
 
 		protected override void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib) {
