@@ -33,9 +33,8 @@ namespace Generator.Tables {
 	sealed class OpCodeInfoTxtGen {
 		readonly GenTypes genTypes;
 
-		public OpCodeInfoTxtGen(GeneratorContext generatorContext) {
+		public OpCodeInfoTxtGen(GeneratorContext generatorContext) =>
 			genTypes = generatorContext.Types;
-		}
 
 		public void Generate() {
 			var filename = Path.Combine(genTypes.Dirs.UnitTestsDir, "Encoder", "OpCodeInfos.txt");
@@ -90,11 +89,10 @@ namespace Generator.Tables {
 			writer.Write(sep);
 			switch (def.OpCodeLength) {
 			case 1:
-				writer.Write(((byte)def.OpCode).ToString("X2"));
+				writer.Write(def.OpCode.ToString("X2"));
 				break;
 			case 2:
-				writer.Write(((byte)(def.OpCode >> 8)).ToString("X2"));
-				writer.Write(((byte)def.OpCode).ToString("X2"));
+				writer.Write(def.OpCode.ToString("X4"));
 				break;
 			default:
 				throw new InvalidOperationException();
@@ -246,10 +244,7 @@ namespace Generator.Tables {
 			if ((def.Flags1 & InstructionDefFlags1.Broadcast) != 0) W(OpCodeInfoKeywords.Broadcast);
 			if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) W(OpCodeInfoKeywords.RoundingControl);
 			if ((def.Flags1 & InstructionDefFlags1.SuppressAllExceptions) != 0) W(OpCodeInfoKeywords.SuppressAllExceptions);
-			if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0) {
-				if ((def.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) == 0)
-					W(OpCodeInfoKeywords.OpMaskRegister);
-			}
+			if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0) W(OpCodeInfoKeywords.OpMaskRegister);
 			if ((def.Flags1 & InstructionDefFlags1.ZeroingMasking) != 0) W(OpCodeInfoKeywords.ZeroingMasking);
 			if ((def.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0) W(OpCodeInfoKeywords.RequireOpMaskRegister);
 			if ((def.Flags1 & InstructionDefFlags1.IgnoresModBits) != 0) W(OpCodeInfoKeywords.IgnoresModBits);
