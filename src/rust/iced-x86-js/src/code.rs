@@ -4324,10 +4324,12 @@ pub enum Code {
 	Aesenc256kl_xmm_m512 = 4290,
 	Aesdec256kl_xmm_m512 = 4291,
 	Encodekey128_r32_r32 = 4292,
-	Encodekey256_r32_r32 = 4293,
-	VEX_Vbroadcastss_xmm_xmm = 4294,
-	VEX_Vbroadcastss_ymm_xmm = 4295,
-	VEX_Vbroadcastsd_ymm_xmm = 4296,
+	Encodekey128_r64_r64 = 4293,
+	Encodekey256_r32_r32 = 4294,
+	Encodekey256_r64_r64 = 4295,
+	VEX_Vbroadcastss_xmm_xmm = 4296,
+	VEX_Vbroadcastss_ymm_xmm = 4297,
+	VEX_Vbroadcastsd_ymm_xmm = 4298,
 }
 // GENERATOR-END: Enum
 

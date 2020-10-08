@@ -34350,6 +34350,14 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Encodekey128_r32_r32 = 4292,
+	/// `ENCODEKEY128 r64, r64, <XMM0-2>, <XMM4-6>`
+	///
+	/// `F3 REX.W 0F 38 FA 11:rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `64-bit`
+	Encodekey128_r64_r64 = 4293,
 	/// `ENCODEKEY256 r32, r32, <XMM0-6>`
 	///
 	/// `F3 0F 38 FB 11:rrr:bbb`
@@ -34357,7 +34365,15 @@ pub enum Code {
 	/// `AESKLE`
 	///
 	/// `16/32/64-bit`
-	Encodekey256_r32_r32 = 4293,
+	Encodekey256_r32_r32 = 4294,
+	/// `ENCODEKEY256 r64, r64, <XMM0-6>`
+	///
+	/// `F3 REX.W 0F 38 FB 11:rrr:bbb`
+	///
+	/// `AESKLE`
+	///
+	/// `64-bit`
+	Encodekey256_r64_r64 = 4295,
 	/// `VBROADCASTSS xmm1, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 18 /r`
@@ -34365,7 +34381,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_xmm_xmm = 4294,
+	VEX_Vbroadcastss_xmm_xmm = 4296,
 	/// `VBROADCASTSS ymm1, xmm2`
 	///
 	/// `VEX.256.66.0F38.W0 18 /r`
@@ -34373,7 +34389,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_ymm_xmm = 4295,
+	VEX_Vbroadcastss_ymm_xmm = 4297,
 	/// `VBROADCASTSD ymm1, xmm2`
 	///
 	/// `VEX.256.66.0F38.W0 19 /r`
@@ -34381,10 +34397,10 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastsd_ymm_xmm = 4296,
+	VEX_Vbroadcastsd_ymm_xmm = 4298,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4297] = [
+static GEN_DEBUG_CODE: [&str; 4299] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38678,7 +38694,9 @@ static GEN_DEBUG_CODE: [&str; 4297] = [
 	"Aesenc256kl_xmm_m512",
 	"Aesdec256kl_xmm_m512",
 	"Encodekey128_r32_r32",
+	"Encodekey128_r64_r64",
 	"Encodekey256_r32_r32",
+	"Encodekey256_r64_r64",
 	"VEX_Vbroadcastss_xmm_xmm",
 	"VEX_Vbroadcastss_ymm_xmm",
 	"VEX_Vbroadcastsd_ymm_xmm",

@@ -3778,7 +3778,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x02,// Invalid
 		0x09,// RM
-			0xCC,// Gd_Rd
+			0x55,// Gv_Ev_REX
 				0xC4, 0x21,// Encodekey128_r32_r32
 			0x02,// Invalid
 		0x02,// Invalid
@@ -3788,8 +3788,8 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 		0x02,// Invalid
 		0x09,// RM
-			0xCC,// Gd_Rd
-				0xC5, 0x21,// Encodekey256_r32_r32
+			0x55,// Gv_Ev_REX
+				0xC6, 0x21,// Encodekey256_r32_r32
 			0x02,// Invalid
 		0x02,// Invalid
 

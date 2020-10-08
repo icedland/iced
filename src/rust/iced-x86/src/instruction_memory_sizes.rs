@@ -4323,7 +4323,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::KLHandleAes256,// Aesenc256kl_xmm_m512
 	MemorySize::KLHandleAes256,// Aesdec256kl_xmm_m512
 	MemorySize::Unknown,// Encodekey128_r32_r32
+	MemorySize::Unknown,// Encodekey128_r64_r64
 	MemorySize::Unknown,// Encodekey256_r32_r32
+	MemorySize::Unknown,// Encodekey256_r64_r64
 	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_xmm
@@ -8620,7 +8622,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Aesenc256kl_xmm_m512
 	MemorySize::Unknown,// Aesdec256kl_xmm_m512
 	MemorySize::Unknown,// Encodekey128_r32_r32
+	MemorySize::Unknown,// Encodekey128_r64_r64
 	MemorySize::Unknown,// Encodekey256_r32_r32
+	MemorySize::Unknown,// Encodekey256_r64_r64
 	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_xmm

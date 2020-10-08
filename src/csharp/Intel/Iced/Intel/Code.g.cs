@@ -34342,6 +34342,14 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Encodekey128_r32_r32 = 4292,
+		/// <summary><c>ENCODEKEY128 r64, r64, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 REX.W 0F 38 FA 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Encodekey128_r64_r64 = 4293,
 		/// <summary><c>ENCODEKEY256 r32, r32, &lt;XMM0-6&gt;</c><br/>
 		/// <br/>
 		/// <c>F3 0F 38 FB 11:rrr:bbb</c><br/>
@@ -34349,7 +34357,15 @@ namespace Iced.Intel {
 		/// <c>AESKLE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		Encodekey256_r32_r32 = 4293,
+		Encodekey256_r32_r32 = 4294,
+		/// <summary><c>ENCODEKEY256 r64, r64, &lt;XMM0-6&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 REX.W 0F 38 FB 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AESKLE</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Encodekey256_r64_r64 = 4295,
 		/// <summary><c>VBROADCASTSS xmm1, xmm2</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F38.W0 18 /r</c><br/>
@@ -34357,7 +34373,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vbroadcastss_xmm_xmm = 4294,
+		VEX_Vbroadcastss_xmm_xmm = 4296,
 		/// <summary><c>VBROADCASTSS ymm1, xmm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F38.W0 18 /r</c><br/>
@@ -34365,7 +34381,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vbroadcastss_ymm_xmm = 4295,
+		VEX_Vbroadcastss_ymm_xmm = 4297,
 		/// <summary><c>VBROADCASTSD ymm1, xmm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F38.W0 19 /r</c><br/>
@@ -34373,6 +34389,6 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vbroadcastsd_ymm_xmm = 4296,
+		VEX_Vbroadcastsd_ymm_xmm = 4298,
 	}
 }

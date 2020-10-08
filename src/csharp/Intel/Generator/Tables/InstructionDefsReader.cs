@@ -976,6 +976,11 @@ namespace Generator.Tables {
 				Error(state.LineIndex, "(nasm) " + error);
 				return false;
 			}
+			if ((state.OpCode.OperandSize == CodeSize.Code64 || state.OpCode.AddressSize == CodeSize.Code64) &&
+				(state.Flags1 & (InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32)) != 0) {
+				Error(state.LineIndex, "This looks like a 64-bit only instruction but it's missing `64`");
+				return false;
+			}
 
 			if (state.OpAccess.Length != state.OpKinds.Length)
 				throw new InvalidOperationException();

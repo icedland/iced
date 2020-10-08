@@ -31,7 +31,7 @@ impl IcedConstants {
 	pub(crate) const MAX_OP_COUNT: usize = 5;
 	pub(crate) const MAX_INSTRUCTION_LENGTH: usize = 15;
 	pub(crate) const REGISTER_BITS: u32 = 8;
-	pub(crate) const NUMBER_OF_CODE_VALUES: usize = 4297;
+	pub(crate) const NUMBER_OF_CODE_VALUES: usize = 4299;
 	pub(crate) const NUMBER_OF_REGISTERS: usize = 249;
 	pub(crate) const NUMBER_OF_MEMORY_SIZES: usize = 141;
 	pub(crate) const NUMBER_OF_ENCODING_KINDS: usize = 5;

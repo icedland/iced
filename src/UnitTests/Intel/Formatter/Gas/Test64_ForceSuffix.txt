@@ -8382,4 +8382,6 @@ aesdec128kl (rax), xmm2
 aesenc256kl (rax), xmm2
 aesdec256kl (rax), xmm2
 encodekey128 ebx, edx
+encodekey128 ebx, edx
+encodekey256 ebx, edx
 encodekey256 ebx, edx

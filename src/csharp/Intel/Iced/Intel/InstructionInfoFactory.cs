@@ -2164,10 +2164,21 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Encodekey:
-				Debug.Assert(instruction.Code == Code.Encodekey128_r32_r32 || instruction.Code == Code.Encodekey256_r32_r32);
+				Debug.Assert(
+					instruction.Code == Code.Encodekey128_r32_r32 || instruction.Code == Code.Encodekey128_r64_r64 ||
+					instruction.Code == Code.Encodekey256_r32_r32 || instruction.Code == Code.Encodekey256_r64_r64);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
+					if (instruction.GetOpKind(1) == OpKind.Register) {
+						Debug.Assert(info.usedRegisters.ValidLength >= 1);
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - 1].Register == instruction.GetOpRegister(1));
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - 1].Access == OpAccess.Read);
+						index = TryGetGpr163264Index(instruction.GetOpRegister(1));
+						if (index >= 0)
+							info.usedRegisters.Array[info.usedRegisters.ValidLength - 1] = new UsedRegister(Register.EAX + index, OpAccess.Read);
+					}
+
 					AddRegister(flags, Register.XMM0, OpAccess.ReadWrite);
-					bool is128 = instruction.Code == Code.Encodekey128_r32_r32;
+					bool is128 = instruction.Code == Code.Encodekey128_r32_r32 || instruction.Code == Code.Encodekey128_r64_r64;
 					AddRegister(flags, Register.XMM1, is128 ? OpAccess.Write : OpAccess.ReadWrite);
 					for (int i = 2; i < 7; i++) {
 						if (is128 && i == 3)

@@ -3641,8 +3641,18 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void encodekey128_reg64_reg64() {
+			TestAssembler(c => c.encodekey128(rcx, rdx), Instruction.Create(Code.Encodekey128_r64_r64, rcx, rdx));
+		}
+
+		[Fact]
 		public void encodekey256_reg32_reg32() {
 			TestAssembler(c => c.encodekey256(ecx, edx), Instruction.Create(Code.Encodekey256_r32_r32, ecx, edx));
+		}
+
+		[Fact]
+		public void encodekey256_reg64_reg64() {
+			TestAssembler(c => c.encodekey256(rcx, rdx), Instruction.Create(Code.Encodekey256_r64_r64, rcx, rdx));
 		}
 
 		[Fact]

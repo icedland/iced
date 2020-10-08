@@ -677,6 +677,7 @@ namespace Iced.Intel.EncoderInternal {
 				break;
 
 			case Code.Encodekey128_r32_r32:
+			case Code.Encodekey128_r64_r64:
 				WriteOpSeparator();
 				Write("<XMM0-2>", upper: true);
 				WriteOpSeparator();
@@ -684,6 +685,7 @@ namespace Iced.Intel.EncoderInternal {
 				break;
 
 			case Code.Encodekey256_r32_r32:
+			case Code.Encodekey256_r64_r64:
 				WriteOpSeparator();
 				Write("<XMM0-6>", upper: true);
 				break;

@@ -32442,10 +32442,22 @@ F3 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;ebx
 F3 44 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;r10d op1=r;ebx
 F3 41 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;r11d
 66 F3 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;ebx enc=F30F38FAD3
-F3 4A 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;ebx enc=F30F38FAD3
+F3 42 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;ebx enc=F30F38FAD3
+
+F3 48 0F38 FA D3, Encodekey128_r64_r64, Encodekey128, 2, op0=r;rdx op1=r;rbx
+F3 4C 0F38 FA D3, Encodekey128_r64_r64, Encodekey128, 2, op0=r;r10 op1=r;rbx
+F3 49 0F38 FA D3, Encodekey128_r64_r64, Encodekey128, 2, op0=r;rdx op1=r;r11
+66 F3 48 0F38 FA D3, Encodekey128_r64_r64, Encodekey128, 2, op0=r;rdx op1=r;rbx enc=F3480F38FAD3
+F3 4A 0F38 FA D3, Encodekey128_r64_r64, Encodekey128, 2, op0=r;rdx op1=r;rbx enc=F3480F38FAD3
 
 F3 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx
 F3 44 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;r10d op1=r;ebx
 F3 41 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;r11d
 66 F3 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx enc=F30F38FBD3
-F3 4A 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx enc=F30F38FBD3
+F3 42 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx enc=F30F38FBD3
+
+F3 48 0F38 FB D3, Encodekey256_r64_r64, Encodekey256, 2, op0=r;rdx op1=r;rbx
+F3 4C 0F38 FB D3, Encodekey256_r64_r64, Encodekey256, 2, op0=r;r10 op1=r;rbx
+F3 49 0F38 FB D3, Encodekey256_r64_r64, Encodekey256, 2, op0=r;rdx op1=r;r11
+66 F3 48 0F38 FB D3, Encodekey256_r64_r64, Encodekey256, 2, op0=r;rdx op1=r;rbx enc=F3480F38FBD3
+F3 4A 0F38 FB D3, Encodekey256_r64_r64, Encodekey256, 2, op0=r;rdx op1=r;rbx enc=F3480F38FBD3

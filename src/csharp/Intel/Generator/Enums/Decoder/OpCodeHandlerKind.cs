@@ -228,6 +228,5 @@ namespace Generator.Enums.Decoder {
 		Options1632_2,
 		M_Sw,
 		Sw_M,
-		Gd_Rd,
 	}
 }

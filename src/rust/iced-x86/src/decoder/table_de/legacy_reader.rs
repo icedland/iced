@@ -932,8 +932,6 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 			code = deserializer.read_code();
 			Box::into_raw(Box::new(OpCodeHandler_Sw_M::new(code))) as *const OpCodeHandler
 		}
-
-		OpCodeHandlerKind::Gd_Rd => Box::into_raw(Box::new(OpCodeHandler_Gd_Ed::new(deserializer.read_code()))) as *const OpCodeHandler,
 	};
 	result.push(unsafe { &*elem });
 }

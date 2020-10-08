@@ -3041,10 +3041,29 @@ impl InstructionInfoFactory {
 			}
 
 			CodeInfo::Encodekey => {
-				debug_assert!(instruction.code() == Code::Encodekey128_r32_r32 || instruction.code() == Code::Encodekey256_r32_r32);
+				debug_assert!(
+					instruction.code() == Code::Encodekey128_r32_r32
+						|| instruction.code() == Code::Encodekey128_r64_r64
+						|| instruction.code() == Code::Encodekey256_r32_r32
+						|| instruction.code() == Code::Encodekey256_r64_r64
+				);
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					if instruction.op_kind(1) == OpKind::Register {
+						debug_assert!(info.used_registers.len() >= 1);
+						debug_assert_eq!(instruction.op_register(1), info.used_registers[info.used_registers.len() - 1].register);
+						debug_assert_eq!(OpAccess::Read, info.used_registers[info.used_registers.len() - 1].access);
+						index = Self::try_get_gpr_16_32_64_index(instruction.op_register(1));
+						if index >= 0 {
+							let regs_index = info.used_registers.len() - 1;
+							info.used_registers[regs_index] = UsedRegister {
+								register: unsafe { mem::transmute((Register::EAX as u32).wrapping_add(index as u32) as u8) },
+								access: OpAccess::Read,
+							};
+						}
+					}
+
 					Self::add_register(flags, info, Register::XMM0, OpAccess::ReadWrite);
-					let is128 = instruction.code() == Code::Encodekey128_r32_r32;
+					let is128 = instruction.code() == Code::Encodekey128_r32_r32 || instruction.code() == Code::Encodekey128_r64_r64;
 					Self::add_register(flags, info, Register::XMM1, if is128 { OpAccess::Write } else { OpAccess::ReadWrite });
 					for i in 2..7 {
 						if is128 && i == 3 {

@@ -1250,6 +1250,10 @@ namespace Iced.Intel.GasFormatterInternal {
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.RAX + Register.EAX);
 			}
+			if (Register.RAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15) {
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op1Register = (byte)((Register)info.Op1Register - Register.RAX + Register.EAX);
+			}
 		}
 	}
 

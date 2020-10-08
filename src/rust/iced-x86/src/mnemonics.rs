@@ -4321,7 +4321,9 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Aesenc256kl,// Aesenc256kl_xmm_m512
 	Mnemonic::Aesdec256kl,// Aesdec256kl_xmm_m512
 	Mnemonic::Encodekey128,// Encodekey128_r32_r32
+	Mnemonic::Encodekey128,// Encodekey128_r64_r64
 	Mnemonic::Encodekey256,// Encodekey256_r32_r32
+	Mnemonic::Encodekey256,// Encodekey256_r64_r64
 	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_xmm_xmm
 	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_ymm_xmm
 	Mnemonic::Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmm

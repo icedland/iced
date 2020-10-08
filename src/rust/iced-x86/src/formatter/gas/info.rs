@@ -1412,6 +1412,10 @@ impl InstrInfo for SimpleInstrInfo_Reg32 {
 			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
 			info.op0_register = info.op0_register.wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
 		}
+		if Register::RAX as u8 <= info.op1_register && info.op1_register <= Register::R15 as u8 {
+			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+			info.op1_register = info.op1_register.wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
+		}
 		info
 	}
 }

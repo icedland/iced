@@ -4327,7 +4327,9 @@ namespace Iced.Intel {
 			(byte)MemorySize.KLHandleAes256,// Aesenc256kl_xmm_m512
 			(byte)MemorySize.KLHandleAes256,// Aesdec256kl_xmm_m512
 			0,// Encodekey128_r32_r32
+			0,// Encodekey128_r64_r64
 			0,// Encodekey256_r32_r32
+			0,// Encodekey256_r64_r64
 			0,// VEX_Vbroadcastss_xmm_xmm
 			0,// VEX_Vbroadcastss_ymm_xmm
 			0,// VEX_Vbroadcastsd_ymm_xmm
@@ -8624,7 +8626,9 @@ namespace Iced.Intel {
 			0,// Aesenc256kl_xmm_m512
 			0,// Aesdec256kl_xmm_m512
 			0,// Encodekey128_r32_r32
+			0,// Encodekey128_r64_r64
 			0,// Encodekey256_r32_r32
+			0,// Encodekey256_r64_r64
 			0,// VEX_Vbroadcastss_xmm_xmm
 			0,// VEX_Vbroadcastss_ymm_xmm
 			0,// VEX_Vbroadcastsd_ymm_xmm

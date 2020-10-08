@@ -676,7 +676,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x37,// VW_3
 						0x4D,// XMM0
 						0x4D,// XMM0
-						0xC6, 0x21,// VEX_Vbroadcastss_xmm_xmm
+						0xC8, 0x21,// VEX_Vbroadcastss_xmm_xmm
 					0x37,// VW_3
 						0x4D,// XMM0
 						0x4D,// XMM0
@@ -685,7 +685,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0
-						0xC7, 0x21,// VEX_Vbroadcastss_ymm_xmm
+						0xC9, 0x21,// VEX_Vbroadcastss_ymm_xmm
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0
@@ -704,7 +704,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0
-						0xC8, 0x21,// VEX_Vbroadcastsd_ymm_xmm
+						0xCA, 0x21,// VEX_Vbroadcastsd_ymm_xmm
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0

@@ -8382,4 +8382,6 @@ F3 0F38 DD 10, Aesdec128kl_xmm_m384
 F3 0F38 DE 10, Aesenc256kl_xmm_m512
 F3 0F38 DF 10, Aesdec256kl_xmm_m512
 F3 0F38 FA D3, Encodekey128_r32_r32
+F3 48 0F38 FA D3, Encodekey128_r64_r64
 F3 0F38 FB D3, Encodekey256_r32_r32
+F3 48 0F38 FB D3, Encodekey256_r64_r64

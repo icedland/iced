@@ -1221,42 +1221,6 @@ impl OpCodeHandler_Gv_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_Gd_Ed {
-	decode: OpCodeHandlerDecodeFn,
-	has_modrm: bool,
-	code: u32,
-}
-
-impl OpCodeHandler_Gd_Ed {
-	pub(super) fn new(code: u32) -> Self {
-		Self { decode: OpCodeHandler_Gd_Ed::decode, has_modrm: true, code }
-	}
-
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
-		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		super::instruction_internal::internal_set_code_u32(instruction, this.code);
-		const_assert_eq!(0, OpKind::Register as u32);
-		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register_u32(
-			instruction,
-			decoder.state.reg + decoder.state.extra_register_base + Register::EAX as u32,
-		);
-		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
-			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-			super::instruction_internal::internal_set_op1_register_u32(
-				instruction,
-				decoder.state.rm + decoder.state.extra_base_register_base + Register::EAX as u32,
-			);
-		} else {
-			decoder.set_invalid_instruction();
-		}
-	}
-}
-
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub(super) struct OpCodeHandler_Gv_M_as {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
