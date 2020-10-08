@@ -97,7 +97,6 @@ test("Instruction props", () => {
 	expect(instr.encoding).toBe(EncodingKind.Legacy);
 	expect(instr.cpuidFeatures()).toStrictEqual(new Int32Array([CpuidFeature.INTEL8086]));
 	expect(instr.flowControl).toBe(FlowControl.Next);
-	expect(instr.isProtectedMode).toBe(false);
 	expect(instr.isPrivileged).toBe(false);
 	expect(instr.isStackInstruction).toBe(false);
 	expect(instr.isSaveRestoreInstruction).toBe(false);

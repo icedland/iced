@@ -1174,6 +1174,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cognitive_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::match_like_matches_macro))] // Not supported if < 1.42.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // Not supported if < 1.31.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))] // Not supported if < 1.26.0

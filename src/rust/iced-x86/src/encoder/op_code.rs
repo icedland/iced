@@ -163,6 +163,12 @@ impl OpCodeInfo {
 			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i8 };
 		tuple_type = unsafe { mem::transmute(((enc_flags3 >> EncFlags3::TUPLE_TYPE_SHIFT) & EncFlags3::TUPLE_TYPE_MASK) as u8) };
 
+		#[cfg(not(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"))))]
+		{
+			lkind = LKind::LZ;
+			l = 0;
+		}
+		#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 		match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) } {
 			LBit::LZ => {
 				lkind = LKind::LZ;
@@ -195,6 +201,7 @@ impl OpCodeInfo {
 			}
 		}
 
+		#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 		match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) } {
 			WBit::W0 => {}
 			WBit::W1 => flags |= Flags::W,

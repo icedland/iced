@@ -127,6 +127,7 @@ namespace Iced.Intel {
 			tupleType = (byte)(((uint)encFlags3 >> (int)EncFlags3.TupleTypeShift) & (uint)EncFlags3.TupleTypeMask);
 
 			LKind lkind;
+#if !NO_VEX || !NO_EVEX || !NO_XOP
 			switch ((LBit)(((uint)encFlags2 >> (int)EncFlags2.LBitShift) & (int)EncFlags2.LBitMask)) {
 			case LBit.LZ:
 				lkind = LKind.LZ;
@@ -160,7 +161,11 @@ namespace Iced.Intel {
 			default:
 				throw new InvalidOperationException();
 			}
+#else
+			lkind = LKind.LZ;
+#endif
 
+#if !NO_VEX || !NO_EVEX || !NO_XOP
 			switch ((WBit)(((uint)encFlags2 >> (int)EncFlags2.WBitShift) & (uint)EncFlags2.WBitMask)) {
 			case WBit.W0:
 				break;
@@ -176,6 +181,7 @@ namespace Iced.Intel {
 			default:
 				throw new InvalidOperationException();
 			}
+#endif
 
 			string? toOpCodeStringValue = null;
 			string? toInstructionStringValue = null;
