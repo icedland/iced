@@ -71,7 +71,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if this is a privileged instruction
+		/// Checks if it's a privileged instruction (all CPL=0 instructions (except <c>VMCALL</c>) and IOPL instructions <c>IN</c>, <c>INS</c>, <c>OUT</c>, <c>OUTS</c>, <c>CLI</c>, <c>STI</c>)
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>

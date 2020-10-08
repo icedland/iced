@@ -23,6 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator {
 	enum TargetLanguage {
+		// Code that generates files (eg. text files) that is used by the other langs
+		Other,
 		CSharp,
 		Rust,
 		// Rust JavaScript bindings code

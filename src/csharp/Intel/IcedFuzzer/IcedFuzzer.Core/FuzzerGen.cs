@@ -413,29 +413,11 @@ namespace IcedFuzzer.Core {
 				throw ThrowHelpers.Unreachable;
 			}
 
-			bool no66;
-			switch (context.Instruction.Code) {
-			case Code.Ptwrite_rm32:
-			case Code.Ptwrite_rm64:
-				no66 = true;
-				break;
-			default:
-				no66 = false;
-				break;
-			}
-
+			bool no66 = context.Instruction.No66;
 			var writePrefixes = context.WritePrefixes;
 			var prefixesTmp1 = context.PrefixesTmp1;
 			var prefixesTmp2 = context.PrefixesTmp2;
-			bool usesLockAsExtraRegBit = false;
-			if (context.Fuzzer.CpuDecoder == CpuDecoder.AMD) {
-				foreach (var regOp in context.Instruction.RegisterOperands) {
-					if (regOp.RegisterClass == FuzzerRegisterClass.CR) {
-						usesLockAsExtraRegBit = true;
-						break;
-					}
-				}
-			}
+			bool usesLockAsExtraRegBit = context.Fuzzer.CpuDecoder == CpuDecoder.AMD && context.Instruction.AmdLockRegBit;
 			foreach (var (beforeMP, allPrefixes) in prefixTests) {
 				for (int i = 0; i < allPrefixes.Length; i++) {
 					var prefixes = allPrefixes[i];
@@ -667,64 +649,31 @@ namespace IcedFuzzer.Core {
 	// It doesn't gen the same gpr in a reg op and a mem op, eg. `mov eax,[eax]`, but it
 	// does gen it if they're both reg ops, eg. `mov eax,eax`.
 	sealed class SameRegsFuzzerGen : FuzzerGen {
-		static FuzzerRegisterClass? GetUniqueOperandRegClass(Code code) {
-			switch (code) {
-			case Code.VEX_Vpgatherdd_xmm_vm32x_xmm:
-			case Code.VEX_Vpgatherdd_ymm_vm32y_ymm:
-			case Code.VEX_Vpgatherdq_xmm_vm32x_xmm:
-			case Code.VEX_Vpgatherdq_ymm_vm32x_ymm:
-			case Code.VEX_Vpgatherqd_xmm_vm64x_xmm:
-			case Code.VEX_Vpgatherqd_xmm_vm64y_xmm:
-			case Code.VEX_Vpgatherqq_xmm_vm64x_xmm:
-			case Code.VEX_Vpgatherqq_ymm_vm64y_ymm:
-			case Code.VEX_Vgatherdps_xmm_vm32x_xmm:
-			case Code.VEX_Vgatherdps_ymm_vm32y_ymm:
-			case Code.VEX_Vgatherdpd_xmm_vm32x_xmm:
-			case Code.VEX_Vgatherdpd_ymm_vm32x_ymm:
-			case Code.VEX_Vgatherqps_xmm_vm64x_xmm:
-			case Code.VEX_Vgatherqps_xmm_vm64y_xmm:
-			case Code.VEX_Vgatherqpd_xmm_vm64x_xmm:
-			case Code.VEX_Vgatherqpd_ymm_vm64y_ymm:
-			case Code.EVEX_Vpgatherdd_xmm_k1_vm32x:
-			case Code.EVEX_Vpgatherdd_ymm_k1_vm32y:
-			case Code.EVEX_Vpgatherdd_zmm_k1_vm32z:
-			case Code.EVEX_Vpgatherdq_xmm_k1_vm32x:
-			case Code.EVEX_Vpgatherdq_ymm_k1_vm32x:
-			case Code.EVEX_Vpgatherdq_zmm_k1_vm32y:
-			case Code.EVEX_Vpgatherqd_xmm_k1_vm64x:
-			case Code.EVEX_Vpgatherqd_xmm_k1_vm64y:
-			case Code.EVEX_Vpgatherqd_ymm_k1_vm64z:
-			case Code.EVEX_Vpgatherqq_xmm_k1_vm64x:
-			case Code.EVEX_Vpgatherqq_ymm_k1_vm64y:
-			case Code.EVEX_Vpgatherqq_zmm_k1_vm64z:
-			case Code.EVEX_Vgatherdps_xmm_k1_vm32x:
-			case Code.EVEX_Vgatherdps_ymm_k1_vm32y:
-			case Code.EVEX_Vgatherdps_zmm_k1_vm32z:
-			case Code.EVEX_Vgatherdpd_xmm_k1_vm32x:
-			case Code.EVEX_Vgatherdpd_ymm_k1_vm32x:
-			case Code.EVEX_Vgatherdpd_zmm_k1_vm32y:
-			case Code.EVEX_Vgatherqps_xmm_k1_vm64x:
-			case Code.EVEX_Vgatherqps_xmm_k1_vm64y:
-			case Code.EVEX_Vgatherqps_ymm_k1_vm64z:
-			case Code.EVEX_Vgatherqpd_xmm_k1_vm64x:
-			case Code.EVEX_Vgatherqpd_ymm_k1_vm64y:
-			case Code.EVEX_Vgatherqpd_zmm_k1_vm64z:
-				return FuzzerRegisterClass.Vector;
-
-			case Code.VEX_Tdpbf16ps_tmm_tmm_tmm:
-			case Code.VEX_Tdpbuud_tmm_tmm_tmm:
-			case Code.VEX_Tdpbusd_tmm_tmm_tmm:
-			case Code.VEX_Tdpbsud_tmm_tmm_tmm:
-			case Code.VEX_Tdpbssd_tmm_tmm_tmm:
-				return FuzzerRegisterClass.TMM;
-
-			default:
+		static FuzzerRegisterClass? GetUniqueOperandRegClass(FuzzerInstruction instr) {
+			if (!instr.RequiresUniqueRegNums)
 				return null;
+			const uint VEC_REG = 0x01;
+			const uint TMM_REG = 0x02;
+			uint regs = 0;
+			foreach (var op in instr.RegisterOperands) {
+				switch (op.RegisterClass) {
+				case FuzzerRegisterClass.Vector:
+					regs |= VEC_REG;
+					break;
+				case FuzzerRegisterClass.TMM:
+					regs |= TMM_REG;
+					break;
+				}
 			}
+			return regs switch {
+				VEC_REG => FuzzerRegisterClass.Vector,
+				TMM_REG => FuzzerRegisterClass.TMM,
+				_ => throw ThrowHelpers.Unreachable,
+			};
 		}
 
 		public override IEnumerable<FuzzerGenResult> Generate(FuzzerGenContext context) {
-			var uniqueOpRegClass = GetUniqueOperandRegClass(context.Instruction.Code);
+			var uniqueOpRegClass = GetUniqueOperandRegClass(context.Instruction);
 			var ops = context.Instruction.Operands;
 			for (int i = 0; i < ops.Length; i++) {
 				var op0 = ops[i];
@@ -925,15 +874,8 @@ namespace IcedFuzzer.Core {
 		}
 
 		public override IEnumerable<FuzzerGenResult> Generate(FuzzerGenContext context) {
-			bool ignoresModBits = false;
-			uint modMax = 0;
-			foreach (var regOp in context.Instruction.RegisterOperands) {
-				if (regOp.Register == FuzzerRegisterKind.CR || regOp.Register == FuzzerRegisterKind.DR || regOp.Register == FuzzerRegisterKind.TR) {
-					ignoresModBits = true;
-					modMax = 3;
-					break;
-				}
-			}
+			bool ignoresModBits = context.Instruction.IgnoresModBits;
+			uint modMax = ignoresModBits ? 3U : 0;
 			uint lockTestMax = 0;
 			if (ignoresModBits && context.Fuzzer.CpuDecoder == CpuDecoder.AMD)
 				lockTestMax = 1;

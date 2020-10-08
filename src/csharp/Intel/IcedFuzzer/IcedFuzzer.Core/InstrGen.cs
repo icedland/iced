@@ -324,7 +324,7 @@ namespace IcedFuzzer.Core {
 			// Verify that all input Code values are used. Reserved-nops aren't guaranteed to be used
 			// since other instructions can override them.
 			const bool filterOutReservednop = true;
-			var hash = opCodes.Select(a => a.Code).Where(a => !filterOutReservednop || !CodeUtils.IsReservednop(a)).ToHashSet();
+			var hash = opCodes.Where(a => !filterOutReservednop || !a.IsReservedNop).Select(a => a.Code).ToHashSet();
 			foreach (var (_, fuzzerOpCodes) in encodingTables.GetOpCodeGroups()) {
 				foreach (var fuzzerOpCode in fuzzerOpCodes) {
 					foreach (var instr in fuzzerOpCode.Instructions)
@@ -620,7 +620,7 @@ namespace IcedFuzzer.Core {
 			ReservednopInfo? resNop = null;
 			foreach (var instruction in instructions) {
 				Assert.True(instruction.RmGroupIndex < 0, "Not supported");
-				if (CodeUtils.IsReservednop(instruction.Code)) {
+				if (instruction.IsReservedNop) {
 					if (resNop is null)
 						resNop = new ReservednopInfo();
 					// We assume they don't use mandatory prefixes and only use OperandSize (16,32,64)
@@ -961,7 +961,7 @@ namespace IcedFuzzer.Core {
 		static void InitializeLegacyFlags(LegacyFlags[] flags, FuzzerInstruction instruction, OpCode opCode, int groupIndex) {
 			LegacyFlags flag;
 			// Only a few instructions are NFx: rdrand, rdseed, movbe. bsf/bsr are similar but they allow garbage F2 (F3 is lzcnt/tzcnt).
-			if (instruction.IsNFx)
+			if (instruction.NFx)
 				flag = LegacyFlags.PNP | LegacyFlags.P66;
 			else
 				flag = (LegacyFlags)(1 << (int)instruction.MandatoryPrefix);

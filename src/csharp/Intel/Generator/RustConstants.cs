@@ -58,6 +58,7 @@ namespace Generator {
 		public const string FeatureD3now = "#[cfg(not(feature = \"no_d3now\"))]";
 		public const string FeatureEncodingOne = "#[cfg({0})]";
 		public const string FeatureEncodingMany = "#[cfg(any({0}))]";
+		public const string FeatureDecoder = "#[cfg(feature = \"decoder\")]";
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"decoder\", feature = \"encoder\"))]";
 		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\"))]";
 		public const string FeatureBigInt = "#[cfg(feature = \"bigint\")]";

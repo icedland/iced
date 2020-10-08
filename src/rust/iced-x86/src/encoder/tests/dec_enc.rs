@@ -55,10 +55,8 @@ fn verify_invalid_and_valid_lock_prefix() {
 			has_lock = instruction.has_lock_prefix();
 			let op_code = info.code().op_code();
 			can_use_lock = op_code.can_use_lock_prefix() && has_modrm_memory_operand(&instruction);
-
-			match info.code() {
-				Code::Mov_r32_cr | Code::Mov_r64_cr | Code::Mov_cr_r32 | Code::Mov_cr_r64 => continue,
-				_ => {}
+			if op_code.amd_lock_reg_bit() {
+				continue;
 			}
 		}
 
@@ -713,7 +711,7 @@ fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 
 #[test]
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
-fn verify_only_full_ddd_and_half_ddd_support_bcst() {
+fn verify_tuple_type_bcst() {
 	let code_names = code_names();
 	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 		if is_ignored_code(code_names[i]) {
@@ -1318,40 +1316,11 @@ fn verify_k_reg_rrxb_bits() {
 #[test]
 #[allow(unused_mut)]
 fn verify_vsib_with_invalid_index_register_evex() {
-	let mut code_values: HashSet<Code> = HashSet::new();
-	#[cfg(not(feature = "no_evex"))]
-	{
-		let _ = code_values.insert(Code::EVEX_Vpgatherdd_xmm_k1_vm32x);
-		let _ = code_values.insert(Code::EVEX_Vpgatherdd_ymm_k1_vm32y);
-		let _ = code_values.insert(Code::EVEX_Vpgatherdd_zmm_k1_vm32z);
-		let _ = code_values.insert(Code::EVEX_Vpgatherdq_xmm_k1_vm32x);
-		let _ = code_values.insert(Code::EVEX_Vpgatherdq_ymm_k1_vm32x);
-		let _ = code_values.insert(Code::EVEX_Vpgatherdq_zmm_k1_vm32y);
-		let _ = code_values.insert(Code::EVEX_Vpgatherqd_xmm_k1_vm64x);
-		let _ = code_values.insert(Code::EVEX_Vpgatherqd_xmm_k1_vm64y);
-		let _ = code_values.insert(Code::EVEX_Vpgatherqd_ymm_k1_vm64z);
-		let _ = code_values.insert(Code::EVEX_Vpgatherqq_xmm_k1_vm64x);
-		let _ = code_values.insert(Code::EVEX_Vpgatherqq_ymm_k1_vm64y);
-		let _ = code_values.insert(Code::EVEX_Vpgatherqq_zmm_k1_vm64z);
-		let _ = code_values.insert(Code::EVEX_Vgatherdps_xmm_k1_vm32x);
-		let _ = code_values.insert(Code::EVEX_Vgatherdps_ymm_k1_vm32y);
-		let _ = code_values.insert(Code::EVEX_Vgatherdps_zmm_k1_vm32z);
-		let _ = code_values.insert(Code::EVEX_Vgatherdpd_xmm_k1_vm32x);
-		let _ = code_values.insert(Code::EVEX_Vgatherdpd_ymm_k1_vm32x);
-		let _ = code_values.insert(Code::EVEX_Vgatherdpd_zmm_k1_vm32y);
-		let _ = code_values.insert(Code::EVEX_Vgatherqps_xmm_k1_vm64x);
-		let _ = code_values.insert(Code::EVEX_Vgatherqps_xmm_k1_vm64y);
-		let _ = code_values.insert(Code::EVEX_Vgatherqps_ymm_k1_vm64z);
-		let _ = code_values.insert(Code::EVEX_Vgatherqpd_xmm_k1_vm64x);
-		let _ = code_values.insert(Code::EVEX_Vgatherqpd_ymm_k1_vm64y);
-		let _ = code_values.insert(Code::EVEX_Vgatherqpd_zmm_k1_vm64z);
-	}
 	for info in decoder_tests(false, false) {
 		if (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) != 0 {
 			continue;
 		}
 		let op_code = info.code().op_code();
-		assert_eq!(can_have_invalid_index_register_evex(op_code), code_values.contains(&info.code()));
 		if !can_have_invalid_index_register_evex(op_code) {
 			continue;
 		}
@@ -1415,52 +1384,17 @@ fn can_have_invalid_index_register_evex(op_code: &OpCodeInfo) -> bool {
 		OpCodeOperandKind::xmm_reg | OpCodeOperandKind::ymm_reg | OpCodeOperandKind::zmm_reg => {}
 		_ => return false,
 	}
-
-	for i in 1..op_code.op_count() {
-		match op_code.op_kind(i) {
-			OpCodeOperandKind::mem_vsib32x
-			| OpCodeOperandKind::mem_vsib32y
-			| OpCodeOperandKind::mem_vsib32z
-			| OpCodeOperandKind::mem_vsib64x
-			| OpCodeOperandKind::mem_vsib64y
-			| OpCodeOperandKind::mem_vsib64z => {
-				return true;
-			}
-			_ => {}
-		}
-	}
-	false
+	op_code.requires_unique_reg_nums()
 }
 
 #[test]
 #[allow(unused_mut)]
 fn verify_vsib_with_invalid_index_mask_dest_register_vex() {
-	let mut code_values: HashSet<Code> = HashSet::new();
-	#[cfg(not(feature = "no_vex"))]
-	{
-		let _ = code_values.insert(Code::VEX_Vpgatherdd_xmm_vm32x_xmm);
-		let _ = code_values.insert(Code::VEX_Vpgatherdd_ymm_vm32y_ymm);
-		let _ = code_values.insert(Code::VEX_Vpgatherdq_xmm_vm32x_xmm);
-		let _ = code_values.insert(Code::VEX_Vpgatherdq_ymm_vm32x_ymm);
-		let _ = code_values.insert(Code::VEX_Vpgatherqd_xmm_vm64x_xmm);
-		let _ = code_values.insert(Code::VEX_Vpgatherqd_xmm_vm64y_xmm);
-		let _ = code_values.insert(Code::VEX_Vpgatherqq_xmm_vm64x_xmm);
-		let _ = code_values.insert(Code::VEX_Vpgatherqq_ymm_vm64y_ymm);
-		let _ = code_values.insert(Code::VEX_Vgatherdps_xmm_vm32x_xmm);
-		let _ = code_values.insert(Code::VEX_Vgatherdps_ymm_vm32y_ymm);
-		let _ = code_values.insert(Code::VEX_Vgatherdpd_xmm_vm32x_xmm);
-		let _ = code_values.insert(Code::VEX_Vgatherdpd_ymm_vm32x_ymm);
-		let _ = code_values.insert(Code::VEX_Vgatherqps_xmm_vm64x_xmm);
-		let _ = code_values.insert(Code::VEX_Vgatherqps_xmm_vm64y_xmm);
-		let _ = code_values.insert(Code::VEX_Vgatherqpd_xmm_vm64x_xmm);
-		let _ = code_values.insert(Code::VEX_Vgatherqpd_ymm_vm64y_ymm);
-	}
 	for info in decoder_tests(false, false) {
 		if (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) != 0 {
 			continue;
 		}
 		let op_code = info.code().op_code();
-		assert_eq!(can_have_invalid_index_mask_dest_register_vex(op_code), code_values.contains(&info.code()));
 		if !can_have_invalid_index_mask_dest_register_vex(op_code) {
 			continue;
 		}
@@ -1565,31 +1499,13 @@ fn can_have_invalid_index_mask_dest_register_vex(op_code: &OpCodeInfo) -> bool {
 	if op_code.encoding() != EncodingKind::VEX && op_code.encoding() != EncodingKind::XOP {
 		return false;
 	}
-	if op_code.op_count() != 3 {
-		return false;
-	}
 
 	match op_code.op0_kind() {
 		OpCodeOperandKind::xmm_reg | OpCodeOperandKind::ymm_reg | OpCodeOperandKind::zmm_reg => {}
 		_ => return false,
 	}
 
-	match op_code.op2_kind() {
-		OpCodeOperandKind::xmm_vvvv | OpCodeOperandKind::ymm_vvvv | OpCodeOperandKind::zmm_vvvv => {}
-		_ => return false,
-	}
-
-	match op_code.op1_kind() {
-		OpCodeOperandKind::mem_vsib32x
-		| OpCodeOperandKind::mem_vsib32y
-		| OpCodeOperandKind::mem_vsib32z
-		| OpCodeOperandKind::mem_vsib64x
-		| OpCodeOperandKind::mem_vsib64y
-		| OpCodeOperandKind::mem_vsib64z => {}
-		_ => return false,
-	}
-
-	true
+	op_code.requires_unique_reg_nums()
 }
 
 fn is_vsib(op_code: &OpCodeInfo) -> bool {
@@ -3010,18 +2926,8 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 			continue;
 		}
 		// There are a few instructions that ignore the mod bits...
-		match info.code() {
-			Code::Mov_r32_cr
-			| Code::Mov_r64_cr
-			| Code::Mov_r32_dr
-			| Code::Mov_r64_dr
-			| Code::Mov_cr_r32
-			| Code::Mov_cr_r64
-			| Code::Mov_dr_r32
-			| Code::Mov_dr_r64
-			| Code::Mov_r32_tr
-			| Code::Mov_tr_r32 => continue,
-			_ => {}
+		if op_code.ignores_mod_bits() {
+			continue;
 		}
 
 		let mut bytes = to_vec_u8(&format!("{}{}", info.hex_bytes(), extra_bytes)).unwrap();

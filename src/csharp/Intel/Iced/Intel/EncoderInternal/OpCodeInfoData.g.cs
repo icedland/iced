@@ -5043,7 +5043,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x1EA43E7F,// Out_DX_AX
 				0x1EA43E7F,// Out_DX_EAX
 				0x1E623FFF,// Int1
-				0x1EA43FFF,// Hlt
+				0x1EA43E7B,// Hlt
 				0x1E003FFF,// Cmc
 				0x1E003FFF,// Test_rm8_imm8
 				0x1E003FFF,// Test_rm8_imm8_F6r1
@@ -5112,12 +5112,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x1EA43E7A,// Str_rm16
 				0x1EA43E7A,// Str_r32m16
 				0x14A43E70,// Str_r64m16
-				0x1EA43FFA,// Lldt_rm16
-				0x1EA43FFA,// Lldt_r32m16
-				0x14A43FF0,// Lldt_r64m16
-				0x1EA43FFA,// Ltr_rm16
-				0x1EA43FFA,// Ltr_r32m16
-				0x14A43FF0,// Ltr_r64m16
+				0x1EA43E7A,// Lldt_rm16
+				0x1EA43E7A,// Lldt_r32m16
+				0x14A43E70,// Lldt_r64m16
+				0x1EA43E7A,// Ltr_rm16
+				0x1EA43E7A,// Ltr_r32m16
+				0x14A43E70,// Ltr_r64m16
 				0x1E003FFA,// Verr_rm16
 				0x1E003FFA,// Verr_r32m16
 				0x14003FF0,// Verr_r64m16
@@ -5132,60 +5132,60 @@ namespace Iced.Intel.EncoderInternal {
 				0x0AA43E7F,// Sidt_m1632_16
 				0x0AA43E7F,// Sidt_m1632
 				0x14A43E70,// Sidt_m1664
-				0x0AA43FFF,// Lgdt_m1632_16
-				0x0AA43FFF,// Lgdt_m1632
-				0x14A43FF0,// Lgdt_m1664
-				0x0AA43FFF,// Lidt_m1632_16
-				0x0AA43FFF,// Lidt_m1632
-				0x14A43FF0,// Lidt_m1664
+				0x0AA43E7B,// Lgdt_m1632_16
+				0x0AA43E7B,// Lgdt_m1632
+				0x14A43E70,// Lgdt_m1664
+				0x0AA43E7B,// Lidt_m1632_16
+				0x0AA43E7B,// Lidt_m1632
+				0x14A43E70,// Lidt_m1664
 				0x1EA43E7F,// Smsw_rm16
 				0x1EA43E7F,// Smsw_r32m16
 				0x14A43E70,// Smsw_r64m16
 				0x1E003FFA,// Rstorssp_m64
-				0x1EA43FFF,// Lmsw_rm16
-				0x1EA43FFF,// Lmsw_r32m16
-				0x14A43FF0,// Lmsw_r64m16
-				0x1EA43FFF,// Invlpg_m
-				0x1E443DDA,// Enclv
-				0x1E8A3C7F,// Vmcall
-				0x1E823DF2,// Vmlaunch
-				0x1E823DF2,// Vmresume
-				0x1E823DF2,// Vmxoff
-				0x1E843FFB,// Pconfig
-				0x0AA43FFB,// Monitorw
-				0x1EA43FFB,// Monitord
-				0x14A43FF0,// Monitorq
-				0x1EA43FFB,// Mwait
-				0x1E803FFB,// Clac
-				0x1E803FFB,// Stac
-				0x1E443FDA,// Encls
+				0x1EA43E7B,// Lmsw_rm16
+				0x1EA43E7B,// Lmsw_r32m16
+				0x14A43E70,// Lmsw_r64m16
+				0x1EA43E7B,// Invlpg_m
+				0x1E443C5A,// Enclv
+				0x1E8A3C7B,// Vmcall
+				0x1E823C72,// Vmlaunch
+				0x1E823C72,// Vmresume
+				0x1E823C72,// Vmxoff
+				0x1E843E7B,// Pconfig
+				0x0AA43E7B,// Monitorw
+				0x1EA43E7B,// Monitord
+				0x14A43E70,// Monitorq
+				0x1EA43E7B,// Mwait
+				0x1E803E7B,// Clac
+				0x1E803E7B,// Stac
+				0x1E443E5A,// Encls
 				0x1E003FFF,// Xgetbv
-				0x1EA23FFF,// Xsetbv
+				0x1EA23E7B,// Xsetbv
 				0x1E84387F,// Vmfunc
 				0x1F003FFF,// Xend
 				0x1E003FFF,// Xtest
 				0x1E403FDA,// Enclu
-				0x0A203FFA,// Vmrunw
-				0x1E203FFA,// Vmrund
-				0x14203FF0,// Vmrunq
+				0x0A203E7A,// Vmrunw
+				0x1E203E7A,// Vmrund
+				0x14203E70,// Vmrunq
 				0x1E203FFF,// Vmmcall
-				0x0A203FFA,// Vmloadw
-				0x1E203FFA,// Vmloadd
-				0x14203FF0,// Vmloadq
-				0x0A203FFA,// Vmsavew
-				0x1E203FFA,// Vmsaved
-				0x14203FF0,// Vmsaveq
-				0x1E203FFA,// Stgi
-				0x1E203FFA,// Clgi
-				0x1E203FFA,// Skinit
-				0x0A203FFA,// Invlpgaw
-				0x1E203FFA,// Invlpgad
-				0x14203FF0,// Invlpgaq
-				0x1E003FFA,// Setssbsy
+				0x0A203E7A,// Vmloadw
+				0x1E203E7A,// Vmloadd
+				0x14203E70,// Vmloadq
+				0x0A203E7A,// Vmsavew
+				0x1E203E7A,// Vmsaved
+				0x14203E70,// Vmsaveq
+				0x1E203E7A,// Stgi
+				0x1E203E7A,// Clgi
+				0x1E203E7A,// Skinit
+				0x0A203E7A,// Invlpgaw
+				0x1E203E7A,// Invlpgad
+				0x14203E70,// Invlpgaq
+				0x1E003E7A,// Setssbsy
 				0x1E003FFA,// Saveprevssp
 				0x1E003FFF,// Rdpkru
 				0x1E803FFF,// Wrpkru
-				0x14803FF0,// Swapgs
+				0x14803E70,// Swapgs
 				0x1EA43F7F,// Rdtscp
 				0x0A203FFF,// Monitorxw
 				0x1E203FFF,// Monitorxd
@@ -5202,17 +5202,17 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFA,// Lsl_r16_rm16
 				0x1E003FFA,// Lsl_r32_r32m16
 				0x14003FF0,// Lsl_r64_r64m16
-				0x0A003FFF,// Loadallreset286
-				0x0A003FFF,// Loadall286
+				0x0A003E7B,// Loadallreset286
+				0x0A003E7B,// Loadall286
 				0x1E803E7F,// Syscall
-				0x1EA43FFF,// Clts
-				0x0A003FFF,// Loadall386
-				0x1E803FFF,// Sysretd
-				0x14803FF0,// Sysretq
-				0x1EA23FFF,// Invd
-				0x1EA43FFF,// Wbinvd
-				0x1EA43FFF,// Wbnoinvd
-				0x0A003FFF,// Cl1invmb
+				0x1EA43E7B,// Clts
+				0x0A003E7B,// Loadall386
+				0x1E803E7B,// Sysretd
+				0x14803E70,// Sysretq
+				0x1EA23E7B,// Invd
+				0x1EA43E7B,// Wbinvd
+				0x1EA43E7B,// Wbnoinvd
+				0x0A003E7B,// Cl1invmb
 				0x1E823FFF,// Ud2
 				0x1E003FFF,// Reservednop_rm16_r16_0F0D
 				0x1E003FFF,// Reservednop_rm32_r32_0F0D
@@ -5393,16 +5393,16 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFF,// Nop_rm16
 				0x1E003FFF,// Nop_rm32
 				0x14003FF0,// Nop_rm64
-				0x0AA43FFF,// Mov_r32_cr
-				0x14A43FF0,// Mov_r64_cr
-				0x0AA43FFF,// Mov_r32_dr
-				0x14A43FF0,// Mov_r64_dr
-				0x0AA43FFF,// Mov_cr_r32
-				0x14A43FF0,// Mov_cr_r64
-				0x0AA43FFF,// Mov_dr_r32
-				0x14A43FF0,// Mov_dr_r64
-				0x0A003FFF,// Mov_r32_tr
-				0x0A003FFF,// Mov_tr_r32
+				0x0AA43E7B,// Mov_r32_cr
+				0x14A43E70,// Mov_r64_cr
+				0x0AA43E7B,// Mov_r32_dr
+				0x14A43E70,// Mov_r64_dr
+				0x0AA43E7B,// Mov_cr_r32
+				0x14A43E70,// Mov_cr_r64
+				0x0AA43E7B,// Mov_dr_r32
+				0x14A43E70,// Mov_dr_r64
+				0x0A003E7B,// Mov_r32_tr
+				0x0A003E7B,// Mov_tr_r32
 				0x1E003FFF,// Movaps_xmm_xmmm128
 				0x1E003FFA,// VEX_Vmovaps_xmm_xmmm128
 				0x1E003FFA,// VEX_Vmovaps_ymm_ymmm256
@@ -5495,13 +5495,13 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFA,// VEX_Vcomisd_xmm_xmmm64
 				0x1E003FFA,// EVEX_Vcomiss_xmm_xmmm32_sae
 				0x1E003FFA,// EVEX_Vcomisd_xmm_xmmm64_sae
-				0x1EA43FFF,// Wrmsr
+				0x1EA43E7B,// Wrmsr
 				0x1EA43F7F,// Rdtsc
-				0x1EA43FFF,// Rdmsr
+				0x1EA43E7B,// Rdmsr
 				0x1EA43E7F,// Rdpmc
 				0x1E803E7F,// Sysenter
-				0x1E803FFF,// Sysexitd
-				0x14803FF0,// Sysexitq
+				0x1E803E7B,// Sysexitd
+				0x14803E70,// Sysexitq
 				0x1E823E7F,// Getsecd
 				0x1E003FFF,// Cmovo_r16_rm16
 				0x1E003FFF,// Cmovo_r32_rm32
@@ -6072,8 +6072,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E803FFF,// Emms
 				0x1E803FFA,// VEX_Vzeroupper
 				0x1E003FFA,// VEX_Vzeroall
-				0x0A843DF2,// Vmread_rm32_r32
-				0x14843DF0,// Vmread_rm64_r64
+				0x0A843C72,// Vmread_rm32_r32
+				0x14843C70,// Vmread_rm64_r64
 				0x1E003FFA,// EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32
 				0x1E003FFA,// EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32
 				0x1E003FFA,// EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae
@@ -6092,8 +6092,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFF,// Insertq_xmm_xmm_imm8_imm8
 				0x1E003FFA,// EVEX_Vcvttsd2usi_r32_xmmm64_sae
 				0x14003FF0,// EVEX_Vcvttsd2usi_r64_xmmm64_sae
-				0x0A843DF2,// Vmwrite_r32_rm32
-				0x14843DF0,// Vmwrite_r64_rm64
+				0x0A843C72,// Vmwrite_r32_rm32
+				0x14843C70,// Vmwrite_r64_rm64
 				0x1E003FFA,// EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32
 				0x1E003FFA,// EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32
 				0x1E003FFA,// EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er
@@ -6371,7 +6371,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E803FFF,// Clwb_m8
 				0x1E843FFF,// Tpause_r32
 				0x14843FF0,// Tpause_r64
-				0x1E003FFA,// Clrssbsy_m64
+				0x1E003E7A,// Clrssbsy_m64
 				0x0A403FFF,// Umonitor_r16
 				0x1E403FFF,// Umonitor_r32
 				0x14403FF0,// Umonitor_r64
@@ -6524,19 +6524,19 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFA,// EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8
 				0x1E003FFF,// Cmpxchg8b_m64
 				0x14003FF0,// Cmpxchg16b_m128
-				0x1E843FFF,// Xrstors_mem
-				0x14843FF0,// Xrstors64_mem
+				0x1E843E7B,// Xrstors_mem
+				0x14843E70,// Xrstors64_mem
 				0x1E803FFF,// Xsavec_mem
 				0x14803FF0,// Xsavec64_mem
-				0x1E843FFF,// Xsaves_mem
-				0x14843FF0,// Xsaves64_mem
-				0x1E823DF2,// Vmptrld_m64
-				0x1E823DF2,// Vmclear_m64
-				0x1E823FF2,// Vmxon_m64
+				0x1E843E7B,// Xsaves_mem
+				0x14843E70,// Xsaves64_mem
+				0x1E823C72,// Vmptrld_m64
+				0x1E823C72,// Vmclear_m64
+				0x1E823E72,// Vmxon_m64
 				0x1E843FFF,// Rdrand_r16
 				0x1E843FFF,// Rdrand_r32
 				0x14843FF0,// Rdrand_r64
-				0x1E823DF2,// Vmptrst_m64
+				0x1E823C72,// Vmptrst_m64
 				0x1E843FFF,// Rdseed_r16
 				0x1E843FFF,// Rdseed_r32
 				0x14843FF0,// Rdseed_r64
@@ -7572,12 +7572,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFA,// EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64
 				0x1E003FFA,// EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64
 				0x1E003FFA,// EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64
-				0x0A823DF2,// Invept_r32_m128
-				0x14823DF0,// Invept_r64_m128
-				0x0A823DF2,// Invvpid_r32_m128
-				0x14823DF0,// Invvpid_r64_m128
-				0x0AA43FFF,// Invpcid_r32_m128
-				0x14A43FF0,// Invpcid_r64_m128
+				0x0A823C72,// Invept_r32_m128
+				0x14823C70,// Invept_r64_m128
+				0x0A823C72,// Invvpid_r32_m128
+				0x14823C70,// Invvpid_r64_m128
+				0x0AA43E7B,// Invpcid_r32_m128
+				0x14A43E70,// Invpcid_r64_m128
 				0x1E003FFA,// EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64
 				0x1E003FFA,// EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64
 				0x1E003FFA,// EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64
@@ -8015,8 +8015,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x14003FF0,// VEX_Blsi_r64_rm64
 				0x1E003FFA,// VEX_Bzhi_r32_rm32_r32
 				0x14003FF0,// VEX_Bzhi_r64_rm64_r64
-				0x1E003FFA,// Wrussd_m32_r32
-				0x14003FF0,// Wrussq_m64_r64
+				0x1E003E7A,// Wrussd_m32_r32
+				0x14003E70,// Wrussq_m64_r64
 				0x1E003FFA,// VEX_Pext_r32_r32_rm32
 				0x14003FF0,// VEX_Pext_r64_r64_rm64
 				0x1E003FFA,// VEX_Pdep_r32_r32_rm32
@@ -8040,9 +8040,9 @@ namespace Iced.Intel.EncoderInternal {
 				0x0A003FFF,// Movdir64b_r16_m512
 				0x1E003FFF,// Movdir64b_r32_m512
 				0x14003FF0,// Movdir64b_r64_m512
-				0x0A843FFF,// Enqcmds_r16_m512
-				0x1E843FFF,// Enqcmds_r32_m512
-				0x14843FF0,// Enqcmds_r64_m512
+				0x0A843E7B,// Enqcmds_r16_m512
+				0x1E843E7B,// Enqcmds_r32_m512
+				0x14843E70,// Enqcmds_r64_m512
 				0x0A843FFF,// Enqcmd_r16_m512
 				0x1E843FFF,// Enqcmd_r32_m512
 				0x14843FF0,// Enqcmd_r64_m512
@@ -8537,19 +8537,19 @@ namespace Iced.Intel.EncoderInternal {
 				0x7E003FFF,// D3NOW_Pmulhrw_mm_mmm64
 				0x7E003FFF,// D3NOW_Pswapd_mm_mmm64
 				0x7E003FFF,// D3NOW_Pavgusb_mm_mmm64
-				0x14203FF0,// Rmpadjust
-				0x14003FF0,// Rmpupdate
-				0x14003FF0,// Psmash
-				0x0A203FFF,// Pvalidatew
-				0x1E203FFF,// Pvalidated
-				0x14203FF0,// Pvalidateq
+				0x14203E70,// Rmpadjust
+				0x14003E70,// Rmpupdate
+				0x14003E70,// Psmash
+				0x0A203E7B,// Pvalidatew
+				0x1E203E7B,// Pvalidated
+				0x14203E70,// Pvalidateq
 				0x1E003FFF,// Serialize
 				0x1F003FFF,// Xsusldtrk
 				0x1F003FFF,// Xresldtrk
-				0x0A203FFA,// Invlpgbw
-				0x1E203FFA,// Invlpgbd
-				0x14203FF0,// Invlpgbq
-				0x1E203FFA,// Tlbsync
+				0x0A203E7A,// Invlpgbw
+				0x1E203E7A,// Invlpgbd
+				0x14203E70,// Invlpgbq
+				0x1E203E7A,// Tlbsync
 				0x1E003FFF,// Prefetchreserved3_m8
 				0x1E003FFF,// Prefetchreserved4_m8
 				0x1E003FFF,// Prefetchreserved5_m8
@@ -8572,22 +8572,22 @@ namespace Iced.Intel.EncoderInternal {
 				0x14403FF0,// VEX_Tdpbssd_tmm_tmm_tmm
 				0x0A803FFF,// Fnstdw_AX
 				0x0A803FFF,// Fnstsg_AX
-				0x0A003FEF,// Rdshr_rm32
-				0x0A003FEF,// Wrshr_rm32
-				0x0A003FFF,// Smint
-				0x0A003FFF,// Dmint
-				0x0A003FFF,// Rdm
-				0x0A003FFF,// Svdc_m80_Sreg
-				0x0A003FFF,// Rsdc_Sreg_m80
-				0x0A003FFF,// Svldt_m80
-				0x0A003FFF,// Rsldt_m80
-				0x0A003FFF,// Svts_m80
-				0x0A003FFF,// Rsts_m80
-				0x0A003FFF,// Smint_0F7E
-				0x0A003FFF,// Bb0_reset
-				0x0A003FFF,// Bb1_reset
-				0x0A003FFF,// Cpu_write
-				0x0A003FFF,// Cpu_read
+				0x0A003E6B,// Rdshr_rm32
+				0x0A003E6B,// Wrshr_rm32
+				0x0A003E7B,// Smint
+				0x0A003E7B,// Dmint
+				0x0A003E7B,// Rdm
+				0x0A003E7B,// Svdc_m80_Sreg
+				0x0A003E7B,// Rsdc_Sreg_m80
+				0x0A003E7B,// Svldt_m80
+				0x0A003E7B,// Rsldt_m80
+				0x0A003E7B,// Svts_m80
+				0x0A003E7B,// Rsts_m80
+				0x0A003E7B,// Smint_0F7E
+				0x0A003E7B,// Bb0_reset
+				0x0A003E7B,// Bb1_reset
+				0x0A003E7B,// Cpu_write
+				0x0A003E7B,// Cpu_read
 				0x0A003FFF,// Altinst
 				0x6A003FFF,// Paveb_mm_mmm64
 				0x6A003FFF,// Paddsiw_mm_mmm64
@@ -8613,15 +8613,15 @@ namespace Iced.Intel.EncoderInternal {
 				0x0A003FFF,// Cyrix_DEDD
 				0x0A003FFF,// Cyrix_DEDE
 				0x0A003FFF,// Frinear
-				0x1E8239FF,// Tdcall
-				0x148025F0,// Seamret
-				0x148025F0,// Seamops
-				0x14821DD0,// Seamcall
+				0x1E82387B,// Tdcall
+				0x14802470,// Seamret
+				0x14802470,// Seamops
+				0x14821C50,// Seamcall
 				0x1E803FFF,// Aesencwide128kl_m384
 				0x1E803FFF,// Aesdecwide128kl_m384
 				0x1E803FFF,// Aesencwide256kl_m512
 				0x1E803FFF,// Aesdecwide256kl_m512
-				0x1E803FFF,// Loadiwkey_xmm_xmm
+				0x1E803E7B,// Loadiwkey_xmm_xmm
 				0x7E803FFF,// Aesenc128kl_xmm_m384
 				0x7E803FFF,// Aesdec128kl_xmm_m384
 				0x7E803FFF,// Aesenc256kl_xmm_m512

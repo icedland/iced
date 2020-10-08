@@ -5034,7 +5034,7 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1EA4_3E7F,// Out_DX_AX
 	0x1EA4_3E7F,// Out_DX_EAX
 	0x1E62_3FFF,// Int1
-	0x1EA4_3FFF,// Hlt
+	0x1EA4_3E7B,// Hlt
 	0x1E00_3FFF,// Cmc
 	0x1E00_3FFF,// Test_rm8_imm8
 	0x1E00_3FFF,// Test_rm8_imm8_F6r1
@@ -5103,12 +5103,12 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1EA4_3E7A,// Str_rm16
 	0x1EA4_3E7A,// Str_r32m16
 	0x14A4_3E70,// Str_r64m16
-	0x1EA4_3FFA,// Lldt_rm16
-	0x1EA4_3FFA,// Lldt_r32m16
-	0x14A4_3FF0,// Lldt_r64m16
-	0x1EA4_3FFA,// Ltr_rm16
-	0x1EA4_3FFA,// Ltr_r32m16
-	0x14A4_3FF0,// Ltr_r64m16
+	0x1EA4_3E7A,// Lldt_rm16
+	0x1EA4_3E7A,// Lldt_r32m16
+	0x14A4_3E70,// Lldt_r64m16
+	0x1EA4_3E7A,// Ltr_rm16
+	0x1EA4_3E7A,// Ltr_r32m16
+	0x14A4_3E70,// Ltr_r64m16
 	0x1E00_3FFA,// Verr_rm16
 	0x1E00_3FFA,// Verr_r32m16
 	0x1400_3FF0,// Verr_r64m16
@@ -5123,60 +5123,60 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x0AA4_3E7F,// Sidt_m1632_16
 	0x0AA4_3E7F,// Sidt_m1632
 	0x14A4_3E70,// Sidt_m1664
-	0x0AA4_3FFF,// Lgdt_m1632_16
-	0x0AA4_3FFF,// Lgdt_m1632
-	0x14A4_3FF0,// Lgdt_m1664
-	0x0AA4_3FFF,// Lidt_m1632_16
-	0x0AA4_3FFF,// Lidt_m1632
-	0x14A4_3FF0,// Lidt_m1664
+	0x0AA4_3E7B,// Lgdt_m1632_16
+	0x0AA4_3E7B,// Lgdt_m1632
+	0x14A4_3E70,// Lgdt_m1664
+	0x0AA4_3E7B,// Lidt_m1632_16
+	0x0AA4_3E7B,// Lidt_m1632
+	0x14A4_3E70,// Lidt_m1664
 	0x1EA4_3E7F,// Smsw_rm16
 	0x1EA4_3E7F,// Smsw_r32m16
 	0x14A4_3E70,// Smsw_r64m16
 	0x1E00_3FFA,// Rstorssp_m64
-	0x1EA4_3FFF,// Lmsw_rm16
-	0x1EA4_3FFF,// Lmsw_r32m16
-	0x14A4_3FF0,// Lmsw_r64m16
-	0x1EA4_3FFF,// Invlpg_m
-	0x1E44_3DDA,// Enclv
-	0x1E8A_3C7F,// Vmcall
-	0x1E82_3DF2,// Vmlaunch
-	0x1E82_3DF2,// Vmresume
-	0x1E82_3DF2,// Vmxoff
-	0x1E84_3FFB,// Pconfig
-	0x0AA4_3FFB,// Monitorw
-	0x1EA4_3FFB,// Monitord
-	0x14A4_3FF0,// Monitorq
-	0x1EA4_3FFB,// Mwait
-	0x1E80_3FFB,// Clac
-	0x1E80_3FFB,// Stac
-	0x1E44_3FDA,// Encls
+	0x1EA4_3E7B,// Lmsw_rm16
+	0x1EA4_3E7B,// Lmsw_r32m16
+	0x14A4_3E70,// Lmsw_r64m16
+	0x1EA4_3E7B,// Invlpg_m
+	0x1E44_3C5A,// Enclv
+	0x1E8A_3C7B,// Vmcall
+	0x1E82_3C72,// Vmlaunch
+	0x1E82_3C72,// Vmresume
+	0x1E82_3C72,// Vmxoff
+	0x1E84_3E7B,// Pconfig
+	0x0AA4_3E7B,// Monitorw
+	0x1EA4_3E7B,// Monitord
+	0x14A4_3E70,// Monitorq
+	0x1EA4_3E7B,// Mwait
+	0x1E80_3E7B,// Clac
+	0x1E80_3E7B,// Stac
+	0x1E44_3E5A,// Encls
 	0x1E00_3FFF,// Xgetbv
-	0x1EA2_3FFF,// Xsetbv
+	0x1EA2_3E7B,// Xsetbv
 	0x1E84_387F,// Vmfunc
 	0x1F00_3FFF,// Xend
 	0x1E00_3FFF,// Xtest
 	0x1E40_3FDA,// Enclu
-	0x0A20_3FFA,// Vmrunw
-	0x1E20_3FFA,// Vmrund
-	0x1420_3FF0,// Vmrunq
+	0x0A20_3E7A,// Vmrunw
+	0x1E20_3E7A,// Vmrund
+	0x1420_3E70,// Vmrunq
 	0x1E20_3FFF,// Vmmcall
-	0x0A20_3FFA,// Vmloadw
-	0x1E20_3FFA,// Vmloadd
-	0x1420_3FF0,// Vmloadq
-	0x0A20_3FFA,// Vmsavew
-	0x1E20_3FFA,// Vmsaved
-	0x1420_3FF0,// Vmsaveq
-	0x1E20_3FFA,// Stgi
-	0x1E20_3FFA,// Clgi
-	0x1E20_3FFA,// Skinit
-	0x0A20_3FFA,// Invlpgaw
-	0x1E20_3FFA,// Invlpgad
-	0x1420_3FF0,// Invlpgaq
-	0x1E00_3FFA,// Setssbsy
+	0x0A20_3E7A,// Vmloadw
+	0x1E20_3E7A,// Vmloadd
+	0x1420_3E70,// Vmloadq
+	0x0A20_3E7A,// Vmsavew
+	0x1E20_3E7A,// Vmsaved
+	0x1420_3E70,// Vmsaveq
+	0x1E20_3E7A,// Stgi
+	0x1E20_3E7A,// Clgi
+	0x1E20_3E7A,// Skinit
+	0x0A20_3E7A,// Invlpgaw
+	0x1E20_3E7A,// Invlpgad
+	0x1420_3E70,// Invlpgaq
+	0x1E00_3E7A,// Setssbsy
 	0x1E00_3FFA,// Saveprevssp
 	0x1E00_3FFF,// Rdpkru
 	0x1E80_3FFF,// Wrpkru
-	0x1480_3FF0,// Swapgs
+	0x1480_3E70,// Swapgs
 	0x1EA4_3F7F,// Rdtscp
 	0x0A20_3FFF,// Monitorxw
 	0x1E20_3FFF,// Monitorxd
@@ -5193,17 +5193,17 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E00_3FFA,// Lsl_r16_rm16
 	0x1E00_3FFA,// Lsl_r32_r32m16
 	0x1400_3FF0,// Lsl_r64_r64m16
-	0x0A00_3FFF,// Loadallreset286
-	0x0A00_3FFF,// Loadall286
+	0x0A00_3E7B,// Loadallreset286
+	0x0A00_3E7B,// Loadall286
 	0x1E80_3E7F,// Syscall
-	0x1EA4_3FFF,// Clts
-	0x0A00_3FFF,// Loadall386
-	0x1E80_3FFF,// Sysretd
-	0x1480_3FF0,// Sysretq
-	0x1EA2_3FFF,// Invd
-	0x1EA4_3FFF,// Wbinvd
-	0x1EA4_3FFF,// Wbnoinvd
-	0x0A00_3FFF,// Cl1invmb
+	0x1EA4_3E7B,// Clts
+	0x0A00_3E7B,// Loadall386
+	0x1E80_3E7B,// Sysretd
+	0x1480_3E70,// Sysretq
+	0x1EA2_3E7B,// Invd
+	0x1EA4_3E7B,// Wbinvd
+	0x1EA4_3E7B,// Wbnoinvd
+	0x0A00_3E7B,// Cl1invmb
 	0x1E82_3FFF,// Ud2
 	0x1E00_3FFF,// Reservednop_rm16_r16_0F0D
 	0x1E00_3FFF,// Reservednop_rm32_r32_0F0D
@@ -5384,16 +5384,16 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E00_3FFF,// Nop_rm16
 	0x1E00_3FFF,// Nop_rm32
 	0x1400_3FF0,// Nop_rm64
-	0x0AA4_3FFF,// Mov_r32_cr
-	0x14A4_3FF0,// Mov_r64_cr
-	0x0AA4_3FFF,// Mov_r32_dr
-	0x14A4_3FF0,// Mov_r64_dr
-	0x0AA4_3FFF,// Mov_cr_r32
-	0x14A4_3FF0,// Mov_cr_r64
-	0x0AA4_3FFF,// Mov_dr_r32
-	0x14A4_3FF0,// Mov_dr_r64
-	0x0A00_3FFF,// Mov_r32_tr
-	0x0A00_3FFF,// Mov_tr_r32
+	0x0AA4_3E7B,// Mov_r32_cr
+	0x14A4_3E70,// Mov_r64_cr
+	0x0AA4_3E7B,// Mov_r32_dr
+	0x14A4_3E70,// Mov_r64_dr
+	0x0AA4_3E7B,// Mov_cr_r32
+	0x14A4_3E70,// Mov_cr_r64
+	0x0AA4_3E7B,// Mov_dr_r32
+	0x14A4_3E70,// Mov_dr_r64
+	0x0A00_3E7B,// Mov_r32_tr
+	0x0A00_3E7B,// Mov_tr_r32
 	0x1E00_3FFF,// Movaps_xmm_xmmm128
 	0x1E00_3FFA,// VEX_Vmovaps_xmm_xmmm128
 	0x1E00_3FFA,// VEX_Vmovaps_ymm_ymmm256
@@ -5486,13 +5486,13 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E00_3FFA,// VEX_Vcomisd_xmm_xmmm64
 	0x1E00_3FFA,// EVEX_Vcomiss_xmm_xmmm32_sae
 	0x1E00_3FFA,// EVEX_Vcomisd_xmm_xmmm64_sae
-	0x1EA4_3FFF,// Wrmsr
+	0x1EA4_3E7B,// Wrmsr
 	0x1EA4_3F7F,// Rdtsc
-	0x1EA4_3FFF,// Rdmsr
+	0x1EA4_3E7B,// Rdmsr
 	0x1EA4_3E7F,// Rdpmc
 	0x1E80_3E7F,// Sysenter
-	0x1E80_3FFF,// Sysexitd
-	0x1480_3FF0,// Sysexitq
+	0x1E80_3E7B,// Sysexitd
+	0x1480_3E70,// Sysexitq
 	0x1E82_3E7F,// Getsecd
 	0x1E00_3FFF,// Cmovo_r16_rm16
 	0x1E00_3FFF,// Cmovo_r32_rm32
@@ -6063,8 +6063,8 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E80_3FFF,// Emms
 	0x1E80_3FFA,// VEX_Vzeroupper
 	0x1E00_3FFA,// VEX_Vzeroall
-	0x0A84_3DF2,// Vmread_rm32_r32
-	0x1484_3DF0,// Vmread_rm64_r64
+	0x0A84_3C72,// Vmread_rm32_r32
+	0x1484_3C70,// Vmread_rm64_r64
 	0x1E00_3FFA,// EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32
 	0x1E00_3FFA,// EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32
 	0x1E00_3FFA,// EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae
@@ -6083,8 +6083,8 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E00_3FFF,// Insertq_xmm_xmm_imm8_imm8
 	0x1E00_3FFA,// EVEX_Vcvttsd2usi_r32_xmmm64_sae
 	0x1400_3FF0,// EVEX_Vcvttsd2usi_r64_xmmm64_sae
-	0x0A84_3DF2,// Vmwrite_r32_rm32
-	0x1484_3DF0,// Vmwrite_r64_rm64
+	0x0A84_3C72,// Vmwrite_r32_rm32
+	0x1484_3C70,// Vmwrite_r64_rm64
 	0x1E00_3FFA,// EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32
 	0x1E00_3FFA,// EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32
 	0x1E00_3FFA,// EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er
@@ -6362,7 +6362,7 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E80_3FFF,// Clwb_m8
 	0x1E84_3FFF,// Tpause_r32
 	0x1484_3FF0,// Tpause_r64
-	0x1E00_3FFA,// Clrssbsy_m64
+	0x1E00_3E7A,// Clrssbsy_m64
 	0x0A40_3FFF,// Umonitor_r16
 	0x1E40_3FFF,// Umonitor_r32
 	0x1440_3FF0,// Umonitor_r64
@@ -6515,19 +6515,19 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E00_3FFA,// EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8
 	0x1E00_3FFF,// Cmpxchg8b_m64
 	0x1400_3FF0,// Cmpxchg16b_m128
-	0x1E84_3FFF,// Xrstors_mem
-	0x1484_3FF0,// Xrstors64_mem
+	0x1E84_3E7B,// Xrstors_mem
+	0x1484_3E70,// Xrstors64_mem
 	0x1E80_3FFF,// Xsavec_mem
 	0x1480_3FF0,// Xsavec64_mem
-	0x1E84_3FFF,// Xsaves_mem
-	0x1484_3FF0,// Xsaves64_mem
-	0x1E82_3DF2,// Vmptrld_m64
-	0x1E82_3DF2,// Vmclear_m64
-	0x1E82_3FF2,// Vmxon_m64
+	0x1E84_3E7B,// Xsaves_mem
+	0x1484_3E70,// Xsaves64_mem
+	0x1E82_3C72,// Vmptrld_m64
+	0x1E82_3C72,// Vmclear_m64
+	0x1E82_3E72,// Vmxon_m64
 	0x1E84_3FFF,// Rdrand_r16
 	0x1E84_3FFF,// Rdrand_r32
 	0x1484_3FF0,// Rdrand_r64
-	0x1E82_3DF2,// Vmptrst_m64
+	0x1E82_3C72,// Vmptrst_m64
 	0x1E84_3FFF,// Rdseed_r16
 	0x1E84_3FFF,// Rdseed_r32
 	0x1484_3FF0,// Rdseed_r64
@@ -7563,12 +7563,12 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1E00_3FFA,// EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64
 	0x1E00_3FFA,// EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64
 	0x1E00_3FFA,// EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64
-	0x0A82_3DF2,// Invept_r32_m128
-	0x1482_3DF0,// Invept_r64_m128
-	0x0A82_3DF2,// Invvpid_r32_m128
-	0x1482_3DF0,// Invvpid_r64_m128
-	0x0AA4_3FFF,// Invpcid_r32_m128
-	0x14A4_3FF0,// Invpcid_r64_m128
+	0x0A82_3C72,// Invept_r32_m128
+	0x1482_3C70,// Invept_r64_m128
+	0x0A82_3C72,// Invvpid_r32_m128
+	0x1482_3C70,// Invvpid_r64_m128
+	0x0AA4_3E7B,// Invpcid_r32_m128
+	0x14A4_3E70,// Invpcid_r64_m128
 	0x1E00_3FFA,// EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64
 	0x1E00_3FFA,// EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64
 	0x1E00_3FFA,// EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64
@@ -8006,8 +8006,8 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1400_3FF0,// VEX_Blsi_r64_rm64
 	0x1E00_3FFA,// VEX_Bzhi_r32_rm32_r32
 	0x1400_3FF0,// VEX_Bzhi_r64_rm64_r64
-	0x1E00_3FFA,// Wrussd_m32_r32
-	0x1400_3FF0,// Wrussq_m64_r64
+	0x1E00_3E7A,// Wrussd_m32_r32
+	0x1400_3E70,// Wrussq_m64_r64
 	0x1E00_3FFA,// VEX_Pext_r32_r32_rm32
 	0x1400_3FF0,// VEX_Pext_r64_r64_rm64
 	0x1E00_3FFA,// VEX_Pdep_r32_r32_rm32
@@ -8031,9 +8031,9 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x0A00_3FFF,// Movdir64b_r16_m512
 	0x1E00_3FFF,// Movdir64b_r32_m512
 	0x1400_3FF0,// Movdir64b_r64_m512
-	0x0A84_3FFF,// Enqcmds_r16_m512
-	0x1E84_3FFF,// Enqcmds_r32_m512
-	0x1484_3FF0,// Enqcmds_r64_m512
+	0x0A84_3E7B,// Enqcmds_r16_m512
+	0x1E84_3E7B,// Enqcmds_r32_m512
+	0x1484_3E70,// Enqcmds_r64_m512
 	0x0A84_3FFF,// Enqcmd_r16_m512
 	0x1E84_3FFF,// Enqcmd_r32_m512
 	0x1484_3FF0,// Enqcmd_r64_m512
@@ -8528,19 +8528,19 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x7E00_3FFF,// D3NOW_Pmulhrw_mm_mmm64
 	0x7E00_3FFF,// D3NOW_Pswapd_mm_mmm64
 	0x7E00_3FFF,// D3NOW_Pavgusb_mm_mmm64
-	0x1420_3FF0,// Rmpadjust
-	0x1400_3FF0,// Rmpupdate
-	0x1400_3FF0,// Psmash
-	0x0A20_3FFF,// Pvalidatew
-	0x1E20_3FFF,// Pvalidated
-	0x1420_3FF0,// Pvalidateq
+	0x1420_3E70,// Rmpadjust
+	0x1400_3E70,// Rmpupdate
+	0x1400_3E70,// Psmash
+	0x0A20_3E7B,// Pvalidatew
+	0x1E20_3E7B,// Pvalidated
+	0x1420_3E70,// Pvalidateq
 	0x1E00_3FFF,// Serialize
 	0x1F00_3FFF,// Xsusldtrk
 	0x1F00_3FFF,// Xresldtrk
-	0x0A20_3FFA,// Invlpgbw
-	0x1E20_3FFA,// Invlpgbd
-	0x1420_3FF0,// Invlpgbq
-	0x1E20_3FFA,// Tlbsync
+	0x0A20_3E7A,// Invlpgbw
+	0x1E20_3E7A,// Invlpgbd
+	0x1420_3E70,// Invlpgbq
+	0x1E20_3E7A,// Tlbsync
 	0x1E00_3FFF,// Prefetchreserved3_m8
 	0x1E00_3FFF,// Prefetchreserved4_m8
 	0x1E00_3FFF,// Prefetchreserved5_m8
@@ -8563,22 +8563,22 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x1440_3FF0,// VEX_Tdpbssd_tmm_tmm_tmm
 	0x0A80_3FFF,// Fnstdw_AX
 	0x0A80_3FFF,// Fnstsg_AX
-	0x0A00_3FEF,// Rdshr_rm32
-	0x0A00_3FEF,// Wrshr_rm32
-	0x0A00_3FFF,// Smint
-	0x0A00_3FFF,// Dmint
-	0x0A00_3FFF,// Rdm
-	0x0A00_3FFF,// Svdc_m80_Sreg
-	0x0A00_3FFF,// Rsdc_Sreg_m80
-	0x0A00_3FFF,// Svldt_m80
-	0x0A00_3FFF,// Rsldt_m80
-	0x0A00_3FFF,// Svts_m80
-	0x0A00_3FFF,// Rsts_m80
-	0x0A00_3FFF,// Smint_0F7E
-	0x0A00_3FFF,// Bb0_reset
-	0x0A00_3FFF,// Bb1_reset
-	0x0A00_3FFF,// Cpu_write
-	0x0A00_3FFF,// Cpu_read
+	0x0A00_3E6B,// Rdshr_rm32
+	0x0A00_3E6B,// Wrshr_rm32
+	0x0A00_3E7B,// Smint
+	0x0A00_3E7B,// Dmint
+	0x0A00_3E7B,// Rdm
+	0x0A00_3E7B,// Svdc_m80_Sreg
+	0x0A00_3E7B,// Rsdc_Sreg_m80
+	0x0A00_3E7B,// Svldt_m80
+	0x0A00_3E7B,// Rsldt_m80
+	0x0A00_3E7B,// Svts_m80
+	0x0A00_3E7B,// Rsts_m80
+	0x0A00_3E7B,// Smint_0F7E
+	0x0A00_3E7B,// Bb0_reset
+	0x0A00_3E7B,// Bb1_reset
+	0x0A00_3E7B,// Cpu_write
+	0x0A00_3E7B,// Cpu_read
 	0x0A00_3FFF,// Altinst
 	0x6A00_3FFF,// Paveb_mm_mmm64
 	0x6A00_3FFF,// Paddsiw_mm_mmm64
@@ -8604,15 +8604,15 @@ pub(super) static OPC_FLAGS2: [u32; 4297] = [
 	0x0A00_3FFF,// Cyrix_DEDD
 	0x0A00_3FFF,// Cyrix_DEDE
 	0x0A00_3FFF,// Frinear
-	0x1E82_39FF,// Tdcall
-	0x1480_25F0,// Seamret
-	0x1480_25F0,// Seamops
-	0x1482_1DD0,// Seamcall
+	0x1E82_387B,// Tdcall
+	0x1480_2470,// Seamret
+	0x1480_2470,// Seamops
+	0x1482_1C50,// Seamcall
 	0x1E80_3FFF,// Aesencwide128kl_m384
 	0x1E80_3FFF,// Aesdecwide128kl_m384
 	0x1E80_3FFF,// Aesencwide256kl_m512
 	0x1E80_3FFF,// Aesdecwide256kl_m512
-	0x1E80_3FFF,// Loadiwkey_xmm_xmm
+	0x1E80_3E7B,// Loadiwkey_xmm_xmm
 	0x7E80_3FFF,// Aesenc128kl_xmm_m384
 	0x7E80_3FFF,// Aesdec128kl_xmm_m384
 	0x7E80_3FFF,// Aesenc256kl_xmm_m512

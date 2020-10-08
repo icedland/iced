@@ -909,6 +909,10 @@ namespace Generator.Tables {
 				state.Flags2 &= ~(InstructionDefFlags2.RealMode | InstructionDefFlags2.ProtectedMode |
 					InstructionDefFlags2.Virtual8086Mode | InstructionDefFlags2.CompatibilityMode);
 			}
+			// v86 mode and SGX enclaves use CPL=3, so disable all CPL<3 instructions
+			if ((state.Flags1 & InstructionDefFlags1.Cpl3) == 0)
+				state.Flags2 &= ~(InstructionDefFlags2.Virtual8086Mode | InstructionDefFlags2.UseInEnclaveSgx1 | InstructionDefFlags2.UseInEnclaveSgx2);
+
 			if ((state.Flags2 & AllDecoders) == 0) {
 				Error(state.LineIndex, "Instruction can't be decoded by any decoder");
 				return false;
@@ -917,12 +921,10 @@ namespace Generator.Tables {
 				Error(state.LineIndex, "is-long-mode != is-64-bit");
 				return false;
 			}
-
 			if ((state.Flags2 & InstructionDefFlags2.UseInSeam) != 0 && (state.Flags2 & (InstructionDefFlags2.UseInVmxRootOp | InstructionDefFlags2.UseInVmxNonRootOp)) == 0) {
 				Error(state.LineIndex, "In-SEAM but not (in-VMX-root or in-VMX-non-root)");
 				return false;
 			}
-
 			if ((state.Flags2 & (InstructionDefFlags2.IntelVmExit | InstructionDefFlags2.IntelMayVmExit)) == (InstructionDefFlags2.IntelVmExit | InstructionDefFlags2.IntelMayVmExit)) {
 				Error(state.LineIndex, "intel-vm-exit and intel-may-vm-exit can't both be used. Remove one of them.");
 				return false;

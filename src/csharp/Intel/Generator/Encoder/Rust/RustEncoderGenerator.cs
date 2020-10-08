@@ -481,5 +481,19 @@ namespace Generator.Encoder.Rust {
 			GenerateCases(filename, "Vsib32", vsib32, "Some(false)");
 			GenerateCases(filename, "Vsib64", vsib64, "Some(true)");
 		}
+
+		protected override void GenerateDecoderOptionsTable((EnumValue decOptionValue, EnumValue decoderOptions)[] values) {
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "op_code.rs");
+			new FileUpdater(TargetLanguage.Rust, "ToDecoderOptionsTable", filename).Generate(writer => {
+				writer.WriteLine(RustConstants.FeatureDecoder);
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"static TO_DECODER_OPTIONS: [u32; {values.Length}] = [");
+				using (writer.Indent()) {
+					foreach (var (_, decoderOptions) in values)
+						writer.WriteLine($"{decoderOptions.DeclaringType.Name(idConverter)}::{idConverter.Constant(decoderOptions.RawName)},");
+				}
+				writer.WriteLine("];");
+			});
+		}
 	}
 }

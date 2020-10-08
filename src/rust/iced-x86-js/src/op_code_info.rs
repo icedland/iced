@@ -298,6 +298,432 @@ impl OpCodeInfo {
 		self.0.can_use_notrack_prefix()
 	}
 
+	/// `true` if rounding control is ignored (#UD is not generated)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ignoresRoundingControl")]
+	pub fn ignores_rounding_control(&self) -> bool {
+		self.0.ignores_rounding_control()
+	}
+
+	/// `true` if the `LOCK` prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a `REX` prefix (eg. in 32-bit mode)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "amdLockRegBit")]
+	pub fn amd_lock_reg_bit(&self) -> bool {
+		self.0.amd_lock_reg_bit()
+	}
+
+	/// `true` if the default operand size is 64 in 64-bit mode. A `66` prefix can switch to 16-bit operand size.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "defaultOpSize64")]
+	pub fn default_op_size64(&self) -> bool {
+		self.0.default_op_size64()
+	}
+
+	/// `true` if the operand size is always 64 in 64-bit mode. A `66` prefix is ignored.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "forceOpSize64")]
+	pub fn force_op_size64(&self) -> bool {
+		self.0.force_op_size64()
+	}
+
+	/// `true` if the Intel decoder forces 64-bit operand size. A `66` prefix is ignored.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "intelForceOpSize64")]
+	pub fn intel_force_op_size64(&self) -> bool {
+		self.0.intel_force_op_size64()
+	}
+
+	/// `true` if it can be executed when CPL=0
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cpl0")]
+	pub fn cpl0(&self) -> bool {
+		self.0.cpl0()
+	}
+
+	/// `true` if it can be executed when CPL=1
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cpl1")]
+	pub fn cpl1(&self) -> bool {
+		self.0.cpl1()
+	}
+
+	/// `true` if it can be executed when CPL=2
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cpl2")]
+	pub fn cpl2(&self) -> bool {
+		self.0.cpl2()
+	}
+
+	/// `true` if it can be executed when CPL=3
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cpl3")]
+	pub fn cpl3(&self) -> bool {
+		self.0.cpl3()
+	}
+
+	/// `true` if the instruction accesses the I/O address space (eg. `IN`, `OUT`, `INS`, `OUTS`)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isInputOutput")]
+	pub fn is_input_output(&self) -> bool {
+		self.0.is_input_output()
+	}
+
+	/// `true` if it's one of the many nop instructions (does not include FPU nop instructions, eg. `FNOP`)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isNop")]
+	pub fn is_nop(&self) -> bool {
+		self.0.is_nop()
+	}
+
+	/// `true` if it's one of the many reserved nop instructions (eg. `0F0D`, `0F18-0F1F`)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isReservedNop")]
+	pub fn is_reserved_nop(&self) -> bool {
+		self.0.is_reserved_nop()
+	}
+
+	/// `true` if it's a serializing instruction (Intel CPUs)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isSerializingIntel")]
+	pub fn is_serializing_intel(&self) -> bool {
+		self.0.is_serializing_intel()
+	}
+
+	/// `true` if it's a serializing instruction (AMD CPUs)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isSerializingAmd")]
+	pub fn is_serializing_amd(&self) -> bool {
+		self.0.is_serializing_amd()
+	}
+
+	/// `true` if the instruction requires either CPL=0 or CPL<=3 depending on some CPU option (eg. `CR4.TSD`, `CR4.PCE`, `CR4.UMIP`)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mayRequireCpl0")]
+	pub fn may_require_cpl0(&self) -> bool {
+		self.0.may_require_cpl0()
+	}
+
+	/// `true` if it's a tracked `JMP`/`CALL` indirect instruction (CET)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isCetTracked")]
+	pub fn is_cet_tracked(&self) -> bool {
+		self.0.is_cet_tracked()
+	}
+
+	/// `true` if it's a non-temporal hint memory access (eg. `MOVNTDQ`)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isNonTemporal")]
+	pub fn is_non_temporal(&self) -> bool {
+		self.0.is_non_temporal()
+	}
+
+	/// `true` if it's a no-wait FPU instruction, eg. `FNINIT`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isFpuNoWait")]
+	pub fn is_fpu_no_wait(&self) -> bool {
+		self.0.is_fpu_no_wait()
+	}
+
+	/// `true` if the mod bits are ignored and it's assumed `modrm[7:6] == 11b`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ignoresModBits")]
+	pub fn ignores_mod_bits(&self) -> bool {
+		self.0.ignores_mod_bits()
+	}
+
+	/// `true` if the `66` prefix is not allowed (it will #UD)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "no66")]
+	pub fn no66(&self) -> bool {
+		self.0.no66()
+	}
+
+	/// `true` if the `F2`/`F3` prefixes aren't allowed
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nfx")]
+	pub fn nfx(&self) -> bool {
+		self.0.nfx()
+	}
+
+	/// `true` if the index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique,
+	/// eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "requiresUniqueRegNums")]
+	pub fn requires_unique_reg_nums(&self) -> bool {
+		self.0.requires_unique_reg_nums()
+	}
+
+	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isPrivileged")]
+	pub fn is_privileged(&self) -> bool {
+		self.0.is_privileged()
+	}
+
+	/// `true` if it reads/writes too many registers
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isSaveRestore")]
+	pub fn is_save_restore(&self) -> bool {
+		self.0.is_save_restore()
+	}
+
+	/// `true` if it's an instruction that implicitly uses the stack register, eg. `CALL`, `POP`, etc
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isStackInstruction")]
+	pub fn is_stack_instruction(&self) -> bool {
+		self.0.is_stack_instruction()
+	}
+
+	/// `true` if the instruction doesn't read the segment register if it uses a memory operand
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ignoresSegment")]
+	pub fn ignores_segment(&self) -> bool {
+		self.0.ignores_segment()
+	}
+
+	/// `true` if the op mask register is read and written (instead of just read). This also implies that it can't be `K0`.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isOpMaskReadWrite")]
+	pub fn is_op_mask_read_write(&self) -> bool {
+		self.0.is_op_mask_read_write()
+	}
+
+	/// `true` if it can be executed in real mode
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "realMode")]
+	pub fn real_mode(&self) -> bool {
+		self.0.real_mode()
+	}
+
+	/// `true` if it can be executed in protected mode
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "protectedMode")]
+	pub fn protected_mode(&self) -> bool {
+		self.0.protected_mode()
+	}
+
+	/// `true` if it can be executed in virtual 8086 mode
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "virtual8086Mode")]
+	pub fn virtual8086_mode(&self) -> bool {
+		self.0.virtual8086_mode()
+	}
+
+	/// `true` if it can be executed in compatibility mode
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "compatibilityMode")]
+	pub fn compatibility_mode(&self) -> bool {
+		self.0.compatibility_mode()
+	}
+
+	/// `true` if it can be executed in 64-bit mode
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "longMode")]
+	pub fn long_mode(&self) -> bool {
+		self.0.long_mode()
+	}
+
+	/// `true` if it can be used outside SMM
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useOutsideSmm")]
+	pub fn use_outside_smm(&self) -> bool {
+		self.0.use_outside_smm()
+	}
+
+	/// `true` if it can be used in SMM
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useInSmm")]
+	pub fn use_in_smm(&self) -> bool {
+		self.0.use_in_smm()
+	}
+
+	/// `true` if it can be used outside an enclave (SGX)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useOutsideEnclaveSgx")]
+	pub fn use_outside_enclave_sgx(&self) -> bool {
+		self.0.use_outside_enclave_sgx()
+	}
+
+	/// `true` if it can be used inside an enclave (SGX1)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useInEnclaveSgx1")]
+	pub fn use_in_enclave_sgx1(&self) -> bool {
+		self.0.use_in_enclave_sgx1()
+	}
+
+	/// `true` if it can be used inside an enclave (SGX2)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useInEnclaveSgx2")]
+	pub fn use_in_enclave_sgx2(&self) -> bool {
+		self.0.use_in_enclave_sgx2()
+	}
+
+	/// `true` if it can be used outside VMX operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useOutsideVmxOp")]
+	pub fn use_outside_vmx_op(&self) -> bool {
+		self.0.use_outside_vmx_op()
+	}
+
+	/// `true` if it can be used in VMX root operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useInVmxRootOp")]
+	pub fn use_in_vmx_root_op(&self) -> bool {
+		self.0.use_in_vmx_root_op()
+	}
+
+	/// `true` if it can be used in VMX non-root operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useInVmxNonRootOp")]
+	pub fn use_in_vmx_non_root_op(&self) -> bool {
+		self.0.use_in_vmx_non_root_op()
+	}
+
+	/// `true` if it can be used outside SEAM
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useOutsideSeam")]
+	pub fn use_outside_seam(&self) -> bool {
+		self.0.use_outside_seam()
+	}
+
+	/// `true` if it can be used in SEAM
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "useInSeam")]
+	pub fn use_in_seam(&self) -> bool {
+		self.0.use_in_seam()
+	}
+
+	/// `true` if #UD is generated in TDX non-root operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "tdxNonRootGenUd")]
+	pub fn tdx_non_root_gen_ud(&self) -> bool {
+		self.0.tdx_non_root_gen_ud()
+	}
+
+	/// `true` if #VE is generated in TDX non-root operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "tdxNonRootGenVe")]
+	pub fn tdx_non_root_gen_ve(&self) -> bool {
+		self.0.tdx_non_root_gen_ve()
+	}
+
+	/// `true` if an exception (eg. #GP(0), #VE) may be generated in TDX non-root operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "tdxNonRootMayGenEx")]
+	pub fn tdx_non_root_may_gen_ex(&self) -> bool {
+		self.0.tdx_non_root_may_gen_ex()
+	}
+
+	/// (Intel VMX) `true` if it causes a VM exit in VMX non-root operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "intelVmExit")]
+	pub fn intel_vm_exit(&self) -> bool {
+		self.0.intel_vm_exit()
+	}
+
+	/// (Intel VMX) `true` if it may cause a VM exit in VMX non-root operation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "intelMayVmExit")]
+	pub fn intel_may_vm_exit(&self) -> bool {
+		self.0.intel_may_vm_exit()
+	}
+
+	/// (Intel VMX) `true` if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "intelSmmVmExit")]
+	pub fn intel_smm_vm_exit(&self) -> bool {
+		self.0.intel_smm_vm_exit()
+	}
+
+	/// (AMD SVM) `true` if it causes a #VMEXIT in guest mode
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "amdVmExit")]
+	pub fn amd_vm_exit(&self) -> bool {
+		self.0.amd_vm_exit()
+	}
+
+	/// (AMD SVM) `true` if it may cause a #VMEXIT in guest mode
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "amdMayVmExit")]
+	pub fn amd_may_vm_exit(&self) -> bool {
+		self.0.amd_may_vm_exit()
+	}
+
+	/// `true` if it causes a TSX abort inside a TSX transaction
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "tsxAbort")]
+	pub fn tsx_abort(&self) -> bool {
+		self.0.tsx_abort()
+	}
+
+	/// `true` if it causes a TSX abort inside a TSX transaction depending on the implementation
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "tsxImplAbort")]
+	pub fn tsx_impl_abort(&self) -> bool {
+		self.0.tsx_impl_abort()
+	}
+
+	/// `true` if it may cause a TSX abort inside a TSX transaction depending on some condition
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "tsxMayAbort")]
+	pub fn tsx_may_abort(&self) -> bool {
+		self.0.tsx_may_abort()
+	}
+
+	/// `true` if it's decoded by iced's 16-bit Intel decoder
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "intelDecoder16")]
+	pub fn intel_decoder16(&self) -> bool {
+		self.0.intel_decoder16()
+	}
+
+	/// `true` if it's decoded by iced's 32-bit Intel decoder
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "intelDecoder32")]
+	pub fn intel_decoder32(&self) -> bool {
+		self.0.intel_decoder32()
+	}
+
+	/// `true` if it's decoded by iced's 64-bit Intel decoder
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "intelDecoder64")]
+	pub fn intel_decoder64(&self) -> bool {
+		self.0.intel_decoder64()
+	}
+
+	/// `true` if it's decoded by iced's 16-bit AMD decoder
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "amdDecoder16")]
+	pub fn amd_decoder16(&self) -> bool {
+		self.0.amd_decoder16()
+	}
+
+	/// `true` if it's decoded by iced's 32-bit AMD decoder
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "amdDecoder32")]
+	pub fn amd_decoder32(&self) -> bool {
+		self.0.amd_decoder32()
+	}
+
+	/// `true` if it's decoded by iced's 64-bit AMD decoder
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "amdDecoder64")]
+	pub fn amd_decoder64(&self) -> bool {
+		self.0.amd_decoder64()
+	}
+
+	/// Gets the decoder option that's needed to decode the instruction or [`DecoderOptions::None`].
+	/// The return value is a [`DecoderOptions`] value.
+	///
+	/// [`DecoderOptions::None`]: struct.DecoderOptions.html#associatedconstant.NONE
+	/// [`DecoderOptions`]: struct.DecoderOptions.html
+	#[cfg(feature = "decoder")]
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "decoderOption")]
+	pub fn decoder_option(&self) -> u32 {
+		self.0.decoder_option()
+	}
+
 	/// Gets the opcode table (a [`OpCodeTableKind`] enum value)
 	///
 	/// [`OpCodeTableKind`]: enum.OpCodeTableKind.html
@@ -315,7 +741,7 @@ impl OpCodeInfo {
 		iced_to_mandatory_prefix(self.0.mandatory_prefix())
 	}
 
-	/// Gets the opcode. `000000xxh` if it's 1-byte, `0000yyxxh` if it's 2-byte (`yy` != `00`, and `yy` is the first byte and `xx` the second byte).
+	/// Gets the opcode byte(s). The low byte(s) of this value is the opcode. The length is in [`opCodeLength`].
 	/// It doesn't include the table value, see [`table`].
 	///
 	/// # Examples
@@ -340,11 +766,43 @@ impl OpCodeInfo {
 	/// opCode4.free();
 	/// ```
 	///
+	/// [`opCodeLength`]: #method.op_code_len
 	/// [`table`]: #method.table
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "opCode")]
 	pub fn op_code(&self) -> u32 {
 		self.0.op_code()
+	}
+
+	/// Gets the length of the opcode bytes ([`opCode`]). The low bytes is the opcode value.
+	///
+	/// # Examples
+	///
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt } = require("iced-x86");
+	///
+	/// const opCode1 = CodeExt.opCode(Code.Ffreep_sti);
+	/// assert.equal(opCode1.opCodeLength, 2);
+	/// const opCode2 = CodeExt.opCode(Code.Vmrunw);
+	/// assert.equal(opCode2.opCodeLength, 2);
+	/// const opCode3 = CodeExt.opCode(Code.Sub_r8_rm8);
+	/// assert.equal(opCode3.opCodeLength, 1);
+	/// const opCode4 = CodeExt.opCode(Code.Cvtpi2ps_xmm_mmm64);
+	/// assert.equal(opCode4.opCodeLength, 1);
+	///
+	/// // Free wasm memory
+	/// opCode1.free();
+	/// opCode2.free();
+	/// opCode3.free();
+	/// opCode4.free();
+	/// ```
+	///
+	/// [`opCode`]: #method.op_code
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "opCodeLength")]
+	pub fn op_code_len(&self) -> u32 {
+		self.0.op_code_len()
 	}
 
 	/// `true` if it's part of a group
@@ -368,7 +826,7 @@ impl OpCodeInfo {
 		self.0.is_rm_group()
 	}
 
-	/// Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte.
+	/// Group index (0-7) or -1. If it's 0-7, it's stored in the `rm` field of the `modrm` byte.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rmGroupIndex")]
 	pub fn rm_group_index(&self) -> i32 {

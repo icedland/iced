@@ -67,6 +67,9 @@ namespace Generator {
 		public const string PragmaMissingDocsRestore = "#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member";
 
 		public static string GetDirectory(GeneratorContext generatorContext, string @namespace) =>
-			Path.Combine(new[] { generatorContext.Types.Dirs.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).ToArray());
+			GetDirectory(generatorContext.Types, @namespace);
+
+		public static string GetDirectory(GenTypes genTypes, string @namespace) =>
+			Path.Combine(new[] { genTypes.Dirs.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).ToArray());
 	}
 }

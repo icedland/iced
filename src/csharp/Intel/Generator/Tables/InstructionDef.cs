@@ -147,11 +147,11 @@ namespace Generator.Tables {
 		/// </summary>
 		RequireOpMaskRegister	= 0x08000000,
 		/// <summary>
-		/// The mod bits are ignored and it's assumed modrm[7:6] == 11b
+		/// The mod bits are ignored and it's assumed <c>modrm[7:6] == 11b</c>
 		/// </summary>
 		IgnoresModBits			= 0x10000000,
 		/// <summary>
-		/// The index reg's reg-num (vsib op) (if any) and register ops' reg-num must be unique, eg. <c>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</c>
+		/// The index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique, eg. <c>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</c>
 		/// is invalid. Registers = <c>XMM</c>/<c>YMM</c>/<c>ZMM</c>/<c>TMM</c>.
 		/// </summary>
 		RequiresUniqueRegNums	= 0x20000000,
@@ -338,7 +338,7 @@ namespace Generator.Tables {
 		/// </summary>
 		SerializingAmd			= 0x00000100,
 		/// <summary>
-		/// The instruction is either CPL=0 or CPL<=3 depending on some CPU option (eg. <c>CR4.TSD</c>, <c>CR4.PCE</c>, <c>CR4.UMIP</c>)
+		/// The instruction requires either CPL=0 or CPL<=3 depending on some CPU option (eg. <c>CR4.TSD</c>, <c>CR4.PCE</c>, <c>CR4.UMIP</c>)
 		/// </summary>
 		MayRequireCpl0			= 0x00000200,
 		/// <summary>
@@ -350,7 +350,7 @@ namespace Generator.Tables {
 		/// </summary>
 		CetTracked				= 0x00000800,
 		/// <summary>
-		/// Non-temporal hint memory access (eg. <c>MOVNTDQ</c>, etc)
+		/// Non-temporal hint memory access (eg. <c>MOVNTDQ</c>)
 		/// </summary>
 		NonTemporal				= 0x00001000,
 		/// <summary>
@@ -358,7 +358,7 @@ namespace Generator.Tables {
 		/// </summary>
 		FpuNoWait				= 0x00002000,
 		/// <summary>
-		/// It's a privileged instruction (usually requires CPL=0) and this includes <c>IN</c>, <c>OUT</c>, <c>CLI</c>, <c>STI</c>
+		/// It's a privileged instruction (all CPL=0 instructions (except <c>VMCALL</c>) and IOPL instructions <c>IN</c>, <c>INS</c>, <c>OUT</c>, <c>OUTS</c>, <c>CLI</c>, <c>STI</c>)
 		/// </summary>
 		Privileged				= 0x00004000,
 	}

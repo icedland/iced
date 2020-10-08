@@ -285,7 +285,7 @@ namespace IcedFuzzer.Core {
 				break;
 
 			case 64:
-				throw ThrowHelpers.Unreachable;
+				break;
 
 			default:
 				throw ThrowHelpers.Unreachable;

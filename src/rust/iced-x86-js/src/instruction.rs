@@ -2397,7 +2397,7 @@ impl Instruction {
 		iced_to_flow_control(self.0.flow_control())
 	}
 
-	/// `true` if this is a privileged instruction
+	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isPrivileged")]
 	pub fn is_privileged(&self) -> bool {

@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using Generator.Constants.Encoder;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
@@ -75,29 +76,29 @@ namespace Generator.Tables {
 	static class EncoderConstants {
 		public static (string value, EnumValue flags)[] EncodingKindTable(GenTypes genTypes) =>
 			new (string value, EnumValue flags)[] {
-				("legacy", genTypes[TypeIds.EncodingKind][nameof(EncodingKind.Legacy)]),
-				("VEX", genTypes[TypeIds.EncodingKind][nameof(EncodingKind.VEX)]),
-				("EVEX", genTypes[TypeIds.EncodingKind][nameof(EncodingKind.EVEX)]),
-				("XOP", genTypes[TypeIds.EncodingKind][nameof(EncodingKind.XOP)]),
-				("3DNow!", genTypes[TypeIds.EncodingKind][nameof(EncodingKind.D3NOW)]),
+				(OpCodeInfoConstants.Encoding_Legacy, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.Legacy)]),
+				(OpCodeInfoConstants.Encoding_VEX, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.VEX)]),
+				(OpCodeInfoConstants.Encoding_EVEX, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.EVEX)]),
+				(OpCodeInfoConstants.Encoding_XOP, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.XOP)]),
+				(OpCodeInfoConstants.Encoding_3DNOW, genTypes[TypeIds.EncodingKind][nameof(EncodingKind.D3NOW)]),
 			};
 		public static (string value, EnumValue flags)[] MandatoryPrefixTable(GenTypes genTypes) =>
 			new (string value, EnumValue flags)[] {
-				("", genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.None)]),
-				("NP", genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.PNP)]),
-				("66", genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.P66)]),
-				("F3", genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.PF3)]),
-				("F2", genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.PF2)]),
+				(OpCodeInfoConstants.MandatoryPrefix_None, genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.None)]),
+				(OpCodeInfoConstants.MandatoryPrefix_NP, genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.PNP)]),
+				(OpCodeInfoConstants.MandatoryPrefix_66, genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.P66)]),
+				(OpCodeInfoConstants.MandatoryPrefix_F3, genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.PF3)]),
+				(OpCodeInfoConstants.MandatoryPrefix_F2, genTypes[TypeIds.MandatoryPrefix][nameof(MandatoryPrefix.PF2)]),
 			};
 		public static (string value, EnumValue flags)[] OpCodeTableKindTable(GenTypes genTypes) =>
 			new (string value, EnumValue flags)[] {
-				("legacy", genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.Normal)]),
-				("0F", genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F)]),
-				("0F38", genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F38)]),
-				("0F3A", genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F3A)]),
-				("X8", genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOP8)]),
-				("X9", genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOP9)]),
-				("XA", genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOPA)]),
+				(OpCodeInfoConstants.Table_Legacy, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.Normal)]),
+				(OpCodeInfoConstants.Table_0F, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F)]),
+				(OpCodeInfoConstants.Table_0F38, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F38)]),
+				(OpCodeInfoConstants.Table_0F3A, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F3A)]),
+				(OpCodeInfoConstants.Table_XOP8, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOP8)]),
+				(OpCodeInfoConstants.Table_XOP9, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOP9)]),
+				(OpCodeInfoConstants.Table_XOPA, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOPA)]),
 			};
 	}
 

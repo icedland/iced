@@ -31,7 +31,7 @@ namespace Generator.IO {
 		readonly string numberPrefix;
 		readonly string numberByteFormat;
 		readonly string singleLineCommentPrefix;
-		readonly (string begin, string end) multiLineComment;
+		readonly (string begin, string middle, string end) multiLineComment;
 		bool needSpace;
 		bool needIndent;
 		int indentCount;
@@ -48,7 +48,14 @@ namespace Generator.IO {
 				numberPrefix = "0x";
 				numberByteFormat = "X2";
 				singleLineCommentPrefix = "// ";
-				multiLineComment = ("/*", "*/");
+				multiLineComment = ("/*", "", "*/");
+				break;
+
+			case TargetLanguage.Other:
+				numberPrefix = "0x";
+				numberByteFormat = "X2";
+				singleLineCommentPrefix = "# ";
+				multiLineComment = ("#", "# ", "#");
 				break;
 
 			default:
@@ -145,8 +152,14 @@ namespace Generator.IO {
 
 		void WriteCLangMultiLineComment(string[] lines) {
 			WriteLine(multiLineComment.begin);
-			foreach (var line in lines)
-				WriteLine(line);
+			foreach (var line in lines) {
+				if (line == string.Empty)
+					WriteLine(multiLineComment.middle.Trim());
+				else {
+					Write(multiLineComment.middle);
+					WriteLine(line);
+				}
+			}
 			WriteLine(multiLineComment.end);
 		}
 

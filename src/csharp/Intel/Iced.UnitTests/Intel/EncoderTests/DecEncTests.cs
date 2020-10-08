@@ -47,14 +47,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					hasLock = instruction.HasLockPrefix;
 					var opCode = info.Code.ToOpCode();
 					canUseLock = opCode.CanUseLockPrefix && HasModRMMemoryOperand(instruction);
-
-					switch (info.Code) {
-					case Code.Mov_r32_cr:
-					case Code.Mov_r64_cr:
-					case Code.Mov_cr_r32:
-					case Code.Mov_cr_r64:
+					if (opCode.AmdLockRegBit)
 						continue;
-					}
 				}
 
 				if (canUseLock) {
@@ -739,7 +733,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		[Fact]
-		void Verify_only_Full_ddd_and_Half_ddd_support_bcst() {
+		void Verify_tuple_type_bcst() {
 			var codeNames = ToEnumConverter.GetCodeNames();
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				if (CodeUtils.IsIgnored(codeNames[i]))
@@ -1400,39 +1394,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Verify_vsib_with_invalid_index_register_EVEX() {
-			var codeValues = new HashSet<Code> {
-#if !NO_EVEX
-				Code.EVEX_Vpgatherdd_xmm_k1_vm32x,
-				Code.EVEX_Vpgatherdd_ymm_k1_vm32y,
-				Code.EVEX_Vpgatherdd_zmm_k1_vm32z,
-				Code.EVEX_Vpgatherdq_xmm_k1_vm32x,
-				Code.EVEX_Vpgatherdq_ymm_k1_vm32x,
-				Code.EVEX_Vpgatherdq_zmm_k1_vm32y,
-				Code.EVEX_Vpgatherqd_xmm_k1_vm64x,
-				Code.EVEX_Vpgatherqd_xmm_k1_vm64y,
-				Code.EVEX_Vpgatherqd_ymm_k1_vm64z,
-				Code.EVEX_Vpgatherqq_xmm_k1_vm64x,
-				Code.EVEX_Vpgatherqq_ymm_k1_vm64y,
-				Code.EVEX_Vpgatherqq_zmm_k1_vm64z,
-				Code.EVEX_Vgatherdps_xmm_k1_vm32x,
-				Code.EVEX_Vgatherdps_ymm_k1_vm32y,
-				Code.EVEX_Vgatherdps_zmm_k1_vm32z,
-				Code.EVEX_Vgatherdpd_xmm_k1_vm32x,
-				Code.EVEX_Vgatherdpd_ymm_k1_vm32x,
-				Code.EVEX_Vgatherdpd_zmm_k1_vm32y,
-				Code.EVEX_Vgatherqps_xmm_k1_vm64x,
-				Code.EVEX_Vgatherqps_xmm_k1_vm64y,
-				Code.EVEX_Vgatherqps_ymm_k1_vm64z,
-				Code.EVEX_Vgatherqpd_xmm_k1_vm64x,
-				Code.EVEX_Vgatherqpd_ymm_k1_vm64y,
-				Code.EVEX_Vgatherqpd_zmm_k1_vm64z,
-#endif
-			};
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
 					continue;
 				var opCode = info.Code.ToOpCode();
-				Assert.Equal(CanHaveInvalidIndexRegister_EVEX(opCode), codeValues.Contains(info.Code));
 				if (!CanHaveInvalidIndexRegister_EVEX(opCode))
 					continue;
 
@@ -1498,49 +1463,15 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			default:
 				return false;
 			}
-
-			for (int i = 1; i < opCode.OpCount; i++) {
-				switch (opCode.GetOpKind(i)) {
-				case OpCodeOperandKind.mem_vsib32x:
-				case OpCodeOperandKind.mem_vsib32y:
-				case OpCodeOperandKind.mem_vsib32z:
-				case OpCodeOperandKind.mem_vsib64x:
-				case OpCodeOperandKind.mem_vsib64y:
-				case OpCodeOperandKind.mem_vsib64z:
-					return true;
-				}
-			}
-
-			return false;
+			return opCode.RequiresUniqueRegNums;
 		}
 
 		[Fact]
 		void Verify_vsib_with_invalid_index_mask_dest_register_VEX() {
-			var codeValues = new HashSet<Code> {
-#if !NO_VEX
-				Code.VEX_Vpgatherdd_xmm_vm32x_xmm,
-				Code.VEX_Vpgatherdd_ymm_vm32y_ymm,
-				Code.VEX_Vpgatherdq_xmm_vm32x_xmm,
-				Code.VEX_Vpgatherdq_ymm_vm32x_ymm,
-				Code.VEX_Vpgatherqd_xmm_vm64x_xmm,
-				Code.VEX_Vpgatherqd_xmm_vm64y_xmm,
-				Code.VEX_Vpgatherqq_xmm_vm64x_xmm,
-				Code.VEX_Vpgatherqq_ymm_vm64y_ymm,
-				Code.VEX_Vgatherdps_xmm_vm32x_xmm,
-				Code.VEX_Vgatherdps_ymm_vm32y_ymm,
-				Code.VEX_Vgatherdpd_xmm_vm32x_xmm,
-				Code.VEX_Vgatherdpd_ymm_vm32x_ymm,
-				Code.VEX_Vgatherqps_xmm_vm64x_xmm,
-				Code.VEX_Vgatherqps_xmm_vm64y_xmm,
-				Code.VEX_Vgatherqpd_xmm_vm64x_xmm,
-				Code.VEX_Vgatherqpd_ymm_vm64y_ymm,
-#endif
-			};
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
 					continue;
 				var opCode = info.Code.ToOpCode();
-				Assert.Equal(CanHaveInvalidIndexMaskDestRegister_VEX(opCode), codeValues.Contains(info.Code));
 				if (!CanHaveInvalidIndexMaskDestRegister_VEX(opCode))
 					continue;
 
@@ -1634,8 +1565,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		static bool CanHaveInvalidIndexMaskDestRegister_VEX(OpCodeInfo opCode) {
 			if (opCode.Encoding != EncodingKind.VEX && opCode.Encoding != EncodingKind.XOP)
 				return false;
-			if (opCode.OpCount != 3)
-				return false;
 
 			switch (opCode.Op0Kind) {
 			case OpCodeOperandKind.xmm_reg:
@@ -1646,28 +1575,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				return false;
 			}
 
-			switch (opCode.Op2Kind) {
-			case OpCodeOperandKind.xmm_vvvv:
-			case OpCodeOperandKind.ymm_vvvv:
-			case OpCodeOperandKind.zmm_vvvv:
-				break;
-			default:
-				return false;
-			}
-
-			switch (opCode.Op1Kind) {
-			case OpCodeOperandKind.mem_vsib32x:
-			case OpCodeOperandKind.mem_vsib32y:
-			case OpCodeOperandKind.mem_vsib32z:
-			case OpCodeOperandKind.mem_vsib64x:
-			case OpCodeOperandKind.mem_vsib64y:
-			case OpCodeOperandKind.mem_vsib64z:
-				break;
-			default:
-				return false;
-			}
-
-			return true;
+			return opCode.RequiresUniqueRegNums;
 		}
 
 		static bool IsVsib(OpCodeInfo opCode) => TryGetVsib(opCode, out _, out _);
@@ -3009,19 +2917,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				if (!IsRegOnlyOrRegMemOnlyModRM(opCode))
 					continue;
 				// There are a few instructions that ignore the mod bits...
-				switch (info.Code) {
-				case Code.Mov_r32_cr:
-				case Code.Mov_r64_cr:
-				case Code.Mov_r32_dr:
-				case Code.Mov_r64_dr:
-				case Code.Mov_cr_r32:
-				case Code.Mov_cr_r64:
-				case Code.Mov_dr_r32:
-				case Code.Mov_dr_r64:
-				case Code.Mov_r32_tr:
-				case Code.Mov_tr_r32:
+				if (opCode.IgnoresModBits)
 					continue;
-				}
 
 				var bytes = HexUtils.ToByteArray(info.HexBytes + extraBytes);
 				int mIndex;

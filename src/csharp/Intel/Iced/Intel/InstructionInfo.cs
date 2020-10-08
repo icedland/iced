@@ -143,7 +143,7 @@ namespace Iced.Intel {
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
-		/// <see langword="true"/> if this is a privileged instruction
+		/// <see langword="true"/> if it's a privileged instruction (all CPL=0 instructions (except <c>VMCALL</c>) and IOPL instructions <c>IN</c>, <c>INS</c>, <c>OUT</c>, <c>OUTS</c>, <c>CLI</c>, <c>STI</c>)
 		/// </summary>
 		public readonly bool IsPrivileged => (flags & (uint)Flags1.Privileged) != 0;
 

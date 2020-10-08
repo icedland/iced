@@ -269,5 +269,13 @@ namespace Generator.Encoder.CSharp {
 			GenerateCases(filename, "Vsib32", vsib32, "vsib64 = false;", "return true;");
 			GenerateCases(filename, "Vsib64", vsib64, "vsib64 = true;", "return true;");
 		}
+
+		protected override void GenerateDecoderOptionsTable((EnumValue decOptionValue, EnumValue decoderOptions)[] values) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.IcedNamespace), "OpCodeInfo.cs");
+			new FileUpdater(TargetLanguage.CSharp, "ToDecoderOptionsTable", filename).Generate(writer => {
+				foreach (var (_, decoderOptions) in values)
+					writer.WriteLine($"{decoderOptions.DeclaringType.Name(idConverter)}.{decoderOptions.Name(idConverter)},");
+			});
+		}
 	}
 }

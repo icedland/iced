@@ -41,6 +41,7 @@ namespace Generator.Encoder {
 		protected abstract void GenerateCore();
 		protected abstract void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr);
 		protected abstract void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64);
+		protected abstract void GenerateDecoderOptionsTable((EnumValue decOptionValue, EnumValue decoderOptions)[] values);
 
 		protected readonly GenTypes genTypes;
 		readonly EncoderTypes encoderTypes;
@@ -140,6 +141,11 @@ namespace Generator.Encoder {
 				b == OpCodeOperandKind.mem_vsib64x || b == OpCodeOperandKind.mem_vsib64y || b == OpCodeOperandKind.mem_vsib64z)).
 				Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			GenerateVsib(vsib32, vsib64);
+
+			var decoderOptionsType = genTypes[TypeIds.DecoderOptions];
+			var decOptionValueType = genTypes[TypeIds.DecOptionValue];
+			var decOptValues = decOptionValueType.Values.Select(a => (decOptionValue: a, decoderOptions: decoderOptionsType[a.RawName])).ToArray();
+			GenerateDecoderOptionsTable(decOptValues);
 		}
 
 		protected IEnumerable<(InstructionDef def, uint encFlags1, uint encFlags2, uint encFlags3, uint opcFlags1, uint opcFlags2)> GetData(InstructionDef[] defs) {

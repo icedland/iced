@@ -38799,7 +38799,7 @@ impl Code {
 		}
 	}
 
-	/// Checks if this is a privileged instruction
+	/// Checks if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_privileged(self) -> bool {

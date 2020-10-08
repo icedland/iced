@@ -84,6 +84,7 @@ namespace Generator {
 			langDirs = new string[Enum.GetValues(typeof(TargetLanguage)).Length];
 			for (int i = 0; i < langDirs.Length; i++) {
 				string path = (TargetLanguage)i switch {
+					TargetLanguage.Other => string.Empty,
 					TargetLanguage.CSharp => GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced"),
 					TargetLanguage.Rust => GetAndVerifyPath(baseDir, "rust", "iced-x86", "src"),
 					TargetLanguage.RustJS => GetAndVerifyPath(baseDir, "rust", "iced-x86-js", "src"),

@@ -33,7 +33,7 @@ namespace Generator.Enums.CSharp {
 	sealed class CSharpEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullEnumFileInfo> toFullFileInfo;
-		readonly Dictionary<TypeId, PartialEnumFileInfo> toPartialFileInfo;
+		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 		readonly DeprecatedWriter deprecatedWriter;
 
@@ -118,7 +118,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.FormatterTextKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.FormatterTextKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
 			toFullFileInfo.Add(TypeIds.MemorySizeOptions, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.MemorySizeOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
 
-			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo>();
+			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.cs"), "ushort"));
 			toPartialFileInfo.Add(TypeIds.Instruction_OpKindFlags, new PartialEnumFileInfo("OpKindFlags", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.Instruction_CodeFlags, new PartialEnumFileInfo("CodeFlags", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.cs"), "uint"));
@@ -163,7 +163,7 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.EncFlags3, new PartialEnumFileInfo("EncFlags3", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.OpCodeInfoFlags1, new PartialEnumFileInfo("OpCodeInfoFlags1", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeInfosEnums.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.OpCodeInfoFlags2, new PartialEnumFileInfo("OpCodeInfoFlags2", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeInfosEnums.cs"), "uint"));
-			toPartialFileInfo.Add(TypeIds.DecOptionValue, new PartialEnumFileInfo("DecOptionValue", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeInfosEnums.cs"), null));
+			toPartialFileInfo.Add(TypeIds.DecOptionValue, null);
 			toPartialFileInfo.Add(TypeIds.InstrStrFmtOption, new PartialEnumFileInfo("InstrStrFmtOption", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeInfosEnums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.WBit, new PartialEnumFileInfo("WBit", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));
 			toPartialFileInfo.Add(TypeIds.LBit, new PartialEnumFileInfo("LBit", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "Enums.cs"), "uint"));

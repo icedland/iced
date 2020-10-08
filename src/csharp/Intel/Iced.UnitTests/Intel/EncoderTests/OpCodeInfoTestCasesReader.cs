@@ -67,7 +67,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			tc.Encoding = ToEncoding(parts[1].Trim());
 			tc.MandatoryPrefix = ToMandatoryPrefix(parts[2].Trim());
 			tc.Table = ToTable(parts[3].Trim());
-			tc.OpCode = ToOpCode(parts[4].Trim());
+			tc.OpCode = ToOpCode(parts[4].Trim(), out tc.OpCodeLength);
 			tc.OpCodeString = parts[5].Trim();
 			tc.InstructionString = parts[6].Trim().Replace('|', ',');
 
@@ -118,13 +118,17 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.TupleType = ToTupleType(value.Trim());
 						break;
 
+					case OpCodeInfoKeys.DecoderOption:
+						tc.DecoderOption = ToDecoderOptions(value.Trim());
+						break;
+
 					default:
 						throw new InvalidOperationException($"Invalid key: '{key}'");
 					}
 				}
 				else {
 					switch (key) {
-					case OpCodeInfoFlags.NotInstruction:
+					case OpCodeInfoFlags.NoInstruction:
 						tc.IsInstruction = false;
 						break;
 
@@ -244,37 +248,273 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.CanUseZeroingMasking = true;
 						break;
 
-					case OpCodeInfoFlags.LockPrefix:
+					case OpCodeInfoFlags.Lock:
 						tc.CanUseLockPrefix = true;
 						break;
 
-					case OpCodeInfoFlags.XacquirePrefix:
+					case OpCodeInfoFlags.Xacquire:
 						tc.CanUseXacquirePrefix = true;
 						break;
 
-					case OpCodeInfoFlags.XreleasePrefix:
+					case OpCodeInfoFlags.Xrelease:
 						tc.CanUseXreleasePrefix = true;
 						break;
 
-					case OpCodeInfoFlags.RepPrefix:
-					case OpCodeInfoFlags.RepePrefix:
+					case OpCodeInfoFlags.Rep:
+					case OpCodeInfoFlags.Repe:
 						tc.CanUseRepPrefix = true;
 						break;
 
-					case OpCodeInfoFlags.RepnePrefix:
+					case OpCodeInfoFlags.Repne:
 						tc.CanUseRepnePrefix = true;
 						break;
 
-					case OpCodeInfoFlags.BndPrefix:
+					case OpCodeInfoFlags.Bnd:
 						tc.CanUseBndPrefix = true;
 						break;
 
-					case OpCodeInfoFlags.HintTakenPrefix:
+					case OpCodeInfoFlags.HintTaken:
 						tc.CanUseHintTakenPrefix = true;
 						break;
 
-					case OpCodeInfoFlags.NotrackPrefix:
+					case OpCodeInfoFlags.Notrack:
 						tc.CanUseNotrackPrefix = true;
+						break;
+
+					case OpCodeInfoFlags.IgnoresRoundingControl:
+						tc.IgnoresRoundingControl = true;
+						break;
+
+					case OpCodeInfoFlags.AmdLockRegBit:
+						tc.AmdLockRegBit = true;
+						break;
+
+					case OpCodeInfoFlags.DefaultOpSize64:
+						tc.DefaultOpSize64 = true;
+						break;
+
+					case OpCodeInfoFlags.ForceOpSize64:
+						tc.ForceOpSize64 = true;
+						break;
+
+					case OpCodeInfoFlags.IntelForceOpSize64:
+						tc.IntelForceOpSize64 = true;
+						break;
+
+					case OpCodeInfoFlags.Cpl0:
+						tc.Cpl0 = true;
+						break;
+
+					case OpCodeInfoFlags.Cpl1:
+						tc.Cpl1 = true;
+						break;
+
+					case OpCodeInfoFlags.Cpl2:
+						tc.Cpl2 = true;
+						break;
+
+					case OpCodeInfoFlags.Cpl3:
+						tc.Cpl3 = true;
+						break;
+
+					case OpCodeInfoFlags.InputOutput:
+						tc.IsInputOutput = true;
+						break;
+
+					case OpCodeInfoFlags.Nop:
+						tc.IsNop = true;
+						break;
+
+					case OpCodeInfoFlags.ReservedNop:
+						tc.IsReservedNop = true;
+						break;
+
+					case OpCodeInfoFlags.SerializingIntel:
+						tc.IsSerializingIntel = true;
+						break;
+
+					case OpCodeInfoFlags.SerializingAmd:
+						tc.IsSerializingAmd = true;
+						break;
+
+					case OpCodeInfoFlags.MayRequireCpl0:
+						tc.MayRequireCpl0 = true;
+						break;
+
+					case OpCodeInfoFlags.CetTracked:
+						tc.IsCetTracked = true;
+						break;
+
+					case OpCodeInfoFlags.NonTemporal:
+						tc.IsNonTemporal = true;
+						break;
+
+					case OpCodeInfoFlags.FpuNoWait:
+						tc.IsFpuNoWait = true;
+						break;
+
+					case OpCodeInfoFlags.IgnoresModBits:
+						tc.IgnoresModBits = true;
+						break;
+
+					case OpCodeInfoFlags.No66:
+						tc.No66 = true;
+						break;
+
+					case OpCodeInfoFlags.NFx:
+						tc.NFx = true;
+						break;
+
+					case OpCodeInfoFlags.RequiresUniqueRegNums:
+						tc.RequiresUniqueRegNums = true;
+						break;
+
+					case OpCodeInfoFlags.Privileged:
+						tc.IsPrivileged = true;
+						break;
+
+					case OpCodeInfoFlags.SaveRestore:
+						tc.IsSaveRestore = true;
+						break;
+
+					case OpCodeInfoFlags.StackInstruction:
+						tc.IsStackInstruction = true;
+						break;
+
+					case OpCodeInfoFlags.IgnoresSegment:
+						tc.IgnoresSegment = true;
+						break;
+
+					case OpCodeInfoFlags.OpMaskReadWrite:
+						tc.IsOpMaskReadWrite = true;
+						break;
+
+					case OpCodeInfoFlags.RealMode:
+						tc.RealMode = true;
+						break;
+
+					case OpCodeInfoFlags.ProtectedMode:
+						tc.ProtectedMode = true;
+						break;
+
+					case OpCodeInfoFlags.Virtual8086Mode:
+						tc.Virtual8086Mode = true;
+						break;
+
+					case OpCodeInfoFlags.CompatibilityMode:
+						tc.CompatibilityMode = true;
+						break;
+
+					case OpCodeInfoFlags.LongMode:
+						tc.LongMode = true;
+						break;
+
+					case OpCodeInfoFlags.UseOutsideSmm:
+						tc.UseOutsideSmm = true;
+						break;
+
+					case OpCodeInfoFlags.UseInSmm:
+						tc.UseInSmm = true;
+						break;
+
+					case OpCodeInfoFlags.UseOutsideEnclaveSgx:
+						tc.UseOutsideEnclaveSgx = true;
+						break;
+
+					case OpCodeInfoFlags.UseInEnclaveSgx1:
+						tc.UseInEnclaveSgx1 = true;
+						break;
+
+					case OpCodeInfoFlags.UseInEnclaveSgx2:
+						tc.UseInEnclaveSgx2 = true;
+						break;
+
+					case OpCodeInfoFlags.UseOutsideVmxOp:
+						tc.UseOutsideVmxOp = true;
+						break;
+
+					case OpCodeInfoFlags.UseInVmxRootOp:
+						tc.UseInVmxRootOp = true;
+						break;
+
+					case OpCodeInfoFlags.UseInVmxNonRootOp:
+						tc.UseInVmxNonRootOp = true;
+						break;
+
+					case OpCodeInfoFlags.UseOutsideSeam:
+						tc.UseOutsideSeam = true;
+						break;
+
+					case OpCodeInfoFlags.UseInSeam:
+						tc.UseInSeam = true;
+						break;
+
+					case OpCodeInfoFlags.TdxNonRootGenUd:
+						tc.TdxNonRootGenUd = true;
+						break;
+
+					case OpCodeInfoFlags.TdxNonRootGenVe:
+						tc.TdxNonRootGenVe = true;
+						break;
+
+					case OpCodeInfoFlags.TdxNonRootMayGenEx:
+						tc.TdxNonRootMayGenEx = true;
+						break;
+
+					case OpCodeInfoFlags.IntelVmExit:
+						tc.IntelVmExit = true;
+						break;
+
+					case OpCodeInfoFlags.IntelMayVmExit:
+						tc.IntelMayVmExit = true;
+						break;
+
+					case OpCodeInfoFlags.IntelSmmVmExit:
+						tc.IntelSmmVmExit = true;
+						break;
+
+					case OpCodeInfoFlags.AmdVmExit:
+						tc.AmdVmExit = true;
+						break;
+
+					case OpCodeInfoFlags.AmdMayVmExit:
+						tc.AmdMayVmExit = true;
+						break;
+
+					case OpCodeInfoFlags.TsxAbort:
+						tc.TsxAbort = true;
+						break;
+
+					case OpCodeInfoFlags.TsxImplAbort:
+						tc.TsxImplAbort = true;
+						break;
+
+					case OpCodeInfoFlags.TsxMayAbort:
+						tc.TsxMayAbort = true;
+						break;
+
+					case OpCodeInfoFlags.IntelDecoder16:
+						tc.IntelDecoder16 = true;
+						break;
+
+					case OpCodeInfoFlags.IntelDecoder32:
+						tc.IntelDecoder32 = true;
+						break;
+
+					case OpCodeInfoFlags.IntelDecoder64:
+						tc.IntelDecoder64 = true;
+						break;
+
+					case OpCodeInfoFlags.AmdDecoder16:
+						tc.AmdDecoder16 = true;
+						break;
+
+					case OpCodeInfoFlags.AmdDecoder32:
+						tc.AmdDecoder32 = true;
+						break;
+
+					case OpCodeInfoFlags.AmdDecoder64:
+						tc.AmdDecoder64 = true;
 						break;
 
 					default:
@@ -313,6 +553,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			return code;
 		}
 
+		static DecoderOptions ToDecoderOptions(string value) {
+			if (!ToEnumConverter.TryDecoderOptions(value, out var code))
+				throw new InvalidOperationException($"Invalid DecoderOptions value: '{value}'");
+			return code;
+		}
+
 		static OpCodeOperandKind ToOpCodeOperandKind(string value) {
 			if (!ToEnumConverter.TryOpCodeOperandKind(value, out var code))
 				throw new InvalidOperationException($"Invalid OpCodeOperandKind value: '{value}'");
@@ -337,8 +583,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			throw new InvalidOperationException($"Invalid opcode table value: '{value}'");
 		}
 
-		static uint ToOpCode(string value) {
+		static uint ToOpCode(string value, out int opCodeLength) {
 			if (value.Length == 2 || value.Length == 4) {
+				opCodeLength = value.Length / 2;
 				if (uint.TryParse(value, System.Globalization.NumberStyles.HexNumber, null, out uint result))
 					return result;
 			}

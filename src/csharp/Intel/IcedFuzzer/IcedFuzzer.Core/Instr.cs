@@ -82,13 +82,12 @@ namespace IcedFuzzer.Core {
 			IsTwobyte = true;
 		}
 
-		public static OpCode CreateFromUInt32(uint opCode) {
-			if (opCode <= 0xFF)
-				return new OpCode((byte)opCode);
-			if (opCode <= 0xFFFF)
-				return new OpCode((byte)(opCode >> 8), (byte)opCode);
-			throw new ArgumentOutOfRangeException(nameof(opCode));
-		}
+		public static OpCode CreateFromUInt32(uint opCode, int length) =>
+			length switch {
+				1 => new OpCode((byte)opCode),
+				2 => new OpCode((byte)(opCode >> 8), (byte)opCode),
+				_ => throw ThrowHelpers.Unreachable,
+			};
 
 		public override string ToString() {
 			if (IsTwobyte)
@@ -127,7 +126,12 @@ namespace IcedFuzzer.Core {
 		IsVsib							= 0x00002000,
 		CanUseZeroingMasking			= 0x00004000,
 		CanUseOpMaskRegister			= 0x00008000,
-		IsNFx							= 0x00010000,
+		NFx								= 0x00010000,
+		No66							= 0x00020000,
+		AmdLockRegBit					= 0x00040000,
+		RequiresUniqueRegNums			= 0x00080000,
+		IgnoresModBits					= 0x00100000,
+		ReservedNop						= 0x00200000,
 	}
 
 	[DebuggerDisplay("Mem={" + nameof(IsModrmMemory) + "} {" + nameof(MandatoryPrefix) + "} L{" + nameof(L) + ",d} W{" + nameof(W) + ",d} {" + nameof(Code) + "}")]
@@ -150,7 +154,12 @@ namespace IcedFuzzer.Core {
 		public bool IsVsib => (Flags & FuzzerInstructionFlags.IsVsib) != 0;
 		public bool CanUseZeroingMasking => (Flags & FuzzerInstructionFlags.CanUseZeroingMasking) != 0;
 		public bool CanUseOpMaskRegister => (Flags & FuzzerInstructionFlags.CanUseOpMaskRegister) != 0;
-		public bool IsNFx => (Flags & FuzzerInstructionFlags.IsNFx) != 0;
+		public bool NFx => (Flags & FuzzerInstructionFlags.NFx) != 0;
+		public bool No66 => (Flags & FuzzerInstructionFlags.No66) != 0;
+		public bool AmdLockRegBit => (Flags & FuzzerInstructionFlags.AmdLockRegBit) != 0;
+		public bool RequiresUniqueRegNums => (Flags & FuzzerInstructionFlags.RequiresUniqueRegNums) != 0;
+		public bool IgnoresModBits => (Flags & FuzzerInstructionFlags.IgnoresModBits) != 0;
+		public bool IsReservedNop => (Flags & FuzzerInstructionFlags.ReservedNop) != 0;
 
 		public readonly Code Code;
 		internal FuzzerInstructionFlags Flags;
@@ -204,6 +213,21 @@ namespace IcedFuzzer.Core {
 				flags |= FuzzerInstructionFlags.CanUseZeroingMasking;
 			if (opc.CanUseOpMaskRegister)
 				flags |= FuzzerInstructionFlags.CanUseOpMaskRegister;
+			if (opc.NFx) {
+				flags |= FuzzerInstructionFlags.NFx;
+				Assert.True(mandatoryPrefix == MandatoryPrefix.None);
+				mandatoryPrefix = MandatoryPrefix.PNP;
+			}
+			if (opc.No66)
+				flags |= FuzzerInstructionFlags.No66;
+			if (opc.AmdLockRegBit)
+				flags |= FuzzerInstructionFlags.AmdLockRegBit;
+			if (opc.RequiresUniqueRegNums)
+				flags |= FuzzerInstructionFlags.RequiresUniqueRegNums;
+			if (opc.IgnoresModBits)
+				flags |= FuzzerInstructionFlags.IgnoresModBits;
+			if (opc.IsReservedNop)
+				flags |= FuzzerInstructionFlags.ReservedNop;
 			switch (code) {
 			case Code.Xchg_r16_AX:
 			case Code.Xchg_r32_EAX:
@@ -214,22 +238,6 @@ namespace IcedFuzzer.Core {
 			case Code.Nopd:
 			case Code.Nopq:
 				flags |= FuzzerInstructionFlags.IsNop;
-				break;
-			case Code.Rdrand_r16:
-			case Code.Rdrand_r32:
-			case Code.Rdrand_r64:
-			case Code.Rdseed_r16:
-			case Code.Rdseed_r32:
-			case Code.Rdseed_r64:
-			case Code.Movbe_r16_m16:
-			case Code.Movbe_r32_m32:
-			case Code.Movbe_r64_m64:
-			case Code.Movbe_m16_r16:
-			case Code.Movbe_m32_r32:
-			case Code.Movbe_m64_r64:
-				Assert.True(mandatoryPrefix == MandatoryPrefix.None);
-				mandatoryPrefix = MandatoryPrefix.PNP;
-				flags |= FuzzerInstructionFlags.IsNFx;
 				break;
 			}
 
@@ -246,13 +254,13 @@ namespace IcedFuzzer.Core {
 			OperandSize = operandSize;
 			AddressSize = addressSize;
 
-			if (MandatoryPrefix == MandatoryPrefix.P66 && operandSize != 64 && CodeUtils.IsReservednop(Code))
+			if (MandatoryPrefix == MandatoryPrefix.P66 && operandSize != 64 && opc.IsReservedNop)
 				MandatoryPrefix = MandatoryPrefix.None;
 
 			FuzzerOperand[]? operands = null;
 			// Special support for reserved nop instructions since we may have transformed them to
 			// a 2-byte opcode (no ops) or a reg or rm group (one operand).
-			if (CodeUtils.IsReservednop(code)) {
+			if (opc.IsReservedNop) {
 				// Verify our assumptions
 				Assert.True(opc.OpCount == 2);
 				const int RM_INDEX = 0;
@@ -332,7 +340,7 @@ namespace IcedFuzzer.Core {
 		internal static FuzzerInstruction CreateValid(Code code, bool isModrmMemory, uint w, uint l, MandatoryPrefix mandatoryPrefix, int groupIndex, OpCode? opCode = null) {
 			var opc = code.ToOpCode();
 			var table = GetTable(opc.Encoding, opc.Table);
-			var realOpCode = opCode ?? OpCode.CreateFromUInt32(opc.OpCode);
+			var realOpCode = opCode ?? OpCode.CreateFromUInt32(opc.OpCode, opc.OpCodeLength);
 			const FuzzerInstructionFlags flags = FuzzerInstructionFlags.None;
 			return new FuzzerInstruction(code, flags, w, l, mandatoryPrefix, table, realOpCode, groupIndex, opc.RmGroupIndex, isModrmMemory, opc.OperandSize, opc.AddressSize);
 		}

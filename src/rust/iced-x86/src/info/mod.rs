@@ -269,7 +269,7 @@ impl InstructionInfo {
 		self.used_memory_locations.as_slice()
 	}
 
-	/// `true` if this is a privileged instruction
+	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_privileged(&self) -> bool {

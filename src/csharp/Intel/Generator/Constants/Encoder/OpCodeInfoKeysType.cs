@@ -21,6 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.Linq;
+
 namespace Generator.Constants.Encoder {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class OpCodeInfoKeysType {
@@ -30,11 +33,7 @@ namespace Generator.Constants.Encoder {
 		}
 
 		static Constant[] GetConstants() =>
-			new Constant[] {
-				new Constant(ConstantKind.String, "GroupIndex", "g"),
-				new Constant(ConstantKind.String, "RmGroupIndex", "rmg"),
-				new Constant(ConstantKind.String, "OpCodeOperandKind", "op"),
-				new Constant(ConstantKind.String, "TupleType", "tt"),
-			};
+			typeof(OpCodeInfoKeywordKeys).GetFields().Where(a => a.IsLiteral).OrderBy(a => a.MetadataToken).
+				Select(a => new Constant(ConstantKind.String, a.Name, a.GetRawConstantValue() ?? throw new InvalidOperationException())).ToArray();
 	}
 }

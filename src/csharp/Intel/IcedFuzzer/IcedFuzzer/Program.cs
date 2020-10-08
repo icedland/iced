@@ -83,8 +83,8 @@ namespace IcedFuzzer {
 						Console.WriteLine($"Bitness: {options.OpCodeInfoOptions.Bitness}");
 					var info = Gen(options, infos);
 					if (!options.Quiet) {
-						Console.WriteLine($"valid  : {info.totValid} instrs: {info.totBytesValid} bytes or {(double)info.totBytesValid / 1024:0.##} kB or {(double)info.totBytesValid / 1024 / 1024:0.##} MB");
-						Console.WriteLine($"invalid: {info.totInvalid} instrs: {info.totBytesInvalid} bytes or {(double)info.totBytesInvalid / 1024:0.##} kB or {(double)info.totBytesInvalid / 1024 / 1024:0.##} MB");
+						Console.WriteLine($"valid  : {info.totValid} instrs: {(double)info.totBytesValid / 1024 / 1024:0.##} MB");
+						Console.WriteLine($"invalid: {info.totInvalid} instrs: {(double)info.totBytesInvalid / 1024 / 1024:0.##} MB");
 					}
 				}
 				return 0;
