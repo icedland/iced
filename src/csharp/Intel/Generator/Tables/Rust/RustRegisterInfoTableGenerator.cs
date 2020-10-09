@@ -37,19 +37,19 @@ namespace Generator.Tables.Rust {
 		}
 
 		public void Generate() {
-			var infos = generatorContext.Types.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data;
+			var defs = generatorContext.Types.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data;
 			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "register.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "RegisterInfoTable", filename);
-			updater.Generate(writer => WriteTable(writer, infos));
+			updater.Generate(writer => WriteTable(writer, defs));
 		}
 
-		void WriteTable(FileWriter writer, RegisterInfo[] infos) {
+		void WriteTable(FileWriter writer, RegisterDef[] defs) {
 			var genTypes = generatorContext.Types;
 			var regName = genTypes[TypeIds.Register].Name(idConverter);
 			if (genTypes[TypeIds.Register].Values.Length > 0x100)
 				throw new InvalidOperationException();
-			foreach (var info in infos)
-				writer.WriteLine($"RegisterInfo {{ register: {regName}::{info.Register.Name(idConverter)}, base: {regName}::{info.Base.Name(idConverter)}, full_register: {regName}::{info.FullRegister.Name(idConverter)}, size: {info.Size} }},");
+			foreach (var def in defs)
+				writer.WriteLine($"RegisterInfo {{ register: {regName}::{def.Register.Name(idConverter)}, base: {regName}::{def.BaseRegister.Name(idConverter)}, full_register32: {regName}::{def.FullRegister32.Name(idConverter)}, full_register: {regName}::{def.FullRegister.Name(idConverter)}, size: {def.Size} }},");
 		}
 	}
 }

@@ -56,6 +56,8 @@ namespace Generator {
 		public static readonly TypeId OpCodeHandlerKind = new TypeId(nameof(OpCodeHandlerKind));
 		public static readonly TypeId PseudoOpsKind = new TypeId(nameof(PseudoOpsKind));
 		public static readonly TypeId Register = new TypeId(nameof(Register));
+		public static readonly TypeId RegisterKind = new TypeId(nameof(RegisterKind));
+		public static readonly TypeId RegisterClass = new TypeId(nameof(RegisterClass));
 		public static readonly TypeId SerializedDataKind = new TypeId(nameof(SerializedDataKind));
 		public static readonly TypeId TupleType = new TypeId(nameof(TupleType));
 		public static readonly TypeId VexOpCodeHandlerKind = new TypeId(nameof(VexOpCodeHandlerKind));
