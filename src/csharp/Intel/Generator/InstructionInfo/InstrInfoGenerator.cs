@@ -84,7 +84,7 @@ namespace Generator.InstructionInfo {
 					dword1 |= rflagsInfo.Value << (int)InfoFlags1.RflagsInfoShift;
 					dword1 |= (uint)def.CodeInfo << (int)InfoFlags1.CodeInfoShift;
 					if ((def.Flags1 & InstructionDefFlags1.OpMaskReadWrite) != 0) dword1 |= (uint)InfoFlags1.OpMaskReadWrite;
-					if ((def.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0) dword1 |= (uint)InfoFlags1.IgnoreSegment;
+					if ((def.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0) dword1 |= (uint)InfoFlags1.IgnoresSegment;
 
 					dword2 |= def.EncodingValue.Value << (int)InfoFlags2.EncodingShift;
 					if ((def.Flags1 & InstructionDefFlags1.SaveRestore) != 0) dword2 |= (uint)InfoFlags2.SaveRestore;

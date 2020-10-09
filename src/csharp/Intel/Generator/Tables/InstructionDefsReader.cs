@@ -909,7 +909,7 @@ namespace Generator.Tables {
 				state.Flags2 &= ~(InstructionDefFlags2.RealMode | InstructionDefFlags2.ProtectedMode |
 					InstructionDefFlags2.Virtual8086Mode | InstructionDefFlags2.CompatibilityMode);
 			}
-			// v86 mode and SGX enclaves use CPL=3, so disable all CPL<3 instructions
+			// v86 mode and SGX enclaves will #GP(0) since CPL=3
 			if ((state.Flags1 & InstructionDefFlags1.Cpl3) == 0)
 				state.Flags2 &= ~(InstructionDefFlags2.Virtual8086Mode | InstructionDefFlags2.UseInEnclaveSgx1 | InstructionDefFlags2.UseInEnclaveSgx2);
 

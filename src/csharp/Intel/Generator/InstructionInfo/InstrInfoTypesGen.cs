@@ -44,7 +44,7 @@ namespace Generator.InstructionInfo {
 		CodeInfoMask				= 0x7F,
 		// Free bits
 		OpMaskReadWrite				= 0x40000000,
-		IgnoreSegment				= 0x80000000,
+		IgnoresSegment				= 0x80000000,
 	}
 
 	[Flags]

@@ -78,7 +78,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		CodeInfoShift = 0x00000014,
 		CodeInfoMask = 0x0000007F,
 		OpMaskReadWrite = 0x40000000,
-		IgnoreSegment = 0x80000000,
+		IgnoresSegment = 0x80000000,
 	}
 	// GENERATOR-END: InfoFlags1
 

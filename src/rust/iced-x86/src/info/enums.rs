@@ -82,7 +82,7 @@ impl InfoFlags1 {
 	pub(crate) const CODE_INFO_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const CODE_INFO_MASK: u32 = 0x0000_007F;
 	pub(crate) const OP_MASK_READ_WRITE: u32 = 0x4000_0000;
-	pub(crate) const IGNORE_SEGMENT: u32 = 0x8000_0000;
+	pub(crate) const IGNORES_SEGMENT: u32 = 0x8000_0000;
 }
 // GENERATOR-END: InfoFlags1
 

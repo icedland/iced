@@ -190,9 +190,17 @@ namespace Generator.Encoder {
 				var encFlags2 = EncFlags2.None;
 				encFlags2 |= (EncFlags2)(def.OpCode << (int)EncFlags2.OpCodeShift);
 				switch (def.OpCodeLength) {
-				case 1: break;
-				case 2: encFlags2 |= EncFlags2.OpCodeIs2Bytes; break;
-				default: throw new InvalidOperationException();
+				case 1:
+					if (def.OpCode > 0xFF)
+						throw new InvalidOperationException();
+					break;
+				case 2:
+					if (def.OpCode > 0xFFFF)
+						throw new InvalidOperationException();
+					encFlags2 |= EncFlags2.OpCodeIs2Bytes;
+					break;
+				default:
+					throw new InvalidOperationException();
 				}
 
 				var mpByte = GetMandatoryPrefixByte(def.MandatoryPrefix);
@@ -212,9 +220,9 @@ namespace Generator.Encoder {
 					throw new InvalidOperationException();
 				encFlags2 |= (EncFlags2)((uint)wbit << (int)EncFlags2.WBitShift);
 
+				if (def.GroupIndex >= 0 && def.RmGroupIndex >= 0)
+					throw new InvalidOperationException();
 				if (def.GroupIndex >= 0) {
-					if (def.RmGroupIndex >= 0)
-						throw new InvalidOperationException();
 					if ((uint)def.GroupIndex > (uint)EncFlags2.GroupIndexMask)
 						throw new InvalidOperationException();
 					encFlags2 |= EncFlags2.HasGroupIndex;

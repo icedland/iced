@@ -257,7 +257,7 @@ namespace Iced.Intel {
 					break;
 
 				case OpKind.Memory:
-					Static.Assert((uint)InfoFlags1.IgnoreSegment == (1U << 31) ? 0 : -1);
+					Static.Assert((uint)InfoFlags1.IgnoresSegment == (1U << 31) ? 0 : -1);
 					Static.Assert(Register.None == 0 ? 0 : -1);
 					var segReg = (Register)((uint)instruction.MemorySegment & ~(uint)((int)flags1 >> 31));
 					var baseReg = instruction.MemoryBase;

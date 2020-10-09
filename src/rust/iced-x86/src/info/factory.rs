@@ -365,7 +365,7 @@ impl InstructionInfoFactory {
 				}
 
 				OpKind::Memory => {
-					const_assert_eq!(1 << 31, InfoFlags1::IGNORE_SEGMENT);
+					const_assert_eq!(1 << 31, InfoFlags1::IGNORES_SEGMENT);
 					const_assert_eq!(0, Register::None as u32);
 					let segment_register = unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as u8) };
 					let base_register = instruction.memory_base();
