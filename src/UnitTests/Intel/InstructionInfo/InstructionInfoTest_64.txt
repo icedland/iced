@@ -17782,113 +17782,113 @@ F3 0F01 EA, Saveprevssp, Legacy, CET_SS, fr=c
 # wbnoinvd
 F3 0F09, Wbnoinvd, Legacy, WBNOINVD, priv
 # reserved-nop si,cx
-66 0F0D CE, Reservednop_rm16_r16_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F0D CE, Reservednop_rm16_r16_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F0D 18, Reservednop_rm16_r16_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F0D 18, Reservednop_rm16_r16_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F0D CE, Reservednop_rm32_r32_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F0D CE, Reservednop_rm32_r32_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F0D 18, Reservednop_rm32_r32_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F0D 18, Reservednop_rm32_r32_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F0D CE, Reservednop_rm64_r64_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F0D CE, Reservednop_rm64_r64_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F0D 18, Reservednop_rm64_r64_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F0D 18, Reservednop_rm64_r64_0F0D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F18 CE, Reservednop_rm16_r16_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F18 CE, Reservednop_rm16_r16_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F18 18, Reservednop_rm16_r16_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F18 18, Reservednop_rm16_r16_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F18 CE, Reservednop_rm32_r32_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F18 CE, Reservednop_rm32_r32_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F18 18, Reservednop_rm32_r32_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F18 18, Reservednop_rm32_r32_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F18 CE, Reservednop_rm64_r64_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F18 CE, Reservednop_rm64_r64_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F18 18, Reservednop_rm64_r64_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F18 18, Reservednop_rm64_r64_0F18, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F19 CE, Reservednop_rm16_r16_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F19 CE, Reservednop_rm16_r16_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F19 18, Reservednop_rm16_r16_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F19 18, Reservednop_rm16_r16_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F19 CE, Reservednop_rm32_r32_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F19 CE, Reservednop_rm32_r32_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F19 18, Reservednop_rm32_r32_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F19 18, Reservednop_rm32_r32_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F19 CE, Reservednop_rm64_r64_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F19 CE, Reservednop_rm64_r64_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F19 18, Reservednop_rm64_r64_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F19 18, Reservednop_rm64_r64_0F19, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F1A CE, Reservednop_rm16_r16_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1A CE, Reservednop_rm16_r16_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F1A 18, Reservednop_rm16_r16_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1A 18, Reservednop_rm16_r16_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F1A CE, Reservednop_rm32_r32_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1A CE, Reservednop_rm32_r32_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F1A 18, Reservednop_rm32_r32_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1A 18, Reservednop_rm32_r32_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F1A CE, Reservednop_rm64_r64_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1A CE, Reservednop_rm64_r64_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F1A 18, Reservednop_rm64_r64_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1A 18, Reservednop_rm64_r64_0F1A, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F1B CE, Reservednop_rm16_r16_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1B CE, Reservednop_rm16_r16_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F1B 18, Reservednop_rm16_r16_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1B 18, Reservednop_rm16_r16_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F1B CE, Reservednop_rm32_r32_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1B CE, Reservednop_rm32_r32_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F1B 18, Reservednop_rm32_r32_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1B 18, Reservednop_rm32_r32_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F1B CE, Reservednop_rm64_r64_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1B CE, Reservednop_rm64_r64_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F1B 18, Reservednop_rm64_r64_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1B 18, Reservednop_rm64_r64_0F1B, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F1C CE, Reservednop_rm16_r16_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1C CE, Reservednop_rm16_r16_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F1C 18, Reservednop_rm16_r16_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1C 18, Reservednop_rm16_r16_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F1C CE, Reservednop_rm32_r32_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1C CE, Reservednop_rm32_r32_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F1C 18, Reservednop_rm32_r32_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1C 18, Reservednop_rm32_r32_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F1C CE, Reservednop_rm64_r64_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1C CE, Reservednop_rm64_r64_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F1C 18, Reservednop_rm64_r64_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1C 18, Reservednop_rm64_r64_0F1C, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F1D CE, Reservednop_rm16_r16_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1D CE, Reservednop_rm16_r16_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F1D 18, Reservednop_rm16_r16_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1D 18, Reservednop_rm16_r16_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F1D CE, Reservednop_rm32_r32_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1D CE, Reservednop_rm32_r32_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F1D 18, Reservednop_rm32_r32_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1D 18, Reservednop_rm32_r32_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F1D CE, Reservednop_rm64_r64_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1D CE, Reservednop_rm64_r64_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F1D 18, Reservednop_rm64_r64_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1D 18, Reservednop_rm64_r64_0F1D, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F1E CE, Reservednop_rm16_r16_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1E CE, Reservednop_rm16_r16_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F1E 18, Reservednop_rm16_r16_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1E 18, Reservednop_rm16_r16_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F1E CE, Reservednop_rm32_r32_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1E CE, Reservednop_rm32_r32_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F1E 18, Reservednop_rm32_r32_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1E 18, Reservednop_rm32_r32_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F1E CE, Reservednop_rm64_r64_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1E CE, Reservednop_rm64_r64_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F1E 18, Reservednop_rm64_r64_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1E 18, Reservednop_rm64_r64_0F1E, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop si,cx
-66 0F1F CE, Reservednop_rm16_r16_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1F CE, Reservednop_rm16_r16_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],bx
-66 0F1F 18, Reservednop_rm16_r16_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+66 0F1F 18, Reservednop_rm16_r16_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop esi,ecx
-0F1F CE, Reservednop_rm32_r32_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1F CE, Reservednop_rm32_r32_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],ebx
-0F1F 18, Reservednop_rm32_r32_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+0F1F 18, Reservednop_rm32_r32_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop rsi,rcx
-48 0F1F CE, Reservednop_rm64_r64_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1F CE, Reservednop_rm64_r64_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # reserved-nop [rax],rbx
-48 0F1F 18, Reservednop_rm64_r64_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservednop op0=n op1=n
+48 0F1F 18, Reservednop_rm64_r64_0F1F, Legacy, MULTIBYTENOP, decopt=ForceReservedNop op0=n op1=n
 # cldemote byte ptr [rax]
 0F1C 00, Cldemote_m8, Legacy, CLDEMOTE, op0=nma r=rax
 # rdsspd ecx

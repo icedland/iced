@@ -41,7 +41,7 @@ pub enum DecoderOptions {
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code.Reservednop_rm32_r32_0F1D`])
 	///
 	/// [`Code.Reservednop_rm32_r32_0F1D`]: enum.Code.html#variant.Reservednop_rm32_r32_0F1D
-	ForceReservednop = 0x0000_0004,
+	ForceReservedNop = 0x0000_0004,
 	/// Decode `UMOV` instructions
 	Umov = 0x0000_0008,
 	/// Decode `XBTS`/`IBTS`

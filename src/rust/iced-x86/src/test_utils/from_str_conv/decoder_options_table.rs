@@ -37,7 +37,7 @@ lazy_static! {
 		h.insert("None", DecoderOptions::NONE);
 		h.insert("NoInvalidCheck", DecoderOptions::NO_INVALID_CHECK);
 		h.insert("AMD", DecoderOptions::AMD);
-		h.insert("ForceReservednop", DecoderOptions::FORCE_RESERVEDNOP);
+		h.insert("ForceReservedNop", DecoderOptions::FORCE_RESERVED_NOP);
 		h.insert("Umov", DecoderOptions::UMOV);
 		h.insert("Xbts", DecoderOptions::XBTS);
 		h.insert("Cmpxchg486A", DecoderOptions::CMPXCHG486A);

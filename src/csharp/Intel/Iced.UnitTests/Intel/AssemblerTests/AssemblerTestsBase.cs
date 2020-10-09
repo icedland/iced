@@ -83,7 +83,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				throw new InvalidOperationException();
 			}
 			if (opCode.IsReservedNop)
-				decoderOptions |= DecoderOptions.ForceReservednop;
+				decoderOptions |= DecoderOptions.ForceReservedNop;
 
 			// Check decoding back against the original instruction
 			var instructionAsBytes = new System.Text.StringBuilder();

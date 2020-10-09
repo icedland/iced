@@ -3020,7 +3020,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					continue;
 				if (!IsPowerOfTwo((uint)info.Options))
 					continue;
-				if (info.Options == DecoderOptions.ForceReservednop)
+				if (info.Options == DecoderOptions.ForceReservedNop)
 					continue;
 				if ((info.TestOptions & DecoderTestOptions.NoOptDisableTest) != 0)
 					continue;

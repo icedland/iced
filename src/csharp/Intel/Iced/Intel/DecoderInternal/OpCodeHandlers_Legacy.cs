@@ -383,7 +383,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			((decoder.options & DecoderOptions.ForceReservednop) != 0 ? reservedNopHandler : otherHandler).Decode(decoder, ref instruction);
+			((decoder.options & DecoderOptions.ForceReservedNop) != 0 ? reservedNopHandler : otherHandler).Decode(decoder, ref instruction);
 		}
 	}
 

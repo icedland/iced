@@ -147,7 +147,7 @@ impl DecoderOptions {
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::Reservednop_rm32_r32_0F1D`])
 	///
 	/// [`Code::Reservednop_rm32_r32_0F1D`]: enum.Code.html#variant.Reservednop_rm32_r32_0F1D
-	pub const FORCE_RESERVEDNOP: u32 = 0x0000_0004;
+	pub const FORCE_RESERVED_NOP: u32 = 0x0000_0004;
 	/// Decode `UMOV` instructions
 	pub const UMOV: u32 = 0x0000_0008;
 	/// Decode `XBTS`/`IBTS`

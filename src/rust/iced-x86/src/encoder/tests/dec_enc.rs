@@ -3043,7 +3043,7 @@ fn disable_decoder_option_disables_instruction() {
 		if !is_power_of_two(info.decoder_options()) {
 			continue;
 		}
-		if info.decoder_options() == DecoderOptions::FORCE_RESERVEDNOP {
+		if info.decoder_options() == DecoderOptions::FORCE_RESERVED_NOP {
 			continue;
 		}
 		if (info.decoder_test_options() & DecoderTestOptions::NO_OPT_DISABLE_TEST) != 0 {

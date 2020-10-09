@@ -37,7 +37,7 @@ namespace Iced.UnitTests.Intel {
 				{ "None", DecoderOptions.None },
 				{ "NoInvalidCheck", DecoderOptions.NoInvalidCheck },
 				{ "AMD", DecoderOptions.AMD },
-				{ "ForceReservednop", DecoderOptions.ForceReservednop },
+				{ "ForceReservedNop", DecoderOptions.ForceReservedNop },
 				{ "Umov", DecoderOptions.Umov },
 				{ "Xbts", DecoderOptions.Xbts },
 				{ "Cmpxchg486A", DecoderOptions.Cmpxchg486A },

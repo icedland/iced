@@ -7921,60 +7921,60 @@ F3 0F01 28, Rstorssp_m64
 F3 0F01 E8, Setssbsy
 F3 0F01 EA, Saveprevssp
 F3 0F09, Wbnoinvd
-66 0F0D CE, Reservednop_rm16_r16_0F0D, ForceReservednop
-66 0F0D 18, Reservednop_rm16_r16_0F0D, ForceReservednop
-0F0D CE, Reservednop_rm32_r32_0F0D, ForceReservednop
-0F0D 18, Reservednop_rm32_r32_0F0D, ForceReservednop
-48 0F0D CE, Reservednop_rm64_r64_0F0D, ForceReservednop
-48 0F0D 18, Reservednop_rm64_r64_0F0D, ForceReservednop
-66 0F18 CE, Reservednop_rm16_r16_0F18, ForceReservednop
-66 0F18 18, Reservednop_rm16_r16_0F18, ForceReservednop
-0F18 CE, Reservednop_rm32_r32_0F18, ForceReservednop
-0F18 18, Reservednop_rm32_r32_0F18, ForceReservednop
-48 0F18 CE, Reservednop_rm64_r64_0F18, ForceReservednop
-48 0F18 18, Reservednop_rm64_r64_0F18, ForceReservednop
-66 0F19 CE, Reservednop_rm16_r16_0F19, ForceReservednop
-66 0F19 18, Reservednop_rm16_r16_0F19, ForceReservednop
-0F19 CE, Reservednop_rm32_r32_0F19, ForceReservednop
-0F19 18, Reservednop_rm32_r32_0F19, ForceReservednop
-48 0F19 CE, Reservednop_rm64_r64_0F19, ForceReservednop
-48 0F19 18, Reservednop_rm64_r64_0F19, ForceReservednop
-66 0F1A CE, Reservednop_rm16_r16_0F1A, ForceReservednop
-66 0F1A 18, Reservednop_rm16_r16_0F1A, ForceReservednop
-0F1A CE, Reservednop_rm32_r32_0F1A, ForceReservednop
-0F1A 18, Reservednop_rm32_r32_0F1A, ForceReservednop
-48 0F1A CE, Reservednop_rm64_r64_0F1A, ForceReservednop
-48 0F1A 18, Reservednop_rm64_r64_0F1A, ForceReservednop
-66 0F1B CE, Reservednop_rm16_r16_0F1B, ForceReservednop
-66 0F1B 18, Reservednop_rm16_r16_0F1B, ForceReservednop
-0F1B CE, Reservednop_rm32_r32_0F1B, ForceReservednop
-0F1B 18, Reservednop_rm32_r32_0F1B, ForceReservednop
-48 0F1B CE, Reservednop_rm64_r64_0F1B, ForceReservednop
-48 0F1B 18, Reservednop_rm64_r64_0F1B, ForceReservednop
-66 0F1C CE, Reservednop_rm16_r16_0F1C, ForceReservednop
-66 0F1C 18, Reservednop_rm16_r16_0F1C, ForceReservednop
-0F1C CE, Reservednop_rm32_r32_0F1C, ForceReservednop
-0F1C 18, Reservednop_rm32_r32_0F1C, ForceReservednop
-48 0F1C CE, Reservednop_rm64_r64_0F1C, ForceReservednop
-48 0F1C 18, Reservednop_rm64_r64_0F1C, ForceReservednop
-66 0F1D CE, Reservednop_rm16_r16_0F1D, ForceReservednop
-66 0F1D 18, Reservednop_rm16_r16_0F1D, ForceReservednop
-0F1D CE, Reservednop_rm32_r32_0F1D, ForceReservednop
-0F1D 18, Reservednop_rm32_r32_0F1D, ForceReservednop
-48 0F1D CE, Reservednop_rm64_r64_0F1D, ForceReservednop
-48 0F1D 18, Reservednop_rm64_r64_0F1D, ForceReservednop
-66 0F1E CE, Reservednop_rm16_r16_0F1E, ForceReservednop
-66 0F1E 18, Reservednop_rm16_r16_0F1E, ForceReservednop
-0F1E CE, Reservednop_rm32_r32_0F1E, ForceReservednop
-0F1E 18, Reservednop_rm32_r32_0F1E, ForceReservednop
-48 0F1E CE, Reservednop_rm64_r64_0F1E, ForceReservednop
-48 0F1E 18, Reservednop_rm64_r64_0F1E, ForceReservednop
-66 0F1F CE, Reservednop_rm16_r16_0F1F, ForceReservednop
-66 0F1F 18, Reservednop_rm16_r16_0F1F, ForceReservednop
-0F1F CE, Reservednop_rm32_r32_0F1F, ForceReservednop
-0F1F 18, Reservednop_rm32_r32_0F1F, ForceReservednop
-48 0F1F CE, Reservednop_rm64_r64_0F1F, ForceReservednop
-48 0F1F 18, Reservednop_rm64_r64_0F1F, ForceReservednop
+66 0F0D CE, Reservednop_rm16_r16_0F0D, ForceReservedNop
+66 0F0D 18, Reservednop_rm16_r16_0F0D, ForceReservedNop
+0F0D CE, Reservednop_rm32_r32_0F0D, ForceReservedNop
+0F0D 18, Reservednop_rm32_r32_0F0D, ForceReservedNop
+48 0F0D CE, Reservednop_rm64_r64_0F0D, ForceReservedNop
+48 0F0D 18, Reservednop_rm64_r64_0F0D, ForceReservedNop
+66 0F18 CE, Reservednop_rm16_r16_0F18, ForceReservedNop
+66 0F18 18, Reservednop_rm16_r16_0F18, ForceReservedNop
+0F18 CE, Reservednop_rm32_r32_0F18, ForceReservedNop
+0F18 18, Reservednop_rm32_r32_0F18, ForceReservedNop
+48 0F18 CE, Reservednop_rm64_r64_0F18, ForceReservedNop
+48 0F18 18, Reservednop_rm64_r64_0F18, ForceReservedNop
+66 0F19 CE, Reservednop_rm16_r16_0F19, ForceReservedNop
+66 0F19 18, Reservednop_rm16_r16_0F19, ForceReservedNop
+0F19 CE, Reservednop_rm32_r32_0F19, ForceReservedNop
+0F19 18, Reservednop_rm32_r32_0F19, ForceReservedNop
+48 0F19 CE, Reservednop_rm64_r64_0F19, ForceReservedNop
+48 0F19 18, Reservednop_rm64_r64_0F19, ForceReservedNop
+66 0F1A CE, Reservednop_rm16_r16_0F1A, ForceReservedNop
+66 0F1A 18, Reservednop_rm16_r16_0F1A, ForceReservedNop
+0F1A CE, Reservednop_rm32_r32_0F1A, ForceReservedNop
+0F1A 18, Reservednop_rm32_r32_0F1A, ForceReservedNop
+48 0F1A CE, Reservednop_rm64_r64_0F1A, ForceReservedNop
+48 0F1A 18, Reservednop_rm64_r64_0F1A, ForceReservedNop
+66 0F1B CE, Reservednop_rm16_r16_0F1B, ForceReservedNop
+66 0F1B 18, Reservednop_rm16_r16_0F1B, ForceReservedNop
+0F1B CE, Reservednop_rm32_r32_0F1B, ForceReservedNop
+0F1B 18, Reservednop_rm32_r32_0F1B, ForceReservedNop
+48 0F1B CE, Reservednop_rm64_r64_0F1B, ForceReservedNop
+48 0F1B 18, Reservednop_rm64_r64_0F1B, ForceReservedNop
+66 0F1C CE, Reservednop_rm16_r16_0F1C, ForceReservedNop
+66 0F1C 18, Reservednop_rm16_r16_0F1C, ForceReservedNop
+0F1C CE, Reservednop_rm32_r32_0F1C, ForceReservedNop
+0F1C 18, Reservednop_rm32_r32_0F1C, ForceReservedNop
+48 0F1C CE, Reservednop_rm64_r64_0F1C, ForceReservedNop
+48 0F1C 18, Reservednop_rm64_r64_0F1C, ForceReservedNop
+66 0F1D CE, Reservednop_rm16_r16_0F1D, ForceReservedNop
+66 0F1D 18, Reservednop_rm16_r16_0F1D, ForceReservedNop
+0F1D CE, Reservednop_rm32_r32_0F1D, ForceReservedNop
+0F1D 18, Reservednop_rm32_r32_0F1D, ForceReservedNop
+48 0F1D CE, Reservednop_rm64_r64_0F1D, ForceReservedNop
+48 0F1D 18, Reservednop_rm64_r64_0F1D, ForceReservedNop
+66 0F1E CE, Reservednop_rm16_r16_0F1E, ForceReservedNop
+66 0F1E 18, Reservednop_rm16_r16_0F1E, ForceReservedNop
+0F1E CE, Reservednop_rm32_r32_0F1E, ForceReservedNop
+0F1E 18, Reservednop_rm32_r32_0F1E, ForceReservedNop
+48 0F1E CE, Reservednop_rm64_r64_0F1E, ForceReservedNop
+48 0F1E 18, Reservednop_rm64_r64_0F1E, ForceReservedNop
+66 0F1F CE, Reservednop_rm16_r16_0F1F, ForceReservedNop
+66 0F1F 18, Reservednop_rm16_r16_0F1F, ForceReservedNop
+0F1F CE, Reservednop_rm32_r32_0F1F, ForceReservedNop
+0F1F 18, Reservednop_rm32_r32_0F1F, ForceReservedNop
+48 0F1F CE, Reservednop_rm64_r64_0F1F, ForceReservedNop
+48 0F1F 18, Reservednop_rm64_r64_0F1F, ForceReservedNop
 0F1C 00, Cldemote_m8
 F3 0F1E C9, Rdsspd_r32
 F3 48 0F1E C9, Rdsspq_r64
