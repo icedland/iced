@@ -28,7 +28,12 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class CodeValueTests {
-		public static readonly Code[] NonDecodedCodeValues = new Code[19] {
+		public static readonly Code[] NonDecodedCodeValues1632 = new Code[] {
+			Code.Popw_CS,
+			Code.Fstdw_AX,
+			Code.Fstsg_AX,
+		};
+		public static readonly Code[] NonDecodedCodeValues = new Code[] {
 			Code.DeclareByte,
 			Code.DeclareDword,
 			Code.DeclareQword,
@@ -45,9 +50,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Code.Fstenv_m28byte,
 			Code.Fstsw_AX,
 			Code.Fstsw_m2byte,
-			Code.Popw_CS,
-			Code.Fstdw_AX,
-			Code.Fstsg_AX,
 		};
 
 		[Fact]
@@ -79,12 +81,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				};
 			}
 #else
-			foreach (var code in NonDecodedCodeValues) {
-				if (code == Code.Popw_CS)
-					tested[(int)code] |= T16 | T32;
-				else
-					tested[(int)code] |= T16 | T32 | T64;
-			}
+			foreach (var code in NonDecodedCodeValues1632)
+				tested[(int)code] |= T16 | T32;
+			foreach (var code in NonDecodedCodeValues)
+				tested[(int)code] |= T16 | T32 | T64;
 #endif
 
 			foreach (var c in DecoderTestUtils.NotDecoded) {

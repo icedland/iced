@@ -42,7 +42,7 @@ use alloc::string::String;
 use core::fmt::Write;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static NON_DECODED_CODE_VALUES: [Code; 19] = [
+pub(crate) static NON_DECODED_CODE_VALUES: [Code; 16] = [
 	Code::DeclareByte,
 	Code::DeclareDword,
 	Code::DeclareQword,
@@ -59,6 +59,9 @@ pub(crate) static NON_DECODED_CODE_VALUES: [Code; 19] = [
 	Code::Fstenv_m28byte,
 	Code::Fstsw_AX,
 	Code::Fstsw_m2byte,
+];
+#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+pub(crate) static NON_DECODED_CODE_VALUES1632: [Code; 3] = [
 	Code::Popw_CS,
 	Code::Fstdw_AX,
 	Code::Fstsg_AX,
@@ -349,12 +352,11 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 			}
 		}
 	} else {
+		for &code in &NON_DECODED_CODE_VALUES1632 {
+			tested[code as usize] |= T16 | T32;
+		}
 		for &code in &NON_DECODED_CODE_VALUES {
-			if code == Code::Popw_CS {
-				tested[code as usize] |= T16 | T32;
-			} else {
-				tested[code as usize] |= T16 | T32 | T64;
-			}
+			tested[code as usize] |= T16 | T32 | T64;
 		}
 	}
 

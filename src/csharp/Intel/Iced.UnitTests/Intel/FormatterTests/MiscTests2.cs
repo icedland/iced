@@ -49,6 +49,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			foreach (var info in NonDecodedInstructions.GetTests())
 				tested[(int)info.instruction.Code] = 1;
 #else
+			foreach (var code in CodeValueTests.NonDecodedCodeValues1632)
+				tested[(int)code] = 1;
 			foreach (var code in CodeValueTests.NonDecodedCodeValues)
 				tested[(int)code] = 1;
 #endif

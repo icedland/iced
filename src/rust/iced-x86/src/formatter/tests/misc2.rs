@@ -57,6 +57,9 @@ fn make_sure_all_code_values_are_formatted() {
 			tested[info.2.code() as usize] = 1;
 		}
 	} else {
+		for &code in &super::super::super::decoder::tests::NON_DECODED_CODE_VALUES1632 {
+			tested[code as usize] = 1;
+		}
 		for &code in &super::super::super::decoder::tests::NON_DECODED_CODE_VALUES {
 			tested[code as usize] = 1;
 		}
