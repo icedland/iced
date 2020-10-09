@@ -154,6 +154,7 @@ namespace Generator.Tables {
 			}
 			if (defs.Count == 0)
 				Error(lines.Length, "No instruction definitions found");
+			defs.Sort((a, b) => a.def.Code.Value.CompareTo(b.def.Code.Value));
 
 			if (TryGetErrorString(out var errorMessage))
 				throw new InvalidOperationException(errorMessage);
