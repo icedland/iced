@@ -1339,6 +1339,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
 			}
+			if (Register.EAX <= (Register)info.Op2Register && (Register)info.Op2Register <= Register.R15D) {
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op2Register = (byte)((Register)info.Op2Register - Register.EAX + Register.AX);
+			}
 		}
 	}
 

@@ -1500,6 +1500,10 @@ impl InstrInfo for SimpleInstrInfo_Reg16 {
 			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
 			info.op1_register = info.op1_register.wrapping_sub(Register::EAX as u8).wrapping_add(Register::AX as u8);
 		}
+		if Register::EAX as u8 <= info.op2_register && info.op2_register <= Register::R15D as u8 {
+			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+			info.op2_register = info.op2_register.wrapping_sub(Register::EAX as u8).wrapping_add(Register::AX as u8);
+		}
 		info
 	}
 }

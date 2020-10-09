@@ -862,6 +862,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)((((Register)info.Op1Register - Register.EAX) & 0xF) + Register.AX);
 			}
+			if (Register.EAX <= (Register)info.Op2Register && (Register)info.Op2Register <= Register.R15) {
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op2Register = (byte)((((Register)info.Op2Register - Register.EAX) & 0xF) + Register.AX);
+			}
 		}
 	}
 
