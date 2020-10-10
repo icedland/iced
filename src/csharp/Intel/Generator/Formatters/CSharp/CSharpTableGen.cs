@@ -74,12 +74,14 @@ namespace Generator.Formatters.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, "ConstData", filename).Generate(writer => {
 				foreach (var bcst in broadcastToKindValues) {
 					if ((BroadcastToKind)bcst.Value == BroadcastToKind.None)
-						continue;
-					var name = bcst.RawName;
-					if (!name.StartsWith("b", StringComparison.Ordinal))
-						throw new InvalidOperationException();
-					var s = name.Substring(1);
-					writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
+						writer.WriteLine($"var empty = new FormatterString(\"\");");
+					else {
+						var name = bcst.RawName;
+						if (!name.StartsWith("b", StringComparison.Ordinal))
+							throw new InvalidOperationException();
+						var s = name.Substring(1);
+						writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
+					}
 				}
 			});
 			new FileUpdater(TargetLanguage.CSharp, "BcstTo", filename).Generate(writer => {
@@ -93,7 +95,7 @@ namespace Generator.Formatters.CSharp {
 				foreach (var bcst in broadcastToKindValues) {
 					writer.Write($"0x{bcst.Value:X2} => ");
 					if ((BroadcastToKind)bcst.Value == BroadcastToKind.None)
-						writer.WriteLine("default,");
+						writer.WriteLine("empty,");
 					else
 						writer.WriteLine($"{bcst.RawName},");
 				}
@@ -122,12 +124,14 @@ namespace Generator.Formatters.CSharp {
 				}
 				foreach (var bcst in broadcastToKindValues) {
 					if ((BroadcastToKind)bcst.Value == BroadcastToKind.None)
-						continue;
-					var name = bcst.RawName;
-					if (!name.StartsWith("b", StringComparison.Ordinal))
-						throw new InvalidOperationException();
-					var s = name.Substring(1);
-					writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
+						writer.WriteLine($"var empty = new FormatterString(\"\");");
+					else {
+						var name = bcst.RawName;
+						if (!name.StartsWith("b", StringComparison.Ordinal))
+							throw new InvalidOperationException();
+						var s = name.Substring(1);
+						writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
+					}
 				}
 			});
 			new FileUpdater(TargetLanguage.CSharp, "MemorySizes", filename).Generate(writer => {
@@ -152,7 +156,7 @@ namespace Generator.Formatters.CSharp {
 				foreach (var bcst in broadcastToKindValues) {
 					writer.Write($"0x{bcst.Value:X2} => ");
 					if ((BroadcastToKind)bcst.Value == BroadcastToKind.None)
-						writer.WriteLine("default,");
+						writer.WriteLine("empty,");
 					else
 						writer.WriteLine($"{bcst.RawName},");
 				}
@@ -221,12 +225,14 @@ namespace Generator.Formatters.CSharp {
 				}
 				foreach (var bcst in broadcastToKindValues) {
 					if ((BroadcastToKind)bcst.Value == BroadcastToKind.None)
-						continue;
-					var name = bcst.RawName;
-					if (!name.StartsWith("b", StringComparison.Ordinal))
-						throw new InvalidOperationException();
-					var s = name.Substring(1);
-					writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
+						writer.WriteLine($"var empty = new FormatterString(\"\");");
+					else {
+						var name = bcst.RawName;
+						if (!name.StartsWith("b", StringComparison.Ordinal))
+							throw new InvalidOperationException();
+						var s = name.Substring(1);
+						writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
+					}
 				}
 			});
 			new FileUpdater(TargetLanguage.CSharp, "MemorySizes", filename).Generate(writer => {
@@ -246,7 +252,7 @@ namespace Generator.Formatters.CSharp {
 				foreach (var kw in nasmKeywords) {
 					writer.Write($"0x{kw.Value:X2} => ");
 					if ((NasmMemoryKeywords)kw.Value == NasmMemoryKeywords.None)
-						writer.WriteLine("default,");
+						writer.WriteLine("empty,");
 					else
 						writer.WriteLine($"{EscapeKeyword(kw.RawName)},");
 				}
@@ -255,7 +261,7 @@ namespace Generator.Formatters.CSharp {
 				foreach (var bcst in broadcastToKindValues) {
 					writer.Write($"0x{bcst.Value:X2} => ");
 					if ((BroadcastToKind)bcst.Value == BroadcastToKind.None)
-						writer.WriteLine("default,");
+						writer.WriteLine("empty,");
 					else
 						writer.WriteLine($"{bcst.RawName},");
 				}

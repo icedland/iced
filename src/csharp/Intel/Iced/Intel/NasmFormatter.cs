@@ -121,13 +121,13 @@ namespace Iced.Intel {
 		static readonly FormatterString str_xrelease = new FormatterString("xrelease");
 		static readonly FormatterString str_z = new FormatterString("z");
 		static readonly FormatterString[] s_opSizeStrings = new FormatterString[(int)InstrOpInfoFlags.SizeOverrideMask + 1] {
-			default,
+			new FormatterString(""),
 			new FormatterString("o16"),
 			new FormatterString("o32"),
 			new FormatterString("o64"),
 		};
 		static readonly FormatterString[] s_addrSizeStrings = new FormatterString[(int)InstrOpInfoFlags.SizeOverrideMask + 1] {
-			default,
+			new FormatterString(""),
 			new FormatterString("a16"),
 			new FormatterString("a32"),
 			new FormatterString("a64"),
@@ -143,16 +143,16 @@ namespace Iced.Intel {
 			null,
 		};
 		static readonly FormatterString[] s_memSizeInfos = new FormatterString[(int)InstrOpInfoFlags.MemorySizeInfoMask + 1] {
-			default,
+			new FormatterString(""),
 			new FormatterString("word"),
 			new FormatterString("dword"),
 			new FormatterString("qword"),
 		};
 		static readonly FormatterString[] s_farMemSizeInfos = new FormatterString[(int)InstrOpInfoFlags.FarMemorySizeInfoMask + 1] {
-			default,
+			new FormatterString(""),
 			new FormatterString("word"),
 			new FormatterString("dword"),
-			default,
+			new FormatterString(""),
 		};
 		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
@@ -313,11 +313,11 @@ namespace Iced.Intel {
 					FormatterString prefix;
 
 					prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
-					if (!prefix.IsDefault)
+					if (prefix.Length != 0)
 						FormatPrefix(output, instruction, ref column, prefix, PrefixKind.OperandSize, ref needSpace);
 
 					prefix = addrSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.AddrSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
-					if (!prefix.IsDefault)
+					if (prefix.Length != 0)
 						FormatPrefix(output, instruction, ref column, prefix, PrefixKind.AddressSize, ref needSpace);
 
 					bool hasNoTrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code);
@@ -938,7 +938,7 @@ namespace Iced.Intel {
 				output.Write(" ", FormatterTextKind.Text);
 
 			var memSizeName = memSizeInfos[((int)flags >> (int)InstrOpInfoFlags.MemorySizeInfoShift) & (int)InstrOpInfoFlags.MemorySizeInfoMask];
-			if (!memSizeName.IsDefault) {
+			if (memSizeName.Length != 0) {
 				FormatKeyword(output, memSizeName);
 				output.Write(" ", FormatterTextKind.Text);
 			}
@@ -1097,7 +1097,7 @@ namespace Iced.Intel {
 
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var bcstTo = allMemorySizes[(int)memSize].bcstTo;
-			if (!bcstTo.IsDefault)
+			if (bcstTo.Length != 0)
 				FormatDecorator(output, instruction, operand, instructionOperand, bcstTo, DecoratorKind.Broadcast);
 		}
 
@@ -1112,7 +1112,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var memInfo = allMemorySizes[(int)memSize];
 			var keyword = memInfo.keyword;
-			if (keyword.IsDefault)
+			if (keyword.Length == 0)
 				return;
 
 			if (memSizeOptions == MemorySizeOptions.Default) {
@@ -1127,7 +1127,7 @@ namespace Iced.Intel {
 				Debug.Assert(memSizeOptions == MemorySizeOptions.Always);
 
 			var farKind = farMemSizeInfos[((int)flags >> (int)InstrOpInfoFlags.FarMemorySizeInfoShift) & (int)InstrOpInfoFlags.FarMemorySizeInfoMask];
-			if (!farKind.IsDefault) {
+			if (farKind.Length != 0) {
 				FormatKeyword(output, farKind);
 				output.Write(" ", FormatterTextKind.Text);
 			}

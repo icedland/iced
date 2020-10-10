@@ -1230,7 +1230,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var memInfo = MemorySizes.AllMemorySizes[(int)instruction.MemorySize];
-			var flags = !memInfo.bcstTo.IsDefault ? InstrOpInfoFlags.None : flagsNoBroadcast;
+			var flags = memInfo.bcstTo.Length != 0 ? InstrOpInfoFlags.None : flagsNoBroadcast;
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}

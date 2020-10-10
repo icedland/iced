@@ -361,7 +361,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		protected static FormatterString GetMnemonic(FormatterOptions options, in Instruction instruction, FormatterString mnemonic, FormatterString mnemonic_suffix, InstrOpInfoFlags flags) {
 			if (options.GasShowMnemonicSizeSuffix)
 				return mnemonic_suffix;
-			if ((flags & InstrOpInfoFlags.MnemonicSuffixIfMem) != 0 && MemorySizes.AllMemorySizes[(int)instruction.MemorySize].IsDefault) {
+			if ((flags & InstrOpInfoFlags.MnemonicSuffixIfMem) != 0 && MemorySizes.AllMemorySizes[(int)instruction.MemorySize].Length == 0) {
 				OpKind opKind;
 				if ((opKind = instruction.Op0Kind) == OpKind.Memory || opKind == OpKind.Memory64 ||
 					(opKind = instruction.Op1Kind) == OpKind.Memory || opKind == OpKind.Memory64 ||

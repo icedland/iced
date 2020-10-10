@@ -112,13 +112,13 @@ namespace Iced.Intel {
 		static readonly FormatterString str_xrelease = new FormatterString("xrelease");
 		static readonly FormatterString str_z = new FormatterString("z");
 		static readonly FormatterString[] s_opSizeStrings = new FormatterString[(int)InstrOpInfoFlags.SizeOverrideMask + 1] {
-			default,
+			new FormatterString(""),
 			new FormatterString("data16"),
 			new FormatterString("data32"),
 			new FormatterString("data64"),
 		};
 		static readonly FormatterString[] s_addrSizeStrings = new FormatterString[(int)InstrOpInfoFlags.SizeOverrideMask + 1] {
-			default,
+			new FormatterString(""),
 			new FormatterString("addr16"),
 			new FormatterString("addr32"),
 			new FormatterString("addr64"),
@@ -294,11 +294,11 @@ namespace Iced.Intel {
 					FormatterString prefix;
 
 					prefix = opSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.OpSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
-					if (!prefix.IsDefault)
+					if (prefix.Length != 0)
 						FormatPrefix(output, instruction, ref column, prefix, PrefixKind.OperandSize, ref needSpace);
 
 					prefix = addrSizeStrings[((int)opInfo.Flags >> (int)InstrOpInfoFlags.AddrSizeShift) & (int)InstrOpInfoFlags.SizeOverrideMask];
-					if (!prefix.IsDefault)
+					if (prefix.Length != 0)
 						FormatPrefix(output, instruction, ref column, prefix, PrefixKind.AddressSize, ref needSpace);
 
 					bool hasNotrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code);
@@ -1005,7 +1005,7 @@ namespace Iced.Intel {
 			var memSize = instruction.MemorySize;
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);
 			var bcstTo = allMemorySizes[(int)memSize].bcstTo;
-			if (!bcstTo.IsDefault)
+			if (bcstTo.Length != 0)
 				FormatDecorator(output, instruction, operand, instructionOperand, bcstTo, DecoratorKind.Broadcast);
 		}
 

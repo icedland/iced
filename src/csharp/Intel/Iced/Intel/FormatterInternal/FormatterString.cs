@@ -31,7 +31,6 @@ namespace Iced.Intel.FormatterInternal {
 		readonly string upper;
 #endif
 
-		public bool IsDefault => lower is null;
 		public int Length => lower.Length;
 
 		public FormatterString(string lower) {
@@ -50,10 +49,8 @@ namespace Iced.Intel.FormatterInternal {
 		}
 
 #if GAS || INTEL || MASM || NASM
-		public string Get(bool upper) {
-			Debug.Assert(!IsDefault);
-			return upper ? this.upper : lower;
-		}
+		public string Get(bool upper) =>
+			upper ? this.upper : lower;
 #endif
 
 #if FAST_FMT
