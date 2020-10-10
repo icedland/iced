@@ -8766,10 +8766,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x00010010,// Dec_r32
 				0x00030008,// Push_r16
 				0x00010010,// Push_r32
-				0x00021000,// Push_r64
+				0x00021018,// Push_r64
 				0x00030008,// Pop_r16
 				0x00010010,// Pop_r32
-				0x00021000,// Pop_r64
+				0x00021018,// Pop_r64
 				0x00010008,// Pushaw
 				0x00010010,// Pushad
 				0x00010008,// Popaw
@@ -8783,13 +8783,13 @@ namespace Iced.Intel.EncoderInternal {
 				0x00020018,// Movsxd_r64_rm32
 				0x00030008,// Push_imm16
 				0x00010010,// Pushd_imm32
-				0x00021000,// Pushq_imm32
+				0x00021018,// Pushq_imm32
 				0x00030008,// Imul_r16_rm16_imm16
 				0x00030010,// Imul_r32_rm32_imm32
 				0x00020018,// Imul_r64_rm64_imm32
 				0x00030008,// Pushw_imm8
 				0x00010010,// Pushd_imm8
-				0x00021000,// Pushq_imm8
+				0x00021018,// Pushq_imm8
 				0x00030008,// Imul_r16_rm16_imm8
 				0x00030010,// Imul_r32_rm32_imm8
 				0x00020018,// Imul_r64_rm64_imm8
@@ -8801,52 +8801,52 @@ namespace Iced.Intel.EncoderInternal {
 				0x00230010,// Outsd_DX_m32
 				0x01830008,// Jo_rel8_16
 				0x01810010,// Jo_rel8_32
-				0x01825000,// Jo_rel8_64
+				0x01825018,// Jo_rel8_64
 				0x01830008,// Jno_rel8_16
 				0x01810010,// Jno_rel8_32
-				0x01825000,// Jno_rel8_64
+				0x01825018,// Jno_rel8_64
 				0x01830008,// Jb_rel8_16
 				0x01810010,// Jb_rel8_32
-				0x01825000,// Jb_rel8_64
+				0x01825018,// Jb_rel8_64
 				0x01830008,// Jae_rel8_16
 				0x01810010,// Jae_rel8_32
-				0x01825000,// Jae_rel8_64
+				0x01825018,// Jae_rel8_64
 				0x01830008,// Je_rel8_16
 				0x01810010,// Je_rel8_32
-				0x01825000,// Je_rel8_64
+				0x01825018,// Je_rel8_64
 				0x01830008,// Jne_rel8_16
 				0x01810010,// Jne_rel8_32
-				0x01825000,// Jne_rel8_64
+				0x01825018,// Jne_rel8_64
 				0x01830008,// Jbe_rel8_16
 				0x01810010,// Jbe_rel8_32
-				0x01825000,// Jbe_rel8_64
+				0x01825018,// Jbe_rel8_64
 				0x01830008,// Ja_rel8_16
 				0x01810010,// Ja_rel8_32
-				0x01825000,// Ja_rel8_64
+				0x01825018,// Ja_rel8_64
 				0x01830008,// Js_rel8_16
 				0x01810010,// Js_rel8_32
-				0x01825000,// Js_rel8_64
+				0x01825018,// Js_rel8_64
 				0x01830008,// Jns_rel8_16
 				0x01810010,// Jns_rel8_32
-				0x01825000,// Jns_rel8_64
+				0x01825018,// Jns_rel8_64
 				0x01830008,// Jp_rel8_16
 				0x01810010,// Jp_rel8_32
-				0x01825000,// Jp_rel8_64
+				0x01825018,// Jp_rel8_64
 				0x01830008,// Jnp_rel8_16
 				0x01810010,// Jnp_rel8_32
-				0x01825000,// Jnp_rel8_64
+				0x01825018,// Jnp_rel8_64
 				0x01830008,// Jl_rel8_16
 				0x01810010,// Jl_rel8_32
-				0x01825000,// Jl_rel8_64
+				0x01825018,// Jl_rel8_64
 				0x01830008,// Jge_rel8_16
 				0x01810010,// Jge_rel8_32
-				0x01825000,// Jge_rel8_64
+				0x01825018,// Jge_rel8_64
 				0x01830008,// Jle_rel8_16
 				0x01810010,// Jle_rel8_32
-				0x01825000,// Jle_rel8_64
+				0x01825018,// Jle_rel8_64
 				0x01830008,// Jg_rel8_16
 				0x01810010,// Jg_rel8_32
-				0x01825000,// Jg_rel8_64
+				0x01825018,// Jg_rel8_64
 				0x001F0000,// Add_rm8_imm8
 				0x001F0000,// Or_rm8_imm8
 				0x001F0000,// Adc_rm8_imm8
@@ -8938,7 +8938,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00020018,// Mov_Sreg_r64m16
 				0x00030008,// Pop_rm16
 				0x00010010,// Pop_rm32
-				0x00021000,// Pop_rm64
+				0x00021018,// Pop_rm64
 				0x00030008,// Nopw
 				0x00030010,// Nopd
 				0x00020018,// Nopq
@@ -8957,10 +8957,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x00030000,// Wait
 				0x00030008,// Pushfw
 				0x00010010,// Pushfd
-				0x00021000,// Pushfq
+				0x00021018,// Pushfq
 				0x00030008,// Popfw
 				0x00010010,// Popfd
-				0x00021000,// Popfq
+				0x00021018,// Popfq
 				0x00030000,// Sahf
 				0x00030000,// Lahf
 				0x00030000,// Mov_AL_moffs8
@@ -9033,10 +9033,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x00020018,// Sar_rm64_imm8
 				0x00830008,// Retnw_imm16
 				0x00810010,// Retnd_imm16
-				0x00825000,// Retnq_imm16
+				0x00825018,// Retnq_imm16
 				0x00830008,// Retnw
 				0x00810010,// Retnd
-				0x00825000,// Retnq
+				0x00825018,// Retnq
 				0x00010008,// Les_r16_m1616
 				0x00010010,// Les_r32_m1632
 				0x00010008,// Lds_r16_m1616
@@ -9050,10 +9050,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x00030010,// Xbegin_rel32
 				0x00030008,// Enterw_imm16_imm8
 				0x00010010,// Enterd_imm16_imm8
-				0x00021000,// Enterq_imm16_imm8
+				0x00021018,// Enterq_imm16_imm8
 				0x00030008,// Leavew
 				0x00010010,// Leaved
-				0x00021000,// Leaveq
+				0x00021018,// Leaveq
 				0x00030008,// Retfw_imm16
 				0x00030010,// Retfd_imm16
 				0x00020018,// Retfq_imm16
@@ -9301,30 +9301,30 @@ namespace Iced.Intel.EncoderInternal {
 				0x00010030,// Loopne_rel8_32_CX
 				0x00030048,// Loopne_rel8_16_ECX
 				0x00010050,// Loopne_rel8_32_ECX
-				0x00025040,// Loopne_rel8_64_ECX
+				0x00025058,// Loopne_rel8_64_ECX
 				0x00020068,// Loopne_rel8_16_RCX
-				0x00025060,// Loopne_rel8_64_RCX
+				0x00025078,// Loopne_rel8_64_RCX
 				0x00010028,// Loope_rel8_16_CX
 				0x00010030,// Loope_rel8_32_CX
 				0x00030048,// Loope_rel8_16_ECX
 				0x00010050,// Loope_rel8_32_ECX
-				0x00025040,// Loope_rel8_64_ECX
+				0x00025058,// Loope_rel8_64_ECX
 				0x00020068,// Loope_rel8_16_RCX
-				0x00025060,// Loope_rel8_64_RCX
+				0x00025078,// Loope_rel8_64_RCX
 				0x00010028,// Loop_rel8_16_CX
 				0x00010030,// Loop_rel8_32_CX
 				0x00030048,// Loop_rel8_16_ECX
 				0x00010050,// Loop_rel8_32_ECX
-				0x00025040,// Loop_rel8_64_ECX
+				0x00025058,// Loop_rel8_64_ECX
 				0x00020068,// Loop_rel8_16_RCX
-				0x00025060,// Loop_rel8_64_RCX
+				0x00025078,// Loop_rel8_64_RCX
 				0x00010028,// Jcxz_rel8_16
 				0x00010030,// Jcxz_rel8_32
 				0x00030048,// Jecxz_rel8_16
 				0x00010050,// Jecxz_rel8_32
-				0x00025040,// Jecxz_rel8_64
+				0x00025058,// Jecxz_rel8_64
 				0x00020068,// Jrcxz_rel8_16
-				0x00025060,// Jrcxz_rel8_64
+				0x00025078,// Jrcxz_rel8_64
 				0x00030000,// In_AL_imm8
 				0x00030008,// In_AX_imm8
 				0x00030010,// In_EAX_imm8
@@ -9333,15 +9333,15 @@ namespace Iced.Intel.EncoderInternal {
 				0x00030010,// Out_imm8_EAX
 				0x00830008,// Call_rel16
 				0x00810010,// Call_rel32_32
-				0x00825000,// Call_rel32_64
+				0x00825018,// Call_rel32_64
 				0x00830008,// Jmp_rel16
 				0x00810010,// Jmp_rel32_32
-				0x00825000,// Jmp_rel32_64
+				0x00825018,// Jmp_rel32_64
 				0x00010008,// Jmp_ptr1616
 				0x00010010,// Jmp_ptr1632
 				0x00030008,// Jmp_rel8_16
 				0x00010010,// Jmp_rel8_32
-				0x00025000,// Jmp_rel8_64
+				0x00025018,// Jmp_rel8_64
 				0x00030000,// In_AL_DX
 				0x00030008,// In_AX_DX
 				0x00030010,// In_EAX_DX
@@ -9399,19 +9399,19 @@ namespace Iced.Intel.EncoderInternal {
 				0x001E0018,// Dec_rm64
 				0x02830008,// Call_rm16
 				0x02810010,// Call_rm32
-				0x02825000,// Call_rm64
+				0x02825018,// Call_rm64
 				0x00030008,// Call_m1616
 				0x00030010,// Call_m1632
 				0x00020018,// Call_m1664
 				0x02830008,// Jmp_rm16
 				0x02810010,// Jmp_rm32
-				0x02825000,// Jmp_rm64
+				0x02825018,// Jmp_rm64
 				0x00030008,// Jmp_m1616
 				0x00030010,// Jmp_m1632
 				0x00020018,// Jmp_m1664
 				0x00030008,// Push_rm16
 				0x00010010,// Push_rm32
-				0x00021000,// Push_rm64
+				0x00021018,// Push_rm64
 				0x00030008,// Sldt_rm16
 				0x00030010,// Sldt_r32m16
 				0x00020018,// Sldt_r64m16
@@ -10496,52 +10496,52 @@ namespace Iced.Intel.EncoderInternal {
 				0x60030302,// EVEX_Vmovdqu16_zmmm512_k1z_zmm
 				0x01830008,// Jo_rel16
 				0x01810010,// Jo_rel32_32
-				0x01825000,// Jo_rel32_64
+				0x01825018,// Jo_rel32_64
 				0x01830008,// Jno_rel16
 				0x01810010,// Jno_rel32_32
-				0x01825000,// Jno_rel32_64
+				0x01825018,// Jno_rel32_64
 				0x01830008,// Jb_rel16
 				0x01810010,// Jb_rel32_32
-				0x01825000,// Jb_rel32_64
+				0x01825018,// Jb_rel32_64
 				0x01830008,// Jae_rel16
 				0x01810010,// Jae_rel32_32
-				0x01825000,// Jae_rel32_64
+				0x01825018,// Jae_rel32_64
 				0x01830008,// Je_rel16
 				0x01810010,// Je_rel32_32
-				0x01825000,// Je_rel32_64
+				0x01825018,// Je_rel32_64
 				0x01830008,// Jne_rel16
 				0x01810010,// Jne_rel32_32
-				0x01825000,// Jne_rel32_64
+				0x01825018,// Jne_rel32_64
 				0x01830008,// Jbe_rel16
 				0x01810010,// Jbe_rel32_32
-				0x01825000,// Jbe_rel32_64
+				0x01825018,// Jbe_rel32_64
 				0x01830008,// Ja_rel16
 				0x01810010,// Ja_rel32_32
-				0x01825000,// Ja_rel32_64
+				0x01825018,// Ja_rel32_64
 				0x01830008,// Js_rel16
 				0x01810010,// Js_rel32_32
-				0x01825000,// Js_rel32_64
+				0x01825018,// Js_rel32_64
 				0x01830008,// Jns_rel16
 				0x01810010,// Jns_rel32_32
-				0x01825000,// Jns_rel32_64
+				0x01825018,// Jns_rel32_64
 				0x01830008,// Jp_rel16
 				0x01810010,// Jp_rel32_32
-				0x01825000,// Jp_rel32_64
+				0x01825018,// Jp_rel32_64
 				0x01830008,// Jnp_rel16
 				0x01810010,// Jnp_rel32_32
-				0x01825000,// Jnp_rel32_64
+				0x01825018,// Jnp_rel32_64
 				0x01830008,// Jl_rel16
 				0x01810010,// Jl_rel32_32
-				0x01825000,// Jl_rel32_64
+				0x01825018,// Jl_rel32_64
 				0x01830008,// Jge_rel16
 				0x01810010,// Jge_rel32_32
-				0x01825000,// Jge_rel32_64
+				0x01825018,// Jge_rel32_64
 				0x01830008,// Jle_rel16
 				0x01810010,// Jle_rel32_32
-				0x01825000,// Jle_rel32_64
+				0x01825018,// Jle_rel32_64
 				0x01830008,// Jg_rel16
 				0x01810010,// Jg_rel32_32
-				0x01825000,// Jg_rel32_64
+				0x01825018,// Jg_rel32_64
 				0x00030000,// Seto_rm8
 				0x00030000,// Setno_rm8
 				0x00030000,// Setb_rm8
@@ -10584,10 +10584,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x00030001,// VEX_Ktestd_kr_kr
 				0x00030008,// Pushw_FS
 				0x00010010,// Pushd_FS
-				0x00021000,// Pushq_FS
+				0x00021018,// Pushq_FS
 				0x00030008,// Popw_FS
 				0x00010010,// Popd_FS
-				0x00021000,// Popq_FS
+				0x00021018,// Popq_FS
 				0x00030000,// Cpuid
 				0x00030008,// Bt_rm16_r16
 				0x00030010,// Bt_rm32_r32
@@ -10634,10 +10634,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x00010010,// Cmpxchg486_rm32_r32
 				0x00030008,// Pushw_GS
 				0x00010010,// Pushd_GS
-				0x00021000,// Pushq_GS
+				0x00021018,// Pushq_GS
 				0x00030008,// Popw_GS
 				0x00010010,// Popd_GS
-				0x00021000,// Popq_GS
+				0x00021018,// Popq_GS
 				0x00030000,// Rsm
 				0x001F0008,// Bts_rm16_r16
 				0x001F0010,// Bts_rm32_r32

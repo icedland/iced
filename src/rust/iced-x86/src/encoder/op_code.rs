@@ -448,14 +448,14 @@ impl OpCodeInfo {
 		(self.enc_flags3 & EncFlags3::FWAIT) != 0
 	}
 
-	/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (`66`) or `REX.W` prefix is needed
+	/// (Legacy encoding) Gets the required operand size (16,32,64) or 0
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn operand_size(&self) -> u32 {
 		self.operand_size as u32
 	}
 
-	/// (Legacy encoding) Gets the required address size (16,32,64) or 0 if no address size prefix (`67`) is needed
+	/// (Legacy encoding) Gets the required address size (16,32,64) or 0
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn address_size(&self) -> u32 {

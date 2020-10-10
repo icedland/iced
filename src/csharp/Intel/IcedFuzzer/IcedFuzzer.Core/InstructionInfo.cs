@@ -307,8 +307,10 @@ namespace IcedFuzzer.Core {
 					break;
 
 				case 64:
-					w = 1;
-					SetUsedBits(UsedBits.w);
+					if (!instruction.DefaultOperandSize64) {
+						w = 1;
+						SetUsedBits(UsedBits.w);
+					}
 					break;
 
 				default:

@@ -431,7 +431,7 @@ namespace Iced.Intel.EncoderInternal {
 				break;
 
 			case 64:
-				// REX.W must be immediately before the opcode and is handled below
+				// o64 (REX.W) must be immediately before the opcode and is handled below
 				break;
 
 			default:
@@ -460,10 +460,8 @@ namespace Iced.Intel.EncoderInternal {
 				throw new InvalidOperationException();
 			}
 
-			if (opCode.OperandSize == 64) {
-				// There's no '+' because Intel isn't consistent, some opcodes use it others don't
-				sb.Append("REX.W ");
-			}
+			if (opCode.OperandSize == 64)
+				sb.Append("o64 ");
 
 			AppendTable(true);
 			if (opCode.Table != OpCodeTableKind.Normal)

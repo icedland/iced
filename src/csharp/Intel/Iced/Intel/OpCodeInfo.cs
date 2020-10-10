@@ -324,12 +324,12 @@ namespace Iced.Intel {
 		public bool Fwait => (encFlags3 & EncFlags3.Fwait) != 0;
 
 		/// <summary>
-		/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (<c>66</c>) or <c>REX.W</c> prefix is needed
+		/// (Legacy encoding) Gets the required operand size (16,32,64) or 0
 		/// </summary>
 		public int OperandSize => operandSize;
 
 		/// <summary>
-		/// (Legacy encoding) Gets the required address size (16,32,64) or 0 if no address size prefix (<c>67</c>) is needed
+		/// (Legacy encoding) Gets the required address size (16,32,64) or 0
 		/// </summary>
 		public int AddressSize => addressSize;
 

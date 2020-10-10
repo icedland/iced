@@ -364,7 +364,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			0 => {}
 			16 => self.sb.push_str("o16 "),
 			32 => self.sb.push_str("o32 "),
-			64 => {} // REX.W must be immediately before the opcode and is handled below
+			64 => {} // o64 (REX.W) must be immediately before the opcode and is handled below
 			_ => unreachable!(),
 		}
 
@@ -386,8 +386,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		}
 
 		if self.op_code.operand_size() == 64 {
-			// There's no '+' because Intel isn't consistent, some opcodes use it others don't
-			self.sb.push_str("REX.W ");
+			self.sb.push_str("o64 ");
 		}
 
 		self.append_table(true);

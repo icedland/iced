@@ -120,7 +120,7 @@ namespace IcedFuzzer {
 				genFlags |= InstrGenFlags.NoEVEX;
 			if (!options.OpCodeInfoOptions.Include3DNow)
 				genFlags |= InstrGenFlags.No3DNow;
-			var encodingTables = InstrGen.Create(options.OpCodeInfoOptions.Bitness, infos, genFlags);
+			var encodingTables = InstrGen.Create(options.OpCodeInfoOptions.CpuDecoder, options.OpCodeInfoOptions.Bitness, infos, genFlags);
 
 			var instructions = encodingTables.GetOpCodeGroups().SelectMany(a => a.opCodes).SelectMany(a => a.Instructions).Where(instr => {
 				if (!options.Filter.ShouldInclude(instr.Code, instr.IsModrmMemory))

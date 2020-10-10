@@ -537,7 +537,7 @@ namespace IcedFuzzer.Core {
 							isValid = false;
 
 						// REX.W overrides 66
-						if ((rex & 8) == 0 && context.Instruction.OperandSize != 64) {
+						if ((rex & 8) == 0 && (context.Instruction.OperandSize != 64 || context.Instruction.DefaultOperandSize64)) {
 							int opSize = context.Bitness == 16 ? 32 : 16;
 							if (context.Instruction.DontUsePrefix66 && context.Instruction.OperandSize != opSize)
 								continue;

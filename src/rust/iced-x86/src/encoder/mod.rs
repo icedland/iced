@@ -302,7 +302,11 @@ impl Encoder {
 			CodeSize::Unknown => {}
 			CodeSize::Code16 => self.encoder_flags |= self.opsize16_flags,
 			CodeSize::Code32 => self.encoder_flags |= self.opsize32_flags,
-			CodeSize::Code64 => self.encoder_flags |= EncoderFlags::W,
+			CodeSize::Code64 => {
+				if (handler.enc_flags3 & EncFlags3::DEFAULT_OP_SIZE64) == 0 {
+					self.encoder_flags |= EncoderFlags::W
+				}
+			}
 		}
 
 		match handler.addr_size {

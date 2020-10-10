@@ -135,14 +135,14 @@ impl OpCodeInfo {
 		self.0.fwait()
 	}
 
-	/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (`66`) or `REX.W` prefix is needed
+	/// (Legacy encoding) Gets the required operand size (16,32,64) or 0
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "operandSize")]
 	pub fn operand_size(&self) -> u32 {
 		self.0.operand_size()
 	}
 
-	/// (Legacy encoding) Gets the required address size (16,32,64) or 0 if no address size prefix (`67`) is needed
+	/// (Legacy encoding) Gets the required address size (16,32,64) or 0
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "addressSize")]
 	pub fn address_size(&self) -> u32 {

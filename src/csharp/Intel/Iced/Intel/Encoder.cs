@@ -254,7 +254,8 @@ namespace Iced.Intel {
 				break;
 
 			case CodeSize.Code64:
-				EncoderFlags |= EncoderFlags.W;
+				if ((handler.EncFlags3 & EncFlags3.DefaultOpSize64) == 0)
+					EncoderFlags |= EncoderFlags.W;
 				break;
 
 			default:

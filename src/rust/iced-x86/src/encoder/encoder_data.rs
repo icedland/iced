@@ -8755,10 +8755,10 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0001_0010,// Dec_r32
 	0x0003_0008,// Push_r16
 	0x0001_0010,// Push_r32
-	0x0002_1000,// Push_r64
+	0x0002_1018,// Push_r64
 	0x0003_0008,// Pop_r16
 	0x0001_0010,// Pop_r32
-	0x0002_1000,// Pop_r64
+	0x0002_1018,// Pop_r64
 	0x0001_0008,// Pushaw
 	0x0001_0010,// Pushad
 	0x0001_0008,// Popaw
@@ -8772,13 +8772,13 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0002_0018,// Movsxd_r64_rm32
 	0x0003_0008,// Push_imm16
 	0x0001_0010,// Pushd_imm32
-	0x0002_1000,// Pushq_imm32
+	0x0002_1018,// Pushq_imm32
 	0x0003_0008,// Imul_r16_rm16_imm16
 	0x0003_0010,// Imul_r32_rm32_imm32
 	0x0002_0018,// Imul_r64_rm64_imm32
 	0x0003_0008,// Pushw_imm8
 	0x0001_0010,// Pushd_imm8
-	0x0002_1000,// Pushq_imm8
+	0x0002_1018,// Pushq_imm8
 	0x0003_0008,// Imul_r16_rm16_imm8
 	0x0003_0010,// Imul_r32_rm32_imm8
 	0x0002_0018,// Imul_r64_rm64_imm8
@@ -8790,52 +8790,52 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0023_0010,// Outsd_DX_m32
 	0x0183_0008,// Jo_rel8_16
 	0x0181_0010,// Jo_rel8_32
-	0x0182_5000,// Jo_rel8_64
+	0x0182_5018,// Jo_rel8_64
 	0x0183_0008,// Jno_rel8_16
 	0x0181_0010,// Jno_rel8_32
-	0x0182_5000,// Jno_rel8_64
+	0x0182_5018,// Jno_rel8_64
 	0x0183_0008,// Jb_rel8_16
 	0x0181_0010,// Jb_rel8_32
-	0x0182_5000,// Jb_rel8_64
+	0x0182_5018,// Jb_rel8_64
 	0x0183_0008,// Jae_rel8_16
 	0x0181_0010,// Jae_rel8_32
-	0x0182_5000,// Jae_rel8_64
+	0x0182_5018,// Jae_rel8_64
 	0x0183_0008,// Je_rel8_16
 	0x0181_0010,// Je_rel8_32
-	0x0182_5000,// Je_rel8_64
+	0x0182_5018,// Je_rel8_64
 	0x0183_0008,// Jne_rel8_16
 	0x0181_0010,// Jne_rel8_32
-	0x0182_5000,// Jne_rel8_64
+	0x0182_5018,// Jne_rel8_64
 	0x0183_0008,// Jbe_rel8_16
 	0x0181_0010,// Jbe_rel8_32
-	0x0182_5000,// Jbe_rel8_64
+	0x0182_5018,// Jbe_rel8_64
 	0x0183_0008,// Ja_rel8_16
 	0x0181_0010,// Ja_rel8_32
-	0x0182_5000,// Ja_rel8_64
+	0x0182_5018,// Ja_rel8_64
 	0x0183_0008,// Js_rel8_16
 	0x0181_0010,// Js_rel8_32
-	0x0182_5000,// Js_rel8_64
+	0x0182_5018,// Js_rel8_64
 	0x0183_0008,// Jns_rel8_16
 	0x0181_0010,// Jns_rel8_32
-	0x0182_5000,// Jns_rel8_64
+	0x0182_5018,// Jns_rel8_64
 	0x0183_0008,// Jp_rel8_16
 	0x0181_0010,// Jp_rel8_32
-	0x0182_5000,// Jp_rel8_64
+	0x0182_5018,// Jp_rel8_64
 	0x0183_0008,// Jnp_rel8_16
 	0x0181_0010,// Jnp_rel8_32
-	0x0182_5000,// Jnp_rel8_64
+	0x0182_5018,// Jnp_rel8_64
 	0x0183_0008,// Jl_rel8_16
 	0x0181_0010,// Jl_rel8_32
-	0x0182_5000,// Jl_rel8_64
+	0x0182_5018,// Jl_rel8_64
 	0x0183_0008,// Jge_rel8_16
 	0x0181_0010,// Jge_rel8_32
-	0x0182_5000,// Jge_rel8_64
+	0x0182_5018,// Jge_rel8_64
 	0x0183_0008,// Jle_rel8_16
 	0x0181_0010,// Jle_rel8_32
-	0x0182_5000,// Jle_rel8_64
+	0x0182_5018,// Jle_rel8_64
 	0x0183_0008,// Jg_rel8_16
 	0x0181_0010,// Jg_rel8_32
-	0x0182_5000,// Jg_rel8_64
+	0x0182_5018,// Jg_rel8_64
 	0x001F_0000,// Add_rm8_imm8
 	0x001F_0000,// Or_rm8_imm8
 	0x001F_0000,// Adc_rm8_imm8
@@ -8927,7 +8927,7 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0002_0018,// Mov_Sreg_r64m16
 	0x0003_0008,// Pop_rm16
 	0x0001_0010,// Pop_rm32
-	0x0002_1000,// Pop_rm64
+	0x0002_1018,// Pop_rm64
 	0x0003_0008,// Nopw
 	0x0003_0010,// Nopd
 	0x0002_0018,// Nopq
@@ -8946,10 +8946,10 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0003_0000,// Wait
 	0x0003_0008,// Pushfw
 	0x0001_0010,// Pushfd
-	0x0002_1000,// Pushfq
+	0x0002_1018,// Pushfq
 	0x0003_0008,// Popfw
 	0x0001_0010,// Popfd
-	0x0002_1000,// Popfq
+	0x0002_1018,// Popfq
 	0x0003_0000,// Sahf
 	0x0003_0000,// Lahf
 	0x0003_0000,// Mov_AL_moffs8
@@ -9022,10 +9022,10 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0002_0018,// Sar_rm64_imm8
 	0x0083_0008,// Retnw_imm16
 	0x0081_0010,// Retnd_imm16
-	0x0082_5000,// Retnq_imm16
+	0x0082_5018,// Retnq_imm16
 	0x0083_0008,// Retnw
 	0x0081_0010,// Retnd
-	0x0082_5000,// Retnq
+	0x0082_5018,// Retnq
 	0x0001_0008,// Les_r16_m1616
 	0x0001_0010,// Les_r32_m1632
 	0x0001_0008,// Lds_r16_m1616
@@ -9039,10 +9039,10 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0003_0010,// Xbegin_rel32
 	0x0003_0008,// Enterw_imm16_imm8
 	0x0001_0010,// Enterd_imm16_imm8
-	0x0002_1000,// Enterq_imm16_imm8
+	0x0002_1018,// Enterq_imm16_imm8
 	0x0003_0008,// Leavew
 	0x0001_0010,// Leaved
-	0x0002_1000,// Leaveq
+	0x0002_1018,// Leaveq
 	0x0003_0008,// Retfw_imm16
 	0x0003_0010,// Retfd_imm16
 	0x0002_0018,// Retfq_imm16
@@ -9290,30 +9290,30 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0001_0030,// Loopne_rel8_32_CX
 	0x0003_0048,// Loopne_rel8_16_ECX
 	0x0001_0050,// Loopne_rel8_32_ECX
-	0x0002_5040,// Loopne_rel8_64_ECX
+	0x0002_5058,// Loopne_rel8_64_ECX
 	0x0002_0068,// Loopne_rel8_16_RCX
-	0x0002_5060,// Loopne_rel8_64_RCX
+	0x0002_5078,// Loopne_rel8_64_RCX
 	0x0001_0028,// Loope_rel8_16_CX
 	0x0001_0030,// Loope_rel8_32_CX
 	0x0003_0048,// Loope_rel8_16_ECX
 	0x0001_0050,// Loope_rel8_32_ECX
-	0x0002_5040,// Loope_rel8_64_ECX
+	0x0002_5058,// Loope_rel8_64_ECX
 	0x0002_0068,// Loope_rel8_16_RCX
-	0x0002_5060,// Loope_rel8_64_RCX
+	0x0002_5078,// Loope_rel8_64_RCX
 	0x0001_0028,// Loop_rel8_16_CX
 	0x0001_0030,// Loop_rel8_32_CX
 	0x0003_0048,// Loop_rel8_16_ECX
 	0x0001_0050,// Loop_rel8_32_ECX
-	0x0002_5040,// Loop_rel8_64_ECX
+	0x0002_5058,// Loop_rel8_64_ECX
 	0x0002_0068,// Loop_rel8_16_RCX
-	0x0002_5060,// Loop_rel8_64_RCX
+	0x0002_5078,// Loop_rel8_64_RCX
 	0x0001_0028,// Jcxz_rel8_16
 	0x0001_0030,// Jcxz_rel8_32
 	0x0003_0048,// Jecxz_rel8_16
 	0x0001_0050,// Jecxz_rel8_32
-	0x0002_5040,// Jecxz_rel8_64
+	0x0002_5058,// Jecxz_rel8_64
 	0x0002_0068,// Jrcxz_rel8_16
-	0x0002_5060,// Jrcxz_rel8_64
+	0x0002_5078,// Jrcxz_rel8_64
 	0x0003_0000,// In_AL_imm8
 	0x0003_0008,// In_AX_imm8
 	0x0003_0010,// In_EAX_imm8
@@ -9322,15 +9322,15 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0003_0010,// Out_imm8_EAX
 	0x0083_0008,// Call_rel16
 	0x0081_0010,// Call_rel32_32
-	0x0082_5000,// Call_rel32_64
+	0x0082_5018,// Call_rel32_64
 	0x0083_0008,// Jmp_rel16
 	0x0081_0010,// Jmp_rel32_32
-	0x0082_5000,// Jmp_rel32_64
+	0x0082_5018,// Jmp_rel32_64
 	0x0001_0008,// Jmp_ptr1616
 	0x0001_0010,// Jmp_ptr1632
 	0x0003_0008,// Jmp_rel8_16
 	0x0001_0010,// Jmp_rel8_32
-	0x0002_5000,// Jmp_rel8_64
+	0x0002_5018,// Jmp_rel8_64
 	0x0003_0000,// In_AL_DX
 	0x0003_0008,// In_AX_DX
 	0x0003_0010,// In_EAX_DX
@@ -9388,19 +9388,19 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x001E_0018,// Dec_rm64
 	0x0283_0008,// Call_rm16
 	0x0281_0010,// Call_rm32
-	0x0282_5000,// Call_rm64
+	0x0282_5018,// Call_rm64
 	0x0003_0008,// Call_m1616
 	0x0003_0010,// Call_m1632
 	0x0002_0018,// Call_m1664
 	0x0283_0008,// Jmp_rm16
 	0x0281_0010,// Jmp_rm32
-	0x0282_5000,// Jmp_rm64
+	0x0282_5018,// Jmp_rm64
 	0x0003_0008,// Jmp_m1616
 	0x0003_0010,// Jmp_m1632
 	0x0002_0018,// Jmp_m1664
 	0x0003_0008,// Push_rm16
 	0x0001_0010,// Push_rm32
-	0x0002_1000,// Push_rm64
+	0x0002_1018,// Push_rm64
 	0x0003_0008,// Sldt_rm16
 	0x0003_0010,// Sldt_r32m16
 	0x0002_0018,// Sldt_r64m16
@@ -10485,52 +10485,52 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x6003_0302,// EVEX_Vmovdqu16_zmmm512_k1z_zmm
 	0x0183_0008,// Jo_rel16
 	0x0181_0010,// Jo_rel32_32
-	0x0182_5000,// Jo_rel32_64
+	0x0182_5018,// Jo_rel32_64
 	0x0183_0008,// Jno_rel16
 	0x0181_0010,// Jno_rel32_32
-	0x0182_5000,// Jno_rel32_64
+	0x0182_5018,// Jno_rel32_64
 	0x0183_0008,// Jb_rel16
 	0x0181_0010,// Jb_rel32_32
-	0x0182_5000,// Jb_rel32_64
+	0x0182_5018,// Jb_rel32_64
 	0x0183_0008,// Jae_rel16
 	0x0181_0010,// Jae_rel32_32
-	0x0182_5000,// Jae_rel32_64
+	0x0182_5018,// Jae_rel32_64
 	0x0183_0008,// Je_rel16
 	0x0181_0010,// Je_rel32_32
-	0x0182_5000,// Je_rel32_64
+	0x0182_5018,// Je_rel32_64
 	0x0183_0008,// Jne_rel16
 	0x0181_0010,// Jne_rel32_32
-	0x0182_5000,// Jne_rel32_64
+	0x0182_5018,// Jne_rel32_64
 	0x0183_0008,// Jbe_rel16
 	0x0181_0010,// Jbe_rel32_32
-	0x0182_5000,// Jbe_rel32_64
+	0x0182_5018,// Jbe_rel32_64
 	0x0183_0008,// Ja_rel16
 	0x0181_0010,// Ja_rel32_32
-	0x0182_5000,// Ja_rel32_64
+	0x0182_5018,// Ja_rel32_64
 	0x0183_0008,// Js_rel16
 	0x0181_0010,// Js_rel32_32
-	0x0182_5000,// Js_rel32_64
+	0x0182_5018,// Js_rel32_64
 	0x0183_0008,// Jns_rel16
 	0x0181_0010,// Jns_rel32_32
-	0x0182_5000,// Jns_rel32_64
+	0x0182_5018,// Jns_rel32_64
 	0x0183_0008,// Jp_rel16
 	0x0181_0010,// Jp_rel32_32
-	0x0182_5000,// Jp_rel32_64
+	0x0182_5018,// Jp_rel32_64
 	0x0183_0008,// Jnp_rel16
 	0x0181_0010,// Jnp_rel32_32
-	0x0182_5000,// Jnp_rel32_64
+	0x0182_5018,// Jnp_rel32_64
 	0x0183_0008,// Jl_rel16
 	0x0181_0010,// Jl_rel32_32
-	0x0182_5000,// Jl_rel32_64
+	0x0182_5018,// Jl_rel32_64
 	0x0183_0008,// Jge_rel16
 	0x0181_0010,// Jge_rel32_32
-	0x0182_5000,// Jge_rel32_64
+	0x0182_5018,// Jge_rel32_64
 	0x0183_0008,// Jle_rel16
 	0x0181_0010,// Jle_rel32_32
-	0x0182_5000,// Jle_rel32_64
+	0x0182_5018,// Jle_rel32_64
 	0x0183_0008,// Jg_rel16
 	0x0181_0010,// Jg_rel32_32
-	0x0182_5000,// Jg_rel32_64
+	0x0182_5018,// Jg_rel32_64
 	0x0003_0000,// Seto_rm8
 	0x0003_0000,// Setno_rm8
 	0x0003_0000,// Setb_rm8
@@ -10573,10 +10573,10 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0003_0001,// VEX_Ktestd_kr_kr
 	0x0003_0008,// Pushw_FS
 	0x0001_0010,// Pushd_FS
-	0x0002_1000,// Pushq_FS
+	0x0002_1018,// Pushq_FS
 	0x0003_0008,// Popw_FS
 	0x0001_0010,// Popd_FS
-	0x0002_1000,// Popq_FS
+	0x0002_1018,// Popq_FS
 	0x0003_0000,// Cpuid
 	0x0003_0008,// Bt_rm16_r16
 	0x0003_0010,// Bt_rm32_r32
@@ -10623,10 +10623,10 @@ pub(super) static ENC_FLAGS3: [u32; 4299] = [
 	0x0001_0010,// Cmpxchg486_rm32_r32
 	0x0003_0008,// Pushw_GS
 	0x0001_0010,// Pushd_GS
-	0x0002_1000,// Pushq_GS
+	0x0002_1018,// Pushq_GS
 	0x0003_0008,// Popw_GS
 	0x0001_0010,// Popd_GS
-	0x0002_1000,// Popq_GS
+	0x0002_1018,// Popq_GS
 	0x0003_0000,// Rsm
 	0x001F_0008,// Bts_rm16_r16
 	0x001F_0010,// Bts_rm32_r32

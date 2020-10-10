@@ -100,7 +100,7 @@ namespace Generator.Tables {
 					result.OperandSize = CodeSize.Code32;
 					continue;
 
-				case "REX.W":
+				case "o64":
 					if (result.OperandSize != CodeSize.Unknown) {
 						error = $"Duplicate operand size: `{part}`";
 						return false;
