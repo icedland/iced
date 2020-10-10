@@ -32,7 +32,7 @@ namespace Generator.Enums.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly Dictionary<TypeId, FullEnumFileInfo> toFullFileInfo;
+		readonly Dictionary<TypeId, FullEnumFileInfo?> toFullFileInfo;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
 		readonly DeprecatedWriter deprecatedWriter;
@@ -69,7 +69,7 @@ namespace Generator.Enums.CSharp {
 			docWriter = new CSharpDocCommentWriter(idConverter);
 			deprecatedWriter = new CSharpDeprecatedWriter(idConverter);
 
-			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo>();
+			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo?>();
 			toFullFileInfo.Add(TypeIds.Code, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.Code) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.CodeSize, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.CodeSize) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.ConditionCode, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.ConditionCode) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
@@ -193,8 +193,10 @@ namespace Generator.Enums.CSharp {
 		}
 
 		public override void Generate(EnumType enumType) {
-			if (toFullFileInfo.TryGetValue(enumType.TypeId, out var fullFileInfo))
-				WriteFile(fullFileInfo, enumType);
+			if (toFullFileInfo.TryGetValue(enumType.TypeId, out var fullFileInfo)) {
+				if (!(fullFileInfo is null))
+					WriteFile(fullFileInfo, enumType);
+			}
 			else if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
 				if (!(partialInfo is null))
 					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));

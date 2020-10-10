@@ -72,8 +72,9 @@ namespace Generator.Tables {
 		public readonly EnumValue RegisterKind;
 		public readonly uint Index;
 		public readonly uint Size;
+		public readonly string Name;
 
-		public RegisterDef(EnumValue register, EnumValue baseRegister, EnumValue fullRegister32, EnumValue fullRegister, EnumValue registerClass, EnumValue registerKind, uint size) {
+		public RegisterDef(EnumValue register, EnumValue baseRegister, EnumValue fullRegister32, EnumValue fullRegister, EnumValue registerClass, EnumValue registerKind, uint size, string name) {
 			Register = register;
 			BaseRegister = baseRegister;
 			FullRegister32 = fullRegister32;
@@ -82,6 +83,7 @@ namespace Generator.Tables {
 			RegisterKind = registerKind;
 			Size = size;
 			Index = register.Value - baseRegister.Value;
+			Name = name;
 		}
 	}
 }

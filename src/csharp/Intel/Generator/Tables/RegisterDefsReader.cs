@@ -33,11 +33,11 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toRegister;
 		readonly Dictionary<string, EnumValue> toRegisterKind;
 		readonly Dictionary<string, EnumValue> toRegisterClass;
-		readonly HashSet<EnumValue> createdRegs;
+		readonly HashSet<EnumValue> createdDefs;
 
 		public RegisterDefsReader(GenTypes genTypes, string filename) {
 			this.filename = filename;
-			createdRegs = genTypes[TypeIds.Register].Values.ToHashSet();
+			createdDefs = genTypes[TypeIds.Register].Values.ToHashSet();
 
 			toRegister = CreateEnumDict(genTypes[TypeIds.Register]);
 			toRegisterKind = CreateEnumDict(genTypes[TypeIds.RegisterKind]);
@@ -57,7 +57,7 @@ namespace Generator.Tables {
 					continue;
 
 				var parts = line.Split(',').Select(a => a.Trim()).ToArray();
-				if (parts.Length != 7)
+				if (parts.Length != 8)
 					throw new InvalidOperationException();
 
 				var register = toRegister[parts[0]];
@@ -67,16 +67,17 @@ namespace Generator.Tables {
 				uint size = uint.Parse(parts[4]);
 				var regKind = toRegisterKind[parts[5]];
 				var regClass = toRegisterClass[parts[6]];
+				var name = parts[7].ToLowerInvariant();
 
-				if (!createdRegs.Remove(register))
+				if (!createdDefs.Remove(register))
 					throw new InvalidOperationException($"Duplicate register def on line {i + 1}");
 
-				var def = new RegisterDef(register, baseRegister, fullRegister32, fullRegister, regClass, regKind, size);
+				var def = new RegisterDef(register, baseRegister, fullRegister32, fullRegister, regClass, regKind, size, name);
 				defs.Add(def);
 			}
 
-			if (createdRegs.Count != 0)
-				throw new InvalidOperationException("Missing register(s) in defs file: " + string.Join(", ", createdRegs.Select(a => a.RawName).ToArray()));
+			if (createdDefs.Count != 0)
+				throw new InvalidOperationException("Missing register(s) in defs file: " + string.Join(", ", createdDefs.Select(a => a.RawName).ToArray()));
 			return defs.OrderBy(a => a.Register.Value).ToArray();
 		}
 	}

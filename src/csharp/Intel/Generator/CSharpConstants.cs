@@ -57,6 +57,7 @@ namespace Generator {
 		public const string DecoderOrEncoderDefine = "DECODER || ENCODER";
 		public const string DecoderOrEncoderOrInstrInfoDefine = "DECODER || ENCODER || INSTR_INFO";
 		public const string AnyFormatterDefine = "GAS || INTEL || MASM || NASM || FAST_FMT";
+		public const string GasIntelNasmFormatterDefine = "GAS || INTEL || NASM";
 		public const string GasFormatterDefine = "GAS";
 		public const string IntelFormatterDefine = "INTEL";
 		public const string MasmFormatterDefine = "MASM";

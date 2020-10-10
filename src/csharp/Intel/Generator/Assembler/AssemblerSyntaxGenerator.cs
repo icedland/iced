@@ -1245,7 +1245,7 @@ namespace Generator.Assembler {
 				break;
 			}
 			var addressSize = memorySizeInfoTable.Data[(int)memSize].Size;
-			return addressSize * 8;
+			return (int)addressSize * 8;
 		}
 
 		[DebuggerDisplay("Count = {" + nameof(Count) + "}")]

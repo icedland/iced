@@ -21,31 +21,59 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorContext generatorContext;
+		readonly GenTypes genTypes;
 
 		public CSharpMemorySizeInfoTableGenerator(GeneratorContext generatorContext) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorContext = generatorContext;
+			genTypes = generatorContext.Types;
 		}
 
 		public void Generate() {
-			var infos = generatorContext.Types.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "MemorySizeExtensions.cs");
-			var updater = new FileUpdater(TargetLanguage.CSharp, "MemorySizeInfoTable", filename);
-			updater.Generate(writer => WriteTable(writer, infos));
-		}
-
-		void WriteTable(FileWriter writer, MemorySizeInfo[] infos) {
-			var memSizeName = generatorContext.Types[TypeIds.MemorySize].Name(idConverter);
-			foreach (var info in infos)
-				writer.WriteLine($"(byte){memSizeName}.{info.ElementType.Name(idConverter)}, (byte)((uint)SizeKind.S{info.Size} | ((uint)SizeKind.S{info.ElementSize} << 4)), {(info.IsSigned ? "1" : "0")},");
+			var defs = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
+			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.IcedNamespace), "MemorySizeExtensions.cs");
+			var sizeToIndex = new Dictionary<uint, uint>();
+			uint index = 0;
+			foreach (var size in defs.Select(a => a.Size).Distinct().OrderBy(a => a))
+				sizeToIndex[size] = index++;
+			const int SizeBits = 5;
+			const ushort IsSigned = 0x8000;
+			const uint SizeMask = (1U << SizeBits) - 1;
+			const int SizeShift = 0;
+			const int ElemSizeShift = SizeBits;
+			new FileUpdater(TargetLanguage.CSharp, "MemorySizeInfoTable", filename).Generate(writer => {
+				var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
+				foreach (var def in defs) {
+					byte b0 = checked((byte)def.ElementType.Value);
+					ushort value = checked((ushort)((sizeToIndex[def.Size] << SizeShift) | (sizeToIndex[def.ElementSize] << ElemSizeShift)));
+					if ((value & IsSigned) != 0)
+						throw new InvalidOperationException();
+					if (def.IsSigned)
+						value |= IsSigned;
+					writer.WriteLine($"0x{b0:X2}, 0x{(byte)value:X2}, 0x{(byte)(value >> 8):X2},");
+				}
+			});
+			new FileUpdater(TargetLanguage.CSharp, "ConstData", filename).Generate(writer => {
+				writer.WriteLine($"const ushort {idConverter.Constant(nameof(IsSigned))} = {IsSigned};");
+				writer.WriteLine($"const uint {idConverter.Constant(nameof(SizeMask))} = {SizeMask};");
+				writer.WriteLine($"const int {idConverter.Constant(nameof(SizeShift))} = {SizeShift};");
+				writer.WriteLine($"const int {idConverter.Constant(nameof(ElemSizeShift))} = {ElemSizeShift};");
+				writer.WriteLine("var sizes = new ushort[] {");
+				using (writer.Indent()) {
+					foreach (var size in sizeToIndex.Select(a => a.Key).OrderBy(a => a))
+						writer.WriteLine($"{size},");
+				}
+				writer.WriteLine("};");
+			});
 		}
 	}
 }

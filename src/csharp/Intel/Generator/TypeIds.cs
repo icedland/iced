@@ -53,6 +53,11 @@ namespace Generator {
 		public static readonly TypeId HandlerFlags = new TypeId(nameof(HandlerFlags));
 		public static readonly TypeId LegacyHandlerFlags = new TypeId(nameof(LegacyHandlerFlags));
 		public static readonly TypeId MemorySize = new TypeId(nameof(MemorySize));
+		public static readonly TypeId BroadcastToKind = new TypeId(nameof(BroadcastToKind));
+		public static readonly TypeId FastMemoryKeywords = new TypeId(nameof(FastMemoryKeywords));
+		public static readonly TypeId IntelMemoryKeywords = new TypeId(nameof(IntelMemoryKeywords));
+		public static readonly TypeId MasmMemoryKeywords = new TypeId(nameof(MasmMemoryKeywords));
+		public static readonly TypeId NasmMemoryKeywords = new TypeId(nameof(NasmMemoryKeywords));
 		public static readonly TypeId OpCodeHandlerKind = new TypeId(nameof(OpCodeHandlerKind));
 		public static readonly TypeId PseudoOpsKind = new TypeId(nameof(PseudoOpsKind));
 		public static readonly TypeId Register = new TypeId(nameof(Register));

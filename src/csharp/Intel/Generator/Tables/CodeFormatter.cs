@@ -58,7 +58,7 @@ namespace Generator.Tables {
 		}
 
 		MemorySize GetMemorySize(bool isBroadcast) => (MemorySize)(isBroadcast ? memSizeBcst.Value : memSize.Value);
-		int GetSizeInBytes(MemorySize memSize) => memSizeTbl.Data[(int)memSize].Size;
+		int GetSizeInBytes(MemorySize memSize) => (int)memSizeTbl.Data[(int)memSize].Size;
 
 		public string Format() {
 			sb.Clear();

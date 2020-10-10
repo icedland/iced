@@ -63,5 +63,6 @@ namespace Generator {
 		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\"))]";
 		public const string FeatureBigInt = "#[cfg(feature = \"bigint\")]";
 		public const string FeatureNotBigInt = "#[cfg(not(feature = \"bigint\"))]";
+		public const string FeatureGasIntelNasm = "#[cfg(any(feature = \"gas\", feature = \"intel\", feature = \"nasm\"))]";
 	}
 }
