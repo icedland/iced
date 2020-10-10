@@ -50,6 +50,8 @@ namespace Generator.Tables.CSharp {
 			const uint SizeMask = (1U << SizeBits) - 1;
 			const int SizeShift = 0;
 			const int ElemSizeShift = SizeBits;
+			if (sizeToIndex.Count > SizeMask)
+				throw new InvalidOperationException();
 			new FileUpdater(TargetLanguage.CSharp, "MemorySizeInfoTable", filename).Generate(writer => {
 				var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
 				foreach (var def in defs) {
