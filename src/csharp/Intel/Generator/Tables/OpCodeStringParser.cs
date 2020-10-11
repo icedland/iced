@@ -108,6 +108,12 @@ namespace Generator.Tables {
 					result.OperandSize = CodeSize.Code64;
 					continue;
 
+				case "REX.W":
+					// We use o64 instead of REX.W because it doesn't make any sense to use REX.W if it's an instruction with
+					// default op size == 64 (no REX.W needed). For consistency, we use o64 even if the default op size == 32.
+					error = "Use o64 instead of REX.W";
+					return false;
+
 				case "a16":
 					if (result.AddressSize != CodeSize.Unknown) {
 						error = $"Duplicate address size: `{part}`";
