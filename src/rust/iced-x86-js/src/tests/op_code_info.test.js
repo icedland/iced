@@ -146,7 +146,7 @@ test("OpCodeInfo", () => {
 	expect(info1.isAvailableInMode(16)).toBe(false);
 	expect(info1.isAvailableInMode(32)).toBe(false);
 	expect(info1.isAvailableInMode(64)).toBe(true);
-	expect(info1.opCodeString).toBe("REX.W 01 /r");
+	expect(info1.opCodeString).toBe("o64 01 /r");
 	expect(info1.instructionString).toBe("ADD r/m64, r64");
 
 	decoder.free();

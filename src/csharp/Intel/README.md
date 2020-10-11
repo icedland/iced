@@ -596,7 +596,7 @@ static class HowTo_InstructionInfo {
     /*
      * This method produces the following output:
 00007FFAC46ACDA4 mov [rsp+10h],rbx
-    OpCode: REX.W 89 /r
+    OpCode: o64 89 /r
     Instruction: MOV r/m64, r64
     Encoding: Legacy
     Mnemonic: Mov
@@ -613,7 +613,7 @@ static class HowTo_InstructionInfo {
     Used reg: RBX:Read
     Used mem: [SS:RSP+0x10;UInt64;Write]
 00007FFAC46ACDA9 mov [rsp+18h],rsi
-    OpCode: REX.W 89 /r
+    OpCode: o64 89 /r
     Instruction: MOV r/m64, r64
     Encoding: Legacy
     Mnemonic: Mov
@@ -672,7 +672,7 @@ static class HowTo_InstructionInfo {
     Used reg: RSP:ReadWrite
     Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB2 lea rbp,[rsp-100h]
-    OpCode: REX.W 8D /r
+    OpCode: o64 8D /r
     Instruction: LEA r64, m
     Encoding: Legacy
     Mnemonic: Lea
@@ -687,7 +687,7 @@ static class HowTo_InstructionInfo {
     Used reg: RBP:Write
     Used reg: RSP:Read
 00007FFAC46ACDBA sub rsp,200h
-    OpCode: REX.W 81 /5 id
+    OpCode: o64 81 /5 id
     Instruction: SUB r/m64, imm32
     Encoding: Legacy
     Mnemonic: Sub
@@ -703,7 +703,7 @@ static class HowTo_InstructionInfo {
     Op1: imm32sex64
     Used reg: RSP:ReadWrite
 00007FFAC46ACDC1 mov rax,[7FFAC47524E0h]
-    OpCode: REX.W 8B /r
+    OpCode: o64 8B /r
     Instruction: MOV r64, r/m64
     Encoding: Legacy
     Mnemonic: Mov
@@ -719,7 +719,7 @@ static class HowTo_InstructionInfo {
     Used reg: RAX:Write
     Used mem: [DS:0x7FFAC47524E0;UInt64;Read]
 00007FFAC46ACDC8 xor rax,rsp
-    OpCode: REX.W 33 /r
+    OpCode: o64 33 /r
     Instruction: XOR r64, r/m64
     Encoding: Legacy
     Mnemonic: Xor
@@ -737,7 +737,7 @@ static class HowTo_InstructionInfo {
     Used reg: RAX:ReadWrite
     Used reg: RSP:Read
 00007FFAC46ACDCB mov [rbp+0F0h],rax
-    OpCode: REX.W 89 /r
+    OpCode: o64 89 /r
     Instruction: MOV r/m64, r64
     Encoding: Legacy
     Mnemonic: Mov
@@ -754,7 +754,7 @@ static class HowTo_InstructionInfo {
     Used reg: RAX:Read
     Used mem: [SS:RBP+0xF0;UInt64;Write]
 00007FFAC46ACDD2 mov r8,[7FFAC474F208h]
-    OpCode: REX.W 8B /r
+    OpCode: o64 8B /r
     Instruction: MOV r64, r/m64
     Encoding: Legacy
     Mnemonic: Mov
@@ -770,7 +770,7 @@ static class HowTo_InstructionInfo {
     Used reg: R8:Write
     Used mem: [DS:0x7FFAC474F208;UInt64;Read]
 00007FFAC46ACDD9 lea rax,[7FFAC46F4A58h]
-    OpCode: REX.W 8D /r
+    OpCode: o64 8D /r
     Instruction: LEA r64, m
     Encoding: Legacy
     Mnemonic: Lea
