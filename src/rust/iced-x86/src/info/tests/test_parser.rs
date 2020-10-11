@@ -197,6 +197,7 @@ impl RflagsBitsConstants {
 	pub(crate) const IF: char = 'i';
 	pub(crate) const DF: char = 'd';
 	pub(crate) const AC: char = 'A';
+	pub(crate) const UIF: char = 'u';
 }
 // GENERATOR-END: RflagsBitsConstants
 
@@ -342,6 +343,7 @@ impl IntoIter {
 				RflagsBitsConstants::IF => rflags |= RflagsBits::IF,
 				RflagsBitsConstants::DF => rflags |= RflagsBits::DF,
 				RflagsBitsConstants::AC => rflags |= RflagsBits::AC,
+				RflagsBitsConstants::UIF => rflags |= RflagsBits::UIF,
 				_ => return Err(format!("Invalid flags string: {}, char: {}", value, c)),
 			}
 		}

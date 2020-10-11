@@ -241,6 +241,7 @@ namespace Generator.InstructionInfo {
 			if ((rflags & RflagsBits.IF) != 0) { sb.Append('i'); rflags &= ~RflagsBits.IF; }
 			if ((rflags & RflagsBits.DF) != 0) { sb.Append('d'); rflags &= ~RflagsBits.DF; }
 			if ((rflags & RflagsBits.AC) != 0) { sb.Append("A"); rflags &= ~RflagsBits.AC; }
+			if ((rflags & RflagsBits.UIF) != 0) { sb.Append("u"); rflags &= ~RflagsBits.UIF; }
 			if (rflags != RflagsBits.None)
 				throw new InvalidOperationException();
 		}

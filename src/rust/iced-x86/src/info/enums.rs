@@ -54,7 +54,7 @@ impl InstrInfoConstants {
 	pub(crate) const OP_INFO2_COUNT: usize = 3;
 	pub(crate) const OP_INFO3_COUNT: usize = 2;
 	pub(crate) const OP_INFO4_COUNT: usize = 2;
-	pub(crate) const RFLAGS_INFO_COUNT: usize = 59;
+	pub(crate) const RFLAGS_INFO_COUNT: usize = 63;
 	pub(crate) const DEFAULT_USED_REGISTER_COLL_CAPACITY: usize = 10;
 	pub(crate) const DEFAULT_USED_MEMORY_COLL_CAPACITY: usize = 8;
 }
@@ -429,10 +429,11 @@ pub(crate) enum CodeInfo {
 	RW_XMM0to7,
 	R_EAX_XMM0,
 	Encodekey,
+	Pop_8_8_8,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 115] = [
+static GEN_DEBUG_CODE_INFO: [&str; 116] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -548,6 +549,7 @@ static GEN_DEBUG_CODE_INFO: [&str; 115] = [
 	"RW_XMM0to7",
 	"R_EAX_XMM0",
 	"Encodekey",
+	"Pop_8_8_8",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -581,6 +583,7 @@ pub(crate) enum RflagsInfo {
 	C_cos_S_pz_U_a,
 	C_d,
 	C_i,
+	C_u,
 	R_a_W_ac_U_opsz,
 	R_ac_W_acpsz_U_o,
 	R_acopszid,
@@ -601,13 +604,16 @@ pub(crate) enum RflagsInfo {
 	R_osz,
 	R_p,
 	R_s,
+	R_u_W_c_C_aopsz,
 	R_z,
 	S_A,
 	S_c,
 	S_d,
 	S_i,
+	S_u,
 	U_acopsz,
 	W_acopsz,
+	W_acopszdA_S_u,
 	W_acopszid,
 	W_acopszidA,
 	W_acpsz,
@@ -636,7 +642,7 @@ pub(crate) enum RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_RFLAGS_INFO: [&str; 59] = [
+static GEN_DEBUG_RFLAGS_INFO: [&str; 63] = [
 	"None",
 	"C_A",
 	"C_acos_S_pz",
@@ -644,6 +650,7 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 59] = [
 	"C_cos_S_pz_U_a",
 	"C_d",
 	"C_i",
+	"C_u",
 	"R_a_W_ac_U_opsz",
 	"R_ac_W_acpsz_U_o",
 	"R_acopszid",
@@ -664,13 +671,16 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 59] = [
 	"R_osz",
 	"R_p",
 	"R_s",
+	"R_u_W_c_C_aopsz",
 	"R_z",
 	"S_A",
 	"S_c",
 	"S_d",
 	"S_i",
+	"S_u",
 	"U_acopsz",
 	"W_acopsz",
+	"W_acopszdA_S_u",
 	"W_acopszid",
 	"W_acopszidA",
 	"W_acpsz",
@@ -894,10 +904,13 @@ pub(crate) enum CpuidFeatureInternal {
 	KL,
 	AESKLE,
 	AESKLE_and_WIDE_KL,
+	UINTR,
+	HRESET,
+	AVX_VNNI,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 172] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 175] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1070,6 +1083,9 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 172] = [
 	"KL",
 	"AESKLE",
 	"AESKLE_and_WIDE_KL",
+	"UINTR",
+	"HRESET",
+	"AVX_VNNI",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

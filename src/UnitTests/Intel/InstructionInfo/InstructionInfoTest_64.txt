@@ -19121,6 +19121,8 @@ F2 0F 01 E9, Xresldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend
 0FFF, Ud0, Legacy, INTEL286, flow=Exception decopt=AMD
 # vmgexit
 F3 0F01 D9, Vmgexit, Legacy, SEV_ES, flow=Call
+# vmgexit
+F2 0F01 D9, Vmgexit_F2, Legacy, SEV_ES, flow=Call
 # ldtilecfg [rax]
 C4E278 49 00, VEX_Ldtilecfg_m512, VEX, AMX_TILE, op0=r r=rax rm=ds:rax;Tilecfg w=tmm0;tmm1;tmm2;tmm3;tmm4;tmm5;tmm6;tmm7
 # tilerelease
@@ -19179,3 +19181,47 @@ F3 48 0F38 FA D3, Encodekey128_r64_r64, Legacy, AESKLE, fw=acopsz op0=w op1=r w=
 F3 0F38 FB D3, Encodekey256_r32_r32, Legacy, AESKLE, fw=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0;xmm1 w=xmm2;xmm3;xmm4;xmm5;xmm6
 # encodekey256 edx,ebx
 F3 48 0F38 FB D3, Encodekey256_r64_r64, Legacy, AESKLE, fw=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0;xmm1 w=xmm2;xmm3;xmm4;xmm5;xmm6
+# uiret
+F3 0F01 EC, Uiret, Legacy, UINTR, flow=Return fw=acopszdA fs=u w=rsp r=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 stack=24
+# testui
+F3 0F01 ED, Testui, Legacy, UINTR, fr=u fw=c fc=aopsz
+# clui
+F3 0F01 EE, Clui, Legacy, UINTR, fc=u
+# stui
+F3 0F01 EF, Stui, Legacy, UINTR, fs=u
+# senduipi rcx
+F3 0FC7 F1, Senduipi_r64, Legacy, UINTR, op0=r r=rcx
+# hreset 0A5h
+F3 0F3A F0C0 A5, Hreset_imm8, Legacy, HRESET, priv op0=n r=eax
+# vpdpbusd xmm2,xmm6,xmm3
+C4E249 50 D3, VEX_Vpdpbusd_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=xmm3
+# vpdpbusd xmm2,xmm6,[rax]
+C4E249 50 10, VEX_Vpdpbusd_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Int8
+# vpdpbusd ymm2,ymm6,ymm3
+C4E24D 50 D3, VEX_Vpdpbusd_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=ymm3
+# vpdpbusd ymm2,ymm6,[rax]
+C4E24D 50 10, VEX_Vpdpbusd_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Int8
+# vpdpbusds xmm2,xmm6,xmm3
+C4E249 51 D3, VEX_Vpdpbusds_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=xmm3
+# vpdpbusds xmm2,xmm6,[rax]
+C4E249 51 10, VEX_Vpdpbusds_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Int8
+# vpdpbusds ymm2,ymm6,ymm3
+C4E24D 51 D3, VEX_Vpdpbusds_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=ymm3
+# vpdpbusds ymm2,ymm6,[rax]
+C4E24D 51 10, VEX_Vpdpbusds_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Int8
+# vpdpwssd xmm2,xmm6,xmm3
+C4E249 52 D3, VEX_Vpdpwssd_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=xmm3
+# vpdpwssd xmm2,xmm6,[rax]
+C4E249 52 10, VEX_Vpdpwssd_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Int16
+# vpdpwssd ymm2,ymm6,ymm3
+C4E24D 52 D3, VEX_Vpdpwssd_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=ymm3
+# vpdpwssd ymm2,ymm6,[rax]
+C4E24D 52 10, VEX_Vpdpwssd_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Int16
+# vpdpwssds xmm2,xmm6,xmm3
+C4E249 53 D3, VEX_Vpdpwssds_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=xmm3
+# vpdpwssds xmm2,xmm6,[rax]
+C4E249 53 10, VEX_Vpdpwssds_xmm_xmm_xmmm128, VEX, AVX_VNNI, op0=rw op1=r op2=r r=xmm2 w=vmm2 r=xmm6 r=rax rm=ds:rax;Packed128_Int16
+# vpdpwssds ymm2,ymm6,ymm3
+C4E24D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=ymm3
+# vpdpwssds ymm2,ymm6,[rax]
+C4E24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256, VEX, AVX_VNNI, op0=rw op1=r op2=r r=ymm2 w=vmm2 r=ymm6 r=rax rm=ds:rax;Packed256_Int16

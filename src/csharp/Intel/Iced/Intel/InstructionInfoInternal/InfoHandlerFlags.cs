@@ -53,7 +53,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		internal const int OpInfo2_Count = 3;
 		internal const int OpInfo3_Count = 2;
 		internal const int OpInfo4_Count = 2;
-		internal const int RflagsInfo_Count = 59;
+		internal const int RflagsInfo_Count = 63;
 		internal const int DefaultUsedRegisterCollCapacity = 10;
 		internal const int DefaultUsedMemoryCollCapacity = 8;
 	}
@@ -272,6 +272,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		RW_XMM0to7,
 		R_EAX_XMM0,
 		Encodekey,
+		Pop_8_8_8,
 	}
 	// GENERATOR-END: CodeInfo
 
@@ -285,6 +286,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		C_cos_S_pz_U_a,
 		C_d,
 		C_i,
+		C_u,
 		R_a_W_ac_U_opsz,
 		R_ac_W_acpsz_U_o,
 		R_acopszid,
@@ -305,13 +307,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 		R_osz,
 		R_p,
 		R_s,
+		R_u_W_c_C_aopsz,
 		R_z,
 		S_A,
 		S_c,
 		S_d,
 		S_i,
+		S_u,
 		U_acopsz,
 		W_acopsz,
+		W_acopszdA_S_u,
 		W_acopszid,
 		W_acopszidA,
 		W_acpsz,

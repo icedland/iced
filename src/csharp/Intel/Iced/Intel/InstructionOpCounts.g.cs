@@ -4331,6 +4331,21 @@ namespace Iced.Intel {
 			2,// VEX_Vbroadcastss_xmm_xmm
 			2,// VEX_Vbroadcastss_ymm_xmm
 			2,// VEX_Vbroadcastsd_ymm_xmm
+			0,// Vmgexit_F2
+			0,// Uiret
+			0,// Testui
+			0,// Clui
+			0,// Stui
+			1,// Senduipi_r64
+			1,// Hreset_imm8
+			3,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+			3,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+			3,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+			3,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+			3,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+			3,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+			3,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+			3,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 		};
 	}
 }

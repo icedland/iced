@@ -8349,6 +8349,7 @@ prefetch_reserved byte ptr [rax]
 prefetch_reserved byte ptr [rax]
 ud0
 vmgexit
+vmgexit
 ldtilecfg [rax]
 tilerelease
 sttilecfg [rax]
@@ -8385,3 +8386,25 @@ encodekey128 edx, ebx
 encodekey128 edx, ebx
 encodekey256 edx, ebx
 encodekey256 edx, ebx
+uiret
+testui
+clui
+stui
+senduipi rcx
+hreset -0x5b
+vpdpbusd xmm2, xmm6, xmmword ptr [rax]
+vpdpbusd xmm2, xmm6, xmm3
+vpdpbusd ymm2, ymm6, ymmword ptr [rax]
+vpdpbusd ymm2, ymm6, ymm3
+vpdpbusds xmm2, xmm6, xmmword ptr [rax]
+vpdpbusds xmm2, xmm6, xmm3
+vpdpbusds ymm2, ymm6, ymmword ptr [rax]
+vpdpbusds ymm2, ymm6, ymm3
+vpdpwssd xmm2, xmm6, xmmword ptr [rax]
+vpdpwssd xmm2, xmm6, xmm3
+vpdpwssd ymm2, ymm6, ymmword ptr [rax]
+vpdpwssd ymm2, ymm6, ymm3
+vpdpwssds xmm2, xmm6, xmmword ptr [rax]
+vpdpwssds xmm2, xmm6, xmm3
+vpdpwssds ymm2, ymm6, ymmword ptr [rax]
+vpdpwssds ymm2, ymm6, ymm3

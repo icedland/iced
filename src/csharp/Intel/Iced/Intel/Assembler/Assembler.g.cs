@@ -5284,6 +5284,20 @@ namespace Iced.Intel {
 			op = Code.Clts;
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>clui instruction.<br/>
+		/// <br/>
+		/// <c>CLUI</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 EE</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void clui() {
+			Code op;
+			op = Code.Clui;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>clwb instruction.<br/>
 		/// <br/>
 		/// <c>CLWB m8</c><br/>
@@ -12245,6 +12259,34 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Hlt;
 			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>hreset instruction.<br/>
+		/// <br/>
+		/// <c>HRESET imm8, &lt;EAX&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 3A F0 C0 ib</c><br/>
+		/// <br/>
+		/// <c>HRESET</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void hreset(sbyte imm) {
+			Code op;
+			op = Code.Hreset_imm8;
+			AddInstruction(Instruction.Create(op, imm));
+		}
+		/// <summary>hreset instruction.<br/>
+		/// <br/>
+		/// <c>HRESET imm8, &lt;EAX&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 3A F0 C0 ib</c><br/>
+		/// <br/>
+		/// <c>HRESET</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void hreset(byte imm) {
+			Code op;
+			op = Code.Hreset_imm8;
+			AddInstruction(Instruction.Create(op, (uint)imm));
 		}
 		/// <summary>hsubpd instruction.<br/>
 		/// <br/>
@@ -36596,6 +36638,20 @@ namespace Iced.Intel {
 			op = Code.Seamret;
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>senduipi instruction.<br/>
+		/// <br/>
+		/// <c>SENDUIPI r64</c><br/>
+		/// <br/>
+		/// <c>F3 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void senduipi(AssemblerRegister64 dst) {
+			Code op;
+			op = Code.Senduipi_r64;
+			AddInstruction(Instruction.Create(op, dst));
+		}
 		/// <summary>serialize instruction.<br/>
 		/// <br/>
 		/// <c>SERIALIZE</c><br/>
@@ -39550,6 +39606,20 @@ namespace Iced.Intel {
 			op = Code.VEX_Sttilecfg_m512;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>stui instruction.<br/>
+		/// <br/>
+		/// <c>STUI</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 EF</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void stui() {
+			Code op;
+			op = Code.Stui;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>sub instruction.<br/>
 		/// <br/>
 		/// <c>SUB r/m8, r8</c><br/>
@@ -40792,6 +40862,20 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
+		/// <summary>testui instruction.<br/>
+		/// <br/>
+		/// <c>TESTUI</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 ED</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void testui() {
+			Code op;
+			op = Code.Testui;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>tileloadd instruction.<br/>
 		/// <br/>
 		/// <c>TILELOADD tmm1, sibmem</c><br/>
@@ -41294,6 +41378,20 @@ namespace Iced.Intel {
 		public void ud2() {
 			Code op;
 			op = Code.Ud2;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>uiret instruction.<br/>
+		/// <br/>
+		/// <c>UIRET</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 EC</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void uiret() {
+			Code op;
+			op = Code.Uiret;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>umonitor instruction.<br/>
@@ -79694,10 +79792,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32;
+			op = PreferVex ? Code.VEX_Vpdpbusd_xmm_xmm_xmmm128 : Code.EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpbusd instruction.<br/>
@@ -79708,10 +79814,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32;
+			op = PreferVex ? Code.VEX_Vpdpbusd_ymm_ymm_ymmm256 : Code.EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpbusd instruction.<br/>
@@ -79736,10 +79850,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32;
+			} else op = PreferVex ? Code.VEX_Vpdpbusd_xmm_xmm_xmmm128 : Code.EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpbusd instruction.<br/>
@@ -79750,10 +79874,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32;
+			} else op = PreferVex ? Code.VEX_Vpdpbusd_ymm_ymm_ymmm256 : Code.EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpbusd instruction.<br/>
@@ -79778,10 +79912,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusds(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32;
+			op = PreferVex ? Code.VEX_Vpdpbusds_xmm_xmm_xmmm128 : Code.EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpbusds instruction.<br/>
@@ -79792,10 +79934,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusds(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32;
+			op = PreferVex ? Code.VEX_Vpdpbusds_ymm_ymm_ymmm256 : Code.EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpbusds instruction.<br/>
@@ -79820,10 +79970,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusds(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32;
+			} else op = PreferVex ? Code.VEX_Vpdpbusds_xmm_xmm_xmmm128 : Code.EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpbusds instruction.<br/>
@@ -79834,10 +79994,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPBUSDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpbusds(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32;
+			} else op = PreferVex ? Code.VEX_Vpdpbusds_ymm_ymm_ymmm256 : Code.EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpbusds instruction.<br/>
@@ -79862,10 +80032,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32;
+			op = PreferVex ? Code.VEX_Vpdpwssd_xmm_xmm_xmmm128 : Code.EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpwssd instruction.<br/>
@@ -79876,10 +80054,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32;
+			op = PreferVex ? Code.VEX_Vpdpwssd_ymm_ymm_ymmm256 : Code.EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpwssd instruction.<br/>
@@ -79904,10 +80090,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32;
+			} else op = PreferVex ? Code.VEX_Vpdpwssd_xmm_xmm_xmmm128 : Code.EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpwssd instruction.<br/>
@@ -79918,10 +80114,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32;
+			} else op = PreferVex ? Code.VEX_Vpdpwssd_ymm_ymm_ymmm256 : Code.EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpwssd instruction.<br/>
@@ -79946,10 +80152,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssds(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32;
+			op = PreferVex ? Code.VEX_Vpdpwssds_xmm_xmm_xmmm128 : Code.EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpwssds instruction.<br/>
@@ -79960,10 +80174,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssds(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32;
+			op = PreferVex ? Code.VEX_Vpdpwssds_ymm_ymm_ymmm256 : Code.EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpdpwssds instruction.<br/>
@@ -79988,10 +80210,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssds(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32;
+			} else op = PreferVex ? Code.VEX_Vpdpwssds_xmm_xmm_xmmm128 : Code.EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpwssds instruction.<br/>
@@ -80002,10 +80234,20 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512VL and AVX512_VNNI</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>VPDPWSSDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpdpwssds(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32;
+			if (src2.IsBroadcast) {
+				op = Code.EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32;
+			} else op = PreferVex ? Code.VEX_Vpdpwssds_ymm_ymm_ymmm256 : Code.EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpdpwssds instruction.<br/>

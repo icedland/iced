@@ -16575,6 +16575,62 @@ namespace Iced.Intel.NasmFormatterInternal {
 				// VEX_Vbroadcastsd_ymm_xmm
 				0x81,// 'v', Normal_1
 				0xE4, 0x06,// 868 = "vbroadcastsd"
+
+				// Vmgexit_F2
+				0x81,// 'v', Normal_1
+				0x84, 0x0B,// 1412 = "vmgexit"
+
+				// Uiret
+				0x01,// Normal_1
+				0xC4, 0x0B,// 1476 = "uiret"
+
+				// Testui
+				0x01,// Normal_1
+				0xC5, 0x0B,// 1477 = "testui"
+
+				// Clui
+				0x01,// Normal_1
+				0xC6, 0x0B,// 1478 = "clui"
+
+				// Stui
+				0x01,// Normal_1
+				0xC7, 0x0B,// 1479 = "stui"
+
+				// Senduipi_r64
+				0x01,// Normal_1
+				0xC8, 0x0B,// 1480 = "senduipi"
+
+				// Hreset_imm8
+				0x01,// Normal_1
+				0xC9, 0x0B,// 1481 = "hreset"
+
+				// VEX_Vpdpbusd_xmm_xmm_xmmm128
+				0x81,// 'v', Normal_1
+				0xC6, 0x07,// 966 = "vpdpbusd"
+
+				// VEX_Vpdpbusd_ymm_ymm_ymmm256
+				0x80,// 'v', Previous
+
+				// VEX_Vpdpbusds_xmm_xmm_xmmm128
+				0x81,// 'v', Normal_1
+				0xC7, 0x07,// 967 = "vpdpbusds"
+
+				// VEX_Vpdpbusds_ymm_ymm_ymmm256
+				0x80,// 'v', Previous
+
+				// VEX_Vpdpwssd_xmm_xmm_xmmm128
+				0x81,// 'v', Normal_1
+				0xC8, 0x07,// 968 = "vpdpwssd"
+
+				// VEX_Vpdpwssd_ymm_ymm_ymmm256
+				0x80,// 'v', Previous
+
+				// VEX_Vpdpwssds_xmm_xmm_xmmm128
+				0x81,// 'v', Normal_1
+				0xCB, 0x07,// 971 = "vpdpwssds"
+
+				// VEX_Vpdpwssds_ymm_ymm_ymmm256
+				0x80,// 'v', Previous
 			};
 	}
 }

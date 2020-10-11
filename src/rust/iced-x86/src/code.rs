@@ -34398,9 +34398,129 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	VEX_Vbroadcastsd_ymm_xmm = 4298,
+	/// `VMGEXIT`
+	///
+	/// `F2 0F 01 D9`
+	///
+	/// `SEV-ES`
+	///
+	/// `16/32/64-bit`
+	Vmgexit_F2 = 4299,
+	/// `UIRET`
+	///
+	/// `F3 0F 01 EC`
+	///
+	/// `UINTR`
+	///
+	/// `64-bit`
+	Uiret = 4300,
+	/// `TESTUI`
+	///
+	/// `F3 0F 01 ED`
+	///
+	/// `UINTR`
+	///
+	/// `64-bit`
+	Testui = 4301,
+	/// `CLUI`
+	///
+	/// `F3 0F 01 EE`
+	///
+	/// `UINTR`
+	///
+	/// `64-bit`
+	Clui = 4302,
+	/// `STUI`
+	///
+	/// `F3 0F 01 EF`
+	///
+	/// `UINTR`
+	///
+	/// `64-bit`
+	Stui = 4303,
+	/// `SENDUIPI r64`
+	///
+	/// `F3 0F C7 /6`
+	///
+	/// `UINTR`
+	///
+	/// `64-bit`
+	Senduipi_r64 = 4304,
+	/// `HRESET imm8, <EAX>`
+	///
+	/// `F3 0F 3A F0 C0 ib`
+	///
+	/// `HRESET`
+	///
+	/// `16/32/64-bit`
+	Hreset_imm8 = 4305,
+	/// `VPDPBUSD xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.66.0F38.W0 50 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpbusd_xmm_xmm_xmmm128 = 4306,
+	/// `VPDPBUSD ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.66.0F38.W0 50 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpbusd_ymm_ymm_ymmm256 = 4307,
+	/// `VPDPBUSDS xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.66.0F38.W0 51 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpbusds_xmm_xmm_xmmm128 = 4308,
+	/// `VPDPBUSDS ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.66.0F38.W0 51 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpbusds_ymm_ymm_ymmm256 = 4309,
+	/// `VPDPWSSD xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.66.0F38.W0 52 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwssd_xmm_xmm_xmmm128 = 4310,
+	/// `VPDPWSSD ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.66.0F38.W0 52 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwssd_ymm_ymm_ymmm256 = 4311,
+	/// `VPDPWSSDS xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.66.0F38.W0 53 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwssds_xmm_xmm_xmmm128 = 4312,
+	/// `VPDPWSSDS ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.66.0F38.W0 53 /r`
+	///
+	/// `AVX-VNNI`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4313,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4299] = [
+static GEN_DEBUG_CODE: [&str; 4314] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38700,6 +38820,21 @@ static GEN_DEBUG_CODE: [&str; 4299] = [
 	"VEX_Vbroadcastss_xmm_xmm",
 	"VEX_Vbroadcastss_ymm_xmm",
 	"VEX_Vbroadcastsd_ymm_xmm",
+	"Vmgexit_F2",
+	"Uiret",
+	"Testui",
+	"Clui",
+	"Stui",
+	"Senduipi_r64",
+	"Hreset_imm8",
+	"VEX_Vpdpbusd_xmm_xmm_xmmm128",
+	"VEX_Vpdpbusd_ymm_ymm_ymmm256",
+	"VEX_Vpdpbusds_xmm_xmm_xmmm128",
+	"VEX_Vpdpbusds_ymm_ymm_ymmm256",
+	"VEX_Vpdpwssd_xmm_xmm_xmmm128",
+	"VEX_Vpdpwssd_ymm_ymm_ymmm256",
+	"VEX_Vpdpwssds_xmm_xmm_xmmm128",
+	"VEX_Vpdpwssds_ymm_ymm_ymmm256",
 ];
 impl fmt::Debug for Code {
 	#[inline]

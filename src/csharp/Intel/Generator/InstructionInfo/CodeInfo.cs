@@ -141,5 +141,6 @@ namespace Generator.InstructionInfo {
 		RW_XMM0to7,
 		R_EAX_XMM0,
 		Encodekey,
+		Pop_8_8_8,
 	}
 }

@@ -32,7 +32,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] OpcFlags2 = GetOpcFlags2();
 
 		static uint[] GetOpcFlags1() =>
-			new uint[4299] {
+			new uint[4314] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4332,10 +4332,25 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// VEX_Vbroadcastss_xmm_xmm
 				0x00000000,// VEX_Vbroadcastss_ymm_xmm
 				0x00000000,// VEX_Vbroadcastsd_ymm_xmm
+				0x00000000,// Vmgexit_F2
+				0x00020000,// Uiret
+				0x00000000,// Testui
+				0x00000000,// Clui
+				0x00000000,// Stui
+				0x00000000,// Senduipi_r64
+				0x00008001,// Hreset_imm8
+				0x00000000,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+				0x00000000,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+				0x00000000,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+				0x00000000,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+				0x00000000,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+				0x00000000,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+				0x00000000,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+				0x00000000,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 			};
 
 		static uint[] GetOpcFlags2() =>
-			new uint[4299] {
+			new uint[4314] {
 				0x1E003FFF,// INVALID
 				0x1E003FFF,// DeclareByte
 				0x1E003FFF,// DeclareWord
@@ -8635,6 +8650,21 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFA,// VEX_Vbroadcastss_xmm_xmm
 				0x1E003FFA,// VEX_Vbroadcastss_ymm_xmm
 				0x1E003FFA,// VEX_Vbroadcastsd_ymm_xmm
+				0x1E103FFF,// Vmgexit_F2
+				0x14403E70,// Uiret
+				0x14003E70,// Testui
+				0x14403E70,// Clui
+				0x14403E70,// Stui
+				0x14043E70,// Senduipi_r64
+				0x1E403E7B,// Hreset_imm8
+				0x1E003FFA,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+				0x1E003FFA,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+				0x1E003FFA,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+				0x1E003FFA,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+				0x1E003FFA,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+				0x1E003FFA,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+				0x1E003FFA,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+				0x1E003FFA,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 			};
 	}
 }

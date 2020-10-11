@@ -21534,7 +21534,8 @@ F2 0F 01 E9, Xresldtrk, Xresldtrk, 0,
 0FFF, Ud0, Ud0, 0, decopt=AMD
 
 F3 0F01 D9, Vmgexit, Vmgexit, 0,
-F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
+
+F2 0F01 D9, Vmgexit_F2, Vmgexit, 0,
 
 0F36 00, Rdshr_rm32, Rdshr, 1, op0=m;ds;bx;si;1;0;0;UInt32 decopt=Cyrix
 66 0F36 00, Rdshr_rm32, Rdshr, 1, op0=m;ds;bx;si;1;0;0;UInt32 decopt=Cyrix enc=0F3600
@@ -21736,3 +21737,38 @@ F3 0F38 FA D3, Encodekey128_r32_r32, Encodekey128, 2, op0=r;edx op1=r;ebx
 
 F3 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx
 66 F3 0F38 FB D3, Encodekey256_r32_r32, Encodekey256, 2, op0=r;edx op1=r;ebx enc=F30F38FBD3
+
+F3 0F3A F0C0 A5, Hreset_imm8, Hreset, 1, op0=i8;0xA5 co=5;1;0;0;0;0
+F3 0F3A F0C0 5A, Hreset_imm8, Hreset, 1, op0=i8;0x5A co=5;1;0;0;0;0
+
+C4E249 50 10, VEX_Vpdpbusd_xmm_xmm_xmmm128, Vpdpbusd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8
+C4E249 50 D3, VEX_Vpdpbusd_xmm_xmm_xmmm128, Vpdpbusd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C249 50 10, VEX_Vpdpbusd_xmm_xmm_xmmm128, Vpdpbusd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8 enc=C4E2495010
+
+C4E24D 50 10, VEX_Vpdpbusd_ymm_ymm_ymmm256, Vpdpbusd, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8
+C4E24D 50 D3, VEX_Vpdpbusd_ymm_ymm_ymmm256, Vpdpbusd, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24D 50 10, VEX_Vpdpbusd_ymm_ymm_ymmm256, Vpdpbusd, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8 enc=C4E24D5010
+
+C4E249 51 10, VEX_Vpdpbusds_xmm_xmm_xmmm128, Vpdpbusds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8
+C4E249 51 D3, VEX_Vpdpbusds_xmm_xmm_xmmm128, Vpdpbusds, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C249 51 10, VEX_Vpdpbusds_xmm_xmm_xmmm128, Vpdpbusds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8 enc=C4E2495110
+
+C4E24D 51 10, VEX_Vpdpbusds_ymm_ymm_ymmm256, Vpdpbusds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8
+C4E24D 51 D3, VEX_Vpdpbusds_ymm_ymm_ymmm256, Vpdpbusds, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24D 51 10, VEX_Vpdpbusds_ymm_ymm_ymmm256, Vpdpbusds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8 enc=C4E24D5110
+
+C4E249 52 10, VEX_Vpdpwssd_xmm_xmm_xmmm128, Vpdpwssd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int16
+C4E249 52 D3, VEX_Vpdpwssd_xmm_xmm_xmmm128, Vpdpwssd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C249 52 10, VEX_Vpdpwssd_xmm_xmm_xmmm128, Vpdpwssd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int16 enc=C4E2495210
+
+C4E24D 52 10, VEX_Vpdpwssd_ymm_ymm_ymmm256, Vpdpwssd, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int16
+C4E24D 52 D3, VEX_Vpdpwssd_ymm_ymm_ymmm256, Vpdpwssd, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24D 52 10, VEX_Vpdpwssd_ymm_ymm_ymmm256, Vpdpwssd, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int16 enc=C4E24D5210
+
+C4E249 53 10, VEX_Vpdpwssds_xmm_xmm_xmmm128, Vpdpwssds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int16
+C4E249 53 D3, VEX_Vpdpwssds_xmm_xmm_xmmm128, Vpdpwssds, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C249 53 10, VEX_Vpdpwssds_xmm_xmm_xmmm128, Vpdpwssds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int16 enc=C4E2495310
+
+C4E24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int16
+C4E24D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int16 enc=C4E24D5310

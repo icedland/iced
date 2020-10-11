@@ -687,6 +687,10 @@ namespace Generator.Tables {
 							Error(lineIndex, error);
 							return false;
 						}
+						if (state.MemorySize_Broadcast is object && state.OpCode.Encoding != EncodingKind.EVEX) {
+							Error(lineIndex, "Only EVEX instructions support conditional broadcasting (EVEX.b bit)");
+							return false;
+						}
 					}
 					break;
 
@@ -2916,6 +2920,7 @@ namespace Generator.Tables {
 				case 'd': rflags |= RflagsBits.DF; break;
 				case 'i': rflags |= RflagsBits.IF; break;
 				case 'A': rflags |= RflagsBits.AC; break;
+				case 'u': rflags |= RflagsBits.UIF; break;
 				default: error = $"Unknown rflags char `{c}`"; return false;
 				}
 			}

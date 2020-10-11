@@ -340,5 +340,11 @@ pub enum CpuidFeature {
 	AESKLE = 150,
 	/// CPUID.19H:EBX.WIDE_KL\[bit 2\]
 	WIDE_KL = 151,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.UINTR\[bit 5\]
+	UINTR = 152,
+	/// CPUID.(EAX=07H, ECX=01H):EAX.HRESET\[bit 22\]
+	HRESET = 153,
+	/// CPUID.(EAX=07H, ECX=01H):EAX.AVX-VNNI\[bit 4\]
+	AVX_VNNI = 154,
 }
 // GENERATOR-END: Enum

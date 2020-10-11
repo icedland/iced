@@ -463,3 +463,8 @@ Seamops
 Seamcall
 Encodekey128_r64_r64
 Encodekey256_r64_r64
+Uiret
+Testui
+Clui
+Stui
+Senduipi_r64

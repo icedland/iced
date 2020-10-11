@@ -450,6 +450,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					rflags |= RflagsBits.AC;
 					break;
 
+				case RflagsBitsConstants.UIF:
+					rflags |= RflagsBits.UIF;
+					break;
+
 				default:
 					return false;
 				}

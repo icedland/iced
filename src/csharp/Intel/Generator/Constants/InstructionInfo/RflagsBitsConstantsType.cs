@@ -40,6 +40,7 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.Char, "IF", 'i'),
 				new Constant(ConstantKind.Char, "DF", 'd'),
 				new Constant(ConstantKind.Char, "AC", 'A'),
+				new Constant(ConstantKind.Char, "UIF", 'u'),
 			};
 	}
 }

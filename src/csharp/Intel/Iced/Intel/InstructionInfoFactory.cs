@@ -547,6 +547,17 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Pop_8_8_8:
+				xsp = GetXSP(instruction.CodeSize, out xspMask);
+				if ((flags & Flags.NoRegisterUsage) == 0)
+					AddRegister(flags, xsp, OpAccess.ReadWrite);
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.SS, xsp, Register.None, 1, 0, MemorySize.UInt64, OpAccess.Read);
+					AddMemory(Register.SS, xsp, Register.None, 1, 8, MemorySize.UInt64, OpAccess.Read);
+					AddMemory(Register.SS, xsp, Register.None, 1, 16, MemorySize.UInt64, OpAccess.Read);
+				}
+				break;
+
 			case CodeInfo.Pop_Ev:
 				xsp = GetXSP(instruction.CodeSize, out xspMask);
 				if ((flags & Flags.NoRegisterUsage) == 0) {

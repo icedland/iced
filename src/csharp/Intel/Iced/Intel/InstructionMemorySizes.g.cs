@@ -4333,6 +4333,21 @@ namespace Iced.Intel {
 			0,// VEX_Vbroadcastss_xmm_xmm
 			0,// VEX_Vbroadcastss_ymm_xmm
 			0,// VEX_Vbroadcastsd_ymm_xmm
+			0,// Vmgexit_F2
+			0,// Uiret
+			0,// Testui
+			0,// Clui
+			0,// Stui
+			0,// Senduipi_r64
+			0,// Hreset_imm8
+			(byte)MemorySize.Packed128_Int8,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_Int8,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_Int8,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_Int8,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_Int16,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_Int16,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_Int16,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_Int16,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8632,6 +8647,21 @@ namespace Iced.Intel {
 			0,// VEX_Vbroadcastss_xmm_xmm
 			0,// VEX_Vbroadcastss_ymm_xmm
 			0,// VEX_Vbroadcastsd_ymm_xmm
+			0,// Vmgexit_F2
+			0,// Uiret
+			0,// Testui
+			0,// Clui
+			0,// Stui
+			0,// Senduipi_r64
+			0,// Hreset_imm8
+			0,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+			0,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+			0,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+			0,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+			0,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+			0,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 		};
 	}
 }

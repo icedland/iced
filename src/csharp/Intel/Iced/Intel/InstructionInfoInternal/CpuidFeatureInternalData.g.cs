@@ -230,6 +230,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x95,// KL
 				0x96,// AESKLE
 				0x96, 0x97,// AESKLE_and_WIDE_KL
+				0x98,// UINTR
+				0x99,// HRESET
+				0x9A,// AVX_VNNI
 			};
 	}
 }

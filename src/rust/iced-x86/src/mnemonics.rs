@@ -4327,4 +4327,19 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_xmm_xmm
 	Mnemonic::Vbroadcastss,// VEX_Vbroadcastss_ymm_xmm
 	Mnemonic::Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmm
+	Mnemonic::Vmgexit,// Vmgexit_F2
+	Mnemonic::Uiret,// Uiret
+	Mnemonic::Testui,// Testui
+	Mnemonic::Clui,// Clui
+	Mnemonic::Stui,// Stui
+	Mnemonic::Senduipi,// Senduipi_r64
+	Mnemonic::Hreset,// Hreset_imm8
+	Mnemonic::Vpdpbusd,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+	Mnemonic::Vpdpbusd,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+	Mnemonic::Vpdpbusds,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+	Mnemonic::Vpdpbusds,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+	Mnemonic::Vpdpwssd,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwssd,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+	Mnemonic::Vpdpwssds,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwssds,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 ];

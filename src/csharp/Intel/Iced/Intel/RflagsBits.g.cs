@@ -30,19 +30,30 @@ using System;
 
 namespace Iced.Intel {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-	/// <summary><c>RFLAGS</c> bits supported by the instruction info code</summary>
+	/// <summary><c>RFLAGS</c> bits (and <c>UIF</c>) supported by the instruction info code</summary>
 	[Flags]
 	public enum RflagsBits {
 		None = 0x00000000,
+		/// <summary><c>RFLAGS.OF</c></summary>
 		OF = 0x00000001,
+		/// <summary><c>RFLAGS.SF</c></summary>
 		SF = 0x00000002,
+		/// <summary><c>RFLAGS.ZF</c></summary>
 		ZF = 0x00000004,
+		/// <summary><c>RFLAGS.AF</c></summary>
 		AF = 0x00000008,
+		/// <summary><c>RFLAGS.CF</c></summary>
 		CF = 0x00000010,
+		/// <summary><c>RFLAGS.PF</c></summary>
 		PF = 0x00000020,
+		/// <summary><c>RFLAGS.DF</c></summary>
 		DF = 0x00000040,
+		/// <summary><c>RFLAGS.IF</c></summary>
 		IF = 0x00000080,
+		/// <summary><c>RFLAGS.AC</c></summary>
 		AC = 0x00000100,
+		/// <summary><c>UIF</c></summary>
+		UIF = 0x00000200,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

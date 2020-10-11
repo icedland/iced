@@ -200,6 +200,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		KL,
 		AESKLE,
 		AESKLE_and_WIDE_KL,
+		UINTR,
+		HRESET,
+		AVX_VNNI,
 	}
 }
 #endif

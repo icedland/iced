@@ -8349,6 +8349,7 @@ F2 0F 01 E9, Xresldtrk
 0F0D 38, Prefetchreserved7_m8
 0FFF, Ud0, AMD
 F3 0F01 D9, Vmgexit
+F2 0F01 D9, Vmgexit_F2
 C4E278 49 00, VEX_Ldtilecfg_m512
 C4E278 49 C0, VEX_Tilerelease
 C4E279 49 00, VEX_Sttilecfg_m512
@@ -8385,3 +8386,25 @@ F3 0F38 FA D3, Encodekey128_r32_r32
 F3 48 0F38 FA D3, Encodekey128_r64_r64
 F3 0F38 FB D3, Encodekey256_r32_r32
 F3 48 0F38 FB D3, Encodekey256_r64_r64
+F3 0F01 EC, Uiret
+F3 0F01 ED, Testui
+F3 0F01 EE, Clui
+F3 0F01 EF, Stui
+F3 0FC7 F1, Senduipi_r64
+F3 0F3A F0C0 A5, Hreset_imm8
+C4E249 50 10, VEX_Vpdpbusd_xmm_xmm_xmmm128
+C4E249 50 D3, VEX_Vpdpbusd_xmm_xmm_xmmm128
+C4E24D 50 10, VEX_Vpdpbusd_ymm_ymm_ymmm256
+C4E24D 50 D3, VEX_Vpdpbusd_ymm_ymm_ymmm256
+C4E249 51 10, VEX_Vpdpbusds_xmm_xmm_xmmm128
+C4E249 51 D3, VEX_Vpdpbusds_xmm_xmm_xmmm128
+C4E24D 51 10, VEX_Vpdpbusds_ymm_ymm_ymmm256
+C4E24D 51 D3, VEX_Vpdpbusds_ymm_ymm_ymmm256
+C4E249 52 10, VEX_Vpdpwssd_xmm_xmm_xmmm128
+C4E249 52 D3, VEX_Vpdpwssd_xmm_xmm_xmmm128
+C4E24D 52 10, VEX_Vpdpwssd_ymm_ymm_ymmm256
+C4E24D 52 D3, VEX_Vpdpwssd_ymm_ymm_ymmm256
+C4E249 53 10, VEX_Vpdpwssds_xmm_xmm_xmmm128
+C4E249 53 D3, VEX_Vpdpwssds_xmm_xmm_xmmm128
+C4E24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256
+C4E24D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256

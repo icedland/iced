@@ -689,6 +689,11 @@ namespace Iced.Intel.EncoderInternal {
 				WriteOpSeparator();
 				Write("<XMM0-6>", upper: true);
 				break;
+
+			case Code.Hreset_imm8:
+				WriteOpSeparator();
+				Write("<eax>", upper: true);
+				break;
 			}
 
 			return sb.ToString();

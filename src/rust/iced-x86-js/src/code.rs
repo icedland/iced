@@ -4330,6 +4330,21 @@ pub enum Code {
 	VEX_Vbroadcastss_xmm_xmm = 4296,
 	VEX_Vbroadcastss_ymm_xmm = 4297,
 	VEX_Vbroadcastsd_ymm_xmm = 4298,
+	Vmgexit_F2 = 4299,
+	Uiret = 4300,
+	Testui = 4301,
+	Clui = 4302,
+	Stui = 4303,
+	Senduipi_r64 = 4304,
+	Hreset_imm8 = 4305,
+	VEX_Vpdpbusd_xmm_xmm_xmmm128 = 4306,
+	VEX_Vpdpbusd_ymm_ymm_ymmm256 = 4307,
+	VEX_Vpdpbusds_xmm_xmm_xmmm128 = 4308,
+	VEX_Vpdpbusds_ymm_ymm_ymmm256 = 4309,
+	VEX_Vpdpwssd_xmm_xmm_xmmm128 = 4310,
+	VEX_Vpdpwssd_ymm_ymm_ymmm256 = 4311,
+	VEX_Vpdpwssds_xmm_xmm_xmmm128 = 4312,
+	VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4313,
 }
 // GENERATOR-END: Enum
 

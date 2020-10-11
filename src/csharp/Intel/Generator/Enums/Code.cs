@@ -4330,6 +4330,21 @@ namespace Generator.Enums {
 		VEX_Vbroadcastss_xmm_xmm,
 		VEX_Vbroadcastss_ymm_xmm,
 		VEX_Vbroadcastsd_ymm_xmm,
+		Vmgexit_F2,
+		Uiret,
+		Testui,
+		Clui,
+		Stui,
+		Senduipi_r64,
+		Hreset_imm8,
+		VEX_Vpdpbusd_xmm_xmm_xmmm128,
+		VEX_Vpdpbusd_ymm_ymm_ymmm256,
+		VEX_Vpdpbusds_xmm_xmm_xmmm128,
+		VEX_Vpdpbusds_ymm_ymm_ymmm256,
+		VEX_Vpdpwssd_xmm_xmm_xmmm128,
+		VEX_Vpdpwssd_ymm_ymm_ymmm256,
+		VEX_Vpdpwssds_xmm_xmm_xmmm128,
+		VEX_Vpdpwssds_ymm_ymm_ymmm256,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

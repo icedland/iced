@@ -567,6 +567,11 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				self.write("<XMM0-6>", true);
 			}
 
+			Code::Hreset_imm8 => {
+				self.write_op_separator();
+				self.write("<eax>", true);
+			}
+
 			_ => {}
 		}
 

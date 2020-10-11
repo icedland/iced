@@ -4327,6 +4327,21 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_xmm_xmm
 			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_ymm_xmm
 			(ushort)Mnemonic.Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmm
+			(ushort)Mnemonic.Vmgexit,// Vmgexit_F2
+			(ushort)Mnemonic.Uiret,// Uiret
+			(ushort)Mnemonic.Testui,// Testui
+			(ushort)Mnemonic.Clui,// Clui
+			(ushort)Mnemonic.Stui,// Stui
+			(ushort)Mnemonic.Senduipi,// Senduipi_r64
+			(ushort)Mnemonic.Hreset,// Hreset_imm8
+			(ushort)Mnemonic.Vpdpbusd,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpbusd,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpbusds,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpbusds,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpwssd,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwssd,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpwssds,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwssds,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 		};
 	}
 }

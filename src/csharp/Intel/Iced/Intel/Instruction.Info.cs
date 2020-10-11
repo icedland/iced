@@ -196,6 +196,9 @@ namespace Iced.Intel {
 				case Code.Leaveq:
 					return 0;
 
+				case Code.Uiret:
+					return 8 * 3;
+
 				default:
 					return 0;
 				}

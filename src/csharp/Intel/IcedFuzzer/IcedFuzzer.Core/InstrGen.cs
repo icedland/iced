@@ -1550,14 +1550,7 @@ namespace IcedFuzzer.Core {
 			// one with reg only ops and the other one with reg+mem ops, eg. `add r16,rm16`
 			// becomes `add r16,m16` and `add r16,r16`.
 			foreach (var opCode in opCodes) {
-				if (opCode.Code == Code.Vmgexit) {
-					Assert.True(opCode.MandatoryPrefix == MandatoryPrefix.PF3 || opCode.MandatoryPrefix == MandatoryPrefix.PF2);
-					foreach (var info in GetInstructions(cpuDecoder, bitness, opCode, MandatoryPrefix.PF3, opCode.GroupIndex))
-						yield return info;
-					foreach (var info in GetInstructions(cpuDecoder, bitness, opCode, MandatoryPrefix.PF2, opCode.GroupIndex))
-						yield return info;
-				}
-				else if (IsSETcc(opCode.Code)) {
+				if (IsSETcc(opCode.Code)) {
 					for (int i = 0; i < 8; i++) {
 						foreach (var info in GetInstructions(cpuDecoder, bitness, opCode, opCode.MandatoryPrefix, i))
 							yield return info;

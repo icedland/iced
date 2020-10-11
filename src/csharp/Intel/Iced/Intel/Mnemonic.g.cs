@@ -1650,6 +1650,12 @@ namespace Iced.Intel {
 		Iretd = 1618,
 		Iretq = 1619,
 		Int3 = 1620,
+		Uiret = 1621,
+		Testui = 1622,
+		Clui = 1623,
+		Stui = 1624,
+		Senduipi = 1625,
+		Hreset = 1626,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

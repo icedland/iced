@@ -4329,6 +4329,21 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_xmm
+	MemorySize::Unknown,// Vmgexit_F2
+	MemorySize::Unknown,// Uiret
+	MemorySize::Unknown,// Testui
+	MemorySize::Unknown,// Clui
+	MemorySize::Unknown,// Stui
+	MemorySize::Unknown,// Senduipi_r64
+	MemorySize::Unknown,// Hreset_imm8
+	MemorySize::Packed128_Int8,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+	MemorySize::Packed256_Int8,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+	MemorySize::Packed128_Int8,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+	MemorySize::Packed256_Int8,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+	MemorySize::Packed128_Int16,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+	MemorySize::Packed256_Int16,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+	MemorySize::Packed128_Int16,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+	MemorySize::Packed256_Int16,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8628,4 +8643,19 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Vbroadcastss_xmm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastss_ymm_xmm
 	MemorySize::Unknown,// VEX_Vbroadcastsd_ymm_xmm
+	MemorySize::Unknown,// Vmgexit_F2
+	MemorySize::Unknown,// Uiret
+	MemorySize::Unknown,// Testui
+	MemorySize::Unknown,// Clui
+	MemorySize::Unknown,// Stui
+	MemorySize::Unknown,// Senduipi_r64
+	MemorySize::Unknown,// Hreset_imm8
+	MemorySize::Unknown,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 ];

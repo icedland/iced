@@ -1353,7 +1353,72 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 76 = 0x4C
 	0x02,// Dup
-		0x0C,// 12
+		0x04,// 4
+		0x00,// Invalid
+
+	// 80 = 0x50
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xD2, 0x21,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xD3, 0x21,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x00,// Invalid
+		0x00,// Invalid
+
+	// 81 = 0x51
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xD4, 0x21,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xD5, 0x21,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x00,// Invalid
+		0x00,// Invalid
+
+	// 82 = 0x52
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xD6, 0x21,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xD7, 0x21,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x00,// Invalid
+		0x00,// Invalid
+
+	// 83 = 0x53
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xD8, 0x21,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xD9, 0x21,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x00,// Invalid
+		0x00,// Invalid
+
+	// 84 = 0x54
+	0x02,// Dup
+		0x04,// 4
 		0x00,// Invalid
 
 	// 88 = 0x58

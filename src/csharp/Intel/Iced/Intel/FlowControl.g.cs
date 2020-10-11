@@ -37,7 +37,7 @@ namespace Iced.Intel {
 		IndirectBranch = 2,
 		/// <summary>It&apos;s a conditional branch instruction: <c>Jcc SHORT</c>, <c>Jcc NEAR</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>JRCXZ</c></summary>
 		ConditionalBranch = 3,
-		/// <summary>It&apos;s a return instruction: <c>RET NEAR</c>, <c>RET FAR</c>, <c>IRET</c>, <c>SYSRET</c>, <c>SYSEXIT</c>, <c>RSM</c>, <c>VMLAUNCH</c>, <c>VMRESUME</c>, <c>VMRUN</c>, <c>SKINIT</c>, <c>RDM</c>, <c>SEAMRET</c></summary>
+		/// <summary>It&apos;s a return instruction: <c>RET NEAR</c>, <c>RET FAR</c>, <c>IRET</c>, <c>SYSRET</c>, <c>SYSEXIT</c>, <c>RSM</c>, <c>VMLAUNCH</c>, <c>VMRESUME</c>, <c>VMRUN</c>, <c>SKINIT</c>, <c>RDM</c>, <c>SEAMRET</c>, <c>UIRET</c></summary>
 		Return = 4,
 		/// <summary>It&apos;s a call instruction: <c>CALL NEAR</c>, <c>CALL FAR</c>, <c>SYSCALL</c>, <c>SYSENTER</c>, <c>VMCALL</c>, <c>VMMCALL</c>, <c>VMGEXIT</c>, <c>TDCALL</c>, <c>SEAMCALL</c></summary>
 		Call = 5,

@@ -333,6 +333,12 @@ namespace Iced.Intel {
 		AESKLE = 150,
 		/// <summary>CPUID.19H:EBX.WIDE_KL[bit 2]</summary>
 		WIDE_KL = 151,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.UINTR[bit 5]</summary>
+		UINTR = 152,
+		/// <summary>CPUID.(EAX=07H, ECX=01H):EAX.HRESET[bit 22]</summary>
+		HRESET = 153,
+		/// <summary>CPUID.(EAX=07H, ECX=01H):EAX.AVX-VNNI[bit 4]</summary>
+		AVX_VNNI = 154,
 	}
 }
 #endif

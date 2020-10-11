@@ -34390,5 +34390,125 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		VEX_Vbroadcastsd_ymm_xmm = 4298,
+		/// <summary><c>VMGEXIT</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 D9</c><br/>
+		/// <br/>
+		/// <c>SEV-ES</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Vmgexit_F2 = 4299,
+		/// <summary><c>UIRET</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 EC</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Uiret = 4300,
+		/// <summary><c>TESTUI</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 ED</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Testui = 4301,
+		/// <summary><c>CLUI</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 EE</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Clui = 4302,
+		/// <summary><c>STUI</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 EF</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Stui = 4303,
+		/// <summary><c>SENDUIPI r64</c><br/>
+		/// <br/>
+		/// <c>F3 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>UINTR</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Senduipi_r64 = 4304,
+		/// <summary><c>HRESET imm8, &lt;EAX&gt;</c><br/>
+		/// <br/>
+		/// <c>F3 0F 3A F0 C0 ib</c><br/>
+		/// <br/>
+		/// <c>HRESET</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Hreset_imm8 = 4305,
+		/// <summary><c>VPDPBUSD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbusd_xmm_xmm_xmmm128 = 4306,
+		/// <summary><c>VPDPBUSD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbusd_ymm_ymm_ymmm256 = 4307,
+		/// <summary><c>VPDPBUSDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbusds_xmm_xmm_xmmm128 = 4308,
+		/// <summary><c>VPDPBUSDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbusds_ymm_ymm_ymmm256 = 4309,
+		/// <summary><c>VPDPWSSD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpwssd_xmm_xmm_xmmm128 = 4310,
+		/// <summary><c>VPDPWSSD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpwssd_ymm_ymm_ymmm256 = 4311,
+		/// <summary><c>VPDPWSSDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpwssds_xmm_xmm_xmmm128 = 4312,
+		/// <summary><c>VPDPWSSDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4313,
 	}
 }

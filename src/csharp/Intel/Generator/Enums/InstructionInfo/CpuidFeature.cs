@@ -328,5 +328,11 @@ namespace Generator.Enums.InstructionInfo {
 		AESKLE,
 		[Comment("CPUID.19H:EBX.WIDE_KL[bit 2]")]
 		WIDE_KL,
+		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.UINTR[bit 5]")]
+		UINTR,
+		[Comment("CPUID.(EAX=07H, ECX=01H):EAX.HRESET[bit 22]")]
+		HRESET,
+		[Comment("CPUID.(EAX=07H, ECX=01H):EAX.AVX-VNNI[bit 4]")]
+		AVX_VNNI,
 	}
 }

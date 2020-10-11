@@ -1645,5 +1645,11 @@ namespace Generator.Enums {
 		Iretd,
 		Iretq,
 		Int3,
+		Uiret,
+		Testui,
+		Clui,
+		Stui,
+		Senduipi,
+		Hreset,
 	}
 }

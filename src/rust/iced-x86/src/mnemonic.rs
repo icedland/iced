@@ -1652,9 +1652,15 @@ pub enum Mnemonic {
 	Iretd = 1618,
 	Iretq = 1619,
 	Int3 = 1620,
+	Uiret = 1621,
+	Testui = 1622,
+	Clui = 1623,
+	Stui = 1624,
+	Senduipi = 1625,
+	Hreset = 1626,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1621] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1627] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3276,6 +3282,12 @@ static GEN_DEBUG_MNEMONIC: [&str; 1621] = [
 	"Iretd",
 	"Iretq",
 	"Int3",
+	"Uiret",
+	"Testui",
+	"Clui",
+	"Stui",
+	"Senduipi",
+	"Hreset",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

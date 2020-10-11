@@ -1703,7 +1703,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0xA4,// Simple
 			0xFE, 0x20,// Vmgexit
 		0xA4,// Simple
-			0xFE, 0x20,// Vmgexit
+			0xCB, 0x21,// Vmgexit_F2
 
 	// 26 = 0x1A
 	0xAB,// Simple5
@@ -1761,16 +1761,37 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 
 	// 43 = 0x2B
-	0x05,// Dup
-		0x03,// 3
-		0x06,// Null
+	0x06,// Null
+
+	// 44 = 0x2C
+	0x14,// MandatoryPrefix_NoModRM
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xCC, 0x21,// Uiret
+		0x03,// Invalid_NoModRM
+
+	// 45 = 0x2D
+	0x14,// MandatoryPrefix_NoModRM
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xCD, 0x21,// Testui
+		0x03,// Invalid_NoModRM
 
 	// 46 = 0x2E
 	0x14,// MandatoryPrefix_NoModRM
 		0xA4,// Simple
 			0xD1, 0x06,// Rdpkru
 		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xCE, 0x21,// Clui
 		0x03,// Invalid_NoModRM
 
 	// 47 = 0x2F
@@ -1778,7 +1799,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0xA4,// Simple
 			0xD2, 0x06,// Wrpkru
 		0x03,// Invalid_NoModRM
-		0x03,// Invalid_NoModRM
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xCF, 0x21,// Stui
 		0x03,// Invalid_NoModRM
 
 	// 48 = 0x30
@@ -2155,7 +2179,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x97, 0x11,// Rdrand_r16
 		0x6E,// M_1
 			0x95, 0x11,// Vmclear_m64
-		0x02,// Invalid
+		0x01,// Bitness_DontReadModRM
+			0x02,// Invalid
+			0xCC,// Rq
+				0xD0, 0x21,// Senduipi_r64
 		0x6E,// M_1
 			0x96, 0x11,// Vmxon_m64
 		0x02,// Invalid
@@ -3042,6 +3069,30 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x05,// Dup
 		0x04,// 4
 		0x02,// Invalid
+
+	// handlers_Grp_0F3AF0_lo
+	0x01,// ArrayReference
+	0x08,// 0x8
+	// 0 = 0x00
+	0x05,// Dup
+		0x08,// 8
+		0x02,// Invalid
+
+	// handlers_Grp_0F3AF0_hi
+	0x01,// ArrayReference
+	0x40,// 0x40
+	// 0 = 0x00
+	0x14,// MandatoryPrefix_NoModRM
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0x64,// Ib
+			0xD1, 0x21,// Hreset_imm8
+		0x03,// Invalid_NoModRM
+
+	// 1 = 0x01
+	0x05,// Dup
+		0x3F,// 63
+		0x06,// Null
 
 	// ThreeByteHandlers_0F38XX
 	0x01,// ArrayReference
@@ -4088,7 +4139,19 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 224 = 0xE0
 	0x05,// Dup
-		0x20,// 32
+		0x10,// 16
+		0x02,// Invalid
+
+	// 240 = 0xF0
+	0x0F,// Group8x64
+		0x08,// ArrayReference
+			0x4E,// 0x4E = handlers_Grp_0F3AF0_lo
+		0x08,// ArrayReference
+			0x4F,// 0x4F = handlers_Grp_0F3AF0_hi
+
+	// 241 = 0xF1
+	0x05,// Dup
+		0x0F,// 15
 		0x02,// Invalid
 
 	// TwoByteHandlers_0FXX
@@ -4636,7 +4699,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x0D,// AnotherTable
 			0x08,// ArrayReference
-				0x4E,// 0x4E = ThreeByteHandlers_0F38XX
+				0x50,// 0x50 = ThreeByteHandlers_0F38XX
 		0xA4,// Simple
 			0x90, 0x21,// Smint
 		0x80, 0x80, 0x40,// Cyrix
@@ -4652,7 +4715,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC9,// Options1632_2
 		0x0D,// AnotherTable
 			0x08,// ArrayReference
-				0x4F,// 0x4F = ThreeByteHandlers_0F3AXX
+				0x51,// 0x51 = ThreeByteHandlers_0F3AXX
 		0xA4,// Simple
 			0x92, 0x21,// Rdm
 		0x80, 0x80, 0x80, 0x02,// Cyrix_DMI
@@ -6380,7 +6443,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 15 = 0x0F
 	0x0D,// AnotherTable
 		0x08,// ArrayReference
-			0x50,// 0x50 = TwoByteHandlers_0FXX
+			0x52,// 0x52 = TwoByteHandlers_0FXX
 
 	// 16 = 0x10
 	0x2C,// Eb_Gb_2
@@ -7545,5 +7608,5 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x08,// ArrayReference
 			0x1E,// 0x1E = handlers_Grp_FF
 ];
-pub(super) const MAX_ID_NAMES: usize = 82;
-pub(super) const ONE_BYTE_HANDLERS_INDEX: usize = 81;
+pub(super) const MAX_ID_NAMES: usize = 84;
+pub(super) const ONE_BYTE_HANDLERS_INDEX: usize = 83;

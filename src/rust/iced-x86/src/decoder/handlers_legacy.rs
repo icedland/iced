@@ -905,6 +905,33 @@ impl OpCodeHandler_Rv_32_64 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(super) struct OpCodeHandler_Rq {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+}
+
+impl OpCodeHandler_Rq {
+	pub(super) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Rq::decode, has_modrm: true, code }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
+		super::instruction_internal::internal_set_code_u32(instruction, this.code);
+		debug_assert_eq!(3, decoder.state.mod_);
+		const_assert_eq!(0, OpKind::Register as u32);
+		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
+		super::instruction_internal::internal_set_op0_register_u32(
+			instruction,
+			decoder.state.rm + decoder.state.extra_base_register_base + Register::RAX as u32,
+		);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(super) struct OpCodeHandler_Ev_REXW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,

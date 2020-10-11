@@ -127,6 +127,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const char IF = 'i';
 		internal const char DF = 'd';
 		internal const char AC = 'A';
+		internal const char UIF = 'u';
 	}
 	// GENERATOR-END: RflagsBitsConstants
 

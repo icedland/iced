@@ -794,6 +794,18 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::Pop_8_8_8 => {
+				xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, xsp, OpAccess::ReadWrite);
+				}
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::SS, xsp, Register::None, 1, 0, MemorySize::UInt64, OpAccess::Read);
+					Self::add_memory(info, Register::SS, xsp, Register::None, 1, 8, MemorySize::UInt64, OpAccess::Read);
+					Self::add_memory(info, Register::SS, xsp, Register::None, 1, 16, MemorySize::UInt64, OpAccess::Read);
+				}
+			}
+
 			CodeInfo::Pop_Ev => {
 				xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {

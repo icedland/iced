@@ -182,13 +182,25 @@ namespace Generator.Tables {
 						error = "Too many opcode bytes";
 						return false;
 					}
-					var highByte = (byte)(opCode >> 8);
-					if (highByte != 0x0F) {
-						error = $"Unsupported opcode, expected first byte to be 0F";
-						return false;
+					if (opCode == 0x0F38) {
+						table = OpCodeTableKind.T0F38;
+						opCode = 0;
+						opCodeByteCount = 1;
 					}
-					table = OpCodeTableKind.T0F;
-					opCode = (byte)opCode;
+					else if (opCode == 0x0F3A) {
+						table = OpCodeTableKind.T0F3A;
+						opCode = 0;
+						opCodeByteCount = 1;
+					}
+					else {
+						var highByte = (byte)(opCode >> 8);
+						if (highByte != 0x0F) {
+							error = $"Unsupported opcode, expected first byte to be 0F";
+							return false;
+						}
+						table = OpCodeTableKind.T0F;
+						opCode = (byte)opCode;
+					}
 				}
 				else
 					opCodeByteCount++;

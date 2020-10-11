@@ -2713,6 +2713,7 @@ impl Instruction {
 			Code::Enterd_imm16_imm8 => -(4 + (self.immediate8_2nd() as i32 & 0x1F) * 4 + self.immediate16() as i32),
 			Code::Enterq_imm16_imm8 => -(8 + (self.immediate8_2nd() as i32 & 0x1F) * 8 + self.immediate16() as i32),
 			Code::Leavew | Code::Leaved | Code::Leaveq => 0,
+			Code::Uiret => 8 * 3,
 			_ => 0,
 		}
 	}

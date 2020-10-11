@@ -152,6 +152,8 @@ namespace Generator.Assembler {
 				Code.Prefetchreserved6_m8,
 				Code.Prefetchreserved7_m8,
 
+				Code.Vmgexit_F2,
+
 				// The following are implemented manually
 				Code.Call_ptr1616,
 				Code.Call_ptr1632,

@@ -11084,6 +11084,13 @@ INSTRUCTION: NP 0F 37 | GETSEC | SMX
 	flags: save-restore intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
 END
 
+# Code: Getsecq
+INSTRUCTION: NP o64 0F 37 | GETSECQ | SMX
+	flags: 64 save-restore intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
+	gas: mnemonic=getsec flags=o64
+	nasm: mnemonic=getsec flags=o64
+END
+
 # Code: Cmovo_r16_rm16
 INSTRUCTION: o16 0F 40 /r | CMOVO r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
@@ -29451,11 +29458,12 @@ INSTRUCTION: F3 0F 01 D9 | VMGEXIT | SEV_ES
 	cflow: Call
 END
 
-# Code: Getsecq
-INSTRUCTION: NP o64 0F 37 | GETSECQ | SMX
-	flags: 64 save-restore intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
-	gas: mnemonic=getsec flags=o64
-	nasm: mnemonic=getsec flags=o64
+# Code: Vmgexit_F2
+INSTRUCTION: F2 0F 01 D9 | VMGEXIT | SEV_ES
+	code-suffix: F2
+	# This is VMGEXIT iff in guest mode and SEV-ES is active, else it's VMMCALL.
+	flags: amd-vm-exit
+	cflow: Call
 END
 
 # Code: VEX_Ldtilecfg_m512
@@ -30031,4 +30039,86 @@ END
 # Code: VEX_Vbroadcastsd_ymm_xmm
 INSTRUCTION: VEX.256.66.0F38.W0 19 /r | VBROADCASTSD ymm1, xmm2 | AVX2
 	ops: w=ymm_reg r=xmm_rm
+END
+
+# Code: Uiret
+INSTRUCTION: F3 0F 01 EC | UIRET | UINTR
+	rflags: w=cpazsdoA 1=u
+	flags: 64 stack no-in-sgx1 no-in-sgx2 tsx-abort
+	cflow: Return
+	iinfo: Pop_8_8_8
+END
+
+# Code: Testui
+INSTRUCTION: F3 0F 01 ED | TESTUI | UINTR
+	rflags: r=u w=c 0=zaops
+	# It can be executed inside a transactional region
+	flags: 64 no-in-sgx1 no-in-sgx2
+END
+
+# Code: Clui
+INSTRUCTION: F3 0F 01 EE | CLUI | UINTR
+	rflags: 0=u
+	flags: 64 no-in-sgx1 no-in-sgx2 tsx-abort
+END
+
+# Code: Stui
+INSTRUCTION: F3 0F 01 EF | STUI | UINTR
+	rflags: 1=u
+	flags: 64 no-in-sgx1 no-in-sgx2 tsx-abort
+END
+
+# Code: Senduipi_r64
+INSTRUCTION: F3 0F C7 /6 | SENDUIPI r64 | UINTR
+	ops: r=r64_rm
+	# APIC-write VM exit
+	flags: 64 fo64 intel-may-vm-exit no-in-sgx1 no-in-sgx2
+END
+
+# Code: Hreset_imm8
+INSTRUCTION: F3 0F 3A F0 C0 ib | HRESET imm8, <EAX> | HRESET
+	# The CPU ignores the imm8
+	ops: n=imm8
+	flags: cpl0 tsx-abort
+	iinfo: R_EAX
+END
+
+# Code: VEX_Vpdpbusd_xmm_xmm_xmmm128
+INSTRUCTION: VEX.128.66.0F38.W0 50 /r | VPDPBUSD xmm1, xmm2, xmm3/m128 | AVX_VNNI
+	ops: rw=xmm_reg r=xmm_vvvv r=xmm_or_mem | Packed128_Int8
+END
+
+# Code: VEX_Vpdpbusd_ymm_ymm_ymmm256
+INSTRUCTION: VEX.256.66.0F38.W0 50 /r | VPDPBUSD ymm1, ymm2, ymm3/m256 | AVX_VNNI
+	ops: rw=ymm_reg r=ymm_vvvv r=ymm_or_mem | Packed256_Int8
+END
+
+# Code: VEX_Vpdpbusds_xmm_xmm_xmmm128
+INSTRUCTION: VEX.128.66.0F38.W0 51 /r | VPDPBUSDS xmm1, xmm2, xmm3/m128 | AVX_VNNI
+	ops: rw=xmm_reg r=xmm_vvvv r=xmm_or_mem | Packed128_Int8
+END
+
+# Code: VEX_Vpdpbusds_ymm_ymm_ymmm256
+INSTRUCTION: VEX.256.66.0F38.W0 51 /r | VPDPBUSDS ymm1, ymm2, ymm3/m256 | AVX_VNNI
+	ops: rw=ymm_reg r=ymm_vvvv r=ymm_or_mem | Packed256_Int8
+END
+
+# Code: VEX_Vpdpwssd_xmm_xmm_xmmm128
+INSTRUCTION: VEX.128.66.0F38.W0 52 /r | VPDPWSSD xmm1, xmm2, xmm3/m128 | AVX_VNNI
+	ops: rw=xmm_reg r=xmm_vvvv r=xmm_or_mem | Packed128_Int16
+END
+
+# Code: VEX_Vpdpwssd_ymm_ymm_ymmm256
+INSTRUCTION: VEX.256.66.0F38.W0 52 /r | VPDPWSSD ymm1, ymm2, ymm3/m256 | AVX_VNNI
+	ops: rw=ymm_reg r=ymm_vvvv r=ymm_or_mem | Packed256_Int16
+END
+
+# Code: VEX_Vpdpwssds_xmm_xmm_xmmm128
+INSTRUCTION: VEX.128.66.0F38.W0 53 /r | VPDPWSSDS xmm1, xmm2, xmm3/m128 | AVX_VNNI
+	ops: rw=xmm_reg r=xmm_vvvv r=xmm_or_mem | Packed128_Int16
+END
+
+# Code: VEX_Vpdpwssds_ymm_ymm_ymmm256
+INSTRUCTION: VEX.256.66.0F38.W0 53 /r | VPDPWSSDS ymm1, ymm2, ymm3/m256 | AVX_VNNI
+	ops: rw=ymm_reg r=ymm_vvvv r=ymm_or_mem | Packed256_Int16
 END
