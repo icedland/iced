@@ -111,7 +111,7 @@ namespace IcedFuzzer.Core {
 			return false;
 		}
 
-		public static EncodingTables Create(CpuDecoder cpuDecoder, int bitness, OpCodeInfo[] opCodes, InstrGenFlags genFlags) {
+		public static EncodingTables Create(int bitness, OpCodeInfo[] opCodes, InstrGenFlags genFlags) {
 			var encodingTables = new EncodingTables();
 
 			var legacy = new Dictionary<OpCodeKey, FuzzerInstructions[]>();
@@ -160,7 +160,7 @@ namespace IcedFuzzer.Core {
 				}
 			}
 
-			foreach (var (hasModrm, instr) in GetInstructions(cpuDecoder, bitness, opCodes)) {
+			foreach (var (hasModrm, instr) in GetInstructions(bitness, opCodes)) {
 				OpCodeKey key;
 				byte byteOpCode = instr.GetByteOpCode();
 				switch (instr.Table.Encoding) {
@@ -255,7 +255,7 @@ namespace IcedFuzzer.Core {
 						continue;
 					}
 					var fuzzerOpCode = new FuzzerOpCode(key.Table, (byte)opCode, key.IsModrmMemory);
-					fuzzerOpCode.Instructions.AddRange(GetLegacyInstructions(cpuDecoder, bitness, genFlags, flags, key.Table, (byte)opCode, kv.Value[opCode].Instructions, kv.Value[opCode].IsModrmMemory));
+					fuzzerOpCode.Instructions.AddRange(GetLegacyInstructions(bitness, genFlags, flags, key.Table, (byte)opCode, kv.Value[opCode].Instructions, kv.Value[opCode].IsModrmMemory));
 					if (fuzzerOpCode.Instructions.Count != 0)
 						encodingTables.Legacy.Add(fuzzerOpCode);
 				}
@@ -270,7 +270,7 @@ namespace IcedFuzzer.Core {
 						continue;
 					}
 					var fuzzerOpCode = new FuzzerOpCode(key.Table, (byte)opCode, key.IsModrmMemory);
-					fuzzerOpCode.Instructions.AddRange(Get3DNowInstructions(cpuDecoder, (byte)opCode, kv.Value[opCode].Instructions, kv.Value[opCode].IsModrmMemory));
+					fuzzerOpCode.Instructions.AddRange(Get3DNowInstructions((byte)opCode, kv.Value[opCode].Instructions, kv.Value[opCode].IsModrmMemory));
 					if (fuzzerOpCode.Instructions.Count != 0)
 						encodingTables.D3now.Add(fuzzerOpCode);
 				}
@@ -521,7 +521,7 @@ namespace IcedFuzzer.Core {
 			throw ThrowHelpers.Unreachable;
 		}
 
-		static IEnumerable<FuzzerInstruction> GetLegacyInstructions(CpuDecoder cpuDecoder, int bitness, InstrGenFlags genFlags, LegacyFlags[] flags, FuzzerOpCodeTable table, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
+		static IEnumerable<FuzzerInstruction> GetLegacyInstructions(int bitness, InstrGenFlags genFlags, LegacyFlags[] flags, FuzzerOpCodeTable table, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
 			Assert.True(table.Encoding == EncodingKind.Legacy);
 			Assert.True(flags.Length == 0x40);
 
@@ -715,7 +715,7 @@ namespace IcedFuzzer.Core {
 						// If there's a reserved-nop, replace all invalid instructions with a reserved-nop instruction
 						if (resNop is object) {
 							for (int groupIndex = 0; groupIndex < groupInfos.Length; groupIndex++)
-								InitializeResNop(cpuDecoder, bitness, flags, table, prefix => (new OpCode(opCode), groupIndex), isModrmMemory, ref groupInfos[groupIndex], groupIndex << 3, resNop, InvalidInstructionKind.Group, 0);
+								InitializeResNop(bitness, flags, table, prefix => (new OpCode(opCode), groupIndex), isModrmMemory, ref groupInfos[groupIndex], groupIndex << 3, resNop, InvalidInstructionKind.Group, 0);
 						}
 
 						if (xopCheck) {
@@ -842,7 +842,7 @@ namespace IcedFuzzer.Core {
 									infos[index + i].ClearAll();
 								foreach (var prefix in allMandatoryPrefixes)
 									rmGroups[GetMpGroupIndex(prefix, groupIndex)] = true;
-								InitializeResNop(cpuDecoder, bitness, flags, table, prefix => (new OpCode(opCode), groupIndex), isModrmMemory, ref infos[index], groupIndex << 3, resNop, InvalidInstructionKind.Group, 0);
+								InitializeResNop(bitness, flags, table, prefix => (new OpCode(opCode), groupIndex), isModrmMemory, ref infos[index], groupIndex << 3, resNop, InvalidInstructionKind.Group, 0);
 							}
 
 							// Convert 8 consecutive invalid instructions to a reserved nop with modrm.reg=N and a mandatory prefix (NP,66,F3,F2)
@@ -859,7 +859,7 @@ namespace IcedFuzzer.Core {
 									var ignoredPrefixes = LegacyFlags.PNP | LegacyFlags.P66 | LegacyFlags.PF3 | LegacyFlags.PF2;
 									ignoredPrefixes &= ~(LegacyFlags)(1 << (int)prefix);
 
-									InitializeResNop(cpuDecoder, bitness, flags, table, prefix => (new OpCode(opCode), groupIndex), isModrmMemory, ref infos[index], groupIndex << 3, resNop, InvalidInstructionKind.Group, ignoredPrefixes);
+									InitializeResNop(bitness, flags, table, prefix => (new OpCode(opCode), groupIndex), isModrmMemory, ref infos[index], groupIndex << 3, resNop, InvalidInstructionKind.Group, ignoredPrefixes);
 								}
 							}
 
@@ -878,7 +878,7 @@ namespace IcedFuzzer.Core {
 								}
 
 								Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode = prefix => GetOpCodeAndGroup(rmGroups, index, opCode, prefix);
-								InitializeResNop(cpuDecoder, bitness, flags, table, getOpCode, isModrmMemory, ref infos[index], index, resNop, InvalidInstructionKind.TwoByte, ignoredPrefixes);
+								InitializeResNop(bitness, flags, table, getOpCode, isModrmMemory, ref infos[index], index, resNop, InvalidInstructionKind.TwoByte, ignoredPrefixes);
 							}
 						}
 
@@ -930,7 +930,7 @@ namespace IcedFuzzer.Core {
 
 					// If there's a reserved-nop, replace all invalid instructions with a reserved-nop instruction
 					if (resNop is object)
-						InitializeResNop(cpuDecoder, bitness, flags, table, prefix => (new OpCode(opCode), -1), isModrmMemory, ref info, 0, resNop, InvalidInstructionKind.Full, 0);
+						InitializeResNop(bitness, flags, table, prefix => (new OpCode(opCode), -1), isModrmMemory, ref info, 0, resNop, InvalidInstructionKind.Full, 0);
 
 					foreach (var infoInstrs in info.Instructions) {
 						foreach (var instr in infoInstrs) {
@@ -943,7 +943,7 @@ namespace IcedFuzzer.Core {
 			}
 		}
 
-		static void InitializeResNop(CpuDecoder cpuDecoder, int bitness, LegacyFlags[] flags, FuzzerOpCodeTable table, Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode, bool isModrmMemory, ref LegacyInfo info, int flagsIndex, ReservednopInfo resNop, InvalidInstructionKind invalidKind, LegacyFlags ignoredPrefixes) {
+		static void InitializeResNop(int bitness, LegacyFlags[] flags, FuzzerOpCodeTable table, Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode, bool isModrmMemory, ref LegacyInfo info, int flagsIndex, ReservednopInfo resNop, InvalidInstructionKind invalidKind, LegacyFlags ignoredPrefixes) {
 			var resNopInstrs = resNop.GetInstructions();
 			if (ignoredPrefixes == 0 && info.IsInvalidMandatoryPrefixInstructions(invalidKind)) {
 				var (opCode, groupIndex) = getOpCode(MandatoryPrefix.None);
@@ -955,7 +955,7 @@ namespace IcedFuzzer.Core {
 				AddLegacy(bitness, table, getOpCode, isModrmMemory, ref info, resNopInstrs);
 			}
 			else
-				AddResNop(cpuDecoder, bitness, getOpCode, isModrmMemory, ref info, resNopInstrs, ignoredPrefixes);
+				AddResNop(bitness, getOpCode, isModrmMemory, ref info, resNopInstrs, ignoredPrefixes);
 		}
 
 		static void InitializeLegacyFlags(LegacyFlags[] flags, FuzzerInstruction instruction, OpCode opCode, int groupIndex) {
@@ -992,7 +992,7 @@ namespace IcedFuzzer.Core {
 			}
 		}
 
-		static void AddResNop(CpuDecoder cpuDecoder, int bitness, Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode, bool isModrmMemory, ref LegacyInfo info, List<FuzzerInstruction> instrs, LegacyFlags ignoredPrefixes) {
+		static void AddResNop(int bitness, Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode, bool isModrmMemory, ref LegacyInfo info, List<FuzzerInstruction> instrs, LegacyFlags ignoredPrefixes) {
 			if (info.Instructions[(int)MandatoryPrefix.None].Count != 0)
 				return;
 			bool hasNP = !info.IsInvalidOrEmpty(MandatoryPrefix.PNP) || (ignoredPrefixes & LegacyFlags.PNP) != 0;
@@ -1053,7 +1053,7 @@ namespace IcedFuzzer.Core {
 						}
 
 						var (opCode, groupIndex) = getOpCode(mandatoryPrefix);
-						var finstr = FuzzerInstruction.CreateValid(cpuDecoder, instr.Code, isModrmMemory, 0, 0, mandatoryPrefix, groupIndex, opCode);
+						var finstr = FuzzerInstruction.CreateValid(instr.Code, isModrmMemory, 0, 0, mandatoryPrefix, groupIndex, opCode);
 						if (has66)
 							finstr.Flags |= FuzzerInstructionFlags.DontUsePrefix66;
 						// F3/F2 are reserved nops or other valid instructions
@@ -1181,7 +1181,7 @@ namespace IcedFuzzer.Core {
 			return false;
 		}
 
-		static IEnumerable<FuzzerInstruction> Get3DNowInstructions(CpuDecoder cpuDecoder, byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
+		static IEnumerable<FuzzerInstruction> Get3DNowInstructions(byte opCode, List<FuzzerInstruction> instructions, bool isModrmMemory) {
 			switch (instructions.Count) {
 			case 0:
 				yield return FuzzerInstruction.CreateInvalid3dnow(new OpCode(opCode), isModrmMemory);
@@ -1545,31 +1545,31 @@ namespace IcedFuzzer.Core {
 			}
 		}
 
-		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(CpuDecoder cpuDecoder, int bitness, OpCodeInfo[] opCodes) {
+		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(int bitness, OpCodeInfo[] opCodes) {
 			// Split up instructions with a reg/mem (modrm) operand into two instructions,
 			// one with reg only ops and the other one with reg+mem ops, eg. `add r16,rm16`
 			// becomes `add r16,m16` and `add r16,r16`.
 			foreach (var opCode in opCodes) {
 				if (IsSETcc(opCode.Code)) {
 					for (int i = 0; i < 8; i++) {
-						foreach (var info in GetInstructions(cpuDecoder, bitness, opCode, opCode.MandatoryPrefix, i))
+						foreach (var info in GetInstructions(bitness, opCode, opCode.MandatoryPrefix, i))
 							yield return info;
 					}
 				}
 				else {
-					foreach (var info in GetInstructions(cpuDecoder, bitness, opCode, opCode.MandatoryPrefix, opCode.GroupIndex))
+					foreach (var info in GetInstructions(bitness, opCode, opCode.MandatoryPrefix, opCode.GroupIndex))
 						yield return info;
 				}
 			}
 		}
 
-		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(CpuDecoder cpuDecoder, int bitness, OpCodeInfo opCode, MandatoryPrefix mandatoryPrefix, int groupIndex) {
+		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(int bitness, OpCodeInfo opCode, MandatoryPrefix mandatoryPrefix, int groupIndex) {
 			var (hasModrm, kind) = HasModRmWithRegAndMemOps(opCode);
 			foreach (var (w, l) in GetLW(bitness, opCode)) {
 				if (kind == ModrmMemoryKind.Mem || kind == ModrmMemoryKind.RegOrMem)
-					yield return (hasModrm, FuzzerInstruction.CreateValid(cpuDecoder, opCode.Code, isModrmMemory: true, w, l, mandatoryPrefix, groupIndex));
+					yield return (hasModrm, FuzzerInstruction.CreateValid(opCode.Code, isModrmMemory: true, w, l, mandatoryPrefix, groupIndex));
 				if (kind == ModrmMemoryKind.Other || kind == ModrmMemoryKind.RegOrMem)
-					yield return (hasModrm, FuzzerInstruction.CreateValid(cpuDecoder, opCode.Code, isModrmMemory: false, w, l, mandatoryPrefix, groupIndex));
+					yield return (hasModrm, FuzzerInstruction.CreateValid(opCode.Code, isModrmMemory: false, w, l, mandatoryPrefix, groupIndex));
 			}
 		}
 

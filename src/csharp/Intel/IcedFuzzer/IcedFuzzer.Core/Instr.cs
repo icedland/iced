@@ -134,7 +134,6 @@ namespace IcedFuzzer.Core {
 		IgnoresModBits					= 0x00100000,
 		ReservedNop						= 0x00200000,
 		DefaultOperandSize64			= 0x00400000,
-		ForceOpSize64					= 0x00800000,
 	}
 
 	[DebuggerDisplay("Mem={" + nameof(IsModrmMemory) + "} {" + nameof(MandatoryPrefix) + "} L{" + nameof(L) + ",d} W{" + nameof(W) + ",d} {" + nameof(Code) + "}")]
@@ -164,7 +163,6 @@ namespace IcedFuzzer.Core {
 		public bool IgnoresModBits => (Flags & FuzzerInstructionFlags.IgnoresModBits) != 0;
 		public bool IsReservedNop => (Flags & FuzzerInstructionFlags.ReservedNop) != 0;
 		public bool DefaultOperandSize64 => (Flags & FuzzerInstructionFlags.DefaultOperandSize64) != 0;
-		public bool ForceOpSize64 => (Flags & FuzzerInstructionFlags.ForceOpSize64) != 0;
 
 		public readonly Code Code;
 		internal FuzzerInstructionFlags Flags;
@@ -192,18 +190,13 @@ namespace IcedFuzzer.Core {
 		internal readonly ModrmMemoryFuzzerOperand[] ModrmMemoryOperands;
 		internal readonly RegisterFuzzerOperand[] RegisterOperands;
 
-		// This is only used if it's a valid instruction, else it's set to Intel
-		readonly CpuDecoder cpuDecoder;
-
-		FuzzerInstruction(CpuDecoder cpuDecoder, Code code, FuzzerInstructionFlags flags, uint w, uint l, MandatoryPrefix mandatoryPrefix, FuzzerOpCodeTable table, OpCode opCode, int groupIndex, int rmGroupIndex, bool isModrmMemory, int operandSize, int addressSize) {
+		FuzzerInstruction(Code code, FuzzerInstructionFlags flags, uint w, uint l, MandatoryPrefix mandatoryPrefix, FuzzerOpCodeTable table, OpCode opCode, int groupIndex, int rmGroupIndex, bool isModrmMemory, int operandSize, int addressSize) {
 			// Should be a 2-byte opcode instead (groupIndex = modrm.reg and rmGroupIndex = modrm.rm bits)
 			Assert.True(groupIndex < 0 || rmGroupIndex < 0);
 			Assert.True(groupIndex >= -1 && groupIndex <= 7);
 			Assert.True(rmGroupIndex >= -1 && rmGroupIndex <= 7);
 			var opc = code.ToOpCode();
 			Assert.True(opc.IsInstruction || code == Code.INVALID);
-
-			this.cpuDecoder = cpuDecoder;
 
 			if (isModrmMemory) {
 				if (opc.CanBroadcast)
@@ -238,15 +231,8 @@ namespace IcedFuzzer.Core {
 				flags |= FuzzerInstructionFlags.IgnoresModBits;
 			if (opc.IsReservedNop)
 				flags |= FuzzerInstructionFlags.ReservedNop;
-			bool forceOpSize64 = cpuDecoder switch {
-				CpuDecoder.Intel => opc.IntelForceOpSize64,
-				CpuDecoder.AMD => false,
-				_ => throw new InvalidOperationException(),
-			};
 			if (opc.DefaultOpSize64)
 				flags |= FuzzerInstructionFlags.DefaultOperandSize64;
-			if (opc.ForceOpSize64 || forceOpSize64)
-				flags |= FuzzerInstructionFlags.ForceOpSize64;
 			switch (code) {
 			case Code.Xchg_r16_AX:
 			case Code.Xchg_r32_EAX:
@@ -350,21 +336,18 @@ namespace IcedFuzzer.Core {
 		}
 
 		internal static FuzzerInstruction CreateInvalidLegacy(FuzzerOpCodeTable table, OpCode opCode, int groupIndex, bool isModrmMemory, MandatoryPrefix mandatoryPrefix) =>
-			// It's invalid so CpuDecoder can be anything
-			new FuzzerInstruction(CpuDecoder.Intel, Code.INVALID, FuzzerInstructionFlags.None, 0, 0, mandatoryPrefix, table, opCode, groupIndex, -1, isModrmMemory, 0, 0);
+			new FuzzerInstruction(Code.INVALID, FuzzerInstructionFlags.None, 0, 0, mandatoryPrefix, table, opCode, groupIndex, -1, isModrmMemory, 0, 0);
 		internal static FuzzerInstruction CreateInvalid3dnow(OpCode opCode, bool isModrmMemory) =>
-			// It's invalid so CpuDecoder can be anything
-			new FuzzerInstruction(CpuDecoder.Intel, Code.INVALID, FuzzerInstructionFlags.None, 0, 0, MandatoryPrefix.None, new FuzzerOpCodeTable(EncodingKind.D3NOW, OpCodeTableIndexes.D3nowTable), opCode, -1, -1, isModrmMemory, 0, 0);
+			new FuzzerInstruction(Code.INVALID, FuzzerInstructionFlags.None, 0, 0, MandatoryPrefix.None, new FuzzerOpCodeTable(EncodingKind.D3NOW, OpCodeTableIndexes.D3nowTable), opCode, -1, -1, isModrmMemory, 0, 0);
 		internal static FuzzerInstruction CreateInvalidVec(FuzzerOpCodeTable table, OpCode opCode, int groupIndex, int rmGroupIndex, bool isModrmMemory, MandatoryPrefix mandatoryPrefix, uint w, uint l, FuzzerInstructionFlags flags) =>
-			// It's invalid so CpuDecoder can be anything
-			new FuzzerInstruction(CpuDecoder.Intel, Code.INVALID, flags, w, l, mandatoryPrefix, table, opCode, groupIndex, rmGroupIndex, isModrmMemory, 0, 0);
+			new FuzzerInstruction(Code.INVALID, flags, w, l, mandatoryPrefix, table, opCode, groupIndex, rmGroupIndex, isModrmMemory, 0, 0);
 
-		internal static FuzzerInstruction CreateValid(CpuDecoder cpuDecoder, Code code, bool isModrmMemory, uint w, uint l, MandatoryPrefix mandatoryPrefix, int groupIndex, OpCode? opCode = null) {
+		internal static FuzzerInstruction CreateValid(Code code, bool isModrmMemory, uint w, uint l, MandatoryPrefix mandatoryPrefix, int groupIndex, OpCode? opCode = null) {
 			var opc = code.ToOpCode();
 			var table = GetTable(opc.Encoding, opc.Table);
 			var realOpCode = opCode ?? OpCode.CreateFromUInt32(opc.OpCode, opc.OpCodeLength);
 			const FuzzerInstructionFlags flags = FuzzerInstructionFlags.None;
-			return new FuzzerInstruction(cpuDecoder, code, flags, w, l, mandatoryPrefix, table, realOpCode, groupIndex, opc.RmGroupIndex, isModrmMemory, opc.OperandSize, opc.AddressSize);
+			return new FuzzerInstruction(code, flags, w, l, mandatoryPrefix, table, realOpCode, groupIndex, opc.RmGroupIndex, isModrmMemory, opc.OperandSize, opc.AddressSize);
 		}
 
 		static FuzzerOpCodeTable GetTable(EncodingKind encoding, OpCodeTableKind table) =>
@@ -413,7 +396,7 @@ namespace IcedFuzzer.Core {
 		}
 
 		internal FuzzerInstruction WithGroup(OpCode opCode, int groupIndex) =>
-			CreateValid(cpuDecoder, Code, IsModrmMemory, W, L, MandatoryPrefix, groupIndex, opCode);
+			CreateValid(Code, IsModrmMemory, W, L, MandatoryPrefix, groupIndex, opCode);
 	}
 
 	public sealed class FuzzerOpCode {
