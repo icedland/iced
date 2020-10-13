@@ -17889,16 +17889,8 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// Normal_1
 	0xC2, 0x0B,// 1474 = "encodekey128"
 
-	// Encodekey128_r64_r64
-	0x2A,// Reg32
-	0xC2, 0x0B,// 1474 = "encodekey128"
-
 	// Encodekey256_r32_r32
 	0x01,// Normal_1
-	0xC3, 0x0B,// 1475 = "encodekey256"
-
-	// Encodekey256_r64_r64
-	0x2A,// Reg32
 	0xC3, 0x0B,// 1475 = "encodekey256"
 
 	// VEX_Vbroadcastss_xmm_xmm

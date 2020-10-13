@@ -29988,20 +29988,6 @@ INSTRUCTION: F3 0F 38 FA 11:rrr:bbb | ENCODEKEY128 r32, r32, <XMM0-2>, <XMM4-6> 
 	iinfo: Encodekey
 END
 
-# Code: Encodekey128_r64_r64
-INSTRUCTION: F3 o64 0F 38 FA 11:rrr:bbb | ENCODEKEY128 r64, r64, <XMM0-2>, <XMM4-6> | AESKLE
-	ops: w=r64_reg r=r64_rm
-	# Future extensions may write non-zero values to the flags so use w=xxx instead of 0=xxx
-	rflags: w=oszacp
-	# All Key Locker instructions may cause a TSX abort
-	flags: 64 tsx-impl-abort
-	iinfo: Encodekey
-	gas: reg32
-	intel: reg32
-	masm: reg32
-	nasm: reg32
-END
-
 # Code: Encodekey256_r32_r32
 INSTRUCTION: F3 0F 38 FB 11:rrr:bbb | ENCODEKEY256 r32, r32, <XMM0-6> | AESKLE
 	ops: w=r32_reg r=r32_rm
@@ -30010,20 +29996,6 @@ INSTRUCTION: F3 0F 38 FB 11:rrr:bbb | ENCODEKEY256 r32, r32, <XMM0-6> | AESKLE
 	# All Key Locker instructions may cause a TSX abort
 	flags: tsx-impl-abort
 	iinfo: Encodekey
-END
-
-# Code: Encodekey256_r64_r64
-INSTRUCTION: F3 o64 0F 38 FB 11:rrr:bbb | ENCODEKEY256 r64, r64, <XMM0-6> | AESKLE
-	ops: w=r64_reg r=r64_rm
-	# Future extensions may write non-zero values to the flags so use w=xxx instead of 0=xxx
-	rflags: w=oszacp
-	# All Key Locker instructions may cause a TSX abort
-	flags: 64 tsx-impl-abort
-	iinfo: Encodekey
-	gas: reg32
-	intel: reg32
-	masm: reg32
-	nasm: reg32
 END
 
 # Code: VEX_Vbroadcastss_xmm_xmm
@@ -30077,7 +30049,7 @@ END
 
 # Code: Hreset_imm8
 INSTRUCTION: F3 0F 3A F0 C0 ib | HRESET imm8, <EAX> | HRESET
-	# The CPU ignores the imm8
+	# The CPU ignores op0 (imm8)
 	ops: n=imm8
 	flags: cpl0 tsx-abort
 	iinfo: R_EAX

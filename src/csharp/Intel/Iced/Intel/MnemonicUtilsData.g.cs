@@ -4321,9 +4321,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Aesenc256kl,// Aesenc256kl_xmm_m512
 			(ushort)Mnemonic.Aesdec256kl,// Aesdec256kl_xmm_m512
 			(ushort)Mnemonic.Encodekey128,// Encodekey128_r32_r32
-			(ushort)Mnemonic.Encodekey128,// Encodekey128_r64_r64
 			(ushort)Mnemonic.Encodekey256,// Encodekey256_r32_r32
-			(ushort)Mnemonic.Encodekey256,// Encodekey256_r64_r64
 			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_xmm_xmm
 			(ushort)Mnemonic.Vbroadcastss,// VEX_Vbroadcastss_ymm_xmm
 			(ushort)Mnemonic.Vbroadcastsd,// VEX_Vbroadcastsd_ymm_xmm

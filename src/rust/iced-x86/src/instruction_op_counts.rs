@@ -4320,9 +4320,7 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	2,// Aesenc256kl_xmm_m512
 	2,// Aesdec256kl_xmm_m512
 	2,// Encodekey128_r32_r32
-	2,// Encodekey128_r64_r64
 	2,// Encodekey256_r32_r32
-	2,// Encodekey256_r64_r64
 	2,// VEX_Vbroadcastss_xmm_xmm
 	2,// VEX_Vbroadcastss_ymm_xmm
 	2,// VEX_Vbroadcastsd_ymm_xmm

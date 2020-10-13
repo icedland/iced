@@ -233,6 +233,7 @@ namespace Iced.Intel.DecoderInternal {
 		M_Sw,
 		Sw_M,
 		Rq,
+		Gd_Rd,
 	}
 }
 #endif

@@ -8383,8 +8383,6 @@ aesdec128kl xmm2, mem384 [rax]
 aesenc256kl xmm2, oword [rax]
 aesdec256kl xmm2, oword [rax]
 encodekey128 edx, ebx
-encodekey128 edx, ebx
-encodekey256 edx, ebx
 encodekey256 edx, ebx
 uiret
 testui

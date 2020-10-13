@@ -34350,14 +34350,6 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Encodekey128_r32_r32 = 4292,
-	/// `ENCODEKEY128 r64, r64, <XMM0-2>, <XMM4-6>`
-	///
-	/// `F3 o64 0F 38 FA 11:rrr:bbb`
-	///
-	/// `AESKLE`
-	///
-	/// `64-bit`
-	Encodekey128_r64_r64 = 4293,
 	/// `ENCODEKEY256 r32, r32, <XMM0-6>`
 	///
 	/// `F3 0F 38 FB 11:rrr:bbb`
@@ -34365,15 +34357,7 @@ pub enum Code {
 	/// `AESKLE`
 	///
 	/// `16/32/64-bit`
-	Encodekey256_r32_r32 = 4294,
-	/// `ENCODEKEY256 r64, r64, <XMM0-6>`
-	///
-	/// `F3 o64 0F 38 FB 11:rrr:bbb`
-	///
-	/// `AESKLE`
-	///
-	/// `64-bit`
-	Encodekey256_r64_r64 = 4295,
+	Encodekey256_r32_r32 = 4293,
 	/// `VBROADCASTSS xmm1, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 18 /r`
@@ -34381,7 +34365,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_xmm_xmm = 4296,
+	VEX_Vbroadcastss_xmm_xmm = 4294,
 	/// `VBROADCASTSS ymm1, xmm2`
 	///
 	/// `VEX.256.66.0F38.W0 18 /r`
@@ -34389,7 +34373,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_ymm_xmm = 4297,
+	VEX_Vbroadcastss_ymm_xmm = 4295,
 	/// `VBROADCASTSD ymm1, xmm2`
 	///
 	/// `VEX.256.66.0F38.W0 19 /r`
@@ -34397,7 +34381,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastsd_ymm_xmm = 4298,
+	VEX_Vbroadcastsd_ymm_xmm = 4296,
 	/// `VMGEXIT`
 	///
 	/// `F2 0F 01 D9`
@@ -34405,7 +34389,7 @@ pub enum Code {
 	/// `SEV-ES`
 	///
 	/// `16/32/64-bit`
-	Vmgexit_F2 = 4299,
+	Vmgexit_F2 = 4297,
 	/// `UIRET`
 	///
 	/// `F3 0F 01 EC`
@@ -34413,7 +34397,7 @@ pub enum Code {
 	/// `UINTR`
 	///
 	/// `64-bit`
-	Uiret = 4300,
+	Uiret = 4298,
 	/// `TESTUI`
 	///
 	/// `F3 0F 01 ED`
@@ -34421,7 +34405,7 @@ pub enum Code {
 	/// `UINTR`
 	///
 	/// `64-bit`
-	Testui = 4301,
+	Testui = 4299,
 	/// `CLUI`
 	///
 	/// `F3 0F 01 EE`
@@ -34429,7 +34413,7 @@ pub enum Code {
 	/// `UINTR`
 	///
 	/// `64-bit`
-	Clui = 4302,
+	Clui = 4300,
 	/// `STUI`
 	///
 	/// `F3 0F 01 EF`
@@ -34437,7 +34421,7 @@ pub enum Code {
 	/// `UINTR`
 	///
 	/// `64-bit`
-	Stui = 4303,
+	Stui = 4301,
 	/// `SENDUIPI r64`
 	///
 	/// `F3 0F C7 /6`
@@ -34445,7 +34429,7 @@ pub enum Code {
 	/// `UINTR`
 	///
 	/// `64-bit`
-	Senduipi_r64 = 4304,
+	Senduipi_r64 = 4302,
 	/// `HRESET imm8, <EAX>`
 	///
 	/// `F3 0F 3A F0 C0 ib`
@@ -34453,7 +34437,7 @@ pub enum Code {
 	/// `HRESET`
 	///
 	/// `16/32/64-bit`
-	Hreset_imm8 = 4305,
+	Hreset_imm8 = 4303,
 	/// `VPDPBUSD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 50 /r`
@@ -34461,7 +34445,7 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpbusd_xmm_xmm_xmmm128 = 4306,
+	VEX_Vpdpbusd_xmm_xmm_xmmm128 = 4304,
 	/// `VPDPBUSD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 50 /r`
@@ -34469,7 +34453,7 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpbusd_ymm_ymm_ymmm256 = 4307,
+	VEX_Vpdpbusd_ymm_ymm_ymmm256 = 4305,
 	/// `VPDPBUSDS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 51 /r`
@@ -34477,7 +34461,7 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpbusds_xmm_xmm_xmmm128 = 4308,
+	VEX_Vpdpbusds_xmm_xmm_xmmm128 = 4306,
 	/// `VPDPBUSDS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 51 /r`
@@ -34485,7 +34469,7 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpbusds_ymm_ymm_ymmm256 = 4309,
+	VEX_Vpdpbusds_ymm_ymm_ymmm256 = 4307,
 	/// `VPDPWSSD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 52 /r`
@@ -34493,7 +34477,7 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpwssd_xmm_xmm_xmmm128 = 4310,
+	VEX_Vpdpwssd_xmm_xmm_xmmm128 = 4308,
 	/// `VPDPWSSD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 52 /r`
@@ -34501,7 +34485,7 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpwssd_ymm_ymm_ymmm256 = 4311,
+	VEX_Vpdpwssd_ymm_ymm_ymmm256 = 4309,
 	/// `VPDPWSSDS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 53 /r`
@@ -34509,7 +34493,7 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpwssds_xmm_xmm_xmmm128 = 4312,
+	VEX_Vpdpwssds_xmm_xmm_xmmm128 = 4310,
 	/// `VPDPWSSDS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 53 /r`
@@ -34517,10 +34501,10 @@ pub enum Code {
 	/// `AVX-VNNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4313,
+	VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4311,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4314] = [
+static GEN_DEBUG_CODE: [&str; 4312] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38814,9 +38798,7 @@ static GEN_DEBUG_CODE: [&str; 4314] = [
 	"Aesenc256kl_xmm_m512",
 	"Aesdec256kl_xmm_m512",
 	"Encodekey128_r32_r32",
-	"Encodekey128_r64_r64",
 	"Encodekey256_r32_r32",
-	"Encodekey256_r64_r64",
 	"VEX_Vbroadcastss_xmm_xmm",
 	"VEX_Vbroadcastss_ymm_xmm",
 	"VEX_Vbroadcastsd_ymm_xmm",

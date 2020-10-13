@@ -957,6 +957,10 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_Rq(deserializer.ReadCode());
 				return 1;
 
+			case OpCodeHandlerKind.Gd_Rd:
+				elem = new OpCodeHandler_Gd_Rd(deserializer.ReadCode());
+				return 1;
+
 			default:
 				throw new InvalidOperationException();
 			}

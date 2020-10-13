@@ -229,5 +229,6 @@ namespace Generator.Enums.Decoder {
 		M_Sw,
 		Sw_M,
 		Rq,
+		Gd_Rd,
 	}
 }

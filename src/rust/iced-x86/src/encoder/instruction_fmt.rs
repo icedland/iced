@@ -555,14 +555,14 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				self.write("<XMM0>", true);
 			}
 
-			Code::Encodekey128_r32_r32 | Code::Encodekey128_r64_r64 => {
+			Code::Encodekey128_r32_r32 => {
 				self.write_op_separator();
 				self.write("<XMM0-2>", true);
 				self.write_op_separator();
 				self.write("<XMM4-6>", true);
 			}
 
-			Code::Encodekey256_r32_r32 | Code::Encodekey256_r64_r64 => {
+			Code::Encodekey256_r32_r32 => {
 				self.write_op_separator();
 				self.write("<XMM0-6>", true);
 			}

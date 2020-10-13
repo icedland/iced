@@ -264,9 +264,10 @@ pub(crate) enum OpCodeHandlerKind {
 	M_Sw,
 	Sw_M,
 	Rq,
+	Gd_Rd,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 205] = [
+static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 206] = [
 	"Bitness",
 	"Bitness_DontReadModRM",
 	"Invalid",
@@ -472,6 +473,7 @@ static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 205] = [
 	"M_Sw",
 	"Sw_M",
 	"Rq",
+	"Gd_Rd",
 ];
 impl fmt::Debug for OpCodeHandlerKind {
 	#[inline]

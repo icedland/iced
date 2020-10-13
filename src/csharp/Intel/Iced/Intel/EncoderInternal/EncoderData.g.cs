@@ -33,7 +33,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] EncFlags3 = GetEncFlags3();
 
 		static uint[] GetEncFlags1() =>
-			new uint[4314] {
+			new uint[4312] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4327,9 +4327,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x000011CA,// Aesenc256kl_xmm_m512
 				0x000011CA,// Aesdec256kl_xmm_m512
 				0x00001A32,// Encodekey128_r32_r32
-				0x00001D38,// Encodekey128_r64_r64
 				0x00001A32,// Encodekey256_r32_r32
-				0x00001D38,// Encodekey256_r64_r64
 				0x0000075C,// VEX_Vbroadcastss_xmm_xmm
 				0x00000762,// VEX_Vbroadcastss_ymm_xmm
 				0x00000762,// VEX_Vbroadcastsd_ymm_xmm
@@ -4351,7 +4349,7 @@ namespace Iced.Intel.EncoderInternal {
 			};
 
 		static uint[] GetEncFlags2() =>
-			new uint[4314] {
+			new uint[4312] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -8645,9 +8643,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x201400DE,// Aesenc256kl_xmm_m512
 				0x201400DF,// Aesdec256kl_xmm_m512
 				0x201400FA,// Encodekey128_r32_r32
-				0x201400FA,// Encodekey128_r64_r64
 				0x201400FB,// Encodekey256_r32_r32
-				0x201400FB,// Encodekey256_r64_r64
 				0x220C0018,// VEX_Vbroadcastss_xmm_xmm
 				0x228C0018,// VEX_Vbroadcastss_ymm_xmm
 				0x228C0019,// VEX_Vbroadcastsd_ymm_xmm
@@ -8669,7 +8665,7 @@ namespace Iced.Intel.EncoderInternal {
 			};
 
 		static uint[] GetEncFlags3() =>
-			new uint[4314] {
+			new uint[4312] {
 				0x00030000,// INVALID
 				0x00030000,// DeclareByte
 				0x00030000,// DeclareWord
@@ -12963,9 +12959,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00030000,// Aesenc256kl_xmm_m512
 				0x00030000,// Aesdec256kl_xmm_m512
 				0x00030000,// Encodekey128_r32_r32
-				0x00020018,// Encodekey128_r64_r64
 				0x00030000,// Encodekey256_r32_r32
-				0x00020018,// Encodekey256_r64_r64
 				0x00030001,// VEX_Vbroadcastss_xmm_xmm
 				0x00030001,// VEX_Vbroadcastss_ymm_xmm
 				0x00030001,// VEX_Vbroadcastsd_ymm_xmm

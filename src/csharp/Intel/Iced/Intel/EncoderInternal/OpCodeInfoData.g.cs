@@ -32,7 +32,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] OpcFlags2 = GetOpcFlags2();
 
 		static uint[] GetOpcFlags1() =>
-			new uint[4314] {
+			new uint[4312] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4326,9 +4326,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00100000,// Aesenc256kl_xmm_m512
 				0x00100000,// Aesdec256kl_xmm_m512
 				0x00100000,// Encodekey128_r32_r32
-				0x00100000,// Encodekey128_r64_r64
 				0x00100000,// Encodekey256_r32_r32
-				0x00100000,// Encodekey256_r64_r64
 				0x00000000,// VEX_Vbroadcastss_xmm_xmm
 				0x00000000,// VEX_Vbroadcastss_ymm_xmm
 				0x00000000,// VEX_Vbroadcastsd_ymm_xmm
@@ -4350,7 +4348,7 @@ namespace Iced.Intel.EncoderInternal {
 			};
 
 		static uint[] GetOpcFlags2() =>
-			new uint[4314] {
+			new uint[4312] {
 				0x1E003FFF,// INVALID
 				0x1E003FFF,// DeclareByte
 				0x1E003FFF,// DeclareWord
@@ -8644,9 +8642,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x7E803FFF,// Aesenc256kl_xmm_m512
 				0x7E803FFF,// Aesdec256kl_xmm_m512
 				0x3E803FFF,// Encodekey128_r32_r32
-				0x34803FF0,// Encodekey128_r64_r64
 				0x3E803FFF,// Encodekey256_r32_r32
-				0x34803FF0,// Encodekey256_r64_r64
 				0x1E003FFA,// VEX_Vbroadcastss_xmm_xmm
 				0x1E003FFA,// VEX_Vbroadcastss_ymm_xmm
 				0x1E003FFA,// VEX_Vbroadcastsd_ymm_xmm

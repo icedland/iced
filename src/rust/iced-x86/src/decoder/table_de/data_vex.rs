@@ -676,7 +676,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x37,// VW_3
 						0x4D,// XMM0
 						0x4D,// XMM0
-						0xC8, 0x21,// VEX_Vbroadcastss_xmm_xmm
+						0xC6, 0x21,// VEX_Vbroadcastss_xmm_xmm
 					0x37,// VW_3
 						0x4D,// XMM0
 						0x4D,// XMM0
@@ -685,7 +685,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0
-						0xC9, 0x21,// VEX_Vbroadcastss_ymm_xmm
+						0xC7, 0x21,// VEX_Vbroadcastss_ymm_xmm
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0
@@ -704,7 +704,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0
-						0xCA, 0x21,// VEX_Vbroadcastsd_ymm_xmm
+						0xC8, 0x21,// VEX_Vbroadcastsd_ymm_xmm
 					0x37,// VW_3
 						0x6D,// YMM0
 						0x4D,// XMM0
@@ -1363,10 +1363,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x0E,// VectorLength
 				0x29,// VHW_2
 					0x4D,// XMM0
-					0xD2, 0x21,// VEX_Vpdpbusd_xmm_xmm_xmmm128
+					0xD0, 0x21,// VEX_Vpdpbusd_xmm_xmm_xmmm128
 				0x29,// VHW_2
 					0x6D,// YMM0
-					0xD3, 0x21,// VEX_Vpdpbusd_ymm_ymm_ymmm256
+					0xD1, 0x21,// VEX_Vpdpbusd_ymm_ymm_ymmm256
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -1378,10 +1378,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x0E,// VectorLength
 				0x29,// VHW_2
 					0x4D,// XMM0
-					0xD4, 0x21,// VEX_Vpdpbusds_xmm_xmm_xmmm128
+					0xD2, 0x21,// VEX_Vpdpbusds_xmm_xmm_xmmm128
 				0x29,// VHW_2
 					0x6D,// YMM0
-					0xD5, 0x21,// VEX_Vpdpbusds_ymm_ymm_ymmm256
+					0xD3, 0x21,// VEX_Vpdpbusds_ymm_ymm_ymmm256
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -1393,10 +1393,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x0E,// VectorLength
 				0x29,// VHW_2
 					0x4D,// XMM0
-					0xD6, 0x21,// VEX_Vpdpwssd_xmm_xmm_xmmm128
+					0xD4, 0x21,// VEX_Vpdpwssd_xmm_xmm_xmmm128
 				0x29,// VHW_2
 					0x6D,// YMM0
-					0xD7, 0x21,// VEX_Vpdpwssd_ymm_ymm_ymmm256
+					0xD5, 0x21,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -1408,10 +1408,10 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x0E,// VectorLength
 				0x29,// VHW_2
 					0x4D,// XMM0
-					0xD8, 0x21,// VEX_Vpdpwssds_xmm_xmm_xmmm128
+					0xD6, 0x21,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 				0x29,// VHW_2
 					0x6D,// YMM0
-					0xD9, 0x21,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+					0xD7, 0x21,// VEX_Vpdpwssds_ymm_ymm_ymmm256
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid

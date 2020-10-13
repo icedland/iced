@@ -1712,7 +1712,7 @@ namespace Iced.Intel.DecoderInternal {
 					0xA4,// Simple
 						0xFE, 0x20,// Vmgexit
 					0xA4,// Simple
-						0xCB, 0x21,// Vmgexit_F2
+						0xC9, 0x21,// Vmgexit_F2
 
 				// 26 = 0x1A
 				0xAB,// Simple5
@@ -1779,7 +1779,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Bitness
 						0x03,// Invalid_NoModRM
 						0xA4,// Simple
-							0xCC, 0x21,// Uiret
+							0xCA, 0x21,// Uiret
 					0x03,// Invalid_NoModRM
 
 				// 45 = 0x2D
@@ -1789,7 +1789,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Bitness
 						0x03,// Invalid_NoModRM
 						0xA4,// Simple
-							0xCD, 0x21,// Testui
+							0xCB, 0x21,// Testui
 					0x03,// Invalid_NoModRM
 
 				// 46 = 0x2E
@@ -1800,7 +1800,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Bitness
 						0x03,// Invalid_NoModRM
 						0xA4,// Simple
-							0xCE, 0x21,// Clui
+							0xCC, 0x21,// Clui
 					0x03,// Invalid_NoModRM
 
 				// 47 = 0x2F
@@ -1811,7 +1811,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Bitness
 						0x03,// Invalid_NoModRM
 						0xA4,// Simple
-							0xCF, 0x21,// Stui
+							0xCD, 0x21,// Stui
 					0x03,// Invalid_NoModRM
 
 				// 48 = 0x30
@@ -2191,7 +2191,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x01,// Bitness_DontReadModRM
 						0x02,// Invalid
 						0xCC,// Rq
-							0xD0, 0x21,// Senduipi_r64
+							0xCE, 0x21,// Senduipi_r64
 					0x6E,// M_1
 						0x96, 0x11,// Vmxon_m64
 					0x02,// Invalid
@@ -3095,7 +3095,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x03,// Invalid_NoModRM
 					0x03,// Invalid_NoModRM
 					0x64,// Ib
-						0xD1, 0x21,// Hreset_imm8
+						0xCF, 0x21,// Hreset_imm8
 					0x03,// Invalid_NoModRM
 
 				// 1 = 0x01
@@ -3838,7 +3838,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 					0x02,// Invalid
 					0x09,// RM
-						0x55,// Gv_Ev_REX
+						0xCD,// Gd_Rd
 							0xC4, 0x21,// Encodekey128_r32_r32
 						0x02,// Invalid
 					0x02,// Invalid
@@ -3848,8 +3848,8 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 					0x02,// Invalid
 					0x09,// RM
-						0x55,// Gv_Ev_REX
-							0xC6, 0x21,// Encodekey256_r32_r32
+						0xCD,// Gd_Rd
+							0xC5, 0x21,// Encodekey256_r32_r32
 						0x02,// Invalid
 					0x02,// Invalid
 

@@ -9488,20 +9488,6 @@ namespace Iced.Intel {
 			op = Code.Encodekey128_r32_r32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>encodekey128 instruction.<br/>
-		/// <br/>
-		/// <c>ENCODEKEY128 r64, r64, &lt;XMM0-2&gt;, &lt;XMM4-6&gt;</c><br/>
-		/// <br/>
-		/// <c>F3 o64 0F 38 FA 11:rrr:bbb</c><br/>
-		/// <br/>
-		/// <c>AESKLE</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void encodekey128(AssemblerRegister64 dst, AssemblerRegister64 src) {
-			Code op;
-			op = Code.Encodekey128_r64_r64;
-			AddInstruction(Instruction.Create(op, dst, src));
-		}
 		/// <summary>encodekey256 instruction.<br/>
 		/// <br/>
 		/// <c>ENCODEKEY256 r32, r32, &lt;XMM0-6&gt;</c><br/>
@@ -9514,20 +9500,6 @@ namespace Iced.Intel {
 		public void encodekey256(AssemblerRegister32 dst, AssemblerRegister32 src) {
 			Code op;
 			op = Code.Encodekey256_r32_r32;
-			AddInstruction(Instruction.Create(op, dst, src));
-		}
-		/// <summary>encodekey256 instruction.<br/>
-		/// <br/>
-		/// <c>ENCODEKEY256 r64, r64, &lt;XMM0-6&gt;</c><br/>
-		/// <br/>
-		/// <c>F3 o64 0F 38 FB 11:rrr:bbb</c><br/>
-		/// <br/>
-		/// <c>AESKLE</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void encodekey256(AssemblerRegister64 dst, AssemblerRegister64 src) {
-			Code op;
-			op = Code.Encodekey256_r64_r64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>endbr32 instruction.<br/>
