@@ -825,6 +825,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.default_op_size64, info.default_op_size64());
 	assert_eq!(tc.force_op_size64, info.force_op_size64());
 	assert_eq!(tc.intel_force_op_size64, info.intel_force_op_size64());
+	assert_eq!(tc.cpl0 && !tc.cpl1 && !tc.cpl2 && !tc.cpl3, info.must_be_cpl0());
 	assert_eq!(tc.cpl0, info.cpl0());
 	assert_eq!(tc.cpl1, info.cpl1());
 	assert_eq!(tc.cpl2, info.cpl2());

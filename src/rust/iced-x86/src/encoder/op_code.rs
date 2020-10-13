@@ -656,6 +656,13 @@ impl OpCodeInfo {
 		(self.enc_flags3 & EncFlags3::INTEL_FORCE_OP_SIZE64) != 0
 	}
 
+	/// `true` if it can only be executed when CPL=0
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn must_be_cpl0(&self) -> bool {
+		(self.flags & (Flags::CPL0 | Flags::CPL1 | Flags::CPL2 | Flags::CPL3)) == Flags::CPL0
+	}
+
 	/// `true` if it can be executed when CPL=0
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]

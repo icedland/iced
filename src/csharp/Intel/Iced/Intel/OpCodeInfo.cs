@@ -462,6 +462,11 @@ namespace Iced.Intel {
 		public bool IntelForceOpSize64 => (encFlags3 & EncFlags3.IntelForceOpSize64) != 0;
 
 		/// <summary>
+		/// <see langword="true"/> if it can only be executed when CPL=0
+		/// </summary>
+		public bool MustBeCpl0 => (flags & (Flags.CPL0 | Flags.CPL1 | Flags.CPL2 | Flags.CPL3)) == Flags.CPL0;
+
+		/// <summary>
 		/// <see langword="true"/> if it can be executed when CPL=0
 		/// </summary>
 		public bool Cpl0 => (flags & Flags.CPL0) != 0;

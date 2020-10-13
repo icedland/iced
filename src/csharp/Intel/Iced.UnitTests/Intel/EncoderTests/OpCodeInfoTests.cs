@@ -85,6 +85,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.DefaultOpSize64, info.DefaultOpSize64);
 			Assert.Equal(tc.ForceOpSize64, info.ForceOpSize64);
 			Assert.Equal(tc.IntelForceOpSize64, info.IntelForceOpSize64);
+			Assert.Equal(tc.Cpl0 && !tc.Cpl1 && !tc.Cpl2 && !tc.Cpl3, info.MustBeCpl0);
 			Assert.Equal(tc.Cpl0, info.Cpl0);
 			Assert.Equal(tc.Cpl1, info.Cpl1);
 			Assert.Equal(tc.Cpl2, info.Cpl2);

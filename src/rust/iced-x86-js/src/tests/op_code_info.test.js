@@ -69,6 +69,7 @@ test("OpCodeInfo", () => {
 	expect(info1.defaultOpSize64).toBe(false);
 	expect(info1.forceOpSize64).toBe(false);
 	expect(info1.intelForceOpSize64).toBe(false);
+	expect(info1.mustBeCpl0).toBe(false);
 	expect(info1.cpl0).toBe(true);
 	expect(info1.cpl1).toBe(true);
 	expect(info1.cpl2).toBe(true);

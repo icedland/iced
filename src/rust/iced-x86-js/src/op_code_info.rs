@@ -333,6 +333,13 @@ impl OpCodeInfo {
 		self.0.intel_force_op_size64()
 	}
 
+	/// `true` if it can only be executed when CPL=0
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "mustBeCpl0")]
+	pub fn must_be_cpl0(&self) -> bool {
+		self.0.must_be_cpl0()
+	}
+
 	/// `true` if it can be executed when CPL=0
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "cpl0")]
