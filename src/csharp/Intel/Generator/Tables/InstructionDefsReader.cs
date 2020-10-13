@@ -76,7 +76,7 @@ namespace Generator.Tables {
 		readonly EnumValue codeInfoNone;
 		readonly List<OpInfo> opAccess;
 		readonly List<OpCodeOperandKind> opKinds;
-		readonly List<(string key, string value)> fmtKeyValues;
+		readonly List<(string key, string value, int fmtLineIndex)> fmtKeyValues;
 		const string DefBeginPrefix = "INSTRUCTION:";
 		const string DefEnd = "END";
 
@@ -89,7 +89,7 @@ namespace Generator.Tables {
 			errors = new List<string>();
 			opAccess = new List<OpInfo>();
 			opKinds = new List<OpCodeOperandKind>();
-			fmtKeyValues = new List<(string key, string value)>();
+			fmtKeyValues = new List<(string key, string value, int fmtLineIndex)>();
 			// Ignore case because two Code values with different casing is just too confusing
 			usedCodeValues = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
@@ -701,7 +701,7 @@ namespace Generator.Tables {
 				case "intel":
 				case "masm":
 				case "nasm":
-					fmtKeyValues.Add((lineKey, lineValue));
+					fmtKeyValues.Add((lineKey, lineValue, lineIndex));
 					break;
 
 				default:
@@ -721,65 +721,65 @@ namespace Generator.Tables {
 				state.Flags3 |= InstructionDefFlags3.Privileged;
 
 			// The formatters depend on some other lines so parse the formatter lines later
-			foreach (var (key, value) in fmtKeyValues) {
+			foreach (var (key, value, fmtLineIndex) in fmtKeyValues) {
 				switch (key) {
 				case "fast":
 					if (state.FastInfo is object) {
-						Error(lineIndex, $"Duplicate {key}");
+						Error(fmtLineIndex, $"Duplicate {key}");
 						return false;
 					}
 					if (!TryReadFastFmt(value, out state.FastInfo, out error)) {
-						Error(lineIndex, error);
+						Error(fmtLineIndex, error);
 						return false;
 					}
 					break;
 
 				case "gas":
 					if (state.Gas is object) {
-						Error(lineIndex, $"Duplicate {key}");
+						Error(fmtLineIndex, $"Duplicate {key}");
 						return false;
 					}
 					if (!TryReadGasFmt(value, state, out state.Gas, out error)) {
-						Error(lineIndex, error);
+						Error(fmtLineIndex, error);
 						return false;
 					}
 					break;
 
 				case "intel":
 					if (state.Intel is object) {
-						Error(lineIndex, $"Duplicate {key}");
+						Error(fmtLineIndex, $"Duplicate {key}");
 						return false;
 					}
 					if (!TryReadIntelFmt(value, state, out state.Intel, out error)) {
-						Error(lineIndex, error);
+						Error(fmtLineIndex, error);
 						return false;
 					}
 					break;
 
 				case "masm":
 					if (state.Masm is object) {
-						Error(lineIndex, $"Duplicate {key}");
+						Error(fmtLineIndex, $"Duplicate {key}");
 						return false;
 					}
 					if (!TryReadMasmFmt(value, state, out state.Masm, out error)) {
-						Error(lineIndex, error);
+						Error(fmtLineIndex, error);
 						return false;
 					}
 					break;
 
 				case "nasm":
 					if (state.Nasm is object) {
-						Error(lineIndex, $"Duplicate {key}");
+						Error(fmtLineIndex, $"Duplicate {key}");
 						return false;
 					}
 					if (!TryReadNasmFmt(value, state, out state.Nasm, out error)) {
-						Error(lineIndex, error);
+						Error(fmtLineIndex, error);
 						return false;
 					}
 					break;
 
 				default:
-					Error(lineIndex, $"Unknown key `{key}`");
+					Error(fmtLineIndex, $"Unknown key `{key}`");
 					return false;
 				}
 			}

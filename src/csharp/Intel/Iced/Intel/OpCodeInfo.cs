@@ -83,23 +83,12 @@ namespace Iced.Intel {
 				flags |= Flags.IgnoresRoundingControl;
 			if ((encFlags1 & EncFlags1.AmdLockRegBit) != 0)
 				flags |= Flags.AmdLockRegBit;
-			switch (opcFlags1 & (OpCodeInfoFlags1.Cpl0Only | OpCodeInfoFlags1.Cpl3Only)) {
-			case OpCodeInfoFlags1.Cpl0Only:
-				flags |= Flags.CPL0;
-				break;
-			case OpCodeInfoFlags1.Cpl3Only:
-				flags |= Flags.CPL3;
-				break;
-			default:
-				flags |= Flags.CPL0 | Flags.CPL1 | Flags.CPL2 | Flags.CPL3;
-				break;
-			}
+			flags |= (opcFlags1 & (OpCodeInfoFlags1.Cpl0Only | OpCodeInfoFlags1.Cpl3Only)) switch {
+				OpCodeInfoFlags1.Cpl0Only => Flags.CPL0,
+				OpCodeInfoFlags1.Cpl3Only => Flags.CPL3,
+				_ => Flags.CPL0 | Flags.CPL1 | Flags.CPL2 | Flags.CPL3,
+			};
 
-#if HAS_SPAN
-			ReadOnlySpan<byte> opKinds;
-#else
-			byte[] opKinds;
-#endif
 			encoding = (byte)(((uint)encFlags3 >> (int)EncFlags3.EncodingShift) & (uint)EncFlags3.EncodingMask);
 			mandatoryPrefix = (MandatoryPrefixByte)(((uint)encFlags2 >> (int)EncFlags2.MandatoryPrefixShift) & (uint)EncFlags2.MandatoryPrefixMask) switch {
 				MandatoryPrefixByte.None => (byte)((encFlags2 & EncFlags2.HasMandatoryPrefix) != 0 ? MandatoryPrefix.PNP : MandatoryPrefix.None),
@@ -185,6 +174,11 @@ namespace Iced.Intel {
 
 			string? toOpCodeStringValue = null;
 			string? toInstructionStringValue = null;
+#if HAS_SPAN
+			ReadOnlySpan<byte> opKinds;
+#else
+			byte[] opKinds;
+#endif
 			switch ((EncodingKind)encoding) {
 			case EncodingKind.Legacy:
 				opKinds = OpCodeOperandKinds.LegacyOpKinds;
