@@ -200,7 +200,7 @@ END
 INSTRUCTION: o16 07 | POP ES | INTEL8086
 	ops: w=es
 	code-mnemonic: popw
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -212,7 +212,7 @@ END
 INSTRUCTION: o32 07 | POP ES | INTEL386
 	ops: w=es
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -466,7 +466,7 @@ END
 INSTRUCTION: o16 17 | POP SS | INTEL8086
 	ops: w=ss
 	code-mnemonic: popw
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -478,7 +478,7 @@ END
 INSTRUCTION: o32 17 | POP SS | INTEL386
 	ops: w=ss
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -605,7 +605,7 @@ END
 INSTRUCTION: o16 1F | POP DS | INTEL8086
 	ops: w=ds
 	code-mnemonic: popw
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -617,7 +617,7 @@ END
 INSTRUCTION: o32 1F | POP DS | INTEL386
 	ops: w=ds
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -1355,7 +1355,7 @@ END
 INSTRUCTION: 6C | INSB | INTEL186
 	ops: w=es_rDI r=dx | UInt8
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Ins
 	gas: mnemonic=ins flags=force-suffix suffix=b
 	masm: mnemonic=ins asz-string-yd b
@@ -1366,7 +1366,7 @@ END
 INSTRUCTION: o16 6D | INSW | INTEL186
 	ops: w=es_rDI r=dx | UInt16
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Ins
 	gas: mnemonic=ins flags=force-suffix suffix=w
 	masm: mnemonic=ins asz-string-yd w
@@ -1377,7 +1377,7 @@ END
 INSTRUCTION: o32 6D | INSD | INTEL386
 	ops: w=es_rDI r=dx | UInt32
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Ins
 	gas: mnemonic=ins flags=force-suffix suffix=l
 	masm: mnemonic=ins asz-string-yd d
@@ -1388,7 +1388,7 @@ END
 INSTRUCTION: 6E | OUTSB | INTEL186
 	ops: r=dx r=seg_rSI | UInt8
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Outs
 	gas: mnemonic=outs flags=force-suffix suffix=b
 	masm: mnemonic=outs asz-string-dx b
@@ -1399,7 +1399,7 @@ END
 INSTRUCTION: o16 6F | OUTSW | INTEL186
 	ops: r=dx r=seg_rSI | UInt16
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Outs
 	gas: mnemonic=outs flags=force-suffix suffix=w
 	masm: mnemonic=outs asz-string-dx w
@@ -1410,7 +1410,7 @@ END
 INSTRUCTION: o32 6F | OUTSD | INTEL386
 	ops: r=dx r=seg_rSI | UInt32
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	iinfo: Outs
 	gas: mnemonic=outs flags=force-suffix suffix=l
 	masm: mnemonic=outs asz-string-dx d
@@ -2883,7 +2883,7 @@ END
 # Code: Mov_Sreg_rm16
 INSTRUCTION: o16 8E /r | MOV Sreg, r/m16 | INTEL8086
 	ops: w=seg_reg r=r16_or_mem | UInt16
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	gas: suffix=w mem16
 	nasm: osz-mem-1
 END
@@ -2891,7 +2891,7 @@ END
 # Code: Mov_Sreg_r32m16
 INSTRUCTION: o32 8E /r | MOV Sreg, r32/m16 | INTEL386
 	ops: w=seg_reg r=r32_or_mem | UInt16
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=l mem16
 	intel: reg16
@@ -2901,7 +2901,7 @@ END
 # Code: Mov_Sreg_r64m16
 INSTRUCTION: o64 8E /r | MOV Sreg, r64/m16 | X64
 	ops: w=seg_reg r=r64_or_mem | UInt16
-	flags: 64 no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 no-in-sgx tsx-impl-abort
 	iinfo: Read_Reg16_OpM1
 	gas: suffix=q mem16
 	intel: reg16
@@ -3040,7 +3040,7 @@ END
 INSTRUCTION: o16 9A cd | CALL ptr16:16 | INTEL8086
 	ops: r=farbr2_2
 	# VM exit if task switch
-	flags: 16 32 stack intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 stack intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Call
 	branch: call-far
 	iinfo: Push_2_2
@@ -3053,7 +3053,7 @@ END
 INSTRUCTION: o32 9A cp | CALL ptr16:32 | INTEL386
 	ops: r=farbr4_2
 	# VM exit if task switch
-	flags: 16 32 stack intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 stack intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Call
 	branch: call-far
 	iinfo: Push_4_4
@@ -3961,7 +3961,7 @@ END
 INSTRUCTION: o16 C4 /r | LES r16, m16:16 | INTEL8086
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -3971,7 +3971,7 @@ END
 INSTRUCTION: o32 C4 /r | LES r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -3981,7 +3981,7 @@ END
 INSTRUCTION: o16 C5 /r | LDS r16, m16:16 | INTEL8086
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -3991,7 +3991,7 @@ END
 INSTRUCTION: o32 C5 /r | LDS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: 16 32 no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -4139,7 +4139,7 @@ END
 INSTRUCTION: o16 CA iw | RETF imm16 | INTEL8086
 	ops: r=imm16
 	code-mnemonic: retfw
-	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: stack no-in-sgx tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_2_2
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
@@ -4152,7 +4152,7 @@ END
 INSTRUCTION: o32 CA iw | RETF imm16 | INTEL386
 	ops: r=imm16
 	code-mnemonic: retfd
-	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: stack no-in-sgx tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_4_4
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
@@ -4165,7 +4165,7 @@ END
 INSTRUCTION: o64 CA iw | RETF imm16 | X64
 	ops: r=imm16
 	code-mnemonic: retfq
-	flags: 64 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 stack no-in-sgx tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_8_8
 	fast: mnemonic=retfq
@@ -4178,7 +4178,7 @@ END
 # Code: Retfw
 INSTRUCTION: o16 CB | RETF | INTEL8086
 	code-mnemonic: retfw
-	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: stack no-in-sgx tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_2_2
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
@@ -4190,7 +4190,7 @@ END
 # Code: Retfd
 INSTRUCTION: o32 CB | RETF | INTEL386
 	code-mnemonic: retfd
-	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: stack no-in-sgx tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_4_4
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
@@ -4202,7 +4202,7 @@ END
 # Code: Retfq
 INSTRUCTION: o64 CB | RETF | X64
 	code-mnemonic: retfq
-	flags: 64 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 stack no-in-sgx tsx-impl-abort
 	cflow: Return
 	iinfo: Pop_8_8
 	fast: mnemonic=retfq
@@ -4224,7 +4224,7 @@ END
 INSTRUCTION: CD ib | INT imm8 | INTEL8086
 	ops: r=imm8
 	# VM exit if task switch
-	flags: intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Interrupt
 END
 
@@ -4232,7 +4232,7 @@ END
 INSTRUCTION: CE | INTO | INTEL8086
 	rflags: r=o
 	# VM exit if OF=1
-	flags: 16 32 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Interrupt
 END
 
@@ -4241,7 +4241,7 @@ INSTRUCTION: o16 CF | IRET | INTEL8086
 	code-mnemonic: iretw
 	rflags: w=oszacpdi
 	# VM exit if task switch
-	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	iinfo: Iret
 	gas: suffix=w osz-suffix-3 16
@@ -4252,7 +4252,7 @@ END
 INSTRUCTION: o32 CF | IRETD | INTEL386
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	iinfo: Iret
 	gas: mnemonic=iret suffix=l osz-suffix-3 32
@@ -4263,7 +4263,7 @@ END
 INSTRUCTION: o64 CF | IRETQ | X64
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: 64 stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 64 stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	iinfo: Iret
 	gas: mnemonic=iret suffix=q osz-suffix-3 0
@@ -7065,42 +7065,42 @@ END
 # Code: In_AL_imm8
 INSTRUCTION: E4 ib | IN AL, imm8 | INTEL8086
 	ops: w=al r=imm8
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: In_AX_imm8
 INSTRUCTION: o16 E5 ib | IN AX, imm8 | INTEL8086
 	ops: w=ax r=imm8
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: In_EAX_imm8
 INSTRUCTION: o32 E5 ib | IN EAX, imm8 | INTEL386
 	ops: w=eax r=imm8
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
 # Code: Out_imm8_AL
 INSTRUCTION: E6 ib | OUT imm8, AL | INTEL8086
 	ops: r=imm8 r=al
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: Out_imm8_AX
 INSTRUCTION: o16 E7 ib | OUT imm8, AX | INTEL8086
 	ops: r=imm8 r=ax
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Out_imm8_EAX
 INSTRUCTION: o32 E7 ib | OUT imm8, EAX | INTEL386
 	ops: r=imm8 r=eax
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
@@ -7187,7 +7187,7 @@ END
 INSTRUCTION: o16 EA cd | JMP ptr16:16 | INTEL8086
 	ops: r=farbr2_2
 	# VM exit if task switch
-	flags: 16 32 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: UnconditionalBranch
 	branch: jmp-far
 	gas: mnemonic=ljmp suffix=w osz-suffix-4
@@ -7199,7 +7199,7 @@ END
 INSTRUCTION: o32 EA cp | JMP ptr16:32 | INTEL386
 	ops: r=farbr4_2
 	# VM exit if task switch
-	flags: 16 32 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: UnconditionalBranch
 	branch: jmp-far
 	gas: mnemonic=ljmp suffix=l osz-suffix-4
@@ -7246,42 +7246,42 @@ END
 # Code: In_AL_DX
 INSTRUCTION: EC | IN AL, DX | INTEL8086
 	ops: w=al r=dx
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: In_AX_DX
 INSTRUCTION: o16 ED | IN AX, DX | INTEL8086
 	ops: w=ax r=dx
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: In_EAX_DX
 INSTRUCTION: o32 ED | IN EAX, DX | INTEL386
 	ops: w=eax r=dx
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
 # Code: Out_DX_AL
 INSTRUCTION: EE | OUT DX, AL | INTEL8086
 	ops: r=dx r=al
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=b
 END
 
 # Code: Out_DX_AX
 INSTRUCTION: o16 EF | OUT DX, AX | INTEL8086
 	ops: r=dx r=ax
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Out_DX_EAX
 INSTRUCTION: o32 EF | OUT DX, EAX | INTEL386
 	ops: r=dx r=eax
-	flags: io privileged intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
@@ -7861,7 +7861,7 @@ INSTRUCTION: o16 FF /3 | CALL m16:16 | INTEL8086
 	ops: r=mem | SegPtr16
 	code-memory-size: 1616
 	# VM exit if task switch
-	flags: stack cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: stack cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	iinfo: Push_2_2
@@ -7877,7 +7877,7 @@ INSTRUCTION: o32 FF /3 | CALL m16:32 | INTEL386
 	ops: r=mem | SegPtr32
 	code-memory-size: 1632
 	# VM exit if task switch
-	flags: stack cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: stack cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	iinfo: Push_4_4
@@ -7893,7 +7893,7 @@ INSTRUCTION: o64 FF /3 | CALL m16:64 | X64
 	ops: r=mem | SegPtr64
 	code-memory-size: 1664
 	# VM exit if task switch
-	flags: 64 stack cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 stack cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	iinfo: Push_8_8
@@ -7948,7 +7948,7 @@ INSTRUCTION: o16 FF /5 | JMP m16:16 | INTEL8086
 	ops: r=mem | SegPtr16
 	code-memory-size: 1616
 	# VM exit if task switch
-	flags: cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectBranch
 	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
@@ -7963,7 +7963,7 @@ INSTRUCTION: o32 FF /5 | JMP m16:32 | INTEL386
 	ops: r=mem | SegPtr32
 	code-memory-size: 1632
 	# VM exit if task switch
-	flags: cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectBranch
 	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
@@ -7978,7 +7978,7 @@ INSTRUCTION: o64 FF /5 | JMP m16:64 | X64
 	ops: r=mem | SegPtr64
 	code-memory-size: 1664
 	# VM exit if task switch
-	flags: 64 no-amd-dec cet-tracked intel-may-vm-exit no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 no-amd-dec cet-tracked intel-may-vm-exit no-in-sgx tsx-impl-abort
 	cflow: IndirectBranch
 	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
@@ -8028,7 +8028,7 @@ END
 INSTRUCTION: o16 0F 00 /0 | SLDT r/m16 | INTEL286
 	ops: w=r16_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -8038,7 +8038,7 @@ END
 INSTRUCTION: o32 0F 00 /0 | SLDT r32/m16 | INTEL386
 	ops: w=r32_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -8048,7 +8048,7 @@ END
 INSTRUCTION: o64 0F 00 /0 | SLDT r64/m16 | X64
 	ops: w=r64_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 64 no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 64 no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -8058,7 +8058,7 @@ END
 INSTRUCTION: o16 0F 00 /1 | STR r/m16 | INTEL286
 	ops: w=r16_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -8068,7 +8068,7 @@ END
 INSTRUCTION: o32 0F 00 /1 | STR r32/m16 | INTEL386
 	ops: w=r32_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -8078,7 +8078,7 @@ END
 INSTRUCTION: o64 0F 00 /1 | STR r64/m16 | X64
 	ops: w=r64_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 64 no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 64 no-rm no-v86 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q mem16
 	masm: flags=force-size=default
 	nasm: osz-mem-1
@@ -8248,7 +8248,7 @@ INSTRUCTION: o16 0F 01 /0 | SGDT m | INTEL286
 	code-memory-size: 1632
 	code-suffix: 16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8259,7 +8259,7 @@ INSTRUCTION: o32 0F 01 /0 | SGDT m | INTEL386
 	ops: w=mem | Fword6
 	code-memory-size: 1632
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8270,7 +8270,7 @@ INSTRUCTION: 0F 01 /0 | SGDT m | X64
 	ops: w=mem | Fword10
 	code-memory-size: 1664
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 64 fo64 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 64 fo64 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	masm: gidt
 END
@@ -8281,7 +8281,7 @@ INSTRUCTION: o16 0F 01 /1 | SIDT m | INTEL286
 	code-memory-size: 1632
 	code-suffix: 16
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8292,7 +8292,7 @@ INSTRUCTION: o32 0F 01 /1 | SIDT m | INTEL386
 	ops: w=mem | Fword6
 	code-memory-size: 1632
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	masm: gidt
 	nasm: osz-mem-1
@@ -8303,7 +8303,7 @@ INSTRUCTION: 0F 01 /1 | SIDT m | X64
 	ops: w=mem | Fword10
 	code-memory-size: 1664
 	# If CR4.UMIP=1, CPL=0 is required
-	flags: 64 fo64 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 64 fo64 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	masm: gidt
 END
@@ -8373,7 +8373,7 @@ INSTRUCTION: o16 0F 01 /4 | SMSW r/m16 | INTEL286
 	ops: w=r16_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
 	# May cause a TSX abort if VM exit
-	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	iinfo: R_CR0
 	gas: suffix=w mem16
 	masm: flags=force-size=default
@@ -8385,7 +8385,7 @@ INSTRUCTION: o32 0F 01 /4 | SMSW r32/m16 | INTEL386
 	ops: w=r32_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
 	# May cause a TSX abort if VM exit
-	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	iinfo: R_CR0
 	gas: suffix=l mem16
 	masm: flags=force-size=default
@@ -8397,7 +8397,7 @@ INSTRUCTION: o64 0F 01 /4 | SMSW r64/m16 | X64
 	ops: w=r64_or_mem | UInt16
 	# If CR4.UMIP=1, CPL=0 is required
 	# May cause a TSX abort if VM exit
-	flags: 64 may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: 64 may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	iinfo: R_CR0
 	gas: suffix=q mem16
 	masm: flags=force-size=default
@@ -8464,7 +8464,7 @@ INSTRUCTION: NP 0F 01 C1 | VMCALL | VMX
 	rflags: w=zc 0=osap
 	# It has CPL=0 but it can VM exit and the VMM doesn't need to require CPL=0, so shouldn't be marked privileged
 	#TODO: #UD if (v86 or compat) && VMX root operation
-	flags: cpl0 no-privileged vmx=op intel-vm-exit intel-smm-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ve tsx-impl-abort
+	flags: cpl0 no-privileged vmx=op intel-vm-exit intel-smm-vm-exit no-in-sgx tdx-non-root-ve tsx-impl-abort
 	cflow: Call
 END
 
@@ -8578,7 +8578,7 @@ INSTRUCTION: NP 0F 01 D4 | VMFUNC | VMX
 	#TODO: should be cond-write
 	rflags: w=oszacp
 	# VM exit if func EAX is disabled or if func EAX causes a VM exit
-	flags: vmx=non-root intel-may-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
+	flags: vmx=non-root intel-may-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
 	iinfo: Vmfunc
 END
 
@@ -8971,7 +8971,7 @@ END
 INSTRUCTION: 0F 05 | SYSCALL | SYSCALL
 	rflags: r=oszacpdiA w=oszacpdiA
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	cflow: Call
 	iinfo: Syscall
 END
@@ -11045,7 +11045,7 @@ END
 INSTRUCTION: 0F 33 | RDPMC | RDPMC
 	# If CR4.PCE=0, CPL=0 is required
 	# May cause a TSX abort if VM exit
-	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx1 no-in-sgx2 amd-may-vm-exit tsx-impl-abort
+	flags: may-require-cpl0 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	iinfo: R_ECX_W_EAX_EDX
 END
 
@@ -11053,7 +11053,7 @@ END
 INSTRUCTION: 0F 34 | SYSENTER | SEP
 	rflags: 0=i
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	cflow: Call
 	iinfo: Syscall
 END
@@ -11081,12 +11081,12 @@ END
 # Code: Getsecd
 INSTRUCTION: NP 0F 37 | GETSEC | SMX
 	code-mnemonic: getsecd
-	flags: save-restore intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
+	flags: save-restore intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
 END
 
 # Code: Getsecq
 INSTRUCTION: NP o64 0F 37 | GETSECQ | SMX
-	flags: 64 save-restore intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud tsx-impl-abort
+	flags: 64 save-restore intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
 	gas: mnemonic=getsec flags=o64
 	nasm: mnemonic=getsec flags=o64
 END
@@ -16026,7 +16026,7 @@ END
 INSTRUCTION: o16 0F A1 | POP FS | INTEL386
 	ops: w=fs
 	code-mnemonic: popw
-	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -16038,7 +16038,7 @@ END
 INSTRUCTION: o32 0F A1 | POP FS | INTEL386
 	ops: w=fs
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -16050,7 +16050,7 @@ END
 INSTRUCTION: o64 0F A1 | POP FS | X64
 	ops: w=fs
 	code-mnemonic: popq
-	flags: 64 stack do64 no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 stack do64 no-in-sgx tsx-impl-abort
 	iinfo: Pop_8
 	gas: suffix=q osz-suffix-4
 	intel: osz
@@ -16060,7 +16060,7 @@ END
 
 # Code: Cpuid
 INSTRUCTION: 0F A2 | CPUID | CPUID
-	flags: serialize-intel serialize-amd intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-may-gen-ex amd-may-vm-exit tsx-abort
+	flags: serialize-intel serialize-amd intel-vm-exit no-in-sgx tdx-non-root-may-gen-ex amd-may-vm-exit tsx-abort
 	iinfo: Cpuid
 END
 
@@ -16516,7 +16516,7 @@ END
 INSTRUCTION: o16 0F A9 | POP GS | INTEL386
 	ops: w=gs
 	code-mnemonic: popw
-	flags: stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_2
 	gas: suffix=w osz-suffix-4
 	intel: osz
@@ -16528,7 +16528,7 @@ END
 INSTRUCTION: o32 0F A9 | POP GS | INTEL386
 	ops: w=gs
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 16 32 stack no-in-sgx tsx-impl-abort
 	iinfo: Pop_4
 	gas: suffix=l osz-suffix-4
 	intel: osz
@@ -16540,7 +16540,7 @@ END
 INSTRUCTION: o64 0F A9 | POP GS | X64
 	ops: w=gs
 	code-mnemonic: popq
-	flags: 64 stack do64 no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 stack do64 no-in-sgx tsx-impl-abort
 	iinfo: Pop_8
 	gas: suffix=q osz-suffix-4
 	intel: osz
@@ -16553,7 +16553,7 @@ INSTRUCTION: 0F AA | RSM | SMM
 	rflags: w=oszacpdiA
 	# #UD if not in SMM, #UD if in SMM + VMX root operation, VM exit if in SMM + VMX non-root operation.
 	# This instruction doesn't require CPL=0 and SDMv3 8.3 says it's a "non-privileged serializing instruction".
-	flags: save-restore privileged serialize-intel serialize-amd no-outside-smm no-in-vmx-root intel-vm-exit no-in-sgx1 no-in-sgx2 tdx-non-root-ud amd-may-vm-exit tsx-impl-abort
+	flags: save-restore privileged serialize-intel serialize-amd no-outside-smm no-in-vmx-root intel-vm-exit no-in-sgx tdx-non-root-ud amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 END
 
@@ -17092,7 +17092,7 @@ END
 INSTRUCTION: o16 0F B2 /r | LSS r16, m16:16 | INTEL386
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -17102,7 +17102,7 @@ END
 INSTRUCTION: o32 0F B2 /r | LSS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -17112,7 +17112,7 @@ END
 INSTRUCTION: o64 0F B2 /r | LSS r64, m16:64 | X64
 	ops: w=r64_reg r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 no-amd-dec no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 no-amd-dec no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=q
 	nasm: flags=mem-size=ignore
@@ -17146,7 +17146,7 @@ END
 INSTRUCTION: o16 0F B4 /r | LFS r16, m16:16 | INTEL386
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -17156,7 +17156,7 @@ END
 INSTRUCTION: o32 0F B4 /r | LFS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -17166,7 +17166,7 @@ END
 INSTRUCTION: o64 0F B4 /r | LFS r64, m16:64 | X64
 	ops: w=r64_reg r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 no-amd-dec no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 no-amd-dec no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=q
 	nasm: flags=mem-size=ignore
@@ -17176,7 +17176,7 @@ END
 INSTRUCTION: o16 0F B5 /r | LGS r16, m16:16 | INTEL386
 	ops: w=r16_reg r=mem | SegPtr16
 	code-memory-size: 1616
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=w
 	nasm: flags=mem-size=ignore
@@ -17186,7 +17186,7 @@ END
 INSTRUCTION: o32 0F B5 /r | LGS r32, m16:32 | INTEL386
 	ops: w=r32_reg r=mem | SegPtr32
 	code-memory-size: 1632
-	flags: no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=l
 	nasm: flags=mem-size=ignore
@@ -17196,7 +17196,7 @@ END
 INSTRUCTION: o64 0F B5 /r | LGS r64, m16:64 | X64
 	ops: w=r64_reg r=mem | SegPtr64
 	code-memory-size: 1664
-	flags: 64 no-amd-dec no-in-sgx1 no-in-sgx2 tsx-impl-abort
+	flags: 64 no-amd-dec no-in-sgx tsx-impl-abort
 	iinfo: Lds
 	gas: suffix=q
 	nasm: flags=mem-size=ignore
@@ -30044,7 +30044,7 @@ END
 # Code: Uiret
 INSTRUCTION: F3 0F 01 EC | UIRET | UINTR
 	rflags: w=cpazsdoA 1=u
-	flags: 64 stack no-in-sgx1 no-in-sgx2 tsx-abort
+	flags: 64 stack no-in-sgx tsx-abort
 	cflow: Return
 	iinfo: Pop_8_8_8
 END
@@ -30053,26 +30053,26 @@ END
 INSTRUCTION: F3 0F 01 ED | TESTUI | UINTR
 	rflags: r=u w=c 0=zaops
 	# It can be executed inside a transactional region
-	flags: 64 no-in-sgx1 no-in-sgx2
+	flags: 64 no-in-sgx
 END
 
 # Code: Clui
 INSTRUCTION: F3 0F 01 EE | CLUI | UINTR
 	rflags: 0=u
-	flags: 64 no-in-sgx1 no-in-sgx2 tsx-abort
+	flags: 64 no-in-sgx tsx-abort
 END
 
 # Code: Stui
 INSTRUCTION: F3 0F 01 EF | STUI | UINTR
 	rflags: 1=u
-	flags: 64 no-in-sgx1 no-in-sgx2 tsx-abort
+	flags: 64 no-in-sgx tsx-abort
 END
 
 # Code: Senduipi_r64
 INSTRUCTION: F3 0F C7 /6 | SENDUIPI r64 | UINTR
 	ops: r=r64_rm
 	# APIC-write VM exit
-	flags: 64 fo64 intel-may-vm-exit no-in-sgx1 no-in-sgx2
+	flags: 64 fo64 intel-may-vm-exit no-in-sgx
 END
 
 # Code: Hreset_imm8

@@ -281,7 +281,8 @@ namespace Generator.Tables {
 			state.Flags2 |= InstructionDefFlags2.UseOutsideSmm | InstructionDefFlags2.UseInSmm |
 				InstructionDefFlags2.UseOutsideVmxOp | InstructionDefFlags2.UseInVmxRootOp | InstructionDefFlags2.UseInVmxNonRootOp |
 				InstructionDefFlags2.UseOutsideSeam | InstructionDefFlags2.UseInSeam;
-			state.Flags2 |= InstructionDefFlags2.UseOutsideEnclaveSgx | InstructionDefFlags2.UseInEnclaveSgx1 | InstructionDefFlags2.UseInEnclaveSgx2;
+			const InstructionDefFlags2 AllEnclaves = InstructionDefFlags2.UseInEnclaveSgx1 | InstructionDefFlags2.UseInEnclaveSgx2;
+			state.Flags2 |= InstructionDefFlags2.UseOutsideEnclaveSgx | AllEnclaves;
 			fmtKeyValues.Clear();
 			bool? privileged = null;
 			for (; lineIndex < lines.Length; lineIndex++) {
@@ -507,6 +508,7 @@ namespace Generator.Tables {
 						case "no-outside-seam": state.Flags2 &= ~InstructionDefFlags2.UseOutsideSeam; break;
 						case "no-in-seam": state.Flags2 &= ~InstructionDefFlags2.UseInSeam; break;
 						case "no-outside-sgx": state.Flags2 &= ~InstructionDefFlags2.UseOutsideEnclaveSgx; break;
+						case "no-in-sgx": state.Flags2 &= ~AllEnclaves; break;
 						case "no-in-sgx1": state.Flags2 &= ~InstructionDefFlags2.UseInEnclaveSgx1; break;
 						case "no-in-sgx2": state.Flags2 &= ~InstructionDefFlags2.UseInEnclaveSgx2; break;
 						case "tdx-non-root-ud": state.Flags2 &= ~InstructionDefFlags2.TdxNonRootGenUd; break;
@@ -916,7 +918,7 @@ namespace Generator.Tables {
 			}
 			// v86 mode and SGX enclaves will #GP(0) since CPL=3
 			if ((state.Flags1 & InstructionDefFlags1.Cpl3) == 0)
-				state.Flags2 &= ~(InstructionDefFlags2.Virtual8086Mode | InstructionDefFlags2.UseInEnclaveSgx1 | InstructionDefFlags2.UseInEnclaveSgx2);
+				state.Flags2 &= ~(InstructionDefFlags2.Virtual8086Mode | AllEnclaves);
 
 			if ((state.Flags2 & AllDecoders) == 0) {
 				Error(state.LineIndex, "Instruction can't be decoded by any decoder");
