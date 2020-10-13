@@ -441,6 +441,15 @@ namespace Generator.Tables {
 		Xbegin,
 	}
 
+	readonly struct InstrStrImpliedOp {
+		public readonly bool IsUpper;
+		public readonly string Operand;
+		public InstrStrImpliedOp(string operand) {
+			Operand = operand.ToUpperInvariant();
+			IsUpper = Operand == operand;
+		}
+	}
+
 	[DebuggerDisplay("{OpCodeString,nq} | {InstructionString,nq}")]
 	sealed class InstructionDef {
 		public readonly string OpCodeString;
@@ -458,6 +467,7 @@ namespace Generator.Tables {
 		public readonly InstructionDefFlags3 Flags3;
 		public readonly InstrStrFmtOption InstrStrFmtOption;
 		public readonly InstructionStringFlags InstrStrFlags;
+		public readonly InstrStrImpliedOp[] InstrStrImpliedOps;
 
 		public readonly CodeSize OperandSize;
 		public readonly CodeSize AddressSize;
@@ -497,6 +507,7 @@ namespace Generator.Tables {
 		public InstructionDef(EnumValue code, string opCodeString, string instructionString, EnumValue mnemonic,
 			EnumValue mem, EnumValue bcst, EnumValue decoderOption, InstructionDefFlags1 flags1, InstructionDefFlags2 flags2,
 			InstructionDefFlags3 flags3, InstrStrFmtOption instrStrFmtOption, InstructionStringFlags instrStrFlags,
+			InstrStrImpliedOp[] instrStrImpliedOps,
 			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKind[] opKinds,
 			PseudoOpsKind? pseudoOp, CodeInfo codeInfo, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
@@ -516,6 +527,7 @@ namespace Generator.Tables {
 			Flags3 = flags3;
 			InstrStrFmtOption = instrStrFmtOption;
 			InstrStrFlags = instrStrFlags;
+			InstrStrImpliedOps = instrStrImpliedOps;
 
 			MandatoryPrefix = mandatoryPrefix;
 			Table = table;

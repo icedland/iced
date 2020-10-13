@@ -277,5 +277,34 @@ namespace Generator.Encoder.CSharp {
 					writer.WriteLine($"{decoderOptions.DeclaringType.Name(idConverter)}.{decoderOptions.Name(idConverter)},");
 			});
 		}
+
+		protected override void GenerateImpliedOps((EncodingKind Encoding, InstrStrImpliedOp[] Ops, InstructionDef[] defs)[] impliedOpsInfo) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.EncoderNamespace), "InstructionFormatter.cs");
+			new FileUpdater(TargetLanguage.CSharp, "PrintImpliedOps", filename).Generate(writer => {
+				foreach (var info in impliedOpsInfo) {
+					string? feature = info.Encoding switch {
+						EncodingKind.Legacy => null,
+						EncodingKind.VEX => CSharpConstants.VexDefine,
+						EncodingKind.EVEX => CSharpConstants.EvexDefine,
+						EncodingKind.XOP => CSharpConstants.XopDefine,
+						EncodingKind.D3NOW => CSharpConstants.D3nowDefine,
+						_ => throw new InvalidOperationException(),
+					};
+					if (feature is object)
+						writer.WriteLineNoIndent($"#if {feature}");
+					foreach (var def in info.defs)
+						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+					using (writer.Indent()) {
+						foreach (var op in info.Ops) {
+							writer.WriteLine("WriteOpSeparator();");
+							writer.WriteLine($"Write(\"{op.Operand}\", upper: {(op.IsUpper ? "true" : "false")});");
+						}
+						writer.WriteLine("break;");
+					}
+					if (feature is object)
+						writer.WriteLineNoIndent("#endif");
+				}
+			});
+		}
 	}
 }

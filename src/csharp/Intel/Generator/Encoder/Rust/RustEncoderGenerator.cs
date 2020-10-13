@@ -495,5 +495,36 @@ namespace Generator.Encoder.Rust {
 				writer.WriteLine("];");
 			});
 		}
+
+		protected override void GenerateImpliedOps((EncodingKind Encoding, InstrStrImpliedOp[] Ops, InstructionDef[] defs)[] impliedOpsInfo) {
+			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "instruction_fmt.rs");
+			new FileUpdater(TargetLanguage.Rust, "PrintImpliedOps", filename).Generate(writer => {
+				foreach (var info in impliedOpsInfo) {
+					string? feature = info.Encoding switch {
+						EncodingKind.Legacy => null,
+						EncodingKind.VEX => RustConstants.FeatureVex,
+						EncodingKind.EVEX => RustConstants.FeatureEvex,
+						EncodingKind.XOP => RustConstants.FeatureXop,
+						EncodingKind.D3NOW => RustConstants.FeatureD3now,
+						_ => throw new InvalidOperationException(),
+					};
+					if (feature is object)
+						writer.WriteLine(feature);
+					var bar = string.Empty;
+					foreach (var def in info.defs) {
+						writer.Write($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}");
+						bar = " | ";
+					}
+					writer.WriteLine(" => {");
+					using (writer.Indent()) {
+						foreach (var op in info.Ops) {
+							writer.WriteLine("self.write_op_separator();");
+							writer.WriteLine($"self.write(\"{op.Operand}\", {(op.IsUpper ? "true" : "false")});");
+						}
+					}
+					writer.WriteLine("}");
+				}
+			});
+		}
 	}
 }

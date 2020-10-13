@@ -42,6 +42,7 @@ namespace Generator.Encoder {
 		protected abstract void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr);
 		protected abstract void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64);
 		protected abstract void GenerateDecoderOptionsTable((EnumValue decOptionValue, EnumValue decoderOptions)[] values);
+		protected abstract void GenerateImpliedOps((EncodingKind Encoding, InstrStrImpliedOp[] Ops, InstructionDef[] defs)[] impliedOpsInfo);
 
 		protected readonly GenTypes genTypes;
 		readonly EncoderTypes encoderTypes;
@@ -49,6 +50,40 @@ namespace Generator.Encoder {
 		protected EncoderGenerator(GenTypes genTypes) {
 			this.genTypes = genTypes;
 			encoderTypes = genTypes.GetObject<EncoderTypes>(TypeIds.EncoderTypes);
+		}
+
+		readonly struct ImpliedOpsKey : IEquatable<ImpliedOpsKey> {
+			readonly InstructionDef def;
+
+			public EncodingKind Encoding => def.Encoding;
+			public InstrStrImpliedOp[] Ops => def.InstrStrImpliedOps;
+
+			public ImpliedOpsKey(InstructionDef def) => this.def = def;
+
+			public bool Equals(ImpliedOpsKey other) {
+				if (def.Encoding != other.def.Encoding)
+					return false;
+				var a = def.InstrStrImpliedOps;
+				var b = other.def.InstrStrImpliedOps;
+				if (a.Length != b.Length)
+					return false;
+				for (int i = 0; i < a.Length; i++) {
+					if (a[i].IsUpper != b[i].IsUpper)
+						return false;
+					if (!StringComparer.OrdinalIgnoreCase.Equals(a[i].Operand, b[i].Operand))
+						return false;
+				}
+				return true;
+			}
+
+			public override bool Equals(object? obj) => obj is ImpliedOpsKey other && Equals(other);
+
+			public override int GetHashCode() {
+				int hc = HashCode.Combine(def.Encoding);
+				foreach (var op in def.InstrStrImpliedOps)
+					hc = HashCode.Combine(hc, StringComparer.OrdinalIgnoreCase.GetHashCode(op.Operand), op.IsUpper);
+				return hc;
+			}
 		}
 
 		public void Generate() {
@@ -60,6 +95,9 @@ namespace Generator.Encoder {
 
 			Generate(encoderTypes.LegacyOpHandlers, encoderTypes.VexOpHandlers, encoderTypes.XopOpHandlers, encoderTypes.EvexOpHandlers);
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
+			var impliedOpsInfo = defs.Where(a => a.InstrStrImpliedOps.Length > 0).
+				GroupBy(a => new ImpliedOpsKey(a), (a, b) => (a.Encoding, a.Ops, b.OrderBy(a => a.Code.Value).ToArray())).ToArray();
+			GenerateImpliedOps(impliedOpsInfo);
 			GenerateOpCodeInfo(defs);
 			Generate(encoderTypes.ImmSizes);
 			var notInstrOpCodeStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.OpCodeString)).ToArray();

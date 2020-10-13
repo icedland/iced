@@ -38,6 +38,7 @@ using Generator.InstructionInfo;
 namespace Generator.Tables {
 	sealed class InstructionDefsReader {
 		readonly StringBuilder sb;
+		readonly List<InstrStrImpliedOp> impliedOps;
 		readonly GenTypes genTypes;
 		readonly MemorySizeInfoTable memSizeTbl;
 		readonly EnumValue tupleTypeN1;
@@ -82,6 +83,7 @@ namespace Generator.Tables {
 
 		public InstructionDefsReader(GenTypes genTypes, string filename) {
 			sb = new StringBuilder();
+			impliedOps = new List<InstrStrImpliedOp>();
 			this.genTypes = genTypes;
 			memSizeTbl = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
 			this.filename = filename;
@@ -236,6 +238,11 @@ namespace Generator.Tables {
 			line = line.Substring(DefBeginPrefix.Length).Trim();
 			if (!TryParseDefLine(line, out var opCodeStr, out var instrStr, out var cpuid,
 				out var tupleType, out var error)) {
+				Error(lineIndex, error);
+				return false;
+			}
+
+			if (!TryReadInstrStrImpliedOps(instrStr, out var instrStrImpliedOps, out error)) {
 				Error(lineIndex, error);
 				return false;
 			}
@@ -997,13 +1004,49 @@ namespace Generator.Tables {
 			}
 			def = new InstructionDef(state.Code, state.OpCodeStr, state.InstrStr, state.Mnemonic, state.MemorySize,
 				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.InstrStrFmtOption,
-				state.InstrStrFlags, state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
+				state.InstrStrFlags, instrStrImpliedOps,
+				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
 				pseudoOp, (CodeInfo)state.CodeInfo.Value, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.RflagsRead,
 				state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
 				fastDef, gasDef, intelDef, masmDef, nasmDef);
 			defLineIndex = state.LineIndex;
+			return true;
+		}
+
+		bool TryReadInstrStrImpliedOps(string instrStr, [NotNullWhen(true)] out InstrStrImpliedOp[]? instrStrImpliedOps, [NotNullWhen(false)] out string? error) {
+			instrStrImpliedOps = null;
+			impliedOps.Clear();
+			int index = instrStr.IndexOf(' ');
+			if (index >= 0) {
+				foreach (var op in instrStr.Substring(index + 1).Split(',').Select(a => a.Trim())) {
+					if (op.Length == 0) {
+						error = "Empty instruction operand";
+						return false;
+					}
+					if (op[0] == '<') {
+						if (op[^1] != '>') {
+							error = "Implied operands must be enclosed in < >";
+							return false;
+						}
+						if (op.ToUpperInvariant() != op && op.ToLowerInvariant() != op) {
+							error = $"Implied operands must be lower case or upper case: `{op}`";
+							return false;
+						}
+						impliedOps.Add(new InstrStrImpliedOp(op));
+					}
+					else {
+						if (impliedOps.Count > 0) {
+							error = "All implied operands must be the last operands";
+							return false;
+						}
+					}
+				}
+			}
+
+			instrStrImpliedOps = impliedOps.Count == 0 ? Array.Empty<InstrStrImpliedOp>() : impliedOps.ToArray();
+			error = null;
 			return true;
 		}
 
