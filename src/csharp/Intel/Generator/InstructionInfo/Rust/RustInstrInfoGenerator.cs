@@ -192,38 +192,6 @@ namespace Generator.InstructionInfo.Rust {
 				};
 		}
 
-		static uint Verify_9_or_17(uint value) {
-			switch (value) {
-			case 9:
-			case 17:
-				return value;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
-
-		static uint Verify_2_4_or_8(uint value) {
-			switch (value) {
-			case 2:
-			case 4:
-			case 8:
-				return value;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
-
-		static uint Verify_2_or_4(uint value) {
-			switch (value) {
-			case 2:
-			case 4:
-			case 8:
-				return value;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
-
 		void GenerateImpliedAccesses(FileWriter writer, List<ImplAccStatement> stmts) {
 			var stmtState = new StmtState(
 				"if (flags & Flags::NO_REGISTER_USAGE) == 0 {",

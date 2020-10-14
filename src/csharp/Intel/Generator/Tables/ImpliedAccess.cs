@@ -202,7 +202,7 @@ namespace Generator.Tables {
 	}
 
 	enum ImplAccStatementKind {
-		// These check an internal array and won't work if some other statement add more registers. Put them first so they're sorted first.
+		// These check an internal array and won't work if other statements add more registers. Put them first so they're sorted first.
 		Arpl,
 		LastGpr8,
 		LastGpr16,
