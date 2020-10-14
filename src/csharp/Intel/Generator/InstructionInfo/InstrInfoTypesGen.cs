@@ -40,8 +40,8 @@ namespace Generator.InstructionInfo {
 		FirstUsedBit				= RflagsInfoShift,
 		RflagsInfoShift				= 14,
 		RflagsInfoMask				= 0x3F,
-		CodeInfoShift				= 20,
-		CodeInfoMask				= 0x7F,
+		ImpliedAccessShift			= 20,
+		ImpliedAccessMask			= 0xFF,
 		// Free bits
 		OpMaskReadWrite				= 0x40000000,
 		IgnoresSegment				= 0x80000000,
@@ -165,9 +165,9 @@ namespace Generator.InstructionInfo {
 			var rflagsHashSet = new HashSet<(RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set)> {
 				// None must always be present
 				default,
-				// Needed by CodeInfo.Clear_rflags (xor)
+				// Needed by ImpliedAccess.Clear_rflags (xor)
 				(RflagsBits.None, RflagsBits.AF, RflagsBits.None, RflagsBits.CF | RflagsBits.OF | RflagsBits.SF, RflagsBits.PF | RflagsBits.ZF),
-				// Needed by CodeInfo.Clear_rflags (sub)
+				// Needed by ImpliedAccess.Clear_rflags (sub)
 				(RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.AF | RflagsBits.CF | RflagsBits.OF | RflagsBits.SF, RflagsBits.PF | RflagsBits.ZF),
 			};
 			foreach (var def in defs)
@@ -292,6 +292,7 @@ namespace Generator.InstructionInfo {
 			opInfoHashes[0].Add(OpInfo.ReadWriteVmm);
 			opInfoHashes[0].Add(OpInfo.WriteForce);
 			opInfoHashes[0].Add(OpInfo.WriteMem_ReadWriteReg);
+			opInfoHashes[0].Add(OpInfo.WriteForceP1);
 			opInfoHashes[1].Add(OpInfo.ReadP3);
 
 			// InstructionInfoFactory assumes these have exactly two values: None, Read.
@@ -355,8 +356,8 @@ namespace Generator.InstructionInfo {
 			var rflagsInfos = RflagsInfos ?? throw new InvalidOperationException();
 			if ((uint)rflagsInfos.Length - 1 > (uint)InfoFlags1.RflagsInfoMask)
 				throw new InvalidOperationException();
-			var enumCodeInfo = genTypes[TypeIds.CodeInfo];
-			if ((uint)enumCodeInfo.Values.Length - 1 > (uint)InfoFlags1.CodeInfoMask)
+			var enumImpliedAccess = genTypes[TypeIds.ImpliedAccess];
+			if ((uint)enumImpliedAccess.Values.Length - 1 > (uint)InfoFlags1.ImpliedAccessMask)
 				throw new InvalidOperationException();
 			if ((uint)genTypes[TypeIds.EncodingKind].Values.Length - 1 > (uint)InfoFlags2.EncodingMask)
 				throw new InvalidOperationException();

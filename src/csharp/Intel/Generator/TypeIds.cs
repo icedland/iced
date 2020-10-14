@@ -96,7 +96,7 @@ namespace Generator {
 		public static readonly TypeId FlowControl = new TypeId(nameof(FlowControl));
 		public static readonly TypeId OpCodeOperandKind = new TypeId(nameof(OpCodeOperandKind));
 		public static readonly TypeId RflagsBits = new TypeId(nameof(RflagsBits));
-		public static readonly TypeId CodeInfo = new TypeId(nameof(CodeInfo));
+		public static readonly TypeId ImpliedAccess = new TypeId(nameof(ImpliedAccess));
 		public static readonly TypeId RflagsInfo = new TypeId(nameof(RflagsInfo));
 		public static readonly TypeId OpInfo0 = new TypeId(nameof(OpInfo0));
 		public static readonly TypeId OpInfo1 = new TypeId(nameof(OpInfo1));

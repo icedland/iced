@@ -260,17 +260,17 @@ namespace Iced.Intel {
 
 		readonly InstructionInfoInternal.RflagsInfo GetRflagsInfo() {
 			var flags1 = InstructionInfoInternal.InstrInfoTable.Data[(int)Code << 1];
-			var codeInfo = (InstructionInfoInternal.CodeInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.CodeInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.CodeInfoMask);
-			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 1 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11 ? 0 : -1);
-			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 2 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F ? 0 : -1);
-			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 3 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F ? 0 : -1);
-			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 4 == InstructionInfoInternal.CodeInfo.Clear_rflags ? 0 : -1);
+			var impliedAccess = (InstructionInfoInternal.ImpliedAccess)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.ImpliedAccessShift) & (uint)InstructionInfoInternal.InfoFlags1.ImpliedAccessMask);
+			Static.Assert(InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 + 1 == InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD11 ? 0 : -1);
+			Static.Assert(InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 + 2 == InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1F ? 0 : -1);
+			Static.Assert(InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 + 3 == InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK3F ? 0 : -1);
+			Static.Assert(InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 + 4 == InstructionInfoInternal.ImpliedAccess.Clear_rflags ? 0 : -1);
 			var result = (InstructionInfoInternal.RflagsInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.RflagsInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.RflagsInfoMask);
-			var e = (uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9);
+			var e = (uint)(impliedAccess - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9);
 			switch (e) {
-			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-				var m = e == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 ? 9 : 17;
+			case InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9:
+			case InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD11 - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9:
+				var m = e == InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 ? 9 : 17;
 				switch ((Immediate8 & 0x1F) % m) {
 				case 0:
 					return InstructionInfoInternal.RflagsInfo.None;
@@ -279,9 +279,9 @@ namespace Iced.Intel {
 				}
 				break;
 
-			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-				var mask = e == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 ? 0x1F : 0x3F;
+			case InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1F - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9:
+			case InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK3F - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9:
+				var mask = e == InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1F - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9 ? 0x1F : 0x3F;
 				switch (Immediate8 & mask) {
 				case 0:
 					return InstructionInfoInternal.RflagsInfo.None;
@@ -297,7 +297,7 @@ namespace Iced.Intel {
 				}
 				break;
 
-			case InstructionInfoInternal.CodeInfo.Clear_rflags - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
+			case InstructionInfoInternal.ImpliedAccess.Clear_rflags - InstructionInfoInternal.ImpliedAccess.Shift_Ib_MASK1FMOD9:
 				if (Op0Register != Op1Register)
 					break;
 				if (Op0Kind != OpKind.Register || Op1Kind != OpKind.Register)

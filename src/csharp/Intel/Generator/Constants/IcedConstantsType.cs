@@ -47,16 +47,15 @@ namespace Generator.Constants {
 		}
 
 		Constant[] GetConstants() {
-			var regEnum = genTypes[TypeIds.Register];
-			var vmmFirst = regEnum[Get_VMM_first()].Value;
-			var vmmLast = regEnum[Get_VMM_last()].Value;
+			var vmmFirst = Get_VMM_first().Value;
+			var vmmLast = Get_VMM_last().Value;
 			ConstantUtils.VerifyMask<Register>((1U << IcedConstants.RegisterBits) - 1);
 			return new Constant[] {
 				new Constant(ConstantKind.Index, nameof(IcedConstants.MaxOpCount), IcedConstants.MaxOpCount),
 				new Constant(ConstantKind.Index, nameof(IcedConstants.MaxInstructionLength), IcedConstants.MaxInstructionLength),
 				new Constant(ConstantKind.Int32, nameof(IcedConstants.RegisterBits), IcedConstants.RegisterBits),
 				new Constant(ConstantKind.Index, IcedConstants.NumberOfCodeValuesName, (uint)genTypes[TypeIds.Code].Values.Length),
-				new Constant(ConstantKind.Index, "NumberOfRegisters", (uint)regEnum.Values.Length),
+				new Constant(ConstantKind.Index, "NumberOfRegisters", (uint)genTypes[TypeIds.Register].Values.Length),
 				new Constant(ConstantKind.Index, "NumberOfMemorySizes", (uint)genTypes[TypeIds.MemorySize].Values.Length),
 				new Constant(ConstantKind.Index, "NumberOfEncodingKinds", (uint)genTypes[TypeIds.EncodingKind].Values.Length),
 				new Constant(ConstantKind.Index, "NumberOfOpKinds", (uint)genTypes[TypeIds.OpKind].Values.Length),
@@ -66,28 +65,34 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Register, "VMM_first", vmmFirst),
 				new Constant(ConstantKind.Register, "VMM_last", vmmLast),
 				new Constant(ConstantKind.Int32, "VMM_count", vmmLast - vmmFirst + 1),
-				new Constant(ConstantKind.Register, "XMM_last", regEnum[Get_VEC_last("XMM")].Value),
-				new Constant(ConstantKind.Register, "YMM_last", regEnum[Get_VEC_last("YMM")].Value),
-				new Constant(ConstantKind.Register, "ZMM_last", regEnum[Get_VEC_last("ZMM")].Value),
+				new Constant(ConstantKind.Register, "XMM_last", Get_VEC_last("XMM").Value),
+				new Constant(ConstantKind.Register, "YMM_last", Get_VEC_last("YMM").Value),
+				new Constant(ConstantKind.Register, "ZMM_last", Get_VEC_last("ZMM").Value),
 				new Constant(ConstantKind.Register, "TMM_last", Get_TMM_last().Value),
 				new Constant(ConstantKind.Index, "MaxCpuidFeatureInternalValues", (uint)genTypes[TypeIds.CpuidFeatureInternal].Values.Length),
 				new Constant(ConstantKind.MemorySize, IcedConstants.FirstBroadcastMemorySizeName, GetFirstBroadcastMemorySize()),
 			};
 		}
 
+		EnumValue Get_VMM_first() => Get_VMM_first(genTypes);
+		EnumValue Get_VMM_last() => Get_VMM_last(genTypes);
+		EnumValue Get_VEC_last(string prefix) => Get_VEC_last(genTypes, prefix);
+		EnumValue Get_TMM_last() => Get_TMM_last(genTypes);
+
 		const string VMM_prefix = "ZMM";
 		const int vmmLastNum = 31;
-		string Get_VMM_first() => VMM_prefix + "0";
-		string Get_VMM_last() => Get_VEC_last(VMM_prefix);
-		string Get_VEC_last(string prefix) {
+		public static EnumValue Get_VMM_first(GenTypes genTypes) => genTypes[TypeIds.Register][VMM_prefix + "0"];
+		public static EnumValue Get_VMM_last(GenTypes genTypes) => Get_VEC_last(genTypes, VMM_prefix);
+		static EnumValue Get_VEC_last(GenTypes genTypes, string prefix) {
 			var vmmLastStr = prefix + vmmLastNum.ToString();
 			var vmmShouldNotExistStr = prefix + (vmmLastNum + 1).ToString();
 			var vmmLast = genTypes[TypeIds.Register][vmmLastStr];
 			if (genTypes[TypeIds.Register].Values.Any(a => a.RawName == vmmShouldNotExistStr))
 				throw new InvalidOperationException($"Register {vmmShouldNotExistStr} exists so {vmmLast.RawName} isn't the last one");
-			return vmmLast.RawName;
+			return vmmLast;
 		}
-		EnumValue Get_TMM_last() {
+
+		public static EnumValue Get_TMM_last(GenTypes genTypes) {
 			int lastIndex = -1;
 			EnumValue? tmm = null;
 			var regs = genTypes[TypeIds.Register];

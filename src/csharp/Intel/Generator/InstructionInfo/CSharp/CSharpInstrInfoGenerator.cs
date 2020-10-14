@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Generator.Constants;
 using Generator.Constants.CSharp;
@@ -38,6 +39,8 @@ namespace Generator.InstructionInfo.CSharp {
 		readonly CSharpEnumsGenerator enumGenerator;
 		readonly CSharpConstantsGenerator constantsGenerator;
 		readonly GeneratorContext generatorContext;
+		readonly EnumType opAccessType;
+		readonly EnumType registerType;
 
 		public CSharpInstrInfoGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
@@ -45,6 +48,8 @@ namespace Generator.InstructionInfo.CSharp {
 			enumGenerator = new CSharpEnumsGenerator(generatorContext);
 			constantsGenerator = new CSharpConstantsGenerator(generatorContext);
 			this.generatorContext = generatorContext;
+			opAccessType = generatorContext.Types[TypeIds.OpAccess];
+			registerType = generatorContext.Types[TypeIds.Register];
 		}
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
@@ -191,5 +196,256 @@ namespace Generator.InstructionInfo.CSharp {
 				writer.WriteLine("};");
 			}
 		}
+
+		protected override void GenerateImpliedAccesses(ImpliedAccessesDef[] defs) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.IcedNamespace), "InstructionInfoFactory.cs");
+			new FileUpdater(TargetLanguage.CSharp, "ImpliedAccessHandler", filename).Generate(writer => GenerateImpliedAccesses(writer, defs));
+		}
+
+		void GenerateImpliedAccesses(FileWriter writer, ImpliedAccessesDef[] defs) {
+			foreach (var def in defs) {
+				writer.WriteLine($"case {GetEnumName(def.EnumValue)}:");
+				using (writer.Indent()) {
+					foreach (var cond in def.ImpliedAccesses.Conditions) {
+						var condStr = GetConditionString(cond.Kind);
+						if (condStr is null) {
+							if (cond.FalseStatements.Count > 0)
+								throw new InvalidOperationException();
+							GenerateImpliedAccesses(writer, cond.TrueStatements);
+						}
+						else {
+							writer.WriteLine($"if ({condStr}) {{");
+							using (writer.Indent())
+								GenerateImpliedAccesses(writer, cond.TrueStatements);
+							writer.WriteLine("}");
+							if (cond.FalseStatements.Count > 0) {
+								writer.WriteLine("else {");
+								using (writer.Indent())
+									GenerateImpliedAccesses(writer, cond.FalseStatements);
+								writer.WriteLine("}");
+							}
+						}
+					}
+					writer.WriteLine("break;");
+				}
+			}
+
+			static string? GetConditionString(ImplAccConditionKind kind) =>
+				kind switch {
+					ImplAccConditionKind.None => null,
+					ImplAccConditionKind.Bit64 => "(flags & Flags.Is64Bit) != 0",
+					ImplAccConditionKind.NotBit64 => "(flags & Flags.Is64Bit) == 0",
+					_ => throw new InvalidOperationException(),
+				};
+		}
+
+		static uint Verify_9_or_17(uint value) {
+			switch (value) {
+			case 9:
+			case 17:
+				return value;
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		static uint Verify_2_4_or_8(uint value) {
+			switch (value) {
+			case 2:
+			case 4:
+			case 8:
+				return value;
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		static uint Verify_2_or_4(uint value) {
+			switch (value) {
+			case 2:
+			case 4:
+			case 8:
+				return value;
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		void GenerateImpliedAccesses(FileWriter writer, List<ImplAccStatement> stmts) {
+			var stmtState = new StmtState(
+				"if ((flags & Flags.NoRegisterUsage) == 0) {",
+				"}",
+				"if ((flags & Flags.NoMemoryUsage) == 0) {",
+				"}");
+			foreach (var stmt in stmts) {
+				IntArgImplAccStatement arg1;
+				IntX2ArgImplAccStatement arg2;
+				stmtState.SetKind(writer, stmt.Kind);
+				switch (stmt.Kind) {
+				case ImplAccStatementKind.MemoryAccess:
+					var mem = (MemoryImplAccStatement)stmt;
+					writer.WriteLine($"AddMemory({GetRegisterString(mem.Segment)}, {GetRegisterString(mem.Base)}, {GetRegisterString(mem.Index)}, {mem.Scale}, 0x{mem.Displacement}, {GetMemorySizeString(mem.MemorySize)}, {GetOpAccessString(mem.Access)});");
+					break;
+				case ImplAccStatementKind.RegisterAccess:
+					var reg = (RegisterImplAccStatement)stmt;
+					if (reg.IsMemOpSegRead && CouldBeNullSegIn64BitMode(reg.Register, out var definitelyNullSeg)) {
+						if (definitelyNullSeg) {
+							writer.WriteLine("if ((flags & Flags.Is64Bit) == 0)");
+							using (writer.Indent())
+								writer.WriteLine($"AddRegister(flags, {GetRegisterString(reg.Register)}, {GetOpAccessString(reg.Access)});");
+						}
+						else
+							writer.WriteLine($"AddMemorySegmentRegister(flags, {GetRegisterString(reg.Register)}, {GetOpAccessString(reg.Access)});");
+					}
+					else
+						writer.WriteLine($"AddRegister(flags, {GetRegisterString(reg.Register)}, {GetOpAccessString(reg.Access)});");
+					break;
+				case ImplAccStatementKind.RegisterRangeAccess:
+					var rreg = (RegisterRangeImplAccStatement)stmt;
+					writer.WriteLine($"for (var reg = {GetEnumName(rreg.RegisterFirst)}; reg <= {GetEnumName(rreg.RegisterLast)}; reg++)");
+					using (writer.Indent())
+						writer.WriteLine($"AddRegister(flags, reg, {GetOpAccessString(rreg.Access)});");
+					break;
+				case ImplAccStatementKind.ShiftMask1F:
+					writer.WriteLine("CommandShiftMask(instruction, 0x1F);");
+					break;
+				case ImplAccStatementKind.ShiftMask1FMod:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandShiftMaskMod(instruction, {Verify_9_or_17(arg1.Arg)});");
+					break;
+				case ImplAccStatementKind.ShiftMask3F:
+					writer.WriteLine("CommandShiftMask(instruction, 0x3F);");
+					break;
+				case ImplAccStatementKind.ZeroRegRflags:
+					writer.WriteLine("CommandClearRflags(instruction, flags);");
+					break;
+				case ImplAccStatementKind.ZeroRegRegmem:
+					writer.WriteLine("CommandClearRegRegmem(instruction, flags);");
+					break;
+				case ImplAccStatementKind.ZeroRegRegRegmem:
+					writer.WriteLine("CommandClearRegRegRegmem(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Arpl:
+					writer.WriteLine("CommandArpl(instruction, flags);");
+					break;
+				case ImplAccStatementKind.LastGpr8:
+					writer.WriteLine($"CommandLastGpr(instruction, flags, {GetEnumName(registerType[nameof(Register.AL)])});");
+					break;
+				case ImplAccStatementKind.LastGpr16:
+					writer.WriteLine($"CommandLastGpr(instruction, flags, {GetEnumName(registerType[nameof(Register.AX)])});");
+					break;
+				case ImplAccStatementKind.LastGpr32:
+					writer.WriteLine($"CommandLastGpr(instruction, flags, {GetEnumName(registerType[nameof(Register.EAX)])});");
+					break;
+				case ImplAccStatementKind.EmmiReg:
+					var emmi = (EmmiImplAccStatement)stmt;
+					var emmiAccess = emmi.Access switch {
+						EmmiAccess.Read => opAccessType[nameof(OpAccess.Read)],
+						EmmiAccess.Write => opAccessType[nameof(OpAccess.Write)],
+						EmmiAccess.ReadWrite => opAccessType[nameof(OpAccess.ReadWrite)],
+						_ => throw new InvalidOperationException(),
+					};
+					writer.WriteLine($"CommandEmmi(instruction, flags, {GetEnumName(emmiAccess)});");
+					break;
+				case ImplAccStatementKind.Enter:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandEnter(instruction, flags, {Verify_2_4_or_8(arg1.Arg)});");
+					break;
+				case ImplAccStatementKind.Leave:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandLeave(instruction, flags, {Verify_2_4_or_8(arg1.Arg)});");
+					break;
+				case ImplAccStatementKind.Push:
+					arg2 = (IntX2ArgImplAccStatement)stmt;
+					if (arg2.Arg1 != 0)
+						writer.WriteLine($"CommandPush(instruction, flags, {arg2.Arg1}, {Verify_2_4_or_8(arg2.Arg2)});");
+					break;
+				case ImplAccStatementKind.Pop:
+					arg2 = (IntX2ArgImplAccStatement)stmt;
+					if (arg2.Arg1 != 0)
+						writer.WriteLine($"CommandPop(instruction, flags, {arg2.Arg1}, {Verify_2_4_or_8(arg2.Arg2)});");
+					break;
+				case ImplAccStatementKind.PopRm:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandPopRm(instruction, flags, {Verify_2_4_or_8(arg1.Arg)});");
+					break;
+				case ImplAccStatementKind.Pusha:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandPusha(instruction, flags, {Verify_2_or_4(arg1.Arg)});");
+					break;
+				case ImplAccStatementKind.Popa:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandPopa(instruction, flags, {Verify_2_or_4(arg1.Arg)});");
+					break;
+				case ImplAccStatementKind.lea:
+					writer.WriteLine("CommandLea(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Cmps:
+					writer.WriteLine("CommandCmps(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Ins:
+					writer.WriteLine("CommandIns(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Lods:
+					writer.WriteLine("CommandLods(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Movs:
+					writer.WriteLine("CommandMovs(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Outs:
+					writer.WriteLine("CommandOuts(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Scas:
+					writer.WriteLine("CommandScas(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Stos:
+					writer.WriteLine("CommandStos(instruction, flags);");
+					break;
+				case ImplAccStatementKind.Xstore:
+					writer.WriteLine("CommandXstore(instruction, flags);");
+					break;
+				default:
+					throw new InvalidOperationException();
+				}
+			}
+			stmtState.Done(writer);
+		}
+
+		string GetMemorySizeString(ImplAccMemorySize memorySize) {
+			switch (memorySize.Kind) {
+			case ImplAccMemorySizeKind.MemorySize:
+				if (memorySize.MemorySize is null)
+					throw new InvalidOperationException();
+				return GetEnumName(memorySize.MemorySize);
+			case ImplAccMemorySizeKind.Default:
+				return "instruction.MemorySize";
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		string GetRegisterString(ImplAccRegister? register) {
+			if (register == null)
+				return GetEnumName(registerType[nameof(Register.None)]);
+			var reg = register.GetValueOrDefault();
+			switch (reg.Kind) {
+			case ImplAccRegisterKind.Register:
+				if (reg.Register is null)
+					throw new InvalidOperationException();
+				return GetEnumName(reg.Register);
+			case ImplAccRegisterKind.SegmentDefaultDS: return "GetSegDefaultDS(instruction)";
+			case ImplAccRegisterKind.a_rDI: return "GetARDI(instruction)";
+			case ImplAccRegisterKind.Op0: return "instruction.Op0Register";
+			case ImplAccRegisterKind.Op1: return "instruction.Op1Register";
+			case ImplAccRegisterKind.Op2: return "instruction.Op2Register";
+			case ImplAccRegisterKind.Op3: return "instruction.Op3Register";
+			case ImplAccRegisterKind.Op4: return "instruction.Op4Register";
+			default: throw new InvalidOperationException();
+			}
+		}
+
+		string GetOpAccessString(OpAccess access) => GetEnumName(opAccessType[access.ToString()]);
+
+		string GetEnumName(EnumValue value) => value.DeclaringType.Name(idConverter) + "." + value.Name(idConverter);
 	}
 }

@@ -482,8 +482,9 @@ namespace Generator.Tables {
 		public readonly TupleType TupleType;
 		public readonly OpCodeOperandKind[] OpKinds;
 
+		public ImpliedAccessesDef ImpliedAccessDef => impliedAccessDef ?? throw new InvalidOperationException();
+		ImpliedAccessesDef? impliedAccessDef;
 		public readonly PseudoOpsKind? PseudoOp;
-		public readonly CodeInfo CodeInfo;
 		public readonly EnumValue ControlFlow;
 		public readonly ConditionCode ConditionCode;
 		public readonly BranchKind BranchKind;//TODO: Add to OpCodeInfo
@@ -510,7 +511,7 @@ namespace Generator.Tables {
 			InstrStrImpliedOp[] instrStrImpliedOps,
 			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKind[] opKinds,
-			PseudoOpsKind? pseudoOp, CodeInfo codeInfo, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
+			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
 			BranchKind branchKind, RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
 			EnumValue[] cpuid, OpInfo[] opInfo,
 			FastFmtInstructionDef fast, FmtInstructionDef gas, FmtInstructionDef intel, FmtInstructionDef masm, FmtInstructionDef nasm) {
@@ -543,7 +544,6 @@ namespace Generator.Tables {
 			OpKinds = opKinds;
 
 			PseudoOp = pseudoOp;
-			CodeInfo = codeInfo;
 			ControlFlow = flowControl;
 			ConditionCode = conditionCode;
 			BranchKind = branchKind;
@@ -563,6 +563,12 @@ namespace Generator.Tables {
 			Intel = intel;
 			Masm = masm;
 			Nasm = nasm;
+		}
+
+		internal void SetImpliedAccess(ImpliedAccessesDef value) {
+			if (impliedAccessDef is object)
+				throw new InvalidOperationException();
+			impliedAccessDef = value;
 		}
 	}
 }

@@ -2849,17 +2849,17 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	fn rflags_info(&self) -> usize {
 		let flags1 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2) };
-		let code_info = (flags1 >> InfoFlags1::CODE_INFO_SHIFT) & InfoFlags1::CODE_INFO_MASK;
-		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 1 == CodeInfo::Shift_Ib_MASK1FMOD11 as u32);
-		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 2 == CodeInfo::Shift_Ib_MASK1F as u32);
-		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 3 == CodeInfo::Shift_Ib_MASK3F as u32);
-		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 4 == CodeInfo::Clear_rflags as u32);
+		let implied_access = (flags1 >> InfoFlags1::IMPLIED_ACCESS_SHIFT) & InfoFlags1::IMPLIED_ACCESS_MASK;
+		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 1 == ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32);
+		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 2 == ImpliedAccess::Shift_Ib_MASK1F as u32);
+		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 3 == ImpliedAccess::Shift_Ib_MASK3F as u32);
+		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 4 == ImpliedAccess::Clear_rflags as u32);
 		let result = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
-		let e = code_info.wrapping_sub(CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+		let e = implied_access.wrapping_sub(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
 		match e {
 			0 | 1 => {
-				const_assert_eq!(0, CodeInfo::Shift_Ib_MASK1FMOD9 as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
-				const_assert_eq!(1, CodeInfo::Shift_Ib_MASK1FMOD11 as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(0, ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(1, ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
 				let m = if e == 0 { 9 } else { 17 };
 				match (self.immediate8() & 0x1F) % m {
 					0 => return RflagsInfo::None as usize,
@@ -2868,8 +2868,8 @@ impl Instruction {
 				}
 			}
 			2 | 3 => {
-				const_assert_eq!(2, CodeInfo::Shift_Ib_MASK1F as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
-				const_assert_eq!(3, CodeInfo::Shift_Ib_MASK3F as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(2, ImpliedAccess::Shift_Ib_MASK1F as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(3, ImpliedAccess::Shift_Ib_MASK3F as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
 				let mask = if e == 2 { 0x1F } else { 0x3F };
 				match self.immediate8() & mask {
 					0 => return RflagsInfo::None as usize,
@@ -2887,7 +2887,7 @@ impl Instruction {
 				}
 			}
 			4 => {
-				const_assert_eq!(4, CodeInfo::Clear_rflags as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(4, ImpliedAccess::Clear_rflags as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
 				if self.op0_register() == self.op1_register() && self.op0_kind() == OpKind::Register && self.op1_kind() == OpKind::Register {
 					if self.code().mnemonic() == Mnemonic::Xor {
 						return RflagsInfo::C_cos_S_pz_U_a as usize;

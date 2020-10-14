@@ -45,6 +45,7 @@ namespace Generator.Tables {
 		readonly string filename;
 		readonly string[] lines;
 		readonly List<string> errors;
+		readonly ImpliedAccessParser impliedAccessParser;
 		readonly Dictionary<string, int> usedCodeValues;
 		readonly Dictionary<string, EnumValue> toCode;
 		readonly Dictionary<string, EnumValue> toMnemonic;
@@ -53,7 +54,6 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toTupleType;
 		readonly Dictionary<string, EnumValue> toConditionCode;
 		readonly Dictionary<string, EnumValue> toFlowControl;
-		readonly Dictionary<string, EnumValue> toCodeInfo;
 		readonly Dictionary<string, EnumValue> toPseudoOpsKind;
 		readonly Dictionary<string, EnumValue> toDecOptionValue;
 		readonly Dictionary<string, EnumValue> toMemorySize;
@@ -74,7 +74,6 @@ namespace Generator.Tables {
 		readonly EnumValue memorySizeUnknown;
 		readonly EnumValue flowControlNext;
 		readonly EnumValue decoderOptionNone;
-		readonly EnumValue codeInfoNone;
 		readonly List<OpInfo> opAccess;
 		readonly List<OpCodeOperandKind> opKinds;
 		readonly List<(string key, string value, int fmtLineIndex)> fmtKeyValues;
@@ -94,6 +93,7 @@ namespace Generator.Tables {
 			fmtKeyValues = new List<(string key, string value, int fmtLineIndex)>();
 			// Ignore case because two Code values with different casing is just too confusing
 			usedCodeValues = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+			impliedAccessParser = new ImpliedAccessParser(genTypes);
 
 			toCode = CreateEnumDict(genTypes[TypeIds.Code]);
 			toMnemonic = CreateEnumDict(genTypes[TypeIds.Mnemonic]);
@@ -102,7 +102,6 @@ namespace Generator.Tables {
 			toTupleType = CreateEnumDict(genTypes[TypeIds.TupleType]);
 			toConditionCode = CreateEnumDict(genTypes[TypeIds.ConditionCode]);
 			toFlowControl = CreateEnumDict(genTypes[TypeIds.FlowControl]);
-			toCodeInfo = CreateEnumDict(genTypes[TypeIds.CodeInfo]);
 			toPseudoOpsKind = CreateEnumDict(genTypes[TypeIds.PseudoOpsKind]);
 			toDecOptionValue = CreateEnumDict(genTypes[TypeIds.DecOptionValue]);
 			toMemorySize = CreateEnumDict(genTypes[TypeIds.MemorySize]);
@@ -126,7 +125,6 @@ namespace Generator.Tables {
 			memorySizeUnknown = toMemorySize[nameof(MemorySize.Unknown)];
 			flowControlNext = toFlowControl[nameof(FlowControl.Next)];
 			decoderOptionNone = toDecOptionValue[nameof(DecOptionValue.None)];
-			codeInfoNone = toCodeInfo[nameof(CodeInfo.None)];
 		}
 
 		static Dictionary<string, EnumValue> CreateEnumDict(EnumType enumType, bool ignoreCase = false) =>
@@ -136,6 +134,7 @@ namespace Generator.Tables {
 
 		public InstructionDef[] Read() {
 			var defs = new List<(InstructionDef def, int lineIndex)>();
+			var impAccFactory = new ImpliedAccessEnumFactory();
 
 			var lines = this.lines;
 			for (int lineIndex = 0; lineIndex < lines.Length;) {
@@ -147,16 +146,19 @@ namespace Generator.Tables {
 
 				int errorCount = errors.Count;
 				int origLineIndex = lineIndex;
-				if (!TryParse(ref lineIndex, out var def, out var defLineIndex)) {
+				if (!TryParse(ref lineIndex, out var def, out var accesses, out var defLineIndex)) {
 					Debug.Assert(errorCount < errors.Count);
 					lineIndex = SkipLines(Math.Max(origLineIndex + 1, lineIndex));
 				}
-				else
+				else {
 					defs.Add((def, defLineIndex));
+					def.SetImpliedAccess(impAccFactory.Add(accesses));
+				}
 			}
 			if (defs.Count == 0)
 				Error(lines.Length, "No instruction definitions found");
 			defs.Sort((a, b) => a.def.Code.Value.CompareTo(b.def.Code.Value));
+			genTypes.Add(impAccFactory.CreateEnum());
 
 			if (TryGetErrorString(out var errorMessage))
 				throw new InvalidOperationException(errorMessage);
@@ -225,8 +227,9 @@ namespace Generator.Tables {
 			return lineIndex;
 		}
 
-		bool TryParse(ref int lineIndex, [NotNullWhen(true)] out InstructionDef? def, out int defLineIndex) {
+		bool TryParse(ref int lineIndex, [NotNullWhen(true)] out InstructionDef? def, out ImpliedAccesses? accesses, out int defLineIndex) {
 			def = null;
+			accesses = null;
 			defLineIndex = -1;
 
 			var line = lines[lineIndex].Trim();
@@ -395,12 +398,12 @@ namespace Generator.Tables {
 					}
 					break;
 
-				case "iinfo":
-					if (state.CodeInfo is object) {
+				case "implied":
+					if (state.ImpliedAccesses is object) {
 						Error(lineIndex, $"Duplicate {lineKey}");
 						return false;
 					}
-					if (!TryGetValue(toCodeInfo, lineValue, out state.CodeInfo, out error)) {
+					if (!impliedAccessParser.ReadImpliedAccesses(lineValue, out state.ImpliedAccesses, out error)) {
 						Error(lineIndex, error);
 						return false;
 					}
@@ -664,6 +667,7 @@ namespace Generator.Tables {
 						case "wvmm": opAccess = OpInfo.WriteVmm; break;
 						case "rwvmm": opAccess = OpInfo.ReadWriteVmm; break;
 						case "wf": opAccess = OpInfo.WriteForce; break;
+						case "wfp1": opAccess = OpInfo.WriteForceP1; break;
 						case "wm_rwreg": opAccess = OpInfo.WriteMem_ReadWriteReg; break;
 						default:
 							Error(lineIndex, $"Unknown op access `{key}`");
@@ -824,7 +828,6 @@ namespace Generator.Tables {
 
 			state.Cflow ??= flowControlNext;
 			state.DecoderOption ??= decoderOptionNone;
-			state.CodeInfo ??= codeInfoNone;
 			state.MemorySize ??= memorySizeUnknown;
 			state.MemorySize_Broadcast ??= memorySizeUnknown;
 			if (state.MemorySize_Broadcast != memorySizeUnknown && state.MemorySize == memorySizeUnknown) {
@@ -1002,13 +1005,14 @@ namespace Generator.Tables {
 				Error(state.LineIndex, $"An operand with a `{nameof(OpCodeOperandKind.None)}` value");
 				return false;
 			}
+			accesses = state.ImpliedAccesses;
 			def = new InstructionDef(state.Code, state.OpCodeStr, state.InstrStr, state.Mnemonic, state.MemorySize,
 				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.InstrStrFmtOption,
 				state.InstrStrFlags, instrStrImpliedOps,
 				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
-				pseudoOp, (CodeInfo)state.CodeInfo.Value, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.RflagsRead,
+				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.RflagsRead,
 				state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
 				fastDef, gasDef, intelDef, masmDef, nasmDef);
 			defLineIndex = state.LineIndex;
@@ -1513,10 +1517,8 @@ namespace Generator.Tables {
 					}
 					uint osz = 0;
 					foreach (var arg in args) {
-						if (!uint.TryParse(arg, out uint value)) {
-							error = $"Expected an integer: `{arg}`";
+						if (!ParserUtils.TryParseUInt32(arg, out var value, out error))
 							return false;
-						}
 						osz |= value;
 					}
 					result.Args.Add(result.GetUsedSuffix());
@@ -2976,18 +2978,7 @@ namespace Generator.Tables {
 
 		static IEnumerable<(string key, string value)> GetKeyValues(string line) {
 			foreach (var s in line.Split(' ', StringSplitOptions.RemoveEmptyEntries))
-				yield return GetKeyValue(s);
-		}
-
-		static (string key, string value) GetKeyValue(string s) {
-			int index = s.IndexOf('=');
-			if (index < 0)
-				return (s, string.Empty);
-			else {
-				var key = s.Substring(0, index).Trim();
-				var value = s.Substring(index + 1).Trim();
-				return (key, value);
-			}
+				yield return ParserUtils.GetKeyValue(s);
 		}
 
 		static bool TryGetDefLineKeyValue(string line, [NotNullWhen(true)] out string? key, [NotNullWhen(true)] out string? value, [NotNullWhen(false)] out string? errMsg) {
@@ -3117,9 +3108,9 @@ namespace Generator.Tables {
 		public EnumValue? Code;
 		public EnumValue? Mnemonic;
 		public EnumValue? Cflow;
+		public ImpliedAccesses? ImpliedAccesses;
 		public ConditionCode ConditionCode;
 		public EnumValue? DecoderOption;
-		public EnumValue? CodeInfo;
 		public InstructionDefFlags1 Flags1;
 		public InstructionDefFlags2 Flags2;
 		public InstructionDefFlags3 Flags3;

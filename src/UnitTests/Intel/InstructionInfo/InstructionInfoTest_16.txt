@@ -354,7 +354,7 @@ FF 30, Push_rm16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+s
 # cmovg ebx,[bx+si]
 66 0F4F 18, Cmovg_r32_rm32, Legacy, CMOV, fr=soz op0=cw op1=r cw=ebx r=ds r=bx r=si rm=ds:bx+si*1;UInt32
 # vzeroupper
-C5F8 77, VEX_Vzeroupper, VEX, AVX, rw=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
+C5F8 77, VEX_Vzeroupper, VEX, AVX, r=xmm0;xmm1;xmm2;xmm3;xmm4;xmm5;xmm6;xmm7 w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
 # vzeroall
 C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
 # push fs
