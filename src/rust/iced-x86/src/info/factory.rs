@@ -486,6 +486,7 @@ impl InstructionInfoFactory {
 	}
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unreadable_literal))]
 	fn add_implied_accesses(implied_access: ImpliedAccess, instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
 		debug_assert_ne!(ImpliedAccess::None, implied_access);
 		match implied_access {
