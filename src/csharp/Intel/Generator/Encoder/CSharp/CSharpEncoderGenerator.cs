@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using System.Linq;
 using Generator.Enums;
 using Generator.Enums.CSharp;
@@ -32,13 +31,11 @@ using Generator.Tables;
 namespace Generator.Encoder.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpEncoderGenerator : EncoderGenerator {
-		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
 		readonly CSharpEnumsGenerator enumGenerator;
 
 		public CSharpEncoderGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
-			this.generatorContext = generatorContext;
 			idConverter = CSharpIdentifierConverter.Create();
 			enumGenerator = new CSharpEnumsGenerator(generatorContext);
 		}
@@ -51,7 +48,7 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		void GenerateOpCodeOperandKindTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeOperandKinds.g.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "OpCodeOperandKinds.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.OpCodeInfoDefine}");
@@ -91,7 +88,7 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		void GenerateOpTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpTables.g.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "OpTables.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.EncoderDefine}");
@@ -176,7 +173,7 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		void GenerateTables(InstructionDef[] defs, (string name, (InstructionDef def, uint value)[] values)[] tableData, string define, string className, string filename) {
-			var fullFilename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), filename);
+			var fullFilename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, filename);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(fullFilename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {define}");
@@ -207,7 +204,7 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Encoder.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Encoder.cs");
 			new FileUpdater(TargetLanguage.CSharp, "ImmSizes", filename).Generate(writer => {
 				writer.WriteLine($"static readonly uint[] s_immSizes = new uint[{immSizes.Length}] {{");
 				using (writer.Indent()) {
@@ -241,12 +238,12 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "InstructionFormatter.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "InstructionFormatter.cs");
 			GenerateNotInstrCases(filename, "InstrFmtNotInstructionString", notInstrStrings);
 		}
 
 		protected override void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeFormatter.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "OpCodeFormatter.cs");
 			GenerateNotInstrCases(filename, "OpCodeFmtNotInstructionString", notInstrStrings);
 			GenerateCases(filename, "HasModRM", hasModRM, "return true;");
 			GenerateCases(filename, "HasVsib", hasVsib, "return true;");
@@ -256,7 +253,7 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		protected override void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.BlockEncoderNamespace), "Instr.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.BlockEncoderNamespace, "Instr.cs");
 			GenerateCases(filename, "JccInstr", jccInstr, "return new JccInstr(blockEncoder, block, instruction);");
 			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr, "return new SimpleBranchInstr(blockEncoder, block, instruction);");
 			GenerateCases(filename, "CallInstr", callInstr, "return new CallInstr(blockEncoder, block, instruction);");
@@ -265,13 +262,13 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		protected override void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.cs");
 			GenerateCases(filename, "Vsib32", vsib32, "vsib64 = false;", "return true;");
 			GenerateCases(filename, "Vsib64", vsib64, "vsib64 = true;", "return true;");
 		}
 
 		protected override void GenerateDecoderOptionsTable((EnumValue decOptionValue, EnumValue decoderOptions)[] values) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.IcedNamespace), "OpCodeInfo.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "OpCodeInfo.cs");
 			new FileUpdater(TargetLanguage.CSharp, "ToDecoderOptionsTable", filename).Generate(writer => {
 				foreach (var (_, decoderOptions) in values)
 					writer.WriteLine($"{decoderOptions.DeclaringType.Name(idConverter)}.{decoderOptions.Name(idConverter)},");
@@ -279,7 +276,7 @@ namespace Generator.Encoder.CSharp {
 		}
 
 		protected override void GenerateImpliedOps((EncodingKind Encoding, InstrStrImpliedOp[] Ops, InstructionDef[] defs)[] impliedOpsInfo) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.EncoderNamespace), "InstructionFormatter.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "InstructionFormatter.cs");
 			new FileUpdater(TargetLanguage.CSharp, "PrintImpliedOps", filename).Generate(writer => {
 				foreach (var info in impliedOpsInfo) {
 					string? feature = info.Encoding switch {

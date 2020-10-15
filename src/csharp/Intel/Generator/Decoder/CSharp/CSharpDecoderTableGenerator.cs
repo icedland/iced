@@ -21,18 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.IO;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpDecoderTableGenerator {
-		readonly GeneratorContext generatorContext;
+		readonly GenTypes genTypes;
 
-		public CSharpDecoderTableGenerator(GeneratorContext generatorContext) => this.generatorContext = generatorContext;
+		public CSharpDecoderTableGenerator(GeneratorContext generatorContext) => genTypes = generatorContext.Types;
 
 		public void Generate() {
-			var genTypes = generatorContext.Types;
 			var serializers = new CSharpDecoderTableSerializer[] {
 				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_Legacy", DecoderTableSerializerInfo.Legacy(genTypes)),
 				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_VEX", DecoderTableSerializerInfo.Vex(genTypes)),
@@ -41,7 +39,7 @@ namespace Generator.Decoder.CSharp {
 			};
 
 			foreach (var serializer in serializers) {
-				var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), serializer.ClassName + ".g.cs");
+				var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.DecoderNamespace, serializer.ClassName + ".g.cs");
 				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename)))
 					serializer.Serialize(writer);
 			}

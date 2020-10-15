@@ -24,7 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Text;
 using Generator.Documentation.Rust;
@@ -62,7 +61,7 @@ namespace Generator.Encoder.RustJS {
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.RustJS, "Create", Path.Combine(generatorContext.Types.Dirs.RustJSDir, "instruction.rs"));
+			(TargetLanguage.RustJS, "Create", generatorContext.Types.Dirs.GetRustJSFilename("instruction.rs"));
 
 		readonly struct SplitArg {
 			public readonly int OrigIndex;

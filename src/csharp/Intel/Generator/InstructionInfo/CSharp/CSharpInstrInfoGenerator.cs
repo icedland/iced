@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Generator.Constants;
 using Generator.Constants.CSharp;
 using Generator.Enums;
@@ -38,7 +37,6 @@ namespace Generator.InstructionInfo.CSharp {
 		readonly IdentifierConverter idConverter;
 		readonly CSharpEnumsGenerator enumGenerator;
 		readonly CSharpConstantsGenerator constantsGenerator;
-		readonly GeneratorContext generatorContext;
 		readonly EnumType opAccessType;
 		readonly EnumType registerType;
 
@@ -47,16 +45,15 @@ namespace Generator.InstructionInfo.CSharp {
 			idConverter = CSharpIdentifierConverter.Create();
 			enumGenerator = new CSharpEnumsGenerator(generatorContext);
 			constantsGenerator = new CSharpConstantsGenerator(generatorContext);
-			this.generatorContext = generatorContext;
-			opAccessType = generatorContext.Types[TypeIds.OpAccess];
-			registerType = generatorContext.Types[TypeIds.Register];
+			opAccessType = genTypes[TypeIds.OpAccess];
+			registerType = genTypes[TypeIds.Register];
 		}
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
 		protected override void Generate((InstructionDef def, uint dword1, uint dword2)[] infos) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InstrInfoTable.g.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.InstructionInfoNamespace, "InstrInfoTable.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.InstructionInfoDefine}");
@@ -79,7 +76,7 @@ namespace Generator.InstructionInfo.CSharp {
 		}
 
 		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "RflagsInfoConstants.g.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.InstructionInfoNamespace, "RflagsInfoConstants.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.InstructionInfoDefine}");
@@ -129,7 +126,7 @@ namespace Generator.InstructionInfo.CSharp {
 				header[i / 8] |= (byte)((len - 1) << (i % 8));
 			}
 
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(CSharpConstants.GetFilename(genTypes, CSharpConstants.InstructionInfoNamespace, "CpuidFeatureInternalData.g.cs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
@@ -172,7 +169,7 @@ namespace Generator.InstructionInfo.CSharp {
 		protected override void GenerateCore() => GenerateOpAccesses();
 
 		void GenerateOpAccesses() {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.InstructionInfoNamespace, "InfoHandlerFlags.cs");
 			new FileUpdater(TargetLanguage.CSharp, "OpAccesses", filename).Generate(writer => GenerateOpAccesses(writer));
 		}
 
@@ -198,7 +195,7 @@ namespace Generator.InstructionInfo.CSharp {
 		}
 
 		protected override void GenerateImpliedAccesses(ImpliedAccessesDef[] defs) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.IcedNamespace), "InstructionInfoFactory.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "InstructionInfoFactory.cs");
 			new FileUpdater(TargetLanguage.CSharp, "ImpliedAccessHandler", filename).Generate(writer => GenerateImpliedAccesses(writer, defs));
 		}
 

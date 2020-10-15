@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
@@ -37,7 +36,7 @@ namespace Generator.Tables.Rust {
 
 		public void Generate() {
 			var defs = generatorContext.Types.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "memory_size.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("memory_size.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, defs));
 		}

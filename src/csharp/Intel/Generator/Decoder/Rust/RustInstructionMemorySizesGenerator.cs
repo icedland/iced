@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using Generator.Constants;
 using Generator.IO;
 using Generator.Tables;
@@ -43,7 +42,7 @@ namespace Generator.Decoder.Rust {
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorContext.Types.Dirs.RustDir, "instruction_memory_sizes.rs")))) {
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(generatorContext.Types.Dirs.GetRustFilename("instruction_memory_sizes.rs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::iced_constants::{icedConstants.Name(idConverter)};");
 				writer.WriteLine($"use super::{genTypes[TypeIds.MemorySize].Name(idConverter)};");

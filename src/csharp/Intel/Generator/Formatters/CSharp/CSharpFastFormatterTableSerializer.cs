@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.IO;
 using Generator.IO;
 
 namespace Generator.Formatters.CSharp {
@@ -35,8 +34,8 @@ namespace Generator.Formatters.CSharp {
 			this.@namespace = @namespace;
 		}
 
-		public override string GetFilename(GeneratorContext generatorContext) =>
-			Path.Combine(CSharpConstants.GetDirectory(generatorContext, @namespace), "FmtData.g.cs");
+		public override string GetFilename(GenTypes genTypes) =>
+			CSharpConstants.GetFilename(genTypes, @namespace, "FmtData.g.cs");
 
 		public override void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();

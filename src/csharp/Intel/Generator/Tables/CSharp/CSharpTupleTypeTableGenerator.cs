@@ -22,29 +22,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpTupleTypeTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorContext generatorContext;
+		readonly GenTypes genTypes;
 
 		public CSharpTupleTypeTableGenerator(GeneratorContext generatorContext) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorContext = generatorContext;
+			genTypes = generatorContext.Types;
 		}
 
 		public void Generate() {
-			var infos = generatorContext.Types.GetObject<TupleTypeTable>(TypeIds.TupleTypeTable).Data;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "TupleTypeTable.cs");
+			var infos = genTypes.GetObject<TupleTypeTable>(TypeIds.TupleTypeTable).Data;
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "TupleTypeTable.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "TupleTypeTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}
 
 		void WriteTable(FileWriter writer, TupleTypeInfo[] infos) {
-			var tupleTypeName = generatorContext.Types[TypeIds.TupleType].Name(idConverter);
+			var tupleTypeName = genTypes[TypeIds.TupleType].Name(idConverter);
 			foreach (var info in infos) {
 				writer.WriteCommentLine($"{tupleTypeName}.{info.Value.Name(idConverter)}");
 				if (info.N > byte.MaxValue)

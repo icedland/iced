@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
@@ -38,7 +37,7 @@ namespace Generator.Tables.Rust {
 
 		public void Generate() {
 			var defs = generatorContext.Types.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data;
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "register.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("register.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "RegisterInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, defs));
 		}

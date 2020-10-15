@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
@@ -38,7 +37,7 @@ namespace Generator.Tables.Rust {
 
 		public void Generate() {
 			var infos = generatorContext.Types.GetObject<TupleTypeTable>(TypeIds.TupleTypeTable).Data;
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "tuple_type_tbl.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("tuple_type_tbl.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "TupleTypeTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

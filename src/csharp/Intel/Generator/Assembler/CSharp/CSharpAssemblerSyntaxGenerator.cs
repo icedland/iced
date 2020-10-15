@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text;
 using Generator.Documentation.CSharp;
@@ -37,7 +36,6 @@ using Generator.Tables;
 namespace Generator.Assembler.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
-		readonly GeneratorContext generatorContext;
 		readonly CSharpDocCommentWriter docWriter;
 
 		static readonly List<(string, int, string[], string)> declareDataList = new List<(string, int, string[], string)>() {
@@ -56,7 +54,6 @@ namespace Generator.Assembler.CSharp {
 
 		public CSharpAssemblerSyntaxGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
-			this.generatorContext = generatorContext;
 			Converter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(Converter);
 		}
@@ -64,7 +61,7 @@ namespace Generator.Assembler.CSharp {
 		IdentifierConverter Converter { get; }
 
 		protected override void GenerateRegisters(EnumType registers) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Assembler", "AssemblerRegisters.g.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.CodeAssemblerDefine}");
@@ -112,7 +109,7 @@ namespace Generator.Assembler.CSharp {
 		}
 
 		void GenerateCode(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Assembler", "Assembler.g.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "Assembler.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLineNoIndent($"#if {CSharpConstants.CodeAssemblerDefine}");
@@ -183,7 +180,7 @@ namespace Generator.Assembler.CSharp {
 			const string assemblerTestsNameBase = "AssemblerTests";
 			string testName = assemblerTestsNameBase + bitness;
 
-			var filenameTests = Path.Combine(Path.Combine(generatorContext.Types.Dirs.CSharpTestsDir, "Intel", assemblerTestsNameBase, $"{testName}.g.cs"));
+			var filenameTests = genTypes.Dirs.GetCSharpTestFilename("Intel", assemblerTestsNameBase, $"{testName}.g.cs");
 			using (var writerTests = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filenameTests))) {
 				writerTests.WriteFileHeader();
 				writerTests.WriteLine($"#if {CSharpConstants.CodeAssemblerDefine}");

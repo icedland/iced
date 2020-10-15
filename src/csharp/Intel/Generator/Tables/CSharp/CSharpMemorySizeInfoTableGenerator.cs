@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Generator.IO;
 
@@ -40,7 +39,7 @@ namespace Generator.Tables.CSharp {
 
 		public void Generate() {
 			var defs = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(genTypes, CSharpConstants.IcedNamespace), "MemorySizeExtensions.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "MemorySizeExtensions.cs");
 			var sizeToIndex = new Dictionary<uint, uint>();
 			uint index = 0;
 			foreach (var size in defs.Select(a => a.Size).Distinct().OrderBy(a => a))

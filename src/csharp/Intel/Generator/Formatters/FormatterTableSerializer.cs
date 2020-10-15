@@ -51,7 +51,7 @@ namespace Generator.Formatters {
 			this.previousCtorKind = previousCtorKind;
 		}
 
-		public abstract string GetFilename(GeneratorContext generatorContext);
+		public abstract string GetFilename(GenTypes genTypes);
 
 		public void Initialize(GenTypes genTypes, StringsTable stringsTable) {
 			var expectedLength = genTypes[TypeIds.Code].Values.Length;

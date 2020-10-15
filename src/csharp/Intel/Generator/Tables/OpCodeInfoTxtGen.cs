@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using Generator.Constants.Encoder;
 using Generator.Enums;
 using Generator.Enums.Encoder;
@@ -37,7 +36,7 @@ namespace Generator.Tables {
 			genTypes = generatorContext.Types;
 
 		public void Generate() {
-			var filename = Path.Combine(genTypes.Dirs.UnitTestsDir, "Encoder", "OpCodeInfos.txt");
+			var filename = genTypes.Dirs.GetUnitTestFilename("Encoder", "OpCodeInfos.txt");
 			using (var writer = new FileWriter(TargetLanguage.Other, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs)

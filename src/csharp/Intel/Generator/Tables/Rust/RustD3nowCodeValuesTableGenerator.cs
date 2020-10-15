@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
@@ -39,7 +38,7 @@ namespace Generator.Tables.Rust {
 		}
 
 		protected override void Generate((int index, EnumValue enumValue)[] infos) {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "decoder", "handlers_3dnow.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("decoder", "handlers_3dnow.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

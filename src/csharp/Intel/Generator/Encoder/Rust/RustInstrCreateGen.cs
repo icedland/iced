@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using System.Linq;
 using Generator.Documentation.Rust;
 using Generator.Enums;
@@ -48,7 +47,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.Rust, "Create", Path.Combine(generatorContext.Types.Dirs.RustDir, "instruction.rs"));
+			(TargetLanguage.Rust, "Create", generatorContext.Types.Dirs.GetRustFilename("instruction.rs"));
 
 		void WriteDocs(FileWriter writer, CreateMethod method, Action? writePanics = null) =>
 			gen.WriteDocs(writer, method, "Panics", writePanics);

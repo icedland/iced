@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using Generator.Constants;
@@ -34,12 +33,10 @@ using Generator.Tables;
 namespace Generator.Formatters.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpTableGen : TableGen {
-		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
 
 		public CSharpTableGen(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
-			this.generatorContext = generatorContext;
 			idConverter = CSharpIdentifierConverter.Create();
 		}
 
@@ -52,7 +49,7 @@ namespace Generator.Formatters.CSharp {
 		}
 
 		void GenerateFast(MemorySizeDef[] defs) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.FastFormatterNamespace), "MemorySizes.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.FastFormatterNamespace, "MemorySizes.cs");
 			new FileUpdater(TargetLanguage.CSharp, "MemorySizes", filename).Generate(writer => {
 				foreach (var def in defs) {
 					writer.WriteByte(checked((byte)def.Fast.Value));
@@ -70,7 +67,7 @@ namespace Generator.Formatters.CSharp {
 		void GenerateGas(MemorySizeDef[] defs) {
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var broadcastToKindValues = genTypes[TypeIds.BroadcastToKind].Values;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.GasFormatterNamespace), "MemorySizes.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.GasFormatterNamespace, "MemorySizes.cs");
 			new FileUpdater(TargetLanguage.CSharp, "ConstData", filename).Generate(writer => {
 				foreach (var bcst in broadcastToKindValues) {
 					if ((BroadcastToKind)bcst.Value == BroadcastToKind.None)
@@ -104,7 +101,7 @@ namespace Generator.Formatters.CSharp {
 
 		void GenerateIntel(MemorySizeDef[] defs) {
 			var broadcastToKindValues = genTypes[TypeIds.BroadcastToKind].Values;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IntelFormatterNamespace), "MemorySizes.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IntelFormatterNamespace, "MemorySizes.cs");
 			var intelKeywords = genTypes[TypeIds.IntelMemoryKeywords].Values;
 			const int BroadcastToKindShift = 5;
 			const int MemoryKeywordsMask = 0x1F;
@@ -164,7 +161,7 @@ namespace Generator.Formatters.CSharp {
 		}
 
 		void GenerateMasm(MemorySizeDef[] defs) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.MasmFormatterNamespace), "MemorySizes.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.MasmFormatterNamespace, "MemorySizes.cs");
 			var masmKeywords = genTypes[TypeIds.MasmMemoryKeywords].Values;
 			var sizeToIndex = new Dictionary<uint, uint>();
 			uint index = 0;
@@ -215,7 +212,7 @@ namespace Generator.Formatters.CSharp {
 		void GenerateNasm(MemorySizeDef[] defs) {
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var broadcastToKindValues = genTypes[TypeIds.BroadcastToKind].Values;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.NasmFormatterNamespace), "MemorySizes.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.NasmFormatterNamespace, "MemorySizes.cs");
 			var nasmKeywords = genTypes[TypeIds.NasmMemoryKeywords].Values;
 			new FileUpdater(TargetLanguage.CSharp, "ConstData", filename).Generate(writer => {
 				foreach (var kw in nasmKeywords) {
@@ -271,7 +268,7 @@ namespace Generator.Formatters.CSharp {
 		static string EscapeKeyword(string s) => s == "byte" ? "@" + s : s;
 
 		protected override void GenerateRegisters(string[] registers) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.FormatterNamespace), "RegistersTable.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.FormatterNamespace, "RegistersTable.cs");
 			new FileUpdater(TargetLanguage.CSharp, "Registers", filename).Generate(writer => {
 				writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
 				writer.WriteLine("static ReadOnlySpan<byte> GetRegistersData() =>");
@@ -300,7 +297,7 @@ namespace Generator.Formatters.CSharp {
 		}
 
 		protected override void GenerateFormatterFlowControl((EnumValue flowCtrl, EnumValue[] code)[] infos) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.FormatterNamespace), "FormatterUtils.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.FormatterNamespace, "FormatterUtils.cs");
 			new FileUpdater(TargetLanguage.CSharp, "FormatterFlowControlSwitch", filename).Generate(writer => {
 				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
 				var flowCtrlStr = genTypes[TypeIds.FormatterFlowControl].Name(idConverter);

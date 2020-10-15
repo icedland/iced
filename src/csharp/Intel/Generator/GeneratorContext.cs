@@ -101,6 +101,12 @@ namespace Generator {
 				throw new InvalidOperationException($"Directory {path} doesn't exist");
 			return path;
 		}
+
+		public string GetUnitTestFilename(params string[] names) => Path.Combine(UnitTestsDir, Path.Combine(names));
+		public string GetCSharpTestFilename(params string[] names) => Path.Combine(CSharpTestsDir, Path.Combine(names));
+		public string GetRustFilename(params string[] names) => Path.Combine(RustDir, Path.Combine(names));
+		public string GetRustJSFilename(params string[] names) => Path.Combine(RustJSDir, Path.Combine(names));
+		public string GetGeneratorFilename(params string[] names) => Path.Combine(GeneratorDir, Path.Combine(names));
 	}
 
 	sealed class GeneratorContext {

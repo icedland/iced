@@ -33,7 +33,7 @@ namespace Generator.Formatters.Rust {
 			this.filename = filename;
 		}
 
-		public override string GetFilename(GeneratorContext generatorContext) => filename;
+		public override string GetFilename(GenTypes genTypes) => filename;
 
 		public override void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();

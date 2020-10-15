@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.IO;
-
 namespace Generator.Tables {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class MemorySizeInfoTable {
@@ -34,7 +32,7 @@ namespace Generator.Tables {
 		}
 
 		static MemorySizeDef[] CreateData(GenTypes genTypes) {
-			var filename = Path.Combine(genTypes.Dirs.GeneratorDir, "Tables", "MemorySizeDefs.txt");
+			var filename = genTypes.Dirs.GetGeneratorFilename("Tables", "MemorySizeDefs.txt");
 			var reader = new MemorySizeDefsReader(genTypes, filename);
 			return reader.Read();
 		}

@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using System.Linq;
 using Generator.Documentation.CSharp;
 using Generator.Enums;
@@ -32,19 +31,17 @@ using Generator.IO;
 namespace Generator.Encoder.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpInstrCreateGen : InstrCreateGen {
-		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
 		readonly CSharpDocCommentWriter docWriter;
 
 		public CSharpInstrCreateGen(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
-			this.generatorContext = generatorContext;
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.CSharp, "Create", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.Create.cs"));
+			(TargetLanguage.CSharp, "Create", CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.Create.cs"));
 
 		void WriteDocs(FileWriter writer, CreateMethod method) {
 			const string typeName = "Instruction";

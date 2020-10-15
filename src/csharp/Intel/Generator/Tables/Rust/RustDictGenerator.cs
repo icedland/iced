@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
@@ -42,52 +41,52 @@ namespace Generator.Tables.Rust {
 			var genTypes = generatorContext.Types;
 			var infos = new (string filename, string id, Action<FileWriter> func)[] {
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "tests", "test_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("info", "tests", "test_parser.rs"),
 					"OpAccessDict",
 					writer => WriteDict(writer, InstrInfoDictConstants.OpAccessConstants(genTypes), "to_access")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "tests", "mem_size_test_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("info", "tests", "mem_size_test_parser.rs"),
 					"FlagsDict",
 					writer => WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "tests", "reg_test_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("info", "tests", "reg_test_parser.rs"),
 					"FlagsDict",
 					writer => WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("encoder", "tests", "op_code_test_case_parser.rs"),
 					"EncodingKindDict",
 					writer => WriteDict(writer, EncoderConstants.EncodingKindTable(genTypes), "to_encoding_kind")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("encoder", "tests", "op_code_test_case_parser.rs"),
 					"MandatoryPrefixDict",
 					writer => WriteDict(writer, EncoderConstants.MandatoryPrefixTable(genTypes), "to_mandatory_prefix")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("encoder", "tests", "op_code_test_case_parser.rs"),
 					"OpCodeTableKindDict",
 					writer => WriteDict(writer, EncoderConstants.OpCodeTableKindTable(genTypes), "to_op_code_table_kind")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "formatter", "masm", "tests", "sym_opts_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("formatter", "masm", "tests", "sym_opts_parser.rs"),
 					"SymbolTestFlagsDict",
 					writer => WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "formatter", "tests", "mnemonic_opts_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("formatter", "tests", "mnemonic_opts_parser.rs"),
 					"OptionsDict",
 					writer => WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "formatter", "tests", "sym_res_test_parser.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("formatter", "tests", "sym_res_test_parser.rs"),
 					"OptionsDict",
 					writer => WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorContext.Types.Dirs.RustDir, "test_utils", "from_str_conv", "ignored_code_table.rs"),
+					generatorContext.Types.Dirs.GetRustFilename("test_utils", "from_str_conv", "ignored_code_table.rs"),
 					"CodeHash",
 					writer => WriteHash(writer, genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues), "h")
 				),

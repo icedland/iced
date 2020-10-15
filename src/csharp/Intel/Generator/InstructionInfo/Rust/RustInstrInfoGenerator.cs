@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Generator.Constants;
 using Generator.Constants.Rust;
@@ -57,7 +56,7 @@ namespace Generator.InstructionInfo.Rust {
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
 		protected override void Generate((InstructionDef def, uint dword1, uint dword2)[] infos) {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "info_table.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("info", "info_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
@@ -71,7 +70,7 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "rflags_table.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("info", "rflags_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				var infos = new (RflagsBits[] rflags, string name)[] {
@@ -104,7 +103,7 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		protected override void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures) {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "cpuid_table.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("info", "cpuid_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				var cpuidFeatureTypeStr = genTypes[TypeIds.CpuidFeature].Name(idConverter);
@@ -123,7 +122,7 @@ namespace Generator.InstructionInfo.Rust {
 		protected override void GenerateCore() => GenerateOpAccesses();
 
 		void GenerateOpAccesses() {
-			var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, "info", "enums.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("info", "enums.rs");
 			new FileUpdater(TargetLanguage.Rust, "OpAccesses", filename).Generate(writer => GenerateOpAccesses(writer));
 		}
 
@@ -150,7 +149,7 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		protected override void GenerateImpliedAccesses(ImpliedAccessesDef[] defs) {
-			var filename = Path.Combine(genTypes.Dirs.RustDir, "info", "factory.rs");
+			var filename = genTypes.Dirs.GetRustFilename("info", "factory.rs");
 			new FileUpdater(TargetLanguage.Rust, "ImpliedAccessHandler", filename).Generate(writer => GenerateImpliedAccesses(writer, defs));
 		}
 

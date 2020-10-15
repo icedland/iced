@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
@@ -39,7 +38,7 @@ namespace Generator.Tables {
 			const string sep = sepNoSpace + " ";
 
 			var defs = genTypes.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data;
-			var filename = Path.Combine(genTypes.Dirs.UnitTestsDir, "InstructionInfo", "RegisterInfo.txt");
+			var filename = genTypes.Dirs.GetUnitTestFilename("InstructionInfo", "RegisterInfo.txt");
 			using (var writer = new FileWriter(TargetLanguage.Other, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				EnumValue? lastRegKind = null;

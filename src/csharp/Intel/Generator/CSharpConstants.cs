@@ -67,10 +67,7 @@ namespace Generator {
 		public const string PragmaMissingDocsDisable = "#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member";
 		public const string PragmaMissingDocsRestore = "#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member";
 
-		public static string GetDirectory(GeneratorContext generatorContext, string @namespace) =>
-			GetDirectory(generatorContext.Types, @namespace);
-
-		public static string GetDirectory(GenTypes genTypes, string @namespace) =>
-			Path.Combine(new[] { genTypes.Dirs.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).ToArray());
+		public static string GetFilename(GenTypes genTypes, string @namespace, params string[] names) =>
+			Path.Combine(new[] { genTypes.Dirs.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).Concat(names).ToArray());
 	}
 }

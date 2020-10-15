@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.Collections.Generic;
-using System.IO;
 using Generator.Enums;
 using Generator.IO;
 
@@ -72,7 +71,7 @@ namespace Generator.Tables {
 				("Code.NotDecoded64Only.txt", notDecoded64),
 			};
 			foreach (var (filename, notDecodedDefs) in fileInfos) {
-				var filenamePath = Path.Combine(genTypes.Dirs.UnitTestsDir, "Decoder", filename);
+				var filenamePath = genTypes.Dirs.GetUnitTestFilename("Decoder", filename);
 				using (var writer = new FileWriter(TargetLanguage.Other, FileUtils.OpenWrite(filenamePath))) {
 					writer.WriteFileHeader();
 					foreach (var def in notDecodedDefs)

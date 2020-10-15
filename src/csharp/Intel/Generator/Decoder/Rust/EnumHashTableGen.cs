@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.IO;
 using System.Linq;
 using Generator.Enums;
 using Generator.IO;
@@ -69,7 +68,7 @@ namespace Generator.Decoder.Rust {
 				("CC_g_hash", genTypes[TypeIds.CC_g], false, "test_utils/from_str_conv/cc_table.rs"),
 			};
 			foreach (var info in infos) {
-				var filename = Path.Combine(generatorContext.Types.Dirs.RustDir, Path.Combine(info.filename.Split('/')));
+				var filename = generatorContext.Types.Dirs.GetRustFilename(info.filename.Split('/'));
 				new FileUpdater(TargetLanguage.Rust, info.id, filename).Generate(writer => WriteHash(writer, info.lowerCase, info.enumType));
 			}
 		}
