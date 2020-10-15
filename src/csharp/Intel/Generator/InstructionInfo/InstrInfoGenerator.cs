@@ -276,7 +276,6 @@ namespace Generator.InstructionInfo {
 			switch (value) {
 			case 2:
 			case 4:
-			case 8:
 				return value;
 			default:
 				throw new InvalidOperationException();

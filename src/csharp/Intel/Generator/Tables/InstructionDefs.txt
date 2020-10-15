@@ -16245,7 +16245,7 @@ END
 
 # Code: Xstore_16
 INSTRUCTION: a16 0F A7 C0 | XSTORE | PADLOCK_RNG
-	implied: xstore
+	implied: xstore=2
 	code-suffix: 16
 	flags: 16 32 rep
 	gas: asz
@@ -16255,7 +16255,7 @@ END
 
 # Code: Xstore_32
 INSTRUCTION: a32 0F A7 C0 | XSTORE | PADLOCK_RNG
-	implied: xstore
+	implied: xstore=4
 	code-suffix: 32
 	flags: rep
 	gas: asz
@@ -16265,7 +16265,7 @@ END
 
 # Code: Xstore_64
 INSTRUCTION: a64 0F A7 C0 | XSTORE | PADLOCK_RNG
-	implied: xstore
+	implied: xstore=8
 	code-suffix: 64
 	flags: 64 rep
 	gas: asz

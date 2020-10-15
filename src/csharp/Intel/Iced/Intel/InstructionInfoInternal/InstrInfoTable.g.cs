@@ -1999,28 +1999,28 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x07500036, 0x07000000,// Xbts_r16_rm16
 			0x07600036, 0x07000000,// Xbts_r32_rm32
 			0x07700000, 0x61000000,// Xstore_16
-			0x07700000, 0x61000000,// Xstore_32
-			0x07700000, 0x61000000,// Xstore_64
-			0x07800000, 0x5E000000,// Xcryptecb_16
-			0x07900000, 0x5E000000,// Xcryptecb_32
-			0x07A00000, 0x5E000000,// Xcryptecb_64
-			0x07B00000, 0x5E000000,// Xcryptcbc_16
-			0x07C00000, 0x5E000000,// Xcryptcbc_32
-			0x07D00000, 0x5E000000,// Xcryptcbc_64
-			0x07B00000, 0x5E000000,// Xcryptctr_16
-			0x07C00000, 0x5E000000,// Xcryptctr_32
-			0x07D00000, 0x5E000000,// Xcryptctr_64
-			0x07B00000, 0x5E000000,// Xcryptcfb_16
-			0x07C00000, 0x5E000000,// Xcryptcfb_32
-			0x07D00000, 0x5E000000,// Xcryptcfb_64
-			0x07B00000, 0x5E000000,// Xcryptofb_16
-			0x07C00000, 0x5E000000,// Xcryptofb_32
-			0x07D00000, 0x5E000000,// Xcryptofb_64
+			0x07800000, 0x61000000,// Xstore_32
+			0x07900000, 0x61000000,// Xstore_64
+			0x07A00000, 0x5E000000,// Xcryptecb_16
+			0x07B00000, 0x5E000000,// Xcryptecb_32
+			0x07C00000, 0x5E000000,// Xcryptecb_64
+			0x07D00000, 0x5E000000,// Xcryptcbc_16
+			0x07E00000, 0x5E000000,// Xcryptcbc_32
+			0x07F00000, 0x5E000000,// Xcryptcbc_64
+			0x07D00000, 0x5E000000,// Xcryptctr_16
+			0x07E00000, 0x5E000000,// Xcryptctr_32
+			0x07F00000, 0x5E000000,// Xcryptctr_64
+			0x07D00000, 0x5E000000,// Xcryptcfb_16
+			0x07E00000, 0x5E000000,// Xcryptcfb_32
+			0x07F00000, 0x5E000000,// Xcryptcfb_64
+			0x07D00000, 0x5E000000,// Xcryptofb_16
+			0x07E00000, 0x5E000000,// Xcryptofb_32
+			0x07F00000, 0x5E000000,// Xcryptofb_64
 			0x07500036, 0x07000000,// Ibts_rm16_r16
 			0x07600036, 0x07000000,// Ibts_rm32_r32
-			0x07E90035, 0x09000000,// Cmpxchg486_rm8_r8
-			0x07F90035, 0x09000000,// Cmpxchg486_rm16_r16
-			0x08090035, 0x09000000,// Cmpxchg486_rm32_r32
+			0x08090035, 0x09000000,// Cmpxchg486_rm8_r8
+			0x08190035, 0x09000000,// Cmpxchg486_rm16_r16
+			0x08290035, 0x09000000,// Cmpxchg486_rm32_r32
 			0x00600004, 0x05040000,// Pushw_GS
 			0x00700004, 0x05040000,// Pushd_GS
 			0x00C00004, 0x0C040000,// Pushq_GS
@@ -2053,25 +2053,25 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000004, 0x49000000,// Wrgsbase_r32
 			0x00000004, 0x49000000,// Wrgsbase_r64
 			0x00000007, 0x0F000001,// VEX_Vstmxcsr_m32
-			0x08100006, 0x92020000,// Xsave_mem
-			0x08100006, 0x92020000,// Xsave64_mem
+			0x08300006, 0x92020000,// Xsave_mem
+			0x08300006, 0x92020000,// Xsave64_mem
 			0x00000004, 0x6B000000,// Ptwrite_rm32
 			0x00000004, 0x6B000000,// Ptwrite_rm64
-			0x08100004, 0x92020000,// Xrstor_mem
-			0x08100004, 0x92020000,// Xrstor64_mem
-			0x08200004, 0x31000000,// Incsspd_r32
-			0x08200004, 0x31000000,// Incsspq_r64
-			0x08100006, 0x94020000,// Xsaveopt_mem
-			0x08100006, 0x94020000,// Xsaveopt64_mem
+			0x08300004, 0x92020000,// Xrstor_mem
+			0x08300004, 0x92020000,// Xrstor64_mem
+			0x08400004, 0x31000000,// Incsspd_r32
+			0x08400004, 0x31000000,// Incsspq_r64
+			0x08300006, 0x94020000,// Xsaveopt_mem
+			0x08300006, 0x94020000,// Xsaveopt64_mem
 			0x00000003, 0x36000000,// Clwb_m8
-			0x081AC004, 0x8F000000,// Tpause_r32
-			0x083AC004, 0x8F000000,// Tpause_r64
+			0x083AC004, 0x8F000000,// Tpause_r32
+			0x085AC004, 0x8F000000,// Tpause_r64
 			0x000AC006, 0x31080000,// Clrssbsy_m64
-			0x08400004, 0x8F000000,// Umonitor_r16
-			0x08400004, 0x8F000000,// Umonitor_r32
-			0x08400004, 0x8F000000,// Umonitor_r64
-			0x081AC004, 0x8F000000,// Umwait_r32
-			0x083AC004, 0x8F000000,// Umwait_r64
+			0x08600004, 0x8F000000,// Umonitor_r16
+			0x08600004, 0x8F000000,// Umonitor_r32
+			0x08600004, 0x8F000000,// Umonitor_r64
+			0x083AC004, 0x8F000000,// Umwait_r32
+			0x085AC004, 0x8F000000,// Umwait_r64
 			0x00000003, 0x35000000,// Clflush_m8
 			0x00000003, 0x34000000,// Clflushopt_m8
 			0x00000000, 0x7A000000,// Lfence
@@ -2102,22 +2102,22 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000BC036, 0x05000000,// Imul_r16_rm16
 			0x000BC036, 0x05000000,// Imul_r32_rm32
 			0x000BC036, 0x0C000000,// Imul_r64_rm64
-			0x07E90035, 0x08000000,// Cmpxchg_rm8_r8
-			0x07F90035, 0x08000000,// Cmpxchg_rm16_r16
-			0x08090035, 0x08000000,// Cmpxchg_rm32_r32
-			0x08590035, 0x0C000000,// Cmpxchg_rm64_r64
-			0x08600037, 0x05000000,// Lss_r16_m1616
-			0x08600037, 0x05000000,// Lss_r32_m1632
-			0x08600037, 0x0C000000,// Lss_r64_m1664
+			0x08090035, 0x08000000,// Cmpxchg_rm8_r8
+			0x08190035, 0x08000000,// Cmpxchg_rm16_r16
+			0x08290035, 0x08000000,// Cmpxchg_rm32_r32
+			0x08790035, 0x0C000000,// Cmpxchg_rm64_r64
+			0x08800037, 0x05000000,// Lss_r16_m1616
+			0x08800037, 0x05000000,// Lss_r32_m1632
+			0x08800037, 0x0C000000,// Lss_r64_m1664
 			0x000B0036, 0x05000000,// Btr_rm16_r16
 			0x000B0036, 0x05000000,// Btr_rm32_r32
 			0x000B0036, 0x0C000000,// Btr_rm64_r64
-			0x08700037, 0x05000000,// Lfs_r16_m1616
-			0x08700037, 0x05000000,// Lfs_r32_m1632
-			0x08700037, 0x0C000000,// Lfs_r64_m1664
-			0x08800037, 0x05000000,// Lgs_r16_m1616
-			0x08800037, 0x05000000,// Lgs_r32_m1632
-			0x08800037, 0x0C000000,// Lgs_r64_m1664
+			0x08900037, 0x05000000,// Lfs_r16_m1616
+			0x08900037, 0x05000000,// Lfs_r32_m1632
+			0x08900037, 0x0C000000,// Lfs_r64_m1664
+			0x08A00037, 0x05000000,// Lgs_r16_m1616
+			0x08A00037, 0x05000000,// Lgs_r32_m1632
+			0x08A00037, 0x0C000000,// Lgs_r64_m1664
 			0x00000037, 0x05000000,// Movzx_r16_rm8
 			0x00000037, 0x05000000,// Movzx_r32_rm8
 			0x00000037, 0x0C000000,// Movzx_r64_rm8
@@ -2217,14 +2217,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000002B7, 0x2D000002,// EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8
 			0x000002B7, 0x2D000002,// EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8
 			0x000002B8, 0x1E000002,// EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8
-			0x089EC005, 0x3B000000,// Cmpxchg8b_m64
-			0x08AEC005, 0x39000000,// Cmpxchg16b_m128
-			0x08100004, 0x950A0000,// Xrstors_mem
-			0x08100004, 0x950A0000,// Xrstors64_mem
-			0x08100007, 0x93020000,// Xsavec_mem
-			0x08100007, 0x93020000,// Xsavec64_mem
-			0x08100007, 0x950A0000,// Xsaves_mem
-			0x08100007, 0x950A0000,// Xsaves64_mem
+			0x08BEC005, 0x3B000000,// Cmpxchg8b_m64
+			0x08CEC005, 0x39000000,// Cmpxchg16b_m128
+			0x08300004, 0x950A0000,// Xrstors_mem
+			0x08300004, 0x950A0000,// Xrstors64_mem
+			0x08300007, 0x93020000,// Xsavec_mem
+			0x08300007, 0x93020000,// Xsavec64_mem
+			0x08300007, 0x950A0000,// Xsaves_mem
+			0x08300007, 0x950A0000,// Xsaves64_mem
 			0x000D8004, 0x89080000,// Vmptrld_m64
 			0x000D8004, 0x89080000,// Vmclear_m64
 			0x000D8004, 0x89080000,// Vmxon_m64
@@ -2536,9 +2536,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000000B7, 0x2A000002,// EVEX_Vpsadbw_xmm_xmm_xmmm128
 			0x000000B7, 0x2A000002,// EVEX_Vpsadbw_ymm_ymm_ymmm256
 			0x000000B7, 0x1A000002,// EVEX_Vpsadbw_zmm_zmm_zmmm512
-			0x08B000B7, 0x79000000,// Maskmovq_rDI_mm_mm
-			0x08B000B7, 0x7A000000,// Maskmovdqu_rDI_xmm_xmm
-			0x08B000B7, 0x0F000001,// VEX_Vmaskmovdqu_rDI_xmm_xmm
+			0x08D000B7, 0x79000000,// Maskmovq_rDI_mm_mm
+			0x08D000B7, 0x7A000000,// Maskmovdqu_rDI_xmm_xmm
+			0x08D000B7, 0x0F000001,// VEX_Vmaskmovdqu_rDI_xmm_xmm
 			0x06A00036, 0x55000000,// Psubb_mm_mmm64
 			0x06A00036, 0x7A000000,// Psubb_xmm_xmmm128
 			0x06B000B7, 0x0F000001,// VEX_Vpsubb_xmm_xmm_xmmm128
@@ -2662,7 +2662,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000D8034, 0x0F000001,// VEX_Vtestps_ymm_ymmm256
 			0x000D8034, 0x0F000001,// VEX_Vtestpd_xmm_xmmm128
 			0x000D8034, 0x0F000001,// VEX_Vtestpd_ymm_ymmm256
-			0x08C00036, 0x7D000000,// Pblendvb_xmm_xmmm128
+			0x08E00036, 0x7D000000,// Pblendvb_xmm_xmmm128
 			0x000000B7, 0x2A000002,// EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128
 			0x000000B7, 0x2A000002,// EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256
 			0x000000B8, 0x1A000002,// EVEX_Vpsrlvw_zmm_k1z_zmm_zmmm512
@@ -2689,7 +2689,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0x2D000002,// EVEX_Vpmovusdw_xmmm64_k1z_xmm
 			0x00000037, 0x2D000002,// EVEX_Vpmovusdw_xmmm128_k1z_ymm
 			0x00000037, 0x1E000002,// EVEX_Vpmovusdw_ymmm256_k1z_zmm
-			0x08C00036, 0x7D000000,// Blendvps_xmm_xmmm128
+			0x08E00036, 0x7D000000,// Blendvps_xmm_xmmm128
 			0x000000B7, 0x2D000002,// EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32
 			0x000000B7, 0x2D000002,// EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32
 			0x000000B8, 0x1E000002,// EVEX_Vprorvd_zmm_k1z_zmm_zmmm512b32
@@ -2699,7 +2699,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0x2D000002,// EVEX_Vpmovusqw_xmmm32_k1z_xmm
 			0x00000037, 0x2D000002,// EVEX_Vpmovusqw_xmmm64_k1z_ymm
 			0x00000037, 0x1E000002,// EVEX_Vpmovusqw_xmmm128_k1z_zmm
-			0x08C00036, 0x7D000000,// Blendvpd_xmm_xmmm128
+			0x08E00036, 0x7D000000,// Blendvpd_xmm_xmmm128
 			0x000000B7, 0x2D000002,// EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32
 			0x000000B7, 0x2D000002,// EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32
 			0x000000B8, 0x1E000002,// EVEX_Vprolvd_zmm_k1z_zmm_zmmm512b32
@@ -3237,9 +3237,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0x2A000002,// EVEX_Vpbroadcastw_xmm_k1z_xmmm16
 			0x00000037, 0x2A000002,// EVEX_Vpbroadcastw_ymm_k1z_xmmm16
 			0x00000038, 0x1A000002,// EVEX_Vpbroadcastw_zmm_k1z_xmmm16
-			0x08200037, 0x2A000002,// EVEX_Vpbroadcastb_xmm_k1z_r32
-			0x08200037, 0x2A000002,// EVEX_Vpbroadcastb_ymm_k1z_r32
-			0x08200038, 0x1A000002,// EVEX_Vpbroadcastb_zmm_k1z_r32
+			0x08400037, 0x2A000002,// EVEX_Vpbroadcastb_xmm_k1z_r32
+			0x08400037, 0x2A000002,// EVEX_Vpbroadcastb_ymm_k1z_r32
+			0x08400038, 0x1A000002,// EVEX_Vpbroadcastb_zmm_k1z_r32
 			0x01600037, 0x2A000002,// EVEX_Vpbroadcastw_xmm_k1z_r32
 			0x01600037, 0x2A000002,// EVEX_Vpbroadcastw_ymm_k1z_r32
 			0x01600038, 0x1A000002,// EVEX_Vpbroadcastw_zmm_k1z_r32
@@ -3648,7 +3648,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000036, 0x75000000,// Sha1msg2_xmm_xmmm128
 			0x00000038, 0x1D000002,// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
 			0x00000038, 0x1D000002,// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
-			0x08C00036, 0x75000000,// Sha256rnds2_xmm_xmmm128
+			0x08E00036, 0x75000000,// Sha256rnds2_xmm_xmmm128
 			0x000000B7, 0x1D000002,// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
 			0x000000B7, 0x1D000002,// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
 			0x00000036, 0x75000000,// Sha256msg1_xmm_xmmm128
@@ -3722,8 +3722,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00040036, 0x0D000000,// Adcx_r64_rm64
 			0x0005C036, 0x0D000000,// Adox_r32_rm32
 			0x0005C036, 0x0D000000,// Adox_r64_rm64
-			0x08D000E7, 0x2F000001,// VEX_Mulx_r32_r32_rm32
-			0x08E000E7, 0x2F000001,// VEX_Mulx_r64_r64_rm64
+			0x08F000E7, 0x2F000001,// VEX_Mulx_r32_r32_rm32
+			0x090000E7, 0x2F000001,// VEX_Mulx_r64_r64_rm64
 			0x000F40B7, 0x2E000001,// VEX_Bextr_r32_rm32_r32
 			0x000F40B7, 0x2E000001,// VEX_Bextr_r64_rm64_r64
 			0x000000B7, 0x2F000001,// VEX_Shlx_r32_rm32_r32
@@ -3732,15 +3732,15 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000000B7, 0x2F000001,// VEX_Sarx_r64_rm64_r64
 			0x000000B7, 0x2F000001,// VEX_Shrx_r32_rm32_r32
 			0x000000B7, 0x2F000001,// VEX_Shrx_r64_rm64_r64
-			0x08F00034, 0x59000000,// Movdir64b_r16_m512
-			0x08F00034, 0x59000000,// Movdir64b_r32_m512
-			0x08F00034, 0x59000000,// Movdir64b_r64_m512
-			0x08FF0034, 0x3F080000,// Enqcmds_r16_m512
-			0x08FF0034, 0x3F080000,// Enqcmds_r32_m512
-			0x08FF0034, 0x3F080000,// Enqcmds_r64_m512
-			0x08FF0034, 0x3F000000,// Enqcmd_r16_m512
-			0x08FF0034, 0x3F000000,// Enqcmd_r32_m512
-			0x08FF0034, 0x3F000000,// Enqcmd_r64_m512
+			0x09100034, 0x59000000,// Movdir64b_r16_m512
+			0x09100034, 0x59000000,// Movdir64b_r32_m512
+			0x09100034, 0x59000000,// Movdir64b_r64_m512
+			0x091F0034, 0x3F080000,// Enqcmds_r16_m512
+			0x091F0034, 0x3F080000,// Enqcmds_r32_m512
+			0x091F0034, 0x3F080000,// Enqcmds_r64_m512
+			0x091F0034, 0x3F000000,// Enqcmd_r16_m512
+			0x091F0034, 0x3F000000,// Enqcmd_r32_m512
+			0x091F0034, 0x3F000000,// Enqcmd_r64_m512
 			0x00000037, 0x5A000000,// Movdiri_m32_r32
 			0x00000037, 0x5A000000,// Movdiri_m64_r64
 			0x000000B7, 0x11000001,// VEX_Vpermq_ymm_ymmm256_imm8
@@ -3857,12 +3857,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000002BA, 0x2D000002,// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 			0x000002BA, 0x2D000002,// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 			0x000002BA, 0x1E000002,// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
-			0x082000B6, 0x7D000000,// Pinsrb_xmm_r32m8_imm8
-			0x082000B6, 0x7D000000,// Pinsrb_xmm_r64m8_imm8
-			0x082002B7, 0x0F000001,// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
-			0x082002B7, 0x0F000001,// VEX_Vpinsrb_xmm_xmm_r64m8_imm8
-			0x082002B7, 0x1A000002,// EVEX_Vpinsrb_xmm_xmm_r32m8_imm8
-			0x082002B7, 0x1A000002,// EVEX_Vpinsrb_xmm_xmm_r64m8_imm8
+			0x084000B6, 0x7D000000,// Pinsrb_xmm_r32m8_imm8
+			0x084000B6, 0x7D000000,// Pinsrb_xmm_r64m8_imm8
+			0x084002B7, 0x0F000001,// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
+			0x084002B7, 0x0F000001,// VEX_Vpinsrb_xmm_xmm_r64m8_imm8
+			0x084002B7, 0x1A000002,// EVEX_Vpinsrb_xmm_xmm_r32m8_imm8
+			0x084002B7, 0x1A000002,// EVEX_Vpinsrb_xmm_xmm_r64m8_imm8
 			0x000000B6, 0x7D000000,// Insertps_xmm_xmmm32_imm8
 			0x000002B7, 0x0F000001,// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 			0x000002B7, 0x1E000002,// EVEX_Vinsertps_xmm_xmm_xmmm32_imm8
@@ -4000,18 +4000,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000002B7, 0x42000001,// VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm
 			0x000002B7, 0x42000001,// VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128
 			0x000002B7, 0x42000001,// VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256
-			0x090C40B4, 0x7E000000,// Pcmpestrm_xmm_xmmm128_imm8
-			0x091C40B4, 0x7E000000,// Pcmpestrm64_xmm_xmmm128_imm8
-			0x090C40B4, 0x0F000001,// VEX_Vpcmpestrm_xmm_xmmm128_imm8
-			0x091C40B4, 0x0F000001,// VEX_Vpcmpestrm64_xmm_xmmm128_imm8
-			0x092C40B4, 0x7E000000,// Pcmpestri_xmm_xmmm128_imm8
-			0x093C40B4, 0x7E000000,// Pcmpestri64_xmm_xmmm128_imm8
-			0x092C40B4, 0x0F000001,// VEX_Vpcmpestri_xmm_xmmm128_imm8
-			0x093C40B4, 0x0F000001,// VEX_Vpcmpestri64_xmm_xmmm128_imm8
-			0x094C40B4, 0x7E000000,// Pcmpistrm_xmm_xmmm128_imm8
-			0x094C40B4, 0x0F000001,// VEX_Vpcmpistrm_xmm_xmmm128_imm8
-			0x095C40B4, 0x7E000000,// Pcmpistri_xmm_xmmm128_imm8
-			0x095C40B4, 0x0F000001,// VEX_Vpcmpistri_xmm_xmmm128_imm8
+			0x092C40B4, 0x7E000000,// Pcmpestrm_xmm_xmmm128_imm8
+			0x093C40B4, 0x7E000000,// Pcmpestrm64_xmm_xmmm128_imm8
+			0x092C40B4, 0x0F000001,// VEX_Vpcmpestrm_xmm_xmmm128_imm8
+			0x093C40B4, 0x0F000001,// VEX_Vpcmpestrm64_xmm_xmmm128_imm8
+			0x094C40B4, 0x7E000000,// Pcmpestri_xmm_xmmm128_imm8
+			0x095C40B4, 0x7E000000,// Pcmpestri64_xmm_xmmm128_imm8
+			0x094C40B4, 0x0F000001,// VEX_Vpcmpestri_xmm_xmmm128_imm8
+			0x095C40B4, 0x0F000001,// VEX_Vpcmpestri64_xmm_xmmm128_imm8
+			0x096C40B4, 0x7E000000,// Pcmpistrm_xmm_xmmm128_imm8
+			0x096C40B4, 0x0F000001,// VEX_Vpcmpistrm_xmm_xmmm128_imm8
+			0x097C40B4, 0x7E000000,// Pcmpistri_xmm_xmmm128_imm8
+			0x097C40B4, 0x0F000001,// VEX_Vpcmpistri_xmm_xmmm128_imm8
 			0x000000BA, 0x2C000002,// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
 			0x000000BA, 0x2C000002,// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
 			0x000000BA, 0x1C000002,// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
@@ -4151,8 +4151,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000D4037, 0x84000003,// XOP_Blcmsk_r64_rm64
 			0x000D4037, 0x84000003,// XOP_Blci_r32_rm32
 			0x000D4037, 0x84000003,// XOP_Blci_r64_rm64
-			0x09600004, 0x52000003,// XOP_Llwpcb_r32
-			0x09600004, 0x52000003,// XOP_Llwpcb_r64
+			0x09800004, 0x52000003,// XOP_Llwpcb_r32
+			0x09800004, 0x52000003,// XOP_Llwpcb_r64
 			0x00000007, 0x52000003,// XOP_Slwpcb_r32
 			0x00000007, 0x52000003,// XOP_Slwpcb_r64
 			0x00000037, 0x91000003,// XOP_Vfrczps_xmm_xmmm128
@@ -4232,18 +4232,18 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000036, 0x3C000004,// D3NOW_Pmulhrw_mm_mmm64
 			0x00000037, 0x3D000004,// D3NOW_Pswapd_mm_mmm64
 			0x00000036, 0x3C000004,// D3NOW_Pavgusb_mm_mmm64
-			0x097A4000, 0x96080000,// Rmpadjust
-			0x098A4000, 0x96080000,// Rmpupdate
-			0x099A4000, 0x96080000,// Psmash
-			0x09A90000, 0x96080000,// Pvalidatew
-			0x09B90000, 0x96080000,// Pvalidated
-			0x09C90000, 0x96080000,// Pvalidateq
+			0x099A4000, 0x96080000,// Rmpadjust
+			0x09AA4000, 0x96080000,// Rmpupdate
+			0x09BA4000, 0x96080000,// Psmash
+			0x09C90000, 0x96080000,// Pvalidatew
+			0x09D90000, 0x96080000,// Pvalidated
+			0x09E90000, 0x96080000,// Pvalidateq
 			0x00000000, 0x97000000,// Serialize
 			0x00000000, 0x98800000,// Xsusldtrk
 			0x00000000, 0x98800000,// Xresldtrk
-			0x09D00000, 0x99080000,// Invlpgbw
+			0x09F00000, 0x99080000,// Invlpgbw
 			0x05700000, 0x99080000,// Invlpgbd
-			0x09E00000, 0x99080000,// Invlpgbq
+			0x0A000000, 0x99080000,// Invlpgbq
 			0x00000000, 0x99080000,// Tlbsync
 			0x00000003, 0x69000000,// Prefetchreserved3_m8
 			0x00000003, 0x69000000,// Prefetchreserved4_m8
@@ -4253,8 +4253,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000000, 0x03900000,// Ud0
 			0x00000000, 0x82500000,// Vmgexit
 			0x00000000, 0x78020000,// Getsecq
-			0x09F00004, 0x9B000001,// VEX_Ldtilecfg_m512
-			0x09F00000, 0x9B000001,// VEX_Tilerelease
+			0x0A100004, 0x9B000001,// VEX_Ldtilecfg_m512
+			0x0A100000, 0x9B000001,// VEX_Tilerelease
 			0x00000007, 0x9B000001,// VEX_Sttilecfg_m512
 			0x00000007, 0x9B000001,// VEX_Tilezero_tmm
 			0x00000037, 0x9B000001,// VEX_Tileloaddt1_tmm_sibmem
@@ -4281,21 +4281,21 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000000, 0xA0780000,// Smint_0F7E
 			0x00000000, 0xA2080000,// Bb0_reset
 			0x00000000, 0xA2080000,// Bb1_reset
-			0x0A000000, 0xA2080000,// Cpu_write
-			0x0A100000, 0xA2080000,// Cpu_read
+			0x0A200000, 0xA2080000,// Cpu_write
+			0x0A300000, 0xA2080000,// Cpu_read
 			0x05900000, 0xA5200000,// Altinst
 			0x00000036, 0xA3000000,// Paveb_mm_mmm64
-			0x0A200034, 0xA3000000,// Paddsiw_mm_mmm64
+			0x0A400034, 0xA3000000,// Paddsiw_mm_mmm64
 			0x00000035, 0xA3000000,// Pmagw_mm_mmm64
-			0x0A300034, 0xA3000000,// Pdistib_mm_m64
-			0x0A200034, 0xA3000000,// Psubsiw_mm_mmm64
-			0x0A400035, 0xA3000000,// Pmvzb_mm_m64
+			0x0A500034, 0xA3000000,// Pdistib_mm_m64
+			0x0A400034, 0xA3000000,// Psubsiw_mm_mmm64
+			0x0A600035, 0xA3000000,// Pmvzb_mm_m64
 			0x00000036, 0xA3000000,// Pmulhrw_mm_mmm64
-			0x0A400035, 0xA3000000,// Pmvnzb_mm_m64
-			0x0A400035, 0xA3000000,// Pmvlzb_mm_m64
-			0x0A400035, 0xA3000000,// Pmvgezb_mm_m64
-			0x0A200034, 0xA3000000,// Pmulhriw_mm_mmm64
-			0x0A300034, 0xA3000000,// Pmachriw_mm_m64
+			0x0A600035, 0xA3000000,// Pmvnzb_mm_m64
+			0x0A600035, 0xA3000000,// Pmvlzb_mm_m64
+			0x0A600035, 0xA3000000,// Pmvgezb_mm_m64
+			0x0A400034, 0xA3000000,// Pmulhriw_mm_mmm64
+			0x0A500034, 0xA3000000,// Pmachriw_mm_m64
 			0x00000000, 0x9D000000,// Cyrix_D9D7
 			0x00000000, 0x9D000000,// Cyrix_D9E2
 			0x03B00000, 0x9D000000,// Ftstp
@@ -4310,24 +4310,24 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x03A00000, 0x9D000000,// Frinear
 			0x00000000, 0xA8580000,// Tdcall
 			0x000D8000, 0xA8480000,// Seamret
-			0x0A5F0000, 0xA8080000,// Seamops
+			0x0A7F0000, 0xA8080000,// Seamops
 			0x000AC000, 0xA8580000,// Seamcall
-			0x0A6F0004, 0xAB000000,// Aesencwide128kl_m384
-			0x0A6F0004, 0xAB000000,// Aesdecwide128kl_m384
-			0x0A6F0004, 0xAB000000,// Aesencwide256kl_m512
-			0x0A6F0004, 0xAB000000,// Aesdecwide256kl_m512
-			0x0A7F0034, 0xA9080000,// Loadiwkey_xmm_xmm
+			0x0A8F0004, 0xAB000000,// Aesencwide128kl_m384
+			0x0A8F0004, 0xAB000000,// Aesdecwide128kl_m384
+			0x0A8F0004, 0xAB000000,// Aesencwide256kl_m512
+			0x0A8F0004, 0xAB000000,// Aesdecwide256kl_m512
+			0x0A9F0034, 0xA9080000,// Loadiwkey_xmm_xmm
 			0x000F0036, 0xAA000000,// Aesenc128kl_xmm_m384
 			0x000F0036, 0xAA000000,// Aesdec128kl_xmm_m384
 			0x000F0036, 0xAA000000,// Aesenc256kl_xmm_m512
 			0x000F0036, 0xAA000000,// Aesdec256kl_xmm_m512
-			0x0A890037, 0xAA000000,// Encodekey128_r32_r32
-			0x0A990037, 0xAA000000,// Encodekey256_r32_r32
+			0x0AA90037, 0xAA000000,// Encodekey128_r32_r32
+			0x0AB90037, 0xAA000000,// Encodekey256_r32_r32
 			0x00000037, 0x11000001,// VEX_Vbroadcastss_xmm_xmm
 			0x00000037, 0x11000001,// VEX_Vbroadcastss_ymm_xmm
 			0x00000037, 0x11000001,// VEX_Vbroadcastsd_ymm_xmm
 			0x00000000, 0x82500000,// Vmgexit_F2
-			0x0AA94000, 0xAC440000,// Uiret
+			0x0AC94000, 0xAC440000,// Uiret
 			0x00070000, 0xAC000000,// Testui
 			0x0001C000, 0xAC000000,// Clui
 			0x00088000, 0xAC000000,// Stui

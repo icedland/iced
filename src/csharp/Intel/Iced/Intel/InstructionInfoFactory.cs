@@ -1073,8 +1073,14 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.EAX, OpAccess.Read);
 				}
 				break;
-			case ImpliedAccess.t_xstore:
-				CommandXstore(instruction, flags);
+			case ImpliedAccess.t_xstore2:
+				CommandXstore(instruction, flags, 2);
+				break;
+			case ImpliedAccess.t_xstore4:
+				CommandXstore(instruction, flags, 4);
+				break;
+			case ImpliedAccess.t_xstore8:
+				CommandXstore(instruction, flags, 8);
 				break;
 			case ImpliedAccess.t_CRmem_CRmem_CRmem_CWmem_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
@@ -1713,34 +1719,30 @@ namespace Iced.Intel {
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				if ((flags & Flags.NoMemoryUsage) == 0)
+				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
 					AddRegister(flags, rDI, OpAccess.CondRead);
 					AddRegister(flags, rDI, OpAccess.CondWrite);
-				}
-				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.CondRead);
 					AddRegister(flags, rSI, OpAccess.CondRead);
 					AddRegister(flags, rSI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				if ((flags & Flags.NoMemoryUsage) == 0)
+				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
 					AddRegister(flags, rDI, OpAccess.ReadWrite);
-				}
-				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.Read);
 					AddRegister(flags, rSI, OpAccess.ReadWrite);
 				}
@@ -1757,17 +1759,15 @@ namespace Iced.Intel {
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondRead; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				if ((flags & Flags.NoMemoryUsage) == 0)
+				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.CondRead);
 					AddRegister(flags, rSI, OpAccess.CondRead);
 					AddRegister(flags, rSI, OpAccess.CondWrite);
-				}
-				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
 					AddRegister(flags, rDI, OpAccess.CondRead);
@@ -1775,15 +1775,13 @@ namespace Iced.Intel {
 				}
 			}
 			else {
-				if ((flags & Flags.NoMemoryUsage) == 0)
+				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.Read);
 					AddRegister(flags, rSI, OpAccess.ReadWrite);
-				}
-				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
-				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
 					AddRegister(flags, rDI, OpAccess.ReadWrite);
@@ -1888,11 +1886,11 @@ namespace Iced.Intel {
 			}
 		}
 
-		void CommandXstore(in Instruction instruction, Flags flags) {
+		void CommandXstore(in Instruction instruction, Flags flags, uint size) {
 			Register rDI, rCX;
-			switch (instruction.Code) {
-			case Code.Xstore_16: rDI = Register.DI; rCX = Register.CX; break;
-			case Code.Xstore_32: rDI = Register.EDI; rCX = Register.ECX; break;
+			switch (size) {
+			case 2: rDI = Register.DI; rCX = Register.CX; break;
+			case 4: rDI = Register.EDI; rCX = Register.ECX; break;
 			default: rDI = Register.RDI; rCX = Register.RCX; break;
 			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {

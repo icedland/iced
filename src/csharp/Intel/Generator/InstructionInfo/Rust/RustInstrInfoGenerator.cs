@@ -323,7 +323,8 @@ namespace Generator.InstructionInfo.Rust {
 					writer.WriteLine("Self::command_stos(instruction, info, flags);");
 					break;
 				case ImplAccStatementKind.Xstore:
-					writer.WriteLine("Self::command_xstore(instruction, info, flags);");
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"Self::command_xstore(instruction, info, flags, {Verify_2_4_or_8(arg1.Arg)});");
 					break;
 				default:
 					throw new InvalidOperationException();

@@ -590,7 +590,8 @@ namespace Generator.Tables {
 					sb.Append("stos");
 					break;
 				case ImplAccStatementKind.Xstore:
-					sb.Append("xstore");
+					arg1 = (IntArgImplAccStatement)stmt;
+					sb.Append($"xstore{arg1.Arg}");
 					break;
 				case ImplAccStatementKind.ShiftMask1FMod:
 					arg1 = (IntArgImplAccStatement)stmt;

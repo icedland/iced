@@ -435,7 +435,9 @@ pub(crate) enum ImpliedAccess {
 	t_CRmem_CRmem_CWmem_CRrax_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx,
 	t_Rcl_Rax,
 	t_Rcl_Reax,
-	t_xstore,
+	t_xstore2,
+	t_xstore4,
+	t_xstore8,
 	t_CRmem_CRmem_CRmem_CWmem_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx,
 	t_CRmem_CRmem_CRmem_CWmem_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx,
 	t_CRmem_CRmem_CRmem_CWmem_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx,
@@ -490,7 +492,7 @@ pub(crate) enum ImpliedAccess {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_IMPLIED_ACCESS: [&str; 171] = [
+static GEN_DEBUG_IMPLIED_ACCESS: [&str; 173] = [
 	"None",
 	"Shift_Ib_MASK1FMOD9",
 	"Shift_Ib_MASK1FMOD11",
@@ -610,7 +612,9 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 171] = [
 	"t_CRmem_CRmem_CWmem_CRrax_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx",
 	"t_Rcl_Rax",
 	"t_Rcl_Reax",
-	"t_xstore",
+	"t_xstore2",
+	"t_xstore4",
+	"t_xstore8",
 	"t_CRmem_CRmem_CRmem_CWmem_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx",
 	"t_CRmem_CRmem_CRmem_CWmem_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx",
 	"t_CRmem_CRmem_CRmem_CWmem_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx",

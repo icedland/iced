@@ -367,7 +367,8 @@ namespace Generator.InstructionInfo.CSharp {
 					writer.WriteLine("CommandStos(instruction, flags);");
 					break;
 				case ImplAccStatementKind.Xstore:
-					writer.WriteLine("CommandXstore(instruction, flags);");
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandXstore(instruction, flags, {Verify_2_4_or_8(arg1.Arg)});");
 					break;
 				default:
 					throw new InvalidOperationException();

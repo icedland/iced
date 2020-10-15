@@ -1211,8 +1211,14 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
 				}
 			}
-			ImpliedAccess::t_xstore => {
-				Self::command_xstore(instruction, info, flags);
+			ImpliedAccess::t_xstore2 => {
+				Self::command_xstore(instruction, info, flags, 2);
+			}
+			ImpliedAccess::t_xstore4 => {
+				Self::command_xstore(instruction, info, flags, 4);
+			}
+			ImpliedAccess::t_xstore8 => {
+				Self::command_xstore(instruction, info, flags, 8);
 			}
 			ImpliedAccess::t_CRmem_CRmem_CRmem_CWmem_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx => {
 				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -1891,6 +1897,7 @@ impl InstructionInfoFactory {
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondWrite);
+				Self::add_memory(info, instruction.memory_segment(), rsi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondRead);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
@@ -1899,11 +1906,6 @@ impl InstructionInfoFactory {
 				}
 				Self::add_register(flags, info, rdi, OpAccess::CondRead);
 				Self::add_register(flags, info, rdi, OpAccess::CondWrite);
-			}
-			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-				Self::add_memory(info, instruction.memory_segment(), rsi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondRead);
-			}
-			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				Self::add_memory_segment_register(flags, info, instruction.memory_segment(), OpAccess::CondRead);
 				Self::add_register(flags, info, rsi, OpAccess::CondRead);
 				Self::add_register(flags, info, rsi, OpAccess::CondWrite);
@@ -1911,15 +1913,13 @@ impl InstructionInfoFactory {
 		} else {
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, instruction.memory_size(), OpAccess::Write);
+				Self::add_memory(info, instruction.memory_segment(), rsi, Register::None, 1, 0, instruction.memory_size(), OpAccess::Read);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				if (flags & Flags::IS_64BIT) == 0 {
 					Self::add_register(flags, info, Register::ES, OpAccess::Read);
 				}
 				Self::add_register(flags, info, rdi, OpAccess::ReadWrite);
-			}
-			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-				Self::add_memory(info, instruction.memory_segment(), rsi, Register::None, 1, 0, instruction.memory_size(), OpAccess::Read);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				Self::add_memory_segment_register(flags, info, instruction.memory_segment(), OpAccess::Read);
@@ -1939,17 +1939,13 @@ impl InstructionInfoFactory {
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 				Self::add_memory(info, instruction.memory_segment(), rsi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondRead);
+				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondRead);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
 				Self::add_memory_segment_register(flags, info, instruction.memory_segment(), OpAccess::CondRead);
 				Self::add_register(flags, info, rsi, OpAccess::CondRead);
 				Self::add_register(flags, info, rsi, OpAccess::CondWrite);
-			}
-			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondRead);
-			}
-			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				if (flags & Flags::IS_64BIT) == 0 {
 					Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
 				}
@@ -1959,15 +1955,11 @@ impl InstructionInfoFactory {
 		} else {
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 				Self::add_memory(info, instruction.memory_segment(), rsi, Register::None, 1, 0, instruction.memory_size(), OpAccess::Read);
+				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, instruction.memory_size(), OpAccess::Read);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				Self::add_memory_segment_register(flags, info, instruction.memory_segment(), OpAccess::Read);
 				Self::add_register(flags, info, rsi, OpAccess::ReadWrite);
-			}
-			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, instruction.memory_size(), OpAccess::Read);
-			}
-			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				if (flags & Flags::IS_64BIT) == 0 {
 					Self::add_register(flags, info, Register::ES, OpAccess::Read);
 				}
@@ -2077,10 +2069,10 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	fn command_xstore(instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
-		let (rdi, rcx) = match instruction.code() {
-			Code::Xstore_16 => (Register::DI, Register::CX),
-			Code::Xstore_32 => (Register::EDI, Register::ECX),
+	fn command_xstore(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, size: u32) {
+		let (rdi, rcx) = match size {
+			2 => (Register::DI, Register::CX),
+			4 => (Register::EDI, Register::ECX),
 			_ => (Register::RDI, Register::RCX),
 		};
 		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
