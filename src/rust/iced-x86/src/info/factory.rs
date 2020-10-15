@@ -466,20 +466,11 @@ impl InstructionInfoFactory {
 		info
 	}
 
-	fn get_xsp(code_size: CodeSize, xsp_mask: &mut u64) -> Register {
+	fn get_xsp(code_size: CodeSize) -> (Register, u64) {
 		match code_size {
-			CodeSize::Code64 | CodeSize::Unknown => {
-				*xsp_mask = u64::MAX;
-				Register::RSP
-			}
-			CodeSize::Code32 => {
-				*xsp_mask = u32::MAX as u64;
-				Register::ESP
-			}
-			CodeSize::Code16 => {
-				*xsp_mask = u16::MAX as u64;
-				Register::SP
-			}
+			CodeSize::Code64 | CodeSize::Unknown => (Register::RSP, u64::MAX),
+			CodeSize::Code32 => (Register::ESP, u32::MAX as u64),
+			CodeSize::Code16 => (Register::SP, u16::MAX as u64),
 		}
 	}
 
@@ -1667,8 +1658,7 @@ impl InstructionInfoFactory {
 
 	fn command_push(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, count: u32, op_size: u32) {
 		debug_assert!(count > 0);
-		let mut xsp_mask = 0;
-		let xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+		let (xsp, xsp_mask) = Self::get_xsp(instruction.code_size());
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			if (flags & Flags::IS_64BIT) == 0 {
 				Self::add_register(flags, info, Register::SS, OpAccess::Read);
@@ -1694,8 +1684,7 @@ impl InstructionInfoFactory {
 
 	fn command_pop(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, count: u32, op_size: u32) {
 		debug_assert!(count > 0);
-		let mut xsp_mask = 0;
-		let xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+		let (xsp, _) = Self::get_xsp(instruction.code_size());
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			if (flags & Flags::IS_64BIT) == 0 {
 				Self::add_register(flags, info, Register::SS, OpAccess::Read);
@@ -1720,8 +1709,7 @@ impl InstructionInfoFactory {
 	}
 
 	fn command_pop_rm(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, op_size: u32) {
-		let mut xsp_mask = 0;
-		let xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+		let (xsp, _) = Self::get_xsp(instruction.code_size());
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			if (flags & Flags::IS_64BIT) == 0 {
 				Self::add_register(flags, info, Register::SS, OpAccess::Read);
@@ -1753,8 +1741,7 @@ impl InstructionInfoFactory {
 	}
 
 	fn command_pusha(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, op_size: u32) {
-		let mut xsp_mask = 0;
-		let xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+		let (xsp, xsp_mask) = Self::get_xsp(instruction.code_size());
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			if (flags & Flags::IS_64BIT) == 0 {
 				Self::add_register(flags, info, Register::SS, OpAccess::Read);
@@ -1787,8 +1774,7 @@ impl InstructionInfoFactory {
 	}
 
 	fn command_popa(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, op_size: u32) {
-		let mut xsp_mask = 0;
-		let xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+		let (xsp, xsp_mask) = Self::get_xsp(instruction.code_size());
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			if (flags & Flags::IS_64BIT) == 0 {
 				Self::add_register(flags, info, Register::SS, OpAccess::Read);
@@ -2128,8 +2114,7 @@ impl InstructionInfoFactory {
 	}
 
 	fn command_enter(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, op_size: u32) {
-		let mut xsp_mask = 0;
-		let xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+		let (xsp, xsp_mask) = Self::get_xsp(instruction.code_size());
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			if (flags & Flags::IS_64BIT) == 0 {
 				Self::add_register(flags, info, Register::SS, OpAccess::Read);
@@ -2185,8 +2170,7 @@ impl InstructionInfoFactory {
 	}
 
 	fn command_leave(instruction: &Instruction, info: &mut InstructionInfo, flags: u32, op_size: u32) {
-		let mut xsp_mask = 0;
-		let xsp = Self::get_xsp(instruction.code_size(), &mut xsp_mask);
+		let (xsp, _) = Self::get_xsp(instruction.code_size());
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			if (flags & Flags::IS_64BIT) == 0 {
 				Self::add_register(flags, info, Register::SS, OpAccess::Read);
