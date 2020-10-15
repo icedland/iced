@@ -242,13 +242,8 @@ namespace Iced.Intel {
 						if (i == 0 && op0Info == OpInfo0.WriteForceP1) {
 							var reg = instruction.Op0Register;
 							AddRegister(flags, reg, access);
-							if (Register.K0 <= reg && reg <= Register.K7) {
-								Static.Assert(((int)Register.K0 & 1) == 1 ? 0 : -1);
-								if (((int)reg & 1) != 0)
-									AddRegister(flags, reg + 1, access);
-								else
-									AddRegister(flags, reg - 1, access);
-							}
+							if (Register.K0 <= reg && reg <= Register.K7)
+								AddRegister(flags, ((reg - Register.K0) ^ 1) + Register.K0, access);
 						}
 						else if (i == 1 && op1Info == OpInfo1.ReadP3) {
 							var reg = instruction.Op1Register;
