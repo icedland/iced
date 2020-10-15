@@ -241,20 +241,22 @@ namespace Iced.Intel {
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if (i == 0 && op0Info == OpInfo0.WriteForceP1) {
 							var reg = instruction.Op0Register;
-							Debug.Assert(Register.K0 <= reg && reg <= Register.K7);
 							AddRegister(flags, reg, access);
-							Static.Assert(((int)Register.K0 & 1) == 1 ? 0 : -1);
-							if (((int)reg & 1) != 0)
-								AddRegister(flags, reg + 1, access);
-							else
-								AddRegister(flags, reg - 1, access);
+							if (Register.K0 <= reg && reg <= Register.K7) {
+								Static.Assert(((int)Register.K0 & 1) == 1 ? 0 : -1);
+								if (((int)reg & 1) != 0)
+									AddRegister(flags, reg + 1, access);
+								else
+									AddRegister(flags, reg - 1, access);
+							}
 						}
 						else if (i == 1 && op1Info == OpInfo1.ReadP3) {
 							var reg = instruction.Op1Register;
-							Debug.Assert(Register.XMM0 <= reg && reg <= IcedConstants.VMM_last);
-							reg = IcedConstants.VMM_first + ((reg - IcedConstants.VMM_first) & ~3);
-							for (int j = 0; j < 4; j++)
-								AddRegister(flags, reg + j, access);
+							if (Register.XMM0 <= reg && reg <= IcedConstants.VMM_last) {
+								reg = IcedConstants.VMM_first + ((reg - IcedConstants.VMM_first) & ~3);
+								for (int j = 0; j < 4; j++)
+									AddRegister(flags, reg + j, access);
+							}
 						}
 						else
 							AddRegister(flags, instruction.GetOpRegister(i), access);
@@ -1638,352 +1640,282 @@ namespace Iced.Intel {
 		}
 
 		void CommandIns(in Instruction instruction, Flags flags) {
-			Register baseReg;
+			Register rDI, rCX;
+			switch (instruction.Op0Kind) {
+			case OpKind.MemoryESDI: rDI = Register.DI; rCX = Register.CX; break;
+			case OpKind.MemoryESEDI: rDI = Register.EDI; rCX = Register.ECX; break;
+			default: rDI = Register.RDI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
-				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 1);
 					info.usedRegisters.Array[0] = new UsedRegister(Register.DX, OpAccess.CondRead);
-					AddRegister(flags, ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.CX, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rDI, OpAccess.CondRead);
+					AddRegister(flags, rDI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rDI, OpAccess.ReadWrite);
 				}
 			}
 		}
 
 		void CommandOuts(in Instruction instruction, Flags flags) {
-			Register baseReg;
+			Register rSI, rCX;
+			switch (instruction.Op1Kind) {
+			case OpKind.MemorySegSI: rSI = Register.SI; rCX = Register.CX; break;
+			case OpKind.MemorySegESI: rSI = Register.ESI; rCX = Register.ECX; break;
+			default: rSI = Register.RSI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondRead; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
-				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 1);
 					info.usedRegisters.Array[0] = new UsedRegister(Register.DX, OpAccess.CondRead);
-					AddRegister(flags, ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.CX, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rSI, OpAccess.CondRead);
+					AddRegister(flags, rSI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rSI, OpAccess.ReadWrite);
 				}
 			}
 		}
 
 		void CommandMovs(in Instruction instruction, Flags flags) {
-			Register baseReg;
+			Register rSI, rDI, rCX;
+			switch (instruction.Op0Kind) {
+			case OpKind.MemoryESDI: rSI = Register.SI; rDI = Register.DI; rCX = Register.CX; break;
+			case OpKind.MemoryESEDI: rSI = Register.ESI; rDI = Register.EDI; rCX = Register.ECX; break;
+			default: rSI = Register.RSI; rDI = Register.RDI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
-				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.CX, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rDI, OpAccess.CondRead);
+					AddRegister(flags, rDI, OpAccess.CondWrite);
 				}
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rSI, OpAccess.CondRead);
+					AddRegister(flags, rSI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rDI, OpAccess.ReadWrite);
 				}
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rSI, OpAccess.ReadWrite);
 				}
 			}
 		}
 
 		void CommandCmps(in Instruction instruction, Flags flags) {
-			Register baseReg;
+			Register rSI, rDI, rCX;
+			switch (instruction.Op0Kind) {
+			case OpKind.MemorySegSI: rSI = Register.SI; rDI = Register.DI; rCX = Register.CX; break;
+			case OpKind.MemorySegESI: rSI = Register.ESI; rDI = Register.EDI; rCX = Register.ECX; break;
+			default: rSI = Register.RSI; rDI = Register.RDI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondRead; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
-				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.CX, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rSI, OpAccess.CondRead);
+					AddRegister(flags, rSI, OpAccess.CondWrite);
 				}
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rDI, OpAccess.CondRead);
+					AddRegister(flags, rDI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rSI, OpAccess.ReadWrite);
 				}
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rDI, OpAccess.ReadWrite);
 				}
 			}
 		}
 
 		void CommandStos(in Instruction instruction, Flags flags) {
-			Register baseReg;
+			Register rDI, rCX;
+			switch (instruction.Op0Kind) {
+			case OpKind.MemoryESDI: rDI = Register.DI; rCX = Register.CX; break;
+			case OpKind.MemoryESEDI: rDI = Register.EDI; rCX = Register.ECX; break;
+			default: rDI = Register.RDI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
-				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 1);
 					info.usedRegisters.Array[0] = new UsedRegister(info.usedRegisters.Array[0].Register, OpAccess.CondRead);
-					AddRegister(flags, ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.CX, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rDI, OpAccess.CondRead);
+					AddRegister(flags, rDI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				baseReg = ((instruction.Op0Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rDI, OpAccess.ReadWrite);
 				}
 			}
 		}
 
 		void CommandLods(in Instruction instruction, Flags flags) {
-			Register baseReg;
+			Register rSI, rCX;
+			switch (instruction.Op1Kind) {
+			case OpKind.MemorySegSI: rSI = Register.SI; rCX = Register.CX; break;
+			case OpKind.MemorySegESI: rSI = Register.ESI; rCX = Register.ECX; break;
+			default: rSI = Register.RSI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
-				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 1);
 					info.usedRegisters.Array[0] = new UsedRegister(info.usedRegisters.Array[0].Register, OpAccess.CondWrite);
-					AddRegister(flags, ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.CX, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rSI, OpAccess.CondRead);
+					AddRegister(flags, rSI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
-				Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
-				Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
-				Static.Assert(Register.SI + 32 == Register.RSI ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemorySegSI) << 4) + Register.SI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(instruction.MemorySegment, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+					AddMemory(instruction.MemorySegment, rSI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rSI, OpAccess.ReadWrite);
 				}
 			}
 		}
 
 		void CommandScas(in Instruction instruction, Flags flags) {
-			Register baseReg;
+			Register rDI, rCX;
+			switch (instruction.Op1Kind) {
+			case OpKind.MemoryESDI: rDI = Register.DI; rCX = Register.CX; break;
+			case OpKind.MemoryESEDI: rDI = Register.EDI; rCX = Register.ECX; break;
+			default: rDI = Register.RDI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
 				unsafe { info.opAccesses[0] = (byte)OpAccess.CondRead; }
 				unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				Static.Assert(Register.CX + 16 == Register.ECX ? 0 : -1);
-				Static.Assert(Register.CX + 32 == Register.RCX ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondRead);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 1);
 					info.usedRegisters.Array[0] = new UsedRegister(info.usedRegisters.Array[0].Register, OpAccess.CondRead);
-					AddRegister(flags, ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.CX, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondRead);
-					AddRegister(flags, baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rDI, OpAccess.CondRead);
+					AddRegister(flags, rDI, OpAccess.CondWrite);
 				}
 			}
 			else {
-				Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
-				Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
-				Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
-				Static.Assert(Register.DI + 32 == Register.RDI ? 0 : -1);
-				baseReg = ((instruction.Op1Kind - OpKind.MemoryESDI) << 4) + Register.DI;
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Read);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
-					AddRegister(flags, baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rDI, OpAccess.ReadWrite);
 				}
 			}
 		}
 
 		void CommandXstore(in Instruction instruction, Flags flags) {
-			Register baseReg;
-			Static.Assert(Code.Xstore_16 + 1 == Code.Xstore_32 ? 0 : -1);
-			Static.Assert(Code.Xstore_16 + 2 == Code.Xstore_64 ? 0 : -1);
-			Static.Assert(Register.AX + 16 == Register.EAX ? 0 : -1);
-			Static.Assert(Register.AX + 32 == Register.RAX ? 0 : -1);
+			Register rDI, rCX;
+			switch (instruction.Code) {
+			case Code.Xstore_16: rDI = Register.DI; rCX = Register.CX; break;
+			case Code.Xstore_32: rDI = Register.EDI; rCX = Register.ECX; break;
+			default: rDI = Register.RDI; rCX = Register.RCX; break;
+			}
 			if (instruction.Internal_HasRepeOrRepnePrefix) {
-				baseReg = (Register)((instruction.Code - Code.Xstore_16) << 4);
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, MemorySize.Unknown, OpAccess.CondWrite);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 0);
-					AddRegister(flags, Register.CX + (int)baseReg, OpAccess.ReadCondWrite);
+					AddRegister(flags, rCX, OpAccess.ReadCondWrite);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, Register.DI + (int)baseReg, OpAccess.CondRead);
-					AddRegister(flags, Register.DI + (int)baseReg, OpAccess.CondWrite);
+					AddRegister(flags, rDI, OpAccess.CondRead);
+					AddRegister(flags, rDI, OpAccess.CondWrite);
 					AddRegister(flags, Register.EAX, OpAccess.CondWrite);
 					AddRegister(flags, Register.EDX, OpAccess.CondRead);
 				}
 			}
 			else {
-				baseReg = (Register)((instruction.Code - Code.Xstore_16) << 4);
 				if ((flags & Flags.NoMemoryUsage) == 0)
-					AddMemory(Register.ES, Register.DI + (int)baseReg, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
+					AddMemory(Register.ES, rDI, Register.None, 1, 0, instruction.MemorySize, OpAccess.Write);
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.Read);
-					AddRegister(flags, Register.DI + (int)baseReg, OpAccess.ReadWrite);
+					AddRegister(flags, rDI, OpAccess.ReadWrite);
 					AddRegister(flags, Register.EAX, OpAccess.Write);
 					AddRegister(flags, Register.EDX, OpAccess.Read);
 				}
@@ -2292,12 +2224,10 @@ namespace Iced.Intel {
 				if ((uint)(access - OpAccess.Write) <= 3) {
 					int index;
 					Static.Assert(IcedConstants.VMM_first == Register.ZMM0 ? 0 : -1);
-					const uint VecRegCount = IcedConstants.VMM_count;
-					Static.Assert((VecRegCount & (VecRegCount - 1)) == 0 ? 0 : -1);// Verify that it's a power of 2
 					if ((flags & Flags.Is64Bit) != 0 && (uint)(index = reg - Register.EAX) <= (Register.R15D - Register.EAX))
 						writeReg = Register.RAX + index;
 					else if ((flags & Flags.ZeroExtVecRegs) != 0 && (uint)(index = reg - Register.XMM0) <= IcedConstants.VMM_last - Register.XMM0)
-						writeReg = Register.ZMM0 + (index & ((int)VecRegCount - 1));
+						writeReg = Register.ZMM0 + (index % IcedConstants.VMM_count);
 					if (access != OpAccess.ReadWrite && access != OpAccess.ReadCondWrite)
 						reg = writeReg;
 				}
