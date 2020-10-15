@@ -130,8 +130,7 @@ namespace Generator.InstructionInfo.Rust {
 		void GenerateOpAccesses(FileWriter writer) {
 			var opInfos = instrInfoTypes.EnumOpInfos;
 			// We assume max op count is 5, update the code if not
-			if (opInfos.Length != 5)
-				throw new InvalidOperationException();
+			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 
 			var indexes = new int[] { 1, 2 };
 			var opAccessTypeStr = genTypes[TypeIds.OpAccess].Name(idConverter);
