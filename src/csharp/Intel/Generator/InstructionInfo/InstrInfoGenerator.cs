@@ -281,5 +281,13 @@ namespace Generator.InstructionInfo {
 				throw new InvalidOperationException();
 			}
 		}
+
+		protected static EnumValue GetOpAccess(EnumType opAccessType, EmmiAccess access) =>
+			access switch {
+				EmmiAccess.Read => opAccessType[nameof(OpAccess.Read)],
+				EmmiAccess.Write => opAccessType[nameof(OpAccess.Write)],
+				EmmiAccess.ReadWrite => opAccessType[nameof(OpAccess.ReadWrite)],
+				_ => throw new InvalidOperationException(),
+			};
 	}
 }

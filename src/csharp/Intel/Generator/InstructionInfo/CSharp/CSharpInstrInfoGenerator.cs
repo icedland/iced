@@ -304,13 +304,7 @@ namespace Generator.InstructionInfo.CSharp {
 					break;
 				case ImplAccStatementKind.EmmiReg:
 					var emmi = (EmmiImplAccStatement)stmt;
-					var emmiAccess = emmi.Access switch {
-						EmmiAccess.Read => opAccessType[nameof(OpAccess.Read)],
-						EmmiAccess.Write => opAccessType[nameof(OpAccess.Write)],
-						EmmiAccess.ReadWrite => opAccessType[nameof(OpAccess.ReadWrite)],
-						_ => throw new InvalidOperationException(),
-					};
-					writer.WriteLine($"CommandEmmi(instruction, flags, {GetEnumName(emmiAccess)});");
+					writer.WriteLine($"CommandEmmi(instruction, flags, {GetEnumName(GetOpAccess(opAccessType, emmi.Access))});");
 					break;
 				case ImplAccStatementKind.Enter:
 					arg1 = (IntArgImplAccStatement)stmt;
