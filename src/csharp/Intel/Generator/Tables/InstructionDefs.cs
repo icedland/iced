@@ -37,24 +37,48 @@ namespace Generator.Tables {
 			}
 		}
 
+		public ImpliedAccessesDef[] ImpliedAccessesDefs {
+			get {
+				if (!filtered)
+					throw new InvalidOperationException();
+				return impliedAccessesDefs;
+			}
+		}
+
 		InstructionDef[] defs;
+		ImpliedAccessesDef[] impliedAccessesDefs;
+		(InstructionDef def, ImpliedAccesses? accesses)[] allDefs;
 		bool filtered;
 
 		InstructionDefs(GenTypes genTypes) {
 			var filename = genTypes.Dirs.GetGeneratorFilename("Tables", "InstructionDefs.txt");
-			defs = new InstructionDefsReader(genTypes, filename).Read();
+			allDefs = new InstructionDefsReader(genTypes, filename).Read();
+			defs = Array.Empty<InstructionDef>();
+			impliedAccessesDefs = Array.Empty<ImpliedAccessesDef>();
 			genTypes.AddObject(TypeIds.InstructionDefs, this);
 		}
 
 		public InstructionDef[] GetDefsPreFiltered() {
 			if (filtered)
 				throw new InvalidOperationException();
-			return defs;
+			return allDefs.Select(a => a.def).ToArray();
 		}
 
 		double ICreatedInstructions.Order => -10000;
 		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) {
-			defs = defs.Where(a => filteredCodeValues.Contains(a.Code)).ToArray();
+			var defs = new List<InstructionDef>();
+			var impAccFactory = new ImpliedAccessEnumFactory();
+			foreach (var (def, accesses) in allDefs) {
+				if (!filteredCodeValues.Contains(def.Code))
+					continue;
+				defs.Add(def);
+				def.SetImpliedAccess(impAccFactory.Add(accesses));
+			}
+			this.defs = defs.ToArray();
+			var (impAccType, impAccDefs) = impAccFactory.CreateEnum();
+			impliedAccessesDefs = impAccDefs;
+			genTypes.Add(impAccType);
+
 			filtered = true;
 		}
 	}

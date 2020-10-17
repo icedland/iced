@@ -667,11 +667,11 @@ namespace Generator.Tables {
 				_ => throw new InvalidOperationException(),
 			};
 
-		public EnumType CreateEnum() {
-			var values = new List<EnumValue>();
-			values.AddRange(hardCodedDefs.Select(a => a.EnumValue));
-			values.AddRange(otherDefs.Select(a => a.EnumValue));
-			return new EnumType(TypeIds.ImpliedAccess, null, values.ToArray(), EnumTypeFlags.None);
+		public (EnumType type, ImpliedAccessesDef[] defs) CreateEnum() {
+			var values = new List<ImpliedAccessesDef>(hardCodedDefs.Count + otherDefs.Count);
+			values.AddRange(hardCodedDefs);
+			values.AddRange(otherDefs);
+			return (new EnumType(TypeIds.ImpliedAccess, null, values.Select(a => a.EnumValue).ToArray(), EnumTypeFlags.None), values.ToArray());
 		}
 	}
 }

@@ -132,9 +132,8 @@ namespace Generator.Tables {
 
 		void Error(int lineIndex, string message) => errors.Add($"Line {lineIndex + 1}: {message}");
 
-		public InstructionDef[] Read() {
-			var defs = new List<(InstructionDef def, int lineIndex)>();
-			var impAccFactory = new ImpliedAccessEnumFactory();
+		public (InstructionDef def, ImpliedAccesses? accesses)[] Read() {
+			var defs = new List<(InstructionDef def, ImpliedAccesses? accesses, int lineIndex)>();
 
 			var lines = this.lines;
 			for (int lineIndex = 0; lineIndex < lines.Length;) {
@@ -150,27 +149,24 @@ namespace Generator.Tables {
 					Debug.Assert(errorCount < errors.Count);
 					lineIndex = SkipLines(Math.Max(origLineIndex + 1, lineIndex));
 				}
-				else {
-					defs.Add((def, defLineIndex));
-					def.SetImpliedAccess(impAccFactory.Add(accesses));
-				}
+				else
+					defs.Add((def, accesses, defLineIndex));
 			}
 			if (defs.Count == 0)
 				Error(lines.Length, "No instruction definitions found");
 			defs.Sort((a, b) => a.def.Code.Value.CompareTo(b.def.Code.Value));
-			genTypes.Add(impAccFactory.CreateEnum());
 
 			if (TryGetErrorString(out var errorMessage))
 				throw new InvalidOperationException(errorMessage);
 
 			UpdateCodeNameCommentsInFile(lines, defs);
 
-			return defs.Select(a => a.def).ToArray();
+			return defs.Select(a => (a.def, a.accesses)).ToArray();
 		}
 
-		void UpdateCodeNameCommentsInFile(string[] lines, List<(InstructionDef def, int lineIndex)> infos) {
+		void UpdateCodeNameCommentsInFile(string[] lines, List<(InstructionDef def, ImpliedAccesses? accesses, int lineIndex)> infos) {
 			var newLines = lines.ToList();
-			foreach (var (def, lineIndex) in infos.OrderByDescending(a => a.lineIndex)) {
+			foreach (var (def, _, lineIndex) in infos.OrderByDescending(a => a.lineIndex)) {
 				const string CodeCommentPrefix = "# Code: ";
 				var newCommentLine = CodeCommentPrefix + def.Code.RawName;
 				if (lineIndex > 0 && lines[lineIndex - 1].StartsWith(CodeCommentPrefix, StringComparison.Ordinal))

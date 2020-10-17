@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Generator.Constants;
 using Generator.Enums;
 using Generator.Enums.InstructionInfo;
@@ -67,7 +66,7 @@ namespace Generator.InstructionInfo {
 				Generate(constantsType);
 
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
-			GenerateImpliedAccesses(defs.Select(a => a.ImpliedAccessDef).Distinct().OrderBy(a => a.EnumValue.Value).ToArray());
+			GenerateImpliedAccesses(genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).ImpliedAccessesDefs);
 
 			{
 				var shifts = new int[IcedConstants.MaxOpCount] {
