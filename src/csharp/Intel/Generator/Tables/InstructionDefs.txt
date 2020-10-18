@@ -26275,6 +26275,7 @@ END
 # Code: VEX_Bzhi_r32_rm32_r32
 INSTRUCTION: VEX.LZ.0F38.W0 F5 /r | BZHI r32a, r/m32, r32b | BMI2
 	ops: w=r32_reg r=r32_or_mem r=r32_vvvv | UInt32
+	implied: last-gpr-8
 	rflags: u=ap w=szc 0=o
 	flags: wig32
 	gas: suffix=l
@@ -26283,6 +26284,7 @@ END
 # Code: VEX_Bzhi_r64_rm64_r64
 INSTRUCTION: VEX.LZ.0F38.W1 F5 /r | BZHI r64a, r/m64, r64b | BMI2
 	ops: w=r64_reg r=r64_or_mem r=r64_vvvv | UInt64
+	implied: last-gpr-8
 	rflags: u=ap w=szc 0=o
 	flags: 64
 	gas: suffix=q
@@ -26302,28 +26304,28 @@ END
 
 # Code: VEX_Pext_r32_r32_rm32
 INSTRUCTION: VEX.LZ.F3.0F38.W0 F5 /r | PEXT r32a, r32b, r/m32 | BMI2
-	ops: w=r32_reg r=r32_vvvv r=r32_or_mem | UInt32
+	ops: w=r32_reg cr=r32_vvvv r=r32_or_mem | UInt32
 	flags: wig32
 	gas: suffix=l
 END
 
 # Code: VEX_Pext_r64_r64_rm64
 INSTRUCTION: VEX.LZ.F3.0F38.W1 F5 /r | PEXT r64a, r64b, r/m64 | BMI2
-	ops: w=r64_reg r=r64_vvvv r=r64_or_mem | UInt64
+	ops: w=r64_reg cr=r64_vvvv r=r64_or_mem | UInt64
 	flags: 64
 	gas: suffix=q
 END
 
 # Code: VEX_Pdep_r32_r32_rm32
 INSTRUCTION: VEX.LZ.F2.0F38.W0 F5 /r | PDEP r32a, r32b, r/m32 | BMI2
-	ops: w=r32_reg r=r32_vvvv r=r32_or_mem | UInt32
+	ops: w=r32_reg cr=r32_vvvv r=r32_or_mem | UInt32
 	flags: wig32
 	gas: suffix=l
 END
 
 # Code: VEX_Pdep_r64_r64_rm64
 INSTRUCTION: VEX.LZ.F2.0F38.W1 F5 /r | PDEP r64a, r64b, r/m64 | BMI2
-	ops: w=r64_reg r=r64_vvvv r=r64_or_mem | UInt64
+	ops: w=r64_reg cr=r64_vvvv r=r64_or_mem | UInt64
 	flags: 64
 	gas: suffix=q
 END
@@ -26389,6 +26391,7 @@ END
 # Code: VEX_Bextr_r32_rm32_r32
 INSTRUCTION: VEX.LZ.0F38.W0 F7 /r | BEXTR r32a, r/m32, r32b | BMI1
 	ops: w=r32_reg r=r32_or_mem r=r32_vvvv | UInt32
+	implied: last-gpr-16
 	rflags: u=sap w=z 0=oc
 	flags: wig32
 	gas: suffix=l
@@ -26397,6 +26400,7 @@ END
 # Code: VEX_Bextr_r64_rm64_r64
 INSTRUCTION: VEX.LZ.0F38.W1 F7 /r | BEXTR r64a, r/m64, r64b | BMI1
 	ops: w=r64_reg r=r64_or_mem r=r64_vvvv | UInt64
+	implied: last-gpr-16
 	rflags: u=sap w=z 0=oc
 	flags: 64
 	gas: suffix=q
@@ -26405,6 +26409,7 @@ END
 # Code: VEX_Shlx_r32_rm32_r32
 INSTRUCTION: VEX.LZ.66.0F38.W0 F7 /r | SHLX r32a, r/m32, r32b | BMI2
 	ops: w=r32_reg r=r32_or_mem r=r32_vvvv | UInt32
+	implied: last-gpr-8
 	flags: wig32
 	gas: suffix=l
 END
@@ -26412,6 +26417,7 @@ END
 # Code: VEX_Shlx_r64_rm64_r64
 INSTRUCTION: VEX.LZ.66.0F38.W1 F7 /r | SHLX r64a, r/m64, r64b | BMI2
 	ops: w=r64_reg r=r64_or_mem r=r64_vvvv | UInt64
+	implied: last-gpr-8
 	flags: 64
 	gas: suffix=q
 END
@@ -26419,6 +26425,7 @@ END
 # Code: VEX_Sarx_r32_rm32_r32
 INSTRUCTION: VEX.LZ.F3.0F38.W0 F7 /r | SARX r32a, r/m32, r32b | BMI2
 	ops: w=r32_reg r=r32_or_mem r=r32_vvvv | Int32
+	implied: last-gpr-8
 	flags: wig32
 	gas: suffix=l
 END
@@ -26426,6 +26433,7 @@ END
 # Code: VEX_Sarx_r64_rm64_r64
 INSTRUCTION: VEX.LZ.F3.0F38.W1 F7 /r | SARX r64a, r/m64, r64b | BMI2
 	ops: w=r64_reg r=r64_or_mem r=r64_vvvv | Int64
+	implied: last-gpr-8
 	flags: 64
 	gas: suffix=q
 END
@@ -26433,6 +26441,7 @@ END
 # Code: VEX_Shrx_r32_rm32_r32
 INSTRUCTION: VEX.LZ.F2.0F38.W0 F7 /r | SHRX r32a, r/m32, r32b | BMI2
 	ops: w=r32_reg r=r32_or_mem r=r32_vvvv | UInt32
+	implied: last-gpr-8
 	flags: wig32
 	gas: suffix=l
 END
@@ -26440,6 +26449,7 @@ END
 # Code: VEX_Shrx_r64_rm64_r64
 INSTRUCTION: VEX.LZ.F2.0F38.W1 F7 /r | SHRX r64a, r/m64, r64b | BMI2
 	ops: w=r64_reg r=r64_or_mem r=r64_vvvv | UInt64
+	implied: last-gpr-8
 	flags: 64
 	gas: suffix=q
 END

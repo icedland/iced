@@ -15257,30 +15257,34 @@ C4E248 F3 18, VEX_Blsi_r32_rm32, VEX, BMI1, op0=w op1=r fc=o fw=zsc fu=ap w=rsi 
 C4E2C8 F3 DB, VEX_Blsi_r64_rm64, VEX, BMI1, op0=w op1=r fc=o fw=zsc fu=ap w=rsi r=rbx
 # blsi rsi,[rax]
 C4E2C8 F3 18, VEX_Blsi_r64_rm64, VEX, BMI1, op0=w op1=r fc=o fw=zsc fu=ap w=rsi r=rax rm=ds:rax;UInt64
-# bzhi edx,ebx,esi
-C4E248 F5 D3, VEX_Bzhi_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=ebx r=esi
+# bzhi edx,esi,ebx
+C4E260 F5 D6, VEX_Bzhi_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=esi r=bl
+# bzhi edx,esi,esp
+C4E258 F5 D6, VEX_Bzhi_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=esi r=spl
 # bzhi edx,[rax],esi
-C4E248 F5 10, VEX_Bzhi_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=rax r=esi rm=ds:rax;UInt32
-# bzhi rdx,rbx,rsi
-C4E2C8 F5 D3, VEX_Bzhi_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=rbx r=rsi
+C4E248 F5 10, VEX_Bzhi_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=rax r=sil rm=ds:rax;UInt32
+# bzhi rdx,rsi,rbx
+C4E2E0 F5 D6, VEX_Bzhi_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=rsi r=bl
+# bzhi rdx,rsi,rsp
+C4E2D8 F5 D6, VEX_Bzhi_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=rsi r=spl
 # bzhi rdx,[rax],rsi
-C4E2C8 F5 10, VEX_Bzhi_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=rax r=rsi rm=ds:rax;UInt64
+C4E2C8 F5 10, VEX_Bzhi_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r fc=o fw=zcs fu=ap w=rdx r=rax r=sil rm=ds:rax;UInt64
 # pext edx,esi,ebx
-C4E24A F5 D3, VEX_Pext_r32_r32_rm32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=ebx
+C4E24A F5 D3, VEX_Pext_r32_r32_rm32, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=esi r=ebx
 # pext edx,esi,[rax]
-C4E24A F5 10, VEX_Pext_r32_r32_rm32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=rax rm=ds:rax;UInt32
+C4E24A F5 10, VEX_Pext_r32_r32_rm32, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=esi r=rax rm=ds:rax;UInt32
 # pext rdx,rsi,rbx
-C4E2CA F5 D3, VEX_Pext_r64_r64_rm64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=rbx
+C4E2CA F5 D3, VEX_Pext_r64_r64_rm64, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=rsi r=rbx
 # pext rdx,rsi,[rax]
-C4E2CA F5 10, VEX_Pext_r64_r64_rm64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=rax rm=ds:rax;UInt64
+C4E2CA F5 10, VEX_Pext_r64_r64_rm64, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=rsi r=rax rm=ds:rax;UInt64
 # pdep edx,esi,ebx
-C4E24B F5 D3, VEX_Pdep_r32_r32_rm32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=ebx
+C4E24B F5 D3, VEX_Pdep_r32_r32_rm32, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=esi r=ebx
 # pdep edx,esi,[rax]
-C4E24B F5 10, VEX_Pdep_r32_r32_rm32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=rax rm=ds:rax;UInt32
+C4E24B F5 10, VEX_Pdep_r32_r32_rm32, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=esi r=rax rm=ds:rax;UInt32
 # pdep rdx,rsi,rbx
-C4E2CB F5 D3, VEX_Pdep_r64_r64_rm64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=rbx
+C4E2CB F5 D3, VEX_Pdep_r64_r64_rm64, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=rsi r=rbx
 # pdep rdx,rsi,[rax]
-C4E2CB F5 10, VEX_Pdep_r64_r64_rm64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=rax rm=ds:rax;UInt64
+C4E2CB F5 10, VEX_Pdep_r64_r64_rm64, VEX, BMI2, op0=w op1=cr op2=r w=rdx cr=rsi r=rax rm=ds:rax;UInt64
 # adcx ecx,esi
 66 0F38F6 CE, Adcx_r32_rm32, Legacy, ADX, op0=rw op1=r fr=c fw=c w=rcx r=ecx r=esi
 # adcx ebx,[rax]
@@ -15306,37 +15310,49 @@ C4E2CB F6 CB, VEX_Mulx_r64_r64_rm64, VEX, BMI2, op0=w op1=w op2=r w=rcx w=rsi r=
 # mulx rdx,rsi,[rax]
 C4E2CB F6 10, VEX_Mulx_r64_r64_rm64, VEX, BMI2, op0=w op1=w op2=r w=rdx w=rsi r=rax rm=ds:rax;UInt64 r=rdx
 # bextr edx,ebx,esi
-C4E248 F7 D3, VEX_Bextr_r32_rm32_r32, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=ebx r=esi
+C4E248 F7 D3, VEX_Bextr_r32_rm32_r32, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=ebx r=si
 # bextr edx,[rax],esi
-C4E248 F7 10, VEX_Bextr_r32_rm32_r32, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=rax r=esi rm=ds:rax;UInt32
+C4E248 F7 10, VEX_Bextr_r32_rm32_r32, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=rax r=si rm=ds:rax;UInt32
 # bextr rdx,rbx,rsi
-C4E2C8 F7 D3, VEX_Bextr_r64_rm64_r64, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=rbx r=rsi
+C4E2C8 F7 D3, VEX_Bextr_r64_rm64_r64, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=rbx r=si
 # bextr rdx,[rax],rsi
-C4E2C8 F7 10, VEX_Bextr_r64_rm64_r64, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=rax r=rsi rm=ds:rax;UInt64
-# shlx edx,ebx,esi
-C4E249 F7 D3, VEX_Shlx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=ebx r=esi
+C4E2C8 F7 10, VEX_Bextr_r64_rm64_r64, VEX, BMI1, op0=w op1=r op2=r fc=co fw=z fu=asp w=rdx r=rax r=si rm=ds:rax;UInt64
+# shlx edx,esi,ebx
+C4E261 F7 D6, VEX_Shlx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=bl
+# shlx edx,esi,esp
+C4E259 F7 D6, VEX_Shlx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=spl
 # shlx edx,[rax],esi
-C4E249 F7 10, VEX_Shlx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=esi rm=ds:rax;UInt32
-# shlx rdx,rbx,rsi
-C4E2C9 F7 D3, VEX_Shlx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rbx r=rsi
+C4E249 F7 10, VEX_Shlx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=sil rm=ds:rax;UInt32
+# shlx rdx,rsi,rbx
+C4E2E1 F7 D6, VEX_Shlx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=bl
+# shlx rdx,rsi,rsp
+C4E2D9 F7 D6, VEX_Shlx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=spl
 # shlx rdx,[rax],rsi
-C4E2C9 F7 10, VEX_Shlx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=rsi rm=ds:rax;UInt64
-# sarx edx,ebx,esi
-C4E24A F7 D3, VEX_Sarx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=ebx r=esi
+C4E2C9 F7 10, VEX_Shlx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=sil rm=ds:rax;UInt64
+# sarx edx,esi,ebx
+C4E262 F7 D6, VEX_Sarx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=bl
+# sarx edx,esi,esp
+C4E25A F7 D6, VEX_Sarx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=spl
 # sarx edx,[rax],esi
-C4E24A F7 10, VEX_Sarx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=esi rm=ds:rax;Int32
-# sarx rdx,rbx,rsi
-C4E2CA F7 D3, VEX_Sarx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rbx r=rsi
+C4E24A F7 10, VEX_Sarx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=sil rm=ds:rax;Int32
+# sarx rdx,rsi,rbx
+C4E2E2 F7 D6, VEX_Sarx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=bl
+# sarx rdx,rsi,rsp
+C4E2DA F7 D6, VEX_Sarx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=spl
 # sarx rdx,[rax],rsi
-C4E2CA F7 10, VEX_Sarx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=rsi rm=ds:rax;Int64
-# shrx edx,ebx,esi
-C4E24B F7 D3, VEX_Shrx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=ebx r=esi
+C4E2CA F7 10, VEX_Sarx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=sil rm=ds:rax;Int64
+# shrx edx,esi,ebx
+C4E263 F7 D6, VEX_Shrx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=bl
+# shrx edx,esi,esp
+C4E25B F7 D6, VEX_Shrx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=esi r=spl
 # shrx edx,[rax],esi
-C4E24B F7 10, VEX_Shrx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=esi rm=ds:rax;UInt32
-# shrx rdx,rbx,rsi
-C4E2CB F7 D3, VEX_Shrx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rbx r=rsi
+C4E24B F7 10, VEX_Shrx_r32_rm32_r32, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=sil rm=ds:rax;UInt32
+# shrx rdx,rsi,rbx
+C4E2E3 F7 D6, VEX_Shrx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=bl
+# shrx rdx,rsi,rsp
+C4E2DB F7 D6, VEX_Shrx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rsi r=spl
 # shrx rdx,[rax],rsi
-C4E2CB F7 10, VEX_Shrx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=rsi rm=ds:rax;UInt64
+C4E2CB F7 10, VEX_Shrx_r64_rm64_r64, VEX, BMI2, op0=w op1=r op2=r w=rdx r=rax r=sil rm=ds:rax;UInt64
 # vpermq ymm2,ymm3,0A5h
 C4E3FD 00 D3 A5, VEX_Vpermq_ymm_ymmm256_imm8, VEX, AVX2, op0=w op1=r op2=r w=vmm2 r=ymm3
 # vpermq ymm2,[rax],0A5h
