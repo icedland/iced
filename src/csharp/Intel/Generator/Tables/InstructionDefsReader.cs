@@ -946,6 +946,22 @@ namespace Generator.Tables {
 				Error(state.LineIndex, "amd-vm-exit and amd-may-vm-exit can't both be used. Remove one of them.");
 				return false;
 			}
+			if ((state.Flags2 & (InstructionDefFlags2.UseOutsideSmm | InstructionDefFlags2.UseInSmm)) == 0) {
+				Error(state.LineIndex, "Invalid SMM flags");
+				return false;
+			}
+			if ((state.Flags2 & (InstructionDefFlags2.UseOutsideEnclaveSgx | AllEnclaves)) == 0) {
+				Error(state.LineIndex, "Invalid SGX flags");
+				return false;
+			}
+			if ((state.Flags2 & (InstructionDefFlags2.UseOutsideVmxOp | InstructionDefFlags2.UseInVmxRootOp | InstructionDefFlags2.UseInVmxNonRootOp)) == 0) {
+				Error(state.LineIndex, "Invalid VMX flags");
+				return false;
+			}
+			if ((state.Flags2 & (InstructionDefFlags2.UseOutsideSeam | InstructionDefFlags2.UseInSeam)) == 0) {
+				Error(state.LineIndex, "Invalid SEAM flags");
+				return false;
+			}
 
 			var codeFormatter = new CodeFormatter(sb, memSizeTbl, state.CodeMnemonic, state.CodeSuffix, state.CodeMemorySize,
 				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, parsedOpCode.Encoding, state.OpKinds);
