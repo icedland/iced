@@ -563,7 +563,7 @@ This code produces the following output:
     Used reg: RSI:Read
     Used mem: [SS:RSP+0x18;UInt64;Write]
 00007FFAC46ACDAE push rbp
-    OpCode: 50+ro
+    OpCode: o64 50+ro
     Instruction: PUSH r64
     Encoding: Legacy
     Mnemonic: Push
@@ -577,7 +577,7 @@ This code produces the following output:
     Used reg: RSP:ReadWrite
     Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDAF push rdi
-    OpCode: 50+ro
+    OpCode: o64 50+ro
     Instruction: PUSH r64
     Encoding: Legacy
     Mnemonic: Push
@@ -591,7 +591,7 @@ This code produces the following output:
     Used reg: RSP:ReadWrite
     Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB0 push r14
-    OpCode: 50+ro
+    OpCode: o64 50+ro
     Instruction: PUSH r64
     Encoding: Legacy
     Mnemonic: Push
