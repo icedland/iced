@@ -899,6 +899,11 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.op2_kind, info.op_kind(2));
 	assert_eq!(tc.op3_kind, info.op_kind(3));
 	assert_eq!(tc.op4_kind, info.op_kind(4));
+	let op_kinds = info.op_kinds();
+	assert_eq!(tc.op_count as usize, op_kinds.len());
+	for (i, &op_kind) in op_kinds.iter().enumerate() {
+		assert_eq!(info.op_kind(i as u32), op_kind);
+	}
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 	for i in tc.op_count..IcedConstants::MAX_OP_COUNT as u32 {
 		assert_eq!(OpCodeOperandKind::None, info.op_kind(i));

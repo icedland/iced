@@ -519,8 +519,8 @@ fn test_lig_instructions_ignore_l() {
 }
 
 fn has_is4_or_is5_operands(op_code: &OpCodeInfo) -> bool {
-	for i in 0..op_code.op_count() {
-		match op_code.op_kind(i) {
+	for &op_kind in op_code.op_kinds() {
+		match op_kind {
 			OpCodeOperandKind::xmm_is4 | OpCodeOperandKind::xmm_is5 | OpCodeOperandKind::ymm_is4 | OpCodeOperandKind::ymm_is5 => return true,
 			_ => {}
 		}
@@ -889,8 +889,8 @@ fn get_vvvvv_info(op_code: &OpCodeInfo) -> (bool, bool, u8) {
 		EncodingKind::VEX | EncodingKind::XOP => 0xF,
 		EncodingKind::Legacy | EncodingKind::D3NOW => panic!(),
 	};
-	for i in 0..op_code.op_count() {
-		match op_code.op_kind(i) {
+	for &op_kind in op_code.op_kinds() {
+		match op_kind {
 			OpCodeOperandKind::mem_vsib32x
 			| OpCodeOperandKind::mem_vsib64x
 			| OpCodeOperandKind::mem_vsib32y
@@ -932,8 +932,8 @@ fn verify_gpr_rrxb_bits() {
 		let mut uses_reg = false;
 		let mut other_rm = false;
 		let mut other_reg = false;
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::r32_or_mem
 				| OpCodeOperandKind::r64_or_mem
 				| OpCodeOperandKind::r32_or_mem_mpx
@@ -1123,8 +1123,8 @@ fn verify_k_reg_rrxb_bits() {
 		let mut uses_reg = false;
 		let mut other_rm = false;
 		let mut other_reg = false;
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::mem => maybe_uses_rm = true,
 				OpCodeOperandKind::k_or_mem | OpCodeOperandKind::k_rm => uses_rm = true,
 				OpCodeOperandKind::k_reg | OpCodeOperandKind::kp1_reg => uses_reg = true,
@@ -1513,8 +1513,8 @@ fn is_vsib(op_code: &OpCodeInfo) -> bool {
 }
 
 fn get_vsib(op_code: &OpCodeInfo) -> Option<(bool, bool)> {
-	for i in 0..op_code.op_count() {
-		match op_code.op_kind(i) {
+	for &op_kind in op_code.op_kinds() {
+		match op_kind {
 			OpCodeOperandKind::mem_vsib32x | OpCodeOperandKind::mem_vsib32y | OpCodeOperandKind::mem_vsib32z => return Some((true, false)),
 			OpCodeOperandKind::mem_vsib64x | OpCodeOperandKind::mem_vsib64y | OpCodeOperandKind::mem_vsib64z => return Some((false, true)),
 			_ => {}
@@ -2379,8 +2379,8 @@ fn verify_that_test_cases_test_enough_bits() {
 	assert_eq!("pfx_no_bnd_64:", format!("pfx_no_bnd_64:{}", pfx_no_bnd_64.iter().map(|&a| format!("{:?}", a)).collect::<Vec<String>>().join(",")));
 
 	fn can_use_modrm_rm_reg(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::r8_or_mem
 				| OpCodeOperandKind::r16_or_mem
 				| OpCodeOperandKind::r32_or_mem
@@ -2409,8 +2409,8 @@ fn verify_that_test_cases_test_enough_bits() {
 	}
 
 	fn can_use_modrm_rm_mem(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::mem
 				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx
@@ -2449,8 +2449,8 @@ fn verify_that_test_cases_test_enough_bits() {
 			_ => {}
 		}
 
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::mem
 				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx
@@ -2468,8 +2468,8 @@ fn verify_that_test_cases_test_enough_bits() {
 				_ => {}
 			}
 		}
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::tmm_rm => return false,
 				OpCodeOperandKind::k_rm
 				| OpCodeOperandKind::mm_rm
@@ -2508,8 +2508,8 @@ fn verify_that_test_cases_test_enough_bits() {
 	}
 
 	fn can_use_x(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::k_rm
 				| OpCodeOperandKind::mm_rm
 				| OpCodeOperandKind::r16_rm
@@ -2551,8 +2551,8 @@ fn verify_that_test_cases_test_enough_bits() {
 	}
 
 	fn can_use_r(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::k_reg
 				| OpCodeOperandKind::kp1_reg
 				| OpCodeOperandKind::tr_reg
@@ -2576,8 +2576,8 @@ fn verify_that_test_cases_test_enough_bits() {
 	}
 
 	fn can_use_r2(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::k_reg
 				| OpCodeOperandKind::kp1_reg
 				| OpCodeOperandKind::tr_reg
@@ -2599,8 +2599,8 @@ fn verify_that_test_cases_test_enough_bits() {
 	}
 
 	fn can_use_v2(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::k_vvvv | OpCodeOperandKind::r32_vvvv | OpCodeOperandKind::r64_vvvv | OpCodeOperandKind::tmm_vvvv => return false,
 				OpCodeOperandKind::xmm_vvvv
 				| OpCodeOperandKind::xmmp3_vvvv
@@ -2623,8 +2623,8 @@ fn verify_that_test_cases_test_enough_bits() {
 	}
 
 	fn has_modrm(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::mem
 				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx
@@ -2995,8 +2995,8 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 	}
 
 	fn is_reg_only_or_reg_mem_only_mod_rm(op_code: &OpCodeInfo) -> bool {
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds() {
+			match op_kind {
 				OpCodeOperandKind::mem
 				| OpCodeOperandKind::sibmem
 				| OpCodeOperandKind::mem_mpx

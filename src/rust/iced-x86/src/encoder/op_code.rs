@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::*;
+use super::iced_constants::IcedConstants;
 use super::instruction_fmt::*;
 use super::op_code_fmt::*;
 use super::op_kind_tables::*;
@@ -92,11 +93,7 @@ pub struct OpCodeInfo {
 	mandatory_prefix: MandatoryPrefix,
 	group_index: i8,
 	rm_group_index: i8,
-	op0_kind: OpCodeOperandKind,
-	op1_kind: OpCodeOperandKind,
-	op2_kind: OpCodeOperandKind,
-	op3_kind: OpCodeOperandKind,
-	op4_kind: OpCodeOperandKind,
+	op_kinds: [OpCodeOperandKind; IcedConstants::MAX_OP_COUNT],
 }
 
 impl OpCodeInfo {
@@ -345,11 +342,7 @@ impl OpCodeInfo {
 			mandatory_prefix,
 			group_index,
 			rm_group_index,
-			op0_kind,
-			op1_kind,
-			op2_kind,
-			op3_kind,
-			op4_kind,
+			op_kinds: [op0_kind, op1_kind, op2_kind, op3_kind, op4_kind],
 		};
 
 		if string_format {
@@ -1155,35 +1148,35 @@ impl OpCodeInfo {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op0_kind(&self) -> OpCodeOperandKind {
-		self.op0_kind
+		self.op_kinds[0]
 	}
 
 	/// Gets operand #1's opkind
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op1_kind(&self) -> OpCodeOperandKind {
-		self.op1_kind
+		self.op_kinds[1]
 	}
 
 	/// Gets operand #2's opkind
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op2_kind(&self) -> OpCodeOperandKind {
-		self.op2_kind
+		self.op_kinds[2]
 	}
 
 	/// Gets operand #3's opkind
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op3_kind(&self) -> OpCodeOperandKind {
-		self.op3_kind
+		self.op_kinds[3]
 	}
 
 	/// Gets operand #4's opkind
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op4_kind(&self) -> OpCodeOperandKind {
-		self.op4_kind
+		self.op_kinds[4]
 	}
 
 	/// Gets an operand's opkind
@@ -1196,16 +1189,16 @@ impl OpCodeInfo {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	pub fn op_kind(&self, operand: u32) -> OpCodeOperandKind {
-		match operand {
-			0 => self.op0_kind(),
-			1 => self.op1_kind(),
-			2 => self.op2_kind(),
-			3 => self.op3_kind(),
-			4 => self.op4_kind(),
-			_ => panic!(),
-		}
+		self.op_kinds[operand as usize]
+	}
+
+	/// Gets all operand kinds
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn op_kinds(&self) -> &[OpCodeOperandKind] {
+		&self.op_kinds[0..self.op_count() as usize]
 	}
 
 	/// Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode

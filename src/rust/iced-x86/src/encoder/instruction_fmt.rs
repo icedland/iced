@@ -83,8 +83,8 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		if (op_code.op0_kind() == OpCodeOperandKind::k_reg || op_code.op0_kind() == OpCodeOperandKind::kp1_reg) && op_code.op_count() > 2 {
 			vec_index += 1;
 		}
-		for i in 0..op_code.op_count() {
-			match op_code.op_kind(i) {
+		for &op_kind in op_code.op_kinds().iter() {
+			match op_kind {
 				OpCodeOperandKind::r32_reg
 				| OpCodeOperandKind::r32_reg_mem
 				| OpCodeOperandKind::r32_rm
