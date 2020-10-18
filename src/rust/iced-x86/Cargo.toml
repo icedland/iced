@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86"
-version = "1.8.0"# Update html_root_url in lib.rs and usage section in lib.rs/README and version numbers in README docs.rs links
+version = "1.9.0"# Update html_root_url in lib.rs and usage section in lib.rs/README and version numbers in README docs.rs links
 authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder written in Rust"

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Copyright>Copyright (C) 2018-2020 de4dot@gmail.com</Copyright>
-    <Version>1.8.0</Version>
+    <Version>1.9.0</Version>
     <Authors>0xd4d</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>
 
