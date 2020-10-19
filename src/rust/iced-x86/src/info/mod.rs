@@ -36,6 +36,8 @@ use super::*;
 use alloc::vec::Vec;
 use core::fmt;
 
+use num_traits::{AsPrimitive, WrappingAdd, WrappingMul};
+
 /// A register used by an instruction
 #[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct UsedRegister {
@@ -200,6 +202,62 @@ impl UsedMemory {
 	#[inline]
 	pub fn vsib_size(&self) -> u32 {
 		self.vsib_size as u32
+	}
+
+	/// Gets the virtual address of a used memory location. See also [`try_virtual_address()`]
+	///
+	/// [`try_virtual_address()`]: #method.try_virtual_address
+	///
+	/// # Panics
+	///
+	/// Panics if virtual address computation fails.
+	///
+	/// # Arguments
+	///
+	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register.
+	///
+	/// # Call-back function args
+	///
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn virtual_address<T, F>(&self, mut get_register_value: F) -> u64
+	where
+		T: Copy + WrappingAdd + WrappingMul + Into<u64> + 'static,
+		u8: AsPrimitive<T>,
+		u32: AsPrimitive<T>,
+		u64: AsPrimitive<T>,
+		F: FnMut(Register) -> u64,
+	{
+		self.try_virtual_address(|r| Some(get_register_value(r))).unwrap()
+	}
+
+	/// Gets the virtual address of a used memory location, or `None` if register resolution fails.
+	///
+	/// # Arguments
+	///
+	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register, or `None` on failure.
+	///
+	/// # Call-back function args
+	///
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn try_virtual_address<T, F>(&self, mut get_register_value: F) -> Option<u64>
+	where
+		T: Copy + WrappingAdd + WrappingMul + Into<u64> + 'static,
+		u8: AsPrimitive<T>,
+		u32: AsPrimitive<T>,
+		u64: AsPrimitive<T>,
+		F: FnMut(Register) -> Option<u64>,
+	{
+		let segment_base = get_register_value(self.segment)?.as_();
+		let base = get_register_value(self.base)?.as_();
+		let index = get_register_value(self.index)?.as_();
+
+		let effective = segment_base.wrapping_add(&base).wrapping_add(&index.wrapping_mul(&self.scale.as_())).wrapping_add(&self.displacement.as_());
+
+		Some(effective.into())
 	}
 }
 

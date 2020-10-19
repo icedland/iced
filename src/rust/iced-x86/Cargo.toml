@@ -41,6 +41,7 @@ no_d3now = []
 [dependencies]
 # if: always
 static_assertions = "0.3.4"
+num-traits = "0.2"
 
 # if: decoder or encoder or gas or intel or masm or nasm or fast_fmt
 # It's not really optional, std or no_std must be used and they both require it.
