@@ -36,9 +36,6 @@ use super::*;
 use alloc::vec::Vec;
 use core::fmt;
 
-extern crate num_traits;
-use self::num_traits::{AsPrimitive, WrappingAdd, WrappingMul};
-
 /// A register used by an instruction
 #[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct UsedRegister {
@@ -220,17 +217,15 @@ impl UsedMemory {
 	/// # Call-back function args
 	///
 	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
+	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn virtual_address<T, F>(&self, mut get_register_value: F) -> u64
+	pub fn virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> u64
 	where
-		T: Copy + WrappingAdd + WrappingMul + Into<u64> + 'static,
-		u8: AsPrimitive<T>,
-		u32: AsPrimitive<T>,
-		u64: AsPrimitive<T>,
-		F: FnMut(Register) -> u64,
+		F: FnMut(Register, usize, usize) -> u64,
 	{
-		self.try_virtual_address(|r| Some(get_register_value(r))).unwrap()
+		self.try_virtual_address(element_index, |r, i, s| Some(get_register_value(r, i, s))).unwrap()
 	}
 
 	/// Gets the virtual address of a used memory location, or `None` if register resolution fails.
@@ -242,23 +237,50 @@ impl UsedMemory {
 	/// # Call-back function args
 	///
 	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
+	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn try_virtual_address<T, F>(&self, mut get_register_value: F) -> Option<u64>
+	pub fn try_virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> Option<u64>
 	where
-		T: Copy + WrappingAdd + WrappingMul + Into<u64> + 'static,
-		u8: AsPrimitive<T>,
-		u32: AsPrimitive<T>,
-		u64: AsPrimitive<T>,
-		F: FnMut(Register) -> Option<u64>,
+		F: FnMut(Register, usize, usize) -> Option<u64>,
 	{
-		let segment_base = get_register_value(self.segment)?.as_();
-		let base = get_register_value(self.base)?.as_();
-		let index = get_register_value(self.index)?.as_();
+		let mut effective = self.displacement;
 
-		let effective = segment_base.wrapping_add(&base).wrapping_add(&index.wrapping_mul(&self.scale.as_())).wrapping_add(&self.displacement.as_());
+		match self.segment {
+			Register::None => {}
+			_ => {
+				let segment_base = match get_register_value(self.segment, 0, 0) {
+					Some(v) => v,
+					None => return None,
+				};
+				effective = effective.wrapping_add(segment_base)
+			}
+		}
 
-		Some(effective.into())
+		match self.base {
+			Register::None => {}
+			_ => {
+				let base = match get_register_value(self.base, 0, 0) {
+					Some(v) => v,
+					None => return None,
+				};
+				effective = effective.wrapping_add(base)
+			}
+		}
+
+		match self.index {
+			Register::None => {}
+			_ => {
+				let index = match get_register_value(self.index, 0, 0) {
+					Some(v) => v,
+					None => return None,
+				};
+				effective = effective.wrapping_add(index << self.scale)
+			}
+		}
+
+		Some(effective)
 	}
 }
 
