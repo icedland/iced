@@ -36,7 +36,8 @@ use super::*;
 use alloc::vec::Vec;
 use core::fmt;
 
-use num_traits::{AsPrimitive, WrappingAdd, WrappingMul};
+extern crate num_traits;
+use self::num_traits::{AsPrimitive, WrappingAdd, WrappingMul};
 
 /// A register used by an instruction
 #[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]

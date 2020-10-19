@@ -1235,7 +1235,6 @@ extern crate static_assertions;
 #[cfg(not(feature = "std"))]
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 extern crate hashbrown;
-extern crate num_traits;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_enc;
