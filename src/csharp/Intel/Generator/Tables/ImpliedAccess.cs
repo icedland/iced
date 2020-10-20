@@ -211,9 +211,8 @@ namespace Generator.Tables {
 		MemoryAccess,
 		RegisterAccess,
 		RegisterRangeAccess,
-		ShiftMask1F,
+		ShiftMask,
 		ShiftMask1FMod,
-		ShiftMask3F,
 		ZeroRegRflags,
 		ZeroRegRegmem,
 		ZeroRegRegRegmem,
@@ -452,8 +451,8 @@ namespace Generator.Tables {
 			// The order is important. The code assumes this order, see Instruction.Info.cs
 			AddHardCodedValue("Shift_Ib_MASK1FMOD9", new IntArgImplAccStatement(ImplAccStatementKind.ShiftMask1FMod, 9));
 			AddHardCodedValue("Shift_Ib_MASK1FMOD11", new IntArgImplAccStatement(ImplAccStatementKind.ShiftMask1FMod, 17));
-			AddHardCodedValue("Shift_Ib_MASK1F", new NoArgImplAccStatement(ImplAccStatementKind.ShiftMask1F));
-			AddHardCodedValue("Shift_Ib_MASK3F", new NoArgImplAccStatement(ImplAccStatementKind.ShiftMask3F));
+			AddHardCodedValue("Shift_Ib_MASK1F", new IntArgImplAccStatement(ImplAccStatementKind.ShiftMask, 0x1F));
+			AddHardCodedValue("Shift_Ib_MASK3F", new IntArgImplAccStatement(ImplAccStatementKind.ShiftMask, 0x3F));
 			AddHardCodedValue("Clear_rflags", new NoArgImplAccStatement(ImplAccStatementKind.ZeroRegRflags));
 		}
 
@@ -550,11 +549,9 @@ namespace Generator.Tables {
 					sb.Append("TO");
 					sb.Append(rreg.RegisterLast.RawName.ToLowerInvariant());
 					break;
-				case ImplAccStatementKind.ShiftMask1F:
-					sb.Append("sm1F");
-					break;
-				case ImplAccStatementKind.ShiftMask3F:
-					sb.Append("sm3F");
+				case ImplAccStatementKind.ShiftMask:
+					arg1 = (IntArgImplAccStatement)stmt;
+					sb.Append($"sm{arg1.Arg:X}");
 					break;
 				case ImplAccStatementKind.ZeroRegRflags:
 					sb.Append("zrfl");

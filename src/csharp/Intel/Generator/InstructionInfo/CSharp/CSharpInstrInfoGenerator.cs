@@ -273,15 +273,13 @@ namespace Generator.InstructionInfo.CSharp {
 					using (writer.Indent())
 						writer.WriteLine($"AddRegister(flags, reg, {GetOpAccessString(rreg.Access)});");
 					break;
-				case ImplAccStatementKind.ShiftMask1F:
-					writer.WriteLine("CommandShiftMask(instruction, 0x1F);");
+				case ImplAccStatementKind.ShiftMask:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"CommandShiftMask(instruction, 0x{arg1.Arg:X});");
 					break;
 				case ImplAccStatementKind.ShiftMask1FMod:
 					arg1 = (IntArgImplAccStatement)stmt;
 					writer.WriteLine($"CommandShiftMaskMod(instruction, {Verify_9_or_17(arg1.Arg)});");
-					break;
-				case ImplAccStatementKind.ShiftMask3F:
-					writer.WriteLine("CommandShiftMask(instruction, 0x3F);");
 					break;
 				case ImplAccStatementKind.ZeroRegRflags:
 					writer.WriteLine("CommandClearRflags(instruction, flags);");

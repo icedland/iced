@@ -229,15 +229,13 @@ namespace Generator.InstructionInfo.Rust {
 						writer.WriteLine($"Self::add_register(flags, info, unsafe {{ mem::transmute(reg_num as u8) }}, {GetOpAccessString(rreg.Access)});");
 					writer.WriteLine("}");
 					break;
-				case ImplAccStatementKind.ShiftMask1F:
-					writer.WriteLine("Self::command_shift_mask(instruction, info, 0x1F);");
+				case ImplAccStatementKind.ShiftMask:
+					arg1 = (IntArgImplAccStatement)stmt;
+					writer.WriteLine($"Self::command_shift_mask(instruction, info, 0x{arg1.Arg:X});");
 					break;
 				case ImplAccStatementKind.ShiftMask1FMod:
 					arg1 = (IntArgImplAccStatement)stmt;
 					writer.WriteLine($"Self::command_shift_mask_mod(instruction, info, {Verify_9_or_17(arg1.Arg)});");
-					break;
-				case ImplAccStatementKind.ShiftMask3F:
-					writer.WriteLine("Self::command_shift_mask(instruction, info, 0x3F);");
 					break;
 				case ImplAccStatementKind.ZeroRegRflags:
 					writer.WriteLine("Self::command_clear_rflags(instruction, info, flags);");

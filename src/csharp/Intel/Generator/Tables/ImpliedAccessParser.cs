@@ -107,7 +107,7 @@ namespace Generator.Tables {
 
 		static readonly HashSet<string> impliedAccessKeyHasValue = new HashSet<string>(StringComparer.Ordinal) {
 			"cr", "cw", "crcw", "r", "w", "rw", "rcw",
-			"shift-mask-1F-mod",
+			"shift-mask", "shift-mask-1F-mod",
 			"enter", "leave",
 			"push", "pop", "pop-rm",
 			"pusha", "popa",
@@ -122,7 +122,7 @@ namespace Generator.Tables {
 
 			if (HasSpecialAccWithOtherAcc(conds)) {
 				// They change rflags bits and the runtime code needs to check if it's one of these, see GetRflagsInfo()
-				error = "These can only be used with no other commands: shift-mask-1F, shift-mask-1F-mod, shift-mask-3F, zero-reg-rflags";
+				error = "These can only be used with no other commands: shift-mask=0x1F, shift-mask=0x3F, shift-mask-1F-mod, zero-reg-rflags";
 				return false;
 			}
 
@@ -358,9 +358,8 @@ namespace Generator.Tables {
 				foreach (var stmt in stmts) {
 					count++;
 					switch (stmt.Kind) {
-					case ImplAccStatementKind.ShiftMask1F:
+					case ImplAccStatementKind.ShiftMask:
 					case ImplAccStatementKind.ShiftMask1FMod:
-					case ImplAccStatementKind.ShiftMask3F:
 					case ImplAccStatementKind.ZeroRegRflags:
 						found = true;
 						break;
@@ -440,12 +439,15 @@ namespace Generator.Tables {
 						return false;
 					break;
 
-				case "shift-mask-1F":
-					stmt = new NoArgImplAccStatement(ImplAccStatementKind.ShiftMask1F);
-					break;
-
-				case "shift-mask-3F":
-					stmt = new NoArgImplAccStatement(ImplAccStatementKind.ShiftMask3F);
+				case "shift-mask":
+					if (!ParserUtils.TryParseUInt32(value, out arg1, out error))
+						return false;
+					// The reason this can't be changed is the hard coded enum values in ImpliedAccessEnumFactory which are used by the runtime code
+					if (arg1 != 0x1F && arg1 != 0x3F) {
+						error = $"Invalid mask: `{value}`";
+						return false;
+					}
+					stmt = new IntArgImplAccStatement(ImplAccStatementKind.ShiftMask, arg1);
 					break;
 
 				case "zero-reg-rflags":
@@ -530,6 +532,7 @@ namespace Generator.Tables {
 				case "shift-mask-1F-mod":
 					if (!ParserUtils.TryParseUInt32(value, out arg1, out error))
 						return false;
+					// The reason this can't be changed is the hard coded enum values in ImpliedAccessEnumFactory which are used by the runtime code
 					if (arg1 != 9 && arg1 != 17) {
 						error = $"Invalid modulus: `{value}`";
 						return false;

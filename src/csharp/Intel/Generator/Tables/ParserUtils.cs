@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace Generator.Tables {
 	static class ParserUtils {
@@ -37,8 +38,17 @@ namespace Generator.Tables {
 		}
 
 		public static bool TryParseUInt32(string value, out uint result, [NotNullWhen(false)] out string? error) {
-			if (!uint.TryParse(value, out result)) {
-				error = $"Invalid uint: `{value}`";
+			var origValue = value;
+			var numberStyles = NumberStyles.None;
+			bool bad = false;
+			if (value.StartsWith("0x", System.StringComparison.OrdinalIgnoreCase)) {
+				numberStyles |= NumberStyles.HexNumber;
+				value = value.Substring(2);
+				bad = value.TrimStart() != value;
+			}
+			if (bad || !uint.TryParse(value, numberStyles, null, out result)) {
+				error = $"Invalid uint: `{origValue}`";
+				result = 0;
 				return false;
 			}
 
