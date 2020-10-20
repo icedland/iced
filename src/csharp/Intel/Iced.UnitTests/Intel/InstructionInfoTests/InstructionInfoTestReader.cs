@@ -452,48 +452,17 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static bool ParseRflags(string value, ref RflagsBits rflags) {
 			foreach (var c in value) {
 				switch (c) {
-				case RflagsBitsConstants.AF:
-					rflags |= RflagsBits.AF;
-					break;
-
-				case RflagsBitsConstants.CF:
-					rflags |= RflagsBits.CF;
-					break;
-
-				case RflagsBitsConstants.OF:
-					rflags |= RflagsBits.OF;
-					break;
-
-				case RflagsBitsConstants.PF:
-					rflags |= RflagsBits.PF;
-					break;
-
-				case RflagsBitsConstants.SF:
-					rflags |= RflagsBits.SF;
-					break;
-
-				case RflagsBitsConstants.ZF:
-					rflags |= RflagsBits.ZF;
-					break;
-
-				case RflagsBitsConstants.IF:
-					rflags |= RflagsBits.IF;
-					break;
-
-				case RflagsBitsConstants.DF:
-					rflags |= RflagsBits.DF;
-					break;
-
-				case RflagsBitsConstants.AC:
-					rflags |= RflagsBits.AC;
-					break;
-
-				case RflagsBitsConstants.UIF:
-					rflags |= RflagsBits.UIF;
-					break;
-
-				default:
-					return false;
+				case RflagsBitsConstants.AF: rflags |= RflagsBits.AF; break;
+				case RflagsBitsConstants.CF: rflags |= RflagsBits.CF; break;
+				case RflagsBitsConstants.OF: rflags |= RflagsBits.OF; break;
+				case RflagsBitsConstants.PF: rflags |= RflagsBits.PF; break;
+				case RflagsBitsConstants.SF: rflags |= RflagsBits.SF; break;
+				case RflagsBitsConstants.ZF: rflags |= RflagsBits.ZF; break;
+				case RflagsBitsConstants.IF: rflags |= RflagsBits.IF; break;
+				case RflagsBitsConstants.DF: rflags |= RflagsBits.DF; break;
+				case RflagsBitsConstants.AC: rflags |= RflagsBits.AC; break;
+				case RflagsBitsConstants.UIF: rflags |= RflagsBits.UIF; break;
+				default: return false;
 				}
 			}
 
