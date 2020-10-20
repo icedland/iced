@@ -2349,7 +2349,7 @@ impl Instruction {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base value, not the segment register value.
+	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	///
@@ -2546,10 +2546,10 @@ impl Instruction {
 								Some(v) => v,
 								None => return None,
 							};
-							offset = offset.wrapping_add((v1 as u32 as u64) << super::instruction_internal::internal_get_memory_index_scale(self));
+							offset = offset.wrapping_add((v1 as i32 as u64) << super::instruction_internal::internal_get_memory_index_scale(self));
 						}
 					} else {
-						let v1 = match get_register_value(index_reg, element_index, 0) {
+						let v1 = match get_register_value(index_reg, 0, 0) {
 							Some(v) => v,
 							None => return None,
 						};
@@ -2581,7 +2581,7 @@ impl Instruction {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base value, not the segment register value.
+	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	///

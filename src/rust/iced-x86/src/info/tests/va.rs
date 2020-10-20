@@ -21,9 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::test_utils::create_decoder;
-use super::super::test_utils::from_str_conv::to_vec_u8;
-use super::va_test_cases::VA_TEST_CASES;
+use super::super::super::test_utils::create_decoder;
+use super::super::super::test_utils::from_str_conv::to_vec_u8;
+use super::test::va_test_cases::VA_TEST_CASES;
+use super::InstructionInfoFactory;
 
 #[test]
 fn va_tests() {
@@ -32,7 +33,11 @@ fn va_tests() {
 		let mut decoder = create_decoder(tc.bitness, &bytes, 0).0;
 		let instruction = decoder.decode();
 
-		let value1 = instruction.virtual_address(tc.operand, tc.element_index, |register, element_index, element_size| {
+		let mut factory = InstructionInfoFactory::new();
+		let info = factory.info(&instruction);
+		let used_mem = info.used_memory().iter().nth(tc.used_mem_index as usize).unwrap();
+
+		let value1 = used_mem.virtual_address(tc.element_index, |register, element_index, element_size| {
 			for reg_value in &tc.register_values {
 				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
 					return reg_value.value;
@@ -42,7 +47,7 @@ fn va_tests() {
 		});
 		assert_eq!(tc.expected_value, value1);
 
-		let value2 = instruction.try_virtual_address(tc.operand, tc.element_index, |register, element_index, element_size| {
+		let value2 = used_mem.try_virtual_address(tc.element_index, |register, element_index, element_size| {
 			for reg_value in &tc.register_values {
 				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
 					return Some(reg_value.value);
@@ -52,7 +57,7 @@ fn va_tests() {
 		});
 		assert_eq!(Some(tc.expected_value), value2);
 
-		let value3 = instruction.try_virtual_address(tc.operand, tc.element_index, |_register, _element_index, _element_size| None);
+		let value3 = used_mem.try_virtual_address(tc.element_index, |_register, _element_index, _element_size| None);
 		assert_eq!(None, value3);
 	}
 }

@@ -29,6 +29,7 @@ mod misc_test_data;
 mod reg_info_test_case;
 mod reg_test_parser;
 mod test_parser;
+mod va;
 
 use self::constants::*;
 use self::info_test_case::*;

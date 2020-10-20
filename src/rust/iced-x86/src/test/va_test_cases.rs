@@ -21,26 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::Register;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
-#[cfg(not(feature = "std"))]
-use alloc::vec::Vec;
+use super::super::test_utils::get_instruction_unit_tests_dir;
+use super::va_test_case::VirtualAddressTestCase;
+use super::va_test_parser::*;
 
-pub(crate) struct VARegisterValue {
-	pub(crate) register: Register,
-	pub(crate) element_index: usize,
-	pub(crate) element_size: usize,
-	pub(crate) value: u64,
+lazy_static! {
+	pub(crate) static ref VA_TEST_CASES: Vec<VirtualAddressTestCase> = read_va_test_cases();
 }
 
-pub(crate) struct VirtualAddressTestCase {
-	pub(crate) bitness: u32,
-	pub(crate) hex_bytes: String,
-	pub(crate) operand: u32,
-	#[allow(dead_code)]
-	pub(crate) used_mem_index: u32,
-	pub(crate) element_index: usize,
-	pub(crate) expected_value: u64,
-	pub(crate) register_values: Vec<VARegisterValue>,
+fn read_va_test_cases() -> Vec<VirtualAddressTestCase> {
+	let mut path = get_instruction_unit_tests_dir();
+	path.push("VirtualAddressTests.txt");
+	VirtualAddressTestParser::new(&path).into_iter().collect()
 }

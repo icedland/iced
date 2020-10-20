@@ -216,7 +216,7 @@ impl UsedMemory {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
@@ -236,7 +236,7 @@ impl UsedMemory {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
@@ -261,11 +261,14 @@ impl UsedMemory {
 		match self.index {
 			Register::None => {}
 			_ => {
-				let index = match get_register_value(self.index, element_index, self.vsib_size.into()) {
+				let mut index = match get_register_value(self.index, element_index, self.vsib_size as usize) {
 					Some(v) => v,
 					None => return None,
 				};
-				effective = effective.wrapping_add(index.wrapping_mul(self.scale.into()))
+				if self.vsib_size == 4 {
+					index = index as i32 as u64;
+				}
+				effective = effective.wrapping_add(index.wrapping_mul(self.scale as u64))
 			}
 		}
 

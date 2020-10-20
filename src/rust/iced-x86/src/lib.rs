@@ -1266,7 +1266,7 @@ mod mnemonic;
 mod mnemonics;
 mod register;
 #[cfg(test)]
-mod test;
+pub(crate) mod test;
 #[cfg(test)]
 pub(crate) mod test_utils;
 #[cfg(any(feature = "decoder", feature = "encoder"))]

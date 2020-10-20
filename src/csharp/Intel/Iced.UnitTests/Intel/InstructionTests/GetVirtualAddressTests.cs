@@ -23,25 +23,34 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.InstructionTests {
-	sealed class VARegisterValueProviderImpl : IVARegisterValueProvider {
+	sealed class VARegisterValueProviderImpl : IVARegisterValueProvider, IVATryGetRegisterValueProvider {
 		readonly (Register register, int elementIndex, int elementSize, ulong value)[] results;
 
 		public VARegisterValueProviderImpl((Register register, int elementIndex, int elementSize, ulong value)[] results) =>
 			this.results = results;
 
 		public ulong GetRegisterValue(Register register, int elementIndex, int elementSize) {
+			if (TryGetRegisterValue(register, elementIndex, elementSize, out var value))
+				return value;
+			throw new InvalidOperationException();
+		}
+
+		public bool TryGetRegisterValue(Register register, int elementIndex, int elementSize, out ulong value) {
 			var results = this.results;
 			for (int i = 0; i < results.Length; i++) {
 				ref var info = ref results[i];
-				if ((info.register, info.elementIndex, info.elementSize) == (register, elementIndex, elementSize))
-					return info.value;
+				if ((info.register, info.elementIndex, info.elementSize) == (register, elementIndex, elementSize)) {
+					value = info.value;
+					return true;
+				}
 			}
-			Assert.True(false);
-			throw new InvalidOperationException();
+			value = 0;
+			return false;
 		}
 	}
 
@@ -49,17 +58,29 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		public readonly int Bitness;
 		public readonly string HexBytes;
 		public readonly int Operand;
+		public readonly int UsedMemIndex;
 		public readonly int ElementIndex;
 		public readonly ulong ExpectedValue;
 		public readonly (Register register, int elementIndex, int elementSize, ulong value)[] RegisterValues;
-		public VirtualAddressTestCase(int bitness, string hexBytes, int operand, int elementIndex, ulong expectedValue,
+		public VirtualAddressTestCase(int bitness, string hexBytes, int operand, int usedMemIndex, int elementIndex, ulong expectedValue,
 									(Register register, int elementIndex, int elementSize, ulong value)[] registerValues) {
 			Bitness = bitness;
 			HexBytes = hexBytes;
 			Operand = operand;
+			UsedMemIndex = usedMemIndex;
 			ElementIndex = elementIndex;
 			ExpectedValue = expectedValue;
 			RegisterValues = registerValues;
+		}
+		public override string ToString() => $"{Bitness}, {HexBytes}, {Operand}, {UsedMemIndex}, {ElementIndex}, 0x{ExpectedValue:X}";
+	}
+
+	static class VirtualAddressTestCases {
+		public static readonly VirtualAddressTestCase[] Tests = CreateTests();
+
+		static VirtualAddressTestCase[] CreateTests() {
+			var filename = PathUtils.GetTestTextFilename("VirtualAddressTests.txt", "Instruction");
+			return VATestCaseReader.ReadFile(filename).ToArray();
 		}
 	}
 
@@ -76,16 +97,33 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			};
 			var instruction = decoder.Decode();
 			var getRegValue = new VARegisterValueProviderImpl(tc.RegisterValues);
-			ulong value1 = instruction.GetVirtualAddress(tc.Operand, tc.ElementIndex, getRegValue);
+			var getRegValueFail = new VARegisterValueProviderImpl(Array.Empty<(Register register, int elementIndex, int elementSize, ulong value)>());
+
+			bool b1 = instruction.TryGetVirtualAddress(tc.Operand, tc.ElementIndex, getRegValue, out ulong value1);
+			Assert.True(b1);
 			Assert.Equal(tc.ExpectedValue, value1);
-			ulong value2 = instruction.GetVirtualAddress(tc.Operand, tc.ElementIndex, (register, elementIndex2, elementSize) =>
-				getRegValue.GetRegisterValue(register, elementIndex2, elementSize));
+
+			bool b2 = instruction.TryGetVirtualAddress(tc.Operand, tc.ElementIndex, out ulong value2,
+				(Register register, int elementIndex, int elementSize, out ulong value) =>
+					getRegValue.TryGetRegisterValue(register, elementIndex, elementSize, out value));
+			Assert.True(b2);
 			Assert.Equal(tc.ExpectedValue, value2);
+
+			ulong value3 = instruction.GetVirtualAddress(tc.Operand, tc.ElementIndex, getRegValue);
+			Assert.Equal(tc.ExpectedValue, value3);
+
+			ulong value4 = instruction.GetVirtualAddress(tc.Operand, tc.ElementIndex, (register, elementIndex2, elementSize) =>
+				getRegValue.GetRegisterValue(register, elementIndex2, elementSize));
+			Assert.Equal(tc.ExpectedValue, value4);
+
+			Assert.False(instruction.TryGetVirtualAddress(tc.Operand, tc.ElementIndex, out ulong value5, (Register register, int elementIndex, int elementSize, out ulong value) => { value = 0; return false; }));
+			Assert.Equal(0UL, value5);
+			Assert.False(instruction.TryGetVirtualAddress(tc.Operand, tc.ElementIndex, getRegValueFail, out ulong value6));
+			Assert.Equal(0UL, value6);
 		}
 		public static IEnumerable<object[]> VATests_Data {
 			get {
-				var filename = PathUtils.GetTestTextFilename("VirtualAddressTests.txt", "Instruction");
-				foreach (var tc in VATestCaseReader.ReadFile(filename))
+				foreach (var tc in VirtualAddressTestCases.Tests)
 					yield return new object[] { tc };
 			}
 		}

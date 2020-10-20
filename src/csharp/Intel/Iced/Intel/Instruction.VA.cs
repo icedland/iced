@@ -26,14 +26,6 @@ using System.Diagnostics;
 
 namespace Iced.Intel {
 	partial struct Instruction {
-		sealed class VARegisterValueProviderImpl : IVARegisterValueProvider {
-			readonly VAGetRegisterValue getRegisterValue;
-			public VARegisterValueProviderImpl(VAGetRegisterValue getRegisterValue) =>
-				this.getRegisterValue = getRegisterValue ?? throw new ArgumentNullException(nameof(getRegisterValue));
-			public ulong GetRegisterValue(Register register, int elementIndex, int elementSize) =>
-				getRegisterValue(register, elementIndex, elementSize);
-		}
-
 		/// <summary>
 		/// Gets the virtual address of a memory operand
 		/// </summary>
@@ -41,8 +33,14 @@ namespace Iced.Intel {
 		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
 		/// <param name="getRegisterValue">Delegate that returns the value of a register or the base address of a segment register</param>
 		/// <returns></returns>
-		public readonly ulong GetVirtualAddress(int operand, int elementIndex, VAGetRegisterValue getRegisterValue) =>
-			GetVirtualAddress(operand, elementIndex, new VARegisterValueProviderImpl(getRegisterValue));
+		public readonly ulong GetVirtualAddress(int operand, int elementIndex, VAGetRegisterValue getRegisterValue) {
+			if (getRegisterValue is null)
+				throw new ArgumentNullException(nameof(getRegisterValue));
+			var provider = new VARegisterValueProviderDelegateImpl(getRegisterValue);
+			if (TryGetVirtualAddress(operand, elementIndex, provider, out var result))
+				return result;
+			return 0;
+		}
 
 		/// <summary>
 		/// Gets the virtual address of a memory operand
@@ -54,6 +52,39 @@ namespace Iced.Intel {
 		public readonly ulong GetVirtualAddress(int operand, int elementIndex, IVARegisterValueProvider registerValueProvider) {
 			if (registerValueProvider is null)
 				throw new ArgumentNullException(nameof(registerValueProvider));
+			var provider = new VARegisterValueProviderAdapter(registerValueProvider);
+			if (TryGetVirtualAddress(operand, elementIndex, provider, out var result))
+				return result;
+			return 0;
+		}
+
+		/// <summary>
+		/// Gets the virtual address of a memory operand
+		/// </summary>
+		/// <param name="operand">Operand number, must be a memory operand</param>
+		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
+		/// <param name="result">Result if this method returns <see langword="true"/></param>
+		/// <param name="getRegisterValue">Returns values of registers and segment base addresses</param>
+		/// <returns></returns>
+		public readonly bool TryGetVirtualAddress(int operand, int elementIndex, out ulong result, VATryGetRegisterValue getRegisterValue) {
+			if (getRegisterValue is null)
+				throw new ArgumentNullException(nameof(getRegisterValue));
+			var provider = new VATryGetRegisterValueDelegateImpl(getRegisterValue);
+			return TryGetVirtualAddress(operand, elementIndex, provider, out result);
+		}
+
+		/// <summary>
+		/// Gets the virtual address of a memory operand
+		/// </summary>
+		/// <param name="operand">Operand number, must be a memory operand</param>
+		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
+		/// <param name="registerValueProvider">Returns values of registers and segment base addresses</param>
+		/// <param name="result">Result if this method returns <see langword="true"/></param>
+		/// <returns></returns>
+		public readonly bool TryGetVirtualAddress(int operand, int elementIndex, IVATryGetRegisterValueProvider registerValueProvider, out ulong result) {
+			if (registerValueProvider is null)
+				throw new ArgumentNullException(nameof(registerValueProvider));
+			ulong seg, @base;
 			switch (GetOpKind(operand)) {
 			case OpKind.Register:
 			case OpKind.NearBranch16:
@@ -70,37 +101,87 @@ namespace Iced.Intel {
 			case OpKind.Immediate8to32:
 			case OpKind.Immediate8to64:
 			case OpKind.Immediate32to64:
-				return 0;
+				result = 0;
+				return true;
 
 			case OpKind.MemorySegSI:
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + (ushort)registerValueProvider.GetRegisterValue(Register.SI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.SI, 0, 0, out @base)) {
+					result = seg + (ushort)@base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemorySegESI:
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + (uint)registerValueProvider.GetRegisterValue(Register.ESI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.ESI, 0, 0, out @base)) {
+					result = seg + (uint)@base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemorySegRSI:
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + registerValueProvider.GetRegisterValue(Register.RSI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.RSI, 0, 0, out @base)) {
+					result = seg + @base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemorySegDI:
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + (ushort)registerValueProvider.GetRegisterValue(Register.DI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.DI, 0, 0, out @base)) {
+					result = seg + (ushort)@base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemorySegEDI:
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + (uint)registerValueProvider.GetRegisterValue(Register.EDI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.EDI, 0, 0, out @base)) {
+					result = seg + (uint)@base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemorySegRDI:
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + registerValueProvider.GetRegisterValue(Register.RDI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.RDI, 0, 0, out @base)) {
+					result = seg + @base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemoryESDI:
-				return registerValueProvider.GetRegisterValue(Register.ES, 0, 0) + (ushort)registerValueProvider.GetRegisterValue(Register.DI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(Register.ES, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.DI, 0, 0, out @base)) {
+					result = seg + (ushort)@base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemoryESEDI:
-				return registerValueProvider.GetRegisterValue(Register.ES, 0, 0) + (uint)registerValueProvider.GetRegisterValue(Register.EDI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(Register.ES, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.EDI, 0, 0, out @base)) {
+					result = seg + (uint)@base;
+					return true;
+				}
+				break;
 
 			case OpKind.MemoryESRDI:
-				return registerValueProvider.GetRegisterValue(Register.ES, 0, 0) + registerValueProvider.GetRegisterValue(Register.RDI, 0, 0);
+				if (registerValueProvider.TryGetRegisterValue(Register.ES, 0, 0, out seg) &&
+					registerValueProvider.TryGetRegisterValue(Register.RDI, 0, 0, out @base)) {
+					result = seg + @base;
+					return true;
+				}
+				break;
 
 			case OpKind.Memory64:
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + MemoryAddress64;
+				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg)) {
+					result = seg + MemoryAddress64;
+					return true;
+				}
+				break;
 
 			case OpKind.Memory:
 				var baseReg = MemoryBase;
@@ -123,30 +204,48 @@ namespace Iced.Intel {
 						offset += NextIP;
 					else if (baseReg == Register.EIP)
 						offset += NextIP32;
-					else
-						offset += registerValueProvider.GetRegisterValue(baseReg, 0, 0);
+					else {
+						if (!registerValueProvider.TryGetRegisterValue(baseReg, 0, 0, out @base))
+							break;
+						offset += @base;
+					}
 				}
 				if (indexReg != Register.None) {
 					if (TryGetVsib64(out bool vsib64)) {
+						bool b;
 						if (vsib64)
-							offset += registerValueProvider.GetRegisterValue(indexReg, elementIndex, 8) << InternalMemoryIndexScale;
-						else
-							offset += (ulong)(uint)registerValueProvider.GetRegisterValue(indexReg, elementIndex, 4) << InternalMemoryIndexScale;
+							b = registerValueProvider.TryGetRegisterValue(indexReg, elementIndex, 8, out @base);
+						else {
+							b = registerValueProvider.TryGetRegisterValue(indexReg, elementIndex, 4, out @base);
+							@base = (ulong)(int)@base;
+						}
+						if (!b)
+							break;
+						offset += @base << InternalMemoryIndexScale;
 					}
-					else
-						offset += registerValueProvider.GetRegisterValue(indexReg, elementIndex, 0) << InternalMemoryIndexScale;
+					else {
+						if (!registerValueProvider.TryGetRegisterValue(indexReg, 0, 0, out @base))
+							break;
+						offset += @base << InternalMemoryIndexScale;
+					}
 				}
 				offset &= offsetMask;
-				return registerValueProvider.GetRegisterValue(MemorySegment, 0, 0) + offset;
+				if (!registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg))
+					break;
+				result = seg + offset;
+				return true;
 
 			default:
 				throw new InvalidOperationException();
 			}
+
+			result = 0;
+			return false;
 		}
 	}
 
 	/// <summary>
-	/// Gets a register value. If <paramref name="register"/> is a segment register, this method should return the segment's base value,
+	/// Gets a register value. If <paramref name="register"/> is a segment register, this method should return the segment's base address,
 	/// not the segment register value.
 	/// </summary>
 	/// <param name="register">Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg)</param>
@@ -160,7 +259,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public interface IVARegisterValueProvider {
 		/// <summary>
-		/// Gets a register value. If <paramref name="register"/> is a segment register, this method should return the segment's base value,
+		/// Gets a register value. If <paramref name="register"/> is a segment register, this method should return the segment's base address,
 		/// not the segment register value.
 		/// </summary>
 		/// <param name="register">Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg)</param>
@@ -168,5 +267,64 @@ namespace Iced.Intel {
 		/// <param name="elementSize">Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).</param>
 		/// <returns></returns>
 		ulong GetRegisterValue(Register register, int elementIndex, int elementSize);
+	}
+
+	/// <summary>
+	/// Gets a register value. If <paramref name="register"/> is a segment register, this method should return the segment's base address,
+	/// not the segment register value.
+	/// </summary>
+	/// <param name="register">Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg)</param>
+	/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
+	/// <param name="elementSize">Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).</param>
+	/// <param name="value">Updated with the register value if successful</param>
+	/// <returns></returns>
+	public delegate bool VATryGetRegisterValue(Register register, int elementIndex, int elementSize, out ulong value);
+
+	/// <summary>
+	/// Called when calculating the virtual address of a memory operand
+	/// </summary>
+	public interface IVATryGetRegisterValueProvider {
+		/// <summary>
+		/// Gets a register value. If <paramref name="register"/> is a segment register, this method should return the segment's base address,
+		/// not the segment register value.
+		/// </summary>
+		/// <param name="register">Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg)</param>
+		/// <param name="elementIndex">Only used if it's a vsib memory operand. This is the element index of the vector index register.</param>
+		/// <param name="elementSize">Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).</param>
+		/// <param name="value">Updated with the register value if successful</param>
+		/// <returns></returns>
+		bool TryGetRegisterValue(Register register, int elementIndex, int elementSize, out ulong value);
+	}
+
+	sealed class VARegisterValueProviderDelegateImpl : IVATryGetRegisterValueProvider {
+		readonly VAGetRegisterValue getRegisterValue;
+
+		public VARegisterValueProviderDelegateImpl(VAGetRegisterValue getRegisterValue) =>
+			this.getRegisterValue = getRegisterValue ?? throw new ArgumentNullException(nameof(getRegisterValue));
+
+		public bool TryGetRegisterValue(Register register, int elementIndex, int elementSize, out ulong value) {
+			value = getRegisterValue(register, elementIndex, elementSize);
+			return true;
+		}
+	}
+
+	sealed class VARegisterValueProviderAdapter : IVATryGetRegisterValueProvider {
+		readonly IVARegisterValueProvider provider;
+
+		public VARegisterValueProviderAdapter(IVARegisterValueProvider provider) => this.provider = provider;
+
+		public bool TryGetRegisterValue(Register register, int elementIndex, int elementSize, out ulong value) {
+			value = provider.GetRegisterValue(register, elementIndex, elementSize);
+			return true;
+		}
+	}
+
+	sealed class VATryGetRegisterValueDelegateImpl : IVATryGetRegisterValueProvider {
+		readonly VATryGetRegisterValue getRegisterValue;
+
+		public VATryGetRegisterValueDelegateImpl(VATryGetRegisterValue getRegisterValue) => this.getRegisterValue = getRegisterValue;
+
+		public bool TryGetRegisterValue(Register register, int elementIndex, int elementSize, out ulong value) =>
+			getRegisterValue(register, elementIndex, elementSize, out value);
 	}
 }

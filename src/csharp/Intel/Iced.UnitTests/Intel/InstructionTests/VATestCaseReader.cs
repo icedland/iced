@@ -56,7 +56,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		static readonly char[] semicolonSeparator = new char[] { ';' };
 		static VirtualAddressTestCase? ParseLine(string line) {
 			var elems = line.Split(commaSeparator);
-			if (elems.Length != 7)
+			if (elems.Length != 8)
 				throw new Exception($"Invalid number of commas: {elems.Length - 1}");
 
 			var bitness = NumberConverter.ToInt32(elems[0].Trim());
@@ -64,11 +64,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				return null;
 			var hexBytes = elems[2].Trim();
 			var operand = NumberConverter.ToInt32(elems[3].Trim());
-			var elementIndex = NumberConverter.ToInt32(elems[4].Trim());
-			var expectedValue = NumberConverter.ToUInt64(elems[5].Trim());
+			var usedMemIndex = NumberConverter.ToInt32(elems[4].Trim());
+			var elementIndex = NumberConverter.ToInt32(elems[5].Trim());
+			var expectedValue = NumberConverter.ToUInt64(elems[6].Trim());
 
 			var registerValues = new List<(Register register, int elementIndex, int elementSize, ulong value)>();
-			foreach (var tmp in elems[6].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
+			foreach (var tmp in elems[7].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 				var kv = tmp.Split(equalSeparator);
 				if (kv.Length != 2)
 					throw new Exception($"Expected key=value: {tmp}");
@@ -95,7 +96,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				registerValues.Add((register, expectedElementIndex, expectedElementSize, value));
 			}
 
-			return new VirtualAddressTestCase(bitness, hexBytes, operand, elementIndex, expectedValue, registerValues.ToArray());
+			return new VirtualAddressTestCase(bitness, hexBytes, operand, usedMemIndex, elementIndex, expectedValue, registerValues.ToArray());
 		}
 	}
 }

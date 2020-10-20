@@ -100,7 +100,7 @@ impl Iterator for IntoIter {
 impl IntoIter {
 	fn read_next_test_case(line: String) -> Result<Option<VirtualAddressTestCase>, String> {
 		let elems: Vec<_> = line.split(',').collect();
-		if elems.len() != 7 {
+		if elems.len() != 8 {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));
 		}
 
@@ -111,11 +111,12 @@ impl IntoIter {
 		let hex_bytes = String::from(elems[2].trim());
 		let _ = to_vec_u8(&hex_bytes)?;
 		let operand = to_u32(elems[3])?;
-		let element_index = to_u32(elems[4])? as usize;
-		let expected_value = to_u64(elems[5])?;
+		let used_mem_index = to_u32(elems[4])?;
+		let element_index = to_u32(elems[5])? as usize;
+		let expected_value = to_u64(elems[6])?;
 
 		let mut register_values: Vec<VARegisterValue> = Vec::new();
-		for tmp in elems[6].split_whitespace() {
+		for tmp in elems[7].split_whitespace() {
 			if tmp.is_empty() {
 				continue;
 			}
@@ -139,6 +140,6 @@ impl IntoIter {
 			register_values.push(VARegisterValue { register, element_index: expected_element_index, element_size: expected_element_size, value });
 		}
 
-		Ok(Some(VirtualAddressTestCase { bitness, hex_bytes, operand, element_index, expected_value, register_values }))
+		Ok(Some(VirtualAddressTestCase { bitness, hex_bytes, operand, used_mem_index, element_index, expected_value, register_values }))
 	}
 }
