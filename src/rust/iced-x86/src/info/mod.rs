@@ -245,13 +245,6 @@ impl UsedMemory {
 	where
 		F: FnMut(Register, usize, usize) -> Option<u64>,
 	{
-		let addr_mask = match self.address_size {
-			CodeSize::Code16 => u16::MAX as u64,
-			CodeSize::Code32 => u32::MAX as u64,
-			CodeSize::Code64 => u64::MAX,
-			_ => u64::MAX,
-		};
-
 		let mut effective = self.displacement;
 
 		match self.base {
@@ -276,7 +269,11 @@ impl UsedMemory {
 			}
 		}
 
-		effective &= addr_mask;
+		match self.address_size {
+			CodeSize::Code16 => effective = effective as u16 as u64,
+			CodeSize::Code32 => effective = effective as u32 as u64,
+			_ => {},
+		}
 
 		match self.segment {
 			Register::None => {}
