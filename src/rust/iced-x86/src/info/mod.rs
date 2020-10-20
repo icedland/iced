@@ -296,7 +296,7 @@ impl InstructionInfo {
 		(self.flags & IIFlags::SAVE_RESTORE) != 0
 	}
 
-	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+	/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn encoding(&self) -> EncodingKind {
@@ -310,7 +310,7 @@ impl InstructionInfo {
 		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
 
-	/// Flow control info
+	/// Control flow info
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn flow_control(&self) -> FlowControl {

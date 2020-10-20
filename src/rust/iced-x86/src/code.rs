@@ -38864,7 +38864,7 @@ impl Code {
 
 #[cfg(feature = "instr_info")]
 impl Code {
-	/// Gets the encoding, eg. legacy, VEX, EVEX, ...
+	/// Gets the encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
 	///
 	/// # Examples
 	///
@@ -38913,7 +38913,7 @@ impl Code {
 		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
-	/// Gets flow control info
+	/// Gets control flow info
 	///
 	/// # Examples
 	///

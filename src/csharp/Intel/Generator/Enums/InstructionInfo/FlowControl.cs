@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Enums.InstructionInfo {
-	[Enum("FlowControl", Documentation = "Flow control", Public = true)]
+	[Enum("FlowControl", Documentation = "Control flow", Public = true)]
 	enum FlowControl {
 		[Comment("The next instruction that will be executed is the next instruction in the instruction stream")]
 		Next,

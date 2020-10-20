@@ -206,7 +206,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+		/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
 		/// </summary>
 		public readonly EncodingKind Encoding {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -226,7 +226,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Flow control info
+		/// Control flow info
 		/// </summary>
 		public readonly FlowControl FlowControl {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

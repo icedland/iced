@@ -6,7 +6,7 @@ iced-x86 is a high performance and correct x86 (16/32/64-bit) disassembler for J
 - ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - ✔️The encoder can be used to re-encode decoded instructions at any address
-- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
+- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️Rust + WebAssembly + JavaScript
 - ✔️License: MIT
 
@@ -89,20 +89,6 @@ Here's a list of all features you can enable when building the wasm file
 `"decoder fast_fmt"` is all you need to disassemble code (or replace `fast_fmt` with eg. `nasm` or `gas`).
 
 `"decoder fast_fmt instr_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
-
-If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
-
-[.NET Core](https://dotnet.microsoft.com/download) is required. Help:
-
-```sh
-dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --help
-```
-
-No VEX, EVEX, XOP, 3DNow!:
-
-```sh
-dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex --no-xop --no-3dnow
-```
 
 ## How-tos
 

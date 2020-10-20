@@ -2718,7 +2718,7 @@ impl Instruction {
 		}
 	}
 
-	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+	/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
 	///
 	/// # Examples
 	///
@@ -2771,7 +2771,7 @@ impl Instruction {
 		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
-	/// Flow control info
+	/// Control flow info
 	///
 	/// # Examples
 	///

@@ -15,7 +15,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - ✔️The decoder is 4x+ faster than other similar libraries and doesn't allocate any memory
 - ✔️Small decoded instructions, only 32 bytes
 - ✔️The encoder can be used to re-encode decoded instructions at any address
-- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
+- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️Supports `#![no_std]` and `WebAssembly`
 - ✔️Supports `rustc` `1.20.0` or later
 - ✔️Few dependencies (`static_assertions` and `lazy_static`)

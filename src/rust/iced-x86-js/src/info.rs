@@ -196,7 +196,7 @@ impl InstructionInfo {
 		self.0.is_save_restore_instruction()
 	}
 
-	/// Instruction encoding (an [`EncodingKind`] enum value), eg. legacy, VEX, EVEX, ...
+	/// Instruction encoding (an [`EncodingKind`] enum value), eg. Legacy, 3DNow!, VEX, EVEX, XOP
 	///
 	/// [`EncodingKind`]: enum.EncodingKind.html
 	#[wasm_bindgen(getter)]
@@ -213,7 +213,7 @@ impl InstructionInfo {
 		self.0.cpuid_features().iter().map(|&a| a as i32).collect()
 	}
 
-	/// Flow control info (a [`FlowControl`] enum value)
+	/// Control flow info (a [`FlowControl`] enum value)
 	///
 	/// [`FlowControl`]: enum.FlowControl.html
 	#[wasm_bindgen(getter)]

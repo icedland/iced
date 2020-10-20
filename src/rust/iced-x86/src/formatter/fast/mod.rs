@@ -330,7 +330,7 @@ impl FastFormatterOptions {
 	}
 }
 
-/// Fast formatter with less formatting options and with masm-like syntax.
+/// Fast formatter with less formatting options and with a masm-like syntax.
 /// Use it if formatting speed is more important than being able to re-assemble formatted instructions.
 ///
 /// This formatter is 1.8-1.9x faster than the other formatters (the time includes decoding + formatting).

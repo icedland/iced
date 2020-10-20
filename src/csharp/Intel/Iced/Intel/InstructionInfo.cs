@@ -160,7 +160,7 @@ namespace Iced.Intel {
 		public readonly bool IsSaveRestoreInstruction => (flags & (uint)Flags1.SaveRestore) != 0;
 
 		/// <summary>
-		/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+		/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
 		/// </summary>
 		public readonly EncodingKind Encoding => (EncodingKind)encoding;
 
@@ -170,7 +170,7 @@ namespace Iced.Intel {
 		public readonly CpuidFeature[] CpuidFeatures => CpuidFeatureInternalData.ToCpuidFeatures[cpuidFeatureInternal];
 
 		/// <summary>
-		/// Flow control info
+		/// Control flow info
 		/// </summary>
 		public readonly FlowControl FlowControl => (FlowControl)flowControl;
 

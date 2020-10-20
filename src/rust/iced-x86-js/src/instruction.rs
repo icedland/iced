@@ -2295,7 +2295,7 @@ impl Instruction {
 		self.0.stack_pointer_increment()
 	}
 
-	/// Instruction encoding (a [`EncodingKind`] enum value), eg. legacy, VEX, EVEX, ...
+	/// Instruction encoding (a [`EncodingKind`] enum value), eg. Legacy, 3DNow!, VEX, EVEX, XOP
 	///
 	/// [`EncodingKind`]: enum.EncodingKind.html
 	///
@@ -2359,7 +2359,7 @@ impl Instruction {
 		self.0.cpuid_features().iter().map(|&a| a as i32).collect()
 	}
 
-	/// Flow control info (a [`FlowControl`] enum value)
+	/// Control flow info (a [`FlowControl`] enum value)
 	///
 	/// [`FlowControl`]: enum.FlowControl.html
 	///

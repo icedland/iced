@@ -28,7 +28,7 @@ using Iced.Intel.InstructionInfoInternal;
 namespace Iced.Intel {
 	public static partial class InstructionInfoExtensions {
 		/// <summary>
-		/// Gets the encoding, eg. legacy, VEX, EVEX, ...
+		/// Gets the encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -57,7 +57,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets flow control info
+		/// Gets control flow info
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>

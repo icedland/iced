@@ -30,7 +30,7 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Fast formatter with less formatting options and with masm-like syntax.
+	/// Fast formatter with less formatting options and with a masm-like syntax.
 	/// Use it if formatting speed is more important than being able to re-assemble formatted instructions.
 	/// <br/>
 	/// <br/>

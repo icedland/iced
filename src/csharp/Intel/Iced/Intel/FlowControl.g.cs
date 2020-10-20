@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if INSTR_INFO
 namespace Iced.Intel {
-	/// <summary>Flow control</summary>
+	/// <summary>Control flow</summary>
 	public enum FlowControl {
 		/// <summary>The next instruction that will be executed is the next instruction in the instruction stream</summary>
 		Next = 0,
