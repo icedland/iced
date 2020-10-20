@@ -51,7 +51,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			x.Scale == y.Scale &&
 			x.Displacement == y.Displacement &&
 			x.MemorySize == y.MemorySize &&
-			x.Access == y.Access;
+			x.Access == y.Access &&
+			x.AddressSize == y.AddressSize &&
+			x.VsibSize == y.VsibSize;
 
 		public int GetHashCode(UsedMemory obj) {
 			int hc = 0;
@@ -62,6 +64,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			hc ^= obj.Displacement.GetHashCode();
 			hc ^= (int)obj.MemorySize << 12;
 			hc ^= (int)obj.Access << 24;
+			hc ^= (int)obj.AddressSize << 3;
+			hc ^= (int)obj.VsibSize << 11;
 			return hc;
 		}
 	}

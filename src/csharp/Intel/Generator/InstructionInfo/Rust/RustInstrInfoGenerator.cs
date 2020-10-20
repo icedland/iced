@@ -41,6 +41,7 @@ namespace Generator.InstructionInfo.Rust {
 		readonly GeneratorContext generatorContext;
 		readonly EnumType opAccessType;
 		readonly EnumType registerType;
+		readonly EnumType codeSizeType;
 
 		public RustInstrInfoGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
@@ -50,6 +51,7 @@ namespace Generator.InstructionInfo.Rust {
 			this.generatorContext = generatorContext;
 			opAccessType = generatorContext.Types[TypeIds.OpAccess];
 			registerType = generatorContext.Types[TypeIds.Register];
+			codeSizeType = generatorContext.Types[TypeIds.CodeSize];
 		}
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
@@ -203,7 +205,7 @@ namespace Generator.InstructionInfo.Rust {
 				switch (stmt.Kind) {
 				case ImplAccStatementKind.MemoryAccess:
 					var mem = (MemoryImplAccStatement)stmt;
-					writer.WriteLine($"Self::add_memory(info, {GetRegisterString(mem.Segment)}, {GetRegisterString(mem.Base)}, {GetRegisterString(mem.Index)}, {mem.Scale}, 0x{mem.Displacement}, {GetMemorySizeString(mem.MemorySize)}, {GetOpAccessString(mem.Access)});");
+					writer.WriteLine($"Self::add_memory(info, {GetRegisterString(mem.Segment)}, {GetRegisterString(mem.Base)}, {GetRegisterString(mem.Index)}, {mem.Scale}, 0x{mem.Displacement}, {GetMemorySizeString(mem.MemorySize)}, {GetOpAccessString(mem.Access)}, {GetCodeSizeString(mem.AddressSize)}, {mem.VsibSize});");
 					break;
 				case ImplAccStatementKind.RegisterAccess:
 					var reg = (RegisterImplAccStatement)stmt;
@@ -361,6 +363,7 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		string GetOpAccessString(OpAccess access) => GetEnumName(opAccessType[access.ToString()]);
+		string GetCodeSizeString(CodeSize codeSize) => GetEnumName(codeSizeType[codeSize.ToString()]);
 
 		string GetEnumName(EnumValue value) => value.DeclaringType.Name(idConverter) + "::" + value.Name(idConverter);
 	}

@@ -32,6 +32,11 @@ impl MiscInstrInfoTestConstants {
 	pub(crate) const INSTR_INFO_ELEMS_PER_LINE: usize = 5;
 	pub(crate) const MEMORY_SIZE_ELEMS_PER_LINE: usize = 6;
 	pub(crate) const REGISTER_ELEMS_PER_LINE: usize = 7;
+	pub(crate) const MEM_SIZE_OPTION_ADDR16: &'static str = "16";
+	pub(crate) const MEM_SIZE_OPTION_ADDR32: &'static str = "32";
+	pub(crate) const MEM_SIZE_OPTION_ADDR64: &'static str = "64";
+	pub(crate) const MEM_SIZE_OPTION_VSIB32: &'static str = "vsib32";
+	pub(crate) const MEM_SIZE_OPTION_VSIB64: &'static str = "vsib64";
 }
 // GENERATOR-END: MiscConstants
 

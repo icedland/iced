@@ -38,6 +38,11 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.Index, "InstrInfoElemsPerLine", 5),
 				new Constant(ConstantKind.Index, "MemorySizeElemsPerLine", 6),
 				new Constant(ConstantKind.Index, "RegisterElemsPerLine", 7),
+				new Constant(ConstantKind.String, "MemSizeOption_Addr16", "16"),
+				new Constant(ConstantKind.String, "MemSizeOption_Addr32", "32"),
+				new Constant(ConstantKind.String, "MemSizeOption_Addr64", "64"),
+				new Constant(ConstantKind.String, "MemSizeOption_Vsib32", "vsib32"),
+				new Constant(ConstantKind.String, "MemSizeOption_Vsib64", "vsib64"),
 			};
 	}
 }

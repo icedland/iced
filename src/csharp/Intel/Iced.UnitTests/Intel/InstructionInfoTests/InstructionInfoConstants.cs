@@ -36,6 +36,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const int InstrInfoElemsPerLine = 5;
 		internal const int MemorySizeElemsPerLine = 6;
 		internal const int RegisterElemsPerLine = 7;
+		internal const string MemSizeOption_Addr16 = "16";
+		internal const string MemSizeOption_Addr32 = "32";
+		internal const string MemSizeOption_Addr64 = "64";
+		internal const string MemSizeOption_Vsib32 = "vsib32";
+		internal const string MemSizeOption_Vsib64 = "vsib64";
 	}
 	// GENERATOR-END: MiscConstants
 

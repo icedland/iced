@@ -35,11 +35,13 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toMemorySize;
 		readonly Dictionary<uint, EnumValue> uintToRegister;
 		readonly Dictionary<string, EnumValue> toRegisterImplAcc;
+		readonly Dictionary<EnumValue, RegisterDef> toRegisterDef;
 
 		public ImpliedAccessParser(GenTypes genTypes) {
 			toMemorySize = CreateEnumDict(genTypes[TypeIds.MemorySize]);
 			uintToRegister = genTypes[TypeIds.Register].Values.ToDictionary(a => a.Value, a => a);
 			toRegisterImplAcc = CreateEnumDict(genTypes[TypeIds.Register], ignoreCase: true);
+			toRegisterDef = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs.ToDictionary(a => a.Register, a => a);
 
 			uint vmmFirst = IcedConstantsType.Get_VMM_first(genTypes).Value;
 			uint vmmLast = IcedConstantsType.Get_VMM_last(genTypes).Value;
@@ -707,16 +709,57 @@ namespace Generator.Tables {
 
 			value = value.Substring(1, value.Length - 2).Trim();
 
-			if (!TrySplit(value, '=', out var left, out var memSize)) {
+			if (!TrySplit(value, '=', out var left, out var right)) {
 				error = "Missing memory size";
 				return false;
 			}
 			value = left;
+			var memSizeAndOptions = right.Split('|');
+			var memSize = memSizeAndOptions[0];
 			if (!TryParseMemorySize(memSize, out var memorySize, out error))
 				return false;
 
+			var addressSize = CodeSize.Unknown;
+			uint vsibSize = 0;
+			for (int i = 1; i < memSizeAndOptions.Length; i++) {
+				var opt = memSizeAndOptions[i];
+				switch (opt) {
+				case "16":
+				case "32":
+				case "64":
+					if (addressSize != CodeSize.Unknown) {
+						error = "Duplicate address size value";
+						return false;
+					}
+					addressSize = (opt) switch {
+						"16" => CodeSize.Code16,
+						"32" => CodeSize.Code32,
+						"64" => CodeSize.Code64,
+						_ => throw new InvalidOperationException(),
+					};
+					break;
+
+				case "vsib32":
+				case "vsib64":
+					if (vsibSize != 0) {
+						error = "Duplicate vsib size value";
+						return false;
+					}
+					vsibSize = opt switch {
+						"vsib32" => 4,
+						"vsib64" => 8,
+						_ => throw new InvalidOperationException(),
+					};
+					break;
+
+				default:
+					error = $"Unknown memory operand option: `{opt}`";
+					return false;
+				}
+			}
+
 			ImplAccRegister? segment;
-			if (TrySplit(value, ':', out var segStr, out var right)) {
+			if (TrySplit(value, ':', out var segStr, out right)) {
 				value = right;
 				if (!TryParseRegister(segStr, out var seg, out error))
 					return false;
@@ -727,10 +770,65 @@ namespace Generator.Tables {
 
 			if (!TryParseRegister(value, out var @base, out error))
 				return false;
+			ImplAccRegister? index = null;
 
-			stmt = new MemoryImplAccStatement(access, segment, @base, null, 1, memorySize);
+			if (addressSize == CodeSize.Unknown)
+				addressSize = GetAddressSize(@base);
+			if (addressSize == CodeSize.Unknown)
+				addressSize = GetAddressSize(index);
+			bool isVecIndexReg = index is ImplAccRegister register &&
+				register.Kind == ImplAccRegisterKind.Register &&
+				(RegisterClass)toRegisterDef[register.Register!].RegisterClass.Value == RegisterClass.Vector;
+			if (vsibSize != 0) {
+				if (!isVecIndexReg) {
+					error = "Missing vector index register";
+					return false;
+				}
+			}
+			else {
+				if (isVecIndexReg) {
+					error = "Missing vsib size";
+					return false;
+				}
+			}
+
+			stmt = new MemoryImplAccStatement(access, segment, @base, index, 1, memorySize, addressSize, vsibSize);
 			error = null;
 			return true;
+		}
+
+		CodeSize GetAddressSize(ImplAccRegister? register) {
+			if (register is ImplAccRegister reg) {
+				switch (reg.Kind) {
+				case ImplAccRegisterKind.Register:
+					var regEnum = reg.Register ?? throw new InvalidOperationException();
+					var regDef = toRegisterDef[regEnum];
+					switch ((RegisterKind)regDef.RegisterKind.Value) {
+					case RegisterKind.GPR16:
+						return CodeSize.Code16;
+					case RegisterKind.GPR32:
+						return CodeSize.Code32;
+					case RegisterKind.GPR64:
+						return CodeSize.Code64;
+					default:
+						break;
+					}
+					break;
+
+				case ImplAccRegisterKind.SegmentDefaultDS:
+				case ImplAccRegisterKind.a_rDI:
+				case ImplAccRegisterKind.Op0:
+				case ImplAccRegisterKind.Op1:
+				case ImplAccRegisterKind.Op2:
+				case ImplAccRegisterKind.Op3:
+				case ImplAccRegisterKind.Op4:
+					break;
+
+				default:
+					throw new InvalidOperationException();
+				}
+			}
+			return CodeSize.Unknown;
 		}
 
 		bool TryParseImplAccReg(string value, OpAccess access, [NotNullWhen(true)] out ImplAccStatement? stmt, [NotNullWhen(false)] out string? error) {

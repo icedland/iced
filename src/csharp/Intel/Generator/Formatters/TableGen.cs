@@ -39,7 +39,7 @@ namespace Generator.Formatters {
 
 		public void Generate() {
 			Generate(genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data);
-			var list = genTypes.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data.Select(a => a.Name).ToList();
+			var list = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs.Select(a => a.Name).ToList();
 			// gas, intel, masm use 'st', nasm doesn't.
 			list.Add("st");
 			GenerateRegisters(list.ToArray());

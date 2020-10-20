@@ -379,20 +379,28 @@ namespace Generator.Tables {
 		public readonly int Scale;
 		public ulong Displacement => 0;
 		public readonly ImplAccMemorySize MemorySize;
-		public MemoryImplAccStatement(OpAccess access, ImplAccRegister? segment, ImplAccRegister? @base, ImplAccRegister? index, int scale, ImplAccMemorySize memorySize) {
+		public readonly CodeSize AddressSize;
+		public readonly uint VsibSize;
+		public MemoryImplAccStatement(OpAccess access, ImplAccRegister? segment, ImplAccRegister? @base, ImplAccRegister? index, int scale, ImplAccMemorySize memorySize, CodeSize addressSize, uint vsibSize) {
+			if (vsibSize != 0 && vsibSize != 4 && vsibSize != 8)
+				throw new ArgumentOutOfRangeException(nameof(vsibSize));
 			Access = access;
 			Segment = segment;
 			Base = @base;
 			Index = index;
 			Scale = scale;
 			MemorySize = memorySize;
+			AddressSize = addressSize;
+			VsibSize = vsibSize;
 		}
 		public override bool Equals([AllowNull] ImplAccStatement obj) =>
 			obj is MemoryImplAccStatement other &&
 			Access == other.Access && Segment == other.Segment &&
 			Base == other.Base && Index == other.Index && Scale == other.Scale &&
-			MemorySize == other.MemorySize;
-		public override int GetHashCode() => HashCode.Combine(Access, Segment, Base, Index, Scale, MemorySize);
+			MemorySize == other.MemorySize &&
+			AddressSize == other.AddressSize &&
+			VsibSize == other.VsibSize;
+		public override int GetHashCode() => HashCode.Combine(Access, Segment, Base, Index, Scale, MemorySize, AddressSize, VsibSize);
 		public int CompareTo([AllowNull] MemoryImplAccStatement other) {
 			if (other is null)
 				return 1;
@@ -407,7 +415,11 @@ namespace Generator.Tables {
 			if (c != 0) return c;
 			c = Scale.CompareTo(other.Scale);
 			if (c != 0) return c;
-			return MemorySize.CompareTo(other.MemorySize);
+			c = MemorySize.CompareTo(other.MemorySize);
+			if (c != 0) return c;
+			c = AddressSize.CompareTo(other.AddressSize);
+			if (c != 0) return c;
+			return VsibSize.CompareTo(other.VsibSize);
 		}
 
 		static int CompareTo(ImplAccRegister? a, ImplAccRegister? b) {

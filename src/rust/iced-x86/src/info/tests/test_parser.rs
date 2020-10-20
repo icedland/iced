@@ -402,40 +402,56 @@ impl IntoIter {
 		let memory_size = to_memory_size(elems[1])?;
 		match self.try_parse_mem_expr(expr) {
 			None => Ok(false),
-			Some((segment, base, index, scale, mut displ)) => {
-				match self.bitness {
-					16 => {
+			Some((segment, base, index, scale, mut displ, address_size, vsib_size)) => {
+				match address_size {
+					CodeSize::Code16 => {
 						if !(i16::MIN as i64 <= displ as i64 && displ as i64 <= i16::MAX as i64) && displ > u16::MAX as u64 {
 							return Ok(false);
 						}
 						displ = displ as u16 as u64;
 					}
-					32 => {
+					CodeSize::Code32 => {
 						if !(i32::MIN as i64 <= displ as i64 && displ as i64 <= i32::MAX as i64) && displ > u32::MAX as u64 {
 							return Ok(false);
 						}
 						displ = displ as u32 as u64;
 					}
-					64 => {}
+					CodeSize::Code64 => {}
 					_ => unreachable!(),
 				}
 				if access != OpAccess::NoMemAccess {
-					tc.used_memory.push(UsedMemory::new(segment, base, index, scale, displ, memory_size, access));
+					tc.used_memory.push(UsedMemory::new2(segment, base, index, scale, displ, memory_size, access, address_size, vsib_size));
 				}
 				Ok(true)
 			}
 		}
 	}
 
-	fn try_parse_mem_expr(&self, expr: &str) -> Option<(Register, Register, Register, u32, u64)> {
+	fn try_parse_mem_expr(&self, expr: &str) -> Option<(Register, Register, Register, u32, u64, CodeSize, u32)> {
 		let mut segment = Register::None;
 		let mut base = Register::None;
 		let mut index = Register::None;
 		let mut scale = 1;
 		let mut displ = 0;
+		let mut address_size = CodeSize::Unknown;
+		let mut vsib_size = 0;
+
+		let mem_args: Vec<_> = expr.splitn(2, '|').collect();
+		if let Some(options) = mem_args.get(1) {
+			for option in options.split_ascii_whitespace() {
+				match option {
+					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR16 => address_size = CodeSize::Code16,
+					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR32 => address_size = CodeSize::Code32,
+					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR64 => address_size = CodeSize::Code64,
+					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_VSIB32 => vsib_size = 4,
+					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_VSIB64 => vsib_size = 8,
+					_ => return None,
+				}
+			}
+		}
 
 		let mut has_base = false;
-		for s in expr.split('+') {
+		for s in mem_args[0].split('+') {
 			let mut s = s;
 			let mut is_index = has_base;
 
@@ -481,10 +497,35 @@ impl IntoIter {
 			}
 		}
 
+		if address_size == CodeSize::Unknown {
+			let reg = if base != Register::None { base } else { index };
+			if reg.is_gpr16() {
+				address_size = CodeSize::Code16
+			} else if reg.is_gpr32() {
+				address_size = CodeSize::Code32
+			} else if reg.is_gpr64() {
+				address_size = CodeSize::Code64
+			}
+		}
+		if address_size == CodeSize::Unknown {
+			match self.bitness {
+				16 => address_size = CodeSize::Code16,
+				32 => address_size = CodeSize::Code32,
+				64 => address_size = CodeSize::Code64,
+				_ => unreachable!(),
+			}
+		}
+		if vsib_size == 0 && base.is_vector_register() {
+			return None;
+		}
+		if vsib_size != 0 && !index.is_vector_register() {
+			return None;
+		}
+
 		if segment == Register::None {
 			None
 		} else {
-			Some((segment, base, index, scale, displ))
+			Some((segment, base, index, scale, displ, address_size, vsib_size))
 		}
 	}
 

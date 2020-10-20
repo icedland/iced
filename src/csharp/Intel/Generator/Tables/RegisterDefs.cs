@@ -23,12 +23,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator.Tables {
 	[TypeGen(TypeGenOrders.NoDeps)]
-	sealed class RegisterInfoTable {
-		public readonly RegisterDef[] Data;
+	sealed class RegisterDefs {
+		public readonly RegisterDef[] Defs;
 
-		RegisterInfoTable(GenTypes genTypes) {
-			Data = CreateData(genTypes);
-			genTypes.AddObject(TypeIds.RegisterInfoTable, this);
+		RegisterDefs(GenTypes genTypes) {
+			Defs = CreateData(genTypes);
+			genTypes.AddObject(TypeIds.RegisterDefs, this);
 		}
 
 		static RegisterDef[] CreateData(GenTypes genTypes) {

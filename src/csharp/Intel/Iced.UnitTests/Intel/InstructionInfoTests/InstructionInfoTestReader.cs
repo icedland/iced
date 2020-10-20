@@ -292,23 +292,23 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			if (!ToEnumConverter.TryMemorySize(elems[1].Trim(), out var memorySize))
 				return false;
 
-			if (!TryParseMemExpr(toRegister, expr, out var segReg, out var baseReg, out var indexReg, out int scale, out ulong displ))
+			if (!TryParseMemExpr(toRegister, expr, bitness, out var segReg, out var baseReg, out var indexReg, out int scale, out ulong displ, out var addressSize, out var vsibSize))
 				return false;
 
-			switch (bitness) {
-			case 16:
+			switch (addressSize) {
+			case CodeSize.Code16:
 				if (!(short.MinValue <= (long)displ && (long)displ <= short.MaxValue) && displ > ushort.MaxValue)
 					return false;
 				displ = (ushort)displ;
 				break;
 
-			case 32:
+			case CodeSize.Code32:
 				if (!(int.MinValue <= (long)displ && (long)displ <= int.MaxValue) && displ > uint.MaxValue)
 					return false;
 				displ = (uint)displ;
 				break;
 
-			case 64:
+			case CodeSize.Code64:
 				break;
 
 			default:
@@ -316,17 +316,36 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			}
 
 			if (access != OpAccess.NoMemAccess)
-				testCase.UsedMemory.Add(new UsedMemory(segReg, baseReg, indexReg, scale, displ, memorySize, access));
+				testCase.UsedMemory.Add(new UsedMemory(segReg, baseReg, indexReg, scale, displ, memorySize, access, addressSize, vsibSize));
 
 			return true;
 		}
 
-		static bool TryParseMemExpr(Dictionary<string, Register> toRegister, string value, out Register segReg, out Register baseReg, out Register indexReg, out int scale, out ulong displ) {
+		static bool TryParseMemExpr(Dictionary<string, Register> toRegister, string value, int bitness, out Register segReg, out Register baseReg, out Register indexReg, out int scale, out ulong displ, out CodeSize addressSize, out int vsibSize) {
 			segReg = Register.None;
 			baseReg = Register.None;
 			indexReg = Register.None;
 			scale = 1;
 			displ = 0;
+			addressSize = CodeSize.Unknown;
+			vsibSize = 0;
+
+			int index = value.IndexOf('|');
+			if (index >= 0) {
+				var options = value.Substring(index + 1);
+				value = value.Substring(0, index);
+
+				foreach (var option in options.Split(spaceSeparator)) {
+					switch (option) {
+					case MiscInstrInfoTestConstants.MemSizeOption_Addr16: addressSize = CodeSize.Code16; break;
+					case MiscInstrInfoTestConstants.MemSizeOption_Addr32: addressSize = CodeSize.Code32; break;
+					case MiscInstrInfoTestConstants.MemSizeOption_Addr64: addressSize = CodeSize.Code64; break;
+					case MiscInstrInfoTestConstants.MemSizeOption_Vsib32: vsibSize = 4; break;
+					case MiscInstrInfoTestConstants.MemSizeOption_Vsib64: vsibSize = 8; break;
+					default: return false;
+					}
+				}
+			}
 
 			bool hasBase = false;
 			foreach (var tmp in value.Split(plusSeparator)) {
@@ -376,6 +395,28 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					}
 				}
 			}
+
+			if (addressSize == CodeSize.Unknown) {
+				var reg = baseReg != Register.None ? baseReg : indexReg;
+				if (reg.IsGPR16())
+					addressSize = CodeSize.Code16;
+				else if (reg.IsGPR32())
+					addressSize = CodeSize.Code32;
+				else if (reg.IsGPR64())
+					addressSize = CodeSize.Code64;
+			}
+			if (addressSize == CodeSize.Unknown) {
+				addressSize = bitness switch {
+					16 => CodeSize.Code16,
+					32 => CodeSize.Code32,
+					64 => CodeSize.Code64,
+					_ => throw new InvalidOperationException(),
+				};
+			}
+			if (vsibSize == 0 && indexReg.IsVectorRegister())
+				return false;
+			if (vsibSize != 0 && !indexReg.IsVectorRegister())
+				return false;
 
 			return segReg != Register.None;
 		}

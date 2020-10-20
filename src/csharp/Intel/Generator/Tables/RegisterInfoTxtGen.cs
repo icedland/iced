@@ -37,7 +37,7 @@ namespace Generator.Tables {
 			const string sepNoSpace = ",";
 			const string sep = sepNoSpace + " ";
 
-			var defs = genTypes.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data;
+			var defs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
 			var filename = genTypes.Dirs.GetUnitTestFilename("InstructionInfo", "RegisterInfo.txt");
 			using (var writer = new FileWriter(TargetLanguage.Other, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();

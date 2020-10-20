@@ -37,6 +37,8 @@ namespace Iced.Intel {
 		readonly byte memorySize;
 		readonly byte scale;
 		readonly byte access;
+		readonly byte addressSize;
+		readonly byte vsibSize;
 
 		/// <summary>
 		/// Effective segment register
@@ -74,6 +76,16 @@ namespace Iced.Intel {
 		public OpAccess Access => (OpAccess)access;
 
 		/// <summary>
+		/// Address size
+		/// </summary>
+		public CodeSize AddressSize => (CodeSize)addressSize;
+
+		/// <summary>
+		/// VSIB size (<c>0</c>, <c>4</c> or <c>8</c>)
+		/// </summary>
+		public int VsibSize => vsibSize;
+
+		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="segReg">Effective segment register</param>
@@ -97,6 +109,8 @@ namespace Iced.Intel {
 			this.scale = (byte)scale;
 			Debug.Assert((uint)access <= byte.MaxValue);
 			this.access = (byte)access;
+			addressSize = (byte)CodeSize.Unknown;
+			vsibSize = 0;
 		}
 
 		/// <summary>
@@ -123,6 +137,72 @@ namespace Iced.Intel {
 			this.scale = (byte)scale;
 			Debug.Assert((uint)access <= byte.MaxValue);
 			this.access = (byte)access;
+			addressSize = (byte)CodeSize.Unknown;
+			vsibSize = 0;
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="segReg">Effective segment register</param>
+		/// <param name="baseReg">Base register</param>
+		/// <param name="indexReg">Index register</param>
+		/// <param name="scale">1, 2, 4 or 8</param>
+		/// <param name="displ">Displacement</param>
+		/// <param name="memorySize">Memory size</param>
+		/// <param name="access">Access</param>
+		/// <param name="addressSize">Address size</param>
+		/// <param name="vsibSize">VSIB size (<c>0</c>, <c>4</c> or <c>8</c>)</param>
+		public UsedMemory(Register segReg, Register baseReg, Register indexReg, int scale, long displ, MemorySize memorySize, OpAccess access, CodeSize addressSize, int vsibSize) {
+			this.displ = (ulong)displ;
+			Debug.Assert((uint)segReg <= byte.MaxValue);
+			this.segReg = (byte)segReg;
+			Debug.Assert((uint)baseReg <= byte.MaxValue);
+			this.baseReg = (byte)baseReg;
+			Debug.Assert((uint)indexReg <= byte.MaxValue);
+			this.indexReg = (byte)indexReg;
+			Debug.Assert((uint)memorySize <= byte.MaxValue);
+			this.memorySize = (byte)memorySize;
+			Debug.Assert(scale == 1 || scale == 2 || scale == 4 || scale == 8);
+			this.scale = (byte)scale;
+			Debug.Assert((uint)access <= byte.MaxValue);
+			this.access = (byte)access;
+			Debug.Assert((uint)addressSize <= byte.MaxValue);
+			this.addressSize = (byte)addressSize;
+			Debug.Assert(vsibSize == 0 || vsibSize == 4 || vsibSize == 8);
+			this.vsibSize = (byte)vsibSize;
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="segReg">Effective segment register</param>
+		/// <param name="baseReg">Base register</param>
+		/// <param name="indexReg">Index register</param>
+		/// <param name="scale">1, 2, 4 or 8</param>
+		/// <param name="displ">Displacement</param>
+		/// <param name="memorySize">Memory size</param>
+		/// <param name="access">Access</param>
+		/// <param name="addressSize">Address size</param>
+		/// <param name="vsibSize">VSIB size (<c>0</c>, <c>4</c> or <c>8</c>)</param>
+		public UsedMemory(Register segReg, Register baseReg, Register indexReg, int scale, ulong displ, MemorySize memorySize, OpAccess access, CodeSize addressSize, int vsibSize) {
+			this.displ = displ;
+			Debug.Assert((uint)segReg <= byte.MaxValue);
+			this.segReg = (byte)segReg;
+			Debug.Assert((uint)baseReg <= byte.MaxValue);
+			this.baseReg = (byte)baseReg;
+			Debug.Assert((uint)indexReg <= byte.MaxValue);
+			this.indexReg = (byte)indexReg;
+			Debug.Assert((uint)memorySize <= byte.MaxValue);
+			this.memorySize = (byte)memorySize;
+			Debug.Assert(scale == 1 || scale == 2 || scale == 4 || scale == 8);
+			this.scale = (byte)scale;
+			Debug.Assert((uint)access <= byte.MaxValue);
+			this.access = (byte)access;
+			Debug.Assert((uint)addressSize <= byte.MaxValue);
+			this.addressSize = (byte)addressSize;
+			Debug.Assert(vsibSize == 0 || vsibSize == 4 || vsibSize == 8);
+			this.vsibSize = (byte)vsibSize;
 		}
 
 		/// <summary>

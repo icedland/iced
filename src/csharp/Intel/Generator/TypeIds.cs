@@ -34,7 +34,7 @@ namespace Generator {
 		public static readonly TypeId NasmCtorInfos = new TypeId(nameof(NasmCtorInfos));
 		public static readonly TypeId FastFmtTblInfos = new TypeId(nameof(FastFmtTblInfos));
 		public static readonly TypeId MemorySizeInfoTable = new TypeId(nameof(MemorySizeInfoTable));
-		public static readonly TypeId RegisterInfoTable = new TypeId(nameof(RegisterInfoTable));
+		public static readonly TypeId RegisterDefs = new TypeId(nameof(RegisterDefs));
 		public static readonly TypeId DecoderTables = new TypeId(nameof(DecoderTables));
 		public static readonly TypeId TupleTypeTable = new TypeId(nameof(TupleTypeTable));
 

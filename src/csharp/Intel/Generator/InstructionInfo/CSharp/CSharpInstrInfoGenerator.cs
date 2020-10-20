@@ -39,6 +39,7 @@ namespace Generator.InstructionInfo.CSharp {
 		readonly CSharpConstantsGenerator constantsGenerator;
 		readonly EnumType opAccessType;
 		readonly EnumType registerType;
+		readonly EnumType codeSizeType;
 
 		public CSharpInstrInfoGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
@@ -47,6 +48,7 @@ namespace Generator.InstructionInfo.CSharp {
 			constantsGenerator = new CSharpConstantsGenerator(generatorContext);
 			opAccessType = genTypes[TypeIds.OpAccess];
 			registerType = genTypes[TypeIds.Register];
+			codeSizeType = generatorContext.Types[TypeIds.CodeSize];
 		}
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
@@ -249,7 +251,7 @@ namespace Generator.InstructionInfo.CSharp {
 				switch (stmt.Kind) {
 				case ImplAccStatementKind.MemoryAccess:
 					var mem = (MemoryImplAccStatement)stmt;
-					writer.WriteLine($"AddMemory({GetRegisterString(mem.Segment)}, {GetRegisterString(mem.Base)}, {GetRegisterString(mem.Index)}, {mem.Scale}, 0x{mem.Displacement}, {GetMemorySizeString(mem.MemorySize)}, {GetOpAccessString(mem.Access)});");
+					writer.WriteLine($"AddMemory({GetRegisterString(mem.Segment)}, {GetRegisterString(mem.Base)}, {GetRegisterString(mem.Index)}, {mem.Scale}, 0x{mem.Displacement}, {GetMemorySizeString(mem.MemorySize)}, {GetOpAccessString(mem.Access)}, {GetCodeSizeString(mem.AddressSize)}, {mem.VsibSize});");
 					break;
 				case ImplAccStatementKind.RegisterAccess:
 					var reg = (RegisterImplAccStatement)stmt;
@@ -405,6 +407,7 @@ namespace Generator.InstructionInfo.CSharp {
 		}
 
 		string GetOpAccessString(OpAccess access) => GetEnumName(opAccessType[access.ToString()]);
+		string GetCodeSizeString(CodeSize codeSize) => GetEnumName(codeSizeType[codeSize.ToString()]);
 
 		string GetEnumName(EnumValue value) => value.DeclaringType.Name(idConverter) + "." + value.Name(idConverter);
 	}

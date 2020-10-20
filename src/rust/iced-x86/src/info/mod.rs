@@ -90,7 +90,8 @@ pub struct UsedMemory {
 	scale: u8,
 	memory_size: MemorySize,
 	access: OpAccess,
-	_pad: u16,
+	address_size: CodeSize,
+	vsib_size: u8,
 }
 
 impl UsedMemory {
@@ -108,7 +109,30 @@ impl UsedMemory {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
-		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, _pad: 0 }
+		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, address_size: CodeSize::Unknown, vsib_size: 0 }
+	}
+
+	/// Creates a new instance
+	///
+	/// # Arguments
+	///
+	/// * `segment`: Effective segment register
+	/// * `base`: Base register
+	/// * `index`: Index register
+	/// * `scale`: 1, 2, 4 or 8
+	/// * `displacement`: Displacement
+	/// * `memory_size`: Memory size
+	/// * `access`: Access
+	/// * `address_size`: Address size
+	/// * `vsib_size`: VSIB size (`0`, `4` or `8`)
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn new2(
+		segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess,
+		address_size: CodeSize, vsib_size: u32,
+	) -> Self {
+		debug_assert!(vsib_size == 0 || vsib_size == 4 || vsib_size == 8);
+		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, address_size, vsib_size: vsib_size as u8 }
 	}
 
 	/// Effective segment register
@@ -162,6 +186,20 @@ impl UsedMemory {
 	#[inline]
 	pub fn access(&self) -> OpAccess {
 		self.access
+	}
+
+	/// Address size
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn address_size(&self) -> CodeSize {
+		self.address_size
+	}
+
+	/// VSIB size (`0`, `4` or `8`)
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn vsib_size(&self) -> u32 {
+		self.vsib_size as u32
 	}
 }
 
