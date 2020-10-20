@@ -436,17 +436,15 @@ impl IntoIter {
 		let mut address_size = CodeSize::Unknown;
 		let mut vsib_size = 0;
 
-		let mem_args: Vec<_> = expr.splitn(2, '|').collect();
-		if let Some(options) = mem_args.get(1) {
-			for option in options.split_ascii_whitespace() {
-				match option {
-					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR16 => address_size = CodeSize::Code16,
-					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR32 => address_size = CodeSize::Code32,
-					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR64 => address_size = CodeSize::Code64,
-					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_VSIB32 => vsib_size = 4,
-					MiscInstrInfoTestConstants::MEM_SIZE_OPTION_VSIB64 => vsib_size = 8,
-					_ => return None,
-				}
+		let mem_args: Vec<_> = expr.split('|').collect();
+		for &option in mem_args.iter().skip(1) {
+			match option {
+				MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR16 => address_size = CodeSize::Code16,
+				MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR32 => address_size = CodeSize::Code32,
+				MiscInstrInfoTestConstants::MEM_SIZE_OPTION_ADDR64 => address_size = CodeSize::Code64,
+				MiscInstrInfoTestConstants::MEM_SIZE_OPTION_VSIB32 => vsib_size = 4,
+				MiscInstrInfoTestConstants::MEM_SIZE_OPTION_VSIB64 => vsib_size = 8,
+				_ => return None,
 			}
 		}
 

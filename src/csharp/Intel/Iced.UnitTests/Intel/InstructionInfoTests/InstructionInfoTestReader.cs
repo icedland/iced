@@ -330,20 +330,17 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			addressSize = CodeSize.Unknown;
 			vsibSize = 0;
 
-			int index = value.IndexOf('|');
-			if (index >= 0) {
-				var options = value.Substring(index + 1);
-				value = value.Substring(0, index);
-
-				foreach (var option in options.Split(spaceSeparator)) {
-					switch (option) {
-					case MiscInstrInfoTestConstants.MemSizeOption_Addr16: addressSize = CodeSize.Code16; break;
-					case MiscInstrInfoTestConstants.MemSizeOption_Addr32: addressSize = CodeSize.Code32; break;
-					case MiscInstrInfoTestConstants.MemSizeOption_Addr64: addressSize = CodeSize.Code64; break;
-					case MiscInstrInfoTestConstants.MemSizeOption_Vsib32: vsibSize = 4; break;
-					case MiscInstrInfoTestConstants.MemSizeOption_Vsib64: vsibSize = 8; break;
-					default: return false;
-					}
+			var memArgs = value.Split('|');
+			value = memArgs[0];
+			for (int i = 1; i < memArgs.Length; i++) {
+				var option = memArgs[i];
+				switch (option) {
+				case MiscInstrInfoTestConstants.MemSizeOption_Addr16: addressSize = CodeSize.Code16; break;
+				case MiscInstrInfoTestConstants.MemSizeOption_Addr32: addressSize = CodeSize.Code32; break;
+				case MiscInstrInfoTestConstants.MemSizeOption_Addr64: addressSize = CodeSize.Code64; break;
+				case MiscInstrInfoTestConstants.MemSizeOption_Vsib32: vsibSize = 4; break;
+				case MiscInstrInfoTestConstants.MemSizeOption_Vsib64: vsibSize = 8; break;
+				default: return false;
 				}
 			}
 
