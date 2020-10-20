@@ -245,18 +245,13 @@ impl UsedMemory {
 	where
 		F: FnMut(Register, usize, usize) -> Option<u64>,
 	{
-		let mut effective = self.displacement;
+		let addr_mask = match self.address_size {
+			CodeSize::Code16 => u16::MAX as u64,
+			CodeSize::Code32 => u32::MAX as u64,
+			CodeSize::Code64 | _ => u64::MAX,
+		};
 
-		match self.segment {
-			Register::None => {}
-			_ => {
-				let segment_base = match get_register_value(self.segment, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				effective = effective.wrapping_add(segment_base)
-			}
-		}
+		let mut effective = self.displacement;
 
 		match self.base {
 			Register::None => {}
@@ -272,11 +267,24 @@ impl UsedMemory {
 		match self.index {
 			Register::None => {}
 			_ => {
-				let index = match get_register_value(self.index, 0, 0) {
+				let index = match get_register_value(self.index, element_index, self.vsib_size.into()) {
 					Some(v) => v,
 					None => return None,
 				};
-				effective = effective.wrapping_add(index << self.scale)
+				effective = effective.wrapping_add(index.wrapping_mul(self.scale.into()))
+			}
+		}
+
+		effective &= addr_mask;
+
+		match self.segment {
+			Register::None => {}
+			_ => {
+				let segment_base = match get_register_value(self.segment, 0, 0) {
+					Some(v) => v,
+					None => return None,
+				};
+				effective = effective.wrapping_add(segment_base)
 			}
 		}
 
