@@ -841,6 +841,7 @@ function rflagsBitsToString(value) {
     if ((value & RflagsBits.DF) !== 0) { sb = append(sb, "DF"); }
     if ((value & RflagsBits.IF) !== 0) { sb = append(sb, "IF"); }
     if ((value & RflagsBits.AC) !== 0) { sb = append(sb, "AC"); }
+    if ((value & RflagsBits.UIF) !== 0) { sb = append(sb, "UIF"); }
     if (sb.length === 0)
         return "<empty>";
     return sb;

@@ -1022,6 +1022,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!     if (rf & RflagsBits::AC) != 0 {
 //!         append(&mut sb, "AC");
 //!     }
+//!     if (rf & RflagsBits::UIF) != 0 {
+//!         append(&mut sb, "UIF");
+//!     }
 //!     if sb.is_empty() {
 //!         sb.push_str("<empty>");
 //!     }
