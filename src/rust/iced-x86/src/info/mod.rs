@@ -248,7 +248,8 @@ impl UsedMemory {
 		let addr_mask = match self.address_size {
 			CodeSize::Code16 => u16::MAX as u64,
 			CodeSize::Code32 => u32::MAX as u64,
-			CodeSize::Code64 | _ => u64::MAX,
+			CodeSize::Code64 => u64::MAX,
+			_ => u64::MAX,
 		};
 
 		let mut effective = self.displacement;
