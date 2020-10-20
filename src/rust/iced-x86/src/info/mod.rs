@@ -201,6 +201,93 @@ impl UsedMemory {
 	pub fn vsib_size(&self) -> u32 {
 		self.vsib_size as u32
 	}
+
+	/// Gets the virtual address of a used memory location. See also [`try_virtual_address()`]
+	///
+	/// [`try_virtual_address()`]: #method.try_virtual_address
+	///
+	/// # Panics
+	///
+	/// Panics if virtual address computation fails.
+	///
+	/// # Arguments
+	///
+	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register.
+	///
+	/// # Call-back function args
+	///
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
+	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> u64
+	where
+		F: FnMut(Register, usize, usize) -> u64,
+	{
+		self.try_virtual_address(element_index, |r, i, s| Some(get_register_value(r, i, s))).unwrap()
+	}
+
+	/// Gets the virtual address of a used memory location, or `None` if register resolution fails.
+	///
+	/// # Arguments
+	///
+	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register, or `None` on failure.
+	///
+	/// # Call-back function args
+	///
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base value, not the segment register value.
+	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
+	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn try_virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> Option<u64>
+	where
+		F: FnMut(Register, usize, usize) -> Option<u64>,
+	{
+		let mut effective = self.displacement;
+
+		match self.base {
+			Register::None => {}
+			_ => {
+				let base = match get_register_value(self.base, 0, 0) {
+					Some(v) => v,
+					None => return None,
+				};
+				effective = effective.wrapping_add(base)
+			}
+		}
+
+		match self.index {
+			Register::None => {}
+			_ => {
+				let index = match get_register_value(self.index, element_index, self.vsib_size.into()) {
+					Some(v) => v,
+					None => return None,
+				};
+				effective = effective.wrapping_add(index.wrapping_mul(self.scale.into()))
+			}
+		}
+
+		match self.address_size {
+			CodeSize::Code16 => effective = effective as u16 as u64,
+			CodeSize::Code32 => effective = effective as u32 as u64,
+			_ => {}
+		}
+
+		match self.segment {
+			Register::None => {}
+			_ => {
+				let segment_base = match get_register_value(self.segment, 0, 0) {
+					Some(v) => v,
+					None => return None,
+				};
+				effective = effective.wrapping_add(segment_base)
+			}
+		}
+
+		Some(effective)
+	}
 }
 
 impl fmt::Debug for UsedMemory {
