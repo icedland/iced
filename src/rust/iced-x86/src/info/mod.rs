@@ -272,7 +272,7 @@ impl UsedMemory {
 		match self.address_size {
 			CodeSize::Code16 => effective = effective as u16 as u64,
 			CodeSize::Code32 => effective = effective as u32 as u64,
-			_ => {},
+			_ => {}
 		}
 
 		match self.segment {
