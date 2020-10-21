@@ -290,7 +290,7 @@ namespace Generator.Enums.InstructionInfo {
 		SERIALIZE,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK[bit 16]")]
 		TSXLDTRK,
-		[Comment("CPUID.80000001H:EDX.INVLPGB[bit ??]")]
+		[Comment("CPUID.80000008H:EBX.INVLPGB[bit 3]")]
 		INVLPGB,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.AMX-BF16[bit 22]")]
 		AMX_BF16,

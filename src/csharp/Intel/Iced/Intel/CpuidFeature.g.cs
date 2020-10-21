@@ -295,7 +295,7 @@ namespace Iced.Intel {
 		SERIALIZE = 131,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK[bit 16]</summary>
 		TSXLDTRK = 132,
-		/// <summary>CPUID.80000001H:EDX.INVLPGB[bit ??]</summary>
+		/// <summary>CPUID.80000008H:EBX.INVLPGB[bit 3]</summary>
 		INVLPGB = 133,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AMX-BF16[bit 22]</summary>
 		AMX_BF16 = 134,
