@@ -361,6 +361,14 @@ namespace Generator.Tables {
 		/// It's a privileged instruction (all CPL=0 instructions (except <c>VMCALL</c>) and IOPL instructions <c>IN</c>, <c>INS</c>, <c>OUT</c>, <c>OUTS</c>, <c>CLI</c>, <c>STI</c>)
 		/// </summary>
 		Privileged				= 0x00004000,
+		/// <summary>
+		/// This instruction always uses zeroing masking
+		/// </summary>
+		ImpliedZeroingMasking	= 0x00008000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// The op mask register is an element selector and not a write mask
+		/// </summary>
+		OpMaskIsElementSelector	= 0x00010000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {

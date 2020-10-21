@@ -291,6 +291,7 @@ namespace Generator.Tables {
 			state.Flags2 |= InstructionDefFlags2.UseOutsideEnclaveSgx | AllEnclaves;
 			fmtKeyValues.Clear();
 			bool? privileged = null;
+			int opsLineIndex = -1;
 			for (; lineIndex < lines.Length; lineIndex++) {
 				line = lines[lineIndex].Trim();
 				if (line.Length == 0 || line[0] == '#')
@@ -543,6 +544,8 @@ namespace Generator.Tables {
 						case "cet-tracked": state.Flags3 |= InstructionDefFlags3.CetTracked; break;
 						case "non-temporal": state.Flags3 |= InstructionDefFlags3.NonTemporal; break;
 						case "no-wait": state.Flags3 |= InstructionDefFlags3.FpuNoWait; break;
+						case "implied-z": state.Flags3 |= InstructionDefFlags3.ImpliedZeroingMasking; break;
+						case "k-elem-selector": state.Flags3 |= InstructionDefFlags3.OpMaskIsElementSelector; break;
 
 						case "vmx=op":
 						case "vmx=root":
@@ -632,6 +635,7 @@ namespace Generator.Tables {
 					break;
 
 				case "ops":
+					opsLineIndex = lineIndex;
 					if (state.OpAccess.Length != 0 || state.OpKinds.Length != 0) {
 						Error(lineIndex, $"Duplicate {lineKey}");
 						return false;
@@ -662,7 +666,6 @@ namespace Generator.Tables {
 						case "w": opAccess = OpInfo.Write; break;
 						case "wvmm": opAccess = OpInfo.WriteVmm; break;
 						case "rwvmm": opAccess = OpInfo.ReadWriteVmm; break;
-						case "wf": opAccess = OpInfo.WriteForce; break;
 						case "wfp1": opAccess = OpInfo.WriteForceP1; break;
 						case "wm_rwreg": opAccess = OpInfo.WriteMem_ReadWriteReg; break;
 						default:
@@ -720,6 +723,14 @@ namespace Generator.Tables {
 			if (!foundEnd) {
 				Error(lineIndex, $"Missing `{DefEnd}`");
 				return false;
+			}
+
+			if ((state.Flags3 & (InstructionDefFlags3.ImpliedZeroingMasking | InstructionDefFlags3.OpMaskIsElementSelector)) != 0) {
+				if (state.OpAccess.Length == 0 || state.OpAccess[0] != OpInfo.Write) {
+					Error(opsLineIndex, "`implied-z` and `k-elem-selector` require first operand to be `write` (w=xxx)");
+					return false;
+				}
+				state.OpAccess[0] = OpInfo.WriteForce;
 			}
 
 			var isPriv = privileged ??
