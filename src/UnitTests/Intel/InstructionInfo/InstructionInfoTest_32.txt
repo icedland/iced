@@ -446,11 +446,11 @@ FF 30, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;UInt3
 # lidt fword ptr [eax]
 0F01 18, Lidt_m1632, Legacy, INTEL386, priv op0=r r=ds r=eax rm=ds:eax;Fword6
 # monitor ax,ecx,edx
-67 0F01 C8, Monitorw, Legacy, MONITOR, priv r=ds;ax;ecx;edx rm=ds:ax;Unknown
+67 0F01 C8, Monitorw, Legacy, MONITOR, r=ds;ax;ecx;edx rm=ds:ax;Unknown
 # monitor eax,ecx,edx
-0F01 C8, Monitord, Legacy, MONITOR, priv r=ds;eax;ecx;edx rm=ds:eax;Unknown
+0F01 C8, Monitord, Legacy, MONITOR, r=ds;eax;ecx;edx rm=ds:eax;Unknown
 # mwait eax,ecx
-0F01 C9, Mwait, Legacy, MONITOR, priv r=eax;ecx
+0F01 C9, Mwait, Legacy, MONITOR, r=eax;ecx
 # bndmov bnd1,bnd2
 66 0F1A CA, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=bnd2 decopt=MPX
 # bndmov bnd1,qword ptr [eax]
@@ -1634,9 +1634,9 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 # vscatterpf1qpd [ecx+zmm4*4+8]{k3}
 62 F2FD4B C7 74 A1 01, EVEX_Vscatterpf1qpd_vm64z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
 # monitor ax,ecx,edx
-64 67 0F01 C8, Monitorw, Legacy, MONITOR, priv r=ax;ecx;edx;fs rm=fs:ax;Unknown
+64 67 0F01 C8, Monitorw, Legacy, MONITOR, r=ax;ecx;edx;fs rm=fs:ax;Unknown
 # monitor eax,ecx,edx
-64 0F01 C8, Monitord, Legacy, MONITOR, priv r=eax;ecx;edx;fs rm=fs:eax;Unknown
+64 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx;fs rm=fs:eax;Unknown
 # monitorx ax,ecx,edx
 64 67 0F01 FA, Monitorxw, Legacy, MONITORX, r=ax;ecx;edx;fs rm=fs:ax;Unknown
 # monitorx eax,ecx,edx

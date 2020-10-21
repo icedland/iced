@@ -212,11 +212,11 @@ FF 30, Push_rm16, Legacy, INTEL8086, op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+s
 # push dword ptr [bx+si]
 66 FF 30, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds r=bx r=si rm=ds:bx+si*1;UInt32 wm=ss:xsp+0xFFFFFFFFFFFFFFFC;UInt32 stack=-4
 # monitor ax,ecx,edx
-0F01 C8, Monitorw, Legacy, MONITOR, priv r=ds;ax;ecx;edx rm=ds:ax;Unknown
+0F01 C8, Monitorw, Legacy, MONITOR, r=ds;ax;ecx;edx rm=ds:ax;Unknown
 # monitor eax,ecx,edx
-67 0F01 C8, Monitord, Legacy, MONITOR, priv r=ds;eax;ecx;edx rm=ds:eax;Unknown
+67 0F01 C8, Monitord, Legacy, MONITOR, r=ds;eax;ecx;edx rm=ds:eax;Unknown
 # mwait ax,ecx
-0F01 C9, Mwait, Legacy, MONITOR, priv r=eax;ecx
+0F01 C9, Mwait, Legacy, MONITOR, r=eax;ecx
 # wrmsr
 0F30, Wrmsr, Legacy, MSR, priv r=eax;ecx;edx
 # rdtsc
@@ -592,9 +592,9 @@ F2 0F38F8 18, Enqcmd_r16_m512, Legacy, ENQCMD, fw=z fc=acops op0=r op1=r r=bx r=
 # enqcmd ebx,[eax]
 67 F2 0F38F8 18, Enqcmd_r32_m512, Legacy, ENQCMD, fw=z fc=acops op0=r op1=r r=es;ebx r=ds r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
 # monitor ax,ecx,edx
-64 0F01 C8, Monitorw, Legacy, MONITOR, priv r=fs;ax;ecx;edx rm=fs:ax;Unknown
+64 0F01 C8, Monitorw, Legacy, MONITOR, r=fs;ax;ecx;edx rm=fs:ax;Unknown
 # monitor eax,ecx,edx
-64 67 0F01 C8, Monitord, Legacy, MONITOR, priv r=fs;eax;ecx;edx rm=fs:eax;Unknown
+64 67 0F01 C8, Monitord, Legacy, MONITOR, r=fs;eax;ecx;edx rm=fs:eax;Unknown
 # monitorx ax,ecx,edx
 64 0F01 FA, Monitorxw, Legacy, MONITORX, r=fs;ax;ecx;edx rm=fs:ax;Unknown
 # monitorx eax,ecx,edx

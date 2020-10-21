@@ -851,10 +851,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x00008001,// Vmresume
 				0x00008001,// Vmxoff
 				0x00008001,// Pconfig
-				0x00008001,// Monitorw
-				0x00008001,// Monitord
-				0x00008001,// Monitorq
-				0x00008001,// Mwait
+				0x00000080,// Monitorw
+				0x00000080,// Monitord
+				0x00000080,// Monitorq
+				0x00000080,// Mwait
 				0x00008001,// Clac
 				0x00008001,// Stac
 				0x00008001,// Encls
@@ -5167,10 +5167,10 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E823C72,// Vmresume
 				0x1E823C72,// Vmxoff
 				0x1E843E7B,// Pconfig
-				0x0AA43E7B,// Monitorw
-				0x1EA43E7B,// Monitord
-				0x14A43E70,// Monitorq
-				0x1EA43E7B,// Mwait
+				0x0AA43FFF,// Monitorw
+				0x1EA43FFF,// Monitord
+				0x14A43FF0,// Monitorq
+				0x1EA43FFF,// Mwait
 				0x1E803E7B,// Clac
 				0x1E803E7B,// Stac
 				0x1E443E5A,// Encls

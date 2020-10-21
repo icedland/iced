@@ -847,10 +847,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0009C000, 0x89480000,// Vmresume
 			0x000D8000, 0x89080000,// Vmxoff
 			0x051F0000, 0x66080000,// Pconfig
-			0x05200000, 0x56080000,// Monitorw
-			0x05300000, 0x56080000,// Monitord
-			0x05400000, 0x56080000,// Monitorq
-			0x05500000, 0x56080000,// Mwait
+			0x05200000, 0x56000000,// Monitorw
+			0x05300000, 0x56000000,// Monitord
+			0x05400000, 0x56000000,// Monitorq
+			0x05500000, 0x56000000,// Mwait
 			0x00004000, 0x77080000,// Clac
 			0x00078000, 0x77080000,// Stac
 			0x05090000, 0x74080000,// Encls

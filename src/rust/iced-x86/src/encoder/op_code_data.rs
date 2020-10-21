@@ -843,10 +843,10 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0000_8001,// Vmresume
 	0x0000_8001,// Vmxoff
 	0x0000_8001,// Pconfig
-	0x0000_8001,// Monitorw
-	0x0000_8001,// Monitord
-	0x0000_8001,// Monitorq
-	0x0000_8001,// Mwait
+	0x0000_0080,// Monitorw
+	0x0000_0080,// Monitord
+	0x0000_0080,// Monitorq
+	0x0000_0080,// Mwait
 	0x0000_8001,// Clac
 	0x0000_8001,// Stac
 	0x0000_8001,// Encls
@@ -5158,10 +5158,10 @@ pub(super) static OPC_FLAGS2: [u32; 4312] = [
 	0x1E82_3C72,// Vmresume
 	0x1E82_3C72,// Vmxoff
 	0x1E84_3E7B,// Pconfig
-	0x0AA4_3E7B,// Monitorw
-	0x1EA4_3E7B,// Monitord
-	0x14A4_3E70,// Monitorq
-	0x1EA4_3E7B,// Mwait
+	0x0AA4_3FFF,// Monitorw
+	0x1EA4_3FFF,// Monitord
+	0x14A4_3FF0,// Monitorq
+	0x1EA4_3FFF,// Mwait
 	0x1E80_3E7B,// Clac
 	0x1E80_3E7B,// Stac
 	0x1E44_3E5A,// Encls

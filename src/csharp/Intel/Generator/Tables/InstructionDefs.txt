@@ -8505,7 +8505,9 @@ END
 INSTRUCTION: a16 NP 0F 01 C8 | MONITOR | MONITOR
 	implied: r=[seg:ax=Unknown] r=ecx;edx
 	code-mnemonic: monitorw
-	flags: 16 32 cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
+	flags: 16 32 may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: asz
 	intel: asz
 	masm: monitor
@@ -8517,7 +8519,9 @@ END
 INSTRUCTION: a32 NP 0F 01 C8 | MONITOR | MONITOR
 	implied: r=[seg:eax=Unknown] r=ecx;edx
 	code-mnemonic: monitord
-	flags: cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
+	flags: may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: asz
 	intel: asz
 	masm: monitor
@@ -8529,7 +8533,9 @@ END
 INSTRUCTION: a64 NP 0F 01 C8 | MONITOR | MONITOR
 	implied: r=[seg:rax=Unknown] r=ecx;edx
 	code-mnemonic: monitorq
-	flags: 64 cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
+	flags: 64 may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: asz
 	intel: asz
 	masm: monitor
@@ -8540,7 +8546,9 @@ END
 # Code: Mwait
 INSTRUCTION: NP 0F 01 C9 | MWAIT | MONITOR
 	implied: r=eax;ecx
-	flags: cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
+	flags: may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	masm: mwait
 END
 

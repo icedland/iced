@@ -2888,11 +2888,11 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # vmxoff
 0F01 C4, Vmxoff, Legacy, VMX, fw=cz fc=aops priv
 # monitor eax,ecx,edx
-67 0F01 C8, Monitord, Legacy, MONITOR, priv r=eax;ecx;edx rm=ds:eax;Unknown
+67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx rm=ds:eax;Unknown
 # monitor rax,rcx,rdx
-0F01 C8, Monitorq, Legacy, MONITOR, priv r=rax;ecx;edx rm=ds:rax;Unknown
+0F01 C8, Monitorq, Legacy, MONITOR, r=rax;ecx;edx rm=ds:rax;Unknown
 # mwait rax,rcx
-0F01 C9, Mwait, Legacy, MONITOR, priv r=eax;ecx
+0F01 C9, Mwait, Legacy, MONITOR, r=eax;ecx
 # clac
 0F01 CA, Clac, Legacy, SMAP, priv fc=A
 # stac
@@ -19050,9 +19050,9 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 # vpsubq zmm1{k3}{z},zmm2,zmm2
 62 F1EDCB FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
 # monitor eax,ecx,edx
-64 67 0F01 C8, Monitord, Legacy, MONITOR, priv r=eax;ecx;edx;fs rm=fs:eax;Unknown
+64 67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx;fs rm=fs:eax;Unknown
 # monitor rax,rcx,rdx
-64 0F01 C8, Monitorq, Legacy, MONITOR, priv r=rax;ecx;edx;fs rm=fs:rax;Unknown
+64 0F01 C8, Monitorq, Legacy, MONITOR, r=rax;ecx;edx;fs rm=fs:rax;Unknown
 # monitorx eax,rcx,rdx
 64 67 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;ecx;edx;fs rm=fs:eax;Unknown
 # monitorx rax,rcx,rdx
