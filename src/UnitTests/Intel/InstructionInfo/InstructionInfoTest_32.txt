@@ -618,9 +618,9 @@ F2 0F1B 08, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=MPX
 # cmovg ebx,[eax]
 0F4F 18, Cmovg_r32_rm32, Legacy, CMOV, fr=soz op0=cw op1=r cw=ebx r=ds r=eax rm=ds:eax;UInt32
 # vzeroupper
-C5F8 77, VEX_Vzeroupper, VEX, AVX, r=xmm0;xmm1;xmm2;xmm3;xmm4;xmm5;xmm6;xmm7 w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
+C5F8 77, VEX_Vzeroupper, VEX, AVX, r=xmm0-xmm7 w=vmm0-vmm7
 # vzeroall
-C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0;vmm1;vmm2;vmm3;vmm4;vmm5;vmm6;vmm7
+C5FC 77, VEX_Vzeroall, VEX, AVX, w=vmm0-vmm7
 # vmread esi,ecx
 0F78 CE, Vmread_rm32_r32, Legacy, VMX, fw=cz fc=aops priv op0=w op1=r w=esi r=ecx
 # vmread dword ptr [eax],ebx

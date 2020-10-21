@@ -418,33 +418,66 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return segReg != Register.None;
 		}
 
+		static bool TrySplit(string value, char sep, out string left, out string right) {
+			int index = value.IndexOf(sep);
+			if (index >= 0) {
+				left = value.Substring(0, index).Trim();
+				right = value.Substring(index + 1).Trim();
+				return true;
+			}
+			else {
+				left = null;
+				right = null;
+				return false;
+			}
+		}
+
+		static bool TryGetRegister(Dictionary<string, Register> toRegister, string regString, EncodingKind encoding, OpAccess access, out Register register) {
+			if (!toRegister.TryGetValue(regString, out register))
+				return false;
+
+			if (encoding != EncodingKind.Legacy && encoding != EncodingKind.D3NOW) {
+				switch (access) {
+				case OpAccess.None:
+				case OpAccess.Read:
+				case OpAccess.NoMemAccess:
+				case OpAccess.CondRead:
+					break;
+
+				case OpAccess.Write:
+				case OpAccess.CondWrite:
+				case OpAccess.ReadWrite:
+				case OpAccess.ReadCondWrite:
+					if (Register.XMM0 <= register && register <= IcedConstants.VMM_last && !regString.StartsWith(MiscInstrInfoTestConstants.VMM_prefix, StringComparison.OrdinalIgnoreCase))
+						throw new Exception($"Register {regString} is written ({access}) but {MiscInstrInfoTestConstants.VMM_prefix} pseudo register should be used instead");
+					break;
+
+				default:
+					throw new InvalidOperationException();
+				}
+			}
+
+			return true;
+		}
+
 		static bool AddRegisters(Dictionary<string, Register> toRegister, string value, OpAccess access, InstructionInfoTestCase testCase) {
 			foreach (var tmp in value.Split(semicolonSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 				var regString = tmp.Trim();
-				if (!toRegister.TryGetValue(regString, out var reg))
-					return false;
-
-				if (testCase.Encoding != EncodingKind.Legacy && testCase.Encoding != EncodingKind.D3NOW) {
-					switch (access) {
-					case OpAccess.None:
-					case OpAccess.Read:
-					case OpAccess.NoMemAccess:
-					case OpAccess.CondRead:
-						break;
-
-					case OpAccess.Write:
-					case OpAccess.CondWrite:
-					case OpAccess.ReadWrite:
-					case OpAccess.ReadCondWrite:
-						if (Register.XMM0 <= reg && reg <= IcedConstants.VMM_last && !regString.StartsWith(MiscInstrInfoTestConstants.VMM_prefix, StringComparison.OrdinalIgnoreCase))
-							throw new Exception($"Register {regString} is written ({access}) but {MiscInstrInfoTestConstants.VMM_prefix} pseudo register should be used instead");
-						break;
-
-					default:
-						throw new InvalidOperationException();
-					}
+				if (TrySplit(regString, '-', out var firstRegStr, out var lastRegStr)) {
+					if (!TryGetRegister(toRegister, firstRegStr, testCase.Encoding, access, out var firstReg))
+						return false;
+					if (!TryGetRegister(toRegister, lastRegStr, testCase.Encoding, access, out var lastReg))
+						return false;
+					if (lastReg < firstReg)
+						throw new Exception($"Invalid register range: {regString}");
+					for (var reg = firstReg; reg <= lastReg; reg++)
+						testCase.UsedRegisters.Add(new UsedRegister(reg, access));
 				}
-				testCase.UsedRegisters.Add(new UsedRegister(reg, access));
+				else {
+					if (!TryGetRegister(toRegister, regString, testCase.Encoding, access, out var register))
+						return false;
+					testCase.UsedRegisters.Add(new UsedRegister(register, access));
+				}
 			}
 			return true;
 		}

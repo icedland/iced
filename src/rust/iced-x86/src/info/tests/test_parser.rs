@@ -357,30 +357,49 @@ impl IntoIter {
 		}
 	}
 
-	fn add_registers(&self, value: &str, access: OpAccess, tc: &mut InstrInfoTestCase) -> Result<(), String> {
-		for reg_str in value.split(';') {
-			let reg_str = reg_str.trim();
-			let reg = match self.to_register.get(reg_str) {
-				Some(reg) => *reg,
-				None => return Err(format!("Invalid registers: {}", value)),
-			};
-			if tc.encoding != EncodingKind::Legacy && tc.encoding != EncodingKind::D3NOW {
-				match access {
-					OpAccess::None | OpAccess::Read | OpAccess::NoMemAccess | OpAccess::CondRead => {}
+	fn get_register(&self, reg_str: &str, encoding: EncodingKind, access: OpAccess) -> Result<Register, String> {
+		let reg = match self.to_register.get(reg_str) {
+			Some(reg) => *reg,
+			None => return Err(format!("Invalid register: {}", reg_str)),
+		};
+		if encoding != EncodingKind::Legacy && encoding != EncodingKind::D3NOW {
+			match access {
+				OpAccess::None | OpAccess::Read | OpAccess::NoMemAccess | OpAccess::CondRead => {}
 
-					OpAccess::Write | OpAccess::CondWrite | OpAccess::ReadWrite | OpAccess::ReadCondWrite => {
-						if Register::XMM0 <= reg && reg <= IcedConstants::VMM_LAST && !reg_str.starts_with(MiscInstrInfoTestConstants::VMM_PREFIX) {
-							return Err(format!(
-								"Register {} is written ({:?}) but {} pseudo register should be used instead",
-								reg_str,
-								access,
-								MiscInstrInfoTestConstants::VMM_PREFIX
-							));
-						}
+				OpAccess::Write | OpAccess::CondWrite | OpAccess::ReadWrite | OpAccess::ReadCondWrite => {
+					if Register::XMM0 <= reg && reg <= IcedConstants::VMM_LAST && !reg_str.starts_with(MiscInstrInfoTestConstants::VMM_PREFIX) {
+						return Err(format!(
+							"Register {} is written ({:?}) but {} pseudo register should be used instead",
+							reg_str,
+							access,
+							MiscInstrInfoTestConstants::VMM_PREFIX
+						));
 					}
 				}
 			}
-			tc.used_registers.push(UsedRegister::new(reg, access));
+		}
+
+		Ok(reg)
+	}
+
+	fn add_registers(&self, value: &str, access: OpAccess, tc: &mut InstrInfoTestCase) -> Result<(), String> {
+		for reg_str in value.split(';') {
+			let reg_str = reg_str.trim();
+			if reg_str.contains('-') {
+				let reg_parts: Vec<_> = reg_str.splitn(2, '-').collect();
+				let first_reg = self.get_register(reg_parts[0].trim(), tc.encoding, access)?;
+				let last_reg = self.get_register(reg_parts[1].trim(), tc.encoding, access)?;
+				if last_reg < first_reg {
+					return Err(format!("Invalid register range: {}", reg_str));
+				}
+				for reg_num in (first_reg as u32)..((last_reg as u32) + 1) {
+					let reg = unsafe { mem::transmute(reg_num as u8) };
+					tc.used_registers.push(UsedRegister::new(reg, access));
+				}
+			} else {
+				let reg = self.get_register(reg_str, tc.encoding, access)?;
+				tc.used_registers.push(UsedRegister::new(reg, access));
+			}
 		}
 		Ok(())
 	}
