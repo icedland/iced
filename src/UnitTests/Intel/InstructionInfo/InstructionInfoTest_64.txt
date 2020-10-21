@@ -7632,11 +7632,11 @@ F3 48 0FAE 20, Ptwrite_rm64, Legacy, PTWRITE, op0=r r=rax rm=ds:rax;UInt64
 # xsaveopt64 [rdi]
 48 0FAE 37, Xsaveopt64_mem, Legacy, XSAVEOPT, saverestore op0=rw r=eax;edx r=rdi rwm=ds:rdi;Xsave64
 # clwb [rax]
-66 0FAE 30, Clwb_m8, Legacy, CLWB, op0=nma r=rax
+66 0FAE 30, Clwb_m8, Legacy, CLWB, op0=r r=rax rm=ds:rax;UInt8
 # clflush [rax]
-0FAE 38, Clflush_m8, Legacy, CLFSH, op0=nma r=rax
+0FAE 38, Clflush_m8, Legacy, CLFSH, op0=r r=rax rm=ds:rax;UInt8
 # clflushopt [rax]
-66 0FAE 38, Clflushopt_m8, Legacy, CLFLUSHOPT, op0=nma r=rax
+66 0FAE 38, Clflushopt_m8, Legacy, CLFLUSHOPT, op0=r r=rax rm=ds:rax;UInt8
 # lfence
 0FAE E8, Lfence, Legacy, SSE2,
 # lfence

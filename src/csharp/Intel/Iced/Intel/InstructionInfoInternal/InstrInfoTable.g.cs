@@ -2063,7 +2063,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x08400004, 0x31000000,// Incsspq_r64
 			0x08300006, 0x94020000,// Xsaveopt_mem
 			0x08300006, 0x94020000,// Xsaveopt64_mem
-			0x00000003, 0x36000000,// Clwb_m8
+			0x00000004, 0x36000000,// Clwb_m8
 			0x083AC004, 0x8F000000,// Tpause_r32
 			0x085AC004, 0x8F000000,// Tpause_r64
 			0x000AC006, 0x31080000,// Clrssbsy_m64
@@ -2072,8 +2072,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x08600004, 0x8F000000,// Umonitor_r64
 			0x083AC004, 0x8F000000,// Umwait_r32
 			0x085AC004, 0x8F000000,// Umwait_r64
-			0x00000003, 0x35000000,// Clflush_m8
-			0x00000003, 0x34000000,// Clflushopt_m8
+			0x00000004, 0x35000000,// Clflush_m8
+			0x00000004, 0x34000000,// Clflushopt_m8
 			0x00000000, 0x7A000000,// Lfence
 			0x00000000, 0x7A000000,// Lfence_E9
 			0x00000000, 0x7A000000,// Lfence_EA

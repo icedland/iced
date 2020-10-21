@@ -1596,11 +1596,11 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 # cldemote byte ptr [eax]
 0F1C 00, Cldemote_m8, Legacy, CLDEMOTE, op0=nma r=eax;ds
 # clwb [eax]
-66 0FAE 30, Clwb_m8, Legacy, CLWB, op0=nma r=eax;ds
+66 0FAE 30, Clwb_m8, Legacy, CLWB, op0=r r=eax;ds rm=ds:eax;UInt8
 # clflush [eax]
-0FAE 38, Clflush_m8, Legacy, CLFSH, op0=nma r=eax;ds
+0FAE 38, Clflush_m8, Legacy, CLFSH, op0=r r=eax;ds rm=ds:eax;UInt8
 # clflushopt [eax]
-66 0FAE 38, Clflushopt_m8, Legacy, CLFLUSHOPT, op0=nma r=eax;ds
+66 0FAE 38, Clflushopt_m8, Legacy, CLFLUSHOPT, op0=r r=eax;ds rm=ds:eax;UInt8
 # vgatherpf0dps [ecx+zmm4*4+4]{k3}
 62 F27D4B C6 4C A1 01, EVEX_Vgatherpf0dps_vm32z_k1, EVEX, AVX512PF, op0=nma r=ecx;ds r=zmm4 r=k3
 # vgatherpf0dpd [ecx+ymm4*4+8]{k3}

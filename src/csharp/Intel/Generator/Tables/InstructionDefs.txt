@@ -16835,7 +16835,8 @@ END
 
 # Code: Clwb_m8
 INSTRUCTION: 66 0F AE /6 | CLWB m8 | CLWB
-	ops: nma=mem | UInt8
+	# It can fault and the access is treated as a byte load
+	ops: r=mem | UInt8
 	flags: tsx-impl-abort
 	nasm: flags=mem-size=ignore
 END
@@ -16911,14 +16912,16 @@ END
 
 # Code: Clflush_m8
 INSTRUCTION: NP 0F AE /7 | CLFLUSH m8 | CLFSH
-	ops: nma=mem | UInt8
+	# It can fault and the access is treated as a byte load
+	ops: r=mem | UInt8
 	flags: tsx-impl-abort
 	nasm: flags=mem-size=ignore
 END
 
 # Code: Clflushopt_m8
 INSTRUCTION: 66 0F AE /7 | CLFLUSHOPT m8 | CLFLUSHOPT
-	ops: nma=mem | UInt8
+	# It can fault and the access is treated as a byte load
+	ops: r=mem | UInt8
 	flags: tsx-impl-abort
 	nasm: flags=mem-size=ignore
 END

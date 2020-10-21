@@ -2059,7 +2059,7 @@ pub(crate) static TABLE: [u32; 8624] = [
 	0x0840_0004, 0x3100_0000,// Incsspq_r64
 	0x0830_0006, 0x9402_0000,// Xsaveopt_mem
 	0x0830_0006, 0x9402_0000,// Xsaveopt64_mem
-	0x0000_0003, 0x3600_0000,// Clwb_m8
+	0x0000_0004, 0x3600_0000,// Clwb_m8
 	0x083A_C004, 0x8F00_0000,// Tpause_r32
 	0x085A_C004, 0x8F00_0000,// Tpause_r64
 	0x000A_C006, 0x3108_0000,// Clrssbsy_m64
@@ -2068,8 +2068,8 @@ pub(crate) static TABLE: [u32; 8624] = [
 	0x0860_0004, 0x8F00_0000,// Umonitor_r64
 	0x083A_C004, 0x8F00_0000,// Umwait_r32
 	0x085A_C004, 0x8F00_0000,// Umwait_r64
-	0x0000_0003, 0x3500_0000,// Clflush_m8
-	0x0000_0003, 0x3400_0000,// Clflushopt_m8
+	0x0000_0004, 0x3500_0000,// Clflush_m8
+	0x0000_0004, 0x3400_0000,// Clflushopt_m8
 	0x0000_0000, 0x7A00_0000,// Lfence
 	0x0000_0000, 0x7A00_0000,// Lfence_E9
 	0x0000_0000, 0x7A00_0000,// Lfence_EA
