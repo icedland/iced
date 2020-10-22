@@ -546,6 +546,7 @@ namespace Generator.Tables {
 						case "no-wait": state.Flags3 |= InstructionDefFlags3.FpuNoWait; break;
 						case "implied-z": state.Flags3 |= InstructionDefFlags3.ImpliedZeroingMasking; break;
 						case "k-elem-selector": state.Flags3 |= InstructionDefFlags3.OpMaskIsElementSelector; break;
+						case "prefetch": state.Flags3 |= InstructionDefFlags3.Prefetch; break;
 
 						case "vmx=op":
 						case "vmx=root":

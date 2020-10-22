@@ -369,6 +369,10 @@ namespace Generator.Tables {
 		/// The op mask register is an element selector and not a write mask
 		/// </summary>
 		OpMaskIsElementSelector	= 0x00010000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// This is a prefetch instruction (it can't cause a memory fault)
+		/// </summary>
+		Prefetch				= 0x00020000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {

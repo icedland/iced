@@ -9091,6 +9091,7 @@ END
 # Code: Prefetch_m8
 INSTRUCTION: 0F 0D /0 | PREFETCH m8 | PREFETCHW
 	ops: nma=mem | UInt8
+	flags: prefetch
 	intel: mnemonic=prefetch_exclusive
 	nasm: flags=mem-size=ignore
 END
@@ -9098,12 +9099,14 @@ END
 # Code: Prefetchw_m8
 INSTRUCTION: 0F 0D /1 | PREFETCHW m8 | PREFETCHW
 	ops: nma=mem | UInt8
+	flags: prefetch
 	nasm: flags=mem-size=ignore
 END
 
 # Code: Prefetchwt1_m8
 INSTRUCTION: 0F 0D /2 | PREFETCHWT1 m8 | PREFETCHWT1
 	ops: nma=mem | UInt8
+	flags: prefetch
 END
 
 # Code: Femms
@@ -10094,22 +10097,25 @@ END
 INSTRUCTION: 0F 18 /0 | PREFETCHNTA m8 | SSE
 	ops: nma=mem | UInt8
 	# May cause TSX abort because of non-temporal hint
-	flags: tsx-impl-abort non-temporal
+	flags: prefetch tsx-impl-abort non-temporal
 END
 
 # Code: Prefetcht0_m8
 INSTRUCTION: 0F 18 /1 | PREFETCHT0 m8 | SSE
 	ops: nma=mem | UInt8
+	flags: prefetch
 END
 
 # Code: Prefetcht1_m8
 INSTRUCTION: 0F 18 /2 | PREFETCHT1 m8 | SSE
 	ops: nma=mem | UInt8
+	flags: prefetch
 END
 
 # Code: Prefetcht2_m8
 INSTRUCTION: 0F 18 /3 | PREFETCHT2 m8 | SSE
 	ops: nma=mem | UInt8
+	flags: prefetch
 END
 
 # Code: Bndldx_bnd_mib
@@ -25845,112 +25851,112 @@ END
 # Code: EVEX_Vgatherpf0dps_vm32z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C6 /1 /vsib | VGATHERPF0DPS vm32z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib32z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vgatherpf0dpd_vm32y_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C6 /1 /vsib | VGATHERPF0DPD vm32y {k1} | AVX512PF | N8
 	ops: nma=mem_vsib32y | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vgatherpf1dps_vm32z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C6 /2 /vsib | VGATHERPF1DPS vm32z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib32z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vgatherpf1dpd_vm32y_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C6 /2 /vsib | VGATHERPF1DPD vm32y {k1} | AVX512PF | N8
 	ops: nma=mem_vsib32y | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf0dps_vm32z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C6 /5 /vsib | VSCATTERPF0DPS vm32z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib32z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf0dpd_vm32y_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C6 /5 /vsib | VSCATTERPF0DPD vm32y {k1} | AVX512PF | N8
 	ops: nma=mem_vsib32y | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf1dps_vm32z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C6 /6 /vsib | VSCATTERPF1DPS vm32z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib32z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf1dpd_vm32y_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C6 /6 /vsib | VSCATTERPF1DPD vm32y {k1} | AVX512PF | N8
 	ops: nma=mem_vsib32y | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vgatherpf0qps_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C7 /1 /vsib | VGATHERPF0QPS vm64z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib64z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vgatherpf0qpd_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C7 /1 /vsib | VGATHERPF0QPD vm64z {k1} | AVX512PF | N8
 	ops: nma=mem_vsib64z | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vgatherpf1qps_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C7 /2 /vsib | VGATHERPF1QPS vm64z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib64z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vgatherpf1qpd_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C7 /2 /vsib | VGATHERPF1QPD vm64z {k1} | AVX512PF | N8
 	ops: nma=mem_vsib64z | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf0qps_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C7 /5 /vsib | VSCATTERPF0QPS vm64z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib64z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf0qpd_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C7 /5 /vsib | VSCATTERPF0QPD vm64z {k1} | AVX512PF | N8
 	ops: nma=mem_vsib64z | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf1qps_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W0 C7 /6 /vsib | VSCATTERPF1QPS vm64z {k1} | AVX512PF | N4
 	ops: nma=mem_vsib64z | Float32
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
 # Code: EVEX_Vscatterpf1qpd_vm64z_k1
 INSTRUCTION: EVEX.512.66.0F38.W1 C7 /6 /vsib | VSCATTERPF1QPD vm64z {k1} | AVX512PF | N8
 	ops: nma=mem_vsib64z | Float64
-	flags: knz
+	flags: knz prefetch
 	intel: kmask-op
 END
 
@@ -29539,6 +29545,7 @@ END
 INSTRUCTION: 0F 0D /3 | PREFETCHW m8 | PREFETCHW
 	ops: nma=mem | UInt8
 	code-mnemonic: prefetchreserved3
+	flags: prefetch
 	nasm: flags=mem-size=ignore
 END
 
@@ -29546,6 +29553,7 @@ END
 INSTRUCTION: 0F 0D /4 | PREFETCH m8 | PREFETCHW
 	ops: nma=mem | UInt8
 	code-mnemonic: prefetchreserved4
+	flags: prefetch
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
@@ -29554,6 +29562,7 @@ END
 INSTRUCTION: 0F 0D /5 | PREFETCH m8 | PREFETCHW
 	ops: nma=mem | UInt8
 	code-mnemonic: prefetchreserved5
+	flags: prefetch
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
@@ -29562,6 +29571,7 @@ END
 INSTRUCTION: 0F 0D /6 | PREFETCH m8 | PREFETCHW
 	ops: nma=mem | UInt8
 	code-mnemonic: prefetchreserved6
+	flags: prefetch
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
@@ -29570,6 +29580,7 @@ END
 INSTRUCTION: 0F 0D /7 | PREFETCH m8 | PREFETCHW
 	ops: nma=mem | UInt8
 	code-mnemonic: prefetchreserved7
+	flags: prefetch
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
