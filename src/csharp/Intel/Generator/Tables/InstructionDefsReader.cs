@@ -548,6 +548,7 @@ namespace Generator.Tables {
 						case "k-elem-selector": state.Flags3 |= InstructionDefFlags3.OpMaskIsElementSelector; break;
 						case "prefetch": state.Flags3 |= InstructionDefFlags3.Prefetch; break;
 						case "ignores-index": state.Flags3 |= InstructionDefFlags3.IgnoresIndex; break;
+						case "tile-stride-index": state.Flags3 |= InstructionDefFlags3.TileStrideIndex; break;
 
 						case "vmx=op":
 						case "vmx=root":

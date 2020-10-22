@@ -29634,19 +29634,19 @@ END
 # Code: VEX_Tileloaddt1_tmm_sibmem
 INSTRUCTION: VEX.128.66.0F38.W0 4B !(11):rrr:100 | TILELOADDT1 tmm1, sibmem | AMX_TILE
 	ops: w=tmm_reg r=sibmem | Tile
-	flags: 64 tsx-abort
+	flags: 64 tile-stride-index tsx-abort
 END
 
 # Code: VEX_Tilestored_sibmem_tmm
 INSTRUCTION: VEX.128.F3.0F38.W0 4B !(11):rrr:100 | TILESTORED sibmem, tmm1 | AMX_TILE
 	ops: w=sibmem r=tmm_reg | Tile
-	flags: 64 tsx-abort
+	flags: 64 tile-stride-index tsx-abort
 END
 
 # Code: VEX_Tileloadd_tmm_sibmem
 INSTRUCTION: VEX.128.F2.0F38.W0 4B !(11):rrr:100 | TILELOADD tmm1, sibmem | AMX_TILE
 	ops: w=tmm_reg r=sibmem | Tile
-	flags: 64 tsx-abort
+	flags: 64 tile-stride-index tsx-abort
 END
 
 # Code: VEX_Tdpbf16ps_tmm_tmm_tmm
