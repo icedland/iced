@@ -211,7 +211,7 @@ namespace Iced.Intel {
 					}
 				}
 				var code = Code;
-				if (indexReg != Register.None && !code.IgnoresIndex()) {
+				if (indexReg != Register.None && !code.IgnoresIndex() && !code.IsTileStrideIndex()) {
 					if (TryGetVsib64(out bool vsib64)) {
 						bool b;
 						if (vsib64)

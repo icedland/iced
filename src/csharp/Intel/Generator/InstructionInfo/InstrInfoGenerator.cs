@@ -40,6 +40,7 @@ namespace Generator.InstructionInfo {
 		protected abstract void GenerateImpliedAccesses(ImpliedAccessesDef[] defs);
 		protected abstract void GenerateIgnoresSegmentTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateIgnoresIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
+		protected abstract void GenerateTileStrideIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateCore();
 
 		protected readonly GenTypes genTypes;
@@ -75,6 +76,7 @@ namespace Generator.InstructionInfo {
 				defs.GroupBy(a => a.Encoding, (a, b) => (a, b.OrderBy(a => a.Code.Value).ToArray())).ToArray();
 			GenerateIgnoresSegmentTable(GetDefs(defs.Where(a => (a.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0)));
 			GenerateIgnoresIndexTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.IgnoresIndex) != 0)));
+			GenerateTileStrideIndexTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.TileStrideIndex) != 0)));
 
 			{
 				var shifts = new int[IcedConstants.MaxOpCount] {
@@ -99,6 +101,8 @@ namespace Generator.InstructionInfo {
 					if (def.ImpliedAccessDef.EnumValue.Value > (uint)InfoFlags1.ImpliedAccessMask)
 						throw new InvalidOperationException();
 					dword1 |= def.ImpliedAccessDef.EnumValue.Value << (int)InfoFlags1.ImpliedAccessShift;
+					// TILELOADD{,T1}, TILESTORED: the index reg is the stride indicator. The real index is tilecfg.start_row
+					if ((def.Flags3 & InstructionDefFlags3.TileStrideIndex) != 0) dword1 |= (uint)InfoFlags1.IgnoresIndexVA;
 					if ((def.Flags1 & InstructionDefFlags1.OpMaskReadWrite) != 0) dword1 |= (uint)InfoFlags1.OpMaskReadWrite;
 					if ((def.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0) dword1 |= (uint)InfoFlags1.IgnoresSegment;
 

@@ -81,6 +81,7 @@ impl InfoFlags1 {
 	pub(crate) const RFLAGS_INFO_MASK: u32 = 0x0000_003F;
 	pub(crate) const IMPLIED_ACCESS_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const IMPLIED_ACCESS_MASK: u32 = 0x0000_00FF;
+	pub(crate) const IGNORES_INDEX_VA: u32 = 0x2000_0000;
 	pub(crate) const OP_MASK_READ_WRITE: u32 = 0x4000_0000;
 	pub(crate) const IGNORES_SEGMENT: u32 = 0x8000_0000;
 }

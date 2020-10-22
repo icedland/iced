@@ -4257,9 +4257,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0A100000, 0x9B000001,// VEX_Tilerelease
 			0x00000007, 0x9B000001,// VEX_Sttilecfg_m512
 			0x00000007, 0x9B000001,// VEX_Tilezero_tmm
-			0x00000037, 0x9B000001,// VEX_Tileloaddt1_tmm_sibmem
-			0x00000037, 0x9B000001,// VEX_Tilestored_sibmem_tmm
-			0x00000037, 0x9B000001,// VEX_Tileloadd_tmm_sibmem
+			0x20000037, 0x9B000001,// VEX_Tileloaddt1_tmm_sibmem
+			0x20000037, 0x9B000001,// VEX_Tilestored_sibmem_tmm
+			0x20000037, 0x9B000001,// VEX_Tileloadd_tmm_sibmem
 			0x000000B6, 0x9A000001,// VEX_Tdpbf16ps_tmm_tmm_tmm
 			0x000000B6, 0x9C000001,// VEX_Tdpbuud_tmm_tmm_tmm
 			0x000000B6, 0x9C000001,// VEX_Tdpbusd_tmm_tmm_tmm

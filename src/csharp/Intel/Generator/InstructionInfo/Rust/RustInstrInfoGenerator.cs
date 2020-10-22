@@ -397,5 +397,10 @@ namespace Generator.InstructionInfo.Rust {
 			var filename = genTypes.Dirs.GetRustFilename("code.rs");
 			GenerateTable(defs, "IgnoresIndexTable", filename);
 		}
+
+		protected override void GenerateTileStrideIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = genTypes.Dirs.GetRustFilename("code.rs");
+			GenerateTable(defs, "TileStrideIndexTable", filename);
+		}
 	}
 }

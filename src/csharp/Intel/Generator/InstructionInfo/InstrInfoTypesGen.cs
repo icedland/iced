@@ -43,6 +43,7 @@ namespace Generator.InstructionInfo {
 		ImpliedAccessShift			= 20,
 		ImpliedAccessMask			= 0xFF,
 		// Free bits
+		IgnoresIndexVA				= 0x20000000,
 		OpMaskReadWrite				= 0x40000000,
 		IgnoresSegment				= 0x80000000,
 	}

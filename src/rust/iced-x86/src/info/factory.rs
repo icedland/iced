@@ -415,7 +415,15 @@ impl InstructionInfoFactory {
 							Self::add_memory_segment_register(flags, info, segment_register, OpAccess::Read);
 						}
 					} else {
-						let index_register = instruction.memory_index();
+						let (index_register, scale) = if (flags1 & InfoFlags1::IGNORES_INDEX_VA) != 0 {
+							let index = instruction.memory_index();
+							if (flags & Flags::NO_REGISTER_USAGE) == 0 && index != Register::None {
+								Self::add_register(flags, info, index, OpAccess::Read);
+							}
+							(Register::None, 1)
+						} else {
+							(instruction.memory_index(), instruction.memory_index_scale())
+						};
 						if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 							let addr_size_bytes = super::super::instruction_internal::get_address_size_in_bytes(
 								base_register,
@@ -449,7 +457,7 @@ impl InstructionInfoFactory {
 								segment_register,
 								base_register,
 								index_register,
-								instruction.memory_index_scale(),
+								scale,
 								displ,
 								instruction.memory_size(),
 								access,

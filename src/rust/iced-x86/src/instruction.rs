@@ -2534,7 +2534,7 @@ impl Instruction {
 					}
 				}
 				let code = self.code();
-				if index_reg != Register::None && !code.ignores_index() {
+				if index_reg != Register::None && !code.ignores_index() && !code.is_tile_stride_index() {
 					if let Some(is_vsib64) = self.vsib() {
 						if is_vsib64 {
 							let v1 = match get_register_value(index_reg, element_index, 8) {

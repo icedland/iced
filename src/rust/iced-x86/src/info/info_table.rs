@@ -4253,9 +4253,9 @@ pub(crate) static TABLE: [u32; 8624] = [
 	0x0A10_0000, 0x9B00_0001,// VEX_Tilerelease
 	0x0000_0007, 0x9B00_0001,// VEX_Sttilecfg_m512
 	0x0000_0007, 0x9B00_0001,// VEX_Tilezero_tmm
-	0x0000_0037, 0x9B00_0001,// VEX_Tileloaddt1_tmm_sibmem
-	0x0000_0037, 0x9B00_0001,// VEX_Tilestored_sibmem_tmm
-	0x0000_0037, 0x9B00_0001,// VEX_Tileloadd_tmm_sibmem
+	0x2000_0037, 0x9B00_0001,// VEX_Tileloaddt1_tmm_sibmem
+	0x2000_0037, 0x9B00_0001,// VEX_Tilestored_sibmem_tmm
+	0x2000_0037, 0x9B00_0001,// VEX_Tileloadd_tmm_sibmem
 	0x0000_00B6, 0x9A00_0001,// VEX_Tdpbf16ps_tmm_tmm_tmm
 	0x0000_00B6, 0x9C00_0001,// VEX_Tdpbuud_tmm_tmm_tmm
 	0x0000_00B6, 0x9C00_0001,// VEX_Tdpbusd_tmm_tmm_tmm

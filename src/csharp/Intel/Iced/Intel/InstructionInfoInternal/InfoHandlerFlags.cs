@@ -77,6 +77,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		RflagsInfoMask = 0x0000003F,
 		ImpliedAccessShift = 0x00000014,
 		ImpliedAccessMask = 0x000000FF,
+		IgnoresIndexVA = 0x20000000,
 		OpMaskReadWrite = 0x40000000,
 		IgnoresSegment = 0x80000000,
 	}

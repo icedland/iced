@@ -441,5 +441,10 @@ namespace Generator.InstructionInfo.CSharp {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "CodeExtensions.cs");
 			GenerateTable(defs, "IgnoresIndexTable", filename);
 		}
+
+		protected override void GenerateTileStrideIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "CodeExtensions.cs");
+			GenerateTable(defs, "TileStrideIndexTable", filename);
+		}
 	}
 }

@@ -283,7 +283,19 @@ namespace Iced.Intel {
 							AddMemorySegmentRegister(flags, segReg, OpAccess.Read);
 					}
 					else {
-						var indexReg = instruction.MemoryIndex;
+						int scale;
+						Register indexReg;
+						if ((flags1 & (uint)InfoFlags1.IgnoresIndexVA) != 0) {
+							indexReg = instruction.MemoryIndex;
+							if ((flags & Flags.NoRegisterUsage) == 0 && indexReg != Register.None)
+								AddRegister(flags, indexReg, OpAccess.Read);
+							indexReg = Register.None;
+							scale = 1;
+						}
+						else {
+							indexReg = instruction.MemoryIndex;
+							scale = instruction.MemoryIndexScale;
+						}
 						if ((flags & Flags.NoMemoryUsage) == 0) {
 							var addrSizeBytes = InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, instruction.MemoryDisplSize, codeSize);
 							var addrSize = addrSizeBytes switch {
@@ -300,7 +312,7 @@ namespace Iced.Intel {
 								displ = instruction.MemoryDisplacement64;
 							else
 								displ = instruction.MemoryDisplacement;
-							AddMemory(segReg, baseReg, indexReg, instruction.MemoryIndexScale, displ, instruction.MemorySize, access, addrSize, vsibSize);
+							AddMemory(segReg, baseReg, indexReg, scale, displ, instruction.MemorySize, access, addrSize, vsibSize);
 						}
 						if ((flags & Flags.NoRegisterUsage) == 0) {
 							if (segReg != Register.None)
