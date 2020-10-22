@@ -138,15 +138,6 @@ pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 	}
 }
 
-#[cfg(any(
-	all(feature = "encoder", feature = "op_code_info"),
-	feature = "instr_info",
-	feature = "gas",
-	feature = "intel",
-	feature = "masm",
-	feature = "nasm",
-	feature = "fast_fmt"
-))]
 pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 	let mut unsigned_value = value.trim();
 	let mult = if unsigned_value.starts_with('-') {
