@@ -734,7 +734,7 @@ namespace Generator.Tables {
 						error = "Duplicate address size value";
 						return false;
 					}
-					addressSize = (opt) switch {
+					addressSize = opt switch {
 						"16" => CodeSize.Code16,
 						"32" => CodeSize.Code32,
 						"64" => CodeSize.Code64,

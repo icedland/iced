@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::test_utils::from_str_conv::*;
+use super::super::DecoderOptions;
 use super::va_test_case::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -100,7 +101,7 @@ impl Iterator for IntoIter {
 impl IntoIter {
 	fn read_next_test_case(line: String) -> Result<Option<VirtualAddressTestCase>, String> {
 		let elems: Vec<_> = line.split(',').collect();
-		if elems.len() != 8 {
+		if elems.len() != 9 {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));
 		}
 
@@ -110,13 +111,15 @@ impl IntoIter {
 		}
 		let hex_bytes = String::from(elems[2].trim());
 		let _ = to_vec_u8(&hex_bytes)?;
-		let operand = to_u32(elems[3])?;
-		let used_mem_index = to_u32(elems[4])?;
+		let operand = to_i32(elems[3])?;
+		let used_mem_index = to_i32(elems[4])?;
 		let element_index = to_u32(elems[5])? as usize;
 		let expected_value = to_u64(elems[6])?;
+		let dec_opt_str = elems[7].trim();
+		let decoder_options = if dec_opt_str.is_empty() { DecoderOptions::NONE } else { to_decoder_options(dec_opt_str)? };
 
 		let mut register_values: Vec<VARegisterValue> = Vec::new();
-		for tmp in elems[7].split_whitespace() {
+		for tmp in elems[8].split_whitespace() {
 			if tmp.is_empty() {
 				continue;
 			}
@@ -140,6 +143,15 @@ impl IntoIter {
 			register_values.push(VARegisterValue { register, element_index: expected_element_index, element_size: expected_element_size, value });
 		}
 
-		Ok(Some(VirtualAddressTestCase { bitness, hex_bytes, operand, used_mem_index, element_index, expected_value, register_values }))
+		Ok(Some(VirtualAddressTestCase {
+			bitness,
+			hex_bytes,
+			decoder_options,
+			operand,
+			used_mem_index,
+			element_index,
+			expected_value,
+			register_values,
+		}))
 	}
 }

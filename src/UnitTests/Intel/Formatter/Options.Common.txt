@@ -1344,3 +1344,31 @@
 64, C8 0000 80, Enterq_imm16_imm8, SignedImmediateOperands=true
 16, 8A 87 0080, Mov_r8_rm8, SignedMemoryDisplacements=true
 32, 8A 80 00000080, Mov_r8_rm8, SignedMemoryDisplacements=true
+
+32, 64 F3 0F1A 8C F2 78563412, Bndcl_bnd_rm32, DecoderOptions=MPX ShowUselessPrefixes=false
+64, 64 F3 0F1A 8C F2 78563412, Bndcl_bnd_rm64, DecoderOptions=MPX ShowUselessPrefixes=false
+32, 64 F2 0F1B 8C F2 78563412, Bndcn_bnd_rm32, DecoderOptions=MPX ShowUselessPrefixes=false
+64, 64 F2 0F1B 8C F2 78563412, Bndcn_bnd_rm64, DecoderOptions=MPX ShowUselessPrefixes=false
+32, 64 F2 0F1A 8C F2 78563412, Bndcu_bnd_rm32, DecoderOptions=MPX ShowUselessPrefixes=false
+64, 64 F2 0F1A 8C F2 78563412, Bndcu_bnd_rm64, DecoderOptions=MPX ShowUselessPrefixes=false
+32, 64 F3 0F1B 8C F2 78563412, Bndmk_bnd_m32, DecoderOptions=MPX ShowUselessPrefixes=false
+64, 64 F3 0F1B 8C F2 78563412, Bndmk_bnd_m64, DecoderOptions=MPX ShowUselessPrefixes=false
+64, 64 66 8D 8C F2 78563412, Lea_r16_m, ShowUselessPrefixes=false
+64, 64 8D 8C F2 78563412, Lea_r32_m, ShowUselessPrefixes=false
+64, 64 48 8D 8C F2 78563412, Lea_r64_m, ShowUselessPrefixes=false
+64, 0F1A 8C F2 78563412, Bndldx_bnd_mib, DecoderOptions=MPX ShowUselessPrefixes=false
+64, 0F1B 8C F2 78563412, Bndstx_mib_bnd, DecoderOptions=MPX ShowUselessPrefixes=false
+
+32, 64 F3 0F1A 8C F2 78563412, Bndcl_bnd_rm32, DecoderOptions=MPX ShowUselessPrefixes=true
+64, 64 F3 0F1A 8C F2 78563412, Bndcl_bnd_rm64, DecoderOptions=MPX ShowUselessPrefixes=true
+32, 64 F2 0F1B 8C F2 78563412, Bndcn_bnd_rm32, DecoderOptions=MPX ShowUselessPrefixes=true
+64, 64 F2 0F1B 8C F2 78563412, Bndcn_bnd_rm64, DecoderOptions=MPX ShowUselessPrefixes=true
+32, 64 F2 0F1A 8C F2 78563412, Bndcu_bnd_rm32, DecoderOptions=MPX ShowUselessPrefixes=true
+64, 64 F2 0F1A 8C F2 78563412, Bndcu_bnd_rm64, DecoderOptions=MPX ShowUselessPrefixes=true
+32, 64 F3 0F1B 8C F2 78563412, Bndmk_bnd_m32, DecoderOptions=MPX ShowUselessPrefixes=true
+64, 64 F3 0F1B 8C F2 78563412, Bndmk_bnd_m64, DecoderOptions=MPX ShowUselessPrefixes=true
+64, 64 66 8D 8C F2 78563412, Lea_r16_m, ShowUselessPrefixes=true
+64, 64 8D 8C F2 78563412, Lea_r32_m, ShowUselessPrefixes=true
+64, 64 48 8D 8C F2 78563412, Lea_r64_m, ShowUselessPrefixes=true
+64, 0F1A 8C F2 78563412, Bndldx_bnd_mib, DecoderOptions=MPX ShowUselessPrefixes=true
+64, 0F1B 8C F2 78563412, Bndstx_mib_bnd, DecoderOptions=MPX ShowUselessPrefixes=true

@@ -453,26 +453,34 @@ FF 30, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;UInt3
 0F01 C9, Mwait, Legacy, MONITOR, r=eax;ecx
 # bndmov bnd1,bnd2
 66 0F1A CA, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=bnd2 decopt=MPX
-# bndmov bnd1,qword ptr [eax]
-66 0F1A 08, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=ds r=eax rm=ds:eax;Bnd32 decopt=MPX
+# bndmov bnd1,qword ptr [edx+esi*8]
+66 0F1A 0C F2, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=ds r=edx;esi rm=ds:edx+esi*8;Bnd32 decopt=MPX
 # bndcl bnd1,edx
 F3 0F1A CA, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=MPX
-# bndcl bnd1,[eax]
-F3 0F1A 08, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=MPX
+# bndcl bnd1,[edx+esi*8]
+F3 0F1A 0C F2, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=edx;esi decopt=MPX
+# bndcl bnd1,[edx+esi*8]
+64 F3 0F1A 0C F2, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=edx;esi decopt=MPX
 # bndcu bnd1,edx
 F2 0F1A CA, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=MPX
-# bndcu bnd1,[eax]
-F2 0F1A 08, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=MPX
+# bndcu bnd1,[edx+esi*8]
+F2 0F1A 0C F2, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=edx;esi decopt=MPX
+# bndcu bnd1,[edx+esi*8]
+64 F2 0F1A 0C F2, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=edx;esi decopt=MPX
 # bndmov bnd2,bnd1
 66 0F1B CA, Bndmov_bndm64_bnd, Legacy, MPX, op0=w op1=r w=bnd2 r=bnd1 decopt=MPX
-# bndmov qword ptr [eax],bnd1
-66 0F1B 08, Bndmov_bndm64_bnd, Legacy, MPX, op0=w op1=r r=ds r=eax r=bnd1 wm=ds:eax;Bnd32 decopt=MPX
-# bndmk bnd1,dword ptr [eax]
-F3 0F1B 08, Bndmk_bnd_m32, Legacy, MPX, op0=w op1=nma w=bnd1 r=eax decopt=MPX
+# bndmov qword ptr [edx+esi*8],bnd1
+66 0F1B 0C F2, Bndmov_bndm64_bnd, Legacy, MPX, op0=w op1=r r=ds r=edx;esi r=bnd1 wm=ds:edx+esi*8;Bnd32 decopt=MPX
+# bndmk bnd1,dword ptr [edx+esi*8]
+F3 0F1B 0C F2, Bndmk_bnd_m32, Legacy, MPX, op0=w op1=nma w=bnd1 r=edx;esi decopt=MPX
+# bndmk bnd1,dword ptr [edx+esi*8]
+64 F3 0F1B 0C F2, Bndmk_bnd_m32, Legacy, MPX, op0=w op1=nma w=bnd1 r=edx;esi decopt=MPX
 # bndcn bnd1,edx
 F2 0F1B CA, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=MPX
-# bndcn bnd1,[eax]
-F2 0F1B 08, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=MPX
+# bndcn bnd1,[edx+esi*8]
+F2 0F1B 0C F2, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=edx;esi decopt=MPX
+# bndcn bnd1,[edx+esi*8]
+64 F2 0F1B 0C F2, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=edx;esi decopt=MPX
 # mov esi,cr3
 0F20 DE, Mov_r32_cr, Legacy, INTEL386, priv fu=oszacp op0=w op1=r w=esi r=cr3
 # mov esi,dr3
@@ -1589,10 +1597,10 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 0F18 10, Prefetcht1_m8, Legacy, SSE, op0=nma r=eax;ds
 # prefetcht2 [eax]
 0F18 18, Prefetcht2_m8, Legacy, SSE, op0=nma r=eax;ds
-# bndldx bnd1,qword ptr [eax]
-0F1A 08, Bndldx_bnd_mib, Legacy, MPX, op0=w op1=nma w=bnd1 r=eax;ds decopt=MPX
-# bndstx qword ptr [eax],bnd1
-0F1B 08, Bndstx_mib_bnd, Legacy, MPX, op0=nma op1=r r=eax;ds r=bnd1 decopt=MPX
+# bndldx bnd1,qword ptr [edx+esi*8]
+0F1A 0C F2, Bndldx_bnd_mib, Legacy, MPX, op0=w op1=nma w=bnd1 r=edx;esi;ds decopt=MPX
+# bndstx qword ptr [edx+esi*8],bnd1
+0F1B 0C F2, Bndstx_mib_bnd, Legacy, MPX, op0=nma op1=r r=edx;esi;ds r=bnd1 decopt=MPX
 # cldemote byte ptr [eax]
 0F1C 00, Cldemote_m8, Legacy, CLDEMOTE, op0=nma r=eax;ds
 # clwb [eax]
@@ -1727,6 +1735,8 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 0FB1 18, Cmpxchg_rm32_r32, Legacy, INTEL486, op0=rcw op1=r fw=acopsz r=eax r=ebx r=eax cw=eax r=ds rcwm=ds:eax;UInt32
 # lea bx,[eax]
 66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=ax
+# lea bx,[eax]
+64 66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=ax
 # lea bx,[bx+si]
 67 66 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=bx;si
 # lea bx,[eax]

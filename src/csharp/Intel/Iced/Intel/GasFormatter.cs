@@ -878,7 +878,7 @@ namespace Iced.Intel {
 			}
 
 			bool useScale = scale != 0 || options.AlwaysShowScale;
-			if (addrSize == 2)
+			if (addrSize == 2 || !FormatterUtils.ShowIndexScale(instruction, options))
 				useScale = false;
 
 			bool hasBaseOrIndexReg = baseReg != Register.None || indexReg != Register.None;
@@ -972,15 +972,16 @@ namespace Iced.Intel {
 					if (options.GasSpaceAfterMemoryOperandComma)
 						output.Write(" ", FormatterTextKind.Text);
 
-					if (indexReg != Register.None)
+					if (indexReg != Register.None) {
 						FormatRegister(output, instruction, operand, instructionOperand, (int)indexReg);
 
-					if (useScale) {
-						output.Write(",", FormatterTextKind.Punctuation);
-						if (options.GasSpaceAfterMemoryOperandComma)
-							output.Write(" ", FormatterTextKind.Text);
+						if (useScale) {
+							output.Write(",", FormatterTextKind.Punctuation);
+							if (options.GasSpaceAfterMemoryOperandComma)
+								output.Write(" ", FormatterTextKind.Text);
 
-						output.WriteNumber(instruction, operand, instructionOperand, scaleNumbers[scale], 1U << scale, NumberKind.Int32, FormatterTextKind.Number);
+							output.WriteNumber(instruction, operand, instructionOperand, scaleNumbers[scale], 1U << scale, NumberKind.Int32, FormatterTextKind.Number);
+						}
 					}
 				}
 

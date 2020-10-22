@@ -58,9 +58,10 @@ pub struct UsedMemory(iced_x86_rust::UsedMemory);
 
 #[wasm_bindgen]
 impl UsedMemory {
-	/// Effective segment register (a [`Register`] enum value)
+	/// Effective segment register (a [`Register`] enum value) or [`Register.None`] if the segment register is ignored
 	///
 	/// [`Register`]: struct.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn segment(&self) -> Register {
 		iced_to_register(self.0.segment())

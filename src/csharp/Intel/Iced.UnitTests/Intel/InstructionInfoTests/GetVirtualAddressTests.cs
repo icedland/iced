@@ -34,7 +34,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		[Theory]
 		[MemberData(nameof(VATests_Data))]
 		void VATests(VirtualAddressTestCase tc) {
-			var decoder = Decoder.Create(tc.Bitness, new ByteArrayCodeReader(tc.HexBytes));
+			var decoder = Decoder.Create(tc.Bitness, new ByteArrayCodeReader(tc.HexBytes), tc.DecoderOptions);
 			decoder.IP = tc.Bitness switch {
 				16 => DecoderConstants.DEFAULT_IP16,
 				32 => DecoderConstants.DEFAULT_IP32,
@@ -73,8 +73,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 		public static IEnumerable<object[]> VATests_Data {
 			get {
-				foreach (var tc in VirtualAddressTestCases.Tests)
-					yield return new object[] { tc };
+				foreach (var tc in VirtualAddressTestCases.Tests) {
+					if (tc.UsedMemIndex >= 0)
+						yield return new object[] { tc };
+				}
 			}
 		}
 	}

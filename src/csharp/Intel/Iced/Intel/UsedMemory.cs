@@ -42,7 +42,7 @@ namespace Iced.Intel {
 		readonly byte vsibSize;
 
 		/// <summary>
-		/// Effective segment register
+		/// Effective segment register or <see cref="Register.None"/> if the segment register is ignored
 		/// </summary>
 		public Register Segment => (Register)segReg;
 
@@ -89,7 +89,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="segReg">Effective segment register</param>
+		/// <param name="segReg">Effective segment register or <see cref="Register.None"/> if the segment register is ignored</param>
 		/// <param name="baseReg">Base register</param>
 		/// <param name="indexReg">Index register</param>
 		/// <param name="scale">1, 2, 4 or 8</param>
@@ -117,7 +117,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="segReg">Effective segment register</param>
+		/// <param name="segReg">Effective segment register or <see cref="Register.None"/> if the segment register is ignored</param>
 		/// <param name="baseReg">Base register</param>
 		/// <param name="indexReg">Index register</param>
 		/// <param name="scale">1, 2, 4 or 8</param>
@@ -145,7 +145,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="segReg">Effective segment register</param>
+		/// <param name="segReg">Effective segment register or <see cref="Register.None"/> if the segment register is ignored</param>
 		/// <param name="baseReg">Base register</param>
 		/// <param name="indexReg">Index register</param>
 		/// <param name="scale">1, 2, 4 or 8</param>
@@ -177,7 +177,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="segReg">Effective segment register</param>
+		/// <param name="segReg">Effective segment register or <see cref="Register.None"/> if the segment register is ignored</param>
 		/// <param name="baseReg">Base register</param>
 		/// <param name="indexReg">Index register</param>
 		/// <param name="scale">1, 2, 4 or 8</param>

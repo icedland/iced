@@ -1143,7 +1143,8 @@ impl GasFormatter {
 			None
 		};
 
-		let use_scale = if addr_size == 2 { false } else { scale != 0 || self.d.options.always_show_scale() };
+		let use_scale =
+			if addr_size == 2 || !show_index_scale(instruction, &self.d.options) { false } else { scale != 0 || self.d.options.always_show_scale() };
 
 		let has_base_or_index_reg = base_reg != Register::None || index_reg != Register::None;
 
@@ -1263,23 +1264,23 @@ impl GasFormatter {
 
 				if index_reg != Register::None {
 					GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
-				}
 
-				if use_scale {
-					output.write(",", FormatterTextKind::Punctuation);
-					if self.d.options.gas_space_after_memory_operand_comma() {
-						output.write(" ", FormatterTextKind::Text);
+					if use_scale {
+						output.write(",", FormatterTextKind::Punctuation);
+						if self.d.options.gas_space_after_memory_operand_comma() {
+							output.write(" ", FormatterTextKind::Text);
+						}
+
+						output.write_number(
+							instruction,
+							operand,
+							instruction_operand,
+							SCALE_NUMBERS[scale as usize],
+							1u64 << scale,
+							NumberKind::Int32,
+							FormatterTextKind::Number,
+						);
 					}
-
-					output.write_number(
-						instruction,
-						operand,
-						instruction_operand,
-						SCALE_NUMBERS[scale as usize],
-						1u64 << scale,
-						NumberKind::Int32,
-						FormatterTextKind::Number,
-					);
 				}
 			}
 

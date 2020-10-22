@@ -37,6 +37,8 @@ namespace Iced.Intel.FormatterInternal {
 		}
 
 		public static bool ShowSegmentPrefix(Register defaultSegReg, in Instruction instruction, bool showUselessPrefixes) {
+			if (instruction.Code.IgnoresSegment())
+				return showUselessPrefixes;
 			var prefixSeg = instruction.SegmentPrefix;
 			Debug.Assert(prefixSeg != Register.None);
 			if (IsCode64(instruction.CodeSize)) {

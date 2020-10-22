@@ -364,5 +364,38 @@ namespace Generator.InstructionInfo.Rust {
 		string GetCodeSizeString(CodeSize codeSize) => GetEnumName(codeSizeType[codeSize.ToString()]);
 
 		string GetEnumName(EnumValue value) => value.DeclaringType.Name(idConverter) + "::" + value.Name(idConverter);
+
+		void GenerateTable((EncodingKind encoding, InstructionDef[] defs)[] tdefs, string id, string filename) {
+			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
+				foreach (var (encoding, defs) in tdefs) {
+					string? feature = encoding switch {
+						EncodingKind.Legacy => null,
+						EncodingKind.VEX => RustConstants.FeatureVex,
+						EncodingKind.EVEX => RustConstants.FeatureEvex,
+						EncodingKind.XOP => RustConstants.FeatureXop,
+						EncodingKind.D3NOW => RustConstants.FeatureD3now,
+						_ => throw new InvalidOperationException(),
+					};
+					if (feature is object)
+						writer.WriteLine(feature);
+					var bar = string.Empty;
+					foreach (var def in defs) {
+						writer.WriteLine($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}");
+						bar = "| ";
+					}
+					writer.WriteLine("=> true,");
+				}
+			});
+		}
+
+		protected override void GenerateIgnoresSegmentTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = genTypes.Dirs.GetRustFilename("code.rs");
+			GenerateTable(defs, "IgnoresSegmentTable", filename);
+		}
+
+		protected override void GenerateIgnoresIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = genTypes.Dirs.GetRustFilename("code.rs");
+			GenerateTable(defs, "IgnoresIndexTable", filename);
+		}
 	}
 }

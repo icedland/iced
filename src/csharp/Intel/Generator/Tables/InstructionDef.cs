@@ -373,6 +373,10 @@ namespace Generator.Tables {
 		/// This is a prefetch instruction (it can't cause a memory fault)
 		/// </summary>
 		Prefetch				= 0x00020000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// The index register is ignored when calculating the effective address (eg. <c>BNDLDX</c>, <c>BNDSTX</c>)
+		/// </summary>
+		IgnoresIndex			= 0x00040000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {

@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Constants;
 using Generator.Enums;
 using Generator.Enums.InstructionInfo;
@@ -37,6 +38,8 @@ namespace Generator.InstructionInfo {
 		protected abstract void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified);
 		protected abstract void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures);
 		protected abstract void GenerateImpliedAccesses(ImpliedAccessesDef[] defs);
+		protected abstract void GenerateIgnoresSegmentTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
+		protected abstract void GenerateIgnoresIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateCore();
 
 		protected readonly GenTypes genTypes;
@@ -67,6 +70,11 @@ namespace Generator.InstructionInfo {
 
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			GenerateImpliedAccesses(genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).ImpliedAccessesDefs);
+
+			static (EncodingKind encoding, InstructionDef[] defs)[] GetDefs(IEnumerable<InstructionDef> defs) =>
+				defs.GroupBy(a => a.Encoding, (a, b) => (a, b.OrderBy(a => a.Code.Value).ToArray())).ToArray();
+			GenerateIgnoresSegmentTable(GetDefs(defs.Where(a => (a.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0)));
+			GenerateIgnoresIndexTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.IgnoresIndex) != 0)));
 
 			{
 				var shifts = new int[IcedConstants.MaxOpCount] {

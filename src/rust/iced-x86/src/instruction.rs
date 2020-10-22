@@ -2349,7 +2349,7 @@ impl Instruction {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment register value.
+	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment's register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	///
@@ -2533,7 +2533,8 @@ impl Instruction {
 						offset = offset.wrapping_add(v1)
 					}
 				}
-				if index_reg != Register::None {
+				let code = self.code();
+				if index_reg != Register::None && !code.ignores_index() {
 					if let Some(is_vsib64) = self.vsib() {
 						if is_vsib64 {
 							let v1 = match get_register_value(index_reg, element_index, 8) {
@@ -2557,9 +2558,13 @@ impl Instruction {
 					}
 				}
 				offset &= offset_mask;
-				match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v.wrapping_add(offset),
-					None => return None,
+				if !code.ignores_segment() {
+					match get_register_value(self.memory_segment(), 0, 0) {
+						Some(v) => v.wrapping_add(offset),
+						None => return None,
+					}
+				} else {
+					offset
 				}
 			}
 		})
@@ -2581,7 +2586,7 @@ impl Instruction {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment register value.
+	/// * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment's register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	///

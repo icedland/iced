@@ -675,6 +675,8 @@ C7 F8 5AA5, Xbegin_rel16, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=bx;si
 # lea bx,[bx+si]
 64 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=bx;si
+# lea bx,[bx+si]
+64 8D 18, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=bx r=bx;si
 # lea si,[ecx+edx*8]
 67 8D 34 D1, Lea_r16_m, Legacy, INTEL8086, op0=w op1=nma w=si r=cx;dx
 # lea ebx,[bx+si]

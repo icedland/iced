@@ -547,6 +547,7 @@ namespace Generator.Tables {
 						case "implied-z": state.Flags3 |= InstructionDefFlags3.ImpliedZeroingMasking; break;
 						case "k-elem-selector": state.Flags3 |= InstructionDefFlags3.OpMaskIsElementSelector; break;
 						case "prefetch": state.Flags3 |= InstructionDefFlags3.Prefetch; break;
+						case "ignores-index": state.Flags3 |= InstructionDefFlags3.IgnoresIndex; break;
 
 						case "vmx=op":
 						case "vmx=root":

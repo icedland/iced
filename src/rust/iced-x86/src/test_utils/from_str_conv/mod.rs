@@ -172,15 +172,6 @@ pub(crate) fn to_u32(value: &str) -> Result<u32, String> {
 	Err(format!("Invalid number: {}", value))
 }
 
-#[cfg(any(
-	all(feature = "encoder", feature = "op_code_info"),
-	feature = "instr_info",
-	feature = "gas",
-	feature = "intel",
-	feature = "masm",
-	feature = "nasm",
-	feature = "fast_fmt"
-))]
 pub(crate) fn to_i32(value: &str) -> Result<i32, String> {
 	let value = value.trim();
 	if let Ok(v64) = to_i64(value) {

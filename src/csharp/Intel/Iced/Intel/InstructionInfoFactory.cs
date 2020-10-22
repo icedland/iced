@@ -293,12 +293,8 @@ namespace Iced.Intel {
 								_ => CodeSize.Unknown,
 							};
 							int vsibSize = 0;
-							if (indexReg.IsVectorRegister()) {
-								if (instruction.IsVsib32)
-									vsibSize = 4;
-								else if (instruction.IsVsib64)
-									vsibSize = 8;
-							}
+							if (indexReg.IsVectorRegister() && instruction.TryGetVsib64(out bool vsib64))
+								vsibSize = vsib64 ? 8 : 4;
 							ulong displ;
 							if (addrSizeBytes == 8)
 								displ = instruction.MemoryDisplacement64;

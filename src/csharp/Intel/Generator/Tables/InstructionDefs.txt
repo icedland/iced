@@ -10122,7 +10122,7 @@ END
 INSTRUCTION: NP 0F 1A /r | BNDLDX bnd, mib | MPX
 	ops: w=bnd_reg nma=mem_mib
 	# TSX abort if non-flat segment
-	flags: tsx-impl-abort
+	flags: ignores-index tsx-impl-abort
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default;mem-size=dorq
@@ -10189,7 +10189,7 @@ END
 INSTRUCTION: NP 0F 1B /r | BNDSTX mib, bnd | MPX
 	ops: nma=mem_mib r=bnd_reg
 	# TSX abort if non-flat segment
-	flags: tsx-impl-abort
+	flags: ignores-index tsx-impl-abort
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default;mem-size=dorq

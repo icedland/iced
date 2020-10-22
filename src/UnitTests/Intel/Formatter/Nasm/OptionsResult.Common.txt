@@ -1344,3 +1344,31 @@ mov rax,-0x8000000000000000
 enter 0,-0x80
 mov al,[bx-0x8000]
 mov al,[eax-0x80000000]
+
+bndcl bnd1,[edx+esi*8+0x12345678]
+bndcl bnd1,[rdx+rsi*8+0x12345678]
+bndcn bnd1,[edx+esi*8+0x12345678]
+bndcn bnd1,[rdx+rsi*8+0x12345678]
+bndcu bnd1,[edx+esi*8+0x12345678]
+bndcu bnd1,[rdx+rsi*8+0x12345678]
+bndmk bnd1,[edx+esi*8+0x12345678]
+bndmk bnd1,[rdx+rsi*8+0x12345678]
+lea cx,[rdx+rsi*8+0x12345678]
+lea ecx,[rdx+rsi*8+0x12345678]
+lea rcx,[rdx+rsi*8+0x12345678]
+bndldx bnd1,[rdx+rsi+0x12345678]
+bndstx [rdx+rsi+0x12345678],bnd1
+
+bndcl bnd1,[fs:edx+esi*8+0x12345678]
+bndcl bnd1,[fs:rdx+rsi*8+0x12345678]
+bndcn bnd1,[fs:edx+esi*8+0x12345678]
+bndcn bnd1,[fs:rdx+rsi*8+0x12345678]
+bndcu bnd1,[fs:edx+esi*8+0x12345678]
+bndcu bnd1,[fs:rdx+rsi*8+0x12345678]
+bndmk bnd1,[fs:edx+esi*8+0x12345678]
+bndmk bnd1,[fs:rdx+rsi*8+0x12345678]
+lea cx,[fs:rdx+rsi*8+0x12345678]
+lea ecx,[fs:rdx+rsi*8+0x12345678]
+lea rcx,[fs:rdx+rsi*8+0x12345678]
+bndldx bnd1,[rdx+rsi*8+0x12345678]
+bndstx [rdx+rsi*8+0x12345678],bnd1

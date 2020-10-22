@@ -57,15 +57,17 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 	readonly struct VirtualAddressTestCase {
 		public readonly int Bitness;
 		public readonly string HexBytes;
+		public readonly DecoderOptions DecoderOptions;
 		public readonly int Operand;
 		public readonly int UsedMemIndex;
 		public readonly int ElementIndex;
 		public readonly ulong ExpectedValue;
 		public readonly (Register register, int elementIndex, int elementSize, ulong value)[] RegisterValues;
-		public VirtualAddressTestCase(int bitness, string hexBytes, int operand, int usedMemIndex, int elementIndex, ulong expectedValue,
+		public VirtualAddressTestCase(int bitness, string hexBytes, DecoderOptions decoderOptions, int operand, int usedMemIndex, int elementIndex, ulong expectedValue,
 									(Register register, int elementIndex, int elementSize, ulong value)[] registerValues) {
 			Bitness = bitness;
 			HexBytes = hexBytes;
+			DecoderOptions = decoderOptions;
 			Operand = operand;
 			UsedMemIndex = usedMemIndex;
 			ElementIndex = elementIndex;
@@ -88,7 +90,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		[Theory]
 		[MemberData(nameof(VATests_Data))]
 		void VATests(VirtualAddressTestCase tc) {
-			var decoder = Decoder.Create(tc.Bitness, new ByteArrayCodeReader(tc.HexBytes));
+			var decoder = Decoder.Create(tc.Bitness, new ByteArrayCodeReader(tc.HexBytes), tc.DecoderOptions);
 			decoder.IP = tc.Bitness switch {
 				16 => DecoderConstants.DEFAULT_IP16,
 				32 => DecoderConstants.DEFAULT_IP32,
@@ -123,8 +125,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 		public static IEnumerable<object[]> VATests_Data {
 			get {
-				foreach (var tc in VirtualAddressTestCases.Tests)
-					yield return new object[] { tc };
+				foreach (var tc in VirtualAddressTestCases.Tests) {
+					if (tc.Operand >= 0)
+						yield return new object[] { tc };
+				}
 			}
 		}
 	}

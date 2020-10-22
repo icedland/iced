@@ -408,5 +408,38 @@ namespace Generator.InstructionInfo.CSharp {
 		string GetCodeSizeString(CodeSize codeSize) => GetEnumName(codeSizeType[codeSize.ToString()]);
 
 		string GetEnumName(EnumValue value) => value.DeclaringType.Name(idConverter) + "." + value.Name(idConverter);
+
+		void GenerateTable((EncodingKind encoding, InstructionDef[] defs)[] tdefs, string id, string filename) {
+			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
+				foreach (var (encoding, defs) in tdefs) {
+					string? feature = encoding switch {
+						EncodingKind.Legacy => null,
+						EncodingKind.VEX => CSharpConstants.VexDefine,
+						EncodingKind.EVEX => CSharpConstants.EvexDefine,
+						EncodingKind.XOP => CSharpConstants.XopDefine,
+						EncodingKind.D3NOW => CSharpConstants.D3nowDefine,
+						_ => throw new InvalidOperationException(),
+					};
+					if (feature is object)
+						writer.WriteLineNoIndent($"#if {feature}");
+					foreach (var def in defs)
+						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+					using (writer.Indent())
+						writer.WriteLine("return true;");
+					if (feature is object)
+						writer.WriteLineNoIndent("#endif");
+				}
+			});
+		}
+
+		protected override void GenerateIgnoresSegmentTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "CodeExtensions.cs");
+			GenerateTable(defs, "IgnoresSegmentTable", filename);
+		}
+
+		protected override void GenerateIgnoresIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "CodeExtensions.cs");
+			GenerateTable(defs, "IgnoresIndexTable", filename);
+		}
 	}
 }

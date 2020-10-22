@@ -124,6 +124,9 @@ pub(super) fn get_default_segment_register(instruction: &Instruction) -> Registe
 
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn show_segment_prefix_bool(mut default_seg_reg: Register, instruction: &Instruction, show_useless_prefixes: bool) -> bool {
+	if instruction.code().ignores_segment() {
+		return show_useless_prefixes;
+	}
 	let prefix_seg = instruction.segment_prefix();
 	debug_assert_ne!(Register::None, prefix_seg);
 	if is_code64(instruction.code_size()) {

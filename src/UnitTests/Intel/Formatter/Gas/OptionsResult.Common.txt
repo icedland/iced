@@ -1344,3 +1344,31 @@ movabs $-0x8000000000000000,%rax
 enter $0,$-0x80
 mov -0x8000(%bx),%al
 mov -0x80000000(%eax),%al
+
+bndcl 0x12345678(%edx,%esi,8),%bnd1
+bndcl 0x12345678(%rdx,%rsi,8),%bnd1
+bndcn 0x12345678(%edx,%esi,8),%bnd1
+bndcn 0x12345678(%rdx,%rsi,8),%bnd1
+bndcu 0x12345678(%edx,%esi,8),%bnd1
+bndcu 0x12345678(%rdx,%rsi,8),%bnd1
+bndmk 0x12345678(%edx,%esi,8),%bnd1
+bndmk 0x12345678(%rdx,%rsi,8),%bnd1
+lea 0x12345678(%rdx,%rsi,8),%cx
+lea 0x12345678(%rdx,%rsi,8),%ecx
+lea 0x12345678(%rdx,%rsi,8),%rcx
+bndldx 0x12345678(%rdx,%rsi),%bnd1
+bndstx %bnd1,0x12345678(%rdx,%rsi)
+
+bndcl %fs:0x12345678(%edx,%esi,8),%bnd1
+bndcl %fs:0x12345678(%rdx,%rsi,8),%bnd1
+bndcn %fs:0x12345678(%edx,%esi,8),%bnd1
+bndcn %fs:0x12345678(%rdx,%rsi,8),%bnd1
+bndcu %fs:0x12345678(%edx,%esi,8),%bnd1
+bndcu %fs:0x12345678(%rdx,%rsi,8),%bnd1
+bndmk %fs:0x12345678(%edx,%esi,8),%bnd1
+bndmk %fs:0x12345678(%rdx,%rsi,8),%bnd1
+lea %fs:0x12345678(%rdx,%rsi,8),%cx
+lea %fs:0x12345678(%rdx,%rsi,8),%ecx
+lea %fs:0x12345678(%rdx,%rsi,8),%rcx
+bndldx 0x12345678(%rdx,%rsi,8),%bnd1
+bndstx %bnd1,0x12345678(%rdx,%rsi,8)

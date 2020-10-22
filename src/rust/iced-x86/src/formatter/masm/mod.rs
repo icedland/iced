@@ -1151,7 +1151,7 @@ impl MasmFormatter {
 				use_scale = true;
 			}
 		}
-		if addr_size == 2 {
+		if addr_size == 2 || !show_index_scale(instruction, &self.d.options) {
 			use_scale = false;
 		}
 

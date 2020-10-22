@@ -430,10 +430,12 @@ impl InstructionInfoFactory {
 								_ => CodeSize::Unknown,
 							};
 							let vsib_size = if index_register.is_vector_register() {
-								if instruction.is_vsib32() {
-									4
-								} else if instruction.is_vsib64() {
-									8
+								if let Some(is_vsib64) = instruction.vsib() {
+									if is_vsib64 {
+										8
+									} else {
+										4
+									}
 								} else {
 									0
 								}

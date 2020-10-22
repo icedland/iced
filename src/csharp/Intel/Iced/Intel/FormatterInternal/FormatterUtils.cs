@@ -360,6 +360,9 @@ namespace Iced.Intel.FormatterInternal {
 		static bool IsCode64(CodeSize codeSize) =>
 			codeSize == CodeSize.Code64 || codeSize == CodeSize.Unknown;
 
+		public static bool ShowIndexScale(in Instruction instruction, FormatterOptions options) =>
+			options.ShowUselessPrefixes || !instruction.Code.IgnoresIndex();
+
 		public static bool ShowSegmentPrefix(Register defaultSegReg, in Instruction instruction, FormatterOptions options) =>
 			ShowSegmentPrefix(defaultSegReg, instruction, options.ShowUselessPrefixes);
 

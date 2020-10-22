@@ -277,6 +277,10 @@ pub(super) fn get_segment_register_prefix_kind(register: Register) -> PrefixKind
 	unsafe { mem::transmute(((register as u32 - Register::ES as u32) + PrefixKind::ES as u32) as u8) }
 }
 
+pub(super) fn show_index_scale(instruction: &Instruction, options: &FormatterOptions) -> bool {
+	options.show_useless_prefixes() || !instruction.code().ignores_index()
+}
+
 pub(super) fn show_segment_prefix(default_seg_reg: Register, instruction: &Instruction, options: &FormatterOptions) -> bool {
 	show_segment_prefix_bool(default_seg_reg, instruction, options.show_useless_prefixes())
 }

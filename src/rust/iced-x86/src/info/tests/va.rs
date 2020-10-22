@@ -29,8 +29,11 @@ use super::InstructionInfoFactory;
 #[test]
 fn va_tests() {
 	for tc in &*VA_TEST_CASES {
+		if tc.used_mem_index < 0 {
+			continue;
+		}
 		let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
-		let mut decoder = create_decoder(tc.bitness, &bytes, 0).0;
+		let mut decoder = create_decoder(tc.bitness, &bytes, tc.decoder_options).0;
 		let instruction = decoder.decode();
 
 		let mut factory = InstructionInfoFactory::new();

@@ -99,13 +99,15 @@ impl UsedMemory {
 	///
 	/// # Arguments
 	///
-	/// * `segment`: Effective segment register
+	/// * `segment`: Effective segment register or [`Register::None`] if the segment register is ignored
 	/// * `base`: Base register
 	/// * `index`: Index register
 	/// * `scale`: 1, 2, 4 or 8
 	/// * `displacement`: Displacement
 	/// * `memory_size`: Memory size
 	/// * `access`: Access
+	///
+	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
@@ -116,7 +118,7 @@ impl UsedMemory {
 	///
 	/// # Arguments
 	///
-	/// * `segment`: Effective segment register
+	/// * `segment`: Effective segment register or [`Register::None`] if the segment register is ignored
 	/// * `base`: Base register
 	/// * `index`: Index register
 	/// * `scale`: 1, 2, 4 or 8
@@ -125,6 +127,8 @@ impl UsedMemory {
 	/// * `access`: Access
 	/// * `address_size`: Address size
 	/// * `vsib_size`: VSIB size (`0`, `4` or `8`)
+	///
+	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn new2(
@@ -135,7 +139,9 @@ impl UsedMemory {
 		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, address_size, vsib_size: vsib_size as u8 }
 	}
 
-	/// Effective segment register
+	/// Effective segment register or [`Register::None`] if the segment register is ignored
+	///
+	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn segment(&self) -> Register {
@@ -216,7 +222,7 @@ impl UsedMemory {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment register value.
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment's register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
@@ -236,7 +242,7 @@ impl UsedMemory {
 	///
 	/// # Call-back function args
 	///
-	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment register value.
+	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment's register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
