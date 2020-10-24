@@ -2428,13 +2428,13 @@ DD 10, Fst_m64fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
 # fstp qword ptr [rax]
 DD 18, Fstp_m64fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
 # frstor fpustate94 ptr [rax]
-66 DD 20, Frstor_m94byte, Legacy, FPU, saverestore op0=r r=rax rm=ds:rax;FpuState94
+66 DD 20, Frstor_m94byte, Legacy, FPU, op0=r r=rax w=st0-st7;mm0-mm7 rm=ds:rax;FpuState94
 # frstor [rax]
-DD 20, Frstor_m108byte, Legacy, FPU387, saverestore op0=r r=rax rm=ds:rax;FpuState108
+DD 20, Frstor_m108byte, Legacy, FPU387, op0=r r=rax w=st0-st7;mm0-mm7 rm=ds:rax;FpuState108
 # fnsave fpustate94 ptr [rax]
-66 DD 30, Fnsave_m94byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState94
+66 DD 30, Fnsave_m94byte, Legacy, FPU, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState94
 # fnsave [rax]
-DD 30, Fnsave_m108byte, Legacy, FPU387, saverestore op0=w r=rax wm=ds:rax;FpuState108
+DD 30, Fnsave_m108byte, Legacy, FPU387, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState108
 # fnstsw [rax]
 DD 38, Fnstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
 # ffree st(3)
@@ -2884,15 +2884,15 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # vmcall
 0F01 C1, Vmcall, Legacy, VMX, fc=aops fw=cz flow=Call
 # vmlaunch
-0F01 C2, Vmlaunch, Legacy, VMX, fw=acopszidA priv flow=Return
+0F01 C2, Vmlaunch, Legacy, VMX, fw=acopszidA priv flow=Call
 # vmresume
-0F01 C3, Vmresume, Legacy, VMX, fw=acopszidA priv flow=Return
+0F01 C3, Vmresume, Legacy, VMX, fw=acopszidA priv flow=Call
 # vmxoff
 0F01 C4, Vmxoff, Legacy, VMX, fw=cz fc=aops priv
 # monitor eax,ecx,edx
-67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx rm=ds:eax;Unknown
+67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx
 # monitor rax,rcx,rdx
-0F01 C8, Monitorq, Legacy, MONITOR, r=rax;ecx;edx rm=ds:rax;Unknown
+0F01 C8, Monitorq, Legacy, MONITOR, r=rax;ecx;edx
 # mwait rax,rcx
 0F01 C9, Mwait, Legacy, MONITOR, r=eax;ecx
 # clac
@@ -3976,9 +3976,9 @@ C5F9 2F 10, VEX_Vcomisd_xmm_xmmm64, VEX, AVX, fw=zpc fc=oas op0=r op1=r r=xmm2 r
 # sysexitq
 48 0F35, Sysexitq, Legacy, SEP, priv flow=Return r=rcx;rdx w=rsp w=cs;ss
 # getsec
-0F37, Getsecd, Legacy, SMX, saverestore
+0F37, Getsecd, Legacy, SMX, saverestore r=eax
 # getsecq
-48 0F37, Getsecq, Legacy, SMX, saverestore
+48 0F37, Getsecq, Legacy, SMX, saverestore r=eax
 # cmovo cx,si
 66 0F40 CE, Cmovo_r16_rm16, Legacy, CMOV, fr=o op0=cw op1=r cw=cx r=si
 # cmovo bx,[rax]
@@ -16872,33 +16872,37 @@ FF 74 24 10, Push_rm64, Legacy, X64, op0=r rw=xsp r=rsp rm=ss:rsp+0x10;UInt64 wm
 # pop [esp+10h]
 67 8F 44 24 10, Pop_rm64, Legacy, X64, op0=w rw=xsp r=esp wm=ss:esp+0x18;UInt64 rm=ss:xsp;UInt64 stack=8
 # vmrun eax
-67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA priv saverestore flow=Return r=eax
+67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA priv saverestore flow=Call r=eax
 # vmrun rax
-0F01 D8, Vmrunq, Legacy, SVM, fr=acopszidA priv saverestore flow=Return r=rax
+0F01 D8, Vmrunq, Legacy, SVM, fr=acopszidA priv saverestore flow=Call r=rax
 # vmmcall
 0F01 D9, Vmmcall, Legacy, SVM, flow=Call
 # vmload eax
-67 0F01 DA, Vmloadd, Legacy, SVM, priv saverestore r=eax
+67 0F01 DA, Vmloadd, Legacy, SVM, priv r=eax w=fs;gs
 # vmload rax
-0F01 DA, Vmloadq, Legacy, SVM, priv saverestore r=rax
+0F01 DA, Vmloadq, Legacy, SVM, priv r=rax w=fs;gs
 # vmsave eax
-67 0F01 DB, Vmsaved, Legacy, SVM, priv saverestore r=eax
+67 0F01 DB, Vmsaved, Legacy, SVM, priv r=eax;fs;gs
 # vmsave rax
-0F01 DB, Vmsaveq, Legacy, SVM, priv saverestore r=rax
+0F01 DB, Vmsaveq, Legacy, SVM, priv r=rax;fs;gs
 # stgi
 0F01 DC, Stgi, Legacy, SKINIT_or_SVM, priv
 # clgi
 0F01 DD, Clgi, Legacy, SVM, priv
 # skinit eax
-0F01 DE, Skinit, Legacy, SKINIT_or_SVM, fw=acopszidA priv saverestore flow=Return
+0F01 DE, Skinit, Legacy, SKINIT_or_SVM, fc=acopszidA priv flow=Return w=cr0;cr2-cr4 w=dr0-dr3;dr6;dr7 w=es-gs r=eax w=rax-r15
 # invlpga eax,ecx
 67 0F01 DF, Invlpgad, Legacy, SVM, priv r=eax;ecx
+# invlpga eax,ecx
+64 67 0F01 DF, Invlpgad, Legacy, SVM, priv r=eax;ecx
 # invlpga rax,ecx
 0F01 DF, Invlpgaq, Legacy, SVM, priv r=rax;ecx
+# invlpga rax,ecx
+64 0F01 DF, Invlpgaq, Legacy, SVM, priv r=rax;ecx
 # monitorx eax,rcx,rdx
-67 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;ecx;edx rm=ds:eax;Unknown
+67 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;ecx;edx
 # monitorx rax,rcx,rdx
-0F01 FA, Monitorxq, Legacy, MONITORX, r=rax;ecx;edx rm=ds:rax;Unknown
+0F01 FA, Monitorxq, Legacy, MONITORX, r=rax;ecx;edx
 # mcommit
 F3 0F01 FA, Mcommit, Legacy, MCOMMIT, fw=c fc=aopsz
 # mwaitx rax,rcx,rbx
@@ -17760,9 +17764,9 @@ DC D3, Fcom_st0_sti_DCD0, Legacy, FPU, op0=r op1=r r=st0 r=st3
 # fcomp st(3)
 DC DB, Fcomp_st0_sti_DCD8, Legacy, FPU, op0=r op1=r r=st0 r=st3
 # fsave [rax]
-9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=rax wm=ds:rax;FpuState94 special
+9B 66 DD 30, Fsave_m94byte, Legacy, FPU, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState94 special
 # fsave [rax]
-9B DD 30, Fsave_m108byte, Legacy, FPU387, saverestore op0=w r=rax wm=ds:rax;FpuState108 special
+9B DD 30, Fsave_m108byte, Legacy, FPU387, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState108 special
 # fstsw [rax]
 9B DD 38, Fstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
 # fxch st(3)
@@ -19060,13 +19064,13 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, op0=w op1=n op2=n w=vmm1
 # vpsubq zmm1{k3}{z},zmm2,zmm2
 62 F1EDCB FB CA, EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64, EVEX, AVX512F, op0=w op1=n op2=n w=vmm1 r=k3
 # monitor eax,ecx,edx
-64 67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx;fs rm=fs:eax;Unknown
+64 67 0F01 C8, Monitord, Legacy, MONITOR, r=eax;ecx;edx;fs
 # monitor rax,rcx,rdx
-64 0F01 C8, Monitorq, Legacy, MONITOR, r=rax;ecx;edx;fs rm=fs:rax;Unknown
+64 0F01 C8, Monitorq, Legacy, MONITOR, r=rax;ecx;edx;fs
 # monitorx eax,rcx,rdx
-64 67 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;ecx;edx;fs rm=fs:eax;Unknown
+64 67 0F01 FA, Monitorxd, Legacy, MONITORX, r=eax;ecx;edx;fs
 # monitorx rax,rcx,rdx
-64 0F01 FA, Monitorxq, Legacy, MONITORX, r=rax;ecx;edx;fs rm=fs:rax;Unknown
+64 0F01 FA, Monitorxq, Legacy, MONITORX, r=rax;ecx;edx;fs
 # clzero
 64 67 0F01 FC, Clzerod, Legacy, CLZERO, r=eax;fs
 # clzero
@@ -19121,16 +19125,24 @@ F3 0FA7 E8, Xcryptofb_64, Legacy, PADLOCK_ACE, cwm=es:rdi;Unknown crm=es:rax;Unk
 664422EE12345678, DeclareQword, Legacy, INTEL8086, flow=Exception special
 # rmpadjust
 F3 0F 01 FE, Rmpadjust, Legacy, SEV_SNP, priv fw=oszap rw=rax r=rcx;rdx
+# rmpadjust
+64 F3 0F 01 FE, Rmpadjust, Legacy, SEV_SNP, priv fw=oszap rw=rax r=rcx;rdx
 # rmpupdate
 F2 0F 01 FE, Rmpupdate, Legacy, SEV_SNP, priv fw=oszap rw=rax r=rcx rm=ds:rcx;UInt128
 # rmpupdate fs:
 64 F2 0F 01 FE, Rmpupdate, Legacy, SEV_SNP, priv fw=oszap rw=rax r=rcx;fs rm=fs:rcx;UInt128
 # psmash
 F3 0F 01 FF, Psmash, Legacy, SEV_SNP, priv fw=oszap rw=rax
+# psmash
+64 F3 0F 01 FF, Psmash, Legacy, SEV_SNP, priv fw=oszap rw=rax
 # pvalidate eax
 67 F2 0F 01 FF, Pvalidated, Legacy, SEV_SNP, priv fw=oszacp r=eax;ecx;edx w=rax
+# pvalidate eax
+64 67 F2 0F 01 FF, Pvalidated, Legacy, SEV_SNP, priv fw=oszacp r=eax;ecx;edx w=rax
 # pvalidate rax
 F2 0F 01 FF, Pvalidateq, Legacy, SEV_SNP, priv fw=oszacp r=ecx;edx rw=rax
+# pvalidate rax
+64 F2 0F 01 FF, Pvalidateq, Legacy, SEV_SNP, priv fw=oszacp r=ecx;edx rw=rax
 # serialize
 0F 01 E8, Serialize, Legacy, SERIALIZE,
 # xsusldtrk
@@ -19182,7 +19194,7 @@ C4E25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, VEX, AMX_INT8, op0=rw op1=r op2=r rw=tmm2
 # tdcall
 66 0F01 CC, Tdcall, Legacy, TDX, priv flow=Call
 # seamret
-66 0F01 CD, Seamret, Legacy, TDX, priv fc=aops fw=cz flow=Return
+66 0F01 CD, Seamret, Legacy, TDX, priv fc=aops fw=cz flow=Call
 # seamops
 66 0F01 CE, Seamops, Legacy, TDX, priv fc=caops fw=z rw=rax cr=rcx;rdx;r8;r9
 # seamcall

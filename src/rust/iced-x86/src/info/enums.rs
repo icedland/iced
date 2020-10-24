@@ -54,7 +54,7 @@ impl InstrInfoConstants {
 	pub(crate) const OP_INFO2_COUNT: usize = 3;
 	pub(crate) const OP_INFO3_COUNT: usize = 2;
 	pub(crate) const OP_INFO4_COUNT: usize = 2;
-	pub(crate) const RFLAGS_INFO_COUNT: usize = 63;
+	pub(crate) const RFLAGS_INFO_COUNT: usize = 64;
 	pub(crate) const DEFAULT_USED_REGISTER_COLL_CAPACITY: usize = 10;
 	pub(crate) const DEFAULT_USED_MEMORY_COLL_CAPACITY: usize = 8;
 }
@@ -381,6 +381,8 @@ pub(crate) enum ImpliedAccess {
 	t_Rst0_RWst1,
 	t_Rst1_RWst0,
 	t_Rst0_Rst1,
+	t_Wst0TOst7_Wmm0TOmm7,
+	t_Rst0TOst7_Rmm0TOmm7,
 	t_RWcx,
 	t_RWecx,
 	t_RWrcx,
@@ -399,15 +401,22 @@ pub(crate) enum ImpliedAccess {
 	t_gpr16_RWcr0,
 	t_RCWeax_b64_t_CRrcx_CRrdx_CRrbx_CWrcx_CWrdx_CWrbx_f_CRecx_CRedx_CRebx_CRds_CWecx_CWedx_CWebx,
 	t_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds,
-	t_Rmem_Rax_Recx_Redx_Rseg,
-	t_Rmem_Reax_Recx_Redx_Rseg,
-	t_Rmem_Recx_Redx_Rrax_Rseg,
+	t_Rax_Recx_Redx_Rseg,
+	t_Reax_Recx_Redx_Rseg,
+	t_Recx_Redx_Rrax_Rseg,
 	t_Reax_Recx,
 	t_Recx_Weax_Wedx,
 	t_Reax_Recx_Redx,
 	t_Rax,
 	t_Reax,
 	t_Rrax,
+	t_Rax_Wfs_Wgs,
+	t_Reax_Wfs_Wgs,
+	t_Rrax_Wfs_Wgs,
+	t_Rax_Rfs_Rgs,
+	t_Reax_Rfs_Rgs,
+	t_Rrax_Rfs_Rgs,
+	t_Reax_Wcr0_Wdr6_Wdr7_WesTOgs_Wcr2TOcr4_Wdr0TOdr3_b64_t_WraxTOr15_f_WeaxTOedi,
 	t_Rax_Recx,
 	t_Recx_Rrax,
 	t_Weax_Wecx_Wedx,
@@ -493,7 +502,7 @@ pub(crate) enum ImpliedAccess {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_IMPLIED_ACCESS: [&str; 173] = [
+static GEN_DEBUG_IMPLIED_ACCESS: [&str; 182] = [
 	"None",
 	"Shift_Ib_MASK1FMOD9",
 	"Shift_Ib_MASK1FMOD11",
@@ -558,6 +567,8 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 173] = [
 	"t_Rst0_RWst1",
 	"t_Rst1_RWst0",
 	"t_Rst0_Rst1",
+	"t_Wst0TOst7_Wmm0TOmm7",
+	"t_Rst0TOst7_Rmm0TOmm7",
 	"t_RWcx",
 	"t_RWecx",
 	"t_RWrcx",
@@ -576,15 +587,22 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 173] = [
 	"t_gpr16_RWcr0",
 	"t_RCWeax_b64_t_CRrcx_CRrdx_CRrbx_CWrcx_CWrdx_CWrbx_f_CRecx_CRedx_CRebx_CRds_CWecx_CWedx_CWebx",
 	"t_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds",
-	"t_Rmem_Rax_Recx_Redx_Rseg",
-	"t_Rmem_Reax_Recx_Redx_Rseg",
-	"t_Rmem_Recx_Redx_Rrax_Rseg",
+	"t_Rax_Recx_Redx_Rseg",
+	"t_Reax_Recx_Redx_Rseg",
+	"t_Recx_Redx_Rrax_Rseg",
 	"t_Reax_Recx",
 	"t_Recx_Weax_Wedx",
 	"t_Reax_Recx_Redx",
 	"t_Rax",
 	"t_Reax",
 	"t_Rrax",
+	"t_Rax_Wfs_Wgs",
+	"t_Reax_Wfs_Wgs",
+	"t_Rrax_Wfs_Wgs",
+	"t_Rax_Rfs_Rgs",
+	"t_Reax_Rfs_Rgs",
+	"t_Rrax_Rfs_Rgs",
+	"t_Reax_Wcr0_Wdr6_Wdr7_WesTOgs_Wcr2TOcr4_Wdr0TOdr3_b64_t_WraxTOr15_f_WeaxTOedi",
 	"t_Rax_Recx",
 	"t_Recx_Rrax",
 	"t_Weax_Wecx_Wedx",
@@ -695,6 +713,7 @@ impl Default for ImpliedAccess {
 pub(crate) enum RflagsInfo {
 	None,
 	C_A,
+	C_acopszidA,
 	C_acos_S_pz,
 	C_c,
 	C_cos_S_pz_U_a,
@@ -759,9 +778,10 @@ pub(crate) enum RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_RFLAGS_INFO: [&str; 63] = [
+static GEN_DEBUG_RFLAGS_INFO: [&str; 64] = [
 	"None",
 	"C_A",
+	"C_acopszidA",
 	"C_acos_S_pz",
 	"C_c",
 	"C_cos_S_pz_U_a",

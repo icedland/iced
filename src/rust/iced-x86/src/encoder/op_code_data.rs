@@ -634,12 +634,12 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0000_0000,// Fisttp_m64int
 	0x0000_0000,// Fst_m64fp
 	0x0000_0000,// Fstp_m64fp
-	0x0001_0000,// Frstor_m94byte
-	0x0001_0000,// Frstor_m108byte
-	0x0001_0400,// Fnsave_m94byte
-	0x0001_0000,// Fsave_m94byte
-	0x0001_0400,// Fnsave_m108byte
-	0x0001_0000,// Fsave_m108byte
+	0x0000_0000,// Frstor_m94byte
+	0x0000_0000,// Frstor_m108byte
+	0x0000_0400,// Fnsave_m94byte
+	0x0000_0000,// Fsave_m94byte
+	0x0000_0400,// Fnsave_m108byte
+	0x0000_0000,// Fsave_m108byte
 	0x0000_0400,// Fnstsw_m2byte
 	0x0000_0000,// Fstsw_m2byte
 	0x0000_0000,// Ffree_sti
@@ -860,15 +860,15 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0001_8001,// Vmrund
 	0x0001_8001,// Vmrunq
 	0x0000_0000,// Vmmcall
-	0x0001_8001,// Vmloadw
-	0x0001_8001,// Vmloadd
-	0x0001_8001,// Vmloadq
-	0x0001_8001,// Vmsavew
-	0x0001_8001,// Vmsaved
-	0x0001_8001,// Vmsaveq
+	0x0000_8001,// Vmloadw
+	0x0000_8001,// Vmloadd
+	0x0000_8001,// Vmloadq
+	0x0000_8001,// Vmsavew
+	0x0000_8001,// Vmsaved
+	0x0000_8001,// Vmsaveq
 	0x0000_8001,// Stgi
 	0x0000_8001,// Clgi
-	0x0001_8001,// Skinit
+	0x0000_8001,// Skinit
 	0x0000_8041,// Invlpgaw
 	0x0000_8041,// Invlpgad
 	0x0000_8041,// Invlpgaq
@@ -1193,7 +1193,7 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0000_0000,// Sysenter
 	0x0000_8001,// Sysexitd
 	0x0000_8001,// Sysexitq
-	0x0001_0000,// Getsecd
+	0x0001_0080,// Getsecd
 	0x0000_0000,// Cmovo_r16_rm16
 	0x0000_0000,// Cmovo_r32_rm32
 	0x0000_0000,// Cmovo_r64_rm64
@@ -4248,7 +4248,7 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0000_0000,// Prefetchreserved7_m8
 	0x0000_0000,// Ud0
 	0x0000_0000,// Vmgexit
-	0x0001_0000,// Getsecq
+	0x0001_0080,// Getsecq
 	0x0010_0000,// VEX_Ldtilecfg_m512
 	0x0000_0000,// VEX_Tilerelease
 	0x0010_0000,// VEX_Sttilecfg_m512

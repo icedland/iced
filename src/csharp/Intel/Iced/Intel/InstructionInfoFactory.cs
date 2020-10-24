@@ -634,6 +634,22 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.ST1, OpAccess.Read);
 				}
 				break;
+			case ImpliedAccess.t_Wst0TOst7_Wmm0TOmm7:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					for (var reg = Register.ST0; reg <= Register.ST7; reg++)
+						AddRegister(flags, reg, OpAccess.Write);
+					for (var reg = Register.MM0; reg <= Register.MM7; reg++)
+						AddRegister(flags, reg, OpAccess.Write);
+				}
+				break;
+			case ImpliedAccess.t_Rst0TOst7_Rmm0TOmm7:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					for (var reg = Register.ST0; reg <= Register.ST7; reg++)
+						AddRegister(flags, reg, OpAccess.Read);
+					for (var reg = Register.MM0; reg <= Register.MM7; reg++)
+						AddRegister(flags, reg, OpAccess.Read);
+				}
+				break;
 			case ImpliedAccess.t_RWcx:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.CX, OpAccess.ReadWrite);
@@ -765,10 +781,7 @@ namespace Iced.Intel {
 					}
 				}
 				break;
-			case ImpliedAccess.t_Rmem_Rax_Recx_Redx_Rseg:
-				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(GetSegDefaultDS(instruction), Register.AX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.Read, CodeSize.Code16, 0);
-				}
+			case ImpliedAccess.t_Rax_Recx_Redx_Rseg:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.AX, OpAccess.Read);
 					AddRegister(flags, Register.ECX, OpAccess.Read);
@@ -776,10 +789,7 @@ namespace Iced.Intel {
 					AddMemorySegmentRegister(flags, GetSegDefaultDS(instruction), OpAccess.Read);
 				}
 				break;
-			case ImpliedAccess.t_Rmem_Reax_Recx_Redx_Rseg:
-				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(GetSegDefaultDS(instruction), Register.EAX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.Read, CodeSize.Code32, 0);
-				}
+			case ImpliedAccess.t_Reax_Recx_Redx_Rseg:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.EAX, OpAccess.Read);
 					AddRegister(flags, Register.ECX, OpAccess.Read);
@@ -787,10 +797,7 @@ namespace Iced.Intel {
 					AddMemorySegmentRegister(flags, GetSegDefaultDS(instruction), OpAccess.Read);
 				}
 				break;
-			case ImpliedAccess.t_Rmem_Recx_Redx_Rrax_Rseg:
-				if ((flags & Flags.NoMemoryUsage) == 0) {
-					AddMemory(GetSegDefaultDS(instruction), Register.RAX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.Read, CodeSize.Code64, 0);
-				}
+			case ImpliedAccess.t_Recx_Redx_Rrax_Rseg:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.ECX, OpAccess.Read);
 					AddRegister(flags, Register.EDX, OpAccess.Read);
@@ -831,6 +838,74 @@ namespace Iced.Intel {
 			case ImpliedAccess.t_Rrax:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.RAX, OpAccess.Read);
+				}
+				break;
+			case ImpliedAccess.t_Rax_Wfs_Wgs:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.AX, OpAccess.Read);
+					AddRegister(flags, Register.FS, OpAccess.Write);
+					AddRegister(flags, Register.GS, OpAccess.Write);
+				}
+				break;
+			case ImpliedAccess.t_Reax_Wfs_Wgs:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+					AddRegister(flags, Register.FS, OpAccess.Write);
+					AddRegister(flags, Register.GS, OpAccess.Write);
+				}
+				break;
+			case ImpliedAccess.t_Rrax_Wfs_Wgs:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.Read);
+					AddRegister(flags, Register.FS, OpAccess.Write);
+					AddRegister(flags, Register.GS, OpAccess.Write);
+				}
+				break;
+			case ImpliedAccess.t_Rax_Rfs_Rgs:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.AX, OpAccess.Read);
+					AddRegister(flags, Register.FS, OpAccess.Read);
+					AddRegister(flags, Register.GS, OpAccess.Read);
+				}
+				break;
+			case ImpliedAccess.t_Reax_Rfs_Rgs:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+					AddRegister(flags, Register.FS, OpAccess.Read);
+					AddRegister(flags, Register.GS, OpAccess.Read);
+				}
+				break;
+			case ImpliedAccess.t_Rrax_Rfs_Rgs:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.Read);
+					AddRegister(flags, Register.FS, OpAccess.Read);
+					AddRegister(flags, Register.GS, OpAccess.Read);
+				}
+				break;
+			case ImpliedAccess.t_Reax_Wcr0_Wdr6_Wdr7_WesTOgs_Wcr2TOcr4_Wdr0TOdr3_b64_t_WraxTOr15_f_WeaxTOedi:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+					AddRegister(flags, Register.CR0, OpAccess.Write);
+					AddRegister(flags, Register.DR6, OpAccess.Write);
+					AddRegister(flags, Register.DR7, OpAccess.Write);
+					for (var reg = Register.ES; reg <= Register.GS; reg++)
+						AddRegister(flags, reg, OpAccess.Write);
+					for (var reg = Register.CR2; reg <= Register.CR4; reg++)
+						AddRegister(flags, reg, OpAccess.Write);
+					for (var reg = Register.DR0; reg <= Register.DR3; reg++)
+						AddRegister(flags, reg, OpAccess.Write);
+				}
+				if ((flags & Flags.Is64Bit) != 0) {
+					if ((flags & Flags.NoRegisterUsage) == 0) {
+						for (var reg = Register.RAX; reg <= Register.R15; reg++)
+							AddRegister(flags, reg, OpAccess.Write);
+					}
+				}
+				else {
+					if ((flags & Flags.NoRegisterUsage) == 0) {
+						for (var reg = Register.EAX; reg <= Register.EDI; reg++)
+							AddRegister(flags, reg, OpAccess.Write);
+					}
 				}
 				break;
 			case ImpliedAccess.t_Rax_Recx:

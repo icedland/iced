@@ -53,7 +53,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		internal const int OpInfo2_Count = 3;
 		internal const int OpInfo3_Count = 2;
 		internal const int OpInfo4_Count = 2;
-		internal const int RflagsInfo_Count = 63;
+		internal const int RflagsInfo_Count = 64;
 		internal const int DefaultUsedRegisterCollCapacity = 10;
 		internal const int DefaultUsedMemoryCollCapacity = 8;
 	}
@@ -223,6 +223,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		t_Rst0_RWst1,
 		t_Rst1_RWst0,
 		t_Rst0_Rst1,
+		t_Wst0TOst7_Wmm0TOmm7,
+		t_Rst0TOst7_Rmm0TOmm7,
 		t_RWcx,
 		t_RWecx,
 		t_RWrcx,
@@ -241,15 +243,22 @@ namespace Iced.Intel.InstructionInfoInternal {
 		t_gpr16_RWcr0,
 		t_RCWeax_b64_t_CRrcx_CRrdx_CRrbx_CWrcx_CWrdx_CWrbx_f_CRecx_CRedx_CRebx_CRds_CWecx_CWedx_CWebx,
 		t_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds,
-		t_Rmem_Rax_Recx_Redx_Rseg,
-		t_Rmem_Reax_Recx_Redx_Rseg,
-		t_Rmem_Recx_Redx_Rrax_Rseg,
+		t_Rax_Recx_Redx_Rseg,
+		t_Reax_Recx_Redx_Rseg,
+		t_Recx_Redx_Rrax_Rseg,
 		t_Reax_Recx,
 		t_Recx_Weax_Wedx,
 		t_Reax_Recx_Redx,
 		t_Rax,
 		t_Reax,
 		t_Rrax,
+		t_Rax_Wfs_Wgs,
+		t_Reax_Wfs_Wgs,
+		t_Rrax_Wfs_Wgs,
+		t_Rax_Rfs_Rgs,
+		t_Reax_Rfs_Rgs,
+		t_Rrax_Rfs_Rgs,
+		t_Reax_Wcr0_Wdr6_Wdr7_WesTOgs_Wcr2TOcr4_Wdr0TOdr3_b64_t_WraxTOr15_f_WeaxTOedi,
 		t_Rax_Recx,
 		t_Recx_Rrax,
 		t_Weax_Wecx_Wedx,
@@ -340,6 +349,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 	enum RflagsInfo {
 		None,
 		C_A,
+		C_acopszidA,
 		C_acos_S_pz,
 		C_c,
 		C_cos_S_pz_U_a,

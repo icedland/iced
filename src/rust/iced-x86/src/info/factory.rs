@@ -774,6 +774,26 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::ST1, OpAccess::Read);
 				}
 			}
+			ImpliedAccess::t_Wst0TOst7_Wmm0TOmm7 => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					for reg_num in (Register::ST0 as u32)..((Register::ST7 as u32) + 1) {
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+					}
+					for reg_num in (Register::MM0 as u32)..((Register::MM7 as u32) + 1) {
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+					}
+				}
+			}
+			ImpliedAccess::t_Rst0TOst7_Rmm0TOmm7 => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					for reg_num in (Register::ST0 as u32)..((Register::ST7 as u32) + 1) {
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Read);
+					}
+					for reg_num in (Register::MM0 as u32)..((Register::MM7 as u32) + 1) {
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Read);
+					}
+				}
+			}
 			ImpliedAccess::t_RWcx => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::CX, OpAccess::ReadWrite);
@@ -905,10 +925,7 @@ impl InstructionInfoFactory {
 					}
 				}
 			}
-			ImpliedAccess::t_Rmem_Rax_Recx_Redx_Rseg => {
-				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-					Self::add_memory(info, Self::get_seg_default_ds(instruction), Register::AX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::Read, CodeSize::Code16, 0);
-				}
+			ImpliedAccess::t_Rax_Recx_Redx_Rseg => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::AX, OpAccess::Read);
 					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
@@ -916,10 +933,7 @@ impl InstructionInfoFactory {
 					Self::add_memory_segment_register(flags, info, Self::get_seg_default_ds(instruction), OpAccess::Read);
 				}
 			}
-			ImpliedAccess::t_Rmem_Reax_Recx_Redx_Rseg => {
-				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-					Self::add_memory(info, Self::get_seg_default_ds(instruction), Register::EAX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::Read, CodeSize::Code32, 0);
-				}
+			ImpliedAccess::t_Reax_Recx_Redx_Rseg => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
 					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
@@ -927,10 +941,7 @@ impl InstructionInfoFactory {
 					Self::add_memory_segment_register(flags, info, Self::get_seg_default_ds(instruction), OpAccess::Read);
 				}
 			}
-			ImpliedAccess::t_Rmem_Recx_Redx_Rrax_Rseg => {
-				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-					Self::add_memory(info, Self::get_seg_default_ds(instruction), Register::RAX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::Read, CodeSize::Code64, 0);
-				}
+			ImpliedAccess::t_Recx_Redx_Rrax_Rseg => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
 					Self::add_register(flags, info, Register::EDX, OpAccess::Read);
@@ -971,6 +982,79 @@ impl InstructionInfoFactory {
 			ImpliedAccess::t_Rrax => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
+				}
+			}
+			ImpliedAccess::t_Rax_Wfs_Wgs => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::AX, OpAccess::Read);
+					Self::add_register(flags, info, Register::FS, OpAccess::Write);
+					Self::add_register(flags, info, Register::GS, OpAccess::Write);
+				}
+			}
+			ImpliedAccess::t_Reax_Wfs_Wgs => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::FS, OpAccess::Write);
+					Self::add_register(flags, info, Register::GS, OpAccess::Write);
+				}
+			}
+			ImpliedAccess::t_Rrax_Wfs_Wgs => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::FS, OpAccess::Write);
+					Self::add_register(flags, info, Register::GS, OpAccess::Write);
+				}
+			}
+			ImpliedAccess::t_Rax_Rfs_Rgs => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::AX, OpAccess::Read);
+					Self::add_register(flags, info, Register::FS, OpAccess::Read);
+					Self::add_register(flags, info, Register::GS, OpAccess::Read);
+				}
+			}
+			ImpliedAccess::t_Reax_Rfs_Rgs => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::FS, OpAccess::Read);
+					Self::add_register(flags, info, Register::GS, OpAccess::Read);
+				}
+			}
+			ImpliedAccess::t_Rrax_Rfs_Rgs => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::FS, OpAccess::Read);
+					Self::add_register(flags, info, Register::GS, OpAccess::Read);
+				}
+			}
+			ImpliedAccess::t_Reax_Wcr0_Wdr6_Wdr7_WesTOgs_Wcr2TOcr4_Wdr0TOdr3_b64_t_WraxTOr15_f_WeaxTOedi => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::CR0, OpAccess::Write);
+					Self::add_register(flags, info, Register::DR6, OpAccess::Write);
+					Self::add_register(flags, info, Register::DR7, OpAccess::Write);
+					for reg_num in (Register::ES as u32)..((Register::GS as u32) + 1) {
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+					}
+					for reg_num in (Register::CR2 as u32)..((Register::CR4 as u32) + 1) {
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+					}
+					for reg_num in (Register::DR0 as u32)..((Register::DR3 as u32) + 1) {
+						Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+					}
+				}
+				if (flags & Flags::IS_64BIT) != 0 {
+					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+						for reg_num in (Register::RAX as u32)..((Register::R15 as u32) + 1) {
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						}
+					}
+				}
+				else {
+					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+						for reg_num in (Register::EAX as u32)..((Register::EDI as u32) + 1) {
+							Self::add_register(flags, info, unsafe { mem::transmute(reg_num as u8) }, OpAccess::Write);
+						}
+					}
 				}
 			}
 			ImpliedAccess::t_Rax_Recx => {

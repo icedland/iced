@@ -642,12 +642,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Fisttp_m64int
 				0x00000000,// Fst_m64fp
 				0x00000000,// Fstp_m64fp
-				0x00010000,// Frstor_m94byte
-				0x00010000,// Frstor_m108byte
-				0x00010400,// Fnsave_m94byte
-				0x00010000,// Fsave_m94byte
-				0x00010400,// Fnsave_m108byte
-				0x00010000,// Fsave_m108byte
+				0x00000000,// Frstor_m94byte
+				0x00000000,// Frstor_m108byte
+				0x00000400,// Fnsave_m94byte
+				0x00000000,// Fsave_m94byte
+				0x00000400,// Fnsave_m108byte
+				0x00000000,// Fsave_m108byte
 				0x00000400,// Fnstsw_m2byte
 				0x00000000,// Fstsw_m2byte
 				0x00000000,// Ffree_sti
@@ -868,15 +868,15 @@ namespace Iced.Intel.EncoderInternal {
 				0x00018001,// Vmrund
 				0x00018001,// Vmrunq
 				0x00000000,// Vmmcall
-				0x00018001,// Vmloadw
-				0x00018001,// Vmloadd
-				0x00018001,// Vmloadq
-				0x00018001,// Vmsavew
-				0x00018001,// Vmsaved
-				0x00018001,// Vmsaveq
+				0x00008001,// Vmloadw
+				0x00008001,// Vmloadd
+				0x00008001,// Vmloadq
+				0x00008001,// Vmsavew
+				0x00008001,// Vmsaved
+				0x00008001,// Vmsaveq
 				0x00008001,// Stgi
 				0x00008001,// Clgi
-				0x00018001,// Skinit
+				0x00008001,// Skinit
 				0x00008041,// Invlpgaw
 				0x00008041,// Invlpgad
 				0x00008041,// Invlpgaq
@@ -1201,7 +1201,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Sysenter
 				0x00008001,// Sysexitd
 				0x00008001,// Sysexitq
-				0x00010000,// Getsecd
+				0x00010080,// Getsecd
 				0x00000000,// Cmovo_r16_rm16
 				0x00000000,// Cmovo_r32_rm32
 				0x00000000,// Cmovo_r64_rm64
@@ -4256,7 +4256,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Prefetchreserved7_m8
 				0x00000000,// Ud0
 				0x00000000,// Vmgexit
-				0x00010000,// Getsecq
+				0x00010080,// Getsecq
 				0x00100000,// VEX_Ldtilecfg_m512
 				0x00000000,// VEX_Tilerelease
 				0x00100000,// VEX_Sttilecfg_m512

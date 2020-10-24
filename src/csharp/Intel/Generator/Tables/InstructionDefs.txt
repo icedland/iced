@@ -6145,8 +6145,9 @@ END
 # Code: Frstor_m94byte
 INSTRUCTION: o16 DD /4 | FRSTOR m94byte | FPU
 	ops: r=mem | FpuState94
+	implied: w=st0-st7;mm0-mm7
 	code-memory-size: 94byte
-	flags: save-restore tsx-impl-abort
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6157,8 +6158,9 @@ END
 # Code: Frstor_m108byte
 INSTRUCTION: o32 DD /4 | FRSTOR m108byte | FPU387
 	ops: r=mem | FpuState108
+	implied: w=st0-st7;mm0-mm7
 	code-memory-size: 108byte
-	flags: save-restore tsx-impl-abort
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6169,8 +6171,9 @@ END
 # Code: Fnsave_m94byte
 INSTRUCTION: o16 DD /6 | FNSAVE m94byte | FPU
 	ops: w=mem | FpuState94
+	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 94byte
-	flags: save-restore tsx-impl-abort no-wait
+	flags: tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6181,8 +6184,9 @@ END
 # Code: Fsave_m94byte
 INSTRUCTION: 9B o16 DD /6 | FSAVE m94byte | FPU
 	ops: w=mem | FpuState94
+	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 94byte
-	flags: save-restore tsx-impl-abort
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6193,8 +6197,9 @@ END
 # Code: Fnsave_m108byte
 INSTRUCTION: o32 DD /6 | FNSAVE m108byte | FPU387
 	ops: w=mem | FpuState108
+	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 108byte
-	flags: save-restore tsx-impl-abort no-wait
+	flags: tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6205,8 +6210,9 @@ END
 # Code: Fsave_m108byte
 INSTRUCTION: 9B o32 DD /6 | FSAVE m108byte | FPU387
 	ops: w=mem | FpuState108
+	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 108byte
-	flags: save-restore tsx-impl-abort
+	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -8474,7 +8480,8 @@ END
 INSTRUCTION: NP 0F 01 C2 | VMLAUNCH | VMX
 	rflags: w=oszacpdiA
 	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
-	cflow: Return
+	# Continues from the next instruction on failure
+	cflow: Call
 END
 
 # This instruction is NP, the SDM is wrong
@@ -8482,7 +8489,8 @@ END
 INSTRUCTION: NP 0F 01 C3 | VMRESUME | VMX
 	rflags: w=oszacpdiA
 	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
-	cflow: Return
+	# Continues from the next instruction on failure
+	cflow: Call
 END
 
 # This instruction is NP, the SDM is wrong
@@ -8503,7 +8511,8 @@ END
 # This instruction is NP, the SDM is wrong
 # Code: Monitorw
 INSTRUCTION: a16 NP 0F 01 C8 | MONITOR | MONITOR
-	implied: r=[seg:ax=Unknown] r=ecx;edx
+	# Memory isn't read but it performs the same mem checks as a 1-byte read
+	implied: r=seg;ax;ecx;edx
 	code-mnemonic: monitorw
 	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
 	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
@@ -8517,7 +8526,8 @@ END
 # This instruction is NP, the SDM is wrong
 # Code: Monitord
 INSTRUCTION: a32 NP 0F 01 C8 | MONITOR | MONITOR
-	implied: r=[seg:eax=Unknown] r=ecx;edx
+	# Memory isn't read but it performs the same mem checks as a 1-byte read
+	implied: r=seg;eax;ecx;edx
 	code-mnemonic: monitord
 	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
 	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
@@ -8531,7 +8541,8 @@ END
 # This instruction is NP, the SDM is wrong
 # Code: Monitorq
 INSTRUCTION: a64 NP 0F 01 C8 | MONITOR | MONITOR
-	implied: r=[seg:rax=Unknown] r=ecx;edx
+	# Memory isn't read but it performs the same mem checks as a 1-byte read
+	implied: r=seg;rax;ecx;edx
 	code-mnemonic: monitorq
 	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
 	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
@@ -8616,8 +8627,10 @@ INSTRUCTION: a16 0F 01 D8 | VMRUN | SVM
 	implied: r=ax
 	code-mnemonic: vmrunw
 	rflags: r=oszacpdiA
+	# Not supported in SMM: undefined behavior
 	flags: 16 32 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
-	cflow: Return
+	# Continues from the next instruction
+	cflow: Call
 	gas: asz
 	intel: reg ax
 	masm: reg ax
@@ -8629,8 +8642,10 @@ INSTRUCTION: a32 0F 01 D8 | VMRUN | SVM
 	implied: r=eax
 	code-mnemonic: vmrund
 	rflags: r=oszacpdiA
+	# Not supported in SMM: undefined behavior
 	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
-	cflow: Return
+	# Continues from the next instruction
+	cflow: Call
 	gas: asz
 	intel: reg eax
 	masm: reg eax
@@ -8642,8 +8657,10 @@ INSTRUCTION: a64 0F 01 D8 | VMRUN | SVM
 	implied: r=rax
 	code-mnemonic: vmrunq
 	rflags: r=oszacpdiA
+	# Not supported in SMM: undefined behavior
 	flags: 64 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
-	cflow: Return
+	# Continues from the next instruction
+	cflow: Call
 	gas: asz
 	intel: reg rax
 	masm: reg rax
@@ -8659,9 +8676,9 @@ END
 
 # Code: Vmloadw
 INSTRUCTION: a16 0F 01 DA | VMLOAD | SVM
-	implied: r=ax
+	implied: r=ax w=fs;gs
 	code-mnemonic: vmloadw
-	flags: 16 32 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
+	flags: 16 32 cpl0 no-rm no-v86 amd-may-vm-exit
 	gas: asz
 	intel: reg ax
 	masm: reg ax
@@ -8670,9 +8687,9 @@ END
 
 # Code: Vmloadd
 INSTRUCTION: a32 0F 01 DA | VMLOAD | SVM
-	implied: r=eax
+	implied: r=eax w=fs;gs
 	code-mnemonic: vmloadd
-	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
+	flags: cpl0 no-rm no-v86 amd-may-vm-exit
 	gas: asz
 	intel: reg eax
 	masm: reg eax
@@ -8681,9 +8698,9 @@ END
 
 # Code: Vmloadq
 INSTRUCTION: a64 0F 01 DA | VMLOAD | SVM
-	implied: r=rax
+	implied: r=rax w=fs;gs
 	code-mnemonic: vmloadq
-	flags: 64 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
+	flags: 64 cpl0 no-rm no-v86 amd-may-vm-exit
 	gas: asz
 	intel: reg rax
 	masm: reg rax
@@ -8692,9 +8709,9 @@ END
 
 # Code: Vmsavew
 INSTRUCTION: a16 0F 01 DB | VMSAVE | SVM
-	implied: r=ax
+	implied: r=ax;fs;gs
 	code-mnemonic: vmsavew
-	flags: 16 32 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
+	flags: 16 32 cpl0 no-rm no-v86 amd-may-vm-exit
 	gas: asz
 	intel: reg ax
 	masm: reg ax
@@ -8703,9 +8720,9 @@ END
 
 # Code: Vmsaved
 INSTRUCTION: a32 0F 01 DB | VMSAVE | SVM
-	implied: r=eax
+	implied: r=eax;fs;gs
 	code-mnemonic: vmsaved
-	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
+	flags: cpl0 no-rm no-v86 amd-may-vm-exit
 	gas: asz
 	intel: reg eax
 	masm: reg eax
@@ -8714,9 +8731,9 @@ END
 
 # Code: Vmsaveq
 INSTRUCTION: a64 0F 01 DB | VMSAVE | SVM
-	implied: r=rax
+	implied: r=rax;fs;gs
 	code-mnemonic: vmsaveq
-	flags: 64 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
+	flags: 64 cpl0 no-rm no-v86 amd-may-vm-exit
 	gas: asz
 	intel: reg rax
 	masm: reg rax
@@ -8735,8 +8752,10 @@ END
 
 # Code: Skinit
 INSTRUCTION: 0F 01 DE | SKINIT | SKINIT_or_SVM
-	rflags: w=oszacpdiA
-	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
+	# It also causes an INIT which clears various regs
+	implied: w=cr0;cr2-cr4 w=dr0-dr3;dr6;dr7 w=es-gs r=eax w;!64=eax-edi w;64=rax-r15
+	rflags: 0=oszacpdiA
+	flags: cpl0 no-rm no-v86 amd-may-vm-exit
 	cflow: Return
 	intel: reg eax
 	masm: reg eax
@@ -8812,7 +8831,8 @@ END
 
 # Code: Monitorxw
 INSTRUCTION: a16 NP 0F 01 FA | MONITORX | MONITORX
-	implied: r=[seg:ax=Unknown] r=ecx;edx
+	# Memory isn't read but it performs the same mem checks as a 1-byte read
+	implied: r=seg;ax;ecx;edx
 	code-mnemonic: monitorxw
 	flags: 16 32 amd-may-vm-exit
 	gas: asz
@@ -8823,7 +8843,8 @@ END
 
 # Code: Monitorxd
 INSTRUCTION: a32 NP 0F 01 FA | MONITORX | MONITORX
-	implied: r=[seg:eax=Unknown] r=ecx;edx
+	# Memory isn't read but it performs the same mem checks as a 1-byte read
+	implied: r=seg;eax;ecx;edx
 	code-mnemonic: monitorxd
 	flags: amd-may-vm-exit
 	gas: asz
@@ -8834,7 +8855,8 @@ END
 
 # Code: Monitorxq
 INSTRUCTION: a64 NP 0F 01 FA | MONITORX | MONITORX
-	implied: r=[seg:rax=Unknown] r=ecx;edx
+	# Memory isn't read but it performs the same mem checks as a 1-byte read
+	implied: r=seg;rax;ecx;edx
 	code-mnemonic: monitorxq
 	flags: 64 amd-may-vm-exit
 	gas: asz
@@ -11097,13 +11119,15 @@ END
 
 # Code: Getsecd
 INSTRUCTION: NP 0F 37 | GETSEC | SMX
+	implied: r=eax
 	code-mnemonic: getsecd
-	flags: save-restore intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
+	flags: save-restore may-require-cpl0 intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
 END
 
 # Code: Getsecq
 INSTRUCTION: NP o64 0F 37 | GETSECQ | SMX
-	flags: 64 save-restore intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
+	implied: r=eax
+	flags: 64 save-restore may-require-cpl0 intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
 	gas: mnemonic=getsec flags=o64
 	nasm: mnemonic=getsec flags=o64
 END
@@ -30021,7 +30045,8 @@ INSTRUCTION: 66 0F 01 CD | SEAMRET | TDX
 	rflags: w=zc 0=osap
 	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
 	flags: 64 cpl0 vmx=root no-outside-seam tsx-impl-abort
-	cflow: Return
+	# Continues from the next instruction on failure
+	cflow: Call
 END
 
 # Code: Seamops
@@ -30184,6 +30209,7 @@ END
 INSTRUCTION: F3 0F C7 /6 | SENDUIPI r64 | UINTR
 	ops: r=r64_rm
 	# APIC-write VM exit
+	#TODO: is this tsx-abort?
 	flags: 64 fo64 intel-may-vm-exit no-in-sgx
 END
 

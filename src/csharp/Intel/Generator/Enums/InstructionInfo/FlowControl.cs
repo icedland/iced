@@ -32,9 +32,9 @@ namespace Generator.Enums.InstructionInfo {
 		IndirectBranch,
 		[Comment("It's a conditional branch instruction: #(c:Jcc SHORT)#, #(c:Jcc NEAR)#, #(c:LOOP)#, #(c:LOOPcc)#, #(c:JRCXZ)#")]
 		ConditionalBranch,
-		[Comment("It's a return instruction: #(c:RET NEAR)#, #(c:RET FAR)#, #(c:IRET)#, #(c:SYSRET)#, #(c:SYSEXIT)#, #(c:RSM)#, #(c:VMLAUNCH)#, #(c:VMRESUME)#, #(c:VMRUN)#, #(c:SKINIT)#, #(c:RDM)#, #(c:SEAMRET)#, #(c:UIRET)#")]
+		[Comment("It's a return instruction: #(c:RET NEAR)#, #(c:RET FAR)#, #(c:IRET)#, #(c:SYSRET)#, #(c:SYSEXIT)#, #(c:RSM)#, #(c:SKINIT)#, #(c:RDM)#, #(c:UIRET)#")]
 		Return,
-		[Comment("It's a call instruction: #(c:CALL NEAR)#, #(c:CALL FAR)#, #(c:SYSCALL)#, #(c:SYSENTER)#, #(c:VMCALL)#, #(c:VMMCALL)#, #(c:VMGEXIT)#, #(c:TDCALL)#, #(c:SEAMCALL)#")]
+		[Comment("It's a call instruction: #(c:CALL NEAR)#, #(c:CALL FAR)#, #(c:SYSCALL)#, #(c:SYSENTER)#, #(c:VMLAUNCH)#, #(c:VMRESUME)#, #(c:VMCALL)#, #(c:VMMCALL)#, #(c:VMGEXIT)#, #(c:VMRUN)#, #(c:TDCALL)#, #(c:SEAMCALL)#, #(c:SEAMRET)#")]
 		Call,
 		[Comment("It's an indirect call instruction: #(c:CALL NEAR reg)#, #(c:CALL NEAR [mem])#, #(c:CALL FAR [mem])#")]
 		IndirectCall,
