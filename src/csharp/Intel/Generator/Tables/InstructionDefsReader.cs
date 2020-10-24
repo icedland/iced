@@ -473,7 +473,7 @@ namespace Generator.Tables {
 						case "cpl3": state.Flags1 |= InstructionDefFlags1.Cpl3; break;
 						case "save-restore": state.Flags1 |= InstructionDefFlags1.SaveRestore; break;
 						case "stack": state.Flags1 |= InstructionDefFlags1.StackInstruction; break;
-						case "ignore-seg": state.Flags1 |= InstructionDefFlags1.IgnoresSegment; break;
+						case "ignores-seg": state.Flags1 |= InstructionDefFlags1.IgnoresSegment; break;
 						case "krw": state.Flags1 |= InstructionDefFlags1.OpMaskReadWrite; break;
 						case "wig32":
 							if (state.OpCode.WBit != OpCodeW.W0 && state.OpCode.WBit != OpCodeW.WIG) {

@@ -2860,7 +2860,7 @@ END
 INSTRUCTION: o16 8D /r | LEA r16, m | INTEL8086
 	ops: w=r16_reg nma=mem
 	implied: lea
-	flags: ignore-seg
+	flags: ignores-seg
 	gas: suffix=w
 END
 
@@ -2868,7 +2868,7 @@ END
 INSTRUCTION: o32 8D /r | LEA r32, m | INTEL386
 	ops: w=r32_reg nma=mem
 	implied: lea
-	flags: ignore-seg
+	flags: ignores-seg
 	gas: suffix=l
 END
 
@@ -2876,7 +2876,7 @@ END
 INSTRUCTION: o64 8D /r | LEA r64, m | X64
 	ops: w=r64_reg nma=mem
 	implied: lea
-	flags: 64 ignore-seg
+	flags: 64 ignores-seg
 	gas: suffix=q
 END
 
@@ -10152,7 +10152,7 @@ END
 # Code: Bndcl_bnd_rm32
 INSTRUCTION: F3 0F 1A /r | BNDCL bnd, r/m32 | MPX
 	ops: r=bnd_reg nma=r32_or_mem_mpx | UInt32
-	flags: 16 32 ignore-seg
+	flags: 16 32 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
@@ -10161,7 +10161,7 @@ END
 # Code: Bndcl_bnd_rm64
 INSTRUCTION: F3 0F 1A /r | BNDCL bnd, r/m64 | MPX
 	ops: r=bnd_reg nma=r64_or_mem_mpx | UInt64
-	flags: 64 ignore-seg
+	flags: 64 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
@@ -10170,7 +10170,7 @@ END
 # Code: Bndcu_bnd_rm32
 INSTRUCTION: F2 0F 1A /r | BNDCU bnd, r/m32 | MPX
 	ops: r=bnd_reg nma=r32_or_mem_mpx | UInt32
-	flags: 16 32 ignore-seg
+	flags: 16 32 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
@@ -10179,7 +10179,7 @@ END
 # Code: Bndcu_bnd_rm64
 INSTRUCTION: F2 0F 1A /r | BNDCU bnd, r/m64 | MPX
 	ops: r=bnd_reg nma=r64_or_mem_mpx | UInt64
-	flags: 64 ignore-seg
+	flags: 64 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
@@ -10219,7 +10219,7 @@ END
 # Code: Bndmk_bnd_m32
 INSTRUCTION: F3 0F 1B /r | BNDMK bnd, m32 | MPX
 	ops: w=bnd_reg nma=mem_mpx | UInt32
-	flags: 16 32 ignore-seg
+	flags: 16 32 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default
@@ -10229,7 +10229,7 @@ END
 # Code: Bndmk_bnd_m64
 INSTRUCTION: F3 0F 1B /r | BNDMK bnd, m64 | MPX
 	ops: w=bnd_reg nma=mem_mpx | UInt64
-	flags: 64 ignore-seg
+	flags: 64 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default
@@ -10239,7 +10239,7 @@ END
 # Code: Bndcn_bnd_rm32
 INSTRUCTION: F2 0F 1B /r | BNDCN bnd, r/m32 | MPX
 	ops: r=bnd_reg nma=r32_or_mem_mpx | UInt32
-	flags: 16 32 ignore-seg
+	flags: 16 32 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
@@ -10248,7 +10248,7 @@ END
 # Code: Bndcn_bnd_rm64
 INSTRUCTION: F2 0F 1B /r | BNDCN bnd, r/m64 | MPX
 	ops: r=bnd_reg nma=r64_or_mem_mpx | UInt64
-	flags: 64 ignore-seg
+	flags: 64 ignores-seg
 	decoder-option: MPX
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
