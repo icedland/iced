@@ -2772,6 +2772,23 @@ impl Instruction {
 
 	/// Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop
 	/// and whether `TOP` is written.
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // ficomp dword ptr [rax]
+	/// let bytes = b"\xDA\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// let info = instr.fpu_stack_increment_info();
+	/// // It pops the stack once
+	/// assert_eq!(1, info.increment());
+	/// assert!(!info.conditional());
+	/// assert!(info.writes_top());
+	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn fpu_stack_increment_info(&self) -> FpuStackIncrementInfo {
