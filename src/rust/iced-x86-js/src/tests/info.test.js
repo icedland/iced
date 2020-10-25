@@ -56,6 +56,9 @@ test("Instruction info factory", () => {
 	expect(info1.rflagsSet).toBe(RflagsBits.None);
 	expect(info1.rflagsUndefined).toBe(RflagsBits.None);
 	expect(info1.rflagsModified).toBe(RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	expect(instr.fpuTopIncrement).toBe(0);
+	expect(instr.fpuCondWritesTop).toBe(false);
+	expect(instr.fpuWritesTop).toBe(false);
 
 	const regs1 = info1.usedRegisters();
 	expect(regs1.length).toBe(3);

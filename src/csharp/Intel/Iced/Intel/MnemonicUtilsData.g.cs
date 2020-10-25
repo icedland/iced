@@ -550,7 +550,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Fstenv,// Fstenv_m28byte
 			(ushort)Mnemonic.Fnstcw,// Fnstcw_m2byte
 			(ushort)Mnemonic.Fstcw,// Fstcw_m2byte
-			(ushort)Mnemonic.Fld,// Fld_st0_sti
+			(ushort)Mnemonic.Fld,// Fld_sti
 			(ushort)Mnemonic.Fxch,// Fxch_st0_sti
 			(ushort)Mnemonic.Fnop,// Fnop
 			(ushort)Mnemonic.Fstpnce,// Fstpnce_sti

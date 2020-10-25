@@ -553,7 +553,7 @@ pub enum Code {
 	Fstenv_m28byte = 519,
 	Fnstcw_m2byte = 520,
 	Fstcw_m2byte = 521,
-	Fld_st0_sti = 522,
+	Fld_sti = 522,
 	Fxch_st0_sti = 523,
 	Fnop = 524,
 	Fstpnce_sti = 525,

@@ -54,7 +54,7 @@ impl InstrInfoConstants {
 	pub(crate) const OP_INFO2_COUNT: usize = 3;
 	pub(crate) const OP_INFO3_COUNT: usize = 2;
 	pub(crate) const OP_INFO4_COUNT: usize = 2;
-	pub(crate) const RFLAGS_INFO_COUNT: usize = 64;
+	pub(crate) const RFLAGS_INFO_COUNT: usize = 78;
 	pub(crate) const DEFAULT_USED_REGISTER_COLL_CAPACITY: usize = 10;
 	pub(crate) const DEFAULT_USED_MEMORY_COLL_CAPACITY: usize = 8;
 }
@@ -77,8 +77,8 @@ impl InfoFlags1 {
 	pub(crate) const OP_INFO3_MASK: u32 = 0x0000_0001;
 	pub(crate) const OP_INFO4_SHIFT: u32 = 0x0000_000A;
 	pub(crate) const OP_INFO4_MASK: u32 = 0x0000_0001;
-	pub(crate) const RFLAGS_INFO_SHIFT: u32 = 0x0000_000E;
-	pub(crate) const RFLAGS_INFO_MASK: u32 = 0x0000_003F;
+	pub(crate) const RFLAGS_INFO_SHIFT: u32 = 0x0000_000D;
+	pub(crate) const RFLAGS_INFO_MASK: u32 = 0x0000_007F;
 	pub(crate) const IMPLIED_ACCESS_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const IMPLIED_ACCESS_MASK: u32 = 0x0000_00FF;
 	pub(crate) const IGNORES_INDEX_VA: u32 = 0x2000_0000;
@@ -377,8 +377,8 @@ pub(crate) enum ImpliedAccess {
 	t_Wal,
 	t_RWst0,
 	t_Rst0,
-	t_Wst0,
 	t_Rst0_RWst1,
+	t_RCWst0,
 	t_Rst1_RWst0,
 	t_Rst0_Rst1,
 	t_Wst0TOst7_Wmm0TOmm7,
@@ -563,8 +563,8 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 182] = [
 	"t_Wal",
 	"t_RWst0",
 	"t_Rst0",
-	"t_Wst0",
 	"t_Rst0_RWst1",
+	"t_RCWst0",
 	"t_Rst1_RWst0",
 	"t_Rst0_Rst1",
 	"t_Wst0TOst7_Wmm0TOmm7",
@@ -712,6 +712,8 @@ impl Default for ImpliedAccess {
 #[allow(dead_code)]
 pub(crate) enum RflagsInfo {
 	None,
+	C_0123,
+	C_1_U_023,
 	C_A,
 	C_acopszidA,
 	C_acos_S_pz,
@@ -720,6 +722,8 @@ pub(crate) enum RflagsInfo {
 	C_d,
 	C_i,
 	C_u,
+	R_0123_C_0123,
+	R_0123_U_0123,
 	R_a_W_ac_U_opsz,
 	R_ac_W_acpsz_U_o,
 	R_acopszid,
@@ -727,11 +731,13 @@ pub(crate) enum RflagsInfo {
 	R_acopszidA_W_acopszidA,
 	R_acpsz,
 	R_c,
+	R_c_C_1_U_023,
 	R_c_W_acopsz,
 	R_c_W_c,
 	R_c_W_c_U_o,
 	R_c_W_co,
 	R_cz,
+	R_cz_C_1_U_023,
 	R_d,
 	R_d_W_acopsz,
 	R_o,
@@ -739,15 +745,22 @@ pub(crate) enum RflagsInfo {
 	R_os,
 	R_osz,
 	R_p,
+	R_p_C_1_U_023,
 	R_s,
 	R_u_W_c_C_aopsz,
 	R_z,
+	R_z_C_1_U_023,
 	S_A,
 	S_c,
 	S_d,
 	S_i,
 	S_u,
+	U_0123,
 	U_acopsz,
+	W_0123,
+	W_023_C_1,
+	W_12_U_03,
+	W_1_U_023,
 	W_acopsz,
 	W_acopszdA_S_u,
 	W_acopszid,
@@ -764,6 +777,7 @@ pub(crate) enum RflagsInfo {
 	W_cosz_C_ap,
 	W_cpsz_U_ao,
 	W_cpz_C_aos,
+	W_cpz_C_aos1,
 	W_cs_C_oz_U_ap,
 	W_csz_C_o_U_ap,
 	W_cz_C_aops,
@@ -778,8 +792,10 @@ pub(crate) enum RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_RFLAGS_INFO: [&str; 64] = [
+static GEN_DEBUG_RFLAGS_INFO: [&str; 78] = [
 	"None",
+	"C_0123",
+	"C_1_U_023",
 	"C_A",
 	"C_acopszidA",
 	"C_acos_S_pz",
@@ -788,6 +804,8 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 64] = [
 	"C_d",
 	"C_i",
 	"C_u",
+	"R_0123_C_0123",
+	"R_0123_U_0123",
 	"R_a_W_ac_U_opsz",
 	"R_ac_W_acpsz_U_o",
 	"R_acopszid",
@@ -795,11 +813,13 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 64] = [
 	"R_acopszidA_W_acopszidA",
 	"R_acpsz",
 	"R_c",
+	"R_c_C_1_U_023",
 	"R_c_W_acopsz",
 	"R_c_W_c",
 	"R_c_W_c_U_o",
 	"R_c_W_co",
 	"R_cz",
+	"R_cz_C_1_U_023",
 	"R_d",
 	"R_d_W_acopsz",
 	"R_o",
@@ -807,15 +827,22 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 64] = [
 	"R_os",
 	"R_osz",
 	"R_p",
+	"R_p_C_1_U_023",
 	"R_s",
 	"R_u_W_c_C_aopsz",
 	"R_z",
+	"R_z_C_1_U_023",
 	"S_A",
 	"S_c",
 	"S_d",
 	"S_i",
 	"S_u",
+	"U_0123",
 	"U_acopsz",
+	"W_0123",
+	"W_023_C_1",
+	"W_12_U_03",
+	"W_1_U_023",
 	"W_acopsz",
 	"W_acopszdA_S_u",
 	"W_acopszid",
@@ -832,6 +859,7 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 64] = [
 	"W_cosz_C_ap",
 	"W_cpsz_U_ao",
 	"W_cpz_C_aos",
+	"W_cpz_C_aos1",
 	"W_cs_C_oz_U_ap",
 	"W_csz_C_o_U_ap",
 	"W_cz_C_aops",

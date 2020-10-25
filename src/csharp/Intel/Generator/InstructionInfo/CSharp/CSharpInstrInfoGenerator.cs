@@ -446,5 +446,20 @@ namespace Generator.InstructionInfo.CSharp {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "CodeExtensions.cs");
 			GenerateTable(defs, "TileStrideIndexTable", filename);
 		}
+
+		protected override void GenerateFpuStackIncrementInfoTable((FpuStackInfo info, InstructionDef[] defs)[] tdefs) {
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.Info.cs");
+			new FileUpdater(TargetLanguage.CSharp, "FpuStackIncrementInfoTable", filename).Generate(writer => {
+				foreach (var (info, defs) in tdefs) {
+					foreach (var def in defs)
+						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+					using (writer.Indent()) {
+						var conditionalStr = info.Conditional ? "true" : "false";
+						var writesTopStr = info.WritesTop ? "true" : "false";
+						writer.WriteLine($"return new FpuStackIncrementInfo({info.Increment}, {conditionalStr}, {writesTopStr});");
+					}
+				}
+			});
+		}
 	}
 }

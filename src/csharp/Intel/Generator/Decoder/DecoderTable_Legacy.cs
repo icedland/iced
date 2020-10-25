@@ -78,14 +78,14 @@ namespace Generator.Decoder {
 				("handlers_FPU_D9_high",
 				new object[0x40] {
 					// C0
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fld_st0_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.STi)], codeEnum[nameof(Code.Fld_sti)] },
 
 					// C8
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.ST_STi)], codeEnum[nameof(Code.Fxch_st0_sti)] },

@@ -556,7 +556,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000023,// Fstenv_m28byte
 				0x00000023,// Fnstcw_m2byte
 				0x00000023,// Fstcw_m2byte
-				0x000022C4,// Fld_st0_sti
+				0x00000045,// Fld_sti
 				0x000022C4,// Fxch_st0_sti
 				0x00000000,// Fnop
 				0x00000045,// Fstpnce_sti
@@ -4872,7 +4872,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x580000D9,// Fstenv_m28byte
 				0x5C0000D9,// Fnstcw_m2byte
 				0x5C0000D9,// Fstcw_m2byte
-				0x0001D9C0,// Fld_st0_sti
+				0x0001D9C0,// Fld_sti
 				0x0001D9C8,// Fxch_st0_sti
 				0x0001D9D0,// Fnop
 				0x0001D9D8,// Fstpnce_sti
@@ -9188,7 +9188,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00038010,// Fstenv_m28byte
 				0x00030000,// Fnstcw_m2byte
 				0x00038000,// Fstcw_m2byte
-				0x00030000,// Fld_st0_sti
+				0x00030000,// Fld_sti
 				0x00030000,// Fxch_st0_sti
 				0x00030000,// Fnop
 				0x00030000,// Fstpnce_sti

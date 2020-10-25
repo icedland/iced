@@ -751,15 +751,15 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::ST0, OpAccess::Read);
 				}
 			}
-			ImpliedAccess::t_Wst0 => {
-				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					Self::add_register(flags, info, Register::ST0, OpAccess::Write);
-				}
-			}
 			ImpliedAccess::t_Rst0_RWst1 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::ST0, OpAccess::Read);
 					Self::add_register(flags, info, Register::ST1, OpAccess::ReadWrite);
+				}
+			}
+			ImpliedAccess::t_RCWst0 => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::ST0, OpAccess::ReadCondWrite);
 				}
 			}
 			ImpliedAccess::t_Rst1_RWst0 => {

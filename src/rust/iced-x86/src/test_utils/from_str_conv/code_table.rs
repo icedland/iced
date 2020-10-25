@@ -556,7 +556,7 @@ lazy_static! {
 		h.insert("Fstenv_m28byte", Code::Fstenv_m28byte);
 		h.insert("Fnstcw_m2byte", Code::Fnstcw_m2byte);
 		h.insert("Fstcw_m2byte", Code::Fstcw_m2byte);
-		h.insert("Fld_st0_sti", Code::Fld_st0_sti);
+		h.insert("Fld_sti", Code::Fld_sti);
 		h.insert("Fxch_st0_sti", Code::Fxch_st0_sti);
 		h.insert("Fnop", Code::Fnop);
 		h.insert("Fstpnce_sti", Code::Fstpnce_sti);

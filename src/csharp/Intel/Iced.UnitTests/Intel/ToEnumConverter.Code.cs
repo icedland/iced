@@ -558,7 +558,7 @@ namespace Iced.UnitTests.Intel {
 				{ "Fstenv_m28byte", Code.Fstenv_m28byte },
 				{ "Fnstcw_m2byte", Code.Fnstcw_m2byte },
 				{ "Fstcw_m2byte", Code.Fstcw_m2byte },
-				{ "Fld_st0_sti", Code.Fld_st0_sti },
+				{ "Fld_sti", Code.Fld_sti },
 				{ "Fxch_st0_sti", Code.Fxch_st0_sti },
 				{ "Fnop", Code.Fnop },
 				{ "Fstpnce_sti", Code.Fstpnce_sti },

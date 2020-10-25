@@ -4160,6 +4160,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void fld_regST() {
+			TestAssembler(c => c.fld(st1), Instruction.Create(Code.Fld_sti, st1));
+		}
+
+		[Fact]
 		public void fld_m() {
 			{ /* if (dst.Size == MemoryOperandSize.TwordPtr) */
 				TestAssembler(c => c.fld(__tword_ptr[rdx]), Instruction.Create(Code.Fld_m80fp, __tword_ptr[rdx].ToMemoryOperand(Bitness)));
@@ -4173,11 +4178,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.fld(__zmmword_ptr[rdx]), Instruction.Create(Code.Fld_m32fp, __zmmword_ptr[rdx].ToMemoryOperand(Bitness)));
 				});
 			}
-		}
-
-		[Fact]
-		public void fld_regST_regST() {
-			TestAssembler(c => c.fld(st0, st1), Instruction.Create(Code.Fld_st0_sti, st0, st1));
 		}
 
 		[Fact]

@@ -824,6 +824,7 @@ static class HowTo_InstructionInfo {
             var opCode = instr.OpCode;
             // It returns it by ref, so use `ref readonly` to avoid a useless struct copy
             ref readonly var info = ref instrInfoFactory.GetInfo(instr);
+            var fpuInfo = instr.GetFpuStackIncrementInfo();
             Console.WriteLine($"    OpCode: {opCode.ToOpCodeString()}");
             Console.WriteLine($"    Instruction: {opCode.ToInstructionString()}");
             Console.WriteLine($"    Encoding: {instr.Encoding}");
@@ -831,6 +832,13 @@ static class HowTo_InstructionInfo {
             Console.WriteLine($"    Code: {instr.Code}");
             Console.WriteLine($"    CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");
             Console.WriteLine($"    FlowControl: {instr.FlowControl}");
+            if (fpuInfo.WritesTop) {
+                if (fpuInfo.Increment == 0)
+                    Console.WriteLine($"    FPU TOP: the instruction overwrites TOP");
+                else
+                    Console.WriteLine($"    FPU TOP inc: {fpuInfo.Increment}");
+                Console.WriteLine($"    FPU TOP cond write: {(fpuInfo.Conditional ? "true" : "false")}");
+            }
             if (offsets.HasDisplacement)
                 Console.WriteLine($"    Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");
             if (offsets.HasImmediate)

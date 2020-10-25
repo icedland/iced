@@ -556,7 +556,7 @@ namespace Iced.Intel {
 			(byte)MemorySize.FpuEnv28,// Fstenv_m28byte
 			(byte)MemorySize.UInt16,// Fnstcw_m2byte
 			(byte)MemorySize.UInt16,// Fstcw_m2byte
-			0,// Fld_st0_sti
+			0,// Fld_sti
 			0,// Fxch_st0_sti
 			0,// Fnop
 			0,// Fstpnce_sti
@@ -4868,7 +4868,7 @@ namespace Iced.Intel {
 			0,// Fstenv_m28byte
 			0,// Fnstcw_m2byte
 			0,// Fstcw_m2byte
-			0,// Fld_st0_sti
+			0,// Fld_sti
 			0,// Fxch_st0_sti
 			0,// Fnop
 			0,// Fstpnce_sti

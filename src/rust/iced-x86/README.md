@@ -878,6 +878,7 @@ pub(crate) fn how_to_get_instruction_info() {
 
         let op_code = instr.op_code();
         let info = info_factory.info(&instr);
+        let fpu_info = instr.fpu_stack_increment_info();
         println!("    OpCode: {}", op_code.op_code_string());
         println!("    Instruction: {}", op_code.instruction_string());
         println!("    Encoding: {:?}", instr.encoding());
@@ -898,6 +899,17 @@ pub(crate) fn how_to_get_instruction_info() {
                 "    Displacement offset = {}, size = {}",
                 offsets.displacement_offset(),
                 offsets.displacement_size()
+            );
+        }
+        if fpu_info.writes_top() {
+            if fpu_info.increment() == 0 {
+                println!("    FPU TOP: the instruction overwrites TOP");
+            } else {
+                println!("    FPU TOP inc: {}", fpu_info.increment());
+            }
+            println!(
+                "    FPU TOP cond write: {}",
+                if fpu_info.conditional() { "true" } else { "false" }
             );
         }
         if offsets.has_immediate() {

@@ -54,4 +54,7 @@ pub(super) struct InstrInfoTestCase {
 	pub(super) op2_access: OpAccess,
 	pub(super) op3_access: OpAccess,
 	pub(super) op4_access: OpAccess,
+	pub(super) fpu_top_increment: i32,
+	pub(super) fpu_conditional_top: bool,
+	pub(super) fpu_writes_top: bool,
 }

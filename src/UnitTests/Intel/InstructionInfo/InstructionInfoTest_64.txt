@@ -2228,277 +2228,277 @@ D3 38, Sar_rm32_CL, Legacy, INTEL386, fw=cszp fu=ao op0=rw op1=r r=rax r=cl rwm=
 # xlatb
 D7, Xlat_m8, Legacy, INTEL8086, op0=r rw=al r=rbx rm=ds:rbx+al;UInt8
 # fadd dword ptr [rax]
-D8 00, Fadd_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 rw=st0
+D8 00, Fadd_m32fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float32 rw=st0
 # fmul dword ptr [rax]
-D8 08, Fmul_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 rw=st0
+D8 08, Fmul_m32fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float32 rw=st0
 # fcom dword ptr [rax]
-D8 10, Fcom_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 r=st0
+D8 10, Fcom_m32fp, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Float32 r=st0
 # fcomp dword ptr [rax]
-D8 18, Fcomp_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 r=st0
+D8 18, Fcomp_m32fp, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Float32 r=st0 fpu-inc=1
 # fsub dword ptr [rax]
-D8 20, Fsub_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 rw=st0
+D8 20, Fsub_m32fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float32 rw=st0
 # fsubr dword ptr [rax]
-D8 28, Fsubr_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 rw=st0
+D8 28, Fsubr_m32fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float32 rw=st0
 # fdiv dword ptr [rax]
-D8 30, Fdiv_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 rw=st0
+D8 30, Fdiv_m32fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float32 rw=st0
 # fdivr dword ptr [rax]
-D8 38, Fdivr_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 rw=st0
+D8 38, Fdivr_m32fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float32 rw=st0
 # fadd st,st(3)
-D8 C3, Fadd_st0_sti, Legacy, FPU, op0=rw op1=r rw=st0 r=st3
+D8 C3, Fadd_st0_sti, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st0 r=st3
 # fmul st,st(3)
-D8 CB, Fmul_st0_sti, Legacy, FPU, op0=rw op1=r rw=st0 r=st3
+D8 CB, Fmul_st0_sti, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st0 r=st3
 # fcom st(3)
-D8 D3, Fcom_st0_sti, Legacy, FPU, op0=r op1=r r=st0 r=st3
+D8 D3, Fcom_st0_sti, Legacy, FPU, fc=1 fw=023 op0=r op1=r r=st0 r=st3
 # fcomp st(3)
-D8 DB, Fcomp_st0_sti, Legacy, FPU, op0=r op1=r r=st0 r=st3
+D8 DB, Fcomp_st0_sti, Legacy, FPU, fc=1 fw=023 op0=r op1=r r=st0 r=st3 fpu-inc=1
 # fsub st,st(3)
-D8 E3, Fsub_st0_sti, Legacy, FPU, op0=rw op1=r rw=st0 r=st3
+D8 E3, Fsub_st0_sti, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st0 r=st3
 # fsubr st,st(3)
-D8 EB, Fsubr_st0_sti, Legacy, FPU, op0=rw op1=r rw=st0 r=st3
+D8 EB, Fsubr_st0_sti, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st0 r=st3
 # fdiv st,st(3)
-D8 F3, Fdiv_st0_sti, Legacy, FPU, op0=rw op1=r rw=st0 r=st3
+D8 F3, Fdiv_st0_sti, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st0 r=st3
 # fdivr st,st(3)
-D8 FB, Fdivr_st0_sti, Legacy, FPU, op0=rw op1=r rw=st0 r=st3
+D8 FB, Fdivr_st0_sti, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st0 r=st3
 # fld dword ptr [rax]
-D9 00, Fld_m32fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float32 w=st0
+D9 00, Fld_m32fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float32 fpu-inc=-1
 # fst dword ptr [rax]
-D9 10, Fst_m32fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float32 r=st0
+D9 10, Fst_m32fp, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Float32 r=st0
 # fstp dword ptr [rax]
-D9 18, Fstp_m32fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float32 r=st0
+D9 18, Fstp_m32fp, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Float32 r=st0 fpu-inc=1
 # fldenv fpuenv14 ptr [rax]
-66 D9 20, Fldenv_m14byte, Legacy, FPU, op0=r r=rax rm=ds:rax;FpuEnv14
+66 D9 20, Fldenv_m14byte, Legacy, FPU, fpu-writes-top fw=0123 op0=r r=rax rm=ds:rax;FpuEnv14
 # fldenv [rax]
-D9 20, Fldenv_m28byte, Legacy, FPU387, op0=r r=rax rm=ds:rax;FpuEnv28
+D9 20, Fldenv_m28byte, Legacy, FPU387, fpu-writes-top fw=0123 op0=r r=rax rm=ds:rax;FpuEnv28
 # fldcw [rax]
-D9 28, Fldcw_m2byte, Legacy, FPU, op0=r r=rax rm=ds:rax;UInt16
+D9 28, Fldcw_m2byte, Legacy, FPU, fu=0123 op0=r r=rax rm=ds:rax;UInt16
 # fnstenv fpuenv14 ptr [rax]
-66 D9 30, Fnstenv_m14byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv14
+66 D9 30, Fnstenv_m14byte, Legacy, FPU, fr=0123 fu=0123 op0=w r=rax wm=ds:rax;FpuEnv14
 # fnstenv [rax]
-D9 30, Fnstenv_m28byte, Legacy, FPU387, op0=w r=rax wm=ds:rax;FpuEnv28
+D9 30, Fnstenv_m28byte, Legacy, FPU387, fr=0123 fu=0123 op0=w r=rax wm=ds:rax;FpuEnv28
 # fnstcw [rax]
-D9 38, Fnstcw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
+D9 38, Fnstcw_m2byte, Legacy, FPU, fu=0123 op0=w r=rax wm=ds:rax;UInt16
 # fld st(3)
-D9 C3, Fld_st0_sti, Legacy, FPU, op0=w op1=r w=st0 r=st3
+D9 C3, Fld_sti, Legacy, FPU, fw=1 fu=023 op0=r r=st3 fpu-inc=-1
 # fxch st(3)
-D9 CB, Fxch_st0_sti, Legacy, FPU, op0=rw op1=rw rw=st0 rw=st3
+D9 CB, Fxch_st0_sti, Legacy, FPU, fc=1 fu=023 op0=rw op1=rw rw=st0 rw=st3
 # fnop
 D9 D0, Fnop, Legacy, FPU,
 # fchs
-D9 E0, Fchs, Legacy, FPU, rw=st0
+D9 E0, Fchs, Legacy, FPU, fc=1 fu=023 rw=st0
 # fabs
-D9 E1, Fabs, Legacy, FPU, rw=st0
+D9 E1, Fabs, Legacy, FPU, fc=1 fu=023 rw=st0
 # ftst
-D9 E4, Ftst, Legacy, FPU, r=st0
+D9 E4, Ftst, Legacy, FPU, fc=1 fw=023 r=st0
 # fxam
-D9 E5, Fxam, Legacy, FPU, r=st0
+D9 E5, Fxam, Legacy, FPU, fw=0123 r=st0
 # fld1
-D9 E8, Fld1, Legacy, FPU, w=st0
+D9 E8, Fld1, Legacy, FPU, fw=1 fu=023 fpu-inc=-1
 # fldl2t
-D9 E9, Fldl2t, Legacy, FPU, w=st0
+D9 E9, Fldl2t, Legacy, FPU, fw=1 fu=023 fpu-inc=-1
 # fldl2e
-D9 EA, Fldl2e, Legacy, FPU, w=st0
+D9 EA, Fldl2e, Legacy, FPU, fw=1 fu=023 fpu-inc=-1
 # fldpi
-D9 EB, Fldpi, Legacy, FPU, w=st0
+D9 EB, Fldpi, Legacy, FPU, fw=1 fu=023 fpu-inc=-1
 # fldlg2
-D9 EC, Fldlg2, Legacy, FPU, w=st0
+D9 EC, Fldlg2, Legacy, FPU, fw=1 fu=023 fpu-inc=-1
 # fldln2
-D9 ED, Fldln2, Legacy, FPU, w=st0
+D9 ED, Fldln2, Legacy, FPU, fw=1 fu=023 fpu-inc=-1
 # fldz
-D9 EE, Fldz, Legacy, FPU, w=st0
+D9 EE, Fldz, Legacy, FPU, fw=1 fu=023 fpu-inc=-1
 # f2xm1
-D9 F0, F2xm1, Legacy, FPU, rw=st0
+D9 F0, F2xm1, Legacy, FPU, fw=1 fu=023 rw=st0
 # fyl2x
-D9 F1, Fyl2x, Legacy, FPU, r=st0 rw=st1
+D9 F1, Fyl2x, Legacy, FPU, fw=1 fu=023 r=st0 rw=st1 fpu-inc=1
 # fptan
-D9 F2, Fptan, Legacy, FPU, rw=st0
+D9 F2, Fptan, Legacy, FPU, fw=12 fu=03 rcw=st0 fpu-inc=-1 fpu-cond
 # fpatan
-D9 F3, Fpatan, Legacy, FPU, r=st0 rw=st1
+D9 F3, Fpatan, Legacy, FPU, fw=1 fu=023 r=st0 rw=st1 fpu-inc=1
 # fxtract
-D9 F4, Fxtract, Legacy, FPU, rw=st0
+D9 F4, Fxtract, Legacy, FPU, fw=1 fu=023 rw=st0 fpu-inc=-1
 # fprem1
-D9 F5, Fprem1, Legacy, FPU387, rw=st0 r=st1
+D9 F5, Fprem1, Legacy, FPU387, fw=0123 rw=st0 r=st1
 # fdecstp
-D9 F6, Fdecstp, Legacy, FPU,
+D9 F6, Fdecstp, Legacy, FPU, fc=1 fu=023 fpu-inc=-1
 # fincstp
-D9 F7, Fincstp, Legacy, FPU,
+D9 F7, Fincstp, Legacy, FPU, fc=1 fu=023 fpu-inc=1
 # fprem
-D9 F8, Fprem, Legacy, FPU, rw=st0 r=st1
+D9 F8, Fprem, Legacy, FPU, fw=0123 rw=st0 r=st1
 # fyl2xp1
-D9 F9, Fyl2xp1, Legacy, FPU, r=st0 rw=st1
+D9 F9, Fyl2xp1, Legacy, FPU, fw=1 fu=023 r=st0 rw=st1 fpu-inc=1
 # fsqrt
-D9 FA, Fsqrt, Legacy, FPU, rw=st0
+D9 FA, Fsqrt, Legacy, FPU, fw=1 fu=023 rw=st0
 # fsincos
-D9 FB, Fsincos, Legacy, FPU387, rw=st0
+D9 FB, Fsincos, Legacy, FPU387, fw=12 fu=03 rcw=st0 fpu-inc=-1 fpu-cond
 # frndint
-D9 FC, Frndint, Legacy, FPU, rw=st0
+D9 FC, Frndint, Legacy, FPU, fw=1 fu=023 rw=st0
 # fscale
-D9 FD, Fscale, Legacy, FPU, rw=st0 r=st1
+D9 FD, Fscale, Legacy, FPU, fw=1 fu=023 rw=st0 r=st1
 # fsin
-D9 FE, Fsin, Legacy, FPU387, rw=st0
+D9 FE, Fsin, Legacy, FPU387, fw=12 fu=03 rcw=st0
 # fcos
-D9 FF, Fcos, Legacy, FPU387, rw=st0
+D9 FF, Fcos, Legacy, FPU387, fw=12 fu=03 rcw=st0
 # fiadd dword ptr [rax]
-DA 00, Fiadd_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 rw=st0
+DA 00, Fiadd_m32int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int32 rw=st0
 # fimul dword ptr [rax]
-DA 08, Fimul_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 rw=st0
+DA 08, Fimul_m32int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int32 rw=st0
 # ficom dword ptr [rax]
-DA 10, Ficom_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 r=st0
+DA 10, Ficom_m32int, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Int32 r=st0
 # ficomp dword ptr [rax]
-DA 18, Ficomp_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 r=st0
+DA 18, Ficomp_m32int, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Int32 r=st0 fpu-inc=1
 # fisub dword ptr [rax]
-DA 20, Fisub_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 rw=st0
+DA 20, Fisub_m32int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int32 rw=st0
 # fisubr dword ptr [rax]
-DA 28, Fisubr_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 rw=st0
+DA 28, Fisubr_m32int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int32 rw=st0
 # fidiv dword ptr [rax]
-DA 30, Fidiv_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 rw=st0
+DA 30, Fidiv_m32int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int32 rw=st0
 # fidivr dword ptr [rax]
-DA 38, Fidivr_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 rw=st0
+DA 38, Fidivr_m32int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int32 rw=st0
 # fcmovb st,st(3)
-DA C3, Fcmovb_st0_sti, Legacy, FPU;CMOV, fr=c op0=cw op1=cr cw=st0 cr=st3
+DA C3, Fcmovb_st0_sti, Legacy, FPU;CMOV, fr=c fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fcmove st,st(3)
-DA CB, Fcmove_st0_sti, Legacy, FPU;CMOV, fr=z op0=cw op1=cr cw=st0 cr=st3
+DA CB, Fcmove_st0_sti, Legacy, FPU;CMOV, fr=z fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fcmovbe st,st(3)
-DA D3, Fcmovbe_st0_sti, Legacy, FPU;CMOV, fr=cz op0=cw op1=cr cw=st0 cr=st3
+DA D3, Fcmovbe_st0_sti, Legacy, FPU;CMOV, fr=cz fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fcmovu st,st(3)
-DA DB, Fcmovu_st0_sti, Legacy, FPU;CMOV, fr=p op0=cw op1=cr cw=st0 cr=st3
+DA DB, Fcmovu_st0_sti, Legacy, FPU;CMOV, fr=p fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fucompp
-DA E9, Fucompp, Legacy, FPU387, r=st0 r=st1
+DA E9, Fucompp, Legacy, FPU387, fc=1 fw=023 r=st0 r=st1 fpu-inc=2
 # fild dword ptr [rax]
-DB 00, Fild_m32int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int32 w=st0
+DB 00, Fild_m32int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int32 fpu-inc=-1
 # fisttp dword ptr [rax]
-DB 08, Fisttp_m32int, Legacy, FPU;SSE3, op0=w r=rax wm=ds:rax;Int32 r=st0
+DB 08, Fisttp_m32int, Legacy, FPU;SSE3, fc=1 fu=023 op0=w r=rax wm=ds:rax;Int32 r=st0 fpu-inc=1
 # fist dword ptr [rax]
-DB 10, Fist_m32int, Legacy, FPU, op0=w r=rax wm=ds:rax;Int32 r=st0
+DB 10, Fist_m32int, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Int32 r=st0
 # fistp dword ptr [rax]
-DB 18, Fistp_m32int, Legacy, FPU, op0=w r=rax wm=ds:rax;Int32 r=st0
+DB 18, Fistp_m32int, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Int32 r=st0 fpu-inc=1
 # fld tbyte ptr [rax]
-DB 28, Fld_m80fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float80 w=st0
+DB 28, Fld_m80fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float80 fpu-inc=-1
 # fstp tbyte ptr [rax]
-DB 38, Fstp_m80fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float80 r=st0
+DB 38, Fstp_m80fp, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Float80 r=st0 fpu-inc=1
 # fcmovnb st,st(3)
-DB C3, Fcmovnb_st0_sti, Legacy, FPU;CMOV, fr=c op0=cw op1=cr cw=st0 cr=st3
+DB C3, Fcmovnb_st0_sti, Legacy, FPU;CMOV, fr=c fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fcmovne st,st(3)
-DB CB, Fcmovne_st0_sti, Legacy, FPU;CMOV, fr=z op0=cw op1=cr cw=st0 cr=st3
+DB CB, Fcmovne_st0_sti, Legacy, FPU;CMOV, fr=z fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fcmovnbe st,st(3)
-DB D3, Fcmovnbe_st0_sti, Legacy, FPU;CMOV, fr=cz op0=cw op1=cr cw=st0 cr=st3
+DB D3, Fcmovnbe_st0_sti, Legacy, FPU;CMOV, fr=cz fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fcmovnu st,st(3)
-DB DB, Fcmovnu_st0_sti, Legacy, FPU;CMOV, fr=p op0=cw op1=cr cw=st0 cr=st3
+DB DB, Fcmovnu_st0_sti, Legacy, FPU;CMOV, fr=p fc=1 fu=023 op0=cw op1=cr cw=st0 cr=st3
 # fnclex
-DB E2, Fnclex, Legacy, FPU,
+DB E2, Fnclex, Legacy, FPU, fu=0123
 # fninit
-DB E3, Fninit, Legacy, FPU,
+DB E3, Fninit, Legacy, FPU, fpu-writes-top fc=0123
 # fucomi st,st(3)
-DB EB, Fucomi_st0_sti, Legacy, FPU;CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DB EB, Fucomi_st0_sti, Legacy, FPU;CMOV, fc=1 fw=cpz fc=aos op0=r op1=r r=st0 r=st3
 # fcomi st,st(3)
-DB F3, Fcomi_st0_sti, Legacy, FPU;CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DB F3, Fcomi_st0_sti, Legacy, FPU;CMOV, fc=1 fw=cpz fc=aos op0=r op1=r r=st0 r=st3
 # fadd qword ptr [rax]
-DC 00, Fadd_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 rw=st0
+DC 00, Fadd_m64fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float64 rw=st0
 # fmul qword ptr [rax]
-DC 08, Fmul_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 rw=st0
+DC 08, Fmul_m64fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float64 rw=st0
 # fcom qword ptr [rax]
-DC 10, Fcom_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 r=st0
+DC 10, Fcom_m64fp, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Float64 r=st0
 # fcomp qword ptr [rax]
-DC 18, Fcomp_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 r=st0
+DC 18, Fcomp_m64fp, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Float64 r=st0 fpu-inc=1
 # fsub qword ptr [rax]
-DC 20, Fsub_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 rw=st0
+DC 20, Fsub_m64fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float64 rw=st0
 # fsubr qword ptr [rax]
-DC 28, Fsubr_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 rw=st0
+DC 28, Fsubr_m64fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float64 rw=st0
 # fdiv qword ptr [rax]
-DC 30, Fdiv_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 rw=st0
+DC 30, Fdiv_m64fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float64 rw=st0
 # fdivr qword ptr [rax]
-DC 38, Fdivr_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 rw=st0
+DC 38, Fdivr_m64fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float64 rw=st0
 # fadd st(3),st
-DC C3, Fadd_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DC C3, Fadd_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0
 # fmul st(3),st
-DC CB, Fmul_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DC CB, Fmul_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0
 # fsubr st(3),st
-DC E3, Fsubr_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DC E3, Fsubr_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0
 # fsub st(3),st
-DC EB, Fsub_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DC EB, Fsub_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0
 # fdivr st(3),st
-DC F3, Fdivr_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DC F3, Fdivr_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0
 # fdiv st(3),st
-DC FB, Fdiv_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DC FB, Fdiv_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0
 # fld qword ptr [rax]
-DD 00, Fld_m64fp, Legacy, FPU, op0=r r=rax rm=ds:rax;Float64 w=st0
+DD 00, Fld_m64fp, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Float64 fpu-inc=-1
 # fisttp qword ptr [rax]
-DD 08, Fisttp_m64int, Legacy, FPU;SSE3, op0=w r=rax wm=ds:rax;Int64 r=st0
+DD 08, Fisttp_m64int, Legacy, FPU;SSE3, fc=1 fu=023 op0=w r=rax wm=ds:rax;Int64 r=st0 fpu-inc=1
 # fst qword ptr [rax]
-DD 10, Fst_m64fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
+DD 10, Fst_m64fp, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Float64 r=st0
 # fstp qword ptr [rax]
-DD 18, Fstp_m64fp, Legacy, FPU, op0=w r=rax wm=ds:rax;Float64 r=st0
+DD 18, Fstp_m64fp, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Float64 r=st0 fpu-inc=1
 # frstor fpustate94 ptr [rax]
-66 DD 20, Frstor_m94byte, Legacy, FPU, op0=r r=rax w=st0-st7;mm0-mm7 rm=ds:rax;FpuState94
+66 DD 20, Frstor_m94byte, Legacy, FPU, fpu-writes-top fw=0123 op0=r r=rax w=st0-st7;mm0-mm7 rm=ds:rax;FpuState94
 # frstor [rax]
-DD 20, Frstor_m108byte, Legacy, FPU387, op0=r r=rax w=st0-st7;mm0-mm7 rm=ds:rax;FpuState108
+DD 20, Frstor_m108byte, Legacy, FPU387, fpu-writes-top fw=0123 op0=r r=rax w=st0-st7;mm0-mm7 rm=ds:rax;FpuState108
 # fnsave fpustate94 ptr [rax]
-66 DD 30, Fnsave_m94byte, Legacy, FPU, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState94
+66 DD 30, Fnsave_m94byte, Legacy, FPU, fpu-writes-top fr=0123 fc=0123 op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState94
 # fnsave [rax]
-DD 30, Fnsave_m108byte, Legacy, FPU387, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState108
+DD 30, Fnsave_m108byte, Legacy, FPU387, fpu-writes-top fr=0123 fc=0123 op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState108
 # fnstsw [rax]
-DD 38, Fnstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16
+DD 38, Fnstsw_m2byte, Legacy, FPU, fr=0123 fu=0123 op0=w r=rax wm=ds:rax;UInt16
 # ffree st(3)
-DD C3, Ffree_sti, Legacy, FPU, op0=n
+DD C3, Ffree_sti, Legacy, FPU, fu=0123 op0=n
 # fst st(3)
-DD D3, Fst_sti, Legacy, FPU, op0=w w=st3 r=st0
+DD D3, Fst_sti, Legacy, FPU, fw=1 fu=023 op0=w w=st3 r=st0
 # fstp st(3)
-DD DB, Fstp_sti, Legacy, FPU, op0=w w=st3 r=st0
+DD DB, Fstp_sti, Legacy, FPU, fw=1 fu=023 op0=w w=st3 r=st0 fpu-inc=1
 # fucom st(3)
-DD E3, Fucom_st0_sti, Legacy, FPU, op0=r op1=r r=st0 r=st3
+DD E3, Fucom_st0_sti, Legacy, FPU, fc=1 fw=023 op0=r op1=r r=st0 r=st3
 # fucomp st(3)
-DD EB, Fucomp_st0_sti, Legacy, FPU, op0=r op1=r r=st0 r=st3
+DD EB, Fucomp_st0_sti, Legacy, FPU, fc=1 fw=023 op0=r op1=r r=st0 r=st3 fpu-inc=1
 # fiadd word ptr [rax]
-DE 00, Fiadd_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 rw=st0
+DE 00, Fiadd_m16int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int16 rw=st0
 # fimul word ptr [rax]
-DE 08, Fimul_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 rw=st0
+DE 08, Fimul_m16int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int16 rw=st0
 # ficom word ptr [rax]
-DE 10, Ficom_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 r=st0
+DE 10, Ficom_m16int, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Int16 r=st0
 # ficomp word ptr [rax]
-DE 18, Ficomp_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 r=st0
+DE 18, Ficomp_m16int, Legacy, FPU, fc=1 fw=023 op0=r r=rax rm=ds:rax;Int16 r=st0 fpu-inc=1
 # fisub word ptr [rax]
-DE 20, Fisub_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 rw=st0
+DE 20, Fisub_m16int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int16 rw=st0
 # fisubr word ptr [rax]
-DE 28, Fisubr_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 rw=st0
+DE 28, Fisubr_m16int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int16 rw=st0
 # fidiv word ptr [rax]
-DE 30, Fidiv_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 rw=st0
+DE 30, Fidiv_m16int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int16 rw=st0
 # fidivr word ptr [rax]
-DE 38, Fidivr_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 rw=st0
+DE 38, Fidivr_m16int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int16 rw=st0
 # faddp st(3),st
-DE C3, Faddp_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DE C3, Faddp_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0 fpu-inc=1
 # fmulp st(3),st
-DE CB, Fmulp_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DE CB, Fmulp_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0 fpu-inc=1
 # fcompp
-DE D9, Fcompp, Legacy, FPU, r=st0 r=st1
+DE D9, Fcompp, Legacy, FPU, fc=1 fw=023 r=st0 r=st1 fpu-inc=2
 # fsubrp st(3),st
-DE E3, Fsubrp_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DE E3, Fsubrp_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0 fpu-inc=1
 # fsubp st(3),st
-DE EB, Fsubp_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DE EB, Fsubp_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0 fpu-inc=1
 # fdivrp st(3),st
-DE F3, Fdivrp_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DE F3, Fdivrp_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0 fpu-inc=1
 # fdivp st(3),st
-DE FB, Fdivp_sti_st0, Legacy, FPU, op0=rw op1=r rw=st3 r=st0
+DE FB, Fdivp_sti_st0, Legacy, FPU, fw=1 fu=023 op0=rw op1=r rw=st3 r=st0 fpu-inc=1
 # fild word ptr [rax]
-DF 00, Fild_m16int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int16 w=st0
+DF 00, Fild_m16int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int16 fpu-inc=-1
 # fisttp word ptr [rax]
-DF 08, Fisttp_m16int, Legacy, FPU;SSE3, op0=w r=rax wm=ds:rax;Int16 r=st0
+DF 08, Fisttp_m16int, Legacy, FPU;SSE3, fc=1 fu=023 op0=w r=rax wm=ds:rax;Int16 r=st0 fpu-inc=1
 # fist word ptr [rax]
-DF 10, Fist_m16int, Legacy, FPU, op0=w r=rax wm=ds:rax;Int16 r=st0
+DF 10, Fist_m16int, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Int16 r=st0
 # fistp word ptr [rax]
-DF 18, Fistp_m16int, Legacy, FPU, op0=w r=rax wm=ds:rax;Int16 r=st0
+DF 18, Fistp_m16int, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Int16 r=st0 fpu-inc=1
 # fbld tbyte ptr [rax]
-DF 20, Fbld_m80bcd, Legacy, FPU, op0=r r=rax rm=ds:rax;Bcd w=st0
+DF 20, Fbld_m80bcd, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Bcd fpu-inc=-1
 # fild qword ptr [rax]
-DF 28, Fild_m64int, Legacy, FPU, op0=r r=rax rm=ds:rax;Int64 w=st0
+DF 28, Fild_m64int, Legacy, FPU, fw=1 fu=023 op0=r r=rax rm=ds:rax;Int64 fpu-inc=-1
 # fbstp tbyte ptr [rax]
-DF 30, Fbstp_m80bcd, Legacy, FPU, op0=w r=rax wm=ds:rax;Bcd r=st0
+DF 30, Fbstp_m80bcd, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Bcd r=st0 fpu-inc=1
 # fistp qword ptr [rax]
-DF 38, Fistp_m64int, Legacy, FPU, op0=w r=rax wm=ds:rax;Int64 r=st0
+DF 38, Fistp_m64int, Legacy, FPU, fw=1 fu=023 op0=w r=rax wm=ds:rax;Int64 r=st0 fpu-inc=1
 # fnstsw ax
-DF E0, Fnstsw_AX, Legacy, FPU287, op0=w w=ax
+DF E0, Fnstsw_AX, Legacy, FPU287, fr=0123 fu=0123 op0=w w=ax
 # fucomip st,st(3)
-DF EB, Fucomip_st0_sti, Legacy, FPU;CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DF EB, Fucomip_st0_sti, Legacy, FPU;CMOV, fc=1 fw=cpz fc=aos op0=r op1=r r=st0 r=st3 fpu-inc=1
 # fcomip st,st(3)
-DF F3, Fcomip_st0_sti, Legacy, FPU;CMOV, fw=cpz fc=aos op0=r op1=r r=st0 r=st3
+DF F3, Fcomip_st0_sti, Legacy, FPU;CMOV, fc=1 fw=cpz fc=aos op0=r op1=r r=st0 r=st3 fpu-inc=1
 # loopned 800000000000004Dh
 67 E0 5A, Loopne_rel8_64_ECX, Legacy, X64, flow=ConditionalBranch fr=z op0=r r=ecx w=rcx
 # loopne 800000000000004Ch
@@ -17736,13 +17736,13 @@ C4E3C9 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, VEX, FMA4, op0=w op1=r op2=r 
 # add gs:[rax],bh
 65 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=gs r=rax r=bh rwm=gs:rax;UInt8
 # fstenv [rax]
-9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=rax wm=ds:rax;FpuEnv14 special
+9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, fr=0123 fu=0123 op0=w r=rax wm=ds:rax;FpuEnv14 special
 # fstenv [rax]
-9B D9 30, Fstenv_m28byte, Legacy, FPU387, op0=w r=rax wm=ds:rax;FpuEnv28 special
+9B D9 30, Fstenv_m28byte, Legacy, FPU387, fr=0123 fu=0123 op0=w r=rax wm=ds:rax;FpuEnv28 special
 # fstcw [rax]
-9B D9 38, Fstcw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
+9B D9 38, Fstcw_m2byte, Legacy, FPU, fu=0123 op0=w r=rax wm=ds:rax;UInt16 special
 # fstp st(3)
-D9 DB, Fstpnce_sti, Legacy, FPU, op0=w w=st3 r=st0
+D9 DB, Fstpnce_sti, Legacy, FPU, fw=1 fu=023 op0=w w=st3 r=st0 fpu-inc=1
 # fneni
 DB E0, Fneni, Legacy, FPU,
 # feni
@@ -17752,37 +17752,37 @@ DB E1, Fndisi, Legacy, FPU,
 # fdisi
 9B DB E1, Fdisi, Legacy, FPU, special
 # fclex
-9B DB E2, Fclex, Legacy, FPU, special
+9B DB E2, Fclex, Legacy, FPU, fu=0123 special
 # finit
-9B DB E3, Finit, Legacy, FPU, special
+9B DB E3, Finit, Legacy, FPU, fpu-writes-top fc=0123 special
 # fnsetpm
 DB E4, Fnsetpm, Legacy, FPU287,
 # fsetpm
 9B DB E4, Fsetpm, Legacy, FPU287, special
 # fcom st(3)
-DC D3, Fcom_st0_sti_DCD0, Legacy, FPU, op0=r op1=r r=st0 r=st3
+DC D3, Fcom_st0_sti_DCD0, Legacy, FPU, fc=1 fw=023 op0=r op1=r r=st0 r=st3
 # fcomp st(3)
-DC DB, Fcomp_st0_sti_DCD8, Legacy, FPU, op0=r op1=r r=st0 r=st3
+DC DB, Fcomp_st0_sti_DCD8, Legacy, FPU, fc=1 fw=023 op0=r op1=r r=st0 r=st3 fpu-inc=1
 # fsave [rax]
-9B 66 DD 30, Fsave_m94byte, Legacy, FPU, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState94 special
+9B 66 DD 30, Fsave_m94byte, Legacy, FPU, fpu-writes-top fr=0123 fc=0123 op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState94 special
 # fsave [rax]
-9B DD 30, Fsave_m108byte, Legacy, FPU387, op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState108 special
+9B DD 30, Fsave_m108byte, Legacy, FPU387, fpu-writes-top fr=0123 fc=0123 op0=w r=rax r=st0-st7;mm0-mm7 wm=ds:rax;FpuState108 special
 # fstsw [rax]
-9B DD 38, Fstsw_m2byte, Legacy, FPU, op0=w r=rax wm=ds:rax;UInt16 special
+9B DD 38, Fstsw_m2byte, Legacy, FPU, fr=0123 fu=0123 op0=w r=rax wm=ds:rax;UInt16 special
 # fxch st(3)
-DD CB, Fxch_st0_sti_DDC8, Legacy, FPU, op0=rw op1=rw rw=st0 rw=st3
+DD CB, Fxch_st0_sti_DDC8, Legacy, FPU, fc=1 fu=023 op0=rw op1=rw rw=st0 rw=st3
 # fcomp st(3)
-DE D3, Fcomp_st0_sti_DED0, Legacy, FPU, op0=r op1=r r=st0 r=st3
+DE D3, Fcomp_st0_sti_DED0, Legacy, FPU, fc=1 fw=023 op0=r op1=r r=st0 r=st3 fpu-inc=1
 # ffreep st(3)
-DF C3, Ffreep_sti, Legacy, FPU, op0=n
+DF C3, Ffreep_sti, Legacy, FPU, fu=0123 op0=n fpu-inc=1
 # fxch st(3)
-DF CB, Fxch_st0_sti_DFC8, Legacy, FPU, op0=rw op1=rw rw=st0 rw=st3
+DF CB, Fxch_st0_sti_DFC8, Legacy, FPU, fc=1 fu=023 op0=rw op1=rw rw=st0 rw=st3
 # fstp st(3)
-DF D3, Fstp_sti_DFD0, Legacy, FPU, op0=w w=st3 r=st0
+DF D3, Fstp_sti_DFD0, Legacy, FPU, fw=1 fu=023 op0=w w=st3 r=st0 fpu-inc=1
 # fstp st(3)
-DF DB, Fstp_sti_DFD8, Legacy, FPU, op0=w w=st3 r=st0
+DF DB, Fstp_sti_DFD8, Legacy, FPU, fw=1 fu=023 op0=w w=st3 r=st0 fpu-inc=1
 # fstsw ax
-9B DF E0, Fstsw_AX, Legacy, FPU287, op0=w w=ax special
+9B DF E0, Fstsw_AX, Legacy, FPU287, fr=0123 fu=0123 op0=w w=ax special
 # test dh,0A5h
 F6 CE A5, Test_rm8_imm8_F6r1, Legacy, INTEL8086, fc=oc fw=szp fu=a op0=r op1=r r=dh
 # test byte ptr [rax],0A5h

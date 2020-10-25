@@ -2956,10 +2956,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x85, 0x02,// 261 = "fstcw"
 	0x77,// 'w'
 
-	// Fld_st0_sti
-	0x25,// STIG1
+	// Fld_sti
+	0x01,// Normal_1
 	0xFE, 0x01,// 254 = "fld"
-	0x00,// False
 
 	// Fxch_st0_sti
 	0x25,// STIG1
@@ -3139,28 +3138,27 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xAF, 0x02,// 303 = "fcmovu"
 
 	// Fucompp
-	0x04,// Normal_2c
-	0xB0, 0x02,// 304 = "fucomp"
-	0x70,// 'p'
+	0x01,// Normal_1
+	0xB0, 0x02,// 304 = "fucompp"
 
 	// Fild_m32int
 	0x04,// Normal_2c
-	0xB2, 0x02,// 306 = "fild"
+	0xB1, 0x02,// 305 = "fild"
 	0x6C,// 'l'
 
 	// Fisttp_m32int
 	0x04,// Normal_2c
-	0xB3, 0x02,// 307 = "fisttp"
+	0xB2, 0x02,// 306 = "fisttp"
 	0x6C,// 'l'
 
 	// Fist_m32int
 	0x04,// Normal_2c
-	0xB4, 0x02,// 308 = "fist"
+	0xB3, 0x02,// 307 = "fist"
 	0x6C,// 'l'
 
 	// Fistp_m32int
 	0x04,// Normal_2c
-	0xB5, 0x02,// 309 = "fistp"
+	0xB4, 0x02,// 308 = "fistp"
 	0x6C,// 'l'
 
 	// Fld_m80fp
@@ -3175,71 +3173,71 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Fcmovnb_st0_sti
 	0x09,// ST_STi
-	0xB6, 0x02,// 310 = "fcmovnb"
+	0xB5, 0x02,// 309 = "fcmovnb"
 
 	// Fcmovne_st0_sti
 	0x09,// ST_STi
-	0xB7, 0x02,// 311 = "fcmovne"
+	0xB6, 0x02,// 310 = "fcmovne"
 
 	// Fcmovnbe_st0_sti
 	0x09,// ST_STi
-	0xB8, 0x02,// 312 = "fcmovnbe"
+	0xB7, 0x02,// 311 = "fcmovnbe"
 
 	// Fcmovnu_st0_sti
 	0x09,// ST_STi
-	0xB9, 0x02,// 313 = "fcmovnu"
+	0xB8, 0x02,// 312 = "fcmovnu"
 
 	// Fneni
 	0x01,// Normal_1
-	0xBA, 0x02,// 314 = "fneni"
+	0xB9, 0x02,// 313 = "fneni"
 
 	// Feni
 	0x01,// Normal_1
-	0xBB, 0x02,// 315 = "feni"
+	0xBA, 0x02,// 314 = "feni"
 
 	// Fndisi
 	0x01,// Normal_1
-	0xBC, 0x02,// 316 = "fndisi"
+	0xBB, 0x02,// 315 = "fndisi"
 
 	// Fdisi
 	0x01,// Normal_1
-	0xBD, 0x02,// 317 = "fdisi"
+	0xBC, 0x02,// 316 = "fdisi"
 
 	// Fnclex
 	0x01,// Normal_1
-	0xBE, 0x02,// 318 = "fnclex"
+	0xBD, 0x02,// 317 = "fnclex"
 
 	// Fclex
 	0x01,// Normal_1
-	0xBF, 0x02,// 319 = "fclex"
+	0xBE, 0x02,// 318 = "fclex"
 
 	// Fninit
 	0x01,// Normal_1
-	0xC0, 0x02,// 320 = "fninit"
+	0xBF, 0x02,// 319 = "fninit"
 
 	// Finit
 	0x01,// Normal_1
-	0xC1, 0x02,// 321 = "finit"
+	0xC0, 0x02,// 320 = "finit"
 
 	// Fnsetpm
 	0x01,// Normal_1
-	0xC2, 0x02,// 322 = "fnsetpm"
+	0xC1, 0x02,// 321 = "fnsetpm"
 
 	// Fsetpm
 	0x01,// Normal_1
-	0xC3, 0x02,// 323 = "fsetpm"
+	0xC2, 0x02,// 322 = "fsetpm"
 
 	// Frstpm
 	0x01,// Normal_1
-	0xC4, 0x02,// 324 = "frstpm"
+	0xC3, 0x02,// 323 = "frstpm"
 
 	// Fucomi_st0_sti
 	0x09,// ST_STi
-	0xC5, 0x02,// 325 = "fucomi"
+	0xC4, 0x02,// 324 = "fucomi"
 
 	// Fcomi_st0_sti
 	0x09,// ST_STi
-	0xC6, 0x02,// 326 = "fcomi"
+	0xC5, 0x02,// 325 = "fcomi"
 
 	// Fadd_m64fp
 	0x04,// Normal_2c
@@ -3328,7 +3326,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Fisttp_m64int
 	0x01,// Normal_1
-	0xC7, 0x02,// 327 = "fisttpll"
+	0xC6, 0x02,// 326 = "fisttpll"
 
 	// Fst_m64fp
 	0x04,// Normal_2c
@@ -3342,53 +3340,53 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Frstor_m94byte
 	0x22,// os_mem2
-	0xC8, 0x02,// 328 = "frstor"
+	0xC7, 0x02,// 327 = "frstor"
 	0x73,// 's'
 	0x10,// 0x10
 
 	// Frstor_m108byte
 	0x22,// os_mem2
-	0xC8, 0x02,// 328 = "frstor"
+	0xC7, 0x02,// 327 = "frstor"
 	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fnsave_m94byte
 	0x22,// os_mem2
-	0xC9, 0x02,// 329 = "fnsave"
+	0xC8, 0x02,// 328 = "fnsave"
 	0x73,// 's'
 	0x10,// 0x10
 
 	// Fsave_m94byte
 	0x22,// os_mem2
-	0xCA, 0x02,// 330 = "fsave"
+	0xC9, 0x02,// 329 = "fsave"
 	0x73,// 's'
 	0x10,// 0x10
 
 	// Fnsave_m108byte
 	0x22,// os_mem2
-	0xC9, 0x02,// 329 = "fnsave"
+	0xC8, 0x02,// 328 = "fnsave"
 	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fsave_m108byte
 	0x22,// os_mem2
-	0xCA, 0x02,// 330 = "fsave"
+	0xC9, 0x02,// 329 = "fsave"
 	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fnstsw_m2byte
 	0x02,// Normal_2a
-	0xCB, 0x02,// 331 = "fnstsw"
+	0xCA, 0x02,// 330 = "fnstsw"
 	0x77,// 'w'
 
 	// Fstsw_m2byte
 	0x02,// Normal_2a
-	0xCC, 0x02,// 332 = "fstsw"
+	0xCB, 0x02,// 331 = "fstsw"
 	0x77,// 'w'
 
 	// Ffree_sti
 	0x01,// Normal_1
-	0xCD, 0x02,// 333 = "ffree"
+	0xCC, 0x02,// 332 = "ffree"
 
 	// Fxch_st0_sti_DDC8
 	0x25,// STIG1
@@ -3405,12 +3403,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Fucom_st0_sti
 	0x25,// STIG1
-	0xCE, 0x02,// 334 = "fucom"
+	0xCD, 0x02,// 333 = "fucom"
 	0x01,// True
 
 	// Fucomp_st0_sti
 	0x25,// STIG1
-	0xB0, 0x02,// 304 = "fucomp"
+	0xCE, 0x02,// 334 = "fucomp"
 	0x01,// True
 
 	// Fiadd_m16int
@@ -3494,22 +3492,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Fild_m16int
 	0x04,// Normal_2c
-	0xB2, 0x02,// 306 = "fild"
+	0xB1, 0x02,// 305 = "fild"
 	0x73,// 's'
 
 	// Fisttp_m16int
 	0x04,// Normal_2c
-	0xB3, 0x02,// 307 = "fisttp"
+	0xB2, 0x02,// 306 = "fisttp"
 	0x73,// 's'
 
 	// Fist_m16int
 	0x04,// Normal_2c
-	0xB4, 0x02,// 308 = "fist"
+	0xB3, 0x02,// 307 = "fist"
 	0x73,// 's'
 
 	// Fistp_m16int
 	0x04,// Normal_2c
-	0xB5, 0x02,// 309 = "fistp"
+	0xB4, 0x02,// 308 = "fistp"
 	0x73,// 's'
 
 	// Fbld_m80bcd
@@ -3546,11 +3544,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Fnstsw_AX
 	0x01,// Normal_1
-	0xCB, 0x02,// 331 = "fnstsw"
+	0xCA, 0x02,// 330 = "fnstsw"
 
 	// Fstsw_AX
 	0x01,// Normal_1
-	0xCC, 0x02,// 332 = "fstsw"
+	0xCB, 0x02,// 331 = "fstsw"
 
 	// Fstdw_AX
 	0x01,// Normal_1

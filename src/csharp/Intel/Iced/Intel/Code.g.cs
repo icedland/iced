@@ -4181,7 +4181,7 @@ namespace Iced.Intel {
 		/// <c>8087+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		Fld_st0_sti = 522,
+		Fld_sti = 522,
 		/// <summary><c>FXCH ST(i)</c><br/>
 		/// <br/>
 		/// <c>D9 C8+i</c><br/>

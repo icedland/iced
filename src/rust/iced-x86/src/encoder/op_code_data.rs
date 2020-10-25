@@ -547,7 +547,7 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0000_0000,// Fstenv_m28byte
 	0x0000_0400,// Fnstcw_m2byte
 	0x0000_0000,// Fstcw_m2byte
-	0x0000_0000,// Fld_st0_sti
+	0x0000_0000,// Fld_sti
 	0x0000_0000,// Fxch_st0_sti
 	0x0000_0000,// Fnop
 	0x0000_0000,// Fstpnce_sti
@@ -4862,7 +4862,7 @@ pub(super) static OPC_FLAGS2: [u32; 4312] = [
 	0x1E80_3FFF,// Fstenv_m28byte
 	0x1E80_3FFF,// Fnstcw_m2byte
 	0x1E80_3FFF,// Fstcw_m2byte
-	0xBE80_3FFF,// Fld_st0_sti
+	0x1E80_3FFF,// Fld_sti
 	0xBE80_3FFF,// Fxch_st0_sti
 	0x1E80_3FFF,// Fnop
 	0x1E80_3FFF,// Fstpnce_sti

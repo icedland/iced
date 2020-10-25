@@ -47,9 +47,47 @@ namespace Generator.Tables {
 				bad = value.TrimStart() != value;
 			}
 			if (bad || !uint.TryParse(value, numberStyles, null, out result)) {
-				error = $"Invalid uint: `{origValue}`";
+				error = $"Invalid uint32: `{origValue}`";
 				result = 0;
 				return false;
+			}
+
+			error = null;
+			return true;
+		}
+
+		public static bool TryParseInt32(string value, out int result, [NotNullWhen(false)] out string? error) {
+			result = 0;
+			var origValue = value;
+			bool isSigned = value.StartsWith("-", System.StringComparison.Ordinal);
+			if (isSigned)
+				value = value.Substring(1).Trim();
+
+			var numberStyles = NumberStyles.None;
+			bool bad = false;
+			if (value.StartsWith("0x", System.StringComparison.OrdinalIgnoreCase)) {
+				numberStyles |= NumberStyles.HexNumber;
+				value = value.Substring(2);
+				bad = value.TrimStart() != value;
+			}
+			if (bad || !uint.TryParse(value, numberStyles, null, out var parsedValue)) {
+				error = $"Invalid int32: `{origValue}`";
+				return false;
+			}
+
+			if (isSigned) {
+				if (parsedValue > 0x80000000) {
+					error = $"Signed value is too small: {origValue}";
+					return false;
+				}
+				result = -(int)parsedValue;
+			}
+			else {
+				if (parsedValue > int.MaxValue) {
+					error = $"Signed value is too big: {origValue}";
+					return false;
+				}
+				result = (int)parsedValue;
 			}
 
 			error = null;

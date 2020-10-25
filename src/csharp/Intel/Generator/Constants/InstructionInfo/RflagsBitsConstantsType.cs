@@ -21,6 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.Linq;
+
 namespace Generator.Constants.InstructionInfo {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class RflagsBitsConstantsType {
@@ -30,17 +33,7 @@ namespace Generator.Constants.InstructionInfo {
 		}
 
 		static Constant[] GetConstants() =>
-			new Constant[] {
-				new Constant(ConstantKind.Char, "AF", 'a'),
-				new Constant(ConstantKind.Char, "CF", 'c'),
-				new Constant(ConstantKind.Char, "OF", 'o'),
-				new Constant(ConstantKind.Char, "PF", 'p'),
-				new Constant(ConstantKind.Char, "SF", 's'),
-				new Constant(ConstantKind.Char, "ZF", 'z'),
-				new Constant(ConstantKind.Char, "IF", 'i'),
-				new Constant(ConstantKind.Char, "DF", 'd'),
-				new Constant(ConstantKind.Char, "AC", 'A'),
-				new Constant(ConstantKind.Char, "UIF", 'u'),
-			};
+			typeof(RflagsBitsConstants).GetFields().Where(a => a.IsLiteral).OrderBy(a => a.MetadataToken).
+				Select(a => new Constant(ConstantKind.Char, a.Name, (char)(a.GetRawConstantValue() ?? throw new InvalidOperationException()))).ToArray();
 	}
 }

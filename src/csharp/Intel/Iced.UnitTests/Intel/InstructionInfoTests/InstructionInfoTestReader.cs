@@ -257,6 +257,23 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						throw new Exception($"Invalid key-value value, '{keyValue}'");
 					break;
 
+				case InstructionInfoKeys.FpuTopIncrement:
+					testCase.FpuTopIncrement = NumberConverter.ToInt32(value);
+					testCase.FpuWritesTop = true;
+					break;
+
+				case InstructionInfoKeys.FpuConditionalTop:
+					if (value != string.Empty)
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					testCase.FpuConditionalTop = true;
+					break;
+
+				case InstructionInfoKeys.FpuWritesTop:
+					if (value != string.Empty)
+						throw new Exception($"Invalid key-value value, '{keyValue}'");
+					testCase.FpuWritesTop = true;
+					break;
+
 				default:
 					throw new Exception($"Invalid key-value value, '{keyValue}'");
 				}
@@ -494,6 +511,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				case RflagsBitsConstants.IF: rflags |= RflagsBits.IF; break;
 				case RflagsBitsConstants.DF: rflags |= RflagsBits.DF; break;
 				case RflagsBitsConstants.AC: rflags |= RflagsBits.AC; break;
+				case RflagsBitsConstants.C0: rflags |= RflagsBits.C0; break;
+				case RflagsBitsConstants.C1: rflags |= RflagsBits.C1; break;
+				case RflagsBitsConstants.C2: rflags |= RflagsBits.C2; break;
+				case RflagsBitsConstants.C3: rflags |= RflagsBits.C3; break;
 				case RflagsBitsConstants.UIF: rflags |= RflagsBits.UIF; break;
 				default: return false;
 				}

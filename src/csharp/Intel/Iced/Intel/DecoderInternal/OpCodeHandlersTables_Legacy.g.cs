@@ -145,8 +145,8 @@ namespace Iced.Intel.DecoderInternal {
 				// 0 = 0x00
 				0x05,// Dup
 					0x08,// 8
-					0xAE,// ST_STi
-						0x8A, 0x04,// Fld_st0_sti
+					0xAF,// STi
+						0x8A, 0x04,// Fld_sti
 
 				// 8 = 0x08
 				0x05,// Dup

@@ -611,15 +611,15 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.ST0, OpAccess.Read);
 				}
 				break;
-			case ImpliedAccess.t_Wst0:
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, Register.ST0, OpAccess.Write);
-				}
-				break;
 			case ImpliedAccess.t_Rst0_RWst1:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.ST0, OpAccess.Read);
 					AddRegister(flags, Register.ST1, OpAccess.ReadWrite);
+				}
+				break;
+			case ImpliedAccess.t_RCWst0:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.ST0, OpAccess.ReadCondWrite);
 				}
 				break;
 			case ImpliedAccess.t_Rst1_RWst0:

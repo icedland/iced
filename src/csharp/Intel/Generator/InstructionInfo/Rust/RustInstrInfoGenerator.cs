@@ -402,5 +402,21 @@ namespace Generator.InstructionInfo.Rust {
 			var filename = genTypes.Dirs.GetRustFilename("code.rs");
 			GenerateTable(defs, "TileStrideIndexTable", filename);
 		}
+
+		protected override void GenerateFpuStackIncrementInfoTable((FpuStackInfo info, InstructionDef[] defs)[] tdefs) {
+			var filename = genTypes.Dirs.GetRustFilename("instruction.rs");
+			new FileUpdater(TargetLanguage.Rust, "FpuStackIncrementInfoTable", filename).Generate(writer => {
+				foreach (var (info, defs) in tdefs) {
+					var bar = string.Empty;
+					foreach (var def in defs) {
+						writer.WriteLine($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}");
+						bar = "| ";
+					}
+					var conditionalStr = info.Conditional ? "true" : "false";
+					var writesTopStr = info.WritesTop ? "true" : "false";
+					writer.WriteLine($"=> FpuStackIncrementInfo {{ increment: {info.Increment}, conditional: {conditionalStr}, writes_top: {writesTopStr} }},");
+				}
+			});
+		}
 	}
 }

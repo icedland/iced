@@ -190,6 +190,10 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(tc.op2_access, info.op2_access());
 	assert_eq!(tc.op3_access, info.op3_access());
 	assert_eq!(tc.op4_access, info.op4_access());
+	let fpu = instr.fpu_stack_increment_info();
+	assert_eq!(tc.fpu_top_increment, fpu.increment());
+	assert_eq!(tc.fpu_conditional_top, fpu.conditional());
+	assert_eq!(tc.fpu_writes_top, fpu.writes_top());
 	assert!(tc.used_memory.iter().collect::<HashSet<_>>() == info.used_memory().iter().collect::<HashSet<_>>());
 	assert_eq!(get_used_registers(tc.used_registers.iter()), get_used_registers(info.used_registers().iter()));
 

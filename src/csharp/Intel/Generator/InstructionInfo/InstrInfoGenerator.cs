@@ -41,10 +41,33 @@ namespace Generator.InstructionInfo {
 		protected abstract void GenerateIgnoresSegmentTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateIgnoresIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateTileStrideIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
+		protected abstract void GenerateFpuStackIncrementInfoTable((FpuStackInfo info, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateCore();
 
 		protected readonly GenTypes genTypes;
 		protected readonly InstrInfoTypes instrInfoTypes;
+
+		protected readonly struct FpuStackInfo : IEquatable<FpuStackInfo>, IComparable<FpuStackInfo> {
+			public readonly int Increment;
+			public readonly bool Conditional;
+			public readonly bool WritesTop;
+			public FpuStackInfo(InstructionDef def) {
+				Increment = def.FpuStackIncrement;
+				Conditional = (def.Flags3 & InstructionDefFlags3.IsFpuCondWriteTop) != 0;
+				WritesTop = (def.Flags3 & InstructionDefFlags3.WritesFpuTop) != 0;
+			}
+			public override bool Equals(object? obj) => obj is FpuStackInfo info && Equals(info);
+			public bool Equals(FpuStackInfo other) => Increment == other.Increment && Conditional == other.Conditional && WritesTop == other.WritesTop;
+			public override int GetHashCode() => HashCode.Combine(Increment, Conditional, WritesTop);
+
+			public int CompareTo(FpuStackInfo other) {
+				int c = Increment.CompareTo(other.Increment);
+				if (c != 0) return c;
+				c = Conditional.CompareTo(other.Conditional);
+				if (c != 0) return c;
+				return WritesTop.CompareTo(other.WritesTop);
+			}
+		}
 
 		protected InstrInfoGenerator(GenTypes genTypes) {
 			this.genTypes = genTypes;
@@ -73,10 +96,16 @@ namespace Generator.InstructionInfo {
 			GenerateImpliedAccesses(genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).ImpliedAccessesDefs);
 
 			static (EncodingKind encoding, InstructionDef[] defs)[] GetDefs(IEnumerable<InstructionDef> defs) =>
-				defs.GroupBy(a => a.Encoding, (a, b) => (a, b.OrderBy(a => a.Code.Value).ToArray())).ToArray();
+				defs.GroupBy(a => a.Encoding, (a, b) => (encoding: a, b.OrderBy(a => a.Code.Value).ToArray())).OrderBy(a => a.encoding).ToArray();
 			GenerateIgnoresSegmentTable(GetDefs(defs.Where(a => (a.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0)));
 			GenerateIgnoresIndexTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.IgnoresIndex) != 0)));
 			GenerateTileStrideIndexTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.TileStrideIndex) != 0)));
+
+			var fpuDefs = defs.
+				Where(a => a.FpuStackIncrement != 0 || (a.Flags3 & (InstructionDefFlags3.IsFpuCondWriteTop | InstructionDefFlags3.WritesFpuTop)) != 0).
+				GroupBy(a => new FpuStackInfo(a), (a, b) => (info: a, b.OrderBy(a => a.Code.Value).ToArray())).
+				OrderBy(a => a.info).ToArray();
+			GenerateFpuStackIncrementInfoTable(fpuDefs);
 
 			{
 				var shifts = new int[IcedConstants.MaxOpCount] {

@@ -5037,6 +5037,7 @@ INSTRUCTION: D8 /0 | FADD m32fp | FPU
 	ops: r=mem | Float32
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5050,6 +5051,7 @@ INSTRUCTION: D8 /1 | FMUL m32fp | FPU
 	ops: r=mem | Float32
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5063,6 +5065,7 @@ INSTRUCTION: D8 /2 | FCOM m32fp | FPU
 	ops: r=mem | Float32
 	implied: r=st0
 	code-memory-size-suffix: fp
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5076,7 +5079,8 @@ INSTRUCTION: D8 /3 | FCOMP m32fp | FPU
 	ops: r=mem | Float32
 	implied: r=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st1
@@ -5089,6 +5093,7 @@ INSTRUCTION: D8 /4 | FSUB m32fp | FPU
 	ops: r=mem | Float32
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5102,6 +5107,7 @@ INSTRUCTION: D8 /5 | FSUBR m32fp | FPU
 	ops: r=mem | Float32
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5115,6 +5121,7 @@ INSTRUCTION: D8 /6 | FDIV m32fp | FPU
 	ops: r=mem | Float32
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5128,6 +5135,7 @@ INSTRUCTION: D8 /7 | FDIVR m32fp | FPU
 	ops: r=mem | Float32
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5139,6 +5147,7 @@ END
 # Code: Fadd_st0_sti
 INSTRUCTION: D8 C0+i | FADD ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5149,6 +5158,7 @@ END
 # Code: Fmul_st0_sti
 INSTRUCTION: D8 C8+i | FMUL ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5159,6 +5169,7 @@ END
 # Code: Fcom_st0_sti
 INSTRUCTION: D8 D0+i | FCOM ST(i) | FPU
 	ops: r=st0 r=sti_opcode
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
@@ -5169,7 +5180,8 @@ END
 # Code: Fcomp_st0_sti
 INSTRUCTION: D8 D8+i | FCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -5179,6 +5191,7 @@ END
 # Code: Fsub_st0_sti
 INSTRUCTION: D8 E0+i | FSUB ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5189,6 +5202,7 @@ END
 # Code: Fsubr_st0_sti
 INSTRUCTION: D8 E8+i | FSUBR ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5199,6 +5213,7 @@ END
 # Code: Fdiv_st0_sti
 INSTRUCTION: D8 F0+i | FDIV ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5209,6 +5224,7 @@ END
 # Code: Fdivr_st0_sti
 INSTRUCTION: D8 F8+i | FDIVR ST(0), ST(i) | FPU
 	ops: rw=st0 r=sti_opcode
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5219,9 +5235,9 @@ END
 # Code: Fld_m32fp
 INSTRUCTION: D9 /0 | FLD m32fp | FPU
 	ops: r=mem | Float32
-	implied: w=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st1 load
@@ -5234,6 +5250,7 @@ INSTRUCTION: D9 /2 | FST m32fp | FPU
 	ops: w=mem | Float32
 	implied: r=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -5247,7 +5264,8 @@ INSTRUCTION: D9 /3 | FSTP m32fp | FPU
 	ops: w=mem | Float32
 	implied: r=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st2
@@ -5259,7 +5277,8 @@ END
 INSTRUCTION: o16 D9 /4 | FLDENV m14byte | FPU
 	ops: r=mem | FpuEnv14
 	code-memory-size: 14byte
-	flags: tsx-impl-abort
+	rflags: w=0123
+	flags: writes-fpu-top tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -5271,7 +5290,8 @@ END
 INSTRUCTION: o32 D9 /4 | FLDENV m28byte | FPU387
 	ops: r=mem | FpuEnv28
 	code-memory-size: 28byte
-	flags: tsx-impl-abort
+	rflags: w=0123
+	flags: writes-fpu-top tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -5283,6 +5303,7 @@ END
 INSTRUCTION: D9 /5 | FLDCW m2byte | FPU
 	ops: r=mem | UInt16
 	code-memory-size: 2byte
+	rflags: u=0123
 	flags: tsx-impl-abort
 	gas: suffix=w
 END
@@ -5291,6 +5312,7 @@ END
 INSTRUCTION: o16 D9 /6 | FNSTENV m14byte | FPU
 	ops: w=mem | FpuEnv14
 	code-memory-size: 14byte
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
@@ -5303,6 +5325,7 @@ END
 INSTRUCTION: 9B o16 D9 /6 | FSTENV m14byte | FPU
 	ops: w=mem | FpuEnv14
 	code-memory-size: 14byte
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
@@ -5315,6 +5338,7 @@ END
 INSTRUCTION: o32 D9 /6 | FNSTENV m28byte | FPU387
 	ops: w=mem | FpuEnv28
 	code-memory-size: 28byte
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
@@ -5327,6 +5351,7 @@ END
 INSTRUCTION: 9B o32 D9 /6 | FSTENV m28byte | FPU387
 	ops: w=mem | FpuEnv28
 	code-memory-size: 28byte
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
@@ -5339,6 +5364,7 @@ END
 INSTRUCTION: D9 /7 | FNSTCW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	rflags: u=0123
 	flags: tsx-impl-abort no-wait
 	gas: suffix=w
 END
@@ -5347,23 +5373,23 @@ END
 INSTRUCTION: 9B D9 /7 | FSTCW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	rflags: u=0123
 	flags: tsx-impl-abort
 	gas: suffix=w
 END
 
-# Code: Fld_st0_sti
+# Code: Fld_sti
 INSTRUCTION: D9 C0+i | FLD ST(i) | FPU
-	ops: w=st0 r=sti_opcode
-	flags: tsx-impl-abort
-	gas: st1-ignore-st1
-	intel: st1
-	masm: st1-ignore-st1
-	nasm: st1
+	ops: r=sti_opcode
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
+	intel: add-st1 load
 END
 
 # Code: Fxch_st0_sti
 INSTRUCTION: D9 C8+i | FXCH ST(i) | FPU
 	ops: rw=st0 rw=sti_opcode
+	rflags: 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
@@ -5373,6 +5399,8 @@ END
 
 # Code: Fnop
 INSTRUCTION: D9 D0 | FNOP | FPU
+	# c0,c1,c2,c3 == not updated
+
 	# Intel documents that all x87 instructions may cause a TSX abort
 	# (it's not really a NOP, it can generate #NM/#MF)
 	flags: tsx-impl-abort
@@ -5382,7 +5410,8 @@ END
 INSTRUCTION: D9 D8+i | FSTPNCE ST(i) | FPU
 	ops: w=sti_opcode
 	implied: r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: mnemonic=fstp
 	gas: mnemonic=fstp
 	intel: add-st2
@@ -5392,160 +5421,180 @@ END
 # Code: Fchs
 INSTRUCTION: D9 E0 | FCHS | FPU
 	implied: rw=st0
+	rflags: 0=1 u=023
 	flags: tsx-impl-abort
 END
 
 # Code: Fabs
 INSTRUCTION: D9 E1 | FABS | FPU
 	implied: rw=st0
+	rflags: 0=1 u=023
 	flags: tsx-impl-abort
 END
 
 # Code: Ftst
 INSTRUCTION: D9 E4 | FTST | FPU
 	implied: r=st0
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 END
 
 # Code: Fxam
 INSTRUCTION: D9 E5 | FXAM | FPU
 	implied: r=st0
+	rflags: w=0123
 	flags: tsx-impl-abort
 END
 
 # Code: Fld1
 INSTRUCTION: D9 E8 | FLD1 | FPU
-	implied: w=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: Fldl2t
 INSTRUCTION: D9 E9 | FLDL2T | FPU
-	implied: w=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: Fldl2e
 INSTRUCTION: D9 EA | FLDL2E | FPU
-	implied: w=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: Fldpi
 INSTRUCTION: D9 EB | FLDPI | FPU
-	implied: w=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: Fldlg2
 INSTRUCTION: D9 EC | FLDLG2 | FPU
-	implied: w=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: Fldln2
 INSTRUCTION: D9 ED | FLDLN2 | FPU
-	implied: w=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: Fldz
 INSTRUCTION: D9 EE | FLDZ | FPU
-	implied: w=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: F2xm1
 INSTRUCTION: D9 F0 | F2XM1 | FPU
 	implied: rw=st0
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 END
 
 # Code: Fyl2x
 INSTRUCTION: D9 F1 | FYL2X | FPU
 	implied: r=st0 rw=st1
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 END
 
 # Code: Fptan
 INSTRUCTION: D9 F2 | FPTAN | FPU
-	implied: rw=st0
-	flags: tsx-impl-abort
+	implied: rcw=st0
+	rflags: w=12 u=03
+	flags: fpu-cond-push=1 tsx-impl-abort
 END
 
 # Code: Fpatan
 INSTRUCTION: D9 F3 | FPATAN | FPU
 	implied: r=st0 rw=st1
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 END
 
 # Code: Fxtract
 INSTRUCTION: D9 F4 | FXTRACT | FPU
 	implied: rw=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 END
 
 # Code: Fprem1
 INSTRUCTION: D9 F5 | FPREM1 | FPU387
 	implied: rw=st0 r=st1
+	rflags: w=0123
 	flags: tsx-impl-abort
 END
 
 # Code: Fdecstp
 INSTRUCTION: D9 F6 | FDECSTP | FPU
-	flags: tsx-impl-abort
+	rflags: 0=1 u=023
+	flags: fpu-stack=-1 tsx-impl-abort
 END
 
 # Code: Fincstp
 INSTRUCTION: D9 F7 | FINCSTP | FPU
-	flags: tsx-impl-abort
+	rflags: 0=1 u=023
+	flags: fpu-stack=1 tsx-impl-abort
 END
 
 # Code: Fprem
 INSTRUCTION: D9 F8 | FPREM | FPU
 	implied: rw=st0 r=st1
+	rflags: w=0123
 	flags: tsx-impl-abort
 END
 
 # Code: Fyl2xp1
 INSTRUCTION: D9 F9 | FYL2XP1 | FPU
 	implied: r=st0 rw=st1
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 END
 
 # Code: Fsqrt
 INSTRUCTION: D9 FA | FSQRT | FPU
 	implied: rw=st0
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 END
 
 # Code: Fsincos
 INSTRUCTION: D9 FB | FSINCOS | FPU387
-	implied: rw=st0
-	flags: tsx-impl-abort
+	implied: rcw=st0
+	rflags: w=12 u=03
+	flags: fpu-cond-push=1 tsx-impl-abort
 END
 
 # Code: Frndint
 INSTRUCTION: D9 FC | FRNDINT | FPU
 	implied: rw=st0
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 END
 
 # Code: Fscale
 INSTRUCTION: D9 FD | FSCALE | FPU
 	implied: rw=st0 r=st1
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 END
 
 # Code: Fsin
 INSTRUCTION: D9 FE | FSIN | FPU387
-	implied: rw=st0
+	implied: rcw=st0
+	rflags: w=12 u=03
 	flags: tsx-impl-abort
 END
 
 # Code: Fcos
 INSTRUCTION: D9 FF | FCOS | FPU387
-	implied: rw=st0
+	implied: rcw=st0
+	rflags: w=12 u=03
 	flags: tsx-impl-abort
 END
 
@@ -5554,6 +5603,7 @@ INSTRUCTION: DA /0 | FIADD m32int | FPU
 	ops: r=mem | Int32
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5567,6 +5617,7 @@ INSTRUCTION: DA /1 | FIMUL m32int | FPU
 	ops: r=mem | Int32
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5580,6 +5631,7 @@ INSTRUCTION: DA /2 | FICOM m32int | FPU
 	ops: r=mem | Int32
 	implied: r=st0
 	code-memory-size-suffix: int
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5593,7 +5645,8 @@ INSTRUCTION: DA /3 | FICOMP m32int | FPU
 	ops: r=mem | Int32
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
 	intel: flags=force-size=always add-st1
@@ -5606,6 +5659,7 @@ INSTRUCTION: DA /4 | FISUB m32int | FPU
 	ops: r=mem | Int32
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5619,6 +5673,7 @@ INSTRUCTION: DA /5 | FISUBR m32int | FPU
 	ops: r=mem | Int32
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5632,6 +5687,7 @@ INSTRUCTION: DA /6 | FIDIV m32int | FPU
 	ops: r=mem | Int32
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5645,6 +5701,7 @@ INSTRUCTION: DA /7 | FIDIVR m32int | FPU
 	ops: r=mem | Int32
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5656,7 +5713,7 @@ END
 # Code: Fcmovb_st0_sti
 INSTRUCTION: DA C0+i | FCMOVB ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=c
+	rflags: r=c 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5667,7 +5724,7 @@ END
 # Code: Fcmove_st0_sti
 INSTRUCTION: DA C8+i | FCMOVE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=z
+	rflags: r=z 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5678,7 +5735,7 @@ END
 # Code: Fcmovbe_st0_sti
 INSTRUCTION: DA D0+i | FCMOVBE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=zc
+	rflags: r=zc 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5689,7 +5746,7 @@ END
 # Code: Fcmovu_st0_sti
 INSTRUCTION: DA D8+i | FCMOVU ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=p
+	rflags: r=p 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5700,16 +5757,16 @@ END
 # Code: Fucompp
 INSTRUCTION: DA E9 | FUCOMPP | FPU387
 	implied: r=st0;st1
-	flags: tsx-impl-abort
-	gas: mnemonic=fucomp flags=force-suffix suffix=p
+	rflags: 0=1 w=023
+	flags: fpu-pop=2 tsx-impl-abort
 END
 
 # Code: Fild_m32int
 INSTRUCTION: DB /0 | FILD m32int | FPU
 	ops: r=mem | Int32
-	implied: w=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
 	intel: flags=force-size=always add-st1 load
@@ -5722,7 +5779,8 @@ INSTRUCTION: DB /1 | FISTTP m32int | FPU SSE3
 	ops: w=mem | Int32
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: 0=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
 	intel: flags=force-size=always add-st2
@@ -5735,6 +5793,7 @@ INSTRUCTION: DB /2 | FIST m32int | FPU
 	ops: w=mem | Int32
 	implied: r=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5748,7 +5807,8 @@ INSTRUCTION: DB /3 | FISTP m32int | FPU
 	ops: w=mem | Int32
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
 	intel: flags=force-size=always add-st2
@@ -5759,9 +5819,9 @@ END
 # Code: Fld_m80fp
 INSTRUCTION: DB /5 | FLD m80fp | FPU
 	ops: r=mem | Float80
-	implied: w=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=t
 	intel: flags=force-size=always add-st1 load
@@ -5774,7 +5834,8 @@ INSTRUCTION: DB /7 | FSTP m80fp | FPU
 	ops: w=mem | Float80
 	implied: r=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=t
 	intel: flags=force-size=always add-st2
@@ -5785,7 +5846,7 @@ END
 # Code: Fcmovnb_st0_sti
 INSTRUCTION: DB C0+i | FCMOVNB ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=c
+	rflags: r=c 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5796,7 +5857,7 @@ END
 # Code: Fcmovne_st0_sti
 INSTRUCTION: DB C8+i | FCMOVNE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=z
+	rflags: r=z 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5807,7 +5868,7 @@ END
 # Code: Fcmovnbe_st0_sti
 INSTRUCTION: DB D0+i | FCMOVNBE ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=zc
+	rflags: r=zc 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5818,7 +5879,7 @@ END
 # Code: Fcmovnu_st0_sti
 INSTRUCTION: DB D8+i | FCMOVNU ST(0), ST(i) | FPU CMOV
 	ops: cw=st0 cr=sti_opcode
-	rflags: r=p
+	rflags: r=p 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5828,56 +5889,68 @@ END
 
 # Code: Fneni
 INSTRUCTION: DB E0 | FNENI | FPU
+	# c0,c1,c2,c3 == not updated
 	flags: tsx-impl-abort no-wait
 END
 
 # Code: Feni
 INSTRUCTION: 9B DB E0 | FENI | FPU
+	# c0,c1,c2,c3 == not updated
 	flags: tsx-impl-abort
 END
 
 # Code: Fndisi
 INSTRUCTION: DB E1 | FNDISI | FPU
+	# c0,c1,c2,c3 == not updated
 	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fdisi
 INSTRUCTION: 9B DB E1 | FDISI | FPU
+	# c0,c1,c2,c3 == not updated
 	flags: tsx-impl-abort
 END
 
 # Code: Fnclex
 INSTRUCTION: DB E2 | FNCLEX | FPU
+	rflags: u=0123
 	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fclex
 INSTRUCTION: 9B DB E2 | FCLEX | FPU
+	rflags: u=0123
 	flags: tsx-impl-abort
 END
 
 # Code: Fninit
 INSTRUCTION: DB E3 | FNINIT | FPU
-	flags: tsx-impl-abort no-wait
+	rflags: 0=0123
+	flags: writes-fpu-top tsx-impl-abort no-wait
 END
 
 # Code: Finit
 INSTRUCTION: 9B DB E3 | FINIT | FPU
-	flags: tsx-impl-abort
+	rflags: 0=0123
+	flags: writes-fpu-top tsx-impl-abort
 END
 
 # Code: Fnsetpm
 INSTRUCTION: DB E4 | FNSETPM | FPU287
+	# c0,c1,c2,c3 == not updated
 	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fsetpm
 INSTRUCTION: 9B DB E4 | FSETPM | FPU287
+	# c0,c1,c2,c3 == not updated
 	flags: tsx-impl-abort
 END
 
 # Code: Frstpm
 INSTRUCTION: DB E5 | FRSTPM | FPU287XL_ONLY
+	#TODO: assume c0,c1,c2,c3 == undefined
+	rflags: u=0123
 	flags: 16 32 tsx-impl-abort
 	decoder-option: OldFpu
 END
@@ -5885,7 +5958,7 @@ END
 # Code: Fucomi_st0_sti
 INSTRUCTION: DB E8+i | FUCOMI ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp 0=osa
+	rflags: w=zcp 0=osa 0=1
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5896,7 +5969,7 @@ END
 # Code: Fcomi_st0_sti
 INSTRUCTION: DB F0+i | FCOMI ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp 0=osa
+	rflags: w=zcp 0=osa 0=1
 	flags: tsx-impl-abort
 	gas: st1
 	intel: st1
@@ -5909,6 +5982,7 @@ INSTRUCTION: DC /0 | FADD m64fp | FPU
 	ops: r=mem | Float64
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5922,6 +5996,7 @@ INSTRUCTION: DC /1 | FMUL m64fp | FPU
 	ops: r=mem | Float64
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5935,6 +6010,7 @@ INSTRUCTION: DC /2 | FCOM m64fp | FPU
 	ops: r=mem | Float64
 	implied: r=st0
 	code-memory-size-suffix: fp
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5948,7 +6024,8 @@ INSTRUCTION: DC /3 | FCOMP m64fp | FPU
 	ops: r=mem | Float64
 	implied: r=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
 	intel: flags=force-size=always add-st1
@@ -5961,6 +6038,7 @@ INSTRUCTION: DC /4 | FSUB m64fp | FPU
 	ops: r=mem | Float64
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5974,6 +6052,7 @@ INSTRUCTION: DC /5 | FSUBR m64fp | FPU
 	ops: r=mem | Float64
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -5987,6 +6066,7 @@ INSTRUCTION: DC /6 | FDIV m64fp | FPU
 	ops: r=mem | Float64
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -6000,6 +6080,7 @@ INSTRUCTION: DC /7 | FDIVR m64fp | FPU
 	ops: r=mem | Float64
 	implied: rw=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -6011,6 +6092,7 @@ END
 # Code: Fadd_sti_st0
 INSTRUCTION: DC C0+i | FADD ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st2
 	intel: st2
@@ -6021,6 +6103,7 @@ END
 # Code: Fmul_sti_st0
 INSTRUCTION: DC C8+i | FMUL ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: st2
 	intel: st2
@@ -6032,6 +6115,7 @@ END
 INSTRUCTION: DC D0+i | FCOM ST(i) | FPU
 	ops: r=st0 r=sti_opcode
 	code-suffix: DCD0
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
@@ -6043,7 +6127,8 @@ END
 INSTRUCTION: DC D8+i | FCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
 	code-suffix: DCD8
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6054,6 +6139,7 @@ END
 INSTRUCTION: DC E0+i | FSUBR ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
 	gas: mnemonic=fsub st2
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	intel: st2
 	masm: st2
@@ -6064,6 +6150,7 @@ END
 INSTRUCTION: DC E8+i | FSUB ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
 	gas: mnemonic=fsubr st2
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	intel: st2
 	masm: st2
@@ -6074,6 +6161,7 @@ END
 INSTRUCTION: DC F0+i | FDIVR ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
 	gas: mnemonic=fdiv st2
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	intel: st2
 	masm: st2
@@ -6083,6 +6171,7 @@ END
 # Code: Fdiv_sti_st0
 INSTRUCTION: DC F8+i | FDIV ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	gas: mnemonic=fdivr st2
 	intel: st2
@@ -6093,9 +6182,9 @@ END
 # Code: Fld_m64fp
 INSTRUCTION: DD /0 | FLD m64fp | FPU
 	ops: r=mem | Float64
-	implied: w=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
 	intel: flags=force-size=always add-st1 load
@@ -6108,7 +6197,8 @@ INSTRUCTION: DD /1 | FISTTP m64int | FPU SSE3
 	ops: w=mem | Int64
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: 0=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: mnemonic=fisttpll
 	intel: flags=force-size=always add-st2
@@ -6121,6 +6211,7 @@ INSTRUCTION: DD /2 | FST m64fp | FPU
 	ops: w=mem | Float64
 	implied: r=st0
 	code-memory-size-suffix: fp
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
@@ -6134,7 +6225,8 @@ INSTRUCTION: DD /3 | FSTP m64fp | FPU
 	ops: w=mem | Float64
 	implied: r=st0
 	code-memory-size-suffix: fp
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=l
 	intel: flags=force-size=always add-st2
@@ -6147,7 +6239,8 @@ INSTRUCTION: o16 DD /4 | FRSTOR m94byte | FPU
 	ops: r=mem | FpuState94
 	implied: w=st0-st7;mm0-mm7
 	code-memory-size: 94byte
-	flags: tsx-impl-abort
+	rflags: w=0123
+	flags: writes-fpu-top tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6160,7 +6253,8 @@ INSTRUCTION: o32 DD /4 | FRSTOR m108byte | FPU387
 	ops: r=mem | FpuState108
 	implied: w=st0-st7;mm0-mm7
 	code-memory-size: 108byte
-	flags: tsx-impl-abort
+	rflags: w=0123
+	flags: writes-fpu-top tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6173,7 +6267,8 @@ INSTRUCTION: o16 DD /6 | FNSAVE m94byte | FPU
 	ops: w=mem | FpuState94
 	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 94byte
-	flags: tsx-impl-abort no-wait
+	rflags: r=0123 0=0123
+	flags: writes-fpu-top tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6186,7 +6281,8 @@ INSTRUCTION: 9B o16 DD /6 | FSAVE m94byte | FPU
 	ops: w=mem | FpuState94
 	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 94byte
-	flags: tsx-impl-abort
+	rflags: r=0123 0=0123
+	flags: writes-fpu-top tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=s osz-mem-2
 	intel: osz-mem-2 16
@@ -6199,7 +6295,8 @@ INSTRUCTION: o32 DD /6 | FNSAVE m108byte | FPU387
 	ops: w=mem | FpuState108
 	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 108byte
-	flags: tsx-impl-abort no-wait
+	rflags: r=0123 0=0123
+	flags: writes-fpu-top tsx-impl-abort no-wait
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6212,7 +6309,8 @@ INSTRUCTION: 9B o32 DD /6 | FSAVE m108byte | FPU387
 	ops: w=mem | FpuState108
 	implied: r=st0-st7;mm0-mm7
 	code-memory-size: 108byte
-	flags: tsx-impl-abort
+	rflags: r=0123 0=0123
+	flags: writes-fpu-top tsx-impl-abort
 	fast: flags=force-size=always
 	gas: suffix=l osz-mem-2
 	intel: osz-mem-2
@@ -6224,6 +6322,7 @@ END
 INSTRUCTION: DD /7 | FNSTSW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort no-wait
 	gas: suffix=w
 END
@@ -6232,6 +6331,7 @@ END
 INSTRUCTION: 9B DD /7 | FSTSW m2byte | FPU
 	ops: w=mem | UInt16
 	code-memory-size: 2byte
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort
 	gas: suffix=w
 END
@@ -6239,6 +6339,7 @@ END
 # Code: Ffree_sti
 INSTRUCTION: DD C0+i | FFREE ST(i) | FPU
 	ops: n=sti_opcode
+	rflags: u=0123
 	flags: tsx-impl-abort
 END
 
@@ -6246,6 +6347,7 @@ END
 INSTRUCTION: DD C8+i | FXCH ST(i) | FPU
 	ops: rw=st0 rw=sti_opcode
 	code-suffix: DDC8
+	rflags: 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
@@ -6257,6 +6359,7 @@ END
 INSTRUCTION: DD D0+i | FST ST(i) | FPU
 	ops: w=sti_opcode
 	implied: r=st0
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	intel: add-st2
 END
@@ -6265,13 +6368,15 @@ END
 INSTRUCTION: DD D8+i | FSTP ST(i) | FPU
 	ops: w=sti_opcode
 	implied: r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	intel: add-st2
 END
 
 # Code: Fucom_st0_sti
 INSTRUCTION: DD E0+i | FUCOM ST(i) | FPU
 	ops: r=st0 r=sti_opcode
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
@@ -6282,7 +6387,8 @@ END
 # Code: Fucomp_st0_sti
 INSTRUCTION: DD E8+i | FUCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6294,6 +6400,7 @@ INSTRUCTION: DE /0 | FIADD m16int | FPU
 	ops: r=mem | Int16
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6307,6 +6414,7 @@ INSTRUCTION: DE /1 | FIMUL m16int | FPU
 	ops: r=mem | Int16
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6320,6 +6428,7 @@ INSTRUCTION: DE /2 | FICOM m16int | FPU
 	ops: r=mem | Int16
 	implied: r=st0
 	code-memory-size-suffix: int
+	rflags: 0=1 w=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6333,7 +6442,8 @@ INSTRUCTION: DE /3 | FICOMP m16int | FPU
 	ops: r=mem | Int16
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st1
@@ -6346,6 +6456,7 @@ INSTRUCTION: DE /4 | FISUB m16int | FPU
 	ops: r=mem | Int16
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6359,6 +6470,7 @@ INSTRUCTION: DE /5 | FISUBR m16int | FPU
 	ops: r=mem | Int16
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6372,6 +6484,7 @@ INSTRUCTION: DE /6 | FIDIV m16int | FPU
 	ops: r=mem | Int16
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6385,6 +6498,7 @@ INSTRUCTION: DE /7 | FIDIVR m16int | FPU
 	ops: r=mem | Int16
 	implied: rw=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6396,7 +6510,8 @@ END
 # Code: Faddp_sti_st0
 INSTRUCTION: DE C0+i | FADDP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6406,7 +6521,8 @@ END
 # Code: Fmulp_sti_st0
 INSTRUCTION: DE C8+i | FMULP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6417,7 +6533,8 @@ END
 INSTRUCTION: DE D0+i | FCOMP ST(i) | FPU
 	ops: r=st0 r=sti_opcode
 	code-suffix: DED0
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6427,13 +6544,15 @@ END
 # Code: Fcompp
 INSTRUCTION: DE D9 | FCOMPP | FPU
 	implied: r=st0;st1
-	flags: tsx-impl-abort
+	rflags: 0=1 w=023
+	flags: fpu-pop=2 tsx-impl-abort
 END
 
 # Code: Fsubrp_sti_st0
 INSTRUCTION: DE E0+i | FSUBRP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: mnemonic=fsubp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6443,7 +6562,8 @@ END
 # Code: Fsubp_sti_st0
 INSTRUCTION: DE E8+i | FSUBP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: mnemonic=fsubrp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6453,7 +6573,8 @@ END
 # Code: Fdivrp_sti_st0
 INSTRUCTION: DE F0+i | FDIVRP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: mnemonic=fdivp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6463,7 +6584,8 @@ END
 # Code: Fdivp_sti_st0
 INSTRUCTION: DE F8+i | FDIVP ST(i), ST(0) | FPU
 	ops: rw=sti_opcode r=st0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: mnemonic=fdivrp st2 pseudo
 	intel: st2 pseudo
 	masm: st2 pseudo
@@ -6473,9 +6595,9 @@ END
 # Code: Fild_m16int
 INSTRUCTION: DF /0 | FILD m16int | FPU
 	ops: r=mem | Int16
-	implied: w=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st1 load
@@ -6488,7 +6610,8 @@ INSTRUCTION: DF /1 | FISTTP m16int | FPU SSE3
 	ops: w=mem | Int16
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: 0=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st2
@@ -6501,6 +6624,7 @@ INSTRUCTION: DF /2 | FIST m16int | FPU
 	ops: w=mem | Int16
 	implied: r=st0
 	code-memory-size-suffix: int
+	rflags: w=1 u=023
 	flags: tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
@@ -6514,7 +6638,8 @@ INSTRUCTION: DF /3 | FISTP m16int | FPU
 	ops: w=mem | Int16
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: flags=force-suffix suffix=s
 	intel: flags=force-size=always add-st2
@@ -6525,9 +6650,9 @@ END
 # Code: Fbld_m80bcd
 INSTRUCTION: DF /4 | FBLD m80bcd | FPU
 	ops: r=mem | Bcd
-	implied: w=st0
 	code-memory-size-suffix: bcd
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 	fast: flags=force-size=always
 	intel: flags=force-size=default add-st1 load
 	masm: flags=force-size=default
@@ -6537,9 +6662,9 @@ END
 # Code: Fild_m64int
 INSTRUCTION: DF /5 | FILD m64int | FPU
 	ops: r=mem | Int64
-	implied: w=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-push=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: mnemonic=fildll
 	intel: flags=force-size=always add-st1 load
@@ -6552,7 +6677,8 @@ INSTRUCTION: DF /6 | FBSTP m80bcd | FPU
 	ops: w=mem | Bcd
 	implied: r=st0
 	code-memory-size-suffix: bcd
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	intel: flags=force-size=default add-st2
 	masm: flags=force-size=default
@@ -6564,7 +6690,8 @@ INSTRUCTION: DF /7 | FISTP m64int | FPU
 	ops: w=mem | Int64
 	implied: r=st0
 	code-memory-size-suffix: int
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	fast: flags=force-size=always
 	gas: mnemonic=fistpll
 	intel: flags=force-size=always add-st2
@@ -6575,13 +6702,15 @@ END
 # Code: Ffreep_sti
 INSTRUCTION: DF C0+i | FFREEP ST(i) | FPU
 	ops: n=sti_opcode
-	flags: tsx-impl-abort
+	rflags: u=0123
+	flags: fpu-pop=1 tsx-impl-abort
 END
 
 # Code: Fxch_st0_sti_DFC8
 INSTRUCTION: DF C8+i | FXCH ST(i) | FPU
 	ops: rw=st0 rw=sti_opcode
 	code-suffix: DFC8
+	rflags: 0=1 u=023
 	flags: tsx-impl-abort
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
@@ -6594,7 +6723,8 @@ INSTRUCTION: DF D0+i | FSTP ST(i) | FPU
 	ops: w=sti_opcode
 	implied: r=st0
 	code-suffix: DFD0
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	intel: add-st2
 END
 
@@ -6603,25 +6733,30 @@ INSTRUCTION: DF D8+i | FSTP ST(i) | FPU
 	ops: w=sti_opcode
 	implied: r=st0
 	code-suffix: DFD8
-	flags: tsx-impl-abort
+	rflags: w=1 u=023
+	flags: fpu-pop=1 tsx-impl-abort
 	intel: add-st2
 END
 
 # Code: Fnstsw_AX
 INSTRUCTION: DF E0 | FNSTSW AX | FPU287
 	ops: w=ax
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort no-wait
 END
 
 # Code: Fstsw_AX
 INSTRUCTION: 9B DF E0 | FSTSW AX | FPU287
 	ops: w=ax
+	rflags: r=0123 u=0123
 	flags: tsx-impl-abort
 END
 
 # Code: Fstdw_AX
 INSTRUCTION: 9B DF E1 | FSTDW AX | FPU387SL_ONLY
 	ops: w=ax
+	#TODO: assume c0,c1,c2,c3 == undefined
+	rflags: u=0123
 	flags: 16 32 tsx-impl-abort
 	decoder-option: OldFpu
 END
@@ -6629,6 +6764,8 @@ END
 # Code: Fstsg_AX
 INSTRUCTION: 9B DF E2 | FSTSG AX | FPU387SL_ONLY
 	ops: w=ax
+	#TODO: assume c0,c1,c2,c3 == undefined
+	rflags: u=0123
 	flags: 16 32 tsx-impl-abort
 	decoder-option: OldFpu
 END
@@ -6636,8 +6773,8 @@ END
 # Code: Fucomip_st0_sti
 INSTRUCTION: DF E8+i | FUCOMIP ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp 0=osa
-	flags: tsx-impl-abort
+	rflags: w=zcp 0=osa 0=1
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -6647,8 +6784,8 @@ END
 # Code: Fcomip_st0_sti
 INSTRUCTION: DF F0+i | FCOMIP ST, ST(i) | FPU CMOV
 	ops: r=st0 r=sti_opcode
-	rflags: w=zcp 0=osa
-	flags: tsx-impl-abort
+	rflags: w=zcp 0=osa 0=1
+	flags: fpu-pop=1 tsx-impl-abort
 	gas: st1
 	intel: st1
 	masm: st1
@@ -29706,6 +29843,8 @@ END
 # Code: Fnstdw_AX
 INSTRUCTION: DF E1 | FNSTDW AX | FPU387SL_ONLY
 	ops: w=ax
+	#TODO: assume c0,c1,c2,c3 == undefined
+	rflags: u=0123
 	flags: 16 32 tsx-impl-abort no-wait
 	decoder-option: OldFpu
 END
@@ -29713,6 +29852,8 @@ END
 # Code: Fnstsg_AX
 INSTRUCTION: DF E2 | FNSTSG AX | FPU387SL_ONLY
 	ops: w=ax
+	#TODO: assume c0,c1,c2,c3 == undefined
+	rflags: u=0123
 	flags: 16 32 tsx-impl-abort no-wait
 	decoder-option: OldFpu
 END
@@ -29945,6 +30086,7 @@ END
 INSTRUCTION: D9 D7 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9D7
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -29953,6 +30095,7 @@ END
 INSTRUCTION: D9 E2 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9E2
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -29960,7 +30103,9 @@ END
 # Code: Ftstp
 INSTRUCTION: D9 E6 | FTSTP | CYRIX_FPU
 	implied: r=st0
-	flags: 16 32
+	# Assume it uses the same flags as FTST
+	rflags: 0=1 w=023
+	flags: 16 32 fpu-pop=1
 	decoder-option: Cyrix
 END
 
@@ -29968,6 +30113,7 @@ END
 INSTRUCTION: D9 E7 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9E7
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -29975,6 +30121,8 @@ END
 # Code: Frint2
 INSTRUCTION: DB FC | FRINT2 | CYRIX_FPU
 	implied: rw=st0
+	# Assume it uses the same flags as FRNDINT
+	rflags: w=1 u=023
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -29982,6 +30130,8 @@ END
 # Code: Frichop
 INSTRUCTION: DD FC | FRICHOP | CYRIX_FPU
 	implied: rw=st0
+	# Assume it uses the same flags as FRNDINT
+	rflags: w=1 u=023
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -29990,6 +30140,7 @@ END
 INSTRUCTION: DE D8 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DED8
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -29998,6 +30149,7 @@ END
 INSTRUCTION: DE DA | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDA
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -30006,6 +30158,7 @@ END
 INSTRUCTION: DE DC | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDC
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -30014,6 +30167,7 @@ END
 INSTRUCTION: DE DD | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDD
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -30022,6 +30176,7 @@ END
 INSTRUCTION: DE DE | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDE
+	rflags: u=0123
 	flags: 16 32
 	decoder-option: Cyrix
 END
@@ -30029,6 +30184,8 @@ END
 # Code: Frinear
 INSTRUCTION: DF FC | FRINEAR | CYRIX_FPU
 	implied: rw=st0
+	# Assume it uses the same flags as FRNDINT
+	rflags: w=1 u=023
 	flags: 16 32
 	decoder-option: Cyrix
 END

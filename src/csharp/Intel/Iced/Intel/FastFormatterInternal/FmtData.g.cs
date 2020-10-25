@@ -1840,7 +1840,7 @@ namespace Iced.Intel.FastFormatterInternal {
 				0x00,// No flags set
 				0x85, 0x02,// 261 = "fstcw"
 
-				// Fld_st0_sti
+				// Fld_sti
 				0x00,// No flags set
 				0xFE, 0x01,// 254 = "fld"
 
@@ -2014,23 +2014,23 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fucompp
 				0x00,// No flags set
-				0xB1, 0x02,// 305 = "fucompp"
+				0xB0, 0x02,// 304 = "fucompp"
 
 				// Fild_m32int
 				0x04,// ForceMemSize
-				0xB2, 0x02,// 306 = "fild"
+				0xB1, 0x02,// 305 = "fild"
 
 				// Fisttp_m32int
 				0x04,// ForceMemSize
-				0xB3, 0x02,// 307 = "fisttp"
+				0xB2, 0x02,// 306 = "fisttp"
 
 				// Fist_m32int
 				0x04,// ForceMemSize
-				0xB4, 0x02,// 308 = "fist"
+				0xB3, 0x02,// 307 = "fist"
 
 				// Fistp_m32int
 				0x04,// ForceMemSize
-				0xB5, 0x02,// 309 = "fistp"
+				0xB4, 0x02,// 308 = "fistp"
 
 				// Fld_m80fp
 				0x04,// ForceMemSize
@@ -2042,71 +2042,71 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fcmovnb_st0_sti
 				0x00,// No flags set
-				0xB6, 0x02,// 310 = "fcmovnb"
+				0xB5, 0x02,// 309 = "fcmovnb"
 
 				// Fcmovne_st0_sti
 				0x00,// No flags set
-				0xB7, 0x02,// 311 = "fcmovne"
+				0xB6, 0x02,// 310 = "fcmovne"
 
 				// Fcmovnbe_st0_sti
 				0x00,// No flags set
-				0xB8, 0x02,// 312 = "fcmovnbe"
+				0xB7, 0x02,// 311 = "fcmovnbe"
 
 				// Fcmovnu_st0_sti
 				0x00,// No flags set
-				0xB9, 0x02,// 313 = "fcmovnu"
+				0xB8, 0x02,// 312 = "fcmovnu"
 
 				// Fneni
 				0x00,// No flags set
-				0xBA, 0x02,// 314 = "fneni"
+				0xB9, 0x02,// 313 = "fneni"
 
 				// Feni
 				0x00,// No flags set
-				0xBB, 0x02,// 315 = "feni"
+				0xBA, 0x02,// 314 = "feni"
 
 				// Fndisi
 				0x00,// No flags set
-				0xBC, 0x02,// 316 = "fndisi"
+				0xBB, 0x02,// 315 = "fndisi"
 
 				// Fdisi
 				0x00,// No flags set
-				0xBD, 0x02,// 317 = "fdisi"
+				0xBC, 0x02,// 316 = "fdisi"
 
 				// Fnclex
 				0x00,// No flags set
-				0xBE, 0x02,// 318 = "fnclex"
+				0xBD, 0x02,// 317 = "fnclex"
 
 				// Fclex
 				0x00,// No flags set
-				0xBF, 0x02,// 319 = "fclex"
+				0xBE, 0x02,// 318 = "fclex"
 
 				// Fninit
 				0x00,// No flags set
-				0xC0, 0x02,// 320 = "fninit"
+				0xBF, 0x02,// 319 = "fninit"
 
 				// Finit
 				0x00,// No flags set
-				0xC1, 0x02,// 321 = "finit"
+				0xC0, 0x02,// 320 = "finit"
 
 				// Fnsetpm
 				0x00,// No flags set
-				0xC2, 0x02,// 322 = "fnsetpm"
+				0xC1, 0x02,// 321 = "fnsetpm"
 
 				// Fsetpm
 				0x00,// No flags set
-				0xC3, 0x02,// 323 = "fsetpm"
+				0xC2, 0x02,// 322 = "fsetpm"
 
 				// Frstpm
 				0x00,// No flags set
-				0xC4, 0x02,// 324 = "frstpm"
+				0xC3, 0x02,// 323 = "frstpm"
 
 				// Fucomi_st0_sti
 				0x00,// No flags set
-				0xC5, 0x02,// 325 = "fucomi"
+				0xC4, 0x02,// 324 = "fucomi"
 
 				// Fcomi_st0_sti
 				0x00,// No flags set
-				0xC6, 0x02,// 326 = "fcomi"
+				0xC5, 0x02,// 325 = "fcomi"
 
 				// Fadd_m64fp
 				0x04,// ForceMemSize
@@ -2178,7 +2178,7 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fisttp_m64int
 				0x04,// ForceMemSize
-				0xB3, 0x02,// 307 = "fisttp"
+				0xB2, 0x02,// 306 = "fisttp"
 
 				// Fst_m64fp
 				0x04,// ForceMemSize
@@ -2190,38 +2190,38 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Frstor_m94byte
 				0x04,// ForceMemSize
-				0xC8, 0x02,// 328 = "frstor"
+				0xC7, 0x02,// 327 = "frstor"
 
 				// Frstor_m108byte
 				0x06,// SameAsPrev, ForceMemSize
 
 				// Fnsave_m94byte
 				0x04,// ForceMemSize
-				0xC9, 0x02,// 329 = "fnsave"
+				0xC8, 0x02,// 328 = "fnsave"
 
 				// Fsave_m94byte
 				0x04,// ForceMemSize
-				0xCA, 0x02,// 330 = "fsave"
+				0xC9, 0x02,// 329 = "fsave"
 
 				// Fnsave_m108byte
 				0x04,// ForceMemSize
-				0xC9, 0x02,// 329 = "fnsave"
+				0xC8, 0x02,// 328 = "fnsave"
 
 				// Fsave_m108byte
 				0x04,// ForceMemSize
-				0xCA, 0x02,// 330 = "fsave"
+				0xC9, 0x02,// 329 = "fsave"
 
 				// Fnstsw_m2byte
 				0x00,// No flags set
-				0xCB, 0x02,// 331 = "fnstsw"
+				0xCA, 0x02,// 330 = "fnstsw"
 
 				// Fstsw_m2byte
 				0x00,// No flags set
-				0xCC, 0x02,// 332 = "fstsw"
+				0xCB, 0x02,// 331 = "fstsw"
 
 				// Ffree_sti
 				0x00,// No flags set
-				0xCD, 0x02,// 333 = "ffree"
+				0xCC, 0x02,// 332 = "ffree"
 
 				// Fxch_st0_sti_DDC8
 				0x00,// No flags set
@@ -2237,11 +2237,11 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fucom_st0_sti
 				0x00,// No flags set
-				0xCE, 0x02,// 334 = "fucom"
+				0xCD, 0x02,// 333 = "fucom"
 
 				// Fucomp_st0_sti
 				0x00,// No flags set
-				0xB0, 0x02,// 304 = "fucomp"
+				0xCE, 0x02,// 334 = "fucomp"
 
 				// Fiadd_m16int
 				0x04,// ForceMemSize
@@ -2309,19 +2309,19 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fild_m16int
 				0x04,// ForceMemSize
-				0xB2, 0x02,// 306 = "fild"
+				0xB1, 0x02,// 305 = "fild"
 
 				// Fisttp_m16int
 				0x04,// ForceMemSize
-				0xB3, 0x02,// 307 = "fisttp"
+				0xB2, 0x02,// 306 = "fisttp"
 
 				// Fist_m16int
 				0x04,// ForceMemSize
-				0xB4, 0x02,// 308 = "fist"
+				0xB3, 0x02,// 307 = "fist"
 
 				// Fistp_m16int
 				0x04,// ForceMemSize
-				0xB5, 0x02,// 309 = "fistp"
+				0xB4, 0x02,// 308 = "fistp"
 
 				// Fbld_m80bcd
 				0x04,// ForceMemSize
@@ -2329,7 +2329,7 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fild_m64int
 				0x04,// ForceMemSize
-				0xB2, 0x02,// 306 = "fild"
+				0xB1, 0x02,// 305 = "fild"
 
 				// Fbstp_m80bcd
 				0x04,// ForceMemSize
@@ -2337,7 +2337,7 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fistp_m64int
 				0x04,// ForceMemSize
-				0xB5, 0x02,// 309 = "fistp"
+				0xB4, 0x02,// 308 = "fistp"
 
 				// Ffreep_sti
 				0x00,// No flags set
@@ -2356,11 +2356,11 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Fnstsw_AX
 				0x00,// No flags set
-				0xCB, 0x02,// 331 = "fnstsw"
+				0xCA, 0x02,// 330 = "fnstsw"
 
 				// Fstsw_AX
 				0x00,// No flags set
-				0xCC, 0x02,// 332 = "fstsw"
+				0xCB, 0x02,// 331 = "fstsw"
 
 				// Fstdw_AX
 				0x00,// No flags set

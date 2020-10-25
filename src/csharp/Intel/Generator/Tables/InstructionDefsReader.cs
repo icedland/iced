@@ -80,6 +80,14 @@ namespace Generator.Tables {
 		const string DefBeginPrefix = "INSTRUCTION:";
 		const string DefEnd = "END";
 
+		static readonly HashSet<string> flagsMustHaveKeyValue = new HashSet<string>(StringComparer.Ordinal) {
+			"vmx",
+			"fpu-push",
+			"fpu-cond-push",
+			"fpu-pop",
+			"fpu-stack",
+		};
+
 		public InstructionDefsReader(GenTypes genTypes, string filename) {
 			sb = new StringBuilder();
 			impliedOps = new List<InstrStrImpliedOp>();
@@ -463,7 +471,20 @@ namespace Generator.Tables {
 					}
 					hasFlags = true;
 					foreach (var value in lineValue.Split(' ', StringSplitOptions.RemoveEmptyEntries)) {
-						switch (value) {
+						var (newKey, newValue) = ParserUtils.GetKeyValue(value);
+						if (newValue == string.Empty) {
+							if (flagsMustHaveKeyValue.Contains(newKey)) {
+								Error(lineIndex, $"Expected `key=value` but got `{value}`");
+								return false;
+							}
+						}
+						else {
+							if (!flagsMustHaveKeyValue.Contains(newKey)) {
+								Error(lineIndex, $"Expected `key` but got `key=value`: `{value}`");
+								return false;
+							}
+						}
+						switch (newKey) {
 						case "16": state.Flags1 |= InstructionDefFlags1.Bit16; break;
 						case "32": state.Flags1 |= InstructionDefFlags1.Bit32; break;
 						case "64": state.Flags1 |= InstructionDefFlags1.Bit64; break;
@@ -550,17 +571,15 @@ namespace Generator.Tables {
 						case "ignores-index": state.Flags3 |= InstructionDefFlags3.IgnoresIndex; break;
 						case "tile-stride-index": state.Flags3 |= InstructionDefFlags3.TileStrideIndex; break;
 
-						case "vmx=op":
-						case "vmx=root":
-						case "vmx=non-root":
+						case "vmx":
 							if (state.VmxMode != VmxMode.None) {
 								error = "Duplicate vmx value";
 								return false;
 							}
-							state.VmxMode = value switch {
-								"vmx=op" => VmxMode.VmxOp,
-								"vmx=root" => VmxMode.VmxRootOp,
-								"vmx=non-root" => VmxMode.VmxNonRootOp,
+							state.VmxMode = newValue switch {
+								"op" => VmxMode.VmxOp,
+								"root" => VmxMode.VmxRootOp,
+								"non-root" => VmxMode.VmxNonRootOp,
 								_ => throw new InvalidOperationException(),
 							};
 							break;
@@ -572,6 +591,47 @@ namespace Generator.Tables {
 								return false;
 							}
 							privileged = value == "privileged";
+							break;
+
+						case "fpu-push":
+						case "fpu-cond-push":
+						case "fpu-pop":
+						case "fpu-stack":
+							if (state.FpuStackIncrement != 0) {
+								error = $"At most one of these can be used: `fpu-push`, `fpu-cond-push`, `fpu-pop`, `fpu-stack`";
+								return false;
+							}
+							if (!ParserUtils.TryParseInt32(newValue, out int stackCount, out error))
+								return false;
+							state.Flags3 |= InstructionDefFlags3.WritesFpuTop;
+							switch (newKey) {
+							case "fpu-push":
+							case "fpu-cond-push":
+								if (stackCount < 1) {
+									error = $"Invalid FPU stack push count: {newValue}";
+									return false;
+								}
+								state.FpuStackIncrement = -stackCount;
+								if (newKey == "fpu-cond-push")
+									state.Flags3 |= InstructionDefFlags3.IsFpuCondWriteTop;
+								break;
+							case "fpu-pop":
+								if (stackCount < 1) {
+									error = $"Invalid FPU stack pop count: {newValue}";
+									return false;
+								}
+								state.FpuStackIncrement = stackCount;
+								break;
+							case "fpu-stack":
+								state.FpuStackIncrement = stackCount;
+								break;
+							default:
+								throw new InvalidOperationException();
+							}
+							break;
+
+						case "writes-fpu-top":
+							state.Flags3 |= InstructionDefFlags3.WritesFpuTop;
 							break;
 
 						default:
@@ -1038,7 +1098,7 @@ namespace Generator.Tables {
 				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
-				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.RflagsRead,
+				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.FpuStackIncrement, state.RflagsRead,
 				state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
 				fastDef, gasDef, intelDef, masmDef, nasmDef);
 			defLineIndex = state.LineIndex;
@@ -1092,11 +1152,10 @@ namespace Generator.Tables {
 			public IEnumerable<(string key, string value)> GetKeyValues() {
 				for (; index < parts.Length; index++) {
 					var part = parts[index];
+					var (key, value) = ParserUtils.GetKeyValue(part);
 					int eqIndex = part.IndexOf('=');
-					if (eqIndex < 0)
+					if (value == string.Empty)
 						break;
-					var key = part.Substring(0, eqIndex).Trim();
-					var value = part.Substring(eqIndex + 1).Trim();
 					yield return (key, value);
 				}
 			}
@@ -2993,6 +3052,10 @@ namespace Generator.Tables {
 				case 'd': rflags |= RflagsBits.DF; break;
 				case 'i': rflags |= RflagsBits.IF; break;
 				case 'A': rflags |= RflagsBits.AC; break;
+				case '0': rflags |= RflagsBits.C0; break;
+				case '1': rflags |= RflagsBits.C1; break;
+				case '2': rflags |= RflagsBits.C2; break;
+				case '3': rflags |= RflagsBits.C3; break;
 				case 'u': rflags |= RflagsBits.UIF; break;
 				default: error = $"Unknown rflags char `{c}`"; return false;
 				}
@@ -3146,6 +3209,7 @@ namespace Generator.Tables {
 		public RflagsBits RflagsWritten;
 		public RflagsBits RflagsCleared;
 		public RflagsBits RflagsSet;
+		public int FpuStackIncrement;
 		public InstrStrFmtOption InstrStrFmtOption;
 		public InstructionStringFlags InstrStrFlags;
 		public EnumValue? PseudoOpsKind;

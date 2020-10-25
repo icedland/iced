@@ -49,6 +49,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public OpAccess Op2Access = OpAccess.None;
 		public OpAccess Op3Access = OpAccess.None;
 		public OpAccess Op4Access = OpAccess.None;
+		public int FpuTopIncrement = 0;
+		public bool FpuConditionalTop = false;
+		public bool FpuWritesTop = false;
 	}
 }
 #endif

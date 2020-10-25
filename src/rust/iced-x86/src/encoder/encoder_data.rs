@@ -547,7 +547,7 @@ pub(super) static ENC_FLAGS1: [u32; 4312] = [
 	0x0000_0023,// Fstenv_m28byte
 	0x0000_0023,// Fnstcw_m2byte
 	0x0000_0023,// Fstcw_m2byte
-	0x0000_22C4,// Fld_st0_sti
+	0x0000_0045,// Fld_sti
 	0x0000_22C4,// Fxch_st0_sti
 	0x0000_0000,// Fnop
 	0x0000_0045,// Fstpnce_sti
@@ -4862,7 +4862,7 @@ pub(super) static ENC_FLAGS2: [u32; 4312] = [
 	0x5800_00D9,// Fstenv_m28byte
 	0x5C00_00D9,// Fnstcw_m2byte
 	0x5C00_00D9,// Fstcw_m2byte
-	0x0001_D9C0,// Fld_st0_sti
+	0x0001_D9C0,// Fld_sti
 	0x0001_D9C8,// Fxch_st0_sti
 	0x0001_D9D0,// Fnop
 	0x0001_D9D8,// Fstpnce_sti
@@ -9177,7 +9177,7 @@ pub(super) static ENC_FLAGS3: [u32; 4312] = [
 	0x0003_8010,// Fstenv_m28byte
 	0x0003_0000,// Fnstcw_m2byte
 	0x0003_8000,// Fstcw_m2byte
-	0x0003_0000,// Fld_st0_sti
+	0x0003_0000,// Fld_sti
 	0x0003_0000,// Fxch_st0_sti
 	0x0003_0000,// Fnop
 	0x0003_0000,// Fstpnce_sti

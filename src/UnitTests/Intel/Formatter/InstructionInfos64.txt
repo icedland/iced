@@ -872,7 +872,7 @@ D9 28, Fldcw_m2byte
 66 D9 30, Fnstenv_m14byte
 D9 30, Fnstenv_m28byte
 D9 38, Fnstcw_m2byte
-D9 C3, Fld_st0_sti
+D9 C3, Fld_sti
 D9 CB, Fxch_st0_sti
 D9 D0, Fnop
 D9 E0, Fchs

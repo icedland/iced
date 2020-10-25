@@ -554,7 +554,7 @@ namespace Iced.Intel {
 			1,// Fstenv_m28byte
 			1,// Fnstcw_m2byte
 			1,// Fstcw_m2byte
-			2,// Fld_st0_sti
+			1,// Fld_sti
 			2,// Fxch_st0_sti
 			0,// Fnop
 			1,// Fstpnce_sti

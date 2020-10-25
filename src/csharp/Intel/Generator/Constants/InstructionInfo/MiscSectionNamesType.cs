@@ -21,6 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.Linq;
+
 namespace Generator.Constants.InstructionInfo {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class MiscSectionNamesType {
@@ -30,29 +33,7 @@ namespace Generator.Constants.InstructionInfo {
 		}
 
 		static Constant[] GetConstants() =>
-			new Constant[] {
-				new Constant(ConstantKind.String, "JccShort", "jcc-short"),
-				new Constant(ConstantKind.String, "JccNear", "jcc-near"),
-				new Constant(ConstantKind.String, "JmpShort", "jmp-short"),
-				new Constant(ConstantKind.String, "JmpNear", "jmp-near"),
-				new Constant(ConstantKind.String, "JmpFar", "jmp-far"),
-				new Constant(ConstantKind.String, "JmpNearIndirect", "jmp-near-indirect"),
-				new Constant(ConstantKind.String, "JmpFarIndirect", "jmp-far-indirect"),
-				new Constant(ConstantKind.String, "CallNear", "call-near"),
-				new Constant(ConstantKind.String, "CallFar", "call-far"),
-				new Constant(ConstantKind.String, "CallNearIndirect", "call-near-indirect"),
-				new Constant(ConstantKind.String, "CallFarIndirect", "call-far-indirect"),
-				new Constant(ConstantKind.String, "JmpeNear", "jmpe-near"),
-				new Constant(ConstantKind.String, "JmpeNearIndirect", "jmpe-near-indirect"),
-				new Constant(ConstantKind.String, "Loop", "loop"),
-				new Constant(ConstantKind.String, "Jrcxz", "jrcxz"),
-				new Constant(ConstantKind.String, "Xbegin", "xbegin"),
-				new Constant(ConstantKind.String, "JmpInfo", "jmp-info"),
-				new Constant(ConstantKind.String, "JccShortInfo", "jcc-short-info"),
-				new Constant(ConstantKind.String, "JccNearInfo", "jcc-near-info"),
-				new Constant(ConstantKind.String, "SetccInfo", "setcc-info"),
-				new Constant(ConstantKind.String, "CmovccInfo", "cmovcc-info"),
-				new Constant(ConstantKind.String, "LoopccInfo", "loopcc-info"),
-			};
+			typeof(MiscSectionNames).GetFields().Where(a => a.IsLiteral).OrderBy(a => a.MetadataToken).
+				Select(a => new Constant(ConstantKind.String, a.Name, a.GetRawConstantValue() ?? throw new InvalidOperationException())).ToArray();
 	}
 }

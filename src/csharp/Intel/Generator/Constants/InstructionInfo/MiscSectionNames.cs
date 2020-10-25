@@ -21,19 +21,29 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
-using System.Linq;
-
 namespace Generator.Constants.InstructionInfo {
-	[TypeGen(TypeGenOrders.NoDeps)]
-	sealed class InstructionInfoKeysType {
-		InstructionInfoKeysType(GenTypes genTypes) {
-			var type = new ConstantsType(TypeIds.InstructionInfoKeys, ConstantsTypeFlags.None, null, GetConstants());
-			genTypes.Add(type);
-		}
-
-		static Constant[] GetConstants() =>
-			typeof(InstructionInfoKeys).GetFields().Where(a => a.IsLiteral).OrderBy(a => a.MetadataToken).
-				Select(a => new Constant(ConstantKind.String, a.Name, a.GetRawConstantValue() ?? throw new InvalidOperationException())).ToArray();
+	static class MiscSectionNames {
+		public const string JccShort = "jcc-short";
+		public const string JccNear = "jcc-near";
+		public const string JmpShort = "jmp-short";
+		public const string JmpNear = "jmp-near";
+		public const string JmpFar = "jmp-far";
+		public const string JmpNearIndirect = "jmp-near-indirect";
+		public const string JmpFarIndirect = "jmp-far-indirect";
+		public const string CallNear = "call-near";
+		public const string CallFar = "call-far";
+		public const string CallNearIndirect = "call-near-indirect";
+		public const string CallFarIndirect = "call-far-indirect";
+		public const string JmpeNear = "jmpe-near";
+		public const string JmpeNearIndirect = "jmpe-near-indirect";
+		public const string Loop = "loop";
+		public const string Jrcxz = "jrcxz";
+		public const string Xbegin = "xbegin";
+		public const string JmpInfo = "jmp-info";
+		public const string JccShortInfo = "jcc-short-info";
+		public const string JccNearInfo = "jcc-near-info";
+		public const string SetccInfo = "setcc-info";
+		public const string CmovccInfo = "cmovcc-info";
+		public const string LoopccInfo = "loopcc-info";
 	}
 }

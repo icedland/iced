@@ -552,7 +552,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::FpuEnv28,// Fstenv_m28byte
 	MemorySize::UInt16,// Fnstcw_m2byte
 	MemorySize::UInt16,// Fstcw_m2byte
-	MemorySize::Unknown,// Fld_st0_sti
+	MemorySize::Unknown,// Fld_sti
 	MemorySize::Unknown,// Fxch_st0_sti
 	MemorySize::Unknown,// Fnop
 	MemorySize::Unknown,// Fstpnce_sti
@@ -4864,7 +4864,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Fstenv_m28byte
 	MemorySize::Unknown,// Fnstcw_m2byte
 	MemorySize::Unknown,// Fstcw_m2byte
-	MemorySize::Unknown,// Fld_st0_sti
+	MemorySize::Unknown,// Fld_sti
 	MemorySize::Unknown,// Fxch_st0_sti
 	MemorySize::Unknown,// Fnop
 	MemorySize::Unknown,// Fstpnce_sti

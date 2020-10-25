@@ -161,6 +161,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(testCase.Op2Access, info.Op2Access);
 			Assert.Equal(testCase.Op3Access, info.Op3Access);
 			Assert.Equal(testCase.Op4Access, info.Op4Access);
+			var fpu = instruction.GetFpuStackIncrementInfo();
+			Assert.Equal(testCase.FpuTopIncrement, fpu.Increment);
+			Assert.Equal(testCase.FpuConditionalTop, fpu.Conditional);
+			Assert.Equal(testCase.FpuWritesTop, fpu.WritesTop);
 			Assert.Equal(
 				new HashSet<UsedMemory>(testCase.UsedMemory, UsedMemoryEqualityComparer.Instance),
 				new HashSet<UsedMemory>(info.GetUsedMemory(), UsedMemoryEqualityComparer.Instance));

@@ -1076,23 +1076,23 @@ C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r 
 # cmp byte ptr [eax],0A5h
 82 38 A5, Cmp_rm8_imm8_82, Legacy, INTEL8086, fw=oszacp op0=r op1=r r=ds r=eax rm=ds:eax;UInt8
 # fstenv [eax]
-9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv14 special
+9B 66 D9 30, Fstenv_m14byte, Legacy, FPU, fr=0123 fu=0123 op0=w r=ds r=eax wm=ds:eax;FpuEnv14 special
 # fstenv [eax]
-9B D9 30, Fstenv_m28byte, Legacy, FPU387, op0=w r=ds r=eax wm=ds:eax;FpuEnv28 special
+9B D9 30, Fstenv_m28byte, Legacy, FPU387, fr=0123 fu=0123 op0=w r=ds r=eax wm=ds:eax;FpuEnv28 special
 # frstpm
-DB E5, Frstpm, Legacy, FPU287XL_ONLY, decopt=OldFpu
+DB E5, Frstpm, Legacy, FPU287XL_ONLY, fu=0123 decopt=OldFpu
 # fsave [eax]
-9B 66 DD 30, Fsave_m94byte, Legacy, FPU, op0=w r=ds r=eax r=st0-st7;mm0-mm7 wm=ds:eax;FpuState94 special
+9B 66 DD 30, Fsave_m94byte, Legacy, FPU, fpu-writes-top fr=0123 fc=0123 op0=w r=ds r=eax r=st0-st7;mm0-mm7 wm=ds:eax;FpuState94 special
 # fsave [eax]
-9B DD 30, Fsave_m108byte, Legacy, FPU387, op0=w r=ds r=eax r=st0-st7;mm0-mm7 wm=ds:eax;FpuState108 special
+9B DD 30, Fsave_m108byte, Legacy, FPU387, fpu-writes-top fr=0123 fc=0123 op0=w r=ds r=eax r=st0-st7;mm0-mm7 wm=ds:eax;FpuState108 special
 # fnstdw ax
-DF E1, Fnstdw_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
+DF E1, Fnstdw_AX, Legacy, FPU387SL_ONLY, fu=0123 decopt=OldFpu op0=w w=ax
 # fstdw ax
-9B DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax special
+9B DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, fu=0123 decopt=OldFpu op0=w w=ax special
 # fnstsg ax
-DF E2, Fnstsg_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
+DF E2, Fnstsg_AX, Legacy, FPU387SL_ONLY, fu=0123 decopt=OldFpu op0=w w=ax
 # fstsg ax
-9B DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax special
+9B DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, fu=0123 decopt=OldFpu op0=w w=ax special
 # jmpe cx
 66 0F00 F1, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=cx decopt=Jmpe
 # jmpe word ptr [eax]
@@ -1954,26 +1954,26 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 #achriw mm7,[eax]
 0F5E 38, Pmachriw_mm_m64, Legacy, CYRIX_EMMI, op0=r op1=r rw=mm6 r=mm7 r=ds r=eax rm=ds:eax;Packed64_UInt16 decopt=Cyrix
 # cyrix_d9d7
-D9 D7, Cyrix_D9D7, Legacy, CYRIX_FPU, decopt=Cyrix
+D9 D7, Cyrix_D9D7, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # cyrix_d9e2
-D9 E2, Cyrix_D9E2, Legacy, CYRIX_FPU, decopt=Cyrix
+D9 E2, Cyrix_D9E2, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # ftstp
-D9 E6, Ftstp, Legacy, CYRIX_FPU, r=st0 decopt=Cyrix
+D9 E6, Ftstp, Legacy, CYRIX_FPU, fc=1 fw=023 r=st0 decopt=Cyrix fpu-inc=1
 # cyrix_d9e7
-D9 E7, Cyrix_D9E7, Legacy, CYRIX_FPU, decopt=Cyrix
+D9 E7, Cyrix_D9E7, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # frint2
-DB FC, Frint2, Legacy, CYRIX_FPU, rw=st0 decopt=Cyrix
+DB FC, Frint2, Legacy, CYRIX_FPU, fw=1 fu=023 rw=st0 decopt=Cyrix
 # frichop
-DD FC, Frichop, Legacy, CYRIX_FPU, rw=st0 decopt=Cyrix
+DD FC, Frichop, Legacy, CYRIX_FPU, fw=1 fu=023 rw=st0 decopt=Cyrix
 # cyrix_ded8
-DE D8, Cyrix_DED8, Legacy, CYRIX_FPU, decopt=Cyrix
+DE D8, Cyrix_DED8, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # cyrix_deda
-DE DA, Cyrix_DEDA, Legacy, CYRIX_FPU, decopt=Cyrix
+DE DA, Cyrix_DEDA, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # cyrix_dedc
-DE DC, Cyrix_DEDC, Legacy, CYRIX_FPU, decopt=Cyrix
+DE DC, Cyrix_DEDC, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # cyrix_dedd
-DE DD, Cyrix_DEDD, Legacy, CYRIX_FPU, decopt=Cyrix
+DE DD, Cyrix_DEDD, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # cyrix_dede
-DE DE, Cyrix_DEDE, Legacy, CYRIX_FPU, decopt=Cyrix
+DE DE, Cyrix_DEDE, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # frinear
-DF FC, Frinear, Legacy, CYRIX_FPU, rw=st0 decopt=Cyrix
+DF FC, Frinear, Legacy, CYRIX_FPU, fw=1 fu=023 rw=st0 decopt=Cyrix

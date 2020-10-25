@@ -767,6 +767,13 @@ while (decoder.canDecode) {
     console.log("    Code: %s", codeToString(instr.code));
     console.log("    CpuidFeature: %s", cpuidFeaturesToString(instr.cpuidFeatures()));
     console.log("    FlowControl: %s", flowControlToString(instr.flowControl));
+    if (instr.fpuWritesTop) {
+        if (instr.fpuTopIncrement == 0)
+            console.log("    FPU TOP: the instruction overwrites TOP");
+        else
+            console.log("    FPU TOP inc: " + instr.fpuTopIncrement);
+        console.log("    FPU TOP cond write: " + (instr.fpuCondWritesTop ? "true" : "false"));
+    }
     if (offsets.hasDisplacement)
         console.log("    Displacement offset = %d, size = %d", offsets.displacementOffset, offsets.displacementSize);
     if (offsets.hasImmediate)
@@ -841,6 +848,10 @@ function rflagsBitsToString(value) {
     if ((value & RflagsBits.DF) !== 0) { sb = append(sb, "DF"); }
     if ((value & RflagsBits.IF) !== 0) { sb = append(sb, "IF"); }
     if ((value & RflagsBits.AC) !== 0) { sb = append(sb, "AC"); }
+    if ((value & RflagsBits.C0) !== 0) { sb = append(sb, "C0"); }
+    if ((value & RflagsBits.C1) !== 0) { sb = append(sb, "C1"); }
+    if ((value & RflagsBits.C2) !== 0) { sb = append(sb, "C2"); }
+    if ((value & RflagsBits.C3) !== 0) { sb = append(sb, "C3"); }
     if ((value & RflagsBits.UIF) !== 0) { sb = append(sb, "UIF"); }
     if (sb.length === 0)
         return "<empty>";

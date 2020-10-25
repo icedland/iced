@@ -10812,6 +10812,20 @@ namespace Iced.Intel {
 		}
 		/// <summary>fld instruction.<br/>
 		/// <br/>
+		/// <c>FLD ST(i)</c><br/>
+		/// <br/>
+		/// <c>D9 C0+i</c><br/>
+		/// <br/>
+		/// <c>8087+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void fld(AssemblerRegisterST dst) {
+			Code op;
+			op = Code.Fld_sti;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>fld instruction.<br/>
+		/// <br/>
 		/// <c>FLD m80fp</c><br/>
 		/// <br/>
 		/// <c>DB /5</c><br/>
@@ -10847,20 +10861,6 @@ namespace Iced.Intel {
 				throw NoOpCodeFoundFor(Mnemonic.Fld, dst);
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
-		}
-		/// <summary>fld instruction.<br/>
-		/// <br/>
-		/// <c>FLD ST(i)</c><br/>
-		/// <br/>
-		/// <c>D9 C0+i</c><br/>
-		/// <br/>
-		/// <c>8087+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void fld(AssemblerRegisterST dst, AssemblerRegisterST src) {
-			Code op;
-			op = Code.Fld_st0_sti;
-			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fld1 instruction.<br/>
 		/// <br/>

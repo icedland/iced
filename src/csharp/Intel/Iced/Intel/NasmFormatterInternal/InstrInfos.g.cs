@@ -2418,10 +2418,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x01,// Normal_1
 				0x85, 0x02,// 261 = "fstcw"
 
-				// Fld_st0_sti
-				0x13,// STIG1
+				// Fld_sti
+				0x01,// Normal_1
 				0xFE, 0x01,// 254 = "fld"
-				0x00,// False
 
 				// Fxch_st0_sti
 				0x13,// STIG1
@@ -2606,26 +2605,26 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fucompp
 				0x01,// Normal_1
-				0xB1, 0x02,// 305 = "fucompp"
+				0xB0, 0x02,// 304 = "fucompp"
 
 				// Fild_m32int
 				0x02,// Normal_2
-				0xB2, 0x02,// 306 = "fild"
+				0xB1, 0x02,// 305 = "fild"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fisttp_m32int
 				0x02,// Normal_2
-				0xB3, 0x02,// 307 = "fisttp"
+				0xB2, 0x02,// 306 = "fisttp"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fist_m32int
 				0x02,// Normal_2
-				0xB4, 0x02,// 308 = "fist"
+				0xB3, 0x02,// 307 = "fist"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fistp_m32int
 				0x02,// Normal_2
-				0xB5, 0x02,// 309 = "fistp"
+				0xB4, 0x02,// 308 = "fistp"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fld_m80fp
@@ -2640,76 +2639,76 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fcmovnb_st0_sti
 				0x13,// STIG1
-				0xB6, 0x02,// 310 = "fcmovnb"
+				0xB5, 0x02,// 309 = "fcmovnb"
 				0x00,// False
 
 				// Fcmovne_st0_sti
 				0x13,// STIG1
-				0xB7, 0x02,// 311 = "fcmovne"
+				0xB6, 0x02,// 310 = "fcmovne"
 				0x00,// False
 
 				// Fcmovnbe_st0_sti
 				0x13,// STIG1
-				0xB8, 0x02,// 312 = "fcmovnbe"
+				0xB7, 0x02,// 311 = "fcmovnbe"
 				0x00,// False
 
 				// Fcmovnu_st0_sti
 				0x13,// STIG1
-				0xB9, 0x02,// 313 = "fcmovnu"
+				0xB8, 0x02,// 312 = "fcmovnu"
 				0x00,// False
 
 				// Fneni
 				0x01,// Normal_1
-				0xBA, 0x02,// 314 = "fneni"
+				0xB9, 0x02,// 313 = "fneni"
 
 				// Feni
 				0x01,// Normal_1
-				0xBB, 0x02,// 315 = "feni"
+				0xBA, 0x02,// 314 = "feni"
 
 				// Fndisi
 				0x01,// Normal_1
-				0xBC, 0x02,// 316 = "fndisi"
+				0xBB, 0x02,// 315 = "fndisi"
 
 				// Fdisi
 				0x01,// Normal_1
-				0xBD, 0x02,// 317 = "fdisi"
+				0xBC, 0x02,// 316 = "fdisi"
 
 				// Fnclex
 				0x01,// Normal_1
-				0xBE, 0x02,// 318 = "fnclex"
+				0xBD, 0x02,// 317 = "fnclex"
 
 				// Fclex
 				0x01,// Normal_1
-				0xBF, 0x02,// 319 = "fclex"
+				0xBE, 0x02,// 318 = "fclex"
 
 				// Fninit
 				0x01,// Normal_1
-				0xC0, 0x02,// 320 = "fninit"
+				0xBF, 0x02,// 319 = "fninit"
 
 				// Finit
 				0x01,// Normal_1
-				0xC1, 0x02,// 321 = "finit"
+				0xC0, 0x02,// 320 = "finit"
 
 				// Fnsetpm
 				0x01,// Normal_1
-				0xC2, 0x02,// 322 = "fnsetpm"
+				0xC1, 0x02,// 321 = "fnsetpm"
 
 				// Fsetpm
 				0x01,// Normal_1
-				0xC3, 0x02,// 323 = "fsetpm"
+				0xC2, 0x02,// 322 = "fsetpm"
 
 				// Frstpm
 				0x01,// Normal_1
-				0xC4, 0x02,// 324 = "frstpm"
+				0xC3, 0x02,// 323 = "frstpm"
 
 				// Fucomi_st0_sti
 				0x13,// STIG1
-				0xC5, 0x02,// 325 = "fucomi"
+				0xC4, 0x02,// 324 = "fucomi"
 				0x00,// False
 
 				// Fcomi_st0_sti
 				0x13,// STIG1
-				0xC6, 0x02,// 326 = "fcomi"
+				0xC5, 0x02,// 325 = "fcomi"
 				0x00,// False
 
 				// Fadd_m64fp
@@ -2799,7 +2798,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fisttp_m64int
 				0x02,// Normal_2
-				0xB3, 0x02,// 307 = "fisttp"
+				0xB2, 0x02,// 306 = "fisttp"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fst_m64fp
@@ -2814,51 +2813,51 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Frstor_m94byte
 				0x2C,// os_mem2
-				0xC8, 0x02,// 328 = "frstor"
+				0xC7, 0x02,// 327 = "frstor"
 				0x10,// 0x10
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Frstor_m108byte
 				0x2C,// os_mem2
-				0xC8, 0x02,// 328 = "frstor"
+				0xC7, 0x02,// 327 = "frstor"
 				0x60,// 0x60
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Fnsave_m94byte
 				0x2C,// os_mem2
-				0xC9, 0x02,// 329 = "fnsave"
+				0xC8, 0x02,// 328 = "fnsave"
 				0x10,// 0x10
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Fsave_m94byte
 				0x2C,// os_mem2
-				0xCA, 0x02,// 330 = "fsave"
+				0xC9, 0x02,// 329 = "fsave"
 				0x10,// 0x10
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Fnsave_m108byte
 				0x2C,// os_mem2
-				0xC9, 0x02,// 329 = "fnsave"
+				0xC8, 0x02,// 328 = "fnsave"
 				0x60,// 0x60
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Fsave_m108byte
 				0x2C,// os_mem2
-				0xCA, 0x02,// 330 = "fsave"
+				0xC9, 0x02,// 329 = "fsave"
 				0x60,// 0x60
 				0x01,// 0x1 = MemSize_Nothing
 
 				// Fnstsw_m2byte
 				0x01,// Normal_1
-				0xCB, 0x02,// 331 = "fnstsw"
+				0xCA, 0x02,// 330 = "fnstsw"
 
 				// Fstsw_m2byte
 				0x01,// Normal_1
-				0xCC, 0x02,// 332 = "fstsw"
+				0xCB, 0x02,// 331 = "fstsw"
 
 				// Ffree_sti
 				0x01,// Normal_1
-				0xCD, 0x02,// 333 = "ffree"
+				0xCC, 0x02,// 332 = "ffree"
 
 				// Fxch_st0_sti_DDC8
 				0x13,// STIG1
@@ -2875,12 +2874,12 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fucom_st0_sti
 				0x13,// STIG1
-				0xCE, 0x02,// 334 = "fucom"
+				0xCD, 0x02,// 333 = "fucom"
 				0x01,// True
 
 				// Fucomp_st0_sti
 				0x13,// STIG1
-				0xB0, 0x02,// 304 = "fucomp"
+				0xCE, 0x02,// 334 = "fucomp"
 				0x01,// True
 
 				// Fiadd_m16int
@@ -2964,22 +2963,22 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fild_m16int
 				0x02,// Normal_2
-				0xB2, 0x02,// 306 = "fild"
+				0xB1, 0x02,// 305 = "fild"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fisttp_m16int
 				0x02,// Normal_2
-				0xB3, 0x02,// 307 = "fisttp"
+				0xB2, 0x02,// 306 = "fisttp"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fist_m16int
 				0x02,// Normal_2
-				0xB4, 0x02,// 308 = "fist"
+				0xB3, 0x02,// 307 = "fist"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fistp_m16int
 				0x02,// Normal_2
-				0xB5, 0x02,// 309 = "fistp"
+				0xB4, 0x02,// 308 = "fistp"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fbld_m80bcd
@@ -2989,7 +2988,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fild_m64int
 				0x02,// Normal_2
-				0xB2, 0x02,// 306 = "fild"
+				0xB1, 0x02,// 305 = "fild"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Fbstp_m80bcd
@@ -2999,7 +2998,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fistp_m64int
 				0x02,// Normal_2
-				0xB5, 0x02,// 309 = "fistp"
+				0xB4, 0x02,// 308 = "fistp"
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Ffreep_sti
@@ -3020,11 +3019,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 				// Fnstsw_AX
 				0x01,// Normal_1
-				0xCB, 0x02,// 331 = "fnstsw"
+				0xCA, 0x02,// 330 = "fnstsw"
 
 				// Fstsw_AX
 				0x01,// Normal_1
-				0xCC, 0x02,// 332 = "fstsw"
+				0xCB, 0x02,// 331 = "fstsw"
 
 				// Fstdw_AX
 				0x01,// Normal_1

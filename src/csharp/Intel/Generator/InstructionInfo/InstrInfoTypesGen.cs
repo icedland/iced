@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Generator.Constants;
+using Generator.Constants.InstructionInfo;
 using Generator.Enums;
 using Generator.Enums.InstructionInfo;
 using Generator.Tables;
@@ -38,8 +39,8 @@ namespace Generator.InstructionInfo {
 		// Free bits
 
 		FirstUsedBit				= RflagsInfoShift,
-		RflagsInfoShift				= 14,
-		RflagsInfoMask				= 0x3F,
+		RflagsInfoShift				= 13,
+		RflagsInfoMask				= 0x7F,
 		ImpliedAccessShift			= 20,
 		ImpliedAccessMask			= 0xFF,
 		// Free bits
@@ -233,16 +234,20 @@ namespace Generator.InstructionInfo {
 				sb.Append('_');
 			sb.Append(prefix);
 			sb.Append('_');
-			if ((rflags & RflagsBits.AF) != 0) { sb.Append('a'); rflags &= ~RflagsBits.AF; }
-			if ((rflags & RflagsBits.CF) != 0) { sb.Append('c'); rflags &= ~RflagsBits.CF; }
-			if ((rflags & RflagsBits.OF) != 0) { sb.Append('o'); rflags &= ~RflagsBits.OF; }
-			if ((rflags & RflagsBits.PF) != 0) { sb.Append('p'); rflags &= ~RflagsBits.PF; }
-			if ((rflags & RflagsBits.SF) != 0) { sb.Append('s'); rflags &= ~RflagsBits.SF; }
-			if ((rflags & RflagsBits.ZF) != 0) { sb.Append('z'); rflags &= ~RflagsBits.ZF; }
-			if ((rflags & RflagsBits.IF) != 0) { sb.Append('i'); rflags &= ~RflagsBits.IF; }
-			if ((rflags & RflagsBits.DF) != 0) { sb.Append('d'); rflags &= ~RflagsBits.DF; }
-			if ((rflags & RflagsBits.AC) != 0) { sb.Append("A"); rflags &= ~RflagsBits.AC; }
-			if ((rflags & RflagsBits.UIF) != 0) { sb.Append("u"); rflags &= ~RflagsBits.UIF; }
+			if ((rflags & RflagsBits.AF) != 0) { sb.Append(RflagsBitsConstants.AF); rflags &= ~RflagsBits.AF; }
+			if ((rflags & RflagsBits.CF) != 0) { sb.Append(RflagsBitsConstants.CF); rflags &= ~RflagsBits.CF; }
+			if ((rflags & RflagsBits.OF) != 0) { sb.Append(RflagsBitsConstants.OF); rflags &= ~RflagsBits.OF; }
+			if ((rflags & RflagsBits.PF) != 0) { sb.Append(RflagsBitsConstants.PF); rflags &= ~RflagsBits.PF; }
+			if ((rflags & RflagsBits.SF) != 0) { sb.Append(RflagsBitsConstants.SF); rflags &= ~RflagsBits.SF; }
+			if ((rflags & RflagsBits.ZF) != 0) { sb.Append(RflagsBitsConstants.ZF); rflags &= ~RflagsBits.ZF; }
+			if ((rflags & RflagsBits.IF) != 0) { sb.Append(RflagsBitsConstants.IF); rflags &= ~RflagsBits.IF; }
+			if ((rflags & RflagsBits.DF) != 0) { sb.Append(RflagsBitsConstants.DF); rflags &= ~RflagsBits.DF; }
+			if ((rflags & RflagsBits.AC) != 0) { sb.Append(RflagsBitsConstants.AC); rflags &= ~RflagsBits.AC; }
+			if ((rflags & RflagsBits.C0) != 0) { sb.Append(RflagsBitsConstants.C0); rflags &= ~RflagsBits.C0; }
+			if ((rflags & RflagsBits.C1) != 0) { sb.Append(RflagsBitsConstants.C1); rflags &= ~RflagsBits.C1; }
+			if ((rflags & RflagsBits.C2) != 0) { sb.Append(RflagsBitsConstants.C2); rflags &= ~RflagsBits.C2; }
+			if ((rflags & RflagsBits.C3) != 0) { sb.Append(RflagsBitsConstants.C3); rflags &= ~RflagsBits.C3; }
+			if ((rflags & RflagsBits.UIF) != 0) { sb.Append(RflagsBitsConstants.UIF); rflags &= ~RflagsBits.UIF; }
 			if (rflags != RflagsBits.None)
 				throw new InvalidOperationException();
 		}

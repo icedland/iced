@@ -553,7 +553,7 @@ namespace Generator.Enums {
 		Fstenv_m28byte,
 		Fnstcw_m2byte,
 		Fstcw_m2byte,
-		Fld_st0_sti,
+		Fld_sti,
 		Fxch_st0_sti,
 		Fnop,
 		Fstpnce_sti,

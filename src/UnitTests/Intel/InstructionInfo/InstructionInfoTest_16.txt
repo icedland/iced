@@ -564,21 +564,21 @@ F3 66 AF, Scasd_EAX_m32, Legacy, INTEL386, fr=d fw=oszacp op0=cr op1=cr cr=eax r
 # add gs:[bx+si],bh
 65 00 38, Add_rm8_r8, Legacy, INTEL8086, fw=oszacp op0=rw op1=r r=gs r=bx;si r=bh rwm=gs:bx+si;UInt8
 # fnstenv [bx+si]
-D9 30, Fnstenv_m14byte, Legacy, FPU, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv14
+D9 30, Fnstenv_m14byte, Legacy, FPU, fr=0123 fu=0123 op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv14
 # fnstenv [bx+si]
-66 D9 30, Fnstenv_m28byte, Legacy, FPU387, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv28
+66 D9 30, Fnstenv_m28byte, Legacy, FPU387, fr=0123 fu=0123 op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv28
 # fnsave [bx+si]
-DD 30, Fnsave_m94byte, Legacy, FPU, op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState94
+DD 30, Fnsave_m94byte, Legacy, FPU, fpu-writes-top fr=0123 fc=0123 op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState94
 # fnsave [bx+si]
-66 DD 30, Fnsave_m108byte, Legacy, FPU387, op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState108
+66 DD 30, Fnsave_m108byte, Legacy, FPU387, fpu-writes-top fr=0123 fc=0123 op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState108
 # fstenv [bx+si]
-9B D9 30, Fstenv_m14byte, Legacy, FPU, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv14 special
+9B D9 30, Fstenv_m14byte, Legacy, FPU, fr=0123 fu=0123 op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv14 special
 # fstenv [bx+si]
-9B 66 D9 30, Fstenv_m28byte, Legacy, FPU387, op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv28 special
+9B 66 D9 30, Fstenv_m28byte, Legacy, FPU387, fr=0123 fu=0123 op0=w r=ds r=bx r=si wm=ds:bx+si;FpuEnv28 special
 # fsave [bx+si]
-9B DD 30, Fsave_m94byte, Legacy, FPU, op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState94 special
+9B DD 30, Fsave_m94byte, Legacy, FPU, fpu-writes-top fr=0123 fc=0123 op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState94 special
 # fsave [bx+si]
-9B 66 DD 30, Fsave_m108byte, Legacy, FPU387, op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState108 special
+9B 66 DD 30, Fsave_m108byte, Legacy, FPU387, fpu-writes-top fr=0123 fc=0123 op0=w r=ds r=bx r=si r=st0-st7;mm0-mm7 wm=ds:bx+si;FpuState108 special
 # umonitor bp
 F3 0FAE F5, Umonitor_r16, Legacy, WAITPKG, op0=r r=ds;bp rm=ds:bp;UInt8
 # umonitor ebp

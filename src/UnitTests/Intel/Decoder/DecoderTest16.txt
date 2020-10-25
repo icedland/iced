@@ -1887,8 +1887,8 @@ D9 30, Fnstenv_m14byte, Fnstenv, 1, op0=m;ds;bx;si;1;0;0;FpuEnv14
 D9 38, Fnstcw_m2byte, Fnstcw, 1, op0=m;ds;bx;si;1;0;0;UInt16
 66 D9 38, Fnstcw_m2byte, Fnstcw, 1, op0=m;ds;bx;si;1;0;0;UInt16 enc=D938
 
-D9 C3, Fld_st0_sti, Fld, 2, op0=r;st0 op1=r;st3
-66 D9 C6, Fld_st0_sti, Fld, 2, op0=r;st0 op1=r;st6 enc=D9C6
+D9 C3, Fld_sti, Fld, 1, op0=r;st3
+66 D9 C6, Fld_sti, Fld, 1, op0=r;st6 enc=D9C6
 
 D9 CB, Fxch_st0_sti, Fxch, 2, op0=r;st0 op1=r;st3
 66 D9 CE, Fxch_st0_sti, Fxch, 2, op0=r;st0 op1=r;st6 enc=D9CE

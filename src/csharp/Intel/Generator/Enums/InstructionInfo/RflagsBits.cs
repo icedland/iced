@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 
 namespace Generator.Enums.InstructionInfo {
-	[Enum("RflagsBits", Documentation = "#(c:RFLAGS)# bits (and #(c:UIF)#) supported by the instruction info code", Flags = true, NoInitialize = true, Public = true)]
+	[Enum("RflagsBits", Documentation = "#(c:RFLAGS)# bits, FPU condition code bits and misc bits (#(c:UIF)#) supported by the instruction info code", Flags = true, NoInitialize = true, Public = true)]
 	[Flags]
 	enum RflagsBits {
 		None	= 0,
@@ -48,5 +48,13 @@ namespace Generator.Enums.InstructionInfo {
 		AC		= 0x00000100,
 		[Comment("#(c:UIF)#")]
 		UIF		= 0x00000200,
+		[Comment("FPU status word bit #(c:C0)#")]
+		C0		= 0x00000400,
+		[Comment("FPU status word bit #(c:C1)#")]
+		C1		= 0x00000800,
+		[Comment("FPU status word bit #(c:C2)#")]
+		C2		= 0x00001000,
+		[Comment("FPU status word bit #(c:C3)#")]
+		C3		= 0x00002000,
 	}
 }

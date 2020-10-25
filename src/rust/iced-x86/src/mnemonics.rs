@@ -550,7 +550,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Fstenv,// Fstenv_m28byte
 	Mnemonic::Fnstcw,// Fnstcw_m2byte
 	Mnemonic::Fstcw,// Fstcw_m2byte
-	Mnemonic::Fld,// Fld_st0_sti
+	Mnemonic::Fld,// Fld_sti
 	Mnemonic::Fxch,// Fxch_st0_sti
 	Mnemonic::Fnop,// Fnop
 	Mnemonic::Fstpnce,// Fstpnce_sti

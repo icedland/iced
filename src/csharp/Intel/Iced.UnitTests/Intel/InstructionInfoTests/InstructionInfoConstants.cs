@@ -117,6 +117,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string WriteMemory = "wm";
 		internal const string CondWriteMemory = "cwm";
 		internal const string DecoderOptions = "decopt";
+		internal const string FpuTopIncrement = "fpu-inc";
+		internal const string FpuConditionalTop = "fpu-cond";
+		internal const string FpuWritesTop = "fpu-writes-top";
 	}
 	// GENERATOR-END: KeysConstants
 
@@ -132,6 +135,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const char IF = 'i';
 		internal const char DF = 'd';
 		internal const char AC = 'A';
+		internal const char C0 = '0';
+		internal const char C1 = '1';
+		internal const char C2 = '2';
+		internal const char C3 = '3';
 		internal const char UIF = 'u';
 	}
 	// GENERATOR-END: RflagsBitsConstants

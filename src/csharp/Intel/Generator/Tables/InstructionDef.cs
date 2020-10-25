@@ -381,6 +381,14 @@ namespace Generator.Tables {
 		/// The index register (if present) is the tile stride indicator
 		/// </summary>
 		TileStrideIndex			= 0x00080000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// FPU <c>TOP</c> is written (eg. push or pop instruction, <c>FLDENV</c>, etc)
+		/// </summary>
+		WritesFpuTop			= 0x00100000,
+		/// <summary>
+		/// Set if it's a conditional write to FPU <c>TOP</c> bits
+		/// </summary>
+		IsFpuCondWriteTop		= 0x00200000,
 	}
 
 	enum VmxMode {
@@ -508,6 +516,7 @@ namespace Generator.Tables {
 		public readonly EnumValue ControlFlow;
 		public readonly ConditionCode ConditionCode;
 		public readonly BranchKind BranchKind;//TODO: Add to OpCodeInfo
+		public readonly int FpuStackIncrement;
 		public readonly RflagsBits RflagsRead;
 		public readonly RflagsBits RflagsUndefined;
 		public readonly RflagsBits RflagsWritten;
@@ -532,7 +541,7 @@ namespace Generator.Tables {
 			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKind[] opKinds,
 			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
-			BranchKind branchKind, RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
+			BranchKind branchKind, int fpuStackIncrement, RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
 			EnumValue[] cpuid, OpInfo[] opInfo,
 			FastFmtInstructionDef fast, FmtInstructionDef gas, FmtInstructionDef intel, FmtInstructionDef masm, FmtInstructionDef nasm) {
 			Code = code;
@@ -567,6 +576,7 @@ namespace Generator.Tables {
 			ControlFlow = flowControl;
 			ConditionCode = conditionCode;
 			BranchKind = branchKind;
+			FpuStackIncrement = fpuStackIncrement;
 			RflagsRead = read;
 			RflagsUndefined = undefined;
 			RflagsWritten = written;

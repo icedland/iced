@@ -2295,6 +2295,34 @@ impl Instruction {
 		self.0.stack_pointer_increment()
 	}
 
+	/// Used if [`fpuWritesTop()`] is `true`:
+	///
+	/// Value added to `TOP`.
+	///
+	/// This is negative if it pushes one or more values and positive if it pops one or more values
+	/// and `0` if it writes to `TOP` (eg. `FLDENV`, etc) without pushing/popping anything.
+	///
+	/// [`fpuWritesTop()`]: #method.fpu_writes_top
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "fpuTopIncrement")]
+	pub fn fpu_top_increment(&self) -> i32 {
+		self.0.fpu_stack_increment_info().increment()
+	}
+
+	/// `true` if it's a conditional push/pop (eg. `FPTAN` or `FSINCOS`)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "fpuCondWritesTop")]
+	pub fn fpu_cond_writes_top(&self) -> bool {
+		self.0.fpu_stack_increment_info().conditional()
+	}
+
+	/// `true` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "fpuWritesTop")]
+	pub fn fpu_writes_top(&self) -> bool {
+		self.0.fpu_stack_increment_info().writes_top()
+	}
+
 	/// Instruction encoding (a [`EncodingKind`] enum value), eg. Legacy, 3DNow!, VEX, EVEX, XOP
 	///
 	/// [`EncodingKind`]: enum.EncodingKind.html

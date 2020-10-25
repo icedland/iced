@@ -872,7 +872,7 @@ fldcw [rax]
 fnstenv fpuenv14 ptr [rax]
 fnstenv fpuenv28 ptr [rax]
 fnstcw [rax]
-fld st(0),st(3)
+fld st(3)
 fxch st(0),st(3)
 fnop
 fchs

@@ -4189,7 +4189,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fld_st0_sti = 522,
+	Fld_sti = 522,
 	/// `FXCH ST(i)`
 	///
 	/// `D9 C8+i`
@@ -35027,7 +35027,7 @@ static GEN_DEBUG_CODE: [&str; 4312] = [
 	"Fstenv_m28byte",
 	"Fnstcw_m2byte",
 	"Fstcw_m2byte",
-	"Fld_st0_sti",
+	"Fld_sti",
 	"Fxch_st0_sti",
 	"Fnop",
 	"Fstpnce_sti",
