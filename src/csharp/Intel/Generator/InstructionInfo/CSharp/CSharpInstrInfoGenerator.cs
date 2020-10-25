@@ -412,14 +412,7 @@ namespace Generator.InstructionInfo.CSharp {
 		void GenerateTable((EncodingKind encoding, InstructionDef[] defs)[] tdefs, string id, string filename) {
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
 				foreach (var (encoding, defs) in tdefs) {
-					string? feature = encoding switch {
-						EncodingKind.Legacy => null,
-						EncodingKind.VEX => CSharpConstants.VexDefine,
-						EncodingKind.EVEX => CSharpConstants.EvexDefine,
-						EncodingKind.XOP => CSharpConstants.XopDefine,
-						EncodingKind.D3NOW => CSharpConstants.D3nowDefine,
-						_ => throw new InvalidOperationException(),
-					};
+					var feature = CSharpConstants.GetDefine(encoding);
 					if (feature is object)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in defs)
@@ -458,6 +451,40 @@ namespace Generator.InstructionInfo.CSharp {
 						var writesTopStr = info.WritesTop ? "true" : "false";
 						writer.WriteLine($"return new FpuStackIncrementInfo({info.Increment}, {conditionalStr}, {writesTopStr});");
 					}
+				}
+			});
+		}
+
+		protected override void GenerateStackPointerIncrementTable((EncodingKind encoding, StackInfo info, InstructionDef[] defs)[] tdefs) {
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.Info.cs");
+			new FileUpdater(TargetLanguage.CSharp, "StackPointerIncrementTable", filename).Generate(writer => {
+				foreach (var (encoding, info, defs) in tdefs) {
+					var feature = CSharpConstants.GetDefine(encoding);
+					if (feature is object)
+						writer.WriteLineNoIndent($"#if {feature}");
+					foreach (var def in defs)
+						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
+					using (writer.Indent()) {
+						switch (info.Kind) {
+						case StackInfoKind.Increment:
+							writer.WriteLine($"return {info.Value};");
+							break;
+						case StackInfoKind.Enter:
+							writer.WriteLine($"return -({info.Value} + (Immediate8_2nd & 0x1F) * {info.Value} + Immediate16);");
+							break;
+						case StackInfoKind.Iret:
+							writer.WriteLine($"return CodeSize == CodeSize.Code64 ? {info.Value} * 5 : {info.Value} * 3;");
+							break;
+						case StackInfoKind.PopImm16:
+							writer.WriteLine($"return {info.Value} + Immediate16;");
+							break;
+						case StackInfoKind.None:
+						default:
+							throw new InvalidOperationException();
+						}
+					}
+					if (feature is object)
+						writer.WriteLineNoIndent("#endif");
 				}
 			});
 		}

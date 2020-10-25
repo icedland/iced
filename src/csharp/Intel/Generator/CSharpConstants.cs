@@ -21,8 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
 using System.IO;
 using System.Linq;
+using Generator.Enums;
 
 namespace Generator {
 	static class CSharpConstants {
@@ -69,5 +71,15 @@ namespace Generator {
 
 		public static string GetFilename(GenTypes genTypes, string @namespace, params string[] names) =>
 			Path.Combine(new[] { genTypes.Dirs.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).Concat(names).ToArray());
+
+		public static string? GetDefine(EncodingKind encoding) =>
+			encoding switch {
+				EncodingKind.Legacy => null,
+				EncodingKind.VEX => VexDefine,
+				EncodingKind.EVEX => EvexDefine,
+				EncodingKind.XOP => XopDefine,
+				EncodingKind.D3NOW => D3nowDefine,
+				_ => throw new InvalidOperationException(),
+			};
 	}
 }

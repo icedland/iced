@@ -499,15 +499,7 @@ namespace Generator.Encoder.Rust {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder", "instruction_fmt.rs");
 			new FileUpdater(TargetLanguage.Rust, "PrintImpliedOps", filename).Generate(writer => {
 				foreach (var info in impliedOpsInfo) {
-					string? feature = info.Encoding switch {
-						EncodingKind.Legacy => null,
-						EncodingKind.VEX => RustConstants.FeatureVex,
-						EncodingKind.EVEX => RustConstants.FeatureEvex,
-						EncodingKind.XOP => RustConstants.FeatureXop,
-						EncodingKind.D3NOW => RustConstants.FeatureD3now,
-						_ => throw new InvalidOperationException(),
-					};
-					if (feature is object)
+					if (RustConstants.GetFeature(info.Encoding) is string feature)
 						writer.WriteLine(feature);
 					var bar = string.Empty;
 					foreach (var def in info.defs) {

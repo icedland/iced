@@ -86,6 +86,7 @@ namespace Generator.Tables {
 			"fpu-cond-push",
 			"fpu-pop",
 			"fpu-stack",
+			"sp",
 		};
 
 		public InstructionDefsReader(GenTypes genTypes, string filename) {
@@ -573,7 +574,7 @@ namespace Generator.Tables {
 
 						case "vmx":
 							if (state.VmxMode != VmxMode.None) {
-								error = "Duplicate vmx value";
+								error = $"Duplicate {newKey} value";
 								return false;
 							}
 							state.VmxMode = newValue switch {
@@ -632,6 +633,42 @@ namespace Generator.Tables {
 
 						case "writes-fpu-top":
 							state.Flags3 |= InstructionDefFlags3.WritesFpuTop;
+							break;
+
+						case "sp":
+							if (state.StackInfo.Kind != StackInfoKind.None) {
+								error = $"Duplicate {newKey} value";
+								return false;
+							}
+							state.Flags1 |= InstructionDefFlags1.StackInstruction;
+							var spArgs = newValue.Split(';');
+							if (spArgs.Length != 2) {
+								error = "Expected exactly one semicolon";
+								return false;
+							}
+							var spKey = spArgs[0];
+							if (!ParserUtils.TryParseInt32(spArgs[1], out var spValue, out error))
+								return false;
+							switch (spKey) {
+							case "push":
+								state.StackInfo = new StackInfo(StackInfoKind.Increment, -spValue);
+								break;
+							case "pop":
+								state.StackInfo = new StackInfo(StackInfoKind.Increment, spValue);
+								break;
+							case "enter":
+								state.StackInfo = new StackInfo(StackInfoKind.Enter, spValue);
+								break;
+							case "iret":
+								state.StackInfo = new StackInfo(StackInfoKind.Iret, spValue);
+								break;
+							case "pop_imm16":
+								state.StackInfo = new StackInfo(StackInfoKind.PopImm16, spValue);
+								break;
+							default:
+								error = $"Unknown sp key: `{spKey}`";
+								return false;
+							}
 							break;
 
 						default:
@@ -1098,8 +1135,8 @@ namespace Generator.Tables {
 				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
-				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.FpuStackIncrement, state.RflagsRead,
-				state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
+				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.StackInfo, state.FpuStackIncrement,
+				state.RflagsRead, state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
 				fastDef, gasDef, intelDef, masmDef, nasmDef);
 			defLineIndex = state.LineIndex;
 			return true;
@@ -3209,6 +3246,7 @@ namespace Generator.Tables {
 		public RflagsBits RflagsWritten;
 		public RflagsBits RflagsCleared;
 		public RflagsBits RflagsSet;
+		public StackInfo StackInfo;
 		public int FpuStackIncrement;
 		public InstrStrFmtOption InstrStrFmtOption;
 		public InstructionStringFlags InstrStrFlags;

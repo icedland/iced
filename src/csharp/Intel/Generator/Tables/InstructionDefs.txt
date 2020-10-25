@@ -177,7 +177,7 @@ INSTRUCTION: o16 06 | PUSH ES | INTEL8086
 	ops: r=es
 	implied: push=1x2
 	code-mnemonic: pushw
-	flags: 16 32 stack
+	flags: 16 32 sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -189,7 +189,7 @@ INSTRUCTION: o32 06 | PUSH ES | INTEL386
 	ops: r=es
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -201,7 +201,7 @@ INSTRUCTION: o16 07 | POP ES | INTEL8086
 	ops: w=es
 	implied: pop=1x2
 	code-mnemonic: popw
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;2 no-in-sgx tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -213,7 +213,7 @@ INSTRUCTION: o32 07 | POP ES | INTEL386
 	ops: w=es
 	implied: pop=1x4
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;4 no-in-sgx tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -316,7 +316,7 @@ INSTRUCTION: o16 0E | PUSH CS | INTEL8086
 	ops: r=cs
 	implied: push=1x2
 	code-mnemonic: pushw
-	flags: 16 32 stack
+	flags: 16 32 sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -328,7 +328,7 @@ INSTRUCTION: o32 0E | PUSH CS | INTEL386
 	ops: r=cs
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -340,7 +340,7 @@ INSTRUCTION: o16 0F | POP CS | INTEL8086_ONLY
 	ops: w=cs
 	implied: pop=1x2
 	code-mnemonic: popw
-	flags: 16 stack
+	flags: 16 sp=pop;2
 	gas: suffix=w
 	intel: osz
 	masm: osz-suffix-1
@@ -443,7 +443,7 @@ INSTRUCTION: o16 16 | PUSH SS | INTEL8086
 	ops: r=ss
 	implied: push=1x2
 	code-mnemonic: pushw
-	flags: 16 32 stack
+	flags: 16 32 sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -455,7 +455,7 @@ INSTRUCTION: o32 16 | PUSH SS | INTEL386
 	ops: r=ss
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -467,7 +467,7 @@ INSTRUCTION: o16 17 | POP SS | INTEL8086
 	ops: w=ss
 	implied: pop=1x2
 	code-mnemonic: popw
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;2 no-in-sgx tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -479,7 +479,7 @@ INSTRUCTION: o32 17 | POP SS | INTEL386
 	ops: w=ss
 	implied: pop=1x4
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;4 no-in-sgx tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -582,7 +582,7 @@ INSTRUCTION: o16 1E | PUSH DS | INTEL8086
 	ops: r=ds
 	implied: push=1x2
 	code-mnemonic: pushw
-	flags: 16 32 stack
+	flags: 16 32 sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -594,7 +594,7 @@ INSTRUCTION: o32 1E | PUSH DS | INTEL386
 	ops: r=ds
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -606,7 +606,7 @@ INSTRUCTION: o16 1F | POP DS | INTEL8086
 	ops: w=ds
 	implied: pop=1x2
 	code-mnemonic: popw
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;2 no-in-sgx tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -618,7 +618,7 @@ INSTRUCTION: o32 1F | POP DS | INTEL386
 	ops: w=ds
 	implied: pop=1x4
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;4 no-in-sgx tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -1066,7 +1066,7 @@ END
 INSTRUCTION: o16 50+rw | PUSH r16 | INTEL8086
 	ops: r=r16_opcode
 	implied: push=1x2
-	flags: stack
+	flags: sp=push;2
 	gas: suffix=w
 END
 
@@ -1074,7 +1074,7 @@ END
 INSTRUCTION: o32 50+rd | PUSH r32 | INTEL386
 	ops: r=r32_opcode
 	implied: push=1x4
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l
 END
 
@@ -1082,7 +1082,7 @@ END
 INSTRUCTION: o64 50+ro | PUSH r64 | X64
 	ops: r=r64_opcode
 	implied: push=1x8
-	flags: 64 stack do64
+	flags: 64 sp=push;8 do64
 	gas: suffix=q
 END
 
@@ -1090,7 +1090,7 @@ END
 INSTRUCTION: o16 58+rw | POP r16 | INTEL8086
 	ops: w=r16_opcode
 	implied: pop=1x2
-	flags: stack
+	flags: sp=pop;2
 	gas: suffix=w
 END
 
@@ -1098,7 +1098,7 @@ END
 INSTRUCTION: o32 58+rd | POP r32 | INTEL386
 	ops: w=r32_opcode
 	implied: pop=1x4
-	flags: 16 32 stack
+	flags: 16 32 sp=pop;4
 	gas: suffix=l
 END
 
@@ -1106,7 +1106,7 @@ END
 INSTRUCTION: o64 58+ro | POP r64 | X64
 	ops: w=r64_opcode
 	implied: pop=1x8
-	flags: 64 stack do64
+	flags: 64 sp=pop;8 do64
 	gas: suffix=q
 END
 
@@ -1114,7 +1114,7 @@ END
 INSTRUCTION: o16 60 | PUSHA | INTEL186
 	implied: pusha=2
 	code-mnemonic: pushaw
-	flags: 16 32 stack
+	flags: 16 32 sp=push;16
 	gas: osz-suffix-1
 	masm: osz-suffix-1
 	nasm: osz-suffix-1
@@ -1123,7 +1123,7 @@ END
 # Code: Pushad
 INSTRUCTION: o32 60 | PUSHAD | INTEL386
 	implied: pusha=4
-	flags: 16 32 stack
+	flags: 16 32 sp=push;32
 	gas: mnemonic=pusha osz-suffix-1
 	masm: mnemonic=pusha osz-suffix-1
 	nasm: mnemonic=pusha osz-suffix-1
@@ -1133,7 +1133,7 @@ END
 INSTRUCTION: o16 61 | POPA | INTEL186
 	implied: popa=2
 	code-mnemonic: popaw
-	flags: 16 32 stack
+	flags: 16 32 sp=pop;16
 	gas: osz-suffix-1
 	masm: osz-suffix-1
 	nasm: osz-suffix-1
@@ -1142,7 +1142,7 @@ END
 # Code: Popad
 INSTRUCTION: o32 61 | POPAD | INTEL386
 	implied: popa=4
-	flags: 16 32 stack
+	flags: 16 32 sp=pop;32
 	gas: mnemonic=popa osz-suffix-1
 	masm: mnemonic=popa osz-suffix-1
 	nasm: mnemonic=popa osz-suffix-1
@@ -1222,7 +1222,7 @@ END
 INSTRUCTION: o16 68 iw | PUSH imm16 | INTEL186
 	ops: r=imm16
 	implied: push=1x2
-	flags: stack
+	flags: sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -1234,7 +1234,7 @@ INSTRUCTION: o32 68 id | PUSH imm32 | INTEL386
 	ops: r=imm32
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -1246,7 +1246,7 @@ INSTRUCTION: o64 68 id | PUSH imm32 | X64
 	ops: r=imm32sex64
 	implied: push=1x8
 	code-mnemonic: pushq
-	flags: 64 stack do64
+	flags: 64 sp=push;8 do64
 	gas: suffix=q osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -1289,7 +1289,7 @@ INSTRUCTION: o16 6A ib | PUSH imm8 | INTEL186
 	ops: r=imm8sex16
 	implied: push=1x2
 	code-mnemonic: pushw
-	flags: stack
+	flags: sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -1301,7 +1301,7 @@ INSTRUCTION: o32 6A ib | PUSH imm8 | INTEL386
 	ops: r=imm8sex32
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -1313,7 +1313,7 @@ INSTRUCTION: o64 6A ib | PUSH imm8 | X64
 	ops: r=imm8sex64
 	implied: push=1x8
 	code-mnemonic: pushq
-	flags: 64 stack do64
+	flags: 64 sp=push;8 do64
 	gas: suffix=q osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -2912,7 +2912,7 @@ END
 INSTRUCTION: o16 8F /0 | POP r/m16 | INTEL8086
 	ops: w=r16_or_mem | UInt16
 	implied: pop-rm=2
-	flags: stack
+	flags: sp=pop;2
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
 	intel: flags=force-size=always
@@ -2924,7 +2924,7 @@ END
 INSTRUCTION: o32 8F /0 | POP r/m32 | INTEL386
 	ops: w=r32_or_mem | UInt32
 	implied: pop-rm=4
-	flags: 16 32 stack
+	flags: 16 32 sp=pop;4
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	intel: flags=force-size=always
@@ -2936,7 +2936,7 @@ END
 INSTRUCTION: o64 8F /0 | POP r/m64 | X64
 	ops: w=r64_or_mem | UInt64
 	implied: pop-rm=8
-	flags: 64 stack do64
+	flags: 64 sp=pop;8 do64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
 	intel: flags=force-size=always
@@ -3042,7 +3042,7 @@ INSTRUCTION: o16 9A cd | CALL ptr16:16 | INTEL8086
 	ops: r=farbr2_2
 	implied: push=2x2
 	# VM exit if task switch
-	flags: 16 32 stack intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=push;4 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Call
 	branch: call-far
 	gas: mnemonic=lcall suffix=w osz-suffix-4
@@ -3055,7 +3055,7 @@ INSTRUCTION: o32 9A cp | CALL ptr16:32 | INTEL386
 	ops: r=farbr4_2
 	implied: push=2x4
 	# VM exit if task switch
-	flags: 16 32 stack intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=push;8 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Call
 	branch: call-far
 	gas: mnemonic=lcall suffix=l osz-suffix-4
@@ -3075,7 +3075,7 @@ INSTRUCTION: o16 9C | PUSHF | INTEL8086
 	implied: push=1x2
 	code-mnemonic: pushfw
 	rflags: r=oszacpdi
-	flags: stack amd-may-vm-exit
+	flags: sp=push;2 amd-may-vm-exit
 	gas: osz-suffix-1
 	nasm: osz-suffix-1
 END
@@ -3084,7 +3084,7 @@ END
 INSTRUCTION: o32 9C | PUSHFD | INTEL386
 	implied: push=1x4
 	rflags: r=oszacpdiA
-	flags: 16 32 stack amd-may-vm-exit
+	flags: 16 32 sp=push;4 amd-may-vm-exit
 	gas: mnemonic=pushf osz-suffix-1
 	nasm: mnemonic=pushf osz-suffix-1
 END
@@ -3093,7 +3093,7 @@ END
 INSTRUCTION: o64 9C | PUSHFQ | X64
 	implied: push=1x8
 	rflags: r=oszacpdiA
-	flags: 64 stack do64 amd-may-vm-exit
+	flags: 64 sp=push;8 do64 amd-may-vm-exit
 	gas: mnemonic=pushf osz-suffix-1
 	nasm: mnemonic=pushf osz-suffix-1
 END
@@ -3103,7 +3103,7 @@ INSTRUCTION: o16 9D | POPF | INTEL8086
 	implied: pop=1x2
 	code-mnemonic: popfw
 	rflags: w=oszacpdi
-	flags: stack amd-may-vm-exit tsx-impl-abort
+	flags: sp=pop;2 amd-may-vm-exit tsx-impl-abort
 	gas: osz-suffix-1
 	nasm: osz-suffix-1
 END
@@ -3112,7 +3112,7 @@ END
 INSTRUCTION: o32 9D | POPFD | INTEL386
 	implied: pop=1x4
 	rflags: w=oszacpdiA
-	flags: 16 32 stack amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=pop;4 amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=popf osz-suffix-1
 	nasm: mnemonic=popf osz-suffix-1
 END
@@ -3121,7 +3121,7 @@ END
 INSTRUCTION: o64 9D | POPFQ | X64
 	implied: pop=1x8
 	rflags: w=oszacpdiA
-	flags: 64 stack do64 amd-may-vm-exit tsx-impl-abort
+	flags: 64 sp=pop;8 do64 amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=popf osz-suffix-1
 	nasm: mnemonic=popf osz-suffix-1
 END
@@ -3888,7 +3888,7 @@ INSTRUCTION: o16 C2 iw | RET imm16 | INTEL8086
 	ops: r=imm16
 	implied: pop=1x2
 	code-mnemonic: retnw
-	flags: stack bnd no-intel-dec64
+	flags: sp=pop_imm16;2 bnd no-intel-dec64
 	cflow: Return
 	gas: osz-suffix-2 ret retw retw
 	intel: osz-bnd
@@ -3901,7 +3901,7 @@ INSTRUCTION: o32 C2 iw | RET imm16 | INTEL386
 	ops: r=imm16
 	implied: pop=1x4
 	code-mnemonic: retnd
-	flags: 16 32 stack bnd
+	flags: 16 32 sp=pop_imm16;4 bnd
 	cflow: Return
 	gas: osz-suffix-2 retl ret retl
 	intel: osz-bnd
@@ -3914,7 +3914,7 @@ INSTRUCTION: o64 C2 iw | RET imm16 | X64
 	ops: r=imm16
 	implied: pop=1x8
 	code-mnemonic: retnq
-	flags: 64 stack bnd intel-fo64 do64
+	flags: 64 sp=pop_imm16;8 bnd intel-fo64 do64
 	cflow: Return
 	gas: suffix=q bnd
 	intel: bnd
@@ -3926,7 +3926,7 @@ END
 INSTRUCTION: o16 C3 | RET | INTEL8086
 	implied: pop=1x2
 	code-mnemonic: retnw
-	flags: stack bnd no-intel-dec64
+	flags: sp=pop;2 bnd no-intel-dec64
 	cflow: Return
 	gas: osz-suffix-2 ret retw retw
 	intel: osz-bnd
@@ -3938,7 +3938,7 @@ END
 INSTRUCTION: o32 C3 | RET | INTEL386
 	implied: pop=1x4
 	code-mnemonic: retnd
-	flags: 16 32 stack bnd
+	flags: 16 32 sp=pop;4 bnd
 	cflow: Return
 	gas: osz-suffix-2 retl ret retl
 	intel: osz-bnd
@@ -3950,7 +3950,7 @@ END
 INSTRUCTION: o64 C3 | RET | X64
 	implied: pop=1x8
 	code-mnemonic: retnq
-	flags: 64 stack bnd intel-fo64 do64
+	flags: 64 sp=pop;8 bnd intel-fo64 do64
 	cflow: Return
 	gas: suffix=q bnd
 	intel: bnd
@@ -4072,7 +4072,7 @@ INSTRUCTION: o16 C8 iw ib | ENTER imm16, imm8 | INTEL186
 	ops: r=imm16 r=imm8
 	implied: enter=2
 	code-mnemonic: enterw
-	flags: stack
+	flags: sp=enter;2
 	gas: flags=keep-op-order suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -4084,7 +4084,7 @@ INSTRUCTION: o32 C8 iw ib | ENTER imm16, imm8 | INTEL386
 	ops: r=imm16 r=imm8
 	implied: enter=4
 	code-mnemonic: enterd
-	flags: 16 32 stack
+	flags: 16 32 sp=enter;4
 	gas: flags=keep-op-order suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -4096,7 +4096,7 @@ INSTRUCTION: o64 C8 iw ib | ENTER imm16, imm8 | X64
 	ops: r=imm16 r=imm8
 	implied: enter=8
 	code-mnemonic: enterq
-	flags: 64 stack do64
+	flags: 64 sp=enter;8 do64
 	gas: flags=keep-op-order suffix=q osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -4141,7 +4141,7 @@ INSTRUCTION: o16 CA iw | RETF imm16 | INTEL8086
 	ops: r=imm16
 	implied: pop=2x2
 	code-mnemonic: retfw
-	flags: stack no-in-sgx tsx-impl-abort
+	flags: sp=pop_imm16;4 no-in-sgx tsx-impl-abort
 	cflow: Return
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
 	intel: mnemonic=ret flags=far osz
@@ -4154,7 +4154,7 @@ INSTRUCTION: o32 CA iw | RETF imm16 | INTEL386
 	ops: r=imm16
 	implied: pop=2x4
 	code-mnemonic: retfd
-	flags: stack no-in-sgx tsx-impl-abort
+	flags: sp=pop_imm16;8 no-in-sgx tsx-impl-abort
 	cflow: Return
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
 	intel: mnemonic=ret flags=far osz
@@ -4167,7 +4167,7 @@ INSTRUCTION: o64 CA iw | RETF imm16 | X64
 	ops: r=imm16
 	implied: pop=2x8
 	code-mnemonic: retfq
-	flags: 64 stack no-in-sgx tsx-impl-abort
+	flags: 64 sp=pop_imm16;16 no-in-sgx tsx-impl-abort
 	cflow: Return
 	fast: mnemonic=retfq
 	gas: mnemonic=lret suffix=q osz-suffix-3 0
@@ -4180,7 +4180,7 @@ END
 INSTRUCTION: o16 CB | RETF | INTEL8086
 	implied: pop=2x2
 	code-mnemonic: retfw
-	flags: stack no-in-sgx tsx-impl-abort
+	flags: sp=pop;4 no-in-sgx tsx-impl-abort
 	cflow: Return
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
 	intel: mnemonic=ret flags=far osz
@@ -4192,7 +4192,7 @@ END
 INSTRUCTION: o32 CB | RETF | INTEL386
 	implied: pop=2x4
 	code-mnemonic: retfd
-	flags: stack no-in-sgx tsx-impl-abort
+	flags: sp=pop;8 no-in-sgx tsx-impl-abort
 	cflow: Return
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
 	intel: mnemonic=ret flags=far osz
@@ -4204,7 +4204,7 @@ END
 INSTRUCTION: o64 CB | RETF | X64
 	implied: pop=2x8
 	code-mnemonic: retfq
-	flags: 64 stack no-in-sgx tsx-impl-abort
+	flags: 64 sp=pop;16 no-in-sgx tsx-impl-abort
 	cflow: Return
 	fast: mnemonic=retfq
 	gas: mnemonic=lret suffix=q osz-suffix-3 0
@@ -4243,7 +4243,7 @@ INSTRUCTION: o16 CF | IRET | INTEL8086
 	code-mnemonic: iretw
 	rflags: w=oszacpdi
 	# VM exit if task switch
-	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=iret;2 serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	gas: suffix=w osz-suffix-3 16
 	nasm: osz-suffix-3
@@ -4254,7 +4254,7 @@ INSTRUCTION: o32 CF | IRETD | INTEL386
 	implied: pop;!64=3x4 pop;64=5x4 w;64=ss
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=iret;4 serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	gas: mnemonic=iret suffix=l osz-suffix-3 32
 	nasm: mnemonic=iret osz-suffix-3
@@ -4265,7 +4265,7 @@ INSTRUCTION: o64 CF | IRETQ | X64
 	implied: pop=5x8 w=ss
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: 64 stack serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 64 sp=pop;40 serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Return
 	gas: mnemonic=iret suffix=q osz-suffix-3 0
 	nasm: mnemonic=iret osz-suffix-3
@@ -7252,7 +7252,7 @@ END
 INSTRUCTION: o16 E8 cw | CALL rel16 | INTEL8086
 	ops: r=br16_2
 	implied: push=1x2
-	flags: stack bnd no-intel-dec64
+	flags: sp=push;2 bnd no-intel-dec64
 	cflow: Call
 	branch: call-near
 	gas: suffix=w osz-suffix-4
@@ -7266,7 +7266,7 @@ INSTRUCTION: o32 E8 cd | CALL rel32 | INTEL386
 	ops: r=br32_4
 	implied: push=1x4
 	code-suffix: 32
-	flags: 16 32 stack bnd
+	flags: 16 32 sp=push;4 bnd
 	cflow: Call
 	branch: call-near
 	gas: suffix=l osz-suffix-4
@@ -7280,7 +7280,7 @@ INSTRUCTION: o64 E8 cd | CALL rel32 | X64
 	ops: r=br64_4
 	implied: push=1x8
 	code-suffix: 64
-	flags: 64 stack bnd intel-fo64 do64
+	flags: 64 sp=push;8 bnd intel-fo64 do64
 	cflow: Call
 	branch: call-near
 	gas: suffix=q osz-suffix-4
@@ -7962,7 +7962,7 @@ END
 INSTRUCTION: o16 FF /2 | CALL r/m16 | INTEL8086
 	ops: r=r16_or_mem | WordOffset
 	implied: push=1x2
-	flags: stack bnd notrack cet-tracked no-intel-dec64
+	flags: sp=push;2 bnd notrack cet-tracked no-intel-dec64
 	cflow: IndirectCall
 	branch: call-near-indirect
 	fast: flags=force-size=always
@@ -7976,7 +7976,7 @@ END
 INSTRUCTION: o32 FF /2 | CALL r/m32 | INTEL386
 	ops: r=r32_or_mem | DwordOffset
 	implied: push=1x4
-	flags: 16 32 stack bnd notrack cet-tracked
+	flags: 16 32 sp=push;4 bnd notrack cet-tracked
 	cflow: IndirectCall
 	branch: call-near-indirect
 	fast: flags=force-size=always
@@ -7990,7 +7990,7 @@ END
 INSTRUCTION: o64 FF /2 | CALL r/m64 | X64
 	ops: r=r64_or_mem | QwordOffset
 	implied: push=1x8
-	flags: 64 stack bnd notrack cet-tracked intel-fo64 do64
+	flags: 64 sp=push;8 bnd notrack cet-tracked intel-fo64 do64
 	cflow: IndirectCall
 	branch: call-near-indirect
 	fast: flags=force-size=always
@@ -8006,7 +8006,7 @@ INSTRUCTION: o16 FF /3 | CALL m16:16 | INTEL8086
 	implied: push=2x2
 	code-memory-size: 1616
 	# VM exit if task switch
-	flags: stack cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=push;4 cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	fast: mnemonic=callf flags=force-size=always
@@ -8022,7 +8022,7 @@ INSTRUCTION: o32 FF /3 | CALL m16:32 | INTEL386
 	implied: push=2x4
 	code-memory-size: 1632
 	# VM exit if task switch
-	flags: stack cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=push;8 cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	fast: mnemonic=callf flags=force-size=always
@@ -8038,7 +8038,7 @@ INSTRUCTION: o64 FF /3 | CALL m16:64 | X64
 	implied: push=2x8
 	code-memory-size: 1664
 	# VM exit if task switch
-	flags: 64 stack cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx tsx-impl-abort
+	flags: 64 sp=push;16 cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx tsx-impl-abort
 	cflow: IndirectCall
 	branch: call-far-indirect
 	fast: mnemonic=callf flags=force-size=always
@@ -8136,7 +8136,7 @@ END
 INSTRUCTION: o16 FF /6 | PUSH r/m16 | INTEL8086
 	ops: r=r16_or_mem | UInt16
 	implied: push=1x2
-	flags: stack
+	flags: sp=push;2
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
 	intel: flags=force-size=always
@@ -8148,7 +8148,7 @@ END
 INSTRUCTION: o32 FF /6 | PUSH r/m32 | INTEL386
 	ops: r=r32_or_mem | UInt32
 	implied: push=1x4
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	intel: flags=force-size=always
@@ -8160,7 +8160,7 @@ END
 INSTRUCTION: o64 FF /6 | PUSH r/m64 | X64
 	ops: r=r64_or_mem | UInt64
 	implied: push=1x8
-	flags: 64 stack do64
+	flags: 64 sp=push;8 do64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
 	intel: flags=force-size=always
@@ -16189,7 +16189,7 @@ INSTRUCTION: o16 0F A0 | PUSH FS | INTEL386
 	ops: r=fs
 	implied: push=1x2
 	code-mnemonic: pushw
-	flags: stack
+	flags: sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16201,7 +16201,7 @@ INSTRUCTION: o32 0F A0 | PUSH FS | INTEL386
 	ops: r=fs
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16213,7 +16213,7 @@ INSTRUCTION: o64 0F A0 | PUSH FS | X64
 	ops: r=fs
 	implied: push=1x8
 	code-mnemonic: pushq
-	flags: 64 stack do64
+	flags: 64 sp=push;8 do64
 	gas: suffix=q osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16225,7 +16225,7 @@ INSTRUCTION: o16 0F A1 | POP FS | INTEL386
 	ops: w=fs
 	implied: pop=1x2
 	code-mnemonic: popw
-	flags: stack no-in-sgx tsx-impl-abort
+	flags: sp=pop;2 no-in-sgx tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16237,7 +16237,7 @@ INSTRUCTION: o32 0F A1 | POP FS | INTEL386
 	ops: w=fs
 	implied: pop=1x4
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;4 no-in-sgx tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16249,7 +16249,7 @@ INSTRUCTION: o64 0F A1 | POP FS | X64
 	ops: w=fs
 	implied: pop=1x8
 	code-mnemonic: popq
-	flags: 64 stack do64 no-in-sgx tsx-impl-abort
+	flags: 64 sp=pop;8 do64 no-in-sgx tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16679,7 +16679,7 @@ INSTRUCTION: o16 0F A8 | PUSH GS | INTEL386
 	ops: r=gs
 	implied: push=1x2
 	code-mnemonic: pushw
-	flags: stack
+	flags: sp=push;2
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16691,7 +16691,7 @@ INSTRUCTION: o32 0F A8 | PUSH GS | INTEL386
 	ops: r=gs
 	implied: push=1x4
 	code-mnemonic: pushd
-	flags: 16 32 stack
+	flags: 16 32 sp=push;4
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16703,7 +16703,7 @@ INSTRUCTION: o64 0F A8 | PUSH GS | X64
 	ops: r=gs
 	implied: push=1x8
 	code-mnemonic: pushq
-	flags: 64 stack do64
+	flags: 64 sp=push;8 do64
 	gas: suffix=q osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16715,7 +16715,7 @@ INSTRUCTION: o16 0F A9 | POP GS | INTEL386
 	ops: w=gs
 	implied: pop=1x2
 	code-mnemonic: popw
-	flags: stack no-in-sgx tsx-impl-abort
+	flags: sp=pop;2 no-in-sgx tsx-impl-abort
 	gas: suffix=w osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16727,7 +16727,7 @@ INSTRUCTION: o32 0F A9 | POP GS | INTEL386
 	ops: w=gs
 	implied: pop=1x4
 	code-mnemonic: popd
-	flags: 16 32 stack no-in-sgx tsx-impl-abort
+	flags: 16 32 sp=pop;4 no-in-sgx tsx-impl-abort
 	gas: suffix=l osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -16739,7 +16739,7 @@ INSTRUCTION: o64 0F A9 | POP GS | X64
 	ops: w=gs
 	implied: pop=1x8
 	code-mnemonic: popq
-	flags: 64 stack do64 no-in-sgx tsx-impl-abort
+	flags: 64 sp=pop;8 do64 no-in-sgx tsx-impl-abort
 	gas: suffix=q osz-suffix-4
 	intel: osz
 	masm: osz-suffix-1
@@ -30339,7 +30339,7 @@ END
 INSTRUCTION: F3 0F 01 EC | UIRET | UINTR
 	implied: pop=3x8
 	rflags: w=cpazsdoA 1=u
-	flags: 64 stack no-in-sgx tsx-abort
+	flags: 64 sp=pop;24 no-in-sgx tsx-abort
 	cflow: Return
 END
 

@@ -29,6 +29,7 @@ using Generator.Enums.Encoder;
 using System.Diagnostics;
 using Generator.Formatters;
 using Generator.Enums.Formatter;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Generator.Tables {
 	[Flags]
@@ -478,6 +479,31 @@ namespace Generator.Tables {
 		}
 	}
 
+	enum StackInfoKind {
+		None,
+		Increment,
+		Enter,
+		Iret,
+		PopImm16,
+	}
+
+	readonly struct StackInfo : IEquatable<StackInfo>, IComparable<StackInfo> {
+		public readonly StackInfoKind Kind;
+		public readonly int Value;
+		public StackInfo(StackInfoKind kind, int value) {
+			Kind = kind;
+			Value = value;
+		}
+		public override bool Equals(object? obj) => obj is StackInfo info && Equals(info);
+		public bool Equals(StackInfo other) => Kind == other.Kind && Value == other.Value;
+		public override int GetHashCode() => HashCode.Combine(Kind, Value);
+		public int CompareTo(StackInfo other) {
+			int c = Kind.CompareTo(other.Kind);
+			if (c != 0) return c;
+			return Value.CompareTo(other.Value);
+		}
+	}
+
 	[DebuggerDisplay("{OpCodeString,nq} | {InstructionString,nq}")]
 	sealed class InstructionDef {
 		public readonly string OpCodeString;
@@ -516,6 +542,7 @@ namespace Generator.Tables {
 		public readonly EnumValue ControlFlow;
 		public readonly ConditionCode ConditionCode;
 		public readonly BranchKind BranchKind;//TODO: Add to OpCodeInfo
+		public readonly StackInfo StackInfo;
 		public readonly int FpuStackIncrement;
 		public readonly RflagsBits RflagsRead;
 		public readonly RflagsBits RflagsUndefined;
@@ -541,7 +568,8 @@ namespace Generator.Tables {
 			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKind[] opKinds,
 			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
-			BranchKind branchKind, int fpuStackIncrement, RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
+			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
+			RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
 			EnumValue[] cpuid, OpInfo[] opInfo,
 			FastFmtInstructionDef fast, FmtInstructionDef gas, FmtInstructionDef intel, FmtInstructionDef masm, FmtInstructionDef nasm) {
 			Code = code;
@@ -576,6 +604,7 @@ namespace Generator.Tables {
 			ControlFlow = flowControl;
 			ConditionCode = conditionCode;
 			BranchKind = branchKind;
+			StackInfo = stackInfo;
 			FpuStackIncrement = fpuStackIncrement;
 			RflagsRead = read;
 			RflagsUndefined = undefined;

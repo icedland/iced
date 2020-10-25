@@ -368,15 +368,7 @@ namespace Generator.InstructionInfo.Rust {
 		void GenerateTable((EncodingKind encoding, InstructionDef[] defs)[] tdefs, string id, string filename) {
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				foreach (var (encoding, defs) in tdefs) {
-					string? feature = encoding switch {
-						EncodingKind.Legacy => null,
-						EncodingKind.VEX => RustConstants.FeatureVex,
-						EncodingKind.EVEX => RustConstants.FeatureEvex,
-						EncodingKind.XOP => RustConstants.FeatureXop,
-						EncodingKind.D3NOW => RustConstants.FeatureD3now,
-						_ => throw new InvalidOperationException(),
-					};
-					if (feature is object)
+					if (RustConstants.GetFeature(encoding) is string feature)
 						writer.WriteLine(feature);
 					var bar = string.Empty;
 					foreach (var def in defs) {
@@ -415,6 +407,31 @@ namespace Generator.InstructionInfo.Rust {
 					var conditionalStr = info.Conditional ? "true" : "false";
 					var writesTopStr = info.WritesTop ? "true" : "false";
 					writer.WriteLine($"=> FpuStackIncrementInfo {{ increment: {info.Increment}, conditional: {conditionalStr}, writes_top: {writesTopStr} }},");
+				}
+			});
+		}
+
+		protected override void GenerateStackPointerIncrementTable((EncodingKind encoding, StackInfo info, InstructionDef[] defs)[] tdefs) {
+			var filename = genTypes.Dirs.GetRustFilename("instruction.rs");
+			new FileUpdater(TargetLanguage.Rust, "StackPointerIncrementTable", filename).Generate(writer => {
+				foreach (var (encoding, info, defs) in tdefs) {
+					var expr = info.Kind switch {
+						StackInfoKind.Increment => $" => {info.Value},",
+						StackInfoKind.Enter => $" => -({info.Value} + (self.immediate8_2nd() as i32 & 0x1F) * {info.Value} + self.immediate16() as i32),",
+						StackInfoKind.Iret => $" => if self.code_size() == CodeSize::Code64 {{ {info.Value} * 5 }} else {{ {info.Value} * 3 }},",
+						StackInfoKind.PopImm16 => $" => {info.Value} + self.immediate16() as i32,",
+						_ => throw new InvalidOperationException(),
+					};
+
+					if (RustConstants.GetFeature(encoding) is string feature)
+						writer.WriteLine(feature);
+					var bar = string.Empty;
+					for (int i = 0; i < defs.Length; i++) {
+						var def = defs[i];
+						var finalExpr = i + 1 == defs.Length ? expr : string.Empty;
+						writer.WriteLine($"{bar}{def.Code.DeclaringType.Name(idConverter)}::{def.Code.Name(idConverter)}{finalExpr}");
+						bar = "| ";
+					}
 				}
 			});
 		}

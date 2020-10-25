@@ -42,6 +42,7 @@ namespace Generator.InstructionInfo {
 		protected abstract void GenerateIgnoresIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateTileStrideIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateFpuStackIncrementInfoTable((FpuStackInfo info, InstructionDef[] defs)[] defs);
+		protected abstract void GenerateStackPointerIncrementTable((EncodingKind encoding, StackInfo info, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateCore();
 
 		protected readonly GenTypes genTypes;
@@ -59,7 +60,6 @@ namespace Generator.InstructionInfo {
 			public override bool Equals(object? obj) => obj is FpuStackInfo info && Equals(info);
 			public bool Equals(FpuStackInfo other) => Increment == other.Increment && Conditional == other.Conditional && WritesTop == other.WritesTop;
 			public override int GetHashCode() => HashCode.Combine(Increment, Conditional, WritesTop);
-
 			public int CompareTo(FpuStackInfo other) {
 				int c = Increment.CompareTo(other.Increment);
 				if (c != 0) return c;
@@ -106,6 +106,12 @@ namespace Generator.InstructionInfo {
 				GroupBy(a => new FpuStackInfo(a), (a, b) => (info: a, b.OrderBy(a => a.Code.Value).ToArray())).
 				OrderBy(a => a.info).ToArray();
 			GenerateFpuStackIncrementInfoTable(fpuDefs);
+
+			var stackDefs = defs.
+				Where(a => a.StackInfo.Kind != StackInfoKind.None).
+				GroupBy(a => (encoding: a.Encoding, info: a.StackInfo), (a, b) => (a.encoding, a.info, b.OrderBy(a => a.Code.Value).ToArray())).
+				OrderBy(a => (a.encoding, a.info)).ToArray();
+			GenerateStackPointerIncrementTable(stackDefs);
 
 			{
 				var shifts = new int[IcedConstants.MaxOpCount] {

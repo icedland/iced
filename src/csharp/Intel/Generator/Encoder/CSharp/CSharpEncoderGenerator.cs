@@ -279,14 +279,7 @@ namespace Generator.Encoder.CSharp {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.EncoderNamespace, "InstructionFormatter.cs");
 			new FileUpdater(TargetLanguage.CSharp, "PrintImpliedOps", filename).Generate(writer => {
 				foreach (var info in impliedOpsInfo) {
-					string? feature = info.Encoding switch {
-						EncodingKind.Legacy => null,
-						EncodingKind.VEX => CSharpConstants.VexDefine,
-						EncodingKind.EVEX => CSharpConstants.EvexDefine,
-						EncodingKind.XOP => CSharpConstants.XopDefine,
-						EncodingKind.D3NOW => CSharpConstants.D3nowDefine,
-						_ => throw new InvalidOperationException(),
-					};
+					var feature = CSharpConstants.GetDefine(info.Encoding);
 					if (feature is object)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in info.defs)
