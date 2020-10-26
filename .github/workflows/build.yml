@@ -25,7 +25,7 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Run generator, verify no diff
         shell: pwsh
@@ -100,17 +100,19 @@ jobs:
           New-Item -ItemType Directory nuget_files > $null
           Copy-Item src/csharp/Intel/Iced/bin/Release/*.*nupkg nuget_files
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
         with:
           name: nupkg
           path: nuget_files
+          if-no-files-found: error
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         if: github.ref == 'refs/heads/master'
         with:
           name: coverage.info
           path: src/csharp/Intel/Iced.UnitTests/coverage.netcoreapp3.1.info
+          if-no-files-found: error
 
       - name: Upload coverage report
         if: github.ref == 'refs/heads/master'
@@ -139,7 +141,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - uses: actions/setup-dotnet@v1
         with:
@@ -157,7 +159,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Install rustup and rustc latest (macOS)
         shell: bash
