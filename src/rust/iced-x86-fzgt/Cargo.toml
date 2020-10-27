@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86-fzgt"
-version = "1.9.0"
+version = "1.9.1"
 authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "Test FuzzerGen output"
@@ -11,5 +11,5 @@ publish = false
 structopt = "0.3.15"
 
 [dependencies.iced-x86]
-version = "1.9.0"
+version = "1.9.1"
 path = "../iced-x86"
