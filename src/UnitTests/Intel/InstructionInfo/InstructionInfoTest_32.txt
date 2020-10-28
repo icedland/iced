@@ -844,9 +844,9 @@ F7 28, Imul_rm32, Legacy, INTEL386, fw=oc fu=apsz op0=r r=ds r=eax rm=ds:eax;Int
 # vmcall
 0F01 C1, Vmcall, Legacy, VMX, fc=aops fw=cz flow=Call
 # vmlaunch
-0F01 C2, Vmlaunch, Legacy, VMX, fw=acopszidA priv flow=Call
+0F01 C2, Vmlaunch, Legacy, VMX, fw=zc fc=osap priv flow=Call
 # vmresume
-0F01 C3, Vmresume, Legacy, VMX, fw=acopszidA priv flow=Call
+0F01 C3, Vmresume, Legacy, VMX, fw=zc fc=osap priv flow=Call
 # vmxoff
 0F01 C4, Vmxoff, Legacy, VMX, fw=cz fc=aops priv
 # encls

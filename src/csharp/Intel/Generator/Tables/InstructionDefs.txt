@@ -8615,7 +8615,7 @@ END
 # This instruction is NP, the SDM is wrong
 # Code: Vmlaunch
 INSTRUCTION: NP 0F 01 C2 | VMLAUNCH | VMX
-	rflags: w=oszacpdiA
+	rflags: w=zc 0=osap
 	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	# Continues from the next instruction on failure
 	cflow: Call
@@ -8624,7 +8624,7 @@ END
 # This instruction is NP, the SDM is wrong
 # Code: Vmresume
 INSTRUCTION: NP 0F 01 C3 | VMRESUME | VMX
-	rflags: w=oszacpdiA
+	rflags: w=zc 0=osap
 	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	# Continues from the next instruction on failure
 	cflow: Call
@@ -18321,7 +18321,7 @@ END
 # Code: Vmptrst_m64
 INSTRUCTION: NP 0F C7 /7 | VMPTRST m64 | VMX
 	ops: w=mem | UInt64
-	rflags: w=zc 0=osap
+	rflags: 0=oszapc
 	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore

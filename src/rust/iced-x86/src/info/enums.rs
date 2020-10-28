@@ -54,7 +54,7 @@ impl InstrInfoConstants {
 	pub(crate) const OP_INFO2_COUNT: usize = 3;
 	pub(crate) const OP_INFO3_COUNT: usize = 2;
 	pub(crate) const OP_INFO4_COUNT: usize = 2;
-	pub(crate) const RFLAGS_INFO_COUNT: usize = 78;
+	pub(crate) const RFLAGS_INFO_COUNT: usize = 79;
 	pub(crate) const DEFAULT_USED_REGISTER_COLL_CAPACITY: usize = 10;
 	pub(crate) const DEFAULT_USED_MEMORY_COLL_CAPACITY: usize = 8;
 }
@@ -715,6 +715,7 @@ pub(crate) enum RflagsInfo {
 	C_0123,
 	C_1_U_023,
 	C_A,
+	C_acopsz,
 	C_acopszidA,
 	C_acos_S_pz,
 	C_c,
@@ -792,11 +793,12 @@ pub(crate) enum RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_RFLAGS_INFO: [&str; 78] = [
+static GEN_DEBUG_RFLAGS_INFO: [&str; 79] = [
 	"None",
 	"C_0123",
 	"C_1_U_023",
 	"C_A",
+	"C_acopsz",
 	"C_acopszidA",
 	"C_acos_S_pz",
 	"C_c",

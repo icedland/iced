@@ -2884,9 +2884,9 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # vmcall
 0F01 C1, Vmcall, Legacy, VMX, fc=aops fw=cz flow=Call
 # vmlaunch
-0F01 C2, Vmlaunch, Legacy, VMX, fw=acopszidA priv flow=Call
+0F01 C2, Vmlaunch, Legacy, VMX, fw=zc fc=osap priv flow=Call
 # vmresume
-0F01 C3, Vmresume, Legacy, VMX, fw=acopszidA priv flow=Call
+0F01 C3, Vmresume, Legacy, VMX, fw=zc fc=osap priv flow=Call
 # vmxoff
 0F01 C4, Vmxoff, Legacy, VMX, fw=cz fc=aops priv
 # monitor eax,ecx,edx
@@ -8178,7 +8178,7 @@ F3 0FC7 30, Vmxon_m64, Legacy, VMX, fw=cz fc=aops priv op0=r r=rax rm=ds:rax;UIn
 # rdrand rdx
 48 0FC7 F2, Rdrand_r64, Legacy, RDRAND, fw=c fc=oszap op0=w w=rdx
 # vmptrst qword ptr [rax]
-0FC7 38, Vmptrst_m64, Legacy, VMX, fw=cz fc=aops priv op0=w r=rax wm=ds:rax;UInt64
+0FC7 38, Vmptrst_m64, Legacy, VMX, fc=oszacp priv op0=w r=rax wm=ds:rax;UInt64
 # rdseed dx
 66 0FC7 FA, Rdseed_r16, Legacy, RDSEED, fw=c fc=oszap op0=w w=dx
 # rdseed edx

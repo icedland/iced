@@ -53,7 +53,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		internal const int OpInfo2_Count = 3;
 		internal const int OpInfo3_Count = 2;
 		internal const int OpInfo4_Count = 2;
-		internal const int RflagsInfo_Count = 78;
+		internal const int RflagsInfo_Count = 79;
 		internal const int DefaultUsedRegisterCollCapacity = 10;
 		internal const int DefaultUsedMemoryCollCapacity = 8;
 	}
@@ -351,6 +351,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		C_0123,
 		C_1_U_023,
 		C_A,
+		C_acopsz,
 		C_acopszidA,
 		C_acos_S_pz,
 		C_c,
