@@ -520,9 +520,9 @@ F3 66 AF, Scasd_EAX_m32, Legacy, INTEL386, fr=d fw=oszacp op0=cr op1=cr cr=eax r
 # pop dword ptr [esp+10h]
 66 67 8F 44 24 10, Pop_rm32, Legacy, INTEL386, op0=w r=ss rw=xsp r=esp wm=ss:esp+0x14;UInt32 rm=ss:xsp;UInt32 stack=4
 # vmrun ax
-0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA priv saverestore flow=Call r=ax
+0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA priv save-restore flow=Call r=ax
 # vmrun eax
-67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA priv saverestore flow=Call r=eax
+67 0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA priv save-restore flow=Call r=eax
 # vmmcall
 0F01 D9, Vmmcall, Legacy, SVM, flow=Call
 # vmload ax

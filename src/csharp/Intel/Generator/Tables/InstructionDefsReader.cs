@@ -28,6 +28,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Generator.Constants.InstructionInfo;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
@@ -3080,20 +3081,20 @@ namespace Generator.Tables {
 
 			foreach (var c in rflagsStr) {
 				switch (c) {
-				case 'o': rflags |= RflagsBits.OF; break;
-				case 's': rflags |= RflagsBits.SF; break;
-				case 'z': rflags |= RflagsBits.ZF; break;
-				case 'a': rflags |= RflagsBits.AF; break;
-				case 'c': rflags |= RflagsBits.CF; break;
-				case 'p': rflags |= RflagsBits.PF; break;
-				case 'd': rflags |= RflagsBits.DF; break;
-				case 'i': rflags |= RflagsBits.IF; break;
-				case 'A': rflags |= RflagsBits.AC; break;
-				case '0': rflags |= RflagsBits.C0; break;
-				case '1': rflags |= RflagsBits.C1; break;
-				case '2': rflags |= RflagsBits.C2; break;
-				case '3': rflags |= RflagsBits.C3; break;
-				case 'u': rflags |= RflagsBits.UIF; break;
+				case RflagsBitsConstants.OF: rflags |= RflagsBits.OF; break;
+				case RflagsBitsConstants.SF: rflags |= RflagsBits.SF; break;
+				case RflagsBitsConstants.ZF: rflags |= RflagsBits.ZF; break;
+				case RflagsBitsConstants.AF: rflags |= RflagsBits.AF; break;
+				case RflagsBitsConstants.CF: rflags |= RflagsBits.CF; break;
+				case RflagsBitsConstants.PF: rflags |= RflagsBits.PF; break;
+				case RflagsBitsConstants.DF: rflags |= RflagsBits.DF; break;
+				case RflagsBitsConstants.IF: rflags |= RflagsBits.IF; break;
+				case RflagsBitsConstants.AC: rflags |= RflagsBits.AC; break;
+				case RflagsBitsConstants.C0: rflags |= RflagsBits.C0; break;
+				case RflagsBitsConstants.C1: rflags |= RflagsBits.C1; break;
+				case RflagsBitsConstants.C2: rflags |= RflagsBits.C2; break;
+				case RflagsBitsConstants.C3: rflags |= RflagsBits.C3; break;
+				case RflagsBitsConstants.UIF: rflags |= RflagsBits.UIF; break;
 				default: error = $"Unknown rflags char `{c}`"; return false;
 				}
 			}

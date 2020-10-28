@@ -836,7 +836,7 @@ F7 28, Imul_rm32, Legacy, INTEL386, fw=oc fu=apsz op0=r r=ds r=eax rm=ds:eax;Int
 # sysexit
 0F35, Sysexitd, Legacy, SEP, priv flow=Return r=ecx;edx w=esp w=cs;ss
 # getsec
-0F37, Getsecd, Legacy, SMX, saverestore r=eax
+0F37, Getsecd, Legacy, SMX, save-restore r=eax
 # enclv
 0F01 C0, Enclv, Legacy, OSS, fw=acopsz priv rcw=eax cr=ecx;edx;ebx;ds cw=ecx;edx;ebx
 # enclv
@@ -1000,9 +1000,9 @@ C4E379 63 D3 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r 
 # vpcmpistri xmm2,[eax],0A5h
 C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, fw=cosz fc=ap op0=r op1=r op2=r r=xmm2 r=ds r=eax rm=ds:eax;Packed128_UInt8 w=ecx
 # vmrun ax
-67 0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA priv saverestore flow=Call r=ax
+67 0F01 D8, Vmrunw, Legacy, SVM, fr=acopszidA priv save-restore flow=Call r=ax
 # vmrun eax
-0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA priv saverestore flow=Call r=eax
+0F01 D8, Vmrund, Legacy, SVM, fr=acopszidA priv save-restore flow=Call r=eax
 # vmmcall
 0F01 D9, Vmmcall, Legacy, SVM, flow=Call
 # vmload ax
@@ -1102,11 +1102,11 @@ DF E2, Fnstsg_AX, Legacy, FPU387SL_ONLY, fu=0123 decopt=OldFpu op0=w w=ax
 # jmpe dword ptr [eax]
 0F00 30, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;DwordOffset decopt=Jmpe
 # loadallreset286
-0F04, Loadallreset286, Legacy, INTEL286_ONLY, decopt=Loadall286 priv saverestore
+0F04, Loadallreset286, Legacy, INTEL286_ONLY, decopt=Loadall286 priv save-restore
 # loadall286
-0F05, Loadall286, Legacy, INTEL286_ONLY, decopt=Loadall286 priv saverestore
+0F05, Loadall286, Legacy, INTEL286_ONLY, decopt=Loadall286 priv save-restore
 # loadall386
-0F07, Loadall386, Legacy, INTEL386_ONLY, decopt=Loadall386 priv saverestore r=es;edi
+0F07, Loadall386, Legacy, INTEL386_ONLY, decopt=Loadall386 priv save-restore r=es;edi
 # umov dh,cl
 0F10 CE, Umov_rm8_r8, Legacy, UMOV, decopt=Umov op0=w op1=r w=dh r=cl
 # umov [eax],bl
@@ -1766,7 +1766,7 @@ C7 F8 5AA51234, Xbegin_rel32, Legacy, RTM, flow=XbeginXabortXend op0=r cw=eax
 # dmint
 0F39, Dmint, Legacy, CYRIX_DMI, priv flow=Interrupt decopt=Cyrix_DMI
 # rdm
-0F3A, Rdm, Legacy, CYRIX_DMI, priv saverestore fw=acopszidA flow=Return decopt=Cyrix_DMI
+0F3A, Rdm, Legacy, CYRIX_DMI, priv save-restore fw=acopszidA flow=Return decopt=Cyrix_DMI
 # svdc [eax],cs
 0F78 08, Svdc_m80_Sreg, Legacy, CYRIX_SMM, priv op0=w op1=r r=cs r=ds r=eax wm=ds:eax;SegmentDescSelector decopt=Cyrix
 # rsdc cs,[eax]

@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator.Constants.InstructionInfo {
 	static class InstructionInfoKeys {
 		public const string IsPrivileged = "priv";
-		public const string IsSaveRestoreInstruction = "saverestore";
+		public const string IsSaveRestoreInstruction = "save-restore";
 		public const string IsStackInstruction = "stack";
 		public const string IsSpecial = "special";
 		public const string RflagsRead = "fr";

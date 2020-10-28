@@ -118,7 +118,7 @@ lazy_static! {
 	pub(super) static ref TO_INSTRUCTION_INFO_KEYS: HashMap<&'static str, u32> = {
 		let mut h = HashMap::with_capacity(31);
 		h.insert("priv", InstructionInfoKeys::IS_PRIVILEGED);
-		h.insert("saverestore", InstructionInfoKeys::IS_SAVE_RESTORE_INSTRUCTION);
+		h.insert("save-restore", InstructionInfoKeys::IS_SAVE_RESTORE_INSTRUCTION);
 		h.insert("stack", InstructionInfoKeys::IS_STACK_INSTRUCTION);
 		h.insert("special", InstructionInfoKeys::IS_SPECIAL);
 		h.insert("fr", InstructionInfoKeys::RFLAGS_READ);

@@ -181,7 +181,6 @@ namespace Iced.Intel {
 				case Code.Retfq_imm16:
 					return 16 + Immediate16;
 				// GENERATOR-END: StackPointerIncrementTable
-
 				default:
 					return 0;
 				}
