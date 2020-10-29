@@ -41,7 +41,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			int lineNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
-				if (line.Length == 0 || line.StartsWith("#"))
+				if (line.Length == 0 || line[0] == '#')
 					continue;
 
 				RegisterInfoTestCase tc;

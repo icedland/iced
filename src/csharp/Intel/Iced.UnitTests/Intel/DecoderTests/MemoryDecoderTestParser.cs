@@ -80,7 +80,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static uint ParseUInt32(string s) {
 			if (uint.TryParse(s, out uint value))
 				return value;
-			if (s.StartsWith("0x")) {
+			if (s.StartsWith("0x", StringComparison.Ordinal)) {
 				s = s.Substring(2);
 				if (uint.TryParse(s, SG.NumberStyles.HexNumber, null, out value))
 					return value;

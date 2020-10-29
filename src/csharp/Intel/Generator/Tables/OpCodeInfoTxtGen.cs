@@ -215,7 +215,7 @@ namespace Generator.Tables {
 				for (int i = 0; i < def.OpCount; i++) {
 					if (i > 0)
 						writer.Write(";");
-					writer.Write(def.OpKinds[i].ToString());
+					writer.Write(def.OpKinds[i].EnumValue.RawName);
 				}
 			}
 

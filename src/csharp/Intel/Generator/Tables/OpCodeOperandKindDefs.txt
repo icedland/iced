@@ -1,0 +1,148 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+None, none,
+
+br16_1, br-near=1;16,
+br16_2, br-near=2;16,
+br32_1, br-near=1;32,
+br32_4, br-near=4;32,
+br64_1, br-near=1;64,
+br64_4, br-near=4;64,
+
+xbegin_2, br-near-x=2,
+xbegin_4, br-near-x=4,
+
+brdisp_2, br-disp=2,
+brdisp_4, br-disp=4,
+
+farbr2_2, br-far=2,
+farbr4_2, br-far=4,
+
+imm2_m2z, imm2,
+imm8_const_1, imm8-const=1,
+imm8, imm=1;1,
+imm8sex16, imm=1;2,
+imm8sex32, imm=1;4,
+imm8sex64, imm=1;8,
+imm16, imm=2;2,
+imm32, imm=4;4,
+imm32sex64, imm=4;8,
+imm64, imm=8;8,
+
+al, register=al,
+cl, register=cl,
+ax, register=ax,
+dx, register=dx,
+eax, register=eax,
+rax, register=rax,
+st0, register=st0,
+es, register=es,
+cs, register=cs,
+ss, register=ss,
+ds, register=ds,
+fs, register=fs,
+gs, register=gs,
+
+seg_rBX_al, seg-rbx-al,
+seg_rDI, seg-rdi,
+es_rDI, es-rdi,
+seg_rSI, seg-rsi,
+
+xmm_is4, isx=xmm0,
+xmm_is5, isx=xmm0,
+ymm_is4, isx=ymm0,
+ymm_is5, isx=ymm0,
+
+r8_opcode, opcode=al,
+r16_opcode, opcode=ax,
+r32_opcode, opcode=eax,
+r64_opcode, opcode=rax,
+sti_opcode, opcode=st0,
+
+bnd_reg, modrm.reg=bnd0,
+cr_reg, modrm.reg=cr0, lock-bit
+dr_reg, modrm.reg=dr0,
+k_reg, modrm.reg=k0,
+kp1_reg, modrm.reg=k0, p1
+mm_reg, modrm.reg=mm0,
+r8_reg, modrm.reg=al,
+r16_reg, modrm.reg=ax,
+r16_reg_mem, modrm.reg=ax, mem
+r32_reg, modrm.reg=eax,
+r32_reg_mem, modrm.reg=eax, mem
+r64_reg, modrm.reg=rax,
+r64_reg_mem, modrm.reg=rax, mem
+seg_reg, modrm.reg=es,
+tmm_reg, modrm.reg=tmm0,
+tr_reg, modrm.reg=tr0,
+xmm_reg, modrm.reg=xmm0,
+ymm_reg, modrm.reg=ymm0,
+zmm_reg, modrm.reg=zmm0,
+
+k_rm, modrm.rm-reg-only=k0,
+mm_rm, modrm.rm-reg-only=mm0,
+r16_rm, modrm.rm-reg-only=ax,
+r32_rm, modrm.rm-reg-only=eax,
+r64_rm, modrm.rm-reg-only=rax,
+tmm_rm, modrm.rm-reg-only=tmm0,
+xmm_rm, modrm.rm-reg-only=xmm0,
+ymm_rm, modrm.rm-reg-only=ymm0,
+zmm_rm, modrm.rm-reg-only=zmm0,
+
+k_vvvv, vvvv=k0,
+r32_vvvv, vvvv=eax,
+r64_vvvv, vvvv=rax,
+tmm_vvvv, vvvv=tmm0,
+xmm_vvvv, vvvv=xmm0,
+xmmp3_vvvv, vvvv=xmm0, p3
+ymm_vvvv, vvvv=ymm0,
+zmm_vvvv, vvvv=zmm0,
+zmmp3_vvvv, vvvv=zmm0, p3
+
+bnd_or_mem_mpx, modrm.rm=bnd0, mpx
+k_or_mem, modrm.rm=k0,
+mm_or_mem, modrm.rm=mm0,
+r8_or_mem, modrm.rm=al,
+r16_or_mem, modrm.rm=ax,
+r32_or_mem, modrm.rm=eax,
+r32_or_mem_mpx, modrm.rm=eax, mpx
+r64_or_mem, modrm.rm=rax,
+r64_or_mem_mpx, modrm.rm=rax, mpx
+xmm_or_mem, modrm.rm=xmm0,
+ymm_or_mem, modrm.rm=ymm0,
+zmm_or_mem, modrm.rm=zmm0,
+
+mem, modrm.mem,
+mem_mib, modrm.mem, mib
+mem_mpx, modrm.mem, mpx
+sibmem, modrm.mem, sib
+
+mem_vsib32x, modrm.vsib=xmm0;32,
+mem_vsib32y, modrm.vsib=ymm0;32,
+mem_vsib32z, modrm.vsib=zmm0;32,
+mem_vsib64x, modrm.vsib=xmm0;64,
+mem_vsib64y, modrm.vsib=ymm0;64,
+mem_vsib64z, modrm.vsib=zmm0;64,
+
+mem_offs, moffs,

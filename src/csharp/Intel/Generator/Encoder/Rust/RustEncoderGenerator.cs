@@ -91,12 +91,12 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		protected override void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+		protected override void Generate((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
 			GenerateOpCodeOperandKindTables(legacy, vex, xop, evex);
 			GenerateOpTables(legacy, vex, xop, evex);
 		}
 
-		void GenerateOpCodeOperandKindTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+		void GenerateOpCodeOperandKindTables((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder", "op_kind_tables.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -108,7 +108,7 @@ namespace Generator.Encoder.Rust {
 				Generate(writer, "EVEX_OP_KINDS", RustConstants.FeatureEvex, evex);
 			}
 
-			void Generate(FileWriter writer, string name, string? feature, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
+			void Generate(FileWriter writer, string name, string? feature, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
@@ -117,13 +117,13 @@ namespace Generator.Encoder.Rust {
 				writer.WriteLine($"pub(super) static {name}: [{declTypeStr}; {table.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var info in table)
-						writer.WriteLine($"{declTypeStr}::{info.opCodeOperandKind.Name(idConverter)},// {info.opKind.Name(idConverter)}");
+						writer.WriteLine($"{declTypeStr}::{info.opCodeOperandKind.Name(idConverter)},");
 				}
 				writer.WriteLine("];");
 			}
 		}
 
-		void GenerateOpTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
+		void GenerateOpTables((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
 			var sb = new StringBuilder();
 			var dict = new Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo>(new OpKeyComparer());
 			Add(sb, dict, legacy.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.Legacy);
@@ -163,7 +163,7 @@ namespace Generator.Encoder.Rust {
 						break;
 
 					case OpHandlerKind.OpHx:
-					case OpHandlerKind.OpIs4x:
+					case OpHandlerKind.OpIsX:
 					case OpHandlerKind.OpModRM_reg:
 					case OpHandlerKind.OpModRM_reg_mem:
 					case OpHandlerKind.OpModRM_regF0:
@@ -237,7 +237,7 @@ namespace Generator.Encoder.Rust {
 						writer.WriteLine("};");
 						break;
 
-					case OpHandlerKind.OpVMx:
+					case OpHandlerKind.OpVsib:
 						if (info.Args.Length != 2)
 							throw new InvalidOperationException();
 						writer.WriteLine(" {");
@@ -278,10 +278,10 @@ namespace Generator.Encoder.Rust {
 				}
 
 				writer.WriteLine();
-				WriteTable(writer, "LEGACY_TABLE", null, dict, legacy.Select(a => (a.legacyOpKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "VEX_TABLE", RustConstants.FeatureVex, dict, vex.Select(a => (a.vexOpKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "XOP_TABLE", RustConstants.FeatureXop, dict, xop.Select(a => (a.xopOpKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "EVEX_TABLE", RustConstants.FeatureEvex, dict, evex.Select(a => (a.evexOpKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "LEGACY_TABLE", null, dict, legacy.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "VEX_TABLE", RustConstants.FeatureVex, dict, vex.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "XOP_TABLE", RustConstants.FeatureXop, dict, xop.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "EVEX_TABLE", RustConstants.FeatureEvex, dict, evex.Select(a => (a.opCodeOperandKind, a.opHandlerKind, a.args)));
 			}
 
 			static string? GetFeatures(OpInfo info) {

@@ -124,7 +124,7 @@ namespace Generator.Documentation {
 
 		static (string type, string name) SplitMember(string s, string defaultTypeName) {
 			string typeName, memberName;
-			int typeIndex = s.IndexOf('.');
+			int typeIndex = s.IndexOf('.', StringComparison.Ordinal);
 			if (typeIndex < 0) {
 				typeName = defaultTypeName;
 				memberName = s;

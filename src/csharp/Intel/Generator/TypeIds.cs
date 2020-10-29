@@ -37,6 +37,7 @@ namespace Generator {
 		public static readonly TypeId RegisterDefs = new TypeId(nameof(RegisterDefs));
 		public static readonly TypeId DecoderTables = new TypeId(nameof(DecoderTables));
 		public static readonly TypeId TupleTypeTable = new TypeId(nameof(TupleTypeTable));
+		public static readonly TypeId OpCodeOperandKindDefs = new TypeId(nameof(OpCodeOperandKindDefs));
 
 		public static readonly TypeId IcedConstants = new TypeId(nameof(IcedConstants));
 		public static readonly TypeId DecoderTestParserConstants = new TypeId(nameof(DecoderTestParserConstants));

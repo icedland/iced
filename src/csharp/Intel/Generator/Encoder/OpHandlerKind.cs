@@ -31,7 +31,7 @@ namespace Generator.Encoder {
 		OpId,
 		OpImm,
 		OpIq,
-		OpIs4x,
+		OpIsX,
 		OpIw,
 		OpJ,
 		OpJdisp,
@@ -48,7 +48,7 @@ namespace Generator.Encoder {
 		OpReg,
 		OpRegEmbed8,
 		OpRegSTi,
-		OpVMx,
+		OpVsib,
 		OpX,
 		OpY,
 	}

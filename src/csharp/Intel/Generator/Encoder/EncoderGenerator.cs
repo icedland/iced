@@ -33,7 +33,7 @@ using Generator.Tables;
 namespace Generator.Encoder {
 	abstract class EncoderGenerator {
 		protected abstract void Generate(EnumType enumType);
-		protected abstract void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex);
+		protected abstract void Generate((EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] evex);
 		protected abstract void GenerateOpCodeInfo(InstructionDef[] defs);
 		protected abstract void Generate((EnumValue value, uint size)[] immSizes);
 		protected abstract void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings);
@@ -104,66 +104,9 @@ namespace Generator.Encoder {
 			var notInstrInstrStrs = defs.Where(a => (a.Flags1 & InstructionDefFlags1.NoInstruction) != 0).Select(a => (a.Code, a.InstructionString)).ToArray();
 			GenerateInstructionFormatter(notInstrInstrStrs);
 			var opCodeOperandKind = genTypes[TypeIds.OpCodeOperandKind];
-			var hasModRM = new EnumValue[] {
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_mpx)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_mib)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32x)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib64x)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32y)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib64y)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32z)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib64z)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r8_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r16_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r32_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r32_or_mem_mpx)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r64_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r64_or_mem_mpx)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mm_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.xmm_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.ymm_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.zmm_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.bnd_or_mem_mpx)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.k_or_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r8_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r16_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r16_reg_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r16_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r32_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r32_reg_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r32_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r64_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r64_reg_mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.r64_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.seg_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.k_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.kp1_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.k_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mm_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mm_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.xmm_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.xmm_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.ymm_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.ymm_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.zmm_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.zmm_rm)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.cr_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.dr_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.tr_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.bnd_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.sibmem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.tmm_reg)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.tmm_rm)],
-			};
-			var hasVsib = new EnumValue[] {
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32x)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib64x)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32y)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib64y)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32z)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib64z)],
-			};
+			var opDefs = genTypes.GetObject<OpCodeOperandKindDefs>(TypeIds.OpCodeOperandKindDefs).Defs;
+			var hasModRM = opDefs.Where(a => a.Modrm).Select(a => a.EnumValue).ToArray();
+			var hasVsib = opDefs.Where(a => a.Vsib).Select(a => a.EnumValue).ToArray();
 			GenerateOpCodeFormatter(notInstrOpCodeStrs, hasModRM, hasVsib);
 			GenerateCore();
 			var jccInstr = defs.Where(a => a.BranchKind == BranchKind.JccShort || a.BranchKind == BranchKind.JccNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
@@ -172,12 +115,8 @@ namespace Generator.Encoder {
 			var jmpInstr = defs.Where(a => a.BranchKind == BranchKind.JmpShort || a.BranchKind == BranchKind.JmpNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			var xbeginInstr = defs.Where(a => a.BranchKind == BranchKind.Xbegin).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			GenerateInstrSwitch(jccInstr, simpleBranchInstr, callInstr, jmpInstr, xbeginInstr);
-			var vsib32 = defs.Where(a => a.OpKinds.Any(b =>
-				b == OpCodeOperandKind.mem_vsib32x || b == OpCodeOperandKind.mem_vsib32y || b == OpCodeOperandKind.mem_vsib32z)).
-				Select(a => a.Code).OrderBy(a => a.Value).ToArray();
-			var vsib64 = defs.Where(a => a.OpKinds.Any(b =>
-				b == OpCodeOperandKind.mem_vsib64x || b == OpCodeOperandKind.mem_vsib64y || b == OpCodeOperandKind.mem_vsib64z)).
-				Select(a => a.Code).OrderBy(a => a.Value).ToArray();
+			var vsib32 = defs.Where(a => a.OpKinds.Any(b => b.Vsib32)).Select(a => a.Code).ToArray();
+			var vsib64 = defs.Where(a => a.OpKinds.Any(b => b.Vsib64)).Select(a => a.Code).ToArray();
 			GenerateVsib(vsib32, vsib64);
 
 			var decoderOptionsType = genTypes[TypeIds.DecoderOptions];
@@ -385,25 +324,25 @@ namespace Generator.Encoder {
 				switch (def.Encoding) {
 				case EncodingKind.Legacy:
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= (uint)encoderTypes.ToLegacy(def.OpKinds[i]) << legacyOpShifts[i];
+						encFlags1 |= encoderTypes.ToLegacy(def.OpKinds[i]) << legacyOpShifts[i];
 					tableIndex = (uint)GetLegacyTable(def.Table);
 					break;
 
 				case EncodingKind.VEX:
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= (uint)encoderTypes.ToVex(def.OpKinds[i]) << vexOpShifts[i];
+						encFlags1 |= encoderTypes.ToVex(def.OpKinds[i]) << vexOpShifts[i];
 					tableIndex = (uint)GetVexTable(def.Table);
 					break;
 
 				case EncodingKind.EVEX:
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= (uint)encoderTypes.ToEvex(def.OpKinds[i]) << evexOpShifts[i];
+						encFlags1 |= encoderTypes.ToEvex(def.OpKinds[i]) << evexOpShifts[i];
 					tableIndex = (uint)GetEvexTable(def.Table);
 					break;
 
 				case EncodingKind.XOP:
 					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= (uint)encoderTypes.ToXop(def.OpKinds[i]) << xopOpShifts[i];
+						encFlags1 |= encoderTypes.ToXop(def.OpKinds[i]) << xopOpShifts[i];
 					tableIndex = (uint)GetXopTable(def.Table);
 					break;
 

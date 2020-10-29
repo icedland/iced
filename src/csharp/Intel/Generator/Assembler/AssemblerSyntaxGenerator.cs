@@ -36,6 +36,7 @@ namespace Generator.Assembler {
 	abstract class AssemblerSyntaxGenerator {
 		protected readonly GenTypes genTypes;
 		protected readonly InstructionDef[] defs;
+		readonly RegisterDef[] regDefs;
 		readonly MemorySizeInfoTable memorySizeInfoTable;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groups;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groupsWithPseudo;
@@ -54,6 +55,7 @@ namespace Generator.Assembler {
 		protected AssemblerSyntaxGenerator(GenTypes genTypes) {
 			this.genTypes = genTypes;
 			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
+			regDefs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
 			memorySizeInfoTable = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
 			groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
 			groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
@@ -247,7 +249,6 @@ namespace Generator.Assembler {
 				var name = mapOpCodeToNewName.TryGetValue(codeValue, out var nameOpt) ? nameOpt : memoName.ToLowerInvariant();
 				if (codeValue == codeInt3) name = "int3";
 
-				bool toAdd = true;
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
 
@@ -264,8 +265,6 @@ namespace Generator.Assembler {
 				if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) opCodeArgFlags |= OpCodeArgFlags.RoundingControl;
 
 				var argSizes = new List<int>();
-				bool discard = false;
-				string? discardReason = null;
 
 				// For certain instruction, we need to discard them
 				int numberLeadingArgToDiscard = 0;
@@ -276,293 +275,139 @@ namespace Generator.Assembler {
 				}
 
 				for (int i = numberLeadingArgToDiscard; i < def.OpKinds.Length; i++) {
-					var opKind = def.OpKinds[i];
-					var argKind = ArgKind.Unknown;
+					var opKindDef = def.OpKinds[i];
+					ArgKind argKind;
 					int argSize = 0;
-					switch (opKind) {
-					case OpCodeOperandKind.cl:
-					case OpCodeOperandKind.al:
-					case OpCodeOperandKind.r8_opcode:
-					case OpCodeOperandKind.r8_reg:
-						argKind = ArgKind.Register8;
-						break;
-
-					case OpCodeOperandKind.ax:
-					case OpCodeOperandKind.dx:
-					case OpCodeOperandKind.r16_opcode:
-					case OpCodeOperandKind.r16_reg:
-					case OpCodeOperandKind.r16_reg_mem:
-					case OpCodeOperandKind.r16_rm:
-						argKind = ArgKind.Register16;
-						break;
-
-					case OpCodeOperandKind.eax:
-					case OpCodeOperandKind.r32_opcode:
-					case OpCodeOperandKind.r32_reg:
-					case OpCodeOperandKind.r32_vvvv:
-					case OpCodeOperandKind.r32_rm:
-					case OpCodeOperandKind.r32_reg_mem:
-						argKind = ArgKind.Register32;
-						break;
-
-					case OpCodeOperandKind.rax:
-					case OpCodeOperandKind.r64_reg:
-					case OpCodeOperandKind.r64_opcode:
-					case OpCodeOperandKind.r64_vvvv:
-					case OpCodeOperandKind.r64_rm:
-					case OpCodeOperandKind.r64_reg_mem:
-						argKind = ArgKind.Register64;
-						break;
-
-					case OpCodeOperandKind.es:
-					case OpCodeOperandKind.cs:
-					case OpCodeOperandKind.ss:
-					case OpCodeOperandKind.ds:
-					case OpCodeOperandKind.fs:
-					case OpCodeOperandKind.gs:
-					case OpCodeOperandKind.seg_reg:
-						argKind = ArgKind.RegisterSegment;
-						break;
-
-					case OpCodeOperandKind.mm_reg:
-					case OpCodeOperandKind.mm_rm:
-						argKind = ArgKind.RegisterMM;
-						break;
-
-					case OpCodeOperandKind.xmm_is4:
-					case OpCodeOperandKind.xmm_is5:
-					case OpCodeOperandKind.xmm_reg:
-					case OpCodeOperandKind.xmm_vvvv:
-					case OpCodeOperandKind.xmm_rm:
-					case OpCodeOperandKind.xmmp3_vvvv:
-						argKind = ArgKind.RegisterXMM;
-						break;
-
-					case OpCodeOperandKind.ymm_is4:
-					case OpCodeOperandKind.ymm_is5:
-					case OpCodeOperandKind.ymm_reg:
-					case OpCodeOperandKind.ymm_vvvv:
-					case OpCodeOperandKind.ymm_rm:
-						argKind = ArgKind.RegisterYMM;
-						break;
-
-					case OpCodeOperandKind.zmm_reg:
-					case OpCodeOperandKind.zmm_vvvv:
-					case OpCodeOperandKind.zmm_rm:
-					case OpCodeOperandKind.zmmp3_vvvv:
-						argKind = ArgKind.RegisterZMM;
-						break;
-
-					case OpCodeOperandKind.kp1_reg:
-					case OpCodeOperandKind.k_reg:
-					case OpCodeOperandKind.k_vvvv:
-					case OpCodeOperandKind.k_rm:
-						argKind = ArgKind.RegisterK;
-						break;
-
-					case OpCodeOperandKind.tmm_reg:
-					case OpCodeOperandKind.tmm_rm:
-					case OpCodeOperandKind.tmm_vvvv:
-						argKind = ArgKind.RegisterTMM;
-						break;
-
-					case OpCodeOperandKind.cr_reg:
-						argKind = ArgKind.RegisterCR;
-						break;
-					case OpCodeOperandKind.dr_reg:
-						argKind = ArgKind.RegisterDR;
-						break;
-					case OpCodeOperandKind.tr_reg:
-						argKind = ArgKind.RegisterTR;
-						break;
-					case OpCodeOperandKind.st0:
-					case OpCodeOperandKind.sti_opcode:
-						argKind = ArgKind.RegisterST;
-						break;
-					case OpCodeOperandKind.bnd_reg:
-						argKind = ArgKind.RegisterBND;
-						break;
-
-					case OpCodeOperandKind.seg_rSI:
-					case OpCodeOperandKind.es_rDI:
-						argKind = ArgKind.Memory;
-						break;
-
-					case OpCodeOperandKind.k_or_mem:
-						argKind = ArgKind.RegisterKMemory;
-						break;
-					case OpCodeOperandKind.mm_or_mem:
-						argKind = ArgKind.RegisterMMMemory;
-						break;
-					case OpCodeOperandKind.xmm_or_mem:
-						argKind = ArgKind.RegisterXMMMemory;
-						break;
-					case OpCodeOperandKind.ymm_or_mem:
-						argKind = ArgKind.RegisterYMMMemory;
-						break;
-					case OpCodeOperandKind.zmm_or_mem:
-						argKind = ArgKind.RegisterZMMMemory;
-						break;
-					case OpCodeOperandKind.r8_or_mem:
-						argKind = ArgKind.Register8Memory;
-						break;
-					case OpCodeOperandKind.r16_or_mem:
-						argKind = ArgKind.Register16Memory;
-						break;
-					case OpCodeOperandKind.r32_or_mem:
-					case OpCodeOperandKind.r32_or_mem_mpx:
-						argKind = ArgKind.Register32Memory;
-						break;
-					case OpCodeOperandKind.r64_or_mem:
-					case OpCodeOperandKind.r64_or_mem_mpx:
-						argKind = ArgKind.Register64Memory;
-						break;
-					case OpCodeOperandKind.bnd_or_mem_mpx:
-						argKind = ArgKind.RegisterBNDMemory;
-						break;
-
-					case OpCodeOperandKind.mem:
-					case OpCodeOperandKind.mem_offs:
-					case OpCodeOperandKind.mem_mpx:
-					case OpCodeOperandKind.mem_mib:
-					case OpCodeOperandKind.mem_vsib32x:
-					case OpCodeOperandKind.mem_vsib64x:
-					case OpCodeOperandKind.mem_vsib32y:
-					case OpCodeOperandKind.mem_vsib64y:
-					case OpCodeOperandKind.mem_vsib32z:
-					case OpCodeOperandKind.mem_vsib64z:
-					case OpCodeOperandKind.sibmem:
-						argKind = ArgKind.Memory;
-						break;
-
-					case OpCodeOperandKind.xbegin_4:
-					case OpCodeOperandKind.brdisp_4:
-						argKind = ArgKind.Label;
-						opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
-						opCodeArgFlags |= OpCodeArgFlags.HasLabel;
-						break;
-
-					case OpCodeOperandKind.br32_4: // NEAR
-					case OpCodeOperandKind.br64_4: // NEAR
-					case OpCodeOperandKind.br16_2:
-						argKind = ArgKind.Label;
-						if (name != "call") {
+					switch (opKindDef.OperandEncoding) {
+					case OperandEncoding.NearBranch:
+					case OperandEncoding.Xbegin:
+					case OperandEncoding.AbsNearBranch:
+						switch (opKindDef.BranchOffsetSize) {
+						case 1:
+							argKind = ArgKind.Label;
+							opCodeArgFlags |= OpCodeArgFlags.HasBranchShort;
+							opCodeArgFlags |= OpCodeArgFlags.HasLabel;
+							break;
+						case 2:
+						case 4:
+							argKind = ArgKind.Label;
 							opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
-						}
-						opCodeArgFlags |= OpCodeArgFlags.HasLabel;
-						break;
-
-					case OpCodeOperandKind.xbegin_2:
-					case OpCodeOperandKind.brdisp_2:
-					case OpCodeOperandKind.br16_1:
-					case OpCodeOperandKind.br32_1:
-					case OpCodeOperandKind.br64_1:
-						argKind = ArgKind.Label;
-						opCodeArgFlags |= OpCodeArgFlags.HasBranchShort;
-						opCodeArgFlags |= OpCodeArgFlags.HasLabel;
-
-						if (def.Encoding == EncodingKind.Legacy) {
-							switch (name) {
-							case "loopne":
-							case "loope":
-							case "loop":
-							case "jcxz":
-							case "jecxz":
-							case "jrcxz":
-								if (def.OperandSize != def.AddressSize && def.OperandSize != CodeSize.Unknown) {
-									argKind = ArgKind.Unknown;
-									discardReason = "Duplicated";
-								}
-								break;
-							}
+							opCodeArgFlags |= OpCodeArgFlags.HasLabel;
+							break;
+						default:
+							throw new InvalidOperationException();
 						}
 						break;
 
-					case OpCodeOperandKind.imm8_const_1:
-						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteEqual1;
-						argSize = 1;
+					case OperandEncoding.Immediate:
 						argKind = ArgKind.Immediate;
+						argSize = opKindDef.ImmediateSize;
+						switch (opKindDef.ImmediateSize) {
+						case 1:
+							switch (opKindDef.ImmediateSignExtSize) {
+							case 1:
+								opCodeArgFlags |= OpCodeArgFlags.HasImmediateByte;
+								break;
+
+							case 2:
+							case 4:
+								opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended;
+								break;
+
+							case 8:
+								opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended | OpCodeArgFlags.UnsignedUIntNotSupported;
+								break;
+
+							default:
+								throw new InvalidOperationException();
+							}
+							break;
+
+						case 2:
+							break;
+
+						case 4:
+							switch (opKindDef.ImmediateSignExtSize) {
+							case 4:
+								break;
+
+							case 8:
+								opCodeArgFlags |= OpCodeArgFlags.UnsignedUIntNotSupported;
+								break;
+
+							default:
+								throw new InvalidOperationException();
+							}
+							break;
+
+						case 8:
+							break;
+
+						default:
+							throw new InvalidOperationException();
+						}
 						break;
 
-					case OpCodeOperandKind.imm2_m2z:
+					case OperandEncoding.ImmediateM2z:
 						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteLessThanBits;
 						argKind = ArgKind.Immediate;
 						argSize = 1;
 						break;
 
-					case OpCodeOperandKind.imm8:
-						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByte;
-						argKind = ArgKind.Immediate;
+					case OperandEncoding.ImpliedConst:
+						if (opKindDef.ImpliedConst != 1)
+							throw new InvalidOperationException();
+						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteEqual1;
 						argSize = 1;
+						argKind = ArgKind.Immediate;
 						break;
 
-					case OpCodeOperandKind.imm8sex16:
-					case OpCodeOperandKind.imm8sex32:
-						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended;
-						argKind = ArgKind.Immediate;
-						argSize = 1;
+					case OperandEncoding.ImpliedRegister:
+					case OperandEncoding.RegImm:
+					case OperandEncoding.RegOpCode:
+					case OperandEncoding.RegModrmReg:
+					case OperandEncoding.RegModrmRm:
+					case OperandEncoding.RegVvvv:
+						argKind = GetArgKind(opKindDef, isRegMem: false);
 						break;
 
-					case OpCodeOperandKind.imm8sex64:
-						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended | OpCodeArgFlags.UnsignedUIntNotSupported;
-						argKind = ArgKind.Immediate;
-						argSize = 1;
+					case OperandEncoding.RegMemModrmRm:
+						argKind = GetArgKind(opKindDef, isRegMem: true);
 						break;
 
-					case OpCodeOperandKind.imm16:
-						argKind = ArgKind.Immediate;
-						argSize = 2;
+					case OperandEncoding.SegRSI:
+					case OperandEncoding.ESRDI:
+					case OperandEncoding.MemModrmRm:
+					case OperandEncoding.MemOffset:
+						argKind = ArgKind.Memory;
 						break;
 
-					case OpCodeOperandKind.imm32:
-						argKind = ArgKind.Immediate;
-						argSize = 4;
-						break;
-
-					case OpCodeOperandKind.imm32sex64:
-						opCodeArgFlags |= OpCodeArgFlags.UnsignedUIntNotSupported;
-						argKind = ArgKind.Immediate;
-						argSize = 4;
-						break;
-
-					case OpCodeOperandKind.imm64:
-						argKind = ArgKind.Immediate;
-						argSize = 8;
-						break;
+					case OperandEncoding.None:
+					case OperandEncoding.FarBranch:
+					case OperandEncoding.SegRBX:
+					case OperandEncoding.SegRDI:
+					default:
+						throw new InvalidOperationException();
 					}
 
-					if (argKind == ArgKind.Unknown) {
-						toAdd = false;
-						break;
-					}
-					else {
-						argSizes.Add(argSize);
-						signature.AddArgKind(GetArgKindForSignature(argKind, true));
-						regOnlySignature.AddArgKind(GetArgKindForSignature(argKind, false));
+					if (argKind == ArgKind.Unknown)
+						throw new InvalidOperationException();
+					argSizes.Add(argSize);
+					signature.AddArgKind(GetArgKindForSignature(argKind, true));
+					regOnlySignature.AddArgKind(GetArgKindForSignature(argKind, false));
+				}
+
+				if (!ShouldDiscardDuplicatedOpCode(signature, def)) {
+					// discard r16m16
+					bool hasR64M16 = IsR64M16(def);
+					if (!hasR64M16) {
+						AddOpCodeToGroup(name, memoName, signature, def, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
 					}
 				}
 
-				if (toAdd) {
-					if (!ShouldDiscardDuplicatedOpCode(signature, def)) {
-						// discard r16m16
-						bool hasR64M16 = IsR64M16(def);
-						if (!hasR64M16) {
-							AddOpCodeToGroup(name, memoName, signature, def, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
-						}
-					}
-
-					if (signature != regOnlySignature) {
-						opCodeArgFlags = opCodeArgFlags & ~OpCodeArgFlags.HasBroadcast;
-						AddOpCodeToGroup(name, memoName, regOnlySignature, def, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
-					}
-				}
-				else {
-					if (discard) {
-						Console.WriteLine($"Discarding: {def.GetType().Name} {memoName.ToLowerInvariant()} => {def.Code.RawName}. Reason: {discardReason}");
-					}
-					else {
-						Console.WriteLine($"TODO: {def.GetType().Name} {memoName.ToLowerInvariant()} => {def.Code.RawName} not supported yet");
-					}
+				if (signature != regOnlySignature) {
+					opCodeArgFlags = opCodeArgFlags & ~OpCodeArgFlags.HasBroadcast;
+					AddOpCodeToGroup(name, memoName, regOnlySignature, def, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
 				}
 			}
 
@@ -598,6 +443,33 @@ namespace Generator.Assembler {
 			}
 
 			Generate(groups, orderedGroups.ToArray());
+		}
+
+		ArgKind GetArgKind(OpCodeOperandKindDef def, bool isRegMem) {
+			var (reg, rm) = (RegisterKind)regDefs[(int)def.Register].RegisterKind.Value switch {
+				RegisterKind.GPR8 => (ArgKind.Register8, ArgKind.Register8Memory),
+				RegisterKind.GPR16 => (ArgKind.Register16, ArgKind.Register16Memory),
+				RegisterKind.GPR32 => (ArgKind.Register32, ArgKind.Register32Memory),
+				RegisterKind.GPR64 => (ArgKind.Register64, ArgKind.Register64Memory),
+				RegisterKind.IP => (ArgKind.Unknown, ArgKind.Unknown),
+				RegisterKind.Segment => (ArgKind.RegisterSegment, ArgKind.Unknown),
+				RegisterKind.ST => (ArgKind.RegisterST, ArgKind.Unknown),
+				RegisterKind.CR => (ArgKind.RegisterCR, ArgKind.Unknown),
+				RegisterKind.DR => (ArgKind.RegisterDR, ArgKind.Unknown),
+				RegisterKind.TR => (ArgKind.RegisterTR, ArgKind.Unknown),
+				RegisterKind.BND => (ArgKind.RegisterBND, ArgKind.RegisterBNDMemory),
+				RegisterKind.K => (ArgKind.RegisterK, ArgKind.RegisterKMemory),
+				RegisterKind.MM => (ArgKind.RegisterMM, ArgKind.RegisterMMMemory),
+				RegisterKind.XMM => (ArgKind.RegisterXMM, ArgKind.RegisterXMMMemory),
+				RegisterKind.YMM => (ArgKind.RegisterYMM, ArgKind.RegisterYMMMemory),
+				RegisterKind.ZMM => (ArgKind.RegisterZMM, ArgKind.RegisterZMMMemory),
+				RegisterKind.TMM => (ArgKind.RegisterTMM, ArgKind.Unknown),
+				_ => throw new InvalidOperationException(),
+			};
+			var argKind = isRegMem ? rm : reg;
+			if (argKind == ArgKind.Unknown)
+				throw new InvalidOperationException();
+			return argKind;
 		}
 
 		static ArgKind GetArgKindForSignature(ArgKind kind, bool memory) {
@@ -695,7 +567,7 @@ namespace Generator.Assembler {
 					var newFlags = argFlags ^ OpCodeArgFlags.HasImmediateByteEqual1;
 					return new OpCodeSelector(indices[0], OpCodeSelectorKind.ImmediateByteEqual1) { IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteEqual1), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers) };
 				}
-				else if (group.Name != "jmpe" && group.IsBranch) {
+				else if (group.IsBranch) {
 					var branchShort = new List<InstructionDef>();
 					var branchFar = new List<InstructionDef>();
 					CollectByOperandKindPredicate(opcodes, IsBranchShort, branchShort, branchFar);
@@ -842,7 +714,7 @@ namespace Generator.Assembler {
 						if (isPushImm)
 							opSize = GetImmediateSizeInBits(opcodes[0]);
 						else
-							opSize = GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, opcodes[0]);
+							opSize = GetMemorySizeInBits(memorySizeInfoTable, defs, opcodes[0]);
 						if (opSize > 1) {
 							switch (opSize) {
 							case 32:
@@ -996,30 +868,24 @@ namespace Generator.Assembler {
 			return selectors;
 		}
 
-		int GetBroadcastMemory(OpCodeArgFlags argFlags, List<InstructionDef> opcodes, Signature signature, out OpCodeSelectorKind selctorKind, out InstructionDef? broadcastDef) {
+		int GetBroadcastMemory(OpCodeArgFlags argFlags, List<InstructionDef> opcodes, Signature signature, out OpCodeSelectorKind selectorKind, out InstructionDef? broadcastDef) {
 			broadcastDef = null;
-			selctorKind = OpCodeSelectorKind.Invalid;
+			selectorKind = OpCodeSelectorKind.Invalid;
 			int memoryIndex = -1;
 			if ((argFlags & OpCodeArgFlags.HasBroadcast) != 0) {
 				for (int i = 0; i < signature.ArgCount; i++) {
 					if (signature.GetArgKind(i) == ArgKind.Memory) {
 						memoryIndex = i;
 						var evex = @opcodes.First(x => x.Encoding == EncodingKind.EVEX);
-						var opKind = evex.OpKinds[i];
+						if (evex.OpKinds[i].OperandEncoding != OperandEncoding.RegMemModrmRm)
+							throw new InvalidOperationException();
 						broadcastDef = evex;
-						switch (opKind) {
-						case OpCodeOperandKind.xmm_or_mem:
-							selctorKind = OpCodeSelectorKind.EvexBroadcastX;
-							break;
-						case OpCodeOperandKind.ymm_or_mem:
-							selctorKind = OpCodeSelectorKind.EvexBroadcastY;
-							break;
-						case OpCodeOperandKind.zmm_or_mem:
-							selctorKind = OpCodeSelectorKind.EvexBroadcastZ;
-							break;
-						default:
-							throw new ArgumentException($"invalud {opKind}");
-						}
+						selectorKind = evex.OpKinds[i].Register switch {
+							Register.XMM0 => OpCodeSelectorKind.EvexBroadcastX,
+							Register.YMM0 => OpCodeSelectorKind.EvexBroadcastY,
+							Register.ZMM0 => OpCodeSelectorKind.EvexBroadcastZ,
+							_ => throw new InvalidOperationException(),
+						};
 						break;
 					}
 				}
@@ -1080,7 +946,7 @@ namespace Generator.Assembler {
 			};
 		}
 
-		List<int> CollectByOperandKindPredicate(List<InstructionDef> defs, Func<OpCodeOperandKind, bool?> predicate, List<InstructionDef> opcodesMatchingPredicate, List<InstructionDef> opcodesNotMatchingPredicate) {
+		List<int> CollectByOperandKindPredicate(List<InstructionDef> defs, Func<OpCodeOperandKindDef, bool?> predicate, List<InstructionDef> opcodesMatchingPredicate, List<InstructionDef> opcodesNotMatchingPredicate) {
 			var argIndices = new List<int>();
 			foreach (var def in defs) {
 				var selected = opcodesNotMatchingPredicate;
@@ -1103,41 +969,35 @@ namespace Generator.Assembler {
 			return argIndices;
 		}
 
-		static bool? IsBranchShort(OpCodeOperandKind kind) {
-			switch (kind) {
-			case OpCodeOperandKind.br32_4:
-			case OpCodeOperandKind.br64_4:
-			case OpCodeOperandKind.xbegin_4:
-			case OpCodeOperandKind.brdisp_4:
-			case OpCodeOperandKind.br16_2:
-				return false;
-
-			case OpCodeOperandKind.xbegin_2:
-			case OpCodeOperandKind.brdisp_2:
-			case OpCodeOperandKind.br16_1:
-			case OpCodeOperandKind.br32_1:
-			case OpCodeOperandKind.br64_1:
-				return true;
+		static bool? IsBranchShort(OpCodeOperandKindDef def) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+				return def.BranchOffsetSize == 1;
 			}
 
 			return null;
 		}
 
-		static bool? IsImmediateByteSigned(OpCodeOperandKind kind) {
-			switch (kind) {
-			case OpCodeOperandKind.imm8:
-			case OpCodeOperandKind.imm8sex16:
-			case OpCodeOperandKind.imm8sex32:
-			case OpCodeOperandKind.imm8sex64:
-				return true;
+		static bool? IsImmediateByteSigned(OpCodeOperandKindDef def) {
+			if (def.OperandEncoding == OperandEncoding.Immediate) {
+				switch ((def.ImmediateSize, def.ImmediateSignExtSize)) {
+				case (1, 2):
+				case (1, 4):
+				case (1, 8):
+					return true;
+				}
 			}
 
 			return null;
 		}
 
-		static bool? IsImmediateByteEqual1(OpCodeOperandKind kind) {
-			switch (kind) {
-			case OpCodeOperandKind.imm8_const_1:
+		static bool? IsImmediateByteEqual1(OpCodeOperandKindDef def) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.ImpliedConst:
+				if (def.ImpliedConst != 1)
+					throw new InvalidOperationException();
 				return true;
 			}
 
@@ -1215,28 +1075,15 @@ namespace Generator.Assembler {
 		}
 
 		int GetImmediateSizeInBits(InstructionDef def) {
-			switch (def.OpKinds[0]) {
-			case OpCodeOperandKind.imm2_m2z:
-				return 2;
-			case OpCodeOperandKind.imm8:
-				return 8;
-			case OpCodeOperandKind.imm8_const_1:
-				return 0;
-			case OpCodeOperandKind.imm8sex16:
-			case OpCodeOperandKind.imm16:
-				return 16;
-			case OpCodeOperandKind.imm8sex32:
-			case OpCodeOperandKind.imm32:
-				return 32;
-			case OpCodeOperandKind.imm32sex64:
-			case OpCodeOperandKind.imm64:
-				return 64;
-			default:
-				return 0;
-			}
+			var opKindDef = def.OpKinds[0];
+			return opKindDef.OperandEncoding switch {
+				OperandEncoding.ImmediateM2z => 2,
+				OperandEncoding.Immediate => opKindDef.ImmediateSignExtSize * 8,
+				_ => 0,
+			};
 		}
 
-		static int GetMemoryAddressSizeInBits(MemorySizeInfoTable memorySizeInfoTable, InstructionDef[] defs, InstructionDef def) {
+		static int GetMemorySizeInBits(MemorySizeInfoTable memorySizeInfoTable, InstructionDef[] defs, InstructionDef def) {
 			var memSize = (MemorySize)defs[def.Code.Value].Memory.Value;
 			switch (memSize) {
 			case MemorySize.Fword6:
@@ -1246,8 +1093,8 @@ namespace Generator.Assembler {
 				memSize = MemorySize.UInt64;
 				break;
 			}
-			var addressSize = memorySizeInfoTable.Data[(int)memSize].Size;
-			return (int)addressSize * 8;
+			var size = memorySizeInfoTable.Defs[(int)memSize].Size;
+			return (int)size * 8;
 		}
 
 		[DebuggerDisplay("Count = {" + nameof(Count) + "}")]
@@ -1271,126 +1118,83 @@ namespace Generator.Assembler {
 			}
 		}
 
+		static int GetPriorityFromKind(OpCodeOperandKindDef def, int memSize) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+			case OperandEncoding.FarBranch:
+			case OperandEncoding.SegRBX:
+			case OperandEncoding.SegRSI:
+			case OperandEncoding.SegRDI:
+			case OperandEncoding.ESRDI:
+				break;
 
-		static int GetPriorityFromKind(OpCodeOperandKind kind, int addressSize) {
-			switch (kind) {
+			case OperandEncoding.Immediate:
+				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
+					(4, 8) => 10,
+					(8, 8) => 10,
+					(4, 4) => 20,
+					(2, 2) => 30,
+					(1, _) => 50,
+					_ => throw new InvalidOperationException(),
+				};
 
-			case OpCodeOperandKind.zmm_reg:
-			case OpCodeOperandKind.zmm_vvvv:
-			case OpCodeOperandKind.zmm_rm:
-			case OpCodeOperandKind.zmm_or_mem:
-			case OpCodeOperandKind.zmmp3_vvvv:
-				return -30;
-
-			case OpCodeOperandKind.ymm_reg:
-			case OpCodeOperandKind.ymm_is4:
-			case OpCodeOperandKind.ymm_is5:
-			case OpCodeOperandKind.ymm_vvvv:
-			case OpCodeOperandKind.ymm_rm:
-			case OpCodeOperandKind.ymm_or_mem:
-				return -20;
-
-			case OpCodeOperandKind.xmm_is4:
-			case OpCodeOperandKind.xmm_is5:
-			case OpCodeOperandKind.xmm_reg:
-			case OpCodeOperandKind.xmm_vvvv:
-			case OpCodeOperandKind.xmmp3_vvvv:
-			case OpCodeOperandKind.xmm_rm:
-			case OpCodeOperandKind.xmm_or_mem:
-				return -10;
-
-			case OpCodeOperandKind.rax:
-			case OpCodeOperandKind.st0:
-				return 0;
-
-			case OpCodeOperandKind.r64_opcode:
-			case OpCodeOperandKind.r64_vvvv:
-			case OpCodeOperandKind.r64_reg:
-			case OpCodeOperandKind.r64_or_mem:
-			case OpCodeOperandKind.r64_or_mem_mpx:
-			case OpCodeOperandKind.imm32sex64:
-			case OpCodeOperandKind.imm64:
-			case OpCodeOperandKind.r64_rm:
-			case OpCodeOperandKind.r64_reg_mem:
-				return 10;
-
-			case OpCodeOperandKind.eax:
-				return 15;
-
-			case OpCodeOperandKind.sti_opcode:
-			case OpCodeOperandKind.r32_opcode:
-			case OpCodeOperandKind.r32_vvvv:
-			case OpCodeOperandKind.r32_reg:
-			case OpCodeOperandKind.r32_or_mem:
-			case OpCodeOperandKind.r32_or_mem_mpx:
-			case OpCodeOperandKind.imm32:
-			case OpCodeOperandKind.r32_rm:
-			case OpCodeOperandKind.r32_reg_mem:
-				return 20;
-
-			case OpCodeOperandKind.ax:
-			case OpCodeOperandKind.dx:
-				return 25;
-
-			case OpCodeOperandKind.r16_opcode:
-			case OpCodeOperandKind.r16_reg:
-			case OpCodeOperandKind.r16_or_mem:
-			case OpCodeOperandKind.r16_reg_mem:
-			case OpCodeOperandKind.r16_rm:
-			case OpCodeOperandKind.imm16:
-				return 30;
-
-			case OpCodeOperandKind.imm8_const_1:
-				return 40;
-
-			case OpCodeOperandKind.al:
-			case OpCodeOperandKind.cl:
-				return 45;
-
-			case OpCodeOperandKind.r8_opcode:
-			case OpCodeOperandKind.r8_reg:
-			case OpCodeOperandKind.r8_or_mem:
-			case OpCodeOperandKind.imm8:
-			case OpCodeOperandKind.imm8sex16:
-			case OpCodeOperandKind.imm8sex32:
-			case OpCodeOperandKind.imm8sex64:
+			case OperandEncoding.ImmediateM2z:
 				return 50;
 
-			case OpCodeOperandKind.mem:
-			case OpCodeOperandKind.mem_offs:
-			case OpCodeOperandKind.mem_mpx:
-			case OpCodeOperandKind.mem_mib:
-			case OpCodeOperandKind.mem_vsib32z:
-			case OpCodeOperandKind.mem_vsib64z:
-			case OpCodeOperandKind.mem_vsib32y:
-			case OpCodeOperandKind.mem_vsib64y:
-			case OpCodeOperandKind.mem_vsib32x:
-			case OpCodeOperandKind.mem_vsib64x:
-			case OpCodeOperandKind.sibmem:
-				switch (addressSize) {
-				case 80:
-					return 05;
-				case 64:
-					return 10;
-				case 48:
-					return 15;
-				case 32:
-					return 20;
-				case 16:
-					return 30;
-				case 8:
-					return 50;
-				}
-				return int.MaxValue;
+			case OperandEncoding.ImpliedConst:
+				return 40;
 
-			case OpCodeOperandKind.seg_reg:
-				return 60;
+			case OperandEncoding.ImpliedRegister:
+				return def.Register switch {
+					Register.RAX => 0,
+					Register.ST0 => 0,
+					Register.EAX => 15,
+					Register.AX => 25,
+					Register.DX => 25,
+					Register.AL => 45,
+					Register.CL => 45,
+					_ => int.MaxValue,
+				};
 
+			case OperandEncoding.RegImm:
+			case OperandEncoding.RegOpCode:
+			case OperandEncoding.RegModrmReg:
+			case OperandEncoding.RegModrmRm:
+			case OperandEncoding.RegMemModrmRm:
+			case OperandEncoding.RegVvvv:
+				return def.Register switch {
+					Register.ZMM0 => -30,
+					Register.YMM0 => -20,
+					Register.XMM0 => -10,
+					Register.RAX => 10,
+					Register.ST0 => 20,
+					Register.EAX => 20,
+					Register.AX => 30,
+					Register.AL => 50,
+					Register.ES => 60,
+					_ => int.MaxValue,
+				};
+
+			case OperandEncoding.MemModrmRm:
+			case OperandEncoding.MemOffset:
+				return memSize switch {
+					80 => 05,
+					64 => 10,
+					48 => 15,
+					32 => 20,
+					16 => 30,
+					8 => 50,
+					_ => int.MaxValue,
+				};
+
+			case OperandEncoding.None:
 			default:
-
-
-				return int.MaxValue;
+				throw new InvalidOperationException();
 			}
+
+			return int.MaxValue;
 		}
 
 		[Flags]
@@ -1429,7 +1233,7 @@ namespace Generator.Assembler {
 				var registerSignature = new Signature();
 				bool isValid = true;
 				for (int i = 0; i < code.OpKinds.Length; i++) {
-					var argKind = GetFilterRegisterKindFromOpKind(code.OpKinds[i], GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, code), allowMemory);
+					var argKind = GetFilterRegisterKindFromOpKind(code.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, code), allowMemory);
 					if (argKind == ArgKind.Unknown) {
 						isValid = false;
 						break;
@@ -1451,163 +1255,93 @@ namespace Generator.Assembler {
 			}
 		}
 
-		ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKind opKind, int addressSize, bool allowMemory) {
-			switch (opKind) {
-			case OpCodeOperandKind.st0:
-			case OpCodeOperandKind.sti_opcode:
-				return ArgKind.RegisterST;
+		ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKindDef def, int memSize, bool allowMemory) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+			case OperandEncoding.FarBranch:
+			case OperandEncoding.SegRBX:
+			case OperandEncoding.SegRSI:
+			case OperandEncoding.SegRDI:
+			case OperandEncoding.ESRDI:
+				break;
 
-			case OpCodeOperandKind.r8_opcode:
-			case OpCodeOperandKind.r8_reg:
-				return ArgKind.Register8;
-			case OpCodeOperandKind.r16_opcode:
-			case OpCodeOperandKind.r16_reg:
-			case OpCodeOperandKind.r16_reg_mem:
-			case OpCodeOperandKind.r16_rm:
-				return ArgKind.Register16;
-			case OpCodeOperandKind.r32_opcode:
-			case OpCodeOperandKind.r32_vvvv:
-			case OpCodeOperandKind.r32_reg:
-			case OpCodeOperandKind.r32_rm:
-			case OpCodeOperandKind.r32_reg_mem:
-				return ArgKind.Register32;
-			case OpCodeOperandKind.r64_opcode:
-			case OpCodeOperandKind.r64_vvvv:
-			case OpCodeOperandKind.r64_reg:
-			case OpCodeOperandKind.r64_rm:
-			case OpCodeOperandKind.r64_reg_mem:
-				return ArgKind.Register64;
-
-			case OpCodeOperandKind.imm8_const_1:
-				return ArgKind.FilterImmediate1;
-
-			case OpCodeOperandKind.imm2_m2z:
-				return ArgKind.FilterImmediate2;
-
-			case OpCodeOperandKind.imm8:
-			case OpCodeOperandKind.imm8sex16:
-			case OpCodeOperandKind.imm8sex32:
-			case OpCodeOperandKind.imm8sex64:
-				return ArgKind.FilterImmediate8;
-
-			case OpCodeOperandKind.imm16:
-			case OpCodeOperandKind.imm32:
-			case OpCodeOperandKind.imm32sex64:
-			case OpCodeOperandKind.imm64:
+			case OperandEncoding.Immediate:
+				if (def.ImmediateSize == 1)
+					return ArgKind.FilterImmediate8;
 				return ArgKind.Immediate;
 
-			case OpCodeOperandKind.seg_reg:
-				return ArgKind.RegisterSegment;
+			case OperandEncoding.ImmediateM2z:
+				return ArgKind.FilterImmediate2;
 
-			case OpCodeOperandKind.dx:
-				return ArgKind.FilterRegisterDX;
-			case OpCodeOperandKind.cl:
-				return ArgKind.FilterRegisterCL;
-			case OpCodeOperandKind.al:
-				return ArgKind.FilterRegisterAL;
-			case OpCodeOperandKind.ax:
-				return ArgKind.FilterRegisterAX;
-			case OpCodeOperandKind.eax:
-				return ArgKind.FilterRegisterEAX;
-			case OpCodeOperandKind.rax:
-				return ArgKind.FilterRegisterRAX;
+			case OperandEncoding.ImpliedConst:
+				if (def.ImpliedConst != 1)
+					throw new InvalidOperationException();
+				return ArgKind.FilterImmediate1;
 
-			case OpCodeOperandKind.es:
-				return ArgKind.FilterRegisterES;
-			case OpCodeOperandKind.cs:
-				return ArgKind.FilterRegisterCS;
-			case OpCodeOperandKind.ss:
-				return ArgKind.FilterRegisterSS;
-			case OpCodeOperandKind.ds:
-				return ArgKind.FilterRegisterDS;
-			case OpCodeOperandKind.fs:
-				return ArgKind.FilterRegisterFS;
-			case OpCodeOperandKind.gs:
-				return ArgKind.FilterRegisterGS;
+			case OperandEncoding.ImpliedRegister:
+				return def.Register switch {
+					Register.AL => ArgKind.FilterRegisterAL,
+					Register.CL => ArgKind.FilterRegisterCL,
+					Register.AX => ArgKind.FilterRegisterAX,
+					Register.DX => ArgKind.FilterRegisterDX,
+					Register.EAX => ArgKind.FilterRegisterEAX,
+					Register.RAX => ArgKind.FilterRegisterRAX,
+					Register.ES => ArgKind.FilterRegisterES,
+					Register.CS => ArgKind.FilterRegisterCS,
+					Register.SS => ArgKind.FilterRegisterSS,
+					Register.DS => ArgKind.FilterRegisterDS,
+					Register.FS => ArgKind.FilterRegisterFS,
+					Register.GS => ArgKind.FilterRegisterGS,
+					Register.ST0 => ArgKind.RegisterST,
+					_ => throw new InvalidOperationException(),
+				};
 
-			case OpCodeOperandKind.bnd_reg:
-				return ArgKind.RegisterBND;
-
-			case OpCodeOperandKind.cr_reg:
-				return ArgKind.RegisterCR;
-			case OpCodeOperandKind.tr_reg:
-				return ArgKind.RegisterTR;
-			case OpCodeOperandKind.dr_reg:
-				return ArgKind.RegisterDR;
-
-			case OpCodeOperandKind.k_reg:
-			case OpCodeOperandKind.kp1_reg:
-			case OpCodeOperandKind.k_rm:
-			case OpCodeOperandKind.k_vvvv:
-				return ArgKind.RegisterK;
-			case OpCodeOperandKind.xmm_is4:
-			case OpCodeOperandKind.xmm_is5:
-			case OpCodeOperandKind.xmm_reg:
-			case OpCodeOperandKind.xmm_vvvv:
-			case OpCodeOperandKind.xmmp3_vvvv:
-			case OpCodeOperandKind.xmm_rm:
-				return ArgKind.RegisterXMM;
-			case OpCodeOperandKind.ymm_is4:
-			case OpCodeOperandKind.ymm_is5:
-			case OpCodeOperandKind.ymm_reg:
-			case OpCodeOperandKind.ymm_vvvv:
-			case OpCodeOperandKind.ymm_rm:
-				return ArgKind.RegisterYMM;
-			case OpCodeOperandKind.zmm_reg:
-			case OpCodeOperandKind.zmm_vvvv:
-			case OpCodeOperandKind.zmm_rm:
-			case OpCodeOperandKind.zmmp3_vvvv:
-				return ArgKind.RegisterZMM;
-			case OpCodeOperandKind.mm_reg:
-			case OpCodeOperandKind.mm_rm:
-				return ArgKind.RegisterMM;
-			case OpCodeOperandKind.tmm_reg:
-			case OpCodeOperandKind.tmm_vvvv:
-			case OpCodeOperandKind.tmm_rm:
-				return ArgKind.RegisterTMM;
-			}
-
-			if (allowMemory) {
-				switch (opKind) {
-				case OpCodeOperandKind.bnd_or_mem_mpx:
-					return ArgKind.RegisterBND;
-				case OpCodeOperandKind.r8_or_mem:
-					return ArgKind.Register8;
-				case OpCodeOperandKind.r16_or_mem:
-					return ArgKind.Register16;
-				case OpCodeOperandKind.r32_or_mem:
-				case OpCodeOperandKind.r32_or_mem_mpx:
-					return ArgKind.Register32;
-				case OpCodeOperandKind.r64_or_mem:
-				case OpCodeOperandKind.r64_or_mem_mpx:
-					return ArgKind.Register64;
-				case OpCodeOperandKind.mm_or_mem:
-					return ArgKind.RegisterMM;
-				case OpCodeOperandKind.k_or_mem:
-					return ArgKind.RegisterK;
-				case OpCodeOperandKind.xmm_or_mem:
-					return ArgKind.RegisterXMM;
-				case OpCodeOperandKind.ymm_or_mem:
-					return ArgKind.RegisterYMM;
-				case OpCodeOperandKind.zmm_or_mem:
-					return ArgKind.RegisterZMM;
-				case OpCodeOperandKind.mem:
-				case OpCodeOperandKind.mem_offs:
-				case OpCodeOperandKind.mem_mpx:
-				case OpCodeOperandKind.mem_mib:
-				case OpCodeOperandKind.sibmem:
-					switch (addressSize) {
-					case 64:
-						return ArgKind.Register64;
-					case 32:
-						return ArgKind.Register32;
-					case 16:
-						return ArgKind.Register16;
-					case 8:
-						return ArgKind.Register8;
-					}
+			case OperandEncoding.RegImm:
+			case OperandEncoding.RegOpCode:
+			case OperandEncoding.RegModrmReg:
+			case OperandEncoding.RegModrmRm:
+			case OperandEncoding.RegVvvv:
+			case OperandEncoding.RegMemModrmRm:
+				if (def.OperandEncoding == OperandEncoding.RegMemModrmRm && !allowMemory)
 					break;
+				return def.Register switch {
+					Register.AL => ArgKind.Register8,
+					Register.AX => ArgKind.Register16,
+					Register.EAX => ArgKind.Register32,
+					Register.RAX => ArgKind.Register64,
+					Register.ST0 => ArgKind.RegisterST,
+					Register.ES => ArgKind.RegisterSegment,
+					Register.BND0 => ArgKind.RegisterBND,
+					Register.CR0 => ArgKind.RegisterCR,
+					Register.DR0 => ArgKind.RegisterTR,
+					Register.TR0 => ArgKind.RegisterDR,
+					Register.K0 => ArgKind.RegisterK,
+					Register.MM0 => ArgKind.RegisterMM,
+					Register.XMM0 => ArgKind.RegisterXMM,
+					Register.YMM0 => ArgKind.RegisterYMM,
+					Register.ZMM0 => ArgKind.RegisterZMM,
+					Register.TMM0 => ArgKind.RegisterTMM,
+					_ => throw new InvalidOperationException(),
+				};
+
+			case OperandEncoding.MemModrmRm:
+			case OperandEncoding.MemOffset:
+				if (allowMemory) {
+					return memSize switch {
+						64 => ArgKind.Register64,
+						32 => ArgKind.Register32,
+						16 => ArgKind.Register16,
+						8 => ArgKind.Register8,
+						_ => throw new InvalidOperationException(),
+					};
 				}
+				break;
+
+			case OperandEncoding.None:
+			default:
+				throw new InvalidOperationException();
 			}
 
 			return ArgKind.Unknown;
@@ -1617,200 +1351,110 @@ namespace Generator.Assembler {
 			switch (kind) {
 			case OpCodeOperandKind.es:
 			case OpCodeOperandKind.cs:
-			case OpCodeOperandKind.fs:
-			case OpCodeOperandKind.gs:
 			case OpCodeOperandKind.ss:
 			case OpCodeOperandKind.ds:
+			case OpCodeOperandKind.fs:
+			case OpCodeOperandKind.gs:
 				return true;
 			}
 
 			return false;
 		}
 
-		protected OpCodeSelectorKind GetSelectorKindForRegisterOrMemory(InstructionDef def, OpCodeOperandKind opKind, bool returnMemoryAsRegister) {
+		protected OpCodeSelectorKind GetSelectorKindForRegisterOrMemory(InstructionDef def, OpCodeOperandKindDef opKindDef, bool returnMemoryAsRegister) {
+			switch (opKindDef.OperandEncoding) {
+			case OperandEncoding.ImpliedRegister:
+				return opKindDef.Register switch {
+					Register.ES => OpCodeSelectorKind.RegisterES,
+					Register.CS => OpCodeSelectorKind.RegisterCS,
+					Register.SS => OpCodeSelectorKind.RegisterSS,
+					Register.DS => OpCodeSelectorKind.RegisterDS,
+					Register.FS => OpCodeSelectorKind.RegisterFS,
+					Register.GS => OpCodeSelectorKind.RegisterGS,
+					Register.AL => OpCodeSelectorKind.RegisterAL,
+					Register.CL => OpCodeSelectorKind.RegisterCL,
+					Register.AX => OpCodeSelectorKind.RegisterAX,
+					Register.DX => OpCodeSelectorKind.RegisterDX,
+					Register.EAX => OpCodeSelectorKind.RegisterEAX,
+					Register.RAX => OpCodeSelectorKind.RegisterRAX,
+					Register.ST0 => OpCodeSelectorKind.RegisterST0,
+					_ => throw new InvalidOperationException(),
+				};
 
-			switch (opKind) {
-			case OpCodeOperandKind.mem:
-			case OpCodeOperandKind.mem_offs:
-			case OpCodeOperandKind.mem_mpx:
-			case OpCodeOperandKind.mem_mib:
-			case OpCodeOperandKind.sibmem:
+			case OperandEncoding.RegImm:
+			case OperandEncoding.RegOpCode:
+			case OperandEncoding.RegModrmReg:
+			case OperandEncoding.RegModrmRm:
+			case OperandEncoding.RegVvvv:
+				return opKindDef.Register switch {
+					Register.AL => OpCodeSelectorKind.Register8,
+					Register.AX => OpCodeSelectorKind.Register16,
+					Register.EAX => OpCodeSelectorKind.Register32,
+					Register.RAX => OpCodeSelectorKind.Register64,
+					Register.ES => OpCodeSelectorKind.RegisterSegment,
+					Register.K0 => OpCodeSelectorKind.RegisterK,
+					Register.MM0 => OpCodeSelectorKind.RegisterMM,
+					Register.XMM0 => OpCodeSelectorKind.RegisterXMM,
+					Register.YMM0 => OpCodeSelectorKind.RegisterYMM,
+					Register.ZMM0 => OpCodeSelectorKind.RegisterZMM,
+					Register.TMM0 => OpCodeSelectorKind.RegisterTMM,
+					Register.CR0 => OpCodeSelectorKind.RegisterCR,
+					Register.DR0 => OpCodeSelectorKind.RegisterDR,
+					Register.TR0 => OpCodeSelectorKind.RegisterTR,
+					Register.BND0 => OpCodeSelectorKind.RegisterBND,
+					Register.ST0 => OpCodeSelectorKind.RegisterST,
+					_ => throw new InvalidOperationException(),
+				};
+
+			case OperandEncoding.RegMemModrmRm:
+				return opKindDef.Register switch {
+					Register.AL => returnMemoryAsRegister ? OpCodeSelectorKind.Register8 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory8),
+					Register.AX => returnMemoryAsRegister ? OpCodeSelectorKind.Register16 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory16),
+					Register.EAX => returnMemoryAsRegister ? OpCodeSelectorKind.Register32 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory32),
+					Register.RAX => returnMemoryAsRegister ? OpCodeSelectorKind.Register64 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory64),
+					Register.MM0 => returnMemoryAsRegister ? OpCodeSelectorKind.RegisterMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryMM),
+					Register.XMM0 => returnMemoryAsRegister ? OpCodeSelectorKind.RegisterXMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryXMM),
+					Register.YMM0 => returnMemoryAsRegister ? OpCodeSelectorKind.RegisterYMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryYMM),
+					Register.ZMM0 => returnMemoryAsRegister ? OpCodeSelectorKind.RegisterZMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryZMM),
+					Register.BND0 => returnMemoryAsRegister ? OpCodeSelectorKind.RegisterBND : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory64),
+					Register.K0 => returnMemoryAsRegister ? OpCodeSelectorKind.RegisterK : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory),
+					_ => throw new InvalidOperationException(),
+				};
+
+			case OperandEncoding.MemModrmRm:
+			case OperandEncoding.MemOffset:
+				if (opKindDef.Vsib32) {
+					return opKindDef.Register switch {
+						Register.XMM0 => OpCodeSelectorKind.MemoryIndex32Xmm,
+						Register.YMM0 => OpCodeSelectorKind.MemoryIndex32Ymm,
+						Register.ZMM0 => OpCodeSelectorKind.MemoryIndex32Zmm,
+						_ => throw new InvalidOperationException(),
+					};
+				}
+				else if (opKindDef.Vsib64) {
+					return opKindDef.Register switch {
+						Register.XMM0 => OpCodeSelectorKind.MemoryIndex64Xmm,
+						Register.YMM0 => OpCodeSelectorKind.MemoryIndex64Ymm,
+						Register.ZMM0 => OpCodeSelectorKind.MemoryIndex64Zmm,
+						_ => throw new InvalidOperationException(),
+					};
+				}
 				return GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory);
 
-			case OpCodeOperandKind.mem_vsib32x:
-				return OpCodeSelectorKind.MemoryIndex32Xmm;
-
-			case OpCodeOperandKind.mem_vsib32y:
-				return OpCodeSelectorKind.MemoryIndex32Ymm;
-
-			case OpCodeOperandKind.mem_vsib32z:
-				return OpCodeSelectorKind.MemoryIndex32Zmm;
-
-			case OpCodeOperandKind.mem_vsib64x:
-				return OpCodeSelectorKind.MemoryIndex64Xmm;
-
-			case OpCodeOperandKind.mem_vsib64y:
-				return OpCodeSelectorKind.MemoryIndex64Ymm;
-
-			case OpCodeOperandKind.mem_vsib64z:
-				return OpCodeSelectorKind.MemoryIndex64Zmm;
-
-			case OpCodeOperandKind.r8_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register8 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory8);
-
-			case OpCodeOperandKind.r16_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register16 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory16);
-
-			case OpCodeOperandKind.r32_or_mem:
-			case OpCodeOperandKind.r32_or_mem_mpx:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register32 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory32);
-
-			case OpCodeOperandKind.r64_or_mem:
-			case OpCodeOperandKind.r64_or_mem_mpx:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register64 : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory64);
-
-			case OpCodeOperandKind.mm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryMM);
-
-			case OpCodeOperandKind.xmm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterXMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryXMM);
-
-			case OpCodeOperandKind.ymm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterYMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryYMM);
-
-			case OpCodeOperandKind.zmm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterZMM : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.MemoryZMM);
-
-			case OpCodeOperandKind.bnd_or_mem_mpx:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterBND : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory64);
-
-			case OpCodeOperandKind.k_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterK : GetOpCodeSelectorKindForMemory(def, OpCodeSelectorKind.Memory);
-
-			case OpCodeOperandKind.r8_reg:
-			case OpCodeOperandKind.r8_opcode:
-				return OpCodeSelectorKind.Register8;
-
-			case OpCodeOperandKind.r16_reg:
-			case OpCodeOperandKind.r16_rm:
-			case OpCodeOperandKind.r16_opcode:
-			case OpCodeOperandKind.r16_reg_mem:
-				return OpCodeSelectorKind.Register16;
-
-			case OpCodeOperandKind.r32_reg:
-			case OpCodeOperandKind.r32_rm:
-			case OpCodeOperandKind.r32_opcode:
-			case OpCodeOperandKind.r32_vvvv:
-			case OpCodeOperandKind.r32_reg_mem:
-				return OpCodeSelectorKind.Register32;
-
-			case OpCodeOperandKind.r64_reg:
-			case OpCodeOperandKind.r64_rm:
-			case OpCodeOperandKind.r64_opcode:
-			case OpCodeOperandKind.r64_vvvv:
-			case OpCodeOperandKind.r64_reg_mem:
-				return OpCodeSelectorKind.Register64;
-
-			case OpCodeOperandKind.seg_reg:
-				return OpCodeSelectorKind.RegisterSegment;
-
-			case OpCodeOperandKind.k_reg:
-			case OpCodeOperandKind.kp1_reg:
-			case OpCodeOperandKind.k_rm:
-			case OpCodeOperandKind.k_vvvv:
-				return OpCodeSelectorKind.RegisterK;
-
-			case OpCodeOperandKind.mm_reg:
-			case OpCodeOperandKind.mm_rm:
-				return OpCodeSelectorKind.RegisterMM;
-
-			case OpCodeOperandKind.xmm_reg:
-			case OpCodeOperandKind.xmm_rm:
-			case OpCodeOperandKind.xmm_vvvv:
-			case OpCodeOperandKind.xmmp3_vvvv:
-			case OpCodeOperandKind.xmm_is4:
-			case OpCodeOperandKind.xmm_is5:
-				return OpCodeSelectorKind.RegisterXMM;
-
-			case OpCodeOperandKind.ymm_reg:
-			case OpCodeOperandKind.ymm_rm:
-			case OpCodeOperandKind.ymm_vvvv:
-			case OpCodeOperandKind.ymm_is4:
-			case OpCodeOperandKind.ymm_is5:
-				return OpCodeSelectorKind.RegisterYMM;
-
-			case OpCodeOperandKind.zmm_reg:
-			case OpCodeOperandKind.zmm_rm:
-			case OpCodeOperandKind.zmm_vvvv:
-			case OpCodeOperandKind.zmmp3_vvvv:
-				return OpCodeSelectorKind.RegisterZMM;
-
-			case OpCodeOperandKind.tmm_reg:
-			case OpCodeOperandKind.tmm_rm:
-			case OpCodeOperandKind.tmm_vvvv:
-				return OpCodeSelectorKind.RegisterTMM;
-
-			case OpCodeOperandKind.cr_reg:
-				return OpCodeSelectorKind.RegisterCR;
-
-			case OpCodeOperandKind.dr_reg:
-				return OpCodeSelectorKind.RegisterDR;
-
-			case OpCodeOperandKind.tr_reg:
-				return OpCodeSelectorKind.RegisterTR;
-
-			case OpCodeOperandKind.bnd_reg:
-				return OpCodeSelectorKind.RegisterBND;
-
-			case OpCodeOperandKind.es:
-				return OpCodeSelectorKind.RegisterES;
-
-			case OpCodeOperandKind.cs:
-				return OpCodeSelectorKind.RegisterCS;
-
-			case OpCodeOperandKind.ss:
-				return OpCodeSelectorKind.RegisterSS;
-
-			case OpCodeOperandKind.ds:
-				return OpCodeSelectorKind.RegisterDS;
-
-			case OpCodeOperandKind.fs:
-				return OpCodeSelectorKind.RegisterFS;
-
-			case OpCodeOperandKind.gs:
-				return OpCodeSelectorKind.RegisterGS;
-
-			case OpCodeOperandKind.al:
-				return OpCodeSelectorKind.RegisterAL;
-
-			case OpCodeOperandKind.cl:
-				return OpCodeSelectorKind.RegisterCL;
-
-			case OpCodeOperandKind.ax:
-				return OpCodeSelectorKind.RegisterAX;
-
-			case OpCodeOperandKind.dx:
-				return OpCodeSelectorKind.RegisterDX;
-
-			case OpCodeOperandKind.eax:
-				return OpCodeSelectorKind.RegisterEAX;
-
-			case OpCodeOperandKind.rax:
-				return OpCodeSelectorKind.RegisterRAX;
-
-			case OpCodeOperandKind.st0:
-				return OpCodeSelectorKind.RegisterST0;
-			case OpCodeOperandKind.sti_opcode:
-				return OpCodeSelectorKind.RegisterST;
-
-			case OpCodeOperandKind.seg_rSI:
-			case OpCodeOperandKind.es_rDI:
-			case OpCodeOperandKind.seg_rDI:
-			case OpCodeOperandKind.seg_rBX_al:
-				return OpCodeSelectorKind.Memory;
-
+			case OperandEncoding.None:
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+			case OperandEncoding.FarBranch:
+			case OperandEncoding.Immediate:
+			case OperandEncoding.ImmediateM2z:
+			case OperandEncoding.ImpliedConst:
+			case OperandEncoding.SegRBX:
+			case OperandEncoding.SegRSI:
+			case OperandEncoding.SegRDI:
+			case OperandEncoding.ESRDI:
 			default:
-				throw new ArgumentOutOfRangeException(nameof(opKind), opKind, null);
+				throw new InvalidOperationException();
 			}
 		}
 
@@ -1825,7 +1469,7 @@ namespace Generator.Assembler {
 				break;
 			}
 
-			var addressSize = 8 * memorySizeInfoTable.Data[(int)memSize].Size;
+			var addressSize = 8 * memorySizeInfoTable.Defs[(int)memSize].Size;
 			switch (addressSize) {
 			case 512:
 				return OpCodeSelectorKind.MemoryZMM;
@@ -2145,13 +1789,13 @@ namespace Generator.Assembler {
 				int result;
 				for (int i = 0; i < x.OpKinds.Length; i++) {
 					if (!IsRegister(Signature.GetArgKind(i))) continue;
-					result = GetPriorityFromKind(x.OpKinds[i], GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(y.OpKinds[i], GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, y)));
+					result = GetPriorityFromKind(x.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(y.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, y)));
 					if (result != 0) return result;
 				}
 
 				for (int i = 0; i < x.OpKinds.Length; i++) {
 					if (IsRegister(Signature.GetArgKind(i))) continue;
-					result = GetPriorityFromKind(x.OpKinds[i], GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(y.OpKinds[i], GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, y)));
+					result = GetPriorityFromKind(x.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(y.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, y)));
 					if (result != 0) return result;
 				}
 
@@ -2558,14 +2202,13 @@ namespace Generator.Assembler {
 
 			if (IsAmbiguousBroadcast(def)) {
 				for (int i = 0; i < def.OpKinds.Length; i++) {
-					var kind = def.OpKinds[i];
-					switch (kind) {
-					case OpCodeOperandKind.xmm_or_mem:
-						return $"{name}x";
-					case OpCodeOperandKind.ymm_or_mem:
-						return $"{name}y";
-					case OpCodeOperandKind.zmm_or_mem:
-						return $"{name}z";
+					var opKindDef = def.OpKinds[i];
+					if (opKindDef.OperandEncoding == OperandEncoding.RegMemModrmRm) {
+						switch (opKindDef.Register) {
+						case Register.XMM0: return $"{name}x";
+						case Register.YMM0: return $"{name}y";
+						case Register.ZMM0: return $"{name}z";
+						}
 					}
 				}
 			}

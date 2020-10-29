@@ -27,183 +27,183 @@ use super::super::OpCodeOperandKind;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(super) static LEGACY_OP_KINDS: [OpCodeOperandKind; 76] = [
-	OpCodeOperandKind::None,// None
-	OpCodeOperandKind::al,// al
-	OpCodeOperandKind::ax,// ax
-	OpCodeOperandKind::bnd_or_mem_mpx,// bnd_or_mem_mpx
-	OpCodeOperandKind::bnd_reg,// bnd_reg
-	OpCodeOperandKind::br16_1,// br16_1
-	OpCodeOperandKind::br16_2,// br16_2
-	OpCodeOperandKind::br32_1,// br32_1
-	OpCodeOperandKind::br32_4,// br32_4
-	OpCodeOperandKind::br64_1,// br64_1
-	OpCodeOperandKind::br64_4,// br64_4
-	OpCodeOperandKind::brdisp_2,// brdisp_2
-	OpCodeOperandKind::brdisp_4,// brdisp_4
-	OpCodeOperandKind::cl,// cl
-	OpCodeOperandKind::cr_reg,// cr_reg
-	OpCodeOperandKind::cs,// cs
-	OpCodeOperandKind::dr_reg,// dr_reg
-	OpCodeOperandKind::ds,// ds
-	OpCodeOperandKind::dx,// dx
-	OpCodeOperandKind::eax,// eax
-	OpCodeOperandKind::es,// es
-	OpCodeOperandKind::es_rDI,// es_rDI
-	OpCodeOperandKind::farbr2_2,// farbr2_2
-	OpCodeOperandKind::farbr4_2,// farbr4_2
-	OpCodeOperandKind::fs,// fs
-	OpCodeOperandKind::gs,// gs
-	OpCodeOperandKind::imm16,// imm16
-	OpCodeOperandKind::imm32,// imm32
-	OpCodeOperandKind::imm32sex64,// imm32sex64
-	OpCodeOperandKind::imm64,// imm64
-	OpCodeOperandKind::imm8,// imm8
-	OpCodeOperandKind::imm8_const_1,// imm8_const_1
-	OpCodeOperandKind::imm8sex16,// imm8sex16
-	OpCodeOperandKind::imm8sex32,// imm8sex32
-	OpCodeOperandKind::imm8sex64,// imm8sex64
-	OpCodeOperandKind::mem,// mem
-	OpCodeOperandKind::mem_mib,// mem_mib
-	OpCodeOperandKind::mem_mpx,// mem_mpx
-	OpCodeOperandKind::mem_offs,// mem_offs
-	OpCodeOperandKind::mm_or_mem,// mm_or_mem
-	OpCodeOperandKind::mm_reg,// mm_reg
-	OpCodeOperandKind::mm_rm,// mm_rm
-	OpCodeOperandKind::r16_opcode,// r16_opcode
-	OpCodeOperandKind::r16_or_mem,// r16_or_mem
-	OpCodeOperandKind::r16_reg,// r16_reg
-	OpCodeOperandKind::r16_reg_mem,// r16_reg_mem
-	OpCodeOperandKind::r16_rm,// r16_rm
-	OpCodeOperandKind::r32_opcode,// r32_opcode
-	OpCodeOperandKind::r32_or_mem,// r32_or_mem
-	OpCodeOperandKind::r32_or_mem_mpx,// r32_or_mem_mpx
-	OpCodeOperandKind::r32_reg,// r32_reg
-	OpCodeOperandKind::r32_reg_mem,// r32_reg_mem
-	OpCodeOperandKind::r32_rm,// r32_rm
-	OpCodeOperandKind::r64_opcode,// r64_opcode
-	OpCodeOperandKind::r64_or_mem,// r64_or_mem
-	OpCodeOperandKind::r64_or_mem_mpx,// r64_or_mem_mpx
-	OpCodeOperandKind::r64_reg,// r64_reg
-	OpCodeOperandKind::r64_reg_mem,// r64_reg_mem
-	OpCodeOperandKind::r64_rm,// r64_rm
-	OpCodeOperandKind::r8_opcode,// r8_opcode
-	OpCodeOperandKind::r8_or_mem,// r8_or_mem
-	OpCodeOperandKind::r8_reg,// r8_reg
-	OpCodeOperandKind::rax,// rax
-	OpCodeOperandKind::seg_rBX_al,// seg_rBX_al
-	OpCodeOperandKind::seg_rDI,// seg_rDI
-	OpCodeOperandKind::seg_reg,// seg_reg
-	OpCodeOperandKind::seg_rSI,// seg_rSI
-	OpCodeOperandKind::ss,// ss
-	OpCodeOperandKind::st0,// st0
-	OpCodeOperandKind::sti_opcode,// sti_opcode
-	OpCodeOperandKind::tr_reg,// tr_reg
-	OpCodeOperandKind::xbegin_2,// xbegin_2
-	OpCodeOperandKind::xbegin_4,// xbegin_4
-	OpCodeOperandKind::xmm_or_mem,// xmm_or_mem
-	OpCodeOperandKind::xmm_reg,// xmm_reg
-	OpCodeOperandKind::xmm_rm,// xmm_rm
+	OpCodeOperandKind::None,
+	OpCodeOperandKind::farbr2_2,
+	OpCodeOperandKind::farbr4_2,
+	OpCodeOperandKind::mem_offs,
+	OpCodeOperandKind::mem,
+	OpCodeOperandKind::mem_mpx,
+	OpCodeOperandKind::mem_mib,
+	OpCodeOperandKind::r8_or_mem,
+	OpCodeOperandKind::r16_or_mem,
+	OpCodeOperandKind::r32_or_mem,
+	OpCodeOperandKind::r32_or_mem_mpx,
+	OpCodeOperandKind::r64_or_mem,
+	OpCodeOperandKind::r64_or_mem_mpx,
+	OpCodeOperandKind::mm_or_mem,
+	OpCodeOperandKind::xmm_or_mem,
+	OpCodeOperandKind::bnd_or_mem_mpx,
+	OpCodeOperandKind::r8_reg,
+	OpCodeOperandKind::r8_opcode,
+	OpCodeOperandKind::r16_reg,
+	OpCodeOperandKind::r16_reg_mem,
+	OpCodeOperandKind::r16_rm,
+	OpCodeOperandKind::r16_opcode,
+	OpCodeOperandKind::r32_reg,
+	OpCodeOperandKind::r32_reg_mem,
+	OpCodeOperandKind::r32_rm,
+	OpCodeOperandKind::r32_opcode,
+	OpCodeOperandKind::r64_reg,
+	OpCodeOperandKind::r64_reg_mem,
+	OpCodeOperandKind::r64_rm,
+	OpCodeOperandKind::r64_opcode,
+	OpCodeOperandKind::seg_reg,
+	OpCodeOperandKind::mm_reg,
+	OpCodeOperandKind::mm_rm,
+	OpCodeOperandKind::xmm_reg,
+	OpCodeOperandKind::xmm_rm,
+	OpCodeOperandKind::cr_reg,
+	OpCodeOperandKind::dr_reg,
+	OpCodeOperandKind::tr_reg,
+	OpCodeOperandKind::bnd_reg,
+	OpCodeOperandKind::es,
+	OpCodeOperandKind::cs,
+	OpCodeOperandKind::ss,
+	OpCodeOperandKind::ds,
+	OpCodeOperandKind::fs,
+	OpCodeOperandKind::gs,
+	OpCodeOperandKind::al,
+	OpCodeOperandKind::cl,
+	OpCodeOperandKind::ax,
+	OpCodeOperandKind::dx,
+	OpCodeOperandKind::eax,
+	OpCodeOperandKind::rax,
+	OpCodeOperandKind::st0,
+	OpCodeOperandKind::sti_opcode,
+	OpCodeOperandKind::imm8,
+	OpCodeOperandKind::imm8_const_1,
+	OpCodeOperandKind::imm8sex16,
+	OpCodeOperandKind::imm8sex32,
+	OpCodeOperandKind::imm8sex64,
+	OpCodeOperandKind::imm16,
+	OpCodeOperandKind::imm32,
+	OpCodeOperandKind::imm32sex64,
+	OpCodeOperandKind::imm64,
+	OpCodeOperandKind::seg_rSI,
+	OpCodeOperandKind::es_rDI,
+	OpCodeOperandKind::seg_rDI,
+	OpCodeOperandKind::seg_rBX_al,
+	OpCodeOperandKind::br16_1,
+	OpCodeOperandKind::br32_1,
+	OpCodeOperandKind::br64_1,
+	OpCodeOperandKind::br16_2,
+	OpCodeOperandKind::br32_4,
+	OpCodeOperandKind::br64_4,
+	OpCodeOperandKind::xbegin_2,
+	OpCodeOperandKind::xbegin_4,
+	OpCodeOperandKind::brdisp_2,
+	OpCodeOperandKind::brdisp_4,
 ];
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 #[cfg(not(feature = "no_vex"))]
 pub(super) static VEX_OP_KINDS: [OpCodeOperandKind; 37] = [
-	OpCodeOperandKind::None,// None
-	OpCodeOperandKind::imm2_m2z,// imm2_m2z
-	OpCodeOperandKind::imm8,// imm8
-	OpCodeOperandKind::k_or_mem,// k_or_mem
-	OpCodeOperandKind::k_reg,// k_reg
-	OpCodeOperandKind::k_rm,// k_rm
-	OpCodeOperandKind::k_vvvv,// k_vvvv
-	OpCodeOperandKind::mem,// mem
-	OpCodeOperandKind::mem_vsib32x,// mem_vsib32x
-	OpCodeOperandKind::mem_vsib32y,// mem_vsib32y
-	OpCodeOperandKind::mem_vsib64x,// mem_vsib64x
-	OpCodeOperandKind::mem_vsib64y,// mem_vsib64y
-	OpCodeOperandKind::r32_or_mem,// r32_or_mem
-	OpCodeOperandKind::r32_reg,// r32_reg
-	OpCodeOperandKind::r32_rm,// r32_rm
-	OpCodeOperandKind::r32_vvvv,// r32_vvvv
-	OpCodeOperandKind::r64_or_mem,// r64_or_mem
-	OpCodeOperandKind::r64_reg,// r64_reg
-	OpCodeOperandKind::r64_rm,// r64_rm
-	OpCodeOperandKind::r64_vvvv,// r64_vvvv
-	OpCodeOperandKind::seg_rDI,// seg_rDI
-	OpCodeOperandKind::sibmem,// sibmem
-	OpCodeOperandKind::tmm_reg,// tmm_reg
-	OpCodeOperandKind::tmm_rm,// tmm_rm
-	OpCodeOperandKind::tmm_vvvv,// tmm_vvvv
-	OpCodeOperandKind::xmm_is4,// xmm_is4
-	OpCodeOperandKind::xmm_is5,// xmm_is5
-	OpCodeOperandKind::xmm_or_mem,// xmm_or_mem
-	OpCodeOperandKind::xmm_reg,// xmm_reg
-	OpCodeOperandKind::xmm_rm,// xmm_rm
-	OpCodeOperandKind::xmm_vvvv,// xmm_vvvv
-	OpCodeOperandKind::ymm_is4,// ymm_is4
-	OpCodeOperandKind::ymm_is5,// ymm_is5
-	OpCodeOperandKind::ymm_or_mem,// ymm_or_mem
-	OpCodeOperandKind::ymm_reg,// ymm_reg
-	OpCodeOperandKind::ymm_rm,// ymm_rm
-	OpCodeOperandKind::ymm_vvvv,// ymm_vvvv
+	OpCodeOperandKind::None,
+	OpCodeOperandKind::mem,
+	OpCodeOperandKind::mem_vsib32x,
+	OpCodeOperandKind::mem_vsib64x,
+	OpCodeOperandKind::mem_vsib32y,
+	OpCodeOperandKind::mem_vsib64y,
+	OpCodeOperandKind::r32_or_mem,
+	OpCodeOperandKind::r64_or_mem,
+	OpCodeOperandKind::xmm_or_mem,
+	OpCodeOperandKind::ymm_or_mem,
+	OpCodeOperandKind::k_or_mem,
+	OpCodeOperandKind::r32_reg,
+	OpCodeOperandKind::r32_rm,
+	OpCodeOperandKind::r32_vvvv,
+	OpCodeOperandKind::r64_reg,
+	OpCodeOperandKind::r64_rm,
+	OpCodeOperandKind::r64_vvvv,
+	OpCodeOperandKind::k_reg,
+	OpCodeOperandKind::k_rm,
+	OpCodeOperandKind::k_vvvv,
+	OpCodeOperandKind::xmm_reg,
+	OpCodeOperandKind::xmm_rm,
+	OpCodeOperandKind::xmm_vvvv,
+	OpCodeOperandKind::xmm_is4,
+	OpCodeOperandKind::xmm_is5,
+	OpCodeOperandKind::ymm_reg,
+	OpCodeOperandKind::ymm_rm,
+	OpCodeOperandKind::ymm_vvvv,
+	OpCodeOperandKind::ymm_is4,
+	OpCodeOperandKind::ymm_is5,
+	OpCodeOperandKind::imm2_m2z,
+	OpCodeOperandKind::imm8,
+	OpCodeOperandKind::seg_rDI,
+	OpCodeOperandKind::sibmem,
+	OpCodeOperandKind::tmm_reg,
+	OpCodeOperandKind::tmm_rm,
+	OpCodeOperandKind::tmm_vvvv,
 ];
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 #[cfg(not(feature = "no_xop"))]
 pub(super) static XOP_OP_KINDS: [OpCodeOperandKind; 19] = [
-	OpCodeOperandKind::None,// None
-	OpCodeOperandKind::imm32,// imm32
-	OpCodeOperandKind::imm8,// imm8
-	OpCodeOperandKind::r32_or_mem,// r32_or_mem
-	OpCodeOperandKind::r32_reg,// r32_reg
-	OpCodeOperandKind::r32_rm,// r32_rm
-	OpCodeOperandKind::r32_vvvv,// r32_vvvv
-	OpCodeOperandKind::r64_or_mem,// r64_or_mem
-	OpCodeOperandKind::r64_reg,// r64_reg
-	OpCodeOperandKind::r64_rm,// r64_rm
-	OpCodeOperandKind::r64_vvvv,// r64_vvvv
-	OpCodeOperandKind::xmm_is4,// xmm_is4
-	OpCodeOperandKind::xmm_or_mem,// xmm_or_mem
-	OpCodeOperandKind::xmm_reg,// xmm_reg
-	OpCodeOperandKind::xmm_vvvv,// xmm_vvvv
-	OpCodeOperandKind::ymm_is4,// ymm_is4
-	OpCodeOperandKind::ymm_or_mem,// ymm_or_mem
-	OpCodeOperandKind::ymm_reg,// ymm_reg
-	OpCodeOperandKind::ymm_vvvv,// ymm_vvvv
+	OpCodeOperandKind::None,
+	OpCodeOperandKind::r32_or_mem,
+	OpCodeOperandKind::r64_or_mem,
+	OpCodeOperandKind::xmm_or_mem,
+	OpCodeOperandKind::ymm_or_mem,
+	OpCodeOperandKind::r32_reg,
+	OpCodeOperandKind::r32_rm,
+	OpCodeOperandKind::r32_vvvv,
+	OpCodeOperandKind::r64_reg,
+	OpCodeOperandKind::r64_rm,
+	OpCodeOperandKind::r64_vvvv,
+	OpCodeOperandKind::xmm_reg,
+	OpCodeOperandKind::xmm_vvvv,
+	OpCodeOperandKind::xmm_is4,
+	OpCodeOperandKind::ymm_reg,
+	OpCodeOperandKind::ymm_vvvv,
+	OpCodeOperandKind::ymm_is4,
+	OpCodeOperandKind::imm8,
+	OpCodeOperandKind::imm32,
 ];
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 #[cfg(not(feature = "no_evex"))]
 pub(super) static EVEX_OP_KINDS: [OpCodeOperandKind; 32] = [
-	OpCodeOperandKind::None,// None
-	OpCodeOperandKind::imm8,// imm8
-	OpCodeOperandKind::k_reg,// k_reg
-	OpCodeOperandKind::k_rm,// k_rm
-	OpCodeOperandKind::kp1_reg,// kp1_reg
-	OpCodeOperandKind::mem,// mem
-	OpCodeOperandKind::mem_vsib32x,// mem_vsib32x
-	OpCodeOperandKind::mem_vsib32y,// mem_vsib32y
-	OpCodeOperandKind::mem_vsib32z,// mem_vsib32z
-	OpCodeOperandKind::mem_vsib64x,// mem_vsib64x
-	OpCodeOperandKind::mem_vsib64y,// mem_vsib64y
-	OpCodeOperandKind::mem_vsib64z,// mem_vsib64z
-	OpCodeOperandKind::r32_or_mem,// r32_or_mem
-	OpCodeOperandKind::r32_reg,// r32_reg
-	OpCodeOperandKind::r32_rm,// r32_rm
-	OpCodeOperandKind::r64_or_mem,// r64_or_mem
-	OpCodeOperandKind::r64_reg,// r64_reg
-	OpCodeOperandKind::r64_rm,// r64_rm
-	OpCodeOperandKind::xmm_or_mem,// xmm_or_mem
-	OpCodeOperandKind::xmm_reg,// xmm_reg
-	OpCodeOperandKind::xmm_rm,// xmm_rm
-	OpCodeOperandKind::xmm_vvvv,// xmm_vvvv
-	OpCodeOperandKind::xmmp3_vvvv,// xmmp3_vvvv
-	OpCodeOperandKind::ymm_or_mem,// ymm_or_mem
-	OpCodeOperandKind::ymm_reg,// ymm_reg
-	OpCodeOperandKind::ymm_rm,// ymm_rm
-	OpCodeOperandKind::ymm_vvvv,// ymm_vvvv
-	OpCodeOperandKind::zmm_or_mem,// zmm_or_mem
-	OpCodeOperandKind::zmm_reg,// zmm_reg
-	OpCodeOperandKind::zmm_rm,// zmm_rm
-	OpCodeOperandKind::zmm_vvvv,// zmm_vvvv
-	OpCodeOperandKind::zmmp3_vvvv,// zmmp3_vvvv
+	OpCodeOperandKind::None,
+	OpCodeOperandKind::mem,
+	OpCodeOperandKind::mem_vsib32x,
+	OpCodeOperandKind::mem_vsib64x,
+	OpCodeOperandKind::mem_vsib32y,
+	OpCodeOperandKind::mem_vsib64y,
+	OpCodeOperandKind::mem_vsib32z,
+	OpCodeOperandKind::mem_vsib64z,
+	OpCodeOperandKind::r32_or_mem,
+	OpCodeOperandKind::r64_or_mem,
+	OpCodeOperandKind::xmm_or_mem,
+	OpCodeOperandKind::ymm_or_mem,
+	OpCodeOperandKind::zmm_or_mem,
+	OpCodeOperandKind::r32_reg,
+	OpCodeOperandKind::r32_rm,
+	OpCodeOperandKind::r64_reg,
+	OpCodeOperandKind::r64_rm,
+	OpCodeOperandKind::k_reg,
+	OpCodeOperandKind::kp1_reg,
+	OpCodeOperandKind::k_rm,
+	OpCodeOperandKind::xmm_reg,
+	OpCodeOperandKind::xmm_rm,
+	OpCodeOperandKind::xmm_vvvv,
+	OpCodeOperandKind::xmmp3_vvvv,
+	OpCodeOperandKind::ymm_reg,
+	OpCodeOperandKind::ymm_rm,
+	OpCodeOperandKind::ymm_vvvv,
+	OpCodeOperandKind::zmm_reg,
+	OpCodeOperandKind::zmm_rm,
+	OpCodeOperandKind::zmm_vvvv,
+	OpCodeOperandKind::zmmp3_vvvv,
+	OpCodeOperandKind::imm8,
 ];

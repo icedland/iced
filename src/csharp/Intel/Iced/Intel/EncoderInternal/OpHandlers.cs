@@ -466,11 +466,11 @@ namespace Iced.Intel.EncoderInternal {
 	}
 
 #if !NO_VEX || !NO_EVEX
-	sealed class OpVMx : Op {
+	sealed class OpVsib : Op {
 		readonly Register vsibIndexRegLo;
 		readonly Register vsibIndexRegHi;
 
-		public OpVMx(Register regLo, Register regHi) {
+		public OpVsib(Register regLo, Register regHi) {
 			vsibIndexRegLo = regLo;
 			vsibIndexRegHi = regHi;
 		}
@@ -483,11 +483,11 @@ namespace Iced.Intel.EncoderInternal {
 #endif
 
 #if !NO_VEX || !NO_XOP
-	sealed class OpIs4x : Op {
+	sealed class OpIsX : Op {
 		readonly Register regLo;
 		readonly Register regHi;
 
-		public OpIs4x(Register regLo, Register regHi) {
+		public OpIsX(Register regLo, Register regHi) {
 			this.regLo = regLo;
 			this.regHi = regHi;
 		}

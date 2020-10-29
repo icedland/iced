@@ -21,13 +21,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace Generator.Tables {
 	static class ParserUtils {
 		public static (string key, string value) GetKeyValue(string s) {
-			int index = s.IndexOf('=');
+			int index = s.IndexOf('=', StringComparison.Ordinal);
 			if (index < 0)
 				return (s, string.Empty);
 			else {

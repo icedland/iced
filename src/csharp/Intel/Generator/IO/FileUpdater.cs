@@ -62,8 +62,8 @@ namespace Generator.IO {
 			var endStr = prefix + "GENERATOR-END: " + id;
 			int start = FindString(lines, 0, beginStr);
 			int end = FindString(lines, start + 1, endStr);
-			int startIndex = lines[start].IndexOf(beginStr);
-			int endIndex = lines[end].IndexOf(endStr);
+			int startIndex = lines[start].IndexOf(beginStr, StringComparison.Ordinal);
+			int endIndex = lines[end].IndexOf(endStr, StringComparison.Ordinal);
 			if (startIndex < 0 || startIndex != endIndex)
 				throw new InvalidOperationException($"The lines should have the same indentation");
 			int indent = GetIndent(startIndex, lines[start]);

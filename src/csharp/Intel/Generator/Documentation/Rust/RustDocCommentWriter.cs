@@ -243,7 +243,7 @@ namespace Generator.Documentation.Rust {
 		}
 
 		static string GetMethodNameOnly(string name) {
-			int index = name.IndexOf('(');
+			int index = name.IndexOf('(', StringComparison.Ordinal);
 			if (index < 0)
 				return name;
 			return name.Substring(0, index);
@@ -251,7 +251,7 @@ namespace Generator.Documentation.Rust {
 
 		string TranslateMethodName(string name) {
 			const string GetPattern = "Get";
-			if (name.StartsWith(GetPattern))
+			if (name.StartsWith(GetPattern, StringComparison.Ordinal))
 				return name.Substring(GetPattern.Length);
 			return name;
 		}

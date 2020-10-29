@@ -27,7 +27,7 @@ using SG = System.Globalization;
 namespace Iced.UnitTests.Intel {
 	static class NumberConverter {
 		public static ulong ToUInt64(string value) {
-			if (value.StartsWith("0x")) {
+			if (value.StartsWith("0x", StringComparison.Ordinal)) {
 				value = value.Substring(2);
 				if (ulong.TryParse(value, SG.NumberStyles.HexNumber, null, out var number))
 					return number;
@@ -40,13 +40,13 @@ namespace Iced.UnitTests.Intel {
 		public static long ToInt64(string value) {
 			var unsigned_value = value;
 			long mult;
-			if (unsigned_value.StartsWith("-")) {
+			if (unsigned_value.StartsWith("-", StringComparison.Ordinal)) {
 				mult = -1;
 				unsigned_value = unsigned_value.Substring(1);
 			}
 			else
 				mult = 1;
-			if (unsigned_value.StartsWith("0x")) {
+			if (unsigned_value.StartsWith("0x", StringComparison.Ordinal)) {
 				unsigned_value = unsigned_value.Substring(2);
 				if (long.TryParse(unsigned_value, SG.NumberStyles.HexNumber, null, out var number))
 					return number * mult;

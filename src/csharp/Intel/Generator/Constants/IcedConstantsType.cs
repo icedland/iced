@@ -98,7 +98,7 @@ namespace Generator.Constants {
 			var regs = genTypes[TypeIds.Register];
 			const string TMMPrefix = "TMM";
 			foreach (var reg in regs.Values) {
-				if (!reg.RawName.StartsWith(TMMPrefix))
+				if (!reg.RawName.StartsWith(TMMPrefix, StringComparison.Ordinal))
 					continue;
 				int index = int.Parse(reg.RawName.Substring(TMMPrefix.Length));
 				if (index > lastIndex) {
@@ -114,7 +114,7 @@ namespace Generator.Constants {
 			uint? firstBroadcastValue = null;
 			for (int i = 0; i < values.Length; i++) {
 				var name = values[i].RawName;
-				bool isBroadcast = name.StartsWith("Broadcast");
+				bool isBroadcast = name.StartsWith("Broadcast", StringComparison.Ordinal);
 				if (firstBroadcastValue is object) {
 					if (!isBroadcast)
 						throw new InvalidOperationException("Must be sorted so that all broadcast memory types are at the end of the enum");

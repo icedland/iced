@@ -29,7 +29,6 @@ using Generator.Enums.Encoder;
 using System.Diagnostics;
 using Generator.Formatters;
 using Generator.Enums.Formatter;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Generator.Tables {
 	[Flags]
@@ -534,7 +533,7 @@ namespace Generator.Tables {
 		public readonly int GroupIndex;
 		public readonly int RmGroupIndex;
 		public readonly TupleType TupleType;
-		public readonly OpCodeOperandKind[] OpKinds;
+		public readonly OpCodeOperandKindDef[] OpKinds;
 
 		public ImpliedAccessesDef ImpliedAccessDef => impliedAccessDef ?? throw new InvalidOperationException();
 		ImpliedAccessesDef? impliedAccessDef;
@@ -566,7 +565,7 @@ namespace Generator.Tables {
 			InstructionDefFlags3 flags3, InstrStrFmtOption instrStrFmtOption, InstructionStringFlags instrStrFlags,
 			InstrStrImpliedOp[] instrStrImpliedOps,
 			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, uint opCode, int opCodeLength,
-			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKind[] opKinds,
+			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKindDef[] opKinds,
 			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
 			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
 			RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,

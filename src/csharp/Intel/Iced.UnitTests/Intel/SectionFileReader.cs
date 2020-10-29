@@ -33,12 +33,12 @@ namespace Iced.UnitTests.Intel {
 			int lineNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
-				if (line.Length == 0 || line.StartsWith("#"))
+				if (line.Length == 0 || line[0] == '#')
 					continue;
 
 				try {
-					if (line.StartsWith("[")) {
-						if (!line.EndsWith("]"))
+					if (line.StartsWith("[", StringComparison.Ordinal)) {
+						if (!line.EndsWith("]", StringComparison.Ordinal))
 							throw new Exception("Missing ']'");
 						var sectionName = line.Substring(1, line.Length - 1 - 1).Trim();
 						if (!TryGetSection(sectionInfos, sectionName, out currentSectionInfo))

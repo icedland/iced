@@ -63,7 +63,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			int lineNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
-				if (line.Length == 0 || line.StartsWith("#"))
+				if (line.Length == 0 || line[0] == '#')
 					continue;
 
 				(string hexBytes, Code code, DecoderOptions options, InstructionInfoTestCase testCase) info;
@@ -365,7 +365,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			foreach (var tmp in value.Split(plusSeparator)) {
 				var s = tmp;
 				bool isIndex = hasBase;
-				int segIndex = s.IndexOf(":");
+				int segIndex = s.IndexOf(":", StringComparison.Ordinal);
 				if (segIndex >= 0) {
 					var segRegString = s.Substring(0, segIndex);
 					s = s.Substring(segIndex + 1);
@@ -375,13 +375,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 						return false;
 				}
 				if (s.IndexOf('*') >= 0) {
-					if (s.EndsWith("*1"))
+					if (s.EndsWith("*1", StringComparison.Ordinal))
 						scale = 1;
-					else if (s.EndsWith("*2"))
+					else if (s.EndsWith("*2", StringComparison.Ordinal))
 						scale = 2;
-					else if (s.EndsWith("*4"))
+					else if (s.EndsWith("*4", StringComparison.Ordinal))
 						scale = 4;
-					else if (s.EndsWith("*8"))
+					else if (s.EndsWith("*8", StringComparison.Ordinal))
 						scale = 8;
 					else
 						return false;
@@ -398,7 +398,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				}
 				else {
 					var numString = s;
-					if (numString.StartsWith("0x")) {
+					if (numString.StartsWith("0x", StringComparison.Ordinal)) {
 						numString = numString.Substring(2);
 						if (!ulong.TryParse(numString, NumberStyles.HexNumber, null, out displ))
 							return false;

@@ -32,15 +32,49 @@ namespace Generator.Encoder {
 	sealed class EncoderTypesGen {
 		public (EnumValue value, uint size)[]? ImmSizes;
 		public EnumType? EncFlags1;
+		public EnumType? LegacyOpKind;
+		public EnumType? VexOpKind;
+		public EnumType? XopOpKind;
+		public EnumType? EvexOpKind;
 
 		readonly GenTypes genTypes;
+		readonly InstructionDef[] instrDefs;
 
-		public EncoderTypesGen(GenTypes genTypes) =>
+		public EncoderTypesGen(GenTypes genTypes) {
 			this.genTypes = genTypes;
+			instrDefs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
+		}
 
 		public void Generate() {
 			GenerateImmSizes();
+			GenerateLegacyOpKind();
+			GenerateVexOpKind();
+			GenerateXopOpKind();
+			GenerateEvexOpKind();
 			GenerateEncFlags1();
+		}
+
+		void GenerateLegacyOpKind() => LegacyOpKind = GenerateOpKind(TypeIds.LegacyOpKind, EncodingKind.Legacy);
+		void GenerateVexOpKind() => VexOpKind = GenerateOpKind(TypeIds.VexOpKind, EncodingKind.VEX);
+		void GenerateXopOpKind() => XopOpKind = GenerateOpKind(TypeIds.XopOpKind, EncodingKind.XOP);
+		void GenerateEvexOpKind() => EvexOpKind = GenerateOpKind(TypeIds.EvexOpKind, EncodingKind.EVEX);
+
+		internal static OpCodeOperandKindDef[] GetDefs(GenTypes genTypes, EncodingKind encoding) {
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
+			var opKindDefs = genTypes.GetObject<OpCodeOperandKindDefs>(TypeIds.OpCodeOperandKindDefs).Defs;
+			var none = opKindDefs.First(a => a.OperandEncoding == OperandEncoding.None);
+			return defs.
+				Where(a => a.Encoding == encoding).
+				SelectMany(a => a.OpKinds).
+				Append(none).
+				Distinct().
+				OrderBy(a => a.EnumValue.Value).
+				ToArray();
+		}
+
+		EnumType GenerateOpKind(TypeId typeId, EncodingKind encoding) {
+			var values = GetDefs(genTypes, encoding).Select(a => new EnumValue(0, a.EnumValue.RawName, null)).ToArray();
+			return new EnumType(typeId, null, values, EnumTypeFlags.None);
 		}
 
 		void GenerateImmSizes() {
@@ -72,7 +106,9 @@ namespace Generator.Encoder {
 			ImmSizes = immSizes;
 		}
 
-		static uint GenerateOpKindFields(List<EnumValue> fields, EnumType opKindEnumType, string fieldPrefix, int numOps) {
+		static uint GenerateOpKindFields(List<EnumValue> fields, EnumType? opKindEnumType, string fieldPrefix, int numOps) {
+			if (opKindEnumType is null)
+				throw new InvalidOperationException();
 			uint bit = 0;
 
 			var opKind = ConstantUtils.GetMaskBits(opKindEnumType.Values.Max(a => a.Value));
@@ -91,10 +127,10 @@ namespace Generator.Encoder {
 			values.Add(new EnumValue(0, "None", null));
 
 			uint maxBits = 0;
-			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, genTypes[TypeIds.LegacyOpKind], "Legacy_", 4));
-			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, genTypes[TypeIds.VexOpKind], "VEX_", 5));
-			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, genTypes[TypeIds.XopOpKind], "XOP_", 4));
-			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, genTypes[TypeIds.EvexOpKind], "EVEX_", 4));
+			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, LegacyOpKind, "Legacy_", 4));
+			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, VexOpKind, "VEX_", 5));
+			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, XopOpKind, "XOP_", 4));
+			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, EvexOpKind, "EVEX_", 4));
 
 			if (maxBits > 30)
 				throw new InvalidOperationException();

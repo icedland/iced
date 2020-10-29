@@ -178,7 +178,7 @@ namespace Generator.Tables {
 			int opCodeByteCount = 0;
 			for (; index < parts.Length; index++) {
 				var part = parts[index];
-				int plusIndex = part.IndexOf('+');
+				int plusIndex = part.IndexOf('+', StringComparison.Ordinal);
 				if (plusIndex >= 0)
 					part = part.Substring(0, plusIndex);
 				if (!TryParseHexByte(part, out byte opCodeByte, out _))

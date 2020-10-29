@@ -155,40 +155,40 @@ impl LegacyHandler {
 		};
 
 		let mut operands;
-		let op0: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP0_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
-		let op1: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP1_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
-		let op2: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP2_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
-		let op3: LegacyOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::LEGACY_OP3_SHIFT) & EncFlags1::LEGACY_OP_MASK) as u8) };
-		if op3 != LegacyOpKind::None {
+		let op0 = ((enc_flags1 >> EncFlags1::LEGACY_OP0_SHIFT) & EncFlags1::LEGACY_OP_MASK) as usize;
+		let op1 = ((enc_flags1 >> EncFlags1::LEGACY_OP1_SHIFT) & EncFlags1::LEGACY_OP_MASK) as usize;
+		let op2 = ((enc_flags1 >> EncFlags1::LEGACY_OP2_SHIFT) & EncFlags1::LEGACY_OP_MASK) as usize;
+		let op3 = ((enc_flags1 >> EncFlags1::LEGACY_OP3_SHIFT) & EncFlags1::LEGACY_OP_MASK) as usize;
+		if op3 != 0 {
 			operands = Vec::with_capacity(4);
-			operands.push(LEGACY_TABLE[op0 as usize]);
-			operands.push(LEGACY_TABLE[op1 as usize]);
-			operands.push(LEGACY_TABLE[op2 as usize]);
-			operands.push(LEGACY_TABLE[op3 as usize]);
-		} else if op2 != LegacyOpKind::None {
+			operands.push(LEGACY_TABLE[op0]);
+			operands.push(LEGACY_TABLE[op1]);
+			operands.push(LEGACY_TABLE[op2]);
+			operands.push(LEGACY_TABLE[op3]);
+		} else if op2 != 0 {
 			operands = Vec::with_capacity(3);
-			operands.push(LEGACY_TABLE[op0 as usize]);
-			operands.push(LEGACY_TABLE[op1 as usize]);
-			operands.push(LEGACY_TABLE[op2 as usize]);
-			debug_assert_eq!(LegacyOpKind::None, op3);
-		} else if op1 != LegacyOpKind::None {
+			operands.push(LEGACY_TABLE[op0]);
+			operands.push(LEGACY_TABLE[op1]);
+			operands.push(LEGACY_TABLE[op2]);
+			debug_assert_eq!(0, op3);
+		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
-			operands.push(LEGACY_TABLE[op0 as usize]);
-			operands.push(LEGACY_TABLE[op1 as usize]);
-			debug_assert_eq!(LegacyOpKind::None, op2);
-			debug_assert_eq!(LegacyOpKind::None, op3);
-		} else if op0 != LegacyOpKind::None {
+			operands.push(LEGACY_TABLE[op0]);
+			operands.push(LEGACY_TABLE[op1]);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
+		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
-			operands.push(LEGACY_TABLE[op0 as usize]);
-			debug_assert_eq!(LegacyOpKind::None, op1);
-			debug_assert_eq!(LegacyOpKind::None, op2);
-			debug_assert_eq!(LegacyOpKind::None, op3);
+			operands.push(LEGACY_TABLE[op0]);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(LegacyOpKind::None, op0);
-			debug_assert_eq!(LegacyOpKind::None, op1);
-			debug_assert_eq!(LegacyOpKind::None, op2);
-			debug_assert_eq!(LegacyOpKind::None, op3);
+			debug_assert_eq!(0, op0);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
 		}
 
 		Self {
@@ -281,53 +281,53 @@ impl VexHandler {
 		};
 
 		let mut operands;
-		let op0: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP0_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
-		let op1: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP1_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
-		let op2: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP2_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
-		let op3: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP3_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
-		let op4: VexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::VEX_OP4_SHIFT) & EncFlags1::VEX_OP_MASK) as u8) };
-		if op4 != VexOpKind::None {
+		let op0 = ((enc_flags1 >> EncFlags1::VEX_OP0_SHIFT) & EncFlags1::VEX_OP_MASK) as usize;
+		let op1 = ((enc_flags1 >> EncFlags1::VEX_OP1_SHIFT) & EncFlags1::VEX_OP_MASK) as usize;
+		let op2 = ((enc_flags1 >> EncFlags1::VEX_OP2_SHIFT) & EncFlags1::VEX_OP_MASK) as usize;
+		let op3 = ((enc_flags1 >> EncFlags1::VEX_OP3_SHIFT) & EncFlags1::VEX_OP_MASK) as usize;
+		let op4 = ((enc_flags1 >> EncFlags1::VEX_OP4_SHIFT) & EncFlags1::VEX_OP_MASK) as usize;
+		if op4 != 0 {
 			operands = Vec::with_capacity(5);
-			operands.push(VEX_TABLE[op0 as usize]);
-			operands.push(VEX_TABLE[op1 as usize]);
-			operands.push(VEX_TABLE[op2 as usize]);
-			operands.push(VEX_TABLE[op3 as usize]);
-			operands.push(VEX_TABLE[op4 as usize]);
-		} else if op3 != VexOpKind::None {
+			operands.push(VEX_TABLE[op0]);
+			operands.push(VEX_TABLE[op1]);
+			operands.push(VEX_TABLE[op2]);
+			operands.push(VEX_TABLE[op3]);
+			operands.push(VEX_TABLE[op4]);
+		} else if op3 != 0 {
 			operands = Vec::with_capacity(4);
-			operands.push(VEX_TABLE[op0 as usize]);
-			operands.push(VEX_TABLE[op1 as usize]);
-			operands.push(VEX_TABLE[op2 as usize]);
-			operands.push(VEX_TABLE[op3 as usize]);
-			debug_assert_eq!(VexOpKind::None, op4);
-		} else if op2 != VexOpKind::None {
+			operands.push(VEX_TABLE[op0]);
+			operands.push(VEX_TABLE[op1]);
+			operands.push(VEX_TABLE[op2]);
+			operands.push(VEX_TABLE[op3]);
+			debug_assert_eq!(0, op4);
+		} else if op2 != 0 {
 			operands = Vec::with_capacity(3);
-			operands.push(VEX_TABLE[op0 as usize]);
-			operands.push(VEX_TABLE[op1 as usize]);
-			operands.push(VEX_TABLE[op2 as usize]);
-			debug_assert_eq!(VexOpKind::None, op3);
-			debug_assert_eq!(VexOpKind::None, op4);
-		} else if op1 != VexOpKind::None {
+			operands.push(VEX_TABLE[op0]);
+			operands.push(VEX_TABLE[op1]);
+			operands.push(VEX_TABLE[op2]);
+			debug_assert_eq!(0, op3);
+			debug_assert_eq!(0, op4);
+		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
-			operands.push(VEX_TABLE[op0 as usize]);
-			operands.push(VEX_TABLE[op1 as usize]);
-			debug_assert_eq!(VexOpKind::None, op2);
-			debug_assert_eq!(VexOpKind::None, op3);
-			debug_assert_eq!(VexOpKind::None, op4);
-		} else if op0 != VexOpKind::None {
+			operands.push(VEX_TABLE[op0]);
+			operands.push(VEX_TABLE[op1]);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
+			debug_assert_eq!(0, op4);
+		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
-			operands.push(VEX_TABLE[op0 as usize]);
-			debug_assert_eq!(VexOpKind::None, op1);
-			debug_assert_eq!(VexOpKind::None, op2);
-			debug_assert_eq!(VexOpKind::None, op3);
-			debug_assert_eq!(VexOpKind::None, op4);
+			operands.push(VEX_TABLE[op0]);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
+			debug_assert_eq!(0, op4);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(VexOpKind::None, op0);
-			debug_assert_eq!(VexOpKind::None, op1);
-			debug_assert_eq!(VexOpKind::None, op2);
-			debug_assert_eq!(VexOpKind::None, op3);
-			debug_assert_eq!(VexOpKind::None, op4);
+			debug_assert_eq!(0, op0);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
+			debug_assert_eq!(0, op4);
 		}
 
 		Self {
@@ -420,40 +420,40 @@ impl XopHandler {
 		last_byte |= (enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK;
 
 		let mut operands;
-		let op0: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP0_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
-		let op1: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP1_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
-		let op2: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP2_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
-		let op3: XopOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::XOP_OP3_SHIFT) & EncFlags1::XOP_OP_MASK) as u8) };
-		if op3 != XopOpKind::None {
+		let op0 = ((enc_flags1 >> EncFlags1::XOP_OP0_SHIFT) & EncFlags1::XOP_OP_MASK) as usize;
+		let op1 = ((enc_flags1 >> EncFlags1::XOP_OP1_SHIFT) & EncFlags1::XOP_OP_MASK) as usize;
+		let op2 = ((enc_flags1 >> EncFlags1::XOP_OP2_SHIFT) & EncFlags1::XOP_OP_MASK) as usize;
+		let op3 = ((enc_flags1 >> EncFlags1::XOP_OP3_SHIFT) & EncFlags1::XOP_OP_MASK) as usize;
+		if op3 != 0 {
 			operands = Vec::with_capacity(4);
-			operands.push(XOP_TABLE[op0 as usize]);
-			operands.push(XOP_TABLE[op1 as usize]);
-			operands.push(XOP_TABLE[op2 as usize]);
-			operands.push(XOP_TABLE[op3 as usize]);
-		} else if op2 != XopOpKind::None {
+			operands.push(XOP_TABLE[op0]);
+			operands.push(XOP_TABLE[op1]);
+			operands.push(XOP_TABLE[op2]);
+			operands.push(XOP_TABLE[op3]);
+		} else if op2 != 0 {
 			operands = Vec::with_capacity(3);
-			operands.push(XOP_TABLE[op0 as usize]);
-			operands.push(XOP_TABLE[op1 as usize]);
-			operands.push(XOP_TABLE[op2 as usize]);
-			debug_assert_eq!(XopOpKind::None, op3);
-		} else if op1 != XopOpKind::None {
+			operands.push(XOP_TABLE[op0]);
+			operands.push(XOP_TABLE[op1]);
+			operands.push(XOP_TABLE[op2]);
+			debug_assert_eq!(0, op3);
+		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
-			operands.push(XOP_TABLE[op0 as usize]);
-			operands.push(XOP_TABLE[op1 as usize]);
-			debug_assert_eq!(XopOpKind::None, op2);
-			debug_assert_eq!(XopOpKind::None, op3);
-		} else if op0 != XopOpKind::None {
+			operands.push(XOP_TABLE[op0]);
+			operands.push(XOP_TABLE[op1]);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
+		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
-			operands.push(XOP_TABLE[op0 as usize]);
-			debug_assert_eq!(XopOpKind::None, op1);
-			debug_assert_eq!(XopOpKind::None, op2);
-			debug_assert_eq!(XopOpKind::None, op3);
+			operands.push(XOP_TABLE[op0]);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(XopOpKind::None, op0);
-			debug_assert_eq!(XopOpKind::None, op1);
-			debug_assert_eq!(XopOpKind::None, op2);
-			debug_assert_eq!(XopOpKind::None, op3);
+			debug_assert_eq!(0, op0);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
 		}
 
 		Self {
@@ -540,40 +540,40 @@ impl EvexHandler {
 		let mask_w = if wbit == WBit::WIG { 0x80 } else { 0 };
 
 		let mut operands;
-		let op0: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP0_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
-		let op1: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP1_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
-		let op2: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP2_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
-		let op3: EvexOpKind = unsafe { mem::transmute(((enc_flags1 >> EncFlags1::EVEX_OP3_SHIFT) & EncFlags1::EVEX_OP_MASK) as u8) };
-		if op3 != EvexOpKind::None {
+		let op0 = ((enc_flags1 >> EncFlags1::EVEX_OP0_SHIFT) & EncFlags1::EVEX_OP_MASK) as usize;
+		let op1 = ((enc_flags1 >> EncFlags1::EVEX_OP1_SHIFT) & EncFlags1::EVEX_OP_MASK) as usize;
+		let op2 = ((enc_flags1 >> EncFlags1::EVEX_OP2_SHIFT) & EncFlags1::EVEX_OP_MASK) as usize;
+		let op3 = ((enc_flags1 >> EncFlags1::EVEX_OP3_SHIFT) & EncFlags1::EVEX_OP_MASK) as usize;
+		if op3 != 0 {
 			operands = Vec::with_capacity(4);
-			operands.push(EVEX_TABLE[op0 as usize]);
-			operands.push(EVEX_TABLE[op1 as usize]);
-			operands.push(EVEX_TABLE[op2 as usize]);
-			operands.push(EVEX_TABLE[op3 as usize]);
-		} else if op2 != EvexOpKind::None {
+			operands.push(EVEX_TABLE[op0]);
+			operands.push(EVEX_TABLE[op1]);
+			operands.push(EVEX_TABLE[op2]);
+			operands.push(EVEX_TABLE[op3]);
+		} else if op2 != 0 {
 			operands = Vec::with_capacity(3);
-			operands.push(EVEX_TABLE[op0 as usize]);
-			operands.push(EVEX_TABLE[op1 as usize]);
-			operands.push(EVEX_TABLE[op2 as usize]);
-			debug_assert_eq!(EvexOpKind::None, op3);
-		} else if op1 != EvexOpKind::None {
+			operands.push(EVEX_TABLE[op0]);
+			operands.push(EVEX_TABLE[op1]);
+			operands.push(EVEX_TABLE[op2]);
+			debug_assert_eq!(0, op3);
+		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
-			operands.push(EVEX_TABLE[op0 as usize]);
-			operands.push(EVEX_TABLE[op1 as usize]);
-			debug_assert_eq!(EvexOpKind::None, op2);
-			debug_assert_eq!(EvexOpKind::None, op3);
-		} else if op0 != EvexOpKind::None {
+			operands.push(EVEX_TABLE[op0]);
+			operands.push(EVEX_TABLE[op1]);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
+		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
-			operands.push(EVEX_TABLE[op0 as usize]);
-			debug_assert_eq!(EvexOpKind::None, op1);
-			debug_assert_eq!(EvexOpKind::None, op2);
-			debug_assert_eq!(EvexOpKind::None, op3);
+			operands.push(EVEX_TABLE[op0]);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(EvexOpKind::None, op0);
-			debug_assert_eq!(EvexOpKind::None, op1);
-			debug_assert_eq!(EvexOpKind::None, op2);
-			debug_assert_eq!(EvexOpKind::None, op3);
+			debug_assert_eq!(0, op0);
+			debug_assert_eq!(0, op1);
+			debug_assert_eq!(0, op2);
+			debug_assert_eq!(0, op3);
 		}
 
 		Self {

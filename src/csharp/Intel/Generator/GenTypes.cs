@@ -134,7 +134,7 @@ namespace Generator {
 					return c;
 				Debug.Assert(a.type.FullName is object);
 				Debug.Assert(b.type.FullName is object);
-				return a.type.FullName.CompareTo(b.type.FullName);
+				return StringComparer.Ordinal.Compare(a.type.FullName, b.type.FullName);
 			});
 
 			var created = new List<object>();

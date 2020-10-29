@@ -103,7 +103,7 @@ namespace Generator.Decoder {
 
 		public (string name, object?[] handlers)[] Filter() {
 			foreach (var (name, handlers) in infos) {
-				bool canUseNull = handlers.Length == 0x40 && !name.Contains("_FPU_");
+				bool canUseNull = handlers.Length == 0x40 && !name.Contains("_FPU_", StringComparison.Ordinal);
 				if (canUseNull) {
 					foreach (var h in handlers) {
 						if (h is object?[] h2 && DecoderTableUtils.IsInvalid(genTypes, h2))
@@ -135,7 +135,7 @@ namespace Generator.Decoder {
 			if (handler[0] == handlerKind_d3now) {
 				var origCode = genTypes.GetObject<EnumValue[]>(TypeIds.OrigCodeValues);
 				foreach (var code in origCode) {
-					if (code.RawName.StartsWith("D3NOW_"))
+					if (code.RawName.StartsWith("D3NOW_", StringComparison.Ordinal))
 						CountValue(code);
 				}
 			}

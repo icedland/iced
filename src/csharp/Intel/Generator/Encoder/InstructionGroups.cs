@@ -28,7 +28,6 @@ using System.Linq;
 using System.Text;
 using Generator.Constants;
 using Generator.Enums;
-using Generator.Enums.Encoder;
 using Generator.Tables;
 
 namespace Generator.Encoder {
@@ -72,25 +71,35 @@ namespace Generator.Encoder {
 				if ((def.Flags1 & InstructionDefFlags1.NoInstruction) != 0)
 					ignoredCodes.Add(def.Code);
 				foreach (var opKind in def.OpKinds) {
-					switch (opKind) {
-					case OpCodeOperandKind.None:
-					case OpCodeOperandKind.farbr2_2:
-					case OpCodeOperandKind.farbr4_2:
-					case OpCodeOperandKind.seg_rSI:
-					case OpCodeOperandKind.es_rDI:
-					case OpCodeOperandKind.seg_rDI:
-					case OpCodeOperandKind.br16_1:
-					case OpCodeOperandKind.br32_1:
-					case OpCodeOperandKind.br64_1:
-					case OpCodeOperandKind.br16_2:
-					case OpCodeOperandKind.br32_4:
-					case OpCodeOperandKind.br64_4:
-					case OpCodeOperandKind.xbegin_2:
-					case OpCodeOperandKind.xbegin_4:
-					case OpCodeOperandKind.brdisp_2:
-					case OpCodeOperandKind.brdisp_4:
+					switch (opKind.OperandEncoding) {
+					case OperandEncoding.None:
+					case OperandEncoding.NearBranch:
+					case OperandEncoding.Xbegin:
+					case OperandEncoding.AbsNearBranch:
+					case OperandEncoding.FarBranch:
+					case OperandEncoding.SegRSI:
+					case OperandEncoding.SegRDI:
+					case OperandEncoding.ESRDI:
 						ignoredCodes.Add(def.Code);
 						break;
+
+					case OperandEncoding.Immediate:
+					case OperandEncoding.ImmediateM2z:
+					case OperandEncoding.ImpliedConst:
+					case OperandEncoding.ImpliedRegister:
+					case OperandEncoding.SegRBX:
+					case OperandEncoding.RegImm:
+					case OperandEncoding.RegOpCode:
+					case OperandEncoding.RegModrmReg:
+					case OperandEncoding.RegModrmRm:
+					case OperandEncoding.RegMemModrmRm:
+					case OperandEncoding.RegVvvv:
+					case OperandEncoding.MemModrmRm:
+					case OperandEncoding.MemOffset:
+						break;
+
+					default:
+						throw new InvalidOperationException();
 					}
 				}
 			}
@@ -153,7 +162,7 @@ namespace Generator.Encoder {
 				};
 		}
 
-		static IEnumerable<InstructionOperand[]> GetOperands(OpCodeOperandKind[] opKinds) {
+		static IEnumerable<InstructionOperand[]> GetOperands(OpCodeOperandKindDef[] opKinds) {
 			if (opKinds.Length == 0) {
 				yield return Array.Empty<InstructionOperand>();
 				yield break;
@@ -197,127 +206,41 @@ namespace Generator.Encoder {
 			}
 		}
 
-		static InstructionOperand[] GetOperand(OpCodeOperandKind kind) {
-			switch (kind) {
-			case OpCodeOperandKind.mem_offs:
-			case OpCodeOperandKind.mem:
-			case OpCodeOperandKind.sibmem:
-			case OpCodeOperandKind.mem_mpx:
-			case OpCodeOperandKind.mem_mib:
-			case OpCodeOperandKind.mem_vsib32x:
-			case OpCodeOperandKind.mem_vsib64x:
-			case OpCodeOperandKind.mem_vsib32y:
-			case OpCodeOperandKind.mem_vsib64y:
-			case OpCodeOperandKind.mem_vsib32z:
-			case OpCodeOperandKind.mem_vsib64z:
-			case OpCodeOperandKind.seg_rBX_al:
-				return new[] { InstructionOperand.Memory };
-
-			case OpCodeOperandKind.r8_or_mem:
-			case OpCodeOperandKind.r16_or_mem:
-			case OpCodeOperandKind.r32_or_mem:
-			case OpCodeOperandKind.r32_or_mem_mpx:
-			case OpCodeOperandKind.r64_or_mem:
-			case OpCodeOperandKind.r64_or_mem_mpx:
-			case OpCodeOperandKind.mm_or_mem:
-			case OpCodeOperandKind.xmm_or_mem:
-			case OpCodeOperandKind.ymm_or_mem:
-			case OpCodeOperandKind.zmm_or_mem:
-			case OpCodeOperandKind.bnd_or_mem_mpx:
-			case OpCodeOperandKind.k_or_mem:
-				return new[] { InstructionOperand.Register, InstructionOperand.Memory };
-
-			case OpCodeOperandKind.r8_reg:
-			case OpCodeOperandKind.r8_opcode:
-			case OpCodeOperandKind.r16_reg:
-			case OpCodeOperandKind.r16_reg_mem:
-			case OpCodeOperandKind.r16_rm:
-			case OpCodeOperandKind.r16_opcode:
-			case OpCodeOperandKind.r32_reg:
-			case OpCodeOperandKind.r32_reg_mem:
-			case OpCodeOperandKind.r32_rm:
-			case OpCodeOperandKind.r32_opcode:
-			case OpCodeOperandKind.r32_vvvv:
-			case OpCodeOperandKind.r64_reg:
-			case OpCodeOperandKind.r64_reg_mem:
-			case OpCodeOperandKind.r64_rm:
-			case OpCodeOperandKind.r64_opcode:
-			case OpCodeOperandKind.r64_vvvv:
-			case OpCodeOperandKind.seg_reg:
-			case OpCodeOperandKind.k_reg:
-			case OpCodeOperandKind.kp1_reg:
-			case OpCodeOperandKind.k_rm:
-			case OpCodeOperandKind.k_vvvv:
-			case OpCodeOperandKind.mm_reg:
-			case OpCodeOperandKind.mm_rm:
-			case OpCodeOperandKind.xmm_reg:
-			case OpCodeOperandKind.xmm_rm:
-			case OpCodeOperandKind.xmm_vvvv:
-			case OpCodeOperandKind.xmmp3_vvvv:
-			case OpCodeOperandKind.xmm_is4:
-			case OpCodeOperandKind.xmm_is5:
-			case OpCodeOperandKind.ymm_reg:
-			case OpCodeOperandKind.ymm_rm:
-			case OpCodeOperandKind.ymm_vvvv:
-			case OpCodeOperandKind.ymm_is4:
-			case OpCodeOperandKind.ymm_is5:
-			case OpCodeOperandKind.zmm_reg:
-			case OpCodeOperandKind.zmm_rm:
-			case OpCodeOperandKind.zmm_vvvv:
-			case OpCodeOperandKind.zmmp3_vvvv:
-			case OpCodeOperandKind.cr_reg:
-			case OpCodeOperandKind.dr_reg:
-			case OpCodeOperandKind.tr_reg:
-			case OpCodeOperandKind.bnd_reg:
-			case OpCodeOperandKind.es:
-			case OpCodeOperandKind.cs:
-			case OpCodeOperandKind.ss:
-			case OpCodeOperandKind.ds:
-			case OpCodeOperandKind.fs:
-			case OpCodeOperandKind.gs:
-			case OpCodeOperandKind.al:
-			case OpCodeOperandKind.cl:
-			case OpCodeOperandKind.ax:
-			case OpCodeOperandKind.dx:
-			case OpCodeOperandKind.eax:
-			case OpCodeOperandKind.rax:
-			case OpCodeOperandKind.st0:
-			case OpCodeOperandKind.sti_opcode:
-			case OpCodeOperandKind.tmm_reg:
-			case OpCodeOperandKind.tmm_rm:
-			case OpCodeOperandKind.tmm_vvvv:
-				return new[] { InstructionOperand.Register };
-
-			case OpCodeOperandKind.imm2_m2z:
-			case OpCodeOperandKind.imm8:
-			case OpCodeOperandKind.imm8_const_1:
-			case OpCodeOperandKind.imm8sex16:
-			case OpCodeOperandKind.imm8sex32:
-			case OpCodeOperandKind.imm16:
-			case OpCodeOperandKind.imm32:
-			case OpCodeOperandKind.imm8sex64:
-			case OpCodeOperandKind.imm32sex64:
+		static InstructionOperand[] GetOperand(OpCodeOperandKindDef def) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.Immediate:
+				if (def.ImmediateSize == 8)
+					return new[] { InstructionOperand.Imm64 };
 				return new[] { InstructionOperand.Imm32 };
 
-			case OpCodeOperandKind.imm64:
-				return new[] { InstructionOperand.Imm64 };
+			case OperandEncoding.ImmediateM2z:
+			case OperandEncoding.ImpliedConst:
+				return new[] { InstructionOperand.Imm32 };
 
-			case OpCodeOperandKind.None:
-			case OpCodeOperandKind.farbr2_2:
-			case OpCodeOperandKind.farbr4_2:
-			case OpCodeOperandKind.seg_rSI:
-			case OpCodeOperandKind.es_rDI:
-			case OpCodeOperandKind.seg_rDI:
-			case OpCodeOperandKind.br16_1:
-			case OpCodeOperandKind.br32_1:
-			case OpCodeOperandKind.br64_1:
-			case OpCodeOperandKind.br16_2:
-			case OpCodeOperandKind.br32_4:
-			case OpCodeOperandKind.br64_4:
-			case OpCodeOperandKind.xbegin_2:
-			case OpCodeOperandKind.xbegin_4:
-			case OpCodeOperandKind.brdisp_2:
-			case OpCodeOperandKind.brdisp_4:
+			case OperandEncoding.ImpliedRegister:
+			case OperandEncoding.RegImm:
+			case OperandEncoding.RegOpCode:
+			case OperandEncoding.RegModrmReg:
+			case OperandEncoding.RegModrmRm:
+			case OperandEncoding.RegVvvv:
+				return new[] { InstructionOperand.Register };
+
+			case OperandEncoding.RegMemModrmRm:
+				return new[] { InstructionOperand.Register, InstructionOperand.Memory };
+
+			case OperandEncoding.SegRBX:
+			case OperandEncoding.MemModrmRm:
+			case OperandEncoding.MemOffset:
+				return new[] { InstructionOperand.Memory };
+
+			case OperandEncoding.None:
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+			case OperandEncoding.FarBranch:
+			case OperandEncoding.SegRSI:
+			case OperandEncoding.SegRDI:
+			case OperandEncoding.ESRDI:
 			default:
 				throw new InvalidOperationException();
 			}

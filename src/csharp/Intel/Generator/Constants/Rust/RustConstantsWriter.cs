@@ -50,7 +50,7 @@ namespace Generator.Constants.Rust {
 			writer.WriteLine($"{pub}struct {constantsType.Name(idConverter)};");
 			if (constantsType.IsPublic && constantsType.IsMissingDocs)
 				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
-			foreach (var attr in attributes.Where(a => a.StartsWith(RustConstants.FeaturePrefix)))
+			foreach (var attr in attributes.Where(a => a.StartsWith(RustConstants.FeaturePrefix, StringComparison.Ordinal)))
 				writer.WriteLine(attr);
 			if (!constantsType.IsPublic)
 				writer.WriteLine(RustConstants.AttributeAllowDeadCode);

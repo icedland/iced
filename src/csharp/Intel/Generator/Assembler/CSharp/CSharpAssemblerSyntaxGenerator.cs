@@ -29,7 +29,6 @@ using System.Linq;
 using System.Text;
 using Generator.Documentation.CSharp;
 using Generator.Enums;
-using Generator.Enums.Encoder;
 using Generator.IO;
 using Generator.Tables;
 
@@ -668,8 +667,8 @@ namespace Generator.Assembler.CSharp {
 													  group.Name == "bndmk" ||
 													  group.Name == "bndcu" ||
 													  group.Name == "bndcl")) {
-									bitness = bitness == 64 ? 32 : 16;
-									bitnessFlags = bitness == 64 ? InstructionDefFlags1.Bit32 : InstructionDefFlags1.Bit16;
+									bitness = 32;
+									bitnessFlags = InstructionDefFlags1.Bit32;
 								}
 
 								writer.WriteLine("AssertInvalid( () => {");
@@ -845,397 +844,140 @@ namespace Generator.Assembler.CSharp {
 			return true;
 		}
 
-		string GetDefaultArgument(int bitness, OpCodeOperandKind kind, bool asMemory, bool isAssembler, int index, RenderArg arg) {
-			switch (kind) {
-			case OpCodeOperandKind.farbr2_2:
-				break;
-			case OpCodeOperandKind.farbr4_2:
-				break;
-			case OpCodeOperandKind.mem_offs:
-				if (bitness == 64 || bitness == 32) {
-					return "__[12345]";
-				}
-				else if (bitness == 16) {
-					return "__[67]";
-				}
-
-				break;
-			case OpCodeOperandKind.mem:
-			case OpCodeOperandKind.mem_mpx:
-				if (bitness == 64) {
-					return "__[rcx]";
-				}
-				else if (bitness == 32) {
-					return "__[ecx]";
-				}
-				else if (bitness == 16) {
-					return "__[si]";
-				}
-				break;
-			case OpCodeOperandKind.sibmem:
-				if (bitness == 64) {
-					return "__[rcx+rdx*4]";
-				}
-				else if (bitness == 32) {
-					return "__[ecx+edx*2]";
-				}
-				else if (bitness == 16) {
-					return "__[ecx+edx*1]";
-				}
-				break;
-			case OpCodeOperandKind.mem_mib:
-				if (bitness == 64) {
-					return "__byte_ptr[rcx]";
-				}
-				else if (bitness == 32) {
-					return "__byte_ptr[ecx]";
-				}
-				else if (bitness == 16) {
-					return "__byte_ptr[si]";
-				}
-				break;
-			case OpCodeOperandKind.mem_vsib32x:
-			case OpCodeOperandKind.mem_vsib64x:
-				if (bitness == 16) {
-					return $"__[esi + xmm{index + 2}]";
-				}
-				else if (bitness == 32) {
-					return $"__[edx + xmm{index + 2}]";
-				}
-				else if (bitness == 64) {
-					return $"__[rdx + xmm{index + 2}]";
-				}
-				break;
-			case OpCodeOperandKind.mem_vsib32y:
-			case OpCodeOperandKind.mem_vsib64y:
-				if (bitness == 16) {
-					return $"__[esi + ymm{index + 2}]";
-				}
-				else if (bitness == 32) {
-					return $"__[edx + ymm{index + 2}]";
-				}
-				else if (bitness == 64) {
-					return $"__[rdx + ymm{index + 2}]";
-				}
-				break;
-			case OpCodeOperandKind.mem_vsib32z:
-			case OpCodeOperandKind.mem_vsib64z:
-				if (bitness == 16) {
-					return $"__[esi + zmm{index + 2}]";
-				}
-				else if (bitness == 32) {
-					return $"__[edx + zmm{index + 2}]";
-				}
-				else if (bitness == 64) {
-					return $"__[rdx + zmm{index + 2}]";
-				}
-				break;
-			case OpCodeOperandKind.r8_or_mem:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__byte_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__byte_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__byte_ptr[si]";
-					}
-
-					break;
-				}
-				else {
-					return "bl";
-				}
-			case OpCodeOperandKind.r16_or_mem:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__word_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__word_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__word_ptr[si]";
-					}
-				}
-				else {
-					return "bx";
-				}
-
-				break;
-			case OpCodeOperandKind.r32_or_mem:
-			case OpCodeOperandKind.r32_or_mem_mpx:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__dword_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__dword_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__dword_ptr[si]";
-					}
-				}
-				else {
-					return "ebx";
-				}
-
-				break;
-			case OpCodeOperandKind.r64_or_mem:
-			case OpCodeOperandKind.r64_or_mem_mpx:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__qword_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__qword_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__qword_ptr[si]";
-					}
-				}
-				else {
-					return "rbx";
-				}
-
-				break;
-			case OpCodeOperandKind.mm_or_mem:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__qword_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__qword_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__qword_ptr[si]";
-					}
-				}
-				else {
-					return "mm7";
-				}
-
-				break;
-			case OpCodeOperandKind.xmm_or_mem:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__xmmword_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__xmmword_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__xmmword_ptr[si]";
-					}
-				}
-				else {
-					return bitness <= 32 ? "xmm7" : "xmm9";
-				}
-
-				break;
-			case OpCodeOperandKind.ymm_or_mem:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__ymmword_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__ymmword_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__ymmword_ptr[si]";
-					}
-				}
-				else {
-					return $"ymm{index + 2}";
-				}
-				break;
-			case OpCodeOperandKind.zmm_or_mem:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__zmmword_ptr[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__zmmword_ptr[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__zmmword_ptr[si]";
-					}
-				}
-				else {
-					return $"zmm{index + 2}";
-				}
-
-				break;
-			case OpCodeOperandKind.bnd_or_mem_mpx:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__[si]";
-					}
-				}
-				else {
-					return "bnd2";
-				}
-				break;
-			case OpCodeOperandKind.k_or_mem:
-				if (asMemory) {
-					if (bitness == 64) {
-						return "__[rcx]";
-					}
-					else if (bitness == 32) {
-						return "__[ecx]";
-					}
-					else if (bitness == 16) {
-						return "__[si]";
-					}
-				}
-				else {
-					return "k2";
-				}
-				break;
-			case OpCodeOperandKind.r8_reg:
-			case OpCodeOperandKind.r8_opcode:
-				return "cl";
-			case OpCodeOperandKind.r16_reg:
-			case OpCodeOperandKind.r16_rm:
-			case OpCodeOperandKind.r16_opcode:
-			case OpCodeOperandKind.r16_reg_mem:
-				return index == 0 ? "cx" : "dx";
-			case OpCodeOperandKind.r32_reg:
-			case OpCodeOperandKind.r32_rm:
-			case OpCodeOperandKind.r32_opcode:
-			case OpCodeOperandKind.r32_vvvv:
-			case OpCodeOperandKind.r32_reg_mem:
-				return index == 0 ? "ecx" : "edx";
-			case OpCodeOperandKind.r64_reg:
-			case OpCodeOperandKind.r64_rm:
-			case OpCodeOperandKind.r64_opcode:
-			case OpCodeOperandKind.r64_vvvv:
-			case OpCodeOperandKind.r64_reg_mem:
-				return index == 0 ? "rcx" : "rdx";
-			case OpCodeOperandKind.seg_reg:
-				return "ds";
-			case OpCodeOperandKind.k_reg:
-			case OpCodeOperandKind.k_rm:
-			case OpCodeOperandKind.kp1_reg:
-			case OpCodeOperandKind.k_vvvv:
-				return "k" + (index + 2).ToString();
-			case OpCodeOperandKind.mm_reg:
-			case OpCodeOperandKind.mm_rm:
-				return "mm1";
-			case OpCodeOperandKind.xmm_reg:
-			case OpCodeOperandKind.xmm_rm:
-			case OpCodeOperandKind.xmm_vvvv:
-			case OpCodeOperandKind.xmmp3_vvvv:
-			case OpCodeOperandKind.xmm_is4:
-			case OpCodeOperandKind.xmm_is5:
-				return $"xmm{index + 2}";
-			case OpCodeOperandKind.ymm_reg:
-			case OpCodeOperandKind.ymm_rm:
-			case OpCodeOperandKind.ymm_vvvv:
-			case OpCodeOperandKind.ymm_is4:
-			case OpCodeOperandKind.ymm_is5:
-				return $"ymm{index + 2}";
-			case OpCodeOperandKind.zmm_reg:
-			case OpCodeOperandKind.zmm_rm:
-			case OpCodeOperandKind.zmm_vvvv:
-			case OpCodeOperandKind.zmmp3_vvvv:
-				return $"zmm{index + 2}";
-			case OpCodeOperandKind.tmm_reg:
-			case OpCodeOperandKind.tmm_rm:
-			case OpCodeOperandKind.tmm_vvvv:
-				return $"tmm{index + 2}";
-			case OpCodeOperandKind.cr_reg:
-				return "cr2";
-			case OpCodeOperandKind.dr_reg:
-				return "dr1";
-			case OpCodeOperandKind.tr_reg:
-				return "tr1";
-			case OpCodeOperandKind.bnd_reg:
-				return "bnd1";
-			case OpCodeOperandKind.es:
-				return "es";
-			case OpCodeOperandKind.cs:
-				return "cs";
-			case OpCodeOperandKind.ss:
-				return "ss";
-			case OpCodeOperandKind.ds:
-				return "ds";
-			case OpCodeOperandKind.fs:
-				return "fs";
-			case OpCodeOperandKind.gs:
-				return "gs";
-			case OpCodeOperandKind.al:
-				return "al";
-			case OpCodeOperandKind.cl:
-				return "cl";
-			case OpCodeOperandKind.ax:
-				return "ax";
-			case OpCodeOperandKind.dx:
-				return "dx";
-			case OpCodeOperandKind.eax:
-				return "eax";
-			case OpCodeOperandKind.rax:
-				return "rax";
-			case OpCodeOperandKind.st0:
-				return "st0";
-			case OpCodeOperandKind.sti_opcode:
-				return "st1";
-			case OpCodeOperandKind.imm2_m2z:
-				return "3";
-			case OpCodeOperandKind.imm8:
-				return arg.IsTypeSigned() ? "-5" : "127";
-			case OpCodeOperandKind.imm8_const_1:
-				return "1";
-			case OpCodeOperandKind.imm8sex16:
-				return "-5";
-			case OpCodeOperandKind.imm8sex32:
-				return "-9";
-			case OpCodeOperandKind.imm8sex64:
-				return "-10";
-			case OpCodeOperandKind.imm16:
-				return "16567";
-			case OpCodeOperandKind.imm32:
-				return "int.MaxValue";
-			case OpCodeOperandKind.imm32sex64:
-				return "int.MinValue";
-			case OpCodeOperandKind.imm64:
-				return "long.MinValue";
-			case OpCodeOperandKind.seg_rSI:
-				return "__[rsi]";
-			case OpCodeOperandKind.es_rDI:
-				return "__[rdi]";
-			case OpCodeOperandKind.seg_rDI:
-				return "__[rdi]";
-			case OpCodeOperandKind.seg_rBX_al:
-				return "__[rbx]";
-			case OpCodeOperandKind.br16_1:
-			case OpCodeOperandKind.br32_1:
-			case OpCodeOperandKind.br64_1:
-			case OpCodeOperandKind.br16_2:
-			case OpCodeOperandKind.br32_4:
-			case OpCodeOperandKind.br64_4:
-			case OpCodeOperandKind.xbegin_2:
-			case OpCodeOperandKind.xbegin_4:
-			case OpCodeOperandKind.brdisp_2:
-			case OpCodeOperandKind.brdisp_4:
-				if (arg.Kind == ArgKind.LabelUlong) {
+		string GetDefaultArgument(int bitness, OpCodeOperandKindDef def, bool asMemory, bool isAssembler, int index, RenderArg arg) {
+			switch (def.OperandEncoding) {
+			case OperandEncoding.NearBranch:
+			case OperandEncoding.Xbegin:
+			case OperandEncoding.AbsNearBranch:
+				if (arg.Kind == ArgKind.LabelUlong)
 					return "12752";
-				}
 				return isAssembler ? "CreateAndEmitLabel(c)" : "1"; // First id of label starts at 1
 
-			default:
-				throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
-			}
+			case OperandEncoding.Immediate:
+				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
+					(1, 1) => arg.IsTypeSigned() ? "-5" : "127",
+					(1, 2) => "-5",
+					(1, 4) => "-9",
+					(1, 8) => "-10",
+					(2, 2) => "16567",
+					(4, 4) => "int.MaxValue",
+					(4, 8) => "int.MinValue",
+					(8, 8) => "long.MinValue",
+					_ => throw new InvalidOperationException(),
+				};
 
-			return $"GetArg_{kind}";
+			case OperandEncoding.ImmediateM2z:
+				return "3";
+
+			case OperandEncoding.ImpliedConst:
+				return def.ImpliedConst.ToString();
+
+			case OperandEncoding.ImpliedRegister:
+				return def.Register.ToString().ToLowerInvariant();
+
+			case OperandEncoding.RegImm:
+			case OperandEncoding.RegOpCode:
+			case OperandEncoding.RegModrmReg:
+			case OperandEncoding.RegModrmRm:
+			case OperandEncoding.RegVvvv:
+				return GetRegMemSizeInfo(def, index).regStr;
+
+			case OperandEncoding.RegMemModrmRm:
+				var (regStr, memSizeStr) = GetRegMemSizeInfo(def, index);
+				if (asMemory && def.OperandEncoding == OperandEncoding.RegMemModrmRm) {
+					return bitness switch {
+						16 => $"__{memSizeStr}[si]",
+						32 => $"__{memSizeStr}[ecx]",
+						64 => $"__{memSizeStr}[rcx]",
+						_ => throw new InvalidOperationException(),
+					};
+				}
+				else
+					return regStr;
+
+			case OperandEncoding.MemModrmRm:
+				if (def.SibRequired) {
+					return bitness switch {
+						16 => "__[ecx+edx*1]",
+						32 => "__[ecx+edx*2]",
+						64 => "__[rcx+rdx*4]",
+						_ => throw new InvalidOperationException(),
+					};
+				}
+				else if (def.MIB) {
+					return bitness switch {
+						16 => "__byte_ptr[si]",
+						32 => "__byte_ptr[ecx]",
+						64 => "__byte_ptr[rcx]",
+						_ => throw new InvalidOperationException(),
+					};
+				}
+				else if (def.Vsib) {
+					var vsibReg = def.Register switch {
+						Register.XMM0 => "xmm",
+						Register.YMM0 => "ymm",
+						Register.ZMM0 => "zmm",
+						_ => throw new InvalidOperationException(),
+					};
+					return bitness switch {
+						16 => $"__[esi + {vsibReg}{index + 2}]",
+						32 => $"__[edx + {vsibReg}{index + 2}]",
+						64 => $"__[rdx + {vsibReg}{index + 2}]",
+						_ => throw new InvalidOperationException(),
+					};
+				}
+				else {
+					return bitness switch {
+						16 => "__[si]",
+						32 => "__[ecx]",
+						64 => "__[rcx]",
+						_ => throw new InvalidOperationException(),
+					};
+				}
+
+			case OperandEncoding.MemOffset:
+				return bitness switch {
+					16 => "__[67]",
+					32 => "__[12345]",
+					64 => "__[123456789]",
+					_ => throw new InvalidOperationException(),
+				};
+
+			case OperandEncoding.None:
+			case OperandEncoding.FarBranch:
+			case OperandEncoding.SegRBX:
+			case OperandEncoding.SegRSI:
+			case OperandEncoding.SegRDI:
+			case OperandEncoding.ESRDI:
+			default:
+				throw new InvalidOperationException();
+			}
 		}
+
+		static readonly string[] r8Values = new string[] { "dl", "bl", "ah", "ch", "dh" };
+		static readonly string[] r16Values = new string[] { "dx", "bx", "sp", "bp", "si" };
+		static readonly string[] r32Values = new string[] { "edx", "ebx", "esp", "ebp", "esi" };
+		static readonly string[] r64Values = new string[] { "rdx", "rbx", "rsp", "rbp", "rsi" };
+		static (string regStr, string memSizeStr) GetRegMemSizeInfo(OpCodeOperandKindDef def, int index) =>
+			def.Register switch {
+				Register.AL => (r8Values[index], "byte_ptr"),
+				Register.AX => (r16Values[index], "word_ptr"),
+				Register.EAX => (r32Values[index], "dword_ptr"),
+				Register.RAX => (r64Values[index], "qword_ptr"),
+				Register.MM0 => ($"mm{index + 2}", "qword_ptr"),
+				Register.XMM0 => ($"xmm{index + 2}", "xmmword_ptr"),
+				Register.YMM0 => ($"ymm{index + 2}", "ymmword_ptr"),
+				Register.ZMM0 => ($"zmm{index + 2}", "zmmword_ptr"),
+				Register.TMM0 => ($"tmm{index + 2}", string.Empty),
+				Register.BND0 => ($"bnd{index + 2}", string.Empty),
+				Register.K0 => ($"k{index + 2}", string.Empty),
+				Register.ES => ("ds", string.Empty),
+				Register.CR0 => ("cr2", string.Empty),
+				Register.DR0 => ("dr1", string.Empty),
+				Register.TR0 => ("tr1", string.Empty),
+				Register.ST0 => ("st1", string.Empty),
+				_ => throw new InvalidOperationException(),
+			};
 
 		void GenerateOpCodeSelector(FileWriter writer, OpCodeInfoGroup group, List<RenderArg> args) {
 			GenerateOpCodeSelector(writer, group, true, group.RootOpCodeNode, args);

@@ -689,7 +689,7 @@ namespace Generator.Tables {
 		}
 
 		static bool TrySplit(string value, char c, [NotNullWhen(true)] out string? left, [NotNullWhen(true)] out string? right) {
-			int index = value.IndexOf(c);
+			int index = value.IndexOf(c, StringComparison.Ordinal);
 			if (index < 0) {
 				left = null;
 				right = null;
@@ -846,7 +846,7 @@ namespace Generator.Tables {
 		}
 
 		static (string key, string cond) GetKeyCond(string keyCond) {
-			int index = keyCond.IndexOf(';');
+			int index = keyCond.IndexOf(';', StringComparison.Ordinal);
 			if (index < 0)
 				return (keyCond, string.Empty);
 			var key = keyCond.Substring(0, index).Trim();

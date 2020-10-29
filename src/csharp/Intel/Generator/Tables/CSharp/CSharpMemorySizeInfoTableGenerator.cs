@@ -38,7 +38,7 @@ namespace Generator.Tables.CSharp {
 		}
 
 		public void Generate() {
-			var defs = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
+			var defs = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Defs;
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "MemorySizeExtensions.cs");
 			var sizeToIndex = new Dictionary<uint, uint>();
 			uint index = 0;

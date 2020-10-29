@@ -24,14 +24,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator.Tables {
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class MemorySizeInfoTable {
-		public readonly MemorySizeDef[] Data;
+		public readonly MemorySizeDef[] Defs;
 
 		MemorySizeInfoTable(GenTypes genTypes) {
-			Data = CreateData(genTypes);
+			Defs = CreateDefs(genTypes);
 			genTypes.AddObject(TypeIds.MemorySizeInfoTable, this);
 		}
 
-		static MemorySizeDef[] CreateData(GenTypes genTypes) {
+		static MemorySizeDef[] CreateDefs(GenTypes genTypes) {
 			var filename = genTypes.Dirs.GetGeneratorFilename("Tables", "MemorySizeDefs.txt");
 			var reader = new MemorySizeDefsReader(genTypes, filename);
 			return reader.Read();

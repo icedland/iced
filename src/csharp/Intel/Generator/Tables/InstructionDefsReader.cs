@@ -58,8 +58,8 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toPseudoOpsKind;
 		readonly Dictionary<string, EnumValue> toDecOptionValue;
 		readonly Dictionary<string, EnumValue> toMemorySize;
-		readonly Dictionary<string, EnumValue> toOpCodeOperandKind;
 		readonly Dictionary<string, EnumValue> toRegisterIgnoreCase;
+		readonly Dictionary<string, OpCodeOperandKindDef> toOpCodeOperandKindDef;
 		readonly EnumType fastFmtFlags;
 		readonly EnumType gasCtorKind;
 		readonly EnumType intelCtorKind;
@@ -76,7 +76,7 @@ namespace Generator.Tables {
 		readonly EnumValue flowControlNext;
 		readonly EnumValue decoderOptionNone;
 		readonly List<OpInfo> opAccess;
-		readonly List<OpCodeOperandKind> opKinds;
+		readonly List<OpCodeOperandKindDef> opKinds;
 		readonly List<(string key, string value, int fmtLineIndex)> fmtKeyValues;
 		const string DefBeginPrefix = "INSTRUCTION:";
 		const string DefEnd = "END";
@@ -101,7 +101,7 @@ namespace Generator.Tables {
 			lines = File.ReadAllLines(filename);
 			errors = new List<string>();
 			opAccess = new List<OpInfo>();
-			opKinds = new List<OpCodeOperandKind>();
+			opKinds = new List<OpCodeOperandKindDef>();
 			fmtKeyValues = new List<(string key, string value, int fmtLineIndex)>();
 			// Ignore case because two Code values with different casing is just too confusing
 			usedCodeValues = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -117,8 +117,9 @@ namespace Generator.Tables {
 			toPseudoOpsKind = CreateEnumDict(genTypes[TypeIds.PseudoOpsKind]);
 			toDecOptionValue = CreateEnumDict(genTypes[TypeIds.DecOptionValue]);
 			toMemorySize = CreateEnumDict(genTypes[TypeIds.MemorySize]);
-			toOpCodeOperandKind = CreateEnumDict(genTypes[TypeIds.OpCodeOperandKind]);
 			toRegisterIgnoreCase = CreateEnumDict(genTypes[TypeIds.Register], ignoreCase: true);
+
+			toOpCodeOperandKindDef = genTypes.GetObject<OpCodeOperandKindDefs>(TypeIds.OpCodeOperandKindDefs).Defs.ToDictionary(a => a.EnumValue.RawName, a => a, StringComparer.Ordinal);
 
 			fastFmtFlags = genTypes[TypeIds.FastFmtFlags];
 			gasCtorKind = genTypes[TypeIds.GasCtorKind];
@@ -775,12 +776,12 @@ namespace Generator.Tables {
 							Error(lineIndex, $"Unknown op access `{key}`");
 							return false;
 						}
-						if (!TryGetValue(toOpCodeOperandKind, value, out var opKind, out error)) {
-							Error(lineIndex, error);
+						if (!toOpCodeOperandKindDef.TryGetValue(value, out var opKindDef)) {
+							Error(lineIndex, $"Invalid enum value `{value}`");
 							return false;
 						}
 						this.opAccess.Add(opAccess);
-						opKinds.Add((OpCodeOperandKind)opKind.Value);
+						opKinds.Add(opKindDef);
 					}
 					if (opAccess.Count == 0) {
 						Error(lineIndex, "Missing op access and kind");
@@ -910,10 +911,8 @@ namespace Generator.Tables {
 				int mm2Index = instrStr.IndexOf("mm2", StringComparison.Ordinal);
 				if (instrStr.Contains("k2 {k1}", StringComparison.Ordinal))
 					state.InstrStrFmtOption = InstrStrFmtOption.OpMaskIsK1_or_NoGprSuffix;
-				else if (mm2Index >= 0 && mm1Index < 0 &&
-					!(state.OpKinds.Length > 2 &&
-					(state.OpKinds[0] == OpCodeOperandKind.k_reg ||
-					state.OpKinds[0] == OpCodeOperandKind.kp1_reg))) {
+				else if (mm2Index >= 0 && mm1Index < 0 && !(state.OpKinds.Length > 2 &&
+					state.OpKinds[0].HasRegister && state.OpKinds[0].Register == Register.K0)) {
 					state.InstrStrFmtOption = InstrStrFmtOption.IncVecIndex;
 				}
 				else if ((instrStr.EndsWith("mm", StringComparison.Ordinal) || instrStr.Contains("mm,", StringComparison.Ordinal)) &&
@@ -922,10 +921,10 @@ namespace Generator.Tables {
 				}
 				else if (mm1Index >= 0 && mm2Index >= 0 && mm2Index < mm1Index)
 					state.InstrStrFmtOption = InstrStrFmtOption.SwapVecIndex12;
-				else if (!instrStr.Contains(',') &&
+				else if (!instrStr.Contains(',', StringComparison.Ordinal) &&
 					state.OpKinds.Length == 2 &&
-					state.OpKinds[0] == OpCodeOperandKind.st0 &&
-					state.OpKinds[1] == OpCodeOperandKind.sti_opcode) {
+					state.OpKinds[0].OperandEncoding == OperandEncoding.ImpliedRegister && state.OpKinds[0].Register == Register.ST0 &&
+					state.OpKinds[1].OperandEncoding == OperandEncoding.RegOpCode && state.OpKinds[0].Register == Register.ST0) {
 					state.InstrStrFmtOption = InstrStrFmtOption.SkipOp0;
 				}
 				else if (instrStr.Contains("r8, r8,", StringComparison.Ordinal) || instrStr.Contains("r16, r16,", StringComparison.Ordinal) ||
@@ -997,7 +996,7 @@ namespace Generator.Tables {
 				s.Substring(0, 1).ToUpperInvariant() + s.Substring(1).ToLowerInvariant();
 
 			if (state.MnemonicStr is null) {
-				int index = instrStr.IndexOf(' ');
+				int index = instrStr.IndexOf(' ', StringComparison.Ordinal);
 				if (index < 0)
 					index = instrStr.Length;
 				state.MnemonicStr = instrStr.Substring(0, index).ToLowerInvariant();
@@ -1127,8 +1126,8 @@ namespace Generator.Tables {
 
 			if (state.OpAccess.Length != state.OpKinds.Length)
 				throw new InvalidOperationException();
-			if (state.OpKinds.Any(a => a == OpCodeOperandKind.None)) {
-				Error(state.LineIndex, $"An operand with a `{nameof(OpCodeOperandKind.None)}` value");
+			if (state.OpKinds.Any(a => a.OperandEncoding == OperandEncoding.None)) {
+				Error(state.LineIndex, $"An operand with a `{nameof(OperandEncoding.None)}` value");
 				return false;
 			}
 			accesses = state.ImpliedAccesses;
@@ -1148,7 +1147,7 @@ namespace Generator.Tables {
 		bool TryReadInstrStrImpliedOps(string instrStr, [NotNullWhen(true)] out InstrStrImpliedOp[]? instrStrImpliedOps, [NotNullWhen(false)] out string? error) {
 			instrStrImpliedOps = null;
 			impliedOps.Clear();
-			int index = instrStr.IndexOf(' ');
+			int index = instrStr.IndexOf(' ', StringComparison.Ordinal);
 			if (index >= 0) {
 				foreach (var op in instrStr.Substring(index + 1).Split(',').Select(a => a.Trim())) {
 					if (op.Length == 0) {
@@ -1193,7 +1192,7 @@ namespace Generator.Tables {
 				for (; index < parts.Length; index++) {
 					var part = parts[index];
 					var (key, value) = ParserUtils.GetKeyValue(part);
-					int eqIndex = part.IndexOf('=');
+					int eqIndex = part.IndexOf('=', StringComparison.Ordinal);
 					if (value == string.Empty)
 						break;
 					yield return (key, value);
@@ -1314,13 +1313,15 @@ namespace Generator.Tables {
 			if (noSignExtend)
 				value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.None)];
 			else {
-				switch (def.OpKinds[^1]) {
-				case OpCodeOperandKind.imm16: value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex2)]; break;
-				case OpCodeOperandKind.imm32: value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4)]; break;
-				case OpCodeOperandKind.imm8sex16: value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to2)]; break;
-				case OpCodeOperandKind.imm8sex32: value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to4)]; break;
-				case OpCodeOperandKind.imm8sex64: value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to8)]; break;
-				case OpCodeOperandKind.imm32sex64: value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4to8)]; break;
+				var lastDef = def.OpKinds[^1];
+				var immTuple = lastDef.OperandEncoding == OperandEncoding.Immediate ? (lastDef.ImmediateSize, lastDef.ImmediateSignExtSize) : (-1, -1);
+				switch (immTuple) {
+				case (2, 2): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex2)]; break;
+				case (4, 4): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4)]; break;
+				case (1, 2): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to2)]; break;
+				case (1, 4): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to4)]; break;
+				case (1, 8): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to8)]; break;
+				case (4, 8): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4to8)]; break;
 				default:
 					enumValue = null;
 					error = "Instruction's last operand isn't a sign-extended immediate";
@@ -1334,9 +1335,9 @@ namespace Generator.Tables {
 		}
 
 		static bool TryGetMoffsIndex(InstructionDefState def, out int addrIndex, [NotNullWhen(false)] out string? error) {
-			if (def.OpKinds.Length > 0 && def.OpKinds[0] == OpCodeOperandKind.mem_offs)
+			if (def.OpKinds.Length > 0 && def.OpKinds[0].OperandEncoding == OperandEncoding.MemOffset)
 				addrIndex = 0;
-			else if (def.OpKinds.Length > 1 && def.OpKinds[1] == OpCodeOperandKind.mem_offs)
+			else if (def.OpKinds.Length > 1 && def.OpKinds[1].OperandEncoding == OperandEncoding.MemOffset)
 				addrIndex = 1;
 			else {
 				addrIndex = -1;
@@ -1765,7 +1766,7 @@ namespace Generator.Tables {
 						return false;
 					}
 					ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.sae)];
-					var saeIndex = def.OpKinds[^1] == OpCodeOperandKind.imm8 ? 1 : 0;
+					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? 1 : 0;
 					state.Args.Add(saeIndex);
 				}
 				else if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) {
@@ -1773,16 +1774,8 @@ namespace Generator.Tables {
 						error = "Instruction has no operands";
 						return false;
 					}
-					int erIndex;
-					switch (def.OpKinds[^1]) {
-					case OpCodeOperandKind.r32_or_mem:
-					case OpCodeOperandKind.r64_or_mem:
-						erIndex = 1;
-						break;
-					default:
-						erIndex = 0;
-						break;
-					}
+					int erIndex = def.OpKinds[^1] is var lastDef && lastDef.OperandEncoding == OperandEncoding.RegMemModrmRm &&
+						(lastDef.Register == Register.EAX || lastDef.Register == Register.RAX) ? 1 : 0;
 					if (state.Flags.Count != 0 || state.Suffix != null) {
 						ctorKind = gasCtorKind[nameof(Enums.Formatter.Gas.CtorKind.er_4)];
 						state.Args.Add(state.GetUsedSuffix());
@@ -3007,7 +3000,7 @@ namespace Generator.Tables {
 						return false;
 					}
 					ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.sae)];
-					var saeIndex = def.OpKinds[^1] == OpCodeOperandKind.imm8 ? def.OpKinds.Length - 1 : def.OpKinds.Length;
+					var saeIndex = def.OpKinds[^1].OperandEncoding == OperandEncoding.Immediate ? def.OpKinds.Length - 1 : def.OpKinds.Length;
 					state.Args.Add(saeIndex);
 				}
 				else if ((def.Flags1 & InstructionDefFlags1.RoundingControl) != 0) {
@@ -3015,16 +3008,8 @@ namespace Generator.Tables {
 						error = "Instruction has no operands";
 						return false;
 					}
-					int erIndex;
-					switch (def.OpKinds[^1]) {
-					case OpCodeOperandKind.r32_or_mem:
-					case OpCodeOperandKind.r64_or_mem:
-						erIndex = def.OpKinds.Length - 1;
-						break;
-					default:
-						erIndex = def.OpKinds.Length;
-						break;
-					}
+					int erIndex = def.OpKinds[^1] is var lastDef && lastDef.OperandEncoding == OperandEncoding.RegMemModrmRm &&
+						(lastDef.Register == Register.EAX || lastDef.Register == Register.RAX) ? def.OpKinds.Length - 1 : def.OpKinds.Length;
 					state.Args.Add(erIndex);
 					if (state.Flags.Count != 0) {
 						ctorKind = nasmCtorKind[nameof(Enums.Formatter.Nasm.CtorKind.er_3)];
@@ -3111,7 +3096,7 @@ namespace Generator.Tables {
 		}
 
 		static bool TryGetDefLineKeyValue(string line, [NotNullWhen(true)] out string? key, [NotNullWhen(true)] out string? value, [NotNullWhen(false)] out string? errMsg) {
-			int index = line.IndexOf(':');
+			int index = line.IndexOf(':', StringComparison.Ordinal);
 			if (index < 0) {
 				errMsg = "Missing `:`";
 				key = null;
@@ -3226,7 +3211,7 @@ namespace Generator.Tables {
 		public readonly EnumValue TupleType;
 		public readonly EnumValue Encoding;
 		public OpInfo[] OpAccess;
-		public OpCodeOperandKind[] OpKinds;
+		public OpCodeOperandKindDef[] OpKinds;
 		public BranchKind BranchKind;
 		public string[] ImpliedInstructionStringArgs;
 		public string? MnemonicStr;
@@ -3270,7 +3255,7 @@ namespace Generator.Tables {
 			Cpuid = cpuid;
 			TupleType = tupleType;
 			OpAccess = Array.Empty<OpInfo>();
-			OpKinds = Array.Empty<OpCodeOperandKind>();
+			OpKinds = Array.Empty<OpCodeOperandKindDef>();
 			Encoding = encoding;
 			ImpliedInstructionStringArgs = Array.Empty<string>();
 		}

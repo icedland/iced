@@ -91,24 +91,24 @@ namespace Iced.Intel.EncoderInternal {
 		readonly uint mandatoryPrefix;
 
 		static Op[] CreateOps(EncFlags1 encFlags1) {
-			var op0 = (LegacyOpKind)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op0Shift) & (uint)EncFlags1.Legacy_OpMask);
-			var op1 = (LegacyOpKind)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op1Shift) & (uint)EncFlags1.Legacy_OpMask);
-			var op2 = (LegacyOpKind)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op2Shift) & (uint)EncFlags1.Legacy_OpMask);
-			var op3 = (LegacyOpKind)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op3Shift) & (uint)EncFlags1.Legacy_OpMask);
-			if (op3 != LegacyOpKind.None) {
-				Debug.Assert(op0 != LegacyOpKind.None && op1 != LegacyOpKind.None && op2 != LegacyOpKind.None);
-				return new Op[] { OpHandlerData.LegacyOps[(int)op0 - 1], OpHandlerData.LegacyOps[(int)op1 - 1], OpHandlerData.LegacyOps[(int)op2 - 1], OpHandlerData.LegacyOps[(int)op3 - 1] };
+			var op0 = (int)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op0Shift) & (uint)EncFlags1.Legacy_OpMask);
+			var op1 = (int)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op1Shift) & (uint)EncFlags1.Legacy_OpMask);
+			var op2 = (int)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op2Shift) & (uint)EncFlags1.Legacy_OpMask);
+			var op3 = (int)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op3Shift) & (uint)EncFlags1.Legacy_OpMask);
+			if (op3 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0 && op2 != 0);
+				return new Op[] { OpHandlerData.LegacyOps[op0 - 1], OpHandlerData.LegacyOps[op1 - 1], OpHandlerData.LegacyOps[op2 - 1], OpHandlerData.LegacyOps[op3 - 1] };
 			}
-			if (op2 != LegacyOpKind.None) {
-				Debug.Assert(op0 != LegacyOpKind.None && op1 != LegacyOpKind.None);
-				return new Op[] { OpHandlerData.LegacyOps[(int)op0 - 1], OpHandlerData.LegacyOps[(int)op1 - 1], OpHandlerData.LegacyOps[(int)op2 - 1] };
+			if (op2 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0);
+				return new Op[] { OpHandlerData.LegacyOps[op0 - 1], OpHandlerData.LegacyOps[op1 - 1], OpHandlerData.LegacyOps[op2 - 1] };
 			}
-			if (op1 != LegacyOpKind.None) {
-				Debug.Assert(op0 != LegacyOpKind.None);
-				return new Op[] { OpHandlerData.LegacyOps[(int)op0 - 1], OpHandlerData.LegacyOps[(int)op1 - 1] };
+			if (op1 != 0) {
+				Debug.Assert(op0 != 0);
+				return new Op[] { OpHandlerData.LegacyOps[op0 - 1], OpHandlerData.LegacyOps[op1 - 1] };
 			}
-			if (op0 != LegacyOpKind.None)
-				return new Op[] { OpHandlerData.LegacyOps[(int)op0 - 1] };
+			if (op0 != 0)
+				return new Op[] { OpHandlerData.LegacyOps[op0 - 1] };
 			return Array2.Empty<Op>();
 		}
 
@@ -185,29 +185,29 @@ namespace Iced.Intel.EncoderInternal {
 		readonly uint W1;
 
 		static Op[] CreateOps(EncFlags1 encFlags1) {
-			var op0 = (VexOpKind)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op0Shift) & (uint)EncFlags1.VEX_OpMask);
-			var op1 = (VexOpKind)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op1Shift) & (uint)EncFlags1.VEX_OpMask);
-			var op2 = (VexOpKind)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op2Shift) & (uint)EncFlags1.VEX_OpMask);
-			var op3 = (VexOpKind)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op3Shift) & (uint)EncFlags1.VEX_OpMask);
-			var op4 = (VexOpKind)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op4Shift) & (uint)EncFlags1.VEX_OpMask);
-			if (op4 != VexOpKind.None) {
-				Debug.Assert(op0 != VexOpKind.None && op1 != VexOpKind.None && op2 != VexOpKind.None && op3 != VexOpKind.None);
-				return new Op[] { OpHandlerData.VexOps[(int)op0 - 1], OpHandlerData.VexOps[(int)op1 - 1], OpHandlerData.VexOps[(int)op2 - 1], OpHandlerData.VexOps[(int)op3 - 1], OpHandlerData.VexOps[(int)op4 - 1] };
+			var op0 = (int)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op0Shift) & (uint)EncFlags1.VEX_OpMask);
+			var op1 = (int)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op1Shift) & (uint)EncFlags1.VEX_OpMask);
+			var op2 = (int)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op2Shift) & (uint)EncFlags1.VEX_OpMask);
+			var op3 = (int)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op3Shift) & (uint)EncFlags1.VEX_OpMask);
+			var op4 = (int)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op4Shift) & (uint)EncFlags1.VEX_OpMask);
+			if (op4 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0 && op2 != 0 && op3 != 0);
+				return new Op[] { OpHandlerData.VexOps[op0 - 1], OpHandlerData.VexOps[op1 - 1], OpHandlerData.VexOps[op2 - 1], OpHandlerData.VexOps[op3 - 1], OpHandlerData.VexOps[op4 - 1] };
 			}
-			if (op3 != VexOpKind.None) {
-				Debug.Assert(op0 != VexOpKind.None && op1 != VexOpKind.None && op2 != VexOpKind.None);
-				return new Op[] { OpHandlerData.VexOps[(int)op0 - 1], OpHandlerData.VexOps[(int)op1 - 1], OpHandlerData.VexOps[(int)op2 - 1], OpHandlerData.VexOps[(int)op3 - 1] };
+			if (op3 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0 && op2 != 0);
+				return new Op[] { OpHandlerData.VexOps[op0 - 1], OpHandlerData.VexOps[op1 - 1], OpHandlerData.VexOps[op2 - 1], OpHandlerData.VexOps[op3 - 1] };
 			}
-			if (op2 != VexOpKind.None) {
-				Debug.Assert(op0 != VexOpKind.None && op1 != VexOpKind.None);
-				return new Op[] { OpHandlerData.VexOps[(int)op0 - 1], OpHandlerData.VexOps[(int)op1 - 1], OpHandlerData.VexOps[(int)op2 - 1] };
+			if (op2 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0);
+				return new Op[] { OpHandlerData.VexOps[op0 - 1], OpHandlerData.VexOps[op1 - 1], OpHandlerData.VexOps[op2 - 1] };
 			}
-			if (op1 != VexOpKind.None) {
-				Debug.Assert(op0 != VexOpKind.None);
-				return new Op[] { OpHandlerData.VexOps[(int)op0 - 1], OpHandlerData.VexOps[(int)op1 - 1] };
+			if (op1 != 0) {
+				Debug.Assert(op0 != 0);
+				return new Op[] { OpHandlerData.VexOps[op0 - 1], OpHandlerData.VexOps[op1 - 1] };
 			}
-			if (op0 != VexOpKind.None)
-				return new Op[] { OpHandlerData.VexOps[(int)op0 - 1] };
+			if (op0 != 0)
+				return new Op[] { OpHandlerData.VexOps[op0 - 1] };
 			return Array2.Empty<Op>();
 		}
 
@@ -277,24 +277,24 @@ namespace Iced.Intel.EncoderInternal {
 		readonly uint lastByte;
 
 		static Op[] CreateOps(EncFlags1 encFlags1) {
-			var op0 = (XopOpKind)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op0Shift) & (uint)EncFlags1.XOP_OpMask);
-			var op1 = (XopOpKind)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op1Shift) & (uint)EncFlags1.XOP_OpMask);
-			var op2 = (XopOpKind)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op2Shift) & (uint)EncFlags1.XOP_OpMask);
-			var op3 = (XopOpKind)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op3Shift) & (uint)EncFlags1.XOP_OpMask);
-			if (op3 != XopOpKind.None) {
-				Debug.Assert(op0 != XopOpKind.None && op1 != XopOpKind.None && op2 != XopOpKind.None);
-				return new Op[] { OpHandlerData.XopOps[(int)op0 - 1], OpHandlerData.XopOps[(int)op1 - 1], OpHandlerData.XopOps[(int)op2 - 1], OpHandlerData.XopOps[(int)op3 - 1] };
+			var op0 = (int)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op0Shift) & (uint)EncFlags1.XOP_OpMask);
+			var op1 = (int)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op1Shift) & (uint)EncFlags1.XOP_OpMask);
+			var op2 = (int)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op2Shift) & (uint)EncFlags1.XOP_OpMask);
+			var op3 = (int)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op3Shift) & (uint)EncFlags1.XOP_OpMask);
+			if (op3 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0 && op2 != 0);
+				return new Op[] { OpHandlerData.XopOps[op0 - 1], OpHandlerData.XopOps[op1 - 1], OpHandlerData.XopOps[op2 - 1], OpHandlerData.XopOps[op3 - 1] };
 			}
-			if (op2 != XopOpKind.None) {
-				Debug.Assert(op0 != XopOpKind.None && op1 != XopOpKind.None);
-				return new Op[] { OpHandlerData.XopOps[(int)op0 - 1], OpHandlerData.XopOps[(int)op1 - 1], OpHandlerData.XopOps[(int)op2 - 1] };
+			if (op2 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0);
+				return new Op[] { OpHandlerData.XopOps[op0 - 1], OpHandlerData.XopOps[op1 - 1], OpHandlerData.XopOps[op2 - 1] };
 			}
-			if (op1 != XopOpKind.None) {
-				Debug.Assert(op0 != XopOpKind.None);
-				return new Op[] { OpHandlerData.XopOps[(int)op0 - 1], OpHandlerData.XopOps[(int)op1 - 1] };
+			if (op1 != 0) {
+				Debug.Assert(op0 != 0);
+				return new Op[] { OpHandlerData.XopOps[op0 - 1], OpHandlerData.XopOps[op1 - 1] };
 			}
-			if (op0 != XopOpKind.None)
-				return new Op[] { OpHandlerData.XopOps[(int)op0 - 1] };
+			if (op0 != 0)
+				return new Op[] { OpHandlerData.XopOps[op0 - 1] };
 			return Array2.Empty<Op>();
 		}
 
@@ -352,24 +352,24 @@ namespace Iced.Intel.EncoderInternal {
 		readonly uint mask_LL;
 
 		static Op[] CreateOps(EncFlags1 encFlags1) {
-			var op0 = (EvexOpKind)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op0Shift) & (uint)EncFlags1.EVEX_OpMask);
-			var op1 = (EvexOpKind)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op1Shift) & (uint)EncFlags1.EVEX_OpMask);
-			var op2 = (EvexOpKind)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op2Shift) & (uint)EncFlags1.EVEX_OpMask);
-			var op3 = (EvexOpKind)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op3Shift) & (uint)EncFlags1.EVEX_OpMask);
-			if (op3 != EvexOpKind.None) {
-				Debug.Assert(op0 != EvexOpKind.None && op1 != EvexOpKind.None && op2 != EvexOpKind.None);
-				return new Op[] { OpHandlerData.EvexOps[(int)op0 - 1], OpHandlerData.EvexOps[(int)op1 - 1], OpHandlerData.EvexOps[(int)op2 - 1], OpHandlerData.EvexOps[(int)op3 - 1] };
+			var op0 = (int)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op0Shift) & (uint)EncFlags1.EVEX_OpMask);
+			var op1 = (int)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op1Shift) & (uint)EncFlags1.EVEX_OpMask);
+			var op2 = (int)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op2Shift) & (uint)EncFlags1.EVEX_OpMask);
+			var op3 = (int)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op3Shift) & (uint)EncFlags1.EVEX_OpMask);
+			if (op3 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0 && op2 != 0);
+				return new Op[] { OpHandlerData.EvexOps[op0 - 1], OpHandlerData.EvexOps[op1 - 1], OpHandlerData.EvexOps[op2 - 1], OpHandlerData.EvexOps[op3 - 1] };
 			}
-			if (op2 != EvexOpKind.None) {
-				Debug.Assert(op0 != EvexOpKind.None && op1 != EvexOpKind.None);
-				return new Op[] { OpHandlerData.EvexOps[(int)op0 - 1], OpHandlerData.EvexOps[(int)op1 - 1], OpHandlerData.EvexOps[(int)op2 - 1] };
+			if (op2 != 0) {
+				Debug.Assert(op0 != 0 && op1 != 0);
+				return new Op[] { OpHandlerData.EvexOps[op0 - 1], OpHandlerData.EvexOps[op1 - 1], OpHandlerData.EvexOps[op2 - 1] };
 			}
-			if (op1 != EvexOpKind.None) {
-				Debug.Assert(op0 != EvexOpKind.None);
-				return new Op[] { OpHandlerData.EvexOps[(int)op0 - 1], OpHandlerData.EvexOps[(int)op1 - 1] };
+			if (op1 != 0) {
+				Debug.Assert(op0 != 0);
+				return new Op[] { OpHandlerData.EvexOps[op0 - 1], OpHandlerData.EvexOps[op1 - 1] };
 			}
-			if (op0 != EvexOpKind.None)
-				return new Op[] { OpHandlerData.EvexOps[(int)op0 - 1] };
+			if (op0 != 0)
+				return new Op[] { OpHandlerData.EvexOps[op0 - 1] };
 			return Array2.Empty<Op>();
 		}
 

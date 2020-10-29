@@ -22,10 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Diagnostics;
 using System.Text;
 using Generator.Enums;
-using Generator.Enums.Encoder;
 
 namespace Generator.Tables {
 	readonly struct CodeFormatter {
@@ -39,9 +37,9 @@ namespace Generator.Tables {
 		readonly EnumValue memSizeBcst;
 		readonly InstructionDefFlags1 flags;
 		readonly EncodingKind encoding;
-		readonly OpCodeOperandKind[] opKinds;
+		readonly OpCodeOperandKindDef[] opKinds;
 
-		public CodeFormatter(StringBuilder sb, MemorySizeInfoTable memSizeTbl, string codeMnemonic, string? codeSuffix, string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags, EncodingKind encoding, OpCodeOperandKind[] opKinds) {
+		public CodeFormatter(StringBuilder sb, MemorySizeInfoTable memSizeTbl, string codeMnemonic, string? codeSuffix, string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds) {
 			if (codeMnemonic == string.Empty)
 				throw new ArgumentOutOfRangeException(nameof(codeMnemonic));
 			this.sb = sb;
@@ -58,7 +56,7 @@ namespace Generator.Tables {
 		}
 
 		MemorySize GetMemorySize(bool isBroadcast) => (MemorySize)(isBroadcast ? memSizeBcst.Value : memSize.Value);
-		int GetSizeInBytes(MemorySize memSize) => (int)memSizeTbl.Data[(int)memSize].Size;
+		int GetSizeInBytes(MemorySize memSize) => (int)memSizeTbl.Defs[(int)memSize].Size;
 
 		public string Format() {
 			sb.Clear();
@@ -89,322 +87,93 @@ namespace Generator.Tables {
 				for (int i = 0; i < opKinds.Length; i++) {
 					if (i > 0)
 						sb.Append('_');
-					var opKind = opKinds[i];
-					switch (opKind) {
-					case OpCodeOperandKind.farbr2_2:
-						sb.Append("ptr1616");
+					int gprSizeBits;
+					string regStr;
+					var def = opKinds[i];
+					switch (def.OperandEncoding) {
+					case OperandEncoding.NearBranch:
+					case OperandEncoding.Xbegin:
+						sb.Append($"rel{def.BranchOffsetSize * 8}");
 						break;
 
-					case OpCodeOperandKind.farbr4_2:
-						sb.Append("ptr1632");
+					case OperandEncoding.AbsNearBranch:
+						sb.Append($"disp{def.BranchOffsetSize * 8}");
 						break;
 
-					case OpCodeOperandKind.mem_offs:
+					case OperandEncoding.FarBranch:
+						sb.Append($"ptr16{def.BranchOffsetSize * 8}");
+						break;
+
+					case OperandEncoding.Immediate:
+						sb.Append($"imm{def.ImmediateSize * 8}");
+						break;
+
+					case OperandEncoding.ImmediateM2z:
+						sb.Append("imm2");
+						break;
+
+					case OperandEncoding.ImpliedConst:
+						sb.Append(def.ImpliedConst.ToString());
+						break;
+
+					case OperandEncoding.ImpliedRegister:
+						if (def.Register == Register.ST0)
+							sb.Append("st0");
+						else
+							WriteRegister(def.Register.ToString());
+						break;
+
+					case OperandEncoding.SegRBX:
+					case OperandEncoding.SegRSI:
+					case OperandEncoding.ESRDI:
+						WriteMemory();
+						break;
+
+					case OperandEncoding.SegRDI:
+						sb.Append("rDI");
+						break;
+
+					case OperandEncoding.RegImm:
+					case OperandEncoding.RegOpCode:
+					case OperandEncoding.RegModrmReg:
+					case OperandEncoding.RegModrmRm:
+					case OperandEncoding.RegVvvv:
+						regStr = GetRegInfo(def, true).regStr;
+						if (def.Register == Register.ES)
+							sb.Append(regStr);
+						else
+							WriteRegOp(regStr);
+						break;
+
+					case OperandEncoding.RegMemModrmRm:
+						(gprSizeBits, regStr) = GetRegInfo(def);
+						if (gprSizeBits > 0)
+							WriteGprMem(gprSizeBits);
+						else
+							WriteRegMem(regStr);
+						break;
+
+					case OperandEncoding.MemModrmRm:
+						if (def.SibRequired)
+							sb.Append("sibmem");
+						else if (def.MIB)
+							sb.Append("mib");
+						else if (def.Vsib) {
+							var sz = def.Vsib32 ? "32" : "64";
+							// x, y, z
+							var reg = def.Register.ToString().ToLowerInvariant().Substring(0, 1);
+							sb.Append($"vm{sz}{reg}");
+						}
+						else
+							WriteMemory();
+						break;
+
+					case OperandEncoding.MemOffset:
 						sb.Append("moffs");
 						WriteMemorySize(GetMemorySize(isBroadcast: false));
 						break;
 
-					case OpCodeOperandKind.mem:
-					case OpCodeOperandKind.mem_mpx:
-						WriteMemory();
-						break;
-
-					case OpCodeOperandKind.sibmem:
-						sb.Append("sibmem");
-						break;
-
-					case OpCodeOperandKind.mem_mib:
-						sb.Append("mib");
-						break;
-
-					case OpCodeOperandKind.mem_vsib32x:
-						sb.Append("vm32x");
-						break;
-
-					case OpCodeOperandKind.mem_vsib64x:
-						sb.Append("vm64x");
-						break;
-
-					case OpCodeOperandKind.mem_vsib32y:
-						sb.Append("vm32y");
-						break;
-
-					case OpCodeOperandKind.mem_vsib64y:
-						sb.Append("vm64y");
-						break;
-
-					case OpCodeOperandKind.mem_vsib32z:
-						sb.Append("vm32z");
-						break;
-
-					case OpCodeOperandKind.mem_vsib64z:
-						sb.Append("vm64z");
-						break;
-
-					case OpCodeOperandKind.r8_or_mem:
-						WriteGprMem(8);
-						break;
-
-					case OpCodeOperandKind.r16_or_mem:
-						WriteGprMem(16);
-						break;
-
-					case OpCodeOperandKind.r32_or_mem:
-					case OpCodeOperandKind.r32_or_mem_mpx:
-						WriteGprMem(32);
-						break;
-
-					case OpCodeOperandKind.r64_or_mem:
-					case OpCodeOperandKind.r64_or_mem_mpx:
-						WriteGprMem(64);
-						break;
-
-					case OpCodeOperandKind.mm_or_mem:
-						WriteRegMem("mm");
-						break;
-
-					case OpCodeOperandKind.xmm_or_mem:
-						WriteRegMem("xmm");
-						break;
-
-					case OpCodeOperandKind.ymm_or_mem:
-						WriteRegMem("ymm");
-						break;
-
-					case OpCodeOperandKind.zmm_or_mem:
-						WriteRegMem("zmm");
-						break;
-
-					case OpCodeOperandKind.tmm_reg:
-					case OpCodeOperandKind.tmm_rm:
-					case OpCodeOperandKind.tmm_vvvv:
-						WriteRegOp("tmm");
-						break;
-
-					case OpCodeOperandKind.bnd_or_mem_mpx:
-						WriteRegOp("bnd");
-						WriteMemory();
-						break;
-
-					case OpCodeOperandKind.k_or_mem:
-						WriteRegMem("k");
-						break;
-
-					case OpCodeOperandKind.r8_reg:
-					case OpCodeOperandKind.r8_opcode:
-						WriteRegOp("r8");
-						break;
-
-					case OpCodeOperandKind.r16_reg:
-					case OpCodeOperandKind.r16_reg_mem:
-					case OpCodeOperandKind.r16_rm:
-					case OpCodeOperandKind.r16_opcode:
-						WriteRegOp("r16");
-						break;
-
-					case OpCodeOperandKind.r32_reg:
-					case OpCodeOperandKind.r32_reg_mem:
-					case OpCodeOperandKind.r32_rm:
-					case OpCodeOperandKind.r32_opcode:
-					case OpCodeOperandKind.r32_vvvv:
-						WriteRegOp("r32");
-						break;
-
-					case OpCodeOperandKind.r64_reg:
-					case OpCodeOperandKind.r64_reg_mem:
-					case OpCodeOperandKind.r64_rm:
-					case OpCodeOperandKind.r64_opcode:
-					case OpCodeOperandKind.r64_vvvv:
-						WriteRegOp("r64");
-						break;
-
-					case OpCodeOperandKind.seg_reg:
-						sb.Append("Sreg");
-						break;
-
-					case OpCodeOperandKind.k_reg:
-					case OpCodeOperandKind.k_rm:
-					case OpCodeOperandKind.k_vvvv:
-						WriteRegOp("kr");
-						break;
-
-					case OpCodeOperandKind.kp1_reg:
-						WriteRegOp("kp1");
-						break;
-
-					case OpCodeOperandKind.mm_reg:
-					case OpCodeOperandKind.mm_rm:
-						WriteRegOp("mm");
-						break;
-
-					case OpCodeOperandKind.xmm_reg:
-					case OpCodeOperandKind.xmm_rm:
-					case OpCodeOperandKind.xmm_vvvv:
-					case OpCodeOperandKind.xmm_is4:
-					case OpCodeOperandKind.xmm_is5:
-						WriteRegOp("xmm");
-						break;
-
-					case OpCodeOperandKind.xmmp3_vvvv:
-						WriteRegOp("xmmp3");
-						break;
-
-					case OpCodeOperandKind.ymm_reg:
-					case OpCodeOperandKind.ymm_rm:
-					case OpCodeOperandKind.ymm_vvvv:
-					case OpCodeOperandKind.ymm_is4:
-					case OpCodeOperandKind.ymm_is5:
-						WriteRegOp("ymm");
-						break;
-
-					case OpCodeOperandKind.zmm_reg:
-					case OpCodeOperandKind.zmm_rm:
-					case OpCodeOperandKind.zmm_vvvv:
-						WriteRegOp("zmm");
-						break;
-
-					case OpCodeOperandKind.zmmp3_vvvv:
-						WriteRegOp("zmmp3");
-						break;
-
-					case OpCodeOperandKind.bnd_reg:
-						WriteRegOp("bnd");
-						break;
-
-					case OpCodeOperandKind.cr_reg:
-						WriteRegOp("cr");
-						break;
-
-					case OpCodeOperandKind.dr_reg:
-						WriteRegOp("dr");
-						break;
-
-					case OpCodeOperandKind.tr_reg:
-						WriteRegOp("tr");
-						break;
-
-					case OpCodeOperandKind.es:
-						WriteRegister("es");
-						break;
-
-					case OpCodeOperandKind.cs:
-						WriteRegister("cs");
-						break;
-
-					case OpCodeOperandKind.ss:
-						WriteRegister("ss");
-						break;
-
-					case OpCodeOperandKind.ds:
-						WriteRegister("ds");
-						break;
-
-					case OpCodeOperandKind.fs:
-						WriteRegister("fs");
-						break;
-
-					case OpCodeOperandKind.gs:
-						WriteRegister("gs");
-						break;
-
-					case OpCodeOperandKind.al:
-						WriteRegister("al");
-						break;
-
-					case OpCodeOperandKind.cl:
-						WriteRegister("cl");
-						break;
-
-					case OpCodeOperandKind.ax:
-						WriteRegister("ax");
-						break;
-
-					case OpCodeOperandKind.dx:
-						WriteRegister("dx");
-						break;
-
-					case OpCodeOperandKind.eax:
-						WriteRegister("eax");
-						break;
-
-					case OpCodeOperandKind.rax:
-						WriteRegister("rax");
-						break;
-
-					case OpCodeOperandKind.st0:
-					case OpCodeOperandKind.sti_opcode:
-						if (opKind == OpCodeOperandKind.st0)
-							sb.Append("st0");
-						else {
-							Debug.Assert(opKind == OpCodeOperandKind.sti_opcode);
-							sb.Append("sti");
-						}
-						break;
-
-					case OpCodeOperandKind.imm2_m2z:
-						sb.Append("imm2");
-						break;
-
-					case OpCodeOperandKind.imm8:
-					case OpCodeOperandKind.imm8sex16:
-					case OpCodeOperandKind.imm8sex32:
-					case OpCodeOperandKind.imm8sex64:
-						sb.Append("imm8");
-						break;
-
-					case OpCodeOperandKind.imm8_const_1:
-						sb.Append("1");
-						break;
-
-					case OpCodeOperandKind.imm16:
-						sb.Append("imm16");
-						break;
-
-					case OpCodeOperandKind.imm32:
-					case OpCodeOperandKind.imm32sex64:
-						sb.Append("imm32");
-						break;
-
-					case OpCodeOperandKind.imm64:
-						sb.Append("imm64");
-						break;
-
-					case OpCodeOperandKind.seg_rSI:
-					case OpCodeOperandKind.es_rDI:
-					case OpCodeOperandKind.seg_rBX_al:
-						WriteMemory();
-						break;
-
-					case OpCodeOperandKind.seg_rDI:
-						sb.Append("rDI");
-						break;
-
-					case OpCodeOperandKind.br16_1:
-					case OpCodeOperandKind.br32_1:
-					case OpCodeOperandKind.br64_1:
-						sb.Append("rel8");
-						break;
-
-					case OpCodeOperandKind.br16_2:
-					case OpCodeOperandKind.xbegin_2:
-						sb.Append("rel16");
-						break;
-
-					case OpCodeOperandKind.br32_4:
-					case OpCodeOperandKind.br64_4:
-					case OpCodeOperandKind.xbegin_4:
-						sb.Append("rel32");
-						break;
-
-					case OpCodeOperandKind.brdisp_2:
-						sb.Append("disp16");
-						break;
-
-					case OpCodeOperandKind.brdisp_4:
-						sb.Append("disp32");
-						break;
-
-					case OpCodeOperandKind.None:
+					case OperandEncoding.None:
 					default:
 						throw new InvalidOperationException();
 					}
@@ -431,6 +200,36 @@ namespace Generator.Tables {
 			}
 
 			return sb.ToString();
+		}
+
+		static (int gprSizeBits, string regStr) GetRegInfo(OpCodeOperandKindDef def, bool kr = false) {
+			string suffix;
+			if (def.RegPlus1)
+				suffix = "p1";
+			else if (def.RegPlus3)
+				suffix = "p3";
+			else
+				suffix = string.Empty;
+			var (gprSizeBits, regStr) = def.Register switch {
+				Register.AL => (8, "r8"),
+				Register.AX => (16, "r16"),
+				Register.EAX => (32, "r32"),
+				Register.RAX => (64, "r64"),
+				Register.ES => (0, "Sreg"),
+				Register.MM0 => (0, "mm"),
+				Register.XMM0 => (0, "xmm"),
+				Register.YMM0 => (0, "ymm"),
+				Register.ZMM0 => (0, "zmm"),
+				Register.TMM0 => (0, "tmm"),
+				Register.BND0 => (0, "bnd"),
+				Register.K0 => (0, suffix == string.Empty && kr ? "kr" : "k"),
+				Register.CR0 => (0, "cr"),
+				Register.DR0 => (0, "dr"),
+				Register.TR0 => (0, "tr"),
+				Register.ST0 => (0, "sti"),
+				_ => throw new InvalidOperationException(),
+			};
+			return (gprSizeBits, regStr + suffix);
 		}
 
 		void WriteGprMem(int regSize) {
