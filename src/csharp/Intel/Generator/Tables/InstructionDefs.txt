@@ -1422,10 +1422,8 @@ INSTRUCTION: o16 70 cb | JO rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=o
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=o br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: o
 END
 
 # Code: Jo_rel8_32
@@ -1433,10 +1431,8 @@ INSTRUCTION: o32 70 cb | JO rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=o br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: o
 END
 
 # Code: Jo_rel8_64
@@ -1444,10 +1440,8 @@ INSTRUCTION: o64 70 cb | JO rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=o br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: o
 END
 
 # Code: Jno_rel8_16
@@ -1455,10 +1449,8 @@ INSTRUCTION: o16 71 cb | JNO rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=o
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=no br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: no
 END
 
 # Code: Jno_rel8_32
@@ -1466,10 +1458,8 @@ INSTRUCTION: o32 71 cb | JNO rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=no br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: no
 END
 
 # Code: Jno_rel8_64
@@ -1477,10 +1467,8 @@ INSTRUCTION: o64 71 cb | JNO rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=no br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: no
 END
 
 # Code: Jb_rel8_16
@@ -1488,10 +1476,8 @@ INSTRUCTION: o16 72 cb | JB rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=c
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=b br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: b
 END
 
 # Code: Jb_rel8_32
@@ -1499,10 +1485,8 @@ INSTRUCTION: o32 72 cb | JB rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=b br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: b
 END
 
 # Code: Jb_rel8_64
@@ -1510,10 +1494,8 @@ INSTRUCTION: o64 72 cb | JB rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=b br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: b
 END
 
 # Code: Jae_rel8_16
@@ -1521,10 +1503,8 @@ INSTRUCTION: o16 73 cb | JAE rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=c
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ae br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ae
 END
 
 # Code: Jae_rel8_32
@@ -1532,10 +1512,8 @@ INSTRUCTION: o32 73 cb | JAE rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ae br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ae
 END
 
 # Code: Jae_rel8_64
@@ -1543,10 +1521,8 @@ INSTRUCTION: o64 73 cb | JAE rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ae br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ae
 END
 
 # Code: Je_rel8_16
@@ -1554,10 +1530,8 @@ INSTRUCTION: o16 74 cb | JE rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=z
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=e br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: e
 END
 
 # Code: Je_rel8_32
@@ -1565,10 +1539,8 @@ INSTRUCTION: o32 74 cb | JE rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=e br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: e
 END
 
 # Code: Je_rel8_64
@@ -1576,10 +1548,8 @@ INSTRUCTION: o64 74 cb | JE rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=e br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: e
 END
 
 # Code: Jne_rel8_16
@@ -1587,10 +1557,8 @@ INSTRUCTION: o16 75 cb | JNE rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=z
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ne br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ne
 END
 
 # Code: Jne_rel8_32
@@ -1598,10 +1566,8 @@ INSTRUCTION: o32 75 cb | JNE rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ne br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ne
 END
 
 # Code: Jne_rel8_64
@@ -1609,10 +1575,8 @@ INSTRUCTION: o64 75 cb | JNE rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ne br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ne
 END
 
 # Code: Jbe_rel8_16
@@ -1620,10 +1584,8 @@ INSTRUCTION: o16 76 cb | JBE rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=zc
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=be br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: be
 END
 
 # Code: Jbe_rel8_32
@@ -1631,10 +1593,8 @@ INSTRUCTION: o32 76 cb | JBE rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=be br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: be
 END
 
 # Code: Jbe_rel8_64
@@ -1642,10 +1602,8 @@ INSTRUCTION: o64 76 cb | JBE rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=be br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: be
 END
 
 # Code: Ja_rel8_16
@@ -1653,10 +1611,8 @@ INSTRUCTION: o16 77 cb | JA rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=zc
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=a br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: a
 END
 
 # Code: Ja_rel8_32
@@ -1664,10 +1620,8 @@ INSTRUCTION: o32 77 cb | JA rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=a br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: a
 END
 
 # Code: Ja_rel8_64
@@ -1675,10 +1629,8 @@ INSTRUCTION: o64 77 cb | JA rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=a br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: a
 END
 
 # Code: Js_rel8_16
@@ -1686,10 +1638,8 @@ INSTRUCTION: o16 78 cb | JS rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=s
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=s br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: s
 END
 
 # Code: Js_rel8_32
@@ -1697,10 +1647,8 @@ INSTRUCTION: o32 78 cb | JS rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=s br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: s
 END
 
 # Code: Js_rel8_64
@@ -1708,10 +1656,8 @@ INSTRUCTION: o64 78 cb | JS rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=s br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: s
 END
 
 # Code: Jns_rel8_16
@@ -1719,10 +1665,8 @@ INSTRUCTION: o16 79 cb | JNS rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=s
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ns br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ns
 END
 
 # Code: Jns_rel8_32
@@ -1730,10 +1674,8 @@ INSTRUCTION: o32 79 cb | JNS rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ns br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ns
 END
 
 # Code: Jns_rel8_64
@@ -1741,10 +1683,8 @@ INSTRUCTION: o64 79 cb | JNS rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ns br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ns
 END
 
 # Code: Jp_rel8_16
@@ -1752,10 +1692,8 @@ INSTRUCTION: o16 7A cb | JP rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=p
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=p br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: p
 END
 
 # Code: Jp_rel8_32
@@ -1763,10 +1701,8 @@ INSTRUCTION: o32 7A cb | JP rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=p br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: p
 END
 
 # Code: Jp_rel8_64
@@ -1774,10 +1710,8 @@ INSTRUCTION: o64 7A cb | JP rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=p br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: p
 END
 
 # Code: Jnp_rel8_16
@@ -1785,10 +1719,8 @@ INSTRUCTION: o16 7B cb | JNP rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=p
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=np br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: np
 END
 
 # Code: Jnp_rel8_32
@@ -1796,10 +1728,8 @@ INSTRUCTION: o32 7B cb | JNP rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=np br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: np
 END
 
 # Code: Jnp_rel8_64
@@ -1807,10 +1737,8 @@ INSTRUCTION: o64 7B cb | JNP rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=np br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: np
 END
 
 # Code: Jl_rel8_16
@@ -1818,10 +1746,8 @@ INSTRUCTION: o16 7C cb | JL rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=os
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=l br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: l
 END
 
 # Code: Jl_rel8_32
@@ -1829,10 +1755,8 @@ INSTRUCTION: o32 7C cb | JL rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=l br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: l
 END
 
 # Code: Jl_rel8_64
@@ -1840,10 +1764,8 @@ INSTRUCTION: o64 7C cb | JL rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=l br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: l
 END
 
 # Code: Jge_rel8_16
@@ -1851,10 +1773,8 @@ INSTRUCTION: o16 7D cb | JGE rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=os
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ge br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ge
 END
 
 # Code: Jge_rel8_32
@@ -1862,10 +1782,8 @@ INSTRUCTION: o32 7D cb | JGE rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ge br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ge
 END
 
 # Code: Jge_rel8_64
@@ -1873,10 +1791,8 @@ INSTRUCTION: o64 7D cb | JGE rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ge br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: ge
 END
 
 # Code: Jle_rel8_16
@@ -1884,10 +1800,8 @@ INSTRUCTION: o16 7E cb | JLE rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=osz
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=le br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: le
 END
 
 # Code: Jle_rel8_32
@@ -1895,10 +1809,8 @@ INSTRUCTION: o32 7E cb | JLE rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=le br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: le
 END
 
 # Code: Jle_rel8_64
@@ -1906,10 +1818,8 @@ INSTRUCTION: o64 7E cb | JLE rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=le br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: le
 END
 
 # Code: Jg_rel8_16
@@ -1917,10 +1827,8 @@ INSTRUCTION: o16 7F cb | JG rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
 	rflags: r=osz
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=g br=jcc-short no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: g
 END
 
 # Code: Jg_rel8_32
@@ -1928,10 +1836,8 @@ INSTRUCTION: o32 7F cb | JG rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=g br=jcc-short
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: g
 END
 
 # Code: Jg_rel8_64
@@ -1939,10 +1845,8 @@ INSTRUCTION: o64 7F cb | JG rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=g br=jcc-short intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-short
-	cc: g
 END
 
 # Code: Add_rm8_imm8
@@ -3042,9 +2946,8 @@ INSTRUCTION: o16 9A cd | CALL ptr16:16 | INTEL8086
 	ops: r=farbr2_2
 	implied: push=2x2
 	# VM exit if task switch
-	flags: 16 32 sp=push;4 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=push;4 br=call-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Call
-	branch: call-far
 	gas: mnemonic=lcall suffix=w osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -3055,9 +2958,8 @@ INSTRUCTION: o32 9A cp | CALL ptr16:32 | INTEL386
 	ops: r=farbr4_2
 	implied: push=2x4
 	# VM exit if task switch
-	flags: 16 32 sp=push;8 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=push;8 br=call-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: Call
-	branch: call-far
 	gas: mnemonic=lcall suffix=l osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -4053,18 +3955,16 @@ END
 INSTRUCTION: o16 C7 F8 cw | XBEGIN rel16 | RTM
 	ops: r=xbegin_2
 	implied: cw=eax
-	flags: tsx-may-abort
+	flags: br=xbegin tsx-may-abort
 	cflow: XbeginXabortXend
-	branch: xbegin
 END
 
 # Code: Xbegin_rel32
 INSTRUCTION: o32 C7 F8 cd | XBEGIN rel32 | RTM
 	ops: r=xbegin_4
 	implied: cw=eax
-	flags: tsx-may-abort
+	flags: br=xbegin tsx-may-abort
 	cflow: XbeginXabortXend
-	branch: xbegin
 END
 
 # Code: Enterw_imm16_imm8
@@ -6798,10 +6698,8 @@ INSTRUCTION: a16 o16 E0 cb | LOOPNE rel8 | INTEL8086
 	implied: rw=cx
 	code-suffix: 16_CX
 	rflags: r=z
-	flags: 16 32
+	flags: 16 32 cc=ne br=loop
 	cflow: ConditionalBranch
-	branch: loop
-	cc: ne
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6814,10 +6712,8 @@ INSTRUCTION: a16 o32 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=cx
 	code-suffix: 32_CX
 	rflags: r=z
-	flags: 16 32
+	flags: 16 32 cc=ne br=loop
 	cflow: ConditionalBranch
-	branch: loop
-	cc: ne
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6830,10 +6726,8 @@ INSTRUCTION: a32 o16 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 16_ECX
 	rflags: r=z
-	flags: no-intel-dec64
+	flags: cc=ne br=loop no-intel-dec64
 	cflow: ConditionalBranch
-	branch: loop
-	cc: ne
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6846,10 +6740,8 @@ INSTRUCTION: a32 o32 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 32_ECX
 	rflags: r=z
-	flags: 16 32
+	flags: 16 32 cc=ne br=loop
 	cflow: ConditionalBranch
-	branch: loop
-	cc: ne
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6862,10 +6754,8 @@ INSTRUCTION: a32 o64 E0 cb | LOOPNE rel8 | X64
 	implied: rw=ecx
 	code-suffix: 64_ECX
 	rflags: r=z
-	flags: 64 intel-fo64 do64
+	flags: 64 cc=ne br=loop intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: loop
-	cc: ne
 	fast: mnemonic=loopned
 	gas: suffix=l loop
 	intel: loop
@@ -6879,10 +6769,8 @@ INSTRUCTION: a64 o16 E0 cb | LOOPNE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 16_RCX
 	rflags: r=z
-	flags: 64 no-intel-dec
+	flags: 64 cc=ne br=loop no-intel-dec
 	cflow: ConditionalBranch
-	branch: loop
-	cc: ne
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6895,10 +6783,8 @@ INSTRUCTION: a64 o64 E0 cb | LOOPNE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 64_RCX
 	rflags: r=z
-	flags: 64 intel-fo64 do64
+	flags: 64 cc=ne br=loop intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: loop
-	cc: ne
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6911,10 +6797,8 @@ INSTRUCTION: a16 o16 E1 cb | LOOPE rel8 | INTEL8086
 	implied: rw=cx
 	code-suffix: 16_CX
 	rflags: r=z
-	flags: 16 32
+	flags: 16 32 cc=e br=loop
 	cflow: ConditionalBranch
-	branch: loop
-	cc: e
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6927,10 +6811,8 @@ INSTRUCTION: a16 o32 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=cx
 	code-suffix: 32_CX
 	rflags: r=z
-	flags: 16 32
+	flags: 16 32 cc=e br=loop
 	cflow: ConditionalBranch
-	branch: loop
-	cc: e
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6943,10 +6825,8 @@ INSTRUCTION: a32 o16 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 16_ECX
 	rflags: r=z
-	flags: no-intel-dec64
+	flags: cc=e br=loop no-intel-dec64
 	cflow: ConditionalBranch
-	branch: loop
-	cc: e
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6959,10 +6839,8 @@ INSTRUCTION: a32 o32 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 32_ECX
 	rflags: r=z
-	flags: 16 32
+	flags: 16 32 cc=e br=loop
 	cflow: ConditionalBranch
-	branch: loop
-	cc: e
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6975,10 +6853,8 @@ INSTRUCTION: a32 o64 E1 cb | LOOPE rel8 | X64
 	implied: rw=ecx
 	code-suffix: 64_ECX
 	rflags: r=z
-	flags: 64 intel-fo64 do64
+	flags: 64 cc=e br=loop intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: loop
-	cc: e
 	fast: mnemonic=looped
 	gas: suffix=l loop
 	intel: loop
@@ -6992,10 +6868,8 @@ INSTRUCTION: a64 o16 E1 cb | LOOPE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 16_RCX
 	rflags: r=z
-	flags: 64 no-intel-dec
+	flags: 64 cc=e br=loop no-intel-dec
 	cflow: ConditionalBranch
-	branch: loop
-	cc: e
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -7008,10 +6882,8 @@ INSTRUCTION: a64 o64 E1 cb | LOOPE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 64_RCX
 	rflags: r=z
-	flags: 64 intel-fo64 do64
+	flags: 64 cc=e br=loop intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: loop
-	cc: e
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -7023,9 +6895,8 @@ INSTRUCTION: a16 o16 E2 cb | LOOP rel8 | INTEL8086
 	ops: r=br16_1
 	implied: rw=cx
 	code-suffix: 16_CX
-	flags: 16 32
+	flags: 16 32 br=loop
 	cflow: ConditionalBranch
-	branch: loop
 	gas: suffix=w loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -7037,9 +6908,8 @@ INSTRUCTION: a16 o32 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br32_1
 	implied: rw=cx
 	code-suffix: 32_CX
-	flags: 16 32
+	flags: 16 32 br=loop
 	cflow: ConditionalBranch
-	branch: loop
 	gas: suffix=w loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -7051,9 +6921,8 @@ INSTRUCTION: a32 o16 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br16_1
 	implied: rw=ecx
 	code-suffix: 16_ECX
-	flags: no-intel-dec64
+	flags: br=loop no-intel-dec64
 	cflow: ConditionalBranch
-	branch: loop
 	gas: suffix=l loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -7065,9 +6934,8 @@ INSTRUCTION: a32 o32 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br32_1
 	implied: rw=ecx
 	code-suffix: 32_ECX
-	flags: 16 32
+	flags: 16 32 br=loop
 	cflow: ConditionalBranch
-	branch: loop
 	gas: suffix=l loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -7079,9 +6947,8 @@ INSTRUCTION: a32 o64 E2 cb | LOOP rel8 | X64
 	ops: r=br64_1
 	implied: rw=ecx
 	code-suffix: 64_ECX
-	flags: 64 intel-fo64 do64
+	flags: 64 br=loop intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: loop
 	fast: mnemonic=loopd
 	gas: suffix=l loop
 	intel: loop
@@ -7094,9 +6961,8 @@ INSTRUCTION: a64 o16 E2 cb | LOOP rel8 | X64
 	ops: r=br16_1
 	implied: rw=rcx
 	code-suffix: 16_RCX
-	flags: 64 no-intel-dec
+	flags: 64 br=loop no-intel-dec
 	cflow: ConditionalBranch
-	branch: loop
 	gas: suffix=q loop
 	intel: loop
 	nasm: loop
@@ -7107,9 +6973,8 @@ INSTRUCTION: a64 o64 E2 cb | LOOP rel8 | X64
 	ops: r=br64_1
 	implied: rw=rcx
 	code-suffix: 64_RCX
-	flags: 64 intel-fo64 do64
+	flags: 64 br=loop intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: loop
 	gas: suffix=q loop
 	intel: loop
 	nasm: loop
@@ -7120,9 +6985,8 @@ INSTRUCTION: a16 o16 E3 cb | JCXZ rel8 | INTEL8086
 	ops: r=br16_1
 	implied: r=cx
 	code-suffix: 16
-	flags: 16 32
+	flags: 16 32 br=jrcxz
 	cflow: ConditionalBranch
-	branch: jrcxz
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7133,9 +6997,8 @@ INSTRUCTION: a16 o32 E3 cb | JCXZ rel8 | INTEL386
 	ops: r=br32_1
 	implied: r=cx
 	code-suffix: 32
-	flags: 16 32
+	flags: 16 32 br=jrcxz
 	cflow: ConditionalBranch
-	branch: jrcxz
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7146,9 +7009,8 @@ INSTRUCTION: a32 o16 E3 cb | JECXZ rel8 | INTEL386
 	ops: r=br16_1
 	implied: r=ecx
 	code-suffix: 16
-	flags: no-intel-dec64
+	flags: br=jrcxz no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jrcxz
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7159,9 +7021,8 @@ INSTRUCTION: a32 o32 E3 cb | JECXZ rel8 | INTEL386
 	ops: r=br32_1
 	implied: r=ecx
 	code-suffix: 32
-	flags: 16 32
+	flags: 16 32 br=jrcxz
 	cflow: ConditionalBranch
-	branch: jrcxz
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7172,9 +7033,8 @@ INSTRUCTION: a32 o64 E3 cb | JECXZ rel8 | X64
 	ops: r=br64_1
 	implied: r=ecx
 	code-suffix: 64
-	flags: 64 intel-fo64 do64
+	flags: 64 br=jrcxz intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jrcxz
 	gas: osz
 	intel: osz
 	nasm: osz
@@ -7185,9 +7045,8 @@ INSTRUCTION: a64 o16 E3 cb | JRCXZ rel8 | X64
 	ops: r=br16_1
 	implied: r=rcx
 	code-suffix: 16
-	flags: 64 no-intel-dec
+	flags: 64 br=jrcxz no-intel-dec
 	cflow: ConditionalBranch
-	branch: jrcxz
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7198,9 +7057,8 @@ INSTRUCTION: a64 o64 E3 cb | JRCXZ rel8 | X64
 	ops: r=br64_1
 	implied: r=rcx
 	code-suffix: 64
-	flags: 64 intel-fo64 do64
+	flags: 64 br=jrcxz intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jrcxz
 	gas: osz
 	intel: osz
 	nasm: osz
@@ -7252,9 +7110,8 @@ END
 INSTRUCTION: o16 E8 cw | CALL rel16 | INTEL8086
 	ops: r=br16_2
 	implied: push=1x2
-	flags: sp=push;2 bnd no-intel-dec64
+	flags: sp=push;2 br=call-near bnd no-intel-dec64
 	cflow: Call
-	branch: call-near
 	gas: suffix=w osz-suffix-4
 	intel: osz-bnd
 	masm: bnd
@@ -7266,9 +7123,8 @@ INSTRUCTION: o32 E8 cd | CALL rel32 | INTEL386
 	ops: r=br32_4
 	implied: push=1x4
 	code-suffix: 32
-	flags: 16 32 sp=push;4 bnd
+	flags: 16 32 sp=push;4 br=call-near bnd
 	cflow: Call
-	branch: call-near
 	gas: suffix=l osz-suffix-4
 	intel: osz-bnd
 	masm: bnd
@@ -7280,9 +7136,8 @@ INSTRUCTION: o64 E8 cd | CALL rel32 | X64
 	ops: r=br64_4
 	implied: push=1x8
 	code-suffix: 64
-	flags: 64 sp=push;8 bnd intel-fo64 do64
+	flags: 64 sp=push;8 br=call-near bnd intel-fo64 do64
 	cflow: Call
-	branch: call-near
 	gas: suffix=q osz-suffix-4
 	intel: osz-bnd
 	masm: bnd
@@ -7292,9 +7147,8 @@ END
 # Code: Jmp_rel16
 INSTRUCTION: o16 E9 cw | JMP rel16 | INTEL8086
 	ops: r=br16_2
-	flags: bnd no-intel-dec64
+	flags: br=jmp-near bnd no-intel-dec64
 	cflow: UnconditionalBranch
-	branch: jmp-near
 	gas: osz
 	intel: osz-bnd
 	masm: bnd
@@ -7305,9 +7159,8 @@ END
 INSTRUCTION: o32 E9 cd | JMP rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
-	flags: 16 32 bnd
+	flags: 16 32 br=jmp-near bnd
 	cflow: UnconditionalBranch
-	branch: jmp-near
 	gas: osz
 	intel: osz-bnd
 	masm: bnd
@@ -7318,9 +7171,8 @@ END
 INSTRUCTION: o64 E9 cd | JMP rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
-	flags: 64 bnd intel-fo64 do64
+	flags: 64 br=jmp-near bnd intel-fo64 do64
 	cflow: UnconditionalBranch
-	branch: jmp-near
 	gas: osz
 	intel: osz-bnd
 	masm: bnd
@@ -7331,9 +7183,8 @@ END
 INSTRUCTION: o16 EA cd | JMP ptr16:16 | INTEL8086
 	ops: r=farbr2_2
 	# VM exit if task switch
-	flags: 16 32 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 br=jmp-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: UnconditionalBranch
-	branch: jmp-far
 	gas: mnemonic=ljmp suffix=w osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -7343,9 +7194,8 @@ END
 INSTRUCTION: o32 EA cp | JMP ptr16:32 | INTEL386
 	ops: r=farbr4_2
 	# VM exit if task switch
-	flags: 16 32 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 br=jmp-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: UnconditionalBranch
-	branch: jmp-far
 	gas: mnemonic=ljmp suffix=l osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -7355,9 +7205,8 @@ END
 INSTRUCTION: o16 EB cb | JMP rel8 | INTEL8086
 	ops: r=br16_1
 	code-suffix: 16
-	flags: no-intel-dec64
+	flags: br=jmp-short no-intel-dec64
 	cflow: UnconditionalBranch
-	branch: jmp-short
 	gas: osz
 	intel: flags=short osz
 	nasm: flags=short osz
@@ -7367,9 +7216,8 @@ END
 INSTRUCTION: o32 EB cb | JMP rel8 | INTEL386
 	ops: r=br32_1
 	code-suffix: 32
-	flags: 16 32
+	flags: 16 32 br=jmp-short
 	cflow: UnconditionalBranch
-	branch: jmp-short
 	gas: osz
 	intel: flags=short osz
 	nasm: flags=short osz
@@ -7379,9 +7227,8 @@ END
 INSTRUCTION: o64 EB cb | JMP rel8 | X64
 	ops: r=br64_1
 	code-suffix: 64
-	flags: 64 intel-fo64 do64
+	flags: 64 br=jmp-short intel-fo64 do64
 	cflow: UnconditionalBranch
-	branch: jmp-short
 	gas: osz
 	intel: flags=short osz
 	nasm: flags=short osz
@@ -7962,9 +7809,8 @@ END
 INSTRUCTION: o16 FF /2 | CALL r/m16 | INTEL8086
 	ops: r=r16_or_mem | WordOffset
 	implied: push=1x2
-	flags: sp=push;2 bnd notrack cet-tracked no-intel-dec64
+	flags: sp=push;2 br=call-near-indirect bnd notrack cet-tracked no-intel-dec64
 	cflow: IndirectCall
-	branch: call-near-indirect
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=w bnd
 	intel: flags=force-size=always bnd
@@ -7976,9 +7822,8 @@ END
 INSTRUCTION: o32 FF /2 | CALL r/m32 | INTEL386
 	ops: r=r32_or_mem | DwordOffset
 	implied: push=1x4
-	flags: 16 32 sp=push;4 bnd notrack cet-tracked
+	flags: 16 32 sp=push;4 br=call-near-indirect bnd notrack cet-tracked
 	cflow: IndirectCall
-	branch: call-near-indirect
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=l bnd
 	intel: flags=force-size=always bnd
@@ -7990,9 +7835,8 @@ END
 INSTRUCTION: o64 FF /2 | CALL r/m64 | X64
 	ops: r=r64_or_mem | QwordOffset
 	implied: push=1x8
-	flags: 64 sp=push;8 bnd notrack cet-tracked intel-fo64 do64
+	flags: 64 sp=push;8 br=call-near-indirect bnd notrack cet-tracked intel-fo64 do64
 	cflow: IndirectCall
-	branch: call-near-indirect
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=q bnd
 	intel: flags=force-size=always bnd
@@ -8006,9 +7850,8 @@ INSTRUCTION: o16 FF /3 | CALL m16:16 | INTEL8086
 	implied: push=2x2
 	code-memory-size: 1616
 	# VM exit if task switch
-	flags: sp=push;4 cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=push;4 br=call-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
-	branch: call-far-indirect
 	fast: mnemonic=callf flags=force-size=always
 	gas: mnemonic=lcall suffix=w far
 	intel: flags=force-size=always;far
@@ -8022,9 +7865,8 @@ INSTRUCTION: o32 FF /3 | CALL m16:32 | INTEL386
 	implied: push=2x4
 	code-memory-size: 1632
 	# VM exit if task switch
-	flags: sp=push;8 cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=push;8 br=call-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectCall
-	branch: call-far-indirect
 	fast: mnemonic=callf flags=force-size=always
 	gas: mnemonic=lcall suffix=l far
 	intel: flags=force-size=always;far
@@ -8038,9 +7880,8 @@ INSTRUCTION: o64 FF /3 | CALL m16:64 | X64
 	implied: push=2x8
 	code-memory-size: 1664
 	# VM exit if task switch
-	flags: 64 sp=push;16 cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx tsx-impl-abort
+	flags: 64 sp=push;16 br=call-far-indirect cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx tsx-impl-abort
 	cflow: IndirectCall
-	branch: call-far-indirect
 	fast: mnemonic=callf flags=force-size=always
 	gas: mnemonic=lcall far
 	intel: flags=force-size=always;far
@@ -8051,9 +7892,8 @@ END
 # Code: Jmp_rm16
 INSTRUCTION: o16 FF /4 | JMP r/m16 | INTEL8086
 	ops: r=r16_or_mem | WordOffset
-	flags: bnd notrack cet-tracked no-intel-dec64
+	flags: bnd notrack br=jmp-near-indirect cet-tracked no-intel-dec64
 	cflow: IndirectBranch
-	branch: jmp-near-indirect
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=w bnd
 	intel: flags=force-size=always bnd
@@ -8064,9 +7904,8 @@ END
 # Code: Jmp_rm32
 INSTRUCTION: o32 FF /4 | JMP r/m32 | INTEL386
 	ops: r=r32_or_mem | DwordOffset
-	flags: 16 32 bnd notrack cet-tracked
+	flags: 16 32 br=jmp-near-indirect bnd notrack cet-tracked
 	cflow: IndirectBranch
-	branch: jmp-near-indirect
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=l bnd
 	intel: flags=force-size=always bnd
@@ -8077,9 +7916,8 @@ END
 # Code: Jmp_rm64
 INSTRUCTION: o64 FF /4 | JMP r/m64 | X64
 	ops: r=r64_or_mem | QwordOffset
-	flags: 64 bnd notrack cet-tracked intel-fo64 do64
+	flags: 64 br=jmp-near-indirect bnd notrack cet-tracked intel-fo64 do64
 	cflow: IndirectBranch
-	branch: jmp-near-indirect
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=q bnd
 	intel: flags=force-size=always bnd
@@ -8092,9 +7930,8 @@ INSTRUCTION: o16 FF /5 | JMP m16:16 | INTEL8086
 	ops: r=mem | SegPtr16
 	code-memory-size: 1616
 	# VM exit if task switch
-	flags: cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: br=jmp-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectBranch
-	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
 	gas: mnemonic=ljmp suffix=w far
 	intel: flags=force-size=always;far
@@ -8107,9 +7944,8 @@ INSTRUCTION: o32 FF /5 | JMP m16:32 | INTEL386
 	ops: r=mem | SegPtr32
 	code-memory-size: 1632
 	# VM exit if task switch
-	flags: cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: br=jmp-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	cflow: IndirectBranch
-	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
 	gas: mnemonic=ljmp suffix=l far
 	intel: flags=force-size=always;far
@@ -8122,9 +7958,8 @@ INSTRUCTION: o64 FF /5 | JMP m16:64 | X64
 	ops: r=mem | SegPtr64
 	code-memory-size: 1664
 	# VM exit if task switch
-	flags: 64 no-amd-dec cet-tracked intel-may-vm-exit no-in-sgx tsx-impl-abort
+	flags: 64 br=jmp-far-indirect no-amd-dec cet-tracked intel-may-vm-exit no-in-sgx tsx-impl-abort
 	cflow: IndirectBranch
-	branch: jmp-far-indirect
 	fast: mnemonic=jmpf flags=force-size=always
 	gas: mnemonic=ljmp far
 	intel: flags=force-size=always;far
@@ -8361,9 +8196,8 @@ END
 # Code: Jmpe_rm16
 INSTRUCTION: o16 0F 00 /6 | JMPE r/m16 | IA64
 	ops: r=r16_or_mem | WordOffset
-	flags: 16 32
+	flags: 16 32 br=jmpe-near-indirect
 	cflow: IndirectBranch
-	branch: jmpe-near-indirect
 	decoder-option: Jmpe
 	fast: flags=force-size=always
 	gas: flags=indirect suffix=w
@@ -8375,9 +8209,8 @@ END
 # Code: Jmpe_rm32
 INSTRUCTION: o32 0F 00 /6 | JMPE r/m32 | IA64
 	ops: r=r32_or_mem | DwordOffset
-	flags: 16 32
+	flags: 16 32 br=jmpe-near-indirect
 	cflow: IndirectBranch
-	branch: jmpe-near-indirect
 	decoder-option: Jmpe
 	fast: flags=force-size=always
 	gas: flags=indirect suffix=l
@@ -11273,7 +11106,7 @@ END
 INSTRUCTION: o16 0F 40 /r | CMOVO r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=o
-	cc: o
+	flags: cc=o
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11284,7 +11117,7 @@ END
 INSTRUCTION: o32 0F 40 /r | CMOVO r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=o
-	cc: o
+	flags: cc=o
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11295,8 +11128,7 @@ END
 INSTRUCTION: o64 0F 40 /r | CMOVO r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=o
-	flags: 64
-	cc: o
+	flags: 64 cc=o
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11307,7 +11139,7 @@ END
 INSTRUCTION: o16 0F 41 /r | CMOVNO r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=o
-	cc: no
+	flags: cc=no
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11318,7 +11150,7 @@ END
 INSTRUCTION: o32 0F 41 /r | CMOVNO r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=o
-	cc: no
+	flags: cc=no
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11329,8 +11161,7 @@ END
 INSTRUCTION: o64 0F 41 /r | CMOVNO r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=o
-	flags: 64
-	cc: no
+	flags: 64 cc=no
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11341,7 +11172,7 @@ END
 INSTRUCTION: o16 0F 42 /r | CMOVB r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=c
-	cc: b
+	flags: cc=b
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11352,7 +11183,7 @@ END
 INSTRUCTION: o32 0F 42 /r | CMOVB r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=c
-	cc: b
+	flags: cc=b
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11363,8 +11194,7 @@ END
 INSTRUCTION: o64 0F 42 /r | CMOVB r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=c
-	flags: 64
-	cc: b
+	flags: 64 cc=b
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11375,7 +11205,7 @@ END
 INSTRUCTION: o16 0F 43 /r | CMOVAE r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=c
-	cc: ae
+	flags: cc=ae
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11386,7 +11216,7 @@ END
 INSTRUCTION: o32 0F 43 /r | CMOVAE r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=c
-	cc: ae
+	flags: cc=ae
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11397,8 +11227,7 @@ END
 INSTRUCTION: o64 0F 43 /r | CMOVAE r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=c
-	flags: 64
-	cc: ae
+	flags: 64 cc=ae
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11409,7 +11238,7 @@ END
 INSTRUCTION: o16 0F 44 /r | CMOVE r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=z
-	cc: e
+	flags: cc=e
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11420,7 +11249,7 @@ END
 INSTRUCTION: o32 0F 44 /r | CMOVE r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=z
-	cc: e
+	flags: cc=e
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11431,8 +11260,7 @@ END
 INSTRUCTION: o64 0F 44 /r | CMOVE r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=z
-	flags: 64
-	cc: e
+	flags: 64 cc=e
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11443,7 +11271,7 @@ END
 INSTRUCTION: o16 0F 45 /r | CMOVNE r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=z
-	cc: ne
+	flags: cc=ne
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11454,7 +11282,7 @@ END
 INSTRUCTION: o32 0F 45 /r | CMOVNE r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=z
-	cc: ne
+	flags: cc=ne
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11465,8 +11293,7 @@ END
 INSTRUCTION: o64 0F 45 /r | CMOVNE r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=z
-	flags: 64
-	cc: ne
+	flags: 64 cc=ne
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11477,7 +11304,7 @@ END
 INSTRUCTION: o16 0F 46 /r | CMOVBE r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=zc
-	cc: be
+	flags: cc=be
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11488,7 +11315,7 @@ END
 INSTRUCTION: o32 0F 46 /r | CMOVBE r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=zc
-	cc: be
+	flags: cc=be
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11499,8 +11326,7 @@ END
 INSTRUCTION: o64 0F 46 /r | CMOVBE r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=zc
-	flags: 64
-	cc: be
+	flags: 64 cc=be
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11511,7 +11337,7 @@ END
 INSTRUCTION: o16 0F 47 /r | CMOVA r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=zc
-	cc: a
+	flags: cc=a
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11522,7 +11348,7 @@ END
 INSTRUCTION: o32 0F 47 /r | CMOVA r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=zc
-	cc: a
+	flags: cc=a
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11533,8 +11359,7 @@ END
 INSTRUCTION: o64 0F 47 /r | CMOVA r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=zc
-	flags: 64
-	cc: a
+	flags: 64 cc=a
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11545,7 +11370,7 @@ END
 INSTRUCTION: o16 0F 48 /r | CMOVS r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=s
-	cc: s
+	flags: cc=s
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11556,7 +11381,7 @@ END
 INSTRUCTION: o32 0F 48 /r | CMOVS r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=s
-	cc: s
+	flags: cc=s
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11567,8 +11392,7 @@ END
 INSTRUCTION: o64 0F 48 /r | CMOVS r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=s
-	flags: 64
-	cc: s
+	flags: 64 cc=s
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11579,7 +11403,7 @@ END
 INSTRUCTION: o16 0F 49 /r | CMOVNS r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=s
-	cc: ns
+	flags: cc=ns
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11590,7 +11414,7 @@ END
 INSTRUCTION: o32 0F 49 /r | CMOVNS r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=s
-	cc: ns
+	flags: cc=ns
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11601,8 +11425,7 @@ END
 INSTRUCTION: o64 0F 49 /r | CMOVNS r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=s
-	flags: 64
-	cc: ns
+	flags: 64 cc=ns
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11613,7 +11436,7 @@ END
 INSTRUCTION: o16 0F 4A /r | CMOVP r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=p
-	cc: p
+	flags: cc=p
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11624,7 +11447,7 @@ END
 INSTRUCTION: o32 0F 4A /r | CMOVP r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=p
-	cc: p
+	flags: cc=p
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11635,8 +11458,7 @@ END
 INSTRUCTION: o64 0F 4A /r | CMOVP r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=p
-	flags: 64
-	cc: p
+	flags: 64 cc=p
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11647,7 +11469,7 @@ END
 INSTRUCTION: o16 0F 4B /r | CMOVNP r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=p
-	cc: np
+	flags: cc=np
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11658,7 +11480,7 @@ END
 INSTRUCTION: o32 0F 4B /r | CMOVNP r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=p
-	cc: np
+	flags: cc=np
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11669,8 +11491,7 @@ END
 INSTRUCTION: o64 0F 4B /r | CMOVNP r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=p
-	flags: 64
-	cc: np
+	flags: 64 cc=np
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11681,7 +11502,7 @@ END
 INSTRUCTION: o16 0F 4C /r | CMOVL r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=os
-	cc: l
+	flags: cc=l
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11692,7 +11513,7 @@ END
 INSTRUCTION: o32 0F 4C /r | CMOVL r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=os
-	cc: l
+	flags: cc=l
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11703,8 +11524,7 @@ END
 INSTRUCTION: o64 0F 4C /r | CMOVL r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=os
-	flags: 64
-	cc: l
+	flags: 64 cc=l
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11715,7 +11535,7 @@ END
 INSTRUCTION: o16 0F 4D /r | CMOVGE r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=os
-	cc: ge
+	flags: cc=ge
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11726,7 +11546,7 @@ END
 INSTRUCTION: o32 0F 4D /r | CMOVGE r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=os
-	cc: ge
+	flags: cc=ge
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11737,8 +11557,7 @@ END
 INSTRUCTION: o64 0F 4D /r | CMOVGE r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=os
-	flags: 64
-	cc: ge
+	flags: 64 cc=ge
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11749,7 +11568,7 @@ END
 INSTRUCTION: o16 0F 4E /r | CMOVLE r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=osz
-	cc: le
+	flags: cc=le
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11760,7 +11579,7 @@ END
 INSTRUCTION: o32 0F 4E /r | CMOVLE r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=osz
-	cc: le
+	flags: cc=le
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11771,8 +11590,7 @@ END
 INSTRUCTION: o64 0F 4E /r | CMOVLE r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=osz
-	flags: 64
-	cc: le
+	flags: 64 cc=le
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -11783,7 +11601,7 @@ END
 INSTRUCTION: o16 0F 4F /r | CMOVG r16, r/m16 | CMOV
 	ops: cw=r16_reg r=r16_or_mem | UInt16
 	rflags: r=osz
-	cc: g
+	flags: cc=g
 	gas: suffix=w cc
 	intel: cc
 	masm: cc
@@ -11794,7 +11612,7 @@ END
 INSTRUCTION: o32 0F 4F /r | CMOVG r32, r/m32 | CMOV
 	ops: cw32_rw64=r32_reg r=r32_or_mem | UInt32
 	rflags: r=osz
-	cc: g
+	flags: cc=g
 	gas: suffix=l cc
 	intel: cc
 	masm: cc
@@ -11805,8 +11623,7 @@ END
 INSTRUCTION: o64 0F 4F /r | CMOVG r64, r/m64 | CMOV
 	ops: cw=r64_reg r=r64_or_mem | UInt64
 	rflags: r=osz
-	flags: 64
-	cc: g
+	flags: 64 cc=g
 	gas: suffix=q cc
 	intel: cc
 	masm: cc
@@ -15360,10 +15177,8 @@ END
 INSTRUCTION: o16 0F 80 cw | JO rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=o
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=o br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: o
 END
 
 # Code: Jo_rel32_32
@@ -15371,10 +15186,8 @@ INSTRUCTION: o32 0F 80 cd | JO rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=o br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: o
 END
 
 # Code: Jo_rel32_64
@@ -15382,20 +15195,16 @@ INSTRUCTION: o64 0F 80 cd | JO rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=o br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: o
 END
 
 # Code: Jno_rel16
 INSTRUCTION: o16 0F 81 cw | JNO rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=o
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=no br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: no
 END
 
 # Code: Jno_rel32_32
@@ -15403,10 +15212,8 @@ INSTRUCTION: o32 0F 81 cd | JNO rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=no br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: no
 END
 
 # Code: Jno_rel32_64
@@ -15414,20 +15221,16 @@ INSTRUCTION: o64 0F 81 cd | JNO rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=no br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: no
 END
 
 # Code: Jb_rel16
 INSTRUCTION: o16 0F 82 cw | JB rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=c
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=b br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: b
 END
 
 # Code: Jb_rel32_32
@@ -15435,10 +15238,8 @@ INSTRUCTION: o32 0F 82 cd | JB rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=b br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: b
 END
 
 # Code: Jb_rel32_64
@@ -15446,20 +15247,16 @@ INSTRUCTION: o64 0F 82 cd | JB rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=b br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: b
 END
 
 # Code: Jae_rel16
 INSTRUCTION: o16 0F 83 cw | JAE rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=c
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ae br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ae
 END
 
 # Code: Jae_rel32_32
@@ -15467,10 +15264,8 @@ INSTRUCTION: o32 0F 83 cd | JAE rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ae br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ae
 END
 
 # Code: Jae_rel32_64
@@ -15478,20 +15273,16 @@ INSTRUCTION: o64 0F 83 cd | JAE rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ae br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ae
 END
 
 # Code: Je_rel16
 INSTRUCTION: o16 0F 84 cw | JE rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=z
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=e br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: e
 END
 
 # Code: Je_rel32_32
@@ -15499,10 +15290,8 @@ INSTRUCTION: o32 0F 84 cd | JE rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=e br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: e
 END
 
 # Code: Je_rel32_64
@@ -15510,20 +15299,16 @@ INSTRUCTION: o64 0F 84 cd | JE rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=e br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: e
 END
 
 # Code: Jne_rel16
 INSTRUCTION: o16 0F 85 cw | JNE rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=z
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ne br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ne
 END
 
 # Code: Jne_rel32_32
@@ -15531,10 +15316,8 @@ INSTRUCTION: o32 0F 85 cd | JNE rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ne br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ne
 END
 
 # Code: Jne_rel32_64
@@ -15542,20 +15325,16 @@ INSTRUCTION: o64 0F 85 cd | JNE rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ne br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ne
 END
 
 # Code: Jbe_rel16
 INSTRUCTION: o16 0F 86 cw | JBE rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=zc
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=be br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: be
 END
 
 # Code: Jbe_rel32_32
@@ -15563,10 +15342,8 @@ INSTRUCTION: o32 0F 86 cd | JBE rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=be br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: be
 END
 
 # Code: Jbe_rel32_64
@@ -15574,20 +15351,16 @@ INSTRUCTION: o64 0F 86 cd | JBE rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=be br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: be
 END
 
 # Code: Ja_rel16
 INSTRUCTION: o16 0F 87 cw | JA rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=zc
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=a br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: a
 END
 
 # Code: Ja_rel32_32
@@ -15595,10 +15368,8 @@ INSTRUCTION: o32 0F 87 cd | JA rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=a br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: a
 END
 
 # Code: Ja_rel32_64
@@ -15606,20 +15377,16 @@ INSTRUCTION: o64 0F 87 cd | JA rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=a br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: a
 END
 
 # Code: Js_rel16
 INSTRUCTION: o16 0F 88 cw | JS rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=s
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=s br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: s
 END
 
 # Code: Js_rel32_32
@@ -15627,10 +15394,8 @@ INSTRUCTION: o32 0F 88 cd | JS rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=s br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: s
 END
 
 # Code: Js_rel32_64
@@ -15638,20 +15403,16 @@ INSTRUCTION: o64 0F 88 cd | JS rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=s br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: s
 END
 
 # Code: Jns_rel16
 INSTRUCTION: o16 0F 89 cw | JNS rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=s
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ns br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ns
 END
 
 # Code: Jns_rel32_32
@@ -15659,10 +15420,8 @@ INSTRUCTION: o32 0F 89 cd | JNS rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ns br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ns
 END
 
 # Code: Jns_rel32_64
@@ -15670,20 +15429,16 @@ INSTRUCTION: o64 0F 89 cd | JNS rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ns br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ns
 END
 
 # Code: Jp_rel16
 INSTRUCTION: o16 0F 8A cw | JP rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=p
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=p br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: p
 END
 
 # Code: Jp_rel32_32
@@ -15691,10 +15446,8 @@ INSTRUCTION: o32 0F 8A cd | JP rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=p br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: p
 END
 
 # Code: Jp_rel32_64
@@ -15702,20 +15455,16 @@ INSTRUCTION: o64 0F 8A cd | JP rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=p br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: p
 END
 
 # Code: Jnp_rel16
 INSTRUCTION: o16 0F 8B cw | JNP rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=p
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=np br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: np
 END
 
 # Code: Jnp_rel32_32
@@ -15723,10 +15472,8 @@ INSTRUCTION: o32 0F 8B cd | JNP rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=np br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: np
 END
 
 # Code: Jnp_rel32_64
@@ -15734,20 +15481,16 @@ INSTRUCTION: o64 0F 8B cd | JNP rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=np br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: np
 END
 
 # Code: Jl_rel16
 INSTRUCTION: o16 0F 8C cw | JL rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=os
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=l br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: l
 END
 
 # Code: Jl_rel32_32
@@ -15755,10 +15498,8 @@ INSTRUCTION: o32 0F 8C cd | JL rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=l br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: l
 END
 
 # Code: Jl_rel32_64
@@ -15766,20 +15507,16 @@ INSTRUCTION: o64 0F 8C cd | JL rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=l br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: l
 END
 
 # Code: Jge_rel16
 INSTRUCTION: o16 0F 8D cw | JGE rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=os
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=ge br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ge
 END
 
 # Code: Jge_rel32_32
@@ -15787,10 +15524,8 @@ INSTRUCTION: o32 0F 8D cd | JGE rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=ge br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ge
 END
 
 # Code: Jge_rel32_64
@@ -15798,20 +15533,16 @@ INSTRUCTION: o64 0F 8D cd | JGE rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=ge br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: ge
 END
 
 # Code: Jle_rel16
 INSTRUCTION: o16 0F 8E cw | JLE rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=osz
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=le br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: le
 END
 
 # Code: Jle_rel32_32
@@ -15819,10 +15550,8 @@ INSTRUCTION: o32 0F 8E cd | JLE rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=le br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: le
 END
 
 # Code: Jle_rel32_64
@@ -15830,20 +15559,16 @@ INSTRUCTION: o64 0F 8E cd | JLE rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=le br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: le
 END
 
 # Code: Jg_rel16
 INSTRUCTION: o16 0F 8F cw | JG rel16 | INTEL386
 	ops: r=br16_2
 	rflags: r=osz
-	flags: bnd ht no-intel-dec64
+	flags: bnd ht cc=g br=jcc-near no-intel-dec64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: g
 END
 
 # Code: Jg_rel32_32
@@ -15851,10 +15576,8 @@ INSTRUCTION: o32 0F 8F cd | JG rel32 | INTEL386
 	ops: r=br32_4
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht
+	flags: 16 32 bnd ht cc=g br=jcc-near
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: g
 END
 
 # Code: Jg_rel32_64
@@ -15862,17 +15585,15 @@ INSTRUCTION: o64 0F 8F cd | JG rel32 | X64
 	ops: r=br64_4
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht intel-fo64 do64
+	flags: 64 bnd ht cc=g br=jcc-near intel-fo64 do64
 	cflow: ConditionalBranch
-	branch: jcc-near
-	cc: g
 END
 
 # Code: Seto_rm8
 INSTRUCTION: 0F 90 /r | SETO r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=o
-	cc: o
+	flags: cc=o
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15883,7 +15604,7 @@ END
 INSTRUCTION: 0F 91 /r | SETNO r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=o
-	cc: no
+	flags: cc=no
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15894,7 +15615,7 @@ END
 INSTRUCTION: 0F 92 /r | SETB r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=c
-	cc: b
+	flags: cc=b
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15905,7 +15626,7 @@ END
 INSTRUCTION: 0F 93 /r | SETAE r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=c
-	cc: ae
+	flags: cc=ae
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15916,7 +15637,7 @@ END
 INSTRUCTION: 0F 94 /r | SETE r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=z
-	cc: e
+	flags: cc=e
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15927,7 +15648,7 @@ END
 INSTRUCTION: 0F 95 /r | SETNE r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=z
-	cc: ne
+	flags: cc=ne
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15938,7 +15659,7 @@ END
 INSTRUCTION: 0F 96 /r | SETBE r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=zc
-	cc: be
+	flags: cc=be
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15949,7 +15670,7 @@ END
 INSTRUCTION: 0F 97 /r | SETA r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=zc
-	cc: a
+	flags: cc=a
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15960,7 +15681,7 @@ END
 INSTRUCTION: 0F 98 /r | SETS r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=s
-	cc: s
+	flags: cc=s
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15971,7 +15692,7 @@ END
 INSTRUCTION: 0F 99 /r | SETNS r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=s
-	cc: ns
+	flags: cc=ns
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15982,7 +15703,7 @@ END
 INSTRUCTION: 0F 9A /r | SETP r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=p
-	cc: p
+	flags: cc=p
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -15993,7 +15714,7 @@ END
 INSTRUCTION: 0F 9B /r | SETNP r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=p
-	cc: np
+	flags: cc=np
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -16004,7 +15725,7 @@ END
 INSTRUCTION: 0F 9C /r | SETL r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=os
-	cc: l
+	flags: cc=l
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -16015,7 +15736,7 @@ END
 INSTRUCTION: 0F 9D /r | SETGE r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=os
-	cc: ge
+	flags: cc=ge
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -16026,7 +15747,7 @@ END
 INSTRUCTION: 0F 9E /r | SETLE r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=osz
-	cc: le
+	flags: cc=le
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -16037,7 +15758,7 @@ END
 INSTRUCTION: 0F 9F /r | SETG r/m8 | INTEL386
 	ops: w=r8_or_mem | UInt8
 	rflags: r=osz
-	cc: g
+	flags: cc=g
 	gas: suffix=b cc
 	intel: cc
 	masm: flags=force-size=default cc
@@ -17468,9 +17189,8 @@ END
 # Code: Jmpe_disp16
 INSTRUCTION: o16 0F B8 cw | JMPE disp16 | IA64
 	ops: r=brdisp_2
-	flags: 16 32
+	flags: 16 32 br=jmpe-near
 	cflow: UnconditionalBranch
-	branch: jmpe-near
 	decoder-option: Jmpe
 	gas: osz
 	nasm: osz-call
@@ -17479,9 +17199,8 @@ END
 # Code: Jmpe_disp32
 INSTRUCTION: o32 0F B8 cd | JMPE disp32 | IA64
 	ops: r=brdisp_4
-	flags: 16 32
+	flags: 16 32 br=jmpe-near
 	cflow: UnconditionalBranch
-	branch: jmpe-near
 	decoder-option: Jmpe
 	gas: osz
 	nasm: osz-call

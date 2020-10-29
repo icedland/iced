@@ -88,6 +88,8 @@ namespace Generator.Tables {
 			"fpu-pop",
 			"fpu-stack",
 			"sp",
+			"cc",
+			"br",
 		};
 
 		public InstructionDefsReader(GenTypes genTypes, string filename) {
@@ -672,66 +674,66 @@ namespace Generator.Tables {
 							}
 							break;
 
+						case "br":
+							if (state.BranchKind != BranchKind.None) {
+								Error(lineIndex, $"Duplicate {newKey}");
+								return false;
+							}
+							switch (newValue) {
+							case "jcc-short": state.BranchKind = BranchKind.JccShort; break;
+							case "jcc-near": state.BranchKind = BranchKind.JccNear; break;
+							case "jmp-short": state.BranchKind = BranchKind.JmpShort; break;
+							case "jmp-near": state.BranchKind = BranchKind.JmpNear; break;
+							case "jmp-far": state.BranchKind = BranchKind.JmpFar; break;
+							case "jmp-near-indirect": state.BranchKind = BranchKind.JmpNearIndirect; break;
+							case "jmp-far-indirect": state.BranchKind = BranchKind.JmpFarIndirect; break;
+							case "call-near": state.BranchKind = BranchKind.CallNear; break;
+							case "call-far": state.BranchKind = BranchKind.CallFar; break;
+							case "call-near-indirect": state.BranchKind = BranchKind.CallNearIndirect; break;
+							case "call-far-indirect": state.BranchKind = BranchKind.CallFarIndirect; break;
+							case "jmpe-near": state.BranchKind = BranchKind.JmpeNear; break;
+							case "jmpe-near-indirect": state.BranchKind = BranchKind.JmpeNearIndirect; break;
+							case "loop": state.BranchKind = BranchKind.Loop; break;
+							case "jrcxz": state.BranchKind = BranchKind.Jrcxz; break;
+							case "xbegin": state.BranchKind = BranchKind.Xbegin; break;
+							default:
+								Error(lineIndex, $"Unknown branch kind `{newValue}`");
+								return false;
+							}
+							break;
+
+						case "cc":
+							if (state.ConditionCode != ConditionCode.None) {
+								Error(lineIndex, $"Duplicate {newKey}");
+								return false;
+							}
+							switch (newValue) {
+							case "o": state.ConditionCode = ConditionCode.o; break;
+							case "no": state.ConditionCode = ConditionCode.no; break;
+							case "b": state.ConditionCode = ConditionCode.b; break;
+							case "ae": state.ConditionCode = ConditionCode.ae; break;
+							case "e": state.ConditionCode = ConditionCode.e; break;
+							case "ne": state.ConditionCode = ConditionCode.ne; break;
+							case "be": state.ConditionCode = ConditionCode.be; break;
+							case "a": state.ConditionCode = ConditionCode.a; break;
+							case "s": state.ConditionCode = ConditionCode.s; break;
+							case "ns": state.ConditionCode = ConditionCode.ns; break;
+							case "p": state.ConditionCode = ConditionCode.p; break;
+							case "np": state.ConditionCode = ConditionCode.np; break;
+							case "l": state.ConditionCode = ConditionCode.l; break;
+							case "ge": state.ConditionCode = ConditionCode.ge; break;
+							case "le": state.ConditionCode = ConditionCode.le; break;
+							case "g": state.ConditionCode = ConditionCode.g; break;
+							default:
+								Error(lineIndex, $"Unknown condition code `{newValue}`");
+								return false;
+							}
+							break;
+
 						default:
 							Error(lineIndex, $"Unknown flags value `{value}`");
 							return false;
 						}
-					}
-					break;
-
-				case "branch":
-					if (state.BranchKind != BranchKind.None) {
-						Error(lineIndex, $"Duplicate {lineKey}");
-						return false;
-					}
-					switch (lineValue) {
-					case "jcc-short": state.BranchKind = BranchKind.JccShort; break;
-					case "jcc-near": state.BranchKind = BranchKind.JccNear; break;
-					case "jmp-short": state.BranchKind = BranchKind.JmpShort; break;
-					case "jmp-near": state.BranchKind = BranchKind.JmpNear; break;
-					case "jmp-far": state.BranchKind = BranchKind.JmpFar; break;
-					case "jmp-near-indirect": state.BranchKind = BranchKind.JmpNearIndirect; break;
-					case "jmp-far-indirect": state.BranchKind = BranchKind.JmpFarIndirect; break;
-					case "call-near": state.BranchKind = BranchKind.CallNear; break;
-					case "call-far": state.BranchKind = BranchKind.CallFar; break;
-					case "call-near-indirect": state.BranchKind = BranchKind.CallNearIndirect; break;
-					case "call-far-indirect": state.BranchKind = BranchKind.CallFarIndirect; break;
-					case "jmpe-near": state.BranchKind = BranchKind.JmpeNear; break;
-					case "jmpe-near-indirect": state.BranchKind = BranchKind.JmpeNearIndirect; break;
-					case "loop": state.BranchKind = BranchKind.Loop; break;
-					case "jrcxz": state.BranchKind = BranchKind.Jrcxz; break;
-					case "xbegin": state.BranchKind = BranchKind.Xbegin; break;
-					default:
-						Error(lineIndex, $"Unknown branch kind `{lineValue}`");
-						return false;
-					}
-					break;
-
-				case "cc":
-					if (state.ConditionCode != ConditionCode.None) {
-						Error(lineIndex, $"Duplicate {lineKey}");
-						return false;
-					}
-					switch (lineValue) {
-					case "o": state.ConditionCode = ConditionCode.o; break;
-					case "no": state.ConditionCode = ConditionCode.no; break;
-					case "b": state.ConditionCode = ConditionCode.b; break;
-					case "ae": state.ConditionCode = ConditionCode.ae; break;
-					case "e": state.ConditionCode = ConditionCode.e; break;
-					case "ne": state.ConditionCode = ConditionCode.ne; break;
-					case "be": state.ConditionCode = ConditionCode.be; break;
-					case "a": state.ConditionCode = ConditionCode.a; break;
-					case "s": state.ConditionCode = ConditionCode.s; break;
-					case "ns": state.ConditionCode = ConditionCode.ns; break;
-					case "p": state.ConditionCode = ConditionCode.p; break;
-					case "np": state.ConditionCode = ConditionCode.np; break;
-					case "l": state.ConditionCode = ConditionCode.l; break;
-					case "ge": state.ConditionCode = ConditionCode.ge; break;
-					case "le": state.ConditionCode = ConditionCode.le; break;
-					case "g": state.ConditionCode = ConditionCode.g; break;
-					default:
-						Error(lineIndex, $"Unknown condition code `{lineValue}`");
-						return false;
 					}
 					break;
 
