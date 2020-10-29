@@ -278,7 +278,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Gets the last decoder error. Unless you need to know the reason it failed,
-		/// it's better to check if <see cref="Instruction.Code"/> == <see cref="Code.INVALID"/>.
+		/// it's better to check <see cref="Instruction.IsInvalid"/>.
 		/// </summary>
 		public DecoderError LastError {
 			get {

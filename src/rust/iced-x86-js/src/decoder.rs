@@ -373,12 +373,11 @@ impl Decoder {
 	}
 
 	/// Gets the last decoder error. Unless you need to know the reason it failed,
-	/// it's better to check if [`instruction.code`] == [`Code.INVALID`].
+	/// it's better to check [`instruction.isInvalid()`].
 	///
 	/// It returns a [`DecoderError`] enum value.
 	///
-	/// [`instruction.code`]: struct.Instruction.html#method.code
-	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
+	/// [`instruction.isInvalid()`]: struct.Instruction.html#method.is_invalid
 	/// [`DecoderError`]: enum.DecoderError.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "lastError")]

@@ -797,10 +797,9 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Gets the last decoder error. Unless you need to know the reason it failed,
-	/// it's better to check if [`instruction.code()`] == [`Code::INVALID`].
+	/// it's better to check [`instruction.is_invalid()`].
 	///
-	/// [`instruction.code()`]: struct.Instruction.html#method.code
-	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
+	/// [`instruction.is_invalid()`]: struct.Instruction.html#method.is_invalid
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn last_error(&self) -> DecoderError {
