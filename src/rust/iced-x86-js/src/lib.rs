@@ -126,13 +126,13 @@ mod instruction;
 mod mandatory_prefix;
 #[cfg(feature = "instr_create")]
 mod memory_operand;
-#[cfg(any(feature = "instr_api", feature = "instr_info"))]
+#[cfg(any(feature = "instr_api", feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
 mod memory_size;
 #[cfg(feature = "instr_info")]
 mod memory_size_ext;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod memory_size_options;
-#[cfg(feature = "instr_api")]
+#[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info")))]
 mod mnemonic;
 #[cfg(feature = "instr_info")]
 mod op_access;
@@ -201,13 +201,13 @@ pub use instruction::*;
 pub use mandatory_prefix::*;
 #[cfg(feature = "instr_create")]
 pub use memory_operand::*;
-#[cfg(any(feature = "instr_api", feature = "instr_info"))]
+#[cfg(any(feature = "instr_api", feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
 pub use memory_size::*;
 #[cfg(feature = "instr_info")]
 pub use memory_size_ext::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use memory_size_options::*;
-#[cfg(feature = "instr_api")]
+#[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info")))]
 pub use mnemonic::*;
 #[cfg(feature = "instr_info")]
 pub use op_access::*;

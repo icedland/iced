@@ -29,6 +29,7 @@ use alloc::string::String;
 pub(super) struct OpCodeInfoTestCase {
 	pub(super) line_number: u32,
 	pub(super) code: Code,
+	pub(super) mnemonic: Mnemonic,
 	pub(super) op_code_string: String,
 	pub(super) instruction_string: String,
 	pub(super) encoding: EncodingKind,
@@ -45,6 +46,8 @@ pub(super) struct OpCodeInfoTestCase {
 	pub(super) is_wig: bool,
 	pub(super) is_wig32: bool,
 	pub(super) tuple_type: TupleType,
+	pub(super) memory_size: MemorySize,
+	pub(super) broadcast_memory_size: MemorySize,
 	pub(super) decoder_option: u32,
 	pub(super) can_broadcast: bool,
 	pub(super) can_use_rounding_control: bool,

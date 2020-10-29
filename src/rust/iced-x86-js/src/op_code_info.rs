@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::code::{iced_to_code, Code};
 use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
 use super::mandatory_prefix::{iced_to_mandatory_prefix, MandatoryPrefix};
+use super::memory_size::{iced_to_memory_size, MemorySize};
+use super::mnemonic::{iced_to_mnemonic, Mnemonic};
 use super::op_code_operand_kind::{iced_to_op_code_operand_kind, OpCodeOperandKind};
 use super::op_code_table_kind::{iced_to_op_code_table_kind, OpCodeTableKind};
 use super::tuple_type::{iced_to_tuple_type, TupleType};
@@ -56,6 +58,27 @@ impl OpCodeInfo {
 	#[wasm_bindgen(getter)]
 	pub fn code(&self) -> Code {
 		iced_to_code(self.0.code())
+	}
+
+	/// Gets the mnemonic (a [`Mnemonic`] enum value)
+	///
+	/// [`Mnemonic`]: enum.Mnemonic.html
+	///
+	/// # Examples
+	///
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt, Mnemonic } = require("iced-x86");
+	///
+	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
+	/// assert.equal(opCode.mnemonic, Mnemonic.Vmovapd);
+	///
+	/// // Free wasm memory
+	/// opCode.free();
+	/// ```
+	#[wasm_bindgen(getter)]
+	pub fn mnemonic(&self) -> Mnemonic {
+		iced_to_mnemonic(self.0.mnemonic())
 	}
 
 	/// Gets the encoding (a [`EncodingKind`] enum value)
@@ -198,6 +221,28 @@ impl OpCodeInfo {
 	#[wasm_bindgen(js_name = "tupleType")]
 	pub fn tuple_type(&self) -> TupleType {
 		iced_to_tuple_type(self.0.tuple_type())
+	}
+
+	/// If it has a memory operand, gets the [`MemorySize`] (non-broadcast memory type)
+	///
+	/// Returns a [`MemorySize`] enum value
+	///
+	/// [`MemorySize`]: enum.MemorySize.html
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "memorySize")]
+	pub fn memory_size(&self) -> MemorySize {
+		iced_to_memory_size(self.0.memory_size())
+	}
+
+	/// If it has a memory operand, gets the [`MemorySize`] (broadcast memory type)
+	///
+	/// Returns a [`MemorySize`] enum value
+	///
+	/// [`MemorySize`]: enum.MemorySize.html
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "broadcastMemorySize")]
+	pub fn broadcast_memory_size(&self) -> MemorySize {
+		iced_to_memory_size(self.0.broadcast_memory_size())
 	}
 
 	/// (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)

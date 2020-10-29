@@ -28,6 +28,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 	sealed class OpCodeInfoTestCase {
 		public int LineNumber = -1;
 		public Code Code = Code.INVALID;
+		public Mnemonic Mnemonic = Mnemonic.INVALID;
 		public string OpCodeString = string.Empty;
 		public string InstructionString = string.Empty;
 		public EncodingKind Encoding = EncodingKind.Legacy;
@@ -44,6 +45,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		public bool IsWIG;
 		public bool IsWIG32;
 		public TupleType TupleType = TupleType.N1;
+		public MemorySize MemorySize = MemorySize.Unknown;
+		public MemorySize BroadcastMemorySize = MemorySize.Unknown;
 		public DecoderOptions DecoderOption = DecoderOptions.None;
 		public bool CanBroadcast;
 		public bool CanUseRoundingControl;

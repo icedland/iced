@@ -784,6 +784,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 		assert_eq!(tc.instruction_string, display);
 	}
 	assert_eq!(tc.instruction_string, info.to_string());
+	assert_eq!(tc.mnemonic, info.mnemonic());
 	assert_eq!(tc.encoding, info.encoding());
 	assert_eq!(tc.is_instruction, info.is_instruction());
 	assert_eq!(tc.mode16, info.mode16());
@@ -801,6 +802,8 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.is_wig, info.is_wig());
 	assert_eq!(tc.is_wig32, info.is_wig32());
 	assert_eq!(tc.tuple_type, info.tuple_type());
+	assert_eq!(tc.memory_size, info.memory_size());
+	assert_eq!(tc.broadcast_memory_size, info.broadcast_memory_size());
 	assert_eq!(tc.decoder_option, info.decoder_option());
 	assert_eq!(tc.can_broadcast, info.can_broadcast());
 	assert_eq!(tc.can_use_rounding_control, info.can_use_rounding_control());

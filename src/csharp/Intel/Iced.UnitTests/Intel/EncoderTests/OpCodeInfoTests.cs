@@ -44,6 +44,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal<string>(tc.InstructionString, info.ToInstructionString());
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 			Assert.True((object)info.ToInstructionString() == info.ToString());
+			Assert.Equal(tc.Mnemonic, info.Mnemonic);
 			Assert.Equal(tc.Encoding, info.Encoding);
 			Assert.Equal(tc.IsInstruction, info.IsInstruction);
 			Assert.Equal(tc.Mode16, info.Mode16);
@@ -61,6 +62,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.IsWIG, info.IsWIG);
 			Assert.Equal(tc.IsWIG32, info.IsWIG32);
 			Assert.Equal(tc.TupleType, info.TupleType);
+			Assert.Equal(tc.MemorySize, info.MemorySize);
+			Assert.Equal(tc.BroadcastMemorySize, info.BroadcastMemorySize);
 			Assert.Equal(tc.DecoderOption, info.DecoderOption);
 			Assert.Equal(tc.CanBroadcast, info.CanBroadcast);
 			Assert.Equal(tc.CanUseRoundingControl, info.CanUseRoundingControl);

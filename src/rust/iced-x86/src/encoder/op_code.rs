@@ -374,6 +374,22 @@ impl OpCodeInfo {
 		self.code
 	}
 
+	/// Gets the mnemonic
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
+	/// assert_eq!(Mnemonic::Vmovapd, op_code.mnemonic());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn mnemonic(&self) -> Mnemonic {
+		self.code.mnemonic()
+	}
+
 	/// Gets the encoding
 	///
 	/// # Examples
@@ -506,6 +522,24 @@ impl OpCodeInfo {
 	#[inline]
 	pub fn tuple_type(&self) -> TupleType {
 		self.tuple_type
+	}
+
+	/// If it has a memory operand, gets the [`MemorySize`] (non-broadcast memory type)
+	///
+	/// [`MemorySize`]: enum.MemorySize.html
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn memory_size(&self) -> MemorySize {
+		instruction_memory_sizes::SIZES[self.code() as usize]
+	}
+
+	/// If it has a memory operand, gets the [`MemorySize`] (broadcast memory type)
+	///
+	/// [`MemorySize`]: enum.MemorySize.html
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn broadcast_memory_size(&self) -> MemorySize {
+		instruction_memory_sizes::SIZES[self.code() as usize + IcedConstants::NUMBER_OF_CODE_VALUES]
 	}
 
 	/// (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)

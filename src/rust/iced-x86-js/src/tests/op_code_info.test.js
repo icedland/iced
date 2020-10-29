@@ -22,8 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 const {
-	Code, CodeExt, Decoder, DecoderOptions, EncodingKind, MandatoryPrefix, OpCodeOperandKind,
-	OpCodeTableKind, TupleType
+	Code, CodeExt, Decoder, DecoderOptions, EncodingKind, MandatoryPrefix, MemorySize,
+	Mnemonic, OpCodeOperandKind, OpCodeTableKind, TupleType
 } = require("iced-x86");
 
 test("OpCodeInfo", () => {
@@ -36,6 +36,7 @@ test("OpCodeInfo", () => {
 	expect(info1.code).toBe(Code.Add_rm64_r64);
 	expect(info2.code).toBe(Code.Add_rm64_r64);
 
+	expect(info1.mnemonic).toBe(Mnemonic.Add);
 	expect(info1.encoding).toBe(EncodingKind.Legacy);
 	expect(info1.isInstruction).toBe(true);
 	expect(info1.mode16).toBe(false);
@@ -50,6 +51,8 @@ test("OpCodeInfo", () => {
 	expect(info1.isWIG).toBe(false);
 	expect(info1.isWIG32).toBe(false);
 	expect(info1.tupleType).toBe(TupleType.N1);
+	expect(info1.memorySize).toBe(MemorySize.UInt64);
+	expect(info1.broadcastMemorySize).toBe(MemorySize.Unknown);
 	expect(info1.canBroadcast).toBe(false);
 	expect(info1.canUseRoundingControl).toBe(false);
 	expect(info1.canSuppressAllExceptions).toBe(false);

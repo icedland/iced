@@ -374,7 +374,7 @@ impl IntoIter {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::len_zero))]
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<Option<OpCodeInfoTestCase>, String> {
 		let elems: Vec<_> = line.split(',').collect();
-		if elems.len() != 8 {
+		if elems.len() != 11 {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));
 		}
 
@@ -388,18 +388,21 @@ impl IntoIter {
 			return Ok(None);
 		}
 		tc.code = to_code(elems[0].trim())?;
-		tc.encoding = self.to_encoding(elems[1].trim())?;
-		tc.mandatory_prefix = self.to_mandatory_prefix(elems[2].trim())?;
-		tc.table = self.to_table(elems[3].trim())?;
-		let (op_code, op_code_len) = Self::to_op_code(elems[4].trim())?;
+		tc.mnemonic = to_mnemonic(elems[1].trim())?;
+		tc.memory_size = to_memory_size(elems[2].trim())?;
+		tc.broadcast_memory_size = to_memory_size(elems[3].trim())?;
+		tc.encoding = self.to_encoding(elems[4].trim())?;
+		tc.mandatory_prefix = self.to_mandatory_prefix(elems[5].trim())?;
+		tc.table = self.to_table(elems[6].trim())?;
+		let (op_code, op_code_len) = Self::to_op_code(elems[7].trim())?;
 		tc.op_code = op_code;
 		tc.op_code_len = op_code_len;
-		tc.op_code_string = String::from(elems[5].trim());
-		tc.instruction_string = elems[6].trim().replace('|', ",");
+		tc.op_code_string = String::from(elems[8].trim());
+		tc.instruction_string = elems[9].trim().replace('|', ",");
 
 		let mut got_vector_length = false;
 		let mut got_w = false;
-		for part in elems[7].split_whitespace() {
+		for part in elems[10].split_whitespace() {
 			let mut key = part.trim();
 			if key.is_empty() {
 				continue;

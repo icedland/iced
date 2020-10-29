@@ -288,6 +288,11 @@ namespace Iced.Intel {
 		public Code Code => (Code)code;
 
 		/// <summary>
+		/// Gets the mnemonic
+		/// </summary>
+		public Mnemonic Mnemonic => Code.Mnemonic();
+
+		/// <summary>
 		/// Gets the encoding
 		/// </summary>
 		public EncodingKind Encoding => (EncodingKind)encoding;
@@ -358,6 +363,16 @@ namespace Iced.Intel {
 		/// (EVEX) Gets the tuple type
 		/// </summary>
 		public TupleType TupleType => (TupleType)tupleType;
+
+		/// <summary>
+		/// If it has a memory operand, gets the <see cref="MemorySize"/> (non-broadcast memory type)
+		/// </summary>
+		public MemorySize MemorySize => (MemorySize)InstructionMemorySizes.Sizes[(int)code];
+
+		/// <summary>
+		/// If it has a memory operand, gets the <see cref="MemorySize"/> (broadcast memory type)
+		/// </summary>
+		public MemorySize BroadcastMemorySize => (MemorySize)InstructionMemorySizes.Sizes[(int)code + IcedConstants.NumberOfCodeValues];
 
 		/// <summary>
 		/// (EVEX) <see langword="true"/> if the instruction supports broadcasting (<c>EVEX.b</c> bit) (if it has a memory operand)

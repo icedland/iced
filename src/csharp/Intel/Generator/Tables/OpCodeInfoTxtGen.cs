@@ -50,6 +50,15 @@ namespace Generator.Tables {
 
 			writer.Write(def.Code.RawName);
 
+			writer.Write(sep);
+			writer.Write(def.Mnemonic.RawName);
+
+			writer.Write(sep);
+			writer.Write(def.Memory.RawName);
+
+			writer.Write(sep);
+			writer.Write(def.MemoryBroadcast.RawName);
+
 			var encoding = def.Encoding switch {
 				EncodingKind.Legacy => OpCodeInfoConstants.Encoding_Legacy,
 				EncodingKind.VEX => OpCodeInfoConstants.Encoding_VEX,
