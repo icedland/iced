@@ -23,17 +23,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 
 namespace Generator.Tables {
-	[Flags]
-	enum ParsedOpCodeFlags : byte {
-		None			= 0,
-		Fwait			= 0x01,
-		ModRegRmString	= 0x02,
-	}
-
 	struct OpCodeStringParser {
 		const string D3nowPrefix = "0F 0F /r ";
 		readonly string opCodeStr;
@@ -286,6 +280,28 @@ namespace Generator.Tables {
 			else if (IsModRegRmString(value)) {
 				if (!TryParseModRegRm(value, ref result.Flags, ref result.GroupIndex, ref result.RmGroupIndex, out error))
 					return false;
+			}
+			else {
+				switch (value) {
+				case "/is4": result.Flags |= ParsedOpCodeFlags.Is4; break;
+				case "/is5": result.Flags |= ParsedOpCodeFlags.Is5; break;
+				case "/vsib": result.Flags |= ParsedOpCodeFlags.Vsib; break;
+
+				case "/r":
+				case "cb":
+				case "cd":
+				case "cp":
+				case "cw":
+				case "ib":
+				case "id":
+				case "io":
+				case "iw":
+				case "mo":
+					break;
+
+				default:
+					throw new InvalidOperationException();
+				}
 			}
 
 			error = null;
@@ -690,7 +706,7 @@ namespace Generator.Tables {
 		}
 
 		static bool TryParseHexByte(string value, out byte parsedValue, [NotNullWhen(false)] out string? error) {
-			if (value.ToUpperInvariant() != value || !byte.TryParse(value, System.Globalization.NumberStyles.AllowHexSpecifier, null, out parsedValue)) {
+			if (value.ToUpperInvariant() != value || !byte.TryParse(value, NumberStyles.AllowHexSpecifier, null, out parsedValue)) {
 				error = $"Invalid hex byte value `{value}`. It must be uppercase hex.";
 				parsedValue = 0;
 				return false;

@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 
@@ -42,6 +43,16 @@ namespace Generator.Tables {
 		L128,
 		L256,
 		L512,
+	}
+
+	[Flags]
+	enum ParsedOpCodeFlags : byte {
+		None			= 0,
+		Fwait			= 0x01,
+		ModRegRmString	= 0x02,
+		Is4				= 0x04,
+		Is5				= 0x08,
+		Vsib			= 0x10,
 	}
 
 	struct OpCodeDef {

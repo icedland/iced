@@ -54,7 +54,7 @@ namespace Generator.Tables {
 				{ "imm8-const", 1 },
 				{ "imm", 2 },
 				{ "register", 1 },
-				{ "isx", 1 },
+				{ "isx", 2 },
 				{ "opcode", 1 },
 				{ "modrm.reg", 1 },
 				{ "modrm.rm-reg-only", 1 },
@@ -168,6 +168,11 @@ namespace Generator.Tables {
 
 				case "isx":
 					register = (Register)toRegister[args[0]].Value;
+					switch (int.Parse(args[1])) {
+					case 4: break;
+					case 5: flags |= OpCodeOperandKindDefFlags.Is5; break;
+					default: throw new InvalidOperationException();
+					}
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegImm, 0, 0, register);
 					break;
 

@@ -164,6 +164,10 @@ namespace Generator.Tables {
 		/// register bits, see <see cref="OperandEncoding.RegImm"/>)
 		/// </summary>
 		M2Z					= 0x00000400,
+		/// <summary>
+		/// (if <see cref="OperandEncoding.RegImm"/>): <c>/is5</c> register operand, else <c>/is4</c>
+		/// </summary>
+		Is5					= 0x00000800,
 	}
 
 	[DebuggerDisplay("{EnumValue.RawName} {OperandEncoding} {Flags}")]
@@ -196,6 +200,9 @@ namespace Generator.Tables {
 			this.arg2 = arg2;
 			this.register = register;
 		}
+
+		internal int Arg1 => arg1;
+		internal int Arg2 => arg2;
 
 		/// <summary>
 		/// Used if <see cref="OperandEncoding"/> is

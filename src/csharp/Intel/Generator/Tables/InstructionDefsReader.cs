@@ -39,7 +39,6 @@ using Generator.InstructionInfo;
 namespace Generator.Tables {
 	sealed class InstructionDefsReader {
 		readonly StringBuilder sb;
-		readonly List<InstrStrImpliedOp> impliedOps;
 		readonly GenTypes genTypes;
 		readonly RegisterDef[] regDefs;
 		readonly MemorySizeInfoTable memSizeTbl;
@@ -60,7 +59,7 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toDecOptionValue;
 		readonly Dictionary<string, EnumValue> toMemorySize;
 		readonly Dictionary<string, EnumValue> toRegisterIgnoreCase;
-		readonly Dictionary<string, OpCodeOperandKindDef> toOpCodeOperandKindDef;
+		readonly Dictionary<OpKindKey, OpCodeOperandKindDef> toOpCodeOperandKindDef;
 		readonly EnumType fastFmtFlags;
 		readonly EnumType gasCtorKind;
 		readonly EnumType intelCtorKind;
@@ -93,9 +92,54 @@ namespace Generator.Tables {
 			"br",
 		};
 
+		readonly struct OpKindKey : IEquatable<OpKindKey> {
+			readonly OpCodeOperandKindDefFlags flags;
+			readonly OperandEncoding encoding;
+			readonly Register register;
+			readonly int size1;
+			readonly int size2;
+
+			public OpKindKey(OpCodeOperandKindDef def) {
+				flags = def.Flags & ~OpCodeOperandKindDefFlags.Modrm;
+				encoding = def.OperandEncoding;
+				register = def.Register;
+				size1 = def.Arg1;
+				size2 = def.Arg2;
+			}
+
+			public OpKindKey(OperandEncoding encoding, ParsedInstructionOperandFlags opFlags, Register register, int size1, int size2, OpCodeOperandKindDefFlags flags) {
+				if ((opFlags & ParsedInstructionOperandFlags.RegPlus1) != 0)
+					flags |= OpCodeOperandKindDefFlags.RegPlus1;
+				if ((opFlags & ParsedInstructionOperandFlags.RegPlus3) != 0)
+					flags |= OpCodeOperandKindDefFlags.RegPlus3;
+				if ((opFlags & ParsedInstructionOperandFlags.Memory) != 0)
+					flags |= OpCodeOperandKindDefFlags.Memory;
+				if ((opFlags & ParsedInstructionOperandFlags.MIB) != 0)
+					flags |= OpCodeOperandKindDefFlags.MIB;
+				if ((opFlags & ParsedInstructionOperandFlags.Sibmem) != 0)
+					flags |= OpCodeOperandKindDefFlags.SibRequired;
+				if ((opFlags & ParsedInstructionOperandFlags.Vsib) != 0) {
+					flags |= size1 switch {
+						32 => OpCodeOperandKindDefFlags.Vsib32,
+						64 => OpCodeOperandKindDefFlags.Vsib64,
+						_ => throw new InvalidOperationException(),
+					};
+					size1 = 0;
+				}
+				this.flags = flags;
+				this.encoding = encoding;
+				this.register = register;
+				this.size1 = size1;
+				this.size2 = size2;
+			}
+
+			public override bool Equals(object? obj) => obj is OpKindKey key && Equals(key);
+			public bool Equals(OpKindKey other) => flags == other.flags && encoding == other.encoding && register == other.register && size1 == other.size1 && size2 == other.size2;
+			public override int GetHashCode() => HashCode.Combine(flags, encoding, register, size1, size2);
+		}
+
 		public InstructionDefsReader(GenTypes genTypes, string filename) {
 			sb = new StringBuilder();
-			impliedOps = new List<InstrStrImpliedOp>();
 			this.genTypes = genTypes;
 			regDefs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
 			memSizeTbl = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
@@ -121,7 +165,8 @@ namespace Generator.Tables {
 			toMemorySize = CreateEnumDict(genTypes[TypeIds.MemorySize]);
 			toRegisterIgnoreCase = CreateEnumDict(genTypes[TypeIds.Register], ignoreCase: true);
 
-			toOpCodeOperandKindDef = genTypes.GetObject<OpCodeOperandKindDefs>(TypeIds.OpCodeOperandKindDefs).Defs.ToDictionary(a => a.EnumValue.RawName, a => a, StringComparer.Ordinal);
+			var opKindDefs = genTypes.GetObject<OpCodeOperandKindDefs>(TypeIds.OpCodeOperandKindDefs).Defs;
+			toOpCodeOperandKindDef = opKindDefs.ToDictionary(a => new OpKindKey(a), a => a);
 
 			fastFmtFlags = genTypes[TypeIds.FastFmtFlags];
 			gasCtorKind = genTypes[TypeIds.GasCtorKind];
@@ -256,14 +301,16 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			if (!TryReadInstrStrImpliedOps(instrStr, out var instrStrImpliedOps, out error)) {
-				Error(lineIndex, error);
+			var instrStrParser = new InstructionStringParser(instrStr);
+			if (!instrStrParser.TryParse(out var parsedInstr, out error)) {
+				Error(lineIndex, $"Instruction string: {error}");
 				return false;
 			}
+			instrStr = parsedInstr.InstructionStr;
 
 			var opCodeParser = new OpCodeStringParser(opCodeStr);
 			if (!opCodeParser.TryParse(out var parsedOpCode, out error)) {
-				Error(lineIndex, error);
+				Error(lineIndex, $"Opcode string: {error}");
 				return false;
 			}
 			switch (parsedOpCode.OpCodeLength) {
@@ -753,11 +800,252 @@ namespace Generator.Tables {
 					}
 					opAccess.Clear();
 					opKinds.Clear();
+					int opIndex = -1;
 					foreach (var (key, value) in GetKeyValues(opsParts[0].Trim())) {
+						opIndex++;
 						if (value == string.Empty) {
 							Error(lineIndex, "Missing value");
 							return false;
 						}
+						if (opIndex >= parsedInstr.Operands.Length) {
+							Error(lineIndex, $"Too many operands. The instruction has exactly {parsedInstr.Operands.Length} operands.");
+							return false;
+						}
+
+						var opFlags = OpCodeOperandKindDefFlags.None;
+						var parsedOp = parsedInstr.Operands[opIndex];
+						var parsedOpFlags = parsedOp.Flags;
+						int size1 = parsedOp.SizeBits;
+						int size2 = 0;
+						var opReg = parsedOp.Register;
+
+						OperandEncoding opEnc;
+						var opKindParts = value.Split(';').Select(a => a.Trim()).ToArray();
+						for (int i = 1; i < opKindParts.Length; i++) {
+							var flag = opKindParts[i];
+							switch (flag) {
+							case "mpx":
+								opFlags |= OpCodeOperandKindDefFlags.MPX;
+								break;
+							case "mem":
+								opFlags |= OpCodeOperandKindDefFlags.Memory;
+								break;
+							case "p1":
+								opFlags |= OpCodeOperandKindDefFlags.RegPlus1;
+								break;
+							case "p3":
+								opFlags |= OpCodeOperandKindDefFlags.RegPlus3;
+								break;
+							case "lock":
+								opFlags |= OpCodeOperandKindDefFlags.LockBit;
+								break;
+							default:
+								if (size2 == 0 && int.TryParse(flag, out size2))
+									break;
+								else {
+									Error(lineIndex, $"Unknown op flag `{flag}`");
+									return false;
+								}
+							}
+						}
+						var opKindStr = opKindParts[0];
+						switch (opKindStr) {
+						case "br-far":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.FarBranch) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected a far branch operand");
+								return false;
+							}
+							opEnc = OperandEncoding.FarBranch;
+							switch (parsedOpCode.OperandSize) {
+							case CodeSize.Code16: size1 = 16; break;
+							case CodeSize.Code32: size1 = 32; break;
+							default:
+								Error(lineIndex, $"Op {opIndex}: Expected a 16/32-bit far branch operand but got {parsedOpCode.OperandSize}");
+								return false;
+							}
+							break;
+
+						case "br":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.DispBranch) != 0)
+								opEnc = OperandEncoding.AbsNearBranch;
+							else if ((parsedOpFlags & ParsedInstructionOperandFlags.RelBranch) != 0) {
+								opEnc = OperandEncoding.NearBranch;
+								switch (parsedOpCode.OperandSize) {
+								case CodeSize.Code16: size2 = 16; break;
+								case CodeSize.Code32: size2 = 32; break;
+								case CodeSize.Code64: size2 = 64; break;
+								default:
+									Error(lineIndex, $"Op {opIndex}: Expected a 16/32/64-bit near branch operand but got {parsedOpCode.OperandSize}");
+									return false;
+								}
+							}
+							else {
+								Error(lineIndex, $"Op {opIndex}: Expected a near branch operand");
+								return false;
+							}
+							break;
+
+						case "br-x":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.RelBranch) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected a near branch operand");
+								return false;
+							}
+							opEnc = OperandEncoding.Xbegin;
+							break;
+
+						case "moffs":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.MemoryOffset) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected an moffs operand");
+								return false;
+							}
+							opEnc = OperandEncoding.MemOffset;
+							break;
+
+						case "rm":
+							switch (parsedOpFlags & (ParsedInstructionOperandFlags.Register | ParsedInstructionOperandFlags.Memory)) {
+							case ParsedInstructionOperandFlags.Register:
+								opEnc = OperandEncoding.RegModrmRm;
+								break;
+
+							case ParsedInstructionOperandFlags.Memory:
+								opEnc = OperandEncoding.MemModrmRm;
+								break;
+
+							case ParsedInstructionOperandFlags.Register | ParsedInstructionOperandFlags.Memory:
+								opEnc = OperandEncoding.RegMemModrmRm;
+								break;
+
+							default:
+								Error(lineIndex, $"Op {opIndex}: Expected a register and/or a memory operand");
+								return false;
+							}
+							break;
+
+						case "reg":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Register) == 0 || opReg == Register.None) {
+								Error(lineIndex, $"Op {opIndex}: Expected a register");
+								return false;
+							}
+							opEnc = OperandEncoding.RegModrmReg;
+							break;
+
+						case "opcode":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Register) == 0 || opReg == Register.None) {
+								Error(lineIndex, $"Op {opIndex}: Expected a register operand");
+								return false;
+							}
+							opEnc = OperandEncoding.RegOpCode;
+							break;
+
+						case "vvvv":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Register) == 0 || opReg == Register.None) {
+								Error(lineIndex, $"Op {opIndex}: Expected a register operand");
+								return false;
+							}
+							opEnc = OperandEncoding.RegVvvvv;
+							break;
+
+						case "is":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Register) == 0 || opReg == Register.None) {
+								Error(lineIndex, $"Op {opIndex}: Expected a register operand");
+								return false;
+							}
+							if ((parsedOpCode.Flags & ParsedOpCodeFlags.Is5) != 0)
+								opFlags |= OpCodeOperandKindDefFlags.Is5;
+							opEnc = OperandEncoding.RegImm;
+							break;
+
+						case "imm":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Immediate) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected an immediate operand");
+								return false;
+							}
+							if ((parsedOpCode.Flags & ParsedOpCodeFlags.Is5) != 0)
+								opFlags |= OpCodeOperandKindDefFlags.M2Z;
+							if (size2 == 0)
+								size2 = size1;
+							opEnc = OperandEncoding.Immediate;
+							break;
+
+						case "seg-rsi":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Memory) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected a memory operand");
+								return false;
+							}
+							opFlags |= OpCodeOperandKindDefFlags.Memory;
+							opEnc = OperandEncoding.SegRSI;
+							break;
+
+						case "es-rdi":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Memory) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected a memory operand");
+								return false;
+							}
+							opFlags |= OpCodeOperandKindDefFlags.Memory;
+							opEnc = OperandEncoding.ESRDI;
+							break;
+
+						case "seg-rdi":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Memory) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected a memory operand");
+								return false;
+							}
+							opFlags |= OpCodeOperandKindDefFlags.Memory;
+							opEnc = OperandEncoding.SegRDI;
+							break;
+
+						case "seg-rbx-al":
+							if ((parsedOpFlags & ParsedInstructionOperandFlags.Memory) == 0) {
+								Error(lineIndex, $"Op {opIndex}: Expected a memory operand");
+								return false;
+							}
+							opFlags |= OpCodeOperandKindDefFlags.Memory;
+							opEnc = OperandEncoding.SegRBX;
+							break;
+
+						default:
+							int index = opKindStr.IndexOf(':', StringComparison.Ordinal);
+							if (index < 0) {
+								Error(lineIndex, $"Unknown op kind `{opKindStr}`");
+								return false;
+							}
+							var opKindValue = opKindStr.Substring(index + 1).Trim();
+							opKindStr = opKindStr.Substring(0, index).Trim();
+							switch (opKindStr) {
+							case "r":
+								if ((parsedOpFlags & ParsedInstructionOperandFlags.ImpliedRegister) == 0) {
+									Error(lineIndex, $"Op {opIndex}: Expected an implied register operand");
+									return false;
+								}
+								if (!TryGetValue(toRegisterIgnoreCase, opKindValue, out var regEnumValue, out error))
+									return false;
+								opReg = (Register)regEnumValue.Value;
+								opEnc = OperandEncoding.ImpliedRegister;
+								break;
+
+							case "c":
+								if ((parsedOpFlags & ParsedInstructionOperandFlags.ConstImmediate) == 0) {
+									Error(lineIndex, $"Op {opIndex}: Expected an implied immediate operand");
+									return false;
+								}
+								if (!ParserUtils.TryParseInt32(opKindValue, out size1, out error))
+									return false;
+								opEnc = OperandEncoding.ImpliedConst;
+								break;
+
+							default:
+								Error(lineIndex, $"Unknown op kind `{opKindStr}`");
+								return false;
+							}
+							break;
+						}
+
+						var opKindKey = new OpKindKey(opEnc, parsedOpFlags, opReg, size1, size2, opFlags);
+						if (!toOpCodeOperandKindDef.TryGetValue(opKindKey, out var opKindDef)) {
+							Error(lineIndex, $"Invalid enum value `{value}`");
+							return false;
+						}
+
 						OpInfo opAccess;
 						switch (key) {
 						case "n": opAccess = OpInfo.None; break;
@@ -765,28 +1053,38 @@ namespace Generator.Tables {
 						case "cw": opAccess = OpInfo.CondWrite; break;
 						case "cw32_rw64": opAccess = OpInfo.CondWrite32_ReadWrite64; break;
 						case "nma": opAccess = OpInfo.NoMemAccess; break;
-						case "r": opAccess = OpInfo.Read; break;
+						case "r":
+							if ((opFlags & OpCodeOperandKindDefFlags.RegPlus3) != 0)
+								opAccess = OpInfo.ReadP3;
+							else
+								opAccess = OpInfo.Read;
+							break;
 						case "rcw": opAccess = OpInfo.ReadCondWrite; break;
-						case "rp3": opAccess = OpInfo.ReadP3; break;
 						case "rw": opAccess = OpInfo.ReadWrite; break;
 						case "w": opAccess = OpInfo.Write; break;
 						case "wvmm": opAccess = OpInfo.WriteVmm; break;
 						case "rwvmm": opAccess = OpInfo.ReadWriteVmm; break;
-						case "wfp1": opAccess = OpInfo.WriteForceP1; break;
+						case "wf":
+							if ((opFlags & OpCodeOperandKindDefFlags.RegPlus1) != 0)
+								opAccess = OpInfo.WriteForceP1;
+							else
+								opAccess = OpInfo.WriteForce;
+							break;
 						case "wm_rwreg": opAccess = OpInfo.WriteMem_ReadWriteReg; break;
 						default:
 							Error(lineIndex, $"Unknown op access `{key}`");
 							return false;
 						}
-						if (!toOpCodeOperandKindDef.TryGetValue(value, out var opKindDef)) {
-							Error(lineIndex, $"Invalid enum value `{value}`");
-							return false;
-						}
+
 						this.opAccess.Add(opAccess);
 						opKinds.Add(opKindDef);
 					}
 					if (opAccess.Count == 0) {
 						Error(lineIndex, "Missing op access and kind");
+						return false;
+					}
+					if (opIndex + 1 != parsedInstr.Operands.Length) {
+						Error(lineIndex, $"Too few operands. Instruction string has exactly {parsedInstr.Operands.Length} operands.");
 						return false;
 					}
 					state.OpAccess = opAccess.ToArray();
@@ -970,13 +1268,17 @@ namespace Generator.Tables {
 				state.Flags1 |= CplBits;
 			if (state.MemorySize_Broadcast != memorySizeUnknown)
 				state.Flags1 |= InstructionDefFlags1.Broadcast;
-			if (instrStr.Contains("{er}", StringComparison.Ordinal))
+			if (((state.Flags1 & InstructionDefFlags1.Broadcast) != 0) != ((parsedInstr.Flags & ParsedInstructionFlags.Broadcast) != 0)) {
+				error = "Mem size enum and instruction string's mem op aren't both broadcast or both not broadcast";
+				return false;
+			}
+			if ((parsedInstr.Flags & ParsedInstructionFlags.RoundingControl) != 0)
 				state.Flags1 |= InstructionDefFlags1.RoundingControl;
-			if (instrStr.Contains("{sae}", StringComparison.Ordinal))
+			if ((parsedInstr.Flags & ParsedInstructionFlags.SuppressAllExceptions) != 0)
 				state.Flags1 |= InstructionDefFlags1.SuppressAllExceptions;
-			if (instrStr.Contains("{k1}", StringComparison.Ordinal) || instrStr.Contains("{k2}", StringComparison.Ordinal))
+			if ((parsedInstr.Flags & ParsedInstructionFlags.OpMask) != 0)
 				state.Flags1 |= InstructionDefFlags1.OpMaskRegister;
-			if (instrStr.Contains("{z}", StringComparison.Ordinal))
+			if ((parsedInstr.Flags & ParsedInstructionFlags.ZeroingMasking) != 0)
 				state.Flags1 |= InstructionDefFlags1.ZeroingMasking;
 			switch (state.VmxMode) {
 			case VmxMode.None:
@@ -997,12 +1299,7 @@ namespace Generator.Tables {
 			static string UppercaseFirstLetter(string s) =>
 				s.Substring(0, 1).ToUpperInvariant() + s.Substring(1).ToLowerInvariant();
 
-			if (state.MnemonicStr is null) {
-				int index = instrStr.IndexOf(' ', StringComparison.Ordinal);
-				if (index < 0)
-					index = instrStr.Length;
-				state.MnemonicStr = instrStr.Substring(0, index).ToLowerInvariant();
-			}
+			state.MnemonicStr ??= parsedInstr.Mnemonic.ToLowerInvariant();
 			if (state.MnemonicStr.ToLowerInvariant() == state.MnemonicStr)
 				state.MnemonicStr = UppercaseFirstLetter(state.MnemonicStr);
 			state.CodeMnemonic ??= state.MnemonicStr;
@@ -1135,7 +1432,7 @@ namespace Generator.Tables {
 			accesses = state.ImpliedAccesses;
 			def = new InstructionDef(state.Code, state.OpCodeStr, state.InstrStr, state.Mnemonic, state.MemorySize,
 				state.MemorySize_Broadcast, state.DecoderOption, state.Flags1, state.Flags2, state.Flags3, state.InstrStrFmtOption,
-				state.InstrStrFlags, instrStrImpliedOps,
+				state.InstrStrFlags, parsedInstr.ImpliedOps,
 				state.OpCode.MandatoryPrefix, state.OpCode.Table, state.OpCode.LBit, state.OpCode.WBit, state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
@@ -1143,41 +1440,6 @@ namespace Generator.Tables {
 				state.RflagsRead, state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
 				fastDef, gasDef, intelDef, masmDef, nasmDef);
 			defLineIndex = state.LineIndex;
-			return true;
-		}
-
-		bool TryReadInstrStrImpliedOps(string instrStr, [NotNullWhen(true)] out InstrStrImpliedOp[]? instrStrImpliedOps, [NotNullWhen(false)] out string? error) {
-			instrStrImpliedOps = null;
-			impliedOps.Clear();
-			int index = instrStr.IndexOf(' ', StringComparison.Ordinal);
-			if (index >= 0) {
-				foreach (var op in instrStr.Substring(index + 1).Split(',').Select(a => a.Trim())) {
-					if (op.Length == 0) {
-						error = "Empty instruction operand";
-						return false;
-					}
-					if (op[0] == '<') {
-						if (op[^1] != '>') {
-							error = "Implied operands must be enclosed in < >";
-							return false;
-						}
-						if (op.ToUpperInvariant() != op && op.ToLowerInvariant() != op) {
-							error = $"Implied operands must be lower case or upper case: `{op}`";
-							return false;
-						}
-						impliedOps.Add(new InstrStrImpliedOp(op));
-					}
-					else {
-						if (impliedOps.Count > 0) {
-							error = "All implied operands must be the last operands";
-							return false;
-						}
-					}
-				}
-			}
-
-			instrStrImpliedOps = impliedOps.Count == 0 ? Array.Empty<InstrStrImpliedOp>() : impliedOps.ToArray();
-			error = null;
 			return true;
 		}
 
@@ -1194,7 +1456,6 @@ namespace Generator.Tables {
 				for (; index < parts.Length; index++) {
 					var part = parts[index];
 					var (key, value) = ParserUtils.GetKeyValue(part);
-					int eqIndex = part.IndexOf('=', StringComparison.Ordinal);
 					if (value == string.Empty)
 						break;
 					yield return (key, value);
