@@ -95,23 +95,19 @@ namespace Generator.Tables {
 					switch (def.OperandEncoding) {
 					case OperandEncoding.NearBranch:
 					case OperandEncoding.Xbegin:
-						sb.Append($"rel{def.BranchOffsetSize * 8}");
+						sb.Append($"rel{def.BranchOffsetSize}");
 						break;
 
 					case OperandEncoding.AbsNearBranch:
-						sb.Append($"disp{def.BranchOffsetSize * 8}");
+						sb.Append($"disp{def.BranchOffsetSize}");
 						break;
 
 					case OperandEncoding.FarBranch:
-						sb.Append($"ptr16{def.BranchOffsetSize * 8}");
+						sb.Append($"ptr16{def.BranchOffsetSize}");
 						break;
 
 					case OperandEncoding.Immediate:
-						sb.Append($"imm{def.ImmediateSize * 8}");
-						break;
-
-					case OperandEncoding.ImmediateM2z:
-						sb.Append("imm2");
+						sb.Append($"imm{def.ImmediateSize}");
 						break;
 
 					case OperandEncoding.ImpliedConst:

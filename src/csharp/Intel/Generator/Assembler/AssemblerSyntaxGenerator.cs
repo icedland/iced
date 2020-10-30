@@ -282,13 +282,13 @@ namespace Generator.Assembler {
 					case OperandEncoding.Xbegin:
 					case OperandEncoding.AbsNearBranch:
 						switch (opKindDef.BranchOffsetSize) {
-						case 1:
+						case 8:
 							argKind = ArgKind.Label;
 							opCodeArgFlags |= OpCodeArgFlags.HasBranchShort;
 							opCodeArgFlags |= OpCodeArgFlags.HasLabel;
 							break;
-						case 2:
-						case 4:
+						case 16:
+						case 32:
 							argKind = ArgKind.Label;
 							opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
 							opCodeArgFlags |= OpCodeArgFlags.HasLabel;
@@ -299,53 +299,37 @@ namespace Generator.Assembler {
 						break;
 
 					case OperandEncoding.Immediate:
-						argKind = ArgKind.Immediate;
-						argSize = opKindDef.ImmediateSize;
-						switch (opKindDef.ImmediateSize) {
-						case 1:
-							switch (opKindDef.ImmediateSignExtSize) {
-							case 1:
+						if (opKindDef.M2Z) {
+							opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteLessThanBits;
+							argKind = ArgKind.Immediate;
+							argSize = 1;
+							break;
+						}
+						else {
+							argKind = ArgKind.Immediate;
+							argSize = opKindDef.ImmediateSize / 8;
+							switch ((opKindDef.ImmediateSize, opKindDef.ImmediateSignExtSize)) {
+							case (8, 8):
 								opCodeArgFlags |= OpCodeArgFlags.HasImmediateByte;
 								break;
-							case 2:
-							case 4:
+							case (8, 16):
+							case (8, 32):
 								opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended;
 								break;
-							case 8:
+							case (8, 64):
 								opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended | OpCodeArgFlags.UnsignedUIntNotSupported;
 								break;
-							default:
-								throw new InvalidOperationException();
-							}
-							break;
-
-						case 2:
-							break;
-
-						case 4:
-							switch (opKindDef.ImmediateSignExtSize) {
-							case 4:
-								break;
-							case 8:
+							case (32, 64):
 								opCodeArgFlags |= OpCodeArgFlags.UnsignedUIntNotSupported;
 								break;
+							case (16, _):
+							case (32, 32):
+							case (64, _):
+								break;
 							default:
 								throw new InvalidOperationException();
 							}
-							break;
-
-						case 8:
-							break;
-
-						default:
-							throw new InvalidOperationException();
 						}
-						break;
-
-					case OperandEncoding.ImmediateM2z:
-						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteLessThanBits;
-						argKind = ArgKind.Immediate;
-						argSize = 1;
 						break;
 
 					case OperandEncoding.ImpliedConst:
@@ -927,7 +911,7 @@ namespace Generator.Assembler {
 			case OperandEncoding.NearBranch:
 			case OperandEncoding.Xbegin:
 			case OperandEncoding.AbsNearBranch:
-				return def.BranchOffsetSize == 1;
+				return def.BranchOffsetSize == 8;
 			}
 
 			return null;
@@ -936,9 +920,9 @@ namespace Generator.Assembler {
 		static bool? IsImmediateByteSigned(OpCodeOperandKindDef def) {
 			if (def.OperandEncoding == OperandEncoding.Immediate) {
 				switch ((def.ImmediateSize, def.ImmediateSignExtSize)) {
-				case (1, 2):
-				case (1, 4):
-				case (1, 8):
+				case (8, 16):
+				case (8, 32):
+				case (8, 64):
 					return true;
 				}
 			}
@@ -1027,11 +1011,7 @@ namespace Generator.Assembler {
 
 		int GetImmediateSizeInBits(InstructionDef def) {
 			var opKindDef = def.OpKinds[0];
-			return opKindDef.OperandEncoding switch {
-				OperandEncoding.ImmediateM2z => 2,
-				OperandEncoding.Immediate => opKindDef.ImmediateSignExtSize * 8,
-				_ => 0,
-			};
+			return opKindDef.OperandEncoding == OperandEncoding.Immediate ? opKindDef.ImmediateSignExtSize : 0;
 		}
 
 		static int GetMemorySizeInBits(MemorySizeInfoTable memorySizeInfoTable, InstructionDef[] defs, InstructionDef def) {
@@ -1080,16 +1060,14 @@ namespace Generator.Assembler {
 
 			case OperandEncoding.Immediate:
 				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
-					(4, 8) => 10,
-					(8, 8) => 10,
-					(4, 4) => 20,
-					(2, 2) => 30,
-					(1, _) => 50,
+					(32, 64) => 10,
+					(64, 64) => 10,
+					(32, 32) => 20,
+					(16, 16) => 30,
+					(8, _) => 50,
+					(2, 2) => 50,
 					_ => throw new InvalidOperationException(),
 				};
-
-			case OperandEncoding.ImmediateM2z:
-				return 50;
 
 			case OperandEncoding.ImpliedConst:
 				return 40;
@@ -1218,12 +1196,11 @@ namespace Generator.Assembler {
 				break;
 
 			case OperandEncoding.Immediate:
-				if (def.ImmediateSize == 1)
+				if (def.ImmediateSize == 2)
+					return ArgKind.FilterImmediate2;
+				if (def.ImmediateSize == 8)
 					return ArgKind.FilterImmediate8;
 				return ArgKind.Immediate;
-
-			case OperandEncoding.ImmediateM2z:
-				return ArgKind.FilterImmediate2;
 
 			case OperandEncoding.ImpliedConst:
 				if (def.ImpliedConst != 1)
@@ -1397,7 +1374,6 @@ namespace Generator.Assembler {
 			case OperandEncoding.AbsNearBranch:
 			case OperandEncoding.FarBranch:
 			case OperandEncoding.Immediate:
-			case OperandEncoding.ImmediateM2z:
 			case OperandEncoding.ImpliedConst:
 			case OperandEncoding.SegRBX:
 			case OperandEncoding.SegRSI:

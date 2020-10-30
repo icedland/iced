@@ -92,59 +92,61 @@ namespace Generator.Encoder {
 				case OperandEncoding.NearBranch:
 					opHandlerKind = OpHandlerKind.OpJ;
 					args = def.NearBranchOpSize switch {
-						16 => new object[] { opKind[nameof(OpKind.NearBranch16)], def.BranchOffsetSize },
-						32 => new object[] { opKind[nameof(OpKind.NearBranch32)], def.BranchOffsetSize },
-						64 => new object[] { opKind[nameof(OpKind.NearBranch64)], def.BranchOffsetSize },
+						16 => new object[] { opKind[nameof(OpKind.NearBranch16)], def.BranchOffsetSize / 8 },
+						32 => new object[] { opKind[nameof(OpKind.NearBranch32)], def.BranchOffsetSize / 8 },
+						64 => new object[] { opKind[nameof(OpKind.NearBranch64)], def.BranchOffsetSize / 8 },
 						_ => throw new InvalidOperationException(),
 					};
 					break;
 				case OperandEncoding.Xbegin:
 					opHandlerKind = OpHandlerKind.OpJx;
-					args = new object[] { def.BranchOffsetSize };
+					args = new object[] { def.BranchOffsetSize / 8 };
 					break;
 				case OperandEncoding.AbsNearBranch:
 					opHandlerKind = OpHandlerKind.OpJdisp;
-					args = new object[] { def.BranchOffsetSize };
+					args = new object[] { def.BranchOffsetSize / 8 };
 					break;
 				case OperandEncoding.FarBranch:
 					opHandlerKind = OpHandlerKind.OpA;
-					args = new object[] { def.BranchOffsetSize };
+					args = new object[] { def.BranchOffsetSize / 8 };
 					break;
 				case OperandEncoding.Immediate:
 					switch (def.ImmediateSize) {
-					case 1:
+					case 2:
+						if (!def.M2Z)
+							throw new InvalidOperationException();
+						opHandlerKind = OpHandlerKind.OpI2;
+						args = Array.Empty<object>();
+						break;
+					case 8:
 						opHandlerKind = OpHandlerKind.OpIb;
 						args = def.ImmediateSignExtSize switch {
-							1 => new object[] { opKind[nameof(OpKind.Immediate8)] },
-							2 => new object[] { opKind[nameof(OpKind.Immediate8to16)] },
-							4 => new object[] { opKind[nameof(OpKind.Immediate8to32)] },
-							8 => new object[] { opKind[nameof(OpKind.Immediate8to64)] },
+							8 => new object[] { opKind[nameof(OpKind.Immediate8)] },
+							16 => new object[] { opKind[nameof(OpKind.Immediate8to16)] },
+							32 => new object[] { opKind[nameof(OpKind.Immediate8to32)] },
+							64 => new object[] { opKind[nameof(OpKind.Immediate8to64)] },
 							_ => throw new InvalidOperationException(),
 						};
 						break;
-					case 2:
+					case 16:
 						opHandlerKind = OpHandlerKind.OpIw;
 						args = Array.Empty<object>();
 						break;
-					case 4:
+					case 32:
 						opHandlerKind = OpHandlerKind.OpId;
 						args = def.ImmediateSignExtSize switch {
-							4 => new object[] { opKind[nameof(OpKind.Immediate32)] },
-							8 => new object[] { opKind[nameof(OpKind.Immediate32to64)] },
+							32 => new object[] { opKind[nameof(OpKind.Immediate32)] },
+							64 => new object[] { opKind[nameof(OpKind.Immediate32to64)] },
 							_ => throw new InvalidOperationException(),
 						};
 						break;
-					case 8:
+					case 64:
 						opHandlerKind = OpHandlerKind.OpIq;
 						args = Array.Empty<object>();
 						break;
 					default:
 						throw new InvalidOperationException();
 					}
-					break;
-				case OperandEncoding.ImmediateM2z:
-					opHandlerKind = OpHandlerKind.OpI2;
-					args = Array.Empty<object>();
 					break;
 				case OperandEncoding.ImpliedConst:
 					opHandlerKind = OpHandlerKind.OpImm;

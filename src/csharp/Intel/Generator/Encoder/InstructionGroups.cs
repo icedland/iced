@@ -84,7 +84,6 @@ namespace Generator.Encoder {
 						break;
 
 					case OperandEncoding.Immediate:
-					case OperandEncoding.ImmediateM2z:
 					case OperandEncoding.ImpliedConst:
 					case OperandEncoding.ImpliedRegister:
 					case OperandEncoding.SegRBX:
@@ -209,11 +208,10 @@ namespace Generator.Encoder {
 		static InstructionOperand[] GetOperand(OpCodeOperandKindDef def) {
 			switch (def.OperandEncoding) {
 			case OperandEncoding.Immediate:
-				if (def.ImmediateSize == 8)
+				if (def.ImmediateSize == 64)
 					return new[] { InstructionOperand.Imm64 };
 				return new[] { InstructionOperand.Imm32 };
 
-			case OperandEncoding.ImmediateM2z:
 			case OperandEncoding.ImpliedConst:
 				return new[] { InstructionOperand.Imm32 };
 

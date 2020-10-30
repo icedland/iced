@@ -35,30 +35,25 @@ namespace Generator.Tables {
 		/// </summary>
 		None,
 		/// <summary>
-		/// Signed {1,2,4}-byte relative branch
+		/// Signed {8,16,32}-bit relative branch
 		/// </summary>
 		NearBranch,
 		/// <summary>
-		/// <c>XBEGIN</c> signed {2,4}-byte relative branch
+		/// <c>XBEGIN</c> signed {16,32}-bit relative branch
 		/// </summary>
 		Xbegin,
 		/// <summary>
-		/// <c>JMPE</c> unsigned {2,4}-byte offset branch (not a near relative branch)
+		/// <c>JMPE</c> unsigned {16,32}-bit offset branch (not a near relative branch)
 		/// </summary>
 		AbsNearBranch,
 		/// <summary>
-		/// Far branch (unsigned {2,4}-byte offset + unsigned 2-byte segment/selector)
+		/// Far branch (unsigned {16,32}-bit offset + unsigned 16-bit segment/selector)
 		/// </summary>
 		FarBranch,
 		/// <summary>
-		/// {1,2,4,8}-byte immediate that may or may not be sign extended
+		/// {8,16,32,64}-bit immediate that may or may not be sign extended
 		/// </summary>
 		Immediate,
-		/// <summary>
-		/// <c>/is5</c> instructions: 2-bit immediate stored in the low 2 bits of an 8-bit immediate (upper 4 bits is the
-		/// register bits, see <see cref="RegImm"/>)
-		/// </summary>
-		ImmediateM2z,
 		/// <summary>
 		/// Implied constant (eg. <c>1</c>) and not encoded in the instruction
 		/// </summary>
@@ -112,7 +107,7 @@ namespace Generator.Tables {
 		/// </summary>
 		MemModrmRm,
 		/// <summary>
-		/// The memory operand is an unsigned {2,4,8}-byte offset (no modrm byte). The size of the offset depends on the effective
+		/// The memory operand is an unsigned {16,32,64}-bit offset (no modrm byte). The size of the offset depends on the effective
 		/// address size and can be overridden with the <c>67h</c> prefix.
 		/// </summary>
 		MemOffset,
@@ -164,6 +159,11 @@ namespace Generator.Tables {
 		/// It's encoded in the modrm byte
 		/// </summary>
 		Modrm				= 0x00000200,
+		/// <summary>
+		/// <c>/is5</c> instructions: 2-bit immediate stored in the low 2 bits of an 8-bit immediate (upper 4 bits is the
+		/// register bits, see <see cref="OperandEncoding.RegImm"/>)
+		/// </summary>
+		M2Z					= 0x00000400,
 	}
 
 	[DebuggerDisplay("{EnumValue.RawName} {OperandEncoding} {Flags}")]
@@ -183,6 +183,7 @@ namespace Generator.Tables {
 		public bool Vsib32 => (Flags & OpCodeOperandKindDefFlags.Vsib32) != 0;
 		public bool Vsib64 => (Flags & OpCodeOperandKindDefFlags.Vsib64) != 0;
 		public bool Modrm => (Flags & OpCodeOperandKindDefFlags.Modrm) != 0;
+		public bool M2Z => (Flags & OpCodeOperandKindDefFlags.M2Z) != 0;
 
 		readonly int arg1, arg2;
 		readonly Register register;
@@ -204,28 +205,28 @@ namespace Generator.Tables {
 		/// <see cref="OperandEncoding.FarBranch"/>
 		/// <br/>
 		/// <br/>
-		/// Size of the branch displacement. This is 1, 2 or 4 bytes if it's a
-		/// near branch else it's 2 or 4 bytes.
+		/// Size in bits of the branch displacement. This is 8, 16 or 32 bits if it's a
+		/// near branch else it's 16 or 32 bits.
 		/// </summary>
 		public int BranchOffsetSize => arg1;
 
 		/// <summary>
 		/// Used if <see cref="OperandEncoding"/> == <see cref="OperandEncoding.NearBranch"/><br/>
 		/// <br/>
-		/// Operand size (16, 32 or 64 bits)
+		/// Operand size in bits (16, 32 or 64 bits)
 		/// </summary>
 		public int NearBranchOpSize => arg2;
 
 		/// <summary>
 		/// Used if <see cref="OperandEncoding"/> == <see cref="OperandEncoding.Immediate"/><br/>
 		/// <br/>
-		/// Size of the immediate encoded in the instruction (1, 2, 4, 8)
+		/// Size in bits of the immediate encoded in the instruction (2, 8, 16, 32, 64 bits)
 		/// </summary>
 		public int ImmediateSize => arg1;
 		/// <summary>
 		/// Used if <see cref="OperandEncoding"/> == <see cref="OperandEncoding.Immediate"/><br/>
 		/// <br/>
-		/// Size of the immediate after being sign extended (1, 2, 4, 8) and this value is &gt;= <see cref="ImmediateSize"/>
+		/// Size in bits of the immediate after being sign extended (2, 8, 16, 32, 64 bits) and this value is &gt;= <see cref="ImmediateSize"/>
 		/// </summary>
 		public int ImmediateSignExtSize => arg2;
 

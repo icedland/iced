@@ -1318,12 +1318,12 @@ namespace Generator.Tables {
 				var lastDef = def.OpKinds[^1];
 				var immTuple = lastDef.OperandEncoding == OperandEncoding.Immediate ? (lastDef.ImmediateSize, lastDef.ImmediateSignExtSize) : (-1, -1);
 				switch (immTuple) {
-				case (2, 2): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex2)]; break;
-				case (4, 4): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4)]; break;
-				case (1, 2): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to2)]; break;
-				case (1, 4): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to4)]; break;
-				case (1, 8): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to8)]; break;
-				case (4, 8): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4to8)]; break;
+				case (16, 16): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex2)]; break;
+				case (32, 32): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4)]; break;
+				case (8, 16): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to2)]; break;
+				case (8, 32): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to4)]; break;
+				case (8, 64): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex1to8)]; break;
+				case (32, 64): value = signExtendInfoType[nameof(Enums.Formatter.Nasm.SignExtendInfo.Sex4to8)]; break;
 				default:
 					enumValue = null;
 					error = "Instruction's last operand isn't a sign-extended immediate";

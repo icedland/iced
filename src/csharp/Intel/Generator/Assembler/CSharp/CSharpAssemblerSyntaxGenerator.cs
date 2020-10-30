@@ -790,19 +790,17 @@ namespace Generator.Assembler.CSharp {
 
 			case OperandEncoding.Immediate:
 				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
-					(1, 1) => arg.IsTypeSigned() ? "-5" : "127",
-					(1, 2) => "-5",
-					(1, 4) => "-9",
-					(1, 8) => "-10",
-					(2, 2) => "16567",
-					(4, 4) => "int.MaxValue",
-					(4, 8) => "int.MinValue",
-					(8, 8) => "long.MinValue",
+					(2, 2) => "3",
+					(8, 8) => arg.IsTypeSigned() ? "-5" : "127",
+					(8, 16) => "-5",
+					(8, 32) => "-9",
+					(8, 64) => "-10",
+					(16, 16) => "16567",
+					(32, 32) => "int.MaxValue",
+					(32, 64) => "int.MinValue",
+					(64, 64) => "long.MinValue",
 					_ => throw new InvalidOperationException(),
 				};
-
-			case OperandEncoding.ImmediateM2z:
-				return "3";
 
 			case OperandEncoding.ImpliedConst:
 				return def.ImpliedConst.ToString();
