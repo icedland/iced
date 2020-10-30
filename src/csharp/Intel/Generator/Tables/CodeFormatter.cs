@@ -28,6 +28,7 @@ using Generator.Enums;
 namespace Generator.Tables {
 	readonly struct CodeFormatter {
 		readonly StringBuilder sb;
+		readonly RegisterDef[] regDefs;
 		readonly MemorySizeInfoTable memSizeTbl;
 		readonly string codeMnemonic;
 		readonly string? codeSuffix;
@@ -39,10 +40,11 @@ namespace Generator.Tables {
 		readonly EncodingKind encoding;
 		readonly OpCodeOperandKindDef[] opKinds;
 
-		public CodeFormatter(StringBuilder sb, MemorySizeInfoTable memSizeTbl, string codeMnemonic, string? codeSuffix, string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds) {
+		public CodeFormatter(StringBuilder sb, RegisterDef[] regDefs, MemorySizeInfoTable memSizeTbl, string codeMnemonic, string? codeSuffix, string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds) {
 			if (codeMnemonic == string.Empty)
 				throw new ArgumentOutOfRangeException(nameof(codeMnemonic));
 			this.sb = sb;
+			this.regDefs = regDefs;
 			this.memSizeTbl = memSizeTbl;
 			this.codeMnemonic = codeMnemonic;
 			this.codeSuffix = codeSuffix;
@@ -120,7 +122,7 @@ namespace Generator.Tables {
 						if (def.Register == Register.ST0)
 							sb.Append("st0");
 						else
-							WriteRegister(def.Register.ToString());
+							WriteRegister(regDefs[(int)def.Register].Name);
 						break;
 
 					case OperandEncoding.SegRBX:
@@ -137,7 +139,7 @@ namespace Generator.Tables {
 					case OperandEncoding.RegOpCode:
 					case OperandEncoding.RegModrmReg:
 					case OperandEncoding.RegModrmRm:
-					case OperandEncoding.RegVvvv:
+					case OperandEncoding.RegVvvvv:
 						regStr = GetRegInfo(def, true).regStr;
 						if (def.Register == Register.ES)
 							sb.Append(regStr);
@@ -161,7 +163,7 @@ namespace Generator.Tables {
 						else if (def.Vsib) {
 							var sz = def.Vsib32 ? "32" : "64";
 							// x, y, z
-							var reg = def.Register.ToString().ToLowerInvariant().Substring(0, 1);
+							var reg = regDefs[(int)def.Register].Name.ToLowerInvariant().Substring(0, 1);
 							sb.Append($"vm{sz}{reg}");
 						}
 						else

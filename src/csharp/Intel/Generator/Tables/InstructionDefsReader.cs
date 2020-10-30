@@ -41,6 +41,7 @@ namespace Generator.Tables {
 		readonly StringBuilder sb;
 		readonly List<InstrStrImpliedOp> impliedOps;
 		readonly GenTypes genTypes;
+		readonly RegisterDef[] regDefs;
 		readonly MemorySizeInfoTable memSizeTbl;
 		readonly EnumValue tupleTypeN1;
 		readonly string filename;
@@ -96,6 +97,7 @@ namespace Generator.Tables {
 			sb = new StringBuilder();
 			impliedOps = new List<InstrStrImpliedOp>();
 			this.genTypes = genTypes;
+			regDefs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
 			memSizeTbl = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
 			this.filename = filename;
 			lines = File.ReadAllLines(filename);
@@ -1076,7 +1078,7 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			var codeFormatter = new CodeFormatter(sb, memSizeTbl, state.CodeMnemonic, state.CodeSuffix, state.CodeMemorySize,
+			var codeFormatter = new CodeFormatter(sb, regDefs, memSizeTbl, state.CodeMnemonic, state.CodeSuffix, state.CodeMemorySize,
 				state.CodeMemorySizeSuffix, state.MemorySize, state.MemorySize_Broadcast, state.Flags1, parsedOpCode.Encoding, state.OpKinds);
 			var codeValue = codeFormatter.Format();
 			if (usedCodeValues.TryGetValue(codeValue, out var otherLineIndex)) {

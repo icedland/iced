@@ -93,7 +93,7 @@ namespace Generator.Encoder {
 					case OperandEncoding.RegModrmReg:
 					case OperandEncoding.RegModrmRm:
 					case OperandEncoding.RegMemModrmRm:
-					case OperandEncoding.RegVvvv:
+					case OperandEncoding.RegVvvvv:
 					case OperandEncoding.MemModrmRm:
 					case OperandEncoding.MemOffset:
 						break;
@@ -222,7 +222,7 @@ namespace Generator.Encoder {
 			case OperandEncoding.RegOpCode:
 			case OperandEncoding.RegModrmReg:
 			case OperandEncoding.RegModrmRm:
-			case OperandEncoding.RegVvvv:
+			case OperandEncoding.RegVvvvv:
 				return new[] { InstructionOperand.Register };
 
 			case OperandEncoding.RegMemModrmRm:

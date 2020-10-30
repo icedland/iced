@@ -189,7 +189,7 @@ namespace Generator.Tables {
 
 				case "vvvv":
 					register = (Register)toRegister[args[0]].Value;
-					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegVvvv, 0, 0, register);
+					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegVvvvv, 0, 0, register);
 					break;
 
 				case "modrm.rm":

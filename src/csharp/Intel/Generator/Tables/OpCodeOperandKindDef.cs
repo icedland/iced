@@ -106,7 +106,7 @@ namespace Generator.Tables {
 		/// <summary>
 		/// The register operand is encoded in <c>V'vvvv</c>
 		/// </summary>
-		RegVvvv,
+		RegVvvvv,
 		/// <summary>
 		/// The memory operand is encoded in <c>modrm.mod!=11b</c> + <c>modrm.rm</c> (no register operand allowed)
 		/// </summary>
@@ -127,43 +127,43 @@ namespace Generator.Tables {
 		/// <summary>
 		/// The <c>LOCK</c> bit can be used as an extra register bit
 		/// </summary>
-		LockBit				= 0x000000001,
+		LockBit				= 0x00000001,
 		/// <summary>
 		/// 2 regs are used (bit <c>[0]</c> is ignored) (eg. <c>k1+1</c>)
 		/// </summary>
-		RegPlus1			= 0x000000002,
+		RegPlus1			= 0x00000002,
 		/// <summary>
 		/// 4 regs are used (bits <c>[1:0]</c> are ignored) (eg. <c>xmm1+3</c>)
 		/// </summary>
-		RegPlus3			= 0x000000004,
+		RegPlus3			= 0x00000004,
 		/// <summary>
 		/// It's a memory operand
 		/// </summary>
-		Memory				= 0x000000008,
+		Memory				= 0x00000008,
 		/// <summary>
 		/// MPX memory operand. Must be 32-bit addressing in 16/32-bit mode and is forced to be 64-bit addressing in 64-bit mode. RIP-relative memory operands aren't allowed.
 		/// </summary>
-		MPX					= 0x000000010,
+		MPX					= 0x00000010,
 		/// <summary>
 		/// MIB memory operand. Must be 32-bit addressing in 16/32-bit mode and is forced to be 64-bit addressing in 64-bit mode. RIP-relative memory operands aren't allowed.
 		/// </summary>
-		MIB					= 0x000000020,
+		MIB					= 0x00000020,
 		/// <summary>
 		/// A SIB byte must be present
 		/// </summary>
-		SibRequired			= 0x000000040,
+		SibRequired			= 0x00000040,
 		/// <summary>
 		/// It's a VSIB32 memory operand
 		/// </summary>
-		Vsib32				= 0x000000080,
+		Vsib32				= 0x00000080,
 		/// <summary>
 		/// It's a VSIB64 memory operand
 		/// </summary>
-		Vsib64				= 0x000000100,
+		Vsib64				= 0x00000100,
 		/// <summary>
 		/// It's encoded in the modrm byte
 		/// </summary>
-		Modrm				= 0x000000200,
+		Modrm				= 0x00000200,
 	}
 
 	[DebuggerDisplay("{EnumValue.RawName} {OperandEncoding} {Flags}")]
@@ -244,7 +244,7 @@ namespace Generator.Tables {
 		/// <see cref="OperandEncoding.RegModrmReg"/>,
 		/// <see cref="OperandEncoding.RegModrmRm"/>,
 		/// <see cref="OperandEncoding.RegMemModrmRm"/>,
-		/// <see cref="OperandEncoding.RegVvvv"/>,
+		/// <see cref="OperandEncoding.RegVvvvv"/>,
 		/// <see cref="OperandEncoding.MemModrmRm"/> (if <see cref="Vsib"/> only)
 		/// <br/>
 		/// <br/>
@@ -266,7 +266,7 @@ namespace Generator.Tables {
 				case OperandEncoding.RegModrmReg:
 				case OperandEncoding.RegModrmRm:
 				case OperandEncoding.RegMemModrmRm:
-				case OperandEncoding.RegVvvv:
+				case OperandEncoding.RegVvvvv:
 					return true;
 				case OperandEncoding.MemModrmRm:
 					return Vsib;

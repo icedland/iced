@@ -62,7 +62,7 @@ namespace Generator.Encoder {
 		internal static OpCodeOperandKindDef[] GetDefs(GenTypes genTypes, EncodingKind encoding) {
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			var opKindDefs = genTypes.GetObject<OpCodeOperandKindDefs>(TypeIds.OpCodeOperandKindDefs).Defs;
-			var none = opKindDefs.First(a => a.OperandEncoding == OperandEncoding.None);
+			var none = opKindDefs.Single(a => a.OperandEncoding == OperandEncoding.None);
 			return defs.
 				Where(a => a.Encoding == encoding).
 				SelectMany(a => a.OpKinds).

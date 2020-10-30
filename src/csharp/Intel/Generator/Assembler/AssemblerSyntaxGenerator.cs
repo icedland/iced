@@ -367,7 +367,7 @@ namespace Generator.Assembler {
 					case OperandEncoding.RegOpCode:
 					case OperandEncoding.RegModrmReg:
 					case OperandEncoding.RegModrmRm:
-					case OperandEncoding.RegVvvv:
+					case OperandEncoding.RegVvvvv:
 						argKind = GetArgKind(opKindDef, isRegMem: false);
 						break;
 
@@ -1163,7 +1163,7 @@ namespace Generator.Assembler {
 			case OperandEncoding.RegModrmReg:
 			case OperandEncoding.RegModrmRm:
 			case OperandEncoding.RegMemModrmRm:
-			case OperandEncoding.RegVvvv:
+			case OperandEncoding.RegVvvvv:
 				return def.Register switch {
 					Register.ZMM0 => -30,
 					Register.YMM0 => -20,
@@ -1302,7 +1302,7 @@ namespace Generator.Assembler {
 			case OperandEncoding.RegOpCode:
 			case OperandEncoding.RegModrmReg:
 			case OperandEncoding.RegModrmRm:
-			case OperandEncoding.RegVvvv:
+			case OperandEncoding.RegVvvvv:
 			case OperandEncoding.RegMemModrmRm:
 				if (def.OperandEncoding == OperandEncoding.RegMemModrmRm && !allowMemory)
 					break;
@@ -1385,7 +1385,7 @@ namespace Generator.Assembler {
 			case OperandEncoding.RegOpCode:
 			case OperandEncoding.RegModrmReg:
 			case OperandEncoding.RegModrmRm:
-			case OperandEncoding.RegVvvv:
+			case OperandEncoding.RegVvvvv:
 				return opKindDef.Register switch {
 					Register.AL => OpCodeSelectorKind.Register8,
 					Register.AX => OpCodeSelectorKind.Register16,

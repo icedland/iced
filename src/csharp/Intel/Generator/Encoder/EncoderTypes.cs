@@ -206,7 +206,7 @@ namespace Generator.Encoder {
 					(regLo, regHi) = GetRegisterRange(encoding, register, def.Register);
 					args = new object[] { regLo, regHi };
 					break;
-				case OperandEncoding.RegVvvv:
+				case OperandEncoding.RegVvvvv:
 					opHandlerKind = OpHandlerKind.OpHx;
 					(regLo, regHi) = GetRegisterRange(encoding, register, def.Register);
 					args = new object[] { regLo, regHi };

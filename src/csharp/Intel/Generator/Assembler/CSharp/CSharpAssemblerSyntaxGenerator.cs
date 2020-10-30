@@ -36,6 +36,7 @@ namespace Generator.Assembler.CSharp {
 	[Generator(TargetLanguage.CSharp)]
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		readonly CSharpDocCommentWriter docWriter;
+		readonly RegisterDef[] regDefs;
 
 		static readonly List<(string, int, string[], string)> declareDataList = new List<(string, int, string[], string)>() {
 			("db", 1, new [] {"byte", "sbyte"}, "CreateDeclareByte"),
@@ -55,6 +56,7 @@ namespace Generator.Assembler.CSharp {
 			: base(generatorContext.Types) {
 			Converter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(Converter);
+			regDefs = generatorContext.Types.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
 		}
 
 		IdentifierConverter Converter { get; }
@@ -873,13 +875,14 @@ namespace Generator.Assembler.CSharp {
 				return def.ImpliedConst.ToString();
 
 			case OperandEncoding.ImpliedRegister:
-				return def.Register.ToString().ToLowerInvariant();
+				var regDef = regDefs[(int)def.Register];
+				return ((Register)regDef.BaseRegister.Value == Register.ST0 ? regDef.Register.RawName : regDef.Name).ToLowerInvariant();
 
 			case OperandEncoding.RegImm:
 			case OperandEncoding.RegOpCode:
 			case OperandEncoding.RegModrmReg:
 			case OperandEncoding.RegModrmRm:
-			case OperandEncoding.RegVvvv:
+			case OperandEncoding.RegVvvvv:
 				return GetRegMemSizeInfo(def, index).regStr;
 
 			case OperandEncoding.RegMemModrmRm:
