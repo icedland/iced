@@ -3853,7 +3853,7 @@ END
 # Code: Xabort_imm8
 INSTRUCTION: C6 F8 ib | XABORT imm8 | RTM
 	ops: r=imm
-	flags: save-restore cflow=tsx tsx-abort
+	flags: save-restore tsx-abort
 END
 
 # Code: Mov_rm16_imm16
@@ -8436,7 +8436,7 @@ END
 
 # Code: Xend
 INSTRUCTION: NP 0F 01 D5 | XEND | RTM
-	flags: cflow=tsx tsx-may-abort
+	flags: tsx-may-abort
 END
 
 # Code: Xtest
@@ -29126,12 +29126,12 @@ END
 
 # Code: Xsusldtrk
 INSTRUCTION: F2 0F 01 E8 | XSUSLDTRK | TSXLDTRK
-	flags: cflow=tsx tsx-may-abort
+	flags: tsx-may-abort
 END
 
 # Code: Xresldtrk
 INSTRUCTION: F2 0F 01 E9 | XRESLDTRK | TSXLDTRK
-	flags: cflow=tsx tsx-may-abort
+	flags: tsx-may-abort
 END
 
 # Code: Invlpgbw

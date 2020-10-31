@@ -431,7 +431,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x02A00037, 0x00000000,// Lds_r16_m1616
 			0x02A00037, 0x05000000,// Lds_r32_m1632
 			0x00000037, 0x00000000,// Mov_rm8_imm8
-			0x00000004, 0x72820000,// Xabort_imm8
+			0x00000004, 0x72020000,// Xabort_imm8
 			0x00000037, 0x00000000,// Mov_rm16_imm16
 			0x00000037, 0x05000000,// Mov_rm32_imm32
 			0x00000037, 0x0C000000,// Mov_rm64_imm32
@@ -857,7 +857,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x05800000, 0x92000000,// Xgetbv
 			0x05900000, 0x92080000,// Xsetbv
 			0x05766000, 0x89000000,// Vmfunc
-			0x00000000, 0x72800000,// Xend
+			0x00000000, 0x72000000,// Xend
 			0x00098000, 0x50000000,// Xtest
 			0x05266000, 0x74000000,// Enclu
 			0x05A22000, 0x815A0000,// Vmrunw
@@ -4239,8 +4239,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x0A666000, 0x96080000,// Pvalidated
 			0x0A766000, 0x96080000,// Pvalidateq
 			0x00000000, 0x97000000,// Serialize
-			0x00000000, 0x98800000,// Xsusldtrk
-			0x00000000, 0x98800000,// Xresldtrk
+			0x00000000, 0x98000000,// Xsusldtrk
+			0x00000000, 0x98000000,// Xresldtrk
 			0x0A800000, 0x99080000,// Invlpgbw
 			0x05900000, 0x99080000,// Invlpgbd
 			0x0A900000, 0x99080000,// Invlpgbq

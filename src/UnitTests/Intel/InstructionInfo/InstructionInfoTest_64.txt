@@ -1914,7 +1914,7 @@ C6 C1 5A, Mov_rm8_imm8, Legacy, INTEL8086, op0=w op1=r w=cl
 # mov byte ptr [rax],5Ah
 C6 00 5A, Mov_rm8_imm8, Legacy, INTEL8086, op0=w op1=r r=rax wm=ds:rax;UInt8
 # xabort 5Ah
-C6 F8 5A, Xabort_imm8, Legacy, RTM, save-restore flow=XbeginXabortXend op0=r
+C6 F8 5A, Xabort_imm8, Legacy, RTM, save-restore op0=r
 # mov cx,0A55Ah
 66 C7 C1 5AA5, Mov_rm16_imm16, Legacy, INTEL8086, op0=w op1=r w=cx
 # mov word ptr [rax],0A55Ah
@@ -2910,7 +2910,7 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 # vmfunc
 0F01 D4, Vmfunc, Legacy, VMX, fw=acopsz r=eax r=ecx
 # xend
-0F01 D5, Xend, Legacy, RTM, flow=XbeginXabortXend
+0F01 D5, Xend, Legacy, RTM,
 # xtest
 0F01 D6, Xtest, Legacy, HLE_or_RTM, fw=z fc=acops
 # enclu
@@ -19146,9 +19146,9 @@ F2 0F 01 FF, Pvalidateq, Legacy, SEV_SNP, priv fw=oszacp r=ecx;edx rw=rax
 # serialize
 0F 01 E8, Serialize, Legacy, SERIALIZE,
 # xsusldtrk
-F2 0F 01 E8, Xsusldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend
+F2 0F 01 E8, Xsusldtrk, Legacy, TSXLDTRK,
 # xresldtrk
-F2 0F 01 E9, Xresldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend
+F2 0F 01 E9, Xresldtrk, Legacy, TSXLDTRK,
 # invlpgb eax
 67 0F 01 FE, Invlpgbd, Legacy, INVLPGB, priv r=eax;edx;ecx
 # invlpgb rax

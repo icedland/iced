@@ -504,7 +504,7 @@ pub enum FlowControl {
 	IndirectCall = 6,
 	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`, `SMINT`, `DMINT`
 	Interrupt = 7,
-	/// It's `XBEGIN`, `XABORT`, `XEND`, `XSUSLDTRK`, `XRESLDTRK`
+	/// It's `XBEGIN`
 	XbeginXabortXend = 8,
 	/// It's an invalid instruction, eg. [`Code::INVALID`], `UD0`, `UD1`, `UD2`
 	///
