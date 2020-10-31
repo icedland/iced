@@ -24,8 +24,7 @@
 # Code: INVALID
 INSTRUCTION: <invalid> | <invalid> | INTEL8086
 	mnemonic: INVALID
-	flags: no-instr
-	cflow: Exception
+	flags: no-instr cflow=ex
 	fast: mnemonic=(bad)
 	gas: mnemonic=(bad)
 	intel: mnemonic=(bad)
@@ -37,8 +36,7 @@ END
 INSTRUCTION: <db> | <db> | INTEL8086
 	mnemonic: db
 	code-mnemonic: DeclareByte
-	flags: no-instr
-	cflow: Exception
+	flags: no-instr cflow=ex
 	gas: mnemonic=.byte decl
 	intel: decl
 	masm: decl
@@ -49,8 +47,7 @@ END
 INSTRUCTION: <dw> | <dw> | INTEL8086
 	mnemonic: dw
 	code-mnemonic: DeclareWord
-	flags: no-instr
-	cflow: Exception
+	flags: no-instr cflow=ex
 	gas: mnemonic=.word decl
 	intel: decl
 	masm: decl
@@ -61,8 +58,7 @@ END
 INSTRUCTION: <dd> | <dd> | INTEL8086
 	mnemonic: dd
 	code-mnemonic: DeclareDword
-	flags: no-instr
-	cflow: Exception
+	flags: no-instr cflow=ex
 	gas: mnemonic=.int decl
 	intel: decl
 	masm: decl
@@ -73,8 +69,7 @@ END
 INSTRUCTION: <dq> | <dq> | INTEL8086
 	mnemonic: dq
 	code-mnemonic: DeclareQword
-	flags: no-instr
-	cflow: Exception
+	flags: no-instr cflow=ex
 	gas: mnemonic=.quad decl
 	intel: decl
 	masm: decl
@@ -1422,8 +1417,7 @@ INSTRUCTION: o16 70 cb | JO rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=o
-	flags: bnd ht cc=o br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=o br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jo_rel8_32
@@ -1431,8 +1425,7 @@ INSTRUCTION: o32 70 cb | JO rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht cc=o br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=o br=jcc-short cflow=br-cond
 END
 
 # Code: Jo_rel8_64
@@ -1440,8 +1433,7 @@ INSTRUCTION: o64 70 cb | JO rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht cc=o br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=o br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jno_rel8_16
@@ -1449,8 +1441,7 @@ INSTRUCTION: o16 71 cb | JNO rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=o
-	flags: bnd ht cc=no br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=no br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jno_rel8_32
@@ -1458,8 +1449,7 @@ INSTRUCTION: o32 71 cb | JNO rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht cc=no br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=no br=jcc-short cflow=br-cond
 END
 
 # Code: Jno_rel8_64
@@ -1467,8 +1457,7 @@ INSTRUCTION: o64 71 cb | JNO rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht cc=no br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=no br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jb_rel8_16
@@ -1476,8 +1465,7 @@ INSTRUCTION: o16 72 cb | JB rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=c
-	flags: bnd ht cc=b br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=b br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jb_rel8_32
@@ -1485,8 +1473,7 @@ INSTRUCTION: o32 72 cb | JB rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht cc=b br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=b br=jcc-short cflow=br-cond
 END
 
 # Code: Jb_rel8_64
@@ -1494,8 +1481,7 @@ INSTRUCTION: o64 72 cb | JB rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht cc=b br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=b br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jae_rel8_16
@@ -1503,8 +1489,7 @@ INSTRUCTION: o16 73 cb | JAE rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=c
-	flags: bnd ht cc=ae br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ae br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jae_rel8_32
@@ -1512,8 +1497,7 @@ INSTRUCTION: o32 73 cb | JAE rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht cc=ae br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ae br=jcc-short cflow=br-cond
 END
 
 # Code: Jae_rel8_64
@@ -1521,8 +1505,7 @@ INSTRUCTION: o64 73 cb | JAE rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht cc=ae br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ae br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Je_rel8_16
@@ -1530,8 +1513,7 @@ INSTRUCTION: o16 74 cb | JE rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=z
-	flags: bnd ht cc=e br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=e br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Je_rel8_32
@@ -1539,8 +1521,7 @@ INSTRUCTION: o32 74 cb | JE rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht cc=e br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=e br=jcc-short cflow=br-cond
 END
 
 # Code: Je_rel8_64
@@ -1548,8 +1529,7 @@ INSTRUCTION: o64 74 cb | JE rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht cc=e br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=e br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jne_rel8_16
@@ -1557,8 +1537,7 @@ INSTRUCTION: o16 75 cb | JNE rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=z
-	flags: bnd ht cc=ne br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ne br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jne_rel8_32
@@ -1566,8 +1545,7 @@ INSTRUCTION: o32 75 cb | JNE rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht cc=ne br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ne br=jcc-short cflow=br-cond
 END
 
 # Code: Jne_rel8_64
@@ -1575,8 +1553,7 @@ INSTRUCTION: o64 75 cb | JNE rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht cc=ne br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ne br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jbe_rel8_16
@@ -1584,8 +1561,7 @@ INSTRUCTION: o16 76 cb | JBE rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=zc
-	flags: bnd ht cc=be br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=be br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jbe_rel8_32
@@ -1593,8 +1569,7 @@ INSTRUCTION: o32 76 cb | JBE rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht cc=be br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=be br=jcc-short cflow=br-cond
 END
 
 # Code: Jbe_rel8_64
@@ -1602,8 +1577,7 @@ INSTRUCTION: o64 76 cb | JBE rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht cc=be br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=be br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Ja_rel8_16
@@ -1611,8 +1585,7 @@ INSTRUCTION: o16 77 cb | JA rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=zc
-	flags: bnd ht cc=a br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=a br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Ja_rel8_32
@@ -1620,8 +1593,7 @@ INSTRUCTION: o32 77 cb | JA rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht cc=a br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=a br=jcc-short cflow=br-cond
 END
 
 # Code: Ja_rel8_64
@@ -1629,8 +1601,7 @@ INSTRUCTION: o64 77 cb | JA rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht cc=a br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=a br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Js_rel8_16
@@ -1638,8 +1609,7 @@ INSTRUCTION: o16 78 cb | JS rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=s
-	flags: bnd ht cc=s br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=s br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Js_rel8_32
@@ -1647,8 +1617,7 @@ INSTRUCTION: o32 78 cb | JS rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht cc=s br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=s br=jcc-short cflow=br-cond
 END
 
 # Code: Js_rel8_64
@@ -1656,8 +1625,7 @@ INSTRUCTION: o64 78 cb | JS rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht cc=s br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=s br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jns_rel8_16
@@ -1665,8 +1633,7 @@ INSTRUCTION: o16 79 cb | JNS rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=s
-	flags: bnd ht cc=ns br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ns br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jns_rel8_32
@@ -1674,8 +1641,7 @@ INSTRUCTION: o32 79 cb | JNS rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht cc=ns br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ns br=jcc-short cflow=br-cond
 END
 
 # Code: Jns_rel8_64
@@ -1683,8 +1649,7 @@ INSTRUCTION: o64 79 cb | JNS rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht cc=ns br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ns br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jp_rel8_16
@@ -1692,8 +1657,7 @@ INSTRUCTION: o16 7A cb | JP rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=p
-	flags: bnd ht cc=p br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=p br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jp_rel8_32
@@ -1701,8 +1665,7 @@ INSTRUCTION: o32 7A cb | JP rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht cc=p br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=p br=jcc-short cflow=br-cond
 END
 
 # Code: Jp_rel8_64
@@ -1710,8 +1673,7 @@ INSTRUCTION: o64 7A cb | JP rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht cc=p br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=p br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jnp_rel8_16
@@ -1719,8 +1681,7 @@ INSTRUCTION: o16 7B cb | JNP rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=p
-	flags: bnd ht cc=np br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=np br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jnp_rel8_32
@@ -1728,8 +1689,7 @@ INSTRUCTION: o32 7B cb | JNP rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht cc=np br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=np br=jcc-short cflow=br-cond
 END
 
 # Code: Jnp_rel8_64
@@ -1737,8 +1697,7 @@ INSTRUCTION: o64 7B cb | JNP rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht cc=np br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=np br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jl_rel8_16
@@ -1746,8 +1705,7 @@ INSTRUCTION: o16 7C cb | JL rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=os
-	flags: bnd ht cc=l br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=l br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jl_rel8_32
@@ -1755,8 +1713,7 @@ INSTRUCTION: o32 7C cb | JL rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht cc=l br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=l br=jcc-short cflow=br-cond
 END
 
 # Code: Jl_rel8_64
@@ -1764,8 +1721,7 @@ INSTRUCTION: o64 7C cb | JL rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht cc=l br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=l br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jge_rel8_16
@@ -1773,8 +1729,7 @@ INSTRUCTION: o16 7D cb | JGE rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=os
-	flags: bnd ht cc=ge br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ge br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jge_rel8_32
@@ -1782,8 +1737,7 @@ INSTRUCTION: o32 7D cb | JGE rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht cc=ge br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ge br=jcc-short cflow=br-cond
 END
 
 # Code: Jge_rel8_64
@@ -1791,8 +1745,7 @@ INSTRUCTION: o64 7D cb | JGE rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht cc=ge br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ge br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jle_rel8_16
@@ -1800,8 +1753,7 @@ INSTRUCTION: o16 7E cb | JLE rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=osz
-	flags: bnd ht cc=le br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=le br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jle_rel8_32
@@ -1809,8 +1761,7 @@ INSTRUCTION: o32 7E cb | JLE rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht cc=le br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=le br=jcc-short cflow=br-cond
 END
 
 # Code: Jle_rel8_64
@@ -1818,8 +1769,7 @@ INSTRUCTION: o64 7E cb | JLE rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht cc=le br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=le br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jg_rel8_16
@@ -1827,8 +1777,7 @@ INSTRUCTION: o16 7F cb | JG rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
 	rflags: r=osz
-	flags: bnd ht cc=g br=jcc-short no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=g br=jcc-short cflow=br-cond no-intel-dec64
 END
 
 # Code: Jg_rel8_32
@@ -1836,8 +1785,7 @@ INSTRUCTION: o32 7F cb | JG rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht cc=g br=jcc-short
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=g cflow=br-cond br=jcc-short
 END
 
 # Code: Jg_rel8_64
@@ -1845,8 +1793,7 @@ INSTRUCTION: o64 7F cb | JG rel8 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht cc=g br=jcc-short intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=g br=jcc-short cflow=br-cond intel-fo64 do64
 END
 
 # Code: Add_rm8_imm8
@@ -2946,8 +2893,7 @@ INSTRUCTION: o16 9A cd | CALL ptr16:16 | INTEL8086
 	ops: r=br-far
 	implied: push=2x2
 	# VM exit if task switch
-	flags: 16 32 sp=push;4 br=call-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: Call
+	flags: 16 32 sp=push;4 br=call-far cflow=call intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=lcall suffix=w osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -2958,8 +2904,7 @@ INSTRUCTION: o32 9A cp | CALL ptr16:32 | INTEL386
 	ops: r=br-far
 	implied: push=2x4
 	# VM exit if task switch
-	flags: 16 32 sp=push;8 br=call-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: Call
+	flags: 16 32 sp=push;8 br=call-far cflow=call intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=lcall suffix=l osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -3790,8 +3735,7 @@ INSTRUCTION: o16 C2 iw | RET imm16 | INTEL8086
 	ops: r=imm
 	implied: pop=1x2
 	code-mnemonic: retnw
-	flags: sp=pop_imm16;2 bnd no-intel-dec64
-	cflow: Return
+	flags: sp=pop_imm16;2 bnd cflow=ret no-intel-dec64
 	gas: osz-suffix-2 ret retw retw
 	intel: osz-bnd
 	masm: osz-suffix-2 ret retw retw
@@ -3803,8 +3747,7 @@ INSTRUCTION: o32 C2 iw | RET imm16 | INTEL386
 	ops: r=imm
 	implied: pop=1x4
 	code-mnemonic: retnd
-	flags: 16 32 sp=pop_imm16;4 bnd
-	cflow: Return
+	flags: 16 32 sp=pop_imm16;4 bnd cflow=ret
 	gas: osz-suffix-2 retl ret retl
 	intel: osz-bnd
 	masm: osz-suffix-2 retnd ret retnd
@@ -3816,8 +3759,7 @@ INSTRUCTION: o64 C2 iw | RET imm16 | X64
 	ops: r=imm
 	implied: pop=1x8
 	code-mnemonic: retnq
-	flags: 64 sp=pop_imm16;8 bnd intel-fo64 do64
-	cflow: Return
+	flags: 64 sp=pop_imm16;8 bnd cflow=ret intel-fo64 do64
 	gas: suffix=q bnd
 	intel: bnd
 	masm: bnd
@@ -3828,8 +3770,7 @@ END
 INSTRUCTION: o16 C3 | RET | INTEL8086
 	implied: pop=1x2
 	code-mnemonic: retnw
-	flags: sp=pop;2 bnd no-intel-dec64
-	cflow: Return
+	flags: sp=pop;2 bnd cflow=ret no-intel-dec64
 	gas: osz-suffix-2 ret retw retw
 	intel: osz-bnd
 	masm: osz-suffix-2 ret retw retw
@@ -3840,8 +3781,7 @@ END
 INSTRUCTION: o32 C3 | RET | INTEL386
 	implied: pop=1x4
 	code-mnemonic: retnd
-	flags: 16 32 sp=pop;4 bnd
-	cflow: Return
+	flags: 16 32 sp=pop;4 bnd cflow=ret
 	gas: osz-suffix-2 retl ret retl
 	intel: osz-bnd
 	masm: osz-suffix-2 retnd ret retnd
@@ -3852,8 +3792,7 @@ END
 INSTRUCTION: o64 C3 | RET | X64
 	implied: pop=1x8
 	code-mnemonic: retnq
-	flags: 64 sp=pop;8 bnd intel-fo64 do64
-	cflow: Return
+	flags: 64 sp=pop;8 bnd cflow=ret intel-fo64 do64
 	gas: suffix=q bnd
 	intel: bnd
 	masm: bnd
@@ -3914,8 +3853,7 @@ END
 # Code: Xabort_imm8
 INSTRUCTION: C6 F8 ib | XABORT imm8 | RTM
 	ops: r=imm
-	flags: save-restore tsx-abort
-	cflow: XbeginXabortXend
+	flags: save-restore cflow=tsx tsx-abort
 END
 
 # Code: Mov_rm16_imm16
@@ -3955,16 +3893,14 @@ END
 INSTRUCTION: o16 C7 F8 cw | XBEGIN rel16 | RTM
 	ops: r=br-x
 	implied: cw=eax
-	flags: br=xbegin tsx-may-abort
-	cflow: XbeginXabortXend
+	flags: br=xbegin cflow=tsx tsx-may-abort
 END
 
 # Code: Xbegin_rel32
 INSTRUCTION: o32 C7 F8 cd | XBEGIN rel32 | RTM
 	ops: r=br-x
 	implied: cw=eax
-	flags: br=xbegin tsx-may-abort
-	cflow: XbeginXabortXend
+	flags: br=xbegin cflow=tsx tsx-may-abort
 END
 
 # Code: Enterw_imm16_imm8
@@ -4041,8 +3977,7 @@ INSTRUCTION: o16 CA iw | RETF imm16 | INTEL8086
 	ops: r=imm
 	implied: pop=2x2
 	code-mnemonic: retfw
-	flags: sp=pop_imm16;4 no-in-sgx tsx-impl-abort
-	cflow: Return
+	flags: sp=pop_imm16;4 cflow=ret no-in-sgx tsx-impl-abort
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
 	intel: mnemonic=ret flags=far osz
 	masm: osz-suffix-2 retf retfw retfw
@@ -4054,8 +3989,7 @@ INSTRUCTION: o32 CA iw | RETF imm16 | INTEL386
 	ops: r=imm
 	implied: pop=2x4
 	code-mnemonic: retfd
-	flags: sp=pop_imm16;8 no-in-sgx tsx-impl-abort
-	cflow: Return
+	flags: sp=pop_imm16;8 cflow=ret no-in-sgx tsx-impl-abort
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
 	intel: mnemonic=ret flags=far osz
 	masm: osz-suffix-2 retfd retf retf
@@ -4067,8 +4001,7 @@ INSTRUCTION: o64 CA iw | RETF imm16 | X64
 	ops: r=imm
 	implied: pop=2x8
 	code-mnemonic: retfq
-	flags: 64 sp=pop_imm16;16 no-in-sgx tsx-impl-abort
-	cflow: Return
+	flags: 64 sp=pop_imm16;16 cflow=ret no-in-sgx tsx-impl-abort
 	fast: mnemonic=retfq
 	gas: mnemonic=lret suffix=q osz-suffix-3 0
 	intel: mnemonic=ret flags=far;o64
@@ -4080,8 +4013,7 @@ END
 INSTRUCTION: o16 CB | RETF | INTEL8086
 	implied: pop=2x2
 	code-mnemonic: retfw
-	flags: sp=pop;4 no-in-sgx tsx-impl-abort
-	cflow: Return
+	flags: sp=pop;4 cflow=ret no-in-sgx tsx-impl-abort
 	gas: mnemonic=lret suffix=w osz-suffix-3 16
 	intel: mnemonic=ret flags=far osz
 	masm: osz-suffix-2 retf retfw retfw
@@ -4092,8 +4024,7 @@ END
 INSTRUCTION: o32 CB | RETF | INTEL386
 	implied: pop=2x4
 	code-mnemonic: retfd
-	flags: sp=pop;8 no-in-sgx tsx-impl-abort
-	cflow: Return
+	flags: sp=pop;8 cflow=ret no-in-sgx tsx-impl-abort
 	gas: mnemonic=lret suffix=l osz-suffix-3 32
 	intel: mnemonic=ret flags=far osz
 	masm: osz-suffix-2 retfd retf retf
@@ -4104,8 +4035,7 @@ END
 INSTRUCTION: o64 CB | RETF | X64
 	implied: pop=2x8
 	code-mnemonic: retfq
-	flags: 64 sp=pop;16 no-in-sgx tsx-impl-abort
-	cflow: Return
+	flags: 64 sp=pop;16 cflow=ret no-in-sgx tsx-impl-abort
 	fast: mnemonic=retfq
 	gas: mnemonic=lret suffix=q osz-suffix-3 0
 	intel: mnemonic=ret flags=far;o64
@@ -4116,8 +4046,7 @@ END
 # Code: Int3
 INSTRUCTION: CC | INT3 | INTEL8086
 	# #BP always causes transactional aborts
-	flags: intel-vm-exit amd-may-vm-exit tsx-abort
-	cflow: Interrupt
+	flags: cflow=int intel-vm-exit amd-may-vm-exit tsx-abort
 	masm: mnemonic=int int3
 END
 
@@ -4125,16 +4054,14 @@ END
 INSTRUCTION: CD ib | INT imm8 | INTEL8086
 	ops: r=imm
 	# VM exit if task switch
-	flags: intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: Interrupt
+	flags: cflow=int intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 END
 
 # Code: Into
 INSTRUCTION: CE | INTO | INTEL8086
 	rflags: r=o
 	# VM exit if OF=1
-	flags: 16 32 intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: Interrupt
+	flags: 16 32 cflow=int intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 END
 
 # Code: Iretw
@@ -4143,8 +4070,7 @@ INSTRUCTION: o16 CF | IRET | INTEL8086
 	code-mnemonic: iretw
 	rflags: w=oszacpdi
 	# VM exit if task switch
-	flags: sp=iret;2 serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: Return
+	flags: sp=iret;2 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: suffix=w osz-suffix-3 16
 	nasm: osz-suffix-3
 END
@@ -4154,8 +4080,7 @@ INSTRUCTION: o32 CF | IRETD | INTEL386
 	implied: pop;!64=3x4 pop;64=5x4 w;64=ss
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: sp=iret;4 serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: Return
+	flags: sp=iret;4 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=iret suffix=l osz-suffix-3 32
 	nasm: mnemonic=iret osz-suffix-3
 END
@@ -4165,8 +4090,7 @@ INSTRUCTION: o64 CF | IRETQ | X64
 	implied: pop=5x8 w=ss
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: 64 sp=pop;40 serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: Return
+	flags: 64 sp=pop;40 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=iret suffix=q osz-suffix-3 0
 	nasm: mnemonic=iret osz-suffix-3
 END
@@ -5851,8 +5775,7 @@ END
 INSTRUCTION: DB E5 | FRSTPM | FPU287XL_ONLY
 	#TODO: assume c0,c1,c2,c3 == undefined
 	rflags: u=0123
-	flags: 16 32 tsx-impl-abort
-	decoder-option: OldFpu
+	flags: 16 32 dec-opt=OldFpu tsx-impl-abort
 END
 
 # Code: Fucomi_st0_sti
@@ -6657,8 +6580,7 @@ INSTRUCTION: 9B DF E1 | FSTDW AX | FPU387SL_ONLY
 	ops: w=r:ax
 	#TODO: assume c0,c1,c2,c3 == undefined
 	rflags: u=0123
-	flags: 16 32 tsx-impl-abort
-	decoder-option: OldFpu
+	flags: 16 32 dec-opt=OldFpu tsx-impl-abort
 END
 
 # Code: Fstsg_AX
@@ -6666,8 +6588,7 @@ INSTRUCTION: 9B DF E2 | FSTSG AX | FPU387SL_ONLY
 	ops: w=r:ax
 	#TODO: assume c0,c1,c2,c3 == undefined
 	rflags: u=0123
-	flags: 16 32 tsx-impl-abort
-	decoder-option: OldFpu
+	flags: 16 32 dec-opt=OldFpu tsx-impl-abort
 END
 
 # Code: Fucomip_st0_sti
@@ -6698,8 +6619,7 @@ INSTRUCTION: a16 o16 E0 cb | LOOPNE rel8 | INTEL8086
 	implied: rw=cx
 	code-suffix: 16_CX
 	rflags: r=z
-	flags: 16 32 cc=ne br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 cc=ne br=loop cflow=br-cond
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6712,8 +6632,7 @@ INSTRUCTION: a16 o32 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=cx
 	code-suffix: 32_CX
 	rflags: r=z
-	flags: 16 32 cc=ne br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 cc=ne br=loop cflow=br-cond
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6726,8 +6645,7 @@ INSTRUCTION: a32 o16 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 16_ECX
 	rflags: r=z
-	flags: cc=ne br=loop no-intel-dec64
-	cflow: ConditionalBranch
+	flags: cc=ne br=loop no-intel-dec64 cflow=br-cond
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6740,8 +6658,7 @@ INSTRUCTION: a32 o32 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 32_ECX
 	rflags: r=z
-	flags: 16 32 cc=ne br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 cc=ne br=loop cflow=br-cond
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6754,8 +6671,7 @@ INSTRUCTION: a32 o64 E0 cb | LOOPNE rel8 | X64
 	implied: rw=ecx
 	code-suffix: 64_ECX
 	rflags: r=z
-	flags: 64 cc=ne br=loop intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 cc=ne br=loop cflow=br-cond intel-fo64 do64
 	fast: mnemonic=loopned
 	gas: suffix=l loop
 	intel: loop
@@ -6769,8 +6685,7 @@ INSTRUCTION: a64 o16 E0 cb | LOOPNE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 16_RCX
 	rflags: r=z
-	flags: 64 cc=ne br=loop no-intel-dec
-	cflow: ConditionalBranch
+	flags: 64 cc=ne br=loop cflow=br-cond no-intel-dec
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6783,8 +6698,7 @@ INSTRUCTION: a64 o64 E0 cb | LOOPNE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 64_RCX
 	rflags: r=z
-	flags: 64 cc=ne br=loop intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 cc=ne br=loop cflow=br-cond intel-fo64 do64
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6797,8 +6711,7 @@ INSTRUCTION: a16 o16 E1 cb | LOOPE rel8 | INTEL8086
 	implied: rw=cx
 	code-suffix: 16_CX
 	rflags: r=z
-	flags: 16 32 cc=e br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 cc=e br=loop cflow=br-cond
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6811,8 +6724,7 @@ INSTRUCTION: a16 o32 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=cx
 	code-suffix: 32_CX
 	rflags: r=z
-	flags: 16 32 cc=e br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 cc=e br=loop cflow=br-cond
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6825,8 +6737,7 @@ INSTRUCTION: a32 o16 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 16_ECX
 	rflags: r=z
-	flags: cc=e br=loop no-intel-dec64
-	cflow: ConditionalBranch
+	flags: cc=e br=loop cflow=br-cond no-intel-dec64
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6839,8 +6750,7 @@ INSTRUCTION: a32 o32 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 32_ECX
 	rflags: r=z
-	flags: 16 32 cc=e br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 cc=e br=loop cflow=br-cond
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6853,8 +6763,7 @@ INSTRUCTION: a32 o64 E1 cb | LOOPE rel8 | X64
 	implied: rw=ecx
 	code-suffix: 64_ECX
 	rflags: r=z
-	flags: 64 cc=e br=loop intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 cc=e br=loop cflow=br-cond intel-fo64 do64
 	fast: mnemonic=looped
 	gas: suffix=l loop
 	intel: loop
@@ -6868,8 +6777,7 @@ INSTRUCTION: a64 o16 E1 cb | LOOPE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 16_RCX
 	rflags: r=z
-	flags: 64 cc=e br=loop no-intel-dec
-	cflow: ConditionalBranch
+	flags: 64 cc=e br=loop cflow=br-cond no-intel-dec
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6882,8 +6790,7 @@ INSTRUCTION: a64 o64 E1 cb | LOOPE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 64_RCX
 	rflags: r=z
-	flags: 64 cc=e br=loop intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 cc=e br=loop cflow=br-cond intel-fo64 do64
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6895,8 +6802,7 @@ INSTRUCTION: a16 o16 E2 cb | LOOP rel8 | INTEL8086
 	ops: r=br
 	implied: rw=cx
 	code-suffix: 16_CX
-	flags: 16 32 br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 br=loop cflow=br-cond
 	gas: suffix=w loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -6908,8 +6814,7 @@ INSTRUCTION: a16 o32 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br
 	implied: rw=cx
 	code-suffix: 32_CX
-	flags: 16 32 br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 br=loop cflow=br-cond
 	gas: suffix=w loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -6921,8 +6826,7 @@ INSTRUCTION: a32 o16 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br
 	implied: rw=ecx
 	code-suffix: 16_ECX
-	flags: br=loop no-intel-dec64
-	cflow: ConditionalBranch
+	flags: br=loop cflow=br-cond no-intel-dec64
 	gas: suffix=l loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -6934,8 +6838,7 @@ INSTRUCTION: a32 o32 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br
 	implied: rw=ecx
 	code-suffix: 32_ECX
-	flags: 16 32 br=loop
-	cflow: ConditionalBranch
+	flags: 16 32 br=loop cflow=br-cond
 	gas: suffix=l loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -6947,8 +6850,7 @@ INSTRUCTION: a32 o64 E2 cb | LOOP rel8 | X64
 	ops: r=br
 	implied: rw=ecx
 	code-suffix: 64_ECX
-	flags: 64 br=loop intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 br=loop cflow=br-cond intel-fo64 do64
 	fast: mnemonic=loopd
 	gas: suffix=l loop
 	intel: loop
@@ -6961,8 +6863,7 @@ INSTRUCTION: a64 o16 E2 cb | LOOP rel8 | X64
 	ops: r=br
 	implied: rw=rcx
 	code-suffix: 16_RCX
-	flags: 64 br=loop no-intel-dec
-	cflow: ConditionalBranch
+	flags: 64 br=loop cflow=br-cond no-intel-dec
 	gas: suffix=q loop
 	intel: loop
 	nasm: loop
@@ -6973,8 +6874,7 @@ INSTRUCTION: a64 o64 E2 cb | LOOP rel8 | X64
 	ops: r=br
 	implied: rw=rcx
 	code-suffix: 64_RCX
-	flags: 64 br=loop intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 br=loop cflow=br-cond intel-fo64 do64
 	gas: suffix=q loop
 	intel: loop
 	nasm: loop
@@ -6985,8 +6885,7 @@ INSTRUCTION: a16 o16 E3 cb | JCXZ rel8 | INTEL8086
 	ops: r=br
 	implied: r=cx
 	code-suffix: 16
-	flags: 16 32 br=jrcxz
-	cflow: ConditionalBranch
+	flags: 16 32 br=jrcxz cflow=br-cond
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -6997,8 +6896,7 @@ INSTRUCTION: a16 o32 E3 cb | JCXZ rel8 | INTEL386
 	ops: r=br
 	implied: r=cx
 	code-suffix: 32
-	flags: 16 32 br=jrcxz
-	cflow: ConditionalBranch
+	flags: 16 32 br=jrcxz cflow=br-cond
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7009,8 +6907,7 @@ INSTRUCTION: a32 o16 E3 cb | JECXZ rel8 | INTEL386
 	ops: r=br
 	implied: r=ecx
 	code-suffix: 16
-	flags: br=jrcxz no-intel-dec64
-	cflow: ConditionalBranch
+	flags: br=jrcxz cflow=br-cond no-intel-dec64
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7021,8 +6918,7 @@ INSTRUCTION: a32 o32 E3 cb | JECXZ rel8 | INTEL386
 	ops: r=br
 	implied: r=ecx
 	code-suffix: 32
-	flags: 16 32 br=jrcxz
-	cflow: ConditionalBranch
+	flags: 16 32 br=jrcxz cflow=br-cond
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7033,8 +6929,7 @@ INSTRUCTION: a32 o64 E3 cb | JECXZ rel8 | X64
 	ops: r=br
 	implied: r=ecx
 	code-suffix: 64
-	flags: 64 br=jrcxz intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 br=jrcxz cflow=br-cond intel-fo64 do64
 	gas: osz
 	intel: osz
 	nasm: osz
@@ -7045,8 +6940,7 @@ INSTRUCTION: a64 o16 E3 cb | JRCXZ rel8 | X64
 	ops: r=br
 	implied: r=rcx
 	code-suffix: 16
-	flags: 64 br=jrcxz no-intel-dec
-	cflow: ConditionalBranch
+	flags: 64 br=jrcxz cflow=br-cond no-intel-dec
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7057,8 +6951,7 @@ INSTRUCTION: a64 o64 E3 cb | JRCXZ rel8 | X64
 	ops: r=br
 	implied: r=rcx
 	code-suffix: 64
-	flags: 64 br=jrcxz intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 br=jrcxz cflow=br-cond intel-fo64 do64
 	gas: osz
 	intel: osz
 	nasm: osz
@@ -7110,8 +7003,7 @@ END
 INSTRUCTION: o16 E8 cw | CALL rel16 | INTEL8086
 	ops: r=br
 	implied: push=1x2
-	flags: sp=push;2 br=call-near bnd no-intel-dec64
-	cflow: Call
+	flags: sp=push;2 br=call-near cflow=call bnd no-intel-dec64
 	gas: suffix=w osz-suffix-4
 	intel: osz-bnd
 	masm: bnd
@@ -7123,8 +7015,7 @@ INSTRUCTION: o32 E8 cd | CALL rel32 | INTEL386
 	ops: r=br
 	implied: push=1x4
 	code-suffix: 32
-	flags: 16 32 sp=push;4 br=call-near bnd
-	cflow: Call
+	flags: 16 32 sp=push;4 br=call-near cflow=call bnd
 	gas: suffix=l osz-suffix-4
 	intel: osz-bnd
 	masm: bnd
@@ -7136,8 +7027,7 @@ INSTRUCTION: o64 E8 cd | CALL rel32 | X64
 	ops: r=br
 	implied: push=1x8
 	code-suffix: 64
-	flags: 64 sp=push;8 br=call-near bnd intel-fo64 do64
-	cflow: Call
+	flags: 64 sp=push;8 br=call-near cflow=call bnd intel-fo64 do64
 	gas: suffix=q osz-suffix-4
 	intel: osz-bnd
 	masm: bnd
@@ -7147,8 +7037,7 @@ END
 # Code: Jmp_rel16
 INSTRUCTION: o16 E9 cw | JMP rel16 | INTEL8086
 	ops: r=br
-	flags: br=jmp-near bnd no-intel-dec64
-	cflow: UnconditionalBranch
+	flags: br=jmp-near cflow=br bnd no-intel-dec64
 	gas: osz
 	intel: osz-bnd
 	masm: bnd
@@ -7159,8 +7048,7 @@ END
 INSTRUCTION: o32 E9 cd | JMP rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
-	flags: 16 32 br=jmp-near bnd
-	cflow: UnconditionalBranch
+	flags: 16 32 br=jmp-near cflow=br bnd
 	gas: osz
 	intel: osz-bnd
 	masm: bnd
@@ -7171,8 +7059,7 @@ END
 INSTRUCTION: o64 E9 cd | JMP rel32 | X64
 	ops: r=br
 	code-suffix: 64
-	flags: 64 br=jmp-near bnd intel-fo64 do64
-	cflow: UnconditionalBranch
+	flags: 64 br=jmp-near cflow=br bnd intel-fo64 do64
 	gas: osz
 	intel: osz-bnd
 	masm: bnd
@@ -7183,8 +7070,7 @@ END
 INSTRUCTION: o16 EA cd | JMP ptr16:16 | INTEL8086
 	ops: r=br-far
 	# VM exit if task switch
-	flags: 16 32 br=jmp-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: UnconditionalBranch
+	flags: 16 32 br=jmp-far cflow=br intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=ljmp suffix=w osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -7194,8 +7080,7 @@ END
 INSTRUCTION: o32 EA cp | JMP ptr16:32 | INTEL386
 	ops: r=br-far
 	# VM exit if task switch
-	flags: 16 32 br=jmp-far intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: UnconditionalBranch
+	flags: 16 32 br=jmp-far cflow=br intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	gas: mnemonic=ljmp suffix=l osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -7205,8 +7090,7 @@ END
 INSTRUCTION: o16 EB cb | JMP rel8 | INTEL8086
 	ops: r=br
 	code-suffix: 16
-	flags: br=jmp-short no-intel-dec64
-	cflow: UnconditionalBranch
+	flags: br=jmp-short cflow=br no-intel-dec64
 	gas: osz
 	intel: flags=short osz
 	nasm: flags=short osz
@@ -7216,8 +7100,7 @@ END
 INSTRUCTION: o32 EB cb | JMP rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
-	flags: 16 32 br=jmp-short
-	cflow: UnconditionalBranch
+	flags: 16 32 br=jmp-short cflow=br
 	gas: osz
 	intel: flags=short osz
 	nasm: flags=short osz
@@ -7227,8 +7110,7 @@ END
 INSTRUCTION: o64 EB cb | JMP rel8 | X64
 	ops: r=br
 	code-suffix: 64
-	flags: 64 br=jmp-short intel-fo64 do64
-	cflow: UnconditionalBranch
+	flags: 64 br=jmp-short cflow=br intel-fo64 do64
 	gas: osz
 	intel: flags=short osz
 	nasm: flags=short osz
@@ -7279,8 +7161,7 @@ END
 # Code: Int1
 INSTRUCTION: F1 | INT1 | INTEL386
 	# #DB always causes transactional aborts
-	flags: intel-vm-exit amd-may-vm-exit tsx-abort
-	cflow: Interrupt
+	flags: cflow=int intel-vm-exit amd-may-vm-exit tsx-abort
 END
 
 # Code: Hlt
@@ -7809,8 +7690,7 @@ END
 INSTRUCTION: o16 FF /2 | CALL r/m16 | INTEL8086
 	ops: r=rm | WordOffset
 	implied: push=1x2
-	flags: sp=push;2 br=call-near-indirect bnd notrack cet-tracked no-intel-dec64
-	cflow: IndirectCall
+	flags: sp=push;2 br=call-near-indirect cflow=call-ind bnd notrack cet-tracked no-intel-dec64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=w bnd
 	intel: flags=force-size=always bnd
@@ -7822,8 +7702,7 @@ END
 INSTRUCTION: o32 FF /2 | CALL r/m32 | INTEL386
 	ops: r=rm | DwordOffset
 	implied: push=1x4
-	flags: 16 32 sp=push;4 br=call-near-indirect bnd notrack cet-tracked
-	cflow: IndirectCall
+	flags: 16 32 sp=push;4 br=call-near-indirect cflow=call-ind bnd notrack cet-tracked
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=l bnd
 	intel: flags=force-size=always bnd
@@ -7835,8 +7714,7 @@ END
 INSTRUCTION: o64 FF /2 | CALL r/m64 | X64
 	ops: r=rm | QwordOffset
 	implied: push=1x8
-	flags: 64 sp=push;8 br=call-near-indirect bnd notrack cet-tracked intel-fo64 do64
-	cflow: IndirectCall
+	flags: 64 sp=push;8 br=call-near-indirect cflow=call-ind bnd notrack cet-tracked intel-fo64 do64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=q bnd
 	intel: flags=force-size=always bnd
@@ -7850,8 +7728,7 @@ INSTRUCTION: o16 FF /3 | CALL m16:16 | INTEL8086
 	implied: push=2x2
 	code-memory-size: 1616
 	# VM exit if task switch
-	flags: sp=push;4 br=call-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: IndirectCall
+	flags: sp=push;4 br=call-far-indirect cflow=call-ind cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	fast: mnemonic=callf flags=force-size=always
 	gas: mnemonic=lcall suffix=w far
 	intel: flags=force-size=always;far
@@ -7865,8 +7742,7 @@ INSTRUCTION: o32 FF /3 | CALL m16:32 | INTEL386
 	implied: push=2x4
 	code-memory-size: 1632
 	# VM exit if task switch
-	flags: sp=push;8 br=call-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: IndirectCall
+	flags: sp=push;8 br=call-far-indirect cflow=call-ind cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	fast: mnemonic=callf flags=force-size=always
 	gas: mnemonic=lcall suffix=l far
 	intel: flags=force-size=always;far
@@ -7880,8 +7756,7 @@ INSTRUCTION: o64 FF /3 | CALL m16:64 | X64
 	implied: push=2x8
 	code-memory-size: 1664
 	# VM exit if task switch
-	flags: 64 sp=push;16 br=call-far-indirect cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx tsx-impl-abort
-	cflow: IndirectCall
+	flags: 64 sp=push;16 br=call-far-indirect cflow=call-ind cet-tracked no-amd-dec intel-may-vm-exit no-in-sgx tsx-impl-abort
 	fast: mnemonic=callf flags=force-size=always
 	gas: mnemonic=lcall far
 	intel: flags=force-size=always;far
@@ -7892,8 +7767,7 @@ END
 # Code: Jmp_rm16
 INSTRUCTION: o16 FF /4 | JMP r/m16 | INTEL8086
 	ops: r=rm | WordOffset
-	flags: bnd notrack br=jmp-near-indirect cet-tracked no-intel-dec64
-	cflow: IndirectBranch
+	flags: bnd notrack br=jmp-near-indirect cflow=br-ind cet-tracked no-intel-dec64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=w bnd
 	intel: flags=force-size=always bnd
@@ -7904,8 +7778,7 @@ END
 # Code: Jmp_rm32
 INSTRUCTION: o32 FF /4 | JMP r/m32 | INTEL386
 	ops: r=rm | DwordOffset
-	flags: 16 32 br=jmp-near-indirect bnd notrack cet-tracked
-	cflow: IndirectBranch
+	flags: 16 32 br=jmp-near-indirect cflow=br-ind bnd notrack cet-tracked
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=l bnd
 	intel: flags=force-size=always bnd
@@ -7916,8 +7789,7 @@ END
 # Code: Jmp_rm64
 INSTRUCTION: o64 FF /4 | JMP r/m64 | X64
 	ops: r=rm | QwordOffset
-	flags: 64 br=jmp-near-indirect bnd notrack cet-tracked intel-fo64 do64
-	cflow: IndirectBranch
+	flags: 64 br=jmp-near-indirect cflow=br-ind bnd notrack cet-tracked intel-fo64 do64
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix;indirect suffix=q bnd
 	intel: flags=force-size=always bnd
@@ -7930,8 +7802,7 @@ INSTRUCTION: o16 FF /5 | JMP m16:16 | INTEL8086
 	ops: r=rm | SegPtr16
 	code-memory-size: 1616
 	# VM exit if task switch
-	flags: br=jmp-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: IndirectBranch
+	flags: br=jmp-far-indirect cflow=br-ind cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	fast: mnemonic=jmpf flags=force-size=always
 	gas: mnemonic=ljmp suffix=w far
 	intel: flags=force-size=always;far
@@ -7944,8 +7815,7 @@ INSTRUCTION: o32 FF /5 | JMP m16:32 | INTEL386
 	ops: r=rm | SegPtr32
 	code-memory-size: 1632
 	# VM exit if task switch
-	flags: br=jmp-far-indirect cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
-	cflow: IndirectBranch
+	flags: br=jmp-far-indirect cflow=br-ind cet-tracked intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
 	fast: mnemonic=jmpf flags=force-size=always
 	gas: mnemonic=ljmp suffix=l far
 	intel: flags=force-size=always;far
@@ -7958,8 +7828,7 @@ INSTRUCTION: o64 FF /5 | JMP m16:64 | X64
 	ops: r=rm | SegPtr64
 	code-memory-size: 1664
 	# VM exit if task switch
-	flags: 64 br=jmp-far-indirect no-amd-dec cet-tracked intel-may-vm-exit no-in-sgx tsx-impl-abort
-	cflow: IndirectBranch
+	flags: 64 br=jmp-far-indirect cflow=br-ind no-amd-dec cet-tracked intel-may-vm-exit no-in-sgx tsx-impl-abort
 	fast: mnemonic=jmpf flags=force-size=always
 	gas: mnemonic=ljmp far
 	intel: flags=force-size=always;far
@@ -8196,9 +8065,7 @@ END
 # Code: Jmpe_rm16
 INSTRUCTION: o16 0F 00 /6 | JMPE r/m16 | IA64
 	ops: r=rm | WordOffset
-	flags: 16 32 br=jmpe-near-indirect
-	cflow: IndirectBranch
-	decoder-option: Jmpe
+	flags: 16 32 dec-opt=Jmpe br=jmpe-near-indirect cflow=br-ind
 	fast: flags=force-size=always
 	gas: flags=indirect suffix=w
 	intel: flags=force-size=always
@@ -8209,9 +8076,7 @@ END
 # Code: Jmpe_rm32
 INSTRUCTION: o32 0F 00 /6 | JMPE r/m32 | IA64
 	ops: r=rm | DwordOffset
-	flags: 16 32 br=jmpe-near-indirect
-	cflow: IndirectBranch
-	decoder-option: Jmpe
+	flags: 16 32 dec-opt=Jmpe br=jmpe-near-indirect cflow=br-ind
 	fast: flags=force-size=always
 	gas: flags=indirect suffix=l
 	intel: flags=force-size=always
@@ -8441,26 +8306,23 @@ INSTRUCTION: NP 0F 01 C1 | VMCALL | VMX
 	rflags: w=zc 0=osap
 	# It has CPL=0 but it can VM exit and the VMM doesn't need to require CPL=0, so shouldn't be marked privileged
 	#TODO: #UD if (v86 or compat) && VMX root operation
-	flags: cpl0 no-privileged vmx=op intel-vm-exit intel-smm-vm-exit no-in-sgx tdx-non-root-ve tsx-impl-abort
-	cflow: Call
+	flags: cpl0 no-privileged cflow=call vmx=op intel-vm-exit intel-smm-vm-exit no-in-sgx tdx-non-root-ve tsx-impl-abort
 END
 
 # This instruction is NP, the SDM is wrong
 # Code: Vmlaunch
 INSTRUCTION: NP 0F 01 C2 | VMLAUNCH | VMX
 	rflags: w=zc 0=osap
-	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
+	flags: cpl0 no-rm no-v86 no-cm cflow=call vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	# Continues from the next instruction on failure
-	cflow: Call
 END
 
 # This instruction is NP, the SDM is wrong
 # Code: Vmresume
 INSTRUCTION: NP 0F 01 C3 | VMRESUME | VMX
 	rflags: w=zc 0=osap
-	flags: cpl0 no-rm no-v86 no-cm vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
+	flags: cpl0 no-rm no-v86 no-cm cflow=call vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	# Continues from the next instruction on failure
-	cflow: Call
 END
 
 # This instruction is NP, the SDM is wrong
@@ -8574,8 +8436,7 @@ END
 
 # Code: Xend
 INSTRUCTION: NP 0F 01 D5 | XEND | RTM
-	flags: tsx-may-abort
-	cflow: XbeginXabortXend
+	flags: cflow=tsx tsx-may-abort
 END
 
 # Code: Xtest
@@ -8598,9 +8459,8 @@ INSTRUCTION: a16 0F 01 D8 | VMRUN | SVM
 	code-mnemonic: vmrunw
 	rflags: r=oszacpdiA
 	# Not supported in SMM: undefined behavior
-	flags: 16 32 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	# Continues from the next instruction
-	cflow: Call
+	flags: 16 32 cpl0 save-restore no-rm no-v86 cflow=call amd-may-vm-exit
 	gas: asz
 	intel: reg ax
 	masm: reg ax
@@ -8613,9 +8473,8 @@ INSTRUCTION: a32 0F 01 D8 | VMRUN | SVM
 	code-mnemonic: vmrund
 	rflags: r=oszacpdiA
 	# Not supported in SMM: undefined behavior
-	flags: cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	# Continues from the next instruction
-	cflow: Call
+	flags: cpl0 save-restore no-rm no-v86 cflow=call amd-may-vm-exit
 	gas: asz
 	intel: reg eax
 	masm: reg eax
@@ -8628,9 +8487,8 @@ INSTRUCTION: a64 0F 01 D8 | VMRUN | SVM
 	code-mnemonic: vmrunq
 	rflags: r=oszacpdiA
 	# Not supported in SMM: undefined behavior
-	flags: 64 cpl0 save-restore no-rm no-v86 amd-may-vm-exit
 	# Continues from the next instruction
-	cflow: Call
+	flags: 64 cpl0 save-restore no-rm no-v86 cflow=call amd-may-vm-exit
 	gas: asz
 	intel: reg rax
 	masm: reg rax
@@ -8640,8 +8498,7 @@ END
 # Code: Vmmcall
 INSTRUCTION: 0F 01 D9 | VMMCALL | SVM
 	# #UD if not intercepted
-	flags: amd-may-vm-exit
-	cflow: Call
+	flags: cflow=call amd-may-vm-exit
 END
 
 # Code: Vmloadw
@@ -8725,8 +8582,7 @@ INSTRUCTION: 0F 01 DE | SKINIT | SKINIT_or_SVM
 	# It also causes an INIT which clears various regs
 	implied: w=cr0;cr2-cr4 w=dr0-dr3;dr6;dr7 w=es-gs r=eax w;!64=eax-edi w;64=rax-r15
 	rflags: 0=oszacpdiA
-	flags: cpl0 no-rm no-v86 amd-may-vm-exit
-	cflow: Return
+	flags: cpl0 no-rm no-v86 cflow=ret amd-may-vm-exit
 	intel: reg eax
 	masm: reg eax
 END
@@ -8947,8 +8803,7 @@ END
 # Code: Loadallreset286
 INSTRUCTION: 0F 04 | LOADALL | INTEL286_ONLY
 	code-mnemonic: loadallreset286
-	flags: 16 32 cpl0 save-restore
-	decoder-option: Loadall286
+	flags: 16 32 dec-opt=Loadall286 cpl0 save-restore
 	fast: mnemonic=loadallreset286
 	gas: mnemonic=loadallreset286
 	intel: mnemonic=loadallreset286
@@ -8959,8 +8814,7 @@ END
 # Code: Loadall286
 INSTRUCTION: 0F 05 | LOADALL | INTEL286_ONLY
 	code-mnemonic: loadall286
-	flags: 16 32 cpl0 save-restore
-	decoder-option: Loadall286
+	flags: 16 32 dec-opt=Loadall286 cpl0 save-restore
 	fast: mnemonic=loadall286
 	gas: mnemonic=loadall286
 	intel: mnemonic=loadall286
@@ -8973,8 +8827,7 @@ INSTRUCTION: 0F 05 | SYSCALL | SYSCALL
 	implied: w=ecx w;64=r11
 	rflags: r=oszacpdiA w=oszacpdiA
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
-	flags: no-in-sgx tsx-impl-abort
-	cflow: Call
+	flags: cflow=call no-in-sgx tsx-impl-abort
 END
 
 # Code: Clts
@@ -8987,8 +8840,7 @@ END
 INSTRUCTION: 0F 07 | LOADALL | INTEL386_ONLY
 	implied: r=es;edi
 	code-mnemonic: loadall386
-	flags: 16 32 cpl0 save-restore
-	decoder-option: Loadall386
+	flags: 16 32 dec-opt=Loadall386 cpl0 save-restore
 	fast: mnemonic=loadall386
 	gas: mnemonic=loadall386
 	intel: mnemonic=loadall386
@@ -9002,8 +8854,7 @@ INSTRUCTION: 0F 07 | SYSRET | SYSCALL
 	rflags: w=oszacpdiA
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
 	# AMD: no-rm no-v86 or #GP(0)
-	flags: cpl0 tsx-impl-abort
-	cflow: Return
+	flags: cpl0 cflow=ret tsx-impl-abort
 	gas: suffix=l osz-suffix-3 16 32
 END
 
@@ -9012,8 +8863,7 @@ INSTRUCTION: o64 0F 07 | SYSRETQ | SYSCALL
 	implied: r=rcx;r11d w=cs;ss
 	rflags: w=oszacpdiA
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
-	flags: 64 cpl0 tsx-impl-abort
-	cflow: Return
+	flags: 64 cpl0 cflow=ret tsx-impl-abort
 	nasm: mnemonic=sysret flags=o64
 END
 
@@ -9034,14 +8884,12 @@ END
 
 # Code: Cl1invmb
 INSTRUCTION: 0F 0A | CL1INVMB | CL1INVMB
-	flags: 16 32 cpl0
-	decoder-option: Cl1invmb
+	flags: 16 32 dec-opt=Cl1invmb cpl0
 END
 
 # Code: Ud2
 INSTRUCTION: 0F 0B | UD2 | INTEL286
-	flags: intel-vm-exit tsx-impl-abort
-	cflow: Exception
+	flags: cflow=ex intel-vm-exit tsx-impl-abort
 END
 
 # Code: Reservednop_rm16_r16_0F0D
@@ -9108,48 +8956,42 @@ END
 # Code: Umov_rm8_r8
 INSTRUCTION: 0F 10 /r | UMOV r/m8, r8 | UMOV
 	ops: w=rm r=reg | UInt8
-	flags: 16 32
-	decoder-option: Umov
+	flags: 16 32 dec-opt=Umov
 	gas: suffix=b
 END
 
 # Code: Umov_rm16_r16
 INSTRUCTION: o16 0F 11 /r | UMOV r/m16, r16 | UMOV
 	ops: w=rm r=reg | UInt16
-	flags: 16 32
-	decoder-option: Umov
+	flags: 16 32 dec-opt=Umov
 	gas: suffix=w
 END
 
 # Code: Umov_rm32_r32
 INSTRUCTION: o32 0F 11 /r | UMOV r/m32, r32 | UMOV
 	ops: w=rm r=reg | UInt32
-	flags: 16 32
-	decoder-option: Umov
+	flags: 16 32 dec-opt=Umov
 	gas: suffix=l
 END
 
 # Code: Umov_r8_rm8
 INSTRUCTION: 0F 12 /r | UMOV r8, r/m8 | UMOV
 	ops: w=reg r=rm | UInt8
-	flags: 16 32
-	decoder-option: Umov
+	flags: 16 32 dec-opt=Umov
 	gas: suffix=b
 END
 
 # Code: Umov_r16_rm16
 INSTRUCTION: o16 0F 13 /r | UMOV r16, r/m16 | UMOV
 	ops: w=reg r=rm | UInt16
-	flags: 16 32
-	decoder-option: Umov
+	flags: 16 32 dec-opt=Umov
 	gas: suffix=w
 END
 
 # Code: Umov_r32_rm32
 INSTRUCTION: o32 0F 13 /r | UMOV r32, r/m32 | UMOV
 	ops: w=reg r=rm | UInt32
-	flags: 16 32
-	decoder-option: Umov
+	flags: 16 32 dec-opt=Umov
 	gas: suffix=l
 END
 
@@ -10114,8 +9956,7 @@ END
 INSTRUCTION: NP 0F 1A /r | BNDLDX bnd, mib | MPX
 	ops: w=reg nma=rm
 	# TSX abort if non-flat segment
-	flags: ignores-index tsx-impl-abort
-	decoder-option: MPX
+	flags: dec-opt=MPX ignores-index tsx-impl-abort
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default;mem-size=dorq
 	nasm: flags=mem-size=ignore
@@ -10124,8 +9965,7 @@ END
 # Code: Bndmov_bnd_bndm64
 INSTRUCTION: 66 0F 1A /r | BNDMOV bnd1, bnd2/m64 | MPX
 	ops: w=reg r=rm;mpx | Bnd32
-	flags: 16 32
-	decoder-option: MPX
+	flags: 16 32 dec-opt=MPX
 	intel: flags=force-size=default
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
@@ -10134,8 +9974,7 @@ END
 # Code: Bndmov_bnd_bndm128
 INSTRUCTION: 66 0F 1A /r | BNDMOV bnd1, bnd2/m128 | MPX
 	ops: w=reg r=rm;mpx | Bnd64
-	flags: 64
-	decoder-option: MPX
+	flags: 64 dec-opt=MPX
 	intel: flags=force-size=default
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
@@ -10144,8 +9983,7 @@ END
 # Code: Bndcl_bnd_rm32
 INSTRUCTION: F3 0F 1A /r | BNDCL bnd, r/m32 | MPX
 	ops: r=reg nma=rm;mpx | UInt32
-	flags: 16 32 ignores-seg
-	decoder-option: MPX
+	flags: 16 32 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
 END
@@ -10153,8 +9991,7 @@ END
 # Code: Bndcl_bnd_rm64
 INSTRUCTION: F3 0F 1A /r | BNDCL bnd, r/m64 | MPX
 	ops: r=reg nma=rm;mpx | UInt64
-	flags: 64 ignores-seg
-	decoder-option: MPX
+	flags: 64 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
 END
@@ -10162,8 +9999,7 @@ END
 # Code: Bndcu_bnd_rm32
 INSTRUCTION: F2 0F 1A /r | BNDCU bnd, r/m32 | MPX
 	ops: r=reg nma=rm;mpx | UInt32
-	flags: 16 32 ignores-seg
-	decoder-option: MPX
+	flags: 16 32 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
 END
@@ -10171,8 +10007,7 @@ END
 # Code: Bndcu_bnd_rm64
 INSTRUCTION: F2 0F 1A /r | BNDCU bnd, r/m64 | MPX
 	ops: r=reg nma=rm;mpx | UInt64
-	flags: 64 ignores-seg
-	decoder-option: MPX
+	flags: 64 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
 END
@@ -10181,8 +10016,7 @@ END
 INSTRUCTION: NP 0F 1B /r | BNDSTX mib, bnd | MPX
 	ops: nma=rm r=reg
 	# TSX abort if non-flat segment
-	flags: ignores-index tsx-impl-abort
-	decoder-option: MPX
+	flags: dec-opt=MPX ignores-index tsx-impl-abort
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default;mem-size=dorq
 	nasm: flags=mem-size=ignore
@@ -10191,8 +10025,7 @@ END
 # Code: Bndmov_bndm64_bnd
 INSTRUCTION: 66 0F 1B /r | BNDMOV bnd1/m64, bnd2 | MPX
 	ops: w=rm;mpx r=reg | Bnd32
-	flags: 16 32
-	decoder-option: MPX
+	flags: 16 32 dec-opt=MPX
 	intel: flags=force-size=default
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
@@ -10201,8 +10034,7 @@ END
 # Code: Bndmov_bndm128_bnd
 INSTRUCTION: 66 0F 1B /r | BNDMOV bnd1/m128, bnd2 | MPX
 	ops: w=rm;mpx r=reg | Bnd64
-	flags: 64
-	decoder-option: MPX
+	flags: 64 dec-opt=MPX
 	intel: flags=force-size=default
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
@@ -10211,8 +10043,7 @@ END
 # Code: Bndmk_bnd_m32
 INSTRUCTION: F3 0F 1B /r | BNDMK bnd, m32 | MPX
 	ops: w=reg nma=rm;mpx | UInt32
-	flags: 16 32 ignores-seg
-	decoder-option: MPX
+	flags: 16 32 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
@@ -10221,8 +10052,7 @@ END
 # Code: Bndmk_bnd_m64
 INSTRUCTION: F3 0F 1B /r | BNDMK bnd, m64 | MPX
 	ops: w=reg nma=rm;mpx | UInt64
-	flags: 64 ignores-seg
-	decoder-option: MPX
+	flags: 64 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	masm: flags=force-size=default
 	nasm: flags=mem-size=ignore
@@ -10231,8 +10061,7 @@ END
 # Code: Bndcn_bnd_rm32
 INSTRUCTION: F2 0F 1B /r | BNDCN bnd, r/m32 | MPX
 	ops: r=reg nma=rm;mpx | UInt32
-	flags: 16 32 ignores-seg
-	decoder-option: MPX
+	flags: 16 32 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
 END
@@ -10240,8 +10069,7 @@ END
 # Code: Bndcn_bnd_rm64
 INSTRUCTION: F2 0F 1B /r | BNDCN bnd, r/m64 | MPX
 	ops: r=reg nma=rm;mpx | UInt64
-	flags: 64 ignores-seg
-	decoder-option: MPX
+	flags: 64 dec-opt=MPX ignores-seg
 	intel: flags=mem-size=ignore
 	nasm: flags=mem-size=ignore
 END
@@ -10377,8 +10205,7 @@ END
 INSTRUCTION: 0F 24 /r | MOV r32, tr | MOV_TR
 	ops: w=rm r=reg
 	rflags: u=oszacp
-	flags: 16 32 cpl0 ignore-mod
-	decoder-option: MovTr
+	flags: 16 32 dec-opt=MovTr cpl0 ignore-mod
 	gas: suffix=l
 END
 
@@ -10386,8 +10213,7 @@ END
 INSTRUCTION: 0F 26 /r | MOV tr, r32 | MOV_TR
 	ops: w=reg r=rm
 	rflags: u=oszacp
-	flags: 16 32 cpl0 ignore-mod
-	decoder-option: MovTr
+	flags: 16 32 dec-opt=MovTr cpl0 ignore-mod
 	gas: suffix=l
 END
 
@@ -11062,8 +10888,7 @@ INSTRUCTION: 0F 34 | SYSENTER | SEP
 	implied: w=esp
 	rflags: 0=i
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
-	flags: no-in-sgx tsx-impl-abort
-	cflow: Call
+	flags: cflow=call no-in-sgx tsx-impl-abort
 END
 
 # Code: Sysexitd
@@ -11073,16 +10898,14 @@ INSTRUCTION: 0F 35 | SYSEXIT | SEP
 	code-mnemonic: sysexitd
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
 	# AMD: no-rm no-v86 or #GP(0)
-	flags: cpl0 tsx-impl-abort
-	cflow: Return
+	flags: cpl0 cflow=ret tsx-impl-abort
 END
 
 # Code: Sysexitq
 INSTRUCTION: o64 0F 35 | SYSEXITQ | SEP
 	implied: r=rcx;rdx w=rsp w=cs;ss
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
-	flags: 64 cpl0 tsx-impl-abort
-	cflow: Return
+	flags: 64 cpl0 cflow=ret tsx-impl-abort
 	gas: mnemonic=sysexit flags=o64
 	nasm: mnemonic=sysexit flags=o64
 END
@@ -15177,8 +15000,7 @@ END
 INSTRUCTION: o16 0F 80 cw | JO rel16 | INTEL386
 	ops: r=br
 	rflags: r=o
-	flags: bnd ht cc=o br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=o br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jo_rel32_32
@@ -15186,8 +15008,7 @@ INSTRUCTION: o32 0F 80 cd | JO rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht cc=o br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=o br=jcc-near cflow=br-cond
 END
 
 # Code: Jo_rel32_64
@@ -15195,16 +15016,14 @@ INSTRUCTION: o64 0F 80 cd | JO rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht cc=o br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=o br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jno_rel16
 INSTRUCTION: o16 0F 81 cw | JNO rel16 | INTEL386
 	ops: r=br
 	rflags: r=o
-	flags: bnd ht cc=no br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=no br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jno_rel32_32
@@ -15212,8 +15031,7 @@ INSTRUCTION: o32 0F 81 cd | JNO rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=o
-	flags: 16 32 bnd ht cc=no br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=no br=jcc-near cflow=br-cond
 END
 
 # Code: Jno_rel32_64
@@ -15221,16 +15039,14 @@ INSTRUCTION: o64 0F 81 cd | JNO rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=o
-	flags: 64 bnd ht cc=no br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=no br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jb_rel16
 INSTRUCTION: o16 0F 82 cw | JB rel16 | INTEL386
 	ops: r=br
 	rflags: r=c
-	flags: bnd ht cc=b br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=b br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jb_rel32_32
@@ -15238,8 +15054,7 @@ INSTRUCTION: o32 0F 82 cd | JB rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht cc=b br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=b br=jcc-near cflow=br-cond
 END
 
 # Code: Jb_rel32_64
@@ -15247,16 +15062,14 @@ INSTRUCTION: o64 0F 82 cd | JB rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht cc=b br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=b br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jae_rel16
 INSTRUCTION: o16 0F 83 cw | JAE rel16 | INTEL386
 	ops: r=br
 	rflags: r=c
-	flags: bnd ht cc=ae br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ae br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jae_rel32_32
@@ -15264,8 +15077,7 @@ INSTRUCTION: o32 0F 83 cd | JAE rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=c
-	flags: 16 32 bnd ht cc=ae br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ae br=jcc-near cflow=br-cond
 END
 
 # Code: Jae_rel32_64
@@ -15273,16 +15085,14 @@ INSTRUCTION: o64 0F 83 cd | JAE rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=c
-	flags: 64 bnd ht cc=ae br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ae br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Je_rel16
 INSTRUCTION: o16 0F 84 cw | JE rel16 | INTEL386
 	ops: r=br
 	rflags: r=z
-	flags: bnd ht cc=e br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=e br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Je_rel32_32
@@ -15290,8 +15100,7 @@ INSTRUCTION: o32 0F 84 cd | JE rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht cc=e br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=e br=jcc-near cflow=br-cond
 END
 
 # Code: Je_rel32_64
@@ -15299,16 +15108,14 @@ INSTRUCTION: o64 0F 84 cd | JE rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht cc=e br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=e br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jne_rel16
 INSTRUCTION: o16 0F 85 cw | JNE rel16 | INTEL386
 	ops: r=br
 	rflags: r=z
-	flags: bnd ht cc=ne br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ne br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jne_rel32_32
@@ -15316,8 +15123,7 @@ INSTRUCTION: o32 0F 85 cd | JNE rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=z
-	flags: 16 32 bnd ht cc=ne br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ne br=jcc-near cflow=br-cond
 END
 
 # Code: Jne_rel32_64
@@ -15325,16 +15131,14 @@ INSTRUCTION: o64 0F 85 cd | JNE rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=z
-	flags: 64 bnd ht cc=ne br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ne br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jbe_rel16
 INSTRUCTION: o16 0F 86 cw | JBE rel16 | INTEL386
 	ops: r=br
 	rflags: r=zc
-	flags: bnd ht cc=be br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=be br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jbe_rel32_32
@@ -15342,8 +15146,7 @@ INSTRUCTION: o32 0F 86 cd | JBE rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht cc=be br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=be br=jcc-near cflow=br-cond
 END
 
 # Code: Jbe_rel32_64
@@ -15351,16 +15154,14 @@ INSTRUCTION: o64 0F 86 cd | JBE rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht cc=be br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=be br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Ja_rel16
 INSTRUCTION: o16 0F 87 cw | JA rel16 | INTEL386
 	ops: r=br
 	rflags: r=zc
-	flags: bnd ht cc=a br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=a br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Ja_rel32_32
@@ -15368,8 +15169,7 @@ INSTRUCTION: o32 0F 87 cd | JA rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=zc
-	flags: 16 32 bnd ht cc=a br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=a br=jcc-near cflow=br-cond
 END
 
 # Code: Ja_rel32_64
@@ -15377,16 +15177,14 @@ INSTRUCTION: o64 0F 87 cd | JA rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=zc
-	flags: 64 bnd ht cc=a br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=a br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Js_rel16
 INSTRUCTION: o16 0F 88 cw | JS rel16 | INTEL386
 	ops: r=br
 	rflags: r=s
-	flags: bnd ht cc=s br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=s br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Js_rel32_32
@@ -15394,8 +15192,7 @@ INSTRUCTION: o32 0F 88 cd | JS rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht cc=s br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=s br=jcc-near cflow=br-cond
 END
 
 # Code: Js_rel32_64
@@ -15403,16 +15200,14 @@ INSTRUCTION: o64 0F 88 cd | JS rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht cc=s br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=s br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jns_rel16
 INSTRUCTION: o16 0F 89 cw | JNS rel16 | INTEL386
 	ops: r=br
 	rflags: r=s
-	flags: bnd ht cc=ns br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ns br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jns_rel32_32
@@ -15420,8 +15215,7 @@ INSTRUCTION: o32 0F 89 cd | JNS rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=s
-	flags: 16 32 bnd ht cc=ns br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ns br=jcc-near cflow=br-cond
 END
 
 # Code: Jns_rel32_64
@@ -15429,16 +15223,14 @@ INSTRUCTION: o64 0F 89 cd | JNS rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=s
-	flags: 64 bnd ht cc=ns br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ns br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jp_rel16
 INSTRUCTION: o16 0F 8A cw | JP rel16 | INTEL386
 	ops: r=br
 	rflags: r=p
-	flags: bnd ht cc=p br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=p br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jp_rel32_32
@@ -15446,8 +15238,7 @@ INSTRUCTION: o32 0F 8A cd | JP rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht cc=p br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=p br=jcc-near cflow=br-cond
 END
 
 # Code: Jp_rel32_64
@@ -15455,16 +15246,14 @@ INSTRUCTION: o64 0F 8A cd | JP rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht cc=p br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=p br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jnp_rel16
 INSTRUCTION: o16 0F 8B cw | JNP rel16 | INTEL386
 	ops: r=br
 	rflags: r=p
-	flags: bnd ht cc=np br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=np br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jnp_rel32_32
@@ -15472,8 +15261,7 @@ INSTRUCTION: o32 0F 8B cd | JNP rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=p
-	flags: 16 32 bnd ht cc=np br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=np br=jcc-near cflow=br-cond
 END
 
 # Code: Jnp_rel32_64
@@ -15481,16 +15269,15 @@ INSTRUCTION: o64 0F 8B cd | JNP rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=p
-	flags: 64 bnd ht cc=np br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=np br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jl_rel16
 INSTRUCTION: o16 0F 8C cw | JL rel16 | INTEL386
 	ops: r=br
 	rflags: r=os
-	flags: bnd ht cc=l br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=l br=jcc-near cflow=br-cond no-intel-dec64
+
 END
 
 # Code: Jl_rel32_32
@@ -15498,8 +15285,7 @@ INSTRUCTION: o32 0F 8C cd | JL rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht cc=l br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=l br=jcc-near cflow=br-cond
 END
 
 # Code: Jl_rel32_64
@@ -15507,16 +15293,14 @@ INSTRUCTION: o64 0F 8C cd | JL rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht cc=l br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=l br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jge_rel16
 INSTRUCTION: o16 0F 8D cw | JGE rel16 | INTEL386
 	ops: r=br
 	rflags: r=os
-	flags: bnd ht cc=ge br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=ge br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jge_rel32_32
@@ -15524,8 +15308,7 @@ INSTRUCTION: o32 0F 8D cd | JGE rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=os
-	flags: 16 32 bnd ht cc=ge br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=ge br=jcc-near cflow=br-cond
 END
 
 # Code: Jge_rel32_64
@@ -15533,16 +15316,14 @@ INSTRUCTION: o64 0F 8D cd | JGE rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=os
-	flags: 64 bnd ht cc=ge br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=ge br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jle_rel16
 INSTRUCTION: o16 0F 8E cw | JLE rel16 | INTEL386
 	ops: r=br
 	rflags: r=osz
-	flags: bnd ht cc=le br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=le br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jle_rel32_32
@@ -15550,8 +15331,7 @@ INSTRUCTION: o32 0F 8E cd | JLE rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht cc=le br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=le br=jcc-near cflow=br-cond
 END
 
 # Code: Jle_rel32_64
@@ -15559,16 +15339,14 @@ INSTRUCTION: o64 0F 8E cd | JLE rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht cc=le br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=le br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Jg_rel16
 INSTRUCTION: o16 0F 8F cw | JG rel16 | INTEL386
 	ops: r=br
 	rflags: r=osz
-	flags: bnd ht cc=g br=jcc-near no-intel-dec64
-	cflow: ConditionalBranch
+	flags: bnd ht cc=g br=jcc-near cflow=br-cond no-intel-dec64
 END
 
 # Code: Jg_rel32_32
@@ -15576,8 +15354,7 @@ INSTRUCTION: o32 0F 8F cd | JG rel32 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht cc=g br=jcc-near
-	cflow: ConditionalBranch
+	flags: 16 32 bnd ht cc=g br=jcc-near cflow=br-cond
 END
 
 # Code: Jg_rel32_64
@@ -15585,8 +15362,7 @@ INSTRUCTION: o64 0F 8F cd | JG rel32 | X64
 	ops: r=br
 	code-suffix: 64
 	rflags: r=osz
-	flags: 64 bnd ht cc=g br=jcc-near intel-fo64 do64
-	cflow: ConditionalBranch
+	flags: 64 bnd ht cc=g br=jcc-near cflow=br-cond intel-fo64 do64
 END
 
 # Code: Seto_rm8
@@ -16143,8 +15919,7 @@ END
 INSTRUCTION: o16 0F A6 /r | XBTS r16, r/m16 | INTEL386_A0_ONLY
 	ops: rw=reg r=rm | UInt16
 	implied: r=ax;cl
-	flags: 16 32
-	decoder-option: Xbts
+	flags: 16 32 dec-opt=Xbts
 	gas: suffix=w
 END
 
@@ -16152,8 +15927,7 @@ END
 INSTRUCTION: o32 0F A6 /r | XBTS r32, r/m32 | INTEL386_A0_ONLY
 	ops: rw=reg r=rm | UInt32
 	implied: r=eax;cl
-	flags: 16 32
-	decoder-option: Xbts
+	flags: 16 32 dec-opt=Xbts
 	gas: suffix=l
 END
 
@@ -16336,8 +16110,7 @@ END
 INSTRUCTION: o16 0F A7 /r | IBTS r/m16, r16 | INTEL386_A0_ONLY
 	ops: rw=rm r=reg | UInt16
 	implied: r=ax;cl
-	flags: 16 32
-	decoder-option: Xbts
+	flags: 16 32 dec-opt=Xbts
 	gas: suffix=w
 END
 
@@ -16345,8 +16118,7 @@ END
 INSTRUCTION: o32 0F A7 /r | IBTS r/m32, r32 | INTEL386_A0_ONLY
 	ops: rw=rm r=reg | UInt32
 	implied: r=eax;cl
-	flags: 16 32
-	decoder-option: Xbts
+	flags: 16 32 dec-opt=Xbts
 	gas: suffix=l
 END
 
@@ -16356,8 +16128,7 @@ INSTRUCTION: 0F A6 /r | CMPXCHG r/m8, r8 | INTEL486_A_ONLY
 	implied: rcw=al
 	code-mnemonic: cmpxchg486
 	rflags: w=oszacp
-	flags: 16 32
-	decoder-option: Cmpxchg486A
+	flags: 16 32 dec-opt=Cmpxchg486A
 	fast: mnemonic=cmpxchg486
 	gas: mnemonic=cmpxchg486 suffix=b
 	intel: mnemonic=cmpxchg486
@@ -16371,8 +16142,7 @@ INSTRUCTION: o16 0F A7 /r | CMPXCHG r/m16, r16 | INTEL486_A_ONLY
 	implied: rcw=ax
 	code-mnemonic: cmpxchg486
 	rflags: w=oszacp
-	flags: 16 32
-	decoder-option: Cmpxchg486A
+	flags: 16 32 dec-opt=Cmpxchg486A
 	fast: mnemonic=cmpxchg486
 	gas: mnemonic=cmpxchg486 suffix=w
 	intel: mnemonic=cmpxchg486
@@ -16386,8 +16156,7 @@ INSTRUCTION: o32 0F A7 /r | CMPXCHG r/m32, r32 | INTEL486_A_ONLY
 	implied: rcw=eax
 	code-mnemonic: cmpxchg486
 	rflags: w=oszacp
-	flags: 16 32
-	decoder-option: Cmpxchg486A
+	flags: 16 32 dec-opt=Cmpxchg486A
 	fast: mnemonic=cmpxchg486
 	gas: mnemonic=cmpxchg486 suffix=l
 	intel: mnemonic=cmpxchg486
@@ -16472,8 +16241,7 @@ INSTRUCTION: 0F AA | RSM | SMM
 	rflags: w=oszacpdiA
 	# #UD if not in SMM, #UD if in SMM + VMX root operation, VM exit if in SMM + VMX non-root operation.
 	# This instruction doesn't require CPL=0 and SDMv3 8.3 says it's a "non-privileged serializing instruction".
-	flags: save-restore privileged serialize-intel serialize-amd no-outside-smm no-in-vmx-root intel-vm-exit no-in-sgx tdx-non-root-ud amd-may-vm-exit tsx-impl-abort
-	cflow: Return
+	flags: save-restore privileged cflow=ret serialize-intel serialize-amd no-outside-smm no-in-vmx-root intel-vm-exit no-in-sgx tdx-non-root-ud amd-may-vm-exit tsx-impl-abort
 END
 
 # Code: Bts_rm16_r16
@@ -16949,7 +16717,7 @@ END
 
 # Code: Pcommit
 INSTRUCTION: 66 0F AE F8 | PCOMMIT | PCOMMIT
-	decoder-option: Pcommit
+	flags: dec-opt=Pcommit
 END
 
 # Code: Imul_r16_rm16
@@ -17189,9 +16957,7 @@ END
 # Code: Jmpe_disp16
 INSTRUCTION: o16 0F B8 cw | JMPE disp16 | IA64
 	ops: r=br
-	flags: 16 32 br=jmpe-near
-	cflow: UnconditionalBranch
-	decoder-option: Jmpe
+	flags: 16 32 dec-opt=Jmpe br=jmpe-near cflow=br
 	gas: osz
 	nasm: osz-call
 END
@@ -17199,9 +16965,7 @@ END
 # Code: Jmpe_disp32
 INSTRUCTION: o32 0F B8 cd | JMPE disp32 | IA64
 	ops: r=br
-	flags: 16 32 br=jmpe-near
-	cflow: UnconditionalBranch
-	decoder-option: Jmpe
+	flags: 16 32 dec-opt=Jmpe br=jmpe-near cflow=br
 	gas: osz
 	nasm: osz-call
 END
@@ -17231,24 +16995,21 @@ END
 # Code: Ud1_r16_rm16
 INSTRUCTION: o16 0F B9 /r | UD1 r16, r/m16 | INTEL286
 	ops: n=reg n=rm | UInt16
-	flags: intel-vm-exit tsx-impl-abort
-	cflow: Exception
+	flags: cflow=ex intel-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Ud1_r32_rm32
 INSTRUCTION: o32 0F B9 /r | UD1 r32, r/m32 | INTEL386
 	ops: n=reg n=rm | UInt32
-	flags: intel-vm-exit tsx-impl-abort
-	cflow: Exception
+	flags: cflow=ex intel-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
 # Code: Ud1_r64_rm64
 INSTRUCTION: o64 0F B9 /r | UD1 r64, r/m64 | X64
 	ops: n=reg n=rm | UInt64
-	flags: 64 intel-vm-exit tsx-impl-abort
-	cflow: Exception
+	flags: 64 cflow=ex intel-vm-exit tsx-impl-abort
 	gas: suffix=q
 END
 
@@ -17603,122 +17364,114 @@ END
 # Code: Cmpps_xmm_xmmm128_imm8
 INSTRUCTION: NP 0F C2 /r ib | CMPPS xmm1, xmm2/m128, imm8 | SSE
 	ops: rw=reg r=rm r=imm | Packed128_Float32
-	pseudo: cmpps
+	flags: pseudo=cmpps
 END
 
 # Code: VEX_Vcmpps_xmm_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.0F.WIG C2 /r ib | VCMPPS xmm1, xmm2, xmm3/m128, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Float32
-	pseudo: vcmpps
+	flags: pseudo=vcmpps
 END
 
 # Code: VEX_Vcmpps_ymm_ymm_ymmm256_imm8
 INSTRUCTION: VEX.256.0F.WIG C2 /r ib | VCMPPS ymm1, ymm2, ymm3/m256, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Float32
-	pseudo: vcmpps
+	flags: pseudo=vcmpps
 END
 
 # Code: EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 INSTRUCTION: EVEX.128.0F.W0 C2 /r ib | VCMPPS k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8 | AVX512VL AVX512F | N16b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Float32 Broadcast128_Float32
-	flags: implied-z
-	pseudo: vcmpps
+	flags: pseudo=vcmpps implied-z
 END
 
 # Code: EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 INSTRUCTION: EVEX.256.0F.W0 C2 /r ib | VCMPPS k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8 | AVX512VL AVX512F | N32b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Float32 Broadcast256_Float32
-	flags: implied-z
-	pseudo: vcmpps
+	flags: pseudo=vcmpps implied-z
 END
 
 # Code: EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 INSTRUCTION: EVEX.512.0F.W0 C2 /r ib | VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8 | AVX512F | N64b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_Float32 Broadcast512_Float32
-	flags: implied-z
-	pseudo: vcmpps
+	flags: pseudo=vcmpps implied-z
 END
 
 # Code: Cmppd_xmm_xmmm128_imm8
 INSTRUCTION: 66 0F C2 /r ib | CMPPD xmm1, xmm2/m128, imm8 | SSE2
 	ops: rw=reg r=rm r=imm | Packed128_Float64
-	pseudo: cmppd
+	flags: pseudo=cmppd
 END
 
 # Code: VEX_Vcmppd_xmm_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F.WIG C2 /r ib | VCMPPD xmm1, xmm2, xmm3/m128, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Float64
-	pseudo: vcmppd
+	flags: pseudo=vcmppd
 END
 
 # Code: VEX_Vcmppd_ymm_ymm_ymmm256_imm8
 INSTRUCTION: VEX.256.66.0F.WIG C2 /r ib | VCMPPD ymm1, ymm2, ymm3/m256, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Float64
-	pseudo: vcmppd
+	flags: pseudo=vcmppd
 END
 
 # Code: EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 INSTRUCTION: EVEX.128.66.0F.W1 C2 /r ib | VCMPPD k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8 | AVX512VL AVX512F | N16b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Float64 Broadcast128_Float64
-	flags: implied-z
-	pseudo: vcmppd
+	flags: pseudo=vcmppd implied-z
 END
 
 # Code: EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 INSTRUCTION: EVEX.256.66.0F.W1 C2 /r ib | VCMPPD k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8 | AVX512VL AVX512F | N32b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Float64 Broadcast256_Float64
-	flags: implied-z
-	pseudo: vcmppd
+	flags: pseudo=vcmppd implied-z
 END
 
 # Code: EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 INSTRUCTION: EVEX.512.66.0F.W1 C2 /r ib | VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8 | AVX512F | N64b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_Float64 Broadcast512_Float64
-	flags: implied-z
-	pseudo: vcmppd
+	flags: pseudo=vcmppd implied-z
 END
 
 # Code: Cmpss_xmm_xmmm32_imm8
 INSTRUCTION: F3 0F C2 /r ib | CMPSS xmm1, xmm2/m32, imm8 | SSE
 	ops: rw=reg r=rm r=imm | Float32
-	pseudo: cmpss
+	flags: pseudo=cmpss
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vcmpss_xmm_xmm_xmmm32_imm8
 INSTRUCTION: VEX.LIG.F3.0F.WIG C2 /r ib | VCMPSS xmm1, xmm2, xmm3/m32, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | Float32
-	pseudo: vcmpss
+	flags: pseudo=vcmpss
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 INSTRUCTION: EVEX.LIG.F3.0F.W0 C2 /r ib | VCMPSS k1 {k2}, xmm2, xmm3/m32{sae}, imm8 | AVX512F | N4
 	ops: w=reg r=vvvv r=rm r=imm | Float32
-	flags: implied-z
-	pseudo: vcmpss
+	flags: pseudo=vcmpss implied-z
 	masm: flags=force-size=default
 END
 
 # Code: Cmpsd_xmm_xmmm64_imm8
 INSTRUCTION: F2 0F C2 /r ib | CMPSD xmm1, xmm2/m64, imm8 | SSE2
 	ops: rw=reg r=rm r=imm | Float64
-	pseudo: cmpsd
+	flags: pseudo=cmpsd
 	masm: flags=force-size=default
 END
 
 # Code: VEX_Vcmpsd_xmm_xmm_xmmm64_imm8
 INSTRUCTION: VEX.LIG.F2.0F.WIG C2 /r ib | VCMPSD xmm1, xmm2, xmm3/m64, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | Float64
-	pseudo: vcmpsd
+	flags: pseudo=vcmpsd
 	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 INSTRUCTION: EVEX.LIG.F2.0F.W1 C2 /r ib | VCMPSD k1 {k2}, xmm2, xmm3/m64{sae}, imm8 | AVX512F | N8
 	ops: w=reg r=vvvv r=rm r=imm | Float64
-	flags: implied-z
-	pseudo: vcmpsd
+	flags: pseudo=vcmpsd implied-z
 	masm: flags=force-size=default
 END
 
@@ -20092,24 +19845,21 @@ END
 # Code: Ud0_r16_rm16
 INSTRUCTION: o16 0F FF /r | UD0 r16, r/m16 | INTEL286
 	ops: n=reg n=rm | UInt16
-	flags: no-amd-dec intel-vm-exit tsx-impl-abort
-	cflow: Exception
+	flags: cflow=ex no-amd-dec intel-vm-exit tsx-impl-abort
 	gas: suffix=w
 END
 
 # Code: Ud0_r32_rm32
 INSTRUCTION: o32 0F FF /r | UD0 r32, r/m32 | INTEL386
 	ops: n=reg n=rm | UInt32
-	flags: no-amd-dec intel-vm-exit tsx-impl-abort
-	cflow: Exception
+	flags: cflow=ex no-amd-dec intel-vm-exit tsx-impl-abort
 	gas: suffix=l
 END
 
 # Code: Ud0_r64_rm64
 INSTRUCTION: o64 0F FF /r | UD0 r64, r/m64 | X64
 	ops: n=reg n=rm | UInt64
-	flags: 64 no-amd-dec intel-vm-exit tsx-impl-abort
-	cflow: Exception
+	flags: 64 cflow=ex no-amd-dec intel-vm-exit tsx-impl-abort
 	gas: suffix=q
 END
 
@@ -27653,37 +27403,37 @@ END
 # Code: Pclmulqdq_xmm_xmmm128_imm8
 INSTRUCTION: 66 0F 3A 44 /r ib | PCLMULQDQ xmm1, xmm2/m128, imm8 | PCLMULQDQ
 	ops: rw=reg r=rm r=imm | Packed128_UInt64
-	pseudo: pclmulqdq
+	flags: pseudo=pclmulqdq
 END
 
 # Code: VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.WIG 44 /r ib | VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8 | PCLMULQDQ AVX
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt64
-	pseudo: vpclmulqdq
+	flags: pseudo=vpclmulqdq
 END
 
 # Code: VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 INSTRUCTION: VEX.256.66.0F3A.WIG 44 /r ib | VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8 | VPCLMULQDQ
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_UInt64
-	pseudo: vpclmulqdq
+	flags: pseudo=vpclmulqdq
 END
 
 # Code: EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
 INSTRUCTION: EVEX.128.66.0F3A.WIG 44 /r ib | VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8 | AVX512VL VPCLMULQDQ | N16
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt64
-	pseudo: vpclmulqdq
+	flags: pseudo=vpclmulqdq
 END
 
 # Code: EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 INSTRUCTION: EVEX.256.66.0F3A.WIG 44 /r ib | VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8 | AVX512VL VPCLMULQDQ | N32
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_UInt64
-	pseudo: vpclmulqdq
+	flags: pseudo=vpclmulqdq
 END
 
 # Code: EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 INSTRUCTION: EVEX.512.66.0F3A.WIG 44 /r ib | VPCLMULQDQ zmm1, zmm2, zmm3/m512, imm8 | AVX512F VPCLMULQDQ | N64
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_UInt64
-	pseudo: vpclmulqdq
+	flags: pseudo=vpclmulqdq
 END
 
 # Code: VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
@@ -28667,49 +28417,49 @@ END
 # Code: XOP_Vpcomb_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 CC /r ib | VPCOMB xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int8
-	pseudo: vpcomb
+	flags: pseudo=vpcomb
 END
 
 # Code: XOP_Vpcomw_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 CD /r ib | VPCOMW xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int16
-	pseudo: vpcomw
+	flags: pseudo=vpcomw
 END
 
 # Code: XOP_Vpcomd_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 CE /r ib | VPCOMD xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int32
-	pseudo: vpcomd
+	flags: pseudo=vpcomd
 END
 
 # Code: XOP_Vpcomq_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 CF /r ib | VPCOMQ xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int64
-	pseudo: vpcomq
+	flags: pseudo=vpcomq
 END
 
 # Code: XOP_Vpcomub_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 EC /r ib | VPCOMUB xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt8
-	pseudo: vpcomub
+	flags: pseudo=vpcomub
 END
 
 # Code: XOP_Vpcomuw_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 ED /r ib | VPCOMUW xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt16
-	pseudo: vpcomuw
+	flags: pseudo=vpcomuw
 END
 
 # Code: XOP_Vpcomud_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 EE /r ib | VPCOMUD xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt32
-	pseudo: vpcomud
+	flags: pseudo=vpcomud
 END
 
 # Code: XOP_Vpcomuq_xmm_xmm_xmmm128_imm8
 INSTRUCTION: XOP.128.X8.W0 EF /r ib | VPCOMUQ xmm1, xmm2, xmm3/m128, imm8 | XOP
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt64
-	pseudo: vpcomuq
+	flags: pseudo=vpcomuq
 END
 
 # Code: XOP_Blcfill_r32_rm32
@@ -29376,14 +29126,12 @@ END
 
 # Code: Xsusldtrk
 INSTRUCTION: F2 0F 01 E8 | XSUSLDTRK | TSXLDTRK
-	flags: tsx-may-abort
-	cflow: XbeginXabortXend
+	flags: cflow=tsx tsx-may-abort
 END
 
 # Code: Xresldtrk
 INSTRUCTION: F2 0F 01 E9 | XRESLDTRK | TSXLDTRK
-	flags: tsx-may-abort
-	cflow: XbeginXabortXend
+	flags: cflow=tsx tsx-may-abort
 END
 
 # Code: Invlpgbw
@@ -29467,23 +29215,20 @@ END
 
 # Code: Ud0
 INSTRUCTION: 0F FF | UD0 | INTEL286
-	flags: no-intel-dec
-	cflow: Exception
+	flags: cflow=ex no-intel-dec
 END
 
 # Code: Vmgexit
 INSTRUCTION: F3 0F 01 D9 | VMGEXIT | SEV_ES
 	# This is VMGEXIT iff in guest mode and SEV-ES is active, else it's VMMCALL.
-	flags: amd-vm-exit
-	cflow: Call
+	flags: cflow=call amd-vm-exit
 END
 
 # Code: Vmgexit_F2
 INSTRUCTION: F2 0F 01 D9 | VMGEXIT | SEV_ES
 	code-suffix: F2
 	# This is VMGEXIT iff in guest mode and SEV-ES is active, else it's VMMCALL.
-	flags: amd-vm-exit
-	cflow: Call
+	flags: cflow=call amd-vm-exit
 END
 
 # Code: VEX_Ldtilecfg_m512
@@ -29564,8 +29309,7 @@ INSTRUCTION: DF E1 | FNSTDW AX | FPU387SL_ONLY
 	ops: w=r:ax
 	#TODO: assume c0,c1,c2,c3 == undefined
 	rflags: u=0123
-	flags: 16 32 tsx-impl-abort no-wait
-	decoder-option: OldFpu
+	flags: 16 32 dec-opt=OldFpu tsx-impl-abort no-wait
 END
 
 # Code: Fnstsg_AX
@@ -29573,54 +29317,44 @@ INSTRUCTION: DF E2 | FNSTSG AX | FPU387SL_ONLY
 	ops: w=r:ax
 	#TODO: assume c0,c1,c2,c3 == undefined
 	rflags: u=0123
-	flags: 16 32 tsx-impl-abort no-wait
-	decoder-option: OldFpu
+	flags: 16 32 dec-opt=OldFpu tsx-impl-abort no-wait
 END
 
 # Code: Rdshr_rm32
 INSTRUCTION: 0F 36 /0 | RDSHR r/m32 | CYRIX_SHR
 	ops: w=rm | UInt32
-	flags: 16 32 cpl0 no-outside-smm
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0 no-outside-smm
 	gas: suffix=l
 END
 
 # Code: Wrshr_rm32
 INSTRUCTION: 0F 37 /0 | WRSHR r/m32 | CYRIX_SHR
 	ops: r=rm | UInt32
-	flags: 16 32 cpl0 no-outside-smm
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0 no-outside-smm
 	gas: suffix=l
 END
 
 # Code: Smint
 INSTRUCTION: 0F 38 | SMINT | CYRIX_SMINT
-	flags: 16 32 cpl0
-	cflow: Interrupt
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0 cflow=int
 END
 
 # Code: Dmint
 INSTRUCTION: 0F 39 | DMINT | CYRIX_DMI
-	flags: 16 32 cpl0
-	cflow: Interrupt
-	decoder-option: Cyrix_DMI
+	flags: 16 32 dec-opt=Cyrix_DMI cpl0 cflow=int
 END
 
 # Code: Rdm
 INSTRUCTION: 0F 3A | RDM | CYRIX_DMI
 	rflags: w=oszacpdiA
-	flags: 16 32 cpl0 save-restore
-	cflow: Return
-	decoder-option: Cyrix_DMI
+	flags: 16 32 dec-opt=Cyrix_DMI cpl0 save-restore cflow=ret
 END
 
 # Code: Svdc_m80_Sreg
 INSTRUCTION: 0F 78 /r | SVDC m80, Sreg | CYRIX_SMM
 	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=rm r=reg | SegmentDescSelector
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Rsdc_Sreg_m80
@@ -29628,136 +29362,116 @@ INSTRUCTION: 0F 79 /r | RSDC Sreg, m80 | CYRIX_SMM
 	# Some CPUs don't allow CS (#UD) as a target register (eg. Cyrix 6x86, Cyrix III), others allow it (eg. Geode LX)
 	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=reg r=rm | SegmentDescSelector
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Svldt_m80
 INSTRUCTION: 0F 7A /0 | SVLDT m80 | CYRIX_SMM
 	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=rm | SegmentDescSelector
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Rsldt_m80
 INSTRUCTION: 0F 7B /0 | RSLDT m80 | CYRIX_SMM
 	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: r=rm | SegmentDescSelector
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Svts_m80
 INSTRUCTION: 0F 7C /0 | SVTS m80 | CYRIX_SMM
 	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: w=rm | SegmentDescSelector
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Rsts_m80
 INSTRUCTION: 0F 7D /0 | RSTS m80 | CYRIX_SMM
 	# Some CPUs only allow this instruction when in SMM (eg. Cyrix 6x86, Cyrix III)
 	ops: r=rm | SegmentDescSelector
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Smint_0F7E
 INSTRUCTION: 0F 7E | SMINT | CYRIX_SMINT_0F7E
 	code-suffix: 0F7E
-	flags: 16 32 cpl0
-	cflow: Interrupt
-	decoder-option: Cyrix_SMINT_0F7E
+	flags: 16 32 dec-opt=Cyrix_SMINT_0F7E cpl0 cflow=int
 	nasm: mnemonic=smintold
 END
 
 # Code: Bb0_reset
 INSTRUCTION: 0F 3A | BB0_RESET | CYRIX_DDI
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Bb1_reset
 INSTRUCTION: 0F 3B | BB1_RESET | CYRIX_DDI
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Cpu_write
 INSTRUCTION: 0F 3C | CPU_WRITE | CYRIX_DDI
 	implied: r=eax;ebx
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Cpu_read
 INSTRUCTION: 0F 3D | CPU_READ | CYRIX_DDI
 	implied: w=eax r=ebx
-	flags: 16 32 cpl0
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix cpl0
 END
 
 # Code: Altinst
 INSTRUCTION: 0F 3F | ALTINST | CENTAUR_AIS
 	implied: r=eax
-	flags: 16 32
-	cflow: IndirectBranch
-	decoder-option: ALTINST
+	flags: 16 32 dec-opt=ALTINST cflow=br-ind
 END
 
 # Code: Paveb_mm_mmm64
 INSTRUCTION: 0F 50 /r | PAVEB mm, mm/m64 | CYRIX_EMMI
 	ops: rw=reg r=rm | Packed64_UInt8
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Paddsiw_mm_mmm64
 INSTRUCTION: 0F 51 /r | PADDSIW mm, mm/m64 | CYRIX_EMMI
 	ops: r=reg r=rm | Packed64_Int16
 	implied: emmi-reg=w
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pmagw_mm_mmm64
 INSTRUCTION: 0F 52 /r | PMAGW mm, mm/m64 | CYRIX_EMMI
 	ops: rcw=reg r=rm | Packed64_UInt16
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pdistib_mm_m64
 INSTRUCTION: 0F 54 /r | PDISTIB mm, m64 | CYRIX_EMMI
 	ops: r=reg r=rm | Packed64_UInt8
 	implied: emmi-reg=rw
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Psubsiw_mm_mmm64
 INSTRUCTION: 0F 55 /r | PSUBSIW mm, mm/m64 | CYRIX_EMMI
 	ops: r=reg r=rm | Packed64_Int16
 	implied: emmi-reg=w
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pmvzb_mm_m64
 INSTRUCTION: 0F 58 /r | PMVZB mm, m64 | CYRIX_EMMI
 	ops: rcw=reg r=rm | Packed64_UInt8
 	implied: emmi-reg=r
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pmulhrw_mm_mmm64
 INSTRUCTION: 0F 59 /r | PMULHRW mm, mm/m64 | CYRIX_EMMI
 	ops: rw=reg r=rm | Packed64_Int16
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 	nasm: mnemonic=pmulhrwc
 END
 
@@ -29765,40 +29479,35 @@ END
 INSTRUCTION: 0F 5A /r | PMVNZB mm, m64 | CYRIX_EMMI
 	ops: rcw=reg r=rm | Packed64_UInt8
 	implied: emmi-reg=r
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pmvlzb_mm_m64
 INSTRUCTION: 0F 5B /r | PMVLZB mm, m64 | CYRIX_EMMI
 	ops: rcw=reg r=rm | Packed64_Int8
 	implied: emmi-reg=r
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pmvgezb_mm_m64
 INSTRUCTION: 0F 5C /r | PMVGEZB mm, m64 | CYRIX_EMMI
 	ops: rcw=reg r=rm | Packed64_Int8
 	implied: emmi-reg=r
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pmulhriw_mm_mmm64
 INSTRUCTION: 0F 5D /r | PMULHRIW mm, mm/m64 | CYRIX_EMMI
 	ops: r=reg r=rm | Packed64_Int16
 	implied: emmi-reg=w
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Pmachriw_mm_m64
 INSTRUCTION: 0F 5E /r | PMACHRIW mm, m64 | CYRIX_EMMI
 	ops: r=reg r=rm | Packed64_UInt16
 	implied: emmi-reg=rw
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Cyrix_D9D7
@@ -29806,8 +29515,7 @@ INSTRUCTION: D9 D7 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9D7
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Cyrix_D9E2
@@ -29815,8 +29523,7 @@ INSTRUCTION: D9 E2 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9E2
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Ftstp
@@ -29824,8 +29531,7 @@ INSTRUCTION: D9 E6 | FTSTP | CYRIX_FPU
 	implied: r=st0
 	# Assume it uses the same flags as FTST
 	rflags: 0=1 w=023
-	flags: 16 32 fpu-pop=1
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix fpu-pop=1
 END
 
 # Code: Cyrix_D9E7
@@ -29833,8 +29539,7 @@ INSTRUCTION: D9 E7 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9E7
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Frint2
@@ -29842,8 +29547,7 @@ INSTRUCTION: DB FC | FRINT2 | CYRIX_FPU
 	implied: rw=st0
 	# Assume it uses the same flags as FRNDINT
 	rflags: w=1 u=023
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Frichop
@@ -29851,8 +29555,7 @@ INSTRUCTION: DD FC | FRICHOP | CYRIX_FPU
 	implied: rw=st0
 	# Assume it uses the same flags as FRNDINT
 	rflags: w=1 u=023
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Cyrix_DED8
@@ -29860,8 +29563,7 @@ INSTRUCTION: DE D8 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DED8
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Cyrix_DEDA
@@ -29869,8 +29571,7 @@ INSTRUCTION: DE DA | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDA
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Cyrix_DEDC
@@ -29878,8 +29579,7 @@ INSTRUCTION: DE DC | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDC
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Cyrix_DEDD
@@ -29887,8 +29587,7 @@ INSTRUCTION: DE DD | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDD
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Cyrix_DEDE
@@ -29896,8 +29595,7 @@ INSTRUCTION: DE DE | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDE
 	rflags: u=0123
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Frinear
@@ -29905,24 +29603,21 @@ INSTRUCTION: DF FC | FRINEAR | CYRIX_FPU
 	implied: rw=st0
 	# Assume it uses the same flags as FRNDINT
 	rflags: w=1 u=023
-	flags: 16 32
-	decoder-option: Cyrix
+	flags: 16 32 dec-opt=Cyrix
 END
 
 # Code: Tdcall
 INSTRUCTION: 66 0F 01 CC | TDCALL | TDX
 	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
-	flags: cpl0 vmx=non-root intel-vm-exit tsx-impl-abort
-	cflow: Call
+	flags: cpl0 cflow=call vmx=non-root intel-vm-exit tsx-impl-abort
 END
 
 # Code: Seamret
 INSTRUCTION: 66 0F 01 CD | SEAMRET | TDX
 	rflags: w=zc 0=osap
 	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
-	flags: 64 cpl0 vmx=root no-outside-seam tsx-impl-abort
 	# Continues from the next instruction on failure
-	cflow: Call
+	flags: 64 cpl0 cflow=call vmx=root no-outside-seam tsx-impl-abort
 END
 
 # Code: Seamops
@@ -29938,8 +29633,7 @@ END
 INSTRUCTION: 66 0F 01 CF | SEAMCALL | TDX
 	rflags: w=c 0=oszap
 	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
-	flags: 64 cpl0 vmx=op intel-vm-exit no-in-smm no-in-seam tsx-impl-abort
-	cflow: Call
+	flags: 64 cpl0 cflow=call vmx=op intel-vm-exit no-in-smm no-in-seam tsx-impl-abort
 END
 
 # Code: Aesencwide128kl_m384
@@ -30058,8 +29752,7 @@ END
 INSTRUCTION: F3 0F 01 EC | UIRET | UINTR
 	implied: pop=3x8
 	rflags: w=cpazsdoA 1=u
-	flags: 64 sp=pop;24 no-in-sgx tsx-abort
-	cflow: Return
+	flags: 64 sp=pop;24 cflow=ret no-in-sgx tsx-abort
 END
 
 # Code: Testui

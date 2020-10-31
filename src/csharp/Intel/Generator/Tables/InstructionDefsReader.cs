@@ -54,7 +54,6 @@ namespace Generator.Tables {
 		readonly Dictionary<string, EnumValue> toCpuid;
 		readonly Dictionary<string, EnumValue> toTupleType;
 		readonly Dictionary<string, EnumValue> toConditionCode;
-		readonly Dictionary<string, EnumValue> toFlowControl;
 		readonly Dictionary<string, EnumValue> toPseudoOpsKind;
 		readonly Dictionary<string, EnumValue> toDecOptionValue;
 		readonly Dictionary<string, EnumValue> toMemorySize;
@@ -72,6 +71,7 @@ namespace Generator.Tables {
 		readonly EnumType registerType;
 		readonly EnumType codeSizeType;
 		readonly EnumType signExtendInfoType;
+		readonly EnumType flowControlType;
 		readonly EnumValue memorySizeUnknown;
 		readonly EnumValue flowControlNext;
 		readonly EnumValue decoderOptionNone;
@@ -90,6 +90,9 @@ namespace Generator.Tables {
 			"sp",
 			"cc",
 			"br",
+			"cflow",
+			"dec-opt",
+			"pseudo",
 		};
 
 		readonly struct OpKindKey : IEquatable<OpKindKey> {
@@ -159,7 +162,6 @@ namespace Generator.Tables {
 			toCpuid = CreateEnumDict(genTypes[TypeIds.CpuidFeature]);
 			toTupleType = CreateEnumDict(genTypes[TypeIds.TupleType]);
 			toConditionCode = CreateEnumDict(genTypes[TypeIds.ConditionCode]);
-			toFlowControl = CreateEnumDict(genTypes[TypeIds.FlowControl]);
 			toPseudoOpsKind = CreateEnumDict(genTypes[TypeIds.PseudoOpsKind]);
 			toDecOptionValue = CreateEnumDict(genTypes[TypeIds.DecOptionValue]);
 			toMemorySize = CreateEnumDict(genTypes[TypeIds.MemorySize]);
@@ -180,10 +182,11 @@ namespace Generator.Tables {
 			registerType = genTypes[TypeIds.Register];
 			codeSizeType = genTypes[TypeIds.CodeSize];
 			signExtendInfoType = genTypes[TypeIds.NasmSignExtendInfo];
+			flowControlType = genTypes[TypeIds.FlowControl];
 
 			tupleTypeN1 = toTupleType[nameof(TupleType.N1)];
 			memorySizeUnknown = toMemorySize[nameof(MemorySize.Unknown)];
-			flowControlNext = toFlowControl[nameof(FlowControl.Next)];
+			flowControlNext = flowControlType[nameof(FlowControl.Next)];
 			decoderOptionNone = toDecOptionValue[nameof(DecOptionValue.None)];
 		}
 
@@ -446,45 +449,12 @@ namespace Generator.Tables {
 					state.CodeMemorySizeSuffix = lineValue;
 					break;
 
-				case "cflow":
-					if (state.Cflow is object) {
-						Error(lineIndex, $"Duplicate {lineKey}");
-						return false;
-					}
-					if (!TryGetValue(toFlowControl, lineValue, out state.Cflow, out error)) {
-						Error(lineIndex, error);
-						return false;
-					}
-					break;
-
 				case "implied":
 					if (state.ImpliedAccesses is object) {
 						Error(lineIndex, $"Duplicate {lineKey}");
 						return false;
 					}
 					if (!impliedAccessParser.ReadImpliedAccesses(lineValue, out state.ImpliedAccesses, out error)) {
-						Error(lineIndex, error);
-						return false;
-					}
-					break;
-
-				case "decoder-option":
-					if (state.DecoderOption is object) {
-						Error(lineIndex, $"Duplicate {lineKey}");
-						return false;
-					}
-					if (!TryGetValue(toDecOptionValue, lineValue, out state.DecoderOption, out _)) {
-						Error(lineIndex, $"Add missing decoder option value to {nameof(DecOptionValue)}: {lineValue}");
-						return false;
-					}
-					break;
-
-				case "pseudo":
-					if (state.PseudoOpsKind is object) {
-						Error(lineIndex, $"Duplicate {lineKey}");
-						return false;
-					}
-					if (!TryGetValue(toPseudoOpsKind, lineValue, out state.PseudoOpsKind, out error)) {
 						Error(lineIndex, error);
 						return false;
 					}
@@ -776,6 +746,49 @@ namespace Generator.Tables {
 							case "g": state.ConditionCode = ConditionCode.g; break;
 							default:
 								Error(lineIndex, $"Unknown condition code `{newValue}`");
+								return false;
+							}
+							break;
+
+						case "cflow":
+							if (state.Cflow is object) {
+								Error(lineIndex, $"Duplicate {newKey}");
+								return false;
+							}
+							switch (newValue) {
+							case "br": state.Cflow = flowControlType[nameof(FlowControl.UnconditionalBranch)]; break;
+							case "br-ind": state.Cflow = flowControlType[nameof(FlowControl.IndirectBranch)]; break;
+							case "br-cond": state.Cflow = flowControlType[nameof(FlowControl.ConditionalBranch)]; break;
+							case "ret": state.Cflow = flowControlType[nameof(FlowControl.Return)]; break;
+							case "call": state.Cflow = flowControlType[nameof(FlowControl.Call)]; break;
+							case "call-ind": state.Cflow = flowControlType[nameof(FlowControl.IndirectCall)]; break;
+							case "int": state.Cflow = flowControlType[nameof(FlowControl.Interrupt)]; break;
+							case "tsx": state.Cflow = flowControlType[nameof(FlowControl.XbeginXabortXend)]; break;
+							case "ex": state.Cflow = flowControlType[nameof(FlowControl.Exception)]; break;
+							default:
+								Error(lineIndex, $"Unknown cflow value `{newValue}`");
+								return false;
+							}
+							break;
+
+						case "dec-opt":
+							if (state.DecoderOption is object) {
+								Error(lineIndex, $"Duplicate {newKey}");
+								return false;
+							}
+							if (!TryGetValue(toDecOptionValue, newValue, out state.DecoderOption, out _)) {
+								Error(lineIndex, $"Add missing decoder option value to {nameof(DecOptionValue)}: {newValue}");
+								return false;
+							}
+							break;
+
+						case "pseudo":
+							if (state.PseudoOpsKind is object) {
+								Error(lineIndex, $"Duplicate {newKey}");
+								return false;
+							}
+							if (!TryGetValue(toPseudoOpsKind, newValue, out state.PseudoOpsKind, out error)) {
+								Error(lineIndex, error);
 								return false;
 							}
 							break;
