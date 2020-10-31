@@ -30,12 +30,14 @@ using Generator.Enums;
 
 namespace Generator.Tables {
 	struct InstructionStringParser {
+		readonly Dictionary<string, EnumValue> toRegister;
 		readonly string instrStr;
 		readonly string mnemonic;
 		readonly string[] operands;
 		ParsedInstructionFlags instrFlags;
 
-		public InstructionStringParser(string instrStr) {
+		public InstructionStringParser(Dictionary<string, EnumValue> toRegister, string instrStr) {
+			this.toRegister = toRegister;
 			this.instrStr = instrStr;
 			int index = instrStr.IndexOf(' ', StringComparison.Ordinal);
 			if (index < 0)
@@ -74,7 +76,7 @@ namespace Generator.Tables {
 				var opFlags = ParsedInstructionOperandFlags.None;
 
 				if (op[0] == '[' && op[^1] == ']') {
-					op = op[1..^1];
+					op = op[1..^1].Trim();
 					opFlags |= ParsedInstructionOperandFlags.HiddenOperand;
 				}
 				else {
@@ -119,25 +121,6 @@ namespace Generator.Tables {
 				var register = Register.None;
 				int sizeBits = 0;
 				switch (firstPart) {
-				case "1":
-					opFlags |= ParsedInstructionOperandFlags.ConstImmediate;
-					break;
-
-				case "AL": register = Register.AL; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "CL": register = Register.CL; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "AX": register = Register.AX; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "DX": register = Register.DX; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "EAX": register = Register.EAX; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "RAX": register = Register.RAX; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "ST": register = Register.ST0; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "ST(0)": register = Register.ST0; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "ES": register = Register.ES; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "CS": register = Register.CS; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "SS": register = Register.SS; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "DS": register = Register.DS; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "FS": register = Register.FS; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-				case "GS": register = Register.GS; opFlags |= ParsedInstructionOperandFlags.ImpliedRegister; break;
-
 				case "bnd":
 				case "bnd1":
 				case "bnd2":
@@ -302,14 +285,25 @@ namespace Generator.Tables {
 					break;
 
 				default:
-					if (firstPart.StartsWith("m", StringComparison.Ordinal) && firstPart.Length >= 2 && char.IsDigit(firstPart[1])) {
+					if (int.TryParse(firstPart, out _)) {
+						opFlags |= ParsedInstructionOperandFlags.ConstImmediate;
+						break;
+					}
+					else if (firstPart.StartsWith("m", StringComparison.Ordinal) && firstPart.Length >= 2 && char.IsDigit(firstPart[1])) {
 						opFlags |= ParsedInstructionOperandFlags.Memory;
 						break;
 					}
-					else {
-						error = $"Unknown value: `{firstPart}`";
-						return false;
+					else if (firstPart.ToUpperInvariant() == firstPart) {
+						if (firstPart == "ST(0)" || firstPart == "ST")
+							firstPart = "ST0";
+						if (toRegister.TryGetValue(firstPart, out var regEnum)) {
+							register = (Register)regEnum.Value;
+							opFlags |= ParsedInstructionOperandFlags.ImpliedRegister;
+							break;
+						}
 					}
+					error = $"Unknown value: `{firstPart}`";
+					return false;
 				}
 
 				if (opParts.Length >= 2) {

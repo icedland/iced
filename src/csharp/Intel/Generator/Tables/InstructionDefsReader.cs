@@ -304,7 +304,7 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			var instrStrParser = new InstructionStringParser(instrStr);
+			var instrStrParser = new InstructionStringParser(toRegisterIgnoreCase, instrStr);
 			if (!instrStrParser.TryParse(out var parsedInstr, out error)) {
 				Error(lineIndex, $"Instruction string: {error}");
 				return false;
