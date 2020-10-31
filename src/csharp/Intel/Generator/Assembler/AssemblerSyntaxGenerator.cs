@@ -1274,20 +1274,6 @@ namespace Generator.Assembler {
 			return ArgKind.Unknown;
 		}
 
-		protected static bool IsSegmentRegister(OpCodeOperandKind kind) {
-			switch (kind) {
-			case OpCodeOperandKind.es:
-			case OpCodeOperandKind.cs:
-			case OpCodeOperandKind.ss:
-			case OpCodeOperandKind.ds:
-			case OpCodeOperandKind.fs:
-			case OpCodeOperandKind.gs:
-				return true;
-			}
-
-			return false;
-		}
-
 		protected OpCodeSelectorKind GetSelectorKindForRegisterOrMemory(InstructionDef def, OpCodeOperandKindDef opKindDef, bool returnMemoryAsRegister) {
 			switch (opKindDef.OperandEncoding) {
 			case OperandEncoding.ImpliedRegister:
