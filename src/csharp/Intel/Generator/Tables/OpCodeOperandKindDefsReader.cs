@@ -53,14 +53,14 @@ namespace Generator.Tables {
 				{ "br-far", 1 },
 				{ "imm8-const", 1 },
 				{ "imm", 2 },
-				{ "register", 1 },
+				{ "imp-reg", 1 },
 				{ "isx", 2 },
 				{ "opcode", 1 },
-				{ "modrm.reg", 1 },
-				{ "modrm.rm-reg-only", 1 },
+				{ "reg", 1 },
+				{ "rm-reg", 1 },
 				{ "vvvv", 1 },
-				{ "modrm.rm", 1 },
-				{ "modrm.vsib", 2 },
+				{ "rm", 1 },
+				{ "vsib", 2 },
 			};
 
 			var lines = File.ReadAllLines(filename);
@@ -141,7 +141,7 @@ namespace Generator.Tables {
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.Immediate, arg1, arg2, Register.None);
 					break;
 
-				case "register":
+				case "imp-reg":
 					register = (Register)toRegister[args[0]].Value;
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.ImpliedRegister, 0, 0, register);
 					break;
@@ -181,13 +181,13 @@ namespace Generator.Tables {
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegOpCode, 0, 0, register);
 					break;
 
-				case "modrm.reg":
+				case "reg":
 					flags |= OpCodeOperandKindDefFlags.Modrm;
 					register = (Register)toRegister[args[0]].Value;
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegModrmReg, 0, 0, register);
 					break;
 
-				case "modrm.rm-reg-only":
+				case "rm-reg":
 					flags |= OpCodeOperandKindDefFlags.Modrm;
 					register = (Register)toRegister[args[0]].Value;
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegModrmRm, 0, 0, register);
@@ -198,20 +198,20 @@ namespace Generator.Tables {
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegVvvvv, 0, 0, register);
 					break;
 
-				case "modrm.rm":
+				case "rm":
 					flags |= OpCodeOperandKindDefFlags.Modrm;
 					flags |= OpCodeOperandKindDefFlags.Memory;
 					register = (Register)toRegister[args[0]].Value;
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.RegMemModrmRm, 0, 0, register);
 					break;
 
-				case "modrm.mem":
+				case "rm-mem":
 					flags |= OpCodeOperandKindDefFlags.Modrm;
 					flags |= OpCodeOperandKindDefFlags.Memory;
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.MemModrmRm, 0, 0, Register.None);
 					break;
 
-				case "modrm.vsib":
+				case "vsib":
 					flags |= OpCodeOperandKindDefFlags.Modrm;
 					flags |= OpCodeOperandKindDefFlags.Memory;
 					register = (Register)toRegister[args[0]].Value;

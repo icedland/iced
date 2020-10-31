@@ -50,19 +50,19 @@ imm32, imm=32;32,
 imm32sex64, imm=32;64,
 imm64, imm=64;64,
 
-al, register=al,
-cl, register=cl,
-ax, register=ax,
-dx, register=dx,
-eax, register=eax,
-rax, register=rax,
-st0, register=st0,
-es, register=es,
-cs, register=cs,
-ss, register=ss,
-ds, register=ds,
-fs, register=fs,
-gs, register=gs,
+al, imp-reg=al,
+cl, imp-reg=cl,
+ax, imp-reg=ax,
+dx, imp-reg=dx,
+eax, imp-reg=eax,
+rax, imp-reg=rax,
+st0, imp-reg=st0,
+es, imp-reg=es,
+cs, imp-reg=cs,
+ss, imp-reg=ss,
+ds, imp-reg=ds,
+fs, imp-reg=fs,
+gs, imp-reg=gs,
 
 seg_rBX_al, seg-rbx-al,
 seg_rDI, seg-rdi,
@@ -80,35 +80,35 @@ r32_opcode, opcode=eax,
 r64_opcode, opcode=rax,
 sti_opcode, opcode=st0,
 
-bnd_reg, modrm.reg=bnd0,
-cr_reg, modrm.reg=cr0, lock-bit
-dr_reg, modrm.reg=dr0,
-k_reg, modrm.reg=k0,
-kp1_reg, modrm.reg=k0, p1
-mm_reg, modrm.reg=mm0,
-r8_reg, modrm.reg=al,
-r16_reg, modrm.reg=ax,
-r16_reg_mem, modrm.reg=ax, mem
-r32_reg, modrm.reg=eax,
-r32_reg_mem, modrm.reg=eax, mem
-r64_reg, modrm.reg=rax,
-r64_reg_mem, modrm.reg=rax, mem
-seg_reg, modrm.reg=es,
-tmm_reg, modrm.reg=tmm0,
-tr_reg, modrm.reg=tr0,
-xmm_reg, modrm.reg=xmm0,
-ymm_reg, modrm.reg=ymm0,
-zmm_reg, modrm.reg=zmm0,
+bnd_reg, reg=bnd0,
+cr_reg, reg=cr0, lock-bit
+dr_reg, reg=dr0,
+k_reg, reg=k0,
+kp1_reg, reg=k0, p1
+mm_reg, reg=mm0,
+r8_reg, reg=al,
+r16_reg, reg=ax,
+r16_reg_mem, reg=ax, mem
+r32_reg, reg=eax,
+r32_reg_mem, reg=eax, mem
+r64_reg, reg=rax,
+r64_reg_mem, reg=rax, mem
+seg_reg, reg=es,
+tmm_reg, reg=tmm0,
+tr_reg, reg=tr0,
+xmm_reg, reg=xmm0,
+ymm_reg, reg=ymm0,
+zmm_reg, reg=zmm0,
 
-k_rm, modrm.rm-reg-only=k0,
-mm_rm, modrm.rm-reg-only=mm0,
-r16_rm, modrm.rm-reg-only=ax,
-r32_rm, modrm.rm-reg-only=eax,
-r64_rm, modrm.rm-reg-only=rax,
-tmm_rm, modrm.rm-reg-only=tmm0,
-xmm_rm, modrm.rm-reg-only=xmm0,
-ymm_rm, modrm.rm-reg-only=ymm0,
-zmm_rm, modrm.rm-reg-only=zmm0,
+k_rm, rm-reg=k0,
+mm_rm, rm-reg=mm0,
+r16_rm, rm-reg=ax,
+r32_rm, rm-reg=eax,
+r64_rm, rm-reg=rax,
+tmm_rm, rm-reg=tmm0,
+xmm_rm, rm-reg=xmm0,
+ymm_rm, rm-reg=ymm0,
+zmm_rm, rm-reg=zmm0,
 
 k_vvvv, vvvv=k0,
 r32_vvvv, vvvv=eax,
@@ -120,29 +120,29 @@ ymm_vvvv, vvvv=ymm0,
 zmm_vvvv, vvvv=zmm0,
 zmmp3_vvvv, vvvv=zmm0, p3
 
-bnd_or_mem_mpx, modrm.rm=bnd0, mpx
-k_or_mem, modrm.rm=k0,
-mm_or_mem, modrm.rm=mm0,
-r8_or_mem, modrm.rm=al,
-r16_or_mem, modrm.rm=ax,
-r32_or_mem, modrm.rm=eax,
-r32_or_mem_mpx, modrm.rm=eax, mpx
-r64_or_mem, modrm.rm=rax,
-r64_or_mem_mpx, modrm.rm=rax, mpx
-xmm_or_mem, modrm.rm=xmm0,
-ymm_or_mem, modrm.rm=ymm0,
-zmm_or_mem, modrm.rm=zmm0,
+bnd_or_mem_mpx, rm=bnd0, mpx
+k_or_mem, rm=k0,
+mm_or_mem, rm=mm0,
+r8_or_mem, rm=al,
+r16_or_mem, rm=ax,
+r32_or_mem, rm=eax,
+r32_or_mem_mpx, rm=eax, mpx
+r64_or_mem, rm=rax,
+r64_or_mem_mpx, rm=rax, mpx
+xmm_or_mem, rm=xmm0,
+ymm_or_mem, rm=ymm0,
+zmm_or_mem, rm=zmm0,
 
-mem, modrm.mem,
-mem_mib, modrm.mem, mib
-mem_mpx, modrm.mem, mpx
-sibmem, modrm.mem, sib
+mem, rm-mem,
+mem_mib, rm-mem, mib
+mem_mpx, rm-mem, mpx
+sibmem, rm-mem, sib
 
-mem_vsib32x, modrm.vsib=xmm0;32,
-mem_vsib32y, modrm.vsib=ymm0;32,
-mem_vsib32z, modrm.vsib=zmm0;32,
-mem_vsib64x, modrm.vsib=xmm0;64,
-mem_vsib64y, modrm.vsib=ymm0;64,
-mem_vsib64z, modrm.vsib=zmm0;64,
+mem_vsib32x, vsib=xmm0;32,
+mem_vsib32y, vsib=ymm0;32,
+mem_vsib32z, vsib=zmm0;32,
+mem_vsib64x, vsib=xmm0;64,
+mem_vsib64y, vsib=ymm0;64,
+mem_vsib64z, vsib=zmm0;64,
 
 mem_offs, moffs,
