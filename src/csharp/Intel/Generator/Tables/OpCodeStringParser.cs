@@ -79,27 +79,18 @@ namespace Generator.Tables {
 					continue;
 
 				case "o16":
-					if (result.OperandSize != CodeSize.Unknown) {
-						error = $"Duplicate operand size: `{part}`";
-						return false;
-					}
-					result.OperandSize = CodeSize.Code16;
-					continue;
-
 				case "o32":
-					if (result.OperandSize != CodeSize.Unknown) {
-						error = $"Duplicate operand size: `{part}`";
-						return false;
-					}
-					result.OperandSize = CodeSize.Code32;
-					continue;
-
 				case "o64":
 					if (result.OperandSize != CodeSize.Unknown) {
 						error = $"Duplicate operand size: `{part}`";
 						return false;
 					}
-					result.OperandSize = CodeSize.Code64;
+					result.OperandSize = part switch {
+						"o16" => CodeSize.Code16,
+						"o32" => CodeSize.Code32,
+						"o64" => CodeSize.Code64,
+						_ => throw new InvalidOperationException(),
+					};
 					continue;
 
 				case "REX.W":
@@ -109,59 +100,35 @@ namespace Generator.Tables {
 					return false;
 
 				case "a16":
-					if (result.AddressSize != CodeSize.Unknown) {
-						error = $"Duplicate address size: `{part}`";
-						return false;
-					}
-					result.AddressSize = CodeSize.Code16;
-					continue;
-
 				case "a32":
-					if (result.AddressSize != CodeSize.Unknown) {
-						error = $"Duplicate address size: `{part}`";
-						return false;
-					}
-					result.AddressSize = CodeSize.Code32;
-					continue;
-
 				case "a64":
 					if (result.AddressSize != CodeSize.Unknown) {
 						error = $"Duplicate address size: `{part}`";
 						return false;
 					}
-					result.AddressSize = CodeSize.Code64;
+					result.AddressSize = part switch {
+						"a16" => CodeSize.Code16,
+						"a32" => CodeSize.Code32,
+						"a64" => CodeSize.Code64,
+						_ => throw new InvalidOperationException(),
+					};
 					continue;
 
 				case "NP":
-					if (result.MandatoryPrefix != MandatoryPrefix.None) {
-						error = $"Duplicate mandatory prefix: `{part}`";
-						return false;
-					}
-					result.MandatoryPrefix = MandatoryPrefix.PNP;
-					continue;
-
 				case "66":
-					if (result.MandatoryPrefix != MandatoryPrefix.None) {
-						error = $"Duplicate mandatory prefix: `{part}`";
-						return false;
-					}
-					result.MandatoryPrefix = MandatoryPrefix.P66;
-					continue;
-
 				case "F3":
-					if (result.MandatoryPrefix != MandatoryPrefix.None) {
-						error = $"Duplicate mandatory prefix: `{part}`";
-						return false;
-					}
-					result.MandatoryPrefix = MandatoryPrefix.PF3;
-					continue;
-
 				case "F2":
 					if (result.MandatoryPrefix != MandatoryPrefix.None) {
 						error = $"Duplicate mandatory prefix: `{part}`";
 						return false;
 					}
-					result.MandatoryPrefix = MandatoryPrefix.PF2;
+					result.MandatoryPrefix = part switch {
+						"NP" => MandatoryPrefix.PNP,
+						"66" => MandatoryPrefix.P66,
+						"F3" => MandatoryPrefix.PF3,
+						"F2" => MandatoryPrefix.PF2,
+						_ => throw new InvalidOperationException(),
+					};
 					continue;
 				}
 				break;
@@ -336,147 +303,79 @@ namespace Generator.Tables {
 				var encPart = encParts[i];
 				switch (encPart) {
 				case "0F":
-					if (result.Table != OpCodeTableKind.Normal) {
-						error = $"Duplicate table: `{encPart}`";
-						return false;
-					}
-					result.Table = OpCodeTableKind.T0F;
-					break;
 				case "0F38":
-					if (result.Table != OpCodeTableKind.Normal) {
-						error = $"Duplicate table: `{encPart}`";
-						return false;
-					}
-					result.Table = OpCodeTableKind.T0F38;
-					break;
 				case "0F3A":
-					if (result.Table != OpCodeTableKind.Normal) {
-						error = $"Duplicate table: `{encPart}`";
-						return false;
-					}
-					result.Table = OpCodeTableKind.T0F3A;
-					break;
 				case "X8":
-					if (result.Table != OpCodeTableKind.Normal) {
-						error = $"Duplicate table: `{encPart}`";
-						return false;
-					}
-					result.Table = OpCodeTableKind.XOP8;
-					break;
 				case "X9":
-					if (result.Table != OpCodeTableKind.Normal) {
-						error = $"Duplicate table: `{encPart}`";
-						return false;
-					}
-					result.Table = OpCodeTableKind.XOP9;
-					break;
 				case "XA":
 					if (result.Table != OpCodeTableKind.Normal) {
 						error = $"Duplicate table: `{encPart}`";
 						return false;
 					}
-					result.Table = OpCodeTableKind.XOPA;
+					result.Table = encPart switch {
+						"0F" => OpCodeTableKind.T0F,
+						"0F38" => OpCodeTableKind.T0F38,
+						"0F3A" => OpCodeTableKind.T0F3A,
+						"X8" => OpCodeTableKind.XOP8,
+						"X9" => OpCodeTableKind.XOP9,
+						"XA" => OpCodeTableKind.XOPA,
+						_ => throw new InvalidOperationException(),
+					};
 					break;
 
 				case "NP":
-					if (result.MandatoryPrefix != MandatoryPrefix.None) {
-						error = $"Duplicate mandatory prefix: `{encPart}`";
-						return false;
-					}
-					result.MandatoryPrefix = MandatoryPrefix.PNP;
-					break;
 				case "66":
-					if (result.MandatoryPrefix != MandatoryPrefix.None) {
-						error = $"Duplicate mandatory prefix: `{encPart}`";
-						return false;
-					}
-					result.MandatoryPrefix = MandatoryPrefix.P66;
-					break;
 				case "F3":
-					if (result.MandatoryPrefix != MandatoryPrefix.None) {
-						error = $"Duplicate mandatory prefix: `{encPart}`";
-						return false;
-					}
-					result.MandatoryPrefix = MandatoryPrefix.PF3;
-					break;
 				case "F2":
 					if (result.MandatoryPrefix != MandatoryPrefix.None) {
 						error = $"Duplicate mandatory prefix: `{encPart}`";
 						return false;
 					}
-					result.MandatoryPrefix = MandatoryPrefix.PF2;
+					result.MandatoryPrefix = encPart switch {
+						"NP" => MandatoryPrefix.PNP,
+						"66" => MandatoryPrefix.P66,
+						"F3" => MandatoryPrefix.PF3,
+						"F2" => MandatoryPrefix.PF2,
+						_ => throw new InvalidOperationException(),
+					};
 					break;
 
 				case "L0":
-					if (result.LBit != OpCodeL.None) {
-						error = $"Duplicate L bit: `{encPart}`";
-						return false;
-					}
-					result.LBit = OpCodeL.L0;
-					break;
 				case "L1":
-					if (result.LBit != OpCodeL.None) {
-						error = $"Duplicate L bit: `{encPart}`";
-						return false;
-					}
-					result.LBit = OpCodeL.L1;
-					break;
 				case "LIG":
-					if (result.LBit != OpCodeL.None) {
-						error = $"Duplicate L bit: `{encPart}`";
-						return false;
-					}
-					result.LBit = OpCodeL.LIG;
-					break;
 				case "LZ":
-					if (result.LBit != OpCodeL.None) {
-						error = $"Duplicate L bit: `{encPart}`";
-						return false;
-					}
-					result.LBit = OpCodeL.LZ;
-					break;
 				case "128":
-					if (result.LBit != OpCodeL.None) {
-						error = $"Duplicate L bit: `{encPart}`";
-						return false;
-					}
-					result.LBit = OpCodeL.L128;
-					break;
 				case "256":
-					if (result.LBit != OpCodeL.None) {
-						error = $"Duplicate L bit: `{encPart}`";
-						return false;
-					}
-					result.LBit = OpCodeL.L256;
-					break;
 				case "512":
 					if (result.LBit != OpCodeL.None) {
 						error = $"Duplicate L bit: `{encPart}`";
 						return false;
 					}
-					result.LBit = OpCodeL.L512;
+					result.LBit = encPart switch {
+						"L0" => OpCodeL.L0,
+						"L1" => OpCodeL.L1,
+						"LIG" => OpCodeL.LIG,
+						"LZ" => OpCodeL.LZ,
+						"128" => OpCodeL.L128,
+						"256" => OpCodeL.L256,
+						"512" => OpCodeL.L512,
+						_ => throw new InvalidOperationException(),
+					};
 					break;
 
 				case "W0":
-					if (result.WBit != OpCodeW.None) {
-						error = $"Duplicate W bit: `{encPart}`";
-						return false;
-					}
-					result.WBit = OpCodeW.W0;
-					break;
 				case "W1":
-					if (result.WBit != OpCodeW.None) {
-						error = $"Duplicate W bit: `{encPart}`";
-						return false;
-					}
-					result.WBit = OpCodeW.W1;
-					break;
 				case "WIG":
 					if (result.WBit != OpCodeW.None) {
 						error = $"Duplicate W bit: `{encPart}`";
 						return false;
 					}
-					result.WBit = OpCodeW.WIG;
+					result.WBit = encPart switch 					{
+						"W0" => OpCodeW.W0,
+						"W1" => OpCodeW.W1,
+						"WIG" => OpCodeW.WIG,
+						_ => throw new InvalidOperationException(),
+					};
 					break;
 
 				default:
