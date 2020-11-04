@@ -4321,8 +4321,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00098036, 0xAA000000,// Aesdec128kl_xmm_m384
 			0x00098036, 0xAA000000,// Aesenc256kl_xmm_m512
 			0x00098036, 0xAA000000,// Aesdec256kl_xmm_m512
-			0x0B366037, 0xAA000000,// Encodekey128_r32_r32
-			0x0B466037, 0xAA000000,// Encodekey256_r32_r32
+			0x0B308037, 0xAA000000,// Encodekey128_r32_r32
+			0x0B408037, 0xAA000000,// Encodekey256_r32_r32
 			0x00000037, 0x11000001,// VEX_Vbroadcastss_xmm_xmm
 			0x00000037, 0x11000001,// VEX_Vbroadcastss_ymm_xmm
 			0x00000037, 0x11000001,// VEX_Vbroadcastsd_ymm_xmm

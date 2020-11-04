@@ -19218,9 +19218,9 @@ F3 0F38 DE 10, Aesenc256kl_xmm_m512, Legacy, AESKLE, fc=acops fw=z op0=rw op1=r 
 # aesdec256kl xmm2,[rax]
 F3 0F38 DF 10, Aesdec256kl_xmm_m512, Legacy, AESKLE, fc=acops fw=z op0=rw op1=r rw=xmm2 r=rax rm=ds:rax;KLHandleAes256
 # encodekey128 edx,ebx
-F3 0F38 FA D3, Encodekey128_r32_r32, Legacy, AESKLE, fw=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0 w=xmm1;xmm2;xmm4;xmm5;xmm6
+F3 0F38 FA D3, Encodekey128_r32_r32, Legacy, AESKLE, fc=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0 w=xmm1;xmm2;xmm4;xmm5;xmm6
 # encodekey256 edx,ebx
-F3 0F38 FB D3, Encodekey256_r32_r32, Legacy, AESKLE, fw=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0;xmm1 w=xmm2;xmm3;xmm4;xmm5;xmm6
+F3 0F38 FB D3, Encodekey256_r32_r32, Legacy, AESKLE, fc=acopsz op0=w op1=r w=rdx r=ebx rw=xmm0;xmm1 w=xmm2;xmm3;xmm4;xmm5;xmm6
 # uiret
 F3 0F01 EC, Uiret, Legacy, UINTR, flow=Return fw=acopszdA fs=u w=rsp r=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 stack=24
 # testui

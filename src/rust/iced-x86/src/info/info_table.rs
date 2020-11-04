@@ -4317,8 +4317,8 @@ pub(crate) static TABLE: [u32; 8624] = [
 	0x0009_8036, 0xAA00_0000,// Aesdec128kl_xmm_m384
 	0x0009_8036, 0xAA00_0000,// Aesenc256kl_xmm_m512
 	0x0009_8036, 0xAA00_0000,// Aesdec256kl_xmm_m512
-	0x0B36_6037, 0xAA00_0000,// Encodekey128_r32_r32
-	0x0B46_6037, 0xAA00_0000,// Encodekey256_r32_r32
+	0x0B30_8037, 0xAA00_0000,// Encodekey128_r32_r32
+	0x0B40_8037, 0xAA00_0000,// Encodekey256_r32_r32
 	0x0000_0037, 0x1100_0001,// VEX_Vbroadcastss_xmm_xmm
 	0x0000_0037, 0x1100_0001,// VEX_Vbroadcastss_ymm_xmm
 	0x0000_0037, 0x1100_0001,// VEX_Vbroadcastsd_ymm_xmm
