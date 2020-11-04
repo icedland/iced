@@ -8350,9 +8350,9 @@ prefetch byte ptr ds:[rax]
 ud0
 vmgexit
 vmgexit
-ldtilecfg ds:[rax]
+ldtilecfg zmmword ptr ds:[rax]
 tilerelease
-sttilecfg ds:[rax]
+sttilecfg zmmword ptr ds:[rax]
 tilezero tmm2
 tileloaddt1 tmm2, ds:[rcx+rdx*4]
 tileloaddt1 tmm2, ss:[rsp]
@@ -8375,13 +8375,13 @@ seamops
 seamcall
 aesencwide128kl mem384 ptr ds:[rax]
 aesdecwide128kl mem384 ptr ds:[rax]
-aesencwide256kl xmmword ptr ds:[rax]
-aesdecwide256kl xmmword ptr ds:[rax]
+aesencwide256kl zmmword ptr ds:[rax]
+aesdecwide256kl zmmword ptr ds:[rax]
 loadiwkey xmm2, xmm3
 aesenc128kl xmm2, mem384 ptr ds:[rax]
 aesdec128kl xmm2, mem384 ptr ds:[rax]
-aesenc256kl xmm2, xmmword ptr ds:[rax]
-aesdec256kl xmm2, xmmword ptr ds:[rax]
+aesenc256kl xmm2, zmmword ptr ds:[rax]
+aesdec256kl xmm2, zmmword ptr ds:[rax]
 encodekey128 edx, ebx
 encodekey256 edx, ebx
 uiret

@@ -64,11 +64,11 @@
 0, Xsave, Xsave, None, None, None, None, None,
 0, Xsave64, Xsave64, None, None, None, None, None,
 10, Bcd, Bcd, None, tbyte_ptr, tbyte_ptr, tbyte_ptr, tword, signed
-64, Tilecfg, Tilecfg, None, None, None, None, None,
+64, Tilecfg, Tilecfg, None, zmmword_ptr, zmmword_ptr, zmmword_ptr, zword,
 0, Tile, Tile, None, None, None, None, None,
 10, SegmentDescSelector, SegmentDescSelector, None, tbyte_ptr, tbyte_ptr, tbyte_ptr, tword,
 48, KLHandleAes128, KLHandleAes128, None, mem384_ptr, mem384_ptr, mem384_ptr, mem384,
-64, KLHandleAes256, KLHandleAes256, None, xmmword_ptr, xmmword_ptr, xmmword_ptr, oword,
+64, KLHandleAes256, KLHandleAes256, None, zmmword_ptr, zmmword_ptr, zmmword_ptr, zword,
 2, Packed16_UInt8, UInt8, None, word_ptr, word_ptr, word_ptr, word,
 2, Packed16_Int8, Int8, None, word_ptr, word_ptr, word_ptr, word, signed
 4, Packed32_UInt8, UInt8, None, dword_ptr, dword_ptr, dword_ptr, dword,
