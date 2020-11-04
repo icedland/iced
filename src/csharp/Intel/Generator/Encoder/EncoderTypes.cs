@@ -112,10 +112,10 @@ namespace Generator.Encoder {
 					break;
 				case OperandEncoding.Immediate:
 					switch (def.ImmediateSize) {
-					case 2:
+					case 4:
 						if (!def.M2Z)
 							throw new InvalidOperationException();
-						opHandlerKind = OpHandlerKind.OpI2;
+						opHandlerKind = OpHandlerKind.OpI4;
 						args = Array.Empty<object>();
 						break;
 					case 8:

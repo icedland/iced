@@ -160,7 +160,7 @@ namespace Generator.Tables {
 		/// </summary>
 		Modrm				= 0x00000200,
 		/// <summary>
-		/// <c>/is5</c> instructions: 2-bit immediate stored in the low 2 bits of an 8-bit immediate (upper 4 bits is the
+		/// <c>/is5</c> instructions: 4-bit immediate stored in the low 4 bits of an 8-bit immediate (upper 4 bits is the
 		/// register bits, see <see cref="OperandEncoding.RegImm"/>)
 		/// </summary>
 		M2Z					= 0x00000400,

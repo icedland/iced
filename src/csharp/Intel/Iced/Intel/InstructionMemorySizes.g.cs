@@ -3951,14 +3951,14 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed256_UInt64,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 			(byte)MemorySize.Packed512_UInt64,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 			(byte)MemorySize.Packed256_UInt128,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-			(byte)MemorySize.Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-			(byte)MemorySize.Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-			(byte)MemorySize.Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-			(byte)MemorySize.Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-			(byte)MemorySize.Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-			(byte)MemorySize.Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-			(byte)MemorySize.Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-			(byte)MemorySize.Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+			(byte)MemorySize.Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+			(byte)MemorySize.Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+			(byte)MemorySize.Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+			(byte)MemorySize.Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+			(byte)MemorySize.Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+			(byte)MemorySize.Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+			(byte)MemorySize.Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+			(byte)MemorySize.Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 			(byte)MemorySize.Packed128_Float32,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 			(byte)MemorySize.Packed256_Float32,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 			(byte)MemorySize.Packed128_Float64,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm
@@ -8263,14 +8263,14 @@ namespace Iced.Intel {
 			0,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 			0,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 			0,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-			0,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-			0,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-			0,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-			0,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-			0,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-			0,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-			0,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-			0,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+			0,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+			0,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+			0,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+			0,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+			0,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+			0,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+			0,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+			0,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 			0,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 			0,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 			0,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

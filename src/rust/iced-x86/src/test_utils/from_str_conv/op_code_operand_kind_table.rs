@@ -115,7 +115,7 @@ lazy_static! {
 		h.insert("rax", OpCodeOperandKind::rax);
 		h.insert("st0", OpCodeOperandKind::st0);
 		h.insert("sti_opcode", OpCodeOperandKind::sti_opcode);
-		h.insert("imm2_m2z", OpCodeOperandKind::imm2_m2z);
+		h.insert("imm4_m2z", OpCodeOperandKind::imm4_m2z);
 		h.insert("imm8", OpCodeOperandKind::imm8);
 		h.insert("imm8_const_1", OpCodeOperandKind::imm8_const_1);
 		h.insert("imm8sex16", OpCodeOperandKind::imm8sex16);

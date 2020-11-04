@@ -3942,14 +3942,14 @@ pub(super) static ENC_FLAGS1: [u32; 4312] = [
 	0x000F_AF58,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	0x000F_B3BB,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	0x007C_96D9,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x1E60_8594,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	0x1E74_96D9,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	0x1E21_8594,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	0x1E25_D6D9,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	0x1E60_8594,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	0x1E74_96D9,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	0x1E21_8594,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	0x1E25_D6D9,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	0x1E60_8594,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	0x1E74_96D9,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	0x1E21_8594,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	0x1E25_D6D9,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	0x1E60_8594,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	0x1E74_96D9,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	0x1E21_8594,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	0x1E25_D6D9,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	0x005C_8594,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x0070_96D9,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	0x005C_8594,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm
@@ -8257,14 +8257,14 @@ pub(super) static ENC_FLAGS2: [u32; 4312] = [
 	0x22CE_0044,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	0x234E_0044,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	0x228E_0046,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x220E_0048,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	0x228E_0048,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	0x222E_0048,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	0x22AE_0048,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	0x220E_0049,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	0x228E_0049,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	0x222E_0049,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	0x22AE_0049,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	0x220E_0048,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	0x228E_0048,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	0x222E_0048,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	0x22AE_0048,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	0x220E_0049,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	0x228E_0049,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	0x222E_0049,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	0x22AE_0049,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	0x220E_004A,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x228E_004A,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	0x220E_004B,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm
@@ -12572,14 +12572,14 @@ pub(super) static ENC_FLAGS3: [u32; 4312] = [
 	0x0003_0282,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	0x0003_0302,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	0x0003_0001,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x0003_0001,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	0x0003_0001,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	0x0003_0001,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	0x0003_0001,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	0x0003_0001,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	0x0003_0001,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	0x0003_0001,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	0x0003_0001,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	0x0003_0001,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	0x0003_0001,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	0x0003_0001,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	0x0003_0001,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	0x0003_0001,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	0x0003_0001,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	0x0003_0001,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	0x0003_0001,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	0x0003_0001,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x0003_0001,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	0x0003_0001,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

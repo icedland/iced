@@ -721,8 +721,8 @@ pub enum OpCodeOperandKind {
 	st0 = 79,
 	/// ST(i) register encoded in the low 3 bits of the opcode
 	sti_opcode = 80,
-	/// 2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. `VPERMIL2PS`)
-	imm2_m2z = 81,
+	/// 4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg. `VPERMIL2PS`)
+	imm4_m2z = 81,
 	/// 8-bit immediate
 	imm8 = 82,
 	/// Constant 1 (8-bit immediate)
@@ -862,7 +862,7 @@ static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 109] = [
 	"rax",
 	"st0",
 	"sti_opcode",
-	"imm2_m2z",
+	"imm4_m2z",
 	"imm8",
 	"imm8_const_1",
 	"imm8sex16",

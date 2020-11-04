@@ -3942,14 +3942,14 @@ pub(crate) static TABLE: [u32; 8624] = [
 	0x0000_02B7, 0x8E00_0002,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	0x0000_02B7, 0x8D00_0002,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	0x0000_02B7, 0x1100_0001,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	0x0000_06B7, 0x9100_0001,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	0x0000_02B7, 0x0F00_0001,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x0000_02B7, 0x0F00_0001,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	0x0000_02B7, 0x0F00_0001,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

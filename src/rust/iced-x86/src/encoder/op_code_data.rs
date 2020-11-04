@@ -3942,14 +3942,14 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0000_0000,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	0x0000_0000,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	0x0000_0000,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x0000_0000,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	0x0000_0000,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	0x0000_0000,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	0x0000_0000,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	0x0000_0000,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	0x0000_0000,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	0x0000_0000,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	0x0000_0000,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	0x0000_0000,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	0x0000_0000,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	0x0000_0000,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	0x0000_0000,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	0x0000_0000,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	0x0000_0000,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	0x0000_0000,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	0x0000_0000,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	0x0000_0000,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x0000_0000,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	0x0000_0000,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm
@@ -8257,14 +8257,14 @@ pub(super) static OPC_FLAGS2: [u32; 4312] = [
 	0x1E00_3FFA,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	0x1E00_3FFA,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	0x1E00_3FFA,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x1E00_3FFA,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	0x1E00_3FFA,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	0x1E00_3FFA,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	0x1E00_3FFA,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	0x1E00_3FFA,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	0x1E00_3FFA,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	0x1E00_3FFA,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	0x1E00_3FFA,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	0x1E00_3FFA,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	0x1E00_3FFA,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	0x1E00_3FFA,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	0x1E00_3FFA,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	0x1E00_3FFA,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	0x1E00_3FFA,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	0x1E00_3FFA,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	0x1E00_3FFA,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	0x1E00_3FFA,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x1E00_3FFA,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	0x1E00_3FFA,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

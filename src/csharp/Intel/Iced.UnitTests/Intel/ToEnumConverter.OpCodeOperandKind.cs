@@ -116,7 +116,7 @@ namespace Iced.UnitTests.Intel {
 				{ "rax", OpCodeOperandKind.rax },
 				{ "st0", OpCodeOperandKind.st0 },
 				{ "sti_opcode", OpCodeOperandKind.sti_opcode },
-				{ "imm2_m2z", OpCodeOperandKind.imm2_m2z },
+				{ "imm4_m2z", OpCodeOperandKind.imm4_m2z },
 				{ "imm8", OpCodeOperandKind.imm8 },
 				{ "imm8_const_1", OpCodeOperandKind.imm8_const_1 },
 				{ "imm8sex16", OpCodeOperandKind.imm8sex16 },

@@ -36647,168 +36647,168 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regXMM_regXMM_regXMM_regXMM_i() {
-			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, xmm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, xmm4, xmm5, 3));
+			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, xmm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, xmm4, xmm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regXMM_regXMM_m_regXMM_i() {
-			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, __xmmword_ptr[si], xmm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, 3));
+			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, __xmmword_ptr[si], xmm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regYMM_regYMM_regYMM_regYMM_i() {
-			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, ymm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, ymm4, ymm5, 3));
+			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, ymm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, ymm4, ymm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regYMM_regYMM_m_regYMM_i() {
-			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, __ymmword_ptr[si], ymm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, 3));
+			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, __ymmword_ptr[si], ymm5, 3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regXMM_regXMM_regXMM_m_i() {
-			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, __xmmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), 3));
+			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, __xmmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regYMM_regYMM_regYMM_m_i() {
-			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, __ymmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), 3));
+			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, __ymmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regXMM_regXMM_regXMM_regXMM_u() {
-			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, xmm4, xmm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, xmm4, xmm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regXMM_regXMM_m_regXMM_u() {
-			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, __xmmword_ptr[si], xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, __xmmword_ptr[si], xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regYMM_regYMM_regYMM_regYMM_u() {
-			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, ymm4, ymm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, ymm4, ymm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regYMM_regYMM_m_regYMM_u() {
-			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, __ymmword_ptr[si], ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, __ymmword_ptr[si], ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regXMM_regXMM_regXMM_m_u() {
-			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, __xmmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
+			TestAssembler(c => c.vpermil2pd(xmm2, xmm3, xmm4, __xmmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2pd_regYMM_regYMM_regYMM_m_u() {
-			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, __ymmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
+			TestAssembler(c => c.vpermil2pd(ymm2, ymm3, ymm4, __ymmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regXMM_regXMM_regXMM_regXMM_i() {
-			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, xmm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, xmm4, xmm5, 3));
+			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, xmm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, xmm4, xmm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regXMM_regXMM_m_regXMM_i() {
-			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, __xmmword_ptr[si], xmm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, 3));
+			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, __xmmword_ptr[si], xmm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regYMM_regYMM_regYMM_regYMM_i() {
-			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, ymm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, ymm4, ymm5, 3));
+			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, ymm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, ymm4, ymm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regYMM_regYMM_m_regYMM_i() {
-			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, __ymmword_ptr[si], ymm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, 3));
+			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, __ymmword_ptr[si], ymm5, 3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regXMM_regXMM_regXMM_m_i() {
-			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, __xmmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), 3));
+			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, __xmmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regYMM_regYMM_regYMM_m_i() {
-			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, __ymmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), 3));
+			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, __ymmword_ptr[si], 3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), 3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regXMM_regXMM_regXMM_regXMM_u() {
-			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, xmm4, xmm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, xmm4, xmm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regXMM_regXMM_m_regXMM_u() {
-			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, __xmmword_ptr[si], xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, __xmmword_ptr[si], xmm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, xmm2, xmm3, __xmmword_ptr[si].ToMemoryOperand(Bitness), xmm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regYMM_regYMM_regYMM_regYMM_u() {
-			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, ymm4, ymm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, ymm4, ymm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regYMM_regYMM_m_regYMM_u() {
-			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, __ymmword_ptr[si], ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, (uint)(byte)3));
+			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, __ymmword_ptr[si], ymm5, (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, ymm2, ymm3, __ymmword_ptr[si].ToMemoryOperand(Bitness), ymm5, (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regXMM_regXMM_regXMM_m_u() {
-			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, __xmmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
+			TestAssembler(c => c.vpermil2ps(xmm2, xmm3, xmm4, __xmmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, xmm2, xmm3, xmm4, __xmmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
 		}
 #endif
 
 #if !NO_VEX
 		[Fact]
 		public void vpermil2ps_regYMM_regYMM_regYMM_m_u() {
-			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, __ymmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
+			TestAssembler(c => c.vpermil2ps(ymm2, ymm3, ymm4, __ymmword_ptr[si], (byte)3), Instruction.Create(Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, ymm2, ymm3, ymm4, __ymmword_ptr[si].ToMemoryOperand(Bitness), (uint)(byte)3));
 		}
 #endif
 

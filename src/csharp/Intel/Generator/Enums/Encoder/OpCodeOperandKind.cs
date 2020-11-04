@@ -186,8 +186,8 @@ namespace Generator.Enums.Encoder {
 		st0,
 		[Comment("ST(i) register encoded in the low 3 bits of the opcode")]
 		sti_opcode,
-		[Comment("2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. #(c:VPERMIL2PS)#)")]
-		imm2_m2z,
+		[Comment("4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg. #(c:VPERMIL2PS)#)")]
+		imm4_m2z,
 		[Comment("8-bit immediate")]
 		imm8,
 		[Comment("Constant 1 (8-bit immediate)")]

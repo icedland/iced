@@ -31334,70 +31334,70 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		VEX_Vperm2i128_ymm_ymm_ymmm256_imm8 = 3916,
-		/// <summary><c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <summary><c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2 = 3917,
-		/// <summary><c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4 = 3917,
+		/// <summary><c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2 = 3918,
-		/// <summary><c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
+		VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4 = 3918,
+		/// <summary><c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 48 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2 = 3919,
-		/// <summary><c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
+		VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4 = 3919,
+		/// <summary><c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 48 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2 = 3920,
-		/// <summary><c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4 = 3920,
+		/// <summary><c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2 = 3921,
-		/// <summary><c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4 = 3921,
+		/// <summary><c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2 = 3922,
-		/// <summary><c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
+		VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4 = 3922,
+		/// <summary><c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 49 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2 = 3923,
-		/// <summary><c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
+		VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4 = 3923,
+		/// <summary><c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 49 /r /is5</c><br/>
 		/// <br/>
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2 = 3924,
+		VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4 = 3924,
 		/// <summary><c>VBLENDVPS xmm1, xmm2, xmm3/m128, xmm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 4A /r /is4</c><br/>

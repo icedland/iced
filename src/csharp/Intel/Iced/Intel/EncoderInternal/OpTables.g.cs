@@ -136,7 +136,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpHx(Register.YMM0, Register.YMM15),
 			new OpIsX(Register.YMM0, Register.YMM15),
 			new OpIsX(Register.YMM0, Register.YMM15),
-			new OpI2(),
+			new OpI4(),
 			new OpIb(OpKind.Immediate8),
 			new OprDI(),
 			new OpModRM_rm_mem_only(true),

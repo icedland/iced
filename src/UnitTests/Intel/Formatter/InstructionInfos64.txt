@@ -7474,22 +7474,22 @@ F2 0F2B 08, Movntsd_m64_xmm
 F2 0F78 D1 A5 FD, Insertq_xmm_xmm_imm8_imm8
 66 0F79 D1, Extrq_xmm_xmm
 F2 0F79 D1, Insertq_xmm_xmm
-C4E349 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-C4E34D 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-C4E3C9 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-C4E3CD 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-C4E349 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-C4E34D 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-C4E3C9 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-C4E3CD 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
-C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+C4E349 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+C4E349 48 10 44, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+C4E34D 48 D3 51, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+C4E34D 48 10 55, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+C4E3C9 48 D3 42, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+C4E3C9 48 10 46, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+C4E3CD 48 D3 53, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+C4E3CD 48 10 57, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+C4E349 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+C4E349 49 10 48, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+C4E34D 49 D3 51, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+C4E34D 49 10 59, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+C4E3C9 49 D3 42, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+C4E3C9 49 10 4A, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+C4E3CD 49 D3 53, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
+C4E3CD 49 10 5F, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 C4E349 5C D3 40, VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm
 C4E349 5C 10 40, VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm
 C4E34D 5C D3 50, VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm

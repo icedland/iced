@@ -14270,7 +14270,7 @@ END
 # Code: VEX_Vzeroupper
 INSTRUCTION: VEX.128.0F.WIG 77 | VZEROUPPER | AVX
 	# rw since low 128 bits are preserved and upper bits are cleared. It will be
-	# converted to r=xmm0-xmm7/15 w=zmm0-zmm7/15 since it's VEX encoded.
+	# converted to r=xmm0-xmm7/15 w=vmm0-vmm7/15 since it's VEX encoded.
 	implied: rw;!64=xmm0-xmm7 rw;64=xmm0-xmm15
 	flags: tsx-impl-abort
 END
@@ -27443,43 +27443,43 @@ INSTRUCTION: VEX.256.66.0F3A.W0 46 /r ib | VPERM2I128 ymm1, ymm2, ymm3/m256, imm
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_UInt128
 END
 
-# Code: VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-INSTRUCTION: VEX.128.66.0F3A.W0 48 /r /is5 | VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2 | XOP
+# Code: VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+INSTRUCTION: VEX.128.66.0F3A.W0 48 /r /is5 | VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4 | XOP
 	ops: w=reg r=vvvv r=rm r=is r=imm | Packed128_Float32
 END
 
-# Code: VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-INSTRUCTION: VEX.256.66.0F3A.W0 48 /r /is5 | VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2 | XOP
+# Code: VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+INSTRUCTION: VEX.256.66.0F3A.W0 48 /r /is5 | VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4 | XOP
 	ops: w=reg r=vvvv r=rm r=is r=imm | Packed256_Float32
 END
 
-# Code: VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-INSTRUCTION: VEX.128.66.0F3A.W1 48 /r /is5 | VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2 | XOP
+# Code: VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+INSTRUCTION: VEX.128.66.0F3A.W1 48 /r /is5 | VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm4 | XOP
 	ops: w=reg r=vvvv r=is r=rm r=imm | Packed128_Float32
 END
 
-# Code: VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-INSTRUCTION: VEX.256.66.0F3A.W1 48 /r /is5 | VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2 | XOP
+# Code: VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+INSTRUCTION: VEX.256.66.0F3A.W1 48 /r /is5 | VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm4 | XOP
 	ops: w=reg r=vvvv r=is r=rm r=imm | Packed256_Float32
 END
 
-# Code: VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-INSTRUCTION: VEX.128.66.0F3A.W0 49 /r /is5 | VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2 | XOP
+# Code: VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+INSTRUCTION: VEX.128.66.0F3A.W0 49 /r /is5 | VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4 | XOP
 	ops: w=reg r=vvvv r=rm r=is r=imm | Packed128_Float64
 END
 
-# Code: VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-INSTRUCTION: VEX.256.66.0F3A.W0 49 /r /is5 | VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2 | XOP
+# Code: VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+INSTRUCTION: VEX.256.66.0F3A.W0 49 /r /is5 | VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4 | XOP
 	ops: w=reg r=vvvv r=rm r=is r=imm | Packed256_Float64
 END
 
-# Code: VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-INSTRUCTION: VEX.128.66.0F3A.W1 49 /r /is5 | VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2 | XOP
+# Code: VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+INSTRUCTION: VEX.128.66.0F3A.W1 49 /r /is5 | VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm4 | XOP
 	ops: w=reg r=vvvv r=is r=rm r=imm | Packed128_Float64
 END
 
-# Code: VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
-INSTRUCTION: VEX.256.66.0F3A.W1 49 /r /is5 | VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2 | XOP
+# Code: VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
+INSTRUCTION: VEX.256.66.0F3A.W1 49 /r /is5 | VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm4 | XOP
 	ops: w=reg r=vvvv r=is r=rm r=imm | Packed256_Float64
 END
 

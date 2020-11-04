@@ -287,17 +287,17 @@ impl Op for OpIq {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct OpI2;
-impl Op for OpI2 {
+pub(super) struct OpI4;
+impl Op for OpI4 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		let op_imm_kind = instruction.op_kind(operand);
 		if !encoder.verify_op_kind(operand, OpKind::Immediate8, op_imm_kind) {
 			return;
 		}
 		debug_assert_eq!(ImmSize::SizeIbReg, encoder.imm_size);
-		debug_assert_eq!(0, (encoder.immediate & 3));
-		if instruction.immediate8() > 3 {
-			encoder.set_error_message(format!("Operand {}: Immediate value must be 0-3, but value is 0x{:02X}", operand, instruction.immediate8()));
+		debug_assert_eq!(0, encoder.immediate & 0xF);
+		if instruction.immediate8() > 0xF {
+			encoder.set_error_message(format!("Operand {}: Immediate value must be 0-15, but value is 0x{:02X}", operand, instruction.immediate8()));
 			return;
 		}
 		encoder.imm_size = ImmSize::Size1;

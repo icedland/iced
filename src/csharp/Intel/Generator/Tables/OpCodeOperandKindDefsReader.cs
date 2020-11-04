@@ -125,9 +125,9 @@ namespace Generator.Tables {
 					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.FarBranch, arg1, 0, Register.None);
 					break;
 
-				case "imm2":
+				case "imm4":
 					flags |= OpCodeOperandKindDefFlags.M2Z;
-					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.Immediate, 2, 2, Register.None);
+					def = new OpCodeOperandKindDef(enumValue, flags, OperandEncoding.Immediate, 4, 4, Register.None);
 					break;
 
 				case "imm8-const":

@@ -3949,14 +3949,14 @@ namespace Iced.Intel {
 			4,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 			4,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 			4,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-			5,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-			5,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-			5,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-			5,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-			5,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-			5,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-			5,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-			5,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+			5,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+			5,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+			5,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+			5,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+			5,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+			5,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+			5,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+			5,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 			4,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 			4,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 			4,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

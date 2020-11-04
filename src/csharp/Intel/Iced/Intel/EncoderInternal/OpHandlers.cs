@@ -259,15 +259,15 @@ namespace Iced.Intel.EncoderInternal {
 		public override OpKind GetImmediateOpKind() => OpKind.Immediate64;
 	}
 
-	sealed class OpI2 : Op {
+	sealed class OpI4 : Op {
 		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
 			var opImmKind = instruction.GetOpKind(operand);
 			if (!encoder.Verify(operand, OpKind.Immediate8, opImmKind))
 				return;
 			Debug.Assert(encoder.ImmSize == ImmSize.SizeIbReg);
-			Debug.Assert((encoder.Immediate & 3) == 0);
-			if (instruction.Immediate8 > 3) {
-				encoder.ErrorMessage = $"Operand {operand}: Immediate value must be 0-3, but value is 0x{instruction.Immediate8:X2}";
+			Debug.Assert((encoder.Immediate & 0xF) == 0);
+			if (instruction.Immediate8 > 0xF) {
+				encoder.ErrorMessage = $"Operand {operand}: Immediate value must be 0-15, but value is 0x{instruction.Immediate8:X2}";
 				return;
 			}
 			encoder.ImmSize = ImmSize.Size1;

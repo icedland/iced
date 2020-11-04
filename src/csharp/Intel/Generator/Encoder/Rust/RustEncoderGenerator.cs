@@ -249,7 +249,7 @@ namespace Generator.Encoder.Rust {
 						break;
 
 					case OpHandlerKind.None:
-					case OpHandlerKind.OpI2:
+					case OpHandlerKind.OpI4:
 					case OpHandlerKind.OpIq:
 					case OpHandlerKind.OpIw:
 					case OpHandlerKind.OpMRBX:

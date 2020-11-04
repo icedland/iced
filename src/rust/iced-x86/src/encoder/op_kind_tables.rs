@@ -138,7 +138,7 @@ pub(super) static VEX_OP_KINDS: [OpCodeOperandKind; 37] = [
 	OpCodeOperandKind::ymm_vvvv,
 	OpCodeOperandKind::ymm_is4,
 	OpCodeOperandKind::ymm_is5,
-	OpCodeOperandKind::imm2_m2z,
+	OpCodeOperandKind::imm4_m2z,
 	OpCodeOperandKind::imm8,
 	OpCodeOperandKind::seg_rDI,
 	OpCodeOperandKind::sibmem,

@@ -39,7 +39,7 @@ brdisp_4, br-disp=32,
 farbr2_2, br-far=16,
 farbr4_2, br-far=32,
 
-imm2_m2z, imm2,
+imm4_m2z, imm4,
 imm8_const_1, imm8-const=1,
 imm8, imm=8;8,
 imm8sex16, imm=8;16,

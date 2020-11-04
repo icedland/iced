@@ -30142,61 +30142,61 @@ C4E30D 46 D3 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 
 C4C34D 46 D3 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm11 op3=i8;0xA5 co=5;1;0;0;0;0
 C4A34D 46 10 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_UInt128 op3=i8;0xA5 co=5;1;0;0;0;0 enc=C4E34D4610A5
 
-C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
-C4E349 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;0 co=5;1;0;0;0;0
-C46349 48 D3 C1, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm3 op3=r;xmm12 op4=i8;1 co=5;1;0;0;0;0
-C4E309 48 D3 E2, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm3 op3=r;xmm14 op4=i8;2 co=5;1;0;0;0;0
-C4C349 48 D3 43, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm11 op3=r;xmm4 op4=i8;3 co=5;1;0;0;0;0
-C4A349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349481041
+C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4E349 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;0 co=5;1;0;0;0;0
+C46349 48 D3 C4, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Vpermil2ps, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm3 op3=r;xmm12 op4=i8;4 co=5;1;0;0;0;0
+C4E309 48 D3 E2, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm3 op3=r;xmm14 op4=i8;2 co=5;1;0;0;0;0
+C4C349 48 D3 43, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm11 op3=r;xmm4 op4=i8;3 co=5;1;0;0;0;0
+C4A349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349481041
 
-C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
-C4E34D 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;0 co=5;1;0;0;0;0
-C4634D 48 D3 D1, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm3 op3=r;ymm13 op4=i8;1 co=5;1;0;0;0;0
-C4E30D 48 D3 82, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm3 op3=r;ymm8 op4=i8;2 co=5;1;0;0;0;0
-C4C34D 48 D3 53, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm11 op3=r;ymm5 op4=i8;3 co=5;1;0;0;0;0
-C4A34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D481052
+C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4E34D 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;0 co=5;1;0;0;0;0
+C4634D 48 D3 D5, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, Vpermil2ps, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm3 op3=r;ymm13 op4=i8;5 co=5;1;0;0;0;0
+C4E30D 48 D3 82, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm3 op3=r;ymm8 op4=i8;2 co=5;1;0;0;0;0
+C4C34D 48 D3 53, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm11 op3=r;ymm5 op4=i8;3 co=5;1;0;0;0;0
+C4A34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D481052
 
-C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0
-C4E3C9 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;0 co=5;1;0;0;0;0
-C463C9 48 D3 C1, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm12 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
-C4E389 48 D3 E2, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm14 op3=r;xmm3 op4=i8;2 co=5;1;0;0;0;0
-C4C3C9 48 D3 43, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm11 op4=i8;3 co=5;1;0;0;0;0
-C4A3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9481041
+C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0
+C4E3C9 48 D3 40, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;0 co=5;1;0;0;0;0
+C463C9 48 D3 C6, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Vpermil2ps, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm12 op3=r;xmm3 op4=i8;6 co=5;1;0;0;0;0
+C4E389 48 D3 E2, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm14 op3=r;xmm3 op4=i8;2 co=5;1;0;0;0;0
+C4C3C9 48 D3 43, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm11 op4=i8;3 co=5;1;0;0;0;0
+C4A3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9481041
 
-C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0
-C4E3CD 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;0 co=5;1;0;0;0;0
-C463CD 48 D3 D1, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm13 op3=r;ymm3 op4=i8;1 co=5;1;0;0;0;0
-C4E38D 48 D3 82, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm8 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
-C4C3CD 48 D3 53, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm11 op4=i8;3 co=5;1;0;0;0;0
-C4A3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD481052
+C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0
+C4E3CD 48 D3 50, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;0 co=5;1;0;0;0;0
+C463CD 48 D3 D7, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, Vpermil2ps, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm13 op3=r;ymm3 op4=i8;7 co=5;1;0;0;0;0
+C4E38D 48 D3 82, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm8 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
+C4C3CD 48 D3 53, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm11 op4=i8;3 co=5;1;0;0;0;0
+C4A3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD481052
 
-C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
-C4E349 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;0 co=5;1;0;0;0;0
-C46349 49 D3 C1, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm3 op3=r;xmm12 op4=i8;1 co=5;1;0;0;0;0
-C4E309 49 D3 E2, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm3 op3=r;xmm14 op4=i8;2 co=5;1;0;0;0;0
-C4C349 49 D3 43, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm11 op3=r;xmm4 op4=i8;3 co=5;1;0;0;0;0
-C4A349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349491041
+C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4E349 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;0 co=5;1;0;0;0;0
+C46349 49 D3 C8, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, Vpermil2pd, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm3 op3=r;xmm12 op4=i8;8 co=5;1;0;0;0;0
+C4E309 49 D3 E2, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm3 op3=r;xmm14 op4=i8;2 co=5;1;0;0;0;0
+C4C349 49 D3 43, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm11 op3=r;xmm4 op4=i8;3 co=5;1;0;0;0;0
+C4A349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349491041
 
-C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
-C4E34D 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;0 co=5;1;0;0;0;0
-C4634D 49 D3 D1, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm3 op3=r;ymm13 op4=i8;1 co=5;1;0;0;0;0
-C4E30D 49 D3 82, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm3 op3=r;ymm8 op4=i8;2 co=5;1;0;0;0;0
-C4C34D 49 D3 53, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm11 op3=r;ymm5 op4=i8;3 co=5;1;0;0;0;0
-C4A34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D491052
+C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4E34D 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;0 co=5;1;0;0;0;0
+C4634D 49 D3 D9, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, Vpermil2pd, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm3 op3=r;ymm13 op4=i8;9 co=5;1;0;0;0;0
+C4E30D 49 D3 82, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm3 op3=r;ymm8 op4=i8;2 co=5;1;0;0;0;0
+C4C34D 49 D3 53, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm11 op3=r;ymm5 op4=i8;3 co=5;1;0;0;0;0
+C4A34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D491052
 
-C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0
-C4E3C9 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;0 co=5;1;0;0;0;0
-C463C9 49 D3 C1, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm12 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
-C4E389 49 D3 E2, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm14 op3=r;xmm3 op4=i8;2 co=5;1;0;0;0;0
-C4C3C9 49 D3 43, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm11 op4=i8;3 co=5;1;0;0;0;0
-C4A3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9491041
+C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0
+C4E3C9 49 D3 40, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;0 co=5;1;0;0;0;0
+C463C9 49 D3 CA, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, Vpermil2pd, 5, op0=r;xmm10 op1=r;xmm6 op2=r;xmm12 op3=r;xmm3 op4=i8;0xA co=5;1;0;0;0;0
+C4E389 49 D3 EB, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm14 op2=r;xmm14 op3=r;xmm3 op4=i8;0xB co=5;1;0;0;0;0
+C4C3C9 49 D3 4C, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm11 op4=i8;0xC co=5;1;0;0;0;0
+C4A3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;rax;;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9491041
 
-C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0
-C4E3CD 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;0 co=5;1;0;0;0;0
-C463CD 49 D3 D1, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm13 op3=r;ymm3 op4=i8;1 co=5;1;0;0;0;0
-C4E38D 49 D3 82, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm8 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
-C4C3CD 49 D3 53, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm11 op4=i8;3 co=5;1;0;0;0;0
-C4A3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD491052
+C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0
+C4E3CD 49 D3 50, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;0 co=5;1;0;0;0;0
+C463CD 49 D3 DD, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, Vpermil2pd, 5, op0=r;ymm10 op1=r;ymm6 op2=r;ymm13 op3=r;ymm3 op4=i8;0xD co=5;1;0;0;0;0
+C4E38D 49 D3 8E, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm14 op2=r;ymm8 op3=r;ymm3 op4=i8;0xE co=5;1;0;0;0;0
+C4C3CD 49 D3 5F, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm11 op4=i8;0xF co=5;1;0;0;0;0
+C4A3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;rax;;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD491052
 
 C4E349 4A 10 40, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;rax;;1;0;0;Packed128_Float32 op3=r;xmm4
 C4E349 4A D3 40, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4

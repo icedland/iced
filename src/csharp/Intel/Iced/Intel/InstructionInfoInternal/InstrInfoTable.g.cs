@@ -3946,14 +3946,14 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000002B7, 0x8E000002,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 			0x000002B7, 0x8D000002,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 			0x000002B7, 0x11000001,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-			0x000006B7, 0x91000001,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-			0x000006B7, 0x91000001,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-			0x000006B7, 0x91000001,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-			0x000006B7, 0x91000001,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-			0x000006B7, 0x91000001,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-			0x000006B7, 0x91000001,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-			0x000006B7, 0x91000001,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-			0x000006B7, 0x91000001,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+			0x000006B7, 0x91000001,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+			0x000006B7, 0x91000001,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+			0x000006B7, 0x91000001,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+			0x000006B7, 0x91000001,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+			0x000006B7, 0x91000001,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+			0x000006B7, 0x91000001,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+			0x000006B7, 0x91000001,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+			0x000006B7, 0x91000001,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 			0x000002B7, 0x0F000001,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 			0x000002B7, 0x0F000001,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 			0x000002B7, 0x0F000001,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

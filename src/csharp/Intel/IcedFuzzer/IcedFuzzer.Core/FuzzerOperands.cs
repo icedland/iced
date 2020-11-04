@@ -129,7 +129,7 @@ namespace IcedFuzzer.Core {
 					OpCodeOperandKind.rax => (none, null),
 					OpCodeOperandKind.st0 => (none, null),
 					OpCodeOperandKind.sti_opcode => (new RegisterFuzzerOperand(FuzzerRegisterClass.ST, FuzzerRegisterKind.ST, FuzzerOperandRegLocation.OpCodeBits), null),
-					OpCodeOperandKind.imm2_m2z => (none, null),
+					OpCodeOperandKind.imm4_m2z => (none, null),
 					OpCodeOperandKind.imm8 => (imm1, null),
 					OpCodeOperandKind.imm8_const_1 => (none, null),
 					OpCodeOperandKind.imm8sex16 => (imm1, null),

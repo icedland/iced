@@ -26,7 +26,7 @@ namespace Generator.Encoder {
 		None,
 		OpA,
 		OpHx,
-		OpI2,
+		OpI4,
 		OpIb,
 		OpId,
 		OpImm,

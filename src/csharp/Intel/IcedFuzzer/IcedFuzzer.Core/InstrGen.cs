@@ -1716,7 +1716,7 @@ namespace IcedFuzzer.Core {
 				case OpCodeOperandKind.rax:
 				case OpCodeOperandKind.st0:
 				case OpCodeOperandKind.sti_opcode:
-				case OpCodeOperandKind.imm2_m2z:
+				case OpCodeOperandKind.imm4_m2z:
 				case OpCodeOperandKind.imm8:
 				case OpCodeOperandKind.imm8_const_1:
 				case OpCodeOperandKind.imm8sex16:

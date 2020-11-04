@@ -168,7 +168,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				| OpCodeOperandKind::rax
 				| OpCodeOperandKind::st0
 				| OpCodeOperandKind::sti_opcode
-				| OpCodeOperandKind::imm2_m2z
+				| OpCodeOperandKind::imm4_m2z
 				| OpCodeOperandKind::imm8
 				| OpCodeOperandKind::imm8_const_1
 				| OpCodeOperandKind::imm8sex16
@@ -487,7 +487,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 						}
 					}
 
-					OpCodeOperandKind::imm2_m2z => self.sb.push_str("imm2"),
+					OpCodeOperandKind::imm4_m2z => self.sb.push_str("imm4"),
 
 					OpCodeOperandKind::imm8 | OpCodeOperandKind::imm8sex16 | OpCodeOperandKind::imm8sex32 | OpCodeOperandKind::imm8sex64 => {
 						self.sb.push_str("imm8")

@@ -94,7 +94,7 @@ static OP_HX_ZMM0_ZMM31: OpHx = OpHx {
 };
 #[cfg(not(feature = "no_vex"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static OP_I2: OpI2 = OpI2;
+static OP_I4: OpI4 = OpI4;
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static OP_IB_IMMEDIATE8: OpIb = OpIb {
 	op_kind: OpKind::Immediate8,
@@ -651,7 +651,7 @@ pub(super) static VEX_TABLE: [&(Op + Sync); 37] = [
 	&OP_HX_YMM0_YMM15,// ymm_vvvv
 	&OP_IS_X_YMM0_YMM15,// ymm_is4
 	&OP_IS_X_YMM0_YMM15,// ymm_is5
-	&OP_I2,// imm2_m2z
+	&OP_I4,// imm4_m2z
 	&OP_IB_IMMEDIATE8,// imm8
 	&OPR_DI,// seg_rDI
 	&OP_MOD_RM_RM_MEM_ONLY_TRUE,// sibmem

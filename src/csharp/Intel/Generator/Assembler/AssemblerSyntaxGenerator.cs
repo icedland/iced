@@ -1065,7 +1065,7 @@ namespace Generator.Assembler {
 					(32, 32) => 20,
 					(16, 16) => 30,
 					(8, _) => 50,
-					(2, 2) => 50,
+					(4, 4) => 50,
 					_ => throw new InvalidOperationException(),
 				};
 

@@ -62,7 +62,7 @@ namespace Generator.Tables {
 		/// </summary>
 		DispBranch				= 0x00000080,
 		/// <summary>
-		/// imm2/imm8/imm16/imm32/imm64
+		/// imm4/imm8/imm16/imm32/imm64
 		/// </summary>
 		Immediate				= 0x00000100,
 		/// <summary>

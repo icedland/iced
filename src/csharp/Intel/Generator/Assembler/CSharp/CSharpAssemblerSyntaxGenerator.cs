@@ -790,7 +790,7 @@ namespace Generator.Assembler.CSharp {
 
 			case OperandEncoding.Immediate:
 				return (def.ImmediateSize, def.ImmediateSignExtSize) switch {
-					(2, 2) => "3",
+					(4, 4) => "3",
 					(8, 8) => arg.IsTypeSigned() ? "-5" : "127",
 					(8, 16) => "-5",
 					(8, 32) => "-9",

@@ -241,7 +241,7 @@ namespace Generator.Tables {
 					opFlags |= ParsedInstructionOperandFlags.RelBranch;
 					break;
 
-				case "imm2":
+				case "imm4":
 				case "imm8":
 				case "imm16":
 				case "imm32":

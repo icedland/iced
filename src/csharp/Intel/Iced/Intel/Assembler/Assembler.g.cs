@@ -81012,7 +81012,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81021,12 +81021,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerRegisterXMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81035,12 +81035,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, AssemblerRegisterXMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81049,12 +81049,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerRegisterYMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81063,12 +81063,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, AssemblerRegisterYMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 49 /r /is5</c><br/>
 		/// <br/>
@@ -81077,12 +81077,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerMemoryOperand src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2;
+			op = Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 49 /r /is5</c><br/>
 		/// <br/>
@@ -81091,12 +81091,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2;
+			op = Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81105,12 +81105,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerRegisterXMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, (uint)imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81119,12 +81119,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, AssemblerRegisterXMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, (uint)imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81133,12 +81133,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerRegisterYMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, (uint)imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
 		/// <br/>
@@ -81147,12 +81147,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, AssemblerRegisterYMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, (uint)imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
+		/// <c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 49 /r /is5</c><br/>
 		/// <br/>
@@ -81161,12 +81161,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerMemoryOperand src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2;
+			op = Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), (uint)imm));
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
+		/// <c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 49 /r /is5</c><br/>
 		/// <br/>
@@ -81175,12 +81175,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2;
+			op = Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), (uint)imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81189,12 +81189,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerRegisterXMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81203,12 +81203,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, AssemblerRegisterXMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81217,12 +81217,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerRegisterYMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81231,12 +81231,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, AssemblerRegisterYMM src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 48 /r /is5</c><br/>
 		/// <br/>
@@ -81245,12 +81245,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerMemoryOperand src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2;
+			op = Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 48 /r /is5</c><br/>
 		/// <br/>
@@ -81259,12 +81259,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, sbyte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2;
+			op = Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81273,12 +81273,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerRegisterXMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, (uint)imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81287,12 +81287,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, AssemblerRegisterXMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2;
+			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, (uint)imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81301,12 +81301,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerRegisterYMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3, (uint)imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
 		/// <br/>
@@ -81315,12 +81315,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, AssemblerRegisterYMM src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2;
+			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, (uint)imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
+		/// <c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 48 /r /is5</c><br/>
 		/// <br/>
@@ -81329,12 +81329,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerMemoryOperand src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2;
+			op = Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), (uint)imm));
 		}
 		/// <summary>vpermil2ps instruction.<br/>
 		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
+		/// <c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm4</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 48 /r /is5</c><br/>
 		/// <br/>
@@ -81343,7 +81343,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, byte imm) {
 			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2;
+			op = Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), (uint)imm));
 		}
 		/// <summary>vpermilpd instruction.<br/>

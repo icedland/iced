@@ -3947,14 +3947,14 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Packed256_UInt64,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	MemorySize::Packed512_UInt64,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	MemorySize::Packed256_UInt128,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	MemorySize::Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	MemorySize::Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	MemorySize::Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	MemorySize::Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	MemorySize::Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	MemorySize::Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	MemorySize::Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	MemorySize::Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	MemorySize::Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	MemorySize::Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	MemorySize::Packed128_Float32,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	MemorySize::Packed256_Float32,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	MemorySize::Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	MemorySize::Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	MemorySize::Packed128_Float64,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	MemorySize::Packed256_Float64,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	MemorySize::Packed128_Float32,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	MemorySize::Packed256_Float32,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	MemorySize::Packed128_Float64,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm
@@ -8259,14 +8259,14 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	MemorySize::Unknown,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	MemorySize::Unknown,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	MemorySize::Unknown,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	MemorySize::Unknown,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	MemorySize::Unknown,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	MemorySize::Unknown,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	MemorySize::Unknown,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	MemorySize::Unknown,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	MemorySize::Unknown,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	MemorySize::Unknown,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	MemorySize::Unknown,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	MemorySize::Unknown,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	MemorySize::Unknown,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	MemorySize::Unknown,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	MemorySize::Unknown,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	MemorySize::Unknown,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	MemorySize::Unknown,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	MemorySize::Unknown,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	MemorySize::Unknown,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	MemorySize::Unknown,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	MemorySize::Unknown,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm

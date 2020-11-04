@@ -31342,70 +31342,70 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	VEX_Vperm2i128_ymm_ymm_ymmm256_imm8 = 3916,
-	/// `VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2`
+	/// `VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm4`
 	///
 	/// `VEX.128.66.0F3A.W0 48 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2 = 3917,
-	/// `VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2`
+	VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4 = 3917,
+	/// `VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm4`
 	///
 	/// `VEX.256.66.0F3A.W0 48 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2 = 3918,
-	/// `VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2`
+	VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4 = 3918,
+	/// `VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm4`
 	///
 	/// `VEX.128.66.0F3A.W1 48 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2 = 3919,
-	/// `VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2`
+	VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4 = 3919,
+	/// `VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm4`
 	///
 	/// `VEX.256.66.0F3A.W1 48 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2 = 3920,
-	/// `VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2`
+	VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4 = 3920,
+	/// `VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm4`
 	///
 	/// `VEX.128.66.0F3A.W0 49 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2 = 3921,
-	/// `VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2`
+	VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4 = 3921,
+	/// `VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm4`
 	///
 	/// `VEX.256.66.0F3A.W0 49 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2 = 3922,
-	/// `VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2`
+	VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4 = 3922,
+	/// `VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm4`
 	///
 	/// `VEX.128.66.0F3A.W1 49 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2 = 3923,
-	/// `VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2`
+	VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4 = 3923,
+	/// `VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm4`
 	///
 	/// `VEX.256.66.0F3A.W1 49 /r /is5`
 	///
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2 = 3924,
+	VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4 = 3924,
 	/// `VBLENDVPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 4A /r /is4`
@@ -38422,14 +38422,14 @@ static GEN_DEBUG_CODE: [&str; 4312] = [
 	"EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8",
 	"EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8",
 	"VEX_Vperm2i128_ymm_ymm_ymmm256_imm8",
-	"VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2",
-	"VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2",
-	"VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2",
-	"VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2",
-	"VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2",
-	"VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2",
-	"VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2",
-	"VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2",
+	"VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4",
+	"VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4",
+	"VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4",
+	"VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4",
+	"VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4",
+	"VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4",
+	"VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4",
+	"VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4",
 	"VEX_Vblendvps_xmm_xmm_xmmm128_xmm",
 	"VEX_Vblendvps_ymm_ymm_ymmm256_ymm",
 	"VEX_Vblendvpd_xmm_xmm_xmmm128_xmm",

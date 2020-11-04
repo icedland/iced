@@ -146,7 +146,7 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.ymm_vvvv,
 			(byte)OpCodeOperandKind.ymm_is4,
 			(byte)OpCodeOperandKind.ymm_is5,
-			(byte)OpCodeOperandKind.imm2_m2z,
+			(byte)OpCodeOperandKind.imm4_m2z,
 			(byte)OpCodeOperandKind.imm8,
 			(byte)OpCodeOperandKind.seg_rDI,
 			(byte)OpCodeOperandKind.sibmem,

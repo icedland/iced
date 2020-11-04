@@ -46,7 +46,7 @@ fn eq_and_hash_ignore_some_fields() {
 	use core::hash::{Hash, Hasher};
 	use std::collections::hash_map::DefaultHasher;
 	let mut instr1 = Instruction::with_reg_reg_mem_reg_u32(
-		Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2,
+		Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4,
 		Register::XMM1,
 		Register::XMM2,
 		MemoryOperand::new(Register::RCX, Register::R14, 8, 0x1234_5678, 8, false, Register::FS),

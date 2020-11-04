@@ -16417,30 +16417,30 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x81,// 'v', Normal_1
 	0xE5, 0x09,// 1253 = "vperm2i128"
 
-	// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
+	// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
 	0x81,// 'v', Normal_1
 	0xE6, 0x09,// 1254 = "vpermil2ps"
 
-	// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
+	// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
 	0x80,// 'v', Previous
 
-	// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
+	// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
 	0x80,// 'v', Previous
 
-	// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
+	// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
 	0x80,// 'v', Previous
 
-	// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
+	// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
 	0x81,// 'v', Normal_1
 	0xE7, 0x09,// 1255 = "vpermil2pd"
 
-	// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
+	// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
 	0x80,// 'v', Previous
 
-	// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
+	// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
 	0x80,// 'v', Previous
 
-	// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	0x80,// 'v', Previous
 
 	// VEX_Vblendvps_xmm_xmm_xmmm128_xmm

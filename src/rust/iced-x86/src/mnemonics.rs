@@ -3945,14 +3945,14 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Vpclmulqdq,// EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
 	Mnemonic::Vpclmulqdq,// EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8
 	Mnemonic::Vperm2i128,// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
-	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
-	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2
-	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2
-	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
-	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
-	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2
-	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2
+	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
+	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
+	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
+	Mnemonic::Vpermil2ps,// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
+	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
+	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
+	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
+	Mnemonic::Vpermil2pd,// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
 	Mnemonic::Vblendvps,// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	Mnemonic::Vblendvps,// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	Mnemonic::Vblendvpd,// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm
