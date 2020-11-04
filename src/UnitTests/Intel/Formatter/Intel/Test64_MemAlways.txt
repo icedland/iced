@@ -7983,12 +7983,12 @@ endbr32
 incsspd ebp
 incsspq rbp
 tpause ebp
-tpause rbp
+tpause ebp
 clrssbsy qword ptr [rax]
 umonitor ebp
 umonitor rbp
 umwait ebp
-umwait rbp
+umwait ebp
 pcommit
 vpdpbusd xmm18{k3}, xmm14, xmm3
 vpdpbusd xmm2, xmm6, xmmword ptr [rax+0x10]

@@ -1785,7 +1785,7 @@ INSTRUCTION: o32 7F cb | JG rel8 | INTEL386
 	ops: r=br
 	code-suffix: 32
 	rflags: r=osz
-	flags: 16 32 bnd ht cc=g cflow=br-cond br=jcc-short
+	flags: 16 32 bnd ht cc=g br=jcc-short cflow=br-cond
 END
 
 # Code: Jg_rel8_64
@@ -16522,6 +16522,7 @@ INSTRUCTION: 66 o64 0F AE /6 | TPAUSE r64, <edx>, <eax> | WAITPKG
 	# May cause a TSX abort if VM exit
 	flags: 64 intel-may-vm-exit tsx-impl-abort
 	gas: reg32
+	intel: reg32
 	masm: reg32
 	nasm: reg32
 END
@@ -16570,6 +16571,7 @@ INSTRUCTION: F2 o64 0F AE /6 | UMWAIT r64, <edx>, <eax> | WAITPKG
 	rflags: w=c 0=oszap
 	flags: 64 intel-may-vm-exit tsx-abort
 	gas: reg32
+	intel: reg32
 	masm: reg32
 	nasm: reg32
 END

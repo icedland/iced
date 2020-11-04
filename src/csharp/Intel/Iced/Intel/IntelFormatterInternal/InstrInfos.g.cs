@@ -8171,7 +8171,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0xF2, 0x05,// 754 = "tpause"
 
 				// Tpause_r64
-				0x00,// Previous
+				0x25,// Reg32
+				0xF2, 0x05,// 754 = "tpause"
 
 				// Clrssbsy_m64
 				0x01,// Normal_1
@@ -8192,7 +8193,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0xF5, 0x05,// 757 = "umwait"
 
 				// Umwait_r64
-				0x00,// Previous
+				0x25,// Reg32
+				0xF5, 0x05,// 757 = "umwait"
 
 				// Clflush_m8
 				0x01,// Normal_1
