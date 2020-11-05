@@ -18,6 +18,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void xbegin_label() {
+			TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateXbegin(Bitness, 1), 1), LocalOpCodeFlags.Branch);
+		}
+
+		[Fact]
+		public void xbegin_offset() {
+			TestAssembler(c => c.xbegin(12752), Instruction.CreateXbegin(Bitness, 12752), LocalOpCodeFlags.BranchUlong | LocalOpCodeFlags.IgnoreCode);
+		}
+
+		[Fact]
 		void Ctor() {
 			var c = new Assembler(Bitness);
 			Assert.Equal(Bitness, c.Bitness);

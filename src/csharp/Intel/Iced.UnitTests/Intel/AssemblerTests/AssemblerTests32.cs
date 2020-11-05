@@ -41,6 +41,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		void jmp_far() {
 			TestAssembler(c => c.jmp(0x1234, 0x56789ABC), Instruction.CreateBranch(Code.Jmp_ptr1632, 0x1234, 0x56789ABC));
 		}
+
+		[Fact]
+		public void xbegin_label() {
+			TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateXbegin(Bitness, 1), 1), LocalOpCodeFlags.Branch);
+		}
+
+		[Fact]
+		public void xbegin_offset() {
+			TestAssembler(c => c.xbegin(12752), Instruction.CreateXbegin(Bitness, 12752), LocalOpCodeFlags.BranchUlong | LocalOpCodeFlags.IgnoreCode);
+		}
 	}
 }
 #endif

@@ -191,6 +191,11 @@ namespace Generator.Assembler.CSharp {
 						};
 
 						foreach (var group in groups) {
+							switch (group.Name) {
+							case "xbegin":
+								// Implemented manually
+								continue;
+							}
 							var groupBitness = group.AllOpCodeFlags & BitnessMaskFlags;
 							if ((groupBitness & bitnessFlags) == 0)
 								continue;

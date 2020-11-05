@@ -27,7 +27,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Generator.Enums;
-using Generator.Enums.Encoder;
 using Generator.Enums.Formatter;
 using Generator.Formatters;
 using Generator.Tables;

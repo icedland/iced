@@ -50498,16 +50498,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void xbegin_l() {
-			TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateXbegin(Bitness, 1), 1), LocalOpCodeFlags.Branch);
-		}
-
-		[Fact]
-		public void xbegin_lu() {
-			TestAssembler(c => c.xbegin(12752), Instruction.CreateXbegin(Bitness, 12752), LocalOpCodeFlags.BranchUlong);
-		}
-
-		[Fact]
 		public void xbts_reg16_reg16() {
 			TestAssembler(c => c.xbts(dx, bx), Instruction.Create(Code.Xbts_r16_rm16, dx, bx));
 		}

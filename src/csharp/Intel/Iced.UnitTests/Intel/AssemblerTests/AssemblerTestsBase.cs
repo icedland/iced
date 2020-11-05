@@ -61,6 +61,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if ((flags & LocalOpCodeFlags.Broadcast) != 0)
 				expectedInst.IsBroadcast = true;
 			var inst = assembler.Instructions[0];
+			if ((flags & LocalOpCodeFlags.IgnoreCode) != 0)
+				expectedInst.Code = inst.Code;
 			Assert.Equal(expectedInst, inst);
 
 			// Special for decoding options
@@ -92,6 +94,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
 			var decodedInst = decoder.Decode();
+			if ((flags & LocalOpCodeFlags.IgnoreCode) != 0)
+				decodedInst.Code = inst.Code;
 			switch (inst.Code) {
 			case Code.Montmul_16:
 			case Code.Montmul_32:
@@ -124,51 +128,23 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
 				Assert.Equal(decodedInst, Instruction.Create(Code.Wait));
 				decodedInst = decoder.Decode();
-
-				switch (decodedInst.Code) {
-				case Code.Fnstenv_m14byte:
-					decodedInst.Code = Code.Fstenv_m14byte;
-					break;
-				case Code.Fnstenv_m28byte:
-					decodedInst.Code = Code.Fstenv_m28byte;
-					break;
-				case Code.Fnstcw_m2byte:
-					decodedInst.Code = Code.Fstcw_m2byte;
-					break;
-				case Code.Fneni:
-					decodedInst.Code = Code.Feni;
-					break;
-				case Code.Fndisi:
-					decodedInst.Code = Code.Fdisi;
-					break;
-				case Code.Fnclex:
-					decodedInst.Code = Code.Fclex;
-					break;
-				case Code.Fninit:
-					decodedInst.Code = Code.Finit;
-					break;
-				case Code.Fnsetpm:
-					decodedInst.Code = Code.Fsetpm;
-					break;
-				case Code.Fnsave_m94byte:
-					decodedInst.Code = Code.Fsave_m94byte;
-					break;
-				case Code.Fnsave_m108byte:
-					decodedInst.Code = Code.Fsave_m108byte;
-					break;
-				case Code.Fnstsw_m2byte:
-					decodedInst.Code = Code.Fstsw_m2byte;
-					break;
-				case Code.Fnstsw_AX:
-					decodedInst.Code = Code.Fstsw_AX;
-					break;
-				case Code.Fnstdw_AX:
-					decodedInst.Code = Code.Fstdw_AX;
-					break;
-				case Code.Fnstsg_AX:
-					decodedInst.Code = Code.Fstsg_AX;
-					break;
-				}
+				decodedInst.Code = decodedInst.Code switch {
+					Code.Fnstenv_m14byte => Code.Fstenv_m14byte,
+					Code.Fnstenv_m28byte => Code.Fstenv_m28byte,
+					Code.Fnstcw_m2byte => Code.Fstcw_m2byte,
+					Code.Fneni => Code.Feni,
+					Code.Fndisi => Code.Fdisi,
+					Code.Fnclex => Code.Fclex,
+					Code.Fninit => Code.Finit,
+					Code.Fnsetpm => Code.Fsetpm,
+					Code.Fnsave_m94byte => Code.Fsave_m94byte,
+					Code.Fnsave_m108byte => Code.Fsave_m108byte,
+					Code.Fnstsw_m2byte => Code.Fstsw_m2byte,
+					Code.Fnstsw_AX => Code.Fstsw_AX,
+					Code.Fnstdw_AX => Code.Fstdw_AX,
+					Code.Fnstsg_AX => Code.Fstsg_AX,
+					_ => decodedInst.Code,
+				};
 			}
 
 			// Reset IP to 0 when matching against decode
@@ -284,6 +260,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Branch = 1 << 5,
 			Broadcast = 1 << 6,
 			BranchUlong = 1 << 7,
+			IgnoreCode = 1 << 8,
 		}
 	}
 }
