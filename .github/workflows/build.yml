@@ -98,7 +98,7 @@ jobs:
 
       - name: Build, test
         shell: bash
-        run: ./build/build-dotnet.sh --quick-check
+        run: bash ./build/build-dotnet.sh --quick-check
 
   build-rust:
     name: Rust (${{matrix.os}})
