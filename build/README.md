@@ -38,14 +38,30 @@ Building and testing the JavaScript code requires:
 
 # Building this repo
 
+Pick an OS, any OS:
+
+## Windows
+
+From the repo root dir:
+
+```cmd
+sh build/build.sh
+REM It's the same as
+sh build/build-rust.sh
+sh build/build-js.sh
+sh build/build-dotnet.sh
+```
+
+`sh` is located in the `git` bin directory.
+
+## Linux / macOS
+
 From the repo root dir:
 
 ```sh
-bash ./build/build.sh
+./build/build.sh
 # It's the same as
-bash ./build/build-rust.sh
-bash ./build/build-js.sh
-bash ./build/build-dotnet.sh
+./build/build-rust.sh
+./build/build-js.sh
+./build/build-dotnet.sh
 ```
-
-Windows: `bash` is located in the `git` bin directory.

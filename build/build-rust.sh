@@ -16,7 +16,7 @@ no_msrv=n
 # Minimum supported Rust version
 msrv="1.20.0"
 
-function new_func {
+new_func() {
 	echo
 	echo "****************************************************************"
 	echo "$1"
@@ -24,18 +24,18 @@ function new_func {
 	echo
 }
 
-function clean_dotnet_build_output {
+clean_dotnet_build_output() {
 	dotnet clean -v:m -c $configuration "$root_dir/src/csharp/Iced.sln"
 }
 
-function generator_check {
+generator_check() {
 	new_func "Run generator, verify no diff"
 
 	dotnet run -c $configuration -p "$root_dir/src/csharp/Intel/Generator/Generator.csproj"
 	git diff --exit-code
 }
 
-function test_valid_invalid_instructions {
+test_valid_invalid_instructions() {
 	new_func "Decode valid and invalid instructions"
 
 	valid_file=$(mktemp)
@@ -66,101 +66,99 @@ function test_valid_invalid_instructions {
 	rm "$invalid_file"
 }
 
-function build_no_std {
+build_no_std() {
 	new_func "Build no_std"
-	pushd "$root_dir/src/rust/iced-x86"
+	curr_dir=$(pwd)
+	cd "$root_dir/src/rust/iced-x86"
 
 	echo "==== BUILD DEBUG ===="
 	cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt db"
 
-	popd
+	cd "$curr_dir"
 }
 
-function build_features {
+build_features() {
 	new_func "Build one feature at a time"
-	pushd "$root_dir/src/rust/iced-x86"
+	curr_dir=$(pwd)
+	cd "$root_dir/src/rust/iced-x86"
 
-	allFeatures=(
-		"std decoder"
-		"std encoder"
-		"std encoder block_encoder"
-		"std encoder op_code_info"
-		"std instr_info"
-		"std gas"
-		"std intel"
-		"std masm"
-		"std nasm"
+	set -- \
+		"std decoder" \
+		"std encoder" \
+		"std encoder block_encoder" \
+		"std encoder op_code_info" \
+		"std instr_info" \
+		"std gas" \
+		"std intel" \
+		"std masm" \
+		"std nasm" \
 		"std fast_fmt"
-	)
-	for features in "${allFeatures[@]}"; do
+	for features in "$@"; do
 		echo "==== $features ===="
 		cargo check --color always --no-default-features --features "$features"
 	done
 
-	allFeatures=(
-		"no_vex"
-		"no_evex"
-		"no_xop"
-		"no_d3now"
+	set -- \
+		"no_vex" \
+		"no_evex" \
+		"no_xop" \
+		"no_d3now" \
 		"no_vex no_evex no_xop no_d3now"
-	)
-	for features in "${allFeatures[@]}"; do
+	for features in "$@"; do
 		echo "==== $features ===="
 		cargo check --color always --features "$features"
 	done
 
-	allFeatures=(
-		"no_std decoder"
-		"no_std encoder"
-		"no_std encoder block_encoder"
-		"no_std encoder op_code_info"
-		"no_std instr_info"
-		"no_std gas"
-		"no_std intel"
-		"no_std masm"
-		"no_std nasm"
+	set -- \
+		"no_std decoder" \
+		"no_std encoder" \
+		"no_std encoder block_encoder" \
+		"no_std encoder op_code_info" \
+		"no_std instr_info" \
+		"no_std gas" \
+		"no_std intel" \
+		"no_std masm" \
+		"no_std nasm" \
 		"no_std fast_fmt"
-	)
-	for features in "${allFeatures[@]}"; do
+	for features in "$@"; do
 		echo "==== $features ===="
 		cargo check --color always --no-default-features --features "$features"
 	done
 
-	allFeatures=(
-		"std decoder"
-		"std decoder encoder"
-		"std decoder encoder block_encoder"
-		"std decoder encoder op_code_info"
-		"std decoder instr_info"
-		"std decoder gas"
-		"std decoder intel"
-		"std decoder masm"
-		"std decoder nasm"
+	set -- \
+		"std decoder" \
+		"std decoder encoder" \
+		"std decoder encoder block_encoder" \
+		"std decoder encoder op_code_info" \
+		"std decoder instr_info" \
+		"std decoder gas" \
+		"std decoder intel" \
+		"std decoder masm" \
+		"std decoder nasm" \
 		"std decoder fast_fmt"
-	)
-	for features in "${allFeatures[@]}"; do
+	for features in "$@"; do
 		echo "==== TEST $features ===="
 		cargo check --color always --tests --no-default-features --features "$features"
 	done
 
-	allFeatures=(
-		"no_vex"
-		"no_evex"
-		"no_xop"
-		"no_d3now"
+	set -- \
+		"no_vex" \
+		"no_evex" \
+		"no_xop" \
+		"no_d3now" \
 		"no_vex no_evex no_xop no_d3now"
-	)
-	for features in "${allFeatures[@]}"; do
+	for features in "$@"; do
 		echo "==== TEST $features ===="
 		cargo check --color always --tests --features "$features"
 	done
 
-	popd
+	cd "$curr_dir"
 }
 
-function build_test_default {
+build_test_default() {
 	new_func "Build, test (default)"
-	pushd "$root_dir/src/rust/iced-x86"
+	curr_dir=$(pwd)
+	cd "$root_dir/src/rust/iced-x86"
 
 	echo "Rust version"
 	cargo -V
@@ -191,17 +189,19 @@ function build_test_default {
 
 	echo "==== PUBLISH DRY-RUN ===="
 	# It fails on Windows (GitHub CI) without this, claiming that some random number of Rust files are dirty.
-	git status
-	git diff
+	# Redirect to /dev/null so it won't hang (waiting for us to scroll) if it finds modified lines
+	git status > /dev/null
+	git diff > /dev/null
 	cargo publish --color always --dry-run
 
-	popd
+	cd "$curr_dir"
 }
 
-function build_test_msrv {
+build_test_msrv() {
 	new_func "Build minimum supported Rust version: $msrv"
 
-	pushd "$root_dir/src/rust/iced-x86"
+	curr_dir=$(pwd)
+	cd "$root_dir/src/rust/iced-x86"
 
 	# Some of these commands can be removed/updated when msrv is changed
 	expected_msrv="1.20.0"
@@ -228,7 +228,7 @@ function build_test_msrv {
 	# Restore it
 	cargo generate-lockfile
 
-	popd
+	cd "$curr_dir"
 }
 
 while [ "$#" -gt 0 ]; do
@@ -240,6 +240,14 @@ while [ "$#" -gt 0 ]; do
 	esac
 	shift
 done
+
+echo
+echo "=================================================="
+echo "Rust build"
+echo "=================================================="
+echo
+
+export RUSTFLAGS="-D warnings"
 
 if [ "$no_dotnet" != "y" ]; then
 	echo "dotnet version (if this fails, install .NET or use --no-dotnet)"

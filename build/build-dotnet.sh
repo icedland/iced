@@ -8,12 +8,13 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
-if [ "$OSTYPE" == "msys" ]; then
+if [ "$OSTYPE" = "msys" ]; then
 	is_windows=y
 else
 	is_windows=n
 fi
 net_tfm="netcoreapp3.1"
+net_std="netstandard2.0"
 net_framework_tfm="net48"
 xunit_version="2.4.1"
 xunit_net_tfm_version="net472"
@@ -24,7 +25,7 @@ no_pack=n
 no_coverage=n
 quick_check=n
 
-function new_func {
+new_func() {
 	echo
 	echo "****************************************************************"
 	echo "$1"
@@ -32,83 +33,80 @@ function new_func {
 	echo
 }
 
-function clean_dotnet_build_output {
+clean_dotnet_build_output() {
 	dotnet clean -v:m -c $configuration "$root_dir/src/csharp/Iced.sln"
 }
 
-function generator_check {
+generator_check() {
 	new_func "Run generator, verify no diff"
 
 	dotnet run -c $configuration -p "$root_dir/src/csharp/Intel/Generator/Generator.csproj"
 	git diff --exit-code
 }
 
-function build_features {
+build_features() {
 	new_func "Build one feature at a time"
 
-	allFeatures=(
-		"DECODER"
-		"ENCODER"
-		"ENCODER;BLOCK_ENCODER"
-		"ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER"
-		"ENCODER;OPCODE_INFO"
-		"INSTR_INFO"
-		"GAS"
-		"INTEL"
-		"MASM"
-		"NASM"
-		"FAST_FMT"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW"
+	set -- \
+		"DECODER" \
+		"ENCODER" \
+		"ENCODER;BLOCK_ENCODER" \
+		"ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER" \
+		"ENCODER;OPCODE_INFO" \
+		"INSTR_INFO" \
+		"GAS" \
+		"INTEL" \
+		"MASM" \
+		"NASM" \
+		"FAST_FMT" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW" \
 		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
-	)
-
-	for features in "${allFeatures[@]}"; do
+	for features in "$@"; do
 		clean_dotnet_build_output
 		echo
 		echo "==== $features ===="
 		echo
-		IcedFeatureFlags="$features" dotnet build -v:m -c $configuration "$root_dir/src/csharp/Intel/Iced/Iced.csproj"
+		IcedFeatureFlags="$features" dotnet build -v:m -c $configuration -p:TargetFramework=$net_std "$root_dir/src/csharp/Intel/Iced/Iced.csproj"
 	done
 
-	allFeatures=(
-		"DECODER"
-		"DECODER;ENCODER"
-		"DECODER;ENCODER;BLOCK_ENCODER"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER"
-		"DECODER;ENCODER;OPCODE_INFO"
-		"DECODER;INSTR_INFO"
-		"DECODER;GAS"
-		"DECODER;INTEL"
-		"DECODER;MASM"
-		"DECODER;NASM"
-		"DECODER;FAST_FMT"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP"
-		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW"
+	set -- \
+		"DECODER" \
+		"DECODER;ENCODER" \
+		"DECODER;ENCODER;BLOCK_ENCODER" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER" \
+		"DECODER;ENCODER;OPCODE_INFO" \
+		"DECODER;INSTR_INFO" \
+		"DECODER;GAS" \
+		"DECODER;INTEL" \
+		"DECODER;MASM" \
+		"DECODER;NASM" \
+		"DECODER;FAST_FMT" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP" \
+		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW" \
 		"DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
-	)
-	for features in "${allFeatures[@]}"; do
+	for features in "$@"; do
 		clean_dotnet_build_output
 		echo
 		echo "==== TEST $features ===="
 		echo
-		IcedFeatureFlags="$features" dotnet build -v:m -c $configuration "$root_dir/src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj"
+		IcedFeatureFlags="$features" dotnet build -v:m -c $configuration -p:TargetFramework=$net_tfm "$root_dir/src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj"
 	done
 
 	clean_dotnet_build_output
 }
 
-function build_test {
+build_test() {
 	new_func "Build, test"
 
 	dotnet build -v:m -c $configuration "$root_dir/src/csharp/Iced.sln"
 
 	if [ "$no_test" != "y" ]; then
-		if [ "$is_windows" == "y" ]; then
+		if [ "$is_windows" = "y" ]; then
 			echo
 			echo "==== TEST (.NET Framework x64) ===="
 			echo
@@ -133,7 +131,7 @@ function build_test {
 			collect_coverage=
 		fi
 		# Full path needed so have to find the Windows path if this is Windows
-		if [ "$is_windows" == "y" ]; then
+		if [ "$is_windows" = "y" ]; then
 			cov_dir=$(cygpath -wa "$root_dir")
 		else
 			cov_dir="$root_dir"
@@ -162,6 +160,12 @@ while [ "$#" -gt 0 ]; do
 	esac
 	shift
 done
+
+echo
+echo "=================================================="
+echo ".NET build"
+echo "=================================================="
+echo
 
 echo "dotnet version"
 dotnet --version
