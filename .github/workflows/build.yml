@@ -2,24 +2,29 @@ name: GitHub CI
 on:
   push:
     paths:
-      - '.github/workflows/build.yml'
-      - 'src/**'
-      - '!**/*.md'
+      - ".github/workflows/build.yml"
+      - "src/**"
+      - "!**/*.md"
     branches:
       - master
   pull_request:
     paths:
-      - 'src/**'
-      - '!**/*.md'
+      - "src/**"
+      - "!**/*.md"
     branches:
       - master
   release:
-    types: released
+    types: [released]
+
+env:
+  CI_REQ_DOTNET_SDK_VER: 3.1.100
+  CI_NODE_MIN_VER: 10.0.0
+  RUSTFLAGS: -D warnings
 
 jobs:
   build-csharp-windows:
-    name: C# (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    name: C# (${{matrix.os}})
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: [windows-latest]
@@ -27,78 +32,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run generator, verify no diff
-        shell: pwsh
-        run: |
-          dotnet run -c Release -p src/csharp/Intel/Generator/Generator.csproj
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          git diff --exit-code
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-
-      - name: Build one feature at a time
-        shell: pwsh
-        run: |
-          foreach ($def in
-              "DECODER",
-              "ENCODER",
-              "ENCODER;BLOCK_ENCODER",
-              "ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER",
-              "ENCODER;OPCODE_INFO",
-              "INSTR_INFO",
-              "GAS",
-              "INTEL",
-              "MASM",
-              "NASM",
-              "FAST_FMT",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
-              ) {
-            git clean -xdf
-            if ($LASTEXITCODE) { exit $LASTEXITCODE }
-            $env:IcedFeatureFlags=$def
-            dotnet build -v:m -c Release src/csharp/Intel/Iced/Iced.csproj
-            if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          }
-          foreach ($def in
-              "DECODER",
-              "DECODER;ENCODER",
-              "DECODER;ENCODER;BLOCK_ENCODER",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER",
-              "DECODER;ENCODER;OPCODE_INFO",
-              "DECODER;INSTR_INFO",
-              "DECODER;GAS",
-              "DECODER;INTEL",
-              "DECODER;MASM",
-              "DECODER;NASM",
-              "DECODER;FAST_FMT",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_EVEX",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_XOP",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_D3NOW",
-              "DECODER;ENCODER;BLOCK_ENCODER;CODE_ASSEMBLER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;FAST_FMT;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
-              ) {
-            git clean -xdf
-            if ($LASTEXITCODE) { exit $LASTEXITCODE }
-            $env:IcedFeatureFlags=$def
-            dotnet build -v:m -c Release src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj
-            if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          }
-          git clean -xdf
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
       - name: Build, test
-        shell: pwsh
-        run: |
-          ./build.ps1
+        shell: bash
+        run: bash ./build/build-dotnet.sh
 
       - name: upload-artifact doesn't support wildcards
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
-        shell: pwsh
+        shell: bash
         run: |
-          New-Item -ItemType Directory nuget_files > $null
-          Copy-Item src/csharp/Intel/Iced/bin/Release/*.*nupkg nuget_files
+          mkdir nuget_files
+          cp src/csharp/Intel/Iced/bin/Release/*.*nupkg nuget_files/
 
       - uses: actions/upload-artifact@v2
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
@@ -127,15 +74,17 @@ jobs:
 
       - name: Upload to nuget.org if it's a new release
         if: startsWith(github.ref, 'refs/tags/')
-        shell: pwsh
+        shell: bash
         run: |
-          Invoke-WebRequest -Uri https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -UseBasicParsing -OutFile nuget.exe
-          Get-ChildItem src/csharp/Intel/Iced/bin/Release/Iced.*.nupkg | ForEach-Object { ./nuget.exe push $_.FullName -ApiKey ${{secrets.NUGET_APIKEY}} -NonInteractive -Source https://api.nuget.org/v3/index.json }
+          curl https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -o nuget.exe
+          for file in src/csharp/Intel/Iced/bin/Release/Iced.*.nupkg; do
+            ./nuget.exe push "$file" -ApiKey "${{secrets.NUGET_APIKEY}}" -NonInteractive -Source https://api.nuget.org/v3/index.json
+          done
 
   # Make sure it builds on Linux too
   build-csharp:
-    name: C# (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    name: C# (${{matrix.os}})
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -145,15 +94,15 @@ jobs:
 
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.100'
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
       - name: Build, test
-        shell: pwsh
-        run: ./build.ps1
+        shell: bash
+        run: ./build/build-dotnet.sh --quick-check
 
   build-rust:
-    name: Rust (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    name: Rust (${{matrix.os}})
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
@@ -161,12 +110,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Update PATH env
+        shell: bash
+        run: |
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
       - name: Install rustup and rustc latest (macOS)
         shell: bash
         if: startsWith(matrix.os, 'macos-')
         run: |
           curl https://sh.rustup.rs -sSf | bash -s -- -y
-          export PATH="$HOME/.cargo/bin:$PATH"
           rustup install stable
           rustup component add rustfmt
           rustup component add clippy
@@ -174,271 +127,32 @@ jobs:
       - name: Install rustc
         shell: bash
         run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          # It fails on Windows, disable auto self update
+          # It fails on Windows so disable auto self update
           rustup toolchain install 1.20.0 --no-self-update
-          rustup toolchain install nightly --no-self-update
           rustup target add wasm32-unknown-unknown
-          
           rustup update --no-self-update
 
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 10.0.0
+          node-version: ${{env.CI_NODE_MIN_VER}}
 
       - name: Install wasm-pack
         shell: bash
-        run: |
-          npm install -g wasm-pack
+        run: npm install -g wasm-pack
 
       - uses: actions/setup-dotnet@v1
-        if: matrix.os == 'ubuntu-latest'
         with:
-          dotnet-version: '3.1.100'
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
-      - name: Test valid/invalid instructions
-        shell: bash
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          export RUSTFLAGS="-D warnings"
-          echo dotnet version
-          dotnet --version
-          valid_file=$(mktemp)
-          invalid_file=$(mktemp)
-          
-          for bitness in 16 32 64; do
-              echo ==== ${bitness}-bit: Generating valid/invalid files ====
-              dotnet run -c:Release -p src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj -- -$bitness -oil $invalid_file -ovlc $valid_file
-              echo ==== ${bitness}-bit: Testing valid instructions ====
-              cargo run --color always --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $valid_file
-              echo ==== ${bitness}-bit: Testing invalid instructions ====
-              cargo run --color always --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $invalid_file --invalid
-          done
-          
-          for bitness in 16 32 64; do
-              echo "==== ${bitness}-bit (AMD): Generating valid/invalid files ===="
-              dotnet run -c:Release -p src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj -- -$bitness -oil $invalid_file -ovlc $valid_file --amd
-              echo "==== ${bitness}-bit (AMD): Testing valid instructions ===="
-              cargo run --color always --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $valid_file --amd
-              echo "==== ${bitness}-bit (AMD): Testing invalid instructions ===="
-              cargo run --color always --release --manifest-path src/rust/Cargo.toml -p iced-x86-fzgt -- -b $bitness -f $invalid_file --invalid --amd
-          done
-          
-          rm $valid_file
-          rm $invalid_file
-
-      - name: Build no_std
+      - name: Build and test (Rust)
         shell: bash
         run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          export RUSTFLAGS="-D warnings"
-          git clean -xdf
-          cd src/rust/iced-x86
-          
-          echo ==== BUILD DEBUG ====
-          cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt db"
-          
-          cd ../../..
+          bash ./build/build-rust.sh
           git clean -xdf
 
-      - name: Build one feature at a time
+      - name: Build and test (JS)
         shell: bash
         run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          export RUSTFLAGS="-D warnings"
-          cd src/rust/iced-x86
-          
-          allFeatures=(
-              "std decoder"
-              "std encoder"
-              "std encoder block_encoder"
-              "std encoder op_code_info"
-              "std instr_info"
-              "std gas"
-              "std intel"
-              "std masm"
-              "std nasm"
-              "std fast_fmt"
-          )
-          for features in "${allFeatures[@]}"; do
-              echo ==== $features ====
-              cargo check --color always --no-default-features --features "$features"
-          done
-          
-          allFeatures=(
-              "no_vex"
-              "no_evex"
-              "no_xop"
-              "no_d3now"
-              "no_vex no_evex no_xop no_d3now"
-          )
-          for features in "${allFeatures[@]}"; do
-              echo ==== $features ====
-              cargo check --color always --features "$features"
-          done
-          
-          allFeatures=(
-              "no_std decoder"
-              "no_std encoder"
-              "no_std encoder block_encoder"
-              "no_std encoder op_code_info"
-              "no_std instr_info"
-              "no_std gas"
-              "no_std intel"
-              "no_std masm"
-              "no_std nasm"
-              "no_std fast_fmt"
-          )
-          for features in "${allFeatures[@]}"; do
-              echo ==== $features ====
-              cargo check --color always --no-default-features --features "$features"
-          done
-          
-          allFeatures=(
-              "std decoder"
-              "std decoder encoder"
-              "std decoder encoder block_encoder"
-              "std decoder encoder op_code_info"
-              "std decoder instr_info"
-              "std decoder gas"
-              "std decoder intel"
-              "std decoder masm"
-              "std decoder nasm"
-              "std decoder fast_fmt"
-          )
-          for features in "${allFeatures[@]}"; do
-              echo ==== TEST $features ====
-              cargo check --color always --tests --no-default-features --features "$features"
-          done
-          
-          allFeatures=(
-              "no_vex"
-              "no_evex"
-              "no_xop"
-              "no_d3now"
-              "no_vex no_evex no_xop no_d3now"
-          )
-          for features in "${allFeatures[@]}"; do
-              echo ==== TEST $features ====
-              cargo check --color always --tests --features "$features"
-          done
-          
-          cd ..
+          bash ./build/build-js.sh
           git clean -xdf
-
-      - name: iced-x86-js
-        shell: bash
-        run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          export RUSTFLAGS="-D warnings"
-          cd src/rust/iced-x86-js
-          
-          echo ==== FORMAT CHECK ====
-          cargo fmt -- --color always --check
-          echo ==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt ====
-          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt"
-          echo ==== CLIPPY instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt bigint ====
-          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instr_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm fast_fmt bigint"
-          
-          allFeatures=(
-              "decoder"
-              "instr_api decoder"
-              "encoder"
-              "instr_api encoder"
-              "encoder block_encoder"
-              "instr_create"
-              "encoder instr_create"
-              "encoder op_code_info"
-              "instr_api encoder op_code_info"
-              "instr_info"
-              "instr_api instr_info"
-              "gas"
-              "intel"
-              "masm"
-              "nasm"
-              "fast_fmt"
-              "instr_api nasm"
-          )
-          for features in "${allFeatures[@]}"; do
-              echo ==== $features ====
-              cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "$features"
-          done
-          
-          allFeatures=(
-              "no_vex"
-              "no_evex"
-              "no_xop"
-              "no_d3now"
-              "no_vex no_evex no_xop no_d3now"
-          )
-          for features in "${allFeatures[@]}"; do
-              echo ==== $features ====
-              cargo check --color always --target wasm32-unknown-unknown --features "$features"
-          done
-          
-          cd ..
-          git clean -xdf
-
-      - name: iced-x86-js tests
-        shell: bash
-        run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          export RUSTFLAGS="-D warnings"
-          
-          cd src/rust/iced-x86-js
-          wasm-pack build --mode force --target nodejs
-          cd src/tests
-          npm install
-          npm test
-          
-          cd ..
-          git clean -xdf
-
-      - name: Build, test (default)
-        shell: bash
-        run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          export RUSTFLAGS="-D warnings"
-          cargo -V
-          cd src/rust/iced-x86
-          echo ==== CLIPPY ====
-          cargo clippy --color always
-          echo ==== CLIPPY --tests ====
-          cargo clippy --color always --tests
-          echo ==== FORMAT CHECK ====
-          cargo fmt -- --color always --check
-          echo ==== DOC ====
-          # Use nightly since that's what docs.rs uses
-          cargo +nightly doc --color always
-          echo ==== BUILD RELEASE ====
-          cargo build --color always --features "db" --release
-          echo ==== TEST RELEASE ====
-          cargo test --color always --features "db" --release
-          echo ==== TEST DEBUG ====
-          cargo test --color always --features "db"
-          echo ==== BUILD RELEASE wasm32-unknown-unknown ====
-          cargo check --color always --features "db" --target wasm32-unknown-unknown --release
-          echo ==== PUBLISH DRY-RUN ====
-          # It fails on Windows without this, claiming that some random number of rust files are dirty.
-          # This is the 2nd GitHub CI for Windows hack I've added to this file.
-          git status
-          git diff
-          cargo publish --color always --dry-run
-
-      - name: Build, test (1.20.0)
-        shell: bash
-        run: |
-          export PATH="$HOME/.cargo/bin:$PATH"
-          export RUSTFLAGS="-D warnings"
-          cd src/rust/iced-x86
-          sed -i -e 's/"iced-x86-fzgt",/#"iced-x86-fzgt",/' ../Cargo.toml
-          echo ==== UPDATE Cargo.lock ====
-          cargo +1.20.0 generate-lockfile
-          cargo +1.20.0 update --package lazy_static --precise 1.1.1
-          echo ==== BUILD RELEASE ====
-          cargo +1.20.0 build --color always --features "db" --release
-          echo ==== TEST RELEASE ====
-          cargo +1.20.0 test --color always --features "db" --release -- --skip "lib.rs"
-          git checkout ../Cargo.toml
