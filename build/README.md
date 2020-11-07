@@ -19,9 +19,9 @@ Building and testing the Rust code requires:
 	- `rustup component add clippy`
 	- `rustup target add wasm32-unknown-unknown`
 	- MSRV: `rustup toolchain install 1.20.0`
-		- Pass `--no-msrv` to `build-rust.sh` if you don't want to install it
+		- Pass `--no-msrv` to `build-rust` if you don't want to install it
 - .NET SDK (latest version): https://dotnet.microsoft.com/download
-	- required to generate and test valid/invalid instructions (pass `--no-dotnet` to `build-rust.sh` if you don't want to install .NET)
+	- required to generate and test valid/invalid instructions (pass `--no-dotnet` to `build-rust` if you don't want to install .NET)
 
 ## JavaScript
 
@@ -45,11 +45,11 @@ Pick an OS, any OS:
 From the repo root dir:
 
 ```cmd
-sh build/build.sh
+sh build/build
 REM It's the same as
-sh build/build-rust.sh
-sh build/build-js.sh
-sh build/build-dotnet.sh
+sh build/build-rust
+sh build/build-js
+sh build/build-dotnet
 ```
 
 `sh` is located in the `git` bin directory.
@@ -59,9 +59,9 @@ sh build/build-dotnet.sh
 From the repo root dir:
 
 ```sh
-./build/build.sh
+./build/build
 # It's the same as
-./build/build-rust.sh
-./build/build-js.sh
-./build/build-dotnet.sh
+./build/build-rust
+./build/build-js
+./build/build-dotnet
 ```

@@ -38,7 +38,7 @@ jobs:
 
       - name: Build, test
         shell: bash
-        run: ./build/build-dotnet.sh
+        run: ./build/build-dotnet
 
       - name: upload-artifact doesn't support wildcards
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
@@ -98,7 +98,7 @@ jobs:
 
       - name: Build, test
         shell: bash
-        run: ./build/build-dotnet.sh --quick-check
+        run: ./build/build-dotnet --quick-check
 
   build-rust:
     name: Rust (${{matrix.os}})
@@ -148,11 +148,11 @@ jobs:
       - name: Build and test (Rust)
         shell: bash
         run: |
-          ./build/build-rust.sh
+          ./build/build-rust --no-set-rustflags
           git clean -xdf
 
       - name: Build and test (JS)
         shell: bash
         run: |
-          ./build/build-js.sh
+          ./build/build-js --no-set-rustflags
           git clean -xdf

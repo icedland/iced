@@ -8,6 +8,8 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
+set_rustflags=y
+
 new_func() {
 	echo
 	echo "****************************************************************"
@@ -79,10 +81,13 @@ test_the_code() {
 	cd "$curr_dir"
 }
 
-if [ "$#" -gt 0 ]; then
-	echo "No command line args are supported"
-	exit 1
-fi
+while [ "$#" -gt 0 ]; do
+	case $1 in
+	--no-set-rustflags) set_rustflags=n ;;
+	*) echo "Unknown arg: $1"; exit 1 ;;
+	esac
+	shift
+done
 
 echo
 echo "=================================================="
@@ -90,7 +95,20 @@ echo "JavaScript build"
 echo "=================================================="
 echo
 
-export RUSTFLAGS="-D warnings"
+if [ "$set_rustflags" = "y" ]; then
+	export RUSTFLAGS="-D warnings"
+fi
+
+echo "cargo version"
+cargo --version
+echo "Rust version"
+rustc --version
+echo "wasm-pack version"
+wasm-pack --version
+echo "node version"
+node --version
+echo "npm version"
+npm --version
 
 build_and_check
 test_the_code

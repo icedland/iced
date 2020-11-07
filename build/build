@@ -13,6 +13,6 @@ if [ "$#" -gt 0 ]; then
 	exit 1
 fi
 
-$root_dir/build/build-rust.sh
-$root_dir/build/build-js.sh
-$root_dir/build/build-dotnet.sh
+$root_dir/build/build-rust
+$root_dir/build/build-js
+$root_dir/build/build-dotnet

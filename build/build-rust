@@ -9,9 +9,10 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 fi
 
 configuration=Release
-no_gen_check=n
-no_dotnet=n
-no_msrv=n
+gen_check=y
+has_dotnet=y
+has_msrv=y
+set_rustflags=y
 
 # Minimum supported Rust version
 msrv="1.20.0"
@@ -161,7 +162,7 @@ build_test_default() {
 	cd "$root_dir/src/rust/iced-x86"
 
 	echo "Rust version"
-	cargo -V
+	rustc --version
 
 	echo "==== CLIPPY ===="
 	cargo clippy --color always
@@ -233,9 +234,10 @@ build_test_msrv() {
 
 while [ "$#" -gt 0 ]; do
 	case $1 in
-	--no-gen-check) no_gen_check=y ;;
-	--no-dotnet) no_dotnet=y ;;
-	--no-msrv) no_msrv=y ;;
+	--no-gen-check) gen_check=n ;;
+	--no-dotnet) has_dotnet=n ;;
+	--no-msrv) has_msrv=n ;;
+	--no-set-rustflags) set_rustflags=n ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
 	shift
@@ -247,13 +249,15 @@ echo "Rust build"
 echo "=================================================="
 echo
 
-export RUSTFLAGS="-D warnings"
+if [ "$set_rustflags" = "y" ]; then
+	export RUSTFLAGS="-D warnings"
+fi
 
-if [ "$no_dotnet" != "y" ]; then
+if [ "$has_dotnet" = "y" ]; then
 	echo "dotnet version (if this fails, install .NET or use --no-dotnet)"
 	dotnet --version
 
-	if [ "$no_gen_check" != "y" ]; then
+	if [ "$gen_check" = "y" ]; then
 		generator_check
 	fi
 	test_valid_invalid_instructions
@@ -261,6 +265,6 @@ fi
 build_no_std
 build_features
 build_test_default
-if [ "$no_msrv" != "y" ]; then
+if [ "$has_msrv" = "y" ]; then
 	build_test_msrv
 fi
