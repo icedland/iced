@@ -6409,7 +6409,7 @@ pub(super) static OPC_FLAGS2: [u32; 4312] = [
 	0x1E00_3FFF,// Sfence_FD
 	0x1E00_3FFF,// Sfence_FE
 	0x1E00_3FFF,// Sfence_FF
-	0x1E00_3FFF,// Pcommit
+	0x1E84_3E7F,// Pcommit
 	0x1E00_3FFF,// Imul_r16_rm16
 	0x1E00_3FFF,// Imul_r32_rm32
 	0x1400_3FF0,// Imul_r64_rm64

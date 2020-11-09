@@ -6418,7 +6418,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFF,// Sfence_FD
 				0x1E003FFF,// Sfence_FE
 				0x1E003FFF,// Sfence_FF
-				0x1E003FFF,// Pcommit
+				0x1E843E7F,// Pcommit
 				0x1E003FFF,// Imul_r16_rm16
 				0x1E003FFF,// Imul_r32_rm32
 				0x14003FF0,// Imul_r64_rm64

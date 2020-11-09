@@ -16719,7 +16719,7 @@ END
 
 # Code: Pcommit
 INSTRUCTION: 66 0F AE F8 | PCOMMIT | PCOMMIT
-	flags: dec-opt=Pcommit
+	flags: dec-opt=Pcommit intel-may-vm-exit no-in-sgx tsx-impl-abort
 END
 
 # Code: Imul_r16_rm16
