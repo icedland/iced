@@ -34,7 +34,7 @@ Building and testing the JavaScript code requires:
 	- `rustup component add clippy`
 	- `rustup target add wasm32-unknown-unknown`
 - Node.js >= 10.0.0: https://nodejs.org/en/download/
-- wasm-pack: `npm install -g wasm-pack`
+- wasm-pack: `npm install -g wasm-pack` or if it fails, see https://rustwasm.github.io/wasm-pack/installer/
 
 # Building this repo
 
