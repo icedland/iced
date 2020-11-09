@@ -267,6 +267,7 @@ impl State {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
 	#[cfg(not(debug_assertions))]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	fn encoding(&self) -> EncodingKind {
 		EncodingKind::Legacy
 	}

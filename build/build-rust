@@ -96,7 +96,7 @@ build_features() {
 		"std fast_fmt"
 	for features in "$@"; do
 		echo "==== $features ===="
-		cargo check --color always --no-default-features --features "$features"
+		cargo check --color always --release --no-default-features --features "$features"
 	done
 
 	set -- \
@@ -107,7 +107,7 @@ build_features() {
 		"no_vex no_evex no_xop no_d3now"
 	for features in "$@"; do
 		echo "==== $features ===="
-		cargo check --color always --features "$features"
+		cargo check --color always --release --features "$features"
 	done
 
 	set -- \
@@ -123,7 +123,7 @@ build_features() {
 		"no_std fast_fmt"
 	for features in "$@"; do
 		echo "==== $features ===="
-		cargo check --color always --no-default-features --features "$features"
+		cargo check --color always --release --no-default-features --features "$features"
 	done
 
 	set -- \
@@ -139,7 +139,7 @@ build_features() {
 		"std decoder fast_fmt"
 	for features in "$@"; do
 		echo "==== TEST $features ===="
-		cargo check --color always --tests --no-default-features --features "$features"
+		cargo check --color always --release --tests --no-default-features --features "$features"
 	done
 
 	set -- \
@@ -150,7 +150,7 @@ build_features() {
 		"no_vex no_evex no_xop no_d3now"
 	for features in "$@"; do
 		echo "==== TEST $features ===="
-		cargo check --color always --tests --features "$features"
+		cargo check --color always --release --tests --features "$features"
 	done
 
 	cd "$curr_dir"
@@ -164,11 +164,11 @@ build_test_default() {
 	echo "Rust version"
 	rustc --version
 
-	echo "==== CLIPPY ===="
-	cargo clippy --color always
+	echo "==== CLIPPY RELEASE ===="
+	cargo clippy --color always --release
 
-	echo "==== CLIPPY --tests ===="
-	cargo clippy --color always --tests
+	echo "==== CLIPPY RELEASE --tests ===="
+	cargo clippy --color always --release --tests
 
 	echo "==== FORMAT CHECK ===="
 	cargo fmt -- --color always --check
