@@ -28932,12 +28932,14 @@ END
 # Code: D3NOW_Pfrcpv_mm_mmm64
 INSTRUCTION: 0F 0F /r 86 | PFRCPV mm, mm/m64 | CYRIX_D3NOW
 	ops: w=reg r=rm | Packed64_Float32
+	flags: 16 32 dec-opt=Cyrix
 	masm: flags=mem-size=mmx
 END
 
 # Code: D3NOW_Pfrsqrtv_mm_mmm64
 INSTRUCTION: 0F 0F /r 87 | PFRSQRTV mm, mm/m64 | CYRIX_D3NOW
 	ops: w=reg r=rm | Packed64_Float32
+	flags: 16 32 dec-opt=Cyrix
 	masm: flags=mem-size=mmx
 END
 

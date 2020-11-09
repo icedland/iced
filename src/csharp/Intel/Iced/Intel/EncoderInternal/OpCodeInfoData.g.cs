@@ -4214,8 +4214,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// D3NOW_Pi2fd_mm_mmm64
 				0x00000000,// D3NOW_Pf2iw_mm_mmm64
 				0x00000000,// D3NOW_Pf2id_mm_mmm64
-				0x00000000,// D3NOW_Pfrcpv_mm_mmm64
-				0x00000000,// D3NOW_Pfrsqrtv_mm_mmm64
+				0x00800000,// D3NOW_Pfrcpv_mm_mmm64
+				0x00800000,// D3NOW_Pfrsqrtv_mm_mmm64
 				0x00000000,// D3NOW_Pfnacc_mm_mmm64
 				0x00000000,// D3NOW_Pfpnacc_mm_mmm64
 				0x00000000,// D3NOW_Pfcmpge_mm_mmm64
@@ -8530,8 +8530,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x7E003FFF,// D3NOW_Pi2fd_mm_mmm64
 				0x7E003FFF,// D3NOW_Pf2iw_mm_mmm64
 				0x7E003FFF,// D3NOW_Pf2id_mm_mmm64
-				0x7E003FFF,// D3NOW_Pfrcpv_mm_mmm64
-				0x7E003FFF,// D3NOW_Pfrsqrtv_mm_mmm64
+				0x6A003FFF,// D3NOW_Pfrcpv_mm_mmm64
+				0x6A003FFF,// D3NOW_Pfrsqrtv_mm_mmm64
 				0x7E003FFF,// D3NOW_Pfnacc_mm_mmm64
 				0x7E003FFF,// D3NOW_Pfpnacc_mm_mmm64
 				0x7E003FFF,// D3NOW_Pfcmpge_mm_mmm64

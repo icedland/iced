@@ -17635,14 +17635,6 @@ C4E3C9 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, VEX, FMA4, op0=w op1=r op2=r 
 0F0F CD 1D, D3NOW_Pf2id_mm_mmm64, D3NOW, D3NOW, op0=w op1=r w=mm1 r=mm5
 # pf2id mm1,[rax-5AA5EDCCh]
 0F0F 88 34125AA5 1D, D3NOW_Pf2id_mm_mmm64, D3NOW, D3NOW, op0=w op1=r w=mm1 r=rax rm=ds:rax+0xFFFFFFFFA55A1234;Packed64_Float32
-# pfrcpv mm1,mm5
-0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=mm5
-# pfrcpv mm1,[rax-5AA5EDCCh]
-0F0F 88 34125AA5 86, D3NOW_Pfrcpv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=rax rm=ds:rax+0xFFFFFFFFA55A1234;Packed64_Float32
-# pfrsqrtv mm1,mm5
-0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=mm5
-# pfrsqrtv mm1,[rax-5AA5EDCCh]
-0F0F 88 34125AA5 87, D3NOW_Pfrsqrtv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=rax rm=ds:rax+0xFFFFFFFFA55A1234;Packed64_Float32
 # pfnacc mm1,mm5
 0F0F CD 8A, D3NOW_Pfnacc_mm_mmm64, D3NOW, D3NOWEXT, op0=rw op1=r rw=mm1 r=mm5
 # pfnacc mm1,[rax-5AA5EDCCh]

@@ -1977,3 +1977,11 @@ DE DD, Cyrix_DEDD, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 DE DE, Cyrix_DEDE, Legacy, CYRIX_FPU, fu=0123 decopt=Cyrix
 # frinear
 DF FC, Frinear, Legacy, CYRIX_FPU, fw=1 fu=023 rw=st0 decopt=Cyrix
+# pfrcpv mm1,mm5
+0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=mm5 decopt=Cyrix
+# pfrcpv mm1,[eax-5AA5EDCCh]
+0F0F 88 34125AA5 86, D3NOW_Pfrcpv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=ds;eax rm=ds:eax+0xFFFFFFFFA55A1234;Packed64_Float32 decopt=Cyrix
+# pfrsqrtv mm1,mm5
+0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=mm5 decopt=Cyrix
+# pfrsqrtv mm1,[eax-5AA5EDCCh]
+0F0F 88 34125AA5 87, D3NOW_Pfrsqrtv_mm_mmm64, D3NOW, CYRIX_D3NOW, op0=w op1=r w=mm1 r=ds;eax rm=ds:eax+0xFFFFFFFFA55A1234;Packed64_Float32 decopt=Cyrix

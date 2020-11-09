@@ -82,6 +82,13 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.ReadOpMem(ref instruction);
 			}
 			var code = codeValues[(int)decoder.ReadByte()];
+			switch (code) {
+			case Code.D3NOW_Pfrcpv_mm_mmm64:
+			case Code.D3NOW_Pfrsqrtv_mm_mmm64:
+				if ((decoder.options & DecoderOptions.Cyrix) == 0 || decoder.Bitness == 64)
+					code = Code.INVALID;
+				break;
+			}
 			instruction.InternalCode = code;
 			if (code == Code.INVALID)
 				decoder.SetInvalidInstruction();

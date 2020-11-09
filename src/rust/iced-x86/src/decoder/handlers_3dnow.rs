@@ -316,7 +316,15 @@ impl OpCodeHandler_D3NOW {
 			decoder.read_op_mem(instruction);
 		}
 		let ib = decoder.read_u8();
-		let code = unsafe { *CODE_VALUES.get_unchecked(ib) };
+		let mut code = unsafe { *CODE_VALUES.get_unchecked(ib) };
+		match code {
+			Code::D3NOW_Pfrcpv_mm_mmm64 | Code::D3NOW_Pfrsqrtv_mm_mmm64 => {
+				if (decoder.options & DecoderOptions::CYRIX) == 0 || decoder.bitness() == 64 {
+					code = Code::INVALID;
+				}
+			}
+			_ => {}
+		}
 		super::instruction_internal::internal_set_code(instruction, code);
 		if code == Code::INVALID {
 			decoder.set_invalid_instruction();

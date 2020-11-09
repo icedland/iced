@@ -9110,20 +9110,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 #if !NO_D3NOW
 		[Fact]
-		public void pfrcpv_regMM_regMM() {
-			TestAssembler(c => c.pfrcpv(mm2, mm3), Instruction.Create(Code.D3NOW_Pfrcpv_mm_mmm64, mm2, mm3));
-		}
-#endif
-
-#if !NO_D3NOW
-		[Fact]
-		public void pfrcpv_regMM_m() {
-			TestAssembler(c => c.pfrcpv(mm2, __qword_ptr[rcx]), Instruction.Create(Code.D3NOW_Pfrcpv_mm_mmm64, mm2, __qword_ptr[rcx].ToMemoryOperand(Bitness)));
-		}
-#endif
-
-#if !NO_D3NOW
-		[Fact]
 		public void pfrsqit1_regMM_regMM() {
 			TestAssembler(c => c.pfrsqit1(mm2, mm3), Instruction.Create(Code.D3NOW_Pfrsqit1_mm_mmm64, mm2, mm3));
 		}
@@ -9147,20 +9133,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void pfrsqrt_regMM_m() {
 			TestAssembler(c => c.pfrsqrt(mm2, __qword_ptr[rcx]), Instruction.Create(Code.D3NOW_Pfrsqrt_mm_mmm64, mm2, __qword_ptr[rcx].ToMemoryOperand(Bitness)));
-		}
-#endif
-
-#if !NO_D3NOW
-		[Fact]
-		public void pfrsqrtv_regMM_regMM() {
-			TestAssembler(c => c.pfrsqrtv(mm2, mm3), Instruction.Create(Code.D3NOW_Pfrsqrtv_mm_mmm64, mm2, mm3));
-		}
-#endif
-
-#if !NO_D3NOW
-		[Fact]
-		public void pfrsqrtv_regMM_m() {
-			TestAssembler(c => c.pfrsqrtv(mm2, __qword_ptr[rcx]), Instruction.Create(Code.D3NOW_Pfrsqrtv_mm_mmm64, mm2, __qword_ptr[rcx].ToMemoryOperand(Bitness)));
 		}
 #endif
 

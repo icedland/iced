@@ -32135,14 +32135,6 @@ C4A3FB F0 10 A5, VEX_Rorx_r64_rm64_imm8, Rorx, 3, op0=r;rdx op1=m;ds;rax;;1;0;0;
 0F0F CD 1D, D3NOW_Pf2id_mm_mmm64, Pf2id, 2, op0=r;mm1 op1=r;mm5
 4F 0F0F CD 1D, D3NOW_Pf2id_mm_mmm64, Pf2id, 2, op0=r;mm1 op1=r;mm5 enc=0F0FCD1D
 
-0F0F 88 34125AA5 86, D3NOW_Pfrcpv_mm_mmm64, Pfrcpv, 2, op0=r;mm1 op1=m;ds;rax;;1;0xA55A1234;8;Packed64_Float32 co=0;0;0;0;3;4
-0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64, Pfrcpv, 2, op0=r;mm1 op1=r;mm5
-4F 0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64, Pfrcpv, 2, op0=r;mm1 op1=r;mm5 enc=0F0FCD86
-
-0F0F 88 34125AA5 87, D3NOW_Pfrsqrtv_mm_mmm64, Pfrsqrtv, 2, op0=r;mm1 op1=m;ds;rax;;1;0xA55A1234;8;Packed64_Float32 co=0;0;0;0;3;4
-0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, Pfrsqrtv, 2, op0=r;mm1 op1=r;mm5
-4F 0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, Pfrsqrtv, 2, op0=r;mm1 op1=r;mm5 enc=0F0FCD87
-
 0F0F 88 34125AA5 8A, D3NOW_Pfnacc_mm_mmm64, Pfnacc, 2, op0=r;mm1 op1=m;ds;rax;;1;0xA55A1234;8;Packed64_Float32 co=0;0;0;0;3;4
 0F0F CD 8A, D3NOW_Pfnacc_mm_mmm64, Pfnacc, 2, op0=r;mm1 op1=r;mm5
 4F 0F0F CD 8A, D3NOW_Pfnacc_mm_mmm64, Pfnacc, 2, op0=r;mm1 op1=r;mm5 enc=0F0FCD8A

@@ -33452,7 +33452,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		D3NOW_Pfrcpv_mm_mmm64 = 4181,
 		/// <summary><c>PFRSQRTV mm, mm/m64</c><br/>
 		/// <br/>
@@ -33460,7 +33460,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		D3NOW_Pfrsqrtv_mm_mmm64 = 4182,
 		/// <summary><c>PFNACC mm, mm/m64</c><br/>
 		/// <br/>

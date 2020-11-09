@@ -25474,7 +25474,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		public void pfrcpv(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
 			Code op;
 			op = Code.D3NOW_Pfrcpv_mm_mmm64;
@@ -25488,7 +25488,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		public void pfrcpv(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.D3NOW_Pfrcpv_mm_mmm64;
@@ -25558,7 +25558,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		public void pfrsqrtv(AssemblerRegisterMM dst, AssemblerRegisterMM src) {
 			Code op;
 			op = Code.D3NOW_Pfrsqrtv_mm_mmm64;
@@ -25572,7 +25572,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AMD Geode GX/LX</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		public void pfrsqrtv(AssemblerRegisterMM dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.D3NOW_Pfrsqrtv_mm_mmm64;

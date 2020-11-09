@@ -4206,8 +4206,8 @@ pub(super) static OPC_FLAGS1: [u32; 4312] = [
 	0x0000_0000,// D3NOW_Pi2fd_mm_mmm64
 	0x0000_0000,// D3NOW_Pf2iw_mm_mmm64
 	0x0000_0000,// D3NOW_Pf2id_mm_mmm64
-	0x0000_0000,// D3NOW_Pfrcpv_mm_mmm64
-	0x0000_0000,// D3NOW_Pfrsqrtv_mm_mmm64
+	0x0080_0000,// D3NOW_Pfrcpv_mm_mmm64
+	0x0080_0000,// D3NOW_Pfrsqrtv_mm_mmm64
 	0x0000_0000,// D3NOW_Pfnacc_mm_mmm64
 	0x0000_0000,// D3NOW_Pfpnacc_mm_mmm64
 	0x0000_0000,// D3NOW_Pfcmpge_mm_mmm64
@@ -8521,8 +8521,8 @@ pub(super) static OPC_FLAGS2: [u32; 4312] = [
 	0x7E00_3FFF,// D3NOW_Pi2fd_mm_mmm64
 	0x7E00_3FFF,// D3NOW_Pf2iw_mm_mmm64
 	0x7E00_3FFF,// D3NOW_Pf2id_mm_mmm64
-	0x7E00_3FFF,// D3NOW_Pfrcpv_mm_mmm64
-	0x7E00_3FFF,// D3NOW_Pfrsqrtv_mm_mmm64
+	0x6A00_3FFF,// D3NOW_Pfrcpv_mm_mmm64
+	0x6A00_3FFF,// D3NOW_Pfrsqrtv_mm_mmm64
 	0x7E00_3FFF,// D3NOW_Pfnacc_mm_mmm64
 	0x7E00_3FFF,// D3NOW_Pfpnacc_mm_mmm64
 	0x7E00_3FFF,// D3NOW_Pfcmpge_mm_mmm64

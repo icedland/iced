@@ -12836,8 +12836,8 @@ pub(super) static ENC_FLAGS3: [u32; 4312] = [
 	0x0003_0004,// D3NOW_Pi2fd_mm_mmm64
 	0x0003_0004,// D3NOW_Pf2iw_mm_mmm64
 	0x0003_0004,// D3NOW_Pf2id_mm_mmm64
-	0x0003_0004,// D3NOW_Pfrcpv_mm_mmm64
-	0x0003_0004,// D3NOW_Pfrsqrtv_mm_mmm64
+	0x0001_0004,// D3NOW_Pfrcpv_mm_mmm64
+	0x0001_0004,// D3NOW_Pfrsqrtv_mm_mmm64
 	0x0003_0004,// D3NOW_Pfnacc_mm_mmm64
 	0x0003_0004,// D3NOW_Pfpnacc_mm_mmm64
 	0x0003_0004,// D3NOW_Pfcmpge_mm_mmm64

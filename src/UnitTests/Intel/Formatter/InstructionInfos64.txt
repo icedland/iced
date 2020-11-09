@@ -7828,10 +7828,6 @@ C4E3C9 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64
 0F0F 88 34125AA5 1C, D3NOW_Pf2iw_mm_mmm64
 0F0F CD 1D, D3NOW_Pf2id_mm_mmm64
 0F0F 88 34125AA5 1D, D3NOW_Pf2id_mm_mmm64
-0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64
-0F0F 88 34125AA5 86, D3NOW_Pfrcpv_mm_mmm64
-0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64
-0F0F 88 34125AA5 87, D3NOW_Pfrsqrtv_mm_mmm64
 0F0F CD 8A, D3NOW_Pfnacc_mm_mmm64
 0F0F 88 34125AA5 8A, D3NOW_Pfnacc_mm_mmm64
 0F0F CD 8E, D3NOW_Pfpnacc_mm_mmm64

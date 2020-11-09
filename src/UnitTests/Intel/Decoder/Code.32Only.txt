@@ -206,6 +206,8 @@ Invpcid_r32_m128
 Movdir64b_r16_m512
 Enqcmds_r16_m512
 Enqcmd_r16_m512
+D3NOW_Pfrcpv_mm_mmm64
+D3NOW_Pfrsqrtv_mm_mmm64
 Pvalidatew
 Invlpgbw
 Fnstdw_AX

@@ -741,3 +741,7 @@ undoc
 undoc
 undoc
 frinear
+pfrcpv mm1, mm5
+pfrcpv mm1, [eax-5AA5EDCCh]
+pfrsqrtv mm1, mm5
+pfrsqrtv mm1, [eax-5AA5EDCCh]

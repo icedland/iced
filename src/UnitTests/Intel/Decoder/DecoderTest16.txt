@@ -21443,11 +21443,11 @@ C4C37B F0 10 5A, VEX_Rorx_r32_rm32_imm8, Rorx, 3, op0=r;edx op1=m;ds;bx;si;1;0;0
 0F0F 88 5AA5 1D, D3NOW_Pf2id_mm_mmm64, Pf2id, 2, op0=r;mm1 op1=m;ds;bx;si;1;0xA55A;2;Packed64_Float32 co=0;0;0;0;3;2
 0F0F CD 1D, D3NOW_Pf2id_mm_mmm64, Pf2id, 2, op0=r;mm1 op1=r;mm5
 
-0F0F 88 5AA5 86, D3NOW_Pfrcpv_mm_mmm64, Pfrcpv, 2, op0=r;mm1 op1=m;ds;bx;si;1;0xA55A;2;Packed64_Float32 co=0;0;0;0;3;2
-0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64, Pfrcpv, 2, op0=r;mm1 op1=r;mm5
+0F0F 88 5AA5 86, D3NOW_Pfrcpv_mm_mmm64, Pfrcpv, 2, op0=r;mm1 op1=m;ds;bx;si;1;0xA55A;2;Packed64_Float32 co=0;0;0;0;3;2 decopt=Cyrix
+0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64, Pfrcpv, 2, op0=r;mm1 op1=r;mm5 decopt=Cyrix
 
-0F0F 88 5AA5 87, D3NOW_Pfrsqrtv_mm_mmm64, Pfrsqrtv, 2, op0=r;mm1 op1=m;ds;bx;si;1;0xA55A;2;Packed64_Float32 co=0;0;0;0;3;2
-0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, Pfrsqrtv, 2, op0=r;mm1 op1=r;mm5
+0F0F 88 5AA5 87, D3NOW_Pfrsqrtv_mm_mmm64, Pfrsqrtv, 2, op0=r;mm1 op1=m;ds;bx;si;1;0xA55A;2;Packed64_Float32 co=0;0;0;0;3;2 decopt=Cyrix
+0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, Pfrsqrtv, 2, op0=r;mm1 op1=r;mm5 decopt=Cyrix
 
 0F0F 88 5AA5 8A, D3NOW_Pfnacc_mm_mmm64, Pfnacc, 2, op0=r;mm1 op1=m;ds;bx;si;1;0xA55A;2;Packed64_Float32 co=0;0;0;0;3;2
 0F0F CD 8A, D3NOW_Pfnacc_mm_mmm64, Pfnacc, 2, op0=r;mm1 op1=r;mm5

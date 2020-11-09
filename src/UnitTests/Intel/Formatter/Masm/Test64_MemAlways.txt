@@ -7828,10 +7828,6 @@ pf2iw mm1, mm5
 pf2iw mm1, mmword ptr [rax-5AA5EDCCh]
 pf2id mm1, mm5
 pf2id mm1, mmword ptr [rax-5AA5EDCCh]
-pfrcpv mm1, mm5
-pfrcpv mm1, mmword ptr [rax-5AA5EDCCh]
-pfrsqrtv mm1, mm5
-pfrsqrtv mm1, mmword ptr [rax-5AA5EDCCh]
 pfnacc mm1, mm5
 pfnacc mm1, mmword ptr [rax-5AA5EDCCh]
 pfpnacc mm1, mm5

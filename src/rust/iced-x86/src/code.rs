@@ -33460,7 +33460,7 @@ pub enum Code {
 	///
 	/// `AMD Geode GX/LX`
 	///
-	/// `16/32/64-bit`
+	/// `16/32-bit`
 	D3NOW_Pfrcpv_mm_mmm64 = 4181,
 	/// `PFRSQRTV mm, mm/m64`
 	///
@@ -33468,7 +33468,7 @@ pub enum Code {
 	///
 	/// `AMD Geode GX/LX`
 	///
-	/// `16/32/64-bit`
+	/// `16/32-bit`
 	D3NOW_Pfrsqrtv_mm_mmm64 = 4182,
 	/// `PFNACC mm, mm/m64`
 	///

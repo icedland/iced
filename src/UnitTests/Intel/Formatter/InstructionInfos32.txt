@@ -741,3 +741,7 @@ DE DC, Cyrix_DEDC, Cyrix
 DE DD, Cyrix_DEDD, Cyrix
 DE DE, Cyrix_DEDE, Cyrix
 DF FC, Frinear, Cyrix
+0F0F CD 86, D3NOW_Pfrcpv_mm_mmm64, Cyrix
+0F0F 88 34125AA5 86, D3NOW_Pfrcpv_mm_mmm64, Cyrix
+0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, Cyrix
+0F0F 88 34125AA5 87, D3NOW_Pfrsqrtv_mm_mmm64, Cyrix
