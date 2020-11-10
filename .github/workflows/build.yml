@@ -17,7 +17,7 @@ on:
     types: [released]
 
 env:
-  CI_REQ_DOTNET_SDK_VER: 3.1.100
+  CI_REQ_DOTNET_SDK_VER: 5.0.100
   CI_NODE_MIN_VER: 10.0.0
   RUSTFLAGS: -D warnings
 
@@ -58,7 +58,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         with:
           name: coverage.info
-          path: src/csharp/Intel/Iced.UnitTests/coverage.netcoreapp3.1.info
+          path: src/csharp/Intel/Iced.UnitTests/coverage.net5.0.info
           if-no-files-found: error
 
       - name: Upload coverage report
@@ -68,7 +68,7 @@ jobs:
         run: |
           curl https://codecov.io/bash -o codecov
           chmod +x codecov
-          ./codecov -f src/csharp/Intel/Iced.UnitTests/coverage.netcoreapp3.1.info
+          ./codecov -f src/csharp/Intel/Iced.UnitTests/coverage.net5.0.info
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
 
