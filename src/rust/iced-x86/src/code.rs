@@ -34502,9 +34502,57 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4311,
+	/// `CCS_HASH`
+	///
+	/// `a16 F3 0F A6 E8`
+	///
+	/// `PADLOCK_GMI`
+	///
+	/// `16/32-bit`
+	Ccs_hash_16 = 4312,
+	/// `CCS_HASH`
+	///
+	/// `a32 F3 0F A6 E8`
+	///
+	/// `PADLOCK_GMI`
+	///
+	/// `16/32/64-bit`
+	Ccs_hash_32 = 4313,
+	/// `CCS_HASH`
+	///
+	/// `a64 F3 0F A6 E8`
+	///
+	/// `PADLOCK_GMI`
+	///
+	/// `64-bit`
+	Ccs_hash_64 = 4314,
+	/// `CCS_ENCRYPT`
+	///
+	/// `a16 F3 0F A7 F0`
+	///
+	/// `PADLOCK_GMI`
+	///
+	/// `16/32-bit`
+	Ccs_encrypt_16 = 4315,
+	/// `CCS_ENCRYPT`
+	///
+	/// `a32 F3 0F A7 F0`
+	///
+	/// `PADLOCK_GMI`
+	///
+	/// `16/32/64-bit`
+	Ccs_encrypt_32 = 4316,
+	/// `CCS_ENCRYPT`
+	///
+	/// `a64 F3 0F A7 F0`
+	///
+	/// `PADLOCK_GMI`
+	///
+	/// `64-bit`
+	Ccs_encrypt_64 = 4317,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4312] = [
+static GEN_DEBUG_CODE: [&str; 4318] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38817,6 +38865,12 @@ static GEN_DEBUG_CODE: [&str; 4312] = [
 	"VEX_Vpdpwssd_ymm_ymm_ymmm256",
 	"VEX_Vpdpwssds_xmm_xmm_xmmm128",
 	"VEX_Vpdpwssds_ymm_ymm_ymmm256",
+	"Ccs_hash_16",
+	"Ccs_hash_32",
+	"Ccs_hash_64",
+	"Ccs_encrypt_16",
+	"Ccs_encrypt_32",
+	"Ccs_encrypt_64",
 ];
 impl fmt::Debug for Code {
 	#[inline]

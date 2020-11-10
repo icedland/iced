@@ -466,3 +466,5 @@ Testui
 Clui
 Stui
 Senduipi_r64
+Ccs_hash_64
+Ccs_encrypt_64

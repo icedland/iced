@@ -1658,6 +1658,8 @@ pub enum Mnemonic {
 	Stui = 1624,
 	Senduipi = 1625,
 	Hreset = 1626,
+	Ccs_hash = 1627,
+	Ccs_encrypt = 1628,
 }
 // GENERATOR-END: Enum
 

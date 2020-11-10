@@ -1381,7 +1381,13 @@ namespace Generator.Decoder {
 					null,
 
 					// E8
-					null,
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Ccs_hash_16)], codeEnum[nameof(Code.Ccs_hash_32)], codeEnum[nameof(Code.Ccs_hash_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,
@@ -1516,7 +1522,13 @@ namespace Generator.Decoder {
 					null,
 
 					// F0
-					null,
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix4)],
+						invalid_NoModRM,
+						invalid_NoModRM,
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Ccs_encrypt_16)], codeEnum[nameof(Code.Ccs_encrypt_32)], codeEnum[nameof(Code.Ccs_encrypt_64)] },
+						invalid_NoModRM,
+						0x00,
+					},
 					null,
 					null,
 					null,

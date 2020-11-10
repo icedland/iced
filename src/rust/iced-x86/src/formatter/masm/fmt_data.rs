@@ -16171,4 +16171,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpdpwssds_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
+
+	// Ccs_hash_16
+	0x01,// Normal_1
+	0xCA, 0x0B,// 1482 = "ccs_hash"
+
+	// Ccs_hash_32
+	0x00,// Previous
+
+	// Ccs_hash_64
+	0x00,// Previous
+
+	// Ccs_encrypt_16
+	0x01,// Normal_1
+	0xCB, 0x0B,// 1483 = "ccs_encrypt"
+
+	// Ccs_encrypt_32
+	0x00,// Previous
+
+	// Ccs_encrypt_64
+	0x00,// Previous
 ];

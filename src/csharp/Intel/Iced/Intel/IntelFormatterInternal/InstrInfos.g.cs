@@ -16109,6 +16109,36 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// VEX_Vpdpwssds_ymm_ymm_ymmm256
 				0x80,// 'v', Previous
+
+				// Ccs_hash_16
+				0x03,// asz
+				0xCA, 0x0B,// 1482 = "ccs_hash"
+				0x10,// 0x10
+
+				// Ccs_hash_32
+				0x03,// asz
+				0xCA, 0x0B,// 1482 = "ccs_hash"
+				0x20,// 0x20
+
+				// Ccs_hash_64
+				0x03,// asz
+				0xCA, 0x0B,// 1482 = "ccs_hash"
+				0x40,// 0x40
+
+				// Ccs_encrypt_16
+				0x03,// asz
+				0xCB, 0x0B,// 1483 = "ccs_encrypt"
+				0x10,// 0x10
+
+				// Ccs_encrypt_32
+				0x03,// asz
+				0xCB, 0x0B,// 1483 = "ccs_encrypt"
+				0x20,// 0x20
+
+				// Ccs_encrypt_64
+				0x03,// asz
+				0xCB, 0x0B,// 1483 = "ccs_encrypt"
+				0x40,// 0x40
 			};
 	}
 }

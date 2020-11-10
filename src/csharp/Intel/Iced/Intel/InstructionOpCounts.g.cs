@@ -4344,6 +4344,12 @@ namespace Iced.Intel {
 			3,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 			3,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 			3,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+			0,// Ccs_hash_16
+			0,// Ccs_hash_32
+			0,// Ccs_hash_64
+			0,// Ccs_encrypt_16
+			0,// Ccs_encrypt_32
+			0,// Ccs_encrypt_64
 		};
 	}
 }

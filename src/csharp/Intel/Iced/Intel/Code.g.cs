@@ -34494,5 +34494,53 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4311,
+		/// <summary><c>CCS_HASH</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A6 E8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Ccs_hash_16 = 4312,
+		/// <summary><c>CCS_HASH</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A6 E8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Ccs_hash_32 = 4313,
+		/// <summary><c>CCS_HASH</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A6 E8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Ccs_hash_64 = 4314,
+		/// <summary><c>CCS_ENCRYPT</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A7 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Ccs_encrypt_16 = 4315,
+		/// <summary><c>CCS_ENCRYPT</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A7 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Ccs_encrypt_32 = 4316,
+		/// <summary><c>CCS_ENCRYPT</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A7 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Ccs_encrypt_64 = 4317,
 	}
 }

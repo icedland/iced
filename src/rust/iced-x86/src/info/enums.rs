@@ -440,9 +440,9 @@ pub(crate) enum ImpliedAccess {
 	t_CRmem_CRsi_CReax_CRes_CWeax_CWedx_RCWecx,
 	t_CRmem_CReax_CResi_CRes_CWeax_CWedx_RCWecx,
 	t_CRmem_CReax_CRrsi_CRes_CWeax_CWedx_RCWrcx,
-	t_CRmem_CRmem_CWmem_CRax_CRsi_CRdi_CRes_CWax_CWsi_CWdi_RCWcx,
-	t_CRmem_CRmem_CWmem_CReax_CResi_CRedi_CRes_CWeax_CWesi_CWedi_RCWecx,
-	t_CRmem_CRmem_CWmem_CRrax_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx,
+	t_CRmem_CRmem_CWmem_CRsi_CRdi_CRes_CWsi_RCWax_RCWcx,
+	t_CRmem_CRmem_CWmem_CResi_CRedi_CRes_CWesi_RCWeax_RCWecx,
+	t_CRmem_CRmem_CWmem_CRrsi_CRrdi_CRes_CWrsi_RCWrax_RCWrcx,
 	t_Rcl_Rax,
 	t_Rcl_Reax,
 	t_xstore2,
@@ -451,9 +451,9 @@ pub(crate) enum ImpliedAccess {
 	t_CRmem_CRmem_CRmem_CWmem_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx,
 	t_CRmem_CRmem_CRmem_CWmem_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx,
 	t_CRmem_CRmem_CRmem_CWmem_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx,
-	t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWax_CWsi_CWdi_RCWcx,
-	t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWeax_CWesi_CWedi_RCWecx,
-	t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx,
+	t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx,
+	t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx,
+	t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx,
 	t_RCWal,
 	t_RCWax,
 	t_RCWeax,
@@ -499,10 +499,16 @@ pub(crate) enum ImpliedAccess {
 	t_Wxmm1_Wxmm2_RWxmm0_Wxmm4TOxmm6,
 	t_RWxmm0_RWxmm1_Wxmm2TOxmm6,
 	t_pop3x8,
+	t_CRmem_CRmem_CWmem_CRbx_CRsi_CRdi_CRes_CWsi_RCWax_RCWcx,
+	t_CRmem_CRmem_CWmem_CRebx_CResi_CRedi_CRes_CWesi_RCWeax_RCWecx,
+	t_CRmem_CRmem_CWmem_CRrbx_CRrsi_CRrdi_CRes_CWrsi_RCWrax_RCWrcx,
+	t_CRmem_CRmem_CWmem_CRax_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx,
+	t_CRmem_CRmem_CWmem_CReax_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx,
+	t_CRmem_CRmem_CWmem_CRrax_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_IMPLIED_ACCESS: [&str; 182] = [
+static GEN_DEBUG_IMPLIED_ACCESS: [&str; 188] = [
 	"None",
 	"Shift_Ib_MASK1FMOD9",
 	"Shift_Ib_MASK1FMOD11",
@@ -626,9 +632,9 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 182] = [
 	"t_CRmem_CRsi_CReax_CRes_CWeax_CWedx_RCWecx",
 	"t_CRmem_CReax_CResi_CRes_CWeax_CWedx_RCWecx",
 	"t_CRmem_CReax_CRrsi_CRes_CWeax_CWedx_RCWrcx",
-	"t_CRmem_CRmem_CWmem_CRax_CRsi_CRdi_CRes_CWax_CWsi_CWdi_RCWcx",
-	"t_CRmem_CRmem_CWmem_CReax_CResi_CRedi_CRes_CWeax_CWesi_CWedi_RCWecx",
-	"t_CRmem_CRmem_CWmem_CRrax_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx",
+	"t_CRmem_CRmem_CWmem_CRsi_CRdi_CRes_CWsi_RCWax_RCWcx",
+	"t_CRmem_CRmem_CWmem_CResi_CRedi_CRes_CWesi_RCWeax_RCWecx",
+	"t_CRmem_CRmem_CWmem_CRrsi_CRrdi_CRes_CWrsi_RCWrax_RCWrcx",
 	"t_Rcl_Rax",
 	"t_Rcl_Reax",
 	"t_xstore2",
@@ -637,9 +643,9 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 182] = [
 	"t_CRmem_CRmem_CRmem_CWmem_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx",
 	"t_CRmem_CRmem_CRmem_CWmem_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx",
 	"t_CRmem_CRmem_CRmem_CWmem_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx",
-	"t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWax_CWsi_CWdi_RCWcx",
-	"t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWeax_CWesi_CWedi_RCWecx",
-	"t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx",
+	"t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx",
+	"t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx",
+	"t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx",
 	"t_RCWal",
 	"t_RCWax",
 	"t_RCWeax",
@@ -685,6 +691,12 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 182] = [
 	"t_Wxmm1_Wxmm2_RWxmm0_Wxmm4TOxmm6",
 	"t_RWxmm0_RWxmm1_Wxmm2TOxmm6",
 	"t_pop3x8",
+	"t_CRmem_CRmem_CWmem_CRbx_CRsi_CRdi_CRes_CWsi_RCWax_RCWcx",
+	"t_CRmem_CRmem_CWmem_CRebx_CResi_CRedi_CRes_CWesi_RCWeax_RCWecx",
+	"t_CRmem_CRmem_CWmem_CRrbx_CRrsi_CRrdi_CRes_CWrsi_RCWrax_RCWrcx",
+	"t_CRmem_CRmem_CWmem_CRax_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx",
+	"t_CRmem_CRmem_CWmem_CReax_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx",
+	"t_CRmem_CRmem_CWmem_CRrax_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for ImpliedAccess {
@@ -1074,10 +1086,11 @@ pub(crate) enum CpuidFeatureInternal {
 	UINTR,
 	HRESET,
 	AVX_VNNI,
+	PADLOCK_GMI,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 175] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 176] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1253,6 +1266,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 175] = [
 	"UINTR",
 	"HRESET",
 	"AVX_VNNI",
+	"PADLOCK_GMI",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

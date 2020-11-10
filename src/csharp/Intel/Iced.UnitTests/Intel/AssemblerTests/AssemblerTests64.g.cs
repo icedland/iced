@@ -1875,6 +1875,20 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void ccs_encrypt() {
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.ccs_encrypt(), Instruction.Create(Code.Ccs_encrypt_64));
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
+		public void ccs_hash() {
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.ccs_hash(), Instruction.Create(Code.Ccs_hash_64));
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
 		public void cdq() {
 			TestAssembler(c => c.cdq(), Instruction.Create(Code.Cdq));
 		}

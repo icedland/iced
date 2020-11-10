@@ -253,3 +253,5 @@ Cyrix_DEDC
 Cyrix_DEDD
 Cyrix_DEDE
 Frinear
+Ccs_hash_16
+Ccs_encrypt_16

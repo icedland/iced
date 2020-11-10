@@ -32531,3 +32531,35 @@ C4624D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm10 op1=r;ymm
 C4E20D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm14 op2=r;ymm3
 C4C24D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm11
 C4A24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;rax;;1;0;0;Packed256_Int16 enc=C4E24D5310
+
+F3 67 0FA6 E8, Ccs_hash_32, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 E8, Ccs_hash_32, Ccs_hash, 0, rep
+67 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32
+67 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32 decopt=Xbts no_opt_disable_test
+67 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32 decopt=Cmpxchg486A no_opt_disable_test
+67 F3 4F 0FA6 E8, Ccs_hash_32, Ccs_hash, 0, rep enc=67F30FA6E8
+
+F3 0FA6 E8, Ccs_hash_64, Ccs_hash, 0, rep
+F2 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_64
+F2 F3 0FA6 E8, Ccs_hash_64, Ccs_hash, 0, rep enc=F30FA6E8
+F3 F2 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_64
+0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_64
+0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_64 decopt=Xbts no_opt_disable_test
+0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_64 decopt=Cmpxchg486A no_opt_disable_test
+F3 4F 0FA6 E8, Ccs_hash_64, Ccs_hash, 0, rep enc=F30FA6E8
+
+F3 67 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep
+67 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32
+67 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32 decopt=Xbts no_opt_disable_test
+67 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32 decopt=Cmpxchg486A no_opt_disable_test
+67 F3 4F 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=67F30FA7F0
+
+F3 0FA7 F0, Ccs_encrypt_64, Ccs_encrypt, 0, rep
+F2 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64
+F2 F3 0FA7 F0, Ccs_encrypt_64, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 F2 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64
+0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64
+0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64 decopt=Xbts no_opt_disable_test
+0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64 decopt=Cmpxchg486A no_opt_disable_test
+F3 4F 0FA7 F0, Ccs_encrypt_64, Ccs_encrypt, 0, rep enc=F30FA7F0

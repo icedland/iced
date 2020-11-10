@@ -1651,5 +1651,7 @@ namespace Generator.Enums {
 		Stui,
 		Senduipi,
 		Hreset,
+		Ccs_hash,
+		Ccs_encrypt,
 	}
 }

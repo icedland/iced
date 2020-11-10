@@ -203,6 +203,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		UINTR,
 		HRESET,
 		AVX_VNNI,
+		PADLOCK_GMI,
 	}
 }
 #endif

@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[8624] {
+		internal static readonly uint[] Data = new uint[8636] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -4341,6 +4341,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x000000B6, 0xAE000001,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 			0x000000B6, 0xAE000001,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 			0x000000B6, 0xAE000001,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+			0x0B600000, 0xAF000000,// Ccs_hash_16
+			0x0B700000, 0xAF000000,// Ccs_hash_32
+			0x0B800000, 0xAF000000,// Ccs_hash_64
+			0x0B900000, 0xAF000000,// Ccs_encrypt_16
+			0x0BA00000, 0xAF000000,// Ccs_encrypt_32
+			0x0BB00000, 0xAF000000,// Ccs_encrypt_64
 		};
 	}
 }

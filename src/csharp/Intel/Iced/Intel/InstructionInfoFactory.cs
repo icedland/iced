@@ -1102,57 +1102,51 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRax_CRsi_CRdi_CRes_CWax_CWsi_CWdi_RCWcx:
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRsi_CRdi_CRes_CWsi_RCWax_RCWcx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, Register.SI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
 					AddMemory(Register.ES, Register.DI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
 					AddMemory(Register.ES, Register.DI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code16, 0);
 				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, Register.AX, OpAccess.CondRead);
 					AddRegister(flags, Register.SI, OpAccess.CondRead);
 					AddRegister(flags, Register.DI, OpAccess.CondRead);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, Register.AX, OpAccess.CondWrite);
 					AddRegister(flags, Register.SI, OpAccess.CondWrite);
-					AddRegister(flags, Register.DI, OpAccess.CondWrite);
+					AddRegister(flags, Register.AX, OpAccess.ReadCondWrite);
 					AddRegister(flags, Register.CX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CWmem_CReax_CResi_CRedi_CRes_CWeax_CWesi_CWedi_RCWecx:
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CResi_CRedi_CRes_CWesi_RCWeax_RCWecx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, Register.ESI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
 					AddMemory(Register.ES, Register.EDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
 					AddMemory(Register.ES, Register.EDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code32, 0);
 				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, Register.EAX, OpAccess.CondRead);
 					AddRegister(flags, Register.ESI, OpAccess.CondRead);
 					AddRegister(flags, Register.EDI, OpAccess.CondRead);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, Register.EAX, OpAccess.CondWrite);
 					AddRegister(flags, Register.ESI, OpAccess.CondWrite);
-					AddRegister(flags, Register.EDI, OpAccess.CondWrite);
+					AddRegister(flags, Register.EAX, OpAccess.ReadCondWrite);
 					AddRegister(flags, Register.ECX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRrax_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx:
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRrsi_CRrdi_CRes_CWrsi_RCWrax_RCWrcx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, Register.RSI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
 					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
 					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code64, 0);
 				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, Register.RAX, OpAccess.CondRead);
 					AddRegister(flags, Register.RSI, OpAccess.CondRead);
 					AddRegister(flags, Register.RDI, OpAccess.CondRead);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, Register.RAX, OpAccess.CondWrite);
 					AddRegister(flags, Register.RSI, OpAccess.CondWrite);
-					AddRegister(flags, Register.RDI, OpAccess.CondWrite);
+					AddRegister(flags, Register.RAX, OpAccess.ReadCondWrite);
 					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
 				}
 				break;
@@ -1234,7 +1228,7 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWax_CWsi_CWdi_RCWcx:
+			case ImpliedAccess.t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, Register.AX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
 					AddMemory(Register.ES, Register.DX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
@@ -1251,13 +1245,12 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.DI, OpAccess.CondRead);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, Register.AX, OpAccess.CondWrite);
 					AddRegister(flags, Register.SI, OpAccess.CondWrite);
 					AddRegister(flags, Register.DI, OpAccess.CondWrite);
 					AddRegister(flags, Register.CX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWeax_CWesi_CWedi_RCWecx:
+			case ImpliedAccess.t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, Register.EAX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
 					AddMemory(Register.ES, Register.EDX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
@@ -1274,13 +1267,12 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.EDI, OpAccess.CondRead);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, Register.EAX, OpAccess.CondWrite);
 					AddRegister(flags, Register.ESI, OpAccess.CondWrite);
 					AddRegister(flags, Register.EDI, OpAccess.CondWrite);
 					AddRegister(flags, Register.ECX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrax_CWrsi_CWrdi_RCWrcx:
+			case ImpliedAccess.t_CRmem_CRmem_CRmem_CRmem_CWmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
 					AddMemory(Register.ES, Register.RAX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
 					AddMemory(Register.ES, Register.RDX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
@@ -1297,7 +1289,6 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.RDI, OpAccess.CondRead);
 					if ((flags & Flags.Is64Bit) == 0)
 						AddRegister(flags, Register.ES, OpAccess.CondRead);
-					AddRegister(flags, Register.RAX, OpAccess.CondWrite);
 					AddRegister(flags, Register.RSI, OpAccess.CondWrite);
 					AddRegister(flags, Register.RDI, OpAccess.CondWrite);
 					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
@@ -1583,6 +1574,111 @@ namespace Iced.Intel {
 				break;
 			case ImpliedAccess.t_pop3x8:
 				CommandPop(instruction, flags, 3, 8);
+				break;
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRbx_CRsi_CRdi_CRes_CWsi_RCWax_RCWcx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.SI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
+					AddMemory(Register.ES, Register.DI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
+					AddMemory(Register.ES, Register.DI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code16, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.BX, OpAccess.CondRead);
+					AddRegister(flags, Register.SI, OpAccess.CondRead);
+					AddRegister(flags, Register.DI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					AddRegister(flags, Register.SI, OpAccess.CondWrite);
+					AddRegister(flags, Register.AX, OpAccess.ReadCondWrite);
+					AddRegister(flags, Register.CX, OpAccess.ReadCondWrite);
+				}
+				break;
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRebx_CResi_CRedi_CRes_CWesi_RCWeax_RCWecx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.ESI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
+					AddMemory(Register.ES, Register.EDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
+					AddMemory(Register.ES, Register.EDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code32, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EBX, OpAccess.CondRead);
+					AddRegister(flags, Register.ESI, OpAccess.CondRead);
+					AddRegister(flags, Register.EDI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					AddRegister(flags, Register.ESI, OpAccess.CondWrite);
+					AddRegister(flags, Register.EAX, OpAccess.ReadCondWrite);
+					AddRegister(flags, Register.ECX, OpAccess.ReadCondWrite);
+				}
+				break;
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRrbx_CRrsi_CRrdi_CRes_CWrsi_RCWrax_RCWrcx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.RSI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
+					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
+					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code64, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RBX, OpAccess.CondRead);
+					AddRegister(flags, Register.RSI, OpAccess.CondRead);
+					AddRegister(flags, Register.RDI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					AddRegister(flags, Register.RSI, OpAccess.CondWrite);
+					AddRegister(flags, Register.RAX, OpAccess.ReadCondWrite);
+					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
+				}
+				break;
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRax_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.BX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
+					AddMemory(Register.ES, Register.SI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
+					AddMemory(Register.ES, Register.DI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code16, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.AX, OpAccess.CondRead);
+					AddRegister(flags, Register.BX, OpAccess.CondRead);
+					AddRegister(flags, Register.SI, OpAccess.CondRead);
+					AddRegister(flags, Register.DI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					AddRegister(flags, Register.SI, OpAccess.CondWrite);
+					AddRegister(flags, Register.DI, OpAccess.CondWrite);
+					AddRegister(flags, Register.CX, OpAccess.ReadCondWrite);
+				}
+				break;
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CReax_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.EBX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
+					AddMemory(Register.ES, Register.ESI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
+					AddMemory(Register.ES, Register.EDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code32, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, OpAccess.CondRead);
+					AddRegister(flags, Register.EBX, OpAccess.CondRead);
+					AddRegister(flags, Register.ESI, OpAccess.CondRead);
+					AddRegister(flags, Register.EDI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					AddRegister(flags, Register.ESI, OpAccess.CondWrite);
+					AddRegister(flags, Register.EDI, OpAccess.CondWrite);
+					AddRegister(flags, Register.ECX, OpAccess.ReadCondWrite);
+				}
+				break;
+			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRrax_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.RBX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
+					AddMemory(Register.ES, Register.RSI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
+					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code64, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.CondRead);
+					AddRegister(flags, Register.RBX, OpAccess.CondRead);
+					AddRegister(flags, Register.RSI, OpAccess.CondRead);
+					AddRegister(flags, Register.RDI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					AddRegister(flags, Register.RSI, OpAccess.CondWrite);
+					AddRegister(flags, Register.RDI, OpAccess.CondWrite);
+					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
+				}
 				break;
 			// GENERATOR-END: ImpliedAccessHandler
 

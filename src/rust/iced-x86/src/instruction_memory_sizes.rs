@@ -4342,6 +4342,12 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Packed256_Int16,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 	MemorySize::Packed128_Int16,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 	MemorySize::Packed256_Int16,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+	MemorySize::Unknown,// Ccs_hash_16
+	MemorySize::Unknown,// Ccs_hash_32
+	MemorySize::Unknown,// Ccs_hash_64
+	MemorySize::Unknown,// Ccs_encrypt_16
+	MemorySize::Unknown,// Ccs_encrypt_32
+	MemorySize::Unknown,// Ccs_encrypt_64
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8654,4 +8660,10 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 	MemorySize::Unknown,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 	MemorySize::Unknown,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+	MemorySize::Unknown,// Ccs_hash_16
+	MemorySize::Unknown,// Ccs_hash_32
+	MemorySize::Unknown,// Ccs_hash_64
+	MemorySize::Unknown,// Ccs_encrypt_16
+	MemorySize::Unknown,// Ccs_encrypt_32
+	MemorySize::Unknown,// Ccs_encrypt_64
 ];

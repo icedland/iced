@@ -8402,3 +8402,7 @@ vpdpwssds (%rax),%xmm6,%xmm2
 vpdpwssds %xmm3,%xmm6,%xmm2
 vpdpwssds (%rax),%ymm6,%ymm2
 vpdpwssds %ymm3,%ymm6,%ymm2
+rep ccs_hash
+addr32 rep ccs_hash
+rep ccs_encrypt
+addr32 rep ccs_encrypt

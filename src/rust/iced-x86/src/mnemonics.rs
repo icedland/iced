@@ -4340,4 +4340,10 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Vpdpwssd,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 	Mnemonic::Vpdpwssds,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 	Mnemonic::Vpdpwssds,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+	Mnemonic::Ccs_hash,// Ccs_hash_16
+	Mnemonic::Ccs_hash,// Ccs_hash_32
+	Mnemonic::Ccs_hash,// Ccs_hash_64
+	Mnemonic::Ccs_encrypt,// Ccs_encrypt_16
+	Mnemonic::Ccs_encrypt,// Ccs_encrypt_32
+	Mnemonic::Ccs_encrypt,// Ccs_encrypt_64
 ];

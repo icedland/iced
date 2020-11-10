@@ -78,7 +78,13 @@ pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 		| Code::Xcryptcfb_64
 		| Code::Xcryptofb_16
 		| Code::Xcryptofb_32
-		| Code::Xcryptofb_64 => true,
+		| Code::Xcryptofb_64
+		| Code::Ccs_hash_16
+		| Code::Ccs_hash_32
+		| Code::Ccs_hash_64
+		| Code::Ccs_encrypt_16
+		| Code::Ccs_encrypt_32
+		| Code::Ccs_encrypt_64 => true,
 
 		_ => false,
 	}

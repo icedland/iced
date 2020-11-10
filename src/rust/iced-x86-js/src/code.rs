@@ -4343,6 +4343,12 @@ pub enum Code {
 	VEX_Vpdpwssd_ymm_ymm_ymmm256 = 4309,
 	VEX_Vpdpwssds_xmm_xmm_xmmm128 = 4310,
 	VEX_Vpdpwssds_ymm_ymm_ymmm256 = 4311,
+	Ccs_hash_16 = 4312,
+	Ccs_hash_32 = 4313,
+	Ccs_hash_64 = 4314,
+	Ccs_encrypt_16 = 4315,
+	Ccs_encrypt_32 = 4316,
+	Ccs_encrypt_64 = 4317,
 }
 // GENERATOR-END: Enum
 

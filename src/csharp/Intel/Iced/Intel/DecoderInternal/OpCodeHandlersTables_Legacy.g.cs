@@ -2016,7 +2016,21 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 17 = 0x11
 				0x05,// Dup
-					0x2F,// 47
+					0x17,// 23
+					0x06,// Null
+
+				// 40 = 0x28
+				0x12,// MandatoryPrefix4
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0xAB,// Simple5
+						0xD8, 0x21,// Ccs_hash_16
+					0x03,// Invalid_NoModRM
+					0x00,// 0x0
+
+				// 41 = 0x29
+				0x05,// Dup
+					0x17,// 23
 					0x06,// Null
 
 				// handlers_Grp_0FA7_lo
@@ -2106,7 +2120,21 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 41 = 0x29
 				0x05,// Dup
-					0x17,// 23
+					0x07,// 7
+					0x06,// Null
+
+				// 48 = 0x30
+				0x12,// MandatoryPrefix4
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0xAB,// Simple5
+						0xDB, 0x21,// Ccs_encrypt_16
+					0x03,// Invalid_NoModRM
+					0x00,// 0x0
+
+				// 49 = 0x31
+				0x05,// Dup
+					0x0F,// 15
 					0x06,// Null
 
 				// handlers_Grp_0FBA

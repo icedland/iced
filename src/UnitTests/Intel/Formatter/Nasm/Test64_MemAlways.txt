@@ -8402,3 +8402,7 @@ vpdpwssds xmm2, xmm6, oword [rax]
 vpdpwssds xmm2, xmm6, xmm3
 vpdpwssds ymm2, ymm6, yword [rax]
 vpdpwssds ymm2, ymm6, ymm3
+rep ccs_hash
+a32 rep ccs_hash
+rep ccs_encrypt
+a32 rep ccs_encrypt

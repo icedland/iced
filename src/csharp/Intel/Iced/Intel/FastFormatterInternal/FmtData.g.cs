@@ -14747,6 +14747,26 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// VEX_Vpdpwssds_ymm_ymm_ymmm256
 				0x03,// HasVPrefix, SameAsPrev
+
+				// Ccs_hash_16
+				0x00,// No flags set
+				0xCA, 0x0B,// 1482 = "ccs_hash"
+
+				// Ccs_hash_32
+				0x02,// SameAsPrev
+
+				// Ccs_hash_64
+				0x02,// SameAsPrev
+
+				// Ccs_encrypt_16
+				0x00,// No flags set
+				0xCB, 0x0B,// 1483 = "ccs_encrypt"
+
+				// Ccs_encrypt_32
+				0x02,// SameAsPrev
+
+				// Ccs_encrypt_64
+				0x02,// SameAsPrev
 			};
 	}
 }

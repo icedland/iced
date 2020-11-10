@@ -5102,6 +5102,70 @@ namespace Iced.Intel {
 			op = Code.Cbw;
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>ccs_encrypt instruction.<br/>
+		/// <br/>
+		/// <c>CCS_ENCRYPT</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A7 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <c>CCS_ENCRYPT</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A7 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>CCS_ENCRYPT</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A7 F0</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void ccs_encrypt() {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Ccs_encrypt_64;
+			} else op = Bitness >= 32 ? Code.Ccs_encrypt_32 : Code.Ccs_encrypt_16;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>ccs_hash instruction.<br/>
+		/// <br/>
+		/// <c>CCS_HASH</c><br/>
+		/// <br/>
+		/// <c>a64 F3 0F A6 E8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <c>CCS_HASH</c><br/>
+		/// <br/>
+		/// <c>a32 F3 0F A6 E8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>CCS_HASH</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F A6 E8</c><br/>
+		/// <br/>
+		/// <c>PADLOCK_GMI</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void ccs_hash() {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Ccs_hash_64;
+			} else op = Bitness >= 32 ? Code.Ccs_hash_32 : Code.Ccs_hash_16;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>cdq instruction.<br/>
 		/// <br/>
 		/// <c>CDQ</c><br/>

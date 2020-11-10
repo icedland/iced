@@ -4346,6 +4346,12 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed256_Int16,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 			(byte)MemorySize.Packed128_Int16,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 			(byte)MemorySize.Packed256_Int16,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+			0,// Ccs_hash_16
+			0,// Ccs_hash_32
+			0,// Ccs_hash_64
+			0,// Ccs_encrypt_16
+			0,// Ccs_encrypt_32
+			0,// Ccs_encrypt_64
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8658,6 +8664,12 @@ namespace Iced.Intel {
 			0,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 			0,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 			0,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+			0,// Ccs_hash_16
+			0,// Ccs_hash_32
+			0,// Ccs_hash_64
+			0,// Ccs_encrypt_16
+			0,// Ccs_encrypt_32
+			0,// Ccs_encrypt_64
 		};
 	}
 }

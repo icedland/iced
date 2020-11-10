@@ -4340,6 +4340,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpdpwssd,// VEX_Vpdpwssd_ymm_ymm_ymmm256
 			(ushort)Mnemonic.Vpdpwssds,// VEX_Vpdpwssds_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpdpwssds,// VEX_Vpdpwssds_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Ccs_hash,// Ccs_hash_16
+			(ushort)Mnemonic.Ccs_hash,// Ccs_hash_32
+			(ushort)Mnemonic.Ccs_hash,// Ccs_hash_64
+			(ushort)Mnemonic.Ccs_encrypt,// Ccs_encrypt_16
+			(ushort)Mnemonic.Ccs_encrypt,// Ccs_encrypt_32
+			(ushort)Mnemonic.Ccs_encrypt,// Ccs_encrypt_64
 		};
 	}
 }

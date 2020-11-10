@@ -745,3 +745,7 @@ pfrcpv mm1, mm5
 pfrcpv mm1, [eax-5AA5EDCCh]
 pfrsqrtv mm1, mm5
 pfrsqrtv mm1, [eax-5AA5EDCCh]
+rep ccs_hash
+rep ccs_hash
+rep ccs_encrypt
+rep ccs_encrypt

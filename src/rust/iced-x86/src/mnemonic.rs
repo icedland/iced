@@ -1658,9 +1658,11 @@ pub enum Mnemonic {
 	Stui = 1624,
 	Senduipi = 1625,
 	Hreset = 1626,
+	Ccs_hash = 1627,
+	Ccs_encrypt = 1628,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1627] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1629] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3288,6 +3290,8 @@ static GEN_DEBUG_MNEMONIC: [&str; 1627] = [
 	"Stui",
 	"Senduipi",
 	"Hreset",
+	"Ccs_hash",
+	"Ccs_encrypt",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

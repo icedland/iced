@@ -4343,6 +4343,12 @@ namespace Generator.Enums {
 		VEX_Vpdpwssd_ymm_ymm_ymmm256,
 		VEX_Vpdpwssds_xmm_xmm_xmmm128,
 		VEX_Vpdpwssds_ymm_ymm_ymmm256,
+		Ccs_hash_16,
+		Ccs_hash_32,
+		Ccs_hash_64,
+		Ccs_encrypt_16,
+		Ccs_encrypt_32,
+		Ccs_encrypt_64,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

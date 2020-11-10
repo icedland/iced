@@ -745,3 +745,7 @@ DF FC, Frinear, Cyrix
 0F0F 88 34125AA5 86, D3NOW_Pfrcpv_mm_mmm64, Cyrix
 0F0F CD 87, D3NOW_Pfrsqrtv_mm_mmm64, Cyrix
 0F0F 88 34125AA5 87, D3NOW_Pfrsqrtv_mm_mmm64, Cyrix
+F3 0FA6 E8, Ccs_hash_32
+67 F3 0FA6 E8, Ccs_hash_16
+F3 0FA7 F0, Ccs_encrypt_32
+67 F3 0FA7 F0, Ccs_encrypt_16

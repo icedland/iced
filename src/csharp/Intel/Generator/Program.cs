@@ -257,6 +257,7 @@ Options:
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_PHE));
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_PMM));
 					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_RNG));
+					options.ExcludeCpuid.Add(nameof(CpuidFeature.PADLOCK_GMI));
 					break;
 
 				case "--no-cyrix":

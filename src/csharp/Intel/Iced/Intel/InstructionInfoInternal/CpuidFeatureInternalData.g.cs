@@ -233,6 +233,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x98,// UINTR
 				0x99,// HRESET
 				0x9A,// AVX_VNNI
+				0x9B,// PADLOCK_GMI
 			};
 	}
 }

@@ -15859,7 +15859,7 @@ END
 
 # Code: Xsha1_16
 INSTRUCTION: a16 F3 0F A6 C8 | XSHA1 | PADLOCK_PHE
-	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si;di crcw=ax rcw=cx
+	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=ax;cx
 	code-suffix: 16
 	flags: 16 32
 	gas: asz
@@ -15869,7 +15869,7 @@ END
 
 # Code: Xsha1_32
 INSTRUCTION: a32 F3 0F A6 C8 | XSHA1 | PADLOCK_PHE
-	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi;edi crcw=eax rcw=ecx
+	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=eax;ecx
 	code-suffix: 32
 	gas: asz
 	intel: asz
@@ -15878,7 +15878,7 @@ END
 
 # Code: Xsha1_64
 INSTRUCTION: a64 F3 0F A6 C8 | XSHA1 | PADLOCK_PHE
-	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi;rdi crcw=rax rcw=rcx
+	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -15888,7 +15888,7 @@ END
 
 # Code: Xsha256_16
 INSTRUCTION: a16 F3 0F A6 D0 | XSHA256 | PADLOCK_PHE
-	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si;di crcw=ax rcw=cx
+	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=ax;cx
 	code-suffix: 16
 	flags: 16 32
 	gas: asz
@@ -15898,7 +15898,7 @@ END
 
 # Code: Xsha256_32
 INSTRUCTION: a32 F3 0F A6 D0 | XSHA256 | PADLOCK_PHE
-	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi;edi crcw=eax rcw=ecx
+	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=eax;ecx
 	code-suffix: 32
 	gas: asz
 	intel: asz
@@ -15907,7 +15907,7 @@ END
 
 # Code: Xsha256_64
 INSTRUCTION: a64 F3 0F A6 D0 | XSHA256 | PADLOCK_PHE
-	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi;rdi crcw=rax rcw=rcx
+	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -15992,7 +15992,7 @@ END
 
 # Code: Xcryptcbc_16
 INSTRUCTION: a16 F3 0F A7 D0 | XCRYPTCBC | PADLOCK_ACE
-	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=ax;si;di
+	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
 	flags: 16 32
 	gas: asz
@@ -16002,7 +16002,7 @@ END
 
 # Code: Xcryptcbc_32
 INSTRUCTION: a32 F3 0F A7 D0 | XCRYPTCBC | PADLOCK_ACE
-	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=eax;esi;edi
+	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
 	gas: asz
 	intel: asz
@@ -16011,7 +16011,7 @@ END
 
 # Code: Xcryptcbc_64
 INSTRUCTION: a64 F3 0F A7 D0 | XCRYPTCBC | PADLOCK_ACE
-	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rax;rsi;rdi
+	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -16021,7 +16021,7 @@ END
 
 # Code: Xcryptctr_16
 INSTRUCTION: a16 F3 0F A7 D8 | XCRYPTCTR | PADLOCK_ACE
-	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=ax;si;di
+	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
 	flags: 16 32
 	gas: asz
@@ -16031,7 +16031,7 @@ END
 
 # Code: Xcryptctr_32
 INSTRUCTION: a32 F3 0F A7 D8 | XCRYPTCTR | PADLOCK_ACE
-	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=eax;esi;edi
+	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
 	gas: asz
 	intel: asz
@@ -16040,7 +16040,7 @@ END
 
 # Code: Xcryptctr_64
 INSTRUCTION: a64 F3 0F A7 D8 | XCRYPTCTR | PADLOCK_ACE
-	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rax;rsi;rdi
+	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -16050,7 +16050,7 @@ END
 
 # Code: Xcryptcfb_16
 INSTRUCTION: a16 F3 0F A7 E0 | XCRYPTCFB | PADLOCK_ACE
-	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=ax;si;di
+	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
 	flags: 16 32
 	gas: asz
@@ -16060,7 +16060,7 @@ END
 
 # Code: Xcryptcfb_32
 INSTRUCTION: a32 F3 0F A7 E0 | XCRYPTCFB | PADLOCK_ACE
-	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=eax;esi;edi
+	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
 	gas: asz
 	intel: asz
@@ -16069,7 +16069,7 @@ END
 
 # Code: Xcryptcfb_64
 INSTRUCTION: a64 F3 0F A7 E0 | XCRYPTCFB | PADLOCK_ACE
-	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rax;rsi;rdi
+	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -16079,7 +16079,7 @@ END
 
 # Code: Xcryptofb_16
 INSTRUCTION: a16 F3 0F A7 E8 | XCRYPTOFB | PADLOCK_ACE
-	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=ax;si;di
+	implied: crcw=[es:ax=Unknown] cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di
 	code-suffix: 16
 	flags: 16 32
 	gas: asz
@@ -16089,7 +16089,7 @@ END
 
 # Code: Xcryptofb_32
 INSTRUCTION: a32 F3 0F A7 E8 | XCRYPTOFB | PADLOCK_ACE
-	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=eax;esi;edi
+	implied: crcw=[es:eax=Unknown] cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi
 	code-suffix: 32
 	gas: asz
 	intel: asz
@@ -16098,7 +16098,7 @@ END
 
 # Code: Xcryptofb_64
 INSTRUCTION: a64 F3 0F A7 E8 | XCRYPTOFB | PADLOCK_ACE
-	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rax;rsi;rdi
+	implied: crcw=[es:rax=Unknown] cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi
 	code-suffix: 64
 	flags: 64
 	gas: asz
@@ -29832,4 +29832,78 @@ END
 # Code: VEX_Vpdpwssds_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.66.0F38.W0 53 /r | VPDPWSSDS ymm1, ymm2, ymm3/m256 | AVX_VNNI
 	ops: rw=reg r=vvvv r=rm | Packed256_Int16
+END
+
+# Code: Ccs_hash_16
+INSTRUCTION: a16 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
+	# Some Zhaoxin CPUs support GMI, eg. ZX-C+, KX, KH
+	# GMI = GuoMi Instruction
+
+	# AFAIK, no public documentation, so I used https://github.com/openssl/openssl/pull/8706
+	# SM3 instruction
+	# PR comment: gm5 ccs_hash
+	#TODO: I assume reg/mem access is the same as xsha{1,256} instructions
+	#TODO: I assume rBX isn't written, only read
+	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=ax;cx cr=bx
+	code-suffix: 16
+	flags: 16 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Ccs_hash_32
+INSTRUCTION: a32 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
+	# See a16 version above for more info
+	implied: cr=[es:esi=Unknown] crcw=[es:edi=Unknown] cw=esi rcw=eax;ecx cr=ebx
+	code-suffix: 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Ccs_hash_64
+INSTRUCTION: a64 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
+	# See a16 version above for more info
+	implied: cr=[es:rsi=Unknown] crcw=[es:rdi=Unknown] cw=rsi rcw=rax;rcx cr=rbx
+	code-suffix: 64
+	flags: 64
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Ccs_encrypt_16
+INSTRUCTION: a16 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
+	# AFAIK, no public documentation, so I used https://github.com/openssl/openssl/pull/8706
+	# SM4 instruction
+	# PR comment: gx6 ccs_encrypt
+	#TODO: I assume rAX isn't written
+	implied: cr=[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di cr=ax
+	code-suffix: 16
+	flags: 16 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Ccs_encrypt_32
+INSTRUCTION: a32 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
+	# See a16 version above for more info
+	implied: cr=[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi cr=eax
+	code-suffix: 32
+	gas: asz
+	intel: asz
+	nasm: asz
+END
+
+# Code: Ccs_encrypt_64
+INSTRUCTION: a64 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
+	# See a16 version above for more info
+	implied: cr=[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi cr=rax
+	code-suffix: 64
+	flags: 64
+	gas: asz
+	intel: asz
+	nasm: asz
 END

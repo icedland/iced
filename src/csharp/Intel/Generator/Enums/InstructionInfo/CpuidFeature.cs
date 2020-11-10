@@ -334,5 +334,7 @@ namespace Generator.Enums.InstructionInfo {
 		HRESET,
 		[Comment("CPUID.(EAX=07H, ECX=01H):EAX.AVX-VNNI[bit 4]")]
 		AVX_VNNI,
+		[Comment("CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.GMI[Bits 5:4] = 11B ([4] = exists, [5] = enabled)")]
+		PADLOCK_GMI,
 	}
 }

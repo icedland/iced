@@ -8402,3 +8402,7 @@ C4E249 53 10, VEX_Vpdpwssds_xmm_xmm_xmmm128
 C4E249 53 D3, VEX_Vpdpwssds_xmm_xmm_xmmm128
 C4E24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256
 C4E24D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256
+F3 0FA6 E8, Ccs_hash_64
+67 F3 0FA6 E8, Ccs_hash_32
+F3 0FA7 F0, Ccs_encrypt_64
+67 F3 0FA7 F0, Ccs_encrypt_32

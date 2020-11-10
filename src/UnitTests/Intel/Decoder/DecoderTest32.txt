@@ -21773,3 +21773,23 @@ C4C249 53 10, VEX_Vpdpwssds_xmm_xmm_xmmm128, Vpdpwssds, 3, op0=r;xmm2 op1=r;xmm6
 C4E24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Int16
 C4E24D 53 D3, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
 C4C24D 53 10, VEX_Vpdpwssds_ymm_ymm_ymmm256, Vpdpwssds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Int16 enc=C4E24D5310
+
+F3 67 0FA6 E8, Ccs_hash_16, Ccs_hash, 0, rep enc=67F30FA6E8
+67 F3 0FA6 E8, Ccs_hash_16, Ccs_hash, 0, rep
+67 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_16
+
+F3 0FA6 E8, Ccs_hash_32, Ccs_hash, 0, rep
+F2 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32
+F2 F3 0FA6 E8, Ccs_hash_32, Ccs_hash, 0, rep enc=F30FA6E8
+F3 F2 0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32
+0FA6 E8, INVALID, INVALID, 0, code=Ccs_hash_32
+
+F3 67 0FA7 F0, Ccs_encrypt_16, Ccs_encrypt, 0, rep enc=67F30FA7F0
+67 F3 0FA7 F0, Ccs_encrypt_16, Ccs_encrypt, 0, rep
+67 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_16
+
+F3 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep
+F2 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32
+F2 F3 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=F30FA7F0
+F3 F2 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32
+0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_32

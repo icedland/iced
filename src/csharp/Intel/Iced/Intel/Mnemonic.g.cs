@@ -1656,6 +1656,8 @@ namespace Iced.Intel {
 		Stui = 1624,
 		Senduipi = 1625,
 		Hreset = 1626,
+		Ccs_hash = 1627,
+		Ccs_encrypt = 1628,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
