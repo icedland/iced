@@ -108,7 +108,7 @@ namespace Generator.Encoder.RustJS {
 			for (int i = 0; i < method.Args.Count; i++) {
 				var arg = method.Args[i];
 				if (Rust.InstrCreateGenImpl.Is64BitArgument(arg.Type)) {
-					if (!(arg.DefaultValue is null))
+					if (arg.DefaultValue is not null)
 						throw new InvalidOperationException();
 					int newIndex = no64Method.Args.Count;
 					splitArgs.Add(new SplitArg(i, newIndex, newIndex + 1));
@@ -382,7 +382,7 @@ namespace Generator.Encoder.RustJS {
 		void GenCreateDeclareDataSlice(GenMethodContext ctx, int elemSize, string rustName, string jsName) {
 			// &[u64] isn't supported if bigint feature is disabled
 			if (elemSize == 8) {
-				if (!(ctx.Attribute is null))
+				if (ctx.Attribute is not null)
 					throw new InvalidOperationException();
 				ctx.Attribute = RustConstants.FeatureBigInt;
 			}

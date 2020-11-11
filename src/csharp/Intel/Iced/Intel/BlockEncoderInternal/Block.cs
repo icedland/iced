@@ -109,7 +109,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			}
 		}
 
-		public bool CanAddRelocInfos => !(relocInfos is null);
+		public bool CanAddRelocInfos => relocInfos is not null;
 		public void AddRelocInfo(RelocInfo relocInfo) => relocInfos?.Add(relocInfo);
 	}
 

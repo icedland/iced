@@ -43,7 +43,7 @@ namespace Generator.Tables {
 				writer.WriteFileHeader();
 				EnumValue? lastRegKind = null;
 				foreach (var def in defs) {
-					if (lastRegKind is object && def.RegisterKind != lastRegKind)
+					if (lastRegKind is not null && def.RegisterKind != lastRegKind)
 						writer.WriteLine();
 					lastRegKind = def.RegisterKind;
 

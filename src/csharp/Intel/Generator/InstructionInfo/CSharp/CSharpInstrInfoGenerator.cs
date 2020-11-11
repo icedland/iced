@@ -413,13 +413,13 @@ namespace Generator.InstructionInfo.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
 				foreach (var (encoding, defs) in tdefs) {
 					var feature = CSharpConstants.GetDefine(encoding);
-					if (feature is object)
+					if (feature is not null)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in defs)
 						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
 					using (writer.Indent())
 						writer.WriteLine("return true;");
-					if (feature is object)
+					if (feature is not null)
 						writer.WriteLineNoIndent("#endif");
 				}
 			});
@@ -460,7 +460,7 @@ namespace Generator.InstructionInfo.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, "StackPointerIncrementTable", filename).Generate(writer => {
 				foreach (var (encoding, info, defs) in tdefs) {
 					var feature = CSharpConstants.GetDefine(encoding);
-					if (feature is object)
+					if (feature is not null)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in defs)
 						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
@@ -483,7 +483,7 @@ namespace Generator.InstructionInfo.CSharp {
 							throw new InvalidOperationException();
 						}
 					}
-					if (feature is object)
+					if (feature is not null)
 						writer.WriteLineNoIndent("#endif");
 				}
 			});

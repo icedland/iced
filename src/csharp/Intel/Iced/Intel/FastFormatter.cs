@@ -223,7 +223,7 @@ namespace Iced.Intel {
 							immSize = 2;
 							imm64 = instruction.NearBranch16;
 						}
-						if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(instruction, operand, operand, imm64, immSize, out symbol))
+						if ((symbolResolver = this.symbolResolver) is not null && symbolResolver.TryGetSymbol(instruction, operand, operand, imm64, immSize, out symbol))
 							WriteSymbol(output, imm64, symbol);
 						else
 							FormatNumber(output, imm64);
@@ -239,7 +239,7 @@ namespace Iced.Intel {
 							immSize = 2;
 							imm64 = instruction.FarBranch16;
 						}
-						if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(instruction, operand, operand, (uint)imm64, immSize, out symbol)) {
+						if ((symbolResolver = this.symbolResolver) is not null && symbolResolver.TryGetSymbol(instruction, operand, operand, (uint)imm64, immSize, out symbol)) {
 							Debug.Assert(operand + 1 == 1);
 							if (!symbolResolver.TryGetSymbol(instruction, operand + 1, operand, instruction.FarBranchSelector, 2, out var selectorSymbol))
 								FormatNumber(output, instruction.FarBranchSelector);
@@ -268,7 +268,7 @@ namespace Iced.Intel {
 							Debug.Assert(opKind == OpKind.Immediate8_2nd);
 							imm8 = instruction.Immediate8_2nd;
 						}
-						if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(instruction, operand, operand, imm8, 1, out symbol)) {
+						if ((symbolResolver = this.symbolResolver) is not null && symbolResolver.TryGetSymbol(instruction, operand, operand, imm8, 1, out symbol)) {
 							if ((symbol.Flags & SymbolFlags.Relative) == 0)
 								output.AppendNotNull("offset ");
 							WriteSymbol(output, imm8, symbol);
@@ -287,7 +287,7 @@ namespace Iced.Intel {
 							Debug.Assert(opKind == OpKind.Immediate8to16);
 							imm16 = (ushort)instruction.Immediate8to16;
 						}
-						if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(instruction, operand, operand, imm16, 2, out symbol)) {
+						if ((symbolResolver = this.symbolResolver) is not null && symbolResolver.TryGetSymbol(instruction, operand, operand, imm16, 2, out symbol)) {
 							if ((symbol.Flags & SymbolFlags.Relative) == 0)
 								output.AppendNotNull("offset ");
 							WriteSymbol(output, imm16, symbol);
@@ -306,7 +306,7 @@ namespace Iced.Intel {
 							Debug.Assert(opKind == OpKind.Immediate8to32);
 							imm32 = (uint)instruction.Immediate8to32;
 						}
-						if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(instruction, operand, operand, imm32, 4, out symbol)) {
+						if ((symbolResolver = this.symbolResolver) is not null && symbolResolver.TryGetSymbol(instruction, operand, operand, imm32, 4, out symbol)) {
 							if ((symbol.Flags & SymbolFlags.Relative) == 0)
 								output.AppendNotNull("offset ");
 							WriteSymbol(output, imm32, symbol);
@@ -328,7 +328,7 @@ namespace Iced.Intel {
 							Debug.Assert(opKind == OpKind.Immediate64);
 							imm64 = instruction.Immediate64;
 						}
-						if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(instruction, operand, operand, imm64, 8, out symbol)) {
+						if ((symbolResolver = this.symbolResolver) is not null && symbolResolver.TryGetSymbol(instruction, operand, operand, imm64, 8, out symbol)) {
 							if ((symbol.Flags & SymbolFlags.Relative) == 0)
 								output.AppendNotNull("offset ");
 							WriteSymbol(output, imm64, symbol);
@@ -508,7 +508,7 @@ namespace Iced.Intel {
 
 			var text = symbol.Text;
 			var array = text.TextArray;
-			if (!(array is null)) {
+			if (array is not null) {
 				foreach (var part in array) {
 					if (part.Text is string s)
 						output.AppendNotNull(s);
@@ -562,7 +562,7 @@ namespace Iced.Intel {
 			SymbolResult symbol;
 			bool useSymbol;
 			var symbolResolver = this.symbolResolver;
-			if (!(symbolResolver is null))
+			if (symbolResolver is not null)
 				useSymbol = symbolResolver.TryGetSymbol(instruction, operand, operand, absAddr, addrSize, out symbol);
 			else {
 				useSymbol = false;

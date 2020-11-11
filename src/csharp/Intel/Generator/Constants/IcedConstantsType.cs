@@ -115,7 +115,7 @@ namespace Generator.Constants {
 			for (int i = 0; i < values.Length; i++) {
 				var name = values[i].RawName;
 				bool isBroadcast = name.StartsWith("Broadcast", StringComparison.Ordinal);
-				if (firstBroadcastValue is object) {
+				if (firstBroadcastValue is not null) {
 					if (!isBroadcast)
 						throw new InvalidOperationException("Must be sorted so that all broadcast memory types are at the end of the enum");
 				}

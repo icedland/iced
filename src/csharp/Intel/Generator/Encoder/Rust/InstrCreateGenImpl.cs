@@ -68,7 +68,7 @@ namespace Generator.Encoder.Rust {
 			foreach (var doc in method.Docs)
 				docWriter.WriteDocLine(writer, doc, typeName);
 			docWriter.WriteLine(writer, string.Empty);
-			if (!(writePanics is null)) {
+			if (writePanics is not null) {
 				docWriter.WriteLine(writer, $"# {panicTitle}");
 				docWriter.WriteLine(writer, string.Empty);
 				writePanics();

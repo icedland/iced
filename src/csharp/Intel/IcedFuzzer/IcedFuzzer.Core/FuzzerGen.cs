@@ -758,29 +758,29 @@ namespace IcedFuzzer.Core {
 			}
 
 			public bool IsOpMask =>
-				regOp is object && regOp.Register == FuzzerRegisterKind.K && regOp.RegLocation == FuzzerOperandRegLocation.AaaBits;
+				regOp is not null && regOp.Register == FuzzerRegisterKind.K && regOp.RegLocation == FuzzerOperandRegLocation.AaaBits;
 
 			public bool IsValidRegister(FuzzerInstruction instruction, uint regNum) {
 				regNum = MaskOutIgnoredBits(regNum);
-				if (regOp is object)
+				if (regOp is not null)
 					return regInfo.IsValid(instruction, regOp.Register, regNum);
 				return true;
 			}
 
 			public uint MaskOutIgnoredBits(uint regNum) {
 				regNum %= MaxRegCount;
-				if (regOp is object)
+				if (regOp is not null)
 					return regInfo.MaskOutIgnoredBits(regOp.Register, regNum);
-				if (memOp is object)
+				if (memOp is not null)
 					return regNum & regMask;
 				throw ThrowHelpers.Unreachable;
 			}
 
 			public void InitializeOperand(ref InstructionInfo info, uint regNum) {
 				regNum = MaskOutIgnoredBits(regNum);
-				if (regOp is object)
+				if (regOp is not null)
 					info.SetRegister(regOp.RegLocation, regNum);
-				else if (memOp is object) {
+				else if (memOp is not null) {
 					if (info.Bitness == 16)
 						info.addressSizePrefix = 0x67;
 					info.SetModrmSibMemory(0x04, 0x40 + ((regNum & 7) << 3), UsedBits.x | UsedBits.v2);// [eax+vec[n]*2] / [rax+vec[n]*2]

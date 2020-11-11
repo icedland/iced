@@ -383,7 +383,7 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("));");
 				}
 				else if (group.Flags == OpCodeArgFlags.Pseudo) {
-					Debug.Assert(group.ParentPseudoOpsKind is object);
+					Debug.Assert(group.ParentPseudoOpsKind is not null);
 					writer.Write($"{group.ParentPseudoOpsKind.Name}(");
 					for (var i = 0; i < renderArgs.Count; i++) {
 						var renderArg = renderArgs[i];
@@ -553,7 +553,7 @@ namespace Generator.Assembler.CSharp {
 			if (IgnoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr))
 				return;
 			var define = GetDefine(group);
-			if (define is object)
+			if (define is not null)
 				writer.WriteLineNoIndent($"#if {define}");
 			writer.WriteLine("[Fact]");
 			writer.WriteLine($"public void {fullMethodNameStr}() {{");
@@ -563,25 +563,25 @@ namespace Generator.Assembler.CSharp {
 					argValues.Add(null);
 
 				if (group.Flags == OpCodeArgFlags.Pseudo) {
-					Debug.Assert(group.ParentPseudoOpsKind is object);
+					Debug.Assert(group.ParentPseudoOpsKind is not null);
 					GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, renderArgs, argValues, OpCodeArgFlags.Default, group.ParentPseudoOpsKind.Items[0]);
 				}
 				else
 					GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, group.RootOpCodeNode, renderArgs, argValues, OpCodeArgFlags.Default);
 			}
 			writer.WriteLine("}");
-			if (define is object)
+			if (define is not null)
 				writer.WriteLineNoIndent("#endif");
 			writer.WriteLine(); ;
 		}
 
 		void GenerateOpCodeTest(FileWriter writer, int bitness, InstructionDefFlags1 bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
 			var opCodeInfo = node.Def;
-			if (opCodeInfo is object)
+			if (opCodeInfo is not null)
 				GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, args, argValues, contextFlags, opCodeInfo);
 			else {
 				var selector = node.Selector;
-				Debug.Assert(selector is object);
+				Debug.Assert(selector is not null);
 				var argKind = selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default;
 				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind, selector.ArgIndex, group.Flags);
 				var isSelectorSupportedByBitness = IsSelectorSupportedByBitness(bitness, selector.Kind, out var continueElse);
@@ -621,7 +621,7 @@ namespace Generator.Assembler.CSharp {
 						// Don't generate AssertInvalid for unsigned as they are already tested by signed
 						if (isSelectorSupportedByBitness && selector.ArgIndex >= 0 && !group.HasImmediateUnsigned) {
 							var newArg = GetInvalidArgValue(bitness, selector.Kind, selector.ArgIndex);
-							if (newArg is object) {
+							if (newArg is not null) {
 								// Force fake bitness support to allow to generate a throw for the last selector
 								if (bitness == 64 && (group.Name == "bndcn" ||
 													  group.Name == "bndmk" ||
@@ -729,9 +729,9 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 
-				Debug.Assert(argValueForAssembler is object);
+				Debug.Assert(argValueForAssembler is not null);
 				assemblerArgs.Add(argValueForAssembler);
-				Debug.Assert(argValueForInstructionCreate is object);
+				Debug.Assert(argValueForInstructionCreate is not null);
 				instructionCreateArgs.Add(argValueForInstructionCreate);
 			}
 
@@ -923,7 +923,7 @@ namespace Generator.Assembler.CSharp {
 
 		void GenerateOpCodeSelector(FileWriter writer, OpCodeInfoGroup group, bool isLeaf, OpCodeNode node, List<RenderArg> args) {
 			var opCodeInfo = node.Def;
-			if (opCodeInfo is object) {
+			if (opCodeInfo is not null) {
 				if (isLeaf)
 					writer.Write("op = ");
 				writer.Write($"Code.{opCodeInfo.Code.Name(idConverter)}");
@@ -932,7 +932,7 @@ namespace Generator.Assembler.CSharp {
 			}
 			else {
 				var selector = node.Selector;
-				Debug.Assert(selector is object);
+				Debug.Assert(selector is not null);
 				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind, selector.ArgIndex, group.Flags);
 				if (selector.IsConditionInlineable && !IsMemOffs64Selector(selector.Kind)) {
 					writer.Write($"op = {condition} ? ");

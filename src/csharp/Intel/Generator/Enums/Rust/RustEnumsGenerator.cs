@@ -180,7 +180,7 @@ namespace Generator.Enums.Rust {
 
 		public override void Generate(EnumType enumType) {
 			if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
-				if (!(partialInfo is null))
+				if (partialInfo is not null)
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
 			}
 			else
@@ -228,7 +228,7 @@ namespace Generator.Enums.Rust {
 
 			var arrayName = idConverter.Constant("GenDebug" + enumType.RawName);
 			var feature = info.Attributes.FirstOrDefault(a => a.StartsWith(RustConstants.FeaturePrefix, StringComparison.Ordinal) && a.Contains("(feature", StringComparison.Ordinal));
-			if (!(feature is null))
+			if (feature is not null)
 				writer.WriteLine(feature);
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"static {arrayName}: [&str; {enumType.Values.Length}] = [");
@@ -241,7 +241,7 @@ namespace Generator.Enums.Rust {
 			// #[derive(Debug)] isn't used since it generates a big switch statement. This code
 			// uses a simple array lookup which has very little code. For small enums the default
 			// implementation might be better though.
-			if (!(feature is null))
+			if (feature is not null)
 				writer.WriteLine(feature);
 			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
 			using (writer.Indent()) {
@@ -255,7 +255,7 @@ namespace Generator.Enums.Rust {
 			}
 			writer.WriteLine("}");
 
-			if (!(feature is null))
+			if (feature is not null)
 				writer.WriteLine(feature);
 			writer.WriteLine($"impl Default for {enumTypeName} {{");
 			using (writer.Indent()) {

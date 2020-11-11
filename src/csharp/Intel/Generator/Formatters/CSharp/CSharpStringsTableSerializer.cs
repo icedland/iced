@@ -48,7 +48,7 @@ namespace Generator.Formatters.CSharp {
 				maxStringLength = Math.Max(maxStringLength, info.String.Length);
 
 			writer.WriteFileHeader();
-			if (!(preprocessorExpr is null))
+			if (preprocessorExpr is not null)
 				writer.WriteLineNoIndent($"#if {preprocessorExpr}");
 			writer.WriteLine($"namespace {@namespace} {{");
 			using (writer.Indent()) {
@@ -71,7 +71,7 @@ namespace Generator.Formatters.CSharp {
 				writer.WriteLine("}");
 			}
 			writer.WriteLine("}");
-			if (!(preprocessorExpr is null))
+			if (preprocessorExpr is not null)
 				writer.WriteLineNoIndent("#endif");
 		}
 	}

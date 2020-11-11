@@ -132,8 +132,8 @@ namespace Generator {
 				int c = a.ca.Order.CompareTo(b.ca.Order);
 				if (c != 0)
 					return c;
-				Debug.Assert(a.type.FullName is object);
-				Debug.Assert(b.type.FullName is object);
+				Debug.Assert(a.type.FullName is not null);
+				Debug.Assert(b.type.FullName is not null);
 				return StringComparer.Ordinal.Compare(a.type.FullName, b.type.FullName);
 			});
 

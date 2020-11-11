@@ -624,7 +624,7 @@ namespace Generator.Tables {
 		}
 
 		internal void SetImpliedAccess(ImpliedAccessesDef value) {
-			if (impliedAccessDef is object)
+			if (impliedAccessDef is not null)
 				throw new InvalidOperationException();
 			impliedAccessDef = value;
 		}

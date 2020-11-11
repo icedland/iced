@@ -51,7 +51,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				catch (Exception ex) {
 					throw new Exception($"Invalid line {lineNo} ({filename}): {ex.Message}");
 				}
-				if (!(result[(int)tc.MemorySize] is null))
+				if (result[(int)tc.MemorySize] is not null)
 					throw new InvalidOperationException($"Duplicate test, {filename}, line {lineNo}");
 				result[(int)tc.MemorySize] = tc;
 			}

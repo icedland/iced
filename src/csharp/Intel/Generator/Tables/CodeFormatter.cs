@@ -192,7 +192,7 @@ namespace Generator.Tables {
 				}
 			}
 
-			if (codeSuffix is object) {
+			if (codeSuffix is not null) {
 				sb.Append('_');
 				sb.Append(codeSuffix);
 			}
@@ -256,7 +256,7 @@ namespace Generator.Tables {
 		}
 
 		void WriteMemorySize(MemorySize memorySize) {
-			if (codeMemorySize is object)
+			if (codeMemorySize is not null)
 				sb.Append(codeMemorySize);
 			else {
 				int memSize = GetSizeInBytes(memorySize);
@@ -264,7 +264,7 @@ namespace Generator.Tables {
 					sb.Append(memSize * 8);
 			}
 
-			if (codeMemorySizeSuffix is object)
+			if (codeMemorySizeSuffix is not null)
 				sb.Append(codeMemorySizeSuffix);
 		}
 

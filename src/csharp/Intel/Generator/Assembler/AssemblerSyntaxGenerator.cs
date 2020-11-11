@@ -627,7 +627,7 @@ namespace Generator.Assembler {
 				if ((argFlags & OpCodeArgFlags.HasBroadcast) != 0) {
 					int memoryIndex = GetBroadcastMemory(argFlags, opcodes, signature, out var broadcastSelectorKind, out var evexBroadcastDef);
 					if (memoryIndex >= 0) {
-						Debug.Assert(evexBroadcastDef is object);
+						Debug.Assert(evexBroadcastDef is not null);
 						return new OpCodeSelector(memoryIndex, broadcastSelectorKind) {
 							IfTrue = evexBroadcastDef,
 							IfFalse = BuildSelectorGraph(group, signature, argFlags & ~OpCodeArgFlags.HasBroadcast, opcodes)
@@ -755,7 +755,7 @@ namespace Generator.Assembler {
 				if (rootNode.IsEmpty)
 					rootNode = node;
 
-				if (previousSelector is object)
+				if (previousSelector is not null)
 					previousSelector.IfFalse = node;
 
 				previousSelector = newSelector;
@@ -1409,8 +1409,8 @@ namespace Generator.Assembler {
 			group.AllOpCodeFlags |= def.Flags1;
 
 			// Handle pseudo ops
-			if (group.RootPseudoOpsKind is object) {
-				Debug.Assert(pseudoOpsKind is object);
+			if (group.RootPseudoOpsKind is not null) {
+				Debug.Assert(pseudoOpsKind is not null);
 				Debug.Assert(group.RootPseudoOpsKind.Value == pseudoOpsKind.Value);
 				Debug.Assert(groupsWithPseudo.ContainsKey(key));
 			}
@@ -1876,7 +1876,7 @@ namespace Generator.Assembler {
 			public readonly OpCodeSelectorKind Kind;
 			public OpCodeNode IfTrue;
 			public OpCodeNode IfFalse;
-			public bool IsConditionInlineable => IfTrue.Def is object && IfFalse.Def is object;
+			public bool IsConditionInlineable => IfTrue.Def is not null && IfFalse.Def is not null;
 		}
 
 		protected enum OpCodeSelectorKind {

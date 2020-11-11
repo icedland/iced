@@ -112,7 +112,7 @@ namespace Generator.Encoder.Rust {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				if (feature is object)
+				if (feature is not null)
 					writer.WriteLine(feature);
 				writer.WriteLine($"pub(super) static {name}: [{declTypeStr}; {table.Length}] = [");
 				using (writer.Indent()) {
@@ -148,7 +148,7 @@ namespace Generator.Encoder.Rust {
 					var info = kv.Value;
 					var structName = idConverter.Type(GetStructName(info.OpHandlerKind));
 					var features = GetFeatures(info);
-					if (features is object)
+					if (features is not null)
 						writer.WriteLine(features);
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.Write($"static {info.Name}: {structName} = {structName}");
@@ -306,7 +306,7 @@ namespace Generator.Encoder.Rust {
 
 			void WriteTable(FileWriter writer, string name, string? feature, Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo> dict, IEnumerable<(EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)> values) {
 				var all = values.ToArray();
-				if (feature is object)
+				if (feature is not null)
 					writer.WriteLine(feature);
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(super) static {name}: [&(Op + Sync); {all.Length}] = [");

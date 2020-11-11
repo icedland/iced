@@ -136,9 +136,9 @@ namespace IcedFuzzer {
 			BinaryWriter? invalidWriter = null;
 			var data2 = new byte[2];
 			try {
-				if (options.ValidFilename is object)
+				if (options.ValidFilename is not null)
 					CreateFile(ref validStream, ref validWriter, options.ValidFilename);
-				if (options.InvalidFilename is object)
+				if (options.InvalidFilename is not null)
 					CreateFile(ref invalidStream, ref invalidWriter, options.InvalidFilename);
 
 				var fuzzerOptions = FuzzerOptions.NoPAUSE | FuzzerOptions.NoWBNOINVD |
@@ -191,7 +191,7 @@ namespace IcedFuzzer {
 						writeLength = options.IncludeValidByteLength;
 						writeCodeValue = options.IncludeValidCodeValue;
 					}
-					if (writer is object) {
+					if (writer is not null) {
 						if (writeCodeValue) {
 							uint code = (uint)info.Instruction.Code;
 							if (code > ushort.MaxValue)
@@ -218,7 +218,7 @@ namespace IcedFuzzer {
 		}
 
 		static void CreateFile(ref FileStream? stream, ref BinaryWriter? writer, string filename) {
-			if (stream is object || writer is object)
+			if (stream is not null || writer is not null)
 				throw new InvalidOperationException();
 			stream = File.Open(filename, FileMode.Create, FileAccess.Write, FileShare.Read | FileShare.Delete);
 			writer = new BinaryWriter(stream);
@@ -423,7 +423,7 @@ namespace IcedFuzzer {
 				case "-oil":
 					if (next is null)
 						throw new CommandLineParserException("Missing filename");
-					if (options.ValidFilename is object)
+					if (options.ValidFilename is not null)
 						throw new CommandLineParserException("Can't use -oil twice");
 					options.InvalidFilename = next;
 					i++;
@@ -464,7 +464,7 @@ namespace IcedFuzzer {
 		static void AddValidFilename(Options options, string? filename, bool includeByteLength) {
 			if (filename is null)
 				throw new CommandLineParserException("Missing filename");
-			if (options.ValidFilename is object)
+			if (options.ValidFilename is not null)
 				throw new CommandLineParserException("Can't use -ov, -ovl or -ovlc twice");
 			options.ValidFilename = filename;
 			options.IncludeValidByteLength = includeByteLength;

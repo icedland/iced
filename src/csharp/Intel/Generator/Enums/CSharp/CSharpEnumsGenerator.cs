@@ -190,11 +190,11 @@ namespace Generator.Enums.CSharp {
 
 		public override void Generate(EnumType enumType) {
 			if (toFullFileInfo.TryGetValue(enumType.TypeId, out var fullFileInfo)) {
-				if (!(fullFileInfo is null))
+				if (fullFileInfo is not null)
 					WriteFile(fullFileInfo, enumType);
 			}
 			else if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
-				if (!(partialInfo is null))
+				if (partialInfo is not null)
 					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
 			}
 			else
@@ -208,7 +208,7 @@ namespace Generator.Enums.CSharp {
 			if (enumType.IsFlags)
 				writer.WriteLine("[Flags]");
 			var pub = enumType.IsPublic ? "public " : string.Empty;
-			var theBaseType = !(baseType is null) ? $" : {baseType}" : string.Empty;
+			var theBaseType = baseType is not null ? $" : {baseType}" : string.Empty;
 			writer.WriteLine($"{pub}enum {enumType.Name(idConverter)}{theBaseType} {{");
 			using (writer.Indent()) {
 				uint expectedValue = 0;
@@ -232,7 +232,7 @@ namespace Generator.Enums.CSharp {
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
-				if (!(info.Define is null))
+				if (info.Define is not null)
 					writer.WriteLineNoIndent($"#if {info.Define}");
 
 				if (enumType.IsFlags) {
@@ -246,7 +246,7 @@ namespace Generator.Enums.CSharp {
 					WriteEnum(writer, enumType, info.BaseType);
 
 				writer.WriteLine("}");
-				if (!(info.Define is null))
+				if (info.Define is not null)
 					writer.WriteLineNoIndent("#endif");
 			}
 		}

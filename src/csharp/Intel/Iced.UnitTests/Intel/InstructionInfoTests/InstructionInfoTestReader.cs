@@ -73,7 +73,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				catch (Exception ex) {
 					throw new Exception($"Invalid line {lineNo} ({filename}): {ex.Message}");
 				}
-				if (info.testCase is object)
+				if (info.testCase is not null)
 					yield return new object[5] { info.hexBytes, info.code, info.options, lineNo, info.testCase };
 			}
 		}

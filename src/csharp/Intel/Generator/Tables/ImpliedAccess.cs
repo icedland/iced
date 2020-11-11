@@ -84,7 +84,7 @@ namespace Generator.Tables {
 		public override bool Equals(object? obj) => Equals(obj as ImplAccCondition);
 
 		public bool Equals(ImplAccCondition? other) =>
-			other is object && Kind == other.Kind && Equals(TrueStatements, other.TrueStatements) && Equals(FalseStatements, other.FalseStatements);
+			other is not null && Kind == other.Kind && Equals(TrueStatements, other.TrueStatements) && Equals(FalseStatements, other.FalseStatements);
 
 		static bool Equals(List<ImplAccStatement> a, List<ImplAccStatement> b) {
 			if (a.Count != b.Count)
@@ -153,7 +153,7 @@ namespace Generator.Tables {
 				throw new InvalidOperationException();
 			}
 			else {
-				if (Register is object || other.Register is object)
+				if (Register is not null || other.Register is not null)
 					throw new InvalidOperationException();
 				return 0;
 			}
@@ -194,7 +194,7 @@ namespace Generator.Tables {
 				throw new InvalidOperationException();
 			}
 			else {
-				if (MemorySize is object && other.MemorySize is object)
+				if (MemorySize is not null && other.MemorySize is not null)
 					throw new InvalidOperationException();
 				return 0;
 			}

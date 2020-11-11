@@ -66,7 +66,7 @@ namespace Generator.Constants.Rust {
 
 		public override void Generate(ConstantsType constantsType) {
 			if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {
-				if (!(partialInfo is null))
+				if (partialInfo is not null)
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, partialInfo, constantsType));
 			}
 			else

@@ -42,7 +42,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				catch (Exception ex) {
 					throw new InvalidOperationException($"Error parsing decoder test case file '{filename}', line {lineNumber}: {ex.Message}");
 				}
-				if (testCase is object)
+				if (testCase is not null)
 					yield return testCase;
 			}
 		}

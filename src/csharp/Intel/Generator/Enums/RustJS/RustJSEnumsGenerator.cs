@@ -101,7 +101,7 @@ namespace Generator.Enums.RustJS {
 
 		public override void Generate(EnumType enumType) {
 			if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
-				if (!(partialInfo is null))
+				if (partialInfo is not null)
 					new FileUpdater(TargetLanguage.RustJS, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
 			}
 		}

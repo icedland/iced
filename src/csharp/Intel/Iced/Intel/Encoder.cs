@@ -316,7 +316,7 @@ namespace Iced.Intel {
 			if (instrLen > IcedConstants.MaxInstructionLength && !handler.IsDeclareData)
 				ErrorMessage = $"Instruction length > {IcedConstants.MaxInstructionLength} bytes";
 			errorMessage = this.errorMessage;
-			if (!(errorMessage is null)) {
+			if (errorMessage is not null) {
 				encodedLength = 0;
 				return false;
 			}
@@ -724,7 +724,7 @@ namespace Iced.Intel {
 
 		bool TryConvertToDisp8N(int displ, out sbyte compressedValue) {
 			var tryConvertToDisp8N = handler.TryConvertToDisp8N;
-			if (!(tryConvertToDisp8N is null))
+			if (tryConvertToDisp8N is not null)
 				return tryConvertToDisp8N(this, handler, displ, out compressedValue);
 			if (sbyte.MinValue <= displ && displ <= sbyte.MaxValue) {
 				compressedValue = (sbyte)displ;

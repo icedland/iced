@@ -107,7 +107,7 @@ namespace Generator.Constants {
 		}
 
 		public Constant(ConstantKind kind, string name, object value, ConstantsTypeFlags flags, string? documentation, DeprecatedInfo deprecatedInfo) {
-			if (!(value is null) && value.GetType().IsValueType)
+			if (value is not null && value.GetType().IsValueType)
 				throw new ArgumentException();
 			DeclaringType = null!;
 			Kind = kind;

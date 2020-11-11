@@ -85,7 +85,7 @@ namespace Generator.Constants.CSharp {
 			if (toFullFileInfo.TryGetValue(constantsType.TypeId, out var fullFileInfo))
 				WriteFile(fullFileInfo, constantsType);
 			else if (toPartialFileInfo.TryGetValue(constantsType.TypeId, out var partialInfo)) {
-				if (!(partialInfo is null))
+				if (partialInfo is not null)
 					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteConstants(writer, constantsType));
 			}
 			else
@@ -95,7 +95,7 @@ namespace Generator.Constants.CSharp {
 		void WriteFile(FullConstantsFileInfo info, ConstantsType constantsType) {
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
-				if (!(info.Define is null))
+				if (info.Define is not null)
 					writer.WriteLineNoIndent($"#if {info.Define}");
 
 				writer.WriteLine($"namespace {info.Namespace} {{");
@@ -106,7 +106,7 @@ namespace Generator.Constants.CSharp {
 					WriteConstants(writer, constantsType);
 				writer.WriteLine("}");
 
-				if (!(info.Define is null))
+				if (info.Define is not null)
 					writer.WriteLineNoIndent("#endif");
 			}
 		}

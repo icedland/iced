@@ -46,7 +46,7 @@ namespace Generator.Tables.Rust {
 		void WriteTable(FileWriter writer, (int index, EnumValue enumValue)[] infos) {
 			var values = new EnumValue?[0x100];
 			foreach (var info in infos) {
-				if (!(values[info.index] is null))
+				if (values[info.index] is not null)
 					throw new InvalidOperationException();
 				values[info.index] = info.enumValue;
 			}

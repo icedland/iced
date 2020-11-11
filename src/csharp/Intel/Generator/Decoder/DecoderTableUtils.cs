@@ -43,7 +43,7 @@ namespace Generator.Decoder {
 		public static bool IsHandler(object?[] handlers) => IsHandler(handlers, out _);
 		public static bool IsHandler(object?[] handlers, [NotNullWhen(true)] out EnumValue? enumValue) {
 			enumValue = handlers[0] as EnumValue;
-			return !(enumValue is null);
+			return enumValue is not null;
 		}
 	}
 }

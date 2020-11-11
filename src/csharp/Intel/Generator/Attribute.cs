@@ -42,7 +42,7 @@ namespace Generator {
 	}
 
 	readonly struct DeprecatedInfo {
-		public bool IsDeprecated => NewName is object;
+		public bool IsDeprecated => NewName is not null;
 		public readonly string Version;
 		public readonly string NewName;
 		public DeprecatedInfo(string version, string newName) {

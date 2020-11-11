@@ -92,7 +92,7 @@ namespace Iced.Intel {
 		public virtual void WriteSymbol(in Instruction instruction, int operand, int instructionOperand, ulong address, in SymbolResult symbol) {
 			var text = symbol.Text;
 			var array = text.TextArray;
-			if (!(array is null)) {
+			if (array is not null) {
 				foreach (var part in array)
 					Write(part.Text, part.Color);
 			}

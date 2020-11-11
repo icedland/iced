@@ -42,7 +42,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				catch (Exception ex) {
 					throw new InvalidOperationException($"Error parsing opcode test case file '{filename}', line {lineNo}: {ex.Message}");
 				}
-				if (testCase is object)
+				if (testCase is not null)
 					yield return testCase;
 			}
 		}

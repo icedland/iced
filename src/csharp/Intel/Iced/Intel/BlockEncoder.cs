@@ -330,11 +330,11 @@ namespace Iced.Intel {
 					var instr = instructions[j];
 					uint bytesWritten = block.CodeWriter.BytesWritten;
 					bool isOriginalInstruction;
-					if (!(constantOffsets is null))
+					if (constantOffsets is not null)
 						errorMessage = instr.TryEncode(encoder, out constantOffsets[j], out isOriginalInstruction);
 					else
 						errorMessage = instr.TryEncode(encoder, out _, out isOriginalInstruction);
-					if (!(errorMessage is null)) {
+					if (errorMessage is not null) {
 						result = null;
 						return false;
 					}
@@ -344,7 +344,7 @@ namespace Iced.Intel {
 						result = null;
 						return false;
 					}
-					if (!(newInstructionOffsets is null)) {
+					if (newInstructionOffsets is not null) {
 						if (isOriginalInstruction)
 							newInstructionOffsets[j] = (uint)(ip - block.RIP);
 						else

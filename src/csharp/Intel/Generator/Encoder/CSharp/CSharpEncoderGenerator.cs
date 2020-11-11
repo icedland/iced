@@ -70,7 +70,7 @@ namespace Generator.Encoder.CSharp {
 
 			void Generate(FileWriter writer, string name, string? define, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
-				if (define is object)
+				if (define is not null)
 					writer.WriteLineNoIndent($"#if {define}");
 				writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
 				writer.WriteLine($"public static System.ReadOnlySpan<byte> {name} => new byte[{table.Length}] {{");
@@ -82,7 +82,7 @@ namespace Generator.Encoder.CSharp {
 						writer.WriteLine($"(byte){declTypeStr}.{info.opCodeOperandKind.Name(idConverter)},");
 				}
 				writer.WriteLine("};");
-				if (define is object)
+				if (define is not null)
 					writer.WriteLineNoIndent("#endif");
 			}
 		}
@@ -112,7 +112,7 @@ namespace Generator.Encoder.CSharp {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
 				if (table[0].opHandlerKind != OpHandlerKind.None)
 					throw new InvalidOperationException();
-				if (define is object)
+				if (define is not null)
 					writer.WriteLineNoIndent($"#if {define}");
 				writer.WriteLine($"public static readonly Op[] {name} = new Op[{table.Length - 1}] {{");
 				using (writer.Indent()) {
@@ -143,7 +143,7 @@ namespace Generator.Encoder.CSharp {
 					}
 				}
 				writer.WriteLine("};");
-				if (define is object)
+				if (define is not null)
 					writer.WriteLineNoIndent("#endif");
 			}
 		}
@@ -280,7 +280,7 @@ namespace Generator.Encoder.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, "PrintImpliedOps", filename).Generate(writer => {
 				foreach (var info in impliedOpsInfo) {
 					var feature = CSharpConstants.GetDefine(info.Encoding);
-					if (feature is object)
+					if (feature is not null)
 						writer.WriteLineNoIndent($"#if {feature}");
 					foreach (var def in info.defs)
 						writer.WriteLine($"case {def.Code.DeclaringType.Name(idConverter)}.{def.Code.Name(idConverter)}:");
@@ -291,7 +291,7 @@ namespace Generator.Encoder.CSharp {
 						}
 						writer.WriteLine("break;");
 					}
-					if (feature is object)
+					if (feature is not null)
 						writer.WriteLineNoIndent("#endif");
 				}
 			});

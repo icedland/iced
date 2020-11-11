@@ -69,7 +69,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">String to append</param>
 		public void Append(string? value) {
-			if (value is object)
+			if (value is not null)
 				AppendNotNull(value);
 		}
 

@@ -207,7 +207,7 @@ namespace Generator.Tables {
 
 		static bool IsSeg_ES_CS_SS_DS(ImplAccRegister register) {
 			if (register.Kind == ImplAccRegisterKind.Register) {
-				Debug.Assert(register.Register is object);
+				Debug.Assert(register.Register is not null);
 				switch ((Register)register.Register.Value) {
 				case Register.ES:
 				case Register.CS:
@@ -586,7 +586,7 @@ namespace Generator.Tables {
 					error = $"Unknown key=value: `{keyValue}`";
 					return false;
 				}
-				if (stmt is object)
+				if (stmt is not null)
 					implAccCond.TrueStatements.Add(stmt);
 			}
 
