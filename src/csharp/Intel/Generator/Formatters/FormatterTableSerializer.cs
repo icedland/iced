@@ -45,8 +45,8 @@ namespace Generator.Formatters {
 		protected readonly IdentifierConverter idConverter;
 		readonly EnumValue previousCtorKind;
 
-		protected FormatterTableSerializer(FmtInstructionDef[] infos, IdentifierConverter idConverter, EnumValue previousCtorKind) {
-			this.defs = infos;
+		protected FormatterTableSerializer(FmtInstructionDef[] defs, IdentifierConverter idConverter, EnumValue previousCtorKind) {
+			this.defs = defs;
 			this.idConverter = idConverter;
 			this.previousCtorKind = previousCtorKind;
 		}

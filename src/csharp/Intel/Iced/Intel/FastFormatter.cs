@@ -426,7 +426,7 @@ namespace Iced.Intel {
 
 		// Only one caller
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		bool ShowSegmentPrefix(in Instruction instruction, int opCount) {
+		static bool ShowSegmentPrefix(in Instruction instruction, int opCount) {
 			for (int i = 0; i < opCount; i++) {
 				switch (instruction.GetOpKind(i)) {
 				case OpKind.Register:

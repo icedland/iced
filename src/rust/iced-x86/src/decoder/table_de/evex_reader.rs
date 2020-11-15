@@ -495,11 +495,9 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer, result: &mut V
 				as *const OpCodeHandler
 		}
 
-		EvexOpCodeHandlerKind::WkHV => Box::into_raw(Box::new(OpCodeHandler_EVEX_WkHV::new(
-			deserializer.read_register(),
-			deserializer.read_code(),
-			deserializer.read_tuple_type(),
-		))) as *const OpCodeHandler,
+		EvexOpCodeHandlerKind::WkHV => {
+			Box::into_raw(Box::new(OpCodeHandler_EVEX_WkHV::new(deserializer.read_register(), deserializer.read_code()))) as *const OpCodeHandler
+		}
 
 		EvexOpCodeHandlerKind::WkV_3 => Box::into_raw(Box::new(OpCodeHandler_EVEX_WkV::new(
 			deserializer.read_register(),

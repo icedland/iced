@@ -504,9 +504,10 @@ namespace IcedFuzzer.Core {
 			public FuzzerInstruction? Instr64;
 			public List<FuzzerInstruction> GetInstructions() {
 				Assert.False(Instr16 is null || Instr32 is null);
-				var instrs = new List<FuzzerInstruction>(Instr64 is not null ? 3 : 2);
-				instrs.Add(Instr16);
-				instrs.Add(Instr32);
+				var instrs = new List<FuzzerInstruction>(Instr64 is not null ? 3 : 2) {
+					Instr16,
+					Instr32
+				};
 				if (Instr64 is not null)
 					instrs.Add(Instr64);
 				return instrs;
@@ -770,8 +771,8 @@ namespace IcedFuzzer.Core {
 						}
 
 						for (int index = 0; index < infos.Length; index++) {
-							Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode = prefix => GetOpCodeAndGroup(rmGroups, index, opCode, prefix);
-							AddLegacy(bitness, table, getOpCode, isModrmMemory, ref infos[index], groupInstrs[index]);
+							(OpCode opCode, int groupIndex) GetOpCode(MandatoryPrefix prefix) => GetOpCodeAndGroup(rmGroups, index, opCode, prefix);
+							AddLegacy(bitness, table, GetOpCode, isModrmMemory, ref infos[index], groupInstrs[index]);
 						}
 
 						static bool IsInvalidGroup(LegacyInfo[] infos, int index) {
@@ -877,8 +878,8 @@ namespace IcedFuzzer.Core {
 										ignoredPrefixes |= LegacyFlags.PF2;
 								}
 
-								Func<MandatoryPrefix, (OpCode opCode, int groupIndex)> getOpCode = prefix => GetOpCodeAndGroup(rmGroups, index, opCode, prefix);
-								InitializeResNop(bitness, flags, table, getOpCode, isModrmMemory, ref infos[index], index, resNop, InvalidInstructionKind.TwoByte, ignoredPrefixes);
+								(OpCode opCode, int groupIndex) GetOpCode(MandatoryPrefix prefix) => GetOpCodeAndGroup(rmGroups, index, opCode, prefix);
+								InitializeResNop(bitness, flags, table, GetOpCode, isModrmMemory, ref infos[index], index, resNop, InvalidInstructionKind.TwoByte, ignoredPrefixes);
 							}
 						}
 
@@ -1487,7 +1488,7 @@ namespace IcedFuzzer.Core {
 			Assert.True((groupIndex & 7) == 0);
 			instr = null;
 			var group = groupInstrs[groupIndex];
-			if (!(group[keyIndex] is FuzzerInstruction finstr))
+			if (group[keyIndex] is not FuzzerInstruction finstr)
 				return false;
 			if (finstr.RmGroupIndex >= 0)
 				return false;
@@ -1503,7 +1504,7 @@ namespace IcedFuzzer.Core {
 		static bool IsRmGroupIndexInstruction(FuzzerInstruction?[][] groupInstrs, int rmGroupIndex, int keyIndex, [NotNullWhen(true)] out FuzzerInstruction? instr) {
 			instr = null;
 			var group = groupInstrs[rmGroupIndex];
-			if (!(group[keyIndex] is FuzzerInstruction finstr))
+			if (group[keyIndex] is not FuzzerInstruction finstr)
 				return false;
 			if (finstr.RmGroupIndex < 0)
 				return false;
@@ -1521,29 +1522,13 @@ namespace IcedFuzzer.Core {
 			return false;
 		}
 
-		static bool IsSETcc(Code code) {
-			switch (code) {
-			case Code.Seto_rm8:
-			case Code.Setno_rm8:
-			case Code.Setb_rm8:
-			case Code.Setae_rm8:
-			case Code.Sete_rm8:
-			case Code.Setne_rm8:
-			case Code.Setbe_rm8:
-			case Code.Seta_rm8:
-			case Code.Sets_rm8:
-			case Code.Setns_rm8:
-			case Code.Setp_rm8:
-			case Code.Setnp_rm8:
-			case Code.Setl_rm8:
-			case Code.Setge_rm8:
-			case Code.Setle_rm8:
-			case Code.Setg_rm8:
-				return true;
-			default:
-				return false;
-			}
-		}
+		static bool IsSETcc(Code code) =>
+			code switch {
+				Code.Seto_rm8 or Code.Setno_rm8 or Code.Setb_rm8 or Code.Setae_rm8 or Code.Sete_rm8 or Code.Setne_rm8 or Code.Setbe_rm8 or
+				Code.Seta_rm8 or Code.Sets_rm8 or Code.Setns_rm8 or Code.Setp_rm8 or Code.Setnp_rm8 or Code.Setl_rm8 or Code.Setge_rm8 or
+				Code.Setle_rm8 or Code.Setg_rm8 => true,
+				_ => false,
+			};
 
 		static IEnumerable<(bool hasModrm, FuzzerInstruction)> GetInstructions(int bitness, OpCodeInfo[] opCodes) {
 			// Split up instructions with a reg/mem (modrm) operand into two instructions,

@@ -44,8 +44,8 @@ namespace Generator.Formatters {
 		readonly FastFmtInstructionDef[] defs;
 		readonly IdentifierConverter idConverter;
 
-		protected FastFormatterTableSerializer(FastFmtInstructionDef[] infos, IdentifierConverter idConverter) {
-			this.defs = infos;
+		protected FastFormatterTableSerializer(FastFmtInstructionDef[] defs, IdentifierConverter idConverter) {
+			this.defs = defs;
 			this.idConverter = idConverter;
 		}
 

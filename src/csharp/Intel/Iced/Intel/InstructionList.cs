@@ -347,8 +347,8 @@ namespace Iced.Intel {
 		public bool Contains(in Instruction instruction) => IndexOf(instruction) >= 0;
 		bool ICollection<Instruction>.Contains(Instruction instruction) => Contains(instruction);
 		bool IList.Contains(object? value) {
-			if (value is Instruction)
-				return Contains((Instruction)value);
+			if (value is Instruction instruction)
+				return Contains(instruction);
 			return false;
 		}
 
@@ -368,8 +368,8 @@ namespace Iced.Intel {
 		}
 		int IList<Instruction>.IndexOf(Instruction instruction) => IndexOf(instruction);
 		int IList.IndexOf(object? value) {
-			if (value is Instruction)
-				return IndexOf((Instruction)value);
+			if (value is Instruction instruction)
+				return IndexOf(instruction);
 			return -1;
 		}
 
@@ -481,8 +481,8 @@ namespace Iced.Intel {
 		}
 		bool ICollection<Instruction>.Remove(Instruction instruction) => Remove(instruction);
 		void IList.Remove(object? value) {
-			if (value is Instruction)
-				Remove((Instruction)value);
+			if (value is Instruction instruction)
+				Remove(instruction);
 		}
 
 		/// <summary>

@@ -29,9 +29,7 @@ using Iced.Intel.Internal;
 namespace Iced.Intel.FastFormatterInternal {
 	static partial class FmtData {
 		public static readonly string[] Mnemonics = ParseData(out Flags);
-#pragma warning disable CS8618
 		public static readonly FastFmtFlags[] Flags;
-#pragma warning restore CS8618
 
 		static string[] ParseData(out FastFmtFlags[] outFlags) {
 			var reader = new DataReader(GetSerializedData());

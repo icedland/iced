@@ -102,7 +102,7 @@ namespace Iced.Intel {
 				break;
 
 			default:
-				throw new ArgumentOutOfRangeException(nameof(opKind));
+				throw new ArgumentOutOfRangeException(nameof(instruction));
 			}
 		}
 
@@ -166,7 +166,7 @@ namespace Iced.Intel {
 				break;
 
 			default:
-				throw new ArgumentOutOfRangeException(nameof(opKind));
+				throw new ArgumentOutOfRangeException(nameof(instruction));
 			}
 		}
 

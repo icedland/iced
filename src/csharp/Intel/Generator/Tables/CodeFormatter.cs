@@ -29,7 +29,7 @@ namespace Generator.Tables {
 	readonly struct CodeFormatter {
 		readonly StringBuilder sb;
 		readonly RegisterDef[] regDefs;
-		readonly MemorySizeInfoTable memSizeTbl;
+		readonly MemorySizeDefs memSizeTbl;
 		readonly string codeMnemonic;
 		readonly string? codeSuffix;
 		readonly string? codeMemorySize;
@@ -40,7 +40,7 @@ namespace Generator.Tables {
 		readonly EncodingKind encoding;
 		readonly OpCodeOperandKindDef[] opKinds;
 
-		public CodeFormatter(StringBuilder sb, RegisterDef[] regDefs, MemorySizeInfoTable memSizeTbl, string codeMnemonic, string? codeSuffix, string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds) {
+		public CodeFormatter(StringBuilder sb, RegisterDef[] regDefs, MemorySizeDefs memSizeTbl, string codeMnemonic, string? codeSuffix, string? codeMemorySize, string? codeMemorySizeSuffix, EnumValue memSize, EnumValue memSizeBcst, InstructionDefFlags1 flags, EncodingKind encoding, OpCodeOperandKindDef[] opKinds) {
 			if (codeMnemonic == string.Empty)
 				throw new ArgumentOutOfRangeException(nameof(codeMnemonic));
 			this.sb = sb;
@@ -111,7 +111,7 @@ namespace Generator.Tables {
 						break;
 
 					case OperandEncoding.ImpliedConst:
-						sb.Append(def.ImpliedConst.ToString());
+						sb.Append(def.ImpliedConst);
 						break;
 
 					case OperandEncoding.ImpliedRegister:
@@ -159,7 +159,7 @@ namespace Generator.Tables {
 						else if (def.Vsib) {
 							var sz = def.Vsib32 ? "32" : "64";
 							// x, y, z
-							var reg = regDefs[(int)def.Register].Name.ToLowerInvariant().Substring(0, 1);
+							var reg = regDefs[(int)def.Register].Name.ToLowerInvariant()[0..1];
 							sb.Append($"vm{sz}{reg}");
 						}
 						else
@@ -180,7 +180,7 @@ namespace Generator.Tables {
 						if ((flags & InstructionDefFlags1.OpMaskRegister) != 0) {
 							sb.Append("_k1");
 							if ((flags & InstructionDefFlags1.ZeroingMasking) != 0)
-								sb.Append("z");
+								sb.Append('z');
 						}
 					}
 					if (i == opKinds.Length - 1) {

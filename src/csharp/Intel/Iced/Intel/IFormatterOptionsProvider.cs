@@ -253,7 +253,7 @@ namespace Iced.Intel {
 				break;
 
 			default:
-				throw new ArgumentException();
+				throw new InvalidOperationException();
 			}
 			if (digitGroupSize < 0)
 				DigitGroupSize = 0;

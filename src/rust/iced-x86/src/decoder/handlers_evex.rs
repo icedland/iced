@@ -1661,12 +1661,11 @@ pub(super) struct OpCodeHandler_EVEX_WkHV {
 	has_modrm: bool,
 	code: u32,
 	base_reg: Register,
-	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkHV {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_WkHV::decode, has_modrm: true, base_reg, code, tuple_type }
+	pub(super) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_EVEX_WkHV::decode, has_modrm: true, base_reg, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {

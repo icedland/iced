@@ -47,7 +47,7 @@ namespace Generator.Tables {
 
 		InstructionDef[] defs;
 		ImpliedAccessesDef[] impliedAccessesDefs;
-		(InstructionDef def, ImpliedAccesses? accesses)[] allDefs;
+		readonly (InstructionDef def, ImpliedAccesses? accesses)[] allDefs;
 		bool filtered;
 
 		InstructionDefs(GenTypes genTypes) {

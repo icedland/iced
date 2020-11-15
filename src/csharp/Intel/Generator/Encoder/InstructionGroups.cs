@@ -54,7 +54,7 @@ namespace Generator.Encoder {
 					sb.Append(", ");
 				sb.Append(Operands[i].ToString());
 			}
-			sb.Append(")");
+			sb.Append(')');
 			return sb.ToString();
 		}
 	}
@@ -70,7 +70,7 @@ namespace Generator.Encoder {
 			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs) {
 				if ((def.Flags1 & InstructionDefFlags1.NoInstruction) != 0)
 					ignoredCodes.Add(def.Code);
-				foreach (var opKind in def.OpKinds) {
+				foreach (var opKind in def.OpKindDefs) {
 					switch (opKind.OperandEncoding) {
 					case OperandEncoding.None:
 					case OperandEncoding.NearBranch:
@@ -130,7 +130,7 @@ namespace Generator.Encoder {
 				if (ignoredCodes.Contains(def.Code))
 					continue;
 
-				foreach (var ops in GetOperands(def.OpKinds)) {
+				foreach (var ops in GetOperands(def.OpKindDefs)) {
 					if (!groups.TryGetValue(ops, out var group))
 						groups.Add(ops, group = new InstructionGroup(ops));
 					group.Defs.Add(def);

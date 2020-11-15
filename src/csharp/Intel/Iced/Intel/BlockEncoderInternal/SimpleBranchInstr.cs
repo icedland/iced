@@ -78,19 +78,11 @@ namespace Iced.Intel.BlockEncoderInternal {
 					nativeInstructionSize = blockEncoder.GetInstructionSize(instrCopy, 0);
 				}
 
-				switch (blockEncoder.Bitness) {
-				case 16:
-					nearInstructionSize = nativeInstructionSize + 2 + 3;
-					break;
-
-				case 32:
-				case 64:
-					nearInstructionSize = nativeInstructionSize + 2 + 5;
-					break;
-
-				default:
-					throw new InvalidOperationException();
-				}
+				nearInstructionSize = blockEncoder.Bitness switch {
+					16 => nativeInstructionSize + 2 + 3,
+					32 or 64 => nativeInstructionSize + 2 + 5,
+					_ => throw new InvalidOperationException(),
+				};
 
 				if (blockEncoder.Bitness == 64) {
 					longInstructionSize = nativeInstructionSize + 2 + CallOrJmpPointerDataInstructionSize64;

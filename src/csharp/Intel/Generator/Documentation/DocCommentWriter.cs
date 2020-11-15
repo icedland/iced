@@ -58,7 +58,7 @@ namespace Generator.Documentation {
 				if (nextIndex < 0)
 					nextIndex = comment.Length;
 				if (nextIndex != index) {
-					yield return (TokenKind.String, comment.Substring(index, nextIndex - index), string.Empty);
+					yield return (TokenKind.String, comment[index..nextIndex], string.Empty);
 					index = nextIndex;
 				}
 				if (index == comment.Length)
@@ -74,7 +74,7 @@ namespace Generator.Documentation {
 					throw new InvalidOperationException($"Invalid comment: {comment}");
 
 				string typeName, memberName;
-				var data = comment.Substring(index + kindLen, nextIndex - (index + kindLen));
+				var data = comment[(index + kindLen)..nextIndex];
 				switch (type) {
 				case newParagraph:
 					if (!string.IsNullOrEmpty(data))
@@ -130,8 +130,8 @@ namespace Generator.Documentation {
 				memberName = s;
 			}
 			else {
-				typeName = s.Substring(0, typeIndex);
-				memberName = s.Substring(typeIndex + 1);
+				typeName = s[0..typeIndex];
+				memberName = s[(typeIndex + 1)..];
 			}
 			return (typeName, memberName);
 		}
@@ -140,7 +140,7 @@ namespace Generator.Documentation {
 			int i = type.LastIndexOf('.');
 			if (i < 0)
 				return type;
-			return type.Substring(i + 1);
+			return type[(i + 1)..];
 		}
 	}
 }

@@ -38,7 +38,7 @@ namespace Iced.Intel.EncoderInternal {
 		int k_index;
 		int vec_index;
 		int tmm_index;
-		int opCount;
+		readonly int opCount;
 		// true: k2 {k1}, false: k1 {k2}
 		readonly bool opMaskIsK1;
 		readonly bool noVecIndex;
@@ -572,7 +572,7 @@ namespace Iced.Intel.EncoderInternal {
 						break;
 
 					case OpCodeOperandKind.imm8_const_1:
-						sb.Append("1");
+						_ = sb.Append('1');
 						break;
 
 					case OpCodeOperandKind.imm16:
@@ -794,19 +794,11 @@ namespace Iced.Intel.EncoderInternal {
 			}
 		}
 
-		bool IsSgdtOrSidt() {
-			switch (opCode.Code) {
-			case Code.Sgdt_m1632_16:
-			case Code.Sgdt_m1632:
-			case Code.Sgdt_m1664:
-			case Code.Sidt_m1632_16:
-			case Code.Sidt_m1632:
-			case Code.Sidt_m1664:
-				return true;
-			default:
-				return false;
-			}
-		}
+		bool IsSgdtOrSidt() =>
+			opCode.Code switch {
+				Code.Sgdt_m1632_16 or Code.Sgdt_m1632 or Code.Sgdt_m1664 or Code.Sidt_m1632_16 or Code.Sidt_m1632 or Code.Sidt_m1664 => true,
+				_ => false,
+			};
 
 		void WriteRegister(string register) => Write(register, upper: true);
 		void WriteRegOp(string register) => Write(register, upper: false);

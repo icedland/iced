@@ -73,7 +73,7 @@ namespace Generator.Documentation.Rust {
 		}
 
 		string GetStringAndReset() {
-			while (sb.Length > 0 && char.IsWhiteSpace(sb[sb.Length - 1]))
+			while (sb.Length > 0 && char.IsWhiteSpace(sb[^1]))
 				sb.Length--;
 			var s = sb.ToString();
 			sb.Clear();
@@ -152,18 +152,18 @@ namespace Generator.Documentation.Rust {
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.Code:
-					sb.Append("`");
+					sb.Append('`');
 					sb.Append(info.value);
-					sb.Append("`");
+					sb.Append('`');
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.PrimitiveType:
 					if (!toTypeInfo.TryGetValue(info.value, out var typeInfo))
 						throw new InvalidOperationException($"Unknown type '{info.value}, comment: {documentation}");
-					sb.Append("`");
+					sb.Append('`');
 					sb.Append(idConverter.Type(typeInfo.type));
-					sb.Append("`");
+					sb.Append('`');
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
@@ -223,36 +223,24 @@ namespace Generator.Documentation.Rust {
 			}
 		}
 
-		static string GetTypeKind(string name) {
-			switch (name) {
-			case nameof(Code):
-			case nameof(CpuidFeature):
-			case nameof(OpKind):
-			case nameof(Register):
-			case nameof(RepPrefixKind):
-				return "enum";
-			case "BlockEncoder":
-			case "ConstantOffsets":
-			case "Instruction":
-			case "RelocInfo":
-			case "SymbolResult":
-				return "struct";
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		static string GetTypeKind(string name) =>
+			name switch {
+				nameof(Code) or nameof(CpuidFeature) or nameof(OpKind) or nameof(Register) or nameof(RepPrefixKind) => "enum",
+				"BlockEncoder" or "ConstantOffsets" or "Instruction" or "RelocInfo" or "SymbolResult" => "struct",
+				_ => throw new InvalidOperationException(),
+			};
 
 		static string GetMethodNameOnly(string name) {
 			int index = name.IndexOf('(', StringComparison.Ordinal);
 			if (index < 0)
 				return name;
-			return name.Substring(0, index);
+			return name[0..index];
 		}
 
-		string TranslateMethodName(string name) {
+		static string TranslateMethodName(string name) {
 			const string GetPattern = "Get";
 			if (name.StartsWith(GetPattern, StringComparison.Ordinal))
-				return name.Substring(GetPattern.Length);
+				return name[GetPattern.Length..];
 			return name;
 		}
 	}

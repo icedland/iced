@@ -205,52 +205,52 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 		}
 
-		protected Label CreateAndEmitLabel(Assembler c) {
+		protected static Label CreateAndEmitLabel(Assembler c) {
 			var label = c.CreateLabel();
 			c.Label(ref label);
 			return label;
 		}
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister8 src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister8 src) =>
 			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister16 src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister16 src) =>
 			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister32 src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister32 src) =>
 			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister64 src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister64 src) =>
 			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerRegister8 dst, AssemblerMemoryOperand src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerRegister8 dst, AssemblerMemoryOperand src) =>
 			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerRegister16 dst, AssemblerMemoryOperand src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerRegister16 dst, AssemblerMemoryOperand src) =>
 			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerRegister32 dst, AssemblerMemoryOperand src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerRegister32 dst, AssemblerMemoryOperand src) =>
 			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerRegister64 dst, AssemblerMemoryOperand src) =>
+		protected static Instruction CreateMemory64(Code code, AssemblerRegister64 dst, AssemblerMemoryOperand src) =>
 			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 
-		protected Instruction AssignLabel(Instruction instruction, ulong value) {
+		protected static Instruction AssignLabel(Instruction instruction, ulong value) {
 			instruction.IP = value;
 			return instruction;
 		}
 
-		protected Instruction ApplyK1(Instruction instruction) {
+		protected static Instruction ApplyK1(Instruction instruction) {
 			instruction.OpMask = Register.K1;
 			return instruction;
 		}
 
-		protected Instruction ApplyK(Instruction instruction, Register k) {
+		protected static Instruction ApplyK(Instruction instruction, Register k) {
 			instruction.OpMask = k;
 			return instruction;
 		}
 
-		protected void AssertInvalid(Action action) {
+		protected static void AssertInvalid(Action action) {
 			var exception = Assert.Throws<InvalidOperationException>(action);
 			Assert.Contains("Unable to calculate an OpCode", exception.Message);
 		}

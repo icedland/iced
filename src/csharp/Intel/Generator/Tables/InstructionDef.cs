@@ -507,7 +507,7 @@ namespace Generator.Tables {
 	sealed class InstructionDef {
 		public readonly string OpCodeString;
 		public readonly string InstructionString;
-		public int OpCount => OpKinds.Length;
+		public int OpCount => OpKindDefs.Length;
 		public readonly EnumValue Code;
 		public readonly EnumValue Mnemonic;
 		public readonly EnumValue Memory;
@@ -533,7 +533,7 @@ namespace Generator.Tables {
 		public readonly int GroupIndex;
 		public readonly int RmGroupIndex;
 		public readonly TupleType TupleType;
-		public readonly OpCodeOperandKindDef[] OpKinds;
+		public readonly OpCodeOperandKindDef[] OpKindDefs;
 
 		public ImpliedAccessesDef ImpliedAccessDef => impliedAccessDef ?? throw new InvalidOperationException();
 		ImpliedAccessesDef? impliedAccessDef;
@@ -597,7 +597,7 @@ namespace Generator.Tables {
 			TupleType = tupleType;
 			OperandSize = operandSize;
 			AddressSize = addressSize;
-			OpKinds = opKinds;
+			OpKindDefs = opKinds;
 
 			PseudoOp = pseudoOp;
 			ControlFlow = flowControl;

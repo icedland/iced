@@ -135,7 +135,7 @@ namespace Generator.Encoder {
 			}
 		}
 
-		IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups) {
+		static IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups) {
 			foreach (var group in groups) {
 				yield return (GetMethod(group, false), group);
 				if (GetOpKindCount(group).immCount > 0)
@@ -150,7 +150,7 @@ namespace Generator.Encoder {
 		void AddSegmentPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Segment override or #(e:Register.None)#", MethodArgType.Register, "segmentPrefix", genTypes[TypeIds.Register][nameof(Register.None)]));
 		void AddRepPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Rep prefix or #(e:RepPrefixKind.None)#", MethodArgType.RepPrefixKind, "repPrefix", genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.None)]));
 
-		CreateMethod GetMethod(InstructionGroup group, bool unsigned) {
+		static CreateMethod GetMethod(InstructionGroup group, bool unsigned) {
 			var (regCount, immCount, memCount) = GetOpKindCount(group);
 			int regId = 1, immId = 1, memId = 1;
 			string doc = group.Operands.Length switch {
@@ -290,7 +290,7 @@ namespace Generator.Encoder {
 				if (!TryGetCode(codeStr, out var code))
 					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
-				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
+				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
 					writer.WriteLine();
@@ -321,7 +321,7 @@ namespace Generator.Encoder {
 				if (!TryGetCode(codeStr, out var code))
 					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
-				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
+				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
 					writer.WriteLine();
@@ -361,7 +361,7 @@ namespace Generator.Encoder {
 				if (!TryGetCode(codeStr, out var code))
 					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
-				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
+				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
 					writer.WriteLine();
@@ -391,7 +391,7 @@ namespace Generator.Encoder {
 				if (!TryGetCode(codeStr, out var code))
 					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
-				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
+				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
 					writer.WriteLine();
@@ -429,7 +429,7 @@ namespace Generator.Encoder {
 				if (!TryGetCode(codeStr, out var code))
 					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
-				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
+				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
 					writer.WriteLine();
@@ -459,7 +459,7 @@ namespace Generator.Encoder {
 				if (!TryGetCode(codeStr, out var code))
 					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
-				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
+				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				writer.WriteLine();
 				var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");

@@ -47,7 +47,7 @@ namespace IcedFuzzer.Core {
 			var imm2 = new ImmediateFuzzerOperand(FuzzerImmediateKind.Imm2);
 			var imm4 = new ImmediateFuzzerOperand(FuzzerImmediateKind.Imm4);
 			foreach (var opKind in opKinds) {
-				(FuzzerOperand op, FuzzerOperand? modrmMem) = opKind switch {
+				var (op, modrmMem) = opKind switch {
 					OpCodeOperandKind.None => (none, null),
 					OpCodeOperandKind.farbr2_2 => (new ImmediateFuzzerOperand(FuzzerImmediateKind.Imm2_2), null),
 					OpCodeOperandKind.farbr4_2 => (new ImmediateFuzzerOperand(FuzzerImmediateKind.Imm4_2), null),

@@ -76,7 +76,7 @@ namespace Generator.Formatters.CSharp {
 						var name = bcst.RawName;
 						if (!name.StartsWith("b", StringComparison.Ordinal))
 							throw new InvalidOperationException();
-						var s = name.Substring(1);
+						var s = name[1..];
 						writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
 					}
 				}
@@ -126,7 +126,7 @@ namespace Generator.Formatters.CSharp {
 						var name = bcst.RawName;
 						if (!name.StartsWith("b", StringComparison.Ordinal))
 							throw new InvalidOperationException();
-						var s = name.Substring(1);
+						var s = name[1..];
 						writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
 					}
 				}
@@ -227,7 +227,7 @@ namespace Generator.Formatters.CSharp {
 						var name = bcst.RawName;
 						if (!name.StartsWith("b", StringComparison.Ordinal))
 							throw new InvalidOperationException();
-						var s = name.Substring(1);
+						var s = name[1..];
 						writer.WriteLine($"var {name} = new FormatterString(\"{s}\");");
 					}
 				}

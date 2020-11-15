@@ -52,7 +52,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public abstract string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction);
 
-		protected string CreateErrorMessage(string errorMessage, in Instruction instruction) =>
+		protected static string CreateErrorMessage(string errorMessage, in Instruction instruction) =>
 			$"{errorMessage} : 0x{instruction.IP:X} {instruction.ToString()}";
 
 		public static Instr Create(BlockEncoder blockEncoder, Block block, in Instruction instruction) {

@@ -121,7 +121,7 @@ namespace Generator.Encoder.RustJS {
 			return true;
 		}
 
-		CreateMethod CloneAndUpdateDocs(CreateMethod method) {
+		static CreateMethod CloneAndUpdateDocs(CreateMethod method) {
 			var newMethod = new CreateMethod(method.Docs.ToArray());
 			foreach (var arg in method.Args) {
 				var doc = arg.Doc;
@@ -144,7 +144,7 @@ namespace Generator.Encoder.RustJS {
 		// Some methods take an i64/u64 argument. That will translate to BigInt in JS but not all JS impls
 		// support BigInt yet. Generate two methods, one with bigint and one with two u32 args. The 'bigint'
 		// feature enables the i64/u64 method and disables the other one.
-		void GenerateMethod(FileWriter writer, CreateMethod method, Action<GenMethodContext> genMethod) {
+		static void GenerateMethod(FileWriter writer, CreateMethod method, Action<GenMethodContext> genMethod) {
 			method = CloneAndUpdateDocs(method);
 			if (TryCreateNo64Api(method, out var no64Method, out var splitArgs)) {
 				genMethod(new GenMethodContext(writer, method, method, RustConstants.FeatureBigInt, null));
@@ -203,7 +203,7 @@ namespace Generator.Encoder.RustJS {
 			}
 		}
 
-		void WriteMethodAttributes(in GenMethodContext ctx) {
+		static void WriteMethodAttributes(in GenMethodContext ctx) {
 			ctx.Writer.WriteLine("#[rustfmt::skip]");
 			if (ctx.Attribute is string attr)
 				ctx.Writer.WriteLine(attr);

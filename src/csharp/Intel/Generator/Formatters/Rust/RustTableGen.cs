@@ -85,7 +85,7 @@ namespace Generator.Formatters.Rust {
 			var s = bcst.ToString();
 			if (!s.StartsWith("b", StringComparison.Ordinal))
 				throw new InvalidOperationException();
-			var value = s.Substring(1);
+			var value = s[1..];
 			fmtConsts1[s] = value;
 		}
 		static void AddKeywords(Dictionary<string, string> fmtConsts1, Dictionary<string, string[]> fmtConsts2, string name) {

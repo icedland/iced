@@ -115,8 +115,8 @@ namespace Generator.Encoder {
 			var jmpInstr = defs.Where(a => a.BranchKind == BranchKind.JmpShort || a.BranchKind == BranchKind.JmpNear).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			var xbeginInstr = defs.Where(a => a.BranchKind == BranchKind.Xbegin).Select(a => a.Code).OrderBy(a => a.Value).ToArray();
 			GenerateInstrSwitch(jccInstr, simpleBranchInstr, callInstr, jmpInstr, xbeginInstr);
-			var vsib32 = defs.Where(a => a.OpKinds.Any(b => b.Vsib32)).Select(a => a.Code).ToArray();
-			var vsib64 = defs.Where(a => a.OpKinds.Any(b => b.Vsib64)).Select(a => a.Code).ToArray();
+			var vsib32 = defs.Where(a => a.OpKindDefs.Any(b => b.Vsib32)).Select(a => a.Code).ToArray();
+			var vsib64 = defs.Where(a => a.OpKindDefs.Any(b => b.Vsib64)).Select(a => a.Code).ToArray();
 			GenerateVsib(vsib32, vsib64);
 
 			var decoderOptionsType = genTypes[TypeIds.DecoderOptions];
@@ -323,26 +323,26 @@ namespace Generator.Encoder {
 				uint tableIndex;
 				switch (def.Encoding) {
 				case EncodingKind.Legacy:
-					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= encoderTypes.ToLegacy(def.OpKinds[i]) << legacyOpShifts[i];
+					for (int i = 0; i < def.OpKindDefs.Length; i++)
+						encFlags1 |= encoderTypes.ToLegacy(def.OpKindDefs[i]) << legacyOpShifts[i];
 					tableIndex = (uint)GetLegacyTable(def.Table);
 					break;
 
 				case EncodingKind.VEX:
-					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= encoderTypes.ToVex(def.OpKinds[i]) << vexOpShifts[i];
+					for (int i = 0; i < def.OpKindDefs.Length; i++)
+						encFlags1 |= encoderTypes.ToVex(def.OpKindDefs[i]) << vexOpShifts[i];
 					tableIndex = (uint)GetVexTable(def.Table);
 					break;
 
 				case EncodingKind.EVEX:
-					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= encoderTypes.ToEvex(def.OpKinds[i]) << evexOpShifts[i];
+					for (int i = 0; i < def.OpKindDefs.Length; i++)
+						encFlags1 |= encoderTypes.ToEvex(def.OpKindDefs[i]) << evexOpShifts[i];
 					tableIndex = (uint)GetEvexTable(def.Table);
 					break;
 
 				case EncodingKind.XOP:
-					for (int i = 0; i < def.OpKinds.Length; i++)
-						encFlags1 |= encoderTypes.ToXop(def.OpKinds[i]) << xopOpShifts[i];
+					for (int i = 0; i < def.OpKindDefs.Length; i++)
+						encFlags1 |= encoderTypes.ToXop(def.OpKindDefs[i]) << xopOpShifts[i];
 					tableIndex = (uint)GetXopTable(def.Table);
 					break;
 

@@ -52,7 +52,7 @@ namespace Generator.Encoder.Rust {
 		void WriteDocs(FileWriter writer, CreateMethod method, Action? writePanics = null) =>
 			gen.WriteDocs(writer, method, "Panics", writePanics);
 
-		void WriteMethodAttributes(FileWriter writer, CreateMethod method, bool inline) {
+		static void WriteMethodAttributes(FileWriter writer, CreateMethod method, bool inline) {
 			writer.WriteLine(RustConstants.AttributeMustUse);
 			writer.WriteLine(inline ? RustConstants.AttributeInline : RustConstants.AttributeAllowMissingInlineInPublicItems);
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
@@ -79,7 +79,7 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine($"super::instruction_internal::internal_set_code(&mut instruction, {code.DeclaringType.Name(idConverter)}::{code.Name(idConverter)});");
 		}
 
-		void WriteMethodFooter(FileWriter writer, int count) {
+		static void WriteMethodFooter(FileWriter writer, int count) {
 			writer.WriteLine();
 			writer.WriteLine($"debug_assert_eq!({count}, instruction.op_count());");
 			writer.WriteLine("instruction");
@@ -274,7 +274,7 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine("}");
 		}
 
-		void WriteComma(FileWriter writer) => writer.Write(", ");
+		static void WriteComma(FileWriter writer) => writer.Write(", ");
 		void Write(FileWriter writer, EnumValue value) => writer.Write($"{value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)}");
 		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));
 

@@ -201,7 +201,7 @@ namespace Generator.Enums {
 
 		// Need to override this since the decoder/formatter table generators call Equals()
 		public override bool Equals(object? obj) {
-			if (!(obj is OrEnumValue other))
+			if (obj is not OrEnumValue other)
 				return false;
 			if (DeclaringType != other.DeclaringType)
 				return false;

@@ -50,9 +50,7 @@ namespace IcedFuzzer.Core {
 	sealed class ImmediateFuzzerOperand : FuzzerOperand {
 		public readonly FuzzerImmediateKind ImmKind;
 		public ImmediateFuzzerOperand(FuzzerImmediateKind kind)
-			: base(FuzzerOperandKind.Immediate) {
-			ImmKind = kind;
-		}
+			: base(FuzzerOperandKind.Immediate) => ImmKind = kind;
 	}
 
 	[Flags]
@@ -77,9 +75,7 @@ namespace IcedFuzzer.Core {
 		public bool MustUseSib => (flags & (ModrmMemoryFuzzerOperandFlags.Sib | ModrmMemoryFuzzerOperandFlags.Vsib)) != 0;
 
 		public ModrmMemoryFuzzerOperand(ModrmMemoryFuzzerOperandFlags flags)
-			: base(FuzzerOperandKind.Mem) {
-			this.flags = flags;
-		}
+			: base(FuzzerOperandKind.Mem) => this.flags = flags;
 	}
 
 	enum FuzzerRegisterKind {

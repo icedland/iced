@@ -664,12 +664,10 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_VEX_WHV : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code codeR;
-		readonly Code codeM;
 
 		public OpCodeHandler_VEX_WHV(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			codeR = code;
-			codeM = code;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {

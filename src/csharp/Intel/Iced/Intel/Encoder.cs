@@ -166,16 +166,11 @@ namespace Iced.Intel {
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="writer">Destination</param>
 		/// <returns></returns>
-		public static Encoder Create(int bitness, CodeWriter writer) {
-			switch (bitness) {
-			case 16:
-			case 32:
-			case 64:
-				return new Encoder(writer, bitness);
-			default:
-				throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
-		}
+		public static Encoder Create(int bitness, CodeWriter writer) =>
+			bitness switch {
+				16 or 32 or 64 => new Encoder(writer, bitness),
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
 
 		/// <summary>
 		/// Encodes an instruction and returns the size of the encoded instruction.

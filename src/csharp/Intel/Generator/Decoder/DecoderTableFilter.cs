@@ -197,7 +197,7 @@ namespace Generator.Decoder {
 				if (handlerKind == groupKind) {
 					if (handler.Length != 2)
 						throw new InvalidOperationException();
-					if (!(handler[1] is string name))
+					if (handler[1] is not string name)
 						throw new InvalidOperationException();
 					if (TryRemoveGroup(new[] { name }))
 						return GetInvalidHandler(true);
@@ -206,9 +206,9 @@ namespace Generator.Decoder {
 				else if (handlerKind == group8x64Kind || handlerKind == group8x8Kind) {
 					if (handler.Length != 3)
 						throw new InvalidOperationException();
-					if (!(handler[1] is string name1))
+					if (handler[1] is not string name1)
 						throw new InvalidOperationException();
-					if (!(handler[2] is string name2))
+					if (handler[2] is not string name2)
 						throw new InvalidOperationException();
 					if (TryRemoveGroup(new[] { name1, name2 }))
 						return GetInvalidHandler(true);
@@ -253,7 +253,7 @@ namespace Generator.Decoder {
 					foundInvalidHandler = true;
 					break;
 
-				case string _:
+				case string:
 					// Handler ref
 					return false;
 

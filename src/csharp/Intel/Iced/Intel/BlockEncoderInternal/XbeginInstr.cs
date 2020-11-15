@@ -97,7 +97,6 @@ namespace Iced.Intel.BlockEncoderInternal {
 		}
 
 		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
-			string? errorMessage;
 			switch (instrKind) {
 			case InstrKind.Unchanged:
 			case InstrKind.Rel16:
@@ -113,7 +112,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 					instruction.InternalSetCodeNoCheck(Code.Xbegin_rel32);
 				}
 				instruction.NearBranch64 = targetInstr.GetAddress();
-				if (!encoder.TryEncode(instruction, IP, out _, out errorMessage)) {
+				if (!encoder.TryEncode(instruction, IP, out _, out var errorMessage)) {
 					constantOffsets = default;
 					return CreateErrorMessage(errorMessage, instruction);
 				}

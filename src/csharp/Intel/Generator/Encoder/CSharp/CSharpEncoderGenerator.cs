@@ -224,7 +224,7 @@ namespace Generator.Encoder.CSharp {
 				using (writer.Indent()) {
 					foreach (var statement in statements)
 						writer.WriteLine(statement);
-					if (!statements[statements.Length - 1].StartsWith("return ", StringComparison.Ordinal))
+					if (!statements[^1].StartsWith("return ", StringComparison.Ordinal))
 						writer.WriteLine("break;");
 				}
 			});

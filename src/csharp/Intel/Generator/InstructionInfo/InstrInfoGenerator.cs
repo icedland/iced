@@ -257,17 +257,12 @@ namespace Generator.InstructionInfo {
 				stmtKind = kind;
 			}
 
-			static StmtKind GetStmtKind(ImplAccStatementKind kind) {
-				switch (kind) {
-				case ImplAccStatementKind.MemoryAccess:
-					return StmtKind.Memory;
-				case ImplAccStatementKind.RegisterAccess:
-				case ImplAccStatementKind.RegisterRangeAccess:
-					return StmtKind.Register;
-				default:
-					return StmtKind.Other;
-				}
-			}
+			static StmtKind GetStmtKind(ImplAccStatementKind kind) =>
+				kind switch {
+					ImplAccStatementKind.MemoryAccess => StmtKind.Memory,
+					ImplAccStatementKind.RegisterAccess or ImplAccStatementKind.RegisterRangeAccess => StmtKind.Register,
+					_ => StmtKind.Other,
+				};
 		}
 
 		protected static bool CouldBeNullSegIn64BitMode(ImplAccRegister register, out bool definitelyNullSeg) {
@@ -297,36 +292,23 @@ namespace Generator.InstructionInfo {
 			}
 		}
 
-		protected static uint Verify_9_or_17(uint value) {
-			switch (value) {
-			case 9:
-			case 17:
-				return value;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		protected static uint Verify_9_or_17(uint value) =>
+			value switch {
+				9 or 17 => value,
+				_ => throw new InvalidOperationException(),
+			};
 
-		protected static uint Verify_2_4_or_8(uint value) {
-			switch (value) {
-			case 2:
-			case 4:
-			case 8:
-				return value;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		protected static uint Verify_2_4_or_8(uint value) =>
+			value switch {
+				2 or 4 or 8 => value,
+				_ => throw new InvalidOperationException(),
+			};
 
-		protected static uint Verify_2_or_4(uint value) {
-			switch (value) {
-			case 2:
-			case 4:
-				return value;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		protected static uint Verify_2_or_4(uint value) =>
+			value switch {
+				2 or 4 => value,
+				_ => throw new InvalidOperationException(),
+			};
 
 		protected static EnumValue GetOpAccess(EnumType opAccessType, EmmiAccess access) =>
 			access switch {

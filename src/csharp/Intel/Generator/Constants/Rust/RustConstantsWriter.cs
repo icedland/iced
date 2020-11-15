@@ -86,26 +86,16 @@ namespace Generator.Constants.Rust {
 			return false;
 		}
 
-		string GetType(ConstantKind kind) {
-			switch (kind) {
-			case ConstantKind.Char:
-				return "char";
-			case ConstantKind.String:
-				return "&'static str";
-			case ConstantKind.Int32:
-			case ConstantKind.UInt32:
-				return "u32";
-			case ConstantKind.UInt64:
-				return "u64";
-			case ConstantKind.Index:
-				return "usize";
-			case ConstantKind.Register:
-			case ConstantKind.MemorySize:
-				return EnumUtils.GetEnumType(genTypes, kind).Name(idConverter);
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		string GetType(ConstantKind kind) =>
+			kind switch {
+				ConstantKind.Char => "char",
+				ConstantKind.String => "&'static str",
+				ConstantKind.Int32 or ConstantKind.UInt32 => "u32",
+				ConstantKind.UInt64 => "u64",
+				ConstantKind.Index => "usize",
+				ConstantKind.Register or ConstantKind.MemorySize => EnumUtils.GetEnumType(genTypes, kind).Name(idConverter),
+				_ => throw new InvalidOperationException(),
+			};
 
 		string GetValue(Constant constant) {
 			switch (constant.Kind) {

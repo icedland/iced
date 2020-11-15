@@ -52,7 +52,7 @@ namespace Generator {
 			foreach (var c in name) {
 				bool isUpper = char.IsUpper(c);
 				if (isUpper && !prevWasUpper) {
-					if (sb.Length > 0 && sb[sb.Length - 1] != '_')
+					if (sb.Length > 0 && sb[^1] != '_')
 						sb.Append('_');
 				}
 				prevWasUpper = isUpper;

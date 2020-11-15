@@ -6640,7 +6640,6 @@ namespace Iced.Intel.DecoderInternal {
 							0x44,// WkHV
 								0x4D,// XMM0
 								0xA2, 0x07,// EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11
-								0x00,// N1
 							0x47,// WkV_4b
 								0x4D,// XMM0
 								0xA3, 0x07,// EVEX_Vmovss_m32_k1_xmm
@@ -6653,7 +6652,6 @@ namespace Iced.Intel.DecoderInternal {
 							0x44,// WkHV
 								0x4D,// XMM0
 								0xA7, 0x07,// EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11
-								0x00,// N1
 							0x47,// WkV_4b
 								0x4D,// XMM0
 								0xA8, 0x07,// EVEX_Vmovsd_m64_k1_xmm

@@ -134,26 +134,16 @@ namespace Generator.Constants.CSharp {
 			writer.WriteLine("}");
 		}
 
-		string GetType(ConstantKind kind) {
-			switch (kind) {
-			case ConstantKind.Char:
-				return "char";
-			case ConstantKind.String:
-				return "string";
-			case ConstantKind.Int32:
-			case ConstantKind.Index:
-				return "int";
-			case ConstantKind.UInt32:
-				return "uint";
-			case ConstantKind.UInt64:
-				return "ulong";
-			case ConstantKind.Register:
-			case ConstantKind.MemorySize:
-				return EnumUtils.GetEnumType(genTypes, kind).Name(idConverter);
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		string GetType(ConstantKind kind) =>
+			kind switch {
+				ConstantKind.Char => "char",
+				ConstantKind.String => "string",
+				ConstantKind.Int32 or ConstantKind.Index => "int",
+				ConstantKind.UInt32 => "uint",
+				ConstantKind.UInt64 => "ulong",
+				ConstantKind.Register or ConstantKind.MemorySize => EnumUtils.GetEnumType(genTypes, kind).Name(idConverter),
+				_ => throw new InvalidOperationException(),
+			};
 
 		string GetValue(Constant constant) {
 			switch (constant.Kind) {

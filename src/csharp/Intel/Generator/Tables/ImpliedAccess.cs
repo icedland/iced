@@ -493,7 +493,7 @@ namespace Generator.Tables {
 
 			const int MaxNameLength = 100;
 			if (name.Length > MaxNameLength)
-				name = name.Substring(0, MaxNameLength) + "_etc";
+				name = name[0..MaxNameLength] + "_etc";
 
 			for (int i = 0; ; i++) {
 				var newName = i == 0 ? name : name + "_" + i.ToString();
@@ -638,8 +638,8 @@ namespace Generator.Tables {
 					var emmi = (EmmiImplAccStatement)stmt;
 					sb.Append("emmi");
 					switch (emmi.Access) {
-					case EmmiAccess.Read: sb.Append("R"); break;
-					case EmmiAccess.Write: sb.Append("W"); break;
+					case EmmiAccess.Read: sb.Append('R'); break;
+					case EmmiAccess.Write: sb.Append('W'); break;
 					case EmmiAccess.ReadWrite: sb.Append("RW"); break;
 					default: throw new InvalidOperationException();
 					}

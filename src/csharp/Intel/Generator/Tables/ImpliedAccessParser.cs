@@ -147,7 +147,7 @@ namespace Generator.Tables {
 				return x.Kind.CompareTo(y.Kind);
 
 			switch (x) {
-			case NoArgImplAccStatement _:
+			case NoArgImplAccStatement:
 				return 0;
 
 			case EmmiImplAccStatement emmi_a:
@@ -179,7 +179,7 @@ namespace Generator.Tables {
 			}
 		}
 
-		void RemoveUselessRegs(List<ImplAccCondition> conds) {
+		static void RemoveUselessRegs(List<ImplAccCondition> conds) {
 			foreach (var cond in conds) {
 				switch (cond.Kind) {
 				case ImplAccConditionKind.Bit64:
@@ -192,7 +192,7 @@ namespace Generator.Tables {
 			}
 		}
 
-		void RemoveUselessSegmentReads(List<ImplAccStatement> stmts) {
+		static void RemoveUselessSegmentReads(List<ImplAccStatement> stmts) {
 			for (int i = stmts.Count - 1; i >= 0; i--) {
 				var stmt = stmts[i];
 				if (stmt is RegisterImplAccStatement reg) {
@@ -219,20 +219,20 @@ namespace Generator.Tables {
 			return false;
 		}
 
-		void RemoveDupeStatements(List<ImplAccCondition> conds) {
+		static void RemoveDupeStatements(List<ImplAccCondition> conds) {
 			foreach (var cond in conds) {
 				RemoveDupeStatements(cond.TrueStatements);
 				RemoveDupeStatements(cond.FalseStatements);
 			}
 		}
 
-		void RemoveDupeStatements(List<ImplAccStatement> stmts) {
+		static void RemoveDupeStatements(List<ImplAccStatement> stmts) {
 			var unique = stmts.Distinct().ToArray();
 			stmts.Clear();
 			stmts.AddRange(unique);
 		}
 
-		void AddReadMemRegs(List<ImplAccCondition> conds) {
+		static void AddReadMemRegs(List<ImplAccCondition> conds) {
 			var extra = new List<ImplAccStatement>();
 			foreach (var cond in conds) {
 				AddReadRegs(extra, cond.TrueStatements);
@@ -240,27 +240,15 @@ namespace Generator.Tables {
 			}
 		}
 
-		void AddReadRegs(List<ImplAccStatement> extra, List<ImplAccStatement> stmts) {
+		static void AddReadRegs(List<ImplAccStatement> extra, List<ImplAccStatement> stmts) {
 			extra.Clear();
 			foreach (var stmt in stmts) {
 				if (stmt is MemoryImplAccStatement mem) {
-					OpAccess opAccess;
-					switch (mem.Access) {
-					case OpAccess.Read:
-					case OpAccess.Write:
-					case OpAccess.ReadWrite:
-					case OpAccess.ReadCondWrite:
-					case OpAccess.NoMemAccess:
-						opAccess = OpAccess.Read;
-						break;
-					case OpAccess.CondRead:
-					case OpAccess.CondWrite:
-						opAccess = OpAccess.CondRead;
-						break;
-					case OpAccess.None:
-					default:
-						throw new InvalidOperationException();
-					}
+					var opAccess = mem.Access switch {
+						OpAccess.Read or OpAccess.Write or OpAccess.ReadWrite or OpAccess.ReadCondWrite or OpAccess.NoMemAccess => OpAccess.Read,
+						OpAccess.CondRead or OpAccess.CondWrite => OpAccess.CondRead,
+						_ => throw new InvalidOperationException(),
+					};
 					AddReadReg(extra, mem.Segment, opAccess, true);
 					AddReadReg(extra, mem.Base, opAccess, false);
 					AddReadReg(extra, mem.Index, opAccess, false);
@@ -269,7 +257,7 @@ namespace Generator.Tables {
 			stmts.AddRange(extra);
 		}
 
-		void AddReadReg(List<ImplAccStatement> extra, ImplAccRegister? reg, OpAccess opAccess, bool isMemOpSegRead) {
+		static void AddReadReg(List<ImplAccStatement> extra, ImplAccRegister? reg, OpAccess opAccess, bool isMemOpSegRead) {
 			if (reg is ImplAccRegister reg2) {
 				switch (reg2.Kind) {
 				case ImplAccRegisterKind.Register:
@@ -302,7 +290,7 @@ namespace Generator.Tables {
 			{ ImplAccConditionKind.Bit64, ImplAccConditionKind.NotBit64 },
 			{ ImplAccConditionKind.NotBit64, ImplAccConditionKind.NotBit64 },
 		};
-		List<ImplAccCondition> MergeConds(Dictionary<ImplAccConditionKind, ImplAccCondition> conds) {
+		static List<ImplAccCondition> MergeConds(Dictionary<ImplAccConditionKind, ImplAccCondition> conds) {
 			if (toPosCond.Count != toNegCond.Count)
 				throw new InvalidOperationException();
 
@@ -696,8 +684,8 @@ namespace Generator.Tables {
 				return false;
 			}
 			else {
-				left = value.Substring(0, index).Trim();
-				right = value.Substring(index + 1).Trim();
+				left = value[0..index].Trim();
+				right = value[(index + 1)..].Trim();
 				return true;
 			}
 		}
@@ -710,7 +698,7 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			value = value.Substring(1, value.Length - 2).Trim();
+			value = value[1..^1].Trim();
 
 			if (!TrySplit(value, '=', out var left, out var right)) {
 				error = "Missing memory size";
@@ -849,8 +837,8 @@ namespace Generator.Tables {
 			int index = keyCond.IndexOf(';', StringComparison.Ordinal);
 			if (index < 0)
 				return (keyCond, string.Empty);
-			var key = keyCond.Substring(0, index).Trim();
-			var cond = keyCond.Substring(index + 1).Trim();
+			var key = keyCond[0..index].Trim();
+			var cond = keyCond[(index + 1)..].Trim();
 			return (key, cond);
 		}
 	}

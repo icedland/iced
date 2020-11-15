@@ -87,7 +87,7 @@ namespace Generator.InstructionInfo.Rust {
 					var rflags = info.rflags;
 					if (rflags.Length != infos[0].rflags.Length)
 						throw new InvalidOperationException();
-					var name = idConverter.Static("flags" + info.name.Substring(0, 1).ToUpperInvariant() + info.name.Substring(1));
+					var name = idConverter.Static("flags" + info.name[0..1].ToUpperInvariant() + info.name[1..]);
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"pub(crate) static {name}: [u16; {rflags.Length}] = [");
 					using (writer.Indent()) {

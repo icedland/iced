@@ -343,7 +343,7 @@ namespace Generator.Encoder.Rust {
 						sb.Append(value.RawName);
 						break;
 					case int value:
-						sb.Append(value.ToString());
+						sb.Append(value);
 						break;
 					case bool value:
 						sb.Append(value ? "true" : "false");

@@ -36,7 +36,7 @@ namespace Generator.Assembler {
 		protected readonly GenTypes genTypes;
 		protected readonly InstructionDef[] defs;
 		protected readonly RegisterDef[] regDefs;
-		readonly MemorySizeInfoTable memorySizeInfoTable;
+		readonly MemorySizeDef[] memDefs;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groups;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groupsWithPseudo;
 		readonly HashSet<EnumValue> discardOpCodes;
@@ -55,7 +55,7 @@ namespace Generator.Assembler {
 			this.genTypes = genTypes;
 			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			regDefs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
-			memorySizeInfoTable = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
+			memDefs = genTypes.GetObject<MemorySizeDefs>(TypeIds.MemorySizeDefs).Defs;
 			groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
 			groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
 			codeInt3 = genTypes.GetKeptCodeValues(Code.Int3).FirstOrDefault();
@@ -272,8 +272,8 @@ namespace Generator.Assembler {
 					opCodeArgFlags |= OpCodeArgFlags.HasSpecialInstructionEncoding;
 				}
 
-				for (int i = numberLeadingArgToDiscard; i < def.OpKinds.Length; i++) {
-					var opKindDef = def.OpKinds[i];
+				for (int i = numberLeadingArgToDiscard; i < def.OpKindDefs.Length; i++) {
+					var opKindDef = def.OpKindDefs[i];
 					ArgKind argKind;
 					int argSize = 0;
 					switch (opKindDef.OperandEncoding) {
@@ -461,46 +461,17 @@ namespace Generator.Assembler {
 				_ => kind,
 			};
 
-		int? GetSpecialArgEncodingInstruction(InstructionDef def) {
-			switch (GetOrigCodeValue(def.Code)) {
-			case Code.Outsb_DX_m8:
-			case Code.Outsw_DX_m16:
-			case Code.Outsd_DX_m32:
-			case Code.Lodsb_AL_m8:
-			case Code.Lodsw_AX_m16:
-			case Code.Lodsd_EAX_m32:
-			case Code.Lodsq_RAX_m64:
-			case Code.Scasb_AL_m8:
-			case Code.Scasw_AX_m16:
-			case Code.Scasd_EAX_m32:
-			case Code.Scasq_RAX_m64:
-			case Code.Insb_m8_DX:
-			case Code.Insw_m16_DX:
-			case Code.Insd_m32_DX:
-			case Code.Stosb_m8_AL:
-			case Code.Stosw_m16_AX:
-			case Code.Stosd_m32_EAX:
-			case Code.Stosq_m64_RAX:
-			case Code.Cmpsb_m8_m8:
-			case Code.Cmpsw_m16_m16:
-			case Code.Cmpsd_m32_m32:
-			case Code.Cmpsq_m64_m64:
-			case Code.Movsb_m8_m8:
-			case Code.Movsw_m16_m16:
-			case Code.Movsd_m32_m32:
-			case Code.Movsq_m64_m64:
-				return 2;
-			case Code.Maskmovq_rDI_mm_mm:
-			case Code.Maskmovdqu_rDI_xmm_xmm:
-			case Code.VEX_Vmaskmovdqu_rDI_xmm_xmm:
-				return 1;
-			case Code.Xbegin_rel16:
-			case Code.Xbegin_rel32:
-				return 0;
-			}
-
-			return null;
-		}
+		int? GetSpecialArgEncodingInstruction(InstructionDef def) =>
+			GetOrigCodeValue(def.Code) switch {
+				Code.Outsb_DX_m8 or Code.Outsw_DX_m16 or Code.Outsd_DX_m32 or Code.Lodsb_AL_m8 or Code.Lodsw_AX_m16 or Code.Lodsd_EAX_m32 or
+				Code.Lodsq_RAX_m64 or Code.Scasb_AL_m8 or Code.Scasw_AX_m16 or Code.Scasd_EAX_m32 or Code.Scasq_RAX_m64 or Code.Insb_m8_DX or
+				Code.Insw_m16_DX or Code.Insd_m32_DX or Code.Stosb_m8_AL or Code.Stosw_m16_AX or Code.Stosd_m32_EAX or Code.Stosq_m64_RAX or
+				Code.Cmpsb_m8_m8 or Code.Cmpsw_m16_m16 or Code.Cmpsd_m32_m32 or Code.Cmpsq_m64_m64 or Code.Movsb_m8_m8 or Code.Movsw_m16_m16 or
+				Code.Movsd_m32_m32 or Code.Movsq_m64_m64 => 2,
+				Code.Maskmovq_rDI_mm_mm or Code.Maskmovdqu_rDI_xmm_xmm or Code.VEX_Vmaskmovdqu_rDI_xmm_xmm => 1,
+				Code.Xbegin_rel16 or Code.Xbegin_rel32 => 0,
+				_ => null,
+			};
 
 		OpCodeNode BuildSelectorGraph(OpCodeInfoGroup group) {
 			// In case of one opcode, we don't need to perform any disambiguation
@@ -680,7 +651,7 @@ namespace Generator.Assembler {
 						if (isPushImm)
 							opSize = GetImmediateSizeInBits(opcodes[0]);
 						else
-							opSize = GetMemorySizeInBits(memorySizeInfoTable, defs, opcodes[0]);
+							opSize = GetMemorySizeInBits(memDefs, defs, opcodes[0]);
 						if (opSize > 1) {
 							switch (opSize) {
 							case 32: selectorKind = OpCodeSelectorKind.ImmediateByteSigned8To32; break;
@@ -805,7 +776,7 @@ namespace Generator.Assembler {
 			return selectors;
 		}
 
-		int GetBroadcastMemory(OpCodeArgFlags argFlags, List<InstructionDef> opcodes, Signature signature, out OpCodeSelectorKind selectorKind, out InstructionDef? broadcastDef) {
+		static int GetBroadcastMemory(OpCodeArgFlags argFlags, List<InstructionDef> opcodes, Signature signature, out OpCodeSelectorKind selectorKind, out InstructionDef? broadcastDef) {
 			broadcastDef = null;
 			selectorKind = OpCodeSelectorKind.Invalid;
 			int memoryIndex = -1;
@@ -814,10 +785,10 @@ namespace Generator.Assembler {
 					if (signature.GetArgKind(i) == ArgKind.Memory) {
 						memoryIndex = i;
 						var evex = @opcodes.First(x => x.Encoding == EncodingKind.EVEX);
-						if (evex.OpKinds[i].OperandEncoding != OperandEncoding.RegMemModrmRm)
+						if (evex.OpKindDefs[i].OperandEncoding != OperandEncoding.RegMemModrmRm)
 							throw new InvalidOperationException();
 						broadcastDef = evex;
-						selectorKind = evex.OpKinds[i].Register switch {
+						selectorKind = evex.OpKindDefs[i].Register switch {
 							Register.XMM0 => OpCodeSelectorKind.EvexBroadcastX,
 							Register.YMM0 => OpCodeSelectorKind.EvexBroadcastY,
 							Register.ZMM0 => OpCodeSelectorKind.EvexBroadcastZ,
@@ -883,12 +854,12 @@ namespace Generator.Assembler {
 			};
 		}
 
-		List<int> CollectByOperandKindPredicate(List<InstructionDef> defs, Func<OpCodeOperandKindDef, bool?> predicate, List<InstructionDef> opcodesMatchingPredicate, List<InstructionDef> opcodesNotMatchingPredicate) {
+		static List<int> CollectByOperandKindPredicate(List<InstructionDef> defs, Func<OpCodeOperandKindDef, bool?> predicate, List<InstructionDef> opcodesMatchingPredicate, List<InstructionDef> opcodesNotMatchingPredicate) {
 			var argIndices = new List<int>();
 			foreach (var def in defs) {
 				var selected = opcodesNotMatchingPredicate;
-				for (int i = 0; i < def.OpKinds.Length; i++) {
-					var argOpKind = def.OpKinds[i];
+				for (int i = 0; i < def.OpKindDefs.Length; i++) {
+					var argOpKind = def.OpKindDefs[i];
 					var result = predicate(argOpKind);
 					if (result.HasValue) {
 						if (result.Value) {
@@ -905,16 +876,11 @@ namespace Generator.Assembler {
 			return argIndices;
 		}
 
-		static bool? IsBranchShort(OpCodeOperandKindDef def) {
-			switch (def.OperandEncoding) {
-			case OperandEncoding.NearBranch:
-			case OperandEncoding.Xbegin:
-			case OperandEncoding.AbsNearBranch:
-				return def.BranchOffsetSize == 8;
-			}
-
-			return null;
-		}
+		static bool? IsBranchShort(OpCodeOperandKindDef def) =>
+			def.OperandEncoding switch {
+				OperandEncoding.NearBranch or OperandEncoding.Xbegin or OperandEncoding.AbsNearBranch => def.BranchOffsetSize == 8,
+				_ => null,
+			};
 
 		static bool? IsImmediateByteSigned(OpCodeOperandKindDef def) {
 			if (def.OperandEncoding == OperandEncoding.Immediate) {
@@ -949,7 +915,7 @@ namespace Generator.Assembler {
 
 				var selectors = new OrderedSelectorList() { ArgIndex = argIndex };
 				foreach (var def in opcodes) {
-					var argOpKind = def.OpKinds[argIndex];
+					var argOpKind = def.OpKindDefs[argIndex];
 					var conditionKind = GetSelectorKindForRegisterOrMemory(def, argOpKind, (argFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0);
 					selectors.Add(conditionKind, def);
 				}
@@ -968,52 +934,29 @@ namespace Generator.Assembler {
 			return selectorsList.First(x => x.Count == selectorsList.Max(x => x.Count));
 		}
 
-		static bool IsRegister(ArgKind kind) {
-			switch (kind) {
-			case ArgKind.Register8:
-			case ArgKind.Register16:
-			case ArgKind.Register32:
-			case ArgKind.Register64:
-			case ArgKind.RegisterK:
-			case ArgKind.RegisterST:
-			case ArgKind.RegisterSegment:
-			case ArgKind.RegisterBND:
-			case ArgKind.RegisterMM:
-			case ArgKind.RegisterXMM:
-			case ArgKind.RegisterYMM:
-			case ArgKind.RegisterZMM:
-			case ArgKind.RegisterCR:
-			case ArgKind.RegisterDR:
-			case ArgKind.RegisterTR:
-			case ArgKind.RegisterTMM:
-				return true;
-			}
-			return false;
-		}
+		static bool IsRegister(ArgKind kind) =>
+			kind switch {
+				ArgKind.Register8 or ArgKind.Register16 or ArgKind.Register32 or ArgKind.Register64 or ArgKind.RegisterK or
+				ArgKind.RegisterST or ArgKind.RegisterSegment or ArgKind.RegisterBND or ArgKind.RegisterMM or ArgKind.RegisterXMM or
+				ArgKind.RegisterYMM or ArgKind.RegisterZMM or ArgKind.RegisterCR or ArgKind.RegisterDR or ArgKind.RegisterTR or
+				ArgKind.RegisterTMM => true,
+				_ => false,
+			};
 
-		protected bool IsMoffs(InstructionDef def) {
+		protected bool IsMoffs(InstructionDef def) =>
 			// Special case for moffs
-			switch (GetOrigCodeValue(def.Code)) {
-			case Code.Mov_AL_moffs8:
-			case Code.Mov_AX_moffs16:
-			case Code.Mov_EAX_moffs32:
-			case Code.Mov_RAX_moffs64:
-			case Code.Mov_moffs8_AL:
-			case Code.Mov_moffs16_AX:
-			case Code.Mov_moffs32_EAX:
-			case Code.Mov_moffs64_RAX:
-				return true;
-			}
+			GetOrigCodeValue(def.Code) switch {
+				Code.Mov_AL_moffs8 or Code.Mov_AX_moffs16 or Code.Mov_EAX_moffs32 or Code.Mov_RAX_moffs64 or Code.Mov_moffs8_AL or
+				Code.Mov_moffs16_AX or Code.Mov_moffs32_EAX or Code.Mov_moffs64_RAX => true,
+				_ => false,
+			};
 
-			return false;
-		}
-
-		int GetImmediateSizeInBits(InstructionDef def) {
-			var opKindDef = def.OpKinds[0];
+		static int GetImmediateSizeInBits(InstructionDef def) {
+			var opKindDef = def.OpKindDefs[0];
 			return opKindDef.OperandEncoding == OperandEncoding.Immediate ? opKindDef.ImmediateSignExtSize : 0;
 		}
 
-		static int GetMemorySizeInBits(MemorySizeInfoTable memorySizeInfoTable, InstructionDef[] defs, InstructionDef def) {
+		static int GetMemorySizeInBits(MemorySizeDef[] memDefs, InstructionDef[] defs, InstructionDef def) {
 			var memSize = (MemorySize)defs[def.Code.Value].Memory.Value;
 			switch (memSize) {
 			case MemorySize.Fword6:
@@ -1023,7 +966,7 @@ namespace Generator.Assembler {
 				memSize = MemorySize.UInt64;
 				break;
 			}
-			var size = memorySizeInfoTable.Defs[(int)memSize].Size;
+			var size = memDefs[(int)memSize].Size;
 			return (int)size * 8;
 		}
 
@@ -1142,11 +1085,11 @@ namespace Generator.Assembler {
 			SuppressAllExceptions = 1 << 14,
 			RoundingControl = 1 << 15,
 			HasAmbiguousBroadcast = 1 << 16,
-			IsBroadcastXYZ = 1 << 16,
-			HasLabelUlong = 1 << 17,
-			HasImmediateByte = 1 << 18,
-			UnsignedUIntNotSupported = 1 << 19,
-			HasImmediateUnsigned = 1 << 20,
+			IsBroadcastXYZ = 1 << 17,
+			HasLabelUlong = 1 << 18,
+			HasImmediateByte = 1 << 19,
+			UnsignedUIntNotSupported = 1 << 20,
+			HasImmediateUnsigned = 1 << 21,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<InstructionDef> inputOpCodes, List<InstructionDef> opcodes, HashSet<Signature> signatures, bool allowMemory) {
@@ -1156,8 +1099,8 @@ namespace Generator.Assembler {
 			foreach (var code in inputOpCodes) {
 				var registerSignature = new Signature();
 				bool isValid = true;
-				for (int i = 0; i < code.OpKinds.Length; i++) {
-					var argKind = GetFilterRegisterKindFromOpKind(code.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, code), allowMemory);
+				for (int i = 0; i < code.OpKindDefs.Length; i++) {
+					var argKind = GetFilterRegisterKindFromOpKind(code.OpKindDefs[i], GetMemorySizeInBits(memDefs, defs, code), allowMemory);
 					if (argKind == ArgKind.Unknown) {
 						isValid = false;
 						break;
@@ -1182,7 +1125,7 @@ namespace Generator.Assembler {
 			}
 		}
 
-		ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKindDef def, int memSize, bool allowMemory) {
+		static ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKindDef def, int memSize, bool allowMemory) {
 			switch (def.OperandEncoding) {
 			case OperandEncoding.NearBranch:
 			case OperandEncoding.Xbegin:
@@ -1380,7 +1323,7 @@ namespace Generator.Assembler {
 				break;
 			}
 
-			var sizeBits = 8 * memorySizeInfoTable.Defs[(int)memSize].Size;
+			var sizeBits = 8 * memDefs[(int)memSize].Size;
 			return sizeBits switch {
 				512 => OpCodeSelectorKind.MemoryZMM,
 				256 => OpCodeSelectorKind.MemoryYMM,
@@ -1398,7 +1341,7 @@ namespace Generator.Assembler {
 		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, InstructionDef def, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind, int numberLeadingArgToDiscard, List<int> argSizes, bool isOtherImmediate) {
 			var key = new GroupKey(name, signature);
 			if (!groups.TryGetValue(key, out var group)) {
-				group = new OpCodeInfoGroup(memorySizeInfoTable, defs, name, signature);
+				group = new OpCodeInfoGroup(memDefs, defs, name, signature);
 				group.MemoName = memoName;
 				groups.Add(key, group);
 			}
@@ -1469,15 +1412,11 @@ namespace Generator.Assembler {
 			return group;
 		}
 
-		protected static bool IsArgKindImmediate(ArgKind argKind) {
-			switch (argKind) {
-			case ArgKind.Immediate:
-			case ArgKind.ImmediateUnsigned:
-				return true;
-			}
-
-			return false;
-		}
+		protected static bool IsArgKindImmediate(ArgKind argKind) =>
+			argKind switch {
+				ArgKind.Immediate or ArgKind.ImmediateUnsigned => true,
+				_ => false,
+			};
 
 		void CreatePseudoInstructions() {
 			foreach (var group in groupsWithPseudo.Values) {
@@ -1493,7 +1432,7 @@ namespace Generator.Assembler {
 					var (name, imm) = pseudoInfo[i];
 					var key = new GroupKey(name, signature);
 
-					var newGroup = new OpCodeInfoGroup(memorySizeInfoTable, defs, name, signature) {
+					var newGroup = new OpCodeInfoGroup(memDefs, defs, name, signature) {
 						Flags = OpCodeArgFlags.Pseudo,
 						AllOpCodeFlags = group.AllOpCodeFlags,
 						MemoName = group.MemoName,
@@ -1620,11 +1559,11 @@ namespace Generator.Assembler {
 		}
 
 		protected sealed class OpCodeInfoGroup {
-			readonly MemorySizeInfoTable memorySizeInfoTable;
+			readonly MemorySizeDef[] memDefs;
 			readonly InstructionDef[] defs;
 
-			public OpCodeInfoGroup(MemorySizeInfoTable memorySizeInfoTable, InstructionDef[] defs, string name, Signature signature) {
-				this.memorySizeInfoTable = memorySizeInfoTable;
+			public OpCodeInfoGroup(MemorySizeDef[] memDefs, InstructionDef[] defs, string name, Signature signature) {
+				this.memDefs = memDefs;
 				this.defs = defs;
 				Name = name;
 				MemoName = name;
@@ -1664,17 +1603,17 @@ namespace Generator.Assembler {
 			}
 
 			public int OrderOpCodesPerOpKindPriority(InstructionDef x, InstructionDef y) {
-				Debug.Assert(x.OpKinds.Length == y.OpKinds.Length);
+				Debug.Assert(x.OpKindDefs.Length == y.OpKindDefs.Length);
 				int result;
-				for (int i = 0; i < x.OpKinds.Length; i++) {
+				for (int i = 0; i < x.OpKindDefs.Length; i++) {
 					if (!IsRegister(Signature.GetArgKind(i))) continue;
-					result = GetPriorityFromKind(x.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(y.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, y)));
+					result = GetPriorityFromKind(x.OpKindDefs[i], GetMemorySizeInBits(memDefs, defs, x)).CompareTo(GetPriorityFromKind(y.OpKindDefs[i], GetMemorySizeInBits(memDefs, defs, y)));
 					if (result != 0) return result;
 				}
 
-				for (int i = 0; i < x.OpKinds.Length; i++) {
+				for (int i = 0; i < x.OpKindDefs.Length; i++) {
 					if (IsRegister(Signature.GetArgKind(i))) continue;
-					result = GetPriorityFromKind(x.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(y.OpKinds[i], GetMemorySizeInBits(memorySizeInfoTable, defs, y)));
+					result = GetPriorityFromKind(x.OpKindDefs[i], GetMemorySizeInBits(memDefs, defs, x)).CompareTo(GetPriorityFromKind(y.OpKindDefs[i], GetMemorySizeInBits(memDefs, defs, y)));
 					if (result != 0) return result;
 				}
 
@@ -1722,35 +1661,24 @@ namespace Generator.Assembler {
 			}
 		}
 
-		protected static bool IsMemOffs64Selector(OpCodeSelectorKind kind) {
-			switch (kind) {
-			case OpCodeSelectorKind.MemOffs64_RAX:
-			case OpCodeSelectorKind.MemOffs64_EAX:
-			case OpCodeSelectorKind.MemOffs64_AX:
-			case OpCodeSelectorKind.MemOffs64_AL:
-				return true;
-			}
+		protected static bool IsMemOffs64Selector(OpCodeSelectorKind kind) =>
+			kind switch {
+				OpCodeSelectorKind.MemOffs64_RAX or OpCodeSelectorKind.MemOffs64_EAX or OpCodeSelectorKind.MemOffs64_AX or
+				OpCodeSelectorKind.MemOffs64_AL => true,
+				_ => false,
+			};
 
-			return false;
-		}
+		protected static (OpCodeArgFlags, OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) =>
+			kind switch {
+				OpCodeSelectorKind.Vex => (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex),
+				OpCodeSelectorKind.EvexBroadcastX or OpCodeSelectorKind.EvexBroadcastY or
+				OpCodeSelectorKind.EvexBroadcastZ => (OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast, OpCodeArgFlags.Default),
+				OpCodeSelectorKind.BranchShort => (OpCodeArgFlags.HasBranchShort, OpCodeArgFlags.HasBranchNear),
+				_ => (OpCodeArgFlags.Default, OpCodeArgFlags.Default),
+			};
 
-		protected static (OpCodeArgFlags, OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) {
-			switch (kind) {
-			case OpCodeSelectorKind.Vex:
-				return (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex);
-			case OpCodeSelectorKind.EvexBroadcastX:
-			case OpCodeSelectorKind.EvexBroadcastY:
-			case OpCodeSelectorKind.EvexBroadcastZ:
-				return (OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast, OpCodeArgFlags.Default);
-			case OpCodeSelectorKind.BranchShort:
-				return (OpCodeArgFlags.HasBranchShort, OpCodeArgFlags.HasBranchNear);
-			}
-
-			return (OpCodeArgFlags.Default, OpCodeArgFlags.Default);
-		}
-
-		protected string GetRegisterSuffix(RegisterDef def) {
-			return ((RegisterKind)def.RegisterKind.Value) switch {
+		protected static string GetRegisterSuffix(RegisterDef def) =>
+			(RegisterKind)def.RegisterKind.Value switch {
 				RegisterKind.GPR8 => "8",
 				RegisterKind.GPR16 => "16",
 				RegisterKind.GPR32 => "32",
@@ -1770,36 +1698,22 @@ namespace Generator.Assembler {
 				RegisterKind.TMM => "TMM",
 				_ => throw new InvalidOperationException(),
 			};
-		}
 
 		bool IsR64M16(InstructionDef def) {
-			switch (GetOrigCodeValue(def.Code)) {
-			case Code.Mov_r64m16_Sreg:
-			case Code.Mov_Sreg_r64m16:
-			case Code.Sldt_r64m16:
-			case Code.Str_r64m16:
-			case Code.Lldt_r64m16:
-			case Code.Ltr_r64m16:
-			case Code.Verr_r64m16:
-			case Code.Verw_r64m16:
-			case Code.Smsw_r64m16:
-			case Code.Lmsw_r64m16:
-			case Code.Lar_r64_r64m16:
-			case Code.Lsl_r64_r64m16:
-			case Code.Pinsrw_mm_r64m16_imm8:
-			case Code.Pinsrw_xmm_r64m16_imm8:
-			case Code.VEX_Vpinsrw_xmm_xmm_r64m16_imm8:
-			case Code.EVEX_Vpinsrw_xmm_xmm_r64m16_imm8:
-			case Code.Pextrw_r64m16_xmm_imm8:
-			case Code.VEX_Vpextrw_r64m16_xmm_imm8:
-			case Code.EVEX_Vpextrw_r64m16_xmm_imm8:
+			foreach (var opDef in def.OpKindDefs) {
+				if (opDef.OperandEncoding != OperandEncoding.RegMemModrmRm)
+					continue;
+				if (opDef.Register != Register.RAX)
+					continue;
+				if (memDefs[(int)def.Memory.Value].Size != 2)
+					continue;
+
 				return true;
 			}
-
 			return false;
 		}
 
-		protected bool IsAmbiguousBroadcast(InstructionDef def) {
+		bool IsAmbiguousBroadcast(InstructionDef def) {
 			switch (GetOrigCodeValue(def.Code)) {
 			case Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64:
 			case Code.EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64:
@@ -1833,8 +1747,8 @@ namespace Generator.Assembler {
 				return name;
 
 			if (IsAmbiguousBroadcast(def)) {
-				for (int i = 0; i < def.OpKinds.Length; i++) {
-					var opKindDef = def.OpKinds[i];
+				for (int i = 0; i < def.OpKindDefs.Length; i++) {
+					var opKindDef = def.OpKindDefs[i];
 					if (opKindDef.OperandEncoding == OperandEncoding.RegMemModrmRm) {
 						switch (opKindDef.Register) {
 						case Register.XMM0: return $"{name}x";

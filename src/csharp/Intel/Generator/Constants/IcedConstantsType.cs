@@ -100,7 +100,7 @@ namespace Generator.Constants {
 			foreach (var reg in regs.Values) {
 				if (!reg.RawName.StartsWith(TMMPrefix, StringComparison.Ordinal))
 					continue;
-				int index = int.Parse(reg.RawName.Substring(TMMPrefix.Length));
+				int index = int.Parse(reg.RawName.AsSpan()[TMMPrefix.Length..]);
 				if (index > lastIndex) {
 					lastIndex = index;
 					tmm = reg;

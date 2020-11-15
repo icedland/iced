@@ -63,7 +63,7 @@ namespace Generator.Documentation.CSharp {
 		}
 
 		string GetStringAndReset() {
-			while (sb.Length > 0 && char.IsWhiteSpace(sb[sb.Length - 1]))
+			while (sb.Length > 0 && char.IsWhiteSpace(sb[^1]))
 				sb.Length--;
 			var s = sb.ToString();
 			sb.Clear();

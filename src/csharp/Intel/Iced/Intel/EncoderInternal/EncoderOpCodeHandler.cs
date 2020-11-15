@@ -373,7 +373,7 @@ namespace Iced.Intel.EncoderInternal {
 			return Array2.Empty<Op>();
 		}
 
-		static readonly TryConvertToDisp8N tryConvertToDisp8N = new TryConvertToDisp8NImpl().TryConvertToDisp8N;
+		static readonly TryConvertToDisp8N tryConvertToDisp8N = TryConvertToDisp8NImpl.TryConvertToDisp8N;
 
 		public EvexHandler(EncFlags1 encFlags1, EncFlags2 encFlags2, EncFlags3 encFlags3)
 			: base(encFlags2, encFlags3, false, tryConvertToDisp8N, CreateOps(encFlags1)) {
@@ -412,7 +412,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 
 		sealed class TryConvertToDisp8NImpl {
-			public bool TryConvertToDisp8N(Encoder encoder, OpCodeHandler handler, int displ, out sbyte compressedValue) {
+			public static bool TryConvertToDisp8N(Encoder encoder, OpCodeHandler handler, int displ, out sbyte compressedValue) {
 				var evexHandler = (EvexHandler)handler;
 				int n = (int)TupleTypeTable.GetDisp8N(evexHandler.tupleType, (encoder.EncoderFlags & EncoderFlags.Broadcast) != 0);
 				int res = displ / n;

@@ -330,7 +330,7 @@ namespace Iced.Intel {
 				if (needPlus)
 					sb.Append('+');
 				if (Displacement <= 9)
-					sb.Append(Displacement.ToString());
+					sb.Append(Displacement);
 				else {
 					sb.Append("0x");
 					sb.Append(Displacement.ToString("X"));

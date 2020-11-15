@@ -89,7 +89,7 @@ namespace Generator.Constants.Rust {
 			var newConstants = new Constant[constants.Length];
 			for (int i = 0; i < constants.Length; i++) {
 				var constant = constants[i];
-				if (!(constant.RefValue is string s))
+				if (constant.RefValue is not string)
 					throw new InvalidOperationException();
 				newConstants[i] = new Constant(ConstantKind.UInt32, constant.RawName, (uint)i, ConstantsTypeFlags.None);
 			}

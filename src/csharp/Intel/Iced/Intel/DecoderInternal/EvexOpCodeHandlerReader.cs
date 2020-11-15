@@ -308,7 +308,7 @@ namespace Iced.Intel.DecoderInternal {
 				return 1;
 
 			case EvexOpCodeHandlerKind.WkHV:
-				elem = new OpCodeHandler_EVEX_WkHV(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType());
+				elem = new OpCodeHandler_EVEX_WkHV(deserializer.ReadRegister(), deserializer.ReadCode());
 				return 1;
 
 			case EvexOpCodeHandlerKind.WkV_3:

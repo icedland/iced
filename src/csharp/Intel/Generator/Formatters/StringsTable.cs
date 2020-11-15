@@ -106,7 +106,7 @@ namespace Generator.Formatters {
 			if (isFrozen)
 				throw new InvalidOperationException();
 			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal))
-				s = s.Substring(1);
+				s = s[1..];
 			if (!strings.TryGetValue(s, out var info))
 				strings.Add(s, info = new Info(s, code));
 			info.Count++;
@@ -116,7 +116,7 @@ namespace Generator.Formatters {
 			if (!isFrozen)
 				throw new InvalidOperationException();
 			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal)) {
-				s = s.Substring(1);
+				s = s[1..];
 				hasVPrefix = true;
 			}
 			else

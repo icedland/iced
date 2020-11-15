@@ -120,7 +120,6 @@ namespace Generator.Decoder {
 		protected readonly IdentifierConverter idConverter;
 		readonly Dictionary<IEnumValue, (int codeIndex, int codeLen)> enumValueInfo;
 		readonly Dictionary<string, Info> infos;
-		readonly StringBuilder sb;
 
 		protected DecoderTableSerializer(GenTypes genTypes, IdentifierConverter idConverter, DecoderTableSerializerInfo info) {
 			this.genTypes = genTypes;
@@ -128,7 +127,6 @@ namespace Generator.Decoder {
 			this.info = info;
 			enumValueInfo = CreateEnumValueInfo(genTypes);
 			infos = new Dictionary<string, Info>(StringComparer.Ordinal);
-			sb = new StringBuilder();
 		}
 
 		protected void SerializeCore(FileWriter writer) {
@@ -235,14 +233,14 @@ namespace Generator.Decoder {
 		int CountInvalid(object?[] handlers, int index) {
 			int count = 0;
 			for (int i = index; i < handlers.Length; i++) {
-				if (!(handlers[i] is object?[] h) || !DecoderTableUtils.IsInvalid(genTypes, h))
+				if (handlers[i] is not object?[] h || !DecoderTableUtils.IsInvalid(genTypes, h))
 					break;
 				count++;
 			}
 			return count;
 		}
 
-		Dictionary<IEnumValue, (int codeIndex, int codeLen)> CreateEnumValueInfo(GenTypes genTypes) {
+		static Dictionary<IEnumValue, (int codeIndex, int codeLen)> CreateEnumValueInfo(GenTypes genTypes) {
 			var opCodeHandlerKind = genTypes[TypeIds.OpCodeHandlerKind];
 			var vexOpCodeHandlerKind = genTypes[TypeIds.VexOpCodeHandlerKind];
 			var evexOpCodeHandlerKind = genTypes[TypeIds.EvexOpCodeHandlerKind];

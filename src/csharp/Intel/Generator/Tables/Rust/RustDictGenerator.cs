@@ -108,7 +108,7 @@ namespace Generator.Tables.Rust {
 			}
 		}
 
-		void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string hashName) {
+		static void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string hashName) {
 			if (constants.Count == 0)
 				writer.WriteLine($"let {hashName}: HashSet<&'static str> = HashSet::new();");
 			else

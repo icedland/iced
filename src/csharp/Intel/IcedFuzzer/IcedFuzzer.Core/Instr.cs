@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Xml.XPath;
 using Iced.Intel;
 
 namespace IcedFuzzer.Core {
@@ -317,7 +316,7 @@ namespace IcedFuzzer.Core {
 			}
 			operands = operands.Where(a => a.Kind != FuzzerOperandKind.None).ToArray();
 			Operands = operands;
-			Assert.True(!opc.CanUseOpMaskRegister || (operands.Length > 0 && operands[operands.Length - 1] == FuzzerOperands.OpMaskRegister));
+			Assert.True(!opc.CanUseOpMaskRegister || (operands.Length > 0 && operands[^1] == FuzzerOperands.OpMaskRegister));
 			ImmediateOperands = operands.OfType<ImmediateFuzzerOperand>().ToArray();
 			MemOffsOperands = operands.Where(a => a.Kind == FuzzerOperandKind.MemOffs).ToArray();
 			ImpliedMemOperands = operands.Where(a => a.Kind == FuzzerOperandKind.ImpliedMem).ToArray();

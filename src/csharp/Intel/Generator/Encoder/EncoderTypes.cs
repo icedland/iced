@@ -235,48 +235,39 @@ namespace Generator.Encoder {
 			}
 		}
 
-		static (EnumValue vecLo, EnumValue vecHi) GetRegisterRange(EncodingKind encoding, EnumType registerType, Register register) {
-			switch (register) {
-			case Register.AL: return (registerType[nameof(Register.AL)], registerType[nameof(Register.R15L)]);
-			case Register.AX: return (registerType[nameof(Register.AX)], registerType[nameof(Register.R15W)]);
-			case Register.EAX: return (registerType[nameof(Register.EAX)], registerType[nameof(Register.R15D)]);
-			case Register.RAX: return (registerType[nameof(Register.RAX)], registerType[nameof(Register.R15)]);
-			case Register.ES: return (registerType[nameof(Register.ES)], registerType[nameof(Register.GS)]);
-			case Register.K0: return (registerType[nameof(Register.K0)], registerType[nameof(Register.K7)]);
-			case Register.BND0: return (registerType[nameof(Register.BND0)], registerType[nameof(Register.BND3)]);
-			case Register.CR0: return (registerType[nameof(Register.CR0)], registerType[nameof(Register.CR15)]);
-			case Register.DR0: return (registerType[nameof(Register.DR0)], registerType[nameof(Register.DR15)]);
-			case Register.TR0: return (registerType[nameof(Register.TR0)], registerType[nameof(Register.TR7)]);
-			case Register.ST0: return (registerType[nameof(Register.ST0)], registerType[nameof(Register.ST7)]);
-			case Register.MM0: return (registerType[nameof(Register.MM0)], registerType[nameof(Register.MM7)]);
-			case Register.TMM0: return (registerType[nameof(Register.TMM0)], registerType[nameof(Register.TMM7)]);
-			default: break;
-			}
-
-			switch (encoding) {
-			case EncodingKind.Legacy:
-			case EncodingKind.D3NOW:
-			case EncodingKind.VEX:
-			case EncodingKind.XOP:
-				return register switch {
-					Register.XMM0 => (registerType[nameof(Register.XMM0)], registerType[nameof(Register.XMM15)]),
-					Register.YMM0 => (registerType[nameof(Register.YMM0)], registerType[nameof(Register.YMM15)]),
-					Register.ZMM0 => (registerType[nameof(Register.ZMM0)], registerType[nameof(Register.ZMM15)]),
+		static (EnumValue vecLo, EnumValue vecHi) GetRegisterRange(EncodingKind encoding, EnumType registerType, Register register) =>
+			register switch {
+				Register.AL => (registerType[nameof(Register.AL)], registerType[nameof(Register.R15L)]),
+				Register.AX => (registerType[nameof(Register.AX)], registerType[nameof(Register.R15W)]),
+				Register.EAX => (registerType[nameof(Register.EAX)], registerType[nameof(Register.R15D)]),
+				Register.RAX => (registerType[nameof(Register.RAX)], registerType[nameof(Register.R15)]),
+				Register.ES => (registerType[nameof(Register.ES)], registerType[nameof(Register.GS)]),
+				Register.K0 => (registerType[nameof(Register.K0)], registerType[nameof(Register.K7)]),
+				Register.BND0 => (registerType[nameof(Register.BND0)], registerType[nameof(Register.BND3)]),
+				Register.CR0 => (registerType[nameof(Register.CR0)], registerType[nameof(Register.CR15)]),
+				Register.DR0 => (registerType[nameof(Register.DR0)], registerType[nameof(Register.DR15)]),
+				Register.TR0 => (registerType[nameof(Register.TR0)], registerType[nameof(Register.TR7)]),
+				Register.ST0 => (registerType[nameof(Register.ST0)], registerType[nameof(Register.ST7)]),
+				Register.MM0 => (registerType[nameof(Register.MM0)], registerType[nameof(Register.MM7)]),
+				Register.TMM0 => (registerType[nameof(Register.TMM0)], registerType[nameof(Register.TMM7)]),
+				_ => encoding switch {
+					EncodingKind.Legacy or EncodingKind.D3NOW or EncodingKind.VEX or EncodingKind.XOP =>
+						register switch {
+							Register.XMM0 => (registerType[nameof(Register.XMM0)], registerType[nameof(Register.XMM15)]),
+							Register.YMM0 => (registerType[nameof(Register.YMM0)], registerType[nameof(Register.YMM15)]),
+							Register.ZMM0 => (registerType[nameof(Register.ZMM0)], registerType[nameof(Register.ZMM15)]),
+							_ => throw new InvalidOperationException(),
+						},
+					EncodingKind.EVEX =>
+						register switch {
+							Register.XMM0 => (registerType[nameof(Register.XMM0)], registerType[nameof(Register.XMM31)]),
+							Register.YMM0 => (registerType[nameof(Register.YMM0)], registerType[nameof(Register.YMM31)]),
+							Register.ZMM0 => (registerType[nameof(Register.ZMM0)], registerType[nameof(Register.ZMM31)]),
+							_ => throw new InvalidOperationException(),
+						},
 					_ => throw new InvalidOperationException(),
-				};
-
-			case EncodingKind.EVEX:
-				return register switch {
-					Register.XMM0 => (registerType[nameof(Register.XMM0)], registerType[nameof(Register.XMM31)]),
-					Register.YMM0 => (registerType[nameof(Register.YMM0)], registerType[nameof(Register.YMM31)]),
-					Register.ZMM0 => (registerType[nameof(Register.ZMM0)], registerType[nameof(Register.ZMM31)]),
-					_ => throw new InvalidOperationException(),
-				};
-
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+				},
+			};
 
 		public uint ToLegacy(OpCodeOperandKindDef opKind) => toLegacy[opKind];
 		public uint ToVex(OpCodeOperandKindDef opKind) => toVex[opKind];

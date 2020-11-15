@@ -38,12 +38,8 @@ namespace Generator.Encoder {
 		public EnumType? EvexOpKind;
 
 		readonly GenTypes genTypes;
-		readonly InstructionDef[] instrDefs;
 
-		public EncoderTypesGen(GenTypes genTypes) {
-			this.genTypes = genTypes;
-			instrDefs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
-		}
+		public EncoderTypesGen(GenTypes genTypes) => this.genTypes = genTypes;
 
 		public void Generate() {
 			GenerateImmSizes();
@@ -65,7 +61,7 @@ namespace Generator.Encoder {
 			var none = opKindDefs.Single(a => a.OperandEncoding == OperandEncoding.None);
 			return defs.
 				Where(a => a.Encoding == encoding).
-				SelectMany(a => a.OpKinds).
+				SelectMany(a => a.OpKindDefs).
 				Append(none).
 				Distinct().
 				OrderBy(a => a.EnumValue.Value).
@@ -123,8 +119,9 @@ namespace Generator.Encoder {
 		}
 
 		void GenerateEncFlags1() {
-			var values = new List<EnumValue>();
-			values.Add(new EnumValue(0, "None", null));
+			var values = new List<EnumValue> {
+				new EnumValue(0, "None", null)
+			};
 
 			uint maxBits = 0;
 			maxBits = Math.Max(maxBits, GenerateOpKindFields(values, LegacyOpKind, "Legacy_", 4));

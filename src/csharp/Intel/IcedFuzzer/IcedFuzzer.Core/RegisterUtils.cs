@@ -23,53 +23,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace IcedFuzzer.Core {
 	static class RegisterUtils {
-		public static uint GetRegisterCount(FuzzerRegisterKind register) {
-			switch (register) {
-			case FuzzerRegisterKind.GPR8:
-			case FuzzerRegisterKind.GPR16:
-			case FuzzerRegisterKind.GPR32:
-			case FuzzerRegisterKind.GPR64:
-			case FuzzerRegisterKind.CR:
-			case FuzzerRegisterKind.DR:
-				return 16;
-			case FuzzerRegisterKind.Segment:
-			case FuzzerRegisterKind.ST:
-			case FuzzerRegisterKind.TR:
-			case FuzzerRegisterKind.K:
-			case FuzzerRegisterKind.MM:
-			case FuzzerRegisterKind.TMM:
-				return 8;
-			case FuzzerRegisterKind.BND:
-				return 4;
-			case FuzzerRegisterKind.XMM:
-			case FuzzerRegisterKind.YMM:
-			case FuzzerRegisterKind.ZMM:
-				return 32;
-			default:
-				throw ThrowHelpers.Unreachable;
-			}
-		}
+		public static uint GetRegisterCount(FuzzerRegisterKind register) =>
+			register switch {
+				FuzzerRegisterKind.GPR8 or FuzzerRegisterKind.GPR16 or FuzzerRegisterKind.GPR32 or FuzzerRegisterKind.GPR64 or
+				FuzzerRegisterKind.CR or FuzzerRegisterKind.DR => 16,
+				FuzzerRegisterKind.Segment or FuzzerRegisterKind.ST or FuzzerRegisterKind.TR or FuzzerRegisterKind.K or FuzzerRegisterKind.MM or
+				FuzzerRegisterKind.TMM => 8,
+				FuzzerRegisterKind.BND => 4,
+				FuzzerRegisterKind.XMM or FuzzerRegisterKind.YMM or FuzzerRegisterKind.ZMM => 32,
+				_ => throw ThrowHelpers.Unreachable,
+			};
 
-		public static uint GetRegisterCount(FuzzerRegisterClass registerClass) {
-			switch (registerClass) {
-			case FuzzerRegisterClass.GPR:
-			case FuzzerRegisterClass.CR:
-			case FuzzerRegisterClass.DR:
-				return 16;
-			case FuzzerRegisterClass.Segment:
-			case FuzzerRegisterClass.ST:
-			case FuzzerRegisterClass.TR:
-			case FuzzerRegisterClass.K:
-			case FuzzerRegisterClass.MM:
-			case FuzzerRegisterClass.TMM:
-				return 8;
-			case FuzzerRegisterClass.BND:
-				return 4;
-			case FuzzerRegisterClass.Vector:
-				return 32;
-			default:
-				throw ThrowHelpers.Unreachable;
-			}
-		}
+		public static uint GetRegisterCount(FuzzerRegisterClass registerClass) =>
+			registerClass switch {
+				FuzzerRegisterClass.GPR or FuzzerRegisterClass.CR or FuzzerRegisterClass.DR => 16,
+				FuzzerRegisterClass.Segment or FuzzerRegisterClass.ST or FuzzerRegisterClass.TR or FuzzerRegisterClass.K or FuzzerRegisterClass.MM or
+				FuzzerRegisterClass.TMM => 8,
+				FuzzerRegisterClass.BND => 4,
+				FuzzerRegisterClass.Vector => 32,
+				_ => throw ThrowHelpers.Unreachable,
+			};
 	}
 }

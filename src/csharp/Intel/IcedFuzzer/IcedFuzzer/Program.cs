@@ -123,7 +123,7 @@ namespace IcedFuzzer {
 			var encodingTables = InstrGen.Create(options.OpCodeInfoOptions.Bitness, infos, genFlags);
 
 			var instructions = encodingTables.GetOpCodeGroups().SelectMany(a => a.opCodes).SelectMany(a => a.Instructions).Where(instr => {
-				if (!options.Filter.ShouldInclude(instr.Code, instr.IsModrmMemory))
+				if (!options.Filter.ShouldInclude(instr.Code))
 					return false;
 				if (instr.Code == Code.INVALID)
 					return options.IncludeInvalidInstructions;

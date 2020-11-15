@@ -44,7 +44,7 @@ namespace Generator.Tables {
 			}
 		}
 
-		void Write(FileWriter writer, InstructionDef def) {
+		static void Write(FileWriter writer, InstructionDef def) {
 			const string sepNoSpace = ",";
 			const string sep = sepNoSpace + " ";
 
@@ -215,7 +215,7 @@ namespace Generator.Tables {
 				for (int i = 0; i < def.OpCount; i++) {
 					if (i > 0)
 						writer.Write(";");
-					writer.Write(def.OpKinds[i].EnumValue.RawName);
+					writer.Write(def.OpKindDefs[i].EnumValue.RawName);
 				}
 			}
 

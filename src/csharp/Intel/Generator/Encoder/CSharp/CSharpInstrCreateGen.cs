@@ -166,7 +166,7 @@ namespace Generator.Encoder.CSharp {
 			writer.WriteLine($"instruction.InternalCode = {code.DeclaringType.Name(idConverter)}.{code.Name(idConverter)};");
 		}
 
-		void WriteMethodFooter(FileWriter writer, int args) {
+		static void WriteMethodFooter(FileWriter writer, int args) {
 			writer.WriteLine();
 			writer.WriteLine($"Debug.Assert(instruction.OpCount == {args});");
 			writer.WriteLine("return instruction;");
@@ -366,7 +366,7 @@ namespace Generator.Encoder.CSharp {
 			writer.WriteLine("}");
 		}
 
-		void WriteComma(FileWriter writer) => writer.Write(", ");
+		static void WriteComma(FileWriter writer) => writer.Write(", ");
 		void Write(FileWriter writer, EnumValue value) => writer.Write($"{value.DeclaringType.Name(idConverter)}.{value.Name(idConverter)}");
 		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));
 

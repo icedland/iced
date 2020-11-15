@@ -73,7 +73,7 @@ namespace Generator.Tables.CSharp {
 			writer.WriteLine("};");
 		}
 
-		void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string fieldName, bool publicField = true) {
+		static void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string fieldName, bool publicField = true) {
 			writer.WriteLine($"{(publicField ? "internal " : string.Empty)}static readonly HashSet<string> {fieldName} = new HashSet<string>({constants.Count}, StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
 				foreach (var constant in constants)

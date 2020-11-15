@@ -98,7 +98,7 @@ namespace Generator.InstructionInfo.CSharp {
 							var rflags = info.rflags;
 							if (rflags.Length != infos[0].rflags.Length)
 								throw new InvalidOperationException();
-							var name = idConverter.Field("flags" + info.name.Substring(0, 1).ToUpperInvariant() + info.name.Substring(1));
+							var name = idConverter.Field("flags" + info.name[0..1].ToUpperInvariant() + info.name[1..]);
 							writer.WriteLine($"public static readonly ushort[] {name} = new ushort[{rflags.Length}] {{");
 							using (writer.Indent()) {
 								for (int i = 0; i < rflags.Length; i++) {

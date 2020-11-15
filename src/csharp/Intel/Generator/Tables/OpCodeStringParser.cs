@@ -141,7 +141,7 @@ namespace Generator.Tables {
 				var part = parts[index];
 				int plusIndex = part.IndexOf('+', StringComparison.Ordinal);
 				if (plusIndex >= 0)
-					part = part.Substring(0, plusIndex);
+					part = part[0..plusIndex];
 				if (!TryParseHexByte(part, out byte opCodeByte, out _))
 					break;
 				if (opCodeByteCount == 2) {
@@ -277,7 +277,7 @@ namespace Generator.Tables {
 
 		bool TryParse3DNow(out OpCodeDef result, [NotNullWhen(false)] out string? error) {
 			result = OpCodeDef.CreateDefault(EncodingKind.D3NOW);
-			var hexByteStr = opCodeStr.Substring(D3nowPrefix.Length);
+			var hexByteStr = opCodeStr[D3nowPrefix.Length..];
 			if (!TryParseHexByte(hexByteStr, out byte opCode, out error))
 				return false;
 

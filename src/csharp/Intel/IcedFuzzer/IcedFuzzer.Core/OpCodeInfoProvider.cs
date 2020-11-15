@@ -44,7 +44,7 @@ namespace IcedFuzzer.Core {
 			return ExcludeCpuid.Contains(cpu);
 		}
 
-		public bool ShouldInclude(Code code, bool? isMemOp) {
+		public bool ShouldInclude(Code code) {
 			if (ExcludeCpuid.Count != 0) {
 				foreach (var cpuid in code.CpuidFeatures()) {
 					if (ExcludeCpuid.Contains(cpuid))
@@ -96,7 +96,7 @@ namespace IcedFuzzer.Core {
 				if (opCode.Fwait)
 					continue;
 
-				if (!options.Filter.ShouldInclude(code, null))
+				if (!options.Filter.ShouldInclude(code))
 					continue;
 
 				switch (opCode.Encoding) {

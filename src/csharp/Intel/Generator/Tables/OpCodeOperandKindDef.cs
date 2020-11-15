@@ -265,23 +265,12 @@ namespace Generator.Tables {
 		/// <summary>
 		/// <see langword="true"/> if <see cref="Register"/> is valid
 		/// </summary>
-		public bool HasRegister {
-			get {
-				switch (OperandEncoding) {
-				case OperandEncoding.ImpliedRegister:
-				case OperandEncoding.RegImm:
-				case OperandEncoding.RegOpCode:
-				case OperandEncoding.RegModrmReg:
-				case OperandEncoding.RegModrmRm:
-				case OperandEncoding.RegMemModrmRm:
-				case OperandEncoding.RegVvvvv:
-					return true;
-				case OperandEncoding.MemModrmRm:
-					return Vsib;
-				default:
-					return false;
-				}
-			}
-		}
+		public bool HasRegister =>
+			OperandEncoding switch {
+				OperandEncoding.ImpliedRegister or OperandEncoding.RegImm or OperandEncoding.RegOpCode or OperandEncoding.RegModrmReg or
+				OperandEncoding.RegModrmRm or OperandEncoding.RegMemModrmRm or OperandEncoding.RegVvvvv => true,
+				OperandEncoding.MemModrmRm => Vsib,
+				_ => false,
+			};
 	}
 }

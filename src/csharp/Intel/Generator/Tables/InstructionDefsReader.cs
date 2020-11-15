@@ -41,7 +41,7 @@ namespace Generator.Tables {
 		readonly StringBuilder sb;
 		readonly GenTypes genTypes;
 		readonly RegisterDef[] regDefs;
-		readonly MemorySizeInfoTable memSizeTbl;
+		readonly MemorySizeDefs memSizeTbl;
 		readonly EnumValue tupleTypeN1;
 		readonly string filename;
 		readonly string[] lines;
@@ -145,7 +145,7 @@ namespace Generator.Tables {
 			sb = new StringBuilder();
 			this.genTypes = genTypes;
 			regDefs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
-			memSizeTbl = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
+			memSizeTbl = genTypes.GetObject<MemorySizeDefs>(TypeIds.MemorySizeDefs);
 			this.filename = filename;
 			lines = File.ReadAllLines(filename);
 			errors = new List<string>();
@@ -297,7 +297,7 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			line = line.Substring(DefBeginPrefix.Length).Trim();
+			line = line[DefBeginPrefix.Length..].Trim();
 			if (!TryParseDefLine(line, out var opCodeStr, out var instrStr, out var cpuid,
 				out var tupleType, out var error)) {
 				Error(lineIndex, error);
@@ -1022,8 +1022,8 @@ namespace Generator.Tables {
 								Error(lineIndex, $"Unknown op kind `{opKindStr}`");
 								return false;
 							}
-							var opKindValue = opKindStr.Substring(index + 1).Trim();
-							opKindStr = opKindStr.Substring(0, index).Trim();
+							var opKindValue = opKindStr[(index + 1)..].Trim();
+							opKindStr = opKindStr[0..index].Trim();
 							switch (opKindStr) {
 							case "r":
 								if ((parsedOpFlags & ParsedInstructionOperandFlags.ImpliedRegister) == 0) {
@@ -1310,7 +1310,7 @@ namespace Generator.Tables {
 			}
 
 			static string UppercaseFirstLetter(string s) =>
-				s.Substring(0, 1).ToUpperInvariant() + s.Substring(1).ToLowerInvariant();
+				s[0..1].ToUpperInvariant() + s[1..].ToLowerInvariant();
 
 			state.MnemonicStr ??= parsedInstr.Mnemonic.ToLowerInvariant();
 			if (state.MnemonicStr.ToLowerInvariant() == state.MnemonicStr)
@@ -1409,7 +1409,7 @@ namespace Generator.Tables {
 			}
 
 			var fmtMnemonic = state.MnemonicStr.ToLowerInvariant();
-			var pseudoOp = state.PseudoOpsKind is null ? (PseudoOpsKind?)null : (PseudoOpsKind)state.PseudoOpsKind.Value;
+			PseudoOpsKind? pseudoOp = state.PseudoOpsKind is null ? null : (PseudoOpsKind)state.PseudoOpsKind.Value;
 			if (!TryCreateFastDef(state.Code, fmtMnemonic, pseudoOp, state.FastInfo ?? new FastState(), out var fastDef, out error)) {
 				Error(state.LineIndex, "(fast) " + error);
 				return false;
@@ -1560,7 +1560,7 @@ namespace Generator.Tables {
 			return true;
 		}
 
-		bool TryGetLoopCcMnemonics(InstructionDefState def, out int ccIndex, [NotNullWhen(true)] out string? extraLoopMnemonic) {
+		static bool TryGetLoopCcMnemonics(InstructionDefState def, out int ccIndex, [NotNullWhen(true)] out string? extraLoopMnemonic) {
 			if (def.BranchKind == BranchKind.Loop && def.ConditionCode == ConditionCode.e) {
 				ccIndex = 4;
 				extraLoopMnemonic = "loopz";
@@ -3381,8 +3381,8 @@ namespace Generator.Tables {
 			}
 			else {
 				errMsg = null;
-				key = line.Substring(0, index).Trim();
-				value = line.Substring(index + 1).Trim();
+				key = line[0..index].Trim();
+				value = line[(index + 1)..].Trim();
 				return true;
 			}
 		}

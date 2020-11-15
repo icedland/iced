@@ -311,7 +311,7 @@ namespace Iced.Intel.DecoderInternal {
 			this.code = code;
 			this.tupleType = tupleType;
 			this.onlySAE = onlySAE;
-			this.canBroadcast = true;
+			canBroadcast = true;
 		}
 
 		public OpCodeHandler_EVEX_VkW_er(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool onlySAE) {
@@ -320,7 +320,7 @@ namespace Iced.Intel.DecoderInternal {
 			this.code = code;
 			this.tupleType = tupleType;
 			this.onlySAE = onlySAE;
-			this.canBroadcast = true;
+			canBroadcast = true;
 		}
 
 		public OpCodeHandler_EVEX_VkW_er(Register baseReg1, Register baseReg2, Code code, TupleType tupleType, bool onlySAE, bool canBroadcast) {
@@ -1351,12 +1351,10 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_EVEX_WkHV : OpCodeHandlerModRM {
 		readonly Register baseReg;
 		readonly Code code;
-		readonly TupleType tupleType;
 
-		public OpCodeHandler_EVEX_WkHV(Register baseReg, Code code, TupleType tupleType) {
+		public OpCodeHandler_EVEX_WkHV(Register baseReg, Code code) {
 			this.baseReg = baseReg;
 			this.code = code;
-			this.tupleType = tupleType;
 		}
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {

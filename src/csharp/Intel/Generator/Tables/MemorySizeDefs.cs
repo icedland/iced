@@ -23,12 +23,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator.Tables {
 	[TypeGen(TypeGenOrders.NoDeps)]
-	sealed class MemorySizeInfoTable {
+	sealed class MemorySizeDefs {
 		public readonly MemorySizeDef[] Defs;
 
-		MemorySizeInfoTable(GenTypes genTypes) {
+		MemorySizeDefs(GenTypes genTypes) {
 			Defs = CreateDefs(genTypes);
-			genTypes.AddObject(TypeIds.MemorySizeInfoTable, this);
+			genTypes.AddObject(TypeIds.MemorySizeDefs, this);
 		}
 
 		static MemorySizeDef[] CreateDefs(GenTypes genTypes) {

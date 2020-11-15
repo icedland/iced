@@ -295,9 +295,9 @@ namespace Iced.Intel.EncoderInternal {
 			else {
 				for (int i = numBits - 1; i >= 0; i--) {
 					if (((bits >> i) & 1) != 0)
-						sb.Append("1");
+						sb.Append('1');
 					else
-						sb.Append("0");
+						sb.Append('0');
 				}
 			}
 		}
@@ -309,7 +309,7 @@ namespace Iced.Intel.EncoderInternal {
 				else
 					sb.Append(" !(11):");
 				AppendBits("rrr", rrr, 3);
-				sb.Append(":");
+				sb.Append(':');
 				AppendBits("bbb", bbb, 3);
 			}
 			else {

@@ -52,7 +52,7 @@ namespace Iced.Intel {
 			case 64:
 				break;
 			default:
-				throw new ArgumentOutOfRangeException("Only 16, 32 or 64 bitness are supported", nameof(bitness));
+				throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
 			Bitness = bitness;
 			_instructions = new InstructionList();
@@ -169,9 +169,8 @@ namespace Iced.Intel {
 		/// Add an instruction directly to the flow of instructions.
 		/// </summary>
 		/// <param name="instruction"></param>
-		public void AddInstruction(Instruction instruction) {
+		public void AddInstruction(Instruction instruction) =>
 			AddInstruction(ref instruction);
-		}
 
 		/// <summary>
 		/// Add an instruction directly to the flow of instructions.
@@ -395,14 +394,12 @@ namespace Iced.Intel {
 #endif
 
 		/// <summary>call selector:offset instruction.</summary>
-		public void call(ushort selector, uint offset) {
+		public void call(ushort selector, uint offset) =>
 			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Call_ptr1632 : Code.Call_ptr1616, selector, offset));
-		}
 
 		/// <summary>jmp selector:offset instruction.</summary>
-		public void jmp(ushort selector, uint offset) {
+		public void jmp(ushort selector, uint offset) =>
 			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Jmp_ptr1632 : Code.Jmp_ptr1616, selector, offset));
-		}
 
 		/// <summary>xlatb instruction.</summary>
 		public void xlatb() {

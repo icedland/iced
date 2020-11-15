@@ -229,14 +229,11 @@ namespace Iced.Intel {
 		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
-		public static Decoder Create(int bitness, CodeReader reader, DecoderOptions options = DecoderOptions.None) {
-			switch (bitness) {
-			case 16:
-			case 32:
-			case 64: return new Decoder(reader, options, bitness);
-			default: throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
-		}
+		public static Decoder Create(int bitness, CodeReader reader, DecoderOptions options = DecoderOptions.None) =>
+			bitness switch {
+				16 or 32 or 64 => new Decoder(reader, options, bitness),
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
 
 		/// <summary>
 		/// Creates a decoder
@@ -1165,7 +1162,7 @@ after_imm_loop:
 			/// <summary>
 			/// Gets the current instruction
 			/// </summary>
-			public Instruction Current => this.instruction; // Can't use `readonly ref`
+			public Instruction Current => instruction; // Can't use `readonly ref`
 			Instruction IEnumerator<Instruction>.Current => Current;
 			object IEnumerator.Current => Current;
 

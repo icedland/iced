@@ -784,13 +784,12 @@ pub(super) struct OpCodeHandler_VEX_WHV {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
 	code_r: u32,
-	code_m: u32,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_VEX_WHV {
 	pub(super) fn new(base_reg: Register, code: u32) -> Self {
-		Self { decode: OpCodeHandler_VEX_WHV::decode, has_modrm: true, base_reg, code_r: code, code_m: code }
+		Self { decode: OpCodeHandler_VEX_WHV::decode, has_modrm: true, base_reg, code_r: code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
