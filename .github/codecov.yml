@@ -5,10 +5,15 @@ coverage:
   status:
     project:
       default:
+        target: 0%
+        threshold: 0%
+        base: auto 
+        flags: 
+          - unit
         informational: true
   precision: 2
   round: down
-  range: "70...100"
+  range: "0...100"
 
 parsers:
   gcov:
