@@ -7,8 +7,8 @@ coverage:
       default:
         target: 0%
         threshold: 0%
-        base: auto 
-        flags: 
+        base: auto
+        flags:
           - unit
         informational: true
   precision: 2
