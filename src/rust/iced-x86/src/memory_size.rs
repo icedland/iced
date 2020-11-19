@@ -193,7 +193,6 @@ mod info {
 		is_broadcast: bool,
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 	impl MemorySizeInfo {
 		/// Gets the [`MemorySize`] value
 		///

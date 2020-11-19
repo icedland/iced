@@ -140,7 +140,6 @@ fn fix_constant_offsets(co: &mut ConstantOffsets, orig_len: usize, new_len: usiz
 	}
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 fn verify_constant_offsets(expected: &ConstantOffsets, actual: &ConstantOffsets) {
 	assert_eq!(expected.immediate_offset(), actual.immediate_offset());
 	assert_eq!(expected.immediate_size(), actual.immediate_size());
@@ -157,7 +156,7 @@ fn slice_u8_to_string(bytes: &[u8]) -> String {
 	let mut s = String::with_capacity(bytes.len() * 3 - 1);
 	for b in bytes {
 		if !s.is_empty() {
-			s.push_str(" ");
+			s.push(' ');
 		}
 		write!(s, "{:02X}", b).unwrap();
 	}

@@ -40,7 +40,6 @@ pub struct ConstantOffsets {
 	pad2: u8,
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 impl ConstantOffsets {
 	/// The offset of the displacement, if any
 	#[cfg_attr(has_must_use, must_use)]

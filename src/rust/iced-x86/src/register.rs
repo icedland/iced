@@ -301,7 +301,6 @@ mod info {
 		size: u16,
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 	impl RegisterInfo {
 		/// Gets the register
 		///

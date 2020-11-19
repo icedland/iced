@@ -1175,15 +1175,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(unused_qualifications)]
 #![warn(unused_results)]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::cognitive_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::manual_strip))] // Not supported if < 1.45.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_like_matches_macro))] // Not supported if < 1.42.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // Not supported if < 1.31.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::clone_on_ref_ptr))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::dbg_macro))]
@@ -1194,20 +1193,27 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::explicit_into_iter_loop))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::explicit_iter_loop))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::fallible_impl_from))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::implicit_saturating_sub))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::large_digit_groups))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::let_unit_value))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::match_bool))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_errors_doc))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::must_use_candidate))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::needless_borrow))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::print_stdout))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::redundant_closure))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::rc_buffer))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::redundant_closure_for_method_calls))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::redundant_closure))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::same_functions_in_if_condition))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::todo))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::unnested_or_patterns))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unreadable_literal))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unused_self))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::useless_let_if_seq))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::useless_transmute))]
 #![cfg_attr(not(feature = "std"), no_std)]
 
 // This should be the only place in the source code that uses no_std

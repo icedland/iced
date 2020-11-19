@@ -741,7 +741,6 @@ impl<'a> Decoder<'a> {
 		unsafe {
 			let data_ptr = self.data_ptr;
 			if data_ptr.offset(1) < self.max_data_ptr {
-				#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 				let result = u16::from_le(ptr::read_unaligned(data_ptr as *const u16)) as usize;
 				self.data_ptr = data_ptr.offset(2);
 				result
@@ -771,7 +770,6 @@ impl<'a> Decoder<'a> {
 		unsafe {
 			let data_ptr = self.data_ptr;
 			if data_ptr.offset(3) < self.max_data_ptr {
-				#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 				let result = u32::from_le(ptr::read_unaligned(data_ptr as *const u32)) as usize;
 				self.data_ptr = data_ptr.offset(4);
 				result

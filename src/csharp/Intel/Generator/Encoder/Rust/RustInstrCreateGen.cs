@@ -640,7 +640,6 @@ namespace Generator.Encoder.Rust {
 					WriteDocs(writer, method, () => WriteDataPanic(writer, method, $"is not 2-16 or not a multiple of 2"));
 					WriteMethodAttributes(writer, method, false);
 					writer.WriteLine(RustConstants.AttributeAllowTrivialCasts);
-					writer.WriteLine(RustConstants.AttributeAllowCastPtrAlignment);
 					writer.Write($"pub fn with_declare_word_slice_u8(");
 					gen.WriteMethodDeclArgs(writer, method);
 					writer.WriteLine(") -> Self {");
@@ -687,7 +686,6 @@ namespace Generator.Encoder.Rust {
 					WriteDocs(writer, method, () => WriteDataPanic(writer, method, $"is not 4-16 or not a multiple of 4"));
 					WriteMethodAttributes(writer, method, false);
 					writer.WriteLine(RustConstants.AttributeAllowTrivialCasts);
-					writer.WriteLine(RustConstants.AttributeAllowCastPtrAlignment);
 					writer.Write($"pub fn with_declare_dword_slice_u8(");
 					gen.WriteMethodDeclArgs(writer, method);
 					writer.WriteLine(") -> Self {");
@@ -734,7 +732,6 @@ namespace Generator.Encoder.Rust {
 					WriteDocs(writer, method, () => WriteDataPanic(writer, method, $"is not 8-16 or not a multiple of 8"));
 					WriteMethodAttributes(writer, method, false);
 					writer.WriteLine(RustConstants.AttributeAllowTrivialCasts);
-					writer.WriteLine(RustConstants.AttributeAllowCastPtrAlignment);
 					writer.Write($"pub fn with_declare_qword_slice_u8(");
 					gen.WriteMethodDeclArgs(writer, method);
 					writer.WriteLine(") -> Self {");

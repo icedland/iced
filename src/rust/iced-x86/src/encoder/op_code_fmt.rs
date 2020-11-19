@@ -294,7 +294,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		if let Some((is_reg_only, rrr, bbb)) = self.get_modrm_info() {
 			self.sb.push_str(if is_reg_only { " 11:" } else { " !(11):" });
 			self.append_bits("rrr", rrr, 3);
-			self.sb.push_str(":");
+			self.sb.push(':');
 			self.append_bits("bbb", bbb, 3);
 		} else {
 			let is_vsib = self.op_code.encoding() == EncodingKind::EVEX && self.has_vsib();

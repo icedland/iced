@@ -40,7 +40,6 @@ namespace Generator {
 		public const string AttributeAllowMissingDebugImplementations = "#[allow(missing_debug_implementations)]";
 		public const string AttributeAllowMissingInlineInPublicItems = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::missing_inline_in_public_items))]";
 		public const string AttributeAllowTrivialCasts = "#[allow(trivial_casts)]";
-		public const string AttributeAllowCastPtrAlignment = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::cast_ptr_alignment))]";
 		public const string AttributeAllowDeadCode = "#[allow(dead_code)]";
 		public const string AttributeWasmBindgen = "#[wasm_bindgen]";
 		public const string AttributeWasmBindgenJsName = "#[wasm_bindgen(js_name = \"{0}\")]";

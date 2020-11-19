@@ -252,7 +252,6 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	verify_constant_offsets(&tc.constant_offsets, &decoder.get_constant_offsets(&instr));
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 fn verify_constant_offsets(expected: &ConstantOffsets, actual: &ConstantOffsets) {
 	assert_eq!(expected.immediate_offset(), actual.immediate_offset());
 	assert_eq!(expected.immediate_size(), actual.immediate_size());

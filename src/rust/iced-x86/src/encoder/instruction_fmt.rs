@@ -492,7 +492,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					OpCodeOperandKind::imm8 | OpCodeOperandKind::imm8sex16 | OpCodeOperandKind::imm8sex32 | OpCodeOperandKind::imm8sex64 => {
 						self.sb.push_str("imm8")
 					}
-					OpCodeOperandKind::imm8_const_1 => self.sb.push_str("1"),
+					OpCodeOperandKind::imm8_const_1 => self.sb.push('1'),
 					OpCodeOperandKind::imm16 => self.sb.push_str("imm16"),
 					OpCodeOperandKind::imm32 | OpCodeOperandKind::imm32sex64 => self.sb.push_str("imm32"),
 					OpCodeOperandKind::imm64 => self.sb.push_str("imm64"),

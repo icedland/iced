@@ -7222,7 +7222,6 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[allow(trivial_casts)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 	pub fn with_declare_word_slice_u8(data: &[u8]) -> Self {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 1) != 0 {
 			panic!();
@@ -7389,7 +7388,6 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[allow(trivial_casts)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 	pub fn with_declare_dword_slice_u8(data: &[u8]) -> Self {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 3) != 0 {
 			panic!();
@@ -7500,7 +7498,6 @@ impl Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[allow(trivial_casts)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 	pub fn with_declare_qword_slice_u8(data: &[u8]) -> Self {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 7) != 0 {
 			panic!();

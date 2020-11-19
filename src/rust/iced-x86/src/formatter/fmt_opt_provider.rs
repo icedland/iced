@@ -59,7 +59,6 @@ pub struct FormatterOperandOptions {
 	flags: u32, // FormatterOperandOptionsFlags
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 impl FormatterOperandOptions {
 	#[cfg(any(feature = "intel", feature = "masm", feature = "nasm"))]
 	#[cfg_attr(has_must_use, must_use)]

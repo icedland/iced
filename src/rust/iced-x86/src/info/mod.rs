@@ -43,7 +43,6 @@ pub struct UsedRegister {
 	access: OpAccess,
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 impl UsedRegister {
 	/// Creates a new instance
 	///
