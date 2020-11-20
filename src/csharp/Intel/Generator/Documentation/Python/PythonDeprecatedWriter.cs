@@ -25,31 +25,20 @@ using Generator.Constants;
 using Generator.Enums;
 using Generator.IO;
 
-namespace Generator.Documentation.RustJS {
-	sealed class RustJSDeprecatedWriter : DeprecatedWriter {
-		readonly IdentifierConverter idConverter;
-
-		public RustJSDeprecatedWriter(IdentifierConverter idConverter) =>
-			this.idConverter = idConverter;
+namespace Generator.Documentation.Python {
+	sealed class PythonDeprecatedWriter : DeprecatedWriter {
+		public PythonDeprecatedWriter(IdentifierConverter idConverter) { }
 
 		public override void WriteDeprecated(FileWriter writer, EnumValue value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
-				var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-				WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+				//TODO:
 			}
 		}
 
 		public override void WriteDeprecated(FileWriter writer, Constant value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
-				var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-				WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+				//TODO:
 			}
-		}
-
-		static void WriteDeprecated(FileWriter writer, string version, string newName) {
-			writer.WriteLine("///");
-			writer.WriteLine("/// ***************************************************");
-			writer.WriteLine($"/// DEPRECATED since {version}: Use {newName} instead");
 		}
 	}
 }

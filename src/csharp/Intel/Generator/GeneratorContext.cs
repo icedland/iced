@@ -75,6 +75,7 @@ namespace Generator {
 		public string CSharpTestsDir { get; }
 		public string RustDir => langDirs[(int)TargetLanguage.Rust];
 		public string RustJSDir => langDirs[(int)TargetLanguage.RustJS];
+		public string PythonDir => langDirs[(int)TargetLanguage.Python];
 		public string GeneratorDir { get; }
 		readonly string[] langDirs;
 
@@ -88,6 +89,7 @@ namespace Generator {
 					TargetLanguage.CSharp => GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced"),
 					TargetLanguage.Rust => GetAndVerifyPath(baseDir, "rust", "iced-x86", "src"),
 					TargetLanguage.RustJS => GetAndVerifyPath(baseDir, "rust", "iced-x86-js", "src"),
+					TargetLanguage.Python => GetAndVerifyPath(baseDir, "rust", "iced-x86-py"),
 					_ => throw new InvalidOperationException(),
 				};
 				langDirs[i] = path;
@@ -106,6 +108,8 @@ namespace Generator {
 		public string GetCSharpTestFilename(params string[] names) => Path.Combine(CSharpTestsDir, Path.Combine(names));
 		public string GetRustFilename(params string[] names) => Path.Combine(RustDir, Path.Combine(names));
 		public string GetRustJSFilename(params string[] names) => Path.Combine(RustJSDir, Path.Combine(names));
+		public string GetPythonPyFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "python", "iced_x86"), Path.Combine(names));
+		public string GetPythonRustFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "src"), Path.Combine(names));
 		public string GetGeneratorFilename(params string[] names) => Path.Combine(GeneratorDir, Path.Combine(names));
 	}
 

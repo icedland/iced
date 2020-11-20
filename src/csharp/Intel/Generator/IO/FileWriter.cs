@@ -52,6 +52,7 @@ namespace Generator.IO {
 				break;
 
 			case TargetLanguage.Other:
+			case TargetLanguage.Python:
 				numberPrefix = "0x";
 				numberByteFormat = "X2";
 				singleLineCommentPrefix = "# ";

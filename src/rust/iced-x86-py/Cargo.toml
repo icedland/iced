@@ -1,0 +1,22 @@
+[package]
+name = "iced-x86-py"
+version = "1.9.1"
+authors = ["0xd4d <de4dot@gmail.com>"]
+edition = "2018"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies.pyo3]
+version = "0.12.3"
+features = ["extension-module"]
+
+[dependencies.iced-x86]
+path = "../iced-x86"
+features = ["db"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3

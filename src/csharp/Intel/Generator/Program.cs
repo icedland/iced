@@ -142,6 +142,7 @@ Options:
         cs (C#)
         rs (Rust)
         rsjs (Rust + JS)
+        py (Python)
 --no-formatter
     Don't include any formatter
 --no-gas
@@ -175,7 +176,7 @@ Options:
 		}
 
 		static bool TryParseCommandLine(string[] args, [NotNullWhen(true)] out CommandLineOptions? options, [NotNullWhen(false)] out string? error) {
-			if (Enum.GetValues(typeof(TargetLanguage)).Length != 4)
+			if (Enum.GetValues(typeof(TargetLanguage)).Length != 5)
 				throw new InvalidOperationException("Enum updated, update help message and this method");
 			options = new CommandLineOptions();
 			for (int i = 0; i < args.Length; i++) {
@@ -203,6 +204,9 @@ Options:
 						break;
 					case "rsjs":
 						options.Languages.Add(TargetLanguage.RustJS);
+						break;
+					case "py":
+						options.Languages.Add(TargetLanguage.Python);
 						break;
 					default:
 						error = $"Unknown language: {value}";
