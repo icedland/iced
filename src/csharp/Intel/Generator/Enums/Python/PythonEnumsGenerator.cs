@@ -98,7 +98,6 @@ namespace Generator.Enums.Python {
 				writer.WriteFileHeader();
 				writer.WriteLine("# pylint: disable=invalid-name");
 				writer.WriteLine("# pylint: disable=line-too-long");
-				writer.WriteLine("# pylint: disable=redefined-builtin");
 				writer.WriteLine("# pylint: disable=too-many-lines");
 				writer.WriteLine();
 				docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);

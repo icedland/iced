@@ -25,7 +25,6 @@
 
 # pylint: disable=invalid-name
 # pylint: disable=line-too-long
-# pylint: disable=redefined-builtin
 # pylint: disable=too-many-lines
 
 """

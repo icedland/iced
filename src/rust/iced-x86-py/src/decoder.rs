@@ -54,7 +54,7 @@ enum DecoderDataRef {
 ///     from iced_x86 import *
 ///
 ///     data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
-///     decoder = Decoder(64, data, DecoderOptions.NONE)
+///     decoder = Decoder(64, data)
 ///     decoder.ip = 0x1234_5678
 ///
 ///     # The decoder is iterable
@@ -69,7 +69,7 @@ enum DecoderDataRef {
 ///     # xacquire lock add dword ptr [rax],5Ah
 ///     # vmovdqu64 zmm18{k3}{z},zmm11
 ///     data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
-///     decoder = Decoder(64, data, DecoderOptions.NONE)
+///     decoder = Decoder(64, data)
 ///     decoder.ip = 0x1234_5678
 ///
 ///     instr1 = decoder.decode()
@@ -97,7 +97,7 @@ enum DecoderDataRef {
 ///
 ///     # lock add esi,ecx   # lock not allowed
 ///     data = b"\xF0\x01\xCE"
-///     decoder = Decoder(64, data, DecoderOptions.NONE)
+///     decoder = Decoder(64, data)
 ///     decoder.ip = 0x1234_5678
 ///     instr = decoder.decode()
 ///     assert instr.code == Code.INVALID
@@ -194,7 +194,7 @@ impl Decoder {
 	///
 	///     # nop and pause
 	///     data = b"\x90\xF3\x90"
-	///     decoder = Decoder(64, data, DecoderOptions.NONE)
+	///     decoder = Decoder(64, data)
 	///     decoder.ip = 0x1234_5678
 	///
 	///     assert decoder.position == 0
@@ -243,7 +243,7 @@ impl Decoder {
 	///
 	///     # nop and an incomplete instruction
 	///     data = b"\x90\xF3\x0F"
-	///     decoder = Decoder(64, data, DecoderOptions.NONE)
+	///     decoder = Decoder(64, data)
 	///     decoder.ip = 0x1234_5678
 	///
 	///     # 3 bytes left to read
@@ -384,8 +384,8 @@ impl Decoder {
 	///
 	///     # nop
 	///     # xor dword ptr [rax-5AA5EDCCh],5Ah
-	///     #                  00  01  02  03  04  05  06
-	///     #                \opc\mrm\displacement___\imm
+	///     #              00  01  02  03  04  05  06
+	///     #            \opc\mrm\displacement___\imm
 	///     data = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A"
 	///     decoder = Decoder(64, data)
 	///     decoder.ip = 0x1234_5678
