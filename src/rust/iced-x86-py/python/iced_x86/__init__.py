@@ -40,6 +40,7 @@ from . import MemorySize
 from . import Mnemonic
 from . import OpKind
 from . import Register
+from . import RflagsBits
 from . import RoundingControl
 
 __all__ = [
@@ -58,5 +59,6 @@ __all__ = [
 	"Mnemonic",
 	"OpKind",
 	"Register",
+	"RflagsBits",
 	"RoundingControl",
 ]

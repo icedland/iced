@@ -1150,7 +1150,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Rounding control (<see cref="SuppressAllExceptions"/> is implied but still returns <see langword="false"/>)
+		/// Rounding control (SAE is implied but <see cref="SuppressAllExceptions"/> still returns <see langword="false"/>)
 		/// or <see cref="RoundingControl.None"/> if the instruction doesn't use it.
 		/// </summary>
 		public RoundingControl RoundingControl {

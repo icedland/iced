@@ -24,9 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Generator.Enums;
-using Generator.Enums.Encoder;
-using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
 namespace Generator.Documentation.Rust {
@@ -221,27 +218,6 @@ namespace Generator.Documentation.Rust {
 					throw new InvalidOperationException();
 				}
 			}
-		}
-
-		static string GetTypeKind(string name) =>
-			name switch {
-				nameof(Code) or nameof(CpuidFeature) or nameof(OpKind) or nameof(Register) or nameof(RepPrefixKind) => "enum",
-				"BlockEncoder" or "ConstantOffsets" or "Instruction" or "RelocInfo" or "SymbolResult" => "struct",
-				_ => throw new InvalidOperationException(),
-			};
-
-		static string GetMethodNameOnly(string name) {
-			int index = name.IndexOf('(', StringComparison.Ordinal);
-			if (index < 0)
-				return name;
-			return name[0..index];
-		}
-
-		static string TranslateMethodName(string name) {
-			const string GetPattern = "Get";
-			if (name.StartsWith(GetPattern, StringComparison.Ordinal))
-				return name[GetPattern.Length..];
-			return name;
 		}
 	}
 }

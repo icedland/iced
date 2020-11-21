@@ -1421,9 +1421,9 @@ impl Default for CpuidFeature {
 #[allow(missing_debug_implementations)]
 #[cfg(feature = "instr_info")]
 pub struct RflagsBits;
-#[allow(missing_docs)]
 #[cfg(feature = "instr_info")]
 impl RflagsBits {
+	/// No bit is set
 	pub const NONE: u32 = 0x0000_0000;
 	/// `RFLAGS.OF`
 	pub const OF: u32 = 0x0000_0001;

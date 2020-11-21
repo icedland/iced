@@ -29,78 +29,70 @@
 # pylint: disable=too-many-lines
 
 """
-Instruction condition code (used by ``Jcc``, ``SETcc``, ``CMOVcc``, ``LOOPcc``)
+``RFLAGS`` bits, FPU condition code bits and misc bits (``UIF``) supported by the instruction info code
 """
 
 from typing import List
 
-NONE: int = 0
+NONE: int = 0x0000_0000
 """
-The instruction doesn't have a condition code
+No bit is set
 """
-O: int = 1
+OF: int = 0x0000_0001
 """
-Overflow (``OF=1``)
+``RFLAGS.OF``
 """
-NO: int = 2
+SF: int = 0x0000_0002
 """
-Not overflow (``OF=0``)
+``RFLAGS.SF``
 """
-B: int = 3
+ZF: int = 0x0000_0004
 """
-Below (unsigned) (``CF=1``)
+``RFLAGS.ZF``
 """
-AE: int = 4
+AF: int = 0x0000_0008
 """
-Above or equal (unsigned) (``CF=0``)
+``RFLAGS.AF``
 """
-E: int = 5
+CF: int = 0x0000_0010
 """
-Equal / zero (``ZF=1``)
+``RFLAGS.CF``
 """
-NE: int = 6
+PF: int = 0x0000_0020
 """
-Not equal / zero (``ZF=0``)
+``RFLAGS.PF``
 """
-BE: int = 7
+DF: int = 0x0000_0040
 """
-Below or equal (unsigned) (``CF=1 or ZF=1``)
+``RFLAGS.DF``
 """
-A: int = 8
+IF: int = 0x0000_0080
 """
-Above (unsigned) (``CF=0 and ZF=0``)
+``RFLAGS.IF``
 """
-S: int = 9
+AC: int = 0x0000_0100
 """
-Signed (``SF=1``)
+``RFLAGS.AC``
 """
-NS: int = 10
+UIF: int = 0x0000_0200
 """
-Not signed (``SF=0``)
+``UIF``
 """
-P: int = 11
+C0: int = 0x0000_0400
 """
-Parity (``PF=1``)
+FPU status word bit ``C0``
 """
-NP: int = 12
+C1: int = 0x0000_0800
 """
-Not parity (``PF=0``)
+FPU status word bit ``C1``
 """
-L: int = 13
+C2: int = 0x0000_1000
 """
-Less (signed) (``SF!=OF``)
+FPU status word bit ``C2``
 """
-GE: int = 14
+C3: int = 0x0000_2000
 """
-Greater than or equal (signed) (``SF=OF``)
-"""
-LE: int = 15
-"""
-Less than or equal (signed) (``ZF=1 or SF!=OF``)
-"""
-G: int = 16
-"""
-Greater (signed) (``ZF=0 and SF=OF``)
+FPU status word bit ``C3``
 """
 
 __all__: List[str] = []

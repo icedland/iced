@@ -2114,7 +2114,7 @@ impl Instruction {
 		self.0.set_merging_masking(newValue)
 	}
 
-	/// Gets the rounding control (a [`RoundingControl`] enum value) ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// Gets the rounding control (a [`RoundingControl`] enum value) (SAE is implied but [`suppressAllExceptions`] still returns `false`)
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
 	/// [`RoundingControl`]: enum.RoundingControl.html
@@ -2126,7 +2126,7 @@ impl Instruction {
 		iced_to_rounding_control(self.0.rounding_control())
 	}
 
-	/// Sets the rounding control (a [`RoundingControl`] enum value) ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// Sets the rounding control (a [`RoundingControl`] enum value) (SAE is implied but [`suppressAllExceptions`] still returns `false`)
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
 	/// [`RoundingControl`]: enum.RoundingControl.html

@@ -47,6 +47,8 @@ namespace Generator {
 
 		protected string ToScreamingSnakeCase(string name) =>
 			name switch {
+				"Fxsave_512Byte" => "FXSAVE_512BYTE",
+				"Fxsave64_512Byte" => "FXSAVE64_512BYTE",
 				"Cmpxchg486A" => "CMPXCHG486A",
 				"NoMPFX_0FBC" => "NO_MPFX_0FBC",
 				"NoMPFX_0FBD" => "NO_MPFX_0FBD",
@@ -163,21 +165,15 @@ namespace Generator {
 	sealed class PythonIdentifierConverter : IdentifierConverter {
 		public static IdentifierConverter Create() => new PythonIdentifierConverter();
 		PythonIdentifierConverter() { }
-		public override string Type(string name) => Replace(name);
+		public override string Type(string name) => name;
 		public override string Field(string name) => "__" + ToSnakeCase(name);
-		// ALL CAPS is what's recommended but that will look fugly
-		public override string EnumField(string name) => Replace(name);
+		public override string EnumField(string name) => ToScreamingSnakeCase(name);
 		public override string PropertyDoc(string name) => ToSnakeCase(name);
-		public override string MethodDoc(string name) => ToSnakeCase(name) + "()";
+		public override string MethodDoc(string name) => ToSnakeCase(name);
 		public override string Method(string name) => ToSnakeCase(name);
 		public override string Constant(string name) => ToScreamingSnakeCase(name);
 		public override string Static(string name) => ToScreamingSnakeCase(name);
 		public override string Namespace(string name) => ToSnakeCase(name);
 		public override string Argument(string name) => ToSnakeCase(name);
-		static string Replace(string name) =>
-			name switch {
-				"None" => "Nothing",
-				_ => name,
-			};
 	}
 }

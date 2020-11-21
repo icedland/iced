@@ -32,7 +32,6 @@ namespace Generator.Enums.Python {
 	sealed class PythonEnumsGenerator : EnumsGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, FullEnumFileInfo?> toFullFileInfo;
-		readonly PythonDocCommentWriter docWriter;
 		readonly DeprecatedWriter deprecatedWriter;
 
 		sealed class FullEnumFileInfo {
@@ -44,7 +43,6 @@ namespace Generator.Enums.Python {
 		public PythonEnumsGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
 			idConverter = PythonIdentifierConverter.Create();
-			docWriter = new PythonDocCommentWriter(idConverter, ".");
 			deprecatedWriter = new PythonDeprecatedWriter(idConverter);
 
 			var dirs = generatorContext.Types.Dirs;
@@ -82,7 +80,7 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.OpKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpKind.py")));
 			toFullFileInfo.Add(TypeIds.Register, new FullEnumFileInfo(dirs.GetPythonPyFilename("Register.py")));
 			//toFullFileInfo.Add(TypeIds.RepPrefixKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("RepPrefixKind.py")));
-			//toFullFileInfo.Add(TypeIds.RflagsBits, new FullEnumFileInfo(dirs.GetPythonPyFilename("RflagsBits.py")));
+			toFullFileInfo.Add(TypeIds.RflagsBits, new FullEnumFileInfo(dirs.GetPythonPyFilename("RflagsBits.py")));
 			toFullFileInfo.Add(TypeIds.RoundingControl, new FullEnumFileInfo(dirs.GetPythonPyFilename("RoundingControl.py")));
 			//toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(dirs.GetPythonPyFilename("TupleType.py")));
 		}
@@ -95,26 +93,29 @@ namespace Generator.Enums.Python {
 		}
 
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
+			var docWriter = new PythonDocCommentWriter(idConverter, isInRootModule: false, ".");
 			using (var writer = new FileWriter(TargetLanguage.Python, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
-				docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
-				writer.WriteLine();
 				writer.WriteLine("# pylint: disable=invalid-name");
 				writer.WriteLine("# pylint: disable=line-too-long");
 				writer.WriteLine("# pylint: disable=redefined-builtin");
 				writer.WriteLine("# pylint: disable=too-many-lines");
 				writer.WriteLine();
+				docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+				writer.WriteLine();
 				writer.WriteLine("from typing import List");
 				writer.WriteLine();
 
-				WriteEnumCore(writer, enumType);
+				WriteEnumCore(writer, enumType, docWriter);
 
 				writer.WriteLine();
 				writer.WriteLine(@"__all__: List[str] = []");
 			}
 		}
 
-		void WriteEnumCore(FileWriter writer, EnumType enumType) {
+		void WriteEnumCore(FileWriter writer, EnumType enumType, PythonDocCommentWriter docWriter) {
+			bool mustHaveDocs = enumType.TypeId != TypeIds.Register && enumType.TypeId != TypeIds.Mnemonic;
+			bool uppercaseRawName = PythonUtils.UppercaseEnum(enumType.TypeId.Id1);
 			var firstVersion = new Version(1, 9, 1);
 			// *****************************************************************************
 			// For PERF reasons, we do NOT use Enums. They're incredibly slow to load!
@@ -124,9 +125,23 @@ namespace Generator.Enums.Python {
 			foreach (var value in enumType.Values) {
 				if (value.DeprecatedInfo.IsDeprecated && value.DeprecatedInfo.Version < firstVersion)
 					continue;
+
+				var docs = value.Documentation;
+				// Sphinx doesn't include the public enum items (global vars in a module) if they're not documented
+				if (string.IsNullOrEmpty(docs)) {
+					if (mustHaveDocs)
+						throw new InvalidOperationException();
+					docs = "<no docs>";
+				}
+
 				var numStr = enumType.IsFlags ? NumberFormatter.FormatHexUInt32WithSep(value.Value) : value.Value.ToString();
-				writer.WriteLine($"{value.Name(idConverter)}: int = {numStr}");
-				docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+				string valueName;
+				if (uppercaseRawName)
+					valueName = value.RawName.ToUpperInvariant();
+				else
+					valueName = value.Name(idConverter);
+				writer.WriteLine($"{valueName}: int = {numStr}");
+				docWriter.WriteSummary(writer, docs, enumType.RawName);
 				deprecatedWriter.WriteDeprecated(writer, value);
 			}
 		}

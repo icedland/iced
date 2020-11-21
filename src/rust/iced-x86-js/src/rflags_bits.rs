@@ -28,8 +28,8 @@ use wasm_bindgen::prelude::*;
 /// `RFLAGS` bits, FPU condition code bits and misc bits (`UIF`) supported by the instruction info code
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[allow(missing_docs)]
 pub enum RflagsBits {
+	/// No bit is set
 	None = 0x0000_0000,
 	/// `RFLAGS.OF`
 	OF = 0x0000_0001,

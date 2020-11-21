@@ -23,6 +23,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using Generator.Enums.Encoder;
+using Generator.Enums.InstructionInfo;
+using Generator.Enums;
 
 namespace Generator.Documentation {
 	abstract class DocCommentWriter {
@@ -141,6 +144,27 @@ namespace Generator.Documentation {
 			if (i < 0)
 				return type;
 			return type[(i + 1)..];
+		}
+
+		protected static string GetTypeKind(string name) =>
+			name switch {
+				nameof(Code) or nameof(CpuidFeature) or nameof(OpKind) or nameof(Register) or nameof(RepPrefixKind) => "enum",
+				"BlockEncoder" or "ConstantOffsets" or "Instruction" or "RelocInfo" or "SymbolResult" => "struct",
+				_ => throw new InvalidOperationException(),
+			};
+
+		protected static string GetMethodNameOnly(string name) {
+			int index = name.IndexOf('(', StringComparison.Ordinal);
+			if (index < 0)
+				return name;
+			return name[0..index];
+		}
+
+		protected static string TranslateMethodName(string name) {
+			const string GetPattern = "Get";
+			if (name.StartsWith(GetPattern, StringComparison.Ordinal))
+				return name[GetPattern.Length..];
+			return name;
 		}
 	}
 }

@@ -1702,7 +1702,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the rounding control ([`suppress_all_exceptions()`] is implied but still returns `false`)
+	/// Gets the rounding control (SAE is implied but [`suppress_all_exceptions()`] still returns `false`)
 	/// or [`RoundingControl::None`] if the instruction doesn't use it.
 	///
 	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions
@@ -1713,7 +1713,7 @@ impl Instruction {
 		unsafe { mem::transmute(((self.code_flags >> CodeFlags::ROUNDING_CONTROL_SHIFT) & CodeFlags::ROUNDING_CONTROL_MASK) as u8) }
 	}
 
-	/// Sets the rounding control ([`suppress_all_exceptions()`] is implied but still returns `false`)
+	/// Sets the rounding control (SAE is implied but [`suppress_all_exceptions()`] still returns `false`)
 	/// or [`RoundingControl::None`] if the instruction doesn't use it.
 	///
 	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions

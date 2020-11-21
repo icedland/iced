@@ -27,6 +27,7 @@ namespace Generator.Enums.InstructionInfo {
 	[Enum("RflagsBits", Documentation = "#(c:RFLAGS)# bits, FPU condition code bits and misc bits (#(c:UIF)#) supported by the instruction info code", Flags = true, NoInitialize = true, Public = true)]
 	[Flags]
 	enum RflagsBits {
+		[Comment("No bit is set")]
 		None	= 0,
 		[Comment("#(c:RFLAGS.OF)#")]
 		OF		= 0x00000001,

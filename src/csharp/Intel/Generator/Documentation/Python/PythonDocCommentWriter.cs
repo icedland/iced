@@ -25,15 +25,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Generator.Enums;
-using Generator.Enums.Encoder;
-using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
 namespace Generator.Documentation.Python {
 	sealed class PythonDocCommentWriter : DocCommentWriter {
+		const string PYTHON_PACKAGE_NAME = "iced_x86";
 		readonly IdentifierConverter idConverter;
+		readonly bool isInRootModule;
 		readonly string typeSeparator;
 		readonly StringBuilder sb;
+		int summaryLineNumber;
+		bool hasColonText;
 
 		static readonly Dictionary<string, string> toTypeInfo = new Dictionary<string, string>(StringComparer.Ordinal) {
 			{ "bcd", "bcd" },
@@ -60,8 +62,9 @@ namespace Generator.Documentation.Python {
 			{ "u512", "u512" },
 		};
 
-		public PythonDocCommentWriter(IdentifierConverter idConverter, string typeSeparator = ".") {
+		public PythonDocCommentWriter(IdentifierConverter idConverter, bool isInRootModule, string typeSeparator = ".") {
 			this.idConverter = idConverter;
+			this.isInRootModule = isInRootModule;
 			this.typeSeparator = typeSeparator;
 			sb = new StringBuilder();
 		}
@@ -86,19 +89,25 @@ namespace Generator.Documentation.Python {
 			var s = GetStringAndReset();
 			if (s.Length == 0 && !writeEmpty)
 				return;
+			if (summaryLineNumber == 0 && hasColonText) {
+				// The first line has type info and it's everything before the colon
+				s = ": " + s;
+			}
+			summaryLineNumber++;
+			hasColonText = false;
 			if (s.Length == 0)
 				writer.WriteLineNoIndent(s);
 			else
 				writer.WriteLine(s);
 		}
 
-		public void BeginWrite(FileWriter writer) {
+		void BeginWrite(FileWriter writer) {
 			if (sb.Length != 0)
 				throw new InvalidOperationException();
 			writer.WriteLine(@"""""""");
 		}
 
-		public void EndWrite(FileWriter writer) {
+		void EndWrite(FileWriter writer) {
 			RawWriteWithComment(writer, false);
 			writer.WriteLine(@"""""""");
 		}
@@ -106,25 +115,17 @@ namespace Generator.Documentation.Python {
 		public void WriteSummary(FileWriter writer, string? documentation, string typeName) {
 			if (string.IsNullOrEmpty(documentation))
 				return;
+			summaryLineNumber = 0;
+			hasColonText = false;
 			BeginWrite(writer);
 			WriteDoc(writer, documentation, typeName);
 			EndWrite(writer);
 		}
 
-		public void Write(string text) =>
+		void Write(string text) =>
 			sb.Append(text);
 
-		public void WriteLine(FileWriter writer, string text) {
-			Write(text);
-			RawWriteWithComment(writer);
-		}
-
-		public void WriteDocLine(FileWriter writer, string text, string typeName) {
-			WriteDoc(writer, text, typeName);
-			RawWriteWithComment(writer);
-		}
-
-		public void WriteDoc(FileWriter writer, string documentation, string typeName) {
+		void WriteDoc(FileWriter writer, string documentation, string typeName) {
 			foreach (var info in GetTokens(typeName, documentation)) {
 				string t, m;
 				switch (info.kind) {
@@ -135,6 +136,7 @@ namespace Generator.Documentation.Python {
 					RawWriteWithComment(writer);
 					break;
 				case TokenKind.String:
+					hasColonText |= info.value.Contains(':', StringComparison.Ordinal);
 					sb.Append(Escape(info.value));
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
@@ -156,46 +158,43 @@ namespace Generator.Documentation.Python {
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.Type:
-					sb.Append("``");
+					sb.Append(":class:`");
+					if (!isInRootModule && info.value != typeName)
+						sb.Append(PYTHON_PACKAGE_NAME + ".");
 					t = RemoveNamespace(idConverter.Type(info.value));
 					sb.Append(t);
-					sb.Append("``");
+					sb.Append('`');
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.EnumFieldReference:
 				case TokenKind.FieldReference:
-					sb.Append("``");
-					t = idConverter.Type(info.value);
-					if (info.value != typeName) {
-						sb.Append(t);
-						sb.Append(typeSeparator);
+					sb.Append(":class:`");
+					WriteTypeName(typeName, info.value);
+					if (info.kind == TokenKind.EnumFieldReference) {
+						if (PythonUtils.UppercaseEnum(info.value))
+							m = info.value2.ToUpperInvariant();
+						else
+							m = idConverter.EnumField(info.value2);
 					}
-					m = info.kind == TokenKind.EnumFieldReference ? idConverter.EnumField(info.value2) : idConverter.Field(info.value2);
+					else
+						m = idConverter.Field(info.value2);
 					sb.Append(m);
-					sb.Append("``");
+					sb.Append('`');
 					break;
 				case TokenKind.Property:
-					sb.Append("``");
-					t = idConverter.Type(info.value);
-					if (info.value != typeName) {
-						sb.Append(t);
-						sb.Append(typeSeparator);
-					}
+					sb.Append(":class:`");
+					WriteTypeName(typeName, info.value);
 					m = idConverter.PropertyDoc(info.value2);
 					sb.Append(m);
-					sb.Append("``");
+					sb.Append('`');
 					break;
 				case TokenKind.Method:
-					sb.Append("``");
-					t = idConverter.Type(info.value);
-					if (info.value != typeName) {
-						sb.Append(t);
-						sb.Append(typeSeparator);
-					}
+					sb.Append(":class:`");
+					WriteTypeName(typeName, info.value);
 					m = idConverter.MethodDoc(TranslateMethodName(info.value2));
 					sb.Append(m);
-					sb.Append("``");
+					sb.Append('`');
 					break;
 				default:
 					throw new InvalidOperationException();
@@ -203,25 +202,13 @@ namespace Generator.Documentation.Python {
 			}
 		}
 
-		static string GetTypeKind(string name) =>
-			name switch {
-				nameof(Code) or nameof(CpuidFeature) or nameof(OpKind) or nameof(Register) or nameof(RepPrefixKind) => "enum",
-				"BlockEncoder" or "ConstantOffsets" or "Instruction" or "RelocInfo" or "SymbolResult" => "struct",
-				_ => throw new InvalidOperationException(),
-			};
-
-		static string GetMethodNameOnly(string name) {
-			int index = name.IndexOf('(', StringComparison.Ordinal);
-			if (index < 0)
-				return name;
-			return name[0..index];
-		}
-
-		static string TranslateMethodName(string name) {
-			const string GetPattern = "Get";
-			if (name.StartsWith(GetPattern, StringComparison.Ordinal))
-				return name[GetPattern.Length..];
-			return name;
+		void WriteTypeName(string thisTypeName, string currentTypeName) {
+			if (!isInRootModule && currentTypeName != thisTypeName)
+				sb.Append(PYTHON_PACKAGE_NAME + ".");
+			if (currentTypeName != thisTypeName) {
+				sb.Append(idConverter.Type(currentTypeName));
+				sb.Append(typeSeparator);
+			}
 		}
 	}
 }

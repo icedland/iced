@@ -39,63 +39,75 @@ enum DecoderDataRef {
 /// Decodes 16/32/64-bit x86 instructions
 ///
 /// Args:
-/// 	bitness (:class:`int`): 16, 32 or 64
-/// 	data (:class:`bytes` | :class:`bytearray`): Data to decode. For best PERF, use :class:`bytes` since it's immutable and nothing gets copied.
-/// 	options (:class:`int`): (default = 0) Decoder options, eg. `DecoderOptions.NO_INVALID_CHECK | DecoderOptions.AMD`
+///     bitness (int): 16, 32 or 64
+///     data (bytes, bytearray): Data to decode. For best PERF, use :class:`bytes` since it's immutable and nothing gets copied.
+///     options (int): (default = :class:`DecoderOptions.NONE`) Decoder options, eg. :class:`DecoderOptions.NO_INVALID_CHECK` | :class:`DecoderOptions.AMD`
 ///
 /// Raises:
-/// 	ValueError: If `bitness` is invalid
-/// 	TypeError: If `data` is not a supported type
+///     ValueError: If `bitness` is invalid
+///     TypeError: If `data` is not a supported type
 ///
 /// Examples:
 ///
-/// ```
-/// use iced_x86::*;
+/// .. code-block:: python
 ///
-/// // xchg ah,[rdx+rsi+16h]
-/// // xacquire lock add dword ptr [rax],5Ah
-/// // vmovdqu64 zmm18{k3}{z},zmm11
-/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";
-/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NOTHING);
-/// decoder.set_ip(0x1234_5678);
+///     from iced_x86 import *
 ///
-/// let instr1 = decoder.decode();
-/// assert_eq!(Code::Xchg_rm8_r8, instr1.code());
-/// assert_eq!(Mnemonic::Xchg, instr1.mnemonic());
-/// assert_eq!(4, instr1.len());
+///     data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
+///     decoder = Decoder(64, data, DecoderOptions.NONE)
+///     decoder.ip = 0x1234_5678
 ///
-/// let instr2 = decoder.decode();
-/// assert_eq!(Code::Add_rm32_imm8, instr2.code());
-/// assert_eq!(Mnemonic::Add, instr2.mnemonic());
-/// assert_eq!(5, instr2.len());
+///     # The decoder is iterable
+///     for instr in decoder:
+///         print(f"Decoded: IP=0x{instr.ip:X}: {instr}")
 ///
-/// let instr3 = decoder.decode();
-/// assert_eq!(Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512, instr3.code());
-/// assert_eq!(Mnemonic::Vmovdqu64, instr3.mnemonic());
-/// assert_eq!(6, instr3.len());
-/// ```
+/// .. code-block:: python
 ///
-/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
-/// Pass in `DecoderOptions::NO_INVALID_CHECK` to the constructor and the decoder
+///     from iced_x86 import *
+///
+///     # xchg ah,[rdx+rsi+16h]
+///     # xacquire lock add dword ptr [rax],5Ah
+///     # vmovdqu64 zmm18{k3}{z},zmm11
+///     data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
+///     decoder = Decoder(64, data, DecoderOptions.NONE)
+///     decoder.ip = 0x1234_5678
+///
+///     instr1 = decoder.decode()
+///     assert instr1.code == Code.XCHG_RM8_R8
+///     assert instr1.mnemonic == Mnemonic.XCHG
+///     assert instr1.len == 4
+///
+///     instr2 = decoder.decode()
+///     assert instr2.code == Code.ADD_RM32_IMM8
+///     assert instr2.mnemonic == Mnemonic.ADD
+///     assert instr2.len == 5
+///
+///     instr3 = decoder.decode()
+///     assert instr3.code == Code.EVEX_VMOVDQU64_ZMM_K1Z_ZMMM512
+///     assert instr3.mnemonic == Mnemonic.VMOVDQU64
+///     assert instr3.len == 6
+///
+/// It's sometimes useful to decode some invalid instructions, eg. ``lock add esi,ecx``.
+/// Pass in :class:`DecoderOptions.NO_INVALID_CHECK` to the constructor and the decoder
 /// will decode some invalid encodings.
 ///
-/// ```
-/// use iced_x86::*;
+/// .. code-block:: python
 ///
-/// // lock add esi,ecx   ; lock not allowed
-/// let bytes = b"\xF0\x01\xCE";
-/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NOTHING);
-/// decoder.set_ip(0x1234_5678);
-/// let instr = decoder.decode();
-/// assert_eq!(Code::INVALID, instr.code());
+///     from iced_x86 import *
 ///
-/// // We want to decode some instructions with invalid encodings
-/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NO_INVALID_CHECK);
-/// decoder.set_ip(0x1234_5678);
-/// let instr = decoder.decode();
-/// assert_eq!(Code::Add_rm32_r32, instr.code());
-/// assert!(instr.has_lock_prefix());
-/// ```
+///     # lock add esi,ecx   # lock not allowed
+///     data = b"\xF0\x01\xCE"
+///     decoder = Decoder(64, data, DecoderOptions.NONE)
+///     decoder.ip = 0x1234_5678
+///     instr = decoder.decode()
+///     assert instr.code == Code.INVALID
+///
+///     # We want to decode some instructions with invalid encodings
+///     decoder = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK)
+///     decoder.ip = 0x1234_5678
+///     instr = decoder.decode()
+///     assert instr.code == Code.ADD_RM32_R32
+///     assert instr.has_lock_prefix
 #[pyclass(module = "iced_x86_py")]
 #[text_signature = "(bitness, data, options, /)"]
 pub struct Decoder {
@@ -138,10 +150,10 @@ impl Decoder {
 		Ok(Decoder { data_ref, decoder })
 	}
 
-	/// The current `IP`/`EIP`/`RIP` value, see also `position`
+	/// int: The current ``IP``/``EIP``/``RIP`` value, see also :class:`Decoder.position`
 	///
 	/// Note:
-	/// 	The setter only updates the IP value, it does not change the data position, use the `position` setter to change the position.
+	///     The setter only updates the IP value, it does not change the data position, use the :class:`Decoder.position` setter to change the position.
 	#[getter]
 	fn ip(&self) -> u64 {
 		self.decoder.ip()
@@ -152,13 +164,13 @@ impl Decoder {
 		self.decoder.set_ip(new_value);
 	}
 
-	/// Gets the bitness (16, 32 or 64)
+	/// int: Gets the bitness (16, 32 or 64)
 	#[getter]
 	fn bitness(&self) -> u32 {
 		self.decoder.bitness()
 	}
 
-	/// Gets the max value that can be written to `position`.
+	/// int: Gets the max value that can be written to :class:`Decoder.position`.
 	///
 	/// This is the size of the data that gets decoded to instructions and it's the length of the data that was passed to the constructor.
 	#[getter]
@@ -166,91 +178,98 @@ impl Decoder {
 		self.decoder.max_position()
 	}
 
-	/// The current data position, which is the index into the data passed to the constructor.
+	/// int: The current data position, which is the index into the data passed to the constructor.
 	///
-	/// This value is always <= `max_position`. When `position` == `max_position`, it's not possible to decode more
-	/// instructions and `can_decode` returns `False`.
+	/// This value is always <= :class:`Decoder.max_position`. When :class:`Decoder.position` == :class:`Decoder.max_position`, it's not possible to decode more
+	/// instructions and :class:`Decoder.can_decode` returns ``False``.
 	///
 	/// Raises:
-	/// 	TODO SomeError: If the new position is invalid.
+	///     ValueError: If the new position is invalid.
 	///
 	/// Examples:
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// .. code-block:: python
 	///
-	/// // nop and pause
-	/// let bytes = b"\x90\xF3\x90";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NOTHING);
-	/// decoder.set_ip(0x1234_5678);
+	///     from iced_x86 import *
 	///
-	/// assert_eq!(0, decoder.position());
-	/// assert_eq!(3, decoder.max_position());
-	/// let instr = decoder.decode();
-	/// assert_eq!(1, decoder.position());
-	/// assert_eq!(Code::Nopd, instr.code());
+	///     # nop and pause
+	///     data = b"\x90\xF3\x90"
+	///     decoder = Decoder(64, data, DecoderOptions.NONE)
+	///     decoder.ip = 0x1234_5678
 	///
-	/// let instr = decoder.decode();
-	/// assert_eq!(3, decoder.position());
-	/// assert_eq!(Code::Pause, instr.code());
+	///     assert decoder.position == 0
+	///     assert decoder.max_position == 3
+	///     instr = decoder.decode()
+	///     assert decoder.position == 1
+	///     assert instr.code == Code.NOPD
 	///
-	/// // Start all over again
-	/// decoder.set_position(0);
-	/// assert_eq!(0, decoder.position());
-	/// assert_eq!(Code::Nopd, decoder.decode().code());
-	/// assert_eq!(Code::Pause, decoder.decode().code());
-	/// assert_eq!(3, decoder.position());
-	/// ```
+	///     instr = decoder.decode()
+	///     assert decoder.position == 3
+	///     assert instr.code == Code.PAUSE
+	///
+	///     # Start all over again
+	///     decoder.position = 0
+	///     assert decoder.position == 0
+	///     assert decoder.decode().code == Code.NOPD
+	///     assert decoder.decode().code == Code.PAUSE
+	///     assert decoder.position == 3
 	#[getter]
 	fn position(&self) -> usize {
 		self.decoder.position()
 	}
 
 	#[setter]
-	fn set_position(&mut self, new_pos: usize) {
-		self.decoder.set_position(new_pos);
+	fn set_position(&mut self, new_pos: usize) -> PyResult<()> {
+		if new_pos > self.decoder.max_position() {
+			Err(PyValueError::new_err("Invalid position"))
+		} else {
+			Ok(self.decoder.set_position(new_pos))
+		}
 	}
 
-	/// Returns `True` if there's at least one more byte to decode.
+	/// bool: Returns ``True`` if there's at least one more byte to decode.
 	///
 	/// It doesn't verify that the next instruction is valid, it only checks if there's
-	/// at least one more byte to read. See also `position` and `max_position`.
+	/// at least one more byte to read. See also :class:`Decoder.position` and :class:`Decoder.max_position`.
 	///
-	/// It's not required to call this method. If this method returns `False`, then `decode_out()`
-	/// and `decode()` will return an instruction whose `code` == `Code.INVALID`.
+	/// It's not required to call this method. If this method returns ``False``, then :class:`Decoder.decode_out`
+	/// and :class:`Decoder.decode` will return an instruction whose :class:`Instruction.code` == :class:`Code.INVALID`.
 	///
 	/// Examples:
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// .. code-block:: python
 	///
-	/// // nop and an incomplete instruction
-	/// let bytes = b"\x90\xF3\x0F";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NOTHING);
-	/// decoder.set_ip(0x1234_5678);
+	///     from iced_x86 import *
 	///
-	/// // 3 bytes left to read
-	/// assert!(decoder.can_decode());
-	/// let instr = decoder.decode();
-	/// assert_eq!(Code::Nopd, instr.code());
+	///     # nop and an incomplete instruction
+	///     data = b"\x90\xF3\x0F"
+	///     decoder = Decoder(64, data, DecoderOptions.NONE)
+	///     decoder.ip = 0x1234_5678
 	///
-	/// // 2 bytes left to read
-	/// assert!(decoder.can_decode());
-	/// let instr = decoder.decode();
-	/// // Not enough bytes left to decode a full instruction
-	/// assert_eq!(Code::INVALID, instr.code());
+	///     # 3 bytes left to read
+	///     assert decoder.can_decode
+	///     instr = decoder.decode()
+	///     assert instr.code == Code.NOPD
 	///
-	/// // 0 bytes left to read
-	/// assert!(!decoder.can_decode());
-	/// ```
+	///     # 2 bytes left to read
+	///     assert decoder.can_decode
+	///     instr = decoder.decode()
+	///     # Not enough bytes left to decode a full instruction
+	///     assert decoder.last_error == DecoderError.NO_MORE_BYTES
+	///     assert instr.code == Code.INVALID
+	///     assert not instr
+	///     assert instr.is_invalid
+	///
+	///     # 0 bytes left to read
+	///     assert not decoder.can_decode
 	#[getter]
 	fn can_decode(&self) -> bool {
 		self.decoder.can_decode()
 	}
 
-	/// Gets the last decoder error (a `DecoderError` enum value).
+	/// :class:`DecoderError`: Gets the last decoder error (a :class:`DecoderError` enum value).
 	///
-	/// Unless you need to know the reason it failed, it's better to check `instruction.is_invalid` or `if not instruction:`.
+	/// Unless you need to know the reason it failed, it's better to check :class:`Instruction.is_invalid` or ``if not instruction:``.
 	#[getter]
 	fn last_error(&self) -> u32 {
 		self.decoder.last_error() as u32
@@ -258,40 +277,43 @@ impl Decoder {
 
 	/// Decodes and returns the next instruction.
 	///
-	/// See also `decode_out(instruction)` which avoids copying the decoded instruction to the caller's return variable.
-	/// See also `last_error`.
+	/// See also :class:`Decoder.decode_out` which avoids copying the decoded instruction to the caller's return variable.
+	/// See also :class:`Decoder.last_error`.
+	///
+	/// Returns:
+	///		Instruction: The next instruction
 	///
 	/// Examples:
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// .. code-block:: python
 	///
-	/// // xrelease lock add [rax],ebx
-	/// let bytes = b"\xF0\xF3\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NOTHING);
-	/// decoder.set_ip(0x1234_5678);
-	/// let instr = decoder.decode();
+	///     from iced_x86 import *
 	///
-	/// assert_eq!(Code::Add_rm32_r32, instr.code());
-	/// assert_eq!(Mnemonic::Add, instr.mnemonic());
-	/// assert_eq!(4, instr.len());
-	/// assert_eq!(2, instr.op_count());
+	///     # xrelease lock add [rax],ebx
+	///     data = b"\xF0\xF3\x01\x18"
+	///     decoder = Decoder(64, data)
+	///     decoder.ip = 0x1234_5678
+	///     instr = decoder.decode()
 	///
-	/// assert_eq!(OpKind::Memory, instr.op0_kind());
-	/// assert_eq!(Register::RAX, instr.memory_base());
-	/// assert_eq!(Register::None, instr.memory_index());
-	/// assert_eq!(1, instr.memory_index_scale());
-	/// assert_eq!(0, instr.memory_displacement());
-	/// assert_eq!(Register::DS, instr.memory_segment());
-	/// assert_eq!(Register::None, instr.segment_prefix());
-	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
+	///     assert instr.code == Code.ADD_RM32_R32
+	///     assert instr.mnemonic == Mnemonic.ADD
+	///     assert instr.len == 4
+	///     assert instr.op_count == 2
 	///
-	/// assert_eq!(OpKind::Register, instr.op1_kind());
-	/// assert_eq!(Register::EBX, instr.op1_register());
+	///     assert instr.op0_kind == OpKind.MEMORY
+	///     assert instr.memory_base == Register.RAX
+	///     assert instr.memory_index == Register.NONE
+	///     assert instr.memory_index_scale == 1
+	///     assert instr.memory_displacement == 0
+	///     assert instr.memory_segment == Register.DS
+	///     assert instr.segment_prefix == Register.NONE
+	///     assert instr.memory_size == MemorySize.UINT32
 	///
-	/// assert!(instr.has_lock_prefix());
-	/// assert!(instr.has_xrelease_prefix());
-	/// ```
+	///     assert instr.op1_kind == OpKind.REGISTER
+	///     assert instr.op1_register == Register.EBX
+	///
+	///     assert instr.has_lock_prefix
+	///     assert instr.has_xrelease_prefix
 	#[text_signature = "($self, /)"]
 	fn decode(&mut self) -> Instruction {
 		Instruction { instr: self.decoder.decode() }
@@ -299,46 +321,46 @@ impl Decoder {
 
 	/// Decodes the next instruction.
 	///
-	/// The difference between this method and `decode()` is that this method doesn't need to copy the result to
-	/// the caller's return variable (saves 32-bytes of copying).
+	/// The difference between this method and :class:`Decoder.decode` is that this method doesn't need to
+	/// allocate a new instruction since it overwrites the input instruction.
 	///
-	/// See also `last_error`.
+	/// See also :class:`Decoder.last_error`.
 	///
 	/// Args:
-	/// 	instruction (:class:`Instruction`): Updated with the decoded instruction. All fields are initialized (it's an `out` argument)
+	///     instruction (:class:`Instruction`): Updated with the decoded instruction. All fields are initialized (it's an ``out`` argument)
 	///
 	/// Examples:
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// .. code-block:: python
 	///
-	/// // xrelease lock add [rax],ebx
-	/// let bytes = b"\xF0\xF3\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NOTHING);
-	/// decoder.set_ip(0x1234_5678);
-	/// let mut instr = Instruction::default();
-	/// decoder.decode_out(&mut instr);
+	///     from iced_x86 import *
 	///
-	/// assert_eq!(Code::Add_rm32_r32, instr.code());
-	/// assert_eq!(Mnemonic::Add, instr.mnemonic());
-	/// assert_eq!(4, instr.len());
-	/// assert_eq!(2, instr.op_count());
+	///     # xrelease lock add [rax],ebx
+	///     data = b"\xF0\xF3\x01\x18"
+	///     decoder = Decoder(64, data)
+	///     decoder.ip = 0x1234_5678
+	///     instr = Instruction()
+	///     decoder.decode_out(instr)
 	///
-	/// assert_eq!(OpKind::Memory, instr.op0_kind());
-	/// assert_eq!(Register::RAX, instr.memory_base());
-	/// assert_eq!(Register::None, instr.memory_index());
-	/// assert_eq!(1, instr.memory_index_scale());
-	/// assert_eq!(0, instr.memory_displacement());
-	/// assert_eq!(Register::DS, instr.memory_segment());
-	/// assert_eq!(Register::None, instr.segment_prefix());
-	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
+	///     assert instr.code == Code.ADD_RM32_R32
+	///     assert instr.mnemonic == Mnemonic.ADD
+	///     assert instr.len == 4
+	///     assert instr.op_count == 2
 	///
-	/// assert_eq!(OpKind::Register, instr.op1_kind());
-	/// assert_eq!(Register::EBX, instr.op1_register());
+	///     assert instr.op0_kind == OpKind.MEMORY
+	///     assert instr.memory_base == Register.RAX
+	///     assert instr.memory_index == Register.NONE
+	///     assert instr.memory_index_scale == 1
+	///     assert instr.memory_displacement == 0
+	///     assert instr.memory_segment == Register.DS
+	///     assert instr.segment_prefix == Register.NONE
+	///     assert instr.memory_size == MemorySize.UINT32
 	///
-	/// assert!(instr.has_lock_prefix());
-	/// assert!(instr.has_xrelease_prefix());
-	/// ```
+	///     assert instr.op1_kind == OpKind.REGISTER
+	///     assert instr.op1_register == Register.EBX
+	///
+	///     assert instr.has_lock_prefix
+	///     assert instr.has_xrelease_prefix
 	#[text_signature = "($self, instruction, /)"]
 	fn decode_out(&mut self, instruction: &mut Instruction) {
 		self.decoder.decode_out(&mut instruction.instr)
@@ -349,35 +371,38 @@ impl Decoder {
 	/// The caller can check if there are any relocations at those addresses.
 	///
 	/// Args:
-	/// 	instruction (:class:`Instruction`): The latest instruction that was decoded by this decoder
+	///     instruction (:class:`Instruction`): The latest instruction that was decoded by this decoder
+	///
+	/// Returns:
+	///		int: TODO: change int to ConstantOffsets
 	///
 	/// Examples:
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// .. code-block:: python
 	///
-	/// // nop
-	/// // xor dword ptr [rax-5AA5EDCCh],5Ah
-	/// //                  00  01  02  03  04  05  06
-	/// //                \opc\mrm\displacement___\imm
-	/// let bytes = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NOTHING);
-	/// decoder.set_ip(0x1234_5678);
-	/// assert_eq!(Code::Nopd, decoder.decode().code());
-	/// let instr = decoder.decode();
-	/// let co = decoder.get_constant_offsets(&instr);
+	///     from iced_x86 import *
 	///
-	/// assert!(co.has_displacement());
-	/// assert_eq!(2, co.displacement_offset());
-	/// assert_eq!(4, co.displacement_size());
-	/// assert!(co.has_immediate());
-	/// assert_eq!(6, co.immediate_offset());
-	/// assert_eq!(1, co.immediate_size());
-	/// // It's not an instruction with two immediates (e.g. enter)
-	/// assert!(!co.has_immediate2());
-	/// assert_eq!(0, co.immediate_offset2());
-	/// assert_eq!(0, co.immediate_size2());
-	/// ```
+	///     # nop
+	///     # xor dword ptr [rax-5AA5EDCCh],5Ah
+	///     #                  00  01  02  03  04  05  06
+	///     #                \opc\mrm\displacement___\imm
+	///     data = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A"
+	///     decoder = Decoder(64, data)
+	///     decoder.ip = 0x1234_5678
+	///     assert decoder.decode().code == Code.NOPD
+	///     instr = decoder.decode()
+	///     co = decoder.get_constant_offsets(instr)
+	///
+	///     assert co.has_displacement
+	///     assert co.displacement_offset == 2
+	///     assert co.displacement_size == 4
+	///     assert co.has_immediate
+	///     assert co.immediate_offset == 6
+	///     assert co.immediate_size == 1
+	///     # It's not an instruction with two immediates (e.g. enter)
+	///     assert not co.has_immediate2
+	///     assert co.immediate_offset2 == 0
+	///     assert co.immediate_size2 == 0
 	#[text_signature = "($self, instruction, /)"]
 	fn get_constant_offsets(&self, _instruction: &Instruction) {
 		//TODO:
