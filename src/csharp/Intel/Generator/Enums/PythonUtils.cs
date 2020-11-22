@@ -25,7 +25,8 @@ namespace Generator.Enums {
 	static class PythonUtils {
 		public static bool UppercaseEnum(string name) =>
 			name switch {
-				"Code" or "CpuidFeature" or "EncodingKind" or "Mnemonic" or "Register" or "RflagsBits" => true,
+				"Code" or "CpuidFeature" or "EncodingKind" or "Mnemonic" or "Register" or "RflagsBits" or
+				"OpCodeOperandKind" or "OpCodeTableKind" or "TupleType" => true,
 				_ => false,
 			};
 	}

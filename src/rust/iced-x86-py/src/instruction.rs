@@ -21,8 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rounding_control};
-use super::iced_constants::IcedConstants;
+use crate::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rounding_control};
+use crate::iced_constants::IcedConstants;
+use crate::op_code_info::OpCodeInfo;
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::class::PySequenceProtocol;
@@ -1921,12 +1922,14 @@ impl Instruction {
 }
 
 #[pymethods]
-#[cfg(xxxxxxx)] //TODO: REMOVE
 impl Instruction {
 	/// Gets the :class:`OpCodeInfo`
-	#[getter]
-	fn op_code(&self) -> &'static OpCodeInfo {
-		self.instr.op_code()
+	///
+	/// Returns:
+	///     :class:`OpCodeInfo`: Op code info
+	#[text_signature = "(/)"]
+	fn op_code(&self) -> PyResult<OpCodeInfo> {
+		OpCodeInfo::new(self.instr.code() as u32)
 	}
 }
 

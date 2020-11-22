@@ -38,17 +38,17 @@ namespace Generator.Enums.Encoder {
 		mem_mpx,
 		[Comment("Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced and must not be RIP relative")]
 		mem_mib,
-		[Comment("Memory (modrm), vsib32, xmm registers")]
+		[Comment("Memory (modrm), vsib32, #(c:XMM)# registers")]
 		mem_vsib32x,
-		[Comment("Memory (modrm), vsib64, xmm registers")]
+		[Comment("Memory (modrm), vsib64, #(c:XMM)# registers")]
 		mem_vsib64x,
-		[Comment("Memory (modrm), vsib32, ymm registers")]
+		[Comment("Memory (modrm), vsib32, #(c:YMM)# registers")]
 		mem_vsib32y,
-		[Comment("Memory (modrm), vsib64, ymm registers")]
+		[Comment("Memory (modrm), vsib64, #(c:YMM)# registers")]
 		mem_vsib64y,
-		[Comment("Memory (modrm), vsib32, zmm registers")]
+		[Comment("Memory (modrm), vsib32, #(c:ZMM)# registers")]
 		mem_vsib32z,
-		[Comment("Memory (modrm), vsib64, zmm registers")]
+		[Comment("Memory (modrm), vsib64, #(c:ZMM)# registers")]
 		mem_vsib64z,
 		[Comment("8-bit GPR or memory")]
 		r8_or_mem,
@@ -62,17 +62,17 @@ namespace Generator.Enums.Encoder {
 		r64_or_mem,
 		[Comment("64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced")]
 		r64_or_mem_mpx,
-		[Comment("MM register or memory")]
+		[Comment("#(c:MM)# register or memory")]
 		mm_or_mem,
-		[Comment("XMM register or memory")]
+		[Comment("#(c:XMM)# register or memory")]
 		xmm_or_mem,
-		[Comment("YMM register or memory")]
+		[Comment("#(c:YMM)# register or memory")]
 		ymm_or_mem,
-		[Comment("ZMM register or memory")]
+		[Comment("#(c:ZMM)# register or memory")]
 		zmm_or_mem,
-		[Comment("BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced")]
+		[Comment("#(c:BND)# register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced")]
 		bnd_or_mem_mpx,
-		[Comment("K register or memory")]
+		[Comment("#(c:K)# register or memory")]
 		k_or_mem,
 		[Comment("8-bit GPR encoded in the #(c:reg)# field of the modrm byte")]
 		r8_reg,
@@ -108,83 +108,83 @@ namespace Generator.Enums.Encoder {
 		r64_vvvv,
 		[Comment("Segment register encoded in the #(c:reg)# field of the modrm byte")]
 		seg_reg,
-		[Comment("K register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:K)# register encoded in the #(c:reg)# field of the modrm byte")]
 		k_reg,
-		[Comment("K register (+1) encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:K)# register (+1) encoded in the #(c:reg)# field of the modrm byte")]
 		kp1_reg,
-		[Comment("K register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
+		[Comment("#(c:K)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		k_rm,
-		[Comment("K register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:K)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		k_vvvv,
-		[Comment("MM register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:MM)# register encoded in the #(c:reg)# field of the modrm byte")]
 		mm_reg,
-		[Comment("MM register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
+		[Comment("#(c:MM)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		mm_rm,
-		[Comment("XMM register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:XMM)# register encoded in the #(c:reg)# field of the modrm byte")]
 		xmm_reg,
-		[Comment("XMM register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
+		[Comment("#(c:XMM)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		xmm_rm,
-		[Comment("XMM register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:XMM)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		xmm_vvvv,
-		[Comment("XMM register (+3) encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:XMM)# register (+3) encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		xmmp3_vvvv,
-		[Comment("XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)")]
+		[Comment("#(c:XMM)# register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only #(c:XMM0)#-#(c:XMM15)#)")]
 		xmm_is4,
-		[Comment("XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)")]
+		[Comment("#(c:XMM)# register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only #(c:XMM0)#-#(c:XMM15)#)")]
 		xmm_is5,
-		[Comment("YMM register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:YMM)# register encoded in the #(c:reg)# field of the modrm byte")]
 		ymm_reg,
-		[Comment("YMM register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
+		[Comment("#(c:YMM)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		ymm_rm,
-		[Comment("YMM register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:YMM)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		ymm_vvvv,
-		[Comment("YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)")]
+		[Comment("#(c:YMM)# register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only #(c:YMM0)#-#(c:YMM15)#)")]
 		ymm_is4,
-		[Comment("YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)")]
+		[Comment("#(c:YMM)# register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only #(c:YMM0)#-#(c:YMM15)#)")]
 		ymm_is5,
-		[Comment("ZMM register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:ZMM)# register encoded in the #(c:reg)# field of the modrm byte")]
 		zmm_reg,
-		[Comment("ZMM register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
+		[Comment("#(c:ZMM)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		zmm_rm,
-		[Comment("ZMM register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:ZMM)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		zmm_vvvv,
-		[Comment("ZMM register (+3) encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:ZMM)# register (+3) encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		zmmp3_vvvv,
-		[Comment("CR register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:CR)# register encoded in the #(c:reg)# field of the modrm byte")]
 		cr_reg,
-		[Comment("DR register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:DR)# register encoded in the #(c:reg)# field of the modrm byte")]
 		dr_reg,
-		[Comment("TR register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:TR)# register encoded in the #(c:reg)# field of the modrm byte")]
 		tr_reg,
-		[Comment("BND register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:BND)# register encoded in the #(c:reg)# field of the modrm byte")]
 		bnd_reg,
-		[Comment("ES register")]
+		[Comment("#(c:ES)# register")]
 		es,
-		[Comment("CS register")]
+		[Comment("#(c:CS)# register")]
 		cs,
-		[Comment("SS register")]
+		[Comment("#(c:SS)# register")]
 		ss,
-		[Comment("DS register")]
+		[Comment("#(c:DS)# register")]
 		ds,
-		[Comment("FS register")]
+		[Comment("#(c:FS)# register")]
 		fs,
-		[Comment("GS register")]
+		[Comment("#(c:GS)# register")]
 		gs,
-		[Comment("AL register")]
+		[Comment("#(c:AL)# register")]
 		al,
-		[Comment("CL register")]
+		[Comment("#(c:CL)# register")]
 		cl,
-		[Comment("AX register")]
+		[Comment("#(c:AX)# register")]
 		ax,
-		[Comment("DX register")]
+		[Comment("#(c:DX)# register")]
 		dx,
-		[Comment("EAX register")]
+		[Comment("#(c:EAX)# register")]
 		eax,
-		[Comment("RAX register")]
+		[Comment("#(c:RAX)# register")]
 		rax,
-		[Comment("ST0 register")]
+		[Comment("#(c:ST(0))# register")]
 		st0,
-		[Comment("ST(i) register encoded in the low 3 bits of the opcode")]
+		[Comment("#(c:ST(i))# register encoded in the low 3 bits of the opcode")]
 		sti_opcode,
 		[Comment("4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg. #(c:VPERMIL2PS)#)")]
 		imm4_m2z,
@@ -236,11 +236,11 @@ namespace Generator.Enums.Encoder {
 		brdisp_4,
 		[Comment("Memory (modrm) and the sib byte must be present")]
 		sibmem,
-		[Comment("TMM register encoded in the #(c:reg)# field of the modrm byte")]
+		[Comment("#(c:TMM)# register encoded in the #(c:reg)# field of the modrm byte")]
 		tmm_reg,
-		[Comment("TMM register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
+		[Comment("#(c:TMM)# register encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		tmm_rm,
-		[Comment("TMM register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
+		[Comment("#(c:TMM)# register encoded in the the #(c:V'vvvv)# field (VEX/EVEX/XOP)")]
 		tmm_vvvv,
 	}
 }

@@ -70,19 +70,19 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.EncodingKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("EncodingKind.py")));
 			toFullFileInfo.Add(TypeIds.FlowControl, new FullEnumFileInfo(dirs.GetPythonPyFilename("FlowControl.py")));
 			//toFullFileInfo.Add(TypeIds.FormatMnemonicOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("FormatMnemonicOptions.py")));
-			//toFullFileInfo.Add(TypeIds.MandatoryPrefix, new FullEnumFileInfo(dirs.GetPythonPyFilename("MandatoryPrefix.py")));
+			toFullFileInfo.Add(TypeIds.MandatoryPrefix, new FullEnumFileInfo(dirs.GetPythonPyFilename("MandatoryPrefix.py")));
 			toFullFileInfo.Add(TypeIds.MemorySize, new FullEnumFileInfo(dirs.GetPythonPyFilename("MemorySize.py")));
 			//toFullFileInfo.Add(TypeIds.MemorySizeOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("MemorySizeOptions.py")));
 			toFullFileInfo.Add(TypeIds.Mnemonic, new FullEnumFileInfo(dirs.GetPythonPyFilename("Mnemonic.py")));
 			//toFullFileInfo.Add(TypeIds.OpAccess, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpAccess.py")));
-			//toFullFileInfo.Add(TypeIds.OpCodeOperandKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeOperandKind.py")));
-			//toFullFileInfo.Add(TypeIds.OpCodeTableKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeTableKind.py")));
+			toFullFileInfo.Add(TypeIds.OpCodeOperandKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeOperandKind.py")));
+			toFullFileInfo.Add(TypeIds.OpCodeTableKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeTableKind.py")));
 			toFullFileInfo.Add(TypeIds.OpKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpKind.py")));
 			toFullFileInfo.Add(TypeIds.Register, new FullEnumFileInfo(dirs.GetPythonPyFilename("Register.py")));
 			//toFullFileInfo.Add(TypeIds.RepPrefixKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("RepPrefixKind.py")));
 			toFullFileInfo.Add(TypeIds.RflagsBits, new FullEnumFileInfo(dirs.GetPythonPyFilename("RflagsBits.py")));
 			toFullFileInfo.Add(TypeIds.RoundingControl, new FullEnumFileInfo(dirs.GetPythonPyFilename("RoundingControl.py")));
-			//toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(dirs.GetPythonPyFilename("TupleType.py")));
+			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(dirs.GetPythonPyFilename("TupleType.py")));
 		}
 
 		public override void Generate(EnumType enumType) {

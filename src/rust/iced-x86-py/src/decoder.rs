@@ -42,7 +42,7 @@ enum DecoderDataRef {
 /// Args:
 ///     bitness (int): 16, 32 or 64
 ///     data (bytes, bytearray): Data to decode. For best PERF, use :class:`bytes` since it's immutable and nothing gets copied.
-///     options (int): (default = :class:`DecoderOptions.NONE`) Decoder options, eg. :class:`DecoderOptions.NO_INVALID_CHECK` | :class:`DecoderOptions.AMD`
+///     options (:class:`DecoderOptions`): (default = :class:`DecoderOptions.NONE`) Decoder options, eg. :class:`DecoderOptions.NO_INVALID_CHECK` | :class:`DecoderOptions.AMD`
 ///
 /// Raises:
 ///     ValueError: If `bitness` is invalid

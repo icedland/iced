@@ -79,10 +79,12 @@ mod decoder;
 mod enum_utils;
 mod iced_constants;
 mod instruction;
+mod op_code_info;
 
 use constant_offsets::ConstantOffsets;
 use decoder::Decoder;
 use instruction::{FpuStackIncrementInfo, Instruction};
+use op_code_info::OpCodeInfo;
 use pyo3::prelude::*;
 
 #[pymodule]
@@ -91,6 +93,7 @@ fn iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
 	m.add_class::<Decoder>()?;
 	m.add_class::<FpuStackIncrementInfo>()?;
 	m.add_class::<Instruction>()?;
+	m.add_class::<OpCodeInfo>()?;
 
 	Ok(())
 }
