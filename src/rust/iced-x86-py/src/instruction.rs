@@ -834,7 +834,7 @@ impl Instruction {
 
 	/// :class:`Register`: Gets operand #0's register value (a :class:`Register` enum value).
 	///
-	/// Use this method if operand #0 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and `op_register`
+	/// Use this method if operand #0 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and :class:`Instruction.op_register`
 	#[getter]
 	fn op0_register(&self) -> u32 {
 		self.instr.op0_register() as u32
@@ -848,7 +848,7 @@ impl Instruction {
 
 	/// :class:`Register`: Gets operand #1's register value (a :class:`Register` enum value).
 	///
-	/// Use this method if operand #1 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and `op_register`
+	/// Use this method if operand #1 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and :class:`Instruction.op_register`
 	#[getter]
 	fn op1_register(&self) -> u32 {
 		self.instr.op1_register() as u32
@@ -862,7 +862,7 @@ impl Instruction {
 
 	/// :class:`Register`: Gets operand #2's register value (a :class:`Register` enum value).
 	///
-	/// Use this method if operand #2 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and `op_register`
+	/// Use this method if operand #2 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and :class:`Instruction.op_register`
 	#[getter]
 	fn op2_register(&self) -> u32 {
 		self.instr.op2_register() as u32
@@ -876,7 +876,7 @@ impl Instruction {
 
 	/// :class:`Register`: Gets operand #3's register value (a :class:`Register` enum value).
 	///
-	/// Use this method if operand #3 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and `op_register`
+	/// Use this method if operand #3 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and :class:`Instruction.op_register`
 	#[getter]
 	fn op3_register(&self) -> u32 {
 		self.instr.op3_register() as u32
@@ -890,7 +890,7 @@ impl Instruction {
 
 	/// :class:`Register`: Gets operand #4's register value (a :class:`Register` enum value).
 	///
-	/// Use this method if operand #4 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and `op_register`
+	/// Use this method if operand #4 (:class:`Instruction.op0_kind`) has kind :class:`OpKind.REGISTER`, see :class:`Instruction.op_count` and :class:`Instruction.op_register`
 	#[getter]
 	fn op4_register(&self) -> u32 {
 		self.instr.op4_register() as u32
@@ -1223,7 +1223,7 @@ impl Instruction {
 		self.instr.get_declare_qword_value(index)
 	}
 
-	/// bool: Checks if this is a VSIB instruction, see also `is_vsib32`, `is_vsib64`
+	/// bool: Checks if this is a VSIB instruction, see also :class:`Instruction.is_vsib32`, :class:`Instruction.is_vsib64`
 	#[getter]
 	fn is_vsib(&self) -> bool {
 		self.instr.is_vsib()
