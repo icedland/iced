@@ -74,20 +74,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::useless_let_if_seq)]
 #![warn(clippy::useless_transmute)]
 
+mod constant_offsets;
 mod decoder;
 mod enum_utils;
 mod iced_constants;
 mod instruction;
 
+use constant_offsets::ConstantOffsets;
 use decoder::Decoder;
 use instruction::{FpuStackIncrementInfo, Instruction};
 use pyo3::prelude::*;
 
 #[pymodule]
 fn iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
+	m.add_class::<ConstantOffsets>()?;
 	m.add_class::<Decoder>()?;
-	m.add_class::<Instruction>()?;
 	m.add_class::<FpuStackIncrementInfo>()?;
+	m.add_class::<Instruction>()?;
 
 	Ok(())
 }

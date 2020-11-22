@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use crate::constant_offsets::ConstantOffsets;
 use crate::instruction::Instruction;
 use core::slice;
 use pyo3::class::iter::IterNextOutput;
@@ -375,7 +376,7 @@ impl Decoder {
 	///     instruction (:class:`Instruction`): The latest instruction that was decoded by this decoder
 	///
 	/// Returns:
-	///		int: TODO: change int to ConstantOffsets
+	///		ConstantOffsets: Offsets and sizes of immediates
 	///
 	/// Examples:
 	///
@@ -405,8 +406,8 @@ impl Decoder {
 	///     assert co.immediate_offset2 == 0
 	///     assert co.immediate_size2 == 0
 	#[text_signature = "($self, instruction, /)"]
-	fn get_constant_offsets(&self, _instruction: &Instruction) {
-		//TODO:
+	fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
+		ConstantOffsets { offsets: self.decoder.get_constant_offsets(&instruction.instr) }
 	}
 }
 

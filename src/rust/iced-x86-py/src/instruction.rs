@@ -1308,8 +1308,7 @@ impl Instruction {
 ///     `increment` (int): (``i32``) Used if `writes_top` is ``True``. Value added to ``TOP``.
 ///     `conditional` (bool): ``True`` if it's a conditional push/pop (eg. ``FPTAN`` or ``FSINCOS``)
 ///     `writes_top` (bool): ``True`` if ``TOP`` is written (it's a conditional/unconditional push/pop, ``FNSAVE``, ``FLDENV``, etc)
-#[pyclass]
-#[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Hash)]
+#[pyclass(module = "iced_x86_py")]
 #[text_signature = "(increment, conditional, writes_top, /)"]
 pub struct FpuStackIncrementInfo {
 	info: iced_x86::FpuStackIncrementInfo,

@@ -8,6 +8,7 @@ Welcome to iced-x86's documentation!
 	:caption: Classes:
 
 .. toctree::
+	src/ConstantOffsets
 	src/FpuStackIncrementInfo
 	:maxdepth: 2
 	:caption: Misc Classes:

@@ -22,12 +22,13 @@
 #
 
 # pylint: disable=line-too-long
+# pylint: disable=no-name-in-module
 
 """
 iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder written in Rust with Python bindings
 """
 
-from .iced_x86_py import Decoder, Instruction, FpuStackIncrementInfo	# pylint: disable=no-name-in-module
+from .iced_x86_py import ConstantOffsets, Decoder, FpuStackIncrementInfo, Instruction
 from . import Code
 from . import CodeSize
 from . import ConditionCode
@@ -44,9 +45,10 @@ from . import RflagsBits
 from . import RoundingControl
 
 __all__ = [
+	"ConstantOffsets",
 	"Decoder",
-	"Instruction",
 	"FpuStackIncrementInfo",
+	"Instruction",
 	"Code",
 	"CodeSize",
 	"ConditionCode",
