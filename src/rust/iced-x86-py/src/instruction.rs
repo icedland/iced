@@ -109,7 +109,7 @@ impl Instruction {
 		self.instr.eq_all_bits(&other.instr)
 	}
 
-	/// int: Gets the 16-bit IP of the instruction
+	/// int: (``u16``) Gets the 16-bit IP of the instruction
 	#[getter]
 	fn ip16(&self) -> u16 {
 		self.instr.ip16()
@@ -120,7 +120,7 @@ impl Instruction {
 		self.instr.set_ip16(new_value)
 	}
 
-	/// int: Gets the 32-bit IP of the instruction
+	/// int: (``u32``) Gets the 32-bit IP of the instruction
 	#[getter]
 	fn ip32(&self) -> u32 {
 		self.instr.ip32()
@@ -131,7 +131,7 @@ impl Instruction {
 		self.instr.set_ip32(new_value)
 	}
 
-	/// int: Gets the 64-bit IP of the instruction
+	/// int: (``u64``) Gets the 64-bit IP of the instruction
 	#[getter]
 	fn ip(&self) -> u64 {
 		self.instr.ip()
@@ -142,7 +142,7 @@ impl Instruction {
 		self.instr.set_ip(new_value)
 	}
 
-	/// int: Gets the 16-bit IP of the next instruction
+	/// int: (``u16``) Gets the 16-bit IP of the next instruction
 	#[getter]
 	fn next_ip16(&self) -> u16 {
 		self.instr.next_ip16()
@@ -153,7 +153,7 @@ impl Instruction {
 		self.instr.set_next_ip16(new_value)
 	}
 
-	/// int: Gets the 32-bit IP of the next instruction
+	/// int: (``u32``) Gets the 32-bit IP of the next instruction
 	#[getter]
 	fn next_ip32(&self) -> u32 {
 		self.instr.next_ip32()
@@ -164,7 +164,7 @@ impl Instruction {
 		self.instr.set_next_ip32(new_value)
 	}
 
-	/// int: Gets the 64-bit IP of the next instruction
+	/// int: (``u64``) Gets the 64-bit IP of the next instruction
 	#[getter]
 	fn next_ip(&self) -> u64 {
 		self.instr.next_ip()
@@ -231,7 +231,7 @@ impl Instruction {
 		self.instr.op_count()
 	}
 
-	/// int: Gets the length of the instruction, 0-15 bytes.
+	/// int: (``u8``) Gets the length of the instruction, 0-15 bytes.
 	///
 	/// You can also call `len(instr)` to get this value.
 	///
@@ -458,7 +458,7 @@ impl Instruction {
 		self.instr.memory_segment() as u32
 	}
 
-	/// int: Gets the size of the memory displacement in bytes.
+	/// int: (``u8``) Gets the size of the memory displacement in bytes.
 	///
 	/// Valid values are ``0``, ``1`` (16/32/64-bit), ``2`` (16-bit), ``4`` (32-bit), ``8`` (64-bit).
 	///
@@ -499,7 +499,7 @@ impl Instruction {
 		self.instr.memory_size() as u32
 	}
 
-	/// int: Gets the index register scale value, valid values are ``*1``, ``*2``, ``*4``, ``*8``.
+	/// int: (``u8``) Gets the index register scale value, valid values are ``*1``, ``*2``, ``*4``, ``*8``.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.MEMORY`
 	#[getter]
@@ -512,7 +512,7 @@ impl Instruction {
 		self.instr.set_memory_index_scale(new_value)
 	}
 
-	/// int: Gets the memory operand's displacement.
+	/// int: (``u32``) Gets the memory operand's displacement.
 	///
 	/// This should be sign extended to 64 bits if it's 64-bit addressing (see :class:`Instruction.memory_displacement64`).
 	///
@@ -527,7 +527,7 @@ impl Instruction {
 		self.instr.set_memory_displacement(new_value)
 	}
 
-	/// int: Gets the memory operand's displacement sign extended to 64 bits.
+	/// int: (``u64``) Gets the memory operand's displacement sign extended to 64 bits.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.MEMORY`
 	#[getter]
@@ -541,7 +541,7 @@ impl Instruction {
 	///     `operand` (int): Operand number, 0-4
 	///
 	/// Returns:
-	///     int: The immediate
+	///     int: (``u64``) The immediate
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid or not immediate.
@@ -554,7 +554,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `operand` (int): Operand number, 0-4
-	///     `new_value` (int): Immediate
+	///     `new_value` (int): (``i32``) Immediate
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
@@ -567,7 +567,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `operand` (int): Operand number, 0-4
-	///     `new_value` (int): Immediate
+	///     `new_value` (int): (``u32``) Immediate
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
@@ -580,7 +580,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `operand` (int): Operand number, 0-4
-	///     `new_value` (int): Immediate
+	///     `new_value` (int): (``i64``) Immediate
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
@@ -593,7 +593,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `operand` (int): Operand number, 0-4
-	///     `new_value` (int): Immediate
+	///     `new_value` (int): (``u64``) Immediate
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
@@ -602,7 +602,7 @@ impl Instruction {
 		self.instr.set_immediate_u64(operand, new_value)
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``u8``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE8`
 	#[getter]
@@ -615,7 +615,7 @@ impl Instruction {
 		self.instr.set_immediate8(new_value)
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``u8``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE8_2ND`
 	#[getter]
@@ -628,7 +628,7 @@ impl Instruction {
 		self.instr.set_immediate8_2nd(new_value)
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``u16``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE16`
 	#[getter]
@@ -641,7 +641,7 @@ impl Instruction {
 		self.instr.set_immediate16(new_value);
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``u32``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE32`
 	#[getter]
@@ -654,7 +654,7 @@ impl Instruction {
 		self.instr.set_immediate32(new_value);
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``u64``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE64`
 	#[getter]
@@ -667,7 +667,7 @@ impl Instruction {
 		self.instr.set_immediate64(new_value);
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``i16``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE8TO16`
 	#[getter]
@@ -680,7 +680,7 @@ impl Instruction {
 		self.instr.set_immediate8to16(new_value)
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``i32``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE8TO32`
 	#[getter]
@@ -693,7 +693,7 @@ impl Instruction {
 		self.instr.set_immediate8to32(new_value)
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``i64``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE8TO64`
 	#[getter]
@@ -706,7 +706,7 @@ impl Instruction {
 		self.instr.set_immediate8to64(new_value);
 	}
 
-	/// int: Gets the operand's immediate value.
+	/// int: (``i64``) Gets the operand's immediate value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.IMMEDIATE32TO64`
 	#[getter]
@@ -719,7 +719,7 @@ impl Instruction {
 		self.instr.set_immediate32to64(new_value);
 	}
 
-	/// int: Gets the operand's 64-bit address value.
+	/// int: (``u64``) Gets the operand's 64-bit address value.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.MEMORY64`
 	#[getter]
@@ -732,7 +732,7 @@ impl Instruction {
 		self.instr.set_memory_address64(new_value);
 	}
 
-	/// int: Gets the operand's branch target.
+	/// int: (``u16``) Gets the operand's branch target.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.NEAR_BRANCH16`
 	#[getter]
@@ -745,7 +745,7 @@ impl Instruction {
 		self.instr.set_near_branch16(new_value);
 	}
 
-	/// int: Gets the operand's branch target.
+	/// int: (``u32``) Gets the operand's branch target.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.NEAR_BRANCH32`
 	#[getter]
@@ -758,7 +758,7 @@ impl Instruction {
 		self.instr.set_near_branch32(new_value);
 	}
 
-	/// int: Gets the operand's branch target.
+	/// int: (``u64``) Gets the operand's branch target.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.NEAR_BRANCH64`
 	#[getter]
@@ -771,7 +771,7 @@ impl Instruction {
 		self.instr.set_near_branch64(new_value);
 	}
 
-	/// int: Gets the near branch target if it's a ``CALL``/``JMP``/``Jcc`` near branch instruction
+	/// int: (``u64``) Gets the near branch target if it's a ``CALL``/``JMP``/``Jcc`` near branch instruction
 	///
 	/// (i.e., if :class:`Instruction.op0_kind` is :class:`OpKind.NEAR_BRANCH16`, :class:`OpKind.NEAR_BRANCH32` or :class:`OpKind.NEAR_BRANCH64`)
 	#[getter]
@@ -779,7 +779,7 @@ impl Instruction {
 		self.instr.near_branch_target()
 	}
 
-	/// int: Gets the operand's branch target.
+	/// int: (``u16``) Gets the operand's branch target.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.FAR_BRANCH16`
 	#[getter]
@@ -792,7 +792,7 @@ impl Instruction {
 		self.instr.set_far_branch16(new_value);
 	}
 
-	/// int: Gets the operand's branch target.
+	/// int: (``u32``) Gets the operand's branch target.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.FAR_BRANCH32`
 	#[getter]
@@ -805,7 +805,7 @@ impl Instruction {
 		self.instr.set_far_branch32(new_value);
 	}
 
-	/// int: Gets the operand's branch target selector.
+	/// int: (`16``) Gets the operand's branch target selector.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.FAR_BRANCH16` or :class:`OpKind.FAR_BRANCH32`
 	#[getter]
@@ -1026,7 +1026,7 @@ impl Instruction {
 		Ok(self.instr.set_rounding_control(to_rounding_control(new_value)?))
 	}
 
-	/// int: Gets the number of elements in a ``db``/``dw``/``dd``/``dq`` directive.
+	/// int: (``u8``) Gets the number of elements in a ``db``/``dw``/``dd``/``dq`` directive.
 	///
 	/// Can only be called if :class:`Instruction.code` is :class:`Code.DECLAREBYTE`, :class:`Code.DECLAREWORD`, :class:`Code.DECLAREDWORD`, :class:`Code.DECLAREQWORD`
 	#[getter]
@@ -1045,7 +1045,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-15)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``i8``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1060,7 +1060,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-15)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``u8``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1077,7 +1077,7 @@ impl Instruction {
 	///     `index` (int): Index (0-15)
 	///
 	/// Returns:
-	///     int: The value
+	///     int: (``u8``) The value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1092,7 +1092,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-7)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``i16``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1107,7 +1107,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-7)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``u16``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1124,7 +1124,7 @@ impl Instruction {
 	///     `index` (int): Index (0-7)
 	///
 	/// Returns:
-	///     int: The value
+	///     int: (``u16``) The value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1139,7 +1139,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-3)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``i32``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1154,7 +1154,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-3)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``u32``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1171,7 +1171,7 @@ impl Instruction {
 	///     `index` (int): Index (0-3)
 	///
 	/// Returns:
-	///     int: The value
+	///     int: (``u32``) The value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1186,7 +1186,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-1)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``i64``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1201,7 +1201,7 @@ impl Instruction {
 	///
 	/// Args:
 	///     `index` (int): Index (0-1)
-	///     `new_value` (int): New value
+	///     `new_value` (int): (``u64``) New value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1218,7 +1218,7 @@ impl Instruction {
 	///     `index` (int): Index (0-1)
 	///
 	/// Returns:
-	///     int: The value
+	///     int: (``u64``) The value
 	///
 	/// Raises:
 	///     ValueError: If `index` is invalid
@@ -1275,7 +1275,7 @@ impl Instruction {
 		self.instr.is_ip_rel_memory_operand()
 	}
 
-	/// int: Gets the ``RIP``/``EIP`` releative address ((:class:`Instruction.next_ip` or :class:`Instruction.next_ip32`) + :class:`Instruction.memory_displacement`).
+	/// int: (``u64``) Gets the ``RIP``/``EIP`` releative address ((:class:`Instruction.next_ip` or :class:`Instruction.next_ip32`) + :class:`Instruction.memory_displacement`).
 	///
 	/// This method is only valid if there's a memory operand with ``RIP``/``EIP`` relative addressing, see :class:`Instruction.is_ip_rel_memory_operand`
 	#[getter]
@@ -1286,11 +1286,11 @@ impl Instruction {
 	/// Gets the virtual address of a memory operand
 	///
 	/// Args:
-	///     `operand` (int): Operand number, must be a memory operand
+	///     `operand` (int): Operand number, 0-4, must be a memory operand
 	///     `element_index` (int): Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	///
 	/// Returns:
-	///     int, None: TODO:
+	///     int, None: (``u64``) TODO:
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid
@@ -1309,7 +1309,7 @@ impl Instruction {
 /// Contains the FPU ``TOP`` increment, whether it's conditional and whether the instruction writes to ``TOP``
 ///
 /// Args:
-///     `increment` (int): Used if `writes_top` is ``True``. Value added to ``TOP``.
+///     `increment` (int): (``i32``) Used if `writes_top` is ``True``. Value added to ``TOP``.
 ///     `conditional` (bool): ``True`` if it's a conditional push/pop (eg. ``FPTAN`` or ``FSINCOS``)
 ///     `writes_top` (bool): ``True`` if ``TOP`` is written (it's a conditional/unconditional push/pop, ``FNSAVE``, ``FLDENV``, etc)
 #[pyclass]
@@ -1326,7 +1326,7 @@ impl FpuStackIncrementInfo {
 		Self { info: iced_x86::FpuStackIncrementInfo::new(increment, conditional, writes_top) }
 	}
 
-	/// int: Used if :class:`FpuStackIncrementInfo.writes_top` is ``True``. Value added to ``TOP``.
+	/// int: (``i32``) Used if :class:`FpuStackIncrementInfo.writes_top` is ``True``. Value added to ``TOP``.
 	///
 	/// This is negative if it pushes one or more values and positive if it pops one or more values
 	/// and ``0`` if it writes to ``TOP`` (eg. ``FLDENV``, etc) without pushing/popping anything.
@@ -1350,7 +1350,7 @@ impl FpuStackIncrementInfo {
 
 #[pymethods]
 impl Instruction {
-	/// int: Gets the number of bytes added to ``SP``/``ESP``/``RSP`` or 0 if it's not an instruction that pushes or pops data.
+	/// int: (``i32``) Gets the number of bytes added to ``SP``/``ESP``/``RSP`` or 0 if it's not an instruction that pushes or pops data.
 	///
 	/// This method assumes the instruction doesn't change the privilege level (eg. ``IRET/D/Q``). If it's the ``LEAVE``
 	/// instruction, this method returns 0.

@@ -2342,7 +2342,7 @@ impl Instruction {
 	///
 	/// # Arguments
 	///
-	/// * `operand`: Operand number, must be a memory operand
+	/// * `operand`: Operand number, 0-4, must be a memory operand
 	/// * `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register, or `None` for unsupported
 	///    registers.
@@ -2580,7 +2580,7 @@ impl Instruction {
 	///
 	/// # Arguments
 	///
-	/// * `operand`: Operand number, must be a memory operand
+	/// * `operand`: Operand number, 0-4, must be a memory operand
 	/// * `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register.
 	///

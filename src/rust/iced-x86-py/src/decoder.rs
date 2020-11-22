@@ -150,7 +150,7 @@ impl Decoder {
 		Ok(Decoder { data_ref, decoder })
 	}
 
-	/// int: The current ``IP``/``EIP``/``RIP`` value, see also :class:`Decoder.position`
+	/// int: (``u64``) The current ``IP``/``EIP``/``RIP`` value, see also :class:`Decoder.position`
 	///
 	/// Note:
 	///     The setter only updates the IP value, it does not change the data position, use the :class:`Decoder.position` setter to change the position.
@@ -170,7 +170,7 @@ impl Decoder {
 		self.decoder.bitness()
 	}
 
-	/// int: Gets the max value that can be written to :class:`Decoder.position`.
+	/// int: (``usize``) Gets the max value that can be written to :class:`Decoder.position`.
 	///
 	/// This is the size of the data that gets decoded to instructions and it's the length of the data that was passed to the constructor.
 	#[getter]
@@ -178,7 +178,7 @@ impl Decoder {
 		self.decoder.max_position()
 	}
 
-	/// int: The current data position, which is the index into the data passed to the constructor.
+	/// int: (``usize``) The current data position, which is the index into the data passed to the constructor.
 	///
 	/// This value is always <= :class:`Decoder.max_position`. When :class:`Decoder.position` == :class:`Decoder.max_position`, it's not possible to decode more
 	/// instructions and :class:`Decoder.can_decode` returns ``False``.
