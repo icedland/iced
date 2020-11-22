@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rounding_control};
+use super::iced_constants::IcedConstants;
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::class::PySequenceProtocol;
@@ -28,31 +30,6 @@ use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
-
-fn to_register(value: u32) -> PyResult<iced_x86::Register> {
-	//TODO: verify input value
-	Ok(unsafe { core::mem::transmute(value as u8) })
-}
-
-fn to_rounding_control(value: u32) -> PyResult<iced_x86::RoundingControl> {
-	//TODO: verify input value
-	Ok(unsafe { core::mem::transmute(value as u8) })
-}
-
-fn to_code_size(value: u32) -> PyResult<iced_x86::CodeSize> {
-	//TODO: verify input value
-	Ok(unsafe { core::mem::transmute(value as u8) })
-}
-
-fn to_code(value: u32) -> PyResult<iced_x86::Code> {
-	//TODO: verify input value
-	Ok(unsafe { core::mem::transmute(value as u16) })
-}
-
-fn to_op_kind(value: u32) -> PyResult<iced_x86::OpKind> {
-	//TODO: verify input value
-	Ok(unsafe { core::mem::transmute(value as u8) })
-}
 
 /// A 16/32/64-bit x86 instruction. Created by :class:`Decoder` or by ``Instruction::create*()`` methods.
 #[pyclass(module = "iced_x86_py")]
@@ -403,7 +380,7 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_kind(&self, operand: u32) -> PyResult<u32> {
-		if operand < 5 {
+		if operand < IcedConstants::MAX_OP_COUNT as u32 {
 			Ok(self.instr.op_kind(operand) as u32)
 		} else {
 			Err(PyValueError::new_err("Invalid operand"))
@@ -420,7 +397,7 @@ impl Instruction {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, op_kind, /)"]
 	fn set_op_kind(&mut self, operand: u32, op_kind: u32) -> PyResult<()> {
-		if operand < 5 {
+		if operand < IcedConstants::MAX_OP_COUNT as u32 {
 			Ok(self.instr.set_op_kind(operand, to_op_kind(op_kind)?))
 		} else {
 			Err(PyValueError::new_err("Invalid operand"))
@@ -943,7 +920,7 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_register(&self, operand: u32) -> PyResult<u32> {
-		if operand < 5 {
+		if operand < IcedConstants::MAX_OP_COUNT as u32 {
 			Ok(self.instr.op_register(operand) as u32)
 		} else {
 			Err(PyValueError::new_err("Invalid operand"))
@@ -962,7 +939,7 @@ impl Instruction {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, new_value, /)"]
 	fn set_op_register(&mut self, operand: u32, new_value: u32) -> PyResult<()> {
-		if operand < 5 {
+		if operand < IcedConstants::MAX_OP_COUNT as u32 {
 			Ok(self.instr.set_op_register(operand, to_register(new_value)?))
 		} else {
 			Err(PyValueError::new_err("Invalid operand"))

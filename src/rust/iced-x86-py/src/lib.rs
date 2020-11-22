@@ -76,6 +76,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::useless_transmute)]
 
 mod decoder;
+mod enum_utils;
+mod iced_constants;
 mod instruction;
 
 use decoder::Decoder;
