@@ -163,7 +163,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_code_size(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_code_size(to_code_size(new_value)?))
+		self.instr.set_code_size(to_code_size(new_value)?);
+		Ok(())
 	}
 
 	/// bool: Checks if it's an invalid instruction (:class:`Instruction.code` == :class:`Code.INVALID`)
@@ -180,7 +181,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_code(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_code(to_code(new_value)?))
+		self.instr.set_code(to_code(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Mnemonic`: Gets the mnemonic (a :class:`Mnemonic` enum value), see also :class:`Instruction.code`
@@ -299,7 +301,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op0_kind(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op0_kind(to_op_kind(new_value)?))
+		self.instr.set_op0_kind(to_op_kind(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`OpKind`: Gets operand #1's kind (an :class:`OpKind` enum value) if the operand exists (see :class:`Instruction.op_count` and :class:`Instruction.op_kind`)
@@ -310,7 +313,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op1_kind(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op1_kind(to_op_kind(new_value)?))
+		self.instr.set_op1_kind(to_op_kind(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`OpKind`: Gets operand #2's kind (an :class:`OpKind` enum value) if the operand exists (see :class:`Instruction.op_count` and :class:`Instruction.op_kind`)
@@ -321,7 +325,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op2_kind(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op2_kind(to_op_kind(new_value)?))
+		self.instr.set_op2_kind(to_op_kind(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`OpKind`: Gets operand #3's kind (an :class:`OpKind` enum value) if the operand exists (see :class:`Instruction.op_count` and :class:`Instruction.op_kind`)
@@ -332,7 +337,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op3_kind(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op3_kind(to_op_kind(new_value)?))
+		self.instr.set_op3_kind(to_op_kind(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`OpKind`: Gets operand #4's kind (an :class:`OpKind` enum value) if the operand exists (see :class:`Instruction.op_count` and :class:`Instruction.op_kind`)
@@ -346,7 +352,8 @@ impl Instruction {
 		if new_value != iced_x86::OpKind::Immediate8 as u32 {
 			Err(PyValueError::new_err("Invalid op kind"))
 		} else {
-			Ok(self.instr.set_op4_kind(to_op_kind(new_value)?))
+			self.instr.set_op4_kind(to_op_kind(new_value)?);
+			Ok(())
 		}
 	}
 
@@ -398,7 +405,8 @@ impl Instruction {
 	#[text_signature = "($self, operand, op_kind, /)"]
 	fn set_op_kind(&mut self, operand: u32, op_kind: u32) -> PyResult<()> {
 		if operand < IcedConstants::MAX_OP_COUNT as u32 {
-			Ok(self.instr.set_op_kind(operand, to_op_kind(op_kind)?))
+			self.instr.set_op_kind(operand, to_op_kind(op_kind)?);
+			Ok(())
 		} else {
 			Err(PyValueError::new_err("Invalid operand"))
 		}
@@ -423,7 +431,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_segment_prefix(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_segment_prefix(to_register(new_value)?))
+		self.instr.set_segment_prefix(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Register`: Gets the effective segment register used to reference the memory location (a :class:`Register` enum value).
@@ -805,7 +814,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_memory_base(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_memory_base(to_register(new_value)?))
+		self.instr.set_memory_base(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Register`: Gets the memory operand's index register (a :class:`Register` enum value) or :class:`Register.NONE` if none.
@@ -818,7 +828,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_memory_index(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_memory_index(to_register(new_value)?))
+		self.instr.set_memory_index(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Register`: Gets operand #0's register value (a :class:`Register` enum value).
@@ -831,7 +842,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op0_register(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op0_register(to_register(new_value)?))
+		self.instr.set_op0_register(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Register`: Gets operand #1's register value (a :class:`Register` enum value).
@@ -844,7 +856,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op1_register(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op1_register(to_register(new_value)?))
+		self.instr.set_op1_register(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Register`: Gets operand #2's register value (a :class:`Register` enum value).
@@ -857,7 +870,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op2_register(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op2_register(to_register(new_value)?))
+		self.instr.set_op2_register(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Register`: Gets operand #3's register value (a :class:`Register` enum value).
@@ -870,7 +884,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op3_register(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op3_register(to_register(new_value)?))
+		self.instr.set_op3_register(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// :class:`Register`: Gets operand #4's register value (a :class:`Register` enum value).
@@ -886,7 +901,8 @@ impl Instruction {
 		if new_value != iced_x86::Register::None as u32 {
 			Err(PyValueError::new_err("Invalid register"))
 		} else {
-			Ok(self.instr.set_op4_register(to_register(new_value)?))
+			self.instr.set_op4_register(to_register(new_value)?);
+			Ok(())
 		}
 	}
 
@@ -940,7 +956,8 @@ impl Instruction {
 	#[text_signature = "($self, operand, new_value, /)"]
 	fn set_op_register(&mut self, operand: u32, new_value: u32) -> PyResult<()> {
 		if operand < IcedConstants::MAX_OP_COUNT as u32 {
-			Ok(self.instr.set_op_register(operand, to_register(new_value)?))
+			self.instr.set_op_register(operand, to_register(new_value)?);
+			Ok(())
 		} else {
 			Err(PyValueError::new_err("Invalid operand"))
 		}
@@ -954,7 +971,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_op_mask(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_op_mask(to_register(new_value)?))
+		self.instr.set_op_mask(to_register(new_value)?);
+		Ok(())
 	}
 
 	/// bool: Checks if there's an op mask register (:class:`Instruction.op_mask`)
@@ -1000,7 +1018,8 @@ impl Instruction {
 
 	#[setter]
 	fn set_rounding_control(&mut self, new_value: u32) -> PyResult<()> {
-		Ok(self.instr.set_rounding_control(to_rounding_control(new_value)?))
+		self.instr.set_rounding_control(to_rounding_control(new_value)?);
+		Ok(())
 	}
 
 	/// int: (``u8``) Gets the number of elements in a ``db``/``dw``/``dd``/``dq`` directive.

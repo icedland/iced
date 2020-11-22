@@ -223,7 +223,8 @@ impl Decoder {
 		if new_pos > self.decoder.max_position() {
 			Err(PyValueError::new_err("Invalid position"))
 		} else {
-			Ok(self.decoder.set_position(new_pos))
+			self.decoder.set_position(new_pos);
+			Ok(())
 		}
 	}
 
