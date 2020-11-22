@@ -50,7 +50,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine("// 0 = memory size");
 				writer.WriteLine("// 1 = broadcast memory size");
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(super) static SIZES: [{memSizeName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] = [");
+				writer.WriteLine($"pub(super) static SIZES: [{memSizeName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.CodeEnumCountName].Name(idConverter)} * 2] = [");
 				using (writer.Indent()) {
 					foreach (var def in defs) {
 						if (def.Memory.Value > byte.MaxValue)

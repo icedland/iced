@@ -27,7 +27,7 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.GasFormatterInternal {
 	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
+		public const int Register_ST = IcedConstants.RegisterEnumCount + 0;
 		public const int ExtraRegisters = 1;
 		public static readonly FormatterString[] AllRegistersNaked = RegistersTable.GetRegisters();
 		public static readonly FormatterString[] AllRegisters = GetRegistersWithPrefix();

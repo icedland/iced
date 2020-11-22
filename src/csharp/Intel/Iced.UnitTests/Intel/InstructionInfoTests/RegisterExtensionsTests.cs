@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class RegisterExtensionsTests {
 		[Theory]
 		[InlineData((Register)(-1))]
-		[InlineData((Register)IcedConstants.NumberOfRegisters)]
+		[InlineData((Register)IcedConstants.RegisterEnumCount)]
 		void GetInfo_throws_if_invalid_value(Register register) {
 			Assert.Throws<ArgumentOutOfRangeException>(() => register.GetInfo());
 			Assert.Throws<ArgumentOutOfRangeException>(() => register.GetBaseRegister());

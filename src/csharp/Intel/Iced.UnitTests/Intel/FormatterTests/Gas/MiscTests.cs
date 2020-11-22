@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 	public sealed class MiscTests {
 		[Fact]
 		void Register_is_not_too_big() {
-			const int maxValue = IcedConstants.NumberOfRegisters - 1 + Registers.ExtraRegisters;
+			const int maxValue = IcedConstants.RegisterEnumCount - 1 + Registers.ExtraRegisters;
 			Static.Assert(maxValue < (1 << InstrOpInfo.TEST_RegisterBits) ? 0 : -1);
 			Static.Assert(maxValue >= (1 << (InstrOpInfo.TEST_RegisterBits - 1)) ? 0 : -1);
 		}

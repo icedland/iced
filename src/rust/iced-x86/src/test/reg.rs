@@ -67,18 +67,18 @@ fn test_reg_sub_ops() {
 
 #[test]
 fn test_reg_add_ops_panics() {
-	assert!(panic::catch_unwind(|| Register::None + IcedConstants::NUMBER_OF_REGISTERS as i32).is_err());
-	assert!(panic::catch_unwind(|| Register::None + IcedConstants::NUMBER_OF_REGISTERS as u32).is_err());
-	assert!(panic::catch_unwind(|| IcedConstants::NUMBER_OF_REGISTERS as i32 + Register::None).is_err());
-	assert!(panic::catch_unwind(|| IcedConstants::NUMBER_OF_REGISTERS as u32 + Register::None).is_err());
+	assert!(panic::catch_unwind(|| Register::None + IcedConstants::REGISTER_ENUM_COUNT as i32).is_err());
+	assert!(panic::catch_unwind(|| Register::None + IcedConstants::REGISTER_ENUM_COUNT as u32).is_err());
+	assert!(panic::catch_unwind(|| IcedConstants::REGISTER_ENUM_COUNT as i32 + Register::None).is_err());
+	assert!(panic::catch_unwind(|| IcedConstants::REGISTER_ENUM_COUNT as u32 + Register::None).is_err());
 	assert!(panic::catch_unwind(|| {
 		let mut reg = Register::None;
-		reg += IcedConstants::NUMBER_OF_REGISTERS as i32;
+		reg += IcedConstants::REGISTER_ENUM_COUNT as i32;
 	})
 	.is_err());
 	assert!(panic::catch_unwind(|| {
 		let mut reg = Register::None;
-		reg += IcedConstants::NUMBER_OF_REGISTERS as u32;
+		reg += IcedConstants::REGISTER_ENUM_COUNT as u32;
 	})
 	.is_err());
 }

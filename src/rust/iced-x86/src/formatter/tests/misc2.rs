@@ -35,7 +35,7 @@ use std::fmt::Write;
 
 #[test]
 fn make_sure_all_code_values_are_formatted() {
-	let mut tested = [0u8; IcedConstants::NUMBER_OF_CODE_VALUES];
+	let mut tested = [0u8; IcedConstants::CODE_ENUM_COUNT];
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let all_args: [(u32, bool); 6] = [

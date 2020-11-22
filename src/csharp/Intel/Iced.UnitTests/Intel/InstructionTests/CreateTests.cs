@@ -1468,7 +1468,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void Code_prop_throws_if_invalid() {
 			Instruction instruction = default;
 			Assert.Throws<ArgumentOutOfRangeException>(() => instruction.Code = (Code)(-1));
-			Assert.Throws<ArgumentOutOfRangeException>(() => instruction.Code = (Code)(IcedConstants.NumberOfCodeValues));
+			Assert.Throws<ArgumentOutOfRangeException>(() => instruction.Code = (Code)(IcedConstants.CodeEnumCount));
 		}
 
 		[Fact]

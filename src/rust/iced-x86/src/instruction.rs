@@ -817,7 +817,7 @@ impl Instruction {
 	pub fn memory_size(&self) -> MemorySize {
 		let mut index = self.code() as usize;
 		if self.is_broadcast() {
-			index += IcedConstants::NUMBER_OF_CODE_VALUES;
+			index += IcedConstants::CODE_ENUM_COUNT;
 		}
 		unsafe { *instruction_memory_sizes::SIZES.get_unchecked(index) }
 	}

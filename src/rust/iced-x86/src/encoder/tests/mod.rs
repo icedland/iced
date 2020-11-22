@@ -358,7 +358,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	}
 
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
-	const_assert_eq!(5, IcedConstants::NUMBER_OF_ENCODING_KINDS);
+	const_assert_eq!(5, IcedConstants::ENCODING_KIND_ENUM_COUNT);
 
 	for &(bitness, hex_bytes, rip, instruction) in &tests {
 		let expected_bytes = to_vec_u8(hex_bytes).unwrap();
@@ -924,7 +924,7 @@ fn op_kind_panics_if_invalid_input() {
 #[allow(trivial_casts)]
 #[test]
 fn verify_instruction_op_code_info() {
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -935,7 +935,7 @@ fn verify_instruction_op_code_info() {
 #[cfg(feature = "op_code_info")]
 #[test]
 fn make_sure_all_code_values_are_tested_exactly_once() {
-	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES];
+	let mut tested = [false; IcedConstants::CODE_ENUM_COUNT];
 	for tc in &*OP_CODE_INFO_TEST_CASES {
 		assert!(!tested[tc.code as usize]);
 		tested[tc.code as usize] = true;

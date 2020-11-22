@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class MemorySizeExtensionsTests {
 		[Theory]
 		[InlineData((MemorySize)(-1))]
-		[InlineData((MemorySize)IcedConstants.NumberOfMemorySizes)]
+		[InlineData((MemorySize)IcedConstants.MemorySizeEnumCount)]
 		void GetInfo_throws_if_invalid_value(MemorySize memorySize) {
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetInfo());
 			Assert.Throws<ArgumentOutOfRangeException>(() => memorySize.GetSize());

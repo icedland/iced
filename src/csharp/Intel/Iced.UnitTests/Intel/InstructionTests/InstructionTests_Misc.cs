@@ -290,7 +290,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				Assert.Equal(code, instruction.Code);
 			}
 			Assert.Throws<ArgumentOutOfRangeException>(() => instruction.Code = (Code)(-1));
-			Assert.Throws<ArgumentOutOfRangeException>(() => instruction.Code = (Code)IcedConstants.NumberOfCodeValues);
+			Assert.Throws<ArgumentOutOfRangeException>(() => instruction.Code = (Code)IcedConstants.CodeEnumCount);
 
 			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			foreach (var opKind in GetOpKindValues()) {
@@ -519,27 +519,27 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		static IEnumerable<CodeSize> GetCodeSizeValues() {
-			for (int i = 0; i < IcedConstants.NumberOfCodeSizes; i++) {
+			for (int i = 0; i < IcedConstants.CodeSizeEnumCount; i++) {
 				yield return (CodeSize)i;
 			}
 		}
 		static IEnumerable<Code> GetCodeValues() {
-			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				yield return (Code)i;
 			}
 		}
 		static IEnumerable<OpKind> GetOpKindValues() {
-			for (int i = 0; i < IcedConstants.NumberOfOpKinds; i++) {
+			for (int i = 0; i < IcedConstants.OpKindEnumCount; i++) {
 				yield return (OpKind)i;
 			}
 		}
 		static IEnumerable<Register> GetRegisterValues() {
-			for (int i = 0; i < IcedConstants.NumberOfRegisters; i++) {
+			for (int i = 0; i < IcedConstants.RegisterEnumCount; i++) {
 				yield return (Register)i;
 			}
 		}
 		static IEnumerable<RoundingControl> GetRoundingControlValues() {
-			for (int i = 0; i < IcedConstants.NumberOfRoundingControlValues; i++) {
+			for (int i = 0; i < IcedConstants.RoundingControlEnumCount; i++) {
 				yield return (RoundingControl)i;
 			}
 		}

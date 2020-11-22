@@ -35,9 +35,9 @@ use core::mem;
 
 lazy_static! {
 	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {
-		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
+		let mut v = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 		let invalid_handler = Box::into_raw(Box::new(InvalidHandler::new())) as *const OpCodeHandler;
-		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		for i in 0..IcedConstants::CODE_ENUM_COUNT {
 			let enc_flags1 = ENC_FLAGS1[i];
 			let enc_flags2 = ENC_FLAGS2[i];
 			let enc_flags3 = ENC_FLAGS3[i];

@@ -30,9 +30,9 @@ namespace Iced.Intel {
 		// 0 = memory size
 		// 1 = broadcast memory size
 #if HAS_SPAN
-		internal static System.ReadOnlySpan<byte> Sizes => new byte[IcedConstants.NumberOfCodeValues * 2] {
+		internal static System.ReadOnlySpan<byte> Sizes => new byte[IcedConstants.CodeEnumCount * 2] {
 #else
-		internal static readonly byte[] Sizes = new byte[IcedConstants.NumberOfCodeValues * 2] {
+		internal static readonly byte[] Sizes = new byte[IcedConstants.CodeEnumCount * 2] {
 #endif
 			0,// INVALID
 			0,// DeclareByte

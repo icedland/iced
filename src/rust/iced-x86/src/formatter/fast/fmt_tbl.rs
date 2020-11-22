@@ -39,12 +39,12 @@ lazy_static! {
 }
 
 fn read() -> FmtTableData {
-	let mut mnemonics: Vec<&'static str> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
-	let mut flags: Vec<u8> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
+	let mut mnemonics: Vec<&'static str> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
+	let mut flags: Vec<u8> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
 	let strings = get_strings_table();
 	let mut prev_index = -1isize;
-	for _ in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for _ in 0..IcedConstants::CODE_ENUM_COUNT {
 		let f = reader.read_u8();
 		let current_index;
 		if (f & (FastFmtFlags::SAME_AS_PREV as usize)) != 0 {
