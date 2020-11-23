@@ -177,7 +177,7 @@ impl Formatter {
 	#[cfg(feature = "instr_info")]
 	#[wasm_bindgen(js_name = "opAccess")]
 	pub fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Option<OpAccess> {
-		self.formatter.op_access(&instruction.0, operand).map(iced_to_op_access)
+		self.formatter.op_access(&instruction.0, operand).unwrap().map(iced_to_op_access)
 	}
 
 	/// Converts a formatter operand index to an instruction operand index. Returns `undefined` if it's an operand added by the formatter
@@ -194,7 +194,7 @@ impl Formatter {
 	/// [`operandCount`]: #method.operand_count
 	#[wasm_bindgen(js_name = "getInstructionOperand")]
 	pub fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Option<u32> {
-		self.formatter.get_instruction_operand(&instruction.0, operand)
+		self.formatter.get_instruction_operand(&instruction.0, operand).unwrap()
 	}
 
 	/// Converts an instruction operand index to a formatter operand index. Returns `undefined` if the instruction operand isn't used by the formatter
@@ -209,7 +209,7 @@ impl Formatter {
 	/// - `instructionOperand`: Instruction operand
 	#[wasm_bindgen(js_name = "getFormatterOperand")]
 	pub fn get_formatter_operand(&mut self, instruction: &Instruction, #[allow(non_snake_case)] instructionOperand: u32) -> Option<u32> {
-		self.formatter.get_formatter_operand(&instruction.0, instructionOperand)
+		self.formatter.get_formatter_operand(&instruction.0, instructionOperand).unwrap()
 	}
 
 	/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
@@ -228,7 +228,7 @@ impl Formatter {
 	#[wasm_bindgen(js_name = "formatOperand")]
 	pub fn format_operand(&mut self, instruction: &Instruction, operand: u32) -> String {
 		let mut output = String::new();
-		self.formatter.format_operand(&instruction.0, &mut output, operand);
+		self.formatter.format_operand(&instruction.0, &mut output, operand).unwrap();
 		output
 	}
 

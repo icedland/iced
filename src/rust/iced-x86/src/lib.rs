@@ -1260,6 +1260,8 @@ mod enums;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 mod formatter;
 pub(crate) mod iced_constants;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod iced_error;
 mod iced_features;
 #[cfg(feature = "instr_info")]
 mod info;
@@ -1290,6 +1292,8 @@ pub use self::encoder::*;
 pub use self::enums::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 pub use self::formatter::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub use self::iced_error::*;
 pub use self::iced_features::*;
 #[cfg(feature = "instr_info")]
 pub use self::info::*;

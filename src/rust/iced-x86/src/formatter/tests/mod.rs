@@ -197,7 +197,7 @@ fn format_test_instruction_core(instruction: &Instruction, formatted_string: &st
 	let mut operands: Vec<String> = Vec::with_capacity(op_count as usize);
 	for i in 0..op_count {
 		let mut output = String::new();
-		formatter.format_operand(instruction, &mut output, i);
+		assert!(formatter.format_operand(instruction, &mut output, i).is_ok());
 		operands.push(output);
 	}
 	let mut output = String::new();
