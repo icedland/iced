@@ -3,6 +3,7 @@ Welcome to iced-x86's documentation!
 
 .. toctree::
 	src/Decoder
+	src/Formatter
 	src/Instruction
 	src/OpCodeInfo
 	:maxdepth: 2
@@ -15,6 +16,18 @@ Welcome to iced-x86's documentation!
 	:caption: Misc Classes:
 
 .. toctree::
+	src/CC_a
+	src/CC_ae
+	src/CC_b
+	src/CC_be
+	src/CC_e
+	src/CC_g
+	src/CC_ge
+	src/CC_l
+	src/CC_le
+	src/CC_ne
+	src/CC_np
+	src/CC_p
 	src/Code
 	src/CodeSize
 	src/ConditionCode
@@ -23,9 +36,13 @@ Welcome to iced-x86's documentation!
 	src/DecoderOptions
 	src/EncodingKind
 	src/FlowControl
+	src/FormatMnemonicOptions
+	src/FormatterSyntax
 	src/MandatoryPrefix
 	src/MemorySize
+	src/MemorySizeOptions
 	src/Mnemonic
+	src/OpAccess
 	src/OpCodeOperandKind
 	src/OpCodeTableKind
 	src/OpKind

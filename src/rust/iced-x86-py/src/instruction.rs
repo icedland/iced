@@ -1327,19 +1327,19 @@ impl FpuStackIncrementInfo {
 	/// This is negative if it pushes one or more values and positive if it pops one or more values
 	/// and ``0`` if it writes to ``TOP`` (eg. ``FLDENV``, etc) without pushing/popping anything.
 	#[getter]
-	pub fn increment(&self) -> i32 {
+	fn increment(&self) -> i32 {
 		self.info.increment()
 	}
 
 	/// bool: ``True`` if it's a conditional push/pop (eg. ``FPTAN`` or ``FSINCOS``)
 	#[getter]
-	pub fn conditional(&self) -> bool {
+	fn conditional(&self) -> bool {
 		self.info.conditional()
 	}
 
 	/// bool: ``True`` if ``TOP`` is written (it's a conditional/unconditional push/pop, ``FNSAVE``, ``FLDENV``, etc)
 	#[getter]
-	pub fn writes_top(&self) -> bool {
+	fn writes_top(&self) -> bool {
 		self.info.writes_top()
 	}
 }

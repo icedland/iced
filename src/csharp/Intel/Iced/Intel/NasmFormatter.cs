@@ -159,7 +159,7 @@ namespace Iced.Intel {
 		};
 
 		/// <summary>
-		/// Formats the mnemonic and any prefixes
+		/// Formats the mnemonic and/or any prefixes
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>

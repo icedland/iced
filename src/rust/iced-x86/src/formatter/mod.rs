@@ -417,7 +417,7 @@ pub trait Formatter: private::Sealed {
 		self.format_mnemonic_options(instruction, output, FormatMnemonicOptions::NONE);
 	}
 
-	/// Formats the mnemonic and any prefixes
+	/// Formats the mnemonic and/or any prefixes
 	///
 	/// # Arguments
 	///

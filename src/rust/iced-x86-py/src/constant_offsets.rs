@@ -41,13 +41,13 @@ pub struct ConstantOffsets {
 impl ConstantOffsets {
 	/// int: (``usize``) The offset of the displacement, if any
 	#[getter]
-	pub fn displacement_offset(&self) -> usize {
+	fn displacement_offset(&self) -> usize {
 		self.offsets.displacement_offset()
 	}
 
 	/// int: (``usize``) Size in bytes of the displacement, or 0 if there's no displacement
 	#[getter]
-	pub fn displacement_size(&self) -> usize {
+	fn displacement_size(&self) -> usize {
 		self.offsets.displacement_size()
 	}
 
@@ -56,43 +56,43 @@ impl ConstantOffsets {
 	/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
 	/// of the instruction stream, eg. ``SHL AL,1``.
 	#[getter]
-	pub fn immediate_offset(&self) -> usize {
+	fn immediate_offset(&self) -> usize {
 		self.offsets.immediate_offset()
 	}
 
 	/// int: (``usize``) Size in bytes of the first immediate, or 0 if there's no immediate
 	#[getter]
-	pub fn immediate_size(&self) -> usize {
+	fn immediate_size(&self) -> usize {
 		self.offsets.immediate_size()
 	}
 
 	/// int: (``usize``) The offset of the second immediate, if any.
 	#[getter]
-	pub fn immediate_offset2(&self) -> usize {
+	fn immediate_offset2(&self) -> usize {
 		self.offsets.immediate_offset2()
 	}
 
 	/// int: (``usize``) Size in bytes of the second immediate, or 0 if there's no second immediate
 	#[getter]
-	pub fn immediate_size2(&self) -> usize {
+	fn immediate_size2(&self) -> usize {
 		self.offsets.immediate_size2()
 	}
 
 	/// bool: ``True`` if :class:`ConstantOffsets.displacement_offset` and :class:`ConstantOffsets.displacement_size` are valid
 	#[getter]
-	pub fn has_displacement(&self) -> bool {
+	fn has_displacement(&self) -> bool {
 		self.offsets.has_displacement()
 	}
 
 	/// bool: ``True`` if :class:`ConstantOffsets.immediate_offset` and :class:`ConstantOffsets.immediate_size` are valid
 	#[getter]
-	pub fn has_immediate(&self) -> bool {
+	fn has_immediate(&self) -> bool {
 		self.offsets.has_immediate()
 	}
 
 	/// bool: ``True`` if :class:`ConstantOffsets.immediate_offset2` and :class:`ConstantOffsets.immediate_size2` are valid
 	#[getter]
-	pub fn has_immediate2(&self) -> bool {
+	fn has_immediate2(&self) -> bool {
 		self.offsets.has_immediate2()
 	}
 }

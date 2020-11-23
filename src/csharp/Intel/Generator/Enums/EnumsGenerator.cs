@@ -94,6 +94,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.CC_ge],
 				genTypes[TypeIds.CC_le],
 				genTypes[TypeIds.CC_g],
+				genTypes[TypeIds.FormatterSyntax],
 				genTypes[TypeIds.RoundingControl],
 				genTypes[TypeIds.OpKind],
 				genTypes[TypeIds.Instruction_CodeFlags],

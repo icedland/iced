@@ -30,9 +30,11 @@ using Generator.IO;
 namespace Generator.Enums.Python {
 	[Generator(TargetLanguage.Python)]
 	sealed class PythonEnumsGenerator : EnumsGenerator {
-		readonly IdentifierConverter idConverter;
+		readonly IdentifierConverter pythonIdConverter;
+		readonly IdentifierConverter rustIdConverter;
 		readonly Dictionary<TypeId, FullEnumFileInfo?> toFullFileInfo;
-		readonly DeprecatedWriter deprecatedWriter;
+		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
+		readonly Documentation.Rust.RustDocCommentWriter rustDocWriter;
 
 		sealed class FullEnumFileInfo {
 			public readonly string Filename;
@@ -40,27 +42,42 @@ namespace Generator.Enums.Python {
 			public FullEnumFileInfo(string filename) => Filename = filename;
 		}
 
+		sealed class PartialEnumFileInfo {
+			public readonly string Id;
+			public readonly TargetLanguage Language;
+			public readonly string Filename;
+			public readonly string[] Attributes;
+
+			public PartialEnumFileInfo(string id, TargetLanguage language, string filename, params string[] attributes) {
+				Id = id;
+				Language = language;
+				Filename = filename;
+				Attributes = attributes;
+			}
+		}
+
 		public PythonEnumsGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
-			idConverter = PythonIdentifierConverter.Create();
-			deprecatedWriter = new PythonDeprecatedWriter(idConverter);
+			pythonIdConverter = PythonIdentifierConverter.Create();
+			rustIdConverter = RustIdentifierConverter.Create();
+			rustDocWriter = new Documentation.Rust.RustDocCommentWriter(rustIdConverter, ".");
 
 			var dirs = generatorContext.Types.Dirs;
 			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo?>();
 			//TODO: write the remaining ones too
 			//toFullFileInfo.Add(TypeIds.BlockEncoderOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("BlockEncoderOptions.py")));
-			//toFullFileInfo.Add(TypeIds.CC_a, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_a.py")));
-			//toFullFileInfo.Add(TypeIds.CC_ae, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ae.py")));
-			//toFullFileInfo.Add(TypeIds.CC_b, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_b.py")));
-			//toFullFileInfo.Add(TypeIds.CC_be, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_be.py")));
-			//toFullFileInfo.Add(TypeIds.CC_e, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_e.py")));
-			//toFullFileInfo.Add(TypeIds.CC_g, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_g.py")));
-			//toFullFileInfo.Add(TypeIds.CC_ge, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ge.py")));
-			//toFullFileInfo.Add(TypeIds.CC_l, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_l.py")));
-			//toFullFileInfo.Add(TypeIds.CC_le, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_le.py")));
-			//toFullFileInfo.Add(TypeIds.CC_ne, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ne.py")));
-			//toFullFileInfo.Add(TypeIds.CC_np, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_np.py")));
-			//toFullFileInfo.Add(TypeIds.CC_p, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_p.py")));
+			toFullFileInfo.Add(TypeIds.CC_a, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_a.py")));
+			toFullFileInfo.Add(TypeIds.CC_ae, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ae.py")));
+			toFullFileInfo.Add(TypeIds.CC_b, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_b.py")));
+			toFullFileInfo.Add(TypeIds.CC_be, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_be.py")));
+			toFullFileInfo.Add(TypeIds.CC_e, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_e.py")));
+			toFullFileInfo.Add(TypeIds.CC_g, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_g.py")));
+			toFullFileInfo.Add(TypeIds.CC_ge, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ge.py")));
+			toFullFileInfo.Add(TypeIds.CC_l, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_l.py")));
+			toFullFileInfo.Add(TypeIds.CC_le, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_le.py")));
+			toFullFileInfo.Add(TypeIds.CC_ne, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ne.py")));
+			toFullFileInfo.Add(TypeIds.CC_np, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_np.py")));
+			toFullFileInfo.Add(TypeIds.CC_p, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_p.py")));
 			toFullFileInfo.Add(TypeIds.Code, new FullEnumFileInfo(dirs.GetPythonPyFilename("Code.py")));
 			toFullFileInfo.Add(TypeIds.CodeSize, new FullEnumFileInfo(dirs.GetPythonPyFilename("CodeSize.py")));
 			toFullFileInfo.Add(TypeIds.ConditionCode, new FullEnumFileInfo(dirs.GetPythonPyFilename("ConditionCode.py")));
@@ -69,12 +86,12 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.DecoderOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("DecoderOptions.py")));
 			toFullFileInfo.Add(TypeIds.EncodingKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("EncodingKind.py")));
 			toFullFileInfo.Add(TypeIds.FlowControl, new FullEnumFileInfo(dirs.GetPythonPyFilename("FlowControl.py")));
-			//toFullFileInfo.Add(TypeIds.FormatMnemonicOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("FormatMnemonicOptions.py")));
+			toFullFileInfo.Add(TypeIds.FormatMnemonicOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("FormatMnemonicOptions.py")));
 			toFullFileInfo.Add(TypeIds.MandatoryPrefix, new FullEnumFileInfo(dirs.GetPythonPyFilename("MandatoryPrefix.py")));
 			toFullFileInfo.Add(TypeIds.MemorySize, new FullEnumFileInfo(dirs.GetPythonPyFilename("MemorySize.py")));
-			//toFullFileInfo.Add(TypeIds.MemorySizeOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("MemorySizeOptions.py")));
+			toFullFileInfo.Add(TypeIds.MemorySizeOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("MemorySizeOptions.py")));
 			toFullFileInfo.Add(TypeIds.Mnemonic, new FullEnumFileInfo(dirs.GetPythonPyFilename("Mnemonic.py")));
-			//toFullFileInfo.Add(TypeIds.OpAccess, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpAccess.py")));
+			toFullFileInfo.Add(TypeIds.OpAccess, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpAccess.py")));
 			toFullFileInfo.Add(TypeIds.OpCodeOperandKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeOperandKind.py")));
 			toFullFileInfo.Add(TypeIds.OpCodeTableKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeTableKind.py")));
 			toFullFileInfo.Add(TypeIds.OpKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpKind.py")));
@@ -83,6 +100,10 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.RflagsBits, new FullEnumFileInfo(dirs.GetPythonPyFilename("RflagsBits.py")));
 			toFullFileInfo.Add(TypeIds.RoundingControl, new FullEnumFileInfo(dirs.GetPythonPyFilename("RoundingControl.py")));
 			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(dirs.GetPythonPyFilename("TupleType.py")));
+			toFullFileInfo.Add(TypeIds.FormatterSyntax, new FullEnumFileInfo(dirs.GetPythonPyFilename("FormatterSyntax.py")));
+
+			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
+			toPartialFileInfo.Add(TypeIds.FormatterSyntax, new PartialEnumFileInfo("FormatterSyntax", TargetLanguage.Rust, dirs.GetPythonRustFilename("formatter.rs")));
 		}
 
 		public override void Generate(EnumType enumType) {
@@ -90,10 +111,50 @@ namespace Generator.Enums.Python {
 				if (fullInfo is not null)
 					WriteFile(fullInfo, enumType);
 			}
+			// An enum could be present in both dicts so this should be 'if' and not 'else if'
+			if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
+				if (partialInfo is not null)
+					new FileUpdater(partialInfo.Language, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
+			}
+		}
+
+		void WriteEnum(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
+			switch (info.Language) {
+			case TargetLanguage.Rust:
+				WriteEnumRust(writer, info, enumType);
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+		void WriteEnumRust(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
+			rustDocWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+			var enumTypeName = enumType.Name(rustIdConverter);
+			foreach (var attr in info.Attributes)
+				writer.WriteLine(attr);
+			writer.WriteLine(RustConstants.AttributeAllowDeadCode);
+			writer.WriteLine($"pub(crate) enum {enumTypeName} {{");
+			using (writer.Indent()) {
+				uint expectedValue = 0;
+				foreach (var value in enumType.Values) {
+					if (value.DeprecatedInfo.IsDeprecated)
+						continue;
+					rustDocWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+					if (enumType.IsFlags)
+						writer.WriteLine($"{value.Name(rustIdConverter)} = {NumberFormatter.FormatHexUInt32WithSep(value.Value)},");
+					else if (expectedValue != value.Value || enumType.IsPublic)
+						writer.WriteLine($"{value.Name(rustIdConverter)} = {value.Value},");
+					else
+						writer.WriteLine($"{value.Name(rustIdConverter)},");
+					expectedValue = value.Value + 1;
+				}
+			}
+			writer.WriteLine("}");
 		}
 
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
-			var docWriter = new PythonDocCommentWriter(idConverter, isInRootModule: false, ".");
+			var docWriter = new PythonDocCommentWriter(pythonIdConverter, isInRootModule: false, ".");
 			using (var writer = new FileWriter(TargetLanguage.Python, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine("# pylint: disable=invalid-name");
@@ -138,10 +199,11 @@ namespace Generator.Enums.Python {
 				if (uppercaseRawName)
 					valueName = value.RawName.ToUpperInvariant();
 				else
-					valueName = value.Name(idConverter);
+					valueName = value.Name(pythonIdConverter);
 				writer.WriteLine($"{valueName}: int = {numStr}");
+				if (value.DeprecatedInfo.IsDeprecated)
+					docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr}): {docs}";
 				docWriter.WriteSummary(writer, docs, enumType.RawName);
-				deprecatedWriter.WriteDeprecated(writer, value);
 			}
 		}
 	}

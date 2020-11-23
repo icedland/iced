@@ -159,6 +159,7 @@ namespace Generator {
 		public static readonly TypeId FormatterFlowControl = new TypeId(nameof(FormatterFlowControl));
 		public static readonly TypeId OptionsProps = new TypeId(nameof(OptionsProps));
 		public static readonly TypeId MasmSymbolTestFlags = new TypeId(nameof(MasmSymbolTestFlags));
+		public static readonly TypeId FormatterSyntax = new TypeId(nameof(FormatterSyntax));
 		public static readonly TypeId CC_b = new TypeId(nameof(CC_b));
 		public static readonly TypeId CC_ae = new TypeId(nameof(CC_ae));
 		public static readonly TypeId CC_e = new TypeId(nameof(CC_e));

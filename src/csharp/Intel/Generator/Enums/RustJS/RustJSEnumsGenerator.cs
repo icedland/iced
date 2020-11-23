@@ -41,13 +41,7 @@ namespace Generator.Enums.RustJS {
 			public readonly string Filename;
 			public readonly string[] Attributes;
 
-			public PartialEnumFileInfo(string id, string filename, string? attribute = null) {
-				Id = id;
-				Filename = filename;
-				Attributes = attribute is null ? Array.Empty<string>() : new string[] { attribute };
-			}
-
-			public PartialEnumFileInfo(string id, string filename, string[] attributes) {
+			public PartialEnumFileInfo(string id, string filename, params string[] attributes) {
 				Id = id;
 				Filename = filename;
 				Attributes = attributes;
@@ -97,6 +91,7 @@ namespace Generator.Enums.RustJS {
 			toPartialFileInfo.Add(TypeIds.RflagsBits, new PartialEnumFileInfo("Enum", dirs.GetRustJSFilename("rflags_bits.rs"), RustConstants.AttributeCopyClone));
 			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("Enum", dirs.GetRustJSFilename("rounding_control.rs"), RustConstants.AttributeCopyClone));
 			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("Enum", dirs.GetRustJSFilename("tuple_type.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.FormatterSyntax, new PartialEnumFileInfo("FormatterSyntax", dirs.GetRustJSFilename("formatter.rs")));
 		}
 
 		public override void Generate(EnumType enumType) {

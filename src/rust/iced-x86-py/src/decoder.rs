@@ -283,7 +283,7 @@ impl Decoder {
 	/// See also :class:`Decoder.last_error`.
 	///
 	/// Returns:
-	///		Instruction: The next instruction
+	///     Instruction: The next instruction
 	///
 	/// Examples:
 	///
@@ -329,7 +329,7 @@ impl Decoder {
 	/// See also :class:`Decoder.last_error`.
 	///
 	/// Args:
-	///     instruction (:class:`Instruction`): Updated with the decoded instruction. All fields are initialized (it's an ``out`` argument)
+	///     instruction (:class:`Instruction`): Updated with the decoded instruction.
 	///
 	/// Examples:
 	///
@@ -376,7 +376,7 @@ impl Decoder {
 	///     instruction (:class:`Instruction`): The latest instruction that was decoded by this decoder
 	///
 	/// Returns:
-	///		ConstantOffsets: Offsets and sizes of immediates
+	///     ConstantOffsets: Offsets and sizes of immediates
 	///
 	/// Examples:
 	///

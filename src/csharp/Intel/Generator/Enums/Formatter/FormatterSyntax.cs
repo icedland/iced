@@ -21,24 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Constants;
-using Generator.Enums;
-using Generator.IO;
+using System;
 
-namespace Generator.Documentation.Python {
-	sealed class PythonDeprecatedWriter : DeprecatedWriter {
-		public PythonDeprecatedWriter(IdentifierConverter idConverter) { }
-
-		public override void WriteDeprecated(FileWriter writer, EnumValue value) {
-			if (value.DeprecatedInfo.IsDeprecated) {
-				//TODO:
-			}
-		}
-
-		public override void WriteDeprecated(FileWriter writer, Constant value) {
-			if (value.DeprecatedInfo.IsDeprecated) {
-				//TODO:
-			}
-		}
+namespace Generator.Enums.Formatter {
+	[Enum("FormatterSyntax", Documentation = "Formatter syntax (GNU Assembler, Intel XED, masm, nasm)", Public = true)]
+	enum FormatterSyntax {
+		[Comment("GNU Assembler (AT&T)")]
+		Gas,
+		[Comment("Intel XED")]
+		Intel,
+		[Comment("masm")]
+		Masm,
+		[Comment("nasm")]
+		Nasm,
+		// This enum only contains entries for formatters that implement the Formatter iface/trait
+		// so it doesn't include fast fmt.
 	}
 }

@@ -197,8 +197,6 @@ namespace Generator.Enums.CSharp {
 				if (partialInfo is not null)
 					new FileUpdater(TargetLanguage.CSharp, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
 			}
-			else
-				throw new InvalidOperationException();
 		}
 
 		void WriteEnum(FileWriter writer, EnumType enumType, string? baseType) {

@@ -64,3 +64,107 @@ pub(super) fn to_op_kind(value: u32) -> PyResult<iced_x86::OpKind> {
 		Ok(unsafe { core::mem::transmute(value as u8) })
 	}
 }
+
+pub(super) fn to_memory_size_options(value: u32) -> PyResult<iced_x86::MemorySizeOptions> {
+	if value >= IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid MemorySizeOptions value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_b(value: u32) -> PyResult<iced_x86::CC_b> {
+	if value >= IcedConstants::CC_B_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_b value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_ae(value: u32) -> PyResult<iced_x86::CC_ae> {
+	if value >= IcedConstants::CC_AE_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_ae value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_e(value: u32) -> PyResult<iced_x86::CC_e> {
+	if value >= IcedConstants::CC_E_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_e value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_ne(value: u32) -> PyResult<iced_x86::CC_ne> {
+	if value >= IcedConstants::CC_NE_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_ne value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_be(value: u32) -> PyResult<iced_x86::CC_be> {
+	if value >= IcedConstants::CC_BE_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_be value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_a(value: u32) -> PyResult<iced_x86::CC_a> {
+	if value >= IcedConstants::CC_A_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_a value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_p(value: u32) -> PyResult<iced_x86::CC_p> {
+	if value >= IcedConstants::CC_P_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_p value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_np(value: u32) -> PyResult<iced_x86::CC_np> {
+	if value >= IcedConstants::CC_NP_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_np value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_l(value: u32) -> PyResult<iced_x86::CC_l> {
+	if value >= IcedConstants::CC_L_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_l value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_ge(value: u32) -> PyResult<iced_x86::CC_ge> {
+	if value >= IcedConstants::CC_GE_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_ge value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_le(value: u32) -> PyResult<iced_x86::CC_le> {
+	if value >= IcedConstants::CC_LE_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_le value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
+
+pub(super) fn to_cc_g(value: u32) -> PyResult<iced_x86::CC_g> {
+	if value >= IcedConstants::CC_G_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid CC_g value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}
