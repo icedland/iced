@@ -609,8 +609,9 @@ impl Formatter {
 		self.formatter.options_mut().set_always_show_scale(value);
 	}
 
-	/// bool: Always show the effective segment register. If the option is ``False``, only show the segment register if
-	/// there's a segment override prefix.
+	/// bool: Always show the effective segment register.
+	///
+	/// If the option is ``False``, only show the segment register if there's a segment override prefix.
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example

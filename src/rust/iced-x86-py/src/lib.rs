@@ -77,6 +77,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 mod constant_offsets;
 mod decoder;
 mod enum_utils;
+mod fast_formatter;
 mod formatter;
 mod iced_constants;
 mod instruction;
@@ -84,6 +85,7 @@ mod op_code_info;
 
 use constant_offsets::ConstantOffsets;
 use decoder::Decoder;
+use fast_formatter::FastFormatter;
 use formatter::Formatter;
 use instruction::{FpuStackIncrementInfo, Instruction};
 use op_code_info::OpCodeInfo;
@@ -93,6 +95,7 @@ use pyo3::prelude::*;
 fn iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
 	m.add_class::<ConstantOffsets>()?;
 	m.add_class::<Decoder>()?;
+	m.add_class::<FastFormatter>()?;
 	m.add_class::<Formatter>()?;
 	m.add_class::<FpuStackIncrementInfo>()?;
 	m.add_class::<Instruction>()?;

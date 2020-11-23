@@ -3,6 +3,7 @@ Welcome to iced-x86's documentation!
 
 .. toctree::
 	src/Decoder
+	src/FastFormatter
 	src/Formatter
 	src/Instruction
 	src/OpCodeInfo

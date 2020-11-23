@@ -28,7 +28,7 @@
 iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder written in Rust with Python bindings
 """
 
-from .iced_x86_py import ConstantOffsets, Decoder, Formatter, FpuStackIncrementInfo, Instruction, OpCodeInfo
+from .iced_x86_py import ConstantOffsets, Decoder, FastFormatter, Formatter, FpuStackIncrementInfo, Instruction, OpCodeInfo
 from . import CC_a
 from . import CC_ae
 from . import CC_b
@@ -64,6 +64,7 @@ from . import RoundingControl
 __all__ = [
 	"ConstantOffsets",
 	"Decoder",
+	"FastFormatter",
 	"Formatter",
 	"FpuStackIncrementInfo",
 	"Instruction",
