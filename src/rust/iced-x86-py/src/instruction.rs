@@ -33,6 +33,99 @@ use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 
 /// A 16/32/64-bit x86 instruction. Created by :class:`Decoder` or by ``Instruction::create*()`` methods.
+///
+/// Examples:
+///
+/// A decoder is usually used to create instructions:
+///
+/// .. code-block:: python
+///
+///     from iced_x86 import *
+///
+///     # xchg ah,[rdx+rsi+16h]
+///     data = b"\x86\x64\x32\x16"
+///     decoder = Decoder(64, data)
+///     decoder.ip = 0x1234_5678
+///
+///     instr = decoder.decode()
+///
+/// Once you have an instruction you can format it either by using a :class:`Formatter`
+/// or by calling the instruction's ``__repr__()``, ``__str__()`` or ``__format__()`` methods.
+///
+/// .. code-block:: python
+///
+///     # Continued from the above example
+///
+///     formatter = Formatter(FormatterSyntax.INTEL)
+///
+///     # Change some options
+///     formatter.uppercase_mnemonics = True
+///     formatter.space_after_operand_separator = True
+///     formatter.first_operand_char_index = 8
+///
+///     print(f"disasm  : {formatter.format(instr)}")
+///     print(f"mnemonic: {formatter.format_mnemonic(instr)}")
+///     print(f"operands: {formatter.format_all_operands(instr)}")
+///     print(f"op #0   : {formatter.format_operand(instr, 0)}")
+///     print(f"op #1   : {formatter.format_operand(instr, 1)}")
+///     print(f"reg RCX : {formatter.format_register(Register.RCX)}")
+///     # The code prints this:
+///     # disasm  : XCHG    [rdx+rsi+16h], ah
+///     # mnemonic: XCHG
+///     # operands: [rdx+rsi+16h], ah
+///     # op #0   : [rdx+rsi+16h]
+///     # op #1   : ah
+///     # reg RCX : rcx
+///
+///     # A formatter isn't needed if you like most of the default options.
+///     # repr() == str() == format() all return the same thing.
+///     print(f"disasm  : {repr(instr)}")
+///     print(f"disasm  : {str(instr)}")
+///     print(f"disasm  : {instr}")
+///     # The code prints this:
+///     # disasm  : xchg ah,[rdx+rsi+16h]
+///     # disasm  : xchg ah,[rdx+rsi+16h]
+///     # disasm  : xchg ah,[rdx+rsi+16h]
+///
+///     # __format__() supports a format spec argument, see the table below
+///     print(f"disasm  : {instr:f}")
+///     print(f"disasm  : {instr:g}")
+///     print(f"disasm  : {instr:i}")
+///     print(f"disasm  : {instr:m}")
+///     print(f"disasm  : {instr:n}")
+///     print(f"disasm  : {instr:gxsSG}")
+///     # The code prints this:
+///     # disasm  : xchg [rdx+rsi+16h],ah
+///     # disasm  : xchg %ah,0x16(%rdx,%rsi)
+///     # disasm  : xchg [rdx+rsi+16h],ah
+///     # disasm  : xchg ah,[rdx+rsi+16h]
+///     # disasm  : xchg ah,[rdx+rsi+16h]
+///     # disasm  : xchgb %ah, %ds:0x16(%rdx,%rsi)
+///
+/// The following format specifiers are supported in any order. If you omit the
+/// formatter kind, the default formatter is used (eg. masm):
+///
+/// ======  =============================================================================
+/// Option  Description
+/// ======  =============================================================================
+/// f       Fast formatter (masm-like syntax)
+/// g       GNU Assembler formatter
+/// i       Intel (XED) formatter
+/// m       masm formatter
+/// n       nasm formatter
+/// X       Uppercase hex numbers with ``0x`` prefix
+/// x       Lowercase hex numbers with ``0x`` prefix
+/// H       Uppercase hex numbers with ``h`` suffix
+/// h       Lowercase hex numbers with ``h`` suffix
+/// r       RIP-relative memory operands use RIP register instead of abs addr (``[rip+123h]`` vs ``[123456789ABCDEF0h]``)
+/// U       Uppercase everything except numbers and hex prefixes/suffixes
+/// s       Add a space after the operand separator
+/// S       Always show the segment register
+/// B       Don't show the branch size (``SHORT`` or ``NEAR PTR``)
+/// G       (GNU Assembler): Add mnemonic size suffix (eg. ``movl`` vs ``mov``)
+/// M       Always show the memory size (eg. ``BYTE PTR``) even when not needed
+/// _       Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (not supported by fast fmt)
+/// ======  =============================================================================
 #[pyclass(module = "iced_x86_py")]
 #[text_signature = "(/)"]
 #[derive(Copy, Clone)]
@@ -1984,6 +2077,7 @@ impl Instruction {
 				'B' => fmt_opts.set_show_branch_size(false),
 				'G' => fmt_opts.set_gas_show_mnemonic_size_suffix(true),
 				'M' => fmt_opts.set_memory_size_options(iced_x86::MemorySizeOptions::Always),
+				'_' => fmt_opts.set_digit_separator("_"),
 				_ => return Err(PyValueError::new_err(format!("Unknown format code '{}'", format_spec))),
 			}
 		}
