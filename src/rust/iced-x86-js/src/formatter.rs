@@ -88,26 +88,26 @@ impl Formatter {
 	///
 	/// [`FormatterSyntax`]: enum.FormatterSyntax.html
 	#[wasm_bindgen(constructor)]
-	pub fn new(syntax: FormatterSyntax) -> Self {
+	pub fn new(syntax: FormatterSyntax) -> Result<Formatter, JsValue> {
 		let formatter: Box<dyn iced_x86_rust::Formatter> = match syntax {
 			#[cfg(feature = "gas")]
 			FormatterSyntax::Gas => Box::new(iced_x86_rust::GasFormatter::new()),
 			#[cfg(not(feature = "gas"))]
-			FormatterSyntax::Gas => panic!(),
+			FormatterSyntax::Gas => return Err(js_sys::Error::new("Invalid formatter").into()),
 			#[cfg(feature = "intel")]
 			FormatterSyntax::Intel => Box::new(iced_x86_rust::IntelFormatter::new()),
 			#[cfg(not(feature = "intel"))]
-			FormatterSyntax::Intel => panic!(),
+			FormatterSyntax::Intel => return Err(js_sys::Error::new("Invalid formatter").into()),
 			#[cfg(feature = "masm")]
 			FormatterSyntax::Masm => Box::new(iced_x86_rust::MasmFormatter::new()),
 			#[cfg(not(feature = "masm"))]
-			FormatterSyntax::Masm => panic!(),
+			FormatterSyntax::Masm => return Err(js_sys::Error::new("Invalid formatter").into()),
 			#[cfg(feature = "nasm")]
 			FormatterSyntax::Nasm => Box::new(iced_x86_rust::NasmFormatter::new()),
 			#[cfg(not(feature = "nasm"))]
-			FormatterSyntax::Nasm => panic!(),
+			FormatterSyntax::Nasm => return Err(js_sys::Error::new("Invalid formatter").into()),
 		};
-		Self { formatter }
+		Ok(Self { formatter })
 	}
 
 	/// Formats the whole instruction: prefixes, mnemonic, operands
@@ -179,8 +179,11 @@ impl Formatter {
 	/// [`operandCount`]: #method.operand_count
 	#[cfg(feature = "instr_info")]
 	#[wasm_bindgen(js_name = "opAccess")]
-	pub fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Option<OpAccess> {
-		self.formatter.op_access(&instruction.0, operand).unwrap().map(iced_to_op_access)
+	pub fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<OpAccess>, JsValue> {
+		match self.formatter.op_access(&instruction.0, operand) {
+			Ok(value) => Ok(value.map(iced_to_op_access)),
+			Err(error) => Err(js_sys::Error::new(&format!("{}", error)).into()),
+		}
 	}
 
 	/// Converts a formatter operand index to an instruction operand index. Returns `undefined` if it's an operand added by the formatter
@@ -196,8 +199,11 @@ impl Formatter {
 	///
 	/// [`operandCount`]: #method.operand_count
 	#[wasm_bindgen(js_name = "getInstructionOperand")]
-	pub fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Option<u32> {
-		self.formatter.get_instruction_operand(&instruction.0, operand).unwrap()
+	pub fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<u32>, JsValue> {
+		match self.formatter.get_instruction_operand(&instruction.0, operand) {
+			Ok(value) => Ok(value),
+			Err(error) => Err(js_sys::Error::new(&format!("{}", error)).into()),
+		}
 	}
 
 	/// Converts an instruction operand index to a formatter operand index. Returns `undefined` if the instruction operand isn't used by the formatter
@@ -211,8 +217,13 @@ impl Formatter {
 	/// - `instruction`: Instruction
 	/// - `instructionOperand`: Instruction operand
 	#[wasm_bindgen(js_name = "getFormatterOperand")]
-	pub fn get_formatter_operand(&mut self, instruction: &Instruction, #[allow(non_snake_case)] instructionOperand: u32) -> Option<u32> {
-		self.formatter.get_formatter_operand(&instruction.0, instructionOperand).unwrap()
+	pub fn get_formatter_operand(
+		&mut self, instruction: &Instruction, #[allow(non_snake_case)] instructionOperand: u32,
+	) -> Result<Option<u32>, JsValue> {
+		match self.formatter.get_formatter_operand(&instruction.0, instructionOperand) {
+			Ok(value) => Ok(value),
+			Err(error) => Err(js_sys::Error::new(&format!("{}", error)).into()),
+		}
 	}
 
 	/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
@@ -229,10 +240,12 @@ impl Formatter {
 	///
 	/// [`operandCount`]: #method.operand_count
 	#[wasm_bindgen(js_name = "formatOperand")]
-	pub fn format_operand(&mut self, instruction: &Instruction, operand: u32) -> String {
+	pub fn format_operand(&mut self, instruction: &Instruction, operand: u32) -> Result<String, JsValue> {
 		let mut output = String::new();
-		self.formatter.format_operand(&instruction.0, &mut output, operand).unwrap();
-		output
+		match self.formatter.format_operand(&instruction.0, &mut output, operand) {
+			Ok(()) => Ok(output),
+			Err(error) => Err(js_sys::Error::new(&format!("{}", error)).into()),
+		}
 	}
 
 	/// Formats an operand separator
@@ -1318,15 +1331,16 @@ impl Formatter {
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
 	#[wasm_bindgen(js_name = "numberBase")]
-	pub fn set_number_base(&mut self, value: u32) {
+	pub fn set_number_base(&mut self, value: u32) -> Result<(), JsValue> {
 		let base = match value {
 			2 => iced_x86_rust::NumberBase::Binary,
 			8 => iced_x86_rust::NumberBase::Octal,
 			10 => iced_x86_rust::NumberBase::Decimal,
 			16 => iced_x86_rust::NumberBase::Hexadecimal,
-			_ => panic!(),
+			_ => return Err(js_sys::Error::new("Invalid number base").into()),
 		};
 		self.formatter.options_mut().set_number_base(base);
+		Ok(())
 	}
 
 	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`

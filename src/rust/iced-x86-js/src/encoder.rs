@@ -191,7 +191,7 @@ impl Encoder {
 			#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 			Err(error) => Err(js_sys::Error::new(&format!("{} ({})", error, instruction.0)).into()),
 			#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
-			Err(error) => Err(js_sys::Error::new(&error).into()),
+			Err(error) => Err(js_sys::Error::new(&format!("{}", error)).into()),
 		}
 	}
 
