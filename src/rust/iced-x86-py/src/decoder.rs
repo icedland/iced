@@ -210,6 +210,7 @@ impl Decoder {
 	///
 	///     # Start all over again
 	///     decoder.position = 0
+	///     decoder.ip = 0x1234_5678
 	///     assert decoder.position == 0
 	///     assert decoder.decode().code == Code.NOPD
 	///     assert decoder.decode().code == Code.PAUSE

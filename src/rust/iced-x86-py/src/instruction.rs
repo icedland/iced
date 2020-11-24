@@ -49,6 +49,13 @@ use std::collections::hash_map::DefaultHasher;
 ///
 ///     instr = decoder.decode()
 ///
+///     # Instruction supports __bool__() and returns True if it's not an invalid instruction:
+///     if not instr:
+///         print("Invalid instruction (garbage, data, or a future instr (update iced))")
+///     # The above code is the same as:
+///     if instr.code == Code.INVALID:
+///         print("Not an instruction")
+///
 /// Once you have an instruction you can format it either by using a :class:`Formatter`
 /// or by calling the instruction's ``__repr__()``, ``__str__()`` or ``__format__()`` methods.
 ///
@@ -118,13 +125,13 @@ use std::collections::hash_map::DefaultHasher;
 /// H       Uppercase hex numbers with ``h`` suffix
 /// h       Lowercase hex numbers with ``h`` suffix
 /// r       RIP-relative memory operands use RIP register instead of abs addr (``[rip+123h]`` vs ``[123456789ABCDEF0h]``)
-/// U       Uppercase everything except numbers and hex prefixes/suffixes
+/// U       Uppercase everything except numbers and hex prefixes/suffixes (ignored by fast fmt)
 /// s       Add a space after the operand separator
 /// S       Always show the segment register
-/// B       Don't show the branch size (``SHORT`` or ``NEAR PTR``)
+/// B       Don't show the branch size (``SHORT`` or ``NEAR PTR``) (ignored by fast fmt)
 /// G       (GNU Assembler): Add mnemonic size suffix (eg. ``movl`` vs ``mov``)
 /// M       Always show the memory size (eg. ``BYTE PTR``) even when not needed
-/// _       Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (not supported by fast fmt)
+/// _       Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (ignored by fast fmt)
 /// ======  =============================================================================
 #[pyclass(module = "iced_x86_py")]
 #[text_signature = "(/)"]

@@ -624,6 +624,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// // Start all over again
 	/// decoder.set_position(0);
+	/// decoder.set_ip(0x1234_5678);
 	/// assert_eq!(0, decoder.position());
 	/// assert_eq!(Code::Nopd, decoder.decode().code());
 	/// assert_eq!(Code::Pause, decoder.decode().code());
