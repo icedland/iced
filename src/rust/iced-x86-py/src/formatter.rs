@@ -101,7 +101,7 @@ impl Formatter {
 	/// Returns:
 	///     str: The formatted string
 	#[text_signature = "($self, instruction)"]
-	fn format(&mut self, instruction: &Instruction) -> &str {	
+	fn format(&mut self, instruction: &Instruction) -> &str {
 		self.fmt_output.clear();
 		self.formatter.format(&instruction.instr, &mut self.fmt_output);
 		&self.fmt_output

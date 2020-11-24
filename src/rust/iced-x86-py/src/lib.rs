@@ -79,6 +79,7 @@ extern crate static_assertions;
 
 mod constant_offsets;
 mod decoder;
+mod encoder;
 mod enum_utils;
 mod fast_formatter;
 mod formatter;
@@ -88,6 +89,7 @@ mod op_code_info;
 
 use constant_offsets::ConstantOffsets;
 use decoder::Decoder;
+use encoder::Encoder;
 use fast_formatter::FastFormatter;
 use formatter::Formatter;
 use instruction::{FpuStackIncrementInfo, Instruction};
@@ -96,8 +98,13 @@ use pyo3::prelude::*;
 
 #[pymodule]
 fn iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
+	// If you add a new struct, also add it to
+	//	- python/iced_x86/__init__.py's `__init__` array and `from` statement
+	//	- docs/index.rst
+	//	- docs/src/<ClassName>.rst
 	m.add_class::<ConstantOffsets>()?;
 	m.add_class::<Decoder>()?;
+	m.add_class::<Encoder>()?;
 	m.add_class::<FastFormatter>()?;
 	m.add_class::<Formatter>()?;
 	m.add_class::<FpuStackIncrementInfo>()?;
