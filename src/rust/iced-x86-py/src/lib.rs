@@ -74,6 +74,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::useless_let_if_seq)]
 #![warn(clippy::useless_transmute)]
 
+#[macro_use]
+extern crate static_assertions;
+
 mod constant_offsets;
 mod decoder;
 mod enum_utils;

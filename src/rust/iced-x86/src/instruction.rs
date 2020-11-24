@@ -623,6 +623,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_kind(&self, operand: u32) -> OpKind {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.op0_kind(),
 			1 => self.op1_kind(),
@@ -645,6 +646,7 @@ impl Instruction {
 	/// * `op_kind`: Operand kind
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.set_op0_kind(op_kind),
 			1 => self.set_op1_kind(op_kind),
@@ -1582,6 +1584,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_register(&self, operand: u32) -> Register {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.op0_register(),
 			1 => self.op1_register(),
@@ -1606,6 +1609,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_register(&mut self, operand: u32, new_value: Register) {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.set_op0_register(new_value),
 			1 => self.set_op1_register(new_value),

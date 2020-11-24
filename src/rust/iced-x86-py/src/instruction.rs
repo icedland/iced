@@ -140,6 +140,60 @@ pub struct Instruction {
 	pub(crate) instr: iced_x86::Instruction,
 }
 
+impl Instruction {
+	const MAX_DB_COUNT: usize = 16;
+	const MAX_DW_COUNT: usize = Instruction::MAX_DB_COUNT / 2;
+	const MAX_DD_COUNT: usize = Instruction::MAX_DB_COUNT / 4;
+	const MAX_DQ_COUNT: usize = Instruction::MAX_DB_COUNT / 8;
+
+	fn check_db_index(index: usize) -> PyResult<usize> {
+		if index >= Instruction::MAX_DB_COUNT {
+			Err(PyValueError::new_err("Invalid db index"))
+		} else {
+			Ok(index)
+		}
+	}
+
+	fn check_dw_index(index: usize) -> PyResult<usize> {
+		if index >= Instruction::MAX_DW_COUNT {
+			Err(PyValueError::new_err("Invalid dw index"))
+		} else {
+			Ok(index)
+		}
+	}
+
+	fn check_dd_index(index: usize) -> PyResult<usize> {
+		if index >= Instruction::MAX_DD_COUNT {
+			Err(PyValueError::new_err("Invalid dd index"))
+		} else {
+			Ok(index)
+		}
+	}
+
+	fn check_dq_index(index: usize) -> PyResult<usize> {
+		if index >= Instruction::MAX_DQ_COUNT {
+			Err(PyValueError::new_err("Invalid dq index"))
+		} else {
+			Ok(index)
+		}
+	}
+
+	fn check_immediate_op_kind(&self, operand: u32) -> PyResult<()> {
+		match self.instr.op_kind(operand) {
+			iced_x86::OpKind::Immediate8
+			| iced_x86::OpKind::Immediate8to16
+			| iced_x86::OpKind::Immediate8to32
+			| iced_x86::OpKind::Immediate8to64
+			| iced_x86::OpKind::Immediate8_2nd
+			| iced_x86::OpKind::Immediate16
+			| iced_x86::OpKind::Immediate32to64
+			| iced_x86::OpKind::Immediate32
+			| iced_x86::OpKind::Immediate64 => Ok(()),
+			_ => Err(PyValueError::new_err("Operand is not an immediate")),
+		}
+	}
+}
+
 #[pymethods]
 impl Instruction {
 	#[new]
@@ -488,10 +542,14 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_kind(&self, operand: u32) -> PyResult<u32> {
-		if operand < IcedConstants::MAX_OP_COUNT as u32 {
-			Ok(self.instr.op_kind(operand) as u32)
-		} else {
-			Err(PyValueError::new_err("Invalid operand"))
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		match operand {
+			0 => Ok(self.op0_kind()),
+			1 => Ok(self.op1_kind()),
+			2 => Ok(self.op2_kind()),
+			3 => Ok(self.op3_kind()),
+			4 => Ok(self.op4_kind()),
+			_ => Err(PyValueError::new_err("Invalid operand")),
 		}
 	}
 
@@ -505,11 +563,14 @@ impl Instruction {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, op_kind, /)"]
 	fn set_op_kind(&mut self, operand: u32, op_kind: u32) -> PyResult<()> {
-		if operand < IcedConstants::MAX_OP_COUNT as u32 {
-			self.instr.set_op_kind(operand, to_op_kind(op_kind)?);
-			Ok(())
-		} else {
-			Err(PyValueError::new_err("Invalid operand"))
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		match operand {
+			0 => self.set_op0_kind(op_kind),
+			1 => self.set_op1_kind(op_kind),
+			2 => self.set_op2_kind(op_kind),
+			3 => self.set_op3_kind(op_kind),
+			4 => self.set_op4_kind(op_kind),
+			_ => Err(PyValueError::new_err("Invalid operand")),
 		}
 	}
 
@@ -633,8 +694,12 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `operand` is invalid or not immediate.
 	#[text_signature = "($self, operand, /)"]
-	fn immediate(&self, operand: u32) -> u64 {
-		self.instr.immediate(operand)
+	fn immediate(&self, operand: u32) -> PyResult<u64> {
+		if let Some(value) = self.instr.try_immediate(operand) {
+			Ok(value)
+		} else {
+			Err(PyValueError::new_err("Not an immediate operand"))
+		}
 	}
 
 	/// Sets an operand's immediate value
@@ -646,8 +711,10 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
 	#[text_signature = "($self, operand, new_value, /)"]
-	fn set_immediate_i32(&mut self, operand: u32, new_value: i32) {
+	fn set_immediate_i32(&mut self, operand: u32, new_value: i32) -> PyResult<()> {
+		self.check_immediate_op_kind(operand)?;
 		self.instr.set_immediate_i32(operand, new_value);
+		Ok(())
 	}
 
 	/// Sets an operand's immediate value
@@ -659,8 +726,10 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
 	#[text_signature = "($self, operand, new_value, /)"]
-	fn set_immediate_u32(&mut self, operand: u32, new_value: u32) {
+	fn set_immediate_u32(&mut self, operand: u32, new_value: u32) -> PyResult<()> {
+		self.check_immediate_op_kind(operand)?;
 		self.instr.set_immediate_u32(operand, new_value);
+		Ok(())
 	}
 
 	/// Sets an operand's immediate value
@@ -672,8 +741,10 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
 	#[text_signature = "($self, operand, new_value, /)"]
-	fn set_immediate_i64(&mut self, operand: u32, new_value: i64) {
+	fn set_immediate_i64(&mut self, operand: u32, new_value: i64) -> PyResult<()> {
+		self.check_immediate_op_kind(operand)?;
 		self.instr.set_immediate_i64(operand, new_value);
+		Ok(())
 	}
 
 	/// Sets an operand's immediate value
@@ -685,8 +756,10 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `operand` is invalid or if it's not an immediate operand
 	#[text_signature = "($self, operand, new_value, /)"]
-	fn set_immediate_u64(&mut self, operand: u32, new_value: u64) {
-		self.instr.set_immediate_u64(operand, new_value)
+	fn set_immediate_u64(&mut self, operand: u32, new_value: u64) -> PyResult<()> {
+		self.check_immediate_op_kind(operand)?;
+		self.instr.set_immediate_u64(operand, new_value);
+		Ok(())
 	}
 
 	/// int: (``u8``) Gets the operand's immediate value.
@@ -1037,10 +1110,14 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_register(&self, operand: u32) -> PyResult<u32> {
-		if operand < IcedConstants::MAX_OP_COUNT as u32 {
-			Ok(self.instr.op_register(operand) as u32)
-		} else {
-			Err(PyValueError::new_err("Invalid operand"))
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		match operand {
+			0 => Ok(self.op0_register()),
+			1 => Ok(self.op1_register()),
+			2 => Ok(self.op2_register()),
+			3 => Ok(self.op3_register()),
+			4 => Ok(self.op4_register()),
+			_ => Err(PyValueError::new_err("Invalid operand")),
 		}
 	}
 
@@ -1056,11 +1133,14 @@ impl Instruction {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, new_value, /)"]
 	fn set_op_register(&mut self, operand: u32, new_value: u32) -> PyResult<()> {
-		if operand < IcedConstants::MAX_OP_COUNT as u32 {
-			self.instr.set_op_register(operand, to_register(new_value)?);
-			Ok(())
-		} else {
-			Err(PyValueError::new_err("Invalid operand"))
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		match operand {
+			0 => self.set_op0_register(new_value),
+			1 => self.set_op1_register(new_value),
+			2 => self.set_op2_register(new_value),
+			3 => self.set_op3_register(new_value),
+			4 => self.set_op4_register(new_value),
+			_ => Err(PyValueError::new_err("Invalid operand")),
 		}
 	}
 
@@ -1147,8 +1227,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_byte_value_i8(&mut self, index: usize, new_value: i8) {
-		self.instr.set_declare_byte_value_i8(index, new_value);
+	fn set_declare_byte_value_i8(&mut self, index: usize, new_value: i8) -> PyResult<()> {
+		self.instr.set_declare_byte_value_i8(Instruction::check_db_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Sets a new ``db`` value, see also :class:`Instruction.declare_data_len`.
@@ -1162,8 +1243,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_byte_value(&mut self, index: usize, new_value: u8) {
-		self.instr.set_declare_byte_value(index, new_value);
+	fn set_declare_byte_value(&mut self, index: usize, new_value: u8) -> PyResult<()> {
+		self.instr.set_declare_byte_value(Instruction::check_db_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Gets a ``db`` value, see also :class:`Instruction.declare_data_len`.
@@ -1179,8 +1261,8 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, /)"]
-	fn get_declare_byte_value(&self, index: usize) -> u8 {
-		self.instr.get_declare_byte_value(index)
+	fn get_declare_byte_value(&self, index: usize) -> PyResult<u8> {
+		Ok(self.instr.get_declare_byte_value(Instruction::check_db_index(index)?))
 	}
 
 	/// Sets a new ``dw`` value, see also :class:`Instruction.declare_data_len`.
@@ -1194,8 +1276,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_word_value_i16(&mut self, index: usize, new_value: i16) {
-		self.instr.set_declare_word_value_i16(index, new_value);
+	fn set_declare_word_value_i16(&mut self, index: usize, new_value: i16) -> PyResult<()> {
+		self.instr.set_declare_word_value_i16(Instruction::check_dw_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Sets a new ``dw`` value, see also :class:`Instruction.declare_data_len`.
@@ -1209,8 +1292,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_word_value(&mut self, index: usize, new_value: u16) {
-		self.instr.set_declare_word_value(index, new_value);
+	fn set_declare_word_value(&mut self, index: usize, new_value: u16) -> PyResult<()> {
+		self.instr.set_declare_word_value(Instruction::check_dw_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Gets a ``dw`` value, see also :class:`Instruction.declare_data_len`.
@@ -1226,8 +1310,8 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, /)"]
-	fn get_declare_word_value(&self, index: usize) -> u16 {
-		self.instr.get_declare_word_value(index)
+	fn get_declare_word_value(&self, index: usize) -> PyResult<u16> {
+		Ok(self.instr.get_declare_word_value(Instruction::check_dw_index(index)?))
 	}
 
 	/// Sets a new ``dd`` value, see also :class:`Instruction.declare_data_len`.
@@ -1241,8 +1325,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_dword_value_i32(&mut self, index: usize, new_value: i32) {
-		self.instr.set_declare_dword_value_i32(index, new_value);
+	fn set_declare_dword_value_i32(&mut self, index: usize, new_value: i32) -> PyResult<()> {
+		self.instr.set_declare_dword_value_i32(Instruction::check_dd_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Sets a new ``dd`` value, see also :class:`Instruction.declare_data_len`.
@@ -1256,8 +1341,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_dword_value(&mut self, index: usize, new_value: u32) {
-		self.instr.set_declare_dword_value(index, new_value);
+	fn set_declare_dword_value(&mut self, index: usize, new_value: u32) -> PyResult<()> {
+		self.instr.set_declare_dword_value(Instruction::check_dd_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Gets a ``dd`` value, see also :class:`Instruction.declare_data_len`.
@@ -1273,8 +1359,8 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, /)"]
-	fn get_declare_dword_value(&self, index: usize) -> u32 {
-		self.instr.get_declare_dword_value(index)
+	fn get_declare_dword_value(&self, index: usize) -> PyResult<u32> {
+		Ok(self.instr.get_declare_dword_value(Instruction::check_dd_index(index)?))
 	}
 
 	/// Sets a new ``dq`` value, see also :class:`Instruction.declare_data_len`.
@@ -1288,8 +1374,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_qword_value_i64(&mut self, index: usize, new_value: i64) {
-		self.instr.set_declare_qword_value_i64(index, new_value);
+	fn set_declare_qword_value_i64(&mut self, index: usize, new_value: i64) -> PyResult<()> {
+		self.instr.set_declare_qword_value_i64(Instruction::check_dq_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Sets a new ``dq`` value, see also :class:`Instruction.declare_data_len`.
@@ -1303,8 +1390,9 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
-	fn set_declare_qword_value(&mut self, index: usize, new_value: u64) {
-		self.instr.set_declare_qword_value(index, new_value);
+	fn set_declare_qword_value(&mut self, index: usize, new_value: u64) -> PyResult<()> {
+		self.instr.set_declare_qword_value(Instruction::check_dq_index(index)?, new_value);
+		Ok(())
 	}
 
 	/// Gets a ``dq`` value, see also :class:`Instruction.declare_data_len`.
@@ -1320,8 +1408,8 @@ impl Instruction {
 	/// Raises:
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, /)"]
-	fn get_declare_qword_value(&self, index: usize) -> u64 {
-		self.instr.get_declare_qword_value(index)
+	fn get_declare_qword_value(&self, index: usize) -> PyResult<u64> {
+		Ok(self.instr.get_declare_qword_value(Instruction::check_dq_index(index)?))
 	}
 
 	/// bool: Checks if this is a VSIB instruction, see also :class:`Instruction.is_vsib32`, :class:`Instruction.is_vsib64`
