@@ -1329,6 +1329,7 @@ fn encode_invalid_reg_op_size() {
 	for (bitness, instr) in tests {
 		let mut encoder = Encoder::new(bitness);
 		let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
+		let error_message = format!("{}", error_message);
 		assert!(error_message.contains("Register operand size must equal memory addressing mode (16/32/64)"));
 	}
 }
@@ -1432,6 +1433,7 @@ fn encoding_instruction_requiring_opmask_fails_if_no_opmask() {
 	assert!(!instr.has_op_mask());
 	let mut encoder = Encoder::new(64);
 	let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
+	let error_message = format!("{}", error_message);
 	assert_eq!("The instruction must use an opmask register", error_message);
 }
 

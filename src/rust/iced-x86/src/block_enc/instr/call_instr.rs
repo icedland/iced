@@ -21,10 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::iced_error::IcedError;
 use super::super::*;
 use super::*;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 use core::cell::RefCell;
 use core::{cmp, i32};
 
@@ -137,14 +136,14 @@ impl Instr for CallInstr {
 		self.try_optimize()
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), String> {
+	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		if self.use_orig_instruction {
 			// Temp needed if rustc < 1.36.0 (2015 edition)
 			let tmp = self.target_instr.address(self);
 			self.instruction.set_near_branch64(tmp);
 			match block.encoder.encode(&self.instruction, self.ip) {
 				Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
-				Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
+				Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 			}
 		} else {
 			debug_assert!(self.pointer_data.is_some());
@@ -152,7 +151,7 @@ impl Instr for CallInstr {
 			pointer_data.borrow_mut().data = self.target_instr.address(self);
 			match InstrUtils::encode_branch_to_pointer_data(block, true, self.ip, pointer_data, self.size) {
 				Ok(_) => Ok((ConstantOffsets::default(), false)),
-				Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
+				Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 			}
 		}
 	}

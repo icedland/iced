@@ -237,7 +237,7 @@ fn encode_invalid_test(invalid_bitness: u32, tc: Rc<DecoderTestInfo>) {
 		Ok(_) => unreachable!(),
 		Err(err) => {
 			let expected_err = if invalid_bitness == 64 { Encoder::ERROR_ONLY_1632_BIT_MODE } else { Encoder::ERROR_ONLY_64_BIT_MODE };
-			assert_eq!(expected_err, err);
+			assert_eq!(expected_err, format!("{}", err));
 		}
 	}
 }
@@ -306,7 +306,7 @@ fn encode_invalid_code_value_is_an_error() {
 		let mut encoder = Encoder::new(bitness);
 		match encoder.encode(&instr, 0) {
 			Ok(_) => unreachable!(),
-			Err(err) => assert_eq!(InvalidHandler::ERROR_MESSAGE, err),
+			Err(err) => assert_eq!(InvalidHandler::ERROR_MESSAGE, format!("{}", err)),
 		}
 	}
 }

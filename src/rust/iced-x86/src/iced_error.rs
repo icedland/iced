@@ -21,7 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(not(feature = "std"))]
+use alloc::borrow::Cow;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 use core::fmt;
+#[cfg(feature = "std")]
+use std::borrow::Cow;
 #[cfg(feature = "std")]
 use std::error::Error;
 
@@ -29,12 +35,18 @@ use std::error::Error;
 #[allow(missing_copy_implementations)]
 #[derive(Debug, Clone)]
 pub struct IcedError {
-	error: &'static str,
+	error: Cow<'static, str>,
 }
 
 impl IcedError {
+	#[allow(dead_code)]
 	pub(crate) fn new(error: &'static str) -> Self {
-		Self { error }
+		Self { error: error.into() }
+	}
+
+	#[allow(dead_code)]
+	pub(crate) fn with_string(error: String) -> Self {
+		Self { error: error.into() }
 	}
 }
 
@@ -43,13 +55,13 @@ impl Error for IcedError {
 	// Required since MSRV < 1.42.0
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn description(&self) -> &str {
-		self.error
+		&self.error
 	}
 }
 
 impl fmt::Display for IcedError {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		write!(f, "{}", self.error)
+		write!(f, "{}", &self.error)
 	}
 }

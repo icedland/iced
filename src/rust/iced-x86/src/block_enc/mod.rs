@@ -31,11 +31,10 @@ use self::block::*;
 pub use self::enums::*;
 use self::instr::*;
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
 use super::*;
 #[cfg(any(has_alloc, not(feature = "std")))]
 use alloc::rc::Rc;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::cell::RefCell;
@@ -152,7 +151,7 @@ impl BlockEncoder {
 		(self.options & BlockEncoderOptions::DONT_FIX_BRANCHES) == 0
 	}
 
-	fn new<'a, 'b: 'a>(bitness: u32, instr_blocks: &'a [InstructionBlock<'b>], options: u32) -> Result<Self, String> {
+	fn new<'a, 'b: 'a>(bitness: u32, instr_blocks: &'a [InstructionBlock<'b>], options: u32) -> Result<Self, IcedError> {
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			panic!();
 		}
@@ -195,7 +194,7 @@ impl BlockEncoder {
 				let orig_ip = instr.borrow().orig_ip();
 				if this.to_instr.get(&orig_ip).is_some() {
 					if orig_ip != 0 {
-						return Err(format!("Multiple instructions with the same IP: 0x{:X}", orig_ip));
+						return Err(IcedError::with_string(format!("Multiple instructions with the same IP: 0x{:X}", orig_ip)));
 					}
 					this.has_multiple_zero_ip_instrs = true;
 				} else {
@@ -273,7 +272,7 @@ impl BlockEncoder {
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
 	#[inline]
-	pub fn encode(bitness: u32, block: InstructionBlock, options: u32) -> Result<BlockEncoderResult, String> {
+	pub fn encode(bitness: u32, block: InstructionBlock, options: u32) -> Result<BlockEncoderResult, IcedError> {
 		match Self::encode_slice(bitness, &[block], options) {
 			Ok(ref mut result_vec) => {
 				debug_assert_eq!(1, result_vec.len());
@@ -341,11 +340,11 @@ impl BlockEncoder {
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
 	#[inline]
-	pub fn encode_slice(bitness: u32, blocks: &[InstructionBlock], options: u32) -> Result<Vec<BlockEncoderResult>, String> {
+	pub fn encode_slice(bitness: u32, blocks: &[InstructionBlock], options: u32) -> Result<Vec<BlockEncoderResult>, IcedError> {
 		Self::new(bitness, blocks, options)?.encode2()
 	}
 
-	fn encode2(&mut self) -> Result<Vec<BlockEncoderResult>, String> {
+	fn encode2(&mut self) -> Result<Vec<BlockEncoderResult>, IcedError> {
 		for _ in 0..1000 {
 			let mut updated = false;
 			for info in &mut self.blocks {
@@ -357,13 +356,13 @@ impl BlockEncoder {
 					if instr.optimize() {
 						let instr_size = instr.size();
 						if instr_size > old_size {
-							return Err(String::from("Internal error: new size > old size"));
+							return Err(IcedError::new("Internal error: new size > old size"));
 						}
 						if instr_size < old_size {
 							updated = true;
 						}
 					} else if instr.size() != old_size {
-						return Err(String::from("Internal error: new size != old size"));
+						return Err(IcedError::new("Internal error: new size != old size"));
 					}
 					ip = ip.wrapping_add(instr.size() as u64);
 				}
@@ -397,7 +396,7 @@ impl BlockEncoder {
 				};
 				let size = block.buffer_pos() - buffer_pos;
 				if size != instr.size() as usize {
-					return Err(String::from("Internal error: didn't write all bytes"));
+					return Err(IcedError::new("Internal error: didn't write all bytes"));
 				}
 				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
 					new_instruction_offsets.push(if is_original_instruction { ip.wrapping_sub(block.rip) as u32 } else { u32::MAX });

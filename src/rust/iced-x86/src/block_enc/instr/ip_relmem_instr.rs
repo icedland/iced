@@ -21,10 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::iced_error::IcedError;
 use super::super::*;
 use super::*;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 use core::cell::RefCell;
 use core::{i32, u32};
 
@@ -136,7 +135,7 @@ impl Instr for IpRelMemOpInstr {
 		self.try_optimize()
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), String> {
+	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rip | InstrKind::Eip => {
 				let instr_size = if self.instr_kind == InstrKind::Rip {
@@ -163,16 +162,16 @@ impl Instr for IpRelMemOpInstr {
 						let expected_rip =
 							if self.instruction.memory_base() == Register::EIP { target_address as u32 as u64 } else { target_address };
 						if self.instruction.ip_rel_memory_address() != expected_rip {
-							Err(InstrUtils::create_error_message("Invalid IP relative address", &self.instruction))
+							Err(IcedError::with_string(InstrUtils::create_error_message("Invalid IP relative address", &self.instruction)))
 						} else {
 							Ok((block.encoder.get_constant_offsets(), true))
 						}
 					}
-					Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
+					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 				}
 			}
 
-			InstrKind::Long => Err(String::from(
+			InstrKind::Long => Err(IcedError::new(
 				"IP relative memory operand is too far away and isn't currently supported. \
 				 Try to allocate memory close to the original instruction (+/-2GB).",
 			)),

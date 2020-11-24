@@ -52,6 +52,7 @@ pub use self::mem_op::*;
 pub use self::op_code::*;
 use self::op_code_handler::OpCodeHandler;
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
 use super::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -255,7 +256,7 @@ impl Encoder {
 	/// assert_eq!(vec![0x75, 0xF2], buffer);
 	/// ```
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<usize, String> {
+	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<usize, IcedError> {
 		self.current_rip = rip;
 		self.eip = rip as u32;
 
@@ -355,7 +356,7 @@ impl Encoder {
 			self.set_error_message(format!("Instruction length > {} bytes", IcedConstants::MAX_INSTRUCTION_LENGTH));
 		}
 		if !self.error_message.is_empty() {
-			Err(mem::replace(&mut self.error_message, String::new()))
+			Err(IcedError::with_string(mem::replace(&mut self.error_message, String::new())))
 		} else {
 			Ok(instr_len)
 		}
