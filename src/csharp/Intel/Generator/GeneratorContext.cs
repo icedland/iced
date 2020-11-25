@@ -108,7 +108,7 @@ namespace Generator {
 		public string GetCSharpTestFilename(params string[] names) => Path.Combine(CSharpTestsDir, Path.Combine(names));
 		public string GetRustFilename(params string[] names) => Path.Combine(RustDir, Path.Combine(names));
 		public string GetRustJSFilename(params string[] names) => Path.Combine(RustJSDir, Path.Combine(names));
-		public string GetPythonPyFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "python", "iced_x86"), Path.Combine(names));
+		public string GetPythonPyFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "iced_x86"), Path.Combine(names));
 		public string GetPythonRustFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "src"), Path.Combine(names));
 		public string GetGeneratorFilename(params string[] names) => Path.Combine(GeneratorDir, Path.Combine(names));
 	}
