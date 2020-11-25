@@ -49,7 +49,7 @@ use std::collections::hash_map::DefaultHasher;
 ///
 ///     instr = decoder.decode()
 ///
-///     # Instruction supports __bool__() and returns True if it's not an invalid instruction:
+///     # Instruction supports __bool__() and returns True if it's a valid instruction:
 ///     if not instr:
 ///         print("Invalid instruction (garbage, data, or a future instr (update iced))")
 ///     # The above code is the same as:
