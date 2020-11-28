@@ -23,6 +23,7 @@ env:
   COVERAGE_FILENAME: coverage.net5.0.info
   CI_NODE_MIN_VER: 10.0.0
   RUSTFLAGS: -D warnings
+  MACOSX_DEPLOYMENT_TARGET: 10.12
 
 jobs:
 
@@ -54,14 +55,14 @@ jobs:
           ./build/build-dotnet $extra_args
 
       - uses: actions/upload-artifact@v2
-        if: startsWith(matrix.os, 'ubuntu-') && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
+        if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: nupkg
           path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
           if-no-files-found: error
 
       - uses: actions/upload-artifact@v2
-        if: startsWith(matrix.os, 'ubuntu-') && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
+        if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: coverage.info
           path: src/csharp/Intel/Iced.UnitTests/${{env.COVERAGE_FILENAME}}
@@ -142,8 +143,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        # Use the oldest macos version since the macos version number is part of the *.whl filename
-        os: [windows-latest, ubuntu-latest, macos-10.15]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -161,16 +161,25 @@ jobs:
       # - Update Python versions in src/rust/iced-x86-py/setup.py
       #     - `python_requires` line
       #     - `classifiers` array
-      - uses: actions/setup-python@v2
+      #
+      # NOTE: We use setup-miniconda and not setup-python because setup-python's
+      #       binaries target a later macos version and will produce warnings
+      #       when building wheels on macos.
+      #           https://github.com/actions/setup-python/issues/26
+      #       This also means that all bash shells (that use Python) must
+      #       use the -l option:
+      #           shell: bash -l {0}
+      - uses: conda-incubator/setup-miniconda@v2
         with:
+          auto-update-conda: true
           python-version: 3.6
       - name: Install Python tools
-        shell: bash
+        shell: bash -l {0}
         run: |
           pip install -U setuptools wheel setuptools-rust mypy pylint sphinx
 
       - name: Build and test
-        shell: bash
+        shell: bash -l {0}
         run: |
           extra_args=
           if [[ "$OSTYPE" != "linux-gnu"* ]]; then
@@ -181,7 +190,7 @@ jobs:
 
       - name: Create the sdist
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash
+        shell: bash -l {0}
         run: |
           git clean -xdf
           pydir=src/rust/iced-x86-py
@@ -203,14 +212,14 @@ jobs:
       # https://github.com/pypa/manylinux
       - name: Download manylinux docker image
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash
+        shell: bash -l {0}
         run: |
           # Update py-build-wheels-linux.sh if the image name is updated
           docker pull quay.io/pypa/manylinux2014_x86_64
 
       - name: Use manylinux docker image to build Linux wheels
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash
+        shell: bash -l {0}
         run: |
           git clean -xdf
           ./build/py-build-wheels-linux.sh
@@ -224,50 +233,53 @@ jobs:
       #       added/removed below.
       #########################################################################
 
-      - uses: actions/setup-python@v2
+      - uses: conda-incubator/setup-miniconda@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
         with:
+          auto-update-conda: true
           python-version: 3.6
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash
+        shell: bash -l {0}
         run: bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v2
+      - uses: conda-incubator/setup-miniconda@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
         with:
+          auto-update-conda: true
           python-version: 3.7
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash
+        shell: bash -l {0}
         run: bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v2
+      - uses: conda-incubator/setup-miniconda@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
         with:
+          auto-update-conda: true
           python-version: 3.8
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash
+        shell: bash -l {0}
         run: bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v2
+      - uses: conda-incubator/setup-miniconda@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
         with:
+          auto-update-conda: true
           python-version: 3.9
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash
+        shell: bash -l {0}
         run: bash build/ci-py-build-wheels.sh
       ####################### END Python Wheel: !Linux #######################
 
       - name: Fix upload path for Windows
-        shell: bash
+        shell: bash -l {0}
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
       - uses: actions/upload-artifact@v2
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
         with:
           name: py-dist-${{matrix.os}}
           path: py-dist
@@ -280,7 +292,6 @@ jobs:
   upload-files:
     runs-on: ubuntu-latest
     name: Upload files
-    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
     needs:
       - build-dotnet
       - build-rust
@@ -333,7 +344,7 @@ jobs:
           done
           rmdir /tmp/py-dist-tmp
 
-          # 3 (OS+arch combos) * 4 (supported Python versions) + 1 (source code tar.gz file)
+          # 3 (supported platforms) * 4 (supported Python versions) + 1 (source code tar.gz file)
           if [ $(ls -A /tmp/py-dist | wc -l) -ne 13 ]; then
             ls -l /tmp/py-dist
             echo "Found too many/few Python whl files (see above)"
@@ -347,6 +358,7 @@ jobs:
           twine check /tmp/py-dist/*
 
       - name: Upload coverage report
+        if: github.ref == 'refs/heads/master'
         shell: bash
         continue-on-error: true
         run: |
