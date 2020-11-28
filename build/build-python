@@ -87,14 +87,12 @@ misc_tests() {
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
 
-	if [ ! $(python --version | grep '3\.5') ]; then
-		echo "mypy"
-		mypy iced_x86
+	echo "mypy"
+	mypy iced_x86
 
-		echo "pylint"
-		# It will fail to load iced_x86_py since it's not in the correct dir, so disable the error
-		pylint iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
-	fi
+	echo "pylint"
+	# It will fail to load iced_x86_py since it's not in the correct dir, so disable the error
+	pylint iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
 
 	cd "$curr_dir"
 }

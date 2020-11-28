@@ -45,7 +45,7 @@ Building and testing the Python code requires:
 	- `rustup update`
 	- `rustup component add rustfmt`
 	- `rustup component add clippy`
-- Python >= 3.5: https://www.python.org/downloads/
+- Python >= 3.6: https://www.python.org/downloads/
 - `pip install -U setuptools wheel setuptools-rust mypy pylint sphinx`
 
 # Building this repo

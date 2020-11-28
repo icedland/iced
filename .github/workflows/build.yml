@@ -24,6 +24,11 @@ env:
   RUSTFLAGS: -D warnings
 
 jobs:
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
   build-dotnet:
     name: C# (${{matrix.os}})
     runs-on: ${{matrix.os}}
@@ -145,9 +150,18 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
+      # If the supported Python versions get updated (added/removed), do:
+      # - Update .github/workflows/build.yml (this file)
+      #     - Search for eg. 3.9 and 39
+      #     - Update file count in `Verify downloads`
+      # - Update min ver in build/README.md
+      # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 39)
+      # - Update Python versions in src/rust/iced-x86-py/setup.py
+      #     - `python_requires` line
+      #     - `classifiers` array
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.5
+          python-version: 3.6
       - name: Install Python tools
         shell: bash
         run: |
@@ -211,15 +225,6 @@ jobs:
       - uses: actions/setup-python@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
         with:
-          python-version: 3.5
-      - name: Build the wheel
-        if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash
-        run: bash build/ci-py-build-wheels.sh
-
-      - uses: actions/setup-python@v2
-        if: "!startsWith(matrix.os, 'ubuntu-')"
-        with:
           python-version: 3.6
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
@@ -261,6 +266,10 @@ jobs:
           path: /tmp/py-dist
           if-no-files-found: error
 
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
   upload-files:
     runs-on: ubuntu-latest
     name: Upload files
@@ -301,22 +310,24 @@ jobs:
             cp "$path/"* /tmp/py-dist-tmp
           done
 
-          supported_py_versions=(35 36 37 38 39)
+          supported_py_versions=(36 37 38 39)
           for py_ver in ${supported_py_versions[@]}; do
-            mv "$/tmp/py-dist-tmp/"iced_x86-*-cp${py_ver}-cp${py_ver}*.whl /tmp/py-dist
+            mv "/tmp/py-dist-tmp/"iced_x86-*-cp${py_ver}-cp${py_ver}*.whl /tmp/py-dist
           done
-          mv "$/tmp/py-dist-tmp/iced-x86-*.tar.gz" /tmp/py-dist
+          mv "/tmp/py-dist-tmp/iced-x86-*.tar.gz" /tmp/py-dist
 
           for file in /tmp/py-dist-tmp/*; do
-            ls -l /tmp/py-dist-tmp
-            echo "Unknown files found (see above)"
-            echo "If it's a new Python version, update this file and build-wheels.sh."
-            exit 1
+            if [ -f "$file" ]; then
+              ls -l /tmp/py-dist-tmp
+              echo "Unknown files found (see above)"
+              echo "If it's a new Python version, update this file and build-wheels.sh."
+              exit 1
+            fi
           done
           rmdir /tmp/py-dist-tmp
 
-          # 3 (OS+arch combos) * 5 (supported Python versions) + 1 (source code tar.gz file)
-          if [ $(ls -A /tmp/py-dist | wc -l) -ne 16 ]; then
+          # 3 (OS+arch combos) * 4 (supported Python versions) + 1 (source code tar.gz file)
+          if [ $(ls -A /tmp/py-dist | wc -l) -ne 13 ]; then
             ls -l /tmp/py-dist
             echo "Found too many/few Python whl files (see above)"
             exit 1

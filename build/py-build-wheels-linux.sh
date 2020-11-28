@@ -18,4 +18,4 @@ docker exec -w /tmp/iced-build/iced-x86-py $container_name bash build-wheels.sh
 docker cp $container_name:/tmp/iced-build/iced-x86-py/dist /tmp/py-dist
 mv /tmp/py-dist/dist/* /tmp/py-dist
 rmdir /tmp/py-dist/dist
-docker stop $container_name
+docker kill $container_name
