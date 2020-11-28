@@ -16,6 +16,7 @@ version = "0.12.3"
 features = ["extension-module"]
 
 [dependencies.iced-x86]
+version = "1.9.1"
 path = "../iced-x86"
 features = ["db"]
 

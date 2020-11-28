@@ -1,2 +1,3 @@
 include Cargo.toml
 recursive-include src *
+recursive-include iced_x86 py.typed *.pyi
