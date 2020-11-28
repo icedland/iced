@@ -8,11 +8,16 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
-if [ "$#" -gt 0 ]; then
-	echo "No command line args are supported"
-	exit 1
-fi
+extra_args=
+while [ "$#" -gt 0 ]; do
+	case $1 in
+	--quick-check) extra_args="$extra_args --quick-check" ;;
+	*) echo "Unknown arg: $1"; exit 1 ;;
+	esac
+	shift
+done
 
-$root_dir/build/build-rust
-$root_dir/build/build-js
-$root_dir/build/build-dotnet
+$root_dir/build/build-rust $extra_args
+$root_dir/build/build-python $extra_args
+$root_dir/build/build-js $extra_args
+$root_dir/build/build-dotnet $extra_args

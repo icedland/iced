@@ -3,12 +3,14 @@ on:
   push:
     paths:
       - ".github/workflows/build.yml"
+      - "build/**"
       - "src/**"
       - "!**/*.md"
     branches:
       - master
   pull_request:
     paths:
+      - "build/**"
       - "src/**"
       - "!**/*.md"
     branches:
@@ -22,12 +24,12 @@ env:
   RUSTFLAGS: -D warnings
 
 jobs:
-  build-csharp-windows:
+  build-dotnet:
     name: C# (${{matrix.os}})
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -36,69 +38,32 @@ jobs:
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
-      - name: Build, test
-        shell: bash
-        run: ./build/build-dotnet
-
-      - name: upload-artifact doesn't support wildcards
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
+      - name: Build and test
         shell: bash
         run: |
-          mkdir nuget_files
-          cp src/csharp/Intel/Iced/bin/Release/*.*nupkg nuget_files/
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-dotnet $extra_args
 
       - uses: actions/upload-artifact@v2
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
+        if: startsWith(matrix.os, 'ubuntu-') && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
         with:
           name: nupkg
-          path: nuget_files
+          path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
           if-no-files-found: error
 
       - uses: actions/upload-artifact@v2
-        if: github.ref == 'refs/heads/master'
+        if: startsWith(matrix.os, 'ubuntu-') && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
         with:
           name: coverage.info
-          path: src/csharp/Intel/Iced.UnitTests/coverage.net5.0.info
+          path: src/csharp/Intel/Iced.UnitTests/coverage.*.info
           if-no-files-found: error
 
-      - name: Upload coverage report
-        if: github.ref == 'refs/heads/master'
-        shell: bash
-        continue-on-error: true
-        run: |
-          curl https://codecov.io/bash -o codecov
-          chmod +x codecov
-          ./codecov -f src/csharp/Intel/Iced.UnitTests/coverage.net5.0.info
-        env:
-          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
-
-      - name: Upload to nuget.org if it's a new release
-        if: startsWith(github.ref, 'refs/tags/')
-        shell: bash
-        run: |
-          curl https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -o nuget.exe
-          for file in src/csharp/Intel/Iced/bin/Release/Iced.*.nupkg; do
-            ./nuget.exe push "$file" -ApiKey "${{secrets.NUGET_APIKEY}}" -NonInteractive -Source https://api.nuget.org/v3/index.json
-          done
-
-  # Make sure it builds on Linux/macOS too
-  build-csharp:
-    name: C# (${{matrix.os}})
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
-
-      - name: Build, test
-        shell: bash
-        run: ./build/build-dotnet --quick-check
+  #############################################################################
+  #############################################################################
+  #############################################################################
 
   build-rust:
     name: Rust (${{matrix.os}})
@@ -110,30 +75,42 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Update PATH env
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+
+      - name: Build and test
         shell: bash
         run: |
-          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-rust --no-set-rustflags $extra_args
 
-      - name: Install rustup and rustc latest (macOS)
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-js-wasm:
+    name: JavaScript (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
         shell: bash
-        if: startsWith(matrix.os, 'macos-')
-        run: |
-          curl https://sh.rustup.rs -sSf | bash -s -- -y
-          rustup install stable
-          rustup component add rustfmt
-          rustup component add clippy
+        run: bash build/ci-install-rust.sh
 
-      - name: Install rustc
-        shell: bash
-        run: |
-          # It fails on Windows so disable auto self update
-          rustup toolchain install 1.20.0 --no-self-update
-          rustup target add wasm32-unknown-unknown
-          rustup update --no-self-update
-
-      - name: Install Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
 
@@ -141,18 +118,229 @@ jobs:
         shell: bash
         run: npm install -g wasm-pack
 
+      - name: Build and test
+        shell: bash
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-js --no-set-rustflags $extra_args
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python:
+    name: Python (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.5
+      - name: Install Python tools
+        shell: bash
+        run: |
+          pip install -U setuptools wheel setuptools-rust mypy pylint sphinx
+
+      - name: Build and test
+        shell: bash
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-python --no-set-rustflags --python python --pip pip $extra_args
+          git clean -xdf
+
+      - name: Create the sdist
+        if: startsWith(matrix.os, 'ubuntu-')
+        shell: bash
+        run: |
+          git clean -xdf
+          pydir=src/rust/iced-x86-py
+          cargo_toml=$pydir/Cargo.toml
+          setup_cfg=$pydir/setup.cfg
+          # Include the license file
+          cp LICENSE.txt "$pydir"
+          # Update setup.cfg so it references this LICENSE file
+          sed -i -e 's!../../../LICENSE.txt!LICENSE.txt!' "$setup_cfg"
+          # It should use iced-x86 on crates.io
+          sed -i -e 's!path\s*=.*/iced-x86"!!' "$cargo_toml"
+          ./build/build-python --sdist-only
+          mkdir -p /tmp/py-dist
+          cp src/rust/iced-x86-py/dist/* /tmp/py-dist
+          git clean -xdf
+          git checkout .
+
+      ####################### BEGIN Python Wheel: Linux, manylinux docker image #######################
+      # https://github.com/pypa/manylinux
+      - name: Download manylinux docker image
+        if: startsWith(matrix.os, 'ubuntu-')
+        shell: bash
+        run: |
+          # Update py-build-wheels-linux.sh if the image name is updated
+          docker pull quay.io/pypa/manylinux2014_x86_64
+
+      - name: Use manylinux docker image to build Linux wheels
+        if: startsWith(matrix.os, 'ubuntu-')
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh
+          git clean -xdf
+      ####################### END Python Wheel: Linux, manylinux docker image #######################
+
+      ####################### BEGIN Python Wheel: !Linux #######################
+
+      #########################################################################
+      # NOTE: build-wheels.sh file must be updated too if a Python version is
+      #       added/removed below.
+      #########################################################################
+
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        with:
+          python-version: 3.5
+      - name: Build the wheel
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        shell: bash
+        run: bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        with:
+          python-version: 3.6
+      - name: Build the wheel
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        shell: bash
+        run: bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        with:
+          python-version: 3.7
+      - name: Build the wheel
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        shell: bash
+        run: bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        with:
+          python-version: 3.8
+      - name: Build the wheel
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        shell: bash
+        run: bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        with:
+          python-version: 3.9
+      - name: Build the wheel
+        if: "!startsWith(matrix.os, 'ubuntu-')"
+        shell: bash
+        run: bash build/ci-py-build-wheels.sh
+      ####################### END Python Wheel: !Linux #######################
+
+      - uses: actions/upload-artifact@v2
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
+        with:
+          name: py-dist-${{matrix.os}}
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  upload-files:
+    runs-on: ubuntu-latest
+    name: Upload files
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
+    needs:
+      - build-dotnet
+      - build-rust
+      - build-rust-js-wasm
+      - build-rust-python
+
+    steps:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-      - name: Build and test (Rust)
+      - uses: actions/download-artifact@v2
+        with:
+          path: /tmp/artifacts
+
+      - name: Verify downloads
         shell: bash
         run: |
-          ./build/build-rust --no-set-rustflags
-          git clean -xdf
+          if [ ! -f /tmp/artifacts/coverage.info/coverage.info ]; then
+            echo "Missing coverage"
+            exit 1
+          fi
+          if [ -z "$(ls -A /tmp/artifacts/nupkg/Iced.*.nupkg)" ]; then
+            echo "Missing nupkg files"
+            exit 1
+          fi
 
-      - name: Build and test (JS)
+          mkdir /tmp/py-dist-tmp
+          mkdir /tmp/py-dist
+          for path in /tmp/artifacts/py-dist-*; do
+            cp "$path/"* /tmp/py-dist-tmp
+          done
+
+          supported_py_versions=(35 36 37 38 39)
+          for py_ver in ${supported_py_versions[@]}; do
+            mv "$/tmp/py-dist-tmp/"iced_x86-*-cp${py_ver}-cp${py_ver}*.whl /tmp/py-dist
+          done
+          mv "$/tmp/py-dist-tmp/iced-x86-*.tar.gz" /tmp/py-dist
+
+          for file in /tmp/py-dist-tmp/*; do
+            ls -l /tmp/py-dist-tmp
+            echo "Unknown files found (see above)"
+            echo "If it's a new Python version, update this file and build-wheels.sh."
+            exit 1
+          done
+          rmdir /tmp/py-dist-tmp
+
+          # 3 (OS+arch combos) * 5 (supported Python versions) + 1 (source code tar.gz file)
+          if [ $(ls -A /tmp/py-dist | wc -l) -ne 16 ]; then
+            ls -l /tmp/py-dist
+            echo "Found too many/few Python whl files (see above)"
+            exit 1
+          fi
+
+      - name: twine check
         shell: bash
         run: |
-          ./build/build-js --no-set-rustflags
-          git clean -xdf
+          pip install -U twine
+          twine check /tmp/py-dist/*
+
+      - name: Upload coverage report
+        shell: bash
+        continue-on-error: true
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://codecov.io/bash | bash -s -- -f /tmp/artifacts/coverage.info/coverage.info
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+
+      - name: Upload to nuget.org if it's a new release
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          curl https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -o nuget.exe
+          for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
+            dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
+          done

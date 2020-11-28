@@ -36,6 +36,18 @@ Building and testing the JavaScript code requires:
 - Node.js >= 10.0.0: https://nodejs.org/en/download/
 - wasm-pack: `npm install -g wasm-pack` or if it fails, see https://rustwasm.github.io/wasm-pack/installer/
 
+## Python
+
+Building and testing the Python code requires:
+
+- Rust: https://www.rust-lang.org/tools/install
+- Extra Rust stuff
+	- `rustup update`
+	- `rustup component add rustfmt`
+	- `rustup component add clippy`
+- Python >= 3.5: https://www.python.org/downloads/
+- `pip install -U setuptools wheel setuptools-rust mypy pylint sphinx`
+
 # Building this repo
 
 Pick an OS, any OS:
@@ -48,6 +60,7 @@ From the repo root dir:
 sh build/build
 REM It's the same as
 sh build/build-rust
+sh build/build-python
 sh build/build-js
 sh build/build-dotnet
 ```
@@ -62,6 +75,7 @@ From the repo root dir:
 ./build/build
 # It's the same as
 ./build/build-rust
+./build/build-python
 ./build/build-js
 ./build/build-dotnet
 ```

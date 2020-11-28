@@ -19,11 +19,11 @@ net_framework_tfm="net48"
 xunit_version="2.4.1"
 xunit_net_tfm_version="net472"
 configuration=Release
+full_check=y
 gen_check=y
 test_code=y
 pack_code=y
 coverage=y
-quick_check=n
 
 new_func() {
 	echo
@@ -151,11 +151,11 @@ build_test() {
 
 while [ "$#" -gt 0 ]; do
 	case $1 in
+	--quick-check) full_check=n ;;
 	--no-gen-check) gen_check=n ;;
 	--no-test) test_code=n ;;
 	--no-pack) pack_code=n ;;
 	--no-coverage) coverage=n ;;
-	--quick-check) quick_check=y ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
 	shift
@@ -170,7 +170,7 @@ echo
 echo "dotnet version"
 dotnet --version
 
-if [ "$quick_check" != "y" ]; then
+if [ "$full_check" = "y" ]; then
 	if [ "$gen_check" = "y" ]; then
 		generator_check
 	fi

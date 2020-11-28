@@ -8,6 +8,7 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
+full_check=y
 set_rustflags=y
 
 new_func() {
@@ -83,6 +84,7 @@ test_the_code() {
 
 while [ "$#" -gt 0 ]; do
 	case $1 in
+	--quick-check) full_check=n ;;
 	--no-set-rustflags) set_rustflags=n ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
@@ -99,6 +101,8 @@ if [ "$set_rustflags" = "y" ]; then
 	export RUSTFLAGS="-D warnings"
 fi
 
+echo "rustup show"
+rustup show
 echo "cargo version"
 cargo --version
 echo "Rust version"
@@ -109,6 +113,10 @@ echo "node version"
 node --version
 echo "npm version"
 npm --version
+echo "rustup show"
+rustup show
 
-build_and_check
+if [ "$full_check" = "y" ]; then
+	build_and_check
+fi
 test_the_code
