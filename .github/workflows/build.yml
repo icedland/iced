@@ -142,7 +142,8 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        # Use the oldest macos version since the macos version number is part of the *.whl filename
+        os: [windows-latest, ubuntu-latest, macos-10.15]
 
     steps:
       - uses: actions/checkout@v2
