@@ -20,6 +20,7 @@ on:
 
 env:
   CI_REQ_DOTNET_SDK_VER: 5.0.100
+  COVERAGE_FILENAME: coverage.net5.0.info
   CI_NODE_MIN_VER: 10.0.0
   RUSTFLAGS: -D warnings
 
@@ -63,7 +64,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-') && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
         with:
           name: coverage.info
-          path: src/csharp/Intel/Iced.UnitTests/coverage.*.info
+          path: src/csharp/Intel/Iced.UnitTests/${{env.COVERAGE_FILENAME}}
           if-no-files-found: error
 
   #############################################################################
@@ -259,11 +260,16 @@ jobs:
         run: bash build/ci-py-build-wheels.sh
       ####################### END Python Wheel: !Linux #######################
 
+      - name: Fix upload path for Windows
+        shell: bash
+        run: |
+          git clean -xdf
+          cp -r /tmp/py-dist .
       - uses: actions/upload-artifact@v2
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
         with:
           name: py-dist-${{matrix.os}}
-          path: /tmp/py-dist
+          path: py-dist
           if-no-files-found: error
 
   #############################################################################
@@ -286,7 +292,7 @@ jobs:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: 3.x
 
       - uses: actions/download-artifact@v2
         with:
@@ -295,7 +301,7 @@ jobs:
       - name: Verify downloads
         shell: bash
         run: |
-          if [ ! -f /tmp/artifacts/coverage.info/coverage.info ]; then
+          if [ ! -f "/tmp/artifacts/coverage.info/$COVERAGE_FILENAME" ]; then
             echo "Missing coverage"
             exit 1
           fi
@@ -314,7 +320,7 @@ jobs:
           for py_ver in ${supported_py_versions[@]}; do
             mv "/tmp/py-dist-tmp/"iced_x86-*-cp${py_ver}-cp${py_ver}*.whl /tmp/py-dist
           done
-          mv "/tmp/py-dist-tmp/iced-x86-*.tar.gz" /tmp/py-dist
+          mv "/tmp/py-dist-tmp/iced-x86-"*.tar.gz /tmp/py-dist
 
           for file in /tmp/py-dist-tmp/*; do
             if [ -f "$file" ]; then
@@ -343,7 +349,7 @@ jobs:
         shell: bash
         continue-on-error: true
         run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://codecov.io/bash | bash -s -- -f /tmp/artifacts/coverage.info/coverage.info
+          curl --proto '=https' --tlsv1.2 -sSf https://codecov.io/bash | bash -s -- -f "/tmp/artifacts/coverage.info/$COVERAGE_FILENAME"
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
 
