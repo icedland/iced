@@ -46,7 +46,7 @@ use std::collections::hash_map::DefaultHasher;
 ///     assert op_code.encoding == EncodingKind.EVEX
 ///     assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
 ///     assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
-#[pyclass(module = "iced_x86_py")]
+#[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(code, /)"]
 pub struct OpCodeInfo {
 	info: &'static iced_x86::OpCodeInfo,

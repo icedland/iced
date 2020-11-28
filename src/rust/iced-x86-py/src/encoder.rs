@@ -60,7 +60,7 @@ use pyo3::types::PyBytes;
 ///     # We're done, take ownership of the buffer
 ///     buffer = encoder.take_buffer()
 ///     assert buffer == b"\x86\x64\x32\x16"
-#[pyclass(module = "iced_x86_py")]
+#[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(bitness, capacity, /)"]
 pub struct Encoder {
 	encoder: iced_x86::Encoder,

@@ -97,7 +97,7 @@ use op_code_info::OpCodeInfo;
 use pyo3::prelude::*;
 
 #[pymodule]
-fn iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
+fn _iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
 	// If you add a new struct, also add it to
 	//	- python/iced_x86/__init__.py's `__init__` array and `from` statement
 	//	- docs/index.rst

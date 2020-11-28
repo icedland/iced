@@ -58,7 +58,7 @@ setup(
 		"Topic :: Software Development :: Libraries",
 	],
 	packages=["iced_x86"],
-	rust_extensions=[RustExtension("iced_x86.iced_x86_py", path="Cargo.toml", strip=Strip.All)],
+	rust_extensions=[RustExtension("iced_x86._iced_x86_py", path="Cargo.toml", strip=Strip.All)],
 	include_package_data=True,
 	zip_safe=False,
 )

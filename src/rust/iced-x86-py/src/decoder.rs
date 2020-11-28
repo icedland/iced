@@ -109,7 +109,7 @@ enum DecoderDataRef {
 ///     instr = decoder.decode()
 ///     assert instr.code == Code.ADD_RM32_R32
 ///     assert instr.has_lock_prefix
-#[pyclass(module = "iced_x86_py")]
+#[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(bitness, data, options, /)"]
 pub struct Decoder {
 	// * If the decoder ctor was called with a `bytes` object, data_ref is PyObj(`bytes` object)

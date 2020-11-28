@@ -1,6 +1,6 @@
 build/
 dist/
 *.egg-info/
-iced_x86_py.*.pyd
-iced_x86_py.*.so
-iced_x86_py.*.dylib
+_iced_x86_py.*.pyd
+_iced_x86_py.*.so
+_iced_x86_py.*.dylib

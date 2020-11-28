@@ -6,6 +6,7 @@ edition = "2018"
 publish = false
 
 [lib]
+name = "_iced_x86_py"
 crate-type = ["cdylib"]
 
 [dependencies]

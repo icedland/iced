@@ -133,7 +133,7 @@ use std::collections::hash_map::DefaultHasher;
 /// M       Always show the memory size (eg. ``BYTE PTR``) even when not needed
 /// _       Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (ignored by fast fmt)
 /// ======  =============================================================================
-#[pyclass(module = "iced_x86_py")]
+#[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(/)"]
 #[derive(Copy, Clone)]
 pub struct Instruction {
@@ -1497,7 +1497,7 @@ impl Instruction {
 ///     `increment` (int): (``i32``) Used if `writes_top` is ``True``. Value added to ``TOP``.
 ///     `conditional` (bool): ``True`` if it's a conditional push/pop (eg. ``FPTAN`` or ``FSINCOS``)
 ///     `writes_top` (bool): ``True`` if ``TOP`` is written (it's a conditional/unconditional push/pop, ``FNSAVE``, ``FLDENV``, etc)
-#[pyclass(module = "iced_x86_py")]
+#[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(increment, conditional, writes_top, /)"]
 pub struct FpuStackIncrementInfo {
 	info: iced_x86::FpuStackIncrementInfo,

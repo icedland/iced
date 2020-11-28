@@ -66,9 +66,9 @@ generate_docs() {
 	# Depends on generate_wheel output.
 	# It needs to load all modules, so copy the built file to the correct place.
 	# It has a *.{pyd,dylib,so} extension
-	built_file=$(ls build/lib/iced_x86/iced_x86_py.*.*)
+	built_file=$(ls build/lib/iced_x86/_iced_x86_py.*.*)
 	if [ ! -f "$built_file" ]; then
-		echo "Couldn't find the built iced_x86_py.*.* file"
+		echo "Couldn't find the built _iced_x86_py.*.* file"
 		exit 1
 	fi
 	dest_filename="iced_x86/$(basename "$built_file")"
@@ -91,7 +91,7 @@ misc_tests() {
 	mypy iced_x86
 
 	echo "pylint"
-	# It will fail to load iced_x86_py since it's not in the correct dir, so disable the error
+	# It will fail to load _iced_x86_py since it's not in the correct dir, so disable the error
 	pylint iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
 
 	cd "$curr_dir"
@@ -131,10 +131,6 @@ echo "Python version"
 $python --version
 echo "pip version"
 $pip --version
-if [ "$gen_docs" = "y" ]; then
-	echo "sphinx-build version"
-	sphinx-build --version
-fi
 
 if [ "$sdist_only" = "y" ]; then
 	generate_sdist
@@ -143,6 +139,11 @@ fi
 if [ "$wheel_only" = "y" ]; then
 	generate_wheel
 	exit 0
+fi
+
+if [ "$full_check" = "y" ] && [ "$gen_docs" = "y" ]; then
+	echo "sphinx-build version"
+	sphinx-build --version
 fi
 
 generate_sdist
