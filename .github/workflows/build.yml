@@ -176,6 +176,7 @@ jobs:
       - name: Install Python tools
         shell: bash -l {0}
         run: |
+          python --version | grep "Python 3\.6"
           pip install -U setuptools wheel setuptools-rust mypy pylint sphinx
 
       - name: Build and test
@@ -241,7 +242,9 @@ jobs:
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -l {0}
-        run: bash build/ci-py-build-wheels.sh
+        run: |
+          python --version | grep "Python 3\.6"
+          bash build/ci-py-build-wheels.sh
 
       - uses: conda-incubator/setup-miniconda@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
@@ -251,7 +254,9 @@ jobs:
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -l {0}
-        run: bash build/ci-py-build-wheels.sh
+        run: |
+          python --version | grep "Python 3\.7"
+          bash build/ci-py-build-wheels.sh
 
       - uses: conda-incubator/setup-miniconda@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
@@ -261,7 +266,9 @@ jobs:
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -l {0}
-        run: bash build/ci-py-build-wheels.sh
+        run: |
+          python --version | grep "Python 3\.8"
+          bash build/ci-py-build-wheels.sh
 
       - uses: conda-incubator/setup-miniconda@v2
         if: "!startsWith(matrix.os, 'ubuntu-')"
@@ -271,7 +278,9 @@ jobs:
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -l {0}
-        run: bash build/ci-py-build-wheels.sh
+        run: |
+          python --version | grep "Python 3\.9"
+          bash build/ci-py-build-wheels.sh
       ####################### END Python Wheel: !Linux #######################
 
       - name: Fix upload path for Windows
