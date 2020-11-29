@@ -167,20 +167,20 @@ jobs:
       #       when building wheels on macos.
       #           https://github.com/actions/setup-python/issues/26
       #       This also means that all bash shells (that use Python) must
-      #       use the -l option:
-      #           shell: bash -l {0}
+      #       use the -le options:
+      #           shell: bash -le {0}
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
           python-version: 3.6
       - name: Install Python tools
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           python --version | grep "Python 3\.6"
           pip install -U setuptools wheel setuptools-rust mypy pylint sphinx
 
       - name: Build and test
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           extra_args=
           if [[ "$OSTYPE" != "linux-gnu"* ]]; then
@@ -191,7 +191,7 @@ jobs:
 
       - name: Create the sdist
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           git clean -xdf
           pydir=src/rust/iced-x86-py
@@ -213,14 +213,14 @@ jobs:
       # https://github.com/pypa/manylinux
       - name: Download manylinux docker image
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           # Update py-build-wheels-linux.sh if the image name is updated
           docker pull quay.io/pypa/manylinux2014_x86_64
 
       - name: Use manylinux docker image to build Linux wheels
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           git clean -xdf
           ./build/py-build-wheels-linux.sh
@@ -241,7 +241,7 @@ jobs:
           python-version: 3.6
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           python --version | grep "Python 3\.6"
           bash build/ci-py-build-wheels.sh
@@ -253,7 +253,7 @@ jobs:
           python-version: 3.7
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           python --version | grep "Python 3\.7"
           bash build/ci-py-build-wheels.sh
@@ -265,7 +265,7 @@ jobs:
           python-version: 3.8
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           python --version | grep "Python 3\.8"
           bash build/ci-py-build-wheels.sh
@@ -277,14 +277,14 @@ jobs:
           python-version: 3.9
       - name: Build the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
-        shell: bash -l {0}
+        shell: bash -le {0}
         run: |
           python --version | grep "Python 3\.9"
           bash build/ci-py-build-wheels.sh
       ####################### END Python Wheel: !Linux #######################
 
-      - name: Fix upload path for Windows
-        shell: bash -l {0}
+      - name: Fix upload path
+        shell: bash -le {0}
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
