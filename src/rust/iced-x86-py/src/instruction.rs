@@ -1486,6 +1486,7 @@ impl Instruction {
 	///
 	///     #TODO: Add an example here
 	#[text_signature = "($self, operand, element_index, /)"]
+	#[allow(clippy::unused_self)] //TODO:
 	fn try_virtual_address(&self, _operand: u32, _element_index: usize) -> Option<u64> {
 		None
 	}

@@ -97,6 +97,12 @@ misc_tests() {
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
 
+	echo "==== CLIPPY RELEASE ===="
+	cargo clippy --color always --release
+
+	echo "==== FORMAT CHECK ===="
+	cargo fmt -- --color always --check
+
 	echo "mypy"
 	mypy --strict iced_x86
 
