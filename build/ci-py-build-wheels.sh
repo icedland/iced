@@ -11,6 +11,8 @@ pip --version
 
 pip install -U setuptools wheel setuptools-rust
 
+# Needed so the wheel files don't get extra *.{so,pyd} files (should have exactly one)
+# from earlier builds
 git clean -xdf
 ./build/build-python --wheel-only
 mkdir -p /tmp/py-dist

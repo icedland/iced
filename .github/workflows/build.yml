@@ -148,6 +148,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Verify that py/LICENSE.txt matches root/LICENSE.txt
+        shell: bash
+        run: |
+          pydir=src/rust/iced-x86-py
+          if [ ! -f "$pydir/LICENSE.txt" ]; then
+            echo "Missing license file"
+            exit 1
+          fi
+          cp LICENSE.txt "$pydir/"
+          git diff --exit-code
+
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
@@ -204,7 +215,6 @@ jobs:
           mkdir -p /tmp/py-dist
           cp src/rust/iced-x86-py/dist/* /tmp/py-dist
           git clean -xdf
-          git checkout .
 
       ####################### BEGIN Python Wheel: Linux, manylinux docker image #######################
       # https://github.com/pypa/manylinux
@@ -227,8 +237,7 @@ jobs:
       ####################### BEGIN Python Wheel: !Linux #######################
 
       #########################################################################
-      # NOTE: build-wheels.sh file must be updated too if a Python version is
-      #       added/removed below.
+      # NOTE: See the comment above before adding/removing new Python versions
       #########################################################################
 
       - uses: actions/setup-python@v2
@@ -292,12 +301,12 @@ jobs:
           bash build/ci-py-build-wheels.sh
 
       #########################################################################
-      # The rest of the code needs 32-bit Rust and 32-bit Python
+      # The rest of the code needs 32-bit Rust/Python
       #########################################################################
 
       - name: Install 32-bit Rust
         if: startsWith(matrix.os, 'windows-')
-        shell: bash -le {0}
+        shell: bash
         run: |
           rustup install stable-i686-pc-windows-msvc --no-self-update
           rustup default stable-i686-pc-windows-msvc
@@ -310,7 +319,7 @@ jobs:
           architecture: x86
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
-        shell: bash -le {0}
+        shell: bash
         run: |
           python --version 2>&1 | grep "Python 3\.6"
           bash build/ci-py-build-wheels.sh
@@ -322,7 +331,7 @@ jobs:
           architecture: x86
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
-        shell: bash -le {0}
+        shell: bash
         run: |
           python --version 2>&1 | grep "Python 3\.7"
           bash build/ci-py-build-wheels.sh
@@ -334,7 +343,7 @@ jobs:
           architecture: x86
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
-        shell: bash -le {0}
+        shell: bash
         run: |
           python --version 2>&1 | grep "Python 3\.8"
           bash build/ci-py-build-wheels.sh
@@ -346,14 +355,14 @@ jobs:
           architecture: x86
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
-        shell: bash -le {0}
+        shell: bash
         run: |
           python --version 2>&1 | grep "Python 3\.9"
           bash build/ci-py-build-wheels.sh
       ####################### END Python Wheel: !Linux #######################
 
       - name: Fix upload path
-        shell: bash -le {0}
+        shell: bash
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
