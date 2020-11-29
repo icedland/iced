@@ -169,7 +169,14 @@ jobs:
       #       This also means that all bash shells (that use Python) must
       #       use the -le options:
       #           shell: bash -le {0}
+      #       setup-python is faster to install than setup-miniconda so we only
+      #       use setup-miniconda if this is a macos image.
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'macos-')"
+        with:
+          python-version: 3.6
       - uses: conda-incubator/setup-miniconda@v2
+        if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.6
       - name: Install Python tools
@@ -224,8 +231,12 @@ jobs:
       #       added/removed below.
       #########################################################################
 
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'macos-')"
+        with:
+          python-version: 3.6
       - uses: conda-incubator/setup-miniconda@v2
-        if: "!startsWith(matrix.os, 'ubuntu-')"
+        if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.6
       - name: Build the wheel
@@ -235,8 +246,12 @@ jobs:
           python --version 2>&1 | grep "Python 3\.6"
           bash build/ci-py-build-wheels.sh
 
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'macos-')"
+        with:
+          python-version: 3.7
       - uses: conda-incubator/setup-miniconda@v2
-        if: "!startsWith(matrix.os, 'ubuntu-')"
+        if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.7
       - name: Build the wheel
@@ -246,8 +261,12 @@ jobs:
           python --version 2>&1 | grep "Python 3\.7"
           bash build/ci-py-build-wheels.sh
 
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'macos-')"
+        with:
+          python-version: 3.8
       - uses: conda-incubator/setup-miniconda@v2
-        if: "!startsWith(matrix.os, 'ubuntu-')"
+        if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.8
       - name: Build the wheel
@@ -257,8 +276,12 @@ jobs:
           python --version 2>&1 | grep "Python 3\.8"
           bash build/ci-py-build-wheels.sh
 
+      - uses: actions/setup-python@v2
+        if: "!startsWith(matrix.os, 'macos-')"
+        with:
+          python-version: 3.9
       - uses: conda-incubator/setup-miniconda@v2
-        if: "!startsWith(matrix.os, 'ubuntu-')"
+        if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.9
       - name: Build the wheel
@@ -280,12 +303,11 @@ jobs:
           rustup default stable-i686-pc-windows-msvc
           rustup show
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/setup-python@v2
         if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.6
           architecture: x86
-          miniconda-version: latest
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash -le {0}
@@ -293,12 +315,11 @@ jobs:
           python --version 2>&1 | grep "Python 3\.6"
           bash build/ci-py-build-wheels.sh
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/setup-python@v2
         if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.7
           architecture: x86
-          miniconda-version: latest
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash -le {0}
@@ -306,12 +327,11 @@ jobs:
           python --version 2>&1 | grep "Python 3\.7"
           bash build/ci-py-build-wheels.sh
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/setup-python@v2
         if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.8
           architecture: x86
-          miniconda-version: latest
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash -le {0}
@@ -319,12 +339,11 @@ jobs:
           python --version 2>&1 | grep "Python 3\.8"
           bash build/ci-py-build-wheels.sh
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/setup-python@v2
         if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.9
           architecture: x86
-          miniconda-version: latest
       - name: Build the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash -le {0}
