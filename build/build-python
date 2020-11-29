@@ -98,7 +98,7 @@ misc_tests() {
 	cd "$pysrc_dir"
 
 	echo "mypy"
-	mypy iced_x86
+	mypy --strict iced_x86
 
 	echo "pylint"
 	# It will fail to load _iced_x86_py since it's not in the correct dir, so disable the error
