@@ -1,3 +1,6 @@
 include Cargo.toml
 recursive-include src *
 recursive-include iced_x86 py.typed *.pyi
+# Required or sdist sometimes finds this file and includes it even though we've
+# copied it to this dir and updated its path in setup.cfg
+exclude ../../../LICENSE.txt

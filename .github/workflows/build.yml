@@ -194,15 +194,6 @@ jobs:
         shell: bash -le {0}
         run: |
           git clean -xdf
-          pydir=src/rust/iced-x86-py
-          cargo_toml=$pydir/Cargo.toml
-          setup_cfg=$pydir/setup.cfg
-          # Include the license file
-          cp LICENSE.txt "$pydir"
-          # Update setup.cfg so it references this LICENSE file
-          sed -i -e 's!../../../LICENSE.txt!LICENSE.txt!' "$setup_cfg"
-          # It should use iced-x86 on crates.io
-          sed -i -e 's!path\s*=.*/iced-x86"!!' "$cargo_toml"
           ./build/build-python --sdist-only
           mkdir -p /tmp/py-dist
           cp src/rust/iced-x86-py/dist/* /tmp/py-dist

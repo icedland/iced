@@ -41,7 +41,17 @@ generate_sdist() {
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
 
+	# Include the license file
+	cp "$root_dir/LICENSE.txt" .
+	# Update setup.cfg so it references this LICENSE file
+	sed -i -e 's!\.\./\.\./\.\./LICENSE\.txt!LICENSE.txt!' setup.cfg
+	# It should use iced-x86 on crates.io
+	sed -i -e 's!path\s*=.*/iced-x86"!!' Cargo.toml
+
 	$python setup.py sdist
+
+	rm LICENSE.txt
+	git checkout setup.cfg Cargo.toml
 
 	cd "$curr_dir"
 }
