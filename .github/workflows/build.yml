@@ -386,6 +386,7 @@ jobs:
       - build-rust-python
 
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
@@ -439,11 +440,13 @@ jobs:
             exit 1
           fi
 
-      - name: twine check
+      - name: Upload checks
         shell: bash
         run: |
           pip install -U twine
           twine check /tmp/py-dist/*
+          dotnet nuget push --help
+          cargo publish --help
 
       - name: Upload coverage report
         if: github.ref == 'refs/heads/master'
@@ -454,11 +457,21 @@ jobs:
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
 
-      - name: Upload to nuget.org if it's a new release
+      - name: Upload to nuget.org
         if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
-          curl https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -o nuget.exe
           for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
             dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
           done
+
+      - name: Upload to crates.io
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          git clean -xdf
+          git checkout .
+          cd src/rust/iced-x86
+          cargo login --color always -- "${{secrets.CRATES_IO_TOKEN}}"
+          # --no-verify: we've tested building everything already
+          cargo publish --color always --no-verify
