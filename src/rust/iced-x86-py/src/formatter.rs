@@ -111,26 +111,14 @@ impl Formatter {
 	///
 	/// Args:
 	///     `instruction` (Instruction): Instruction to format
-	///
-	/// Returns:
-	///     str: The formatted string
-	#[inline]
-	fn format_mnemonic(&mut self, instruction: &Instruction) -> &str {
-		self.fmt_output.clear();
-		self.formatter.format_mnemonic(&instruction.instr, &mut self.fmt_output);
-		&self.fmt_output
-	}
-
-	/// Formats the mnemonic and/or any prefixes
-	///
-	/// Args:
-	///     `instruction` (Instruction): Instruction to format
-	///     `options` (:class:`FormatMnemonicOptions`): Options
+	///     `options` (:class:`FormatMnemonicOptions`): (default = :class:`FormatMnemonicOptions.NONE`) Options
 	///
 	/// Returns:
 	///     str: The formatted string
 	#[text_signature = "($self, instruction, options)"]
-	fn format_mnemonic_options(&mut self, instruction: &Instruction, options: u32) -> &str {
+	#[args(options = 0)]
+	fn format_mnemonic(&mut self, instruction: &Instruction, options: u32) -> &str {
+		const_assert_eq!(0, iced_x86::FormatMnemonicOptions::NONE);
 		self.fmt_output.clear();
 		self.formatter.format_mnemonic_options(&instruction.instr, &mut self.fmt_output, options);
 		&self.fmt_output
