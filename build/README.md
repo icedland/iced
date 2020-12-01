@@ -15,8 +15,7 @@ Building and testing the Rust code requires:
 - Rust: https://www.rust-lang.org/tools/install
 - Extra Rust stuff
 	- `rustup update`
-	- `rustup component add rustfmt`
-	- `rustup component add clippy`
+	- `rustup component add rustfmt clippy`
 	- `rustup target add wasm32-unknown-unknown`
 	- MSRV: `rustup toolchain install 1.20.0`
 		- Pass `--no-msrv` to `build-rust` if you don't want to install it
@@ -30,8 +29,7 @@ Building and testing the JavaScript code requires:
 - Rust: https://www.rust-lang.org/tools/install
 - Extra Rust stuff
 	- `rustup update`
-	- `rustup component add rustfmt`
-	- `rustup component add clippy`
+	- `rustup component add rustfmt clippy`
 	- `rustup target add wasm32-unknown-unknown`
 - Node.js >= 10.0.0: https://nodejs.org/en/download/
 - wasm-pack: `npm install -g wasm-pack` or if it fails, see https://rustwasm.github.io/wasm-pack/installer/
@@ -43,10 +41,10 @@ Building and testing the Python code requires:
 - Rust: https://www.rust-lang.org/tools/install
 - Extra Rust stuff
 	- `rustup update`
-	- `rustup component add rustfmt`
-	- `rustup component add clippy`
+	- `rustup component add rustfmt clippy`
+- Some C compiler, eg. `apt install gcc`
 - Python >= 3.6: https://www.python.org/downloads/
-- `pip install -U setuptools wheel setuptools-rust mypy pylint sphinx`
+- `pip3 install -U setuptools wheel setuptools-rust mypy pylint sphinx`
 
 # Building this repo
 
