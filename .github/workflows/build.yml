@@ -220,10 +220,10 @@ jobs:
       # https://github.com/pypa/manylinux
       - name: Download manylinux docker image
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash -le {0}
+        shell: bash
         run: |
           # Update py-build-wheels-linux.sh if the image name is updated
-          docker pull quay.io/pypa/manylinux2014_x86_64
+          docker pull quay.io/pypa/manylinux2010_x86_64
 
       - name: Use manylinux docker image to build Linux wheels
         if: startsWith(matrix.os, 'ubuntu-')
@@ -241,7 +241,7 @@ jobs:
       #########################################################################
 
       - uses: actions/setup-python@v2
-        if: "!startsWith(matrix.os, 'macos-')"
+        if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.6
       - uses: conda-incubator/setup-miniconda@v2
@@ -256,7 +256,7 @@ jobs:
           bash build/ci-py-build-wheels.sh
 
       - uses: actions/setup-python@v2
-        if: "!startsWith(matrix.os, 'macos-')"
+        if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.7
       - uses: conda-incubator/setup-miniconda@v2
@@ -271,7 +271,7 @@ jobs:
           bash build/ci-py-build-wheels.sh
 
       - uses: actions/setup-python@v2
-        if: "!startsWith(matrix.os, 'macos-')"
+        if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.8
       - uses: conda-incubator/setup-miniconda@v2
@@ -286,7 +286,7 @@ jobs:
           bash build/ci-py-build-wheels.sh
 
       - uses: actions/setup-python@v2
-        if: "!startsWith(matrix.os, 'macos-')"
+        if: startsWith(matrix.os, 'windows-')
         with:
           python-version: 3.9
       - uses: conda-incubator/setup-miniconda@v2
@@ -417,9 +417,9 @@ jobs:
 
           supported_py_versions=(36 37 38 39)
           for py_ver in ${supported_py_versions[@]}; do
-            mv "/tmp/py-dist-tmp/"iced_x86-*-cp${py_ver}-cp${py_ver}*.whl /tmp/py-dist
+            mv /tmp/py-dist-tmp/iced_x86-*-cp${py_ver}-cp${py_ver}*.whl /tmp/py-dist
           done
-          mv "/tmp/py-dist-tmp/iced-x86-"*.tar.gz /tmp/py-dist
+          mv /tmp/py-dist-tmp/iced-x86-*.tar.gz /tmp/py-dist
 
           for file in /tmp/py-dist-tmp/*; do
             if [ -f "$file" ]; then
@@ -431,8 +431,9 @@ jobs:
           done
           rmdir /tmp/py-dist-tmp
 
-          # 4 (supported platforms) * 4 (supported Python versions) + 1 (source code tar.gz file)
-          if [ $(ls -A /tmp/py-dist | wc -l) -ne 17 ]; then
+          # (4+1) (supported platforms) * 4 (supported Python versions) + 1 (source code tar.gz file)
+          # (^+1 == manylinux build creates manylinux1 + manylinux2010 files)
+          if [ $(ls -A /tmp/py-dist | wc -l) -ne 21 ]; then
             ls -l /tmp/py-dist
             echo "Found too many/few Python whl files (see above)"
             exit 1
