@@ -29,7 +29,7 @@ use pyo3::types::PyBytes;
 
 /// Encodes instructions decoded by the decoder or instructions created by other code.
 ///
-/// See also `BlockEncoder` which can encode any number of instructions.
+/// See also :class:`BlockEncoder` which can encode any number of instructions.
 ///
 /// Args:
 ///     bitness (int): 16, 32 or 64
@@ -44,8 +44,8 @@ use pyo3::types::PyBytes;
 ///     from iced_x86 import *
 ///
 ///     # xchg ah,[rdx+rsi+16h]
-///     bytes = b"\x86\x64\x32\x16"
-///     decoder = Decoder(64, bytes)
+///     data = b"\x86\x64\x32\x16"
+///     decoder = Decoder(64, data)
 ///     decoder.ip = 0x1234_5678
 ///     instr = decoder.decode()
 ///
@@ -98,8 +98,8 @@ impl Encoder {
 	///     from iced_x86 import *
 	///
 	///     # je short $+4
-	///     bytes = b"\x75\x02"
-	///     decoder = Decoder(64, bytes)
+	///     data = b"\x75\x02"
+	///     decoder = Decoder(64, data)
 	///     decoder.ip = 0x1234_5678
 	///     instr = decoder.decode()
 	///
@@ -135,8 +135,8 @@ impl Encoder {
 	///     from iced_x86 import *
 	///
 	///     # je short $+4
-	///     bytes = b"\x75\x02"
-	///     decoder = Decoder(64, bytes)
+	///     data = b"\x75\x02"
+	///     decoder = Decoder(64, data)
 	///     decoder.ip = 0x1234_5678
 	///     instr = decoder.decode()
 	///

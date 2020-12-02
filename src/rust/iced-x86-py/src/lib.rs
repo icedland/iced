@@ -77,6 +77,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #[macro_use]
 extern crate static_assertions;
 
+mod block_encoder;
 mod constant_offsets;
 mod decoder;
 mod encoder;
@@ -87,6 +88,7 @@ mod iced_constants;
 mod instruction;
 mod op_code_info;
 
+use block_encoder::BlockEncoder;
 use constant_offsets::ConstantOffsets;
 use decoder::Decoder;
 use encoder::Encoder;
@@ -102,6 +104,7 @@ fn _iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
 	//	- python/iced_x86/__init__.py's `__init__` array and `from` statement
 	//	- docs/index.rst
 	//	- docs/src/<ClassName>.rst
+	m.add_class::<BlockEncoder>()?;
 	m.add_class::<ConstantOffsets>()?;
 	m.add_class::<Decoder>()?;
 	m.add_class::<Encoder>()?;

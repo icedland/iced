@@ -65,7 +65,6 @@ namespace Generator.Enums.Python {
 			var dirs = generatorContext.Types.Dirs;
 			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo?>();
 			//TODO: write the remaining ones too
-			//toFullFileInfo.Add(TypeIds.BlockEncoderOptions, new FullEnumFileInfo(dirs.GetPythonPyFilename("BlockEncoderOptions.py")));
 			toFullFileInfo.Add(TypeIds.CC_a, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_a.py")));
 			toFullFileInfo.Add(TypeIds.CC_ae, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ae.py")));
 			toFullFileInfo.Add(TypeIds.CC_b, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_b.py")));

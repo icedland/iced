@@ -36,8 +36,8 @@ use pyo3::prelude::*;
 ///
 ///     from iced_x86 import *
 ///
-///     bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01"
-///     decoder = Decoder(64, bytes)
+///     data = b"\x62\xF2\x4F\xDD\x72\x50\x01"
+///     decoder = Decoder(64, data)
 ///     instr = decoder.decode()
 ///
 ///     formatter = FastFormatter()

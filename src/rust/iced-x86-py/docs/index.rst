@@ -2,6 +2,7 @@ Welcome to iced-x86's documentation!
 ====================================
 
 .. toctree::
+	src/BlockEncoder
 	src/Decoder
 	src/Encoder
 	src/FastFormatter
