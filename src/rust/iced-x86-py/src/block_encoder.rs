@@ -43,7 +43,7 @@ use pyo3::types::PyBytes;
 ///
 /// Examples:
 ///
-/// .. code-block:: python
+/// .. testcode::
 ///
 ///     from iced_x86 import *
 ///

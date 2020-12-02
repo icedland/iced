@@ -38,7 +38,7 @@ use std::collections::hash_map::DefaultHasher;
 ///
 /// A decoder is usually used to create instructions:
 ///
-/// .. code-block:: python
+/// .. testcode::
 ///
 ///     from iced_x86 import *
 ///
@@ -49,9 +49,10 @@ use std::collections::hash_map::DefaultHasher;
 ///
 ///     instr = decoder.decode()
 ///
-///     # Instruction supports __bool__() and returns True if it's a valid instruction:
+///     # Instruction supports __bool__() and returns True if it's
+///     # a valid instruction:
 ///     if not instr:
-///         print("Invalid instruction (garbage, data, or a future instr (update iced))")
+///         print("Invalid instruction (garbage, data, etc)")
 ///     # The above code is the same as:
 ///     if instr.code == Code.INVALID:
 ///         print("Not an instruction")
@@ -59,7 +60,7 @@ use std::collections::hash_map::DefaultHasher;
 /// Once you have an instruction you can format it either by using a :class:`Formatter`
 /// or by calling the instruction's ``__repr__()``, ``__str__()`` or ``__format__()`` methods.
 ///
-/// .. code-block:: python
+/// .. testcode::
 ///
 ///     # Continued from the above example
 ///
@@ -76,23 +77,35 @@ use std::collections::hash_map::DefaultHasher;
 ///     print(f"op #0   : {formatter.format_operand(instr, 0)}")
 ///     print(f"op #1   : {formatter.format_operand(instr, 1)}")
 ///     print(f"reg RCX : {formatter.format_register(Register.RCX)}")
-///     # The code prints this:
-///     # disasm  : XCHG    [rdx+rsi+16h], ah
-///     # mnemonic: XCHG
-///     # operands: [rdx+rsi+16h], ah
-///     # op #0   : [rdx+rsi+16h]
-///     # op #1   : ah
-///     # reg RCX : rcx
+///
+/// Output:
+///
+/// .. testoutput::
+///
+///     disasm  : XCHG    [rdx+rsi+16h], ah
+///     mnemonic: XCHG
+///     operands: [rdx+rsi+16h], ah
+///     op #0   : [rdx+rsi+16h]
+///     op #1   : ah
+///     reg RCX : rcx
+///
+/// .. testcode::
 ///
 ///     # A formatter isn't needed if you like most of the default options.
 ///     # repr() == str() == format() all return the same thing.
 ///     print(f"disasm  : {repr(instr)}")
 ///     print(f"disasm  : {str(instr)}")
 ///     print(f"disasm  : {instr}")
-///     # The code prints this:
-///     # disasm  : xchg ah,[rdx+rsi+16h]
-///     # disasm  : xchg ah,[rdx+rsi+16h]
-///     # disasm  : xchg ah,[rdx+rsi+16h]
+///
+/// Output:
+///
+/// .. testoutput::
+///
+///     disasm  : xchg ah,[rdx+rsi+16h]
+///     disasm  : xchg ah,[rdx+rsi+16h]
+///     disasm  : xchg ah,[rdx+rsi+16h]
+///
+/// .. testcode::
 ///
 ///     # __format__() supports a format spec argument, see the table below
 ///     print(f"disasm  : {instr:f}")
@@ -101,13 +114,17 @@ use std::collections::hash_map::DefaultHasher;
 ///     print(f"disasm  : {instr:m}")
 ///     print(f"disasm  : {instr:n}")
 ///     print(f"disasm  : {instr:gxsSG}")
-///     # The code prints this:
-///     # disasm  : xchg [rdx+rsi+16h],ah
-///     # disasm  : xchg %ah,0x16(%rdx,%rsi)
-///     # disasm  : xchg [rdx+rsi+16h],ah
-///     # disasm  : xchg ah,[rdx+rsi+16h]
-///     # disasm  : xchg ah,[rdx+rsi+16h]
-///     # disasm  : xchgb %ah, %ds:0x16(%rdx,%rsi)
+///
+/// Output:
+///
+/// .. testoutput::
+///
+///     disasm  : xchg [rdx+rsi+16h],ah
+///     disasm  : xchg %ah,0x16(%rdx,%rsi)
+///     disasm  : xchg [rdx+rsi+16h],ah
+///     disasm  : xchg ah,[rdx+rsi+16h]
+///     disasm  : xchg ah,[rdx+rsi+16h]
+///     disasm  : xchgb %ah, %ds:0x16(%rdx,%rsi)
 ///
 /// The following format specifiers are supported in any order. If you omit the
 /// formatter kind, the default formatter is used (eg. masm):
@@ -350,7 +367,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -525,7 +542,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1095,7 +1112,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1482,7 +1499,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     #TODO: Add an example here
 	#[text_signature = "($self, operand, element_index, /)"]
@@ -1542,7 +1559,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1565,7 +1582,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1588,7 +1605,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1607,7 +1624,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1637,7 +1654,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1675,7 +1692,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1709,7 +1726,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1746,7 +1763,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1783,7 +1800,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1820,7 +1837,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1857,7 +1874,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -1894,7 +1911,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -2009,7 +2026,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -2032,7 +2049,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -2055,7 +2072,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -2078,7 +2095,7 @@ impl Instruction {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///

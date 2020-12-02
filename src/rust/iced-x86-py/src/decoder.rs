@@ -50,7 +50,7 @@ enum DecoderDataRef {
 ///
 /// Examples:
 ///
-/// .. code-block:: python
+/// .. testcode::
 ///
 ///     from iced_x86 import *
 ///
@@ -62,7 +62,15 @@ enum DecoderDataRef {
 ///     for instr in decoder:
 ///         print(f"Decoded: IP=0x{instr.ip:X}: {instr}")
 ///
-/// .. code-block:: python
+/// Output:
+///
+/// .. testoutput::
+///
+///     Decoded: IP=0x12345678: xchg ah,[rdx+rsi+16h]
+///     Decoded: IP=0x1234567C: xacquire lock add dword ptr [rax],5Ah
+///     Decoded: IP=0x12345681: vmovdqu64 zmm18{k3}{z},zmm11
+///
+/// .. testcode::
 ///
 ///     from iced_x86 import *
 ///
@@ -92,7 +100,7 @@ enum DecoderDataRef {
 /// Pass in :class:`DecoderOptions.NO_INVALID_CHECK` to the constructor and the decoder
 /// will decode some invalid encodings.
 ///
-/// .. code-block:: python
+/// .. testcode::
 ///
 ///     from iced_x86 import *
 ///
@@ -189,7 +197,7 @@ impl Decoder {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -240,7 +248,7 @@ impl Decoder {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -288,7 +296,7 @@ impl Decoder {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -334,7 +342,7 @@ impl Decoder {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -381,7 +389,7 @@ impl Decoder {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///

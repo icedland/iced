@@ -32,7 +32,7 @@ use pyo3::prelude::*;
 ///
 /// Examples:
 ///
-/// .. code-block:: python
+/// .. testcode::
 ///
 ///     from iced_x86 import *
 ///

@@ -37,7 +37,7 @@ use std::collections::hash_map::DefaultHasher;
 ///
 /// Examples:
 ///
-/// .. code-block:: python
+/// .. testcode::
 ///
 ///     from iced_x86 import *
 ///
@@ -63,7 +63,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -78,7 +78,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -93,7 +93,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -108,7 +108,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -674,7 +674,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -691,7 +691,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -814,7 +814,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///
@@ -832,7 +832,7 @@ impl OpCodeInfo {
 	///
 	/// Examples:
 	///
-	/// .. code-block:: python
+	/// .. testcode::
 	///
 	///     from iced_x86 import *
 	///

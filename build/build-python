@@ -79,7 +79,11 @@ generate_docs() {
 	dest_filename="iced_x86/$(basename "$built_file")"
 	cp "$built_file" "$dest_filename"
 
+	echo "Generating HTML files"
 	sphinx-build --color -n -W --keep-going -b html docs docs/_build
+
+	echo "Running doc tests"
+	sphinx-build --color -n -W --keep-going -b doctest docs docs/_build
 
 	rm "$dest_filename"
 

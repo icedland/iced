@@ -30,12 +30,11 @@ release = "1.9.1"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+	"sphinx.ext.doctest",
 	"sphinx.ext.autodoc",
 	"sphinx.ext.intersphinx",
 	"sphinx.ext.napoleon",
 ]
-
-pygments_style = 'sphinx'
 
 autodoc_member_order = "bysource"
 
