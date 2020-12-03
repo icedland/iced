@@ -8,7 +8,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 for PYBIN in /opt/python/cp{36,37,38,39}*/bin; do
 	# Make sure the files don't get extra *.so files (should be 1 per file)
 	rm -rf build/
-	"$PYBIN/pip" install -U setuptools wheel setuptools-rust
+	"$PYBIN/pip" install -U pip setuptools wheel setuptools-rust
 	"$PYBIN/python" setup.py bdist_wheel
 done
 rm -rf build/
