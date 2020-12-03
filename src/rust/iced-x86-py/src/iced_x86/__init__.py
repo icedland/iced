@@ -52,14 +52,18 @@ from . import EncodingKind
 from . import FlowControl
 from . import FormatMnemonicOptions
 from . import FormatterSyntax
+from . import MandatoryPrefix
 from . import MemorySize
 from . import MemorySizeOptions
 from . import Mnemonic
 from . import OpAccess
+from . import OpCodeOperandKind
+from . import OpCodeTableKind
 from . import OpKind
 from . import Register
 from . import RflagsBits
 from . import RoundingControl
+from . import TupleType
 
 
 __all__ = [
@@ -95,12 +99,16 @@ __all__ = [
 	"FlowControl",
 	"FormatMnemonicOptions",
 	"FormatterSyntax",
+	"MandatoryPrefix",
 	"MemorySize",
 	"MemorySizeOptions",
 	"Mnemonic",
 	"OpAccess",
+	"OpCodeOperandKind",
+	"OpCodeTableKind",
 	"OpKind",
 	"Register",
 	"RflagsBits",
 	"RoundingControl",
+	"TupleType",
 ]

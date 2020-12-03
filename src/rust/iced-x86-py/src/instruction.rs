@@ -196,17 +196,21 @@ impl Instruction {
 	}
 
 	fn check_immediate_op_kind(&self, operand: u32) -> PyResult<()> {
-		match self.instr.op_kind(operand) {
-			iced_x86::OpKind::Immediate8
-			| iced_x86::OpKind::Immediate8to16
-			| iced_x86::OpKind::Immediate8to32
-			| iced_x86::OpKind::Immediate8to64
-			| iced_x86::OpKind::Immediate8_2nd
-			| iced_x86::OpKind::Immediate16
-			| iced_x86::OpKind::Immediate32to64
-			| iced_x86::OpKind::Immediate32
-			| iced_x86::OpKind::Immediate64 => Ok(()),
-			_ => Err(PyValueError::new_err("Operand is not an immediate")),
+		if operand >= IcedConstants::MAX_OP_COUNT as u32 {
+			Err(PyValueError::new_err("Invalid operand"))
+		} else {
+			match self.instr.op_kind(operand) {
+				iced_x86::OpKind::Immediate8
+				| iced_x86::OpKind::Immediate8to16
+				| iced_x86::OpKind::Immediate8to32
+				| iced_x86::OpKind::Immediate8to64
+				| iced_x86::OpKind::Immediate8_2nd
+				| iced_x86::OpKind::Immediate16
+				| iced_x86::OpKind::Immediate32to64
+				| iced_x86::OpKind::Immediate32
+				| iced_x86::OpKind::Immediate64 => Ok(()),
+				_ => Err(PyValueError::new_err("Operand is not an immediate")),
+			}
 		}
 	}
 }
@@ -712,6 +716,7 @@ impl Instruction {
 	///     ValueError: If `operand` is invalid or not immediate.
 	#[text_signature = "($self, operand, /)"]
 	fn immediate(&self, operand: u32) -> PyResult<u64> {
+		self.check_immediate_op_kind(operand)?;
 		if let Some(value) = self.instr.try_immediate(operand) {
 			Ok(value)
 		} else {
@@ -1282,6 +1287,23 @@ impl Instruction {
 		Ok(self.instr.get_declare_byte_value(Instruction::check_db_index(index)?))
 	}
 
+	/// Gets a ``db`` value, see also :class:`Instruction.declare_data_len`.
+	///
+	/// Can only be called if :class:`Instruction.code` is :class:`Code.DECLAREBYTE`
+	///
+	/// Args:
+	///     `index` (int): Index (0-15)
+	///
+	/// Returns:
+	///     int: (``i8``) The value
+	///
+	/// Raises:
+	///     ValueError: If `index` is invalid
+	#[text_signature = "($self, index, /)"]
+	fn get_declare_byte_value_i8(&self, index: usize) -> PyResult<i8> {
+		Ok(self.instr.get_declare_byte_value(Instruction::check_db_index(index)?) as i8)
+	}
+
 	/// Sets a new ``dw`` value, see also :class:`Instruction.declare_data_len`.
 	///
 	/// Can only be called if :class:`Instruction.code` is :class:`Code.DECLAREWORD`
@@ -1329,6 +1351,23 @@ impl Instruction {
 	#[text_signature = "($self, index, /)"]
 	fn get_declare_word_value(&self, index: usize) -> PyResult<u16> {
 		Ok(self.instr.get_declare_word_value(Instruction::check_dw_index(index)?))
+	}
+
+	/// Gets a ``dw`` value, see also :class:`Instruction.declare_data_len`.
+	///
+	/// Can only be called if :class:`Instruction.code` is :class:`Code.DECLAREWORD`
+	///
+	/// Args:
+	///     `index` (int): Index (0-7)
+	///
+	/// Returns:
+	///     int: (``i16``) The value
+	///
+	/// Raises:
+	///     ValueError: If `index` is invalid
+	#[text_signature = "($self, index, /)"]
+	fn get_declare_word_value_i16(&self, index: usize) -> PyResult<i16> {
+		Ok(self.instr.get_declare_word_value(Instruction::check_dw_index(index)?) as i16)
 	}
 
 	/// Sets a new ``dd`` value, see also :class:`Instruction.declare_data_len`.
@@ -1380,6 +1419,23 @@ impl Instruction {
 		Ok(self.instr.get_declare_dword_value(Instruction::check_dd_index(index)?))
 	}
 
+	/// Gets a ``dd`` value, see also :class:`Instruction.declare_data_len`.
+	///
+	/// Can only be called if :class:`Instruction.code` is :class:`Code.DECLAREDWORD`
+	///
+	/// Args:
+	///     `index` (int): Index (0-3)
+	///
+	/// Returns:
+	///     int: (``i32``) The value
+	///
+	/// Raises:
+	///     ValueError: If `index` is invalid
+	#[text_signature = "($self, index, /)"]
+	fn get_declare_dword_value_i32(&self, index: usize) -> PyResult<i32> {
+		Ok(self.instr.get_declare_dword_value(Instruction::check_dd_index(index)?) as i32)
+	}
+
 	/// Sets a new ``dq`` value, see also :class:`Instruction.declare_data_len`.
 	///
 	/// Can only be called if :class:`Instruction.code` is :class:`Code.DECLAREQWORD`
@@ -1427,6 +1483,23 @@ impl Instruction {
 	#[text_signature = "($self, index, /)"]
 	fn get_declare_qword_value(&self, index: usize) -> PyResult<u64> {
 		Ok(self.instr.get_declare_qword_value(Instruction::check_dq_index(index)?))
+	}
+
+	/// Gets a ``dq`` value, see also :class:`Instruction.declare_data_len`.
+	///
+	/// Can only be called if :class:`Instruction.code` is :class:`Code.DECLAREQWORD`
+	///
+	/// Args:
+	///     `index` (int): Index (0-1)
+	///
+	/// Returns:
+	///     int: (``i64``) The value
+	///
+	/// Raises:
+	///     ValueError: If `index` is invalid
+	#[text_signature = "($self, index, /)"]
+	fn get_declare_qword_value_i64(&self, index: usize) -> PyResult<i64> {
+		Ok(self.instr.get_declare_qword_value(Instruction::check_dq_index(index)?) as i64)
 	}
 
 	/// bool: Checks if this is a VSIB instruction, see also :class:`Instruction.is_vsib32`, :class:`Instruction.is_vsib64`

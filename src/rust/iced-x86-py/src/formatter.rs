@@ -26,7 +26,6 @@ use crate::enum_utils::{
 	to_register,
 };
 use crate::instruction::Instruction;
-use pyo3::exceptions::PyTypeError;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
@@ -87,7 +86,7 @@ impl Formatter {
 		} else if syntax == FormatterSyntax::Nasm as u32 {
 			Box::new(iced_x86::NasmFormatter::new())
 		} else {
-			return Err(PyTypeError::new_err("Invalid formatter syntax"));
+			return Err(PyValueError::new_err("Invalid formatter syntax"));
 		};
 
 		Ok(Formatter { fmt_output: String::new(), formatter })

@@ -2,23 +2,33 @@ TODO:
 
 ## Building the code
 
+If on Windows, replace `python3` with `python`.
+
 Prerequisites:
 
 - Rust: https://www.rust-lang.org/tools/install
 - Some C compiler, eg. `apt install gcc`
 - Python >= 3.6: https://www.python.org/downloads/
-- `pip3 install -U setuptools wheel setuptools-rust`
-	- `pip` if on Windows
-
-If on Windows, replace `python3/pip3` with `python/pip`.
+- `python3 -m pip install -U setuptools wheel setuptools-rust`
 
 ```sh
 # Create the wheel
 python3 setup.py bdist_wheel
 # Install the built wheel
-pip3 install --no-index -f dist iced-x86
+python3 -m pip install --no-index -f dist iced-x86
 # Uninstall your built copy
-pip3 uninstall iced-x86
+python3 -m pip uninstall iced-x86
+```
+
+Tests:
+
+- `python3 -m pip install -U pytest`
+
+```sh
+python3 setup.py bdist_wheel
+python3 -m pip install iced-x86 --no-index -f dist
+python3 -m pytest
+python3 -m pip uninstall -y iced-x86
 ```
 
 TODO:

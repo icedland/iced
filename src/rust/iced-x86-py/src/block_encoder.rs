@@ -79,7 +79,7 @@ pub struct BlockEncoder {
 #[pymethods]
 impl BlockEncoder {
 	#[new]
-	#[args(fix_branches = false)]
+	#[args(fix_branches = true)]
 	fn new(bitness: u32, fix_branches: bool) -> PyResult<BlockEncoder> {
 		let options = if fix_branches { iced_x86::BlockEncoderOptions::NONE } else { iced_x86::BlockEncoderOptions::DONT_FIX_BRANCHES };
 		match bitness {

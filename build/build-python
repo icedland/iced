@@ -20,7 +20,6 @@ if [ "$is_windows" = "y" ]; then
 else
 	python=python3
 fi
-pip=pip
 full_check=y
 gen_docs=y
 sdist_only=n
@@ -58,6 +57,19 @@ generate_wheel() {
 	cd "$pysrc_dir"
 
 	$python setup.py bdist_wheel
+
+	cd "$curr_dir"
+}
+
+test_wheel() {
+	new_func "Test wheel"
+
+	curr_dir=$(pwd)
+	cd "$pysrc_dir"
+
+	$python -m pip install iced-x86 --no-index -f dist
+	$python -m pytest --color=yes --code-highlight=yes
+	$python -m pip uninstall -y iced-x86
 
 	cd "$curr_dir"
 }
@@ -118,7 +130,6 @@ while [ "$#" -gt 0 ]; do
 	--sdist-only) sdist_only=y ;;
 	--wheel-only) wheel_only=y ;;
 	--python) shift; python=$1 ;;
-	--pip) shift; pip=$1 ;;
 	--no-docs) gen_docs=n ;;
 	--no-set-rustflags) set_rustflags=n ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
@@ -144,8 +155,6 @@ echo "Rust version"
 rustc --version
 echo "Python version"
 $python --version
-echo "pip version"
-$pip --version
 
 if [ "$sdist_only" = "y" ]; then
 	generate_sdist
@@ -156,6 +165,9 @@ if [ "$wheel_only" = "y" ]; then
 	exit 0
 fi
 
+echo "pytest version"
+$python -m pytest --version
+
 if [ "$full_check" = "y" ] && [ "$gen_docs" = "y" ]; then
 	echo "sphinx-build version"
 	sphinx-build --version
@@ -163,6 +175,7 @@ fi
 
 generate_sdist
 generate_wheel
+test_wheel
 if [ "$full_check" = "y" ]; then
 	misc_tests
 	if [ "$gen_docs" = "y" ]; then

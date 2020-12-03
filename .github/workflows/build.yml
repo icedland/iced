@@ -194,7 +194,7 @@ jobs:
         shell: bash -le {0}
         run: |
           python --version 2>&1 | grep "Python 3\.6"
-          pip install -U setuptools wheel setuptools-rust mypy pylint sphinx
+          pip install -U pip setuptools wheel setuptools-rust mypy pylint sphinx pytest
 
       - name: Build and test
         shell: bash -le {0}
@@ -203,7 +203,7 @@ jobs:
           if [[ "$OSTYPE" != "linux-gnu"* ]]; then
             extra_args=--quick-check
           fi
-          ./build/build-python --no-set-rustflags --python python --pip pip $extra_args
+          ./build/build-python --no-set-rustflags --python python $extra_args
           git clean -xdf
 
       - name: Create the sdist
