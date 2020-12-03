@@ -57,6 +57,7 @@ setup(
 		"Topic :: Software Development :: Disassemblers",
 		"Topic :: Software Development :: Libraries",
 	],
+	package_dir={"": "src"},
 	packages=["iced_x86"],
 	rust_extensions=[RustExtension("iced_x86._iced_x86_py", path="Cargo.toml", strip=Strip.All)],
 	include_package_data=True,

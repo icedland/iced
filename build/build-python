@@ -76,7 +76,7 @@ generate_docs() {
 		echo "Couldn't find the built _iced_x86_py.*.* file"
 		exit 1
 	fi
-	dest_filename="iced_x86/$(basename "$built_file")"
+	dest_filename="src/iced_x86/$(basename "$built_file")"
 	cp "$built_file" "$dest_filename"
 
 	echo "Generating HTML files"
@@ -91,7 +91,7 @@ generate_docs() {
 }
 
 misc_tests() {
-	new_func "pylint, mypy"
+	new_func "clippy, fmt, pylint, mypy"
 
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
@@ -103,11 +103,11 @@ misc_tests() {
 	cargo fmt -- --color always --check
 
 	echo "mypy"
-	mypy --strict iced_x86
+	mypy --strict src/iced_x86
 
 	echo "pylint"
 	# It will fail to load _iced_x86_py since it's not in the correct dir, so disable the error
-	pylint iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
+	pylint src/iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
 
 	cd "$curr_dir"
 }
