@@ -3,3 +3,5 @@ dist/
 *.egg-info/
 .mypy_cache/
 .pytest_cache/
+.tox/
+__pycache__/

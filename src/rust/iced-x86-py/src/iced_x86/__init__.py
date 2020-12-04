@@ -65,7 +65,6 @@ from . import RflagsBits
 from . import RoundingControl
 from . import TupleType
 
-
 __all__ = [
 	"BlockEncoder",
 	"ConstantOffsets",

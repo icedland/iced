@@ -172,6 +172,7 @@ jobs:
       # - Update Python versions in src/rust/iced-x86-py/setup.py
       #     - `python_requires` line
       #     - `classifiers` array
+      # - src/rust/iced-x86-py/tox.ini
       #
       # NOTE: We use setup-miniconda and not setup-python because setup-python's
       #       binaries target a later macos version and will produce warnings
@@ -194,7 +195,7 @@ jobs:
         shell: bash -le {0}
         run: |
           python --version 2>&1 | grep "Python 3\.6"
-          pip install -U pip setuptools wheel setuptools-rust mypy pylint sphinx pytest
+          python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
         shell: bash -le {0}
@@ -443,7 +444,7 @@ jobs:
       - name: Upload checks
         shell: bash
         run: |
-          pip install -U twine
+          python -m pip install -U twine
           twine check /tmp/py-dist/*
           dotnet nuget push --help
           cargo publish --help

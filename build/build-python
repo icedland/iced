@@ -40,12 +40,7 @@ generate_sdist() {
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
 
-	# It should use iced-x86 on crates.io
-	sed -i -e 's!path\s*=.*/iced-x86"!!' Cargo.toml
-
 	$python setup.py sdist
-
-	git checkout Cargo.toml
 
 	cd "$curr_dir"
 }

@@ -1,4 +1,4 @@
-include Cargo.toml
+include Cargo.toml requirements.txt requirements-dev.txt
 recursive-include src *
 recursive-include tests *
 global-exclude *.py[cod] __pycache__ *.so
