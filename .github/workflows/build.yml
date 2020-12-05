@@ -163,6 +163,16 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
+      - name: Use repo source code
+        shell: bash
+        run: |
+          # Make sure crates.io isn't used
+          if [ "$OSTYPE" = "msys" ]; then
+            echo "paths = [\"$(pwd -W)/src/rust/iced-x86\"]" > "$HOME/.cargo/config.toml"
+          else
+            echo "paths = [\"$(pwd)/src/rust/iced-x86\"]" > "$HOME/.cargo/config.toml"
+          fi
+
       # If the supported Python versions get updated (added/removed), do:
       # - Update .github/workflows/build.yml (this file)
       #     - Search for eg. 3.9, 39 and 3\.9
