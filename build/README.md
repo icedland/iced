@@ -42,7 +42,6 @@ Building and testing the Python code requires:
 - Extra Rust stuff
 	- `rustup update`
 	- `rustup component add rustfmt clippy`
-- Some C compiler, eg. `apt install gcc`
 - Python >= 3.6: https://www.python.org/downloads/
 - `python3 -m pip install -r src/rust/iced-x86-py/requirements-dev.txt`
 

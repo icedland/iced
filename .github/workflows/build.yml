@@ -437,7 +437,7 @@ jobs:
             if [ -f "$file" ]; then
               ls -l /tmp/py-dist-tmp
               echo "Unknown files found (see above)"
-              echo "If it's a new Python version, update this file and build-wheels.sh."
+              echo "If it's a new Python version, see Python version comment above (`build-rust-python`)"
               exit 1
             fi
           done
