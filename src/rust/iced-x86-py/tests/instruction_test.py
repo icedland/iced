@@ -793,17 +793,17 @@ def test_dq_i(data):
 def test_vsib(bitness, data, vsib):
 	instr = Decoder(bitness, data).decode()
 	if vsib == 0:
-		assert instr.vsib == None
+		assert instr.vsib is None
 		assert not instr.is_vsib
 		assert not instr.is_vsib32
 		assert not instr.is_vsib64
 	elif vsib == 32:
-		assert instr.vsib == False
+		assert instr.vsib is False
 		assert instr.is_vsib
 		assert instr.is_vsib32
 		assert not instr.is_vsib64
 	elif vsib == 64:
-		assert instr.vsib == True
+		assert instr.vsib is True
 		assert instr.is_vsib
 		assert not instr.is_vsib32
 		assert instr.is_vsib64

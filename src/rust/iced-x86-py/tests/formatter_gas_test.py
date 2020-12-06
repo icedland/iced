@@ -112,7 +112,7 @@ def test_format():
 	assert formatter.format_mnemonic(instr2, FormatMnemonicOptions.NO_MNEMONIC | FormatMnemonicOptions.NO_PREFIXES) == ""
 
 	assert formatter.operand_count(instr) == 3
-	assert formatter.op_access(instr, 0) == None
+	assert formatter.op_access(instr, 0) is None
 	assert formatter.get_instruction_operand(instr, 0) == 2
 	assert formatter.get_instruction_operand(instr, 1) == 1
 	assert formatter.get_instruction_operand(instr, 2) == 0
