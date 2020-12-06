@@ -85,6 +85,7 @@ mod enum_utils;
 mod fast_formatter;
 mod formatter;
 mod iced_constants;
+mod info;
 mod instruction;
 mod op_code_info;
 
@@ -94,6 +95,7 @@ use decoder::Decoder;
 use encoder::Encoder;
 use fast_formatter::FastFormatter;
 use formatter::Formatter;
+use info::{InstructionInfo, InstructionInfoFactory, UsedMemory, UsedRegister};
 use instruction::{FpuStackIncrementInfo, Instruction};
 use op_code_info::OpCodeInfo;
 use pyo3::prelude::*;
@@ -112,7 +114,11 @@ fn _iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
 	m.add_class::<Formatter>()?;
 	m.add_class::<FpuStackIncrementInfo>()?;
 	m.add_class::<Instruction>()?;
+	m.add_class::<InstructionInfo>()?;
+	m.add_class::<InstructionInfoFactory>()?;
 	m.add_class::<OpCodeInfo>()?;
+	m.add_class::<UsedMemory>()?;
+	m.add_class::<UsedRegister>()?;
 
 	Ok(())
 }

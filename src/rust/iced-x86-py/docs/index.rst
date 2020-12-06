@@ -8,6 +8,8 @@ Welcome to iced-x86's documentation!
 	src/FastFormatter
 	src/Formatter
 	src/Instruction
+	src/InstructionInfo
+	src/InstructionInfoFactory
 	src/OpCodeInfo
 	:maxdepth: 2
 	:caption: Classes:
@@ -15,6 +17,8 @@ Welcome to iced-x86's documentation!
 .. toctree::
 	src/ConstantOffsets
 	src/FpuStackIncrementInfo
+	src/UsedMemory
+	src/UsedRegister
 	:maxdepth: 2
 	:caption: Misc Classes:
 

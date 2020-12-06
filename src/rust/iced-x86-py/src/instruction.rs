@@ -1557,29 +1557,6 @@ impl Instruction {
 	fn ip_rel_memory_address(&self) -> u64 {
 		self.instr.ip_rel_memory_address()
 	}
-
-	/// Gets the virtual address of a memory operand
-	///
-	/// Args:
-	///     `operand` (int): Operand number, 0-4, must be a memory operand
-	///     `element_index` (int): Only used if it's a vsib memory operand. This is the element index of the vector index register.
-	///
-	/// Returns:
-	///     int, None: (``u64``) TODO:
-	///
-	/// Raises:
-	///     ValueError: If `operand` is invalid
-	///
-	/// Examples:
-	///
-	/// .. testcode::
-	///
-	///     #TODO: Add an example here
-	#[text_signature = "($self, operand, element_index, /)"]
-	#[allow(clippy::unused_self)] //TODO:
-	fn try_virtual_address(&self, _operand: u32, _element_index: usize) -> Option<u64> {
-		None
-	}
 }
 
 /// Contains the FPU ``TOP`` increment, whether it's conditional and whether the instruction writes to ``TOP``

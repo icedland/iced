@@ -81,6 +81,7 @@ def test_copy_deepcopy_clone(copy_instr):
 	decoder.ip = 0x1234_5678_9ABC_DEF1
 	instr = decoder.decode()
 	instr2 = copy_instr(instr)
+	assert instr is not instr2
 	assert id(instr) != id(instr2)
 
 	assert instr == instr2
