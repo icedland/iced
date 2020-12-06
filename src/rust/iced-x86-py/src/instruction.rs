@@ -130,7 +130,7 @@ use std::collections::hash_map::DefaultHasher;
 /// formatter kind, the default formatter is used (eg. masm):
 ///
 /// ======  =============================================================================
-/// Option  Description
+/// F-Spec  Description
 /// ======  =============================================================================
 /// f       Fast formatter (masm-like syntax)
 /// g       GNU Assembler formatter

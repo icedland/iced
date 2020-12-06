@@ -1118,7 +1118,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!         | DecoderOptions::CYRIX_DMI
 //!         | DecoderOptions::ALTINST;
 //!     let mut decoder = Decoder::new(32, bytes, DECODER_OPTIONS);
-//!     decoder.set_ip(0x731E0A03);
+//!     decoder.set_ip(0x731E_0A03);
 //!
 //!     let mut formatter = NasmFormatter::new();
 //!     formatter.options_mut().set_space_after_operand_separator(true);

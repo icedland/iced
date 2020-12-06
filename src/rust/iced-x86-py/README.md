@@ -101,17 +101,12 @@ for instr in decoder:
     #   op0_str = formatter.format_operand(instr, 0)
     #   operands_str = formatter.format_all_operands(instr)
 
-    # Create the bytes string "488DAC2400FFFFFF    "
-    bytes_str = ""
     start_index = instr.ip - EXAMPLE_CODE_RIP
-    for i in range(start_index, start_index + instr.len):
-        bytes_str += f"{EXAMPLE_CODE[i]:02X}"
-    if instr.len < HEXBYTES_COLUMN_BYTE_LENGTH:
-        bytes_str += "  " * (HEXBYTES_COLUMN_BYTE_LENGTH - instr.len)
+    bytes_str = EXAMPLE_CODE[start_index:start_index + instr.len].hex().upper()
     # Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
     print(f"{instr.ip:016X} {bytes_str:20} {disasm}")
 
-# Instruction also supports format specifiers, see below
+# Instruction also supports format specifiers, see the table below
 decoder = Decoder(64, b"\x86\x64\x32\x16")
 decoder.ip = 0x1234_5678
 instr = decoder.decode()
@@ -126,7 +121,7 @@ print(f"{instr:n}")
 print(f"{instr:gG_xSs}")
 
 # ======  =============================================================================
-# Option  Description
+# F-Spec  Description
 # ======  =============================================================================
 # f       Fast formatter (masm-like syntax)
 # g       GNU Assembler formatter
@@ -187,7 +182,7 @@ DECODER_OPTIONS = DecoderOptions.MPX | \
     DecoderOptions.CYRIX_DMI | \
     DecoderOptions.ALTINST
 decoder = Decoder(32, TEST_CODE, DECODER_OPTIONS)
-decoder.ip = 0x731E0A03
+decoder.ip = 0x731E_0A03
 
 for instr in decoder:
     # 'n' format specifier means NASM formatter, see the disassemble
