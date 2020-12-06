@@ -25,6 +25,8 @@ using System;
 
 namespace Generator {
 	readonly struct TypeId : IEquatable<TypeId> {
+		public string Id1 => id1;
+
 		readonly string id1;
 		readonly string id2;
 

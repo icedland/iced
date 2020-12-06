@@ -539,7 +539,7 @@ impl OpCodeInfo {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn broadcast_memory_size(&self) -> MemorySize {
-		instruction_memory_sizes::SIZES[self.code() as usize + IcedConstants::NUMBER_OF_CODE_VALUES]
+		instruction_memory_sizes::SIZES[self.code() as usize + IcedConstants::CODE_ENUM_COUNT]
 	}
 
 	/// (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)

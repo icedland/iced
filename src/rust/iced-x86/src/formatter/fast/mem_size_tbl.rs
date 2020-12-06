@@ -175,7 +175,7 @@ static MEM_SIZE_TBL_DATA: [u8; 141] = [
 
 lazy_static! {
 	pub(super) static ref MEM_SIZE_TBL: Vec<&'static str> = {
-		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_MEMORY_SIZES);
+		let mut v = Vec::with_capacity(IcedConstants::MEMORY_SIZE_ENUM_COUNT);
 		for &mem_keywords in MEM_SIZE_TBL_DATA.iter() {
 			let keywords: &'static str = match mem_keywords {
 				// GENERATOR-BEGIN: Match

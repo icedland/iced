@@ -29,7 +29,7 @@ namespace Iced.Intel {
 	public static partial class RegisterExtensions {
 		internal static readonly RegisterInfo[] RegisterInfos = GetRegisterInfos();
 		static RegisterInfo[] GetRegisterInfos() {
-			var regInfos = new RegisterInfo[IcedConstants.NumberOfRegisters];
+			var regInfos = new RegisterInfo[IcedConstants.RegisterEnumCount];
 
 			regInfos[(int)Register.EIP] = new RegisterInfo(Register.EIP, Register.EIP, Register.RIP, 4);
 			regInfos[(int)Register.RIP] = new RegisterInfo(Register.RIP, Register.EIP, Register.RIP, 8);

@@ -71,7 +71,7 @@ namespace Iced.Intel {
 		}
 
 		internal OpCodeInfo(Code code, EncFlags1 encFlags1, EncFlags2 encFlags2, EncFlags3 encFlags3, OpCodeInfoFlags1 opcFlags1, OpCodeInfoFlags2 opcFlags2, StringBuilder sb) {
-			Debug.Assert((uint)code < (uint)IcedConstants.NumberOfCodeValues);
+			Debug.Assert((uint)code < (uint)IcedConstants.CodeEnumCount);
 			Debug.Assert((uint)code <= ushort.MaxValue);
 			this.code = (ushort)code;
 			this.encFlags2 = encFlags2;
@@ -372,7 +372,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// If it has a memory operand, gets the <see cref="MemorySize"/> (broadcast memory type)
 		/// </summary>
-		public MemorySize BroadcastMemorySize => (MemorySize)InstructionMemorySizes.Sizes[(int)code + IcedConstants.NumberOfCodeValues];
+		public MemorySize BroadcastMemorySize => (MemorySize)InstructionMemorySizes.Sizes[(int)code + IcedConstants.CodeEnumCount];
 
 		/// <summary>
 		/// (EVEX) <see langword="true"/> if the instruction supports broadcasting (<c>EVEX.b</c> bit) (if it has a memory operand)

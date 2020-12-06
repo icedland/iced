@@ -44,7 +44,28 @@ namespace Generator {
 		public abstract string Argument(string name);
 
 		protected string ToSnakeCase(string name) => ToSnakeCase(name, upper: false);
-		protected string ToScreamingSnakeCase(string name) => ToSnakeCase(name, upper: true);
+
+		protected string ToScreamingSnakeCase(string name) =>
+			name switch {
+				"Fxsave_512Byte" => "FXSAVE_512BYTE",
+				"Fxsave64_512Byte" => "FXSAVE64_512BYTE",
+				"Cmpxchg486A" => "CMPXCHG486A",
+				"NoMPFX_0FBC" => "NO_MPFX_0FBC",
+				"NoMPFX_0FBD" => "NO_MPFX_0FBD",
+				"NoLahfSahf64" => "NO_LAHF_SAHF_64",
+				"OpKind_MemoryESDI" => "OP_KIND_MEMORY_ES_DI",
+				"OpKind_MemoryESEDI" => "OP_KIND_MEMORY_ES_EDI",
+				"OpKind_MemoryESRDI" => "OP_KIND_MEMORY_ES_RDI",
+				"HighLegacy8BitRegs" => "HIGH_LEGACY_8_BIT_REGS",
+				"TwoByteHandlers_0FXXIndex" => "TWO_BYTE_HANDLERS_0FXX_INDEX",
+				"ThreeByteHandlers_0F38XXIndex" => "THREE_BYTE_HANDLERS_0F38XX_INDEX",
+				"ThreeByteHandlers_0F3AXXIndex" => "THREE_BYTE_HANDLERS_0F3AXX_INDEX",
+				"XOPAIndex" => "XOPA_INDEX",
+				"Handler66Reg" => "HANDLER_66_REG",
+				"Handler66Mem" => "HANDLER_66_MEM",
+				"Cyrix_SMINT_0F7E" => "CYRIX_SMINT_0F7E",
+				_ => ToSnakeCase(name, upper: true),
+			};
 
 		string ToSnakeCase(string name, bool upper) {
 			sb.Clear();
@@ -120,27 +141,7 @@ namespace Generator {
 		public override string PropertyDoc(string name) => ToSnakeCase(name) + "()";
 		public override string MethodDoc(string name) => ToSnakeCase(name) + "()";
 		public override string Method(string name) => ToSnakeCase(name);
-
-		public override string Constant(string name) =>
-			name switch {
-				"Cmpxchg486A" => "CMPXCHG486A",
-				"NoMPFX_0FBC" => "NO_MPFX_0FBC",
-				"NoMPFX_0FBD" => "NO_MPFX_0FBD",
-				"NoLahfSahf64" => "NO_LAHF_SAHF_64",
-				"OpKind_MemoryESDI" => "OP_KIND_MEMORY_ES_DI",
-				"OpKind_MemoryESEDI" => "OP_KIND_MEMORY_ES_EDI",
-				"OpKind_MemoryESRDI" => "OP_KIND_MEMORY_ES_RDI",
-				"HighLegacy8BitRegs" => "HIGH_LEGACY_8_BIT_REGS",
-				"TwoByteHandlers_0FXXIndex" => "TWO_BYTE_HANDLERS_0FXX_INDEX",
-				"ThreeByteHandlers_0F38XXIndex" => "THREE_BYTE_HANDLERS_0F38XX_INDEX",
-				"ThreeByteHandlers_0F3AXXIndex" => "THREE_BYTE_HANDLERS_0F3AXX_INDEX",
-				"XOPAIndex" => "XOPA_INDEX",
-				"Handler66Reg" => "HANDLER_66_REG",
-				"Handler66Mem" => "HANDLER_66_MEM",
-				"Cyrix_SMINT_0F7E" => "CYRIX_SMINT_0F7E",
-				_ => ToScreamingSnakeCase(name),
-			};
-
+		public override string Constant(string name) => ToScreamingSnakeCase(name);
 		public override string Static(string name) => ToScreamingSnakeCase(name);
 		public override string Namespace(string name) => ToSnakeCase(name);
 		public override string Argument(string name) => ToSnakeCase(name);
@@ -159,5 +160,20 @@ namespace Generator {
 		public override string Static(string name) => name;
 		public override string Namespace(string name) => name;
 		public override string Argument(string name) => ToLowerCamelCase(name);
+	}
+
+	sealed class PythonIdentifierConverter : IdentifierConverter {
+		public static IdentifierConverter Create() => new PythonIdentifierConverter();
+		PythonIdentifierConverter() { }
+		public override string Type(string name) => name;
+		public override string Field(string name) => "__" + ToSnakeCase(name);
+		public override string EnumField(string name) => ToScreamingSnakeCase(name);
+		public override string PropertyDoc(string name) => ToSnakeCase(name);
+		public override string MethodDoc(string name) => ToSnakeCase(name);
+		public override string Method(string name) => ToSnakeCase(name);
+		public override string Constant(string name) => ToScreamingSnakeCase(name);
+		public override string Static(string name) => ToScreamingSnakeCase(name);
+		public override string Namespace(string name) => ToSnakeCase(name);
+		public override string Argument(string name) => ToSnakeCase(name);
 	}
 }

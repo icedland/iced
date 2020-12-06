@@ -35,7 +35,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 		static InstrInfo[] ReadInfos() {
 			var reader = new DataReader(GetSerializedInstrInfos());
-			var infos = new InstrInfo[IcedConstants.NumberOfCodeValues];
+			var infos = new InstrInfo[IcedConstants.CodeEnumCount];
 			var strings = FormatterStringsTable.GetStringsTable();
 
 			var ca = new char[1];

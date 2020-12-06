@@ -33,9 +33,9 @@ use core::mem;
 
 lazy_static! {
 	pub(crate) static ref OP_CODE_INFO_TBL: Vec<OpCodeInfo> = {
-		let mut result = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
+		let mut result = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 		let mut sb = String::new();
-		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		for i in 0..IcedConstants::CODE_ENUM_COUNT {
 			let code: Code = unsafe { mem::transmute(i as u16) };
 			let enc_flags1 = ENC_FLAGS1[i];
 			let enc_flags2 = ENC_FLAGS2[i];

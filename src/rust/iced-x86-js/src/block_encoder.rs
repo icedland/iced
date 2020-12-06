@@ -49,13 +49,14 @@ impl BlockEncoder {
 	///
 	/// [`BlockEncoderOptions`]: enum.BlockEncoderOptions.html
 	#[wasm_bindgen(constructor)]
-	pub fn new(bitness: u32, options: u32 /*flags: BlockEncoderOptions*/) -> Self {
+	pub fn new(bitness: u32, options: u32 /*flags: BlockEncoderOptions*/) -> Result<BlockEncoder, JsValue> {
 		// It's not part of the method sig so make sure it's still compiled by referencing it here
 		const_assert_eq!(0, BlockEncoderOptions::None as u32);
 		if bitness != 16 && bitness != 32 && bitness != 64 {
-			panic!();
+			Err(js_sys::Error::new("Invalid bitness").into())
+		} else {
+			Ok(BlockEncoder { instructions: Vec::new(), bitness, options })
 		}
-		BlockEncoder { instructions: Vec::new(), bitness, options }
 	}
 
 	/// Adds an instruction that will be encoded when [`encode()`] is called.
@@ -103,7 +104,7 @@ impl BlockEncoder {
 		let block = InstructionBlock::new(&self.instructions, rip);
 		match iced_x86_rust::BlockEncoder::encode(self.bitness, block, self.options) {
 			Ok(result) => Ok(result.code_buffer),
-			Err(error) => Err(js_sys::Error::new(&error).into()),
+			Err(error) => Err(js_sys::Error::new(&format!("{}", error)).into()),
 		}
 	}
 }

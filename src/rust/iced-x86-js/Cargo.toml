@@ -45,7 +45,6 @@ wasm-bindgen = { version = "=0.2.65", features = ["strict-macro"] }
 js-sys = "0.3.37"
 
 [dependencies.iced-x86-rust]
-version = "1.9.1"
 package = "iced-x86"
 path = "../iced-x86"
 default-features = false

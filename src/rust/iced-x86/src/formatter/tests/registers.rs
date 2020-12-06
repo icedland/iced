@@ -35,7 +35,7 @@ pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: 
 	filename.push(dir);
 	filename.push(format!("{}.txt", file_part));
 	let lines = super::get_lines_ignore_comments(filename.as_path());
-	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS, lines.len());
+	assert_eq!(IcedConstants::REGISTER_ENUM_COUNT, lines.len());
 	for (i, expected_register_string) in lines.into_iter().enumerate() {
 		let register: Register = unsafe { mem::transmute(i as u8) };
 		{

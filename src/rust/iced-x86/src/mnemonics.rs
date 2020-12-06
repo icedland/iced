@@ -27,7 +27,7 @@ use super::iced_constants::IcedConstants;
 use super::Mnemonic;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] = [
+pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::INVALID,// INVALID
 	Mnemonic::Db,// DeclareByte
 	Mnemonic::Dw,// DeclareWord

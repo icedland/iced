@@ -507,23 +507,23 @@ fn write_all_properties() {
 	assert_eq!(16, instr.declare_data_len());
 
 	fn get_code_size_values() -> Vec<CodeSize> {
-		(0..IcedConstants::NUMBER_OF_CODE_SIZES).map(|x| unsafe { mem::transmute(x as u8) }).collect()
+		(0..IcedConstants::CODE_SIZE_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
 	}
 
 	fn get_code_values() -> Vec<Code> {
-		(0..IcedConstants::NUMBER_OF_CODE_VALUES).map(|x| unsafe { mem::transmute(x as u16) }).collect()
+		(0..IcedConstants::CODE_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u16) }).collect()
 	}
 
 	fn get_op_kind_values() -> Vec<OpKind> {
-		(0..IcedConstants::NUMBER_OF_OP_KINDS).map(|x| unsafe { mem::transmute(x as u8) }).collect()
+		(0..IcedConstants::OP_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
 	}
 
 	fn get_register_values() -> Vec<Register> {
-		(0..IcedConstants::NUMBER_OF_REGISTERS).map(|x| unsafe { mem::transmute(x as u8) }).collect()
+		(0..IcedConstants::REGISTER_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
 	}
 
 	fn get_rounding_control_values() -> Vec<RoundingControl> {
-		(0..IcedConstants::NUMBER_OF_ROUNDING_CONTROL_VALUES).map(|x| unsafe { mem::transmute(x as u8) }).collect()
+		(0..IcedConstants::ROUNDING_CONTROL_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
 	}
 }
 

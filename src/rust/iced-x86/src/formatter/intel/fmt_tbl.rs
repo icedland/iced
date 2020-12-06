@@ -41,11 +41,11 @@ lazy_static! {
 }
 
 fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
-	let mut infos: Vec<Box<InstrInfo + Sync + Send>> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
+	let mut infos: Vec<Box<InstrInfo + Sync + Send>> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
 	let strings = get_strings_table();
 	let mut prev_index = -1isize;
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let f = reader.read_u8();
 		let mut ctor_kind: CtorKind = unsafe { mem::transmute((f & 0x7F) as u8) };
 		let current_index;

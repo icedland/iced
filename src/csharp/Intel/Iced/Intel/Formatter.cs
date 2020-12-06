@@ -43,7 +43,7 @@ namespace Iced.Intel {
 			FormatMnemonic(instruction, output, FormatMnemonicOptions.None);
 
 		/// <summary>
-		/// Formats the mnemonic and any prefixes
+		/// Formats the mnemonic and/or any prefixes
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="output">Output</param>

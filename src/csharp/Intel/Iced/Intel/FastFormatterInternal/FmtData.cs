@@ -34,8 +34,8 @@ namespace Iced.Intel.FastFormatterInternal {
 		static string[] ParseData(out FastFmtFlags[] outFlags) {
 			var reader = new DataReader(GetSerializedData());
 			var strings = FormatterStringsTable.GetStringsTable();
-			var mnemonics = new string[IcedConstants.NumberOfCodeValues];
-			var flags = new FastFmtFlags[IcedConstants.NumberOfCodeValues];
+			var mnemonics = new string[IcedConstants.CodeEnumCount];
+			var flags = new FastFmtFlags[IcedConstants.CodeEnumCount];
 
 			var ca = new char[1];
 			int prevIndex = -1;

@@ -30,7 +30,6 @@ use super::super::*;
 use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
-use std::panic;
 
 #[test]
 fn test_formatter_operand_options_methods() {
@@ -73,19 +72,19 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 		#[cfg(feature = "instr_info")]
 		{
 			let instruction = instruction;
-			assert!(panic::catch_unwind(move || fmt_factory().op_access(&instruction, num_ops)).is_err());
+			assert!(fmt_factory().op_access(&instruction, num_ops).is_err());
 		}
 		{
 			let instruction = instruction;
-			assert!(panic::catch_unwind(move || fmt_factory().get_instruction_operand(&instruction, num_ops)).is_err());
+			assert!(fmt_factory().get_instruction_operand(&instruction, num_ops).is_err());
 		}
 		{
 			let instruction = instruction;
-			assert!(panic::catch_unwind(move || fmt_factory().get_formatter_operand(&instruction, num_instr_ops)).is_err());
+			assert!(fmt_factory().get_formatter_operand(&instruction, num_instr_ops).is_err());
 		}
 		{
 			let instruction = instruction;
-			assert!(panic::catch_unwind(move || fmt_factory().format_operand(&instruction, &mut String::new(), num_ops)).is_err());
+			assert!(fmt_factory().format_operand(&instruction, &mut String::new(), num_ops).is_err());
 		}
 	}
 
@@ -94,19 +93,19 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 		#[cfg(feature = "instr_info")]
 		{
 			let invalid = invalid;
-			assert!(panic::catch_unwind(move || fmt_factory().op_access(&invalid, 0)).is_err());
+			assert!(fmt_factory().op_access(&invalid, 0).is_err());
 		}
 		{
 			let invalid = invalid;
-			assert!(panic::catch_unwind(move || fmt_factory().get_instruction_operand(&invalid, 0)).is_err());
+			assert!(fmt_factory().get_instruction_operand(&invalid, 0).is_err());
 		}
 		{
 			let invalid = invalid;
-			assert!(panic::catch_unwind(move || fmt_factory().get_formatter_operand(&invalid, 0)).is_err());
+			assert!(fmt_factory().get_formatter_operand(&invalid, 0).is_err());
 		}
 		{
 			let invalid = invalid;
-			assert!(panic::catch_unwind(move || fmt_factory().format_operand(&invalid, &mut String::new(), 0)).is_err());
+			assert!(fmt_factory().format_operand(&invalid, &mut String::new(), 0).is_err());
 		}
 	}
 
@@ -118,26 +117,26 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 			#[cfg(feature = "instr_info")]
 			let _ = fmt_factory().op_access(&db, i);
 			let _ = fmt_factory().get_instruction_operand(&db, i);
-			fmt_factory().format_operand(&db, &mut String::new(), i);
+			assert!(fmt_factory().format_operand(&db, &mut String::new(), i).is_ok());
 		}
 		for i in db.declare_data_len() as u32..17 {
 			#[cfg(feature = "instr_info")]
 			{
 				let db = db;
-				assert!(panic::catch_unwind(move || fmt_factory().op_access(&db, i)).is_err());
+				assert!(fmt_factory().op_access(&db, i).is_err());
 			}
 			{
 				let db = db;
-				assert!(panic::catch_unwind(move || fmt_factory().get_instruction_operand(&db, i)).is_err());
+				assert!(fmt_factory().get_instruction_operand(&db, i).is_err());
 			}
 			{
 				let db = db;
-				assert!(panic::catch_unwind(move || fmt_factory().format_operand(&db, &mut String::new(), i)).is_err());
+				assert!(fmt_factory().format_operand(&db, &mut String::new(), i).is_err());
 			}
 		}
 		{
 			let db = db;
-			assert!(panic::catch_unwind(move || fmt_factory().get_formatter_operand(&db, 0)).is_err());
+			assert!(fmt_factory().get_formatter_operand(&db, 0).is_err());
 		}
 	}
 
@@ -149,26 +148,26 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 			#[cfg(feature = "instr_info")]
 			let _ = fmt_factory().op_access(&dw, i);
 			let _ = fmt_factory().get_instruction_operand(&dw, i);
-			fmt_factory().format_operand(&dw, &mut String::new(), i);
+			assert!(fmt_factory().format_operand(&dw, &mut String::new(), i).is_ok());
 		}
 		for i in dw.declare_data_len() as u32..17 {
 			#[cfg(feature = "instr_info")]
 			{
 				let dw = dw;
-				assert!(panic::catch_unwind(move || fmt_factory().op_access(&dw, i)).is_err());
+				assert!(fmt_factory().op_access(&dw, i).is_err());
 			}
 			{
 				let dw = dw;
-				assert!(panic::catch_unwind(move || fmt_factory().get_instruction_operand(&dw, i)).is_err());
+				assert!(fmt_factory().get_instruction_operand(&dw, i).is_err());
 			}
 			{
 				let dw = dw;
-				assert!(panic::catch_unwind(move || fmt_factory().format_operand(&dw, &mut String::new(), i)).is_err());
+				assert!(fmt_factory().format_operand(&dw, &mut String::new(), i).is_err());
 			}
 		}
 		{
 			let dw = dw;
-			assert!(panic::catch_unwind(move || fmt_factory().get_formatter_operand(&dw, 0)).is_err());
+			assert!(fmt_factory().get_formatter_operand(&dw, 0).is_err());
 		}
 	}
 
@@ -180,26 +179,26 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 			#[cfg(feature = "instr_info")]
 			let _ = fmt_factory().op_access(&dd, i);
 			let _ = fmt_factory().get_instruction_operand(&dd, i);
-			fmt_factory().format_operand(&dd, &mut String::new(), i);
+			assert!(fmt_factory().format_operand(&dd, &mut String::new(), i).is_ok());
 		}
 		for i in dd.declare_data_len() as u32..17 {
 			#[cfg(feature = "instr_info")]
 			{
 				let dd = dd;
-				assert!(panic::catch_unwind(move || fmt_factory().op_access(&dd, i)).is_err());
+				assert!(fmt_factory().op_access(&dd, i).is_err());
 			}
 			{
 				let dd = dd;
-				assert!(panic::catch_unwind(move || fmt_factory().get_instruction_operand(&dd, i)).is_err());
+				assert!(fmt_factory().get_instruction_operand(&dd, i).is_err());
 			}
 			{
 				let dd = dd;
-				assert!(panic::catch_unwind(move || fmt_factory().format_operand(&dd, &mut String::new(), i)).is_err());
+				assert!(fmt_factory().format_operand(&dd, &mut String::new(), i).is_err());
 			}
 		}
 		{
 			let dd = dd;
-			assert!(panic::catch_unwind(move || fmt_factory().get_formatter_operand(&dd, 0)).is_err());
+			assert!(fmt_factory().get_formatter_operand(&dd, 0).is_err());
 		}
 	}
 
@@ -211,26 +210,26 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 			#[cfg(feature = "instr_info")]
 			let _ = fmt_factory().op_access(&dq, i);
 			let _ = fmt_factory().get_instruction_operand(&dq, i);
-			fmt_factory().format_operand(&dq, &mut String::new(), i);
+			assert!(fmt_factory().format_operand(&dq, &mut String::new(), i).is_ok());
 		}
 		for i in dq.declare_data_len() as u32..17 {
 			#[cfg(feature = "instr_info")]
 			{
 				let dq = dq;
-				assert!(panic::catch_unwind(move || fmt_factory().op_access(&dq, i)).is_err());
+				assert!(fmt_factory().op_access(&dq, i).is_err());
 			}
 			{
 				let dq = dq;
-				assert!(panic::catch_unwind(move || fmt_factory().get_instruction_operand(&dq, i)).is_err());
+				assert!(fmt_factory().get_instruction_operand(&dq, i).is_err());
 			}
 			{
 				let dq = dq;
-				assert!(panic::catch_unwind(move || fmt_factory().format_operand(&dq, &mut String::new(), i)).is_err());
+				assert!(fmt_factory().format_operand(&dq, &mut String::new(), i).is_err());
 			}
 		}
 		{
 			let dq = dq;
-			assert!(panic::catch_unwind(move || fmt_factory().get_formatter_operand(&dq, 0)).is_err());
+			assert!(fmt_factory().get_formatter_operand(&dq, 0).is_err());
 		}
 	}
 }
@@ -328,32 +327,32 @@ pub(in super::super) fn test_op_index(fmt_factory: fn() -> Box<Formatter>) {
 		let mut instr_op_used: u32 = 0;
 		assert!(instruction_op_count <= 32); // uint is 32 bits
 		for formatter_op_index in 0..formatter_op_count {
-			if let Some(instr_op_index) = formatter.get_instruction_operand(&instruction, formatter_op_index) {
+			if let Some(instr_op_index) = formatter.get_instruction_operand(&instruction, formatter_op_index).unwrap() {
 				assert!(instr_op_index < instruction_op_count);
 				instr_to_formatter[instr_op_index as usize] = Some(formatter_op_index);
 
 				#[cfg(feature = "instr_info")]
-				assert!(formatter.op_access(&instruction, formatter_op_index).is_none());
+				assert!(formatter.op_access(&instruction, formatter_op_index).unwrap().is_none());
 
 				let instr_op_bit: u32 = 1 << instr_op_index;
 				assert!(0 == (instr_op_used & instr_op_bit), "More than one formatter operand index maps to the same instruction op index");
 				instr_op_used |= instr_op_bit;
 
-				assert_eq!(Some(formatter_op_index), formatter.get_formatter_operand(&instruction, instr_op_index));
+				assert_eq!(Some(formatter_op_index), formatter.get_formatter_operand(&instruction, instr_op_index).unwrap());
 			} else {
 				#[cfg(feature = "instr_info")]
-				assert!(formatter.op_access(&instruction, formatter_op_index).is_some());
+				assert!(formatter.op_access(&instruction, formatter_op_index).unwrap().is_some());
 			}
 		}
 
 		for instr_op_index in 0..instruction_op_count {
-			let formatter_op_index = formatter.get_formatter_operand(&instruction, instr_op_index);
+			let formatter_op_index = formatter.get_formatter_operand(&instruction, instr_op_index).unwrap();
 			assert_eq!(instr_to_formatter[instr_op_index as usize], formatter_op_index);
 		}
 
 		for instr_op_index in instruction_op_count..IcedConstants::MAX_OP_COUNT as u32 {
 			let instruction = instruction;
-			assert!(panic::catch_unwind(move || fmt_factory().get_formatter_operand(&instruction, instr_op_index)).is_err());
+			assert!(fmt_factory().get_formatter_operand(&instruction, instr_op_index).is_err());
 		}
 	}
 }

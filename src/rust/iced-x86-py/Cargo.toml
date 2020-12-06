@@ -1,0 +1,31 @@
+[package]
+name = "iced-x86-py"
+version = "1.9.1"
+authors = ["0xd4d <de4dot@gmail.com>"]
+edition = "2018"
+publish = false
+
+[lib]
+name = "_iced_x86_py"
+crate-type = ["cdylib"]
+
+[dependencies]
+static_assertions = "1.1.0"
+
+[dependencies.pyo3]
+version = "0.12.3"
+features = ["extension-module"]
+
+[dependencies.iced-x86]
+# If building from sdist, it should use the exact same version as the sdist.
+version = "=1.9.1"
+# To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
+#	paths = ["/abs/path/to/iced/src/rust/iced-x86"]
+# or uncomment this line:
+#path = "/abs/path/to/iced/src/rust/iced-x86"
+features = ["db"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3

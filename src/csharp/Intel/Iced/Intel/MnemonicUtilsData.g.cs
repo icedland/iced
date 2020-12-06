@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Iced.Intel {
 	static class MnemonicUtilsData {
-		internal static readonly ushort[] toMnemonic = new ushort[IcedConstants.NumberOfCodeValues] {
+		internal static readonly ushort[] toMnemonic = new ushort[IcedConstants.CodeEnumCount] {
 			(ushort)Mnemonic.INVALID,// INVALID
 			(ushort)Mnemonic.Db,// DeclareByte
 			(ushort)Mnemonic.Dw,// DeclareWord

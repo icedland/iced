@@ -21,10 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::iced_error::IcedError;
 use super::super::*;
 use super::*;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 use core::cell::RefCell;
 
 pub(super) struct SimpleInstr {
@@ -74,9 +73,9 @@ impl Instr for SimpleInstr {
 		false
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), String> {
+	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		match block.encoder.encode(&self.instruction, self.ip) {
-			Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
+			Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 			Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
 		}
 	}

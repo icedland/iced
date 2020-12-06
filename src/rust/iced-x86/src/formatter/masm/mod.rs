@@ -36,6 +36,7 @@ use self::info::*;
 use self::mem_size_tbl::Info;
 use self::mem_size_tbl::MEM_SIZE_TBL;
 use self::regs::*;
+use super::super::iced_error::IcedError;
 use super::super::*;
 use super::fmt_consts::*;
 use super::fmt_utils::*;
@@ -1592,46 +1593,49 @@ impl Formatter for MasmFormatter {
 
 	#[cfg(feature = "instr_info")]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Option<OpAccess> {
+	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<OpAccess>, IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 		if operand >= op_info.op_count as u32 {
-			panic!();
+			Err(IcedError::new("Invalid operand"))
+		} else {
+			Ok(op_info.op_access(operand))
 		}
-		op_info.op_access(operand)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Option<u32> {
+	fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<u32>, IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 		if operand >= op_info.op_count as u32 {
-			panic!();
+			Err(IcedError::new("Invalid operand"))
+		} else {
+			Ok(op_info.instruction_index(operand))
 		}
-		op_info.instruction_index(operand)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> Option<u32> {
+	fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> Result<Option<u32>, IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 		if instruction_operand >= instruction.op_count() {
-			panic!();
+			Err(IcedError::new("Invalid instruction operand"))
+		} else {
+			Ok(op_info.operand_index(instruction_operand))
 		}
-		op_info.operand_index(instruction_operand)
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn format_operand(&mut self, instruction: &Instruction, output: &mut FormatterOutput, operand: u32) {
+	fn format_operand(&mut self, instruction: &Instruction, output: &mut FormatterOutput, operand: u32) -> Result<(), IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 
 		if operand >= op_info.op_count as u32 {
-			panic!();
+			Err(IcedError::new("Invalid operand"))
+		} else {
+			self.format_operand(instruction, output, &op_info, operand);
+			Ok(())
 		}
-		self.format_operand(instruction, output, &op_info, operand);
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]

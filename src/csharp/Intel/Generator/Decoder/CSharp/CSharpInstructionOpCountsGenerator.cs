@@ -48,9 +48,9 @@ namespace Generator.Decoder.CSharp {
 					writer.WriteLine($"static class {ClassName} {{");
 					using (writer.Indent()) {
 						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-						writer.WriteLine($"internal static System.ReadOnlySpan<byte> OpCount => new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
+						writer.WriteLine($"internal static System.ReadOnlySpan<byte> OpCount => new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.CodeEnumCountName].Name(idConverter)}] {{");
 						writer.WriteLineNoIndent("#else");
-						writer.WriteLine($"internal static readonly byte[] OpCount = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
+						writer.WriteLine($"internal static readonly byte[] OpCount = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.CodeEnumCountName].Name(idConverter)}] {{");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							foreach (var def in defs)

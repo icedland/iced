@@ -573,17 +573,17 @@ pub enum OpCodeOperandKind {
 	///
 	/// 64-bit mode: 64-bit addressing is forced and must not be RIP relative
 	mem_mib = 6,
-	/// Memory (modrm), vsib32, xmm registers
+	/// Memory (modrm), vsib32, `XMM` registers
 	mem_vsib32x = 7,
-	/// Memory (modrm), vsib64, xmm registers
+	/// Memory (modrm), vsib64, `XMM` registers
 	mem_vsib64x = 8,
-	/// Memory (modrm), vsib32, ymm registers
+	/// Memory (modrm), vsib32, `YMM` registers
 	mem_vsib32y = 9,
-	/// Memory (modrm), vsib64, ymm registers
+	/// Memory (modrm), vsib64, `YMM` registers
 	mem_vsib64y = 10,
-	/// Memory (modrm), vsib32, zmm registers
+	/// Memory (modrm), vsib32, `ZMM` registers
 	mem_vsib32z = 11,
-	/// Memory (modrm), vsib64, zmm registers
+	/// Memory (modrm), vsib64, `ZMM` registers
 	mem_vsib64z = 12,
 	/// 8-bit GPR or memory
 	r8_or_mem = 13,
@@ -597,17 +597,17 @@ pub enum OpCodeOperandKind {
 	r64_or_mem = 17,
 	/// 64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 	r64_or_mem_mpx = 18,
-	/// MM register or memory
+	/// `MM` register or memory
 	mm_or_mem = 19,
-	/// XMM register or memory
+	/// `XMM` register or memory
 	xmm_or_mem = 20,
-	/// YMM register or memory
+	/// `YMM` register or memory
 	ymm_or_mem = 21,
-	/// ZMM register or memory
+	/// `ZMM` register or memory
 	zmm_or_mem = 22,
-	/// BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
+	/// `BND` register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 	bnd_or_mem_mpx = 23,
-	/// K register or memory
+	/// `K` register or memory
 	k_or_mem = 24,
 	/// 8-bit GPR encoded in the `reg` field of the modrm byte
 	r8_reg = 25,
@@ -643,83 +643,83 @@ pub enum OpCodeOperandKind {
 	r64_vvvv = 40,
 	/// Segment register encoded in the `reg` field of the modrm byte
 	seg_reg = 41,
-	/// K register encoded in the `reg` field of the modrm byte
+	/// `K` register encoded in the `reg` field of the modrm byte
 	k_reg = 42,
-	/// K register (+1) encoded in the `reg` field of the modrm byte
+	/// `K` register (+1) encoded in the `reg` field of the modrm byte
 	kp1_reg = 43,
-	/// K register encoded in the `mod + r/m` fields of the modrm byte
+	/// `K` register encoded in the `mod + r/m` fields of the modrm byte
 	k_rm = 44,
-	/// K register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `K` register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	k_vvvv = 45,
-	/// MM register encoded in the `reg` field of the modrm byte
+	/// `MM` register encoded in the `reg` field of the modrm byte
 	mm_reg = 46,
-	/// MM register encoded in the `mod + r/m` fields of the modrm byte
+	/// `MM` register encoded in the `mod + r/m` fields of the modrm byte
 	mm_rm = 47,
-	/// XMM register encoded in the `reg` field of the modrm byte
+	/// `XMM` register encoded in the `reg` field of the modrm byte
 	xmm_reg = 48,
-	/// XMM register encoded in the `mod + r/m` fields of the modrm byte
+	/// `XMM` register encoded in the `mod + r/m` fields of the modrm byte
 	xmm_rm = 49,
-	/// XMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `XMM` register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	xmm_vvvv = 50,
-	/// XMM register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `XMM` register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	xmmp3_vvvv = 51,
-	/// XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)
+	/// `XMM` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only `XMM0`-`XMM15`)
 	xmm_is4 = 52,
-	/// XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)
+	/// `XMM` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only `XMM0`-`XMM15`)
 	xmm_is5 = 53,
-	/// YMM register encoded in the `reg` field of the modrm byte
+	/// `YMM` register encoded in the `reg` field of the modrm byte
 	ymm_reg = 54,
-	/// YMM register encoded in the `mod + r/m` fields of the modrm byte
+	/// `YMM` register encoded in the `mod + r/m` fields of the modrm byte
 	ymm_rm = 55,
-	/// YMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `YMM` register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	ymm_vvvv = 56,
-	/// YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)
+	/// `YMM` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only `YMM0`-`YMM15`)
 	ymm_is4 = 57,
-	/// YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)
+	/// `YMM` register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only `YMM0`-`YMM15`)
 	ymm_is5 = 58,
-	/// ZMM register encoded in the `reg` field of the modrm byte
+	/// `ZMM` register encoded in the `reg` field of the modrm byte
 	zmm_reg = 59,
-	/// ZMM register encoded in the `mod + r/m` fields of the modrm byte
+	/// `ZMM` register encoded in the `mod + r/m` fields of the modrm byte
 	zmm_rm = 60,
-	/// ZMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `ZMM` register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	zmm_vvvv = 61,
-	/// ZMM register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `ZMM` register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	zmmp3_vvvv = 62,
-	/// CR register encoded in the `reg` field of the modrm byte
+	/// `CR` register encoded in the `reg` field of the modrm byte
 	cr_reg = 63,
-	/// DR register encoded in the `reg` field of the modrm byte
+	/// `DR` register encoded in the `reg` field of the modrm byte
 	dr_reg = 64,
-	/// TR register encoded in the `reg` field of the modrm byte
+	/// `TR` register encoded in the `reg` field of the modrm byte
 	tr_reg = 65,
-	/// BND register encoded in the `reg` field of the modrm byte
+	/// `BND` register encoded in the `reg` field of the modrm byte
 	bnd_reg = 66,
-	/// ES register
+	/// `ES` register
 	es = 67,
-	/// CS register
+	/// `CS` register
 	cs = 68,
-	/// SS register
+	/// `SS` register
 	ss = 69,
-	/// DS register
+	/// `DS` register
 	ds = 70,
-	/// FS register
+	/// `FS` register
 	fs = 71,
-	/// GS register
+	/// `GS` register
 	gs = 72,
-	/// AL register
+	/// `AL` register
 	al = 73,
-	/// CL register
+	/// `CL` register
 	cl = 74,
-	/// AX register
+	/// `AX` register
 	ax = 75,
-	/// DX register
+	/// `DX` register
 	dx = 76,
-	/// EAX register
+	/// `EAX` register
 	eax = 77,
-	/// RAX register
+	/// `RAX` register
 	rax = 78,
-	/// ST0 register
+	/// `ST(0)` register
 	st0 = 79,
-	/// ST(i) register encoded in the low 3 bits of the opcode
+	/// `ST(i)` register encoded in the low 3 bits of the opcode
 	sti_opcode = 80,
 	/// 4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg. `VPERMIL2PS`)
 	imm4_m2z = 81,
@@ -771,11 +771,11 @@ pub enum OpCodeOperandKind {
 	brdisp_4 = 104,
 	/// Memory (modrm) and the sib byte must be present
 	sibmem = 105,
-	/// TMM register encoded in the `reg` field of the modrm byte
+	/// `TMM` register encoded in the `reg` field of the modrm byte
 	tmm_reg = 106,
-	/// TMM register encoded in the `mod + r/m` fields of the modrm byte
+	/// `TMM` register encoded in the `mod + r/m` fields of the modrm byte
 	tmm_rm = 107,
-	/// TMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
+	/// `TMM` register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
 	tmm_vvvv = 108,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -1421,9 +1421,9 @@ impl Default for CpuidFeature {
 #[allow(missing_debug_implementations)]
 #[cfg(feature = "instr_info")]
 pub struct RflagsBits;
-#[allow(missing_docs)]
 #[cfg(feature = "instr_info")]
 impl RflagsBits {
+	/// No bit is set
 	pub const NONE: u32 = 0x0000_0000;
 	/// `RFLAGS.OF`
 	pub const OF: u32 = 0x0000_0001;

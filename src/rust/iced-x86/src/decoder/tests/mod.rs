@@ -326,7 +326,7 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 	const T16: u8 = 0x01;
 	const T32: u8 = 0x02;
 	const T64: u8 = 0x04;
-	let mut tested = [0u8; IcedConstants::NUMBER_OF_CODE_VALUES];
+	let mut tested = [0u8; IcedConstants::CODE_ENUM_COUNT];
 	tested[Code::INVALID as usize] = T16 | T32 | T64;
 
 	for info in decoder_tests(false, false) {

@@ -45,7 +45,7 @@ fn test_op_index() {
 
 #[test]
 fn register_is_not_too_big() {
-	const MAX_VALUE: u32 = IcedConstants::NUMBER_OF_REGISTERS as u32 - 1 + Registers::EXTRA_REGISTERS;
+	const MAX_VALUE: u32 = IcedConstants::REGISTER_ENUM_COUNT as u32 - 1 + Registers::EXTRA_REGISTERS;
 	const_assert!(MAX_VALUE < (1 << InstrOpInfo::TEST_REGISTER_BITS));
 	const_assert!(MAX_VALUE >= (1 << (InstrOpInfo::TEST_REGISTER_BITS - 1)));
 }

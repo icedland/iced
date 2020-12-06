@@ -51,17 +51,17 @@ namespace Iced.Intel {
 		/// <br/>
 		/// 64-bit mode: 64-bit addressing is forced and must not be RIP relative</summary>
 		mem_mib = 6,
-		/// <summary>Memory (modrm), vsib32, xmm registers</summary>
+		/// <summary>Memory (modrm), vsib32, <c>XMM</c> registers</summary>
 		mem_vsib32x = 7,
-		/// <summary>Memory (modrm), vsib64, xmm registers</summary>
+		/// <summary>Memory (modrm), vsib64, <c>XMM</c> registers</summary>
 		mem_vsib64x = 8,
-		/// <summary>Memory (modrm), vsib32, ymm registers</summary>
+		/// <summary>Memory (modrm), vsib32, <c>YMM</c> registers</summary>
 		mem_vsib32y = 9,
-		/// <summary>Memory (modrm), vsib64, ymm registers</summary>
+		/// <summary>Memory (modrm), vsib64, <c>YMM</c> registers</summary>
 		mem_vsib64y = 10,
-		/// <summary>Memory (modrm), vsib32, zmm registers</summary>
+		/// <summary>Memory (modrm), vsib32, <c>ZMM</c> registers</summary>
 		mem_vsib32z = 11,
-		/// <summary>Memory (modrm), vsib64, zmm registers</summary>
+		/// <summary>Memory (modrm), vsib64, <c>ZMM</c> registers</summary>
 		mem_vsib64z = 12,
 		/// <summary>8-bit GPR or memory</summary>
 		r8_or_mem = 13,
@@ -75,17 +75,17 @@ namespace Iced.Intel {
 		r64_or_mem = 17,
 		/// <summary>64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced</summary>
 		r64_or_mem_mpx = 18,
-		/// <summary>MM register or memory</summary>
+		/// <summary><c>MM</c> register or memory</summary>
 		mm_or_mem = 19,
-		/// <summary>XMM register or memory</summary>
+		/// <summary><c>XMM</c> register or memory</summary>
 		xmm_or_mem = 20,
-		/// <summary>YMM register or memory</summary>
+		/// <summary><c>YMM</c> register or memory</summary>
 		ymm_or_mem = 21,
-		/// <summary>ZMM register or memory</summary>
+		/// <summary><c>ZMM</c> register or memory</summary>
 		zmm_or_mem = 22,
-		/// <summary>BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced</summary>
+		/// <summary><c>BND</c> register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced</summary>
 		bnd_or_mem_mpx = 23,
-		/// <summary>K register or memory</summary>
+		/// <summary><c>K</c> register or memory</summary>
 		k_or_mem = 24,
 		/// <summary>8-bit GPR encoded in the <c>reg</c> field of the modrm byte</summary>
 		r8_reg = 25,
@@ -121,83 +121,83 @@ namespace Iced.Intel {
 		r64_vvvv = 40,
 		/// <summary>Segment register encoded in the <c>reg</c> field of the modrm byte</summary>
 		seg_reg = 41,
-		/// <summary>K register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>K</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		k_reg = 42,
-		/// <summary>K register (+1) encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>K</c> register (+1) encoded in the <c>reg</c> field of the modrm byte</summary>
 		kp1_reg = 43,
-		/// <summary>K register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
+		/// <summary><c>K</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		k_rm = 44,
-		/// <summary>K register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>K</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		k_vvvv = 45,
-		/// <summary>MM register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>MM</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		mm_reg = 46,
-		/// <summary>MM register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
+		/// <summary><c>MM</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		mm_rm = 47,
-		/// <summary>XMM register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>XMM</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		xmm_reg = 48,
-		/// <summary>XMM register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
+		/// <summary><c>XMM</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		xmm_rm = 49,
-		/// <summary>XMM register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>XMM</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		xmm_vvvv = 50,
-		/// <summary>XMM register (+3) encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>XMM</c> register (+3) encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		xmmp3_vvvv = 51,
-		/// <summary>XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)</summary>
+		/// <summary><c>XMM</c> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <c>XMM0</c>-<c>XMM15</c>)</summary>
 		xmm_is4 = 52,
-		/// <summary>XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)</summary>
+		/// <summary><c>XMM</c> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <c>XMM0</c>-<c>XMM15</c>)</summary>
 		xmm_is5 = 53,
-		/// <summary>YMM register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>YMM</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		ymm_reg = 54,
-		/// <summary>YMM register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
+		/// <summary><c>YMM</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		ymm_rm = 55,
-		/// <summary>YMM register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>YMM</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		ymm_vvvv = 56,
-		/// <summary>YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)</summary>
+		/// <summary><c>YMM</c> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <c>YMM0</c>-<c>YMM15</c>)</summary>
 		ymm_is4 = 57,
-		/// <summary>YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)</summary>
+		/// <summary><c>YMM</c> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <c>YMM0</c>-<c>YMM15</c>)</summary>
 		ymm_is5 = 58,
-		/// <summary>ZMM register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>ZMM</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		zmm_reg = 59,
-		/// <summary>ZMM register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
+		/// <summary><c>ZMM</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		zmm_rm = 60,
-		/// <summary>ZMM register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>ZMM</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		zmm_vvvv = 61,
-		/// <summary>ZMM register (+3) encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>ZMM</c> register (+3) encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		zmmp3_vvvv = 62,
-		/// <summary>CR register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>CR</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		cr_reg = 63,
-		/// <summary>DR register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>DR</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		dr_reg = 64,
-		/// <summary>TR register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>TR</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		tr_reg = 65,
-		/// <summary>BND register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>BND</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		bnd_reg = 66,
-		/// <summary>ES register</summary>
+		/// <summary><c>ES</c> register</summary>
 		es = 67,
-		/// <summary>CS register</summary>
+		/// <summary><c>CS</c> register</summary>
 		cs = 68,
-		/// <summary>SS register</summary>
+		/// <summary><c>SS</c> register</summary>
 		ss = 69,
-		/// <summary>DS register</summary>
+		/// <summary><c>DS</c> register</summary>
 		ds = 70,
-		/// <summary>FS register</summary>
+		/// <summary><c>FS</c> register</summary>
 		fs = 71,
-		/// <summary>GS register</summary>
+		/// <summary><c>GS</c> register</summary>
 		gs = 72,
-		/// <summary>AL register</summary>
+		/// <summary><c>AL</c> register</summary>
 		al = 73,
-		/// <summary>CL register</summary>
+		/// <summary><c>CL</c> register</summary>
 		cl = 74,
-		/// <summary>AX register</summary>
+		/// <summary><c>AX</c> register</summary>
 		ax = 75,
-		/// <summary>DX register</summary>
+		/// <summary><c>DX</c> register</summary>
 		dx = 76,
-		/// <summary>EAX register</summary>
+		/// <summary><c>EAX</c> register</summary>
 		eax = 77,
-		/// <summary>RAX register</summary>
+		/// <summary><c>RAX</c> register</summary>
 		rax = 78,
-		/// <summary>ST0 register</summary>
+		/// <summary><c>ST(0)</c> register</summary>
 		st0 = 79,
-		/// <summary>ST(i) register encoded in the low 3 bits of the opcode</summary>
+		/// <summary><c>ST(i)</c> register encoded in the low 3 bits of the opcode</summary>
 		sti_opcode = 80,
 		/// <summary>4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg. <c>VPERMIL2PS</c>)</summary>
 		imm4_m2z = 81,
@@ -249,11 +249,11 @@ namespace Iced.Intel {
 		brdisp_4 = 104,
 		/// <summary>Memory (modrm) and the sib byte must be present</summary>
 		sibmem = 105,
-		/// <summary>TMM register encoded in the <c>reg</c> field of the modrm byte</summary>
+		/// <summary><c>TMM</c> register encoded in the <c>reg</c> field of the modrm byte</summary>
 		tmm_reg = 106,
-		/// <summary>TMM register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
+		/// <summary><c>TMM</c> register encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		tmm_rm = 107,
-		/// <summary>TMM register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
+		/// <summary><c>TMM</c> register encoded in the the <c>V&apos;vvvv</c> field (VEX/EVEX/XOP)</summary>
 		tmm_vvvv = 108,
 	}
 }

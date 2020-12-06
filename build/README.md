@@ -15,8 +15,7 @@ Building and testing the Rust code requires:
 - Rust: https://www.rust-lang.org/tools/install
 - Extra Rust stuff
 	- `rustup update`
-	- `rustup component add rustfmt`
-	- `rustup component add clippy`
+	- `rustup component add rustfmt clippy`
 	- `rustup target add wasm32-unknown-unknown`
 	- MSRV: `rustup toolchain install 1.20.0`
 		- Pass `--no-msrv` to `build-rust` if you don't want to install it
@@ -30,11 +29,21 @@ Building and testing the JavaScript code requires:
 - Rust: https://www.rust-lang.org/tools/install
 - Extra Rust stuff
 	- `rustup update`
-	- `rustup component add rustfmt`
-	- `rustup component add clippy`
+	- `rustup component add rustfmt clippy`
 	- `rustup target add wasm32-unknown-unknown`
 - Node.js >= 10.0.0: https://nodejs.org/en/download/
 - wasm-pack: `npm install -g wasm-pack` or if it fails, see https://rustwasm.github.io/wasm-pack/installer/
+
+## Python
+
+Building and testing the Python code requires:
+
+- Rust: https://www.rust-lang.org/tools/install
+- Extra Rust stuff
+	- `rustup update`
+	- `rustup component add rustfmt clippy`
+- Python >= 3.6: https://www.python.org/downloads/
+- `python3 -m pip install -r src/rust/iced-x86-py/requirements-dev.txt`
 
 # Building this repo
 
@@ -48,6 +57,7 @@ From the repo root dir:
 sh build/build
 REM It's the same as
 sh build/build-rust
+sh build/build-python
 sh build/build-js
 sh build/build-dotnet
 ```
@@ -62,6 +72,7 @@ From the repo root dir:
 ./build/build
 # It's the same as
 ./build/build-rust
+./build/build-python
 ./build/build-js
 ./build/build-dotnet
 ```

@@ -458,9 +458,9 @@ fn memory_size_info() {
 	let test_cases: Vec<_> = MemorySizeInfoTestParser::new(&path).into_iter().collect();
 	let h: HashSet<MemorySize> = test_cases.iter().map(|a| a.memory_size).collect();
 	// Make sure every value is tested
-	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES, h.len());
+	assert_eq!(IcedConstants::MEMORY_SIZE_ENUM_COUNT, h.len());
 	// Make sure there are no dupes
-	assert_eq!(IcedConstants::NUMBER_OF_MEMORY_SIZES, test_cases.len());
+	assert_eq!(IcedConstants::MEMORY_SIZE_ENUM_COUNT, test_cases.len());
 	for tc in &test_cases {
 		let info = tc.memory_size.info();
 		assert_eq!(tc.memory_size, info.memory_size());
@@ -490,9 +490,9 @@ fn register_info() {
 	let test_cases: Vec<_> = RegisterInfoTestParser::new(&path).into_iter().collect();
 	let h: HashSet<Register> = test_cases.iter().map(|a| a.register).collect();
 	// Make sure every value is tested
-	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS, h.len());
+	assert_eq!(IcedConstants::REGISTER_ENUM_COUNT, h.len());
 	// Make sure there are no dupes
-	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS, test_cases.len());
+	assert_eq!(IcedConstants::REGISTER_ENUM_COUNT, test_cases.len());
 	for tc in &test_cases {
 		let info = tc.register.info();
 		assert_eq!(tc.register, info.register());
@@ -567,7 +567,7 @@ fn is_branch_call() {
 	let call_near_indirect = &data.call_near_indirect;
 	let call_far_indirect = &data.call_far_indirect;
 
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -624,7 +624,7 @@ fn verify_negate_condition_code() {
 	to_negated_code_value.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 	to_negated_code_value.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -645,7 +645,7 @@ fn verify_to_short_branch() {
 	as_short_branch.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
 	as_short_branch.extend(data.jmp_infos.iter().map(|a| ((*a).1, (*a).0)));
 
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -666,7 +666,7 @@ fn verify_to_near_branch() {
 	as_near_branch.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
 	as_near_branch.extend(data.jmp_infos.iter().map(|a| ((*a).0, (*a).1)));
 
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -690,7 +690,7 @@ fn verify_condition_code() {
 	to_condition_code.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 	to_condition_code.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let mut instr = Instruction::default();
 		instr.set_code(code);
@@ -725,7 +725,7 @@ fn verify_condition_code_values_are_in_correct_order() {
 
 #[test]
 fn make_sure_all_code_values_are_tested() {
-	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES];
+	let mut tested = [false; IcedConstants::CODE_ENUM_COUNT];
 	for bitness in &[16u32, 32, 64] {
 		for tc in get_instr_info_test_cases(*bitness) {
 			tested[tc.code as usize] = true;

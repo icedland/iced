@@ -35,14 +35,14 @@ namespace Generator.Documentation.RustJS {
 		public override void WriteDeprecated(FileWriter writer, EnumValue value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-				WriteDeprecated(writer, value.DeprecatedInfo.Version, newValue.Name(idConverter));
+				WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
 			}
 		}
 
 		public override void WriteDeprecated(FileWriter writer, Constant value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-				WriteDeprecated(writer, value.DeprecatedInfo.Version, newValue.Name(idConverter));
+				WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
 			}
 		}
 

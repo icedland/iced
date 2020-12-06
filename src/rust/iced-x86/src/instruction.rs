@@ -623,6 +623,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_kind(&self, operand: u32) -> OpKind {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.op0_kind(),
 			1 => self.op1_kind(),
@@ -645,6 +646,7 @@ impl Instruction {
 	/// * `op_kind`: Operand kind
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.set_op0_kind(op_kind),
 			1 => self.set_op1_kind(op_kind),
@@ -817,7 +819,7 @@ impl Instruction {
 	pub fn memory_size(&self) -> MemorySize {
 		let mut index = self.code() as usize;
 		if self.is_broadcast() {
-			index += IcedConstants::NUMBER_OF_CODE_VALUES;
+			index += IcedConstants::CODE_ENUM_COUNT;
 		}
 		unsafe { *instruction_memory_sizes::SIZES.get_unchecked(index) }
 	}
@@ -1582,6 +1584,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn op_register(&self, operand: u32) -> Register {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.op0_register(),
 			1 => self.op1_register(),
@@ -1606,6 +1609,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_op_register(&mut self, operand: u32, new_value: Register) {
+		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
 			0 => self.set_op0_register(new_value),
 			1 => self.set_op1_register(new_value),
@@ -1702,7 +1706,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the rounding control ([`suppress_all_exceptions()`] is implied but still returns `false`)
+	/// Gets the rounding control (SAE is implied but [`suppress_all_exceptions()`] still returns `false`)
 	/// or [`RoundingControl::None`] if the instruction doesn't use it.
 	///
 	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions
@@ -1713,7 +1717,7 @@ impl Instruction {
 		unsafe { mem::transmute(((self.code_flags >> CodeFlags::ROUNDING_CONTROL_SHIFT) & CodeFlags::ROUNDING_CONTROL_MASK) as u8) }
 	}
 
-	/// Sets the rounding control ([`suppress_all_exceptions()`] is implied but still returns `false`)
+	/// Sets the rounding control (SAE is implied but [`suppress_all_exceptions()`] still returns `false`)
 	/// or [`RoundingControl::None`] if the instruction doesn't use it.
 	///
 	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions
@@ -2342,7 +2346,7 @@ impl Instruction {
 	///
 	/// # Arguments
 	///
-	/// * `operand`: Operand number, must be a memory operand
+	/// * `operand`: Operand number, 0-4, must be a memory operand
 	/// * `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register, or `None` for unsupported
 	///    registers.
@@ -2580,7 +2584,7 @@ impl Instruction {
 	///
 	/// # Arguments
 	///
-	/// * `operand`: Operand number, must be a memory operand
+	/// * `operand`: Operand number, 0-4, must be a memory operand
 	/// * `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * `get_register_value`: Function that returns the value of a register or the base address of a segment register.
 	///

@@ -689,7 +689,7 @@ fn test_evex_b_bit() {
 fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 	if op_code.encoding() == EncodingKind::EVEX && !(op_code.can_suppress_all_exceptions() || op_code.can_use_rounding_control()) {
 		let mnemonic = op_code.code().mnemonic();
-		for (j, i) in (op_code.code() as usize + 1..IcedConstants::NUMBER_OF_CODE_VALUES).enumerate() {
+		for (j, i) in (op_code.code() as usize + 1..IcedConstants::CODE_ENUM_COUNT).enumerate() {
 			if j > 1 {
 				break;
 			}
@@ -713,7 +713,7 @@ fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
 fn verify_tuple_type_bcst() {
 	let code_names = code_names();
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		if is_ignored_code(code_names[i]) {
 			continue;
 		}
@@ -1602,14 +1602,14 @@ struct TestedInfo {
 #[test]
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
 fn verify_that_test_cases_test_enough_bits() {
-	let mut tested_infos_16: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::NUMBER_OF_CODE_VALUES).collect();
-	let mut tested_infos_32: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::NUMBER_OF_CODE_VALUES).collect();
-	let mut tested_infos_64: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::NUMBER_OF_CODE_VALUES).collect();
+	let mut tested_infos_16: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::CODE_ENUM_COUNT).collect();
+	let mut tested_infos_32: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::CODE_ENUM_COUNT).collect();
+	let mut tested_infos_64: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::CODE_ENUM_COUNT).collect();
 
-	let mut can_use_w = [false; IcedConstants::NUMBER_OF_CODE_VALUES];
+	let mut can_use_w = [false; IcedConstants::CODE_ENUM_COUNT];
 	{
 		let mut uses_w: HashSet<(OpCodeTableKind, u32)> = HashSet::new();
-		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		for i in 0..IcedConstants::CODE_ENUM_COUNT {
 			let code: Code = unsafe { mem::transmute(i as u16) };
 			let op_code = code.op_code();
 			if op_code.encoding() != EncodingKind::Legacy {
@@ -1619,7 +1619,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				let _ = uses_w.insert((op_code.table(), op_code.op_code()));
 			}
 		}
-		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		for i in 0..IcedConstants::CODE_ENUM_COUNT {
 			let code: Code = unsafe { mem::transmute(i as u16) };
 			let op_code = code.op_code();
 			match op_code.encoding() {
@@ -1968,7 +1968,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			_ => panic!(),
 		};
 
-		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		for i in 0..IcedConstants::CODE_ENUM_COUNT {
 			if is_ignored_code(code_names[i]) {
 				continue;
 			}
@@ -2740,7 +2740,7 @@ fn verify_cpu_mode() {
 	let hash1632: HashSet<Code> = code32_only().iter().chain(not_decoded32_only().iter()).cloned().collect();
 	let hash64: HashSet<Code> = code64_only().iter().chain(not_decoded64_only().iter()).cloned().collect();
 	let code_names = code_names();
-	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		if is_ignored_code(code_names[i]) {
 			continue;
 		}

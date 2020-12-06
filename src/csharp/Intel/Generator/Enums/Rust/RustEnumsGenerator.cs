@@ -44,13 +44,7 @@ namespace Generator.Enums.Rust {
 			public readonly string Filename;
 			public readonly string[] Attributes;
 
-			public PartialEnumFileInfo(string id, string filename, string? attribute = null) {
-				Id = id;
-				Filename = filename;
-				Attributes = attribute is null ? Array.Empty<string>() : new string[] { attribute };
-			}
-
-			public PartialEnumFileInfo(string id, string filename, string[] attributes) {
+			public PartialEnumFileInfo(string id, string filename, params string[] attributes) {
 				Id = id;
 				Filename = filename;
 				Attributes = attributes;
@@ -183,8 +177,6 @@ namespace Generator.Enums.Rust {
 				if (partialInfo is not null)
 					new FileUpdater(TargetLanguage.Rust, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
 			}
-			else
-				throw new InvalidOperationException();
 		}
 
 		void WriteEnum(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {

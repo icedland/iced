@@ -181,7 +181,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Verify_Instruction_OpCodeInfo() {
-			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
+			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
 				var code = (Code)i;
 				Instruction instruction = default;
 				instruction.Code = (Code)i;
@@ -191,7 +191,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Make_sure_all_Code_values_are_tested_exactly_once() {
-			var tested = new bool[IcedConstants.NumberOfCodeValues];
+			var tested = new bool[IcedConstants.CodeEnumCount];
 			foreach (var info in OpCodeInfoTestCases.OpCodeInfoTests) {
 				Assert.False(tested[(int)info.Code]);
 				tested[(int)info.Code] = true;

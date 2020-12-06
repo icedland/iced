@@ -2114,7 +2114,7 @@ impl Instruction {
 		self.0.set_merging_masking(newValue)
 	}
 
-	/// Gets the rounding control (a [`RoundingControl`] enum value) ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// Gets the rounding control (a [`RoundingControl`] enum value) (SAE is implied but [`suppressAllExceptions`] still returns `false`)
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
 	/// [`RoundingControl`]: enum.RoundingControl.html
@@ -2126,7 +2126,7 @@ impl Instruction {
 		iced_to_rounding_control(self.0.rounding_control())
 	}
 
-	/// Sets the rounding control (a [`RoundingControl`] enum value) ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// Sets the rounding control (a [`RoundingControl`] enum value) (SAE is implied but [`suppressAllExceptions`] still returns `false`)
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
 	/// [`RoundingControl`]: enum.RoundingControl.html
@@ -3101,6 +3101,25 @@ impl Instruction {
 		self.0.get_declare_byte_value(index as usize)
 	}
 
+	/// Gets a `db` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareByte`]
+	///
+	/// [`declareDataLength`]: #method.declare_data_length
+	/// [`code`]: #method.code
+	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-15)
+	#[wasm_bindgen(js_name = "getDeclareByteValueI8")]
+	pub fn get_declare_byte_value_i8(&self, index: u32) -> i8 {
+		self.0.get_declare_byte_value(index as usize) as i8
+	}
+
 	/// Sets a new `dw` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareWord`]
 	///
@@ -3160,6 +3179,25 @@ impl Instruction {
 		self.0.get_declare_word_value(index as usize)
 	}
 
+	/// Gets a `dw` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareWord`]
+	///
+	/// [`declareDataLength`]: #method.declare_data_length
+	/// [`code`]: #method.code
+	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-7)
+	#[wasm_bindgen(js_name = "getDeclareWordValueI16")]
+	pub fn get_declare_word_value_i16(&self, index: u32) -> i16 {
+		self.0.get_declare_word_value(index as usize) as i16
+	}
+
 	/// Sets a new `dd` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareDword`]
 	///
@@ -3217,6 +3255,25 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "getDeclareDwordValue")]
 	pub fn get_declare_dword_value(&self, index: u32) -> u32 {
 		self.0.get_declare_dword_value(index as usize)
+	}
+
+	/// Gets a `dd` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareDword`]
+	///
+	/// [`declareDataLength`]: #method.declare_data_length
+	/// [`code`]: #method.code
+	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-3)
+	#[wasm_bindgen(js_name = "getDeclareDwordValueI32")]
+	pub fn get_declare_dword_value_i32(&self, index: u32) -> i32 {
+		self.0.get_declare_dword_value(index as usize) as i32
 	}
 
 	/// Sets a new `dq` value, see also [`declareDataLength`].
@@ -3373,6 +3430,26 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	pub fn get_declare_qword_value(&self, index: u32) -> u64 {
 		self.0.get_declare_qword_value(index as usize)
+	}
+
+	/// Gets a `dq` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// [`declareDataLength`]: #method.declare_data_length
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	#[wasm_bindgen(js_name = "getDeclareQwordValueI64")]
+	#[cfg(feature = "bigint")]
+	pub fn get_declare_qword_value_i64(&self, index: u32) -> i64 {
+		self.0.get_declare_qword_value(index as usize) as i64
 	}
 
 	// GENERATOR-BEGIN: Create

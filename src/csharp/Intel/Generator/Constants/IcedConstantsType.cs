@@ -31,7 +31,7 @@ namespace Generator.Constants {
 		public const int MaxInstructionLength = 15;
 		public const int RegisterBits = 8;
 
-		public const string NumberOfCodeValuesName = "NumberOfCodeValues";
+		public const string CodeEnumCountName = "CodeEnumCount";
 		public const string FirstBroadcastMemorySizeName = "FirstBroadcastMemorySize";
 	}
 
@@ -54,13 +54,26 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Index, nameof(IcedConstants.MaxOpCount), IcedConstants.MaxOpCount),
 				new Constant(ConstantKind.Index, nameof(IcedConstants.MaxInstructionLength), IcedConstants.MaxInstructionLength),
 				new Constant(ConstantKind.Int32, nameof(IcedConstants.RegisterBits), IcedConstants.RegisterBits),
-				new Constant(ConstantKind.Index, IcedConstants.NumberOfCodeValuesName, (uint)genTypes[TypeIds.Code].Values.Length),
-				new Constant(ConstantKind.Index, "NumberOfRegisters", (uint)genTypes[TypeIds.Register].Values.Length),
-				new Constant(ConstantKind.Index, "NumberOfMemorySizes", (uint)genTypes[TypeIds.MemorySize].Values.Length),
-				new Constant(ConstantKind.Index, "NumberOfEncodingKinds", (uint)genTypes[TypeIds.EncodingKind].Values.Length),
-				new Constant(ConstantKind.Index, "NumberOfOpKinds", (uint)genTypes[TypeIds.OpKind].Values.Length),
-				new Constant(ConstantKind.Index, "NumberOfCodeSizes", (uint)genTypes[TypeIds.CodeSize].Values.Length),
-				new Constant(ConstantKind.Index, "NumberOfRoundingControlValues", (uint)genTypes[TypeIds.RoundingControl].Values.Length),
+				new Constant(ConstantKind.Index, IcedConstants.CodeEnumCountName, (uint)genTypes[TypeIds.Code].Values.Length),
+				new Constant(ConstantKind.Index, "RegisterEnumCount", (uint)genTypes[TypeIds.Register].Values.Length),
+				new Constant(ConstantKind.Index, "MemorySizeEnumCount", (uint)genTypes[TypeIds.MemorySize].Values.Length),
+				new Constant(ConstantKind.Index, "EncodingKindEnumCount", (uint)genTypes[TypeIds.EncodingKind].Values.Length),
+				new Constant(ConstantKind.Index, "OpKindEnumCount", (uint)genTypes[TypeIds.OpKind].Values.Length),
+				new Constant(ConstantKind.Index, "CodeSizeEnumCount", (uint)genTypes[TypeIds.CodeSize].Values.Length),
+				new Constant(ConstantKind.Index, "RoundingControlEnumCount", (uint)genTypes[TypeIds.RoundingControl].Values.Length),
+				new Constant(ConstantKind.Index, "MemorySizeOptionsEnumCount", (uint)genTypes[TypeIds.MemorySizeOptions].Values.Length),
+				new Constant(ConstantKind.Index, "CC_b_EnumCount", (uint)genTypes[TypeIds.CC_b].Values.Length),
+				new Constant(ConstantKind.Index, "CC_ae_EnumCount", (uint)genTypes[TypeIds.CC_ae].Values.Length),
+				new Constant(ConstantKind.Index, "CC_e_EnumCount", (uint)genTypes[TypeIds.CC_e].Values.Length),
+				new Constant(ConstantKind.Index, "CC_ne_EnumCount", (uint)genTypes[TypeIds.CC_ne].Values.Length),
+				new Constant(ConstantKind.Index, "CC_be_EnumCount", (uint)genTypes[TypeIds.CC_be].Values.Length),
+				new Constant(ConstantKind.Index, "CC_a_EnumCount", (uint)genTypes[TypeIds.CC_a].Values.Length),
+				new Constant(ConstantKind.Index, "CC_p_EnumCount", (uint)genTypes[TypeIds.CC_p].Values.Length),
+				new Constant(ConstantKind.Index, "CC_np_EnumCount", (uint)genTypes[TypeIds.CC_np].Values.Length),
+				new Constant(ConstantKind.Index, "CC_l_EnumCount", (uint)genTypes[TypeIds.CC_l].Values.Length),
+				new Constant(ConstantKind.Index, "CC_ge_EnumCount", (uint)genTypes[TypeIds.CC_ge].Values.Length),
+				new Constant(ConstantKind.Index, "CC_le_EnumCount", (uint)genTypes[TypeIds.CC_le].Values.Length),
+				new Constant(ConstantKind.Index, "CC_g_EnumCount", (uint)genTypes[TypeIds.CC_g].Values.Length),
 				// This is the largest vector register. If it's VEX/EVEX, the upper bits are always cleared when writing to any sub reg, eg. YMM0
 				new Constant(ConstantKind.Register, "VMM_first", vmmFirst),
 				new Constant(ConstantKind.Register, "VMM_last", vmmLast),

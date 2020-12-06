@@ -28,9 +28,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel {
 	static class InstructionOpCounts {
 #if HAS_SPAN
-		internal static System.ReadOnlySpan<byte> OpCount => new byte[IcedConstants.NumberOfCodeValues] {
+		internal static System.ReadOnlySpan<byte> OpCount => new byte[IcedConstants.CodeEnumCount] {
 #else
-		internal static readonly byte[] OpCount = new byte[IcedConstants.NumberOfCodeValues] {
+		internal static readonly byte[] OpCount = new byte[IcedConstants.CodeEnumCount] {
 #endif
 			0,// INVALID
 			0,// DeclareByte

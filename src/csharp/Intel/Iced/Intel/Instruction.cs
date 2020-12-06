@@ -259,7 +259,7 @@ namespace Iced.Intel {
 			readonly get => (Code)(codeFlags & (uint)CodeFlags.CodeMask);
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set {
-				if ((uint)value >= (uint)IcedConstants.NumberOfCodeValues)
+				if ((uint)value >= (uint)IcedConstants.CodeEnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				codeFlags = (codeFlags & ~(uint)CodeFlags.CodeMask) | (uint)value;
 			}
@@ -662,7 +662,7 @@ namespace Iced.Intel {
 			get {
 				int index = (int)Code;
 				if (IsBroadcast)
-					index += IcedConstants.NumberOfCodeValues;
+					index += IcedConstants.CodeEnumCount;
 				return (MemorySize)InstructionMemorySizes.Sizes[index];
 			}
 		}
@@ -1150,7 +1150,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Rounding control (<see cref="SuppressAllExceptions"/> is implied but still returns <see langword="false"/>)
+		/// Rounding control (SAE is implied but <see cref="SuppressAllExceptions"/> still returns <see langword="false"/>)
 		/// or <see cref="RoundingControl.None"/> if the instruction doesn't use it.
 		/// </summary>
 		public RoundingControl RoundingControl {

@@ -29,10 +29,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 
 namespace Iced.Intel {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	/// <summary><c>RFLAGS</c> bits, FPU condition code bits and misc bits (<c>UIF</c>) supported by the instruction info code</summary>
 	[Flags]
 	public enum RflagsBits {
+		/// <summary>No bit is set</summary>
 		None = 0x00000000,
 		/// <summary><c>RFLAGS.OF</c></summary>
 		OF = 0x00000001,
@@ -63,6 +63,5 @@ namespace Iced.Intel {
 		/// <summary>FPU status word bit <c>C3</c></summary>
 		C3 = 0x00002000,
 	}
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
 #endif

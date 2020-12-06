@@ -1,0 +1,8 @@
+[MESSAGES CONTROL]
+disable=fixme
+
+[REPORTS]
+output-format=colorized
+
+[FORMAT]
+indent-string="\t"

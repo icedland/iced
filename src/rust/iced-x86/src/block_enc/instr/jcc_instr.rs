@@ -21,10 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::iced_error::IcedError;
 use super::super::*;
 use super::*;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 use core::cell::RefCell;
 use core::{cmp, i32, i8, u32};
 
@@ -207,7 +206,7 @@ impl Instr for JccInstr {
 		self.try_optimize()
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), String> {
+	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Short | InstrKind::Near => {
 				// Temp needed if rustc < 1.36.0 (2015 edition)
@@ -226,7 +225,7 @@ impl Instr for JccInstr {
 				let tmp = self.target_instr.address(self);
 				self.instruction.set_near_branch64(tmp);
 				match block.encoder.encode(&self.instruction, self.ip) {
-					Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
+					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 					Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
 				}
 			}
@@ -245,7 +244,7 @@ impl Instr for JccInstr {
 				debug_assert!(Self::LONG_INSTRUCTION_SIZE64 <= i8::MAX as u32);
 				instr.set_near_branch64(self.ip.wrapping_add(Self::LONG_INSTRUCTION_SIZE64 as u64));
 				let instr_len = match block.encoder.encode(&instr, self.ip) {
-					Err(err) => return Err(InstrUtils::create_error_message(&err, &self.instruction)),
+					Err(err) => return Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 					Ok(len) => len,
 				} as u32;
 				match InstrUtils::encode_branch_to_pointer_data(
@@ -256,7 +255,7 @@ impl Instr for JccInstr {
 					self.size - instr_len,
 				) {
 					Ok(_) => Ok((ConstantOffsets::default(), false)),
-					Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
+					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 				}
 			}
 

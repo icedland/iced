@@ -26,7 +26,7 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.IntelFormatterInternal {
 	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
+		public const int Register_ST = IcedConstants.RegisterEnumCount + 0;
 		public const int ExtraRegisters = 1;
 		public static readonly FormatterString[] AllRegisters = RegistersTable.GetRegisters();
 	}

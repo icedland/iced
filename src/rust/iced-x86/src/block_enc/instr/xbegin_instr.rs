@@ -21,10 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::iced_error::IcedError;
 use super::super::*;
 use super::*;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 use core::cell::RefCell;
 use core::{i16, u32};
 
@@ -138,7 +137,7 @@ impl Instr for XbeginInstr {
 		self.try_optimize()
 	}
 
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), String> {
+	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rel16 | InstrKind::Rel32 => {
 				if self.instr_kind == InstrKind::Unchanged {
@@ -153,7 +152,7 @@ impl Instr for XbeginInstr {
 				let tmp = self.target_instr.address(self);
 				self.instruction.set_near_branch64(tmp);
 				match block.encoder.encode(&self.instruction, self.ip) {
-					Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
+					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
 					Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
 				}
 			}

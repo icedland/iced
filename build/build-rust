@@ -9,6 +9,7 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 fi
 
 configuration=Release
+full_check=y
 gen_check=y
 has_dotnet=y
 has_msrv=y
@@ -234,6 +235,7 @@ build_test_msrv() {
 
 while [ "$#" -gt 0 ]; do
 	case $1 in
+	--quick-check) full_check=n ;;
 	--no-gen-check) gen_check=n ;;
 	--no-dotnet) has_dotnet=n ;;
 	--no-msrv) has_msrv=n ;;
@@ -253,18 +255,23 @@ if [ "$set_rustflags" = "y" ]; then
 	export RUSTFLAGS="-D warnings"
 fi
 
-if [ "$has_dotnet" = "y" ]; then
-	echo "dotnet version (if this fails, install .NET or use --no-dotnet)"
-	dotnet --version
+echo "rustup show"
+rustup show
 
-	if [ "$gen_check" = "y" ]; then
-		generator_check
+if [ "$full_check" = "y" ]; then
+	if [ "$has_dotnet" = "y" ]; then
+		echo "dotnet version (if this fails, install .NET or use --no-dotnet)"
+		dotnet --version
+
+		if [ "$gen_check" = "y" ]; then
+			generator_check
+		fi
+		test_valid_invalid_instructions
 	fi
-	test_valid_invalid_instructions
+	build_no_std
+	build_features
 fi
-build_no_std
-build_features
 build_test_default
-if [ "$has_msrv" = "y" ]; then
+if [ "$full_check" = "y" ] && [ "$has_msrv" = "y" ]; then
 	build_test_msrv
 fi

@@ -30,7 +30,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public sealed class MiscTests2 {
 		[Fact]
 		void Make_sure_all_Code_values_are_formatted() {
-			var tested = new byte[IcedConstants.NumberOfCodeValues];
+			var tested = new byte[IcedConstants.CodeEnumCount];
 
 			var allArgs = new (int bitness, bool isMisc)[] {
 				(16, false),

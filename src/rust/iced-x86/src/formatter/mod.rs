@@ -417,7 +417,7 @@ pub trait Formatter: private::Sealed {
 		self.format_mnemonic_options(instruction, output, FormatMnemonicOptions::NONE);
 	}
 
-	/// Formats the mnemonic and any prefixes
+	/// Formats the mnemonic and/or any prefixes
 	///
 	/// # Arguments
 	///
@@ -439,56 +439,49 @@ pub trait Formatter: private::Sealed {
 	/// Returns the operand access but only if it's an operand added by the formatter. If it's an
 	/// operand that is part of [`Instruction`], you should call eg. [`InstructionInfoFactory::info()`].
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
-	///
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
 	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
+	///
+	/// # Errors
+	///
+	/// This fails if `operand` is invalid.
 	///
 	/// [`Instruction`]: struct.Instruction.html
 	/// [`InstructionInfoFactory::info()`]: struct.InstructionInfoFactory.html#method.info
 	/// [`operand_count()`]: #tymethod.operand_count
 	#[cfg(feature = "instr_info")]
-	#[cfg_attr(has_must_use, must_use)]
-	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Option<OpAccess>;
+	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<OpAccess>, IcedError>;
 
 	/// Converts a formatter operand index to an instruction operand index. Returns `None` if it's an operand added by the formatter
-	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
 	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
 	///
+	/// # Errors
+	///
+	/// This fails if `operand` is invalid.
+	///
 	/// [`operand_count()`]: #tymethod.operand_count
-	#[cfg_attr(has_must_use, must_use)]
-	fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Option<u32>;
+	fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<u32>, IcedError>;
 
 	/// Converts an instruction operand index to a formatter operand index. Returns `None` if the instruction operand isn't used by the formatter
-	///
-	/// # Panics
-	///
-	/// Panics if `instruction_operand` is invalid
 	///
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
 	/// - `instruction_operand`: Instruction operand
-	#[cfg_attr(has_must_use, must_use)]
-	fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> Option<u32>;
+	///
+	/// # Errors
+	///
+	/// This fails if `instruction_operand` is invalid.
+	fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> Result<Option<u32>, IcedError>;
 
 	/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
 	/// A formatter can add and remove operands.
-	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -496,8 +489,12 @@ pub trait Formatter: private::Sealed {
 	/// - `output`: Output, eg. a `String`
 	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
 	///
+	/// # Errors
+	///
+	/// This fails if `operand` is invalid.
+	///
 	/// [`operand_count()`]: #tymethod.operand_count
-	fn format_operand(&mut self, instruction: &Instruction, output: &mut FormatterOutput, operand: u32);
+	fn format_operand(&mut self, instruction: &Instruction, output: &mut FormatterOutput, operand: u32) -> Result<(), IcedError>;
 
 	/// Formats an operand separator
 	///

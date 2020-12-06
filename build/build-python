@@ -1,0 +1,179 @@
+#!/bin/sh
+set -e
+
+root_dir=$(dirname "$0")
+root_dir=$(cd "$root_dir/.." && pwd)
+if [ ! -f "$root_dir/LICENSE.txt" ]; then
+	echo "Couldn't find the root dir"
+	exit 1
+fi
+pysrc_dir="$root_dir/src/rust/iced-x86-py"
+
+if [ "$OSTYPE" = "msys" ]; then
+	is_windows=y
+else
+	is_windows=n
+fi
+
+if [ "$is_windows" = "y" ]; then
+	python=python
+else
+	python=python3
+fi
+full_check=y
+gen_docs=y
+sdist_only=n
+wheel_only=n
+set_rustflags=y
+
+new_func() {
+	echo
+	echo "****************************************************************"
+	echo "$1"
+	echo "****************************************************************"
+	echo
+}
+
+generate_sdist() {
+	new_func "Generate sdist"
+
+	curr_dir=$(pwd)
+	cd "$pysrc_dir"
+
+	$python setup.py sdist
+
+	cd "$curr_dir"
+}
+
+generate_wheel() {
+	new_func "Generate wheel"
+
+	curr_dir=$(pwd)
+	cd "$pysrc_dir"
+
+	$python setup.py bdist_wheel
+
+	cd "$curr_dir"
+}
+
+test_wheel() {
+	new_func "Test wheel"
+
+	curr_dir=$(pwd)
+	cd "$pysrc_dir"
+
+	$python -m pip install iced-x86 --no-index -f dist
+	$python -m pytest --color=yes --code-highlight=yes
+	$python -m pip uninstall -y iced-x86
+
+	cd "$curr_dir"
+}
+
+generate_docs() {
+	new_func "Generate docs"
+
+	curr_dir=$(pwd)
+	cd "$pysrc_dir"
+
+	# Depends on generate_wheel output.
+	# It needs to load all modules, so copy the built file to the correct place.
+	# It has a *.{pyd,dylib,so} extension
+	built_file=$(ls build/lib/iced_x86/_iced_x86_py.*.*)
+	if [ ! -f "$built_file" ]; then
+		echo "Couldn't find the built _iced_x86_py.*.* file"
+		exit 1
+	fi
+	dest_filename="src/iced_x86/$(basename "$built_file")"
+	cp "$built_file" "$dest_filename"
+
+	echo "Generating HTML files"
+	sphinx-build --color -n -W --keep-going -b html docs docs/_build
+
+	echo "Running doc tests"
+	sphinx-build --color -n -W --keep-going -b doctest docs docs/_build
+
+	rm "$dest_filename"
+
+	cd "$curr_dir"
+}
+
+misc_tests() {
+	new_func "clippy, fmt, pylint, mypy"
+
+	curr_dir=$(pwd)
+	cd "$pysrc_dir"
+
+	echo "==== CLIPPY RELEASE ===="
+	cargo clippy --color always --release
+
+	echo "==== FORMAT CHECK ===="
+	cargo fmt -- --color always --check
+
+	echo "mypy"
+	mypy --strict src/iced_x86
+
+	echo "pylint"
+	# It will fail to load _iced_x86_py since it's not in the correct dir, so disable the error
+	pylint src/iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
+
+	cd "$curr_dir"
+}
+
+while [ "$#" -gt 0 ]; do
+	case $1 in
+	--quick-check) full_check=n ;;
+	--sdist-only) sdist_only=y ;;
+	--wheel-only) wheel_only=y ;;
+	--python) shift; python=$1 ;;
+	--no-docs) gen_docs=n ;;
+	--no-set-rustflags) set_rustflags=n ;;
+	*) echo "Unknown arg: $1"; exit 1 ;;
+	esac
+	shift
+done
+
+echo
+echo "=================================================="
+echo "Python build"
+echo "=================================================="
+echo
+
+if [ "$set_rustflags" = "y" ]; then
+	export RUSTFLAGS="-D warnings"
+fi
+
+echo "rustup show"
+rustup show
+echo "cargo version"
+cargo --version
+echo "Rust version"
+rustc --version
+echo "Python version"
+$python --version
+
+if [ "$sdist_only" = "y" ]; then
+	generate_sdist
+	exit 0
+fi
+if [ "$wheel_only" = "y" ]; then
+	generate_wheel
+	exit 0
+fi
+
+echo "pytest version"
+$python -m pytest --version
+
+if [ "$full_check" = "y" ] && [ "$gen_docs" = "y" ]; then
+	echo "sphinx-build version"
+	sphinx-build --version
+fi
+
+generate_sdist
+generate_wheel
+test_wheel
+if [ "$full_check" = "y" ]; then
+	misc_tests
+	if [ "$gen_docs" = "y" ]; then
+		generate_docs
+	fi
+fi

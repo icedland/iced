@@ -3,6 +3,7 @@
 exclude = [
     # Exclude it so it can override the [profile.release] section
     "iced-x86-js",
+    "iced-x86-py",
 ]
 
 members = [

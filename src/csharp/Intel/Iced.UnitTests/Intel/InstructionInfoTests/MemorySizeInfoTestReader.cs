@@ -34,7 +34,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static readonly char[] spaceSeparator = new char[] { ' ' };
 
 		public static MemorySizeInfoTestCase[] GetTestCases() {
-			var result = new MemorySizeInfoTestCase[IcedConstants.NumberOfMemorySizes];
+			var result = new MemorySizeInfoTestCase[IcedConstants.MemorySizeEnumCount];
 
 			var filename = PathUtils.GetTestTextFilename("MemorySizeInfo.txt", "InstructionInfo");
 			Debug.Assert(File.Exists(filename));

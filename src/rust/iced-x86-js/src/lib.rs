@@ -45,7 +45,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::wrong_self_convention)]
-#![warn(clippy::cargo_common_metadata)]
 #![warn(clippy::clone_on_ref_ptr)]
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::debug_assert_with_mut_call)]

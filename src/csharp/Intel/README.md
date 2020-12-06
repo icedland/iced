@@ -979,7 +979,7 @@ static class HowTo_DisassembleOldInstructions {
             DecoderOptions.Cyrix | DecoderOptions.Cyrix_DMI | DecoderOptions.ALTINST;
         var codeReader = new ByteArrayCodeReader(codeBytes);
         var decoder = Decoder.Create(32, codeReader, decoderOptions);
-        decoder.IP = 0x731E0A03;
+        decoder.IP = 0x731E_0A03;
 
         var formatter = new NasmFormatter();
         formatter.Options.SpaceAfterOperandSeparator = true;
