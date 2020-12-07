@@ -491,4 +491,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
-          twine upload --non-interactive -u __token__ -p "${{PYPI_TOKEN}}" /tmp/py-dist/*
+          twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
