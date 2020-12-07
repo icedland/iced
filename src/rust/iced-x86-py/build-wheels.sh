@@ -15,10 +15,11 @@ for PYBIN in /opt/python/cp{36,37,38,39}*/bin; do
 done
 rm -rf build/
 
-for whl in dist/*.whl; do
+mv dist orig-dist
+mkdir dist
+for whl in orig-dist/*.whl; do
 	auditwheel repair "$whl" -w dist/
 done
-rm dist/*-linux*.whl
 
 for PYBIN in /opt/python/cp{36,37,38,39}*/bin; do
 	"$PYBIN/python" -m pip install -U pytest
