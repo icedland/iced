@@ -30,6 +30,19 @@ python3 -m pytest
 python3 -m pip uninstall -y iced-x86
 ```
 
+Docs:
+
+- `python3 -m pip install -r requirements-dev.txt`
+
+```sh
+# Need the built module in build/lib/
+python3 setup.py bdist_wheel
+# Build the docs
+python3 -m sphinx --color -n -W --keep-going -b html docs docs/_build
+# Test the doc examples
+python3 -m sphinx --color -n -W --keep-going -b doctest docs docs/_build
+```
+
 ## How-tos
 
 - [Disassemble (decode and format instructions)](#disassemble-decode-and-format-instructions)
