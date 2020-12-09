@@ -87,6 +87,8 @@ mod formatter;
 mod iced_constants;
 mod info;
 mod instruction;
+mod memory_size_ext;
+mod memory_size_info;
 mod op_code_info;
 
 use block_encoder::BlockEncoder;
@@ -97,6 +99,8 @@ use fast_formatter::FastFormatter;
 use formatter::Formatter;
 use info::{InstructionInfo, InstructionInfoFactory, UsedMemory, UsedRegister};
 use instruction::{FpuStackIncrementInfo, Instruction};
+use memory_size_ext::MemorySizeExt;
+use memory_size_info::MemorySizeInfo;
 use op_code_info::OpCodeInfo;
 use pyo3::prelude::*;
 
@@ -116,6 +120,8 @@ fn _iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
 	m.add_class::<Instruction>()?;
 	m.add_class::<InstructionInfo>()?;
 	m.add_class::<InstructionInfoFactory>()?;
+	m.add_class::<MemorySizeExt>()?;
+	m.add_class::<MemorySizeInfo>()?;
 	m.add_class::<OpCodeInfo>()?;
 	m.add_class::<UsedMemory>()?;
 	m.add_class::<UsedRegister>()?;

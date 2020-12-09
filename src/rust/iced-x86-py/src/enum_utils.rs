@@ -168,3 +168,11 @@ pub(super) fn to_cc_g(value: u32) -> PyResult<iced_x86::CC_g> {
 		Ok(unsafe { core::mem::transmute(value as u8) })
 	}
 }
+
+pub(super) fn to_memory_size(value: u32) -> PyResult<iced_x86::MemorySize> {
+	if value >= IcedConstants::MEMORY_SIZE_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid MemorySize value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}

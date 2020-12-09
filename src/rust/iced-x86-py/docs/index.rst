@@ -17,6 +17,8 @@ Welcome to iced-x86's documentation!
 .. toctree::
 	src/ConstantOffsets
 	src/FpuStackIncrementInfo
+	src/MemorySizeExt
+	src/MemorySizeInfo
 	src/UsedMemory
 	src/UsedRegister
 	:maxdepth: 2

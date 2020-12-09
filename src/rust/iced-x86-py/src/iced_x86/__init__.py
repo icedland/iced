@@ -30,7 +30,7 @@ iced-x86 is a high performance and correct x86/x64 disassembler, assembler and i
 
 from ._iced_x86_py import BlockEncoder, ConstantOffsets, Decoder, Encoder, FastFormatter, \
 	Formatter, FpuStackIncrementInfo, Instruction, InstructionInfo, \
-	InstructionInfoFactory, OpCodeInfo, UsedMemory, UsedRegister
+	InstructionInfoFactory, MemorySizeExt, MemorySizeInfo, OpCodeInfo, UsedMemory, UsedRegister
 
 from . import CC_a
 from . import CC_ae
@@ -106,6 +106,8 @@ __all__ = [
 	"FormatterSyntax",
 	"MandatoryPrefix",
 	"MemorySize",
+	"MemorySizeExt",
+	"MemorySizeInfo",
 	"MemorySizeOptions",
 	"Mnemonic",
 	"OpAccess",
