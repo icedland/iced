@@ -168,10 +168,15 @@ jobs:
         run: |
           # Make sure crates.io isn't used
           if [ "$OSTYPE" = "msys" ]; then
-            echo "paths = [\"$(pwd -W)/src/rust/iced-x86\"]" > "$HOME/.cargo/config.toml"
+            iced_x86_dir="$(pwd -W)/src/rust/iced-x86"
           else
-            echo "paths = [\"$(pwd)/src/rust/iced-x86\"]" > "$HOME/.cargo/config.toml"
+            iced_x86_dir="$(pwd)/src/rust/iced-x86"
           fi
+          if [ ! -d "$iced_x86_dir" ]; then
+            echo "Dir does not exist: $iced_x86_dir"
+            exit 1
+          fi
+          echo "paths = [\"$iced_x86_dir\"]" > "$HOME/.cargo/config.toml"
 
       # If the supported Python versions get updated (added/removed), do:
       # - Update .github/workflows/build.yml (this file)
