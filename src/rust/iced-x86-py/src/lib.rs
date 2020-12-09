@@ -90,6 +90,8 @@ mod instruction;
 mod memory_size_ext;
 mod memory_size_info;
 mod op_code_info;
+mod register_ext;
+mod register_info;
 
 use block_encoder::BlockEncoder;
 use constant_offsets::ConstantOffsets;
@@ -103,6 +105,8 @@ use memory_size_ext::MemorySizeExt;
 use memory_size_info::MemorySizeInfo;
 use op_code_info::OpCodeInfo;
 use pyo3::prelude::*;
+use register_ext::RegisterExt;
+use register_info::RegisterInfo;
 
 #[pymodule]
 fn _iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
@@ -123,6 +127,8 @@ fn _iced_x86_py(_py: Python, m: &PyModule) -> PyResult<()> {
 	m.add_class::<MemorySizeExt>()?;
 	m.add_class::<MemorySizeInfo>()?;
 	m.add_class::<OpCodeInfo>()?;
+	m.add_class::<RegisterExt>()?;
+	m.add_class::<RegisterInfo>()?;
 	m.add_class::<UsedMemory>()?;
 	m.add_class::<UsedRegister>()?;
 

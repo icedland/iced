@@ -19,6 +19,8 @@ Welcome to iced-x86's documentation!
 	src/FpuStackIncrementInfo
 	src/MemorySizeExt
 	src/MemorySizeInfo
+	src/RegisterExt
+	src/RegisterInfo
 	src/UsedMemory
 	src/UsedRegister
 	:maxdepth: 2

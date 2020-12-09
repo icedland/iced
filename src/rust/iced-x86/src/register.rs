@@ -367,6 +367,8 @@ mod info {
 
 		/// The full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
 		///
+		/// # Examples
+		///
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::GS.info();
@@ -395,6 +397,8 @@ mod info {
 		/// Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
 		/// eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `ECX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
 		///
+		/// # Examples
+		///
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::GS.info();
@@ -421,6 +425,8 @@ mod info {
 		}
 
 		/// Size of the register in bytes
+		///
+		/// # Examples
 		///
 		/// ```
 		/// use iced_x86::*;

@@ -139,4 +139,7 @@ test("RegisterExt funcs", () => {
 
 	expect(RegisterExt.isMM(Register.CL)).toBe(false);
 	expect(RegisterExt.isMM(Register.MM3)).toBe(true);
+
+	expect(RegisterExt.isTMM(Register.CL)).toBe(false);
+	expect(RegisterExt.isTMM(Register.TMM3)).toBe(true);
 });
