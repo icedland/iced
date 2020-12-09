@@ -76,23 +76,16 @@ generate_docs() {
 	cd "$pysrc_dir"
 
 	# Depends on generate_wheel output.
-	# It needs to load all modules, so copy the built file to the correct place.
-	# It has a *.{pyd,dylib,so} extension
-	built_file=$(ls build/lib/iced_x86/_iced_x86_py.*.*)
-	if [ ! -f "$built_file" ]; then
+	if [ ! -f "$(ls build/lib/iced_x86/_iced_x86_py.*.*)" ]; then
 		echo "Couldn't find the built _iced_x86_py.*.* file"
 		exit 1
 	fi
-	dest_filename="src/iced_x86/$(basename "$built_file")"
-	cp "$built_file" "$dest_filename"
 
 	echo "Generating HTML files"
 	$python -m sphinx --color -n -W --keep-going -b html docs docs/_build
 
 	echo "Running doc tests"
 	$python -m sphinx --color -n -W --keep-going -b doctest docs docs/_build
-
-	rm "$dest_filename"
 
 	cd "$curr_dir"
 }
