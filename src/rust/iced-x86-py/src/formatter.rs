@@ -137,7 +137,7 @@ impl Formatter {
 
 	/// Returns the operand access but only if it's an operand added by the formatter.
 	///
-	/// If it's an operand that is part of :class:`Instruction`, you should call eg. `InstructionInfoFactory::info`.
+	/// If it's an operand that is part of :class:`Instruction`, you should call eg. :class:`InstructionInfoFactory.info`.
 	///
 	/// Args:
 	///     `instruction` (Instruction): Instruction

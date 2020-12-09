@@ -307,6 +307,13 @@ impl InstructionInfo {
 ///     data = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5"
 ///     decoder = Decoder(64, data)
 ///
+///     def create_enum_dict(module):
+///         return {module.__dict__[key]:key for key in module.__dict__ if isinstance(module.__dict__[key], int)}
+///
+///     reg_to_str = create_enum_dict(Register)
+///     op_access_to_str = create_enum_dict(OpAccess)
+///     memsz_to_str = create_enum_dict(MemorySize)
+///
 ///     info_factory = InstructionInfoFactory()
 ///     for instr in decoder:
 ///         print(f"Instruction: {instr}")
@@ -316,16 +323,16 @@ impl InstructionInfo {
 ///         for mem_info in info.used_memory():
 ///             # Register and OpAccess enum values
 ///             print(f"Used memory:")
-///             print(f"  seg: {mem_info.segment} (Register enum)")
-///             print(f"  base: {mem_info.base} (Register enum)")
-///             print(f"  index: {mem_info.index} (Register enum)")
+///             print(f"  seg: {reg_to_str[mem_info.segment]}")
+///             print(f"  base: {reg_to_str[mem_info.base]}")
+///             print(f"  index: {reg_to_str[mem_info.index]}")
 ///             print(f"  scale: {mem_info.scale}")
 ///             print(f"  displacement: 0x{mem_info.displacement:X}")
-///             print(f"  MemorySize enum: {mem_info.memory_size}")
-///             print(f"  OpAccess enum: {mem_info.access}")
+///             print(f"  MemorySize enum: {memsz_to_str[mem_info.memory_size]}")
+///             print(f"  OpAccess enum: {op_access_to_str[mem_info.access]}")
 ///
 ///         for reg_info in info.used_registers():
-///             print(f"Used register: reg={reg_info.register} (Register enum) access={reg_info.access} (OpAccess enum)")
+///             print(f"Used register: reg={reg_to_str[reg_info.register]} access={op_access_to_str[reg_info.access]}")
 ///
 /// Output:
 ///
@@ -333,16 +340,16 @@ impl InstructionInfo {
 ///
 ///     Instruction: add [rdi+r12*8-5AA5EDCCh],esi
 ///     Used memory:
-///       seg: 74 (Register enum)
-///       base: 60 (Register enum)
-///       index: 65 (Register enum)
+///       seg: DS
+///       base: RDI
+///       index: R12
 ///       scale: 8
 ///       displacement: 0xFFFFFFFFA55A1234
-///       MemorySize enum: 3
-///       OpAccess enum: 5
-///     Used register: reg=60 (Register enum) access=1 (OpAccess enum)
-///     Used register: reg=65 (Register enum) access=1 (OpAccess enum)
-///     Used register: reg=43 (Register enum) access=1 (OpAccess enum)
+///       MemorySize enum: UINT32
+///       OpAccess enum: READ_WRITE
+///     Used register: reg=RDI access=READ
+///     Used register: reg=R12 access=READ
+///     Used register: reg=ESI access=READ
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(/)"]
 pub(crate) struct InstructionInfoFactory {
