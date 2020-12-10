@@ -320,7 +320,7 @@ impl InstructionInfoFactory {
 				continue;
 			}
 
-			match instruction.op_kind(i as u32) {
+			match instruction.try_op_kind(i as u32).unwrap_or_default() {
 				OpKind::Register => {
 					if access == OpAccess::NoMemAccess {
 						access = OpAccess::Read;
@@ -348,7 +348,7 @@ impl InstructionInfoFactory {
 								}
 							}
 						} else {
-							Self::add_register(flags, info, instruction.op_register(i as u32), access);
+							Self::add_register(flags, info, instruction.try_op_register(i as u32).unwrap_or_default(), access);
 						}
 					}
 				}
@@ -2645,13 +2645,16 @@ impl InstructionInfoFactory {
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			const N: usize = 1;
 			let op_count = instruction.op_count();
-			let imm_count = if instruction.op_kind(op_count - 1) == OpKind::Immediate8 { 1 } else { 0 };
+			let imm_count = if instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8 { 1 } else { 0 };
 			let op_index = instruction.op_count() - N as u32 - imm_count;
-			if instruction.op_kind(op_index) == OpKind::Register {
+			if instruction.try_op_kind(op_index).unwrap_or(OpKind::FarBranch16) == OpKind::Register {
 				debug_assert!(info.used_registers.len() >= N);
-				debug_assert_eq!(instruction.op_register(op_index), info.used_registers[info.used_registers.len() - N].register());
+				debug_assert_eq!(
+					instruction.try_op_register(op_index).unwrap_or_default(),
+					info.used_registers[info.used_registers.len() - N].register()
+				);
 				debug_assert_eq!(OpAccess::Read, info.used_registers[info.used_registers.len() - N].access());
-				let mut index = Self::try_get_gpr_16_32_64_index(instruction.op_register(op_index));
+				let mut index = Self::try_get_gpr_16_32_64_index(instruction.try_op_register(op_index).unwrap_or_default());
 				if index >= 4 && base_reg == Register::AL {
 					index += 4; // Skip AH, CH, DH, BH
 				}

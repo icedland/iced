@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use crate::instruction::Instruction;
+use crate::utils::to_value_error;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::types::PyBytes;
@@ -124,7 +125,7 @@ impl BlockEncoder {
 		let block = iced_x86::InstructionBlock::new(&self.instructions, rip);
 		match iced_x86::BlockEncoder::encode(self.bitness, block, self.options) {
 			Ok(result) => Ok(PyBytes::new(py, &result.code_buffer)),
-			Err(error) => Err(PyValueError::new_err(format!("{}", error))),
+			Err(error) => Err(to_value_error(error)),
 		}
 	}
 }

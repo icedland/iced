@@ -115,6 +115,8 @@ mod decoder_options;
 mod encoder;
 #[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
 mod encoding_kind;
+#[cfg(any(feature = "encoder", feature = "instr_api", feature = "instr_create"))]
+mod ex_utils;
 #[cfg(feature = "fast_fmt")]
 mod fast_fmt;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instr_api")))]

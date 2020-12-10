@@ -111,7 +111,11 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(all(feature = "encoder", feature = "db"))]
 	{
-		let db = Instruction::with_declare_byte(&[0; 8]);
+		let db = Instruction::try_with_declare_byte(&[0; 8]).unwrap();
+		#[allow(deprecated)]
+		{
+			assert_eq!(db, Instruction::with_declare_byte(&[0; 8]));
+		};
 		assert_eq!(8, db.declare_data_len());
 		for i in 0..db.declare_data_len() as u32 {
 			#[cfg(feature = "instr_info")]
@@ -142,7 +146,11 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(all(feature = "encoder", feature = "db"))]
 	{
-		let dw = Instruction::with_declare_word(&[0; 4]);
+		let dw = Instruction::try_with_declare_word(&[0; 4]).unwrap();
+		#[allow(deprecated)]
+		{
+			assert_eq!(dw, Instruction::with_declare_word(&[0; 4]));
+		};
 		assert_eq!(4, dw.declare_data_len());
 		for i in 0..dw.declare_data_len() as u32 {
 			#[cfg(feature = "instr_info")]
@@ -173,7 +181,11 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(all(feature = "encoder", feature = "db"))]
 	{
-		let dd = Instruction::with_declare_dword(&[8; 2]);
+		let dd = Instruction::try_with_declare_dword(&[8; 2]).unwrap();
+		#[allow(deprecated)]
+		{
+			assert_eq!(dd, Instruction::with_declare_dword(&[8; 2]));
+		};
 		assert_eq!(2, dd.declare_data_len());
 		for i in 0..dd.declare_data_len() as u32 {
 			#[cfg(feature = "instr_info")]
@@ -204,7 +216,11 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 
 	#[cfg(all(feature = "encoder", feature = "db"))]
 	{
-		let dq = Instruction::with_declare_qword(&[0; 1]);
+		let dq = Instruction::try_with_declare_qword(&[0; 1]).unwrap();
+		#[allow(deprecated)]
+		{
+			assert_eq!(dq, Instruction::with_declare_qword(&[0; 1]));
+		};
 		assert_eq!(1, dq.declare_data_len());
 		for i in 0..dq.declare_data_len() as u32 {
 			#[cfg(feature = "instr_info")]

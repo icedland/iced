@@ -1247,7 +1247,7 @@ impl InstrInfo for SimpleInstrInfo_movabs {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = InstrOpInfoFlags::NONE;
 		let mut instr_bitness = get_bitness(instruction.code_size());
-		let op_kind = instruction.op_kind(self.mem_op_number);
+		let op_kind = instruction.try_op_kind(self.mem_op_number).unwrap_or(OpKind::FarBranch16);
 		let mem_size = if op_kind == OpKind::Memory64 {
 			64
 		} else {

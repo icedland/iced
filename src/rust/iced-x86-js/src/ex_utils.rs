@@ -21,21 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::data_reader::DataReader;
-use super::strings_data::*;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
-#[cfg(not(feature = "std"))]
-use alloc::vec::Vec;
+use wasm_bindgen::prelude::*;
 
-// The returned array isn't cached since only one formatter is normally used
-pub(super) fn get_strings_table() -> Vec<String> {
-	let mut reader = DataReader::new(&STRINGS_TBL_DATA);
-	let mut strings = Vec::with_capacity(STRINGS_COUNT);
-	for _ in 0..STRINGS_COUNT {
-		strings.push(reader.read_ascii_string());
-	}
-	assert!(!reader.can_read());
-
-	strings
+#[inline(never)]
+pub(crate) fn to_js_error(error: iced_x86_rust::IcedError) -> JsValue {
+	js_sys::Error::new(&format!("{}", error)).into()
 }

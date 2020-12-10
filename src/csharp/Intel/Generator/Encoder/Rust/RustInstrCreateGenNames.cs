@@ -21,21 +21,23 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::data_reader::DataReader;
-use super::strings_data::*;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
-#[cfg(not(feature = "std"))]
-use alloc::vec::Vec;
+namespace Generator.Encoder.Rust {
+	static class RustInstrCreateGenNames {
+		public const string with_branch = nameof(with_branch);
+		public const string with_far_branch = nameof(with_far_branch);
+		public const string with_xbegin = nameof(with_xbegin);
+		public const string with_mem64_reg = nameof(with_mem64_reg);
+		public const string with_reg_mem64 = nameof(with_reg_mem64);
+		public const string with_declare_byte = nameof(with_declare_byte);
+		public const string with_declare_word = nameof(with_declare_word);
+		public const string with_declare_dword = nameof(with_declare_dword);
+		public const string with_declare_qword = nameof(with_declare_qword);
+		const string _slice_u8 = nameof(_slice_u8);
+		public const string with_declare_word_slice_u8 = with_declare_word + _slice_u8;
+		public const string with_declare_dword_slice_u8 = with_declare_dword + _slice_u8;
+		public const string with_declare_qword_slice_u8 = with_declare_qword + _slice_u8;
 
-// The returned array isn't cached since only one formatter is normally used
-pub(super) fn get_strings_table() -> Vec<String> {
-	let mut reader = DataReader::new(&STRINGS_TBL_DATA);
-	let mut strings = Vec::with_capacity(STRINGS_COUNT);
-	for _ in 0..STRINGS_COUNT {
-		strings.push(reader.read_ascii_string());
+		public static string AppendArgCount(string methodName, int argCount) =>
+			methodName + "_" + argCount.ToString();
 	}
-	assert!(!reader.can_read());
-
-	strings
 }

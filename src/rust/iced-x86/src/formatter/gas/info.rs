@@ -1062,7 +1062,7 @@ impl InstrInfo for SimpleInstrInfo_movabs {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = InstrOpInfoFlags::NONE;
 		let mut instr_bitness = get_bitness(instruction.code_size());
-		let op_kind = instruction.op_kind(self.mem_op_number);
+		let op_kind = instruction.try_op_kind(self.mem_op_number).unwrap_or(OpKind::FarBranch16);
 		let (mem_size, mnemonic, mnemonic_suffix): (u32, &FormatterString, &FormatterString) = if op_kind == OpKind::Memory64 {
 			(64, &self.mnemonic64, &self.mnemonic_suffix64)
 		} else {

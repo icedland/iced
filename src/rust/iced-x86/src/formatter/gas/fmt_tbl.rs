@@ -194,9 +194,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::os => {
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				if v2 > 1 {
-					panic!();
-				}
+				assert!(v2 <= 1);
 				v3 = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_os::new(v, s, v2 != 0, v3))
 			}
@@ -292,9 +290,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				let s2 = add_suffix(&s, c);
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				if v2 > 1 {
-					panic!();
-				}
+				assert!(v2 <= 1);
 				Box::new(SimpleInstrInfo_os2::new(v, s, s2, v2 != 0, 0))
 			}
 
@@ -303,9 +299,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				let s2 = add_suffix(&s, c);
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				if v2 > 1 {
-					panic!();
-				}
+				assert!(v2 <= 1);
 				v3 = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_os2::new(v, s, s2, v2 != 0, v3))
 			}
@@ -320,9 +314,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::pops => {
 				v = reader.read_u8() as u32;
 				v2 = reader.read_u8() as u32;
-				if v2 > 1 {
-					panic!();
-				}
+				assert!(v2 <= 1);
 				Box::new(SimpleInstrInfo_pops::new(s, get_pseudo_ops(unsafe { mem::transmute(v as u8) }), v2 != 0))
 			}
 
@@ -343,17 +335,13 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::ST_STi => Box::new(SimpleInstrInfo_ST_STi::new(s)),
 			CtorKind::STi_ST => {
 				v = reader.read_u8() as u32;
-				if v > 1 {
-					panic!();
-				}
+				assert!(v <= 1);
 				Box::new(SimpleInstrInfo_STi_ST::new(s, v != 0))
 			}
 
 			CtorKind::STIG1 => {
 				v = reader.read_u8() as u32;
-				if v > 1 {
-					panic!();
-				}
+				assert!(v <= 1);
 				Box::new(SimpleInstrInfo_STIG1::new(s, v != 0))
 			}
 		};
@@ -363,8 +351,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			reader.set_index(current_index as usize);
 		}
 	}
-	if reader.can_read() {
-		panic!();
-	}
+	assert!(!reader.can_read());
+
 	infos
 }

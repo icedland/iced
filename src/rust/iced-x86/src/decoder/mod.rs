@@ -1878,7 +1878,7 @@ impl<'a> Decoder<'a> {
 		if (self.state.flags & StateFlags::NO_IMM) == 0 {
 			let mut extra_imm_sub = 0;
 			for i in (0..instruction.op_count()).rev() {
-				match instruction.op_kind(i) {
+				match instruction.try_op_kind(i).unwrap_or(OpKind::Register) {
 					OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => {
 						constant_offsets.immediate_offset = (instruction.len() - extra_imm_sub - 1) as u8;
 						constant_offsets.immediate_size = 1;

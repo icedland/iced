@@ -171,7 +171,7 @@ fn encode_declare_byte() {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		let instructions = [
 			Instruction::with(Code::Nopd),
-			Instruction::with_declare_byte(&info.0),
+			Instruction::try_with_declare_byte(&info.0).unwrap(),
 			Instruction::with(Code::Nopd),
 		];
 
@@ -185,25 +185,21 @@ fn encode_declare_byte() {
 }
 
 #[test]
-#[should_panic]
-fn encode_with_invalid_bitness_throws_0() {
-	let _ = BlockEncoder::encode(0, InstructionBlock::new(&[Instruction::default()], 0), BlockEncoderOptions::NONE);
+fn encode_with_invalid_bitness_fails_0() {
+	assert!(BlockEncoder::encode(0, InstructionBlock::new(&[Instruction::default()], 0), BlockEncoderOptions::NONE).is_err());
 }
 
 #[test]
-#[should_panic]
-fn encode_with_invalid_bitness_throws_128() {
-	let _ = BlockEncoder::encode(128, InstructionBlock::new(&[Instruction::default()], 0), BlockEncoderOptions::NONE);
+fn encode_with_invalid_bitness_fails_128() {
+	assert!(BlockEncoder::encode(128, InstructionBlock::new(&[Instruction::default()], 0), BlockEncoderOptions::NONE).is_err());
 }
 
 #[test]
-#[should_panic]
-fn encode_slice_with_invalid_bitness_throws_0() {
-	let _ = BlockEncoder::encode_slice(0, &[InstructionBlock::new(&[Instruction::default()], 0)], BlockEncoderOptions::NONE);
+fn encode_slice_with_invalid_bitness_fails_0() {
+	assert!(BlockEncoder::encode_slice(0, &[InstructionBlock::new(&[Instruction::default()], 0)], BlockEncoderOptions::NONE).is_err());
 }
 
 #[test]
-#[should_panic]
-fn encode_slice_with_invalid_bitness_throws_128() {
-	let _ = BlockEncoder::encode_slice(128, &[InstructionBlock::new(&[Instruction::default()], 0)], BlockEncoderOptions::NONE);
+fn encode_slice_with_invalid_bitness_fails_128() {
+	assert!(BlockEncoder::encode_slice(128, &[InstructionBlock::new(&[Instruction::default()], 0)], BlockEncoderOptions::NONE).is_err());
 }

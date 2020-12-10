@@ -62,16 +62,16 @@ namespace Generator.Encoder.Rust {
 			sb = new StringBuilder();
 		}
 
-		public void WriteDocs(FileWriter writer, CreateMethod method, string panicTitle, Action? writePanics) {
+		public void WriteDocs(FileWriter writer, CreateMethod method, string sectionTitle, Action? writeSection) {
 			const string typeName = "Instruction";
 			docWriter.BeginWrite(writer);
 			foreach (var doc in method.Docs)
 				docWriter.WriteDocLine(writer, doc, typeName);
 			docWriter.WriteLine(writer, string.Empty);
-			if (writePanics is not null) {
-				docWriter.WriteLine(writer, $"# {panicTitle}");
+			if (writeSection is not null) {
+				docWriter.WriteLine(writer, $"# {sectionTitle}");
 				docWriter.WriteLine(writer, string.Empty);
-				writePanics();
+				writeSection();
 				docWriter.WriteLine(writer, string.Empty);
 			}
 			docWriter.WriteLine(writer, "# Arguments");
@@ -262,21 +262,23 @@ namespace Generator.Encoder.Rust {
 			return sb.ToString();
 		}
 
-		public static bool HasImmediateArg_8_16_32(CreateMethod method) {
+		static bool HasImmediateArg_8_16_32_64(CreateMethod method) {
 			foreach (var arg in method.Args) {
 				switch (arg.Type) {
 				case MethodArgType.UInt8:
 				case MethodArgType.UInt16:
 				case MethodArgType.Int32:
 				case MethodArgType.UInt32:
-					return true;
-
 				case MethodArgType.Int64:
 				case MethodArgType.UInt64:
-					break;
+					return true;
 				}
 			}
 			return false;
 		}
+
+		// Assumes it's a generic with_*() method (not a specialized method such as with_movsb() etc)
+		public static bool HasTryMethod(CreateMethod method) =>
+			HasImmediateArg_8_16_32_64(method);
 	}
 }

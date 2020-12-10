@@ -156,9 +156,7 @@ lazy_static! {
 			FormatterString::new_str("vpclmulhqhqdq"),
 		];
 
-		if sb.capacity() != CAP {
-			panic!();
-		}
+		assert!(sb.capacity() == CAP);
 		PseudoOps {
 			cmpps,
 			vcmpps,

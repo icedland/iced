@@ -26,6 +26,7 @@ use crate::enum_utils::{
 	to_register,
 };
 use crate::instruction::Instruction;
+use crate::utils::to_value_error;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
@@ -171,7 +172,7 @@ impl Formatter {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, instruction, operand)"]
 	fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> PyResult<Option<u32>> {
-		self.formatter.get_instruction_operand(&instruction.instr, operand).map_err(|_| PyValueError::new_err("Invalid operand"))
+		self.formatter.get_instruction_operand(&instruction.instr, operand).map_err(to_value_error)
 	}
 
 	/// Converts an instruction operand index to a formatter operand index.
@@ -189,9 +190,7 @@ impl Formatter {
 	///     ValueError: If `instruction_operand` is invalid
 	#[text_signature = "($self, instruction, instruction_operand)"]
 	fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> PyResult<Option<u32>> {
-		self.formatter
-			.get_formatter_operand(&instruction.instr, instruction_operand)
-			.map_err(|_| PyValueError::new_err("Invalid instruction operand"))
+		self.formatter.get_formatter_operand(&instruction.instr, instruction_operand).map_err(to_value_error)
 	}
 
 	/// Formats an operand.
@@ -208,7 +207,7 @@ impl Formatter {
 	#[text_signature = "($self, instruction, operand)"]
 	fn format_operand(&mut self, instruction: &Instruction, operand: u32) -> PyResult<&str> {
 		self.fmt_output.clear();
-		self.formatter.format_operand(&instruction.instr, &mut self.fmt_output, operand).map_err(|_| PyValueError::new_err("Invalid operand"))?;
+		self.formatter.format_operand(&instruction.instr, &mut self.fmt_output, operand).map_err(to_value_error)?;
 		Ok(&self.fmt_output)
 	}
 

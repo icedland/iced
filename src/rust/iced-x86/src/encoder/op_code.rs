@@ -1237,10 +1237,6 @@ impl OpCodeInfo {
 
 	/// Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode
 	///
-	/// # Panics
-	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
-	///
 	/// # Arguments
 	///
 	/// * `bitness`: 16, 32 or 64
@@ -1251,7 +1247,7 @@ impl OpCodeInfo {
 			16 => self.mode16(),
 			32 => self.mode32(),
 			64 => self.mode64(),
-			_ => panic!(),
+			_ => false,
 		}
 	}
 

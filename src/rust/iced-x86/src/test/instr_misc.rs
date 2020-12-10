@@ -45,14 +45,15 @@ fn invalid_code_value_is_zero() {
 fn eq_and_hash_ignore_some_fields() {
 	use core::hash::{Hash, Hasher};
 	use std::collections::hash_map::DefaultHasher;
-	let mut instr1 = Instruction::with_reg_reg_mem_reg_u32(
+	let mut instr1 = Instruction::try_with_reg_reg_mem_reg_u32(
 		Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4,
 		Register::XMM1,
 		Register::XMM2,
 		MemoryOperand::new(Register::RCX, Register::R14, 8, 0x1234_5678, 8, false, Register::FS),
 		Register::XMM10,
 		0xA5,
-	);
+	)
+	.unwrap();
 	let mut instr2 = instr1;
 	assert!(instr1.eq_all_bits(&instr2));
 	instr1.set_code_size(CodeSize::Code32);
@@ -315,46 +316,98 @@ fn write_all_properties() {
 
 	for &op_kind in &op_kinds {
 		if op_kind == OpKind::Immediate8 {
-			instr.set_op4_kind(op_kind);
+			#[allow(deprecated)]
+			{
+				instr.set_op4_kind(op_kind);
+			}
+			instr.try_set_op4_kind(op_kind).unwrap();
 			assert_eq!(op_kind, instr.op4_kind());
 		} else {
 			let mut instr = instr;
-			assert!(panic::catch_unwind(move || instr.set_op4_kind(op_kind)).is_err());
+			assert!(instr.try_set_op4_kind(op_kind).is_err());
+			#[allow(deprecated)]
+			{
+				assert!(panic::catch_unwind(move || instr.set_op4_kind(op_kind)).is_err());
+			}
 		}
 	}
 
 	for &op_kind in &op_kinds {
-		instr.set_op_kind(0, op_kind);
+		#[allow(deprecated)]
+		{
+			instr.set_op_kind(0, op_kind);
+		}
+		instr.try_set_op_kind(0, op_kind).unwrap();
 		assert_eq!(op_kind, instr.op0_kind());
-		assert_eq!(op_kind, instr.op_kind(0));
+		#[allow(deprecated)]
+		{
+			assert_eq!(op_kind, instr.op_kind(0));
+		}
+		assert_eq!(op_kind, instr.try_op_kind(0).unwrap());
 	}
 
 	for &op_kind in &op_kinds {
-		instr.set_op_kind(1, op_kind);
+		#[allow(deprecated)]
+		{
+			instr.set_op_kind(1, op_kind);
+		}
+		instr.try_set_op_kind(1, op_kind).unwrap();
 		assert_eq!(op_kind, instr.op1_kind());
-		assert_eq!(op_kind, instr.op_kind(1));
+		#[allow(deprecated)]
+		{
+			assert_eq!(op_kind, instr.op_kind(1));
+		}
+		assert_eq!(op_kind, instr.try_op_kind(1).unwrap());
 	}
 
 	for &op_kind in &op_kinds {
-		instr.set_op_kind(2, op_kind);
+		#[allow(deprecated)]
+		{
+			instr.set_op_kind(2, op_kind);
+		}
+		instr.try_set_op_kind(2, op_kind).unwrap();
 		assert_eq!(op_kind, instr.op2_kind());
-		assert_eq!(op_kind, instr.op_kind(2));
+		#[allow(deprecated)]
+		{
+			assert_eq!(op_kind, instr.op_kind(2));
+		}
+		assert_eq!(op_kind, instr.try_op_kind(2).unwrap());
 	}
 
 	for &op_kind in &op_kinds {
-		instr.set_op_kind(3, op_kind);
+		#[allow(deprecated)]
+		{
+			instr.set_op_kind(3, op_kind);
+		}
+		instr.try_set_op_kind(3, op_kind).unwrap();
 		assert_eq!(op_kind, instr.op3_kind());
-		assert_eq!(op_kind, instr.op_kind(3));
+		#[allow(deprecated)]
+		{
+			assert_eq!(op_kind, instr.op_kind(3));
+		}
+		assert_eq!(op_kind, instr.try_op_kind(3).unwrap());
 	}
 
 	for &op_kind in &op_kinds {
 		if op_kind == OpKind::Immediate8 {
-			instr.set_op_kind(4, op_kind);
+			#[allow(deprecated)]
+			{
+				instr.set_op_kind(4, op_kind);
+			}
+			instr.try_set_op_kind(4, op_kind).unwrap();
 			assert_eq!(op_kind, instr.op4_kind());
-			assert_eq!(op_kind, instr.op_kind(4));
+			#[allow(deprecated)]
+			{
+				assert_eq!(op_kind, instr.op_kind(4));
+			}
+			assert_eq!(op_kind, instr.try_op_kind(4).unwrap());
 		} else {
 			let mut instr = instr;
-			assert!(panic::catch_unwind(move || instr.set_op_kind(4, op_kind)).is_err());
+			assert!(instr.try_set_op_kind(4, op_kind).is_err());
+			#[allow(deprecated)]
+			{
+				assert!(panic::catch_unwind(move || instr.set_op_kind(4, op_kind)).is_err());
+			}
 		}
 	}
 
@@ -414,46 +467,98 @@ fn write_all_properties() {
 
 	for &reg in &register_values {
 		if reg == Register::None {
-			instr.set_op4_register(reg);
+			#[allow(deprecated)]
+			{
+				instr.set_op4_register(reg);
+			}
+			instr.try_set_op4_register(reg).unwrap();
 			assert_eq!(reg, instr.op4_register());
 		} else {
 			let mut instr = instr;
-			assert!(panic::catch_unwind(move || instr.set_op4_register(reg)).is_err());
+			assert!(instr.try_set_op4_register(reg).is_err());
+			#[allow(deprecated)]
+			{
+				assert!(panic::catch_unwind(move || instr.set_op4_register(reg)).is_err());
+			}
 		}
 	}
 
 	for &reg in &register_values {
-		instr.set_op_register(0, reg);
+		#[allow(deprecated)]
+		{
+			instr.set_op_register(0, reg);
+		}
+		instr.try_set_op_register(0, reg).unwrap();
 		assert_eq!(reg, instr.op0_register());
-		assert_eq!(reg, instr.op_register(0));
+		#[allow(deprecated)]
+		{
+			assert_eq!(reg, instr.op_register(0));
+		}
+		assert_eq!(reg, instr.try_op_register(0).unwrap());
 	}
 
 	for &reg in &register_values {
-		instr.set_op_register(1, reg);
+		#[allow(deprecated)]
+		{
+			instr.set_op_register(1, reg);
+		}
+		instr.try_set_op_register(1, reg).unwrap();
 		assert_eq!(reg, instr.op1_register());
-		assert_eq!(reg, instr.op_register(1));
+		#[allow(deprecated)]
+		{
+			assert_eq!(reg, instr.op_register(1));
+		}
+		assert_eq!(reg, instr.try_op_register(1).unwrap());
 	}
 
 	for &reg in &register_values {
-		instr.set_op_register(2, reg);
+		#[allow(deprecated)]
+		{
+			instr.set_op_register(2, reg);
+		}
+		instr.try_set_op_register(2, reg).unwrap();
 		assert_eq!(reg, instr.op2_register());
-		assert_eq!(reg, instr.op_register(2));
+		#[allow(deprecated)]
+		{
+			assert_eq!(reg, instr.op_register(2));
+		}
+		assert_eq!(reg, instr.try_op_register(2).unwrap());
 	}
 
 	for &reg in &register_values {
-		instr.set_op_register(3, reg);
+		#[allow(deprecated)]
+		{
+			instr.set_op_register(3, reg);
+		}
+		instr.try_set_op_register(3, reg).unwrap();
 		assert_eq!(reg, instr.op3_register());
-		assert_eq!(reg, instr.op_register(3));
+		#[allow(deprecated)]
+		{
+			assert_eq!(reg, instr.op_register(3));
+		}
+		assert_eq!(reg, instr.try_op_register(3).unwrap());
 	}
 
 	for &reg in &register_values {
 		if reg == Register::None {
-			instr.set_op_register(4, reg);
+			#[allow(deprecated)]
+			{
+				instr.set_op_register(4, reg);
+			}
+			instr.try_set_op_register(4, reg).unwrap();
 			assert_eq!(reg, instr.op4_register());
-			assert_eq!(reg, instr.op_register(4));
+			#[allow(deprecated)]
+			{
+				assert_eq!(reg, instr.op_register(4));
+			}
+			assert_eq!(reg, instr.try_op_register(4).unwrap());
 		} else {
 			let mut instr = instr;
-			assert!(panic::catch_unwind(move || instr.set_op_register(4, reg)).is_err());
+			assert!(instr.try_set_op_register(4, reg).is_err());
+			#[allow(deprecated)]
+			{
+				assert!(panic::catch_unwind(move || instr.set_op_register(4, reg)).is_err());
+			}
 		}
 	}
 
@@ -533,108 +638,200 @@ fn verify_get_set_immediate() {
 
 	instr.set_code(Code::Add_AL_imm8);
 	instr.set_op1_kind(OpKind::Immediate8);
-	instr.set_immediate_i32(1, 0x5A);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5A);
+	}
+	instr.try_set_immediate_i32(1, 0x5A).unwrap();
 	assert_eq!(0x5A, instr.immediate(1));
-	assert_eq!(Some(0x5A), instr.try_immediate(1));
-	instr.set_immediate_i32(1, 0xA5);
+	assert_eq!(0x5A, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0xA5);
+	}
+	instr.try_set_immediate_i32(1, 0xA5).unwrap();
 	assert_eq!(0xA5, instr.immediate(1));
-	assert_eq!(Some(0xA5), instr.try_immediate(1));
+	assert_eq!(0xA5, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Add_AX_imm16);
 	instr.set_op1_kind(OpKind::Immediate16);
-	instr.set_immediate_i32(1, 0x5AA5);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5AA5);
+	}
+	instr.try_set_immediate_i32(1, 0x5AA5).unwrap();
 	assert_eq!(0x5AA5, instr.immediate(1));
-	assert_eq!(Some(0x5AA5), instr.try_immediate(1));
-	instr.set_immediate_i32(1, 0xA55A);
+	assert_eq!(0x5AA5, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0xA55A);
+	}
+	instr.try_set_immediate_i32(1, 0xA55A).unwrap();
 	assert_eq!(0xA55A, instr.immediate(1));
-	assert_eq!(Some(0xA55A), instr.try_immediate(1));
+	assert_eq!(0xA55A, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Add_EAX_imm32);
 	instr.set_op1_kind(OpKind::Immediate32);
-	instr.set_immediate_i32(1, 0x5AA5_1234);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5AA5_1234);
+	}
+	instr.try_set_immediate_i32(1, 0x5AA5_1234).unwrap();
 	assert_eq!(0x5AA5_1234, instr.immediate(1));
-	assert_eq!(Some(0x5AA5_1234), instr.try_immediate(1));
-	instr.set_immediate_u32(1, 0xA54A_1234);
+	assert_eq!(0x5AA5_1234, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_u32(1, 0xA54A_1234);
+	}
+	instr.try_set_immediate_u32(1, 0xA54A_1234).unwrap();
 	assert_eq!(0xA54A_1234, instr.immediate(1));
-	assert_eq!(Some(0xA54A_1234), instr.try_immediate(1));
+	assert_eq!(0xA54A_1234, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Add_RAX_imm32);
 	instr.set_op1_kind(OpKind::Immediate32to64);
-	instr.set_immediate_i32(1, 0x5AA5_1234);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5AA5_1234);
+	}
+	instr.try_set_immediate_i32(1, 0x5AA5_1234).unwrap();
 	assert_eq!(0x5AA5_1234, instr.immediate(1));
-	assert_eq!(Some(0x5AA5_1234), instr.try_immediate(1));
-	instr.set_immediate_u32(1, 0xA54A_1234);
+	assert_eq!(0x5AA5_1234, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_u32(1, 0xA54A_1234);
+	}
+	instr.try_set_immediate_u32(1, 0xA54A_1234).unwrap();
 	assert_eq!(0xFFFF_FFFF_A54A_1234, instr.immediate(1));
-	assert_eq!(Some(0xFFFF_FFFF_A54A_1234), instr.try_immediate(1));
+	assert_eq!(0xFFFF_FFFF_A54A_1234, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Enterq_imm16_imm8);
 	instr.set_op1_kind(OpKind::Immediate8_2nd);
-	instr.set_immediate_i32(1, 0x5A);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5A);
+	}
+	instr.try_set_immediate_i32(1, 0x5A).unwrap();
 	assert_eq!(0x5A, instr.immediate(1));
-	assert_eq!(Some(0x5A), instr.try_immediate(1));
-	instr.set_immediate_i32(1, 0xA5);
+	assert_eq!(0x5A, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0xA5);
+	}
+	instr.try_set_immediate_i32(1, 0xA5).unwrap();
 	assert_eq!(0xA5, instr.immediate(1));
-	assert_eq!(Some(0xA5), instr.try_immediate(1));
+	assert_eq!(0xA5, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Adc_rm16_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to16);
-	instr.set_immediate_i32(1, 0x5A);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5A);
+	}
+	instr.try_set_immediate_i32(1, 0x5A).unwrap();
 	assert_eq!(0x5A, instr.immediate(1));
-	assert_eq!(Some(0x5A), instr.try_immediate(1));
-	instr.set_immediate_i32(1, 0xA5);
+	assert_eq!(0x5A, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0xA5);
+	}
+	instr.try_set_immediate_i32(1, 0xA5).unwrap();
 	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.immediate(1));
-	assert_eq!(Some(0xFFFF_FFFF_FFFF_FFA5), instr.try_immediate(1));
+	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Adc_rm32_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to32);
-	instr.set_immediate_i32(1, 0x5A);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5A);
+	}
+	instr.try_set_immediate_i32(1, 0x5A).unwrap();
 	assert_eq!(0x5A, instr.immediate(1));
-	assert_eq!(Some(0x5A), instr.try_immediate(1));
-	instr.set_immediate_i32(1, 0xA5);
+	assert_eq!(0x5A, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0xA5);
+	}
+	instr.try_set_immediate_i32(1, 0xA5).unwrap();
 	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.immediate(1));
-	assert_eq!(Some(0xFFFF_FFFF_FFFF_FFA5), instr.try_immediate(1));
+	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Adc_rm64_imm8);
 	instr.set_op1_kind(OpKind::Immediate8to64);
-	instr.set_immediate_i32(1, 0x5A);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0x5A);
+	}
+	instr.try_set_immediate_i32(1, 0x5A).unwrap();
 	assert_eq!(0x5A, instr.immediate(1));
-	assert_eq!(Some(0x5A), instr.try_immediate(1));
-	instr.set_immediate_i32(1, 0xA5);
+	assert_eq!(0x5A, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i32(1, 0xA5);
+	}
+	instr.try_set_immediate_i32(1, 0xA5).unwrap();
 	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.immediate(1));
-	assert_eq!(Some(0xFFFF_FFFF_FFFF_FFA5), instr.try_immediate(1));
+	assert_eq!(0xFFFF_FFFF_FFFF_FFA5, instr.try_immediate(1).unwrap());
 
 	instr.set_code(Code::Mov_r64_imm64);
 	instr.set_op1_kind(OpKind::Immediate64);
-	instr.set_immediate_i64(1, 0x5AA5_1234_5678_9ABC);
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i64(1, 0x5AA5_1234_5678_9ABC);
+	}
+	instr.try_set_immediate_i64(1, 0x5AA5_1234_5678_9ABC).unwrap();
 	assert_eq!(0x5AA5_1234_5678_9ABC, instr.immediate(1));
-	assert_eq!(Some(0x5AA5_1234_5678_9ABC), instr.try_immediate(1));
-	instr.set_immediate_u64(1, 0xA54A_1234_5678_9ABC);
+	assert_eq!(0x5AA5_1234_5678_9ABC, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_u64(1, 0xA54A_1234_5678_9ABC);
+	}
+	instr.try_set_immediate_u64(1, 0xA54A_1234_5678_9ABC).unwrap();
 	assert_eq!(0xA54A_1234_5678_9ABC, instr.immediate(1));
-	assert_eq!(Some(0xA54A_1234_5678_9ABC), instr.try_immediate(1));
-	instr.set_immediate_i64(1, -0x5AB5_EDCB_A987_6544);
+	assert_eq!(0xA54A_1234_5678_9ABC, instr.try_immediate(1).unwrap());
+	#[allow(deprecated)]
+	{
+		instr.set_immediate_i64(1, -0x5AB5_EDCB_A987_6544);
+	}
+	instr.try_set_immediate_i64(1, -0x5AB5_EDCB_A987_6544).unwrap();
 	assert_eq!(0xA54A_1234_5678_9ABC, instr.immediate(1));
-	assert_eq!(Some(0xA54A_1234_5678_9ABC), instr.try_immediate(1));
+	assert_eq!(0xA54A_1234_5678_9ABC, instr.try_immediate(1).unwrap());
 
 	{
 		let instr = instr;
-		assert!(instr.try_immediate(0).is_none());
+		assert!(instr.try_immediate(0).is_err());
 		assert!(panic::catch_unwind(move || instr.immediate(0)).is_err());
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || instr.set_immediate_i32(0, 0)).is_err());
+		assert!(instr.try_set_immediate_i32(0, 0).is_err());
+		#[allow(deprecated)]
+		{
+			assert!(panic::catch_unwind(move || instr.set_immediate_i32(0, 0)).is_err());
+		}
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || instr.set_immediate_u32(0, 0)).is_err());
+		assert!(instr.try_set_immediate_u32(0, 0).is_err());
+		#[allow(deprecated)]
+		{
+			assert!(panic::catch_unwind(move || instr.set_immediate_u32(0, 0)).is_err());
+		}
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || instr.set_immediate_i64(0, 0)).is_err());
+		assert!(instr.try_set_immediate_i64(0, 0).is_err());
+		#[allow(deprecated)]
+		{
+			assert!(panic::catch_unwind(move || instr.set_immediate_i64(0, 0)).is_err());
+		}
 	}
 	{
 		let mut instr = instr;
-		assert!(panic::catch_unwind(move || instr.set_immediate_u64(0, 0)).is_err());
+		assert!(instr.try_set_immediate_u64(0, 0).is_err());
+		#[allow(deprecated)]
+		{
+			assert!(panic::catch_unwind(move || instr.set_immediate_u64(0, 0)).is_err());
+		}
 	}
 }
 

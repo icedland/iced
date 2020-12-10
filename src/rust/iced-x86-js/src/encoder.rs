@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::constant_offsets::ConstantOffsets;
+use super::ex_utils::to_js_error;
 use super::instruction::Instruction;
 use wasm_bindgen::prelude::*;
 
@@ -72,7 +73,7 @@ impl Encoder {
 	///
 	/// * `bitness`: 16, 32 or 64
 	#[wasm_bindgen(constructor)]
-	pub fn new(bitness: u32) -> Self {
+	pub fn new(bitness: u32) -> Result<Encoder, JsValue> {
 		Self::with_capacity(bitness, 0)
 	}
 
@@ -87,8 +88,8 @@ impl Encoder {
 	/// * `bitness`: 16, 32 or 64
 	/// * `capacity`: Initial capacity of the `u8` buffer
 	#[wasm_bindgen(js_name = "withCapacity")]
-	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
-		Self(iced_x86_rust::Encoder::with_capacity(bitness, capacity))
+	pub fn with_capacity(bitness: u32, capacity: usize) -> Result<Encoder, JsValue> {
+		Ok(Self(iced_x86_rust::Encoder::try_with_capacity(bitness, capacity).map_err(to_js_error)?))
 	}
 
 	/// Encodes an instruction and returns the size of the encoded instruction.

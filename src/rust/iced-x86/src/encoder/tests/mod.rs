@@ -271,19 +271,40 @@ fn new_panics_if_bitness_128() {
 
 #[test]
 #[should_panic]
+#[allow(deprecated)]
 fn with_capacity_panics_if_bitness_0() {
 	let _ = Encoder::with_capacity(0, 1);
 }
 
 #[test]
+fn with_capacity_fails_if_bitness_0() {
+	assert!(Encoder::try_with_capacity(0, 1).is_err());
+}
+
+#[test]
 #[should_panic]
+#[allow(deprecated)]
 fn with_capacity_panics_if_bitness_128() {
 	let _ = Encoder::with_capacity(128, 1);
 }
 
 #[test]
+fn with_capacity_failss_if_bitness_128() {
+	assert!(Encoder::try_with_capacity(128, 1).is_err());
+}
+
+#[test]
+#[allow(deprecated)]
 fn with_capacity_works() {
 	let mut encoder = Encoder::with_capacity(64, 211);
+	let buffer = encoder.take_buffer();
+	assert!(buffer.is_empty());
+	assert_eq!(211, buffer.capacity());
+}
+
+#[test]
+fn try_with_capacity_works() {
+	let mut encoder = Encoder::try_with_capacity(64, 211).unwrap();
 	let buffer = encoder.take_buffer();
 	assert!(buffer.is_empty());
 	assert_eq!(211, buffer.capacity());
@@ -344,9 +365,9 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[cfg(not(feature = "no_xop"))]
 	{
-		tests.push((16, "8F E878C0 8C 3412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory16, 0xA5)));
-		tests.push((32, "8F E878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory32, 0xA5)));
-		tests.push((64, "8F C878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory64, 0xA5)));
+		tests.push((16, "8F E878C0 8C 3412 A5", RIP, Instruction::try_with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory16, 0xA5).unwrap()));
+		tests.push((32, "8F E878C0 8E 78563412 A5", RIP, Instruction::try_with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory32, 0xA5).unwrap()));
+		tests.push((64, "8F C878C0 8E 78563412 A5", RIP, Instruction::try_with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory64, 0xA5).unwrap()));
 	}
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -955,16 +976,14 @@ fn make_sure_all_code_values_are_tested_exactly_once() {
 
 #[cfg(feature = "op_code_info")]
 #[test]
-#[should_panic]
-fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_0() {
-	let _ = Code::Nopd.op_code().is_available_in_mode(0);
+fn op_code_info_is_available_in_mode_fails_if_invalid_bitness_0() {
+	assert!(!Code::Nopd.op_code().is_available_in_mode(0));
 }
 
 #[cfg(feature = "op_code_info")]
 #[test]
-#[should_panic]
 fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_128() {
-	let _ = Code::Nopd.op_code().is_available_in_mode(128);
+	assert!(!Code::Nopd.op_code().is_available_in_mode(128));
 }
 
 #[test]

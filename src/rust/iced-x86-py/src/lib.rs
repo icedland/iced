@@ -92,6 +92,7 @@ mod memory_size_info;
 mod op_code_info;
 mod register_ext;
 mod register_info;
+mod utils;
 
 use block_encoder::BlockEncoder;
 use constant_offsets::ConstantOffsets;

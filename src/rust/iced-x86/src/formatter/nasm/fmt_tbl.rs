@@ -183,9 +183,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::os_call => {
 				v = reader.read_compressed_u32();
 				v2 = reader.read_u8() as u32;
-				if v2 > 1 {
-					panic!()
-				}
+				assert!(v2 <= 1);
 				Box::new(SimpleInstrInfo_os_call::new(v, s, v2 != 0))
 			}
 
@@ -338,17 +336,13 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 
 			CtorKind::STIG1 => {
 				v = reader.read_u8() as u32;
-				if v > 1 {
-					panic!()
-				}
+				assert!(v <= 1);
 				Box::new(SimpleInstrInfo_STIG1::new(s, v != 0))
 			}
 
 			CtorKind::STIG2_2a => {
 				v = reader.read_u8() as u32;
-				if v > 1 {
-					panic!()
-				}
+				assert!(v <= 1);
 				Box::new(SimpleInstrInfo_STIG2::with_pseudo_op(s, v != 0))
 			}
 
@@ -365,8 +359,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			reader.set_index(current_index as usize);
 		}
 	}
-	if reader.can_read() {
-		panic!();
-	}
+	assert!(!reader.can_read());
+
 	infos
 }

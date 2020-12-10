@@ -153,7 +153,7 @@ impl BlockEncoder {
 
 	fn new<'a, 'b: 'a>(bitness: u32, instr_blocks: &'a [InstructionBlock<'b>], options: u32) -> Result<Self, IcedError> {
 		if bitness != 16 && bitness != 32 && bitness != 64 {
-			panic!();
+			return Err(IcedError::new("Invalid bitness"));
 		}
 		let mut this = Self {
 			bitness,
@@ -215,7 +215,7 @@ impl BlockEncoder {
 				let old_size = instr.size();
 				instr.initialize(&this);
 				if instr.size() > old_size {
-					panic!();
+					return Err(IcedError::new("Internal error"));
 				}
 				ip = ip.wrapping_add(instr.size() as u64);
 			}

@@ -470,7 +470,10 @@ impl FastFormatter {
 
 		let mut op_count = instruction.op_count();
 		let pseudo_ops_num = flags >> FastFmtFlags::PSEUDO_OPS_KIND_SHIFT;
-		if pseudo_ops_num != 0 && self.d.options.use_pseudo_ops() && instruction.op_kind(op_count - 1) == OpKind::Immediate8 {
+		if pseudo_ops_num != 0
+			&& self.d.options.use_pseudo_ops()
+			&& instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8
+		{
 			let mut index = instruction.immediate8() as usize;
 			// Safe, the generator generates only valid values (1-based)
 			let pseudo_ops_kind: PseudoOpsKind = unsafe { mem::transmute(pseudo_ops_num - 1) };
@@ -575,9 +578,9 @@ impl FastFormatter {
 				let imm32;
 				let imm64;
 				let imm_size;
-				let op_kind = if is_declare_data { declare_data_kind } else { instruction.op_kind(operand) };
+				let op_kind = if is_declare_data { declare_data_kind } else { instruction.try_op_kind(operand).unwrap_or(OpKind::Register) };
 				match op_kind {
-					OpKind::Register => FastFormatter::format_register(&self.d, output, instruction.op_register(operand)),
+					OpKind::Register => FastFormatter::format_register(&self.d, output, instruction.try_op_register(operand).unwrap_or_default()),
 
 					OpKind::NearBranch16 | OpKind::NearBranch32 | OpKind::NearBranch64 => {
 						if op_kind == OpKind::NearBranch64 {
@@ -637,7 +640,7 @@ impl FastFormatter {
 
 					OpKind::Immediate8 | OpKind::Immediate8_2nd => {
 						if is_declare_data {
-							imm8 = instruction.get_declare_byte_value(operand as usize);
+							imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate8 {
 							imm8 = instruction.immediate8();
 						} else {
@@ -660,7 +663,7 @@ impl FastFormatter {
 
 					OpKind::Immediate16 | OpKind::Immediate8to16 => {
 						if is_declare_data {
-							imm16 = instruction.get_declare_word_value(operand as usize);
+							imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate16 {
 							imm16 = instruction.immediate16();
 						} else {
@@ -683,7 +686,7 @@ impl FastFormatter {
 
 					OpKind::Immediate32 | OpKind::Immediate8to32 => {
 						if is_declare_data {
-							imm32 = instruction.get_declare_dword_value(operand as usize);
+							imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate32 {
 							imm32 = instruction.immediate32();
 						} else {
@@ -706,7 +709,7 @@ impl FastFormatter {
 
 					OpKind::Immediate64 | OpKind::Immediate8to64 | OpKind::Immediate32to64 => {
 						if is_declare_data {
-							imm64 = instruction.get_declare_qword_value(operand as usize);
+							imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate32to64 {
 							imm64 = instruction.immediate32to64() as u64;
 						} else if op_kind == OpKind::Immediate8to64 {
@@ -821,7 +824,7 @@ impl FastFormatter {
 	#[inline]
 	fn show_segment_prefix(instruction: &Instruction, op_count: u32) -> bool {
 		for i in 0..op_count {
-			match instruction.op_kind(i) {
+			match instruction.try_op_kind(i).unwrap_or(OpKind::Register) {
 				OpKind::Register
 				| OpKind::NearBranch16
 				| OpKind::NearBranch32

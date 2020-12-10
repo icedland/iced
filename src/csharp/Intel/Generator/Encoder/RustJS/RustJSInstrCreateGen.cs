@@ -155,7 +155,7 @@ namespace Generator.Encoder.RustJS {
 				genMethod(new GenMethodContext(writer, method, method, null, null));
 		}
 
-		void WriteCall(in GenMethodContext ctx, string rustName) {
+		void WriteCall(in GenMethodContext ctx, string rustName, bool canFail) {
 			using (ctx.Writer.Indent()) {
 				var toLocalName = new Dictionary<int, string>();
 				foreach (var info in ctx.SplitArgs) {
@@ -169,7 +169,11 @@ namespace Generator.Encoder.RustJS {
 					toLocalName.Add(info.OrigIndex, local);
 				}
 				sb.Clear();
+				if (canFail)
+					sb.Append("Ok(");
 				sb.Append("Self(iced_x86_rust::Instruction::");
+				if (canFail)
+					sb.Append("try_");
 				sb.Append(rustName);
 				sb.Append('(');
 				for (int i = 0; i < ctx.OrigMethod.Args.Count; i++) {
@@ -198,7 +202,12 @@ namespace Generator.Encoder.RustJS {
 						break;
 					}
 				}
-				sb.Append("))");
+				sb.Append(')');
+				if (canFail)
+					sb.Append(".map_err(to_js_error)?");
+				sb.Append(')');
+				if (canFail)
+					sb.Append(')');
 				ctx.Writer.WriteLine(sb.ToString());
 			}
 		}
@@ -209,12 +218,15 @@ namespace Generator.Encoder.RustJS {
 				ctx.Writer.WriteLine(attr);
 		}
 
-		void WriteMethod(in GenMethodContext ctx, string rustName, string jsName) {
+		void WriteMethod(in GenMethodContext ctx, string rustName, string jsName, bool canFail) {
 			WriteMethodAttributes(ctx);
 			ctx.Writer.WriteLine(string.Format(RustConstants.AttributeWasmBindgenJsName, jsName));
 			ctx.Writer.Write($"pub fn {rustName}(");
 			gen.WriteMethodDeclArgs(ctx.Writer, ctx.Method);
-			ctx.Writer.WriteLine(") -> Self {");
+			if (canFail)
+				ctx.Writer.WriteLine(") -> Result<Instruction, JsValue> {");
+			else
+				ctx.Writer.WriteLine(") -> Self {");
 		}
 
 		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group) =>
@@ -222,12 +234,13 @@ namespace Generator.Encoder.RustJS {
 
 		void GenCreate(GenMethodContext ctx) {
 			Action? writeThrows = null;
-			if (Rust.InstrCreateGenImpl.HasImmediateArg_8_16_32(ctx.OrigMethod))
+			bool canFail = Rust.InstrCreateGenImpl.HasTryMethod(ctx.Method);
+			if (canFail)
 				writeThrows = () => docWriter.WriteLine(ctx.Writer, $"Throws if the immediate is invalid");
 			WriteDocs(ctx, writeThrows);
 			var rustName = gen.GetCreateName(ctx.OrigMethod, Rust.GenCreateNameArgs.RustNames);
-			WriteMethod(ctx, rustName, gen.GetCreateName(ctx.OrigMethod, genNames));
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, gen.GetCreateName(ctx.OrigMethod, genNames), canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -235,10 +248,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, GenCreateBranch);
 
 		void GenCreateBranch(GenMethodContext ctx) {
-			WriteDocs(ctx);
-			const string rustName = "with_branch";
-			WriteMethod(ctx, rustName, "createBranch");
-			WriteCall(ctx, rustName);
+			const bool canFail = true;
+			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, $"Throws if the created instruction doesn't have a near branch operand"));
+			const string rustName = Rust.RustInstrCreateGenNames.with_branch;
+			WriteMethod(ctx, rustName, "createBranch", canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -246,10 +260,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, GenCreateFarBranch);
 
 		void GenCreateFarBranch(GenMethodContext ctx) {
-			WriteDocs(ctx);
-			const string rustName = "with_far_branch";
-			WriteMethod(ctx, rustName, "createFarBranch");
-			WriteCall(ctx, rustName);
+			const bool canFail = true;
+			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, $"Throws if the created instruction doesn't have a far branch operand"));
+			const string rustName = Rust.RustInstrCreateGenNames.with_far_branch;
+			WriteMethod(ctx, rustName, "createFarBranch", canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -257,10 +272,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, GenCreateXbegin);
 
 		void GenCreateXbegin(GenMethodContext ctx) {
+			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
-			const string rustName = "with_xbegin";
-			WriteMethod(ctx, rustName, "createXbegin");
-			WriteCall(ctx, rustName);
+			const string rustName = Rust.RustInstrCreateGenNames.with_xbegin;
+			WriteMethod(ctx, rustName, "createXbegin", canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -268,14 +284,15 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, GenCreateMemory64);
 
 		void GenCreateMemory64(GenMethodContext ctx) {
+			const bool canFail = false;
 			var (rustName, jsName) = ctx.OrigMethod.Args[1].Type switch {
-				MethodArgType.UInt64 => ("with_mem64_reg", "createMem64Reg"),
-				MethodArgType.Register => ("with_reg_mem64", "createRegMem64"),
+				MethodArgType.UInt64 => (Rust.RustInstrCreateGenNames.with_mem64_reg, "createMem64Reg"),
+				MethodArgType.Register => (Rust.RustInstrCreateGenNames.with_reg_mem64, "createRegMem64"),
 				_ => throw new InvalidOperationException(),
 			};
 			WriteDocs(ctx);
-			WriteMethod(ctx, rustName, jsName);
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, jsName, canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -290,10 +307,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateString_Reg_SegRSI(ctx, methodBaseName));
 
 		void GenCreateString_Reg_SegRSI(GenMethodContext ctx, string methodBaseName) {
+			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName));
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -301,10 +319,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateString_Reg_ESRDI(ctx, methodBaseName));
 
 		void GenCreateString_Reg_ESRDI(GenMethodContext ctx, string methodBaseName) {
+			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName));
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -312,10 +331,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateString_ESRDI_Reg(ctx, methodBaseName));
 
 		void GenCreateString_ESRDI_Reg(GenMethodContext ctx, string methodBaseName) {
+			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName));
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -323,10 +343,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateString_SegRSI_ESRDI(ctx, methodBaseName));
 
 		void GenCreateString_SegRSI_ESRDI(GenMethodContext ctx, string methodBaseName) {
+			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName));
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -334,10 +355,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateString_ESRDI_SegRSI(ctx, methodBaseName));
 
 		void GenCreateString_ESRDI_SegRSI(GenMethodContext ctx, string methodBaseName) {
+			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName));
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -345,10 +367,11 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateMaskmov(ctx, methodBaseName));
 
 		void GenCreateMaskmov(GenMethodContext ctx, string methodBaseName) {
+			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName));
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -356,20 +379,21 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, ctx => GenCreateDeclareData(ctx, kind));
 
 		void GenCreateDeclareData(GenMethodContext ctx, DeclareDataKind kind) {
+			const bool canFail = true;
 			if (ctx.Method == ctx.OrigMethod)
 				ctx.Writer.WriteLine();
 			WriteDocs(ctx);
 			var (rustName, jsName) = kind switch {
-				DeclareDataKind.Byte => ("with_declare_byte", "createDeclareByte"),
-				DeclareDataKind.Word => ("with_declare_word", "createDeclareWord"),
-				DeclareDataKind.Dword => ("with_declare_dword", "createDeclareDword"),
-				DeclareDataKind.Qword => ("with_declare_qword", "createDeclareQword"),
+				DeclareDataKind.Byte => (Rust.RustInstrCreateGenNames.with_declare_byte, "createDeclareByte"),
+				DeclareDataKind.Word => (Rust.RustInstrCreateGenNames.with_declare_word, "createDeclareWord"),
+				DeclareDataKind.Dword => (Rust.RustInstrCreateGenNames.with_declare_dword, "createDeclareDword"),
+				DeclareDataKind.Qword => (Rust.RustInstrCreateGenNames.with_declare_qword, "createDeclareQword"),
 				_ => throw new InvalidOperationException(),
 			};
 			jsName = jsName + "_" + ctx.OrigMethod.Args.Count.ToString();
-			rustName = rustName + "_" + ctx.OrigMethod.Args.Count.ToString();
-			WriteMethod(ctx, rustName, jsName);
-			WriteCall(ctx, rustName);
+			rustName = Rust.RustInstrCreateGenNames.AppendArgCount(rustName, ctx.OrigMethod.Args.Count);
+			WriteMethod(ctx, rustName, jsName, canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -387,10 +411,11 @@ namespace Generator.Encoder.RustJS {
 				ctx.Attribute = RustConstants.FeatureBigInt;
 			}
 
+			const bool canFail = true;
 			ctx.Writer.WriteLine();
 			WriteDocs(ctx, () => WriteDataThrows(ctx, $"is not 1-{16 / elemSize}"));
-			WriteMethod(ctx, rustName, jsName);
-			WriteCall(ctx, rustName);
+			WriteMethod(ctx, rustName, jsName, canFail);
+			WriteCall(ctx, rustName, canFail);
 			ctx.Writer.WriteLine("}");
 		}
 
@@ -403,7 +428,7 @@ namespace Generator.Encoder.RustJS {
 					break;
 
 				case ArrayType.ByteSlice:
-					GenCreateDeclareDataSlice(writer, method, 1, "with_declare_byte", "createDeclareByte");
+					GenCreateDeclareDataSlice(writer, method, 1, Rust.RustInstrCreateGenNames.with_declare_byte, "createDeclareByte");
 					break;
 
 				default:
@@ -421,7 +446,7 @@ namespace Generator.Encoder.RustJS {
 					break;
 
 				case ArrayType.WordSlice:
-					GenCreateDeclareDataSlice(writer, method, 2, "with_declare_word", "createDeclareWord");
+					GenCreateDeclareDataSlice(writer, method, 2, Rust.RustInstrCreateGenNames.with_declare_word, "createDeclareWord");
 					break;
 
 				default:
@@ -439,7 +464,7 @@ namespace Generator.Encoder.RustJS {
 					break;
 
 				case ArrayType.DwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 4, "with_declare_dword", "createDeclareDword");
+					GenCreateDeclareDataSlice(writer, method, 4, Rust.RustInstrCreateGenNames.with_declare_dword, "createDeclareDword");
 					break;
 
 				default:
@@ -457,7 +482,7 @@ namespace Generator.Encoder.RustJS {
 					break;
 
 				case ArrayType.QwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 8, "with_declare_qword", "createDeclareQword");
+					GenCreateDeclareDataSlice(writer, method, 8, Rust.RustInstrCreateGenNames.with_declare_qword, "createDeclareQword");
 					break;
 
 				default:

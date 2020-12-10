@@ -122,19 +122,19 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			match tc.code {
 				Code::DeclareByte => {
 					assert_eq!("66", tc.hex_bytes);
-					instr.set_declare_byte_value(0, 0x66);
+					instr.try_set_declare_byte_value(0, 0x66).unwrap();
 				}
 				Code::DeclareWord => {
 					assert_eq!("6644", tc.hex_bytes);
-					instr.set_declare_word_value(0, 0x4466);
+					instr.try_set_declare_word_value(0, 0x4466).unwrap();
 				}
 				Code::DeclareDword => {
 					assert_eq!("664422EE", tc.hex_bytes);
-					instr.set_declare_dword_value(0, 0xEE22_4466);
+					instr.try_set_declare_dword_value(0, 0xEE22_4466).unwrap();
 				}
 				Code::DeclareQword => {
 					assert_eq!("664422EE12345678", tc.hex_bytes);
-					instr.set_declare_qword_value(0, 0x7856_3412_EE22_4466);
+					instr.try_set_declare_qword_value(0, 0x7856_3412_EE22_4466).unwrap();
 				}
 				_ => unreachable!(),
 			}

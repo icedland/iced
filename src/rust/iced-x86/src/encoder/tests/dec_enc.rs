@@ -97,7 +97,7 @@ fn verify_invalid_and_valid_lock_prefix() {
 	fn has_modrm_memory_operand(instruction: &Instruction) -> bool {
 		let op_count = instruction.op_count();
 		for i in 0..op_count {
-			if instruction.op_kind(i) == OpKind::Memory {
+			if instruction.try_op_kind(i).unwrap() == OpKind::Memory {
 				return true;
 			}
 		}
@@ -180,7 +180,7 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 
 fn get_memory_register_size(instruction: &Instruction) -> u32 {
 	for i in 0..instruction.op_count() {
-		match instruction.op_kind(i) {
+		match instruction.try_op_kind(i).unwrap() {
 			OpKind::Register
 			| OpKind::NearBranch16
 			| OpKind::NearBranch32

@@ -116,7 +116,13 @@ impl DeclareDataHandler {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let length = instruction.declare_data_len() * this.elem_size as usize;
 		for i in 0..length {
-			encoder.write_byte_internal(instruction.get_declare_byte_value(i) as u32);
+			match instruction.try_get_declare_byte_value(i) {
+				Ok(value) => encoder.write_byte_internal(value as u32),
+				Err(_) => {
+					encoder.set_error_message_str("Invalid db/dw/dd/dq data length");
+					return;
+				}
+			}
 		}
 	}
 }
