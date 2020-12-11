@@ -491,9 +491,7 @@ impl InstrInfo for SimpleInstrInfo_STi_ST {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		const FLAGS: u32 = InstrOpInfoFlags::NONE;
 		let mut info;
-		if self.pseudo_op
-			&& options.use_pseudo_ops()
-			&& (instruction.op0_register() == Register::ST1 || instruction.op1_register() == Register::ST1)
+		if self.pseudo_op && options.use_pseudo_ops() && (instruction.op0_register() == Register::ST1 || instruction.op1_register() == Register::ST1)
 		{
 			info = InstrOpInfo::default(&self.mnemonic);
 		} else {
