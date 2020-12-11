@@ -238,7 +238,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!     instructions.push(Instruction::with_reg(Code::Push_r64, Register::RBP));
 //!     instructions.push(Instruction::with_reg(Code::Push_r64, Register::RDI));
 //!     instructions.push(Instruction::with_reg(Code::Push_r64, Register::RSI));
-//!     instructions.push(Instruction::with_reg_u32(Code::Sub_rm64_imm32, Register::RSP, 0x50));
+//!     instructions
+//!         .push(Instruction::try_with_reg_u32(Code::Sub_rm64_imm32, Register::RSP, 0x50).unwrap());
 //!     instructions.push(Instruction::with(Code::VEX_Vzeroupper));
 //!     instructions.push(Instruction::with_reg_mem(
 //!         Code::Lea_r64_m,
@@ -251,12 +252,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!         Register::RDI,
 //!         MemoryOperand::with_base_displ(Register::RBP, -0x38),
 //!     ));
-//!     instructions.push(Instruction::with_reg_i32(Code::Mov_r32_imm32, Register::ECX, 0x0A));
+//!     instructions
+//!         .push(Instruction::try_with_reg_i32(Code::Mov_r32_imm32, Register::ECX, 0x0A).unwrap());
 //!     instructions.push(Instruction::with_reg_reg(Code::Xor_r32_rm32, Register::EAX, Register::EAX));
-//!     instructions.push(Instruction::with_rep_stosd(bitness));
-//!     instructions.push(Instruction::with_reg_u64(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678));
+//!     instructions.push(Instruction::try_with_rep_stosd(bitness).unwrap());
+//!     instructions.push(
+//!         Instruction::try_with_reg_u64(Code::Cmp_rm64_imm32, Register::RSI, 0x1234_5678).unwrap(),
+//!     );
 //!     // Create a branch instruction that references label1
-//!     instructions.push(Instruction::with_branch(Code::Jne_rel32_64, label1));
+//!     instructions.push(Instruction::try_with_branch(Code::Jne_rel32_64, label1).unwrap());
 //!     instructions.push(Instruction::with(Code::Nopd));
 //!     // Add the instruction that is the target of the branch
 //!     instructions.push(add_label(
@@ -273,8 +277,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!     ));
 //!     instructions.push(Instruction::with(Code::Nopd));
 //!     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
-//!     // Creating db/dw/dd/dq instructions requires the `db` feature or it will panic!()
-//!     instructions.push(add_label(data1, Instruction::with_declare_byte(raw_data)));
+//!     // Creating db/dw/dd/dq instructions requires the `db` feature or it will fail
+//!     instructions.push(add_label(data1, Instruction::try_with_declare_byte(raw_data).unwrap()));
 //!
 //!     // Use BlockEncoder to encode a block of instructions. This block can contain any
 //!     // number of branches and any number of instructions. It does support encoding more
@@ -306,7 +310,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!         println!("{:016X} {}", instruction.ip(), output);
 //!     }
 //!     // Creating db/dw/dd/dq instructions requires the `db` feature or it will panic!()
-//!     let db = Instruction::with_declare_byte(bytes_data);
+//!     let db = Instruction::try_with_declare_byte(bytes_data).unwrap();
 //!     output.clear();
 //!     formatter.format(&db, &mut output);
 //!     println!("{:016X} {}", decoder.ip(), output);
@@ -587,7 +591,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!         }
 //!     };
 //!     if add {
-//!         orig_instructions.push(Instruction::with_branch(Code::Jmp_rel32_64, jmp_back_addr));
+//!         orig_instructions
+//!             .push(Instruction::try_with_branch(Code::Jmp_rel32_64, jmp_back_addr).unwrap());
 //!     }
 //!
 //!     // Relocate the code to some new location. It can fix short/near branches and
@@ -901,6 +906,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!
 //!         let op_code = instr.op_code();
 //!         let info = info_factory.info(&instr);
+//!         let fpu_info = instr.fpu_stack_increment_info();
 //!         println!("    OpCode: {}", op_code.op_code_string());
 //!         println!("    Instruction: {}", op_code.instruction_string());
 //!         println!("    Encoding: {:?}", instr.encoding());
@@ -921,6 +927,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!                 "    Displacement offset = {}, size = {}",
 //!                 offsets.displacement_offset(),
 //!                 offsets.displacement_size()
+//!             );
+//!         }
+//!         if fpu_info.writes_top() {
+//!             if fpu_info.increment() == 0 {
+//!                 println!("    FPU TOP: the instruction overwrites TOP");
+//!             } else {
+//!                 println!("    FPU TOP inc: {}", fpu_info.increment());
+//!             }
+//!             println!(
+//!                 "    FPU TOP cond write: {}",
+//!                 if fpu_info.conditional() { "true" } else { "false" }
 //!             );
 //!         }
 //!         if offsets.has_immediate() {
@@ -962,7 +979,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!             println!("    RFLAGS Modified: {}", flags(instr.rflags_modified()));
 //!         }
 //!         for i in 0..instr.op_count() {
-//!             let op_kind = instr.op_kind(i);
+//!             let op_kind = instr.try_op_kind(i).unwrap();
 //!             if op_kind == OpKind::Memory || op_kind == OpKind::Memory64 {
 //!                 let size = instr.memory_size().size();
 //!                 if size != 0 {
@@ -1052,17 +1069,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!     let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 //!     let instr = decoder.decode();
 //!
-//!     // There's also try_virtual_address() which returns an Option<u64>
-//!     let va = instr.virtual_address(0, 0, |register, _element_index, _element_size| {
+//!     let va = instr.try_virtual_address(0, 0, |register, _element_index, _element_size| {
 //!         match register {
 //!             // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
-//!             Register::ES | Register::CS | Register::SS | Register::DS => 0,
-//!             Register::RDI => 0x0000_0000_1000_0000,
-//!             Register::R12 => 0x0000_0004_0000_0000,
-//!             _ => unimplemented!(),
+//!             Register::ES | Register::CS | Register::SS | Register::DS => Some(0),
+//!             Register::RDI => Some(0x0000_0000_1000_0000),
+//!             Register::R12 => Some(0x0000_0004_0000_0000),
+//!             _ => None,
 //!         }
 //!     });
-//!     assert_eq!(0x0000_001F_B55A_1234, va);
+//!     assert_eq!(Some(0x0000_001F_B55A_1234), va);
 //! }
 //! ```
 //!
