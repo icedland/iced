@@ -82,7 +82,7 @@ pub(crate) fn get_default_ip(bitness: u32) -> u64 {
 		16 => DecoderConstants::DEFAULT_IP16,
 		32 => DecoderConstants::DEFAULT_IP32,
 		64 => DecoderConstants::DEFAULT_IP64,
-		_ => panic!(),
+		_ => unreachable!(),
 	}
 }
 

@@ -46,7 +46,7 @@ fn va_tests() {
 					return reg_value.value;
 				}
 			}
-			panic!();
+			unreachable!();
 		});
 		assert_eq!(tc.expected_value, value1);
 

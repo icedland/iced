@@ -91,7 +91,7 @@ impl IntoIterator for InstrInfoTestParser {
 				let _ = to_register.insert(MiscInstrInfoTestConstants::XSP.to_string(), Register::RSP);
 				let _ = to_register.insert(MiscInstrInfoTestConstants::XBP.to_string(), Register::RBP);
 			}
-			_ => panic!(),
+			_ => unreachable!(),
 		}
 
 		for i in 0..IcedConstants::VMM_COUNT {

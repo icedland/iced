@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -48,11 +49,7 @@ pub(crate) struct DecoderTestCase {
 	pub(crate) vsib_bitness: u32,
 	pub(crate) op_mask: Register,
 	pub(crate) rounding_control: RoundingControl,
-	pub(crate) op0_kind: OpKind,
-	pub(crate) op1_kind: OpKind,
-	pub(crate) op2_kind: OpKind,
-	pub(crate) op3_kind: OpKind,
-	pub(crate) op4_kind: OpKind,
+	pub(crate) op_kinds: [OpKind; IcedConstants::MAX_OP_COUNT],
 	pub(crate) segment_prefix: Register,
 	pub(crate) memory_segment: Register,
 	pub(crate) memory_base: Register,
@@ -67,56 +64,6 @@ pub(crate) struct DecoderTestCase {
 	pub(crate) near_branch: u64,
 	pub(crate) far_branch: u32,
 	pub(crate) far_branch_selector: u16,
-	pub(crate) op0_register: Register,
-	pub(crate) op1_register: Register,
-	pub(crate) op2_register: Register,
-	pub(crate) op3_register: Register,
-	pub(crate) op4_register: Register,
+	pub(crate) op_registers: [Register; IcedConstants::MAX_OP_COUNT],
 	pub(crate) constant_offsets: ConstantOffsets,
-}
-
-impl DecoderTestCase {
-	pub fn op_kind(&self, operand: u32) -> OpKind {
-		match operand {
-			0 => self.op0_kind,
-			1 => self.op1_kind,
-			2 => self.op2_kind,
-			3 => self.op3_kind,
-			4 => self.op4_kind,
-			_ => panic!(),
-		}
-	}
-
-	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
-		match operand {
-			0 => self.op0_kind = op_kind,
-			1 => self.op1_kind = op_kind,
-			2 => self.op2_kind = op_kind,
-			3 => self.op3_kind = op_kind,
-			4 => self.op4_kind = op_kind,
-			_ => panic!(),
-		}
-	}
-
-	pub fn op_register(&self, operand: u32) -> Register {
-		match operand {
-			0 => self.op0_register,
-			1 => self.op1_register,
-			2 => self.op2_register,
-			3 => self.op3_register,
-			4 => self.op4_register,
-			_ => panic!(),
-		}
-	}
-
-	pub fn set_op_register(&mut self, operand: u32, register: Register) {
-		match operand {
-			0 => self.op0_register = register,
-			1 => self.op1_register = register,
-			2 => self.op2_register = register,
-			3 => self.op3_register = register,
-			4 => self.op4_register = register,
-			_ => panic!(),
-		}
-	}
 }

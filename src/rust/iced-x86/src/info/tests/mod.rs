@@ -75,7 +75,7 @@ fn get_instr_info_test_cases(bitness: u32) -> &'static Vec<InstrInfoTestCase> {
 		16 => &*INSTR_INFO_16,
 		32 => &*INSTR_INFO_32,
 		64 => &*INSTR_INFO_64,
-		_ => panic!(),
+		_ => unreachable!(),
 	}
 }
 

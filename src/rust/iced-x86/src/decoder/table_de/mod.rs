@@ -201,7 +201,7 @@ impl<'a> TableDeserializer<'a> {
 		if let &HandlerInfo::Handler(handler) = self.id_to_handler.get(index).unwrap() {
 			handler
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 
@@ -213,7 +213,7 @@ impl<'a> TableDeserializer<'a> {
 			// There are a few dupe refs, clone the whole thing
 			handlers.to_vec()
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 
@@ -231,7 +231,7 @@ impl<'a> TableDeserializer<'a> {
 			assert!(!handlers.is_empty());
 			handlers
 		} else {
-			panic!();
+			unreachable!();
 		}
 	}
 }

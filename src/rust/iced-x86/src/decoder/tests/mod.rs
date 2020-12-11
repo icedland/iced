@@ -156,7 +156,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			assert!(instr.is_vsib64());
 			assert_eq!(Some(true), instr.vsib());
 		}
-		_ => panic!(),
+		_ => unreachable!(),
 	}
 	assert_eq!(tc.op_mask, instr.op_mask());
 	assert_eq!(tc.op_mask != Register::None, instr.has_op_mask());
@@ -168,14 +168,14 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 		assert!(instr.has_segment_prefix());
 	}
 	for i in 0..tc.op_count {
-		let op_kind = tc.op_kind(i);
+		let op_kind = tc.op_kinds[i as usize];
 		#[allow(deprecated)]
 		{
 			assert_eq!(op_kind, instr.op_kind(i));
 		}
 		assert_eq!(op_kind, instr.try_op_kind(i).unwrap());
 		match op_kind {
-			OpKind::Register => assert_eq!(tc.op_register(i), instr.try_op_register(i).unwrap()),
+			OpKind::Register => assert_eq!(tc.op_registers[i as usize], instr.try_op_register(i).unwrap()),
 			OpKind::NearBranch16 => assert_eq!(tc.near_branch, instr.near_branch16() as u64),
 			OpKind::NearBranch32 => assert_eq!(tc.near_branch, instr.near_branch32() as u64),
 			OpKind::NearBranch64 => assert_eq!(tc.near_branch, instr.near_branch64()),
@@ -223,30 +223,31 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 		}
 	}
 	if tc.op_count >= 1 {
-		assert_eq!(tc.op0_kind, instr.op0_kind());
-		if tc.op0_kind == OpKind::Register {
-			assert_eq!(tc.op0_register, instr.op0_register());
+		assert_eq!(tc.op_kinds[0], instr.op0_kind());
+		if tc.op_kinds[0] == OpKind::Register {
+			assert_eq!(tc.op_registers[0], instr.op0_register());
 		}
 		if tc.op_count >= 2 {
-			assert_eq!(tc.op1_kind, instr.op1_kind());
-			if tc.op1_kind == OpKind::Register {
-				assert_eq!(tc.op1_register, instr.op1_register());
+			assert_eq!(tc.op_kinds[1], instr.op1_kind());
+			if tc.op_kinds[1] == OpKind::Register {
+				assert_eq!(tc.op_registers[1], instr.op1_register());
 			}
 			if tc.op_count >= 3 {
-				assert_eq!(tc.op2_kind, instr.op2_kind());
-				if tc.op2_kind == OpKind::Register {
-					assert_eq!(tc.op2_register, instr.op2_register());
+				assert_eq!(tc.op_kinds[2], instr.op2_kind());
+				if tc.op_kinds[2] == OpKind::Register {
+					assert_eq!(tc.op_registers[2], instr.op2_register());
 				}
 				if tc.op_count >= 4 {
-					assert_eq!(tc.op3_kind, instr.op3_kind());
-					if tc.op3_kind == OpKind::Register {
-						assert_eq!(tc.op3_register, instr.op3_register());
+					assert_eq!(tc.op_kinds[3], instr.op3_kind());
+					if tc.op_kinds[3] == OpKind::Register {
+						assert_eq!(tc.op_registers[3], instr.op3_register());
 					}
 					if tc.op_count >= 5 {
-						assert_eq!(tc.op4_kind, instr.op4_kind());
-						if tc.op4_kind == OpKind::Register {
-							assert_eq!(tc.op4_register, instr.op4_register());
+						assert_eq!(tc.op_kinds[4], instr.op4_kind());
+						if tc.op_kinds[4] == OpKind::Register {
+							assert_eq!(tc.op_registers[4], instr.op4_register());
 						}
+						const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 						assert_eq!(5, tc.op_count);
 					}
 				}

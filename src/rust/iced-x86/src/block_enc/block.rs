@@ -155,9 +155,7 @@ pub(super) struct BlockData {
 
 impl BlockData {
 	pub(super) fn address(&self) -> u64 {
-		if !self.is_valid || !self.address_initd {
-			panic!()
-		}
+		assert!(self.is_valid && self.address_initd);
 		self.address
 	}
 }

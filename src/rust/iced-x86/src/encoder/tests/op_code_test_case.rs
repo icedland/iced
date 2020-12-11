@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -131,9 +132,5 @@ pub(super) struct OpCodeInfoTestCase {
 	pub(super) is_rm_group: bool,
 	pub(super) rm_group_index: i32,
 	pub(super) op_count: u32,
-	pub(super) op0_kind: OpCodeOperandKind,
-	pub(super) op1_kind: OpCodeOperandKind,
-	pub(super) op2_kind: OpCodeOperandKind,
-	pub(super) op3_kind: OpCodeOperandKind,
-	pub(super) op4_kind: OpCodeOperandKind,
+	pub(super) op_kinds: [OpCodeOperandKind; IcedConstants::MAX_OP_COUNT],
 }

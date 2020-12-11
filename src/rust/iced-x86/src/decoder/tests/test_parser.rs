@@ -401,22 +401,22 @@ impl IntoIter {
 		Ok(decoder_options)
 	}
 
-	fn read_op_kind(tc: &mut DecoderTestCase, operand: u32, value: &str) -> Result<(), String> {
+	fn read_op_kind(tc: &mut DecoderTestCase, operand: usize, value: &str) -> Result<(), String> {
 		let parts: Vec<_> = value.split(';').collect();
 		match *(*TO_DECODER_TEST_PARSER_CONSTANTS).get(parts[0]).unwrap_or(&u32::MAX) {
 			DecoderTestParserConstants::OP_KIND_REGISTER => {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_register(operand, to_register(parts[1])?);
-				tc.set_op_kind(operand, OpKind::Register);
+				tc.op_registers[operand] = to_register(parts[1])?;
+				tc.op_kinds[operand] = OpKind::Register;
 			}
 
 			DecoderTestParserConstants::OP_KIND_NEAR_BRANCH16 => {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::NearBranch16);
+				tc.op_kinds[operand] = OpKind::NearBranch16;
 				tc.near_branch = to_u16(parts[1])? as u64;
 			}
 
@@ -424,7 +424,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::NearBranch32);
+				tc.op_kinds[operand] = OpKind::NearBranch32;
 				tc.near_branch = to_u32(parts[1])? as u64;
 			}
 
@@ -432,7 +432,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::NearBranch64);
+				tc.op_kinds[operand] = OpKind::NearBranch64;
 				tc.near_branch = to_u64(parts[1])?;
 			}
 
@@ -440,7 +440,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::FarBranch16);
+				tc.op_kinds[operand] = OpKind::FarBranch16;
 				tc.far_branch_selector = to_u16(parts[1])?;
 				tc.far_branch = to_u16(parts[2])? as u32;
 			}
@@ -449,7 +449,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::FarBranch32);
+				tc.op_kinds[operand] = OpKind::FarBranch32;
 				tc.far_branch_selector = to_u16(parts[1])?;
 				tc.far_branch = to_u32(parts[2])?;
 			}
@@ -458,7 +458,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate8);
+				tc.op_kinds[operand] = OpKind::Immediate8;
 				tc.immediate = to_u8(parts[1])? as u64;
 			}
 
@@ -466,7 +466,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate16);
+				tc.op_kinds[operand] = OpKind::Immediate16;
 				tc.immediate = to_u16(parts[1])? as u64;
 			}
 
@@ -474,7 +474,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate32);
+				tc.op_kinds[operand] = OpKind::Immediate32;
 				tc.immediate = to_u32(parts[1])? as u64;
 			}
 
@@ -482,7 +482,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate64);
+				tc.op_kinds[operand] = OpKind::Immediate64;
 				tc.immediate = to_u64(parts[1])?;
 			}
 
@@ -490,7 +490,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate8to16);
+				tc.op_kinds[operand] = OpKind::Immediate8to16;
 				tc.immediate = to_u16(parts[1])? as u64;
 			}
 
@@ -498,7 +498,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate8to32);
+				tc.op_kinds[operand] = OpKind::Immediate8to32;
 				tc.immediate = to_u32(parts[1])? as u64;
 			}
 
@@ -506,7 +506,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate8to64);
+				tc.op_kinds[operand] = OpKind::Immediate8to64;
 				tc.immediate = to_u64(parts[1])?;
 			}
 
@@ -514,7 +514,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate32to64);
+				tc.op_kinds[operand] = OpKind::Immediate32to64;
 				tc.immediate = to_u64(parts[1])?;
 			}
 
@@ -522,7 +522,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Immediate8_2nd);
+				tc.op_kinds[operand] = OpKind::Immediate8_2nd;
 				tc.immediate_2nd = to_u8(parts[1])?;
 			}
 
@@ -530,7 +530,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemorySegSI);
+				tc.op_kinds[operand] = OpKind::MemorySegSI;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_size = to_memory_size(parts[2])?;
 			}
@@ -539,7 +539,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemorySegESI);
+				tc.op_kinds[operand] = OpKind::MemorySegESI;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_size = to_memory_size(parts[2])?;
 			}
@@ -548,7 +548,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemorySegRSI);
+				tc.op_kinds[operand] = OpKind::MemorySegRSI;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_size = to_memory_size(parts[2])?;
 			}
@@ -557,7 +557,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemorySegDI);
+				tc.op_kinds[operand] = OpKind::MemorySegDI;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_size = to_memory_size(parts[2])?;
 			}
@@ -566,7 +566,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemorySegEDI);
+				tc.op_kinds[operand] = OpKind::MemorySegEDI;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_size = to_memory_size(parts[2])?;
 			}
@@ -575,7 +575,7 @@ impl IntoIter {
 				if parts.len() != 3 {
 					return Err(format!("Operand {}: expected 3 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemorySegRDI);
+				tc.op_kinds[operand] = OpKind::MemorySegRDI;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_size = to_memory_size(parts[2])?;
 			}
@@ -584,7 +584,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemoryESDI);
+				tc.op_kinds[operand] = OpKind::MemoryESDI;
 				tc.memory_size = to_memory_size(parts[1])?;
 			}
 
@@ -592,7 +592,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemoryESEDI);
+				tc.op_kinds[operand] = OpKind::MemoryESEDI;
 				tc.memory_size = to_memory_size(parts[1])?;
 			}
 
@@ -600,7 +600,7 @@ impl IntoIter {
 				if parts.len() != 2 {
 					return Err(format!("Operand {}: expected 2 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::MemoryESRDI);
+				tc.op_kinds[operand] = OpKind::MemoryESRDI;
 				tc.memory_size = to_memory_size(parts[1])?;
 			}
 
@@ -608,7 +608,7 @@ impl IntoIter {
 				if parts.len() != 4 {
 					return Err(format!("Operand {}: expected 4 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Memory64);
+				tc.op_kinds[operand] = OpKind::Memory64;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_address64 = to_u64(parts[2])?;
 				tc.memory_size = to_memory_size(parts[3])?;
@@ -618,7 +618,7 @@ impl IntoIter {
 				if parts.len() != 8 {
 					return Err(format!("Operand {}: expected 8 values, actual = {}", operand, parts.len()));
 				}
-				tc.set_op_kind(operand, OpKind::Memory);
+				tc.op_kinds[operand] = OpKind::Memory;
 				tc.memory_segment = to_register(parts[1])?;
 				tc.memory_base = to_register(parts[2])?;
 				tc.memory_index = to_register(parts[3])?;

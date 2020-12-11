@@ -98,10 +98,7 @@ fn encode_test(info: &DecoderTestInfo) {
 	assert_eq!(info.bitness(), encoder.bitness());
 	let orig_instr_copy = orig_instr;
 	let encoded_instr_len;
-	match encoder.encode(&orig_instr, orig_rip) {
-		Ok(len) => encoded_instr_len = len,
-		Err(err) => panic!("Unexpected error message: {}", err),
-	}
+	encoded_instr_len = encoder.encode(&orig_instr, orig_rip).unwrap();
 	let mut encoded_co = encoder.get_constant_offsets();
 	fix_constant_offsets(&mut encoded_co, orig_instr.len(), encoded_instr_len);
 	verify_constant_offsets(&orig_co, &encoded_co);
@@ -912,16 +909,16 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.is_rm_group, info.is_rm_group());
 	assert_eq!(tc.rm_group_index, info.rm_group_index());
 	assert_eq!(tc.op_count, info.op_count());
-	assert_eq!(tc.op0_kind, info.op0_kind());
-	assert_eq!(tc.op1_kind, info.op1_kind());
-	assert_eq!(tc.op2_kind, info.op2_kind());
-	assert_eq!(tc.op3_kind, info.op3_kind());
-	assert_eq!(tc.op4_kind, info.op4_kind());
-	assert_eq!(tc.op0_kind, info.op_kind(0));
-	assert_eq!(tc.op1_kind, info.op_kind(1));
-	assert_eq!(tc.op2_kind, info.op_kind(2));
-	assert_eq!(tc.op3_kind, info.op_kind(3));
-	assert_eq!(tc.op4_kind, info.op_kind(4));
+	assert_eq!(tc.op_kinds[0], info.op0_kind());
+	assert_eq!(tc.op_kinds[1], info.op1_kind());
+	assert_eq!(tc.op_kinds[2], info.op2_kind());
+	assert_eq!(tc.op_kinds[3], info.op3_kind());
+	assert_eq!(tc.op_kinds[4], info.op4_kind());
+	assert_eq!(tc.op_kinds[0], info.op_kind(0));
+	assert_eq!(tc.op_kinds[1], info.op_kind(1));
+	assert_eq!(tc.op_kinds[2], info.op_kind(2));
+	assert_eq!(tc.op_kinds[3], info.op_kind(3));
+	assert_eq!(tc.op_kinds[4], info.op_kind(4));
 	let op_kinds = info.op_kinds();
 	assert_eq!(tc.op_count as usize, op_kinds.len());
 	for (i, &op_kind) in op_kinds.iter().enumerate() {

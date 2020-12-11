@@ -432,19 +432,19 @@ impl IntoIter {
 						let op_parts: Vec<_> = value.split(';').collect();
 						tc.op_count = op_parts.len() as u32;
 						if op_parts.len() >= 1 {
-							tc.op0_kind = to_op_code_operand_kind(op_parts[0])?;
+							tc.op_kinds[0] = to_op_code_operand_kind(op_parts[0])?;
 						}
 						if op_parts.len() >= 2 {
-							tc.op1_kind = to_op_code_operand_kind(op_parts[1])?;
+							tc.op_kinds[1] = to_op_code_operand_kind(op_parts[1])?;
 						}
 						if op_parts.len() >= 3 {
-							tc.op2_kind = to_op_code_operand_kind(op_parts[2])?;
+							tc.op_kinds[2] = to_op_code_operand_kind(op_parts[2])?;
 						}
 						if op_parts.len() >= 4 {
-							tc.op3_kind = to_op_code_operand_kind(op_parts[3])?;
+							tc.op_kinds[3] = to_op_code_operand_kind(op_parts[3])?;
 						}
 						if op_parts.len() >= 5 {
-							tc.op4_kind = to_op_code_operand_kind(op_parts[4])?;
+							tc.op_kinds[4] = to_op_code_operand_kind(op_parts[4])?;
 						}
 						const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 						if op_parts.len() >= 6 {
