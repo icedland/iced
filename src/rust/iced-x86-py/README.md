@@ -1,6 +1,16 @@
 iced-x86 disassembler Python bindings [![pypi](https://img.shields.io/pypi/v/iced-x86.svg)](https://pypi.org/project/iced-x86/) ![Python](https://img.shields.io/pypi/pyversions/iced-x86.svg) ![License](https://img.shields.io/pypi/l/iced-x86.svg)
 
-TODO:
+iced-x86 is a high performance and correct x86 (16/32/64-bit) disassembler for Python.
+
+- ✔️Supports all Intel and AMD instructions
+- ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
+- ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- ✔️The encoder can be used to re-encode decoded instructions at any address
+- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
+- ✔️Rust + Python
+- ✔️License: MIT
+
+Rust crate: https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86/README.md
 
 ## Building the code
 
@@ -136,27 +146,27 @@ print(f"{instr:m}")
 print(f"{instr:n}")
 print(f"{instr:gG_xSs}")
 
-# ======  =============================================================================
-# F-Spec  Description
-# ======  =============================================================================
-# f       Fast formatter (masm-like syntax)
-# g       GNU Assembler formatter
-# i       Intel (XED) formatter
-# m       masm formatter
-# n       nasm formatter
-# X       Uppercase hex numbers with ``0x`` prefix
-# x       Lowercase hex numbers with ``0x`` prefix
-# H       Uppercase hex numbers with ``h`` suffix
-# h       Lowercase hex numbers with ``h`` suffix
-# r       RIP-relative memory operands use RIP register instead of abs addr (``[rip+123h]`` vs ``[123456789ABCDEF0h]``)
-# U       Uppercase everything except numbers and hex prefixes/suffixes (ignored by fast fmt)
-# s       Add a space after the operand separator
-# S       Always show the segment register
-# B       Don't show the branch size (``SHORT`` or ``NEAR PTR``) (ignored by fast fmt)
-# G       (GNU Assembler): Add mnemonic size suffix (eg. ``movl`` vs ``mov``)
-# M       Always show the memory size (eg. ``BYTE PTR``) even when not needed
-# _       Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (ignored by fast fmt)
-# ======  =============================================================================
+# ====== =============================================================================
+# F-Spec Description
+# ====== =============================================================================
+# f      Fast formatter (masm-like syntax)
+# g      GNU Assembler formatter
+# i      Intel (XED) formatter
+# m      masm formatter
+# n      nasm formatter
+# X      Uppercase hex numbers with ``0x`` prefix
+# x      Lowercase hex numbers with ``0x`` prefix
+# H      Uppercase hex numbers with ``h`` suffix
+# h      Lowercase hex numbers with ``h`` suffix
+# r      RIP-relative memory operands use RIP register instead of abs addr (``[rip+123h]`` vs ``[123456789ABCDEF0h]``)
+# U      Uppercase everything except numbers and hex prefixes/suffixes (ignored by fast fmt)
+# s      Add a space after the operand separator
+# S      Always show the segment register
+# B      Don't show the branch size (``SHORT`` or ``NEAR PTR``) (ignored by fast fmt)
+# G      (GNU Assembler): Add mnemonic size suffix (eg. ``movl`` vs ``mov``)
+# M      Always show the memory size (eg. ``BYTE PTR``) even when not needed
+# _      Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (ignored by fast fmt)
+# ====== =============================================================================
 ```
 
 ## Create and encode instructions

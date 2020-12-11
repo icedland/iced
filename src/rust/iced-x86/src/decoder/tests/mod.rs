@@ -175,7 +175,13 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 		}
 		assert_eq!(op_kind, instr.try_op_kind(i).unwrap());
 		match op_kind {
-			OpKind::Register => assert_eq!(tc.op_registers[i as usize], instr.try_op_register(i).unwrap()),
+			OpKind::Register => {
+				#[allow(deprecated)]
+				{
+					assert_eq!(tc.op_registers[i as usize], instr.op_register(i));
+				}
+				assert_eq!(tc.op_registers[i as usize], instr.try_op_register(i).unwrap());
+			}
 			OpKind::NearBranch16 => assert_eq!(tc.near_branch, instr.near_branch16() as u64),
 			OpKind::NearBranch32 => assert_eq!(tc.near_branch, instr.near_branch32() as u64),
 			OpKind::NearBranch64 => assert_eq!(tc.near_branch, instr.near_branch64()),

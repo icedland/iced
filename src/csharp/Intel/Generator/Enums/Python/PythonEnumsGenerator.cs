@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using Generator.Documentation;
 using Generator.Documentation.Python;
 using Generator.IO;
 
@@ -64,7 +63,6 @@ namespace Generator.Enums.Python {
 
 			var dirs = generatorContext.Types.Dirs;
 			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo?>();
-			//TODO: write the remaining ones too
 			toFullFileInfo.Add(TypeIds.CC_a, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_a.py")));
 			toFullFileInfo.Add(TypeIds.CC_ae, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_ae.py")));
 			toFullFileInfo.Add(TypeIds.CC_b, new FullEnumFileInfo(dirs.GetPythonPyFilename("CC_b.py")));
@@ -95,7 +93,7 @@ namespace Generator.Enums.Python {
 			toFullFileInfo.Add(TypeIds.OpCodeTableKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpCodeTableKind.py")));
 			toFullFileInfo.Add(TypeIds.OpKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("OpKind.py")));
 			toFullFileInfo.Add(TypeIds.Register, new FullEnumFileInfo(dirs.GetPythonPyFilename("Register.py")));
-			//toFullFileInfo.Add(TypeIds.RepPrefixKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("RepPrefixKind.py")));
+			toFullFileInfo.Add(TypeIds.RepPrefixKind, new FullEnumFileInfo(dirs.GetPythonPyFilename("RepPrefixKind.py")));
 			toFullFileInfo.Add(TypeIds.RflagsBits, new FullEnumFileInfo(dirs.GetPythonPyFilename("RflagsBits.py")));
 			toFullFileInfo.Add(TypeIds.RoundingControl, new FullEnumFileInfo(dirs.GetPythonPyFilename("RoundingControl.py")));
 			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(dirs.GetPythonPyFilename("TupleType.py")));
@@ -153,7 +151,7 @@ namespace Generator.Enums.Python {
 		}
 
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
-			var docWriter = new PythonDocCommentWriter(pythonIdConverter, isInRootModule: false, ".");
+			var docWriter = new PythonDocCommentWriter(pythonIdConverter, TargetLanguage.Python, isInRootModule: false);
 			using (var writer = new FileWriter(TargetLanguage.Python, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine("# pylint: disable=invalid-name");

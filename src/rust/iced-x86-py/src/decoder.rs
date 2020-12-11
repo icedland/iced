@@ -136,6 +136,9 @@ impl Decoder {
 	#[new]
 	#[args(options = 0)]
 	fn new(bitness: u32, data: &PyAny, options: u32) -> PyResult<Self> {
+		// #[args] line assumption
+		const_assert_eq!(0, iced_x86::DecoderOptions::NONE);
+
 		match bitness {
 			16 | 32 | 64 => {}
 			_ => return Err(PyValueError::new_err("bitness must be 16, 32 or 64")),
@@ -151,7 +154,7 @@ impl Decoder {
 			let decoder_data = unsafe { slice::from_raw_parts(vec_data.as_ptr(), vec_data.len()) };
 			(DecoderDataRef::Vec(vec_data), decoder_data)
 		} else {
-			//TODO: support memoryview
+			//TODO: support memoryview (also update docs and get_temporary_byte_array_ref and the message below)
 			return Err(PyTypeError::new_err("Expected one of these types: bytes, bytearray"));
 		};
 

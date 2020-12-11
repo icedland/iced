@@ -206,7 +206,7 @@ namespace Generator.Encoder.Rust {
 
 		public string GetCreateName(CreateMethod method, GenCreateNameArgs genNames) => GetCreateName(sb, method, genNames);
 
-		static string GetCreateName(StringBuilder sb, CreateMethod method, GenCreateNameArgs genNames) {
+		public static string GetCreateName(StringBuilder sb, CreateMethod method, GenCreateNameArgs genNames) {
 			if (method.Args.Count == 0 || method.Args[0].Type != MethodArgType.Code)
 				throw new InvalidOperationException();
 

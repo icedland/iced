@@ -176,3 +176,11 @@ pub(super) fn to_memory_size(value: u32) -> PyResult<iced_x86::MemorySize> {
 		Ok(unsafe { core::mem::transmute(value as u8) })
 	}
 }
+
+pub(super) fn to_rep_prefix_kind(value: u32) -> PyResult<iced_x86::RepPrefixKind> {
+	if value >= IcedConstants::REP_PREFIX_KIND_ENUM_COUNT as u32 {
+		Err(PyValueError::new_err("Invalid RepPrefixKind value"))
+	} else {
+		Ok(unsafe { core::mem::transmute(value as u8) })
+	}
+}

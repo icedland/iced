@@ -80,6 +80,7 @@ def test_copy_deepcopy_clone(copy_value):
 	assert id(mem) != id(mem2)
 	assert mem == mem2
 	assert not (mem != mem2)
+	assert hash(mem) == hash(mem2)
 
 	reg = info.used_registers()[0]
 	reg2 = copy_value(reg)
@@ -87,6 +88,7 @@ def test_copy_deepcopy_clone(copy_value):
 	assert id(reg) != id(reg2)
 	assert reg == reg2
 	assert not (reg != reg2)
+	assert hash(reg) == hash(reg2)
 
 def test_op_access_raise():
 	instr = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41").decode()

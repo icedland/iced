@@ -2215,39 +2215,15 @@ fn get_set_immediate_fails_if_invalid_input() {
 		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
 			continue;
 		}
-		{
-			let mut instr = instr;
-			assert!(instr.try_set_immediate_i32(i, 0).is_err());
-		}
-		{
-			let mut instr = instr;
-			assert!(instr.try_set_immediate_i64(i, 0).is_err());
-		}
-		{
-			let mut instr = instr;
-			assert!(instr.try_set_immediate_u32(i, 0).is_err());
-		}
-		{
-			let mut instr = instr;
-			assert!(instr.try_set_immediate_u64(i, 0).is_err());
-		}
+		assert!(instr.try_set_immediate_i32(i, 0).is_err());
+		assert!(instr.try_set_immediate_i64(i, 0).is_err());
+		assert!(instr.try_set_immediate_u32(i, 0).is_err());
+		assert!(instr.try_set_immediate_u64(i, 0).is_err());
 	}
-	{
-		let mut instr = instr;
-		assert!(instr.try_set_immediate_i32(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
-	}
-	{
-		let mut instr = instr;
-		assert!(instr.try_set_immediate_i64(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
-	}
-	{
-		let mut instr = instr;
-		assert!(instr.try_set_immediate_u32(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
-	}
-	{
-		let mut instr = instr;
-		assert!(instr.try_set_immediate_u64(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
-	}
+	assert!(instr.try_set_immediate_i32(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
+	assert!(instr.try_set_immediate_i64(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
+	assert!(instr.try_set_immediate_u32(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
+	assert!(instr.try_set_immediate_u64(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
 }
 
 #[test]
@@ -2266,10 +2242,7 @@ fn get_set_register_panics_if_invalid_input() {
 		}
 		instr.set_op_register(i, Register::EAX);
 	}
-	{
-		let mut instr = instr;
-		assert!(panic::catch_unwind(move || { instr.set_op_register(IcedConstants::MAX_OP_COUNT as u32, Register::EAX) }).is_err());
-	}
+	assert!(panic::catch_unwind(move || { instr.set_op_register(IcedConstants::MAX_OP_COUNT as u32, Register::EAX) }).is_err());
 }
 
 #[test]

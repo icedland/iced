@@ -50,6 +50,7 @@ namespace Iced.Intel {
 		internal const int CC_ge_EnumCount = 2;
 		internal const int CC_le_EnumCount = 2;
 		internal const int CC_g_EnumCount = 2;
+		internal const int RepPrefixKindEnumCount = 3;
 		internal const Register VMM_first = Register.ZMM0;
 		internal const Register VMM_last = Register.ZMM31;
 		internal const int VMM_count = 32;

@@ -17,6 +17,7 @@ Welcome to iced-x86's documentation!
 .. toctree::
 	src/ConstantOffsets
 	src/FpuStackIncrementInfo
+	src/MemoryOperand
 	src/MemorySizeExt
 	src/MemorySizeInfo
 	src/RegisterExt
@@ -58,6 +59,7 @@ Welcome to iced-x86's documentation!
 	src/OpCodeTableKind
 	src/OpKind
 	src/Register
+	src/RepPrefixKind
 	src/RflagsBits
 	src/RoundingControl
 	src/TupleType

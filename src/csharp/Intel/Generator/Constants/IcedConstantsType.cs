@@ -74,6 +74,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Index, "CC_ge_EnumCount", (uint)genTypes[TypeIds.CC_ge].Values.Length),
 				new Constant(ConstantKind.Index, "CC_le_EnumCount", (uint)genTypes[TypeIds.CC_le].Values.Length),
 				new Constant(ConstantKind.Index, "CC_g_EnumCount", (uint)genTypes[TypeIds.CC_g].Values.Length),
+				new Constant(ConstantKind.Index, "RepPrefixKindEnumCount", (uint)genTypes[TypeIds.RepPrefixKind].Values.Length),
 				// This is the largest vector register. If it's VEX/EVEX, the upper bits are always cleared when writing to any sub reg, eg. YMM0
 				new Constant(ConstantKind.Register, "VMM_first", vmmFirst),
 				new Constant(ConstantKind.Register, "VMM_last", vmmLast),

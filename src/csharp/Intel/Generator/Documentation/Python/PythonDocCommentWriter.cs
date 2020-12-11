@@ -34,6 +34,8 @@ namespace Generator.Documentation.Python {
 		readonly bool isInRootModule;
 		readonly string typeSeparator;
 		readonly StringBuilder sb;
+		readonly string linePrefix;
+		readonly bool pythonDocComments;
 		int summaryLineNumber;
 		bool hasColonText;
 
@@ -62,11 +64,26 @@ namespace Generator.Documentation.Python {
 			{ "u512", "u512" },
 		};
 
-		public PythonDocCommentWriter(IdentifierConverter idConverter, bool isInRootModule, string typeSeparator = ".") {
+		public PythonDocCommentWriter(IdentifierConverter idConverter, TargetLanguage language, bool isInRootModule, string typeSeparator = ".") {
 			this.idConverter = idConverter;
 			this.isInRootModule = isInRootModule;
 			this.typeSeparator = typeSeparator;
 			sb = new StringBuilder();
+
+			switch (language) {
+			case TargetLanguage.Python:
+				linePrefix = string.Empty;
+				pythonDocComments = true;
+				break;
+
+			case TargetLanguage.Rust:
+				linePrefix = "/// ";
+				pythonDocComments = false;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
 		}
 
 		string GetStringAndReset() {
@@ -93,6 +110,7 @@ namespace Generator.Documentation.Python {
 				// The first line has type info and it's everything before the colon
 				s = ": " + s;
 			}
+			s = (linePrefix + s).TrimEnd();
 			summaryLineNumber++;
 			hasColonText = false;
 			if (s.Length == 0)
@@ -101,15 +119,17 @@ namespace Generator.Documentation.Python {
 				writer.WriteLine(s);
 		}
 
-		void BeginWrite(FileWriter writer) {
+		public void BeginWrite(FileWriter writer) {
 			if (sb.Length != 0)
 				throw new InvalidOperationException();
-			writer.WriteLine(@"""""""");
+			if (pythonDocComments)
+				writer.WriteLine(@"""""""");
 		}
 
-		void EndWrite(FileWriter writer) {
+		public void EndWrite(FileWriter writer) {
 			RawWriteWithComment(writer, false);
-			writer.WriteLine(@"""""""");
+			if (pythonDocComments)
+				writer.WriteLine(@"""""""");
 		}
 
 		public void WriteSummary(FileWriter writer, string? documentation, string typeName) {
@@ -122,8 +142,18 @@ namespace Generator.Documentation.Python {
 			EndWrite(writer);
 		}
 
-		void Write(string text) =>
+		public void Write(string text) =>
 			sb.Append(text);
+
+		public void WriteLine(FileWriter writer, string text) {
+			Write(text);
+			RawWriteWithComment(writer);
+		}
+
+		public void WriteDocLine(FileWriter writer, string text, string typeName) {
+			WriteDoc(writer, text, typeName);
+			RawWriteWithComment(writer);
+		}
 
 		void WriteDoc(FileWriter writer, string documentation, string typeName) {
 			foreach (var info in GetTokens(typeName, documentation)) {

@@ -88,12 +88,14 @@ def test_copy_deepcopy_clone(copy_instr):
 	assert not (instr != instr2)
 	assert instr.eq_all_bits(instr2)
 	assert instr2.eq_all_bits(instr)
+	assert hash(instr) == hash(instr2)
 
 	instr2.ip += 1
 	assert instr == instr2
 	assert not (instr != instr2)
 	assert not instr.eq_all_bits(instr2)
 	assert not instr2.eq_all_bits(instr)
+	assert hash(instr) == hash(instr2)
 
 def test_some_props1():
 	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41")

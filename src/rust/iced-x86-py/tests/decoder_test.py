@@ -199,6 +199,46 @@ def test_offsets():
 	assert co.has_immediate
 	assert not co.has_immediate2
 
+def test_co_eq_ne_hash():
+	decoder = Decoder(64, b"\x90\x90\x83\xB3\x34\x12\x5A\xA5\x5A\x83\xB3\x34\x12\x5A\xA5\x5A")
+	instr = decoder.decode()
+	co1 = decoder.get_constant_offsets(instr)
+	instr = decoder.decode()
+	co2 = decoder.get_constant_offsets(instr)
+	instr = decoder.decode()
+	co3 = decoder.get_constant_offsets(instr)
+	instr = decoder.decode()
+	co4 = decoder.get_constant_offsets(instr)
+
+	assert id(co1) != id(co2)
+	assert id(co3) != id(co4)
+
+	assert hash(co1) == hash(co2)
+	assert hash(co3) == hash(co4)
+
+	assert co1 == co2
+	assert not (co1 != co2)
+
+	assert co3 == co4
+	assert not (co3 != co4)
+
+	assert co1 != co3
+	assert not (co1 == co3)
+
+	assert co1 != 1
+	assert co1 != 1.23
+	assert co1 != None
+	assert co1 != []
+	assert co1 != {}
+	assert co1 != (1, 2)
+
+	assert not (co1 == 1)
+	assert not (co1 == 1.23)
+	assert not (co1 == None)
+	assert not (co1 == [])
+	assert not (co1 == {})
+	assert not (co1 == (1, 2))
+
 def test_no_bytes():
 	decoder = Decoder(64, b"")
 	assert not decoder.can_decode

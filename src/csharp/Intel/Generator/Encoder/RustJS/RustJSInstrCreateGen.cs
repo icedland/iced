@@ -233,10 +233,10 @@ namespace Generator.Encoder.RustJS {
 			GenerateMethod(writer, method, GenCreate);
 
 		void GenCreate(GenMethodContext ctx) {
-			Action? writeThrows = null;
 			bool canFail = Rust.InstrCreateGenImpl.HasTryMethod(ctx.Method);
+			Action? writeThrows = null;
 			if (canFail)
-				writeThrows = () => docWriter.WriteLine(ctx.Writer, $"Throws if the immediate is invalid");
+				writeThrows = () => docWriter.WriteLine(ctx.Writer, "Throws if the immediate is invalid");
 			WriteDocs(ctx, writeThrows);
 			var rustName = gen.GetCreateName(ctx.OrigMethod, Rust.GenCreateNameArgs.RustNames);
 			WriteMethod(ctx, rustName, gen.GetCreateName(ctx.OrigMethod, genNames), canFail);
@@ -249,7 +249,7 @@ namespace Generator.Encoder.RustJS {
 
 		void GenCreateBranch(GenMethodContext ctx) {
 			const bool canFail = true;
-			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, $"Throws if the created instruction doesn't have a near branch operand"));
+			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, "Throws if the created instruction doesn't have a near branch operand"));
 			const string rustName = Rust.RustInstrCreateGenNames.with_branch;
 			WriteMethod(ctx, rustName, "createBranch", canFail);
 			WriteCall(ctx, rustName, canFail);
@@ -261,7 +261,7 @@ namespace Generator.Encoder.RustJS {
 
 		void GenCreateFarBranch(GenMethodContext ctx) {
 			const bool canFail = true;
-			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, $"Throws if the created instruction doesn't have a far branch operand"));
+			WriteDocs(ctx, () => docWriter.WriteLine(ctx.Writer, "Throws if the created instruction doesn't have a far branch operand"));
 			const string rustName = Rust.RustInstrCreateGenNames.with_far_branch;
 			WriteMethod(ctx, rustName, "createFarBranch", canFail);
 			WriteCall(ctx, rustName, canFail);
@@ -304,9 +304,12 @@ namespace Generator.Encoder.RustJS {
 		}
 
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) =>
-			GenerateMethod(writer, method, ctx => GenCreateString_Reg_SegRSI(ctx, methodBaseName));
+			GenStringInstr(writer, method, methodBaseName);
 
-		void GenCreateString_Reg_SegRSI(GenMethodContext ctx, string methodBaseName) {
+		void GenStringInstr(FileWriter writer, CreateMethod method, string methodBaseName) =>
+			GenerateMethod(writer, method, ctx => GenStringInstr(ctx, methodBaseName));
+
+		void GenStringInstr(GenMethodContext ctx, string methodBaseName) {
 			const bool canFail = true;
 			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
 			var rustName = rustIdConverter.Method("With" + methodBaseName);
@@ -316,64 +319,19 @@ namespace Generator.Encoder.RustJS {
 		}
 
 		protected override void GenCreateString_Reg_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) =>
-			GenerateMethod(writer, method, ctx => GenCreateString_Reg_ESRDI(ctx, methodBaseName));
-
-		void GenCreateString_Reg_ESRDI(GenMethodContext ctx, string methodBaseName) {
-			const bool canFail = true;
-			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
-			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
-			WriteCall(ctx, rustName, canFail);
-			ctx.Writer.WriteLine("}");
-		}
+			GenStringInstr(writer, method, methodBaseName);
 
 		protected override void GenCreateString_ESRDI_Reg(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) =>
-			GenerateMethod(writer, method, ctx => GenCreateString_ESRDI_Reg(ctx, methodBaseName));
-
-		void GenCreateString_ESRDI_Reg(GenMethodContext ctx, string methodBaseName) {
-			const bool canFail = true;
-			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
-			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
-			WriteCall(ctx, rustName, canFail);
-			ctx.Writer.WriteLine("}");
-		}
+			GenStringInstr(writer, method, methodBaseName);
 
 		protected override void GenCreateString_SegRSI_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) =>
-			GenerateMethod(writer, method, ctx => GenCreateString_SegRSI_ESRDI(ctx, methodBaseName));
-
-		void GenCreateString_SegRSI_ESRDI(GenMethodContext ctx, string methodBaseName) {
-			const bool canFail = true;
-			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
-			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
-			WriteCall(ctx, rustName, canFail);
-			ctx.Writer.WriteLine("}");
-		}
+			GenStringInstr(writer, method, methodBaseName);
 
 		protected override void GenCreateString_ESRDI_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) =>
-			GenerateMethod(writer, method, ctx => GenCreateString_ESRDI_SegRSI(ctx, methodBaseName));
-
-		void GenCreateString_ESRDI_SegRSI(GenMethodContext ctx, string methodBaseName) {
-			const bool canFail = true;
-			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
-			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
-			WriteCall(ctx, rustName, canFail);
-			ctx.Writer.WriteLine("}");
-		}
+			GenStringInstr(writer, method, methodBaseName);
 
 		protected override void GenCreateMaskmov(FileWriter writer, CreateMethod method, string methodBaseName, EnumValue code) =>
-			GenerateMethod(writer, method, ctx => GenCreateMaskmov(ctx, methodBaseName));
-
-		void GenCreateMaskmov(GenMethodContext ctx, string methodBaseName) {
-			const bool canFail = true;
-			WriteDocs(ctx, () => WriteAddrSizeOrBitnessThrows(ctx));
-			var rustName = rustIdConverter.Method("With" + methodBaseName);
-			WriteMethod(ctx, rustName, idConverter.Method("Create" + methodBaseName), canFail);
-			WriteCall(ctx, rustName, canFail);
-			ctx.Writer.WriteLine("}");
-		}
+			GenStringInstr(writer, method, methodBaseName);
 
 		protected override void GenCreateDeclareData(FileWriter writer, CreateMethod method, DeclareDataKind kind) =>
 			GenerateMethod(writer, method, ctx => GenCreateDeclareData(ctx, kind));

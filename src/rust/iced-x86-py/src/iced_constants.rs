@@ -51,6 +51,7 @@ impl IcedConstants {
 	pub(crate) const CC_GE_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_LE_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_G_ENUM_COUNT: usize = 2;
+	pub(crate) const REP_PREFIX_KIND_ENUM_COUNT: usize = 3;
 	pub(crate) const VMM_FIRST: Register = Register::ZMM0;
 	pub(crate) const VMM_LAST: Register = Register::ZMM31;
 	pub(crate) const VMM_COUNT: u32 = 32;

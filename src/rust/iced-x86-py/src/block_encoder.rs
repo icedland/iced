@@ -92,7 +92,7 @@ impl BlockEncoder {
 	/// Adds an instruction that will be encoded when :class:`BlockEncoder.encode` is called.
 	///
 	/// The input `instruction` can be a decoded instruction or an instruction
-	/// created by the user, eg. `Instruction.with*()` methods.
+	/// created by the user, eg. `Instruction.create*()` methods.
 	///
 	/// Args:
 	///     `instruction` (Instruction): Next instruction to encode
