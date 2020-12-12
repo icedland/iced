@@ -481,16 +481,16 @@ jobs:
             dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
           done
 
-      - name: Upload to crates.io
-        if: startsWith(github.ref, 'refs/tags/')
-        shell: bash
-        run: |
-          git clean -xdf
-          git checkout .
-          cd src/rust/iced-x86
-          cargo login --color always -- "${{secrets.CRATES_IO_TOKEN}}"
-          # --no-verify: we've tested building everything already
-          cargo publish --color always --no-verify
+      # - name: Upload to crates.io
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   shell: bash
+      #   run: |
+      #     git clean -xdf
+      #     git checkout .
+      #     cd src/rust/iced-x86
+      #     cargo login --color always -- "${{secrets.CRATES_IO_TOKEN}}"
+      #     # --no-verify: we've tested building everything already
+      #     cargo publish --color always --no-verify
 
       - name: Upload to pypi.org
         if: startsWith(github.ref, 'refs/tags/')
