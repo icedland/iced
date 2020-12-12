@@ -141,6 +141,18 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(actual.Length, (int)len);
 			Assert.Equal(expected, actual);
 		}
+		
+		[Fact]
+		void Encode_EBP_EDX_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create(32, writer);
+			var instruction = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.EBP, Register.EDX));
+			uint len = encoder.Encode(instruction, 0);
+			var expected = new byte[] { 0x8B, 0x44, 0x15, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
 
 		[Fact]
 		void Encode_R13D_with_no_displ() {
@@ -149,6 +161,18 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var instruction = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.R13D));
 			uint len = encoder.Encode(instruction, 0);
 			var expected = new byte[] { 0x67, 0x41, 0x8B, 0x45, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		void Encode_R13D_EDX_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create(64, writer);
+			var instruction = Instruction.Create(Code.Mov_r32_rm32, Register.EAX, new MemoryOperand(Register.R13D, Register.EDX));
+			uint len = encoder.Encode(instruction, 0);
+			var expected = new byte[] { 0x67, 0x41, 0x8B, 0x44, 0x15, 0x00 };
 			var actual = writer.ToArray();
 			Assert.Equal(actual.Length, (int)len);
 			Assert.Equal(expected, actual);
@@ -167,12 +191,36 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		}
 
 		[Fact]
+		void Encode_RBP_RDX_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create(64, writer);
+			var instruction = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.RBP, Register.RDX));
+			uint len = encoder.Encode(instruction, 0);
+			var expected = new byte[] { 0x48, 0x8B, 0x44, 0x15, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
 		void Encode_R13_with_no_displ() {
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(64, writer);
 			var instruction = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.R13));
 			uint len = encoder.Encode(instruction, 0);
 			var expected = new byte[] { 0x49, 0x8B, 0x45, 0x00 };
+			var actual = writer.ToArray();
+			Assert.Equal(actual.Length, (int)len);
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		void Encode_R13_RDX_with_no_displ() {
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create(64, writer);
+			var instruction = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, new MemoryOperand(Register.R13, Register.RDX));
+			uint len = encoder.Encode(instruction, 0);
+			var expected = new byte[] { 0x49, 0x8B, 0x44, 0x15, 0x00 };
 			var actual = writer.ToArray();
 			Assert.Equal(actual.Length, (int)len);
 			Assert.Equal(expected, actual);

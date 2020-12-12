@@ -1017,8 +1017,8 @@ impl Encoder {
 		let base_num = if base == Register::None { -1 } else { (base as i32).wrapping_sub(base_lo as i32) };
 		let index_num = if index == Register::None { -1 } else { (index as i32).wrapping_sub(index_lo as i32) };
 
-		// [ebp] => [ebp+00]
-		if displ_size == 0 && index == Register::None && (base_num & 7) == 5 {
+		// [ebp]/[ebp+index*scale] => [ebp+00]/[ebp+index*scale+00]
+		if displ_size == 0 && (base_num & 7) == 5 {
 			displ_size = 1;
 			self.displ = 0;
 		}
@@ -1027,7 +1027,7 @@ impl Encoder {
 			// Temp needed if rustc < 1.36.0 (2015 edition)
 			let tmp_displ = self.displ;
 			if let Some(compressed_value) = self.try_convert_to_disp8n(tmp_displ as i16 as i32) {
-				self.displ = compressed_value as u8 as u32;
+				self.displ = compressed_value as i32 as u32;
 			} else {
 				displ_size = addr_size / 8;
 			}

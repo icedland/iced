@@ -410,11 +410,33 @@ fn encode_ebp_with_no_displ() {
 }
 
 #[test]
+fn encode_ebp_edx_with_no_displ() {
+	let mut encoder = Encoder::new(32);
+	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base_index(Register::EBP, Register::EDX));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x8B, 0x44, 0x15, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
 fn encode_r13d_with_no_displ() {
 	let mut encoder = Encoder::new(64);
 	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base(Register::R13D));
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x67, 0x41, 0x8B, 0x45, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
+fn encode_r13d_edx_with_no_displ() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with_reg_mem(Code::Mov_r32_rm32, Register::EAX, MemoryOperand::with_base_index(Register::R13D, Register::EDX));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x67, 0x41, 0x8B, 0x44, 0x15, 0x00];
 	let actual = encoder.take_buffer();
 	assert_eq!(actual.len(), len);
 	assert_eq!(expected, actual);
@@ -432,11 +454,33 @@ fn encode_rbp_with_no_displ() {
 }
 
 #[test]
+fn encode_rbp_rdx_with_no_displ() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base_index(Register::RBP, Register::RDX));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x48, 0x8B, 0x44, 0x15, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
 fn encode_r13_with_no_displ() {
 	let mut encoder = Encoder::new(64);
 	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base(Register::R13));
 	let len = encoder.encode(&instr, 0).unwrap();
 	let expected = vec![0x49, 0x8B, 0x45, 0x00];
+	let actual = encoder.take_buffer();
+	assert_eq!(actual.len(), len);
+	assert_eq!(expected, actual);
+}
+
+#[test]
+fn encode_r13_rdx_with_no_displ() {
+	let mut encoder = Encoder::new(64);
+	let instr = Instruction::with_reg_mem(Code::Mov_r64_rm64, Register::RAX, MemoryOperand::with_base_index(Register::R13, Register::RDX));
+	let len = encoder.encode(&instr, 0).unwrap();
+	let expected = vec![0x49, 0x8B, 0x44, 0x15, 0x00];
 	let actual = encoder.take_buffer();
 	assert_eq!(actual.len(), len);
 	assert_eq!(expected, actual);

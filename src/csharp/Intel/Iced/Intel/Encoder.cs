@@ -884,15 +884,15 @@ namespace Iced.Intel {
 			int baseNum = baseReg == Register.None ? -1 : baseReg - baseRegLo;
 			int indexNum = indexReg == Register.None ? -1 : indexReg - indexRegLo;
 
-			// [ebp] => [ebp+00]
-			if (displSize == 0 && indexReg == Register.None && (baseNum & 7) == 5) {
+			// [ebp]/[ebp+index*scale] => [ebp+00]/[ebp+index*scale+00]
+			if (displSize == 0 && (baseNum & 7) == 5) {
 				displSize = 1;
 				Displ = 0;
 			}
 
 			if (displSize == 1) {
 				if (TryConvertToDisp8N((short)Displ, out sbyte compressedValue))
-					Displ = (byte)compressedValue;
+					Displ = (uint)compressedValue;
 				else
 					displSize = addrSize / 8;
 			}
