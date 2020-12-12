@@ -171,19 +171,273 @@ print(f"{instr:gG_xSs}")
 
 ## Create and encode instructions
 
-TODO:
+This example uses a `BlockEncoder` to encode created `Instruction`s.
+
+```python
+from iced_x86 import *
+
+bitness = 64
+
+# All created instructions get an IP of 0. The label id is just an IP.
+# The branch instruction's *target* IP should be equal to the IP of the
+# target instruction.
+label_id: int = 1
+
+def create_label() -> int:
+    global label_id
+    idd = label_id
+    label_id += 1
+    return idd
+
+def add_label(id: int, instruction: Instruction) -> Instruction:
+    instruction.ip = id
+    return instruction
+
+label1 = create_label()
+
+instructions = []
+instructions.append(Instruction.create_reg(Code.PUSH_R64, Register.RBP))
+instructions.append(Instruction.create_reg(Code.PUSH_R64, Register.RDI))
+instructions.append(Instruction.create_reg(Code.PUSH_R64, Register.RSI))
+instructions.append(Instruction.create_reg_u32(
+    Code.SUB_RM64_IMM32, Register.RSP, 0x50))
+instructions.append(Instruction.create(Code.VEX_VZEROUPPER))
+instructions.append(Instruction.create_reg_mem(
+    Code.LEA_R64_M, Register.RBP, MemoryOperand(Register.RSP, displ=0x60)))
+instructions.append(Instruction.create_reg_reg(
+    Code.MOV_R64_RM64, Register.RSI, Register.RCX))
+instructions.append(Instruction.create_reg_mem(
+    Code.LEA_R64_M, Register.RDI, MemoryOperand(Register.RBP, displ=-0x38)))
+instructions.append(Instruction.create_reg_i32(
+    Code.MOV_R32_IMM32, Register.ECX, 0x0A))
+instructions.append(Instruction.create_reg_reg(
+    Code.XOR_R32_RM32, Register.EAX, Register.EAX))
+instructions.append(Instruction.create_rep_stosd(bitness))
+instructions.append(Instruction.create_reg_u64(
+    Code.CMP_RM64_IMM32, Register.RSI, 0x1234_5678))
+# Create a branch instruction that references label1
+instructions.append(Instruction.create_branch(Code.JNE_REL32_64, label1))
+instructions.append(Instruction.create(Code.NOPD))
+# Add the instruction that is the target of the branch
+instructions.append(add_label(label1, Instruction.create_reg_reg(
+    Code.XOR_R32_RM32, Register.R15D, Register.R15D)))
+
+# Create an instruction that accesses some data using an RIP relative memory operand
+data1 = create_label()
+instructions.append(Instruction.create_reg_mem(
+    Code.LEA_R64_M, Register.R14, MemoryOperand(Register.RIP, displ=data1)))
+instructions.append(Instruction.create(Code.NOPD))
+raw_data = b"\x12\x34\x56\x78"
+instructions.append(
+    add_label(data1, Instruction.create_declare_byte(raw_data)))
+
+# Use BlockEncoder to encode a block of instructions. This block can contain any
+# number of branches and any number of instructions.
+# It uses Encoder to encode all instructions.
+# If the target of a branch is too far away, it can fix it to use a longer branch.
+# This can be disabled by passing in `False` to the ctor.
+target_rip = 0x0000_1248_FC84_0000
+encoder = BlockEncoder(bitness)
+encoder.add_many(instructions)
+encoded_bytes = encoder.encode(target_rip)
+
+# Now disassemble the encoded instructions. Note that the 'jmp near'
+# instruction was turned into a 'jmp short' instruction because we
+# didn't disable branch optimizations.
+bytes_code = encoded_bytes[0:len(encoded_bytes) - len(raw_data)]
+bytes_data = encoded_bytes[len(encoded_bytes) - len(raw_data):]
+decoder = Decoder(bitness, bytes_code)
+decoder.ip = target_rip
+formatter = Formatter(FormatterSyntax.GAS)
+formatter.first_operand_char_index = 8
+for instruction in decoder:
+    disasm = formatter.format(instruction)
+    print(f"{instruction.ip:016X} {disasm}")
+
+db = Instruction.create_declare_byte(bytes_data)
+print(f"{decoder.ip:016X} {formatter.format(db)}")
+
+# Output:
+# 00001248FC840000 push    %rbp
+# 00001248FC840001 push    %rdi
+# 00001248FC840002 push    %rsi
+# 00001248FC840003 sub     $0x50,%rsp
+# 00001248FC84000A vzeroupper
+# 00001248FC84000D lea     0x60(%rsp),%rbp
+# 00001248FC840012 mov     %rcx,%rsi
+# 00001248FC840015 lea     -0x38(%rbp),%rdi
+# 00001248FC840019 mov     $0xA,%ecx
+# 00001248FC84001E xor     %eax,%eax
+# 00001248FC840020 rep stos %eax,(%rdi)
+# 00001248FC840022 cmp     $0x12345678,%rsi
+# 00001248FC840029 jne     0x00001248FC84002C
+# 00001248FC84002B nop
+# 00001248FC84002C xor     %r15d,%r15d
+# 00001248FC84002F lea     0x1248FC840037,%r14
+# 00001248FC840036 nop
+# 00001248FC840037 .byte   0x12,0x34,0x56,0x78
+```
 
 ## Move code in memory (eg. hook a function)
 
-TODO:
+Uses instruction info API and the encoder to patch a function to jump to the programmer's function.
+
+```python
+from iced_x86 import *
+
+# Decodes instructions from some address, then encodes them starting at some
+# other address. This can be used to hook a function. You decode enough instructions
+# until you have enough bytes to add a JMP instruction that jumps to your code.
+# Your code will then conditionally jump to the original code that you re-encoded.
+#
+# This code uses the BlockEncoder which will help with some things, eg. converting
+# short branches to longer branches if the target is too far away.
+#
+# 64-bit mode also supports RIP relative addressing, but the encoder can't rewrite
+# those to use a longer displacement. If any of the moved instructions have RIP
+# relative addressing and it tries to access data too far away, the encoder will fail.
+# The easiest solution is to use OS alloc functions that allocate memory close to the
+# original code (+/-2GB).
+
+
+# This example produces the following output:
+# Original code:
+# 00007FFAC46ACDA4 mov [rsp+10h],rbx
+# 00007FFAC46ACDA9 mov [rsp+18h],rsi
+# 00007FFAC46ACDAE push rbp
+# 00007FFAC46ACDAF push rdi
+# 00007FFAC46ACDB0 push r14
+# 00007FFAC46ACDB2 lea rbp,[rsp-100h]
+# 00007FFAC46ACDBA sub rsp,200h
+# 00007FFAC46ACDC1 mov rax,[rel 7FFAC47524E0h]
+# 00007FFAC46ACDC8 xor rax,rsp
+# 00007FFAC46ACDCB mov [rbp+0F0h],rax
+# 00007FFAC46ACDD2 mov r8,[rel 7FFAC474F208h]
+# 00007FFAC46ACDD9 lea rax,[rel 7FFAC46F4A58h]
+# 00007FFAC46ACDE0 xor edi,edi
+#
+# Original + patched code:
+# 00007FFAC46ACDA4 mov rax,123456789ABCDEF0h
+# 00007FFAC46ACDAE jmp rax
+# 00007FFAC46ACDB0 push r14
+# 00007FFAC46ACDB2 lea rbp,[rsp-100h]
+# 00007FFAC46ACDBA sub rsp,200h
+# 00007FFAC46ACDC1 mov rax,[rel 7FFAC47524E0h]
+# 00007FFAC46ACDC8 xor rax,rsp
+# 00007FFAC46ACDCB mov [rbp+0F0h],rax
+# 00007FFAC46ACDD2 mov r8,[rel 7FFAC474F208h]
+# 00007FFAC46ACDD9 lea rax,[rel 7FFAC46F4A58h]
+# 00007FFAC46ACDE0 xor edi,edi
+#
+# Moved code:
+# 00007FFAC48ACDA4 mov [rsp+10h],rbx
+# 00007FFAC48ACDA9 mov [rsp+18h],rsi
+# 00007FFAC48ACDAE push rbp
+# 00007FFAC48ACDAF push rdi
+# 00007FFAC48ACDB0 jmp 00007FFAC46ACDB0h
+
+def disassemble(data: bytes, ip: int) -> None:
+    formatter = Formatter(FormatterSyntax.NASM)
+    decoder = Decoder(EXAMPLE_CODE_BITNESS, data)
+    decoder.ip = ip
+    for instruction in decoder:
+        disasm = formatter.format(instruction)
+        print(f"{instruction.ip:016X} {disasm}")
+    print()
+
+def how_to_move_code() -> None:
+    print("Original code:")
+    disassemble(EXAMPLE_CODE, EXAMPLE_CODE_RIP)
+
+    decoder = Decoder(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE)
+    decoder.ip = EXAMPLE_CODE_RIP
+
+    # In 64-bit mode, we need 12 bytes to jump to any address:
+    #      mov rax,imm64   # 10
+    #      jmp rax         # 2
+    # We overwrite rax because it's probably not used by the called function.
+    # In 32-bit mode, a normal JMP is just 5 bytes
+    required_bytes = 10 + 2
+    total_bytes = 0
+    orig_instructions = []
+    for instr in decoder:
+        orig_instructions.append(instr)
+        total_bytes += instr.len
+        if not instr:
+            raise ValueError("Found garbage")
+        if total_bytes >= required_bytes:
+            break
+
+        cflow = instr.flow_control
+        if cflow == FlowControl.NEXT:
+            pass  # nothing
+        elif cflow == FlowControl.UNCONDITIONAL_BRANCH:
+            if instr.op0_kind == OpKind.NEAR_BRANCH64:
+                _target = instr.near_branch_target
+                # You could check if it's just jumping forward a few bytes and follow it
+                # but this is a simple example so we'll fail.
+            raise ValueError("Not supported by this simple example")
+        else:
+            raise ValueError("Not supported by this simple example")
+    if total_bytes < required_bytes:
+        raise ValueError("Not enough bytes!")
+    if len(orig_instructions) == 0:
+        raise ValueError("Should not be empty here")
+    # Create a JMP instruction that branches to the original code, except those instructions
+    # that we'll re-encode. We don't need to do it if it already ends in 'ret'
+    last_instr = orig_instructions[-1]
+    if last_instr.flow_control != FlowControl.RETURN:
+        orig_instructions.append(Instruction.create_branch(Code.JMP_REL32_64, last_instr.next_ip))
+
+    # Relocate the code to some new location. It can fix short/near branches and
+    # convert them to short/near/long forms if needed. This also works even if it's a
+    # jrcxz/loop/loopcc instruction which only have short forms.
+    #
+    # It can currently only fix RIP relative operands if the new location is within 2GB
+    # of the target data location.
+    relocated_base_address = EXAMPLE_CODE_RIP + 0x20_0000
+    encoder = BlockEncoder(decoder.bitness)
+    encoder.add_many(orig_instructions)
+    new_code = encoder.encode(relocated_base_address)
+
+    # Patch the original code. Pretend that we use some OS API to write to memory...
+    # We could use the BlockEncoder/Encoder for this but it's easy to do yourself too.
+    # This is 'mov rax,imm64; jmp rax'
+    YOUR_FUNC: int = 0x1234_5678_9ABC_DEF0  # Address of your code
+    example_code = bytearray(EXAMPLE_CODE)
+    example_code[0] = 0x48  # \ 'MOV RAX,imm64'
+    example_code[1] = 0xB8  # /
+    v = YOUR_FUNC
+    for i in range(2, 10):
+        example_code[i] = v & 0xFF
+        v >>= 8
+    example_code[10] = 0xFF  # \ JMP RAX
+    example_code[11] = 0xE0  # /
+
+    # Disassemble it
+    print("Original + patched code:")
+    disassemble(example_code, EXAMPLE_CODE_RIP)
+
+    # Disassemble the moved code
+    print("Moved code:")
+    disassemble(new_code, relocated_base_address)
+
+
+EXAMPLE_CODE_BITNESS: int = 64
+EXAMPLE_CODE_RIP: int = 0x0000_7FFA_C46A_CDA4
+EXAMPLE_CODE: bytes = \
+    b"\x48\x89\x5C\x24\x10\x48\x89\x74\x24\x18\x55\x57\x41\x56\x48\x8D" \
+    b"\xAC\x24\x00\xFF\xFF\xFF\x48\x81\xEC\x00\x02\x00\x00\x48\x8B\x05" \
+    b"\x18\x57\x0A\x00\x48\x33\xC4\x48\x89\x85\xF0\x00\x00\x00\x4C\x8B" \
+    b"\x05\x2F\x24\x0A\x00\x48\x8D\x05\x78\x7C\x04\x00\x33\xFF"
+
+how_to_move_code()
+```
 
 ## Get instruction info, eg. read/written regs/mem, control flow info, etc
 
-Shows how to get used registers/memory and other info. It uses [`Instruction`] methods
-and an [`InstructionInfoFactory`] to get this info.
-
-[`Instruction`]: https://docs.rs/iced-x86/1.9.1/iced_x86/struct.Instruction.html
-[`InstructionInfoFactory`]: https://docs.rs/iced-x86/1.9.1/iced_x86/struct.InstructionInfoFactory.html
+Shows how to get used registers/memory and other info. It uses `Instruction` methods
+and an `InstructionInfoFactory` to get this info.
 
 ```python
 from iced_x86 import *

@@ -527,6 +527,8 @@ def test_dq(instr: Instruction, data: bytes):
 @pytest.mark.parametrize("data", [
 	b"",
 	b"A" * 17,
+	bytearray(b""),
+	bytearray(b"A" * 17),
 ])
 def test_invalid_db_slice_len(data):
 	with pytest.raises(ValueError):
