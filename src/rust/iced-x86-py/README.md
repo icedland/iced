@@ -12,6 +12,16 @@ iced-x86 is a high performance and correct x86 (16/32/64-bit) disassembler for P
 
 Rust crate: https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86/README.md
 
+## Installing iced-x86
+
+It's on [PyPI](https://pypi.org/project/iced-x86/) with built wheels for Windows, macOS and Linux so this command should work (use `python` or `py` if on Windows):
+
+```sh
+python3 -m pip install iced-x86
+```
+
+If `pip` tries to build it from source and fails, see below for all required build tools (eg. `python3 -m pip install setuptools wheel setuptools-rust` and Rust https://www.rust-lang.org/tools/install).
+
 ## Building the code
 
 If on Windows, replace `python3` in all commands with `python` or `py`.
