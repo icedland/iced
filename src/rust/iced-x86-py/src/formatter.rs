@@ -67,7 +67,7 @@ pub(crate) enum FormatterSyntax {
 ///     assert disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]"
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(syntax, /)"]
-pub struct Formatter {
+pub(crate) struct Formatter {
 	fmt_output: String,
 	formatter: Box<dyn iced_x86::Formatter>,
 }
@@ -100,7 +100,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, instruction)"]
+	#[text_signature = "($self, instruction, /)"]
 	fn format(&mut self, instruction: &Instruction) -> &str {
 		self.fmt_output.clear();
 		self.formatter.format(&instruction.instr, &mut self.fmt_output);
@@ -115,7 +115,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, instruction, options)"]
+	#[text_signature = "($self, instruction, options, /)"]
 	#[args(options = 0)]
 	fn format_mnemonic(&mut self, instruction: &Instruction, options: u32) -> &str {
 		// #[args] line assumption
@@ -133,7 +133,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     int: Operand count
-	#[text_signature = "($self, instruction)"]
+	#[text_signature = "($self, instruction, /)"]
 	fn operand_count(&mut self, instruction: &Instruction) -> u32 {
 		self.formatter.operand_count(&instruction.instr)
 	}
@@ -151,7 +151,7 @@ impl Formatter {
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid
-	#[text_signature = "($self, instruction, operand)"]
+	#[text_signature = "($self, instruction, operand, /)"]
 	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> PyResult<Option<u32>> {
 		match self.formatter.op_access(&instruction.instr, operand) {
 			Ok(res) => Ok(res.map(|v| v as u32)),
@@ -172,7 +172,7 @@ impl Formatter {
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid
-	#[text_signature = "($self, instruction, operand)"]
+	#[text_signature = "($self, instruction, operand, /)"]
 	fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> PyResult<Option<u32>> {
 		self.formatter.get_instruction_operand(&instruction.instr, operand).map_err(to_value_error)
 	}
@@ -190,7 +190,7 @@ impl Formatter {
 	///
 	/// Raises:
 	///     ValueError: If `instruction_operand` is invalid
-	#[text_signature = "($self, instruction, instruction_operand)"]
+	#[text_signature = "($self, instruction, instruction_operand, /)"]
 	fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> PyResult<Option<u32>> {
 		self.formatter.get_formatter_operand(&instruction.instr, instruction_operand).map_err(to_value_error)
 	}
@@ -206,7 +206,7 @@ impl Formatter {
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid
-	#[text_signature = "($self, instruction, operand)"]
+	#[text_signature = "($self, instruction, operand, /)"]
 	fn format_operand(&mut self, instruction: &Instruction, operand: u32) -> PyResult<&str> {
 		self.fmt_output.clear();
 		self.formatter.format_operand(&instruction.instr, &mut self.fmt_output, operand).map_err(to_value_error)?;
@@ -220,7 +220,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, instruction)"]
+	#[text_signature = "($self, instruction, /)"]
 	fn format_operand_separator(&mut self, instruction: &Instruction) -> &str {
 		self.fmt_output.clear();
 		self.formatter.format_operand_separator(&instruction.instr, &mut self.fmt_output);
@@ -234,7 +234,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, instruction)"]
+	#[text_signature = "($self, instruction, /)"]
 	fn format_all_operands(&mut self, instruction: &Instruction) -> &str {
 		self.fmt_output.clear();
 		self.formatter.format_all_operands(&instruction.instr, &mut self.fmt_output);
@@ -248,7 +248,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, register)"]
+	#[text_signature = "($self, register, /)"]
 	fn format_register(&mut self, register: u32) -> PyResult<&str> {
 		Ok(self.formatter.format_register(to_register(register)?))
 	}
@@ -260,7 +260,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_i8(&mut self, value: i8) -> &str {
 		self.formatter.format_i8(value)
 	}
@@ -272,7 +272,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_i16(&mut self, value: i16) -> &str {
 		self.formatter.format_i16(value)
 	}
@@ -284,7 +284,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_i32(&mut self, value: i32) -> &str {
 		self.formatter.format_i32(value)
 	}
@@ -296,7 +296,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_i64(&mut self, value: i64) -> &str {
 		self.formatter.format_i64(value)
 	}
@@ -308,7 +308,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_u8(&mut self, value: u8) -> &str {
 		self.formatter.format_u8(value)
 	}
@@ -320,7 +320,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_u16(&mut self, value: u16) -> &str {
 		self.formatter.format_u16(value)
 	}
@@ -332,7 +332,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_u32(&mut self, value: u32) -> &str {
 		self.formatter.format_u32(value)
 	}
@@ -344,7 +344,7 @@ impl Formatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, value)"]
+	#[text_signature = "($self, value, /)"]
 	fn format_u64(&mut self, value: u64) -> &str {
 		self.formatter.format_u64(value)
 	}

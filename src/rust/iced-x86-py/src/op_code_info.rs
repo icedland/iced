@@ -48,14 +48,14 @@ use std::collections::hash_map::DefaultHasher;
 ///     assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(code, /)"]
-pub struct OpCodeInfo {
+pub(crate) struct OpCodeInfo {
 	info: &'static iced_x86::OpCodeInfo,
 }
 
 #[pymethods]
 impl OpCodeInfo {
 	#[new]
-	pub fn new(code: u32) -> PyResult<Self> {
+	pub(crate) fn new(code: u32) -> PyResult<Self> {
 		Ok(Self { info: to_code(code)?.op_code() })
 	}
 
@@ -784,6 +784,9 @@ impl OpCodeInfo {
 	}
 
 	/// Gets all operand kinds (a list of :class:`OpCodeOperandKind` enum values)
+	///
+	/// Returns:
+	///     List[OpCodeOperandKind]: All operand kinds
 	#[text_signature = "($self, /)"]
 	fn op_kinds(&self) -> Vec<u32> {
 		self.info.op_kinds().iter().map(|x| *x as u32).collect()
@@ -807,10 +810,7 @@ impl OpCodeInfo {
 		}
 	}
 
-	/// Gets the opcode string, eg. ``VEX.128.66.0F38.W0 78 /r``, see also :class:`OpCodeInfo.instruction_string`
-	///
-	/// Returns:
-	///     str: Opcode string
+	/// str: Gets the opcode string, eg. ``VEX.128.66.0F38.W0 78 /r``, see also :class:`OpCodeInfo.instruction_string`
 	///
 	/// Examples:
 	///
@@ -825,10 +825,7 @@ impl OpCodeInfo {
 		self.info.op_code_string()
 	}
 
-	/// Gets the instruction string, eg. ``VPBROADCASTB xmm1, xmm2/m8``, see also :class:`OpCodeInfo.op_code_string`
-	///
-	/// Returns:
-	///     str: Instruction string
+	/// str: Gets the instruction string, eg. ``VPBROADCASTB xmm1, xmm2/m8``, see also :class:`OpCodeInfo.op_code_string`
 	///
 	/// Examples:
 	///

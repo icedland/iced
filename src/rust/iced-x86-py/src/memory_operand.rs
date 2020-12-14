@@ -32,7 +32,7 @@ use std::collections::hash_map::DefaultHasher;
 ///
 /// Args:
 ///     `base` (:class:`Register`): (default = :class:`Register.NONE`) Base register or :class:`Register.NONE`
-///     `index` (:class:`Register`) : (default = :class:`Register.NONE`) Index register or :class:`Register.NONE`
+///     `index` (:class:`Register`): (default = :class:`Register.NONE`) Index register or :class:`Register.NONE`
 ///     `scale` (int): (default = ``1``) Index register scale (1, 2, 4, or 8)
 ///     `displ` (int): (``i32``) (default = ``0``) Memory displacement
 ///     `displ_size` (int): (default = ``0``) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
@@ -41,7 +41,7 @@ use std::collections::hash_map::DefaultHasher;
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(base, index, scale, displ, displ_size, is_broadcast, seg, /)"]
 #[derive(Copy, Clone)]
-pub struct MemoryOperand {
+pub(crate) struct MemoryOperand {
 	pub(crate) mem: iced_x86::MemoryOperand,
 }
 
@@ -49,7 +49,7 @@ pub struct MemoryOperand {
 impl MemoryOperand {
 	#[new]
 	#[args(base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0)]
-	pub fn new(base: u32, index: u32, scale: u32, displ: i32, mut displ_size: u32, is_broadcast: bool, seg: u32) -> PyResult<Self> {
+	fn new(base: u32, index: u32, scale: u32, displ: i32, mut displ_size: u32, is_broadcast: bool, seg: u32) -> PyResult<Self> {
 		// #[args] line assumption
 		const_assert_eq!(0, iced_x86::Register::None as u32);
 
@@ -74,6 +74,9 @@ impl MemoryOperand {
 	}
 
 	/// Returns a copy of this instance.
+	///
+	/// Args:
+	///     memo (Any): memo dict
 	///
 	/// Returns:
 	///     MemoryOperand: A copy of this instance

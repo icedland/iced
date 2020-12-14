@@ -27,7 +27,7 @@ use pyo3::prelude::*;
 /// :class:`Register` enum info, see also :class:`RegisterExt`
 ///
 /// Args:
-///     `register_size` (:class:`Register`): Enum value
+///     `register` (:class:`Register`): Enum value
 ///
 /// Examples:
 ///
@@ -38,7 +38,7 @@ use pyo3::prelude::*;
 ///     info = RegisterInfo(Register.GS)
 ///     assert info.number == 5
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(register_size, /)"]
+#[text_signature = "(register, /)"]
 pub(crate) struct RegisterInfo {
 	pub(crate) info: &'static iced_x86::RegisterInfo,
 }

@@ -33,6 +33,7 @@ use pyo3::types::PyBytes;
 ///
 /// Args:
 ///     bitness (int): 16, 32 or 64
+///     capacity (int): (default = 0) Initial capacity of the byte buffer
 ///
 /// Raises:
 ///     ValueError: If `bitness` is invalid
@@ -62,7 +63,7 @@ use pyo3::types::PyBytes;
 ///     assert buffer == b"\x86\x64\x32\x16"
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(bitness, capacity, /)"]
-pub struct Encoder {
+pub(crate) struct Encoder {
 	encoder: iced_x86::Encoder,
 }
 
@@ -79,7 +80,7 @@ impl Encoder {
 	///
 	/// Args:
 	///     `instruction` (Instruction): Instruction to encode
-	///     `rip`(int): (``u64``) ``RIP`` of the encoded instruction
+	///     `rip` (int): (``u64``) ``RIP`` of the encoded instruction
 	///
 	/// Returns:
 	///     int: Size of the encoded instruction
@@ -234,7 +235,7 @@ impl Encoder {
 		self.encoder.set_evex_lig(new_value)
 	}
 
-	/// Gets the bitness (16, 32 or 64)
+	/// int: Gets the bitness (16, 32 or 64)
 	#[getter]
 	fn bitness(&self) -> u32 {
 		self.encoder.bitness()

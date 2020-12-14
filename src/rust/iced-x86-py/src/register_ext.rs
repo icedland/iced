@@ -25,11 +25,11 @@ use crate::enum_utils::to_register;
 use crate::register_info::RegisterInfo;
 use pyo3::prelude::*;
 
+/// :class:`Register` enum extension methods, see also :class:`RegisterInfo`
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(/)"]
 pub(crate) struct RegisterExt {}
 
-/// :class:`Register` enum extension methods, see also :class:`RegisterInfo`
 #[pymethods]
 impl RegisterExt {
 	/// Gets register info

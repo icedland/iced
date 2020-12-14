@@ -119,7 +119,7 @@ enum DecoderDataRef {
 ///     assert instr.has_lock_prefix
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(bitness, data, options, /)"]
-pub struct Decoder {
+pub(crate) struct Decoder {
 	// * If the decoder ctor was called with a `bytes` object, data_ref is PyObj(`bytes` object)
 	//   and the decoder holds a ref to its data.
 	// * If the decoder ctor was called with a `bytearray` object, data_ref is Vec(copy of `bytearray` data)

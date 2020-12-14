@@ -37,7 +37,7 @@ use pyo3::types::PyBytes;
 ///
 /// Args:
 ///     bitness (int): 16, 32 or 64
-///     fix_branches (bool): (default = `True`) Fix branches (eg. convert short to near branches if the target is too far away)
+///     fix_branches (bool): (default = ``True``) Fix branches (eg. convert short to near branches if the target is too far away)
 ///
 /// Raises:
 ///     ValueError: If `bitness` is invalid
@@ -71,7 +71,7 @@ use pyo3::types::PyBytes;
 ///     assert data == raw_data
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(bitness, fix_branches, /)"]
-pub struct BlockEncoder {
+pub(crate) struct BlockEncoder {
 	instructions: Vec<iced_x86::Instruction>,
 	bitness: u32,
 	options: u32,

@@ -177,7 +177,7 @@ use std::collections::hash_map::DefaultHasher;
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(/)"]
 #[derive(Copy, Clone)]
-pub struct Instruction {
+pub(crate) struct Instruction {
 	pub(crate) instr: iced_x86::Instruction,
 }
 
@@ -201,6 +201,9 @@ impl Instruction {
 
 	/// Returns a copy of this instance.
 	///
+	/// Args:
+	///     memo (Any): memo dict
+	///
 	/// Returns:
 	///     Instruction: A copy of this instance
 	///
@@ -221,8 +224,11 @@ impl Instruction {
 
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. ``==`` ignores some fields.
 	///
+	/// Args:
+	///     other (:class:`Instruction`): Other instruction
+	///
 	/// Returns:
-	///     bool: `True` if `other` is exactly identical to this instance
+	///     bool: ``True`` if `other` is exactly identical to this instance
 	#[text_signature = "($self, other, /)"]
 	fn eq_all_bits(&self, other: &Self) -> bool {
 		self.instr.eq_all_bits(&other.instr)
@@ -1471,14 +1477,11 @@ impl Instruction {
 		self.instr.is_vsib64()
 	}
 
-	/// Checks if it's a vsib instruction.
+	/// bool, None: Checks if it's a vsib instruction.
 	///
 	/// - Returns ``True`` if it's a VSIB instruction with 64-bit indexes
 	/// - Returns ``False`` if it's a VSIB instruction with 32-bit indexes
 	/// - Returns `None` if it's not a VSIB instruction.
-	///
-	/// Returns:
-	///     bool, None: See above
 	#[getter]
 	fn vsib(&self) -> Option<bool> {
 		self.instr.vsib()
@@ -1518,7 +1521,7 @@ impl Instruction {
 ///     `writes_top` (bool): ``True`` if ``TOP`` is written (it's a conditional/unconditional push/pop, ``FNSAVE``, ``FLDENV``, etc)
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(increment, conditional, writes_top, /)"]
-pub struct FpuStackIncrementInfo {
+pub(crate) struct FpuStackIncrementInfo {
 	info: iced_x86::FpuStackIncrementInfo,
 }
 
@@ -1622,6 +1625,9 @@ impl Instruction {
 	}
 
 	/// Gets the CPU or CPUID feature flags (a list of :class:`CpuidFeature` enum values)
+	///
+	/// Returns:
+	///     List[CpuidFeature]: CPU or CPUID feature flags
 	///
 	/// Examples:
 	///
@@ -2134,7 +2140,7 @@ impl Instruction {
 	///
 	/// Returns:
 	///     :class:`OpCodeInfo`: Op code info
-	#[text_signature = "(/)"]
+	#[text_signature = "($self, /)"]
 	fn op_code(&self) -> PyResult<OpCodeInfo> {
 		OpCodeInfo::new(self.instr.code() as u32)
 	}
