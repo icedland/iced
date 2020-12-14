@@ -165,7 +165,21 @@ impl Encoder {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn new(bitness: u32) -> Self {
-		Self::try_with_capacity(bitness, 0).unwrap()
+		Self::try_new(bitness).unwrap()
+	}
+
+	/// Creates an encoder
+	///
+	/// # Errors
+	///
+	/// Fails if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32 or 64
+	#[inline]
+	pub fn try_new(bitness: u32) -> Result<Self, IcedError> {
+		Self::try_with_capacity(bitness, 0)
 	}
 
 	/// Creates an encoder with an initial buffer capacity

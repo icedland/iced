@@ -113,10 +113,7 @@ impl Encoder {
 	///     assert buffer == b"\x75\xF2"
 	#[text_signature = "($self, instruction, rip, /)"]
 	fn encode(&mut self, instruction: &Instruction, rip: u64) -> PyResult<usize> {
-		match self.encoder.encode(&instruction.instr, rip) {
-			Ok(len) => Ok(len),
-			Err(err) => Err(to_value_error(err)),
-		}
+		self.encoder.encode(&instruction.instr, rip).map_err(to_value_error)
 	}
 
 	/// Writes a byte to the output buffer

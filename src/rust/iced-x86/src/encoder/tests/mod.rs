@@ -267,6 +267,16 @@ fn new_panics_if_bitness_128() {
 }
 
 #[test]
+fn try_new_fails_if_bitness_0() {
+	assert!(Encoder::try_new(0).is_err());
+}
+
+#[test]
+fn try_new_fails_if_bitness_128() {
+	assert!(Encoder::try_new(128).is_err());
+}
+
+#[test]
 #[should_panic]
 #[allow(deprecated)]
 fn with_capacity_panics_if_bitness_0() {
