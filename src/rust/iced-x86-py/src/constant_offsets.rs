@@ -39,43 +39,43 @@ pub struct ConstantOffsets {
 
 #[pymethods]
 impl ConstantOffsets {
-	/// int: (``usize``) The offset of the displacement, if any
+	/// int: (``u32``) The offset of the displacement, if any
 	#[getter]
-	fn displacement_offset(&self) -> usize {
-		self.offsets.displacement_offset()
+	fn displacement_offset(&self) -> u32 {
+		self.offsets.displacement_offset() as u32
 	}
 
-	/// int: (``usize``) Size in bytes of the displacement, or 0 if there's no displacement
+	/// int: (``u32``) Size in bytes of the displacement, or 0 if there's no displacement
 	#[getter]
-	fn displacement_size(&self) -> usize {
-		self.offsets.displacement_size()
+	fn displacement_size(&self) -> u32 {
+		self.offsets.displacement_size() as u32
 	}
 
-	/// int: (``usize``) The offset of the first immediate, if any.
+	/// int: (``u32``) The offset of the first immediate, if any.
 	///
 	/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
 	/// of the instruction stream, eg. ``SHL AL,1``.
 	#[getter]
-	fn immediate_offset(&self) -> usize {
-		self.offsets.immediate_offset()
+	fn immediate_offset(&self) -> u32 {
+		self.offsets.immediate_offset() as u32
 	}
 
-	/// int: (``usize``) Size in bytes of the first immediate, or 0 if there's no immediate
+	/// int: (``u32``) Size in bytes of the first immediate, or 0 if there's no immediate
 	#[getter]
-	fn immediate_size(&self) -> usize {
-		self.offsets.immediate_size()
+	fn immediate_size(&self) -> u32 {
+		self.offsets.immediate_size() as u32
 	}
 
-	/// int: (``usize``) The offset of the second immediate, if any.
+	/// int: (``u32``) The offset of the second immediate, if any.
 	#[getter]
-	fn immediate_offset2(&self) -> usize {
-		self.offsets.immediate_offset2()
+	fn immediate_offset2(&self) -> u32 {
+		self.offsets.immediate_offset2() as u32
 	}
 
-	/// int: (``usize``) Size in bytes of the second immediate, or 0 if there's no second immediate
+	/// int: (``u32``) Size in bytes of the second immediate, or 0 if there's no second immediate
 	#[getter]
-	fn immediate_size2(&self) -> usize {
-		self.offsets.immediate_size2()
+	fn immediate_size2(&self) -> u32 {
+		self.offsets.immediate_size2() as u32
 	}
 
 	/// bool: ``True`` if :class:`ConstantOffsets.displacement_offset` and :class:`ConstantOffsets.displacement_size` are valid
