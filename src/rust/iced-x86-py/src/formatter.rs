@@ -363,8 +363,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_uppercase_prefixes(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_prefixes(value);
+	fn set_uppercase_prefixes(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_prefixes(new_value);
 	}
 
 	/// bool: Mnemonics are upper cased
@@ -381,8 +381,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_uppercase_mnemonics(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_mnemonics(value);
+	fn set_uppercase_mnemonics(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_mnemonics(new_value);
 	}
 
 	/// bool: Registers are upper cased
@@ -399,8 +399,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_uppercase_registers(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_registers(value);
+	fn set_uppercase_registers(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_registers(new_value);
 	}
 
 	/// bool: Keywords are upper cased (eg. ``BYTE PTR``, ``SHORT``)
@@ -417,8 +417,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_uppercase_keywords(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_keywords(value);
+	fn set_uppercase_keywords(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_keywords(new_value);
 	}
 
 	/// bool: Upper case decorators, eg. ``{z}``, ``{sae}``, ``{rd-sae}`` (but not op mask registers: ``{k1}``)
@@ -435,8 +435,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_uppercase_decorators(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_decorators(value);
+	fn set_uppercase_decorators(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_decorators(new_value);
 	}
 
 	/// bool: Everything is upper cased, except numbers and their prefixes/suffixes
@@ -453,8 +453,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_uppercase_all(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_all(value);
+	fn set_uppercase_all(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_all(new_value);
 	}
 
 	/// int: (``u32``) Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
@@ -472,8 +472,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_first_operand_char_index(&mut self, value: u32) {
-		self.formatter.options_mut().set_first_operand_char_index(value);
+	fn set_first_operand_char_index(&mut self, new_value: u32) {
+		self.formatter.options_mut().set_first_operand_char_index(new_value);
 	}
 
 	/// int: (``u32``) Size of a tab character or 0 to use spaces
@@ -485,8 +485,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_tab_size(&mut self, value: u32) {
-		self.formatter.options_mut().set_tab_size(value);
+	fn set_tab_size(&mut self, new_value: u32) {
+		self.formatter.options_mut().set_tab_size(new_value);
 	}
 
 	/// bool: Add a space after the operand separator
@@ -503,8 +503,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_space_after_operand_separator(&mut self, value: bool) {
-		self.formatter.options_mut().set_space_after_operand_separator(value);
+	fn set_space_after_operand_separator(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_space_after_operand_separator(new_value);
 	}
 
 	/// bool: Add a space between the memory expression and the brackets
@@ -521,8 +521,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_space_after_memory_bracket(&mut self, value: bool) {
-		self.formatter.options_mut().set_space_after_memory_bracket(value);
+	fn set_space_after_memory_bracket(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_space_after_memory_bracket(new_value);
 	}
 
 	/// bool: Add spaces between memory operand ``+`` and ``-`` operators
@@ -539,8 +539,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_space_between_memory_add_operators(&mut self, value: bool) {
-		self.formatter.options_mut().set_space_between_memory_add_operators(value);
+	fn set_space_between_memory_add_operators(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_space_between_memory_add_operators(new_value);
 	}
 
 	/// bool: Add spaces between memory operand ``*`` operator
@@ -557,8 +557,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_space_between_memory_mul_operators(&mut self, value: bool) {
-		self.formatter.options_mut().set_space_between_memory_mul_operators(value);
+	fn set_space_between_memory_mul_operators(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_space_between_memory_mul_operators(new_value);
 	}
 
 	/// bool: Show memory operand scale value before the index register
@@ -575,8 +575,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_scale_before_index(&mut self, value: bool) {
-		self.formatter.options_mut().set_scale_before_index(value);
+	fn set_scale_before_index(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_scale_before_index(new_value);
 	}
 
 	/// bool: Always show the scale value even if it's ``*1``
@@ -593,8 +593,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_always_show_scale(&mut self, value: bool) {
-		self.formatter.options_mut().set_always_show_scale(value);
+	fn set_always_show_scale(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_always_show_scale(new_value);
 	}
 
 	/// bool: Always show the effective segment register.
@@ -613,8 +613,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_always_show_segment_register(&mut self, value: bool) {
-		self.formatter.options_mut().set_always_show_segment_register(value);
+	fn set_always_show_segment_register(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_always_show_segment_register(new_value);
 	}
 
 	/// bool: Show zero displacements
@@ -631,8 +631,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_show_zero_displacements(&mut self, value: bool) {
-		self.formatter.options_mut().set_show_zero_displacements(value);
+	fn set_show_zero_displacements(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_show_zero_displacements(new_value);
 	}
 
 	/// str: Hex number prefix or an empty string, eg. ``"0x"``
@@ -644,8 +644,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_hex_prefix(&mut self, value: String) {
-		self.formatter.options_mut().set_hex_prefix_string(value);
+	fn set_hex_prefix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_hex_prefix_string(new_value);
 	}
 
 	/// str: Hex number suffix or an empty string, eg. ``"h"``
@@ -657,8 +657,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_hex_suffix(&mut self, value: String) {
-		self.formatter.options_mut().set_hex_suffix_string(value);
+	fn set_hex_suffix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_hex_suffix_string(new_value);
 	}
 
 	/// int: (``u8``) Size of a digit group, see also :class:`Formatter.digit_separator`
@@ -675,8 +675,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_hex_digit_group_size(&mut self, value: u32) {
-		self.formatter.options_mut().set_hex_digit_group_size(value);
+	fn set_hex_digit_group_size(&mut self, new_value: u32) {
+		self.formatter.options_mut().set_hex_digit_group_size(new_value);
 	}
 
 	/// str: Decimal number prefix or an empty string
@@ -688,8 +688,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_decimal_prefix(&mut self, value: String) {
-		self.formatter.options_mut().set_decimal_prefix_string(value);
+	fn set_decimal_prefix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_decimal_prefix_string(new_value);
 	}
 
 	/// str: Decimal number suffix or an empty string
@@ -701,8 +701,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_decimal_suffix(&mut self, value: String) {
-		self.formatter.options_mut().set_decimal_suffix_string(value);
+	fn set_decimal_suffix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_decimal_suffix_string(new_value);
 	}
 
 	/// int: (``u8``) Size of a digit group, see also :class:`Formatter.digit_separator`
@@ -719,8 +719,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_decimal_digit_group_size(&mut self, value: u32) {
-		self.formatter.options_mut().set_decimal_digit_group_size(value);
+	fn set_decimal_digit_group_size(&mut self, new_value: u32) {
+		self.formatter.options_mut().set_decimal_digit_group_size(new_value);
 	}
 
 	/// str: Octal number prefix or an empty string
@@ -732,8 +732,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_octal_prefix(&mut self, value: String) {
-		self.formatter.options_mut().set_octal_prefix_string(value);
+	fn set_octal_prefix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_octal_prefix_string(new_value);
 	}
 
 	/// str: Octal number suffix or an empty string
@@ -745,8 +745,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_octal_suffix(&mut self, value: String) {
-		self.formatter.options_mut().set_octal_suffix_string(value);
+	fn set_octal_suffix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_octal_suffix_string(new_value);
 	}
 
 	/// int: (``u8``) Size of a digit group, see also :class:`Formatter.digit_separator`
@@ -763,8 +763,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_octal_digit_group_size(&mut self, value: u32) {
-		self.formatter.options_mut().set_octal_digit_group_size(value);
+	fn set_octal_digit_group_size(&mut self, new_value: u32) {
+		self.formatter.options_mut().set_octal_digit_group_size(new_value);
 	}
 
 	/// str: Binary number prefix or an empty string
@@ -776,8 +776,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_binary_prefix(&mut self, value: String) {
-		self.formatter.options_mut().set_binary_prefix_string(value);
+	fn set_binary_prefix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_binary_prefix_string(new_value);
 	}
 
 	/// str: Binary number suffix or an empty string
@@ -789,8 +789,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_binary_suffix(&mut self, value: String) {
-		self.formatter.options_mut().set_binary_suffix_string(value);
+	fn set_binary_suffix(&mut self, new_value: String) {
+		self.formatter.options_mut().set_binary_suffix_string(new_value);
 	}
 
 	/// int: (``u8``) Size of a digit group, see also :class:`Formatter.digit_separator`
@@ -807,8 +807,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_binary_digit_group_size(&mut self, value: u32) {
-		self.formatter.options_mut().set_binary_digit_group_size(value);
+	fn set_binary_digit_group_size(&mut self, new_value: u32) {
+		self.formatter.options_mut().set_binary_digit_group_size(new_value);
 	}
 
 	/// str: Digit separator or an empty string. See also eg. :class:`Formatter.hex_digit_group_size`
@@ -825,8 +825,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_digit_separator(&mut self, value: String) {
-		self.formatter.options_mut().set_digit_separator_string(value);
+	fn set_digit_separator(&mut self, new_value: String) {
+		self.formatter.options_mut().set_digit_separator_string(new_value);
 	}
 
 	/// bool: Add leading zeroes to hexadecimal/octal/binary numbers.
@@ -846,8 +846,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_leading_zeroes(&mut self, value: bool) {
-		self.formatter.options_mut().set_leading_zeroes(value);
+	fn set_leading_zeroes(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_leading_zeroes(new_value);
 	}
 
 	/// bool: Use upper case hex digits
@@ -864,8 +864,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_uppercase_hex(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_hex(value);
+	fn set_uppercase_hex(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_hex(new_value);
 	}
 
 	/// bool: Small hex numbers (-9 .. 9) are shown in decimal
@@ -882,8 +882,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_small_hex_numbers_in_decimal(&mut self, value: bool) {
-		self.formatter.options_mut().set_small_hex_numbers_in_decimal(value);
+	fn set_small_hex_numbers_in_decimal(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_small_hex_numbers_in_decimal(new_value);
 	}
 
 	/// bool: Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits ``A-F``
@@ -900,8 +900,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_add_leading_zero_to_hex_numbers(&mut self, value: bool) {
-		self.formatter.options_mut().set_add_leading_zero_to_hex_numbers(value);
+	fn set_add_leading_zero_to_hex_numbers(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_add_leading_zero_to_hex_numbers(new_value);
 	}
 
 	/// int: Number base (``2``, ``8``, ``10``, ``16``)
@@ -921,8 +921,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_number_base(&mut self, value: u32) -> PyResult<()> {
-		let base = match value {
+	fn set_number_base(&mut self, new_value: u32) -> PyResult<()> {
+		let base = match new_value {
 			2 => iced_x86::NumberBase::Binary,
 			8 => iced_x86::NumberBase::Octal,
 			10 => iced_x86::NumberBase::Decimal,
@@ -947,8 +947,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_branch_leading_zeroes(&mut self, value: bool) {
-		self.formatter.options_mut().set_branch_leading_zeroes(value);
+	fn set_branch_leading_zeroes(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_branch_leading_zeroes(new_value);
 	}
 
 	/// bool: Show immediate operands as signed numbers
@@ -965,8 +965,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_signed_immediate_operands(&mut self, value: bool) {
-		self.formatter.options_mut().set_signed_immediate_operands(value);
+	fn set_signed_immediate_operands(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_signed_immediate_operands(new_value);
 	}
 
 	/// bool: Displacements are signed numbers
@@ -983,8 +983,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_signed_memory_displacements(&mut self, value: bool) {
-		self.formatter.options_mut().set_signed_memory_displacements(value);
+	fn set_signed_memory_displacements(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_signed_memory_displacements(new_value);
 	}
 
 	/// bool: Add leading zeroes to displacements
@@ -1001,8 +1001,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_displacement_leading_zeroes(&mut self, value: bool) {
-		self.formatter.options_mut().set_displacement_leading_zeroes(value);
+	fn set_displacement_leading_zeroes(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_displacement_leading_zeroes(new_value);
 	}
 
 	/// :class:`MemorySizeOptions`: Options that control if the memory size (eg. ``DWORD PTR``) is shown or not.
@@ -1016,8 +1016,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_memory_size_options(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_memory_size_options(to_memory_size_options(value)?);
+	fn set_memory_size_options(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_memory_size_options(to_memory_size_options(new_value)?);
 		Ok(())
 	}
 
@@ -1035,8 +1035,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_rip_relative_addresses(&mut self, value: bool) {
-		self.formatter.options_mut().set_rip_relative_addresses(value);
+	fn set_rip_relative_addresses(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_rip_relative_addresses(new_value);
 	}
 
 	/// bool: Show ``NEAR``, ``SHORT``, etc if it's a branch instruction
@@ -1053,8 +1053,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_show_branch_size(&mut self, value: bool) {
-		self.formatter.options_mut().set_show_branch_size(value);
+	fn set_show_branch_size(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_show_branch_size(new_value);
 	}
 
 	/// bool: Use pseudo instructions
@@ -1071,8 +1071,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_use_pseudo_ops(&mut self, value: bool) {
-		self.formatter.options_mut().set_use_pseudo_ops(value);
+	fn set_use_pseudo_ops(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_use_pseudo_ops(new_value);
 	}
 
 	/// bool: Show the original value after the symbol name
@@ -1089,8 +1089,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_show_symbol_address(&mut self, value: bool) {
-		self.formatter.options_mut().set_show_symbol_address(value);
+	fn set_show_symbol_address(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_show_symbol_address(new_value);
 	}
 
 	/// bool: (gas only): If ``True``, the formatter doesn't add ``%`` to registers
@@ -1107,8 +1107,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_gas_naked_registers(&mut self, value: bool) {
-		self.formatter.options_mut().set_gas_naked_registers(value);
+	fn set_gas_naked_registers(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_gas_naked_registers(new_value);
 	}
 
 	/// bool: (gas only): Shows the mnemonic size suffix even when not needed
@@ -1125,8 +1125,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_gas_show_mnemonic_size_suffix(&mut self, value: bool) {
-		self.formatter.options_mut().set_gas_show_mnemonic_size_suffix(value);
+	fn set_gas_show_mnemonic_size_suffix(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_gas_show_mnemonic_size_suffix(new_value);
 	}
 
 	/// bool: (gas only): Add a space after the comma if it's a memory operand
@@ -1143,8 +1143,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_gas_space_after_memory_operand_comma(&mut self, value: bool) {
-		self.formatter.options_mut().set_gas_space_after_memory_operand_comma(value);
+	fn set_gas_space_after_memory_operand_comma(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_gas_space_after_memory_operand_comma(new_value);
 	}
 
 	/// bool: (masm only): Add a ``DS`` segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
@@ -1161,8 +1161,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_masm_add_ds_prefix32(&mut self, value: bool) {
-		self.formatter.options_mut().set_masm_add_ds_prefix32(value);
+	fn set_masm_add_ds_prefix32(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_masm_add_ds_prefix32(new_value);
 	}
 
 	/// bool: (masm only): Show symbols in brackets
@@ -1179,8 +1179,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_masm_symbol_displ_in_brackets(&mut self, value: bool) {
-		self.formatter.options_mut().set_masm_symbol_displ_in_brackets(value);
+	fn set_masm_symbol_displ_in_brackets(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_masm_symbol_displ_in_brackets(new_value);
 	}
 
 	/// bool: (masm only): Show displacements in brackets
@@ -1197,8 +1197,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_masm_displ_in_brackets(&mut self, value: bool) {
-		self.formatter.options_mut().set_masm_displ_in_brackets(value);
+	fn set_masm_displ_in_brackets(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_masm_displ_in_brackets(new_value);
 	}
 
 	/// bool: (nasm only): Shows ``BYTE``, ``WORD``, ``DWORD`` or ``QWORD`` if it's a sign extended immediate operand value
@@ -1215,8 +1215,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_nasm_show_sign_extended_immediate_size(&mut self, value: bool) {
-		self.formatter.options_mut().set_nasm_show_sign_extended_immediate_size(value);
+	fn set_nasm_show_sign_extended_immediate_size(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_nasm_show_sign_extended_immediate_size(new_value);
 	}
 
 	/// bool: Use ``st(0)`` instead of ``st`` if ``st`` can be used. Ignored by the nasm formatter.
@@ -1233,8 +1233,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_prefer_st0(&mut self, value: bool) {
-		self.formatter.options_mut().set_prefer_st0(value);
+	fn set_prefer_st0(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_prefer_st0(new_value);
 	}
 
 	/// bool: Show useless prefixes. If it has useless prefixes, it could be data and not code.
@@ -1251,8 +1251,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_show_useless_prefixes(&mut self, value: bool) {
-		self.formatter.options_mut().set_show_useless_prefixes(value)
+	fn set_show_useless_prefixes(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_show_useless_prefixes(new_value)
 	}
 
 	/// :class:`CC_b`: Mnemonic condition code selector (eg. ``JB`` / ``JC`` / ``JNAE``)
@@ -1264,8 +1264,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_b(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_b(to_cc_b(value)?);
+	fn set_cc_b(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_b(to_cc_b(new_value)?);
 		Ok(())
 	}
 
@@ -1278,8 +1278,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_ae(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_ae(to_cc_ae(value)?);
+	fn set_cc_ae(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_ae(to_cc_ae(new_value)?);
 		Ok(())
 	}
 
@@ -1292,8 +1292,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_e(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_e(to_cc_e(value)?);
+	fn set_cc_e(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_e(to_cc_e(new_value)?);
 		Ok(())
 	}
 
@@ -1306,8 +1306,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_ne(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_ne(to_cc_ne(value)?);
+	fn set_cc_ne(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_ne(to_cc_ne(new_value)?);
 		Ok(())
 	}
 
@@ -1320,8 +1320,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_be(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_be(to_cc_be(value)?);
+	fn set_cc_be(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_be(to_cc_be(new_value)?);
 		Ok(())
 	}
 
@@ -1334,8 +1334,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_a(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_a(to_cc_a(value)?);
+	fn set_cc_a(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_a(to_cc_a(new_value)?);
 		Ok(())
 	}
 
@@ -1348,8 +1348,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_p(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_p(to_cc_p(value)?);
+	fn set_cc_p(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_p(to_cc_p(new_value)?);
 		Ok(())
 	}
 
@@ -1362,8 +1362,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_np(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_np(to_cc_np(value)?);
+	fn set_cc_np(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_np(to_cc_np(new_value)?);
 		Ok(())
 	}
 
@@ -1376,8 +1376,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_l(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_l(to_cc_l(value)?);
+	fn set_cc_l(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_l(to_cc_l(new_value)?);
 		Ok(())
 	}
 
@@ -1390,8 +1390,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_ge(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_ge(to_cc_ge(value)?);
+	fn set_cc_ge(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_ge(to_cc_ge(new_value)?);
 		Ok(())
 	}
 
@@ -1404,8 +1404,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_le(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_le(to_cc_le(value)?);
+	fn set_cc_le(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_le(to_cc_le(new_value)?);
 		Ok(())
 	}
 
@@ -1418,8 +1418,8 @@ impl Formatter {
 	}
 
 	#[setter]
-	fn set_cc_g(&mut self, value: u32) -> PyResult<()> {
-		self.formatter.options_mut().set_cc_g(to_cc_g(value)?);
+	fn set_cc_g(&mut self, new_value: u32) -> PyResult<()> {
+		self.formatter.options_mut().set_cc_g(to_cc_g(new_value)?);
 		Ok(())
 	}
 }

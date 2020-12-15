@@ -28,15 +28,20 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Generator.Enums;
+using Generator.IO;
 
 namespace Generator.Misc.Python {
 	[Generator(TargetLanguage.Python, double.MaxValue)]
 	sealed class PyiGen {
 		const string selfArgName = "$self";
 		readonly GenTypes genTypes;
+		readonly ExportedPythonTypes exportedPythonTypes;
 
-		public PyiGen(GeneratorContext generatorContext) =>
+		public PyiGen(GeneratorContext generatorContext) {
 			genTypes = generatorContext.Types;
+			exportedPythonTypes = genTypes.GetObject<ExportedPythonTypes>(TypeIds.ExportedPythonTypes);
+		}
 
 		enum AttributeKind {
 			Ignored,
@@ -188,8 +193,7 @@ namespace Generator.Misc.Python {
 			public readonly string RustReturnType;
 			public bool HasReturnType =>
 				RustReturnType != string.Empty &&
-				RustReturnType != "PyResult<()>" &&
-				RustReturnType != "PyResult<Self>";
+				RustReturnType != "PyResult<()>";
 
 			public PyMethod(string name, DocComments docComments, RustAttributes attributes, List<PyMethodArg> arguments, string rustReturnType) {
 				Name = name;
@@ -221,6 +225,400 @@ namespace Generator.Misc.Python {
 				classes.AddRange(ParseFile(filename));
 			if (classes.Count == 0)
 				throw new InvalidOperationException();
+
+			WritePyi(classes);
+		}
+
+		static IEnumerable<(string name, string value)> GetArgsNameValues(string argsAttr) {
+			if (!TryGetArgsPayload(argsAttr, out var args))
+				throw new InvalidOperationException($"Invalid #[args] attr: {argsAttr}");
+			foreach (var part in args.Split(',', StringSplitOptions.RemoveEmptyEntries)) {
+				int index = part.IndexOf('=', StringComparison.Ordinal);
+				if (index < 0)
+					throw new InvalidOperationException();
+				var name = part[..index].Trim();
+				var value = part[(index + 1)..].Trim();
+				yield return (name, value);
+			}
+		}
+
+		static bool TryRemovePrefixSuffix(string s, string prefix, string suffix, [NotNullWhen(true)] out string? extracted) {
+			extracted = null;
+
+			if (!s.StartsWith(prefix, StringComparison.Ordinal))
+				return false;
+			if (!s.EndsWith(suffix, StringComparison.Ordinal))
+				return false;
+
+			extracted = s[prefix.Length..^suffix.Length];
+			return true;
+		}
+
+		static string[] SplitSphinxTypes(string sphinxType) =>
+			sphinxType.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()).ToArray();
+
+		static bool TryGetSphinxTypeToTypeName(string sphinxType, [NotNullWhen(true)] out string? typeName) =>
+			TryRemovePrefixSuffix(sphinxType, ":class:`", "`", out typeName);
+
+		static bool TryGetArgsPayload(string argsAttr, [NotNullWhen(true)] out string? args) =>
+			TryRemovePrefixSuffix(argsAttr, "#[args(", ")]", out args);
+
+		// Gets all required enum fields that must be part of the pyi file because they're
+		// default values in some methods.
+		Dictionary<EnumType, HashSet<EnumValue>> GetRequiredEnumFields(List<PyClass> classes) {
+			var reqEnumFields = new Dictionary<EnumType, HashSet<EnumValue>>();
+			var argToEnumType = new Dictionary<string, EnumType>(StringComparer.Ordinal);
+			foreach (var pyClass in classes) {
+				foreach (var method in pyClass.Methods) {
+					DocComments docComments;
+					if (method.Attributes.Any(AttributeKind.New))
+						docComments = pyClass.DocComments;
+					else
+						docComments = method.DocComments;
+					var docs = docComments.Sections.OfType<ArgsDocCommentSection>().FirstOrDefault();
+					if (docs is null)
+						continue;
+					int hasThis = method.Arguments.Count != 0 && method.Arguments[0].IsSelf ? 1 : 0;
+					if (docs.Args.Length != (method.Arguments.Count - hasThis))
+						throw new InvalidOperationException();
+					argToEnumType.Clear();
+					for (int i = 0; i < docs.Args.Length; i++) {
+						var docArg = docs.Args[i];
+						if (docArg.Name != method.Arguments[hasThis + i].Name)
+							throw new InvalidOperationException();
+						if (!TryGetSphinxTypeToTypeName(docArg.SphinxType, out var typeName))
+							continue;
+						if (!exportedPythonTypes.TryFindByName(typeName, out var enumType))
+							continue;
+						argToEnumType.Add(docArg.Name, enumType);
+					}
+
+					var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
+					if (argsAttr is null)
+						continue;
+					foreach (var (name, value) in GetArgsNameValues(argsAttr.Text)) {
+						if (!argToEnumType.TryGetValue(name, out var enumType))
+							continue;
+						if (!uint.TryParse(value, out var rawValue))
+							throw new InvalidOperationException($"Couldn't parse {value} as an integer");
+						var enumValue = enumType.Values.FirstOrDefault(a => a.Value == rawValue);
+						if (enumValue is null)
+							throw new InvalidOperationException($"Couldn't find an enum value in {enumType.RawName} with a value equal to {value}");
+						if (!reqEnumFields.TryGetValue(enumType, out var hash))
+							reqEnumFields.Add(enumType, hash = new HashSet<EnumValue>());
+						hash.Add(enumValue);
+					}
+				}
+			}
+			return reqEnumFields;
+		}
+
+		void WritePyi(List<PyClass> classes) {
+			var reqEnumFields = GetRequiredEnumFields(classes);
+			var classOrder = new[] {
+				"OpCodeInfo",
+				"ConstantOffsets",
+				"FpuStackIncrementInfo",
+				"MemoryOperand",
+				"Instruction",
+				"Decoder",
+				"Encoder",
+				"Formatter",
+				"FastFormatter",
+				"BlockEncoder",
+				"UsedRegister",
+				"UsedMemory",
+				"InstructionInfo",
+				"InstructionInfoFactory",
+				"MemorySizeInfo",
+				"MemorySizeExt",
+				"RegisterInfo",
+				"RegisterExt",
+			};
+			var toClass = classes.ToDictionary(a => a.Name, a => a);
+
+			foreach (var pyClass in classes) {
+				if (!classOrder.Contains(pyClass.Name))
+					throw new InvalidOperationException($"Missing {pyClass.Name} in {nameof(classOrder)}");
+			}
+			if (classOrder.Length != classes.Count)
+				throw new InvalidOperationException($"{nameof(classOrder)}.Length {classOrder.Length} != {nameof(classes)}.Count {classes.Count}");
+
+			var filename = genTypes.Dirs.GetPythonPyFilename("_iced_x86_py.pyi");
+			using (var writer = new FileWriter(TargetLanguage.Python, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine("from collections.abc import Iterator");
+				writer.WriteLine("from enum import IntEnum, IntFlag");
+				writer.WriteLine("from typing import Any, List, Optional, Union");
+				writer.WriteLine();
+
+				var idConverter = PythonIdentifierConverter.Create();
+				var allEnumTypes = exportedPythonTypes.IntEnums.Concat(exportedPythonTypes.IntFlags).Select(a => (enumType: a, pythonName: a.Name(idConverter)));
+				var toEnumType = allEnumTypes.ToDictionary(a => a.pythonName, a => a.enumType, StringComparer.Ordinal);
+				foreach (var (enumType, pythonName) in allEnumTypes.OrderBy(a => a.pythonName, StringComparer.Ordinal)) {
+					var baseClass = enumType.IsFlags ? "IntFlag" : "IntEnum";
+					if (reqEnumFields.TryGetValue(enumType, out var fields)) {
+						writer.WriteLine($"class {pythonName}({baseClass}):");
+						using (writer.Indent()) {
+							bool uppercaseRawName = PythonUtils.UppercaseEnum(enumType.TypeId.Id1);
+							foreach (var value in enumType.Values) {
+								if (fields.Contains(value)) {
+									fields.Remove(value);
+									var (valueName, numStr) = PythonUtils.GetEnumNameValue(idConverter, value, uppercaseRawName);
+									writer.WriteLine($"{valueName} = {numStr}");
+								}
+								if (fields.Count == 0)
+									break;
+							}
+							if (fields.Count != 0)
+								throw new InvalidOperationException();
+							writer.WriteLine("...");
+						}
+					}
+					else
+						writer.WriteLine($"class {pythonName}({baseClass}): ...");
+				}
+
+				foreach (var classStr in classOrder) {
+					var pyClass = toClass[classStr];
+					toClass.Remove(classStr);
+					writer.WriteLine();
+					writer.WriteLine($"class {idConverter.Type(pyClass.Name)}:");
+					using (writer.Indent()) {
+						int defCount = 0;
+						foreach (var member in GetMembers(pyClass)) {
+							switch (member) {
+							case PyMethod method:
+								var docComments = method.Attributes.Any(AttributeKind.New) == true ?
+									pyClass.DocComments : method.DocComments;
+								Write(writer, idConverter, pyClass, method, docComments, toEnumType);
+								defCount++;
+								break;
+							case PyProperty property:
+								Write(writer, idConverter, pyClass, property.Getter, property.Getter.DocComments, toEnumType);
+								defCount++;
+								if (property.Setter is not null) {
+									Write(writer, idConverter, pyClass, property.Setter, property.Getter.DocComments, toEnumType);
+									defCount++;
+								}
+								break;
+							default:
+								throw new InvalidOperationException();
+							}
+						}
+						if (defCount == 0)
+							throw new InvalidOperationException($"class {pyClass.Name}: No class members");
+					}
+				}
+				if (toClass.Count != 0)
+					throw new InvalidOperationException();
+			}
+		}
+
+		static void Write(FileWriter writer, IdentifierConverter idConverter, PyClass pyClass, PyMethod method, DocComments docComments, Dictionary<string, EnumType> toEnumType) {
+			if (method.Attributes.Any(AttributeKind.ClassMethod) == true)
+				writer.WriteLine("@classmethod");
+			if (method.Attributes.Any(AttributeKind.StaticMethod) == true)
+				writer.WriteLine("@staticmethod");
+			bool isGetter = method.Attributes.Any(AttributeKind.Getter) == true;
+			bool isSetter = method.Attributes.Any(AttributeKind.Setter) == true;
+			if (isGetter)
+				writer.WriteLine("@property");
+			if (isSetter)
+				writer.WriteLine($"@{method.Name}.setter");
+
+			string sphinxReturnType = string.Empty;
+			if (isGetter || isSetter) {
+				if (docComments.Sections.FirstOrDefault() is not TextDocCommentSection textDocs || textDocs.Lines.Length == 0)
+					throw new InvalidOperationException();
+				if (!TryParseTypeAndDocs(textDocs.Lines[0], out _, out var typeInfo))
+					throw new InvalidOperationException();
+				sphinxReturnType = typeInfo.SphinxType;
+			}
+			else {
+				var returns = docComments.Sections.OfType<ReturnsDocCommentSection>().FirstOrDefault();
+				if (returns is not null)
+					sphinxReturnType = returns.Returns.SphinxType;
+			}
+
+			bool isCtor = method.Attributes.Any(AttributeKind.New) == true;
+			writer.Write("def ");
+			writer.Write(isCtor ? "__init__" : method.Name);
+			writer.Write("(");
+			int argCount = 0;
+			if (isCtor) {
+				writer.Write("self");
+				argCount++;
+			}
+			var argsDocs = docComments.Sections.OfType<ArgsDocCommentSection>().FirstOrDefault();
+			int hasThis = method.Arguments.Count != 0 && method.Arguments[0].IsSelf ? 1 : 0;
+
+			Dictionary<string, string> toDefaultValue;
+			var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
+			if (argsAttr is null)
+				toDefaultValue = new Dictionary<string, string>(StringComparer.Ordinal);
+			else
+				toDefaultValue = GetArgsNameValues(argsAttr.Text).ToDictionary(a => a.name, a => a.value);
+
+			for (int i = 0; i < method.Arguments.Count; i++) {
+				if (argsDocs is not null && argsDocs.Args.Length != method.Arguments.Count - hasThis)
+					throw new InvalidOperationException();
+				var methodArg = method.Arguments[i];
+				if (argCount > 0)
+					writer.Write(", ");
+				argCount++;
+				if (methodArg.IsSelf)
+					writer.Write("self");
+				else
+					writer.Write(methodArg.Name);
+				if (!methodArg.IsSelf) {
+					string docsSphinxType;
+					if (argsDocs is not null) {
+						var docsArg = argsDocs.Args[i - hasThis];
+						if (docsArg.Name != methodArg.Name)
+							throw new InvalidOperationException();
+						docsSphinxType = docsArg.SphinxType;
+					}
+					else
+						docsSphinxType = string.Empty;
+					if (i == 1 && isSetter)
+						docsSphinxType = sphinxReturnType;
+
+					writer.Write(": ");
+					var type = GetType(pyClass, method.Name, methodArg.RustType, docsSphinxType);
+					writer.Write(type);
+
+					if (toDefaultValue.TryGetValue(methodArg.Name, out var defaultValueStr)) {
+						writer.Write(" = ");
+						if (!TryGetValueStr(idConverter, type, defaultValueStr, toEnumType, out var valueStr))
+							throw new InvalidOperationException($"method {pyClass.Name}.{method.Name}(): Couldn't convert default value `{defaultValueStr}` to a Python value");
+						writer.Write(valueStr);
+					}
+				}
+			}
+			writer.Write(") -> ");
+			if (method.HasReturnType && !isCtor)
+				writer.Write(GetType(pyClass, method.Name, method.RustReturnType, sphinxReturnType));
+			else
+				writer.Write("None");
+			writer.WriteLine(": ...");
+		}
+
+		static bool TryGetValueStr(IdentifierConverter idConverter, string typeStr, string defaultValueStr, Dictionary<string, EnumType> toEnumType, [NotNullWhen(true)] out string? valueStr) {
+			valueStr = null;
+			if (toEnumType.TryGetValue(typeStr, out var enumType)) {
+				if (!uint.TryParse(defaultValueStr, out var rawValue))
+					return false;
+				var enumValue = enumType.Values.FirstOrDefault(a => a.Value == rawValue);
+				if (enumValue is null)
+					return false;
+				valueStr = enumValue.DeclaringType.Name(idConverter) + "." + enumValue.Name(idConverter);
+				return true;
+			}
+
+			if (typeStr == "int") {
+				if (ulong.TryParse(defaultValueStr, out _) || long.TryParse(defaultValueStr, out _)) {
+					valueStr = defaultValueStr;
+					return true;
+				}
+			}
+
+			switch (defaultValueStr) {
+			case "true":
+				valueStr = "True";
+				return true;
+			case "false":
+				valueStr = "False";
+				return true;
+			}
+
+			valueStr = null;
+			return false;
+		}
+
+		static string GetType(PyClass pyClass, string methodName, string rustType, string sphinxType) {
+			var typeStr = GetTypeCore(pyClass, methodName, rustType, sphinxType);
+			if (methodName == "__iter__") {
+				string returnType = pyClass.Name switch {
+					"Decoder" => "Instruction",
+					_ => throw new InvalidOperationException($"Unexpected iterator class {pyClass.Name}"),
+				};
+				return $"Iterator[{returnType}]";
+			}
+			return typeStr;
+		}
+
+		static string GetTypeCore(PyClass pyClass, string methodName, string rustType, string sphinxType) {
+			if (sphinxType != string.Empty) {
+				var sphinxTypes = SplitSphinxTypes(sphinxType).ToList();
+				var convertedTypes = new List<string>();
+				foreach (var stype in sphinxTypes) {
+					if (!TryGetSphinxTypeToTypeName(stype, out var typeName))
+						typeName = stype;
+					convertedTypes.Add(typeName);
+				}
+				int index = convertedTypes.Count == 1 ? -1 : convertedTypes.IndexOf("None");
+				if (index >= 0)
+					convertedTypes.RemoveAt(index);
+				string typeStr;
+				if (convertedTypes.Count > 1)
+					typeStr = "Union[" + string.Join(", ", convertedTypes.ToArray()) + "]";
+				else
+					typeStr = convertedTypes[0];
+				if (index >= 0)
+					return "Optional[" + typeStr + "]";
+				return typeStr;
+			}
+
+			if (TryRemovePrefixSuffix(rustType, "PyResult<", ">", out var extractedType))
+				rustType = extractedType;
+			switch (rustType) {
+			case "i8" or "i16" or "i32" or "i64" or "isize" or
+				"u8" or "u16" or "u32" or "u64" or "usize":
+				return "int";
+			case "bool":
+				return "bool";
+			case "&str" or "String":
+				return "str";
+			case "PyRef<Self>" or "PyRefMut<Self>" or "Self":
+				return pyClass.Name;
+			case "&PyAny":
+				return "Any";
+			default:
+				if (TryRemovePrefixSuffix(rustType, "IterNextOutput<", ", ()>", out extractedType))
+					return extractedType;
+				break;
+			}
+
+			throw new InvalidOperationException($"Method {pyClass.Name}.{methodName}(): Couldn't convert Rust/sphinx type to Python type: Rust=`{rustType}`, sphinx=`{sphinxType}`");
+		}
+
+		sealed class PyProperty {
+			public readonly PyMethod Getter;
+			public readonly PyMethod? Setter;
+
+			public PyProperty(PyMethod getter, PyMethod? setter) {
+				Getter = getter;
+				Setter = setter;
+			}
+		}
+
+		IEnumerable<object> GetMembers(PyClass pyClass) {
+			var setters = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter) == true).ToDictionary(a => a.Name, a => a);
+			var ignored = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter) == true).ToHashSet();
+			foreach (var method in pyClass.Methods) {
+				if (ignored.Contains(method))
+					continue;
+				if (method.Attributes.Any(AttributeKind.Getter) == true) {
+					setters.TryGetValue(method.Name, out var setterMethod);
+					setters.Remove(method.Name);
+					yield return new PyProperty(method, setterMethod);
+				}
+				else
+					yield return method;
+			}
+			if (setters.Count != 0)
+				throw new InvalidOperationException($"{pyClass.Name}: Setter without a getter: {setters.First().Value.Name}");
 		}
 
 		enum LineKind {
@@ -240,6 +638,8 @@ namespace Generator.Misc.Python {
 			public int LineNo => index + 1;
 
 			public Lines(string[] lines) => this.lines = lines;
+
+			public string GetLine(int lineNo) => lines[lineNo - 1];
 
 			public void Skip() {
 				if (index < lines.Length)
@@ -456,7 +856,7 @@ namespace Generator.Misc.Python {
 
 		static bool IgnoreMethod(PyMethod method) =>
 			method.Name switch {
-				"__traverse__" or "__clear__" => true,
+				"__traverse__" or "__clear__" or "__next__" => true,
 				_ => false
 			};
 
@@ -586,13 +986,8 @@ namespace Generator.Misc.Python {
 			if (argsAttr is null)
 				return true;
 
-			const string prefix = "#[args(";
-			const string suffix = ")]";
-			if (!argsAttr.StartsWith(prefix, StringComparison.Ordinal))
+			if (!TryGetArgsPayload(argsAttr, out var s))
 				return false;
-			if (!argsAttr.EndsWith(suffix, StringComparison.Ordinal))
-				return false;
-			var s = argsAttr.Substring(prefix.Length, argsAttr.Length - suffix.Length - prefix.Length);
 			var attrArgs = s.Split(',');
 			if (attrArgs.Length > method.Arguments.Count)
 				return false;
@@ -673,15 +1068,15 @@ namespace Generator.Misc.Python {
 			if (!TryCreateDocComments(state.DocComments, out var docComments, out var error))
 				throw state.GetException(error);
 
-			var method = new PyMethod(name, docComments, attributes, args, rustReturnType);
-
-			bool isSetter = method.Attributes.Any(AttributeKind.Setter) == true;
-			bool isGetter = method.Attributes.Any(AttributeKind.Getter) == true;
+			bool isSetter = attributes.Any(AttributeKind.Setter) == true;
+			bool isGetter = attributes.Any(AttributeKind.Getter) == true;
 
 			if (isSetter && name.StartsWith("set_"))
 				name = name["set_".Length..];
 			if (isGetter && name.StartsWith("get_"))
 				throw state.GetException($"Getters shouldn't have a `get_` prefix: {name}");
+
+			var method = new PyMethod(name, docComments, attributes, args, rustReturnType);
 
 			var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
 			if (isSpecial || isGetter || isSetter) {
@@ -706,6 +1101,11 @@ namespace Generator.Misc.Python {
 			if (isSetter) {
 				if (method.DocComments.Sections.Count > 0)
 					throw state.GetException($"Setters should have no docs, only getters should have docs: {name}");
+				const string setterArgName = "new_value";
+				if (method.Arguments.Count != 2)
+					throw state.GetException($"Invalid number of setter arguments, expected 2 but found {method.Arguments.Count}");
+				if (method.Arguments[1].Name != setterArgName)
+					throw state.GetException($"Setter argument must be `{setterArgName}` not {method.Arguments[1].Name}");
 			}
 			else {
 				if (method.DocComments.Sections.OfType<ArgsDocCommentSection>().Count() > 1)
@@ -715,8 +1115,7 @@ namespace Generator.Misc.Python {
 				if (isGetter) {
 					if (method.DocComments.Sections.OfType<ReturnsDocCommentSection>().Any())
 						throw state.GetException("Setters should have no `Returns:` sections. The return type should be the first type on the first doc line, eg. `int: Some docs here`");
-					var sect = method.DocComments.Sections.FirstOrDefault() as TextDocCommentSection;
-					if (sect is null || sect.Lines.Length == 0)
+					if (method.DocComments.Sections.FirstOrDefault() is not TextDocCommentSection sect || sect.Lines.Length == 0)
 						throw state.GetException("Expected first doc comments section to be text");
 					if (!TryParseTypeAndDocs(sect.Lines[0], out _, out _))
 						throw state.GetException("First data on the first line must be the property type");
@@ -733,7 +1132,7 @@ namespace Generator.Misc.Python {
 							throw state.GetException("Expected exactly one `Returns:` section");
 					}
 					else {
-						if (method.DocComments.Sections.OfType<ReturnsDocCommentSection>().Count() != 0)
+						if (method.DocComments.Sections.OfType<ReturnsDocCommentSection>().Any())
 							throw state.GetException("Expected no `Returns:` sections");
 					}
 				}
@@ -744,19 +1143,53 @@ namespace Generator.Misc.Python {
 					throw state.GetException(error);
 			}
 
-			SkipBlock(state, fullLine);
+			var (startLine, endLine) = SkipBlock(state, fullLine);
 			state.ClearTempState();
 
 			if (method.Name == "__richcmp__") {
-				var newArgs = new PyMethodArg[] {
-					new PyMethodArg(selfArgName, "&self", isSelf: true),
-					new PyMethodArg("other", "&PyAny", isSelf: false),
-				};
-				yield return new PyMethod("__eq__", method.DocComments, method.Attributes, newArgs.ToList(), "bool");
-				yield return new PyMethod("__ne__", method.DocComments, method.Attributes, newArgs.ToList(), "bool");
+				var seenCompareOps = new HashSet<CompareOp>();
+				for (int lineNo = startLine; lineNo < endLine; lineNo++) {
+					line = state.Lines.GetLine(lineNo);
+					foreach (var compareOp in GetCompareOps(line)) {
+						if (!seenCompareOps.Add(compareOp))
+							throw state.GetException("Duplicate CompareOp found in the method");
+						var opName = compareOp switch {
+							CompareOp.Lt => "__lt__",
+							CompareOp.Le => "__le__",
+							CompareOp.Eq => "__eq__",
+							CompareOp.Ne => "__ne__",
+							CompareOp.Gt => "__ge__",
+							CompareOp.Ge => "__gt__",
+							_ => throw new InvalidOperationException(),
+						};
+						var newArgs = new List<PyMethodArg> {
+							new PyMethodArg(selfArgName, "&self", isSelf: true),
+							new PyMethodArg("other", "&PyAny", isSelf: false),
+						};
+						yield return new PyMethod(opName, method.DocComments, method.Attributes, newArgs, "bool");
+					}
+				}
 			}
 			else
 				yield return method;
+		}
+
+		enum CompareOp {
+			Lt,
+			Le,
+			Eq,
+			Ne,
+			Gt,
+			Ge,
+		}
+
+		static IEnumerable<CompareOp> GetCompareOps(string line) {
+			if (line.Contains("CompareOp::Lt", StringComparison.Ordinal)) yield return CompareOp.Lt;
+			if (line.Contains("CompareOp::Le", StringComparison.Ordinal)) yield return CompareOp.Le;
+			if (line.Contains("CompareOp::Eq", StringComparison.Ordinal)) yield return CompareOp.Eq;
+			if (line.Contains("CompareOp::Ne", StringComparison.Ordinal)) yield return CompareOp.Ne;
+			if (line.Contains("CompareOp::Gt", StringComparison.Ordinal)) yield return CompareOp.Gt;
+			if (line.Contains("CompareOp::Ge", StringComparison.Ordinal)) yield return CompareOp.Ge;
 		}
 
 		static void AddDocCommentLine(ParseState state, string line) {
@@ -830,15 +1263,16 @@ namespace Generator.Misc.Python {
 			return line.Substring(0, line.IndexOf(trimmed, StringComparison.Ordinal));
 		}
 
-		static void SkipBlock(ParseState state, string line) {
+		static (int startLine, int endLine) SkipBlock(ParseState state, string line) {
 			if (line.EndsWith(';') || line.EndsWith('}')) {
 				state.ClearTempState();
-				return;
+				return (0, 0);
 			}
 
 			var expectedIndent = GetIndent(line);
 			var expected = expectedIndent + "}";
 			bool seenOpeningBlock = line.EndsWith("{", StringComparison.Ordinal);
+			var startLine = state.Lines.LineNo;
 			while (true) {
 				var token = state.Lines.Next();
 				if (token.kind == LineKind.Eof)
@@ -864,6 +1298,7 @@ namespace Generator.Misc.Python {
 				}
 			}
 			state.ClearTempState();
+			return (startLine, state.Lines.LineNo - 1);
 		}
 
 		static DocCommentKind GetDocCommentKind(string line) =>

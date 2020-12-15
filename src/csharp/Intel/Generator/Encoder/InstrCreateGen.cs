@@ -93,7 +93,6 @@ namespace Generator.Encoder {
 		protected abstract void GenCreateDeclareData(FileWriter writer, CreateMethod method, DeclareDataKind kind);
 		protected abstract void GenCreateDeclareDataArray(FileWriter writer, CreateMethod method, DeclareDataKind kind, ArrayType arrayType);
 		protected abstract void GenCreateDeclareDataArrayLength(FileWriter writer, CreateMethod method, DeclareDataKind kind, ArrayType arrayType);
-		protected virtual void GenEnd() { }
 
 		protected readonly GenTypes genTypes;
 		protected readonly EnumType codeType;
@@ -123,7 +122,6 @@ namespace Generator.Encoder {
 				GenCreateStringInstructions(writer);
 				GenCreateDeclareXxx(writer);
 			});
-			GenEnd();
 		}
 
 		void GenerateCreateMethods(FileWriter writer) {

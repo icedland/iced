@@ -36,7 +36,6 @@ namespace Generator.Encoder.Python {
 		readonly IdentifierConverter rustIdConverter;
 		readonly PythonDocCommentWriter docWriter;
 		readonly Rust.GenCreateNameArgs genNames;
-		readonly List<GeneratedMethodInfo> generatedMethods;
 		readonly StringBuilder sb;
 
 		public PythonInstrCreateGen(GeneratorContext generatorContext)
@@ -54,7 +53,6 @@ namespace Generator.Encoder.Python {
 				Int64 = "_i64",
 				UInt64 = "_u64",
 			};
-			generatedMethods = new List<GeneratedMethodInfo>();
 			sb = new StringBuilder();
 		}
 
@@ -113,7 +111,6 @@ namespace Generator.Encoder.Python {
 				rustMethodName = "try_" + rustMethodName;
 			pythonMethodName ??= Rust.InstrCreateGenImpl.GetCreateName(sb, method, genNames);
 			var info = new GeneratedMethodInfo(method, canFail, rustMethodName, pythonMethodName, rustIdConverter, idConverter);
-			generatedMethods.Add(info);
 			var ctx = new GenerateMethodContext(writer, info);
 			genMethod(ctx);
 		}
@@ -247,6 +244,9 @@ namespace Generator.Encoder.Python {
 					docWriter.Write($"({typeInfo.descType}) ");
 				docWriter.WriteDocLine(ctx.Writer, arg.Doc, typeName);
 			}
+			docWriter.WriteLine(ctx.Writer, string.Empty);
+			docWriter.WriteLine(ctx.Writer, "Returns:");
+			docWriter.WriteLine(ctx.Writer, $"    :class:`{typeName}`: Created instruction");
 			if (getThrowsDocs is not null) {
 				docWriter.WriteLine(ctx.Writer, string.Empty);
 				docWriter.WriteLine(ctx.Writer, "Raises:");
@@ -483,44 +483,6 @@ namespace Generator.Encoder.Python {
 		}
 
 		protected override void GenCreateDeclareDataArrayLength(FileWriter writer, CreateMethod method, DeclareDataKind kind, ArrayType arrayType) {
-		}
-
-		protected override void GenEnd() {
-			var filename = generatorContext.Types.Dirs.GetPythonPyFilename("_iced_x86_py.pyi");
-			new FileUpdater(TargetLanguage.Python, "InstructionCreate", filename, "# ").Generate(writer => UpdatePyiFile(writer));
-		}
-
-		void UpdatePyiFile(FileWriter writer) {
-			foreach (var genMethod in generatedMethods) {
-				writer.WriteLine("@staticmethod");
-				sb.Clear();
-				sb.Append("def ");
-				sb.Append(genMethod.PythonMethodName);
-				sb.Append('(');
-				for (int i = 0; i < genMethod.ArgInfos.Length; i++) {
-					if (i > 0)
-						sb.Append(", ");
-					sb.Append(genMethod.ArgInfos[i].PythonName);
-					sb.Append(": ");
-					var arg = genMethod.Method.Args[i];
-					var argInfo = GetArgType(arg.Type);
-					sb.Append(argInfo.pythonType);
-					if (arg.DefaultValue is not null) {
-						sb.Append(" = ");
-						string defaultValue;
-						switch (arg.DefaultValue) {
-						case EnumValue enumValue:
-							defaultValue = enumValue.DeclaringType.Name(idConverter) + "." + enumValue.Name(idConverter);
-							break;
-						default:
-							throw new InvalidOperationException();
-						}
-						sb.Append(defaultValue);
-					}
-				}
-				sb.Append(") -> Instruction: ...");
-				writer.WriteLine(sb.ToString());
-			}
 		}
 	}
 }

@@ -2292,6 +2292,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `code` (:class:`Code`): Code value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, /)"]
@@ -2305,6 +2308,9 @@ impl Instruction {
 	/// Args:
 	///     `code` (:class:`Code`): Code value
 	///     `register` (:class:`Register`): op0: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register, /)"]
@@ -2319,6 +2325,9 @@ impl Instruction {
 	/// Args:
 	///     `code` (:class:`Code`): Code value
 	///     `immediate` (int): (``i32``) op0: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2336,6 +2345,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `immediate` (int): (``u32``) op0: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2351,6 +2363,9 @@ impl Instruction {
 	/// Args:
 	///     `code` (:class:`Code`): Code value
 	///     `memory` (:class:`MemoryOperand`): op0: Memory operand
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, memory, /)"]
@@ -2365,6 +2380,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `register1` (:class:`Register`): op0: Register
 	///     `register2` (:class:`Register`): op1: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register1, register2, /)"]
@@ -2381,6 +2399,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `register` (:class:`Register`): op0: Register
 	///     `immediate` (int): (``i32``) op1: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2400,6 +2421,9 @@ impl Instruction {
 	///     `register` (:class:`Register`): op0: Register
 	///     `immediate` (int): (``u32``) op1: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2417,6 +2441,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `register` (:class:`Register`): op0: Register
 	///     `immediate` (int): (``i64``) op1: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2436,6 +2463,9 @@ impl Instruction {
 	///     `register` (:class:`Register`): op0: Register
 	///     `immediate` (int): (``u64``) op1: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2453,6 +2483,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `register` (:class:`Register`): op0: Register
 	///     `memory` (:class:`MemoryOperand`): op1: Memory operand
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register, memory, /)"]
@@ -2468,6 +2501,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `immediate` (int): (``i32``) op0: Immediate value
 	///     `register` (:class:`Register`): op1: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2487,6 +2523,9 @@ impl Instruction {
 	///     `immediate` (int): (``u32``) op0: Immediate value
 	///     `register` (:class:`Register`): op1: Register
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2505,6 +2544,9 @@ impl Instruction {
 	///     `immediate1` (int): (``i32``) op0: Immediate value
 	///     `immediate2` (int): (``i32``) op1: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2522,6 +2564,9 @@ impl Instruction {
 	///     `immediate1` (int): (``u32``) op0: Immediate value
 	///     `immediate2` (int): (``u32``) op1: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2538,6 +2583,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `memory` (:class:`MemoryOperand`): op0: Memory operand
 	///     `register` (:class:`Register`): op1: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, memory, register, /)"]
@@ -2553,6 +2601,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `memory` (:class:`MemoryOperand`): op0: Memory operand
 	///     `immediate` (int): (``i32``) op1: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2571,6 +2622,9 @@ impl Instruction {
 	///     `memory` (:class:`MemoryOperand`): op0: Memory operand
 	///     `immediate` (int): (``u32``) op1: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2588,6 +2642,9 @@ impl Instruction {
 	///     `register1` (:class:`Register`): op0: Register
 	///     `register2` (:class:`Register`): op1: Register
 	///     `register3` (:class:`Register`): op2: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register1, register2, register3, /)"]
@@ -2606,6 +2663,9 @@ impl Instruction {
 	///     `register1` (:class:`Register`): op0: Register
 	///     `register2` (:class:`Register`): op1: Register
 	///     `immediate` (int): (``i32``) op2: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2627,6 +2687,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): op1: Register
 	///     `immediate` (int): (``u32``) op2: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2646,6 +2709,9 @@ impl Instruction {
 	///     `register1` (:class:`Register`): op0: Register
 	///     `register2` (:class:`Register`): op1: Register
 	///     `memory` (:class:`MemoryOperand`): op2: Memory operand
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register1, register2, memory, /)"]
@@ -2663,6 +2729,9 @@ impl Instruction {
 	///     `register` (:class:`Register`): op0: Register
 	///     `immediate1` (int): (``i32``) op1: Immediate value
 	///     `immediate2` (int): (``i32``) op2: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2683,6 +2752,9 @@ impl Instruction {
 	///     `immediate1` (int): (``u32``) op1: Immediate value
 	///     `immediate2` (int): (``u32``) op2: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2701,6 +2773,9 @@ impl Instruction {
 	///     `register1` (:class:`Register`): op0: Register
 	///     `memory` (:class:`MemoryOperand`): op1: Memory operand
 	///     `register2` (:class:`Register`): op2: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register1, memory, register2, /)"]
@@ -2718,6 +2793,9 @@ impl Instruction {
 	///     `register` (:class:`Register`): op0: Register
 	///     `memory` (:class:`MemoryOperand`): op1: Memory operand
 	///     `immediate` (int): (``i32``) op2: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2738,6 +2816,9 @@ impl Instruction {
 	///     `memory` (:class:`MemoryOperand`): op1: Memory operand
 	///     `immediate` (int): (``u32``) op2: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2756,6 +2837,9 @@ impl Instruction {
 	///     `memory` (:class:`MemoryOperand`): op0: Memory operand
 	///     `register1` (:class:`Register`): op1: Register
 	///     `register2` (:class:`Register`): op2: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, memory, register1, register2, /)"]
@@ -2773,6 +2857,9 @@ impl Instruction {
 	///     `memory` (:class:`MemoryOperand`): op0: Memory operand
 	///     `register` (:class:`Register`): op1: Register
 	///     `immediate` (int): (``i32``) op2: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2793,6 +2880,9 @@ impl Instruction {
 	///     `register` (:class:`Register`): op1: Register
 	///     `immediate` (int): (``u32``) op2: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2812,6 +2902,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): op1: Register
 	///     `register3` (:class:`Register`): op2: Register
 	///     `register4` (:class:`Register`): op3: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register1, register2, register3, register4, /)"]
@@ -2832,6 +2925,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): op1: Register
 	///     `register3` (:class:`Register`): op2: Register
 	///     `immediate` (int): (``i32``) op3: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2855,6 +2951,9 @@ impl Instruction {
 	///     `register3` (:class:`Register`): op2: Register
 	///     `immediate` (int): (``u32``) op3: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2876,6 +2975,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): op1: Register
 	///     `register3` (:class:`Register`): op2: Register
 	///     `memory` (:class:`MemoryOperand`): op3: Memory operand
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register1, register2, register3, memory, /)"]
@@ -2895,6 +2997,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): op1: Register
 	///     `immediate1` (int): (``i32``) op2: Immediate value
 	///     `immediate2` (int): (``i32``) op3: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2917,6 +3022,9 @@ impl Instruction {
 	///     `immediate1` (int): (``u32``) op2: Immediate value
 	///     `immediate2` (int): (``u32``) op3: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2937,6 +3045,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): op1: Register
 	///     `memory` (:class:`MemoryOperand`): op2: Memory operand
 	///     `register3` (:class:`Register`): op3: Register
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register1, register2, memory, register3, /)"]
@@ -2956,6 +3067,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): op1: Register
 	///     `memory` (:class:`MemoryOperand`): op2: Memory operand
 	///     `immediate` (int): (``i32``) op3: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -2978,6 +3092,9 @@ impl Instruction {
 	///     `memory` (:class:`MemoryOperand`): op2: Memory operand
 	///     `immediate` (int): (``u32``) op3: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -2999,6 +3116,9 @@ impl Instruction {
 	///     `register3` (:class:`Register`): op2: Register
 	///     `register4` (:class:`Register`): op3: Register
 	///     `immediate` (int): (``i32``) op4: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -3024,6 +3144,9 @@ impl Instruction {
 	///     `register4` (:class:`Register`): op3: Register
 	///     `immediate` (int): (``u32``) op4: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -3048,6 +3171,9 @@ impl Instruction {
 	///     `memory` (:class:`MemoryOperand`): op3: Memory operand
 	///     `immediate` (int): (``i32``) op4: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -3070,6 +3196,9 @@ impl Instruction {
 	///     `register3` (:class:`Register`): op2: Register
 	///     `memory` (:class:`MemoryOperand`): op3: Memory operand
 	///     `immediate` (int): (``u32``) op4: Immediate value
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
@@ -3094,6 +3223,9 @@ impl Instruction {
 	///     `register3` (:class:`Register`): op3: Register
 	///     `immediate` (int): (``i32``) op4: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -3117,6 +3249,9 @@ impl Instruction {
 	///     `register3` (:class:`Register`): op3: Register
 	///     `immediate` (int): (``u32``) op4: Immediate value
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the immediate is invalid
 	#[rustfmt::skip]
@@ -3136,6 +3271,9 @@ impl Instruction {
 	///     `code` (:class:`Code`): Code value
 	///     `target` (int): (``u64``) Target address
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the created instruction doesn't have a near branch operand
 	#[rustfmt::skip]
@@ -3153,6 +3291,9 @@ impl Instruction {
 	///     `selector` (int): (``u16``) Selector/segment value
 	///     `offset` (int): (``u32``) Offset
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If the created instruction doesn't have a far branch operand
 	#[rustfmt::skip]
@@ -3168,6 +3309,9 @@ impl Instruction {
 	/// Args:
 	///     `bitness` (int): (``u32``) 16, 32, or 64
 	///     `target` (int): (``u64``) Target address
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `bitness` is not one of 16, 32, 64.
@@ -3185,6 +3329,9 @@ impl Instruction {
 	///     `register` (:class:`Register`): Register (``AL``, ``AX``, ``EAX``, ``RAX``)
 	///     `address` (int): (``u64``) 64-bit address
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, register, address, segment_prefix, /)"]
@@ -3203,6 +3350,9 @@ impl Instruction {
 	///     `address` (int): (``u64``) 64-bit address
 	///     `register` (:class:`Register`): Register (``AL``, ``AX``, ``EAX``, ``RAX``)
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(code, address, register, segment_prefix, /)"]
@@ -3221,6 +3371,9 @@ impl Instruction {
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3238,6 +3391,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3253,6 +3409,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3271,6 +3430,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3286,6 +3448,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3304,6 +3469,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3319,6 +3487,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3337,6 +3508,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3352,6 +3526,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3370,6 +3547,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3385,6 +3565,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3403,6 +3586,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3418,6 +3604,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3436,6 +3625,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3450,6 +3642,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3467,6 +3662,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3480,6 +3678,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3495,6 +3696,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3512,6 +3716,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3525,6 +3732,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3540,6 +3750,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3557,6 +3770,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3570,6 +3786,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3585,6 +3804,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3602,6 +3824,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3615,6 +3840,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3630,6 +3858,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3647,6 +3878,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3661,6 +3895,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3678,6 +3915,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3692,6 +3932,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3709,6 +3952,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3723,6 +3969,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3740,6 +3989,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3754,6 +4006,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3771,6 +4026,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3785,6 +4043,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3802,6 +4063,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3816,6 +4080,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3833,6 +4100,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3848,6 +4118,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3866,6 +4139,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3879,6 +4155,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3895,6 +4174,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3913,6 +4195,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3926,6 +4211,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3942,6 +4230,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3960,6 +4251,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -3973,6 +4267,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -3989,6 +4286,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -4007,6 +4307,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -4020,6 +4323,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -4036,6 +4342,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -4054,6 +4363,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -4069,6 +4381,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -4087,6 +4402,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -4102,6 +4420,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -4120,6 +4441,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -4135,6 +4459,9 @@ impl Instruction {
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///     `rep_prefix` (:class:`RepPrefixKind`): Rep prefix or :class:`RepPrefixKind.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -4153,6 +4480,9 @@ impl Instruction {
 	/// Args:
 	///     `address_size` (int): (``u32``) 16, 32, or 64
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -4169,6 +4499,9 @@ impl Instruction {
 	///     `register1` (:class:`Register`): Register
 	///     `register2` (:class:`Register`): Register
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
@@ -4191,6 +4524,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): Register
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -4212,6 +4548,9 @@ impl Instruction {
 	///     `register2` (:class:`Register`): Register
 	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
 	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
+	///
 	/// Raises:
 	///     ValueError: If `address_size` is not one of 16, 32, 64.
 	#[rustfmt::skip]
@@ -4229,6 +4568,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `b0` (int): (``u8``) Byte 0
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, /)"]
@@ -4241,6 +4583,9 @@ impl Instruction {
 	/// Args:
 	///     `b0` (int): (``u8``) Byte 0
 	///     `b1` (int): (``u8``) Byte 1
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, /)"]
@@ -4254,6 +4599,9 @@ impl Instruction {
 	///     `b0` (int): (``u8``) Byte 0
 	///     `b1` (int): (``u8``) Byte 1
 	///     `b2` (int): (``u8``) Byte 2
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, /)"]
@@ -4268,6 +4616,9 @@ impl Instruction {
 	///     `b1` (int): (``u8``) Byte 1
 	///     `b2` (int): (``u8``) Byte 2
 	///     `b3` (int): (``u8``) Byte 3
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, /)"]
@@ -4283,6 +4634,9 @@ impl Instruction {
 	///     `b2` (int): (``u8``) Byte 2
 	///     `b3` (int): (``u8``) Byte 3
 	///     `b4` (int): (``u8``) Byte 4
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, /)"]
@@ -4299,6 +4653,9 @@ impl Instruction {
 	///     `b3` (int): (``u8``) Byte 3
 	///     `b4` (int): (``u8``) Byte 4
 	///     `b5` (int): (``u8``) Byte 5
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, /)"]
@@ -4316,6 +4673,9 @@ impl Instruction {
 	///     `b4` (int): (``u8``) Byte 4
 	///     `b5` (int): (``u8``) Byte 5
 	///     `b6` (int): (``u8``) Byte 6
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, /)"]
@@ -4334,6 +4694,9 @@ impl Instruction {
 	///     `b5` (int): (``u8``) Byte 5
 	///     `b6` (int): (``u8``) Byte 6
 	///     `b7` (int): (``u8``) Byte 7
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, /)"]
@@ -4353,6 +4716,9 @@ impl Instruction {
 	///     `b6` (int): (``u8``) Byte 6
 	///     `b7` (int): (``u8``) Byte 7
 	///     `b8` (int): (``u8``) Byte 8
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, /)"]
@@ -4373,6 +4739,9 @@ impl Instruction {
 	///     `b7` (int): (``u8``) Byte 7
 	///     `b8` (int): (``u8``) Byte 8
 	///     `b9` (int): (``u8``) Byte 9
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, /)"]
@@ -4394,6 +4763,9 @@ impl Instruction {
 	///     `b8` (int): (``u8``) Byte 8
 	///     `b9` (int): (``u8``) Byte 9
 	///     `b10` (int): (``u8``) Byte 10
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, /)"]
@@ -4416,6 +4788,9 @@ impl Instruction {
 	///     `b9` (int): (``u8``) Byte 9
 	///     `b10` (int): (``u8``) Byte 10
 	///     `b11` (int): (``u8``) Byte 11
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, /)"]
@@ -4439,6 +4814,9 @@ impl Instruction {
 	///     `b10` (int): (``u8``) Byte 10
 	///     `b11` (int): (``u8``) Byte 11
 	///     `b12` (int): (``u8``) Byte 12
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, /)"]
@@ -4463,6 +4841,9 @@ impl Instruction {
 	///     `b11` (int): (``u8``) Byte 11
 	///     `b12` (int): (``u8``) Byte 12
 	///     `b13` (int): (``u8``) Byte 13
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, /)"]
@@ -4488,6 +4869,9 @@ impl Instruction {
 	///     `b12` (int): (``u8``) Byte 12
 	///     `b13` (int): (``u8``) Byte 13
 	///     `b14` (int): (``u8``) Byte 14
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, /)"]
@@ -4514,6 +4898,9 @@ impl Instruction {
 	///     `b13` (int): (``u8``) Byte 13
 	///     `b14` (int): (``u8``) Byte 14
 	///     `b15` (int): (``u8``) Byte 15
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, /)"]
@@ -4525,6 +4912,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `data` (bytes, bytearray): Data
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	///
 	/// Raises:
 	///     ValueError: If `len(data)` is not 1-16
@@ -4541,6 +4931,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `w0` (int): (``u16``) Word 0
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, /)"]
@@ -4553,6 +4946,9 @@ impl Instruction {
 	/// Args:
 	///     `w0` (int): (``u16``) Word 0
 	///     `w1` (int): (``u16``) Word 1
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, w1, /)"]
@@ -4566,6 +4962,9 @@ impl Instruction {
 	///     `w0` (int): (``u16``) Word 0
 	///     `w1` (int): (``u16``) Word 1
 	///     `w2` (int): (``u16``) Word 2
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, w1, w2, /)"]
@@ -4580,6 +4979,9 @@ impl Instruction {
 	///     `w1` (int): (``u16``) Word 1
 	///     `w2` (int): (``u16``) Word 2
 	///     `w3` (int): (``u16``) Word 3
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, w1, w2, w3, /)"]
@@ -4595,6 +4997,9 @@ impl Instruction {
 	///     `w2` (int): (``u16``) Word 2
 	///     `w3` (int): (``u16``) Word 3
 	///     `w4` (int): (``u16``) Word 4
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, w1, w2, w3, w4, /)"]
@@ -4611,6 +5016,9 @@ impl Instruction {
 	///     `w3` (int): (``u16``) Word 3
 	///     `w4` (int): (``u16``) Word 4
 	///     `w5` (int): (``u16``) Word 5
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, w1, w2, w3, w4, w5, /)"]
@@ -4628,6 +5036,9 @@ impl Instruction {
 	///     `w4` (int): (``u16``) Word 4
 	///     `w5` (int): (``u16``) Word 5
 	///     `w6` (int): (``u16``) Word 6
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, w1, w2, w3, w4, w5, w6, /)"]
@@ -4646,6 +5057,9 @@ impl Instruction {
 	///     `w5` (int): (``u16``) Word 5
 	///     `w6` (int): (``u16``) Word 6
 	///     `w7` (int): (``u16``) Word 7
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(w0, w1, w2, w3, w4, w5, w6, w7, /)"]
@@ -4657,6 +5071,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `d0` (int): (``u32``) Dword 0
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(d0, /)"]
@@ -4669,6 +5086,9 @@ impl Instruction {
 	/// Args:
 	///     `d0` (int): (``u32``) Dword 0
 	///     `d1` (int): (``u32``) Dword 1
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(d0, d1, /)"]
@@ -4682,6 +5102,9 @@ impl Instruction {
 	///     `d0` (int): (``u32``) Dword 0
 	///     `d1` (int): (``u32``) Dword 1
 	///     `d2` (int): (``u32``) Dword 2
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(d0, d1, d2, /)"]
@@ -4696,6 +5119,9 @@ impl Instruction {
 	///     `d1` (int): (``u32``) Dword 1
 	///     `d2` (int): (``u32``) Dword 2
 	///     `d3` (int): (``u32``) Dword 3
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(d0, d1, d2, d3, /)"]
@@ -4707,6 +5133,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     `q0` (int): (``u64``) Qword 0
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(q0, /)"]
@@ -4719,6 +5148,9 @@ impl Instruction {
 	/// Args:
 	///     `q0` (int): (``u64``) Qword 0
 	///     `q1` (int): (``u64``) Qword 1
+	///
+	/// Returns:
+	///     :class:`Instruction`: Created instruction
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[text_signature = "(q0, q1, /)"]

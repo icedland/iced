@@ -88,8 +88,8 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_space_after_operand_separator(&mut self, value: bool) {
-		self.formatter.options_mut().set_space_after_operand_separator(value);
+	fn set_space_after_operand_separator(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_space_after_operand_separator(new_value);
 	}
 
 	/// bool: Show ``RIP+displ`` or the virtual address
@@ -106,8 +106,8 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_rip_relative_addresses(&mut self, value: bool) {
-		self.formatter.options_mut().set_rip_relative_addresses(value);
+	fn set_rip_relative_addresses(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_rip_relative_addresses(new_value);
 	}
 
 	/// bool: Use pseudo instructions
@@ -124,8 +124,8 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_use_pseudo_ops(&mut self, value: bool) {
-		self.formatter.options_mut().set_use_pseudo_ops(value);
+	fn set_use_pseudo_ops(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_use_pseudo_ops(new_value);
 	}
 
 	/// bool: Show the original value after the symbol name
@@ -142,8 +142,8 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_show_symbol_address(&mut self, value: bool) {
-		self.formatter.options_mut().set_show_symbol_address(value);
+	fn set_show_symbol_address(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_show_symbol_address(new_value);
 	}
 
 	/// bool: Always show the effective segment register.
@@ -162,8 +162,8 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_always_show_segment_register(&mut self, value: bool) {
-		self.formatter.options_mut().set_always_show_segment_register(value);
+	fn set_always_show_segment_register(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_always_show_segment_register(new_value);
 	}
 
 	/// bool: Always show the size of memory operands
@@ -180,8 +180,8 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_always_show_memory_size(&mut self, value: bool) {
-		self.formatter.options_mut().set_always_show_memory_size(value)
+	fn set_always_show_memory_size(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_always_show_memory_size(new_value)
 	}
 
 	/// bool: Use upper case hex digits
@@ -198,8 +198,8 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_uppercase_hex(&mut self, value: bool) {
-		self.formatter.options_mut().set_uppercase_hex(value);
+	fn set_uppercase_hex(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_uppercase_hex(new_value);
 	}
 
 	/// bool: Use a hex prefix (``0x``) or a hex suffix (``h``)
@@ -216,7 +216,7 @@ impl FastFormatter {
 	}
 
 	#[setter]
-	fn set_use_hex_prefix(&mut self, value: bool) {
-		self.formatter.options_mut().set_use_hex_prefix(value)
+	fn set_use_hex_prefix(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_use_hex_prefix(new_value)
 	}
 }

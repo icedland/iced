@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using Generator.Documentation.Python;
 using Generator.IO;
+using Generator.Misc.Python;
 
 namespace Generator.Enums.Python {
 	[Generator(TargetLanguage.Python)]
@@ -34,6 +35,7 @@ namespace Generator.Enums.Python {
 		readonly Dictionary<TypeId, FullEnumFileInfo?> toFullFileInfo;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly Documentation.Rust.RustDocCommentWriter rustDocWriter;
+		readonly ExportedPythonTypes exportedPythonTypes;
 
 		sealed class FullEnumFileInfo {
 			public readonly string Filename;
@@ -60,6 +62,7 @@ namespace Generator.Enums.Python {
 			pythonIdConverter = PythonIdentifierConverter.Create();
 			rustIdConverter = RustIdentifierConverter.Create();
 			rustDocWriter = new Documentation.Rust.RustDocCommentWriter(rustIdConverter, ".");
+			exportedPythonTypes = genTypes.GetObject<ExportedPythonTypes>(TypeIds.ExportedPythonTypes);
 
 			var dirs = generatorContext.Types.Dirs;
 			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo?>();
@@ -104,14 +107,24 @@ namespace Generator.Enums.Python {
 		}
 
 		public override void Generate(EnumType enumType) {
+			bool exportedToPython = false;
 			if (toFullFileInfo.TryGetValue(enumType.TypeId, out var fullInfo)) {
-				if (fullInfo is not null)
+				if (fullInfo is not null) {
+					exportedToPython = true;
 					WriteFile(fullInfo, enumType);
+				}
 			}
 			// An enum could be present in both dicts so this should be 'if' and not 'else if'
 			if (toPartialFileInfo.TryGetValue(enumType.TypeId, out var partialInfo)) {
 				if (partialInfo is not null)
 					new FileUpdater(partialInfo.Language, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
+			}
+
+			if (exportedToPython) {
+				if (enumType.IsFlags)
+					exportedPythonTypes.AddIntFlag(enumType);
+				else
+					exportedPythonTypes.AddIntEnum(enumType);
 			}
 		}
 
@@ -191,12 +204,7 @@ namespace Generator.Enums.Python {
 					docs = "<no docs>";
 				}
 
-				var numStr = enumType.IsFlags ? NumberFormatter.FormatHexUInt32WithSep(value.Value) : value.Value.ToString();
-				string valueName;
-				if (uppercaseRawName)
-					valueName = value.RawName.ToUpperInvariant();
-				else
-					valueName = value.Name(pythonIdConverter);
+				var (valueName, numStr) = PythonUtils.GetEnumNameValue(pythonIdConverter, value, uppercaseRawName);
 				writer.WriteLine($"{valueName}: int = {numStr}");
 				if (value.DeprecatedInfo.IsDeprecated)
 					docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr}): {docs}";

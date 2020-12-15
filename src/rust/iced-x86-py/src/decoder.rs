@@ -232,11 +232,11 @@ impl Decoder {
 	}
 
 	#[setter]
-	fn set_position(&mut self, new_pos: usize) -> PyResult<()> {
-		if new_pos > self.decoder.max_position() {
+	fn set_position(&mut self, new_value: usize) -> PyResult<()> {
+		if new_value > self.decoder.max_position() {
 			Err(PyValueError::new_err("Invalid position"))
 		} else {
-			self.decoder.set_position(new_pos);
+			self.decoder.set_position(new_value);
 			Ok(())
 		}
 	}

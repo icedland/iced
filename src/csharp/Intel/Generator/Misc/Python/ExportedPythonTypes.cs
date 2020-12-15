@@ -21,23 +21,34 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Enums {
-	static class PythonUtils {
-		public static bool UppercaseEnum(string name) =>
-			name switch {
-				"Code" or "CpuidFeature" or "EncodingKind" or "Mnemonic" or "Register" or "RflagsBits" or
-				"OpCodeOperandKind" or "OpCodeTableKind" or "TupleType" => true,
-				_ => false,
-			};
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Generator.Enums;
 
-		public static (string name, string value) GetEnumNameValue(IdentifierConverter idConverter, EnumValue value, bool uppercaseRawName) {
-			var numStr = value.DeclaringType.IsFlags ? NumberFormatter.FormatHexUInt32WithSep(value.Value) : value.Value.ToString();
-			string valueName;
-			if (uppercaseRawName)
-				valueName = value.RawName.ToUpperInvariant();
-			else
-				valueName = value.Name(idConverter);
-			return (valueName, numStr);
+namespace Generator.Misc.Python {
+	[TypeGen(TypeGenOrders.NoDeps)]
+	sealed class InitExportedPythonTypes {
+		InitExportedPythonTypes(GenTypes genTypes) =>
+			genTypes.AddObject(TypeIds.ExportedPythonTypes, new ExportedPythonTypes());
+	}
+
+	sealed class ExportedPythonTypes {
+		readonly Dictionary<string, EnumType> toEnumType = new Dictionary<string, EnumType>(StringComparer.Ordinal);
+		public List<EnumType> IntEnums { get; } = new List<EnumType>();
+		public List<EnumType> IntFlags { get; } = new List<EnumType>();
+
+		public void AddIntFlag(EnumType enumType) {
+			IntFlags.Add(enumType);
+			toEnumType.Add(enumType.RawName, enumType);
 		}
+
+		public void AddIntEnum(EnumType enumType) {
+			IntEnums.Add(enumType);
+			toEnumType.Add(enumType.RawName, enumType);
+		}
+
+		public bool TryFindByName(string name, [NotNullWhen(true)] out EnumType? enumType) =>
+			toEnumType.TryGetValue(name, out enumType);
 	}
 }
