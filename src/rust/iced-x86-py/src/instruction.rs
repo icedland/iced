@@ -363,8 +363,7 @@ impl Instruction {
 	/// You can also call `len(instr)` to get this value.
 	///
 	/// Note:
-	///     This is just informational. If you modify the instruction or create a new one,
-	///     this method could return the wrong value.
+	///     This is just informational. If you modify the instruction or create a new one, this method could return the wrong value.
 	#[getter]
 	fn len(&self) -> usize {
 		self.instr.len()

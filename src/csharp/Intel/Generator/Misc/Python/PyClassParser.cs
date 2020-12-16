@@ -713,6 +713,7 @@ namespace Generator.Misc.Python {
 				"Args:" => DocCommentKind.Args,
 				"Raises:" => DocCommentKind.Raises,
 				"Returns:" => DocCommentKind.Returns,
+				"Note:" => DocCommentKind.Note,
 				".. testcode::" => DocCommentKind.TestCode,
 				".. testoutput::" => DocCommentKind.TestOutput,
 				_ => DocCommentKind.Text,
@@ -788,6 +789,12 @@ namespace Generator.Misc.Python {
 						return false;
 					}
 					docs.Sections.Add(new ReturnsDocCommentSection(returns.Value));
+					break;
+
+				case DocCommentKind.Note:
+					if (!TryGetDescLines(lines, ref i, out descLines, out error))
+						return false;
+					docs.Sections.Add(new NoteDocCommentSection(descLines.ToArray()));
 					break;
 
 				case DocCommentKind.TestCode:

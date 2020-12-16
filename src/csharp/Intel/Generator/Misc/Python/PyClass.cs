@@ -41,6 +41,7 @@ namespace Generator.Misc.Python {
 		Args,
 	}
 
+	[DebuggerDisplay("Count = {Attributes.Count}")]
 	sealed class RustAttributes {
 		public readonly List<RustAttribute> Attributes = new List<RustAttribute>();
 
@@ -71,6 +72,7 @@ namespace Generator.Misc.Python {
 		Args,
 		Raises,
 		Returns,
+		Note,
 		TestCode,
 		TestOutput,
 	}
@@ -130,6 +132,11 @@ namespace Generator.Misc.Python {
 	sealed class ReturnsDocCommentSection : DocCommentSection {
 		public readonly TypeAndDocs Returns;
 		public ReturnsDocCommentSection(TypeAndDocs returns) => Returns = returns;
+	}
+
+	sealed class NoteDocCommentSection : DocCommentSection {
+		public readonly string[] Lines;
+		public NoteDocCommentSection(string[] lines) => Lines = lines;
 	}
 
 	sealed class TestCodeDocCommentSection : DocCommentSection {

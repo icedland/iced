@@ -169,26 +169,29 @@ namespace Generator.Misc.Python {
 						writer.WriteLine($"class {pythonName}({baseClass}): ...");
 				}
 
+				var docGen = new PyiDocGen();
 				foreach (var classStr in classOrder) {
 					var pyClass = toClass[classStr];
 					toClass.Remove(classStr);
 					writer.WriteLine();
 					writer.WriteLine($"class {idConverter.Type(pyClass.Name)}:");
 					using (writer.Indent()) {
+						WriteDocs(writer, docGen.Convert(pyClass.DocComments));
+
 						int defCount = 0;
 						foreach (var member in GetMembers(pyClass)) {
 							switch (member) {
 							case PyMethod method:
 								var docComments = method.Attributes.Any(AttributeKind.New) == true ?
 									pyClass.DocComments : method.DocComments;
-								Write(writer, idConverter, pyClass, method, docComments, toEnumType);
+								Write(writer, docGen, idConverter, pyClass, method, docComments, toEnumType);
 								defCount++;
 								break;
 							case PyProperty property:
-								Write(writer, idConverter, pyClass, property.Getter, property.Getter.DocComments, toEnumType);
+								Write(writer, docGen, idConverter, pyClass, property.Getter, property.Getter.DocComments, toEnumType);
 								defCount++;
 								if (property.Setter is not null) {
-									Write(writer, idConverter, pyClass, property.Setter, property.Getter.DocComments, toEnumType);
+									Write(writer, docGen, idConverter, pyClass, property.Setter, property.Getter.DocComments, toEnumType);
 									defCount++;
 								}
 								break;
@@ -205,7 +208,26 @@ namespace Generator.Misc.Python {
 			}
 		}
 
-		static void Write(FileWriter writer, IdentifierConverter idConverter, PyClass pyClass, PyMethod method, DocComments docComments, Dictionary<string, EnumType> toEnumType) {
+		static void WriteDocs(FileWriter writer, List<string> docs) {
+			if (docs.Count == 0)
+				throw new InvalidOperationException();
+
+			const string docQuotes = "\"\"\"";
+			if (docs.Count == 1)
+				writer.WriteLine($"{docQuotes}{docs[0]}{docQuotes}");
+			else {
+				writer.WriteLine(docQuotes);
+				foreach (var doc in docs) {
+					if (doc == string.Empty)
+						writer.WriteLineNoIndent(string.Empty);
+					else
+						writer.WriteLine(doc);
+				}
+				writer.WriteLine(docQuotes);
+			}
+		}
+
+		static void Write(FileWriter writer, PyiDocGen docGen, IdentifierConverter idConverter, PyClass pyClass, PyMethod method, DocComments docComments, Dictionary<string, EnumType> toEnumType) {
 			if (method.Attributes.Any(AttributeKind.ClassMethod) == true)
 				writer.WriteLine("@classmethod");
 			if (method.Attributes.Any(AttributeKind.StaticMethod) == true)
@@ -291,7 +313,15 @@ namespace Generator.Misc.Python {
 				writer.Write(GetReturnType(pyClass, method.Name, method.RustReturnType, sphinxReturnType));
 			else
 				writer.Write("None");
-			writer.WriteLine(": ...");
+			if (method.DocComments.Sections.Count == 0)
+				writer.WriteLine(": ...");
+			else {
+				writer.WriteLine(":");
+				using (writer.Indent()) {
+					WriteDocs(writer, docGen.Convert(method.DocComments));
+					writer.WriteLine("...");
+				}
+			}
 		}
 
 		static bool TryGetValueStr(IdentifierConverter idConverter, string typeStr, string defaultValueStr, Dictionary<string, EnumType> toEnumType, [NotNullWhen(true)] out string? valueStr) {
@@ -395,7 +425,7 @@ namespace Generator.Misc.Python {
 			}
 		}
 
-		IEnumerable<object> GetMembers(PyClass pyClass) {
+		static IEnumerable<object> GetMembers(PyClass pyClass) {
 			var setters = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter) == true).ToDictionary(a => a.Name, a => a, StringComparer.Ordinal);
 			foreach (var method in pyClass.Methods) {
 				if (method.Attributes.Any(AttributeKind.Setter) == true)
