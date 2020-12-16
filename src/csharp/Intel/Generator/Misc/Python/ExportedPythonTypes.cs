@@ -35,16 +35,10 @@ namespace Generator.Misc.Python {
 
 	sealed class ExportedPythonTypes {
 		readonly Dictionary<string, EnumType> toEnumType = new Dictionary<string, EnumType>(StringComparer.Ordinal);
-		public List<EnumType> IntEnums { get; } = new List<EnumType>();
-		public List<EnumType> IntFlags { get; } = new List<EnumType>();
+		public List<EnumType> Enums { get; } = new List<EnumType>();
 
-		public void AddIntFlag(EnumType enumType) {
-			IntFlags.Add(enumType);
-			toEnumType.Add(enumType.RawName, enumType);
-		}
-
-		public void AddIntEnum(EnumType enumType) {
-			IntEnums.Add(enumType);
+		public void AddEnum(EnumType enumType) {
+			Enums.Add(enumType);
 			toEnumType.Add(enumType.RawName, enumType);
 		}
 

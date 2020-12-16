@@ -799,15 +799,9 @@ impl OpCodeInfo {
 	///
 	/// Returns:
 	///     bool: ``True`` if it's available in the mode
-	///
-	/// Raises:
-	///     ValueError: If `bitness` is invalid
 	#[text_signature = "($self, bitness, /)"]
-	fn is_available_in_mode(&self, bitness: u32) -> PyResult<bool> {
-		match bitness {
-			16 | 32 | 64 => Ok(self.info.is_available_in_mode(bitness)),
-			_ => Err(PyValueError::new_err("bitness must be 16, 32 or 64")),
-		}
+	fn is_available_in_mode(&self, bitness: u32) -> bool {
+		self.info.is_available_in_mode(bitness)
 	}
 
 	/// str: Gets the opcode string, eg. ``VEX.128.66.0F38.W0 78 /r``, see also :class:`OpCodeInfo.instruction_string`

@@ -196,11 +196,7 @@ def test_invalid_op_kind_arg():
 @pytest.mark.parametrize("bitness", [16, 32, 64, 0, 15, 128])
 def test_invalid_bitness(bitness):
 	idef = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	if bitness == 16 or bitness == 32 or bitness == 64:
-		idef.is_available_in_mode(bitness)
-	else:
-		with pytest.raises(ValueError):
-			idef.is_available_in_mode(bitness)
+	idef.is_available_in_mode(bitness)
 
 def test_op_code_raise():
 	with pytest.raises(ValueError):

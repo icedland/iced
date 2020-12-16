@@ -335,10 +335,11 @@ namespace Generator.Misc.Python {
 				"RegisterInfo",
 				"RegisterExt",
 			};
-			var toClass = classes.ToDictionary(a => a.Name, a => a);
+			var toClass = classes.ToDictionary(a => a.Name, a => a, StringComparer.Ordinal);
 
+			var classOrderHash = classOrder.ToHashSet();
 			foreach (var pyClass in classes) {
-				if (!classOrder.Contains(pyClass.Name))
+				if (!classOrderHash.Contains(pyClass.Name))
 					throw new InvalidOperationException($"Missing {pyClass.Name} in {nameof(classOrder)}");
 			}
 			if (classOrder.Length != classes.Count)
@@ -353,7 +354,7 @@ namespace Generator.Misc.Python {
 				writer.WriteLine();
 
 				var idConverter = PythonIdentifierConverter.Create();
-				var allEnumTypes = exportedPythonTypes.IntEnums.Concat(exportedPythonTypes.IntFlags).Select(a => (enumType: a, pythonName: a.Name(idConverter)));
+				var allEnumTypes = exportedPythonTypes.Enums.Select(a => (enumType: a, pythonName: a.Name(idConverter)));
 				var toEnumType = allEnumTypes.ToDictionary(a => a.pythonName, a => a.enumType, StringComparer.Ordinal);
 				foreach (var (enumType, pythonName) in allEnumTypes.OrderBy(a => a.pythonName, StringComparer.Ordinal)) {
 					var baseClass = enumType.IsFlags ? "IntFlag" : "IntEnum";
@@ -458,7 +459,7 @@ namespace Generator.Misc.Python {
 			if (argsAttr is null)
 				toDefaultValue = new Dictionary<string, string>(StringComparer.Ordinal);
 			else
-				toDefaultValue = GetArgsNameValues(argsAttr.Text).ToDictionary(a => a.name, a => a.value);
+				toDefaultValue = GetArgsNameValues(argsAttr.Text).ToDictionary(a => a.name, a => a.value, StringComparer.Ordinal);
 
 			for (int i = 0; i < method.Arguments.Count; i++) {
 				if (argsDocs is not null && argsDocs.Args.Length != method.Arguments.Count - hasThis)
@@ -469,9 +470,9 @@ namespace Generator.Misc.Python {
 				argCount++;
 				if (methodArg.IsSelf)
 					writer.Write("self");
-				else
+				else {
 					writer.Write(methodArg.Name);
-				if (!methodArg.IsSelf) {
+
 					string docsSphinxType;
 					if (argsDocs is not null) {
 						var docsArg = argsDocs.Args[i - hasThis];
@@ -498,7 +499,7 @@ namespace Generator.Misc.Python {
 			}
 			writer.Write(") -> ");
 			if (method.HasReturnType && !isCtor)
-				writer.Write(GetType(pyClass, method.Name, method.RustReturnType, sphinxReturnType));
+				writer.Write(GetReturnType(pyClass, method.Name, method.RustReturnType, sphinxReturnType));
 			else
 				writer.Write("None");
 			writer.WriteLine(": ...");
@@ -536,8 +537,8 @@ namespace Generator.Misc.Python {
 			return false;
 		}
 
-		static string GetType(PyClass pyClass, string methodName, string rustType, string sphinxType) {
-			var typeStr = GetTypeCore(pyClass, methodName, rustType, sphinxType);
+		static string GetReturnType(PyClass pyClass, string methodName, string rustType, string sphinxType) {
+			var typeStr = GetType(pyClass, methodName, rustType, sphinxType);
 			if (methodName == "__iter__") {
 				string returnType = pyClass.Name switch {
 					"Decoder" => "Instruction",
@@ -548,7 +549,7 @@ namespace Generator.Misc.Python {
 			return typeStr;
 		}
 
-		static string GetTypeCore(PyClass pyClass, string methodName, string rustType, string sphinxType) {
+		static string GetType(PyClass pyClass, string methodName, string rustType, string sphinxType) {
 			if (sphinxType != string.Empty) {
 				var sphinxTypes = SplitSphinxTypes(sphinxType).ToList();
 				var convertedTypes = new List<string>();
@@ -604,10 +605,9 @@ namespace Generator.Misc.Python {
 		}
 
 		IEnumerable<object> GetMembers(PyClass pyClass) {
-			var setters = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter) == true).ToDictionary(a => a.Name, a => a);
-			var ignored = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter) == true).ToHashSet();
+			var setters = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter) == true).ToDictionary(a => a.Name, a => a, StringComparer.Ordinal);
 			foreach (var method in pyClass.Methods) {
-				if (ignored.Contains(method))
+				if (method.Attributes.Any(AttributeKind.Setter) == true)
 					continue;
 				if (method.Attributes.Any(AttributeKind.Getter) == true) {
 					setters.TryGetValue(method.Name, out var setterMethod);
@@ -1105,7 +1105,7 @@ namespace Generator.Misc.Python {
 				if (method.Arguments.Count != 2)
 					throw state.GetException($"Invalid number of setter arguments, expected 2 but found {method.Arguments.Count}");
 				if (method.Arguments[1].Name != setterArgName)
-					throw state.GetException($"Setter argument must be `{setterArgName}` not {method.Arguments[1].Name}");
+					throw state.GetException($"Setter argument name must be `{setterArgName}` not {method.Arguments[1].Name}");
 			}
 			else {
 				if (method.DocComments.Sections.OfType<ArgsDocCommentSection>().Count() > 1)
@@ -1158,8 +1158,8 @@ namespace Generator.Misc.Python {
 							CompareOp.Le => "__le__",
 							CompareOp.Eq => "__eq__",
 							CompareOp.Ne => "__ne__",
-							CompareOp.Gt => "__ge__",
-							CompareOp.Ge => "__gt__",
+							CompareOp.Gt => "__gt__",
+							CompareOp.Ge => "__ge__",
 							_ => throw new InvalidOperationException(),
 						};
 						var newArgs = new List<PyMethodArg> {

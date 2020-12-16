@@ -120,12 +120,8 @@ namespace Generator.Enums.Python {
 					new FileUpdater(partialInfo.Language, partialInfo.Id, partialInfo.Filename).Generate(writer => WriteEnum(writer, partialInfo, enumType));
 			}
 
-			if (exportedToPython) {
-				if (enumType.IsFlags)
-					exportedPythonTypes.AddIntFlag(enumType);
-				else
-					exportedPythonTypes.AddIntEnum(enumType);
-			}
+			if (exportedToPython)
+				exportedPythonTypes.AddEnum(enumType);
 		}
 
 		void WriteEnum(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
