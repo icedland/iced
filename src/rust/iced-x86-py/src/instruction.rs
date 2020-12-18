@@ -1626,7 +1626,7 @@ impl Instruction {
 	/// Gets the CPU or CPUID feature flags (a list of :class:`CpuidFeature` enum values)
 	///
 	/// Returns:
-	///     List[CpuidFeature]: CPU or CPUID feature flags
+	///     List[:class:`CpuidFeature`]: CPU or CPUID feature flags
 	///
 	/// Examples:
 	///

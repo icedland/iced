@@ -56,8 +56,25 @@ namespace Generator.Misc.Python {
 		public static string[] SplitSphinxTypes(string sphinxType) =>
 			sphinxType.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()).ToArray();
 
-		public static bool TryGetSphinxTypeToTypeName(string sphinxType, [NotNullWhen(true)] out string? typeName) =>
-			ParseUtils.TryRemovePrefixSuffix(sphinxType, ":class:`", "`", out typeName);
+		public static bool TryConvertSphinxTypeToTypeName(string sphinxType, [NotNullWhen(true)] out string? typeName) {
+			while (true) {
+				const string prefix = ":class:`";
+				int index = sphinxType.IndexOf(prefix, StringComparison.Ordinal);
+				if (index < 0)
+					break;
+				const string suffix = "`";
+				int index2 = sphinxType.IndexOf(suffix, index + prefix.Length, StringComparison.Ordinal);
+				if (index2 < 0) {
+					typeName = null;
+					return false;
+				}
+				sphinxType = sphinxType[0..index] +
+					sphinxType[(index + prefix.Length)..index2] +
+					sphinxType[(index2 + suffix.Length)..];
+			}
+			typeName = sphinxType;
+			return true;
+		}
 
 		public static bool TryGetArgsPayload(string argsAttr, [NotNullWhen(true)] out string? args) =>
 			TryRemovePrefixSuffix(argsAttr, "#[args(", ")]", out args);

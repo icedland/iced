@@ -75,7 +75,7 @@ namespace Generator.Misc.Python {
 						var docArg = docs.Args[i];
 						if (docArg.Name != method.Arguments[hasThis + i].Name)
 							throw new InvalidOperationException();
-						if (!ParseUtils.TryGetSphinxTypeToTypeName(docArg.SphinxType, out var typeName))
+						if (!ParseUtils.TryConvertSphinxTypeToTypeName(docArg.SphinxType, out var typeName))
 							continue;
 						if (!exportedPythonTypes.TryFindByName(typeName, out var enumType))
 							continue;
@@ -375,7 +375,7 @@ namespace Generator.Misc.Python {
 				var sphinxTypes = ParseUtils.SplitSphinxTypes(sphinxType).ToList();
 				var convertedTypes = new List<string>();
 				foreach (var stype in sphinxTypes) {
-					if (!ParseUtils.TryGetSphinxTypeToTypeName(stype, out var typeName))
+					if (!ParseUtils.TryConvertSphinxTypeToTypeName(stype, out var typeName))
 						typeName = stype;
 					convertedTypes.Add(typeName);
 				}

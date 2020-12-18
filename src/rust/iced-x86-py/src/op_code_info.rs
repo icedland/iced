@@ -786,7 +786,7 @@ impl OpCodeInfo {
 	/// Gets all operand kinds (a list of :class:`OpCodeOperandKind` enum values)
 	///
 	/// Returns:
-	///     List[OpCodeOperandKind]: All operand kinds
+	///     List[:class:`OpCodeOperandKind`]: All operand kinds
 	#[text_signature = "($self, /)"]
 	fn op_kinds(&self) -> Vec<u32> {
 		self.info.op_kinds().iter().map(|x| *x as u32).collect()

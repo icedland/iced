@@ -622,7 +622,7 @@ class OpCodeInfo:
 
 		### Returns:
 
-		- List[OpCodeOperandKind]: All operand kinds
+		- List[`OpCodeOperandKind`]: All operand kinds
 		"""
 		...
 	def is_available_in_mode(self, bitness: int) -> bool:
@@ -2109,7 +2109,7 @@ class Instruction:
 
 		### Returns:
 
-		- List[CpuidFeature]: CPU or CPUID feature flags
+		- List[`CpuidFeature`]: CPU or CPUID feature flags
 
 		### Examples:
 
