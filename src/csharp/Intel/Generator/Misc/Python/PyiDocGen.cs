@@ -59,7 +59,7 @@ namespace Generator.Misc.Python {
 						// Convert tables to code blocks. They're not converted to
 						// markdown tables because Jedi doesn't support tables in
 						// tooltips. Instead, we create a text block that will be
-						// rendered with a mono spaced font.
+						// rendered with a monospaced font.
 						if (IsTableLine(line)) {
 							GetColumnDefs(colDefs, line);
 							if (colDefs.Count < 2)
@@ -143,6 +143,13 @@ namespace Generator.Misc.Python {
 					converted.Add($"{HeaderPrefix} Note:");
 					converted.Add(string.Empty);
 					foreach (var line in note.Lines)
+						converted.Add(FixDocLine($"- {line}"));
+					break;
+
+				case WarningDocCommentSection warning:
+					converted.Add($"{HeaderPrefix} Warning:");
+					converted.Add(string.Empty);
+					foreach (var line in warning.Lines)
 						converted.Add(FixDocLine($"- {line}"));
 					break;
 

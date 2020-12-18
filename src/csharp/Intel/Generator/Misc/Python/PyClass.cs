@@ -73,6 +73,7 @@ namespace Generator.Misc.Python {
 		Raises,
 		Returns,
 		Note,
+		Warning,
 		TestCode,
 		TestOutput,
 	}
@@ -137,6 +138,11 @@ namespace Generator.Misc.Python {
 	sealed class NoteDocCommentSection : DocCommentSection {
 		public readonly string[] Lines;
 		public NoteDocCommentSection(string[] lines) => Lines = lines;
+	}
+
+	sealed class WarningDocCommentSection : DocCommentSection {
+		public readonly string[] Lines;
+		public WarningDocCommentSection(string[] lines) => Lines = lines;
 	}
 
 	sealed class TestCodeDocCommentSection : DocCommentSection {

@@ -182,7 +182,7 @@ namespace Generator.Misc.Python {
 						foreach (var member in GetMembers(pyClass)) {
 							switch (member) {
 							case PyMethod method:
-								var docComments = method.Attributes.Any(AttributeKind.New) == true ?
+								var docComments = method.Attributes.Any(AttributeKind.New) ?
 									pyClass.DocComments : method.DocComments;
 								Write(writer, docGen, idConverter, pyClass, method, docComments, toEnumType);
 								defCount++;
@@ -228,12 +228,12 @@ namespace Generator.Misc.Python {
 		}
 
 		static void Write(FileWriter writer, PyiDocGen docGen, IdentifierConverter idConverter, PyClass pyClass, PyMethod method, DocComments docComments, Dictionary<string, EnumType> toEnumType) {
-			if (method.Attributes.Any(AttributeKind.ClassMethod) == true)
+			if (method.Attributes.Any(AttributeKind.ClassMethod))
 				writer.WriteLine("@classmethod");
-			if (method.Attributes.Any(AttributeKind.StaticMethod) == true)
+			if (method.Attributes.Any(AttributeKind.StaticMethod))
 				writer.WriteLine("@staticmethod");
-			bool isGetter = method.Attributes.Any(AttributeKind.Getter) == true;
-			bool isSetter = method.Attributes.Any(AttributeKind.Setter) == true;
+			bool isGetter = method.Attributes.Any(AttributeKind.Getter);
+			bool isSetter = method.Attributes.Any(AttributeKind.Setter);
 			if (isGetter)
 				writer.WriteLine("@property");
 			if (isSetter)
@@ -253,7 +253,7 @@ namespace Generator.Misc.Python {
 					sphinxReturnType = returns.Returns.SphinxType;
 			}
 
-			bool isCtor = method.Attributes.Any(AttributeKind.New) == true;
+			bool isCtor = method.Attributes.Any(AttributeKind.New);
 			writer.Write("def ");
 			writer.Write(isCtor ? "__init__" : method.Name);
 			writer.Write("(");
@@ -426,11 +426,11 @@ namespace Generator.Misc.Python {
 		}
 
 		static IEnumerable<object> GetMembers(PyClass pyClass) {
-			var setters = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter) == true).ToDictionary(a => a.Name, a => a, StringComparer.Ordinal);
+			var setters = pyClass.Methods.Where(a => a.Attributes.Any(AttributeKind.Setter)).ToDictionary(a => a.Name, a => a, StringComparer.Ordinal);
 			foreach (var method in pyClass.Methods) {
-				if (method.Attributes.Any(AttributeKind.Setter) == true)
+				if (method.Attributes.Any(AttributeKind.Setter))
 					continue;
-				if (method.Attributes.Any(AttributeKind.Getter) == true) {
+				if (method.Attributes.Any(AttributeKind.Getter)) {
 					setters.TryGetValue(method.Name, out var setterMethod);
 					setters.Remove(method.Name);
 					yield return new PyProperty(method, setterMethod);

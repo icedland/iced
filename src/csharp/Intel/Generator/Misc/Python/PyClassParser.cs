@@ -460,9 +460,9 @@ namespace Generator.Misc.Python {
 				name = name[..index].Trim();
 
 			var attributes = Attributes ?? new RustAttributes();
-			bool isStaticMethod = attributes.Any(AttributeKind.StaticMethod) == true;
-			bool isClassMethod = attributes.Any(AttributeKind.ClassMethod) == true;
-			bool isCtor = attributes.Any(AttributeKind.New) == true;
+			bool isStaticMethod = attributes.Any(AttributeKind.StaticMethod);
+			bool isClassMethod = attributes.Any(AttributeKind.ClassMethod);
+			bool isCtor = attributes.Any(AttributeKind.New);
 			bool isInstanceMethod = !isStaticMethod && !isClassMethod && !isCtor;
 			if (isStaticMethod && isClassMethod)
 				throw GetException("Method can't be both classmethod and staticmethod");
@@ -475,8 +475,8 @@ namespace Generator.Misc.Python {
 			if (!TryCreateDocComments(DocComments, out var docComments, out var error))
 				throw GetException(error);
 
-			bool isSetter = attributes.Any(AttributeKind.Setter) == true;
-			bool isGetter = attributes.Any(AttributeKind.Getter) == true;
+			bool isSetter = attributes.Any(AttributeKind.Setter);
+			bool isGetter = attributes.Any(AttributeKind.Getter);
 
 			if (isSetter && name.StartsWith("set_"))
 				name = name["set_".Length..];
@@ -714,6 +714,7 @@ namespace Generator.Misc.Python {
 				"Raises:" => DocCommentKind.Raises,
 				"Returns:" => DocCommentKind.Returns,
 				"Note:" => DocCommentKind.Note,
+				"Warning:" => DocCommentKind.Warning,
 				".. testcode::" => DocCommentKind.TestCode,
 				".. testoutput::" => DocCommentKind.TestOutput,
 				_ => DocCommentKind.Text,
@@ -730,6 +731,8 @@ namespace Generator.Misc.Python {
 					AddCurrentText(docs, currentTextLines);
 					continue;
 				}
+				if (char.IsWhiteSpace(line[0]))
+					throw new InvalidOperationException($"Doc line starts with whitespace: `{line}`");
 
 				var kind = GetDocCommentKind(line);
 				if (kind != DocCommentKind.Text && currentTextLines.Count != 0)
@@ -795,6 +798,12 @@ namespace Generator.Misc.Python {
 					if (!TryGetDescLines(lines, ref i, out descLines, out error))
 						return false;
 					docs.Sections.Add(new NoteDocCommentSection(descLines.ToArray()));
+					break;
+
+				case DocCommentKind.Warning:
+					if (!TryGetDescLines(lines, ref i, out descLines, out error))
+						return false;
+					docs.Sections.Add(new WarningDocCommentSection(descLines.ToArray()));
 					break;
 
 				case DocCommentKind.TestCode:
