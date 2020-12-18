@@ -103,11 +103,13 @@ misc_tests() {
 	cargo fmt -- --color always --check
 
 	echo "mypy"
-	mypy --strict src/iced_x86
+	$python -m mypy --version
+	$python -m mypy --strict src/iced_x86
 
 	echo "pylint"
 	# It will fail to load _iced_x86_py since it's not in the correct dir, so disable the error
-	pylint src/iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
+	$python -m pylint --version
+	$python -m pylint src/iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
 
 	cd "$curr_dir"
 }
@@ -157,8 +159,8 @@ echo "pytest version"
 $python -m pytest --version
 
 if [ "$full_check" = "y" ] && [ "$gen_docs" = "y" ]; then
-	echo "sphinx-build version"
-	sphinx-build --version
+	echo "sphinx version"
+	$python -m sphinx --version
 fi
 
 generate_sdist
