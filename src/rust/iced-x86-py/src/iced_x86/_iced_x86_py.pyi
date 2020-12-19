@@ -723,6 +723,41 @@ class ConstantOffsets:
 	def has_immediate2(self) -> bool:
 		"""bool: `True` if `ConstantOffsets.immediate_offset2` and `ConstantOffsets.immediate_size2` are valid"""
 		...
+	def __copy__(self) -> ConstantOffsets:
+		"""
+		Returns a copy of this instance.
+
+		### Returns:
+
+		- ConstantOffsets: A copy of this instance
+
+		This is identical to `ConstantOffsets.clone`
+		"""
+		...
+	def __deepcopy__(self, memo: Any) -> ConstantOffsets:
+		"""
+		Returns a copy of this instance.
+
+		### Args:
+
+		- `memo` (Any): memo dict
+
+		### Returns:
+
+		- ConstantOffsets: A copy of this instance
+
+		This is identical to `ConstantOffsets.clone`
+		"""
+		...
+	def clone(self) -> ConstantOffsets:
+		"""
+		Returns a copy of this instance.
+
+		### Returns:
+
+		- ConstantOffsets: A copy of this instance
+		"""
+		...
 	def __eq__(self, other: Any) -> bool: ...
 	def __ne__(self, other: Any) -> bool: ...
 	def __hash__(self) -> int: ...

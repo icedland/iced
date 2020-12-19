@@ -33,6 +33,7 @@ use std::collections::hash_map::DefaultHasher;
 /// offsets of the constants after the instruction has been decoded/encoded.
 #[pyclass(module = "_iced_x86_py")]
 #[text_signature = "(/)"]
+#[derive(Copy, Clone)]
 pub(crate) struct ConstantOffsets {
 	pub(crate) offsets: iced_x86::ConstantOffsets,
 }
@@ -94,6 +95,40 @@ impl ConstantOffsets {
 	#[getter]
 	fn has_immediate2(&self) -> bool {
 		self.offsets.has_immediate2()
+	}
+
+	/// Returns a copy of this instance.
+	///
+	/// Returns:
+	///     ConstantOffsets: A copy of this instance
+	///
+	/// This is identical to :class:`ConstantOffsets.clone`
+	#[text_signature = "($self, /)"]
+	fn __copy__(&self) -> Self {
+		*self
+	}
+
+	/// Returns a copy of this instance.
+	///
+	/// Args:
+	///     memo (Any): memo dict
+	///
+	/// Returns:
+	///     ConstantOffsets: A copy of this instance
+	///
+	/// This is identical to :class:`ConstantOffsets.clone`
+	#[text_signature = "($self, memo, /)"]
+	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
+		*self
+	}
+
+	/// Returns a copy of this instance.
+	///
+	/// Returns:
+	///     ConstantOffsets: A copy of this instance
+	#[text_signature = "($self, /)"]
+	fn clone(&self) -> Self {
+		*self
 	}
 }
 

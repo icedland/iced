@@ -21,6 +21,7 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import copy
 import pytest
 from iced_x86 import *
 
@@ -238,6 +239,27 @@ def test_co_eq_ne_hash():
 	assert not (co1 == [])
 	assert not (co1 == {})
 	assert not (co1 == (1, 2))
+
+@pytest.mark.parametrize("copy_co", [
+	lambda instr: copy.copy(instr),
+	lambda instr: copy.deepcopy(instr),
+	lambda instr: instr.clone(),
+])
+def test_co_copy_deepcopy_clone(copy_co):
+	decoder = Decoder(64, b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A")
+	decoder.ip = 0x1234_5678_9ABC_DEF1
+	coa = decoder.get_constant_offsets(decoder.decode())
+	cob = decoder.get_constant_offsets(decoder.decode())
+
+	coa2 = copy_co(coa)
+	assert coa is not coa2
+	assert id(coa) != id(coa2)
+	assert coa == coa2
+
+	cob2 = copy_co(cob)
+	assert cob is not cob2
+	assert id(cob) != id(cob2)
+	assert cob == cob2
 
 def test_no_bytes():
 	decoder = Decoder(64, b"")
