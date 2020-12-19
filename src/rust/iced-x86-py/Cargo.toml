@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86-py"
-version = "1.10.0"
+version = "1.10.1"
 authors = ["0xd4d <de4dot@gmail.com>"]
 edition = "2018"
 publish = false

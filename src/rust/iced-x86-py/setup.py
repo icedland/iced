@@ -29,7 +29,7 @@ with open("README.md", "r", encoding="utf-8") as file:
 
 setup(
 	name="iced-x86",
-	version="1.10.0",
+	version="1.10.1",
 	license="MIT",
 	author_email="de4dot@gmail.com",
 	author="0xd4d",
