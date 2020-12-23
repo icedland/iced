@@ -67,9 +67,9 @@ def test_info():
 @pytest.mark.parametrize("copy_value", [
 	lambda instr: copy.copy(instr),
 	lambda instr: copy.deepcopy(instr),
-	lambda instr: instr.clone(),
+	lambda instr: instr.copy(),
 ])
-def test_copy_deepcopy_clone(copy_value):
+def test_copy_deepcopy_mcopy(copy_value):
 	instr = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41").decode()
 	factory = InstructionInfoFactory()
 	info = factory.info(instr)

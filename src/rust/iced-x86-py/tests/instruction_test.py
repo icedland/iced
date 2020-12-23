@@ -74,9 +74,9 @@ def test_invalid():
 @pytest.mark.parametrize("copy_instr", [
 	lambda instr: copy.copy(instr),
 	lambda instr: copy.deepcopy(instr),
-	lambda instr: instr.clone(),
+	lambda instr: instr.copy(),
 ])
-def test_copy_deepcopy_clone(copy_instr):
+def test_copy_deepcopy_mcopy(copy_instr):
 	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41")
 	decoder.ip = 0x1234_5678_9ABC_DEF1
 	instr = decoder.decode()

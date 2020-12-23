@@ -102,7 +102,7 @@ impl ConstantOffsets {
 	/// Returns:
 	///     ConstantOffsets: A copy of this instance
 	///
-	/// This is identical to :class:`ConstantOffsets.clone`
+	/// This is identical to :class:`ConstantOffsets.copy`
 	#[text_signature = "($self, /)"]
 	fn __copy__(&self) -> Self {
 		*self
@@ -116,7 +116,7 @@ impl ConstantOffsets {
 	/// Returns:
 	///     ConstantOffsets: A copy of this instance
 	///
-	/// This is identical to :class:`ConstantOffsets.clone`
+	/// This is identical to :class:`ConstantOffsets.copy`
 	#[text_signature = "($self, memo, /)"]
 	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
 		*self
@@ -127,7 +127,7 @@ impl ConstantOffsets {
 	/// Returns:
 	///     ConstantOffsets: A copy of this instance
 	#[text_signature = "($self, /)"]
-	fn clone(&self) -> Self {
+	fn copy(&self) -> Self {
 		*self
 	}
 }

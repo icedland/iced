@@ -67,7 +67,7 @@ impl MemoryOperand {
 	/// Returns:
 	///     MemoryOperand: A copy of this instance
 	///
-	/// This is identical to :class:`MemoryOperand.clone`
+	/// This is identical to :class:`MemoryOperand.copy`
 	#[text_signature = "($self, /)"]
 	fn __copy__(&self) -> Self {
 		*self
@@ -81,7 +81,7 @@ impl MemoryOperand {
 	/// Returns:
 	///     MemoryOperand: A copy of this instance
 	///
-	/// This is identical to :class:`MemoryOperand.clone`
+	/// This is identical to :class:`MemoryOperand.copy`
 	#[text_signature = "($self, memo, /)"]
 	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
 		*self
@@ -92,7 +92,7 @@ impl MemoryOperand {
 	/// Returns:
 	///     MemoryOperand: A copy of this instance
 	#[text_signature = "($self, /)"]
-	fn clone(&self) -> Self {
+	fn copy(&self) -> Self {
 		*self
 	}
 }

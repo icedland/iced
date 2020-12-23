@@ -243,9 +243,9 @@ def test_co_eq_ne_hash():
 @pytest.mark.parametrize("copy_co", [
 	lambda instr: copy.copy(instr),
 	lambda instr: copy.deepcopy(instr),
-	lambda instr: instr.clone(),
+	lambda instr: instr.copy(),
 ])
-def test_co_copy_deepcopy_clone(copy_co):
+def test_co_copy_deepcopy_mcopy(copy_co):
 	decoder = Decoder(64, b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A")
 	decoder.ip = 0x1234_5678_9ABC_DEF1
 	coa = decoder.get_constant_offsets(decoder.decode())

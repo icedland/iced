@@ -54,9 +54,9 @@ def test_eq_ne_hash():
 @pytest.mark.parametrize("copy_mem", [
 	lambda mem: copy.copy(mem),
 	lambda mem: copy.deepcopy(mem),
-	lambda mem: mem.clone(),
+	lambda mem: mem.copy(),
 ])
-def test_copy_deepcopy_clone(copy_mem):
+def test_copy_deepcopy_mcopy(copy_mem):
 	mem = MemoryOperand(Register.RCX, Register.RDI, 8, 0x1234_5678, 8, True, Register.GS)
 	mem2 = copy_mem(mem)
 	assert mem is not mem2
