@@ -908,7 +908,7 @@ class Instruction:
 	formatter.first_operand_char_index = 8
 
 	print(f"disasm  : {formatter.format(instr)}")
-	print(f"mnemonic: {formatter.format_mnemonic(instr)}")
+	print(f"mnemonic: {formatter.format_mnemonic(instr, FormatMnemonicOptions.NO_PREFIXES)}")
 	print(f"operands: {formatter.format_all_operands(instr)}")
 	print(f"op #0   : {formatter.format_operand(instr, 0)}")
 	print(f"op #1   : {formatter.format_operand(instr, 1)}")

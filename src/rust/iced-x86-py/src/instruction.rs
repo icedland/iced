@@ -96,7 +96,7 @@ use std::collections::hash_map::DefaultHasher;
 ///     formatter.first_operand_char_index = 8
 ///
 ///     print(f"disasm  : {formatter.format(instr)}")
-///     print(f"mnemonic: {formatter.format_mnemonic(instr)}")
+///     print(f"mnemonic: {formatter.format_mnemonic(instr, FormatMnemonicOptions.NO_PREFIXES)}")
 ///     print(f"operands: {formatter.format_all_operands(instr)}")
 ///     print(f"op #0   : {formatter.format_operand(instr, 0)}")
 ///     print(f"op #1   : {formatter.format_operand(instr, 1)}")
@@ -2197,7 +2197,7 @@ impl Instruction {
 				'G' => fmt_opts.set_gas_show_mnemonic_size_suffix(true),
 				'M' => fmt_opts.set_memory_size_options(iced_x86::MemorySizeOptions::Always),
 				'_' => fmt_opts.set_digit_separator("_"),
-				_ => return Err(PyValueError::new_err(format!("Unknown format code '{}'", format_spec))),
+				_ => return Err(PyValueError::new_err(format!("Unknown format code '{}' ('{}')", c, format_spec))),
 			}
 		}
 
