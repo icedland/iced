@@ -71,609 +71,92 @@ class RflagsBits(IntFlag): ...
 class RoundingControl(IntEnum): ...
 class TupleType(IntEnum): ...
 
-class OpCodeInfo:
+class BlockEncoder:
 	"""
-	Opcode info, returned by `Instruction.op_code` or created by the constructor
+	Encodes instructions
+
+	`Encoder` can only encode one instruction at a time. This class can encode any number of
+	instructions and can also fix short branches if the target is too far away.
+
+	It will fail if there's an instruction with a RIP-relative operand (`[rip+123h]`) and the target is too far away.
+	A workaround is to use a new base RIP of the encoded instructions that is close (+/-2GB) to the original location.
 
 	### Args:
 
-	- `code` (`Code`): Code value
+	- `bitness` (int): 16, 32 or 64
+	- `fix_branches` (bool): (default = `True`) Fix branches (eg. convert short to near branches if the target is too far away)
+
+	### Raises:
+
+	- ValueError: If `bitness` is invalid
 
 	### Examples:
 
 	```python
 	from iced_x86 import *
 
-	op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-	assert op_code.op_code_string == "EVEX.256.66.0F.W1 28 /r"
-	assert op_code.encoding == EncodingKind.EVEX
-	assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
-	assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
+	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
+	decoder = Decoder(64, data)
+	decoder.ip = 0x1234_5678
+
+	instrs = [instr for instr in decoder]
+
+	encoder = BlockEncoder(64)
+	# Add an instruction
+	encoder.add(instrs[0])
+	# Add more instructions
+	encoder.add_many(instrs[1:])
+	try:
+	    # Encode all added instructions and get the raw bytes
+	    raw_data = encoder.encode(0x3456_789A)
+	except ValueError as ex:
+	    print("Could not encode all instructions")
+	    raise
+
+	# It has no IP-relative instructions (eg. branches or [rip+xxx] ops)
+	# so the result should be identical to the original code.
+	assert data == raw_data
 	```
 	"""
-	def __init__(self, code: Code) -> None: ...
-	@property
-	def code(self) -> Code:
+	def __init__(self, bitness: int, fix_branches: bool = True) -> None: ...
+	def add(self, instruction: Instruction) -> None:
 		"""
-		`Code`: Gets the code (a `Code` enum value)
+		Adds an instruction that will be encoded when `BlockEncoder.encode` is called.
 
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-		assert op_code.code == Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256
-		```
-		"""
-		...
-	@property
-	def mnemonic(self) -> Mnemonic:
-		"""
-		`Mnemonic`: Gets the mnemonic (a `Mnemonic` enum value)
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-		assert op_code.mnemonic == Mnemonic.VMOVAPD
-		```
-		"""
-		...
-	@property
-	def encoding(self) -> EncodingKind:
-		"""
-		`EncodingKind`: Gets the encoding (an `EncodingKind` enum value)
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-		assert op_code.encoding == EncodingKind.EVEX
-		```
-		"""
-		...
-	@property
-	def is_instruction(self) -> bool:
-		"""
-		bool: `True` if it's an instruction, `False` if it's eg. `Code.INVALID`, `db`, `dw`, `dd`, `dq`
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		assert OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256).is_instruction
-		assert not OpCodeInfo(Code.INVALID).is_instruction
-		assert not OpCodeInfo(Code.DECLAREBYTE).is_instruction
-		```
-		"""
-		...
-	@property
-	def mode16(self) -> bool:
-		"""bool: `True` if it's an instruction available in 16-bit mode"""
-		...
-	@property
-	def mode32(self) -> bool:
-		"""bool: `True` if it's an instruction available in 32-bit mode"""
-		...
-	@property
-	def mode64(self) -> bool:
-		"""bool: `True` if it's an instruction available in 64-bit mode"""
-		...
-	@property
-	def fwait(self) -> bool:
-		"""bool: `True` if an `FWAIT` (`9B`) instruction is added before the instruction"""
-		...
-	@property
-	def operand_size(self) -> int:
-		"""int: (`u8`) (Legacy encoding) Gets the required operand size (16,32,64) or 0"""
-		...
-	@property
-	def address_size(self) -> int:
-		"""int: (`u8`) (Legacy encoding) Gets the required address size (16,32,64) or 0"""
-		...
-	@property
-	def l(self) -> int:
-		"""int: (`u8`) (VEX/XOP/EVEX) `L` / `L'L` value or default value if `OpCodeInfo.is_lig` is `True`"""
-		...
-	@property
-	def w(self) -> int:
-		"""int: (`u8`) (VEX/XOP/EVEX) `W` value or default value if `OpCodeInfo.is_wig` or `OpCodeInfo.is_wig32` is `True`"""
-		...
-	@property
-	def is_lig(self) -> bool:
-		"""
-		bool: (VEX/XOP/EVEX) `True` if the `L` / `L'L` fields are ignored.
-
-		EVEX: if reg-only ops and `{er}` (`EVEX.b` is set), `L'L` is the rounding control and not ignored.
-		"""
-		...
-	@property
-	def is_wig(self) -> bool:
-		"""bool: (VEX/XOP/EVEX) `True` if the `W` field is ignored in 16/32/64-bit modes"""
-		...
-	@property
-	def is_wig32(self) -> bool:
-		"""bool: (VEX/XOP/EVEX) `True` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)"""
-		...
-	@property
-	def tuple_type(self) -> TupleType:
-		"""`TupleType`: (EVEX) Gets the tuple type (a `TupleType` enum value)"""
-		...
-	@property
-	def memory_size(self) -> MemorySize:
-		"""`MemorySize`: If it has a memory operand, gets the `MemorySize` (non-broadcast memory type)"""
-		...
-	@property
-	def broadcast_memory_size(self) -> MemorySize:
-		"""`MemorySize`: If it has a memory operand, gets the `MemorySize` (broadcast memory type)"""
-		...
-	@property
-	def can_broadcast(self) -> bool:
-		"""bool: (EVEX) `True` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)"""
-		...
-	@property
-	def can_use_rounding_control(self) -> bool:
-		"""bool: (EVEX) `True` if the instruction supports rounding control"""
-		...
-	@property
-	def can_suppress_all_exceptions(self) -> bool:
-		"""bool: (EVEX) `True` if the instruction supports suppress all exceptions"""
-		...
-	@property
-	def can_use_op_mask_register(self) -> bool:
-		"""bool: (EVEX) `True` if an op mask register can be used"""
-		...
-	@property
-	def require_op_mask_register(self) -> bool:
-		"""bool: (EVEX) `True` if a non-zero op mask register must be used"""
-		...
-	@property
-	def can_use_zeroing_masking(self) -> bool:
-		"""bool: (EVEX) `True` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)"""
-		...
-	@property
-	def can_use_lock_prefix(self) -> bool:
-		"""bool: `True` if the `LOCK` (`F0`) prefix can be used"""
-		...
-	@property
-	def can_use_xacquire_prefix(self) -> bool:
-		"""bool: `True` if the `XACQUIRE` (`F2`) prefix can be used"""
-		...
-	@property
-	def can_use_xrelease_prefix(self) -> bool:
-		"""bool: `True` if the `XRELEASE` (`F3`) prefix can be used"""
-		...
-	@property
-	def can_use_rep_prefix(self) -> bool:
-		"""bool: `True` if the `REP` / `REPE` (`F3`) prefixes can be used"""
-		...
-	@property
-	def can_use_repne_prefix(self) -> bool:
-		"""bool: `True` if the `REPNE` (`F2`) prefix can be used"""
-		...
-	@property
-	def can_use_bnd_prefix(self) -> bool:
-		"""bool: `True` if the `BND` (`F2`) prefix can be used"""
-		...
-	@property
-	def can_use_hint_taken_prefix(self) -> bool:
-		"""bool: `True` if the `HINT-TAKEN` (`3E`) and `HINT-NOT-TAKEN` (`2E`) prefixes can be used"""
-		...
-	@property
-	def can_use_notrack_prefix(self) -> bool:
-		"""bool: `True` if the `NOTRACK` (`3E`) prefix can be used"""
-		...
-	@property
-	def ignores_rounding_control(self) -> bool:
-		"""bool: `True` if rounding control is ignored (#UD is not generated)"""
-		...
-	@property
-	def amd_lock_reg_bit(self) -> bool:
-		"""bool: `True` if the `LOCK` prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a `REX` prefix (eg. in 32-bit mode)"""
-		...
-	@property
-	def default_op_size64(self) -> bool:
-		"""bool: `True` if the default operand size is 64 in 64-bit mode. A `66` prefix can switch to 16-bit operand size."""
-		...
-	@property
-	def force_op_size64(self) -> bool:
-		"""bool: `True` if the operand size is always 64 in 64-bit mode. A `66` prefix is ignored."""
-		...
-	@property
-	def intel_force_op_size64(self) -> bool:
-		"""bool: `True` if the Intel decoder forces 64-bit operand size. A `66` prefix is ignored."""
-		...
-	@property
-	def must_be_cpl0(self) -> bool:
-		"""bool: `True` if it can only be executed when CPL=0"""
-		...
-	@property
-	def cpl0(self) -> bool:
-		"""bool: `True` if it can be executed when CPL=0"""
-		...
-	@property
-	def cpl1(self) -> bool:
-		"""bool: `True` if it can be executed when CPL=1"""
-		...
-	@property
-	def cpl2(self) -> bool:
-		"""bool: `True` if it can be executed when CPL=2"""
-		...
-	@property
-	def cpl3(self) -> bool:
-		"""bool: `True` if it can be executed when CPL=3"""
-		...
-	@property
-	def is_input_output(self) -> bool:
-		"""bool: `True` if the instruction accesses the I/O address space (eg. `IN`, `OUT`, `INS`, `OUTS`)"""
-		...
-	@property
-	def is_nop(self) -> bool:
-		"""bool: `True` if it's one of the many nop instructions (does not include FPU nop instructions, eg. `FNOP`)"""
-		...
-	@property
-	def is_reserved_nop(self) -> bool:
-		"""bool: `True` if it's one of the many reserved nop instructions (eg. `0F0D`, `0F18-0F1F`)"""
-		...
-	@property
-	def is_serializing_intel(self) -> bool:
-		"""bool: `True` if it's a serializing instruction (Intel CPUs)"""
-		...
-	@property
-	def is_serializing_amd(self) -> bool:
-		"""bool: `True` if it's a serializing instruction (AMD CPUs)"""
-		...
-	@property
-	def may_require_cpl0(self) -> bool:
-		"""bool: `True` if the instruction requires either CPL=0 or CPL<=3 depending on some CPU option (eg. `CR4.TSD`, `CR4.PCE`, `CR4.UMIP`)"""
-		...
-	@property
-	def is_cet_tracked(self) -> bool:
-		"""bool: `True` if it's a tracked `JMP`/`CALL` indirect instruction (CET)"""
-		...
-	@property
-	def is_non_temporal(self) -> bool:
-		"""bool: `True` if it's a non-temporal hint memory access (eg. `MOVNTDQ`)"""
-		...
-	@property
-	def is_fpu_no_wait(self) -> bool:
-		"""bool: `True` if it's a no-wait FPU instruction, eg. `FNINIT`"""
-		...
-	@property
-	def ignores_mod_bits(self) -> bool:
-		"""bool: `True` if the mod bits are ignored and it's assumed `modrm[7:6] == 11b`"""
-		...
-	@property
-	def no66(self) -> bool:
-		"""bool: `True` if the `66` prefix is not allowed (it will #UD)"""
-		...
-	@property
-	def nfx(self) -> bool:
-		"""bool: `True` if the `F2`/`F3` prefixes aren't allowed"""
-		...
-	@property
-	def requires_unique_reg_nums(self) -> bool:
-		"""
-		bool: `True` if the index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique,
-		eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
-		"""
-		...
-	@property
-	def is_privileged(self) -> bool:
-		"""bool: `True` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)"""
-		...
-	@property
-	def is_save_restore(self) -> bool:
-		"""bool: `True` if it reads/writes too many registers"""
-		...
-	@property
-	def is_stack_instruction(self) -> bool:
-		"""bool: `True` if it's an instruction that implicitly uses the stack register, eg. `CALL`, `POP`, etc"""
-		...
-	@property
-	def ignores_segment(self) -> bool:
-		"""bool: `True` if the instruction doesn't read the segment register if it uses a memory operand"""
-		...
-	@property
-	def is_op_mask_read_write(self) -> bool:
-		"""bool: `True` if the op mask register is read and written (instead of just read). This also implies that it can't be `K0`."""
-		...
-	@property
-	def real_mode(self) -> bool:
-		"""bool: `True` if it can be executed in real mode"""
-		...
-	@property
-	def protected_mode(self) -> bool:
-		"""bool: `True` if it can be executed in protected mode"""
-		...
-	@property
-	def virtual8086_mode(self) -> bool:
-		"""bool: `True` if it can be executed in virtual 8086 mode"""
-		...
-	@property
-	def compatibility_mode(self) -> bool:
-		"""bool: `True` if it can be executed in compatibility mode"""
-		...
-	@property
-	def long_mode(self) -> bool:
-		"""bool: `True` if it can be executed in 64-bit mode"""
-		...
-	@property
-	def use_outside_smm(self) -> bool:
-		"""bool: `True` if it can be used outside SMM"""
-		...
-	@property
-	def use_in_smm(self) -> bool:
-		"""bool: `True` if it can be used in SMM"""
-		...
-	@property
-	def use_outside_enclave_sgx(self) -> bool:
-		"""bool: `True` if it can be used outside an enclave (SGX)"""
-		...
-	@property
-	def use_in_enclave_sgx1(self) -> bool:
-		"""bool: `True` if it can be used inside an enclave (SGX1)"""
-		...
-	@property
-	def use_in_enclave_sgx2(self) -> bool:
-		"""bool: `True` if it can be used inside an enclave (SGX2)"""
-		...
-	@property
-	def use_outside_vmx_op(self) -> bool:
-		"""bool: `True` if it can be used outside VMX operation"""
-		...
-	@property
-	def use_in_vmx_root_op(self) -> bool:
-		"""bool: `True` if it can be used in VMX root operation"""
-		...
-	@property
-	def use_in_vmx_non_root_op(self) -> bool:
-		"""bool: `True` if it can be used in VMX non-root operation"""
-		...
-	@property
-	def use_outside_seam(self) -> bool:
-		"""bool: `True` if it can be used outside SEAM"""
-		...
-	@property
-	def use_in_seam(self) -> bool:
-		"""bool: `True` if it can be used in SEAM"""
-		...
-	@property
-	def tdx_non_root_gen_ud(self) -> bool:
-		"""bool: `True` if #UD is generated in TDX non-root operation"""
-		...
-	@property
-	def tdx_non_root_gen_ve(self) -> bool:
-		"""bool: `True` if #VE is generated in TDX non-root operation"""
-		...
-	@property
-	def tdx_non_root_may_gen_ex(self) -> bool:
-		"""bool: `True` if an exception (eg. #GP(0), #VE) may be generated in TDX non-root operation"""
-		...
-	@property
-	def intel_vm_exit(self) -> bool:
-		"""bool: (Intel VMX) `True` if it causes a VM exit in VMX non-root operation"""
-		...
-	@property
-	def intel_may_vm_exit(self) -> bool:
-		"""bool: (Intel VMX) `True` if it may cause a VM exit in VMX non-root operation"""
-		...
-	@property
-	def intel_smm_vm_exit(self) -> bool:
-		"""bool: (Intel VMX) `True` if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)"""
-		...
-	@property
-	def amd_vm_exit(self) -> bool:
-		"""bool: (AMD SVM) `True` if it causes a #VMEXIT in guest mode"""
-		...
-	@property
-	def amd_may_vm_exit(self) -> bool:
-		"""bool: (AMD SVM) `True` if it may cause a #VMEXIT in guest mode"""
-		...
-	@property
-	def tsx_abort(self) -> bool:
-		"""bool: `True` if it causes a TSX abort inside a TSX transaction"""
-		...
-	@property
-	def tsx_impl_abort(self) -> bool:
-		"""bool: `True` if it causes a TSX abort inside a TSX transaction depending on the implementation"""
-		...
-	@property
-	def tsx_may_abort(self) -> bool:
-		"""bool: `True` if it may cause a TSX abort inside a TSX transaction depending on some condition"""
-		...
-	@property
-	def intel_decoder16(self) -> bool:
-		"""bool: `True` if it's decoded by iced's 16-bit Intel decoder"""
-		...
-	@property
-	def intel_decoder32(self) -> bool:
-		"""bool: `True` if it's decoded by iced's 32-bit Intel decoder"""
-		...
-	@property
-	def intel_decoder64(self) -> bool:
-		"""bool: `True` if it's decoded by iced's 64-bit Intel decoder"""
-		...
-	@property
-	def amd_decoder16(self) -> bool:
-		"""bool: `True` if it's decoded by iced's 16-bit AMD decoder"""
-		...
-	@property
-	def amd_decoder32(self) -> bool:
-		"""bool: `True` if it's decoded by iced's 32-bit AMD decoder"""
-		...
-	@property
-	def amd_decoder64(self) -> bool:
-		"""bool: `True` if it's decoded by iced's 64-bit AMD decoder"""
-		...
-	@property
-	def decoder_option(self) -> DecoderOptions:
-		"""`DecoderOptions`: Gets the decoder option that's needed to decode the instruction or `DecoderOptions.NONE`."""
-		...
-	@property
-	def table(self) -> OpCodeTableKind:
-		"""`OpCodeTableKind`: Gets the opcode table (a `OpCodeTableKind` enum value)"""
-		...
-	@property
-	def mandatory_prefix(self) -> MandatoryPrefix:
-		"""`MandatoryPrefix`: Gets the mandatory prefix (a `MandatoryPrefix` enum value)"""
-		...
-	@property
-	def op_code(self) -> int:
-		"""
-		int: (`u32`) Gets the opcode byte(s). The low byte(s) of this value is the opcode. The length is in `OpCodeInfo.op_code_len`.
-		It doesn't include the table value, see `OpCodeInfo.table`.
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		assert OpCodeInfo(Code.FFREEP_STI).op_code == 0xDFC0
-		assert OpCodeInfo(Code.VMRUNW).op_code == 0x01D8
-		assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
-		assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
-		```
-		"""
-		...
-	@property
-	def op_code_len(self) -> int:
-		"""
-		int: (`u8`) Gets the length of the opcode bytes (`OpCodeInfo.op_code`). The low bytes is the opcode value.
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		assert OpCodeInfo(Code.FFREEP_STI).op_code_len == 2
-		assert OpCodeInfo(Code.VMRUNW).op_code_len == 2
-		assert OpCodeInfo(Code.SUB_R8_RM8).op_code_len == 1
-		assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code_len == 1
-		```
-		"""
-		...
-	@property
-	def is_group(self) -> bool:
-		"""bool: `True` if it's part of a group"""
-		...
-	@property
-	def group_index(self) -> int:
-		"""int: (`i8`) Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte."""
-		...
-	@property
-	def is_rm_group(self) -> bool:
-		"""bool: `True` if it's part of a modrm.rm group"""
-		...
-	@property
-	def rm_group_index(self) -> int:
-		"""int: (`i8`) Group index (0-7) or -1. If it's 0-7, it's stored in the `rm` field of the `modrm` byte."""
-		...
-	@property
-	def op_count(self) -> int:
-		"""int: (`u8`) Gets the number of operands"""
-		...
-	@property
-	def op0_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #0's opkind (a `OpCodeOperandKind` enum value)"""
-		...
-	@property
-	def op1_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #1's opkind (a `OpCodeOperandKind` enum value)"""
-		...
-	@property
-	def op2_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #2's opkind (a `OpCodeOperandKind` enum value)"""
-		...
-	@property
-	def op3_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #3's opkind (a `OpCodeOperandKind` enum value)"""
-		...
-	@property
-	def op4_kind(self) -> OpCodeOperandKind:
-		"""`OpCodeOperandKind`: Gets operand #4's opkind (a `OpCodeOperandKind` enum value)"""
-		...
-	def op_kind(self, operand: int) -> OpCodeOperandKind:
-		"""
-		Gets an operand's opkind (a `OpCodeOperandKind` enum value)
+		The input `instruction` can be a decoded instruction or an instruction
+		created by the user, eg. `Instruction.create*()` methods.
 
 		### Args:
 
-		- `operand` (int): Operand number, 0-4
+		- `instruction` (Instruction): Next instruction to encode
+		"""
+		...
+	def add_many(self, instructions: List[Instruction]) -> None:
+		"""
+		Adds instructions that will be encoded when `BlockEncoder.encode` is called.
+
+		### Args:
+
+		- `instructions` (List[Instruction]): Next instructions to encode
+		"""
+		...
+	def encode(self, rip: int) -> bytes:
+		"""
+		Encodes all instructions added by `BlockEncoder.add`/`BlockEncoder.add_many` and returns the raw bytes
+
+		### Args:
+
+		- `rip` (int): (`u64`) Base IP of all encoded instructions
 
 		### Returns:
 
-		- `OpCodeOperandKind`: Operand kind
+		- bytes: All encoded instructions
 
 		### Raises:
 
-		- ValueError: If `operand` is invalid
+		- ValueError: If one or more instructions couldn't be encoded
 		"""
 		...
-	def op_kinds(self) -> List[OpCodeOperandKind]:
-		"""
-		Gets all operand kinds (a list of `OpCodeOperandKind` enum values)
-
-		### Returns:
-
-		- List[`OpCodeOperandKind`]: All operand kinds
-		"""
-		...
-	def is_available_in_mode(self, bitness: int) -> bool:
-		"""
-		Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode
-
-		### Args:
-
-		- `bitness` (int): 16, 32 or 64
-
-		### Returns:
-
-		- bool: `True` if it's available in the mode
-		"""
-		...
-	@property
-	def op_code_string(self) -> str:
-		"""
-		str: Gets the opcode string, eg. `VEX.128.66.0F38.W0 78 /r`, see also `OpCodeInfo.instruction_string`
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-		assert op_code.op_code_string == "EVEX.256.66.0F.W1 28 /r"
-		```
-		"""
-		...
-	@property
-	def instruction_string(self) -> str:
-		"""
-		str: Gets the instruction string, eg. `VPBROADCASTB xmm1, xmm2/m8`, see also `OpCodeInfo.op_code_string`
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
-		assert op_code.instruction_string == "VMOVAPD ymm1 {k1}{z}, ymm2/m256"
-		```
-		"""
-		...
-	def __repr__(self) -> str: ...
-	def __str__(self) -> str: ...
-	def __format__(self, format_spec: str) -> str: ...
-	def __eq__(self, other: Any) -> bool: ...
-	def __ne__(self, other: Any) -> bool: ...
-	def __hash__(self) -> int: ...
 
 class ConstantOffsets:
 	"""
@@ -731,7 +214,7 @@ class ConstantOffsets:
 
 		- ConstantOffsets: A copy of this instance
 
-		This is identical to `ConstantOffsets.clone`
+		This is identical to `ConstantOffsets.copy`
 		"""
 		...
 	def __deepcopy__(self, memo: Any) -> ConstantOffsets:
@@ -746,10 +229,10 @@ class ConstantOffsets:
 
 		- ConstantOffsets: A copy of this instance
 
-		This is identical to `ConstantOffsets.clone`
+		This is identical to `ConstantOffsets.copy`
 		"""
 		...
-	def clone(self) -> ConstantOffsets:
+	def copy(self) -> ConstantOffsets:
 		"""
 		Returns a copy of this instance.
 
@@ -761,6 +244,1827 @@ class ConstantOffsets:
 	def __eq__(self, other: Any) -> bool: ...
 	def __ne__(self, other: Any) -> bool: ...
 	def __hash__(self) -> int: ...
+
+class Decoder:
+	"""
+	Decodes 16/32/64-bit x86 instructions
+
+	### Args:
+
+	- `bitness` (int): 16, 32 or 64
+	- `data` (bytes, bytearray): Data to decode. For best PERF, use `bytes` since it's immutable and nothing gets copied.
+	- `options` (`DecoderOptions`): (default = `DecoderOptions.NONE`) Decoder options, eg. `DecoderOptions.NO_INVALID_CHECK` | `DecoderOptions.AMD`
+
+	### Raises:
+
+	- ValueError: If `bitness` is invalid
+	- TypeError: If `data` is not a supported type
+
+	### Examples:
+
+	```python
+	from iced_x86 import *
+
+	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
+	decoder = Decoder(64, data)
+	decoder.ip = 0x1234_5678
+
+	# The decoder is iterable
+	for instr in decoder:
+	    print(f"Decoded: IP=0x{instr.ip:X}: {instr}")
+	```
+
+	Output:
+
+	```text
+	Decoded: IP=0x12345678: xchg ah,[rdx+rsi+16h]
+	Decoded: IP=0x1234567C: xacquire lock add dword ptr [rax],5Ah
+	Decoded: IP=0x12345681: vmovdqu64 zmm18{k3}{z},zmm11
+	```
+
+	```python
+	from iced_x86 import *
+
+	# xchg ah,[rdx+rsi+16h]
+	# xacquire lock add dword ptr [rax],5Ah
+	# vmovdqu64 zmm18{k3}{z},zmm11
+	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
+	decoder = Decoder(64, data)
+	decoder.ip = 0x1234_5678
+
+	instr1 = decoder.decode()
+	assert instr1.code == Code.XCHG_RM8_R8
+	assert instr1.mnemonic == Mnemonic.XCHG
+	assert instr1.len == 4
+
+	instr2 = decoder.decode()
+	assert instr2.code == Code.ADD_RM32_IMM8
+	assert instr2.mnemonic == Mnemonic.ADD
+	assert instr2.len == 5
+
+	instr3 = decoder.decode()
+	assert instr3.code == Code.EVEX_VMOVDQU64_ZMM_K1Z_ZMMM512
+	assert instr3.mnemonic == Mnemonic.VMOVDQU64
+	assert instr3.len == 6
+	```
+
+	It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
+	Pass in `DecoderOptions.NO_INVALID_CHECK` to the constructor and the decoder
+	will decode some invalid encodings.
+
+	```python
+	from iced_x86 import *
+
+	# lock add esi,ecx   # lock not allowed
+	data = b"\\xF0\\x01\\xCE"
+	decoder = Decoder(64, data)
+	decoder.ip = 0x1234_5678
+	instr = decoder.decode()
+	assert instr.code == Code.INVALID
+
+	# We want to decode some instructions with invalid encodings
+	decoder = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK)
+	decoder.ip = 0x1234_5678
+	instr = decoder.decode()
+	assert instr.code == Code.ADD_RM32_R32
+	assert instr.has_lock_prefix
+	```
+	"""
+	def __init__(self, bitness: int, data: Union[bytes, bytearray], options: DecoderOptions = DecoderOptions.NONE) -> None: ...
+	@property
+	def ip(self) -> int:
+		"""
+		int: (`u64`) The current `IP`/`EIP`/`RIP` value, see also `Decoder.position`
+
+		### Note:
+
+		- The setter only updates the IP value, it does not change the data position, use the `Decoder.position` setter to change the position.
+		"""
+		...
+	@ip.setter
+	def ip(self, new_value: int) -> None: ...
+	@property
+	def bitness(self) -> int:
+		"""int: Gets the bitness (16, 32 or 64)"""
+		...
+	@property
+	def max_position(self) -> int:
+		"""
+		int: (`usize`) Gets the max value that can be written to `Decoder.position`.
+
+		This is the size of the data that gets decoded to instructions and it's the length of the data that was passed to the constructor.
+		"""
+		...
+	@property
+	def position(self) -> int:
+		"""
+		int: (`usize`) The current data position, which is the index into the data passed to the constructor.
+
+		This value is always <= `Decoder.max_position`. When `Decoder.position` == `Decoder.max_position`, it's not possible to decode more
+		instructions and `Decoder.can_decode` returns `False`.
+
+		### Raises:
+
+		- ValueError: If the new position is invalid.
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		# nop and pause
+		data = b"\\x90\\xF3\\x90"
+		decoder = Decoder(64, data)
+		decoder.ip = 0x1234_5678
+
+		assert decoder.position == 0
+		assert decoder.max_position == 3
+		instr = decoder.decode()
+		assert decoder.position == 1
+		assert instr.code == Code.NOPD
+
+		instr = decoder.decode()
+		assert decoder.position == 3
+		assert instr.code == Code.PAUSE
+
+		# Start all over again
+		decoder.position = 0
+		decoder.ip = 0x1234_5678
+		assert decoder.position == 0
+		assert decoder.decode().code == Code.NOPD
+		assert decoder.decode().code == Code.PAUSE
+		assert decoder.position == 3
+		```
+		"""
+		...
+	@position.setter
+	def position(self, new_value: int) -> None: ...
+	@property
+	def can_decode(self) -> bool:
+		"""
+		bool: Returns `True` if there's at least one more byte to decode.
+
+		It doesn't verify that the next instruction is valid, it only checks if there's
+		at least one more byte to read. See also `Decoder.position` and `Decoder.max_position`.
+
+		It's not required to call this method. If this method returns `False`, then `Decoder.decode_out`
+		and `Decoder.decode` will return an instruction whose `Instruction.code` == `Code.INVALID`.
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		# nop and an incomplete instruction
+		data = b"\\x90\\xF3\\x0F"
+		decoder = Decoder(64, data)
+		decoder.ip = 0x1234_5678
+
+		# 3 bytes left to read
+		assert decoder.can_decode
+		instr = decoder.decode()
+		assert instr.code == Code.NOPD
+
+		# 2 bytes left to read
+		assert decoder.can_decode
+		instr = decoder.decode()
+		# Not enough bytes left to decode a full instruction
+		assert decoder.last_error == DecoderError.NO_MORE_BYTES
+		assert instr.code == Code.INVALID
+		assert not instr
+		assert instr.is_invalid
+
+		# 0 bytes left to read
+		assert not decoder.can_decode
+		```
+		"""
+		...
+	@property
+	def last_error(self) -> DecoderError:
+		"""
+		`DecoderError`: Gets the last decoder error (a `DecoderError` enum value).
+
+		Unless you need to know the reason it failed, it's better to check `Instruction.is_invalid` or `if not instruction:`.
+		"""
+		...
+	def decode(self) -> Instruction:
+		"""
+		Decodes and returns the next instruction.
+
+		See also `Decoder.decode_out` which avoids copying the decoded instruction to the caller's return variable.
+		See also `Decoder.last_error`.
+
+		### Returns:
+
+		- Instruction: The next instruction
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		# xrelease lock add [rax],ebx
+		data = b"\\xF0\\xF3\\x01\\x18"
+		decoder = Decoder(64, data)
+		decoder.ip = 0x1234_5678
+		instr = decoder.decode()
+
+		assert instr.code == Code.ADD_RM32_R32
+		assert instr.mnemonic == Mnemonic.ADD
+		assert instr.len == 4
+		assert instr.op_count == 2
+
+		assert instr.op0_kind == OpKind.MEMORY
+		assert instr.memory_base == Register.RAX
+		assert instr.memory_index == Register.NONE
+		assert instr.memory_index_scale == 1
+		assert instr.memory_displacement == 0
+		assert instr.memory_segment == Register.DS
+		assert instr.segment_prefix == Register.NONE
+		assert instr.memory_size == MemorySize.UINT32
+
+		assert instr.op1_kind == OpKind.REGISTER
+		assert instr.op1_register == Register.EBX
+
+		assert instr.has_lock_prefix
+		assert instr.has_xrelease_prefix
+		```
+		"""
+		...
+	def decode_out(self, instruction: Instruction) -> None:
+		"""
+		Decodes the next instruction.
+
+		The difference between this method and `Decoder.decode` is that this method doesn't need to
+		allocate a new instruction since it overwrites the input instruction.
+
+		See also `Decoder.last_error`.
+
+		### Args:
+
+		- `instruction` (`Instruction`): Updated with the decoded instruction.
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		# xrelease lock add [rax],ebx
+		data = b"\\xF0\\xF3\\x01\\x18"
+		decoder = Decoder(64, data)
+		decoder.ip = 0x1234_5678
+		instr = Instruction()
+		decoder.decode_out(instr)
+
+		assert instr.code == Code.ADD_RM32_R32
+		assert instr.mnemonic == Mnemonic.ADD
+		assert instr.len == 4
+		assert instr.op_count == 2
+
+		assert instr.op0_kind == OpKind.MEMORY
+		assert instr.memory_base == Register.RAX
+		assert instr.memory_index == Register.NONE
+		assert instr.memory_index_scale == 1
+		assert instr.memory_displacement == 0
+		assert instr.memory_segment == Register.DS
+		assert instr.segment_prefix == Register.NONE
+		assert instr.memory_size == MemorySize.UINT32
+
+		assert instr.op1_kind == OpKind.REGISTER
+		assert instr.op1_register == Register.EBX
+
+		assert instr.has_lock_prefix
+		assert instr.has_xrelease_prefix
+		```
+		"""
+		...
+	def get_constant_offsets(self, instruction: Instruction) -> ConstantOffsets:
+		"""
+		Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
+
+		The caller can check if there are any relocations at those addresses.
+
+		### Args:
+
+		- `instruction` (`Instruction`): The latest instruction that was decoded by this decoder
+
+		### Returns:
+
+		- ConstantOffsets: Offsets and sizes of immediates
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		# nop
+		# xor dword ptr [rax-5AA5EDCCh],5Ah
+		#              00  01  02  03  04  05  06
+		#            \\opc\\mrm\\displacement___\\imm
+		data = b"\\x90\\x83\\xB3\\x34\\x12\\x5A\\xA5\\x5A"
+		decoder = Decoder(64, data)
+		decoder.ip = 0x1234_5678
+		assert decoder.decode().code == Code.NOPD
+		instr = decoder.decode()
+		co = decoder.get_constant_offsets(instr)
+
+		assert co.has_displacement
+		assert co.displacement_offset == 2
+		assert co.displacement_size == 4
+		assert co.has_immediate
+		assert co.immediate_offset == 6
+		assert co.immediate_size == 1
+		# It's not an instruction with two immediates (e.g. enter)
+		assert not co.has_immediate2
+		assert co.immediate_offset2 == 0
+		assert co.immediate_size2 == 0
+		```
+		"""
+		...
+	def __iter__(self) -> Iterator[Instruction]: ...
+
+class Encoder:
+	"""
+	Encodes instructions decoded by the decoder or instructions created by other code.
+
+	See also `BlockEncoder` which can encode any number of instructions.
+
+	### Args:
+
+	- `bitness` (int): 16, 32 or 64
+	- `capacity` (int): (default = 0) Initial capacity of the byte buffer
+
+	### Raises:
+
+	- ValueError: If `bitness` is invalid
+
+	### Examples:
+
+	```python
+	from iced_x86 import *
+
+	# xchg ah,[rdx+rsi+16h]
+	data = b"\\x86\\x64\\x32\\x16"
+	decoder = Decoder(64, data)
+	decoder.ip = 0x1234_5678
+	instr = decoder.decode()
+
+	encoder = Encoder(64)
+	try:
+	    instr_len = encoder.encode(instr, 0x5555_5555)
+	    assert instr_len == 4
+	except ValueError as ex:
+	    print(f"Failed to encode the instruction: {ex}")
+	    raise
+
+	# We're done, take ownership of the buffer
+	buffer = encoder.take_buffer()
+	assert buffer == b"\\x86\\x64\\x32\\x16"
+	```
+	"""
+	def __init__(self, bitness: int, capacity: int = 0) -> None: ...
+	def encode(self, instruction: Instruction, rip: int) -> int:
+		"""
+		Encodes an instruction and returns the size of the encoded instruction
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction to encode
+		- `rip` (int): (`u64`) `RIP` of the encoded instruction
+
+		### Returns:
+
+		- int: Size of the encoded instruction
+
+		### Raises:
+
+		- ValueError: If it failed to encode the instruction (eg. a target branch / RIP-rel operand is too far away)
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		# je short $+4
+		data = b"\\x75\\x02"
+		decoder = Decoder(64, data)
+		decoder.ip = 0x1234_5678
+		instr = decoder.decode()
+
+		encoder = Encoder(64)
+		try:
+		    # Use a different IP (orig rip + 0x10)
+		    instr_len = encoder.encode(instr, 0x1234_5688)
+		    assert instr_len == 2
+		except ValueError as ex:
+		    print(f"Failed to encode the instruction: {ex}")
+		    raise
+
+		# We're done, take ownership of the buffer
+		buffer = encoder.take_buffer()
+		assert buffer == b"\\x75\\xF2"
+		```
+		"""
+		...
+	def write_u8(self, value: int) -> None:
+		"""
+		Writes a byte to the output buffer
+
+		### Args:
+
+		- `value` (int): (`u8`) Value to write
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		# je short $+4
+		data = b"\\x75\\x02"
+		decoder = Decoder(64, data)
+		decoder.ip = 0x1234_5678
+		instr = decoder.decode()
+
+		encoder = Encoder(64)
+		# Add a random byte
+		encoder.write_u8(0x90)
+
+		try:
+		    # Use a different IP (orig rip + 0x10)
+		    instr_len = encoder.encode(instr, 0x1234_5688)
+		    assert instr_len == 2
+		except ValueError as ex:
+		    print(f"Failed to encode the instruction: {ex}")
+		    raise
+
+		# Add a random byte
+		encoder.write_u8(0x90)
+
+		# We're done, take ownership of the buffer
+		buffer = encoder.take_buffer()
+		assert buffer == b"\\x90\\x75\\xF2\\x90"
+		```
+		"""
+		...
+	def take_buffer(self) -> bytes:
+		"""
+		Returns the buffer and initializes the internal buffer to an empty array.
+
+		Should be called when you've encoded all instructions and need the raw instruction bytes.
+
+		### Returns:
+
+		- bytes: The encoded instructions
+		"""
+		...
+	def get_constant_offsets(self) -> ConstantOffsets:
+		"""
+		Gets the offsets of the constants (memory displacement and immediate) in the encoded instruction.
+
+		The caller can use this information to add relocations if needed.
+
+		### Returns:
+
+		- ConstantOffsets: Offsets and sizes of immediates
+		"""
+		...
+	@property
+	def prevent_vex2(self) -> bool:
+		"""bool: Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding"""
+		...
+	@prevent_vex2.setter
+	def prevent_vex2(self, new_value: bool) -> None: ...
+	@property
+	def vex_wig(self) -> int:
+		"""int: (`u8`) Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0."""
+		...
+	@vex_wig.setter
+	def vex_wig(self, new_value: int) -> None: ...
+	@property
+	def vex_lig(self) -> int:
+		"""int: (`u8`) Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0."""
+		...
+	@vex_lig.setter
+	def vex_lig(self, new_value: int) -> None: ...
+	@property
+	def evex_wig(self) -> int:
+		"""int: (`u8`) Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0."""
+		...
+	@evex_wig.setter
+	def evex_wig(self, new_value: int) -> None: ...
+	@property
+	def evex_lig(self) -> int:
+		"""int: (`u8`) Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0."""
+		...
+	@evex_lig.setter
+	def evex_lig(self, new_value: int) -> None: ...
+	@property
+	def bitness(self) -> int:
+		"""int: Gets the bitness (16, 32 or 64)"""
+		...
+
+class FastFormatter:
+	"""
+	Fast formatter with less formatting options and with a masm-like syntax.
+
+	Use it if formatting speed is more important than being able to re-assemble formatted instructions.
+
+	This formatter is ~1.25x faster than the other formatters (the time includes decoding + formatting).
+
+	### Examples:
+
+	```python
+	from iced_x86 import *
+
+	data = b"\\x62\\xF2\\x4F\\xDD\\x72\\x50\\x01"
+	decoder = Decoder(64, data)
+	instr = decoder.decode()
+
+	formatter = FastFormatter()
+	formatter.space_after_operand_separator = True
+	disasm = formatter.format(instr)
+	assert disasm == "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]"
+	```
+	"""
+	def __init__(self) -> None: ...
+	def format(self, instruction: Instruction) -> str:
+		"""
+		Formats the whole instruction: prefixes, mnemonic, operands
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction to format
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	@property
+	def space_after_operand_separator(self) -> bool:
+		"""
+		bool: Add a space after the operand separator
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov rax, rcx`
+		✔️       `False`  `mov rax,rcx`
+		```
+		"""
+		...
+	@space_after_operand_separator.setter
+	def space_after_operand_separator(self, new_value: bool) -> None: ...
+	@property
+	def rip_relative_addresses(self) -> bool:
+		"""
+		bool: Show `RIP+displ` or the virtual address
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[rip+12345678h]`
+		✔️       `False`  `mov eax,[1029384756AFBECDh]`
+		```
+		"""
+		...
+	@rip_relative_addresses.setter
+	def rip_relative_addresses(self, new_value: bool) -> None: ...
+	@property
+	def use_pseudo_ops(self) -> bool:
+		"""
+		bool: Use pseudo instructions
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
+		         `False`  `vcmpsd xmm2,xmm6,xmm3,5`
+		```
+		"""
+		...
+	@use_pseudo_ops.setter
+	def use_pseudo_ops(self, new_value: bool) -> None: ...
+	@property
+	def show_symbol_address(self) -> bool:
+		"""
+		bool: Show the original value after the symbol name
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[myfield (12345678)]`
+		✔️       `False`  `mov eax,[myfield]`
+		```
+		"""
+		...
+	@show_symbol_address.setter
+	def show_symbol_address(self, new_value: bool) -> None: ...
+	@property
+	def always_show_segment_register(self) -> bool:
+		"""
+		bool: Always show the effective segment register.
+
+		If the option is `False`, only show the segment register if there's a segment override prefix.
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,ds:[ecx]`
+		✔️       `False`  `mov eax,[ecx]`
+		```
+		"""
+		...
+	@always_show_segment_register.setter
+	def always_show_segment_register(self, new_value: bool) -> None: ...
+	@property
+	def always_show_memory_size(self) -> bool:
+		"""
+		bool: Always show the size of memory operands
+
+		```text
+		Default  Value    Example                    Example
+		----------------------------------------------------
+		         `True`   `mov eax,dword ptr [ebx]`  `add byte ptr [eax],0x12`
+		✔️       `False`  `mov eax,[ebx]`            `add byte ptr [eax],0x12`
+		```
+		"""
+		...
+	@always_show_memory_size.setter
+	def always_show_memory_size(self, new_value: bool) -> None: ...
+	@property
+	def uppercase_hex(self) -> bool:
+		"""
+		bool: Use upper case hex digits
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `0xFF`
+		         `False`  `0xff`
+		```
+		"""
+		...
+	@uppercase_hex.setter
+	def uppercase_hex(self, new_value: bool) -> None: ...
+	@property
+	def use_hex_prefix(self) -> bool:
+		"""
+		bool: Use a hex prefix (`0x`) or a hex suffix (`h`)
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `0x5A`
+		✔️       `False`  `5Ah`
+		```
+		"""
+		...
+	@use_hex_prefix.setter
+	def use_hex_prefix(self, new_value: bool) -> None: ...
+
+class Formatter:
+	"""
+	x86 formatter that supports GNU Assembler, Intel XED, masm and nasm syntax
+
+	### Args:
+
+	- `syntax` (`FormatterSyntax`): Formatter syntax
+
+	### Examples:
+
+	```python
+	from iced_x86 import *
+
+	data = b"\\x62\\xF2\\x4F\\xDD\\x72\\x50\\x01"
+	decoder = Decoder(64, data)
+	instr = decoder.decode()
+
+	formatter = Formatter(FormatterSyntax.MASM)
+	formatter.uppercase_mnemonics = True
+	disasm = formatter.format(instr)
+	assert disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]"
+	```
+	"""
+	def __init__(self, syntax: FormatterSyntax) -> None: ...
+	def format(self, instruction: Instruction) -> str:
+		"""
+		Formats the whole instruction: prefixes, mnemonic, operands
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction to format
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_mnemonic(self, instruction: Instruction, options: FormatMnemonicOptions = FormatMnemonicOptions.NONE) -> str:
+		"""
+		Formats the mnemonic and any prefixes
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction to format
+		- `options` (`FormatMnemonicOptions`): (default = `FormatMnemonicOptions.NONE`) Options
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def operand_count(self, instruction: Instruction) -> int:
+		"""
+		Gets the number of operands that will be formatted. A formatter can add and remove operands
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction
+
+		### Returns:
+
+		- int: Operand count
+		"""
+		...
+	def op_access(self, instruction: Instruction, operand: int) -> Optional[OpAccess]:
+		"""
+		Returns the operand access but only if it's an operand added by the formatter.
+
+		If it's an operand that is part of `Instruction`, you should call eg. `InstructionInfoFactory.info`.
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction
+		- `operand` (int): Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter.operand_count`
+
+		### Returns:
+
+		- `OpAccess`, None: Operand access or `None`
+
+		### Raises:
+
+		- ValueError: If `operand` is invalid
+		"""
+		...
+	def get_instruction_operand(self, instruction: Instruction, operand: int) -> Optional[int]:
+		"""
+		Converts a formatter operand index to an instruction operand index.
+
+		Returns `None` if it's an operand added by the formatter
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction
+		- `operand` (int): Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter.operand_count`
+
+		### Returns:
+
+		- int, None: Instruction operand or `None` if it's an operand added by the formatter
+
+		### Raises:
+
+		- ValueError: If `operand` is invalid
+		"""
+		...
+	def get_formatter_operand(self, instruction: Instruction, instruction_operand: int) -> Optional[int]:
+		"""
+		Converts an instruction operand index to a formatter operand index.
+
+		Returns `None` if the instruction operand isn't used by the formatter
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction
+		- `instruction_operand` (int): Instruction operand
+
+		### Returns:
+
+		- int, None: Instruction operand or `None` if the instruction operand isn't used by the formatter
+
+		### Raises:
+
+		- ValueError: If `instruction_operand` is invalid
+		"""
+		...
+	def format_operand(self, instruction: Instruction, operand: int) -> str:
+		"""
+		Formats an operand.
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction
+		- `operand` (int): Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter.operand_count`
+
+		### Returns:
+
+		- str: The formatted string
+
+		### Raises:
+
+		- ValueError: If `operand` is invalid
+		"""
+		...
+	def format_operand_separator(self, instruction: Instruction) -> str:
+		"""
+		Formats an operand separator
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_all_operands(self, instruction: Instruction) -> str:
+		"""
+		Formats all operands
+
+		### Args:
+
+		- `instruction` (Instruction): Instruction to format
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_register(self, register: Register) -> str:
+		"""
+		Formats a register
+
+		### Args:
+
+		- `register` (`Register`): Register
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_i8(self, value: int) -> str:
+		"""
+		Formats a `i8`
+
+		### Args:
+
+		- `value` (int): (`i8`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_i16(self, value: int) -> str:
+		"""
+		Formats a `i16`
+
+		### Args:
+
+		- `value` (int): (`i16`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_i32(self, value: int) -> str:
+		"""
+		Formats a `i32`
+
+		### Args:
+
+		- `value` (int): (`i32`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_i64(self, value: int) -> str:
+		"""
+		Formats a `i64`
+
+		### Args:
+
+		- `value` (int): (`i64`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_u8(self, value: int) -> str:
+		"""
+		Formats a `u8`
+
+		### Args:
+
+		- `value` (int): (`u8`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_u16(self, value: int) -> str:
+		"""
+		Formats a `u16`
+
+		### Args:
+
+		- `value` (int): (`u16`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_u32(self, value: int) -> str:
+		"""
+		Formats a `u32`
+
+		### Args:
+
+		- `value` (int): (`u32`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	def format_u64(self, value: int) -> str:
+		"""
+		Formats a `u64`
+
+		### Args:
+
+		- `value` (int): (`u64`) Value
+
+		### Returns:
+
+		- str: The formatted string
+		"""
+		...
+	@property
+	def uppercase_prefixes(self) -> bool:
+		"""
+		bool: Prefixes are upper cased
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `REP stosd`
+		✔️       `False`  `rep stosd`
+		```
+		"""
+		...
+	@uppercase_prefixes.setter
+	def uppercase_prefixes(self, new_value: bool) -> None: ...
+	@property
+	def uppercase_mnemonics(self) -> bool:
+		"""
+		bool: Mnemonics are upper cased
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `MOV rcx,rax`
+		✔️       `False`  `mov rcx,rax`
+		```
+		"""
+		...
+	@uppercase_mnemonics.setter
+	def uppercase_mnemonics(self, new_value: bool) -> None: ...
+	@property
+	def uppercase_registers(self) -> bool:
+		"""
+		bool: Registers are upper cased
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov RCX,[RAX+RDX*8]`
+		✔️       `False`  `mov rcx,[rax+rdx*8]`
+		```
+		"""
+		...
+	@uppercase_registers.setter
+	def uppercase_registers(self, new_value: bool) -> None: ...
+	@property
+	def uppercase_keywords(self) -> bool:
+		"""
+		bool: Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov BYTE PTR [rcx],12h`
+		✔️       `False`  `mov byte ptr [rcx],12h`
+		```
+		"""
+		...
+	@uppercase_keywords.setter
+	def uppercase_keywords(self, new_value: bool) -> None: ...
+	@property
+	def uppercase_decorators(self) -> bool:
+		"""
+		bool: Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
+		✔️       `False`  `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
+		```
+		"""
+		...
+	@uppercase_decorators.setter
+	def uppercase_decorators(self, new_value: bool) -> None: ...
+	@property
+	def uppercase_all(self) -> bool:
+		"""
+		bool: Everything is upper cased, except numbers and their prefixes/suffixes
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `MOV EAX,GS:[RCX*4+0ffh]`
+		✔️       `False`  `mov eax,gs:[rcx*4+0ffh]`
+		```
+		"""
+		...
+	@uppercase_all.setter
+	def uppercase_all(self, new_value: bool) -> None: ...
+	@property
+	def first_operand_char_index(self) -> int:
+		"""
+		int: (`u32`) Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
+		At least one space or tab is always added between the mnemonic and the first operand.
+
+		```text
+		Default  Value  Example
+		-----------------------
+		✔️       `0`    `mov•rcx,rbp`
+		         `8`    `mov•••••rcx,rbp`
+		```
+		"""
+		...
+	@first_operand_char_index.setter
+	def first_operand_char_index(self, new_value: int) -> None: ...
+	@property
+	def tab_size(self) -> int:
+		"""
+		int: (`u32`) Size of a tab character or 0 to use spaces
+
+		Default: `0`
+		"""
+		...
+	@tab_size.setter
+	def tab_size(self, new_value: int) -> None: ...
+	@property
+	def space_after_operand_separator(self) -> bool:
+		"""
+		bool: Add a space after the operand separator
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov rax, rcx`
+		✔️       `False`  `mov rax,rcx`
+		```
+		"""
+		...
+	@space_after_operand_separator.setter
+	def space_after_operand_separator(self, new_value: bool) -> None: ...
+	@property
+	def space_after_memory_bracket(self) -> bool:
+		"""
+		bool: Add a space between the memory expression and the brackets
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[ rcx+rdx ]`
+		✔️       `False`  `mov eax,[rcx+rdx]`
+		```
+		"""
+		...
+	@space_after_memory_bracket.setter
+	def space_after_memory_bracket(self, new_value: bool) -> None: ...
+	@property
+	def space_between_memory_add_operators(self) -> bool:
+		"""
+		bool: Add spaces between memory operand `+` and `-` operators
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[rcx + rdx*8 - 80h]`
+		✔️       `False`  `mov eax,[rcx+rdx*8-80h]`
+		```
+		"""
+		...
+	@space_between_memory_add_operators.setter
+	def space_between_memory_add_operators(self, new_value: bool) -> None: ...
+	@property
+	def space_between_memory_mul_operators(self) -> bool:
+		"""
+		bool: Add spaces between memory operand `*` operator
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[rcx+rdx * 8-80h]`
+		✔️       `False`  `mov eax,[rcx+rdx*8-80h]`
+		```
+		"""
+		...
+	@space_between_memory_mul_operators.setter
+	def space_between_memory_mul_operators(self, new_value: bool) -> None: ...
+	@property
+	def scale_before_index(self) -> bool:
+		"""
+		bool: Show memory operand scale value before the index register
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[8*rdx]`
+		✔️       `False`  `mov eax,[rdx*8]`
+		```
+		"""
+		...
+	@scale_before_index.setter
+	def scale_before_index(self, new_value: bool) -> None: ...
+	@property
+	def always_show_scale(self) -> bool:
+		"""
+		bool: Always show the scale value even if it's `*1`
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[rbx+rcx*1]`
+		✔️       `False`  `mov eax,[rbx+rcx]`
+		```
+		"""
+		...
+	@always_show_scale.setter
+	def always_show_scale(self, new_value: bool) -> None: ...
+	@property
+	def always_show_segment_register(self) -> bool:
+		"""
+		bool: Always show the effective segment register.
+
+		If the option is `False`, only show the segment register if there's a segment override prefix.
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,ds:[ecx]`
+		✔️       `False`  `mov eax,[ecx]`
+		```
+		"""
+		...
+	@always_show_segment_register.setter
+	def always_show_segment_register(self, new_value: bool) -> None: ...
+	@property
+	def show_zero_displacements(self) -> bool:
+		"""
+		bool: Show zero displacements
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[rcx*2+0]`
+		✔️       `False`  `mov eax,[rcx*2]`
+		```
+		"""
+		...
+	@show_zero_displacements.setter
+	def show_zero_displacements(self, new_value: bool) -> None: ...
+	@property
+	def hex_prefix(self) -> str:
+		"""
+		str: Hex number prefix or an empty string, eg. `"0x"`
+
+		Default: `""` (masm/nasm/intel), `"0x"` (gas)
+		"""
+		...
+	@hex_prefix.setter
+	def hex_prefix(self, new_value: str) -> None: ...
+	@property
+	def hex_suffix(self) -> str:
+		"""
+		str: Hex number suffix or an empty string, eg. `"h"`
+
+		Default: `"h"` (masm/nasm/intel), `""` (gas)
+		"""
+		...
+	@hex_suffix.setter
+	def hex_suffix(self, new_value: str) -> None: ...
+	@property
+	def hex_digit_group_size(self) -> int:
+		"""
+		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
+
+		```text
+		Default  Value  Example
+		-----------------------
+		         `0`    `0x12345678`
+		✔️       `4`    `0x1234_5678`
+		```
+		"""
+		...
+	@hex_digit_group_size.setter
+	def hex_digit_group_size(self, new_value: int) -> None: ...
+	@property
+	def decimal_prefix(self) -> str:
+		"""
+		str: Decimal number prefix or an empty string
+
+		Default: `""`
+		"""
+		...
+	@decimal_prefix.setter
+	def decimal_prefix(self, new_value: str) -> None: ...
+	@property
+	def decimal_suffix(self) -> str:
+		"""
+		str: Decimal number suffix or an empty string
+
+		Default: `""`
+		"""
+		...
+	@decimal_suffix.setter
+	def decimal_suffix(self, new_value: str) -> None: ...
+	@property
+	def decimal_digit_group_size(self) -> int:
+		"""
+		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
+
+		```text
+		Default  Value  Example
+		-----------------------
+		         `0`    `12345678`
+		✔️       `3`    `12_345_678`
+		```
+		"""
+		...
+	@decimal_digit_group_size.setter
+	def decimal_digit_group_size(self, new_value: int) -> None: ...
+	@property
+	def octal_prefix(self) -> str:
+		"""
+		str: Octal number prefix or an empty string
+
+		Default: `""` (masm/nasm/intel), `"0"` (gas)
+		"""
+		...
+	@octal_prefix.setter
+	def octal_prefix(self, new_value: str) -> None: ...
+	@property
+	def octal_suffix(self) -> str:
+		"""
+		str: Octal number suffix or an empty string
+
+		Default: `"o"` (masm/nasm/intel), `""` (gas)
+		"""
+		...
+	@octal_suffix.setter
+	def octal_suffix(self, new_value: str) -> None: ...
+	@property
+	def octal_digit_group_size(self) -> int:
+		"""
+		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
+
+		```text
+		Default  Value  Example
+		-----------------------
+		         `0`    `12345670`
+		✔️       `4`    `1234_5670`
+		```
+		"""
+		...
+	@octal_digit_group_size.setter
+	def octal_digit_group_size(self, new_value: int) -> None: ...
+	@property
+	def binary_prefix(self) -> str:
+		"""
+		str: Binary number prefix or an empty string
+
+		Default: `""` (masm/nasm/intel), `"0b"` (gas)
+		"""
+		...
+	@binary_prefix.setter
+	def binary_prefix(self, new_value: str) -> None: ...
+	@property
+	def binary_suffix(self) -> str:
+		"""
+		str: Binary number suffix or an empty string
+
+		Default: `"b"` (masm/nasm/intel), `""` (gas)
+		"""
+		...
+	@binary_suffix.setter
+	def binary_suffix(self, new_value: str) -> None: ...
+	@property
+	def binary_digit_group_size(self) -> int:
+		"""
+		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
+
+		```text
+		Default  Value  Example
+		-----------------------
+		         `0`    `11010111`
+		✔️       `4`    `1101_0111`
+		```
+		"""
+		...
+	@binary_digit_group_size.setter
+	def binary_digit_group_size(self, new_value: int) -> None: ...
+	@property
+	def digit_separator(self) -> str:
+		"""
+		str: Digit separator or an empty string. See also eg. `Formatter.hex_digit_group_size`
+
+		```text
+		Default  Value  Example
+		-----------------------
+		✔️       `""`   `0x12345678`
+		         `"_"`  `0x1234_5678`
+		```
+		"""
+		...
+	@digit_separator.setter
+	def digit_separator(self, new_value: str) -> None: ...
+	@property
+	def leading_zeroes(self) -> bool:
+		"""
+		bool: Add leading zeroes to hexadecimal/octal/binary numbers.
+
+		This option has no effect on branch targets and displacements, use `Formatter.branch_leading_zeroes`
+		and `Formatter.displacement_leading_zeroes`.
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `0x0000000A`/`0000000Ah`
+		✔️       `False`  `0xA`/`0Ah`
+		```
+		"""
+		...
+	@leading_zeroes.setter
+	def leading_zeroes(self, new_value: bool) -> None: ...
+	@property
+	def uppercase_hex(self) -> bool:
+		"""
+		bool: Use upper case hex digits
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `0xFF`
+		         `False`  `0xff`
+		```
+		"""
+		...
+	@uppercase_hex.setter
+	def uppercase_hex(self, new_value: bool) -> None: ...
+	@property
+	def small_hex_numbers_in_decimal(self) -> bool:
+		"""
+		bool: Small hex numbers (-9 .. 9) are shown in decimal
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `9`
+		         `False`  `0x9`
+		```
+		"""
+		...
+	@small_hex_numbers_in_decimal.setter
+	def small_hex_numbers_in_decimal(self, new_value: bool) -> None: ...
+	@property
+	def add_leading_zero_to_hex_numbers(self) -> bool:
+		"""
+		bool: Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `0FFh`
+		         `False`  `FFh`
+		```
+		"""
+		...
+	@add_leading_zero_to_hex_numbers.setter
+	def add_leading_zero_to_hex_numbers(self, new_value: bool) -> None: ...
+	@property
+	def number_base(self) -> int:
+		"""
+		int: Number base (`2`, `8`, `10`, `16`)
+
+		### Raises:
+
+		- ValueError: If it's an invalid number base
+
+		Default: `16`
+		"""
+		...
+	@number_base.setter
+	def number_base(self, new_value: int) -> None: ...
+	@property
+	def branch_leading_zeroes(self) -> bool:
+		"""
+		bool: Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `je 00000123h`
+		         `False`  `je 123h`
+		```
+		"""
+		...
+	@branch_leading_zeroes.setter
+	def branch_leading_zeroes(self, new_value: bool) -> None: ...
+	@property
+	def signed_immediate_operands(self) -> bool:
+		"""
+		bool: Show immediate operands as signed numbers
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,-1`
+		✔️       `False`  `mov eax,FFFFFFFF`
+		```
+		"""
+		...
+	@signed_immediate_operands.setter
+	def signed_immediate_operands(self, new_value: bool) -> None: ...
+	@property
+	def signed_memory_displacements(self) -> bool:
+		"""
+		bool: Displacements are signed numbers
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `mov al,[eax-2000h]`
+		         `False`  `mov al,[eax+0FFFFE000h]`
+		```
+		"""
+		...
+	@signed_memory_displacements.setter
+	def signed_memory_displacements(self, new_value: bool) -> None: ...
+	@property
+	def displacement_leading_zeroes(self) -> bool:
+		"""
+		bool: Add leading zeroes to displacements
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov al,[eax+00000012h]`
+		✔️       `False`  `mov al,[eax+12h]`
+		```
+		"""
+		...
+	@displacement_leading_zeroes.setter
+	def displacement_leading_zeroes(self, new_value: bool) -> None: ...
+	@property
+	def memory_size_options(self) -> MemorySizeOptions:
+		"""
+		`MemorySizeOptions`: Options that control if the memory size (eg. `DWORD PTR`) is shown or not.
+
+		This is ignored by the gas (AT&T) formatter.
+
+		Default: `MemorySizeOptions.DEFAULT`
+		"""
+		...
+	@memory_size_options.setter
+	def memory_size_options(self, new_value: MemorySizeOptions) -> None: ...
+	@property
+	def rip_relative_addresses(self) -> bool:
+		"""
+		bool: Show `RIP+displ` or the virtual address
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[rip+12345678h]`
+		✔️       `False`  `mov eax,[1029384756AFBECDh]`
+		```
+		"""
+		...
+	@rip_relative_addresses.setter
+	def rip_relative_addresses(self, new_value: bool) -> None: ...
+	@property
+	def show_branch_size(self) -> bool:
+		"""
+		bool: Show `NEAR`, `SHORT`, etc if it's a branch instruction
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `je short 1234h`
+		         `False`  `je 1234h`
+		```
+		"""
+		...
+	@show_branch_size.setter
+	def show_branch_size(self, new_value: bool) -> None: ...
+	@property
+	def use_pseudo_ops(self) -> bool:
+		"""
+		bool: Use pseudo instructions
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
+		         `False`  `vcmpsd xmm2,xmm6,xmm3,5`
+		```
+		"""
+		...
+	@use_pseudo_ops.setter
+	def use_pseudo_ops(self, new_value: bool) -> None: ...
+	@property
+	def show_symbol_address(self) -> bool:
+		"""
+		bool: Show the original value after the symbol name
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,[myfield (12345678)]`
+		✔️       `False`  `mov eax,[myfield]`
+		```
+		"""
+		...
+	@show_symbol_address.setter
+	def show_symbol_address(self, new_value: bool) -> None: ...
+	@property
+	def gas_naked_registers(self) -> bool:
+		"""
+		bool: (gas only): If `True`, the formatter doesn't add `%` to registers
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `mov eax,ecx`
+		✔️       `False`  `mov %eax,%ecx`
+		```
+		"""
+		...
+	@gas_naked_registers.setter
+	def gas_naked_registers(self, new_value: bool) -> None: ...
+	@property
+	def gas_show_mnemonic_size_suffix(self) -> bool:
+		"""
+		bool: (gas only): Shows the mnemonic size suffix even when not needed
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `movl %eax,%ecx`
+		✔️       `False`  `mov %eax,%ecx`
+		```
+		"""
+		...
+	@gas_show_mnemonic_size_suffix.setter
+	def gas_show_mnemonic_size_suffix(self, new_value: bool) -> None: ...
+	@property
+	def gas_space_after_memory_operand_comma(self) -> bool:
+		"""
+		bool: (gas only): Add a space after the comma if it's a memory operand
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `(%eax, %ecx, 2)`
+		✔️       `False`  `(%eax,%ecx,2)`
+		```
+		"""
+		...
+	@gas_space_after_memory_operand_comma.setter
+	def gas_space_after_memory_operand_comma(self, new_value: bool) -> None: ...
+	@property
+	def masm_add_ds_prefix32(self) -> bool:
+		"""
+		bool: (masm only): Add a `DS` segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `mov eax,ds:[12345678]`
+		         `False`  `mov eax,[12345678]`
+		```
+		"""
+		...
+	@masm_add_ds_prefix32.setter
+	def masm_add_ds_prefix32(self, new_value: bool) -> None: ...
+	@property
+	def masm_symbol_displ_in_brackets(self) -> bool:
+		"""
+		bool: (masm only): Show symbols in brackets
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `[ecx+symbol]` / `[symbol]`
+		         `False`  `symbol[ecx]` / `symbol`
+		```
+		"""
+		...
+	@masm_symbol_displ_in_brackets.setter
+	def masm_symbol_displ_in_brackets(self, new_value: bool) -> None: ...
+	@property
+	def masm_displ_in_brackets(self) -> bool:
+		"""
+		bool: (masm only): Show displacements in brackets
+
+		```text
+		Default  Value    Example
+		-------------------------
+		✔️       `True`   `[ecx+1234h]`
+		         `False`  `1234h[ecx]`
+		```
+		"""
+		...
+	@masm_displ_in_brackets.setter
+	def masm_displ_in_brackets(self, new_value: bool) -> None: ...
+	@property
+	def nasm_show_sign_extended_immediate_size(self) -> bool:
+		"""
+		bool: (nasm only): Shows `BYTE`, `WORD`, `DWORD` or `QWORD` if it's a sign extended immediate operand value
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `or rcx,byte -1`
+		✔️       `False`  `or rcx,-1`
+		```
+		"""
+		...
+	@nasm_show_sign_extended_immediate_size.setter
+	def nasm_show_sign_extended_immediate_size(self, new_value: bool) -> None: ...
+	@property
+	def prefer_st0(self) -> bool:
+		"""
+		bool: Use `st(0)` instead of `st` if `st` can be used. Ignored by the nasm formatter.
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `fadd st(0),st(3)`
+		✔️       `False`  `fadd st,st(3)`
+		```
+		"""
+		...
+	@prefer_st0.setter
+	def prefer_st0(self, new_value: bool) -> None: ...
+	@property
+	def show_useless_prefixes(self) -> bool:
+		"""
+		bool: Show useless prefixes. If it has useless prefixes, it could be data and not code.
+
+		```text
+		Default  Value    Example
+		-------------------------
+		         `True`   `es rep add eax,ecx`
+		✔️       `False`  `add eax,ecx`
+		```
+		"""
+		...
+	@show_useless_prefixes.setter
+	def show_useless_prefixes(self, new_value: bool) -> None: ...
+	@property
+	def cc_b(self) -> CC_b:
+		"""
+		`CC_b`: Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
+
+		Default: `JB`, `CMOVB`, `SETB`
+		"""
+		...
+	@cc_b.setter
+	def cc_b(self, new_value: CC_b) -> None: ...
+	@property
+	def cc_ae(self) -> CC_ae:
+		"""
+		`CC_ae`: Mnemonic condition code selector (eg. `JAE` / `JNB` / `JNC`)
+
+		Default: `JAE`, `CMOVAE`, `SETAE`
+		"""
+		...
+	@cc_ae.setter
+	def cc_ae(self, new_value: CC_ae) -> None: ...
+	@property
+	def cc_e(self) -> CC_e:
+		"""
+		`CC_e`: Mnemonic condition code selector (eg. `JE` / `JZ`)
+
+		Default: `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
+		"""
+		...
+	@cc_e.setter
+	def cc_e(self, new_value: CC_e) -> None: ...
+	@property
+	def cc_ne(self) -> CC_ne:
+		"""
+		`CC_ne`: Mnemonic condition code selector (eg. `JNE` / `JNZ`)
+
+		Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
+		"""
+		...
+	@cc_ne.setter
+	def cc_ne(self, new_value: CC_ne) -> None: ...
+	@property
+	def cc_be(self) -> CC_be:
+		"""
+		`CC_be`: Mnemonic condition code selector (eg. `JBE` / `JNA`)
+
+		Default: `JBE`, `CMOVBE`, `SETBE`
+		"""
+		...
+	@cc_be.setter
+	def cc_be(self, new_value: CC_be) -> None: ...
+	@property
+	def cc_a(self) -> CC_a:
+		"""
+		`CC_a`: Mnemonic condition code selector (eg. `JA` / `JNBE`)
+
+		Default: `JA`, `CMOVA`, `SETA`
+		"""
+		...
+	@cc_a.setter
+	def cc_a(self, new_value: CC_a) -> None: ...
+	@property
+	def cc_p(self) -> CC_p:
+		"""
+		`CC_p`: Mnemonic condition code selector (eg. `JP` / `JPE`)
+
+		Default: `JP`, `CMOVP`, `SETP`
+		"""
+		...
+	@cc_p.setter
+	def cc_p(self, new_value: CC_p) -> None: ...
+	@property
+	def cc_np(self) -> CC_np:
+		"""
+		`CC_np`: Mnemonic condition code selector (eg. `JNP` / `JPO`)
+
+		Default: `JNP`, `CMOVNP`, `SETNP`
+		"""
+		...
+	@cc_np.setter
+	def cc_np(self, new_value: CC_np) -> None: ...
+	@property
+	def cc_l(self) -> CC_l:
+		"""
+		`CC_l`: Mnemonic condition code selector (eg. `JL` / `JNGE`)
+
+		Default: `JL`, `CMOVL`, `SETL`
+		"""
+		...
+	@cc_l.setter
+	def cc_l(self, new_value: CC_l) -> None: ...
+	@property
+	def cc_ge(self) -> CC_ge:
+		"""
+		`CC_ge`: Mnemonic condition code selector (eg. `JGE` / `JNL`)
+
+		Default: `JGE`, `CMOVGE`, `SETGE`
+		"""
+		...
+	@cc_ge.setter
+	def cc_ge(self, new_value: CC_ge) -> None: ...
+	@property
+	def cc_le(self) -> CC_le:
+		"""
+		`CC_le`: Mnemonic condition code selector (eg. `JLE` / `JNG`)
+
+		Default: `JLE`, `CMOVLE`, `SETLE`
+		"""
+		...
+	@cc_le.setter
+	def cc_le(self, new_value: CC_le) -> None: ...
+	@property
+	def cc_g(self) -> CC_g:
+		"""
+		`CC_g`: Mnemonic condition code selector (eg. `JG` / `JNLE`)
+
+		Default: `JG`, `CMOVG`, `SETG`
+		"""
+		...
+	@cc_g.setter
+	def cc_g(self, new_value: CC_g) -> None: ...
 
 class FpuStackIncrementInfo:
 	"""
@@ -790,60 +2094,6 @@ class FpuStackIncrementInfo:
 	def writes_top(self) -> bool:
 		"""bool: `True` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)"""
 		...
-
-class MemoryOperand:
-	"""
-	Memory operand passed to one of `Instruction`'s `create*()` constructor methods
-
-	### Args:
-
-	- `base` (`Register`): (default = `Register.NONE`) Base register or `Register.NONE`
-	- `index` (`Register`): (default = `Register.NONE`) Index register or `Register.NONE`
-	- `scale` (int): (default = `1`) Index register scale (1, 2, 4, or 8)
-	- `displ` (int): (`i32`) (default = `0`) Memory displacement
-	- `displ_size` (int): (default = `0`) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
-	- `is_broadcast` (bool): (default = `False`) `True` if it's broadcasted memory (EVEX instructions)
-	- `seg` (`Register`): (default = `Register.NONE`) Segment override or `Register.NONE`
-	"""
-	def __init__(self, base: Register = Register.NONE, index: Register = Register.NONE, scale: int = 1, displ: int = 0, displ_size: int = 0, is_broadcast: bool = False, seg: Register = Register.NONE) -> None: ...
-	def __copy__(self) -> MemoryOperand:
-		"""
-		Returns a copy of this instance.
-
-		### Returns:
-
-		- MemoryOperand: A copy of this instance
-
-		This is identical to `MemoryOperand.clone`
-		"""
-		...
-	def __deepcopy__(self, memo: Any) -> MemoryOperand:
-		"""
-		Returns a copy of this instance.
-
-		### Args:
-
-		- `memo` (Any): memo dict
-
-		### Returns:
-
-		- MemoryOperand: A copy of this instance
-
-		This is identical to `MemoryOperand.clone`
-		"""
-		...
-	def clone(self) -> MemoryOperand:
-		"""
-		Returns a copy of this instance.
-
-		### Returns:
-
-		- MemoryOperand: A copy of this instance
-		"""
-		...
-	def __eq__(self, other: Any) -> bool: ...
-	def __ne__(self, other: Any) -> bool: ...
-	def __hash__(self) -> int: ...
 
 class Instruction:
 	"""
@@ -997,7 +2247,7 @@ class Instruction:
 
 		- Instruction: A copy of this instance
 
-		This is identical to `Instruction.clone`
+		This is identical to `Instruction.copy`
 		"""
 		...
 	def __deepcopy__(self, memo: Any) -> Instruction:
@@ -1012,10 +2262,10 @@ class Instruction:
 
 		- Instruction: A copy of this instance
 
-		This is identical to `Instruction.clone`
+		This is identical to `Instruction.copy`
 		"""
 		...
-	def clone(self) -> Instruction:
+	def copy(self) -> Instruction:
 		"""
 		Returns a copy of this instance.
 
@@ -5392,2044 +6642,6 @@ class Instruction:
 		"""
 		...
 
-class Decoder:
-	"""
-	Decodes 16/32/64-bit x86 instructions
-
-	### Args:
-
-	- `bitness` (int): 16, 32 or 64
-	- `data` (bytes, bytearray): Data to decode. For best PERF, use `bytes` since it's immutable and nothing gets copied.
-	- `options` (`DecoderOptions`): (default = `DecoderOptions.NONE`) Decoder options, eg. `DecoderOptions.NO_INVALID_CHECK` | `DecoderOptions.AMD`
-
-	### Raises:
-
-	- ValueError: If `bitness` is invalid
-	- TypeError: If `data` is not a supported type
-
-	### Examples:
-
-	```python
-	from iced_x86 import *
-
-	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
-
-	# The decoder is iterable
-	for instr in decoder:
-	    print(f"Decoded: IP=0x{instr.ip:X}: {instr}")
-	```
-
-	Output:
-
-	```text
-	Decoded: IP=0x12345678: xchg ah,[rdx+rsi+16h]
-	Decoded: IP=0x1234567C: xacquire lock add dword ptr [rax],5Ah
-	Decoded: IP=0x12345681: vmovdqu64 zmm18{k3}{z},zmm11
-	```
-
-	```python
-	from iced_x86 import *
-
-	# xchg ah,[rdx+rsi+16h]
-	# xacquire lock add dword ptr [rax],5Ah
-	# vmovdqu64 zmm18{k3}{z},zmm11
-	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
-
-	instr1 = decoder.decode()
-	assert instr1.code == Code.XCHG_RM8_R8
-	assert instr1.mnemonic == Mnemonic.XCHG
-	assert instr1.len == 4
-
-	instr2 = decoder.decode()
-	assert instr2.code == Code.ADD_RM32_IMM8
-	assert instr2.mnemonic == Mnemonic.ADD
-	assert instr2.len == 5
-
-	instr3 = decoder.decode()
-	assert instr3.code == Code.EVEX_VMOVDQU64_ZMM_K1Z_ZMMM512
-	assert instr3.mnemonic == Mnemonic.VMOVDQU64
-	assert instr3.len == 6
-	```
-
-	It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
-	Pass in `DecoderOptions.NO_INVALID_CHECK` to the constructor and the decoder
-	will decode some invalid encodings.
-
-	```python
-	from iced_x86 import *
-
-	# lock add esi,ecx   # lock not allowed
-	data = b"\\xF0\\x01\\xCE"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
-	instr = decoder.decode()
-	assert instr.code == Code.INVALID
-
-	# We want to decode some instructions with invalid encodings
-	decoder = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK)
-	decoder.ip = 0x1234_5678
-	instr = decoder.decode()
-	assert instr.code == Code.ADD_RM32_R32
-	assert instr.has_lock_prefix
-	```
-	"""
-	def __init__(self, bitness: int, data: Union[bytes, bytearray], options: DecoderOptions = DecoderOptions.NONE) -> None: ...
-	@property
-	def ip(self) -> int:
-		"""
-		int: (`u64`) The current `IP`/`EIP`/`RIP` value, see also `Decoder.position`
-
-		### Note:
-
-		- The setter only updates the IP value, it does not change the data position, use the `Decoder.position` setter to change the position.
-		"""
-		...
-	@ip.setter
-	def ip(self, new_value: int) -> None: ...
-	@property
-	def bitness(self) -> int:
-		"""int: Gets the bitness (16, 32 or 64)"""
-		...
-	@property
-	def max_position(self) -> int:
-		"""
-		int: (`usize`) Gets the max value that can be written to `Decoder.position`.
-
-		This is the size of the data that gets decoded to instructions and it's the length of the data that was passed to the constructor.
-		"""
-		...
-	@property
-	def position(self) -> int:
-		"""
-		int: (`usize`) The current data position, which is the index into the data passed to the constructor.
-
-		This value is always <= `Decoder.max_position`. When `Decoder.position` == `Decoder.max_position`, it's not possible to decode more
-		instructions and `Decoder.can_decode` returns `False`.
-
-		### Raises:
-
-		- ValueError: If the new position is invalid.
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		# nop and pause
-		data = b"\\x90\\xF3\\x90"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
-
-		assert decoder.position == 0
-		assert decoder.max_position == 3
-		instr = decoder.decode()
-		assert decoder.position == 1
-		assert instr.code == Code.NOPD
-
-		instr = decoder.decode()
-		assert decoder.position == 3
-		assert instr.code == Code.PAUSE
-
-		# Start all over again
-		decoder.position = 0
-		decoder.ip = 0x1234_5678
-		assert decoder.position == 0
-		assert decoder.decode().code == Code.NOPD
-		assert decoder.decode().code == Code.PAUSE
-		assert decoder.position == 3
-		```
-		"""
-		...
-	@position.setter
-	def position(self, new_value: int) -> None: ...
-	@property
-	def can_decode(self) -> bool:
-		"""
-		bool: Returns `True` if there's at least one more byte to decode.
-
-		It doesn't verify that the next instruction is valid, it only checks if there's
-		at least one more byte to read. See also `Decoder.position` and `Decoder.max_position`.
-
-		It's not required to call this method. If this method returns `False`, then `Decoder.decode_out`
-		and `Decoder.decode` will return an instruction whose `Instruction.code` == `Code.INVALID`.
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		# nop and an incomplete instruction
-		data = b"\\x90\\xF3\\x0F"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
-
-		# 3 bytes left to read
-		assert decoder.can_decode
-		instr = decoder.decode()
-		assert instr.code == Code.NOPD
-
-		# 2 bytes left to read
-		assert decoder.can_decode
-		instr = decoder.decode()
-		# Not enough bytes left to decode a full instruction
-		assert decoder.last_error == DecoderError.NO_MORE_BYTES
-		assert instr.code == Code.INVALID
-		assert not instr
-		assert instr.is_invalid
-
-		# 0 bytes left to read
-		assert not decoder.can_decode
-		```
-		"""
-		...
-	@property
-	def last_error(self) -> DecoderError:
-		"""
-		`DecoderError`: Gets the last decoder error (a `DecoderError` enum value).
-
-		Unless you need to know the reason it failed, it's better to check `Instruction.is_invalid` or `if not instruction:`.
-		"""
-		...
-	def decode(self) -> Instruction:
-		"""
-		Decodes and returns the next instruction.
-
-		See also `Decoder.decode_out` which avoids copying the decoded instruction to the caller's return variable.
-		See also `Decoder.last_error`.
-
-		### Returns:
-
-		- Instruction: The next instruction
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		# xrelease lock add [rax],ebx
-		data = b"\\xF0\\xF3\\x01\\x18"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
-		instr = decoder.decode()
-
-		assert instr.code == Code.ADD_RM32_R32
-		assert instr.mnemonic == Mnemonic.ADD
-		assert instr.len == 4
-		assert instr.op_count == 2
-
-		assert instr.op0_kind == OpKind.MEMORY
-		assert instr.memory_base == Register.RAX
-		assert instr.memory_index == Register.NONE
-		assert instr.memory_index_scale == 1
-		assert instr.memory_displacement == 0
-		assert instr.memory_segment == Register.DS
-		assert instr.segment_prefix == Register.NONE
-		assert instr.memory_size == MemorySize.UINT32
-
-		assert instr.op1_kind == OpKind.REGISTER
-		assert instr.op1_register == Register.EBX
-
-		assert instr.has_lock_prefix
-		assert instr.has_xrelease_prefix
-		```
-		"""
-		...
-	def decode_out(self, instruction: Instruction) -> None:
-		"""
-		Decodes the next instruction.
-
-		The difference between this method and `Decoder.decode` is that this method doesn't need to
-		allocate a new instruction since it overwrites the input instruction.
-
-		See also `Decoder.last_error`.
-
-		### Args:
-
-		- `instruction` (`Instruction`): Updated with the decoded instruction.
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		# xrelease lock add [rax],ebx
-		data = b"\\xF0\\xF3\\x01\\x18"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
-		instr = Instruction()
-		decoder.decode_out(instr)
-
-		assert instr.code == Code.ADD_RM32_R32
-		assert instr.mnemonic == Mnemonic.ADD
-		assert instr.len == 4
-		assert instr.op_count == 2
-
-		assert instr.op0_kind == OpKind.MEMORY
-		assert instr.memory_base == Register.RAX
-		assert instr.memory_index == Register.NONE
-		assert instr.memory_index_scale == 1
-		assert instr.memory_displacement == 0
-		assert instr.memory_segment == Register.DS
-		assert instr.segment_prefix == Register.NONE
-		assert instr.memory_size == MemorySize.UINT32
-
-		assert instr.op1_kind == OpKind.REGISTER
-		assert instr.op1_register == Register.EBX
-
-		assert instr.has_lock_prefix
-		assert instr.has_xrelease_prefix
-		```
-		"""
-		...
-	def get_constant_offsets(self, instruction: Instruction) -> ConstantOffsets:
-		"""
-		Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
-
-		The caller can check if there are any relocations at those addresses.
-
-		### Args:
-
-		- `instruction` (`Instruction`): The latest instruction that was decoded by this decoder
-
-		### Returns:
-
-		- ConstantOffsets: Offsets and sizes of immediates
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		# nop
-		# xor dword ptr [rax-5AA5EDCCh],5Ah
-		#              00  01  02  03  04  05  06
-		#            \\opc\\mrm\\displacement___\\imm
-		data = b"\\x90\\x83\\xB3\\x34\\x12\\x5A\\xA5\\x5A"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
-		assert decoder.decode().code == Code.NOPD
-		instr = decoder.decode()
-		co = decoder.get_constant_offsets(instr)
-
-		assert co.has_displacement
-		assert co.displacement_offset == 2
-		assert co.displacement_size == 4
-		assert co.has_immediate
-		assert co.immediate_offset == 6
-		assert co.immediate_size == 1
-		# It's not an instruction with two immediates (e.g. enter)
-		assert not co.has_immediate2
-		assert co.immediate_offset2 == 0
-		assert co.immediate_size2 == 0
-		```
-		"""
-		...
-	def __iter__(self) -> Iterator[Instruction]: ...
-
-class Encoder:
-	"""
-	Encodes instructions decoded by the decoder or instructions created by other code.
-
-	See also `BlockEncoder` which can encode any number of instructions.
-
-	### Args:
-
-	- `bitness` (int): 16, 32 or 64
-	- `capacity` (int): (default = 0) Initial capacity of the byte buffer
-
-	### Raises:
-
-	- ValueError: If `bitness` is invalid
-
-	### Examples:
-
-	```python
-	from iced_x86 import *
-
-	# xchg ah,[rdx+rsi+16h]
-	data = b"\\x86\\x64\\x32\\x16"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
-	instr = decoder.decode()
-
-	encoder = Encoder(64)
-	try:
-	    instr_len = encoder.encode(instr, 0x5555_5555)
-	    assert instr_len == 4
-	except ValueError as ex:
-	    print(f"Failed to encode the instruction: {ex}")
-	    raise
-
-	# We're done, take ownership of the buffer
-	buffer = encoder.take_buffer()
-	assert buffer == b"\\x86\\x64\\x32\\x16"
-	```
-	"""
-	def __init__(self, bitness: int, capacity: int = 0) -> None: ...
-	def encode(self, instruction: Instruction, rip: int) -> int:
-		"""
-		Encodes an instruction and returns the size of the encoded instruction
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction to encode
-		- `rip` (int): (`u64`) `RIP` of the encoded instruction
-
-		### Returns:
-
-		- int: Size of the encoded instruction
-
-		### Raises:
-
-		- ValueError: If it failed to encode the instruction (eg. a target branch / RIP-rel operand is too far away)
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		# je short $+4
-		data = b"\\x75\\x02"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
-		instr = decoder.decode()
-
-		encoder = Encoder(64)
-		try:
-		    # Use a different IP (orig rip + 0x10)
-		    instr_len = encoder.encode(instr, 0x1234_5688)
-		    assert instr_len == 2
-		except ValueError as ex:
-		    print(f"Failed to encode the instruction: {ex}")
-		    raise
-
-		# We're done, take ownership of the buffer
-		buffer = encoder.take_buffer()
-		assert buffer == b"\\x75\\xF2"
-		```
-		"""
-		...
-	def write_u8(self, value: int) -> None:
-		"""
-		Writes a byte to the output buffer
-
-		### Args:
-
-		- `value` (int): (`u8`) Value to write
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		# je short $+4
-		data = b"\\x75\\x02"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
-		instr = decoder.decode()
-
-		encoder = Encoder(64)
-		# Add a random byte
-		encoder.write_u8(0x90)
-
-		try:
-		    # Use a different IP (orig rip + 0x10)
-		    instr_len = encoder.encode(instr, 0x1234_5688)
-		    assert instr_len == 2
-		except ValueError as ex:
-		    print(f"Failed to encode the instruction: {ex}")
-		    raise
-
-		# Add a random byte
-		encoder.write_u8(0x90)
-
-		# We're done, take ownership of the buffer
-		buffer = encoder.take_buffer()
-		assert buffer == b"\\x90\\x75\\xF2\\x90"
-		```
-		"""
-		...
-	def take_buffer(self) -> bytes:
-		"""
-		Returns the buffer and initializes the internal buffer to an empty array.
-
-		Should be called when you've encoded all instructions and need the raw instruction bytes.
-
-		### Returns:
-
-		- bytes: The encoded instructions
-		"""
-		...
-	def get_constant_offsets(self) -> ConstantOffsets:
-		"""
-		Gets the offsets of the constants (memory displacement and immediate) in the encoded instruction.
-
-		The caller can use this information to add relocations if needed.
-
-		### Returns:
-
-		- ConstantOffsets: Offsets and sizes of immediates
-		"""
-		...
-	@property
-	def prevent_vex2(self) -> bool:
-		"""bool: Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding"""
-		...
-	@prevent_vex2.setter
-	def prevent_vex2(self, new_value: bool) -> None: ...
-	@property
-	def vex_wig(self) -> int:
-		"""int: (`u8`) Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0."""
-		...
-	@vex_wig.setter
-	def vex_wig(self, new_value: int) -> None: ...
-	@property
-	def vex_lig(self) -> int:
-		"""int: (`u8`) Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0."""
-		...
-	@vex_lig.setter
-	def vex_lig(self, new_value: int) -> None: ...
-	@property
-	def evex_wig(self) -> int:
-		"""int: (`u8`) Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0."""
-		...
-	@evex_wig.setter
-	def evex_wig(self, new_value: int) -> None: ...
-	@property
-	def evex_lig(self) -> int:
-		"""int: (`u8`) Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0."""
-		...
-	@evex_lig.setter
-	def evex_lig(self, new_value: int) -> None: ...
-	@property
-	def bitness(self) -> int:
-		"""int: Gets the bitness (16, 32 or 64)"""
-		...
-
-class Formatter:
-	"""
-	x86 formatter that supports GNU Assembler, Intel XED, masm and nasm syntax
-
-	### Args:
-
-	- `syntax` (`FormatterSyntax`): Formatter syntax
-
-	### Examples:
-
-	```python
-	from iced_x86 import *
-
-	data = b"\\x62\\xF2\\x4F\\xDD\\x72\\x50\\x01"
-	decoder = Decoder(64, data)
-	instr = decoder.decode()
-
-	formatter = Formatter(FormatterSyntax.MASM)
-	formatter.uppercase_mnemonics = True
-	disasm = formatter.format(instr)
-	assert disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]"
-	```
-	"""
-	def __init__(self, syntax: FormatterSyntax) -> None: ...
-	def format(self, instruction: Instruction) -> str:
-		"""
-		Formats the whole instruction: prefixes, mnemonic, operands
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction to format
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_mnemonic(self, instruction: Instruction, options: FormatMnemonicOptions = FormatMnemonicOptions.NONE) -> str:
-		"""
-		Formats the mnemonic and any prefixes
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction to format
-		- `options` (`FormatMnemonicOptions`): (default = `FormatMnemonicOptions.NONE`) Options
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def operand_count(self, instruction: Instruction) -> int:
-		"""
-		Gets the number of operands that will be formatted. A formatter can add and remove operands
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction
-
-		### Returns:
-
-		- int: Operand count
-		"""
-		...
-	def op_access(self, instruction: Instruction, operand: int) -> Optional[OpAccess]:
-		"""
-		Returns the operand access but only if it's an operand added by the formatter.
-
-		If it's an operand that is part of `Instruction`, you should call eg. `InstructionInfoFactory.info`.
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction
-		- `operand` (int): Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter.operand_count`
-
-		### Returns:
-
-		- `OpAccess`, None: Operand access or `None`
-
-		### Raises:
-
-		- ValueError: If `operand` is invalid
-		"""
-		...
-	def get_instruction_operand(self, instruction: Instruction, operand: int) -> Optional[int]:
-		"""
-		Converts a formatter operand index to an instruction operand index.
-
-		Returns `None` if it's an operand added by the formatter
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction
-		- `operand` (int): Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter.operand_count`
-
-		### Returns:
-
-		- int, None: Instruction operand or `None` if it's an operand added by the formatter
-
-		### Raises:
-
-		- ValueError: If `operand` is invalid
-		"""
-		...
-	def get_formatter_operand(self, instruction: Instruction, instruction_operand: int) -> Optional[int]:
-		"""
-		Converts an instruction operand index to a formatter operand index.
-
-		Returns `None` if the instruction operand isn't used by the formatter
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction
-		- `instruction_operand` (int): Instruction operand
-
-		### Returns:
-
-		- int, None: Instruction operand or `None` if the instruction operand isn't used by the formatter
-
-		### Raises:
-
-		- ValueError: If `instruction_operand` is invalid
-		"""
-		...
-	def format_operand(self, instruction: Instruction, operand: int) -> str:
-		"""
-		Formats an operand.
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction
-		- `operand` (int): Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter.operand_count`
-
-		### Returns:
-
-		- str: The formatted string
-
-		### Raises:
-
-		- ValueError: If `operand` is invalid
-		"""
-		...
-	def format_operand_separator(self, instruction: Instruction) -> str:
-		"""
-		Formats an operand separator
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_all_operands(self, instruction: Instruction) -> str:
-		"""
-		Formats all operands
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction to format
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_register(self, register: Register) -> str:
-		"""
-		Formats a register
-
-		### Args:
-
-		- `register` (`Register`): Register
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_i8(self, value: int) -> str:
-		"""
-		Formats a `i8`
-
-		### Args:
-
-		- `value` (int): (`i8`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_i16(self, value: int) -> str:
-		"""
-		Formats a `i16`
-
-		### Args:
-
-		- `value` (int): (`i16`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_i32(self, value: int) -> str:
-		"""
-		Formats a `i32`
-
-		### Args:
-
-		- `value` (int): (`i32`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_i64(self, value: int) -> str:
-		"""
-		Formats a `i64`
-
-		### Args:
-
-		- `value` (int): (`i64`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_u8(self, value: int) -> str:
-		"""
-		Formats a `u8`
-
-		### Args:
-
-		- `value` (int): (`u8`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_u16(self, value: int) -> str:
-		"""
-		Formats a `u16`
-
-		### Args:
-
-		- `value` (int): (`u16`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_u32(self, value: int) -> str:
-		"""
-		Formats a `u32`
-
-		### Args:
-
-		- `value` (int): (`u32`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	def format_u64(self, value: int) -> str:
-		"""
-		Formats a `u64`
-
-		### Args:
-
-		- `value` (int): (`u64`) Value
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	@property
-	def uppercase_prefixes(self) -> bool:
-		"""
-		bool: Prefixes are upper cased
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `REP stosd`
-		✔️       `False`  `rep stosd`
-		```
-		"""
-		...
-	@uppercase_prefixes.setter
-	def uppercase_prefixes(self, new_value: bool) -> None: ...
-	@property
-	def uppercase_mnemonics(self) -> bool:
-		"""
-		bool: Mnemonics are upper cased
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `MOV rcx,rax`
-		✔️       `False`  `mov rcx,rax`
-		```
-		"""
-		...
-	@uppercase_mnemonics.setter
-	def uppercase_mnemonics(self, new_value: bool) -> None: ...
-	@property
-	def uppercase_registers(self) -> bool:
-		"""
-		bool: Registers are upper cased
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov RCX,[RAX+RDX*8]`
-		✔️       `False`  `mov rcx,[rax+rdx*8]`
-		```
-		"""
-		...
-	@uppercase_registers.setter
-	def uppercase_registers(self, new_value: bool) -> None: ...
-	@property
-	def uppercase_keywords(self) -> bool:
-		"""
-		bool: Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov BYTE PTR [rcx],12h`
-		✔️       `False`  `mov byte ptr [rcx],12h`
-		```
-		"""
-		...
-	@uppercase_keywords.setter
-	def uppercase_keywords(self, new_value: bool) -> None: ...
-	@property
-	def uppercase_decorators(self) -> bool:
-		"""
-		bool: Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
-		✔️       `False`  `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
-		```
-		"""
-		...
-	@uppercase_decorators.setter
-	def uppercase_decorators(self, new_value: bool) -> None: ...
-	@property
-	def uppercase_all(self) -> bool:
-		"""
-		bool: Everything is upper cased, except numbers and their prefixes/suffixes
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `MOV EAX,GS:[RCX*4+0ffh]`
-		✔️       `False`  `mov eax,gs:[rcx*4+0ffh]`
-		```
-		"""
-		...
-	@uppercase_all.setter
-	def uppercase_all(self, new_value: bool) -> None: ...
-	@property
-	def first_operand_char_index(self) -> int:
-		"""
-		int: (`u32`) Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
-		At least one space or tab is always added between the mnemonic and the first operand.
-
-		```text
-		Default  Value  Example
-		-----------------------
-		✔️       `0`    `mov•rcx,rbp`
-		         `8`    `mov•••••rcx,rbp`
-		```
-		"""
-		...
-	@first_operand_char_index.setter
-	def first_operand_char_index(self, new_value: int) -> None: ...
-	@property
-	def tab_size(self) -> int:
-		"""
-		int: (`u32`) Size of a tab character or 0 to use spaces
-
-		Default: `0`
-		"""
-		...
-	@tab_size.setter
-	def tab_size(self, new_value: int) -> None: ...
-	@property
-	def space_after_operand_separator(self) -> bool:
-		"""
-		bool: Add a space after the operand separator
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov rax, rcx`
-		✔️       `False`  `mov rax,rcx`
-		```
-		"""
-		...
-	@space_after_operand_separator.setter
-	def space_after_operand_separator(self, new_value: bool) -> None: ...
-	@property
-	def space_after_memory_bracket(self) -> bool:
-		"""
-		bool: Add a space between the memory expression and the brackets
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[ rcx+rdx ]`
-		✔️       `False`  `mov eax,[rcx+rdx]`
-		```
-		"""
-		...
-	@space_after_memory_bracket.setter
-	def space_after_memory_bracket(self, new_value: bool) -> None: ...
-	@property
-	def space_between_memory_add_operators(self) -> bool:
-		"""
-		bool: Add spaces between memory operand `+` and `-` operators
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[rcx + rdx*8 - 80h]`
-		✔️       `False`  `mov eax,[rcx+rdx*8-80h]`
-		```
-		"""
-		...
-	@space_between_memory_add_operators.setter
-	def space_between_memory_add_operators(self, new_value: bool) -> None: ...
-	@property
-	def space_between_memory_mul_operators(self) -> bool:
-		"""
-		bool: Add spaces between memory operand `*` operator
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[rcx+rdx * 8-80h]`
-		✔️       `False`  `mov eax,[rcx+rdx*8-80h]`
-		```
-		"""
-		...
-	@space_between_memory_mul_operators.setter
-	def space_between_memory_mul_operators(self, new_value: bool) -> None: ...
-	@property
-	def scale_before_index(self) -> bool:
-		"""
-		bool: Show memory operand scale value before the index register
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[8*rdx]`
-		✔️       `False`  `mov eax,[rdx*8]`
-		```
-		"""
-		...
-	@scale_before_index.setter
-	def scale_before_index(self, new_value: bool) -> None: ...
-	@property
-	def always_show_scale(self) -> bool:
-		"""
-		bool: Always show the scale value even if it's `*1`
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[rbx+rcx*1]`
-		✔️       `False`  `mov eax,[rbx+rcx]`
-		```
-		"""
-		...
-	@always_show_scale.setter
-	def always_show_scale(self, new_value: bool) -> None: ...
-	@property
-	def always_show_segment_register(self) -> bool:
-		"""
-		bool: Always show the effective segment register.
-
-		If the option is `False`, only show the segment register if there's a segment override prefix.
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,ds:[ecx]`
-		✔️       `False`  `mov eax,[ecx]`
-		```
-		"""
-		...
-	@always_show_segment_register.setter
-	def always_show_segment_register(self, new_value: bool) -> None: ...
-	@property
-	def show_zero_displacements(self) -> bool:
-		"""
-		bool: Show zero displacements
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[rcx*2+0]`
-		✔️       `False`  `mov eax,[rcx*2]`
-		```
-		"""
-		...
-	@show_zero_displacements.setter
-	def show_zero_displacements(self, new_value: bool) -> None: ...
-	@property
-	def hex_prefix(self) -> str:
-		"""
-		str: Hex number prefix or an empty string, eg. `"0x"`
-
-		Default: `""` (masm/nasm/intel), `"0x"` (gas)
-		"""
-		...
-	@hex_prefix.setter
-	def hex_prefix(self, new_value: str) -> None: ...
-	@property
-	def hex_suffix(self) -> str:
-		"""
-		str: Hex number suffix or an empty string, eg. `"h"`
-
-		Default: `"h"` (masm/nasm/intel), `""` (gas)
-		"""
-		...
-	@hex_suffix.setter
-	def hex_suffix(self, new_value: str) -> None: ...
-	@property
-	def hex_digit_group_size(self) -> int:
-		"""
-		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
-
-		```text
-		Default  Value  Example
-		-----------------------
-		         `0`    `0x12345678`
-		✔️       `4`    `0x1234_5678`
-		```
-		"""
-		...
-	@hex_digit_group_size.setter
-	def hex_digit_group_size(self, new_value: int) -> None: ...
-	@property
-	def decimal_prefix(self) -> str:
-		"""
-		str: Decimal number prefix or an empty string
-
-		Default: `""`
-		"""
-		...
-	@decimal_prefix.setter
-	def decimal_prefix(self, new_value: str) -> None: ...
-	@property
-	def decimal_suffix(self) -> str:
-		"""
-		str: Decimal number suffix or an empty string
-
-		Default: `""`
-		"""
-		...
-	@decimal_suffix.setter
-	def decimal_suffix(self, new_value: str) -> None: ...
-	@property
-	def decimal_digit_group_size(self) -> int:
-		"""
-		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
-
-		```text
-		Default  Value  Example
-		-----------------------
-		         `0`    `12345678`
-		✔️       `3`    `12_345_678`
-		```
-		"""
-		...
-	@decimal_digit_group_size.setter
-	def decimal_digit_group_size(self, new_value: int) -> None: ...
-	@property
-	def octal_prefix(self) -> str:
-		"""
-		str: Octal number prefix or an empty string
-
-		Default: `""` (masm/nasm/intel), `"0"` (gas)
-		"""
-		...
-	@octal_prefix.setter
-	def octal_prefix(self, new_value: str) -> None: ...
-	@property
-	def octal_suffix(self) -> str:
-		"""
-		str: Octal number suffix or an empty string
-
-		Default: `"o"` (masm/nasm/intel), `""` (gas)
-		"""
-		...
-	@octal_suffix.setter
-	def octal_suffix(self, new_value: str) -> None: ...
-	@property
-	def octal_digit_group_size(self) -> int:
-		"""
-		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
-
-		```text
-		Default  Value  Example
-		-----------------------
-		         `0`    `12345670`
-		✔️       `4`    `1234_5670`
-		```
-		"""
-		...
-	@octal_digit_group_size.setter
-	def octal_digit_group_size(self, new_value: int) -> None: ...
-	@property
-	def binary_prefix(self) -> str:
-		"""
-		str: Binary number prefix or an empty string
-
-		Default: `""` (masm/nasm/intel), `"0b"` (gas)
-		"""
-		...
-	@binary_prefix.setter
-	def binary_prefix(self, new_value: str) -> None: ...
-	@property
-	def binary_suffix(self) -> str:
-		"""
-		str: Binary number suffix or an empty string
-
-		Default: `"b"` (masm/nasm/intel), `""` (gas)
-		"""
-		...
-	@binary_suffix.setter
-	def binary_suffix(self, new_value: str) -> None: ...
-	@property
-	def binary_digit_group_size(self) -> int:
-		"""
-		int: (`u8`) Size of a digit group, see also `Formatter.digit_separator`
-
-		```text
-		Default  Value  Example
-		-----------------------
-		         `0`    `11010111`
-		✔️       `4`    `1101_0111`
-		```
-		"""
-		...
-	@binary_digit_group_size.setter
-	def binary_digit_group_size(self, new_value: int) -> None: ...
-	@property
-	def digit_separator(self) -> str:
-		"""
-		str: Digit separator or an empty string. See also eg. `Formatter.hex_digit_group_size`
-
-		```text
-		Default  Value  Example
-		-----------------------
-		✔️       `""`   `0x12345678`
-		         `"_"`  `0x1234_5678`
-		```
-		"""
-		...
-	@digit_separator.setter
-	def digit_separator(self, new_value: str) -> None: ...
-	@property
-	def leading_zeroes(self) -> bool:
-		"""
-		bool: Add leading zeroes to hexadecimal/octal/binary numbers.
-
-		This option has no effect on branch targets and displacements, use `Formatter.branch_leading_zeroes`
-		and `Formatter.displacement_leading_zeroes`.
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `0x0000000A`/`0000000Ah`
-		✔️       `False`  `0xA`/`0Ah`
-		```
-		"""
-		...
-	@leading_zeroes.setter
-	def leading_zeroes(self, new_value: bool) -> None: ...
-	@property
-	def uppercase_hex(self) -> bool:
-		"""
-		bool: Use upper case hex digits
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `0xFF`
-		         `False`  `0xff`
-		```
-		"""
-		...
-	@uppercase_hex.setter
-	def uppercase_hex(self, new_value: bool) -> None: ...
-	@property
-	def small_hex_numbers_in_decimal(self) -> bool:
-		"""
-		bool: Small hex numbers (-9 .. 9) are shown in decimal
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `9`
-		         `False`  `0x9`
-		```
-		"""
-		...
-	@small_hex_numbers_in_decimal.setter
-	def small_hex_numbers_in_decimal(self, new_value: bool) -> None: ...
-	@property
-	def add_leading_zero_to_hex_numbers(self) -> bool:
-		"""
-		bool: Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `0FFh`
-		         `False`  `FFh`
-		```
-		"""
-		...
-	@add_leading_zero_to_hex_numbers.setter
-	def add_leading_zero_to_hex_numbers(self, new_value: bool) -> None: ...
-	@property
-	def number_base(self) -> int:
-		"""
-		int: Number base (`2`, `8`, `10`, `16`)
-
-		### Raises:
-
-		- ValueError: If it's an invalid number base
-
-		Default: `16`
-		"""
-		...
-	@number_base.setter
-	def number_base(self, new_value: int) -> None: ...
-	@property
-	def branch_leading_zeroes(self) -> bool:
-		"""
-		bool: Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `je 00000123h`
-		         `False`  `je 123h`
-		```
-		"""
-		...
-	@branch_leading_zeroes.setter
-	def branch_leading_zeroes(self, new_value: bool) -> None: ...
-	@property
-	def signed_immediate_operands(self) -> bool:
-		"""
-		bool: Show immediate operands as signed numbers
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,-1`
-		✔️       `False`  `mov eax,FFFFFFFF`
-		```
-		"""
-		...
-	@signed_immediate_operands.setter
-	def signed_immediate_operands(self, new_value: bool) -> None: ...
-	@property
-	def signed_memory_displacements(self) -> bool:
-		"""
-		bool: Displacements are signed numbers
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `mov al,[eax-2000h]`
-		         `False`  `mov al,[eax+0FFFFE000h]`
-		```
-		"""
-		...
-	@signed_memory_displacements.setter
-	def signed_memory_displacements(self, new_value: bool) -> None: ...
-	@property
-	def displacement_leading_zeroes(self) -> bool:
-		"""
-		bool: Add leading zeroes to displacements
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov al,[eax+00000012h]`
-		✔️       `False`  `mov al,[eax+12h]`
-		```
-		"""
-		...
-	@displacement_leading_zeroes.setter
-	def displacement_leading_zeroes(self, new_value: bool) -> None: ...
-	@property
-	def memory_size_options(self) -> MemorySizeOptions:
-		"""
-		`MemorySizeOptions`: Options that control if the memory size (eg. `DWORD PTR`) is shown or not.
-
-		This is ignored by the gas (AT&T) formatter.
-
-		Default: `MemorySizeOptions.DEFAULT`
-		"""
-		...
-	@memory_size_options.setter
-	def memory_size_options(self, new_value: MemorySizeOptions) -> None: ...
-	@property
-	def rip_relative_addresses(self) -> bool:
-		"""
-		bool: Show `RIP+displ` or the virtual address
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[rip+12345678h]`
-		✔️       `False`  `mov eax,[1029384756AFBECDh]`
-		```
-		"""
-		...
-	@rip_relative_addresses.setter
-	def rip_relative_addresses(self, new_value: bool) -> None: ...
-	@property
-	def show_branch_size(self) -> bool:
-		"""
-		bool: Show `NEAR`, `SHORT`, etc if it's a branch instruction
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `je short 1234h`
-		         `False`  `je 1234h`
-		```
-		"""
-		...
-	@show_branch_size.setter
-	def show_branch_size(self, new_value: bool) -> None: ...
-	@property
-	def use_pseudo_ops(self) -> bool:
-		"""
-		bool: Use pseudo instructions
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
-		         `False`  `vcmpsd xmm2,xmm6,xmm3,5`
-		```
-		"""
-		...
-	@use_pseudo_ops.setter
-	def use_pseudo_ops(self, new_value: bool) -> None: ...
-	@property
-	def show_symbol_address(self) -> bool:
-		"""
-		bool: Show the original value after the symbol name
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[myfield (12345678)]`
-		✔️       `False`  `mov eax,[myfield]`
-		```
-		"""
-		...
-	@show_symbol_address.setter
-	def show_symbol_address(self, new_value: bool) -> None: ...
-	@property
-	def gas_naked_registers(self) -> bool:
-		"""
-		bool: (gas only): If `True`, the formatter doesn't add `%` to registers
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,ecx`
-		✔️       `False`  `mov %eax,%ecx`
-		```
-		"""
-		...
-	@gas_naked_registers.setter
-	def gas_naked_registers(self, new_value: bool) -> None: ...
-	@property
-	def gas_show_mnemonic_size_suffix(self) -> bool:
-		"""
-		bool: (gas only): Shows the mnemonic size suffix even when not needed
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `movl %eax,%ecx`
-		✔️       `False`  `mov %eax,%ecx`
-		```
-		"""
-		...
-	@gas_show_mnemonic_size_suffix.setter
-	def gas_show_mnemonic_size_suffix(self, new_value: bool) -> None: ...
-	@property
-	def gas_space_after_memory_operand_comma(self) -> bool:
-		"""
-		bool: (gas only): Add a space after the comma if it's a memory operand
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `(%eax, %ecx, 2)`
-		✔️       `False`  `(%eax,%ecx,2)`
-		```
-		"""
-		...
-	@gas_space_after_memory_operand_comma.setter
-	def gas_space_after_memory_operand_comma(self, new_value: bool) -> None: ...
-	@property
-	def masm_add_ds_prefix32(self) -> bool:
-		"""
-		bool: (masm only): Add a `DS` segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `mov eax,ds:[12345678]`
-		         `False`  `mov eax,[12345678]`
-		```
-		"""
-		...
-	@masm_add_ds_prefix32.setter
-	def masm_add_ds_prefix32(self, new_value: bool) -> None: ...
-	@property
-	def masm_symbol_displ_in_brackets(self) -> bool:
-		"""
-		bool: (masm only): Show symbols in brackets
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `[ecx+symbol]` / `[symbol]`
-		         `False`  `symbol[ecx]` / `symbol`
-		```
-		"""
-		...
-	@masm_symbol_displ_in_brackets.setter
-	def masm_symbol_displ_in_brackets(self, new_value: bool) -> None: ...
-	@property
-	def masm_displ_in_brackets(self) -> bool:
-		"""
-		bool: (masm only): Show displacements in brackets
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `[ecx+1234h]`
-		         `False`  `1234h[ecx]`
-		```
-		"""
-		...
-	@masm_displ_in_brackets.setter
-	def masm_displ_in_brackets(self, new_value: bool) -> None: ...
-	@property
-	def nasm_show_sign_extended_immediate_size(self) -> bool:
-		"""
-		bool: (nasm only): Shows `BYTE`, `WORD`, `DWORD` or `QWORD` if it's a sign extended immediate operand value
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `or rcx,byte -1`
-		✔️       `False`  `or rcx,-1`
-		```
-		"""
-		...
-	@nasm_show_sign_extended_immediate_size.setter
-	def nasm_show_sign_extended_immediate_size(self, new_value: bool) -> None: ...
-	@property
-	def prefer_st0(self) -> bool:
-		"""
-		bool: Use `st(0)` instead of `st` if `st` can be used. Ignored by the nasm formatter.
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `fadd st(0),st(3)`
-		✔️       `False`  `fadd st,st(3)`
-		```
-		"""
-		...
-	@prefer_st0.setter
-	def prefer_st0(self, new_value: bool) -> None: ...
-	@property
-	def show_useless_prefixes(self) -> bool:
-		"""
-		bool: Show useless prefixes. If it has useless prefixes, it could be data and not code.
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `es rep add eax,ecx`
-		✔️       `False`  `add eax,ecx`
-		```
-		"""
-		...
-	@show_useless_prefixes.setter
-	def show_useless_prefixes(self, new_value: bool) -> None: ...
-	@property
-	def cc_b(self) -> CC_b:
-		"""
-		`CC_b`: Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
-
-		Default: `JB`, `CMOVB`, `SETB`
-		"""
-		...
-	@cc_b.setter
-	def cc_b(self, new_value: CC_b) -> None: ...
-	@property
-	def cc_ae(self) -> CC_ae:
-		"""
-		`CC_ae`: Mnemonic condition code selector (eg. `JAE` / `JNB` / `JNC`)
-
-		Default: `JAE`, `CMOVAE`, `SETAE`
-		"""
-		...
-	@cc_ae.setter
-	def cc_ae(self, new_value: CC_ae) -> None: ...
-	@property
-	def cc_e(self) -> CC_e:
-		"""
-		`CC_e`: Mnemonic condition code selector (eg. `JE` / `JZ`)
-
-		Default: `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
-		"""
-		...
-	@cc_e.setter
-	def cc_e(self, new_value: CC_e) -> None: ...
-	@property
-	def cc_ne(self) -> CC_ne:
-		"""
-		`CC_ne`: Mnemonic condition code selector (eg. `JNE` / `JNZ`)
-
-		Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
-		"""
-		...
-	@cc_ne.setter
-	def cc_ne(self, new_value: CC_ne) -> None: ...
-	@property
-	def cc_be(self) -> CC_be:
-		"""
-		`CC_be`: Mnemonic condition code selector (eg. `JBE` / `JNA`)
-
-		Default: `JBE`, `CMOVBE`, `SETBE`
-		"""
-		...
-	@cc_be.setter
-	def cc_be(self, new_value: CC_be) -> None: ...
-	@property
-	def cc_a(self) -> CC_a:
-		"""
-		`CC_a`: Mnemonic condition code selector (eg. `JA` / `JNBE`)
-
-		Default: `JA`, `CMOVA`, `SETA`
-		"""
-		...
-	@cc_a.setter
-	def cc_a(self, new_value: CC_a) -> None: ...
-	@property
-	def cc_p(self) -> CC_p:
-		"""
-		`CC_p`: Mnemonic condition code selector (eg. `JP` / `JPE`)
-
-		Default: `JP`, `CMOVP`, `SETP`
-		"""
-		...
-	@cc_p.setter
-	def cc_p(self, new_value: CC_p) -> None: ...
-	@property
-	def cc_np(self) -> CC_np:
-		"""
-		`CC_np`: Mnemonic condition code selector (eg. `JNP` / `JPO`)
-
-		Default: `JNP`, `CMOVNP`, `SETNP`
-		"""
-		...
-	@cc_np.setter
-	def cc_np(self, new_value: CC_np) -> None: ...
-	@property
-	def cc_l(self) -> CC_l:
-		"""
-		`CC_l`: Mnemonic condition code selector (eg. `JL` / `JNGE`)
-
-		Default: `JL`, `CMOVL`, `SETL`
-		"""
-		...
-	@cc_l.setter
-	def cc_l(self, new_value: CC_l) -> None: ...
-	@property
-	def cc_ge(self) -> CC_ge:
-		"""
-		`CC_ge`: Mnemonic condition code selector (eg. `JGE` / `JNL`)
-
-		Default: `JGE`, `CMOVGE`, `SETGE`
-		"""
-		...
-	@cc_ge.setter
-	def cc_ge(self, new_value: CC_ge) -> None: ...
-	@property
-	def cc_le(self) -> CC_le:
-		"""
-		`CC_le`: Mnemonic condition code selector (eg. `JLE` / `JNG`)
-
-		Default: `JLE`, `CMOVLE`, `SETLE`
-		"""
-		...
-	@cc_le.setter
-	def cc_le(self, new_value: CC_le) -> None: ...
-	@property
-	def cc_g(self) -> CC_g:
-		"""
-		`CC_g`: Mnemonic condition code selector (eg. `JG` / `JNLE`)
-
-		Default: `JG`, `CMOVG`, `SETG`
-		"""
-		...
-	@cc_g.setter
-	def cc_g(self, new_value: CC_g) -> None: ...
-
-class FastFormatter:
-	"""
-	Fast formatter with less formatting options and with a masm-like syntax.
-
-	Use it if formatting speed is more important than being able to re-assemble formatted instructions.
-
-	This formatter is ~1.25x faster than the other formatters (the time includes decoding + formatting).
-
-	### Examples:
-
-	```python
-	from iced_x86 import *
-
-	data = b"\\x62\\xF2\\x4F\\xDD\\x72\\x50\\x01"
-	decoder = Decoder(64, data)
-	instr = decoder.decode()
-
-	formatter = FastFormatter()
-	formatter.space_after_operand_separator = True
-	disasm = formatter.format(instr)
-	assert disasm == "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]"
-	```
-	"""
-	def __init__(self) -> None: ...
-	def format(self, instruction: Instruction) -> str:
-		"""
-		Formats the whole instruction: prefixes, mnemonic, operands
-
-		### Args:
-
-		- `instruction` (Instruction): Instruction to format
-
-		### Returns:
-
-		- str: The formatted string
-		"""
-		...
-	@property
-	def space_after_operand_separator(self) -> bool:
-		"""
-		bool: Add a space after the operand separator
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov rax, rcx`
-		✔️       `False`  `mov rax,rcx`
-		```
-		"""
-		...
-	@space_after_operand_separator.setter
-	def space_after_operand_separator(self, new_value: bool) -> None: ...
-	@property
-	def rip_relative_addresses(self) -> bool:
-		"""
-		bool: Show `RIP+displ` or the virtual address
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[rip+12345678h]`
-		✔️       `False`  `mov eax,[1029384756AFBECDh]`
-		```
-		"""
-		...
-	@rip_relative_addresses.setter
-	def rip_relative_addresses(self, new_value: bool) -> None: ...
-	@property
-	def use_pseudo_ops(self) -> bool:
-		"""
-		bool: Use pseudo instructions
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `vcmpnltsd xmm2,xmm6,xmm3`
-		         `False`  `vcmpsd xmm2,xmm6,xmm3,5`
-		```
-		"""
-		...
-	@use_pseudo_ops.setter
-	def use_pseudo_ops(self, new_value: bool) -> None: ...
-	@property
-	def show_symbol_address(self) -> bool:
-		"""
-		bool: Show the original value after the symbol name
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,[myfield (12345678)]`
-		✔️       `False`  `mov eax,[myfield]`
-		```
-		"""
-		...
-	@show_symbol_address.setter
-	def show_symbol_address(self, new_value: bool) -> None: ...
-	@property
-	def always_show_segment_register(self) -> bool:
-		"""
-		bool: Always show the effective segment register.
-
-		If the option is `False`, only show the segment register if there's a segment override prefix.
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `mov eax,ds:[ecx]`
-		✔️       `False`  `mov eax,[ecx]`
-		```
-		"""
-		...
-	@always_show_segment_register.setter
-	def always_show_segment_register(self, new_value: bool) -> None: ...
-	@property
-	def always_show_memory_size(self) -> bool:
-		"""
-		bool: Always show the size of memory operands
-
-		```text
-		Default  Value    Example                    Example
-		----------------------------------------------------
-		         `True`   `mov eax,dword ptr [ebx]`  `add byte ptr [eax],0x12`
-		✔️       `False`  `mov eax,[ebx]`            `add byte ptr [eax],0x12`
-		```
-		"""
-		...
-	@always_show_memory_size.setter
-	def always_show_memory_size(self, new_value: bool) -> None: ...
-	@property
-	def uppercase_hex(self) -> bool:
-		"""
-		bool: Use upper case hex digits
-
-		```text
-		Default  Value    Example
-		-------------------------
-		✔️       `True`   `0xFF`
-		         `False`  `0xff`
-		```
-		"""
-		...
-	@uppercase_hex.setter
-	def uppercase_hex(self, new_value: bool) -> None: ...
-	@property
-	def use_hex_prefix(self) -> bool:
-		"""
-		bool: Use a hex prefix (`0x`) or a hex suffix (`h`)
-
-		```text
-		Default  Value    Example
-		-------------------------
-		         `True`   `0x5A`
-		✔️       `False`  `5Ah`
-		```
-		"""
-		...
-	@use_hex_prefix.setter
-	def use_hex_prefix(self, new_value: bool) -> None: ...
-
-class BlockEncoder:
-	"""
-	Encodes instructions
-
-	`Encoder` can only encode one instruction at a time. This class can encode any number of
-	instructions and can also fix short branches if the target is too far away.
-
-	It will fail if there's an instruction with a RIP-relative operand (`[rip+123h]`) and the target is too far away.
-	A workaround is to use a new base RIP of the encoded instructions that is close (+/-2GB) to the original location.
-
-	### Args:
-
-	- `bitness` (int): 16, 32 or 64
-	- `fix_branches` (bool): (default = `True`) Fix branches (eg. convert short to near branches if the target is too far away)
-
-	### Raises:
-
-	- ValueError: If `bitness` is invalid
-
-	### Examples:
-
-	```python
-	from iced_x86 import *
-
-	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
-
-	instrs = [instr for instr in decoder]
-
-	encoder = BlockEncoder(64)
-	# Add an instruction
-	encoder.add(instrs[0])
-	# Add more instructions
-	encoder.add_many(instrs[1:])
-	try:
-	    # Encode all added instructions and get the raw bytes
-	    raw_data = encoder.encode(0x3456_789A)
-	except ValueError as ex:
-	    print("Could not encode all instructions")
-	    raise
-
-	# It has no IP-relative instructions (eg. branches or [rip+xxx] ops)
-	# so the result should be identical to the original code.
-	assert data == raw_data
-	```
-	"""
-	def __init__(self, bitness: int, fix_branches: bool = True) -> None: ...
-	def add(self, instruction: Instruction) -> None:
-		"""
-		Adds an instruction that will be encoded when `BlockEncoder.encode` is called.
-
-		The input `instruction` can be a decoded instruction or an instruction
-		created by the user, eg. `Instruction.create*()` methods.
-
-		### Args:
-
-		- `instruction` (Instruction): Next instruction to encode
-		"""
-		...
-	def add_many(self, instructions: List[Instruction]) -> None:
-		"""
-		Adds instructions that will be encoded when `BlockEncoder.encode` is called.
-
-		### Args:
-
-		- `instructions` (List[Instruction]): Next instructions to encode
-		"""
-		...
-	def encode(self, rip: int) -> bytes:
-		"""
-		Encodes all instructions added by `BlockEncoder.add`/`BlockEncoder.add_many` and returns the raw bytes
-
-		### Args:
-
-		- `rip` (int): (`u64`) Base IP of all encoded instructions
-
-		### Returns:
-
-		- bytes: All encoded instructions
-
-		### Raises:
-
-		- ValueError: If one or more instructions couldn't be encoded
-		"""
-		...
-
-class UsedRegister:
-	"""A register used by an instruction"""
-	@property
-	def register(self) -> Register:
-		"""`Register`: Gets the register"""
-		...
-	@property
-	def access(self) -> OpAccess:
-		"""`OpAccess`: Gets the register access"""
-		...
-	def __copy__(self) -> UsedRegister:
-		"""
-		Returns a copy of this instance.
-
-		### Returns:
-
-		- UsedRegister: A copy of this instance
-
-		This is identical to `UsedRegister.clone`
-		"""
-		...
-	def __deepcopy__(self, memo: Any) -> UsedRegister:
-		"""
-		Returns a copy of this instance.
-
-		### Args:
-
-		- `memo` (Any): memo dict
-
-		### Returns:
-
-		- UsedRegister: A copy of this instance
-
-		This is identical to `UsedRegister.clone`
-		"""
-		...
-	def clone(self) -> UsedRegister:
-		"""
-		Returns a copy of this instance.
-
-		### Returns:
-
-		- UsedRegister: A copy of this instance
-		"""
-		...
-	def __eq__(self, other: Any) -> bool: ...
-	def __ne__(self, other: Any) -> bool: ...
-	def __hash__(self) -> int: ...
-
-class UsedMemory:
-	"""A memory location used by an instruction"""
-	@property
-	def segment(self) -> Register:
-		"""`Register`: Effective segment register or `Register.NONE` if the segment register is ignored"""
-		...
-	@property
-	def base(self) -> Register:
-		"""`Register`: Base register or `Register.NONE` if none"""
-		...
-	@property
-	def index(self) -> Register:
-		"""`Register`: Index register or `Register.NONE` if none"""
-		...
-	@property
-	def scale(self) -> int:
-		"""int: Index scale (1, 2, 4 or 8)"""
-		...
-	@property
-	def displacement(self) -> int:
-		"""int: (`u64`) Displacement"""
-		...
-	@property
-	def displacement_i64(self) -> int:
-		"""int: (`i64`) Displacement"""
-		...
-	@property
-	def memory_size(self) -> MemorySize:
-		"""`MemorySize`: Size of location (enum value)"""
-		...
-	@property
-	def access(self) -> OpAccess:
-		"""`OpAccess`: Memory access"""
-		...
-	@property
-	def address_size(self) -> CodeSize:
-		"""`CodeSize`: Address size"""
-		...
-	@property
-	def vsib_size(self) -> int:
-		"""int: VSIB size (`0`, `4` or `8`)"""
-		...
-	def __copy__(self) -> UsedMemory:
-		"""
-		Returns a copy of this instance.
-
-		### Returns:
-
-		- UsedMemory: A copy of this instance
-
-		This is identical to `UsedMemory.clone`
-		"""
-		...
-	def __deepcopy__(self, memo: Any) -> UsedMemory:
-		"""
-		Returns a copy of this instance.
-
-		### Args:
-
-		- `memo` (Any): memo dict
-
-		### Returns:
-
-		- UsedMemory: A copy of this instance
-
-		This is identical to `UsedMemory.clone`
-		"""
-		...
-	def clone(self) -> UsedMemory:
-		"""
-		Returns a copy of this instance.
-
-		### Returns:
-
-		- UsedMemory: A copy of this instance
-		"""
-		...
-	def __eq__(self, other: Any) -> bool: ...
-	def __ne__(self, other: Any) -> bool: ...
-	def __hash__(self) -> int: ...
-
 class InstructionInfo:
 	"""Contains accessed registers and memory locations"""
 	def used_registers(self) -> List[UsedRegister]:
@@ -7602,191 +6814,59 @@ class InstructionInfoFactory:
 		"""
 		...
 
-class MemorySizeInfo:
+class MemoryOperand:
 	"""
-	`MemorySize` enum info, see also `MemorySizeExt`
+	Memory operand passed to one of `Instruction`'s `create*()` constructor methods
 
 	### Args:
 
-	- `memory_size` (`MemorySize`): Enum value
-
-	### Examples:
-
-	```python
-	from iced_x86 import *
-
-	info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-	assert info.size == 32
-	```
+	- `base` (`Register`): (default = `Register.NONE`) Base register or `Register.NONE`
+	- `index` (`Register`): (default = `Register.NONE`) Index register or `Register.NONE`
+	- `scale` (int): (default = `1`) Index register scale (1, 2, 4, or 8)
+	- `displ` (int): (`i32`) (default = `0`) Memory displacement
+	- `displ_size` (int): (default = `0`) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
+	- `is_broadcast` (bool): (default = `False`) `True` if it's broadcasted memory (EVEX instructions)
+	- `seg` (`Register`): (default = `Register.NONE`) Segment override or `Register.NONE`
 	"""
-	def __init__(self, memory_size: MemorySize) -> None: ...
-	@property
-	def memory_size(self) -> MemorySize:
+	def __init__(self, base: Register = Register.NONE, index: Register = Register.NONE, scale: int = 1, displ: int = 0, displ_size: int = 0, is_broadcast: bool = False, seg: Register = Register.NONE) -> None: ...
+	def __copy__(self) -> MemoryOperand:
 		"""
-		`MemorySize`: Gets the `MemorySize` value
+		Returns a copy of this instance.
 
-		### Examples:
+		### Returns:
 
-		```python
-		from iced_x86 import *
+		- MemoryOperand: A copy of this instance
 
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-		assert info.memory_size == MemorySize.PACKED256_UINT16
-		```
+		This is identical to `MemoryOperand.copy`
 		"""
 		...
-	@property
-	def size(self) -> int:
+	def __deepcopy__(self, memo: Any) -> MemoryOperand:
 		"""
-		int: (`u32`) Gets the size in bytes of the memory location or 0 if it's not accessed or unknown
+		Returns a copy of this instance.
 
-		### Examples:
+		### Args:
 
-		```python
-		from iced_x86 import *
+		- `memo` (Any): memo dict
 
-		info = MemorySizeInfo(MemorySize.UINT32);
-		assert info.size == 4
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-		assert info.size == 32
-		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
-		assert info.size == 8
-		```
+		### Returns:
+
+		- MemoryOperand: A copy of this instance
+
+		This is identical to `MemoryOperand.copy`
 		"""
 		...
-	@property
-	def element_size(self) -> int:
+	def copy(self) -> MemoryOperand:
 		"""
-		int: (`u32`) Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `MemorySizeInfo.size`.
+		Returns a copy of this instance.
 
-		### Examples:
+		### Returns:
 
-		```python
-		from iced_x86 import *
-
-		info = MemorySizeInfo(MemorySize.UINT32);
-		assert info.element_size == 4
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-		assert info.element_size == 2
-		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
-		assert info.element_size == 8
-		```
+		- MemoryOperand: A copy of this instance
 		"""
 		...
-	@property
-	def element_type(self) -> MemorySize:
-		"""
-		`MemorySize`: Gets the element type if it's packed data or the type itself if it's not packed data
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = MemorySizeInfo(MemorySize.UINT32);
-		assert info.element_type == MemorySize.UINT32
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-		assert info.element_type == MemorySize.UINT16
-		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
-		assert info.element_type == MemorySize.UINT64
-		```
-		"""
-		...
-	@property
-	def element_type_info(self) -> MemorySizeInfo:
-		"""
-		`MemorySizeInfo`: Gets the element type if it's packed data or the type itself if it's not packed data
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = MemorySizeInfo(MemorySize.UINT32).element_type_info;
-		assert info.memory_size == MemorySize.UINT32
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16).element_type_info;
-		assert info.memory_size == MemorySize.UINT16
-		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64).element_type_info;
-		assert info.memory_size == MemorySize.UINT64
-		```
-		"""
-		...
-	@property
-	def is_signed(self) -> bool:
-		"""
-		bool: `True` if it's signed data (signed integer or a floating point value)
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = MemorySizeInfo(MemorySize.UINT32);
-		assert not info.is_signed
-		info = MemorySizeInfo(MemorySize.INT32);
-		assert info.is_signed
-		info = MemorySizeInfo(MemorySize.FLOAT64);
-		assert info.is_signed
-		```
-		"""
-		...
-	@property
-	def is_broadcast(self) -> bool:
-		"""
-		bool: `True` if it's a broadcast memory type
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = MemorySizeInfo(MemorySize.UINT32);
-		assert not info.is_broadcast
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-		assert not info.is_broadcast
-		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
-		assert info.is_broadcast
-		```
-		"""
-		...
-	@property
-	def is_packed(self) -> bool:
-		"""
-		bool: `True` if this is a packed data type, eg. `MemorySize.PACKED128_FLOAT32`. See also `MemorySizeInfo.element_count`
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = MemorySizeInfo(MemorySize.UINT32);
-		assert not info.is_packed
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-		assert info.is_packed
-		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
-		assert not info.is_packed
-		```
-		"""
-		...
-	@property
-	def element_count(self) -> int:
-		"""
-		int: (`u32`) Gets the number of elements in the packed data type or `1` if it's not packed data (`MemorySizeInfo.is_packed`)
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = MemorySizeInfo(MemorySize.UINT32);
-		assert info.element_count == 1
-		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
-		assert info.element_count == 16
-		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
-		assert info.element_count == 1
-		```
-		"""
-		...
+	def __eq__(self, other: Any) -> bool: ...
+	def __ne__(self, other: Any) -> bool: ...
+	def __hash__(self) -> int: ...
 
 class MemorySizeExt:
 	"""`MemorySize` enum extension methods, see also `MemorySizeInfo`"""
@@ -8005,173 +7085,795 @@ class MemorySizeExt:
 		"""
 		...
 
-class RegisterInfo:
+class MemorySizeInfo:
 	"""
-	`Register` enum info, see also `RegisterExt`
+	`MemorySize` enum info, see also `MemorySizeExt`
 
 	### Args:
 
-	- `register` (`Register`): Enum value
+	- `memory_size` (`MemorySize`): Enum value
 
 	### Examples:
 
 	```python
 	from iced_x86 import *
 
-	info = RegisterInfo(Register.GS)
-	assert info.number == 5
+	info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
+	assert info.size == 32
 	```
 	"""
-	def __init__(self, register: Register) -> None: ...
+	def __init__(self, memory_size: MemorySize) -> None: ...
 	@property
-	def register(self) -> Register:
+	def memory_size(self) -> MemorySize:
 		"""
-		`Register`: Gets the register value passed into the constructor
+		`MemorySize`: Gets the `MemorySize` value
 
 		### Examples:
 
 		```python
 		from iced_x86 import *
 
-		info = RegisterInfo(Register.EAX)
-		assert info.register == Register.EAX
-		```
-		"""
-		...
-	@property
-	def base(self) -> Register:
-		"""
-		`Register`: Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = RegisterInfo(Register.GS)
-		assert info.base == Register.ES
-		info = RegisterInfo(Register.RDX)
-		assert info.base == Register.RAX
-		info = RegisterInfo(Register.XMM13)
-		assert info.base == Register.XMM0
-		info = RegisterInfo(Register.YMM13)
-		assert info.base == Register.YMM0
-		info = RegisterInfo(Register.ZMM13)
-		assert info.base == Register.ZMM0
-		```
-		"""
-		...
-	@property
-	def number(self) -> int:
-		"""
-		int: The register number (index) relative to `RegisterInfo.base`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = RegisterInfo(Register.GS)
-		assert info.number == 5
-		info = RegisterInfo(Register.RDX)
-		assert info.number == 2
-		info = RegisterInfo(Register.XMM13)
-		assert info.number == 13
-		info = RegisterInfo(Register.YMM13)
-		assert info.number == 13
-		info = RegisterInfo(Register.ZMM13)
-		assert info.number == 13
-		```
-		"""
-		...
-	@property
-	def full_register(self) -> Register:
-		"""
-		`Register`: The full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = RegisterInfo(Register.GS)
-		assert info.full_register == Register.GS
-		info = RegisterInfo(Register.BH)
-		assert info.full_register == Register.RBX
-		info = RegisterInfo(Register.DX)
-		assert info.full_register == Register.RDX
-		info = RegisterInfo(Register.ESP)
-		assert info.full_register == Register.RSP
-		info = RegisterInfo(Register.RCX)
-		assert info.full_register == Register.RCX
-		info = RegisterInfo(Register.XMM3)
-		assert info.full_register == Register.ZMM3
-		info = RegisterInfo(Register.YMM3)
-		assert info.full_register == Register.ZMM3
-		info = RegisterInfo(Register.ZMM3)
-		assert info.full_register == Register.ZMM3
-		```
-		"""
-		...
-	@property
-	def full_register32(self) -> Register:
-		"""
-		`Register`: Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
-		eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `ECX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
-
-		### Examples:
-
-		```python
-		from iced_x86 import *
-
-		info = RegisterInfo(Register.GS)
-		assert info.full_register32 == Register.GS
-		info = RegisterInfo(Register.BH)
-		assert info.full_register32 == Register.EBX
-		info = RegisterInfo(Register.DX)
-		assert info.full_register32 == Register.EDX
-		info = RegisterInfo(Register.ESP)
-		assert info.full_register32 == Register.ESP
-		info = RegisterInfo(Register.RCX)
-		assert info.full_register32 == Register.ECX
-		info = RegisterInfo(Register.XMM3)
-		assert info.full_register32 == Register.ZMM3
-		info = RegisterInfo(Register.YMM3)
-		assert info.full_register32 == Register.ZMM3
-		info = RegisterInfo(Register.ZMM3)
-		assert info.full_register32 == Register.ZMM3
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
+		assert info.memory_size == MemorySize.PACKED256_UINT16
 		```
 		"""
 		...
 	@property
 	def size(self) -> int:
 		"""
-		int: Size of the register in bytes
+		int: (`u32`) Gets the size in bytes of the memory location or 0 if it's not accessed or unknown
 
 		### Examples:
 
 		```python
 		from iced_x86 import *
 
-		info = RegisterInfo(Register.GS)
-		assert info.size == 2
-		info = RegisterInfo(Register.BH)
-		assert info.size == 1
-		info = RegisterInfo(Register.DX)
-		assert info.size == 2
-		info = RegisterInfo(Register.ESP)
+		info = MemorySizeInfo(MemorySize.UINT32);
 		assert info.size == 4
-		info = RegisterInfo(Register.RCX)
-		assert info.size == 8
-		info = RegisterInfo(Register.XMM3)
-		assert info.size == 16
-		info = RegisterInfo(Register.YMM3)
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
 		assert info.size == 32
-		info = RegisterInfo(Register.ZMM3)
-		assert info.size == 64
+		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
+		assert info.size == 8
 		```
 		"""
 		...
+	@property
+	def element_size(self) -> int:
+		"""
+		int: (`u32`) Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `MemorySizeInfo.size`.
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = MemorySizeInfo(MemorySize.UINT32);
+		assert info.element_size == 4
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
+		assert info.element_size == 2
+		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
+		assert info.element_size == 8
+		```
+		"""
+		...
+	@property
+	def element_type(self) -> MemorySize:
+		"""
+		`MemorySize`: Gets the element type if it's packed data or the type itself if it's not packed data
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = MemorySizeInfo(MemorySize.UINT32);
+		assert info.element_type == MemorySize.UINT32
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
+		assert info.element_type == MemorySize.UINT16
+		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
+		assert info.element_type == MemorySize.UINT64
+		```
+		"""
+		...
+	@property
+	def element_type_info(self) -> MemorySizeInfo:
+		"""
+		`MemorySizeInfo`: Gets the element type if it's packed data or the type itself if it's not packed data
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = MemorySizeInfo(MemorySize.UINT32).element_type_info;
+		assert info.memory_size == MemorySize.UINT32
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16).element_type_info;
+		assert info.memory_size == MemorySize.UINT16
+		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64).element_type_info;
+		assert info.memory_size == MemorySize.UINT64
+		```
+		"""
+		...
+	@property
+	def is_signed(self) -> bool:
+		"""
+		bool: `True` if it's signed data (signed integer or a floating point value)
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = MemorySizeInfo(MemorySize.UINT32);
+		assert not info.is_signed
+		info = MemorySizeInfo(MemorySize.INT32);
+		assert info.is_signed
+		info = MemorySizeInfo(MemorySize.FLOAT64);
+		assert info.is_signed
+		```
+		"""
+		...
+	@property
+	def is_broadcast(self) -> bool:
+		"""
+		bool: `True` if it's a broadcast memory type
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = MemorySizeInfo(MemorySize.UINT32);
+		assert not info.is_broadcast
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
+		assert not info.is_broadcast
+		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
+		assert info.is_broadcast
+		```
+		"""
+		...
+	@property
+	def is_packed(self) -> bool:
+		"""
+		bool: `True` if this is a packed data type, eg. `MemorySize.PACKED128_FLOAT32`. See also `MemorySizeInfo.element_count`
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = MemorySizeInfo(MemorySize.UINT32);
+		assert not info.is_packed
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
+		assert info.is_packed
+		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
+		assert not info.is_packed
+		```
+		"""
+		...
+	@property
+	def element_count(self) -> int:
+		"""
+		int: (`u32`) Gets the number of elements in the packed data type or `1` if it's not packed data (`MemorySizeInfo.is_packed`)
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = MemorySizeInfo(MemorySize.UINT32);
+		assert info.element_count == 1
+		info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
+		assert info.element_count == 16
+		info = MemorySizeInfo(MemorySize.BROADCAST512_UINT64);
+		assert info.element_count == 1
+		```
+		"""
+		...
+
+class OpCodeInfo:
+	"""
+	Opcode info, returned by `Instruction.op_code` or created by the constructor
+
+	### Args:
+
+	- `code` (`Code`): Code value
+
+	### Examples:
+
+	```python
+	from iced_x86 import *
+
+	op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
+	assert op_code.op_code_string == "EVEX.256.66.0F.W1 28 /r"
+	assert op_code.encoding == EncodingKind.EVEX
+	assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
+	assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
+	```
+	"""
+	def __init__(self, code: Code) -> None: ...
+	@property
+	def code(self) -> Code:
+		"""
+		`Code`: Gets the code (a `Code` enum value)
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
+		assert op_code.code == Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256
+		```
+		"""
+		...
+	@property
+	def mnemonic(self) -> Mnemonic:
+		"""
+		`Mnemonic`: Gets the mnemonic (a `Mnemonic` enum value)
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
+		assert op_code.mnemonic == Mnemonic.VMOVAPD
+		```
+		"""
+		...
+	@property
+	def encoding(self) -> EncodingKind:
+		"""
+		`EncodingKind`: Gets the encoding (an `EncodingKind` enum value)
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
+		assert op_code.encoding == EncodingKind.EVEX
+		```
+		"""
+		...
+	@property
+	def is_instruction(self) -> bool:
+		"""
+		bool: `True` if it's an instruction, `False` if it's eg. `Code.INVALID`, `db`, `dw`, `dd`, `dq`
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		assert OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256).is_instruction
+		assert not OpCodeInfo(Code.INVALID).is_instruction
+		assert not OpCodeInfo(Code.DECLAREBYTE).is_instruction
+		```
+		"""
+		...
+	@property
+	def mode16(self) -> bool:
+		"""bool: `True` if it's an instruction available in 16-bit mode"""
+		...
+	@property
+	def mode32(self) -> bool:
+		"""bool: `True` if it's an instruction available in 32-bit mode"""
+		...
+	@property
+	def mode64(self) -> bool:
+		"""bool: `True` if it's an instruction available in 64-bit mode"""
+		...
+	@property
+	def fwait(self) -> bool:
+		"""bool: `True` if an `FWAIT` (`9B`) instruction is added before the instruction"""
+		...
+	@property
+	def operand_size(self) -> int:
+		"""int: (`u8`) (Legacy encoding) Gets the required operand size (16,32,64) or 0"""
+		...
+	@property
+	def address_size(self) -> int:
+		"""int: (`u8`) (Legacy encoding) Gets the required address size (16,32,64) or 0"""
+		...
+	@property
+	def l(self) -> int:
+		"""int: (`u8`) (VEX/XOP/EVEX) `L` / `L'L` value or default value if `OpCodeInfo.is_lig` is `True`"""
+		...
+	@property
+	def w(self) -> int:
+		"""int: (`u8`) (VEX/XOP/EVEX) `W` value or default value if `OpCodeInfo.is_wig` or `OpCodeInfo.is_wig32` is `True`"""
+		...
+	@property
+	def is_lig(self) -> bool:
+		"""
+		bool: (VEX/XOP/EVEX) `True` if the `L` / `L'L` fields are ignored.
+
+		EVEX: if reg-only ops and `{er}` (`EVEX.b` is set), `L'L` is the rounding control and not ignored.
+		"""
+		...
+	@property
+	def is_wig(self) -> bool:
+		"""bool: (VEX/XOP/EVEX) `True` if the `W` field is ignored in 16/32/64-bit modes"""
+		...
+	@property
+	def is_wig32(self) -> bool:
+		"""bool: (VEX/XOP/EVEX) `True` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)"""
+		...
+	@property
+	def tuple_type(self) -> TupleType:
+		"""`TupleType`: (EVEX) Gets the tuple type (a `TupleType` enum value)"""
+		...
+	@property
+	def memory_size(self) -> MemorySize:
+		"""`MemorySize`: If it has a memory operand, gets the `MemorySize` (non-broadcast memory type)"""
+		...
+	@property
+	def broadcast_memory_size(self) -> MemorySize:
+		"""`MemorySize`: If it has a memory operand, gets the `MemorySize` (broadcast memory type)"""
+		...
+	@property
+	def can_broadcast(self) -> bool:
+		"""bool: (EVEX) `True` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)"""
+		...
+	@property
+	def can_use_rounding_control(self) -> bool:
+		"""bool: (EVEX) `True` if the instruction supports rounding control"""
+		...
+	@property
+	def can_suppress_all_exceptions(self) -> bool:
+		"""bool: (EVEX) `True` if the instruction supports suppress all exceptions"""
+		...
+	@property
+	def can_use_op_mask_register(self) -> bool:
+		"""bool: (EVEX) `True` if an op mask register can be used"""
+		...
+	@property
+	def require_op_mask_register(self) -> bool:
+		"""bool: (EVEX) `True` if a non-zero op mask register must be used"""
+		...
+	@property
+	def can_use_zeroing_masking(self) -> bool:
+		"""bool: (EVEX) `True` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)"""
+		...
+	@property
+	def can_use_lock_prefix(self) -> bool:
+		"""bool: `True` if the `LOCK` (`F0`) prefix can be used"""
+		...
+	@property
+	def can_use_xacquire_prefix(self) -> bool:
+		"""bool: `True` if the `XACQUIRE` (`F2`) prefix can be used"""
+		...
+	@property
+	def can_use_xrelease_prefix(self) -> bool:
+		"""bool: `True` if the `XRELEASE` (`F3`) prefix can be used"""
+		...
+	@property
+	def can_use_rep_prefix(self) -> bool:
+		"""bool: `True` if the `REP` / `REPE` (`F3`) prefixes can be used"""
+		...
+	@property
+	def can_use_repne_prefix(self) -> bool:
+		"""bool: `True` if the `REPNE` (`F2`) prefix can be used"""
+		...
+	@property
+	def can_use_bnd_prefix(self) -> bool:
+		"""bool: `True` if the `BND` (`F2`) prefix can be used"""
+		...
+	@property
+	def can_use_hint_taken_prefix(self) -> bool:
+		"""bool: `True` if the `HINT-TAKEN` (`3E`) and `HINT-NOT-TAKEN` (`2E`) prefixes can be used"""
+		...
+	@property
+	def can_use_notrack_prefix(self) -> bool:
+		"""bool: `True` if the `NOTRACK` (`3E`) prefix can be used"""
+		...
+	@property
+	def ignores_rounding_control(self) -> bool:
+		"""bool: `True` if rounding control is ignored (#UD is not generated)"""
+		...
+	@property
+	def amd_lock_reg_bit(self) -> bool:
+		"""bool: `True` if the `LOCK` prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a `REX` prefix (eg. in 32-bit mode)"""
+		...
+	@property
+	def default_op_size64(self) -> bool:
+		"""bool: `True` if the default operand size is 64 in 64-bit mode. A `66` prefix can switch to 16-bit operand size."""
+		...
+	@property
+	def force_op_size64(self) -> bool:
+		"""bool: `True` if the operand size is always 64 in 64-bit mode. A `66` prefix is ignored."""
+		...
+	@property
+	def intel_force_op_size64(self) -> bool:
+		"""bool: `True` if the Intel decoder forces 64-bit operand size. A `66` prefix is ignored."""
+		...
+	@property
+	def must_be_cpl0(self) -> bool:
+		"""bool: `True` if it can only be executed when CPL=0"""
+		...
+	@property
+	def cpl0(self) -> bool:
+		"""bool: `True` if it can be executed when CPL=0"""
+		...
+	@property
+	def cpl1(self) -> bool:
+		"""bool: `True` if it can be executed when CPL=1"""
+		...
+	@property
+	def cpl2(self) -> bool:
+		"""bool: `True` if it can be executed when CPL=2"""
+		...
+	@property
+	def cpl3(self) -> bool:
+		"""bool: `True` if it can be executed when CPL=3"""
+		...
+	@property
+	def is_input_output(self) -> bool:
+		"""bool: `True` if the instruction accesses the I/O address space (eg. `IN`, `OUT`, `INS`, `OUTS`)"""
+		...
+	@property
+	def is_nop(self) -> bool:
+		"""bool: `True` if it's one of the many nop instructions (does not include FPU nop instructions, eg. `FNOP`)"""
+		...
+	@property
+	def is_reserved_nop(self) -> bool:
+		"""bool: `True` if it's one of the many reserved nop instructions (eg. `0F0D`, `0F18-0F1F`)"""
+		...
+	@property
+	def is_serializing_intel(self) -> bool:
+		"""bool: `True` if it's a serializing instruction (Intel CPUs)"""
+		...
+	@property
+	def is_serializing_amd(self) -> bool:
+		"""bool: `True` if it's a serializing instruction (AMD CPUs)"""
+		...
+	@property
+	def may_require_cpl0(self) -> bool:
+		"""bool: `True` if the instruction requires either CPL=0 or CPL<=3 depending on some CPU option (eg. `CR4.TSD`, `CR4.PCE`, `CR4.UMIP`)"""
+		...
+	@property
+	def is_cet_tracked(self) -> bool:
+		"""bool: `True` if it's a tracked `JMP`/`CALL` indirect instruction (CET)"""
+		...
+	@property
+	def is_non_temporal(self) -> bool:
+		"""bool: `True` if it's a non-temporal hint memory access (eg. `MOVNTDQ`)"""
+		...
+	@property
+	def is_fpu_no_wait(self) -> bool:
+		"""bool: `True` if it's a no-wait FPU instruction, eg. `FNINIT`"""
+		...
+	@property
+	def ignores_mod_bits(self) -> bool:
+		"""bool: `True` if the mod bits are ignored and it's assumed `modrm[7:6] == 11b`"""
+		...
+	@property
+	def no66(self) -> bool:
+		"""bool: `True` if the `66` prefix is not allowed (it will #UD)"""
+		...
+	@property
+	def nfx(self) -> bool:
+		"""bool: `True` if the `F2`/`F3` prefixes aren't allowed"""
+		...
+	@property
+	def requires_unique_reg_nums(self) -> bool:
+		"""
+		bool: `True` if the index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique,
+		eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
+		"""
+		...
+	@property
+	def is_privileged(self) -> bool:
+		"""bool: `True` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)"""
+		...
+	@property
+	def is_save_restore(self) -> bool:
+		"""bool: `True` if it reads/writes too many registers"""
+		...
+	@property
+	def is_stack_instruction(self) -> bool:
+		"""bool: `True` if it's an instruction that implicitly uses the stack register, eg. `CALL`, `POP`, etc"""
+		...
+	@property
+	def ignores_segment(self) -> bool:
+		"""bool: `True` if the instruction doesn't read the segment register if it uses a memory operand"""
+		...
+	@property
+	def is_op_mask_read_write(self) -> bool:
+		"""bool: `True` if the op mask register is read and written (instead of just read). This also implies that it can't be `K0`."""
+		...
+	@property
+	def real_mode(self) -> bool:
+		"""bool: `True` if it can be executed in real mode"""
+		...
+	@property
+	def protected_mode(self) -> bool:
+		"""bool: `True` if it can be executed in protected mode"""
+		...
+	@property
+	def virtual8086_mode(self) -> bool:
+		"""bool: `True` if it can be executed in virtual 8086 mode"""
+		...
+	@property
+	def compatibility_mode(self) -> bool:
+		"""bool: `True` if it can be executed in compatibility mode"""
+		...
+	@property
+	def long_mode(self) -> bool:
+		"""bool: `True` if it can be executed in 64-bit mode"""
+		...
+	@property
+	def use_outside_smm(self) -> bool:
+		"""bool: `True` if it can be used outside SMM"""
+		...
+	@property
+	def use_in_smm(self) -> bool:
+		"""bool: `True` if it can be used in SMM"""
+		...
+	@property
+	def use_outside_enclave_sgx(self) -> bool:
+		"""bool: `True` if it can be used outside an enclave (SGX)"""
+		...
+	@property
+	def use_in_enclave_sgx1(self) -> bool:
+		"""bool: `True` if it can be used inside an enclave (SGX1)"""
+		...
+	@property
+	def use_in_enclave_sgx2(self) -> bool:
+		"""bool: `True` if it can be used inside an enclave (SGX2)"""
+		...
+	@property
+	def use_outside_vmx_op(self) -> bool:
+		"""bool: `True` if it can be used outside VMX operation"""
+		...
+	@property
+	def use_in_vmx_root_op(self) -> bool:
+		"""bool: `True` if it can be used in VMX root operation"""
+		...
+	@property
+	def use_in_vmx_non_root_op(self) -> bool:
+		"""bool: `True` if it can be used in VMX non-root operation"""
+		...
+	@property
+	def use_outside_seam(self) -> bool:
+		"""bool: `True` if it can be used outside SEAM"""
+		...
+	@property
+	def use_in_seam(self) -> bool:
+		"""bool: `True` if it can be used in SEAM"""
+		...
+	@property
+	def tdx_non_root_gen_ud(self) -> bool:
+		"""bool: `True` if #UD is generated in TDX non-root operation"""
+		...
+	@property
+	def tdx_non_root_gen_ve(self) -> bool:
+		"""bool: `True` if #VE is generated in TDX non-root operation"""
+		...
+	@property
+	def tdx_non_root_may_gen_ex(self) -> bool:
+		"""bool: `True` if an exception (eg. #GP(0), #VE) may be generated in TDX non-root operation"""
+		...
+	@property
+	def intel_vm_exit(self) -> bool:
+		"""bool: (Intel VMX) `True` if it causes a VM exit in VMX non-root operation"""
+		...
+	@property
+	def intel_may_vm_exit(self) -> bool:
+		"""bool: (Intel VMX) `True` if it may cause a VM exit in VMX non-root operation"""
+		...
+	@property
+	def intel_smm_vm_exit(self) -> bool:
+		"""bool: (Intel VMX) `True` if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)"""
+		...
+	@property
+	def amd_vm_exit(self) -> bool:
+		"""bool: (AMD SVM) `True` if it causes a #VMEXIT in guest mode"""
+		...
+	@property
+	def amd_may_vm_exit(self) -> bool:
+		"""bool: (AMD SVM) `True` if it may cause a #VMEXIT in guest mode"""
+		...
+	@property
+	def tsx_abort(self) -> bool:
+		"""bool: `True` if it causes a TSX abort inside a TSX transaction"""
+		...
+	@property
+	def tsx_impl_abort(self) -> bool:
+		"""bool: `True` if it causes a TSX abort inside a TSX transaction depending on the implementation"""
+		...
+	@property
+	def tsx_may_abort(self) -> bool:
+		"""bool: `True` if it may cause a TSX abort inside a TSX transaction depending on some condition"""
+		...
+	@property
+	def intel_decoder16(self) -> bool:
+		"""bool: `True` if it's decoded by iced's 16-bit Intel decoder"""
+		...
+	@property
+	def intel_decoder32(self) -> bool:
+		"""bool: `True` if it's decoded by iced's 32-bit Intel decoder"""
+		...
+	@property
+	def intel_decoder64(self) -> bool:
+		"""bool: `True` if it's decoded by iced's 64-bit Intel decoder"""
+		...
+	@property
+	def amd_decoder16(self) -> bool:
+		"""bool: `True` if it's decoded by iced's 16-bit AMD decoder"""
+		...
+	@property
+	def amd_decoder32(self) -> bool:
+		"""bool: `True` if it's decoded by iced's 32-bit AMD decoder"""
+		...
+	@property
+	def amd_decoder64(self) -> bool:
+		"""bool: `True` if it's decoded by iced's 64-bit AMD decoder"""
+		...
+	@property
+	def decoder_option(self) -> DecoderOptions:
+		"""`DecoderOptions`: Gets the decoder option that's needed to decode the instruction or `DecoderOptions.NONE`."""
+		...
+	@property
+	def table(self) -> OpCodeTableKind:
+		"""`OpCodeTableKind`: Gets the opcode table (a `OpCodeTableKind` enum value)"""
+		...
+	@property
+	def mandatory_prefix(self) -> MandatoryPrefix:
+		"""`MandatoryPrefix`: Gets the mandatory prefix (a `MandatoryPrefix` enum value)"""
+		...
+	@property
+	def op_code(self) -> int:
+		"""
+		int: (`u32`) Gets the opcode byte(s). The low byte(s) of this value is the opcode. The length is in `OpCodeInfo.op_code_len`.
+		It doesn't include the table value, see `OpCodeInfo.table`.
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		assert OpCodeInfo(Code.FFREEP_STI).op_code == 0xDFC0
+		assert OpCodeInfo(Code.VMRUNW).op_code == 0x01D8
+		assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
+		assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
+		```
+		"""
+		...
+	@property
+	def op_code_len(self) -> int:
+		"""
+		int: (`u8`) Gets the length of the opcode bytes (`OpCodeInfo.op_code`). The low bytes is the opcode value.
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		assert OpCodeInfo(Code.FFREEP_STI).op_code_len == 2
+		assert OpCodeInfo(Code.VMRUNW).op_code_len == 2
+		assert OpCodeInfo(Code.SUB_R8_RM8).op_code_len == 1
+		assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code_len == 1
+		```
+		"""
+		...
+	@property
+	def is_group(self) -> bool:
+		"""bool: `True` if it's part of a group"""
+		...
+	@property
+	def group_index(self) -> int:
+		"""int: (`i8`) Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte."""
+		...
+	@property
+	def is_rm_group(self) -> bool:
+		"""bool: `True` if it's part of a modrm.rm group"""
+		...
+	@property
+	def rm_group_index(self) -> int:
+		"""int: (`i8`) Group index (0-7) or -1. If it's 0-7, it's stored in the `rm` field of the `modrm` byte."""
+		...
+	@property
+	def op_count(self) -> int:
+		"""int: (`u8`) Gets the number of operands"""
+		...
+	@property
+	def op0_kind(self) -> OpCodeOperandKind:
+		"""`OpCodeOperandKind`: Gets operand #0's opkind (a `OpCodeOperandKind` enum value)"""
+		...
+	@property
+	def op1_kind(self) -> OpCodeOperandKind:
+		"""`OpCodeOperandKind`: Gets operand #1's opkind (a `OpCodeOperandKind` enum value)"""
+		...
+	@property
+	def op2_kind(self) -> OpCodeOperandKind:
+		"""`OpCodeOperandKind`: Gets operand #2's opkind (a `OpCodeOperandKind` enum value)"""
+		...
+	@property
+	def op3_kind(self) -> OpCodeOperandKind:
+		"""`OpCodeOperandKind`: Gets operand #3's opkind (a `OpCodeOperandKind` enum value)"""
+		...
+	@property
+	def op4_kind(self) -> OpCodeOperandKind:
+		"""`OpCodeOperandKind`: Gets operand #4's opkind (a `OpCodeOperandKind` enum value)"""
+		...
+	def op_kind(self, operand: int) -> OpCodeOperandKind:
+		"""
+		Gets an operand's opkind (a `OpCodeOperandKind` enum value)
+
+		### Args:
+
+		- `operand` (int): Operand number, 0-4
+
+		### Returns:
+
+		- `OpCodeOperandKind`: Operand kind
+
+		### Raises:
+
+		- ValueError: If `operand` is invalid
+		"""
+		...
+	def op_kinds(self) -> List[OpCodeOperandKind]:
+		"""
+		Gets all operand kinds (a list of `OpCodeOperandKind` enum values)
+
+		### Returns:
+
+		- List[`OpCodeOperandKind`]: All operand kinds
+		"""
+		...
+	def is_available_in_mode(self, bitness: int) -> bool:
+		"""
+		Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode
+
+		### Args:
+
+		- `bitness` (int): 16, 32 or 64
+
+		### Returns:
+
+		- bool: `True` if it's available in the mode
+		"""
+		...
+	@property
+	def op_code_string(self) -> str:
+		"""
+		str: Gets the opcode string, eg. `VEX.128.66.0F38.W0 78 /r`, see also `OpCodeInfo.instruction_string`
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
+		assert op_code.op_code_string == "EVEX.256.66.0F.W1 28 /r"
+		```
+		"""
+		...
+	@property
+	def instruction_string(self) -> str:
+		"""
+		str: Gets the instruction string, eg. `VPBROADCASTB xmm1, xmm2/m8`, see also `OpCodeInfo.op_code_string`
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		op_code = OpCodeInfo(Code.EVEX_VMOVAPD_YMM_K1Z_YMMM256)
+		assert op_code.instruction_string == "VMOVAPD ymm1 {k1}{z}, ymm2/m256"
+		```
+		"""
+		...
+	def __repr__(self) -> str: ...
+	def __str__(self) -> str: ...
+	def __format__(self, format_spec: str) -> str: ...
+	def __eq__(self, other: Any) -> bool: ...
+	def __ne__(self, other: Any) -> bool: ...
+	def __hash__(self) -> int: ...
 
 class RegisterExt:
 	"""`Register` enum extension methods, see also `RegisterInfo`"""
@@ -8853,3 +8555,301 @@ class RegisterExt:
 		```
 		"""
 		...
+
+class RegisterInfo:
+	"""
+	`Register` enum info, see also `RegisterExt`
+
+	### Args:
+
+	- `register` (`Register`): Enum value
+
+	### Examples:
+
+	```python
+	from iced_x86 import *
+
+	info = RegisterInfo(Register.GS)
+	assert info.number == 5
+	```
+	"""
+	def __init__(self, register: Register) -> None: ...
+	@property
+	def register(self) -> Register:
+		"""
+		`Register`: Gets the register value passed into the constructor
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = RegisterInfo(Register.EAX)
+		assert info.register == Register.EAX
+		```
+		"""
+		...
+	@property
+	def base(self) -> Register:
+		"""
+		`Register`: Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = RegisterInfo(Register.GS)
+		assert info.base == Register.ES
+		info = RegisterInfo(Register.RDX)
+		assert info.base == Register.RAX
+		info = RegisterInfo(Register.XMM13)
+		assert info.base == Register.XMM0
+		info = RegisterInfo(Register.YMM13)
+		assert info.base == Register.YMM0
+		info = RegisterInfo(Register.ZMM13)
+		assert info.base == Register.ZMM0
+		```
+		"""
+		...
+	@property
+	def number(self) -> int:
+		"""
+		int: The register number (index) relative to `RegisterInfo.base`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = RegisterInfo(Register.GS)
+		assert info.number == 5
+		info = RegisterInfo(Register.RDX)
+		assert info.number == 2
+		info = RegisterInfo(Register.XMM13)
+		assert info.number == 13
+		info = RegisterInfo(Register.YMM13)
+		assert info.number == 13
+		info = RegisterInfo(Register.ZMM13)
+		assert info.number == 13
+		```
+		"""
+		...
+	@property
+	def full_register(self) -> Register:
+		"""
+		`Register`: The full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = RegisterInfo(Register.GS)
+		assert info.full_register == Register.GS
+		info = RegisterInfo(Register.BH)
+		assert info.full_register == Register.RBX
+		info = RegisterInfo(Register.DX)
+		assert info.full_register == Register.RDX
+		info = RegisterInfo(Register.ESP)
+		assert info.full_register == Register.RSP
+		info = RegisterInfo(Register.RCX)
+		assert info.full_register == Register.RCX
+		info = RegisterInfo(Register.XMM3)
+		assert info.full_register == Register.ZMM3
+		info = RegisterInfo(Register.YMM3)
+		assert info.full_register == Register.ZMM3
+		info = RegisterInfo(Register.ZMM3)
+		assert info.full_register == Register.ZMM3
+		```
+		"""
+		...
+	@property
+	def full_register32(self) -> Register:
+		"""
+		`Register`: Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
+		eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `ECX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = RegisterInfo(Register.GS)
+		assert info.full_register32 == Register.GS
+		info = RegisterInfo(Register.BH)
+		assert info.full_register32 == Register.EBX
+		info = RegisterInfo(Register.DX)
+		assert info.full_register32 == Register.EDX
+		info = RegisterInfo(Register.ESP)
+		assert info.full_register32 == Register.ESP
+		info = RegisterInfo(Register.RCX)
+		assert info.full_register32 == Register.ECX
+		info = RegisterInfo(Register.XMM3)
+		assert info.full_register32 == Register.ZMM3
+		info = RegisterInfo(Register.YMM3)
+		assert info.full_register32 == Register.ZMM3
+		info = RegisterInfo(Register.ZMM3)
+		assert info.full_register32 == Register.ZMM3
+		```
+		"""
+		...
+	@property
+	def size(self) -> int:
+		"""
+		int: Size of the register in bytes
+
+		### Examples:
+
+		```python
+		from iced_x86 import *
+
+		info = RegisterInfo(Register.GS)
+		assert info.size == 2
+		info = RegisterInfo(Register.BH)
+		assert info.size == 1
+		info = RegisterInfo(Register.DX)
+		assert info.size == 2
+		info = RegisterInfo(Register.ESP)
+		assert info.size == 4
+		info = RegisterInfo(Register.RCX)
+		assert info.size == 8
+		info = RegisterInfo(Register.XMM3)
+		assert info.size == 16
+		info = RegisterInfo(Register.YMM3)
+		assert info.size == 32
+		info = RegisterInfo(Register.ZMM3)
+		assert info.size == 64
+		```
+		"""
+		...
+
+class UsedMemory:
+	"""A memory location used by an instruction"""
+	@property
+	def segment(self) -> Register:
+		"""`Register`: Effective segment register or `Register.NONE` if the segment register is ignored"""
+		...
+	@property
+	def base(self) -> Register:
+		"""`Register`: Base register or `Register.NONE` if none"""
+		...
+	@property
+	def index(self) -> Register:
+		"""`Register`: Index register or `Register.NONE` if none"""
+		...
+	@property
+	def scale(self) -> int:
+		"""int: Index scale (1, 2, 4 or 8)"""
+		...
+	@property
+	def displacement(self) -> int:
+		"""int: (`u64`) Displacement"""
+		...
+	@property
+	def displacement_i64(self) -> int:
+		"""int: (`i64`) Displacement"""
+		...
+	@property
+	def memory_size(self) -> MemorySize:
+		"""`MemorySize`: Size of location (enum value)"""
+		...
+	@property
+	def access(self) -> OpAccess:
+		"""`OpAccess`: Memory access"""
+		...
+	@property
+	def address_size(self) -> CodeSize:
+		"""`CodeSize`: Address size"""
+		...
+	@property
+	def vsib_size(self) -> int:
+		"""int: VSIB size (`0`, `4` or `8`)"""
+		...
+	def __copy__(self) -> UsedMemory:
+		"""
+		Returns a copy of this instance.
+
+		### Returns:
+
+		- UsedMemory: A copy of this instance
+
+		This is identical to `UsedMemory.copy`
+		"""
+		...
+	def __deepcopy__(self, memo: Any) -> UsedMemory:
+		"""
+		Returns a copy of this instance.
+
+		### Args:
+
+		- `memo` (Any): memo dict
+
+		### Returns:
+
+		- UsedMemory: A copy of this instance
+
+		This is identical to `UsedMemory.copy`
+		"""
+		...
+	def copy(self) -> UsedMemory:
+		"""
+		Returns a copy of this instance.
+
+		### Returns:
+
+		- UsedMemory: A copy of this instance
+		"""
+		...
+	def __eq__(self, other: Any) -> bool: ...
+	def __ne__(self, other: Any) -> bool: ...
+	def __hash__(self) -> int: ...
+
+class UsedRegister:
+	"""A register used by an instruction"""
+	@property
+	def register(self) -> Register:
+		"""`Register`: Gets the register"""
+		...
+	@property
+	def access(self) -> OpAccess:
+		"""`OpAccess`: Gets the register access"""
+		...
+	def __copy__(self) -> UsedRegister:
+		"""
+		Returns a copy of this instance.
+
+		### Returns:
+
+		- UsedRegister: A copy of this instance
+
+		This is identical to `UsedRegister.copy`
+		"""
+		...
+	def __deepcopy__(self, memo: Any) -> UsedRegister:
+		"""
+		Returns a copy of this instance.
+
+		### Args:
+
+		- `memo` (Any): memo dict
+
+		### Returns:
+
+		- UsedRegister: A copy of this instance
+
+		This is identical to `UsedRegister.copy`
+		"""
+		...
+	def copy(self) -> UsedRegister:
+		"""
+		Returns a copy of this instance.
+
+		### Returns:
+
+		- UsedRegister: A copy of this instance
+		"""
+		...
+	def __eq__(self, other: Any) -> bool: ...
+	def __ne__(self, other: Any) -> bool: ...
+	def __hash__(self) -> int: ...

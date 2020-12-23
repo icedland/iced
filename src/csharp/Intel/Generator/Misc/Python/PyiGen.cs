@@ -104,35 +104,6 @@ namespace Generator.Misc.Python {
 
 		void WritePyi(List<PyClass> classes) {
 			var reqEnumFields = GetRequiredEnumFields(classes);
-			var classOrder = new[] {
-				"OpCodeInfo",
-				"ConstantOffsets",
-				"FpuStackIncrementInfo",
-				"MemoryOperand",
-				"Instruction",
-				"Decoder",
-				"Encoder",
-				"Formatter",
-				"FastFormatter",
-				"BlockEncoder",
-				"UsedRegister",
-				"UsedMemory",
-				"InstructionInfo",
-				"InstructionInfoFactory",
-				"MemorySizeInfo",
-				"MemorySizeExt",
-				"RegisterInfo",
-				"RegisterExt",
-			};
-			var toClass = classes.ToDictionary(a => a.Name, a => a, StringComparer.Ordinal);
-
-			var classOrderHash = classOrder.ToHashSet();
-			foreach (var pyClass in classes) {
-				if (!classOrderHash.Contains(pyClass.Name))
-					throw new InvalidOperationException($"Missing {pyClass.Name} in {nameof(classOrder)}");
-			}
-			if (classOrder.Length != classes.Count)
-				throw new InvalidOperationException($"{nameof(classOrder)}.Length {classOrder.Length} != {nameof(classes)}.Count {classes.Count}");
 
 			var filename = genTypes.Dirs.GetPythonPyFilename("_iced_x86_py.pyi");
 			using (var writer = new FileWriter(TargetLanguage.Python, FileUtils.OpenWrite(filename))) {
@@ -170,9 +141,7 @@ namespace Generator.Misc.Python {
 				}
 
 				var docGen = new PyiDocGen();
-				foreach (var classStr in classOrder) {
-					var pyClass = toClass[classStr];
-					toClass.Remove(classStr);
+				foreach (var pyClass in classes.OrderBy(a => a.Name, StringComparer.Ordinal)) {
 					writer.WriteLine();
 					writer.WriteLine($"class {idConverter.Type(pyClass.Name)}:");
 					using (writer.Indent()) {
@@ -203,8 +172,6 @@ namespace Generator.Misc.Python {
 							throw new InvalidOperationException($"class {pyClass.Name}: No class members");
 					}
 				}
-				if (toClass.Count != 0)
-					throw new InvalidOperationException();
 			}
 		}
 
