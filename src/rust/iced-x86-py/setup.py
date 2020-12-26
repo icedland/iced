@@ -32,7 +32,7 @@ py_limited_api = any(arg == "--py-limited-api" or arg.startswith("--py-limited-a
 
 setup(
 	name="iced-x86",
-	version="1.10.1",
+	version="1.10.2",
 	license="MIT",
 	author_email="de4dot@gmail.com",
 	author="0xd4d",
