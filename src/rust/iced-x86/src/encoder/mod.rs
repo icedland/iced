@@ -257,7 +257,7 @@ impl Encoder {
 	///
 	/// # Errors
 	///
-	/// Returns an error message on failure.
+	/// Returns an error if it failed to encode the instruction.
 	///
 	/// # Arguments
 	///

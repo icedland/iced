@@ -2814,10 +2814,6 @@ impl Instruction {
 
 	/// Gets the virtual address of a memory operand
 	///
-	/// # Panics
-	///
-	/// Panics if `operand` is invalid
-	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4, must be a memory operand

@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use crate::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rep_prefix_kind, to_rounding_control};
-use crate::iced_constants::IcedConstants;
 use crate::memory_operand::MemoryOperand;
 use crate::op_code_info::OpCodeInfo;
 use crate::utils::{get_temporary_byte_array_ref, to_value_error};
@@ -529,14 +528,9 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_kind(&self, operand: u32) -> PyResult<u32> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-		match operand {
-			0 => Ok(self.op0_kind()),
-			1 => Ok(self.op1_kind()),
-			2 => Ok(self.op2_kind()),
-			3 => Ok(self.op3_kind()),
-			4 => Ok(self.op4_kind()),
-			_ => Err(PyValueError::new_err("Invalid operand")),
+		match self.instr.try_op_kind(operand) {
+			Ok(op_kind) => Ok(op_kind as u32),
+			Err(e) => Err(to_value_error(e)),
 		}
 	}
 
@@ -550,15 +544,7 @@ impl Instruction {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, op_kind, /)"]
 	fn set_op_kind(&mut self, operand: u32, op_kind: u32) -> PyResult<()> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-		match operand {
-			0 => self.set_op0_kind(op_kind),
-			1 => self.set_op1_kind(op_kind),
-			2 => self.set_op2_kind(op_kind),
-			3 => self.set_op3_kind(op_kind),
-			4 => self.set_op4_kind(op_kind),
-			_ => Err(PyValueError::new_err("Invalid operand")),
-		}
+		self.instr.try_set_op_kind(operand, to_op_kind(op_kind)?).map_err(to_value_error)
 	}
 
 	/// bool: Checks if the instruction has a segment override prefix, see :class:`Instruction.segment_prefix`
@@ -1080,14 +1066,9 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_register(&self, operand: u32) -> PyResult<u32> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-		match operand {
-			0 => Ok(self.op0_register()),
-			1 => Ok(self.op1_register()),
-			2 => Ok(self.op2_register()),
-			3 => Ok(self.op3_register()),
-			4 => Ok(self.op4_register()),
-			_ => Err(PyValueError::new_err("Invalid operand")),
+		match self.instr.try_op_register(operand) {
+			Ok(register) => Ok(register as u32),
+			Err(e) => Err(to_value_error(e)),
 		}
 	}
 
@@ -1103,15 +1084,7 @@ impl Instruction {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, new_value, /)"]
 	fn set_op_register(&mut self, operand: u32, new_value: u32) -> PyResult<()> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-		match operand {
-			0 => self.set_op0_register(new_value),
-			1 => self.set_op1_register(new_value),
-			2 => self.set_op2_register(new_value),
-			3 => self.set_op3_register(new_value),
-			4 => self.set_op4_register(new_value),
-			_ => Err(PyValueError::new_err("Invalid operand")),
-		}
+		self.instr.try_set_op_register(operand, to_register(new_value)?).map_err(to_value_error)
 	}
 
 	/// :class:`Register`: Gets the op mask register (:class:`Register.K1` - :class:`Register.K7`) or :class:`Register.NONE` if none (a :class:`Register` enum value)

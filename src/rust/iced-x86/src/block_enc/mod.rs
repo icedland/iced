@@ -235,11 +235,7 @@ impl BlockEncoder {
 	///
 	/// # Errors
 	///
-	/// Returns an error message on failure.
-	///
-	/// # Panics
-	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
+	/// Returns an error if it failed to encode one or more instructions.
 	///
 	/// # Arguments
 	///
@@ -292,11 +288,7 @@ impl BlockEncoder {
 	///
 	/// # Errors
 	///
-	/// Returns an error message on failure.
-	///
-	/// # Panics
-	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
+	/// Returns an error if it failed to encode one or more instructions.
 	///
 	/// # Arguments
 	///
