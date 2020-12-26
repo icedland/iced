@@ -403,6 +403,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          # codecov needs fetch-depth > 1 (or 0)
+          fetch-depth: 2
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
