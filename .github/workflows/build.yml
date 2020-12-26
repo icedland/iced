@@ -180,10 +180,11 @@ jobs:
 
       # If the supported Python versions get updated (added/removed), do:
       # - Update .github/workflows/build.yml (this file)
-      #     - Search for eg. 3.9, 39 and 3\.9
+      #     - Search for eg. 3.6, 36 and 3\.6
       #     - Update file count in `Verify downloads`
-      # - Update min ver in build/README.md and src/rust/iced-x86-py/README.md
-      # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 39)
+      # - Update min ver in build/README.md and src/rust/iced-x86-py/README.md and any 36/3.6/etc refs
+      # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 36)
+      # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py36" to min supported version)
       # - Update Python versions in src/rust/iced-x86-py/setup.py
       #     - `python_requires` line
       #     - `classifiers` array
@@ -264,7 +265,7 @@ jobs:
         if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.6
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -le {0}
         run: |
@@ -279,7 +280,7 @@ jobs:
         if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.7
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -le {0}
         run: |
@@ -294,7 +295,7 @@ jobs:
         if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.8
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -le {0}
         run: |
@@ -309,7 +310,7 @@ jobs:
         if: startsWith(matrix.os, 'macos-')
         with:
           python-version: 3.9
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: "!startsWith(matrix.os, 'ubuntu-')"
         shell: bash -le {0}
         run: |
@@ -333,7 +334,7 @@ jobs:
         with:
           python-version: 3.6
           architecture: x86
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash
         run: |
@@ -345,7 +346,7 @@ jobs:
         with:
           python-version: 3.7
           architecture: x86
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash
         run: |
@@ -357,7 +358,7 @@ jobs:
         with:
           python-version: 3.8
           architecture: x86
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash
         run: |
@@ -369,7 +370,7 @@ jobs:
         with:
           python-version: 3.9
           architecture: x86
-      - name: Build the wheel
+      - name: Build and test the wheel
         if: startsWith(matrix.os, 'windows-')
         shell: bash
         run: |
@@ -432,10 +433,7 @@ jobs:
             cp "$path/"* /tmp/py-dist-tmp
           done
 
-          supported_py_versions=(36 37 38 39)
-          for py_ver in ${supported_py_versions[@]}; do
-            mv /tmp/py-dist-tmp/iced_x86-*-cp${py_ver}-cp${py_ver}*.whl /tmp/py-dist
-          done
+          mv /tmp/py-dist-tmp/iced_x86-*-cp36-abi3*.whl /tmp/py-dist
           mv /tmp/py-dist-tmp/iced-x86-*.tar.gz /tmp/py-dist
 
           for file in /tmp/py-dist-tmp/*; do
@@ -448,9 +446,9 @@ jobs:
           done
           rmdir /tmp/py-dist-tmp
 
-          # (4+1) (supported platforms) * 4 (supported Python versions) + 1 (source code tar.gz file)
+          # (4+1) (supported platforms) * 1 (supported Python abi3 version) + 1 (source code tar.gz file)
           # (^+1 == manylinux build creates manylinux1 + manylinux2010 files)
-          if [ $(ls -A /tmp/py-dist | wc -l) -ne 21 ]; then
+          if [ $(ls -A /tmp/py-dist | wc -l) -ne 6 ]; then
             ls -l /tmp/py-dist
             echo "Found too many/few Python whl files (see above)"
             exit 1

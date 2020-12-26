@@ -21,11 +21,14 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import sys
 from setuptools import setup
 from setuptools_rust import RustExtension, Strip
 
 with open("README.md", "r", encoding="utf-8") as file:
 	readme_md = file.read()
+
+py_limited_api = any(arg == "--py-limited-api" or arg.startswith("--py-limited-api=") for arg in sys.argv)
 
 setup(
 	name="iced-x86",
@@ -61,7 +64,7 @@ setup(
 	],
 	package_dir={"": "src"},
 	packages=["iced_x86"],
-	rust_extensions=[RustExtension("iced_x86._iced_x86_py", path="Cargo.toml", strip=Strip.All)],
+	rust_extensions=[RustExtension("iced_x86._iced_x86_py", path="Cargo.toml", strip=Strip.All, py_limited_api=py_limited_api)],
 	include_package_data=True,
 	zip_safe=False,
 )

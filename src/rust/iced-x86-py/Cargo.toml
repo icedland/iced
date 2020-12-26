@@ -13,8 +13,8 @@ crate-type = ["cdylib"]
 static_assertions = "1.1.0"
 
 [dependencies.pyo3]
-version = "0.12.3"
-features = ["extension-module"]
+version = "0.13.0"
+features = ["extension-module", "abi3-py36"]
 
 [dependencies.iced-x86]
 # If building from sdist, it should use the exact same version as the sdist.

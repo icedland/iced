@@ -36,7 +36,7 @@ Prerequisites:
 # Create the wheel
 python3 setup.py bdist_wheel
 # Install the built wheel
-python3 -m pip install iced-x86 --no-index -f dist
+python3 -m pip install iced-x86 --no-index -f dist --only-binary :all:
 # Uninstall your built copy
 python3 -m pip uninstall iced-x86
 ```
@@ -49,7 +49,7 @@ Tests:
 
 ```sh
 python3 setup.py bdist_wheel
-python3 -m pip install iced-x86 --no-index -f dist
+python3 -m pip install iced-x86 --no-index -f dist --only-binary :all:
 python3 -m pytest
 python3 -m pip uninstall -y iced-x86
 ```

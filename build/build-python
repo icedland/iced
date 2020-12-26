@@ -62,7 +62,7 @@ test_wheel() {
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
 
-	$python -m pip install iced-x86 --no-index -f dist
+	$python -m pip install iced-x86 --no-index -f dist --only-binary :all:
 	$python -m pytest --color=yes --code-highlight=yes
 	$python -m pip uninstall -y iced-x86
 

@@ -14,12 +14,17 @@ python -m pip install -U setuptools wheel setuptools-rust pytest
 # Needed so the wheel files don't get extra *.{so,pyd} files (should have exactly one)
 # from earlier builds
 git clean -xdf
-./build/build-python --wheel-only
-mkdir -p /tmp/py-dist
-cd src/rust/iced-x86-py
-cp dist/* /tmp/py-dist
+
+# Build the wheel with the minimum supported Python version only
+if python --version 2>&1 | grep "Python 3\.6"; then
+	python setup.py bdist_wheel --py-limited-api=cp36
+
+	mkdir -p /tmp/py-dist
+	cd src/rust/iced-x86-py
+	cp dist/* /tmp/py-dist
+fi
 
 echo "Testing it"
-python -m pip install iced-x86 --no-index -f dist
+python -m pip install iced-x86 --no-index -f dist --only-binary :all:
 python -m pytest --color=yes --code-highlight=yes
 python -m pip uninstall -y iced-x86
