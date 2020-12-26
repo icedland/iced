@@ -22,8 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 const {
-	CpuidFeature, Decoder, DecoderOptions, EncodingKind, FlowControl, InstructionInfoFactory,
-	InstructionInfoOptions, MemorySize, OpAccess, Register, RflagsBits
+	Decoder, DecoderOptions, InstructionInfoFactory, InstructionInfoOptions, MemorySize,
+	OpAccess, Register
 } = require("iced-x86");
 
 test("Instruction info factory", () => {
@@ -34,12 +34,6 @@ test("Instruction info factory", () => {
 	const instr = decoder.decode();
 
 	const info1 = infoFactory.info(instr);
-	expect(info1.isPrivileged).toBe(false);
-	expect(info1.isStackInstruction).toBe(false);
-	expect(info1.isSaveRestoreInstruction).toBe(false);
-	expect(info1.encoding).toBe(EncodingKind.Legacy);
-	expect(info1.cpuidFeatures()).toStrictEqual(new Int32Array([CpuidFeature.INTEL386]));
-	expect(info1.flowControl).toBe(FlowControl.Next);
 	expect(info1.op0Access).toBe(OpAccess.ReadWrite);
 	expect(info1.op1Access).toBe(OpAccess.Read);
 	expect(info1.op2Access).toBe(OpAccess.None);
@@ -50,12 +44,6 @@ test("Instruction info factory", () => {
 	expect(info1.opAccess(2)).toBe(OpAccess.None);
 	expect(info1.opAccess(3)).toBe(OpAccess.None);
 	expect(info1.opAccess(4)).toBe(OpAccess.None);
-	expect(info1.rflagsRead).toBe(RflagsBits.None);
-	expect(info1.rflagsWritten).toBe(RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
-	expect(info1.rflagsCleared).toBe(RflagsBits.None);
-	expect(info1.rflagsSet).toBe(RflagsBits.None);
-	expect(info1.rflagsUndefined).toBe(RflagsBits.None);
-	expect(info1.rflagsModified).toBe(RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
 	expect(instr.fpuTopIncrement).toBe(0);
 	expect(instr.fpuCondWritesTop).toBe(false);
 	expect(instr.fpuWritesTop).toBe(false);

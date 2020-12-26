@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
-use super::flow_control::{iced_to_flow_control, FlowControl};
 use super::instruction::Instruction;
 use super::memory_size::{iced_to_memory_size, MemorySize};
 use super::op_access::{iced_to_op_access, OpAccess};
@@ -136,7 +134,7 @@ impl UsedMemory {
 	}
 }
 
-/// Contains information about an instruction, eg. read/written registers, read/written `RFLAGS` bits, `CPUID` feature bit, etc.
+/// Contains accessed registers and memory locations
 /// Created by an [`InstructionInfoFactory`].
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
@@ -168,59 +166,6 @@ impl InstructionInfo {
 	pub fn used_memory(&self) -> js_sys::Array {
 		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
 		self.0.used_memory().iter().map(|&m| JsValue::from(UsedMemory(m))).collect()
-	}
-
-	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "isPrivileged")]
-	pub fn is_privileged(&self) -> bool {
-		self.0.is_privileged()
-	}
-
-	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
-	/// See also [`Instruction.stackPointerIncrement`]
-	///
-	/// [`Instruction.stackPointerIncrement`]: struct.Instruction.html#method.stack_pointer_increment
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "isStackInstruction")]
-	pub fn is_stack_instruction(&self) -> bool {
-		self.0.is_stack_instruction()
-	}
-
-	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
-	/// [`usedRegisters()`] won't return all accessed registers.
-	///
-	/// [`usedRegisters()`]: #method.used_registers
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "isSaveRestoreInstruction")]
-	pub fn is_save_restore_instruction(&self) -> bool {
-		self.0.is_save_restore_instruction()
-	}
-
-	/// Instruction encoding (an [`EncodingKind`] enum value), eg. Legacy, 3DNow!, VEX, EVEX, XOP
-	///
-	/// [`EncodingKind`]: enum.EncodingKind.html
-	#[wasm_bindgen(getter)]
-	pub fn encoding(&self) -> EncodingKind {
-		iced_to_encoding_kind(self.0.encoding())
-	}
-
-	/// Gets the CPU or CPUID feature flags (an array of [`CpuidFeature`] values)
-	///
-	/// [`CpuidFeature`]: enum.CpuidFeature.html
-	#[wasm_bindgen(js_name = "cpuidFeatures")]
-	pub fn cpuid_features(&self) -> Vec<i32> {
-		// It's not possible to return a Vec<CpuidFeature>
-		self.0.cpuid_features().iter().map(|&a| a as i32).collect()
-	}
-
-	/// Control flow info (a [`FlowControl`] enum value)
-	///
-	/// [`FlowControl`]: enum.FlowControl.html
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "flowControl")]
-	pub fn flow_control(&self) -> FlowControl {
-		iced_to_flow_control(self.0.flow_control())
 	}
 
 	/// Operand #0 access (an [`OpAccess`] enum value)
@@ -282,71 +227,6 @@ impl InstructionInfo {
 	#[wasm_bindgen(js_name = "opAccess")]
 	pub fn op_access(&self, operand: u32) -> OpAccess {
 		iced_to_op_access(self.0.op_access(operand))
-	}
-
-	/// All flags that are read by the CPU when executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
-	///
-	/// [`RflagsBits`]: enum.RflagsBits.html
-	/// [`rflagsModified`]: #method.rflags_modified
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "rflagsRead")]
-	pub fn rflags_read(&self) -> u32 {
-		self.0.rflags_read()
-	}
-
-	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
-	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
-	///
-	/// [`RflagsBits`]: enum.RflagsBits.html
-	/// [`rflagsModified`]: #method.rflags_modified
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "rflagsWritten")]
-	pub fn rflags_written(&self) -> u32 {
-		self.0.rflags_written()
-	}
-
-	/// All flags that are always cleared by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
-	///
-	/// [`RflagsBits`]: enum.RflagsBits.html
-	/// [`rflagsModified`]: #method.rflags_modified
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "rflagsCleared")]
-	pub fn rflags_cleared(&self) -> u32 {
-		self.0.rflags_cleared()
-	}
-
-	/// All flags that are always set by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
-	///
-	/// [`RflagsBits`]: enum.RflagsBits.html
-	/// [`rflagsModified`]: #method.rflags_modified
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "rflagsSet")]
-	pub fn rflags_set(&self) -> u32 {
-		self.0.rflags_set()
-	}
-
-	/// All flags that are undefined after executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
-	///
-	/// [`RflagsBits`]: enum.RflagsBits.html
-	/// [`rflagsModified`]: #method.rflags_modified
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "rflagsUndefined")]
-	pub fn rflags_undefined(&self) -> u32 {
-		self.0.rflags_undefined()
-	}
-
-	/// All flags that are modified by the CPU. This is `rflagsWritten + rflagsCleared + rflagsSet + rflagsUndefined`.
-	/// This method returns a [`RflagsBits`] value.
-	///
-	/// [`RflagsBits`]: enum.RflagsBits.html
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "rflagsModified")]
-	pub fn rflags_modified(&self) -> u32 {
-		self.0.rflags_modified()
 	}
 }
 
