@@ -8,13 +8,22 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
-container_name=iced-py-wheel
-manylinux_image=quay.io/pypa/manylinux2010_x86_64
+manylinux_image="$1"
+
+if [ -z "$manylinux_image" ]; then
+	echo "Missing docker image"
+	exit 1
+fi
+
+linux32=
+if echo "$manylinux_image" | grep i686; then
+	linux32=linux32
+fi
 
 mkdir -p /tmp/py-dist
-docker run --rm -itd --name "$container_name" "$manylinux_image"
+container_name=$(docker run --rm -itd "$manylinux_image")
 docker cp "$root_dir/src/rust" "$container_name:/tmp/iced-build"
-docker exec -w /tmp/iced-build/iced-x86-py "$container_name" bash build-wheels.sh
+docker exec -w /tmp/iced-build/iced-x86-py "$container_name" $linux32 bash build-wheels.sh "$manylinux_image"
 docker cp "$container_name:/tmp/iced-build/iced-x86-py/dist" /tmp/py-dist
 mv /tmp/py-dist/dist/* /tmp/py-dist
 rmdir /tmp/py-dist/dist

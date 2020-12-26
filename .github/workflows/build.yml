@@ -235,20 +235,19 @@ jobs:
 
       ####################### BEGIN Python Wheel: Linux, manylinux docker image #######################
       # https://github.com/pypa/manylinux
-      - name: Download manylinux docker image
+      - name: Build manylinux i686
         if: startsWith(matrix.os, 'ubuntu-')
         shell: bash
         run: |
-          # Update py-build-wheels-linux.sh if the image name is updated
-          docker pull quay.io/pypa/manylinux2010_x86_64
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_i686"
 
-      - name: Use manylinux docker image to build Linux wheels
+      - name: Build manylinux x86_64
         if: startsWith(matrix.os, 'ubuntu-')
-        shell: bash -le {0}
+        shell: bash
         run: |
           git clean -xdf
-          ./build/py-build-wheels-linux.sh
-          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_x86_64"
       ####################### END Python Wheel: Linux, manylinux docker image #######################
 
       ####################### BEGIN Python Wheel: !Linux #######################
@@ -446,9 +445,9 @@ jobs:
           done
           rmdir /tmp/py-dist-tmp
 
-          # (4+1) (supported platforms) * 1 (supported Python abi3 version) + 1 (source code tar.gz file)
-          # (^+1 == manylinux build creates manylinux1 + manylinux2010 files)
-          if [ $(ls -A /tmp/py-dist | wc -l) -ne 6 ]; then
+          # Windows x86 + x64, macOS x64, Linux (x86 + x64) * (manylinux1 + manylinux2010)
+          # 7 (wheels) + 1 (source code tar.gz file)
+          if [ $(ls -A /tmp/py-dist | wc -l) -ne 8 ]; then
             ls -l /tmp/py-dist
             echo "Found too many/few Python whl files (see above)"
             exit 1
