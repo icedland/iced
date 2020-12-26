@@ -849,7 +849,7 @@ impl PyObjectProtocol for OpCodeInfo {
 		match format_spec {
 			"" | "i" => Ok(self.info.instruction_string()),
 			"o" => Ok(self.info.op_code_string()),
-			_ => Err(PyValueError::new_err(format!("Unknown format code '{}'", format_spec))),
+			_ => Err(PyValueError::new_err(format!("Unknown format specifier '{}'", format_spec))),
 		}
 	}
 

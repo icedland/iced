@@ -104,7 +104,6 @@ from iced_x86 import *
 # xchg ah,[rdx+rsi+16h]
 # xchgb %ah, %ds:0x16(%rdx,%rsi)
 
-HEXBYTES_COLUMN_BYTE_LENGTH = 10
 EXAMPLE_CODE_BITNESS = 64
 EXAMPLE_CODE_RIP = 0x0000_7FFA_C46A_CDA4
 EXAMPLE_CODE = \
@@ -171,7 +170,7 @@ print(f"{instr:gG_xSs}")
 # r      RIP-relative memory operands use RIP register instead of abs addr (``[rip+123h]`` vs ``[123456789ABCDEF0h]``)
 # U      Uppercase everything except numbers and hex prefixes/suffixes (ignored by fast fmt)
 # s      Add a space after the operand separator
-# S      Always show the segment register
+# S      Always show the segment register (memory operands)
 # B      Don't show the branch size (``SHORT`` or ``NEAR PTR``) (ignored by fast fmt)
 # G      (GNU Assembler): Add mnemonic size suffix (eg. ``movl`` vs ``mov``)
 # M      Always show the memory size (eg. ``BYTE PTR``) even when not needed
@@ -694,7 +693,7 @@ def how_to_get_instruction_info() -> None:
                 print(f"    FPU TOP: the instruction overwrites TOP")
             else:
                 print(f"    FPU TOP inc: {fpu_info.increment}")
-            cond_write = "true" if fpu_info.conditional else "false"
+            cond_write = "True" if fpu_info.conditional else "False"
             print(f"    FPU TOP cond write: {cond_write}")
         if offsets.has_immediate:
             print(f"    Immediate offset = {offsets.immediate_offset}, size = {offsets.immediate_size}")
@@ -703,7 +702,7 @@ def how_to_get_instruction_info() -> None:
         if instr.is_stack_instruction:
             print(f"    SP Increment: {instr.stack_pointer_increment}")
         if instr.condition_code != ConditionCode.NONE:
-            print(f"    Condition code: {instr.condition_code}")
+            print(f"    Condition code: {condition_code_to_string(instr.condition_code)}")
         if instr.rflags_read != RflagsBits.NONE:
             print(f"    RFLAGS Read: {rflags_bits_to_string(instr.rflags_read)}")
         if instr.rflags_written != RflagsBits.NONE:
@@ -838,6 +837,13 @@ def memory_size_to_string(value: int) -> str:
     s = MEMORY_SIZE_TO_STRING.get(value)
     if s is None:
         return str(value) + " /*MemorySize enum*/"
+    return s
+
+CONDITION_CODE_TO_STRING: Dict[int, str] = create_enum_dict(ConditionCode)
+def condition_code_to_string(value: int) -> str:
+    s = CONDITION_CODE_TO_STRING.get(value)
+    if s is None:
+        return str(value) + " /*ConditionCode enum*/"
     return s
 
 def used_reg_to_string(reg_info: UsedRegister) -> str:

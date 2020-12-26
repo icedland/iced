@@ -2231,7 +2231,7 @@ class Instruction:
 	r       RIP-relative memory operands use RIP register instead of abs addr (`[rip+123h]` vs `[123456789ABCDEF0h]`)
 	U       Uppercase everything except numbers and hex prefixes/suffixes (ignored by fast fmt)
 	s       Add a space after the operand separator
-	S       Always show the segment register
+	S       Always show the segment register (memory operands)
 	B       Don't show the branch size (`SHORT` or `NEAR PTR`) (ignored by fast fmt)
 	G       (GNU Assembler): Add mnemonic size suffix (eg. `movl` vs `mov`)
 	M       Always show the memory size (eg. `BYTE PTR`) even when not needed
