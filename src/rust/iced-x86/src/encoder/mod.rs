@@ -193,7 +193,7 @@ impl Encoder {
 	/// * `bitness`: 16, 32 or 64
 	/// * `capacity`: Initial capacity of the `u8` buffer
 	#[cfg_attr(has_must_use, must_use)]
-	#[deprecated(since = "1.10.0", note = "Use try_with_capacity() instead")]
+	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_capacity() instead")]
 	#[inline]
 	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
 		Self::try_with_capacity(bitness, capacity).unwrap()

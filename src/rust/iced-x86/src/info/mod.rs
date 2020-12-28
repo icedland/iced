@@ -226,7 +226,7 @@ impl UsedMemory {
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use try_virtual_address() instead")]
+	#[deprecated(since = "1.11.0", note = "This method can panic, use try_virtual_address() instead")]
 	pub fn virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> u64
 	where
 		F: FnMut(Register, usize, usize) -> u64,
@@ -497,7 +497,7 @@ impl InstructionInfo {
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use try_op_access() instead")]
+	#[deprecated(since = "1.11.0", note = "This method can panic, use try_op_access() instead")]
 	pub fn op_access(&self, operand: u32) -> OpAccess {
 		self.try_op_access(operand).unwrap()
 	}

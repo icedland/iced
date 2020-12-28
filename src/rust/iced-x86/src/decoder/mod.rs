@@ -701,7 +701,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(3, decoder.position());
 	/// ```
 	#[inline]
-	#[deprecated(since = "1.11.0", note = "Use try_set_position() instead")]
+	#[deprecated(since = "1.11.0", note = "This method can panic, use try_set_position() instead")]
 	pub fn set_position(&mut self, new_pos: usize) {
 		self.try_set_position(new_pos).unwrap();
 	}
