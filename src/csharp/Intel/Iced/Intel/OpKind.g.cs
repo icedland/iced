@@ -78,11 +78,13 @@ namespace Iced.Intel {
 		MemoryESEDI = 22,
 		/// <summary><c>ES:[RDI]</c>. This operand kind uses <see cref="Instruction.MemorySize"/></summary>
 		MemoryESRDI = 23,
-		/// <summary>64-bit offset <c>[xxxxxxxxxxxxxxxx]</c>. This operand kind uses <see cref="Instruction.MemoryAddress64"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/>, <see cref="Instruction.MemorySize"/></summary>
+		/// <summary>DEPRECATED. Use <see cref="Memory"/></summary>
+		[System.Obsolete("DEPRECATED. Don't use it!", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		Memory64 = 24,
 		/// <summary>Memory operand.<br/>
 		/// <br/>
-		/// This operand kind uses <see cref="Instruction.MemoryDisplSize"/>, <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemoryIndexScale"/>, <see cref="Instruction.MemoryDisplacement"/>, <see cref="Instruction.MemoryBase"/>, <see cref="Instruction.MemoryIndex"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
+		/// This operand kind uses <see cref="Instruction.MemoryDisplSize"/>, <see cref="Instruction.MemorySize"/>, <see cref="Instruction.MemoryIndexScale"/>, <see cref="Instruction.MemoryDisplacement64"/>, <see cref="Instruction.MemoryBase"/>, <see cref="Instruction.MemoryIndex"/>, <see cref="Instruction.MemorySegment"/>, <see cref="Instruction.SegmentPrefix"/></summary>
 		Memory = 25,
 	}
 }

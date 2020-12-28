@@ -554,7 +554,7 @@ impl Instruction {
 	///
 	/// See also :class:`Instruction.memory_segment`.
 	///
-	/// Use this method if the operand has kind :class:`OpKind.MEMORY`, :class:`OpKind.MEMORY64`,
+	/// Use this method if the operand has kind :class:`OpKind.MEMORY`,
 	/// :class:`OpKind.MEMORY_SEG_SI`, :class:`OpKind.MEMORY_SEG_ESI`, :class:`OpKind.MEMORY_SEG_RSI`
 	#[getter]
 	fn segment_prefix(&self) -> u32 {
@@ -569,7 +569,7 @@ impl Instruction {
 
 	/// :class:`Register`: Gets the effective segment register used to reference the memory location (a :class:`Register` enum value).
 	///
-	/// Use this method if the operand has kind :class:`OpKind.MEMORY`, :class:`OpKind.MEMORY64`,
+	/// Use this method if the operand has kind :class:`OpKind.MEMORY`,
 	/// :class:`OpKind.MEMORY_SEG_SI`, :class:`OpKind.MEMORY_SEG_ESI`, :class:`OpKind.MEMORY_SEG_RSI`
 	#[getter]
 	fn memory_segment(&self) -> u32 {
@@ -609,7 +609,7 @@ impl Instruction {
 	///
 	/// See also :class:`Instruction.is_broadcast`.
 	///
-	/// Use this method if the operand has kind :class:`OpKind.MEMORY`, :class:`OpKind.MEMORY64`,
+	/// Use this method if the operand has kind :class:`OpKind.MEMORY`,
 	/// :class:`OpKind.MEMORY_SEG_SI`, :class:`OpKind.MEMORY_SEG_ESI`, :class:`OpKind.MEMORY_SEG_RSI`,
 	/// :class:`OpKind.MEMORY_ESDI`, :class:`OpKind.MEMORY_ESEDI`, :class:`OpKind.MEMORY_ESRDI`
 	#[getter]
@@ -630,27 +630,18 @@ impl Instruction {
 		self.instr.set_memory_index_scale(new_value)
 	}
 
-	/// int: (``u32``) Gets the memory operand's displacement.
-	///
-	/// This should be sign extended to 64 bits if it's 64-bit addressing (see :class:`Instruction.memory_displacement64`).
+	/// int: (``u64``) Gets the memory operand's displacement or the 64-bit absolute address if it's
+	/// an ``EIP`` or ``RIP`` relative memory operand.
 	///
 	/// Use this method if the operand has kind :class:`OpKind.MEMORY`
 	#[getter]
-	fn memory_displacement(&self) -> u32 {
-		self.instr.memory_displacement()
+	fn memory_displacement(&self) -> u64 {
+		self.instr.memory_displacement64()
 	}
 
 	#[setter]
-	fn set_memory_displacement(&mut self, new_value: u32) {
-		self.instr.set_memory_displacement(new_value)
-	}
-
-	/// int: (``u64``) Gets the memory operand's displacement sign extended to 64 bits.
-	///
-	/// Use this method if the operand has kind :class:`OpKind.MEMORY`
-	#[getter]
-	fn memory_displacement64(&self) -> u64 {
-		self.instr.memory_displacement64()
+	fn set_memory_displacement(&mut self, new_value: u64) {
+		self.instr.set_memory_displacement64(new_value)
 	}
 
 	/// Gets an operand's immediate value
@@ -835,19 +826,6 @@ impl Instruction {
 	#[setter]
 	fn set_immediate32to64(&mut self, new_value: i64) {
 		self.instr.set_immediate32to64(new_value);
-	}
-
-	/// int: (``u64``) Gets the operand's 64-bit address value.
-	///
-	/// Use this method if the operand has kind :class:`OpKind.MEMORY64`
-	#[getter]
-	fn memory_address64(&self) -> u64 {
-		self.instr.memory_address64()
-	}
-
-	#[setter]
-	fn set_memory_address64(&mut self, new_value: u64) {
-		self.instr.set_memory_address64(new_value);
 	}
 
 	/// int: (``u16``) Gets the operand's branch target.
@@ -1470,7 +1448,7 @@ impl Instruction {
 		self.instr.is_ip_rel_memory_operand()
 	}
 
-	/// int: (``u64``) Gets the ``RIP``/``EIP`` releative address ((:class:`Instruction.next_ip` or :class:`Instruction.next_ip32`) + :class:`Instruction.memory_displacement`).
+	/// int: (``u64``) Gets the ``RIP``/``EIP`` releative address (:class:`Instruction.memory_displacement`).
 	///
 	/// This method is only valid if there's a memory operand with ``RIP``/``EIP`` relative addressing, see :class:`Instruction.is_ip_rel_memory_operand`
 	#[getter]
@@ -3286,48 +3264,6 @@ impl Instruction {
 	#[text_signature = "(bitness, target, /)"]
 	fn create_xbegin(bitness: u32, target: u64) -> PyResult<Self> {
 		Ok(Instruction { instr: iced_x86::Instruction::try_with_xbegin(bitness, target).map_err(to_value_error)? })
-	}
-
-	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. ``mov al,[123456789ABCDEF0]``
-	///
-	/// Args:
-	///     `code` (:class:`Code`): Code value
-	///     `register` (:class:`Register`): Register (``AL``, ``AX``, ``EAX``, ``RAX``)
-	///     `address` (int): (``u64``) 64-bit address
-	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
-	///
-	/// Returns:
-	///     :class:`Instruction`: Created instruction
-	#[rustfmt::skip]
-	#[staticmethod]
-	#[text_signature = "(code, register, address, segment_prefix, /)"]
-	#[args(segment_prefix = 0)]
-	fn create_reg_mem64(code: u32, register: u32, address: u64, segment_prefix: u32) -> PyResult<Self> {
-		let code = to_code(code)?;
-		let register = to_register(register)?;
-		let segment_prefix = to_register(segment_prefix)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_reg_mem64(code, register, address, segment_prefix) })
-	}
-
-	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. ``mov [123456789ABCDEF0],al``
-	///
-	/// Args:
-	///     `code` (:class:`Code`): Code value
-	///     `address` (int): (``u64``) 64-bit address
-	///     `register` (:class:`Register`): Register (``AL``, ``AX``, ``EAX``, ``RAX``)
-	///     `segment_prefix` (:class:`Register`): Segment override or :class:`Register.NONE`
-	///
-	/// Returns:
-	///     :class:`Instruction`: Created instruction
-	#[rustfmt::skip]
-	#[staticmethod]
-	#[text_signature = "(code, address, register, segment_prefix, /)"]
-	#[args(segment_prefix = 0)]
-	fn create_mem64_reg(code: u32, address: u64, register: u32, segment_prefix: u32) -> PyResult<Self> {
-		let code = to_code(code)?;
-		let register = to_register(register)?;
-		let segment_prefix = to_register(segment_prefix)?;
-		Ok(Instruction { instr: iced_x86::Instruction::with_mem64_reg(code, address, register, segment_prefix) })
 	}
 
 	/// Creates a ``OUTSB`` instruction

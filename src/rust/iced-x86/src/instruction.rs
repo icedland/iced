@@ -104,6 +104,7 @@ pub struct Instruction {
 	pub(crate) immediate: u32,
 	// This is the high 32 bits if it's a 64-bit immediate/offset/target
 	pub(crate) mem_displ: u32,
+	pub(crate) mem_displ_hi: u32,
 	pub(crate) memory_flags: u16, // MemoryFlags
 	pub(crate) mem_base_reg: u8,  // Register
 	pub(crate) mem_index_reg: u8, // Register
@@ -111,10 +112,11 @@ pub struct Instruction {
 	pub(crate) reg1: u8,          // Register
 	pub(crate) reg2: u8,          // Register
 	pub(crate) reg3: u8,          // Register
+	#[allow(dead_code)]
+	res: [u8; 4],
 }
-// All fields, size: 32 bytes with bits to spare
 #[cfg(test)]
-pub(crate) const INSTRUCTION_TOTAL_SIZE: usize = 32;
+pub(crate) const INSTRUCTION_TOTAL_SIZE: usize = 40;
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::len_without_is_empty))]
 impl Instruction {
@@ -740,13 +742,12 @@ impl Instruction {
 	}
 
 	/// Gets the segment override prefix or [`Register::None`] if none. See also [`memory_segment()`].
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`memory_segment()`]: #method.memory_segment
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
@@ -763,13 +764,12 @@ impl Instruction {
 	}
 
 	/// Sets the segment override prefix or [`Register::None`] if none. See also [`memory_segment()`].
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`memory_segment()`]: #method.memory_segment
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
@@ -787,11 +787,10 @@ impl Instruction {
 	}
 
 	/// Gets the effective segment register used to reference the memory location.
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
@@ -809,11 +808,11 @@ impl Instruction {
 	}
 
 	/// Gets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
-	/// Note that the return value can be 1 and [`memory_displacement()`] may still not fit in
+	/// Note that the return value can be 1 and [`memory_displacement64()`] may still not fit in
 	/// a signed byte if it's an EVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
-	/// [`memory_displacement()`]: #method.memory_displacement
+	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -829,11 +828,11 @@ impl Instruction {
 	}
 
 	/// Sets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
-	/// Note that the return value can be 1 and [`memory_displacement()`] may still not fit in
+	/// Note that the return value can be 1 and [`memory_displacement64()`] may still not fit in
 	/// a signed byte if it's an EVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
-	/// [`memory_displacement()`]: #method.memory_displacement
+	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
@@ -874,13 +873,12 @@ impl Instruction {
 	}
 
 	/// Gets the size of the memory location that is referenced by the operand. See also [`is_broadcast()`].
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
+	/// Use this method if the operand has kind [`OpKind::Memory`],
 	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`],
 	/// [`OpKind::MemoryESDI`], [`OpKind::MemoryESEDI`], [`OpKind::MemoryESRDI`]
 	///
 	/// [`is_broadcast()`]: #method.is_broadcast
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
@@ -926,39 +924,83 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memory_displacement64()`]).
+	/// Gets the memory operand's displacement or the 32-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
-	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use memory_displacement32() or memory_displacement64() instead")]
 	pub fn memory_displacement(&self) -> u32 {
-		self.mem_displ
+		self.memory_displacement32()
 	}
 
-	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memory_displacement64()`]).
+	/// Gets the memory operand's displacement or the 32-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
-	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
 	///
 	/// * `new_value`: New value
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use set_memory_displacement32() or set_memory_displacement64() instead")]
 	pub fn set_memory_displacement(&mut self, new_value: u32) {
-		self.mem_displ = new_value;
+		self.set_memory_displacement32(new_value);
 	}
 
-	/// Gets the memory operand's displacement sign extended to 64 bits.
+	/// Gets the memory operand's displacement or the 32-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
+	/// Use this method if the operand has kind [`OpKind::Memory`]
+	///
+	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn memory_displacement32(&self) -> u32 {
+		self.mem_displ
+	}
+
+	/// Gets the memory operand's displacement or the 32-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
+	/// Use this method if the operand has kind [`OpKind::Memory`]
+	///
+	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: New value
+	#[inline]
+	pub fn set_memory_displacement32(&mut self, new_value: u32) {
+		self.mem_displ = new_value;
+		self.mem_displ_hi = 0;
+	}
+
+	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn memory_displacement64(&self) -> u64 {
-		self.mem_displ as i32 as u64
+		(self.mem_displ as u64) | ((self.mem_displ_hi as u64) << 32)
+	}
+
+	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
+	/// Use this method if the operand has kind [`OpKind::Memory`]
+	///
+	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: New value
+	#[inline]
+	pub fn set_memory_displacement64(&mut self, new_value: u64) {
+		self.mem_displ = new_value as u32;
+		self.mem_displ_hi = (new_value >> 32) as u32;
 	}
 
 	/// Gets an operand's immediate value, or `None` if the operand is not immediate
@@ -1323,27 +1365,28 @@ impl Instruction {
 		self.immediate = new_value as u32;
 	}
 
-	/// Gets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind::Memory64`]
+	/// [`OpKind::Memory64`] is deprecated, this method does nothing now.
 	///
 	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "OpKind::Memory64 is deprecated, this method does nothing now. Use memory_displacement64() instead.")]
 	pub fn memory_address64(&self) -> u64 {
-		((self.mem_displ as u64) << 32) | self.immediate as u64
+		0
 	}
 
-	/// Sets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind::Memory64`]
+	/// [`OpKind::Memory64`] is deprecated, this method does nothing now.
 	///
 	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	///
 	/// # Arguments
 	///
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[inline]
-	pub fn set_memory_address64(&mut self, new_value: u64) {
-		self.immediate = new_value as u32;
-		self.mem_displ = (new_value >> 32) as u32;
-	}
+	#[deprecated(since = "1.11.0", note = "OpKind::Memory64 is deprecated, this method does nothing now. Use set_memory_displacement64() instead.")]
+	pub fn set_memory_address64(&mut self, _new_value: u64) {}
 
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
 	///
@@ -2795,21 +2838,20 @@ impl Instruction {
 		base_reg == Register::RIP || base_reg == Register::EIP
 	}
 
-	/// Gets the `RIP`/`EIP` releative address (([`next_ip()`] or [`next_ip32()`]) + [`memory_displacement()`]).
+	/// Gets the `RIP`/`EIP` releative address ([`memory_displacement32()`] or [`memory_displacement64()`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`is_ip_rel_memory_operand()`]
 	///
-	/// [`next_ip()`]: #method.next_ip
-	/// [`next_ip32()`]: #method.next_ip32
-	/// [`memory_displacement()`]: #method.memory_displacement
+	/// [`memory_displacement32()`]: #method.memory_displacement32
+	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`is_ip_rel_memory_operand()`]: #method.is_ip_rel_memory_operand
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn ip_rel_memory_address(&self) -> u64 {
-		let mut result = self.next_ip().wrapping_add(self.memory_displacement() as i32 as u64);
 		if self.memory_base() == Register::EIP {
-			result = result as u32 as u64;
+			self.memory_displacement32() as u64
+		} else {
+			self.memory_displacement64()
 		}
-		result
 	}
 
 	/// Gets the virtual address of a memory operand
@@ -2974,25 +3016,16 @@ impl Instruction {
 				};
 				v1.wrapping_add(v2)
 			}
-			OpKind::Memory64 => {
-				let v1 = match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(self.memory_address64())
-			}
-
+			#[allow(deprecated)]
+			OpKind::Memory64 => return None,
 			OpKind::Memory => {
 				let base_reg = self.memory_base();
 				let index_reg = self.memory_index();
 				let addr_size =
 					super::instruction_internal::get_address_size_in_bytes(base_reg, index_reg, self.memory_displ_size(), self.code_size());
-				let mut offset = self.memory_displacement() as u64;
+				let mut offset = self.memory_displacement64();
 				let offset_mask = match addr_size {
-					8 => {
-						offset = offset as i32 as u64;
-						u64::MAX
-					}
+					8 => u64::MAX,
 					4 => u32::MAX as u64,
 					_ => {
 						debug_assert_eq!(2, addr_size);
@@ -3000,9 +3033,7 @@ impl Instruction {
 					}
 				};
 				match base_reg {
-					Register::None => {}
-					Register::RIP => offset = offset.wrapping_add(self.next_ip()),
-					Register::EIP => offset = offset.wrapping_add(self.next_ip32() as u64),
+					Register::None | Register::EIP | Register::RIP => {}
 					_ => {
 						let v1 = match get_register_value(base_reg, 0, 0) {
 							Some(v) => v,
@@ -4008,6 +4039,21 @@ impl Instruction {
 
 #[cfg(feature = "encoder")]
 impl Instruction {
+	fn init_memory_operand(instruction: &mut Instruction, memory: &MemoryOperand) {
+		super::instruction_internal::internal_set_memory_base(instruction, memory.base);
+		super::instruction_internal::internal_set_memory_index(instruction, memory.index);
+		instruction.set_memory_index_scale(memory.scale);
+		instruction.set_memory_displ_size(memory.displ_size);
+		let addr_size = super::instruction_internal::get_address_size_in_bytes(memory.base, memory.index, memory.displ_size, CodeSize::Unknown);
+		if addr_size == 8 {
+			instruction.set_memory_displacement64(memory.displacement as u64);
+		} else {
+			super::instruction_internal::internal_set_memory_displacement64_lo(instruction, memory.displacement as u32);
+		}
+		instruction.set_is_broadcast(memory.is_broadcast);
+		instruction.set_segment_prefix(memory.segment_prefix);
+	}
+
 	// GENERATOR-BEGIN: Create
 	// ⚠️This was generated by GENERATOR!🦹‍♂️
 	/// Creates an instruction with no operands
@@ -4141,13 +4187,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(1, instruction.op_count());
 		instruction
@@ -4382,13 +4422,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -4589,13 +4623,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -4623,13 +4651,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64)?;
 
@@ -4674,13 +4696,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64)?;
 
@@ -4866,13 +4882,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -4998,13 +5008,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
@@ -5037,13 +5041,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
 
@@ -5094,13 +5092,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
 
@@ -5144,13 +5136,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -5183,13 +5169,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -5240,13 +5220,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -5459,13 +5433,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -5608,13 +5576,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
@@ -5652,13 +5614,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64)?;
 
@@ -5715,13 +5671,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64)?;
 
@@ -5911,13 +5861,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
 
@@ -5980,13 +5924,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
 
@@ -6045,13 +5983,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
@@ -6114,13 +6046,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
-		super::instruction_internal::internal_set_memory_base(&mut instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(&mut instruction, memory.index);
-		instruction.set_memory_index_scale(memory.scale);
-		instruction.set_memory_displ_size(memory.displ_size);
-		instruction.set_memory_displacement(memory.displacement as u32);
-		instruction.set_is_broadcast(memory.is_broadcast);
-		instruction.set_segment_prefix(memory.segment_prefix);
+		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
@@ -6308,24 +6234,12 @@ impl Instruction {
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
+	#[deprecated(since = "1.11.0", note = "Use with_reg_mem() with a MemoryOperand arg instead")]
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segment_prefix: Register) -> Self {
-		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
-
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory64);
-		instruction.set_memory_address64(address);
-		super::instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);
-		instruction.set_segment_prefix(segment_prefix);
-
-		const_assert_eq!(0, OpKind::Register as u32);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
-
-		debug_assert_eq!(2, instruction.op_count());
-		instruction
+		Instruction::with_reg_mem(code, register, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, address as i64, 8, false, segment_prefix))
 	}
 
 	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
@@ -6338,24 +6252,12 @@ impl Instruction {
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
+	#[deprecated(since = "1.11.0", note = "Use with_mem_reg() with a MemoryOperand arg instead")]
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segment_prefix: Register) -> Self {
-		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
-
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory64);
-		instruction.set_memory_address64(address);
-		super::instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);
-		instruction.set_segment_prefix(segment_prefix);
-
-		const_assert_eq!(0, OpKind::Register as u32);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
-
-		debug_assert_eq!(2, instruction.op_count());
-		instruction
+		Instruction::with_mem_reg(code, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, address as i64, 8, false, segment_prefix), register)
 	}
 
 	/// Creates a `OUTSB` instruction
@@ -10602,6 +10504,7 @@ impl PartialEq<Instruction> for Instruction {
 			&& ((self.op_kind_flags ^ other.op_kind_flags) & !OpKindFlags::EQUALS_IGNORE_MASK) == 0
 			&& self.immediate == other.immediate
 			&& self.mem_displ == other.mem_displ
+			&& self.mem_displ_hi == other.mem_displ_hi
 			&& self.memory_flags == other.memory_flags
 			&& self.mem_base_reg == other.mem_base_reg
 			&& self.mem_index_reg == other.mem_index_reg
@@ -10619,6 +10522,7 @@ impl Hash for Instruction {
 		state.write_u32(self.op_kind_flags & !OpKindFlags::EQUALS_IGNORE_MASK);
 		state.write_u32(self.immediate);
 		state.write_u32(self.mem_displ);
+		state.write_u32(self.mem_displ_hi);
 		state.write_u16(self.memory_flags);
 		state.write_u8(self.mem_base_reg);
 		state.write_u8(self.mem_index_reg);

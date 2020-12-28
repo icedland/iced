@@ -144,7 +144,7 @@ namespace Generator.Enums.Python {
 			using (writer.Indent()) {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
-					if (value.DeprecatedInfo.IsDeprecated)
+					if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
 						continue;
 					rustDocWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					if (enumType.IsFlags)
@@ -182,7 +182,7 @@ namespace Generator.Enums.Python {
 		void WriteEnumCore(FileWriter writer, EnumType enumType, PythonDocCommentWriter docWriter) {
 			bool mustHaveDocs = enumType.TypeId != TypeIds.Register && enumType.TypeId != TypeIds.Mnemonic;
 			bool uppercaseRawName = PythonUtils.UppercaseEnum(enumType.TypeId.Id1);
-			var firstVersion = new Version(1, 9, 1);
+			var firstVersion = new Version(1, 10, 0);
 			// *****************************************************************************
 			// For PERF reasons, we do NOT use Enums. They're incredibly slow to load!
 			// Eg. loading 'class Code(IntEnum)' (plus other non-Mnemonic enums and some random
@@ -202,8 +202,12 @@ namespace Generator.Enums.Python {
 
 				var (valueName, numStr) = PythonUtils.GetEnumNameValue(pythonIdConverter, value, uppercaseRawName);
 				writer.WriteLine($"{valueName}: int = {numStr}");
-				if (value.DeprecatedInfo.IsDeprecated)
-					docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr}): {docs}";
+				if (value.DeprecatedInfo.IsDeprecated) {
+					if (value.DeprecatedInfo.NewName is not null)
+						docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr}): Use {value.DeprecatedInfo.NewName} instead";
+					else
+						docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr})";
+				}
 				docWriter.WriteSummary(writer, docs, enumType.RawName);
 			}
 		}

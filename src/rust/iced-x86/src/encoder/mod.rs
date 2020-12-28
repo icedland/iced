@@ -645,49 +645,50 @@ impl Encoder {
 	pub(super) fn add_abs_mem(&mut self, instruction: &Instruction, operand: u32) {
 		self.encoder_flags |= EncoderFlags::DISPL;
 		let op_kind = instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16);
-		if op_kind == OpKind::Memory64 {
-			if self.bitness != 64 {
-				self.set_error_message(format!("Operand {}: 64-bit abs address is only available in 64-bit mode", operand));
-				return;
-			}
-			self.displ_size = DisplSize::Size8;
-			let addr = instruction.memory_address64();
-			self.displ = addr as u32;
-			self.displ_hi = (addr >> 32) as u32;
-		} else if op_kind == OpKind::Memory {
+		if op_kind == OpKind::Memory {
 			if instruction.memory_base() != Register::None || instruction.memory_index() != Register::None {
 				self.set_error_message(format!("Operand {}: Absolute addresses can't have base and/or index regs", operand));
 				return;
 			}
-			let displ_size = instruction.memory_displ_size();
-			if displ_size == 2 {
-				if self.bitness == 64 {
-					self.set_error_message(format!("Operand {}: 16-bit abs addresses can't be used in 64-bit mode", operand));
-					return;
+			match instruction.memory_displ_size() {
+				2 => {
+					if self.bitness == 64 {
+						self.set_error_message(format!("Operand {}: 16-bit abs addresses can't be used in 64-bit mode", operand));
+						return;
+					}
+					if self.bitness == 32 {
+						self.encoder_flags |= EncoderFlags::P67;
+					}
+					self.displ_size = DisplSize::Size2;
+					self.displ = instruction.memory_displacement32();
 				}
-				if self.bitness == 32 {
-					self.encoder_flags |= EncoderFlags::P67;
+				4 => {
+					self.encoder_flags |= self.adrsize32_flags;
+					self.displ_size = DisplSize::Size4;
+					self.displ = instruction.memory_displacement32();
 				}
-				self.displ_size = DisplSize::Size2;
-				self.displ = instruction.memory_displacement();
-			} else if displ_size == 4 {
-				self.encoder_flags |= self.adrsize32_flags;
-				self.displ_size = DisplSize::Size4;
-				self.displ = instruction.memory_displacement();
-			} else {
-				self.set_error_message(format!(
-					"Operand {}: Instruction.memory_displ_size() must be initialized to 2 (16-bit) or 4 (32-bit)",
-					operand
-				));
+				8 => {
+					if self.bitness != 64 {
+						self.set_error_message(format!("Operand {}: 64-bit abs address is only available in 64-bit mode", operand));
+						return;
+					}
+					self.displ_size = DisplSize::Size8;
+					let addr = instruction.memory_displacement64();
+					self.displ = addr as u32;
+					self.displ_hi = (addr >> 32) as u32;
+				}
+				_ => {
+					self.set_error_message(format!(
+						"Operand {}: Instruction.memory_displ_size() must be initialized to 2 (16-bit) or 4 (32-bit)",
+						operand
+					));
+				}
 			}
 		} else {
 			if cfg!(debug_assertions) {
-				self.set_error_message(format!("Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: {:?}", operand, op_kind));
+				self.set_error_message(format!("Operand {}: Expected OpKind::Memory, actual: {:?}", operand, op_kind));
 			} else {
-				self.set_error_message(format!(
-					"Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: OpKind value {}",
-					operand, op_kind as u32
-				));
+				self.set_error_message(format!("Operand {}: Expected OpKind::Memory, actual: OpKind value {}", operand, op_kind as u32));
 			}
 		}
 	}
@@ -898,7 +899,7 @@ impl Encoder {
 		} else if base == Register::None && index == Register::None {
 			self.mod_rm |= 6;
 			self.displ_size = DisplSize::Size2;
-			self.displ = instruction.memory_displacement();
+			self.displ = instruction.memory_displacement32();
 		} else {
 			if cfg!(debug_assertions) {
 				self.set_error_message(format!("Operand {}: Invalid 16-bit base + index registers: base={:?}, index={:?}", operand, base, index));
@@ -912,7 +913,7 @@ impl Encoder {
 		}
 
 		if base != Register::None || index != Register::None {
-			self.displ = instruction.memory_displacement();
+			self.displ = instruction.memory_displacement32();
 			// [bp] => [bp+00]
 			if displ_size == 0 && base == Register::BP && index == Register::None {
 				displ_size = 1;
@@ -952,7 +953,7 @@ impl Encoder {
 		let base = instruction.memory_base();
 		let index = instruction.memory_index();
 		let mut displ_size = instruction.memory_displ_size();
-		self.displ = instruction.memory_displacement();
+		self.displ = instruction.memory_displacement32();
 
 		let base_lo;
 		let base_hi;
@@ -998,14 +999,18 @@ impl Encoder {
 				return;
 			}
 			self.mod_rm |= 5;
+			let target = instruction.memory_displacement64();
 			if base == Register::RIP {
 				self.displ_size = DisplSize::RipRelSize4_Target64;
-				let target = instruction.next_ip().wrapping_add(self.displ as i32 as u64);
 				self.displ = target as u32;
 				self.displ_hi = (target >> 32) as u32;
 			} else {
 				self.displ_size = DisplSize::RipRelSize4_Target32;
-				self.displ = instruction.next_ip32().wrapping_add(self.displ);
+				if target > u32::MAX as u64 {
+					self.set_error_message(format!("Operand {}: Target address doesn't fit in 32 bits: 0x{:X}", operand, target));
+					return;
+				}
+				self.displ = target as u32;
 			}
 			return;
 		}
@@ -1175,7 +1180,7 @@ impl Encoder {
 			}
 
 			DisplSize::RipRelSize4_Target32 => {
-				let eip = (self.current_rip as u32).wrapping_add(4).wrapping_add(unsafe { *IMM_SIZES.get_unchecked(self.imm_size as usize) });
+				let eip = (self.current_rip as u32).wrapping_add(4).wrapping_add(IMM_SIZES[self.imm_size as usize]);
 				diff4 = self.displ.wrapping_sub(eip);
 				self.write_byte_internal(diff4);
 				self.write_byte_internal(diff4 >> 8);
@@ -1184,7 +1189,7 @@ impl Encoder {
 			}
 
 			DisplSize::RipRelSize4_Target64 => {
-				let rip = self.current_rip.wrapping_add(4).wrapping_add(unsafe { *IMM_SIZES.get_unchecked(self.imm_size as usize) } as u64);
+				let rip = self.current_rip.wrapping_add(4).wrapping_add(IMM_SIZES[self.imm_size as usize] as u64);
 				let diff8 = ((((self.displ_hi as u64) << 32) | self.displ as u64).wrapping_sub(rip)) as i64;
 				if diff8 < i32::MIN as i64 || diff8 > i32::MAX as i64 {
 					tmp2 = ((self.displ_hi as u64) << 32) | self.displ as u64;

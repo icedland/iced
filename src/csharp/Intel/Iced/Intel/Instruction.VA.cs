@@ -176,39 +176,29 @@ namespace Iced.Intel {
 				}
 				break;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 			case OpKind.Memory64:
-				if (registerValueProvider.TryGetRegisterValue(MemorySegment, 0, 0, out seg)) {
-					result = seg + MemoryAddress64;
-					return true;
-				}
+#pragma warning restore CS0618 // Type or member is obsolete
 				break;
 
 			case OpKind.Memory:
 				var baseReg = MemoryBase;
 				var indexReg = MemoryIndex;
 				int addrSize = InstructionUtils.GetAddressSizeInBytes(baseReg, indexReg, MemoryDisplSize, CodeSize);
-				ulong offset = MemoryDisplacement;
+				ulong offset = MemoryDisplacement64;
 				ulong offsetMask;
-				if (addrSize == 8) {
-					offset = (ulong)(int)offset;
+				if (addrSize == 8)
 					offsetMask = ulong.MaxValue;
-				}
 				else if (addrSize == 4)
 					offsetMask = uint.MaxValue;
 				else {
 					Debug.Assert(addrSize == 2);
 					offsetMask = ushort.MaxValue;
 				}
-				if (baseReg != Register.None) {
-					if (baseReg == Register.RIP)
-						offset += NextIP;
-					else if (baseReg == Register.EIP)
-						offset += NextIP32;
-					else {
-						if (!registerValueProvider.TryGetRegisterValue(baseReg, 0, 0, out @base))
-							break;
-						offset += @base;
-					}
+				if (baseReg != Register.None && baseReg != Register.RIP && baseReg != Register.EIP) {
+					if (!registerValueProvider.TryGetRegisterValue(baseReg, 0, 0, out @base))
+						break;
+					offset += @base;
 				}
 				var code = Code;
 				if (indexReg != Register.None && !code.IgnoresIndex() && !code.IsTileStrideIndex()) {

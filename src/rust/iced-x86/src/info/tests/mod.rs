@@ -195,7 +195,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(tc.fpu_top_increment, fpu_info.increment());
 	assert_eq!(tc.fpu_conditional_top, fpu_info.conditional());
 	assert_eq!(tc.fpu_writes_top, fpu_info.writes_top());
-	assert!(tc.used_memory.iter().collect::<HashSet<_>>() == info.used_memory().iter().collect::<HashSet<_>>());
+	assert_eq!(tc.used_memory.iter().collect::<HashSet<_>>(), info.used_memory().iter().collect::<HashSet<_>>());
 	assert_eq!(get_used_registers(tc.used_registers.iter()), get_used_registers(info.used_registers().iter()));
 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);

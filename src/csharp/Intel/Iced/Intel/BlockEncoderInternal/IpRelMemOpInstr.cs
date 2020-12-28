@@ -52,10 +52,11 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 			var instrCopy = instruction;
 			instrCopy.MemoryBase = Register.RIP;
-			ripInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IP);
+			instrCopy.MemoryDisplacement64 = 0;
+			ripInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IPRelativeMemoryAddress);
 
 			instrCopy.MemoryBase = Register.EIP;
-			eipInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IP);
+			eipInstructionSize = blockEncoder.GetInstructionSize(instrCopy, instrCopy.IPRelativeMemoryAddress);
 
 			Debug.Assert(eipInstructionSize >= ripInstructionSize);
 			Size = eipInstructionSize;
@@ -105,24 +106,15 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case InstrKind.Eip:
 				isOriginalInstruction = true;
 
-				uint instrSize;
-				if (instrKind == InstrKind.Rip) {
-					instrSize = ripInstructionSize;
+				if (instrKind == InstrKind.Rip)
 					instruction.MemoryBase = Register.RIP;
-				}
-				else if (instrKind == InstrKind.Eip) {
-					instrSize = eipInstructionSize;
+				else if (instrKind == InstrKind.Eip)
 					instruction.MemoryBase = Register.EIP;
-				}
-				else {
+				else
 					Debug.Assert(instrKind == InstrKind.Unchanged);
-					instrSize = instruction.MemoryBase == Register.EIP ? eipInstructionSize : ripInstructionSize;
-				}
 
 				var targetAddress = targetInstr.GetAddress();
-				var nextRip = IP + instrSize;
-				instruction.NextIP = nextRip;
-				instruction.MemoryDisplacement = (uint)targetAddress - (uint)nextRip;
+				instruction.MemoryDisplacement64 = targetAddress;
 				encoder.TryEncode(instruction, IP, out _, out var errorMessage);
 				bool b = instruction.IPRelativeMemoryAddress == (instruction.MemoryBase == Register.EIP ? (uint)targetAddress : targetAddress);
 				Debug.Assert(b);

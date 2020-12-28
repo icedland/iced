@@ -758,7 +758,6 @@ namespace Iced.Intel {
 				break;
 
 			case InstrOpKind.Memory64:
-				FormatMemory(output, instruction, operand, instructionOperand, opInfo.MemorySize, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8, opInfo.Flags);
 				break;
 
 			case InstrOpKind.Memory:
@@ -770,7 +769,7 @@ namespace Iced.Intel {
 				if (addrSize == 8)
 					displ = (long)instruction.MemoryDisplacement64;
 				else
-					displ = instruction.MemoryDisplacement;
+					displ = instruction.MemoryDisplacement32;
 				FormatMemory(output, instruction, operand, instructionOperand, opInfo.MemorySize, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize, opInfo.Flags);
 				break;
 
@@ -890,32 +889,33 @@ namespace Iced.Intel {
 			ulong absAddr;
 			bool addRelKeyword = false;
 			if (baseReg == Register.RIP) {
-				absAddr = (ulong)((long)instruction.NextIP + (int)displ);
-				if (!operandOptions.RipRelativeAddresses) {
+				absAddr = (ulong)displ;
+				if (options.RipRelativeAddresses)
+					displ -= (long)instruction.NextIP;
+				else {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 8;
 					flags &= ~(InstrOpInfoFlags)((uint)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift);
 					addRelKeyword = true;
 				}
+				displSize = 8;
 			}
 			else if (baseReg == Register.EIP) {
-				absAddr = instruction.NextIP32 + (uint)displ;
-				if (!operandOptions.RipRelativeAddresses) {
+				absAddr = (uint)displ;
+				if (options.RipRelativeAddresses)
+					displ = (int)((uint)displ - instruction.NextIP32);
+				else {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 4;
 					flags = (flags & ~(InstrOpInfoFlags)((uint)InstrOpInfoFlags.MemorySizeInfoMask << (int)InstrOpInfoFlags.MemorySizeInfoShift)) | (InstrOpInfoFlags)((int)NasmFormatterInternal.MemorySizeInfo.Dword << (int)InstrOpInfoFlags.MemorySizeInfoShift);
 					addRelKeyword = true;
 				}
+				displSize = 4;
 			}
 			else
 				absAddr = (ulong)displ;
 
-			var symbolResolver = this.symbolResolver;
-			if (symbolResolver is not null)
+			if (this.symbolResolver is ISymbolResolver symbolResolver)
 				useSymbol = symbolResolver.TryGetSymbol(instruction, operand, instructionOperand, absAddr, addrSize, out symbol);
 			else {
 				useSymbol = false;

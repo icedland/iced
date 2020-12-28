@@ -65,9 +65,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.SegmentRegister = ToEnumConverter.GetRegister(parts[4].Trim());
 			tc.BaseRegister = ToEnumConverter.GetRegister(parts[5].Trim());
 			tc.IndexRegister = ToEnumConverter.GetRegister(parts[6].Trim());
-			tc.Scale = (int)ParseUInt32(parts[7].Trim());
-			tc.Displacement = ParseUInt32(parts[8].Trim());
-			tc.DisplacementSize = (int)ParseUInt32(parts[9].Trim());
+			tc.Scale = (int)NumberConverter.ToUInt32(parts[7].Trim());
+			tc.Displacement = NumberConverter.ToUInt64(parts[8].Trim());
+			tc.DisplacementSize = (int)NumberConverter.ToUInt32(parts[9].Trim());
 			var coStr = parts[10].Trim();
 			if (!DecoderTestParser.TryParseConstantOffsets(coStr, out tc.ConstantOffsets))
 				throw new InvalidOperationException($"Invalid ConstantOffsets: '{coStr}'");
@@ -75,18 +75,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.DecoderOptions = DecoderOptions.None;
 			tc.TestOptions = DecoderTestOptions.None;
 			return tc;
-		}
-
-		static uint ParseUInt32(string s) {
-			if (uint.TryParse(s, out uint value))
-				return value;
-			if (s.StartsWith("0x", StringComparison.Ordinal)) {
-				s = s.Substring(2);
-				if (uint.TryParse(s, SG.NumberStyles.HexNumber, null, out value))
-					return value;
-			}
-
-			throw new InvalidOperationException();
 		}
 	}
 }

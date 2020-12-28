@@ -269,6 +269,17 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Throws<ArgumentNullException>(() => new InstructionBlock(null, Array.Empty<Instruction>(), 0));
 			Assert.Throws<ArgumentNullException>(() => new InstructionBlock(new CodeWriterImpl(), null, 0));
 		}
+
+		[Fact]
+		void EncodeRipRelMemOp() {
+			var instr = Instruction.Create(Code.Add_r32_rm32, Register.ECX, new MemoryOperand(Register.RIP, Register.None, 1, 0x1234_5678_9ABC_DEF1, 8, false, Register.None));
+			var codeWriter = new CodeWriterImpl();
+			bool b = BlockEncoder.TryEncode(64, new InstructionBlock(codeWriter, new[] { instr }, 0x1234_5678_ABCD_EF02), out var errorMessage, out _);
+			Assert.True(b, $"Couldn't encode it: {errorMessage}");
+			var encoded = codeWriter.ToArray();
+			var expected = new byte[] { 0x03, 0x0D, 0xE9, 0xEF, 0xEE, 0xEE };
+			Assert.Equal(expected, encoded);
+		}
 	}
 }
 #endif

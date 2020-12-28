@@ -380,21 +380,6 @@ namespace Generator.Encoder.Python {
 			return new[] { ("ValueError", $"If `{idConverter.Argument(arg.Name)}` is not one of 16, 32, 64.") };
 		}
 
-		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
-			var (rustName, pythonName) = method.Args[1].Type switch {
-				MethodArgType.UInt64 => (Rust.RustInstrCreateGenNames.with_mem64_reg, "create_mem64_reg"),
-				MethodArgType.Register => (Rust.RustInstrCreateGenNames.with_reg_mem64, "create_reg_mem64"),
-				_ => throw new InvalidOperationException(),
-			};
-			GenerateMethod(writer, method, canFail: false, GenCreateMemory64, rustName, pythonName);
-		}
-
-		void GenCreateMemory64(GenerateMethodContext ctx) {
-			WriteMethod(ctx, null);
-			WriteCall(ctx);
-			ctx.Writer.WriteLine("}");
-		}
-
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) =>
 			GenStringInstr(writer, method, methodBaseName);
 

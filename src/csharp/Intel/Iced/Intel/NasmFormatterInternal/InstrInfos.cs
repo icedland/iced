@@ -132,8 +132,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 					break;
 
 				case CtorKind.movabs:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_movabs((int)v, s);
+					instrInfo = new SimpleInstrInfo_movabs(s);
 					break;
 
 				case CtorKind.nop:

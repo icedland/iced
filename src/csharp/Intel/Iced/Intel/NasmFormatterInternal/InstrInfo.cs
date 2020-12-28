@@ -1100,25 +1100,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_movabs : InstrInfo {
-		readonly int memOpNumber;
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_movabs(int memOpNumber, string mnemonic) {
-			this.memOpNumber = memOpNumber;
+		public SimpleInstrInfo_movabs(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
-			var opKind = instruction.GetOpKind(memOpNumber);
-			int memSize;
-			if (opKind == OpKind.Memory64)
-				memSize = 64;
-			else {
-				Debug.Assert(opKind == OpKind.Memory);
-				memSize = instruction.MemoryDisplSize == 2 ? 16 : 32;
-			}
+			var memSize = instruction.MemoryDisplSize switch {
+				2 => 16,
+				4 => 32,
+				_ => 64,
+			};
 			if (instrBitness == 0)
 				instrBitness = memSize;
 			var memSizeInfo = MemorySizeInfo.None;

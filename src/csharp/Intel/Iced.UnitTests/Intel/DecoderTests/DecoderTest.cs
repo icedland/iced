@@ -44,7 +44,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return (decoder, length, canRead, codeReader);
 		}
 
-		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
+		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, ulong displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
 			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, options);
 			var instruction = decoder.Decode();
 			Assert.Equal(DecoderError.None, decoder.LastError);
@@ -68,8 +68,11 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(segReg, instruction.MemorySegment);
 			Assert.Equal(baseReg, instruction.MemoryBase);
 			Assert.Equal(indexReg, instruction.MemoryIndex);
-			Assert.Equal(displ, instruction.MemoryDisplacement);
-			Assert.Equal((ulong)(int)displ, instruction.MemoryDisplacement64);
+#pragma warning disable CS0618 // Type or member is obsolete
+			Assert.Equal((uint)displ, instruction.MemoryDisplacement);
+#pragma warning restore CS0618 // Type or member is obsolete
+			Assert.Equal((uint)displ, instruction.MemoryDisplacement32);
+			Assert.Equal(displ, instruction.MemoryDisplacement64);
 			Assert.Equal(1 << scale, instruction.MemoryIndexScale);
 			Assert.Equal(displSize, instruction.MemoryDisplSize);
 
@@ -241,19 +244,16 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					Assert.Equal(tc.MemorySize, instruction.MemorySize);
 					break;
 
-				case OpKind.Memory64:
-					Assert.Equal(tc.MemorySegment, instruction.MemorySegment);
-					Assert.Equal(tc.MemoryAddress64, instruction.MemoryAddress64);
-					Assert.Equal(tc.MemorySize, instruction.MemorySize);
-					break;
-
 				case OpKind.Memory:
 					Assert.Equal(tc.MemorySegment, instruction.MemorySegment);
 					Assert.Equal(tc.MemoryBase, instruction.MemoryBase);
 					Assert.Equal(tc.MemoryIndex, instruction.MemoryIndex);
 					Assert.Equal(tc.MemoryIndexScale, instruction.MemoryIndexScale);
-					Assert.Equal(tc.MemoryDisplacement, instruction.MemoryDisplacement);
-					Assert.Equal((ulong)(int)tc.MemoryDisplacement, instruction.MemoryDisplacement64);
+#pragma warning disable CS0618 // Type or member is obsolete
+					Assert.Equal((uint)tc.MemoryDisplacement, instruction.MemoryDisplacement);
+#pragma warning restore CS0618 // Type or member is obsolete
+					Assert.Equal((uint)tc.MemoryDisplacement, instruction.MemoryDisplacement32);
+					Assert.Equal(tc.MemoryDisplacement, instruction.MemoryDisplacement64);
 					Assert.Equal(tc.MemoryDisplSize, instruction.MemoryDisplSize);
 					Assert.Equal(tc.MemorySize, instruction.MemorySize);
 					break;

@@ -57,6 +57,7 @@ namespace Iced.Intel {
 		AllowLock = 0x00002000,
 		NoMoreBytes = 0x00004000,
 		Has66 = 0x00008000,
+		IpRel = 0x00010000,
 	}
 	// GENERATOR-END: StateFlags
 
@@ -445,6 +446,12 @@ namespace Iced.Intel {
 			ip += instrLen;
 			instructionPointer = ip;
 			instruction.NextIP = ip;
+			if ((state.flags & StateFlags.IpRel) != 0) {
+				if (state.addressSize == OpSize.Size64)
+					instruction.MemoryDisplacement64 += ip;
+				else
+					instruction.InternalMemoryDisplacement64_lo = (uint)ip + instruction.MemoryDisplacement32;
+			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -892,7 +899,7 @@ namespace Iced.Intel {
 				if (state.rm == 6) {
 					instruction.InternalSetMemoryDisplSize(2);
 					displIndex = state.instructionLength;
-					instruction.MemoryDisplacement = ReadUInt16();
+					instruction.InternalMemoryDisplacement64_lo = ReadUInt16();
 					baseReg = Register.None;
 					Debug.Assert(indexReg == Register.None);
 				}
@@ -902,16 +909,16 @@ namespace Iced.Intel {
 				instruction.InternalSetMemoryDisplSize(1);
 				displIndex = state.instructionLength;
 				if (tupleType == TupleType.N1)
-					instruction.MemoryDisplacement = (ushort)(sbyte)ReadByte();
+					instruction.InternalMemoryDisplacement64_lo = (ushort)(sbyte)ReadByte();
 				else
-					instruction.MemoryDisplacement = (ushort)(GetDisp8N(tupleType) * (uint)(sbyte)ReadByte());
+					instruction.InternalMemoryDisplacement64_lo = (ushort)(GetDisp8N(tupleType) * (uint)(sbyte)ReadByte());
 				break;
 
 			default:
 				Debug.Assert(state.mod == 2);
 				instruction.InternalSetMemoryDisplSize(2);
 				displIndex = state.instructionLength;
-				instruction.MemoryDisplacement = ReadUInt16();
+				instruction.InternalMemoryDisplacement64_lo = ReadUInt16();
 				break;
 			}
 
@@ -933,13 +940,17 @@ namespace Iced.Intel {
 					break;
 				}
 				else if (state.rm == 5) {
-					if (state.addressSize == OpSize.Size64)
-						instruction.InternalSetMemoryDisplSize(4);
-					else
-						instruction.InternalSetMemoryDisplSize(3);
 					displIndex = state.instructionLength;
-					instruction.MemoryDisplacement = ReadUInt32();
+					if (state.addressSize == OpSize.Size64) {
+						instruction.MemoryDisplacement64 = (ulong)(int)ReadUInt32();
+						instruction.InternalSetMemoryDisplSize(4);
+					}
+					else {
+						instruction.InternalMemoryDisplacement64_lo = ReadUInt32();
+						instruction.InternalSetMemoryDisplSize(3);
+					}
 					if (is64Mode) {
+						state.flags |= StateFlags.IpRel;
 						if (state.addressSize == OpSize.Size64)
 							instruction.InternalMemoryBase = Register.RIP;
 						else
@@ -968,10 +979,18 @@ namespace Iced.Intel {
 					Debug.Assert(0 <= state.rm && state.rm <= 7 && state.rm != 4);
 					instruction.InternalSetMemoryDisplSize(1);
 					displIndex = state.instructionLength;
-					if (tupleType == TupleType.N1)
-						instruction.MemoryDisplacement = (uint)(sbyte)ReadByte();
-					else
-						instruction.MemoryDisplacement = GetDisp8N(tupleType) * (uint)(sbyte)ReadByte();
+					if (state.addressSize == OpSize.Size64) {
+						if (tupleType == TupleType.N1)
+							instruction.MemoryDisplacement64 = (ulong)(sbyte)ReadByte();
+						else
+							instruction.MemoryDisplacement64 = (ulong)GetDisp8N(tupleType) * (ulong)(sbyte)ReadByte();
+					}
+					else {
+						if (tupleType == TupleType.N1)
+							instruction.InternalMemoryDisplacement64_lo = (uint)(sbyte)ReadByte();
+						else
+							instruction.InternalMemoryDisplacement64_lo = GetDisp8N(tupleType) * (uint)(sbyte)ReadByte();
+					}
 					instruction.InternalMemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
 					return false;
 				}
@@ -987,12 +1006,15 @@ namespace Iced.Intel {
 				}
 				else {
 					Debug.Assert(0 <= state.rm && state.rm <= 7 && state.rm != 4);
-					if (state.addressSize == OpSize.Size64)
-						instruction.InternalSetMemoryDisplSize(4);
-					else
-						instruction.InternalSetMemoryDisplSize(3);
 					displIndex = state.instructionLength;
-					instruction.MemoryDisplacement = ReadUInt32();
+					if (state.addressSize == OpSize.Size64) {
+						instruction.MemoryDisplacement64 = (ulong)(int)ReadUInt32();
+						instruction.InternalSetMemoryDisplSize(4);
+					}
+					else {
+						instruction.InternalMemoryDisplacement64_lo = ReadUInt32();
+						instruction.InternalSetMemoryDisplSize(3);
+					}
 					instruction.InternalMemoryBase = (int)(state.extraBaseRegisterBase + state.rm) + baseReg;
 					return false;
 				}
@@ -1010,17 +1032,23 @@ namespace Iced.Intel {
 				instruction.InternalMemoryIndex = (int)(index + state.extraIndexRegisterBaseVSIB) + indexReg;
 
 			if (@base == 5 && state.mod == 0) {
-				if (state.addressSize == OpSize.Size64)
-					instruction.InternalSetMemoryDisplSize(4);
-				else
-					instruction.InternalSetMemoryDisplSize(3);
 				displIndex = state.instructionLength;
-				instruction.MemoryDisplacement = ReadUInt32();
+				if (state.addressSize == OpSize.Size64) {
+					instruction.MemoryDisplacement64 = (ulong)(int)ReadUInt32();
+					instruction.InternalSetMemoryDisplSize(4);
+				}
+				else {
+					instruction.InternalMemoryDisplacement64_lo = ReadUInt32();
+					instruction.InternalSetMemoryDisplSize(3);
+				}
 			}
 			else {
 				instruction.InternalMemoryBase = (int)(@base + state.extraBaseRegisterBase) + baseReg;
 				instruction.InternalSetMemoryDisplSize(displSizeScale);
-				instruction.MemoryDisplacement = displ;
+				if (state.addressSize == OpSize.Size64)
+					instruction.MemoryDisplacement64 = (ulong)(int)displ;
+				else
+					instruction.InternalMemoryDisplacement64_lo = displ;
 			}
 			return true;
 		}

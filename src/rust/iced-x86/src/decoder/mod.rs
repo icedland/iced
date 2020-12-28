@@ -228,6 +228,7 @@ impl StateFlags {
 	pub(crate) const ALLOW_LOCK: u32 = 0x0000_2000;
 	pub(crate) const NO_MORE_BYTES: u32 = 0x0000_4000;
 	pub(crate) const HAS66: u32 = 0x0000_8000;
+	pub(crate) const IP_REL: u32 = 0x0001_0000;
 }
 // GENERATOR-END: StateFlags
 
@@ -966,7 +967,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(Register::RAX, instr.memory_base());
 	/// assert_eq!(Register::None, instr.memory_index());
 	/// assert_eq!(1, instr.memory_index_scale());
-	/// assert_eq!(0, instr.memory_displacement());
+	/// assert_eq!(0, instr.memory_displacement64());
 	/// assert_eq!(Register::DS, instr.memory_segment());
 	/// assert_eq!(Register::None, instr.segment_prefix());
 	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
@@ -1015,7 +1016,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(Register::RAX, instr.memory_base());
 	/// assert_eq!(Register::None, instr.memory_index());
 	/// assert_eq!(1, instr.memory_index_scale());
-	/// assert_eq!(0, instr.memory_displacement());
+	/// assert_eq!(0, instr.memory_displacement64());
 	/// assert_eq!(Register::DS, instr.memory_segment());
 	/// assert_eq!(Register::None, instr.segment_prefix());
 	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
@@ -1040,7 +1041,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
-	/// method doesn't need to copy the result to the caller's return variable (saves 32-bytes of copying).
+	/// method doesn't need to copy the result to the caller's return variable (saves 40 bytes of copying).
 	/// See also [`last_error()`].
 	///
 	/// [`decode()`]: #method.decode
@@ -1071,7 +1072,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(Register::RAX, instr.memory_base());
 	/// assert_eq!(Register::None, instr.memory_index());
 	/// assert_eq!(1, instr.memory_index_scale());
-	/// assert_eq!(0, instr.memory_displacement());
+	/// assert_eq!(0, instr.memory_displacement64());
 	/// assert_eq!(Register::DS, instr.memory_segment());
 	/// assert_eq!(Register::None, instr.segment_prefix());
 	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
@@ -1204,8 +1205,28 @@ impl<'a> Decoder<'a> {
 		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let tmp_handler = *self.handlers_xx.offset(b as isize);
 		self.decode_table2(tmp_handler, instruction);
+
+		debug_assert_eq!(self.instr_start_data_ptr, data_ptr);
+		let instr_len = self.data_ptr as u32 - data_ptr as u32;
+		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32); // Could be 0 if there were no bytes available
+		super::instruction_internal::internal_set_len(instruction, instr_len);
+		let orig_ip = self.ip;
+		let ip = orig_ip.wrapping_add(instr_len as u64);
+		self.ip = ip;
+		instruction.set_next_ip(ip);
+		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
+
 		let flags = self.state.flags;
-		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) != 0 {
+		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK | StateFlags::IP_REL)) != 0 {
+			if (flags & StateFlags::IP_REL) != 0 {
+				let addr = ip.wrapping_add(instruction.memory_displacement64());
+				if self.state.address_size == OpSize::Size64 {
+					instruction.set_memory_displacement64(addr);
+				} else {
+					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, addr as u32);
+				}
+			}
+
 			if (flags & StateFlags::IS_INVALID) != 0
 				|| (((flags & (StateFlags::LOCK | StateFlags::ALLOW_LOCK)) & self.invalid_check_mask) == StateFlags::LOCK)
 			{
@@ -1216,17 +1237,15 @@ impl<'a> Decoder<'a> {
 					self.data_ptr = self.max_data_ptr;
 				}
 				self.state.flags = flags | StateFlags::IS_INVALID;
+
+				let instr_len = self.data_ptr as u32 - data_ptr as u32;
+				super::instruction_internal::internal_set_len(instruction, instr_len);
+				let ip = orig_ip.wrapping_add(instr_len as u64);
+				self.ip = ip;
+				instruction.set_next_ip(ip);
+				super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 			}
 		}
-		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
-		debug_assert_eq!(self.instr_start_data_ptr, data_ptr);
-		let instr_len = self.data_ptr as u32 - data_ptr as u32;
-		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32); // Could be 0 if there were no bytes available
-		super::instruction_internal::internal_set_len(instruction, instr_len);
-
-		let ip = self.ip.wrapping_add(instr_len as u64);
-		self.ip = ip;
-		instruction.set_next_ip(ip);
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
@@ -1687,7 +1706,7 @@ impl<'a> Decoder<'a> {
 				if self.state.rm == 6 {
 					super::instruction_internal::internal_set_memory_displ_size(instruction, 2);
 					self.displ_index = self.data_ptr as usize;
-					instruction.set_memory_displacement(self.read_u16() as u32);
+					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u16() as u32);
 					base_reg = Register::None;
 					debug_assert_eq!(Register::None, index_reg);
 				}
@@ -1696,16 +1715,19 @@ impl<'a> Decoder<'a> {
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 				self.displ_index = self.data_ptr as usize;
 				if tuple_type == TupleType::N1 {
-					instruction.set_memory_displacement(self.read_u8() as i8 as u16 as u32);
+					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u8() as i8 as u16 as u32);
 				} else {
-					instruction.set_memory_displacement(self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32) as u16 as u32);
+					super::instruction_internal::internal_set_memory_displacement64_lo(
+						instruction,
+						self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32) as u16 as u32,
+					);
 				}
 			}
 			_ => {
 				debug_assert_eq!(2, self.state.mod_);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 2);
 				self.displ_index = self.data_ptr as usize;
-				instruction.set_memory_displacement(self.read_u16() as u32);
+				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u16() as u32);
 			}
 		}
 		super::instruction_internal::internal_set_memory_base(instruction, base_reg);
@@ -1729,14 +1751,16 @@ impl<'a> Decoder<'a> {
 					displ = 0;
 				}
 				5 => {
+					self.displ_index = self.data_ptr as usize;
 					if self.state.address_size == OpSize::Size64 {
+						instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
+						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
-					self.displ_index = self.data_ptr as usize;
-					instruction.set_memory_displacement(self.read_u32() as u32);
 					if self.is64_mode {
+						self.state.flags |= StateFlags::IP_REL;
 						if self.state.address_size == OpSize::Size64 {
 							super::instruction_internal::internal_set_memory_base(instruction, Register::RIP);
 						} else {
@@ -1764,7 +1788,11 @@ impl<'a> Decoder<'a> {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
 					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 					self.displ_index = self.data_ptr as usize;
-					instruction.set_memory_displacement(self.read_u8() as i8 as u32);
+					if self.state.address_size == OpSize::Size64 {
+						instruction.set_memory_displacement64(self.read_u8() as i8 as u64);
+					} else {
+						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u8() as i8 as u32);
+					}
 					super::instruction_internal::internal_set_memory_base_u32(
 						instruction,
 						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
@@ -1781,13 +1809,14 @@ impl<'a> Decoder<'a> {
 					displ = self.read_u32() as u32;
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
+					self.displ_index = self.data_ptr as usize;
 					if self.state.address_size == OpSize::Size64 {
+						instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
+						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
-					self.displ_index = self.data_ptr as usize;
-					instruction.set_memory_displacement(self.read_u32() as u32);
 					super::instruction_internal::internal_set_memory_base_u32(
 						instruction,
 						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
@@ -1806,17 +1835,22 @@ impl<'a> Decoder<'a> {
 		}
 
 		if base == 5 && self.state.mod_ == 0 {
+			self.displ_index = self.data_ptr as usize;
 			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			} else {
+				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			}
-			self.displ_index = self.data_ptr as usize;
-			instruction.set_memory_displacement(self.read_u32() as u32);
 		} else {
 			super::instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
 			super::instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
-			instruction.set_memory_displacement(displ);
+			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(displ as i32 as u64);
+			} else {
+				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, displ);
+			}
 		}
 		true
 	}
@@ -1839,13 +1873,14 @@ impl<'a> Decoder<'a> {
 					displ = 0;
 				}
 				5 => {
+					self.displ_index = self.data_ptr as usize;
 					if self.state.address_size == OpSize::Size64 {
+						instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
+						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
-					self.displ_index = self.data_ptr as usize;
-					instruction.set_memory_displacement(self.read_u32() as u32);
 					if self.is64_mode {
 						if self.state.address_size == OpSize::Size64 {
 							super::instruction_internal::internal_set_memory_base(instruction, Register::RIP);
@@ -1878,10 +1913,21 @@ impl<'a> Decoder<'a> {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
 					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 					self.displ_index = self.data_ptr as usize;
-					if tuple_type == TupleType::N1 {
-						instruction.set_memory_displacement(self.read_u8() as i8 as u32);
+					if self.state.address_size == OpSize::Size64 {
+						if tuple_type == TupleType::N1 {
+							instruction.set_memory_displacement64(self.read_u8() as i8 as u64);
+						} else {
+							instruction.set_memory_displacement64((self.disp8n(tuple_type) as u64).wrapping_mul(self.read_u8() as i8 as u64));
+						}
 					} else {
-						instruction.set_memory_displacement(self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32));
+						if tuple_type == TupleType::N1 {
+							super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u8() as i8 as u32);
+						} else {
+							super::instruction_internal::internal_set_memory_displacement64_lo(
+								instruction,
+								self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32),
+							);
+						}
 					}
 					super::instruction_internal::internal_set_memory_base_u32(
 						instruction,
@@ -1899,13 +1945,14 @@ impl<'a> Decoder<'a> {
 					displ = self.read_u32() as u32;
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
+					self.displ_index = self.data_ptr as usize;
 					if self.state.address_size == OpSize::Size64 {
+						instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
+						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
-					self.displ_index = self.data_ptr as usize;
-					instruction.set_memory_displacement(self.read_u32() as u32);
 					super::instruction_internal::internal_set_memory_base_u32(
 						instruction,
 						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
@@ -1931,17 +1978,22 @@ impl<'a> Decoder<'a> {
 		}
 
 		if base == 5 && self.state.mod_ == 0 {
+			self.displ_index = self.data_ptr as usize;
 			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			} else {
+				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			}
-			self.displ_index = self.data_ptr as usize;
-			instruction.set_memory_displacement(self.read_u32() as u32);
 		} else {
 			super::instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
 			super::instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
-			instruction.set_memory_displacement(displ);
+			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(displ as i32 as u64);
+			} else {
+				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, displ);
+			}
 		}
 		true
 	}

@@ -761,7 +761,6 @@ namespace Iced.Intel {
 				break;
 
 			case InstrOpKind.Memory64:
-				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8);
 				break;
 
 			case InstrOpKind.Memory:
@@ -773,7 +772,7 @@ namespace Iced.Intel {
 				if (addrSize == 8)
 					displ = (long)instruction.MemoryDisplacement64;
 				else
-					displ = instruction.MemoryDisplacement;
+					displ = instruction.MemoryDisplacement32;
 				if ((opInfo.Flags & InstrOpInfoFlags.IgnoreIndexReg) != 0)
 					indexReg = Register.None;
 				FormatMemory(output, instruction, operand, instructionOperand, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize);
@@ -849,28 +848,29 @@ namespace Iced.Intel {
 
 			ulong absAddr;
 			if (baseReg == Register.RIP) {
-				absAddr = (ulong)((long)instruction.NextIP + (int)displ);
-				if (!operandOptions.RipRelativeAddresses) {
+				absAddr = (ulong)displ;
+				if (options.RipRelativeAddresses)
+					displ -= (long)instruction.NextIP;
+				else {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 8;
 				}
+				displSize = 8;
 			}
 			else if (baseReg == Register.EIP) {
-				absAddr = instruction.NextIP32 + (uint)displ;
-				if (!operandOptions.RipRelativeAddresses) {
+				absAddr = (uint)displ;
+				if (options.RipRelativeAddresses)
+					displ = (int)((uint)displ - instruction.NextIP32);
+				else {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 4;
 				}
+				displSize = 4;
 			}
 			else
 				absAddr = (ulong)displ;
 
-			var symbolResolver = this.symbolResolver;
-			if (symbolResolver is not null)
+			if (this.symbolResolver is ISymbolResolver symbolResolver)
 				useSymbol = symbolResolver.TryGetSymbol(instruction, operand, instructionOperand, absAddr, addrSize, out symbol);
 			else {
 				useSymbol = false;

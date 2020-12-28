@@ -13,7 +13,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - ✔️100% Rust code
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - ✔️The decoder is 4x+ faster than other similar libraries and doesn't allocate any memory
-- ✔️Small decoded instructions, only 32 bytes
+- ✔️Small decoded instructions, only 40 bytes
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️Supports `#![no_std]` and `WebAssembly`
@@ -144,7 +144,7 @@ pub(crate) fn how_to_disassemble() {
     // but can_decode()/decode_out() is a little faster:
     while decoder.can_decode() {
         // There's also a decode() method that returns an instruction but that also
-        // means it copies an instruction (32 bytes):
+        // means it copies an instruction (40 bytes):
         //     instruction = decoder.decode();
         decoder.decode_out(&mut instruction);
 
@@ -250,7 +250,7 @@ pub(crate) fn how_to_encode_instructions() {
     instructions.push(Instruction::with_reg_mem(
         Code::Lea_r64_m,
         Register::R14,
-        MemoryOperand::with_base_displ(Register::RIP, data1 as i32),
+        MemoryOperand::with_base_displ(Register::RIP, data1 as i64),
     ));
     instructions.push(Instruction::with(Code::Nopd));
     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
@@ -957,7 +957,7 @@ pub(crate) fn how_to_get_instruction_info() {
         }
         for i in 0..instr.op_count() {
             let op_kind = instr.try_op_kind(i).unwrap();
-            if op_kind == OpKind::Memory || op_kind == OpKind::Memory64 {
+            if op_kind == OpKind::Memory {
                 let size = instr.memory_size().size();
                 if size != 0 {
                     println!("    Memory size: {}", size);
@@ -966,10 +966,10 @@ pub(crate) fn how_to_get_instruction_info() {
             }
         }
         for i in 0..instr.op_count() {
-            println!("    Op{}Access: {:?}", i, info.op_access(i));
+            println!("    Op{}Access: {:?}", i, info.try_op_access(i).unwrap());
         }
         for i in 0..op_code.op_count() {
-            println!("    Op{}: {:?}", i, op_code.op_kind(i));
+            println!("    Op{}: {:?}", i, op_code.try_op_kind(i).unwrap());
         }
         for reg_info in info.used_registers() {
             println!("    Used reg: {:?}", reg_info);

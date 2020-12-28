@@ -224,21 +224,19 @@ pub enum OpKind {
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	MemoryESRDI = 23,
-	/// 64-bit offset `[xxxxxxxxxxxxxxxx]`. This operand kind uses [`Instruction::memory_address64()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`], [`Instruction::memory_size()`]
+	/// DEPRECATED. Use [`Memory`]
 	///
-	/// [`Instruction::memory_address64()`]: struct.Instruction.html#method.memory_address64
-	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
-	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
+	/// [`Memory`]: enum.OpKind.html#variant.Memory
+	#[deprecated(since = "1.11.0", note = "Don't use it!")]
 	Memory64 = 24,
 	/// Memory operand.
 	///
-	/// This operand kind uses [`Instruction::memory_displ_size()`], [`Instruction::memory_size()`], [`Instruction::memory_index_scale()`], [`Instruction::memory_displacement()`], [`Instruction::memory_base()`], [`Instruction::memory_index()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
+	/// This operand kind uses [`Instruction::memory_displ_size()`], [`Instruction::memory_size()`], [`Instruction::memory_index_scale()`], [`Instruction::memory_displacement64()`], [`Instruction::memory_base()`], [`Instruction::memory_index()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_displ_size()`]: struct.Instruction.html#method.memory_displ_size
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_index_scale()`]: struct.Instruction.html#method.memory_index_scale
-	/// [`Instruction::memory_displacement()`]: struct.Instruction.html#method.memory_displacement
+	/// [`Instruction::memory_displacement64()`]: struct.Instruction.html#method.memory_displacement64
 	/// [`Instruction::memory_base()`]: struct.Instruction.html#method.memory_base
 	/// [`Instruction::memory_index()`]: struct.Instruction.html#method.memory_index
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment

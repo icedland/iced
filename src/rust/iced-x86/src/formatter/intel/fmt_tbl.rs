@@ -120,10 +120,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_memsize::new(v, s))
 			}
 
-			CtorKind::movabs => {
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_movabs::new(v, s))
-			}
+			CtorKind::movabs => Box::new(SimpleInstrInfo_movabs::new(s)),
 
 			CtorKind::nop => {
 				v = reader.read_compressed_u32();

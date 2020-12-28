@@ -280,22 +280,6 @@ namespace Generator.Encoder.RustJS {
 			ctx.Writer.WriteLine("}");
 		}
 
-		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) =>
-			GenerateMethod(writer, method, GenCreateMemory64);
-
-		void GenCreateMemory64(GenMethodContext ctx) {
-			const bool canFail = false;
-			var (rustName, jsName) = ctx.OrigMethod.Args[1].Type switch {
-				MethodArgType.UInt64 => (Rust.RustInstrCreateGenNames.with_mem64_reg, "createMem64Reg"),
-				MethodArgType.Register => (Rust.RustInstrCreateGenNames.with_reg_mem64, "createRegMem64"),
-				_ => throw new InvalidOperationException(),
-			};
-			WriteDocs(ctx);
-			WriteMethod(ctx, rustName, jsName, canFail);
-			WriteCall(ctx, rustName, canFail);
-			ctx.Writer.WriteLine("}");
-		}
-
 		void WriteAddrSizeOrBitnessThrows(in GenMethodContext ctx) {
 			var arg = ctx.OrigMethod.Args[0];
 			if (arg.Name != "addressSize" && arg.Name != "bitness")

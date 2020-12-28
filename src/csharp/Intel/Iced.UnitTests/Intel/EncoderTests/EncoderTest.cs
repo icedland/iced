@@ -97,8 +97,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(encodedBytes.Length, newInstr.Length);
 			newInstr.Length = origInstr.Length;
 			newInstr.NextIP = origInstr.NextIP;
-			if (origBytes.Length != expectedBytes.Length && (origInstr.MemoryBase == Register.EIP || origInstr.MemoryBase == Register.RIP))
-				newInstr.MemoryDisplacement += (uint)(expectedBytes.Length - origBytes.Length);
 			Assert.True(Instruction.EqualsAllBits(origInstr, newInstr));
 		}
 

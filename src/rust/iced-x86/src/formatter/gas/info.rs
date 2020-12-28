@@ -299,15 +299,7 @@ fn get_mnemonic<'a>(
 		return mnemonic_suffix;
 	}
 	if (flags & InstrOpInfoFlags::MNEMONIC_SUFFIX_IF_MEM) != 0 && (&*MEM_SIZE_TBL)[instruction.memory_size() as usize].is_default() {
-		match instruction.op0_kind() {
-			OpKind::Memory | OpKind::Memory64 => return mnemonic_suffix,
-			_ => {}
-		}
-		match instruction.op1_kind() {
-			OpKind::Memory | OpKind::Memory64 => return mnemonic_suffix,
-			_ => {}
-		}
-		if let OpKind::Memory = instruction.op2_kind() {
+		if instruction.op0_kind() == OpKind::Memory || instruction.op1_kind() == OpKind::Memory || instruction.op2_kind() == OpKind::Memory {
 			return mnemonic_suffix;
 		}
 	}
@@ -1002,17 +994,15 @@ pub(super) struct SimpleInstrInfo_movabs {
 	mnemonic_suffix: FormatterString,
 	mnemonic64: FormatterString,
 	mnemonic_suffix64: FormatterString,
-	mem_op_number: u32,
 }
 
 impl SimpleInstrInfo_movabs {
-	pub(super) fn new(mem_op_number: u32, mnemonic: String, mnemonic_suffix: String, mnemonic64: String, mnemonic_suffix64: String) -> Self {
+	pub(super) fn new(mnemonic: String, mnemonic_suffix: String, mnemonic64: String, mnemonic_suffix64: String) -> Self {
 		Self {
 			mnemonic: FormatterString::new(mnemonic),
 			mnemonic_suffix: FormatterString::new(mnemonic_suffix),
 			mnemonic64: FormatterString::new(mnemonic64),
 			mnemonic_suffix64: FormatterString::new(mnemonic_suffix64),
-			mem_op_number,
 		}
 	}
 }
@@ -1021,13 +1011,10 @@ impl InstrInfo for SimpleInstrInfo_movabs {
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = InstrOpInfoFlags::NONE;
 		let mut instr_bitness = get_bitness(instruction.code_size());
-		let op_kind = instruction.try_op_kind(self.mem_op_number).unwrap_or(OpKind::FarBranch16);
-		let (mem_size, mnemonic, mnemonic_suffix): (u32, &FormatterString, &FormatterString) = if op_kind == OpKind::Memory64 {
-			(64, &self.mnemonic64, &self.mnemonic_suffix64)
-		} else {
-			debug_assert_eq!(OpKind::Memory, op_kind);
-			let displ_size = instruction.memory_displ_size();
-			(if displ_size == 2 { 16 } else { 32 }, &self.mnemonic, &self.mnemonic_suffix)
+		let (mem_size, mnemonic, mnemonic_suffix): (u32, &FormatterString, &FormatterString) = match instruction.memory_displ_size() {
+			2 => (16, &self.mnemonic, &self.mnemonic_suffix),
+			4 => (32, &self.mnemonic, &self.mnemonic_suffix),
+			_ => (64, &self.mnemonic64, &self.mnemonic_suffix64),
 		};
 		if instr_bitness == 0 {
 			instr_bitness = mem_size;

@@ -11,7 +11,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - ✔️100% C# code
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - ✔️The decoder is 2x+ faster than other similar libraries and doesn't allocate any memory
-- ✔️Small decoded instructions, only 32 bytes
+- ✔️Small decoded instructions, only 40 bytes
 - ✔️High level [Assembler](#assemble-instructions) providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
@@ -114,7 +114,7 @@ static class HowTo_Disassemble {
         ulong endRip = decoder.IP + (uint)codeBytes.Length;
 
         // This list is faster than List<Instruction> since it uses refs to the Instructions
-        // instead of copying them (each Instruction is 32 bytes in size). It has a ref indexer,
+        // instead of copying them (each Instruction is 40 bytes in size). It has a ref indexer,
         // and a ref iterator. Add() uses 'in' (ref readonly).
         var instructions = new InstructionList();
         while (decoder.IP < endRip) {
@@ -130,7 +130,7 @@ static class HowTo_Disassemble {
         formatter.Options.DigitSeparator = "`";
         formatter.Options.FirstOperandCharIndex = 10;
         var output = new StringOutput();
-        // Use InstructionList's ref iterator (C# 7.3) to prevent copying 32 bytes every iteration
+        // Use InstructionList's ref iterator (C# 7.3) to prevent copying 40 bytes every iteration
         foreach (ref var instr in instructions) {
             // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
             formatter.Format(instr, output);
@@ -863,7 +863,7 @@ static class HowTo_InstructionInfo {
                 Console.WriteLine($"    RFLAGS Modified: {instr.RflagsModified}");
             for (int i = 0; i < instr.OpCount; i++) {
                 var opKind = instr.GetOpKind(i);
-                if (opKind == OpKind.Memory || opKind == OpKind.Memory64) {
+                if (opKind == OpKind.Memory) {
                     int size = instr.MemorySize.GetSize();
                     if (size != 0)
                         Console.WriteLine($"    Memory size: {size}");
@@ -907,6 +907,7 @@ static class HowTo_GetVirtualAddress {
         var decoder = Decoder.Create(64, reader);
         var instr = decoder.Decode();
 
+        // There's also a TryGetVirtualAddress() method
         var va = instr.GetVirtualAddress(0, 0, (register, elementIndex, elementSize) => {
             switch (register) {
             // The base address of ES, CS, SS and DS is always 0 in 64-bit mode

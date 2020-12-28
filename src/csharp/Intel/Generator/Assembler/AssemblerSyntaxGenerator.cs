@@ -943,14 +943,6 @@ namespace Generator.Assembler {
 				_ => false,
 			};
 
-		protected bool IsMoffs(InstructionDef def) =>
-			// Special case for moffs
-			GetOrigCodeValue(def.Code) switch {
-				Code.Mov_AL_moffs8 or Code.Mov_AX_moffs16 or Code.Mov_EAX_moffs32 or Code.Mov_RAX_moffs64 or Code.Mov_moffs8_AL or
-				Code.Mov_moffs16_AX or Code.Mov_moffs32_EAX or Code.Mov_moffs64_RAX => true,
-				_ => false,
-			};
-
 		static int GetImmediateSizeInBits(InstructionDef def) {
 			var opKindDef = def.OpKindDefs[0];
 			return opKindDef.OperandEncoding == OperandEncoding.Immediate ? opKindDef.ImmediateSignExtSize : 0;
@@ -1660,13 +1652,6 @@ namespace Generator.Assembler {
 				return true;
 			}
 		}
-
-		protected static bool IsMemOffs64Selector(OpCodeSelectorKind kind) =>
-			kind switch {
-				OpCodeSelectorKind.MemOffs64_RAX or OpCodeSelectorKind.MemOffs64_EAX or OpCodeSelectorKind.MemOffs64_AX or
-				OpCodeSelectorKind.MemOffs64_AL => true,
-				_ => false,
-			};
 
 		protected static (OpCodeArgFlags, OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) =>
 			kind switch {

@@ -215,7 +215,7 @@ namespace Generator.Documentation.Python {
 				case TokenKind.Property:
 					sb.Append(":class:`");
 					WriteTypeName(typeName, info.value);
-					m = idConverter.PropertyDoc(info.value2);
+					m = TranslatePropertyName(info.value, idConverter.PropertyDoc(info.value2));
 					sb.Append(m);
 					sb.Append('`');
 					break;
@@ -230,6 +230,12 @@ namespace Generator.Documentation.Python {
 					throw new InvalidOperationException();
 				}
 			}
+		}
+
+		static string TranslatePropertyName(string typeName, string propertyName) {
+			if (typeName == "Instruction" && propertyName == "memory_displacement64")
+				propertyName = "memory_displacement";
+			return propertyName;
 		}
 
 		void WriteTypeName(string thisTypeName, string currentTypeName) {

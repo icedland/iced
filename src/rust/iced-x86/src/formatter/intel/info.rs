@@ -694,12 +694,11 @@ impl InstrInfo for SimpleInstrInfo_os_loop {
 #[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_movabs {
 	mnemonic: FormatterString,
-	mem_op_number: u32,
 }
 
 impl SimpleInstrInfo_movabs {
-	pub(super) fn new(mem_op_number: u32, mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), mem_op_number }
+	pub(super) fn new(mnemonic: String) -> Self {
+		Self { mnemonic: FormatterString::new(mnemonic) }
 	}
 }
 
@@ -707,16 +706,10 @@ impl InstrInfo for SimpleInstrInfo_movabs {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = InstrOpInfoFlags::NONE;
 		let mut instr_bitness = get_bitness(instruction.code_size());
-		let op_kind = instruction.try_op_kind(self.mem_op_number).unwrap_or(OpKind::FarBranch16);
-		let mem_size = if op_kind == OpKind::Memory64 {
-			64
-		} else {
-			debug_assert_eq!(OpKind::Memory, op_kind);
-			if instruction.memory_displ_size() == 2 {
-				16
-			} else {
-				32
-			}
+		let mem_size = match instruction.memory_displ_size() {
+			2 => 16,
+			4 => 32,
+			_ => 64,
 		};
 		if instr_bitness == 0 {
 			instr_bitness = mem_size;

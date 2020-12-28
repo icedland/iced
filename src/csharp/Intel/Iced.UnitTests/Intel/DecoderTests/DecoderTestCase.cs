@@ -55,10 +55,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public int MemoryDisplSize;
 		public MemorySize MemorySize;
 		public int MemoryIndexScale;
-		public uint MemoryDisplacement;
+		public ulong MemoryDisplacement;
 		public ulong Immediate;
 		public byte Immediate_2nd;
-		public ulong MemoryAddress64;
 		public ulong NearBranch;
 		public uint FarBranch;
 		public ushort FarBranchSelector;
@@ -121,7 +120,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public Register BaseRegister;
 		public Register IndexRegister;
 		public int Scale;
-		public uint Displacement;
+		public ulong Displacement;
 		public int DisplacementSize;
 		public DecoderTestOptions TestOptions;
 		public ConstantOffsets ConstantOffsets;

@@ -1414,7 +1414,6 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Mov_AL_moffs8
 	0x11,// movabs
 	0x00,// 0 = "mov"
-	0x01,// 0x1
 
 	// Mov_AX_moffs16
 	0x00,// Previous
@@ -1426,9 +1425,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Mov_moffs8_AL
-	0x11,// movabs
-	0x00,// 0 = "mov"
-	0x00,// 0x0
+	0x00,// Previous
 
 	// Mov_moffs16_AX
 	0x00,// Previous

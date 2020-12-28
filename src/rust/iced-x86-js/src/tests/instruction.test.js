@@ -230,10 +230,10 @@ test("Instr mem64", () => {
 	const instr = decoder.decode();
 
 	expect(instr.opCount).toBe(2);
-	expect(instr.op0Kind).toBe(OpKind.Memory64);
+	expect(instr.op0Kind).toBe(OpKind.Memory);
 	expect(instr.op1Kind).toBe(OpKind.Register);
-	expect(instr.memoryAddress64Hi).toBe(0xF0DEBC9A);
-	expect(instr.memoryAddress64Lo).toBe(0x78563412);
+	expect(instr.memoryDisplacement64Hi).toBe(0xF0DEBC9A);
+	expect(instr.memoryDisplacement64Lo).toBe(0x78563412);
 	expect(instr.op1Register).toBe(Register.AL);
 	expect(instr.memorySegment).toBe(Register.FS);
 	expect(instr.segmentPrefix).toBe(Register.FS);
@@ -298,7 +298,7 @@ test("Instruction.create*()", () => {
 		[64, "83C15A", DecoderOptions.None, Instruction.createRegI32(Code.Add_rm32_imm8, Register.ECX, 0x5A)],
 		[64, "4883C15A", DecoderOptions.None, Instruction.createRegI32(Code.Add_rm64_imm8, Register.RCX, 0x5A)],
 		[64, "4881C15AA51234", DecoderOptions.None, Instruction.createRegI32(Code.Add_rm64_imm32, Register.RCX, 0x3412A55A)],
-		[64, "64A0123456789ABCDEF0", DecoderOptions.None, Instruction.createRegMem64(Code.Mov_AL_moffs8, Register.AL, 0xF0DEBC9A, 0x78563412, Register.FS)],
+		[64, "64A0123456789ABCDEF0", DecoderOptions.None, Instruction.createRegMem(Code.Mov_AL_moffs8, Register.AL, MemoryOperand.new64(Register.None, Register.None, 1, 0xF0DEBC9A, 0x78563412, 8, false, Register.FS))],
 		[64, "6400947501EFCDAB", DecoderOptions.None, Instruction.createMemReg(Code.Add_rm8_r8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.DL)],
 		[64, "6480847501EFCDAB5A", DecoderOptions.None, Instruction.createMemI32(Code.Add_rm8_imm8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x5A)],
 		[64, "646681847501EFCDAB5AA5", DecoderOptions.None, Instruction.createMemU32(Code.Add_rm16_imm16, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA55A)],
@@ -311,7 +311,7 @@ test("Instruction.create*()", () => {
 		[64, "E65A", DecoderOptions.None, Instruction.createU32Reg(Code.Out_imm8_AL, 0x5A, Register.AL)],
 		[64, "66C85AA5A6", DecoderOptions.None, Instruction.createI32I32(Code.Enterw_imm16_imm8, 0xA55A, 0xA6)],
 		[64, "66C85AA5A6", DecoderOptions.None, Instruction.createU32U32(Code.Enterw_imm16_imm8, 0xA55A, 0xA6)],
-		[64, "64A2123456789ABCDEF0", DecoderOptions.None, Instruction.createMem64Reg(Code.Mov_moffs8_AL, 0xF0DEBC9A, 0x78563412, Register.AL, Register.FS)],
+		[64, "64A2123456789ABCDEF0", DecoderOptions.None, Instruction.createMemReg(Code.Mov_moffs8_AL, MemoryOperand.new64(Register.None, Register.None, 1, 0xF0DEBC9A, 0x78563412, 8, false, Register.FS), Register.AL)],
 		[64, "6669CAA55A", DecoderOptions.None, Instruction.createRegRegU32(Code.Imul_r16_rm16_imm16, Register.CX, Register.DX, 0x5AA5)],
 		[64, "69CA5AA51234", DecoderOptions.None, Instruction.createRegRegI32(Code.Imul_r32_rm32_imm32, Register.ECX, Register.EDX, 0x3412A55A)],
 		[64, "666BCA5A", DecoderOptions.None, Instruction.createRegRegI32(Code.Imul_r16_rm16_imm8, Register.CX, Register.DX, 0x5A)],

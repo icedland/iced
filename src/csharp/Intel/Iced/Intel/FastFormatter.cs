@@ -373,8 +373,9 @@ namespace Iced.Intel {
 						FormatMemory(output, instruction, operand, Register.ES, Register.RDI, Register.None, 0, 0, 0, 8);
 						break;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 					case OpKind.Memory64:
-						FormatMemory(output, instruction, operand, instruction.MemorySegment, Register.None, Register.None, 0, 8, (long)instruction.MemoryAddress64, 8);
+#pragma warning restore CS0618 // Type or member is obsolete
 						break;
 
 					case OpKind.Memory:
@@ -386,7 +387,7 @@ namespace Iced.Intel {
 						if (addrSize == 8)
 							displ = (long)instruction.MemoryDisplacement64;
 						else
-							displ = instruction.MemoryDisplacement;
+							displ = instruction.MemoryDisplacement32;
 						if (code == Code.Xlat_m8)
 							indexReg = Register.None;
 						FormatMemory(output, instruction, operand, instruction.MemorySegment, baseReg, indexReg, instruction.InternalMemoryIndexScale, displSize, displ, addrSize);
@@ -455,7 +456,9 @@ namespace Iced.Intel {
 				case OpKind.MemorySegDI:
 				case OpKind.MemorySegEDI:
 				case OpKind.MemorySegRDI:
+#pragma warning disable CS0618 // Type or member is obsolete
 				case OpKind.Memory64:
+#pragma warning restore CS0618 // Type or member is obsolete
 				case OpKind.Memory:
 					return false;
 
@@ -539,30 +542,31 @@ namespace Iced.Intel {
 
 			ulong absAddr;
 			if (baseReg == Register.RIP) {
-				absAddr = (ulong)((long)instruction.NextIP + (int)displ);
-				if (!options.RipRelativeAddresses) {
+				absAddr = (ulong)displ;
+				if (options.RipRelativeAddresses)
+					displ -= (long)instruction.NextIP;
+				else {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 8;
 				}
+				displSize = 8;
 			}
 			else if (baseReg == Register.EIP) {
-				absAddr = instruction.NextIP32 + (uint)displ;
-				if (!options.RipRelativeAddresses) {
+				absAddr = (uint)displ;
+				if (options.RipRelativeAddresses)
+					displ = (int)((uint)displ - instruction.NextIP32);
+				else {
 					Debug.Assert(indexReg == Register.None);
 					baseReg = Register.None;
-					displ = (long)absAddr;
-					displSize = 4;
 				}
+				displSize = 4;
 			}
 			else
 				absAddr = (ulong)displ;
 
 			SymbolResult symbol;
 			bool useSymbol;
-			var symbolResolver = this.symbolResolver;
-			if (symbolResolver is not null)
+			if (this.symbolResolver is ISymbolResolver symbolResolver)
 				useSymbol = symbolResolver.TryGetSymbol(instruction, operand, operand, absAddr, addrSize, out symbol);
 			else {
 				useSymbol = false;

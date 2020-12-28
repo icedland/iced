@@ -117,10 +117,6 @@ fn encode_test(info: &DecoderTestInfo) {
 	assert_eq!(encoded_bytes.len(), new_instr.len());
 	new_instr.set_len(orig_instr.len());
 	new_instr.set_next_ip(orig_instr.next_ip());
-	if orig_bytes.len() != expected_bytes.len() && (orig_instr.memory_base() == Register::EIP || orig_instr.memory_base() == Register::RIP) {
-		let displ = new_instr.memory_displacement().wrapping_add((expected_bytes.len().wrapping_sub(orig_bytes.len())) as u32);
-		new_instr.set_memory_displacement(displ);
-	}
 	assert!(orig_instr.eq_all_bits(&new_instr));
 }
 
@@ -705,11 +701,11 @@ fn test_evex_wig_lig() {
 #[test]
 fn verify_memory_operand_ctors() {
 	{
-		let op = MemoryOperand::new(Register::RCX, Register::RSI, 4, 0x1234_5678, 8, true, Register::FS);
+		let op = MemoryOperand::new(Register::RCX, Register::RSI, 4, -0x1234_5678_9ABC_DEF1, 8, true, Register::FS);
 		assert_eq!(Register::RCX, op.base);
 		assert_eq!(Register::RSI, op.index);
 		assert_eq!(4, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(8, op.displ_size);
 		assert!(op.is_broadcast);
 		assert_eq!(Register::FS, op.segment_prefix);
@@ -725,41 +721,41 @@ fn verify_memory_operand_ctors() {
 		assert_eq!(Register::FS, op.segment_prefix);
 	}
 	{
-		let op = MemoryOperand::with_base_displ_size_bcst_seg(Register::RCX, 0x1234_5678, 8, true, Register::FS);
+		let op = MemoryOperand::with_base_displ_size_bcst_seg(Register::RCX, -0x1234_5678_9ABC_DEF1, 8, true, Register::FS);
 		assert_eq!(Register::RCX, op.base);
 		assert_eq!(Register::None, op.index);
 		assert_eq!(1, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(8, op.displ_size);
 		assert!(op.is_broadcast);
 		assert_eq!(Register::FS, op.segment_prefix);
 	}
 	{
-		let op = MemoryOperand::with_index_scale_displ_size_bcst_seg(Register::RSI, 4, 0x1234_5678, 8, true, Register::FS);
+		let op = MemoryOperand::with_index_scale_displ_size_bcst_seg(Register::RSI, 4, -0x1234_5678_9ABC_DEF1, 8, true, Register::FS);
 		assert_eq!(Register::None, op.base);
 		assert_eq!(Register::RSI, op.index);
 		assert_eq!(4, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(8, op.displ_size);
 		assert!(op.is_broadcast);
 		assert_eq!(Register::FS, op.segment_prefix);
 	}
 	{
-		let op = MemoryOperand::with_base_displ_bcst_seg(Register::RCX, 0x1234_5678, true, Register::FS);
+		let op = MemoryOperand::with_base_displ_bcst_seg(Register::RCX, -0x1234_5678_9ABC_DEF1, true, Register::FS);
 		assert_eq!(Register::RCX, op.base);
 		assert_eq!(Register::None, op.index);
 		assert_eq!(1, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(1, op.displ_size);
 		assert!(op.is_broadcast);
 		assert_eq!(Register::FS, op.segment_prefix);
 	}
 	{
-		let op = MemoryOperand::with_base_index_scale_displ_size(Register::RCX, Register::RSI, 4, 0x1234_5678, 8);
+		let op = MemoryOperand::with_base_index_scale_displ_size(Register::RCX, Register::RSI, 4, -0x1234_5678_9ABC_DEF1, 8);
 		assert_eq!(Register::RCX, op.base);
 		assert_eq!(Register::RSI, op.index);
 		assert_eq!(4, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(8, op.displ_size);
 		assert!(!op.is_broadcast);
 		assert_eq!(Register::None, op.segment_prefix);
@@ -785,31 +781,31 @@ fn verify_memory_operand_ctors() {
 		assert_eq!(Register::None, op.segment_prefix);
 	}
 	{
-		let op = MemoryOperand::with_base_displ_size(Register::RCX, 0x1234_5678, 8);
+		let op = MemoryOperand::with_base_displ_size(Register::RCX, -0x1234_5678_9ABC_DEF1, 8);
 		assert_eq!(Register::RCX, op.base);
 		assert_eq!(Register::None, op.index);
 		assert_eq!(1, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(8, op.displ_size);
 		assert!(!op.is_broadcast);
 		assert_eq!(Register::None, op.segment_prefix);
 	}
 	{
-		let op = MemoryOperand::with_index_scale_displ_size(Register::RSI, 4, 0x1234_5678, 8);
+		let op = MemoryOperand::with_index_scale_displ_size(Register::RSI, 4, -0x1234_5678_9ABC_DEF1, 8);
 		assert_eq!(Register::None, op.base);
 		assert_eq!(Register::RSI, op.index);
 		assert_eq!(4, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(8, op.displ_size);
 		assert!(!op.is_broadcast);
 		assert_eq!(Register::None, op.segment_prefix);
 	}
 	{
-		let op = MemoryOperand::with_base_displ(Register::RCX, 0x1234_5678);
+		let op = MemoryOperand::with_base_displ(Register::RCX, -0x1234_5678_9ABC_DEF1);
 		assert_eq!(Register::RCX, op.base);
 		assert_eq!(Register::None, op.index);
 		assert_eq!(1, op.scale);
-		assert_eq!(0x1234_5678, op.displacement);
+		assert_eq!(-0x1234_5678_9ABC_DEF1, op.displacement);
 		assert_eq!(1, op.displ_size);
 		assert!(!op.is_broadcast);
 		assert_eq!(Register::None, op.segment_prefix);

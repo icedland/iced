@@ -212,7 +212,8 @@ fn get_memory_register_size(instruction: &Instruction) -> u32 {
 					return 64;
 				}
 			}
-			OpKind::Memory64 => return 64,
+			#[allow(deprecated)]
+			OpKind::Memory64 => unreachable!(),
 		}
 	}
 	0
@@ -1669,7 +1670,7 @@ fn verify_that_test_cases_test_enough_bits() {
 			tested.v2_bits |= 1 << (((bytes[evex_index + 3] >> 3) & 1) ^ 1);
 			if (bytes[evex_index + 5] >> 6) != 3 {
 				tested.reg_mem = true;
-				if instruction.memory_displ_size() == 1 && instruction.memory_displacement() != 0 {
+				if instruction.memory_displ_size() == 1 && instruction.memory_displacement64() != 0 {
 					tested.mem_disp8 = true;
 				}
 			} else {

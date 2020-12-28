@@ -405,12 +405,10 @@ def test_mem():
 	assert instr.memory_index_scale == 1
 
 	assert instr.memory_displacement == 0
-	instr.memory_displacement = 0xFEDC_BA98
-	assert instr.memory_displacement == 0xFEDC_BA98
-	assert instr.memory_displacement64 == 0xFFFF_FFFF_FEDC_BA98
-	instr.memory_displacement = 0x1234_5678
-	assert instr.memory_displacement == 0x1234_5678
-	assert instr.memory_displacement64 == 0x1234_5678
+	instr.memory_displacement = 0xFEDC_BA98_7654_3210
+	assert instr.memory_displacement == 0xFEDC_BA98_7654_3210
+	instr.memory_displacement = 0x1234_5678_9ABC_DEF1
+	assert instr.memory_displacement == 0x1234_5678_9ABC_DEF1
 
 	assert instr.memory_base == Register.RAX
 	instr.memory_base = Register.R15D
@@ -419,11 +417,6 @@ def test_mem():
 	assert instr.memory_index == Register.NONE
 	instr.memory_index = Register.XMM13
 	assert instr.memory_index == Register.XMM13
-
-	instr.memory_address64 = 0x1234_5678_9ABC_DEF1
-	assert instr.memory_address64 == 0x1234_5678_9ABC_DEF1
-	instr.memory_address64 = 0x9ABC_DEF0_1234_5678
-	assert instr.memory_address64 == 0x9ABC_DEF0_1234_5678
 
 def test_imm8():
 	instr = Instruction()

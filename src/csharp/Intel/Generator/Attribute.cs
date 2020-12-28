@@ -28,8 +28,8 @@ namespace Generator {
 	[AttributeUsage(AttributeTargets.Field)]
 	sealed class DeprecatedAttribute : Attribute {
 		public string Version { get; }
-		public string NewName { get; }
-		public DeprecatedAttribute(string version, string newName) {
+		public string? NewName { get; }
+		public DeprecatedAttribute(string version, string? newName) {
 			Version = version;
 			NewName = newName;
 		}
@@ -42,11 +42,13 @@ namespace Generator {
 	}
 
 	readonly struct DeprecatedInfo {
-		public bool IsDeprecated => NewName is not null;
+		// Deprecated and a new renamed value was added
+		public bool IsDeprecatedAndRenamed => NewName is not null;
+		public bool IsDeprecated => VersionStr is not null;
 		public readonly Version Version;
 		public readonly string VersionStr;
-		public readonly string NewName;
-		public DeprecatedInfo(string version, string newName) {
+		public readonly string? NewName;
+		public DeprecatedInfo(string version, string? newName) {
 			Version = new Version(version);
 			VersionStr = version;
 			NewName = newName;

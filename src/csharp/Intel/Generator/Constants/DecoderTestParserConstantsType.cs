@@ -93,7 +93,6 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.String, "OpKind_MemoryESDI", "esdi", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "OpKind_MemoryESEDI", "esedi", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "OpKind_MemoryESRDI", "esrdi", ConstantsTypeFlags.None),
-				new Constant(ConstantKind.String, "OpKind_Memory64", "m64", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "OpKind_Memory", "m", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderTestOptions_NoEncode", "noencode", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderTestOptions_NoOptDisableTest", "no_opt_disable_test", ConstantsTypeFlags.None),

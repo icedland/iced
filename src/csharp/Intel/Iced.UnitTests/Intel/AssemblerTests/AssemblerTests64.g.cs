@@ -6625,7 +6625,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_m_reg8() {
 			{ /* if (src.Value == Register.AL && Bitness == 64 && dst.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(__[0x0123456789abcdef], al), CreateMemory64(Code.Mov_moffs8_AL, __[0x0123456789abcdef], al));
+				TestAssembler(c => c.mov(__[0x0123456789abcdef], al), Instruction.Create(Code.Mov_moffs8_AL, __[0x0123456789abcdef].ToMemoryOperand(Bitness), al));
 			} /* else */ { // skip (src.Value == Register.AL && Bitness < 64 && dst.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(__[rdi], bl), Instruction.Create(Code.Mov_rm8_r8, __[rdi].ToMemoryOperand(Bitness), bl));
 		}
@@ -6643,7 +6643,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_m_reg16() {
 			{ /* if (src.Value == Register.AX && Bitness == 64 && dst.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(__[0x0123456789abcdef], ax), CreateMemory64(Code.Mov_moffs16_AX, __[0x0123456789abcdef], ax));
+				TestAssembler(c => c.mov(__[0x0123456789abcdef], ax), Instruction.Create(Code.Mov_moffs16_AX, __[0x0123456789abcdef].ToMemoryOperand(Bitness), ax));
 			} /* else */ { // skip (src.Value == Register.AX && Bitness < 64 && dst.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(__[rdi], bx), Instruction.Create(Code.Mov_rm16_r16, __[rdi].ToMemoryOperand(Bitness), bx));
 		}
@@ -6661,7 +6661,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_m_reg32() {
 			{ /* if (src.Value == Register.EAX && Bitness == 64 && dst.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(__[0x0123456789abcdef], eax), CreateMemory64(Code.Mov_moffs32_EAX, __[0x0123456789abcdef], eax));
+				TestAssembler(c => c.mov(__[0x0123456789abcdef], eax), Instruction.Create(Code.Mov_moffs32_EAX, __[0x0123456789abcdef].ToMemoryOperand(Bitness), eax));
 			} /* else */ { // skip (src.Value == Register.EAX && Bitness < 64 && dst.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(__[rdi], ebx), Instruction.Create(Code.Mov_rm32_r32, __[rdi].ToMemoryOperand(Bitness), ebx));
 		}
@@ -6689,7 +6689,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_m_reg64() {
 			{ /* if (src.Value == Register.RAX && Bitness == 64 && dst.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(__[0x0123456789abcdef], rax), CreateMemory64(Code.Mov_moffs64_RAX, __[0x0123456789abcdef], rax));
+				TestAssembler(c => c.mov(__[0x0123456789abcdef], rax), Instruction.Create(Code.Mov_moffs64_RAX, __[0x0123456789abcdef].ToMemoryOperand(Bitness), rax));
 			} /* else */ { // skip (src.Value == Register.RAX && Bitness < 64 && dst.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(__[rdi], rbx), Instruction.Create(Code.Mov_rm64_r64, __[rdi].ToMemoryOperand(Bitness), rbx));
 		}
@@ -6729,7 +6729,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_reg8_m() {
 			{ /* if (dst.Value == Register.AL && Bitness == 64 && src.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(al, __[0x0123456789abcdef]), CreateMemory64(Code.Mov_AL_moffs8, al, __[0x0123456789abcdef]));
+				TestAssembler(c => c.mov(al, __[0x0123456789abcdef]), Instruction.Create(Code.Mov_AL_moffs8, al, __[0x0123456789abcdef].ToMemoryOperand(Bitness)));
 			} /* else */ { // skip (dst.Value == Register.AL && Bitness < 64 && src.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(dl, __[rsi]), Instruction.Create(Code.Mov_r8_rm8, dl, __[rsi].ToMemoryOperand(Bitness)));
 		}
@@ -6737,7 +6737,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_reg16_m() {
 			{ /* if (dst.Value == Register.AX && Bitness == 64 && src.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(ax, __[0x0123456789abcdef]), CreateMemory64(Code.Mov_AX_moffs16, ax, __[0x0123456789abcdef]));
+				TestAssembler(c => c.mov(ax, __[0x0123456789abcdef]), Instruction.Create(Code.Mov_AX_moffs16, ax, __[0x0123456789abcdef].ToMemoryOperand(Bitness)));
 			} /* else */ { // skip (dst.Value == Register.AX && Bitness < 64 && src.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(dx, __[rsi]), Instruction.Create(Code.Mov_r16_rm16, dx, __[rsi].ToMemoryOperand(Bitness)));
 		}
@@ -6745,7 +6745,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_reg32_m() {
 			{ /* if (dst.Value == Register.EAX && Bitness == 64 && src.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(eax, __[0x0123456789abcdef]), CreateMemory64(Code.Mov_EAX_moffs32, eax, __[0x0123456789abcdef]));
+				TestAssembler(c => c.mov(eax, __[0x0123456789abcdef]), Instruction.Create(Code.Mov_EAX_moffs32, eax, __[0x0123456789abcdef].ToMemoryOperand(Bitness)));
 			} /* else */ { // skip (dst.Value == Register.EAX && Bitness < 64 && src.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(edx, __[rsi]), Instruction.Create(Code.Mov_r32_rm32, edx, __[rsi].ToMemoryOperand(Bitness)));
 		}
@@ -6753,7 +6753,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void mov_reg64_m() {
 			{ /* if (dst.Value == Register.RAX && Bitness == 64 && src.IsDisplacementOnly) */
-				TestAssembler(c => c.mov(rax, __[0x0123456789abcdef]), CreateMemory64(Code.Mov_RAX_moffs64, rax, __[0x0123456789abcdef]));
+				TestAssembler(c => c.mov(rax, __[0x0123456789abcdef]), Instruction.Create(Code.Mov_RAX_moffs64, rax, __[0x0123456789abcdef].ToMemoryOperand(Bitness)));
 			} /* else */ { // skip (dst.Value == Register.RAX && Bitness < 64 && src.IsDisplacementOnly) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.mov(rdx, __[rsi]), Instruction.Create(Code.Mov_r64_rm64, rdx, __[rsi].ToMemoryOperand(Bitness)));
 		}

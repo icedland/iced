@@ -132,6 +132,16 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
+		readonly struct RustDeprecatedInfo {
+			public readonly string Version;
+			public readonly string Message;
+
+			public RustDeprecatedInfo(string version, string message) {
+				Version = version;
+				Message = message;
+			}
+		}
+
 		[Flags]
 		enum GenTryFlags : uint {
 			None			= 0,
@@ -139,11 +149,15 @@ namespace Generator.Encoder.Rust {
 			NoFooter		= 2,
 			TrivialCasts	= 4,
 		}
-		void GenerateTryMethods(FileWriter writer, CreateMethod method, int opCount, GenTryFlags flags, Action<GenerateTryMethodContext, TryMethodKind> genBody, Action<TryMethodKind>? writeError, string? methodName = null) {
+		void GenerateTryMethods(FileWriter writer, CreateMethod method, int opCount, GenTryFlags flags, Action<GenerateTryMethodContext, TryMethodKind> genBody, Action<TryMethodKind>? writeError, string? methodName = null, RustDeprecatedInfo? deprecatedInfo = null) {
 			if (((flags & GenTryFlags.CanFail) != 0) != (writeError is not null))
 				throw new InvalidOperationException();
 			methodName ??= gen.GetCreateName(method, genNames);
 			var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName);
+
+			string? deprecMsg = null;
+			if (deprecatedInfo is RustDeprecatedInfo deprec)
+				deprecMsg = $"#[deprecated(since = \"{deprec.Version}\", note = \"{deprec.Message}\")]";
 
 			if ((flags & GenTryFlags.CanFail) != 0) {
 				if (writeError is null)
@@ -151,6 +165,8 @@ namespace Generator.Encoder.Rust {
 				const TryMethodKind kind = TryMethodKind.Result;
 				Action docsWriteError = () => writeError(kind);
 				WriteDocs(ctx.Writer, ctx.Method, kind, docsWriteError);
+				if (deprecMsg is not null)
+					ctx.Writer.WriteLine(deprecMsg);
 				WriteMethod(ctx.Writer, ctx.Method, ctx.TryMethodName, kind, flags);
 				using (ctx.Writer.Indent()) {
 					genBody(ctx, kind);
@@ -162,6 +178,8 @@ namespace Generator.Encoder.Rust {
 			else {
 				const TryMethodKind kind = TryMethodKind.Normal;
 				WriteDocs(ctx.Writer, ctx.Method);
+				if (deprecMsg is not null)
+					ctx.Writer.WriteLine(deprecMsg);
 				WriteMethod(ctx.Writer, ctx.Method, ctx.MethodName, kind, flags);
 				using (ctx.Writer.Indent()) {
 					genBody(ctx, kind);
@@ -241,13 +259,7 @@ namespace Generator.Encoder.Rust {
 
 				case MethodArgType.Memory:
 					ctx.Writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{memoryStr});");
-					ctx.Writer.WriteLine($"super::instruction_internal::internal_set_memory_base(&mut instruction, {idConverter.Argument(arg.Name)}.base);");
-					ctx.Writer.WriteLine($"super::instruction_internal::internal_set_memory_index(&mut instruction, {idConverter.Argument(arg.Name)}.index);");
-					ctx.Writer.WriteLine($"instruction.set_memory_index_scale({idConverter.Argument(arg.Name)}.scale);");
-					ctx.Writer.WriteLine($"instruction.set_memory_displ_size({idConverter.Argument(arg.Name)}.displ_size);");
-					ctx.Writer.WriteLine($"instruction.set_memory_displacement({idConverter.Argument(arg.Name)}.displacement as u32);");
-					ctx.Writer.WriteLine($"instruction.set_is_broadcast({idConverter.Argument(arg.Name)}.is_broadcast);");
-					ctx.Writer.WriteLine($"instruction.set_segment_prefix({idConverter.Argument(arg.Name)}.segment_prefix);");
+					ctx.Writer.WriteLine($"Instruction::init_memory_operand(&mut instruction, &{idConverter.Argument(arg.Name)});");
 					break;
 
 				case MethodArgType.Int32:
@@ -352,42 +364,43 @@ namespace Generator.Encoder.Rust {
 			ctx.Writer.WriteLine($"}}");
 		}
 
+		protected override bool CallGenCreateMemory64 => true;
 		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 4)
 				throw new InvalidOperationException();
 
 			int memOp, regOp;
-			string name;
+			string name, newName;
 			if (method.Args[1].Type == MethodArgType.UInt64) {
 				memOp = 0;
 				regOp = 1;
 				name = RustInstrCreateGenNames.with_mem64_reg;
+				newName = "with_mem_reg";
 			}
 			else {
 				memOp = 1;
 				regOp = 0;
 				name = RustInstrCreateGenNames.with_reg_mem64;
+				newName = "with_reg_mem";
 			}
 
-			GenerateTryMethods(writer, method, 2, GenTryFlags.None, (ctx, _) => GenCreateMemory64(ctx, memOp, regOp), null, name);
+			var deprec = new RustDeprecatedInfo("1.11.0", $"Use {newName}() with a MemoryOperand arg instead");
+			GenerateTryMethods(writer, method, 2, GenTryFlags.NoFooter, (ctx, _) => GenCreateMemory64(ctx, memOp, regOp), null, name, deprecatedInfo: deprec);
 		}
 
 		void GenCreateMemory64(GenerateTryMethodContext ctx, int memOp, int regOp) {
-			WriteInitializeInstruction(ctx.Writer, ctx.Method);
-			ctx.Writer.WriteLine();
+			var regNone = genTypes[TypeIds.Register][nameof(Register.None)];
+			var regStr = $"{regNone.DeclaringType.Name(idConverter)}::{regNone.Name(idConverter)}";
+			var addrStr = idConverter.Argument(ctx.Method.Args[1 + memOp].Name);
+			var segPrefStr = idConverter.Argument(ctx.Method.Args[3].Name);
+			var memOpStr = $"MemoryOperand::with_base_displ_size_bcst_seg({regStr}, {addrStr} as i64, 8, false, {segPrefStr})";
+			var regOpStr = idConverter.Argument(ctx.Method.Args[1 + regOp].Name);
+			var codeStr = idConverter.Argument(ctx.Method.Args[0].Name);
 
-			var mem64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Memory64)].Name(idConverter);
-			ctx.Writer.WriteLine($"super::instruction_internal::internal_set_op{memOp}_kind(&mut instruction, {genTypes[TypeIds.OpKind].Name(idConverter)}::{mem64Str});");
-			ctx.Writer.WriteLine($"instruction.set_memory_address64({idConverter.Argument(ctx.Method.Args[1 + memOp].Name)});");
-			ctx.Writer.WriteLine("super::instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);");
-			ctx.Writer.WriteLine($"instruction.set_segment_prefix({idConverter.Argument(ctx.Method.Args[3].Name)});");
-
-			ctx.Writer.WriteLine();
-			var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
-			var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
-			ctx.Writer.WriteLine($"const_assert_eq!(0, {opKindStr}::{registerStr} as u32);");
-			ctx.Writer.WriteLine($"//super::instruction_internal::internal_set_op{regOp}_kind(&mut instruction, {opKindStr}::{registerStr});");
-			ctx.Writer.WriteLine($"super::instruction_internal::internal_set_op{regOp}_register(&mut instruction, {idConverter.Argument(ctx.Method.Args[1 + regOp].Name)});");
+			if (memOp == 0)
+				ctx.Writer.WriteLine($"Instruction::with_mem_reg({codeStr}, {memOpStr}, {regOpStr})");
+			else
+				ctx.Writer.WriteLine($"Instruction::with_reg_mem({codeStr}, {regOpStr}, {memOpStr})");
 		}
 
 		static void WriteComma(FileWriter writer) => writer.Write(", ");

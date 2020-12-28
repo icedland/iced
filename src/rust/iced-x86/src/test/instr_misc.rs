@@ -137,12 +137,24 @@ fn write_all_properties() {
 	assert_eq!(u32::MAX, instr.next_ip32());
 	assert_eq!(u64::MAX, instr.next_ip());
 
-	instr.set_memory_displacement(u32::MIN);
-	assert_eq!(u32::MIN, instr.memory_displacement());
+	instr.set_memory_displacement32(u32::MIN);
+	assert_eq!(u32::MIN, instr.memory_displacement32());
+	assert_eq!(u32::MIN as u64, instr.memory_displacement64());
+	instr.set_memory_displacement32(u32::MAX);
+	assert_eq!(u32::MAX, instr.memory_displacement32());
+	assert_eq!(u32::MAX as u64, instr.memory_displacement64());
+
+	instr.set_memory_displacement64(u64::MIN);
+	assert_eq!(u32::MIN, instr.memory_displacement32());
 	assert_eq!(u64::MIN, instr.memory_displacement64());
-	instr.set_memory_displacement(u32::MAX);
-	assert_eq!(u32::MAX, instr.memory_displacement());
+	instr.set_memory_displacement64(u64::MAX);
+	assert_eq!(u32::MAX, instr.memory_displacement32());
 	assert_eq!(u64::MAX, instr.memory_displacement64());
+
+	instr.set_memory_displacement64(0x1234_5678_9ABC_DEF1);
+	instr.set_memory_displacement32(0x5AA5_4321);
+	assert_eq!(0x5AA5_4321, instr.memory_displacement32());
+	assert_eq!(0x5AA5_4321, instr.memory_displacement64());
 
 	instr.set_immediate8(u8::MIN);
 	assert_eq!(u8::MIN, instr.immediate8());
@@ -188,11 +200,6 @@ fn write_all_properties() {
 	assert_eq!(i32::MIN as i64, instr.immediate32to64());
 	instr.set_immediate32to64(i32::MAX as i64);
 	assert_eq!(i32::MAX as i64, instr.immediate32to64());
-
-	instr.set_memory_address64(u64::MIN);
-	assert_eq!(u64::MIN, instr.memory_address64());
-	instr.set_memory_address64(u64::MAX);
-	assert_eq!(u64::MAX, instr.memory_address64());
 
 	instr.set_op0_kind(OpKind::NearBranch16);
 	instr.set_near_branch16(u16::MIN);
@@ -594,15 +601,15 @@ fn write_all_properties() {
 
 	instr.set_memory_base(Register::EIP);
 	instr.set_next_ip(0x1234_5670_9EDC_BA98);
-	instr.set_memory_displacement(0x8765_4321);
+	instr.set_memory_displacement64(0x8765_4321_9ABC_DEF5);
 	assert!(instr.is_ip_rel_memory_operand());
-	assert_eq!(0x2641_FDB9, instr.ip_rel_memory_address());
+	assert_eq!(0x9ABC_DEF5, instr.ip_rel_memory_address());
 
 	instr.set_memory_base(Register::RIP);
 	instr.set_next_ip(0x1234_5670_9EDC_BA98);
-	instr.set_memory_displacement(0x8765_4321);
+	instr.set_memory_displacement64(0x8765_4321_9ABC_DEF5);
 	assert!(instr.is_ip_rel_memory_operand());
-	assert_eq!(0x1234_5670_2641_FDB9, instr.ip_rel_memory_address());
+	assert_eq!(0x8765_4321_9ABC_DEF5, instr.ip_rel_memory_address());
 
 	instr.set_declare_data_len(1);
 	assert_eq!(1, instr.declare_data_len());

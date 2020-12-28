@@ -83,8 +83,7 @@ namespace Iced.Intel {
 		}
 		// GENERATOR-END: CodeFlags
 
-		// All fields, size: 32 bytes with bits to spare
-		internal const int TOTAL_SIZE = 32;
+		internal const int TOTAL_SIZE = 40;
 		// Next RIP is only needed by RIP relative memory operands. Without this field the user would have
 		// to pass this value to the formatter and encoder methods.
 		ulong nextRip;
@@ -94,13 +93,12 @@ namespace Iced.Intel {
 		uint immediate;
 		// This is the high 32 bits if it's a 64-bit immediate/offset/target
 		uint memDispl;
+		uint memDisplHi;
 		ushort memoryFlags;// MemoryFlags
 		byte memBaseReg;// Register
 		byte memIndexReg;// Register
-		// If a Register will need 9 bits in the future, it's probably best to turn this into a
-		// uint (and move it below the other uint fields above). The remaining 4 bits of 'reg3'
-		// can be stored in some other field (it's rarely used)
 		byte reg0, reg1, reg2, reg3;// Register
+		byte res0, res1, res2, res3;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -123,6 +121,7 @@ namespace Iced.Intel {
 			((a.opKindFlags ^ b.opKindFlags) & ~(uint)OpKindFlags.EqualsIgnoreMask) == 0 &&
 			a.immediate == b.immediate &&
 			a.memDispl == b.memDispl &&
+			a.memDisplHi == b.memDisplHi &&
 			a.memoryFlags == b.memoryFlags &&
 			a.memBaseReg == b.memBaseReg &&
 			a.memIndexReg == b.memIndexReg &&
@@ -140,6 +139,7 @@ namespace Iced.Intel {
 			c ^= opKindFlags & ~(uint)OpKindFlags.EqualsIgnoreMask;
 			c ^= immediate;
 			c ^= memDispl;
+			c ^= memDisplHi;
 			c ^= memoryFlags;
 			c ^= (uint)memBaseReg << 16;
 			c ^= (uint)memIndexReg << 24;
@@ -168,6 +168,7 @@ namespace Iced.Intel {
 			a.opKindFlags == b.opKindFlags &&
 			a.immediate == b.immediate &&
 			a.memDispl == b.memDispl &&
+			a.memDisplHi == b.memDisplHi &&
 			a.memoryFlags == b.memoryFlags &&
 			a.memBaseReg == b.memBaseReg &&
 			a.memIndexReg == b.memIndexReg &&
@@ -567,7 +568,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Gets the segment override prefix or <see cref="Register.None"/> if none. See also <see cref="MemorySegment"/>.
-		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>, <see cref="OpKind.Memory64"/>,
+		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>,
 		/// <see cref="OpKind.MemorySegSI"/>, <see cref="OpKind.MemorySegESI"/>, <see cref="OpKind.MemorySegRSI"/>
 		/// </summary>
 		public Register SegmentPrefix {
@@ -588,7 +589,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Gets the effective segment register used to reference the memory location.
-		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>, <see cref="OpKind.Memory64"/>,
+		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>,
 		/// <see cref="OpKind.MemorySegSI"/>, <see cref="OpKind.MemorySegESI"/>, <see cref="OpKind.MemorySegRSI"/>
 		/// </summary>
 		public readonly Register MemorySegment {
@@ -605,7 +606,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Gets the size of the memory displacement in bytes. Valid values are <c>0</c>, <c>1</c> (16/32/64-bit), <c>2</c> (16-bit), <c>4</c> (32-bit), <c>8</c> (64-bit).
-		/// Note that the return value can be 1 and <see cref="MemoryDisplacement"/> may still not fit in
+		/// Note that the return value can be 1 and <see cref="MemoryDisplacement64"/> may still not fit in
 		/// a signed byte if it's an EVEX encoded instruction.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
@@ -654,7 +655,7 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Gets the size of the memory location that is referenced by the operand. See also <see cref="IsBroadcast"/>.
-		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>, <see cref="OpKind.Memory64"/>,
+		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>,
 		/// <see cref="OpKind.MemorySegSI"/>, <see cref="OpKind.MemorySegESI"/>, <see cref="OpKind.MemorySegRSI"/>,
 		/// <see cref="OpKind.MemoryESDI"/>, <see cref="OpKind.MemoryESEDI"/>, <see cref="OpKind.MemoryESRDI"/>
 		/// </summary>
@@ -694,19 +695,54 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see <see cref="MemoryDisplacement64"/>).
+		/// Gets the memory operand's displacement or the 32-bit absolute address if it's
+		/// an <c>EIP</c> or <c>RIP</c> relative memory operand.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
+		[System.Obsolete("Use " + nameof(MemoryDisplacement32) + " or " + nameof(MemoryDisplacement64) + " instead", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public uint MemoryDisplacement {
-			readonly get => memDispl;
-			set => memDispl = value;
+			readonly get => MemoryDisplacement32;
+			set => MemoryDisplacement32 = value;
 		}
 
 		/// <summary>
-		/// Gets the memory operand's displacement sign extended to 64 bits.
+		/// Gets the memory operand's displacement or the 32-bit absolute address if it's
+		/// an <c>EIP</c> or <c>RIP</c> relative memory operand.
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
-		public readonly ulong MemoryDisplacement64 => (ulong)(int)memDispl;
+		public uint MemoryDisplacement32 {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			readonly get => memDispl;
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set {
+				memDispl = value;
+				memDisplHi = 0;
+			}
+		}
+
+		/// <summary>
+		/// Gets the memory operand's displacement or the 64-bit absolute address if it's
+		/// an <c>EIP</c> or <c>RIP</c> relative memory operand.
+		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
+		/// </summary>
+		public ulong MemoryDisplacement64 {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			readonly get => (ulong)memDispl | ((ulong)memDisplHi << 32);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set {
+				memDispl = (uint)value;
+				memDisplHi = (uint)(value >> 32);
+			}
+		}
+		internal uint InternalMemoryDisplacement64_lo {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set => memDispl = value;
+		}
+		internal uint InternalMemoryDisplacement64_hi {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			set => memDisplHi = value;
+		}
 
 		/// <summary>
 		/// Gets an operand's immediate value
@@ -875,23 +911,16 @@ namespace Iced.Intel {
 			set => immediate = (uint)value;
 		}
 
+#pragma warning disable CS0618 // Type or member is obsolete
 		/// <summary>
-		/// Gets the operand's 64-bit address value. Use this property if the operand has kind <see cref="OpKind.Memory64"/>
+		/// <see cref="OpKind.Memory64"/> is deprecated, this method does nothing now.
 		/// </summary>
+		[System.Obsolete(nameof(OpKind) + "." + nameof(OpKind.Memory64) + " is deprecated, this property does nothing now. Use " + nameof(MemoryDisplacement64) + " instead.", true)]
+#pragma warning restore CS0618 // Type or member is obsolete
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public ulong MemoryAddress64 {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			readonly get => ((ulong)memDispl << 32) | immediate;
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set {
-				immediate = (uint)value;
-				memDispl = (uint)(value >> 32);
-			}
-		}
-		internal uint InternalMemoryAddress64_lo {
-			set => immediate = value;
-		}
-		internal uint InternalMemoryAddress64_hi {
-			set => memDispl = value;
+			readonly get => 0;
+			set { }
 		}
 
 		/// <summary>
@@ -1613,17 +1642,11 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the RIP/EIP releative address ((<see cref="NextIP"/> or <see cref="NextIP32"/>) + <see cref="MemoryDisplacement"/>).
-		/// This property is only valid if there's a memory operand with RIP/EIP relative addressing, see <see cref="IsIPRelativeMemoryOperand"/>
+		/// Gets the <c>RIP</c>/<c>EIP</c> releative address (<see cref="MemoryDisplacement32"/> or <see cref="MemoryDisplacement64"/>).
+		/// This property is only valid if there's a memory operand with <c>RIP</c>/<c>EIP</c> relative addressing, see <see cref="IsIPRelativeMemoryOperand"/>
 		/// </summary>
-		public readonly ulong IPRelativeMemoryAddress {
-			get {
-				ulong result = NextIP + (ulong)(int)MemoryDisplacement;
-				if (MemoryBase == Register.EIP)
-					result = (uint)result;
-				return result;
-			}
-		}
+		public readonly ulong IPRelativeMemoryAddress =>
+			MemoryBase == Register.EIP ? MemoryDisplacement32 : MemoryDisplacement64;
 
 #if ENCODER && OPCODE_INFO
 		/// <summary>

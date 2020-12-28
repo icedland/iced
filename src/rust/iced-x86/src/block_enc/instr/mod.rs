@@ -323,13 +323,15 @@ impl InstrUtils {
 			64 => {
 				instr.set_code(if is_call { Code::Call_rm64 } else { Code::Jmp_rm64 });
 				instr.set_memory_base(Register::RIP);
+
+				let target_addr = pointer_data.borrow().address()?;
 				let next_rip = ip.wrapping_add(Self::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64 as u64);
-				instr.set_next_ip(next_rip);
-				let diff = pointer_data.borrow().address()?.wrapping_sub(next_rip) as i64;
-				instr.set_memory_displacement(diff as u32);
+				let diff = target_addr.wrapping_sub(next_rip) as i64;
 				if !(i32::MIN as i64 <= diff && diff <= i32::MAX as i64) {
 					return Err(IcedError::new("Block is too big"));
 				}
+
+				instr.set_memory_displacement64(target_addr);
 				reloc_kind = RelocKind::Offset64;
 			}
 

@@ -664,7 +664,6 @@ namespace Generator.Assembler.CSharp {
 				return false;
 			}
 
-			bool isMoffs = IsMoffs(def);
 			var assemblerArgs = new List<string>();
 			var instructionCreateArgs = new List<string>();
 			int forceBitness = 0;
@@ -714,7 +713,7 @@ namespace Generator.Assembler.CSharp {
 					argValueForInstructionCreate += ".k1";
 				}
 
-				if (renderArg.Kind == ArgKind.Memory && (!isMoffs || bitness != 64))
+				if (renderArg.Kind == ArgKind.Memory)
 					argValueForInstructionCreate += ".ToMemoryOperand(Bitness)";
 
 				// Perform casting for unsigned
@@ -771,10 +770,6 @@ namespace Generator.Assembler.CSharp {
 				beginInstruction = $"ApplyK1({beginInstruction}";
 				endInstruction = "))";
 			}
-
-			// Special case for moffs
-			if (isMoffs && bitness == 64)
-				beginInstruction = $"CreateMemory64(Code.{def.Code.Name(idConverter)}";
 
 			var assemblerArgsStr = string.Join(", ", assemblerArgs);
 			var instructionCreateArgsStr = instructionCreateArgs.Count > 0 ? $", {string.Join(", ", instructionCreateArgs)}" : string.Empty;
@@ -934,7 +929,7 @@ namespace Generator.Assembler.CSharp {
 				var selector = node.Selector;
 				Debug.Assert(selector is not null);
 				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind, selector.ArgIndex);
-				if (selector.IsConditionInlineable && !IsMemOffs64Selector(selector.Kind)) {
+				if (selector.IsConditionInlineable) {
 					writer.Write($"op = {condition} ? ");
 					GenerateOpCodeSelector(writer, group, false, selector.IfTrue, args);
 					writer.Write(" : ");
@@ -943,18 +938,8 @@ namespace Generator.Assembler.CSharp {
 				}
 				else {
 					writer.WriteLine($"if ({condition}) {{");
-					using (writer.Indent()) {
+					using (writer.Indent())
 						GenerateOpCodeSelector(writer, group, true, selector.IfTrue, args);
-
-						if (IsMemOffs64Selector(selector.Kind)) {
-							var argIndex = selector.ArgIndex;
-							if (argIndex == 1)
-								writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, {args[0].Name}, (ulong){args[1].Name}.Displacement, {args[1].Name}.Prefix));");
-							else
-								writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, (ulong){args[0].Name}.Displacement, {args[1].Name}, {args[0].Name}.Prefix));");
-							writer.WriteLine("return;");
-						}
-					}
 
 					writer.Write("} else ");
 					if (!selector.IfFalse.IsEmpty)

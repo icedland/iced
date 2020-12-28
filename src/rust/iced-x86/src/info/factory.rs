@@ -353,25 +353,8 @@ impl InstructionInfoFactory {
 					}
 				}
 
-				OpKind::Memory64 => {
-					if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-						Self::add_memory(
-							info,
-							instruction.memory_segment(),
-							Register::None,
-							Register::None,
-							1,
-							instruction.memory_address64(),
-							instruction.memory_size(),
-							access,
-							CodeSize::Code64,
-							0,
-						);
-					}
-					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-						Self::add_memory_segment_register(flags, info, instruction.memory_segment(), OpAccess::Read);
-					}
-				}
+				#[allow(deprecated)]
+				OpKind::Memory64 => {}
 
 				OpKind::Memory => {
 					const_assert_eq!(1 << 31, InfoFlags1::IGNORES_SEGMENT);
@@ -386,7 +369,7 @@ impl InstructionInfoFactory {
 								Register::None,
 								Register::None,
 								1,
-								instruction.next_ip().wrapping_add(instruction.memory_displacement64()),
+								instruction.memory_displacement64(),
 								instruction.memory_size(),
 								access,
 								CodeSize::Code64,
@@ -404,7 +387,7 @@ impl InstructionInfoFactory {
 								Register::None,
 								Register::None,
 								1,
-								instruction.next_ip32().wrapping_add(instruction.memory_displacement()) as u64,
+								instruction.memory_displacement32() as u64,
 								instruction.memory_size(),
 								access,
 								CodeSize::Code32,
@@ -451,7 +434,7 @@ impl InstructionInfoFactory {
 								0
 							};
 							let displ =
-								if addr_size_bytes == 8 { instruction.memory_displacement64() } else { instruction.memory_displacement() as u64 };
+								if addr_size_bytes == 8 { instruction.memory_displacement64() } else { instruction.memory_displacement32() as u64 };
 							Self::add_memory(
 								info,
 								segment_register,

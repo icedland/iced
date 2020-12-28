@@ -33,11 +33,13 @@ namespace Generator.Encoder.CSharp {
 	sealed class CSharpInstrCreateGen : InstrCreateGen {
 		readonly IdentifierConverter idConverter;
 		readonly CSharpDocCommentWriter docWriter;
+		readonly CSharpDeprecatedWriter deprecatedWriter;
 
 		public CSharpInstrCreateGen(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
+			deprecatedWriter = new CSharpDeprecatedWriter(idConverter);
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
@@ -200,13 +202,7 @@ namespace Generator.Encoder.CSharp {
 
 					case MethodArgType.Memory:
 						writer.WriteLine($"instruction.InternalOp{op}Kind = {opKindStr}.{memoryStr};");
-						writer.WriteLine($"instruction.InternalMemoryBase = {idConverter.Argument(arg.Name)}.Base;");
-						writer.WriteLine($"instruction.InternalMemoryIndex = {idConverter.Argument(arg.Name)}.Index;");
-						writer.WriteLine($"instruction.MemoryIndexScale = {idConverter.Argument(arg.Name)}.Scale;");
-						writer.WriteLine($"instruction.MemoryDisplSize = {idConverter.Argument(arg.Name)}.DisplSize;");
-						writer.WriteLine($"instruction.MemoryDisplacement = (uint){idConverter.Argument(arg.Name)}.Displacement;");
-						writer.WriteLine($"instruction.IsBroadcast = {idConverter.Argument(arg.Name)}.IsBroadcast;");
-						writer.WriteLine($"instruction.SegmentPrefix = {idConverter.Argument(arg.Name)}.SegmentPrefix;");
+						writer.WriteLine($"InitMemoryOperand(ref instruction, {idConverter.Argument(arg.Name)});");
 						break;
 
 					case MethodArgType.Int32:
@@ -326,6 +322,7 @@ namespace Generator.Encoder.CSharp {
 			writer.WriteLine("}");
 		}
 
+		protected override bool CallGenCreateMemory64 => true;
 		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 4)
 				throw new InvalidOperationException();
@@ -341,27 +338,23 @@ namespace Generator.Encoder.CSharp {
 			}
 
 			WriteDocs(writer, method);
+			deprecatedWriter.WriteDeprecated(writer, "Create() with a MemoryOperand arg", false, false);
 			writer.Write("public static Instruction CreateMemory64(");
 			WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") {");
 			using (writer.Indent()) {
-				WriteInitializeInstruction(writer, method);
-				writer.WriteLine();
+				var regNone = genTypes[TypeIds.Register][nameof(Register.None)];
+				var regStr = $"{regNone.DeclaringType.Name(idConverter)}.{regNone.Name(idConverter)}";
+				var addrStr = idConverter.Argument(method.Args[1 + memOp].Name);
+				var segPrefStr = idConverter.Argument(method.Args[3].Name);
+				var memOpStr = $"new MemoryOperand({regStr}, (long){addrStr}, 8, false, {segPrefStr})";
+				var regOpStr = idConverter.Argument(method.Args[1 + regOp].Name);
+				var codeStr = idConverter.Argument(method.Args[0].Name);
 
-				var mem64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Memory64)].Name(idConverter);
-				writer.WriteLine($"instruction.InternalOp{memOp}Kind = {genTypes[TypeIds.OpKind].Name(idConverter)}.{mem64Str};");
-				writer.WriteLine($"instruction.MemoryAddress64 = {idConverter.Argument(method.Args[1 + memOp].Name)};");
-				writer.WriteLine("instruction.InternalSetMemoryDisplSize(4);");
-				writer.WriteLine($"instruction.SegmentPrefix = {idConverter.Argument(method.Args[3].Name)};");
-
-				writer.WriteLine();
-				var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
-				var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
-				writer.WriteLine($"Static.Assert({opKindStr}.{registerStr} == 0 ? 0 : -1);");
-				writer.WriteLine($"//instruction.InternalOp{regOp}Kind = {opKindStr}.{registerStr};");
-				writer.WriteLine($"instruction.InternalOp{regOp}Register = {idConverter.Argument(method.Args[1 + regOp].Name)};");
-
-				WriteMethodFooter(writer, 2);
+				if (memOp == 0)
+					writer.WriteLine($"return Create({codeStr}, {memOpStr}, {regOpStr});");
+				else
+					writer.WriteLine($"return Create({codeStr}, {regOpStr}, {memOpStr});");
 			}
 			writer.WriteLine("}");
 		}

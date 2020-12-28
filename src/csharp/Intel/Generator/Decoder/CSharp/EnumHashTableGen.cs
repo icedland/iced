@@ -75,11 +75,11 @@ namespace Generator.Decoder.CSharp {
 
 		void WriteHash(FileWriter writer, bool lowerCase, EnumType enumType) {
 			var enumStr = enumType.Name(idConverter);
-			var enumValues = enumType.Values.Where(a => !a.DeprecatedInfo.IsDeprecated).ToArray();
+			var enumValues = enumType.Values.Where(a => !a.DeprecatedInfo.IsDeprecatedAndRenamed).ToArray();
 			writer.WriteLine($"new Dictionary<string, {enumStr}>({enumValues.Length}, StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
 				foreach (var value in enumValues) {
-					if (value.DeprecatedInfo.IsDeprecated)
+					if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
 						continue;
 					var name = value.Name(idConverter);
 					var key = value.RawName;

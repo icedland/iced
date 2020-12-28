@@ -74,14 +74,14 @@ namespace Generator.Decoder.Rust {
 		}
 
 		void WriteHash(FileWriter writer, bool lowerCase, EnumType enumType) {
-			var enumValues = enumType.Values.Where(a => !a.DeprecatedInfo.IsDeprecated).ToArray();
+			var enumValues = enumType.Values.Where(a => !a.DeprecatedInfo.IsDeprecatedAndRenamed).ToArray();
 			if (enumValues.Length == 0)
 				writer.WriteLine($"let h = HashMap::new();");
 			else
 				writer.WriteLine($"let mut h = HashMap::with_capacity({enumValues.Length});");
 			var enumStr = enumType.Name(idConverter);
 			foreach (var value in enumValues) {
-				if (value.DeprecatedInfo.IsDeprecated)
+				if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
 					continue;
 				string name;
 				if (enumType.IsFlags)

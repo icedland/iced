@@ -211,30 +211,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			return label;
 		}
 
-		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister8 src) =>
-			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-
-		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister16 src) =>
-			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-
-		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister32 src) =>
-			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-
-		protected static Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister64 src) =>
-			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-
-		protected static Instruction CreateMemory64(Code code, AssemblerRegister8 dst, AssemblerMemoryOperand src) =>
-			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-
-		protected static Instruction CreateMemory64(Code code, AssemblerRegister16 dst, AssemblerMemoryOperand src) =>
-			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-
-		protected static Instruction CreateMemory64(Code code, AssemblerRegister32 dst, AssemblerMemoryOperand src) =>
-			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-
-		protected static Instruction CreateMemory64(Code code, AssemblerRegister64 dst, AssemblerMemoryOperand src) =>
-			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-
 		protected static Instruction AssignLabel(Instruction instruction, ulong value) {
 			instruction.IP = value;
 			return instruction;

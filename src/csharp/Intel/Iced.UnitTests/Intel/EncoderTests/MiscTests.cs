@@ -444,11 +444,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Verify_MemoryOperand_ctors() {
 			{
-				var op = new MemoryOperand(Register.RCX, Register.RSI, 4, 0x12345678, 8, true, Register.FS);
+				var op = new MemoryOperand(Register.RCX, Register.RSI, 4, -0x1234_5678_9ABC_DEF1, 8, true, Register.FS);
 				Assert.Equal(Register.RCX, op.Base);
 				Assert.Equal(Register.RSI, op.Index);
 				Assert.Equal(4, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(8, op.DisplSize);
 				Assert.True(op.IsBroadcast);
 				Assert.Equal(Register.FS, op.SegmentPrefix);
@@ -464,41 +464,41 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.Equal(Register.FS, op.SegmentPrefix);
 			}
 			{
-				var op = new MemoryOperand(Register.RCX, 0x12345678, 8, true, Register.FS);
+				var op = new MemoryOperand(Register.RCX, -0x1234_5678_9ABC_DEF1, 8, true, Register.FS);
 				Assert.Equal(Register.RCX, op.Base);
 				Assert.Equal(Register.None, op.Index);
 				Assert.Equal(1, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(8, op.DisplSize);
 				Assert.True(op.IsBroadcast);
 				Assert.Equal(Register.FS, op.SegmentPrefix);
 			}
 			{
-				var op = new MemoryOperand(Register.RSI, 4, 0x12345678, 8, true, Register.FS);
+				var op = new MemoryOperand(Register.RSI, 4, -0x1234_5678_9ABC_DEF1, 8, true, Register.FS);
 				Assert.Equal(Register.None, op.Base);
 				Assert.Equal(Register.RSI, op.Index);
 				Assert.Equal(4, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(8, op.DisplSize);
 				Assert.True(op.IsBroadcast);
 				Assert.Equal(Register.FS, op.SegmentPrefix);
 			}
 			{
-				var op = new MemoryOperand(Register.RCX, 0x12345678, true, Register.FS);
+				var op = new MemoryOperand(Register.RCX, -0x1234_5678_9ABC_DEF1, true, Register.FS);
 				Assert.Equal(Register.RCX, op.Base);
 				Assert.Equal(Register.None, op.Index);
 				Assert.Equal(1, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(1, op.DisplSize);
 				Assert.True(op.IsBroadcast);
 				Assert.Equal(Register.FS, op.SegmentPrefix);
 			}
 			{
-				var op = new MemoryOperand(Register.RCX, Register.RSI, 4, 0x12345678, 8);
+				var op = new MemoryOperand(Register.RCX, Register.RSI, 4, -0x1234_5678_9ABC_DEF1, 8);
 				Assert.Equal(Register.RCX, op.Base);
 				Assert.Equal(Register.RSI, op.Index);
 				Assert.Equal(4, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(8, op.DisplSize);
 				Assert.False(op.IsBroadcast);
 				Assert.Equal(Register.None, op.SegmentPrefix);
@@ -524,31 +524,31 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.Equal(Register.None, op.SegmentPrefix);
 			}
 			{
-				var op = new MemoryOperand(Register.RCX, 0x12345678, 8);
+				var op = new MemoryOperand(Register.RCX, -0x1234_5678_9ABC_DEF1, 8);
 				Assert.Equal(Register.RCX, op.Base);
 				Assert.Equal(Register.None, op.Index);
 				Assert.Equal(1, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(8, op.DisplSize);
 				Assert.False(op.IsBroadcast);
 				Assert.Equal(Register.None, op.SegmentPrefix);
 			}
 			{
-				var op = new MemoryOperand(Register.RSI, 4, 0x12345678, 8);
+				var op = new MemoryOperand(Register.RSI, 4, -0x1234_5678_9ABC_DEF1, 8);
 				Assert.Equal(Register.None, op.Base);
 				Assert.Equal(Register.RSI, op.Index);
 				Assert.Equal(4, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(8, op.DisplSize);
 				Assert.False(op.IsBroadcast);
 				Assert.Equal(Register.None, op.SegmentPrefix);
 			}
 			{
-				var op = new MemoryOperand(Register.RCX, 0x12345678);
+				var op = new MemoryOperand(Register.RCX, -0x1234_5678_9ABC_DEF1);
 				Assert.Equal(Register.RCX, op.Base);
 				Assert.Equal(Register.None, op.Index);
 				Assert.Equal(1, op.Scale);
-				Assert.Equal(0x12345678, op.Displacement);
+				Assert.Equal(-0x1234_5678_9ABC_DEF1, op.Displacement);
 				Assert.Equal(1, op.DisplSize);
 				Assert.False(op.IsBroadcast);
 				Assert.Equal(Register.None, op.SegmentPrefix);

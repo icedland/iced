@@ -36,7 +36,7 @@ pub(crate) struct DecoderMemoryTestCase {
 	pub(crate) base_register: Register,
 	pub(crate) index_register: Register,
 	pub(crate) scale: u32,
-	pub(crate) displacement: u32,
+	pub(crate) displacement: u64,
 	pub(crate) displ_size: u32,
 	pub(crate) constant_offsets: ConstantOffsets,
 	pub(crate) encoded_hex_bytes: String,

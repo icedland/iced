@@ -2508,7 +2508,7 @@ class Instruction:
 
 		See also `Instruction.memory_segment`.
 
-		Use this method if the operand has kind `OpKind.MEMORY`, `OpKind.MEMORY64`,
+		Use this method if the operand has kind `OpKind.MEMORY`,
 		`OpKind.MEMORY_SEG_SI`, `OpKind.MEMORY_SEG_ESI`, `OpKind.MEMORY_SEG_RSI`
 		"""
 		...
@@ -2519,7 +2519,7 @@ class Instruction:
 		"""
 		`Register`: Gets the effective segment register used to reference the memory location (a `Register` enum value).
 
-		Use this method if the operand has kind `OpKind.MEMORY`, `OpKind.MEMORY64`,
+		Use this method if the operand has kind `OpKind.MEMORY`,
 		`OpKind.MEMORY_SEG_SI`, `OpKind.MEMORY_SEG_ESI`, `OpKind.MEMORY_SEG_RSI`
 		"""
 		...
@@ -2551,7 +2551,7 @@ class Instruction:
 
 		See also `Instruction.is_broadcast`.
 
-		Use this method if the operand has kind `OpKind.MEMORY`, `OpKind.MEMORY64`,
+		Use this method if the operand has kind `OpKind.MEMORY`,
 		`OpKind.MEMORY_SEG_SI`, `OpKind.MEMORY_SEG_ESI`, `OpKind.MEMORY_SEG_RSI`,
 		`OpKind.MEMORY_ESDI`, `OpKind.MEMORY_ESEDI`, `OpKind.MEMORY_ESRDI`
 		"""
@@ -2569,23 +2569,14 @@ class Instruction:
 	@property
 	def memory_displacement(self) -> int:
 		"""
-		int: (`u32`) Gets the memory operand's displacement.
-
-		This should be sign extended to 64 bits if it's 64-bit addressing (see `Instruction.memory_displacement64`).
+		int: (`u64`) Gets the memory operand's displacement or the 64-bit absolute address if it's
+		an `EIP` or `RIP` relative memory operand.
 
 		Use this method if the operand has kind `OpKind.MEMORY`
 		"""
 		...
 	@memory_displacement.setter
 	def memory_displacement(self, new_value: int) -> None: ...
-	@property
-	def memory_displacement64(self) -> int:
-		"""
-		int: (`u64`) Gets the memory operand's displacement sign extended to 64 bits.
-
-		Use this method if the operand has kind `OpKind.MEMORY`
-		"""
-		...
 	def immediate(self, operand: int) -> int:
 		"""
 		Gets an operand's immediate value
@@ -2749,16 +2740,6 @@ class Instruction:
 		...
 	@immediate32to64.setter
 	def immediate32to64(self, new_value: int) -> None: ...
-	@property
-	def memory_address64(self) -> int:
-		"""
-		int: (`u64`) Gets the operand's 64-bit address value.
-
-		Use this method if the operand has kind `OpKind.MEMORY64`
-		"""
-		...
-	@memory_address64.setter
-	def memory_address64(self, new_value: int) -> None: ...
 	@property
 	def near_branch16(self) -> int:
 		"""
@@ -3315,7 +3296,7 @@ class Instruction:
 	@property
 	def ip_rel_memory_address(self) -> int:
 		"""
-		int: (`u64`) Gets the `RIP`/`EIP` releative address ((`Instruction.next_ip` or `Instruction.next_ip32`) + `Instruction.memory_displacement`).
+		int: (`u64`) Gets the `RIP`/`EIP` releative address (`Instruction.memory_displacement`).
 
 		This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see `Instruction.is_ip_rel_memory_operand`
 		"""
@@ -4827,40 +4808,6 @@ class Instruction:
 		### Raises:
 
 		- ValueError: If `bitness` is not one of 16, 32, 64.
-		"""
-		...
-	@staticmethod
-	def create_reg_mem64(code: Code, register: Register, address: int, segment_prefix: Register = Register.NONE) -> Instruction:
-		"""
-		Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
-
-		### Args:
-
-		- `code` (`Code`): Code value
-		- `register` (`Register`): Register (`AL`, `AX`, `EAX`, `RAX`)
-		- `address` (int): (`u64`) 64-bit address
-		- `segment_prefix` (`Register`): Segment override or `Register.NONE`
-
-		### Returns:
-
-		- `Instruction`: Created instruction
-		"""
-		...
-	@staticmethod
-	def create_mem64_reg(code: Code, address: int, register: Register, segment_prefix: Register = Register.NONE) -> Instruction:
-		"""
-		Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
-
-		### Args:
-
-		- `code` (`Code`): Code value
-		- `address` (int): (`u64`) 64-bit address
-		- `register` (`Register`): Register (`AL`, `AX`, `EAX`, `RAX`)
-		- `segment_prefix` (`Register`): Segment override or `Register.NONE`
-
-		### Returns:
-
-		- `Instruction`: Created instruction
 		"""
 		...
 	@staticmethod

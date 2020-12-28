@@ -798,7 +798,7 @@ while (decoder.canDecode) {
         console.log("    RFLAGS Modified: %s", rflagsBitsToString(instr.rflagsModified));
     for (let i = 0; i < instr.opCount; i++) {
         const opKind = instr.opKind(i);
-        if (opKind === OpKind.Memory || opKind === OpKind.Memory64) {
+        if (opKind === OpKind.Memory) {
             const size = MemorySizeExt.size(instr.memorySize);
             if (size !== 0)
                 console.log("    Memory size: %d", size);

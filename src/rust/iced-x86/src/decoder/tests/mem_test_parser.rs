@@ -119,7 +119,7 @@ impl IntoIter {
 		let base_register = to_register(parts[5].trim())?;
 		let index_register = to_register(parts[6].trim())?;
 		let scale = to_u32(parts[7].trim())?;
-		let displacement = to_u32(parts[8].trim())?;
+		let displacement = to_u64(parts[8].trim())?;
 		let displ_size = to_u32(parts[9].trim())?;
 		let constant_offsets = super::test_parser::parse_constant_offsets(parts[10].trim())?;
 		let encoded_hex_bytes = if parts.len() == 11 { hex_bytes } else { parts[11].trim() };

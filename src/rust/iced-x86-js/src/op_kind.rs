@@ -148,21 +148,21 @@ pub enum OpKind {
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	MemoryESRDI = 23,
-	/// 64-bit offset `[xxxxxxxxxxxxxxxx]`. This operand kind uses [`Instruction.memoryAddress64`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`], [`Instruction.memorySize`]
+	/// DEPRECATED. Use [`Memory`]
 	///
-	/// [`Instruction.memoryAddress64`]: struct.Instruction.html#method.memoryAddress64
-	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
-	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
+	/// [`Memory`]: enum.OpKind.html#variant.Memory
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.11.0: Don't use it!
 	Memory64 = 24,
 	/// Memory operand.
 	///
-	/// This operand kind uses [`Instruction.memoryDisplSize`], [`Instruction.memorySize`], [`Instruction.memoryIndexScale`], [`Instruction.memoryDisplacement`], [`Instruction.memoryBase`], [`Instruction.memoryIndex`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
+	/// This operand kind uses [`Instruction.memoryDisplSize`], [`Instruction.memorySize`], [`Instruction.memoryIndexScale`], [`Instruction.memoryDisplacement64`], [`Instruction.memoryBase`], [`Instruction.memoryIndex`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
 	///
 	/// [`Instruction.memoryDisplSize`]: struct.Instruction.html#method.memoryDisplSize
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	/// [`Instruction.memoryIndexScale`]: struct.Instruction.html#method.memoryIndexScale
-	/// [`Instruction.memoryDisplacement`]: struct.Instruction.html#method.memoryDisplacement
+	/// [`Instruction.memoryDisplacement64`]: struct.Instruction.html#method.memoryDisplacement64
 	/// [`Instruction.memoryBase`]: struct.Instruction.html#method.memoryBase
 	/// [`Instruction.memoryIndex`]: struct.Instruction.html#method.memoryIndex
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment

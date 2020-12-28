@@ -1560,7 +1560,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 				// Mov_AL_moffs8
 				0x15,// movabs
 				0x00,// 0 = "mov"
-				0x01,// 0x1
 
 				// Mov_AX_moffs16
 				0x00,// Previous
@@ -1572,9 +1571,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Mov_moffs8_AL
-				0x15,// movabs
-				0x00,// 0 = "mov"
-				0x00,// 0x0
+				0x00,// Previous
 
 				// Mov_moffs16_AX
 				0x00,// Previous

@@ -146,10 +146,9 @@ namespace Iced.Intel.GasFormatterInternal {
 				case CtorKind.movabs:
 					ca[0] = (char)reader.ReadByte();
 					s2 = AddSuffix(s, ca);
-					v = reader.ReadCompressedUInt32();
 					s3 = strings[reader.ReadCompressedUInt32()];
 					s4 = AddSuffix(s3, ca);
-					instrInfo = new SimpleInstrInfo_movabs((int)v, s, s2, s3, s4);
+					instrInfo = new SimpleInstrInfo_movabs(s, s2, s3, s4);
 					break;
 
 				case CtorKind.nop:

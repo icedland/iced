@@ -246,14 +246,15 @@ namespace Iced.Intel.BlockEncoderInternal {
 			case 64:
 				instr.InternalSetCodeNoCheck(isCall ? Code.Call_rm64 : Code.Jmp_rm64);
 				instr.MemoryBase = Register.RIP;
+
 				var nextRip = ip + CallOrJmpPointerDataInstructionSize64;
-				instr.NextIP = nextRip;
 				long diff = (long)(pointerData.Address - nextRip);
-				instr.MemoryDisplacement = (uint)diff;
 				if (!(int.MinValue <= diff && diff <= int.MaxValue)) {
 					size = 0;
 					return "Block is too big";
 				}
+
+				instr.MemoryDisplacement64 = pointerData.Address;
 				relocKind = RelocKind.Offset64;
 				break;
 

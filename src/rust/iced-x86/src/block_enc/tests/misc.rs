@@ -203,3 +203,16 @@ fn encode_slice_with_invalid_bitness_fails_0() {
 fn encode_slice_with_invalid_bitness_fails_128() {
 	assert!(BlockEncoder::encode_slice(128, &[InstructionBlock::new(&[Instruction::default()], 0)], BlockEncoderOptions::NONE).is_err());
 }
+
+#[test]
+fn encode_rip_rel_mem_op() {
+	let instr = Instruction::with_reg_mem(
+		Code::Add_r32_rm32,
+		Register::ECX,
+		MemoryOperand::new(Register::RIP, Register::None, 1, 0x1234_5678_9ABC_DEF1, 8, false, Register::None),
+	);
+	let vec_result = BlockEncoder::encode_slice(64, &[InstructionBlock::new(&[instr], 0x1234_5678_ABCD_EF02)], BlockEncoderOptions::NONE).unwrap();
+	assert_eq!(1, vec_result.len());
+	let result = &vec_result[0];
+	assert_eq!(vec![0x03, 0x0D, 0xE9, 0xEF, 0xEE, 0xEE], result.code_buffer);
+}

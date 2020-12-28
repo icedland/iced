@@ -221,8 +221,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					if (instruction.MemoryDisplSize == 8)
 						return 64;
 					break;
-				case OpKind.Memory64:
-					return 64;
 				default:
 					throw new InvalidOperationException();
 				}
@@ -1749,7 +1747,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					tested.V2Bits |= 1U << (((bytes[evexIndex + 3] >> 3) & 1) ^ 1);
 					if ((bytes[evexIndex + 5] >> 6) != 3) {
 						tested.RegMem = true;
-						if (instruction.MemoryDisplSize == 1 && instruction.MemoryDisplacement != 0)
+						if (instruction.MemoryDisplSize == 1 && instruction.MemoryDisplacement64 != 0)
 							tested.MemDisp8 = true;
 					}
 					else

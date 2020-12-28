@@ -34,22 +34,33 @@ namespace Generator.Documentation.RustJS {
 
 		public override void WriteDeprecated(FileWriter writer, EnumValue value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
-				var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-				WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+				if (value.DeprecatedInfo.NewName is not null) {
+					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+				}
+				else
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null);
 			}
 		}
 
 		public override void WriteDeprecated(FileWriter writer, Constant value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
-				var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-				WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+				if (value.DeprecatedInfo.NewName is not null) {
+					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+				}
+				else
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null);
 			}
 		}
 
-		static void WriteDeprecated(FileWriter writer, string version, string newName) {
+		static void WriteDeprecated(FileWriter writer, string version, string? newName) {
 			writer.WriteLine("///");
 			writer.WriteLine("/// ***************************************************");
-			writer.WriteLine($"/// DEPRECATED since {version}: Use {newName} instead");
+			if (newName is not null)
+				writer.WriteLine($"/// DEPRECATED since {version}: Use {newName} instead");
+			else
+				writer.WriteLine($"/// DEPRECATED since {version}: Don't use it!");
 		}
 	}
 }

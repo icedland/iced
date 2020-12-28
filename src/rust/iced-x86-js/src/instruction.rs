@@ -744,14 +744,13 @@ impl Instruction {
 	}
 
 	/// Gets the segment override prefix (a [`Register`] enum value) or [`Register.None`] if none. See also [`memorySegment`].
-	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// Use this method if the operand has kind [`OpKind.Memory`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`memorySegment`]: #method.memory_segment
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
@@ -763,14 +762,13 @@ impl Instruction {
 	}
 
 	/// Sets the segment override prefix (a [`Register`] enum value) or [`Register.None`] if none. See also [`memorySegment`].
-	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// Use this method if the operand has kind [`OpKind.Memory`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`memorySegment`]: #method.memory_segment
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
@@ -787,12 +785,11 @@ impl Instruction {
 	}
 
 	/// Gets the effective segment register (a [`Register`] enum value) used to reference the memory location.
-	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// Use this method if the operand has kind [`OpKind.Memory`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind.MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
@@ -853,14 +850,13 @@ impl Instruction {
 	}
 
 	/// Gets the size of the memory location (a [`MemorySize`] enum value) that is referenced by the operand. See also [`isBroadcast`].
-	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// Use this method if the operand has kind [`OpKind.Memory`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`],
 	/// [`OpKind.MemoryESDI`], [`OpKind.MemoryESEDI`], [`OpKind.MemoryESRDI`]
 	///
 	/// [`MemorySize`]: enum.MemorySize.html
 	/// [`isBroadcast`]: #method.is_broadcast
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind.MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
@@ -896,21 +892,21 @@ impl Instruction {
 		self.0.set_memory_index_scale(newValue)
 	}
 
-	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memoryDisplacement64`]).
+	/// Gets signed low 32 bits of the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memoryDisplacement64`]: #method.memory_displacement64
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memoryDisplacement")]
-	pub fn memory_displacement(&self) -> u32 {
-		self.0.memory_displacement()
+	pub fn memory_displacement(&self) -> i32 {
+		self.0.memory_displacement64() as i32
 	}
 
-	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memoryDisplacement64`]).
+	/// Gets signed low 32 bits of the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memoryDisplacement64`]: #method.memory_displacement64
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
@@ -919,12 +915,13 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[wasm_bindgen(js_name = "memoryDisplacement")]
 	#[cfg(feature = "encoder")]
-	pub fn set_memory_displacement(&mut self, #[allow(non_snake_case)] newValue: u32) {
-		self.0.set_memory_displacement(newValue)
+	pub fn set_memory_displacement(&mut self, #[allow(non_snake_case)] newValue: i32) {
+		self.0.set_memory_displacement64(newValue as u64)
 	}
 
-	/// Gets the low 32 bits of the memory operand's displacement sign extended to 64 bits.
-	/// Use this method if the operand has kind [`OpKind.Memory`].
+	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
+	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
@@ -936,8 +933,9 @@ impl Instruction {
 		self.0.memory_displacement64() as u32
 	}
 
-	/// Gets the high 32 bits of the memory operand's displacement sign extended to 64 bits.
-	/// Use this method if the operand has kind [`OpKind.Memory`].
+	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
+	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
@@ -949,7 +947,8 @@ impl Instruction {
 		(self.0.memory_displacement64() >> 32) as u32
 	}
 
-	/// Gets the memory operand's displacement sign extended to 64 bits.
+	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
+	/// an `EIP` or `RIP` relative memory operand.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
@@ -1423,91 +1422,6 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	pub fn set_immediate32to64(&mut self, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_immediate32to64(newValue)
-	}
-
-	/// Gets the low 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryAddress64Lo")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn memory_address64_lo(&self) -> u32 {
-		self.0.memory_address64() as u32
-	}
-
-	/// Gets the high 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryAddress64Hi")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn memory_address64_hi(&self) -> u32 {
-		(self.0.memory_address64() >> 32) as u32
-	}
-
-	/// Gets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`]
-	///
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
-	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryAddress64")]
-	#[cfg(feature = "bigint")]
-	pub fn memory_address64(&self) -> u64 {
-		self.0.memory_address64()
-	}
-
-	/// Sets the low 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
-	///
-	/// # Arguments
-	///
-	/// * `lo`: Low 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "memoryAddress64Lo")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_memory_address64_lo(&mut self, lo: u32) {
-		let new_value = (self.0.memory_address64() & !0xFFFF_FFFF) | (lo as u64);
-		self.0.set_memory_address64(new_value);
-	}
-
-	/// Sets the high 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
-	///
-	/// # Arguments
-	///
-	/// * `hi`: High 32 bits
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "memoryAddress64Hi")]
-	#[cfg(feature = "encoder")]
-	#[cfg(not(feature = "bigint"))]
-	pub fn set_memory_address64_hi(&mut self, hi: u32) {
-		let new_value = ((hi as u64) << 32) | (self.0.memory_address64() as u32 as u64);
-		self.0.set_memory_address64(new_value)
-	}
-
-	/// Sets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`]
-	///
-	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
-	///
-	/// # Arguments
-	///
-	/// * `newValue`: New value
-	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "memoryAddress64")]
-	#[cfg(feature = "encoder")]
-	#[cfg(feature = "bigint")]
-	pub fn set_memory_address64(&mut self, #[allow(non_snake_case)] newValue: u64) {
-		self.0.set_memory_address64(newValue)
 	}
 
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch16`]
@@ -2219,14 +2133,13 @@ impl Instruction {
 		self.0.is_ip_rel_memory_operand()
 	}
 
-	/// Gets the low 32 bits of the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
+	/// Gets the low 32 bits of the `RIP`/`EIP` releative address ([`memoryDisplacement`] or [`memoryDisplacement64`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`nextIP`]: #method.next_ip
-	/// [`nextIP32`]: #method.next_ip32
 	/// [`memoryDisplacement`]: #method.memory_displacement
+	/// [`memoryDisplacement64`]: #method.memory_displacement64
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddressLo")]
@@ -2235,14 +2148,13 @@ impl Instruction {
 		self.0.ip_rel_memory_address() as u32
 	}
 
-	/// Gets the high 32 bits of the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
+	/// Gets the high 32 bits of the `RIP`/`EIP` releative address ([`memoryDisplacement`] or [`memoryDisplacement64`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`nextIP`]: #method.next_ip
-	/// [`nextIP32`]: #method.next_ip32
 	/// [`memoryDisplacement`]: #method.memory_displacement
+	/// [`memoryDisplacement64`]: #method.memory_displacement64
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddressHi")]
@@ -2251,12 +2163,11 @@ impl Instruction {
 		(self.0.ip_rel_memory_address() >> 32) as u32
 	}
 
-	/// Gets the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
+	/// Gets the `RIP`/`EIP` releative address ([`memoryDisplacement`] or [`memoryDisplacement64`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`]
 	///
-	/// [`nextIP`]: #method.next_ip
-	/// [`nextIP32`]: #method.next_ip32
 	/// [`memoryDisplacement`]: #method.memory_displacement
+	/// [`memoryDisplacement64`]: #method.memory_displacement64
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddress")]
@@ -4491,90 +4402,6 @@ impl Instruction {
 	pub fn with_xbegin(bitness: u32, #[allow(non_snake_case)] targetHi: u32, #[allow(non_snake_case)] targetLo: u32) -> Result<Instruction, JsValue> {
 		let target = ((targetHi as u64) << 32) | (targetLo as u64);
 		Ok(Self(iced_x86_rust::Instruction::try_with_xbegin(bitness, target).map_err(to_js_error)?))
-	}
-
-	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
-	/// * `address`: 64-bit address
-	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
-	///
-	/// [`Code`]: enum.Code.html
-	/// [`Register`]: enum.Register.html
-	/// [`Register.None`]: enum.Register.html#variant.None
-	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
-	#[wasm_bindgen(js_name = "createRegMem64")]
-	pub fn with_reg_mem64(code: Code, register: Register, address: u64, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
-	}
-
-	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
-	/// * `addressHi`: 64-bit address (high 32 bits)
-	/// * `addressLo`: 64-bit address (low 32 bits)
-	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
-	///
-	/// [`Code`]: enum.Code.html
-	/// [`Register`]: enum.Register.html
-	/// [`Register.None`]: enum.Register.html#variant.None
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createRegMem64")]
-	pub fn with_reg_mem64(code: Code, register: Register, #[allow(non_snake_case)] addressHi: u32, #[allow(non_snake_case)] addressLo: u32, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
-		let address = ((addressHi as u64) << 32) | (addressLo as u64);
-		Self(iced_x86_rust::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
-	}
-
-	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `address`: 64-bit address
-	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
-	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
-	///
-	/// [`Code`]: enum.Code.html
-	/// [`Register`]: enum.Register.html
-	/// [`Register.None`]: enum.Register.html#variant.None
-	#[rustfmt::skip]
-	#[cfg(feature = "bigint")]
-	#[wasm_bindgen(js_name = "createMem64Reg")]
-	pub fn with_mem64_reg(code: Code, address: u64, register: Register, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
-		Self(iced_x86_rust::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
-	}
-
-	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
-	///
-	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
-	///
-	/// # Arguments
-	///
-	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `addressHi`: 64-bit address (high 32 bits)
-	/// * `addressLo`: 64-bit address (low 32 bits)
-	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
-	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
-	///
-	/// [`Code`]: enum.Code.html
-	/// [`Register`]: enum.Register.html
-	/// [`Register.None`]: enum.Register.html#variant.None
-	#[rustfmt::skip]
-	#[cfg(not(feature = "bigint"))]
-	#[wasm_bindgen(js_name = "createMem64Reg")]
-	pub fn with_mem64_reg(code: Code, #[allow(non_snake_case)] addressHi: u32, #[allow(non_snake_case)] addressLo: u32, register: Register, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
-		let address = ((addressHi as u64) << 32) | (addressLo as u64);
-		Self(iced_x86_rust::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates a `OUTSB` instruction

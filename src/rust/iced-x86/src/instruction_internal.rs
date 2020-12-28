@@ -171,7 +171,7 @@ pub(crate) fn internal_set_op3_kind(this: &mut Instruction, new_value: OpKind) {
 	this.op_kind_flags |= (new_value as u32) << OpKindFlags::OP3_KIND_SHIFT;
 }
 
-#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_memory_displ_size(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 4);
@@ -227,16 +227,16 @@ pub(crate) fn internal_set_immediate64_hi(this: &mut Instruction, new_value: u32
 	this.mem_displ = new_value;
 }
 
-#[cfg(feature = "decoder")]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
-pub(crate) fn internal_set_memory_address64_lo(this: &mut Instruction, new_value: u32) {
-	this.immediate = new_value;
+pub(crate) fn internal_set_memory_displacement64_lo(this: &mut Instruction, new_value: u32) {
+	this.mem_displ = new_value;
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
-pub(crate) fn internal_set_memory_address64_hi(this: &mut Instruction, new_value: u32) {
-	this.mem_displ = new_value;
+pub(crate) fn internal_set_memory_displacement64_hi(this: &mut Instruction, new_value: u32) {
+	this.mem_displ_hi = new_value;
 }
 
 #[cfg(feature = "decoder")]

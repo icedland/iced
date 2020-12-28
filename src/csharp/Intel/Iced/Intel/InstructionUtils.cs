@@ -33,13 +33,12 @@ namespace Iced.Intel {
 			if (displSize == 2 || displSize == 4 || displSize == 8)
 				return displSize;
 
-			if (codeSize == CodeSize.Code64)
-				return 8;
-			if (codeSize == CodeSize.Code32)
-				return 4;
-			if (codeSize == CodeSize.Code16)
-				return 2;
-			return 8;
+			return codeSize switch {
+				CodeSize.Code64 => 8,
+				CodeSize.Code32 => 4,
+				CodeSize.Code16 => 2,
+				_ => 8
+			};
 		}
 	}
 }

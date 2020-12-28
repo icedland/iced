@@ -133,7 +133,7 @@ MEMORY_ESRDI: int = 23
 """
 MEMORY64: int = 24
 """
-64-bit offset ``[xxxxxxxxxxxxxxxx]``. This operand kind uses :class:`iced_x86.Instruction.memory_address64`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`, :class:`iced_x86.Instruction.memory_size`
+DEPRECATED(1.11.0)
 """
 MEMORY: int = 25
 """

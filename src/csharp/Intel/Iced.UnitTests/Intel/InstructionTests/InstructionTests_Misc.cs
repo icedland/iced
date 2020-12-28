@@ -131,12 +131,24 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(uint.MaxValue, instruction.NextIP32);
 			Assert.Equal(ulong.MaxValue, instruction.NextIP);
 
-			instruction.MemoryDisplacement = uint.MinValue;
-			Assert.Equal(uint.MinValue, instruction.MemoryDisplacement);
+			instruction.MemoryDisplacement32 = uint.MinValue;
+			Assert.Equal(uint.MinValue, instruction.MemoryDisplacement32);
+			Assert.Equal(uint.MinValue, instruction.MemoryDisplacement64);
+			instruction.MemoryDisplacement32 = uint.MaxValue;
+			Assert.Equal(uint.MaxValue, instruction.MemoryDisplacement32);
+			Assert.Equal(uint.MaxValue, instruction.MemoryDisplacement64);
+
+			instruction.MemoryDisplacement64 = ulong.MinValue;
+			Assert.Equal(uint.MinValue, instruction.MemoryDisplacement32);
 			Assert.Equal(ulong.MinValue, instruction.MemoryDisplacement64);
-			instruction.MemoryDisplacement = uint.MaxValue;
-			Assert.Equal(uint.MaxValue, instruction.MemoryDisplacement);
+			instruction.MemoryDisplacement64 = ulong.MaxValue;
+			Assert.Equal(uint.MaxValue, instruction.MemoryDisplacement32);
 			Assert.Equal(ulong.MaxValue, instruction.MemoryDisplacement64);
+
+			instruction.MemoryDisplacement64 = 0x1234_5678_9ABC_DEF1;
+			instruction.MemoryDisplacement32 = 0x5AA5_4321;
+			Assert.Equal(0x5AA5_4321U, instruction.MemoryDisplacement32);
+			Assert.Equal(0x5AA5_4321U, instruction.MemoryDisplacement64);
 
 			instruction.Immediate8 = byte.MinValue;
 			Assert.Equal(byte.MinValue, instruction.Immediate8);
@@ -182,11 +194,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(int.MinValue, instruction.Immediate32to64);
 			instruction.Immediate32to64 = int.MaxValue;
 			Assert.Equal(int.MaxValue, instruction.Immediate32to64);
-
-			instruction.MemoryAddress64 = ulong.MinValue;
-			Assert.Equal(ulong.MinValue, instruction.MemoryAddress64);
-			instruction.MemoryAddress64 = ulong.MaxValue;
-			Assert.Equal(ulong.MaxValue, instruction.MemoryAddress64);
 
 			instruction.Op0Kind = OpKind.NearBranch16;
 			instruction.NearBranch16 = ushort.MinValue;
@@ -500,15 +507,15 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 			instruction.MemoryBase = Register.EIP;
 			instruction.NextIP = 0x123456709EDCBA98;
-			instruction.MemoryDisplacement = 0x87654321;
+			instruction.MemoryDisplacement64 = 0x876543219ABCDEF5;
 			Assert.True(instruction.IsIPRelativeMemoryOperand);
-			Assert.Equal(0x2641FDB9UL, instruction.IPRelativeMemoryAddress);
+			Assert.Equal(0x9ABCDEF5UL, instruction.IPRelativeMemoryAddress);
 
 			instruction.MemoryBase = Register.RIP;
 			instruction.NextIP = 0x123456709EDCBA98;
-			instruction.MemoryDisplacement = 0x87654321;
+			instruction.MemoryDisplacement64 = 0x876543219ABCDEF5;
 			Assert.True(instruction.IsIPRelativeMemoryOperand);
-			Assert.Equal(0x123456702641FDB9UL, instruction.IPRelativeMemoryAddress);
+			Assert.Equal(0x876543219ABCDEF5UL, instruction.IPRelativeMemoryAddress);
 
 			instruction.DeclareDataCount = 1;
 			Assert.Equal(1, instruction.DeclareDataCount);

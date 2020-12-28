@@ -979,28 +979,14 @@ impl NasmFormatter {
 				8,
 				op_info.flags,
 			),
-			InstrOpKind::Memory64 => self.format_memory(
-				output,
-				instruction,
-				operand,
-				instruction_operand,
-				op_info.memory_size(),
-				instruction.memory_segment(),
-				Register::None,
-				Register::None,
-				0,
-				8,
-				instruction.memory_address64() as i64,
-				8,
-				op_info.flags,
-			),
+			InstrOpKind::Memory64 => {}
 
 			InstrOpKind::Memory => {
 				let displ_size = instruction.memory_displ_size();
 				let base_reg = instruction.memory_base();
 				let index_reg = instruction.memory_index();
 				let addr_size = get_address_size_in_bytes(base_reg, index_reg, displ_size, instruction.code_size());
-				let displ = if addr_size == 8 { instruction.memory_displacement64() as i64 } else { instruction.memory_displacement() as i64 };
+				let displ = if addr_size == 8 { instruction.memory_displacement64() as i64 } else { instruction.memory_displacement32() as i64 };
 				self.format_memory(
 					output,
 					instruction,
@@ -1168,26 +1154,28 @@ impl NasmFormatter {
 		let abs_addr;
 		let mut add_rel_keyword = false;
 		if base_reg == Register::RIP {
-			abs_addr = (instruction.next_ip() as i64).wrapping_add(displ as i32 as i64) as u64;
-			if !operand_options.rip_relative_addresses() {
+			abs_addr = displ as u64;
+			if self.d.options.rip_relative_addresses() {
+				displ = displ.wrapping_sub(instruction.next_ip() as i64);
+			} else {
 				debug_assert_eq!(Register::None, index_reg);
 				base_reg = Register::None;
-				displ = abs_addr as i64;
-				displ_size = 8;
 				flags &= !(InstrOpInfoFlags::MEMORY_SIZE_INFO_MASK << InstrOpInfoFlags::MEMORY_SIZE_INFO_SHIFT);
 				add_rel_keyword = true;
 			}
+			displ_size = 8;
 		} else if base_reg == Register::EIP {
-			abs_addr = instruction.next_ip32().wrapping_add(displ as u32) as u64;
-			if !operand_options.rip_relative_addresses() {
+			abs_addr = displ as u32 as u64;
+			if self.d.options.rip_relative_addresses() {
+				displ = (displ as u32).wrapping_sub(instruction.next_ip32()) as i32 as i64;
+			} else {
 				debug_assert_eq!(Register::None, index_reg);
 				base_reg = Register::None;
-				displ = abs_addr as i64;
-				displ_size = 4;
 				flags = (flags & !(InstrOpInfoFlags::MEMORY_SIZE_INFO_MASK << InstrOpInfoFlags::MEMORY_SIZE_INFO_SHIFT))
 					| ((self::enums::MemorySizeInfo::Dword as u32) << InstrOpInfoFlags::MEMORY_SIZE_INFO_SHIFT);
 				add_rel_keyword = true;
 			}
+			displ_size = 4;
 		} else {
 			abs_addr = displ as u64;
 		}

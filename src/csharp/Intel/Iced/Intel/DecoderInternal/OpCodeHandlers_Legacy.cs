@@ -3416,13 +3416,16 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				state.flags |= StateFlags.Addr64;
-				instruction.InternalMemoryAddress64_lo = decoder.ReadUInt32();
-				instruction.InternalMemoryAddress64_hi = decoder.ReadUInt32();
-				instruction.InternalOp1Kind = OpKind.Memory64;
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_hi = decoder.ReadUInt32();
+				//instruction.InternalMemoryIndexScale = 0;
+				//instruction.InternalMemoryBase = Register.None;
+				//instruction.InternalMemoryIndex = Register.None;
+				instruction.InternalOp1Kind = OpKind.Memory;
 			}
 			else if (state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
-				instruction.MemoryDisplacement = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -3430,7 +3433,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
-				instruction.MemoryDisplacement = decoder.ReadUInt16();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt16();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -3456,13 +3459,16 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				state.flags |= StateFlags.Addr64;
-				instruction.InternalMemoryAddress64_lo = decoder.ReadUInt32();
-				instruction.InternalMemoryAddress64_hi = decoder.ReadUInt32();
-				instruction.InternalOp0Kind = OpKind.Memory64;
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_hi = decoder.ReadUInt32();
+				//instruction.InternalMemoryIndexScale = 0;
+				//instruction.InternalMemoryBase = Register.None;
+				//instruction.InternalMemoryIndex = Register.None;
+				instruction.InternalOp0Kind = OpKind.Memory;
 			}
 			else if (state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
-				instruction.MemoryDisplacement = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -3470,7 +3476,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
-				instruction.MemoryDisplacement = decoder.ReadUInt16();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt16();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -3500,13 +3506,16 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				state.flags |= StateFlags.Addr64;
-				instruction.InternalMemoryAddress64_lo = decoder.ReadUInt32();
-				instruction.InternalMemoryAddress64_hi = decoder.ReadUInt32();
-				instruction.InternalOp1Kind = OpKind.Memory64;
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_hi = decoder.ReadUInt32();
+				//instruction.InternalMemoryIndexScale = 0;
+				//instruction.InternalMemoryBase = Register.None;
+				//instruction.InternalMemoryIndex = Register.None;
+				instruction.InternalOp1Kind = OpKind.Memory;
 			}
 			else if (state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
-				instruction.MemoryDisplacement = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -3514,7 +3523,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
-				instruction.MemoryDisplacement = decoder.ReadUInt16();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt16();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -3559,13 +3568,16 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.addressSize == OpSize.Size64) {
 				instruction.InternalSetMemoryDisplSize(4);
 				state.flags |= StateFlags.Addr64;
-				instruction.InternalMemoryAddress64_lo = decoder.ReadUInt32();
-				instruction.InternalMemoryAddress64_hi = decoder.ReadUInt32();
-				instruction.InternalOp0Kind = OpKind.Memory64;
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_hi = decoder.ReadUInt32();
+				//instruction.InternalMemoryIndexScale = 0;
+				//instruction.InternalMemoryBase = Register.None;
+				//instruction.InternalMemoryIndex = Register.None;
+				instruction.InternalOp0Kind = OpKind.Memory;
 			}
 			else if (state.addressSize == OpSize.Size32) {
 				instruction.InternalSetMemoryDisplSize(3);
-				instruction.MemoryDisplacement = decoder.ReadUInt32();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt32();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -3573,7 +3585,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalSetMemoryDisplSize(2);
-				instruction.MemoryDisplacement = decoder.ReadUInt16();
+				instruction.InternalMemoryDisplacement64_lo = decoder.ReadUInt16();
 				//instruction.InternalMemoryIndexScale = 0;
 				//instruction.InternalMemoryBase = Register.None;
 				//instruction.InternalMemoryIndex = Register.None;
@@ -4088,7 +4100,7 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			instruction.InternalCode = code;
-			//instruction.MemoryDisplacement = 0;
+			//instruction.MemoryDisplacement64 = 0;
 			//instruction.InternalMemoryIndexScale = 0;
 			//instruction.InternalSetMemoryDisplSize(0);
 			if (state.addressSize == OpSize.Size64)

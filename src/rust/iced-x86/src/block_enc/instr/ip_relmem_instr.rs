@@ -54,10 +54,11 @@ impl IpRelMemOpInstr {
 
 		let mut instr_copy = *instruction;
 		instr_copy.set_memory_base(Register::RIP);
-		let rip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip());
+		instr_copy.set_memory_displacement64(0);
+		let rip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip_rel_memory_address());
 
 		instr_copy.set_memory_base(Register::EIP);
-		let eip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip());
+		let eip_instruction_size = block_encoder.get_instruction_size(&instr_copy, instr_copy.ip_rel_memory_address());
 
 		debug_assert!(eip_instruction_size >= rip_instruction_size);
 		Self {
@@ -138,25 +139,16 @@ impl Instr for IpRelMemOpInstr {
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rip | InstrKind::Eip => {
-				let instr_size = if self.instr_kind == InstrKind::Rip {
+				if self.instr_kind == InstrKind::Rip {
 					self.instruction.set_memory_base(Register::RIP);
-					self.rip_instruction_size
 				} else if self.instr_kind == InstrKind::Eip {
 					self.instruction.set_memory_base(Register::EIP);
-					self.eip_instruction_size
 				} else {
 					debug_assert!(self.instr_kind == InstrKind::Unchanged);
-					if self.instruction.memory_base() == Register::EIP {
-						self.eip_instruction_size
-					} else {
-						self.rip_instruction_size
-					}
 				};
 
 				let target_address = self.target_instr.address(self);
-				let next_rip = self.ip.wrapping_add(instr_size as u64);
-				self.instruction.set_next_ip(next_rip);
-				self.instruction.set_memory_displacement((target_address as u32).wrapping_sub(next_rip as u32));
+				self.instruction.set_memory_displacement64(target_address);
 				match block.encoder.encode(&self.instruction, self.ip) {
 					Ok(_) => {
 						let expected_rip =

@@ -258,11 +258,9 @@ namespace Iced.Intel {
 					}
 					break;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 				case OpKind.Memory64:
-					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(instruction.MemorySegment, Register.None, Register.None, 1, instruction.MemoryAddress64, instruction.MemorySize, access, CodeSize.Code64, 0);
-					if ((flags & Flags.NoRegisterUsage) == 0)
-						AddMemorySegmentRegister(flags, instruction.MemorySegment, OpAccess.Read);
+#pragma warning restore CS0618 // Type or member is obsolete
 					break;
 
 				case OpKind.Memory:
@@ -272,13 +270,13 @@ namespace Iced.Intel {
 					var baseReg = instruction.MemoryBase;
 					if (baseReg == Register.RIP) {
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(segReg, Register.None, Register.None, 1, instruction.NextIP + instruction.MemoryDisplacement64, instruction.MemorySize, access, CodeSize.Code64, 0);
+							AddMemory(segReg, Register.None, Register.None, 1, instruction.MemoryDisplacement64, instruction.MemorySize, access, CodeSize.Code64, 0);
 						if ((flags & Flags.NoRegisterUsage) == 0 && segReg != Register.None)
 							AddMemorySegmentRegister(flags, segReg, OpAccess.Read);
 					}
 					else if (baseReg == Register.EIP) {
 						if ((flags & Flags.NoMemoryUsage) == 0)
-							AddMemory(segReg, Register.None, Register.None, 1, instruction.NextIP32 + instruction.MemoryDisplacement, instruction.MemorySize, access, CodeSize.Code32, 0);
+							AddMemory(segReg, Register.None, Register.None, 1, instruction.MemoryDisplacement32, instruction.MemorySize, access, CodeSize.Code32, 0);
 						if ((flags & Flags.NoRegisterUsage) == 0 && segReg != Register.None)
 							AddMemorySegmentRegister(flags, segReg, OpAccess.Read);
 					}
@@ -311,7 +309,7 @@ namespace Iced.Intel {
 							if (addrSizeBytes == 8)
 								displ = instruction.MemoryDisplacement64;
 							else
-								displ = instruction.MemoryDisplacement;
+								displ = instruction.MemoryDisplacement32;
 							AddMemory(segReg, baseReg, indexReg, scale, displ, instruction.MemorySize, access, addrSize, vsibSize);
 						}
 						if ((flags & Flags.NoRegisterUsage) == 0) {

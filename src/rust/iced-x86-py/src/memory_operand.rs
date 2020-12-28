@@ -49,7 +49,7 @@ pub(crate) struct MemoryOperand {
 impl MemoryOperand {
 	#[new]
 	#[args(base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0)]
-	fn new(base: u32, index: u32, scale: u32, displ: i32, mut displ_size: u32, is_broadcast: bool, seg: u32) -> PyResult<Self> {
+	fn new(base: u32, index: u32, scale: u32, displ: i64, mut displ_size: u32, is_broadcast: bool, seg: u32) -> PyResult<Self> {
 		// #[args] line assumption
 		const_assert_eq!(0, iced_x86::Register::None as u32);
 

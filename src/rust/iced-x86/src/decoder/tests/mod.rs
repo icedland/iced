@@ -210,19 +210,20 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			}
 
 			OpKind::MemoryESDI | OpKind::MemoryESEDI | OpKind::MemoryESRDI => assert_eq!(tc.memory_size, instr.memory_size()),
-			OpKind::Memory64 => {
-				assert_eq!(tc.memory_segment, instr.memory_segment());
-				assert_eq!(tc.memory_address64, instr.memory_address64());
-				assert_eq!(tc.memory_size, instr.memory_size());
-			}
+			#[allow(deprecated)]
+			OpKind::Memory64 => unreachable!(),
 
 			OpKind::Memory => {
 				assert_eq!(tc.memory_segment, instr.memory_segment());
 				assert_eq!(tc.memory_base, instr.memory_base());
 				assert_eq!(tc.memory_index, instr.memory_index());
 				assert_eq!(tc.memory_index_scale, instr.memory_index_scale());
-				assert_eq!(tc.memory_displacement, instr.memory_displacement());
-				assert_eq!(tc.memory_displacement as i32 as u64, instr.memory_displacement64());
+				#[allow(deprecated)]
+				{
+					assert_eq!(tc.memory_displacement as u32, instr.memory_displacement());
+				}
+				assert_eq!(tc.memory_displacement as u32, instr.memory_displacement32());
+				assert_eq!(tc.memory_displacement, instr.memory_displacement64());
 				assert_eq!(tc.memory_displ_size, instr.memory_displ_size());
 				assert_eq!(tc.memory_size, instr.memory_size());
 			}
@@ -322,8 +323,12 @@ fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	assert_eq!(tc.segment, instr.memory_segment());
 	assert_eq!(tc.base_register, instr.memory_base());
 	assert_eq!(tc.index_register, instr.memory_index());
-	assert_eq!(tc.displacement, instr.memory_displacement());
-	assert_eq!(tc.displacement as i32 as u64, instr.memory_displacement64());
+	#[allow(deprecated)]
+	{
+		assert_eq!(tc.displacement as u32, instr.memory_displacement());
+	}
+	assert_eq!(tc.displacement as u32, instr.memory_displacement32());
+	assert_eq!(tc.displacement, instr.memory_displacement64());
 	assert_eq!(1 << tc.scale, instr.memory_index_scale());
 	assert_eq!(tc.displ_size, instr.memory_displ_size());
 

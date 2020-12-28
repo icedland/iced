@@ -92,7 +92,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string OpKind_MemoryESDI = "esdi";
 		internal const string OpKind_MemoryESEDI = "esedi";
 		internal const string OpKind_MemoryESRDI = "esrdi";
-		internal const string OpKind_Memory64 = "m64";
 		internal const string OpKind_Memory = "m";
 		internal const string DecoderTestOptions_NoEncode = "noencode";
 		internal const string DecoderTestOptions_NoOptDisableTest = "no_opt_disable_test";
@@ -552,15 +551,6 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				tc.MemorySize = ToMemorySize(parts[1]);
 				break;
 
-			case DecoderTestParserConstants.OpKind_Memory64:
-				if (parts.Length != 4)
-					throw new InvalidOperationException($"Operand {operand}: expected 4 values, actual = {parts.Length}");
-				tc.SetOpKind(operand, OpKind.Memory64);
-				tc.MemorySegment = ToRegister(parts[1]);
-				tc.MemoryAddress64 = NumberConverter.ToUInt64(parts[2]);
-				tc.MemorySize = ToMemorySize(parts[3]);
-				break;
-
 			case DecoderTestParserConstants.OpKind_Memory:
 				if (parts.Length != 8)
 					throw new InvalidOperationException($"Operand {operand}: expected 8 values, actual = {parts.Length}");
@@ -569,7 +559,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				tc.MemoryBase = ToRegister(parts[2]);
 				tc.MemoryIndex = ToRegister(parts[3]);
 				tc.MemoryIndexScale = NumberConverter.ToInt32(parts[4]);
-				tc.MemoryDisplacement = NumberConverter.ToUInt32(parts[5]);
+				tc.MemoryDisplacement = NumberConverter.ToUInt64(parts[5]);
 				tc.MemoryDisplSize = NumberConverter.ToInt32(parts[6]);
 				tc.MemorySize = ToMemorySize(parts[7]);
 				break;

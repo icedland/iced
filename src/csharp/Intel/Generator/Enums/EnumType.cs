@@ -102,7 +102,7 @@ namespace Generator.Enums {
 				if (IsFlags) {
 					uint value = 0;
 					foreach (var enumValue in values) {
-						if (enumValue.DeprecatedInfo.IsDeprecated)
+						if (enumValue.DeprecatedInfo.IsDeprecatedAndRenamed)
 							continue;
 						if (enumValue.RawName == "None")
 							enumValue.Value = 0;
@@ -119,15 +119,17 @@ namespace Generator.Enums {
 				}
 				else {
 					for (int i = 0; i < values.Length; i++) {
-						if (values[i].DeprecatedInfo.IsDeprecated)
+						if (values[i].DeprecatedInfo.IsDeprecatedAndRenamed)
 							continue;
 						values[i].Value = (uint)i;
 					}
 				}
 			}
 			foreach (var enumValue in values) {
-				if (!enumValue.DeprecatedInfo.IsDeprecated)
+				if (!enumValue.DeprecatedInfo.IsDeprecatedAndRenamed)
 					continue;
+				if (enumValue.DeprecatedInfo.NewName is null)
+					throw new InvalidOperationException();
 				if (!toEnumValue.TryGetValue(enumValue.DeprecatedInfo.NewName, out var newValue))
 					throw new InvalidOperationException($"Couldn't find enum {enumValue.RawName}");
 				enumValue.Value = newValue.Value;
@@ -228,7 +230,10 @@ namespace Generator.Enums {
 			DeclaringType = null!;
 			Value = value;
 			RawName = name;
-			Documentation = documentation;
+			if (deprecatedInfo.IsDeprecated && deprecatedInfo.NewName is null && documentation is null)
+				Documentation = "Don't use it!";
+			else
+				Documentation = documentation;
 			DeprecatedInfo = deprecatedInfo;
 		}
 	}

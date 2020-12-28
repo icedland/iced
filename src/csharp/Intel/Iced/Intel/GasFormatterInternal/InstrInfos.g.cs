@@ -1833,56 +1833,48 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x62,// 'b'
-				0x01,// 0x1
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Mov_AX_moffs16
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x77,// 'w'
-				0x01,// 0x1
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Mov_EAX_moffs32
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x6C,// 'l'
-				0x01,// 0x1
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Mov_RAX_moffs64
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x71,// 'q'
-				0x01,// 0x1
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Mov_moffs8_AL
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x62,// 'b'
-				0x00,// 0x0
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Mov_moffs16_AX
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x77,// 'w'
-				0x00,// 0x0
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Mov_moffs32_EAX
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x6C,// 'l'
-				0x00,// 0x0
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Mov_moffs64_RAX
 				0x10,// movabs
 				0x00,// 0 = "mov"
 				0x71,// 'q'
-				0x00,// 0x0
 				0xC4, 0x01,// 196 = "movabs"
 
 				// Movsb_m8_m8

@@ -157,10 +157,9 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::movabs => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				v = reader.read_compressed_u32();
 				let s3 = strings[reader.read_compressed_u32() as usize].clone();
 				let s4 = add_suffix(&s3, c);
-				Box::new(SimpleInstrInfo_movabs::new(v, s, s2, s3, s4))
+				Box::new(SimpleInstrInfo_movabs::new(s, s2, s3, s4))
 			}
 
 			CtorKind::nop => {
