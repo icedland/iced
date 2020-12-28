@@ -298,10 +298,7 @@ impl InstructionInfo {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, /)"]
 	fn op_access(&self, operand: u32) -> PyResult<u32> {
-		match self.info.try_op_access(operand) {
-			Ok(op_access) => Ok(op_access as u32),
-			Err(e) => Err(to_value_error(e)),
-		}
+		self.info.try_op_access(operand).map_or_else(|e| Err(to_value_error(e)), |op_access| Ok(op_access as u32))
 	}
 }
 

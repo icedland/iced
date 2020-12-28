@@ -123,9 +123,7 @@ impl BlockEncoder {
 	#[text_signature = "($self, rip, /)"]
 	fn encode<'py>(&mut self, py: Python<'py>, rip: u64) -> PyResult<&'py PyBytes> {
 		let block = iced_x86::InstructionBlock::new(&self.instructions, rip);
-		match iced_x86::BlockEncoder::encode(self.bitness, block, self.options) {
-			Ok(result) => Ok(PyBytes::new(py, &result.code_buffer)),
-			Err(error) => Err(to_value_error(error)),
-		}
+		iced_x86::BlockEncoder::encode(self.bitness, block, self.options)
+			.map_or_else(|e| Err(to_value_error(e)), |result| Ok(PyBytes::new(py, &result.code_buffer)))
 	}
 }

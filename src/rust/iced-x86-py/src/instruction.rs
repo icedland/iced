@@ -528,10 +528,7 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_kind(&self, operand: u32) -> PyResult<u32> {
-		match self.instr.try_op_kind(operand) {
-			Ok(op_kind) => Ok(op_kind as u32),
-			Err(e) => Err(to_value_error(e)),
-		}
+		self.instr.try_op_kind(operand).map_or_else(|e| Err(to_value_error(e)), |op_kind| Ok(op_kind as u32))
 	}
 
 	/// Sets an operand's kind
@@ -1066,10 +1063,7 @@ impl Instruction {
 	///     assert instr.op_register(1) == Register.EBX
 	#[text_signature = "($self, operand, /)"]
 	fn op_register(&self, operand: u32) -> PyResult<u32> {
-		match self.instr.try_op_register(operand) {
-			Ok(register) => Ok(register as u32),
-			Err(e) => Err(to_value_error(e)),
-		}
+		self.instr.try_op_register(operand).map_or_else(|e| Err(to_value_error(e)), |register| Ok(register as u32))
 	}
 
 	/// Sets the operand's register value.

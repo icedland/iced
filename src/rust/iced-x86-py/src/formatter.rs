@@ -153,10 +153,9 @@ impl Formatter {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, instruction, operand, /)"]
 	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> PyResult<Option<u32>> {
-		match self.formatter.op_access(&instruction.instr, operand) {
-			Ok(res) => Ok(res.map(|v| v as u32)),
-			Err(_) => Err(PyValueError::new_err("Invalid operand")),
-		}
+		self.formatter
+			.op_access(&instruction.instr, operand)
+			.map_or_else(|_| Err(PyValueError::new_err("Invalid operand")), |res| Ok(res.map(|v| v as u32)))
 	}
 
 	/// Converts a formatter operand index to an instruction operand index.

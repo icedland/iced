@@ -187,13 +187,19 @@ impl Encoder {
 	}
 
 	fn encode_core(&mut self, instruction: &Instruction, rip: u64) -> Result<u32, JsValue> {
-		match self.0.encode(&instruction.0, rip) {
-			Ok(size) => Ok(size as u32),
-			#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-			Err(error) => Err(js_sys::Error::new(&format!("{} ({})", error, instruction.0)).into()),
-			#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
-			Err(error) => Err(js_sys::Error::new(&format!("{}", error)).into()),
-		}
+		self.0.encode(&instruction.0, rip).map_or_else(
+			|error| {
+				#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+				{
+					Err(js_sys::Error::new(&format!("{} ({})", error, instruction.0)).into())
+				}
+				#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
+				{
+					Err(js_sys::Error::new(&format!("{}", error)).into())
+				}
+			},
+			|size| Ok(size as u32),
+		)
 	}
 
 	/// Writes a byte to the output buffer

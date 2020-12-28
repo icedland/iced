@@ -776,10 +776,7 @@ impl OpCodeInfo {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, /)"]
 	fn op_kind(&self, operand: u32) -> PyResult<u32> {
-		match self.info.try_op_kind(operand) {
-			Ok(op_kind) => Ok(op_kind as u32),
-			Err(e) => Err(to_value_error(e)),
-		}
+		self.info.try_op_kind(operand).map_or_else(|e| Err(to_value_error(e)), |op_kind| Ok(op_kind as u32))
 	}
 
 	/// Gets all operand kinds (a list of :class:`OpCodeOperandKind` enum values)
