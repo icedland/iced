@@ -174,6 +174,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			assert_eq!(op_kind, instr.op_kind(i));
 		}
 		assert_eq!(op_kind, instr.try_op_kind(i).unwrap());
+		#[allow(deprecated)]
 		match op_kind {
 			OpKind::Register => {
 				#[allow(deprecated)]
@@ -210,7 +211,6 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			}
 
 			OpKind::MemoryESDI | OpKind::MemoryESEDI | OpKind::MemoryESRDI => assert_eq!(tc.memory_size, instr.memory_size()),
-			#[allow(deprecated)]
 			OpKind::Memory64 => unreachable!(),
 
 			OpKind::Memory => {

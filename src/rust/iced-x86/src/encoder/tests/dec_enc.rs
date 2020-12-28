@@ -180,6 +180,7 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 
 fn get_memory_register_size(instruction: &Instruction) -> u32 {
 	for i in 0..instruction.op_count() {
+		#[allow(deprecated)]
 		match instruction.try_op_kind(i).unwrap() {
 			OpKind::Register
 			| OpKind::NearBranch16
@@ -212,7 +213,6 @@ fn get_memory_register_size(instruction: &Instruction) -> u32 {
 					return 64;
 				}
 			}
-			#[allow(deprecated)]
 			OpKind::Memory64 => unreachable!(),
 		}
 	}

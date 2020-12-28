@@ -579,6 +579,7 @@ impl FastFormatter {
 				let imm64;
 				let imm_size;
 				let op_kind = if is_declare_data { declare_data_kind } else { instruction.try_op_kind(operand).unwrap_or(OpKind::Register) };
+				#[allow(deprecated)]
 				match op_kind {
 					OpKind::Register => FastFormatter::format_register(&self.d, output, instruction.try_op_register(operand).unwrap_or_default()),
 
@@ -753,7 +754,6 @@ impl FastFormatter {
 					OpKind::MemoryESDI => self.format_memory(output, instruction, operand, Register::ES, Register::DI, Register::None, 0, 0, 0, 2),
 					OpKind::MemoryESEDI => self.format_memory(output, instruction, operand, Register::ES, Register::EDI, Register::None, 0, 0, 0, 4),
 					OpKind::MemoryESRDI => self.format_memory(output, instruction, operand, Register::ES, Register::RDI, Register::None, 0, 0, 0, 8),
-					#[allow(deprecated)]
 					OpKind::Memory64 => {}
 
 					OpKind::Memory => {
@@ -814,6 +814,7 @@ impl FastFormatter {
 	#[inline]
 	fn show_segment_prefix(instruction: &Instruction, op_count: u32) -> bool {
 		for i in 0..op_count {
+			#[allow(deprecated)]
 			match instruction.try_op_kind(i).unwrap_or(OpKind::Register) {
 				OpKind::Register
 				| OpKind::NearBranch16
@@ -834,7 +835,6 @@ impl FastFormatter {
 				| OpKind::MemoryESEDI
 				| OpKind::MemoryESRDI => {}
 
-				#[allow(deprecated)]
 				OpKind::MemorySegSI
 				| OpKind::MemorySegESI
 				| OpKind::MemorySegRSI

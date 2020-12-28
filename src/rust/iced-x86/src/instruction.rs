@@ -2900,6 +2900,7 @@ impl Instruction {
 			Err(_) => return None,
 			Ok(op_kind) => op_kind,
 		};
+		#[allow(deprecated)]
 		Some(match op_kind {
 			OpKind::Register
 			| OpKind::NearBranch16
@@ -3016,7 +3017,6 @@ impl Instruction {
 				};
 				v1.wrapping_add(v2)
 			}
-			#[allow(deprecated)]
 			OpKind::Memory64 => return None,
 			OpKind::Memory => {
 				let base_reg = self.memory_base();

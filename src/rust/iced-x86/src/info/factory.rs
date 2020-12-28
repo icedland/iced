@@ -320,6 +320,7 @@ impl InstructionInfoFactory {
 				continue;
 			}
 
+			#[allow(deprecated)]
 			match instruction.try_op_kind(i as u32).unwrap_or_default() {
 				OpKind::Register => {
 					if access == OpAccess::NoMemAccess {
@@ -353,7 +354,6 @@ impl InstructionInfoFactory {
 					}
 				}
 
-				#[allow(deprecated)]
 				OpKind::Memory64 => {}
 
 				OpKind::Memory => {
