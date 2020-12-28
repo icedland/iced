@@ -968,19 +968,35 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(tc.op_kinds[2], info.op2_kind());
 	assert_eq!(tc.op_kinds[3], info.op3_kind());
 	assert_eq!(tc.op_kinds[4], info.op4_kind());
-	assert_eq!(tc.op_kinds[0], info.op_kind(0));
-	assert_eq!(tc.op_kinds[1], info.op_kind(1));
-	assert_eq!(tc.op_kinds[2], info.op_kind(2));
-	assert_eq!(tc.op_kinds[3], info.op_kind(3));
-	assert_eq!(tc.op_kinds[4], info.op_kind(4));
+	#[allow(deprecated)]
+	{
+		assert_eq!(tc.op_kinds[0], info.op_kind(0));
+		assert_eq!(tc.op_kinds[1], info.op_kind(1));
+		assert_eq!(tc.op_kinds[2], info.op_kind(2));
+		assert_eq!(tc.op_kinds[3], info.op_kind(3));
+		assert_eq!(tc.op_kinds[4], info.op_kind(4));
+	}
+	assert_eq!(tc.op_kinds[0], info.try_op_kind(0).unwrap());
+	assert_eq!(tc.op_kinds[1], info.try_op_kind(1).unwrap());
+	assert_eq!(tc.op_kinds[2], info.try_op_kind(2).unwrap());
+	assert_eq!(tc.op_kinds[3], info.try_op_kind(3).unwrap());
+	assert_eq!(tc.op_kinds[4], info.try_op_kind(4).unwrap());
 	let op_kinds = info.op_kinds();
 	assert_eq!(tc.op_count as usize, op_kinds.len());
 	for (i, &op_kind) in op_kinds.iter().enumerate() {
-		assert_eq!(info.op_kind(i as u32), op_kind);
+		#[allow(deprecated)]
+		{
+			assert_eq!(info.op_kind(i as u32), op_kind);
+		}
+		assert_eq!(info.try_op_kind(i as u32).unwrap(), op_kind);
 	}
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 	for i in tc.op_count..IcedConstants::MAX_OP_COUNT as u32 {
-		assert_eq!(OpCodeOperandKind::None, info.op_kind(i));
+		#[allow(deprecated)]
+		{
+			assert_eq!(OpCodeOperandKind::None, info.op_kind(i));
+		}
+		assert_eq!(OpCodeOperandKind::None, info.try_op_kind(i).unwrap());
 	}
 }
 
@@ -989,7 +1005,17 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 #[should_panic]
 fn op_kind_panics_if_invalid_input() {
 	let op_code = Code::Aaa.op_code();
-	let _ = op_code.op_kind(IcedConstants::MAX_OP_COUNT as u32);
+	#[allow(deprecated)]
+	{
+		let _ = op_code.op_kind(IcedConstants::MAX_OP_COUNT as u32);
+	}
+}
+
+#[cfg(feature = "op_code_info")]
+#[test]
+fn op_kind_fails_if_invalid_input() {
+	let op_code = Code::Aaa.op_code();
+	assert!(op_code.try_op_kind(IcedConstants::MAX_OP_COUNT as u32).is_err());
 }
 
 #[cfg(feature = "op_code_info")]

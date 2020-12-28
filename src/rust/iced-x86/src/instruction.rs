@@ -3091,6 +3091,7 @@ impl Instruction {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use try_virtual_address() instead")]
 	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> u64
 	where
 		F: FnMut(Register, usize, usize) -> u64,

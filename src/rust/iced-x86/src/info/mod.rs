@@ -226,6 +226,7 @@ impl UsedMemory {
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use try_virtual_address() instead")]
 	pub fn virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> u64
 	where
 		F: FnMut(Register, usize, usize) -> u64,
@@ -495,9 +496,27 @@ impl InstructionInfo {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use try_op_access() instead")]
 	pub fn op_access(&self, operand: u32) -> OpAccess {
-		self.op_accesses[operand as usize]
+		self.try_op_access(operand).unwrap()
+	}
+
+	/// Gets operand access
+	///
+	/// # Errors
+	///
+	/// Fails if `operand` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn try_op_access(&self, operand: u32) -> Result<OpAccess, IcedError> {
+		match self.op_accesses.get(operand as usize) {
+			Some(&op_access) => Ok(op_access),
+			None => Err(IcedError::new("Invalid operand")),
+		}
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.

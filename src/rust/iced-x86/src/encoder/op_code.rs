@@ -1224,8 +1224,27 @@ impl OpCodeInfo {
 	/// * `operand`: Operand number, 0-4
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use try_op_kind() instead")]
 	pub fn op_kind(&self, operand: u32) -> OpCodeOperandKind {
-		self.op_kinds[operand as usize]
+		self.try_op_kind(operand).unwrap()
+	}
+
+	/// Gets an operand's opkind
+	///
+	/// # Errors
+	///
+	/// Fails if `operand` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	#[inline]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn try_op_kind(&self, operand: u32) -> Result<OpCodeOperandKind, IcedError> {
+		match self.op_kinds.get(operand as usize) {
+			Some(&op_access) => Ok(op_access),
+			None => Err(IcedError::new("Invalid operand")),
+		}
 	}
 
 	/// Gets all operand kinds

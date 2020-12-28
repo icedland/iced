@@ -296,7 +296,9 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		if self.start_op_index < self.op_count {
 			self.sb.push(' ');
 			let mut sae_er_index = self.op_count - 1;
-			if self.op_code.encoding() != EncodingKind::Legacy && self.op_code.op_kind(sae_er_index) == OpCodeOperandKind::imm8 {
+			if self.op_code.encoding() != EncodingKind::Legacy
+				&& self.op_code.try_op_kind(sae_er_index).unwrap_or(OpCodeOperandKind::None) == OpCodeOperandKind::imm8
+			{
 				sae_er_index -= 1;
 			}
 			let mut add_comma = false;
@@ -308,7 +310,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				}
 				add_comma = true;
 
-				let op_kind = self.op_code.op_kind(i);
+				let op_kind = self.op_code.try_op_kind(i).unwrap_or(OpCodeOperandKind::None);
 				match op_kind {
 					OpCodeOperandKind::farbr2_2 => self.sb.push_str("ptr16:16"),
 					OpCodeOperandKind::farbr4_2 => self.sb.push_str("ptr16:32"),

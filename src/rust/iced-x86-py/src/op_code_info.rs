@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use crate::enum_utils::to_code;
-use crate::iced_constants::IcedConstants;
+use crate::utils::to_value_error;
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::exceptions::PyValueError;
@@ -776,10 +776,9 @@ impl OpCodeInfo {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, /)"]
 	fn op_kind(&self, operand: u32) -> PyResult<u32> {
-		if operand < IcedConstants::MAX_OP_COUNT as u32 {
-			Ok(self.info.op_kind(operand) as u32)
-		} else {
-			Err(PyValueError::new_err("Invalid operand"))
+		match self.info.try_op_kind(operand) {
+			Ok(op_kind) => Ok(op_kind as u32),
+			Err(e) => Err(to_value_error(e)),
 		}
 	}
 

@@ -21,11 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use crate::iced_constants::IcedConstants;
 use crate::instruction::Instruction;
+use crate::utils::to_value_error;
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
-use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
@@ -299,10 +298,9 @@ impl InstructionInfo {
 	///     ValueError: If `operand` is invalid
 	#[text_signature = "($self, operand, /)"]
 	fn op_access(&self, operand: u32) -> PyResult<u32> {
-		if operand >= IcedConstants::MAX_OP_COUNT as u32 {
-			Err(PyValueError::new_err("Invalid operand"))
-		} else {
-			Ok(self.info.op_access(operand) as u32)
+		match self.info.try_op_access(operand) {
+			Ok(op_access) => Ok(op_access as u32),
+			Err(e) => Err(to_value_error(e)),
 		}
 	}
 }

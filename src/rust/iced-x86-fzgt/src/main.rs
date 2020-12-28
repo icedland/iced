@@ -74,7 +74,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 		};
 		let len = bytes[0] as usize;
 		bytes = &bytes[1..];
-		let mut decoder = Decoder::new(options.bitness, &bytes[0..len], decoder_options);
+		let mut decoder = Decoder::try_new(options.bitness, &bytes[0..len], decoder_options)?;
 		decoder.decode_out(&mut instr);
 		if options.invalid {
 			assert_ne!(DecoderError::None, decoder.last_error());

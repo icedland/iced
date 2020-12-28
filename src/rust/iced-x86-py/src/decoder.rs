@@ -23,9 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use crate::constant_offsets::ConstantOffsets;
 use crate::instruction::Instruction;
+use crate::utils::to_value_error;
 use core::slice;
 use pyo3::class::iter::IterNextOutput;
-use pyo3::exceptions::{PyTypeError, PyValueError};
+use pyo3::exceptions::PyTypeError;
 use pyo3::gc::{PyGCProtocol, PyVisit};
 use pyo3::prelude::*;
 use pyo3::types::{PyByteArray, PyBytes};
@@ -139,11 +140,6 @@ impl Decoder {
 		// #[args] line assumption
 		const_assert_eq!(0, iced_x86::DecoderOptions::NONE);
 
-		match bitness {
-			16 | 32 | 64 => {}
-			_ => return Err(PyValueError::new_err("bitness must be 16, 32 or 64")),
-		}
-
 		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = <PyBytes as PyTryFrom>::try_from(data) {
 			let slice_data = bytes.as_bytes();
 			let decoder_data = unsafe { slice::from_raw_parts(slice_data.as_ptr(), slice_data.len()) };
@@ -158,7 +154,7 @@ impl Decoder {
 			return Err(PyTypeError::new_err("Expected one of these types: bytes, bytearray"));
 		};
 
-		let decoder = iced_x86::Decoder::new(bitness, decoder_data, options);
+		let decoder = iced_x86::Decoder::try_new(bitness, decoder_data, options).map_err(to_value_error)?;
 		Ok(Decoder { data_ref, decoder })
 	}
 
@@ -233,12 +229,7 @@ impl Decoder {
 
 	#[setter]
 	fn set_position(&mut self, new_value: usize) -> PyResult<()> {
-		if new_value > self.decoder.max_position() {
-			Err(PyValueError::new_err("Invalid position"))
-		} else {
-			self.decoder.set_position(new_value);
-			Ok(())
-		}
+		self.decoder.try_set_position(new_value).map_err(to_value_error)
 	}
 
 	/// bool: Returns ``True`` if there's at least one more byte to decode.

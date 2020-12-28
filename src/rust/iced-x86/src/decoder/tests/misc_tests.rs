@@ -36,6 +36,10 @@ fn decoder_new_panics(bitness: u32) {
 	let _ = Decoder::new(bitness, b"\x90", DecoderOptions::NONE);
 }
 
+fn decoder_try_new_fails(bitness: u32) {
+	assert!(Decoder::try_new(bitness, b"\x90", DecoderOptions::NONE).is_err());
+}
+
 #[test]
 #[should_panic]
 fn decoder_new_panics_0() {
@@ -46,6 +50,34 @@ fn decoder_new_panics_0() {
 #[should_panic]
 fn decoder_new_panics_128() {
 	decoder_new_panics(128);
+}
+
+#[test]
+fn decoder_try_new_fails_0() {
+	decoder_try_new_fails(0);
+}
+
+#[test]
+fn decoder_try_new_fails_128() {
+	decoder_try_new_fails(128);
+}
+
+#[test]
+fn decoder_try_new_succeeds_16() {
+	let mut decoder = Decoder::try_new(16, b"\x90", DecoderOptions::NONE).unwrap();
+	assert_eq!(Code::Nopw, decoder.decode().code());
+}
+
+#[test]
+fn decoder_try_new_succeeds_32() {
+	let mut decoder = Decoder::try_new(32, b"\x90", DecoderOptions::NONE).unwrap();
+	assert_eq!(Code::Nopd, decoder.decode().code());
+}
+
+#[test]
+fn decoder_try_new_succeeds_64() {
+	let mut decoder = Decoder::try_new(64, b"\x90", DecoderOptions::NONE).unwrap();
+	assert_eq!(Code::Nopd, decoder.decode().code());
 }
 
 #[test]
@@ -107,7 +139,7 @@ fn decode_multiple_instrs_with_one_instance() {
 		assert_eq!(instr1.code(), instr2.code());
 		if instr1.is_invalid() {
 			// decoder_all has a bigger buffer and can decode more bytes
-			decoder_all.set_position(position + bytes.len());
+			decoder_all.try_set_position(position + bytes.len()).unwrap();
 			instr2.set_len(bytes.len());
 			instr2.set_next_ip(ip + bytes.len() as u64);
 		}
@@ -144,7 +176,7 @@ fn position() {
 
 	decoder.set_ip(get_default_ip(BITNESS) + 2);
 	assert_eq!(5, decoder.position());
-	decoder.set_position(2);
+	decoder.try_set_position(2).unwrap();
 	assert!(decoder.can_decode());
 	assert_eq!(2, decoder.position());
 	assert_eq!(bytes.len(), decoder.max_position());
@@ -154,7 +186,7 @@ fn position() {
 
 	decoder.set_ip(get_default_ip(BITNESS));
 	assert_eq!(5, decoder.position());
-	decoder.set_position(0);
+	decoder.try_set_position(0).unwrap();
 	assert!(decoder.can_decode());
 	assert_eq!(0, decoder.position());
 	assert_eq!(bytes.len(), decoder.max_position());
@@ -171,15 +203,41 @@ fn set_position_valid_position() {
 	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	for i in 0..bytes.len() + 1 {
-		decoder.set_position(i);
+		#[allow(deprecated)]
+		{
+			decoder.set_position(i);
+		}
 		assert_eq!(i, decoder.position());
 	}
 	for i in (0..bytes.len() + 1).rev() {
-		decoder.set_position(i);
+		#[allow(deprecated)]
+		{
+			decoder.set_position(i);
+		}
 		assert_eq!(i, decoder.position());
 	}
 	let mut decoder = Decoder::new(64, b"", DecoderOptions::NONE);
-	decoder.set_position(0);
+	#[allow(deprecated)]
+	{
+		decoder.set_position(0);
+	}
+	assert_eq!(0, decoder.position());
+}
+
+#[test]
+fn try_set_position_valid_position() {
+	let bytes = b"\x23\x18\x48\x89\xCE";
+	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	for i in 0..bytes.len() + 1 {
+		decoder.try_set_position(i).unwrap();
+		assert_eq!(i, decoder.position());
+	}
+	for i in (0..bytes.len() + 1).rev() {
+		decoder.try_set_position(i).unwrap();
+		assert_eq!(i, decoder.position());
+	}
+	let mut decoder = Decoder::new(64, b"", DecoderOptions::NONE);
+	decoder.try_set_position(0).unwrap();
 	assert_eq!(0, decoder.position());
 }
 
@@ -188,7 +246,17 @@ fn set_position_valid_position() {
 fn set_position_panics_if_invalid() {
 	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	decoder.set_position(bytes.len() + 1);
+	#[allow(deprecated)]
+	{
+		decoder.set_position(bytes.len() + 1);
+	}
+}
+
+#[test]
+fn try_set_position_fails_if_invalid() {
+	let bytes = b"\x23\x18\x48\x89\xCE";
+	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	assert!(decoder.try_set_position(bytes.len() + 1).is_err());
 }
 
 #[test]

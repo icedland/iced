@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::code::{iced_to_code, Code};
 use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
+use super::ex_utils::to_js_error;
 use super::mandatory_prefix::{iced_to_mandatory_prefix, MandatoryPrefix};
 use super::memory_size::{iced_to_memory_size, MemorySize};
 use super::mnemonic::{iced_to_mnemonic, Mnemonic};
@@ -949,8 +950,8 @@ impl OpCodeInfo {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[wasm_bindgen(js_name = "opKind")]
-	pub fn op_kind(&self, operand: u32) -> OpCodeOperandKind {
-		iced_to_op_code_operand_kind(self.0.op_kind(operand))
+	pub fn op_kind(&self, operand: u32) -> Result<OpCodeOperandKind, JsValue> {
+		Ok(iced_to_op_code_operand_kind(self.0.try_op_kind(operand).map_err(to_js_error)?))
 	}
 
 	/// Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode

@@ -410,10 +410,78 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_lock_prefix());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn new(bitness: u32, data: &'a [u8], options: u32) -> Decoder<'a> {
+		Decoder::try_new(bitness, data, options).unwrap()
+	}
+
+	/// Creates a decoder
+	///
+	/// # Errors
+	///
+	/// Fails if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32 or 64
+	/// * `data`: Data to decode
+	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xchg ah,[rdx+rsi+16h]
+	/// // xacquire lock add dword ptr [rax],5Ah
+	/// // vmovdqu64 zmm18{k3}{z},zmm11
+	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";
+	/// let mut decoder = Decoder::try_new(64, bytes, DecoderOptions::NONE).unwrap();
+	/// decoder.set_ip(0x1234_5678);
+	///
+	/// let instr1 = decoder.decode();
+	/// assert_eq!(Code::Xchg_rm8_r8, instr1.code());
+	/// assert_eq!(Mnemonic::Xchg, instr1.mnemonic());
+	/// assert_eq!(4, instr1.len());
+	///
+	/// let instr2 = decoder.decode();
+	/// assert_eq!(Code::Add_rm32_imm8, instr2.code());
+	/// assert_eq!(Mnemonic::Add, instr2.mnemonic());
+	/// assert_eq!(5, instr2.len());
+	///
+	/// let instr3 = decoder.decode();
+	/// assert_eq!(Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512, instr3.code());
+	/// assert_eq!(Mnemonic::Vmovdqu64, instr3.mnemonic());
+	/// assert_eq!(6, instr3.len());
+	/// ```
+	///
+	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
+	/// Pass in [`DecoderOptions::NO_INVALID_CHECK`] to the constructor and the decoder
+	/// will decode some invalid encodings.
+	///
+	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // lock add esi,ecx   ; lock not allowed
+	/// let bytes = b"\xF0\x01\xCE";
+	/// let mut decoder = Decoder::try_new(64, bytes, DecoderOptions::NONE).unwrap();
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
+	/// assert_eq!(Code::INVALID, instr.code());
+	///
+	/// // We want to decode some instructions with invalid encodings
+	/// let mut decoder = Decoder::try_new(64, bytes, DecoderOptions::NO_INVALID_CHECK).unwrap();
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
+	/// assert_eq!(Code::Add_rm32_r32, instr.code());
+	/// assert!(instr.has_lock_prefix());
+	/// ```
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::let_unit_value))]
 	#[allow(trivial_casts)]
-	pub fn new(bitness: u32, data: &'a [u8], options: u32) -> Decoder<'a> {
+	pub fn try_new(bitness: u32, data: &'a [u8], options: u32) -> Result<Decoder<'a>, IcedError> {
 		let prefixes;
 		let is64_mode;
 		let default_code_size;
@@ -449,18 +517,20 @@ impl<'a> Decoder<'a> {
 				default_inverted_address_size = OpSize::Size32;
 				prefixes = &PREFIXES1632;
 			}
-			_ => panic!(),
+			_ => return Err(IcedError::new("Invalid bitness")),
 		}
 		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> *const &'static OpCodeHandler {
 			debug_assert_eq!(0x100, handlers.len());
 			handlers.as_ptr()
 		}
 		let data_ptr_end: *const u8 = unsafe { data.get_unchecked(data.len()) };
-		assert!(data_ptr_end >= data.as_ptr());
-		// Verify that max_data_ptr can never overflow and that data_ptr.offset(N) can't overflow
-		assert!(unsafe {
-			data.as_ptr().offset((data.len() as isize).checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize + 4).unwrap()) >= data.as_ptr()
-		});
+		if data_ptr_end < data.as_ptr()
+			|| unsafe {
+				// Verify that max_data_ptr can never overflow and that data_ptr.offset(N) can't overflow
+				data.as_ptr().offset((data.len() as isize).checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize + 4).unwrap()) < data.as_ptr()
+			} {
+			return Err(IcedError::new("Invalid slice"));
+		}
 
 		let tables = &*TABLES;
 
@@ -502,7 +572,7 @@ impl<'a> Decoder<'a> {
 		#[cfg(feature = "no_xop")]
 		let handlers_xopa = ();
 
-		Decoder {
+		Ok(Decoder {
 			ip: 0,
 			displ_index: 0,
 			prefixes,
@@ -533,7 +603,7 @@ impl<'a> Decoder<'a> {
 			default_inverted_address_size,
 			is64_mode,
 			bitness,
-		}
+		})
 	}
 
 	/// Gets the current `IP`/`EIP`/`RIP` value, see also [`position()`]
@@ -545,11 +615,11 @@ impl<'a> Decoder<'a> {
 		self.ip
 	}
 
-	/// Sets the current `IP`/`EIP`/`RIP` value, see also [`set_position()`]
+	/// Sets the current `IP`/`EIP`/`RIP` value, see also [`try_set_position()`]
 	///
-	/// This method only updates the IP value, it does not change the data position, use [`set_position()`] to change the position.
+	/// This method only updates the IP value, it does not change the data position, use [`try_set_position()`] to change the position.
 	///
-	/// [`set_position()`]: #method.set_position
+	/// [`try_set_position()`]: #method.try_set_position
 	///
 	/// # Arguments
 	///
@@ -566,10 +636,10 @@ impl<'a> Decoder<'a> {
 		self.bitness
 	}
 
-	/// Gets the max value that can be passed to [`set_position()`]. This is the size of the data that gets
+	/// Gets the max value that can be passed to [`try_set_position()`]. This is the size of the data that gets
 	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
 	///
-	/// [`set_position()`]: #method.set_position
+	/// [`try_set_position()`]: #method.try_set_position
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn max_position(&self) -> usize {
@@ -631,9 +701,60 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(3, decoder.position());
 	/// ```
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use try_set_position() instead")]
 	pub fn set_position(&mut self, new_pos: usize) {
-		assert!(new_pos <= self.data.len());
-		self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
+		self.try_set_position(new_pos).unwrap();
+	}
+
+	/// Sets the current data position, which is the index into the data passed to the constructor.
+	/// This value is always <= [`max_position()`]
+	///
+	/// [`max_position()`]: #method.max_position
+	///
+	/// # Errors
+	///
+	/// Fails if the new position is invalid.
+	///
+	/// # Arguments
+	///
+	/// * `new_pos`: New position and must be <= [`max_position()`]
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // nop and pause
+	/// let bytes = b"\x90\xF3\x90";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x1234_5678);
+	///
+	/// assert_eq!(0, decoder.position());
+	/// assert_eq!(3, decoder.max_position());
+	/// let instr = decoder.decode();
+	/// assert_eq!(1, decoder.position());
+	/// assert_eq!(Code::Nopd, instr.code());
+	///
+	/// let instr = decoder.decode();
+	/// assert_eq!(3, decoder.position());
+	/// assert_eq!(Code::Pause, instr.code());
+	///
+	/// // Start all over again
+	/// decoder.try_set_position(0).unwrap();
+	/// decoder.set_ip(0x1234_5678);
+	/// assert_eq!(0, decoder.position());
+	/// assert_eq!(Code::Nopd, decoder.decode().code());
+	/// assert_eq!(Code::Pause, decoder.decode().code());
+	/// assert_eq!(3, decoder.position());
+	/// ```
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn try_set_position(&mut self, new_pos: usize) -> Result<(), IcedError> {
+		if new_pos > self.data.len() {
+			Err(IcedError::new("Invalid position"))
+		} else {
+			self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
+			Ok(())
+		}
 	}
 
 	/// Returns `true` if there's at least one more byte to decode. It doesn't verify that the

@@ -36,15 +36,18 @@ fn va_tests() {
 		let mut decoder = create_decoder(tc.bitness, &bytes, tc.decoder_options).0;
 		let instruction = decoder.decode();
 
-		let value1 = instruction.virtual_address(operand, tc.element_index, |register, element_index, element_size| {
-			for reg_value in &tc.register_values {
-				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
-					return reg_value.value;
+		#[allow(deprecated)]
+		{
+			let value1 = instruction.virtual_address(operand, tc.element_index, |register, element_index, element_size| {
+				for reg_value in &tc.register_values {
+					if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
+						return reg_value.value;
+					}
 				}
-			}
-			unreachable!();
-		});
-		assert_eq!(tc.expected_value, value1);
+				unreachable!();
+			});
+			assert_eq!(tc.expected_value, value1);
+		}
 
 		let value2 = instruction.try_virtual_address(operand, tc.element_index, |register, element_index, element_size| {
 			for reg_value in &tc.register_values {

@@ -93,7 +93,7 @@ fn encode_test(
 		if offset == u32::MAX {
 			expected_constant_offsets.push(ConstantOffsets::default());
 		} else {
-			decoder.set_position(offset as usize);
+			decoder.try_set_position(offset as usize).unwrap();
 			decoder.set_ip(new_rip.wrapping_add(offset as u64));
 			decoder.decode_out(&mut instr);
 			expected_constant_offsets.push(decoder.get_constant_offsets(&instr));

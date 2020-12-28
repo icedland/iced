@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::ex_utils::to_js_error;
 use super::instruction::Instruction;
 use super::memory_size::{iced_to_memory_size, MemorySize};
 use super::op_access::{iced_to_op_access, OpAccess};
@@ -225,8 +226,8 @@ impl InstructionInfo {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[wasm_bindgen(js_name = "opAccess")]
-	pub fn op_access(&self, operand: u32) -> OpAccess {
-		iced_to_op_access(self.0.op_access(operand))
+	pub fn op_access(&self, operand: u32) -> Result<OpAccess, JsValue> {
+		Ok(iced_to_op_access(self.0.try_op_access(operand).map_err(to_js_error)?))
 	}
 }
 

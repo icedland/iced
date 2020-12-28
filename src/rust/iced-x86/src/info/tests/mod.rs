@@ -53,6 +53,7 @@ use core::mem;
 use hashbrown::{HashMap, HashSet};
 #[cfg(feature = "std")]
 use std::collections::{HashMap, HashSet};
+use std::panic;
 
 lazy_static! {
 	static ref INSTR_INFO_16: Vec<InstrInfoTestCase> = read_instr_info_test_cases(16);
@@ -200,6 +201,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT as u32);
 	for i in 0..instr.op_count() {
+		#[allow(deprecated)]
 		match i {
 			0 => assert_eq!(tc.op0_access, info.op_access(i)),
 			1 => assert_eq!(tc.op1_access, info.op_access(i)),
@@ -208,10 +210,27 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			4 => assert_eq!(tc.op4_access, info.op_access(i)),
 			_ => unreachable!(),
 		}
+		match i {
+			0 => assert_eq!(tc.op0_access, info.try_op_access(i).unwrap()),
+			1 => assert_eq!(tc.op1_access, info.try_op_access(i).unwrap()),
+			2 => assert_eq!(tc.op2_access, info.try_op_access(i).unwrap()),
+			3 => assert_eq!(tc.op3_access, info.try_op_access(i).unwrap()),
+			4 => assert_eq!(tc.op4_access, info.try_op_access(i).unwrap()),
+			_ => unreachable!(),
+		}
 	}
 	for i in instr.op_count()..IcedConstants::MAX_OP_COUNT as u32 {
-		assert_eq!(OpAccess::None, info.op_access(i));
+		#[allow(deprecated)]
+		{
+			assert_eq!(OpAccess::None, info.op_access(i));
+		}
+		assert_eq!(OpAccess::None, info.try_op_access(i).unwrap());
 	}
+	#[allow(deprecated)]
+	{
+		assert!(panic::catch_unwind(|| { info.op_access(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+	}
+	assert!(info.try_op_access(IcedConstants::MAX_OP_COUNT as u32).is_err());
 
 	assert_eq!(RflagsBits::NONE, info.rflags_written() & (info.rflags_cleared() | info.rflags_set() | info.rflags_undefined()));
 	assert_eq!(RflagsBits::NONE, info.rflags_cleared() & (info.rflags_written() | info.rflags_set() | info.rflags_undefined()));
