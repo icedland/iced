@@ -348,13 +348,13 @@ impl BlockEncoder {
 					if instr.optimize() {
 						let instr_size = instr.size();
 						if instr_size > old_size {
-							return Err(IcedError::new("Internal error: new size > old size"));
+							return Err(IcedError::new("Internal error"));
 						}
 						if instr_size < old_size {
 							updated = true;
 						}
 					} else if instr.size() != old_size {
-						return Err(IcedError::new("Internal error: new size != old size"));
+						return Err(IcedError::new("Internal error"));
 					}
 					ip = ip.wrapping_add(instr.size() as u64);
 				}
@@ -388,14 +388,14 @@ impl BlockEncoder {
 				};
 				let size = block.buffer_pos() - buffer_pos;
 				if size != instr.size() as usize {
-					return Err(IcedError::new("Internal error: didn't write all bytes"));
+					return Err(IcedError::new("Internal error"));
 				}
 				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
 					new_instruction_offsets.push(if is_original_instruction { ip.wrapping_sub(block.rip) as u32 } else { u32::MAX });
 				}
 				ip = ip.wrapping_add(size as u64);
 			}
-			block.write_data();
+			block.write_data()?;
 			result_vec.push(BlockEncoderResult {
 				rip: block.rip,
 				code_buffer: block.take_buffer(),
@@ -410,7 +410,9 @@ impl BlockEncoder {
 		if cfg!(debug_assertions) {
 			for info in &self.blocks {
 				// dispose() and other clear() calls should've removed all cyclic refs
-				assert_eq!(1, Rc::strong_count(&info.0));
+				if Rc::strong_count(&info.0) != 1 {
+					return Err(IcedError::new("Internal error"));
+				}
 			}
 		}
 

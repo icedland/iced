@@ -296,7 +296,7 @@ impl Instr for SimpleBranchInstr {
 			InstrKind::Long => {
 				debug_assert_eq!(64, block.encoder.bitness());
 				debug_assert!(self.pointer_data.is_some());
-				let pointer_data = self.pointer_data.clone().unwrap();
+				let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
 				pointer_data.borrow_mut().data = self.target_instr.address(self);
 
 				// Code:

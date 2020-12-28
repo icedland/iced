@@ -47,7 +47,7 @@ fn create_strings(c: char, cap: usize) -> Vec<String> {
 		v.push(s.clone());
 	}
 	s.push(c);
-	assert_eq!(cap, s.len());
+	debug_assert_eq!(cap, s.len());
 	v.push(s);
 	v
 }

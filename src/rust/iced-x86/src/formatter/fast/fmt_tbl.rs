@@ -73,7 +73,7 @@ fn read() -> FmtTableData {
 			reader.set_index(current_index as usize);
 		}
 	}
-	assert!(!reader.can_read());
+	debug_assert!(!reader.can_read());
 
 	FmtTableData { mnemonics, flags }
 }

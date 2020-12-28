@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::iced_error::IcedError;
 use super::instr::*;
 use super::*;
 #[cfg(any(has_alloc, not(feature = "std")))]
@@ -82,9 +83,9 @@ impl Block {
 		}
 	}
 
-	pub(super) fn write_data(&mut self) {
+	pub(super) fn write_data(&mut self) -> Result<(), IcedError> {
 		if self.valid_data.is_empty() {
-			return;
+			return Ok(());
 		}
 		for _ in 0..self.valid_data_address_aligned - self.valid_data_address {
 			self.encoder.write_byte_internal(0xCC);
@@ -94,7 +95,7 @@ impl Block {
 				for data in &self.valid_data {
 					let data = data.borrow();
 					if let Some(ref mut reloc_infos) = self.reloc_infos {
-						reloc_infos.push(RelocInfo::new(RelocKind::Offset64, data.address()));
+						reloc_infos.push(RelocInfo::new(RelocKind::Offset64, data.address()?));
 					}
 					let d64 = data.data;
 					let mut d = d64 as u32;
@@ -112,6 +113,8 @@ impl Block {
 
 			_ => unreachable!(),
 		}
+
+		Ok(())
 	}
 
 	pub(super) fn buffer_pos(&self) -> usize {
@@ -154,8 +157,11 @@ pub(super) struct BlockData {
 }
 
 impl BlockData {
-	pub(super) fn address(&self) -> u64 {
-		assert!(self.is_valid && self.address_initd);
-		self.address
+	pub(super) fn address(&self) -> Result<u64, IcedError> {
+		if self.is_valid && self.address_initd {
+			Ok(self.address)
+		} else {
+			Err(IcedError::new("Internal error"))
+		}
 	}
 }

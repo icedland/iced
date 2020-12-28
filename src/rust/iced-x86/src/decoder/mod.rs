@@ -527,7 +527,12 @@ impl<'a> Decoder<'a> {
 		if data_ptr_end < data.as_ptr()
 			|| unsafe {
 				// Verify that max_data_ptr can never overflow and that data_ptr.offset(N) can't overflow
-				data.as_ptr().offset((data.len() as isize).checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize + 4).unwrap()) < data.as_ptr()
+				if let Some(index) = (data.len() as isize).checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize + 4) {
+					data.as_ptr().offset(index) < data.as_ptr()
+				} else {
+					// Fail
+					true
+				}
 			} {
 			return Err(IcedError::new("Invalid slice"));
 		}

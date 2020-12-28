@@ -197,7 +197,7 @@ impl Instr for JmpInstr {
 
 			InstrKind::Long => {
 				debug_assert!(self.pointer_data.is_some());
-				let pointer_data = self.pointer_data.clone().unwrap();
+				let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
 				pointer_data.borrow_mut().data = self.target_instr.address(self);
 				match InstrUtils::encode_branch_to_pointer_data(block, false, self.ip, pointer_data, self.size) {
 					Ok(_) => Ok((ConstantOffsets::default(), false)),

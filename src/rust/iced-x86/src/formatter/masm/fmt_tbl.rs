@@ -251,7 +251,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				let s3 = strings[reader.read_compressed_u32() as usize].clone();
 				let s4 = strings[reader.read_compressed_u32() as usize].clone();
 				v = reader.read_u8() as u32;
-				assert!(v <= 1);
+				debug_assert!(v <= 1);
 				Box::new(SimpleInstrInfo_OpSize2::new(s, s2, s3, s4, v != 0))
 			}
 
@@ -292,13 +292,13 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			CtorKind::ST_STi => Box::new(SimpleInstrInfo_ST_STi::new(s)),
 			CtorKind::STi_ST => {
 				v = reader.read_u8() as u32;
-				assert!(v <= 1);
+				debug_assert!(v <= 1);
 				Box::new(SimpleInstrInfo_STi_ST::new(s, v != 0))
 			}
 
 			CtorKind::STIG1 => {
 				v = reader.read_u8() as u32;
-				assert!(v <= 1);
+				debug_assert!(v <= 1);
 				Box::new(SimpleInstrInfo_STIG1::new(s, v != 0))
 			}
 
@@ -337,7 +337,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			reader.set_index(current_index as usize);
 		}
 	}
-	assert!(!reader.can_read());
+	debug_assert!(!reader.can_read());
 
 	infos
 }

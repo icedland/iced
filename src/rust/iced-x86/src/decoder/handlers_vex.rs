@@ -42,8 +42,8 @@ impl OpCodeHandler_VectorLength_VEX {
 		const_assert_eq!(1, VectorLength::L256 as u32);
 		const_assert_eq!(2, VectorLength::L512 as u32);
 		const_assert_eq!(3, VectorLength::Unknown as u32);
-		assert!(!is_null_instance_handler(handler128));
-		assert!(!is_null_instance_handler(handler256));
+		debug_assert!(!is_null_instance_handler(handler128));
+		debug_assert!(!is_null_instance_handler(handler256));
 		let handlers = unsafe {
 			[
 				&*handler128,
@@ -52,8 +52,8 @@ impl OpCodeHandler_VectorLength_VEX {
 				&*(&INVALID_HANDLER as *const _ as *const OpCodeHandler),
 			]
 		};
-		assert_eq!(has_modrm, handlers[0].has_modrm);
-		assert_eq!(has_modrm, handlers[1].has_modrm);
+		debug_assert_eq!(has_modrm, handlers[0].has_modrm);
+		debug_assert_eq!(has_modrm, handlers[1].has_modrm);
 		Self { decode: OpCodeHandler_VectorLength_VEX::decode, has_modrm, handlers }
 	}
 

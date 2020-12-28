@@ -42,13 +42,13 @@ impl OpCodeHandler_VectorLength_EVEX {
 		const_assert_eq!(1, VectorLength::L256 as u32);
 		const_assert_eq!(2, VectorLength::L512 as u32);
 		const_assert_eq!(3, VectorLength::Unknown as u32);
-		assert!(!is_null_instance_handler(handler128));
-		assert!(!is_null_instance_handler(handler256));
-		assert!(!is_null_instance_handler(handler512));
+		debug_assert!(!is_null_instance_handler(handler128));
+		debug_assert!(!is_null_instance_handler(handler256));
+		debug_assert!(!is_null_instance_handler(handler512));
 		let handlers = unsafe { [&*handler128, &*handler256, &*handler512, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)] };
-		assert!(handlers[0].has_modrm);
-		assert!(handlers[1].has_modrm);
-		assert!(handlers[2].has_modrm);
+		debug_assert!(handlers[0].has_modrm);
+		debug_assert!(handlers[1].has_modrm);
+		debug_assert!(handlers[2].has_modrm);
 		Self { decode: OpCodeHandler_VectorLength_EVEX::decode, has_modrm: true, handlers }
 	}
 
@@ -75,13 +75,13 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		const_assert_eq!(1, VectorLength::L256 as u32);
 		const_assert_eq!(2, VectorLength::L512 as u32);
 		const_assert_eq!(3, VectorLength::Unknown as u32);
-		assert!(!is_null_instance_handler(handler128));
-		assert!(!is_null_instance_handler(handler256));
-		assert!(!is_null_instance_handler(handler512));
+		debug_assert!(!is_null_instance_handler(handler128));
+		debug_assert!(!is_null_instance_handler(handler256));
+		debug_assert!(!is_null_instance_handler(handler512));
 		let handlers = unsafe { [&*handler128, &*handler256, &*handler512, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)] };
-		assert!(handlers[0].has_modrm);
-		assert!(handlers[1].has_modrm);
-		assert!(handlers[2].has_modrm);
+		debug_assert!(handlers[0].has_modrm);
+		debug_assert!(handlers[1].has_modrm);
+		debug_assert!(handlers[2].has_modrm);
 		Self { decode: OpCodeHandler_VectorLength_EVEX_er::decode, has_modrm: true, handlers }
 	}
 

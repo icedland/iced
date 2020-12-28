@@ -38,7 +38,7 @@ pub(super) struct OpCodeHandler_VEX2 {
 
 impl OpCodeHandler_VEX2 {
 	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
-		assert!(!is_null_instance_handler(handler_mem));
+		debug_assert!(!is_null_instance_handler(handler_mem));
 		Self { decode: OpCodeHandler_VEX2::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
 	}
 
@@ -63,7 +63,7 @@ pub(super) struct OpCodeHandler_VEX3 {
 
 impl OpCodeHandler_VEX3 {
 	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
-		assert!(!is_null_instance_handler(handler_mem));
+		debug_assert!(!is_null_instance_handler(handler_mem));
 		Self { decode: OpCodeHandler_VEX3::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
 	}
 
@@ -88,7 +88,7 @@ pub(super) struct OpCodeHandler_XOP {
 
 impl OpCodeHandler_XOP {
 	pub(super) fn new(handler_reg0: *const OpCodeHandler) -> Self {
-		assert!(!is_null_instance_handler(handler_reg0));
+		debug_assert!(!is_null_instance_handler(handler_reg0));
 		Self { decode: OpCodeHandler_XOP::decode, has_modrm: true, handler_reg0: unsafe { &*handler_reg0 } }
 	}
 
@@ -113,7 +113,7 @@ pub(super) struct OpCodeHandler_EVEX {
 
 impl OpCodeHandler_EVEX {
 	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
-		assert!(!is_null_instance_handler(handler_mem));
+		debug_assert!(!is_null_instance_handler(handler_mem));
 		Self { decode: OpCodeHandler_EVEX::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
 	}
 
@@ -317,10 +317,10 @@ impl OpCodeHandler_MandatoryPrefix {
 		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
 		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
 		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
-		assert!(!is_null_instance_handler(handler));
-		assert!(!is_null_instance_handler(handler_66));
-		assert!(!is_null_instance_handler(handler_f3));
-		assert!(!is_null_instance_handler(handler_f2));
+		debug_assert!(!is_null_instance_handler(handler));
+		debug_assert!(!is_null_instance_handler(handler_66));
+		debug_assert!(!is_null_instance_handler(handler_f3));
+		debug_assert!(!is_null_instance_handler(handler_f2));
 		let handlers = unsafe { [&*handler, &*handler_66, &*handler_f3, &*handler_f2] };
 		debug_assert_eq!(has_modrm, handlers[0].has_modrm);
 		debug_assert_eq!(has_modrm, handlers[1].has_modrm);
@@ -354,14 +354,14 @@ impl OpCodeHandler_MandatoryPrefix3 {
 		handler66_mem: *const OpCodeHandler, handlerf3_reg: *const OpCodeHandler, handlerf3_mem: *const OpCodeHandler,
 		handlerf2_reg: *const OpCodeHandler, handlerf2_mem: *const OpCodeHandler, flags: u32,
 	) -> Self {
-		assert!(!is_null_instance_handler(handler_reg));
-		assert!(!is_null_instance_handler(handler_mem));
-		assert!(!is_null_instance_handler(handler66_reg));
-		assert!(!is_null_instance_handler(handler66_mem));
-		assert!(!is_null_instance_handler(handlerf3_reg));
-		assert!(!is_null_instance_handler(handlerf3_mem));
-		assert!(!is_null_instance_handler(handlerf2_reg));
-		assert!(!is_null_instance_handler(handlerf2_mem));
+		debug_assert!(!is_null_instance_handler(handler_reg));
+		debug_assert!(!is_null_instance_handler(handler_mem));
+		debug_assert!(!is_null_instance_handler(handler66_reg));
+		debug_assert!(!is_null_instance_handler(handler66_mem));
+		debug_assert!(!is_null_instance_handler(handlerf3_reg));
+		debug_assert!(!is_null_instance_handler(handlerf3_mem));
+		debug_assert!(!is_null_instance_handler(handlerf2_reg));
+		debug_assert!(!is_null_instance_handler(handlerf2_mem));
 		let handlers_reg = unsafe {
 			[
 				(&*handler_reg, (flags & LegacyHandlerFlags::HANDLER_REG) == 0),
@@ -423,10 +423,10 @@ impl OpCodeHandler_MandatoryPrefix4 {
 		handler_np: *const OpCodeHandler, handler_66: *const OpCodeHandler, handler_f3: *const OpCodeHandler, handler_f2: *const OpCodeHandler,
 		flags: u32,
 	) -> Self {
-		assert!(!is_null_instance_handler(handler_np));
-		assert!(!is_null_instance_handler(handler_66));
-		assert!(!is_null_instance_handler(handler_f3));
-		assert!(!is_null_instance_handler(handler_f2));
+		debug_assert!(!is_null_instance_handler(handler_np));
+		debug_assert!(!is_null_instance_handler(handler_66));
+		debug_assert!(!is_null_instance_handler(handler_f3));
+		debug_assert!(!is_null_instance_handler(handler_f2));
 		Self {
 			decode: OpCodeHandler_MandatoryPrefix4::decode,
 			has_modrm: false,
@@ -509,8 +509,8 @@ pub(super) struct OpCodeHandler_Reservednop {
 
 impl OpCodeHandler_Reservednop {
 	pub(super) fn new(reserved_nop_handler: *const OpCodeHandler, other_handler: *const OpCodeHandler) -> Self {
-		assert!(!is_null_instance_handler(reserved_nop_handler));
-		assert!(!is_null_instance_handler(other_handler));
+		debug_assert!(!is_null_instance_handler(reserved_nop_handler));
+		debug_assert!(!is_null_instance_handler(other_handler));
 		Self {
 			decode: OpCodeHandler_Reservednop::decode,
 			has_modrm: true,

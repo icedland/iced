@@ -61,7 +61,7 @@ impl<'a> DataReader<'a> {
 		let mut result = 0;
 		let mut shift = 0;
 		loop {
-			assert!(shift < 32);
+			debug_assert!(shift < 32);
 
 			let b = self.read_u8() as u32;
 			if (b & 0x80) == 0 {

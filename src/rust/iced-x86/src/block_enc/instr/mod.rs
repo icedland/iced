@@ -312,7 +312,7 @@ impl InstrUtils {
 		block: &mut Block, is_call: bool, ip: u64, pointer_data: Rc<RefCell<BlockData>>, min_size: u32,
 	) -> Result<u32, IcedError> {
 		if min_size > i32::MAX as u32 {
-			return Err(IcedError::new("Internal error: min_size > i32::MAX"));
+			return Err(IcedError::new("Internal error"));
 		}
 
 		let mut instr = Instruction::default();
@@ -325,7 +325,7 @@ impl InstrUtils {
 				instr.set_memory_base(Register::RIP);
 				let next_rip = ip.wrapping_add(Self::CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64 as u64);
 				instr.set_next_ip(next_rip);
-				let diff = pointer_data.borrow().address().wrapping_sub(next_rip) as i64;
+				let diff = pointer_data.borrow().address()?.wrapping_sub(next_rip) as i64;
 				instr.set_memory_displacement(diff as u32);
 				if !(i32::MIN as i64 <= diff && diff <= i32::MAX as i64) {
 					return Err(IcedError::new("Block is too big"));
@@ -343,7 +343,7 @@ impl InstrUtils {
 		if block.can_add_reloc_infos() && reloc_kind != RelocKind::Offset64 {
 			let co = block.encoder.get_constant_offsets();
 			if !co.has_displacement() {
-				return Err(IcedError::new("Internal error: no displ"));
+				return Err(IcedError::new("Internal error"));
 			}
 			block.add_reloc_info(RelocInfo::new(reloc_kind, ip.wrapping_add(co.displacement_offset() as u64)));
 		}

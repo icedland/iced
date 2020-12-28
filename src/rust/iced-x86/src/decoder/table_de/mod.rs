@@ -83,7 +83,7 @@ impl<'a> TableDeserializer<'a> {
 				}
 			}
 		}
-		assert!(!self.reader.can_read());
+		debug_assert!(!self.reader.can_read());
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
@@ -159,7 +159,7 @@ impl<'a> TableDeserializer<'a> {
 	#[inline]
 	pub(self) fn read_handler(&mut self) -> *const OpCodeHandler {
 		let result = self.read_handler_or_null_instance();
-		assert!(!is_null_instance_handler(result));
+		debug_assert!(!is_null_instance_handler(result));
 		result
 	}
 
@@ -168,7 +168,7 @@ impl<'a> TableDeserializer<'a> {
 		let mut tmp_vec = self.temp_vecs.pop().unwrap_or_else(|| Vec::with_capacity(1));
 		debug_assert!(tmp_vec.is_empty());
 		(self.handler_reader)(self, &mut tmp_vec);
-		assert_eq!(1, tmp_vec.len());
+		debug_assert_eq!(1, tmp_vec.len());
 		let result = tmp_vec.pop().unwrap();
 		debug_assert!(tmp_vec.is_empty());
 		self.temp_vecs.push(tmp_vec);
@@ -190,7 +190,7 @@ impl<'a> TableDeserializer<'a> {
 			i += size;
 			debug_assert_eq!(i, handlers.len());
 		}
-		assert_eq!(count, handlers.len());
+		debug_assert_eq!(count, handlers.len());
 		debug_assert_eq!(i, count);
 		handlers
 	}
@@ -207,7 +207,8 @@ impl<'a> TableDeserializer<'a> {
 
 	#[cfg_attr(has_must_use, must_use)]
 	pub(self) fn read_array_reference(&mut self, kind: u32) -> Vec<&'static OpCodeHandler> {
-		assert_eq!(kind, self.reader.read_u8() as u32);
+		let read_kind = self.reader.read_u8() as u32;
+		debug_assert_eq!(kind, read_kind);
 		let index = self.reader.read_u8();
 		if let &HandlerInfo::Handlers(ref handlers) = self.id_to_handler.get(index).unwrap() {
 			// There are a few dupe refs, clone the whole thing
@@ -219,7 +220,8 @@ impl<'a> TableDeserializer<'a> {
 
 	#[cfg_attr(has_must_use, must_use)]
 	pub(self) fn read_array_reference_no_clone(&mut self, kind: u32) -> Vec<&'static OpCodeHandler> {
-		assert_eq!(kind, self.reader.read_u8() as u32);
+		let read_kind = self.reader.read_u8() as u32;
+		debug_assert_eq!(kind, read_kind);
 		let index = self.reader.read_u8();
 		self.table(index)
 	}
@@ -228,7 +230,7 @@ impl<'a> TableDeserializer<'a> {
 	pub(self) fn table(&mut self, index: usize) -> Vec<&'static OpCodeHandler> {
 		if let &mut HandlerInfo::Handlers(ref mut tmp) = self.id_to_handler.get_mut(index).unwrap() {
 			let handlers = mem::replace(tmp, Vec::new());
-			assert!(!handlers.is_empty());
+			debug_assert!(!handlers.is_empty());
 			handlers
 		} else {
 			unreachable!();
