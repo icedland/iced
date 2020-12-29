@@ -69,7 +69,7 @@ pub struct InstructionInfoFactory {
 	info: InstructionInfo,
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::new_without_default))]
+#[allow(clippy::new_without_default)]
 impl InstructionInfoFactory {
 	/// Creates a new instance.
 	///
@@ -104,8 +104,8 @@ impl InstructionInfoFactory {
 	///     }
 	/// }
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn new() -> Self {
 		Self { info: InstructionInfo::new(0) }
 	}
@@ -158,7 +158,7 @@ impl InstructionInfoFactory {
 	/// assert_eq!(Register::ESI, regs[2].register());
 	/// assert_eq!(OpAccess::Read, regs[2].access());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn info(&mut self, instruction: &Instruction) -> &InstructionInfo {
 		Self::create(&mut self.info, instruction, InstructionInfoOptions::NONE)
@@ -181,7 +181,7 @@ impl InstructionInfoFactory {
 	/// * `options`: Options, see [`InstructionInfoOptions`]
 	///
 	/// [`InstructionInfoOptions`]: struct.InstructionInfoOptions.html
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn info_options(&mut self, instruction: &Instruction, options: u32) -> &InstructionInfo {
 		Self::create(&mut self.info, instruction, options)
@@ -320,7 +320,6 @@ impl InstructionInfoFactory {
 				continue;
 			}
 
-			#[allow(deprecated)]
 			match instruction.try_op_kind(i as u32).unwrap_or_default() {
 				OpKind::Register => {
 					if access == OpAccess::NoMemAccess {
@@ -354,6 +353,7 @@ impl InstructionInfoFactory {
 					}
 				}
 
+				#[allow(deprecated)]
 				OpKind::Memory64 => {}
 
 				OpKind::Memory => {
@@ -489,8 +489,8 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unreadable_literal))]
+	#[rustfmt::skip]
+	#[allow(clippy::unreadable_literal)]
 	fn add_implied_accesses(implied_access: ImpliedAccess, instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
 		debug_assert_ne!(ImpliedAccess::None, implied_access);
 		match implied_access {
@@ -1844,7 +1844,7 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn get_a_rdi(instruction: &Instruction) -> Register {
 		match instruction.op0_kind() {
 			OpKind::MemorySegDI => Register::DI,
@@ -1853,7 +1853,7 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn get_seg_default_ds(instruction: &Instruction) -> Register {
 		let seg = instruction.segment_prefix();
 		if seg == Register::None {
@@ -2692,7 +2692,7 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn try_get_gpr_16_32_64_index(register: Register) -> i32 {
 		let mut index;
 		let reg = register as u32;
@@ -2712,7 +2712,7 @@ impl InstructionInfoFactory {
 		}
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+	#[allow(clippy::too_many_arguments)]
 	#[inline(always)]
 	fn add_memory(
 		info: &mut InstructionInfo, segment_register: Register, base_register: Register, index_register: Register, scale: u32, displ: u64,

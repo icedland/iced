@@ -78,7 +78,7 @@ fn filter_infos<'a, 'b>(
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub(in super::super) fn test_format_file_common(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn test_format_file_common(dir: &str, file_part: &str, fmt_factory: fn() -> Box<dyn Formatter>) {
 	let (all_infos, ignored): (&[OptionsInstructionInfo], &HashSet<u32>) = {
 		let infos = &*opts_infos::COMMON_INFOS;
 		(&infos.0, &infos.1)
@@ -88,7 +88,7 @@ pub(in super::super) fn test_format_file_common(dir: &str, file_part: &str, fmt_
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub(in super::super) fn test_format_file_all(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn test_format_file_all(dir: &str, file_part: &str, fmt_factory: fn() -> Box<dyn Formatter>) {
 	let (all_infos, ignored): (&[OptionsInstructionInfo], &HashSet<u32>) = {
 		let infos = &*opts_infos::ALL_INFOS;
 		(&infos.0, &infos.1)
@@ -98,14 +98,14 @@ pub(in super::super) fn test_format_file_all(dir: &str, file_part: &str, fmt_fac
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<dyn Formatter>) {
 	let mut tmp_infos: Vec<OptionsInstructionInfo> = Vec::new();
 	let infos = read_infos(dir, file_part, options_file, &mut tmp_infos);
 	test_format(infos, fmt_factory);
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() -> Box<Formatter>) {
+fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() -> Box<dyn Formatter>) {
 	for &(tc, ref formatted_string) in &infos {
 		let mut formatter = fmt_factory();
 		tc.initialize_options(formatter.options_mut());

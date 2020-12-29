@@ -93,7 +93,7 @@ fn verify_result_vectors() {
 	const NEW_RIP1: u64 = 0x8000_0000_0000_0000;
 	const NEW_RIP2: u64 = 0x9000_0000_0000_0000;
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = [
 		BlockEncoderOptions::RETURN_RELOC_INFOS,
 		BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS,
@@ -160,7 +160,7 @@ fn encode_declare_byte() {
 	const BITNESS: u32 = 64;
 	const NEW_RIP: u64 = 0x8000_0000_0000_0000;
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let test_data = [
 		(vec![0x5A], vec![0x90, 0x5A, 0x90]),
 		(vec![0xF0, 0xD2, 0x7A, 0x18, 0xA0], vec![0x90, 0xF0, 0xD2, 0x7A, 0x18, 0xA0, 0x90]),
@@ -168,7 +168,7 @@ fn encode_declare_byte() {
 	];
 
 	for info in &test_data {
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let instructions = [
 			Instruction::with(Code::Nopd),
 			Instruction::try_with_declare_byte(&info.0).unwrap(),

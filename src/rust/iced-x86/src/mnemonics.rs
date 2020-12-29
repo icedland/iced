@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::iced_constants::IcedConstants;
 use super::Mnemonic;
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::INVALID,// INVALID
 	Mnemonic::Db,// DeclareByte

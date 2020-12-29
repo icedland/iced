@@ -83,7 +83,7 @@ pub(crate) enum CtorKind {
 	Reg32,
 	reverse,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_CTOR_KIND: [&str; 53] = [
 	"Previous",
 	"Normal_1",
@@ -147,7 +147,7 @@ impl fmt::Debug for CtorKind {
 	}
 }
 impl Default for CtorKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CtorKind::Previous
@@ -169,7 +169,7 @@ pub(crate) enum SignExtendInfo {
 	Sex2,
 	Sex4,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_SIGN_EXTEND_INFO: [&str; 7] = [
 	"None",
 	"Sex1to2",
@@ -187,7 +187,7 @@ impl fmt::Debug for SignExtendInfo {
 	}
 }
 impl Default for SignExtendInfo {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SignExtendInfo::None
@@ -206,7 +206,7 @@ pub(crate) enum SizeOverride {
 	Size32,
 	Size64,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_SIZE_OVERRIDE: [&str; 4] = [
 	"None",
 	"Size16",
@@ -221,7 +221,7 @@ impl fmt::Debug for SizeOverride {
 	}
 }
 impl Default for SizeOverride {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SizeOverride::None
@@ -243,7 +243,7 @@ pub(crate) enum BranchSizeInfo {
 	Dword,
 	Short,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_BRANCH_SIZE_INFO: [&str; 7] = [
 	"None",
 	"Near",
@@ -261,7 +261,7 @@ impl fmt::Debug for BranchSizeInfo {
 	}
 }
 impl Default for BranchSizeInfo {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		BranchSizeInfo::None
@@ -349,7 +349,7 @@ pub(crate) enum InstrOpKind {
 	DeclareDword,
 	DeclareQword,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_INSTR_OP_KIND: [&str; 35] = [
 	"Register",
 	"NearBranch16",
@@ -395,7 +395,7 @@ impl fmt::Debug for InstrOpKind {
 	}
 }
 impl Default for InstrOpKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		InstrOpKind::Register
@@ -414,7 +414,7 @@ pub(crate) enum MemorySizeInfo {
 	Dword,
 	Qword,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_MEMORY_SIZE_INFO: [&str; 4] = [
 	"None",
 	"Word",
@@ -429,7 +429,7 @@ impl fmt::Debug for MemorySizeInfo {
 	}
 }
 impl Default for MemorySizeInfo {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MemorySizeInfo::None
@@ -447,7 +447,7 @@ pub(crate) enum FarMemorySizeInfo {
 	Word,
 	Dword,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_FAR_MEMORY_SIZE_INFO: [&str; 3] = [
 	"None",
 	"Word",
@@ -461,7 +461,7 @@ impl fmt::Debug for FarMemorySizeInfo {
 	}
 }
 impl Default for FarMemorySizeInfo {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FarMemorySizeInfo::None

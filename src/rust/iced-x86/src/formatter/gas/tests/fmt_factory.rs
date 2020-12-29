@@ -32,7 +32,7 @@ fn create_fmt() -> Box<GasFormatter> {
 	create_fmt2(None, None)
 }
 
-fn create_fmt2(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Box<GasFormatter> {
+fn create_fmt2(symbol_resolver: Option<Box<dyn SymbolResolver>>, options_provider: Option<Box<dyn FormatterOptionsProvider>>) -> Box<GasFormatter> {
 	let mut fmt = Box::new(GasFormatter::with_options(symbol_resolver, options_provider));
 	fmt.options_mut().set_uppercase_hex(false);
 	fmt
@@ -100,7 +100,7 @@ pub(super) fn create_numbers() -> Box<GasFormatter> {
 	fmt
 }
 
-pub(super) fn create_resolver(symbol_resolver: Box<SymbolResolver>) -> Box<GasFormatter> {
+pub(super) fn create_resolver(symbol_resolver: Box<dyn SymbolResolver>) -> Box<GasFormatter> {
 	let mut fmt = create_fmt2(Some(symbol_resolver), None);
 	fmt.options_mut().set_gas_show_mnemonic_size_suffix(false);
 	fmt.options_mut().set_gas_naked_registers(false);

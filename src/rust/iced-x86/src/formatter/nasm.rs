@@ -107,12 +107,12 @@ use core::{mem, u16, u32, u8};
 pub struct NasmFormatter {
 	d: SelfData,
 	number_formatter: NumberFormatter,
-	symbol_resolver: Option<Box<SymbolResolver>>,
-	options_provider: Option<Box<FormatterOptionsProvider>>,
+	symbol_resolver: Option<Box<dyn SymbolResolver>>,
+	options_provider: Option<Box<dyn FormatterOptionsProvider>>,
 }
 
 impl Default for NasmFormatter {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		NasmFormatter::new()
@@ -123,7 +123,7 @@ impl Default for NasmFormatter {
 struct SelfData {
 	options: FormatterOptions,
 	all_registers: &'static Vec<FormatterString>,
-	instr_infos: &'static Vec<Box<InstrInfo + Sync + Send>>,
+	instr_infos: &'static Vec<Box<dyn InstrInfo + Sync + Send>>,
 	all_memory_sizes: &'static Vec<Info>,
 	str_: &'static FormatterConstants,
 	vec_: &'static FormatterArrayConstants,
@@ -131,7 +131,7 @@ struct SelfData {
 
 impl NasmFormatter {
 	/// Creates a nasm formatter
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new() -> Self {
 		NasmFormatter::with_options(None, None)
@@ -143,9 +143,9 @@ impl NasmFormatter {
 	///
 	/// - `symbol_resolver`: Symbol resolver or `None`
 	/// - `options_provider`: Operand options provider or `None`
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn with_options(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Self {
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn with_options(symbol_resolver: Option<Box<dyn SymbolResolver>>, options_provider: Option<Box<dyn FormatterOptionsProvider>>) -> Self {
 		Self {
 			d: SelfData {
 				options: FormatterOptions::with_nasm(),
@@ -162,7 +162,7 @@ impl NasmFormatter {
 	}
 
 	fn format_mnemonic(
-		&mut self, instruction: &Instruction, output: &mut FormatterOutput, op_info: &InstrOpInfo, column: &mut u32, mnemonic_options: u32,
+		&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo, column: &mut u32, mnemonic_options: u32,
 	) {
 		let mut need_space = false;
 		if (mnemonic_options & FormatMnemonicOptions::NO_PREFIXES) == 0 && (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE) == 0 {
@@ -268,7 +268,7 @@ impl NasmFormatter {
 						);
 					}
 				}
-				if instruction.has_repne_prefix() && !has_bnd && show_repne_prefix(instruction.code(), &self.d.options) {
+				if !has_bnd && instruction.has_repne_prefix() && show_repne_prefix(instruction.code(), &self.d.options) {
 					NasmFormatter::format_prefix(
 						&self.d.options,
 						output,
@@ -383,7 +383,7 @@ impl NasmFormatter {
 	}
 
 	fn format_prefix(
-		options: &FormatterOptions, output: &mut FormatterOutput, instruction: &Instruction, column: &mut u32, prefix: &FormatterString,
+		options: &FormatterOptions, output: &mut dyn FormatterOutput, instruction: &Instruction, column: &mut u32, prefix: &FormatterString,
 		prefix_kind: PrefixKind, need_space: &mut bool,
 	) {
 		if *need_space {
@@ -395,7 +395,7 @@ impl NasmFormatter {
 		*need_space = true;
 	}
 
-	fn format_operands(&mut self, instruction: &Instruction, output: &mut FormatterOutput, op_info: &InstrOpInfo) {
+	fn format_operands(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo) {
 		for i in 0..op_info.op_count as u32 {
 			if i > 0 {
 				output.write(",", FormatterTextKind::Punctuation);
@@ -407,7 +407,7 @@ impl NasmFormatter {
 		}
 	}
 
-	fn format_operand(&mut self, instruction: &Instruction, output: &mut FormatterOutput, op_info: &InstrOpInfo, operand: u32) {
+	fn format_operand(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo, operand: u32) {
 		debug_assert!(operand < op_info.op_count as u32);
 
 		let instruction_operand = op_info.instruction_index(operand);
@@ -607,23 +607,21 @@ impl NasmFormatter {
 					if let Some(ref mut options_provider) = self.options_provider {
 						options_provider.operand_options(instruction, operand, instruction_operand, &mut operand_options, &mut number_options);
 					}
-					{
-						let s = self.number_formatter.format_u16_zeroes(
-							&self.d.options,
-							&number_options,
-							instruction.far_branch_selector(),
-							number_options.leading_zeroes,
-						);
-						output.write_number(
-							instruction,
-							operand,
-							instruction_operand,
-							s,
-							instruction.far_branch_selector() as u64,
-							NumberKind::UInt16,
-							FormatterTextKind::SelectorValue,
-						);
-					}
+					let s = self.number_formatter.format_u16_zeroes(
+						&self.d.options,
+						&number_options,
+						instruction.far_branch_selector(),
+						number_options.leading_zeroes,
+					);
+					output.write_number(
+						instruction,
+						operand,
+						instruction_operand,
+						s,
+						instruction.far_branch_selector() as u64,
+						NumberKind::UInt16,
+						FormatterTextKind::SelectorValue,
+					);
 					output.write(":", FormatterTextKind::Punctuation);
 					let s = if op_kind == InstrOpKind::FarBranch32 {
 						self.number_formatter.format_u32_zeroes(
@@ -1071,7 +1069,7 @@ impl NasmFormatter {
 		}
 	}
 
-	fn show_sign_extend_info(d: &SelfData, output: &mut FormatterOutput, flags: u32) {
+	fn show_sign_extend_info(d: &SelfData, output: &mut dyn FormatterOutput, flags: u32) {
 		if !d.options.nasm_show_sign_extended_immediate_size() {
 			return;
 		}
@@ -1090,7 +1088,7 @@ impl NasmFormatter {
 		output.write(" ", FormatterTextKind::Text);
 	}
 
-	fn format_flow_control(d: &SelfData, output: &mut FormatterOutput, flags: u32, operand_options: FormatterOperandOptions) {
+	fn format_flow_control(d: &SelfData, output: &mut dyn FormatterOutput, flags: u32, operand_options: FormatterOperandOptions) {
 		if !operand_options.branch_size() {
 			return;
 		}
@@ -1103,7 +1101,7 @@ impl NasmFormatter {
 	}
 
 	fn format_decorator(
-		options: &FormatterOptions, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>,
+		options: &FormatterOptions, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>,
 		text: &FormatterString, decorator: DecoratorKind,
 	) {
 		output.write("{", FormatterTextKind::Punctuation);
@@ -1126,7 +1124,7 @@ impl NasmFormatter {
 
 	#[inline]
 	fn format_register_internal(
-		d: &SelfData, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
+		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
 	) {
 		const_assert_eq!(0, Registers::EXTRA_REGISTERS);
 		output.write_register(instruction, operand, instruction_operand, NasmFormatter::get_reg_str(d, reg_num), unsafe {
@@ -1134,9 +1132,9 @@ impl NasmFormatter {
 		});
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+	#[allow(clippy::too_many_arguments)]
 	fn format_memory(
-		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, mem_size: MemorySize,
+		&mut self, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, mem_size: MemorySize,
 		seg_reg: Register, mut base_reg: Register, index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
 		mut flags: u32,
 	) {
@@ -1145,9 +1143,8 @@ impl NasmFormatter {
 
 		let mut operand_options = FormatterOperandOptions::with_memory_size_options(self.d.options.memory_size_options());
 		operand_options.set_rip_relative_addresses(self.d.options.rip_relative_addresses());
-		// We have to call this method twice because of borrowck
+		let mut number_options = NumberFormattingOptions::with_displacement(&self.d.options);
 		if let Some(ref mut options_provider) = self.options_provider {
-			let mut number_options = NumberFormattingOptions::with_displacement(&self.d.options);
 			options_provider.operand_options(instruction, operand, instruction_operand, &mut operand_options, &mut number_options);
 		}
 
@@ -1289,124 +1286,118 @@ impl NasmFormatter {
 			}
 		}
 
-		{
-			let mut number_options = NumberFormattingOptions::with_displacement(&self.d.options);
-			if let Some(ref mut options_provider) = self.options_provider {
-				options_provider.operand_options(instruction, operand, instruction_operand, &mut operand_options, &mut number_options);
+		if let Some(ref symbol) = symbol {
+			if need_plus {
+				if self.d.options.space_between_memory_add_operators() {
+					output.write(" ", FormatterTextKind::Text);
+				}
+				if (symbol.flags & SymbolFlags::SIGNED) != 0 {
+					output.write("-", FormatterTextKind::Operator);
+				} else {
+					output.write("+", FormatterTextKind::Operator);
+				}
+				if self.d.options.space_between_memory_add_operators() {
+					output.write(" ", FormatterTextKind::Text);
+				}
+			} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
+				output.write("-", FormatterTextKind::Operator);
 			}
-			if let Some(ref symbol) = symbol {
-				if need_plus {
-					if self.d.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterTextKind::Text);
-					}
-					if (symbol.flags & SymbolFlags::SIGNED) != 0 {
+
+			FormatterOutputMethods::write2(
+				output,
+				instruction,
+				operand,
+				instruction_operand,
+				&self.d.options,
+				&mut self.number_formatter,
+				&number_options,
+				abs_addr,
+				symbol,
+				self.d.options.show_symbol_address(),
+				false,
+				self.d.options.space_between_memory_add_operators(),
+			);
+		} else if !need_plus || (displ_size != 0 && (self.d.options.show_zero_displacements() || displ != 0)) {
+			let orig_displ = displ as u64;
+			let is_signed;
+			if need_plus {
+				is_signed = number_options.signed_number;
+				if self.d.options.space_between_memory_add_operators() {
+					output.write(" ", FormatterTextKind::Text);
+				}
+
+				if addr_size == 8 {
+					if !number_options.signed_number {
+						output.write("+", FormatterTextKind::Operator);
+					} else if displ < 0 {
+						displ = displ.wrapping_neg();
 						output.write("-", FormatterTextKind::Operator);
 					} else {
 						output.write("+", FormatterTextKind::Operator);
 					}
-					if self.d.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterTextKind::Text);
+					if number_options.displacement_leading_zeroes {
+						debug_assert!(displ_size <= 8);
+						displ_size = 8;
 					}
-				} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-					output.write("-", FormatterTextKind::Operator);
-				}
-
-				FormatterOutputMethods::write2(
-					output,
-					instruction,
-					operand,
-					instruction_operand,
-					&self.d.options,
-					&mut self.number_formatter,
-					&number_options,
-					abs_addr,
-					symbol,
-					self.d.options.show_symbol_address(),
-					false,
-					self.d.options.space_between_memory_add_operators(),
-				);
-			} else if !need_plus || (displ_size != 0 && (self.d.options.show_zero_displacements() || displ != 0)) {
-				let orig_displ = displ as u64;
-				let is_signed;
-				if need_plus {
-					is_signed = number_options.signed_number;
-					if self.d.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterTextKind::Text);
-					}
-
-					if addr_size == 8 {
-						if !number_options.signed_number {
-							output.write("+", FormatterTextKind::Operator);
-						} else if displ < 0 {
-							displ = displ.wrapping_neg();
-							output.write("-", FormatterTextKind::Operator);
-						} else {
-							output.write("+", FormatterTextKind::Operator);
-						}
-						if number_options.displacement_leading_zeroes {
-							debug_assert!(displ_size <= 8);
-							displ_size = 8;
-						}
-					} else if addr_size == 4 {
-						if !number_options.signed_number {
-							output.write("+", FormatterTextKind::Operator);
-						} else if (displ as i32) < 0 {
-							displ = (displ as i32).wrapping_neg() as u32 as i64;
-							output.write("-", FormatterTextKind::Operator);
-						} else {
-							output.write("+", FormatterTextKind::Operator);
-						}
-						if number_options.displacement_leading_zeroes {
-							debug_assert!(displ_size <= 4);
-							displ_size = 4;
-						}
+				} else if addr_size == 4 {
+					if !number_options.signed_number {
+						output.write("+", FormatterTextKind::Operator);
+					} else if (displ as i32) < 0 {
+						displ = (displ as i32).wrapping_neg() as u32 as i64;
+						output.write("-", FormatterTextKind::Operator);
 					} else {
-						debug_assert_eq!(2, addr_size);
-						if !number_options.signed_number {
-							output.write("+", FormatterTextKind::Operator);
-						} else if (displ as i16) < 0 {
-							displ = (displ as i16).wrapping_neg() as u16 as i64;
-							output.write("-", FormatterTextKind::Operator);
-						} else {
-							output.write("+", FormatterTextKind::Operator);
-						}
-						if number_options.displacement_leading_zeroes {
-							debug_assert!(displ_size <= 2);
-							displ_size = 2;
-						}
+						output.write("+", FormatterTextKind::Operator);
 					}
-					if self.d.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterTextKind::Text);
+					if number_options.displacement_leading_zeroes {
+						debug_assert!(displ_size <= 4);
+						displ_size = 4;
 					}
 				} else {
-					is_signed = false;
+					debug_assert_eq!(2, addr_size);
+					if !number_options.signed_number {
+						output.write("+", FormatterTextKind::Operator);
+					} else if (displ as i16) < 0 {
+						displ = (displ as i16).wrapping_neg() as u16 as i64;
+						output.write("-", FormatterTextKind::Operator);
+					} else {
+						output.write("+", FormatterTextKind::Operator);
+					}
+					if number_options.displacement_leading_zeroes {
+						debug_assert!(displ_size <= 2);
+						displ_size = 2;
+					}
 				}
-
-				let (s, displ_kind) = if displ_size <= 1 && displ as u64 <= u8::MAX as u64 {
-					(
-						self.number_formatter.format_u8(&self.d.options, &number_options, displ as u8),
-						if is_signed { NumberKind::Int8 } else { NumberKind::UInt8 },
-					)
-				} else if displ_size <= 2 && displ as u64 <= u16::MAX as u64 {
-					(
-						self.number_formatter.format_u16(&self.d.options, &number_options, displ as u16),
-						if is_signed { NumberKind::Int16 } else { NumberKind::UInt16 },
-					)
-				} else if displ_size <= 4 && displ as u64 <= u32::MAX as u64 {
-					(
-						self.number_formatter.format_u32(&self.d.options, &number_options, displ as u32),
-						if is_signed { NumberKind::Int32 } else { NumberKind::UInt32 },
-					)
-				} else if displ_size <= 8 {
-					(
-						self.number_formatter.format_u64(&self.d.options, &number_options, displ as u64),
-						if is_signed { NumberKind::Int64 } else { NumberKind::UInt64 },
-					)
-				} else {
-					unreachable!();
-				};
-				output.write_number(instruction, operand, instruction_operand, s, orig_displ, displ_kind, FormatterTextKind::Number);
+				if self.d.options.space_between_memory_add_operators() {
+					output.write(" ", FormatterTextKind::Text);
+				}
+			} else {
+				is_signed = false;
 			}
+
+			let (s, displ_kind) = if displ_size <= 1 && displ as u64 <= u8::MAX as u64 {
+				(
+					self.number_formatter.format_u8(&self.d.options, &number_options, displ as u8),
+					if is_signed { NumberKind::Int8 } else { NumberKind::UInt8 },
+				)
+			} else if displ_size <= 2 && displ as u64 <= u16::MAX as u64 {
+				(
+					self.number_formatter.format_u16(&self.d.options, &number_options, displ as u16),
+					if is_signed { NumberKind::Int16 } else { NumberKind::UInt16 },
+				)
+			} else if displ_size <= 4 && displ as u64 <= u32::MAX as u64 {
+				(
+					self.number_formatter.format_u32(&self.d.options, &number_options, displ as u32),
+					if is_signed { NumberKind::Int32 } else { NumberKind::UInt32 },
+				)
+			} else if displ_size <= 8 {
+				(
+					self.number_formatter.format_u64(&self.d.options, &number_options, displ as u64),
+					if is_signed { NumberKind::Int64 } else { NumberKind::UInt64 },
+				)
+			} else {
+				unreachable!();
+			};
+			output.write_number(instruction, operand, instruction_operand, s, orig_displ, displ_kind, FormatterTextKind::Number);
 		}
 
 		if self.d.options.space_after_memory_bracket() {
@@ -1421,7 +1412,9 @@ impl NasmFormatter {
 		}
 	}
 
-	fn format_memory_size(d: &SelfData, output: &mut FormatterOutput, mem_size: MemorySize, flags: u32, operand_options: FormatterOperandOptions) {
+	fn format_memory_size(
+		d: &SelfData, output: &mut dyn FormatterOutput, mem_size: MemorySize, flags: u32, operand_options: FormatterOperandOptions,
+	) {
 		let mem_size_options = operand_options.memory_size_options();
 		if mem_size_options == MemorySizeOptions::Never {
 			return;
@@ -1460,34 +1453,34 @@ impl NasmFormatter {
 		output.write(" ", FormatterTextKind::Text);
 	}
 
-	fn format_keyword(options: &FormatterOptions, output: &mut FormatterOutput, keyword: &FormatterString) {
+	fn format_keyword(options: &FormatterOptions, output: &mut dyn FormatterOutput, keyword: &FormatterString) {
 		output.write(keyword.get(options.uppercase_keywords() || options.uppercase_all()), FormatterTextKind::Keyword);
 	}
 }
 
 impl Formatter for NasmFormatter {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn options(&self) -> &FormatterOptions {
 		&self.d.options
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn options_mut(&mut self) -> &mut FormatterOptions {
 		&mut self.d.options
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn format_mnemonic_options(&mut self, instruction: &Instruction, output: &mut FormatterOutput, options: u32) {
+	#[allow(clippy::missing_inline_in_public_items)]
+	fn format_mnemonic_options(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, options: u32) {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 		let mut column = 0;
 		self.format_mnemonic(instruction, output, &op_info, &mut column, options);
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn operand_count(&mut self, instruction: &Instruction) -> u32 {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
@@ -1495,7 +1488,7 @@ impl Formatter for NasmFormatter {
 	}
 
 	#[cfg(feature = "instr_info")]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<OpAccess>, IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
@@ -1506,7 +1499,7 @@ impl Formatter for NasmFormatter {
 		}
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<u32>, IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
@@ -1517,7 +1510,7 @@ impl Formatter for NasmFormatter {
 		}
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> Result<Option<u32>, IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
@@ -1528,8 +1521,8 @@ impl Formatter for NasmFormatter {
 		}
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn format_operand(&mut self, instruction: &Instruction, output: &mut FormatterOutput, operand: u32) -> Result<(), IcedError> {
+	#[allow(clippy::missing_inline_in_public_items)]
+	fn format_operand(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, operand: u32) -> Result<(), IcedError> {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 
@@ -1541,23 +1534,23 @@ impl Formatter for NasmFormatter {
 		}
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn format_operand_separator(&mut self, _instruction: &Instruction, output: &mut FormatterOutput) {
+	#[allow(clippy::missing_inline_in_public_items)]
+	fn format_operand_separator(&mut self, _instruction: &Instruction, output: &mut dyn FormatterOutput) {
 		output.write(",", FormatterTextKind::Punctuation);
 		if self.d.options.space_after_operand_separator() {
 			output.write(" ", FormatterTextKind::Text);
 		}
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn format_all_operands(&mut self, instruction: &Instruction, output: &mut FormatterOutput) {
+	#[allow(clippy::missing_inline_in_public_items)]
+	fn format_all_operands(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput) {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 		self.format_operands(instruction, output, &op_info);
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn format(&mut self, instruction: &Instruction, output: &mut FormatterOutput) {
+	#[allow(clippy::missing_inline_in_public_items)]
+	fn format(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput) {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
 		let op_info = instr_info.op_info(&self.d.options, instruction);
 
@@ -1570,111 +1563,111 @@ impl Formatter for NasmFormatter {
 		}
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_register(&mut self, register: Register) -> &str {
 		NasmFormatter::get_reg_str(&self.d, register as u32)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i8(&mut self, value: i8) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i8(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i16(&mut self, value: i16) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i16(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i32(&mut self, value: i32) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i32(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i64(&mut self, value: i64) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i64(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u8(&mut self, value: u8) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u8(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u16(&mut self, value: u16) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u16(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u32(&mut self, value: u32) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u32(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u64(&mut self, value: u64) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u64(&self.d.options, &number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i8(&self.d.options, number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i16(&self.d.options, number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i32(&self.d.options, number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i64(&self.d.options, number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u8(&self.d.options, number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u16(&self.d.options, number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u32(&self.d.options, number_options, value)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u64(&self.d.options, number_options, value)

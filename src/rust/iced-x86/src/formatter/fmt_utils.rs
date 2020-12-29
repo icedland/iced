@@ -52,7 +52,7 @@ fn create_strings(c: char, cap: usize) -> Vec<String> {
 	v
 }
 
-pub(super) fn add_tabs(output: &mut FormatterOutput, mut column: u32, mut first_operand_char_index: u32, tab_size: u32) {
+pub(super) fn add_tabs(output: &mut dyn FormatterOutput, mut column: u32, mut first_operand_char_index: u32, tab_size: u32) {
 	const MAX_FIRST_OPERAND_CHAR_INDEX: u32 = 256;
 	first_operand_char_index = cmp::min(first_operand_char_index, MAX_FIRST_OPERAND_CHAR_INDEX);
 
@@ -76,7 +76,7 @@ pub(super) fn add_tabs(output: &mut FormatterOutput, mut column: u32, mut first_
 	}
 }
 
-fn add_strings(output: &mut FormatterOutput, strings: &[String], count: u32) {
+fn add_strings(output: &mut dyn FormatterOutput, strings: &[String], count: u32) {
 	let mut count = count as usize;
 	while count > 0 {
 		let n = cmp::min(count, strings.len());
@@ -85,13 +85,13 @@ fn add_strings(output: &mut FormatterOutput, strings: &[String], count: u32) {
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 #[inline]
 pub(super) fn is_call(kind: FormatterFlowControl) -> bool {
 	kind == FormatterFlowControl::NearCall || kind == FormatterFlowControl::FarCall
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn get_flow_control(instruction: &Instruction) -> FormatterFlowControl {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	match instruction.code() {
@@ -258,7 +258,7 @@ pub(super) fn show_repne_prefix(code: Code, options: &FormatterOptions) -> bool 
 	show_repne_prefix_bool(code, options.show_useless_prefixes())
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 #[inline]
 pub(super) fn get_segment_register_prefix_kind(register: Register) -> PrefixKind {
 	debug_assert!(

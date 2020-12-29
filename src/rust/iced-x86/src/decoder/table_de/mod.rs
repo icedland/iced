@@ -59,7 +59,7 @@ struct TableDeserializer<'a> {
 }
 
 impl<'a> TableDeserializer<'a> {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn new(
 		data: &'a [u8], max_ids: usize, handler_reader: fn(deserializer: &mut TableDeserializer, result: &mut Vec<&'static OpCodeHandler>),
@@ -86,76 +86,76 @@ impl<'a> TableDeserializer<'a> {
 		debug_assert!(!self.reader.can_read());
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_op_code_handler_kind(&mut self) -> OpCodeHandlerKind {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
 	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_vex_op_code_handler_kind(&mut self) -> VexOpCodeHandlerKind {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
 	#[cfg(not(feature = "no_evex"))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_evex_op_code_handler_kind(&mut self) -> EvexOpCodeHandlerKind {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_code(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_register(&mut self) -> Register {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_decoder_options(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_handler_flags(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_legacy_handler_flags(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
 	#[cfg(not(feature = "no_evex"))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_tuple_type(&mut self) -> TupleType {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_boolean(&mut self) -> bool {
 		self.reader.read_u8() != 0
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_u32(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(self) fn read_handler(&mut self) -> *const OpCodeHandler {
 		let result = self.read_handler_or_null_instance();
@@ -163,7 +163,7 @@ impl<'a> TableDeserializer<'a> {
 		result
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub(self) fn read_handler_or_null_instance(&mut self) -> *const OpCodeHandler {
 		let mut tmp_vec = self.temp_vecs.pop().unwrap_or_else(|| Vec::with_capacity(1));
 		debug_assert!(tmp_vec.is_empty());
@@ -175,7 +175,7 @@ impl<'a> TableDeserializer<'a> {
 		result
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub(self) fn read_handlers(&mut self, count: usize) -> Vec<&'static OpCodeHandler> {
 		let mut handlers: Vec<&'static OpCodeHandler> = Vec::with_capacity(count);
 		let mut i = 0;
@@ -195,7 +195,7 @@ impl<'a> TableDeserializer<'a> {
 		handlers
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub(self) fn read_handler_reference(&mut self) -> *const OpCodeHandler {
 		let index = self.reader.read_u8();
 		if let &HandlerInfo::Handler(handler) = self.id_to_handler.get(index).unwrap() {
@@ -205,7 +205,7 @@ impl<'a> TableDeserializer<'a> {
 		}
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub(self) fn read_array_reference(&mut self, kind: u32) -> Vec<&'static OpCodeHandler> {
 		let read_kind = self.reader.read_u8() as u32;
 		debug_assert_eq!(kind, read_kind);
@@ -218,7 +218,7 @@ impl<'a> TableDeserializer<'a> {
 		}
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub(self) fn read_array_reference_no_clone(&mut self, kind: u32) -> Vec<&'static OpCodeHandler> {
 		let read_kind = self.reader.read_u8() as u32;
 		debug_assert_eq!(kind, read_kind);
@@ -226,7 +226,7 @@ impl<'a> TableDeserializer<'a> {
 		self.table(index)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub(self) fn table(&mut self, index: usize) -> Vec<&'static OpCodeHandler> {
 		if let &mut HandlerInfo::Handlers(ref mut tmp) = self.id_to_handler.get_mut(index).unwrap() {
 			let handlers = mem::replace(tmp, Vec::new());
@@ -238,7 +238,7 @@ impl<'a> TableDeserializer<'a> {
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn read_legacy() -> Vec<&'static OpCodeHandler> {
 	let handler_reader = self::legacy_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_legacy::TBL_DATA, data_legacy::MAX_ID_NAMES, handler_reader);
@@ -247,7 +247,7 @@ pub(super) fn read_legacy() -> Vec<&'static OpCodeHandler> {
 }
 
 #[cfg(not(feature = "no_evex"))]
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn read_evex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::evex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_evex::TBL_DATA, data_evex::MAX_ID_NAMES, handler_reader);
@@ -260,7 +260,7 @@ pub(super) fn read_evex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHa
 }
 
 #[cfg(not(feature = "no_vex"))]
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn read_vex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::vex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_vex::TBL_DATA, data_vex::MAX_ID_NAMES, handler_reader);
@@ -273,7 +273,7 @@ pub(super) fn read_vex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHan
 }
 
 #[cfg(not(feature = "no_xop"))]
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn read_xop() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::vex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_xop::TBL_DATA, data_xop::MAX_ID_NAMES, handler_reader);

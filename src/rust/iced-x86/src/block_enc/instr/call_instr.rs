@@ -98,9 +98,7 @@ impl CallInstr {
 		}
 
 		if self.pointer_data.is_none() {
-			// Temp needed if rustc < 1.36.0 (2015 edition)
-			let tmp = Rc::clone(&self.block);
-			self.pointer_data = Some(tmp.borrow_mut().alloc_pointer_location());
+			self.pointer_data = Some(Rc::clone(&self.block).borrow_mut().alloc_pointer_location());
 		}
 		false
 	}
@@ -138,21 +136,19 @@ impl Instr for CallInstr {
 
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		if self.use_orig_instruction {
-			// Temp needed if rustc < 1.36.0 (2015 edition)
-			let tmp = self.target_instr.address(self);
-			self.instruction.set_near_branch64(tmp);
-			match block.encoder.encode(&self.instruction, self.ip) {
-				Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
-				Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-			}
+			self.instruction.set_near_branch64(self.target_instr.address(self));
+			block.encoder.encode(&self.instruction, self.ip).map_or_else(
+				|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+				|_| Ok((block.encoder.get_constant_offsets(), true)),
+			)
 		} else {
 			debug_assert!(self.pointer_data.is_some());
 			let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
 			pointer_data.borrow_mut().data = self.target_instr.address(self);
-			match InstrUtils::encode_branch_to_pointer_data(block, true, self.ip, pointer_data, self.size) {
-				Ok(_) => Ok((ConstantOffsets::default(), false)),
-				Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-			}
+			InstrUtils::encode_branch_to_pointer_data(block, true, self.ip, pointer_data, self.size).map_or_else(
+				|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+				|_| Ok((ConstantOffsets::default(), false)),
+			)
 		}
 	}
 }

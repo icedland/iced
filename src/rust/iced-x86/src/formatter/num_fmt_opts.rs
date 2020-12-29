@@ -60,7 +60,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	///
 	/// * `options`: Formatter options to use
 	#[inline]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn with_immediate(options: &'a FormatterOptions) -> Self {
 		NumberFormattingOptions::new(options, options.leading_zeroes(), options.signed_immediate_operands(), false)
 	}
@@ -71,7 +71,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	///
 	/// * `options`: Formatter options to use
 	#[inline]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn with_displacement(options: &'a FormatterOptions) -> Self {
 		NumberFormattingOptions::new(options, options.leading_zeroes(), options.signed_memory_displacements(), options.displacement_leading_zeroes())
 	}
@@ -82,7 +82,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	///
 	/// * `options`: Formatter options to use
 	#[inline]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn with_branch(options: &'a FormatterOptions) -> Self {
 		NumberFormattingOptions::new(options, options.branch_leading_zeroes(), false, false)
 	}
@@ -96,8 +96,8 @@ impl<'a> NumberFormattingOptions<'a> {
 	/// * `signed_number`: Signed numbers if `true`, and unsigned numbers if `false`
 	/// * `displacement_leading_zeroes`: Add leading zeroes to displacements
 	#[inline]
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn new(options: &'a FormatterOptions, leading_zeroes: bool, signed_number: bool, displacement_leading_zeroes: bool) -> Self {
 		let (digit_group_size, prefix, suffix) = match options.number_base() {
 			NumberBase::Hexadecimal => (options.hex_digit_group_size(), options.hex_prefix(), options.hex_suffix()),

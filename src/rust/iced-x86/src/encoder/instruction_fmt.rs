@@ -290,9 +290,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 
 		self.sb.clear();
 
-		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let tmp_mnemonic = TO_MNEMONIC_STR[self.op_code.code().mnemonic() as usize];
-		self.write(tmp_mnemonic, true);
+		self.write(TO_MNEMONIC_STR[self.op_code.code().mnemonic() as usize], true);
 		if self.start_op_index < self.op_count {
 			self.sb.push(' ');
 			let mut sae_er_index = self.op_count - 1;
@@ -304,7 +302,6 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 			let mut add_comma = false;
 			for i in self.start_op_index..self.op_count {
 				let mut tmp;
-				let tmp2;
 				if add_comma {
 					self.write_op_separator();
 				}
@@ -317,9 +314,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 
 					OpCodeOperandKind::mem_offs => {
 						self.sb.push_str("moffs");
-						// Temp needed if rustc < 1.36.0 (2015 edition)
-						let tmp_mem_size = self.get_memory_size(false);
-						self.write_memory_size(tmp_mem_size);
+						self.write_memory_size(self.get_memory_size(false));
 					}
 
 					OpCodeOperandKind::mem | OpCodeOperandKind::mem_mpx => self.write_memory(),
@@ -380,9 +375,8 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					| OpCodeOperandKind::r32_opcode
 					| OpCodeOperandKind::r32_vvvv => {
 						self.write_reg_op1("r32");
-						tmp2 = self.r32_count;
 						tmp = self.r32_index;
-						self.append_gpr_suffix(tmp2, &mut tmp);
+						self.append_gpr_suffix(self.r32_count, &mut tmp);
 						self.r32_index = tmp;
 					}
 
@@ -392,9 +386,8 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					| OpCodeOperandKind::r64_opcode
 					| OpCodeOperandKind::r64_vvvv => {
 						self.write_reg_op1("r64");
-						tmp2 = self.r64_count;
 						tmp = self.r64_index;
-						self.append_gpr_suffix(tmp2, &mut tmp);
+						self.append_gpr_suffix(self.r64_count, &mut tmp);
 						self.r64_index = tmp;
 					}
 

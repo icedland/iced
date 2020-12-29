@@ -37,11 +37,11 @@ use alloc::vec::Vec;
 use core::{mem, u32};
 
 lazy_static! {
-	pub(super) static ref ALL_INFOS: Vec<Box<InstrInfo + Sync + Send>> = read();
+	pub(super) static ref ALL_INFOS: Vec<Box<dyn InstrInfo + Sync + Send>> = read();
 }
 
-fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
-	let mut infos: Vec<Box<InstrInfo + Sync + Send>> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
+fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
+	let mut infos: Vec<Box<dyn InstrInfo + Sync + Send>> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
 	let strings = get_strings_table();
 	let mut prev_index = -1isize;
@@ -70,7 +70,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 		let v;
 		let v2;
 		let v3;
-		let info: Box<InstrInfo + Sync + Send> = match ctor_kind {
+		let info: Box<dyn InstrInfo + Sync + Send> = match ctor_kind {
 			CtorKind::Previous => unreachable!(),
 			CtorKind::Normal_1 => Box::new(SimpleInstrInfo::with_mnemonic(s)),
 

@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::{Code, CodeSize, Instruction, Register};
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 	match code {
 		Code::Insb_m8_DX
@@ -90,7 +90,7 @@ pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn show_rep_or_repe_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
 	if show_useless_prefixes || is_rep_repe_repne_instruction(code) {
 		true
@@ -103,7 +103,7 @@ pub(super) fn show_rep_or_repe_prefix_bool(code: Code, show_useless_prefixes: bo
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn show_repne_prefix_bool(code: Code, show_useless_prefixes: bool) -> bool {
 	// If it's a 'rep/repne' instruction, always show the prefix
 	if show_useless_prefixes || is_rep_repe_repne_instruction(code) {
@@ -113,12 +113,12 @@ pub(super) fn show_repne_prefix_bool(code: Code, show_useless_prefixes: bool) ->
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn is_code64(code_size: CodeSize) -> bool {
 	code_size == CodeSize::Code64 || code_size == CodeSize::Unknown
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn get_default_segment_register(instruction: &Instruction) -> Register {
 	let base_reg = instruction.memory_base();
 	if base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP || base_reg == Register::RBP || base_reg == Register::RSP {
@@ -128,7 +128,7 @@ pub(super) fn get_default_segment_register(instruction: &Instruction) -> Registe
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn show_segment_prefix_bool(mut default_seg_reg: Register, instruction: &Instruction, show_useless_prefixes: bool) -> bool {
 	if instruction.code().ignores_segment() {
 		return show_useless_prefixes;
@@ -154,7 +154,7 @@ pub(super) fn show_segment_prefix_bool(mut default_seg_reg: Register, instructio
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 pub(super) fn is_repe_or_repne_instruction(code: Code) -> bool {
 	match code {
 		Code::Cmpsb_m8_m8
@@ -169,7 +169,7 @@ pub(super) fn is_repe_or_repne_instruction(code: Code) -> bool {
 	}
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 #[inline]
 pub(super) fn is_notrack_prefix_branch(code: Code) -> bool {
 	const_assert_eq!(Code::Jmp_rm32 as u32, Code::Jmp_rm16 as u32 + 1);

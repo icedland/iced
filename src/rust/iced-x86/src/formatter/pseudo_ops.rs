@@ -77,7 +77,7 @@ lazy_static! {
 	static ref PSEUDO_OPS: PseudoOps = {
 		const CAP: usize = 14;
 		let mut sb = String::with_capacity(CAP);
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let cc: [&'static str; 32] = [
 			"eq",
 			"lt",
@@ -121,7 +121,7 @@ lazy_static! {
 		let cmpsd = create(&mut sb, &cc, 8, "cmp", "sd");
 		let vcmpsd = create(&mut sb, &cc, 32, "vcmp", "sd");
 
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let xopcc: [&'static str; 8] = [
 			"lt",
 			"le",
@@ -141,14 +141,14 @@ lazy_static! {
 		let vpcomud = create(&mut sb, &xopcc, 8, "vpcom", "ud");
 		let vpcomuq = create(&mut sb, &xopcc, 8, "vpcom", "uq");
 
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let pclmulqdq = vec![
 			FormatterString::new_str("pclmullqlqdq"),
 			FormatterString::new_str("pclmulhqlqdq"),
 			FormatterString::new_str("pclmullqhqdq"),
 			FormatterString::new_str("pclmulhqhqdq"),
 		];
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let vpclmulqdq = vec![
 			FormatterString::new_str("vpclmullqlqdq"),
 			FormatterString::new_str("vpclmulhqlqdq"),

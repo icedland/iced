@@ -71,7 +71,7 @@ pub struct FastFormatterOptions {
 }
 
 impl FastFormatterOptions {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn new() -> Self {
 		Self { options1: Flags1::USE_PSEUDO_OPS | Flags1::UPPERCASE_HEX }
@@ -85,7 +85,7 @@ impl FastFormatterOptions {
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov rax, rcx`
 	/// ✔️ | `false` | `mov rax,rcx`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn space_after_operand_separator(&self) -> bool {
 		(self.options1 & Flags1::SPACE_AFTER_OPERAND_SEPARATOR) != 0
@@ -116,7 +116,7 @@ impl FastFormatterOptions {
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov eax,[rip+12345678h]`
 	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rip_relative_addresses(&self) -> bool {
 		(self.options1 & Flags1::RIP_RELATIVE_ADDRESSES) != 0
@@ -147,7 +147,7 @@ impl FastFormatterOptions {
 	/// --------|-------|--------
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
 	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn use_pseudo_ops(&self) -> bool {
 		(self.options1 & Flags1::USE_PSEUDO_OPS) != 0
@@ -178,7 +178,7 @@ impl FastFormatterOptions {
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
 	/// ✔️ | `false` | `mov eax,[myfield]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn show_symbol_address(&self) -> bool {
 		(self.options1 & Flags1::SHOW_SYMBOL_ADDRESS) != 0
@@ -210,7 +210,7 @@ impl FastFormatterOptions {
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
 	/// ✔️ | `false` | `mov eax,[ecx]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn always_show_segment_register(&self) -> bool {
 		(self.options1 & Flags1::ALWAYS_SHOW_SEGMENT_REGISTER) != 0
@@ -242,7 +242,7 @@ impl FastFormatterOptions {
 	/// --------|-------|---------|--------
 	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
 	/// ✔️ | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn always_show_memory_size(&self) -> bool {
 		(self.options1 & Flags1::ALWAYS_SHOW_MEMORY_SIZE) != 0
@@ -273,7 +273,7 @@ impl FastFormatterOptions {
 	/// --------|-------|--------
 	/// ✔️ | `true` | `0xFF`
 	/// &nbsp; | `false` | `0xff`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn uppercase_hex(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_HEX) != 0
@@ -304,7 +304,7 @@ impl FastFormatterOptions {
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `0x5A`
 	/// ✔️ | `false` | `5Ah`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn use_hex_prefix(&self) -> bool {
 		(self.options1 & Flags1::USE_HEX_PREFIX) != 0
@@ -389,11 +389,11 @@ impl FastFormatterOptions {
 #[allow(missing_debug_implementations)]
 pub struct FastFormatter {
 	d: SelfData,
-	symbol_resolver: Option<Box<SymbolResolver>>,
+	symbol_resolver: Option<Box<dyn SymbolResolver>>,
 }
 
 impl Default for FastFormatter {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FastFormatter::new()
@@ -413,7 +413,7 @@ impl FastFormatter {
 	const SHOW_USELESS_PREFIXES: bool = true;
 
 	/// Creates a fast formatter
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new() -> Self {
 		FastFormatter::with_options(None)
@@ -424,9 +424,9 @@ impl FastFormatter {
 	/// # Arguments
 	///
 	/// - `symbol_resolver`: Symbol resolver or `None`
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn with_options(symbol_resolver: Option<Box<SymbolResolver>>) -> Self {
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn with_options(symbol_resolver: Option<Box<dyn SymbolResolver>>) -> Self {
 		Self {
 			d: SelfData {
 				options: FastFormatterOptions::new(),
@@ -440,14 +440,14 @@ impl FastFormatter {
 	}
 
 	/// Gets the formatter options (immutable)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn options(&self) -> &FastFormatterOptions {
 		&self.d.options
 	}
 
 	/// Gets the formatter options (mutable)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn options_mut(&mut self) -> &mut FastFormatterOptions {
 		&mut self.d.options
@@ -459,7 +459,7 @@ impl FastFormatter {
 	///
 	/// - `instruction`: Instruction
 	/// - `output`: Output
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn format(&mut self, instruction: &Instruction, output: &mut String) {
 		let code = instruction.code();
 
@@ -579,7 +579,6 @@ impl FastFormatter {
 				let imm64;
 				let imm_size;
 				let op_kind = if is_declare_data { declare_data_kind } else { instruction.try_op_kind(operand).unwrap_or(OpKind::Register) };
-				#[allow(deprecated)]
 				match op_kind {
 					OpKind::Register => FastFormatter::format_register(&self.d, output, instruction.try_op_register(operand).unwrap_or_default()),
 
@@ -754,6 +753,7 @@ impl FastFormatter {
 					OpKind::MemoryESDI => self.format_memory(output, instruction, operand, Register::ES, Register::DI, Register::None, 0, 0, 0, 2),
 					OpKind::MemoryESEDI => self.format_memory(output, instruction, operand, Register::ES, Register::EDI, Register::None, 0, 0, 0, 4),
 					OpKind::MemoryESRDI => self.format_memory(output, instruction, operand, Register::ES, Register::RDI, Register::None, 0, 0, 0, 8),
+					#[allow(deprecated)]
 					OpKind::Memory64 => {}
 
 					OpKind::Memory => {
@@ -810,11 +810,10 @@ impl FastFormatter {
 	}
 
 	// Only one caller so inline it
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn show_segment_prefix(instruction: &Instruction, op_count: u32) -> bool {
 		for i in 0..op_count {
-			#[allow(deprecated)]
 			match instruction.try_op_kind(i).unwrap_or(OpKind::Register) {
 				OpKind::Register
 				| OpKind::NearBranch16
@@ -835,6 +834,7 @@ impl FastFormatter {
 				| OpKind::MemoryESEDI
 				| OpKind::MemoryESRDI => {}
 
+				#[allow(deprecated)]
 				OpKind::MemorySegSI
 				| OpKind::MemorySegESI
 				| OpKind::MemorySegRSI

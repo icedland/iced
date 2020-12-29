@@ -138,9 +138,7 @@ impl JccInstr {
 		}
 
 		if self.pointer_data.is_none() {
-			// Temp needed if rustc < 1.36.0 (2015 edition)
-			let tmp = Rc::clone(&self.block);
-			self.pointer_data = Some(tmp.borrow_mut().alloc_pointer_location());
+			self.pointer_data = Some(Rc::clone(&self.block).borrow_mut().alloc_pointer_location());
 		}
 		self.instr_kind = InstrKind::Long;
 		false
@@ -209,25 +207,19 @@ impl Instr for JccInstr {
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Short | InstrKind::Near => {
-				// Temp needed if rustc < 1.36.0 (2015 edition)
-				let tmp;
 				if self.instr_kind == InstrKind::Unchanged {
 					// nothing
 				} else if self.instr_kind == InstrKind::Short {
-					tmp = self.instruction.code().as_short_branch();
-					self.instruction.set_code(tmp);
+					self.instruction.set_code(self.instruction.code().as_short_branch());
 				} else {
 					debug_assert!(self.instr_kind == InstrKind::Near);
-					tmp = self.instruction.code().as_near_branch();
-					self.instruction.set_code(tmp);
+					self.instruction.set_code(self.instruction.code().as_near_branch());
 				}
-				// Temp needed if rustc < 1.36.0 (2015 edition)
-				let tmp = self.target_instr.address(self);
-				self.instruction.set_near_branch64(tmp);
-				match block.encoder.encode(&self.instruction, self.ip) {
-					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-					Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
-				}
+				self.instruction.set_near_branch64(self.target_instr.address(self));
+				block.encoder.encode(&self.instruction, self.ip).map_or_else(
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|_| Ok((block.encoder.get_constant_offsets(), true)),
+				)
 			}
 
 			InstrKind::Long => {
@@ -243,20 +235,15 @@ impl Instr for JccInstr {
 				debug_assert!(block.encoder.bitness() == 64);
 				debug_assert!(Self::LONG_INSTRUCTION_SIZE64 <= i8::MAX as u32);
 				instr.set_near_branch64(self.ip.wrapping_add(Self::LONG_INSTRUCTION_SIZE64 as u64));
-				let instr_len = match block.encoder.encode(&instr, self.ip) {
-					Err(err) => return Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-					Ok(len) => len,
-				} as u32;
-				match InstrUtils::encode_branch_to_pointer_data(
-					block,
-					false,
-					self.ip.wrapping_add(instr_len as u64),
-					pointer_data,
-					self.size - instr_len,
-				) {
-					Ok(_) => Ok((ConstantOffsets::default(), false)),
-					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-				}
+				let instr_len = block
+					.encoder
+					.encode(&instr, self.ip)
+					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
+				InstrUtils::encode_branch_to_pointer_data(block, false, self.ip.wrapping_add(instr_len as u64), pointer_data, self.size - instr_len)
+					.map_or_else(
+						|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+						|_| Ok((ConstantOffsets::default(), false)),
+					)
 			}
 
 			InstrKind::Uninitialized => unreachable!(),

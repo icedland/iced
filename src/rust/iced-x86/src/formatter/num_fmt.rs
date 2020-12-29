@@ -35,13 +35,13 @@ impl NumberFormatterFlags {
 	const SMALL_HEX_NUMBERS_IN_DECIMAL: u32 = 0x0000_0004;
 }
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static SMALL_DECIMAL_VALUES: [&str; NumberFormatter::SMALL_POSITIVE_NUMBER as usize + 1] = [
 	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
 ];
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::unreadable_literal))]
+#[rustfmt::skip]
+#[allow(clippy::unreadable_literal)]
 static DIVS: [u64; 20] = [
 	1,
 	10,
@@ -207,7 +207,7 @@ impl NumberFormatter {
 		}
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn get_flags(leading_zeroes: bool, small_hex_numbers_in_decimal: bool) -> u32 {
 		let mut flags = NumberFormatterFlags::NONE;
@@ -220,7 +220,7 @@ impl NumberFormatter {
 		flags
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_i8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i8) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
@@ -231,7 +231,7 @@ impl NumberFormatter {
 		self.format_unsigned_integer(formatter_options, options, value as u8 as u64, 8, flags)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_i16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i16) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
@@ -242,7 +242,7 @@ impl NumberFormatter {
 		self.format_unsigned_integer(formatter_options, options, value as u16 as u64, 16, flags)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_i32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i32) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
@@ -253,7 +253,7 @@ impl NumberFormatter {
 		self.format_unsigned_integer(formatter_options, options, value as u32 as u64, 32, flags)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_i64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i64) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
@@ -264,7 +264,7 @@ impl NumberFormatter {
 		self.format_unsigned_integer(formatter_options, options, value as u64, 64, flags)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_u8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u8) -> &str {
 		self.format_unsigned_integer(
@@ -276,7 +276,7 @@ impl NumberFormatter {
 		)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_u16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u16) -> &str {
 		self.format_unsigned_integer(
@@ -288,7 +288,7 @@ impl NumberFormatter {
 		)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_u32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u32) -> &str {
 		self.format_unsigned_integer(
@@ -300,7 +300,7 @@ impl NumberFormatter {
 		)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_u64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64) -> &str {
 		self.format_unsigned_integer(
@@ -312,7 +312,7 @@ impl NumberFormatter {
 		)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_u16_zeroes(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u16, leading_zeroes: bool,
@@ -326,7 +326,7 @@ impl NumberFormatter {
 		)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_u32_zeroes(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u32, leading_zeroes: bool,
@@ -340,7 +340,7 @@ impl NumberFormatter {
 		)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn format_u64_zeroes(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64, leading_zeroes: bool,
@@ -354,7 +354,7 @@ impl NumberFormatter {
 		)
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_unsigned_integer(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64, value_size: u32, flags: u32,
 	) -> &str {

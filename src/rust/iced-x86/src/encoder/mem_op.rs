@@ -70,7 +70,7 @@ impl MemoryOperand {
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new(
 		base: Register, index: Register, scale: u32, displacement: i64, displ_size: u32, is_broadcast: bool, segment_prefix: Register,
@@ -89,7 +89,7 @@ impl MemoryOperand {
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_index_scale_bcst_seg(base: Register, index: Register, scale: u32, is_broadcast: bool, segment_prefix: Register) -> Self {
 		Self { segment_prefix, base, index, scale, displacement: 0, displ_size: 0, is_broadcast }
@@ -106,7 +106,7 @@ impl MemoryOperand {
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_displ_size_bcst_seg(base: Register, displacement: i64, displ_size: u32, is_broadcast: bool, segment_prefix: Register) -> Self {
 		Self { segment_prefix, base, index: Register::None, scale: 1, displacement, displ_size, is_broadcast }
@@ -124,7 +124,7 @@ impl MemoryOperand {
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_index_scale_displ_size_bcst_seg(
 		index: Register, scale: u32, displacement: i64, displ_size: u32, is_broadcast: bool, segment_prefix: Register,
@@ -142,7 +142,7 @@ impl MemoryOperand {
 	/// * `segment_prefix`: Segment override or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_displ_bcst_seg(base: Register, displacement: i64, is_broadcast: bool, segment_prefix: Register) -> Self {
 		Self { segment_prefix, base, index: Register::None, scale: 1, displacement, displ_size: 1, is_broadcast }
@@ -159,7 +159,7 @@ impl MemoryOperand {
 	/// * `displ_size`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_index_scale_displ_size(base: Register, index: Register, scale: u32, displacement: i64, displ_size: u32) -> Self {
 		Self { segment_prefix: Register::None, base, index, scale, displacement, displ_size, is_broadcast: false }
@@ -174,7 +174,7 @@ impl MemoryOperand {
 	/// * `scale`: Index register scale (1, 2, 4, or 8)
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_index_scale(base: Register, index: Register, scale: u32) -> Self {
 		Self { segment_prefix: Register::None, base, index, scale, displacement: 0, displ_size: 0, is_broadcast: false }
@@ -188,7 +188,7 @@ impl MemoryOperand {
 	/// * `index`: Index register or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_index(base: Register, index: Register) -> Self {
 		Self { segment_prefix: Register::None, base, index, scale: 1, displacement: 0, displ_size: 0, is_broadcast: false }
@@ -203,7 +203,7 @@ impl MemoryOperand {
 	/// * `displ_size`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_displ_size(base: Register, displacement: i64, displ_size: u32) -> Self {
 		Self { segment_prefix: Register::None, base, index: Register::None, scale: 1, displacement, displ_size, is_broadcast: false }
@@ -219,7 +219,7 @@ impl MemoryOperand {
 	/// * `displ_size`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_index_scale_displ_size(index: Register, scale: u32, displacement: i64, displ_size: u32) -> Self {
 		Self { segment_prefix: Register::None, base: Register::None, index, scale, displacement, displ_size, is_broadcast: false }
@@ -233,7 +233,7 @@ impl MemoryOperand {
 	/// * `displacement`: Memory displacement
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base_displ(base: Register, displacement: i64) -> Self {
 		Self { segment_prefix: Register::None, base, index: Register::None, scale: 1, displacement, displ_size: 1, is_broadcast: false }
@@ -246,7 +246,7 @@ impl MemoryOperand {
 	/// * `base`: Base register or [`Register::None`]
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn with_base(base: Register) -> Self {
 		Self { segment_prefix: Register::None, base, index: Register::None, scale: 1, displacement: 0, displ_size: 0, is_broadcast: false }

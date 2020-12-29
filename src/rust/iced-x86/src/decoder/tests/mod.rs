@@ -41,7 +41,7 @@ use super::super::*;
 use alloc::string::String;
 use core::fmt::Write;
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(crate) static NON_DECODED_CODE_VALUES: [Code; 16] = [
 	Code::DeclareByte,
 	Code::DeclareDword,
@@ -60,7 +60,7 @@ pub(crate) static NON_DECODED_CODE_VALUES: [Code; 16] = [
 	Code::Fstsw_AX,
 	Code::Fstsw_m2byte,
 ];
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(crate) static NON_DECODED_CODE_VALUES1632: [Code; 3] = [
 	Code::Popw_CS,
 	Code::Fstdw_AX,
@@ -174,7 +174,6 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			assert_eq!(op_kind, instr.op_kind(i));
 		}
 		assert_eq!(op_kind, instr.try_op_kind(i).unwrap());
-		#[allow(deprecated)]
 		match op_kind {
 			OpKind::Register => {
 				#[allow(deprecated)]
@@ -211,6 +210,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			}
 
 			OpKind::MemoryESDI | OpKind::MemoryESEDI | OpKind::MemoryESRDI => assert_eq!(tc.memory_size, instr.memory_size()),
+			#[allow(deprecated)]
 			OpKind::Memory64 => unreachable!(),
 
 			OpKind::Memory => {
@@ -404,7 +404,7 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 	let mut missing32 = 0;
 	let mut missing64 = 0;
 	let code_names = code_names();
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
+	#[allow(clippy::needless_range_loop)]
 	for i in 0..tested.len() {
 		if tested[i] != (T16 | T32 | T64) && !is_ignored_code(code_names[i]) {
 			if (tested[i] & T16) == 0 {

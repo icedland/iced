@@ -309,7 +309,7 @@ namespace Generator.Encoder.Rust {
 				if (feature is not null)
 					writer.WriteLine(feature);
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(super) static {name}: [&(Op + Sync); {all.Length}] = [");
+				writer.WriteLine($"pub(super) static {name}: [&(dyn Op + Sync); {all.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in all) {
 						var info = dict[(value.opHandlerKind, value.args)];
@@ -403,7 +403,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
-			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder", "mod.rs");
+			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder.rs");
 			new FileUpdater(TargetLanguage.Rust, "ImmSizes", filename).Generate(writer => {
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"static IMM_SIZES: [u32; {immSizes.Length}] = [");

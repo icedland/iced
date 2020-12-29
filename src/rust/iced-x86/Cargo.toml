@@ -2,6 +2,7 @@
 name = "iced-x86"
 version = "1.10.2"
 authors = ["0xd4d <de4dot@gmail.com>"]
+edition = "2018"
 license = "MIT"
 description = "iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder written in Rust"
 homepage = "https://github.com/0xd4d/iced"
@@ -40,14 +41,11 @@ no_d3now = []
 
 [dependencies]
 # if: always
-static_assertions = "0.3.4"
+static_assertions = "1.1.0"
 
 # if: decoder or encoder or gas or intel or masm or nasm or fast_fmt
 # It's not really optional, std or no_std must be used and they both require it.
-lazy_static = { version = "1.1.1", optional = true }
+lazy_static = { version = "1.4.0", optional = true }
 
 # if: no_std and block_encoder
-hashbrown = { version = "0.9.0", optional = true }
-
-[build-dependencies]
-rustc_version = "0.2.3"
+hashbrown = { version = "0.9.1", optional = true }

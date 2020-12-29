@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 pub(super) const STRINGS_COUNT: usize = 1484;
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(super) static STRINGS_TBL_DATA: [u8; 11435] = [
 	0x03, 0x6D, 0x6F, 0x76,// mov
 	0x03, 0x6E, 0x6F, 0x70,// nop

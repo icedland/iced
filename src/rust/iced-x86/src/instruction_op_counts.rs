@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::iced_constants::IcedConstants;
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(super) static OP_COUNT: [u8; IcedConstants::CODE_ENUM_COUNT] = [
 	0,// INVALID
 	0,// DeclareByte

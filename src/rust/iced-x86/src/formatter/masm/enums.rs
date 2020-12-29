@@ -79,7 +79,7 @@ pub(crate) enum CtorKind {
 	STi_ST,
 	XLAT,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_CTOR_KIND: [&str; 49] = [
 	"Previous",
 	"Normal_1",
@@ -139,7 +139,7 @@ impl fmt::Debug for CtorKind {
 	}
 }
 impl Default for CtorKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CtorKind::Previous
@@ -208,7 +208,7 @@ pub(crate) enum InstrOpKind {
 	DeclareDword,
 	DeclareQword,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_INSTR_OP_KIND: [&str; 31] = [
 	"Register",
 	"NearBranch16",
@@ -250,7 +250,7 @@ impl fmt::Debug for InstrOpKind {
 	}
 }
 impl Default for InstrOpKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		InstrOpKind::Register

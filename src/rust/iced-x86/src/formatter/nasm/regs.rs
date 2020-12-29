@@ -30,8 +30,10 @@ use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
 
+#[allow(dead_code)]
 pub(super) struct Registers;
 impl Registers {
+	#[allow(dead_code)]
 	pub(super) const EXTRA_REGISTERS: u32 = 0;
 }
 

@@ -99,7 +99,7 @@ struct FormatterString {
 }
 
 impl FormatterString {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn new(lower: String) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
 		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -113,12 +113,12 @@ impl FormatterString {
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn with_strings(strings: Vec<String>) -> Vec<Self> {
 		strings.into_iter().map(FormatterString::new).collect()
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
 		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -132,21 +132,21 @@ impl FormatterString {
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn len(&self) -> usize {
 		self.lower.len()
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "nasm"))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn is_default(&self) -> bool {
 		self.lower.is_empty()
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn get(&self, upper: bool) -> &str {
 		if upper {
@@ -157,7 +157,7 @@ impl FormatterString {
 	}
 
 	#[cfg(feature = "fast_fmt")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn lower(&self) -> &str {
 		&self.lower
@@ -217,7 +217,7 @@ pub trait FormatterOutput {
 	/// - `number_kind`: Number kind
 	/// - `kind`: Text kind
 	#[inline]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+	#[allow(clippy::too_many_arguments)]
 	#[allow(unused_variables)]
 	fn write_number(
 		&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &str, value: u64, number_kind: NumberKind,
@@ -294,9 +294,9 @@ pub trait FormatterOutput {
 struct FormatterOutputMethods;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 impl FormatterOutputMethods {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+	#[allow(clippy::too_many_arguments)]
 	fn write1(
-		output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, options: &FormatterOptions,
+		output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, options: &FormatterOptions,
 		number_formatter: &mut NumberFormatter, number_options: &NumberFormattingOptions, address: u64, symbol: &SymbolResult,
 		show_symbol_address: bool,
 	) {
@@ -316,9 +316,9 @@ impl FormatterOutputMethods {
 		);
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+	#[allow(clippy::too_many_arguments)]
 	fn write2(
-		output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, options: &FormatterOptions,
+		output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, options: &FormatterOptions,
 		number_formatter: &mut NumberFormatter, number_options: &NumberFormattingOptions, address: u64, symbol: &SymbolResult,
 		show_symbol_address: bool, write_minus_if_signed: bool, spaces_between_op: bool,
 	) {
@@ -396,14 +396,14 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `instruction`: Instruction
 	/// - `output`: Output, eg. a `String`
-	fn format(&mut self, instruction: &Instruction, output: &mut FormatterOutput);
+	fn format(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput);
 
 	/// Gets the formatter options (immutable)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn options(&self) -> &FormatterOptions;
 
 	/// Gets the formatter options (mutable)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn options_mut(&mut self) -> &mut FormatterOptions;
 
 	/// Formats the mnemonic and any prefixes
@@ -413,7 +413,7 @@ pub trait Formatter: private::Sealed {
 	/// - `instruction`: Instruction
 	/// - `output`: Output, eg. a `String`
 	#[inline]
-	fn format_mnemonic(&mut self, instruction: &Instruction, output: &mut FormatterOutput) {
+	fn format_mnemonic(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput) {
 		self.format_mnemonic_options(instruction, output, FormatMnemonicOptions::NONE);
 	}
 
@@ -426,14 +426,14 @@ pub trait Formatter: private::Sealed {
 	/// - `options`: Options, see [`FormatMnemonicOptions`]
 	///
 	/// [`FormatMnemonicOptions`]: struct.FormatMnemonicOptions.html
-	fn format_mnemonic_options(&mut self, instruction: &Instruction, output: &mut FormatterOutput, options: u32);
+	fn format_mnemonic_options(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, options: u32);
 
 	/// Gets the number of operands that will be formatted. A formatter can add and remove operands
 	///
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn operand_count(&mut self, instruction: &Instruction) -> u32;
 
 	/// Returns the operand access but only if it's an operand added by the formatter. If it's an
@@ -494,7 +494,7 @@ pub trait Formatter: private::Sealed {
 	/// This fails if `operand` is invalid.
 	///
 	/// [`operand_count()`]: #tymethod.operand_count
-	fn format_operand(&mut self, instruction: &Instruction, output: &mut FormatterOutput, operand: u32) -> Result<(), IcedError>;
+	fn format_operand(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, operand: u32) -> Result<(), IcedError>;
 
 	/// Formats an operand separator
 	///
@@ -502,7 +502,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `instruction`: Instruction
 	/// - `output`: Output, eg. a `String`
-	fn format_operand_separator(&mut self, instruction: &Instruction, output: &mut FormatterOutput);
+	fn format_operand_separator(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput);
 
 	/// Formats all operands
 	///
@@ -510,14 +510,14 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `instruction`: Instruction
 	/// - `output`: Output, eg. a `String`
-	fn format_all_operands(&mut self, instruction: &Instruction, output: &mut FormatterOutput);
+	fn format_all_operands(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput);
 
 	/// Formats a register
 	///
 	/// # Arguments
 	///
 	/// - `register`: Register
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_register(&mut self, register: Register) -> &str;
 
 	/// Formats a `i8`
@@ -525,7 +525,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i8(&mut self, value: i8) -> &str;
 
 	/// Formats a `i16`
@@ -533,7 +533,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i16(&mut self, value: i16) -> &str;
 
 	/// Formats a `i32`
@@ -541,7 +541,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i32(&mut self, value: i32) -> &str;
 
 	/// Formats a `i64`
@@ -549,7 +549,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i64(&mut self, value: i64) -> &str;
 
 	/// Formats a `u8`
@@ -557,7 +557,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u8(&mut self, value: u8) -> &str;
 
 	/// Formats a `u16`
@@ -565,7 +565,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u16(&mut self, value: u16) -> &str;
 
 	/// Formats a `u32`
@@ -573,7 +573,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u32(&mut self, value: u32) -> &str;
 
 	/// Formats a `u64`
@@ -581,7 +581,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u64(&mut self, value: u64) -> &str;
 
 	/// Formats a `i8`
@@ -590,7 +590,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions) -> &str;
 
 	/// Formats a `i16`
@@ -599,7 +599,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions) -> &str;
 
 	/// Formats a `i32`
@@ -608,7 +608,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions) -> &str;
 
 	/// Formats a `i64`
@@ -617,7 +617,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions) -> &str;
 
 	/// Formats a `u8`
@@ -626,7 +626,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions) -> &str;
 
 	/// Formats a `u16`
@@ -635,7 +635,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions) -> &str;
 
 	/// Formats a `u32`
@@ -644,7 +644,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions) -> &str;
 
 	/// Formats a `u64`
@@ -653,7 +653,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `value`: Value
 	/// - `number_options`: Options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str;
 }
 

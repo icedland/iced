@@ -150,8 +150,8 @@ impl<'a> IntoIter<'a> {
 		}
 
 		let mut symbol_results: Vec<SymbolResultTestCase> = Vec::with_capacity(elems.len() - SYM_RES_INDEX);
-		for tmp in &elems[SYM_RES_INDEX..] {
-			let sym_parts: Vec<_> = tmp.split(';').collect();
+		for elem in &elems[SYM_RES_INDEX..] {
+			let sym_parts: Vec<_> = elem.split(';').collect();
 			if sym_parts.len() != 5 {
 				return Err(format!("Invalid number of semicolons: {}", sym_parts.len() - 1));
 			}

@@ -73,7 +73,7 @@ pub(crate) enum CtorKind {
 	mem16,
 	Reg32,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_CTOR_KIND: [&str; 43] = [
 	"Previous",
 	"Normal_1",
@@ -127,7 +127,7 @@ impl fmt::Debug for CtorKind {
 	}
 }
 impl Default for CtorKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CtorKind::Previous
@@ -146,7 +146,7 @@ pub(crate) enum SizeOverride {
 	Size32,
 	Size64,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_SIZE_OVERRIDE: [&str; 4] = [
 	"None",
 	"Size16",
@@ -161,7 +161,7 @@ impl fmt::Debug for SizeOverride {
 	}
 }
 impl Default for SizeOverride {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SizeOverride::None
@@ -238,7 +238,7 @@ pub(crate) enum InstrOpKind {
 	DeclareDword,
 	DeclareQword,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_INSTR_OP_KIND: [&str; 35] = [
 	"Register",
 	"NearBranch16",
@@ -284,7 +284,7 @@ impl fmt::Debug for InstrOpKind {
 	}
 }
 impl Default for InstrOpKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		InstrOpKind::Register

@@ -30,21 +30,21 @@ const NEW_RIP: u64 = 0x8000_0000_0000_0000;
 
 #[test]
 fn call_near_fwd() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let original_data = [
 		/*0000*/ 0xE8, 0x07, 0x00, 0x00, 0x00,// call 000000000000800Ch
 		/*0005*/ 0xB0, 0x00,// mov al,0
 		/*0007*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 		/*000C*/ 0x90,// nop
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let new_data = [
 		/*0000*/ 0xE8, 0x07, 0x00, 0x00, 0x00,// call 800000000000000Ch
 		/*0005*/ 0xB0, 0x00,// mov al,0
 		/*0007*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 		/*000C*/ 0x90,// nop
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_instruction_offsets = [
 		0x0000,
 		0x0005,
@@ -68,21 +68,21 @@ fn call_near_fwd() {
 
 #[test]
 fn call_near_bwd() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let original_data = [
 		/*0000*/ 0x90,// nop
 		/*0001*/ 0xE8, 0xFA, 0xFF, 0xFF, 0xFF,// call 0000000000008000h
 		/*0006*/ 0xB0, 0x00,// mov al,0
 		/*0008*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let new_data = [
 		/*0000*/ 0x90,// nop
 		/*0001*/ 0xE8, 0xFA, 0xFF, 0xFF, 0xFF,// call 8000000000000000h
 		/*0006*/ 0xB0, 0x00,// mov al,0
 		/*0008*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_instruction_offsets = [
 		0x0000,
 		0x0001,
@@ -106,19 +106,19 @@ fn call_near_bwd() {
 
 #[test]
 fn call_near_other_near() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let original_data = [
 		/*0000*/ 0xE8, 0x07, 0x00, 0x00, 0x00,// call 000000000000800Ch
 		/*0005*/ 0xB0, 0x00,// mov al,0
 		/*0007*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let new_data = [
 		/*0000*/ 0xE8, 0x08, 0x00, 0x00, 0x00,// call 000000000000800Ch
 		/*0005*/ 0xB0, 0x00,// mov al,0
 		/*0007*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_instruction_offsets = [
 		0x0000,
 		0x0005,
@@ -141,19 +141,19 @@ fn call_near_other_near() {
 
 #[test]
 fn call_near_other_near_os() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let original_data = [
 		/*0000*/ 0x66, 0xE8, 0x07, 0x00,// call 800Bh
 		/*0004*/ 0xB0, 0x00,// mov al,0
 		/*0006*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let new_data = [
 		/*0000*/ 0x66, 0xE8, 0x08, 0x00,// call 800Bh
 		/*0004*/ 0xB0, 0x00,// mov al,0
 		/*0006*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_instruction_offsets = [
 		0x0000,
 		0x0004,
@@ -176,13 +176,13 @@ fn call_near_other_near_os() {
 
 #[test]
 fn call_near_other_long() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let original_data = [
 		/*0000*/ 0xE8, 0x07, 0x00, 0x00, 0x00,// call 123456789ABCDE0Ch
 		/*0005*/ 0xB0, 0x00,// mov al,0
 		/*0007*/ 0xB8, 0x78, 0x56, 0x34, 0x12,// mov eax,12345678h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let new_data = [
 		/*0000*/ 0xFF, 0x15, 0x0A, 0x00, 0x00, 0x00,// call qword ptr [8000000000000010h]
 		/*0006*/ 0xB0, 0x00,// mov al,0
@@ -190,13 +190,13 @@ fn call_near_other_long() {
 		/*000D*/ 0xCC, 0xCC, 0xCC,
 		/*0010*/ 0x0C, 0xDE, 0xBC, 0x9A, 0x78, 0x56, 0x34, 0x12,
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_instruction_offsets = [
 		u32::MAX,
 		0x0006,
 		0x0008,
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_reloc_infos = [
 		RelocInfo::new(RelocKind::Offset64, 0x8000_0000_0000_0010),
 	];

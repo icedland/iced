@@ -116,21 +116,22 @@ pub struct Instruction {
 	res: [u8; 4],
 }
 #[cfg(test)]
+#[allow(dead_code)]
 pub(crate) const INSTRUCTION_TOTAL_SIZE: usize = 40;
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::len_without_is_empty))]
+#[allow(clippy::len_without_is_empty)]
 impl Instruction {
 	/// Creates an empty `Instruction` (all fields are cleared). See also the `with_*()` constructor methods.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new() -> Self {
 		Instruction::default()
 	}
 
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[allow(trivial_casts)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn eq_all_bits(&self, other: &Self) -> bool {
 		unsafe {
 			let a: *const u8 = self as *const Self as *const u8;
@@ -142,7 +143,7 @@ impl Instruction {
 	}
 
 	/// Gets the 16-bit IP of the instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn ip16(&self) -> u16 {
 		(self.next_rip as u16).wrapping_sub(self.len() as u16)
@@ -159,7 +160,7 @@ impl Instruction {
 	}
 
 	/// Gets the 32-bit IP of the instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn ip32(&self) -> u32 {
 		(self.next_rip as u32).wrapping_sub(self.len() as u32)
@@ -176,7 +177,7 @@ impl Instruction {
 	}
 
 	/// Gets the 64-bit IP of the instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn ip(&self) -> u64 {
 		self.next_rip.wrapping_sub(self.len() as u64)
@@ -193,7 +194,7 @@ impl Instruction {
 	}
 
 	/// Gets the 16-bit IP of the next instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn next_ip16(&self) -> u16 {
 		self.next_rip as u16
@@ -210,7 +211,7 @@ impl Instruction {
 	}
 
 	/// Gets the 32-bit IP of the next instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn next_ip32(&self) -> u32 {
 		self.next_rip as u32
@@ -227,7 +228,7 @@ impl Instruction {
 	}
 
 	/// Gets the 64-bit IP of the next instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn next_ip(&self) -> u64 {
 		self.next_rip
@@ -245,7 +246,7 @@ impl Instruction {
 
 	/// Gets the code size when the instruction was decoded. This value is informational and can
 	/// be used by a formatter.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn code_size(&self) -> CodeSize {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::CODE_SIZE_SHIFT) & OpKindFlags::CODE_SIZE_MASK) as u8) }
@@ -267,7 +268,7 @@ impl Instruction {
 	///
 	/// [`code()`]: #method.code
 	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_invalid(&self) -> bool {
 		const_assert_eq!(0, Code::INVALID as u32);
@@ -277,7 +278,7 @@ impl Instruction {
 	/// Gets the instruction code, see also [`mnemonic()`]
 	///
 	/// [`mnemonic()`]: #method.mnemonic
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn code(&self) -> Code {
 		unsafe { mem::transmute((self.code_flags & CodeFlags::CODE_MASK) as u16) }
@@ -296,7 +297,7 @@ impl Instruction {
 	/// Gets the mnemonic, see also [`code()`]
 	///
 	/// [`code()`]: #method.code
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn mnemonic(&self) -> Mnemonic {
 		self.code().mnemonic()
@@ -316,7 +317,7 @@ impl Instruction {
 	///
 	/// assert_eq!(2, instr.op_count());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
 		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked((self.code_flags & CodeFlags::CODE_MASK) as usize) as u32 }
@@ -324,7 +325,7 @@ impl Instruction {
 
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
 	/// or create a new one, this method could return the wrong value.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn len(&self) -> usize {
 		((self.code_flags >> CodeFlags::INSTR_LENGTH_SHIFT) & CodeFlags::INSTR_LENGTH_MASK) as usize
@@ -343,7 +344,7 @@ impl Instruction {
 	}
 
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_xacquire_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XACQUIRE_PREFIX) != 0
@@ -364,7 +365,7 @@ impl Instruction {
 	}
 
 	/// `true` if the instruction has the `XRELEASE` prefix (`F3`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_xrelease_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XRELEASE_PREFIX) != 0
@@ -385,7 +386,7 @@ impl Instruction {
 	}
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_rep_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
@@ -406,7 +407,7 @@ impl Instruction {
 	}
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_repe_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
@@ -427,7 +428,7 @@ impl Instruction {
 	}
 
 	/// `true` if the instruction has the `REPNE` prefix (`F2`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_repne_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPNE_PREFIX) != 0
@@ -448,7 +449,7 @@ impl Instruction {
 	}
 
 	/// `true` if the instruction has the `LOCK` prefix (`F0`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_lock_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::LOCK_PREFIX) != 0
@@ -472,7 +473,7 @@ impl Instruction {
 	///
 	/// [`op_count()`]: #method.op_count
 	/// [`try_op_kind()`]: #method.try_op_kind
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op0_kind(&self) -> OpKind {
 		unsafe { mem::transmute((self.op_kind_flags & OpKindFlags::OP_KIND_MASK) as u8) }
@@ -495,7 +496,7 @@ impl Instruction {
 	///
 	/// [`op_count()`]: #method.op_count
 	/// [`try_op_kind()`]: #method.try_op_kind
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op1_kind(&self) -> OpKind {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP1_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
@@ -519,7 +520,7 @@ impl Instruction {
 	///
 	/// [`op_count()`]: #method.op_count
 	/// [`try_op_kind()`]: #method.try_op_kind
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op2_kind(&self) -> OpKind {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP2_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
@@ -543,7 +544,7 @@ impl Instruction {
 	///
 	/// [`op_count()`]: #method.op_count
 	/// [`try_op_kind()`]: #method.try_op_kind
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op3_kind(&self) -> OpKind {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP3_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
@@ -567,8 +568,8 @@ impl Instruction {
 	///
 	/// [`op_count()`]: #method.op_count
 	/// [`try_op_kind()`]: #method.try_op_kind
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[allow(clippy::unused_self)]
+	#[must_use]
 	#[inline]
 	pub fn op4_kind(&self) -> OpKind {
 		OpKind::Immediate8
@@ -604,7 +605,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[allow(clippy::unused_self)]
 	#[inline]
 	pub fn try_set_op4_kind(&mut self, new_value: OpKind) -> Result<(), IcedError> {
 		if new_value != OpKind::Immediate8 {
@@ -643,7 +644,7 @@ impl Instruction {
 	/// assert_eq!(OpKind::Register, instr.op_kind(1));
 	/// assert_eq!(Register::EBX, instr.op_register(1));
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_op_kind() instead")]
 	pub fn op_kind(&self, operand: u32) -> OpKind {
@@ -679,7 +680,7 @@ impl Instruction {
 	/// assert_eq!(OpKind::Register, instr.op_kind(1));
 	/// assert_eq!(Register::EBX, instr.op_register(1));
 	/// ```
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpKind, IcedError> {
 		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
@@ -718,7 +719,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `op_kind`: Operand kind
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_op_kind(&mut self, operand: u32, op_kind: OpKind) -> Result<(), IcedError> {
 		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
@@ -735,7 +736,7 @@ impl Instruction {
 	/// Checks if the instruction has a segment override prefix, see [`segment_prefix()`]
 	///
 	/// [`segment_prefix()`]: #method.segment_prefix
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_segment_prefix(&self) -> bool {
 		(((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1) < 6
@@ -752,7 +753,7 @@ impl Instruction {
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn segment_prefix(&self) -> Register {
 		let index = (((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1);
@@ -778,7 +779,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: Segment register prefix
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_segment_prefix(&mut self, new_value: Register) {
 		let enc_value =
 			if new_value == Register::None { 0 } else { (((new_value as u32) - (Register::ES as u32)) + 1) & MemoryFlags::SEGMENT_PREFIX_MASK };
@@ -794,8 +795,8 @@ impl Instruction {
 	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn memory_segment(&self) -> Register {
 		let seg_reg = self.segment_prefix();
 		if seg_reg != Register::None {
@@ -814,7 +815,7 @@ impl Instruction {
 	///
 	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_displ_size(&self) -> u32 {
 		let size = ((self.memory_flags as u32) >> MemoryFlags::DISPL_SIZE_SHIFT) & MemoryFlags::DISPL_SIZE_MASK;
@@ -838,7 +839,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: Displacement size
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_memory_displ_size(&mut self, new_value: u32) {
 		let enc_value = match new_value {
 			0 => 0,
@@ -852,7 +853,7 @@ impl Instruction {
 	}
 
 	/// `true` if the data is broadcasted (EVEX instructions only)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_broadcast(&self) -> bool {
 		(self.memory_flags & (MemoryFlags::BROADCAST as u16)) != 0
@@ -885,7 +886,7 @@ impl Instruction {
 	/// [`OpKind::MemoryESDI`]: enum.OpKind.html#variant.MemoryESDI
 	/// [`OpKind::MemoryESEDI`]: enum.OpKind.html#variant.MemoryESEDI
 	/// [`OpKind::MemoryESRDI`]: enum.OpKind.html#variant.MemoryESRDI
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_size(&self) -> MemorySize {
 		let mut index = self.code() as usize;
@@ -898,7 +899,7 @@ impl Instruction {
 	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_index_scale(&self) -> u32 {
 		1 << (self.memory_flags as u32 & MemoryFlags::SCALE_MASK)
@@ -911,7 +912,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value (1, 2, 4 or 8)
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_memory_index_scale(&mut self, new_value: u32) {
 		match new_value {
 			1 => self.memory_flags &= !3,
@@ -929,7 +930,7 @@ impl Instruction {
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use memory_displacement32() or memory_displacement64() instead")]
 	pub fn memory_displacement(&self) -> u32 {
@@ -956,7 +957,7 @@ impl Instruction {
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_displacement32(&self) -> u32 {
 		self.mem_displ
@@ -982,7 +983,7 @@ impl Instruction {
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_displacement64(&self) -> u64 {
 		(self.mem_displ as u64) | ((self.mem_displ_hi as u64) << 32)
@@ -1012,7 +1013,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_immediate(&self, operand: u32) -> Result<u64, IcedError> {
 		Ok(match self.try_op_kind(operand)? {
 			OpKind::Immediate8 => self.immediate8() as u64,
@@ -1037,7 +1038,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate(&self, operand: u32) -> u64 {
 		self.try_immediate(operand).unwrap()
@@ -1162,7 +1163,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_immediate_u64(&mut self, operand: u32, new_value: u64) -> Result<(), IcedError> {
 		match self.try_op_kind(operand)? {
 			OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => self.immediate = new_value as u8 as u32,
@@ -1178,7 +1179,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8`]
 	///
 	/// [`OpKind::Immediate8`]: enum.OpKind.html#variant.Immediate8
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate8(&self) -> u8 {
 		self.immediate as u8
@@ -1199,7 +1200,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8_2nd`]
 	///
 	/// [`OpKind::Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate8_2nd(&self) -> u8 {
 		self.mem_displ as u8
@@ -1220,7 +1221,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate16`]
 	///
 	/// [`OpKind::Immediate16`]: enum.OpKind.html#variant.Immediate16
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate16(&self) -> u16 {
 		self.immediate as u16
@@ -1241,7 +1242,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32`]
 	///
 	/// [`OpKind::Immediate32`]: enum.OpKind.html#variant.Immediate32
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate32(&self) -> u32 {
 		self.immediate
@@ -1262,7 +1263,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate64`]
 	///
 	/// [`OpKind::Immediate64`]: enum.OpKind.html#variant.Immediate64
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | (self.immediate as u64)
@@ -1284,7 +1285,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to16`]
 	///
 	/// [`OpKind::Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate8to16(&self) -> i16 {
 		self.immediate as i8 as i16
@@ -1305,7 +1306,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to32`]
 	///
 	/// [`OpKind::Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate8to32(&self) -> i32 {
 		self.immediate as i8 as i32
@@ -1326,7 +1327,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to64`]
 	///
 	/// [`OpKind::Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate8to64(&self) -> i64 {
 		self.immediate as i8 as i64
@@ -1347,7 +1348,7 @@ impl Instruction {
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32to64`]
 	///
 	/// [`OpKind::Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn immediate32to64(&self) -> i64 {
 		self.immediate as i32 as i64
@@ -1368,8 +1369,8 @@ impl Instruction {
 	/// [`OpKind::Memory64`] is deprecated, this method does nothing now.
 	///
 	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[must_use]
+	#[allow(clippy::unused_self)]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "OpKind::Memory64 is deprecated, this method does nothing now. Use memory_displacement64() instead.")]
 	pub fn memory_address64(&self) -> u64 {
@@ -1383,7 +1384,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[allow(clippy::unused_self)]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "OpKind::Memory64 is deprecated, this method does nothing now. Use set_memory_displacement64() instead.")]
 	pub fn set_memory_address64(&mut self, _new_value: u64) {}
@@ -1391,7 +1392,7 @@ impl Instruction {
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
 	///
 	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn near_branch16(&self) -> u16 {
 		self.immediate as u16
@@ -1412,7 +1413,7 @@ impl Instruction {
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch32`]
 	///
 	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn near_branch32(&self) -> u32 {
 		self.immediate
@@ -1433,7 +1434,7 @@ impl Instruction {
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
 	///
 	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn near_branch64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | self.immediate as u64
@@ -1459,8 +1460,8 @@ impl Instruction {
 	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn near_branch_target(&self) -> u64 {
 		match self.op0_kind() {
 			OpKind::NearBranch16 => self.near_branch16() as u64,
@@ -1473,7 +1474,7 @@ impl Instruction {
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch16`]
 	///
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn far_branch16(&self) -> u16 {
 		self.immediate as u16
@@ -1494,7 +1495,7 @@ impl Instruction {
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch32`]
 	///
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn far_branch32(&self) -> u32 {
 		self.immediate
@@ -1516,7 +1517,7 @@ impl Instruction {
 	///
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn far_branch_selector(&self) -> u16 {
 		self.mem_displ as u16
@@ -1539,7 +1540,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_base(&self) -> Register {
 		unsafe { mem::transmute(self.mem_base_reg) }
@@ -1562,7 +1563,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_index(&self) -> Register {
 		unsafe { mem::transmute(self.mem_index_reg) }
@@ -1588,7 +1589,7 @@ impl Instruction {
 	/// [`try_op_register()`]: #method.try_op_register
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op0_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg0) }
@@ -1617,7 +1618,7 @@ impl Instruction {
 	/// [`try_op_register()`]: #method.try_op_register
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op1_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg1) }
@@ -1646,7 +1647,7 @@ impl Instruction {
 	/// [`try_op_register()`]: #method.try_op_register
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op2_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg2) }
@@ -1675,7 +1676,7 @@ impl Instruction {
 	/// [`try_op_register()`]: #method.try_op_register
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op3_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg3) }
@@ -1704,8 +1705,8 @@ impl Instruction {
 	/// [`try_op_register()`]: #method.try_op_register
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[allow(clippy::unused_self)]
+	#[must_use]
 	#[inline]
 	pub fn op4_register(&self) -> Register {
 		Register::None
@@ -1747,7 +1748,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[allow(clippy::unused_self)]
 	#[inline]
 	pub fn try_set_op4_register(&mut self, new_value: Register) -> Result<(), IcedError> {
 		if new_value != Register::None {
@@ -1784,7 +1785,7 @@ impl Instruction {
 	/// assert_eq!(OpKind::Register, instr.op_kind(1));
 	/// assert_eq!(Register::EBX, instr.op_register(1));
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_op_register() instead")]
 	pub fn op_register(&self, operand: u32) -> Register {
@@ -1818,7 +1819,7 @@ impl Instruction {
 	/// assert_eq!(OpKind::Register, instr.op_kind(1));
 	/// assert_eq!(Register::EBX, instr.op_register(1));
 	/// ```
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_register(&self, operand: u32) -> Result<Register, IcedError> {
 		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
@@ -1863,7 +1864,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_op_register(&mut self, operand: u32, new_value: Register) -> Result<(), IcedError> {
 		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 		match operand {
@@ -1882,7 +1883,7 @@ impl Instruction {
 	/// [`Register::K1`]: enum.Register.html#variant.K1
 	/// [`Register::K7`]: enum.Register.html#variant.K7
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op_mask(&self) -> Register {
 		let r = (self.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK;
@@ -1902,7 +1903,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_op_mask(&mut self, new_value: Register) {
 		let r = if new_value == Register::None { 0 } else { (new_value as u32 - Register::K0 as u32) & CodeFlags::OP_MASK_MASK };
 		self.code_flags = (self.code_flags & !(CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) | (r << CodeFlags::OP_MASK_SHIFT);
@@ -1911,7 +1912,7 @@ impl Instruction {
 	/// Checks if there's an op mask register ([`op_mask()`])
 	///
 	/// [`op_mask()`]: #method.op_mask
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn has_op_mask(&self) -> bool {
 		(self.code_flags & (CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) != 0
@@ -1919,7 +1920,7 @@ impl Instruction {
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn zeroing_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) != 0
@@ -1942,7 +1943,7 @@ impl Instruction {
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn merging_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) == 0
@@ -1968,7 +1969,7 @@ impl Instruction {
 	///
 	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions
 	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rounding_control(&self) -> RoundingControl {
 		unsafe { mem::transmute(((self.code_flags >> CodeFlags::ROUNDING_CONTROL_SHIFT) & CodeFlags::ROUNDING_CONTROL_MASK) as u8) }
@@ -1997,7 +1998,7 @@ impl Instruction {
 	/// [`Code::DeclareWord`]: enum.Code.html#variant.DeclareWord
 	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
 	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn declare_data_len(&self) -> usize {
 		(((self.op_kind_flags >> OpKindFlags::DATA_LENGTH_SHIFT) & OpKindFlags::DATA_LENGTH_MASK) + 1) as usize
@@ -2102,7 +2103,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_byte_value(&mut self, index: usize, new_value: u8) -> Result<(), IcedError> {
 		if cfg!(feature = "db") {
 			match index {
@@ -2144,7 +2145,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_byte_value() instead")]
 	#[inline]
 	pub fn get_declare_byte_value(&self, index: usize) -> u8 {
@@ -2165,7 +2166,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-15)
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_get_declare_byte_value(&self, index: usize) -> Result<u8, IcedError> {
 		Ok(match index {
 			0 => self.reg0,
@@ -2269,7 +2270,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_word_value(&mut self, index: usize, new_value: u16) -> Result<(), IcedError> {
 		if cfg!(feature = "db") {
 			match index {
@@ -2312,7 +2313,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_word_value() instead")]
 	#[inline]
 	pub fn get_declare_word_value(&self, index: usize) -> u16 {
@@ -2333,7 +2334,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-7)
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_get_declare_word_value(&self, index: usize) -> Result<u16, IcedError> {
 		Ok(match index {
 			0 => self.reg0 as u16 | ((self.reg1 as u16) << 8),
@@ -2429,7 +2430,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_dword_value(&mut self, index: usize, new_value: u32) -> Result<(), IcedError> {
 		if cfg!(feature = "db") {
 			match index {
@@ -2468,7 +2469,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_dword_value() instead")]
 	#[inline]
 	pub fn get_declare_dword_value(&self, index: usize) -> u32 {
@@ -2489,7 +2490,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-3)
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_get_declare_dword_value(&self, index: usize) -> Result<u32, IcedError> {
 		Ok(match index {
 			0 => self.reg0 as u32 | ((self.reg1 as u32) << 8) | ((self.reg2 as u32) << 16) | ((self.reg3 as u32) << 24),
@@ -2581,7 +2582,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_qword_value(&mut self, index: usize, new_value: u64) -> Result<(), IcedError> {
 		if cfg!(feature = "db") {
 			match index {
@@ -2620,7 +2621,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_qword_value() instead")]
 	#[inline]
 	pub fn get_declare_qword_value(&self, index: usize) -> u64 {
@@ -2641,7 +2642,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_get_declare_qword_value(&self, index: usize) -> Result<u64, IcedError> {
 		Ok(match index {
 			0 => {
@@ -2662,7 +2663,7 @@ impl Instruction {
 	///
 	/// [`is_vsib32()`]: #method.is_vsib32
 	/// [`is_vsib64()`]: #method.is_vsib64
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_vsib(&self) -> bool {
 		self.vsib().is_some()
@@ -2671,7 +2672,7 @@ impl Instruction {
 	/// VSIB instructions only ([`is_vsib()`]): `true` if it's using 32-bit indexes, `false` if it's using 64-bit indexes
 	///
 	/// [`is_vsib()`]: #method.is_vsib
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_vsib32(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
@@ -2684,7 +2685,7 @@ impl Instruction {
 	/// VSIB instructions only ([`is_vsib()`]): `true` if it's using 64-bit indexes, `false` if it's using 32-bit indexes
 	///
 	/// [`is_vsib()`]: #method.is_vsib
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_vsib64(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
@@ -2701,9 +2702,9 @@ impl Instruction {
 	/// * `Some(true)` if it's a VSIB instruction with 64-bit indexes
 	/// * `Some(false)` if it's a VSIB instruction with 32-bit indexes
 	/// * `None` if it's not a VSIB instruction.
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::match_single_binding))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[allow(clippy::match_single_binding)]
 	pub fn vsib(&self) -> Option<bool> {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self.code() {
@@ -2806,7 +2807,7 @@ impl Instruction {
 	///
 	/// [`rounding_control()`]: #method.rounding_control
 	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn suppress_all_exceptions(&self) -> bool {
 		(self.code_flags & CodeFlags::SUPPRESS_ALL_EXCEPTIONS) != 0
@@ -2831,7 +2832,7 @@ impl Instruction {
 	}
 
 	/// Checks if the memory operand is `RIP`/`EIP` relative
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_ip_rel_memory_operand(&self) -> bool {
 		let base_reg = self.memory_base();
@@ -2844,7 +2845,7 @@ impl Instruction {
 	/// [`memory_displacement32()`]: #method.memory_displacement32
 	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`is_ip_rel_memory_operand()`]: #method.is_ip_rel_memory_operand
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn ip_rel_memory_address(&self) -> u64 {
 		if self.memory_base() == Register::EIP {
@@ -2890,17 +2891,13 @@ impl Instruction {
 	/// });
 	/// assert_eq!(Some(0x0000_001F_B55A_1234), va);
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> Option<u64>
 	where
 		F: FnMut(Register, usize, usize) -> Option<u64>,
 	{
-		let op_kind = match self.try_op_kind(operand) {
-			Err(_) => return None,
-			Ok(op_kind) => op_kind,
-		};
-		#[allow(deprecated)]
+		let op_kind = self.try_op_kind(operand).ok()?;
 		Some(match op_kind {
 			OpKind::Register
 			| OpKind::NearBranch16
@@ -2919,104 +2916,23 @@ impl Instruction {
 			| OpKind::Immediate32to64 => 0,
 
 			OpKind::MemorySegSI => {
-				let v1 = match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::SI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2 as u16 as u64)
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::SI, 0, 0)? as u16 as u64)
 			}
 			OpKind::MemorySegESI => {
-				let v1 = match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::ESI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2 as u32 as u64)
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::ESI, 0, 0)? as u32 as u64)
 			}
-			OpKind::MemorySegRSI => {
-				let v1 = match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::RSI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2)
-			}
+			OpKind::MemorySegRSI => get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::RSI, 0, 0)?),
 			OpKind::MemorySegDI => {
-				let v1 = match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::DI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2 as u16 as u64)
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::DI, 0, 0)? as u16 as u64)
 			}
 			OpKind::MemorySegEDI => {
-				let v1 = match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::EDI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2 as u32 as u64)
+				get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::EDI, 0, 0)? as u32 as u64)
 			}
-			OpKind::MemorySegRDI => {
-				let v1 = match get_register_value(self.memory_segment(), 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::RDI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2)
-			}
-			OpKind::MemoryESDI => {
-				let v1 = match get_register_value(Register::ES, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::DI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2 as u16 as u64)
-			}
-			OpKind::MemoryESEDI => {
-				let v1 = match get_register_value(Register::ES, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::EDI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2 as u32 as u64)
-			}
-			OpKind::MemoryESRDI => {
-				let v1 = match get_register_value(Register::ES, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				let v2 = match get_register_value(Register::RDI, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
-				v1.wrapping_add(v2)
-			}
+			OpKind::MemorySegRDI => get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(get_register_value(Register::RDI, 0, 0)?),
+			OpKind::MemoryESDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::DI, 0, 0)? as u16 as u64),
+			OpKind::MemoryESEDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::EDI, 0, 0)? as u32 as u64),
+			OpKind::MemoryESRDI => get_register_value(Register::ES, 0, 0)?.wrapping_add(get_register_value(Register::RDI, 0, 0)?),
+			#[allow(deprecated)]
 			OpKind::Memory64 => return None,
 			OpKind::Memory => {
 				let base_reg = self.memory_base();
@@ -3034,44 +2950,30 @@ impl Instruction {
 				};
 				match base_reg {
 					Register::None | Register::EIP | Register::RIP => {}
-					_ => {
-						let v1 = match get_register_value(base_reg, 0, 0) {
-							Some(v) => v,
-							None => return None,
-						};
-						offset = offset.wrapping_add(v1)
-					}
+					_ => offset = offset.wrapping_add(get_register_value(base_reg, 0, 0)?),
 				}
 				let code = self.code();
 				if index_reg != Register::None && !code.ignores_index() && !code.is_tile_stride_index() {
 					if let Some(is_vsib64) = self.vsib() {
 						if is_vsib64 {
-							let v1 = match get_register_value(index_reg, element_index, 8) {
-								Some(v) => v,
-								None => return None,
-							};
-							offset = offset.wrapping_add(v1 << super::instruction_internal::internal_get_memory_index_scale(self));
+							offset = offset.wrapping_add(
+								get_register_value(index_reg, element_index, 8)?
+									<< super::instruction_internal::internal_get_memory_index_scale(self),
+							);
 						} else {
-							let v1 = match get_register_value(index_reg, element_index, 4) {
-								Some(v) => v,
-								None => return None,
-							};
-							offset = offset.wrapping_add((v1 as i32 as u64) << super::instruction_internal::internal_get_memory_index_scale(self));
+							offset = offset.wrapping_add(
+								(get_register_value(index_reg, element_index, 4)? as i32 as u64)
+									<< super::instruction_internal::internal_get_memory_index_scale(self),
+							);
 						}
 					} else {
-						let v1 = match get_register_value(index_reg, 0, 0) {
-							Some(v) => v,
-							None => return None,
-						};
-						offset = offset.wrapping_add(v1 << super::instruction_internal::internal_get_memory_index_scale(self));
+						offset = offset
+							.wrapping_add(get_register_value(index_reg, 0, 0)? << super::instruction_internal::internal_get_memory_index_scale(self));
 					}
 				}
 				offset &= offset_mask;
 				if !code.ignores_segment() {
-					match get_register_value(self.memory_segment(), 0, 0) {
-						Some(v) => v.wrapping_add(offset),
-						None => return None,
-					}
+					get_register_value(self.memory_segment(), 0, 0)?.wrapping_add(offset)
 				} else {
 					offset
 				}
@@ -3120,7 +3022,7 @@ impl Instruction {
 	/// });
 	/// assert_eq!(0x0000_001F_B55A_1234, va);
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_virtual_address() instead")]
 	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> u64
@@ -3143,7 +3045,7 @@ pub struct FpuStackIncrementInfo {
 #[cfg(feature = "instr_info")]
 impl FpuStackIncrementInfo {
 	/// Constructor
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new(increment: i32, conditional: bool, writes_top: bool) -> Self {
 		Self { increment, conditional, writes_top }
@@ -3157,21 +3059,21 @@ impl FpuStackIncrementInfo {
 	/// and `0` if it writes to `TOP` (eg. `FLDENV`, etc) without pushing/popping anything.
 	///
 	/// [`writes_top()`]: #method.writes_top
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn increment(&self) -> i32 {
 		self.increment
 	}
 
 	/// `true` if it's a conditional push/pop (eg. `FPTAN` or `FSINCOS`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn conditional(&self) -> bool {
 		self.conditional
 	}
 
 	/// `true` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn writes_top(&self) -> bool {
 		self.writes_top
@@ -3196,11 +3098,11 @@ impl Instruction {
 	/// assert!(instr.is_stack_instruction());
 	/// assert_eq!(-8, instr.stack_pointer_increment());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn stack_pointer_increment(&self) -> i32 {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-		#[cfg_attr(feature = "cargo-clippy", allow(clippy::match_single_binding))]
+		#[allow(clippy::match_single_binding)]
 		match self.code() {
 			// GENERATOR-BEGIN: StackPointerIncrementTable
 			// ⚠️This was generated by GENERATOR!🦹‍♂️
@@ -3313,11 +3215,11 @@ impl Instruction {
 	/// assert!(!info.conditional());
 	/// assert!(info.writes_top());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn fpu_stack_increment_info(&self) -> FpuStackIncrementInfo {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-		#[cfg_attr(feature = "cargo-clippy", allow(clippy::match_single_binding))]
+		#[allow(clippy::match_single_binding)]
 		match self.code() {
 			// GENERATOR-BEGIN: FpuStackIncrementInfoTable
 			// ⚠️This was generated by GENERATOR!🦹‍♂️
@@ -3412,7 +3314,7 @@ impl Instruction {
 	///
 	/// assert_eq!(EncodingKind::VEX, instr.encoding());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn encoding(&self) -> EncodingKind {
 		self.code().encoding()
@@ -3443,8 +3345,8 @@ impl Instruction {
 	/// assert_eq!(CpuidFeature::AVX512VL, cpuid[0]);
 	/// assert_eq!(CpuidFeature::AVX512F, cpuid[1]);
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
 		let flags2 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
 		let index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
@@ -3476,14 +3378,14 @@ impl Instruction {
 	/// let instr = decoder.decode();
 	/// assert_eq!(FlowControl::IndirectCall, instr.flow_control());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn flow_control(&self) -> FlowControl {
 		self.code().flow_control()
 	}
 
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_privileged(&self) -> bool {
 		self.code().is_privileged()
@@ -3513,20 +3415,20 @@ impl Instruction {
 	/// assert!(instr.is_stack_instruction());
 	/// assert_eq!(-8, instr.stack_pointer_increment());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_stack_instruction(&self) -> bool {
 		self.code().is_stack_instruction()
 	}
 
 	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_save_restore_instruction(&self) -> bool {
 		self.code().is_save_restore_instruction()
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	fn rflags_info(&self) -> usize {
 		let flags1 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2) };
 		let implied_access = (flags1 >> InfoFlags1::IMPLIED_ACCESS_SHIFT) & InfoFlags1::IMPLIED_ACCESS_MASK;
@@ -3615,7 +3517,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info()) as u32 }
@@ -3655,7 +3557,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info()) as u32 }
@@ -3695,7 +3597,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info()) as u32 }
@@ -3735,7 +3637,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info()) as u32 }
@@ -3775,7 +3677,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info()) as u32 }
@@ -3813,98 +3715,98 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jcc_short_or_near(&self) -> bool {
 		self.code().is_jcc_short_or_near()
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jcc_near(&self) -> bool {
 		self.code().is_jcc_near()
 	}
 
 	/// Checks if it's a `Jcc SHORT` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jcc_short(&self) -> bool {
 		self.code().is_jcc_short()
 	}
 
 	/// Checks if it's a `JMP SHORT` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jmp_short(&self) -> bool {
 		self.code().is_jmp_short()
 	}
 
 	/// Checks if it's a `JMP NEAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jmp_near(&self) -> bool {
 		self.code().is_jmp_near()
 	}
 
 	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jmp_short_or_near(&self) -> bool {
 		self.code().is_jmp_short_or_near()
 	}
 
 	/// Checks if it's a `JMP FAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jmp_far(&self) -> bool {
 		self.code().is_jmp_far()
 	}
 
 	/// Checks if it's a `CALL NEAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_call_near(&self) -> bool {
 		self.code().is_call_near()
 	}
 
 	/// Checks if it's a `CALL FAR` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_call_far(&self) -> bool {
 		self.code().is_call_far()
 	}
 
 	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jmp_near_indirect(&self) -> bool {
 		self.code().is_jmp_near_indirect()
 	}
 
 	/// Checks if it's a `JMP FAR [mem]` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_jmp_far_indirect(&self) -> bool {
 		self.code().is_jmp_far_indirect()
 	}
 
 	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_call_near_indirect(&self) -> bool {
 		self.code().is_call_near_indirect()
 	}
 
 	/// Checks if it's a `CALL FAR [mem]` instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_call_far_indirect(&self) -> bool {
 		self.code().is_call_far_indirect()
@@ -3931,9 +3833,7 @@ impl Instruction {
 	/// ```
 	#[inline]
 	pub fn negate_condition_code(&mut self) {
-		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let t = self.code().negate_condition_code();
-		self.set_code(t)
+		self.set_code(self.code().negate_condition_code())
 	}
 
 	/// Converts `Jcc/JMP NEAR` to `Jcc/JMP SHORT` and does nothing if it's not a `Jcc/JMP NEAR` instruction
@@ -3956,9 +3856,7 @@ impl Instruction {
 	/// ```
 	#[inline]
 	pub fn as_short_branch(&mut self) {
-		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let t = self.code().as_short_branch();
-		self.set_code(t)
+		self.set_code(self.code().as_short_branch())
 	}
 
 	/// Converts `Jcc/JMP SHORT` to `Jcc/JMP NEAR` and does nothing if it's not a `Jcc/JMP SHORT` instruction
@@ -3981,9 +3879,7 @@ impl Instruction {
 	/// ```
 	#[inline]
 	pub fn as_near_branch(&mut self) {
-		// Temp needed if rustc < 1.36.0 (2015 edition)
-		let t = self.code().as_near_branch();
-		self.set_code(t)
+		self.set_code(self.code().as_near_branch())
 	}
 
 	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else [`ConditionCode::None`] is returned
@@ -4018,7 +3914,7 @@ impl Instruction {
 	/// let instr = decoder.decode();
 	/// assert_eq!(ConditionCode::None, instr.condition_code());
 	/// ```
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn condition_code(&self) -> ConditionCode {
 		self.code().condition_code()
@@ -4030,7 +3926,7 @@ impl Instruction {
 	/// Gets the [`OpCodeInfo`]
 	///
 	/// [`OpCodeInfo`]: struct.OpCodeInfo.html
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op_code(&self) -> &'static OpCodeInfo {
 		self.code().op_code()
@@ -4061,9 +3957,9 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with(code: Code) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4078,9 +3974,9 @@ impl Instruction {
 	///
 	/// * `code`: Code value
 	/// * `register`: op0: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg(code: Code, register: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4103,8 +3999,8 @@ impl Instruction {
 	///
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_i32(code: Code, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4126,9 +4022,9 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_i32(code: Code, immediate: i32) -> Self {
 		Instruction::try_with_i32(code, immediate).unwrap()
 	}
@@ -4143,8 +4039,8 @@ impl Instruction {
 	///
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_u32(code: Code, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4166,9 +4062,9 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_u32(code: Code, immediate: u32) -> Self {
 		Instruction::try_with_u32(code, immediate).unwrap()
 	}
@@ -4179,9 +4075,9 @@ impl Instruction {
 	///
 	/// * `code`: Code value
 	/// * `memory`: op0: Memory operand
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_mem(code: Code, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4200,9 +4096,9 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `register1`: op0: Register
 	/// * `register2`: op1: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4230,8 +4126,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_i32(code: Code, register: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4258,9 +4154,9 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_i32(code: Code, register: Register, immediate: i32) -> Self {
 		Instruction::try_with_reg_i32(code, register, immediate).unwrap()
 	}
@@ -4276,8 +4172,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_u32(code: Code, register: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4304,9 +4200,9 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_u32(code: Code, register: Register, immediate: u32) -> Self {
 		Instruction::try_with_reg_u32(code, register, immediate).unwrap()
 	}
@@ -4322,8 +4218,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_i64(code: Code, register: Register, immediate: i64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4350,9 +4246,9 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_i64() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_i64(code: Code, register: Register, immediate: i64) -> Self {
 		Instruction::try_with_reg_i64(code, register, immediate).unwrap()
 	}
@@ -4368,8 +4264,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_u64(code: Code, register: Register, immediate: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4396,9 +4292,9 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_u64() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_u64(code: Code, register: Register, immediate: u64) -> Self {
 		Instruction::try_with_reg_u64(code, register, immediate).unwrap()
 	}
@@ -4410,9 +4306,9 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `register`: op0: Register
 	/// * `memory`: op1: Memory operand
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4439,8 +4335,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
 	/// * `register`: op1: Register
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_i32_reg(code: Code, immediate: i32, register: Register) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4467,9 +4363,9 @@ impl Instruction {
 	/// * `immediate`: op0: Immediate value
 	/// * `register`: op1: Register
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_i32_reg() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_i32_reg(code: Code, immediate: i32, register: Register) -> Self {
 		Instruction::try_with_i32_reg(code, immediate, register).unwrap()
 	}
@@ -4485,8 +4381,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
 	/// * `register`: op1: Register
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_u32_reg(code: Code, immediate: u32, register: Register) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4513,9 +4409,9 @@ impl Instruction {
 	/// * `immediate`: op0: Immediate value
 	/// * `register`: op1: Register
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_u32_reg() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_u32_reg(code: Code, immediate: u32, register: Register) -> Self {
 		Instruction::try_with_u32_reg(code, immediate, register).unwrap()
 	}
@@ -4531,8 +4427,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate1`: op0: Immediate value
 	/// * `immediate2`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4557,9 +4453,9 @@ impl Instruction {
 	/// * `immediate1`: op0: Immediate value
 	/// * `immediate2`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_i32_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Self {
 		Instruction::try_with_i32_i32(code, immediate1, immediate2).unwrap()
 	}
@@ -4575,8 +4471,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate1`: op0: Immediate value
 	/// * `immediate2`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4601,9 +4497,9 @@ impl Instruction {
 	/// * `immediate1`: op0: Immediate value
 	/// * `immediate2`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_u32_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Self {
 		Instruction::try_with_u32_u32(code, immediate1, immediate2).unwrap()
 	}
@@ -4615,9 +4511,9 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `memory`: op0: Memory operand
 	/// * `register`: op1: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4644,8 +4540,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `memory`: op0: Memory operand
 	/// * `immediate`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4671,9 +4567,9 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Self {
 		Instruction::try_with_mem_i32(code, memory, immediate).unwrap()
 	}
@@ -4689,8 +4585,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `memory`: op0: Memory operand
 	/// * `immediate`: op1: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4716,9 +4612,9 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Self {
 		Instruction::try_with_mem_u32(code, memory, immediate).unwrap()
 	}
@@ -4731,9 +4627,9 @@ impl Instruction {
 	/// * `register1`: op0: Register
 	/// * `register2`: op1: Register
 	/// * `register3`: op2: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4766,8 +4662,8 @@ impl Instruction {
 	/// * `register1`: op0: Register
 	/// * `register2`: op1: Register
 	/// * `immediate`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4799,9 +4695,9 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Self {
 		Instruction::try_with_reg_reg_i32(code, register1, register2, immediate).unwrap()
 	}
@@ -4818,8 +4714,8 @@ impl Instruction {
 	/// * `register1`: op0: Register
 	/// * `register2`: op1: Register
 	/// * `immediate`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4851,9 +4747,9 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Self {
 		Instruction::try_with_reg_reg_u32(code, register1, register2, immediate).unwrap()
 	}
@@ -4866,9 +4762,9 @@ impl Instruction {
 	/// * `register1`: op0: Register
 	/// * `register2`: op1: Register
 	/// * `memory`: op2: Memory operand
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4900,8 +4796,8 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate1`: op1: Immediate value
 	/// * `immediate2`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4931,9 +4827,9 @@ impl Instruction {
 	/// * `immediate1`: op1: Immediate value
 	/// * `immediate2`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_i32_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Self {
 		Instruction::try_with_reg_i32_i32(code, register, immediate1, immediate2).unwrap()
 	}
@@ -4950,8 +4846,8 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate1`: op1: Immediate value
 	/// * `immediate2`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -4981,9 +4877,9 @@ impl Instruction {
 	/// * `immediate1`: op1: Immediate value
 	/// * `immediate2`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_u32_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Self {
 		Instruction::try_with_reg_u32_u32(code, register, immediate1, immediate2).unwrap()
 	}
@@ -4996,9 +4892,9 @@ impl Instruction {
 	/// * `register1`: op0: Register
 	/// * `memory`: op1: Memory operand
 	/// * `register2`: op2: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5030,8 +4926,8 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `memory`: op1: Memory operand
 	/// * `immediate`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5062,9 +4958,9 @@ impl Instruction {
 	/// * `memory`: op1: Memory operand
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_mem_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		Instruction::try_with_reg_mem_i32(code, register, memory, immediate).unwrap()
 	}
@@ -5081,8 +4977,8 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `memory`: op1: Memory operand
 	/// * `immediate`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5113,9 +5009,9 @@ impl Instruction {
 	/// * `memory`: op1: Memory operand
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_mem_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		Instruction::try_with_reg_mem_u32(code, register, memory, immediate).unwrap()
 	}
@@ -5128,9 +5024,9 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	/// * `register1`: op1: Register
 	/// * `register2`: op2: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5162,8 +5058,8 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	/// * `register`: op1: Register
 	/// * `immediate`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5194,9 +5090,9 @@ impl Instruction {
 	/// * `register`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_reg_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Self {
 		Instruction::try_with_mem_reg_i32(code, memory, register, immediate).unwrap()
 	}
@@ -5213,8 +5109,8 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	/// * `register`: op1: Register
 	/// * `immediate`: op2: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5245,9 +5141,9 @@ impl Instruction {
 	/// * `register`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_reg_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Self {
 		Instruction::try_with_mem_reg_u32(code, memory, register, immediate).unwrap()
 	}
@@ -5261,9 +5157,9 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `register3`: op2: Register
 	/// * `register4`: op3: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5301,8 +5197,8 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `register3`: op2: Register
 	/// * `immediate`: op3: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5339,9 +5235,9 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Self {
 		Instruction::try_with_reg_reg_reg_i32(code, register1, register2, register3, immediate).unwrap()
 	}
@@ -5359,8 +5255,8 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `register3`: op2: Register
 	/// * `immediate`: op3: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5397,9 +5293,9 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Self {
 		Instruction::try_with_reg_reg_reg_u32(code, register1, register2, register3, immediate).unwrap()
 	}
@@ -5413,9 +5309,9 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `register3`: op2: Register
 	/// * `memory`: op3: Memory operand
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5452,8 +5348,8 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `immediate1`: op2: Immediate value
 	/// * `immediate2`: op3: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5488,9 +5384,9 @@ impl Instruction {
 	/// * `immediate1`: op2: Immediate value
 	/// * `immediate2`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_i32_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Self {
 		Instruction::try_with_reg_reg_i32_i32(code, register1, register2, immediate1, immediate2).unwrap()
 	}
@@ -5508,8 +5404,8 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `immediate1`: op2: Immediate value
 	/// * `immediate2`: op3: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5544,9 +5440,9 @@ impl Instruction {
 	/// * `immediate1`: op2: Immediate value
 	/// * `immediate2`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_u32_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Self {
 		Instruction::try_with_reg_reg_u32_u32(code, register1, register2, immediate1, immediate2).unwrap()
 	}
@@ -5560,9 +5456,9 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `memory`: op2: Memory operand
 	/// * `register3`: op3: Register
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5599,8 +5495,8 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `memory`: op2: Memory operand
 	/// * `immediate`: op3: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5636,9 +5532,9 @@ impl Instruction {
 	/// * `memory`: op2: Memory operand
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		Instruction::try_with_reg_reg_mem_i32(code, register1, register2, memory, immediate).unwrap()
 	}
@@ -5656,8 +5552,8 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `memory`: op2: Memory operand
 	/// * `immediate`: op3: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5693,9 +5589,9 @@ impl Instruction {
 	/// * `memory`: op2: Memory operand
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		Instruction::try_with_reg_reg_mem_u32(code, register1, register2, memory, immediate).unwrap()
 	}
@@ -5714,8 +5610,8 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `register4`: op3: Register
 	/// * `immediate`: op4: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5757,9 +5653,9 @@ impl Instruction {
 	/// * `register4`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_reg_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Self {
 		Instruction::try_with_reg_reg_reg_reg_i32(code, register1, register2, register3, register4, immediate).unwrap()
 	}
@@ -5778,8 +5674,8 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `register4`: op3: Register
 	/// * `immediate`: op4: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5821,9 +5717,9 @@ impl Instruction {
 	/// * `register4`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_reg_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Self {
 		Instruction::try_with_reg_reg_reg_reg_u32(code, register1, register2, register3, register4, immediate).unwrap()
 	}
@@ -5842,8 +5738,8 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `memory`: op3: Memory operand
 	/// * `immediate`: op4: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5884,9 +5780,9 @@ impl Instruction {
 	/// * `memory`: op3: Memory operand
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_mem_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		Instruction::try_with_reg_reg_reg_mem_i32(code, register1, register2, register3, memory, immediate).unwrap()
 	}
@@ -5905,8 +5801,8 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `memory`: op3: Memory operand
 	/// * `immediate`: op4: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -5947,9 +5843,9 @@ impl Instruction {
 	/// * `memory`: op3: Memory operand
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_mem_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		Instruction::try_with_reg_reg_reg_mem_u32(code, register1, register2, register3, memory, immediate).unwrap()
 	}
@@ -5968,8 +5864,8 @@ impl Instruction {
 	/// * `memory`: op2: Memory operand
 	/// * `register3`: op3: Register
 	/// * `immediate`: op4: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -6010,9 +5906,9 @@ impl Instruction {
 	/// * `register3`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_reg_i32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Self {
 		Instruction::try_with_reg_reg_mem_reg_i32(code, register1, register2, memory, register3, immediate).unwrap()
 	}
@@ -6031,8 +5927,8 @@ impl Instruction {
 	/// * `memory`: op2: Memory operand
 	/// * `register3`: op3: Register
 	/// * `immediate`: op4: Immediate value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -6073,9 +5969,9 @@ impl Instruction {
 	/// * `register3`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_reg_u32() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Self {
 		Instruction::try_with_reg_reg_mem_reg_u32(code, register1, register2, memory, register3, immediate).unwrap()
 	}
@@ -6090,8 +5986,8 @@ impl Instruction {
 	///
 	/// * `code`: Code value
 	/// * `target`: Target address
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_branch(code: Code, target: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -6114,9 +6010,9 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `target`: Target address
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_branch() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_branch(code: Code, target: u64) -> Self {
 		Instruction::try_with_branch(code, target).unwrap()
 	}
@@ -6132,8 +6028,8 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `selector`: Selector/segment value
 	/// * `offset`: Offset
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_far_branch(code: Code, selector: u16, offset: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
@@ -6158,9 +6054,9 @@ impl Instruction {
 	/// * `selector`: Selector/segment value
 	/// * `offset`: Offset
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_far_branch() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_far_branch(code: Code, selector: u16, offset: u32) -> Self {
 		Instruction::try_with_far_branch(code, selector, offset).unwrap()
 	}
@@ -6175,8 +6071,8 @@ impl Instruction {
 	///
 	/// * `bitness`: 16, 32, or 64
 	/// * `target`: Target address
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_xbegin(bitness: u32, target: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 
@@ -6217,9 +6113,9 @@ impl Instruction {
 	/// * `bitness`: 16, 32, or 64
 	/// * `target`: Target address
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_xbegin() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_xbegin(bitness: u32, target: u64) -> Self {
 		Instruction::try_with_xbegin(bitness, target).unwrap()
 	}
@@ -6235,9 +6131,9 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.11.0", note = "Use with_reg_mem() with a MemoryOperand arg instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segment_prefix: Register) -> Self {
 		Instruction::with_reg_mem(code, register, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, address as i64, 8, false, segment_prefix))
 	}
@@ -6253,9 +6149,9 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.11.0", note = "Use with_mem_reg() with a MemoryOperand arg instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segment_prefix: Register) -> Self {
 		Instruction::with_mem_reg(code, MemoryOperand::with_base_displ_size_bcst_seg(Register::None, address as i64, 8, false, segment_prefix), register)
 	}
@@ -6275,7 +6171,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
@@ -6295,9 +6191,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_outsb(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -6312,7 +6208,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_outsb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
@@ -6327,9 +6223,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_outsb(address_size: u32) -> Self {
 		Instruction::try_with_rep_outsb(address_size).unwrap()
 	}
@@ -6349,7 +6245,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
@@ -6369,9 +6265,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_outsw(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -6386,7 +6282,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_outsw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
@@ -6401,9 +6297,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_outsw(address_size: u32) -> Self {
 		Instruction::try_with_rep_outsw(address_size).unwrap()
 	}
@@ -6423,7 +6319,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
@@ -6443,9 +6339,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_outsd(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -6460,7 +6356,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_outsd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
@@ -6475,9 +6371,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_outsd(address_size: u32) -> Self {
 		Instruction::try_with_rep_outsd(address_size).unwrap()
 	}
@@ -6497,7 +6393,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, segment_prefix, rep_prefix)
 	}
@@ -6517,9 +6413,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_lodsb(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -6534,7 +6430,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_lodsb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, Register::None, RepPrefixKind::Repe)
 	}
@@ -6549,9 +6445,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_lodsb(address_size: u32) -> Self {
 		Instruction::try_with_rep_lodsb(address_size).unwrap()
 	}
@@ -6571,7 +6467,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, segment_prefix, rep_prefix)
 	}
@@ -6591,9 +6487,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_lodsw(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -6608,7 +6504,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_lodsw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, Register::None, RepPrefixKind::Repe)
 	}
@@ -6623,9 +6519,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_lodsw(address_size: u32) -> Self {
 		Instruction::try_with_rep_lodsw(address_size).unwrap()
 	}
@@ -6645,7 +6541,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, segment_prefix, rep_prefix)
 	}
@@ -6665,9 +6561,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_lodsd(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -6682,7 +6578,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_lodsd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, Register::None, RepPrefixKind::Repe)
 	}
@@ -6697,9 +6593,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_lodsd(address_size: u32) -> Self {
 		Instruction::try_with_rep_lodsd(address_size).unwrap()
 	}
@@ -6719,7 +6615,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, segment_prefix, rep_prefix)
 	}
@@ -6739,9 +6635,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_lodsq(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -6756,7 +6652,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_lodsq(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, Register::None, RepPrefixKind::Repe)
 	}
@@ -6771,9 +6667,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_lodsq(address_size: u32) -> Self {
 		Instruction::try_with_rep_lodsq(address_size).unwrap()
 	}
@@ -6791,7 +6687,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, rep_prefix)
 	}
@@ -6809,9 +6705,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_scasb(address_size, rep_prefix).unwrap()
 	}
@@ -6826,7 +6722,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_scasb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repe)
 	}
@@ -6841,9 +6737,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_scasb(address_size: u32) -> Self {
 		Instruction::try_with_repe_scasb(address_size).unwrap()
 	}
@@ -6858,7 +6754,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_scasb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repne)
 	}
@@ -6873,9 +6769,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_scasb(address_size: u32) -> Self {
 		Instruction::try_with_repne_scasb(address_size).unwrap()
 	}
@@ -6893,7 +6789,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, rep_prefix)
 	}
@@ -6911,9 +6807,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_scasw(address_size, rep_prefix).unwrap()
 	}
@@ -6928,7 +6824,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_scasw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repe)
 	}
@@ -6943,9 +6839,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_scasw(address_size: u32) -> Self {
 		Instruction::try_with_repe_scasw(address_size).unwrap()
 	}
@@ -6960,7 +6856,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_scasw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repne)
 	}
@@ -6975,9 +6871,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_scasw(address_size: u32) -> Self {
 		Instruction::try_with_repne_scasw(address_size).unwrap()
 	}
@@ -6995,7 +6891,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, rep_prefix)
 	}
@@ -7013,9 +6909,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_scasd(address_size, rep_prefix).unwrap()
 	}
@@ -7030,7 +6926,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_scasd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repe)
 	}
@@ -7045,9 +6941,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_scasd(address_size: u32) -> Self {
 		Instruction::try_with_repe_scasd(address_size).unwrap()
 	}
@@ -7062,7 +6958,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_scasd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repne)
 	}
@@ -7077,9 +6973,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_scasd(address_size: u32) -> Self {
 		Instruction::try_with_repne_scasd(address_size).unwrap()
 	}
@@ -7097,7 +6993,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, rep_prefix)
 	}
@@ -7115,9 +7011,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_scasq(address_size, rep_prefix).unwrap()
 	}
@@ -7132,7 +7028,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_scasq(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repe)
 	}
@@ -7147,9 +7043,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_scasq(address_size: u32) -> Self {
 		Instruction::try_with_repe_scasq(address_size).unwrap()
 	}
@@ -7164,7 +7060,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_scasq(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repne)
 	}
@@ -7179,9 +7075,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_scasq(address_size: u32) -> Self {
 		Instruction::try_with_repne_scasq(address_size).unwrap()
 	}
@@ -7199,7 +7095,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, rep_prefix)
 	}
@@ -7217,9 +7113,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_insb(address_size, rep_prefix).unwrap()
 	}
@@ -7234,7 +7130,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_insb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
@@ -7249,9 +7145,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_insb(address_size: u32) -> Self {
 		Instruction::try_with_rep_insb(address_size).unwrap()
 	}
@@ -7269,7 +7165,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, rep_prefix)
 	}
@@ -7287,9 +7183,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_insw(address_size, rep_prefix).unwrap()
 	}
@@ -7304,7 +7200,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_insw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
@@ -7319,9 +7215,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_insw(address_size: u32) -> Self {
 		Instruction::try_with_rep_insw(address_size).unwrap()
 	}
@@ -7339,7 +7235,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, rep_prefix)
 	}
@@ -7357,9 +7253,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_insd(address_size, rep_prefix).unwrap()
 	}
@@ -7374,7 +7270,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_insd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
@@ -7389,9 +7285,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_insd(address_size: u32) -> Self {
 		Instruction::try_with_rep_insd(address_size).unwrap()
 	}
@@ -7409,7 +7305,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, rep_prefix)
 	}
@@ -7427,9 +7323,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_stosb(address_size, rep_prefix).unwrap()
 	}
@@ -7444,7 +7340,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_stosb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, RepPrefixKind::Repe)
 	}
@@ -7459,9 +7355,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_stosb(address_size: u32) -> Self {
 		Instruction::try_with_rep_stosb(address_size).unwrap()
 	}
@@ -7479,7 +7375,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, rep_prefix)
 	}
@@ -7497,9 +7393,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_stosw(address_size, rep_prefix).unwrap()
 	}
@@ -7514,7 +7410,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_stosw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, RepPrefixKind::Repe)
 	}
@@ -7529,9 +7425,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_stosw(address_size: u32) -> Self {
 		Instruction::try_with_rep_stosw(address_size).unwrap()
 	}
@@ -7549,7 +7445,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, rep_prefix)
 	}
@@ -7567,9 +7463,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_stosd(address_size, rep_prefix).unwrap()
 	}
@@ -7584,7 +7480,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_stosd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, RepPrefixKind::Repe)
 	}
@@ -7599,9 +7495,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_stosd(address_size: u32) -> Self {
 		Instruction::try_with_rep_stosd(address_size).unwrap()
 	}
@@ -7619,7 +7515,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, rep_prefix)
 	}
@@ -7637,9 +7533,9 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_stosq(address_size, rep_prefix).unwrap()
 	}
@@ -7654,7 +7550,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_stosq(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, RepPrefixKind::Repe)
 	}
@@ -7669,9 +7565,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_stosq(address_size: u32) -> Self {
 		Instruction::try_with_rep_stosq(address_size).unwrap()
 	}
@@ -7691,7 +7587,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, segment_prefix, rep_prefix)
 	}
@@ -7711,9 +7607,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_cmpsb(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -7728,7 +7624,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -7743,9 +7639,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_cmpsb(address_size: u32) -> Self {
 		Instruction::try_with_repe_cmpsb(address_size).unwrap()
 	}
@@ -7760,7 +7656,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repne)
 	}
@@ -7775,9 +7671,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_cmpsb(address_size: u32) -> Self {
 		Instruction::try_with_repne_cmpsb(address_size).unwrap()
 	}
@@ -7797,7 +7693,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, segment_prefix, rep_prefix)
 	}
@@ -7817,9 +7713,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_cmpsw(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -7834,7 +7730,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -7849,9 +7745,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_cmpsw(address_size: u32) -> Self {
 		Instruction::try_with_repe_cmpsw(address_size).unwrap()
 	}
@@ -7866,7 +7762,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repne)
 	}
@@ -7881,9 +7777,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_cmpsw(address_size: u32) -> Self {
 		Instruction::try_with_repne_cmpsw(address_size).unwrap()
 	}
@@ -7903,7 +7799,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, segment_prefix, rep_prefix)
 	}
@@ -7923,9 +7819,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_cmpsd(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -7940,7 +7836,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -7955,9 +7851,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_cmpsd(address_size: u32) -> Self {
 		Instruction::try_with_repe_cmpsd(address_size).unwrap()
 	}
@@ -7972,7 +7868,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repne)
 	}
@@ -7987,9 +7883,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_cmpsd(address_size: u32) -> Self {
 		Instruction::try_with_repne_cmpsd(address_size).unwrap()
 	}
@@ -8009,7 +7905,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, segment_prefix, rep_prefix)
 	}
@@ -8029,9 +7925,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_cmpsq(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -8046,7 +7942,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsq(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -8061,9 +7957,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repe_cmpsq(address_size: u32) -> Self {
 		Instruction::try_with_repe_cmpsq(address_size).unwrap()
 	}
@@ -8078,7 +7974,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsq(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repne)
 	}
@@ -8093,9 +7989,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_repne_cmpsq(address_size: u32) -> Self {
 		Instruction::try_with_repne_cmpsq(address_size).unwrap()
 	}
@@ -8115,7 +8011,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, segment_prefix, rep_prefix)
 	}
@@ -8135,9 +8031,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_movsb(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -8152,7 +8048,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_movsb(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -8167,9 +8063,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsb() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_movsb(address_size: u32) -> Self {
 		Instruction::try_with_rep_movsb(address_size).unwrap()
 	}
@@ -8189,7 +8085,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, segment_prefix, rep_prefix)
 	}
@@ -8209,9 +8105,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_movsw(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -8226,7 +8122,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_movsw(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -8241,9 +8137,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsw() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_movsw(address_size: u32) -> Self {
 		Instruction::try_with_rep_movsw(address_size).unwrap()
 	}
@@ -8263,7 +8159,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, segment_prefix, rep_prefix)
 	}
@@ -8283,9 +8179,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_movsd(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -8300,7 +8196,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_movsd(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -8315,9 +8211,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsd() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_movsd(address_size: u32) -> Self {
 		Instruction::try_with_rep_movsd(address_size).unwrap()
 	}
@@ -8337,7 +8233,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, segment_prefix, rep_prefix)
 	}
@@ -8357,9 +8253,9 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		Instruction::try_with_movsq(address_size, segment_prefix, rep_prefix).unwrap()
 	}
@@ -8374,7 +8270,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_rep_movsq(address_size: u32) -> Result<Self, IcedError> {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
 	}
@@ -8389,9 +8285,9 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_rep_movsq(address_size: u32) -> Self {
 		Instruction::try_with_rep_movsq(address_size).unwrap()
 	}
@@ -8411,7 +8307,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
 		super::instruction_internal::with_maskmov(Code::Maskmovq_rDI_mm_mm, address_size, register1, register2, segment_prefix)
 	}
@@ -8431,9 +8327,9 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_maskmovq() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
 		Instruction::try_with_maskmovq(address_size, register1, register2, segment_prefix).unwrap()
 	}
@@ -8453,7 +8349,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
 		super::instruction_internal::with_maskmov(Code::Maskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
 	}
@@ -8473,9 +8369,9 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_maskmovdqu() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
 		Instruction::try_with_maskmovdqu(address_size, register1, register2, segment_prefix).unwrap()
 	}
@@ -8495,7 +8391,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn try_with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
 		super::instruction_internal::with_maskmov(Code::VEX_Vmaskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
 	}
@@ -8515,9 +8411,9 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_vmaskmovdqu() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
 		Instruction::try_with_vmaskmovdqu(address_size, register1, register2, segment_prefix).unwrap()
 	}
@@ -8531,8 +8427,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_1(b0: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8554,9 +8450,9 @@ impl Instruction {
 	///
 	/// * `b0`: Byte 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_1() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_1(b0: u8) -> Self {
 		Instruction::try_with_declare_byte_1(b0).unwrap()
 	}
@@ -8571,8 +8467,8 @@ impl Instruction {
 	///
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_2(b0: u8, b1: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8596,9 +8492,9 @@ impl Instruction {
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_2() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_2(b0: u8, b1: u8) -> Self {
 		Instruction::try_with_declare_byte_2(b0, b1).unwrap()
 	}
@@ -8614,8 +8510,8 @@ impl Instruction {
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8641,9 +8537,9 @@ impl Instruction {
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_3() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Self {
 		Instruction::try_with_declare_byte_3(b0, b1, b2).unwrap()
 	}
@@ -8660,8 +8556,8 @@ impl Instruction {
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8689,9 +8585,9 @@ impl Instruction {
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_4() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Self {
 		Instruction::try_with_declare_byte_4(b0, b1, b2, b3).unwrap()
 	}
@@ -8709,8 +8605,8 @@ impl Instruction {
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8740,9 +8636,9 @@ impl Instruction {
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_5() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Self {
 		Instruction::try_with_declare_byte_5(b0, b1, b2, b3, b4).unwrap()
 	}
@@ -8761,8 +8657,8 @@ impl Instruction {
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8794,9 +8690,9 @@ impl Instruction {
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_6() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Self {
 		Instruction::try_with_declare_byte_6(b0, b1, b2, b3, b4, b5).unwrap()
 	}
@@ -8816,8 +8712,8 @@ impl Instruction {
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8851,9 +8747,9 @@ impl Instruction {
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_7() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Self {
 		Instruction::try_with_declare_byte_7(b0, b1, b2, b3, b4, b5, b6).unwrap()
 	}
@@ -8874,8 +8770,8 @@ impl Instruction {
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8911,9 +8807,9 @@ impl Instruction {
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_8() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
 		Instruction::try_with_declare_byte_8(b0, b1, b2, b3, b4, b5, b6, b7).unwrap()
 	}
@@ -8935,8 +8831,8 @@ impl Instruction {
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -8974,9 +8870,9 @@ impl Instruction {
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_9() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
 		Instruction::try_with_declare_byte_9(b0, b1, b2, b3, b4, b5, b6, b7, b8).unwrap()
 	}
@@ -8999,8 +8895,8 @@ impl Instruction {
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -9040,9 +8936,9 @@ impl Instruction {
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_10() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
 		Instruction::try_with_declare_byte_10(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9).unwrap()
 	}
@@ -9066,8 +8962,8 @@ impl Instruction {
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -9109,9 +9005,9 @@ impl Instruction {
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_11() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
 		Instruction::try_with_declare_byte_11(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10).unwrap()
 	}
@@ -9136,8 +9032,8 @@ impl Instruction {
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -9181,9 +9077,9 @@ impl Instruction {
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_12() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
 		Instruction::try_with_declare_byte_12(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11).unwrap()
 	}
@@ -9209,8 +9105,8 @@ impl Instruction {
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -9256,9 +9152,9 @@ impl Instruction {
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_13() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
 		Instruction::try_with_declare_byte_13(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12).unwrap()
 	}
@@ -9285,8 +9181,8 @@ impl Instruction {
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -9334,9 +9230,9 @@ impl Instruction {
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_14() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
 		Instruction::try_with_declare_byte_14(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13).unwrap()
 	}
@@ -9364,8 +9260,8 @@ impl Instruction {
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -9415,9 +9311,9 @@ impl Instruction {
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_15() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
 		Instruction::try_with_declare_byte_15(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14).unwrap()
 	}
@@ -9446,8 +9342,8 @@ impl Instruction {
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
 	/// * `b15`: Byte 15
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -9499,9 +9395,9 @@ impl Instruction {
 	/// * `b14`: Byte 14
 	/// * `b15`: Byte 15
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_16() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
 		Instruction::try_with_declare_byte_16(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15).unwrap()
 	}
@@ -9516,8 +9412,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_byte(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
@@ -9546,9 +9442,9 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_byte(data: &[u8]) -> Self {
 		Instruction::try_with_declare_byte(data).unwrap()
 	}
@@ -9562,8 +9458,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_1(w0: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9585,9 +9481,9 @@ impl Instruction {
 	///
 	/// * `w0`: Word 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_1() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_1(w0: u16) -> Self {
 		Instruction::try_with_declare_word_1(w0).unwrap()
 	}
@@ -9602,8 +9498,8 @@ impl Instruction {
 	///
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_2(w0: u16, w1: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9627,9 +9523,9 @@ impl Instruction {
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_2() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_2(w0: u16, w1: u16) -> Self {
 		Instruction::try_with_declare_word_2(w0, w1).unwrap()
 	}
@@ -9645,8 +9541,8 @@ impl Instruction {
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9672,9 +9568,9 @@ impl Instruction {
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_3() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Self {
 		Instruction::try_with_declare_word_3(w0, w1, w2).unwrap()
 	}
@@ -9691,8 +9587,8 @@ impl Instruction {
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9720,9 +9616,9 @@ impl Instruction {
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_4() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Self {
 		Instruction::try_with_declare_word_4(w0, w1, w2, w3).unwrap()
 	}
@@ -9740,8 +9636,8 @@ impl Instruction {
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9771,9 +9667,9 @@ impl Instruction {
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_5() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Self {
 		Instruction::try_with_declare_word_5(w0, w1, w2, w3, w4).unwrap()
 	}
@@ -9792,8 +9688,8 @@ impl Instruction {
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9825,9 +9721,9 @@ impl Instruction {
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_6() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Self {
 		Instruction::try_with_declare_word_6(w0, w1, w2, w3, w4, w5).unwrap()
 	}
@@ -9847,8 +9743,8 @@ impl Instruction {
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9882,9 +9778,9 @@ impl Instruction {
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_7() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Self {
 		Instruction::try_with_declare_word_7(w0, w1, w2, w3, w4, w5, w6).unwrap()
 	}
@@ -9905,8 +9801,8 @@ impl Instruction {
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
 	/// * `w7`: Word 7
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
@@ -9942,9 +9838,9 @@ impl Instruction {
 	/// * `w6`: Word 6
 	/// * `w7`: Word 7
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_8() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
 		Instruction::try_with_declare_word_8(w0, w1, w2, w3, w4, w5, w6, w7).unwrap()
 	}
@@ -9959,8 +9855,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	#[allow(trivial_casts)]
 	pub fn try_with_declare_word_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 1) != 0 {
@@ -9991,9 +9887,9 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_slice_u8() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word_slice_u8(data: &[u8]) -> Self {
 		Instruction::try_with_declare_word_slice_u8(data).unwrap()
 	}
@@ -10008,8 +9904,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_word(data: &[u16]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 8 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
@@ -10038,9 +9934,9 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_word(data: &[u16]) -> Self {
 		Instruction::try_with_declare_word(data).unwrap()
 	}
@@ -10054,8 +9950,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_dword_1(d0: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
@@ -10077,9 +9973,9 @@ impl Instruction {
 	///
 	/// * `d0`: Dword 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_1() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_dword_1(d0: u32) -> Self {
 		Instruction::try_with_declare_dword_1(d0).unwrap()
 	}
@@ -10094,8 +9990,8 @@ impl Instruction {
 	///
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_dword_2(d0: u32, d1: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
@@ -10119,9 +10015,9 @@ impl Instruction {
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_2() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_dword_2(d0: u32, d1: u32) -> Self {
 		Instruction::try_with_declare_dword_2(d0, d1).unwrap()
 	}
@@ -10137,8 +10033,8 @@ impl Instruction {
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
@@ -10164,9 +10060,9 @@ impl Instruction {
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_3() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Self {
 		Instruction::try_with_declare_dword_3(d0, d1, d2).unwrap()
 	}
@@ -10183,8 +10079,8 @@ impl Instruction {
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
 	/// * `d3`: Dword 3
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
@@ -10212,9 +10108,9 @@ impl Instruction {
 	/// * `d2`: Dword 2
 	/// * `d3`: Dword 3
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_4() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Self {
 		Instruction::try_with_declare_dword_4(d0, d1, d2, d3).unwrap()
 	}
@@ -10229,8 +10125,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	#[allow(trivial_casts)]
 	pub fn try_with_declare_dword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 3) != 0 {
@@ -10261,9 +10157,9 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_slice_u8() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_dword_slice_u8(data: &[u8]) -> Self {
 		Instruction::try_with_declare_dword_slice_u8(data).unwrap()
 	}
@@ -10278,8 +10174,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_dword(data: &[u32]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 4 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
@@ -10308,9 +10204,9 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_dword(data: &[u32]) -> Self {
 		Instruction::try_with_declare_dword(data).unwrap()
 	}
@@ -10324,8 +10220,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `q0`: Qword 0
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_qword_1(q0: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
@@ -10347,9 +10243,9 @@ impl Instruction {
 	///
 	/// * `q0`: Qword 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_1() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_qword_1(q0: u64) -> Self {
 		Instruction::try_with_declare_qword_1(q0).unwrap()
 	}
@@ -10364,8 +10260,8 @@ impl Instruction {
 	///
 	/// * `q0`: Qword 0
 	/// * `q1`: Qword 1
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_qword_2(q0: u64, q1: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
@@ -10389,9 +10285,9 @@ impl Instruction {
 	/// * `q0`: Qword 0
 	/// * `q1`: Qword 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_2() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Self {
 		Instruction::try_with_declare_qword_2(q0, q1).unwrap()
 	}
@@ -10406,8 +10302,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	#[allow(trivial_casts)]
 	pub fn try_with_declare_qword_slice_u8(data: &[u8]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 16 - 1 || (data.len() & 7) != 0 {
@@ -10438,9 +10334,9 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_slice_u8() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_qword_slice_u8(data: &[u8]) -> Self {
 		Instruction::try_with_declare_qword_slice_u8(data).unwrap()
 	}
@@ -10455,8 +10351,8 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[rustfmt::skip]
 	pub fn try_with_declare_qword(data: &[u64]) -> Result<Self, IcedError> {
 		if data.len().wrapping_sub(1) > 2 - 1 {
 			return Err(IcedError::new("Invalid slice length"));
@@ -10485,9 +10381,9 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword() instead")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	pub fn with_declare_qword(data: &[u64]) -> Self {
 		Instruction::try_with_declare_qword(data).unwrap()
 	}
@@ -10497,8 +10393,8 @@ impl Instruction {
 impl Eq for Instruction {}
 
 impl PartialEq<Instruction> for Instruction {
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn eq(&self, other: &Self) -> bool {
 		((self.code_flags ^ other.code_flags) & !CodeFlags::EQUALS_IGNORE_MASK) == 0
 			&& ((self.op_kind_flags ^ other.op_kind_flags) & !OpKindFlags::EQUALS_IGNORE_MASK) == 0
@@ -10516,7 +10412,7 @@ impl PartialEq<Instruction> for Instruction {
 }
 
 impl Hash for Instruction {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn hash<'a, H: Hasher>(&self, state: &'a mut H) {
 		state.write_u32(self.code_flags & !CodeFlags::EQUALS_IGNORE_MASK);
 		state.write_u32(self.op_kind_flags & !OpKindFlags::EQUALS_IGNORE_MASK);
@@ -10555,7 +10451,7 @@ impl<'a, 'b: 'a> FormatterOutput for FmtFormatterOutput<'a, 'b> {
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 impl fmt::Display for Instruction {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		//
 		// if the order of #[cfg()] checks gets updated, also update the `display_trait()` test method

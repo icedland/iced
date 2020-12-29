@@ -33,7 +33,7 @@ fn create_fmt() -> Box<MasmFormatter> {
 	create_fmt2(None, None)
 }
 
-fn create_fmt2(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Box<MasmFormatter> {
+fn create_fmt2(symbol_resolver: Option<Box<dyn SymbolResolver>>, options_provider: Option<Box<dyn FormatterOptionsProvider>>) -> Box<MasmFormatter> {
 	Box::new(MasmFormatter::with_options(symbol_resolver, options_provider))
 }
 
@@ -104,7 +104,7 @@ pub(super) fn create_numbers() -> Box<MasmFormatter> {
 	fmt
 }
 
-pub(super) fn create_resolver(symbol_resolver: Box<SymbolResolver>) -> Box<MasmFormatter> {
+pub(super) fn create_resolver(symbol_resolver: Box<dyn SymbolResolver>) -> Box<MasmFormatter> {
 	let mut fmt = create_fmt2(Some(symbol_resolver), None);
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
 	fmt.options_mut().set_show_branch_size(false);

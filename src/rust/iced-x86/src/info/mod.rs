@@ -50,21 +50,21 @@ impl UsedRegister {
 	///
 	/// * `register`: Register
 	/// * `access`: Register access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new(register: Register, access: OpAccess) -> Self {
 		Self { register, access }
 	}
 
 	/// Gets the register
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn register(&self) -> Register {
 		self.register
 	}
 
 	/// Gets the register access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn access(&self) -> OpAccess {
 		self.access
@@ -72,7 +72,7 @@ impl UsedRegister {
 }
 
 impl fmt::Debug for UsedRegister {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{:?}:{:?}", self.register(), self.access())?;
 		Ok(())
@@ -107,7 +107,7 @@ impl UsedMemory {
 	/// * `access`: Access
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
 		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, address_size: CodeSize::Unknown, vsib_size: 0 }
@@ -128,7 +128,7 @@ impl UsedMemory {
 	/// * `vsib_size`: VSIB size (`0`, `4` or `8`)
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new2(
 		segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess,
@@ -141,7 +141,7 @@ impl UsedMemory {
 	/// Effective segment register or [`Register::None`] if the segment register is ignored
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn segment(&self) -> Register {
 		self.segment
@@ -150,7 +150,7 @@ impl UsedMemory {
 	/// Base register or [`Register::None`] if none
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn base(&self) -> Register {
 		self.base
@@ -159,49 +159,49 @@ impl UsedMemory {
 	/// Index register or [`Register::None`] if none
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn index(&self) -> Register {
 		self.index
 	}
 
 	/// Index scale (1, 2, 4 or 8)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn scale(&self) -> u32 {
 		self.scale as u32
 	}
 
 	/// Displacement
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn displacement(&self) -> u64 {
 		self.displacement
 	}
 
 	/// Size of location
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_size(&self) -> MemorySize {
 		self.memory_size
 	}
 
 	/// Memory access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn access(&self) -> OpAccess {
 		self.access
 	}
 
 	/// Address size
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn address_size(&self) -> CodeSize {
 		self.address_size
 	}
 
 	/// VSIB size (`0`, `4` or `8`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn vsib_size(&self) -> u32 {
 		self.vsib_size as u32
@@ -224,7 +224,7 @@ impl UsedMemory {
 	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment's register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_virtual_address() instead")]
 	pub fn virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> u64
@@ -245,7 +245,7 @@ impl UsedMemory {
 	/// * Arg 1: `register`: Register. If it's a segment register, the call-back should return the segment's base address, not the segment's register value.
 	/// * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	/// * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn try_virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> Option<u64>
 	where
@@ -300,7 +300,7 @@ impl UsedMemory {
 }
 
 impl fmt::Debug for UsedMemory {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "[{:?}:", self.segment())?;
 		let mut need_plus = if self.base() != Register::None {
@@ -358,7 +358,7 @@ pub struct InstructionInfo {
 }
 
 impl InstructionInfo {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline(always)]
 	fn new(options: u32) -> Self {
 		use self::enums::InstrInfoConstants;
@@ -390,21 +390,21 @@ impl InstructionInfo {
 	/// register. Example instructions that do this: `PINSRB`, `ARPL`
 	///
 	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn used_registers(&self) -> &[UsedRegister] {
 		self.used_registers.as_slice()
 	}
 
 	/// Gets all accessed memory locations
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn used_memory(&self) -> &[UsedMemory] {
 		self.used_memory_locations.as_slice()
 	}
 
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_privileged(&self) -> bool {
 		(self.flags & IIFlags::PRIVILEGED) != 0
@@ -414,7 +414,7 @@ impl InstructionInfo {
 	/// See also [`Instruction::stack_pointer_increment()`]
 	///
 	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_stack_instruction(&self) -> bool {
 		(self.flags & IIFlags::STACK_INSTRUCTION) != 0
@@ -424,63 +424,63 @@ impl InstructionInfo {
 	/// [`used_registers()`] won't return all accessed registers.
 	///
 	/// [`used_registers()`]: #method.used_registers
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn is_save_restore_instruction(&self) -> bool {
 		(self.flags & IIFlags::SAVE_RESTORE) != 0
 	}
 
 	/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn encoding(&self) -> EncodingKind {
 		self.encoding
 	}
 
 	/// Gets the CPU or CPUID feature flags
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
 		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
 
 	/// Control flow info
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn flow_control(&self) -> FlowControl {
 		self.flow_control
 	}
 
 	/// Operand #0 access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op0_access(&self) -> OpAccess {
 		self.op_accesses[0]
 	}
 
 	/// Operand #1 access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op1_access(&self) -> OpAccess {
 		self.op_accesses[1]
 	}
 
 	/// Operand #2 access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op2_access(&self) -> OpAccess {
 		self.op_accesses[2]
 	}
 
 	/// Operand #3 access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op3_access(&self) -> OpAccess {
 		self.op_accesses[3]
 	}
 
 	/// Operand #4 access
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn op4_access(&self) -> OpAccess {
 		self.op_accesses[4]
@@ -495,7 +495,7 @@ impl InstructionInfo {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_op_access() instead")]
 	pub fn op_access(&self, operand: u32) -> OpAccess {
@@ -511,12 +511,9 @@ impl InstructionInfo {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_access(&self, operand: u32) -> Result<OpAccess, IcedError> {
-		match self.op_accesses.get(operand as usize) {
-			Some(&op_access) => Ok(op_access),
-			None => Err(IcedError::new("Invalid operand")),
-		}
+		self.op_accesses.get(operand as usize).map_or_else(|| Err(IcedError::new("Invalid operand")), |&op_access| Ok(op_access))
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.
@@ -524,7 +521,7 @@ impl InstructionInfo {
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
@@ -535,7 +532,7 @@ impl InstructionInfo {
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
@@ -546,7 +543,7 @@ impl InstructionInfo {
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
@@ -557,7 +554,7 @@ impl InstructionInfo {
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
@@ -568,7 +565,7 @@ impl InstructionInfo {
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
@@ -577,7 +574,7 @@ impl InstructionInfo {
 	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }

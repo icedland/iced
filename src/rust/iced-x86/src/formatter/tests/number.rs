@@ -122,7 +122,7 @@ fn read_number_strings(line: String, _line_number: u32) -> Result<Vec<String>, S
 	Ok(elems.into_iter().map(|s| String::from(s.trim())).collect())
 }
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static NUMBER_BASES: [NumberBase; 4] = [
 	NumberBase::Hexadecimal,
 	NumberBase::Decimal,
@@ -130,7 +130,7 @@ static NUMBER_BASES: [NumberBase; 4] = [
 	NumberBase::Binary,
 ];
 
-pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<dyn Formatter>) {
 	assert_eq!(number_base_len(), NUMBER_BASES.len());
 	let mut number_filename = get_formatter_unit_tests_dir();
 	number_filename.push("Number.txt");
@@ -151,7 +151,7 @@ pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<Formatter>) {
 			formatter.options_mut().set_number_base(base);
 			let cloned_options = formatter.options().clone();
 			let number_options = NumberFormattingOptions::with_immediate(&cloned_options);
-			#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+			#[rustfmt::skip]
 			let (s1, s2) = match number {
 				Number::Int8(value)   => (String::from(formatter.format_i8(value)),  String::from(formatter.format_i8_options(value, &number_options))),
 				Number::UInt8(value)  => (String::from(formatter.format_u8(value)),  String::from(formatter.format_u8_options(value, &number_options))),

@@ -371,7 +371,7 @@ impl OpCodeInfoFlags {
 // GENERATOR-END: OpCodeInfoFlags
 
 impl IntoIter {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::len_zero))]
+	#[allow(clippy::len_zero)]
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<Option<OpCodeInfoTestCase>, String> {
 		let elems: Vec<_> = line.split(',').collect();
 		if elems.len() != 11 {

@@ -46,6 +46,7 @@ pub(super) struct InstrOpInfo<'a> {
 }
 
 impl<'a> InstrOpInfo<'a> {
+	#[allow(dead_code)]
 	pub(super) const TEST_REGISTER_BITS: u32 = IcedConstants::REGISTER_BITS;
 
 	pub(super) fn op_register(&self, operand: u32) -> usize {

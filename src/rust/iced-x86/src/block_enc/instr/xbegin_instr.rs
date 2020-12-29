@@ -148,13 +148,11 @@ impl Instr for XbeginInstr {
 					debug_assert!(self.instr_kind == InstrKind::Rel32);
 					self.instruction.set_code(Code::Xbegin_rel32);
 				}
-				// Temp needed if rustc < 1.36.0 (2015 edition)
-				let tmp = self.target_instr.address(self);
-				self.instruction.set_near_branch64(tmp);
-				match block.encoder.encode(&self.instruction, self.ip) {
-					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-					Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
-				}
+				self.instruction.set_near_branch64(self.target_instr.address(self));
+				block.encoder.encode(&self.instruction, self.ip).map_or_else(
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|_| Ok((block.encoder.get_constant_offsets(), true)),
+				)
 			}
 
 			InstrKind::Uninitialized => unreachable!(),

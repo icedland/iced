@@ -33,7 +33,6 @@ use self::instr::*;
 use super::iced_constants::IcedConstants;
 use super::iced_error::IcedError;
 use super::*;
-#[cfg(any(has_alloc, not(feature = "std")))]
 use alloc::rc::Rc;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
@@ -43,8 +42,6 @@ use core::{mem, u32};
 use hashbrown::HashMap;
 #[cfg(feature = "std")]
 use std::collections::HashMap;
-#[cfg(all(not(has_alloc), feature = "std"))]
-use std::rc::Rc;
 
 /// Relocation info
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
@@ -63,7 +60,7 @@ impl RelocInfo {
 	///
 	/// * `kind`: Relocation kind
 	/// * `address`: Address
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new(kind: RelocKind, address: u64) -> Self {
 		Self { address, kind }
@@ -86,7 +83,7 @@ impl<'a> InstructionBlock<'a> {
 	///
 	/// * `instructions`: All instructions
 	/// * `rip`: Base IP of all encoded instructions
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn new(instructions: &'a [Instruction], rip: u64) -> Self {
 		Self { instructions, rip }
@@ -136,9 +133,9 @@ pub struct BlockEncoder {
 	options: u32, // BlockEncoderOptions
 	// .1 is 'instructions' and is barely used by Block. Had to move
 	// it here because of borrowck.
-	blocks: Vec<(Rc<RefCell<Block>>, Vec<Rc<RefCell<Instr>>>)>,
+	blocks: Vec<(Rc<RefCell<Block>>, Vec<Rc<RefCell<dyn Instr>>>)>,
 	null_encoder: Encoder,
-	to_instr: HashMap<u64, Rc<RefCell<Instr>>>,
+	to_instr: HashMap<u64, Rc<RefCell<dyn Instr>>>,
 	has_multiple_zero_ip_instrs: bool,
 }
 
@@ -419,22 +416,16 @@ impl BlockEncoder {
 		Ok(result_vec)
 	}
 
-	fn get_target(&self, instr: &Instr, address: u64) -> TargetInstr {
+	fn get_target(&self, instr: &dyn Instr, address: u64) -> TargetInstr {
 		if (address != 0 || !self.has_multiple_zero_ip_instrs) && instr.orig_ip() == address {
 			TargetInstr::new_owner()
 		} else {
-			match self.to_instr.get(&address) {
-				Some(instr) => TargetInstr::new_instr(Rc::clone(instr)),
-				None => TargetInstr::new_address(address),
-			}
+			self.to_instr.get(&address).map_or_else(|| TargetInstr::new_address(address), |instr| TargetInstr::new_instr(Rc::clone(instr)))
 		}
 	}
 
 	fn get_instruction_size(&mut self, instruction: &Instruction, ip: u64) -> u32 {
 		self.null_encoder.clear_buffer();
-		match self.null_encoder.encode(instruction, ip) {
-			Ok(len) => len as u32,
-			Err(_) => IcedConstants::MAX_INSTRUCTION_LENGTH as u32,
-		}
+		self.null_encoder.encode(instruction, ip).map_or_else(|_| IcedConstants::MAX_INSTRUCTION_LENGTH as u32, |len| len as u32)
 	}
 }

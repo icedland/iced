@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! iced-x86
 //! [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 //! [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
-//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.20.0+-yellow.svg)](#minimum-supported-rustc-version)
+//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.41.0+-yellow.svg)](#minimum-supported-rustc-version)
 //! ![License](https://img.shields.io/crates/l/iced-x86.svg)
 //!
 //! iced-x86 is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
@@ -40,7 +40,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - ✔️The encoder can be used to re-encode decoded instructions at any address
 //! - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 //! - ✔️Supports `#![no_std]` and `WebAssembly`
-//! - ✔️Supports `rustc` `1.20.0` or later
+//! - ✔️Supports `rustc` `1.41.0` or later
 //! - ✔️Few dependencies (`static_assertions` and `lazy_static`)
 //! - ✔️License: MIT
 //!
@@ -85,7 +85,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` (masm syntax) which is ~1.9x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
 //! - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 //! - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
-//! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
+//! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
 //! - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 //! - `no_vex`: Disables all `VEX` instructions. See below for more info.
 //! - `no_evex`: Disables all `EVEX` instructions. See below for more info.
@@ -1154,24 +1154,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!
 //! ## Minimum supported `rustc` version
 //!
-//! iced-x86 supports `rustc` `1.20.0` or later.
+//! iced-x86 supports `rustc` `1.41.0` or later.
 //! This is checked in CI builds where the minimum supported version and the latest stable version are used to build the source code and run tests.
-//!
-//! If you use an older version of `rustc`, you may need to update the versions of some iced-x86 dependencies because `cargo` prefers to use the latest version which may not support your `rustc`.
-//! Eg. iced-x86 needs `lazy_static` `1.1.1` (or later), but `cargo` wants to use the latest version which is currently `1.4.0` and it doesn't support the minimum supported `rustc` version.
-//! Here's how you can force a compatible version of any iced-x86 dependency without updating iced-x86's `Cargo.toml`:
-//!
-//! ```sh
-//! cargo generate-lockfile
-//! cargo update --package lazy_static --precise 1.1.1
-//! ```
 //!
 //! Bumping the minimum supported version of `rustc` is considered a minor breaking change. The minor version of iced-x86 will be incremented.
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![doc(html_root_url = "https://docs.rs/iced-x86/1.10.2")]
 #![allow(unknown_lints)]
-#![allow(bare_trait_objects)] // Not supported if < 1.27.0
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
 #![warn(deprecated_in_future)]
@@ -1190,46 +1180,44 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(unused_must_use)]
 #![warn(unused_qualifications)]
 #![warn(unused_results)]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::manual_strip))] // Not supported if < 1.45.0
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::match_like_matches_macro))] // Not supported if < 1.42.0
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // Not supported if < 1.31.0
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))] // Not supported if < 1.26.0
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::clone_on_ref_ptr))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::dbg_macro))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::debug_assert_with_mut_call))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::default_trait_access))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::doc_markdown))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::empty_line_after_outer_attr))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::explicit_into_iter_loop))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::explicit_iter_loop))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::fallible_impl_from))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::implicit_saturating_sub))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::large_digit_groups))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::let_unit_value))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::match_bool))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_errors_doc))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::must_use_candidate))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::needless_borrow))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::print_stdout))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::rc_buffer))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::redundant_closure_for_method_calls))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::redundant_closure))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::same_functions_in_if_condition))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::todo))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::unnested_or_patterns))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::unreadable_literal))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::unused_self))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::useless_let_if_seq))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::useless_transmute))]
+#![allow(clippy::cast_lossless)]
+#![allow(clippy::collapsible_if)]
+#![allow(clippy::manual_strip)] // Not supported if < 1.45.0
+#![allow(clippy::match_like_matches_macro)] // Not supported if < 1.42.0
+#![allow(clippy::match_ref_pats)]
+#![allow(clippy::too_many_arguments)]
+#![allow(clippy::type_complexity)]
+#![allow(clippy::wrong_self_convention)]
+#![warn(clippy::clone_on_ref_ptr)]
+#![warn(clippy::dbg_macro)]
+#![warn(clippy::debug_assert_with_mut_call)]
+#![warn(clippy::default_trait_access)]
+#![warn(clippy::doc_markdown)]
+#![warn(clippy::empty_line_after_outer_attr)]
+#![warn(clippy::explicit_into_iter_loop)]
+#![warn(clippy::explicit_iter_loop)]
+#![warn(clippy::fallible_impl_from)]
+#![warn(clippy::implicit_saturating_sub)]
+#![warn(clippy::large_digit_groups)]
+#![warn(clippy::let_unit_value)]
+#![warn(clippy::match_bool)]
+#![warn(clippy::missing_errors_doc)]
+#![warn(clippy::missing_inline_in_public_items)]
+#![warn(clippy::must_use_candidate)]
+#![warn(clippy::needless_borrow)]
+#![warn(clippy::print_stdout)]
+#![warn(clippy::rc_buffer)]
+#![warn(clippy::redundant_closure_for_method_calls)]
+#![warn(clippy::redundant_closure)]
+#![warn(clippy::same_functions_in_if_condition)]
+#![warn(clippy::todo)]
+#![warn(clippy::unimplemented)]
+#![warn(clippy::unnested_or_patterns)]
+#![warn(clippy::unreadable_literal)]
+#![warn(clippy::unused_self)]
+#![warn(clippy::used_underscore_binding)]
+#![warn(clippy::useless_let_if_seq)]
+#![warn(clippy::useless_transmute)]
 #![cfg_attr(not(feature = "std"), no_std)]
 
 // This should be the only place in the source code that uses no_std
@@ -1238,14 +1226,8 @@ compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 
-#[cfg(all(
-	has_alloc,
-	any(not(feature = "std"), feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt")
-))]
-#[cfg_attr(
-	all(has_alloc, any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt")),
-	macro_use
-)]
+#[cfg(any(not(feature = "std"), feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+#[cfg_attr(any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"), macro_use)]
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;

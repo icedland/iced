@@ -53,14 +53,14 @@ impl IcedError {
 #[cfg(feature = "std")]
 impl Error for IcedError {
 	// Required since MSRV < 1.42.0
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn description(&self) -> &str {
 		&self.error
 	}
 }
 
 impl fmt::Display for IcedError {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[allow(clippy::missing_inline_in_public_items)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", &self.error)
 	}

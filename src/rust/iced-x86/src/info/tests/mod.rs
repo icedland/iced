@@ -327,7 +327,7 @@ fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool
 	assert_eq!(info1.rflags_modified(), info2.rflags_modified());
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 fn get_used_registers<'a, T: Iterator<Item = &'a UsedRegister>>(iter: T) -> Vec<UsedRegister> {
 	let mut read: Vec<Register> = Vec::new();
 	let mut write: Vec<Register> = Vec::new();
@@ -369,7 +369,7 @@ fn get_used_registers<'a, T: Iterator<Item = &'a UsedRegister>>(iter: T) -> Vec<
 	vec
 }
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 fn get_registers(mut regs: Vec<Register>) -> Vec<Register> {
 	if regs.len() <= 1 {
 		return regs;
@@ -449,7 +449,7 @@ static LOW_REGS: [(Register, Register, Register); 4] = [
 	(Register::BL, Register::BH, Register::BX),
 ];
 
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 fn get_register_group_order(reg: Register) -> i32 {
 	if Register::RAX <= reg && reg <= Register::R15 {
 		0
@@ -765,6 +765,5 @@ fn make_sure_all_code_values_are_tested() {
 
 #[test]
 fn verify_used_memory_size() {
-	// core::mem::size_of() is a const func since rustc 1.24.0
-	assert_eq!(16, mem::size_of::<UsedMemory>());
+	const_assert_eq!(16, mem::size_of::<UsedMemory>());
 }

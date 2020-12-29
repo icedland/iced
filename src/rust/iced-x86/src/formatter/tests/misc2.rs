@@ -37,7 +37,7 @@ use std::fmt::Write;
 fn make_sure_all_code_values_are_formatted() {
 	let mut tested = [0u8; IcedConstants::CODE_ENUM_COUNT];
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let all_args: [(u32, bool); 6] = [
 		(16, false),
 		(32, false),
@@ -79,8 +79,8 @@ fn make_sure_all_code_values_are_formatted() {
 }
 
 #[test]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::same_functions_in_if_condition))]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::if_same_then_else))]
+#[allow(clippy::same_functions_in_if_condition)]
+#[allow(clippy::if_same_then_else)]
 fn display_trait() {
 	let bytes = b"\x00\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);

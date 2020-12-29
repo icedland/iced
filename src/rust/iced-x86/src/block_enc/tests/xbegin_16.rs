@@ -30,7 +30,7 @@ const NEW_RIP: u64 = 0xF000;
 
 #[test]
 fn xbegin_fwd_rel16() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let original_data = [
 		/*0000*/ 0xB0, 0x00,// mov al,0
 		/*0002*/ 0x66, 0xC7, 0xF8, 0x06, 0x00, 0x00, 0x00,// xbegin 0000800Fh
@@ -39,7 +39,7 @@ fn xbegin_fwd_rel16() {
 		/*000F*/ 0xB0, 0x02,// mov al,2
 		/*0011*/ 0xB0, 0x03,// mov al,3
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let new_data = [
 		/*0000*/ 0xB0, 0x00,// mov al,0
 		/*0002*/ 0xC7, 0xF8, 0x06, 0x00,// xbegin 0000F00Ch
@@ -48,7 +48,7 @@ fn xbegin_fwd_rel16() {
 		/*000C*/ 0xB0, 0x02,// mov al,2
 		/*000E*/ 0xB0, 0x03,// mov al,3
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_instruction_offsets = [
 		0x0000,
 		0x0002,
@@ -74,7 +74,7 @@ fn xbegin_fwd_rel16() {
 
 #[test]
 fn xbegin_bwd_rel16() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let original_data = [
 		/*0000*/ 0xB0, 0x02,// mov al,2
 		/*0002*/ 0xB0, 0x03,// mov al,3
@@ -83,7 +83,7 @@ fn xbegin_bwd_rel16() {
 		/*000D*/ 0xB0, 0x01,// mov al,1
 		/*000F*/ 0xC7, 0xF8, 0xEF, 0xFF,// xbegin 00008002h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let new_data = [
 		/*0000*/ 0xB0, 0x02,// mov al,2
 		/*0002*/ 0xB0, 0x03,// mov al,3
@@ -92,7 +92,7 @@ fn xbegin_bwd_rel16() {
 		/*000A*/ 0xB0, 0x01,// mov al,1
 		/*000C*/ 0xC7, 0xF8, 0xF2, 0xFF,// xbegin 0000F002h
 	];
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let expected_instruction_offsets = [
 		0x0000,
 		0x0002,

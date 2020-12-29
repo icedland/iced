@@ -42,7 +42,7 @@ pub(crate) enum LKind {
 	/// .LZ
 	LZ,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_LKIND: [&str; 4] = [
 	"None",
 	"L128",
@@ -57,7 +57,7 @@ impl fmt::Debug for LKind {
 	}
 }
 impl Default for LKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		LKind::None

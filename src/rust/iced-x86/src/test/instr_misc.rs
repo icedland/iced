@@ -844,5 +844,5 @@ fn verify_get_set_immediate() {
 
 #[test]
 fn verify_instruction_size() {
-	assert_eq!(INSTRUCTION_TOTAL_SIZE, mem::size_of::<Instruction>());
+	const_assert_eq!(INSTRUCTION_TOTAL_SIZE, mem::size_of::<Instruction>());
 }

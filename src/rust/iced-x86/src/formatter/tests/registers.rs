@@ -30,7 +30,7 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::mem;
 
-pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Box<dyn Formatter>) {
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);
 	filename.push(format!("{}.txt", file_part));

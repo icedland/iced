@@ -66,7 +66,7 @@ fn sort(mut vec: Vec<RelocInfo>) -> Vec<RelocInfo> {
 	vec
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+#[allow(clippy::too_many_arguments)]
 fn encode_test(
 	bitness: u32, orig_rip: u64, original_data: &[u8], new_rip: u64, new_data: &[u8], mut options: u32, decoder_options: u32,
 	expected_instruction_offsets: &[u32], expected_reloc_infos: &[RelocInfo],

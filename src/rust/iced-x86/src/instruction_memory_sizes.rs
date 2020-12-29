@@ -28,7 +28,7 @@ use super::MemorySize;
 
 // 0 = memory size
 // 1 = broadcast memory size
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(super) static SIZES: [MemorySize; IcedConstants::CODE_ENUM_COUNT * 2] = [
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte

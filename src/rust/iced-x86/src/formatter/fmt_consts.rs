@@ -253,7 +253,7 @@ pub(super) struct FormatterArrayConstants {
 
 lazy_static! {
 	pub(super) static ref ARRAY_CONSTS: FormatterArrayConstants = {
-		#![cfg_attr(feature = "cargo-clippy", allow(clippy::let_unit_value))]
+		#![allow(clippy::let_unit_value)]
 		let c = &*FORMATTER_CONSTANTS;
 		let nothing: [&'static FormatterString; 0] = [];
 		// GENERATOR-BEGIN: FormatterArrayConstantsCreate
@@ -278,7 +278,7 @@ lazy_static! {
 		let zmmword_ptr: [&'static FormatterString; 2] = [&c.zmmword, &c.ptr];
 		// GENERATOR-END: FormatterArrayConstantsCreate
 		#[cfg(feature = "gas")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let gas_op_size_strings: [&'static FormatterString; super::gas::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1] = [
 			&c.empty,
 			&c.data16,
@@ -288,7 +288,7 @@ lazy_static! {
 		#[cfg(not(feature = "gas"))]
 		let gas_op_size_strings = ();
 		#[cfg(feature = "gas")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let gas_addr_size_strings: [&'static FormatterString; super::gas::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1] = [
 			&c.empty,
 			&c.addr16,
@@ -298,7 +298,7 @@ lazy_static! {
 		#[cfg(not(feature = "gas"))]
 		let gas_addr_size_strings = ();
 		#[cfg(feature = "intel")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let intel_op_size_strings: [&'static FormatterString; super::intel::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1] = [
 			&c.empty,
 			&c.data16,
@@ -308,7 +308,7 @@ lazy_static! {
 		#[cfg(not(feature = "intel"))]
 		let intel_op_size_strings = ();
 		#[cfg(feature = "intel")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let intel_addr_size_strings: [&'static FormatterString; super::intel::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1] = [
 			&c.empty,
 			&c.addr16,
@@ -318,7 +318,7 @@ lazy_static! {
 		#[cfg(not(feature = "intel"))]
 		let intel_addr_size_strings = ();
 		#[cfg(feature = "intel")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let intel_rc_strings: [&'static FormatterString; 4] = [
 			&c.rne_sae,
 			&c.rd_sae,
@@ -328,7 +328,7 @@ lazy_static! {
 		#[cfg(not(feature = "intel"))]
 		let intel_rc_strings = ();
 		#[cfg(feature = "intel")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let intel_branch_infos: [Vec<&'static FormatterString>; super::intel::enums::InstrOpInfoFlags::BRANCH_SIZE_INFO_MASK as usize + 1] = [
 			vec![],
 			vec![&c.short],
@@ -336,7 +336,7 @@ lazy_static! {
 		#[cfg(not(feature = "intel"))]
 		let intel_branch_infos = ();
 		#[cfg(feature = "masm")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let masm_rc_strings: [&'static FormatterString; 4] = [
 			&c.rn_sae,
 			&c.rd_sae,
@@ -346,7 +346,7 @@ lazy_static! {
 		#[cfg(not(feature = "masm"))]
 		let masm_rc_strings = ();
 		#[cfg(feature = "nasm")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let nasm_op_size_strings: [&'static FormatterString; super::nasm::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1] = [
 			&c.empty,
 			&c.o16,
@@ -356,7 +356,7 @@ lazy_static! {
 		#[cfg(not(feature = "nasm"))]
 		let nasm_op_size_strings = ();
 		#[cfg(feature = "nasm")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let nasm_addr_size_strings: [&'static FormatterString; super::nasm::enums::InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize + 1] = [
 			&c.empty,
 			&c.a16,
@@ -366,7 +366,7 @@ lazy_static! {
 		#[cfg(not(feature = "nasm"))]
 		let nasm_addr_size_strings = ();
 		#[cfg(feature = "nasm")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let nasm_branch_infos: [Vec<&'static FormatterString>; super::nasm::enums::InstrOpInfoFlags::BRANCH_SIZE_INFO_MASK as usize + 1] = [
 			vec![],
 			vec![&c.near],
@@ -380,7 +380,7 @@ lazy_static! {
 		#[cfg(not(feature = "nasm"))]
 		let nasm_branch_infos = ();
 		#[cfg(feature = "nasm")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let nasm_mem_size_infos: [&'static FormatterString; super::nasm::enums::InstrOpInfoFlags::MEMORY_SIZE_INFO_MASK as usize + 1] = [
 			&c.empty,
 			&c.word,
@@ -390,7 +390,7 @@ lazy_static! {
 		#[cfg(not(feature = "nasm"))]
 		let nasm_mem_size_infos = ();
 		#[cfg(feature = "nasm")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let nasm_far_mem_size_infos: [&'static FormatterString; super::nasm::enums::InstrOpInfoFlags::FAR_MEMORY_SIZE_INFO_MASK as usize + 1] = [
 			&c.empty,
 			&c.word,

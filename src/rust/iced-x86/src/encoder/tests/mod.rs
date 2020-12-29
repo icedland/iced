@@ -42,7 +42,6 @@ use super::super::test_utils::from_str_conv::{code_names, is_ignored_code};
 use super::super::test_utils::*;
 use super::super::*;
 use super::op_code_handler::InvalidHandler;
-#[cfg(any(has_alloc, not(feature = "std")))]
 use alloc::rc::Rc;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -51,8 +50,6 @@ use alloc::vec::Vec;
 use core::fmt::Write;
 #[cfg(feature = "op_code_info")]
 use core::mem;
-#[cfg(all(not(has_alloc), feature = "std"))]
-use std::rc::Rc;
 
 #[test]
 fn encode_16() {
@@ -586,7 +583,7 @@ fn get_set_wig_lig_options() {
 #[test]
 #[cfg(not(feature = "no_vex"))]
 fn prevent_vex2_encoding() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = [
 		("C5FC 10 10", "C4E17C 10 10", Code::VEX_Vmovups_ymm_ymmm256, true),
 		("C5FC 10 10", "C5FC 10 10", Code::VEX_Vmovups_ymm_ymmm256, false),
@@ -609,7 +606,7 @@ fn prevent_vex2_encoding() {
 #[test]
 #[cfg(not(feature = "no_vex"))]
 fn test_vex_wig_lig() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = [
 		("C5CA 10 CD", "C5CA 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 0),
 		("C5CA 10 CD", "C5CE 10 CD", Code::VEX_Vmovss_xmm_xmm_xmm, 0, 1),
@@ -650,7 +647,7 @@ fn test_vex_wig_lig() {
 #[test]
 #[cfg(not(feature = "no_evex"))]
 fn test_evex_wig_lig() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = [
 		("62 F14E08 10 D3", "62 F14E08 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 0),
 		("62 F14E08 10 D3", "62 F14E28 10 D3", Code::EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 1),

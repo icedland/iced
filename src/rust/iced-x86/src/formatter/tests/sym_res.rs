@@ -85,7 +85,9 @@ fn get_infos_and_lines(dir: &str, filename: &str) -> (&'static [SymbolResolverTe
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<SymbolResolver>) -> Box<Formatter>) {
+pub(in super::super) fn symbol_resolver_test(
+	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<dyn SymbolResolver>) -> Box<dyn Formatter>,
+) {
 	let (infos, formatted_lines) = get_infos_and_lines(dir, filename);
 	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {
 		let symbol_resolver = Box::new(SymbolResolverImpl { info, vec: Vec::new() });
@@ -111,7 +113,7 @@ pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_fact
 
 #[cfg(feature = "fast_fmt")]
 pub(in super::super) fn symbol_resolver_test_fast(
-	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<SymbolResolver>) -> Box<FastFormatter>,
+	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<dyn SymbolResolver>) -> Box<FastFormatter>,
 ) {
 	let (infos, formatted_lines) = get_infos_and_lines(dir, filename);
 	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {

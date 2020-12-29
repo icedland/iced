@@ -94,7 +94,7 @@ pub(crate) enum OptionsProps {
 	DecoderOptions,
 	ShowUselessPrefixes,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_OPTIONS_PROPS: [&str; 64] = [
 	"AddLeadingZeroToHexNumbers",
 	"AlwaysShowScale",
@@ -169,7 +169,7 @@ impl fmt::Debug for OptionsProps {
 	}
 }
 impl Default for OptionsProps {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OptionsProps::AddLeadingZeroToHexNumbers

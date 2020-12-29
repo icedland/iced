@@ -38,7 +38,7 @@ use core::{i8, mem, u32};
 pub(crate) struct OpCodeHandler {
 	pub(super) encode: fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction),
 	pub(super) try_convert_to_disp8n: Option<fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, displ: i32) -> Option<i8>>,
-	pub(crate) operands: Box<[&'static (Op + Sync)]>,
+	pub(crate) operands: Box<[&'static (dyn Op + Sync)]>,
 	pub(super) op_code: u32,
 	pub(super) group_index: i32,
 	pub(super) rm_group_index: i32,
@@ -702,7 +702,7 @@ pub(super) struct D3nowHandler {
 impl D3nowHandler {
 	pub(super) fn new(enc_flags2: u32, enc_flags3: u32) -> Self {
 		let mut operands = Vec::with_capacity(2);
-		static D3NOW_TABLE: [&(Op + Sync); 2] =
+		static D3NOW_TABLE: [&(dyn Op + Sync); 2] =
 			[&OpModRM_reg { reg_lo: Register::MM0, reg_hi: Register::MM7 }, &OpModRM_rm { reg_lo: Register::MM0, reg_hi: Register::MM7 }];
 		operands.push(D3NOW_TABLE[0]);
 		operands.push(D3NOW_TABLE[1]);

@@ -74,9 +74,9 @@ impl Instr for SimpleInstr {
 	}
 
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
-		match block.encoder.encode(&self.instruction, self.ip) {
-			Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
-			Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
-		}
+		block.encoder.encode(&self.instruction, self.ip).map_or_else(
+			|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+			|_| Ok((block.encoder.get_constant_offsets(), true)),
+		)
 	}
 }

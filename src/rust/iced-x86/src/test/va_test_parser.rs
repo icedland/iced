@@ -119,13 +119,13 @@ impl IntoIter {
 		let decoder_options = if dec_opt_str.is_empty() { DecoderOptions::NONE } else { to_decoder_options(dec_opt_str)? };
 
 		let mut register_values: Vec<VARegisterValue> = Vec::new();
-		for tmp in elems[8].split_whitespace() {
-			if tmp.is_empty() {
+		for elem in elems[8].split_whitespace() {
+			if elem.is_empty() {
 				continue;
 			}
-			let kv: Vec<_> = tmp.split('=').collect();
+			let kv: Vec<_> = elem.split('=').collect();
 			if kv.len() != 2 {
-				return Err(format!("Expected key=value: {}", tmp));
+				return Err(format!("Expected key=value: {}", elem));
 			}
 			let key = kv[0];
 			let value_str = kv[1];

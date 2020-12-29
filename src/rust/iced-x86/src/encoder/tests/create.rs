@@ -772,7 +772,7 @@ fn try_with_declare_qword() {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_byte_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::with_declare_byte_1(0x77), vec![0x77]),
 		(Instruction::with_declare_byte_2(0x77, 0xA9), vec![0x77, 0xA9]),
@@ -800,7 +800,7 @@ fn with_declare_byte_slice() {
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_byte_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::try_with_declare_byte_1(0x77).unwrap(), vec![0x77]),
 		(Instruction::try_with_declare_byte_2(0x77, 0xA9).unwrap(), vec![0x77, 0xA9]),
@@ -829,7 +829,7 @@ fn try_with_declare_byte_slice() {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_word_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::with_declare_word_1(0x77A9), vec![0xA9, 0x77]),
 		(Instruction::with_declare_word_2(0x77A9, 0xCE9D), vec![0xA9, 0x77, 0x9D, 0xCE]),
@@ -849,7 +849,7 @@ fn with_declare_word_slice() {
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_word_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::try_with_declare_word_1(0x77A9).unwrap(), vec![0xA9, 0x77]),
 		(Instruction::try_with_declare_word_2(0x77A9, 0xCE9D).unwrap(), vec![0xA9, 0x77, 0x9D, 0xCE]),
@@ -870,7 +870,7 @@ fn try_with_declare_word_slice() {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_dword_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::with_declare_dword_1(0x77A9_CE9D), vec![0x9D, 0xCE, 0xA9, 0x77]),
 		(Instruction::with_declare_dword_2(0x77A9_CE9D, 0x5505_426C), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55]),
@@ -886,7 +886,7 @@ fn with_declare_dword_slice() {
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_dword_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::try_with_declare_dword_1(0x77A9_CE9D).unwrap(), vec![0x9D, 0xCE, 0xA9, 0x77]),
 		(Instruction::try_with_declare_dword_2(0x77A9_CE9D, 0x5505_426C).unwrap(), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55]),
@@ -903,7 +903,7 @@ fn try_with_declare_dword_slice() {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_qword_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77]),
 		(Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86]),
@@ -917,7 +917,7 @@ fn with_declare_qword_slice() {
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_qword_slice() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::try_with_declare_qword_1(0x77A9_CE9D_5505_426C).unwrap(), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77]),
 		(Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap(), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86]),
@@ -932,7 +932,7 @@ fn try_with_declare_qword_slice() {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_word_slice2() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::with_declare_word_1(0x77A9), vec![0x77A9]),
 		(Instruction::with_declare_word_2(0x77A9, 0xCE9D), vec![0x77A9, 0xCE9D]),
@@ -952,7 +952,7 @@ fn with_declare_word_slice2() {
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_word_slice2() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::try_with_declare_word_1(0x77A9).unwrap(), vec![0x77A9]),
 		(Instruction::try_with_declare_word_2(0x77A9, 0xCE9D).unwrap(), vec![0x77A9, 0xCE9D]),
@@ -973,7 +973,7 @@ fn try_with_declare_word_slice2() {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_dword_slice2() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::with_declare_dword_1(0x77A9_CE9D), vec![0x77A9_CE9D]),
 		(Instruction::with_declare_dword_2(0x77A9_CE9D, 0x5505_426C), vec![0x77A9_CE9D, 0x5505_426C]),
@@ -989,7 +989,7 @@ fn with_declare_dword_slice2() {
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_dword_slice2() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::try_with_declare_dword_1(0x77A9_CE9D).unwrap(), vec![0x77A9_CE9D]),
 		(Instruction::try_with_declare_dword_2(0x77A9_CE9D, 0x5505_426C).unwrap(), vec![0x77A9_CE9D, 0x5505_426C]),
@@ -1006,7 +1006,7 @@ fn try_with_declare_dword_slice2() {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_qword_slice2() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C), vec![0x77A9_CE9D_5505_426C]),
 		(Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08), vec![0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08]),
@@ -1020,7 +1020,7 @@ fn with_declare_qword_slice2() {
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_qword_slice2() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests = vec![
 		(Instruction::try_with_declare_qword_1(0x77A9_CE9D_5505_426C).unwrap(), vec![0x77A9_CE9D_5505_426C]),
 		(Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap(), vec![0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08]),
@@ -1034,7 +1034,7 @@ fn try_with_declare_qword_slice2() {
 #[test]
 #[allow(deprecated)]
 fn with_test() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "90", DecoderOptions::NONE, Instruction::with(Code::Nopd)),
 		(64, "48B9FFFFFFFFFFFFFFFF", DecoderOptions::NONE, Instruction::with_reg_i64(Code::Mov_r64_imm64, Register::RCX, -1)),
@@ -1433,7 +1433,7 @@ fn with_test() {
 
 #[test]
 fn try_with_test() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "90", DecoderOptions::NONE, Instruction::with(Code::Nopd)),
 		(64, "48B9FFFFFFFFFFFFFFFF", DecoderOptions::NONE, Instruction::try_with_reg_i64(Code::Mov_r64_imm64, Register::RCX, -1).unwrap()),
@@ -1832,7 +1832,7 @@ fn try_with_test() {
 #[cfg(not(feature = "no_vex"))]
 #[allow(deprecated)]
 fn with_test_vex() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "C5E814CB", DecoderOptions::NONE, Instruction::with_reg_reg_reg(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, Register::XMM3)),
 		(64, "64C5E8148C7501EFCDAB", DecoderOptions::NONE, Instruction::with_reg_reg_mem(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS))),
@@ -1857,7 +1857,7 @@ fn with_test_vex() {
 #[test]
 #[cfg(not(feature = "no_vex"))]
 fn try_with_test_vex() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "C5E814CB", DecoderOptions::NONE, Instruction::with_reg_reg_reg(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, Register::XMM3)),
 		(64, "64C5E8148C7501EFCDAB", DecoderOptions::NONE, Instruction::with_reg_reg_mem(Code::VEX_Vunpcklps_xmm_xmm_xmmm128, Register::XMM1, Register::XMM2, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS))),
@@ -1883,7 +1883,7 @@ fn try_with_test_vex() {
 #[cfg(not(feature = "no_evex"))]
 #[allow(deprecated)]
 fn with_test_evex() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "62F1F50873D2A5", DecoderOptions::NONE, Instruction::with_reg_reg_i32(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM1, Register::XMM2, 0xA5)),
 		(64, "6462F1F50873947501EFCDABA5", DecoderOptions::NONE, Instruction::with_reg_mem_i32(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM1, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA5)),
@@ -1898,7 +1898,7 @@ fn with_test_evex() {
 #[test]
 #[cfg(not(feature = "no_evex"))]
 fn try_with_test_evex() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<(u32, &str, u32, Instruction)> = vec![
 		(64, "62F1F50873D2A5", DecoderOptions::NONE, Instruction::try_with_reg_reg_i32(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM1, Register::XMM2, 0xA5).unwrap()),
 		(64, "6462F1F50873947501EFCDABA5", DecoderOptions::NONE, Instruction::try_with_reg_mem_i32(Code::EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register::XMM1, MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS), 0xA5).unwrap()),
@@ -1932,7 +1932,7 @@ fn with_test_core(tests: Vec<(u32, &str, u32, Instruction)>) {
 #[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_xxx_panics_if_invalid_length() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<fn() -> Instruction> = vec![
 		|| Instruction::with_declare_byte(&[0; 0]),
 		|| Instruction::with_declare_byte(&[0; 17]),
@@ -1998,7 +1998,7 @@ fn with_declare_xxx_panics_if_invalid_length() {
 #[test]
 #[cfg(feature = "db")]
 fn with_declare_xxx_fails_if_invalid_length() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<fn() -> Result<Instruction, IcedError>> = vec![
 		|| Instruction::try_with_declare_byte(&[0; 0]),
 		|| Instruction::try_with_declare_byte(&[0; 17]),
@@ -2442,7 +2442,7 @@ fn get_declare_xxx_value_fails_if_invalid_input() {
 
 #[test]
 fn encode_invalid_reg_op_size() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<(u32, Instruction)> = vec![
 		(16, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
 		(32, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, MemoryOperand::with_base(Register::EBX))),
@@ -2495,7 +2495,7 @@ fn create_fails_if_invalid_bitness_core(tests: Vec<fn(u32) -> Result<Instruction
 #[test]
 #[allow(deprecated)]
 fn create_panics_if_invalid_bitness() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<fn(u32) -> Instruction> = vec![
 		|bitness| Instruction::with_xbegin(bitness, 0x8000_0000_3412_A550),
 		|bitness| Instruction::with_outsb(bitness, Register::FS, RepPrefixKind::None),
@@ -2566,7 +2566,7 @@ fn create_panics_if_invalid_bitness() {
 
 #[test]
 fn create_fails_if_invalid_bitness() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<fn(u32) -> Result<Instruction, IcedError>> = vec![
 		|bitness| Instruction::try_with_xbegin(bitness, 0x8000_0000_3412_A550),
 		|bitness| Instruction::try_with_outsb(bitness, Register::FS, RepPrefixKind::None),
@@ -2639,7 +2639,7 @@ fn create_fails_if_invalid_bitness() {
 #[cfg(not(feature = "no_vex"))]
 #[allow(deprecated)]
 fn create_panics_if_invalid_bitness_vex() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<fn(u32) -> Instruction> = vec![
 		|bitness| Instruction::with_vmaskmovdqu(bitness, Register::XMM2, Register::XMM3, Register::FS),
 	];
@@ -2649,7 +2649,7 @@ fn create_panics_if_invalid_bitness_vex() {
 #[test]
 #[cfg(not(feature = "no_vex"))]
 fn create_fails_if_invalid_bitness_vex() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	let tests: Vec<fn(u32) -> Result<Instruction, IcedError>> = vec![
 		|bitness| Instruction::try_with_vmaskmovdqu(bitness, Register::XMM2, Register::XMM3, Register::FS),
 	];

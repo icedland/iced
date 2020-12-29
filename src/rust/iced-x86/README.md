@@ -1,7 +1,7 @@
 iced-x86
 [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
-[![Minimum rustc version](https://img.shields.io/badge/rustc-1.20.0+-yellow.svg)](#minimum-supported-rustc-version)
+[![Minimum rustc version](https://img.shields.io/badge/rustc-1.41.0+-yellow.svg)](#minimum-supported-rustc-version)
 ![License](https://img.shields.io/crates/l/iced-x86.svg)
 
 iced-x86 is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
@@ -17,7 +17,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️Supports `#![no_std]` and `WebAssembly`
-- ✔️Supports `rustc` `1.20.0` or later
+- ✔️Supports `rustc` `1.41.0` or later
 - ✔️Few dependencies (`static_assertions` and `lazy_static`)
 - ✔️License: MIT
 
@@ -62,7 +62,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` (masm syntax) which is ~1.9x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
 - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
-- `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
+- `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 - `no_vex`: Disables all `VEX` instructions. See below for more info.
 - `no_evex`: Disables all `EVEX` instructions. See below for more info.
@@ -1131,16 +1131,7 @@ pub(crate) fn how_to_disassemble_old_instrs() {
 
 ## Minimum supported `rustc` version
 
-iced-x86 supports `rustc` `1.20.0` or later.
+iced-x86 supports `rustc` `1.41.0` or later.
 This is checked in CI builds where the minimum supported version and the latest stable version are used to build the source code and run tests.
-
-If you use an older version of `rustc`, you may need to update the versions of some iced-x86 dependencies because `cargo` prefers to use the latest version which may not support your `rustc`.
-Eg. iced-x86 needs `lazy_static` `1.1.1` (or later), but `cargo` wants to use the latest version which is currently `1.4.0` and it doesn't support the minimum supported `rustc` version.
-Here's how you can force a compatible version of any iced-x86 dependency without updating iced-x86's `Cargo.toml`:
-
-```sh
-cargo generate-lockfile
-cargo update --package lazy_static --precise 1.1.1
-```
 
 Bumping the minimum supported version of `rustc` is considered a minor breaking change. The minor version of iced-x86 will be incremented.

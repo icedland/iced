@@ -39,15 +39,12 @@ use self::xbegin_instr::XbeginInstr;
 use super::super::iced_error::IcedError;
 use super::block::{Block, BlockData};
 use super::*;
-#[cfg(any(has_alloc, not(feature = "std")))]
 use alloc::rc::Rc;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::cell::RefCell;
 use core::fmt::Display;
 use core::i32;
-#[cfg(all(not(has_alloc), feature = "std"))]
-use std::rc::Rc;
 
 pub(super) trait Instr {
 	fn block(&self) -> Rc<RefCell<Block>>;
@@ -67,14 +64,14 @@ pub(super) trait Instr {
 
 #[derive(Default)]
 pub(super) struct TargetInstr {
-	instruction: Option<Rc<RefCell<Instr>>>,
+	instruction: Option<Rc<RefCell<dyn Instr>>>,
 	address: u64,
 	is_owner: bool,
 }
 
 impl TargetInstr {
 	#[inline]
-	pub(super) fn new_instr(instruction: Rc<RefCell<Instr>>) -> Self {
+	pub(super) fn new_instr(instruction: Rc<RefCell<dyn Instr>>) -> Self {
 		Self { instruction: Some(Rc::clone(&instruction)), address: 0, is_owner: false }
 	}
 
@@ -99,7 +96,7 @@ impl TargetInstr {
 		}
 	}
 
-	fn address(&self, owner: &Instr) -> u64 {
+	fn address(&self, owner: &dyn Instr) -> u64 {
 		if self.is_owner {
 			owner.ip()
 		} else {
@@ -126,7 +123,9 @@ impl InstrUtils {
 		format!("{} : 0x{:X}", error_message, instruction.ip())
 	}
 
-	pub(super) fn create<'a, 'b>(block_encoder: &'a mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &'b Instruction) -> Rc<RefCell<Instr>> {
+	pub(super) fn create<'a, 'b>(
+		block_encoder: &'a mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &'b Instruction,
+	) -> Rc<RefCell<dyn Instr>> {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match instruction.code() {
 			// GENERATOR-BEGIN: JccInstr
@@ -338,10 +337,7 @@ impl InstrUtils {
 			_ => unreachable!(),
 		}
 
-		let mut size = match block.encoder.encode(&instr, ip) {
-			Ok(len) => len,
-			Err(err) => return Err(err),
-		} as u32;
+		let mut size = block.encoder.encode(&instr, ip)? as u32;
 		if block.can_add_reloc_infos() && reloc_kind != RelocKind::Offset64 {
 			let co = block.encoder.get_constant_offsets();
 			if !co.has_displacement() {

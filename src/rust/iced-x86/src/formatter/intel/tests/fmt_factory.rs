@@ -33,7 +33,7 @@ fn create_fmt() -> Box<IntelFormatter> {
 	create_fmt2(None, None)
 }
 
-fn create_fmt2(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Box<IntelFormatter> {
+fn create_fmt2(symbol_resolver: Option<Box<dyn SymbolResolver>>, options_provider: Option<Box<dyn FormatterOptionsProvider>>) -> Box<IntelFormatter> {
 	let mut fmt = Box::new(IntelFormatter::with_options(symbol_resolver, options_provider));
 	fmt.options_mut().set_uppercase_hex(false);
 	fmt.options_mut().set_hex_prefix("0x");
@@ -111,7 +111,7 @@ pub(super) fn create_numbers() -> Box<IntelFormatter> {
 	fmt
 }
 
-pub(super) fn create_resolver(symbol_resolver: Box<SymbolResolver>) -> Box<IntelFormatter> {
+pub(super) fn create_resolver(symbol_resolver: Box<dyn SymbolResolver>) -> Box<IntelFormatter> {
 	let mut fmt = create_fmt2(Some(symbol_resolver), None);
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
 	fmt.options_mut().set_show_branch_size(false);

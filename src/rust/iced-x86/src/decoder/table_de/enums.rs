@@ -32,7 +32,7 @@ pub(crate) enum SerializedDataKind {
 	HandlerReference,
 	ArrayReference,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_SERIALIZED_DATA_KIND: [&str; 2] = [
 	"HandlerReference",
 	"ArrayReference",
@@ -45,7 +45,7 @@ impl fmt::Debug for SerializedDataKind {
 	}
 }
 impl Default for SerializedDataKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SerializedDataKind::HandlerReference
@@ -266,7 +266,7 @@ pub(crate) enum OpCodeHandlerKind {
 	Rq,
 	Gd_Rd,
 }
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 206] = [
 	"Bitness",
 	"Bitness_DontReadModRM",
@@ -483,7 +483,7 @@ impl fmt::Debug for OpCodeHandlerKind {
 	}
 }
 impl Default for OpCodeHandlerKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpCodeHandlerKind::Bitness
@@ -575,7 +575,7 @@ pub(crate) enum EvexOpCodeHandlerKind {
 	WV,
 }
 #[cfg(not(feature = "no_evex"))]
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND: [&str; 75] = [
 	"Invalid",
 	"Invalid2",
@@ -663,7 +663,7 @@ impl fmt::Debug for EvexOpCodeHandlerKind {
 }
 #[cfg(not(feature = "no_evex"))]
 impl Default for EvexOpCodeHandlerKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		EvexOpCodeHandlerKind::Invalid
@@ -751,7 +751,7 @@ pub(crate) enum VexOpCodeHandlerKind {
 	Null,
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 71] = [
 	"Invalid",
 	"Invalid2",
@@ -835,7 +835,7 @@ impl fmt::Debug for VexOpCodeHandlerKind {
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 impl Default for VexOpCodeHandlerKind {
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		VexOpCodeHandlerKind::Invalid

@@ -24,13 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::iced_error::IcedError;
 use super::instr::*;
 use super::*;
-#[cfg(any(has_alloc, not(feature = "std")))]
 use alloc::rc::Rc;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::cell::RefCell;
-#[cfg(all(not(has_alloc), feature = "std"))]
-use std::rc::Rc;
 
 pub(super) struct Block {
 	pub(super) encoder: Encoder,
@@ -63,7 +60,7 @@ impl Block {
 		data
 	}
 
-	pub(super) fn initialize_data(&mut self, instructions: &[Rc<RefCell<Instr>>]) {
+	pub(super) fn initialize_data(&mut self, instructions: &[Rc<RefCell<dyn Instr>>]) {
 		let base_addr = match instructions.last() {
 			Some(instr) => instr.borrow().ip().wrapping_add(instr.borrow().size() as u64),
 			None => self.rip,

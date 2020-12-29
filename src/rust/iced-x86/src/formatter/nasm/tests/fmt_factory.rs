@@ -33,7 +33,7 @@ fn create_fmt() -> Box<NasmFormatter> {
 	create_fmt2(None, None)
 }
 
-fn create_fmt2(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Box<NasmFormatter> {
+fn create_fmt2(symbol_resolver: Option<Box<dyn SymbolResolver>>, options_provider: Option<Box<dyn FormatterOptionsProvider>>) -> Box<NasmFormatter> {
 	let mut fmt = Box::new(NasmFormatter::with_options(symbol_resolver, options_provider));
 	fmt.options_mut().set_uppercase_hex(false);
 	fmt.options_mut().set_hex_prefix("0x");
@@ -114,7 +114,7 @@ pub(super) fn create_numbers() -> Box<NasmFormatter> {
 	fmt
 }
 
-pub(super) fn create_resolver(symbol_resolver: Box<SymbolResolver>) -> Box<NasmFormatter> {
+pub(super) fn create_resolver(symbol_resolver: Box<dyn SymbolResolver>) -> Box<NasmFormatter> {
 	let mut fmt = create_fmt2(Some(symbol_resolver), None);
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(false);

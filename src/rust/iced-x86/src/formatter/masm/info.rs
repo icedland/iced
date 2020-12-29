@@ -45,6 +45,7 @@ pub(super) struct InstrOpInfo<'a> {
 }
 
 impl<'a> InstrOpInfo<'a> {
+	#[allow(dead_code)]
 	pub(super) const TEST_REGISTER_BITS: u32 = IcedConstants::REGISTER_BITS;
 
 	pub(super) fn op_register(&self, operand: u32) -> usize {
@@ -680,7 +681,7 @@ impl SimpleInstrInfo_STIG1 {
 }
 
 impl InstrInfo for SimpleInstrInfo_STIG1 {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::nonminimal_bool))]
+	#[allow(clippy::nonminimal_bool)]
 	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		debug_assert_eq!(2, instruction.op_count());

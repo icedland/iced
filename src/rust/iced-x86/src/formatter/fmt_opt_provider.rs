@@ -61,20 +61,20 @@ pub struct FormatterOperandOptions {
 
 impl FormatterOperandOptions {
 	#[cfg(any(feature = "intel", feature = "masm", feature = "nasm"))]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(super) fn new(flags: u32) -> Self {
 		Self { flags }
 	}
 
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub(super) fn with_memory_size_options(options: MemorySizeOptions) -> Self {
 		Self { flags: (options as u32) << FormatterOperandOptionsFlags::MEMORY_SIZE_SHIFT }
 	}
 
 	/// Show branch size (eg. `SHORT`, `NEAR PTR`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn branch_size(&self) -> bool {
 		(self.flags & FormatterOperandOptionsFlags::NO_BRANCH_SIZE) == 0
@@ -95,7 +95,7 @@ impl FormatterOperandOptions {
 	}
 
 	/// If `true`, show `RIP` relative addresses as `[rip+12345678h]`, else show the linear address eg. `[1029384756AFBECDh]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn rip_relative_addresses(&self) -> bool {
 		(self.flags & FormatterOperandOptionsFlags::RIP_RELATIVE_ADDRESSES) != 0
@@ -116,7 +116,7 @@ impl FormatterOperandOptions {
 	}
 
 	/// Memory size options
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[inline]
 	pub fn memory_size_options(&self) -> MemorySizeOptions {
 		unsafe { mem::transmute((self.flags >> FormatterOperandOptionsFlags::MEMORY_SIZE_SHIFT) as u8) }

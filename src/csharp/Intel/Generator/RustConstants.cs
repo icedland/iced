@@ -26,19 +26,18 @@ using Generator.Enums;
 
 namespace Generator {
 	static class RustConstants {
-		// "cargo-fmt" can be anything, rustfmt always sees the attribute
-		public const string AttributeNoRustFmt = "#[cfg_attr(feature = \"cargo-fmt\", rustfmt::skip)]";
+		public const string AttributeNoRustFmt = "#[rustfmt::skip]";
 		public const string AttributeCopyClone = "#[derive(Copy, Clone)]";
 		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
 		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
-		public const string AttributeMustUse = "#[cfg_attr(has_must_use, must_use)]";
-		public const string AttributeNonExhaustive = "#[cfg_attr(all(not(feature = \"exhaustive_enums\"), has_non_exhaustive), non_exhaustive)]";
+		public const string AttributeMustUse = "#[must_use]";
+		public const string AttributeNonExhaustive = "#[cfg_attr(not(feature = \"exhaustive_enums\"), non_exhaustive)]";
 		public const string AttributeInline = "#[inline]";
 		public const string AttributeAllowMissingDocs = "#[allow(missing_docs)]";
 		public const string AttributeAllowMissingCopyImplementations = "#[allow(missing_copy_implementations)]";
 		public const string AttributeAllowMissingDebugImplementations = "#[allow(missing_debug_implementations)]";
-		public const string AttributeAllowMissingInlineInPublicItems = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::missing_inline_in_public_items))]";
+		public const string AttributeAllowMissingInlineInPublicItems = "#[allow(clippy::missing_inline_in_public_items)]";
 		public const string AttributeAllowTrivialCasts = "#[allow(trivial_casts)]";
 		public const string AttributeAllowDeadCode = "#[allow(dead_code)]";
 		public const string AttributeWasmBindgen = "#[wasm_bindgen]";

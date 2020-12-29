@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
+#![allow(clippy::useless_let_if_seq)]
 
 use super::enums::*;
 use super::handlers::*;
@@ -348,7 +348,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix3 {
 }
 
 impl OpCodeHandler_MandatoryPrefix3 {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+	#[allow(clippy::too_many_arguments)]
 	pub(super) fn new(
 		handler_reg: *const OpCodeHandler, handler_mem: *const OpCodeHandler, handler66_reg: *const OpCodeHandler,
 		handler66_mem: *const OpCodeHandler, handlerf3_reg: *const OpCodeHandler, handlerf3_mem: *const OpCodeHandler,

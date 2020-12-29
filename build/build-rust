@@ -16,7 +16,7 @@ has_msrv=y
 set_rustflags=y
 
 # Minimum supported Rust version
-msrv="1.20.0"
+msrv="1.41.0"
 
 new_func() {
 	echo
@@ -205,20 +205,10 @@ build_test_msrv() {
 	curr_dir=$(pwd)
 	cd "$root_dir/src/rust/iced-x86"
 
-	# Some of these commands can be removed/updated when msrv is changed
-	expected_msrv="1.20.0"
-	if [ "$msrv" != "$expected_msrv" ]; then
-		echo "MSRV != $expected_msrv, update this code now"
-		exit 1
-	fi
-
 	echo "*** If this fails, install Rust $msrv or use --no-msrv"
-
-	sed -i -e 's/"iced-x86-fzgt",/#"iced-x86-fzgt",/' ../Cargo.toml
 
 	echo "==== UPDATE Cargo.lock ===="
 	cargo +$msrv generate-lockfile
-	cargo +$msrv update --package lazy_static --precise 1.1.1
 
 	echo "==== BUILD RELEASE ===="
 	cargo +$msrv build --color always --features "db" --release
@@ -226,7 +216,6 @@ build_test_msrv() {
 	echo "==== TEST RELEASE ===="
 	cargo +$msrv test --color always --features "db" --release -- --skip "lib.rs"
 
-	git checkout ../Cargo.toml
 	# Restore it
 	cargo generate-lockfile
 

@@ -180,7 +180,6 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 
 fn get_memory_register_size(instruction: &Instruction) -> u32 {
 	for i in 0..instruction.op_count() {
-		#[allow(deprecated)]
 		match instruction.try_op_kind(i).unwrap() {
 			OpKind::Register
 			| OpKind::NearBranch16
@@ -213,6 +212,7 @@ fn get_memory_register_size(instruction: &Instruction) -> u32 {
 					return 64;
 				}
 			}
+			#[allow(deprecated)]
 			OpKind::Memory64 => unreachable!(),
 		}
 	}
@@ -617,7 +617,7 @@ fn test_evex_k1_z_bits() {
 }
 
 #[test]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::unnecessary_unwrap))]
+#[allow(clippy::unnecessary_unwrap)]
 fn test_evex_b_bit() {
 	for info in decoder_tests(false, false) {
 		if (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) != 0 {
@@ -711,7 +711,7 @@ fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 }
 
 #[test]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
+#[allow(clippy::needless_range_loop)]
 fn verify_tuple_type_bcst() {
 	let code_names = code_names();
 	for i in 0..IcedConstants::CODE_ENUM_COUNT {
@@ -1601,7 +1601,7 @@ struct TestedInfo {
 }
 
 #[test]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
+#[allow(clippy::needless_range_loop)]
 fn verify_that_test_cases_test_enough_bits() {
 	let mut tested_infos_16: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::CODE_ENUM_COUNT).collect();
 	let mut tested_infos_32: Vec<TestedInfo> = iter::repeat(TestedInfo::default()).take(IcedConstants::CODE_ENUM_COUNT).collect();
@@ -2736,7 +2736,7 @@ fn test_invalid_zero_opmask_reg() {
 }
 
 #[test]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
+#[allow(clippy::needless_range_loop)]
 fn verify_cpu_mode() {
 	let hash1632: HashSet<Code> = code32_only().iter().chain(not_decoded32_only().iter()).cloned().collect();
 	let hash64: HashSet<Code> = code64_only().iter().chain(not_decoded64_only().iter()).cloned().collect();

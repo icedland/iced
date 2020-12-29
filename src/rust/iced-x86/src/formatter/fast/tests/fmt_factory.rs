@@ -68,7 +68,7 @@ pub(super) fn create_options() -> Box<FastFormatter> {
 	Box::new(fmt)
 }
 
-pub(super) fn create_resolver(symbol_resolver: Box<SymbolResolver>) -> Box<FastFormatter> {
+pub(super) fn create_resolver(symbol_resolver: Box<dyn SymbolResolver>) -> Box<FastFormatter> {
 	let mut fmt = FastFormatter::with_options(Some(symbol_resolver));
 	fmt.options_mut().set_rip_relative_addresses(true);
 	Box::new(fmt)

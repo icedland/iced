@@ -66,7 +66,7 @@ fn c64(mut instruction: Instruction) -> Instruction {
 
 lazy_static! {
 	static ref INFOS16: Vec<(&'static str, Instruction)> = {
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let array = [
 			("0F", c16(Instruction::with_reg(Code::Popw_CS, Register::CS))),
 			("9B D9 30", c16(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::BX, Register::SI, 1, 0, 0, false, Register::None)))),
@@ -93,7 +93,7 @@ lazy_static! {
 		#[cfg(not(feature = "db"))]
 		let array_db: [(&'static str, Instruction); 0] = [];
 		#[cfg(feature = "db")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let array_db = [
 			("77", c16(Instruction::try_with_declare_byte_1(0x77).unwrap())),
 			("77 A9", c16(Instruction::try_with_declare_byte_2(0x77, 0xA9).unwrap())),
@@ -132,7 +132,7 @@ lazy_static! {
 
 lazy_static! {
 	static ref INFOS32: Vec<(&'static str, Instruction)> = {
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let array = [
 			("66 0F", c32(Instruction::with_reg(Code::Popw_CS, Register::CS))),
 			("9B 66 D9 30", c32(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::EAX, Register::None, 1, 0, 0, false, Register::None)))),
@@ -159,7 +159,7 @@ lazy_static! {
 		#[cfg(not(feature = "db"))]
 		let array_db: [(&'static str, Instruction); 0] = [];
 		#[cfg(feature = "db")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let array_db = [
 			("77", c32(Instruction::try_with_declare_byte_1(0x77).unwrap())),
 			("77 A9", c32(Instruction::try_with_declare_byte_2(0x77, 0xA9).unwrap())),
@@ -198,7 +198,7 @@ lazy_static! {
 
 lazy_static! {
 	static ref INFOS64: Vec<(&'static str, Instruction)> = {
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let array = [
 			("9B 66 D9 30", c64(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::None)))),
 			("9B 64 66 D9 30", c64(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::FS)))),
@@ -222,7 +222,7 @@ lazy_static! {
 		#[cfg(not(feature = "db"))]
 		let array_db: [(&'static str, Instruction); 0] = [];
 		#[cfg(feature = "db")]
-		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		#[rustfmt::skip]
 		let array_db = [
 			("77", c64(Instruction::try_with_declare_byte_1(0x77).unwrap())),
 			("77 A9", c64(Instruction::try_with_declare_byte_2(0x77, 0xA9).unwrap())),

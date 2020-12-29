@@ -29,23 +29,23 @@ use alloc::vec::Vec;
 pub(super) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder, &mut Instruction);
 
 #[allow(trivial_casts)]
-#[cfg_attr(has_must_use, must_use)]
+#[must_use]
 #[inline]
 pub(super) fn is_null_instance_handler(handler: *const OpCodeHandler) -> bool {
 	handler as *const u8 == &NULL_HANDLER as *const _ as *const u8
 }
 
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(super) static NULL_HANDLER: OpCodeHandler_Invalid = OpCodeHandler_Invalid {
 	decode: OpCodeHandler_Invalid::decode,
 	has_modrm: true,
 };
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(super) static INVALID_HANDLER: OpCodeHandler_Invalid = OpCodeHandler_Invalid {
 	decode: OpCodeHandler_Invalid::decode,
 	has_modrm: true,
 };
-#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+#[rustfmt::skip]
 pub(super) static INVALID_NO_MODRM_HANDLER: OpCodeHandler_Invalid = OpCodeHandler_Invalid {
 	decode: OpCodeHandler_Invalid::decode,
 	has_modrm: false,

@@ -78,7 +78,7 @@ fn get_lines_ignore_comments(filename: &Path) -> Vec<String> {
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub(super) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
+pub(super) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<dyn Formatter>) {
 	let &(ref infos, ref ignored) = get_infos(bitness, is_misc);
 	let lines = filter_removed_code_tests(get_formatted_lines(bitness, dir, filename), ignored);
 	if infos.len() != lines.len() {
@@ -103,7 +103,7 @@ pub(super) fn formatter_test_fast(bitness: u32, dir: &str, filename: &str, is_mi
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 #[cfg(feature = "encoder")]
-pub(super) fn formatter_test_nondec(bitness: u32, dir: &str, filename: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(super) fn formatter_test_nondec(bitness: u32, dir: &str, filename: &str, fmt_factory: fn() -> Box<dyn Formatter>) {
 	let instrs = non_decoded_tests::get_infos(bitness);
 	let lines = get_formatted_lines(bitness, dir, filename);
 	if instrs.len() != instrs.len() {
@@ -128,7 +128,7 @@ pub(super) fn formatter_test_nondec_fast(bitness: u32, dir: &str, filename: &str
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-fn format_test_info(info: &InstructionInfo, formatted_string: &str, formatter: Box<Formatter>) {
+fn format_test_info(info: &InstructionInfo, formatted_string: &str, formatter: Box<dyn Formatter>) {
 	format_test(info.bitness, &info.hex_bytes, info.code, info.options, formatted_string, formatter);
 }
 
@@ -139,7 +139,7 @@ fn format_test_info_fast(info: &InstructionInfo, formatted_string: &str, formatt
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 #[cfg(feature = "encoder")]
-fn format_test_instruction(instruction: &Instruction, formatted_string: &str, formatter: Box<Formatter>) {
+fn format_test_instruction(instruction: &Instruction, formatted_string: &str, formatter: Box<dyn Formatter>) {
 	format_test_instruction_core(instruction, formatted_string, formatter);
 }
 
@@ -150,7 +150,7 @@ fn format_test_instruction_fast(instruction: &Instruction, formatted_string: &st
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-fn format_test(bitness: u32, hex_bytes: &str, code: Code, options: u32, formatted_string: &str, formatter: Box<Formatter>) {
+fn format_test(bitness: u32, hex_bytes: &str, code: Code, options: u32, formatted_string: &str, formatter: Box<dyn Formatter>) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
 	let mut decoder = create_decoder(bitness, &bytes, options).0;
 	let mut ip = decoder.ip();
@@ -186,7 +186,7 @@ fn format_test_fast(bitness: u32, hex_bytes: &str, code: Code, options: u32, for
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-fn format_test_instruction_core(instruction: &Instruction, formatted_string: &str, mut formatter: Box<Formatter>) {
+fn format_test_instruction_core(instruction: &Instruction, formatted_string: &str, mut formatter: Box<dyn Formatter>) {
 	let mut actual_formatted_string = String::new();
 	formatter.format(instruction, &mut actual_formatted_string);
 	assert_eq!(formatted_string, actual_formatted_string);
@@ -228,7 +228,7 @@ fn format_test_instruction_fast_core(instruction: &Instruction, formatted_string
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn simple_format_test<F: Fn(&mut Decoder)>(
-	bitness: u32, hex_bytes: &str, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut Formatter, init_decoder: F,
+	bitness: u32, hex_bytes: &str, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut dyn Formatter, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
 	let mut decoder = create_decoder(bitness, &bytes, decoder_options).0;

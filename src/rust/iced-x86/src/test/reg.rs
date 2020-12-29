@@ -26,7 +26,7 @@ use super::super::Register;
 use std::panic;
 
 #[test]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::identity_op))]
+#[allow(clippy::identity_op)]
 fn test_reg_add_ops() {
 	assert_eq!(Register::AX, 0i32 + Register::AX);
 	assert_eq!(Register::AX, 0u32 + Register::AX);
@@ -48,7 +48,7 @@ fn test_reg_add_ops() {
 }
 
 #[test]
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::identity_op))]
+#[allow(clippy::identity_op)]
 fn test_reg_sub_ops() {
 	assert_eq!(Register::SP, Register::SP - 0i32);
 	assert_eq!(Register::ESP, Register::ESP - 0u32);
