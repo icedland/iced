@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::iced_constants::IcedConstants;
+use super::RegisterIterator;
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
 
@@ -1467,6 +1468,12 @@ impl Default for Register {
 // GENERATOR-END: Register
 
 impl Register {
+	/// Returns an iterator for `Register` enum values
+	#[must_use]
+	#[inline]
+	pub fn values() -> RegisterIterator {
+		RegisterIterator::new()
+	}
 	#[must_use]
 	fn add(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_add(rhs);

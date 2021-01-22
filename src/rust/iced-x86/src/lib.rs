@@ -1273,6 +1273,7 @@ mod memory_size;
 mod mnemonic;
 mod mnemonics;
 mod register;
+mod register_iterator;
 #[cfg(test)]
 pub(crate) mod test;
 #[cfg(test)]
@@ -1300,3 +1301,4 @@ pub use self::instruction::*;
 pub use self::memory_size::*;
 pub use self::mnemonic::*;
 pub use self::register::*;
+pub use self::register_iterator::*;
