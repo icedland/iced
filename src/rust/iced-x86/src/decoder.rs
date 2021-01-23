@@ -1133,7 +1133,7 @@ impl<'a> Decoder<'a> {
 				}
 				_ => {
 					debug_assert!(self.is64_mode);
-					debug_assert!(0x40 <= b && b <= 0x4F);
+					debug_assert!((0x40..=0x4F).contains(&b));
 					rex_prefix = b;
 				}
 			}

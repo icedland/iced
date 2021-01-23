@@ -32,7 +32,7 @@ pub(super) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder, &
 #[must_use]
 #[inline]
 pub(super) fn is_null_instance_handler(handler: *const OpCodeHandler) -> bool {
-	handler as *const u8 == &NULL_HANDLER as *const _ as *const u8
+	std::ptr::eq(handler as *const u8, &NULL_HANDLER as *const _ as *const u8)
 }
 
 #[rustfmt::skip]
@@ -142,7 +142,7 @@ impl OpCodeHandler_Group8x64 {
 		let mut handler;
 		if decoder.state.mod_ == 3 {
 			handler = unsafe { *this.table_high.get_unchecked((decoder.state.modrm & 0x3F) as usize) };
-			if handler as *const _ as *const u8 == &NULL_HANDLER as *const _ as *const u8 {
+			if std::ptr::eq(handler as *const _ as *const u8, &NULL_HANDLER as *const _ as *const u8) {
 				handler = unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) };
 			}
 		} else {
