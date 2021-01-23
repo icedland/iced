@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::iced_constants::IcedConstants;
-use super::RegisterIterator;
+use core::iter::Iterator;
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
 
@@ -1474,6 +1474,7 @@ impl Register {
 	pub fn values() -> RegisterIterator {
 		RegisterIterator::new()
 	}
+
 	#[must_use]
 	fn add(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_add(rhs);
@@ -1573,5 +1574,43 @@ impl SubAssign<u32> for Register {
 	#[inline]
 	fn sub_assign(&mut self, rhs: u32) {
 		*self = self.sub(rhs)
+	}
+}
+
+/// Iterator for `Register` enum values
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+pub struct RegisterIterator {
+	curr_val: u8,
+}
+
+impl RegisterIterator {
+	/// Creates a new iterator
+	#[must_use]
+	#[inline]
+	fn new() -> Self {
+		RegisterIterator { curr_val: 0 }
+	}
+}
+
+impl Default for RegisterIterator {
+	#[inline]
+	fn default() -> Self {
+		Self::new()
+	}
+}
+
+impl Iterator for RegisterIterator {
+	type Item = Register;
+
+	#[inline]
+	fn next(&mut self) -> Option<Self::Item> {
+		if usize::from(self.curr_val) < IcedConstants::REGISTER_ENUM_COUNT {
+			let reg: Register = unsafe { mem::transmute(self.curr_val) };
+			self.curr_val += 1;
+
+			return Some(reg);
+		}
+
+		None
 	}
 }
