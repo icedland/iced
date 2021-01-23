@@ -16,12 +16,61 @@ python -m pip install -U setuptools wheel setuptools-rust pytest
 git clean -xdf
 
 cd src/rust/iced-x86-py
+cargo_toml=Cargo.toml
+
+patchci_verify_not_patched() {
+	# msys grep fails if we use $
+	if ! grep -E '^#pathci' "$cargo_toml" 2>&1 > /dev/null; then
+		echo "Cargo.toml is patched"
+		exit 1
+	fi
+}
+
+patchci_verify_patched() {
+	# msys grep fails if we use $
+	if grep -E '^#pathci' "$cargo_toml" 2>&1 > /dev/null; then
+		echo "Cargo.toml is not patched"
+		exit 1
+	fi
+}
+
+# See build-python
+patchci_patch() {
+	patchci_verify_not_patched
+
+	curr_dir=$(pwd)
+	cd "$root_dir"
+
+	if [ "$OSTYPE" = "msys" ]; then
+		iced_x86_dir="$(pwd -W)/../iced-x86"
+	else
+		iced_x86_dir="$(pwd)/../iced-x86"
+	fi
+	if [ ! -d "$iced_x86_dir" ]; then
+		echo "Dir does not exist: $iced_x86_dir"
+		exit 1
+	fi
+
+	sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" "$cargo_toml"
+
+	cd "$curr_dir"
+}
+
+patchci_undo_patch() {
+	git checkout "$cargo_toml"
+}
 
 # Build the wheel with the minimum supported Python version only
 if python --version 2>&1 | grep "Python 3\.6"; then
+	patchci_verify_not_patched
+	patchci_patch
+	patchci_verify_patched
+
 	python setup.py bdist_wheel --py-limited-api=cp36
 	mkdir -p /tmp/py-dist
 	cp dist/* /tmp/py-dist
+
+	patchci_undo_patch
 fi
 
 echo "Testing it"
