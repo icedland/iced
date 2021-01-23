@@ -10413,7 +10413,7 @@ impl PartialEq<Instruction> for Instruction {
 
 impl Hash for Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
-	fn hash<H: Hasher>(&self, state: &mut H) {
+	fn hash<'a, H: Hasher>(&self, state: &'a mut H) {
 		state.write_u32(self.code_flags & !CodeFlags::EQUALS_IGNORE_MASK);
 		state.write_u32(self.op_kind_flags & !OpKindFlags::EQUALS_IGNORE_MASK);
 		state.write_u32(self.immediate);

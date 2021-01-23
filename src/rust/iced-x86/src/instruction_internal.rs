@@ -506,14 +506,14 @@ pub(crate) fn initialize_unsigned_immediate(instruction: &mut Instruction, opera
 		}
 
 		OpKind::Immediate8to16 => {
-			if immediate <= i8::MAX as u64 || (0xFF80..=0xFFFF).contains(&immediate) {
+			if immediate <= i8::MAX as u64 || (0xFF80 <= immediate && immediate <= 0xFFFF) {
 				internal_set_immediate8(instruction, immediate as u8 as u32);
 				return Ok(());
 			}
 		}
 
 		OpKind::Immediate8to32 => {
-			if immediate <= i8::MAX as u64 || (0xFFFF_FF80..=0xFFFF_FFFF).contains(&immediate) {
+			if immediate <= i8::MAX as u64 || (0xFFFF_FF80 <= immediate && immediate <= 0xFFFF_FFFF) {
 				internal_set_immediate8(instruction, immediate as u8 as u32);
 				return Ok(());
 			}

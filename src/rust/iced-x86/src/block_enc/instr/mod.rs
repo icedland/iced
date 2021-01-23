@@ -123,7 +123,9 @@ impl InstrUtils {
 		format!("{} : 0x{:X}", error_message, instruction.ip())
 	}
 
-	pub(super) fn create(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Rc<RefCell<dyn Instr>> {
+	pub(super) fn create<'a, 'b>(
+		block_encoder: &'a mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &'b Instruction,
+	) -> Rc<RefCell<dyn Instr>> {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match instruction.code() {
 			// GENERATOR-BEGIN: JccInstr
