@@ -73,7 +73,7 @@ impl UsedRegister {
 
 impl fmt::Debug for UsedRegister {
 	#[allow(clippy::missing_inline_in_public_items)]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{:?}:{:?}", self.register(), self.access())?;
 		Ok(())
 	}
@@ -301,7 +301,7 @@ impl UsedMemory {
 
 impl fmt::Debug for UsedMemory {
 	#[allow(clippy::missing_inline_in_public_items)]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "[{:?}:", self.segment())?;
 		let mut need_plus = if self.base() != Register::None {
 			write!(f, "{:?}", self.base())?;

@@ -10413,7 +10413,7 @@ impl PartialEq<Instruction> for Instruction {
 
 impl Hash for Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
-	fn hash<'a, H: Hasher>(&self, state: &'a mut H) {
+	fn hash<H: Hasher>(&self, state: &mut H) {
 		state.write_u32(self.code_flags & !CodeFlags::EQUALS_IGNORE_MASK);
 		state.write_u32(self.op_kind_flags & !OpKindFlags::EQUALS_IGNORE_MASK);
 		state.write_u32(self.immediate);
@@ -10452,7 +10452,7 @@ impl<'a, 'b: 'a> FormatterOutput for FmtFormatterOutput<'a, 'b> {
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 impl fmt::Display for Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		//
 		// if the order of #[cfg()] checks gets updated, also update the `display_trait()` test method
 		//

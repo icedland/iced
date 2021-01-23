@@ -1182,9 +1182,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(unused_results)]
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::collapsible_if)]
+#![allow(clippy::field_reassign_with_default)]
+#![allow(clippy::manual_range_contains)]
 #![allow(clippy::manual_strip)] // Not supported if < 1.45.0
 #![allow(clippy::match_like_matches_macro)] // Not supported if < 1.42.0
 #![allow(clippy::match_ref_pats)]
+#![allow(clippy::ptr_eq)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::wrong_self_convention)]

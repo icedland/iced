@@ -46,7 +46,7 @@ static GEN_DEBUG_CODE_SIZE: [&str; 4] = [
 ];
 impl fmt::Debug for CodeSize {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CODE_SIZE[*self as usize])?;
 		Ok(())
 	}
@@ -86,7 +86,7 @@ static GEN_DEBUG_ROUNDING_CONTROL: [&str; 5] = [
 ];
 impl fmt::Debug for RoundingControl {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ROUNDING_CONTROL[*self as usize])?;
 		Ok(())
 	}
@@ -274,7 +274,7 @@ static GEN_DEBUG_OP_KIND: [&str; 26] = [
 ];
 impl fmt::Debug for OpKind {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_KIND[*self as usize])?;
 		Ok(())
 	}
@@ -310,7 +310,7 @@ static GEN_DEBUG_VECTOR_LENGTH: [&str; 4] = [
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for VectorLength {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
 	}
@@ -347,7 +347,7 @@ static GEN_DEBUG_MANDATORY_PREFIX_BYTE: [&str; 4] = [
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for MandatoryPrefixByte {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MANDATORY_PREFIX_BYTE[*self as usize])?;
 		Ok(())
 	}
@@ -392,7 +392,7 @@ static GEN_DEBUG_ENCODING_KIND: [&str; 5] = [
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 impl fmt::Debug for EncodingKind {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ENCODING_KIND[*self as usize])?;
 		Ok(())
 	}
@@ -465,7 +465,7 @@ static GEN_DEBUG_TUPLE_TYPE: [&str; 14] = [
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for TupleType {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_TUPLE_TYPE[*self as usize])?;
 		Ok(())
 	}
@@ -526,7 +526,7 @@ static GEN_DEBUG_FLOW_CONTROL: [&str; 10] = [
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for FlowControl {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_FLOW_CONTROL[*self as usize])?;
 		Ok(())
 	}
@@ -892,7 +892,7 @@ static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 109] = [
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for OpCodeOperandKind {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_CODE_OPERAND_KIND[*self as usize])?;
 		Ok(())
 	}
@@ -1397,7 +1397,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 156] = [
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CPUID_FEATURE[*self as usize])?;
 		Ok(())
 	}
@@ -1492,7 +1492,7 @@ static GEN_DEBUG_OP_ACCESS: [&str; 8] = [
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpAccess {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_ACCESS[*self as usize])?;
 		Ok(())
 	}
@@ -1573,7 +1573,7 @@ static GEN_DEBUG_CONDITION_CODE: [&str; 17] = [
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for ConditionCode {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CONDITION_CODE[*self as usize])?;
 		Ok(())
 	}
@@ -1617,7 +1617,7 @@ static GEN_DEBUG_MANDATORY_PREFIX: [&str; 5] = [
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for MandatoryPrefix {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MANDATORY_PREFIX[*self as usize])?;
 		Ok(())
 	}
@@ -1668,7 +1668,7 @@ static GEN_DEBUG_OP_CODE_TABLE_KIND: [&str; 7] = [
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for OpCodeTableKind {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_CODE_TABLE_KIND[*self as usize])?;
 		Ok(())
 	}

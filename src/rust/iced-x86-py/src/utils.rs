@@ -27,7 +27,7 @@ use pyo3::types::{PyByteArray, PyBytes};
 
 /// Gets a ref to the bytes or an error. It assumes the input data is not modified
 /// if it's mutable (eg. if it's a `bytearray`)
-pub(crate) unsafe fn get_temporary_byte_array_ref<'a>(data: &'a PyAny) -> PyResult<&'a [u8]> {
+pub(crate) unsafe fn get_temporary_byte_array_ref(data: &PyAny) -> PyResult<&[u8]> {
 	if let Ok(bytes) = <PyBytes as PyTryFrom>::try_from(data) {
 		Ok(bytes.as_bytes())
 	} else if let Ok(bytearray) = <PyByteArray as PyTryFrom>::try_from(data) {

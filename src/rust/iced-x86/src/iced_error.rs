@@ -32,7 +32,6 @@ use std::borrow::Cow;
 use std::error::Error;
 
 /// iced error
-#[allow(missing_copy_implementations)]
 #[derive(Debug, Clone)]
 pub struct IcedError {
 	error: Cow<'static, str>,
@@ -61,7 +60,7 @@ impl Error for IcedError {
 
 impl fmt::Display for IcedError {
 	#[allow(clippy::missing_inline_in_public_items)]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", &self.error)
 	}
 }
