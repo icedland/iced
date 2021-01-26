@@ -1223,9 +1223,6 @@ extern crate core;
 extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
-#[cfg(not(feature = "std"))]
-#[cfg(all(feature = "encoder", feature = "block_encoder"))]
-extern crate hashbrown;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_enc;
