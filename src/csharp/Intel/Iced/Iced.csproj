@@ -9,7 +9,7 @@
     <AssemblyName>Iced</AssemblyName>
     <PackageId>Iced</PackageId>
     <PackageIcon>logo.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/0xd4d/iced</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/icedland/iced</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>$(InformationalVersion)</PackageVersion>
     <PackageTags>disassembler;x86;x64;assembler;encoder;decoder;formatter</PackageTags>

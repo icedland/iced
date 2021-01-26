@@ -1140,7 +1140,7 @@
 //!
 //! Bumping the minimum supported version of `rustc` is considered a minor breaking change. The minor version of iced-x86 will be incremented.
 
-#![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
+#![doc(html_logo_url = "https://raw.githubusercontent.com/icedland/iced/master/logo.png")]
 #![doc(html_root_url = "https://docs.rs/iced-x86/1.10.2")]
 #![allow(unknown_lints)]
 #![warn(absolute_paths_not_starting_with_crate)]

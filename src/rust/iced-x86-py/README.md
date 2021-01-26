@@ -10,7 +10,7 @@ iced-x86 is a high performance and correct x86 (16/32/64-bit) disassembler for P
 - ✔️Rust + Python
 - ✔️License: MIT
 
-Rust crate: https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86/README.md
+Rust crate: https://github.com/icedland/iced/blob/master/src/rust/iced-x86/README.md
 
 ## Installing iced-x86
 

@@ -22,7 +22,7 @@ setup(
 	description="iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder",
 	long_description=readme_md,
 	long_description_content_type="text/markdown",
-	url="https://github.com/0xd4d/iced/tree/master/src/rust/iced-x86-py",
+	url="https://github.com/icedland/iced/tree/master/src/rust/iced-x86-py",
 	platforms=["any"],
 	python_requires="~=3.6",
 	classifiers=[

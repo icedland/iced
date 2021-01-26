@@ -1,4 +1,4 @@
-# Iced [![NuGet](https://img.shields.io/nuget/v/Iced.svg)](https://www.nuget.org/packages/Iced/) [![crates.io](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86) [![pypi](https://img.shields.io/pypi/v/iced-x86.svg)](https://pypi.org/project/iced-x86/) [![npm](https://img.shields.io/npm/v/iced-x86.svg)](https://www.npmjs.com/package/iced-x86) [![GitHub builds](https://github.com/0xd4d/iced/workflows/GitHub%20CI/badge.svg)](https://github.com/0xd4d/iced/actions) [![codecov](https://codecov.io/gh/0xd4d/iced/branch/master/graph/badge.svg)](https://codecov.io/gh/0xd4d/iced)
+# Iced [![NuGet](https://img.shields.io/nuget/v/Iced.svg)](https://www.nuget.org/packages/Iced/) [![crates.io](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86) [![pypi](https://img.shields.io/pypi/v/iced-x86.svg)](https://pypi.org/project/iced-x86/) [![npm](https://img.shields.io/npm/v/iced-x86.svg)](https://www.npmjs.com/package/iced-x86) [![GitHub builds](https://github.com/icedland/iced/workflows/GitHub%20CI/badge.svg)](https://github.com/icedland/iced/actions) [![codecov](https://codecov.io/gh/icedland/iced/branch/master/graph/badge.svg)](https://codecov.io/gh/icedland/iced)
 
 <img align="right" width="160px" height="160px" src="logo.png">
 
@@ -19,10 +19,10 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 
 # Examples and/or Build Instructions
 
-- .NET: [README](https://github.com/0xd4d/iced/blob/master/src/csharp/Intel/README.md)
-- Rust: [README](https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86/README.md)
-- Python: [README](https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86-py/README.md)
-- JavaScript + WebAssembly: [README](https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86-js/README.md)
+- .NET: [README](https://github.com/icedland/iced/blob/master/src/csharp/Intel/README.md)
+- Rust: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86/README.md)
+- Python: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86-py/README.md)
+- JavaScript + WebAssembly: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86-js/README.md)
 
 # License
 

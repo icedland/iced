@@ -761,7 +761,7 @@ namespace Iced.Intel {
 					SetInvalidInstruction();
 			}
 			else {
-				//TODO: Support deprecated MVEX instructions: https://github.com/0xd4d/iced/issues/2
+				//TODO: Support deprecated MVEX instructions: https://github.com/icedland/iced/issues/2
 				SetInvalidInstruction();
 			}
 #endif
