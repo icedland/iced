@@ -2,7 +2,6 @@
 // Copyright wtfsckgh@gmail.com
 // Copyright iced contributors
 
-#![allow(unused_results)]
 #![allow(clippy::let_and_return)]
 
 use std::collections::HashSet;
