@@ -566,6 +566,7 @@ impl Instruction {
 	///
 	/// * `new_value`: new value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op4_kind() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_op4_kind(&mut self, new_value: OpKind) {
 		self.try_set_op4_kind(new_value).unwrap()
@@ -625,6 +626,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_op_kind() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn op_kind(&self, operand: u32) -> OpKind {
 		self.try_op_kind(operand).unwrap()
 	}
@@ -682,6 +684,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `op_kind`: Operand kind
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op_kind() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_op_kind(&mut self, operand: u32, op_kind: OpKind) {
 		self.try_set_op_kind(operand, op_kind).unwrap()
@@ -1017,6 +1020,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[must_use]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn immediate(&self, operand: u32) -> u64 {
 		self.try_immediate(operand).unwrap()
@@ -1034,6 +1038,7 @@ impl Instruction {
 	/// * `new_value`: Immediate
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_i32(&mut self, operand: u32, new_value: i32) {
 		self.try_set_immediate_i32(operand, new_value).unwrap();
 	}
@@ -1065,6 +1070,7 @@ impl Instruction {
 	/// * `new_value`: Immediate
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_u32(&mut self, operand: u32, new_value: u32) {
 		self.try_set_immediate_u32(operand, new_value).unwrap();
 	}
@@ -1096,6 +1102,7 @@ impl Instruction {
 	/// * `new_value`: Immediate
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_i64() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_i64(&mut self, operand: u32, new_value: i64) {
 		self.try_set_immediate_i64(operand, new_value).unwrap()
 	}
@@ -1127,6 +1134,7 @@ impl Instruction {
 	/// * `new_value`: Immediate
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_immediate_u64() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn set_immediate_u64(&mut self, operand: u32, new_value: u64) {
 		self.try_set_immediate_u64(operand, new_value).unwrap()
 	}
@@ -1707,6 +1715,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op4_register() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn set_op4_register(&mut self, new_value: Register) {
 		self.try_set_op4_register(new_value).unwrap();
 	}
@@ -1766,6 +1775,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_op_register() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn op_register(&self, operand: u32) -> Register {
 		self.try_op_register(operand).unwrap()
 	}
@@ -1825,6 +1835,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_op_register() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn set_op_register(&mut self, operand: u32, new_value: Register) {
 		self.try_set_op_register(operand, new_value).unwrap();
 	}
@@ -2017,6 +2028,7 @@ impl Instruction {
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_byte_value_i8() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_byte_value_i8(&mut self, index: usize, new_value: i8) {
 		self.try_set_declare_byte_value_i8(index, new_value).unwrap();
@@ -2060,6 +2072,7 @@ impl Instruction {
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_byte_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_byte_value(&mut self, index: usize, new_value: u8) {
 		self.try_set_declare_byte_value(index, new_value).unwrap();
@@ -2125,6 +2138,7 @@ impl Instruction {
 	/// * `index`: Index (0-15)
 	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_byte_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_byte_value(&self, index: usize) -> u8 {
 		self.try_get_declare_byte_value(index).unwrap()
@@ -2184,6 +2198,7 @@ impl Instruction {
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_word_value_i16() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_word_value_i16(&mut self, index: usize, new_value: i16) {
 		self.try_set_declare_word_value_i16(index, new_value).unwrap();
@@ -2227,6 +2242,7 @@ impl Instruction {
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_word_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_word_value(&mut self, index: usize, new_value: u16) {
 		self.try_set_declare_word_value(index, new_value).unwrap();
@@ -2293,6 +2309,7 @@ impl Instruction {
 	/// * `index`: Index (0-7)
 	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_word_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_word_value(&self, index: usize) -> u16 {
 		self.try_get_declare_word_value(index).unwrap()
@@ -2344,6 +2361,7 @@ impl Instruction {
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_dword_value_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_dword_value_i32(&mut self, index: usize, new_value: i32) {
 		self.try_set_declare_dword_value_i32(index, new_value).unwrap();
@@ -2387,6 +2405,7 @@ impl Instruction {
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_dword_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_dword_value(&mut self, index: usize, new_value: u32) {
 		self.try_set_declare_dword_value(index, new_value).unwrap();
@@ -2449,6 +2468,7 @@ impl Instruction {
 	/// * `index`: Index (0-3)
 	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_dword_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_dword_value(&self, index: usize) -> u32 {
 		self.try_get_declare_dword_value(index).unwrap()
@@ -2496,6 +2516,7 @@ impl Instruction {
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_qword_value_i64() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_qword_value_i64(&mut self, index: usize, new_value: i64) {
 		self.try_set_declare_qword_value_i64(index, new_value).unwrap();
@@ -2539,6 +2560,7 @@ impl Instruction {
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_set_declare_qword_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn set_declare_qword_value(&mut self, index: usize, new_value: u64) {
 		self.try_set_declare_qword_value(index, new_value).unwrap();
@@ -2601,6 +2623,7 @@ impl Instruction {
 	/// * `index`: Index (0-1)
 	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_get_declare_qword_value() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn get_declare_qword_value(&self, index: usize) -> u64 {
 		self.try_get_declare_qword_value(index).unwrap()
@@ -3003,6 +3026,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_virtual_address() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn virtual_address<F>(&self, operand: u32, element_index: usize, mut get_register_value: F) -> u64
 	where
 		F: FnMut(Register, usize, usize) -> u64,
@@ -4000,6 +4024,7 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4040,6 +4065,7 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `immediate`: op0: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4132,6 +4158,7 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4178,6 +4205,7 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4224,6 +4252,7 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_i64() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4270,6 +4299,7 @@ impl Instruction {
 	/// * `register`: op0: Register
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_u64() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4341,6 +4371,7 @@ impl Instruction {
 	/// * `immediate`: op0: Immediate value
 	/// * `register`: op1: Register
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_i32_reg() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4387,6 +4418,7 @@ impl Instruction {
 	/// * `immediate`: op0: Immediate value
 	/// * `register`: op1: Register
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_u32_reg() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4431,6 +4463,7 @@ impl Instruction {
 	/// * `immediate1`: op0: Immediate value
 	/// * `immediate2`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_i32_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4475,6 +4508,7 @@ impl Instruction {
 	/// * `immediate1`: op0: Immediate value
 	/// * `immediate2`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_u32_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4545,6 +4579,7 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4590,6 +4625,7 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	/// * `immediate`: op1: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4673,6 +4709,7 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4725,6 +4762,7 @@ impl Instruction {
 	/// * `register2`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4805,6 +4843,7 @@ impl Instruction {
 	/// * `immediate1`: op1: Immediate value
 	/// * `immediate2`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_i32_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4855,6 +4894,7 @@ impl Instruction {
 	/// * `immediate1`: op1: Immediate value
 	/// * `immediate2`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_u32_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4936,6 +4976,7 @@ impl Instruction {
 	/// * `memory`: op1: Memory operand
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_mem_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -4987,6 +5028,7 @@ impl Instruction {
 	/// * `memory`: op1: Memory operand
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_mem_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5068,6 +5110,7 @@ impl Instruction {
 	/// * `register`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_reg_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5119,6 +5162,7 @@ impl Instruction {
 	/// * `register`: op1: Register
 	/// * `immediate`: op2: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_mem_reg_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5213,6 +5257,7 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5271,6 +5316,7 @@ impl Instruction {
 	/// * `register3`: op2: Register
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5362,6 +5408,7 @@ impl Instruction {
 	/// * `immediate1`: op2: Immediate value
 	/// * `immediate2`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_i32_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5418,6 +5465,7 @@ impl Instruction {
 	/// * `immediate1`: op2: Immediate value
 	/// * `immediate2`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_u32_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5510,6 +5558,7 @@ impl Instruction {
 	/// * `memory`: op2: Memory operand
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5567,6 +5616,7 @@ impl Instruction {
 	/// * `memory`: op2: Memory operand
 	/// * `immediate`: op3: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5631,6 +5681,7 @@ impl Instruction {
 	/// * `register4`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_reg_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5695,6 +5746,7 @@ impl Instruction {
 	/// * `register4`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_reg_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5758,6 +5810,7 @@ impl Instruction {
 	/// * `memory`: op3: Memory operand
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_mem_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5821,6 +5874,7 @@ impl Instruction {
 	/// * `memory`: op3: Memory operand
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_reg_mem_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5884,6 +5938,7 @@ impl Instruction {
 	/// * `register3`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_reg_i32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5947,6 +6002,7 @@ impl Instruction {
 	/// * `register3`: op3: Register
 	/// * `immediate`: op4: Immediate value
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_reg_reg_mem_reg_u32() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -5988,6 +6044,7 @@ impl Instruction {
 	/// * `code`: Code value
 	/// * `target`: Target address
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_branch() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6032,6 +6089,7 @@ impl Instruction {
 	/// * `selector`: Selector/segment value
 	/// * `offset`: Offset
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_far_branch() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6091,6 +6149,7 @@ impl Instruction {
 	/// * `bitness`: 16, 32, or 64
 	/// * `target`: Target address
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_xbegin() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6169,6 +6228,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6201,6 +6261,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6243,6 +6304,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6275,6 +6337,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6317,6 +6380,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_outsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6349,6 +6413,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_outsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6391,6 +6456,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6423,6 +6489,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6465,6 +6532,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6497,6 +6565,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6539,6 +6608,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6571,6 +6641,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6613,6 +6684,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_lodsq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6645,6 +6717,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_lodsq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6683,6 +6756,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6715,6 +6789,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6747,6 +6822,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6785,6 +6861,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6817,6 +6894,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6849,6 +6927,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6887,6 +6966,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6919,6 +6999,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6951,6 +7032,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -6989,6 +7071,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_scasq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7021,6 +7104,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_scasq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7053,6 +7137,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_scasq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7091,6 +7176,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7123,6 +7209,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7161,6 +7248,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7193,6 +7281,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7231,6 +7320,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_insd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7263,6 +7353,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_insd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7301,6 +7392,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7333,6 +7425,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7371,6 +7464,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7403,6 +7497,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7441,6 +7536,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7473,6 +7569,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7511,6 +7608,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_stosq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7543,6 +7641,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_stosq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7585,6 +7684,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7617,6 +7717,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7649,6 +7750,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7691,6 +7793,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7723,6 +7826,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7755,6 +7859,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7797,6 +7902,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7829,6 +7935,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7861,6 +7968,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7903,6 +8011,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_cmpsq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7935,6 +8044,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repe_cmpsq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -7967,6 +8077,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_repne_cmpsq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8009,6 +8120,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8041,6 +8153,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsb() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8083,6 +8196,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8115,6 +8229,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsw() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8157,6 +8272,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8189,6 +8305,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsd() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8231,6 +8348,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_movsq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8263,6 +8381,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_rep_movsq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8305,6 +8424,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_maskmovq() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8347,6 +8467,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_maskmovdqu() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8389,6 +8510,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_vmaskmovdqu() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8428,6 +8550,7 @@ impl Instruction {
 	///
 	/// * `b0`: Byte 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_1() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8470,6 +8593,7 @@ impl Instruction {
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_2() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8515,6 +8639,7 @@ impl Instruction {
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_3() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8563,6 +8688,7 @@ impl Instruction {
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_4() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8614,6 +8740,7 @@ impl Instruction {
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_5() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8668,6 +8795,7 @@ impl Instruction {
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_6() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8725,6 +8853,7 @@ impl Instruction {
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_7() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8785,6 +8914,7 @@ impl Instruction {
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_8() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8848,6 +8978,7 @@ impl Instruction {
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_9() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8914,6 +9045,7 @@ impl Instruction {
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_10() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -8983,6 +9115,7 @@ impl Instruction {
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_11() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9055,6 +9188,7 @@ impl Instruction {
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_12() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9130,6 +9264,7 @@ impl Instruction {
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_13() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9208,6 +9343,7 @@ impl Instruction {
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_14() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9289,6 +9425,7 @@ impl Instruction {
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_15() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9373,6 +9510,7 @@ impl Instruction {
 	/// * `b14`: Byte 14
 	/// * `b15`: Byte 15
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_16() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9420,6 +9558,7 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9459,6 +9598,7 @@ impl Instruction {
 	///
 	/// * `w0`: Word 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_1() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9501,6 +9641,7 @@ impl Instruction {
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_2() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9546,6 +9687,7 @@ impl Instruction {
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_3() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9594,6 +9736,7 @@ impl Instruction {
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_4() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9645,6 +9788,7 @@ impl Instruction {
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_5() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9699,6 +9843,7 @@ impl Instruction {
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_6() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9756,6 +9901,7 @@ impl Instruction {
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_7() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9816,6 +9962,7 @@ impl Instruction {
 	/// * `w6`: Word 6
 	/// * `w7`: Word 7
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_8() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9865,6 +10012,7 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_slice_u8() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9912,6 +10060,7 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9951,6 +10100,7 @@ impl Instruction {
 	///
 	/// * `d0`: Dword 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_1() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -9993,6 +10143,7 @@ impl Instruction {
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_2() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10038,6 +10189,7 @@ impl Instruction {
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_3() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10086,6 +10238,7 @@ impl Instruction {
 	/// * `d2`: Dword 2
 	/// * `d3`: Dword 3
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_4() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10135,6 +10288,7 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_slice_u8() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10182,6 +10336,7 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10221,6 +10376,7 @@ impl Instruction {
 	///
 	/// * `q0`: Qword 0
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_1() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10263,6 +10419,7 @@ impl Instruction {
 	/// * `q0`: Qword 0
 	/// * `q1`: Qword 1
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_2() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10312,6 +10469,7 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_slice_u8() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]
@@ -10359,6 +10517,7 @@ impl Instruction {
 	///
 	/// * `data`: Data
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[must_use]
 	#[inline]
 	#[rustfmt::skip]

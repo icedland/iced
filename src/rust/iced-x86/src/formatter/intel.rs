@@ -1367,6 +1367,7 @@ impl IntelFormatter {
 		}
 	}
 
+	#[allow(clippy::unwrap_used)]
 	fn format_memory_size(
 		d: &SelfData, output: &mut dyn FormatterOutput, symbol: &Option<SymbolResult>, mem_size: MemorySize, flags: u32,
 		operand_options: FormatterOperandOptions,

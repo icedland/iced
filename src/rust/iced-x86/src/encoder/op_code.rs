@@ -1205,6 +1205,7 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_op_kind() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn op_kind(&self, operand: u32) -> OpCodeOperandKind {
 		self.try_op_kind(operand).unwrap()
 	}

@@ -143,6 +143,7 @@ impl Encoder {
 	/// * `bitness`: 16, 32 or 64
 	#[must_use]
 	#[inline]
+	#[allow(clippy::unwrap_used)]
 	pub fn new(bitness: u32) -> Self {
 		Self::try_new(bitness).unwrap()
 	}
@@ -173,6 +174,7 @@ impl Encoder {
 	/// * `capacity`: Initial capacity of the `u8` buffer
 	#[must_use]
 	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_capacity() instead")]
+	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
 		Self::try_with_capacity(bitness, capacity).unwrap()

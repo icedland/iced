@@ -54,6 +54,7 @@ impl<'a> DataReader<'a> {
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+	#[allow(clippy::unwrap_used)]
 	pub(crate) fn read_ascii_string(&mut self) -> String {
 		let len = self.read_u8();
 		let s = str::from_utf8(&self.data[self.index..self.index + len]).unwrap();

@@ -207,6 +207,7 @@ impl UsedMemory {
 	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_virtual_address() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn virtual_address<F>(&self, element_index: usize, mut get_register_value: F) -> u64
 	where
 		F: FnMut(Register, usize, usize) -> u64,
@@ -478,6 +479,7 @@ impl InstructionInfo {
 	#[must_use]
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_op_access() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn op_access(&self, operand: u32) -> OpAccess {
 		self.try_op_access(operand).unwrap()
 	}

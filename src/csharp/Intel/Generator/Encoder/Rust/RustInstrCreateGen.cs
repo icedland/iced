@@ -178,6 +178,7 @@ namespace Generator.Encoder.Rust {
 				Action docsWriteError = () => writeError(kind);
 				WriteDocs(ctx.Writer, ctx.Method, kind, docsWriteError);
 				ctx.Writer.WriteLine($"#[deprecated(since = \"1.10.0\", note = \"This method can panic, use {ctx.TryMethodName}() instead\")]");
+				ctx.Writer.WriteLine(RustConstants.AttributeAllowUnwrapUsed);
 				WriteMethod(ctx.Writer, ctx.Method, ctx.MethodName, kind, GenTryFlags.None);
 				using (ctx.Writer.Indent()) {
 					sb.Clear();

@@ -392,6 +392,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[must_use]
 	#[inline]
+	#[allow(clippy::unwrap_used)]
 	pub fn new(bitness: u32, data: &'a [u8], options: u32) -> Decoder<'a> {
 		Decoder::try_new(bitness, data, options).unwrap()
 	}
@@ -687,6 +688,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "This method can panic, use try_set_position() instead")]
+	#[allow(clippy::unwrap_used)]
 	pub fn set_position(&mut self, new_pos: usize) {
 		self.try_set_position(new_pos).unwrap();
 	}

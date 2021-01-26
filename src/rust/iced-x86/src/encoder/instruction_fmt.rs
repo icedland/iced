@@ -638,6 +638,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		self.sb.push('}');
 	}
 
+	#[allow(clippy::unwrap_used)]
 	fn append_gpr_suffix(&mut self, count: u32, index: &mut u32) {
 		if count <= 1 || self.no_gpr_suffix {
 			return;
