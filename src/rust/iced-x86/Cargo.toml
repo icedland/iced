@@ -12,10 +12,6 @@ readme = "README.md"
 keywords = ["disassembler", "assembler", "x86", "amd64", "x86_64"]
 categories = ["no-std", "development-tools::debugging", "encoding", "hardware-support", "wasm"]
 
-[badges]
-codecov = { repository = "icedland/iced", branch = "master", service = "github" }
-maintenance = { status = "actively-developed" }
-
 # These features are documented in README.md / lib.rs
 [features]
 default = ["std", "decoder", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm", "fast_fmt"]
