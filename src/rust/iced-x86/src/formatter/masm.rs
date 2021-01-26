@@ -1438,7 +1438,7 @@ impl MasmFormatter {
 			} else if (flags & InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE) == 0 && !mem_info.is_broadcast {
 				return;
 			}
-		} else if mem_size_options == MemorySizeOptions::Minimum {
+		} else if mem_size_options == MemorySizeOptions::Minimal {
 			if symbol.is_some() && symbol.as_ref().unwrap().symbol_size.is_some() {
 				if MasmFormatter::is_same_mem_size(d, mem_size_strings, mem_info.is_broadcast, symbol.as_ref().unwrap()) {
 					return;

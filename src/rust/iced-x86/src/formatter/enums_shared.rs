@@ -166,7 +166,7 @@ pub enum MemorySizeOptions {
 	/// Always show the memory size, even if the assembler doesn't need it
 	Always = 1,
 	/// Show memory size if a human can't figure out the size of the operand
-	Minimum = 2,
+	Minimal = 2,
 	/// Never show memory size
 	Never = 3,
 }
@@ -174,7 +174,7 @@ pub enum MemorySizeOptions {
 static GEN_DEBUG_MEMORY_SIZE_OPTIONS: [&str; 4] = [
 	"Default",
 	"Always",
-	"Minimum",
+	"Minimal",
 	"Never",
 ];
 impl fmt::Debug for MemorySizeOptions {

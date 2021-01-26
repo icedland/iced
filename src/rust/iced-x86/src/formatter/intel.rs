@@ -1392,7 +1392,7 @@ impl IntelFormatter {
 			} else if (flags & InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE) == 0 {
 				return;
 			}
-		} else if mem_size_options == MemorySizeOptions::Minimum {
+		} else if mem_size_options == MemorySizeOptions::Minimal {
 			if symbol.is_some() && symbol.as_ref().unwrap().symbol_size.is_some() {
 				if IntelFormatter::is_same_mem_size(d, mem_info.keywords, symbol.as_ref().unwrap()) {
 					return;

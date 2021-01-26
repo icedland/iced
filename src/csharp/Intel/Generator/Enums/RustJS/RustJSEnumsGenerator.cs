@@ -102,7 +102,7 @@ namespace Generator.Enums.RustJS {
 			using (writer.Indent()) {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
-					// Identical enum values aren't allowed so just remove it
+					// Identical enum values aren't allowed so just remove them
 					if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
 						continue;
 					if (writeComments)

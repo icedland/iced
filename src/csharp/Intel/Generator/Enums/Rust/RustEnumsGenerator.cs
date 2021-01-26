@@ -185,9 +185,11 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 			var pub = enumType.IsPublic ? "pub " : "pub(crate) ";
 			writer.WriteLine($"{pub}enum {enumTypeName} {{");
+			// Identical enum values aren't allowed so just remove them
+			var enumValues = enumType.Values.Where(a => !a.DeprecatedInfo.IsDeprecatedAndRenamed).ToArray();
 			using (writer.Indent()) {
 				uint expectedValue = 0;
-				foreach (var value in enumType.Values) {
+				foreach (var value in enumValues) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					deprecatedWriter.WriteDeprecated(writer, value);
 					if (expectedValue != value.Value || enumType.IsPublic)
@@ -204,10 +206,10 @@ namespace Generator.Enums.Rust {
 			if (feature is not null)
 				writer.WriteLine(feature);
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
-			writer.WriteLine($"static {arrayName}: [&str; {enumType.Values.Length}] = [");
+			writer.WriteLine($"static {arrayName}: [&str; {enumValues.Length}] = [");
 			using (writer.Indent()) {
-				for (int i = 0; i < enumType.Values.Length; i++)
-					writer.WriteLine($"\"{enumType.Values[i].Name(idConverter)}\",");
+				foreach (var value in enumValues)
+					writer.WriteLine($"\"{value.Name(idConverter)}\",");
 			}
 			writer.WriteLine("];");
 
@@ -236,10 +238,10 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine(RustConstants.AttributeInline);
 				writer.WriteLine("fn default() -> Self {");
 				using (writer.Indent()) {
-					var defaultValue = enumType.Values[0];
+					var defaultValue = enumValues[0];
 					// The first one should always have value 0 (eg. "None" field), and if the first one doesn't
 					// have value 0, there must be no other enum fields == 0.
-					if (defaultValue.Value != 0 && enumType.Values.Any(a => a.Value == 0))
+					if (defaultValue.Value != 0 && enumValues.Any(a => a.Value == 0))
 						throw new InvalidOperationException();
 					writer.WriteLine($"{enumTypeName}::{defaultValue.Name(idConverter)}");
 				}

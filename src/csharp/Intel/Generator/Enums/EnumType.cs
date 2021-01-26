@@ -99,10 +99,11 @@ namespace Generator.Enums {
 					}
 				}
 				else {
+					uint value = 0;
 					for (int i = 0; i < values.Length; i++) {
 						if (values[i].DeprecatedInfo.IsDeprecatedAndRenamed)
 							continue;
-						values[i].Value = (uint)i;
+						values[i].Value = value++;
 					}
 				}
 			}

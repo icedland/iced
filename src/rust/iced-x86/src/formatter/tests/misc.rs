@@ -17,8 +17,8 @@ fn test_formatter_operand_options_methods() {
 	options.set_memory_size_options(MemorySizeOptions::Always);
 	assert_eq!(options.memory_size_options(), MemorySizeOptions::Always);
 
-	options.set_memory_size_options(MemorySizeOptions::Minimum);
-	assert_eq!(options.memory_size_options(), MemorySizeOptions::Minimum);
+	options.set_memory_size_options(MemorySizeOptions::Minimal);
+	assert_eq!(options.memory_size_options(), MemorySizeOptions::Minimal);
 
 	options.set_memory_size_options(MemorySizeOptions::Never);
 	assert_eq!(options.memory_size_options(), MemorySizeOptions::Never);

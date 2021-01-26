@@ -1009,7 +1009,7 @@ namespace Iced.Intel {
 				else if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) == 0)
 					return;
 			}
-			else if (memSizeOptions == MemorySizeOptions.Minimum) {
+			else if (memSizeOptions == MemorySizeOptions.Minimal) {
 				if (useSymbol && symbol.HasSymbolSize) {
 					if (IsSameMemSize(memInfo.keywords, ref symbol))
 						return;

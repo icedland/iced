@@ -47,7 +47,7 @@ pub(super) fn create_memalways() -> Box<NasmFormatter> {
 
 pub(super) fn create_memminimum() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
-	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Minimum);
+	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Minimal);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(true);
 	fmt.options_mut().set_show_branch_size(true);
 	fmt.options_mut().set_rip_relative_addresses(false);

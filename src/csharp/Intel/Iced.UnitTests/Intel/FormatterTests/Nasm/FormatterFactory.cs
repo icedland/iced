@@ -43,7 +43,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create_MemMinimum() {
 			var options = CreateOptions();
-			options.MemorySizeOptions = MemorySizeOptions.Minimum;
+			options.MemorySizeOptions = MemorySizeOptions.Minimal;
 			options.NasmShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;

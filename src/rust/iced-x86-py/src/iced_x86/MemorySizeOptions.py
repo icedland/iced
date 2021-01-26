@@ -26,6 +26,10 @@ Always show the memory size, even if the assembler doesn't need it
 """
 MINIMUM: int = 2
 """
+: DEPRECATED(1.11.0): Use Minimal instead
+"""
+MINIMAL: int = 2
+"""
 Show memory size if a human can't figure out the size of the operand
 """
 NEVER: int = 3

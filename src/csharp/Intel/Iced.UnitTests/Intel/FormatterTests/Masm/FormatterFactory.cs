@@ -33,7 +33,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		public static MasmFormatter Create_MemMinimum() {
 			var options = CreateOptions();
-			options.MemorySizeOptions = MemorySizeOptions.Minimum;
+			options.MemorySizeOptions = MemorySizeOptions.Minimal;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;

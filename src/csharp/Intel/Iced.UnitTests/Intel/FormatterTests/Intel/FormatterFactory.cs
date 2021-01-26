@@ -42,7 +42,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 
 		public static IntelFormatter Create_MemMinimum() {
 			var options = CreateOptions();
-			options.MemorySizeOptions = MemorySizeOptions.Minimum;
+			options.MemorySizeOptions = MemorySizeOptions.Minimal;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;

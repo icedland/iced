@@ -19,7 +19,7 @@ namespace Iced.UnitTests.Intel {
 			new Dictionary<string, MemorySizeOptions>(4, StringComparer.Ordinal) {
 				{ "Default", MemorySizeOptions.Default },
 				{ "Always", MemorySizeOptions.Always },
-				{ "Minimum", MemorySizeOptions.Minimum },
+				{ "Minimal", MemorySizeOptions.Minimal },
 				{ "Never", MemorySizeOptions.Never },
 			};
 			// GENERATOR-END: MemorySizeOptionsHash

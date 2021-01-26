@@ -15,7 +15,11 @@ namespace Iced.Intel {
 		/// <summary>Always show the memory size, even if the assembler doesn&apos;t need it</summary>
 		Always = 1,
 		/// <summary>Show memory size if a human can&apos;t figure out the size of the operand</summary>
+		[System.Obsolete("Use " + nameof(Minimal) + " instead", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		Minimum = 2,
+		/// <summary>Show memory size if a human can&apos;t figure out the size of the operand</summary>
+		Minimal = 2,
 		/// <summary>Never show memory size</summary>
 		Never = 3,
 	}

@@ -46,7 +46,7 @@ pub(super) fn create_memalways() -> Box<IntelFormatter> {
 
 pub(super) fn create_memminimum() -> Box<IntelFormatter> {
 	let mut fmt = create_fmt();
-	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Minimum);
+	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Minimal);
 	fmt.options_mut().set_show_branch_size(true);
 	fmt.options_mut().set_rip_relative_addresses(false);
 	fmt.options_mut().set_signed_immediate_operands(true);

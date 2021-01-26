@@ -1018,7 +1018,7 @@ namespace Iced.Intel {
 				else if ((flags & InstrOpInfoFlags.ShowNoMemSize_ForceSize) == 0 && !memInfo.isBroadcast)
 					return;
 			}
-			else if (memSizeOptions == MemorySizeOptions.Minimum) {
+			else if (memSizeOptions == MemorySizeOptions.Minimal) {
 				if (useSymbol && symbol.HasSymbolSize) {
 					if (IsSameMemSize(memSizeStrings, memInfo.isBroadcast, ref symbol))
 						return;

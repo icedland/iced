@@ -12,7 +12,7 @@ lazy_static! {
 		let mut h = HashMap::with_capacity(4);
 		let _ = h.insert("Default", MemorySizeOptions::Default);
 		let _ = h.insert("Always", MemorySizeOptions::Always);
-		let _ = h.insert("Minimum", MemorySizeOptions::Minimum);
+		let _ = h.insert("Minimal", MemorySizeOptions::Minimal);
 		let _ = h.insert("Never", MemorySizeOptions::Never);
 		// GENERATOR-END: MemorySizeOptionsHash
 		h

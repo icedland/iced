@@ -17,8 +17,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			options.MemorySizeOptions = MemorySizeOptions.Always;
 			Assert.Equal(MemorySizeOptions.Always, options.MemorySizeOptions);
 
-			options.MemorySizeOptions = MemorySizeOptions.Minimum;
-			Assert.Equal(MemorySizeOptions.Minimum, options.MemorySizeOptions);
+			options.MemorySizeOptions = MemorySizeOptions.Minimal;
+			Assert.Equal(MemorySizeOptions.Minimal, options.MemorySizeOptions);
 
 			options.MemorySizeOptions = MemorySizeOptions.Never;
 			Assert.Equal(MemorySizeOptions.Never, options.MemorySizeOptions);
