@@ -214,7 +214,7 @@ build_test_msrv() {
 	cargo +$msrv build --color always --features "db" --release
 
 	echo "==== TEST RELEASE ===="
-	cargo +$msrv test --color always --features "db" --release -- --skip "lib.rs"
+	cargo +$msrv test --color always --features "db" --release
 
 	# Restore it
 	cargo generate-lockfile
