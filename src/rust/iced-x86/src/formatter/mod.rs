@@ -658,6 +658,7 @@ fn to_owned<'a>(sym_res: Option<SymbolResult>, vec: &'a mut Vec<SymResTextPart<'
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn get_mnemonic_cc<'a, 'b>(options: &'a FormatterOptions, cc_index: u32, mnemonics: &'b [FormatterString]) -> &'b FormatterString {
+	use super::iced_constants::IcedConstants;
 	let index = match cc_index {
 		// o
 		0 => {
@@ -671,32 +672,32 @@ fn get_mnemonic_cc<'a, 'b>(options: &'a FormatterOptions, cc_index: u32, mnemoni
 		}
 		// b, c, nae
 		2 => {
-			debug_assert_eq!(mnemonics.len(), 3);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_B_ENUM_COUNT);
 			options.cc_b() as usize
 		}
 		// ae, nb, nc
 		3 => {
-			debug_assert_eq!(mnemonics.len(), 3);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_AE_ENUM_COUNT);
 			options.cc_ae() as usize
 		}
 		// e, z
 		4 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_E_ENUM_COUNT);
 			options.cc_e() as usize
 		}
 		// ne, nz
 		5 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_NE_ENUM_COUNT);
 			options.cc_ne() as usize
 		}
 		// be, na
 		6 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_BE_ENUM_COUNT);
 			options.cc_be() as usize
 		}
 		// a, nbe
 		7 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_A_ENUM_COUNT);
 			options.cc_a() as usize
 		}
 		// s
@@ -711,32 +712,32 @@ fn get_mnemonic_cc<'a, 'b>(options: &'a FormatterOptions, cc_index: u32, mnemoni
 		}
 		// p, pe
 		10 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_P_ENUM_COUNT);
 			options.cc_p() as usize
 		}
 		// np, po
 		11 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_NP_ENUM_COUNT);
 			options.cc_np() as usize
 		}
 		// l, nge
 		12 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_L_ENUM_COUNT);
 			options.cc_l() as usize
 		}
 		// ge, nl
 		13 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_GE_ENUM_COUNT);
 			options.cc_ge() as usize
 		}
 		// le, ng
 		14 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_LE_ENUM_COUNT);
 			options.cc_le() as usize
 		}
 		// g, nle
 		15 => {
-			debug_assert_eq!(mnemonics.len(), 2);
+			debug_assert_eq!(mnemonics.len(), IcedConstants::CC_G_ENUM_COUNT);
 			options.cc_g() as usize
 		}
 		_ => unreachable!(),
