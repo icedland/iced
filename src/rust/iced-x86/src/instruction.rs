@@ -1020,6 +1020,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[must_use]
+	#[deprecated(since = "1.11.0", note = "This method can panic, use try_immediate() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[inline]
 	pub fn immediate(&self, operand: u32) -> u64 {

@@ -2169,6 +2169,7 @@ fn get_set_immediate_panics_if_invalid_input() {
 	}
 }
 
+#[allow(deprecated)]
 #[test]
 fn get_set_immediate_fails_if_invalid_input() {
 	let mut instr = Instruction::try_with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
@@ -2182,6 +2183,45 @@ fn get_set_immediate_fails_if_invalid_input() {
 		assert!(panic::catch_unwind(|| { instr.immediate(i) }).is_err());
 	}
 	assert!(panic::catch_unwind(|| { instr.immediate(IcedConstants::MAX_OP_COUNT as u32) }).is_err());
+
+	assert!(instr.try_set_immediate_i32(0, 0).is_err());
+	assert!(instr.try_set_immediate_i64(0, 0).is_err());
+	assert!(instr.try_set_immediate_u32(0, 0).is_err());
+	assert!(instr.try_set_immediate_u64(0, 0).is_err());
+
+	instr.try_set_immediate_i32(1, 0).unwrap();
+	instr.try_set_immediate_i64(1, 0).unwrap();
+	instr.try_set_immediate_u32(1, 0).unwrap();
+	instr.try_set_immediate_u64(1, 0).unwrap();
+
+	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
+		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
+			continue;
+		}
+		assert!(instr.try_set_immediate_i32(i, 0).is_err());
+		assert!(instr.try_set_immediate_i64(i, 0).is_err());
+		assert!(instr.try_set_immediate_u32(i, 0).is_err());
+		assert!(instr.try_set_immediate_u64(i, 0).is_err());
+	}
+	assert!(instr.try_set_immediate_i32(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
+	assert!(instr.try_set_immediate_i64(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
+	assert!(instr.try_set_immediate_u32(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
+	assert!(instr.try_set_immediate_u64(IcedConstants::MAX_OP_COUNT as u32, 0).is_err());
+}
+
+#[test]
+fn try_get_set_immediate_fails_if_invalid_input() {
+	let mut instr = Instruction::try_with_reg_u32(Code::Adc_EAX_imm32, Register::EAX, u32::MAX).unwrap();
+
+	assert!(instr.try_immediate(0).is_err());
+	let _ = instr.try_immediate(1).unwrap();
+	for i in 2..IcedConstants::MAX_OP_COUNT as u32 {
+		if i == 4 && instr.op4_kind() == OpKind::Immediate8 {
+			continue;
+		}
+		assert!(instr.try_immediate(i).is_err());
+	}
+	assert!(instr.try_immediate(IcedConstants::MAX_OP_COUNT as u32).is_err());
 
 	assert!(instr.try_set_immediate_i32(0, 0).is_err());
 	assert!(instr.try_set_immediate_i64(0, 0).is_err());

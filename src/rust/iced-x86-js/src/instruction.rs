@@ -953,8 +953,8 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	#[wasm_bindgen(js_name = "immediateLo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediate_lo(&self, operand: u32) -> u32 {
-		self.0.immediate(operand) as u32
+	pub fn immediate_lo(&self, operand: u32) -> Result<u32, JsValue> {
+		Ok(self.0.try_immediate(operand).map_err(to_js_error)? as u32)
 	}
 
 	/// Gets the high 32 bits of an operand's immediate value.
@@ -970,8 +970,8 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "immediateHi")]
-	pub fn immediate_hi(&self, operand: u32) -> u32 {
-		(self.0.immediate(operand) >> 32) as u32
+	pub fn immediate_hi(&self, operand: u32) -> Result<u32, JsValue> {
+		Ok((self.0.try_immediate(operand).map_err(to_js_error)? >> 32) as u32)
 	}
 
 	/// Gets an operand's immediate value
@@ -984,8 +984,8 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg(feature = "bigint")]
-	pub fn immediate(&self, operand: u32) -> u64 {
-		self.0.immediate(operand)
+	pub fn immediate(&self, operand: u32) -> Result<u64, JsValue> {
+		self.0.try_immediate(operand).map_err(to_js_error)
 	}
 
 	/// Sets an operand's immediate value
