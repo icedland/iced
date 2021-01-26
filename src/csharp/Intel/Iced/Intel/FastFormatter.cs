@@ -114,10 +114,8 @@ namespace Iced.Intel {
 					output.AppendNotNull("xrelease ");
 				if (instruction.HasLockPrefix)
 					output.AppendNotNull("lock ");
-
 				if (hasNoTrackPrefix)
 					output.AppendNotNull("notrack ");
-
 				if (instruction.HasRepePrefix && (ShowUselessPrefixes || FormatterUtils.ShowRepOrRepePrefix(code, ShowUselessPrefixes))) {
 					if (FormatterUtils.IsRepeOrRepneInstruction(code))
 						output.AppendNotNull("repe ");

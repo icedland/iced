@@ -418,7 +418,7 @@ impl PyIterProtocol for Decoder {
 	}
 
 	fn __next__(mut slf: PyRefMut<Self>) -> IterNextOutput<Instruction, ()> {
-		if slf.decoder.can_decode() {
+		if slf.can_decode() {
 			IterNextOutput::Yield(slf.decode())
 		} else {
 			IterNextOutput::Return(())

@@ -693,7 +693,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		static bool TryGetSaeErInstruction(OpCodeInfo opCode, out Code newCode) {
 			if (opCode.Encoding == EncodingKind.EVEX && !(opCode.CanSuppressAllExceptions || opCode.CanUseRoundingControl)) {
-				var mnemonic = opCode.Code.Mnemonic();
+				var mnemonic = opCode.Mnemonic;
 				for (int i = (int)opCode.Code + 1, j = 1; i < IcedConstants.CodeEnumCount && j <= 2; i++, j++) {
 					var nextCode = (Code)i;
 					if (nextCode.Mnemonic() != mnemonic)

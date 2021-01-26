@@ -2235,7 +2235,7 @@ namespace Iced.Intel {
 				return;
 			unsafe { info.opAccesses[0] = (byte)OpAccess.Write; }
 			unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
-			if (instruction.Code.Mnemonic() == Mnemonic.Xor)
+			if (instruction.Mnemonic == Mnemonic.Xor)
 				info.rflagsInfo = (byte)RflagsInfo.C_cos_S_pz_U_a;
 			else
 				info.rflagsInfo = (byte)RflagsInfo.C_acos_S_pz;

@@ -260,7 +260,7 @@ namespace Iced.Intel.EncoderInternal {
 
 			sb.Length = 0;
 
-			Write(opCode.Code.Mnemonic().ToString(), upper: true);
+			Write(opCode.Mnemonic.ToString(), upper: true);
 			if (startOpIndex < opCount) {
 				sb.Append(' ');
 				int saeErIndex = opCount - 1;

@@ -494,11 +494,9 @@ impl FastFormatter {
 			if instruction.has_lock_prefix() {
 				output.push_str("lock ");
 			}
-
 			if has_notrack_prefix {
 				output.push_str("notrack ");
 			}
-
 			if instruction.has_repe_prefix()
 				&& (FastFormatter::SHOW_USELESS_PREFIXES || show_rep_or_repe_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES))
 			{

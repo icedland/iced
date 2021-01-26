@@ -36,7 +36,7 @@ namespace IcedFuzzer {
 				var infos = GetOpCodeInfos(options);
 				if (options.PrintInstructions) {
 					Array.Sort(infos, (a, b) => {
-						int c = StringComparer.OrdinalIgnoreCase.Compare(a.Code.Mnemonic().ToString(), b.Code.Mnemonic().ToString());
+						int c = StringComparer.OrdinalIgnoreCase.Compare(a.Mnemonic.ToString(), b.Mnemonic.ToString());
 						if (c != 0)
 							return c;
 						return a.Code.CompareTo(b.Code);

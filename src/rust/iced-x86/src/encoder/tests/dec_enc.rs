@@ -670,7 +670,7 @@ fn test_evex_b_bit() {
 
 fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 	if op_code.encoding() == EncodingKind::EVEX && !(op_code.can_suppress_all_exceptions() || op_code.can_use_rounding_control()) {
-		let mnemonic = op_code.code().mnemonic();
+		let mnemonic = op_code.mnemonic();
 		for (j, i) in (op_code.code() as usize + 1..IcedConstants::CODE_ENUM_COUNT).enumerate() {
 			if j > 1 {
 				break;

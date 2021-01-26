@@ -2549,7 +2549,7 @@ impl InstructionInfoFactory {
 		{
 			info.op_accesses[0] = OpAccess::Write;
 			info.op_accesses[1] = OpAccess::None;
-			if instruction.code().mnemonic() == Mnemonic::Xor {
+			if instruction.mnemonic() == Mnemonic::Xor {
 				info.rflags_info = RflagsInfo::C_cos_S_pz_U_a as usize;
 			} else {
 				info.rflags_info = RflagsInfo::C_acos_S_pz as usize;

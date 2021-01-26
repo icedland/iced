@@ -3452,7 +3452,7 @@ impl Instruction {
 			4 => {
 				const_assert_eq!(4, ImpliedAccess::Clear_rflags as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
 				if self.op0_register() == self.op1_register() && self.op0_kind() == OpKind::Register && self.op1_kind() == OpKind::Register {
-					if self.code().mnemonic() == Mnemonic::Xor {
+					if self.mnemonic() == Mnemonic::Xor {
 						return RflagsInfo::C_cos_S_pz_U_a as usize;
 					} else {
 						return RflagsInfo::C_acos_S_pz as usize;

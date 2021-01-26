@@ -271,7 +271,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 
 		self.sb.clear();
 
-		self.write(TO_MNEMONIC_STR[self.op_code.code().mnemonic() as usize], true);
+		self.write(TO_MNEMONIC_STR[self.op_code.mnemonic() as usize], true);
 		if self.start_op_index < self.op_count {
 			self.sb.push(' ');
 			let mut sae_er_index = self.op_count - 1;

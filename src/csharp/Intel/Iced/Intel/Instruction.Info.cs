@@ -352,7 +352,7 @@ namespace Iced.Intel {
 					break;
 				if (Op0Kind != OpKind.Register || Op1Kind != OpKind.Register)
 					break;
-				if (Code.Mnemonic() == Mnemonic.Xor)
+				if (Mnemonic == Mnemonic.Xor)
 					return InstructionInfoInternal.RflagsInfo.C_cos_S_pz_U_a;
 				else
 					return InstructionInfoInternal.RflagsInfo.C_acos_S_pz;
