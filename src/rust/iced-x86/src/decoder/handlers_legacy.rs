@@ -1533,10 +1533,7 @@ impl OpCodeHandler_R_C {
 		}
 		let mut extra_register_base = decoder.state.extra_register_base;
 		// LOCK MOV CR0 is supported by some AMD CPUs
-		if this.base_reg == Register::CR0
-			&& extra_register_base == 0
-			&& instruction.has_lock_prefix()
-			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR) == 0
+		if this.base_reg == Register::CR0 && extra_register_base == 0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0
 		{
 			extra_register_base = 8;
 			super::instruction_internal::internal_clear_has_lock_prefix(instruction);
@@ -1599,10 +1596,7 @@ impl OpCodeHandler_C_R {
 		}
 		let mut extra_register_base = decoder.state.extra_register_base;
 		// LOCK MOV CR0 is supported by some AMD CPUs
-		if this.base_reg == Register::CR0
-			&& extra_register_base == 0
-			&& instruction.has_lock_prefix()
-			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR) == 0
+		if this.base_reg == Register::CR0 && extra_register_base == 0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0
 		{
 			extra_register_base = 8;
 			super::instruction_internal::internal_clear_has_lock_prefix(instruction);

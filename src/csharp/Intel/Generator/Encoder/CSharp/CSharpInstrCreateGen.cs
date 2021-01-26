@@ -319,7 +319,7 @@ namespace Generator.Encoder.CSharp {
 			}
 
 			WriteDocs(writer, method);
-			deprecatedWriter.WriteDeprecated(writer, "Create() with a MemoryOperand arg", false, false);
+			deprecatedWriter.WriteDeprecated(writer, "Create() with a MemoryOperand arg", null, false, false);
 			writer.Write("public static Instruction CreateMemory64(");
 			WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") {");

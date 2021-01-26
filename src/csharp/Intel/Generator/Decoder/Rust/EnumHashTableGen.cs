@@ -62,7 +62,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine($"let mut h = HashMap::with_capacity({enumValues.Length});");
 			var enumStr = enumType.Name(idConverter);
 			foreach (var value in enumValues) {
-				if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
+				if (value.DeprecatedInfo.IsDeprecated)
 					continue;
 				string name;
 				if (enumType.IsFlags)

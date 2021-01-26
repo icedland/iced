@@ -184,10 +184,17 @@ namespace Generator.Enums.Python {
 				var (valueName, numStr) = PythonUtils.GetEnumNameValue(pythonIdConverter, value, uppercaseRawName);
 				writer.WriteLine($"{valueName}: int = {numStr}");
 				if (value.DeprecatedInfo.IsDeprecated) {
+					string? extra;
 					if (value.DeprecatedInfo.NewName is not null)
-						docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr}): Use {value.DeprecatedInfo.NewName} instead";
+						extra = $"Use {value.DeprecatedInfo.NewName} instead";
 					else
-						docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr})";
+						extra = null;
+
+					if (extra is null)
+						extra = string.Empty;
+					else
+						extra = $": {extra}";
+					docs = $"DEPRECATED({value.DeprecatedInfo.VersionStr}){extra}";
 				}
 				docWriter.WriteSummary(writer, docs, enumType.RawName);
 			}

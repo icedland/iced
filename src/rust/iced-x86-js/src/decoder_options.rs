@@ -17,7 +17,7 @@ pub enum DecoderOptions {
 	///
 	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
 	NoInvalidCheck = 0x0000_0001,
-	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte. The AMD decoder can still decode Intel instructions.
+	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte, decode `LOCK MOV CR`. The AMD decoder can still decode Intel instructions.
 	AMD = 0x0000_0002,
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code.Reservednop_rm32_r32_0F1D`])
 	///
@@ -48,6 +48,9 @@ pub enum DecoderOptions {
 	/// Don't decode `WBNOINVD`, decode `WBINVD` instead
 	NoWbnoinvd = 0x0000_4000,
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.11.0: This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.
 	NoLockMovCR = 0x0000_8000,
 	/// Don't decode `TZCNT`, decode `BSF` instead
 	NoMPFX_0FBC = 0x0001_0000,

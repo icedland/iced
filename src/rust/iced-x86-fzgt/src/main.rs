@@ -40,11 +40,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 	let bytes = fs::read(options.filename)?;
 	let mut bytes = bytes.as_slice();
 	let mut instr = Instruction::default();
-	let mut decoder_options = DecoderOptions::MPX | DecoderOptions::NO_LOCK_MOV_CR;
-	if options.amd {
-		decoder_options = (decoder_options & !DecoderOptions::NO_LOCK_MOV_CR) | DecoderOptions::AMD;
-	}
-	let decoder_options = decoder_options;
+	let decoder_options = DecoderOptions::MPX | if options.amd { DecoderOptions::AMD } else { DecoderOptions::NONE };
 	while !bytes.is_empty() {
 		let code = if has_code_value {
 			let raw_value = (bytes[0] as u16) | ((bytes[1] as u16) << 8);

@@ -17,10 +17,10 @@ namespace Generator.Documentation.CSharp {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, newValue.Name(idConverter));
+					WriteDeprecated(writer, newValue.Name(idConverter), value.DeprecatedInfo.Description);
 				}
 				else
-					WriteDeprecated(writer, null);
+					WriteDeprecated(writer, null, value.DeprecatedInfo.Description);
 			}
 		}
 
@@ -28,25 +28,30 @@ namespace Generator.Documentation.CSharp {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, newValue.Name(idConverter));
+					WriteDeprecated(writer, newValue.Name(idConverter), value.DeprecatedInfo.Description);
 				}
 				else
-					WriteDeprecated(writer, null);
+					WriteDeprecated(writer, null, value.DeprecatedInfo.Description);
 			}
 		}
 
-		public void WriteDeprecated(FileWriter writer, string? newMember, bool isMember = true, bool isError = true) {
-			if (newMember is not null) {
-				var errStr = isError ? "true" : "false";
+		public void WriteDeprecated(FileWriter writer, string? newMember, string? description, bool isMember = true, bool isError = true) {
+			var errStr = isError ? "true" : "false";
+			string deprecStr;
+			if (description is not null)
+				deprecStr = description;
+			else if (newMember is not null) {
 				if (isMember)
-					writer.WriteLine($"[System.Obsolete(\"Use \" + nameof({newMember}) + \" instead\", {errStr})]");
+					deprecStr = $"Use \" + nameof({newMember}) + \" instead";
 				else
-					writer.WriteLine($"[System.Obsolete(\"Use {newMember} instead\", {errStr})]");
+					deprecStr = $"Use {newMember} instead";
 			}
 			else {
 				// Our code still sometimes needs to reference the deprecated values so don't pass in 'true'
-				writer.WriteLine($"[System.Obsolete(\"DEPRECATED. Don't use it!\", false)]");
+				errStr = "false";
+				deprecStr = "DEPRECATED. Don't use it!";
 			}
+			writer.WriteLine($"[System.Obsolete(\"{deprecStr}\", {errStr})]");
 			writer.WriteLine("[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]");
 		}
 	}

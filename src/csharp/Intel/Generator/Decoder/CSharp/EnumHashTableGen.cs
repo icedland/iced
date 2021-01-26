@@ -60,7 +60,7 @@ namespace Generator.Decoder.CSharp {
 			writer.WriteLine($"new Dictionary<string, {enumStr}>({enumValues.Length}, StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
 				foreach (var value in enumValues) {
-					if (value.DeprecatedInfo.IsDeprecatedAndRenamed)
+					if (value.DeprecatedInfo.IsDeprecated)
 						continue;
 					var name = value.Name(idConverter);
 					var key = value.RawName;

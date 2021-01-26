@@ -17,10 +17,10 @@ namespace Generator.Documentation.Rust {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter), value.DeprecatedInfo.Description);
 				}
 				else
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null);
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null, value.DeprecatedInfo.Description);
 			}
 		}
 
@@ -28,18 +28,22 @@ namespace Generator.Documentation.Rust {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter));
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter), value.DeprecatedInfo.Description);
 				}
 				else
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null);
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null, value.DeprecatedInfo.Description);
 			}
 		}
 
-		static void WriteDeprecated(FileWriter writer, string version, string? newName) {
-			if (newName is not null)
-				writer.WriteLine($"#[deprecated(since = \"{version}\", note = \"Use {newName} instead\")]");
+		static void WriteDeprecated(FileWriter writer, string version, string? newName, string? description) {
+			string extra;
+			if (description is not null)
+				extra = description;
+			else if (newName is not null)
+				extra = $"Use {newName} instead";
 			else
-				writer.WriteLine($"#[deprecated(since = \"{version}\", note = \"Don't use it!\")]");
+				extra = "Don't use it!";
+			writer.WriteLine($"#[deprecated(since = \"{version}\", note = \"{extra}\")]");
 		}
 	}
 }

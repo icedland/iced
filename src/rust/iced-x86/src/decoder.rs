@@ -119,9 +119,9 @@ impl DecoderOptions {
 	///
 	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
 	pub const NO_INVALID_CHECK: u32 = 0x0000_0001;
-	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte. The AMD decoder can still decode Intel instructions.
+	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte, decode `LOCK MOV CR`. The AMD decoder can still decode Intel instructions.
 	pub const AMD: u32 = 0x0000_0002;
-	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte. The AMD decoder can still decode Intel instructions.
+	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte, decode `LOCK MOV CR`. The AMD decoder can still decode Intel instructions.
 	#[deprecated(since = "1.8.0", note = "Use AMD instead")]
 	pub const AMD_BRANCHES: u32 = 0x0000_0002;
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::Reservednop_rm32_r32_0F1D`])
@@ -153,9 +153,10 @@ impl DecoderOptions {
 	/// Don't decode `WBNOINVD`, decode `WBINVD` instead
 	pub const NO_WBNOINVD: u32 = 0x0000_4000;
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
+	#[deprecated(since = "1.11.0", note = "This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.")]
 	pub const NO_LOCK_MOV_CR: u32 = 0x0000_8000;
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
-	#[deprecated(since = "1.9.0", note = "Use NO_LOCK_MOV_CR instead")]
+	#[deprecated(since = "1.9.0", note = "This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.")]
 	pub const NO_LOCK_MOV_CR0: u32 = 0x0000_8000;
 	/// Don't decode `TZCNT`, decode `BSF` instead
 	pub const NO_MPFX_0FBC: u32 = 0x0001_0000;

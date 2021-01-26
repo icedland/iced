@@ -10,14 +10,16 @@ namespace Generator {
 	sealed class DeprecatedAttribute : Attribute {
 		public string Version { get; }
 		public string? NewName { get; }
-		public DeprecatedAttribute(string version, string? newName) {
+		public string? Description { get; }
+		public DeprecatedAttribute(string version, string? newName, string? description = null) {
 			Version = version;
 			NewName = newName;
+			Description = description;
 		}
 
 		public static DeprecatedInfo GetDeprecatedInfo(MemberInfo member) {
 			if (member.GetCustomAttribute(typeof(DeprecatedAttribute)) is DeprecatedAttribute ca)
-				return new DeprecatedInfo(ca.Version, ca.NewName);
+				return new DeprecatedInfo(ca.Version, ca.NewName, ca.Description);
 			return default;
 		}
 	}
@@ -29,10 +31,12 @@ namespace Generator {
 		public readonly Version Version;
 		public readonly string VersionStr;
 		public readonly string? NewName;
-		public DeprecatedInfo(string version, string? newName) {
+		public readonly string? Description;
+		public DeprecatedInfo(string version, string? newName, string? description) {
 			Version = new Version(version);
 			VersionStr = version;
 			NewName = newName;
+			Description = description;
 		}
 	}
 

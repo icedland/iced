@@ -2991,7 +2991,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					DecoderOptions.NoInvalidCheck |
 					DecoderOptions.NoPause |
 					DecoderOptions.NoWbnoinvd |
-					DecoderOptions.NoLockMovCR |
 					DecoderOptions.NoMPFX_0FBC |
 					DecoderOptions.NoMPFX_0FBD |
 					DecoderOptions.NoLahfSahf64;

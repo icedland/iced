@@ -26,7 +26,7 @@ Disable some checks for invalid encodings of instructions, eg. most instructions
 """
 AMD: int = 0x0000_0002
 """
-: AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no ``o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS``, ``UD0`` has no modr/m byte. The AMD decoder can still decode Intel instructions.
+: AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no ``o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS``, ``UD0`` has no modr/m byte, decode ``LOCK MOV CR``. The AMD decoder can still decode Intel instructions.
 """
 FORCE_RESERVED_NOP: int = 0x0000_0004
 """
@@ -82,7 +82,7 @@ Don't decode ``WBNOINVD``, decode ``WBINVD`` instead
 """
 NO_LOCK_MOV_CR: int = 0x0000_8000
 """
-Don't decode ``LOCK MOV CR0`` as ``MOV CR8`` (AMD)
+DEPRECATED(1.11.0)
 """
 NO_MPFX_0FBC: int = 0x0001_0000
 """
