@@ -2606,3 +2606,13 @@ repnz lods (%si),%eax
 repnz scas (%di),%al
 repnz scas (%di),%ax
 repnz scas (%di),%eax
+
+mov 1(%rax),%al
+mov 1(%rax),%al
+mov 1(%rax),%al
+mov 1(%rax),%al
+
+rorb $0xa5,(%rax)
+rorb $0xa5,(%rax)
+rorb $0xa5,(%rax)
+rorb $0xa5,(%rax)

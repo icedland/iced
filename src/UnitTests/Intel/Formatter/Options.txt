@@ -2606,3 +2606,13 @@
 16, F2 AE, Scasb_AL_m8, CC_ne=nz
 16, F2 AF, Scasw_AX_m16, CC_ne=nz
 16, F2 66 AF, Scasd_EAX_m32, CC_ne=nz
+
+64, 8A 40 01, Mov_r8_rm8, MemorySizeOptions=Default
+64, 8A 40 01, Mov_r8_rm8, MemorySizeOptions=Always
+64, 8A 40 01, Mov_r8_rm8, MemorySizeOptions=Minimal
+64, 8A 40 01, Mov_r8_rm8, MemorySizeOptions=Never
+
+64, C0 08 A5, Ror_rm8_imm8, MemorySizeOptions=Default
+64, C0 08 A5, Ror_rm8_imm8, MemorySizeOptions=Always
+64, C0 08 A5, Ror_rm8_imm8, MemorySizeOptions=Minimal
+64, C0 08 A5, Ror_rm8_imm8, MemorySizeOptions=Never

@@ -2606,3 +2606,13 @@ repnz lodsd
 repnz scasb
 repnz scasw
 repnz scasd
+
+mov al,[rax+1]
+mov al,byte [rax+1]
+mov al,[rax+1]
+mov al,[rax+1]
+
+ror byte [rax],0xa5
+ror byte [rax],0xa5
+ror byte [rax],0xa5
+ror [rax],0xa5
