@@ -190,30 +190,25 @@ impl Iterator for IntoIter {
 
 	fn next(&mut self) -> Option<Self::Item> {
 		loop {
-			match self.lines.next() {
-				None => return None,
-				Some(info) => {
-					let result = match info {
-						Ok(line) => {
-							self.line_number += 1;
-							if line.is_empty() || line.starts_with('#') {
-								continue;
-							}
-							self.read_next_test_case(line, self.line_number)
-						}
-						Err(err) => Err(err.to_string()),
-					};
-					match result {
-						Ok(tc) => {
-							if let Some(tc) = tc {
-								return Some(tc);
-							} else {
-								continue;
-							}
-						}
-						Err(err) => panic!("Error parsing instruction info test case file '{}', line {}: {}", self.filename, self.line_number, err),
+			let result = match self.lines.next()? {
+				Ok(line) => {
+					self.line_number += 1;
+					if line.is_empty() || line.starts_with('#') {
+						continue;
+					}
+					self.read_next_test_case(line, self.line_number)
+				}
+				Err(err) => Err(err.to_string()),
+			};
+			match result {
+				Ok(tc) => {
+					if let Some(tc) = tc {
+						return Some(tc);
+					} else {
+						continue;
 					}
 				}
+				Err(err) => panic!("Error parsing instruction info test case file '{}', line {}: {}", self.filename, self.line_number, err),
 			}
 		}
 	}
@@ -469,10 +464,7 @@ impl IntoIter {
 			if let Some(index) = s.find(':') {
 				let info = s.split_at(index);
 				s = &info.1[1..];
-				segment = match self.to_register.get(info.0) {
-					Some(reg) => *reg,
-					None => return None,
-				};
+				segment = *self.to_register.get(info.0)?;
 				if !(Register::ES <= segment && segment <= Register::GS) {
 					return None;
 				}

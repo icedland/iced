@@ -197,30 +197,25 @@ impl Iterator for IntoIter {
 
 	fn next(&mut self) -> Option<Self::Item> {
 		loop {
-			match self.lines.next() {
-				None => return None,
-				Some(info) => {
-					let result = match info {
-						Ok(line) => {
-							self.line_number += 1;
-							if line.is_empty() || line.starts_with('#') {
-								continue;
-							}
-							self.read_next_test_case(line, self.line_number)
-						}
-						Err(err) => Err(err.to_string()),
-					};
-					match result {
-						Ok(tc) => {
-							if let Some(tc) = tc {
-								return Some(tc);
-							} else {
-								continue;
-							}
-						}
-						Err(err) => panic!("Error parsing decoder test case file '{}', line {}: {}", self.filename, self.line_number, err),
+			let result = match self.lines.next()? {
+				Ok(line) => {
+					self.line_number += 1;
+					if line.is_empty() || line.starts_with('#') {
+						continue;
+					}
+					self.read_next_test_case(line, self.line_number)
+				}
+				Err(err) => Err(err.to_string()),
+			};
+			match result {
+				Ok(tc) => {
+					if let Some(tc) = tc {
+						return Some(tc);
+					} else {
+						continue;
 					}
 				}
+				Err(err) => panic!("Error parsing decoder test case file '{}', line {}: {}", self.filename, self.line_number, err),
 			}
 		}
 	}

@@ -237,10 +237,7 @@ impl UsedMemory {
 		match self.base {
 			Register::None => {}
 			_ => {
-				let base = match get_register_value(self.base, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
+				let base = get_register_value(self.base, 0, 0)?;
 				effective = effective.wrapping_add(base)
 			}
 		}
@@ -248,10 +245,7 @@ impl UsedMemory {
 		match self.index {
 			Register::None => {}
 			_ => {
-				let mut index = match get_register_value(self.index, element_index, self.vsib_size as usize) {
-					Some(v) => v,
-					None => return None,
-				};
+				let mut index = get_register_value(self.index, element_index, self.vsib_size as usize)?;
 				if self.vsib_size == 4 {
 					index = index as i32 as u64;
 				}
@@ -268,10 +262,7 @@ impl UsedMemory {
 		match self.segment {
 			Register::None => {}
 			_ => {
-				let segment_base = match get_register_value(self.segment, 0, 0) {
-					Some(v) => v,
-					None => return None,
-				};
+				let segment_base = get_register_value(self.segment, 0, 0)?;
 				effective = effective.wrapping_add(segment_base)
 			}
 		}

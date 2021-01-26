@@ -54,32 +54,27 @@ impl<'a> Iterator for IntoIter<'a> {
 
 	fn next(&mut self) -> Option<Self::Item> {
 		loop {
-			match self.lines.next() {
-				None => return None,
-				Some(info) => {
-					let result = match info {
-						Ok(line) => {
-							self.line_number += 1;
-							if line.is_empty() || line.starts_with('#') {
-								continue;
-							}
-							self.test_case_number += 1;
-							IntoIter::read_next_test_case(line, self.line_number)
-						}
-						Err(err) => Err(err.to_string()),
-					};
-					match result {
-						Ok(tc) => {
-							if let Some(tc) = tc {
-								return Some(tc);
-							} else {
-								let _ = self.ignored.insert(self.test_case_number - 1);
-								continue;
-							}
-						}
-						Err(err) => panic!("Error parsing options test case file '{}', line {}: {}", self.filename, self.line_number, err),
+			let result = match self.lines.next()? {
+				Ok(line) => {
+					self.line_number += 1;
+					if line.is_empty() || line.starts_with('#') {
+						continue;
+					}
+					self.test_case_number += 1;
+					IntoIter::read_next_test_case(line, self.line_number)
+				}
+				Err(err) => Err(err.to_string()),
+			};
+			match result {
+				Ok(tc) => {
+					if let Some(tc) = tc {
+						return Some(tc);
+					} else {
+						let _ = self.ignored.insert(self.test_case_number - 1);
+						continue;
 					}
 				}
+				Err(err) => panic!("Error parsing options test case file '{}', line {}: {}", self.filename, self.line_number, err),
 			}
 		}
 	}
