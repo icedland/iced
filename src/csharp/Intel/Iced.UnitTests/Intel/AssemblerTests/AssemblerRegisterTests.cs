@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: MIT
+// Copyright wtfsckgh@gmail.com
+// Copyright iced contributors
+
 #if ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER
 using Iced.Intel;
 using Xunit;

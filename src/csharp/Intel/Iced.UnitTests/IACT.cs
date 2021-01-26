@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: MIT
+// Copyright wtfsckgh@gmail.com
+// Copyright iced contributors
+
 using System.Runtime.CompilerServices;
 
 [assembly: IgnoresAccessChecksTo("Iced")]

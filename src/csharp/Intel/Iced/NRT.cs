@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: MIT
+// Copyright wtfsckgh@gmail.com
+// Copyright iced contributors
+
 #if NETFRAMEWORK || NETSTANDARD2_0
 namespace System.Diagnostics.CodeAnalysis {
 	[AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
