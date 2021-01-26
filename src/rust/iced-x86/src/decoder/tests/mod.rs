@@ -106,6 +106,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	assert_eq!(instr.len(), len);
 	assert_eq!(instr.ip(), rip);
 	assert_eq!(instr.next_ip(), decoder.ip());
+	assert_eq!(instr.next_ip(), rip.wrapping_add(len as u64));
 	assert_eq!(instr.op_count(), tc.op_count);
 	assert_eq!(instr.zeroing_masking(), tc.zeroing_masking);
 	assert_eq!(instr.merging_masking(), !tc.zeroing_masking);

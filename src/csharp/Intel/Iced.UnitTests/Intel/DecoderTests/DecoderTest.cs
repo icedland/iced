@@ -99,6 +99,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(length, instruction.Length);
 			Assert.Equal(rip, instruction.IP);
 			Assert.Equal(decoder.IP, instruction.NextIP);
+			Assert.Equal(rip + (uint)length, instruction.NextIP);
 			Assert.Equal(tc.OpCount, instruction.OpCount);
 			Assert.Equal(tc.ZeroingMasking, instruction.ZeroingMasking);
 			Assert.Equal(!tc.ZeroingMasking, instruction.MergingMasking);
