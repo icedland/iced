@@ -216,17 +216,6 @@ impl StateFlags {
 #[rustfmt::skip] // It tried its best but failed
 macro_rules! mk_read_value {
 	($slf:ident, $ty:ty, $from_le:path) => {
-		// What I really wanted to do was: (this saves one instruction)
-		//		const N: isize = 4;
-		//		let data_ptr = self.data_ptr.add(N);
-		//		if data_ptr <= self.max_data_ptr {
-		//		+ update the code below
-		// but the compiler generates worse code when `<=` is used instead of `<`.
-		// Instead of jumping to the error code at the end of the method, it now
-		// jumps to the likely path.
-		// core::intrinsics::likely() can only be used with nightly rustc builds.
-		// https://github.com/rust-lang/rust/issues/26179
-
 		const SIZE: usize = mem::size_of::<$ty>();
 		#[allow(trivial_casts)]
 		unsafe {
@@ -236,10 +225,7 @@ macro_rules! mk_read_value {
 				$slf.data_ptr = data_ptr.add(SIZE);
 				result
 			} else {
-				if data_ptr.add(SIZE - 1) >= $slf.data_ptr_end {
-					$slf.state.flags |= StateFlags::NO_MORE_BYTES;
-				}
-				$slf.state.flags |= StateFlags::IS_INVALID;
+				$slf.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 				0
 			}
 		}
@@ -1127,7 +1113,7 @@ impl<'a> Decoder<'a> {
 		instruction.set_next_ip(ip);
 		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 
-		let flags = self.state.flags;
+		let mut flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK | StateFlags::IP_REL)) != 0 {
 			if (flags & StateFlags::IP_REL) != 0 {
 				let addr = ip.wrapping_add(instruction.memory_displacement64());
@@ -1144,9 +1130,17 @@ impl<'a> Decoder<'a> {
 				*instruction = Instruction::default();
 				const_assert_eq!(Code::INVALID as u32, 0);
 				//super::instruction_internal::internal_set_code(instruction, Code::INVALID);
+
 				if (flags & StateFlags::NO_MORE_BYTES) != 0 {
+					debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
+					let max_len = self.data_ptr_end as usize - data_ptr as usize;
+					// If max-instr-len bytes is available, it's never no-more-bytes, and always invalid-instr
+					if max_len >= IcedConstants::MAX_INSTRUCTION_LENGTH {
+						flags &= !StateFlags::NO_MORE_BYTES;
+					}
 					self.data_ptr = self.max_data_ptr;
 				}
+
 				self.state.flags = flags | StateFlags::IS_INVALID;
 
 				let instr_len = self.data_ptr as u32 - data_ptr as u32;

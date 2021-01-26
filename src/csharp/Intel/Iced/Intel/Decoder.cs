@@ -225,7 +225,7 @@ namespace Iced.Intel {
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
 		public static Decoder Create(int bitness, byte[] data, DecoderOptions options = DecoderOptions.None) =>
-			Decoder.Create(bitness, new ByteArrayCodeReader(data), options);
+			Create(bitness, new ByteArrayCodeReader(data), options);
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
