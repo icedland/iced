@@ -136,7 +136,7 @@ impl BlockEncoder {
 			bitness,
 			options,
 			blocks: Vec::with_capacity(instr_blocks.len()),
-			null_encoder: Encoder::new(bitness),
+			null_encoder: Encoder::try_new(bitness)?,
 			to_instr: HashMap::new(),
 			has_multiple_zero_ip_instrs: false,
 		};
@@ -148,7 +148,7 @@ impl BlockEncoder {
 				&this,
 				instr_block.rip,
 				if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 { Some(Vec::new()) } else { None },
-			)));
+			)?));
 			let mut instrs = Vec::with_capacity(instructions.len());
 			let mut ip = instr_block.rip;
 			for instruction in instructions {

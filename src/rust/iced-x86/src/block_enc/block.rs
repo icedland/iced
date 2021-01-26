@@ -21,9 +21,9 @@ pub(super) struct Block {
 }
 
 impl Block {
-	pub(super) fn new(block_encoder: &BlockEncoder, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Self {
-		Self {
-			encoder: Encoder::new(block_encoder.bitness()),
+	pub(super) fn new(block_encoder: &BlockEncoder, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Result<Self, IcedError> {
+		Ok(Self {
+			encoder: Encoder::try_new(block_encoder.bitness())?,
 			rip,
 			reloc_infos,
 			data_vec: Vec::new(),
@@ -31,7 +31,7 @@ impl Block {
 			valid_data: Vec::new(),
 			valid_data_address: 0,
 			valid_data_address_aligned: 0,
-		}
+		})
 	}
 
 	pub(super) fn alloc_pointer_location(&mut self) -> Rc<RefCell<BlockData>> {
