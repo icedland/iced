@@ -266,7 +266,7 @@ pub struct Decoder<'a> {
 	data_ptr: *const u8,
 	// This is guaranteed to be >= data_ptr (see the ctor), in other words, it can't overflow to 0
 	data_ptr_end: *const u8,
-	// Equals to cmp::min(self.data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end)
+	// Equals to cmp::min(self.data_ptr.add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end)
 	// and is guaranteed to not overflow
 	max_data_ptr: *const u8,
 	instr_start_data_ptr: *const u8,
@@ -505,16 +505,15 @@ impl<'a> Decoder<'a> {
 			handlers.as_ptr()
 		}
 		let data_ptr_end: *const u8 = unsafe { data.get_unchecked(data.len()) };
-		if data_ptr_end < data.as_ptr()
-			|| unsafe {
-				// Verify that max_data_ptr can never overflow and that data_ptr.offset(N) can't overflow
-				if let Some(index) = (data.len() as isize).checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize + 4) {
-					data.as_ptr().offset(index) < data.as_ptr()
-				} else {
-					// Fail
-					true
-				}
-			} {
+		if data_ptr_end < data.as_ptr() || {
+			// Verify that max_data_ptr can never overflow and that data_ptr.add(N) can't overflow
+			if let Some(index) = data.len().checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH + 4) {
+				data.as_ptr().wrapping_add(index) < data.as_ptr()
+			} else {
+				// Fail
+				true
+			}
+		} {
 			return Err(IcedError::new("Invalid slice"));
 		}
 
@@ -832,7 +831,7 @@ impl<'a> Decoder<'a> {
 			let data_ptr = self.data_ptr;
 			if data_ptr < self.max_data_ptr {
 				let result = ptr::read(data_ptr) as usize;
-				self.data_ptr = data_ptr.offset(1);
+				self.data_ptr = data_ptr.add(1);
 				result
 			} else {
 				if data_ptr == self.data_ptr_end {
@@ -848,12 +847,12 @@ impl<'a> Decoder<'a> {
 	pub(self) fn read_u16(&mut self) -> usize {
 		unsafe {
 			let data_ptr = self.data_ptr;
-			if data_ptr.offset(1) < self.max_data_ptr {
+			if data_ptr.add(1) < self.max_data_ptr {
 				let result = u16::from_le(ptr::read_unaligned(data_ptr as *const u16)) as usize;
-				self.data_ptr = data_ptr.offset(2);
+				self.data_ptr = data_ptr.add(2);
 				result
 			} else {
-				if data_ptr.offset(1) >= self.data_ptr_end {
+				if data_ptr.add(1) >= self.data_ptr_end {
 					self.state.flags |= StateFlags::NO_MORE_BYTES;
 				}
 				self.state.flags |= StateFlags::IS_INVALID;
@@ -866,7 +865,7 @@ impl<'a> Decoder<'a> {
 	pub(self) fn read_u32(&mut self) -> usize {
 		// What I really wanted to do was: (this saves one instruction)
 		//		const N: isize = 4;
-		//		let data_ptr = self.data_ptr.offset(N);
+		//		let data_ptr = self.data_ptr.add(N);
 		//		if data_ptr <= self.max_data_ptr {
 		//		+ update the code below
 		// but the compiler generates worse code when '<=' is used instead of '<'.
@@ -877,12 +876,12 @@ impl<'a> Decoder<'a> {
 
 		unsafe {
 			let data_ptr = self.data_ptr;
-			if data_ptr.offset(3) < self.max_data_ptr {
+			if data_ptr.add(3) < self.max_data_ptr {
 				let result = u32::from_le(ptr::read_unaligned(data_ptr as *const u32)) as usize;
-				self.data_ptr = data_ptr.offset(4);
+				self.data_ptr = data_ptr.add(4);
 				result
 			} else {
-				if data_ptr.offset(3) >= self.data_ptr_end {
+				if data_ptr.add(3) >= self.data_ptr_end {
 					self.state.flags |= StateFlags::NO_MORE_BYTES;
 				}
 				self.state.flags |= StateFlags::IS_INVALID;
