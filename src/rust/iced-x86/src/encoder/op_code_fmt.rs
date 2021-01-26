@@ -4,7 +4,6 @@
 
 use super::super::*;
 use super::op_code::OpCodeInfo;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::fmt;
 use core::fmt::Write;

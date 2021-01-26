@@ -3,7 +3,6 @@
 // Copyright iced contributors
 
 use super::FormatterString;
-#[cfg(not(feature = "std"))]
 #[cfg(any(feature = "intel", feature = "nasm"))]
 use alloc::vec::Vec;
 

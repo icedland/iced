@@ -11,7 +11,6 @@ use super::super::super::*;
 use super::super::info::InstrOpInfo;
 use super::super::regs::Registers;
 use super::fmt_factory;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 #[test]

@@ -6,7 +6,6 @@ use super::super::iced_error::IcedError;
 use super::instr::*;
 use super::*;
 use alloc::rc::Rc;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::cell::RefCell;
 

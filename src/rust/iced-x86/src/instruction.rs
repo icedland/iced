@@ -7,9 +7,6 @@ use super::iced_error::IcedError;
 #[cfg(feature = "instr_info")]
 use super::info::enums::*;
 use super::*;
-#[cfg(all(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")), feature = "fast_fmt"))]
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use core::fmt;
 use core::hash::{Hash, Hasher};
@@ -10459,7 +10456,7 @@ impl fmt::Display for Instruction {
 		{
 			let mut formatter = FastFormatter::new();
 
-			let mut output = String::new();
+			let mut output = alloc::string::String::new();
 			formatter.format(self, &mut output);
 			f.write_str(&output)
 		}

@@ -7,15 +7,9 @@ use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::options_test_case_parser::OptionsTestParser;
 use super::opts_info::*;
 use super::{filter_removed_code_tests, opts_infos};
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

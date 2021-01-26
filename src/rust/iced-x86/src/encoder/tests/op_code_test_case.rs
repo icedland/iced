@@ -4,7 +4,6 @@
 
 use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 #[derive(Default)]

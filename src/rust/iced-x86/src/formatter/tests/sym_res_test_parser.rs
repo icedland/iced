@@ -11,20 +11,11 @@ use super::enums::OptionsProps;
 use super::opt_value::OptionValue;
 use super::options_parser::parse_option;
 use super::sym_res_test_case::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use core::u32;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
-use std::collections::HashMap;
-#[cfg(feature = "std")]
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{BufReader, Lines};

@@ -35,9 +35,7 @@ use self::op_code_handler::OpCodeHandler;
 use super::iced_constants::IcedConstants;
 use super::iced_error::IcedError;
 use super::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{i16, i32, i8, mem, u32};
 

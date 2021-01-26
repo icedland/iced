@@ -5,9 +5,6 @@
 #![allow(unused_results)]
 
 use super::super::super::FlowControl;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
-#[cfg(feature = "std")]
 use std::collections::HashMap;
 
 lazy_static! {

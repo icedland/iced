@@ -8,9 +8,7 @@ use super::super::handlers_evex::*;
 use super::super::Code;
 use super::enums::*;
 use super::TableDeserializer;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 #[allow(trivial_casts)]

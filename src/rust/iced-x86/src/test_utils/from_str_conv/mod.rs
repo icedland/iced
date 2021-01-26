@@ -62,18 +62,12 @@ use self::tuple_type_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use super::super::formatter::tests::enums::OptionsProps;
 use super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::{i16, i8};
 use core::{i32, u16, u32, u8};
 #[cfg(feature = "instr_info")]
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
-#[cfg(feature = "instr_info")]
-#[cfg(feature = "std")]
 use std::collections::HashMap;
 
 pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {

@@ -33,15 +33,9 @@ use super::super::{Code, Decoder, Instruction};
 use super::FastFormatter;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use super::Formatter;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

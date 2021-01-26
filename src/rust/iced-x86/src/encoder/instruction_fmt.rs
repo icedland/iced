@@ -6,7 +6,6 @@ use super::super::iced_constants::IcedConstants;
 use super::super::*;
 use super::mnemonic_str_tbl::TO_MNEMONIC_STR;
 use super::op_code::OpCodeInfo;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::char;
 use core::fmt::Write;

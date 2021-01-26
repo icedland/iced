@@ -4,7 +4,6 @@
 
 use super::enums::*;
 use super::enums_shared::MemorySizeOptions;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::hash::{Hash, Hasher};
 

@@ -4,10 +4,7 @@
 
 use super::super::super::{Formatter, FormatterOptionsProvider, SymbolResolver};
 use super::super::GasFormatter;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 
 fn create_fmt() -> Box<GasFormatter> {
 	create_fmt2(None, None)

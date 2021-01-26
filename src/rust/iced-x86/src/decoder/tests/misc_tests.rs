@@ -6,11 +6,7 @@ use super::super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::super::test_utils::*;
 use super::super::super::*;
 use super::test_utils::decoder_tests;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
-#[cfg(feature = "std")]
 use std::collections::HashMap;
 
 fn decoder_new_panics(bitness: u32) {

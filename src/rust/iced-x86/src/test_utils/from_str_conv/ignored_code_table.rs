@@ -5,9 +5,6 @@
 #![allow(unused_results)]
 #![allow(clippy::let_and_return)]
 
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 
 lazy_static! {

@@ -23,7 +23,6 @@ use super::super::Register;
 use super::super::TupleType;
 use super::handlers::is_null_instance_handler;
 use super::handlers::OpCodeHandler;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::mem;
 

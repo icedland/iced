@@ -5,9 +5,7 @@
 use super::super::super::Register;
 use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
 use super::super::FormatterString;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::fmt::Write;
 

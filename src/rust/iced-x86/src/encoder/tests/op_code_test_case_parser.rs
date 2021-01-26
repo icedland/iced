@@ -8,15 +8,10 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::*;
 use super::op_code_test_case::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use core::u32;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
-#[cfg(feature = "std")]
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;

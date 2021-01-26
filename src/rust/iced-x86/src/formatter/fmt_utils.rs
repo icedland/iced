@@ -7,9 +7,7 @@ use super::enums::{FormatterFlowControl, PrefixKind};
 use super::enums_shared::FormatterTextKind;
 use super::fmt_utils_all::{show_rep_or_repe_prefix_bool, show_repne_prefix_bool, show_segment_prefix_bool};
 use super::{FormatterOptions, FormatterOutput};
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{cmp, mem};
 

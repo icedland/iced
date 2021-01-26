@@ -4,10 +4,7 @@
 
 use super::super::super::FastFormatter;
 use super::super::super::SymbolResolver;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 
 pub(super) fn create_default() -> Box<FastFormatter> {
 	Box::new(FastFormatter::new())

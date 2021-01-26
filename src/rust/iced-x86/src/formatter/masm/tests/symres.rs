@@ -9,12 +9,8 @@ use super::super::super::*;
 use super::fmt_factory::create_resolver;
 use super::sym_opts::*;
 use super::sym_opts_parser::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
-use alloc::vec::Vec;
 
 #[test]
 fn symres() {

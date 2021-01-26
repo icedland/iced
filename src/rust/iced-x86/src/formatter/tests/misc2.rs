@@ -8,9 +8,6 @@ use super::super::encoder::tests::non_decoded_tests;
 use super::super::test_utils::from_str_conv::*;
 use super::super::*;
 use super::instr_infos::*;
-#[cfg(not(feature = "std"))]
-use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use std::fmt::Write;
 

@@ -29,7 +29,6 @@ pub(crate) fn get_instruction_unit_tests_dir() -> PathBuf {
 	path
 }
 
-#[cfg(feature = "decoder")]
 pub(crate) fn get_decoder_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("Decoder");
@@ -57,7 +56,6 @@ pub(crate) fn get_formatter_unit_tests_dir() -> PathBuf {
 	path
 }
 
-#[cfg(feature = "decoder")]
 pub(crate) fn get_default_ip(bitness: u32) -> u64 {
 	match bitness {
 		16 => DecoderConstants::DEFAULT_IP16,

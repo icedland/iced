@@ -6,9 +6,7 @@ use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::*;
 use super::decoder_mem_test_case::*;
 use super::enums::DecoderTestOptions;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use std::fs::File;

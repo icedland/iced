@@ -7,9 +7,7 @@ use super::super::handlers::*;
 use super::super::handlers_vex::*;
 use super::enums::*;
 use super::TableDeserializer;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 #[allow(trivial_casts)]

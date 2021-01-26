@@ -25,9 +25,7 @@ use super::instruction_internal::get_address_size_in_bytes;
 use super::num_fmt::*;
 use super::regs_tbl::REGS_TBL;
 use super::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{mem, u16, u32, u8};
 

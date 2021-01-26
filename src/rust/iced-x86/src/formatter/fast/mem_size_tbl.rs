@@ -3,7 +3,6 @@
 // Copyright iced contributors
 
 use super::super::super::iced_constants::IcedConstants;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 // GENERATOR-BEGIN: MemorySizes

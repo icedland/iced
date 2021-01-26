@@ -5,9 +5,7 @@
 use super::super::super::*;
 use super::enums::OptionsProps;
 use super::opt_value::OptionValue;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(super) struct OptionsInstructionInfo {

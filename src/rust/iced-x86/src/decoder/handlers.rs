@@ -4,7 +4,6 @@
 
 use super::super::*;
 use super::*;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(super) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder, &mut Instruction);

@@ -5,11 +5,7 @@
 use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::options_test_case_parser::*;
 use super::opts_info::OptionsInstructionInfo;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 
 lazy_static! {

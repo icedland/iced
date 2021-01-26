@@ -3,9 +3,7 @@
 // Copyright iced contributors
 
 use super::FormatterString;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 // GENERATOR-BEGIN: Registers

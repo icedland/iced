@@ -4,7 +4,6 @@
 
 use super::super::iced_constants::IcedConstants;
 use super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{i32, i8, mem, u16, u32, u64, u8};
 use std::panic;

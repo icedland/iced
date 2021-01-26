@@ -4,7 +4,6 @@
 
 use super::handlers::OpCodeHandler;
 use super::table_de::*;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(super) struct Tables {

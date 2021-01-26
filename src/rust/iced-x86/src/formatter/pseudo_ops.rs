@@ -4,9 +4,7 @@
 
 use super::enums_shared::PseudoOpsKind;
 use super::FormatterString;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(super) fn get_pseudo_ops(kind: PseudoOpsKind) -> &'static Vec<FormatterString> {

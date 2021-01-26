@@ -6,9 +6,7 @@ use super::super::iced_constants::IcedConstants;
 use super::super::{Code, OpCodeInfo};
 use super::encoder_data::{ENC_FLAGS1, ENC_FLAGS2, ENC_FLAGS3};
 use super::op_code_data::{OPC_FLAGS1, OPC_FLAGS2};
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::mem;
 

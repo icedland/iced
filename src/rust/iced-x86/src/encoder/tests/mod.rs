@@ -24,9 +24,7 @@ use super::super::test_utils::*;
 use super::super::*;
 use super::op_code_handler::InvalidHandler;
 use alloc::rc::Rc;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::fmt::Write;
 #[cfg(feature = "op_code_info")]

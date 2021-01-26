@@ -3,7 +3,6 @@
 // Copyright iced contributors
 
 use super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(crate) fn get_tests() -> Vec<(u32, &'static str, Instruction)> {

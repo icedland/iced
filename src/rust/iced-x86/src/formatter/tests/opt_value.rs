@@ -4,10 +4,7 @@
 
 use super::super::super::*;
 use super::enums::OptionsProps;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
-use alloc::vec::Vec;
 
 #[allow(non_camel_case_types)]
 pub(in super::super) enum OptionValue {

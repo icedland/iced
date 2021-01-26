@@ -7,15 +7,10 @@ use super::super::super::decoder::tests::test_utils::{code32_only, code64_only, 
 use super::super::super::iced_constants::IcedConstants;
 use super::super::super::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
 use super::super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::iter;
 use core::mem;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 
 #[test]

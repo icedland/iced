@@ -5,9 +5,7 @@
 use super::super::test_utils::from_str_conv::*;
 use super::super::DecoderOptions;
 use super::va_test_case::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use core::u32;

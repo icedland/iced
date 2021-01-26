@@ -9,11 +9,8 @@ use super::super::strings_tbl::get_strings_table;
 use super::enums::*;
 use super::fmt_data::FORMATTER_TBL_DATA;
 use super::info::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{mem, u32};
 

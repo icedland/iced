@@ -5,10 +5,7 @@
 use super::super::super::enums_shared::MemorySizeOptions;
 use super::super::super::IntelFormatter;
 use super::super::super::{Formatter, FormatterOptionsProvider, SymbolResolver};
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 
 fn create_fmt() -> Box<IntelFormatter> {
 	create_fmt2(None, None)

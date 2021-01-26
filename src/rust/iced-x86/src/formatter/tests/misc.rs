@@ -7,9 +7,7 @@ use super::super::decoder::tests::test_utils;
 use super::super::test_utils::create_decoder;
 use super::super::test_utils::from_str_conv::*;
 use super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 #[test]

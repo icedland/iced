@@ -5,9 +5,7 @@
 use super::super::super::iced_constants::IcedConstants;
 use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
 use super::super::FormatterString;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(super) struct Registers;

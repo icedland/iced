@@ -23,16 +23,11 @@ use super::super::test_utils::from_str_conv::*;
 use super::super::test_utils::*;
 use super::super::*;
 use super::factory::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::cmp::Ordering;
 use core::fmt::Write;
 use core::mem;
-#[cfg(not(feature = "std"))]
-use hashbrown::{HashMap, HashSet};
-#[cfg(feature = "std")]
 use std::collections::{HashMap, HashSet};
 use std::panic;
 

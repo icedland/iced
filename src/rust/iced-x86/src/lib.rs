@@ -1210,8 +1210,19 @@ compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 
-#[cfg(any(not(feature = "std"), feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-#[cfg_attr(any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"), macro_use)]
+#[cfg_attr(
+	any(
+		feature = "encoder",
+		feature = "block_encoder",
+		feature = "op_code_info",
+		feature = "gas",
+		feature = "intel",
+		feature = "masm",
+		feature = "nasm",
+		feature = "fast_fmt"
+	),
+	macro_use
+)]
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;

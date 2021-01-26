@@ -10,9 +10,7 @@ use super::fmt_utils::can_show_rounding_control;
 use super::get_mnemonic_cc;
 use super::mem_size_tbl::MEM_SIZE_TBL;
 use super::regs::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{mem, u32};
 

@@ -5,10 +5,7 @@
 use super::super::super::iced_constants::IcedConstants;
 use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
-use alloc::vec::Vec;
 use core::mem;
 
 pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Box<dyn Formatter>) {

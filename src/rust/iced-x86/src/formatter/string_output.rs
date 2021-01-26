@@ -4,7 +4,6 @@
 
 use super::enums_shared::FormatterTextKind;
 use super::FormatterOutput;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 impl FormatterOutput for String {

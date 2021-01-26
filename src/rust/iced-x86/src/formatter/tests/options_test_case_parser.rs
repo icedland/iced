@@ -7,15 +7,10 @@ use super::enums::OptionsProps;
 use super::opt_value::OptionValue;
 use super::options_parser::parse_option;
 use super::opts_info::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use core::u32;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

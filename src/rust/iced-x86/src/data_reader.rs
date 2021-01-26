@@ -2,7 +2,6 @@
 // Copyright wtfsckgh@gmail.com
 // Copyright iced contributors
 
-#[cfg(not(feature = "std"))]
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use alloc::string::String;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]

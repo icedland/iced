@@ -5,7 +5,6 @@
 use super::super::super::iced_constants::IcedConstants;
 use super::super::fmt_consts::*;
 use super::FormatterString;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(super) struct Info {

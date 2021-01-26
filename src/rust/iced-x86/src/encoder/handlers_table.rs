@@ -8,9 +8,7 @@ use super::super::*;
 use super::encoder_data::{ENC_FLAGS1, ENC_FLAGS2, ENC_FLAGS3};
 use super::enums::*;
 use super::op_code_handler::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::mem;
 

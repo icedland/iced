@@ -13,7 +13,6 @@ mod tests;
 pub use self::factory::*;
 use super::iced_constants::IcedConstants;
 use super::*;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::fmt;
 

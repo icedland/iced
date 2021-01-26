@@ -6,13 +6,8 @@ use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::test_utils::section_file_reader::*;
 use super::super::super::*;
 use super::super::test_utils::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 
 // GENERATOR-BEGIN: MiscSectionNames

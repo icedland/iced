@@ -2,13 +2,9 @@
 // Copyright wtfsckgh@gmail.com
 // Copyright iced contributors
 
-#[cfg(not(feature = "std"))]
 use alloc::borrow::Cow;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::fmt;
-#[cfg(feature = "std")]
-use std::borrow::Cow;
 #[cfg(feature = "std")]
 use std::error::Error;
 

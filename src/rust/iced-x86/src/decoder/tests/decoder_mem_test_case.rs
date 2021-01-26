@@ -3,7 +3,6 @@
 // Copyright iced contributors
 
 use super::super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 #[allow(dead_code)]

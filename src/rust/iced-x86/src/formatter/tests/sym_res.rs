@@ -8,13 +8,8 @@ use super::super::*;
 use super::filter_removed_code_tests;
 use super::sym_res_test_case::*;
 use super::sym_res_test_parser::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 
 lazy_static! {

@@ -21,7 +21,6 @@ use super::super::iced_error::IcedError;
 use super::block::{Block, BlockData};
 use super::*;
 use alloc::rc::Rc;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::cell::RefCell;
 use core::fmt::Display;

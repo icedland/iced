@@ -9,9 +9,7 @@ use super::enums::*;
 use super::fmt_utils::show_segment_prefix;
 use super::get_mnemonic_cc;
 use super::regs::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{mem, u32};
 

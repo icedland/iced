@@ -5,13 +5,8 @@
 use super::super::super::code::Code;
 use super::super::test_utils::from_str_conv::{is_ignored_code, to_code, to_decoder_options};
 use super::super::test_utils::get_formatter_unit_tests_dir;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
-#[cfg(feature = "std")]
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

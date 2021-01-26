@@ -5,9 +5,7 @@
 use super::super::super::test_utils::from_str_conv::*;
 use super::enums::OptionsProps;
 use super::opt_value::OptionValue;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 pub(super) fn parse_option(key_value: &str) -> Result<(OptionsProps, OptionValue), String> {

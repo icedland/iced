@@ -7,7 +7,6 @@ use super::iced_constants::IcedConstants;
 use super::instruction_fmt::*;
 use super::op_code_fmt::*;
 use super::op_kind_tables::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::{fmt, mem};
 

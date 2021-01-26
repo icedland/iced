@@ -3,9 +3,7 @@
 // Copyright iced contributors
 
 use super::super::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
 /// Used by a [`Formatter`] to resolve symbols

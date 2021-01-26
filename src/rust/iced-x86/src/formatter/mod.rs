@@ -64,9 +64,7 @@ pub use self::num_fmt_opts::*;
 pub use self::string_output::*;
 pub use self::symres::*;
 use super::*;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{i16, i32};
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]

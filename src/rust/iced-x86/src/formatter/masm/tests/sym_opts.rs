@@ -2,7 +2,6 @@
 // Copyright wtfsckgh@gmail.com
 // Copyright iced contributors
 
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 // GENERATOR-BEGIN: SymbolTestFlags

@@ -9,9 +9,7 @@ use super::enums::*;
 use super::ops::*;
 use super::ops_tables::*;
 use super::*;
-#[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
-#[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::{i8, mem, u32};
 
