@@ -1099,7 +1099,7 @@ pub(crate) static TABLE: [u32; 8636] = [
 	0x0000_0037, 0x2D00_0002,// EVEX_Vmovapd_xmmm128_k1z_xmm
 	0x0000_0037, 0x2D00_0002,// EVEX_Vmovapd_ymmm256_k1z_ymm
 	0x0000_0038, 0x1E00_0002,// EVEX_Vmovapd_zmmm512_k1z_zmm
-	0x0000_0037, 0x7900_0000,// Cvtpi2ps_xmm_mmm64
+	0x0000_0036, 0x7900_0000,// Cvtpi2ps_xmm_mmm64
 	0x0000_0037, 0x7A00_0000,// Cvtpi2pd_xmm_mmm64
 	0x0000_0036, 0x7900_0000,// Cvtsi2ss_xmm_rm32
 	0x0000_0036, 0x7900_0000,// Cvtsi2ss_xmm_rm64

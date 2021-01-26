@@ -10322,7 +10322,7 @@ END
 
 # Code: Cvtpi2ps_xmm_mmm64
 INSTRUCTION: NP 0F 2A /r | CVTPI2PS xmm, mm/m64 | SSE
-	ops: w=reg r=rm | Packed64_Int32
+	ops: rw=reg r=rm | Packed64_Int32
 	flags: tsx-impl-abort
 	masm: flags=force-size=default
 END

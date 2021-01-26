@@ -3705,9 +3705,9 @@ C5FD 29 10, VEX_Vmovapd_ymmm256_ymm, VEX, AVX, op0=w op1=r r=rax r=ymm2 wm=ds:ra
 # vmovapd zmm19{k3}{z},zmm10
 62 31FDCB 29 D3, EVEX_Vmovapd_zmmm512_k1z_zmm, EVEX, AVX512F, op0=w op1=r w=vmm19 r=k3 r=zmm10
 # cvtpi2ps xmm1,mm5
-0F2A CD, Cvtpi2ps_xmm_mmm64, Legacy, SSE, op0=w op1=r w=xmm1 r=mm5
+0F2A CD, Cvtpi2ps_xmm_mmm64, Legacy, SSE, op0=rw op1=r rw=xmm1 r=mm5
 # cvtpi2ps xmm1,qword ptr [rax]
-0F2A 08, Cvtpi2ps_xmm_mmm64, Legacy, SSE, op0=w op1=r w=xmm1 r=rax rm=ds:rax;Packed64_Int32
+0F2A 08, Cvtpi2ps_xmm_mmm64, Legacy, SSE, op0=rw op1=r rw=xmm1 r=rax rm=ds:rax;Packed64_Int32
 # cvtpi2pd xmm1,mm5
 66 0F2A CD, Cvtpi2pd_xmm_mmm64, Legacy, SSE2, op0=w op1=r w=xmm1 r=mm5
 # cvtpi2pd xmm1,qword ptr [rax]

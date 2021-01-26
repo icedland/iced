@@ -1103,7 +1103,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000037, 0x2D000002,// EVEX_Vmovapd_xmmm128_k1z_xmm
 			0x00000037, 0x2D000002,// EVEX_Vmovapd_ymmm256_k1z_ymm
 			0x00000038, 0x1E000002,// EVEX_Vmovapd_zmmm512_k1z_zmm
-			0x00000037, 0x79000000,// Cvtpi2ps_xmm_mmm64
+			0x00000036, 0x79000000,// Cvtpi2ps_xmm_mmm64
 			0x00000037, 0x7A000000,// Cvtpi2pd_xmm_mmm64
 			0x00000036, 0x79000000,// Cvtsi2ss_xmm_rm32
 			0x00000036, 0x79000000,// Cvtsi2ss_xmm_rm64
