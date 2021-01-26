@@ -381,13 +381,6 @@ namespace Iced.Intel {
 		public bool RequireOpMaskRegister => (encFlags3 & EncFlags3.RequireOpMaskRegister) != 0;
 
 		/// <summary>
-		/// (EVEX) <see langword="true"/> if a non-zero opmask register must be used
-		/// </summary>
-		[System.Obsolete("Use " + nameof(RequireOpMaskRegister) + " instead", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public bool RequireNonZeroOpMaskRegister => RequireOpMaskRegister;
-
-		/// <summary>
 		/// (EVEX) <see langword="true"/> if the instruction supports zeroing masking (if one of the opmask registers <c>K1</c>-<c>K7</c> is used and destination operand is not a memory operand)
 		/// </summary>
 		public bool CanUseZeroingMasking => (encFlags3 & EncFlags3.ZeroingMasking) != 0;

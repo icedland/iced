@@ -248,14 +248,6 @@ namespace Iced.Intel {
 		internal uint ReadUInt32() => ReadByte() | (ReadByte() << 8) | (ReadByte() << 16) | (ReadByte() << 24);
 
 		/// <summary>
-		/// This property can be tested after calling <see cref="Decode()"/> and <see cref="Decode(out Instruction)"/>
-		/// to check if the decoded instruction is invalid because there's no more bytes left or because of bad input data.
-		/// </summary>
-		[System.Obsolete("Use " + nameof(LastError) + " instead", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public bool InvalidNoMoreBytes => (state.flags & StateFlags.NoMoreBytes) != 0;
-
-		/// <summary>
 		/// Gets the last decoder error. Unless you need to know the reason it failed,
 		/// it's better to check <see cref="Instruction.IsInvalid"/>.
 		/// </summary>

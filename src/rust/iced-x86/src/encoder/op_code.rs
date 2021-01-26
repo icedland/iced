@@ -557,14 +557,6 @@ impl OpCodeInfo {
 		(self.enc_flags3 & EncFlags3::REQUIRE_OP_MASK_REGISTER) != 0
 	}
 
-	/// (EVEX) `true` if a non-zero op mask register must be used
-	#[deprecated(since = "1.9.0", note = "Use require_op_mask_register() instead")]
-	#[must_use]
-	#[inline]
-	pub fn require_non_zero_op_mask_register(&self) -> bool {
-		self.require_op_mask_register()
-	}
-
 	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)
 	#[must_use]
 	#[inline]

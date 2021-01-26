@@ -121,9 +121,6 @@ impl DecoderOptions {
 	pub const NO_INVALID_CHECK: u32 = 0x0000_0001;
 	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte, decode `LOCK MOV CR`. The AMD decoder can still decode Intel instructions.
 	pub const AMD: u32 = 0x0000_0002;
-	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`, `UD0` has no modr/m byte, decode `LOCK MOV CR`. The AMD decoder can still decode Intel instructions.
-	#[deprecated(since = "1.8.0", note = "Use AMD instead")]
-	pub const AMD_BRANCHES: u32 = 0x0000_0002;
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::Reservednop_rm32_r32_0F1D`])
 	///
 	/// [`Code::Reservednop_rm32_r32_0F1D`]: enum.Code.html#variant.Reservednop_rm32_r32_0F1D
@@ -155,9 +152,6 @@ impl DecoderOptions {
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
 	#[deprecated(since = "1.11.0", note = "This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.")]
 	pub const NO_LOCK_MOV_CR: u32 = 0x0000_8000;
-	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
-	#[deprecated(since = "1.9.0", note = "This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.")]
-	pub const NO_LOCK_MOV_CR0: u32 = 0x0000_8000;
 	/// Don't decode `TZCNT`, decode `BSF` instead
 	pub const NO_MPFX_0FBC: u32 = 0x0001_0000;
 	/// Don't decode `LZCNT`, decode `BSR` instead
@@ -860,18 +854,6 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	pub(self) fn read_u32(&mut self) -> usize {
 		mk_read_value! {self, u32, u32::from_le}
-	}
-
-	/// This method can be called after calling [`decode()`] and [`decode_out()`] to check if the
-	/// decoded instruction is invalid because there's no more bytes left or because of bad input data.
-	///
-	/// [`decode()`]: #method.decode
-	/// [`decode_out()`]: #method.decode_out
-	#[must_use]
-	#[inline]
-	#[deprecated(since = "1.8.0", note = "Use last_error() instead")]
-	pub fn invalid_no_more_bytes(&self) -> bool {
-		(self.state.flags & StateFlags::NO_MORE_BYTES) != 0
 	}
 
 	/// Gets the last decoder error. Unless you need to know the reason it failed,

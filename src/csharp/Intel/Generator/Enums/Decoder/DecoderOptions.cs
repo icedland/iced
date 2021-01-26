@@ -11,8 +11,6 @@ namespace Generator.Enums.Decoder {
 		NoInvalidCheck			= 0x00000001,
 		[Comment("AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no #(c:o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS)#, #(c:UD0)# has no modr/m byte, decode #(c:LOCK MOV CR)#. The AMD decoder can still decode Intel instructions.")]
 		AMD						= 0x00000002,
-		[Deprecated("1.8.0", nameof(AMD))]
-		AmdBranches,
 		[Comment("Decode opcodes #(c:0F0D)# and #(c:0F18-0F1F)# as reserved-nop instructions (eg. #(e:Code.Reservednop_rm32_r32_0F1D)#)")]
 		ForceReservedNop		= 0x00000004,
 		[Comment("Decode #(c:UMOV)# instructions")]
@@ -42,8 +40,6 @@ namespace Generator.Enums.Decoder {
 		[Comment("Don't decode #(c:LOCK MOV CR0)# as #(c:MOV CR8)# (AMD)")]
 		[Deprecated("1.11.0", null, "This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.")]
 		NoLockMovCR				= 0x00008000,
-		[Deprecated("1.9.0", nameof(NoLockMovCR), "This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.")]
-		NoLockMovCR0,
 		[Comment("Don't decode #(c:TZCNT)#, decode #(c:BSF)# instead")]
 		NoMPFX_0FBC				= 0x00010000,
 		[Comment("Don't decode #(c:LZCNT)#, decode #(c:BSR)# instead")]
