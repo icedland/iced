@@ -686,8 +686,6 @@ def how_to_get_instruction_info() -> None:
         print(f"    Code: {code_to_string(instr.code)}")
         print(f"    CpuidFeature: {cpuid_features_to_string(instr.cpuid_features())}")
         print(f"    FlowControl: {flow_control_to_string(instr.flow_control)}")
-        if offsets.has_displacement:
-            print(f"    Displacement offset = {offsets.displacement_offset}, size = {offsets.displacement_size}")
         if fpu_info.writes_top:
             if fpu_info.increment == 0:
                 print(f"    FPU TOP: the instruction overwrites TOP")
@@ -695,6 +693,8 @@ def how_to_get_instruction_info() -> None:
                 print(f"    FPU TOP inc: {fpu_info.increment}")
             cond_write = "True" if fpu_info.conditional else "False"
             print(f"    FPU TOP cond write: {cond_write}")
+        if offsets.has_displacement:
+            print(f"    Displacement offset = {offsets.displacement_offset}, size = {offsets.displacement_size}")
         if offsets.has_immediate:
             print(f"    Immediate offset = {offsets.immediate_offset}, size = {offsets.immediate_size}")
         if offsets.has_immediate2:

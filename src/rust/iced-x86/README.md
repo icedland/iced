@@ -899,13 +899,6 @@ pub(crate) fn how_to_get_instruction_info() {
                 .join(" and ")
         );
         println!("    FlowControl: {:?}", instr.flow_control());
-        if offsets.has_displacement() {
-            println!(
-                "    Displacement offset = {}, size = {}",
-                offsets.displacement_offset(),
-                offsets.displacement_size()
-            );
-        }
         if fpu_info.writes_top() {
             if fpu_info.increment() == 0 {
                 println!("    FPU TOP: the instruction overwrites TOP");
@@ -915,6 +908,13 @@ pub(crate) fn how_to_get_instruction_info() {
             println!(
                 "    FPU TOP cond write: {}",
                 if fpu_info.conditional() { "true" } else { "false" }
+            );
+        }
+        if offsets.has_displacement() {
+            println!(
+                "    Displacement offset = {}, size = {}",
+                offsets.displacement_offset(),
+                offsets.displacement_size()
             );
         }
         if offsets.has_immediate() {
