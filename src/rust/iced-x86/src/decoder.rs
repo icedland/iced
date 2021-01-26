@@ -213,6 +213,39 @@ impl StateFlags {
 }
 // GENERATOR-END: StateFlags
 
+#[rustfmt::skip] // It tried its best but failed
+macro_rules! mk_read_value {
+	($slf:ident, $ty:ty, $from_le:path) => {
+		// What I really wanted to do was: (this saves one instruction)
+		//		const N: isize = 4;
+		//		let data_ptr = self.data_ptr.add(N);
+		//		if data_ptr <= self.max_data_ptr {
+		//		+ update the code below
+		// but the compiler generates worse code when `<=` is used instead of `<`.
+		// Instead of jumping to the error code at the end of the method, it now
+		// jumps to the likely path.
+		// core::intrinsics::likely() can only be used with nightly rustc builds.
+		// https://github.com/rust-lang/rust/issues/26179
+
+		const SIZE: usize = mem::size_of::<$ty>();
+		#[allow(trivial_casts)]
+		unsafe {
+			let data_ptr = $slf.data_ptr;
+			if data_ptr.add(SIZE - 1) < $slf.max_data_ptr {
+				let result = $from_le(ptr::read_unaligned(data_ptr as *const $ty)) as usize;
+				$slf.data_ptr = data_ptr.add(SIZE);
+				result
+			} else {
+				if data_ptr.add(SIZE - 1) >= $slf.data_ptr_end {
+					$slf.state.flags |= StateFlags::NO_MORE_BYTES;
+				}
+				$slf.state.flags |= StateFlags::IS_INVALID;
+				0
+			}
+		}
+	};
+}
+
 #[derive(Debug, Default)]
 struct State {
 	modrm: u32,
@@ -830,67 +863,17 @@ impl<'a> Decoder<'a> {
 
 	#[must_use]
 	pub(self) fn read_u8(&mut self) -> usize {
-		unsafe {
-			let data_ptr = self.data_ptr;
-			if data_ptr < self.max_data_ptr {
-				let result = ptr::read(data_ptr) as usize;
-				self.data_ptr = data_ptr.add(1);
-				result
-			} else {
-				if data_ptr == self.data_ptr_end {
-					self.state.flags |= StateFlags::NO_MORE_BYTES;
-				}
-				self.state.flags |= StateFlags::IS_INVALID;
-				0
-			}
-		}
+		mk_read_value! {self, u8, u8::from_le}
 	}
 
 	#[must_use]
 	pub(self) fn read_u16(&mut self) -> usize {
-		unsafe {
-			let data_ptr = self.data_ptr;
-			if data_ptr.add(1) < self.max_data_ptr {
-				let result = u16::from_le(ptr::read_unaligned(data_ptr as *const u16)) as usize;
-				self.data_ptr = data_ptr.add(2);
-				result
-			} else {
-				if data_ptr.add(1) >= self.data_ptr_end {
-					self.state.flags |= StateFlags::NO_MORE_BYTES;
-				}
-				self.state.flags |= StateFlags::IS_INVALID;
-				0
-			}
-		}
+		mk_read_value! {self, u16, u16::from_le}
 	}
 
 	#[must_use]
 	pub(self) fn read_u32(&mut self) -> usize {
-		// What I really wanted to do was: (this saves one instruction)
-		//		const N: isize = 4;
-		//		let data_ptr = self.data_ptr.add(N);
-		//		if data_ptr <= self.max_data_ptr {
-		//		+ update the code below
-		// but the compiler generates worse code when '<=' is used instead of '<'.
-		// Instead of jumping to the error code at the end of the method, it now
-		// jumps to the likely path.
-		// core::intrinsics::likely() can only be used with nightly rustc builds.
-		// https://github.com/rust-lang/rust/issues/26179
-
-		unsafe {
-			let data_ptr = self.data_ptr;
-			if data_ptr.add(3) < self.max_data_ptr {
-				let result = u32::from_le(ptr::read_unaligned(data_ptr as *const u32)) as usize;
-				self.data_ptr = data_ptr.add(4);
-				result
-			} else {
-				if data_ptr.add(3) >= self.data_ptr_end {
-					self.state.flags |= StateFlags::NO_MORE_BYTES;
-				}
-				self.state.flags |= StateFlags::IS_INVALID;
-				0
-			}
-		}
+		mk_read_value! {self, u32, u32::from_le}
 	}
 
 	/// This method can be called after calling [`decode()`] and [`decode_out()`] to check if the
