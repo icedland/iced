@@ -58,6 +58,6 @@ fn symbol_options() {
 
 		let mut output = String::new();
 		formatter.format(&instruction, &mut output);
-		assert_eq!(tc.formatted_string, output);
+		assert_eq!(output, tc.formatted_string);
 	}
 }

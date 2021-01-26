@@ -56,15 +56,15 @@ fn encode_test(
 		BlockEncoderOptions::RETURN_RELOC_INFOS | BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS | BlockEncoderOptions::RETURN_CONSTANT_OFFSETS;
 	let result = BlockEncoder::encode(bitness, InstructionBlock::new(&orig_instrs, new_rip), options).unwrap();
 	let encoded_bytes = result.code_buffer;
-	assert_eq!(new_data, &encoded_bytes[..]);
-	assert_eq!(new_rip, result.rip);
+	assert_eq!(&encoded_bytes[..], new_data);
+	assert_eq!(result.rip, new_rip);
 	let reloc_infos = result.reloc_infos;
 	let new_instruction_offsets = result.new_instruction_offsets;
 	let constant_offsets = result.constant_offsets;
-	assert_eq!(orig_instrs.len(), new_instruction_offsets.len());
-	assert_eq!(orig_instrs.len(), constant_offsets.len());
-	assert_eq!(sort(expected_reloc_infos.to_vec()), sort(reloc_infos));
-	assert_eq!(expected_instruction_offsets, &new_instruction_offsets[..]);
+	assert_eq!(new_instruction_offsets.len(), orig_instrs.len());
+	assert_eq!(constant_offsets.len(), orig_instrs.len());
+	assert_eq!(sort(reloc_infos), sort(expected_reloc_infos.to_vec()));
+	assert_eq!(&new_instruction_offsets[..], expected_instruction_offsets);
 
 	let mut expected_constant_offsets = Vec::with_capacity(constant_offsets.len());
 	let mut decoder = create_decoder(bitness, &encoded_bytes, decoder_options).0;
@@ -79,5 +79,5 @@ fn encode_test(
 			expected_constant_offsets.push(decoder.get_constant_offsets(&instr));
 		}
 	}
-	assert_eq!(expected_constant_offsets, constant_offsets);
+	assert_eq!(constant_offsets, expected_constant_offsets);
 }

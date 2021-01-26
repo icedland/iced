@@ -1027,11 +1027,11 @@ impl IntelFormatter {
 		if operand == 0 && super::super::instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 			let rc = instruction.rounding_control();
 			if rc != RoundingControl::None && can_show_rounding_control(instruction, &self.d.options) {
-				const_assert_eq!(0, RoundingControl::None as u32);
-				const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
-				const_assert_eq!(2, RoundingControl::RoundDown as u32);
-				const_assert_eq!(3, RoundingControl::RoundUp as u32);
-				const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
+				const_assert_eq!(RoundingControl::None as u32, 0);
+				const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 				IntelFormatter::format_decorator(
 					&self.d.options,
 					output,
@@ -1096,7 +1096,7 @@ impl IntelFormatter {
 	fn format_register_internal(
 		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
 	) {
-		const_assert_eq!(1, Registers::EXTRA_REGISTERS);
+		const_assert_eq!(Registers::EXTRA_REGISTERS, 1);
 		output.write_register(
 			instruction,
 			operand,
@@ -1127,7 +1127,7 @@ impl IntelFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = displ.wrapping_sub(instruction.next_ip() as i64);
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 			}
 			displ_size = 8;
@@ -1136,7 +1136,7 @@ impl IntelFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = (displ as u32).wrapping_sub(instruction.next_ip32()) as i32 as i64;
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 			}
 			displ_size = 4;
@@ -1307,7 +1307,7 @@ impl IntelFormatter {
 						displ_size = 4;
 					}
 				} else {
-					debug_assert_eq!(2, addr_size);
+					debug_assert_eq!(addr_size, 2);
 					if !number_options.signed_number {
 						output.write("+", FormatterTextKind::Operator);
 					} else if (displ as i16) < 0 {
@@ -1402,7 +1402,7 @@ impl IntelFormatter {
 				return;
 			}
 		} else {
-			debug_assert_eq!(MemorySizeOptions::Always, mem_size_options);
+			debug_assert_eq!(mem_size_options, MemorySizeOptions::Always);
 		}
 
 		for &keyword in mem_info.keywords {

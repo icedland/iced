@@ -106,7 +106,7 @@ impl Decoder {
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32, data: Vec<u8>, options: u32 /*flags: DecoderOptions*/) -> Result<Decoder, JsValue> {
 		// It's not part of the method sig so make sure it's still compiled by referencing it here
-		const_assert_eq!(0, DecoderOptions::None as u32);
+		const_assert_eq!(DecoderOptions::None as u32, 0);
 		// Safe, we only read it, we own the data, and store it in the returned value.
 		// The decoder also doesn't impl Drop (it can't ref possibly freed data in drop()).
 		let decoder_data = unsafe { slice::from_raw_parts(data.as_ptr(), data.len()) };

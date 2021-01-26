@@ -1105,7 +1105,7 @@ impl NasmFormatter {
 	fn format_register_internal(
 		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
 	) {
-		const_assert_eq!(0, Registers::EXTRA_REGISTERS);
+		const_assert_eq!(Registers::EXTRA_REGISTERS, 0);
 		output.write_register(instruction, operand, instruction_operand, NasmFormatter::get_reg_str(d, reg_num), unsafe {
 			mem::transmute(reg_num as u8)
 		});
@@ -1134,7 +1134,7 @@ impl NasmFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = displ.wrapping_sub(instruction.next_ip() as i64);
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 				flags &= !(InstrOpInfoFlags::MEMORY_SIZE_INFO_MASK << InstrOpInfoFlags::MEMORY_SIZE_INFO_SHIFT);
 				add_rel_keyword = true;
@@ -1145,7 +1145,7 @@ impl NasmFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = (displ as u32).wrapping_sub(instruction.next_ip32()) as i32 as i64;
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 				flags = (flags & !(InstrOpInfoFlags::MEMORY_SIZE_INFO_MASK << InstrOpInfoFlags::MEMORY_SIZE_INFO_SHIFT))
 					| ((self::enums::MemorySizeInfo::Dword as u32) << InstrOpInfoFlags::MEMORY_SIZE_INFO_SHIFT);
@@ -1332,7 +1332,7 @@ impl NasmFormatter {
 						displ_size = 4;
 					}
 				} else {
-					debug_assert_eq!(2, addr_size);
+					debug_assert_eq!(addr_size, 2);
 					if !number_options.signed_number {
 						output.write("+", FormatterTextKind::Operator);
 					} else if (displ as i16) < 0 {
@@ -1419,7 +1419,7 @@ impl NasmFormatter {
 				return;
 			}
 		} else {
-			debug_assert_eq!(MemorySizeOptions::Always, mem_size_options);
+			debug_assert_eq!(mem_size_options, MemorySizeOptions::Always);
 		}
 
 		let far_kind = &d.vec_.nasm_far_mem_size_infos

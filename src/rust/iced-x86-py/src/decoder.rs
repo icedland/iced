@@ -119,7 +119,7 @@ impl Decoder {
 	#[args(options = 0)]
 	fn new(bitness: u32, data: &PyAny, options: u32) -> PyResult<Self> {
 		// #[args] line assumption
-		const_assert_eq!(0, iced_x86::DecoderOptions::NONE);
+		const_assert_eq!(iced_x86::DecoderOptions::NONE, 0);
 
 		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = <PyBytes as PyTryFrom>::try_from(data) {
 			let slice_data = bytes.as_bytes();

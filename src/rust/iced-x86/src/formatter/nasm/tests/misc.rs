@@ -40,8 +40,8 @@ fn verify_default_formatter_options() {
 	assert!(!options.uppercase_keywords());
 	assert!(!options.uppercase_decorators());
 	assert!(!options.uppercase_all());
-	assert_eq!(0, options.first_operand_char_index());
-	assert_eq!(0, options.tab_size());
+	assert_eq!(options.first_operand_char_index(), 0);
+	assert_eq!(options.tab_size(), 0);
 	assert!(!options.space_after_operand_separator());
 	assert!(!options.space_after_memory_bracket());
 	assert!(!options.space_between_memory_add_operators());
@@ -50,46 +50,46 @@ fn verify_default_formatter_options() {
 	assert!(!options.always_show_scale());
 	assert!(!options.always_show_segment_register());
 	assert!(!options.show_zero_displacements());
-	assert_eq!("", options.hex_prefix());
-	assert_eq!("h", options.hex_suffix());
-	assert_eq!(4, options.hex_digit_group_size());
-	assert_eq!("", options.decimal_prefix());
-	assert_eq!("", options.decimal_suffix());
-	assert_eq!(3, options.decimal_digit_group_size());
-	assert_eq!("", options.octal_prefix());
-	assert_eq!("o", options.octal_suffix());
-	assert_eq!(4, options.octal_digit_group_size());
-	assert_eq!("", options.binary_prefix());
-	assert_eq!("b", options.binary_suffix());
-	assert_eq!(4, options.binary_digit_group_size());
-	assert_eq!("", options.digit_separator());
+	assert_eq!(options.hex_prefix(), "");
+	assert_eq!(options.hex_suffix(), "h");
+	assert_eq!(options.hex_digit_group_size(), 4);
+	assert_eq!(options.decimal_prefix(), "");
+	assert_eq!(options.decimal_suffix(), "");
+	assert_eq!(options.decimal_digit_group_size(), 3);
+	assert_eq!(options.octal_prefix(), "");
+	assert_eq!(options.octal_suffix(), "o");
+	assert_eq!(options.octal_digit_group_size(), 4);
+	assert_eq!(options.binary_prefix(), "");
+	assert_eq!(options.binary_suffix(), "b");
+	assert_eq!(options.binary_digit_group_size(), 4);
+	assert_eq!(options.digit_separator(), "");
 	assert!(!options.leading_zeroes());
 	assert!(options.uppercase_hex());
 	assert!(options.small_hex_numbers_in_decimal());
 	assert!(options.add_leading_zero_to_hex_numbers());
-	assert_eq!(NumberBase::Hexadecimal, options.number_base());
+	assert_eq!(options.number_base(), NumberBase::Hexadecimal);
 	assert!(options.branch_leading_zeroes());
 	assert!(!options.signed_immediate_operands());
 	assert!(options.signed_memory_displacements());
 	assert!(!options.displacement_leading_zeroes());
-	assert_eq!(MemorySizeOptions::Default, options.memory_size_options());
+	assert_eq!(options.memory_size_options(), MemorySizeOptions::Default);
 	assert!(!options.rip_relative_addresses());
 	assert!(options.show_branch_size());
 	assert!(options.use_pseudo_ops());
 	assert!(!options.show_symbol_address());
 	assert!(!options.prefer_st0());
-	assert_eq!(CC_b::b, options.cc_b());
-	assert_eq!(CC_ae::ae, options.cc_ae());
-	assert_eq!(CC_e::e, options.cc_e());
-	assert_eq!(CC_ne::ne, options.cc_ne());
-	assert_eq!(CC_be::be, options.cc_be());
-	assert_eq!(CC_a::a, options.cc_a());
-	assert_eq!(CC_p::p, options.cc_p());
-	assert_eq!(CC_np::np, options.cc_np());
-	assert_eq!(CC_l::l, options.cc_l());
-	assert_eq!(CC_ge::ge, options.cc_ge());
-	assert_eq!(CC_le::le, options.cc_le());
-	assert_eq!(CC_g::g, options.cc_g());
+	assert_eq!(options.cc_b(), CC_b::b);
+	assert_eq!(options.cc_ae(), CC_ae::ae);
+	assert_eq!(options.cc_e(), CC_e::e);
+	assert_eq!(options.cc_ne(), CC_ne::ne);
+	assert_eq!(options.cc_be(), CC_be::be);
+	assert_eq!(options.cc_a(), CC_a::a);
+	assert_eq!(options.cc_p(), CC_p::p);
+	assert_eq!(options.cc_np(), CC_np::np);
+	assert_eq!(options.cc_l(), CC_l::l);
+	assert_eq!(options.cc_ge(), CC_ge::ge);
+	assert_eq!(options.cc_le(), CC_le::le);
+	assert_eq!(options.cc_g(), CC_g::g);
 	assert!(!options.show_useless_prefixes());
 	assert!(!options.gas_naked_registers());
 	assert!(!options.gas_show_mnemonic_size_suffix());
@@ -102,7 +102,7 @@ fn verify_default_formatter_options() {
 
 #[test]
 fn verify_formatter_options() {
-	assert_eq!(&FormatterOptions::with_nasm(), NasmFormatter::new().options());
+	assert_eq!(NasmFormatter::new().options(), &FormatterOptions::with_nasm());
 }
 
 #[test]
@@ -114,10 +114,10 @@ fn format_mnemonic_options() {
 		let hex_bytes = to_vec_u8(&tc.hex_bytes).unwrap();
 		let mut decoder = create_decoder(tc.bitness, &hex_bytes, DecoderOptions::NONE).0;
 		let instruction = decoder.decode();
-		assert_eq!(tc.code, instruction.code());
+		assert_eq!(instruction.code(), tc.code);
 		let mut formatter = fmt_factory::create();
 		let mut output = String::new();
 		formatter.format_mnemonic_options(&instruction, &mut output, tc.flags);
-		assert_eq!(tc.formatted_string, output);
+		assert_eq!(output, tc.formatted_string);
 	}
 }

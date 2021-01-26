@@ -258,7 +258,7 @@ impl IntoIter {
 			let value = if kv_parts.len() == 1 {
 				""
 			} else {
-				assert_eq!(2, kv_parts.len());
+				assert_eq!(kv_parts.len(), 2);
 				key = kv_parts[0];
 				kv_parts[1]
 			};

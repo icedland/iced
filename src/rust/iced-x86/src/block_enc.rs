@@ -239,7 +239,7 @@ impl BlockEncoder {
 	///     Err(err) => panic!("Failed: {}", err),
 	///     Ok(result) => result.code_buffer,
 	/// };
-	/// assert_eq!(vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9], bytes);
+	/// assert_eq!(bytes, vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9]);
 	/// ```
 	///
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
@@ -248,7 +248,7 @@ impl BlockEncoder {
 	pub fn encode(bitness: u32, block: InstructionBlock, options: u32) -> Result<BlockEncoderResult, IcedError> {
 		match Self::encode_slice(bitness, &[block], options) {
 			Ok(ref mut result_vec) => {
-				debug_assert_eq!(1, result_vec.len());
+				debug_assert_eq!(result_vec.len(), 1);
 				Ok(result_vec.remove(0))
 			}
 			Err(err) => Err(err),
@@ -299,9 +299,9 @@ impl BlockEncoder {
 	/// let bytes = match BlockEncoder::encode_slice(64, &[block1, block2], BlockEncoderOptions::NONE) {
 	///     Err(err) => panic!("Failed: {}", err),
 	///     Ok(result) => {
-	///         assert_eq!(2, result.len());
-	///         assert_eq!(vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9], result[0].code_buffer);
-	///         assert_eq!(vec![0x75, 0xFE], result[1].code_buffer);
+	///         assert_eq!(result.len(), 2);
+	///         assert_eq!(result[0].code_buffer, vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9]);
+	///         assert_eq!(result[1].code_buffer, vec![0x75, 0xFE]);
 	///     }
 	/// };
 	/// ```

@@ -109,7 +109,7 @@ static NUMBER_BASES: [NumberBase; 4] = [
 ];
 
 pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<dyn Formatter>) {
-	assert_eq!(number_base_len(), NUMBER_BASES.len());
+	assert_eq!(NUMBER_BASES.len(), number_base_len());
 	let mut number_filename = get_formatter_unit_tests_dir();
 	number_filename.push("Number.txt");
 	let numbers = read_number_file(number_filename.as_path());
@@ -123,7 +123,7 @@ pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<dyn Formatter>) {
 	}
 
 	for (number, formatted_strings) in numbers.into_iter().zip(formatted_numbers.into_iter()) {
-		assert_eq!(NUMBER_BASES.len(), formatted_strings.len());
+		assert_eq!(formatted_strings.len(), NUMBER_BASES.len());
 		for (&base, formatted_string) in NUMBER_BASES.iter().zip(formatted_strings.iter().map(String::as_str)) {
 			let mut formatter = fmt_factory();
 			formatter.options_mut().set_number_base(base);
@@ -140,8 +140,8 @@ pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<dyn Formatter>) {
 				Number::Int64(value)  => (String::from(formatter.format_i64(value)), String::from(formatter.format_i64_options(value, &number_options))),
 				Number::UInt64(value) => (String::from(formatter.format_u64(value)), String::from(formatter.format_u64_options(value, &number_options))),
 			};
-			assert_eq!(formatted_string, s1);
-			assert_eq!(formatted_string, s2);
+			assert_eq!(s1, formatted_string);
+			assert_eq!(s2, formatted_string);
 		}
 	}
 }

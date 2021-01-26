@@ -38876,7 +38876,7 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Mnemonic::Add, Code::Add_rm32_r32.mnemonic());
+	/// assert_eq!(Code::Add_rm32_r32.mnemonic(), Mnemonic::Add);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -38905,11 +38905,11 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(EncodingKind::Legacy, Code::Add_rm32_r32.encoding());
-	/// assert_eq!(EncodingKind::VEX, Code::VEX_Vmovups_xmm_xmmm128.encoding());
-	/// assert_eq!(EncodingKind::EVEX, Code::EVEX_Vmovups_xmm_k1z_xmmm128.encoding());
-	/// assert_eq!(EncodingKind::XOP, Code::XOP_Vpmacssww_xmm_xmm_xmmm128_xmm.encoding());
-	/// assert_eq!(EncodingKind::D3NOW, Code::D3NOW_Pi2fw_mm_mmm64.encoding());
+	/// assert_eq!(Code::Add_rm32_r32.encoding(), EncodingKind::Legacy);
+	/// assert_eq!(Code::VEX_Vmovups_xmm_xmmm128.encoding(), EncodingKind::VEX);
+	/// assert_eq!(Code::EVEX_Vmovups_xmm_k1z_xmmm128.encoding(), EncodingKind::EVEX);
+	/// assert_eq!(Code::XOP_Vpmacssww_xmm_xmm_xmmm128_xmm.encoding(), EncodingKind::XOP);
+	/// assert_eq!(Code::D3NOW_Pi2fw_mm_mmm64.encoding(), EncodingKind::D3NOW);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -38930,13 +38930,13 @@ impl Code {
 	/// use iced_x86::*;
 	///
 	/// let cpuid = Code::VEX_Vmovups_xmm_xmmm128.cpuid_features();
-	/// assert_eq!(1, cpuid.len());
-	/// assert_eq!(CpuidFeature::AVX, cpuid[0]);
+	/// assert_eq!(cpuid.len(), 1);
+	/// assert_eq!(cpuid[0], CpuidFeature::AVX);
 	///
 	/// let cpuid = Code::EVEX_Vmovaps_xmm_k1z_xmmm128.cpuid_features();
-	/// assert_eq!(2, cpuid.len());
-	/// assert_eq!(CpuidFeature::AVX512VL, cpuid[0]);
-	/// assert_eq!(CpuidFeature::AVX512F, cpuid[1]);
+	/// assert_eq!(cpuid.len(), 2);
+	/// assert_eq!(cpuid[0], CpuidFeature::AVX512VL);
+	/// assert_eq!(cpuid[1], CpuidFeature::AVX512F);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -38954,9 +38954,9 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(FlowControl::Next, Code::Or_r32_rm32.flow_control());
-	/// assert_eq!(FlowControl::Exception, Code::Ud0_r64_rm64.flow_control());
-	/// assert_eq!(FlowControl::IndirectCall, Code::Call_rm64.flow_control());
+	/// assert_eq!(Code::Or_r32_rm32.flow_control(), FlowControl::Next);
+	/// assert_eq!(Code::Ud0_r64_rm64.flow_control(), FlowControl::Exception);
+	/// assert_eq!(Code::Call_rm64.flow_control(), FlowControl::IndirectCall);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -39095,10 +39095,10 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(ConditionCode::be, Code::Jbe_rel8_64.condition_code());
-	/// assert_eq!(ConditionCode::o, Code::Cmovo_r64_rm64.condition_code());
-	/// assert_eq!(ConditionCode::ne, Code::Setne_rm8.condition_code());
-	/// assert_eq!(ConditionCode::None, Code::Pause.condition_code());
+	/// assert_eq!(Code::Jbe_rel8_64.condition_code(), ConditionCode::be);
+	/// assert_eq!(Code::Cmovo_r64_rm64.condition_code(), ConditionCode::o);
+	/// assert_eq!(Code::Setne_rm8.condition_code(), ConditionCode::ne);
+	/// assert_eq!(Code::Pause.condition_code(), ConditionCode::None);
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -39159,8 +39159,8 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Code::Seta_rm8, Code::Setbe_rm8.negate_condition_code());
-	/// assert_eq!(Code::Setbe_rm8, Code::Seta_rm8.negate_condition_code());
+	/// assert_eq!(Code::Setbe_rm8.negate_condition_code(), Code::Seta_rm8);
+	/// assert_eq!(Code::Seta_rm8.negate_condition_code(), Code::Setbe_rm8);
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -39199,7 +39199,7 @@ impl Code {
 			return unsafe { mem::transmute(((t ^ 1) + Code::Seto_rm8 as u32) as u16) };
 		}
 
-		const_assert_eq!(Code::Loope_rel8_16_CX as u32, Code::Loopne_rel8_16_CX as u32 + 7);
+		const_assert_eq!(Code::Loopne_rel8_16_CX as u32 + 7, Code::Loope_rel8_16_CX as u32);
 		t = (self as u32).wrapping_sub(Code::Loopne_rel8_16_CX as u32);
 		if t <= (Code::Loope_rel8_64_RCX as u32 - Code::Loopne_rel8_16_CX as u32) {
 			return unsafe { mem::transmute((Code::Loopne_rel8_16_CX as u32 + (t + 7) % 14) as u16) };
@@ -39214,9 +39214,9 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel32_64.as_short_branch());
-	/// assert_eq!(Code::Jbe_rel8_64, Code::Jbe_rel8_64.as_short_branch());
-	/// assert_eq!(Code::Pause, Code::Pause.as_short_branch());
+	/// assert_eq!(Code::Jbe_rel32_64.as_short_branch(), Code::Jbe_rel8_64);
+	/// assert_eq!(Code::Jbe_rel8_64.as_short_branch(), Code::Jbe_rel8_64);
+	/// assert_eq!(Code::Pause.as_short_branch(), Code::Pause);
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -39242,9 +39242,9 @@ impl Code {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel8_64.as_near_branch());
-	/// assert_eq!(Code::Jbe_rel32_64, Code::Jbe_rel32_64.as_near_branch());
-	/// assert_eq!(Code::Pause, Code::Pause.as_near_branch());
+	/// assert_eq!(Code::Jbe_rel8_64.as_near_branch(), Code::Jbe_rel32_64);
+	/// assert_eq!(Code::Jbe_rel32_64.as_near_branch(), Code::Jbe_rel32_64);
+	/// assert_eq!(Code::Pause.as_near_branch(), Code::Pause);
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]

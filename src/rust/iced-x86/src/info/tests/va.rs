@@ -31,7 +31,7 @@ fn va_tests() {
 				}
 				unreachable!();
 			});
-			assert_eq!(tc.expected_value, value1);
+			assert_eq!(value1, tc.expected_value);
 		}
 
 		let value2 = used_mem.try_virtual_address(tc.element_index, |register, element_index, element_size| {
@@ -42,9 +42,9 @@ fn va_tests() {
 			}
 			None
 		});
-		assert_eq!(Some(tc.expected_value), value2);
+		assert_eq!(value2, Some(tc.expected_value));
 
 		let value3 = used_mem.try_virtual_address(tc.element_index, |_register, _element_index, _element_size| None);
-		assert_eq!(None, value3);
+		assert_eq!(value3, None);
 	}
 }

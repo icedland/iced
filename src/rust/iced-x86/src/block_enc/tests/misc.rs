@@ -23,21 +23,21 @@ fn encode_zero_instructions() {
 	let mut result;
 
 	result = BlockEncoder::encode(16, InstructionBlock::new(&[], 0), BlockEncoderOptions::NONE).unwrap();
-	assert_eq!(0, result.rip);
+	assert_eq!(result.rip, 0);
 	assert!(result.code_buffer.is_empty());
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
 	assert!(result.constant_offsets.is_empty());
 
 	result = BlockEncoder::encode(32, InstructionBlock::new(&[], 0), BlockEncoderOptions::NONE).unwrap();
-	assert_eq!(0, result.rip);
+	assert_eq!(result.rip, 0);
 	assert!(result.code_buffer.is_empty());
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
 	assert!(result.constant_offsets.is_empty());
 
 	result = BlockEncoder::encode(64, InstructionBlock::new(&[], 0), BlockEncoderOptions::NONE).unwrap();
-	assert_eq!(0, result.rip);
+	assert_eq!(result.rip, 0);
 	assert!(result.code_buffer.is_empty());
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
@@ -59,8 +59,8 @@ fn default_args() {
 	];
 	let instructions = decode(BITNESS, ORIG_RIP, &original_data, DecoderOptions::NONE);
 	let result = BlockEncoder::encode(BITNESS, InstructionBlock::new(&instructions, NEW_RIP), BlockEncoderOptions::NONE).unwrap();
-	assert_eq!(NEW_RIP, result.rip);
-	assert_eq!(0x28, result.code_buffer.len());
+	assert_eq!(result.rip, NEW_RIP);
+	assert_eq!(result.code_buffer.len(), 0x28);
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
 	assert!(result.constant_offsets.is_empty());
@@ -84,19 +84,19 @@ fn verify_result_vectors() {
 		{
 			let instructions1 = decode(BITNESS, ORIG_RIP1, &[0xE9, 0x56, 0x78, 0xA5, 0x5A], DecoderOptions::NONE);
 			let result = BlockEncoder::encode(BITNESS, InstructionBlock::new(&instructions1, NEW_RIP1), options).unwrap();
-			assert_eq!(NEW_RIP1, result.rip);
+			assert_eq!(result.rip, NEW_RIP1);
 			if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 {
-				assert_eq!(1, result.reloc_infos.len());
+				assert_eq!(result.reloc_infos.len(), 1);
 			} else {
 				assert!(result.reloc_infos.is_empty());
 			}
 			if (options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
-				assert_eq!(1, result.new_instruction_offsets.len());
+				assert_eq!(result.new_instruction_offsets.len(), 1);
 			} else {
 				assert!(result.new_instruction_offsets.is_empty());
 			}
 			if (options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 {
-				assert_eq!(1, result.constant_offsets.len());
+				assert_eq!(result.constant_offsets.len(), 1);
 			} else {
 				assert!(result.constant_offsets.is_empty());
 			}
@@ -107,26 +107,26 @@ fn verify_result_vectors() {
 			let block1 = InstructionBlock::new(&instructions1, NEW_RIP1);
 			let block2 = InstructionBlock::new(&instructions2, NEW_RIP2);
 			let result = BlockEncoder::encode_slice(BITNESS, &[block1, block2], options).unwrap();
-			assert_eq!(2, result.len());
-			assert_eq!(NEW_RIP1, result[0].rip);
-			assert_eq!(NEW_RIP2, result[1].rip);
+			assert_eq!(result.len(), 2);
+			assert_eq!(result[0].rip, NEW_RIP1);
+			assert_eq!(result[1].rip, NEW_RIP2);
 			if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 {
-				assert_eq!(1, result[0].reloc_infos.len());
-				assert_eq!(1, result[1].reloc_infos.len());
+				assert_eq!(result[0].reloc_infos.len(), 1);
+				assert_eq!(result[1].reloc_infos.len(), 1);
 			} else {
 				assert!(result[0].reloc_infos.is_empty());
 				assert!(result[1].reloc_infos.is_empty());
 			}
 			if (options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
-				assert_eq!(1, result[0].new_instruction_offsets.len());
-				assert_eq!(2, result[1].new_instruction_offsets.len());
+				assert_eq!(result[0].new_instruction_offsets.len(), 1);
+				assert_eq!(result[1].new_instruction_offsets.len(), 2);
 			} else {
 				assert!(result[0].new_instruction_offsets.is_empty());
 				assert!(result[1].new_instruction_offsets.is_empty());
 			}
 			if (options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 {
-				assert_eq!(1, result[0].constant_offsets.len());
-				assert_eq!(2, result[1].constant_offsets.len());
+				assert_eq!(result[0].constant_offsets.len(), 1);
+				assert_eq!(result[1].constant_offsets.len(), 2);
 			} else {
 				assert!(result[0].constant_offsets.is_empty());
 				assert!(result[1].constant_offsets.is_empty());
@@ -157,8 +157,8 @@ fn encode_declare_byte() {
 		];
 
 		let result = BlockEncoder::encode(BITNESS, InstructionBlock::new(&instructions, NEW_RIP), BlockEncoderOptions::NONE).unwrap();
-		assert_eq!(info.1, result.code_buffer);
-		assert_eq!(NEW_RIP, result.rip);
+		assert_eq!(result.code_buffer, info.1);
+		assert_eq!(result.rip, NEW_RIP);
 		assert!(result.reloc_infos.is_empty());
 		assert!(result.new_instruction_offsets.is_empty());
 		assert!(result.constant_offsets.is_empty());
@@ -193,7 +193,7 @@ fn encode_rip_rel_mem_op() {
 		MemoryOperand::new(Register::RIP, Register::None, 1, 0x1234_5678_9ABC_DEF1, 8, false, Register::None),
 	);
 	let vec_result = BlockEncoder::encode_slice(64, &[InstructionBlock::new(&[instr], 0x1234_5678_ABCD_EF02)], BlockEncoderOptions::NONE).unwrap();
-	assert_eq!(1, vec_result.len());
+	assert_eq!(vec_result.len(), 1);
 	let result = &vec_result[0];
-	assert_eq!(vec![0x03, 0x0D, 0xE9, 0xEF, 0xEE, 0xEE], result.code_buffer);
+	assert_eq!(result.code_buffer, vec![0x03, 0x0D, 0xE9, 0xEF, 0xEE, 0xEE]);
 }

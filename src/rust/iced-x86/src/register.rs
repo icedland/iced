@@ -291,7 +291,7 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::EAX.info();
-		/// assert_eq!(Register::EAX, info.register());
+		/// assert_eq!(info.register(), Register::EAX);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -306,15 +306,15 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::GS.info();
-		/// assert_eq!(Register::ES, info.base());
+		/// assert_eq!(info.base(), Register::ES);
 		/// let info = Register::RDX.info();
-		/// assert_eq!(Register::RAX, info.base());
+		/// assert_eq!(info.base(), Register::RAX);
 		/// let info = Register::XMM13.info();
-		/// assert_eq!(Register::XMM0, info.base());
+		/// assert_eq!(info.base(), Register::XMM0);
 		/// let info = Register::YMM13.info();
-		/// assert_eq!(Register::YMM0, info.base());
+		/// assert_eq!(info.base(), Register::YMM0);
 		/// let info = Register::ZMM13.info();
-		/// assert_eq!(Register::ZMM0, info.base());
+		/// assert_eq!(info.base(), Register::ZMM0);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -331,15 +331,15 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::GS.info();
-		/// assert_eq!(5, info.number());
+		/// assert_eq!(info.number(), 5);
 		/// let info = Register::RDX.info();
-		/// assert_eq!(2, info.number());
+		/// assert_eq!(info.number(), 2);
 		/// let info = Register::XMM13.info();
-		/// assert_eq!(13, info.number());
+		/// assert_eq!(info.number(), 13);
 		/// let info = Register::YMM13.info();
-		/// assert_eq!(13, info.number());
+		/// assert_eq!(info.number(), 13);
 		/// let info = Register::ZMM13.info();
-		/// assert_eq!(13, info.number());
+		/// assert_eq!(info.number(), 13);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -354,21 +354,21 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::GS.info();
-		/// assert_eq!(Register::GS, info.full_register());
+		/// assert_eq!(info.full_register(), Register::GS);
 		/// let info = Register::BH.info();
-		/// assert_eq!(Register::RBX, info.full_register());
+		/// assert_eq!(info.full_register(), Register::RBX);
 		/// let info = Register::DX.info();
-		/// assert_eq!(Register::RDX, info.full_register());
+		/// assert_eq!(info.full_register(), Register::RDX);
 		/// let info = Register::ESP.info();
-		/// assert_eq!(Register::RSP, info.full_register());
+		/// assert_eq!(info.full_register(), Register::RSP);
 		/// let info = Register::RCX.info();
-		/// assert_eq!(Register::RCX, info.full_register());
+		/// assert_eq!(info.full_register(), Register::RCX);
 		/// let info = Register::XMM3.info();
-		/// assert_eq!(Register::ZMM3, info.full_register());
+		/// assert_eq!(info.full_register(), Register::ZMM3);
 		/// let info = Register::YMM3.info();
-		/// assert_eq!(Register::ZMM3, info.full_register());
+		/// assert_eq!(info.full_register(), Register::ZMM3);
 		/// let info = Register::ZMM3.info();
-		/// assert_eq!(Register::ZMM3, info.full_register());
+		/// assert_eq!(info.full_register(), Register::ZMM3);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -384,21 +384,21 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::GS.info();
-		/// assert_eq!(Register::GS, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::GS);
 		/// let info = Register::BH.info();
-		/// assert_eq!(Register::EBX, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::EBX);
 		/// let info = Register::DX.info();
-		/// assert_eq!(Register::EDX, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::EDX);
 		/// let info = Register::ESP.info();
-		/// assert_eq!(Register::ESP, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::ESP);
 		/// let info = Register::RCX.info();
-		/// assert_eq!(Register::ECX, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::ECX);
 		/// let info = Register::XMM3.info();
-		/// assert_eq!(Register::ZMM3, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::ZMM3);
 		/// let info = Register::YMM3.info();
-		/// assert_eq!(Register::ZMM3, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::ZMM3);
 		/// let info = Register::ZMM3.info();
-		/// assert_eq!(Register::ZMM3, info.full_register32());
+		/// assert_eq!(info.full_register32(), Register::ZMM3);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -413,21 +413,21 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = Register::GS.info();
-		/// assert_eq!(2, info.size());
+		/// assert_eq!(info.size(), 2);
 		/// let info = Register::BH.info();
-		/// assert_eq!(1, info.size());
+		/// assert_eq!(info.size(), 1);
 		/// let info = Register::DX.info();
-		/// assert_eq!(2, info.size());
+		/// assert_eq!(info.size(), 2);
 		/// let info = Register::ESP.info();
-		/// assert_eq!(4, info.size());
+		/// assert_eq!(info.size(), 4);
 		/// let info = Register::RCX.info();
-		/// assert_eq!(8, info.size());
+		/// assert_eq!(info.size(), 8);
 		/// let info = Register::XMM3.info();
-		/// assert_eq!(16, info.size());
+		/// assert_eq!(info.size(), 16);
 		/// let info = Register::YMM3.info();
-		/// assert_eq!(32, info.size());
+		/// assert_eq!(info.size(), 32);
 		/// let info = Register::ZMM3.info();
-		/// assert_eq!(64, info.size());
+		/// assert_eq!(info.size(), 64);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -446,7 +446,7 @@ impl Register {
 	/// ```
 	/// use iced_x86::*;
 	/// let info = Register::EAX.info();
-	/// assert_eq!(4, info.size());
+	/// assert_eq!(info.size(), 4);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -460,22 +460,22 @@ impl Register {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Register::ES, Register::GS.base());
-	/// assert_eq!(Register::AL, Register::SIL.base());
-	/// assert_eq!(Register::AX, Register::SP.base());
-	/// assert_eq!(Register::EAX, Register::R13D.base());
-	/// assert_eq!(Register::RAX, Register::RBP.base());
-	/// assert_eq!(Register::MM0, Register::MM6.base());
-	/// assert_eq!(Register::XMM0, Register::XMM28.base());
-	/// assert_eq!(Register::YMM0, Register::YMM12.base());
-	/// assert_eq!(Register::ZMM0, Register::ZMM31.base());
-	/// assert_eq!(Register::K0, Register::K3.base());
-	/// assert_eq!(Register::BND0, Register::BND1.base());
-	/// assert_eq!(Register::ST0, Register::ST7.base());
-	/// assert_eq!(Register::CR0, Register::CR8.base());
-	/// assert_eq!(Register::DR0, Register::DR6.base());
-	/// assert_eq!(Register::TR0, Register::TR3.base());
-	/// assert_eq!(Register::EIP, Register::RIP.base());
+	/// assert_eq!(Register::GS.base(), Register::ES);
+	/// assert_eq!(Register::SIL.base(), Register::AL);
+	/// assert_eq!(Register::SP.base(), Register::AX);
+	/// assert_eq!(Register::R13D.base(), Register::EAX);
+	/// assert_eq!(Register::RBP.base(), Register::RAX);
+	/// assert_eq!(Register::MM6.base(), Register::MM0);
+	/// assert_eq!(Register::XMM28.base(), Register::XMM0);
+	/// assert_eq!(Register::YMM12.base(), Register::YMM0);
+	/// assert_eq!(Register::ZMM31.base(), Register::ZMM0);
+	/// assert_eq!(Register::K3.base(), Register::K0);
+	/// assert_eq!(Register::BND1.base(), Register::BND0);
+	/// assert_eq!(Register::ST7.base(), Register::ST0);
+	/// assert_eq!(Register::CR8.base(), Register::CR0);
+	/// assert_eq!(Register::DR6.base(), Register::DR0);
+	/// assert_eq!(Register::TR3.base(), Register::TR0);
+	/// assert_eq!(Register::RIP.base(), Register::EIP);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -491,22 +491,22 @@ impl Register {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(5, Register::GS.number());
-	/// assert_eq!(10, Register::SIL.number());
-	/// assert_eq!(4, Register::SP.number());
-	/// assert_eq!(13, Register::R13D.number());
-	/// assert_eq!(5, Register::RBP.number());
-	/// assert_eq!(6, Register::MM6.number());
-	/// assert_eq!(28, Register::XMM28.number());
-	/// assert_eq!(12, Register::YMM12.number());
-	/// assert_eq!(31, Register::ZMM31.number());
-	/// assert_eq!(3, Register::K3.number());
-	/// assert_eq!(1, Register::BND1.number());
-	/// assert_eq!(7, Register::ST7.number());
-	/// assert_eq!(8, Register::CR8.number());
-	/// assert_eq!(6, Register::DR6.number());
-	/// assert_eq!(3, Register::TR3.number());
-	/// assert_eq!(1, Register::RIP.number());
+	/// assert_eq!(Register::GS.number(), 5);
+	/// assert_eq!(Register::SIL.number(), 10);
+	/// assert_eq!(Register::SP.number(), 4);
+	/// assert_eq!(Register::R13D.number(), 13);
+	/// assert_eq!(Register::RBP.number(), 5);
+	/// assert_eq!(Register::MM6.number(), 6);
+	/// assert_eq!(Register::XMM28.number(), 28);
+	/// assert_eq!(Register::YMM12.number(), 12);
+	/// assert_eq!(Register::ZMM31.number(), 31);
+	/// assert_eq!(Register::K3.number(), 3);
+	/// assert_eq!(Register::BND1.number(), 1);
+	/// assert_eq!(Register::ST7.number(), 7);
+	/// assert_eq!(Register::CR8.number(), 8);
+	/// assert_eq!(Register::DR6.number(), 6);
+	/// assert_eq!(Register::TR3.number(), 3);
+	/// assert_eq!(Register::RIP.number(), 1);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -520,22 +520,22 @@ impl Register {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Register::GS, Register::GS.full_register());
-	/// assert_eq!(Register::RSI, Register::SIL.full_register());
-	/// assert_eq!(Register::RSP, Register::SP.full_register());
-	/// assert_eq!(Register::R13, Register::R13D.full_register());
-	/// assert_eq!(Register::RBP, Register::RBP.full_register());
-	/// assert_eq!(Register::MM6, Register::MM6.full_register());
-	/// assert_eq!(Register::ZMM10, Register::XMM10.full_register());
-	/// assert_eq!(Register::ZMM10, Register::YMM10.full_register());
-	/// assert_eq!(Register::ZMM10, Register::ZMM10.full_register());
-	/// assert_eq!(Register::K3, Register::K3.full_register());
-	/// assert_eq!(Register::BND1, Register::BND1.full_register());
-	/// assert_eq!(Register::ST7, Register::ST7.full_register());
-	/// assert_eq!(Register::CR8, Register::CR8.full_register());
-	/// assert_eq!(Register::DR6, Register::DR6.full_register());
-	/// assert_eq!(Register::TR3, Register::TR3.full_register());
-	/// assert_eq!(Register::RIP, Register::RIP.full_register());
+	/// assert_eq!(Register::GS.full_register(), Register::GS);
+	/// assert_eq!(Register::SIL.full_register(), Register::RSI);
+	/// assert_eq!(Register::SP.full_register(), Register::RSP);
+	/// assert_eq!(Register::R13D.full_register(), Register::R13);
+	/// assert_eq!(Register::RBP.full_register(), Register::RBP);
+	/// assert_eq!(Register::MM6.full_register(), Register::MM6);
+	/// assert_eq!(Register::XMM10.full_register(), Register::ZMM10);
+	/// assert_eq!(Register::YMM10.full_register(), Register::ZMM10);
+	/// assert_eq!(Register::ZMM10.full_register(), Register::ZMM10);
+	/// assert_eq!(Register::K3.full_register(), Register::K3);
+	/// assert_eq!(Register::BND1.full_register(), Register::BND1);
+	/// assert_eq!(Register::ST7.full_register(), Register::ST7);
+	/// assert_eq!(Register::CR8.full_register(), Register::CR8);
+	/// assert_eq!(Register::DR6.full_register(), Register::DR6);
+	/// assert_eq!(Register::TR3.full_register(), Register::TR3);
+	/// assert_eq!(Register::RIP.full_register(), Register::RIP);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -550,22 +550,22 @@ impl Register {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(Register::GS, Register::GS.full_register32());
-	/// assert_eq!(Register::ESI, Register::SIL.full_register32());
-	/// assert_eq!(Register::ESP, Register::SP.full_register32());
-	/// assert_eq!(Register::R13D, Register::R13D.full_register32());
-	/// assert_eq!(Register::EBP, Register::RBP.full_register32());
-	/// assert_eq!(Register::MM6, Register::MM6.full_register32());
-	/// assert_eq!(Register::ZMM10, Register::XMM10.full_register32());
-	/// assert_eq!(Register::ZMM10, Register::YMM10.full_register32());
-	/// assert_eq!(Register::ZMM10, Register::ZMM10.full_register32());
-	/// assert_eq!(Register::K3, Register::K3.full_register32());
-	/// assert_eq!(Register::BND1, Register::BND1.full_register32());
-	/// assert_eq!(Register::ST7, Register::ST7.full_register32());
-	/// assert_eq!(Register::CR8, Register::CR8.full_register32());
-	/// assert_eq!(Register::DR6, Register::DR6.full_register32());
-	/// assert_eq!(Register::TR3, Register::TR3.full_register32());
-	/// assert_eq!(Register::RIP, Register::RIP.full_register32());
+	/// assert_eq!(Register::GS.full_register32(), Register::GS);
+	/// assert_eq!(Register::SIL.full_register32(), Register::ESI);
+	/// assert_eq!(Register::SP.full_register32(), Register::ESP);
+	/// assert_eq!(Register::R13D.full_register32(), Register::R13D);
+	/// assert_eq!(Register::RBP.full_register32(), Register::EBP);
+	/// assert_eq!(Register::MM6.full_register32(), Register::MM6);
+	/// assert_eq!(Register::XMM10.full_register32(), Register::ZMM10);
+	/// assert_eq!(Register::YMM10.full_register32(), Register::ZMM10);
+	/// assert_eq!(Register::ZMM10.full_register32(), Register::ZMM10);
+	/// assert_eq!(Register::K3.full_register32(), Register::K3);
+	/// assert_eq!(Register::BND1.full_register32(), Register::BND1);
+	/// assert_eq!(Register::ST7.full_register32(), Register::ST7);
+	/// assert_eq!(Register::CR8.full_register32(), Register::CR8);
+	/// assert_eq!(Register::DR6.full_register32(), Register::DR6);
+	/// assert_eq!(Register::TR3.full_register32(), Register::TR3);
+	/// assert_eq!(Register::RIP.full_register32(), Register::RIP);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -579,22 +579,22 @@ impl Register {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(2, Register::GS.size());
-	/// assert_eq!(1, Register::SIL.size());
-	/// assert_eq!(2, Register::SP.size());
-	/// assert_eq!(4, Register::R13D.size());
-	/// assert_eq!(8, Register::RBP.size());
-	/// assert_eq!(8, Register::MM6.size());
-	/// assert_eq!(16, Register::XMM10.size());
-	/// assert_eq!(32, Register::YMM10.size());
-	/// assert_eq!(64, Register::ZMM10.size());
-	/// assert_eq!(8, Register::K3.size());
-	/// assert_eq!(16, Register::BND1.size());
-	/// assert_eq!(10, Register::ST7.size());
-	/// assert_eq!(8, Register::CR8.size());
-	/// assert_eq!(8, Register::DR6.size());
-	/// assert_eq!(4, Register::TR3.size());
-	/// assert_eq!(8, Register::RIP.size());
+	/// assert_eq!(Register::GS.size(), 2);
+	/// assert_eq!(Register::SIL.size(), 1);
+	/// assert_eq!(Register::SP.size(), 2);
+	/// assert_eq!(Register::R13D.size(), 4);
+	/// assert_eq!(Register::RBP.size(), 8);
+	/// assert_eq!(Register::MM6.size(), 8);
+	/// assert_eq!(Register::XMM10.size(), 16);
+	/// assert_eq!(Register::YMM10.size(), 32);
+	/// assert_eq!(Register::ZMM10.size(), 64);
+	/// assert_eq!(Register::K3.size(), 8);
+	/// assert_eq!(Register::BND1.size(), 16);
+	/// assert_eq!(Register::ST7.size(), 10);
+	/// assert_eq!(Register::CR8.size(), 8);
+	/// assert_eq!(Register::DR6.size(), 8);
+	/// assert_eq!(Register::TR3.size(), 4);
+	/// assert_eq!(Register::RIP.size(), 8);
 	/// ```
 	#[must_use]
 	#[inline]

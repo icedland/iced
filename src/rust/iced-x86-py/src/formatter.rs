@@ -100,7 +100,7 @@ impl Formatter {
 	#[args(options = 0)]
 	fn format_mnemonic(&mut self, instruction: &Instruction, options: u32) -> &str {
 		// #[args] line assumption
-		const_assert_eq!(0, iced_x86::FormatMnemonicOptions::NONE);
+		const_assert_eq!(iced_x86::FormatMnemonicOptions::NONE, 0);
 
 		self.fmt_output.clear();
 		self.formatter.format_mnemonic_options(&instruction.instr, &mut self.fmt_output, options);

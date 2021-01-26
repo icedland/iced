@@ -420,7 +420,7 @@ impl IntoIter {
 						if op_parts.len() >= 5 {
 							tc.op_kinds[4] = to_op_code_operand_kind(op_parts[4])?;
 						}
-						const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+						const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 						if op_parts.len() >= 6 {
 							return Err(format!("Invalid number of operands: '{}'", value));
 						}
@@ -432,7 +432,7 @@ impl IntoIter {
 					_ => return Err(format!("Invalid key: '{}'", key)),
 				}
 			} else {
-				assert_eq!(1, kv_parts.len());
+				assert_eq!(kv_parts.len(), 1);
 				match *(*TO_OP_CODE_INFO_FLAGS).get(key).unwrap_or(&u32::MAX) {
 					OpCodeInfoFlags::NO_INSTRUCTION => tc.is_instruction = false,
 					OpCodeInfoFlags::BIT16 => tc.mode16 = true,

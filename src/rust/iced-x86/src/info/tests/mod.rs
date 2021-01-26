@@ -94,23 +94,23 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			instr = Instruction::default();
 			instr.set_code(tc.code);
 			instr.set_declare_data_len(1);
-			assert_eq!(64, tc.bitness);
+			assert_eq!(tc.bitness, 64);
 			instr.set_code_size(CodeSize::Code64);
 			match tc.code {
 				Code::DeclareByte => {
-					assert_eq!("66", tc.hex_bytes);
+					assert_eq!(tc.hex_bytes, "66");
 					instr.try_set_declare_byte_value(0, 0x66).unwrap();
 				}
 				Code::DeclareWord => {
-					assert_eq!("6644", tc.hex_bytes);
+					assert_eq!(tc.hex_bytes, "6644");
 					instr.try_set_declare_word_value(0, 0x4466).unwrap();
 				}
 				Code::DeclareDword => {
-					assert_eq!("664422EE", tc.hex_bytes);
+					assert_eq!(tc.hex_bytes, "664422EE");
 					instr.try_set_declare_dword_value(0, 0xEE22_4466).unwrap();
 				}
 				Code::DeclareQword => {
-					assert_eq!("664422EE12345678", tc.hex_bytes);
+					assert_eq!(tc.hex_bytes, "664422EE12345678");
 					instr.try_set_declare_qword_value(0, 0x7856_3412_EE22_4466).unwrap();
 				}
 				_ => unreachable!(),
@@ -145,36 +145,36 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.decoder_options).0;
 		instr = decoder.decode();
 	}
-	assert_eq!(tc.code, instr.code());
+	assert_eq!(instr.code(), tc.code);
 
-	assert_eq!(tc.stack_pointer_increment, instr.stack_pointer_increment());
+	assert_eq!(instr.stack_pointer_increment(), tc.stack_pointer_increment);
 
 	let mut factory1 = InstructionInfoFactory::new();
 	let info = factory1.info(&instr);
-	assert_eq!(tc.encoding, info.encoding());
-	assert_eq!(tc.cpuid_features, info.cpuid_features());
-	assert_eq!(tc.rflags_read, info.rflags_read());
-	assert_eq!(tc.rflags_undefined, info.rflags_undefined());
-	assert_eq!(tc.rflags_written, info.rflags_written());
-	assert_eq!(tc.rflags_cleared, info.rflags_cleared());
-	assert_eq!(tc.rflags_set, info.rflags_set());
-	assert_eq!(tc.is_privileged, info.is_privileged());
-	assert_eq!(tc.is_stack_instruction, info.is_stack_instruction());
-	assert_eq!(tc.is_save_restore_instruction, info.is_save_restore_instruction());
-	assert_eq!(tc.flow_control, info.flow_control());
-	assert_eq!(tc.op0_access, info.op0_access());
-	assert_eq!(tc.op1_access, info.op1_access());
-	assert_eq!(tc.op2_access, info.op2_access());
-	assert_eq!(tc.op3_access, info.op3_access());
-	assert_eq!(tc.op4_access, info.op4_access());
+	assert_eq!(info.encoding(), tc.encoding);
+	assert_eq!(info.cpuid_features(), tc.cpuid_features.as_slice());
+	assert_eq!(info.rflags_read(), tc.rflags_read);
+	assert_eq!(info.rflags_undefined(), tc.rflags_undefined);
+	assert_eq!(info.rflags_written(), tc.rflags_written);
+	assert_eq!(info.rflags_cleared(), tc.rflags_cleared);
+	assert_eq!(info.rflags_set(), tc.rflags_set);
+	assert_eq!(info.is_privileged(), tc.is_privileged);
+	assert_eq!(info.is_stack_instruction(), tc.is_stack_instruction);
+	assert_eq!(info.is_save_restore_instruction(), tc.is_save_restore_instruction);
+	assert_eq!(info.flow_control(), tc.flow_control);
+	assert_eq!(info.op0_access(), tc.op0_access);
+	assert_eq!(info.op1_access(), tc.op1_access);
+	assert_eq!(info.op2_access(), tc.op2_access);
+	assert_eq!(info.op3_access(), tc.op3_access);
+	assert_eq!(info.op4_access(), tc.op4_access);
 	let fpu_info = instr.fpu_stack_increment_info();
-	assert_eq!(tc.fpu_top_increment, fpu_info.increment());
-	assert_eq!(tc.fpu_conditional_top, fpu_info.conditional());
-	assert_eq!(tc.fpu_writes_top, fpu_info.writes_top());
-	assert_eq!(tc.used_memory.iter().collect::<HashSet<_>>(), info.used_memory().iter().collect::<HashSet<_>>());
-	assert_eq!(get_used_registers(tc.used_registers.iter()), get_used_registers(info.used_registers().iter()));
+	assert_eq!(fpu_info.increment(), tc.fpu_top_increment);
+	assert_eq!(fpu_info.conditional(), tc.fpu_conditional_top);
+	assert_eq!(fpu_info.writes_top(), tc.fpu_writes_top);
+	assert_eq!(info.used_memory().iter().collect::<HashSet<_>>(), tc.used_memory.iter().collect::<HashSet<_>>());
+	assert_eq!(get_used_registers(info.used_registers().iter()), get_used_registers(tc.used_registers.iter()));
 
-	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT as u32);
 	for i in 0..instr.op_count() {
 		#[allow(deprecated)]
@@ -198,9 +198,9 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	for i in instr.op_count()..IcedConstants::MAX_OP_COUNT as u32 {
 		#[allow(deprecated)]
 		{
-			assert_eq!(OpAccess::None, info.op_access(i));
+			assert_eq!(info.op_access(i), OpAccess::None);
 		}
-		assert_eq!(OpAccess::None, info.try_op_access(i).unwrap());
+		assert_eq!(info.try_op_access(i).unwrap(), OpAccess::None);
 	}
 	#[allow(deprecated)]
 	{
@@ -208,11 +208,11 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	}
 	assert!(info.try_op_access(IcedConstants::MAX_OP_COUNT as u32).is_err());
 
-	assert_eq!(RflagsBits::NONE, info.rflags_written() & (info.rflags_cleared() | info.rflags_set() | info.rflags_undefined()));
-	assert_eq!(RflagsBits::NONE, info.rflags_cleared() & (info.rflags_written() | info.rflags_set() | info.rflags_undefined()));
-	assert_eq!(RflagsBits::NONE, info.rflags_set() & (info.rflags_written() | info.rflags_cleared() | info.rflags_undefined()));
-	assert_eq!(RflagsBits::NONE, info.rflags_undefined() & (info.rflags_written() | info.rflags_cleared() | info.rflags_set()));
-	assert_eq!(info.rflags_written() | info.rflags_cleared() | info.rflags_set() | info.rflags_undefined(), info.rflags_modified());
+	assert_eq!(info.rflags_written() & (info.rflags_cleared() | info.rflags_set() | info.rflags_undefined()), RflagsBits::NONE);
+	assert_eq!(info.rflags_cleared() & (info.rflags_written() | info.rflags_set() | info.rflags_undefined()), RflagsBits::NONE);
+	assert_eq!(info.rflags_set() & (info.rflags_written() | info.rflags_cleared() | info.rflags_undefined()), RflagsBits::NONE);
+	assert_eq!(info.rflags_undefined() & (info.rflags_written() | info.rflags_cleared() | info.rflags_set()), RflagsBits::NONE);
+	assert_eq!(info.rflags_modified(), info.rflags_written() | info.rflags_cleared() | info.rflags_set() | info.rflags_undefined());
 
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NONE);
@@ -248,59 +248,59 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 		check_equal(info, info2, false, false);
 	}
 
-	assert_eq!(info.encoding(), instr.code().encoding());
+	assert_eq!(instr.code().encoding(), info.encoding());
 	#[cfg(feature = "encoder")]
 	{
-		assert_eq!(tc.code.op_code().encoding(), instr.code().encoding());
+		assert_eq!(instr.code().encoding(), tc.code.op_code().encoding());
 	}
-	assert_eq!(info.cpuid_features(), instr.code().cpuid_features());
-	assert_eq!(info.flow_control(), instr.code().flow_control());
-	assert_eq!(info.is_privileged(), instr.code().is_privileged());
-	assert_eq!(info.is_stack_instruction(), instr.code().is_stack_instruction());
-	assert_eq!(info.is_save_restore_instruction(), instr.code().is_save_restore_instruction());
+	assert_eq!(instr.code().cpuid_features(), info.cpuid_features());
+	assert_eq!(instr.code().flow_control(), info.flow_control());
+	assert_eq!(instr.code().is_privileged(), info.is_privileged());
+	assert_eq!(instr.code().is_stack_instruction(), info.is_stack_instruction());
+	assert_eq!(instr.code().is_save_restore_instruction(), info.is_save_restore_instruction());
 
-	assert_eq!(info.encoding(), instr.encoding());
-	assert_eq!(info.cpuid_features(), instr.cpuid_features());
-	assert_eq!(info.flow_control(), instr.flow_control());
-	assert_eq!(info.is_privileged(), instr.is_privileged());
-	assert_eq!(info.is_stack_instruction(), instr.is_stack_instruction());
-	assert_eq!(info.is_save_restore_instruction(), instr.is_save_restore_instruction());
-	assert_eq!(info.rflags_read(), instr.rflags_read());
-	assert_eq!(info.rflags_written(), instr.rflags_written());
-	assert_eq!(info.rflags_cleared(), instr.rflags_cleared());
-	assert_eq!(info.rflags_set(), instr.rflags_set());
-	assert_eq!(info.rflags_undefined(), instr.rflags_undefined());
-	assert_eq!(info.rflags_modified(), instr.rflags_modified());
+	assert_eq!(instr.encoding(), info.encoding());
+	assert_eq!(instr.cpuid_features(), info.cpuid_features());
+	assert_eq!(instr.flow_control(), info.flow_control());
+	assert_eq!(instr.is_privileged(), info.is_privileged());
+	assert_eq!(instr.is_stack_instruction(), info.is_stack_instruction());
+	assert_eq!(instr.is_save_restore_instruction(), info.is_save_restore_instruction());
+	assert_eq!(instr.rflags_read(), info.rflags_read());
+	assert_eq!(instr.rflags_written(), info.rflags_written());
+	assert_eq!(instr.rflags_cleared(), info.rflags_cleared());
+	assert_eq!(instr.rflags_set(), info.rflags_set());
+	assert_eq!(instr.rflags_undefined(), info.rflags_undefined());
+	assert_eq!(instr.rflags_modified(), info.rflags_modified());
 }
 
 fn check_equal(info1: &InstructionInfo, info2: &InstructionInfo, has_regs2: bool, has_mem2: bool) {
 	if has_regs2 {
-		assert_eq!(info1.used_registers(), info2.used_registers());
+		assert_eq!(info2.used_registers(), info1.used_registers());
 	} else {
 		assert!(info2.used_registers().is_empty());
 	}
 	if has_mem2 {
-		assert_eq!(info1.used_memory(), info2.used_memory());
+		assert_eq!(info2.used_memory(), info1.used_memory());
 	} else {
 		assert!(info2.used_memory().is_empty());
 	}
-	assert_eq!(info1.is_privileged(), info2.is_privileged());
-	assert_eq!(info1.is_stack_instruction(), info2.is_stack_instruction());
-	assert_eq!(info1.is_save_restore_instruction(), info2.is_save_restore_instruction());
-	assert_eq!(info1.encoding(), info2.encoding());
-	assert_eq!(info1.cpuid_features(), info2.cpuid_features());
-	assert_eq!(info1.flow_control(), info2.flow_control());
-	assert_eq!(info1.op0_access(), info2.op0_access());
-	assert_eq!(info1.op1_access(), info2.op1_access());
-	assert_eq!(info1.op2_access(), info2.op2_access());
-	assert_eq!(info1.op3_access(), info2.op3_access());
-	assert_eq!(info1.op4_access(), info2.op4_access());
-	assert_eq!(info1.rflags_read(), info2.rflags_read());
-	assert_eq!(info1.rflags_written(), info2.rflags_written());
-	assert_eq!(info1.rflags_cleared(), info2.rflags_cleared());
-	assert_eq!(info1.rflags_set(), info2.rflags_set());
-	assert_eq!(info1.rflags_undefined(), info2.rflags_undefined());
-	assert_eq!(info1.rflags_modified(), info2.rflags_modified());
+	assert_eq!(info2.is_privileged(), info1.is_privileged());
+	assert_eq!(info2.is_stack_instruction(), info1.is_stack_instruction());
+	assert_eq!(info2.is_save_restore_instruction(), info1.is_save_restore_instruction());
+	assert_eq!(info2.encoding(), info1.encoding());
+	assert_eq!(info2.cpuid_features(), info1.cpuid_features());
+	assert_eq!(info2.flow_control(), info1.flow_control());
+	assert_eq!(info2.op0_access(), info1.op0_access());
+	assert_eq!(info2.op1_access(), info1.op1_access());
+	assert_eq!(info2.op2_access(), info1.op2_access());
+	assert_eq!(info2.op3_access(), info1.op3_access());
+	assert_eq!(info2.op4_access(), info1.op4_access());
+	assert_eq!(info2.rflags_read(), info1.rflags_read());
+	assert_eq!(info2.rflags_written(), info1.rflags_written());
+	assert_eq!(info2.rflags_cleared(), info1.rflags_cleared());
+	assert_eq!(info2.rflags_set(), info1.rflags_set());
+	assert_eq!(info2.rflags_undefined(), info1.rflags_undefined());
+	assert_eq!(info2.rflags_modified(), info1.rflags_modified());
 }
 
 #[must_use]
@@ -453,28 +453,28 @@ fn memory_size_info() {
 	let test_cases: Vec<_> = MemorySizeInfoTestParser::new(&path).into_iter().collect();
 	let h: HashSet<MemorySize> = test_cases.iter().map(|a| a.memory_size).collect();
 	// Make sure every value is tested
-	assert_eq!(IcedConstants::MEMORY_SIZE_ENUM_COUNT, h.len());
+	assert_eq!(h.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT);
 	// Make sure there are no dupes
-	assert_eq!(IcedConstants::MEMORY_SIZE_ENUM_COUNT, test_cases.len());
+	assert_eq!(test_cases.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT);
 	for tc in &test_cases {
 		let info = tc.memory_size.info();
-		assert_eq!(tc.memory_size, info.memory_size());
-		assert_eq!(tc.size, info.size());
-		assert_eq!(tc.element_size, info.element_size());
-		assert_eq!(tc.element_type, info.element_type());
-		assert_eq!((tc.flags & MemorySizeFlags::SIGNED) != 0, info.is_signed());
-		assert_eq!((tc.flags & MemorySizeFlags::BROADCAST) != 0, info.is_broadcast());
-		assert_eq!((tc.flags & MemorySizeFlags::PACKED) != 0, info.is_packed());
-		assert_eq!(tc.element_count, info.element_count());
+		assert_eq!(info.memory_size(), tc.memory_size);
+		assert_eq!(info.size(), tc.size);
+		assert_eq!(info.element_size(), tc.element_size);
+		assert_eq!(info.element_type(), tc.element_type);
+		assert_eq!(info.is_signed(), (tc.flags & MemorySizeFlags::SIGNED) != 0);
+		assert_eq!(info.is_broadcast(), (tc.flags & MemorySizeFlags::BROADCAST) != 0);
+		assert_eq!(info.is_packed(), (tc.flags & MemorySizeFlags::PACKED) != 0);
+		assert_eq!(info.element_count(), tc.element_count);
 
-		assert_eq!(tc.size, tc.memory_size.size());
-		assert_eq!(tc.element_size, tc.memory_size.element_size());
-		assert_eq!(tc.element_type, tc.memory_size.element_type());
-		assert_eq!(tc.element_type, tc.memory_size.element_type_info().memory_size());
-		assert_eq!((tc.flags & MemorySizeFlags::SIGNED) != 0, tc.memory_size.is_signed());
-		assert_eq!((tc.flags & MemorySizeFlags::PACKED) != 0, tc.memory_size.is_packed());
-		assert_eq!((tc.flags & MemorySizeFlags::BROADCAST) != 0, tc.memory_size.is_broadcast());
-		assert_eq!(tc.element_count, tc.memory_size.element_count());
+		assert_eq!(tc.memory_size.size(), tc.size);
+		assert_eq!(tc.memory_size.element_size(), tc.element_size);
+		assert_eq!(tc.memory_size.element_type(), tc.element_type);
+		assert_eq!(tc.memory_size.element_type_info().memory_size(), tc.element_type);
+		assert_eq!(tc.memory_size.is_signed(), (tc.flags & MemorySizeFlags::SIGNED) != 0);
+		assert_eq!(tc.memory_size.is_packed(), (tc.flags & MemorySizeFlags::PACKED) != 0);
+		assert_eq!(tc.memory_size.is_broadcast(), (tc.flags & MemorySizeFlags::BROADCAST) != 0);
+		assert_eq!(tc.memory_size.element_count(), tc.element_count);
 	}
 }
 
@@ -485,23 +485,23 @@ fn register_info() {
 	let test_cases: Vec<_> = RegisterInfoTestParser::new(&path).into_iter().collect();
 	let h: HashSet<Register> = test_cases.iter().map(|a| a.register).collect();
 	// Make sure every value is tested
-	assert_eq!(IcedConstants::REGISTER_ENUM_COUNT, h.len());
+	assert_eq!(h.len(), IcedConstants::REGISTER_ENUM_COUNT);
 	// Make sure there are no dupes
-	assert_eq!(IcedConstants::REGISTER_ENUM_COUNT, test_cases.len());
+	assert_eq!(test_cases.len(), IcedConstants::REGISTER_ENUM_COUNT);
 	for tc in &test_cases {
 		let info = tc.register.info();
-		assert_eq!(tc.register, info.register());
-		assert_eq!(tc.base, info.base());
-		assert_eq!(tc.number, info.number());
-		assert_eq!(tc.full_register, info.full_register());
-		assert_eq!(tc.full_register32, info.full_register32());
-		assert_eq!(tc.size, info.size());
+		assert_eq!(info.register(), tc.register);
+		assert_eq!(info.base(), tc.base);
+		assert_eq!(info.number(), tc.number);
+		assert_eq!(info.full_register(), tc.full_register);
+		assert_eq!(info.full_register32(), tc.full_register32);
+		assert_eq!(info.size(), tc.size);
 
-		assert_eq!(tc.base, tc.register.base());
-		assert_eq!(tc.number, tc.register.number());
-		assert_eq!(tc.full_register, tc.register.full_register());
-		assert_eq!(tc.full_register32, tc.register.full_register32());
-		assert_eq!(tc.size, tc.register.size());
+		assert_eq!(tc.register.base(), tc.base);
+		assert_eq!(tc.register.number(), tc.number);
+		assert_eq!(tc.register.full_register(), tc.full_register);
+		assert_eq!(tc.register.full_register32(), tc.full_register32);
+		assert_eq!(tc.register.size(), tc.size);
 
 		const ALL_FLAGS: u32 = RegisterFlags::SEGMENT_REGISTER
 			| RegisterFlags::GPR
@@ -523,27 +523,27 @@ fn register_info() {
 			| RegisterFlags::MM
 			| RegisterFlags::TMM;
 		// If it fails, update the flags above and the code below, eg. add a is_tmm() test
-		assert_eq!(tc.flags, tc.flags & ALL_FLAGS);
+		assert_eq!(tc.flags & ALL_FLAGS, tc.flags);
 
-		assert_eq!((tc.flags & RegisterFlags::SEGMENT_REGISTER) != 0, tc.register.is_segment_register());
-		assert_eq!((tc.flags & RegisterFlags::GPR) != 0, tc.register.is_gpr());
-		assert_eq!((tc.flags & RegisterFlags::GPR8) != 0, tc.register.is_gpr8());
-		assert_eq!((tc.flags & RegisterFlags::GPR16) != 0, tc.register.is_gpr16());
-		assert_eq!((tc.flags & RegisterFlags::GPR32) != 0, tc.register.is_gpr32());
-		assert_eq!((tc.flags & RegisterFlags::GPR64) != 0, tc.register.is_gpr64());
-		assert_eq!((tc.flags & RegisterFlags::XMM) != 0, tc.register.is_xmm());
-		assert_eq!((tc.flags & RegisterFlags::YMM) != 0, tc.register.is_ymm());
-		assert_eq!((tc.flags & RegisterFlags::ZMM) != 0, tc.register.is_zmm());
-		assert_eq!((tc.flags & RegisterFlags::VECTOR_REGISTER) != 0, tc.register.is_vector_register());
-		assert_eq!((tc.flags & RegisterFlags::IP) != 0, tc.register.is_ip());
-		assert_eq!((tc.flags & RegisterFlags::K) != 0, tc.register.is_k());
-		assert_eq!((tc.flags & RegisterFlags::BND) != 0, tc.register.is_bnd());
-		assert_eq!((tc.flags & RegisterFlags::CR) != 0, tc.register.is_cr());
-		assert_eq!((tc.flags & RegisterFlags::DR) != 0, tc.register.is_dr());
-		assert_eq!((tc.flags & RegisterFlags::TR) != 0, tc.register.is_tr());
-		assert_eq!((tc.flags & RegisterFlags::ST) != 0, tc.register.is_st());
-		assert_eq!((tc.flags & RegisterFlags::MM) != 0, tc.register.is_mm());
-		assert_eq!((tc.flags & RegisterFlags::TMM) != 0, tc.register.is_tmm());
+		assert_eq!(tc.register.is_segment_register(), (tc.flags & RegisterFlags::SEGMENT_REGISTER) != 0);
+		assert_eq!(tc.register.is_gpr(), (tc.flags & RegisterFlags::GPR) != 0);
+		assert_eq!(tc.register.is_gpr8(), (tc.flags & RegisterFlags::GPR8) != 0);
+		assert_eq!(tc.register.is_gpr16(), (tc.flags & RegisterFlags::GPR16) != 0);
+		assert_eq!(tc.register.is_gpr32(), (tc.flags & RegisterFlags::GPR32) != 0);
+		assert_eq!(tc.register.is_gpr64(), (tc.flags & RegisterFlags::GPR64) != 0);
+		assert_eq!(tc.register.is_xmm(), (tc.flags & RegisterFlags::XMM) != 0);
+		assert_eq!(tc.register.is_ymm(), (tc.flags & RegisterFlags::YMM) != 0);
+		assert_eq!(tc.register.is_zmm(), (tc.flags & RegisterFlags::ZMM) != 0);
+		assert_eq!(tc.register.is_vector_register(), (tc.flags & RegisterFlags::VECTOR_REGISTER) != 0);
+		assert_eq!(tc.register.is_ip(), (tc.flags & RegisterFlags::IP) != 0);
+		assert_eq!(tc.register.is_k(), (tc.flags & RegisterFlags::K) != 0);
+		assert_eq!(tc.register.is_bnd(), (tc.flags & RegisterFlags::BND) != 0);
+		assert_eq!(tc.register.is_cr(), (tc.flags & RegisterFlags::CR) != 0);
+		assert_eq!(tc.register.is_dr(), (tc.flags & RegisterFlags::DR) != 0);
+		assert_eq!(tc.register.is_tr(), (tc.flags & RegisterFlags::TR) != 0);
+		assert_eq!(tc.register.is_st(), (tc.flags & RegisterFlags::ST) != 0);
+		assert_eq!(tc.register.is_mm(), (tc.flags & RegisterFlags::MM) != 0);
+		assert_eq!(tc.register.is_tmm(), (tc.flags & RegisterFlags::TMM) != 0);
 	}
 }
 
@@ -567,44 +567,44 @@ fn is_branch_call() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
-		assert_eq!(jcc_short.contains(&code) || jcc_near.contains(&code), code.is_jcc_short_or_near());
-		assert_eq!(code.is_jcc_short_or_near(), instr.is_jcc_short_or_near());
+		assert_eq!(code.is_jcc_short_or_near(), jcc_short.contains(&code) || jcc_near.contains(&code));
+		assert_eq!(instr.is_jcc_short_or_near(), code.is_jcc_short_or_near());
 
-		assert_eq!(jcc_near.contains(&code), code.is_jcc_near());
-		assert_eq!(code.is_jcc_near(), instr.is_jcc_near());
+		assert_eq!(code.is_jcc_near(), jcc_near.contains(&code));
+		assert_eq!(instr.is_jcc_near(), code.is_jcc_near());
 
-		assert_eq!(jcc_short.contains(&code), code.is_jcc_short());
-		assert_eq!(code.is_jcc_short(), instr.is_jcc_short());
+		assert_eq!(code.is_jcc_short(), jcc_short.contains(&code));
+		assert_eq!(instr.is_jcc_short(), code.is_jcc_short());
 
-		assert_eq!(jmp_short.contains(&code), code.is_jmp_short());
-		assert_eq!(code.is_jmp_short(), instr.is_jmp_short());
+		assert_eq!(code.is_jmp_short(), jmp_short.contains(&code));
+		assert_eq!(instr.is_jmp_short(), code.is_jmp_short());
 
-		assert_eq!(jmp_near.contains(&code), code.is_jmp_near());
-		assert_eq!(code.is_jmp_near(), instr.is_jmp_near());
+		assert_eq!(code.is_jmp_near(), jmp_near.contains(&code));
+		assert_eq!(instr.is_jmp_near(), code.is_jmp_near());
 
-		assert_eq!(jmp_short.contains(&code) || jmp_near.contains(&code), code.is_jmp_short_or_near());
-		assert_eq!(code.is_jmp_short_or_near(), instr.is_jmp_short_or_near());
+		assert_eq!(code.is_jmp_short_or_near(), jmp_short.contains(&code) || jmp_near.contains(&code));
+		assert_eq!(instr.is_jmp_short_or_near(), code.is_jmp_short_or_near());
 
-		assert_eq!(jmp_far.contains(&code), code.is_jmp_far());
-		assert_eq!(code.is_jmp_far(), instr.is_jmp_far());
+		assert_eq!(code.is_jmp_far(), jmp_far.contains(&code));
+		assert_eq!(instr.is_jmp_far(), code.is_jmp_far());
 
-		assert_eq!(call_near.contains(&code), code.is_call_near());
-		assert_eq!(code.is_call_near(), instr.is_call_near());
+		assert_eq!(code.is_call_near(), call_near.contains(&code));
+		assert_eq!(instr.is_call_near(), code.is_call_near());
 
-		assert_eq!(call_far.contains(&code), code.is_call_far());
-		assert_eq!(code.is_call_far(), instr.is_call_far());
+		assert_eq!(code.is_call_far(), call_far.contains(&code));
+		assert_eq!(instr.is_call_far(), code.is_call_far());
 
-		assert_eq!(jmp_near_indirect.contains(&code), code.is_jmp_near_indirect());
-		assert_eq!(code.is_jmp_near_indirect(), instr.is_jmp_near_indirect());
+		assert_eq!(code.is_jmp_near_indirect(), jmp_near_indirect.contains(&code));
+		assert_eq!(instr.is_jmp_near_indirect(), code.is_jmp_near_indirect());
 
-		assert_eq!(jmp_far_indirect.contains(&code), code.is_jmp_far_indirect());
-		assert_eq!(code.is_jmp_far_indirect(), instr.is_jmp_far_indirect());
+		assert_eq!(code.is_jmp_far_indirect(), jmp_far_indirect.contains(&code));
+		assert_eq!(instr.is_jmp_far_indirect(), code.is_jmp_far_indirect());
 
-		assert_eq!(call_near_indirect.contains(&code), code.is_call_near_indirect());
-		assert_eq!(code.is_call_near_indirect(), instr.is_call_near_indirect());
+		assert_eq!(code.is_call_near_indirect(), call_near_indirect.contains(&code));
+		assert_eq!(instr.is_call_near_indirect(), code.is_call_near_indirect());
 
-		assert_eq!(call_far_indirect.contains(&code), code.is_call_far_indirect());
-		assert_eq!(code.is_call_far_indirect(), instr.is_call_far_indirect());
+		assert_eq!(code.is_call_far_indirect(), call_far_indirect.contains(&code));
+		assert_eq!(instr.is_call_far_indirect(), code.is_call_far_indirect());
 	}
 }
 
@@ -626,9 +626,9 @@ fn verify_negate_condition_code() {
 
 		let negated = *to_negated_code_value.get(&code).unwrap_or(&code);
 
-		assert_eq!(negated, code.negate_condition_code());
+		assert_eq!(code.negate_condition_code(), negated);
 		instr.negate_condition_code();
-		assert_eq!(negated, instr.code());
+		assert_eq!(instr.code(), negated);
 	}
 }
 
@@ -647,9 +647,9 @@ fn verify_to_short_branch() {
 
 		let short = *as_short_branch.get(&code).unwrap_or(&code);
 
-		assert_eq!(short, code.as_short_branch());
+		assert_eq!(code.as_short_branch(), short);
 		instr.as_short_branch();
-		assert_eq!(short, instr.code());
+		assert_eq!(instr.code(), short);
 	}
 }
 
@@ -668,9 +668,9 @@ fn verify_to_near_branch() {
 
 		let near = *as_near_branch.get(&code).unwrap_or(&code);
 
-		assert_eq!(near, code.as_near_branch());
+		assert_eq!(code.as_near_branch(), near);
 		instr.as_near_branch();
-		assert_eq!(near, instr.code());
+		assert_eq!(instr.code(), near);
 	}
 }
 
@@ -692,30 +692,30 @@ fn verify_condition_code() {
 
 		let cc = *to_condition_code.get(&code).unwrap_or(&ConditionCode::None);
 
-		assert_eq!(cc, code.condition_code());
-		assert_eq!(cc, instr.condition_code());
+		assert_eq!(code.condition_code(), cc);
+		assert_eq!(instr.condition_code(), cc);
 	}
 }
 
 #[test]
 fn verify_condition_code_values_are_in_correct_order() {
-	const_assert_eq!(0, ConditionCode::None as u32);
-	const_assert_eq!(1, ConditionCode::o as u32);
-	const_assert_eq!(2, ConditionCode::no as u32);
-	const_assert_eq!(3, ConditionCode::b as u32);
-	const_assert_eq!(4, ConditionCode::ae as u32);
-	const_assert_eq!(5, ConditionCode::e as u32);
-	const_assert_eq!(6, ConditionCode::ne as u32);
-	const_assert_eq!(7, ConditionCode::be as u32);
-	const_assert_eq!(8, ConditionCode::a as u32);
-	const_assert_eq!(9, ConditionCode::s as u32);
-	const_assert_eq!(10, ConditionCode::ns as u32);
-	const_assert_eq!(11, ConditionCode::p as u32);
-	const_assert_eq!(12, ConditionCode::np as u32);
-	const_assert_eq!(13, ConditionCode::l as u32);
-	const_assert_eq!(14, ConditionCode::ge as u32);
-	const_assert_eq!(15, ConditionCode::le as u32);
-	const_assert_eq!(16, ConditionCode::g as u32);
+	const_assert_eq!(ConditionCode::None as u32, 0);
+	const_assert_eq!(ConditionCode::o as u32, 1);
+	const_assert_eq!(ConditionCode::no as u32, 2);
+	const_assert_eq!(ConditionCode::b as u32, 3);
+	const_assert_eq!(ConditionCode::ae as u32, 4);
+	const_assert_eq!(ConditionCode::e as u32, 5);
+	const_assert_eq!(ConditionCode::ne as u32, 6);
+	const_assert_eq!(ConditionCode::be as u32, 7);
+	const_assert_eq!(ConditionCode::a as u32, 8);
+	const_assert_eq!(ConditionCode::s as u32, 9);
+	const_assert_eq!(ConditionCode::ns as u32, 10);
+	const_assert_eq!(ConditionCode::p as u32, 11);
+	const_assert_eq!(ConditionCode::np as u32, 12);
+	const_assert_eq!(ConditionCode::l as u32, 13);
+	const_assert_eq!(ConditionCode::ge as u32, 14);
+	const_assert_eq!(ConditionCode::le as u32, 15);
+	const_assert_eq!(ConditionCode::g as u32, 16);
 }
 
 #[test]
@@ -736,10 +736,10 @@ fn make_sure_all_code_values_are_tested() {
 			missing += 1;
 		}
 	}
-	assert_eq!("0 ins ".to_string(), format!("{} ins ", missing) + &s);
+	assert_eq!(format!("{} ins ", missing) + &s, "0 ins ".to_string());
 }
 
 #[test]
 fn verify_used_memory_size() {
-	const_assert_eq!(16, mem::size_of::<UsedMemory>());
+	const_assert_eq!(mem::size_of::<UsedMemory>(), 16);
 }

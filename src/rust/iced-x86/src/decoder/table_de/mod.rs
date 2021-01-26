@@ -149,7 +149,7 @@ impl<'a> TableDeserializer<'a> {
 		let mut tmp_vec = self.temp_vecs.pop().unwrap_or_else(|| Vec::with_capacity(1));
 		debug_assert!(tmp_vec.is_empty());
 		(self.handler_reader)(self, &mut tmp_vec);
-		debug_assert_eq!(1, tmp_vec.len());
+		debug_assert_eq!(tmp_vec.len(), 1);
 		let result = tmp_vec.pop().unwrap();
 		debug_assert!(tmp_vec.is_empty());
 		self.temp_vecs.push(tmp_vec);
@@ -169,10 +169,10 @@ impl<'a> TableDeserializer<'a> {
 				break; // will panic
 			}
 			i += size;
-			debug_assert_eq!(i, handlers.len());
+			debug_assert_eq!(handlers.len(), i);
 		}
-		debug_assert_eq!(count, handlers.len());
-		debug_assert_eq!(i, count);
+		debug_assert_eq!(handlers.len(), count);
+		debug_assert_eq!(count, i);
 		handlers
 	}
 
@@ -191,7 +191,7 @@ impl<'a> TableDeserializer<'a> {
 	#[allow(clippy::get_unwrap)]
 	pub(self) fn read_array_reference(&mut self, kind: u32) -> Vec<&'static OpCodeHandler> {
 		let read_kind = self.reader.read_u8() as u32;
-		debug_assert_eq!(kind, read_kind);
+		debug_assert_eq!(read_kind, kind);
 		let index = self.reader.read_u8();
 		if let &HandlerInfo::Handlers(ref handlers) = self.id_to_handler.get(index).unwrap() {
 			// There are a few dupe refs, clone the whole thing
@@ -204,7 +204,7 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	pub(self) fn read_array_reference_no_clone(&mut self, kind: u32) -> Vec<&'static OpCodeHandler> {
 		let read_kind = self.reader.read_u8() as u32;
-		debug_assert_eq!(kind, read_kind);
+		debug_assert_eq!(read_kind, kind);
 		let index = self.reader.read_u8();
 		self.table(index)
 	}

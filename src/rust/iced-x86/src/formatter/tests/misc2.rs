@@ -53,7 +53,7 @@ fn make_sure_all_code_values_are_formatted() {
 			missing += 1;
 		}
 	}
-	assert_eq!("Fmt: 0 ins ", format!("Fmt: {} ins {}", missing, sb));
+	assert_eq!(format!("Fmt: {} ins {}", missing, sb), "Fmt: 0 ins ");
 }
 
 #[test]
@@ -78,10 +78,10 @@ fn display_trait() {
 		unreachable!()
 	};
 	let actual = format!("{}", instr);
-	assert_eq!(expected, actual);
+	assert_eq!(actual, expected);
 	let actual = instr.to_string();
-	assert_eq!(expected, actual);
+	assert_eq!(actual, expected);
 	let mut actual = String::new();
 	write!(&mut actual, "{}", instr).unwrap();
-	assert_eq!(expected, actual);
+	assert_eq!(actual, expected);
 }

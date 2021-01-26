@@ -90,7 +90,7 @@ namespace Generator.Encoder.Rust {
 
 		static void WriteMethodFooter(FileWriter writer, int opCount, TryMethodKind kind) {
 			writer.WriteLine();
-			writer.WriteLine($"debug_assert_eq!({opCount}, instruction.op_count());");
+			writer.WriteLine($"debug_assert_eq!(instruction.op_count(), {opCount});");
 			if (kind == TryMethodKind.Result)
 				writer.WriteLine("Ok(instruction)");
 			else
@@ -234,7 +234,7 @@ namespace Generator.Encoder.Rust {
 				ctx.Writer.WriteLine();
 				switch (arg.Type) {
 				case MethodArgType.Register:
-					ctx.Writer.WriteLine($"const_assert_eq!(0, {opKindStr}::{registerStr} as u32);");
+					ctx.Writer.WriteLine($"const_assert_eq!({opKindStr}::{registerStr} as u32, 0);");
 					ctx.Writer.WriteLine($"//super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{registerStr});");
 					ctx.Writer.WriteLine($"super::instruction_internal::internal_set_op{op}_register(&mut instruction, {idConverter.Argument(arg.Name)});");
 					break;

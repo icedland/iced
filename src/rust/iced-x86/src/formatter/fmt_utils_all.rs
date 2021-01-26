@@ -115,7 +115,7 @@ pub(super) fn show_segment_prefix_bool(mut default_seg_reg: Register, instructio
 		return show_useless_prefixes;
 	}
 	let prefix_seg = instruction.segment_prefix();
-	debug_assert_ne!(Register::None, prefix_seg);
+	debug_assert_ne!(prefix_seg, Register::None);
 	if is_code64(instruction.code_size()) {
 		// ES,CS,SS,DS are ignored
 		if prefix_seg == Register::FS || prefix_seg == Register::GS {
@@ -153,9 +153,9 @@ pub(super) fn is_repe_or_repne_instruction(code: Code) -> bool {
 #[must_use]
 #[inline]
 pub(super) fn is_notrack_prefix_branch(code: Code) -> bool {
-	const_assert_eq!(Code::Jmp_rm32 as u32, Code::Jmp_rm16 as u32 + 1);
-	const_assert_eq!(Code::Jmp_rm64 as u32, Code::Jmp_rm16 as u32 + 2);
-	const_assert_eq!(Code::Call_rm32 as u32, Code::Call_rm16 as u32 + 1);
-	const_assert_eq!(Code::Call_rm64 as u32, Code::Call_rm16 as u32 + 2);
+	const_assert_eq!(Code::Jmp_rm16 as u32 + 1, Code::Jmp_rm32 as u32);
+	const_assert_eq!(Code::Jmp_rm16 as u32 + 2, Code::Jmp_rm64 as u32);
+	const_assert_eq!(Code::Call_rm16 as u32 + 1, Code::Call_rm32 as u32);
+	const_assert_eq!(Code::Call_rm16 as u32 + 2, Code::Call_rm64 as u32);
 	(code as u32).wrapping_sub(Code::Jmp_rm16 as u32) <= 2 || (code as u32).wrapping_sub(Code::Call_rm16 as u32) <= 2
 }

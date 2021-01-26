@@ -102,7 +102,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		if value_len == 1 {
 			self.append_hex_byte(value as u8);
 		} else {
-			debug_assert_eq!(2, value_len);
+			debug_assert_eq!(value_len, 2);
 			self.append_hex_byte((value >> 8) as u8);
 			if sep {
 				self.sb.push(' ');

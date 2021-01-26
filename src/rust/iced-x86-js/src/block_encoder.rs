@@ -32,7 +32,7 @@ impl BlockEncoder {
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32, options: u32 /*flags: BlockEncoderOptions*/) -> Result<BlockEncoder, JsValue> {
 		// It's not part of the method sig so make sure it's still compiled by referencing it here
-		const_assert_eq!(0, BlockEncoderOptions::None as u32);
+		const_assert_eq!(BlockEncoderOptions::None as u32, 0);
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			Err(js_sys::Error::new("Invalid bitness").into())
 		} else {

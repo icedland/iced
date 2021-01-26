@@ -1124,8 +1124,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_byte_value_i8(&mut self, index: usize, new_value: i8) -> PyResult<()> {
-		self.instr.try_set_declare_byte_value_i8(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_byte_value_i8(index, new_value).map_err(to_value_error)
 	}
 
 	/// Sets a new ``db`` value, see also :class:`Instruction.declare_data_len`.
@@ -1140,8 +1139,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_byte_value(&mut self, index: usize, new_value: u8) -> PyResult<()> {
-		self.instr.try_set_declare_byte_value(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_byte_value(index, new_value).map_err(to_value_error)
 	}
 
 	/// Gets a ``db`` value, see also :class:`Instruction.declare_data_len`.
@@ -1192,8 +1190,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_word_value_i16(&mut self, index: usize, new_value: i16) -> PyResult<()> {
-		self.instr.try_set_declare_word_value_i16(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_word_value_i16(index, new_value).map_err(to_value_error)
 	}
 
 	/// Sets a new ``dw`` value, see also :class:`Instruction.declare_data_len`.
@@ -1208,8 +1205,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_word_value(&mut self, index: usize, new_value: u16) -> PyResult<()> {
-		self.instr.try_set_declare_word_value(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_word_value(index, new_value).map_err(to_value_error)
 	}
 
 	/// Gets a ``dw`` value, see also :class:`Instruction.declare_data_len`.
@@ -1260,8 +1256,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_dword_value_i32(&mut self, index: usize, new_value: i32) -> PyResult<()> {
-		self.instr.try_set_declare_dword_value_i32(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_dword_value_i32(index, new_value).map_err(to_value_error)
 	}
 
 	/// Sets a new ``dd`` value, see also :class:`Instruction.declare_data_len`.
@@ -1276,8 +1271,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_dword_value(&mut self, index: usize, new_value: u32) -> PyResult<()> {
-		self.instr.try_set_declare_dword_value(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_dword_value(index, new_value).map_err(to_value_error)
 	}
 
 	/// Gets a ``dd`` value, see also :class:`Instruction.declare_data_len`.
@@ -1328,8 +1322,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_qword_value_i64(&mut self, index: usize, new_value: i64) -> PyResult<()> {
-		self.instr.try_set_declare_qword_value_i64(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_qword_value_i64(index, new_value).map_err(to_value_error)
 	}
 
 	/// Sets a new ``dq`` value, see also :class:`Instruction.declare_data_len`.
@@ -1344,8 +1337,7 @@ impl Instruction {
 	///     ValueError: If `index` is invalid
 	#[text_signature = "($self, index, new_value, /)"]
 	fn set_declare_qword_value(&mut self, index: usize, new_value: u64) -> PyResult<()> {
-		self.instr.try_set_declare_qword_value(index, new_value).map_err(to_value_error)?;
-		Ok(())
+		self.instr.try_set_declare_qword_value(index, new_value).map_err(to_value_error)
 	}
 
 	/// Gets a ``dq`` value, see also :class:`Instruction.declare_data_len`.

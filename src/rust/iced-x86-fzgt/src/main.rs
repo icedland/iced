@@ -58,14 +58,14 @@ fn main() -> Result<(), Box<dyn Error>> {
 		let mut decoder = Decoder::try_new(options.bitness, &bytes[0..len], decoder_options)?;
 		decoder.decode_out(&mut instr);
 		if options.invalid {
-			assert_ne!(DecoderError::None, decoder.last_error());
-			assert_eq!(Code::INVALID, instr.code());
+			assert_ne!(decoder.last_error(), DecoderError::None);
+			assert_eq!(instr.code(), Code::INVALID);
 		} else {
-			assert_eq!(DecoderError::None, decoder.last_error());
+			assert_eq!(decoder.last_error(), DecoderError::None);
 			if has_code_value {
-				assert_eq!(code, instr.code());
+				assert_eq!(instr.code(), code);
 			}
-			assert_eq!(len, instr.len());
+			assert_eq!(instr.len(), len);
 		}
 		bytes = &bytes[len..];
 	}

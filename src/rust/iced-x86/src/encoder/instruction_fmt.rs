@@ -457,7 +457,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 								_ => self.sb.push_str("(0)"),
 							}
 						} else {
-							debug_assert_eq!(OpCodeOperandKind::sti_opcode, op_kind);
+							debug_assert_eq!(op_kind, OpCodeOperandKind::sti_opcode);
 							self.sb.push_str("(i)");
 						}
 					}

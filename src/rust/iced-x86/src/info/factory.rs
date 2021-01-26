@@ -120,24 +120,24 @@ impl InstructionInfoFactory {
 	/// let instr = decoder.decode();
 	/// let info = info_factory.info(&instr);
 	///
-	/// assert_eq!(1, info.used_memory().len());
+	/// assert_eq!(info.used_memory().len(), 1);
 	/// let mem = info.used_memory()[0];
-	/// assert_eq!(Register::DS, mem.segment());
-	/// assert_eq!(Register::RDI, mem.base());
-	/// assert_eq!(Register::R12, mem.index());
-	/// assert_eq!(8, mem.scale());
-	/// assert_eq!(0xFFFFFFFFA55A1234, mem.displacement());
-	/// assert_eq!(MemorySize::UInt32, mem.memory_size());
-	/// assert_eq!(OpAccess::ReadWrite, mem.access());
+	/// assert_eq!(mem.segment(), Register::DS);
+	/// assert_eq!(mem.base(), Register::RDI);
+	/// assert_eq!(mem.index(), Register::R12);
+	/// assert_eq!(mem.scale(), 8);
+	/// assert_eq!(mem.displacement(), 0xFFFFFFFFA55A1234);
+	/// assert_eq!(mem.memory_size(), MemorySize::UInt32);
+	/// assert_eq!(mem.access(), OpAccess::ReadWrite);
 	///
 	/// let regs = info.used_registers();
-	/// assert_eq!(3, regs.len());
-	/// assert_eq!(Register::RDI, regs[0].register());
-	/// assert_eq!(OpAccess::Read, regs[0].access());
-	/// assert_eq!(Register::R12, regs[1].register());
-	/// assert_eq!(OpAccess::Read, regs[1].access());
-	/// assert_eq!(Register::ESI, regs[2].register());
-	/// assert_eq!(OpAccess::Read, regs[2].access());
+	/// assert_eq!(regs.len(), 3);
+	/// assert_eq!(regs[0].register(), Register::RDI);
+	/// assert_eq!(regs[0].access(), OpAccess::Read);
+	/// assert_eq!(regs[1].register(), Register::R12);
+	/// assert_eq!(regs[1].access(), OpAccess::Read);
+	/// assert_eq!(regs[2].register(), Register::ESI);
+	/// assert_eq!(regs[2].access(), OpAccess::Read);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -182,14 +182,14 @@ impl InstructionInfoFactory {
 		info.rflags_info = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
 
 		const FLAGS_SHIFT: u32 = 12;
-		const_assert_eq!(IIFlags::SAVE_RESTORE as u32, InfoFlags2::SAVE_RESTORE >> FLAGS_SHIFT);
-		const_assert_eq!(IIFlags::STACK_INSTRUCTION as u32, InfoFlags2::STACK_INSTRUCTION >> FLAGS_SHIFT);
-		const_assert_eq!(IIFlags::PRIVILEGED as u32, InfoFlags2::PRIVILEGED >> FLAGS_SHIFT);
+		const_assert_eq!(InfoFlags2::SAVE_RESTORE >> FLAGS_SHIFT, IIFlags::SAVE_RESTORE as u32);
+		const_assert_eq!(InfoFlags2::STACK_INSTRUCTION >> FLAGS_SHIFT, IIFlags::STACK_INSTRUCTION as u32);
+		const_assert_eq!(InfoFlags2::PRIVILEGED >> FLAGS_SHIFT, IIFlags::PRIVILEGED as u32);
 		info.flags = (flags2 >> FLAGS_SHIFT) as u8;
 
 		let code_size = instruction.code_size();
-		const_assert_eq!(Flags::NO_MEMORY_USAGE, InstructionInfoOptions::NO_MEMORY_USAGE);
-		const_assert_eq!(Flags::NO_REGISTER_USAGE, InstructionInfoOptions::NO_REGISTER_USAGE);
+		const_assert_eq!(InstructionInfoOptions::NO_MEMORY_USAGE, Flags::NO_MEMORY_USAGE);
+		const_assert_eq!(InstructionInfoOptions::NO_REGISTER_USAGE, Flags::NO_REGISTER_USAGE);
 		let mut flags = options & (Flags::NO_MEMORY_USAGE | Flags::NO_REGISTER_USAGE);
 		if code_size == CodeSize::Code64 || code_size == CodeSize::Unknown {
 			flags |= Flags::IS_64BIT;
@@ -282,18 +282,18 @@ impl InstructionInfoFactory {
 		info.op_accesses[1] = unsafe { *OP_ACCESS_1.get_unchecked(op1_info) };
 		info.op_accesses[2] = unsafe { *OP_ACCESS_2.get_unchecked(((flags1 >> InfoFlags1::OP_INFO2_SHIFT) & InfoFlags1::OP_INFO2_MASK) as usize) };
 		info.op_accesses[3] = if (flags1 & ((InfoFlags1::OP_INFO3_MASK) << InfoFlags1::OP_INFO3_SHIFT)) != 0 {
-			const_assert_eq!(2, InstrInfoConstants::OP_INFO3_COUNT);
+			const_assert_eq!(InstrInfoConstants::OP_INFO3_COUNT, 2);
 			OpAccess::Read
 		} else {
 			OpAccess::None
 		};
 		info.op_accesses[4] = if (flags1 & ((InfoFlags1::OP_INFO4_MASK) << InfoFlags1::OP_INFO4_SHIFT)) != 0 {
-			const_assert_eq!(2, InstrInfoConstants::OP_INFO4_COUNT);
+			const_assert_eq!(InstrInfoConstants::OP_INFO4_COUNT, 2);
 			OpAccess::Read
 		} else {
 			OpAccess::None
 		};
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 
 		for i in 0..(instruction.op_count() as usize) {
 			let mut access = unsafe { *info.op_accesses.get_unchecked(i) };
@@ -338,8 +338,8 @@ impl InstructionInfoFactory {
 				OpKind::Memory64 => {}
 
 				OpKind::Memory => {
-					const_assert_eq!(1 << 31, InfoFlags1::IGNORES_SEGMENT);
-					const_assert_eq!(0, Register::None as u32);
+					const_assert_eq!(InfoFlags1::IGNORES_SEGMENT, 1 << 31);
+					const_assert_eq!(Register::None as u32, 0);
 					let segment_register = unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as u8) };
 					let base_register = instruction.memory_base();
 					if base_register == Register::RIP {
@@ -473,7 +473,7 @@ impl InstructionInfoFactory {
 	#[rustfmt::skip]
 	#[allow(clippy::unreadable_literal)]
 	fn add_implied_accesses(implied_access: ImpliedAccess, instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
-		debug_assert_ne!(ImpliedAccess::None, implied_access);
+		debug_assert_ne!(implied_access, ImpliedAccess::None);
 		match implied_access {
 			// GENERATOR-BEGIN: ImpliedAccessHandler
 			// ⚠️This was generated by GENERATOR!🦹‍♂️
@@ -1859,7 +1859,7 @@ impl InstructionInfoFactory {
 			} else if op_size == 4 {
 				MemorySize::UInt32
 			} else {
-				debug_assert_eq!(2, op_size);
+				debug_assert_eq!(op_size, 2);
 				MemorySize::UInt16
 			};
 			let mut offset = (op_size as u64).wrapping_neg();
@@ -1885,7 +1885,7 @@ impl InstructionInfoFactory {
 			} else if op_size == 4 {
 				MemorySize::UInt32
 			} else {
-				debug_assert_eq!(2, op_size);
+				debug_assert_eq!(op_size, 2);
 				MemorySize::UInt16
 			};
 			let mut offset = 0;
@@ -1910,11 +1910,11 @@ impl InstructionInfoFactory {
 			} else if op_size == 4 {
 				MemorySize::UInt32
 			} else {
-				debug_assert_eq!(2, op_size);
+				debug_assert_eq!(op_size, 2);
 				MemorySize::UInt16
 			};
 			if instruction.op0_kind() == OpKind::Memory {
-				debug_assert_eq!(1, info.used_memory_locations.len());
+				debug_assert_eq!(info.used_memory_locations.len(), 1);
 				if instruction.memory_base() == Register::RSP || instruction.memory_base() == Register::ESP {
 					let mem = info.used_memory_locations[0];
 					let mut displ = mem.displacement().wrapping_add(op_size as u64);
@@ -1939,7 +1939,7 @@ impl InstructionInfoFactory {
 		let (displ, memory_size, base_register) = if op_size == 4 {
 			(-4i64, MemorySize::UInt32, Register::EAX)
 		} else {
-			debug_assert_eq!(2, op_size);
+			debug_assert_eq!(op_size, 2);
 			(-2i64, MemorySize::UInt16, Register::AX)
 		};
 		for i in 0..8 {
@@ -1974,7 +1974,7 @@ impl InstructionInfoFactory {
 		let (memory_size, base_register) = if op_size == 4 {
 			(MemorySize::UInt32, Register::EAX)
 		} else {
-			debug_assert_eq!(2, op_size);
+			debug_assert_eq!(op_size, 2);
 			(MemorySize::UInt16, Register::AX)
 		};
 		for i in 0..8 {
@@ -2019,7 +2019,7 @@ impl InstructionInfoFactory {
 				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondWrite, addr_size, 0);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-				debug_assert_eq!(1, info.used_registers.len());
+				debug_assert_eq!(info.used_registers.len(), 1);
 				info.used_registers[0] = UsedRegister { register: Register::DX, access: OpAccess::CondRead };
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
 				if (flags & Flags::IS_64BIT) == 0 {
@@ -2065,7 +2065,7 @@ impl InstructionInfoFactory {
 				);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-				debug_assert_eq!(1, info.used_registers.len());
+				debug_assert_eq!(info.used_registers.len(), 1);
 				info.used_registers[0] = UsedRegister { register: Register::DX, access: OpAccess::CondRead };
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
 				Self::add_memory_segment_register(flags, info, instruction.memory_segment(), OpAccess::CondRead);
@@ -2233,7 +2233,7 @@ impl InstructionInfoFactory {
 				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondWrite, addr_size, 0);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-				debug_assert_eq!(1, info.used_registers.len());
+				debug_assert_eq!(info.used_registers.len(), 1);
 				info.used_registers[0] = UsedRegister { register: info.used_registers[0].register(), access: OpAccess::CondRead };
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
 				if (flags & Flags::IS_64BIT) == 0 {
@@ -2279,7 +2279,7 @@ impl InstructionInfoFactory {
 				);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-				debug_assert_eq!(1, info.used_registers.len());
+				debug_assert_eq!(info.used_registers.len(), 1);
 				info.used_registers[0] = UsedRegister { register: info.used_registers[0].register(), access: OpAccess::CondWrite };
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
 				Self::add_memory_segment_register(flags, info, instruction.memory_segment(), OpAccess::CondRead);
@@ -2321,7 +2321,7 @@ impl InstructionInfoFactory {
 				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondRead, addr_size, 0);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-				debug_assert_eq!(1, info.used_registers.len());
+				debug_assert_eq!(info.used_registers.len(), 1);
 				info.used_registers[0] = UsedRegister { register: info.used_registers[0].register(), access: OpAccess::CondRead };
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
 				if (flags & Flags::IS_64BIT) == 0 {
@@ -2354,7 +2354,7 @@ impl InstructionInfoFactory {
 				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondWrite, addr_size, 0);
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-				debug_assert_eq!(0, info.used_registers.len());
+				debug_assert_eq!(info.used_registers.len(), 0);
 				Self::add_register(flags, info, rcx, OpAccess::ReadCondWrite);
 				if (flags & Flags::IS_64BIT) == 0 {
 					Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
@@ -2393,7 +2393,7 @@ impl InstructionInfoFactory {
 		} else if op_size == 4 {
 			(MemorySize::UInt32, Register::ESP)
 		} else {
-			debug_assert_eq!(2, op_size);
+			debug_assert_eq!(op_size, 2);
 			(MemorySize::UInt16, Register::SP)
 		};
 
@@ -2491,7 +2491,7 @@ impl InstructionInfoFactory {
 				}
 			}
 		} else {
-			debug_assert_eq!(2, op_size);
+			debug_assert_eq!(op_size, 2);
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 				Self::add_memory(
 					info,
@@ -2534,7 +2534,7 @@ impl InstructionInfoFactory {
 				} else if info.rflags_info == RflagsInfo::R_c_W_c_U_o as usize {
 					info.rflags_info = RflagsInfo::R_c_W_co as usize;
 				} else {
-					debug_assert_eq!(RflagsInfo::W_cpsz_U_ao as usize, info.rflags_info);
+					debug_assert_eq!(info.rflags_info, RflagsInfo::W_cpsz_U_ao as usize);
 					info.rflags_info = RflagsInfo::W_copsz_U_a as usize;
 				}
 			}
@@ -2580,8 +2580,8 @@ impl InstructionInfoFactory {
 			info.op_accesses[2] = OpAccess::None;
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				debug_assert!(info.used_registers.len() == 3 || info.used_registers.len() == 4);
-				debug_assert_eq!(instruction.op1_register(), info.used_registers[info.used_registers.len() - 2].register());
-				debug_assert_eq!(instruction.op2_register(), info.used_registers[info.used_registers.len() - 1].register());
+				debug_assert_eq!(info.used_registers[info.used_registers.len() - 2].register(), instruction.op1_register());
+				debug_assert_eq!(info.used_registers[info.used_registers.len() - 1].register(), instruction.op2_register());
 				let new_size_tmp = info.used_registers.len() - 2;
 				info.used_registers.truncate(new_size_tmp);
 			}
@@ -2617,7 +2617,7 @@ impl InstructionInfoFactory {
 					instruction.try_op_register(op_index).unwrap_or_default(),
 					info.used_registers[info.used_registers.len() - N].register()
 				);
-				debug_assert_eq!(OpAccess::Read, info.used_registers[info.used_registers.len() - N].access());
+				debug_assert_eq!(info.used_registers[info.used_registers.len() - N].access(), OpAccess::Read);
 				let mut index = Self::try_get_gpr_16_32_64_index(instruction.try_op_register(op_index).unwrap_or_default());
 				if index >= 4 && base_reg == Register::AL {
 					index += 4; // Skip AH, CH, DH, BH
@@ -2636,7 +2636,7 @@ impl InstructionInfoFactory {
 	fn command_lea(instruction: &Instruction, info: &mut InstructionInfo, flags: u32) {
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			debug_assert!(!info.used_registers.is_empty());
-			debug_assert_eq!(OpKind::Register, instruction.op0_kind());
+			debug_assert_eq!(instruction.op0_kind(), OpKind::Register);
 			let reg = instruction.op0_register();
 			for reg_info in info.used_registers.iter_mut().skip(1) {
 				if reg >= Register::EAX && reg <= Register::R15D {
@@ -2738,11 +2738,11 @@ impl InstructionInfoFactory {
 
 		let mut write_reg = reg;
 		if (flags & (Flags::IS_64BIT | Flags::ZERO_EXT_VEC_REGS)) != 0 {
-			const_assert_eq!(OpAccess::CondWrite as u32, OpAccess::Write as u32 + 1);
-			const_assert_eq!(OpAccess::ReadWrite as u32, OpAccess::Write as u32 + 2);
-			const_assert_eq!(OpAccess::ReadCondWrite as u32, OpAccess::Write as u32 + 3);
+			const_assert_eq!(OpAccess::Write as u32 + 1, OpAccess::CondWrite as u32);
+			const_assert_eq!(OpAccess::Write as u32 + 2, OpAccess::ReadWrite as u32);
+			const_assert_eq!(OpAccess::Write as u32 + 3, OpAccess::ReadCondWrite as u32);
 			if (access as u32).wrapping_sub(OpAccess::Write as u32) <= 3 {
-				const_assert_eq!(Register::ZMM0 as u32, IcedConstants::VMM_FIRST as u32);
+				const_assert_eq!(IcedConstants::VMM_FIRST as u32, Register::ZMM0 as u32);
 				let mut index = (reg as u32).wrapping_sub(Register::EAX as u32);
 				if (flags & Flags::IS_64BIT) != 0 && index <= (Register::R15D as u32 - Register::EAX as u32) {
 					write_reg = unsafe { mem::transmute((Register::RAX as u32).wrapping_add(index) as u8) };

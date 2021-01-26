@@ -249,7 +249,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn is_invalid(&self) -> bool {
-		const_assert_eq!(0, Code::INVALID as u32);
+		const_assert_eq!(Code::INVALID as u32, 0);
 		(self.code_flags & CodeFlags::CODE_MASK) == 0
 	}
 
@@ -293,7 +293,7 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
+	/// assert_eq!(instr.op_count(), 2);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -616,12 +616,12 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
-	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
-	/// assert_eq!(Register::RAX, instr.memory_base());
-	/// assert_eq!(Register::None, instr.memory_index());
-	/// assert_eq!(OpKind::Register, instr.op_kind(1));
-	/// assert_eq!(Register::EBX, instr.op_register(1));
+	/// assert_eq!(instr.op_count(), 2);
+	/// assert_eq!(instr.op_kind(0), OpKind::Memory);
+	/// assert_eq!(instr.memory_base(), Register::RAX);
+	/// assert_eq!(instr.memory_index(), Register::None);
+	/// assert_eq!(instr.op_kind(1), OpKind::Register);
+	/// assert_eq!(instr.op_register(1), Register::EBX);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -653,16 +653,16 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
-	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
-	/// assert_eq!(Register::RAX, instr.memory_base());
-	/// assert_eq!(Register::None, instr.memory_index());
-	/// assert_eq!(OpKind::Register, instr.op_kind(1));
-	/// assert_eq!(Register::EBX, instr.op_register(1));
+	/// assert_eq!(instr.op_count(), 2);
+	/// assert_eq!(instr.op_kind(0), OpKind::Memory);
+	/// assert_eq!(instr.memory_base(), Register::RAX);
+	/// assert_eq!(instr.memory_index(), Register::None);
+	/// assert_eq!(instr.op_kind(1), OpKind::Register);
+	/// assert_eq!(instr.op_register(1), Register::EBX);
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpKind, IcedError> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		match operand {
 			0 => Ok(self.op0_kind()),
 			1 => Ok(self.op1_kind()),
@@ -702,7 +702,7 @@ impl Instruction {
 	/// * `op_kind`: Operand kind
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_op_kind(&mut self, operand: u32, op_kind: OpKind) -> Result<(), IcedError> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		match operand {
 			0 => self.set_op0_kind(op_kind),
 			1 => self.set_op1_kind(op_kind),
@@ -900,7 +900,7 @@ impl Instruction {
 			2 => self.memory_flags = (self.memory_flags & !(MemoryFlags::SCALE_MASK as u16)) | 1,
 			4 => self.memory_flags = (self.memory_flags & !(MemoryFlags::SCALE_MASK as u16)) | 2,
 			_ => {
-				debug_assert_eq!(8, new_value);
+				debug_assert_eq!(new_value, 8);
 				self.memory_flags |= 3;
 			}
 		}
@@ -1768,10 +1768,10 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
-	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
-	/// assert_eq!(OpKind::Register, instr.op_kind(1));
-	/// assert_eq!(Register::EBX, instr.op_register(1));
+	/// assert_eq!(instr.op_count(), 2);
+	/// assert_eq!(instr.op_kind(0), OpKind::Memory);
+	/// assert_eq!(instr.op_kind(1), OpKind::Register);
+	/// assert_eq!(instr.op_register(1), Register::EBX);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -1803,14 +1803,14 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
-	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
-	/// assert_eq!(OpKind::Register, instr.op_kind(1));
-	/// assert_eq!(Register::EBX, instr.op_register(1));
+	/// assert_eq!(instr.op_count(), 2);
+	/// assert_eq!(instr.op_kind(0), OpKind::Memory);
+	/// assert_eq!(instr.op_kind(1), OpKind::Register);
+	/// assert_eq!(instr.op_register(1), Register::EBX);
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_register(&self, operand: u32) -> Result<Register, IcedError> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		match operand {
 			0 => Ok(self.op0_register()),
 			1 => Ok(self.op1_register()),
@@ -1856,7 +1856,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_op_register(&mut self, operand: u32, new_value: Register) -> Result<(), IcedError> {
-		const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
+		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		match operand {
 			0 => self.set_op0_register(new_value),
 			1 => self.set_op1_register(new_value),
@@ -2891,7 +2891,7 @@ impl Instruction {
 	///         _ => None,
 	///     }
 	/// });
-	/// assert_eq!(Some(0x0000_001F_B55A_1234), va);
+	/// assert_eq!(va, Some(0x0000_001F_B55A_1234));
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -2946,7 +2946,7 @@ impl Instruction {
 					8 => u64::MAX,
 					4 => u32::MAX as u64,
 					_ => {
-						debug_assert_eq!(2, addr_size);
+						debug_assert_eq!(addr_size, 2);
 						u16::MAX as u64
 					}
 				};
@@ -3022,7 +3022,7 @@ impl Instruction {
 	///         _ => unimplemented!(),
 	///     }
 	/// });
-	/// assert_eq!(0x0000_001F_B55A_1234, va);
+	/// assert_eq!(va, 0x0000_001F_B55A_1234);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3099,7 +3099,7 @@ impl Instruction {
 	/// let instr = decoder.decode();
 	///
 	/// assert!(instr.is_stack_instruction());
-	/// assert_eq!(-8, instr.stack_pointer_increment());
+	/// assert_eq!(instr.stack_pointer_increment(), -8);
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -3214,7 +3214,7 @@ impl Instruction {
 	///
 	/// let info = instr.fpu_stack_increment_info();
 	/// // It pops the stack once
-	/// assert_eq!(1, info.increment());
+	/// assert_eq!(info.increment(), 1);
 	/// assert!(!info.conditional());
 	/// assert!(info.writes_top());
 	/// ```
@@ -3315,7 +3315,7 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// assert_eq!(EncodingKind::VEX, instr.encoding());
+	/// assert_eq!(instr.encoding(), EncodingKind::VEX);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3338,15 +3338,15 @@ impl Instruction {
 	/// // vmovaps xmm1,xmm5
 	/// let instr = decoder.decode();
 	/// let cpuid = instr.cpuid_features();
-	/// assert_eq!(1, cpuid.len());
-	/// assert_eq!(CpuidFeature::AVX, cpuid[0]);
+	/// assert_eq!(cpuid.len(), 1);
+	/// assert_eq!(cpuid[0], CpuidFeature::AVX);
 	///
 	/// // vmovaps xmm10{k3}{z},xmm19
 	/// let instr = decoder.decode();
 	/// let cpuid = instr.cpuid_features();
-	/// assert_eq!(2, cpuid.len());
-	/// assert_eq!(CpuidFeature::AVX512VL, cpuid[0]);
-	/// assert_eq!(CpuidFeature::AVX512F, cpuid[1]);
+	/// assert_eq!(cpuid.len(), 2);
+	/// assert_eq!(cpuid[0], CpuidFeature::AVX512VL);
+	/// assert_eq!(cpuid[1], CpuidFeature::AVX512F);
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -3371,15 +3371,15 @@ impl Instruction {
 	///
 	/// // or ecx,esi
 	/// let instr = decoder.decode();
-	/// assert_eq!(FlowControl::Next, instr.flow_control());
+	/// assert_eq!(instr.flow_control(), FlowControl::Next);
 	///
 	/// // ud0 rcx,rsi
 	/// let instr = decoder.decode();
-	/// assert_eq!(FlowControl::Exception, instr.flow_control());
+	/// assert_eq!(instr.flow_control(), FlowControl::Exception);
 	///
 	/// // call rcx
 	/// let instr = decoder.decode();
-	/// assert_eq!(FlowControl::IndirectCall, instr.flow_control());
+	/// assert_eq!(instr.flow_control(), FlowControl::IndirectCall);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3416,7 +3416,7 @@ impl Instruction {
 	/// // push rax
 	/// let instr = decoder.decode();
 	/// assert!(instr.is_stack_instruction());
-	/// assert_eq!(-8, instr.stack_pointer_increment());
+	/// assert_eq!(instr.stack_pointer_increment(), -8);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3443,8 +3443,8 @@ impl Instruction {
 		let e = implied_access.wrapping_sub(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
 		match e {
 			0 | 1 => {
-				const_assert_eq!(0, ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
-				const_assert_eq!(1, ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 0);
+				const_assert_eq!(ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 1);
 				let m = if e == 0 { 9 } else { 17 };
 				match (self.immediate8() & 0x1F) % m {
 					0 => return RflagsInfo::None as usize,
@@ -3453,8 +3453,8 @@ impl Instruction {
 				}
 			}
 			2 | 3 => {
-				const_assert_eq!(2, ImpliedAccess::Shift_Ib_MASK1F as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
-				const_assert_eq!(3, ImpliedAccess::Shift_Ib_MASK3F as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(ImpliedAccess::Shift_Ib_MASK1F as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 2);
+				const_assert_eq!(ImpliedAccess::Shift_Ib_MASK3F as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 3);
 				let mask = if e == 2 { 0x1F } else { 0x3F };
 				match self.immediate8() & mask {
 					0 => return RflagsInfo::None as usize,
@@ -3464,7 +3464,7 @@ impl Instruction {
 						} else if result == RflagsInfo::R_c_W_c_U_o as usize {
 							return RflagsInfo::R_c_W_co as usize;
 						} else {
-							debug_assert_eq!(RflagsInfo::W_cpsz_U_ao as usize, result);
+							debug_assert_eq!(result, RflagsInfo::W_cpsz_U_ao as usize);
 							return RflagsInfo::W_copsz_U_a as usize;
 						}
 					}
@@ -3472,7 +3472,7 @@ impl Instruction {
 				}
 			}
 			4 => {
-				const_assert_eq!(4, ImpliedAccess::Clear_rflags as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
+				const_assert_eq!(ImpliedAccess::Clear_rflags as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 4);
 				if self.op0_register() == self.op1_register() && self.op0_kind() == OpKind::Register && self.op1_kind() == OpKind::Register {
 					if self.mnemonic() == Mnemonic::Xor {
 						return RflagsInfo::C_cos_S_pz_U_a as usize;
@@ -3504,21 +3504,21 @@ impl Instruction {
 	///
 	/// // adc rsi,rcx
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::CF);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	///
 	/// // xor rdi,5Ah
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::OF | RflagsBits::CF);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::AF);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3544,21 +3544,21 @@ impl Instruction {
 	///
 	/// // adc rsi,rcx
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::CF);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	///
 	/// // xor rdi,5Ah
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::OF | RflagsBits::CF);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::AF);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3584,21 +3584,21 @@ impl Instruction {
 	///
 	/// // adc rsi,rcx
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::CF);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	///
 	/// // xor rdi,5Ah
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::OF | RflagsBits::CF);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::AF);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3624,21 +3624,21 @@ impl Instruction {
 	///
 	/// // adc rsi,rcx
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::CF);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	///
 	/// // xor rdi,5Ah
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::OF | RflagsBits::CF);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::AF);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3664,21 +3664,21 @@ impl Instruction {
 	///
 	/// // adc rsi,rcx
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::CF);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	///
 	/// // xor rdi,5Ah
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::OF | RflagsBits::CF);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::AF);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3702,21 +3702,21 @@ impl Instruction {
 	///
 	/// // adc rsi,rcx
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::CF);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	///
 	/// // xor rdi,5Ah
 	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// assert_eq!(instr.rflags_read(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_written(), RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF);
+	/// assert_eq!(instr.rflags_cleared(), RflagsBits::OF | RflagsBits::CF);
+	/// assert_eq!(instr.rflags_set(), RflagsBits::NONE);
+	/// assert_eq!(instr.rflags_undefined(), RflagsBits::AF);
+	/// assert_eq!(instr.rflags_modified(), RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3828,11 +3828,11 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	///
 	/// let mut instr = decoder.decode();
-	/// assert_eq!(Code::Setbe_rm8, instr.code());
-	/// assert_eq!(ConditionCode::be, instr.condition_code());
+	/// assert_eq!(instr.code(), Code::Setbe_rm8);
+	/// assert_eq!(instr.condition_code(), ConditionCode::be);
 	/// instr.negate_condition_code();
-	/// assert_eq!(Code::Seta_rm8, instr.code());
-	/// assert_eq!(ConditionCode::a, instr.condition_code());
+	/// assert_eq!(instr.code(), Code::Seta_rm8);
+	/// assert_eq!(instr.condition_code(), ConditionCode::a);
 	/// ```
 	#[inline]
 	pub fn negate_condition_code(&mut self) {
@@ -3851,11 +3851,11 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	///
 	/// let mut instr = decoder.decode();
-	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
+	/// assert_eq!(instr.code(), Code::Jbe_rel32_64);
 	/// instr.as_short_branch();
-	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
+	/// assert_eq!(instr.code(), Code::Jbe_rel8_64);
 	/// instr.as_short_branch();
-	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
+	/// assert_eq!(instr.code(), Code::Jbe_rel8_64);
 	/// ```
 	#[inline]
 	pub fn as_short_branch(&mut self) {
@@ -3874,11 +3874,11 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	///
 	/// let mut instr = decoder.decode();
-	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
+	/// assert_eq!(instr.code(), Code::Jbe_rel8_64);
 	/// instr.as_near_branch();
-	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
+	/// assert_eq!(instr.code(), Code::Jbe_rel32_64);
 	/// instr.as_near_branch();
-	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
+	/// assert_eq!(instr.code(), Code::Jbe_rel32_64);
 	/// ```
 	#[inline]
 	pub fn as_near_branch(&mut self) {
@@ -3903,19 +3903,19 @@ impl Instruction {
 	///
 	/// // setbe al
 	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::be, instr.condition_code());
+	/// assert_eq!(instr.condition_code(), ConditionCode::be);
 	///
 	/// // jl short label
 	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::l, instr.condition_code());
+	/// assert_eq!(instr.condition_code(), ConditionCode::l);
 	///
 	/// // cmovne ecx,esi
 	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::ne, instr.condition_code());
+	/// assert_eq!(instr.condition_code(), ConditionCode::ne);
 	///
 	/// // nop
 	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::None, instr.condition_code());
+	/// assert_eq!(instr.condition_code(), ConditionCode::None);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -3967,7 +3967,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		instruction
 	}
 
@@ -3984,11 +3984,11 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		debug_assert_eq!(1, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 1);
 		instruction
 	}
 
@@ -4010,7 +4010,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64)?;
 
-		debug_assert_eq!(1, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 1);
 		Ok(instruction)
 	}
 
@@ -4051,7 +4051,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64)?;
 
-		debug_assert_eq!(1, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 1);
 		Ok(instruction)
 	}
 
@@ -4090,7 +4090,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		debug_assert_eq!(1, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 1);
 		instruction
 	}
 
@@ -4108,15 +4108,15 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		instruction
 	}
 
@@ -4137,13 +4137,13 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4184,13 +4184,13 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4231,13 +4231,13 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4278,13 +4278,13 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4322,14 +4322,14 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		instruction
 	}
 
@@ -4352,11 +4352,11 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64)?;
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4399,11 +4399,11 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64)?;
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4448,7 +4448,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate2 as i64)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4493,7 +4493,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate2 as u64)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4534,11 +4534,11 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		instruction
 	}
 
@@ -4564,7 +4564,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4610,7 +4610,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64)?;
 
-		debug_assert_eq!(2, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
 	}
 
@@ -4649,19 +4649,19 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		instruction
 	}
 
@@ -4683,17 +4683,17 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -4736,17 +4736,17 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -4786,18 +4786,18 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		instruction
 	}
 
@@ -4819,7 +4819,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
@@ -4827,7 +4827,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate2 as i64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -4870,7 +4870,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
@@ -4878,7 +4878,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate2 as u64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -4918,18 +4918,18 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register2);
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		instruction
 	}
 
@@ -4951,7 +4951,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
@@ -4960,7 +4960,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -5003,7 +5003,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
@@ -5012,7 +5012,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -5055,15 +5055,15 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register2);
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		instruction
 	}
 
@@ -5088,13 +5088,13 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -5140,13 +5140,13 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
 
-		debug_assert_eq!(3, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
 	}
 
@@ -5187,23 +5187,23 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		instruction
 	}
 
@@ -5226,21 +5226,21 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64)?;
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
 	}
 
@@ -5285,21 +5285,21 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64)?;
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
 	}
 
@@ -5341,22 +5341,22 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		instruction
 	}
 
@@ -5379,11 +5379,11 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
@@ -5391,7 +5391,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate2 as i64)?;
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
 	}
 
@@ -5436,11 +5436,11 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
@@ -5448,7 +5448,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate2 as u64)?;
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
 	}
 
@@ -5490,22 +5490,22 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		instruction
 	}
 
@@ -5528,11 +5528,11 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
@@ -5541,7 +5541,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64)?;
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
 	}
 
@@ -5586,11 +5586,11 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
@@ -5599,7 +5599,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64)?;
 
-		debug_assert_eq!(4, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
 	}
 
@@ -5645,25 +5645,25 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
 
-		debug_assert_eq!(5, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
 	}
 
@@ -5710,25 +5710,25 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
 
-		debug_assert_eq!(5, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
 	}
 
@@ -5775,15 +5775,15 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
@@ -5792,7 +5792,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
 
-		debug_assert_eq!(5, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
 	}
 
@@ -5839,15 +5839,15 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
@@ -5856,7 +5856,7 @@ impl Instruction {
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
 
-		debug_assert_eq!(5, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
 	}
 
@@ -5903,24 +5903,24 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
 		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
 
-		debug_assert_eq!(5, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
 	}
 
@@ -5967,24 +5967,24 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
 		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
 
-		debug_assert_eq!(5, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
 	}
 
@@ -6030,7 +6030,7 @@ impl Instruction {
 		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_near_branch_op_kind(code, 0)?);
 		instruction.set_near_branch64(target);
 
-		debug_assert_eq!(1, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 1);
 		Ok(instruction)
 	}
 
@@ -6074,7 +6074,7 @@ impl Instruction {
 		instruction.set_far_branch_selector(selector);
 		instruction.set_far_branch32(offset);
 
-		debug_assert_eq!(1, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 1);
 		Ok(instruction)
 	}
 
@@ -6135,7 +6135,7 @@ impl Instruction {
 			_ => return Err(IcedError::new("Invalid bitness")),
 		}
 
-		debug_assert_eq!(1, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 1);
 		Ok(instruction)
 	}
 
@@ -8537,7 +8537,7 @@ impl Instruction {
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8579,7 +8579,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8624,7 +8624,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(1, b1)?;
 		instruction.try_set_declare_byte_value(2, b2)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8672,7 +8672,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(2, b2)?;
 		instruction.try_set_declare_byte_value(3, b3)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8723,7 +8723,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(3, b3)?;
 		instruction.try_set_declare_byte_value(4, b4)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8777,7 +8777,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(4, b4)?;
 		instruction.try_set_declare_byte_value(5, b5)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8834,7 +8834,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(5, b5)?;
 		instruction.try_set_declare_byte_value(6, b6)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8894,7 +8894,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(6, b6)?;
 		instruction.try_set_declare_byte_value(7, b7)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -8957,7 +8957,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(7, b7)?;
 		instruction.try_set_declare_byte_value(8, b8)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9023,7 +9023,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(8, b8)?;
 		instruction.try_set_declare_byte_value(9, b9)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9092,7 +9092,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(9, b9)?;
 		instruction.try_set_declare_byte_value(10, b10)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9164,7 +9164,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(10, b10)?;
 		instruction.try_set_declare_byte_value(11, b11)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9239,7 +9239,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(11, b11)?;
 		instruction.try_set_declare_byte_value(12, b12)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9317,7 +9317,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(12, b12)?;
 		instruction.try_set_declare_byte_value(13, b13)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9398,7 +9398,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(13, b13)?;
 		instruction.try_set_declare_byte_value(14, b14)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9482,7 +9482,7 @@ impl Instruction {
 		instruction.try_set_declare_byte_value(14, b14)?;
 		instruction.try_set_declare_byte_value(15, b15)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9544,7 +9544,7 @@ impl Instruction {
 			instruction.try_set_declare_byte_value(i.0, *i.1)?;
 		}
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9585,7 +9585,7 @@ impl Instruction {
 
 		instruction.try_set_declare_word_value(0, w0)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9627,7 +9627,7 @@ impl Instruction {
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9672,7 +9672,7 @@ impl Instruction {
 		instruction.try_set_declare_word_value(1, w1)?;
 		instruction.try_set_declare_word_value(2, w2)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9720,7 +9720,7 @@ impl Instruction {
 		instruction.try_set_declare_word_value(2, w2)?;
 		instruction.try_set_declare_word_value(3, w3)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9771,7 +9771,7 @@ impl Instruction {
 		instruction.try_set_declare_word_value(3, w3)?;
 		instruction.try_set_declare_word_value(4, w4)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9825,7 +9825,7 @@ impl Instruction {
 		instruction.try_set_declare_word_value(4, w4)?;
 		instruction.try_set_declare_word_value(5, w5)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9882,7 +9882,7 @@ impl Instruction {
 		instruction.try_set_declare_word_value(5, w5)?;
 		instruction.try_set_declare_word_value(6, w6)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9942,7 +9942,7 @@ impl Instruction {
 		instruction.try_set_declare_word_value(6, w6)?;
 		instruction.try_set_declare_word_value(7, w7)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -9998,7 +9998,7 @@ impl Instruction {
 			instruction.try_set_declare_word_value(i, v)?;
 		}
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10046,7 +10046,7 @@ impl Instruction {
 			instruction.try_set_declare_word_value(i.0, *i.1)?;
 		}
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10087,7 +10087,7 @@ impl Instruction {
 
 		instruction.try_set_declare_dword_value(0, d0)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10129,7 +10129,7 @@ impl Instruction {
 		instruction.try_set_declare_dword_value(0, d0)?;
 		instruction.try_set_declare_dword_value(1, d1)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10174,7 +10174,7 @@ impl Instruction {
 		instruction.try_set_declare_dword_value(1, d1)?;
 		instruction.try_set_declare_dword_value(2, d2)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10222,7 +10222,7 @@ impl Instruction {
 		instruction.try_set_declare_dword_value(2, d2)?;
 		instruction.try_set_declare_dword_value(3, d3)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10274,7 +10274,7 @@ impl Instruction {
 			instruction.try_set_declare_dword_value(i, v)?;
 		}
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10322,7 +10322,7 @@ impl Instruction {
 			instruction.try_set_declare_dword_value(i.0, *i.1)?;
 		}
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10363,7 +10363,7 @@ impl Instruction {
 
 		instruction.try_set_declare_qword_value(0, q0)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10405,7 +10405,7 @@ impl Instruction {
 		instruction.try_set_declare_qword_value(0, q0)?;
 		instruction.try_set_declare_qword_value(1, q1)?;
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10455,7 +10455,7 @@ impl Instruction {
 			instruction.try_set_declare_qword_value(i, v)?;
 		}
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 
@@ -10503,7 +10503,7 @@ impl Instruction {
 			instruction.try_set_declare_qword_value(i.0, *i.1)?;
 		}
 
-		debug_assert_eq!(0, instruction.op_count());
+		debug_assert_eq!(instruction.op_count(), 0);
 		Ok(instruction)
 	}
 

@@ -279,17 +279,17 @@ pub(super) struct OpCodeHandler_D3NOW {
 #[cfg(not(feature = "no_d3now"))]
 impl OpCodeHandler_D3NOW {
 	pub(super) fn new() -> Self {
-		debug_assert_eq!(0x100, CODE_VALUES.len());
+		debug_assert_eq!(CODE_VALUES.len(), 0x100);
 		Self { decode: OpCodeHandler_D3NOW::decode, has_modrm: true }
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
-		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
-		const_assert_eq!(0, OpKind::Register as u32);
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::MM0 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
@@ -320,7 +320,7 @@ impl OpCodeHandler_D3NOW {
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, _instruction: &mut Instruction) {
-		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		decoder.set_invalid_instruction();
 	}
 }

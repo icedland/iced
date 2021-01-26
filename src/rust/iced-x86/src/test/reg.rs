@@ -9,41 +9,41 @@ use std::panic;
 #[test]
 #[allow(clippy::identity_op)]
 fn test_reg_add_ops() {
-	assert_eq!(Register::AX, 0i32 + Register::AX);
-	assert_eq!(Register::AX, 0u32 + Register::AX);
-	assert_eq!(Register::AX, Register::AX + 0i32);
-	assert_eq!(Register::EAX, Register::EAX + 0u32);
+	assert_eq!(0i32 + Register::AX, Register::AX);
+	assert_eq!(0u32 + Register::AX, Register::AX);
+	assert_eq!(Register::AX + 0i32, Register::AX);
+	assert_eq!(Register::EAX + 0u32, Register::EAX);
 
-	assert_eq!(Register::BX, 3i32 + Register::AX);
-	assert_eq!(Register::EBX, 3u32 + Register::EAX);
-	assert_eq!(Register::BX, Register::AX + 3i32);
-	assert_eq!(Register::EBX, Register::EAX + 3u32);
+	assert_eq!(3i32 + Register::AX, Register::BX);
+	assert_eq!(3u32 + Register::EAX, Register::EBX);
+	assert_eq!(Register::AX + 3i32, Register::BX);
+	assert_eq!(Register::EAX + 3u32, Register::EBX);
 
 	let mut reg = Register::AX;
 	reg += 3i32;
-	assert_eq!(Register::BX, reg);
+	assert_eq!(reg, Register::BX);
 
 	let mut reg = Register::EAX;
 	reg += 3u32;
-	assert_eq!(Register::EBX, reg);
+	assert_eq!(reg, Register::EBX);
 }
 
 #[test]
 #[allow(clippy::identity_op)]
 fn test_reg_sub_ops() {
-	assert_eq!(Register::SP, Register::SP - 0i32);
-	assert_eq!(Register::ESP, Register::ESP - 0u32);
+	assert_eq!(Register::SP - 0i32, Register::SP);
+	assert_eq!(Register::ESP - 0u32, Register::ESP);
 
-	assert_eq!(Register::DX, Register::SP - 2i32);
-	assert_eq!(Register::EDX, Register::ESP - 2u32);
+	assert_eq!(Register::SP - 2i32, Register::DX);
+	assert_eq!(Register::ESP - 2u32, Register::EDX);
 
 	let mut reg = Register::SP;
 	reg -= 2i32;
-	assert_eq!(Register::DX, reg);
+	assert_eq!(reg, Register::DX);
 
 	let mut reg = Register::ESP;
 	reg -= 2u32;
-	assert_eq!(Register::EDX, reg);
+	assert_eq!(reg, Register::EDX);
 }
 
 #[test]

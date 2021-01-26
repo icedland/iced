@@ -346,7 +346,7 @@ impl OpCodeInfo {
 	/// use iced_x86::*;
 	///
 	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!(Code::EVEX_Vmovapd_ymm_k1z_ymmm256, op_code.code());
+	/// assert_eq!(op_code.code(), Code::EVEX_Vmovapd_ymm_k1z_ymmm256);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -362,7 +362,7 @@ impl OpCodeInfo {
 	/// use iced_x86::*;
 	///
 	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!(Mnemonic::Vmovapd, op_code.mnemonic());
+	/// assert_eq!(op_code.mnemonic(), Mnemonic::Vmovapd);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -378,7 +378,7 @@ impl OpCodeInfo {
 	/// use iced_x86::*;
 	///
 	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!(EncodingKind::EVEX, op_code.encoding());
+	/// assert_eq!(op_code.encoding(), EncodingKind::EVEX);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -1085,10 +1085,10 @@ impl OpCodeInfo {
 	/// ```
 	/// use iced_x86::*;
 	///
-	/// assert_eq!(0xDFC0, Code::Ffreep_sti.op_code().op_code());
-	/// assert_eq!(0x01D8, Code::Vmrunw.op_code().op_code());
-	/// assert_eq!(0x2A, Code::Sub_r8_rm8.op_code().op_code());
-	/// assert_eq!(0x2A, Code::Cvtpi2ps_xmm_mmm64.op_code().op_code());
+	/// assert_eq!(Code::Ffreep_sti.op_code().op_code(), 0xDFC0);
+	/// assert_eq!(Code::Vmrunw.op_code().op_code(), 0x01D8);
+	/// assert_eq!(Code::Sub_r8_rm8.op_code().op_code(), 0x2A);
+	/// assert_eq!(Code::Cvtpi2ps_xmm_mmm64.op_code().op_code(), 0x2A);
 	/// ```
 	///
 	/// [`op_code_len()`]: #method.op_code_len
@@ -1106,10 +1106,10 @@ impl OpCodeInfo {
 	/// ```
 	/// use iced_x86::*;
 	///
-	/// assert_eq!(2, Code::Ffreep_sti.op_code().op_code_len());
-	/// assert_eq!(2, Code::Vmrunw.op_code().op_code_len());
-	/// assert_eq!(1, Code::Sub_r8_rm8.op_code().op_code_len());
-	/// assert_eq!(1, Code::Cvtpi2ps_xmm_mmm64.op_code().op_code_len());
+	/// assert_eq!(Code::Ffreep_sti.op_code().op_code_len(), 2);
+	/// assert_eq!(Code::Vmrunw.op_code().op_code_len(), 2);
+	/// assert_eq!(Code::Sub_r8_rm8.op_code().op_code_len(), 1);
+	/// assert_eq!(Code::Cvtpi2ps_xmm_mmm64.op_code().op_code_len(), 1);
 	/// ```
 	///
 	/// [`op_code()`]: #method.op_code
@@ -1261,7 +1261,7 @@ impl OpCodeInfo {
 	/// use iced_x86::*;
 	///
 	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!("EVEX.256.66.0F.W1 28 /r", op_code.op_code_string());
+	/// assert_eq!(op_code.op_code_string(), "EVEX.256.66.0F.W1 28 /r");
 	/// ```
 	#[must_use]
 	#[inline]
@@ -1279,7 +1279,7 @@ impl OpCodeInfo {
 	/// use iced_x86::*;
 	///
 	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!("VMOVAPD ymm1 {k1}{z}, ymm2/m256", op_code.instruction_string());
+	/// assert_eq!(op_code.instruction_string(), "VMOVAPD ymm1 {k1}{z}, ymm2/m256");
 	/// ```
 	#[must_use]
 	#[inline]

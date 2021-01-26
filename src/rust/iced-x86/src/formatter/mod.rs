@@ -80,7 +80,7 @@ struct FormatterString {
 impl FormatterString {
 	#[must_use]
 	fn new(lower: String) -> Self {
-		debug_assert_eq!(lower, lower.to_lowercase());
+		debug_assert_eq!(lower.to_lowercase(), lower);
 		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 		{
 			Self { upper: lower.to_uppercase(), lower }
@@ -99,7 +99,7 @@ impl FormatterString {
 
 	#[must_use]
 	fn new_str(lower: &str) -> Self {
-		debug_assert_eq!(lower, lower.to_lowercase());
+		debug_assert_eq!(lower.to_lowercase(), lower);
 		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 		{
 			Self { lower: String::from(lower), upper: lower.to_uppercase() }
@@ -661,82 +661,82 @@ fn get_mnemonic_cc<'a, 'b>(options: &'a FormatterOptions, cc_index: u32, mnemoni
 	let index = match cc_index {
 		// o
 		0 => {
-			debug_assert_eq!(1, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 1);
 			0
 		}
 		// no
 		1 => {
-			debug_assert_eq!(1, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 1);
 			0
 		}
 		// b, c, nae
 		2 => {
-			debug_assert_eq!(3, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 3);
 			options.cc_b() as usize
 		}
 		// ae, nb, nc
 		3 => {
-			debug_assert_eq!(3, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 3);
 			options.cc_ae() as usize
 		}
 		// e, z
 		4 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_e() as usize
 		}
 		// ne, nz
 		5 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_ne() as usize
 		}
 		// be, na
 		6 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_be() as usize
 		}
 		// a, nbe
 		7 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_a() as usize
 		}
 		// s
 		8 => {
-			debug_assert_eq!(1, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 1);
 			0
 		}
 		// ns
 		9 => {
-			debug_assert_eq!(1, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 1);
 			0
 		}
 		// p, pe
 		10 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_p() as usize
 		}
 		// np, po
 		11 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_np() as usize
 		}
 		// l, nge
 		12 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_l() as usize
 		}
 		// ge, nl
 		13 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_ge() as usize
 		}
 		// le, ng
 		14 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_le() as usize
 		}
 		// g, nle
 		15 => {
-			debug_assert_eq!(2, mnemonics.len());
+			debug_assert_eq!(mnemonics.len(), 2);
 			options.cc_g() as usize
 		}
 		_ => unreachable!(),

@@ -84,8 +84,8 @@ pub(super) struct OpCodeHandler_Group8x8 {
 
 impl OpCodeHandler_Group8x8 {
 	pub(super) fn new(table_low: Vec<&'static OpCodeHandler>, table_high: Vec<&'static OpCodeHandler>) -> Self {
-		debug_assert_eq!(8, table_low.len());
-		debug_assert_eq!(8, table_high.len());
+		debug_assert_eq!(table_low.len(), 8);
+		debug_assert_eq!(table_high.len(), 8);
 		Self { decode: OpCodeHandler_Group8x8::decode, has_modrm: true, table_low, table_high }
 	}
 
@@ -111,8 +111,8 @@ pub(super) struct OpCodeHandler_Group8x64 {
 
 impl OpCodeHandler_Group8x64 {
 	pub(super) fn new(table_low: Vec<&'static OpCodeHandler>, table_high: Vec<&'static OpCodeHandler>) -> Self {
-		debug_assert_eq!(8, table_low.len());
-		debug_assert_eq!(0x40, table_high.len());
+		debug_assert_eq!(table_low.len(), 8);
+		debug_assert_eq!(table_high.len(), 0x40);
 		Self { decode: OpCodeHandler_Group8x64::decode, has_modrm: true, table_low, table_high }
 	}
 
@@ -142,7 +142,7 @@ pub(super) struct OpCodeHandler_Group {
 
 impl OpCodeHandler_Group {
 	pub(super) fn new(group_handlers: Vec<&'static OpCodeHandler>) -> Self {
-		debug_assert_eq!(8, group_handlers.len());
+		debug_assert_eq!(group_handlers.len(), 8);
 		Self { decode: OpCodeHandler_Group::decode, has_modrm: true, group_handlers }
 	}
 
@@ -163,7 +163,7 @@ pub(super) struct OpCodeHandler_AnotherTable {
 
 impl OpCodeHandler_AnotherTable {
 	pub(super) fn new(handlers: Vec<&'static OpCodeHandler>) -> Self {
-		debug_assert_eq!(0x100, handlers.len());
+		debug_assert_eq!(handlers.len(), 0x100);
 		Self { decode: OpCodeHandler_AnotherTable::decode, has_modrm: false, handlers }
 	}
 
@@ -188,19 +188,19 @@ impl OpCodeHandler_MandatoryPrefix2 {
 		has_modrm: bool, handler: *const OpCodeHandler, handler_66: *const OpCodeHandler, handler_f3: *const OpCodeHandler,
 		handler_f2: *const OpCodeHandler,
 	) -> Self {
-		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
-		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
-		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
-		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
+		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
+		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
+		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
+		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 		debug_assert!(!is_null_instance_handler(handler));
 		debug_assert!(!is_null_instance_handler(handler_66));
 		debug_assert!(!is_null_instance_handler(handler_f3));
 		debug_assert!(!is_null_instance_handler(handler_f2));
 		let handlers = unsafe { [&*handler, &*handler_66, &*handler_f3, &*handler_f2] };
-		debug_assert_eq!(has_modrm, handlers[0].has_modrm);
-		debug_assert_eq!(has_modrm, handlers[1].has_modrm);
-		debug_assert_eq!(has_modrm, handlers[2].has_modrm);
-		debug_assert_eq!(has_modrm, handlers[3].has_modrm);
+		debug_assert_eq!(handlers[0].has_modrm, has_modrm);
+		debug_assert_eq!(handlers[1].has_modrm, has_modrm);
+		debug_assert_eq!(handlers[2].has_modrm, has_modrm);
+		debug_assert_eq!(handlers[3].has_modrm, has_modrm);
 		Self { decode: OpCodeHandler_MandatoryPrefix2::decode, has_modrm, handlers: unsafe { [&*handler, &*handler_66, &*handler_f3, &*handler_f2] } }
 	}
 
@@ -240,7 +240,7 @@ impl OpCodeHandler_W {
 				|| decoder.state.encoding() == EncodingKind::EVEX
 				|| decoder.state.encoding() == EncodingKind::XOP
 		);
-		const_assert_eq!(0x80, StateFlags::W);
+		const_assert_eq!(StateFlags::W, 0x80);
 		let index = (decoder.state.flags >> 7) & 1;
 		let handler = unsafe { *this.handlers.get_unchecked(index as usize) };
 		(handler.decode)(handler, decoder, instruction);

@@ -130,15 +130,15 @@ fn format_test(bitness: u32, hex_bytes: &str, code: Code, options: u32, formatte
 	let mut decoder = create_decoder(bitness, &bytes, options).0;
 	let mut ip = decoder.ip();
 	let instr = decoder.decode();
-	assert_eq!(code, instr.code());
-	assert_eq!(ip as u16, instr.ip16());
-	assert_eq!(ip as u32, instr.ip32());
-	assert_eq!(ip, instr.ip());
+	assert_eq!(instr.code(), code);
+	assert_eq!(instr.ip16(), ip as u16);
+	assert_eq!(instr.ip32(), ip as u32);
+	assert_eq!(instr.ip(), ip);
 	ip += instr.len() as u64;
-	assert_eq!(ip, decoder.ip());
-	assert_eq!(ip as u16, instr.next_ip16());
-	assert_eq!(ip as u32, instr.next_ip32());
-	assert_eq!(ip, instr.next_ip());
+	assert_eq!(decoder.ip(), ip);
+	assert_eq!(instr.next_ip16(), ip as u16);
+	assert_eq!(instr.next_ip32(), ip as u32);
+	assert_eq!(instr.next_ip(), ip);
 	format_test_instruction_core(&instr, formatted_string, formatter);
 }
 
@@ -148,15 +148,15 @@ fn format_test_fast(bitness: u32, hex_bytes: &str, code: Code, options: u32, for
 	let mut decoder = create_decoder(bitness, &bytes, options).0;
 	let mut ip = decoder.ip();
 	let instr = decoder.decode();
-	assert_eq!(code, instr.code());
-	assert_eq!(ip as u16, instr.ip16());
-	assert_eq!(ip as u32, instr.ip32());
-	assert_eq!(ip, instr.ip());
+	assert_eq!(instr.code(), code);
+	assert_eq!(instr.ip16(), ip as u16);
+	assert_eq!(instr.ip32(), ip as u32);
+	assert_eq!(instr.ip(), ip);
 	ip += instr.len() as u64;
-	assert_eq!(ip, decoder.ip());
-	assert_eq!(ip as u16, instr.next_ip16());
-	assert_eq!(ip as u32, instr.next_ip32());
-	assert_eq!(ip, instr.next_ip());
+	assert_eq!(decoder.ip(), ip);
+	assert_eq!(instr.next_ip16(), ip as u16);
+	assert_eq!(instr.next_ip32(), ip as u32);
+	assert_eq!(instr.next_ip(), ip);
 	format_test_instruction_fast_core(&instr, formatted_string, formatter);
 }
 
@@ -164,7 +164,7 @@ fn format_test_fast(bitness: u32, hex_bytes: &str, code: Code, options: u32, for
 fn format_test_instruction_core(instruction: &Instruction, formatted_string: &str, mut formatter: Box<dyn Formatter>) {
 	let mut actual_formatted_string = String::new();
 	formatter.format(instruction, &mut actual_formatted_string);
-	assert_eq!(formatted_string, actual_formatted_string);
+	assert_eq!(actual_formatted_string, formatted_string);
 
 	let mut mnemonic = String::new();
 	formatter.format_mnemonic(instruction, &mut mnemonic);
@@ -186,19 +186,19 @@ fn format_test_instruction_core(instruction: &Instruction, formatted_string: &st
 			output.push_str(operand);
 		}
 	}
-	assert_eq!(formatted_string, output);
+	assert_eq!(output, formatted_string);
 
 	let mut all_operands = String::new();
 	formatter.format_all_operands(instruction, &mut all_operands);
 	let actual_formatted_string = if all_operands.is_empty() { mnemonic } else { format!("{} {}", mnemonic, all_operands) };
-	assert_eq!(formatted_string, actual_formatted_string);
+	assert_eq!(actual_formatted_string, formatted_string);
 }
 
 #[cfg(feature = "fast_fmt")]
 fn format_test_instruction_fast_core(instruction: &Instruction, formatted_string: &str, mut formatter: Box<FastFormatter>) {
 	let mut actual_formatted_string = String::new();
 	formatter.as_mut().format(instruction, &mut actual_formatted_string);
-	assert_eq!(formatted_string, actual_formatted_string);
+	assert_eq!(actual_formatted_string, formatted_string);
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -210,19 +210,19 @@ fn simple_format_test<F: Fn(&mut Decoder)>(
 	(init_decoder)(&mut decoder);
 	let mut next_rip = decoder.ip();
 	let instruction = decoder.decode();
-	assert_eq!(code, instruction.code());
-	assert_eq!(next_rip as u16, instruction.ip16());
-	assert_eq!(next_rip as u32, instruction.ip32());
-	assert_eq!(next_rip, instruction.ip());
+	assert_eq!(instruction.code(), code);
+	assert_eq!(instruction.ip16(), next_rip as u16);
+	assert_eq!(instruction.ip32(), next_rip as u32);
+	assert_eq!(instruction.ip(), next_rip);
 	next_rip = next_rip.wrapping_add(instruction.len() as u64);
-	assert_eq!(next_rip, decoder.ip());
-	assert_eq!(next_rip as u16, instruction.next_ip16());
-	assert_eq!(next_rip as u32, instruction.next_ip32());
-	assert_eq!(next_rip, instruction.next_ip());
+	assert_eq!(decoder.ip(), next_rip);
+	assert_eq!(instruction.next_ip16(), next_rip as u16);
+	assert_eq!(instruction.next_ip32(), next_rip as u32);
+	assert_eq!(instruction.next_ip(), next_rip);
 
 	let mut output = String::new();
 	formatter.format(&instruction, &mut output);
-	assert_eq!(formatted_string, output);
+	assert_eq!(output, formatted_string);
 }
 
 #[cfg(feature = "fast_fmt")]
@@ -234,19 +234,19 @@ fn simple_format_test_fast<F: Fn(&mut Decoder)>(
 	(init_decoder)(&mut decoder);
 	let mut next_rip = decoder.ip();
 	let instruction = decoder.decode();
-	assert_eq!(code, instruction.code());
-	assert_eq!(next_rip as u16, instruction.ip16());
-	assert_eq!(next_rip as u32, instruction.ip32());
-	assert_eq!(next_rip, instruction.ip());
+	assert_eq!(instruction.code(), code);
+	assert_eq!(instruction.ip16(), next_rip as u16);
+	assert_eq!(instruction.ip32(), next_rip as u32);
+	assert_eq!(instruction.ip(), next_rip);
 	next_rip = next_rip.wrapping_add(instruction.len() as u64);
-	assert_eq!(next_rip, decoder.ip());
-	assert_eq!(next_rip as u16, instruction.next_ip16());
-	assert_eq!(next_rip as u32, instruction.next_ip32());
-	assert_eq!(next_rip, instruction.next_ip());
+	assert_eq!(decoder.ip(), next_rip);
+	assert_eq!(instruction.next_ip16(), next_rip as u16);
+	assert_eq!(instruction.next_ip32(), next_rip as u32);
+	assert_eq!(instruction.next_ip(), next_rip);
 
 	let mut output = String::new();
 	formatter.format(&instruction, &mut output);
-	assert_eq!(formatted_string, output);
+	assert_eq!(output, formatted_string);
 }
 
 fn filter_removed_code_tests(strings: Vec<String>, ignored: &HashSet<u32>) -> Vec<String> {

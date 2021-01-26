@@ -1055,7 +1055,7 @@ pub(crate) fn how_to_get_virtual_address() {
             _ => None,
         }
     });
-    assert_eq!(Some(0x0000_001F_B55A_1234), va);
+    assert_eq!(va, Some(0x0000_001F_B55A_1234));
 }
 ```
 

@@ -184,7 +184,7 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = MemorySize::Packed256_UInt16.info();
-		/// assert_eq!(MemorySize::Packed256_UInt16, info.memory_size());
+		/// assert_eq!(info.memory_size(), MemorySize::Packed256_UInt16);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -199,11 +199,11 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = MemorySize::UInt32.info();
-		/// assert_eq!(4, info.size());
+		/// assert_eq!(info.size(), 4);
 		/// let info = MemorySize::Packed256_UInt16.info();
-		/// assert_eq!(32, info.size());
+		/// assert_eq!(info.size(), 32);
 		/// let info = MemorySize::Broadcast512_UInt64.info();
-		/// assert_eq!(8, info.size());
+		/// assert_eq!(info.size(), 8);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -220,11 +220,11 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = MemorySize::UInt32.info();
-		/// assert_eq!(4, info.element_size());
+		/// assert_eq!(info.element_size(), 4);
 		/// let info = MemorySize::Packed256_UInt16.info();
-		/// assert_eq!(2, info.element_size());
+		/// assert_eq!(info.element_size(), 2);
 		/// let info = MemorySize::Broadcast512_UInt64.info();
-		/// assert_eq!(8, info.element_size());
+		/// assert_eq!(info.element_size(), 8);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -239,11 +239,11 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = MemorySize::UInt32.info();
-		/// assert_eq!(MemorySize::UInt32, info.element_type());
+		/// assert_eq!(info.element_type(), MemorySize::UInt32);
 		/// let info = MemorySize::Packed256_UInt16.info();
-		/// assert_eq!(MemorySize::UInt16, info.element_type());
+		/// assert_eq!(info.element_type(), MemorySize::UInt16);
 		/// let info = MemorySize::Broadcast512_UInt64.info();
-		/// assert_eq!(MemorySize::UInt64, info.element_type());
+		/// assert_eq!(info.element_type(), MemorySize::UInt64);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -258,11 +258,11 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = MemorySize::UInt32.info().element_type_info();
-		/// assert_eq!(MemorySize::UInt32, info.memory_size());
+		/// assert_eq!(info.memory_size(), MemorySize::UInt32);
 		/// let info = MemorySize::Packed256_UInt16.info().element_type_info();
-		/// assert_eq!(MemorySize::UInt16, info.memory_size());
+		/// assert_eq!(info.memory_size(), MemorySize::UInt16);
 		/// let info = MemorySize::Broadcast512_UInt64.info().element_type_info();
-		/// assert_eq!(MemorySize::UInt64, info.memory_size());
+		/// assert_eq!(info.memory_size(), MemorySize::UInt64);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -339,11 +339,11 @@ mod info {
 		/// ```
 		/// use iced_x86::*;
 		/// let info = MemorySize::UInt32.info();
-		/// assert_eq!(1, info.element_count());
+		/// assert_eq!(info.element_count(), 1);
 		/// let info = MemorySize::Packed256_UInt16.info();
-		/// assert_eq!(16, info.element_count());
+		/// assert_eq!(info.element_count(), 16);
 		/// let info = MemorySize::Broadcast512_UInt64.info();
-		/// assert_eq!(1, info.element_count());
+		/// assert_eq!(info.element_count(), 1);
 		/// ```
 		#[must_use]
 		#[inline]
@@ -817,7 +817,7 @@ impl MemorySize {
 	/// ```
 	/// use iced_x86::*;
 	/// let info = MemorySize::Packed256_UInt16.info();
-	/// assert_eq!(32, info.size());
+	/// assert_eq!(info.size(), 32);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -831,9 +831,9 @@ impl MemorySize {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(4, MemorySize::UInt32.size());
-	/// assert_eq!(32, MemorySize::Packed256_UInt16.size());
-	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.size());
+	/// assert_eq!(MemorySize::UInt32.size(), 4);
+	/// assert_eq!(MemorySize::Packed256_UInt16.size(), 32);
+	/// assert_eq!(MemorySize::Broadcast512_UInt64.size(), 8);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -849,9 +849,9 @@ impl MemorySize {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(4, MemorySize::UInt32.element_size());
-	/// assert_eq!(2, MemorySize::Packed256_UInt16.element_size());
-	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.element_size());
+	/// assert_eq!(MemorySize::UInt32.element_size(), 4);
+	/// assert_eq!(MemorySize::Packed256_UInt16.element_size(), 2);
+	/// assert_eq!(MemorySize::Broadcast512_UInt64.element_size(), 8);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -865,9 +865,9 @@ impl MemorySize {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(MemorySize::UInt32, MemorySize::UInt32.element_type());
-	/// assert_eq!(MemorySize::UInt16, MemorySize::Packed256_UInt16.element_type());
-	/// assert_eq!(MemorySize::UInt64, MemorySize::Broadcast512_UInt64.element_type());
+	/// assert_eq!(MemorySize::UInt32.element_type(), MemorySize::UInt32);
+	/// assert_eq!(MemorySize::Packed256_UInt16.element_type(), MemorySize::UInt16);
+	/// assert_eq!(MemorySize::Broadcast512_UInt64.element_type(), MemorySize::UInt64);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -881,9 +881,9 @@ impl MemorySize {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(MemorySize::UInt32, MemorySize::UInt32.element_type_info().memory_size());
-	/// assert_eq!(MemorySize::UInt16, MemorySize::Packed256_UInt16.element_type_info().memory_size());
-	/// assert_eq!(MemorySize::UInt64, MemorySize::Broadcast512_UInt64.element_type_info().memory_size());
+	/// assert_eq!(MemorySize::UInt32.element_type_info().memory_size(), MemorySize::UInt32);
+	/// assert_eq!(MemorySize::Packed256_UInt16.element_type_info().memory_size(), MemorySize::UInt16);
+	/// assert_eq!(MemorySize::Broadcast512_UInt64.element_type_info().memory_size(), MemorySize::UInt64);
 	/// ```
 	#[must_use]
 	#[inline]
@@ -933,9 +933,9 @@ impl MemorySize {
 	///
 	/// ```
 	/// use iced_x86::*;
-	/// assert_eq!(1, MemorySize::UInt32.element_count());
-	/// assert_eq!(16, MemorySize::Packed256_UInt16.element_count());
-	/// assert_eq!(1, MemorySize::Broadcast512_UInt64.element_count());
+	/// assert_eq!(MemorySize::UInt32.element_count(), 1);
+	/// assert_eq!(MemorySize::Packed256_UInt16.element_count(), 16);
+	/// assert_eq!(MemorySize::Broadcast512_UInt64.element_count(), 1);
 	/// ```
 	#[must_use]
 	#[inline]

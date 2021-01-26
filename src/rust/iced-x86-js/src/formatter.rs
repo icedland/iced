@@ -126,7 +126,7 @@ impl Formatter {
 	#[wasm_bindgen(js_name = "formatMnemonicOptions")]
 	pub fn format_mnemonic_options(&mut self, instruction: &Instruction, options: u32 /*flags: FormatMnemonicOptions*/) -> String {
 		// It's not part of the method sig so make sure it's still compiled by referencing it here
-		const_assert_eq!(0, FormatMnemonicOptions::None as u32);
+		const_assert_eq!(FormatMnemonicOptions::None as u32, 0);
 		let mut output = String::new();
 		self.formatter.format_mnemonic_options(&instruction.0, &mut output, options);
 		output

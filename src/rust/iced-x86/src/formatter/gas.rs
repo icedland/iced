@@ -1056,7 +1056,7 @@ impl GasFormatter {
 	fn format_register_internal(
 		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
 	) {
-		const_assert_eq!(1, Registers::EXTRA_REGISTERS);
+		const_assert_eq!(Registers::EXTRA_REGISTERS, 1);
 		output.write_register(
 			instruction,
 			operand,
@@ -1087,7 +1087,7 @@ impl GasFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = displ.wrapping_sub(instruction.next_ip() as i64);
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 			}
 			displ_size = 8;
@@ -1096,7 +1096,7 @@ impl GasFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = (displ as u32).wrapping_sub(instruction.next_ip32()) as i32 as i64;
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 			}
 			displ_size = 4;
@@ -1165,7 +1165,7 @@ impl GasFormatter {
 						displ_size = 4;
 					}
 				} else {
-					debug_assert_eq!(2, addr_size);
+					debug_assert_eq!(addr_size, 2);
 					if number_options.signed_number && (displ as i16) < 0 {
 						output.write("-", FormatterTextKind::Operator);
 						displ = (displ as i16).wrapping_neg() as u16 as i64;

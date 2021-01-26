@@ -42,19 +42,19 @@ fn decoder_try_new_fails_128() {
 #[test]
 fn decoder_try_new_succeeds_16() {
 	let mut decoder = Decoder::try_new(16, b"\x90", DecoderOptions::NONE).unwrap();
-	assert_eq!(Code::Nopw, decoder.decode().code());
+	assert_eq!(decoder.decode().code(), Code::Nopw);
 }
 
 #[test]
 fn decoder_try_new_succeeds_32() {
 	let mut decoder = Decoder::try_new(32, b"\x90", DecoderOptions::NONE).unwrap();
-	assert_eq!(Code::Nopd, decoder.decode().code());
+	assert_eq!(decoder.decode().code(), Code::Nopd);
 }
 
 #[test]
 fn decoder_try_new_succeeds_64() {
 	let mut decoder = Decoder::try_new(64, b"\x90", DecoderOptions::NONE).unwrap();
-	assert_eq!(Code::Nopd, decoder.decode().code());
+	assert_eq!(decoder.decode().code(), Code::Nopd);
 }
 
 #[test]
@@ -113,7 +113,7 @@ fn decode_multiple_instrs_with_one_instance() {
 		decoder_all.decode_out(&mut instr2);
 		let co1 = decoder.get_constant_offsets(&instr1);
 		let co2 = decoder_all.get_constant_offsets(&instr2);
-		assert_eq!(instr1.code(), instr2.code());
+		assert_eq!(instr2.code(), instr1.code());
 		if instr1.is_invalid() {
 			// decoder_all has a bigger buffer and can decode more bytes
 			decoder_all.try_set_position(position + bytes.len()).unwrap();
@@ -134,42 +134,42 @@ fn position() {
 	decoder.set_ip(get_default_ip(BITNESS));
 
 	assert!(decoder.can_decode());
-	assert_eq!(0, decoder.position());
-	assert_eq!(bytes.len(), decoder.max_position());
+	assert_eq!(decoder.position(), 0);
+	assert_eq!(decoder.max_position(), bytes.len());
 
 	let instr_a1 = decoder.decode();
-	assert_eq!(Code::And_r32_rm32, instr_a1.code());
+	assert_eq!(instr_a1.code(), Code::And_r32_rm32);
 
 	assert!(decoder.can_decode());
-	assert_eq!(2, decoder.position());
-	assert_eq!(bytes.len(), decoder.max_position());
+	assert_eq!(decoder.position(), 2);
+	assert_eq!(decoder.max_position(), bytes.len());
 
 	let instr_b1 = decoder.decode();
-	assert_eq!(Code::Mov_rm64_r64, instr_b1.code());
+	assert_eq!(instr_b1.code(), Code::Mov_rm64_r64);
 
 	assert!(!decoder.can_decode());
-	assert_eq!(5, decoder.position());
-	assert_eq!(bytes.len(), decoder.max_position());
+	assert_eq!(decoder.position(), 5);
+	assert_eq!(decoder.max_position(), bytes.len());
 
 	decoder.set_ip(get_default_ip(BITNESS) + 2);
-	assert_eq!(5, decoder.position());
+	assert_eq!(decoder.position(), 5);
 	decoder.try_set_position(2).unwrap();
 	assert!(decoder.can_decode());
-	assert_eq!(2, decoder.position());
-	assert_eq!(bytes.len(), decoder.max_position());
+	assert_eq!(decoder.position(), 2);
+	assert_eq!(decoder.max_position(), bytes.len());
 
 	let instr_b2 = decoder.decode();
-	assert_eq!(Code::Mov_rm64_r64, instr_b2.code());
+	assert_eq!(instr_b2.code(), Code::Mov_rm64_r64);
 
 	decoder.set_ip(get_default_ip(BITNESS));
-	assert_eq!(5, decoder.position());
+	assert_eq!(decoder.position(), 5);
 	decoder.try_set_position(0).unwrap();
 	assert!(decoder.can_decode());
-	assert_eq!(0, decoder.position());
-	assert_eq!(bytes.len(), decoder.max_position());
+	assert_eq!(decoder.position(), 0);
+	assert_eq!(decoder.max_position(), bytes.len());
 
 	let instr_a2 = decoder.decode();
-	assert_eq!(Code::And_r32_rm32, instr_a2.code());
+	assert_eq!(instr_a2.code(), Code::And_r32_rm32);
 
 	assert!(instr_a1.eq_all_bits(&instr_a2));
 	assert!(instr_b1.eq_all_bits(&instr_b2));
@@ -184,21 +184,21 @@ fn set_position_valid_position() {
 		{
 			decoder.set_position(i);
 		}
-		assert_eq!(i, decoder.position());
+		assert_eq!(decoder.position(), i);
 	}
 	for i in (0..bytes.len() + 1).rev() {
 		#[allow(deprecated)]
 		{
 			decoder.set_position(i);
 		}
-		assert_eq!(i, decoder.position());
+		assert_eq!(decoder.position(), i);
 	}
 	let mut decoder = Decoder::new(64, b"", DecoderOptions::NONE);
 	#[allow(deprecated)]
 	{
 		decoder.set_position(0);
 	}
-	assert_eq!(0, decoder.position());
+	assert_eq!(decoder.position(), 0);
 }
 
 #[test]
@@ -207,15 +207,15 @@ fn try_set_position_valid_position() {
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	for i in 0..bytes.len() + 1 {
 		decoder.try_set_position(i).unwrap();
-		assert_eq!(i, decoder.position());
+		assert_eq!(decoder.position(), i);
 	}
 	for i in (0..bytes.len() + 1).rev() {
 		decoder.try_set_position(i).unwrap();
-		assert_eq!(i, decoder.position());
+		assert_eq!(decoder.position(), i);
 	}
 	let mut decoder = Decoder::new(64, b"", DecoderOptions::NONE);
 	decoder.try_set_position(0).unwrap();
-	assert_eq!(0, decoder.position());
+	assert_eq!(decoder.position(), 0);
 }
 
 #[test]
@@ -244,9 +244,9 @@ fn decoder_for_loop_into_iter() {
 	for instr in decoder {
 		instrs.push(instr);
 	}
-	assert_eq!(2, instrs.len());
-	assert_eq!(Code::And_r32_rm32, instrs[0].code());
-	assert_eq!(Code::Mov_rm64_r64, instrs[1].code());
+	assert_eq!(instrs.len(), 2);
+	assert_eq!(instrs[0].code(), Code::And_r32_rm32);
+	assert_eq!(instrs[1].code(), Code::Mov_rm64_r64);
 }
 
 #[test]
@@ -258,12 +258,12 @@ fn decoder_for_loop_ref_mut_decoder() {
 	for instr in &mut decoder {
 		instrs.push(instr);
 	}
-	assert_eq!(0x1234_5678_9ABC_DEF5, decoder.ip());
+	assert_eq!(decoder.ip(), 0x1234_5678_9ABC_DEF5);
 	assert!(!decoder.can_decode());
-	assert_eq!(5, decoder.position());
-	assert_eq!(2, instrs.len());
-	assert_eq!(Code::And_r32_rm32, instrs[0].code());
-	assert_eq!(Code::Mov_rm64_r64, instrs[1].code());
+	assert_eq!(decoder.position(), 5);
+	assert_eq!(instrs.len(), 2);
+	assert_eq!(instrs[0].code(), Code::And_r32_rm32);
+	assert_eq!(instrs[1].code(), Code::Mov_rm64_r64);
 }
 
 #[test]
@@ -275,12 +275,12 @@ fn decoder_for_loop_decoder_iter() {
 	for instr in decoder.iter() {
 		instrs.push(instr);
 	}
-	assert_eq!(0x1234_5678_9ABC_DEF5, decoder.ip());
+	assert_eq!(decoder.ip(), 0x1234_5678_9ABC_DEF5);
 	assert!(!decoder.can_decode());
-	assert_eq!(5, decoder.position());
-	assert_eq!(2, instrs.len());
-	assert_eq!(Code::And_r32_rm32, instrs[0].code());
-	assert_eq!(Code::Mov_rm64_r64, instrs[1].code());
+	assert_eq!(decoder.position(), 5);
+	assert_eq!(instrs.len(), 2);
+	assert_eq!(instrs[0].code(), Code::And_r32_rm32);
+	assert_eq!(instrs[1].code(), Code::Mov_rm64_r64);
 }
 
 #[test]
@@ -289,7 +289,7 @@ fn decode_ip_xxxxxxxxffffffff() {
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	decoder.set_ip(0x1234_5678_FFFF_FFFF);
 	let _ = decoder.decode();
-	assert_eq!(0x1234_5679_0000_0000, decoder.ip());
+	assert_eq!(decoder.ip(), 0x1234_5679_0000_0000);
 }
 
 #[test]
@@ -300,9 +300,9 @@ fn decode_with_too_few_bytes_left() {
 			let mut decoder = Decoder::new(tc.bitness(), &bytes[0..i], tc.decoder_options());
 			decoder.set_ip(0x1000);
 			let instr = decoder.decode();
-			assert_eq!(0x1000 + i as u64, decoder.ip());
-			assert_eq!(Code::INVALID, instr.code());
-			assert_eq!(DecoderError::NoMoreBytes, decoder.last_error());
+			assert_eq!(decoder.ip(), 0x1000 + i as u64);
+			assert_eq!(instr.code(), Code::INVALID);
+			assert_eq!(decoder.last_error(), DecoderError::NoMoreBytes);
 		}
 	}
 }
@@ -313,8 +313,8 @@ fn instruction_operator_eq_neq() {
 	let instr1a = Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RAX, Register::RCX);
 	let instr1b = instr1a;
 	let instr2 = Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RAX, Register::RDX);
-	assert_eq!(true, instr1a == instr1b);
-	assert_eq!(false, instr1a == instr2);
-	assert_eq!(true, instr1a != instr2);
-	assert_eq!(false, instr1a != instr1b);
+	assert_eq!(instr1a == instr1b, true);
+	assert_eq!(instr1a == instr2, false);
+	assert_eq!(instr1a != instr2, true);
+	assert_eq!(instr1a != instr1b, false);
 }

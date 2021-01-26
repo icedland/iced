@@ -126,7 +126,7 @@ fn encoder_ignores_prefixes_if_declare_data() {
 		for &bitness in &[16, 32, 64] {
 			let mut encoder = Encoder::new(bitness);
 			let _ = encoder.encode(&instr, 0).unwrap();
-			assert_eq!(orig_data, encoder.take_buffer());
+			assert_eq!(encoder.take_buffer(), orig_data);
 		}
 	}
 }
@@ -161,10 +161,10 @@ fn declare_data_byte_order_is_same() {
 	let data2 = get_data(&dw);
 	let data4 = get_data(&dd);
 	let data8 = get_data(&dq);
-	assert_eq!(data, data1);
-	assert_eq!(data, data2);
-	assert_eq!(data, data4);
-	assert_eq!(data, data8);
+	assert_eq!(data1, data);
+	assert_eq!(data2, data);
+	assert_eq!(data4, data);
+	assert_eq!(data8, data);
 }
 
 #[test]
@@ -180,10 +180,10 @@ fn try_declare_data_byte_order_is_same() {
 	let data2 = get_data(&dw);
 	let data4 = get_data(&dd);
 	let data8 = get_data(&dq);
-	assert_eq!(data, data1);
-	assert_eq!(data, data2);
-	assert_eq!(data, data4);
-	assert_eq!(data, data8);
+	assert_eq!(data1, data);
+	assert_eq!(data2, data);
+	assert_eq!(data4, data);
+	assert_eq!(data8, data);
 }
 
 #[test]
@@ -207,22 +207,22 @@ fn declare_byte_can_get_set() {
 	db.set_declare_byte_value(13, 0x8D);
 	db.set_declare_byte_value(14, 0x06);
 	db.set_declare_byte_value(15, 0xC3);
-	assert_eq!(0xE2, db.get_declare_byte_value(0));
-	assert_eq!(0xC5, db.get_declare_byte_value(1));
-	assert_eq!(0xFA, db.get_declare_byte_value(2));
-	assert_eq!(0xB4, db.get_declare_byte_value(3));
-	assert_eq!(0xCB, db.get_declare_byte_value(4));
-	assert_eq!(0xE3, db.get_declare_byte_value(5));
-	assert_eq!(0x4D, db.get_declare_byte_value(6));
-	assert_eq!(0xE4, db.get_declare_byte_value(7));
-	assert_eq!(0x96, db.get_declare_byte_value(8));
-	assert_eq!(0x98, db.get_declare_byte_value(9));
-	assert_eq!(0xFD, db.get_declare_byte_value(10));
-	assert_eq!(0x56, db.get_declare_byte_value(11));
-	assert_eq!(0x82, db.get_declare_byte_value(12));
-	assert_eq!(0x8D, db.get_declare_byte_value(13));
-	assert_eq!(0x06, db.get_declare_byte_value(14));
-	assert_eq!(0xC3, db.get_declare_byte_value(15));
+	assert_eq!(db.get_declare_byte_value(0), 0xE2);
+	assert_eq!(db.get_declare_byte_value(1), 0xC5);
+	assert_eq!(db.get_declare_byte_value(2), 0xFA);
+	assert_eq!(db.get_declare_byte_value(3), 0xB4);
+	assert_eq!(db.get_declare_byte_value(4), 0xCB);
+	assert_eq!(db.get_declare_byte_value(5), 0xE3);
+	assert_eq!(db.get_declare_byte_value(6), 0x4D);
+	assert_eq!(db.get_declare_byte_value(7), 0xE4);
+	assert_eq!(db.get_declare_byte_value(8), 0x96);
+	assert_eq!(db.get_declare_byte_value(9), 0x98);
+	assert_eq!(db.get_declare_byte_value(10), 0xFD);
+	assert_eq!(db.get_declare_byte_value(11), 0x56);
+	assert_eq!(db.get_declare_byte_value(12), 0x82);
+	assert_eq!(db.get_declare_byte_value(13), 0x8D);
+	assert_eq!(db.get_declare_byte_value(14), 0x06);
+	assert_eq!(db.get_declare_byte_value(15), 0xC3);
 }
 
 #[test]
@@ -247,22 +247,22 @@ fn try_declare_byte_can_get_set() {
 	db.try_set_declare_byte_value(13, 0x8D).unwrap();
 	db.try_set_declare_byte_value(14, 0x06).unwrap();
 	db.try_set_declare_byte_value(15, 0xC3).unwrap();
-	assert_eq!(0xE2, db.try_get_declare_byte_value(0).unwrap());
-	assert_eq!(0xC5, db.try_get_declare_byte_value(1).unwrap());
-	assert_eq!(0xFA, db.try_get_declare_byte_value(2).unwrap());
-	assert_eq!(0xB4, db.try_get_declare_byte_value(3).unwrap());
-	assert_eq!(0xCB, db.try_get_declare_byte_value(4).unwrap());
-	assert_eq!(0xE3, db.try_get_declare_byte_value(5).unwrap());
-	assert_eq!(0x4D, db.try_get_declare_byte_value(6).unwrap());
-	assert_eq!(0xE4, db.try_get_declare_byte_value(7).unwrap());
-	assert_eq!(0x96, db.try_get_declare_byte_value(8).unwrap());
-	assert_eq!(0x98, db.try_get_declare_byte_value(9).unwrap());
-	assert_eq!(0xFD, db.try_get_declare_byte_value(10).unwrap());
-	assert_eq!(0x56, db.try_get_declare_byte_value(11).unwrap());
-	assert_eq!(0x82, db.try_get_declare_byte_value(12).unwrap());
-	assert_eq!(0x8D, db.try_get_declare_byte_value(13).unwrap());
-	assert_eq!(0x06, db.try_get_declare_byte_value(14).unwrap());
-	assert_eq!(0xC3, db.try_get_declare_byte_value(15).unwrap());
+	assert_eq!(db.try_get_declare_byte_value(0).unwrap(), 0xE2);
+	assert_eq!(db.try_get_declare_byte_value(1).unwrap(), 0xC5);
+	assert_eq!(db.try_get_declare_byte_value(2).unwrap(), 0xFA);
+	assert_eq!(db.try_get_declare_byte_value(3).unwrap(), 0xB4);
+	assert_eq!(db.try_get_declare_byte_value(4).unwrap(), 0xCB);
+	assert_eq!(db.try_get_declare_byte_value(5).unwrap(), 0xE3);
+	assert_eq!(db.try_get_declare_byte_value(6).unwrap(), 0x4D);
+	assert_eq!(db.try_get_declare_byte_value(7).unwrap(), 0xE4);
+	assert_eq!(db.try_get_declare_byte_value(8).unwrap(), 0x96);
+	assert_eq!(db.try_get_declare_byte_value(9).unwrap(), 0x98);
+	assert_eq!(db.try_get_declare_byte_value(10).unwrap(), 0xFD);
+	assert_eq!(db.try_get_declare_byte_value(11).unwrap(), 0x56);
+	assert_eq!(db.try_get_declare_byte_value(12).unwrap(), 0x82);
+	assert_eq!(db.try_get_declare_byte_value(13).unwrap(), 0x8D);
+	assert_eq!(db.try_get_declare_byte_value(14).unwrap(), 0x06);
+	assert_eq!(db.try_get_declare_byte_value(15).unwrap(), 0xC3);
 }
 
 #[test]
@@ -278,14 +278,14 @@ fn declare_word_can_get_set() {
 	dw.set_declare_word_value(5, 0xFD56);
 	dw.set_declare_word_value(6, 0x828D);
 	dw.set_declare_word_value(7, 0x06C3);
-	assert_eq!(0xE2C5, dw.get_declare_word_value(0));
-	assert_eq!(0xFAB4, dw.get_declare_word_value(1));
-	assert_eq!(0xCBE3, dw.get_declare_word_value(2));
-	assert_eq!(0x4DE4, dw.get_declare_word_value(3));
-	assert_eq!(0x9698, dw.get_declare_word_value(4));
-	assert_eq!(0xFD56, dw.get_declare_word_value(5));
-	assert_eq!(0x828D, dw.get_declare_word_value(6));
-	assert_eq!(0x06C3, dw.get_declare_word_value(7));
+	assert_eq!(dw.get_declare_word_value(0), 0xE2C5);
+	assert_eq!(dw.get_declare_word_value(1), 0xFAB4);
+	assert_eq!(dw.get_declare_word_value(2), 0xCBE3);
+	assert_eq!(dw.get_declare_word_value(3), 0x4DE4);
+	assert_eq!(dw.get_declare_word_value(4), 0x9698);
+	assert_eq!(dw.get_declare_word_value(5), 0xFD56);
+	assert_eq!(dw.get_declare_word_value(6), 0x828D);
+	assert_eq!(dw.get_declare_word_value(7), 0x06C3);
 }
 
 #[test]
@@ -300,14 +300,14 @@ fn try_declare_word_can_get_set() {
 	dw.try_set_declare_word_value(5, 0xFD56).unwrap();
 	dw.try_set_declare_word_value(6, 0x828D).unwrap();
 	dw.try_set_declare_word_value(7, 0x06C3).unwrap();
-	assert_eq!(0xE2C5, dw.try_get_declare_word_value(0).unwrap());
-	assert_eq!(0xFAB4, dw.try_get_declare_word_value(1).unwrap());
-	assert_eq!(0xCBE3, dw.try_get_declare_word_value(2).unwrap());
-	assert_eq!(0x4DE4, dw.try_get_declare_word_value(3).unwrap());
-	assert_eq!(0x9698, dw.try_get_declare_word_value(4).unwrap());
-	assert_eq!(0xFD56, dw.try_get_declare_word_value(5).unwrap());
-	assert_eq!(0x828D, dw.try_get_declare_word_value(6).unwrap());
-	assert_eq!(0x06C3, dw.try_get_declare_word_value(7).unwrap());
+	assert_eq!(dw.try_get_declare_word_value(0).unwrap(), 0xE2C5);
+	assert_eq!(dw.try_get_declare_word_value(1).unwrap(), 0xFAB4);
+	assert_eq!(dw.try_get_declare_word_value(2).unwrap(), 0xCBE3);
+	assert_eq!(dw.try_get_declare_word_value(3).unwrap(), 0x4DE4);
+	assert_eq!(dw.try_get_declare_word_value(4).unwrap(), 0x9698);
+	assert_eq!(dw.try_get_declare_word_value(5).unwrap(), 0xFD56);
+	assert_eq!(dw.try_get_declare_word_value(6).unwrap(), 0x828D);
+	assert_eq!(dw.try_get_declare_word_value(7).unwrap(), 0x06C3);
 }
 
 #[test]
@@ -319,10 +319,10 @@ fn declare_dword_can_get_set() {
 	dd.set_declare_dword_value(1, 0xCBE3_4DE4);
 	dd.set_declare_dword_value(2, 0x9698_FD56);
 	dd.set_declare_dword_value(3, 0x828D_06C3);
-	assert_eq!(0xE2C5_FAB4, dd.get_declare_dword_value(0));
-	assert_eq!(0xCBE3_4DE4, dd.get_declare_dword_value(1));
-	assert_eq!(0x9698_FD56, dd.get_declare_dword_value(2));
-	assert_eq!(0x828D_06C3, dd.get_declare_dword_value(3));
+	assert_eq!(dd.get_declare_dword_value(0), 0xE2C5_FAB4);
+	assert_eq!(dd.get_declare_dword_value(1), 0xCBE3_4DE4);
+	assert_eq!(dd.get_declare_dword_value(2), 0x9698_FD56);
+	assert_eq!(dd.get_declare_dword_value(3), 0x828D_06C3);
 }
 
 #[test]
@@ -333,10 +333,10 @@ fn try_declare_dword_can_get_set() {
 	dd.try_set_declare_dword_value(1, 0xCBE3_4DE4).unwrap();
 	dd.try_set_declare_dword_value(2, 0x9698_FD56).unwrap();
 	dd.try_set_declare_dword_value(3, 0x828D_06C3).unwrap();
-	assert_eq!(0xE2C5_FAB4, dd.try_get_declare_dword_value(0).unwrap());
-	assert_eq!(0xCBE3_4DE4, dd.try_get_declare_dword_value(1).unwrap());
-	assert_eq!(0x9698_FD56, dd.try_get_declare_dword_value(2).unwrap());
-	assert_eq!(0x828D_06C3, dd.try_get_declare_dword_value(3).unwrap());
+	assert_eq!(dd.try_get_declare_dword_value(0).unwrap(), 0xE2C5_FAB4);
+	assert_eq!(dd.try_get_declare_dword_value(1).unwrap(), 0xCBE3_4DE4);
+	assert_eq!(dd.try_get_declare_dword_value(2).unwrap(), 0x9698_FD56);
+	assert_eq!(dd.try_get_declare_dword_value(3).unwrap(), 0x828D_06C3);
 }
 
 #[test]
@@ -346,8 +346,8 @@ fn declare_qword_can_get_set() {
 	let mut dq = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
 	dq.set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4);
 	dq.set_declare_qword_value(1, 0x9698_FD56_828D_06C3);
-	assert_eq!(0xE2C5_FAB4_CBE3_4DE4, dq.get_declare_qword_value(0));
-	assert_eq!(0x9698_FD56_828D_06C3, dq.get_declare_qword_value(1));
+	assert_eq!(dq.get_declare_qword_value(0), 0xE2C5_FAB4_CBE3_4DE4);
+	assert_eq!(dq.get_declare_qword_value(1), 0x9698_FD56_828D_06C3);
 }
 
 #[test]
@@ -356,8 +356,8 @@ fn try_declare_qword_can_get_set() {
 	let mut dq = Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap();
 	dq.try_set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4).unwrap();
 	dq.try_set_declare_qword_value(1, 0x9698_FD56_828D_06C3).unwrap();
-	assert_eq!(0xE2C5_FAB4_CBE3_4DE4, dq.try_get_declare_qword_value(0).unwrap());
-	assert_eq!(0x9698_FD56_828D_06C3, dq.try_get_declare_qword_value(1).unwrap());
+	assert_eq!(dq.try_get_declare_qword_value(0).unwrap(), 0xE2C5_FAB4_CBE3_4DE4);
+	assert_eq!(dq.try_get_declare_qword_value(1).unwrap(), 0x9698_FD56_828D_06C3);
 }
 
 #[test]
@@ -393,10 +393,10 @@ fn declare_data_does_not_use_other_properties() {
 	verify(&instr);
 
 	fn verify(&instr: &Instruction) {
-		assert_eq!(Register::None, instr.segment_prefix());
-		assert_eq!(CodeSize::Unknown, instr.code_size());
-		assert_eq!(RoundingControl::None, instr.rounding_control());
-		assert_eq!(0, instr.ip());
+		assert_eq!(instr.segment_prefix(), Register::None);
+		assert_eq!(instr.code_size(), CodeSize::Unknown);
+		assert_eq!(instr.rounding_control(), RoundingControl::None);
+		assert_eq!(instr.ip(), 0);
 		assert!(!instr.is_broadcast());
 		assert!(!instr.has_op_mask());
 		assert!(!instr.suppress_all_exceptions());
@@ -415,170 +415,170 @@ fn declare_data_does_not_use_other_properties() {
 #[allow(deprecated)]
 fn with_declare_byte() {
 	let instr = Instruction::with_declare_byte_1(0x77);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0x77]);
 
 	let instr = Instruction::with_declare_byte_2(0x77, 0xA9);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9]);
 
 	let instr = Instruction::with_declare_byte_3(0x77, 0xA9, 0xCE);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(3, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 3);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE]);
 
 	let instr = Instruction::with_declare_byte_4(0x77, 0xA9, 0xCE, 0x9D);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(4, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 4);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D]);
 
 	let instr = Instruction::with_declare_byte_5(0x77, 0xA9, 0xCE, 0x9D, 0x55);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(5, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 5);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55]);
 
 	let instr = Instruction::with_declare_byte_6(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(6, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 6);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05]);
 
 	let instr = Instruction::with_declare_byte_7(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(7, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 7);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42]);
 
 	let instr = Instruction::with_declare_byte_8(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(8, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 8);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C]);
 
 	let instr = Instruction::with_declare_byte_9(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(9, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 9);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86]);
 
 	let instr = Instruction::with_declare_byte_10(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(10, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 10);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32]);
 
 	let instr = Instruction::with_declare_byte_11(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(11, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 11);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE]);
 
 	let instr = Instruction::with_declare_byte_12(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(12, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 12);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F]);
 
 	let instr = Instruction::with_declare_byte_13(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(13, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 13);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34]);
 
 	let instr = Instruction::with_declare_byte_14(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(14, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 14);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27]);
 
 	let instr = Instruction::with_declare_byte_15(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(15, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 15);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA]);
 
 	let instr = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(16, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 16);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08]);
 }
 
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_byte() {
 	let instr = Instruction::try_with_declare_byte_1(0x77).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0x77]);
 
 	let instr = Instruction::try_with_declare_byte_2(0x77, 0xA9).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9]);
 
 	let instr = Instruction::try_with_declare_byte_3(0x77, 0xA9, 0xCE).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(3, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 3);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE]);
 
 	let instr = Instruction::try_with_declare_byte_4(0x77, 0xA9, 0xCE, 0x9D).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(4, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 4);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D]);
 
 	let instr = Instruction::try_with_declare_byte_5(0x77, 0xA9, 0xCE, 0x9D, 0x55).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(5, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 5);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55]);
 
 	let instr = Instruction::try_with_declare_byte_6(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(6, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 6);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05]);
 
 	let instr = Instruction::try_with_declare_byte_7(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(7, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 7);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42]);
 
 	let instr = Instruction::try_with_declare_byte_8(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(8, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 8);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C]);
 
 	let instr = Instruction::try_with_declare_byte_9(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(9, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 9);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86]);
 
 	let instr = Instruction::try_with_declare_byte_10(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(10, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 10);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32]);
 
 	let instr = Instruction::try_with_declare_byte_11(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(11, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 11);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE]);
 
 	let instr = Instruction::try_with_declare_byte_12(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(12, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 12);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F]);
 
 	let instr = Instruction::try_with_declare_byte_13(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(13, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 13);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34]);
 
 	let instr = Instruction::try_with_declare_byte_14(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(14, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 14);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27]);
 
 	let instr =
 		Instruction::try_with_declare_byte_15(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA).unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(15, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 15);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA]);
 
 	let instr = Instruction::try_with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08)
 		.unwrap();
-	assert_eq!(Code::DeclareByte, instr.code());
-	assert_eq!(16, instr.declare_data_len());
-	assert_eq!(vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareByte);
+	assert_eq!(instr.declare_data_len(), 16);
+	assert_eq!(get_data(&instr), vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08]);
 }
 
 #[test]
@@ -586,88 +586,88 @@ fn try_with_declare_byte() {
 #[allow(deprecated)]
 fn with_declare_word() {
 	let instr = Instruction::with_declare_word_1(0x77A9);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77]);
 
 	let instr = Instruction::with_declare_word_2(0x77A9, 0xCE9D);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE]);
 
 	let instr = Instruction::with_declare_word_3(0x77A9, 0xCE9D, 0x5505);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(3, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 3);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55]);
 
 	let instr = Instruction::with_declare_word_4(0x77A9, 0xCE9D, 0x5505, 0x426C);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(4, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 4);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42]);
 
 	let instr = Instruction::with_declare_word_5(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(5, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 5);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86]);
 
 	let instr = Instruction::with_declare_word_6(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(6, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 6);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE]);
 
 	let instr = Instruction::with_declare_word_7(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(7, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 7);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34]);
 
 	let instr = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(8, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34, 0x08, 0xAA], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 8);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34, 0x08, 0xAA]);
 }
 
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_word() {
 	let instr = Instruction::try_with_declare_word_1(0x77A9).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77]);
 
 	let instr = Instruction::try_with_declare_word_2(0x77A9, 0xCE9D).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE]);
 
 	let instr = Instruction::try_with_declare_word_3(0x77A9, 0xCE9D, 0x5505).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(3, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 3);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55]);
 
 	let instr = Instruction::try_with_declare_word_4(0x77A9, 0xCE9D, 0x5505, 0x426C).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(4, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 4);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42]);
 
 	let instr = Instruction::try_with_declare_word_5(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(5, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 5);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86]);
 
 	let instr = Instruction::try_with_declare_word_6(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(6, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 6);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE]);
 
 	let instr = Instruction::try_with_declare_word_7(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(7, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 7);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34]);
 
 	let instr = Instruction::try_with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08).unwrap();
-	assert_eq!(Code::DeclareWord, instr.code());
-	assert_eq!(8, instr.declare_data_len());
-	assert_eq!(vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34, 0x08, 0xAA], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareWord);
+	assert_eq!(instr.declare_data_len(), 8);
+	assert_eq!(get_data(&instr), vec![0xA9, 0x77, 0x9D, 0xCE, 0x05, 0x55, 0x6C, 0x42, 0x32, 0x86, 0x4F, 0xFE, 0x27, 0x34, 0x08, 0xAA]);
 }
 
 #[test]
@@ -675,48 +675,48 @@ fn try_with_declare_word() {
 #[allow(deprecated)]
 fn with_declare_dword() {
 	let instr = Instruction::with_declare_dword_1(0x77A9_CE9D);
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77]);
 
 	let instr = Instruction::with_declare_dword_2(0x77A9_CE9D, 0x5505_426C);
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55]);
 
 	let instr = Instruction::with_declare_dword_3(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F);
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(3, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 3);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86]);
 
 	let instr = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(4, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86, 0x08, 0xAA, 0x27, 0x34], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 4);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86, 0x08, 0xAA, 0x27, 0x34]);
 }
 
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_dword() {
 	let instr = Instruction::try_with_declare_dword_1(0x77A9_CE9D).unwrap();
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77]);
 
 	let instr = Instruction::try_with_declare_dword_2(0x77A9_CE9D, 0x5505_426C).unwrap();
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55]);
 
 	let instr = Instruction::try_with_declare_dword_3(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F).unwrap();
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(3, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 3);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86]);
 
 	let instr = Instruction::try_with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08).unwrap();
-	assert_eq!(Code::DeclareDword, instr.code());
-	assert_eq!(4, instr.declare_data_len());
-	assert_eq!(vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86, 0x08, 0xAA, 0x27, 0x34], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareDword);
+	assert_eq!(instr.declare_data_len(), 4);
+	assert_eq!(get_data(&instr), vec![0x9D, 0xCE, 0xA9, 0x77, 0x6C, 0x42, 0x05, 0x55, 0x4F, 0xFE, 0x32, 0x86, 0x08, 0xAA, 0x27, 0x34]);
 }
 
 #[test]
@@ -724,28 +724,28 @@ fn try_with_declare_dword() {
 #[allow(deprecated)]
 fn with_declare_qword() {
 	let instr = Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C);
-	assert_eq!(Code::DeclareQword, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareQword);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77]);
 
 	let instr = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
-	assert_eq!(Code::DeclareQword, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareQword);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86]);
 }
 
 #[test]
 #[cfg(feature = "db")]
 fn try_with_declare_qword() {
 	let instr = Instruction::try_with_declare_qword_1(0x77A9_CE9D_5505_426C).unwrap();
-	assert_eq!(Code::DeclareQword, instr.code());
-	assert_eq!(1, instr.declare_data_len());
-	assert_eq!(vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareQword);
+	assert_eq!(instr.declare_data_len(), 1);
+	assert_eq!(get_data(&instr), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77]);
 
 	let instr = Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap();
-	assert_eq!(Code::DeclareQword, instr.code());
-	assert_eq!(2, instr.declare_data_len());
-	assert_eq!(vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86], get_data(&instr));
+	assert_eq!(instr.code(), Code::DeclareQword);
+	assert_eq!(instr.declare_data_len(), 2);
+	assert_eq!(get_data(&instr), vec![0x6C, 0x42, 0x05, 0x55, 0x9D, 0xCE, 0xA9, 0x77, 0x08, 0xAA, 0x27, 0x34, 0x4F, 0xFE, 0x32, 0x86]);
 }
 
 #[test]
@@ -1904,7 +1904,7 @@ fn with_test_core(tests: Vec<(u32, &str, u32, Instruction)>) {
 
 		let mut encoder = Encoder::new(decoder.bitness());
 		let _ = encoder.encode(&created_instr, orig_rip).unwrap();
-		assert_eq!(bytes, encoder.take_buffer());
+		assert_eq!(encoder.take_buffer(), bytes);
 	}
 }
 
@@ -2688,7 +2688,7 @@ fn encoding_instruction_requiring_opmask_fails_if_no_opmask() {
 	let mut encoder = Encoder::new(64);
 	let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
 	let error_message = format!("{}", error_message);
-	assert_eq!("The instruction must use an opmask register", error_message);
+	assert_eq!(error_message, "The instruction must use an opmask register");
 }
 
 #[test]
@@ -2697,7 +2697,7 @@ fn create_imm_works() {
 	// OpKind::Immediate8
 	for &imm in &[-0x80i32, 0xFF] {
 		let instr = Instruction::with_reg_i32(Code::Add_rm8_imm8, Register::CL, imm);
-		assert_eq!(imm as u8, instr.immediate8());
+		assert_eq!(instr.immediate8(), imm as u8);
 	}
 	for &imm in &[-0x81i32, 0x100] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm8_imm8, Register::CL, imm));
@@ -2705,7 +2705,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[-0x80i64, 0xFF] {
 		let instr = Instruction::with_reg_i64(Code::Add_rm8_imm8, Register::CL, imm);
-		assert_eq!(imm as u8, instr.immediate8());
+		assert_eq!(instr.immediate8(), imm as u8);
 	}
 	for &imm in &[-0x81i64, 0x100] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm8_imm8, Register::CL, imm));
@@ -2713,7 +2713,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0xFF] {
 		let instr = Instruction::with_reg_u32(Code::Add_rm8_imm8, Register::CL, imm);
-		assert_eq!(imm, instr.immediate8() as u32);
+		assert_eq!(instr.immediate8() as u32, imm);
 	}
 	for &imm in &[0x100u32, 0xFFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm8_imm8, Register::CL, imm));
@@ -2721,7 +2721,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u64, 0xFF] {
 		let instr = Instruction::with_reg_u64(Code::Add_rm8_imm8, Register::CL, imm);
-		assert_eq!(imm, instr.immediate8() as u64);
+		assert_eq!(instr.immediate8() as u64, imm);
 	}
 	for &imm in &[0x100u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm8_imm8, Register::CL, imm));
@@ -2731,7 +2731,7 @@ fn create_imm_works() {
 	// OpKind::Immediate8_2nd
 	for &imm in &[-0x80i32, 0xFF] {
 		let instr = Instruction::with_i32_i32(Code::Enterq_imm16_imm8, 0, imm);
-		assert_eq!(imm as u8, instr.immediate8_2nd());
+		assert_eq!(instr.immediate8_2nd(), imm as u8);
 	}
 	for &imm in &[-0x81i32, 0x100] {
 		let result = panic::catch_unwind(|| Instruction::with_i32_i32(Code::Enterq_imm16_imm8, 0, imm));
@@ -2739,7 +2739,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0xFF] {
 		let instr = Instruction::with_u32_u32(Code::Enterq_imm16_imm8, 0, imm);
-		assert_eq!(imm, instr.immediate8_2nd() as u32);
+		assert_eq!(instr.immediate8_2nd() as u32, imm);
 	}
 	for &imm in &[0x100u32, 0xFFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_u32_u32(Code::Enterq_imm16_imm8, 0, imm));
@@ -2749,7 +2749,7 @@ fn create_imm_works() {
 	// OpKind::Immediate8to16
 	for &imm in &[-0x80i32, 0x7F] {
 		let instr = Instruction::with_reg_i32(Code::Add_rm16_imm8, Register::CX, imm);
-		assert_eq!(imm, instr.immediate8to16() as i32);
+		assert_eq!(instr.immediate8to16() as i32, imm);
 	}
 	for &imm in &[-0x81i32, 0x80] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm16_imm8, Register::CX, imm));
@@ -2757,7 +2757,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[-0x80i64, 0x7F] {
 		let instr = Instruction::with_reg_i64(Code::Add_rm16_imm8, Register::CX, imm);
-		assert_eq!(imm, instr.immediate8to16() as i64);
+		assert_eq!(instr.immediate8to16() as i64, imm);
 	}
 	for &imm in &[-0x81i64, 0x80] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm16_imm8, Register::CX, imm));
@@ -2765,7 +2765,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0x7F, 0xFF80, 0xFFFF] {
 		let instr = Instruction::with_reg_u32(Code::Add_rm16_imm8, Register::CX, imm);
-		assert_eq!(imm, instr.immediate8to16() as u16 as u32);
+		assert_eq!(instr.immediate8to16() as u16 as u32, imm);
 	}
 	for &imm in &[0x80u32, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0x0001_FF80, 0x0001_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm16_imm8, Register::CX, imm));
@@ -2773,7 +2773,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u64, 0x7F, 0xFF80, 0xFFFF] {
 		let instr = Instruction::with_reg_u64(Code::Add_rm16_imm8, Register::CX, imm);
-		assert_eq!(imm, instr.immediate8to16() as u16 as u64);
+		assert_eq!(instr.immediate8to16() as u16 as u64, imm);
 	}
 	for &imm in &[0x80u64, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FF80, 0x0001_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm16_imm8, Register::CX, imm));
@@ -2783,7 +2783,7 @@ fn create_imm_works() {
 	// OpKind::Immediate8to32
 	for &imm in &[-0x80i32, 0x7F] {
 		let instr = Instruction::with_reg_i32(Code::Add_rm32_imm8, Register::ECX, imm);
-		assert_eq!(imm, instr.immediate8to32());
+		assert_eq!(instr.immediate8to32(), imm);
 	}
 	for &imm in &[-0x81i32, 0x80] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm32_imm8, Register::ECX, imm));
@@ -2791,7 +2791,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[-0x80i64, 0x7F] {
 		let instr = Instruction::with_reg_i64(Code::Add_rm32_imm8, Register::ECX, imm);
-		assert_eq!(imm, instr.immediate8to32() as i64);
+		assert_eq!(instr.immediate8to32() as i64, imm);
 	}
 	for &imm in &[-0x81i64, 0x80] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm32_imm8, Register::ECX, imm));
@@ -2799,7 +2799,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF] {
 		let instr = Instruction::with_reg_u32(Code::Add_rm32_imm8, Register::ECX, imm);
-		assert_eq!(imm, instr.immediate8to32() as u32);
+		assert_eq!(instr.immediate8to32() as u32, imm);
 	}
 	for &imm in &[0x80u32, 0xFFFF_FF7F] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm32_imm8, Register::ECX, imm));
@@ -2807,7 +2807,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u64, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF] {
 		let instr = Instruction::with_reg_u64(Code::Add_rm32_imm8, Register::ECX, imm);
-		assert_eq!(imm, instr.immediate8to32() as u32 as u64);
+		assert_eq!(instr.immediate8to32() as u32 as u64, imm);
 	}
 	for &imm in &[0x80u64, 0xFFFF_FF7F, 0x0001_0000_0000, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FFFF_FF80, 0x0001_FFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm32_imm8, Register::ECX, imm));
@@ -2817,7 +2817,7 @@ fn create_imm_works() {
 	// OpKind::Immediate8to64
 	for &imm in &[-0x80i32, 0x7F] {
 		let instr = Instruction::with_reg_i32(Code::Add_rm64_imm8, Register::RCX, imm);
-		assert_eq!(imm as i64, instr.immediate8to64());
+		assert_eq!(instr.immediate8to64(), imm as i64);
 	}
 	for &imm in &[-0x81i32, 0x80] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm64_imm8, Register::RCX, imm));
@@ -2825,7 +2825,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[-0x80i64, 0x7F] {
 		let instr = Instruction::with_reg_i64(Code::Add_rm64_imm8, Register::RCX, imm);
-		assert_eq!(imm, instr.immediate8to64());
+		assert_eq!(instr.immediate8to64(), imm);
 	}
 	for &imm in &[-0x81i64, 0x80] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm64_imm8, Register::RCX, imm));
@@ -2833,7 +2833,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0x7F] {
 		let instr = Instruction::with_reg_u32(Code::Add_rm64_imm8, Register::RCX, imm);
-		assert_eq!(imm as i64, instr.immediate8to64());
+		assert_eq!(instr.immediate8to64(), imm as i64);
 	}
 	for &imm in &[0x80u32, 0xFFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm64_imm8, Register::RCX, imm));
@@ -2841,7 +2841,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u64, 0x7F, 0xFFFF_FFFF_FFFF_FF80, 0xFFFF_FFFF_FFFF_FFFF] {
 		let instr = Instruction::with_reg_u64(Code::Add_rm64_imm8, Register::RCX, imm);
-		assert_eq!(imm, instr.immediate8to64() as u64);
+		assert_eq!(instr.immediate8to64() as u64, imm);
 	}
 	for &imm in &[0x80u64, 0xFFFF_FFFF_FFFF_FF7F] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm64_imm8, Register::RCX, imm));
@@ -2851,11 +2851,11 @@ fn create_imm_works() {
 	// OpKind::Immediate32to64
 	for &imm in &[-0x8000_0000i32, 0x7FFF_FFFF] {
 		let instr = Instruction::with_reg_i32(Code::Add_rm64_imm32, Register::RCX, imm);
-		assert_eq!(imm as i64, instr.immediate32to64());
+		assert_eq!(instr.immediate32to64(), imm as i64);
 	}
 	for &imm in &[-0x8000_0000i64, 0x7FFF_FFFF] {
 		let instr = Instruction::with_reg_i64(Code::Add_rm64_imm32, Register::RCX, imm);
-		assert_eq!(imm, instr.immediate32to64());
+		assert_eq!(instr.immediate32to64(), imm);
 	}
 	for &imm in &[-0x8000_0001i64, 0x8000_0000] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm64_imm32, Register::RCX, imm));
@@ -2863,7 +2863,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0x7FFF_FFFF] {
 		let instr = Instruction::with_reg_u32(Code::Add_rm64_imm32, Register::RCX, imm);
-		assert_eq!(imm as i64, instr.immediate32to64());
+		assert_eq!(instr.immediate32to64(), imm as i64);
 	}
 	for &imm in &[0x8000_0000u32, 0xFFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm64_imm32, Register::RCX, imm));
@@ -2871,7 +2871,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u64, 0x7FFF_FFFF, 0xFFFF_FFFF_8000_0000, 0xFFFF_FFFF_FFFF_FFFF] {
 		let instr = Instruction::with_reg_u64(Code::Add_rm64_imm32, Register::RCX, imm);
-		assert_eq!(imm, instr.immediate32to64() as u64);
+		assert_eq!(instr.immediate32to64() as u64, imm);
 	}
 	for &imm in &[0x8000_0000u64, 0x0001_0000_0000, 0xFFFF_FFFF_7FFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm64_imm32, Register::RCX, imm));
@@ -2881,7 +2881,7 @@ fn create_imm_works() {
 	// OpKind::Immediate16
 	for &imm in &[-0x8000i32, 0xFFFF] {
 		let instr = Instruction::with_reg_i32(Code::Add_rm16_imm16, Register::CX, imm);
-		assert_eq!(imm as u16, instr.immediate16());
+		assert_eq!(instr.immediate16(), imm as u16);
 	}
 	for &imm in &[-0x8001i32, 0x0001_0000] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm16_imm16, Register::CX, imm));
@@ -2889,7 +2889,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[-0x8000i64, 0xFFFF] {
 		let instr = Instruction::with_reg_i64(Code::Add_rm16_imm16, Register::CX, imm);
-		assert_eq!(imm as u16, instr.immediate16());
+		assert_eq!(instr.immediate16(), imm as u16);
 	}
 	for &imm in &[-0x8001i64, 0x0001_0000] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm16_imm16, Register::CX, imm));
@@ -2897,7 +2897,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0xFFFF] {
 		let instr = Instruction::with_reg_u32(Code::Add_rm16_imm16, Register::CX, imm);
-		assert_eq!(imm, instr.immediate16() as u32);
+		assert_eq!(instr.immediate16() as u32, imm);
 	}
 	for &imm in &[0x0001_0000u32, 0xFFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm16_imm16, Register::CX, imm));
@@ -2905,7 +2905,7 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u64, 0xFFFF] {
 		let instr = Instruction::with_reg_u64(Code::Add_rm16_imm16, Register::CX, imm);
-		assert_eq!(imm, instr.immediate16() as u64);
+		assert_eq!(instr.immediate16() as u64, imm);
 	}
 	for &imm in &[0x0001_0000u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm16_imm16, Register::CX, imm));
@@ -2915,11 +2915,11 @@ fn create_imm_works() {
 	// OpKind::Immediate32
 	for &imm in &[-0x8000_0000i32, 0x7FFF_FFFF] {
 		let instr = Instruction::with_reg_i32(Code::Add_rm32_imm32, Register::ECX, imm);
-		assert_eq!(imm as u32, instr.immediate32());
+		assert_eq!(instr.immediate32(), imm as u32);
 	}
 	for &imm in &[-0x8000_0000i64, 0xFFFF_FFFF] {
 		let instr = Instruction::with_reg_i64(Code::Add_rm32_imm32, Register::ECX, imm);
-		assert_eq!(imm as u32, instr.immediate32());
+		assert_eq!(instr.immediate32(), imm as u32);
 	}
 	for &imm in &[-0x8000_0001i64, 0x0001_0000_0000] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm32_imm32, Register::ECX, imm));
@@ -2927,11 +2927,11 @@ fn create_imm_works() {
 	}
 	for &imm in &[0u32, 0xFFFF_FFFF] {
 		let instr = Instruction::with_reg_u32(Code::Add_rm32_imm32, Register::ECX, imm);
-		assert_eq!(imm, instr.immediate32());
+		assert_eq!(instr.immediate32(), imm);
 	}
 	for &imm in &[0u64, 0xFFFF_FFFF] {
 		let instr = Instruction::with_reg_u64(Code::Add_rm32_imm32, Register::ECX, imm);
-		assert_eq!(imm, instr.immediate32() as u64);
+		assert_eq!(instr.immediate32() as u64, imm);
 	}
 	for &imm in &[0x0001_0000_0000u64, 0xFFFF_FFFF_FFFF_FFFF] {
 		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm32_imm32, Register::ECX, imm));
@@ -2941,19 +2941,19 @@ fn create_imm_works() {
 	// OpKind::Immediate64
 	for &imm in &[i32::MIN, i32::MAX] {
 		let instr = Instruction::with_reg_i32(Code::Mov_r64_imm64, Register::RCX, imm);
-		assert_eq!(imm as u64, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm as u64);
 	}
 	for &imm in &[i64::MIN, i64::MAX] {
 		let instr = Instruction::with_reg_i64(Code::Mov_r64_imm64, Register::RCX, imm);
-		assert_eq!(imm as u64, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm as u64);
 	}
 	for &imm in &[u32::MIN, u32::MAX] {
 		let instr = Instruction::with_reg_u32(Code::Mov_r64_imm64, Register::RCX, imm);
-		assert_eq!(imm as u64, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm as u64);
 	}
 	for &imm in &[u64::MIN, u64::MAX] {
 		let instr = Instruction::with_reg_u64(Code::Mov_r64_imm64, Register::RCX, imm);
-		assert_eq!(imm, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm);
 	}
 }
 
@@ -2962,28 +2962,28 @@ fn try_create_imm_works() {
 	// OpKind::Immediate8
 	for &imm in &[-0x80i32, 0xFF] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
-		assert_eq!(imm as u8, instr.immediate8());
+		assert_eq!(instr.immediate8(), imm as u8);
 	}
 	for &imm in &[-0x81i32, 0x100] {
 		assert!(Instruction::try_with_reg_i32(Code::Add_rm8_imm8, Register::CL, imm).is_err());
 	}
 	for &imm in &[-0x80i64, 0xFF] {
 		let instr = Instruction::try_with_reg_i64(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
-		assert_eq!(imm as u8, instr.immediate8());
+		assert_eq!(instr.immediate8(), imm as u8);
 	}
 	for &imm in &[-0x81i64, 0x100] {
 		assert!(Instruction::try_with_reg_i64(Code::Add_rm8_imm8, Register::CL, imm).is_err());
 	}
 	for &imm in &[0u32, 0xFF] {
 		let instr = Instruction::try_with_reg_u32(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
-		assert_eq!(imm, instr.immediate8() as u32);
+		assert_eq!(instr.immediate8() as u32, imm);
 	}
 	for &imm in &[0x100u32, 0xFFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u32(Code::Add_rm8_imm8, Register::CL, imm).is_err());
 	}
 	for &imm in &[0u64, 0xFF] {
 		let instr = Instruction::try_with_reg_u64(Code::Add_rm8_imm8, Register::CL, imm).unwrap();
-		assert_eq!(imm, instr.immediate8() as u64);
+		assert_eq!(instr.immediate8() as u64, imm);
 	}
 	for &imm in &[0x100u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u64(Code::Add_rm8_imm8, Register::CL, imm).is_err());
@@ -2992,14 +2992,14 @@ fn try_create_imm_works() {
 	// OpKind::Immediate8_2nd
 	for &imm in &[-0x80i32, 0xFF] {
 		let instr = Instruction::try_with_i32_i32(Code::Enterq_imm16_imm8, 0, imm).unwrap();
-		assert_eq!(imm as u8, instr.immediate8_2nd());
+		assert_eq!(instr.immediate8_2nd(), imm as u8);
 	}
 	for &imm in &[-0x81i32, 0x100] {
 		assert!(Instruction::try_with_i32_i32(Code::Enterq_imm16_imm8, 0, imm).is_err());
 	}
 	for &imm in &[0u32, 0xFF] {
 		let instr = Instruction::try_with_u32_u32(Code::Enterq_imm16_imm8, 0, imm).unwrap();
-		assert_eq!(imm, instr.immediate8_2nd() as u32);
+		assert_eq!(instr.immediate8_2nd() as u32, imm);
 	}
 	for &imm in &[0x100u32, 0xFFFF_FFFF] {
 		assert!(Instruction::try_with_u32_u32(Code::Enterq_imm16_imm8, 0, imm).is_err());
@@ -3008,28 +3008,28 @@ fn try_create_imm_works() {
 	// OpKind::Immediate8to16
 	for &imm in &[-0x80i32, 0x7F] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to16() as i32);
+		assert_eq!(instr.immediate8to16() as i32, imm);
 	}
 	for &imm in &[-0x81i32, 0x80] {
 		assert!(Instruction::try_with_reg_i32(Code::Add_rm16_imm8, Register::CX, imm).is_err());
 	}
 	for &imm in &[-0x80i64, 0x7F] {
 		let instr = Instruction::try_with_reg_i64(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to16() as i64);
+		assert_eq!(instr.immediate8to16() as i64, imm);
 	}
 	for &imm in &[-0x81i64, 0x80] {
 		assert!(Instruction::try_with_reg_i64(Code::Add_rm16_imm8, Register::CX, imm).is_err());
 	}
 	for &imm in &[0u32, 0x7F, 0xFF80, 0xFFFF] {
 		let instr = Instruction::try_with_reg_u32(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to16() as u16 as u32);
+		assert_eq!(instr.immediate8to16() as u16 as u32, imm);
 	}
 	for &imm in &[0x80u32, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0x0001_FF80, 0x0001_FFFF] {
 		assert!(Instruction::try_with_reg_u32(Code::Add_rm16_imm8, Register::CX, imm).is_err());
 	}
 	for &imm in &[0u64, 0x7F, 0xFF80, 0xFFFF] {
 		let instr = Instruction::try_with_reg_u64(Code::Add_rm16_imm8, Register::CX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to16() as u16 as u64);
+		assert_eq!(instr.immediate8to16() as u16 as u64, imm);
 	}
 	for &imm in &[0x80u64, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FF80, 0x0001_FFFF] {
 		assert!(Instruction::try_with_reg_u64(Code::Add_rm16_imm8, Register::CX, imm).is_err());
@@ -3038,28 +3038,28 @@ fn try_create_imm_works() {
 	// OpKind::Immediate8to32
 	for &imm in &[-0x80i32, 0x7F] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to32());
+		assert_eq!(instr.immediate8to32(), imm);
 	}
 	for &imm in &[-0x81i32, 0x80] {
 		assert!(Instruction::try_with_reg_i32(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
 	}
 	for &imm in &[-0x80i64, 0x7F] {
 		let instr = Instruction::try_with_reg_i64(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to32() as i64);
+		assert_eq!(instr.immediate8to32() as i64, imm);
 	}
 	for &imm in &[-0x81i64, 0x80] {
 		assert!(Instruction::try_with_reg_i64(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
 	}
 	for &imm in &[0u32, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF] {
 		let instr = Instruction::try_with_reg_u32(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to32() as u32);
+		assert_eq!(instr.immediate8to32() as u32, imm);
 	}
 	for &imm in &[0x80u32, 0xFFFF_FF7F] {
 		assert!(Instruction::try_with_reg_u32(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
 	}
 	for &imm in &[0u64, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF] {
 		let instr = Instruction::try_with_reg_u64(Code::Add_rm32_imm8, Register::ECX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to32() as u32 as u64);
+		assert_eq!(instr.immediate8to32() as u32 as u64, imm);
 	}
 	for &imm in &[0x80u64, 0xFFFF_FF7F, 0x0001_0000_0000, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FFFF_FF80, 0x0001_FFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u64(Code::Add_rm32_imm8, Register::ECX, imm).is_err());
@@ -3068,28 +3068,28 @@ fn try_create_imm_works() {
 	// OpKind::Immediate8to64
 	for &imm in &[-0x80i32, 0x7F] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
-		assert_eq!(imm as i64, instr.immediate8to64());
+		assert_eq!(instr.immediate8to64(), imm as i64);
 	}
 	for &imm in &[-0x81i32, 0x80] {
 		assert!(Instruction::try_with_reg_i32(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
 	}
 	for &imm in &[-0x80i64, 0x7F] {
 		let instr = Instruction::try_with_reg_i64(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to64());
+		assert_eq!(instr.immediate8to64(), imm);
 	}
 	for &imm in &[-0x81i64, 0x80] {
 		assert!(Instruction::try_with_reg_i64(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
 	}
 	for &imm in &[0u32, 0x7F] {
 		let instr = Instruction::try_with_reg_u32(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
-		assert_eq!(imm as i64, instr.immediate8to64());
+		assert_eq!(instr.immediate8to64(), imm as i64);
 	}
 	for &imm in &[0x80u32, 0xFFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u32(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
 	}
 	for &imm in &[0u64, 0x7F, 0xFFFF_FFFF_FFFF_FF80, 0xFFFF_FFFF_FFFF_FFFF] {
 		let instr = Instruction::try_with_reg_u64(Code::Add_rm64_imm8, Register::RCX, imm).unwrap();
-		assert_eq!(imm, instr.immediate8to64() as u64);
+		assert_eq!(instr.immediate8to64() as u64, imm);
 	}
 	for &imm in &[0x80u64, 0xFFFF_FFFF_FFFF_FF7F] {
 		assert!(Instruction::try_with_reg_u64(Code::Add_rm64_imm8, Register::RCX, imm).is_err());
@@ -3098,25 +3098,25 @@ fn try_create_imm_works() {
 	// OpKind::Immediate32to64
 	for &imm in &[-0x8000_0000i32, 0x7FFF_FFFF] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
-		assert_eq!(imm as i64, instr.immediate32to64());
+		assert_eq!(instr.immediate32to64(), imm as i64);
 	}
 	for &imm in &[-0x8000_0000i64, 0x7FFF_FFFF] {
 		let instr = Instruction::try_with_reg_i64(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
-		assert_eq!(imm, instr.immediate32to64());
+		assert_eq!(instr.immediate32to64(), imm);
 	}
 	for &imm in &[-0x8000_0001i64, 0x8000_0000] {
 		assert!(Instruction::try_with_reg_i64(Code::Add_rm64_imm32, Register::RCX, imm).is_err());
 	}
 	for &imm in &[0u32, 0x7FFF_FFFF] {
 		let instr = Instruction::try_with_reg_u32(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
-		assert_eq!(imm as i64, instr.immediate32to64());
+		assert_eq!(instr.immediate32to64(), imm as i64);
 	}
 	for &imm in &[0x8000_0000u32, 0xFFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u32(Code::Add_rm64_imm32, Register::RCX, imm).is_err());
 	}
 	for &imm in &[0u64, 0x7FFF_FFFF, 0xFFFF_FFFF_8000_0000, 0xFFFF_FFFF_FFFF_FFFF] {
 		let instr = Instruction::try_with_reg_u64(Code::Add_rm64_imm32, Register::RCX, imm).unwrap();
-		assert_eq!(imm, instr.immediate32to64() as u64);
+		assert_eq!(instr.immediate32to64() as u64, imm);
 	}
 	for &imm in &[0x8000_0000u64, 0x0001_0000_0000, 0xFFFF_FFFF_7FFF_FFFF] {
 		assert!(Instruction::try_with_reg_u64(Code::Add_rm64_imm32, Register::RCX, imm).is_err());
@@ -3125,28 +3125,28 @@ fn try_create_imm_works() {
 	// OpKind::Immediate16
 	for &imm in &[-0x8000i32, 0xFFFF] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
-		assert_eq!(imm as u16, instr.immediate16());
+		assert_eq!(instr.immediate16(), imm as u16);
 	}
 	for &imm in &[-0x8001i32, 0x0001_0000] {
 		assert!(Instruction::try_with_reg_i32(Code::Add_rm16_imm16, Register::CX, imm).is_err());
 	}
 	for &imm in &[-0x8000i64, 0xFFFF] {
 		let instr = Instruction::try_with_reg_i64(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
-		assert_eq!(imm as u16, instr.immediate16());
+		assert_eq!(instr.immediate16(), imm as u16);
 	}
 	for &imm in &[-0x8001i64, 0x0001_0000] {
 		assert!(Instruction::try_with_reg_i64(Code::Add_rm16_imm16, Register::CX, imm).is_err());
 	}
 	for &imm in &[0u32, 0xFFFF] {
 		let instr = Instruction::try_with_reg_u32(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
-		assert_eq!(imm, instr.immediate16() as u32);
+		assert_eq!(instr.immediate16() as u32, imm);
 	}
 	for &imm in &[0x0001_0000u32, 0xFFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u32(Code::Add_rm16_imm16, Register::CX, imm).is_err());
 	}
 	for &imm in &[0u64, 0xFFFF] {
 		let instr = Instruction::try_with_reg_u64(Code::Add_rm16_imm16, Register::CX, imm).unwrap();
-		assert_eq!(imm, instr.immediate16() as u64);
+		assert_eq!(instr.immediate16() as u64, imm);
 	}
 	for &imm in &[0x0001_0000u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u64(Code::Add_rm16_imm16, Register::CX, imm).is_err());
@@ -3155,22 +3155,22 @@ fn try_create_imm_works() {
 	// OpKind::Immediate32
 	for &imm in &[-0x8000_0000i32, 0x7FFF_FFFF] {
 		let instr = Instruction::try_with_reg_i32(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
-		assert_eq!(imm as u32, instr.immediate32());
+		assert_eq!(instr.immediate32(), imm as u32);
 	}
 	for &imm in &[-0x8000_0000i64, 0xFFFF_FFFF] {
 		let instr = Instruction::try_with_reg_i64(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
-		assert_eq!(imm as u32, instr.immediate32());
+		assert_eq!(instr.immediate32(), imm as u32);
 	}
 	for &imm in &[-0x8000_0001i64, 0x0001_0000_0000] {
 		assert!(Instruction::try_with_reg_i64(Code::Add_rm32_imm32, Register::ECX, imm).is_err());
 	}
 	for &imm in &[0u32, 0xFFFF_FFFF] {
 		let instr = Instruction::try_with_reg_u32(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
-		assert_eq!(imm, instr.immediate32());
+		assert_eq!(instr.immediate32(), imm);
 	}
 	for &imm in &[0u64, 0xFFFF_FFFF] {
 		let instr = Instruction::try_with_reg_u64(Code::Add_rm32_imm32, Register::ECX, imm).unwrap();
-		assert_eq!(imm, instr.immediate32() as u64);
+		assert_eq!(instr.immediate32() as u64, imm);
 	}
 	for &imm in &[0x0001_0000_0000u64, 0xFFFF_FFFF_FFFF_FFFF] {
 		assert!(Instruction::try_with_reg_u64(Code::Add_rm32_imm32, Register::ECX, imm).is_err());
@@ -3179,19 +3179,19 @@ fn try_create_imm_works() {
 	// OpKind::Immediate64
 	for &imm in &[i32::MIN, i32::MAX] {
 		let instr = Instruction::try_with_reg_i32(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
-		assert_eq!(imm as u64, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm as u64);
 	}
 	for &imm in &[i64::MIN, i64::MAX] {
 		let instr = Instruction::try_with_reg_i64(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
-		assert_eq!(imm as u64, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm as u64);
 	}
 	for &imm in &[u32::MIN, u32::MAX] {
 		let instr = Instruction::try_with_reg_u32(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
-		assert_eq!(imm as u64, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm as u64);
 	}
 	for &imm in &[u64::MIN, u64::MAX] {
 		let instr = Instruction::try_with_reg_u64(Code::Mov_r64_imm64, Register::RCX, imm).unwrap();
-		assert_eq!(imm, instr.immediate64());
+		assert_eq!(instr.immediate64(), imm);
 	}
 }
 
@@ -3202,19 +3202,19 @@ fn encode_invalid_len_dw_dd_dq() {
 
 	let mut dw = Instruction::try_with_declare_word_1(1).unwrap();
 	dw.set_declare_data_len(8);
-	assert_eq!(16, encoder.encode(&dw, 0).unwrap());
+	assert_eq!(encoder.encode(&dw, 0).unwrap(), 16);
 	dw.set_declare_data_len(8 + 1);
 	assert!(encoder.encode(&dw, 0).is_err());
 
 	let mut dd = Instruction::try_with_declare_dword_1(1).unwrap();
 	dd.set_declare_data_len(4);
-	assert_eq!(16, encoder.encode(&dd, 0).unwrap());
+	assert_eq!(encoder.encode(&dd, 0).unwrap(), 16);
 	dd.set_declare_data_len(4 + 1);
 	assert!(encoder.encode(&dd, 0).is_err());
 
 	let mut dq = Instruction::try_with_declare_qword_1(1).unwrap();
 	dq.set_declare_data_len(2);
-	assert_eq!(16, encoder.encode(&dq, 0).unwrap());
+	assert_eq!(encoder.encode(&dq, 0).unwrap(), 16);
 	dq.set_declare_data_len(2 + 1);
 	assert!(encoder.encode(&dq, 0).is_err());
 }

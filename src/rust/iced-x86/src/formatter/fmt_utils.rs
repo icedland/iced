@@ -26,7 +26,7 @@ fn create_strings(c: char, cap: usize) -> Vec<String> {
 		v.push(s.clone());
 	}
 	s.push(c);
-	debug_assert_eq!(cap, s.len());
+	debug_assert_eq!(s.len(), cap);
 	v.push(s);
 	v
 }
@@ -248,11 +248,11 @@ pub(super) fn get_segment_register_prefix_kind(register: Register) -> PrefixKind
 			|| register == Register::FS
 			|| register == Register::GS
 	);
-	const_assert_eq!(PrefixKind::CS as u32, PrefixKind::ES as u32 + 1);
-	const_assert_eq!(PrefixKind::SS as u32, PrefixKind::ES as u32 + 2);
-	const_assert_eq!(PrefixKind::DS as u32, PrefixKind::ES as u32 + 3);
-	const_assert_eq!(PrefixKind::FS as u32, PrefixKind::ES as u32 + 4);
-	const_assert_eq!(PrefixKind::GS as u32, PrefixKind::ES as u32 + 5);
+	const_assert_eq!(PrefixKind::ES as u32 + 1, PrefixKind::CS as u32);
+	const_assert_eq!(PrefixKind::ES as u32 + 2, PrefixKind::SS as u32);
+	const_assert_eq!(PrefixKind::ES as u32 + 3, PrefixKind::DS as u32);
+	const_assert_eq!(PrefixKind::ES as u32 + 4, PrefixKind::FS as u32);
+	const_assert_eq!(PrefixKind::ES as u32 + 5, PrefixKind::GS as u32);
 	unsafe { mem::transmute(((register as u32 - Register::ES as u32) + PrefixKind::ES as u32) as u8) }
 }
 

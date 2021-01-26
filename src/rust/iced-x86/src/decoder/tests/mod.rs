@@ -92,56 +92,56 @@ fn decode_misc(bitness: u32) {
 fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
 	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
-	assert_eq!(0, decoder.position());
-	assert_eq!(bytes.len(), decoder.max_position());
+	assert_eq!(decoder.position(), 0);
+	assert_eq!(decoder.max_position(), bytes.len());
 	let rip = decoder.ip();
 	let instr = decoder.decode();
-	assert_eq!(tc.decoder_error, decoder.last_error());
-	assert_eq!(len, decoder.position());
-	assert_eq!(can_read, decoder.can_decode());
-	assert_eq!(tc.code, instr.code());
-	assert_eq!(tc.code == Code::INVALID, instr.is_invalid());
-	assert_eq!(tc.mnemonic, instr.mnemonic());
-	assert_eq!(instr.mnemonic(), instr.code().mnemonic());
-	assert_eq!(len, instr.len());
-	assert_eq!(rip, instr.ip());
-	assert_eq!(decoder.ip(), instr.next_ip());
-	assert_eq!(tc.op_count, instr.op_count());
-	assert_eq!(tc.zeroing_masking, instr.zeroing_masking());
-	assert_eq!(!tc.zeroing_masking, instr.merging_masking());
-	assert_eq!(tc.suppress_all_exceptions, instr.suppress_all_exceptions());
-	assert_eq!(tc.is_broadcast, instr.is_broadcast());
-	assert_eq!(tc.has_xacquire_prefix, instr.has_xacquire_prefix());
-	assert_eq!(tc.has_xrelease_prefix, instr.has_xrelease_prefix());
-	assert_eq!(tc.has_repe_prefix, instr.has_rep_prefix());
-	assert_eq!(tc.has_repe_prefix, instr.has_repe_prefix());
-	assert_eq!(tc.has_repne_prefix, instr.has_repne_prefix());
-	assert_eq!(tc.has_lock_prefix, instr.has_lock_prefix());
+	assert_eq!(decoder.last_error(), tc.decoder_error);
+	assert_eq!(decoder.position(), len);
+	assert_eq!(decoder.can_decode(), can_read);
+	assert_eq!(instr.code(), tc.code);
+	assert_eq!(instr.is_invalid(), tc.code == Code::INVALID);
+	assert_eq!(instr.mnemonic(), tc.mnemonic);
+	assert_eq!(instr.code().mnemonic(), instr.mnemonic());
+	assert_eq!(instr.len(), len);
+	assert_eq!(instr.ip(), rip);
+	assert_eq!(instr.next_ip(), decoder.ip());
+	assert_eq!(instr.op_count(), tc.op_count);
+	assert_eq!(instr.zeroing_masking(), tc.zeroing_masking);
+	assert_eq!(instr.merging_masking(), !tc.zeroing_masking);
+	assert_eq!(instr.suppress_all_exceptions(), tc.suppress_all_exceptions);
+	assert_eq!(instr.is_broadcast(), tc.is_broadcast);
+	assert_eq!(instr.has_xacquire_prefix(), tc.has_xacquire_prefix);
+	assert_eq!(instr.has_xrelease_prefix(), tc.has_xrelease_prefix);
+	assert_eq!(instr.has_rep_prefix(), tc.has_repe_prefix);
+	assert_eq!(instr.has_repe_prefix(), tc.has_repe_prefix);
+	assert_eq!(instr.has_repne_prefix(), tc.has_repne_prefix);
+	assert_eq!(instr.has_lock_prefix(), tc.has_lock_prefix);
 	match tc.vsib_bitness {
 		0 => {
 			assert!(!instr.is_vsib());
 			assert!(!instr.is_vsib32());
 			assert!(!instr.is_vsib64());
-			assert_eq!(None, instr.vsib());
+			assert_eq!(instr.vsib(), None);
 		}
 		32 => {
 			assert!(instr.is_vsib());
 			assert!(instr.is_vsib32());
 			assert!(!instr.is_vsib64());
-			assert_eq!(Some(false), instr.vsib());
+			assert_eq!(instr.vsib(), Some(false));
 		}
 		64 => {
 			assert!(instr.is_vsib());
 			assert!(!instr.is_vsib32());
 			assert!(instr.is_vsib64());
-			assert_eq!(Some(true), instr.vsib());
+			assert_eq!(instr.vsib(), Some(true));
 		}
 		_ => unreachable!(),
 	}
-	assert_eq!(tc.op_mask, instr.op_mask());
-	assert_eq!(tc.op_mask != Register::None, instr.has_op_mask());
-	assert_eq!(tc.rounding_control, instr.rounding_control());
-	assert_eq!(tc.segment_prefix, instr.segment_prefix());
+	assert_eq!(instr.op_mask(), tc.op_mask);
+	assert_eq!(instr.has_op_mask(), tc.op_mask != Register::None);
+	assert_eq!(instr.rounding_control(), tc.rounding_control);
+	assert_eq!(instr.segment_prefix(), tc.segment_prefix);
 	if instr.segment_prefix() == Register::None {
 		assert!(!instr.has_segment_prefix());
 	} else {
@@ -151,28 +151,28 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 		let op_kind = tc.op_kinds[i as usize];
 		#[allow(deprecated)]
 		{
-			assert_eq!(op_kind, instr.op_kind(i));
+			assert_eq!(instr.op_kind(i), op_kind);
 		}
-		assert_eq!(op_kind, instr.try_op_kind(i).unwrap());
+		assert_eq!(instr.try_op_kind(i).unwrap(), op_kind);
 		match op_kind {
 			OpKind::Register => {
 				#[allow(deprecated)]
 				{
-					assert_eq!(tc.op_registers[i as usize], instr.op_register(i));
+					assert_eq!(instr.op_register(i), tc.op_registers[i as usize]);
 				}
-				assert_eq!(tc.op_registers[i as usize], instr.try_op_register(i).unwrap());
+				assert_eq!(instr.try_op_register(i).unwrap(), tc.op_registers[i as usize]);
 			}
 			OpKind::NearBranch16 => assert_eq!(tc.near_branch, instr.near_branch16() as u64),
 			OpKind::NearBranch32 => assert_eq!(tc.near_branch, instr.near_branch32() as u64),
 			OpKind::NearBranch64 => assert_eq!(tc.near_branch, instr.near_branch64()),
 			OpKind::FarBranch16 => {
-				assert_eq!(tc.far_branch, instr.far_branch16() as u32);
-				assert_eq!(tc.far_branch_selector, instr.far_branch_selector());
+				assert_eq!(instr.far_branch16() as u32, tc.far_branch);
+				assert_eq!(instr.far_branch_selector(), tc.far_branch_selector);
 			}
 
 			OpKind::FarBranch32 => {
-				assert_eq!(tc.far_branch, instr.far_branch32());
-				assert_eq!(tc.far_branch_selector, instr.far_branch_selector());
+				assert_eq!(instr.far_branch32(), tc.far_branch);
+				assert_eq!(instr.far_branch_selector(), tc.far_branch_selector);
 			}
 
 			OpKind::Immediate8 => assert_eq!(tc.immediate as u8, instr.immediate8()),
@@ -185,8 +185,8 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			OpKind::Immediate8to64 => assert_eq!(tc.immediate as i64, instr.immediate8to64()),
 			OpKind::Immediate32to64 => assert_eq!(tc.immediate as i64, instr.immediate32to64()),
 			OpKind::MemorySegSI | OpKind::MemorySegESI | OpKind::MemorySegRSI | OpKind::MemorySegDI | OpKind::MemorySegEDI | OpKind::MemorySegRDI => {
-				assert_eq!(tc.memory_segment, instr.memory_segment());
-				assert_eq!(tc.memory_size, instr.memory_size());
+				assert_eq!(instr.memory_segment(), tc.memory_segment);
+				assert_eq!(instr.memory_size(), tc.memory_size);
 			}
 
 			OpKind::MemoryESDI | OpKind::MemoryESEDI | OpKind::MemoryESRDI => assert_eq!(tc.memory_size, instr.memory_size()),
@@ -194,48 +194,48 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 			OpKind::Memory64 => unreachable!(),
 
 			OpKind::Memory => {
-				assert_eq!(tc.memory_segment, instr.memory_segment());
-				assert_eq!(tc.memory_base, instr.memory_base());
-				assert_eq!(tc.memory_index, instr.memory_index());
-				assert_eq!(tc.memory_index_scale, instr.memory_index_scale());
+				assert_eq!(instr.memory_segment(), tc.memory_segment);
+				assert_eq!(instr.memory_base(), tc.memory_base);
+				assert_eq!(instr.memory_index(), tc.memory_index);
+				assert_eq!(instr.memory_index_scale(), tc.memory_index_scale);
 				#[allow(deprecated)]
 				{
-					assert_eq!(tc.memory_displacement as u32, instr.memory_displacement());
+					assert_eq!(instr.memory_displacement(), tc.memory_displacement as u32);
 				}
-				assert_eq!(tc.memory_displacement as u32, instr.memory_displacement32());
-				assert_eq!(tc.memory_displacement, instr.memory_displacement64());
-				assert_eq!(tc.memory_displ_size, instr.memory_displ_size());
-				assert_eq!(tc.memory_size, instr.memory_size());
+				assert_eq!(instr.memory_displacement32(), tc.memory_displacement as u32);
+				assert_eq!(instr.memory_displacement64(), tc.memory_displacement);
+				assert_eq!(instr.memory_displ_size(), tc.memory_displ_size);
+				assert_eq!(instr.memory_size(), tc.memory_size);
 			}
 		}
 	}
 	if tc.op_count >= 1 {
-		assert_eq!(tc.op_kinds[0], instr.op0_kind());
+		assert_eq!(instr.op0_kind(), tc.op_kinds[0]);
 		if tc.op_kinds[0] == OpKind::Register {
-			assert_eq!(tc.op_registers[0], instr.op0_register());
+			assert_eq!(instr.op0_register(), tc.op_registers[0]);
 		}
 		if tc.op_count >= 2 {
-			assert_eq!(tc.op_kinds[1], instr.op1_kind());
+			assert_eq!(instr.op1_kind(), tc.op_kinds[1]);
 			if tc.op_kinds[1] == OpKind::Register {
-				assert_eq!(tc.op_registers[1], instr.op1_register());
+				assert_eq!(instr.op1_register(), tc.op_registers[1]);
 			}
 			if tc.op_count >= 3 {
-				assert_eq!(tc.op_kinds[2], instr.op2_kind());
+				assert_eq!(instr.op2_kind(), tc.op_kinds[2]);
 				if tc.op_kinds[2] == OpKind::Register {
-					assert_eq!(tc.op_registers[2], instr.op2_register());
+					assert_eq!(instr.op2_register(), tc.op_registers[2]);
 				}
 				if tc.op_count >= 4 {
-					assert_eq!(tc.op_kinds[3], instr.op3_kind());
+					assert_eq!(instr.op3_kind(), tc.op_kinds[3]);
 					if tc.op_kinds[3] == OpKind::Register {
-						assert_eq!(tc.op_registers[3], instr.op3_register());
+						assert_eq!(instr.op3_register(), tc.op_registers[3]);
 					}
 					if tc.op_count >= 5 {
-						assert_eq!(tc.op_kinds[4], instr.op4_kind());
+						assert_eq!(instr.op4_kind(), tc.op_kinds[4]);
 						if tc.op_kinds[4] == OpKind::Register {
-							assert_eq!(tc.op_registers[4], instr.op4_register());
+							assert_eq!(instr.op4_register(), tc.op_registers[4]);
 						}
-						const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
-						assert_eq!(5, tc.op_count);
+						const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+						assert_eq!(tc.op_count, 5);
 					}
 				}
 			}
@@ -245,12 +245,12 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 }
 
 fn verify_constant_offsets(expected: &ConstantOffsets, actual: &ConstantOffsets) {
-	assert_eq!(expected.immediate_offset(), actual.immediate_offset());
-	assert_eq!(expected.immediate_size(), actual.immediate_size());
-	assert_eq!(expected.immediate_offset2(), actual.immediate_offset2());
-	assert_eq!(expected.immediate_size2(), actual.immediate_size2());
-	assert_eq!(expected.displacement_offset(), actual.displacement_offset());
-	assert_eq!(expected.displacement_size(), actual.displacement_size());
+	assert_eq!(actual.immediate_offset(), expected.immediate_offset());
+	assert_eq!(actual.immediate_size(), expected.immediate_size());
+	assert_eq!(actual.immediate_offset2(), expected.immediate_offset2());
+	assert_eq!(actual.immediate_size2(), expected.immediate_size2());
+	assert_eq!(actual.displacement_offset(), expected.displacement_offset());
+	assert_eq!(actual.displacement_size(), expected.displacement_size());
 }
 
 #[test]
@@ -277,43 +277,43 @@ fn decode_mem(bitness: u32) {
 fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
 	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
-	assert_eq!(0, decoder.position());
-	assert_eq!(bytes.len(), decoder.max_position());
+	assert_eq!(decoder.position(), 0);
+	assert_eq!(decoder.max_position(), bytes.len());
 	let instr = decoder.decode();
-	assert_eq!(DecoderError::None, decoder.last_error());
-	assert_eq!(len, decoder.position());
-	assert_eq!(can_read, decoder.can_decode());
+	assert_eq!(decoder.last_error(), DecoderError::None);
+	assert_eq!(decoder.position(), len);
+	assert_eq!(decoder.can_decode(), can_read);
 
-	assert_eq!(tc.code, instr.code());
-	assert_eq!(tc.code == Code::INVALID, instr.is_invalid());
-	assert_eq!(2, instr.op_count());
-	assert_eq!(len, instr.len());
+	assert_eq!(instr.code(), tc.code);
+	assert_eq!(instr.is_invalid(), tc.code == Code::INVALID);
+	assert_eq!(instr.op_count(), 2);
+	assert_eq!(instr.len(), len);
 	assert!(!instr.has_rep_prefix());
 	assert!(!instr.has_repe_prefix());
 	assert!(!instr.has_repne_prefix());
 	assert!(!instr.has_lock_prefix());
-	assert_eq!(tc.prefix_segment, instr.segment_prefix());
+	assert_eq!(instr.segment_prefix(), tc.prefix_segment);
 	if instr.segment_prefix() == Register::None {
 		assert!(!instr.has_segment_prefix());
 	} else {
 		assert!(instr.has_segment_prefix());
 	}
 
-	assert_eq!(OpKind::Memory, instr.op0_kind());
-	assert_eq!(tc.segment, instr.memory_segment());
-	assert_eq!(tc.base_register, instr.memory_base());
-	assert_eq!(tc.index_register, instr.memory_index());
+	assert_eq!(instr.op0_kind(), OpKind::Memory);
+	assert_eq!(instr.memory_segment(), tc.segment);
+	assert_eq!(instr.memory_base(), tc.base_register);
+	assert_eq!(instr.memory_index(), tc.index_register);
 	#[allow(deprecated)]
 	{
-		assert_eq!(tc.displacement as u32, instr.memory_displacement());
+		assert_eq!(instr.memory_displacement(), tc.displacement as u32);
 	}
-	assert_eq!(tc.displacement as u32, instr.memory_displacement32());
-	assert_eq!(tc.displacement, instr.memory_displacement64());
-	assert_eq!(1 << tc.scale, instr.memory_index_scale());
-	assert_eq!(tc.displ_size, instr.memory_displ_size());
+	assert_eq!(instr.memory_displacement32(), tc.displacement as u32);
+	assert_eq!(instr.memory_displacement64(), tc.displacement);
+	assert_eq!(instr.memory_index_scale(), 1 << tc.scale);
+	assert_eq!(instr.memory_displ_size(), tc.displ_size);
 
-	assert_eq!(OpKind::Register, instr.op1_kind());
-	assert_eq!(tc.register, instr.op1_register());
+	assert_eq!(instr.op1_kind(), OpKind::Register);
+	assert_eq!(instr.op1_register(), tc.register);
 	verify_constant_offsets(&tc.constant_offsets, &decoder.get_constant_offsets(&instr));
 }
 
@@ -401,7 +401,7 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 			}
 		}
 	}
-	assert_eq!("16: 0 ins ", format!("16: {} ins {}", missing16, sb16));
-	assert_eq!("32: 0 ins ", format!("32: {} ins {}", missing32, sb32));
-	assert_eq!("64: 0 ins ", format!("64: {} ins {}", missing64, sb64));
+	assert_eq!(format!("16: {} ins {}", missing16, sb16), "16: 0 ins ");
+	assert_eq!(format!("32: {} ins {}", missing32, sb32), "32: 0 ins ");
+	assert_eq!(format!("64: {} ins {}", missing64, sb64), "64: 0 ins ");
 }

@@ -86,7 +86,7 @@ static IMM_SIZES: [u32; 19] = [
 /// }
 /// // We're done, take ownership of the buffer
 /// let buffer = encoder.take_buffer();
-/// assert_eq!(vec![0x86, 0x64, 0x32, 0x16], buffer);
+/// assert_eq!(buffer, vec![0x86, 0x64, 0x32, 0x16]);
 /// ```
 #[allow(missing_debug_implementations)]
 pub struct Encoder {
@@ -264,7 +264,7 @@ impl Encoder {
 	/// }
 	/// // We're done, take ownership of the buffer
 	/// let buffer = encoder.take_buffer();
-	/// assert_eq!(vec![0x75, 0xF2], buffer);
+	/// assert_eq!(buffer, vec![0x75, 0xF2]);
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<usize, IcedError> {
@@ -537,14 +537,14 @@ impl Encoder {
 
 			match imm_size {
 				2 => {
-					const_assert_eq!(0x80, EncoderFlags::P66);
+					const_assert_eq!(EncoderFlags::P66, 0x80);
 					self.encoder_flags |= (self.bitness & 0x20) << 2;
 					self.imm_size = ImmSize::RipRelSize2_Target32;
 					self.immediate = instruction.near_branch32();
 				}
 
 				4 => {
-					const_assert_eq!(0x80, EncoderFlags::P66);
+					const_assert_eq!(EncoderFlags::P66, 0x80);
 					self.encoder_flags |= (self.bitness & 0x10) << 3;
 					self.imm_size = ImmSize::RipRelSize4_Target32;
 					self.immediate = instruction.near_branch32();
@@ -587,7 +587,7 @@ impl Encoder {
 			self.immediate = instruction.far_branch16() as u32;
 			self.immediate_hi = instruction.far_branch_selector() as u32;
 		} else {
-			debug_assert_eq!(4, size);
+			debug_assert_eq!(size, 4);
 			if !self.verify_op_kind(operand, OpKind::FarBranch32, instruction.try_op_kind(operand).unwrap_or(OpKind::NearBranch16)) {
 				return;
 			}
@@ -695,9 +695,9 @@ impl Encoder {
 		debug_assert!(reg_num <= 31);
 		self.mod_rm |= ((reg_num & 7) << 3) as u8;
 		self.encoder_flags |= EncoderFlags::MOD_RM;
-		const_assert_eq!(4, EncoderFlags::R);
+		const_assert_eq!(EncoderFlags::R, 4);
 		self.encoder_flags |= (reg_num & 8) >> 1;
-		const_assert_eq!(0x200, EncoderFlags::R2);
+		const_assert_eq!(EncoderFlags::R2, 0x200);
 		self.encoder_flags |= (reg_num & 0x10) << (9 - 4);
 	}
 
@@ -720,7 +720,7 @@ impl Encoder {
 		}
 		debug_assert!(reg_num <= 15);
 		self.op_code |= reg_num & 7;
-		const_assert_eq!(1, EncoderFlags::B);
+		const_assert_eq!(EncoderFlags::B, 1);
 		debug_assert!(reg_num <= 15);
 		self.encoder_flags |= reg_num >> 3; // reg_num <= 15, so no need to mask out anything
 	}
@@ -761,8 +761,8 @@ impl Encoder {
 			}
 			self.mod_rm |= (reg_num & 7) as u8;
 			self.mod_rm |= 0xC0;
-			const_assert_eq!(1, EncoderFlags::B);
-			const_assert_eq!(2, EncoderFlags::X);
+			const_assert_eq!(EncoderFlags::B, 1);
+			const_assert_eq!(EncoderFlags::X, 2);
 			self.encoder_flags |= (reg_num >> 3) & 3;
 			debug_assert!(reg_num <= 31);
 		} else if op_kind == OpKind::Memory {
@@ -781,7 +781,7 @@ impl Encoder {
 				} else if self.bitness == 32 {
 					CodeSize::Code32
 				} else {
-					debug_assert_eq!(16, self.bitness);
+					debug_assert_eq!(self.bitness, 16);
 					CodeSize::Code16
 				};
 			}
@@ -825,7 +825,7 @@ impl Encoder {
 
 	#[must_use]
 	fn get_register_op_size(instruction: &Instruction) -> u32 {
-		debug_assert_eq!(OpKind::Register, instruction.op0_kind());
+		debug_assert_eq!(instruction.op0_kind(), OpKind::Register);
 		if instruction.op0_kind() == OpKind::Register {
 			let reg = instruction.op0_register();
 			if reg.is_gpr64() {
@@ -942,7 +942,7 @@ impl Encoder {
 			base_lo = Register::RAX;
 			base_hi = Register::R15;
 		} else {
-			debug_assert_eq!(32, addr_size);
+			debug_assert_eq!(addr_size, 32);
 			base_lo = Register::EAX;
 			base_hi = Register::R15D;
 		}
@@ -1068,12 +1068,12 @@ impl Encoder {
 		}
 
 		if base_num >= 0 {
-			const_assert_eq!(1, EncoderFlags::B);
+			const_assert_eq!(EncoderFlags::B, 1);
 			debug_assert!(base_num <= 15); // No '& 1' required below
 			self.encoder_flags |= (base_num as u32) >> 3;
 		}
 		if index_num >= 0 {
-			const_assert_eq!(2, EncoderFlags::X);
+			const_assert_eq!(EncoderFlags::X, 2);
 			self.encoder_flags |= ((index_num as u32) >> 2) & 2;
 			self.encoder_flags |= ((index_num as u32) & 0x10) << EncoderFlags::VVVVV_SHIFT;
 			debug_assert!(index_num <= 31);
@@ -1081,7 +1081,7 @@ impl Encoder {
 	}
 
 	pub(self) fn write_prefixes(&mut self, instruction: &Instruction, can_write_f3: bool) {
-		debug_assert_eq!(false, self.handler.is_declare_data);
+		debug_assert_eq!(self.handler.is_declare_data, false);
 		let seg = instruction.segment_prefix();
 		if seg != Register::None {
 			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
@@ -1106,7 +1106,7 @@ impl Encoder {
 	}
 
 	fn write_mod_rm(&mut self) {
-		debug_assert_eq!(false, self.handler.is_declare_data);
+		debug_assert_eq!(self.handler.is_declare_data, false);
 		debug_assert!((self.encoder_flags & (EncoderFlags::MOD_RM | EncoderFlags::DISPL)) != 0);
 		if (self.encoder_flags & EncoderFlags::MOD_RM) != 0 {
 			self.write_byte_internal(self.mod_rm as u32);
@@ -1178,7 +1178,7 @@ impl Encoder {
 	}
 
 	fn write_immediate(&mut self) {
-		debug_assert_eq!(false, self.handler.is_declare_data);
+		debug_assert_eq!(self.handler.is_declare_data, false);
 		let ip;
 		let eip;
 		let rip;
@@ -1378,7 +1378,7 @@ impl Encoder {
 	/// encoder.write_u8(0xCC);
 	/// // We're done, take ownership of the buffer
 	/// let buffer = encoder.take_buffer();
-	/// assert_eq!(vec![0x90, 0x4C, 0x03, 0xC5, 0xCC], buffer);
+	/// assert_eq!(buffer, vec![0x90, 0x4C, 0x03, 0xC5, 0xCC]);
 	/// ```
 	#[inline]
 	pub fn write_u8(&mut self, value: u8) {

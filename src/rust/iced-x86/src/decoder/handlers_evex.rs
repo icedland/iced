@@ -19,10 +19,10 @@ pub(super) struct OpCodeHandler_VectorLength_EVEX {
 impl OpCodeHandler_VectorLength_EVEX {
 	#[allow(trivial_casts)]
 	pub(super) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
-		const_assert_eq!(0, VectorLength::L128 as u32);
-		const_assert_eq!(1, VectorLength::L256 as u32);
-		const_assert_eq!(2, VectorLength::L512 as u32);
-		const_assert_eq!(3, VectorLength::Unknown as u32);
+		const_assert_eq!(VectorLength::L128 as u32, 0);
+		const_assert_eq!(VectorLength::L256 as u32, 1);
+		const_assert_eq!(VectorLength::L512 as u32, 2);
+		const_assert_eq!(VectorLength::Unknown as u32, 3);
 		debug_assert!(!is_null_instance_handler(handler128));
 		debug_assert!(!is_null_instance_handler(handler256));
 		debug_assert!(!is_null_instance_handler(handler512));
@@ -35,7 +35,7 @@ impl OpCodeHandler_VectorLength_EVEX {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		let handler = unsafe { *this.handlers.get_unchecked(decoder.state.vector_length as usize) };
 		(handler.decode)(handler, decoder, instruction);
 	}
@@ -52,10 +52,10 @@ pub(super) struct OpCodeHandler_VectorLength_EVEX_er {
 impl OpCodeHandler_VectorLength_EVEX_er {
 	#[allow(trivial_casts)]
 	pub(super) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
-		const_assert_eq!(0, VectorLength::L128 as u32);
-		const_assert_eq!(1, VectorLength::L256 as u32);
-		const_assert_eq!(2, VectorLength::L512 as u32);
-		const_assert_eq!(3, VectorLength::Unknown as u32);
+		const_assert_eq!(VectorLength::L128 as u32, 0);
+		const_assert_eq!(VectorLength::L256 as u32, 1);
+		const_assert_eq!(VectorLength::L512 as u32, 2);
+		const_assert_eq!(VectorLength::Unknown as u32, 3);
 		debug_assert!(!is_null_instance_handler(handler128));
 		debug_assert!(!is_null_instance_handler(handler256));
 		debug_assert!(!is_null_instance_handler(handler512));
@@ -68,7 +68,7 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		let mut index = decoder.state.vector_length as usize;
 		if decoder.state.mod_ == 3 && (decoder.state.flags & StateFlags::B) != 0 {
 			index = VectorLength::L512 as usize;
@@ -97,7 +97,7 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -112,25 +112,25 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 			tuple_type = this.tuple_type_w0;
 			gpr = Register::EAX as u32;
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				const_assert_eq!(0, RoundingControl::None as u32);
-				const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
-				const_assert_eq!(2, RoundingControl::RoundDown as u32);
-				const_assert_eq!(3, RoundingControl::RoundUp as u32);
-				const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
+				const_assert_eq!(RoundingControl::None as u32, 0);
+				const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 				super::instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
 			}
 		} else {
@@ -162,7 +162,7 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -174,17 +174,17 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code_w0);
 			gpr = Register::EAX as u32;
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
@@ -219,7 +219,7 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -235,7 +235,7 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 			gpr = Register::EAX as u32;
 		}
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
@@ -246,7 +246,7 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type32);
 			}
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -276,20 +276,20 @@ impl OpCodeHandler_EVEX_VkHW_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -299,11 +299,11 @@ impl OpCodeHandler_EVEX_VkHW_er {
 				if this.only_sae {
 					super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
 				} else {
-					const_assert_eq!(0, RoundingControl::None as u32);
-					const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
-					const_assert_eq!(2, RoundingControl::RoundDown as u32);
-					const_assert_eq!(3, RoundingControl::RoundUp as u32);
-					const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
+					const_assert_eq!(RoundingControl::None as u32, 0);
+					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 					super::instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
 				}
 			}
@@ -358,20 +358,20 @@ impl OpCodeHandler_EVEX_VkW_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -381,11 +381,11 @@ impl OpCodeHandler_EVEX_VkW_er {
 				if this.only_sae {
 					super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
 				} else {
-					const_assert_eq!(0, RoundingControl::None as u32);
-					const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
-					const_assert_eq!(2, RoundingControl::RoundDown as u32);
-					const_assert_eq!(3, RoundingControl::RoundUp as u32);
-					const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
+					const_assert_eq!(RoundingControl::None as u32, 0);
+					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 					super::instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
 				}
 			}
@@ -421,20 +421,20 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -478,20 +478,20 @@ impl OpCodeHandler_EVEX_VkW {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -557,13 +557,13 @@ impl OpCodeHandler_EVEX_WkV {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -573,7 +573,7 @@ impl OpCodeHandler_EVEX_WkV {
 			decoder.set_invalid_instruction();
 		}
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
@@ -606,13 +606,13 @@ impl OpCodeHandler_EVEX_VkM {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
@@ -646,20 +646,20 @@ impl OpCodeHandler_EVEX_VkWIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -702,14 +702,14 @@ impl OpCodeHandler_EVEX_WkVIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
@@ -722,7 +722,7 @@ impl OpCodeHandler_EVEX_WkVIb {
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -752,14 +752,14 @@ impl OpCodeHandler_EVEX_HkWIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.vvvv + this.base_reg1 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -802,17 +802,17 @@ impl OpCodeHandler_EVEX_HWIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.vvvv + this.base_reg1 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -848,14 +848,14 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
@@ -871,7 +871,7 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -900,10 +900,10 @@ impl OpCodeHandler_EVEX_VW_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
@@ -913,7 +913,7 @@ impl OpCodeHandler_EVEX_VW_er {
 			decoder.set_invalid_instruction();
 		}
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -950,7 +950,7 @@ impl OpCodeHandler_EVEX_VW {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -959,14 +959,14 @@ impl OpCodeHandler_EVEX_VW {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -1000,7 +1000,7 @@ impl OpCodeHandler_EVEX_WV {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1009,14 +1009,14 @@ impl OpCodeHandler_EVEX_WV {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
@@ -1049,7 +1049,7 @@ impl OpCodeHandler_EVEX_VM {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1058,7 +1058,7 @@ impl OpCodeHandler_EVEX_VM {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
@@ -1089,7 +1089,7 @@ impl OpCodeHandler_EVEX_VK {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1098,14 +1098,14 @@ impl OpCodeHandler_EVEX_VK {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::K0 as u32);
 		} else {
@@ -1130,7 +1130,7 @@ impl OpCodeHandler_EVEX_KR {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
 			| decoder.state.vvvv_invalid_check
 			| decoder.state.aaa
@@ -1143,11 +1143,11 @@ impl OpCodeHandler_EVEX_KR {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::K0 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -1177,7 +1177,7 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1186,14 +1186,14 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::K0 as u32);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1251,20 +1251,20 @@ impl OpCodeHandler_EVEX_VkHW {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg2 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1305,16 +1305,16 @@ impl OpCodeHandler_EVEX_VkHM {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg2 as u32);
 		if decoder.state.mod_ == 3 {
@@ -1362,20 +1362,20 @@ impl OpCodeHandler_EVEX_VkHWIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg2 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1429,20 +1429,20 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg2 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1485,13 +1485,13 @@ impl OpCodeHandler_EVEX_KkHW {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::K0 as u32);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
@@ -1501,7 +1501,7 @@ impl OpCodeHandler_EVEX_KkHW {
 			decoder.set_invalid_instruction();
 		}
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1541,13 +1541,13 @@ impl OpCodeHandler_EVEX_KP1HW {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::K0 as u32);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.aaa | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
@@ -1557,7 +1557,7 @@ impl OpCodeHandler_EVEX_KP1HW {
 			decoder.set_invalid_instruction();
 		}
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1594,17 +1594,17 @@ impl OpCodeHandler_EVEX_KkHWIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::K0 as u32);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1651,11 +1651,11 @@ impl OpCodeHandler_EVEX_WkHV {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		debug_assert_eq!(3, decoder.state.mod_);
-		const_assert_eq!(0, OpKind::Register as u32);
+		debug_assert_eq!(decoder.state.mod_, 3);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
@@ -1664,10 +1664,10 @@ impl OpCodeHandler_EVEX_WkHV {
 		if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register_u32(
 			instruction,
@@ -1693,23 +1693,23 @@ impl OpCodeHandler_EVEX_VHWIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1766,23 +1766,23 @@ impl OpCodeHandler_EVEX_VHW {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg1 as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg2 as u32);
 		if decoder.state.mod_ == 3 {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code_r);
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op2_register_u32(
 				instruction,
@@ -1813,19 +1813,19 @@ impl OpCodeHandler_EVEX_VHM {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
@@ -1856,7 +1856,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv_invalid_check | decoder.state.aaa | decoder.state.extra_register_base_evex)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1865,7 +1865,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 		}
 		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code_w1);
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
@@ -1873,7 +1873,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 			);
 		} else {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code_w0);
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(
 				instruction,
@@ -1881,7 +1881,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 			);
 		}
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,
@@ -1891,11 +1891,11 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 				if this.only_sae {
 					super::instruction_internal::internal_set_suppress_all_exceptions(instruction);
 				} else {
-					const_assert_eq!(0, RoundingControl::None as u32);
-					const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
-					const_assert_eq!(2, RoundingControl::RoundDown as u32);
-					const_assert_eq!(3, RoundingControl::RoundUp as u32);
-					const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
+					const_assert_eq!(RoundingControl::None as u32, 0);
+					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 					super::instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
 				}
 			}
@@ -1927,7 +1927,7 @@ impl OpCodeHandler_EVEX_VX_Ev {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1945,14 +1945,14 @@ impl OpCodeHandler_EVEX_VX_Ev {
 			tuple_type = this.tuple_type_w0;
 			gpr = Register::EAX as u32;
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + Register::XMM0 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
@@ -1980,7 +1980,7 @@ impl OpCodeHandler_EVEX_Ev_VX {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -1998,14 +1998,14 @@ impl OpCodeHandler_EVEX_Ev_VX {
 			tuple_type = this.tuple_type_w0;
 			gpr = Register::EAX as u32;
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + Register::XMM0 as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
@@ -2032,7 +2032,7 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
 			| decoder.state.vvvv_invalid_check
 			| decoder.state.aaa
@@ -2050,11 +2050,11 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 			super::instruction_internal::internal_set_code_u32(instruction, this.code32);
 			gpr = Register::EAX as u32;
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + decoder.state.extra_register_base + gpr);
-		debug_assert_eq!(3, decoder.state.mod_);
-		const_assert_eq!(0, OpKind::Register as u32);
+		debug_assert_eq!(decoder.state.mod_, 3);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -2082,7 +2082,7 @@ impl OpCodeHandler_EVEX_MV {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -2090,7 +2090,7 @@ impl OpCodeHandler_EVEX_MV {
 			decoder.set_invalid_instruction();
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -2122,13 +2122,13 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
 		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
-			debug_assert_ne!(Code::INVALID as u32, this.code64);
+			debug_assert_ne!(this.code64, Code::INVALID as u32);
 			super::instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -2136,14 +2136,14 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 			gpr = Register::EAX as u32;
 		}
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(
 			instruction,
 			decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex + this.base_reg as u32,
 		);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
@@ -2170,7 +2170,7 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if decoder.invalid_check_mask != 0
 			&& (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | (decoder.state.vvvv_invalid_check & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
@@ -2179,7 +2179,7 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
 		let reg_num = decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex;
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, reg_num + this.base_reg as u32);
 		if decoder.state.mod_ == 3 {
@@ -2214,7 +2214,7 @@ impl OpCodeHandler_EVEX_VSIB_k1_VX {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if decoder.invalid_check_mask != 0
 			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv_invalid_check & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
@@ -2222,7 +2222,7 @@ impl OpCodeHandler_EVEX_VSIB_k1_VX {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -2254,7 +2254,7 @@ impl OpCodeHandler_EVEX_VSIB_k1 {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if decoder.invalid_check_mask != 0
 			&& (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | (decoder.state.vvvv_invalid_check & 0xF)) != 0 || decoder.state.aaa == 0)
 		{
@@ -2290,7 +2290,7 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv_invalid_check | decoder.state.aaa)
 			& decoder.invalid_check_mask)
 			!= 0
@@ -2306,7 +2306,7 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 			gpr = Register::EAX as u32;
 		}
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
@@ -2317,7 +2317,7 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type32);
 			}
 		}
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register_u32(
 			instruction,
@@ -2346,7 +2346,7 @@ impl OpCodeHandler_EVEX_KkWIb {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		if (((decoder.state.flags & StateFlags::Z)
 			| decoder.state.vvvv_invalid_check
 			| decoder.state.extra_register_base
@@ -2358,11 +2358,11 @@ impl OpCodeHandler_EVEX_KkWIb {
 		}
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 
-		const_assert_eq!(0, OpKind::Register as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::K0 as u32);
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(0, OpKind::Register as u32);
+			const_assert_eq!(OpKind::Register as u32, 0);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
 			super::instruction_internal::internal_set_op1_register_u32(
 				instruction,

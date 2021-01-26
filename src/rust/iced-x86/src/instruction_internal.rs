@@ -636,7 +636,7 @@ pub(crate) fn with_string_reg_segrsi(
 		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
 	}
 
-	const_assert_eq!(0, OpKind::Register as u32);
+	const_assert_eq!(OpKind::Register as u32, 0);
 	//internal_set_op0_kind(&mut instruction, OpKind::Register);
 	internal_set_op0_register(&mut instruction, register);
 
@@ -649,7 +649,7 @@ pub(crate) fn with_string_reg_segrsi(
 
 	instruction.set_segment_prefix(segment_prefix);
 
-	debug_assert_eq!(2, instruction.op_count());
+	debug_assert_eq!(instruction.op_count(), 2);
 	Ok(instruction)
 }
 
@@ -664,7 +664,7 @@ pub(crate) fn with_string_reg_esrdi(code: Code, address_size: u32, register: Reg
 		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
 	}
 
-	const_assert_eq!(0, OpKind::Register as u32);
+	const_assert_eq!(OpKind::Register as u32, 0);
 	//internal_set_op0_kind(&mut instruction, OpKind::Register);
 	internal_set_op0_register(&mut instruction, register);
 
@@ -675,7 +675,7 @@ pub(crate) fn with_string_reg_esrdi(code: Code, address_size: u32, register: Reg
 		_ => return Err(IcedError::new("Invalid address size")),
 	}
 
-	debug_assert_eq!(2, instruction.op_count());
+	debug_assert_eq!(instruction.op_count(), 2);
 	Ok(instruction)
 }
 
@@ -697,11 +697,11 @@ pub(crate) fn with_string_esrdi_reg(code: Code, address_size: u32, register: Reg
 		_ => return Err(IcedError::new("Invalid address size")),
 	}
 
-	const_assert_eq!(0, OpKind::Register as u32);
+	const_assert_eq!(OpKind::Register as u32, 0);
 	//internal_set_op1_kind(&mut instruction, OpKind::Register);
 	internal_set_op1_register(&mut instruction, register);
 
-	debug_assert_eq!(2, instruction.op_count());
+	debug_assert_eq!(instruction.op_count(), 2);
 	Ok(instruction)
 }
 
@@ -736,7 +736,7 @@ pub(crate) fn with_string_segrsi_esrdi(
 
 	instruction.set_segment_prefix(segment_prefix);
 
-	debug_assert_eq!(2, instruction.op_count());
+	debug_assert_eq!(instruction.op_count(), 2);
 	Ok(instruction)
 }
 
@@ -771,7 +771,7 @@ pub(crate) fn with_string_esrdi_segrsi(
 
 	instruction.set_segment_prefix(segment_prefix);
 
-	debug_assert_eq!(2, instruction.op_count());
+	debug_assert_eq!(instruction.op_count(), 2);
 	Ok(instruction)
 }
 
@@ -789,16 +789,16 @@ pub(crate) fn with_maskmov(
 		_ => return Err(IcedError::new("Invalid address size")),
 	}
 
-	const_assert_eq!(0, OpKind::Register as u32);
+	const_assert_eq!(OpKind::Register as u32, 0);
 	//internal_set_op1_kind(&mut instruction, OpKind::Register);
 	internal_set_op1_register(&mut instruction, register1);
 
-	const_assert_eq!(0, OpKind::Register as u32);
+	const_assert_eq!(OpKind::Register as u32, 0);
 	//internal_set_op2_kind(&mut instruction, OpKind::Register);
 	internal_set_op2_register(&mut instruction, register2);
 
 	instruction.set_segment_prefix(segment_prefix);
 
-	debug_assert_eq!(3, instruction.op_count());
+	debug_assert_eq!(instruction.op_count(), 3);
 	Ok(instruction)
 }

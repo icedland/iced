@@ -99,7 +99,7 @@ impl Iterator for IntoIter {
 
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<RegisterInfoTestCase, String> {
-		const_assert_eq!(7, MiscInstrInfoTestConstants::REGISTER_ELEMS_PER_LINE);
+		const_assert_eq!(MiscInstrInfoTestConstants::REGISTER_ELEMS_PER_LINE, 7);
 		let elems: Vec<_> = line.splitn(MiscInstrInfoTestConstants::REGISTER_ELEMS_PER_LINE, ',').collect();
 		if elems.len() != MiscInstrInfoTestConstants::REGISTER_ELEMS_PER_LINE {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));

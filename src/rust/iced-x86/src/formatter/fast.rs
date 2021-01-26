@@ -327,7 +327,7 @@ impl FastFormatterOptions {
 /// let mut formatter = FastFormatter::new();
 /// formatter.options_mut().set_space_after_operand_separator(true);
 /// formatter.format(&instr, &mut output);
-/// assert_eq!("vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]", output);
+/// assert_eq!(output, "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]");
 /// ```
 ///
 /// Using a symbol resolver:
@@ -475,7 +475,7 @@ impl FastFormatter {
 		}
 
 		let prefix_seg = instruction.segment_prefix();
-		const_assert_eq!(0, Register::None as u32);
+		const_assert_eq!(Register::None as u32, 0);
 		if ((prefix_seg as u32) | super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg != Register::None && FastFormatter::show_segment_prefix(instruction, op_count) {
@@ -529,7 +529,7 @@ impl FastFormatter {
 				Code::DeclareWord => OpKind::Immediate16,
 				Code::DeclareDword => OpKind::Immediate32,
 				_ => {
-					debug_assert_eq!(Code::DeclareQword, code);
+					debug_assert_eq!(code, Code::DeclareQword);
 					OpKind::Immediate64
 				}
 			}
@@ -621,7 +621,7 @@ impl FastFormatter {
 						} else if op_kind == OpKind::Immediate8 {
 							imm8 = instruction.immediate8();
 						} else {
-							debug_assert_eq!(OpKind::Immediate8_2nd, op_kind);
+							debug_assert_eq!(op_kind, OpKind::Immediate8_2nd);
 							imm8 = instruction.immediate8_2nd();
 						}
 						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
@@ -644,7 +644,7 @@ impl FastFormatter {
 						} else if op_kind == OpKind::Immediate16 {
 							imm16 = instruction.immediate16();
 						} else {
-							debug_assert_eq!(OpKind::Immediate8to16, op_kind);
+							debug_assert_eq!(op_kind, OpKind::Immediate8to16);
 							imm16 = instruction.immediate8to16() as u16;
 						}
 						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
@@ -667,7 +667,7 @@ impl FastFormatter {
 						} else if op_kind == OpKind::Immediate32 {
 							imm32 = instruction.immediate32();
 						} else {
-							debug_assert_eq!(OpKind::Immediate8to32, op_kind);
+							debug_assert_eq!(op_kind, OpKind::Immediate8to32);
 							imm32 = instruction.immediate8to32() as u32;
 						}
 						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
@@ -692,7 +692,7 @@ impl FastFormatter {
 						} else if op_kind == OpKind::Immediate8to64 {
 							imm64 = instruction.immediate8to64() as u64;
 						} else {
-							debug_assert_eq!(OpKind::Immediate64, op_kind);
+							debug_assert_eq!(op_kind, OpKind::Immediate64);
 							imm64 = instruction.immediate64();
 						}
 						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
@@ -772,11 +772,11 @@ impl FastFormatter {
 			if super::super::instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 				let rc = instruction.rounding_control();
 				if rc != RoundingControl::None {
-					const_assert_eq!(0, RoundingControl::None as u32);
-					const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
-					const_assert_eq!(2, RoundingControl::RoundDown as u32);
-					const_assert_eq!(3, RoundingControl::RoundUp as u32);
-					const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
+					const_assert_eq!(RoundingControl::None as u32, 0);
+					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 					output.push_str(RC_STRINGS[rc as usize - 1]);
 				} else {
 					debug_assert!(instruction.suppress_all_exceptions());
@@ -927,7 +927,7 @@ impl FastFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = displ.wrapping_sub(instruction.next_ip() as i64);
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 			}
 			displ_size = 8;
@@ -936,7 +936,7 @@ impl FastFormatter {
 			if self.d.options.rip_relative_addresses() {
 				displ = (displ as u32).wrapping_sub(instruction.next_ip32()) as i32 as i64;
 			} else {
-				debug_assert_eq!(Register::None, index_reg);
+				debug_assert_eq!(index_reg, Register::None);
 				base_reg = Register::None;
 			}
 			displ_size = 4;
@@ -1036,7 +1036,7 @@ impl FastFormatter {
 						output.push('+');
 					}
 				} else {
-					debug_assert_eq!(2, addr_size);
+					debug_assert_eq!(addr_size, 2);
 					if (displ as i16) < 0 {
 						displ = (displ as i16).wrapping_neg() as u16 as i64;
 						output.push('-');

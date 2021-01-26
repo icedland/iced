@@ -275,8 +275,8 @@ impl Op for OpI4 {
 		if !encoder.verify_op_kind(operand, OpKind::Immediate8, op_imm_kind) {
 			return;
 		}
-		debug_assert_eq!(ImmSize::SizeIbReg, encoder.imm_size);
-		debug_assert_eq!(0, encoder.immediate & 0xF);
+		debug_assert_eq!(encoder.imm_size, ImmSize::SizeIbReg);
+		debug_assert_eq!(encoder.immediate & 0xF, 0);
 		if instruction.immediate8() > 0xF {
 			encoder.set_error_message(format!("Operand {}: Immediate value must be 0-15, but value is 0x{:02X}", operand, instruction.immediate8()));
 			return;
@@ -387,7 +387,7 @@ impl Op for OpMRBX {
 		} else if base == Register::EBX {
 			4
 		} else {
-			debug_assert_eq!(Register::BX, base);
+			debug_assert_eq!(base, Register::BX);
 			2
 		};
 		encoder.set_addr_size(reg_size);

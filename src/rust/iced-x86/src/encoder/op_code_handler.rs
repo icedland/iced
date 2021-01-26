@@ -155,25 +155,25 @@ impl LegacyHandler {
 			operands.push(LEGACY_TABLE[op0]);
 			operands.push(LEGACY_TABLE[op1]);
 			operands.push(LEGACY_TABLE[op2]);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op3, 0);
 		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
 			operands.push(LEGACY_TABLE[op0]);
 			operands.push(LEGACY_TABLE[op1]);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
 			operands.push(LEGACY_TABLE[op0]);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(0, op0);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op0, 0);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		}
 
 		Self {
@@ -204,11 +204,11 @@ impl LegacyHandler {
 			encoder.write_byte_internal(b);
 		}
 
-		const_assert_eq!(0x01, EncoderFlags::B);
-		const_assert_eq!(0x02, EncoderFlags::X);
-		const_assert_eq!(0x04, EncoderFlags::R);
-		const_assert_eq!(0x08, EncoderFlags::W);
-		const_assert_eq!(0x40, EncoderFlags::REX);
+		const_assert_eq!(EncoderFlags::B, 0x01);
+		const_assert_eq!(EncoderFlags::X, 0x02);
+		const_assert_eq!(EncoderFlags::R, 0x04);
+		const_assert_eq!(EncoderFlags::W, 0x08);
+		const_assert_eq!(EncoderFlags::REX, 0x40);
 		b = encoder.encoder_flags;
 		b &= 0x4F;
 		if b != 0 {
@@ -284,35 +284,35 @@ impl VexHandler {
 			operands.push(VEX_TABLE[op1]);
 			operands.push(VEX_TABLE[op2]);
 			operands.push(VEX_TABLE[op3]);
-			debug_assert_eq!(0, op4);
+			debug_assert_eq!(op4, 0);
 		} else if op2 != 0 {
 			operands = Vec::with_capacity(3);
 			operands.push(VEX_TABLE[op0]);
 			operands.push(VEX_TABLE[op1]);
 			operands.push(VEX_TABLE[op2]);
-			debug_assert_eq!(0, op3);
-			debug_assert_eq!(0, op4);
+			debug_assert_eq!(op3, 0);
+			debug_assert_eq!(op4, 0);
 		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
 			operands.push(VEX_TABLE[op0]);
 			operands.push(VEX_TABLE[op1]);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
-			debug_assert_eq!(0, op4);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
+			debug_assert_eq!(op4, 0);
 		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
 			operands.push(VEX_TABLE[op0]);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
-			debug_assert_eq!(0, op4);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
+			debug_assert_eq!(op4, 0);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(0, op0);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
-			debug_assert_eq!(0, op4);
+			debug_assert_eq!(op0, 0);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
+			debug_assert_eq!(op4, 0);
 		}
 
 		Self {
@@ -342,10 +342,10 @@ impl VexHandler {
 		encoder.write_prefixes(instruction, true);
 		let encoder_flags = encoder.encoder_flags;
 
-		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
-		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
-		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
-		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
+		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
+		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
+		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
+		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 		let mut b = this.last_byte;
 		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
 
@@ -355,20 +355,20 @@ impl VexHandler {
 			!= 0
 		{
 			encoder.write_byte_internal(0xC4);
-			const_assert_eq!(1, VexOpCodeTable::Table0F as u32);
-			const_assert_eq!(2, VexOpCodeTable::Table0F38 as u32);
-			const_assert_eq!(3, VexOpCodeTable::Table0F3A as u32);
+			const_assert_eq!(VexOpCodeTable::Table0F as u32, 1);
+			const_assert_eq!(VexOpCodeTable::Table0F38 as u32, 2);
+			const_assert_eq!(VexOpCodeTable::Table0F3A as u32, 3);
 			let mut b2 = this.table;
-			const_assert_eq!(1, EncoderFlags::B);
-			const_assert_eq!(2, EncoderFlags::X);
-			const_assert_eq!(4, EncoderFlags::R);
+			const_assert_eq!(EncoderFlags::B, 1);
+			const_assert_eq!(EncoderFlags::X, 2);
+			const_assert_eq!(EncoderFlags::R, 4);
 			b2 |= (!encoder_flags & 7) << 5;
 			encoder.write_byte_internal(b2);
 			b |= this.mask_w_l & encoder.internal_vex_wig_lig;
 			encoder.write_byte_internal(b);
 		} else {
 			encoder.write_byte_internal(0xC5);
-			const_assert_eq!(4, EncoderFlags::R);
+			const_assert_eq!(EncoderFlags::R, 4);
 			b |= (!encoder_flags & 4) << 5;
 			b |= this.mask_l & encoder.internal_vex_lig;
 			encoder.write_byte_internal(b);
@@ -387,9 +387,9 @@ pub(super) struct XopHandler {
 #[cfg(not(feature = "no_xop"))]
 impl XopHandler {
 	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
-		const_assert_eq!(0, XopOpCodeTable::XOP8 as u32);
-		const_assert_eq!(1, XopOpCodeTable::XOP9 as u32);
-		const_assert_eq!(2, XopOpCodeTable::XOPA as u32);
+		const_assert_eq!(XopOpCodeTable::XOP8 as u32, 0);
+		const_assert_eq!(XopOpCodeTable::XOP9 as u32, 1);
+		const_assert_eq!(XopOpCodeTable::XOPA as u32, 2);
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
@@ -420,25 +420,25 @@ impl XopHandler {
 			operands.push(XOP_TABLE[op0]);
 			operands.push(XOP_TABLE[op1]);
 			operands.push(XOP_TABLE[op2]);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op3, 0);
 		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
 			operands.push(XOP_TABLE[op0]);
 			operands.push(XOP_TABLE[op1]);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
 			operands.push(XOP_TABLE[op0]);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(0, op0);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op0, 0);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		}
 
 		Self {
@@ -466,15 +466,15 @@ impl XopHandler {
 		encoder.write_byte_internal(0x8F);
 
 		let encoder_flags = encoder.encoder_flags;
-		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
-		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
-		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
-		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
+		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
+		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
+		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
+		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 
 		let mut b = this.table;
-		const_assert_eq!(1, EncoderFlags::B);
-		const_assert_eq!(2, EncoderFlags::X);
-		const_assert_eq!(4, EncoderFlags::R);
+		const_assert_eq!(EncoderFlags::B, 1);
+		const_assert_eq!(EncoderFlags::X, 2);
+		const_assert_eq!(EncoderFlags::R, 4);
 		b |= (!encoder_flags & 7) << 5;
 		encoder.write_byte_internal(b);
 		b = this.last_byte;
@@ -502,10 +502,10 @@ impl EvexHandler {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
-		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
-		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
-		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
-		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
+		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
+		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
+		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
+		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 		let mut p1_bits = 4 | ((enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK);
 		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		if wbit == WBit::W1 {
@@ -540,25 +540,25 @@ impl EvexHandler {
 			operands.push(EVEX_TABLE[op0]);
 			operands.push(EVEX_TABLE[op1]);
 			operands.push(EVEX_TABLE[op2]);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op3, 0);
 		} else if op1 != 0 {
 			operands = Vec::with_capacity(2);
 			operands.push(EVEX_TABLE[op0]);
 			operands.push(EVEX_TABLE[op1]);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		} else if op0 != 0 {
 			operands = Vec::with_capacity(1);
 			operands.push(EVEX_TABLE[op0]);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		} else {
 			operands = Vec::new();
-			debug_assert_eq!(0, op0);
-			debug_assert_eq!(0, op1);
-			debug_assert_eq!(0, op2);
-			debug_assert_eq!(0, op3);
+			debug_assert_eq!(op0, 0);
+			debug_assert_eq!(op1, 0);
+			debug_assert_eq!(op2, 0);
+			debug_assert_eq!(op3, 0);
 		}
 
 		Self {
@@ -603,15 +603,15 @@ impl EvexHandler {
 
 		encoder.write_byte_internal(0x62);
 
-		const_assert_eq!(1, EvexOpCodeTable::Table0F as u32);
-		const_assert_eq!(2, EvexOpCodeTable::Table0F38 as u32);
-		const_assert_eq!(3, EvexOpCodeTable::Table0F3A as u32);
+		const_assert_eq!(EvexOpCodeTable::Table0F as u32, 1);
+		const_assert_eq!(EvexOpCodeTable::Table0F38 as u32, 2);
+		const_assert_eq!(EvexOpCodeTable::Table0F3A as u32, 3);
 		let mut b = this.table;
-		const_assert_eq!(1, EncoderFlags::B);
-		const_assert_eq!(2, EncoderFlags::X);
-		const_assert_eq!(4, EncoderFlags::R);
+		const_assert_eq!(EncoderFlags::B, 1);
+		const_assert_eq!(EncoderFlags::X, 2);
+		const_assert_eq!(EncoderFlags::R, 4);
 		b |= (encoder_flags & 7) << 5;
-		const_assert_eq!(0x0000_0200, EncoderFlags::R2);
+		const_assert_eq!(EncoderFlags::R2, 0x0000_0200);
 		b |= (encoder_flags >> (9 - 4)) & 0x10;
 		b ^= !0xF;
 		encoder.write_byte_internal(b);
@@ -644,10 +644,10 @@ impl EvexHandler {
 				encoder.set_error_message_str("The instruction doesn't support rounding control");
 			}
 			b |= 0x10;
-			const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
-			const_assert_eq!(2, RoundingControl::RoundDown as u32);
-			const_assert_eq!(3, RoundingControl::RoundUp as u32);
-			const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
+			const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+			const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+			const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+			const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
 			b |= (rc as u32 - RoundingControl::RoundToNearest as u32) << 5;
 		} else if (this.base.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) == 0 || !instruction.suppress_all_exceptions() {
 			b |= this.ll_bits;
