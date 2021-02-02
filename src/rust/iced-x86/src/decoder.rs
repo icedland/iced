@@ -1767,6 +1767,7 @@ impl<'a> Decoder<'a> {
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
 					if self.is64_mode {
+						self.state.flags |= StateFlags::IP_REL;
 						if self.state.address_size == OpSize::Size64 {
 							super::instruction_internal::internal_set_memory_base(instruction, Register::RIP);
 						} else {
