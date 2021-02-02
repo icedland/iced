@@ -1,8 +1,6 @@
-#
 # SPDX-License-Identifier: MIT
 # Copyright wtfsckgh@gmail.com
 # Copyright iced contributors
-#
 
 # pylint: disable=line-too-long
 # pylint: disable=no-name-in-module

@@ -1,8 +1,6 @@
-#
 # SPDX-License-Identifier: MIT
 # Copyright wtfsckgh@gmail.com
 # Copyright iced contributors
-#
 
 from iced_x86 import *
 

@@ -1,8 +1,6 @@
-#
 # SPDX-License-Identifier: MIT
 # Copyright wtfsckgh@gmail.com
 # Copyright iced contributors
-#
 
 01 00, Add_rm16_r16, ax, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
 01 01, Add_rm16_r16, ax, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0

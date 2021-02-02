@@ -1,8 +1,6 @@
-#
 # SPDX-License-Identifier: MIT
 # Copyright wtfsckgh@gmail.com
 # Copyright iced contributors
-#
 
 cs jo 7FF3h
 cs jno 7FF3h

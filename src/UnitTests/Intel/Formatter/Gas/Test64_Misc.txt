@@ -1,8 +1,6 @@
-#
 # SPDX-License-Identifier: MIT
 # Copyright wtfsckgh@gmail.com
 # Copyright iced contributors
-#
 
 lock adc %cl,(%rax)
 lock adcb $0xa5,(%rax)

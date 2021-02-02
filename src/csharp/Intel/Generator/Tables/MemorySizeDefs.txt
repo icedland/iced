@@ -1,8 +1,6 @@
-#
 # SPDX-License-Identifier: MIT
 # Copyright wtfsckgh@gmail.com
 # Copyright iced contributors
-#
 
 0, Unknown, Unknown, None, None, None, None, None,
 1, UInt8, UInt8, None, byte_ptr, byte_ptr, byte_ptr, byte,

@@ -37,7 +37,7 @@ namespace Generator.IO {
 				numberPrefix = "0x";
 				numberByteFormat = "X2";
 				singleLineCommentPrefix = "# ";
-				multiLineComment = ("#", "# ", "#");
+				multiLineComment = ("", "# ", "");
 				break;
 
 			default:

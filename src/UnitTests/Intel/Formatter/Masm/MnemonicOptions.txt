@@ -1,8 +1,6 @@
-#
 # SPDX-License-Identifier: MIT
 # Copyright wtfsckgh@gmail.com
 # Copyright iced contributors
-#
 
 10 08, Adc_rm8_r8, 64, adc,
 10 08, Adc_rm8_r8, 64, adc, noprefixes
