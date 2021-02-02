@@ -20,6 +20,7 @@ namespace Iced.Intel.FastFormatterInternal {
 
 			var ca = new char[1];
 			int prevIndex = -1;
+			var prevFlags = FastFmtFlags.None;
 			for (int i = 0; i < mnemonics.Length; i++) {
 				var f = (FastFmtFlags)reader.ReadByte();
 				int currentIndex;
@@ -32,13 +33,18 @@ namespace Iced.Intel.FastFormatterInternal {
 					prevIndex = reader.Index;
 				}
 				var mnemonic = strings[reader.ReadCompressedUInt32()];
-				if ((f & FastFmtFlags.HasVPrefix) != 0) {
+				if ((prevFlags & FastFmtFlags.HasVPrefix) == (f & FastFmtFlags.HasVPrefix) &&
+					(f & FastFmtFlags.SameAsPrev) != 0) {
+					mnemonic = mnemonics[i - 1];
+				}
+				else if ((f & FastFmtFlags.HasVPrefix) != 0) {
 					ca[0] = 'v';
 					mnemonic = string.Intern(new string(ca) + mnemonic);
 				}
 
 				flags[i] = f;
 				mnemonics[i] = mnemonic;
+				prevFlags = f;
 				if (currentIndex >= 0)
 					reader.Index = currentIndex;
 			}
