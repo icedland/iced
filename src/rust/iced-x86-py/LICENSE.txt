@@ -1,5 +1,6 @@
 Copyright (C) 2018-2021 wtfsckgh@gmail.com
 Copyright (C) 2018-2021 iced contributors
+https://github.com/icedland/iced
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
