@@ -253,3 +253,10 @@ F2 F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;
 4B 3E 01 18, Add_rm32_r32, Add, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx ds: enc=3E0118
 4C 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
 4F 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
+
+# eip/rip
+01 0D 34125AA5, Add_rm32_r32, Add, 2, op0=m;ds;rip;;1;0xFFFFFFFFA55A123A;8;UInt32 op1=r;ecx co=0;0;0;0;2;4 ip=0
+01 0D 12345678, Add_rm32_r32, Add, 2, op0=m;ds;rip;;1;0x78563408;8;UInt32 op1=r;ecx co=0;0;0;0;2;4 ip=0xFFFFFFFFFFFFFFF0
+67 01 0D 34125AA5, Add_rm32_r32, Add, 2, op0=m;ds;eip;;1;0xA55A123B;4;UInt32 op1=r;ecx co=0;0;0;0;3;4 ip=0
+67 01 0D 12345678, Add_rm32_r32, Add, 2, op0=m;ds;eip;;1;0x78563409;4;UInt32 op1=r;ecx co=0;0;0;0;3;4 ip=0xFFFFFFFFFFFFFFF0
+67 01 0D 12345678, Add_rm32_r32, Add, 2, op0=m;ds;eip;;1;0x78563409;4;UInt32 op1=r;ecx co=0;0;0;0;3;4 ip=0xFFFFFFF0
