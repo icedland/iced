@@ -378,6 +378,7 @@ impl InstructionInfo {
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::is_privileged() instead")]
 	pub fn is_privileged(&self) -> bool {
 		(self.flags & IIFlags::PRIVILEGED) != 0
 	}
@@ -388,6 +389,7 @@ impl InstructionInfo {
 	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::is_stack_instruction() instead")]
 	pub fn is_stack_instruction(&self) -> bool {
 		(self.flags & IIFlags::STACK_INSTRUCTION) != 0
 	}
@@ -398,6 +400,7 @@ impl InstructionInfo {
 	/// [`used_registers()`]: #method.used_registers
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::is_save_restore_instruction() instead")]
 	pub fn is_save_restore_instruction(&self) -> bool {
 		(self.flags & IIFlags::SAVE_RESTORE) != 0
 	}
@@ -405,6 +408,7 @@ impl InstructionInfo {
 	/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::encoding() instead")]
 	pub fn encoding(&self) -> EncodingKind {
 		self.encoding
 	}
@@ -412,6 +416,7 @@ impl InstructionInfo {
 	/// Gets the CPU or CPUID feature flags
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::cpuid_features() instead")]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
 		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
@@ -419,6 +424,7 @@ impl InstructionInfo {
 	/// Control flow info
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::flow_control() instead")]
 	pub fn flow_control(&self) -> FlowControl {
 		self.flow_control
 	}
@@ -496,6 +502,7 @@ impl InstructionInfo {
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_read() instead")]
 	pub fn rflags_read(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -507,6 +514,7 @@ impl InstructionInfo {
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_written() instead")]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -518,6 +526,7 @@ impl InstructionInfo {
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_cleared() instead")]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -529,6 +538,7 @@ impl InstructionInfo {
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_set() instead")]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -540,6 +550,7 @@ impl InstructionInfo {
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_undefined() instead")]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -549,6 +560,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	#[must_use]
 	#[inline]
+	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_modified() instead")]
 	pub fn rflags_modified(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
 	}
