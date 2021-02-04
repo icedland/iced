@@ -5,7 +5,7 @@
 use super::super::super::data_reader::DataReader;
 use super::super::super::iced_constants::IcedConstants;
 use super::super::pseudo_ops::get_pseudo_ops;
-use super::super::strings_tbl::get_strings_table;
+use super::super::strings_tbl::get_strings_table_ref;
 use super::enums::*;
 use super::fmt_data::FORMATTER_TBL_DATA;
 use super::info::*;
@@ -32,7 +32,7 @@ fn add_suffix(s: &str, c: char) -> String {
 fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 	let mut infos: Vec<Box<dyn InstrInfo + Sync + Send>> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
-	let strings = get_strings_table();
+	let strings = get_strings_table_ref();
 	let mut prev_index = -1isize;
 	for i in 0..IcedConstants::CODE_ENUM_COUNT {
 		let f = reader.read_u8();
@@ -47,13 +47,13 @@ fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 			prev_index = reader.index() as isize - 1;
 		}
 		let mut s = if (f & 0x80) != 0 {
-			let s = &strings[reader.read_compressed_u32() as usize];
+			let s = strings[reader.read_compressed_u32() as usize];
 			let mut res = String::with_capacity(s.len() + 1);
 			res.push('v');
 			res.push_str(s);
 			res
 		} else {
-			strings[reader.read_compressed_u32() as usize].clone()
+			String::from(strings[reader.read_compressed_u32() as usize])
 		};
 
 		let c;
@@ -135,7 +135,7 @@ fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 			CtorKind::movabs => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);
-				let s3 = strings[reader.read_compressed_u32() as usize].clone();
+				let s3 = String::from(strings[reader.read_compressed_u32() as usize]);
 				let s4 = add_suffix(&s3, c);
 				Box::new(SimpleInstrInfo_movabs::new(s, s2, s3, s4))
 			}
@@ -155,9 +155,9 @@ fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::OpSize2_bnd => {
-				let s2 = strings[reader.read_compressed_u32() as usize].clone();
-				let s3 = strings[reader.read_compressed_u32() as usize].clone();
-				let s4 = strings[reader.read_compressed_u32() as usize].clone();
+				let s2 = String::from(strings[reader.read_compressed_u32() as usize]);
+				let s3 = String::from(strings[reader.read_compressed_u32() as usize]);
+				let s4 = String::from(strings[reader.read_compressed_u32() as usize]);
 				Box::new(SimpleInstrInfo_OpSize2_bnd::new(s, s2, s3, s4))
 			}
 
@@ -184,7 +184,7 @@ fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::CC_2 => {
-				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				let s2 = String::from(strings[reader.read_compressed_u32() as usize]);
 				c = reader.read_u8() as u8 as char;
 				let s3 = add_suffix(&s, c);
 				let s4 = add_suffix(&s2, c);
@@ -193,8 +193,8 @@ fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::CC_3 => {
-				let s2 = strings[reader.read_compressed_u32() as usize].clone();
-				let s3 = strings[reader.read_compressed_u32() as usize].clone();
+				let s2 = String::from(strings[reader.read_compressed_u32() as usize]);
+				let s3 = String::from(strings[reader.read_compressed_u32() as usize]);
 				c = reader.read_u8() as u8 as char;
 				let s4 = add_suffix(&s, c);
 				let s5 = add_suffix(&s2, c);
@@ -210,22 +210,22 @@ fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::os_jcc_2 => {
-				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				let s2 = String::from(strings[reader.read_compressed_u32() as usize]);
 				v2 = reader.read_compressed_u32();
 				v = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_os_jcc::new(v, v2, vec![s, s2]))
 			}
 
 			CtorKind::os_jcc_3 => {
-				let s2 = strings[reader.read_compressed_u32() as usize].clone();
-				let s3 = strings[reader.read_compressed_u32() as usize].clone();
+				let s2 = String::from(strings[reader.read_compressed_u32() as usize]);
+				let s3 = String::from(strings[reader.read_compressed_u32() as usize]);
 				v2 = reader.read_compressed_u32();
 				v = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_os_jcc::new(v, v2, vec![s, s2, s3]))
 			}
 
 			CtorKind::os_loopcc => {
-				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				let s2 = String::from(strings[reader.read_compressed_u32() as usize]);
 				c = reader.read_u8() as u8 as char;
 				let s3 = add_suffix(&s, c);
 				let s4 = add_suffix(&s2, c);

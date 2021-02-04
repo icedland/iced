@@ -2,8 +2,6 @@
 // Copyright wtfsckgh@gmail.com
 // Copyright iced contributors
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use alloc::string::String;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use core::str;
 
@@ -53,16 +51,7 @@ impl<'a> DataReader<'a> {
 		}
 	}
 
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-	#[allow(clippy::unwrap_used)]
-	pub(crate) fn read_ascii_string(&mut self) -> String {
-		let len = self.read_u8();
-		let s = str::from_utf8(&self.data[self.index..self.index + len]).unwrap();
-		self.index += len;
-		String::from(s)
-	}
-
-	#[cfg(feature = "fast_fmt")]
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 	#[allow(clippy::unwrap_used)]
 	pub(crate) fn read_ascii_str(&mut self) -> &'a str {
 		let len = self.read_u8();
