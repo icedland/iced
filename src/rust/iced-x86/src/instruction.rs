@@ -654,10 +654,10 @@ impl Instruction {
 	/// let instr = decoder.decode();
 	///
 	/// assert_eq!(instr.op_count(), 2);
-	/// assert_eq!(instr.op_kind(0), OpKind::Memory);
+	/// assert_eq!(instr.try_op_kind(0).unwrap(), OpKind::Memory);
 	/// assert_eq!(instr.memory_base(), Register::RAX);
 	/// assert_eq!(instr.memory_index(), Register::None);
-	/// assert_eq!(instr.op_kind(1), OpKind::Register);
+	/// assert_eq!(instr.try_op_kind(1).unwrap(), OpKind::Register);
 	/// assert_eq!(instr.op_register(1), Register::EBX);
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -1806,7 +1806,7 @@ impl Instruction {
 	/// assert_eq!(instr.op_count(), 2);
 	/// assert_eq!(instr.op_kind(0), OpKind::Memory);
 	/// assert_eq!(instr.op_kind(1), OpKind::Register);
-	/// assert_eq!(instr.op_register(1), Register::EBX);
+	/// assert_eq!(instr.try_op_register(1).unwrap(), Register::EBX);
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_register(&self, operand: u32) -> Result<Register, IcedError> {
