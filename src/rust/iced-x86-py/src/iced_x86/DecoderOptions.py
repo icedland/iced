@@ -78,10 +78,6 @@ NO_WBNOINVD: int = 0x0000_4000
 """
 Don't decode ``WBNOINVD``, decode ``WBINVD`` instead
 """
-NO_LOCK_MOV_CR: int = 0x0000_8000
-"""
-DEPRECATED(1.11.0)
-"""
 NO_MPFX_0FBC: int = 0x0001_0000
 """
 Don't decode ``TZCNT``, decode ``BSF`` instead

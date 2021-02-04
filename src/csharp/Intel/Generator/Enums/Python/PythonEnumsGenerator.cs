@@ -163,7 +163,7 @@ namespace Generator.Enums.Python {
 		void WriteEnumCore(FileWriter writer, EnumType enumType, PythonDocCommentWriter docWriter) {
 			bool mustHaveDocs = enumType.TypeId != TypeIds.Register && enumType.TypeId != TypeIds.Mnemonic;
 			bool uppercaseRawName = PythonUtils.UppercaseEnum(enumType.TypeId.Id1);
-			var firstVersion = new Version(1, 10, 0);
+			var firstVersion = new Version(1, 12, 0);
 			// *****************************************************************************
 			// For PERF reasons, we do NOT use Enums. They're incredibly slow to load!
 			// Eg. loading 'class Code(IntEnum)' (plus other non-Mnemonic enums and some random

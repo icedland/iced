@@ -112,10 +112,6 @@ MEMORY_ESRDI: int = 23
 """
 ``ES:[RDI]``. This operand kind uses :class:`iced_x86.Instruction.memory_size`
 """
-MEMORY64: int = 24
-"""
-DEPRECATED(1.11.0)
-"""
 MEMORY: int = 25
 """
 Memory operand.
