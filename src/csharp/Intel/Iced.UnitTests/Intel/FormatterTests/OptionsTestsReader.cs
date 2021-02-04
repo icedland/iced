@@ -40,6 +40,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				throw new InvalidOperationException($"Invalid number of commas ({parts.Length - 1} commas)");
 
 			int bitness = NumberConverter.ToInt32(parts[0].Trim());
+			var ip = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			var hexBytes = parts[1].Trim();
 			HexUtils.ToByteArray(hexBytes);
 			var codeStr = parts[2].Trim();
@@ -51,7 +57,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			foreach (var part in parts[3].Split(optsseps, StringSplitOptions.RemoveEmptyEntries))
 				properties.Add(OptionsParser.ParseOption(part));
 
-			return new OptionsInstructionInfo(bitness, hexBytes, code, properties);
+			return new OptionsInstructionInfo(bitness, hexBytes, ip, code, properties);
 		}
 
 		static Code ToCode(string value) {

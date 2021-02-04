@@ -3,6 +3,7 @@
 // Copyright iced contributors
 
 use super::super::super::test_utils::from_str_conv::*;
+use super::super::super::test_utils::get_default_ip;
 use super::sym_opts::*;
 use alloc::string::String;
 use alloc::vec::Vec;
@@ -98,6 +99,7 @@ impl IntoIter {
 			return Ok(None);
 		}
 		let bitness = to_u32(elems[2])?;
+		let ip = get_default_ip(bitness);
 		let formatted_string = elems[3].trim().replace('|', ",");
 		let mut flags = SymbolTestFlags::NONE;
 		for value in elems[4].split_whitespace() {
@@ -110,6 +112,6 @@ impl IntoIter {
 			}
 		}
 
-		Ok(Some(SymbolOptionsTestCase { hex_bytes, bitness, formatted_string, flags }))
+		Ok(Some(SymbolOptionsTestCase { hex_bytes, bitness, ip, formatted_string, flags }))
 	}
 }

@@ -88,8 +88,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 
 		[Theory]
 		[MemberData(nameof(FormatMnemonicOptions_Data))]
-		void FormatMnemonicOptions(string hexBytes, Code code, int bitness, string formattedString, FormatMnemonicOptions options) {
+		void FormatMnemonicOptions(string hexBytes, Code code, int bitness, ulong ip, string formattedString, FormatMnemonicOptions options) {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
+			decoder.IP = ip;
 			decoder.Decode(out var instruction);
 			Assert.Equal(code, instruction.Code);
 			var formatter = FormatterFactory.Create();
@@ -105,7 +106,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			get {
 				var filename = PathUtils.GetTestTextFilename("MnemonicOptions.txt", "Formatter", "Gas");
 				foreach (var tc in MnemonicOptionsTestsReader.ReadFile(filename))
-					yield return new object[5] { tc.HexBytes, tc.Code, tc.Bitness, tc.FormattedString, tc.Flags };
+					yield return new object[6] { tc.HexBytes, tc.Code, tc.Bitness, tc.IP, tc.FormattedString, tc.Flags };
 			}
 		}
 

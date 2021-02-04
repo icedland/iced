@@ -13,17 +13,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct InstructionInfo {
 		public readonly int Bitness;
 		public readonly string HexBytes;
+		public readonly ulong IP;
 		public readonly Code Code;
 		public readonly DecoderOptions Options;
-		public InstructionInfo(int bitness, string hexBytes, Code code) {
+		public InstructionInfo(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options) {
 			Bitness = bitness;
 			HexBytes = hexBytes;
-			Code = code;
-			Options = DecoderOptions.None;
-		}
-		public InstructionInfo(int bitness, string hexBytes, Code code, DecoderOptions options) {
-			Bitness = bitness;
-			HexBytes = hexBytes;
+			IP = ip;
 			Code = code;
 			Options = options;
 		}
@@ -88,12 +84,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
 				var hexBytes = parts[0].Trim();
 				var codeStr = parts[1].Trim();
+				var ip = bitness switch {
+					16 => DecoderConstants.DEFAULT_IP16,
+					32 => DecoderConstants.DEFAULT_IP32,
+					64 => DecoderConstants.DEFAULT_IP64,
+					_ => throw new InvalidOperationException(),
+				};
 				if (CodeUtils.IsIgnored(codeStr))
 					ignored.Add(testCaseNo);
 				else {
 					if (!ToEnumConverter.TryCode(codeStr, out var code))
 						throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
-					yield return new InstructionInfo(bitness, hexBytes, code, options);
+					yield return new InstructionInfo(bitness, hexBytes, ip, code, options);
 				}
 				testCaseNo++;
 			}

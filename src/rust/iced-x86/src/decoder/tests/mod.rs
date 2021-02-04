@@ -91,7 +91,7 @@ fn decode_misc(bitness: u32) {
 
 fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
-	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
+	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.ip, tc.decoder_options);
 	assert_eq!(decoder.position(), 0);
 	assert_eq!(decoder.max_position(), bytes.len());
 	let rip = decoder.ip();
@@ -277,7 +277,7 @@ fn decode_mem(bitness: u32) {
 
 fn decode_mem_test(bitness: u32, tc: &DecoderMemoryTestCase) {
 	let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
-	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.decoder_options);
+	let (mut decoder, len, can_read) = create_decoder(bitness, &bytes, tc.ip, tc.decoder_options);
 	assert_eq!(decoder.position(), 0);
 	assert_eq!(decoder.max_position(), bytes.len());
 	let instr = decoder.decode();

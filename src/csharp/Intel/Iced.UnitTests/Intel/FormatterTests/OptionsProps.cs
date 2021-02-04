@@ -273,12 +273,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct OptionsInstructionInfo {
 		public readonly int Bitness;
 		public readonly string HexBytes;
+		public readonly ulong IP;
 		public readonly Code Code;
 		public readonly DecoderOptions DecoderOptions;
 		readonly List<(OptionsProps property, object value)> properties;
-		internal OptionsInstructionInfo(int bitness, string hexBytes, Code code, List<(OptionsProps property, object value)> properties) {
+		internal OptionsInstructionInfo(int bitness, string hexBytes, ulong ip, Code code, List<(OptionsProps property, object value)> properties) {
 			Bitness = bitness;
 			HexBytes = hexBytes;
+			IP = ip;
 			Code = code;
 			this.properties = properties;
 			DecoderOptions = OptionsPropsUtils.GetDecoderOptions(properties);

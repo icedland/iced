@@ -11,7 +11,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 	public sealed class EncoderTest64 : EncoderTest {
 		[Theory]
 		[MemberData(nameof(Encode_Data))]
-		void Encode(uint id, int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) => EncodeBase(id, bitness, code, hexBytes, encodedHexBytes, options);
+		void Encode(uint id, int bitness, Code code, string hexBytes, ulong ip, string encodedHexBytes, DecoderOptions options) => EncodeBase(id, bitness, code, hexBytes, ip, encodedHexBytes, options);
 		public static IEnumerable<object[]> Encode_Data => GetEncodeData(64);
 
 		[Theory]

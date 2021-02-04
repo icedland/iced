@@ -65,9 +65,9 @@ pub(crate) fn get_default_ip(bitness: u32) -> u64 {
 	}
 }
 
-pub(crate) fn create_decoder(bitness: u32, bytes: &[u8], options: u32) -> (Decoder<'_>, usize, bool) {
+pub(crate) fn create_decoder(bitness: u32, bytes: &[u8], ip: u64, options: u32) -> (Decoder<'_>, usize, bool) {
 	let mut decoder = Decoder::new(bitness, bytes, options);
-	decoder.set_ip(get_default_ip(bitness));
+	decoder.set_ip(ip);
 	let len = cmp::min(IcedConstants::MAX_INSTRUCTION_LENGTH, bytes.len());
 	(decoder, len, len < bytes.len())
 }

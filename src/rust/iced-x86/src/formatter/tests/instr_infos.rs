@@ -4,7 +4,7 @@
 
 use super::super::super::code::Code;
 use super::super::test_utils::from_str_conv::{is_ignored_code, to_code, to_decoder_options};
-use super::super::test_utils::get_formatter_unit_tests_dir;
+use super::super::test_utils::{get_default_ip, get_formatter_unit_tests_dir};
 use alloc::string::String;
 use alloc::vec::Vec;
 use std::collections::HashSet;
@@ -15,6 +15,7 @@ use std::io::BufReader;
 pub(super) struct InstructionInfo {
 	pub(super) bitness: u32,
 	pub(super) hex_bytes: String,
+	pub(super) ip: u64,
 	pub(super) code: Code,
 	pub(super) options: u32,
 }
@@ -109,7 +110,8 @@ fn read_next_info(bitness: u32, line: String) -> Result<Option<InstructionInfo>,
 		return Ok(None);
 	}
 	let code = to_code(parts[1].trim())?;
-	Ok(Some(InstructionInfo { bitness, hex_bytes: String::from(hex_bytes), code, options }))
+	let ip = get_default_ip(bitness);
+	Ok(Some(InstructionInfo { bitness, hex_bytes: String::from(hex_bytes), ip, code, options }))
 }
 
 pub(super) fn get_formatted_lines(bitness: u32, dir: &str, file_part: &str) -> Vec<String> {

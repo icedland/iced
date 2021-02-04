@@ -3,6 +3,7 @@
 // Copyright iced contributors
 
 use super::super::super::test_utils::from_str_conv::*;
+use super::super::super::test_utils::get_default_ip;
 use super::super::super::*;
 use super::decoder_mem_test_case::*;
 use super::enums::DecoderTestOptions;
@@ -82,6 +83,7 @@ impl IntoIter {
 		}
 
 		let hex_bytes = parts[0].trim();
+		let ip = get_default_ip(self.bitness);
 		let _ = to_vec_u8(hex_bytes)?;
 		if is_ignored_code(parts[1].trim()) {
 			return Ok(None);
@@ -104,6 +106,7 @@ impl IntoIter {
 		Ok(Some(DecoderMemoryTestCase {
 			bitness: self.bitness,
 			hex_bytes: hex_bytes.to_string(),
+			ip,
 			code,
 			register,
 			prefix_segment,

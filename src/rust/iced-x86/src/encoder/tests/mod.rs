@@ -55,7 +55,7 @@ fn encode(bitness: u32) {
 
 fn encode_test(info: &DecoderTestInfo) {
 	let orig_bytes = to_vec_u8(info.hex_bytes()).unwrap();
-	let mut decoder = create_decoder(info.bitness(), orig_bytes.as_slice(), info.decoder_options()).0;
+	let mut decoder = create_decoder(info.bitness(), orig_bytes.as_slice(), info.ip(), info.decoder_options()).0;
 	let orig_rip = decoder.ip();
 	let orig_instr = decoder.decode();
 	let orig_co = decoder.get_constant_offsets(&orig_instr);
@@ -88,7 +88,7 @@ fn encode_test(info: &DecoderTestInfo) {
 		panic!();
 	}
 
-	let mut new_instr = create_decoder(info.bitness(), encoded_bytes.as_slice(), info.decoder_options()).0.decode();
+	let mut new_instr = create_decoder(info.bitness(), encoded_bytes.as_slice(), info.ip(), info.decoder_options()).0.decode();
 	assert_eq!(new_instr.code(), info.code());
 	assert_eq!(new_instr.len(), encoded_bytes.len());
 	new_instr.set_len(orig_instr.len());
@@ -187,7 +187,7 @@ fn encode_invalid() {
 
 fn encode_invalid_test(invalid_bitness: u32, tc: Rc<DecoderTestInfo>) {
 	let orig_bytes = to_vec_u8(tc.hex_bytes()).unwrap();
-	let mut decoder = create_decoder(tc.bitness(), orig_bytes.as_slice(), tc.decoder_options()).0;
+	let mut decoder = create_decoder(tc.bitness(), orig_bytes.as_slice(), tc.ip(), tc.decoder_options()).0;
 	let orig_rip = decoder.ip();
 	let orig_instr = decoder.decode();
 	assert_eq!(orig_instr.code(), tc.code());
@@ -570,7 +570,8 @@ fn prevent_vex2_encoding() {
 	for tc in &tests {
 		let (hex_bytes, expected_bytes, code, prevent_vex2) = *tc;
 		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
-		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
+		const BITNESS: u32 = 64;
+		let mut decoder = create_decoder(BITNESS, &hex_bytes, get_default_ip(BITNESS), 0).0;
 		let instr = decoder.decode();
 		assert_eq!(instr.code(), code);
 		let mut encoder = Encoder::new(decoder.bitness());
@@ -610,7 +611,8 @@ fn test_vex_wig_lig() {
 	for tc in &tests {
 		let (hex_bytes, expected_bytes, code, wig, lig) = *tc;
 		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
-		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
+		const BITNESS: u32 = 64;
+		let mut decoder = create_decoder(BITNESS, &hex_bytes, get_default_ip(BITNESS), 0).0;
 		let instr = decoder.decode();
 		assert_eq!(instr.code(), code);
 		let mut encoder = Encoder::new(decoder.bitness());
@@ -661,7 +663,8 @@ fn test_evex_wig_lig() {
 	for tc in &tests {
 		let (hex_bytes, expected_bytes, code, wig, lig) = *tc;
 		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
-		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
+		const BITNESS: u32 = 64;
+		let mut decoder = create_decoder(BITNESS, &hex_bytes, get_default_ip(BITNESS), 0).0;
 		let instr = decoder.decode();
 		assert_eq!(instr.code(), code);
 		let mut encoder = Encoder::new(decoder.bitness());

@@ -11,7 +11,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class OptionsTests {
 		protected void FormatBase(int index, OptionsInstructionInfo info, string formattedString, Formatter formatter) {
 			info.Initialize(formatter.Options);
-			FormatterTestUtils.SimpleFormatTest(info.Bitness, info.HexBytes, info.Code, info.DecoderOptions, formattedString, formatter, decoder => info.Initialize(decoder));
+			FormatterTestUtils.SimpleFormatTest(info.Bitness, info.HexBytes, info.IP, info.Code, info.DecoderOptions, formattedString, formatter, decoder => info.Initialize(decoder));
 		}
 
 		protected void TestOptionsBase(FormatterOptions options) {

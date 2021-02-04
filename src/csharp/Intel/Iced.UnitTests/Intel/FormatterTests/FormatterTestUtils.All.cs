@@ -11,8 +11,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	static partial class FormatterTestUtils {
 		delegate string FormatInstr(in Instruction instruction);
 
-		static void SimpleFormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, FormatInstr format, Action<Decoder> initDecoder) {
-			var decoder = CreateDecoder(bitness, hexBytes, options, out _);
+		static void SimpleFormatTest(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options, string formattedString, FormatInstr format, Action<Decoder> initDecoder) {
+			var decoder = CreateDecoder(bitness, hexBytes, ip, options);
 			initDecoder?.Invoke(decoder);
 			var nextRip = decoder.IP;
 			var instruction = decoder.Decode();
@@ -33,17 +33,11 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 		}
 
-		static Decoder CreateDecoder(int bitness, string hexBytes, DecoderOptions options, out ulong rip) {
+		static Decoder CreateDecoder(int bitness, string hexBytes, ulong ip, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			var decoder = Decoder.Create(bitness, codeReader, options);
-			rip = bitness switch {
-				16 => DecoderConstants.DEFAULT_IP16,
-				32 => DecoderConstants.DEFAULT_IP32,
-				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
-			};
 			Assert.Equal(bitness, decoder.Bitness);
-			decoder.IP = rip;
+			decoder.IP = ip;
 			return decoder;
 		}
 	}

@@ -112,7 +112,7 @@ fn format_mnemonic_options() {
 	path.push("MnemonicOptions.txt");
 	for tc in MnemonicOptionsTestParser::new(&path) {
 		let hex_bytes = to_vec_u8(&tc.hex_bytes).unwrap();
-		let mut decoder = create_decoder(tc.bitness, &hex_bytes, DecoderOptions::NONE).0;
+		let mut decoder = create_decoder(tc.bitness, &hex_bytes, tc.ip, DecoderOptions::NONE).0;
 		let instruction = decoder.decode();
 		assert_eq!(instruction.code(), tc.code);
 		let mut formatter = fmt_factory::create();

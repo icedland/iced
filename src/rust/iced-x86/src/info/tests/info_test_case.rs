@@ -11,6 +11,7 @@ pub(super) struct InstrInfoTestCase {
 	pub(super) line_number: u32,
 	pub(super) bitness: u32,
 	pub(super) hex_bytes: String,
+	pub(super) ip: u64,
 	pub(super) code: Code,
 	pub(super) decoder_options: u32,
 	pub(super) encoding: EncodingKind,

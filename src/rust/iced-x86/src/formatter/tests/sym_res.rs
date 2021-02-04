@@ -74,6 +74,7 @@ pub(in super::super) fn symbol_resolver_test(
 		super::simple_format_test(
 			info.bitness,
 			&info.hex_bytes,
+			info.ip,
 			info.code,
 			info.decoder_options,
 			formatted_line.as_str(),
@@ -101,6 +102,7 @@ pub(in super::super) fn symbol_resolver_test_fast(
 		super::simple_format_test_fast(
 			info.bitness,
 			&info.hex_bytes,
+			info.ip,
 			info.code,
 			info.decoder_options,
 			formatted_line.as_str(),

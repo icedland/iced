@@ -12,7 +12,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			var formatter = formatterInfo.formatter;
 			var decoderOptions = OptionsPropsUtils.GetDecoderOptions(infoCopy.Options);
 			OptionsPropsUtils.Initialize(formatter.Options, infoCopy.Options);
-			FormatterTestUtils.SimpleFormatTest(infoCopy.Bitness, infoCopy.HexBytes, infoCopy.Code, decoderOptions, formattedString,
+			FormatterTestUtils.SimpleFormatTest(infoCopy.Bitness, infoCopy.HexBytes, infoCopy.IP, infoCopy.Code, decoderOptions, formattedString,
 				formatter, decoder => OptionsPropsUtils.Initialize(decoder, infoCopy.Options));
 		}
 	}

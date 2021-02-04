@@ -14,6 +14,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public int Bitness;
 		public string HexBytes;
 		public string EncodedHexBytes;
+		public ulong IP;
 		public Code Code;
 		public Mnemonic Mnemonic;
 		public int OpCount;
@@ -94,6 +95,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public int Bitness;
 		public string HexBytes;
 		public string EncodedHexBytes;
+		public ulong IP;
 		public Code Code;
 		public Register Register;
 		public Register SegmentPrefix;

@@ -1893,7 +1893,7 @@ fn try_with_test_evex() {
 fn with_test_core(tests: Vec<(u32, &str, u32, Instruction)>) {
 	for (bitness, hex_bytes, options, created_instr) in tests {
 		let bytes = to_vec_u8(hex_bytes).unwrap();
-		let mut decoder = create_decoder(bitness, bytes.as_slice(), options).0;
+		let mut decoder = create_decoder(bitness, bytes.as_slice(), get_default_ip(bitness), options).0;
 		let orig_rip = decoder.ip();
 		let mut decoded_instr = decoder.decode();
 		decoded_instr.set_code_size(CodeSize::default());

@@ -3,6 +3,7 @@
 // Copyright iced contributors
 
 use super::super::super::test_utils::from_str_conv::*;
+use super::super::super::test_utils::get_default_ip;
 use super::super::super::MemorySize;
 use super::super::enums_shared::SymbolFlags;
 use super::enums::OptionsProps;
@@ -99,6 +100,7 @@ impl<'a> IntoIter<'a> {
 		}
 
 		let bitness = to_u32(elems[0])?;
+		let ip = get_default_ip(bitness);
 		let hex_bytes = String::from(elems[1].trim());
 		let _ = to_vec_u8(&hex_bytes)?;
 		if is_ignored_code(elems[2]) {
@@ -142,6 +144,6 @@ impl<'a> IntoIter<'a> {
 		}
 
 		let decoder_options = OptionValue::get_decoder_options(&options);
-		Ok(Some(SymbolResolverTestCase { bitness, hex_bytes, decoder_options, code, options, symbol_results }))
+		Ok(Some(SymbolResolverTestCase { bitness, hex_bytes, ip, decoder_options, code, options, symbol_results }))
 	}
 }

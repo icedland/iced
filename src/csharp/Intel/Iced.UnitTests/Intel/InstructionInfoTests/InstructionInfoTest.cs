@@ -91,7 +91,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					}
 				}
 				else {
-					var decoder = CreateDecoder(bitness, codeBytes, options);
+					var decoder = CreateDecoder(bitness, codeBytes, testCase.IP, options);
 					instruction = decoder.Decode();
 					if (codeBytes.Length > 1 && codeBytes[0] == 0x9B && instruction.Length == 1) {
 						instruction = decoder.Decode();
@@ -118,7 +118,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				}
 			}
 			else {
-				var decoder = CreateDecoder(bitness, codeBytes, options);
+				var decoder = CreateDecoder(bitness, codeBytes, testCase.IP, options);
 				instruction = decoder.Decode();
 			}
 			Assert.Equal(code, instruction.Code);
@@ -393,16 +393,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return -1;
 		}
 
-		Decoder CreateDecoder(int bitness, byte[] codeBytes, DecoderOptions options) {
+		Decoder CreateDecoder(int bitness, byte[] codeBytes, ulong ip, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(codeBytes);
 			var decoder = Decoder.Create(bitness, codeReader, options);
-
-			decoder.IP = bitness switch {
-				16 => DecoderConstants.DEFAULT_IP16,
-				32 => DecoderConstants.DEFAULT_IP32,
-				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
-			};
+			decoder.IP = ip;
 			Assert.Equal(bitness, decoder.Bitness);
 			return decoder;
 		}

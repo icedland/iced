@@ -11,6 +11,7 @@ use alloc::vec::Vec;
 pub(super) struct SymbolResolverTestCase {
 	pub(super) bitness: u32,
 	pub(super) hex_bytes: String,
+	pub(super) ip: u64,
 	pub(super) decoder_options: u32,
 	pub(super) code: Code,
 	pub(super) options: Vec<(OptionsProps, OptionValue)>,

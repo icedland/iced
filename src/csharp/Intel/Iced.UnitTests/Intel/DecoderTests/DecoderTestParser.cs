@@ -76,6 +76,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string OpKind_Memory = "m";
 		internal const string DecoderTestOptions_NoEncode = "noencode";
 		internal const string DecoderTestOptions_NoOptDisableTest = "no_opt_disable_test";
+		internal const string IP = "ip";
 	}
 	// GENERATOR-END: DecoderTestText
 
@@ -110,6 +111,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.LineNumber = lineNumber;
 			tc.TestOptions = DecoderTestOptions.None;
 			tc.Bitness = bitness;
+			tc.IP = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			tc.HexBytes = ToHexBytes(parts[0].Trim());
 			tc.EncodedHexBytes = tc.HexBytes;
 			var code = parts[1].Trim();
@@ -247,6 +254,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						throw new InvalidOperationException($"Invalid DecoderOption value: '{value}'");
 					if (!TryParseDecoderOptions(value.Split(semicolonSeparator), ref tc.DecoderOptions))
 						throw new Exception($"Invalid DecoderOptions value, '{value}'");
+					break;
+
+				case DecoderTestParserConstants.IP:
+					if (string.IsNullOrWhiteSpace(value))
+						throw new InvalidOperationException($"Invalid IP value: '{value}'");
+					tc.IP = NumberConverter.ToUInt64(value);
 					break;
 
 				case DecoderTestParserConstants.SegmentPrefix_ES:

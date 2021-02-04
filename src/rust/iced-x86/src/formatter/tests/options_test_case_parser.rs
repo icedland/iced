@@ -3,6 +3,7 @@
 // Copyright iced contributors
 
 use super::super::super::test_utils::from_str_conv::*;
+use super::super::super::test_utils::get_default_ip;
 use super::enums::OptionsProps;
 use super::opt_value::OptionValue;
 use super::options_parser::parse_option;
@@ -88,6 +89,7 @@ impl<'a> IntoIter<'a> {
 		}
 
 		let bitness = to_u32(elems[0])?;
+		let ip = get_default_ip(bitness);
 		let hex_bytes = elems[1];
 		let _ = to_vec_u8(hex_bytes)?;
 		if is_ignored_code(elems[2]) {
@@ -105,6 +107,6 @@ impl<'a> IntoIter<'a> {
 		}
 
 		let decoder_options = OptionValue::get_decoder_options(&properties);
-		Ok(Some(OptionsInstructionInfo { bitness, hex_bytes: String::from(hex_bytes), decoder_options, code, vec: properties }))
+		Ok(Some(OptionsInstructionInfo { bitness, hex_bytes: String::from(hex_bytes), ip, decoder_options, code, vec: properties }))
 	}
 }

@@ -66,6 +66,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				throw new Exception($"Expected {MiscInstrInfoTestConstants.InstrInfoElemsPerLine - 1} commas");
 
 			var testCase = new InstructionInfoTestCase();
+			testCase.IP = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 
 			var hexBytes = ToHexBytes(elems[0].Trim());
 			var codeStr = elems[1].Trim();

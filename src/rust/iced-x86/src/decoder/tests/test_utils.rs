@@ -20,6 +20,7 @@ pub(crate) struct DecoderTestInfo {
 	bitness: u32,
 	code: Code,
 	hex_bytes: String,
+	ip: u64,
 	#[allow(dead_code)]
 	encoded_hex_bytes: String,
 	decoder_options: u32,
@@ -36,6 +37,9 @@ impl DecoderTestInfo {
 	}
 	pub(crate) fn hex_bytes(&self) -> &str {
 		&self.hex_bytes
+	}
+	pub(crate) fn ip(&self) -> u64 {
+		self.ip
 	}
 	#[cfg(feature = "encoder")]
 	pub(crate) fn encoded_hex_bytes(&self) -> &str {
@@ -157,6 +161,7 @@ fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderTestCase], include_in
 			bitness: tc.bitness,
 			code: tc.code,
 			hex_bytes: tc.hex_bytes.clone(),
+			ip: tc.ip,
 			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
 			decoder_options: tc.decoder_options,
 			decoder_test_options: tc.test_options,
@@ -179,6 +184,7 @@ fn add_tests_mem(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderMemoryTestCase], 
 			bitness: tc.bitness,
 			code: tc.code,
 			hex_bytes: tc.hex_bytes.clone(),
+			ip: tc.ip,
 			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
 			decoder_options: tc.decoder_options,
 			decoder_test_options: tc.test_options,

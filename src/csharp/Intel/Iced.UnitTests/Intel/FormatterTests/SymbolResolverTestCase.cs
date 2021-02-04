@@ -9,12 +9,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct SymbolResolverTestCase {
 		internal readonly int Bitness;
 		internal readonly string HexBytes;
+		internal readonly ulong IP;
 		internal readonly Code Code;
 		internal readonly (OptionsProps property, object value)[] Options;
 		internal readonly SymbolResultTestCase[] SymbolResults;
-		internal SymbolResolverTestCase(int bitness, string hexBytes, Code code, (OptionsProps property, object value)[] options, SymbolResultTestCase[] symbolResults) {
+		internal SymbolResolverTestCase(int bitness, string hexBytes, ulong ip, Code code, (OptionsProps property, object value)[] options, SymbolResultTestCase[] symbolResults) {
 			Bitness = bitness;
 			HexBytes = hexBytes;
+			IP = ip;
 			Code = code;
 			Options = options;
 			SymbolResults = symbolResults;

@@ -9,8 +9,9 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static partial class FormatterTestUtils {
-		public static void FormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, FastFormatter formatter) {
-			var decoder = CreateDecoder(bitness, hexBytes, options, out ulong nextRip);
+		public static void FormatTest(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options, string formattedString, FastFormatter formatter) {
+			var decoder = CreateDecoder(bitness, hexBytes, ip, options);
+			var nextRip = decoder.IP;
 			var instruction = decoder.Decode();
 			Assert.Equal(code, instruction.Code);
 			Assert.Equal((ushort)nextRip, instruction.IP16);
@@ -35,13 +36,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 		}
 
-		public static void SimpleFormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, FastFormatter formatter, Action<Decoder> initDecoder) {
+		public static void SimpleFormatTest(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options, string formattedString, FastFormatter formatter, Action<Decoder> initDecoder) {
 			FormatInstr format = (in Instruction instruction) => {
 				var output = new FastStringOutput();
 				formatter.Format(instruction, output);
 				return output.ToString();
 			};
-			SimpleFormatTest(bitness, hexBytes, code, options, formattedString, format, initDecoder);
+			SimpleFormatTest(bitness, hexBytes, ip, code, options, formattedString, format, initDecoder);
 		}
 	}
 }

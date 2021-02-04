@@ -36,12 +36,14 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 	readonly struct SymbolOptionsTestCase {
 		public readonly string HexBytes;
 		public readonly int Bitness;
+		public readonly ulong IP;
 		public readonly string FormattedString;
 		public readonly SymbolTestFlags Flags;
 
-		public SymbolOptionsTestCase(string hexBytes, int bitness, string formattedString, SymbolTestFlags flags) {
+		public SymbolOptionsTestCase(string hexBytes, int bitness, ulong ip, string formattedString, SymbolTestFlags flags) {
 			HexBytes = hexBytes;
 			Bitness = bitness;
+			IP = ip;
 			FormattedString = formattedString;
 			Flags = flags;
 		}
@@ -95,6 +97,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			if (CodeUtils.IsIgnored(elems[1].Trim()))
 				return null;
 			var bitness = NumberConverter.ToInt32(elems[2].Trim());
+			var ip = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			var formattedString = elems[3].Trim().Replace('|', ',');
 			var flags = SymbolTestFlags.None;
 			foreach (var value in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
@@ -102,7 +110,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 					throw new InvalidOperationException($"Invalid flags value: {value}");
 				flags |= f;
 			}
-			return new SymbolOptionsTestCase(hexBytes, bitness, formattedString, flags);
+			return new SymbolOptionsTestCase(hexBytes, bitness, ip, formattedString, flags);
 		}
 	}
 
@@ -125,14 +133,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		[Theory]
 		[MemberData(nameof(TestIt_Data))]
-		void TestIt(string hexBytes, int bitness, string formattedString, SymbolTestFlags flags) {
+		void TestIt(string hexBytes, int bitness, ulong ip, string formattedString, SymbolTestFlags flags) {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
-			decoder.IP = bitness switch {
-				16 => DecoderConstants.DEFAULT_IP16,
-				32 => DecoderConstants.DEFAULT_IP32,
-				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new InvalidOperationException(),
-			};
+			decoder.IP = ip;
 			decoder.Decode(out var instruction);
 
 			var formatter = FormatterFactory.Create_Resolver(new SymbolResolver(flags)).formatter;
@@ -154,7 +157,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			get {
 				var filename = PathUtils.GetTestTextFilename("SymbolOptions.txt", "Formatter", "Masm");
 				foreach (var tc in SymbolOptionsTestsReader.ReadFile(filename))
-					yield return new object[4] { tc.HexBytes, tc.Bitness, tc.FormattedString, tc.Flags };
+					yield return new object[5] { tc.HexBytes, tc.Bitness, tc.IP, tc.FormattedString, tc.Flags };
 			}
 		}
 	}

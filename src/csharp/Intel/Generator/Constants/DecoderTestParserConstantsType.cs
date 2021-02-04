@@ -77,6 +77,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.String, "OpKind_Memory", "m", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderTestOptions_NoEncode", "noencode", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderTestOptions_NoOptDisableTest", "no_opt_disable_test", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "IP", "ip", ConstantsTypeFlags.None),
 			};
 	}
 }

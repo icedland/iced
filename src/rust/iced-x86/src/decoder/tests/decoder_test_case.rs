@@ -14,6 +14,7 @@ pub(crate) struct DecoderTestCase {
 	pub(crate) decoder_options: u32,
 	pub(crate) bitness: u32,
 	pub(crate) hex_bytes: String,
+	pub(crate) ip: u64,
 	pub(crate) encoded_hex_bytes: String,
 	pub(crate) code: Code,
 	pub(crate) mnemonic: Mnemonic,

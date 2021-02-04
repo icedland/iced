@@ -2,8 +2,8 @@
 // Copyright wtfsckgh@gmail.com
 // Copyright iced contributors
 
-use super::super::test_utils::create_decoder;
 use super::super::test_utils::from_str_conv::to_vec_u8;
+use super::super::test_utils::{create_decoder, get_default_ip};
 use super::va_test_cases::VA_TEST_CASES;
 
 #[test]
@@ -14,7 +14,7 @@ fn va_tests() {
 		}
 		let operand = tc.operand as u32;
 		let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
-		let mut decoder = create_decoder(tc.bitness, &bytes, tc.decoder_options).0;
+		let mut decoder = create_decoder(tc.bitness, &bytes, get_default_ip(tc.bitness), tc.decoder_options).0;
 		let instruction = decoder.decode();
 
 		#[allow(deprecated)]

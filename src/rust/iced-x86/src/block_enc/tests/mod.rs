@@ -29,7 +29,7 @@ mod xbegin_64;
 const DECODER_OPTIONS: u32 = 0; // DecoderOptions
 
 fn decode(bitness: u32, rip: u64, data: &[u8], options: u32) -> Vec<Instruction> {
-	let mut decoder = create_decoder(bitness, data, options).0;
+	let mut decoder = create_decoder(bitness, data, get_default_ip(bitness), options).0;
 	decoder.set_ip(rip);
 	decoder.into_iter().collect()
 }
@@ -67,7 +67,7 @@ fn encode_test(
 	assert_eq!(&new_instruction_offsets[..], expected_instruction_offsets);
 
 	let mut expected_constant_offsets = Vec::with_capacity(constant_offsets.len());
-	let mut decoder = create_decoder(bitness, &encoded_bytes, decoder_options).0;
+	let mut decoder = create_decoder(bitness, &encoded_bytes, get_default_ip(bitness), decoder_options).0;
 	let mut instr = Instruction::default();
 	for &offset in &new_instruction_offsets {
 		if offset == u32::MAX {

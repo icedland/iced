@@ -10,6 +10,7 @@ using Iced.Intel;
 namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public sealed class InstructionInfoTestCase {
 		public InstructionInfoTestCase() => Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
+		public ulong IP = 0;
 		public EncodingKind Encoding = EncodingKind.Legacy;
 		public CpuidFeature[] CpuidFeatures = Array.Empty<CpuidFeature>();
 		public RflagsBits RflagsRead = RflagsBits.None;

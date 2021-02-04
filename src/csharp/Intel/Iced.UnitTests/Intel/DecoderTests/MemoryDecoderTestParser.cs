@@ -36,6 +36,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var tc = new DecoderMemoryTestCase();
 			tc.LineNumber = lineNumber;
 			tc.Bitness = bitness;
+			tc.IP = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			tc.HexBytes = parts[0].Trim();
 			var code = parts[1].Trim();
 			if (CodeUtils.IsIgnored(code))

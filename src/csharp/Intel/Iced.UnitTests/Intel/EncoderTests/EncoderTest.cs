@@ -33,9 +33,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			return true;
 		}
 
-		protected void EncodeBase(uint id, int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) {
+		protected void EncodeBase(uint id, int bitness, Code code, string hexBytes, ulong ip, string encodedHexBytes, DecoderOptions options) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
-			var decoder = CreateDecoder(bitness, origBytes, options);
+			var decoder = CreateDecoder(bitness, origBytes, ip, options);
 			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
 			var origConstantOffsets = decoder.GetConstantOffsets(origInstr);
@@ -73,7 +73,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #pragma warning restore xUnit2006 // Do not use invalid string equality check
 			}
 
-			var newInstr = CreateDecoder(bitness, encodedBytes, options).Decode();
+			var newInstr = CreateDecoder(bitness, encodedBytes, ip, options).Decode();
 			Assert.Equal(code, newInstr.Code);
 			Assert.Equal(encodedBytes.Length, newInstr.Length);
 			newInstr.Length = origInstr.Length;
@@ -118,9 +118,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
 		}
 
-		protected void EncodeInvalidBase(uint id, int bitness, Code code, string hexBytes, DecoderOptions options, int invalidBitness) {
+		protected void EncodeInvalidBase(uint id, int bitness, Code code, string hexBytes, ulong ip, DecoderOptions options, int invalidBitness) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
-			var decoder = CreateDecoder(bitness, origBytes, options);
+			var decoder = CreateDecoder(bitness, origBytes, ip, options);
 			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
 			Assert.Equal(code, origInstr.Code);
@@ -147,15 +147,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			return encoder;
 		}
 
-		Decoder CreateDecoder(int bitness, byte[] hexBytes, DecoderOptions options) {
+		Decoder CreateDecoder(int bitness, byte[] hexBytes, ulong ip, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			var decoder = Decoder.Create(bitness, codeReader, options);
-			decoder.IP = bitness switch {
-				16 => DecoderConstants.DEFAULT_IP16,
-				32 => DecoderConstants.DEFAULT_IP32,
-				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
-			};
+			decoder.IP = ip;
 			Assert.Equal(bitness, decoder.Bitness);
 			return decoder;
 		}
@@ -164,7 +159,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			foreach (var info in DecoderTestUtils.GetEncoderTests(includeOtherTests: true, includeInvalid: false)) {
 				if (bitness != info.Bitness)
 					continue;
-				yield return new object[] { info.Id, info.Bitness, info.Code, info.HexBytes, info.EncodedHexBytes, info.Options };
+				yield return new object[] { info.Id, info.Bitness, info.Code, info.HexBytes, info.IP, info.EncodedHexBytes, info.Options };
 			}
 		}
 

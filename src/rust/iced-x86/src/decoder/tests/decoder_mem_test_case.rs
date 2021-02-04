@@ -9,6 +9,7 @@ use alloc::string::String;
 pub(crate) struct DecoderMemoryTestCase {
 	pub(crate) bitness: u32,
 	pub(crate) hex_bytes: String,
+	pub(crate) ip: u64,
 	pub(crate) code: Code,
 	pub(crate) register: Register,
 	pub(crate) prefix_segment: Register,

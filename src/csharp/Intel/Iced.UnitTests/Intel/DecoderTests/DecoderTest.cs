@@ -10,23 +10,20 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public abstract class DecoderTest {
-		(Decoder decoder, int length, bool canRead, ByteArrayCodeReader codeReader) CreateDecoder(int bitness, string hexBytes, DecoderOptions options) {
+		(Decoder decoder, int length, bool canRead, ByteArrayCodeReader codeReader) CreateDecoder(int bitness, string hexBytes, ulong ip, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			var decoder = Decoder.Create(bitness, codeReader, options);
-			decoder.IP = bitness switch {
-				16 => DecoderConstants.DEFAULT_IP16,
-				32 => DecoderConstants.DEFAULT_IP32,
-				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
-			};
+			decoder.IP = ip;
 			Assert.Equal(bitness, decoder.Bitness);
 			int length = Math.Min(IcedConstants.MaxInstructionLength, codeReader.Count);
 			bool canRead = length < codeReader.Count;
 			return (decoder, length, canRead, codeReader);
 		}
 
-		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, ulong displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
-			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, options);
+		internal void DecodeMemOpsBase(int bitness, string hexBytes, Code code, DecoderMemoryTestCase tc) {
+			Debug.Assert(bitness == tc.Bitness);
+			Debug.Assert(hexBytes == tc.HexBytes);
+			var (decoder, length, canRead, codeReader) = CreateDecoder(tc.Bitness, tc.HexBytes, tc.IP, tc.DecoderOptions);
 			var instruction = decoder.Decode();
 			Assert.Equal(DecoderError.None, decoder.LastError);
 			Assert.Equal(canRead, codeReader.CanReadByte);
@@ -39,33 +36,33 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instruction.HasRepePrefix);
 			Assert.False(instruction.HasRepnePrefix);
 			Assert.False(instruction.HasLockPrefix);
-			Assert.Equal(prefixSeg, instruction.SegmentPrefix);
+			Assert.Equal(tc.SegmentPrefix, instruction.SegmentPrefix);
 			if (instruction.SegmentPrefix == Register.None)
 				Assert.False(instruction.HasSegmentPrefix);
 			else
 				Assert.True(instruction.HasSegmentPrefix);
 
 			Assert.Equal(OpKind.Memory, instruction.Op0Kind);
-			Assert.Equal(segReg, instruction.MemorySegment);
-			Assert.Equal(baseReg, instruction.MemoryBase);
-			Assert.Equal(indexReg, instruction.MemoryIndex);
+			Assert.Equal(tc.SegmentRegister, instruction.MemorySegment);
+			Assert.Equal(tc.BaseRegister, instruction.MemoryBase);
+			Assert.Equal(tc.IndexRegister, instruction.MemoryIndex);
 #pragma warning disable CS0618 // Type or member is obsolete
-			Assert.Equal((uint)displ, instruction.MemoryDisplacement);
+			Assert.Equal((uint)tc.Displacement, instruction.MemoryDisplacement);
 #pragma warning restore CS0618 // Type or member is obsolete
-			Assert.Equal((uint)displ, instruction.MemoryDisplacement32);
-			Assert.Equal(displ, instruction.MemoryDisplacement64);
-			Assert.Equal(1 << scale, instruction.MemoryIndexScale);
-			Assert.Equal(displSize, instruction.MemoryDisplSize);
+			Assert.Equal((uint)tc.Displacement, instruction.MemoryDisplacement32);
+			Assert.Equal(tc.Displacement, instruction.MemoryDisplacement64);
+			Assert.Equal(1 << tc.Scale, instruction.MemoryIndexScale);
+			Assert.Equal(tc.DisplacementSize, instruction.MemoryDisplSize);
 
 			Assert.Equal(OpKind.Register, instruction.Op1Kind);
-			Assert.Equal(register, instruction.Op1Register);
-			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(instruction));
+			Assert.Equal(tc.Register, instruction.Op1Register);
+			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(instruction));
 		}
 
 		protected static IEnumerable<object[]> GetMemOpsData(int bitness) {
 			var allTestCases = DecoderTestCases.GetMemoryTestCases(bitness);
 			foreach (var tc in allTestCases)
-				yield return new object[13] { tc.HexBytes, tc.Code, tc.Register, tc.SegmentPrefix, tc.SegmentRegister, tc.BaseRegister, tc.IndexRegister, tc.Scale, tc.Displacement, tc.DisplacementSize, tc.ConstantOffsets, tc.EncodedHexBytes, tc.DecoderOptions };
+				yield return new object[3] { tc.HexBytes, tc.Code, tc };
 		}
 
 		protected static IEnumerable<object[]> GetDecoderTestData(int bitness) {
@@ -87,7 +84,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		internal void DecoderTestBase(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) {
-			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
+			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, tc.IP, tc.DecoderOptions);
 			ulong rip = decoder.IP;
 			decoder.Decode(out var instruction);
 			Assert.Equal(tc.DecoderError, decoder.LastError);

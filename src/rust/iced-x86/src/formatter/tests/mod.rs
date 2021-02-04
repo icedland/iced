@@ -104,12 +104,12 @@ pub(super) fn formatter_test_nondec_fast(bitness: u32, dir: &str, filename: &str
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn format_test_info(info: &InstructionInfo, formatted_string: &str, formatter: Box<dyn Formatter>) {
-	format_test(info.bitness, &info.hex_bytes, info.code, info.options, formatted_string, formatter);
+	format_test(info.bitness, &info.hex_bytes, info.ip, info.code, info.options, formatted_string, formatter);
 }
 
 #[cfg(feature = "fast_fmt")]
 fn format_test_info_fast(info: &InstructionInfo, formatted_string: &str, formatter: Box<FastFormatter>) {
-	format_test_fast(info.bitness, &info.hex_bytes, info.code, info.options, formatted_string, formatter);
+	format_test_fast(info.bitness, &info.hex_bytes, info.ip, info.code, info.options, formatted_string, formatter);
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -125,9 +125,9 @@ fn format_test_instruction_fast(instruction: &Instruction, formatted_string: &st
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-fn format_test(bitness: u32, hex_bytes: &str, code: Code, options: u32, formatted_string: &str, formatter: Box<dyn Formatter>) {
+fn format_test(bitness: u32, hex_bytes: &str, ip: u64, code: Code, options: u32, formatted_string: &str, formatter: Box<dyn Formatter>) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
-	let mut decoder = create_decoder(bitness, &bytes, options).0;
+	let mut decoder = create_decoder(bitness, &bytes, ip, options).0;
 	let mut ip = decoder.ip();
 	let instr = decoder.decode();
 	assert_eq!(instr.code(), code);
@@ -143,9 +143,9 @@ fn format_test(bitness: u32, hex_bytes: &str, code: Code, options: u32, formatte
 }
 
 #[cfg(feature = "fast_fmt")]
-fn format_test_fast(bitness: u32, hex_bytes: &str, code: Code, options: u32, formatted_string: &str, formatter: Box<FastFormatter>) {
+fn format_test_fast(bitness: u32, hex_bytes: &str, ip: u64, code: Code, options: u32, formatted_string: &str, formatter: Box<FastFormatter>) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
-	let mut decoder = create_decoder(bitness, &bytes, options).0;
+	let mut decoder = create_decoder(bitness, &bytes, ip, options).0;
 	let mut ip = decoder.ip();
 	let instr = decoder.decode();
 	assert_eq!(instr.code(), code);
@@ -203,10 +203,10 @@ fn format_test_instruction_fast_core(instruction: &Instruction, formatted_string
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn simple_format_test<F: Fn(&mut Decoder)>(
-	bitness: u32, hex_bytes: &str, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut dyn Formatter, init_decoder: F,
+	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut dyn Formatter, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
-	let mut decoder = create_decoder(bitness, &bytes, decoder_options).0;
+	let mut decoder = create_decoder(bitness, &bytes, ip, decoder_options).0;
 	(init_decoder)(&mut decoder);
 	let mut next_rip = decoder.ip();
 	let instruction = decoder.decode();
@@ -227,10 +227,10 @@ fn simple_format_test<F: Fn(&mut Decoder)>(
 
 #[cfg(feature = "fast_fmt")]
 fn simple_format_test_fast<F: Fn(&mut Decoder)>(
-	bitness: u32, hex_bytes: &str, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut FastFormatter, init_decoder: F,
+	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut FastFormatter, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
-	let mut decoder = create_decoder(bitness, &bytes, decoder_options).0;
+	let mut decoder = create_decoder(bitness, &bytes, ip, decoder_options).0;
 	(init_decoder)(&mut decoder);
 	let mut next_rip = decoder.ip();
 	let instruction = decoder.decode();

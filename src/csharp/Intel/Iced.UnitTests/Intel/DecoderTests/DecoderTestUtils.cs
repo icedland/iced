@@ -9,15 +9,17 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 	public readonly struct DecoderTestInfo {
 		public readonly uint Id;
 		public readonly int Bitness;
+		public readonly ulong IP;
 		public readonly Code Code;
 		public readonly string HexBytes;
 		public readonly string EncodedHexBytes;
 		public readonly DecoderOptions Options;
 		public readonly DecoderTestOptions TestOptions;
 
-		public DecoderTestInfo(uint id, int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options, DecoderTestOptions testOptions) {
+		public DecoderTestInfo(uint id, int bitness, ulong ip, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options, DecoderTestOptions testOptions) {
 			Id = id;
 			Bitness = bitness;
+			IP = ip;
 			Code = code;
 			HexBytes = hexBytes;
 			EncodedHexBytes = encodedHexBytes;
@@ -56,27 +58,27 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		static IEnumerable<DecoderTestInfo> GetDecoderTests(bool includeOtherTests) {
 			uint id = 0;
 			foreach (var tc in DecoderTestCases.TestCases16)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 			foreach (var tc in DecoderTestCases.TestCases32)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 			foreach (var tc in DecoderTestCases.TestCases64)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 
 			if (!includeOtherTests)
 				yield break;
 			foreach (var tc in DecoderTestCases.TestCasesMisc16)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 			foreach (var tc in DecoderTestCases.TestCasesMisc32)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 			foreach (var tc in DecoderTestCases.TestCasesMisc64)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 
 			foreach (var tc in DecoderTestCases.TestCasesMemory16)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 			foreach (var tc in DecoderTestCases.TestCasesMemory32)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 			foreach (var tc in DecoderTestCases.TestCasesMemory64)
-				yield return new DecoderTestInfo(id++, tc.Bitness, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
+				yield return new DecoderTestInfo(id++, tc.Bitness, tc.IP, tc.Code, tc.HexBytes, tc.EncodedHexBytes, tc.DecoderOptions, tc.TestOptions);
 		}
 	}
 }

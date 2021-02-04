@@ -56,6 +56,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				throw new Exception($"Invalid number of commas: {elems.Length - 1}");
 
 			var bitness = NumberConverter.ToInt32(elems[0].Trim());
+			var ip = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			var hexBytes = elems[1].Trim();
 			var codeStr = elems[2].Trim();
 			if (CodeUtils.IsIgnored(codeStr))
@@ -92,7 +98,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				symbolResults[i] = new SymbolResultTestCase(address, symbolAddress, addressSize, flags, memorySize, symbolParts);
 			}
 
-			return new SymbolResolverTestCase(bitness, hexBytes, code, options.ToArray(), symbolResults);
+			return new SymbolResolverTestCase(bitness, hexBytes, ip, code, options.ToArray(), symbolResults);
 		}
 	}
 }

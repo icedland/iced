@@ -4,6 +4,7 @@
 
 use super::super::super::iced_constants::*;
 use super::super::super::test_utils::from_str_conv::*;
+use super::super::super::test_utils::get_default_ip;
 use super::super::super::*;
 use super::constants::*;
 use super::info_test_case::*;
@@ -227,6 +228,7 @@ impl IntoIter {
 		tc.bitness = self.bitness;
 
 		tc.hex_bytes = elems[0].trim().to_string();
+		tc.ip = get_default_ip(tc.bitness);
 		let _ = to_vec_u8(&tc.hex_bytes)?;
 		if is_ignored_code(elems[1]) {
 			return Ok(None);

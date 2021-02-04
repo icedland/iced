@@ -308,7 +308,7 @@ pub(in super::super) fn test_op_index(fmt_factory: fn() -> Box<dyn Formatter>) {
 	let mut instr_to_formatter: [Option<u32>; IcedConstants::MAX_OP_COUNT] = Default::default();
 	for info in test_utils::decoder_tests(true, false) {
 		let bytes = to_vec_u8(info.hex_bytes()).unwrap();
-		let mut decoder = create_decoder(info.bitness(), &bytes, info.decoder_options()).0;
+		let mut decoder = create_decoder(info.bitness(), &bytes, info.ip(), info.decoder_options()).0;
 		let instruction = decoder.decode();
 		assert_eq!(instruction.code(), info.code());
 

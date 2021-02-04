@@ -30,6 +30,7 @@ impl SymbolTestFlags {
 pub(super) struct SymbolOptionsTestCase {
 	pub(super) hex_bytes: String,
 	pub(super) bitness: u32,
+	pub(super) ip: u64,
 	pub(super) formatted_string: String,
 	pub(super) flags: u32, // SymbolTestFlags
 }

@@ -9,8 +9,9 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static partial class FormatterTestUtils {
-		public static void FormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, Formatter formatter) {
-			var decoder = CreateDecoder(bitness, hexBytes, options, out ulong nextRip);
+		public static void FormatTest(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options, string formattedString, Formatter formatter) {
+			var decoder = CreateDecoder(bitness, hexBytes, ip, options);
+			var nextRip = decoder.IP;
 			var instruction = decoder.Decode();
 			Assert.Equal(code, instruction.Code);
 			Assert.Equal((ushort)nextRip, instruction.IP16);
@@ -60,19 +61,19 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal(formattedString, actualFormattedString);
 		}
 
-		public static void SimpleFormatTest(int bitness, string hexBytes, Code code, DecoderOptions options, string formattedString, Formatter formatter, Action<Decoder> initDecoder) {
+		public static void SimpleFormatTest(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options, string formattedString, Formatter formatter, Action<Decoder> initDecoder) {
 			FormatInstr format = (in Instruction instruction) => {
 				var output = new StringOutput();
 				formatter.Format(instruction, output);
 				return output.ToStringAndReset();
 			};
-			SimpleFormatTest(bitness, hexBytes, code, options, formattedString, format, initDecoder);
+			SimpleFormatTest(bitness, hexBytes, ip, code, options, formattedString, format, initDecoder);
 		}
 
 		public static void TestFormatterDoesNotThrow(Formatter formatter) {
 			var output = new StringOutput();
 			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: true)) {
-				var decoder = CreateDecoder(info.Bitness, info.HexBytes, info.Options, out _);
+				var decoder = CreateDecoder(info.Bitness, info.HexBytes, info.IP, info.Options);
 				decoder.Decode(out var instruction);
 				formatter.Format(instruction, output);
 				output.Reset();

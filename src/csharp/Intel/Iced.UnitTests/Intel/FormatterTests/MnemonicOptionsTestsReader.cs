@@ -14,13 +14,15 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		public readonly string HexBytes;
 		public readonly Code Code;
 		public readonly int Bitness;
+		public readonly ulong IP;
 		public readonly string FormattedString;
 		public readonly FormatMnemonicOptions Flags;
 
-		public MnemonicOptionsTestCase(string hexBytes, Code code, int bitness, string formattedString, FormatMnemonicOptions flags) {
+		public MnemonicOptionsTestCase(string hexBytes, Code code, int bitness, ulong ip, string formattedString, FormatMnemonicOptions flags) {
 			HexBytes = hexBytes;
 			Code = code;
 			Bitness = bitness;
+			IP = ip;
 			FormattedString = formattedString;
 			Flags = flags;
 		}
@@ -71,6 +73,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				return null;
 			var code = ToEnumConverter.GetCode(codeStr);
 			var bitness = NumberConverter.ToInt32(elems[2].Trim());
+			var ip = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			var formattedString = elems[3].Trim().Replace('|', ',');
 			var flags = FormatMnemonicOptions.None;
 			foreach (var value in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
@@ -78,7 +86,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					throw new InvalidOperationException($"Invalid flags value: {value}");
 				flags |= f;
 			}
-			return new MnemonicOptionsTestCase(hexBytes, code, bitness, formattedString, flags);
+			return new MnemonicOptionsTestCase(hexBytes, code, bitness, ip, formattedString, flags);
 		}
 	}
 }

@@ -84,9 +84,16 @@ fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() 
 	for &(tc, ref formatted_string) in &infos {
 		let mut formatter = fmt_factory();
 		tc.initialize_options(formatter.options_mut());
-		super::simple_format_test(tc.bitness, &tc.hex_bytes, tc.code, tc.decoder_options, formatted_string.as_str(), formatter.as_mut(), |decoder| {
-			tc.initialize_decoder(decoder)
-		});
+		super::simple_format_test(
+			tc.bitness,
+			&tc.hex_bytes,
+			tc.ip,
+			tc.code,
+			tc.decoder_options,
+			formatted_string.as_str(),
+			formatter.as_mut(),
+			|decoder| tc.initialize_decoder(decoder),
+		);
 	}
 }
 
@@ -115,6 +122,7 @@ fn test_format_fast(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: 
 		super::simple_format_test_fast(
 			tc.bitness,
 			&tc.hex_bytes,
+			tc.ip,
 			tc.code,
 			tc.decoder_options,
 			formatted_string.as_str(),

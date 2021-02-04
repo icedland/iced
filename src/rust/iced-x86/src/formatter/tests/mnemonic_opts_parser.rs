@@ -3,6 +3,7 @@
 // Copyright iced contributors
 
 use super::super::super::test_utils::from_str_conv::*;
+use super::super::super::test_utils::get_default_ip;
 use super::super::super::Code;
 use super::super::enums::FormatMnemonicOptions;
 use alloc::string::String;
@@ -19,6 +20,7 @@ pub(in super::super) struct MnemonicOptionsTestCase {
 	pub(in super::super) hex_bytes: String,
 	pub(in super::super) code: Code,
 	pub(in super::super) bitness: u32,
+	pub(in super::super) ip: u64,
 	pub(in super::super) formatted_string: String,
 	pub(in super::super) flags: u32, // FormatMnemonicOptions
 }
@@ -103,6 +105,7 @@ impl IntoIter {
 		}
 		let code = to_code(elems[1])?;
 		let bitness = to_u32(elems[2])?;
+		let ip = get_default_ip(bitness);
 		let formatted_string = elems[3].trim().replace('|', ",");
 		let mut flags = FormatMnemonicOptions::NONE;
 		for value in elems[4].split_whitespace() {
@@ -115,6 +118,6 @@ impl IntoIter {
 			}
 		}
 
-		Ok(Some(MnemonicOptionsTestCase { hex_bytes, code, bitness, formatted_string, flags }))
+		Ok(Some(MnemonicOptionsTestCase { hex_bytes, code, bitness, ip, formatted_string, flags }))
 	}
 }

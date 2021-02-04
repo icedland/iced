@@ -116,7 +116,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 				_ => unreachable!(),
 			}
 		} else {
-			let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.decoder_options).0;
+			let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.ip, tc.decoder_options).0;
 			instr = decoder.decode();
 			if code_bytes.len() > 1 && code_bytes[0] == 0x9B && instr.len() == 1 {
 				instr = decoder.decode();
@@ -142,7 +142,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			}
 		}
 	} else {
-		let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.decoder_options).0;
+		let mut decoder = create_decoder(tc.bitness, &code_bytes, tc.ip, tc.decoder_options).0;
 		instr = decoder.decode();
 	}
 	assert_eq!(instr.code(), tc.code);

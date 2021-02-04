@@ -45,7 +45,7 @@ fn symbol_options() {
 	path.push("SymbolOptions.txt");
 	for tc in SymbolOptionsTestParser::new(&path) {
 		let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
-		let mut decoder = create_decoder(tc.bitness, &bytes, DecoderOptions::NONE).0;
+		let mut decoder = create_decoder(tc.bitness, &bytes, tc.ip, DecoderOptions::NONE).0;
 		let instruction = decoder.decode();
 
 		let symbol_resolver = Box::new(SymbolResolverImpl { flags: tc.flags });
