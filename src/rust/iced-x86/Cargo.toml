@@ -34,6 +34,8 @@ no_vex = []
 no_evex = []
 no_xop = []
 no_d3now = []
+# Don't use
+__internal_mem_vsib = []
 
 [dependencies]
 # if: always

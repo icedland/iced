@@ -1619,9 +1619,17 @@ impl<'a> Decoder<'a> {
 		super::instruction_internal::internal_set_memory_index(instruction, index_reg);
 	}
 
+	#[must_use]
+	#[cfg(feature = "__internal_mem_vsib")]
+	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
+		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
+		self.read_op_mem_32_or_64_vsib(instruction, base_reg, TupleType::N1, false)
+	}
+
 	// Returns `true` if the SIB byte was read
 	// This is a specialized version of read_op_mem_32_or_64_vsib() which takes less arguments. Keep them in sync.
 	#[must_use]
+	#[cfg(not(feature = "__internal_mem_vsib"))]
 	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
 		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
 		let sib: u32;
@@ -1743,7 +1751,7 @@ impl<'a> Decoder<'a> {
 	// Returns `true` if the SIB byte was read
 	// Same as read_op_mem_32_or_64() except it works with vsib memory operands. Keep them in sync.
 	#[must_use]
-	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+	#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 	fn read_op_mem_32_or_64_vsib(&mut self, instruction: &mut Instruction, index_reg: Register, tuple_type: TupleType, is_vsib: bool) -> bool {
 		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
 		let sib: u32;
