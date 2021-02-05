@@ -5,7 +5,7 @@
 //! iced-x86
 //! [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 //! [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
-//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.41.0+-yellow.svg)](#minimum-supported-rustc-version)
+//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.42.0+-yellow.svg)](#minimum-supported-rustc-version)
 //! ![License](https://img.shields.io/crates/l/iced-x86.svg)
 //!
 //! iced-x86 is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
@@ -21,7 +21,7 @@
 //! - ✔️The encoder can be used to re-encode decoded instructions at any address
 //! - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 //! - ✔️Supports `#![no_std]` and `WebAssembly`
-//! - ✔️Supports `rustc` `1.41.0` or later
+//! - ✔️Supports `rustc` `1.42.0` or later
 //! - ✔️Few dependencies (`static_assertions` and `lazy_static`)
 //! - ✔️License: MIT
 //!
@@ -1135,7 +1135,7 @@
 //!
 //! ## Minimum supported `rustc` version
 //!
-//! iced-x86 supports `rustc` `1.41.0` or later.
+//! iced-x86 supports `rustc` `1.42.0` or later.
 //! This is checked in CI builds where the minimum supported version and the latest stable version are used to build the source code and run tests.
 //!
 //! Bumping the minimum supported version of `rustc` is considered a minor breaking change. The minor version of iced-x86 will be incremented.
@@ -1166,7 +1166,7 @@
 #![allow(clippy::field_reassign_with_default)]
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::manual_strip)] // Not supported if < 1.45.0
-#![allow(clippy::match_like_matches_macro)] // Not supported if < 1.42.0
+#![allow(clippy::match_like_matches_macro)]
 #![allow(clippy::match_ref_pats)]
 #![allow(clippy::ptr_eq)]
 #![allow(clippy::too_many_arguments)]

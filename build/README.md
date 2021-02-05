@@ -17,7 +17,7 @@ Building and testing the Rust code requires:
 	- `rustup update`
 	- `rustup component add rustfmt clippy`
 	- `rustup target add wasm32-unknown-unknown`
-	- MSRV: `rustup toolchain install 1.41.0`
+	- MSRV: `rustup toolchain install 1.42.0`
 		- Pass `--no-msrv` to `build-rust` if you don't want to install it
 - .NET SDK (latest version): https://dotnet.microsoft.com/download
 	- required to generate and test valid/invalid instructions (pass `--no-dotnet` to `build-rust` if you don't want to install .NET)
