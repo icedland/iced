@@ -1015,7 +1015,6 @@ def test_immediate_raise():
 		OpKind.MEMORY_ESDI,
 		OpKind.MEMORY_ESEDI,
 		OpKind.MEMORY_ESRDI,
-		OpKind.MEMORY64,
 		OpKind.MEMORY,
 	]
 

@@ -717,7 +717,7 @@ def how_to_get_instruction_info() -> None:
             print(f"    RFLAGS Modified: {rflags_bits_to_string(instr.rflags_modified)}")
         for i in range(instr.op_count):
             op_kind = instr.op_kind(i)
-            if op_kind == OpKind.MEMORY or op_kind == OpKind.MEMORY64:
+            if op_kind == OpKind.MEMORY:
                 size = MemorySizeExt.size(instr.memory_size)
                 if size != 0:
                     print(f"    Memory size: {size}")
