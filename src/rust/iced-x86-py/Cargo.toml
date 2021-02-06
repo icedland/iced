@@ -18,11 +18,13 @@ features = ["extension-module", "abi3-py36"]
 
 [dependencies.iced-x86]
 # If building from sdist, it should use the exact same version as the sdist.
-version = "=1.10.0"
+version = "=1.10.2"
 # To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
 #	paths = ["/abs/path/to/iced/src/rust/iced-x86"]
 # or uncomment this line:
 #path = "/abs/path/to/iced/src/rust/iced-x86"
+# Don't remove/modify the next line. Build scripts replace it with the real path
+#pathci
 features = ["db"]
 
 [profile.release]

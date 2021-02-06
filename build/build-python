@@ -8,6 +8,7 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 pysrc_dir="$root_dir/src/rust/iced-x86-py"
+cargo_toml="$pysrc_dir/Cargo.toml"
 
 if [ "$OSTYPE" = "msys" ]; then
 	is_windows=y
@@ -23,7 +24,6 @@ fi
 full_check=y
 gen_docs=y
 sdist_only=n
-wheel_only=n
 set_rustflags=y
 
 new_func() {
@@ -34,11 +34,60 @@ new_func() {
 	echo
 }
 
+patchci_verify_not_patched() {
+	# msys grep fails if we use $
+	if ! grep -E '^#pathci' "$cargo_toml" 2>&1 > /dev/null; then
+		echo "Cargo.toml is patched"
+		exit 1
+	fi
+}
+
+patchci_verify_patched() {
+	# msys grep fails if we use $
+	if grep -E '^#pathci' "$cargo_toml" 2>&1 > /dev/null; then
+		echo "Cargo.toml is not patched"
+		exit 1
+	fi
+}
+
+# We must reference the current iced-x86 code so we can't use the crates.io crate
+# since it hasn't been pushed yet. We patch py/Cargo.toml to point to the current
+# source code.
+#
+# The sdist's Cargo.toml must be the original file though or they won't be able
+# to build it once it's been published.
+patchci_patch() {
+	patchci_verify_not_patched
+
+	curr_dir=$(pwd)
+	cd "$root_dir"
+
+	if [ "$OSTYPE" = "msys" ]; then
+		iced_x86_dir="$(pwd -W)/src/rust/iced-x86"
+	else
+		iced_x86_dir="$(pwd)/src/rust/iced-x86"
+	fi
+	if [ ! -d "$iced_x86_dir" ]; then
+		echo "Dir does not exist: $iced_x86_dir"
+		exit 1
+	fi
+
+	sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" "$cargo_toml"
+
+	cd "$curr_dir"
+}
+
+patchci_undo_patch() {
+	git checkout "$cargo_toml"
+}
+
 generate_sdist() {
 	new_func "Generate sdist"
 
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
+
+	patchci_verify_not_patched
 
 	$python setup.py sdist
 
@@ -51,6 +100,8 @@ generate_wheel() {
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
 
+	patchci_verify_patched
+
 	$python setup.py bdist_wheel
 
 	cd "$curr_dir"
@@ -61,6 +112,8 @@ test_wheel() {
 
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
+
+	patchci_verify_patched
 
 	$python -m pip install iced-x86 --no-index -f dist --only-binary :all:
 	$python -m pytest --color=yes --code-highlight=yes
@@ -74,6 +127,8 @@ generate_docs() {
 
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
+
+	patchci_verify_patched
 
 	# Depends on generate_wheel output.
 	if [ ! -f "$(ls build/lib/iced_x86/_iced_x86_py.*.*)" ]; then
@@ -95,6 +150,8 @@ misc_tests() {
 
 	curr_dir=$(pwd)
 	cd "$pysrc_dir"
+
+	patchci_verify_patched
 
 	echo "==== CLIPPY RELEASE ===="
 	cargo clippy --color always --release
@@ -118,7 +175,6 @@ while [ "$#" -gt 0 ]; do
 	case $1 in
 	--quick-check) full_check=n ;;
 	--sdist-only) sdist_only=y ;;
-	--wheel-only) wheel_only=y ;;
 	--python) shift; python=$1 ;;
 	--no-docs) gen_docs=n ;;
 	--no-set-rustflags) set_rustflags=n ;;
@@ -150,10 +206,6 @@ if [ "$sdist_only" = "y" ]; then
 	generate_sdist
 	exit 0
 fi
-if [ "$wheel_only" = "y" ]; then
-	generate_wheel
-	exit 0
-fi
 
 echo "pytest version"
 $python -m pytest --version
@@ -164,6 +216,7 @@ if [ "$full_check" = "y" ] && [ "$gen_docs" = "y" ]; then
 fi
 
 generate_sdist
+patchci_patch
 generate_wheel
 test_wheel
 if [ "$full_check" = "y" ]; then
@@ -172,3 +225,4 @@ if [ "$full_check" = "y" ]; then
 		generate_docs
 	fi
 fi
+patchci_undo_patch

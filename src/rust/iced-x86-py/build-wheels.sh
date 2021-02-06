@@ -4,13 +4,17 @@ set -e
 curl https://sh.rustup.rs | sh -s -- -y --profile=minimal
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# Make sure crates.io isn't used
+# Make sure crates.io isn't used, see build/build-python for more info
 iced_x86_dir="$(pwd)/../iced-x86"
 if [ ! -d "$iced_x86_dir" ]; then
 	echo "Dir does not exist: $iced_x86_dir"
 	exit 1
 fi
-echo "paths = [\"$iced_x86_dir\"]" > "$HOME/.cargo/config.toml"
+if ! grep -E '^#pathci$' Cargo.toml 2>&1 > /dev/null; then
+	echo "Cargo.toml is patched"
+	exit 1
+fi
+sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" Cargo.toml
 
 for PYBIN in /opt/python/cp36*/bin; do
 	# Make sure the files don't get extra *.so files (should be 1 per file)
