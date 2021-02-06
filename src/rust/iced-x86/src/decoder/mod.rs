@@ -77,7 +77,7 @@ static GEN_DEBUG_OP_SIZE: [&str; 3] = [
 ];
 impl fmt::Debug for OpSize {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_SIZE[*self as usize])?;
 		Ok(())
 	}
@@ -112,7 +112,7 @@ static GEN_DEBUG_DECODER_ERROR: [&str; 3] = [
 ];
 impl fmt::Debug for DecoderError {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_DECODER_ERROR[*self as usize])?;
 		Ok(())
 	}
@@ -2036,6 +2036,7 @@ impl<'a: 'b, 'b> IntoIterator for &'b mut Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIter<'a, 'b>;
 
+	#[must_use]
 	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIter { decoder: self }

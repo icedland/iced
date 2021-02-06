@@ -32,7 +32,6 @@ use std::borrow::Cow;
 use std::error::Error;
 
 /// iced error
-#[allow(missing_copy_implementations)]
 #[derive(Debug, Clone)]
 pub struct IcedError {
 	error: Cow<'static, str>,

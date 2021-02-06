@@ -1192,10 +1192,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(unused_results)]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::field_reassign_with_default))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::manual_range_contains))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::manual_strip))] // Not supported if < 1.45.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_like_matches_macro))] // Not supported if < 1.42.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // Not supported if < 1.31.0
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_eq))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]

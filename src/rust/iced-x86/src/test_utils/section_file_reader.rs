@@ -66,7 +66,7 @@ impl<'a> SectionFileReader<'a> {
 							}
 						}
 					} else {
-						if current_section_info.0 == "" {
+						if current_section_info.0.is_empty() {
 							Some("Missing section".to_string())
 						} else {
 							match handler.line(current_section_info.1, &line) {

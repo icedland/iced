@@ -238,7 +238,7 @@ namespace Generator.Enums.Rust {
 			writer.WriteLine($"impl fmt::Debug for {enumTypeName} {{");
 			using (writer.Indent()) {
 				writer.WriteLine(RustConstants.AttributeInline);
-				writer.WriteLine($"fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {{");
+				writer.WriteLine($"fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{");
 				using (writer.Indent()) {
 					writer.WriteLine($"write!(f, \"{{}}\", {arrayName}[*self as usize])?;");
 					writer.WriteLine("Ok(())");

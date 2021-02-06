@@ -1452,7 +1452,7 @@ static GEN_DEBUG_REGISTER: [&str; 249] = [
 ];
 impl fmt::Debug for Register {
 	#[inline]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_REGISTER[*self as usize])?;
 		Ok(())
 	}
