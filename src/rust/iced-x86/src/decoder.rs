@@ -1599,12 +1599,13 @@ impl<'a> Decoder<'a> {
 			1 => {
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
 				self.displ_index = self.data_ptr as usize;
+				let b = self.read_u8();
 				if tuple_type == TupleType::N1 {
-					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u8() as i8 as u16 as u32);
+					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u16 as u32);
 				} else {
 					super::instruction_internal::internal_set_memory_displacement64_lo(
 						instruction,
-						self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32) as u16 as u32,
+						self.disp8n(tuple_type).wrapping_mul(b as i8 as u32) as u16 as u32,
 					);
 				}
 			}
@@ -1678,16 +1679,16 @@ impl<'a> Decoder<'a> {
 				}
 			},
 			1 => {
+				let b = self.read_u8();
 				if self.state.rm == 4 {
-					sib = self.read_u8() as u32;
+					sib = b as u32;
 					displ_size_scale = 1;
 					self.displ_index = self.data_ptr as usize;
 					displ = self.read_u8() as i8 as u32;
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
 					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
-					self.displ_index = self.data_ptr as usize;
-					let b = self.read_u8();
+					self.displ_index = self.data_ptr as usize - 1;
 					if self.state.address_size == OpSize::Size64 {
 						instruction.set_memory_displacement64(b as i8 as u64);
 						super::instruction_internal::internal_set_memory_base_u32(
@@ -1746,11 +1747,12 @@ impl<'a> Decoder<'a> {
 
 		if base == 5 && self.state.mod_ == 0 {
 			self.displ_index = self.data_ptr as usize;
+			let d = self.read_u32();
 			if self.state.address_size == OpSize::Size64 {
-				instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
+				instruction.set_memory_displacement64(d as i32 as u64);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			} else {
-				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
+				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			}
 		} else {
@@ -1784,11 +1786,12 @@ impl<'a> Decoder<'a> {
 				}
 				5 => {
 					self.displ_index = self.data_ptr as usize;
+					let d = self.read_u32();
 					if self.state.address_size == OpSize::Size64 {
-						instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
+						instruction.set_memory_displacement64(d as i32 as u64);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
-						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
+						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
 					if self.is64_mode {
@@ -1811,32 +1814,34 @@ impl<'a> Decoder<'a> {
 				}
 			},
 			1 => {
+				let b = self.read_u8();
 				if self.state.rm == 4 {
-					sib = self.read_u8() as u32;
+					sib = b as u32;
 					displ_size_scale = 1;
 					self.displ_index = self.data_ptr as usize;
+					let b = self.read_u8();
 					if tuple_type == TupleType::N1 {
-						displ = self.read_u8() as i8 as u32;
+						displ = b as i8 as u32;
 					} else {
-						displ = self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32);
+						displ = self.disp8n(tuple_type).wrapping_mul(b as i8 as u32);
 					}
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
 					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
-					self.displ_index = self.data_ptr as usize;
+					self.displ_index = self.data_ptr as usize - 1;
 					if self.state.address_size == OpSize::Size64 {
 						if tuple_type == TupleType::N1 {
-							instruction.set_memory_displacement64(self.read_u8() as i8 as u64);
+							instruction.set_memory_displacement64(b as i8 as u64);
 						} else {
-							instruction.set_memory_displacement64((self.disp8n(tuple_type) as u64).wrapping_mul(self.read_u8() as i8 as u64));
+							instruction.set_memory_displacement64((self.disp8n(tuple_type) as u64).wrapping_mul(b as i8 as u64));
 						}
 					} else {
 						if tuple_type == TupleType::N1 {
-							super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u8() as i8 as u32);
+							super::instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u32);
 						} else {
 							super::instruction_internal::internal_set_memory_displacement64_lo(
 								instruction,
-								self.disp8n(tuple_type).wrapping_mul(self.read_u8() as i8 as u32),
+								self.disp8n(tuple_type).wrapping_mul(b as i8 as u32),
 							);
 						}
 					}
@@ -1857,11 +1862,12 @@ impl<'a> Decoder<'a> {
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
 					self.displ_index = self.data_ptr as usize;
+					let d = self.read_u32();
 					if self.state.address_size == OpSize::Size64 {
-						instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
+						instruction.set_memory_displacement64(d as i32 as u64);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
-						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
+						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
 						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
 					super::instruction_internal::internal_set_memory_base_u32(
@@ -1890,11 +1896,12 @@ impl<'a> Decoder<'a> {
 
 		if base == 5 && self.state.mod_ == 0 {
 			self.displ_index = self.data_ptr as usize;
+			let d = self.read_u32();
 			if self.state.address_size == OpSize::Size64 {
-				instruction.set_memory_displacement64(self.read_u32() as i32 as u64);
+				instruction.set_memory_displacement64(d as i32 as u64);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			} else {
-				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u32() as u32);
+				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
 				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			}
 		} else {
