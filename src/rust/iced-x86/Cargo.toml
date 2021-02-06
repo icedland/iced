@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86"
-version = "1.10.2"
+version = "1.10.3"
 authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder written in Rust"
