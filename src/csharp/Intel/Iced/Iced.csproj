@@ -21,7 +21,7 @@
 
     <!-- From the README -->
     <PackageDescription>
-Iced is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in C#.
+iced is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in C#.
 
 It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
 
