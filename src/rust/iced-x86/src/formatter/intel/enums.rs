@@ -115,7 +115,7 @@ static GEN_DEBUG_CTOR_KIND: [&str; 40] = [
 ];
 impl fmt::Debug for CtorKind {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CTOR_KIND[*self as usize])?;
 		Ok(())
 	}
@@ -149,7 +149,7 @@ static GEN_DEBUG_SIZE_OVERRIDE: [&str; 4] = [
 ];
 impl fmt::Debug for SizeOverride {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_SIZE_OVERRIDE[*self as usize])?;
 		Ok(())
 	}
@@ -179,7 +179,7 @@ static GEN_DEBUG_BRANCH_SIZE_INFO: [&str; 2] = [
 ];
 impl fmt::Debug for BranchSizeInfo {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_BRANCH_SIZE_INFO[*self as usize])?;
 		Ok(())
 	}
@@ -297,7 +297,7 @@ static GEN_DEBUG_INSTR_OP_KIND: [&str; 30] = [
 ];
 impl fmt::Debug for InstrOpKind {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_INSTR_OP_KIND[*self as usize])?;
 		Ok(())
 	}

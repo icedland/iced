@@ -38874,7 +38874,7 @@ static GEN_DEBUG_CODE: [&str; 4318] = [
 ];
 impl fmt::Debug for Code {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CODE[*self as usize])?;
 		Ok(())
 	}

@@ -1290,7 +1290,7 @@ impl OpCodeInfo {
 
 impl fmt::Display for OpCodeInfo {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", self.instruction_string)
 	}
 }

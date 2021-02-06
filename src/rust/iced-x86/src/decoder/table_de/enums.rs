@@ -39,7 +39,7 @@ static GEN_DEBUG_SERIALIZED_DATA_KIND: [&str; 2] = [
 ];
 impl fmt::Debug for SerializedDataKind {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_SERIALIZED_DATA_KIND[*self as usize])?;
 		Ok(())
 	}
@@ -477,7 +477,7 @@ static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 206] = [
 ];
 impl fmt::Debug for OpCodeHandlerKind {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_CODE_HANDLER_KIND[*self as usize])?;
 		Ok(())
 	}
@@ -656,7 +656,7 @@ static GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND: [&str; 75] = [
 #[cfg(not(feature = "no_evex"))]
 impl fmt::Debug for EvexOpCodeHandlerKind {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND[*self as usize])?;
 		Ok(())
 	}
@@ -828,7 +828,7 @@ static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 71] = [
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 impl fmt::Debug for VexOpCodeHandlerKind {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND[*self as usize])?;
 		Ok(())
 	}

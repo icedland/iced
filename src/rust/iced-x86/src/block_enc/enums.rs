@@ -38,7 +38,7 @@ static GEN_DEBUG_RELOC_KIND: [&str; 1] = [
 ];
 impl fmt::Debug for RelocKind {
 	#[inline]
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_RELOC_KIND[*self as usize])?;
 		Ok(())
 	}
