@@ -21,7 +21,7 @@ project = "iced-x86"
 copyright = "Copyright (C) 2018-2021 wtfsckgh@gmail.com"
 author = "wtfsck and iced contributors"
 # The full version, including alpha/beta/rc tags
-release = "1.10.2"
+release = "1.10.3"
 
 
 # -- General configuration ---------------------------------------------------

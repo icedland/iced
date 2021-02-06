@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86"
-version = "1.10.2"
+version = "1.10.3"
 authors = ["wtfsck <wtfsckgh@gmail.com>"]
 edition = "2018"
 license = "MIT"
