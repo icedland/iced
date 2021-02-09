@@ -1,5 +1,10 @@
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
   - package-ecosystem: "nuget"
     directory: "/src/csharp/"
     schedule:
