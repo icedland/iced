@@ -31,7 +31,7 @@ Building and testing the JavaScript code requires:
 	- `rustup update`
 	- `rustup component add rustfmt clippy`
 	- `rustup target add wasm32-unknown-unknown`
-- Node.js >= 10.0.0: https://nodejs.org/en/download/
+- Node.js >= 12.0.0: https://nodejs.org/en/download/
 - wasm-pack: `npm install -g wasm-pack` or if it fails, see https://rustwasm.github.io/wasm-pack/installer/
 
 ## Python
