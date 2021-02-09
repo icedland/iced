@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0" />
+    <PackageReference Include="coverlet.msbuild" Version="3.0.2" />
     <!-- NOTE: when updating this thing, make sure it hasn't gotten slower (it's happened twice now!) -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
