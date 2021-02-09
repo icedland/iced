@@ -1,0 +1,31 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/src/csharp/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "cargo"
+    directory: "/src/rust/iced-x86/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "cargo"
+    directory: "/src/rust/iced-x86-fzgt/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "cargo"
+    directory: "/src/rust/iced-x86-js/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "cargo"
+    directory: "/src/rust/iced-x86-py/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/src/rust/iced-x86-js/src/tests/"
+    schedule:
+      interval: "daily"
