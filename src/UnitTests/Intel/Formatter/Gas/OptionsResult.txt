@@ -1964,6 +1964,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2022,6 +2024,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2075,6 +2079,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2133,6 +2139,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2191,6 +2199,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2244,6 +2254,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2302,6 +2314,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%rdi)
 repne insw %dx,(%rdi)
@@ -2360,6 +2374,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%edi)
 repne insw %dx,(%edi)
@@ -2413,6 +2429,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repne insb %dx,(%di)
 repne insw %dx,(%di)
@@ -2471,6 +2489,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repnz insb %dx,(%rdi)
 repnz insw %dx,(%rdi)
@@ -2529,6 +2549,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repnz insb %dx,(%edi)
 repnz insw %dx,(%edi)
@@ -2582,6 +2604,8 @@ rep xcryptcbc
 rep xcryptctr
 rep xcryptcfb
 rep xcryptofb
+rep ccs_hash
+rep ccs_encrypt
 
 repnz insb %dx,(%di)
 repnz insw %dx,(%di)

@@ -1964,6 +1964,8 @@
 64, F3 0FA7 D8, Xcryptctr_64, ShowUselessPrefixes=false
 64, F3 0FA7 E0, Xcryptcfb_64, ShowUselessPrefixes=false
 64, F3 0FA7 E8, Xcryptofb_64, ShowUselessPrefixes=false
+64, F3 0FA6 E8, Ccs_hash_64, ShowUselessPrefixes=false
+64, F3 0FA7 F0, Ccs_encrypt_64, ShowUselessPrefixes=false
 
 64, F2 6C, Insb_m8_DX, ShowUselessPrefixes=false
 64, F2 66 6D, Insw_m16_DX, ShowUselessPrefixes=false
@@ -2022,6 +2024,8 @@
 32, F3 0FA7 D8, Xcryptctr_32, ShowUselessPrefixes=false
 32, F3 0FA7 E0, Xcryptcfb_32, ShowUselessPrefixes=false
 32, F3 0FA7 E8, Xcryptofb_32, ShowUselessPrefixes=false
+32, F3 0FA6 E8, Ccs_hash_32, ShowUselessPrefixes=false
+32, F3 0FA7 F0, Ccs_encrypt_32, ShowUselessPrefixes=false
 
 32, F2 6C, Insb_m8_DX, ShowUselessPrefixes=false
 32, F2 66 6D, Insw_m16_DX, ShowUselessPrefixes=false
@@ -2075,6 +2079,8 @@
 16, F3 0FA7 D8, Xcryptctr_16, ShowUselessPrefixes=false
 16, F3 0FA7 E0, Xcryptcfb_16, ShowUselessPrefixes=false
 16, F3 0FA7 E8, Xcryptofb_16, ShowUselessPrefixes=false
+16, F3 0FA6 E8, Ccs_hash_16, ShowUselessPrefixes=false
+16, F3 0FA7 F0, Ccs_encrypt_16, ShowUselessPrefixes=false
 
 16, F2 6C, Insb_m8_DX, ShowUselessPrefixes=false
 16, F2 6D, Insw_m16_DX, ShowUselessPrefixes=false
@@ -2133,6 +2139,8 @@
 64, F3 0FA7 D8, Xcryptctr_64, ShowUselessPrefixes=true
 64, F3 0FA7 E0, Xcryptcfb_64, ShowUselessPrefixes=true
 64, F3 0FA7 E8, Xcryptofb_64, ShowUselessPrefixes=true
+64, F3 0FA6 E8, Ccs_hash_64, ShowUselessPrefixes=true
+64, F3 0FA7 F0, Ccs_encrypt_64, ShowUselessPrefixes=true
 
 64, F2 6C, Insb_m8_DX, ShowUselessPrefixes=true
 64, F2 66 6D, Insw_m16_DX, ShowUselessPrefixes=true
@@ -2191,6 +2199,8 @@
 32, F3 0FA7 D8, Xcryptctr_32, ShowUselessPrefixes=true
 32, F3 0FA7 E0, Xcryptcfb_32, ShowUselessPrefixes=true
 32, F3 0FA7 E8, Xcryptofb_32, ShowUselessPrefixes=true
+32, F3 0FA6 E8, Ccs_hash_32, ShowUselessPrefixes=true
+32, F3 0FA7 F0, Ccs_encrypt_32, ShowUselessPrefixes=true
 
 32, F2 6C, Insb_m8_DX, ShowUselessPrefixes=true
 32, F2 66 6D, Insw_m16_DX, ShowUselessPrefixes=true
@@ -2244,6 +2254,8 @@
 16, F3 0FA7 D8, Xcryptctr_16, ShowUselessPrefixes=true
 16, F3 0FA7 E0, Xcryptcfb_16, ShowUselessPrefixes=true
 16, F3 0FA7 E8, Xcryptofb_16, ShowUselessPrefixes=true
+16, F3 0FA6 E8, Ccs_hash_16, ShowUselessPrefixes=true
+16, F3 0FA7 F0, Ccs_encrypt_16, ShowUselessPrefixes=true
 
 16, F2 6C, Insb_m8_DX, ShowUselessPrefixes=true
 16, F2 6D, Insw_m16_DX, ShowUselessPrefixes=true
@@ -2302,6 +2314,8 @@
 64, F3 0FA7 D8, Xcryptctr_64, CC_e=e
 64, F3 0FA7 E0, Xcryptcfb_64, CC_e=e
 64, F3 0FA7 E8, Xcryptofb_64, CC_e=e
+64, F3 0FA6 E8, Ccs_hash_64, CC_e=e
+64, F3 0FA7 F0, Ccs_encrypt_64, CC_e=e
 
 64, F2 6C, Insb_m8_DX, CC_ne=ne
 64, F2 66 6D, Insw_m16_DX, CC_ne=ne
@@ -2360,6 +2374,8 @@
 32, F3 0FA7 D8, Xcryptctr_32, CC_e=e
 32, F3 0FA7 E0, Xcryptcfb_32, CC_e=e
 32, F3 0FA7 E8, Xcryptofb_32, CC_e=e
+32, F3 0FA6 E8, Ccs_hash_32, CC_e=e
+32, F3 0FA7 F0, Ccs_encrypt_32, CC_e=e
 
 32, F2 6C, Insb_m8_DX, CC_ne=ne
 32, F2 66 6D, Insw_m16_DX, CC_ne=ne
@@ -2413,6 +2429,8 @@
 16, F3 0FA7 D8, Xcryptctr_16, CC_e=e
 16, F3 0FA7 E0, Xcryptcfb_16, CC_e=e
 16, F3 0FA7 E8, Xcryptofb_16, CC_e=e
+16, F3 0FA6 E8, Ccs_hash_16, CC_e=e
+16, F3 0FA7 F0, Ccs_encrypt_16, CC_e=e
 
 16, F2 6C, Insb_m8_DX, CC_ne=ne
 16, F2 6D, Insw_m16_DX, CC_ne=ne
@@ -2471,6 +2489,8 @@
 64, F3 0FA7 D8, Xcryptctr_64, CC_e=z
 64, F3 0FA7 E0, Xcryptcfb_64, CC_e=z
 64, F3 0FA7 E8, Xcryptofb_64, CC_e=z
+64, F3 0FA6 E8, Ccs_hash_64, CC_e=z
+64, F3 0FA7 F0, Ccs_encrypt_64, CC_e=z
 
 64, F2 6C, Insb_m8_DX, CC_ne=nz
 64, F2 66 6D, Insw_m16_DX, CC_ne=nz
@@ -2529,6 +2549,8 @@
 32, F3 0FA7 D8, Xcryptctr_32, CC_e=z
 32, F3 0FA7 E0, Xcryptcfb_32, CC_e=z
 32, F3 0FA7 E8, Xcryptofb_32, CC_e=z
+32, F3 0FA6 E8, Ccs_hash_32, CC_e=z
+32, F3 0FA7 F0, Ccs_encrypt_32, CC_e=z
 
 32, F2 6C, Insb_m8_DX, CC_ne=nz
 32, F2 66 6D, Insw_m16_DX, CC_ne=nz
@@ -2582,6 +2604,8 @@
 16, F3 0FA7 D8, Xcryptctr_16, CC_e=z
 16, F3 0FA7 E0, Xcryptcfb_16, CC_e=z
 16, F3 0FA7 E8, Xcryptofb_16, CC_e=z
+16, F3 0FA6 E8, Ccs_hash_16, CC_e=z
+16, F3 0FA7 F0, Ccs_encrypt_16, CC_e=z
 
 16, F2 6C, Insb_m8_DX, CC_ne=nz
 16, F2 6D, Insw_m16_DX, CC_ne=nz
