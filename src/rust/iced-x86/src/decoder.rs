@@ -542,7 +542,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
 	/// assert!(instr.has_lock_prefix());
 	/// ```
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
 	pub fn try_new(bitness: u32, data: &'a [u8], options: u32) -> Result<Decoder<'a>, IcedError> {
 		Decoder::try_with_ip(bitness, data, 0, options)
 	}
