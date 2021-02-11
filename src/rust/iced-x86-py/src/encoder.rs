@@ -145,9 +145,9 @@ impl Encoder {
 	/// Returns:
 	///     bytes: The encoded instructions
 	#[text_signature = "($self, /)"]
-	fn take_buffer<'py>(&mut self, py: Python<'py>) -> PyResult<&'py PyBytes> {
+	fn take_buffer<'py>(&mut self, py: Python<'py>) -> &'py PyBytes {
 		let buffer = self.encoder.take_buffer();
-		Ok(PyBytes::new(py, &buffer))
+		PyBytes::new(py, &buffer)
 	}
 
 	/// Gets the offsets of the constants (memory displacement and immediate) in the encoded instruction.

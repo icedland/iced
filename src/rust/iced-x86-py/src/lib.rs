@@ -45,6 +45,7 @@
 #![warn(clippy::match_wild_err_arm)]
 #![warn(clippy::missing_errors_doc)]
 #![warn(clippy::needless_borrow)]
+#![warn(clippy::print_stderr)]
 #![warn(clippy::print_stdout)]
 #![warn(clippy::rc_buffer)]
 #![warn(clippy::redundant_closure_for_method_calls)]
@@ -60,6 +61,7 @@
 #![warn(clippy::used_underscore_binding)]
 #![warn(clippy::useless_let_if_seq)]
 #![warn(clippy::useless_transmute)]
+#![warn(clippy::zero_sized_map_values)]
 
 #[macro_use]
 extern crate static_assertions;
