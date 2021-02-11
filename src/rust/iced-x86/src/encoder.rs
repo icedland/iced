@@ -75,8 +75,7 @@ static IMM_SIZES: [u32; 19] = [
 ///
 /// // xchg ah,[rdx+rsi+16h]
 /// let bytes = b"\x86\x64\x32\x16";
-/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-/// decoder.set_ip(0x1234_5678);
+/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 /// let instr = decoder.decode();
 ///
 /// let mut encoder = Encoder::new(64);
@@ -252,8 +251,7 @@ impl Encoder {
 	///
 	/// // je short $+4
 	/// let bytes = b"\x75\x02";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
 	/// let mut encoder = Encoder::new(64);

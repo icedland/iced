@@ -48,6 +48,30 @@ pub(crate) static NON_DECODED_CODE_VALUES1632: [Code; 3] = [
 ];
 
 #[test]
+fn decoder_new() {
+	let decoder = Decoder::new(64, b"", DecoderOptions::NONE);
+	assert_eq!(decoder.ip(), 0);
+}
+
+#[test]
+fn decoder_try_new() {
+	let decoder = Decoder::try_new(64, b"", DecoderOptions::NONE).unwrap();
+	assert_eq!(decoder.ip(), 0);
+}
+
+#[test]
+fn decoder_with_ip() {
+	let decoder = Decoder::with_ip(64, b"", 0x1234_5678_9ABC_DEF1, DecoderOptions::NONE);
+	assert_eq!(decoder.ip(), 0x1234_5678_9ABC_DEF1);
+}
+
+#[test]
+fn decoder_try_with_ip() {
+	let decoder = Decoder::try_with_ip(64, b"", 0x1234_5678_9ABC_DEF1, DecoderOptions::NONE).unwrap();
+	assert_eq!(decoder.ip(), 0x1234_5678_9ABC_DEF1);
+}
+
+#[test]
 fn decode_16() {
 	decode(16);
 }

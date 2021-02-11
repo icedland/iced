@@ -119,8 +119,7 @@ This method produces the following output:
 */
 pub(crate) fn how_to_disassemble() {
     let bytes = EXAMPLE_CODE;
-    let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, bytes, DecoderOptions::NONE);
-    decoder.set_ip(EXAMPLE_CODE_RIP);
+    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
     // There's also `FastFormatter` which is ~1.9x faster. Use it if formatting speed is more
@@ -277,8 +276,7 @@ pub(crate) fn how_to_encode_instructions() {
     let mut output = String::new();
     let bytes_code = &bytes[0..bytes.len() - raw_data.len()];
     let bytes_data = &bytes[bytes.len() - raw_data.len()..];
-    let mut decoder = Decoder::new(bitness, bytes_code, DecoderOptions::NONE);
-    decoder.set_ip(target_rip);
+    let mut decoder = Decoder::with_ip(bitness, bytes_code, target_rip, DecoderOptions::NONE);
     let mut formatter = GasFormatter::new();
     formatter.options_mut().set_first_operand_char_index(8);
     for instruction in &mut decoder {
@@ -407,8 +405,7 @@ impl FormatterOutput for MyFormatterOutput {
 
 pub(crate) fn how_to_colorize_text() {
     let bytes = EXAMPLE_CODE;
-    let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, bytes, DecoderOptions::NONE);
-    decoder.set_ip(EXAMPLE_CODE_RIP);
+    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     let mut formatter = IntelFormatter::new();
     formatter.options_mut().set_first_operand_char_index(8);
@@ -510,8 +507,7 @@ pub(crate) fn how_to_move_code() {
     println!("Original code:");
     disassemble(&example_code, EXAMPLE_CODE_RIP);
 
-    let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, &example_code, DecoderOptions::NONE);
-    decoder.set_ip(EXAMPLE_CODE_RIP);
+    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, &example_code, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     // In 64-bit mode, we need 12 bytes to jump to any address:
     //      mov rax,imm64   // 10
@@ -618,8 +614,7 @@ pub(crate) fn how_to_move_code() {
 fn disassemble(data: &[u8], ip: u64) {
     let mut formatter = NasmFormatter::new();
     let mut output = String::new();
-    let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, data, DecoderOptions::NONE);
-    decoder.set_ip(ip);
+    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, data, ip, DecoderOptions::NONE);
     for instruction in &mut decoder {
         output.clear();
         formatter.format(&instruction, &mut output);
@@ -860,8 +855,7 @@ This method produces the following output:
     Used reg: RDI:Write
 */
 pub(crate) fn how_to_get_instruction_info() {
-    let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, DecoderOptions::NONE);
-    decoder.set_ip(EXAMPLE_CODE_RIP);
+    let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     // Use a factory to create the instruction info if you need register and
     // memory usage. If it's something else, eg. encoding, flags, etc, there
@@ -1110,8 +1104,7 @@ pub(crate) fn how_to_disassemble_old_instrs() {
         | DecoderOptions::CYRIX
         | DecoderOptions::CYRIX_DMI
         | DecoderOptions::ALTINST;
-    let mut decoder = Decoder::new(32, bytes, DECODER_OPTIONS);
-    decoder.set_ip(0x731E_0A03);
+    let mut decoder = Decoder::with_ip(32, bytes, 0x731E_0A03, DECODER_OPTIONS);
 
     let mut formatter = NasmFormatter::new();
     formatter.options_mut().set_space_after_operand_separator(true);

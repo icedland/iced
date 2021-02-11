@@ -413,6 +413,74 @@ impl<'a> Decoder<'a> {
 
 	/// Creates a decoder
 	///
+	/// # Panics
+	///
+	/// Panics if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32 or 64
+	/// * `data`: Data to decode
+	/// * `ip`: `RIP` value
+	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xchg ah,[rdx+rsi+16h]
+	/// // xacquire lock add dword ptr [rax],5Ah
+	/// // vmovdqu64 zmm18{k3}{z},zmm11
+	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
+	///
+	/// let instr1 = decoder.decode();
+	/// assert_eq!(instr1.code(), Code::Xchg_rm8_r8);
+	/// assert_eq!(instr1.mnemonic(), Mnemonic::Xchg);
+	/// assert_eq!(instr1.len(), 4);
+	///
+	/// let instr2 = decoder.decode();
+	/// assert_eq!(instr2.code(), Code::Add_rm32_imm8);
+	/// assert_eq!(instr2.mnemonic(), Mnemonic::Add);
+	/// assert_eq!(instr2.len(), 5);
+	///
+	/// let instr3 = decoder.decode();
+	/// assert_eq!(instr3.code(), Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512);
+	/// assert_eq!(instr3.mnemonic(), Mnemonic::Vmovdqu64);
+	/// assert_eq!(instr3.len(), 6);
+	/// ```
+	///
+	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
+	/// Pass in [`DecoderOptions::NO_INVALID_CHECK`] to the constructor and the decoder
+	/// will decode some invalid encodings.
+	///
+	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // lock add esi,ecx   ; lock not allowed
+	/// let bytes = b"\xF0\x01\xCE";
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::INVALID);
+	///
+	/// // We want to decode some instructions with invalid encodings
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NO_INVALID_CHECK);
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
+	/// assert!(instr.has_lock_prefix());
+	/// ```
+	#[must_use]
+	#[inline]
+	#[allow(clippy::unwrap_used)]
+	pub fn with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Decoder<'a> {
+		Decoder::try_with_ip(bitness, data, ip, options).unwrap()
+	}
+
+	/// Creates a decoder
+	///
 	/// # Errors
 	///
 	/// Fails if `bitness` is not one of 16, 32, 64.
@@ -475,9 +543,75 @@ impl<'a> Decoder<'a> {
 	/// assert!(instr.has_lock_prefix());
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn try_new(bitness: u32, data: &'a [u8], options: u32) -> Result<Decoder<'a>, IcedError> {
+		Decoder::try_with_ip(bitness, data, 0, options)
+	}
+
+	/// Creates a decoder
+	///
+	/// # Errors
+	///
+	/// Fails if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32 or 64
+	/// * `data`: Data to decode
+	/// * `ip`: `RIP` value
+	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xchg ah,[rdx+rsi+16h]
+	/// // xacquire lock add dword ptr [rax],5Ah
+	/// // vmovdqu64 zmm18{k3}{z},zmm11
+	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";
+	/// let mut decoder = Decoder::try_with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap();
+	///
+	/// let instr1 = decoder.decode();
+	/// assert_eq!(instr1.code(), Code::Xchg_rm8_r8);
+	/// assert_eq!(instr1.mnemonic(), Mnemonic::Xchg);
+	/// assert_eq!(instr1.len(), 4);
+	///
+	/// let instr2 = decoder.decode();
+	/// assert_eq!(instr2.code(), Code::Add_rm32_imm8);
+	/// assert_eq!(instr2.mnemonic(), Mnemonic::Add);
+	/// assert_eq!(instr2.len(), 5);
+	///
+	/// let instr3 = decoder.decode();
+	/// assert_eq!(instr3.code(), Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512);
+	/// assert_eq!(instr3.mnemonic(), Mnemonic::Vmovdqu64);
+	/// assert_eq!(instr3.len(), 6);
+	/// ```
+	///
+	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
+	/// Pass in [`DecoderOptions::NO_INVALID_CHECK`] to the constructor and the decoder
+	/// will decode some invalid encodings.
+	///
+	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // lock add esi,ecx   ; lock not allowed
+	/// let bytes = b"\xF0\x01\xCE";
+	/// let mut decoder = Decoder::try_with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap();
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::INVALID);
+	///
+	/// // We want to decode some instructions with invalid encodings
+	/// let mut decoder = Decoder::try_with_ip(64, bytes, 0x1234_5678, DecoderOptions::NO_INVALID_CHECK).unwrap();
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
+	/// assert!(instr.has_lock_prefix());
+	/// ```
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(clippy::let_unit_value)]
 	#[allow(trivial_casts)]
-	pub fn try_new(bitness: u32, data: &'a [u8], options: u32) -> Result<Decoder<'a>, IcedError> {
+	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
 		let prefixes;
 		let is64_mode;
 		let default_code_size;
@@ -573,7 +707,7 @@ impl<'a> Decoder<'a> {
 		let handlers_xopa = ();
 
 		Ok(Decoder {
-			ip: 0,
+			ip,
 			displ_index: 0,
 			prefixes,
 			data,
@@ -679,8 +813,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// // nop and pause
 	/// let bytes = b"\x90\xF3\x90";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	///
 	/// assert_eq!(decoder.position(), 0);
 	/// assert_eq!(decoder.max_position(), 3);
@@ -727,8 +860,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// // nop and pause
 	/// let bytes = b"\x90\xF3\x90";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	///
 	/// assert_eq!(decoder.position(), 0);
 	/// assert_eq!(decoder.max_position(), 3);
@@ -779,8 +911,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// // nop and an incomplete instruction
 	/// let bytes = b"\x90\xF3\x0F";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	///
 	/// // 3 bytes left to read
 	/// assert!(decoder.can_decode());
@@ -814,8 +945,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// // nop and pause
 	/// let bytes = b"\x90\xF3\x90";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	///
 	/// let mut iter = decoder.iter();
 	/// assert_eq!(iter.next().unwrap().code(), Code::Nopd);
@@ -829,8 +959,7 @@ impl<'a> Decoder<'a> {
 	/// use iced_x86::*;
 	///
 	/// let bytes = b"\x90\xF3\x90";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	///
 	/// for instr in &mut decoder { // or decoder.iter()
 	///     println!("code: {:?}", instr.code());
@@ -887,8 +1016,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// // xrelease lock add [rax],ebx
 	/// let bytes = b"\xF0\xF3\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
 	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
@@ -939,8 +1067,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// // xrelease lock add [rax],ebx
 	/// let bytes = b"\xF0\xF3\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	/// let mut instr = Instruction::default();
 	/// decoder.decode_out(&mut instr);
 	///
@@ -1939,8 +2066,7 @@ impl<'a> Decoder<'a> {
 	/// //                  00  01  02  03  04  05  06
 	/// //                \opc\mrm\displacement___\imm
 	/// let bytes = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	/// assert_eq!(decoder.decode().code(), Code::Nopd);
 	/// let instr = decoder.decode();
 	/// let co = decoder.get_constant_offsets(&instr);

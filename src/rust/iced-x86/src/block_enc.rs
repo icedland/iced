@@ -229,8 +229,7 @@ impl BlockEncoder {
 	/// // add dh,cl
 	/// // sbb r9d,ebx
 	/// let bytes = b"\x75\xFC\x00\xCE\x41\x19\xD9";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678_9ABC_DEF0);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
 	/// let instructions: Vec<_> = decoder.into_iter().collect();
 	///
 	/// // orig_rip + 8
@@ -282,14 +281,12 @@ impl BlockEncoder {
 	/// // add dh,cl
 	/// // sbb r9d,ebx
 	/// let bytes = b"\x75\xFC\x00\xCE\x41\x19\xD9";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678_9ABC_DEF0);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
 	/// let instructions1: Vec<_> = decoder.into_iter().collect();
 	///
 	/// // je short $
 	/// let bytes = b"\x75\xFE";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	/// let instructions2: Vec<_> = decoder.into_iter().collect();
 	///
 	/// // orig_rip + 8

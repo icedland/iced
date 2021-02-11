@@ -130,8 +130,7 @@ fn decode_multiple_instrs_with_one_instance() {
 fn position() {
 	const BITNESS: u32 = 64;
 	let bytes = b"\x23\x18\x48\x89\xCE";
-	let mut decoder = Decoder::new(BITNESS, bytes, DecoderOptions::NONE);
-	decoder.set_ip(get_default_ip(BITNESS));
+	let mut decoder = Decoder::with_ip(BITNESS, bytes, get_default_ip(BITNESS), DecoderOptions::NONE);
 
 	assert!(decoder.can_decode());
 	assert_eq!(decoder.position(), 0);
@@ -252,8 +251,7 @@ fn decoder_for_loop_into_iter() {
 #[test]
 fn decoder_for_loop_ref_mut_decoder() {
 	let bytes = b"\x23\x18\x48\x89\xCE";
-	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	decoder.set_ip(0x1234_5678_9ABC_DEF0);
+	let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
 	let mut instrs: Vec<Instruction> = Vec::new();
 	for instr in &mut decoder {
 		instrs.push(instr);
@@ -269,8 +267,7 @@ fn decoder_for_loop_ref_mut_decoder() {
 #[test]
 fn decoder_for_loop_decoder_iter() {
 	let bytes = b"\x23\x18\x48\x89\xCE";
-	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	decoder.set_ip(0x1234_5678_9ABC_DEF0);
+	let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
 	let mut instrs: Vec<Instruction> = Vec::new();
 	for instr in decoder.iter() {
 		instrs.push(instr);
@@ -286,8 +283,7 @@ fn decoder_for_loop_decoder_iter() {
 #[test]
 fn decode_ip_xxxxxxxxffffffff() {
 	let bytes = b"\x90";
-	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	decoder.set_ip(0x1234_5678_FFFF_FFFF);
+	let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_FFFF_FFFF, DecoderOptions::NONE);
 	let _ = decoder.decode();
 	assert_eq!(decoder.ip(), 0x1234_5679_0000_0000);
 }
@@ -297,8 +293,7 @@ fn decode_with_too_few_bytes_left() {
 	for tc in decoder_tests(true, false) {
 		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
 		for i in 0..bytes.len() - 1 {
-			let mut decoder = Decoder::new(tc.bitness(), &bytes[0..i], tc.decoder_options());
-			decoder.set_ip(0x1000);
+			let mut decoder = Decoder::with_ip(tc.bitness(), &bytes[0..i], 0x1000, tc.decoder_options());
 			let instr = decoder.decode();
 			assert_eq!(decoder.ip(), 0x1000 + i as u64);
 			assert_eq!(instr.code(), Code::INVALID);
