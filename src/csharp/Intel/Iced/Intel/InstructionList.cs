@@ -17,6 +17,7 @@ namespace Iced.Intel {
 	/// </summary>
 	[DebuggerDisplay("Count = {" + nameof(Count) + "}")]
 	[DebuggerTypeProxy(typeof(InstructionListDebugView))]
+	[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public sealed class InstructionList : IList<Instruction>, IReadOnlyList<Instruction>, IList {
 		Instruction[] elements;
 		int count;

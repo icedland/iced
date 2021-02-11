@@ -29,7 +29,6 @@ Decoder:
 - `CodeReader`
     - `ByteArrayCodeReader`
     - `StreamCodeReader`
-- `InstructionList`
 - `ConstantOffsets`
 - `IcedFeatures.Initialize()`
 
@@ -85,6 +84,7 @@ Instruction info:
 
 ```C#
 using System;
+using System.Collections.Generic;
 using Iced.Intel;
 
 static class HowTo_Disassemble {
@@ -113,15 +113,9 @@ static class HowTo_Disassemble {
         decoder.IP = exampleCodeRIP;
         ulong endRip = decoder.IP + (uint)codeBytes.Length;
 
-        // This list is faster than List<Instruction> since it uses refs to the Instructions
-        // instead of copying them (each Instruction is 40 bytes in size). It has a ref indexer,
-        // and a ref iterator. Add() uses 'in' (ref readonly).
-        var instructions = new InstructionList();
-        while (decoder.IP < endRip) {
-            // The method allocates an uninitialized element at the end of the list and
-            // returns a reference to it which is initialized by Decode().
-            decoder.Decode(out instructions.AllocUninitializedElement());
-        }
+        var instructions = new List<Instruction>();
+        while (decoder.IP < endRip)
+            instructions.Add(decoder.Decode());
 
         // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
         // There's also `FastFormatter` which is ~2x faster. Use it if formatting speed is more
@@ -130,8 +124,7 @@ static class HowTo_Disassemble {
         formatter.Options.DigitSeparator = "`";
         formatter.Options.FirstOperandCharIndex = 10;
         var output = new StringOutput();
-        // Use InstructionList's ref iterator (C# 7.3) to prevent copying 40 bytes every iteration
-        foreach (ref var instr in instructions) {
+        foreach (var instr in instructions) {
             // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
             formatter.Format(instr, output);
             Console.Write(instr.IP.ToString("X16"));
@@ -450,7 +443,7 @@ Moved code:
         // In 32-bit mode, a normal JMP is just 5 bytes
         const uint requiredBytes = 10 + 2;
         uint totalBytes = 0;
-        var origInstructions = new InstructionList();
+        var origInstructions = new List<Instruction>();
         while (codeReader.CanReadByte) {
             decoder.Decode(out var instr);
             origInstructions.Add(instr);
@@ -489,7 +482,7 @@ Moved code:
         Debug.Assert(origInstructions.Count > 0);
         // Create a JMP instruction that branches to the original code, except those instructions
         // that we'll re-encode. We don't need to do it if it already ends in 'ret'
-        ref readonly var lastInstr = ref origInstructions[origInstructions.Count - 1];
+        var lastInstr = origInstructions[origInstructions.Count - 1];
         if (lastInstr.FlowControl != FlowControl.Return)
             origInstructions.Add(Instruction.CreateBranch(Code.Jmp_rel32_64, lastInstr.NextIP));
 
