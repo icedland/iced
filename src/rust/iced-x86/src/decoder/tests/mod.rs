@@ -172,6 +172,11 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 	} else {
 		assert!(instr.has_segment_prefix());
 	}
+	assert_eq!(instr.op_kinds().len(), instr.op_count() as usize);
+	for (i, op_kind) in instr.op_kinds().enumerate() {
+		assert!(i < instr.op_count() as usize);
+		assert_eq!(instr.try_op_kind(i as u32).unwrap(), op_kind);
+	}
 	for i in 0..tc.op_count {
 		let op_kind = tc.op_kinds[i as usize];
 		#[allow(deprecated)]

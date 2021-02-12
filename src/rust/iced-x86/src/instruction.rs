@@ -10,6 +10,7 @@ use super::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use core::fmt;
 use core::hash::{Hash, Hasher};
+use core::iter::{ExactSizeIterator, FusedIterator};
 #[cfg(feature = "encoder")]
 use core::ptr;
 use core::{mem, slice, u16, u32, u64};
@@ -592,6 +593,30 @@ impl Instruction {
 		} else {
 			Ok(())
 		}
+	}
+
+	/// Gets all op kinds ([`op_count()`] values)
+	///
+	/// [`op_count()`]: #method.op_count
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // add [rax],ebx
+	/// let bytes = b"\x01\x18";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let instr = decoder.decode();
+	///
+	/// for (i, op_kind) in instr.op_kinds().enumerate() {
+	///     println!("op kind #{} = {:?}", i, op_kind);
+	/// }
+	/// ```
+	#[must_use]
+	#[inline]
+	pub fn op_kinds(&self) -> OpKindIterator {
+		OpKindIterator::new(self)
 	}
 
 	/// Gets an operand's kind if it exists (see [`op_count()`])
@@ -10622,3 +10647,51 @@ impl fmt::Display for Instruction {
 		}
 	}
 }
+
+/// [`OpKind`] iterator, see [`Instruction::op_kinds()`]
+///
+/// [`OpKind`]: enum.OpKind.html
+/// [`Instruction::op_kinds()`]: struct.Instruction.html#method.op_kinds
+#[allow(missing_debug_implementations)]
+#[allow(missing_copy_implementations)]
+pub struct OpKindIterator {
+	count: u8,
+	index: u8,
+	op_kinds: [OpKind; IcedConstants::MAX_OP_COUNT],
+}
+
+impl OpKindIterator {
+	fn new(instruction: &Instruction) -> Self {
+		// `index`/`count` are `u8`
+		const_assert!(IcedConstants::MAX_OP_COUNT <= u8::MAX as usize);
+		OpKindIterator {
+			count: instruction.op_count() as u8,
+			index: 0,
+			op_kinds: [instruction.op0_kind(), instruction.op1_kind(), instruction.op2_kind(), instruction.op3_kind(), instruction.op4_kind()],
+		}
+	}
+}
+
+impl Iterator for OpKindIterator {
+	type Item = OpKind;
+
+	#[inline]
+	fn next(&mut self) -> Option<Self::Item> {
+		let index = self.index;
+		if index < self.count {
+			self.index = index + 1;
+			Some(self.op_kinds[index as usize])
+		} else {
+			None
+		}
+	}
+
+	#[inline]
+	fn size_hint(&self) -> (usize, Option<usize>) {
+		let len = self.count as usize - self.index as usize;
+		(len, Some(len))
+	}
+}
+
+impl ExactSizeIterator for OpKindIterator {}
+impl FusedIterator for OpKindIterator {}
