@@ -73,6 +73,9 @@ def test_iter():
 
 def test_ip():
 	decoder = Decoder(64, b"\x48\x09\xCE\x90")
+	assert decoder.ip == 0
+	decoder = Decoder(64, b"\x48\x09\xCE\x90", ip=0xABCD_EF01_2345_6789)
+	assert decoder.ip == 0xABCD_EF01_2345_6789
 	decoder.ip = 0x1234_5678_9ABC_DEF0
 	assert decoder.ip == 0x1234_5678_9ABC_DEF0
 	decoder.decode()
@@ -227,8 +230,7 @@ def test_co_eq_ne_hash():
 	lambda instr: instr.copy(),
 ])
 def test_co_copy_deepcopy_mcopy(copy_co):
-	decoder = Decoder(64, b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A")
-	decoder.ip = 0x1234_5678_9ABC_DEF1
+	decoder = Decoder(64, b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A", ip=0x1234_5678_9ABC_DEF1)
 	coa = decoder.get_constant_offsets(decoder.decode())
 	cob = decoder.get_constant_offsets(decoder.decode())
 

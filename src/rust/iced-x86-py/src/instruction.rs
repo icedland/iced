@@ -26,8 +26,7 @@ use std::collections::hash_map::DefaultHasher;
 ///
 ///     # xchg ah,[rdx+rsi+16h]
 ///     data = b"\x86\x64\x32\x16"
-///     decoder = Decoder(64, data)
-///     decoder.ip = 0x1234_5678
+///     decoder = Decoder(64, data, ip=0x1234_5678)
 ///
 ///     instr = decoder.decode()
 ///

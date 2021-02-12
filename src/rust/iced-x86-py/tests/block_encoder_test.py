@@ -15,8 +15,7 @@ def test_invalid_bitness(bitness):
 
 @pytest.mark.parametrize("fix_branches", [False, True])
 def test_fix_branches_arg(fix_branches):
-	decoder = Decoder(64, b"\x72\x00")
-	decoder.ip = 0x1234_5678_9ABC_DEF0
+	decoder = Decoder(64, b"\x72\x00", ip=0x1234_5678_9ABC_DEF0)
 	new_rip = 0xFEDC_BA98_7654_3210
 	instr = decoder.decode()
 	encoder = BlockEncoder(64, fix_branches)
@@ -28,8 +27,7 @@ def test_fix_branches_arg(fix_branches):
 			encoder.encode(new_rip)
 
 def test_fix_branches_defaults_to_true():
-	decoder = Decoder(64, b"\x72\x00")
-	decoder.ip = 0x1234_5678_9ABC_DEF0
+	decoder = Decoder(64, b"\x72\x00", ip=0x1234_5678_9ABC_DEF0)
 	new_rip = 0xFEDC_BA98_7654_3210
 	instr = decoder.decode()
 	encoder = BlockEncoder(64)
@@ -39,8 +37,7 @@ def test_fix_branches_defaults_to_true():
 	assert len(encoded_data) > 2
 
 def test_encode():
-	decoder = Decoder(64, b"\xF3\x90\x90\x48\x09\xCE\x48\x09\xCE\x90\xF3\x90\x48\x09\xCE")
-	decoder.ip = 0x1234_5678_9ABC_DEF0
+	decoder = Decoder(64, b"\xF3\x90\x90\x48\x09\xCE\x48\x09\xCE\x90\xF3\x90\x48\x09\xCE", ip=0x1234_5678_9ABC_DEF0)
 	new_rip = 0xFEDC_BA98_7654_3210
 	instrs = [instr for instr in decoder]
 	encoder = BlockEncoder(64)

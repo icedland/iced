@@ -14,10 +14,8 @@ def test_ctor():
 	assert instr.ip == 0
 
 def test_eq_ne_hash():
-	decodera = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41" b"\xC4\xE3\x49\x48\x10\x42")
-	decoderb = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41")
-	decodera.ip = 0x1234_5678_9ABC_DEF1
-	decoderb.ip = 0xABCD_EF01_1234_5678
+	decodera = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41" b"\xC4\xE3\x49\x48\x10\x42", ip=0x1234_5678_9ABC_DEF1)
+	decoderb = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41", ip=0xABCD_EF01_1234_5678)
 	instr1 = decodera.decode()
 	instr2 = decodera.decode()
 	instr3 = decoderb.decode()
@@ -58,8 +56,7 @@ def test_invalid():
 	lambda instr: instr.copy(),
 ])
 def test_copy_deepcopy_mcopy(copy_instr):
-	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41")
-	decoder.ip = 0x1234_5678_9ABC_DEF1
+	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41", ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
 	instr2 = copy_instr(instr)
 	assert instr is not instr2
@@ -79,8 +76,7 @@ def test_copy_deepcopy_mcopy(copy_instr):
 	assert hash(instr) == hash(instr2)
 
 def test_some_props1():
-	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41")
-	decoder.ip = 0x1234_5678_9ABC_DEF1
+	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41", ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
 
 	assert instr.len == 6
@@ -160,8 +156,7 @@ def test_some_props1():
 	assert len(instr) == 1
 
 def test_some_props2():
-	decoder = Decoder(64, b"\x00\xCE")
-	decoder.ip = 0x1234_5678_9ABC_DEF1
+	decoder = Decoder(64, b"\x00\xCE", ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
 
 	assert not instr.has_xacquire_prefix
@@ -228,8 +223,7 @@ def test_code_size(bitness, code_size, data):
 		assert instr.code_size == new_size
 
 def test_op_kind():
-	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41")
-	decoder.ip = 0x1234_5678_9ABC_DEF1
+	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41", ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
 
 	assert instr.op0_kind == OpKind.REGISTER
@@ -283,8 +277,7 @@ def test_op_kind():
 	assert instr.op4_kind == instr.op_kind(4)
 
 def test_op_register():
-	decoder = Decoder(64, b"\xC4\xE3\x49\x48\xD3\x40")
-	decoder.ip = 0x1234_5678_9ABC_DEF1
+	decoder = Decoder(64, b"\xC4\xE3\x49\x48\xD3\x40", ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
 	assert instr.op0_kind == OpKind.REGISTER
 	assert instr.op1_kind == OpKind.REGISTER
@@ -345,8 +338,7 @@ def test_op_register():
 	assert instr.op_register(4) == Register.NONE
 
 def test_mem():
-	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41")
-	decoder.ip = 0x1234_5678_9ABC_DEF1
+	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41", ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
 
 	assert not instr.has_segment_prefix
@@ -788,8 +780,7 @@ def test_vsib(bitness, data, vsib):
 		raise ValueError(f"Invalid vsib value: {vsib}")
 
 def test_ip_rel_addr():
-	decoder = Decoder(64, b"\x00\x00" b"\x01\x35\x34\x12\x5A\xA5" b"\x67\x01\x35\x34\x12\x5A\xA5")
-	decoder.ip = 0x1234_5678_9ABC_DEF0
+	decoder = Decoder(64, b"\x00\x00" b"\x01\x35\x34\x12\x5A\xA5" b"\x67\x01\x35\x34\x12\x5A\xA5", ip=0x1234_5678_9ABC_DEF0)
 
 	instr = decoder.decode()
 	assert not instr.is_ip_rel_memory_operand
@@ -943,8 +934,7 @@ def test_repr_str():
 	assert str(instr) == "add rax,0FFFFFFFF82345AA5h"
 
 def test_format():
-	decoder = Decoder(64, b"\x48\x05\xA5\x5A\x34\x82" b"\x48\x8B\x05\x88\xA9\xCB\xED" b"\x70\x00")
-	decoder.ip = 0x1234_5678_9ABC_DEF0
+	decoder = Decoder(64, b"\x48\x05\xA5\x5A\x34\x82" b"\x48\x8B\x05\x88\xA9\xCB\xED" b"\x70\x00", ip=0x1234_5678_9ABC_DEF0)
 
 	instr = decoder.decode()
 	assert f"{instr}" == "add rax,0FFFFFFFF82345AA5h"

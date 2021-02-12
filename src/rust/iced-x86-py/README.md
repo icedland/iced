@@ -113,8 +113,7 @@ EXAMPLE_CODE = \
     b"\x05\x2F\x24\x0A\x00\x48\x8D\x05\x78\x7C\x04\x00\x33\xFF"
 
 # Create the decoder and initialize RIP
-decoder = Decoder(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE)
-decoder.ip = EXAMPLE_CODE_RIP
+decoder = Decoder(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, ip=EXAMPLE_CODE_RIP)
 
 # Formatters: MASM, NASM, GAS (AT&T) and INTEL (XED).
 # There's also `FastFormatter` which is ~1.25x faster. Use it if formatting
@@ -142,8 +141,7 @@ for instr in decoder:
     print(f"{instr.ip:016X} {bytes_str:20} {disasm}")
 
 # Instruction also supports format specifiers, see the table below
-decoder = Decoder(64, b"\x86\x64\x32\x16")
-decoder.ip = 0x1234_5678
+decoder = Decoder(64, b"\x86\x64\x32\x16", ip=0x1234_5678)
 instr = decoder.decode()
 
 print()
@@ -255,8 +253,7 @@ encoded_bytes = encoder.encode(target_rip)
 # didn't disable branch optimizations.
 bytes_code = encoded_bytes[0:len(encoded_bytes) - len(raw_data)]
 bytes_data = encoded_bytes[len(encoded_bytes) - len(raw_data):]
-decoder = Decoder(bitness, bytes_code)
-decoder.ip = target_rip
+decoder = Decoder(bitness, bytes_code, ip=target_rip)
 formatter = Formatter(FormatterSyntax.GAS)
 formatter.first_operand_char_index = 8
 for instruction in decoder:
@@ -347,8 +344,7 @@ from iced_x86 import *
 
 def disassemble(data: bytes, ip: int) -> None:
     formatter = Formatter(FormatterSyntax.NASM)
-    decoder = Decoder(EXAMPLE_CODE_BITNESS, data)
-    decoder.ip = ip
+    decoder = Decoder(EXAMPLE_CODE_BITNESS, data, ip=ip)
     for instruction in decoder:
         disasm = formatter.format(instruction)
         print(f"{instruction.ip:016X} {disasm}")
@@ -358,8 +354,7 @@ def how_to_move_code() -> None:
     print("Original code:")
     disassemble(EXAMPLE_CODE, EXAMPLE_CODE_RIP)
 
-    decoder = Decoder(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE)
-    decoder.ip = EXAMPLE_CODE_RIP
+    decoder = Decoder(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, ip=EXAMPLE_CODE_RIP)
 
     # In 64-bit mode, we need 12 bytes to jump to any address:
     #      mov rax,imm64   # 10
@@ -660,8 +655,7 @@ from types import ModuleType
 #     Op1: R32_OR_MEM
 #     Used reg: RDI:WRITE
 def how_to_get_instruction_info() -> None:
-    decoder = Decoder(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE)
-    decoder.ip = EXAMPLE_CODE_RIP
+    decoder = Decoder(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, ip=EXAMPLE_CODE_RIP)
 
     # Use a factory to create the instruction info if you need register and
     # memory usage. If it's something else, eg. encoding, flags, etc, there
@@ -909,8 +903,7 @@ DECODER_OPTIONS = DecoderOptions.MPX | \
     DecoderOptions.CYRIX | \
     DecoderOptions.CYRIX_DMI | \
     DecoderOptions.ALTINST
-decoder = Decoder(32, TEST_CODE, DECODER_OPTIONS)
-decoder.ip = 0x731E_0A03
+decoder = Decoder(32, TEST_CODE, DECODER_OPTIONS, ip=0x731E_0A03)
 
 for instr in decoder:
     # 'n' format specifier means NASM formatter, see the disassemble

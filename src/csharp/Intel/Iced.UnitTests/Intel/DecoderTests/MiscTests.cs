@@ -182,11 +182,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Fact]
 		void Test_Decoder_Create_throws() {
 			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues()) {
+				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new ByteArrayCodeReader("90"), 0, DecoderOptions.None));
+				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new byte[] { 0x90 }, 0, DecoderOptions.None));
 				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new ByteArrayCodeReader("90"), DecoderOptions.None));
 				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new byte[] { 0x90 }, DecoderOptions.None));
 			}
 
 			foreach (var bitness in new[] { 16, 32, 64 }) {
+				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, (CodeReader)null, 0, DecoderOptions.None));
+				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, (byte[])null, 0, DecoderOptions.None));
 				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, (CodeReader)null, DecoderOptions.None));
 				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, (byte[])null, DecoderOptions.None));
 			}
@@ -309,6 +313,30 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			decoder = Decoder.Create(64, data);
 			var array = decoder.ToArray();
 			Assert.Equal(list, array);
+		}
+
+		[Fact]
+		void Decoder_without_ip() {
+			{
+				var decoder = Decoder.Create(64, new ByteArrayCodeReader(new byte[] { }), DecoderOptions.None);
+				Assert.Equal(0UL, decoder.IP);
+			}
+			{
+				var decoder = Decoder.Create(64, new byte[] { }, DecoderOptions.None);
+				Assert.Equal(0UL, decoder.IP);
+			}
+		}
+
+		[Fact]
+		void Decoder_with_ip() {
+			{
+				var decoder = Decoder.Create(64, new ByteArrayCodeReader(new byte[] { }), 0x123456789ABCDEF1, DecoderOptions.None);
+				Assert.Equal(0x123456789ABCDEF1UL, decoder.IP);
+			}
+			{
+				var decoder = Decoder.Create(64, new byte[] { }, 0x123456789ABCDEF1UL, DecoderOptions.None);
+				Assert.Equal(0x123456789ABCDEF1UL, decoder.IP);
+			}
 		}
 	}
 }

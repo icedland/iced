@@ -30,8 +30,7 @@ use pyo3::types::PyBytes;
 ///     from iced_x86 import *
 ///
 ///     data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
-///     decoder = Decoder(64, data)
-///     decoder.ip = 0x1234_5678
+///     decoder = Decoder(64, data, ip=0x1234_5678)
 ///
 ///     instrs = [instr for instr in decoder]
 ///

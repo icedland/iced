@@ -77,8 +77,7 @@ class BlockEncoder:
 	from iced_x86 import *
 
 	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
+	decoder = Decoder(64, data, ip=0x1234_5678)
 
 	instrs = [instr for instr in decoder]
 
@@ -235,6 +234,7 @@ class Decoder:
 	- `bitness` (int): 16, 32 or 64
 	- `data` (bytes, bytearray): Data to decode. For best PERF, use `bytes` since it's immutable and nothing gets copied.
 	- `options` (`DecoderOptions`): (default = `DecoderOptions.NONE`) Decoder options, eg. `DecoderOptions.NO_INVALID_CHECK` | `DecoderOptions.AMD`
+	- `ip` (int): (`u64`) (default = `0`) `RIP` value
 
 	### Raises:
 
@@ -247,8 +247,7 @@ class Decoder:
 	from iced_x86 import *
 
 	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
+	decoder = Decoder(64, data, ip=0x1234_5678)
 
 	# The decoder is iterable
 	for instr in decoder:
@@ -270,8 +269,7 @@ class Decoder:
 	# xacquire lock add dword ptr [rax],5Ah
 	# vmovdqu64 zmm18{k3}{z},zmm11
 	data = b"\\x86\\x64\\x32\\x16\\xF0\\xF2\\x83\\x00\\x5A\\x62\\xC1\\xFE\\xCB\\x6F\\xD3"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
+	decoder = Decoder(64, data, ip=0x1234_5678)
 
 	instr1 = decoder.decode()
 	assert instr1.code == Code.XCHG_RM8_R8
@@ -298,20 +296,18 @@ class Decoder:
 
 	# lock add esi,ecx   # lock not allowed
 	data = b"\\xF0\\x01\\xCE"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
+	decoder = Decoder(64, data, ip=0x1234_5678)
 	instr = decoder.decode()
 	assert instr.code == Code.INVALID
 
 	# We want to decode some instructions with invalid encodings
-	decoder = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK)
-	decoder.ip = 0x1234_5678
+	decoder = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK, 0x1234_5678)
 	instr = decoder.decode()
 	assert instr.code == Code.ADD_RM32_R32
 	assert instr.has_lock_prefix
 	```
 	"""
-	def __init__(self, bitness: int, data: Union[bytes, bytearray], options: DecoderOptions = DecoderOptions.NONE) -> None: ...
+	def __init__(self, bitness: int, data: Union[bytes, bytearray], options: DecoderOptions = DecoderOptions.NONE, ip: int = 0) -> None: ...
 	@property
 	def ip(self) -> int:
 		"""
@@ -355,8 +351,7 @@ class Decoder:
 
 		# nop and pause
 		data = b"\\x90\\xF3\\x90"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
+		decoder = Decoder(64, data, ip=0x1234_5678)
 
 		assert decoder.position == 0
 		assert decoder.max_position == 3
@@ -398,8 +393,7 @@ class Decoder:
 
 		# nop and an incomplete instruction
 		data = b"\\x90\\xF3\\x0F"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
+		decoder = Decoder(64, data, ip=0x1234_5678)
 
 		# 3 bytes left to read
 		assert decoder.can_decode
@@ -446,8 +440,7 @@ class Decoder:
 
 		# xrelease lock add [rax],ebx
 		data = b"\\xF0\\xF3\\x01\\x18"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
+		decoder = Decoder(64, data, ip=0x1234_5678)
 		instr = decoder.decode()
 
 		assert instr.code == Code.ADD_RM32_R32
@@ -492,8 +485,7 @@ class Decoder:
 
 		# xrelease lock add [rax],ebx
 		data = b"\\xF0\\xF3\\x01\\x18"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
+		decoder = Decoder(64, data, ip=0x1234_5678)
 		instr = Instruction()
 		decoder.decode_out(instr)
 
@@ -543,8 +535,7 @@ class Decoder:
 		#              00  01  02  03  04  05  06
 		#            \\opc\\mrm\\displacement___\\imm
 		data = b"\\x90\\x83\\xB3\\x34\\x12\\x5A\\xA5\\x5A"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
+		decoder = Decoder(64, data, ip=0x1234_5678)
 		assert decoder.decode().code == Code.NOPD
 		instr = decoder.decode()
 		co = decoder.get_constant_offsets(instr)
@@ -586,8 +577,7 @@ class Encoder:
 
 	# xchg ah,[rdx+rsi+16h]
 	data = b"\\x86\\x64\\x32\\x16"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
+	decoder = Decoder(64, data, ip=0x1234_5678)
 	instr = decoder.decode()
 
 	encoder = Encoder(64)
@@ -628,8 +618,7 @@ class Encoder:
 
 		# je short $+4
 		data = b"\\x75\\x02"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
+		decoder = Decoder(64, data, ip=0x1234_5678)
 		instr = decoder.decode()
 
 		encoder = Encoder(64)
@@ -662,8 +651,7 @@ class Encoder:
 
 		# je short $+4
 		data = b"\\x75\\x02"
-		decoder = Decoder(64, data)
-		decoder.ip = 0x1234_5678
+		decoder = Decoder(64, data, ip=0x1234_5678)
 		instr = decoder.decode()
 
 		encoder = Encoder(64)
@@ -2089,8 +2077,7 @@ class Instruction:
 
 	# xchg ah,[rdx+rsi+16h]
 	data = b"\\x86\\x64\\x32\\x16"
-	decoder = Decoder(64, data)
-	decoder.ip = 0x1234_5678
+	decoder = Decoder(64, data, ip=0x1234_5678)
 
 	instr = decoder.decode()
 

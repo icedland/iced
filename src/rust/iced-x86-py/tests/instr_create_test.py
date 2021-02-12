@@ -421,15 +421,15 @@ from iced_x86 import *
 	(64, b"\x64\x62\xF1\x6D\x08\xC4\x8C\x75\x01\xEF\xCD\xAB\xA5", DecoderOptions.NONE, Instruction.create_reg_reg_mem_u32(Code.EVEX_VPINSRW_XMM_XMM_R32M16_IMM8, Register.XMM1, Register.XMM2, MemoryOperand(Register.RBP, Register.RSI, 2, -0x5432_10FF, 8, False, Register.FS), 0xA5)),
 ])
 def test_create(bitness, data, options, created_instr):
-	decoder = Decoder(bitness, data, options)
 	if bitness == 64:
-		decoder.ip = 0x7FFF_FFFF_FFFF_FFF0
+		ip = 0x7FFF_FFFF_FFFF_FFF0
 	elif bitness == 32:
-		decoder.ip = 0x0000_0000_7FFF_FFF0
+		ip = 0x0000_0000_7FFF_FFF0
 	elif bitness == 16:
-		decoder.ip = 0x0000_0000_0000_7FF0
+		ip = 0x0000_0000_0000_7FF0
 	else:
 		raise ValueError("Invalid bitness")
+	decoder = Decoder(bitness, data, options, ip=ip)
 	orig_rip = decoder.ip
 	decoded_instr = decoder.decode()
 	decoded_instr.code_size = CodeSize.UNKNOWN

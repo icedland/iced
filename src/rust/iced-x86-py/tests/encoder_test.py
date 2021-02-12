@@ -50,8 +50,7 @@ def test_options(bitness):
 ])
 def test_encode(bitness, data):
 	encoder = Encoder(bitness)
-	decoder = Decoder(bitness, data)
-	decoder.ip = 0x1234_5678_9ABC_DEF0
+	decoder = Decoder(bitness, data, ip=0x1234_5678_9ABC_DEF0)
 	rip = decoder.ip
 	for instr in decoder:
 		instr_len = encoder.encode(instr, rip)
@@ -89,8 +88,7 @@ def test_encode_invalid_instruction():
 		encoder.encode(instr, instr.ip)
 
 	# Jcc SHORT with a target too far away
-	decoder = Decoder(64, b"\x72\x00")
-	decoder.ip = 0x1234_5678_9ABC_DEF0
+	decoder = Decoder(64, b"\x72\x00", ip=0x1234_5678_9ABC_DEF0)
 	decoder.decode_out(instr)
 	encoder.encode(instr, instr.ip)
 	with pytest.raises(ValueError):

@@ -150,8 +150,9 @@ namespace Iced.Intel {
 #endif
 		}
 
-		Decoder(CodeReader reader, DecoderOptions options, int bitness) {
+		Decoder(CodeReader reader, ulong ip, DecoderOptions options, int bitness) {
 			this.reader = reader ?? throw new ArgumentNullException(nameof(reader));
+			instructionPointer = ip;
 			this.options = options;
 			invalidCheckMask = (options & DecoderOptions.NoInvalidCheck) == 0 ? uint.MaxValue : 0;
 			memRegs16 = s_memRegs16;
@@ -209,13 +210,35 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="bitness">16, 32 or 64</param>
 		/// <param name="reader">Code reader</param>
+		/// <param name="ip"><c>RIP</c> value</param>
+		/// <param name="options">Decoder options</param>
+		/// <returns></returns>
+		public static Decoder Create(int bitness, CodeReader reader, ulong ip, DecoderOptions options = DecoderOptions.None) =>
+			bitness switch {
+				16 or 32 or 64 => new Decoder(reader, ip, options, bitness),
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
+
+		/// <summary>
+		/// Creates a decoder
+		/// </summary>
+		/// <param name="bitness">16, 32 or 64</param>
+		/// <param name="data">Data to decode</param>
+		/// <param name="ip"><c>RIP</c> value</param>
+		/// <param name="options">Decoder options</param>
+		/// <returns></returns>
+		public static Decoder Create(int bitness, byte[] data, ulong ip, DecoderOptions options = DecoderOptions.None) =>
+			Create(bitness, new ByteArrayCodeReader(data), ip, options);
+
+		/// <summary>
+		/// Creates a decoder
+		/// </summary>
+		/// <param name="bitness">16, 32 or 64</param>
+		/// <param name="reader">Code reader</param>
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
 		public static Decoder Create(int bitness, CodeReader reader, DecoderOptions options = DecoderOptions.None) =>
-			bitness switch {
-				16 or 32 or 64 => new Decoder(reader, options, bitness),
-				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
-			};
+			Create(bitness, reader, 0, options);
 
 		/// <summary>
 		/// Creates a decoder
@@ -225,7 +248,7 @@ namespace Iced.Intel {
 		/// <param name="options">Decoder options</param>
 		/// <returns></returns>
 		public static Decoder Create(int bitness, byte[] data, DecoderOptions options = DecoderOptions.None) =>
-			Create(bitness, new ByteArrayCodeReader(data), options);
+			Create(bitness, new ByteArrayCodeReader(data), 0, options);
 
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;

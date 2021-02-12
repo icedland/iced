@@ -27,8 +27,7 @@ use pyo3::types::PyBytes;
 ///
 ///     # xchg ah,[rdx+rsi+16h]
 ///     data = b"\x86\x64\x32\x16"
-///     decoder = Decoder(64, data)
-///     decoder.ip = 0x1234_5678
+///     decoder = Decoder(64, data, ip=0x1234_5678)
 ///     instr = decoder.decode()
 ///
 ///     encoder = Encoder(64)
@@ -77,8 +76,7 @@ impl Encoder {
 	///
 	///     # je short $+4
 	///     data = b"\x75\x02"
-	///     decoder = Decoder(64, data)
-	///     decoder.ip = 0x1234_5678
+	///     decoder = Decoder(64, data, ip=0x1234_5678)
 	///     instr = decoder.decode()
 	///
 	///     encoder = Encoder(64)
@@ -111,8 +109,7 @@ impl Encoder {
 	///
 	///     # je short $+4
 	///     data = b"\x75\x02"
-	///     decoder = Decoder(64, data)
-	///     decoder.ip = 0x1234_5678
+	///     decoder = Decoder(64, data, ip=0x1234_5678)
 	///     instr = decoder.decode()
 	///
 	///     encoder = Encoder(64)

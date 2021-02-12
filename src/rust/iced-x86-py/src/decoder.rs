@@ -25,6 +25,7 @@ enum DecoderDataRef {
 ///     bitness (int): 16, 32 or 64
 ///     data (bytes, bytearray): Data to decode. For best PERF, use :class:`bytes` since it's immutable and nothing gets copied.
 ///     options (:class:`DecoderOptions`): (default = :class:`DecoderOptions.NONE`) Decoder options, eg. :class:`DecoderOptions.NO_INVALID_CHECK` | :class:`DecoderOptions.AMD`
+///     ip (int): (``u64``) (default = ``0``) ``RIP`` value
 ///
 /// Raises:
 ///     ValueError: If `bitness` is invalid
@@ -37,8 +38,7 @@ enum DecoderDataRef {
 ///     from iced_x86 import *
 ///
 ///     data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
-///     decoder = Decoder(64, data)
-///     decoder.ip = 0x1234_5678
+///     decoder = Decoder(64, data, ip=0x1234_5678)
 ///
 ///     # The decoder is iterable
 ///     for instr in decoder:
@@ -60,8 +60,7 @@ enum DecoderDataRef {
 ///     # xacquire lock add dword ptr [rax],5Ah
 ///     # vmovdqu64 zmm18{k3}{z},zmm11
 ///     data = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3"
-///     decoder = Decoder(64, data)
-///     decoder.ip = 0x1234_5678
+///     decoder = Decoder(64, data, ip=0x1234_5678)
 ///
 ///     instr1 = decoder.decode()
 ///     assert instr1.code == Code.XCHG_RM8_R8
@@ -88,19 +87,17 @@ enum DecoderDataRef {
 ///
 ///     # lock add esi,ecx   # lock not allowed
 ///     data = b"\xF0\x01\xCE"
-///     decoder = Decoder(64, data)
-///     decoder.ip = 0x1234_5678
+///     decoder = Decoder(64, data, ip=0x1234_5678)
 ///     instr = decoder.decode()
 ///     assert instr.code == Code.INVALID
 ///
 ///     # We want to decode some instructions with invalid encodings
-///     decoder = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK)
-///     decoder.ip = 0x1234_5678
+///     decoder = Decoder(64, data, DecoderOptions.NO_INVALID_CHECK, 0x1234_5678)
 ///     instr = decoder.decode()
 ///     assert instr.code == Code.ADD_RM32_R32
 ///     assert instr.has_lock_prefix
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(bitness, data, options, /)"]
+#[text_signature = "(bitness, data, options, ip, /)"]
 pub(crate) struct Decoder {
 	// * If the decoder ctor was called with a `bytes` object, data_ref is PyObj(`bytes` object)
 	//   and the decoder holds a ref to its data.
@@ -116,8 +113,8 @@ unsafe impl Send for Decoder {}
 #[pymethods]
 impl Decoder {
 	#[new]
-	#[args(options = 0)]
-	fn new(bitness: u32, data: &PyAny, options: u32) -> PyResult<Self> {
+	#[args(options = 0, ip = 0)]
+	fn new(bitness: u32, data: &PyAny, options: u32, ip: u64) -> PyResult<Self> {
 		// #[args] line assumption
 		const_assert_eq!(iced_x86::DecoderOptions::NONE, 0);
 
@@ -135,7 +132,7 @@ impl Decoder {
 			return Err(PyTypeError::new_err("Expected one of these types: bytes, bytearray"));
 		};
 
-		let decoder = iced_x86::Decoder::try_new(bitness, decoder_data, options).map_err(to_value_error)?;
+		let decoder = iced_x86::Decoder::try_with_ip(bitness, decoder_data, ip, options).map_err(to_value_error)?;
 		Ok(Decoder { data_ref, decoder })
 	}
 
@@ -183,8 +180,7 @@ impl Decoder {
 	///
 	///     # nop and pause
 	///     data = b"\x90\xF3\x90"
-	///     decoder = Decoder(64, data)
-	///     decoder.ip = 0x1234_5678
+	///     decoder = Decoder(64, data, ip=0x1234_5678)
 	///
 	///     assert decoder.position == 0
 	///     assert decoder.max_position == 3
@@ -229,8 +225,7 @@ impl Decoder {
 	///
 	///     # nop and an incomplete instruction
 	///     data = b"\x90\xF3\x0F"
-	///     decoder = Decoder(64, data)
-	///     decoder.ip = 0x1234_5678
+	///     decoder = Decoder(64, data, ip=0x1234_5678)
 	///
 	///     # 3 bytes left to read
 	///     assert decoder.can_decode
@@ -277,8 +272,7 @@ impl Decoder {
 	///
 	///     # xrelease lock add [rax],ebx
 	///     data = b"\xF0\xF3\x01\x18"
-	///     decoder = Decoder(64, data)
-	///     decoder.ip = 0x1234_5678
+	///     decoder = Decoder(64, data, ip=0x1234_5678)
 	///     instr = decoder.decode()
 	///
 	///     assert instr.code == Code.ADD_RM32_R32
@@ -323,8 +317,7 @@ impl Decoder {
 	///
 	///     # xrelease lock add [rax],ebx
 	///     data = b"\xF0\xF3\x01\x18"
-	///     decoder = Decoder(64, data)
-	///     decoder.ip = 0x1234_5678
+	///     decoder = Decoder(64, data, ip=0x1234_5678)
 	///     instr = Instruction()
 	///     decoder.decode_out(instr)
 	///
@@ -373,8 +366,7 @@ impl Decoder {
 	///     #              00  01  02  03  04  05  06
 	///     #            \opc\mrm\displacement___\imm
 	///     data = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A"
-	///     decoder = Decoder(64, data)
-	///     decoder.ip = 0x1234_5678
+	///     decoder = Decoder(64, data, ip=0x1234_5678)
 	///     assert decoder.decode().code == Code.NOPD
 	///     instr = decoder.decode()
 	///     co = decoder.get_constant_offsets(instr)
