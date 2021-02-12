@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 use super::super::test_utils::from_str_conv::*;

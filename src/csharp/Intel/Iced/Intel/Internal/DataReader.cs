@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 #if INSTR_INFO || DECODER || GAS || INTEL || MASM || NASM || FAST_FMT

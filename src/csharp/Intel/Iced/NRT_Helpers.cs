@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 // This is needed because net45/netstandard2.0 reference assemblies don't

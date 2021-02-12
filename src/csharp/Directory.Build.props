@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <Copyright>Copyright (C) 2018-2021 wtfsckgh@gmail.com</Copyright>
+    <Copyright>Copyright (C) 2018-2021 wtfsck@protonmail.com</Copyright>
     <Version>1.10.3</Version>
     <Authors>wtfsck</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>

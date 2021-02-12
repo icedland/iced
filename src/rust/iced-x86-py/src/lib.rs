@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 //! iced-x86 Python bindings (native module written in Rust). Don't reference this module directly.

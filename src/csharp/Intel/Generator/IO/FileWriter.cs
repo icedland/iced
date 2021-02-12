@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 using System;
@@ -105,7 +105,7 @@ namespace Generator.IO {
 
 		static readonly string[] licenseHeader = new string[] {
 			"SPDX-License-Identifier: MIT",
-			"Copyright wtfsckgh@gmail.com",
+			"Copyright wtfsck@protonmail.com",
 			"Copyright iced contributors",
 		};
 		static readonly string[] generatorFullFileMessage = new string[] {

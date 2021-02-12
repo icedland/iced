@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsckgh@gmail.com
+# Copyright wtfsck@protonmail.com
 # Copyright iced contributors
 
 64, 48 83 CA A5, Or_rm64_imm8, NasmShowSignExtendedImmediateSize=true

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsckgh@gmail.com
+# Copyright wtfsck@protonmail.com
 # Copyright iced contributors
 
 67 01 00, Add_rm32_r32, eax, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0

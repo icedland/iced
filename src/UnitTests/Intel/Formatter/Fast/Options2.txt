@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsckgh@gmail.com
+# Copyright wtfsck@protonmail.com
 # Copyright iced contributors
 
 64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UppercaseHex=true HexPrefix=0x HexSuffix=<null>

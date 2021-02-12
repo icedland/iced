@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 use crate::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rep_prefix_kind, to_rounding_control};

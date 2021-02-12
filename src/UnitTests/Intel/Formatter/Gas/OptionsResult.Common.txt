@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsckgh@gmail.com
+# Copyright wtfsck@protonmail.com
 # Copyright iced contributors
 
 vfnmsub213ps {ru-sae}, %zmm3, %zmm6, %zmm2{%k3}{z}

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 const { Code, Decoder, DecoderError, DecoderOptions, Instruction, OpKind, Register } = require("iced-x86");

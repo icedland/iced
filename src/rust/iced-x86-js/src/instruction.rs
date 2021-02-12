@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 #[cfg(any(all(feature = "encoder", feature = "instr_api"), feature = "instr_create"))]

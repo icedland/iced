@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsckgh@gmail.com
+// Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
 // Use FuzzerGen (.NET) app to generate the valid and invalid files (--amd to use AMD decoder)

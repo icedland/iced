@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsckgh@gmail.com
+# Copyright wtfsck@protonmail.com
 # Copyright iced contributors
 
 import sys
@@ -27,7 +27,7 @@ setup(
 	name="iced-x86",
 	version="1.10.3",
 	license="MIT",
-	author_email="wtfsckgh@gmail.com",
+	author_email="wtfsck@protonmail.com",
 	author="wtfsck",
 	description="iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder",
 	long_description=readme_md,
