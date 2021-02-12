@@ -151,7 +151,7 @@ jobs:
   # - src/rust/iced-x86-py/tox.ini
 
   build-rust-python-linux-x64:
-    name: Python (${{matrix.os}})
+    name: Python (${{matrix.os}}) x64
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -218,7 +218,7 @@ jobs:
   #############################################################################
 
   build-rust-python-linux-x86:
-    name: Python (${{matrix.os}})
+    name: Python (${{matrix.os}}) x86
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -244,7 +244,7 @@ jobs:
   #############################################################################
 
   build-rust-python-macos-x64:
-    name: Python (${{matrix.os}})
+    name: Python (${{matrix.os}}) x64
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -328,7 +328,7 @@ jobs:
   #############################################################################
 
   build-rust-python-windows-x64:
-    name: Python (${{matrix.os}})
+    name: Python (${{matrix.os}}) x64
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -408,7 +408,7 @@ jobs:
   #############################################################################
 
   build-rust-python-windows-x86:
-    name: Python (${{matrix.os}})
+    name: Python (${{matrix.os}}) x86
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
