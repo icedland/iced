@@ -10663,7 +10663,7 @@ pub struct OpKindIterator {
 impl OpKindIterator {
 	fn new(instruction: &Instruction) -> Self {
 		// `index`/`count` are `u8`
-		const_assert!(IcedConstants::MAX_OP_COUNT <= u8::MAX as usize);
+		const_assert!(IcedConstants::MAX_OP_COUNT <= core::u8::MAX as usize);
 		OpKindIterator {
 			count: instruction.op_count() as u8,
 			index: 0,
