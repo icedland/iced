@@ -211,17 +211,11 @@ build_test_msrv() {
 
 	echo "*** If this fails, install Rust $msrv or use --no-msrv"
 
-	echo "==== UPDATE Cargo.lock ===="
-	cargo +$msrv generate-lockfile
-
 	echo "==== BUILD RELEASE ===="
 	cargo +$msrv build --color always --features "db" --release
 
 	echo "==== TEST RELEASE ===="
 	cargo +$msrv test --color always --features "db" --release
-
-	# Restore it
-	cargo generate-lockfile
 
 	cd "$curr_dir"
 }
