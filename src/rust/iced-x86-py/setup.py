@@ -4,7 +4,19 @@
 
 import sys
 from setuptools import setup
-from setuptools_rust import RustExtension, Strip
+
+try:
+	from setuptools_rust import RustExtension, Strip
+except:
+	print()
+	print("=============== MISSING BUILD TOOLS ===============")
+	print("Missing setuptools-rust")
+	print("Building iced-x86 requires `setuptools-rust` and Rust")
+	print("setuptools-rust: pip3 install setuptools-rust")
+	print("Rust: https://www.rust-lang.org/tools/install")
+	print("=============== MISSING BUILD TOOLS ===============")
+	print()
+	raise
 
 with open("README.md", "r", encoding="utf-8") as file:
 	readme_md = file.read()
