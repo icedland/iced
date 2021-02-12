@@ -173,8 +173,9 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 		assert!(instr.has_segment_prefix());
 	}
 	assert_eq!(instr.op_kinds().len(), instr.op_count() as usize);
-	for (i, op_kind) in instr.op_kinds().enumerate() {
-		assert!(i < instr.op_count() as usize);
+	let op_kinds: Vec<OpKind> = instr.op_kinds().collect();
+	assert_eq!(op_kinds.len(), instr.op_count() as usize);
+	for (i, op_kind) in op_kinds.into_iter().enumerate() {
 		assert_eq!(instr.try_op_kind(i as u32).unwrap(), op_kind);
 	}
 	for i in 0..tc.op_count {
