@@ -330,7 +330,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		[Fact]
 		void Decoder_with_ip() {
 			{
-				var decoder = Decoder.Create(64, new ByteArrayCodeReader(new byte[] { }), 0x123456789ABCDEF1, DecoderOptions.None);
+				var decoder = Decoder.Create(64, new ByteArrayCodeReader(new byte[] { }), 0x123456789ABCDEF1UL, DecoderOptions.None);
 				Assert.Equal(0x123456789ABCDEF1UL, decoder.IP);
 			}
 			{
