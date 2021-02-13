@@ -19,8 +19,10 @@ pub(crate) mod tests;
 use self::handlers::OpCodeHandler;
 use self::handlers_tables::TABLES;
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
 use super::tuple_type_tbl::get_disp8n;
 use super::*;
+use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};
 
@@ -154,6 +156,29 @@ fn test_decodererror_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for DecoderError {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::DECODER_ERROR_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid DecoderError value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_decodererror_try_from_usize() {
+	for value in DecoderError::values() {
+		let converted = <DecoderError as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<DecoderError as TryFrom<usize>>::try_from(IcedConstants::DECODER_ERROR_ENUM_COUNT).is_err());
+	assert!(<DecoderError as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: DecoderError
 

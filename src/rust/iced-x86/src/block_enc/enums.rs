@@ -3,6 +3,8 @@
 // Copyright iced contributors
 
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
+use core::convert::TryFrom;
 use core::fmt;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 
@@ -81,6 +83,28 @@ fn test_relockind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for RelocKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::RELOC_KIND_ENUM_COUNT {
+			Ok(RelocKind::Offset64)
+		} else {
+			Err(IcedError::new("Invalid RelocKind value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_relockind_try_from_usize() {
+	for value in RelocKind::values() {
+		let converted = <RelocKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<RelocKind as TryFrom<usize>>::try_from(IcedConstants::RELOC_KIND_ENUM_COUNT).is_err());
+	assert!(<RelocKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: RelocKind
 

@@ -3,6 +3,8 @@
 // Copyright iced contributors
 
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
+use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
@@ -91,6 +93,29 @@ fn test_codesize_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for CodeSize {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CODE_SIZE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CodeSize value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_codesize_try_from_usize() {
+	for value in CodeSize::values() {
+		let converted = <CodeSize as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CodeSize as TryFrom<usize>>::try_from(IcedConstants::CODE_SIZE_ENUM_COUNT).is_err());
+	assert!(<CodeSize as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: CodeSize
 
@@ -182,6 +207,29 @@ fn test_roundingcontrol_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for RoundingControl {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::ROUNDING_CONTROL_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid RoundingControl value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_roundingcontrol_try_from_usize() {
+	for value in RoundingControl::values() {
+		let converted = <RoundingControl as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<RoundingControl as TryFrom<usize>>::try_from(IcedConstants::ROUNDING_CONTROL_ENUM_COUNT).is_err());
+	assert!(<RoundingControl as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: RoundingControl
 
@@ -422,6 +470,29 @@ fn test_opkind_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for OpKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::OP_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid OpKind value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_opkind_try_from_usize() {
+	for value in OpKind::values() {
+		let converted = <OpKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<OpKind as TryFrom<usize>>::try_from(IcedConstants::OP_KIND_ENUM_COUNT).is_err());
+	assert!(<OpKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: OpKind
 
 // GENERATOR-BEGIN: VectorLength
@@ -598,6 +669,31 @@ fn test_encodingkind_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
+#[rustfmt::skip]
+impl TryFrom<usize> for EncodingKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::ENCODING_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid EncodingKind value"))
+		}
+	}
+}
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
+#[test]
+#[rustfmt::skip]
+fn test_encodingkind_try_from_usize() {
+	for value in EncodingKind::values() {
+		let converted = <EncodingKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<EncodingKind as TryFrom<usize>>::try_from(IcedConstants::ENCODING_KIND_ENUM_COUNT).is_err());
+	assert!(<EncodingKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: EncodingKind
 
 // GENERATOR-BEGIN: TupleType
@@ -728,6 +824,31 @@ fn test_tupletype_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[rustfmt::skip]
+impl TryFrom<usize> for TupleType {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::TUPLE_TYPE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid TupleType value"))
+		}
+	}
+}
+#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[test]
+#[rustfmt::skip]
+fn test_tupletype_try_from_usize() {
+	for value in TupleType::values() {
+		let converted = <TupleType as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<TupleType as TryFrom<usize>>::try_from(IcedConstants::TUPLE_TYPE_ENUM_COUNT).is_err());
+	assert!(<TupleType as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: TupleType
 
 // GENERATOR-BEGIN: FlowControl
@@ -845,6 +966,31 @@ fn test_flowcontrol_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[cfg(feature = "instr_info")]
+#[rustfmt::skip]
+impl TryFrom<usize> for FlowControl {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::FLOW_CONTROL_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid FlowControl value"))
+		}
+	}
+}
+#[cfg(feature = "instr_info")]
+#[test]
+#[rustfmt::skip]
+fn test_flowcontrol_try_from_usize() {
+	for value in FlowControl::values() {
+		let converted = <FlowControl as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<FlowControl as TryFrom<usize>>::try_from(IcedConstants::FLOW_CONTROL_ENUM_COUNT).is_err());
+	assert!(<FlowControl as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: FlowControl
 
@@ -1268,6 +1414,31 @@ fn test_opcodeoperandkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[rustfmt::skip]
+impl TryFrom<usize> for OpCodeOperandKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::OP_CODE_OPERAND_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid OpCodeOperandKind value"))
+		}
+	}
+}
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[test]
+#[rustfmt::skip]
+fn test_opcodeoperandkind_try_from_usize() {
+	for value in OpCodeOperandKind::values() {
+		let converted = <OpCodeOperandKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<OpCodeOperandKind as TryFrom<usize>>::try_from(IcedConstants::OP_CODE_OPERAND_KIND_ENUM_COUNT).is_err());
+	assert!(<OpCodeOperandKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: OpCodeOperandKind
 
@@ -1831,6 +2002,31 @@ fn test_cpuidfeature_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[cfg(feature = "instr_info")]
+#[rustfmt::skip]
+impl TryFrom<usize> for CpuidFeature {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CPUID_FEATURE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CpuidFeature value"))
+		}
+	}
+}
+#[cfg(feature = "instr_info")]
+#[test]
+#[rustfmt::skip]
+fn test_cpuidfeature_try_from_usize() {
+	for value in CpuidFeature::values() {
+		let converted = <CpuidFeature as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CpuidFeature as TryFrom<usize>>::try_from(IcedConstants::CPUID_FEATURE_ENUM_COUNT).is_err());
+	assert!(<CpuidFeature as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CpuidFeature
 
 // GENERATOR-BEGIN: RflagsBits
@@ -1983,6 +2179,31 @@ fn test_opaccess_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[cfg(feature = "instr_info")]
+#[rustfmt::skip]
+impl TryFrom<usize> for OpAccess {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::OP_ACCESS_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid OpAccess value"))
+		}
+	}
+}
+#[cfg(feature = "instr_info")]
+#[test]
+#[rustfmt::skip]
+fn test_opaccess_try_from_usize() {
+	for value in OpAccess::values() {
+		let converted = <OpAccess as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<OpAccess as TryFrom<usize>>::try_from(IcedConstants::OP_ACCESS_ENUM_COUNT).is_err());
+	assert!(<OpAccess as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: OpAccess
 
 // GENERATOR-BEGIN: ConditionCode
@@ -2121,6 +2342,31 @@ fn test_conditioncode_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[cfg(feature = "instr_info")]
+#[rustfmt::skip]
+impl TryFrom<usize> for ConditionCode {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CONDITION_CODE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid ConditionCode value"))
+		}
+	}
+}
+#[cfg(feature = "instr_info")]
+#[test]
+#[rustfmt::skip]
+fn test_conditioncode_try_from_usize() {
+	for value in ConditionCode::values() {
+		let converted = <ConditionCode as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<ConditionCode as TryFrom<usize>>::try_from(IcedConstants::CONDITION_CODE_ENUM_COUNT).is_err());
+	assert!(<ConditionCode as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: ConditionCode
 
 // GENERATOR-BEGIN: MandatoryPrefix
@@ -2221,6 +2467,31 @@ fn test_mandatoryprefix_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[rustfmt::skip]
+impl TryFrom<usize> for MandatoryPrefix {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::MANDATORY_PREFIX_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid MandatoryPrefix value"))
+		}
+	}
+}
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[test]
+#[rustfmt::skip]
+fn test_mandatoryprefix_try_from_usize() {
+	for value in MandatoryPrefix::values() {
+		let converted = <MandatoryPrefix as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<MandatoryPrefix as TryFrom<usize>>::try_from(IcedConstants::MANDATORY_PREFIX_ENUM_COUNT).is_err());
+	assert!(<MandatoryPrefix as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: MandatoryPrefix
 
@@ -2329,5 +2600,30 @@ fn test_opcodetablekind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[rustfmt::skip]
+impl TryFrom<usize> for OpCodeTableKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::OP_CODE_TABLE_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid OpCodeTableKind value"))
+		}
+	}
+}
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[test]
+#[rustfmt::skip]
+fn test_opcodetablekind_try_from_usize() {
+	for value in OpCodeTableKind::values() {
+		let converted = <OpCodeTableKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<OpCodeTableKind as TryFrom<usize>>::try_from(IcedConstants::OP_CODE_TABLE_KIND_ENUM_COUNT).is_err());
+	assert!(<OpCodeTableKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: OpCodeTableKind

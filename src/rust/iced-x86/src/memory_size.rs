@@ -3,6 +3,8 @@
 // Copyright iced contributors
 
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
+use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
@@ -858,6 +860,29 @@ fn test_memorysize_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for MemorySize {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::MEMORY_SIZE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid MemorySize value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_memorysize_try_from_usize() {
+	for value in MemorySize::values() {
+		let converted = <MemorySize as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<MemorySize as TryFrom<usize>>::try_from(IcedConstants::MEMORY_SIZE_ENUM_COUNT).is_err());
+	assert!(<MemorySize as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: MemorySize
 

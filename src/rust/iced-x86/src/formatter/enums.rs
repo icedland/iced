@@ -3,6 +3,8 @@
 // Copyright iced contributors
 
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
+use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
@@ -91,6 +93,29 @@ fn test_numberbase_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for NumberBase {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::NUMBER_BASE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid NumberBase value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_numberbase_try_from_usize() {
+	for value in NumberBase::values() {
+		let converted = <NumberBase as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<NumberBase as TryFrom<usize>>::try_from(IcedConstants::NUMBER_BASE_ENUM_COUNT).is_err());
+	assert!(<NumberBase as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: NumberBase
 
@@ -222,6 +247,29 @@ fn test_prefixkind_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for PrefixKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::PREFIX_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid PrefixKind value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_prefixkind_try_from_usize() {
+	for value in PrefixKind::values() {
+		let converted = <PrefixKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<PrefixKind as TryFrom<usize>>::try_from(IcedConstants::PREFIX_KIND_ENUM_COUNT).is_err());
+	assert!(<PrefixKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: PrefixKind
 
 // GENERATOR-BEGIN: DecoratorKind
@@ -310,6 +358,29 @@ fn test_decoratorkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for DecoratorKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::DECORATOR_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid DecoratorKind value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_decoratorkind_try_from_usize() {
+	for value in DecoratorKind::values() {
+		let converted = <DecoratorKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<DecoratorKind as TryFrom<usize>>::try_from(IcedConstants::DECORATOR_KIND_ENUM_COUNT).is_err());
+	assert!(<DecoratorKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: DecoratorKind
 
@@ -404,6 +475,29 @@ fn test_numberkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for NumberKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::NUMBER_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid NumberKind value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_numberkind_try_from_usize() {
+	for value in NumberKind::values() {
+		let converted = <NumberKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<NumberKind as TryFrom<usize>>::try_from(IcedConstants::NUMBER_KIND_ENUM_COUNT).is_err());
+	assert!(<NumberKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: NumberKind
 
@@ -530,6 +624,29 @@ fn test_cc_b_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_b {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_B_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_b value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_b_try_from_usize() {
+	for value in CC_b::values() {
+		let converted = <CC_b as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_b as TryFrom<usize>>::try_from(IcedConstants::CC_B_ENUM_COUNT).is_err());
+	assert!(<CC_b as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CC_b
 
 // GENERATOR-BEGIN: CC_ae
@@ -616,6 +733,29 @@ fn test_cc_ae_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_ae {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_AE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_ae value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_ae_try_from_usize() {
+	for value in CC_ae::values() {
+		let converted = <CC_ae as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_ae as TryFrom<usize>>::try_from(IcedConstants::CC_AE_ENUM_COUNT).is_err());
+	assert!(<CC_ae as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CC_ae
 
 // GENERATOR-BEGIN: CC_e
@@ -698,6 +838,29 @@ fn test_cc_e_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_e {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_E_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_e value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_e_try_from_usize() {
+	for value in CC_e::values() {
+		let converted = <CC_e as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_e as TryFrom<usize>>::try_from(IcedConstants::CC_E_ENUM_COUNT).is_err());
+	assert!(<CC_e as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: CC_e
 
@@ -782,6 +945,29 @@ fn test_cc_ne_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_ne {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_NE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_ne value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_ne_try_from_usize() {
+	for value in CC_ne::values() {
+		let converted = <CC_ne as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_ne as TryFrom<usize>>::try_from(IcedConstants::CC_NE_ENUM_COUNT).is_err());
+	assert!(<CC_ne as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CC_ne
 
 // GENERATOR-BEGIN: CC_be
@@ -864,6 +1050,29 @@ fn test_cc_be_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_be {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_BE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_be value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_be_try_from_usize() {
+	for value in CC_be::values() {
+		let converted = <CC_be as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_be as TryFrom<usize>>::try_from(IcedConstants::CC_BE_ENUM_COUNT).is_err());
+	assert!(<CC_be as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: CC_be
 
@@ -948,6 +1157,29 @@ fn test_cc_a_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_a {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_A_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_a value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_a_try_from_usize() {
+	for value in CC_a::values() {
+		let converted = <CC_a as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_a as TryFrom<usize>>::try_from(IcedConstants::CC_A_ENUM_COUNT).is_err());
+	assert!(<CC_a as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CC_a
 
 // GENERATOR-BEGIN: CC_p
@@ -1030,6 +1262,29 @@ fn test_cc_p_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_p {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_P_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_p value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_p_try_from_usize() {
+	for value in CC_p::values() {
+		let converted = <CC_p as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_p as TryFrom<usize>>::try_from(IcedConstants::CC_P_ENUM_COUNT).is_err());
+	assert!(<CC_p as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: CC_p
 
@@ -1114,6 +1369,29 @@ fn test_cc_np_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_np {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_NP_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_np value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_np_try_from_usize() {
+	for value in CC_np::values() {
+		let converted = <CC_np as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_np as TryFrom<usize>>::try_from(IcedConstants::CC_NP_ENUM_COUNT).is_err());
+	assert!(<CC_np as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CC_np
 
 // GENERATOR-BEGIN: CC_l
@@ -1196,6 +1474,29 @@ fn test_cc_l_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_l {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_L_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_l value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_l_try_from_usize() {
+	for value in CC_l::values() {
+		let converted = <CC_l as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_l as TryFrom<usize>>::try_from(IcedConstants::CC_L_ENUM_COUNT).is_err());
+	assert!(<CC_l as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: CC_l
 
@@ -1280,6 +1581,29 @@ fn test_cc_ge_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_ge {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_GE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_ge value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_ge_try_from_usize() {
+	for value in CC_ge::values() {
+		let converted = <CC_ge as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_ge as TryFrom<usize>>::try_from(IcedConstants::CC_GE_ENUM_COUNT).is_err());
+	assert!(<CC_ge as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CC_ge
 
 // GENERATOR-BEGIN: CC_le
@@ -1363,6 +1687,29 @@ fn test_cc_le_values() {
 		assert_eq!(i, value as usize);
 	}
 }
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_le {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_LE_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_le value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_le_try_from_usize() {
+	for value in CC_le::values() {
+		let converted = <CC_le as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_le as TryFrom<usize>>::try_from(IcedConstants::CC_LE_ENUM_COUNT).is_err());
+	assert!(<CC_le as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+}
 // GENERATOR-END: CC_le
 
 // GENERATOR-BEGIN: CC_g
@@ -1445,5 +1792,28 @@ fn test_cc_g_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for CC_g {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::CC_G_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid CC_g value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_cc_g_try_from_usize() {
+	for value in CC_g::values() {
+		let converted = <CC_g as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<CC_g as TryFrom<usize>>::try_from(IcedConstants::CC_G_ENUM_COUNT).is_err());
+	assert!(<CC_g as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: CC_g

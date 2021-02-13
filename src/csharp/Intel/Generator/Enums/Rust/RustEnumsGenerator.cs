@@ -254,6 +254,8 @@ namespace Generator.Enums.Rust {
 				var icedConstValue = "IcedConstants::" + idConverter.Constant(IcedConstants.GetEnumCountName(enumType.TypeId));
 				var enumUnderlyingType = GetUnderlyingTypeStr(enumType);
 
+				// Associated method: values()
+
 				if (feature is not null)
 					writer.WriteLine(feature);
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
@@ -339,6 +341,58 @@ namespace Generator.Enums.Rust {
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
+
+				// impl trait TryFrom
+
+				var tryFromTypes = new string[] {
+					"usize",
+					//"u32",
+				};
+				foreach (var tryFromType in tryFromTypes) {
+					var castToFromType = tryFromType == "usize" ? string.Empty : $" as {tryFromType}";
+					if (feature is not null)
+						writer.WriteLine(feature);
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"impl TryFrom<{tryFromType}> for {enumTypeName} {{");
+					using (writer.Indent()) {
+						writer.WriteLine("type Error = IcedError;");
+						writer.WriteLine("#[inline]");
+						writer.WriteLine($"fn try_from(value: {tryFromType}) -> Result<Self, Self::Error> {{");
+						using (writer.Indent()) {
+							writer.WriteLine($"if value < {icedConstValue}{castToFromType} {{");
+							using (writer.Indent()) {
+								if (enumType.Values.Length == 1)
+									writer.WriteLine($"Ok({enumTypeName}::{enumType.Values[0].Name(idConverter)})");
+								else {
+									writer.WriteLine("// Safe, all values [0, max) are valid enum values");
+									writer.WriteLine($"Ok(unsafe {{ mem::transmute(value as {enumUnderlyingType}) }})");
+								}
+							}
+							writer.WriteLine("} else {");
+							using (writer.Indent())
+								writer.WriteLine($"Err(IcedError::new(\"Invalid {enumTypeName} value\"))");
+							writer.WriteLine("}");
+						}
+						writer.WriteLine("}");
+					}
+					writer.WriteLine("}");
+					if (feature is not null)
+						writer.WriteLine(feature);
+					writer.WriteLine("#[test]");
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"fn test_{enumTypeName.ToLowerInvariant()}_try_from_{tryFromType}() {{");
+					using (writer.Indent()) {
+						writer.WriteLine($"for value in {enumTypeName}::values() {{");
+						using (writer.Indent()) {
+							writer.WriteLine($"let converted = <{enumTypeName} as TryFrom<{tryFromType}>>::try_from(value as {tryFromType}).unwrap();");
+							writer.WriteLine("assert_eq!(converted, value);");
+						}
+						writer.WriteLine("}");
+						writer.WriteLine($"assert!(<{enumTypeName} as TryFrom<{tryFromType}>>::try_from({icedConstValue}{castToFromType}).is_err());");
+						writer.WriteLine($"assert!(<{enumTypeName} as TryFrom<{tryFromType}>>::try_from(core::{tryFromType}::MAX).is_err());");
+					}
+					writer.WriteLine("}");
+				}
 			}
 		}
 

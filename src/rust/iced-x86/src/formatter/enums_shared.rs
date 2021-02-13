@@ -3,6 +3,8 @@
 // Copyright iced contributors
 
 use super::iced_constants::IcedConstants;
+use super::iced_error::IcedError;
+use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
@@ -144,6 +146,29 @@ fn test_formattertextkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for FormatterTextKind {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid FormatterTextKind value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_formattertextkind_try_from_usize() {
+	for value in FormatterTextKind::values() {
+		let converted = <FormatterTextKind as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<FormatterTextKind as TryFrom<usize>>::try_from(IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT).is_err());
+	assert!(<FormatterTextKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: FormatterTextKind
 
@@ -294,5 +319,28 @@ fn test_memorysizeoptions_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+}
+#[rustfmt::skip]
+impl TryFrom<usize> for MemorySizeOptions {
+	type Error = IcedError;
+	#[inline]
+	fn try_from(value: usize) -> Result<Self, Self::Error> {
+		if value < IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT {
+			// Safe, all values [0, max) are valid enum values
+			Ok(unsafe { mem::transmute(value as u8) })
+		} else {
+			Err(IcedError::new("Invalid MemorySizeOptions value"))
+		}
+	}
+}
+#[test]
+#[rustfmt::skip]
+fn test_memorysizeoptions_try_from_usize() {
+	for value in MemorySizeOptions::values() {
+		let converted = <MemorySizeOptions as TryFrom<usize>>::try_from(value as usize).unwrap();
+		assert_eq!(converted, value);
+	}
+	assert!(<MemorySizeOptions as TryFrom<usize>>::try_from(IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT).is_err());
+	assert!(<MemorySizeOptions as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: MemorySizeOptions
