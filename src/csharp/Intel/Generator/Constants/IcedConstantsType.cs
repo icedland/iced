@@ -30,6 +30,8 @@ namespace Generator.Constants {
 			foreach (var enumType in genTypes.AllEnumTypes) {
 				if (!enumType.IsPublic || enumType.IsFlags)
 					continue;
+				if (!VerifyPublicEnumValues(enumType))
+					throw new InvalidOperationException($"All values 0..max (exclusive) must be valid enum values");
 				var rawName = enumType.RawName;
 				string enumCountName;
 				if (rawName.Contains('_', StringComparison.Ordinal))
@@ -39,6 +41,23 @@ namespace Generator.Constants {
 				toEnumCountName.Add(enumType.TypeId, enumCountName);
 			}
 			toEnumCountNameInitd = true;
+		}
+
+		// Lots of places (especially Rust code) assume there are no holes
+		// in public non-flags enums, i.e., all values from 0 .. max are
+		// assumed to be valid enum values. Verify it.
+		static bool VerifyPublicEnumValues(EnumType enumType) {
+			var values = enumType.Values;
+			uint expectedValue = 0;
+			for (int i = 0; i < values.Length; i++) {
+				if (values[i].Value != expectedValue)
+					return false;
+				// Could be duplicate values if one is deprecated, skip them
+				while (i + 1 < values.Length && values[i + 1].Value == expectedValue)
+					i++;
+				expectedValue++;
+			}
+			return true;
 		}
 
 		public static string GetEnumCountName(TypeId id) => GetEnumCountNameDict()[id];
