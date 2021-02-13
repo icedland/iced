@@ -10648,10 +10648,7 @@ impl fmt::Display for Instruction {
 	}
 }
 
-/// [`OpKind`] iterator, see [`Instruction::op_kinds()`]
-///
-/// [`OpKind`]: enum.OpKind.html
-/// [`Instruction::op_kinds()`]: struct.Instruction.html#method.op_kinds
+#[doc(hidden)]
 #[allow(missing_debug_implementations)]
 #[allow(missing_copy_implementations)]
 pub struct OpKindIterator {

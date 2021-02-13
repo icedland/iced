@@ -1558,7 +1558,7 @@ impl SubAssign<u32> for Register {
 	}
 }
 
-/// Iterator for `Register` enum values
+#[doc(hidden)]
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub struct RegisterIterator {
 	curr_val: u8,

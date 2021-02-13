@@ -2192,11 +2192,7 @@ impl<'a> Decoder<'a> {
 	}
 }
 
-/// An iterator that borrows a [`Decoder`] and decodes instructions until there's
-/// no more data available. See [`Decoder::iter()`].
-///
-/// [`Decoder`]: struct.Decoder.html
-/// [`Decoder::iter()`]: struct.Decoder.html#method.iter
+#[doc(hidden)]
 #[allow(missing_debug_implementations)]
 pub struct DecoderIter<'a: 'b, 'b> {
 	decoder: &'b mut Decoder<'a>,
@@ -2217,10 +2213,7 @@ impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
 
 impl<'a, 'b> FusedIterator for DecoderIter<'a, 'b> {}
 
-/// An iterator that consumes a [`Decoder`] and decodes instructions until there's
-/// no more data available.
-///
-/// [`Decoder`]: struct.Decoder.html
+#[doc(hidden)]
 #[allow(missing_debug_implementations)]
 pub struct DecoderIntoIter<'a> {
 	decoder: Decoder<'a>,
