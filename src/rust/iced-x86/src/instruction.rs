@@ -613,9 +613,8 @@ impl Instruction {
 	///     println!("op kind #{} = {:?}", i, op_kind);
 	/// }
 	/// ```
-	#[must_use]
 	#[inline]
-	pub fn op_kinds(&self) -> OpKindIterator {
+	pub fn op_kinds(&self) -> impl Iterator<Item = OpKind> + ExactSizeIterator + FusedIterator {
 		OpKindIterator::new(self)
 	}
 
@@ -10648,10 +10647,7 @@ impl fmt::Display for Instruction {
 	}
 }
 
-#[doc(hidden)]
-#[allow(missing_debug_implementations)]
-#[allow(missing_copy_implementations)]
-pub struct OpKindIterator {
+struct OpKindIterator {
 	count: u8,
 	index: u8,
 	op_kinds: [OpKind; IcedConstants::MAX_OP_COUNT],
