@@ -60,8 +60,7 @@ static GEN_DEBUG_OP_SIZE: [&str; 3] = [
 impl fmt::Debug for OpSize {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_OP_SIZE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_OP_SIZE[*self as usize])
 	}
 }
 impl Default for OpSize {
@@ -95,8 +94,7 @@ static GEN_DEBUG_DECODER_ERROR: [&str; 3] = [
 impl fmt::Debug for DecoderError {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_DECODER_ERROR[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_DECODER_ERROR[*self as usize])
 	}
 }
 impl Default for DecoderError {

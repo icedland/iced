@@ -32,8 +32,7 @@ static GEN_DEBUG_NUMBER_BASE: [&str; 4] = [
 impl fmt::Debug for NumberBase {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_NUMBER_BASE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_NUMBER_BASE[*self as usize])
 	}
 }
 impl Default for NumberBase {
@@ -185,8 +184,7 @@ static GEN_DEBUG_PREFIX_KIND: [&str; 18] = [
 impl fmt::Debug for PrefixKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_PREFIX_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_PREFIX_KIND[*self as usize])
 	}
 }
 impl Default for PrefixKind {
@@ -297,8 +295,7 @@ static GEN_DEBUG_DECORATOR_KIND: [&str; 4] = [
 impl fmt::Debug for DecoratorKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_DECORATOR_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_DECORATOR_KIND[*self as usize])
 	}
 }
 impl Default for DecoratorKind {
@@ -414,8 +411,7 @@ static GEN_DEBUG_NUMBER_KIND: [&str; 8] = [
 impl fmt::Debug for NumberKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_NUMBER_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_NUMBER_KIND[*self as usize])
 	}
 }
 impl Default for NumberKind {
@@ -527,8 +523,7 @@ static GEN_DEBUG_FORMATTER_FLOW_CONTROL: [&str; 7] = [
 impl fmt::Debug for FormatterFlowControl {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_FORMATTER_FLOW_CONTROL[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_FORMATTER_FLOW_CONTROL[*self as usize])
 	}
 }
 impl Default for FormatterFlowControl {
@@ -562,8 +557,7 @@ static GEN_DEBUG_CC_B: [&str; 3] = [
 impl fmt::Debug for CC_b {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_B[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_B[*self as usize])
 	}
 }
 impl Default for CC_b {
@@ -671,8 +665,7 @@ static GEN_DEBUG_CC_AE: [&str; 3] = [
 impl fmt::Debug for CC_ae {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_AE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_AE[*self as usize])
 	}
 }
 impl Default for CC_ae {
@@ -777,8 +770,7 @@ static GEN_DEBUG_CC_E: [&str; 2] = [
 impl fmt::Debug for CC_e {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_E[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_E[*self as usize])
 	}
 }
 impl Default for CC_e {
@@ -883,8 +875,7 @@ static GEN_DEBUG_CC_NE: [&str; 2] = [
 impl fmt::Debug for CC_ne {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_NE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_NE[*self as usize])
 	}
 }
 impl Default for CC_ne {
@@ -989,8 +980,7 @@ static GEN_DEBUG_CC_BE: [&str; 2] = [
 impl fmt::Debug for CC_be {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_BE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_BE[*self as usize])
 	}
 }
 impl Default for CC_be {
@@ -1095,8 +1085,7 @@ static GEN_DEBUG_CC_A: [&str; 2] = [
 impl fmt::Debug for CC_a {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_A[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_A[*self as usize])
 	}
 }
 impl Default for CC_a {
@@ -1201,8 +1190,7 @@ static GEN_DEBUG_CC_P: [&str; 2] = [
 impl fmt::Debug for CC_p {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_P[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_P[*self as usize])
 	}
 }
 impl Default for CC_p {
@@ -1307,8 +1295,7 @@ static GEN_DEBUG_CC_NP: [&str; 2] = [
 impl fmt::Debug for CC_np {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_NP[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_NP[*self as usize])
 	}
 }
 impl Default for CC_np {
@@ -1413,8 +1400,7 @@ static GEN_DEBUG_CC_L: [&str; 2] = [
 impl fmt::Debug for CC_l {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_L[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_L[*self as usize])
 	}
 }
 impl Default for CC_l {
@@ -1519,8 +1505,7 @@ static GEN_DEBUG_CC_GE: [&str; 2] = [
 impl fmt::Debug for CC_ge {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_GE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_GE[*self as usize])
 	}
 }
 impl Default for CC_ge {
@@ -1625,8 +1610,7 @@ static GEN_DEBUG_CC_LE: [&str; 2] = [
 impl fmt::Debug for CC_le {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_LE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_LE[*self as usize])
 	}
 }
 impl Default for CC_le {
@@ -1731,8 +1715,7 @@ static GEN_DEBUG_CC_G: [&str; 2] = [
 impl fmt::Debug for CC_g {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CC_G[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CC_G[*self as usize])
 	}
 }
 impl Default for CC_g {

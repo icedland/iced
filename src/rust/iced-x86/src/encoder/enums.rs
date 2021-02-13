@@ -35,8 +35,7 @@ static GEN_DEBUG_DISPL_SIZE: [&str; 7] = [
 impl fmt::Debug for DisplSize {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_DISPL_SIZE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_DISPL_SIZE[*self as usize])
 	}
 }
 impl Default for DisplSize {
@@ -103,8 +102,7 @@ static GEN_DEBUG_IMM_SIZE: [&str; 19] = [
 impl fmt::Debug for ImmSize {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_IMM_SIZE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_IMM_SIZE[*self as usize])
 	}
 }
 impl Default for ImmSize {
@@ -165,8 +163,7 @@ static GEN_DEBUG_LEGACY_OP_CODE_TABLE: [&str; 4] = [
 impl fmt::Debug for LegacyOpCodeTable {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_LEGACY_OP_CODE_TABLE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_LEGACY_OP_CODE_TABLE[*self as usize])
 	}
 }
 impl Default for LegacyOpCodeTable {
@@ -200,8 +197,7 @@ static GEN_DEBUG_VEX_OP_CODE_TABLE: [&str; 3] = [
 impl fmt::Debug for VexOpCodeTable {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_VEX_OP_CODE_TABLE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_VEX_OP_CODE_TABLE[*self as usize])
 	}
 }
 #[cfg(not(feature = "no_vex"))]
@@ -236,8 +232,7 @@ static GEN_DEBUG_XOP_OP_CODE_TABLE: [&str; 3] = [
 impl fmt::Debug for XopOpCodeTable {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_XOP_OP_CODE_TABLE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_XOP_OP_CODE_TABLE[*self as usize])
 	}
 }
 #[cfg(not(feature = "no_xop"))]
@@ -272,8 +267,7 @@ static GEN_DEBUG_EVEX_OP_CODE_TABLE: [&str; 3] = [
 impl fmt::Debug for EvexOpCodeTable {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_EVEX_OP_CODE_TABLE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_EVEX_OP_CODE_TABLE[*self as usize])
 	}
 }
 #[cfg(not(feature = "no_evex"))]
@@ -483,8 +477,7 @@ static GEN_DEBUG_INSTR_STR_FMT_OPTION: [&str; 6] = [
 impl fmt::Debug for InstrStrFmtOption {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_INSTR_STR_FMT_OPTION[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_INSTR_STR_FMT_OPTION[*self as usize])
 	}
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -521,8 +514,7 @@ static GEN_DEBUG_WBIT: [&str; 4] = [
 impl fmt::Debug for WBit {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_WBIT[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_WBIT[*self as usize])
 	}
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
@@ -565,8 +557,7 @@ static GEN_DEBUG_LBIT: [&str; 7] = [
 impl fmt::Debug for LBit {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_LBIT[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_LBIT[*self as usize])
 	}
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
@@ -601,8 +592,7 @@ static GEN_DEBUG_REP_PREFIX_KIND: [&str; 3] = [
 impl fmt::Debug for RepPrefixKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_REP_PREFIX_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_REP_PREFIX_KIND[*self as usize])
 	}
 }
 impl Default for RepPrefixKind {

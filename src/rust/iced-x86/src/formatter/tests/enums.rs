@@ -145,8 +145,7 @@ static GEN_DEBUG_OPTIONS_PROPS: [&str; 64] = [
 impl fmt::Debug for OptionsProps {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_OPTIONS_PROPS[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_OPTIONS_PROPS[*self as usize])
 	}
 }
 impl Default for OptionsProps {

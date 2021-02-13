@@ -799,8 +799,7 @@ static GEN_DEBUG_MEMORY_SIZE: [&str; 141] = [
 impl fmt::Debug for MemorySize {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_MEMORY_SIZE[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_MEMORY_SIZE[*self as usize])
 	}
 }
 impl Default for MemorySize {

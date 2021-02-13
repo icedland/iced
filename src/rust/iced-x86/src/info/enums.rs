@@ -129,8 +129,7 @@ static GEN_DEBUG_OP_INFO0: [&str; 13] = [
 impl fmt::Debug for OpInfo0 {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_OP_INFO0[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_OP_INFO0[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]
@@ -173,8 +172,7 @@ static GEN_DEBUG_OP_INFO1: [&str; 7] = [
 impl fmt::Debug for OpInfo1 {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_OP_INFO1[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_OP_INFO1[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]
@@ -209,8 +207,7 @@ static GEN_DEBUG_OP_INFO2: [&str; 3] = [
 impl fmt::Debug for OpInfo2 {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_OP_INFO2[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_OP_INFO2[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]
@@ -243,8 +240,7 @@ static GEN_DEBUG_OP_INFO3: [&str; 2] = [
 impl fmt::Debug for OpInfo3 {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_OP_INFO3[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_OP_INFO3[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]
@@ -277,8 +273,7 @@ static GEN_DEBUG_OP_INFO4: [&str; 2] = [
 impl fmt::Debug for OpInfo4 {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_OP_INFO4[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_OP_INFO4[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]
@@ -683,8 +678,7 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 188] = [
 impl fmt::Debug for ImpliedAccess {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_IMPLIED_ACCESS[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_IMPLIED_ACCESS[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]
@@ -871,8 +865,7 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 79] = [
 impl fmt::Debug for RflagsInfo {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_RFLAGS_INFO[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_RFLAGS_INFO[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]
@@ -1253,8 +1246,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 176] = [
 impl fmt::Debug for CpuidFeatureInternal {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CPUID_FEATURE_INTERNAL[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CPUID_FEATURE_INTERNAL[*self as usize])
 	}
 }
 #[cfg(feature = "instr_info")]

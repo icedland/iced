@@ -3281,8 +3281,7 @@ static GEN_DEBUG_MNEMONIC: [&str; 1629] = [
 impl fmt::Debug for Mnemonic {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_MNEMONIC[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_MNEMONIC[*self as usize])
 	}
 }
 impl Default for Mnemonic {

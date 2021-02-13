@@ -115,8 +115,7 @@ static GEN_DEBUG_CTOR_KIND: [&str; 49] = [
 impl fmt::Debug for CtorKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_CTOR_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_CTOR_KIND[*self as usize])
 	}
 }
 impl Default for CtorKind {
@@ -226,8 +225,7 @@ static GEN_DEBUG_INSTR_OP_KIND: [&str; 31] = [
 impl fmt::Debug for InstrOpKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_INSTR_OP_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_INSTR_OP_KIND[*self as usize])
 	}
 }
 impl Default for InstrOpKind {

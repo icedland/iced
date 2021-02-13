@@ -85,8 +85,7 @@ static GEN_DEBUG_FORMATTER_TEXT_KIND: [&str; 16] = [
 impl fmt::Debug for FormatterTextKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_FORMATTER_TEXT_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_FORMATTER_TEXT_KIND[*self as usize])
 	}
 }
 impl Default for FormatterTextKind {
@@ -221,8 +220,7 @@ static GEN_DEBUG_PSEUDO_OPS_KIND: [&str; 18] = [
 impl fmt::Debug for PseudoOpsKind {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_PSEUDO_OPS_KIND[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_PSEUDO_OPS_KIND[*self as usize])
 	}
 }
 impl Default for PseudoOpsKind {
@@ -258,8 +256,7 @@ static GEN_DEBUG_MEMORY_SIZE_OPTIONS: [&str; 4] = [
 impl fmt::Debug for MemorySizeOptions {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", GEN_DEBUG_MEMORY_SIZE_OPTIONS[*self as usize])?;
-		Ok(())
+		write!(f, "{}", GEN_DEBUG_MEMORY_SIZE_OPTIONS[*self as usize])
 	}
 }
 impl Default for MemorySizeOptions {
