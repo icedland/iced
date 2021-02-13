@@ -74,7 +74,6 @@ mod encoder;
 mod enum_utils;
 mod fast_formatter;
 mod formatter;
-mod iced_constants;
 mod info;
 mod instruction;
 mod memory_operand;
