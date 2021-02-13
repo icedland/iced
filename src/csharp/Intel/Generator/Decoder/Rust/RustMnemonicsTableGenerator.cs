@@ -30,7 +30,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine($"use super::{genTypes[TypeIds.Mnemonic].Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(super) static TO_MNEMONIC: [{mnemonicName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.CodeEnumCountName].Name(idConverter)}] = [");
+				writer.WriteLine($"pub(super) static TO_MNEMONIC: [{mnemonicName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] = [");
 				using (writer.Indent()) {
 					foreach (var def in defs) {
 						if (def.Mnemonic.Value > ushort.MaxValue)

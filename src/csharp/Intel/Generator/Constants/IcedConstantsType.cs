@@ -23,11 +23,11 @@ namespace Generator.Constants {
 			return toEnumCountName;
 		}
 
-		internal static IEnumerable<TypeId> GetEnumCountTypeIds() => GetEnumCountNameDict().Keys;
+		internal static IEnumerable<KeyValuePair<TypeId, string>> GetEnumCountTypeIdsAndNames() => GetEnumCountNameDict();
 		internal static void InitializeEnumCountTypes(GenTypes genTypes) {
 			if (toEnumCountName.Count != 0 || toEnumCountNameInitd)
 				throw new InvalidOperationException();
-			foreach (var enumType in genTypes.AllEnumTypes.OrderBy(a => a.RawName, StringComparer.Ordinal)) {
+			foreach (var enumType in genTypes.AllEnumTypes) {
 				if (!enumType.IsPublic || enumType.IsFlags)
 					continue;
 				var rawName = enumType.RawName;
@@ -42,7 +42,6 @@ namespace Generator.Constants {
 		}
 
 		public static string GetEnumCountName(TypeId id) => GetEnumCountNameDict()[id];
-		public static string CodeEnumCountName => GetEnumCountName(TypeIds.Code);
 	}
 
 	[TypeGen(TypeGenOrders.Last)]
@@ -77,8 +76,8 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.MemorySize, IcedConstants.FirstBroadcastMemorySizeName, GetFirstBroadcastMemorySize()),
 			};
 
-			foreach (var id in IcedConstants.GetEnumCountTypeIds().OrderBy(a => a.Id1, StringComparer.Ordinal))
-				constants.Add(new Constant(ConstantKind.Index, IcedConstants.GetEnumCountName(id), GetEnumCount(genTypes[id])));
+			foreach (var kv in IcedConstants.GetEnumCountTypeIdsAndNames().OrderBy(kv => kv.Value, StringComparer.Ordinal))
+				constants.Add(new Constant(ConstantKind.Index, IcedConstants.GetEnumCountName(kv.Key), GetEnumCount(genTypes[kv.Key])));
 
 			return constants.ToArray();
 		}
