@@ -155,8 +155,8 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 }
 
 fn get_memory_register_size(instruction: &Instruction) -> u32 {
-	for i in 0..instruction.op_count() {
-		match instruction.try_op_kind(i).unwrap() {
+	for op_kind in instruction.op_kinds() {
+		match op_kind {
 			OpKind::Register
 			| OpKind::NearBranch16
 			| OpKind::NearBranch32

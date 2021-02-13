@@ -949,14 +949,10 @@ pub(crate) fn how_to_get_instruction_info() {
         if instr.rflags_modified() != RflagsBits::NONE {
             println!("    RFLAGS Modified: {}", flags(instr.rflags_modified()));
         }
-        for i in 0..instr.op_count() {
-            let op_kind = instr.try_op_kind(i).unwrap();
-            if op_kind == OpKind::Memory {
-                let size = instr.memory_size().size();
-                if size != 0 {
-                    println!("    Memory size: {}", size);
-                }
-                break;
+        if instr.op_kinds().any(|op_kind| op_kind == OpKind::Memory) {
+            let size = instr.memory_size().size();
+            if size != 0 {
+                println!("    Memory size: {}", size);
             }
         }
         for i in 0..instr.op_count() {
