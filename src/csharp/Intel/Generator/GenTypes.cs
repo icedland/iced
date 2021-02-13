@@ -95,6 +95,8 @@ namespace Generator {
 			}
 		}
 
+		public IEnumerable<EnumType> AllEnumTypes => enums.Values;
+
 		public ConstantsType GetConstantsType(TypeId id) {
 			if (!constants.TryGetValue(id, out var constantsType))
 				throw new InvalidOperationException($"Constants type {id} doesn't exist");

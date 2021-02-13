@@ -2,7 +2,9 @@
 // Copyright wtfsck@protonmail.com
 // Copyright iced contributors
 
-use core::fmt;
+use super::iced_constants::IcedConstants;
+use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
+use core::{fmt, mem};
 
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 pub use self::info::*;
@@ -806,6 +808,57 @@ impl Default for MemorySize {
 		MemorySize::Unknown
 	}
 }
+#[rustfmt::skip]
+impl MemorySize {
+	/// Iterates over all `MemorySize` enum values
+	#[inline]
+	pub fn values() -> impl Iterator<Item = MemorySize> + ExactSizeIterator + FusedIterator {
+		MemorySizeIterator { index: 0 }
+	}
+}
+#[allow(non_camel_case_types)]
+struct MemorySizeIterator {
+	index: u32,
+}
+#[rustfmt::skip]
+impl Iterator for MemorySizeIterator {
+	type Item = MemorySize;
+	#[inline]
+	fn next(&mut self) -> Option<Self::Item> {
+		let index = self.index;
+		if index < IcedConstants::MEMORY_SIZE_ENUM_COUNT as u32 {
+			// Safe, all values [0, max) are valid enum values
+			let value: MemorySize = unsafe { mem::transmute(index as u8) };
+			self.index = index + 1;
+			Some(value)
+		} else {
+			None
+		}
+	}
+	#[inline]
+	fn size_hint(&self) -> (usize, Option<usize>) {
+		let len = IcedConstants::MEMORY_SIZE_ENUM_COUNT - self.index as usize;
+		(len, Some(len))
+	}
+}
+impl ExactSizeIterator for MemorySizeIterator {}
+impl FusedIterator for MemorySizeIterator {}
+#[test]
+#[rustfmt::skip]
+fn test_memorysize_values() {
+	let mut iter = MemorySize::values();
+	assert_eq!(iter.size_hint(), (IcedConstants::MEMORY_SIZE_ENUM_COUNT, Some(IcedConstants::MEMORY_SIZE_ENUM_COUNT)));
+	assert_eq!(iter.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT);
+	assert!(iter.next().is_some());
+	assert_eq!(iter.size_hint(), (IcedConstants::MEMORY_SIZE_ENUM_COUNT - 1, Some(IcedConstants::MEMORY_SIZE_ENUM_COUNT - 1)));
+	assert_eq!(iter.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT - 1);
+
+	let values: Vec<MemorySize> = MemorySize::values().collect();
+	assert_eq!(values.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT);
+	for (i, value) in values.into_iter().enumerate() {
+		assert_eq!(i, value as usize);
+	}
+}
 // GENERATOR-END: MemorySize
 
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
@@ -958,7 +1011,6 @@ impl MemorySize {
 	#[must_use]
 	#[inline]
 	pub fn is_broadcast(self) -> bool {
-		use super::iced_constants::IcedConstants;
 		self >= IcedConstants::FIRST_BROADCAST_MEMORY_SIZE
 	}
 }

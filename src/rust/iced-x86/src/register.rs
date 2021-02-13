@@ -3,7 +3,7 @@
 // Copyright iced contributors
 
 use super::iced_constants::IcedConstants;
-use core::iter::Iterator;
+use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
 
@@ -1446,16 +1446,60 @@ impl Default for Register {
 		Register::None
 	}
 }
+#[rustfmt::skip]
+impl Register {
+	/// Iterates over all `Register` enum values
+	#[inline]
+	pub fn values() -> impl Iterator<Item = Register> + ExactSizeIterator + FusedIterator {
+		RegisterIterator { index: 0 }
+	}
+}
+#[allow(non_camel_case_types)]
+struct RegisterIterator {
+	index: u32,
+}
+#[rustfmt::skip]
+impl Iterator for RegisterIterator {
+	type Item = Register;
+	#[inline]
+	fn next(&mut self) -> Option<Self::Item> {
+		let index = self.index;
+		if index < IcedConstants::REGISTER_ENUM_COUNT as u32 {
+			// Safe, all values [0, max) are valid enum values
+			let value: Register = unsafe { mem::transmute(index as u8) };
+			self.index = index + 1;
+			Some(value)
+		} else {
+			None
+		}
+	}
+	#[inline]
+	fn size_hint(&self) -> (usize, Option<usize>) {
+		let len = IcedConstants::REGISTER_ENUM_COUNT - self.index as usize;
+		(len, Some(len))
+	}
+}
+impl ExactSizeIterator for RegisterIterator {}
+impl FusedIterator for RegisterIterator {}
+#[test]
+#[rustfmt::skip]
+fn test_register_values() {
+	let mut iter = Register::values();
+	assert_eq!(iter.size_hint(), (IcedConstants::REGISTER_ENUM_COUNT, Some(IcedConstants::REGISTER_ENUM_COUNT)));
+	assert_eq!(iter.len(), IcedConstants::REGISTER_ENUM_COUNT);
+	assert!(iter.next().is_some());
+	assert_eq!(iter.size_hint(), (IcedConstants::REGISTER_ENUM_COUNT - 1, Some(IcedConstants::REGISTER_ENUM_COUNT - 1)));
+	assert_eq!(iter.len(), IcedConstants::REGISTER_ENUM_COUNT - 1);
+
+	let values: Vec<Register> = Register::values().collect();
+	assert_eq!(values.len(), IcedConstants::REGISTER_ENUM_COUNT);
+	for (i, value) in values.into_iter().enumerate() {
+		assert_eq!(i, value as usize);
+	}
+}
 // GENERATOR-END: Register
 
 impl Register {
-	/// Returns an iterator for `Register` enum values
-	#[must_use]
-	#[inline]
-	pub fn values() -> RegisterIterator {
-		RegisterIterator::new()
-	}
-
 	#[must_use]
 	fn add(self, rhs: u32) -> Self {
 		let result = (self as u32).wrapping_add(rhs);
@@ -1555,43 +1599,5 @@ impl SubAssign<u32> for Register {
 	#[inline]
 	fn sub_assign(&mut self, rhs: u32) {
 		*self = self.sub(rhs)
-	}
-}
-
-#[doc(hidden)]
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
-pub struct RegisterIterator {
-	curr_val: u8,
-}
-
-impl RegisterIterator {
-	/// Creates a new iterator
-	#[must_use]
-	#[inline]
-	fn new() -> Self {
-		RegisterIterator { curr_val: 0 }
-	}
-}
-
-impl Default for RegisterIterator {
-	#[inline]
-	fn default() -> Self {
-		Self::new()
-	}
-}
-
-impl Iterator for RegisterIterator {
-	type Item = Register;
-
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		if usize::from(self.curr_val) < IcedConstants::REGISTER_ENUM_COUNT {
-			let reg: Register = unsafe { mem::transmute(self.curr_val) };
-			self.curr_val += 1;
-
-			return Some(reg);
-		}
-
-		None
 	}
 }

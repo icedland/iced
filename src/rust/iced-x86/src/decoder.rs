@@ -104,6 +104,57 @@ impl Default for DecoderError {
 		DecoderError::None
 	}
 }
+#[rustfmt::skip]
+impl DecoderError {
+	/// Iterates over all `DecoderError` enum values
+	#[inline]
+	pub fn values() -> impl Iterator<Item = DecoderError> + ExactSizeIterator + FusedIterator {
+		DecoderErrorIterator { index: 0 }
+	}
+}
+#[allow(non_camel_case_types)]
+struct DecoderErrorIterator {
+	index: u32,
+}
+#[rustfmt::skip]
+impl Iterator for DecoderErrorIterator {
+	type Item = DecoderError;
+	#[inline]
+	fn next(&mut self) -> Option<Self::Item> {
+		let index = self.index;
+		if index < IcedConstants::DECODER_ERROR_ENUM_COUNT as u32 {
+			// Safe, all values [0, max) are valid enum values
+			let value: DecoderError = unsafe { mem::transmute(index as u8) };
+			self.index = index + 1;
+			Some(value)
+		} else {
+			None
+		}
+	}
+	#[inline]
+	fn size_hint(&self) -> (usize, Option<usize>) {
+		let len = IcedConstants::DECODER_ERROR_ENUM_COUNT - self.index as usize;
+		(len, Some(len))
+	}
+}
+impl ExactSizeIterator for DecoderErrorIterator {}
+impl FusedIterator for DecoderErrorIterator {}
+#[test]
+#[rustfmt::skip]
+fn test_decodererror_values() {
+	let mut iter = DecoderError::values();
+	assert_eq!(iter.size_hint(), (IcedConstants::DECODER_ERROR_ENUM_COUNT, Some(IcedConstants::DECODER_ERROR_ENUM_COUNT)));
+	assert_eq!(iter.len(), IcedConstants::DECODER_ERROR_ENUM_COUNT);
+	assert!(iter.next().is_some());
+	assert_eq!(iter.size_hint(), (IcedConstants::DECODER_ERROR_ENUM_COUNT - 1, Some(IcedConstants::DECODER_ERROR_ENUM_COUNT - 1)));
+	assert_eq!(iter.len(), IcedConstants::DECODER_ERROR_ENUM_COUNT - 1);
+
+	let values: Vec<DecoderError> = DecoderError::values().collect();
+	assert_eq!(values.len(), IcedConstants::DECODER_ERROR_ENUM_COUNT);
+	for (i, value) in values.into_iter().enumerate() {
+		assert_eq!(i, value as usize);
+	}
+}
 // GENERATOR-END: DecoderError
 
 // GENERATOR-BEGIN: DecoderOptions
