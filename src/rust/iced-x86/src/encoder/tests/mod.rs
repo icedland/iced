@@ -27,8 +27,6 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
-#[cfg(feature = "op_code_info")]
-use core::mem;
 
 #[test]
 fn encode_16() {
@@ -997,8 +995,7 @@ fn op_kind_fails_if_invalid_input() {
 #[allow(trivial_casts)]
 #[test]
 fn verify_instruction_op_code_info() {
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		let code: Code = unsafe { mem::transmute(i as u16) };
+	for code in Code::values() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 		assert_eq!(code.op_code() as *const _ as usize, instr.op_code() as *const _ as usize);

@@ -577,8 +577,7 @@ fn is_branch_call() {
 	let call_near_indirect = &data.call_near_indirect;
 	let call_far_indirect = &data.call_far_indirect;
 
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		let code: Code = unsafe { mem::transmute(i as u16) };
+	for code in Code::values() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
@@ -634,8 +633,7 @@ fn verify_negate_condition_code() {
 	to_negated_code_value.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 	to_negated_code_value.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		let code: Code = unsafe { mem::transmute(i as u16) };
+	for code in Code::values() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
@@ -655,8 +653,7 @@ fn verify_to_short_branch() {
 	as_short_branch.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
 	as_short_branch.extend(data.jmp_infos.iter().map(|a| ((*a).1, (*a).0)));
 
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		let code: Code = unsafe { mem::transmute(i as u16) };
+	for code in Code::values() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
@@ -676,8 +673,7 @@ fn verify_to_near_branch() {
 	as_near_branch.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
 	as_near_branch.extend(data.jmp_infos.iter().map(|a| ((*a).0, (*a).1)));
 
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		let code: Code = unsafe { mem::transmute(i as u16) };
+	for code in Code::values() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 
@@ -700,8 +696,7 @@ fn verify_condition_code() {
 	to_condition_code.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 	to_condition_code.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		let code: Code = unsafe { mem::transmute(i as u16) };
+	for code in Code::values() {
 		let mut instr = Instruction::default();
 		instr.set_code(code);
 

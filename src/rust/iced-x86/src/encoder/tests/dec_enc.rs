@@ -690,11 +690,10 @@ fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 #[allow(clippy::needless_range_loop)]
 fn verify_tuple_type_bcst() {
 	let code_names = code_names();
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		if is_ignored_code(code_names[i]) {
+	for code in Code::values() {
+		if is_ignored_code(code_names[code as usize]) {
 			continue;
 		}
-		let code: Code = unsafe { mem::transmute(i as u16) };
 		let op_code = code.op_code();
 		let expected_bcst = match op_code.tuple_type() {
 			TupleType::N8b4 | TupleType::N16b4 | TupleType::N32b4 | TupleType::N64b4 | TupleType::N16b8 | TupleType::N32b8 | TupleType::N64b8 => true,
@@ -1586,8 +1585,7 @@ fn verify_that_test_cases_test_enough_bits() {
 	let mut can_use_w = [false; IcedConstants::CODE_ENUM_COUNT];
 	{
 		let mut uses_w: HashSet<(OpCodeTableKind, u32)> = HashSet::new();
-		for i in 0..IcedConstants::CODE_ENUM_COUNT {
-			let code: Code = unsafe { mem::transmute(i as u16) };
+		for code in Code::values() {
 			let op_code = code.op_code();
 			if op_code.encoding() != EncodingKind::Legacy {
 				continue;
@@ -1596,11 +1594,10 @@ fn verify_that_test_cases_test_enough_bits() {
 				let _ = uses_w.insert((op_code.table(), op_code.op_code()));
 			}
 		}
-		for i in 0..IcedConstants::CODE_ENUM_COUNT {
-			let code: Code = unsafe { mem::transmute(i as u16) };
+		for code in Code::values() {
 			let op_code = code.op_code();
 			match op_code.encoding() {
-				EncodingKind::Legacy | EncodingKind::D3NOW => can_use_w[i] = !uses_w.contains(&(op_code.table(), op_code.op_code())),
+				EncodingKind::Legacy | EncodingKind::D3NOW => can_use_w[code as usize] = !uses_w.contains(&(op_code.table(), op_code.op_code())),
 				EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
 			}
 		}
@@ -1945,11 +1942,10 @@ fn verify_that_test_cases_test_enough_bits() {
 			_ => panic!(),
 		};
 
-		for i in 0..IcedConstants::CODE_ENUM_COUNT {
-			if is_ignored_code(code_names[i]) {
+		for code in Code::values() {
+			if is_ignored_code(code_names[code as usize]) {
 				continue;
 			}
-			let code: Code = unsafe { mem::transmute(i as u16) };
 			let op_code = code.op_code();
 			if !op_code.is_instruction() || op_code.code() == Code::Popw_CS {
 				continue;
@@ -1977,7 +1973,7 @@ fn verify_that_test_cases_test_enough_bits() {
 				_ => panic!(),
 			}
 
-			let tested = &tested_infos[i];
+			let tested = &tested_infos[code as usize];
 
 			if (bitness == 16 || bitness == 32) && op_code.is_wig32() {
 				if tested.w_bits != 3 {
@@ -2717,11 +2713,10 @@ fn verify_cpu_mode() {
 	let hash1632: HashSet<Code> = code32_only().iter().chain(not_decoded32_only().iter()).cloned().collect();
 	let hash64: HashSet<Code> = code64_only().iter().chain(not_decoded64_only().iter()).cloned().collect();
 	let code_names = code_names();
-	for i in 0..IcedConstants::CODE_ENUM_COUNT {
-		if is_ignored_code(code_names[i]) {
+	for code in Code::values() {
+		if is_ignored_code(code_names[code as usize]) {
 			continue;
 		}
-		let code: Code = unsafe { mem::transmute(i as u16) };
 		let op_code = code.op_code();
 		if hash1632.contains(&code) {
 			assert!(op_code.mode16());

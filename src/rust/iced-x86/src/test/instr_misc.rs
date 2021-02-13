@@ -4,7 +4,6 @@
 
 use super::super::iced_constants::IcedConstants;
 use super::super::*;
-use alloc::vec::Vec;
 use core::{i32, i8, mem, u16, u32, u64, u8};
 use std::panic;
 
@@ -269,39 +268,38 @@ fn write_all_properties() {
 		assert_eq!(instr.len(), i);
 	}
 
-	for code_size in get_code_size_values() {
+	for code_size in CodeSize::values() {
 		instr.set_code_size(code_size);
 		assert_eq!(instr.code_size(), code_size);
 	}
 
-	for code in get_code_values() {
+	for code in Code::values() {
 		instr.set_code(code);
 		assert_eq!(instr.code(), code);
 	}
 
 	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
-	let op_kinds = get_op_kind_values();
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		instr.set_op0_kind(op_kind);
 		assert_eq!(instr.op0_kind(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		instr.set_op1_kind(op_kind);
 		assert_eq!(instr.op1_kind(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		instr.set_op2_kind(op_kind);
 		assert_eq!(instr.op2_kind(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		instr.set_op3_kind(op_kind);
 		assert_eq!(instr.op3_kind(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		if op_kind == OpKind::Immediate8 {
 			#[allow(deprecated)]
 			{
@@ -319,7 +317,7 @@ fn write_all_properties() {
 		}
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_kind(0, op_kind);
@@ -333,7 +331,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_kind(0).unwrap(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_kind(1, op_kind);
@@ -347,7 +345,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_kind(1).unwrap(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_kind(2, op_kind);
@@ -361,7 +359,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_kind(2).unwrap(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_kind(3, op_kind);
@@ -375,7 +373,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_kind(3).unwrap(), op_kind);
 	}
 
-	for &op_kind in &op_kinds {
+	for op_kind in OpKind::values() {
 		if op_kind == OpKind::Immediate8 {
 			#[allow(deprecated)]
 			{
@@ -421,38 +419,37 @@ fn write_all_properties() {
 		assert_eq!(instr.memory_index_scale(), scale_value);
 	}
 
-	let register_values = get_register_values();
-	for &reg in &register_values {
+	for reg in Register::values() {
 		instr.set_memory_base(reg);
 		assert_eq!(instr.memory_base(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		instr.set_memory_index(reg);
 		assert_eq!(instr.memory_index(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		instr.set_op0_register(reg);
 		assert_eq!(instr.op0_register(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		instr.set_op1_register(reg);
 		assert_eq!(instr.op1_register(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		instr.set_op2_register(reg);
 		assert_eq!(instr.op2_register(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		instr.set_op3_register(reg);
 		assert_eq!(instr.op3_register(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		if reg == Register::None {
 			#[allow(deprecated)]
 			{
@@ -470,7 +467,7 @@ fn write_all_properties() {
 		}
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_register(0, reg);
@@ -484,7 +481,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_register(0).unwrap(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_register(1, reg);
@@ -498,7 +495,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_register(1).unwrap(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_register(2, reg);
@@ -512,7 +509,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_register(2).unwrap(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		#[allow(deprecated)]
 		{
 			instr.set_op_register(3, reg);
@@ -526,7 +523,7 @@ fn write_all_properties() {
 		assert_eq!(instr.try_op_register(3).unwrap(), reg);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		if reg == Register::None {
 			#[allow(deprecated)]
 			{
@@ -569,12 +566,12 @@ fn write_all_properties() {
 	assert!(instr.merging_masking());
 	assert!(!instr.zeroing_masking());
 
-	for rc in get_rounding_control_values() {
+	for rc in RoundingControl::values() {
 		instr.set_rounding_control(rc);
 		assert_eq!(instr.rounding_control(), rc);
 	}
 
-	for &reg in &register_values {
+	for reg in Register::values() {
 		instr.set_memory_base(reg);
 		assert_eq!(instr.is_ip_rel_memory_operand(), reg == Register::RIP || reg == Register::EIP);
 	}
@@ -597,26 +594,6 @@ fn write_all_properties() {
 	assert_eq!(instr.declare_data_len(), 15);
 	instr.set_declare_data_len(16);
 	assert_eq!(instr.declare_data_len(), 16);
-
-	fn get_code_size_values() -> Vec<CodeSize> {
-		(0..IcedConstants::CODE_SIZE_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
-	}
-
-	fn get_code_values() -> Vec<Code> {
-		(0..IcedConstants::CODE_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u16) }).collect()
-	}
-
-	fn get_op_kind_values() -> Vec<OpKind> {
-		(0..IcedConstants::OP_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
-	}
-
-	fn get_register_values() -> Vec<Register> {
-		(0..IcedConstants::REGISTER_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
-	}
-
-	fn get_rounding_control_values() -> Vec<RoundingControl> {
-		(0..IcedConstants::ROUNDING_CONTROL_ENUM_COUNT).map(|x| unsafe { mem::transmute(x as u8) }).collect()
-	}
 }
 
 #[test]
