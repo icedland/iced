@@ -11,9 +11,6 @@
 """
 Rounding control
 """
-
-from typing import List
-
 NONE: int = 0
 """
 No rounding mode
@@ -34,5 +31,3 @@ ROUND_TOWARD_ZERO: int = 4
 """
 Round toward zero (truncate)
 """
-
-__all__: List[str] = []

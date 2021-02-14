@@ -11,9 +11,6 @@
 """
 Mnemonic condition code selector (eg. ``JNP`` / ``JPO``)
 """
-
-from typing import List
-
 NP: int = 0
 """
 ``JNP``, ``CMOVNP``, ``SETNP``
@@ -22,5 +19,3 @@ PO: int = 1
 """
 ``JPO``, ``CMOVPO``, ``SETPO``
 """
-
-__all__: List[str] = []

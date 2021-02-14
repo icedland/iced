@@ -149,14 +149,7 @@ namespace Generator.Enums.Python {
 				writer.WriteLine("# pylint: disable=too-many-lines");
 				writer.WriteLine();
 				docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
-				writer.WriteLine();
-				writer.WriteLine("from typing import List");
-				writer.WriteLine();
-
 				WriteEnumCore(writer, enumType, docWriter);
-
-				writer.WriteLine();
-				writer.WriteLine(@"__all__: List[str] = []");
 			}
 		}
 

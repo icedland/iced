@@ -11,9 +11,6 @@
 """
 The code size (16/32/64) that was used when an instruction was decoded
 """
-
-from typing import List
-
 UNKNOWN: int = 0
 """
 Unknown size
@@ -30,5 +27,3 @@ CODE64: int = 3
 """
 64-bit code
 """
-
-__all__: List[str] = []

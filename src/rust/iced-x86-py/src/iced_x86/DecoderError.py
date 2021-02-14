@@ -11,9 +11,6 @@
 """
 Decoder error
 """
-
-from typing import List
-
 NONE: int = 0
 """
 No error. The last decoded instruction is a valid instruction
@@ -26,5 +23,3 @@ NO_MORE_BYTES: int = 2
 """
 There's not enough bytes left to decode the instruction
 """
-
-__all__: List[str] = []

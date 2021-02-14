@@ -11,9 +11,6 @@
 """
 ``REP``/``REPE``/``REPNE`` prefix
 """
-
-from typing import List
-
 NONE: int = 0
 """
 No ``REP``/``REPE``/``REPNE`` prefix
@@ -26,5 +23,3 @@ REPNE: int = 2
 """
 ``REPNE`` prefix
 """
-
-__all__: List[str] = []

@@ -11,9 +11,6 @@
 """
 Mnemonic condition code selector (eg. ``JA`` / ``JNBE``)
 """
-
-from typing import List
-
 A: int = 0
 """
 ``JA``, ``CMOVA``, ``SETA``
@@ -22,5 +19,3 @@ NBE: int = 1
 """
 ``JNBE``, ``CMOVNBE``, ``SETNBE``
 """
-
-__all__: List[str] = []

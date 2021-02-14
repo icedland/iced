@@ -11,9 +11,6 @@
 """
 Instruction condition code (used by ``Jcc``, ``SETcc``, ``CMOVcc``, ``LOOPcc``)
 """
-
-from typing import List
-
 NONE: int = 0
 """
 The instruction doesn't have a condition code
@@ -82,5 +79,3 @@ G: int = 16
 """
 Greater (signed) (``ZF=0 and SF=OF``)
 """
-
-__all__: List[str] = []

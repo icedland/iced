@@ -11,9 +11,6 @@
 """
 Tuple type (EVEX) which can be used to get the disp8 scale factor ``N``
 """
-
-from typing import List
-
 N1: int = 0
 """
 ``N = 1``
@@ -70,5 +67,3 @@ N64B8: int = 13
 """
 ``N = b ? 8 : 64``
 """
-
-__all__: List[str] = []

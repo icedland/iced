@@ -11,9 +11,6 @@
 """
 Mnemonic
 """
-
-from typing import List
-
 INVALID: int = 0
 """
 <no docs>
@@ -6530,5 +6527,3 @@ CCS_ENCRYPT: int = 1628
 """
 <no docs>
 """
-
-__all__: List[str] = []

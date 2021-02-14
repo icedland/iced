@@ -11,9 +11,6 @@
 """
 Size of a memory reference
 """
-
-from typing import List
-
 UNKNOWN: int = 0
 """
 Unknown size or the instruction doesn't reference any memory (eg. ``LEA``)
@@ -578,5 +575,3 @@ BROADCAST512_2X_BFLOAT16: int = 140
 """
 Broadcast 2 x ``bfloat16`` to 512-bits
 """
-
-__all__: List[str] = []

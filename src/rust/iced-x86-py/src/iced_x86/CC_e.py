@@ -11,9 +11,6 @@
 """
 Mnemonic condition code selector (eg. ``JE`` / ``JZ``)
 """
-
-from typing import List
-
 E: int = 0
 """
 ``JE``, ``CMOVE``, ``SETE``, ``LOOPE``, ``REPE``
@@ -22,5 +19,3 @@ Z: int = 1
 """
 ``JZ``, ``CMOVZ``, ``SETZ``, ``LOOPZ``, ``REPZ``
 """
-
-__all__: List[str] = []

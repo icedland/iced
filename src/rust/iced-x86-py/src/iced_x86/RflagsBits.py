@@ -11,9 +11,6 @@
 """
 ``RFLAGS`` bits, FPU condition code bits and misc bits (``UIF``) supported by the instruction info code
 """
-
-from typing import List
-
 NONE: int = 0x0000_0000
 """
 No bit is set
@@ -74,5 +71,3 @@ C3: int = 0x0000_2000
 """
 FPU status word bit ``C3``
 """
-
-__all__: List[str] = []

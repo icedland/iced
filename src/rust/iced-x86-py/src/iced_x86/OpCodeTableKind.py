@@ -11,9 +11,6 @@
 """
 Opcode table
 """
-
-from typing import List
-
 NORMAL: int = 0
 """
 Legacy encoding table
@@ -42,5 +39,3 @@ XOPA: int = 6
 """
 ``XOPA`` table (XOP)
 """
-
-__all__: List[str] = []

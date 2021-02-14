@@ -11,9 +11,6 @@
 """
 Mandatory prefix
 """
-
-from typing import List
-
 NONE: int = 0
 """
 No mandatory prefix (legacy and 3DNow! tables only)
@@ -34,5 +31,3 @@ PF2: int = 4
 """
 ``F2`` prefix
 """
-
-__all__: List[str] = []

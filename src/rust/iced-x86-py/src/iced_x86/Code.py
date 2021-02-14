@@ -11,9 +11,6 @@
 """
 x86 instruction code
 """
-
-from typing import List
-
 INVALID: int = 0
 """
 It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.
@@ -43164,5 +43161,3 @@ CCS_ENCRYPT_64: int = 4317
 
 ``64-bit``
 """
-
-__all__: List[str] = []

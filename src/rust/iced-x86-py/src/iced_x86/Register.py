@@ -11,9 +11,6 @@
 """
 A register
 """
-
-from typing import List
-
 NONE: int = 0
 """
 <no docs>
@@ -1010,5 +1007,3 @@ TMM7: int = 248
 """
 <no docs>
 """
-
-__all__: List[str] = []

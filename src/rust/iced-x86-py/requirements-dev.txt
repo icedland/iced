@@ -1,5 +1,5 @@
 -r requirements.txt
 mypy
 pylint
-sphinx==3.4.3
+sphinx
 pytest

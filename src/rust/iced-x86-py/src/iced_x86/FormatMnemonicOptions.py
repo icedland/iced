@@ -11,9 +11,6 @@
 """
 Format mnemonic options
 """
-
-from typing import List
-
 NONE: int = 0x0000_0000
 """
 No option is set
@@ -26,5 +23,3 @@ NO_MNEMONIC: int = 0x0000_0002
 """
 Don't add the mnemonic
 """
-
-__all__: List[str] = []

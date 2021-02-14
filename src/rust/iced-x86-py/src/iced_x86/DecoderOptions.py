@@ -11,9 +11,6 @@
 """
 Decoder options
 """
-
-from typing import List
-
 NONE: int = 0x0000_0000
 """
 No option is enabled
@@ -110,5 +107,3 @@ ALTINST: int = 0x0080_0000
 """
 Decode Centaur ``ALTINST``
 """
-
-__all__: List[str] = []

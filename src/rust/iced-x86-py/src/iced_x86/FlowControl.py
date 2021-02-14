@@ -11,9 +11,6 @@
 """
 Control flow
 """
-
-from typing import List
-
 NEXT: int = 0
 """
 The next instruction that will be executed is the next instruction in the instruction stream
@@ -54,5 +51,3 @@ EXCEPTION: int = 9
 """
 It's an invalid instruction, eg. :class:`iced_x86.Code.INVALID`, ``UD0``, ``UD1``, ``UD2``
 """
-
-__all__: List[str] = []

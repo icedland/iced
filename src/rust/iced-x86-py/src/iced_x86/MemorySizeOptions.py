@@ -11,9 +11,6 @@
 """
 Memory size options used by the formatters
 """
-
-from typing import List
-
 DEFAULT: int = 0
 """
 Show memory size if the assembler requires it, else don't show anything
@@ -30,5 +27,3 @@ NEVER: int = 3
 """
 Never show memory size
 """
-
-__all__: List[str] = []

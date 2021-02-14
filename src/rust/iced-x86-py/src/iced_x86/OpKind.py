@@ -11,9 +11,6 @@
 """
 Instruction operand kind
 """
-
-from typing import List
-
 REGISTER: int = 0
 """
 A register (:class:`iced_x86.Register`).
@@ -118,5 +115,3 @@ Memory operand.
 
 This operand kind uses :class:`iced_x86.Instruction.memory_displ_size`, :class:`iced_x86.Instruction.memory_size`, :class:`iced_x86.Instruction.memory_index_scale`, :class:`iced_x86.Instruction.memory_displacement`, :class:`iced_x86.Instruction.memory_base`, :class:`iced_x86.Instruction.memory_index`, :class:`iced_x86.Instruction.memory_segment`, :class:`iced_x86.Instruction.segment_prefix`
 """
-
-__all__: List[str] = []

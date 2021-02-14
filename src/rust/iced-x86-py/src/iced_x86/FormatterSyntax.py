@@ -11,9 +11,6 @@
 """
 Formatter syntax (GNU Assembler, Intel XED, masm, nasm)
 """
-
-from typing import List
-
 GAS: int = 0
 """
 GNU Assembler (AT&T)
@@ -30,5 +27,3 @@ NASM: int = 3
 """
 nasm
 """
-
-__all__: List[str] = []

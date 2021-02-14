@@ -11,9 +11,6 @@
 """
 Operand kind
 """
-
-from typing import List
-
 NONE: int = 0
 """
 No operand
@@ -458,5 +455,3 @@ TMM_VVVV: int = 108
 """
 ``TMM`` register encoded in the the ``V'vvvv`` field (VEX/EVEX/XOP)
 """
-
-__all__: List[str] = []

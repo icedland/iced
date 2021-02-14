@@ -11,9 +11,6 @@
 """
 ``CPUID`` feature flags
 """
-
-from typing import List
-
 INTEL8086: int = 0
 """
 8086 or later
@@ -638,5 +635,3 @@ PADLOCK_GMI: int = 155
 """
 : CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.GMI[Bits 5:4] = 11B ([4] = exists, [5] = enabled)
 """
-
-__all__: List[str] = []

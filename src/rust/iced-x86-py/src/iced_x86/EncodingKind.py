@@ -11,9 +11,6 @@
 """
 Instruction encoding
 """
-
-from typing import List
-
 LEGACY: int = 0
 """
 Legacy encoding
@@ -34,5 +31,3 @@ D3NOW: int = 4
 """
 3DNow! encoding
 """
-
-__all__: List[str] = []
