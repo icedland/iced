@@ -9,11 +9,13 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 fi
 
 configuration=Release
-full_check=y
-gen_check=y
-has_dotnet=y
-has_msrv=y
 set_rustflags=y
+test_gen=y
+test_instrs=y
+test_build_no_std=y
+test_features=y
+test_current=y
+test_msrv=y
 
 # Minimum supported Rust version
 msrv="1.42.0"
@@ -157,8 +159,8 @@ build_features() {
 	cd "$curr_dir"
 }
 
-build_test_default() {
-	new_func "Build, test (default)"
+build_test_current_version() {
+	new_func "Build, test (current version)"
 	curr_dir=$(pwd)
 	cd "$root_dir/src/rust/iced-x86"
 
@@ -166,10 +168,10 @@ build_test_default() {
 	rustc --version
 
 	echo "==== CLIPPY RELEASE ===="
-	cargo clippy --color always --release
+	cargo clippy --color always --features "db" --release
 
 	echo "==== CLIPPY RELEASE --tests ===="
-	cargo clippy --color always --release --tests
+	cargo clippy --color always --features "db" --release --tests
 
 	echo "==== FORMAT CHECK ===="
 	cargo fmt -- --color always --check
@@ -188,7 +190,7 @@ build_test_default() {
 	cargo test --no-default-features --features "std decoder __internal_mem_vsib" --tests
 
 	echo "==== TEST DEBUG ===="
-	cargo test --color always --features "db"
+	cargo test --color always --features "db" --tests
 
 	echo "==== BUILD RELEASE wasm32-unknown-unknown ===="
 	cargo check --color always --features "db" --target wasm32-unknown-unknown --release
@@ -209,7 +211,7 @@ build_test_msrv() {
 	curr_dir=$(pwd)
 	cd "$root_dir/src/rust/iced-x86"
 
-	echo "*** If this fails, install Rust $msrv or use --no-msrv"
+	echo "*** If this fails, install Rust $msrv"
 
 	echo "==== BUILD RELEASE ===="
 	cargo +$msrv build --color always --features "db" --release
@@ -220,12 +222,41 @@ build_test_msrv() {
 	cd "$curr_dir"
 }
 
+clear_test_vars() {
+	test_gen=n
+	test_instrs=n
+	test_build_no_std=n
+	test_features=n
+	test_current=n
+	test_msrv=n
+}
+
 while [ "$#" -gt 0 ]; do
 	case $1 in
-	--quick-check) full_check=n ;;
-	--no-gen-check) gen_check=n ;;
-	--no-dotnet) has_dotnet=n ;;
-	--no-msrv) has_msrv=n ;;
+	--no-tests) clear_test_vars ;;
+	--quick-check)
+		clear_test_vars
+		test_current=y
+		;;
+	--no-dotnet)
+		test_gen=n
+		test_instrs=n
+		;;
+
+	--no-gen) test_gen=n ;;
+	--no-instrs) test_instrs=n ;;
+	--no-no_std) test_build_no_std=n ;;
+	--no-features) test_features=n ;;
+	--no-current) test_current=n ;;
+	--no-msrv) test_msrv=n ;;
+
+	--test-gen) test_gen=y ;;
+	--test-instrs) test_instrs=y ;;
+	--test-no_std) test_build_no_std=y ;;
+	--test-features) test_features=y ;;
+	--test-current) test_current=y ;;
+	--test-msrv) test_msrv=y ;;
+
 	--no-set-rustflags) set_rustflags=n ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
@@ -245,20 +276,26 @@ fi
 echo "rustup show"
 rustup show
 
-if [ "$full_check" = "y" ]; then
-	if [ "$has_dotnet" = "y" ]; then
-		echo "dotnet version (if this fails, install .NET or use --no-dotnet)"
-		dotnet --version
+if [ "$test_gen" = "y" ] || [ "$test_instrs" = "y" ]; then
+	echo "dotnet version (if this fails, install .NET or use --no-dotnet)"
+	dotnet --version
+fi
 
-		if [ "$gen_check" = "y" ]; then
-			generator_check
-		fi
-		test_valid_invalid_instructions
-	fi
+if [ "$test_gen" = "y" ]; then
+	generator_check
+fi
+if [ "$test_instrs" = "y" ]; then
+	test_valid_invalid_instructions
+fi
+if [ "$test_build_no_std" = "y" ]; then
 	build_no_std
+fi
+if [ "$test_features" = "y" ]; then
 	build_features
 fi
-build_test_default
-if [ "$full_check" = "y" ] && [ "$has_msrv" = "y" ]; then
+if [ "$test_current" = "y" ]; then
+	build_test_current_version
+fi
+if [ "$test_msrv" = "y" ]; then
 	build_test_msrv
 fi

@@ -1,0 +1,580 @@
+# This is triggered when a new release is created (using the GitHub UI)
+name: GitHub CI
+on:
+  release:
+    types: [released]
+
+# Keep this in sync with the other *.yml files
+env:
+  CI_REQ_DOTNET_SDK_VER: 5.0.100
+  COVERAGE_FILENAME: coverage.net5.0.info
+  CI_NODE_MIN_VER: 12.0.0
+  RUSTFLAGS: -D warnings
+  MACOSX_DEPLOYMENT_TARGET: 10.12
+
+jobs:
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-dotnet:
+    name: C# (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+
+      - name: Build and test
+        shell: bash
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-dotnet $extra_args
+
+      - uses: actions/upload-artifact@v2
+        if: startsWith(matrix.os, 'ubuntu-')
+        with:
+          name: nupkg
+          path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v2
+        if: startsWith(matrix.os, 'ubuntu-')
+        with:
+          name: coverage.info
+          path: src/csharp/Intel/Iced.UnitTests/${{env.COVERAGE_FILENAME}}
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust:
+    name: Rust (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+
+      - name: Build and test
+        shell: bash
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-rust --no-set-rustflags $extra_args
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-js-wasm:
+    name: JavaScript (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-node@v2.1.4
+        with:
+          node-version: ${{env.CI_NODE_MIN_VER}}
+
+      - name: Install wasm-pack
+        shell: bash
+        run: npm install -g wasm-pack
+
+      - name: Build and test
+        shell: bash
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-js --no-set-rustflags $extra_args
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  # If the supported Python versions get updated (added/removed), do:
+  # - Update .github/workflows/*.yml
+  #     - Search for eg. 3.6, 36 and 3\.6
+  #     - Update file count in `Verify downloads`
+  # - Update min ver in build/README.md and src/rust/iced-x86-py/README.md and any 36/3.6/etc refs
+  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 36)
+  # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py36" to min supported version)
+  # - Update Python versions in src/rust/iced-x86-py/setup.py
+  #     - `python_requires` line
+  #     - `classifiers` array
+  # - src/rust/iced-x86-py/tox.ini
+
+  build-rust-python-linux-x64:
+    name: Python (${{matrix.os}}) x64
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Verify that py/LICENSE.txt matches root/LICENSE.txt
+        shell: bash
+        run: |
+          pydir=src/rust/iced-x86-py
+          if [ ! -f "$pydir/LICENSE.txt" ]; then
+            echo "Missing license file"
+            exit 1
+          fi
+          cp LICENSE.txt "$pydir/"
+          git diff --exit-code
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - name: Install Python tools
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.6"
+          python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
+
+      - name: Build and test
+        shell: bash
+        run: |
+          ./build/build-python --no-set-rustflags --python python
+          git clean -xdf
+
+      - name: Create the sdist
+        shell: bash
+        run: |
+          git reset .
+          git checkout .
+          git clean -xdf
+          ./build/build-python --sdist-only
+          mkdir -p /tmp/py-dist
+          cp src/rust/iced-x86-py/dist/* /tmp/py-dist
+          git clean -xdf
+
+      - name: Build manylinux x86_64
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_x86_64"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: py-dist-${{matrix.os}}-x64
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-linux-x86:
+    name: Python (${{matrix.os}}) x86
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build manylinux i686
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_i686"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: py-dist-${{matrix.os}}-x86
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-macos-x64:
+    name: Python (${{matrix.os}}) x64
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      # NOTE: We use setup-miniconda and not setup-python because setup-python's
+      #       binaries target a later macos version and will produce warnings
+      #       when building wheels on macos.
+      #           https://github.com/actions/setup-python/issues/26
+      #       This also means that all bash shells (that use Python) must
+      #       use the -le options:
+      #           shell: bash -le {0}
+      #       setup-python is faster to install than setup-miniconda so we only
+      #       use setup-miniconda if this is a macos image.
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.6
+      - name: Install Python tools
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep "Python 3\.6"
+          python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
+
+      - name: Build and test
+        shell: bash -le {0}
+        run: |
+          ./build/build-python --no-set-rustflags --python python --quick-check
+          git clean -xdf
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.6
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep "Python 3\.6"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.7
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep "Python 3\.7"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.8
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep "Python 3\.8"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.9
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep "Python 3\.9"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: py-dist-${{matrix.os}}-x64
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-windows-x64:
+    name: Python (${{matrix.os}}) x64
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - name: Install Python tools
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.6"
+          python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
+
+      - name: Build and test
+        shell: bash
+        run: |
+          ./build/build-python --no-set-rustflags --python python --quick-check
+          git clean -xdf
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.6"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.7"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.8"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.9"
+          bash build/ci-py-build-wheels.sh
+
+      - name: Fix upload path
+        shell: bash
+        run: |
+          git clean -xdf
+          cp -r /tmp/py-dist .
+      - uses: actions/upload-artifact@v2
+        with:
+          name: py-dist-${{matrix.os}}-x64
+          path: py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-windows-x86:
+    name: Python (${{matrix.os}}) x86
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - name: Install 32-bit Rust
+        shell: bash
+        run: |
+          rustup install stable-i686-pc-windows-msvc --no-self-update
+          rustup default stable-i686-pc-windows-msvc
+          rustup show
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.6"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.7"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.8"
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep "Python 3\.9"
+          bash build/ci-py-build-wheels.sh
+
+      - name: Fix upload path
+        shell: bash
+        run: |
+          git clean -xdf
+          cp -r /tmp/py-dist .
+      - uses: actions/upload-artifact@v2
+        with:
+          name: py-dist-${{matrix.os}}-x86
+          path: py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  upload-files:
+    runs-on: ubuntu-latest
+    name: Upload files
+    needs:
+      - build-dotnet
+      - build-rust
+      - build-rust-js-wasm
+      - build-rust-python-linux-x64
+      - build-rust-python-linux-x86
+      - build-rust-python-macos-x64
+      - build-rust-python-windows-x64
+      - build-rust-python-windows-x86
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # codecov needs fetch-depth > 1 (or 0)
+          fetch-depth: 2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - uses: actions/download-artifact@v2
+        with:
+          path: /tmp/artifacts
+
+      - name: Verify downloads
+        shell: bash
+        run: |
+          if [ ! -f "/tmp/artifacts/coverage.info/$COVERAGE_FILENAME" ]; then
+            echo "Missing coverage"
+            exit 1
+          fi
+          if [ -z "$(ls -A /tmp/artifacts/nupkg/Iced.*.nupkg)" ]; then
+            echo "Missing nupkg files"
+            exit 1
+          fi
+
+          mkdir /tmp/py-dist-tmp
+          mkdir /tmp/py-dist
+          for path in /tmp/artifacts/py-dist-*; do
+            cp "$path/"* /tmp/py-dist-tmp
+          done
+
+          mv /tmp/py-dist-tmp/iced_x86-*-cp36-abi3*.whl /tmp/py-dist
+          mv /tmp/py-dist-tmp/iced-x86-*.tar.gz /tmp/py-dist
+
+          if [ -n "$(ls -A /tmp/py-dist-tmp/* 2>/dev/null)" ]; then
+            ls -l /tmp/py-dist-tmp
+            echo "Unknown files found (see above)"
+            echo "If it's a new Python version, see Python version comment above (`build-rust-python`)"
+            exit 1
+          fi
+          rmdir /tmp/py-dist-tmp
+
+          # Windows x86 + x64, macOS x64, Linux (x86 + x64) * (manylinux1 + manylinux2010)
+          # 7 (wheels) + 1 (source code tar.gz file)
+          if [ $(ls -A /tmp/py-dist | wc -l) -ne 8 ]; then
+            ls -l /tmp/py-dist
+            echo "Found too many/few Python whl files (see above)"
+            exit 1
+          fi
+
+      - name: Upload checks
+        shell: bash
+        run: |
+          python -m pip install -U twine
+          python -m twine check /tmp/py-dist/*
+          dotnet nuget push --help
+          cargo publish --help
+
+      - name: Upload coverage report
+        if: github.ref == 'refs/heads/master'
+        shell: bash
+        continue-on-error: true
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://codecov.io/bash | bash -s -- -f "/tmp/artifacts/coverage.info/$COVERAGE_FILENAME"
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+
+      - name: Upload to nuget.org
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
+            dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
+          done
+
+      - name: Upload to crates.io
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          git reset .
+          git checkout .
+          git clean -xdf
+          cd src/rust/iced-x86
+          cargo login --color always -- "${{secrets.CRATES_IO_TOKEN}}"
+          # --no-verify: we've tested building everything already
+          cargo publish --color always --no-verify
+
+      - name: Upload to pypi.org
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          python -m twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
