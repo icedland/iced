@@ -97,6 +97,12 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(rip, instruction.IP);
 			Assert.Equal(decoder.IP, instruction.NextIP);
 			Assert.Equal(rip + (uint)length, instruction.NextIP);
+			switch (bitness) {
+			case 16: Assert.Equal(CodeSize.Code16, instruction.CodeSize); break;
+			case 32: Assert.Equal(CodeSize.Code32, instruction.CodeSize); break;
+			case 64: Assert.Equal(CodeSize.Code64, instruction.CodeSize); break;
+			default: throw new InvalidOperationException();
+			}
 			Assert.Equal(tc.OpCount, instruction.OpCount);
 			Assert.Equal(tc.ZeroingMasking, instruction.ZeroingMasking);
 			Assert.Equal(!tc.ZeroingMasking, instruction.MergingMasking);
