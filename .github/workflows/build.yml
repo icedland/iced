@@ -139,17 +139,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Verify that py/LICENSE.txt matches root/LICENSE.txt
-        shell: bash
-        run: |
-          pydir=src/rust/iced-x86-py
-          if [ ! -f "$pydir/LICENSE.txt" ]; then
-            echo "Missing license file"
-            exit 1
-          fi
-          cp LICENSE.txt "$pydir/"
-          git diff --exit-code
-
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh

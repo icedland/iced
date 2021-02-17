@@ -94,6 +94,15 @@ generate_sdist() {
 	cd "$curr_dir"
 }
 
+verify_license_file() {
+	if [ ! -f "$pysrc_dir/LICENSE.txt" ]; then
+		echo "Missing license file"
+		exit 1
+	fi
+	cp "$root_dir/LICENSE.txt" "$pysrc_dir/"
+	git diff --exit-code
+}
+
 generate_wheel() {
 	new_func "Generate wheel"
 
@@ -201,6 +210,8 @@ echo "Rust version"
 rustc --version
 echo "Python version"
 $python --version
+
+verify_license_file
 
 if [ "$sdist_only" = "y" ]; then
 	generate_sdist
