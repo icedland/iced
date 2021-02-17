@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use crate::enum_utils::to_memory_size;
 use crate::memory_size_info::MemorySizeInfo;

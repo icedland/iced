@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 #[cfg(not(feature = "no_evex"))]
 use super::super::tuple_type_tbl::get_disp8n;

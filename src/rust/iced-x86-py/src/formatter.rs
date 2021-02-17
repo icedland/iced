@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use crate::enum_utils::{
 	to_cc_a, to_cc_ae, to_cc_b, to_cc_be, to_cc_e, to_cc_g, to_cc_ge, to_cc_l, to_cc_le, to_cc_ne, to_cc_np, to_cc_p, to_memory_size_options,

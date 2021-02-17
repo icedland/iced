@@ -1,9 +1,9 @@
 <Project>
 
   <PropertyGroup>
-    <Copyright>Copyright (C) 2018-2021 wtfsck@protonmail.com</Copyright>
+    <Copyright>Copyright (C) 2018-present iced project and contributors</Copyright>
     <Version>1.10.3</Version>
-    <Authors>wtfsck</Authors>
+    <Authors>iced project and contributors &lt;https://github.com/icedland&gt;</Authors>
     <InformationalVersion>$(Version)</InformationalVersion>
 
     <LangVersion>latest</LangVersion>

@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 const {
 	CC_a, CC_ae, CC_b, CC_be, CC_e, CC_g, CC_ge, CC_l, CC_le, CC_ne, CC_np, CC_p,

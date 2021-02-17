@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsck@protonmail.com
-# Copyright iced contributors
+# Copyright (C) 2018-present iced project and contributors
 
 64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, SpaceAfterOperandSeparator=true
 64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, SpaceAfterOperandSeparator=false

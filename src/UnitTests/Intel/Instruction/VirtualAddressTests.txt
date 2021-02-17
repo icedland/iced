@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsck@protonmail.com
-# Copyright iced contributors
+# Copyright (C) 2018-present iced project and contributors
 
 16, Movsw_m16_m16, A5, 1, 1, 0, 0x7654321001242B38, , si=0x123456789ABCE5D1 ds=0x7654321001234567
 16, Movsw_m16_m16, 64 A5, 1, 1, 0, 0x7654321001242B38, , si=0x123456789ABCE5D1 fs=0x7654321001234567

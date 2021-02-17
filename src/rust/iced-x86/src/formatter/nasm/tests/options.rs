@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::super::super::tests::options::{test_format_file, test_format_file_all, test_format_file_common};
 use super::fmt_factory;

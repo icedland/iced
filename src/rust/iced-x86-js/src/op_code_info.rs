@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::code::{iced_to_code, Code};
 use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};

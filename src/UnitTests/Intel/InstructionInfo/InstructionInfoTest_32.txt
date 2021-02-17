@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsck@protonmail.com
-# Copyright iced contributors
+# Copyright (C) 2018-present iced project and contributors
 
 # pushw es
 66 06, Pushw_ES, Legacy, INTEL8086, op0=r r=ss rw=xsp r=es wm=ss:xsp+0xFFFFFFFFFFFFFFFE;UInt16 stack=-2

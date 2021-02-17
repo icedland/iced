@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;

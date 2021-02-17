@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 // These funcs should be in Instruction but since racer (used by RLS) shows
 // all functions even if they're private, they've been moved here.

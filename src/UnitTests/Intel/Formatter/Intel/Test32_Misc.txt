@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsck@protonmail.com
-# Copyright iced contributors
+# Copyright (C) 2018-present iced project and contributors
 
 hint-not-taken jo short 0x7ffffff3
 hint-not-taken jno short 0x7ffffff3

@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::cc::{
 	cc_a_to_iced, cc_ae_to_iced, cc_b_to_iced, cc_be_to_iced, cc_e_to_iced, cc_g_to_iced, cc_ge_to_iced, cc_l_to_iced, cc_le_to_iced, cc_ne_to_iced,

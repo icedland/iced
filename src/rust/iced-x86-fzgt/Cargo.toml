@@ -1,7 +1,7 @@
 [package]
 name = "iced-x86-fzgt"
 version = "1.10.3"
-authors = ["wtfsck <wtfsck@protonmail.com>"]
+authors = ["iced project and contributors <https://github.com/icedland>"]
 license = "MIT"
 description = "Test FuzzerGen output"
 edition = "2018"

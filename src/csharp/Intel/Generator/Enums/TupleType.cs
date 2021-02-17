@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 namespace Generator.Enums {
 	[Enum("TupleType", Documentation = "Tuple type (EVEX) which can be used to get the disp8 scale factor #(c:N)#", Public = true)]

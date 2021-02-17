@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 namespace Generator.Enums {
 	[Enum("OpKind", Documentation = "Instruction operand kind", Public = true)]

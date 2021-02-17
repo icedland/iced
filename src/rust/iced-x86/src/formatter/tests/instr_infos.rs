@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::super::super::code::Code;
 use super::super::test_utils::from_str_conv::{is_ignored_code, to_code, to_decoder_options};

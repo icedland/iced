@@ -2,7 +2,7 @@
 name = "iced-x86"
 # The version number can't be the same as iced-x86's version number or cargo build will fail
 version = "1.10.1002"
-authors = ["wtfsck <wtfsck@protonmail.com>"]
+authors = ["iced project and contributors <https://github.com/icedland>"]
 license = "MIT"
 description = "iced-x86 is a high performance and correct x86/x64 disassembler, assembler and instruction decoder written in Rust and compiled to WebAssembly"
 homepage = "https://github.com/icedland/iced"

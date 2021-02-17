@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 // Use FuzzerGen (.NET) app to generate the valid and invalid files (--amd to use AMD decoder)
 //		./IcedFuzzer.exe -16 -oil C:\path\invalid16.bin -ovlc C:\path\valid16.bin

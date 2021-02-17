@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::super::super::decoder::tests::enums::DecoderTestOptions;
 use super::super::super::decoder::tests::test_utils::{code32_only, code64_only, decoder_tests, not_decoded32_only, not_decoded64_only};

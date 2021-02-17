@@ -18,8 +18,8 @@ sys.path.insert(0, os.path.abspath(os.path.join("..", "build", "lib")))
 # -- Project information -----------------------------------------------------
 
 project = "iced-x86"
-copyright = "Copyright (C) 2018-2021 wtfsck@protonmail.com"
-author = "wtfsck and iced contributors"
+copyright = "Copyright (C) 2018-present iced project and contributors"
+author = "iced project and contributors <https://github.com/icedland>"
 # The full version, including alpha/beta/rc tags
 release = "1.10.3"
 

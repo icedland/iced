@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::super::super::tests::sym_res::symbol_resolver_test_fast;
 use super::fmt_factory::create_resolver;

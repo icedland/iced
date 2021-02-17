@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use super::code::{code_to_iced, Code};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]

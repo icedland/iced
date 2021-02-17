@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 namespace Generator.Enums.InstructionInfo {
 	[Enum("OpAccess", Documentation = "Operand, register and memory access", Public = true)]

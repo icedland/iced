@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsck@protonmail.com
-# Copyright iced contributors
+# Copyright (C) 2018-present iced project and contributors
 
 vfnmsub213ps {ru-sae}, %zmm3, %zmm6, %zmm2{%k3}{z}
 vfnmsub213ps {ru-sae},%zmm3,%zmm6,%zmm2{%k3}{z}

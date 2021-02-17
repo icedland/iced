@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 /// Contains the offsets of the displacement and immediate. Call [`Decoder::get_constant_offsets()`] or
 /// [`Encoder::get_constant_offsets()`] to get the offsets of the constants after the instruction has been

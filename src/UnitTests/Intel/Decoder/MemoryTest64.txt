@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsck@protonmail.com
-# Copyright iced contributors
+# Copyright (C) 2018-present iced project and contributors
 
 67 01 30, Add_rm32_r32, esi, none, ds, eax, none, 0, 0, 0, 0;0;0;0;0;0
 67 01 31, Add_rm32_r32, esi, none, ds, ecx, none, 0, 0, 0, 0;0;0;0;0;0

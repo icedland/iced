@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright wtfsck@protonmail.com
-// Copyright iced contributors
+// Copyright (C) 2018-present iced project and contributors
 
 use crate::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rep_prefix_kind, to_rounding_control};
 use crate::memory_operand::MemoryOperand;

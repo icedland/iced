@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright wtfsck@protonmail.com
-# Copyright iced contributors
+# Copyright (C) 2018-present iced project and contributors
 
 64, 48 83 CA A5, Or_rm64_imm8, NasmShowSignExtendedImmediateSize=true
 64, 48 83 CA A5, Or_rm64_imm8, NasmShowSignExtendedImmediateSize=false
