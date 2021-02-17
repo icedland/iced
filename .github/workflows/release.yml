@@ -1,5 +1,5 @@
 # This is triggered when a new release is created (using the GitHub UI)
-name: GitHub CI
+name: New Release
 on:
   release:
     types: [released]
