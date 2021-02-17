@@ -10,6 +10,7 @@
 """
 Operand, register and memory access
 """
+
 NONE: int = 0
 """
 Nothing is read and nothing is written

@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JGE`` / ``JNL``)
 """
+
 GE: int = 0
 """
 ``JGE``, ``CMOVGE``, ``SETGE``

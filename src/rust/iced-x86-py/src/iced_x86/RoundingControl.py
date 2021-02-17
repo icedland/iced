@@ -10,6 +10,7 @@
 """
 Rounding control
 """
+
 NONE: int = 0
 """
 No rounding mode

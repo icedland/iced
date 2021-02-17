@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JNE`` / ``JNZ``)
 """
+
 NE: int = 0
 """
 ``JNE``, ``CMOVNE``, ``SETNE``, ``LOOPNE``, ``REPNE``

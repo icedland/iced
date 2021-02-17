@@ -10,6 +10,7 @@
 """
 Formatter syntax (GNU Assembler, Intel XED, masm, nasm)
 """
+
 GAS: int = 0
 """
 GNU Assembler (AT&T)

@@ -10,6 +10,7 @@
 """
 Mnemonic
 """
+
 INVALID: int = 0
 """
 <no docs>

@@ -148,6 +148,7 @@ namespace Generator.Enums.Python {
 				writer.WriteLine("# pylint: disable=too-many-lines");
 				writer.WriteLine();
 				docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
+				writer.WriteLine();
 				WriteEnumCore(writer, enumType, docWriter);
 			}
 		}

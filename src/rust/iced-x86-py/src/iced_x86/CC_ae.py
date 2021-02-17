@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JAE`` / ``JNB`` / ``JNC``)
 """
+
 AE: int = 0
 """
 ``JAE``, ``CMOVAE``, ``SETAE``

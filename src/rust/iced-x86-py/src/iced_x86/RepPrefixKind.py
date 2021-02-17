@@ -10,6 +10,7 @@
 """
 ``REP``/``REPE``/``REPNE`` prefix
 """
+
 NONE: int = 0
 """
 No ``REP``/``REPE``/``REPNE`` prefix

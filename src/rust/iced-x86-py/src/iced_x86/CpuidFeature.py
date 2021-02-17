@@ -10,6 +10,7 @@
 """
 ``CPUID`` feature flags
 """
+
 INTEL8086: int = 0
 """
 8086 or later

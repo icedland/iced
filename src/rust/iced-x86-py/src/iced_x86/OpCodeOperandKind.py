@@ -10,6 +10,7 @@
 """
 Operand kind
 """
+
 NONE: int = 0
 """
 No operand

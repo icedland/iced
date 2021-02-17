@@ -10,6 +10,7 @@
 """
 Instruction operand kind
 """
+
 REGISTER: int = 0
 """
 A register (:class:`iced_x86.Register`).

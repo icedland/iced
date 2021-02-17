@@ -10,6 +10,7 @@
 """
 Control flow
 """
+
 NEXT: int = 0
 """
 The next instruction that will be executed is the next instruction in the instruction stream

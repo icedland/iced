@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JE`` / ``JZ``)
 """
+
 E: int = 0
 """
 ``JE``, ``CMOVE``, ``SETE``, ``LOOPE``, ``REPE``

@@ -10,6 +10,7 @@
 """
 The code size (16/32/64) that was used when an instruction was decoded
 """
+
 UNKNOWN: int = 0
 """
 Unknown size

@@ -10,6 +10,7 @@
 """
 x86 instruction code
 """
+
 INVALID: int = 0
 """
 It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.

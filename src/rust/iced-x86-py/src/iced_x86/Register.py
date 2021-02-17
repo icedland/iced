@@ -10,6 +10,7 @@
 """
 A register
 """
+
 NONE: int = 0
 """
 <no docs>

@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JL`` / ``JNGE``)
 """
+
 L: int = 0
 """
 ``JL``, ``CMOVL``, ``SETL``

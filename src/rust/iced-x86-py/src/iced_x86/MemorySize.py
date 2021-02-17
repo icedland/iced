@@ -10,6 +10,7 @@
 """
 Size of a memory reference
 """
+
 UNKNOWN: int = 0
 """
 Unknown size or the instruction doesn't reference any memory (eg. ``LEA``)

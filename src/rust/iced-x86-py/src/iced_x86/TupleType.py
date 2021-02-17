@@ -10,6 +10,7 @@
 """
 Tuple type (EVEX) which can be used to get the disp8 scale factor ``N``
 """
+
 N1: int = 0
 """
 ``N = 1``

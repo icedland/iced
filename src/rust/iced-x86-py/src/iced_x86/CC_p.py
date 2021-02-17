@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JP`` / ``JPE``)
 """
+
 P: int = 0
 """
 ``JP``, ``CMOVP``, ``SETP``

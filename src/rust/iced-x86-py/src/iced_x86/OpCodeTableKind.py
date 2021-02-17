@@ -10,6 +10,7 @@
 """
 Opcode table
 """
+
 NORMAL: int = 0
 """
 Legacy encoding table

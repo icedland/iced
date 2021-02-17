@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JA`` / ``JNBE``)
 """
+
 A: int = 0
 """
 ``JA``, ``CMOVA``, ``SETA``

@@ -10,6 +10,7 @@
 """
 Instruction condition code (used by ``Jcc``, ``SETcc``, ``CMOVcc``, ``LOOPcc``)
 """
+
 NONE: int = 0
 """
 The instruction doesn't have a condition code

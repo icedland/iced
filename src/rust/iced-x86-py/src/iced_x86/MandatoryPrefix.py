@@ -10,6 +10,7 @@
 """
 Mandatory prefix
 """
+
 NONE: int = 0
 """
 No mandatory prefix (legacy and 3DNow! tables only)

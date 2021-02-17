@@ -10,6 +10,7 @@
 """
 Instruction encoding
 """
+
 LEGACY: int = 0
 """
 Legacy encoding

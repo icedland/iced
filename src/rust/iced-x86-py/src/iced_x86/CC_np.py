@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JNP`` / ``JPO``)
 """
+
 NP: int = 0
 """
 ``JNP``, ``CMOVNP``, ``SETNP``

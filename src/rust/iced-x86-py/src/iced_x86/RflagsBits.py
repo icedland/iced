@@ -10,6 +10,7 @@
 """
 ``RFLAGS`` bits, FPU condition code bits and misc bits (``UIF``) supported by the instruction info code
 """
+
 NONE: int = 0x0000_0000
 """
 No bit is set

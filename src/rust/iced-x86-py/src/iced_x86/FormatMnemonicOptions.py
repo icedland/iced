@@ -10,6 +10,7 @@
 """
 Format mnemonic options
 """
+
 NONE: int = 0x0000_0000
 """
 No option is set

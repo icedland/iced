@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JG`` / ``JNLE``)
 """
+
 G: int = 0
 """
 ``JG``, ``CMOVG``, ``SETG``

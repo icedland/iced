@@ -10,6 +10,7 @@
 """
 Decoder error
 """
+
 NONE: int = 0
 """
 No error. The last decoded instruction is a valid instruction

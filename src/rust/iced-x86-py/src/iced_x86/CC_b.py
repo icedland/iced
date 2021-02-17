@@ -10,6 +10,7 @@
 """
 Mnemonic condition code selector (eg. ``JB`` / ``JC`` / ``JNAE``)
 """
+
 B: int = 0
 """
 ``JB``, ``CMOVB``, ``SETB``
