@@ -26,7 +26,13 @@ impl IcedError {
 }
 
 #[cfg(feature = "std")]
-impl Error for IcedError {}
+impl Error for IcedError {
+	// Required since MSRV < 1.42.0
+	#[allow(clippy::missing_inline_in_public_items)]
+	fn description(&self) -> &str {
+		&self.error
+	}
+}
 
 impl fmt::Display for IcedError {
 	#[allow(clippy::missing_inline_in_public_items)]

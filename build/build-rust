@@ -18,7 +18,7 @@ test_current=y
 test_msrv=y
 
 # Minimum supported Rust version
-msrv="1.42.0"
+msrv="1.41.0"
 
 new_func() {
 	echo
