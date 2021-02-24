@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild" Version="3.0.3" />
     <!-- NOTE: when updating this thing, make sure it hasn't gotten slower (it's happened twice now!) -->
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.console" Version="2.4.1" />
