@@ -13,6 +13,14 @@ pub struct IcedError {
 	error: Cow<'static, str>,
 }
 
+struct _TraitsCheck
+where
+	IcedError: fmt::Debug + Clone + fmt::Display + Send + Sync;
+#[cfg(feature = "std")]
+struct _TraitsCheckStd
+where
+	IcedError: Error;
+
 impl IcedError {
 	#[allow(dead_code)]
 	pub(crate) fn new(error: &'static str) -> Self {
