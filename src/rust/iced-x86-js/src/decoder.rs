@@ -7,6 +7,7 @@ use super::decoder_error::{iced_to_decoder_error, DecoderError};
 use super::decoder_options::DecoderOptions;
 use super::ex_utils::to_js_error;
 use super::instruction::Instruction;
+use static_assertions::const_assert_eq;
 use std::slice;
 use wasm_bindgen::prelude::*;
 

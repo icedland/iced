@@ -3,6 +3,7 @@
 
 use super::super::*;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 
 pub(crate) fn get_tests() -> Vec<(u32, &'static str, Instruction)> {
 	let mut v = Vec::with_capacity(INFOS16.len() + INFOS32.len() + INFOS64.len());

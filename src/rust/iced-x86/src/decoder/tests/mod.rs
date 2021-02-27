@@ -19,6 +19,7 @@ use super::super::test_utils::*;
 use super::super::*;
 use alloc::string::String;
 use core::fmt::Write;
+use static_assertions::const_assert_eq;
 
 #[rustfmt::skip]
 pub(crate) static NON_DECODED_CODE_VALUES: [Code; 16] = [

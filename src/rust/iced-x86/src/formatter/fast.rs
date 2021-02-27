@@ -20,6 +20,7 @@ use super::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{mem, u16, u32, u8, usize};
+use static_assertions::const_assert_eq;
 
 static SCALE_NUMBERS: [&str; 4] = ["*1", "*2", "*4", "*8"];
 static RC_STRINGS: [&str; 4] = ["{rn-sae}", "{rd-sae}", "{ru-sae}", "{rz-sae}"];

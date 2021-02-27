@@ -13,6 +13,8 @@ use super::*;
 #[cfg(feature = "encoder")]
 use core::{i16, i32, i8, u8};
 use core::{u16, u32};
+#[cfg(feature = "encoder")]
+use static_assertions::const_assert_eq;
 
 #[cfg(feature = "decoder")]
 #[inline]

@@ -27,6 +27,7 @@ use super::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{mem, u16, u32, u8};
+use static_assertions::const_assert_eq;
 
 /// GNU assembler (AT&T) formatter
 ///

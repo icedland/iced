@@ -5,6 +5,7 @@ use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::options_test_case_parser::*;
 use super::opts_info::OptionsInstructionInfo;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 use std::collections::HashSet;
 
 lazy_static! {

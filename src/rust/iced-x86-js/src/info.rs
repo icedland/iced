@@ -6,6 +6,7 @@ use super::instruction::Instruction;
 use super::memory_size::{iced_to_memory_size, MemorySize};
 use super::op_access::{iced_to_op_access, OpAccess};
 use super::register::{iced_to_register, Register};
+use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;
 
 /// A register used by an instruction

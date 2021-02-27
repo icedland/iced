@@ -10,6 +10,7 @@ use super::op_code_handler::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::mem;
+use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {

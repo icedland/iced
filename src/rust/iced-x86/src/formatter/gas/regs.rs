@@ -6,6 +6,7 @@ use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
 use super::super::FormatterString;
 use alloc::string::String;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 
 pub(super) struct Registers;
 impl Registers {

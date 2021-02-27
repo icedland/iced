@@ -6,6 +6,7 @@ use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::prelude::*;
 use pyo3::PyObjectProtocol;
+use static_assertions::const_assert_eq;
 use std::collections::hash_map::DefaultHasher;
 
 /// Memory operand passed to one of :class:`Instruction`'s `create*()` constructor methods

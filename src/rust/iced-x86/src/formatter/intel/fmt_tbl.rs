@@ -12,6 +12,7 @@ use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{mem, u32};
+use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(super) static ref ALL_INFOS: Vec<Box<dyn InstrInfo + Sync + Send>> = read();

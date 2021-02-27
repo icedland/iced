@@ -27,6 +27,8 @@ use alloc::vec::Vec;
 use core::cmp::Ordering;
 use core::fmt::Write;
 use core::mem;
+use lazy_static::lazy_static;
+use static_assertions::const_assert_eq;
 use std::collections::{HashMap, HashSet};
 use std::panic;
 

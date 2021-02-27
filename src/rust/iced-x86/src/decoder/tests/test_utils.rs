@@ -10,6 +10,7 @@ use super::enums::DecoderTestOptions;
 use super::test_cases::*;
 use alloc::string::String;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

@@ -7,6 +7,7 @@ use super::enums::*;
 use super::handlers::*;
 use super::*;
 use core::u32;
+use static_assertions::const_assert_ne;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]

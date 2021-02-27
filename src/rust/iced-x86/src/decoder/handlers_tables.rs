@@ -4,6 +4,7 @@
 use super::handlers::OpCodeHandler;
 use super::table_de::*;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 
 pub(super) struct Tables {
 	pub(super) handlers_xx: Vec<&'static OpCodeHandler>,

@@ -1223,14 +1223,6 @@ compile_error!("`std` or `no_std` feature must be defined");
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;
-#[cfg(any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-#[cfg_attr(
-	any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"),
-	macro_use
-)]
-extern crate lazy_static;
-#[macro_use]
-extern crate static_assertions;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_enc;

@@ -4,6 +4,7 @@
 use super::super::iced_constants::IcedConstants;
 use super::super::*;
 use core::{i32, i8, mem, u16, u32, u64, u8};
+use static_assertions::const_assert_eq;
 use std::panic;
 
 #[test]

@@ -4,6 +4,7 @@
 use super::block_encoder_options::BlockEncoderOptions;
 use super::instruction::Instruction;
 use iced_x86_rust::InstructionBlock;
+use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;
 
 /// Encodes instructions. It can be used to move instructions from one location to another location.

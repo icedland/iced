@@ -11,6 +11,7 @@ use super::mem_size_tbl::MEM_SIZE_TBL;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{mem, u32};
+use static_assertions::const_assert_eq;
 
 #[derive(Debug)]
 pub(super) struct InstrOpInfo<'a> {

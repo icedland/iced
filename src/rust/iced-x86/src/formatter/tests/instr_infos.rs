@@ -6,6 +6,7 @@ use super::super::test_utils::from_str_conv::{is_ignored_code, to_code, to_decod
 use super::super::test_utils::{get_default_ip, get_formatter_unit_tests_dir};
 use alloc::string::String;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

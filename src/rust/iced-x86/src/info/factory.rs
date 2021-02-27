@@ -5,6 +5,7 @@ use super::super::iced_constants::IcedConstants;
 use super::enums::*;
 use super::*;
 use core::{mem, u16, u32, u64};
+use static_assertions::const_assert_eq;
 
 /// Instruction info options used by [`InstructionInfoFactory`]
 ///

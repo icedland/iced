@@ -7,6 +7,7 @@ use super::super::super::*;
 use super::super::test_utils::*;
 use alloc::string::String;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 use std::collections::HashSet;
 
 // GENERATOR-BEGIN: MiscSectionNames

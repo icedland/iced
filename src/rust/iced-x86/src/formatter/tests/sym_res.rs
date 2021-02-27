@@ -9,6 +9,7 @@ use super::sym_res_test_case::*;
 use super::sym_res_test_parser::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 use std::collections::HashSet;
 
 lazy_static! {

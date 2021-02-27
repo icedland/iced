@@ -5,6 +5,7 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::fmt_consts::*;
 use super::FormatterString;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 
 pub(super) struct Info {
 	pub(super) bcst_to: &'static FormatterString,

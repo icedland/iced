@@ -3,6 +3,7 @@
 
 #![allow(clippy::let_and_return)]
 
+use lazy_static::lazy_static;
 use std::collections::HashSet;
 
 lazy_static! {

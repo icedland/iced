@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use super::super::{Code, CodeSize, Instruction, Register};
+use static_assertions::const_assert_eq;
 
 #[must_use]
 pub(super) fn is_rep_repe_repne_instruction(code: Code) -> bool {

@@ -11,6 +11,7 @@ use super::super::info::InstrOpInfo;
 use super::super::regs::Registers;
 use super::fmt_factory;
 use alloc::string::String;
+use static_assertions::const_assert;
 
 #[test]
 fn methods_panic_if_invalid_operand_or_instruction_operand() {

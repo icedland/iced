@@ -63,9 +63,6 @@
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
 
-#[macro_use]
-extern crate static_assertions;
-
 mod block_encoder;
 mod constant_offsets;
 mod decoder;

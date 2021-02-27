@@ -63,18 +63,6 @@
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
 
-#[cfg(any(
-	feature = "instr_info",
-	feature = "decoder",
-	feature = "gas",
-	feature = "intel",
-	feature = "masm",
-	feature = "nasm",
-	all(feature = "encoder", feature = "block_encoder")
-))]
-#[macro_use]
-extern crate static_assertions;
-
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_encoder;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]

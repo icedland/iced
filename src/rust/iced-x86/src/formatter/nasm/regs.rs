@@ -7,6 +7,7 @@ use super::super::FormatterString;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
+use lazy_static::lazy_static;
 
 #[allow(dead_code)]
 pub(super) struct Registers;

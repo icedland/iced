@@ -13,6 +13,7 @@ use super::memory_size_options::{iced_to_memory_size_options, memory_size_option
 use super::op_access::{iced_to_op_access, OpAccess};
 #[cfg(feature = "instr_api")]
 use super::register::{register_to_iced, Register};
+use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;
 
 // GENERATOR-BEGIN: FormatterSyntax

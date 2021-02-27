@@ -26,6 +26,7 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
+use static_assertions::const_assert_eq;
 
 #[test]
 fn encode_16() {
@@ -799,7 +800,7 @@ fn verify_memory_operand_ctors() {
 }
 
 #[cfg(feature = "op_code_info")]
-lazy_static! {
+lazy_static::lazy_static! {
 	static ref OP_CODE_INFO_TEST_CASES: Vec<OpCodeInfoTestCase> = {
 		let mut filename = get_encoder_unit_tests_dir();
 		filename.push("OpCodeInfos.txt");

@@ -4,6 +4,7 @@
 use super::super::test_utils::get_instruction_unit_tests_dir;
 use super::va_test_case::VirtualAddressTestCase;
 use super::va_test_parser::*;
+use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(crate) static ref VA_TEST_CASES: Vec<VirtualAddressTestCase> = read_va_test_cases();

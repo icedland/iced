@@ -9,6 +9,8 @@ use super::{FormatterOptions, FormatterOutput};
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{cmp, mem};
+use lazy_static::lazy_static;
+use static_assertions::const_assert_eq;
 
 lazy_static! {
 	static ref SPACES_TABLE: Vec<String> = create_strings(' ', 20);

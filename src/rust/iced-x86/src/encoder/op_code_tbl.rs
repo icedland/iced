@@ -8,6 +8,7 @@ use super::op_code_data::{OPC_FLAGS1, OPC_FLAGS2};
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::mem;
+use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(crate) static ref OP_CODE_INFO_TBL: Vec<OpCodeInfo> = {

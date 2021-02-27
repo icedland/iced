@@ -10,6 +10,7 @@ use super::FmtTableData;
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(super) static ref FMT_DATA: FmtTableData = read();

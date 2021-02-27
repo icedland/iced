@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use super::super::super::TupleType;
+use lazy_static::lazy_static;
 use std::collections::HashMap;
 
 lazy_static! {

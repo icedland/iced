@@ -4,6 +4,7 @@
 use super::FormatterString;
 #[cfg(any(feature = "intel", feature = "nasm"))]
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 
 #[allow(dead_code)]
 pub(super) struct FormatterConstants {

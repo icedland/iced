@@ -24,6 +24,7 @@ use super::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};
+use static_assertions::{const_assert, const_assert_eq};
 
 // 26,2E,36,3E,64,65,66,67,F0,F2,F3
 static PREFIXES1632: [u32; 8] = [0x0000_0000, 0x4040_4040, 0x0000_0000, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];

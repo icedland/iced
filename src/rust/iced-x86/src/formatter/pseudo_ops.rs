@@ -5,6 +5,7 @@ use super::enums_shared::PseudoOpsKind;
 use super::FormatterString;
 use alloc::string::String;
 use alloc::vec::Vec;
+use lazy_static::lazy_static;
 
 pub(super) fn get_pseudo_ops(kind: PseudoOpsKind) -> &'static Vec<FormatterString> {
 	let pseudo_ops = &*PSEUDO_OPS;
