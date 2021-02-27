@@ -113,7 +113,7 @@ impl Iterator for FormatterTextKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT as u32 {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			let value: FormatterTextKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -151,7 +151,7 @@ impl TryFrom<usize> for FormatterTextKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid FormatterTextKind value"))
@@ -284,7 +284,7 @@ impl Iterator for MemorySizeOptionsIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT as u32 {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			let value: MemorySizeOptions = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -322,7 +322,7 @@ impl TryFrom<usize> for MemorySizeOptions {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid MemorySizeOptions value"))

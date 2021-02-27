@@ -38886,7 +38886,7 @@ impl Iterator for CodeIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CODE_ENUM_COUNT as u32 {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			let value: Code = unsafe { mem::transmute(index as u16) };
 			self.index = index + 1;
 			Some(value)
@@ -38924,7 +38924,7 @@ impl TryFrom<usize> for Code {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CODE_ENUM_COUNT {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u16) })
 		} else {
 			Err(IcedError::new("Invalid Code value"))

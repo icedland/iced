@@ -1465,7 +1465,7 @@ impl Iterator for RegisterIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::REGISTER_ENUM_COUNT as u32 {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			let value: Register = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1503,7 +1503,7 @@ impl TryFrom<usize> for Register {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::REGISTER_ENUM_COUNT {
-			// Safe, all values [0, max) are valid enum values
+			// Safe, all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid Register value"))
