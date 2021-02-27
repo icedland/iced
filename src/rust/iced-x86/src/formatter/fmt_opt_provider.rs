@@ -19,7 +19,7 @@ pub trait FormatterOptionsProvider {
 	/// - `number_options`: Number formatting options
 	fn operand_options(
 		&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, options: &mut FormatterOperandOptions,
-		number_options: &mut NumberFormattingOptions,
+		number_options: &mut NumberFormattingOptions<'_>,
 	);
 }
 

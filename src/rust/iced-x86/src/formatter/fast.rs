@@ -589,7 +589,7 @@ impl FastFormatter {
 							imm_size = 2;
 							imm64 = instruction.far_branch16() as u64;
 						}
-						let mut vec: Vec<SymResTextPart> = Vec::new();
+						let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
 						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
 							to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64 as u32 as u64, imm_size), &mut vec)
 						} else {
@@ -864,12 +864,12 @@ impl FastFormatter {
 	}
 
 	#[inline]
-	fn write_symbol(output: &mut String, address: u64, symbol: &SymbolResult, options: &FastFormatterOptions) {
+	fn write_symbol(output: &mut String, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions) {
 		FastFormatter::write_symbol2(output, address, symbol, options, true);
 	}
 
 	#[cold]
-	fn write_symbol2(output: &mut String, address: u64, symbol: &SymbolResult, options: &FastFormatterOptions, write_minus_if_signed: bool) {
+	fn write_symbol2(output: &mut String, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions, write_minus_if_signed: bool) {
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
 		if (symbol.flags & SymbolFlags::SIGNED) != 0 {
 			if write_minus_if_signed {

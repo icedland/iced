@@ -10592,18 +10592,18 @@ impl Hash for Instruction {
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-struct FmtFormatterOutput<'a, 'b: 'a> {
+struct FmtFormatterOutput<'a, 'b> {
 	f: &'a mut fmt::Formatter<'b>,
 	result: fmt::Result,
 }
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-impl<'a, 'b: 'a> FmtFormatterOutput<'a, 'b> {
+impl<'a, 'b> FmtFormatterOutput<'a, 'b> {
 	fn new(f: &'a mut fmt::Formatter<'b>) -> Self {
 		Self { f, result: Ok(()) }
 	}
 }
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-impl<'a, 'b: 'a> FormatterOutput for FmtFormatterOutput<'a, 'b> {
+impl FormatterOutput for FmtFormatterOutput<'_, '_> {
 	fn write(&mut self, text: &str, _kind: FormatterTextKind) {
 		if self.result.is_ok() {
 			self.result = self.f.write_str(text);

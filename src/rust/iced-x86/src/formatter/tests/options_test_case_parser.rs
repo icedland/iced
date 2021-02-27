@@ -49,7 +49,7 @@ pub(super) struct IntoIter<'a> {
 	line_number: u32,
 }
 
-impl<'a> Iterator for IntoIter<'a> {
+impl Iterator for IntoIter<'_> {
 	type Item = OptionsInstructionInfo;
 
 	fn next(&mut self) -> Option<Self::Item> {
@@ -80,7 +80,7 @@ impl<'a> Iterator for IntoIter<'a> {
 	}
 }
 
-impl<'a> IntoIter<'a> {
+impl IntoIter<'_> {
 	fn read_next_test_case(line: String, _line_number: u32) -> Result<Option<OptionsInstructionInfo>, String> {
 		let elems: Vec<_> = line.split(',').collect();
 		if elems.len() != 4 {

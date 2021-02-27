@@ -245,7 +245,7 @@ pub trait FormatterOutput {
 	/// - `symbol`: Symbol
 	#[inline]
 	#[allow(unused_variables)]
-	fn write_symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, address: u64, symbol: &SymbolResult) {
+	fn write_symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, address: u64, symbol: &SymbolResult<'_>) {
 		match symbol.text {
 			SymResTextInfo::Text(ref part) => {
 				let s = match &part.text {
@@ -275,7 +275,7 @@ impl FormatterOutputMethods {
 	#[allow(clippy::too_many_arguments)]
 	fn write1(
 		output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, options: &FormatterOptions,
-		number_formatter: &mut NumberFormatter, number_options: &NumberFormattingOptions, address: u64, symbol: &SymbolResult,
+		number_formatter: &mut NumberFormatter, number_options: &NumberFormattingOptions<'_>, address: u64, symbol: &SymbolResult<'_>,
 		show_symbol_address: bool,
 	) {
 		FormatterOutputMethods::write2(
@@ -297,7 +297,7 @@ impl FormatterOutputMethods {
 	#[allow(clippy::too_many_arguments)]
 	fn write2(
 		output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, options: &FormatterOptions,
-		number_formatter: &mut NumberFormatter, number_options: &NumberFormattingOptions, address: u64, symbol: &SymbolResult,
+		number_formatter: &mut NumberFormatter, number_options: &NumberFormattingOptions<'_>, address: u64, symbol: &SymbolResult<'_>,
 		show_symbol_address: bool, write_minus_if_signed: bool, spaces_between_op: bool,
 	) {
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
@@ -569,7 +569,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions) -> &str;
+	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions<'_>) -> &str;
 
 	/// Formats a `i16`
 	///
@@ -578,7 +578,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions) -> &str;
+	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions<'_>) -> &str;
 
 	/// Formats a `i32`
 	///
@@ -587,7 +587,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions) -> &str;
+	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions<'_>) -> &str;
 
 	/// Formats a `i64`
 	///
@@ -596,7 +596,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions) -> &str;
+	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions<'_>) -> &str;
 
 	/// Formats a `u8`
 	///
@@ -605,7 +605,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions) -> &str;
+	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions<'_>) -> &str;
 
 	/// Formats a `u16`
 	///
@@ -614,7 +614,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions) -> &str;
+	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions<'_>) -> &str;
 
 	/// Formats a `u32`
 	///
@@ -623,7 +623,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions) -> &str;
+	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions<'_>) -> &str;
 
 	/// Formats a `u64`
 	///
@@ -632,7 +632,7 @@ pub trait Formatter: private::Sealed {
 	/// - `value`: Value
 	/// - `number_options`: Options
 	#[must_use]
-	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str;
+	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions<'_>) -> &str;
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -648,7 +648,7 @@ mod private {
 	impl Sealed for super::nasm::NasmFormatter {}
 }
 
-fn to_owned<'a>(sym_res: Option<SymbolResult>, vec: &'a mut Vec<SymResTextPart<'a>>) -> Option<SymbolResult<'a>> {
+fn to_owned<'a>(sym_res: Option<SymbolResult<'_>>, vec: &'a mut Vec<SymResTextPart<'a>>) -> Option<SymbolResult<'a>> {
 	match sym_res {
 		None => None,
 		Some(sym_res) => Some(sym_res.to_owned(vec)),
@@ -656,7 +656,7 @@ fn to_owned<'a>(sym_res: Option<SymbolResult>, vec: &'a mut Vec<SymResTextPart<'
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-fn get_mnemonic_cc<'a, 'b>(options: &'a FormatterOptions, cc_index: u32, mnemonics: &'b [FormatterString]) -> &'b FormatterString {
+fn get_mnemonic_cc<'a>(options: &FormatterOptions, cc_index: u32, mnemonics: &'a [FormatterString]) -> &'a FormatterString {
 	use super::iced_constants::IcedConstants;
 	let index = match cc_index {
 		// o

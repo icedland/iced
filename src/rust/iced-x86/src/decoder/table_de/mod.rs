@@ -32,7 +32,7 @@ enum HandlerInfo {
 
 struct TableDeserializer<'a> {
 	reader: DataReader<'a>,
-	handler_reader: fn(deserializer: &mut TableDeserializer, result: &mut Vec<&'static OpCodeHandler>),
+	handler_reader: fn(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<&'static OpCodeHandler>),
 	id_to_handler: Vec<HandlerInfo>,
 	temp_vecs: Vec<Vec<&'static OpCodeHandler>>,
 }
@@ -41,7 +41,7 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	pub(self) fn new(
-		data: &'a [u8], max_ids: usize, handler_reader: fn(deserializer: &mut TableDeserializer, result: &mut Vec<&'static OpCodeHandler>),
+		data: &'a [u8], max_ids: usize, handler_reader: fn(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<&'static OpCodeHandler>),
 	) -> Self {
 		Self { reader: DataReader::new(data), handler_reader, id_to_handler: Vec::with_capacity(max_ids), temp_vecs: Vec::new() }
 	}

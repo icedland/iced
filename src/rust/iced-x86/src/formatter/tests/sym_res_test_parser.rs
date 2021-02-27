@@ -59,7 +59,7 @@ pub(super) struct IntoIter<'a> {
 	to_flags: HashMap<&'static str, u32>,
 }
 
-impl<'a> Iterator for IntoIter<'a> {
+impl Iterator for IntoIter<'_> {
 	type Item = SymbolResolverTestCase;
 
 	fn next(&mut self) -> Option<Self::Item> {
@@ -90,7 +90,7 @@ impl<'a> Iterator for IntoIter<'a> {
 	}
 }
 
-impl<'a> IntoIter<'a> {
+impl IntoIter<'_> {
 	fn read_next_test_case(&self, line: String) -> Result<Option<SymbolResolverTestCase>, String> {
 		let elems: Vec<_> = line.split(',').collect();
 		const SYM_RES_INDEX: usize = 4;

@@ -2268,11 +2268,11 @@ impl<'a> Decoder<'a> {
 
 #[doc(hidden)]
 #[allow(missing_debug_implementations)]
-pub struct DecoderIter<'a: 'b, 'b> {
+pub struct DecoderIter<'a, 'b> {
 	decoder: &'b mut Decoder<'a>,
 }
 
-impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
+impl Iterator for DecoderIter<'_, '_> {
 	type Item = Instruction;
 
 	#[inline]
@@ -2285,7 +2285,7 @@ impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
 	}
 }
 
-impl<'a, 'b> FusedIterator for DecoderIter<'a, 'b> {}
+impl FusedIterator for DecoderIter<'_, '_> {}
 
 #[doc(hidden)]
 #[allow(missing_debug_implementations)]
@@ -2293,7 +2293,7 @@ pub struct DecoderIntoIter<'a> {
 	decoder: Decoder<'a>,
 }
 
-impl<'a> Iterator for DecoderIntoIter<'a> {
+impl Iterator for DecoderIntoIter<'_> {
 	type Item = Instruction;
 
 	#[inline]
@@ -2306,7 +2306,7 @@ impl<'a> Iterator for DecoderIntoIter<'a> {
 	}
 }
 
-impl<'a> FusedIterator for DecoderIntoIter<'a> {}
+impl FusedIterator for DecoderIntoIter<'_> {}
 
 impl<'a> IntoIterator for Decoder<'a> {
 	type Item = Instruction;
@@ -2319,7 +2319,7 @@ impl<'a> IntoIterator for Decoder<'a> {
 	}
 }
 
-impl<'a: 'b, 'b> IntoIterator for &'b mut Decoder<'a> {
+impl<'a, 'b> IntoIterator for &'b mut Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIter<'a, 'b>;
 

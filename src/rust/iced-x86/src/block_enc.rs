@@ -127,7 +127,7 @@ impl BlockEncoder {
 		(self.options & BlockEncoderOptions::DONT_FIX_BRANCHES) == 0
 	}
 
-	fn new<'a, 'b: 'a>(bitness: u32, instr_blocks: &'a [InstructionBlock<'b>], options: u32) -> Result<Self, IcedError> {
+	fn new(bitness: u32, instr_blocks: &[InstructionBlock<'_>], options: u32) -> Result<Self, IcedError> {
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			return Err(IcedError::new("Invalid bitness"));
 		}
@@ -243,7 +243,7 @@ impl BlockEncoder {
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
 	#[inline]
-	pub fn encode(bitness: u32, block: InstructionBlock, options: u32) -> Result<BlockEncoderResult, IcedError> {
+	pub fn encode(bitness: u32, block: InstructionBlock<'_>, options: u32) -> Result<BlockEncoderResult, IcedError> {
 		match Self::encode_slice(bitness, &[block], options) {
 			Ok(ref mut result_vec) => {
 				debug_assert_eq!(result_vec.len(), 1);
@@ -305,7 +305,7 @@ impl BlockEncoder {
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
 	#[inline]
-	pub fn encode_slice(bitness: u32, blocks: &[InstructionBlock], options: u32) -> Result<Vec<BlockEncoderResult>, IcedError> {
+	pub fn encode_slice(bitness: u32, blocks: &[InstructionBlock<'_>], options: u32) -> Result<Vec<BlockEncoderResult>, IcedError> {
 		Self::new(bitness, blocks, options)?.encode2()
 	}
 

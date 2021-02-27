@@ -64,9 +64,9 @@ fn decode_multiple_instrs_with_one_instance() {
 	let mut bytes_map32: HashMap<(u32, u32), Vec<u8>> = HashMap::new();
 	let mut bytes_map64: HashMap<(u32, u32), Vec<u8>> = HashMap::new();
 
-	let mut map16: HashMap<(u32, u32), Decoder> = HashMap::new();
-	let mut map32: HashMap<(u32, u32), Decoder> = HashMap::new();
-	let mut map64: HashMap<(u32, u32), Decoder> = HashMap::new();
+	let mut map16: HashMap<(u32, u32), Decoder<'_>> = HashMap::new();
+	let mut map32: HashMap<(u32, u32), Decoder<'_>> = HashMap::new();
+	let mut map64: HashMap<(u32, u32), Decoder<'_>> = HashMap::new();
 
 	for tc in &tests {
 		let bytes_map = match tc.bitness() {

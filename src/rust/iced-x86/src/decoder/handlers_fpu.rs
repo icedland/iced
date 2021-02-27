@@ -17,7 +17,7 @@ impl OpCodeHandler_ST_STi {
 		Self { decode: OpCodeHandler_ST_STi::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -43,7 +43,7 @@ impl OpCodeHandler_STi_ST {
 		Self { decode: OpCodeHandler_STi_ST::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -69,7 +69,7 @@ impl OpCodeHandler_STi {
 		Self { decode: OpCodeHandler_STi::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -97,7 +97,7 @@ impl OpCodeHandler_Mf {
 		Self { decode: OpCodeHandler_Mf::decode, has_modrm: true, code16, code32 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		if decoder.state.operand_size != OpSize::Size16 {

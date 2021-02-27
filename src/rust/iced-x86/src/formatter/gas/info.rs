@@ -1036,7 +1036,7 @@ impl SimpleInstrInfo_er {
 		Self { mnemonic: FormatterString::new(mnemonic), mnemonic_suffix: FormatterString::new(mnemonic_suffix), er_index, flags }
 	}
 
-	fn move_operands(info: &mut InstrOpInfo, index: u32, new_op_kind: InstrOpKind) {
+	fn move_operands(info: &mut InstrOpInfo<'_>, index: u32, new_op_kind: InstrOpKind) {
 		debug_assert!(info.op_count <= 4);
 
 		match index {
@@ -1189,7 +1189,7 @@ impl SimpleInstrInfo_pops {
 		Self { mnemonic: FormatterString::new(mnemonic), pseudo_ops, can_use_sae }
 	}
 
-	fn remove_first_imm8_operand(info: &mut InstrOpInfo) {
+	fn remove_first_imm8_operand(info: &mut InstrOpInfo<'_>) {
 		debug_assert_eq!(info.op_kinds[0], InstrOpKind::Immediate8);
 		info.op_count -= 1;
 		match info.op_count {

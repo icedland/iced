@@ -31,7 +31,7 @@ impl OptionsInstructionInfo {
 		}
 	}
 
-	pub(super) fn initialize_decoder(&self, decoder: &mut Decoder) {
+	pub(super) fn initialize_decoder(&self, decoder: &mut Decoder<'_>) {
 		for info in &self.vec {
 			info.1.initialize_decoder(decoder, info.0);
 		}

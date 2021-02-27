@@ -362,7 +362,7 @@ impl OptionValue {
 		}
 	}
 
-	pub(super) fn initialize_decoder(&self, decoder: &mut Decoder, property: OptionsProps) {
+	pub(super) fn initialize_decoder(&self, decoder: &mut Decoder<'_>, property: OptionsProps) {
 		if property == OptionsProps::IP {
 			decoder.set_ip(self.to_u64());
 		}

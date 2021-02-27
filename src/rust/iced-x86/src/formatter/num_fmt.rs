@@ -201,7 +201,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_i8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i8) -> &str {
+	pub fn format_i8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i8) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
@@ -212,7 +212,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_i16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i16) -> &str {
+	pub fn format_i16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i16) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
@@ -223,7 +223,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_i32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i32) -> &str {
+	pub fn format_i32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i32) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
@@ -234,7 +234,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_i64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i64) -> &str {
+	pub fn format_i64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i64) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
@@ -245,7 +245,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_u8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u8) -> &str {
+	pub fn format_u8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u8) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
 			options,
@@ -257,7 +257,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_u16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u16) -> &str {
+	pub fn format_u16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u16) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
 			options,
@@ -269,7 +269,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_u32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u32) -> &str {
+	pub fn format_u32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u32) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
 			options,
@@ -281,7 +281,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	pub fn format_u64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64) -> &str {
+	pub fn format_u64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u64) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
 			options,
@@ -294,7 +294,7 @@ impl NumberFormatter {
 	#[must_use]
 	#[inline]
 	pub fn format_u16_zeroes(
-		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u16, leading_zeroes: bool,
+		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u16, leading_zeroes: bool,
 	) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
@@ -308,7 +308,7 @@ impl NumberFormatter {
 	#[must_use]
 	#[inline]
 	pub fn format_u32_zeroes(
-		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u32, leading_zeroes: bool,
+		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u32, leading_zeroes: bool,
 	) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
@@ -322,7 +322,7 @@ impl NumberFormatter {
 	#[must_use]
 	#[inline]
 	pub fn format_u64_zeroes(
-		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64, leading_zeroes: bool,
+		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u64, leading_zeroes: bool,
 	) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
@@ -335,7 +335,7 @@ impl NumberFormatter {
 
 	#[must_use]
 	fn format_unsigned_integer(
-		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64, value_size: u32, flags: u32,
+		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u64, value_size: u32, flags: u32,
 	) -> &str {
 		self.sb.clear();
 		if (flags & NumberFormatterFlags::ADD_MINUS_SIGN) != 0 {

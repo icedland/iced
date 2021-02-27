@@ -201,7 +201,7 @@ fn format_test_instruction_fast_core(instruction: &Instruction, formatted_string
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-fn simple_format_test<F: Fn(&mut Decoder)>(
+fn simple_format_test<F: Fn(&mut Decoder<'_>)>(
 	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut dyn Formatter, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
@@ -225,7 +225,7 @@ fn simple_format_test<F: Fn(&mut Decoder)>(
 }
 
 #[cfg(feature = "fast_fmt")]
-fn simple_format_test_fast<F: Fn(&mut Decoder)>(
+fn simple_format_test_fast<F: Fn(&mut Decoder<'_>)>(
 	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut FastFormatter, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();

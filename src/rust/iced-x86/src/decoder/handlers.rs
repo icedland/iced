@@ -5,7 +5,7 @@ use super::super::*;
 use super::*;
 use alloc::vec::Vec;
 
-pub(super) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder, &mut Instruction);
+pub(super) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder<'_>, &mut Instruction);
 
 #[allow(trivial_casts)]
 #[must_use]
@@ -44,7 +44,7 @@ pub(super) struct OpCodeHandler_Invalid {
 }
 
 impl OpCodeHandler_Invalid {
-	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, _instruction: &mut Instruction) {
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, _instruction: &mut Instruction) {
 		decoder.set_invalid_instruction();
 	}
 }
@@ -66,7 +66,7 @@ impl OpCodeHandler_Simple {
 		Self { decode: OpCodeHandler_Simple::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, _decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, _decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
 	}
@@ -88,7 +88,7 @@ impl OpCodeHandler_Group8x8 {
 		Self { decode: OpCodeHandler_Group8x8::decode, has_modrm: true, table_low, table_high }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let handler = if decoder.state.mod_ == 3 {
 			unsafe { *this.table_high.get_unchecked(decoder.state.reg as usize) }
@@ -116,7 +116,7 @@ impl OpCodeHandler_Group8x64 {
 	}
 
 	#[allow(trivial_casts)]
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut handler;
 		if decoder.state.mod_ == 3 {
@@ -145,7 +145,7 @@ impl OpCodeHandler_Group {
 		Self { decode: OpCodeHandler_Group::decode, has_modrm: true, group_handlers }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let handler = unsafe { *this.group_handlers.get_unchecked(decoder.state.reg as usize) };
 		(handler.decode)(handler, decoder, instruction);
@@ -166,7 +166,7 @@ impl OpCodeHandler_AnotherTable {
 		Self { decode: OpCodeHandler_AnotherTable::decode, has_modrm: false, handlers }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		decoder.decode_table(this.handlers.as_ptr(), instruction);
 	}
@@ -203,7 +203,7 @@ impl OpCodeHandler_MandatoryPrefix2 {
 		Self { decode: OpCodeHandler_MandatoryPrefix2::decode, has_modrm, handlers: unsafe { [&*handler, &*handler_66, &*handler_f3, &*handler_f2] } }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(
 			decoder.state.encoding() == EncodingKind::VEX
@@ -232,7 +232,7 @@ impl OpCodeHandler_W {
 		Self { decode: OpCodeHandler_W::decode, has_modrm: true, handlers: unsafe { [&*handler_w0, &*handler_w1] } }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(
 			decoder.state.encoding() == EncodingKind::VEX
@@ -262,7 +262,7 @@ impl OpCodeHandler_Bitness {
 		Self { decode: OpCodeHandler_Bitness::decode, has_modrm: false, handler1632: unsafe { &*handler1632 }, handler64: unsafe { &*handler64 } }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let handler = if decoder.is64_mode { this.handler64 } else { this.handler1632 };
 		if handler.has_modrm {
@@ -293,7 +293,7 @@ impl OpCodeHandler_Bitness_DontReadModRM {
 		}
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let handler = if decoder.is64_mode { this.handler64 } else { this.handler1632 };
 		(handler.decode)(handler, decoder, instruction);
@@ -316,7 +316,7 @@ impl OpCodeHandler_RM {
 		Self { decode: OpCodeHandler_RM::decode, has_modrm: true, reg: unsafe { &*reg }, mem: unsafe { &*mem } }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let handler = if decoder.state.mod_ == 3 { this.reg } else { this.mem };
 		(handler.decode)(handler, decoder, instruction);
@@ -362,7 +362,7 @@ impl OpCodeHandler_Options1632 {
 		}
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut handler = this.default_handler;
 		let options = decoder.options;
@@ -420,7 +420,7 @@ impl OpCodeHandler_Options {
 		}
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut handler = this.default_handler;
 		let options = decoder.options;
@@ -462,7 +462,7 @@ impl OpCodeHandler_Options_DontReadModRM {
 		}
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut handler = this.default_handler;
 		let options = decoder.options;

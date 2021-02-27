@@ -27,10 +27,10 @@ struct SymbolResolverImpl<'a> {
 	vec: Vec<SymResTextPart<'a>>,
 }
 
-impl<'a> SymbolResolver for SymbolResolverImpl<'a> {
+impl SymbolResolver for SymbolResolverImpl<'_> {
 	fn symbol(
 		&mut self, _instruction: &Instruction, _operand: u32, _instruction_operand: Option<u32>, address: u64, address_size: u32,
-	) -> Option<SymbolResult> {
+	) -> Option<SymbolResult<'_>> {
 		for tc in &self.info.symbol_results {
 			if tc.address != address || tc.address_size != address_size {
 				continue;

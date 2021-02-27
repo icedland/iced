@@ -23,7 +23,7 @@ struct SymbolResolverImpl {
 impl SymbolResolver for SymbolResolverImpl {
 	fn symbol(
 		&mut self, _instruction: &Instruction, _operand: u32, instruction_operand: Option<u32>, address: u64, _address_size: u32,
-	) -> Option<SymbolResult> {
+	) -> Option<SymbolResult<'_>> {
 		if instruction_operand == Some(1) && (self.flags & SymbolTestFlags::SYMBOL) != 0 {
 			Some(SymbolResult::with_str_kind_flags(
 				address,

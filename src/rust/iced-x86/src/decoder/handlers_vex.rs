@@ -37,7 +37,7 @@ impl OpCodeHandler_VectorLength_VEX {
 		Self { decode: OpCodeHandler_VectorLength_VEX::decode, has_modrm, handlers }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let handler = unsafe { *this.handlers.get_unchecked(decoder.state.vector_length as usize) };
@@ -58,7 +58,7 @@ impl OpCodeHandler_VEX_Simple {
 		Self { decode: OpCodeHandler_VEX_Simple::decode, has_modrm: false, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -83,7 +83,7 @@ impl OpCodeHandler_VEX_VHEv {
 		Self { decode: OpCodeHandler_VEX_VHEv::decode, has_modrm: true, base_reg, code_w0, code_w1 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
@@ -129,7 +129,7 @@ impl OpCodeHandler_VEX_VHEvIb {
 		Self { decode: OpCodeHandler_VEX_VHEvIb::decode, has_modrm: true, base_reg, code_w0, code_w1 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
@@ -177,7 +177,7 @@ impl OpCodeHandler_VEX_VW {
 		Self { decode: OpCodeHandler_VEX_VW::decode, has_modrm: true, base_reg1, base_reg2, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -218,7 +218,7 @@ impl OpCodeHandler_VEX_VX_Ev {
 		Self { decode: OpCodeHandler_VEX_VX_Ev::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -263,7 +263,7 @@ impl OpCodeHandler_VEX_Ev_VX {
 		Self { decode: OpCodeHandler_VEX_Ev_VX::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -309,7 +309,7 @@ impl OpCodeHandler_VEX_WV {
 		Self { decode: OpCodeHandler_VEX_WV::decode, has_modrm: true, base_reg1: reg, base_reg2: reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -350,7 +350,7 @@ impl OpCodeHandler_VEX_VM {
 		Self { decode: OpCodeHandler_VEX_VM::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -386,7 +386,7 @@ impl OpCodeHandler_VEX_MV {
 		Self { decode: OpCodeHandler_VEX_MV::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -421,7 +421,7 @@ impl OpCodeHandler_VEX_M {
 		Self { decode: OpCodeHandler_VEX_M::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -451,7 +451,7 @@ impl OpCodeHandler_VEX_RdRq {
 		Self { decode: OpCodeHandler_VEX_RdRq::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -494,7 +494,7 @@ impl OpCodeHandler_VEX_rDI_VX_RX {
 		Self { decode: OpCodeHandler_VEX_rDI_VX_RX::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -543,7 +543,7 @@ impl OpCodeHandler_VEX_VWIb {
 		Self { decode: OpCodeHandler_VEX_VWIb::decode, has_modrm: true, base_reg1, base_reg2, code_w0, code_w1 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -591,7 +591,7 @@ impl OpCodeHandler_VEX_WVIb {
 		Self { decode: OpCodeHandler_VEX_WVIb::decode, has_modrm: true, base_reg1, base_reg2, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -635,7 +635,7 @@ impl OpCodeHandler_VEX_Ed_V_Ib {
 		Self { decode: OpCodeHandler_VEX_Ed_V_Ib::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -689,7 +689,7 @@ impl OpCodeHandler_VEX_VHW {
 		Self { decode: OpCodeHandler_VEX_VHW::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code_r: code, code_m: code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		const_assert_eq!(OpKind::Register as u32, 0);
@@ -731,7 +731,7 @@ impl OpCodeHandler_VEX_VWH {
 		Self { decode: OpCodeHandler_VEX_VWH::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -772,7 +772,7 @@ impl OpCodeHandler_VEX_WHV {
 		Self { decode: OpCodeHandler_VEX_WHV::decode, has_modrm: true, base_reg, code_r: code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		debug_assert_eq!(decoder.state.mod_, 3);
@@ -809,7 +809,7 @@ impl OpCodeHandler_VEX_VHM {
 		Self { decode: OpCodeHandler_VEX_VHM::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -845,7 +845,7 @@ impl OpCodeHandler_VEX_MHV {
 		Self { decode: OpCodeHandler_VEX_MHV::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -883,7 +883,7 @@ impl OpCodeHandler_VEX_VHWIb {
 		Self { decode: OpCodeHandler_VEX_VHWIb::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -926,7 +926,7 @@ impl OpCodeHandler_VEX_HRIb {
 		Self { decode: OpCodeHandler_VEX_HRIb::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -962,7 +962,7 @@ impl OpCodeHandler_VEX_VHWIs4 {
 		Self { decode: OpCodeHandler_VEX_VHWIs4::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1009,7 +1009,7 @@ impl OpCodeHandler_VEX_VHIs4W {
 		Self { decode: OpCodeHandler_VEX_VHIs4W::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1056,7 +1056,7 @@ impl OpCodeHandler_VEX_VHWIs5 {
 		Self { decode: OpCodeHandler_VEX_VHWIs5::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1103,7 +1103,7 @@ impl OpCodeHandler_VEX_VHIs5W {
 		Self { decode: OpCodeHandler_VEX_VHIs5W::decode, has_modrm: true, base_reg, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1149,7 +1149,7 @@ impl OpCodeHandler_VEX_VK_HK_RK {
 		Self { decode: OpCodeHandler_VEX_VK_HK_RK::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if decoder.invalid_check_mask != 0 && (decoder.state.vvvv > 7 || decoder.state.extra_register_base != 0) {
@@ -1185,7 +1185,7 @@ impl OpCodeHandler_VEX_VK_RK {
 		Self { decode: OpCodeHandler_VEX_VK_RK::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1218,7 +1218,7 @@ impl OpCodeHandler_VEX_VK_RK_Ib {
 		Self { decode: OpCodeHandler_VEX_VK_RK_Ib::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1253,7 +1253,7 @@ impl OpCodeHandler_VEX_VK_WK {
 		Self { decode: OpCodeHandler_VEX_VK_WK::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1287,7 +1287,7 @@ impl OpCodeHandler_VEX_M_VK {
 		Self { decode: OpCodeHandler_VEX_M_VK::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1320,7 +1320,7 @@ impl OpCodeHandler_VEX_VK_R {
 		Self { decode: OpCodeHandler_VEX_VK_R::decode, has_modrm: true, code, gpr }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1357,7 +1357,7 @@ impl OpCodeHandler_VEX_G_VK {
 		Self { decode: OpCodeHandler_VEX_G_VK::decode, has_modrm: true, code, gpr }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -1395,7 +1395,7 @@ impl OpCodeHandler_VEX_Gv_W {
 		Self { decode: OpCodeHandler_VEX_Gv_W::decode, has_modrm: true, base_reg, code_w0, code_w1 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -1447,7 +1447,7 @@ impl OpCodeHandler_VEX_Gv_RX {
 		Self { decode: OpCodeHandler_VEX_Gv_RX::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -1492,7 +1492,7 @@ impl OpCodeHandler_VEX_Gv_GPR_Ib {
 		Self { decode: OpCodeHandler_VEX_Gv_GPR_Ib::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -1540,7 +1540,7 @@ impl OpCodeHandler_VEX_VX_VSIB_HX {
 		Self { decode: OpCodeHandler_VEX_VX_VSIB_HX::decode, has_modrm: true, base_reg1, vsib_index, base_reg3, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1580,7 +1580,7 @@ impl OpCodeHandler_VEX_Gv_Gv_Ev {
 		Self { decode: OpCodeHandler_VEX_Gv_Gv_Ev::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
@@ -1622,7 +1622,7 @@ impl OpCodeHandler_VEX_Gv_Ev_Gv {
 		Self { decode: OpCodeHandler_VEX_Gv_Ev_Gv::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
@@ -1664,7 +1664,7 @@ impl OpCodeHandler_VEX_Hv_Ev {
 		Self { decode: OpCodeHandler_VEX_Hv_Ev::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
@@ -1703,7 +1703,7 @@ impl OpCodeHandler_VEX_Hv_Ed_Id {
 		Self { decode: OpCodeHandler_VEX_Hv_Ed_Id::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
@@ -1748,7 +1748,7 @@ impl OpCodeHandler_VEX_GvM_VX_Ib {
 		Self { decode: OpCodeHandler_VEX_GvM_VX_Ib::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -1795,7 +1795,7 @@ impl OpCodeHandler_VEX_Gv_Ev_Ib {
 		Self { decode: OpCodeHandler_VEX_Gv_Ev_Ib::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -1839,7 +1839,7 @@ impl OpCodeHandler_VEX_Gv_Ev_Id {
 		Self { decode: OpCodeHandler_VEX_Gv_Ev_Id::decode, has_modrm: true, code32, code64 }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
@@ -1882,7 +1882,7 @@ impl OpCodeHandler_VEX_VT_SIBMEM {
 		Self { decode: OpCodeHandler_VEX_VT_SIBMEM::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1914,7 +1914,7 @@ impl OpCodeHandler_VEX_SIBMEM_VT {
 		Self { decode: OpCodeHandler_VEX_SIBMEM_VT::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1946,7 +1946,7 @@ impl OpCodeHandler_VEX_VT {
 		Self { decode: OpCodeHandler_VEX_VT::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if ((decoder.state.vvvv_invalid_check | decoder.state.extra_register_base) & decoder.invalid_check_mask) != 0 {
@@ -1972,7 +1972,7 @@ impl OpCodeHandler_VEX_VT_RT_HT {
 		Self { decode: OpCodeHandler_VEX_VT_RT_HT::decode, has_modrm: true, code }
 	}
 
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		if decoder.invalid_check_mask != 0 && (decoder.state.vvvv > 7 || decoder.state.extra_register_base != 0) {

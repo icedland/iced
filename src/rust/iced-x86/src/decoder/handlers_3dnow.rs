@@ -282,7 +282,7 @@ impl OpCodeHandler_D3NOW {
 		Self { decode: OpCodeHandler_D3NOW::decode, has_modrm: true }
 	}
 
-	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -318,7 +318,7 @@ impl OpCodeHandler_D3NOW {
 		Self { decode: OpCodeHandler_D3NOW::decode, has_modrm: true }
 	}
 
-	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, _instruction: &mut Instruction) {
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, _instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		decoder.set_invalid_instruction();
 	}

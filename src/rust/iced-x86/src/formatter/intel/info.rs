@@ -829,7 +829,7 @@ impl SimpleInstrInfo_pops {
 		Self { mnemonic: FormatterString::new(mnemonic), pseudo_ops }
 	}
 
-	fn remove_last_op(info: &mut InstrOpInfo) {
+	fn remove_last_op(info: &mut InstrOpInfo<'_>) {
 		match info.op_count {
 			4 => info.op_indexes[3] = OP_ACCESS_INVALID,
 			3 => info.op_indexes[2] = OP_ACCESS_INVALID,

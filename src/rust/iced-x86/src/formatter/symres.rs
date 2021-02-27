@@ -20,7 +20,7 @@ pub trait SymbolResolver {
 	/// - `address_size`: Size of `address` in bytes (eg. 1, 2, 4 or 8)
 	fn symbol(
 		&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, address: u64, address_size: u32,
-	) -> Option<SymbolResult>;
+	) -> Option<SymbolResult<'_>>;
 }
 
 /// Contains a `&'a str` or a `String`
@@ -31,14 +31,14 @@ pub enum SymResString<'a> {
 	/// Contains a `String`
 	String(String),
 }
-impl<'a> Default for SymResString<'a> {
+impl Default for SymResString<'_> {
 	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SymResString::Str("")
 	}
 }
-impl<'a> SymResString<'a> {
+impl SymResString<'_> {
 	pub(super) fn to_owned<'b>(self) -> SymResString<'b> {
 		match self {
 			SymResString::Str(s) => SymResString::String(String::from(s)),

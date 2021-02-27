@@ -37,8 +37,8 @@ fn read_infos<'a>(
 	filter_infos(dir, file_part, tmp_infos, &ignored)
 }
 
-fn filter_infos<'a, 'b>(
-	dir: &str, file_part: &str, all_infos: &'a [OptionsInstructionInfo], ignored: &'b HashSet<u32>,
+fn filter_infos<'a>(
+	dir: &str, file_part: &str, all_infos: &'a [OptionsInstructionInfo], ignored: &'_ HashSet<u32>,
 ) -> Vec<(&'a OptionsInstructionInfo, String)> {
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);

@@ -142,7 +142,7 @@ impl MasmFormatter {
 	}
 
 	fn format_mnemonic(
-		&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo, column: &mut u32, mnemonic_options: u32,
+		&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo<'_>, column: &mut u32, mnemonic_options: u32,
 	) {
 		let mut need_space = false;
 		if (mnemonic_options & FormatMnemonicOptions::NO_PREFIXES) == 0 && (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE as u16) == 0 {
@@ -281,7 +281,7 @@ impl MasmFormatter {
 		}
 	}
 
-	fn show_segment_prefix(&self, instruction: &Instruction, op_info: &InstrOpInfo) -> bool {
+	fn show_segment_prefix(&self, instruction: &Instruction, op_info: &InstrOpInfo<'_>) -> bool {
 		if (op_info.flags & (InstrOpInfoFlags::JCC_NOT_TAKEN | InstrOpInfoFlags::JCC_TAKEN) as u16) != 0 {
 			return false;
 		}
@@ -355,7 +355,7 @@ impl MasmFormatter {
 		*need_space = true;
 	}
 
-	fn format_operands(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo) {
+	fn format_operands(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo<'_>) {
 		for i in 0..op_info.op_count as u32 {
 			if i > 0 {
 				output.write(",", FormatterTextKind::Punctuation);
@@ -367,7 +367,7 @@ impl MasmFormatter {
 		}
 	}
 
-	fn format_operand(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo, operand: u32) {
+	fn format_operand(&mut self, instruction: &Instruction, output: &mut dyn FormatterOutput, op_info: &InstrOpInfo<'_>, operand: u32) {
 		debug_assert!(operand < op_info.op_count as u32);
 
 		let instruction_operand = op_info.instruction_index(operand);
@@ -489,7 +489,7 @@ impl MasmFormatter {
 				} else {
 					FormatterOperandOptionsFlags::NO_BRANCH_SIZE
 				});
-				let mut vec: Vec<SymResTextPart> = Vec::new();
+				let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
 				if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
 					to_owned(symbol_resolver.symbol(instruction, operand, instruction_operand, imm64 as u32 as u64, imm_size), &mut vec)
 				} else {
@@ -1265,8 +1265,8 @@ impl MasmFormatter {
 
 	#[allow(clippy::too_many_arguments)]
 	fn format_memory_displ(
-		d: &SelfData, number_formatter: &mut NumberFormatter, number_options: &mut NumberFormattingOptions, output: &mut dyn FormatterOutput,
-		instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, symbol: &Option<SymbolResult>, abs_addr: u64, mut displ: i64,
+		d: &SelfData, number_formatter: &mut NumberFormatter, number_options: &mut NumberFormattingOptions<'_>, output: &mut dyn FormatterOutput,
+		instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, symbol: &Option<SymbolResult<'_>>, abs_addr: u64, mut displ: i64,
 		mut displ_size: u32, addr_size: u32, need_plus: bool, force_displ: bool,
 	) {
 		if let &Some(ref symbol) = symbol {
@@ -1383,8 +1383,8 @@ impl MasmFormatter {
 
 	#[allow(clippy::unwrap_used)]
 	fn format_memory_size(
-		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, symbol: &Option<SymbolResult>, mem_size: MemorySize, flags: u32,
-		operand_options: FormatterOperandOptions,
+		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, symbol: &Option<SymbolResult<'_>>, mem_size: MemorySize,
+		flags: u32, operand_options: FormatterOperandOptions,
 	) {
 		let mem_size_options = operand_options.memory_size_options();
 		if mem_size_options == MemorySizeOptions::Never {
@@ -1457,7 +1457,7 @@ impl MasmFormatter {
 		}
 	}
 
-	fn is_same_mem_size(d: &SelfData, mem_size_strings: &[&FormatterString], is_broadcast: bool, symbol: &SymbolResult) -> bool {
+	fn is_same_mem_size(d: &SelfData, mem_size_strings: &[&FormatterString], is_broadcast: bool, symbol: &SymbolResult<'_>) -> bool {
 		if is_broadcast {
 			return false;
 		}
@@ -1690,49 +1690,49 @@ impl Formatter for MasmFormatter {
 
 	#[must_use]
 	#[inline]
-	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions) -> &str {
+	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i8(&self.d.options, number_options, value)
 	}
 
 	#[must_use]
 	#[inline]
-	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions) -> &str {
+	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i16(&self.d.options, number_options, value)
 	}
 
 	#[must_use]
 	#[inline]
-	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions) -> &str {
+	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i32(&self.d.options, number_options, value)
 	}
 
 	#[must_use]
 	#[inline]
-	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions) -> &str {
+	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i64(&self.d.options, number_options, value)
 	}
 
 	#[must_use]
 	#[inline]
-	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions) -> &str {
+	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u8(&self.d.options, number_options, value)
 	}
 
 	#[must_use]
 	#[inline]
-	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions) -> &str {
+	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u16(&self.d.options, number_options, value)
 	}
 
 	#[must_use]
 	#[inline]
-	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions) -> &str {
+	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u32(&self.d.options, number_options, value)
 	}
 
 	#[must_use]
 	#[inline]
-	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str {
+	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u64(&self.d.options, number_options, value)
 	}
 }

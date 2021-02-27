@@ -1228,7 +1228,7 @@ impl SimpleInstrInfo_er {
 		Self { mnemonic: FormatterString::new(mnemonic), er_index, flags }
 	}
 
-	fn move_operands(info: &mut InstrOpInfo, index: u32, new_op_kind: InstrOpKind) {
+	fn move_operands(info: &mut InstrOpInfo<'_>, index: u32, new_op_kind: InstrOpKind) {
 		debug_assert!(info.op_count <= 4);
 
 		match index {
@@ -1351,7 +1351,7 @@ impl SimpleInstrInfo_pops {
 		Self { mnemonic: FormatterString::new(mnemonic), pseudo_ops }
 	}
 
-	fn remove_last_op(info: &mut InstrOpInfo) {
+	fn remove_last_op(info: &mut InstrOpInfo<'_>) {
 		match info.op_count {
 			5 => info.op_indexes[4] = OP_ACCESS_INVALID,
 			4 => info.op_indexes[3] = OP_ACCESS_INVALID,
