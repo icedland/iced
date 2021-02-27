@@ -40,12 +40,6 @@ default-features = false
 features = ["std", "decoder", "masm"]
 ```
 
-If you're using Rust 2015 edition you must also add this to your `lib.rs` or `main.rs`:
-
-```rust
-extern crate iced_x86;
-```
-
 ## Crate feature flags
 
 You can enable/disable these in your `Cargo.toml` file.
