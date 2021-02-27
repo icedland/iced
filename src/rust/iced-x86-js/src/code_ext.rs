@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::code::{code_to_iced, Code};
+use crate::code::{code_to_iced, Code};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
-use super::op_code_info::OpCodeInfo;
+use crate::op_code_info::OpCodeInfo;
 use wasm_bindgen::prelude::*;
 
 /// [`Code`] enum extension methods

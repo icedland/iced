@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::code::{iced_to_code, Code};
-use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
-use super::ex_utils::to_js_error;
-use super::mandatory_prefix::{iced_to_mandatory_prefix, MandatoryPrefix};
-use super::memory_size::{iced_to_memory_size, MemorySize};
-use super::mnemonic::{iced_to_mnemonic, Mnemonic};
-use super::op_code_operand_kind::{iced_to_op_code_operand_kind, OpCodeOperandKind};
-use super::op_code_table_kind::{iced_to_op_code_table_kind, OpCodeTableKind};
-use super::tuple_type::{iced_to_tuple_type, TupleType};
+use crate::code::{iced_to_code, Code};
+use crate::encoding_kind::{iced_to_encoding_kind, EncodingKind};
+use crate::ex_utils::to_js_error;
+use crate::mandatory_prefix::{iced_to_mandatory_prefix, MandatoryPrefix};
+use crate::memory_size::{iced_to_memory_size, MemorySize};
+use crate::mnemonic::{iced_to_mnemonic, Mnemonic};
+use crate::op_code_operand_kind::{iced_to_op_code_operand_kind, OpCodeOperandKind};
+use crate::op_code_table_kind::{iced_to_op_code_table_kind, OpCodeTableKind};
+use crate::tuple_type::{iced_to_tuple_type, TupleType};
 use wasm_bindgen::prelude::*;
 
 /// Opcode info, returned by [`Instruction.opCode`]

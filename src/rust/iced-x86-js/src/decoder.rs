@@ -2,11 +2,11 @@
 // Copyright (C) 2018-present iced project and contributors
 
 #[cfg(feature = "instr_info")]
-use super::constant_offsets::ConstantOffsets;
-use super::decoder_error::{iced_to_decoder_error, DecoderError};
-use super::decoder_options::DecoderOptions;
-use super::ex_utils::to_js_error;
-use super::instruction::Instruction;
+use crate::constant_offsets::ConstantOffsets;
+use crate::decoder_error::{iced_to_decoder_error, DecoderError};
+use crate::decoder_options::DecoderOptions;
+use crate::ex_utils::to_js_error;
+use crate::instruction::Instruction;
 use static_assertions::const_assert_eq;
 use std::slice;
 use wasm_bindgen::prelude::*;

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::memory_size::{iced_to_memory_size, memory_size_to_iced, MemorySize};
+use crate::memory_size::{iced_to_memory_size, memory_size_to_iced, MemorySize};
 use wasm_bindgen::prelude::*;
 
 /// [`MemorySize`] enum extension methods

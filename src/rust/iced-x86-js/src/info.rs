@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::ex_utils::to_js_error;
-use super::instruction::Instruction;
-use super::memory_size::{iced_to_memory_size, MemorySize};
-use super::op_access::{iced_to_op_access, OpAccess};
-use super::register::{iced_to_register, Register};
+use crate::ex_utils::to_js_error;
+use crate::instruction::Instruction;
+use crate::memory_size::{iced_to_memory_size, MemorySize};
+use crate::op_access::{iced_to_op_access, OpAccess};
+use crate::register::{iced_to_register, Register};
 use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;
 

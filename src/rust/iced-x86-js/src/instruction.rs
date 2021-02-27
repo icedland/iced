@@ -2,54 +2,54 @@
 // Copyright (C) 2018-present iced project and contributors
 
 #[cfg(any(all(feature = "encoder", feature = "instr_api"), feature = "instr_create"))]
-use super::code::code_to_iced;
+use crate::code::code_to_iced;
 #[cfg(feature = "instr_api")]
-use super::code::iced_to_code;
+use crate::code::iced_to_code;
 #[cfg(any(feature = "instr_api", feature = "instr_create"))]
-use super::code::Code;
+use crate::code::Code;
 #[cfg(feature = "encoder")]
 #[cfg(feature = "instr_api")]
-use super::code_size::code_size_to_iced;
+use crate::code_size::code_size_to_iced;
 #[cfg(feature = "instr_api")]
-use super::code_size::{iced_to_code_size, CodeSize};
+use crate::code_size::{iced_to_code_size, CodeSize};
 #[cfg(feature = "instr_info")]
 #[cfg(feature = "instr_api")]
-use super::condition_code::{iced_to_condition_code, ConditionCode};
+use crate::condition_code::{iced_to_condition_code, ConditionCode};
 #[cfg(feature = "instr_info")]
 #[cfg(feature = "instr_api")]
-use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
+use crate::encoding_kind::{iced_to_encoding_kind, EncodingKind};
 #[cfg(any(feature = "instr_api", feature = "instr_create"))]
-use super::ex_utils::to_js_error;
+use crate::ex_utils::to_js_error;
 #[cfg(feature = "instr_info")]
 #[cfg(feature = "instr_api")]
-use super::flow_control::{iced_to_flow_control, FlowControl};
+use crate::flow_control::{iced_to_flow_control, FlowControl};
 #[cfg(feature = "instr_create")]
-use super::memory_operand::MemoryOperand;
+use crate::memory_operand::MemoryOperand;
 #[cfg(feature = "instr_api")]
-use super::memory_size::{iced_to_memory_size, MemorySize};
+use crate::memory_size::{iced_to_memory_size, MemorySize};
 #[cfg(feature = "instr_api")]
-use super::mnemonic::{iced_to_mnemonic, Mnemonic};
+use crate::mnemonic::{iced_to_mnemonic, Mnemonic};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg(feature = "instr_api")]
-use super::op_code_info::OpCodeInfo;
+use crate::op_code_info::OpCodeInfo;
 #[cfg(feature = "encoder")]
 #[cfg(feature = "instr_api")]
-use super::op_kind::op_kind_to_iced;
+use crate::op_kind::op_kind_to_iced;
 #[cfg(feature = "instr_api")]
-use super::op_kind::{iced_to_op_kind, OpKind};
+use crate::op_kind::{iced_to_op_kind, OpKind};
 #[cfg(feature = "instr_api")]
-use super::register::iced_to_register;
+use crate::register::iced_to_register;
 #[cfg(any(all(feature = "encoder", feature = "instr_api"), feature = "instr_create"))]
-use super::register::register_to_iced;
+use crate::register::register_to_iced;
 #[cfg(any(feature = "instr_api", feature = "instr_create"))]
-use super::register::Register;
+use crate::register::Register;
 #[cfg(feature = "instr_create")]
-use super::rep_prefix_kind::{rep_prefix_kind_to_iced, RepPrefixKind};
+use crate::rep_prefix_kind::{rep_prefix_kind_to_iced, RepPrefixKind};
 #[cfg(feature = "encoder")]
 #[cfg(feature = "instr_api")]
-use super::rounding_control::rounding_control_to_iced;
+use crate::rounding_control::rounding_control_to_iced;
 #[cfg(feature = "instr_api")]
-use super::rounding_control::{iced_to_rounding_control, RoundingControl};
+use crate::rounding_control::{iced_to_rounding_control, RoundingControl};
 use wasm_bindgen::prelude::*;
 
 /// A 16/32/64-bit x86 instruction. Created by [`Decoder`] or by `Instruction.with*()` methods.

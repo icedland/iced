@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::constant_offsets::ConstantOffsets;
-use super::ex_utils::to_js_error;
-use super::instruction::Instruction;
+use crate::constant_offsets::ConstantOffsets;
+use crate::ex_utils::to_js_error;
+use crate::instruction::Instruction;
 use wasm_bindgen::prelude::*;
 
 /// Encodes instructions decoded by the decoder or instructions created by other code.

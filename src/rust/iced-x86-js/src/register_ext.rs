@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::register::{iced_to_register, register_to_iced, Register};
+use crate::register::{iced_to_register, register_to_iced, Register};
 use wasm_bindgen::prelude::*;
 
 /// [`Register`] enum extension methods

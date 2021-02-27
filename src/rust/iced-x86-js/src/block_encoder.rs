@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::block_encoder_options::BlockEncoderOptions;
-use super::instruction::Instruction;
+use crate::block_encoder_options::BlockEncoderOptions;
+use crate::instruction::Instruction;
 use iced_x86_rust::InstructionBlock;
 use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;

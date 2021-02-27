@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::instruction::Instruction;
+use crate::instruction::Instruction;
 use wasm_bindgen::prelude::*;
 
 /// x86 formatter that uses less code (smaller wasm files)

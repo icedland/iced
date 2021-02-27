@@ -3,7 +3,7 @@
 
 //TODO: if bigint feature, use i64 displacement args instead of i32
 
-use super::register::{register_to_iced, Register};
+use crate::register::{register_to_iced, Register};
 use wasm_bindgen::prelude::*;
 
 /// Memory operand passed to one of [`Instruction`]'s `create*()` constructor methods
