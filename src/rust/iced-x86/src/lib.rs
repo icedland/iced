@@ -1177,6 +1177,7 @@
 #![warn(clippy::large_digit_groups)]
 #![warn(clippy::let_unit_value)]
 #![warn(clippy::match_bool)]
+#![warn(clippy::match_on_vec_items)]
 #![warn(clippy::match_wild_err_arm)]
 #![warn(clippy::missing_errors_doc)]
 #![warn(clippy::missing_inline_in_public_items)]
@@ -1199,7 +1200,6 @@
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]
 #![cfg_attr(not(test), warn(clippy::expect_used))]
-#![cfg_attr(not(test), warn(clippy::match_on_vec_items))]
 #![cfg_attr(not(test), warn(clippy::unwrap_used))]
 #![cfg_attr(not(feature = "std"), no_std)]
 
