@@ -170,6 +170,7 @@ impl GasFormatter {
 				let mut prefix;
 
 				if (op_info.flags & InstrOpInfoFlags::OP_SIZE_IS_BYTE_DIRECTIVE as u16) != 0 {
+					// SAFETY: generated data is valid
 					let size_override: SizeOverride = unsafe {
 						mem::transmute((((op_info.flags as u32) >> InstrOpInfoFlags::OP_SIZE_SHIFT) & InstrOpInfoFlags::SIZE_OVERRIDE_MASK) as u8)
 					};
@@ -1062,6 +1063,7 @@ impl GasFormatter {
 			operand,
 			instruction_operand,
 			GasFormatter::get_reg_str(d, reg_num),
+			// SAFETY: either it's REGISTER_ST or it's a valid Register enum value, see Registers::EXTRA_REGISTERS == 1 above
 			if reg_num == Registers::REGISTER_ST { Register::ST0 } else { unsafe { mem::transmute(reg_num as u8) } },
 		);
 	}

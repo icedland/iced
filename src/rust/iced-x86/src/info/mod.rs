@@ -417,6 +417,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::cpuid_features() instead")]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
+		// SAFETY: index is always valid
 		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
 
@@ -503,6 +504,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_read() instead")]
 	pub fn rflags_read(&self) -> u32 {
+		// SAFETY: index is always valid
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
 	}
 
@@ -515,6 +517,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_written() instead")]
 	pub fn rflags_written(&self) -> u32 {
+		// SAFETY: index is always valid
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
 	}
 
@@ -527,6 +530,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_cleared() instead")]
 	pub fn rflags_cleared(&self) -> u32 {
+		// SAFETY: index is always valid
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
 	}
 
@@ -539,6 +543,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_set() instead")]
 	pub fn rflags_set(&self) -> u32 {
+		// SAFETY: index is always valid
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
 	}
 
@@ -551,6 +556,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_undefined() instead")]
 	pub fn rflags_undefined(&self) -> u32 {
+		// SAFETY: index is always valid
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
 	}
 
@@ -561,6 +567,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_modified() instead")]
 	pub fn rflags_modified(&self) -> u32 {
+		// SAFETY: index is always valid
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
 	}
 }

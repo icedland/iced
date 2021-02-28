@@ -60,7 +60,7 @@ impl Iterator for CodeSizeIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CODE_SIZE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CodeSize = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -98,7 +98,7 @@ impl TryFrom<usize> for CodeSize {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CODE_SIZE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CodeSize value"))
@@ -173,7 +173,7 @@ impl Iterator for RoundingControlIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::ROUNDING_CONTROL_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: RoundingControl = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -211,7 +211,7 @@ impl TryFrom<usize> for RoundingControl {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::ROUNDING_CONTROL_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid RoundingControl value"))
@@ -434,7 +434,7 @@ impl Iterator for OpKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::OP_KIND_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: OpKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -472,7 +472,7 @@ impl TryFrom<usize> for OpKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::OP_KIND_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid OpKind value"))
@@ -627,7 +627,7 @@ impl Iterator for EncodingKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::ENCODING_KIND_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: EncodingKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -669,7 +669,7 @@ impl TryFrom<usize> for EncodingKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::ENCODING_KIND_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid EncodingKind value"))
@@ -781,7 +781,7 @@ impl Iterator for TupleTypeIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::TUPLE_TYPE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: TupleType = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -823,7 +823,7 @@ impl TryFrom<usize> for TupleType {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::TUPLE_TYPE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid TupleType value"))
@@ -923,7 +923,7 @@ impl Iterator for FlowControlIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::FLOW_CONTROL_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: FlowControl = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -965,7 +965,7 @@ impl TryFrom<usize> for FlowControl {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::FLOW_CONTROL_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid FlowControl value"))
@@ -1370,7 +1370,7 @@ impl Iterator for OpCodeOperandKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::OP_CODE_OPERAND_KIND_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: OpCodeOperandKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1412,7 +1412,7 @@ impl TryFrom<usize> for OpCodeOperandKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::OP_CODE_OPERAND_KIND_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid OpCodeOperandKind value"))
@@ -1956,7 +1956,7 @@ impl Iterator for CpuidFeatureIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CPUID_FEATURE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CpuidFeature = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1998,7 +1998,7 @@ impl TryFrom<usize> for CpuidFeature {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CPUID_FEATURE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CpuidFeature value"))
@@ -2132,7 +2132,7 @@ impl Iterator for OpAccessIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::OP_ACCESS_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: OpAccess = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -2174,7 +2174,7 @@ impl TryFrom<usize> for OpAccess {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::OP_ACCESS_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid OpAccess value"))
@@ -2294,7 +2294,7 @@ impl Iterator for ConditionCodeIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CONDITION_CODE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: ConditionCode = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -2336,7 +2336,7 @@ impl TryFrom<usize> for ConditionCode {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CONDITION_CODE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid ConditionCode value"))
@@ -2419,7 +2419,7 @@ impl Iterator for MandatoryPrefixIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::MANDATORY_PREFIX_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: MandatoryPrefix = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -2461,7 +2461,7 @@ impl TryFrom<usize> for MandatoryPrefix {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::MANDATORY_PREFIX_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid MandatoryPrefix value"))
@@ -2551,7 +2551,7 @@ impl Iterator for OpCodeTableKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::OP_CODE_TABLE_KIND_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: OpCodeTableKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -2593,7 +2593,7 @@ impl TryFrom<usize> for OpCodeTableKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::OP_CODE_TABLE_KIND_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid OpCodeTableKind value"))

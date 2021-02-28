@@ -24,6 +24,7 @@ fn read() -> Vec<Box<dyn InstrInfo + Sync + Send>> {
 	let strings = get_strings_table_ref();
 	let mut prev_index = -1isize;
 	for i in 0..IcedConstants::CODE_ENUM_COUNT {
+		// SAFETY: generated (and immutable) data is valid
 		let f = reader.read_u8();
 		let mut ctor_kind: CtorKind = unsafe { mem::transmute((f & 0x7F) as u8) };
 		let current_index;

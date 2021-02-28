@@ -202,6 +202,7 @@ impl Encoder {
 
 		Ok(Self {
 			current_rip: 0,
+			// SAFETY: this is a valid index (len() == count(Code))
 			handler: unsafe { *HANDLERS_TABLE.get_unchecked(0) },
 			// Store it in an instance field since it's a lazy_static
 			handler_table: HANDLERS_TABLE.as_slice(),
@@ -278,6 +279,7 @@ impl Encoder {
 		// requires 3 instructions.
 		self.sib = 0;
 
+		// SAFETY: self.handler_table.len() == count(Code) so the index is always valid
 		let handler = unsafe { *self.handler_table.get_unchecked(instruction.code() as usize) };
 		self.handler = handler;
 		self.op_code = handler.op_code;
@@ -331,6 +333,7 @@ impl Encoder {
 				self.set_error_message(format!("Expected {} operand(s) but the instruction has {} operand(s)", ops.len(), instruction.op_count()));
 			}
 			for i in 0..ops.len() {
+				// SAFETY: `i` is a valid index, see above for loop
 				let op = unsafe { *ops.get_unchecked(i) };
 				op.encode(self, instruction, i as u32);
 			}
@@ -424,7 +427,12 @@ impl Encoder {
 	#[must_use]
 	#[inline]
 	pub(super) fn verify_register_range(&mut self, operand: u32, register: Register, reg_lo: Register, mut reg_hi: Register) -> bool {
+		// In 16/32-bit mode, only the low 8 regs are used, but callers pass in all 16 (or 32) regs
+		// that are valid in 64-bit mode. Update reg_hi so only the first 8 regs can be used.
 		if self.bitness != 64 && reg_hi as u32 > (reg_lo as u32).wrapping_add(7) {
+			// SAFETY: reg_lo+7 is a valid reg (see 2nd comparison above) (eg. EAX+7 = EDI) and
+			// all groups of regs (eg. gpr64) use consecutive enum values so it's safe to add 7
+			// to get the 8th reg in the same reg group,
 			reg_hi = unsafe { mem::transmute((reg_lo as u8).wrapping_add(7)) };
 		}
 		if reg_lo <= register && register <= reg_hi {
@@ -1084,6 +1092,8 @@ impl Encoder {
 		if seg != Register::None {
 			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
 			debug_assert!((seg as usize).wrapping_sub(Register::ES as usize) < SEGMENT_OVERRIDES.len());
+			// SAFETY: there are exactly 6 segment registers, which equals SEGMENT_OVERRIDES.len().
+			// The segment reg enum values are consecutive: ES,CS,SS,DS,FS,GS
 			self.write_byte_internal(unsafe { *SEGMENT_OVERRIDES.get_unchecked((seg as usize).wrapping_sub(Register::ES as usize)) } as u32);
 		}
 		if (self.encoder_flags & EncoderFlags::PF0) != 0 || instruction.has_lock_prefix() {

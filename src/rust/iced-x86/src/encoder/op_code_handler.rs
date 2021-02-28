@@ -12,6 +12,11 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{i8, mem, u32};
 
+// SAFETY:
+//	code: let this = unsafe { &*(self_ptr as *const Self) };
+// The first arg (`self_ptr`) to encode() is always the handler itself, cast to a `*const OpCodeHandler`.
+// All handlers are `#[repr(C)]` structs so the OpCodeHandler fields are always at the same offsets.
+
 #[repr(C)]
 pub(crate) struct OpCodeHandler {
 	pub(super) encode: fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction),
@@ -122,6 +127,7 @@ impl LegacyHandler {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		// SAFETY: generated data is valid
 		let table: LegacyOpCodeTable = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) };
 		let (table_byte1, table_byte2) = match table {
 			LegacyOpCodeTable::Normal => (0, 0),
@@ -129,6 +135,7 @@ impl LegacyHandler {
 			LegacyOpCodeTable::Table0F38 => (0x0F, 0x38),
 			LegacyOpCodeTable::Table0F3A => (0x0F, 0x3A),
 		};
+		// SAFETY: generated data is valid
 		let mpb: MandatoryPrefixByte =
 			unsafe { mem::transmute(((enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK) as u8) };
 		let mandatory_prefix = match mpb {
@@ -184,7 +191,9 @@ impl LegacyHandler {
 				group_index,
 				rm_group_index,
 				enc_flags3,
+				// SAFETY: generated data is valid
 				op_size: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::OPERAND_SIZE_SHIFT) & EncFlags3::OPERAND_SIZE_MASK) as u8) },
+				// SAFETY: generated data is valid
 				addr_size: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ADDRESS_SIZE_SHIFT) & EncFlags3::ADDRESS_SIZE_MASK) as u8) },
 				is_2byte_opcode: (enc_flags2 & EncFlags2::OP_CODE_IS2_BYTES) != 0,
 				is_declare_data: false,
@@ -248,8 +257,10 @@ impl VexHandler {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		// SAFETY: generated data is valid
 		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		let w1 = if wbit == WBit::W1 { u32::MAX } else { 0 };
+		// SAFETY: generated data is valid
 		let lbit: LBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) };
 		let mut last_byte = if lbit == LBit::L1 || lbit == LBit::L256 { 4 } else { 0 };
 		if w1 != 0 {
@@ -392,11 +403,13 @@ impl XopHandler {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+		// SAFETY: generated data is valid
 		let lbit: LBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) };
 		let mut last_byte = match lbit {
 			LBit::L1 | LBit::L256 => 4,
 			_ => 0,
 		};
+		// SAFETY: generated data is valid
 		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		if wbit == WBit::W1 {
 			last_byte |= 0x80;
@@ -506,10 +519,12 @@ impl EvexHandler {
 		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
 		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 		let mut p1_bits = 4 | ((enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK);
+		// SAFETY: generated data is valid
 		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		if wbit == WBit::W1 {
 			p1_bits |= 0x80
 		}
+		// SAFETY: generated data is valid
 		let lbit: LBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) };
 		let mut mask_ll = 0;
 		let ll_bits = match lbit {
@@ -579,6 +594,7 @@ impl EvexHandler {
 			ll_bits,
 			mask_w,
 			mask_ll,
+			// SAFETY: generated data is valid
 			tuple_type: unsafe { mem::transmute(((enc_flags3 >> EncFlags3::TUPLE_TYPE_SHIFT) & EncFlags3::TUPLE_TYPE_MASK) as u8) },
 			wbit,
 		}

@@ -1102,6 +1102,7 @@ impl IntelFormatter {
 			operand,
 			instruction_operand,
 			IntelFormatter::get_reg_str(d, reg_num),
+			// SAFETY: either it's REGISTER_ST or it's a valid Register enum value, see Registers::EXTRA_REGISTERS == 1 above
 			if reg_num == Registers::REGISTER_ST { Register::ST0 } else { unsafe { mem::transmute(reg_num as u8) } },
 		);
 	}

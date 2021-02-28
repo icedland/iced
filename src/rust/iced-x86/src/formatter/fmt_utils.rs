@@ -254,6 +254,7 @@ pub(super) fn get_segment_register_prefix_kind(register: Register) -> PrefixKind
 	const_assert_eq!(PrefixKind::ES as u32 + 3, PrefixKind::DS as u32);
 	const_assert_eq!(PrefixKind::ES as u32 + 4, PrefixKind::FS as u32);
 	const_assert_eq!(PrefixKind::ES as u32 + 5, PrefixKind::GS as u32);
+	// SAFETY: callers only pass in a valid segment register (ES,CS,SS,DS,FS,GS)
 	unsafe { mem::transmute(((register as u32 - Register::ES as u32) + PrefixKind::ES as u32) as u8) }
 }
 

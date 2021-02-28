@@ -108,6 +108,9 @@ impl OpCodeInfo {
 		let address_size;
 		let lkind;
 
+		// SAFETY: all generated (and also immutable) data is valid, eg. using transmute to
+		// convert an integer to an enum value is valid
+
 		let encoding = unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ENCODING_SHIFT) & EncFlags3::ENCODING_MASK) as u8) };
 		mandatory_prefix =
 			match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK) as u8) } {
@@ -1050,7 +1053,7 @@ impl OpCodeInfo {
 	#[inline]
 	pub fn decoder_option(&self) -> u32 {
 		let index = ((self.opc_flags1 >> OpCodeInfoFlags1::DEC_OPTION_VALUE_SHIFT) & OpCodeInfoFlags1::DEC_OPTION_VALUE_MASK) as usize;
-		// Safe, index is generated (always valid)
+		// SAFETY: index is generated (always valid)
 		unsafe { *TO_DECODER_OPTIONS.get_unchecked(index) }
 	}
 
@@ -1146,6 +1149,7 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
+		// SAFETY: All Code values are valid indexes into this table
 		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked(self.code as usize) as u32 }
 	}
 

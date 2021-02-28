@@ -38888,7 +38888,7 @@ impl Iterator for CodeIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CODE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: Code = unsafe { mem::transmute(index as u16) };
 			self.index = index + 1;
 			Some(value)
@@ -38926,7 +38926,7 @@ impl TryFrom<usize> for Code {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CODE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u16) })
 		} else {
 			Err(IcedError::new("Invalid Code value"))
@@ -38990,6 +38990,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn encoding(self) -> EncodingKind {
+		// SAFETY: size of table is count(Code)*2 so the index is valid
 		unsafe {
 			mem::transmute(
 				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK)
@@ -39017,10 +39018,12 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn cpuid_features(self) -> &'static [CpuidFeature] {
+		// SAFETY: size of table is count(Code)*2 so the index is valid
 		let index = unsafe {
 			((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
 				& InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize
 		};
+		// SAFETY: index is generated and always valid
 		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
@@ -39037,6 +39040,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn flow_control(self) -> FlowControl {
+		// SAFETY: size of table is count(Code)*2 so the index is valid
 		unsafe {
 			mem::transmute(
 				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::FLOW_CONTROL_SHIFT)
@@ -39049,6 +39053,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn is_privileged(self) -> bool {
+		// SAFETY: size of table is count(Code)*2 so the index is valid
 		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::PRIVILEGED) != 0 }
 	}
 
@@ -39068,6 +39073,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn is_stack_instruction(self) -> bool {
+		// SAFETY: size of table is count(Code)*2 so the index is valid
 		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::STACK_INSTRUCTION) != 0 }
 	}
 
@@ -39075,6 +39081,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn is_save_restore_instruction(self) -> bool {
+		// SAFETY: size of table is count(Code)*2 so the index is valid
 		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::SAVE_RESTORE) != 0 }
 	}
 
@@ -39181,6 +39188,8 @@ impl Code {
 	pub fn condition_code(self) -> ConditionCode {
 		let mut t;
 
+		// SAFETY: All valid input (all Code values) have been tested successfully, the transmutes are correct
+
 		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
 		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
 			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
@@ -39243,6 +39252,8 @@ impl Code {
 	pub fn negate_condition_code(self) -> Self {
 		let mut t;
 
+		// SAFETY: All valid input (all Code values) have been tested successfully, the transmutes are correct
+
 		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
 		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
 			// They're ordered, eg. je_16, je_32, je_64, jne_16, jne_32, jne_64
@@ -39299,6 +39310,8 @@ impl Code {
 	pub fn as_short_branch(self) -> Self {
 		let mut t;
 
+		// SAFETY: All valid input (all Code values) have been tested successfully, the transmutes are correct
+
 		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
 		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
 			return unsafe { mem::transmute((t + Code::Jo_rel8_16 as u32) as u16) };
@@ -39326,6 +39339,8 @@ impl Code {
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn as_near_branch(self) -> Self {
 		let mut t;
+
+		// SAFETY: All valid input (all Code values) have been tested successfully, the transmutes are correct
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
 		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {

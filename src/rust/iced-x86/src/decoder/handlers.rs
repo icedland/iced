@@ -5,6 +5,11 @@ use super::super::*;
 use super::*;
 use alloc::vec::Vec;
 
+// SAFETY:
+//	code: let this = unsafe { &*(self_ptr as *const Self) };
+// The first arg (`self_ptr`) to decode() is always the handler itself, cast to a `*const OpCodeHandler`.
+// All handlers are `#[repr(C)]` structs so the OpCodeHandler fields are always at the same offsets.
+
 pub(super) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder<'_>, &mut Instruction);
 
 #[allow(trivial_casts)]

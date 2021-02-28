@@ -7,6 +7,11 @@ use super::super::*;
 use super::handlers::*;
 use super::*;
 
+// SAFETY:
+//	code: let this = unsafe { &*(self_ptr as *const Self) };
+// The first arg (`self_ptr`) to decode() is always the handler itself, cast to a `*const OpCodeHandler`.
+// All handlers are `#[repr(C)]` structs so the OpCodeHandler fields are always at the same offsets.
+
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_VectorLength_EVEX {

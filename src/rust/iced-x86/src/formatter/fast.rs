@@ -442,9 +442,9 @@ impl FastFormatter {
 	pub fn format(&mut self, instruction: &Instruction, output: &mut String) {
 		let code = instruction.code();
 
-		// Safe, all Code values are valid indexes
+		// SAFETY: all Code values are valid indexes
 		let mut mnemonic = unsafe { *self.d.code_mnemonics.get_unchecked(code as usize) };
-		// Safe, all Code values are valid indexes
+		// SAFETY: all Code values are valid indexes
 		let flags = unsafe { *self.d.code_flags.get_unchecked(code as usize) };
 
 		let mut op_count = instruction.op_count();
@@ -454,7 +454,7 @@ impl FastFormatter {
 			&& instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8
 		{
 			let mut index = instruction.immediate8() as usize;
-			// Safe, the generator generates only valid values (1-based)
+			// SAFETY: the generator generates only valid values (1-based)
 			let pseudo_ops_kind: PseudoOpsKind = unsafe { mem::transmute(pseudo_ops_num - 1) };
 			let pseudo_ops = get_pseudo_ops(pseudo_ops_kind);
 			if pseudo_ops_kind == PseudoOpsKind::pclmulqdq || pseudo_ops_kind == PseudoOpsKind::vpclmulqdq {
@@ -828,7 +828,7 @@ impl FastFormatter {
 
 	#[inline]
 	fn format_register(d: &SelfData, output: &mut String, register: Register) {
-		// Safe, all Register values are valid indexes
+		// SAFETY: all Register values are valid indexes
 		output.push_str(unsafe { d.all_registers.get_unchecked(register as usize) }.lower());
 	}
 
@@ -961,12 +961,12 @@ impl FastFormatter {
 			use_scale = false;
 		}
 
-		// Safe, all Code values are valid indexes
+		// SAFETY: all Code values are valid indexes
 		let flags = unsafe { *self.d.code_flags.get_unchecked(instruction.code() as usize) };
 		let show_mem_size =
 			(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || instruction.is_broadcast() || self.d.options.always_show_memory_size();
 		if show_mem_size {
-			// Safe, all MemorySize values are valid indexes
+			// SAFETY: all MemorySize values are valid indexes
 			let keywords = unsafe { *self.d.all_memory_sizes.get_unchecked(instruction.memory_size() as usize) };
 			output.push_str(keywords);
 		}

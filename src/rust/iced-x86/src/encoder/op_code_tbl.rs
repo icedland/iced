@@ -15,6 +15,7 @@ lazy_static! {
 		let mut result = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 		let mut sb = String::new();
 		for i in 0..IcedConstants::CODE_ENUM_COUNT {
+			// SAFETY: All values 0-max are valid Code enum values
 			let code: Code = unsafe { mem::transmute(i as u16) };
 			let enc_flags1 = ENC_FLAGS1[i];
 			let enc_flags2 = ENC_FLAGS2[i];

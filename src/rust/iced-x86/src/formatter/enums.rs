@@ -60,7 +60,7 @@ impl Iterator for NumberBaseIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::NUMBER_BASE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: NumberBase = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -98,7 +98,7 @@ impl TryFrom<usize> for NumberBase {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::NUMBER_BASE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid NumberBase value"))
@@ -212,7 +212,7 @@ impl Iterator for PrefixKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::PREFIX_KIND_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: PrefixKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -250,7 +250,7 @@ impl TryFrom<usize> for PrefixKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::PREFIX_KIND_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid PrefixKind value"))
@@ -323,7 +323,7 @@ impl Iterator for DecoratorKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::DECORATOR_KIND_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: DecoratorKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -361,7 +361,7 @@ impl TryFrom<usize> for DecoratorKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::DECORATOR_KIND_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid DecoratorKind value"))
@@ -439,7 +439,7 @@ impl Iterator for NumberKindIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::NUMBER_KIND_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: NumberKind = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -477,7 +477,7 @@ impl TryFrom<usize> for NumberKind {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::NUMBER_KIND_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid NumberKind value"))
@@ -585,7 +585,7 @@ impl Iterator for CC_bIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_B_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_b = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -623,7 +623,7 @@ impl TryFrom<usize> for CC_b {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_B_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_b value"))
@@ -693,7 +693,7 @@ impl Iterator for CC_aeIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_AE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_ae = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -731,7 +731,7 @@ impl TryFrom<usize> for CC_ae {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_AE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_ae value"))
@@ -798,7 +798,7 @@ impl Iterator for CC_eIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_E_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_e = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -836,7 +836,7 @@ impl TryFrom<usize> for CC_e {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_E_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_e value"))
@@ -903,7 +903,7 @@ impl Iterator for CC_neIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_NE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_ne = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -941,7 +941,7 @@ impl TryFrom<usize> for CC_ne {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_NE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_ne value"))
@@ -1008,7 +1008,7 @@ impl Iterator for CC_beIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_BE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_be = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1046,7 +1046,7 @@ impl TryFrom<usize> for CC_be {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_BE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_be value"))
@@ -1113,7 +1113,7 @@ impl Iterator for CC_aIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_A_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_a = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1151,7 +1151,7 @@ impl TryFrom<usize> for CC_a {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_A_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_a value"))
@@ -1218,7 +1218,7 @@ impl Iterator for CC_pIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_P_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_p = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1256,7 +1256,7 @@ impl TryFrom<usize> for CC_p {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_P_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_p value"))
@@ -1323,7 +1323,7 @@ impl Iterator for CC_npIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_NP_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_np = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1361,7 +1361,7 @@ impl TryFrom<usize> for CC_np {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_NP_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_np value"))
@@ -1428,7 +1428,7 @@ impl Iterator for CC_lIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_L_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_l = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1466,7 +1466,7 @@ impl TryFrom<usize> for CC_l {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_L_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_l value"))
@@ -1533,7 +1533,7 @@ impl Iterator for CC_geIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_GE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_ge = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1571,7 +1571,7 @@ impl TryFrom<usize> for CC_ge {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_GE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_ge value"))
@@ -1638,7 +1638,7 @@ impl Iterator for CC_leIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_LE_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_le = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1676,7 +1676,7 @@ impl TryFrom<usize> for CC_le {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_LE_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_le value"))
@@ -1743,7 +1743,7 @@ impl Iterator for CC_gIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::CC_G_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: CC_g = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -1781,7 +1781,7 @@ impl TryFrom<usize> for CC_g {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::CC_G_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid CC_g value"))

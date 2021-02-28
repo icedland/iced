@@ -123,7 +123,7 @@ impl Iterator for DecoderErrorIterator {
 	fn next(&mut self) -> Option<Self::Item> {
 		let index = self.index;
 		if index < IcedConstants::DECODER_ERROR_ENUM_COUNT as u32 {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			let value: DecoderError = unsafe { mem::transmute(index as u8) };
 			self.index = index + 1;
 			Some(value)
@@ -161,7 +161,7 @@ impl TryFrom<usize> for DecoderError {
 	#[inline]
 	fn try_from(value: usize) -> Result<Self, Self::Error> {
 		if value < IcedConstants::DECODER_ERROR_ENUM_COUNT {
-			// Safe, all values 0-max are valid enum values
+			// SAFETY: all values 0-max are valid enum values
 			Ok(unsafe { mem::transmute(value as u8) })
 		} else {
 			Err(IcedError::new("Invalid DecoderError value"))
@@ -302,10 +302,10 @@ macro_rules! mk_read_value {
 
 #[derive(Debug, Default)]
 struct State {
-	modrm: u32,
-	mod_: u32,
-	reg: u32,
-	rm: u32,
+	modrm: u32, // 0-0xFF
+	mod_: u32,  // 0-3
+	reg: u32,   // 0-7
+	rm: u32,    // 0-7
 
 	// ***************************
 	// These fields are cleared in decode_out() and should be close so the compiler can optimize clearing them.
@@ -331,6 +331,7 @@ impl State {
 	#[inline(always)]
 	#[cfg(debug_assertions)]
 	fn encoding(&self) -> EncodingKind {
+		// SAFETY: It's always a valid enum value
 		unsafe { mem::transmute((self.flags & StateFlags::ENCODING_MASK) as u8) }
 	}
 	#[must_use]
@@ -727,6 +728,7 @@ impl<'a> Decoder<'a> {
 			debug_assert_eq!(handlers.len(), 0x100);
 			handlers.as_ptr()
 		}
+		// SAFETY: creating a reference 1 byte past the last valid byte is safe as long as we don't dereference it
 		let data_ptr_end: *const u8 = unsafe { data.get_unchecked(data.len()) };
 		if data_ptr_end < data.as_ptr() || {
 			// Verify that max_data_ptr can never overflow and that data_ptr.add(N) can't overflow
@@ -959,6 +961,9 @@ impl<'a> Decoder<'a> {
 		if new_pos > self.data.len() {
 			Err(IcedError::new("Invalid position"))
 		} else {
+			// SAFETY:
+			// - We verified the new offset above.
+			// - Referencing 1 byte past the last valid byte is safe as long as we don't dereference it.
 			self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
 			Ok(())
 		}
@@ -1117,6 +1122,7 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	pub fn decode(&mut self) -> Instruction {
 		let mut instruction = mem::MaybeUninit::uninit();
+		// SAFETY: decode_out_ptr() initializes the whole instruction (all fields) with valid values
 		unsafe {
 			self.decode_out_ptr(instruction.as_mut_ptr());
 			instruction.assume_init()
@@ -1172,8 +1178,13 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
+	// SAFETY: `instruction` must be non-null, writable and aligned (`ptr::write()`) and not aliased
 	unsafe fn decode_out_ptr(&mut self, instruction: *mut Instruction) {
+		// SAFETY:
+		// - the instruction has only primitive integer types, nothing needs to be dropped
+		// - private method: no caller passes in a null ptr, a non-writable ptr or an unaligned ptr
 		ptr::write(instruction, Instruction::default());
+		// SAFETY: private method: the only callers pass in their `&mut arg` or their own stack-allocated `MaybeUninit` instruction
 		let instruction = &mut *instruction;
 
 		self.state.extra_register_base = 0;
@@ -1196,6 +1207,7 @@ impl<'a> Decoder<'a> {
 		let mut b;
 		loop {
 			b = self.read_u8();
+			// SAFETY: `prefixes` is 256 bits in size (8 u32s) and `0<=b<=0xFF`, so this is safe
 			if (((*self.prefixes.get_unchecked(b / 32)) >> (b & 31)) & 1) == 0 {
 				break;
 			}
@@ -1284,6 +1296,7 @@ impl<'a> Decoder<'a> {
 			self.state.extra_index_register_base = (rex_prefix as u32 & 2) << 2;
 			self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 		}
+		// SAFETY: `0<=b<=0xFF` and `handlers` has exactly 256 elements
 		self.decode_table2(*self.handlers_xx.add(b), instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
@@ -1412,6 +1425,7 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	pub(self) fn decode_table(&mut self, table: *const &OpCodeHandler, instruction: &mut Instruction) {
 		let b = self.read_u8();
+		// SAFETY: `0<=b<=0xFF` and `table` has exactly 256 elements
 		self.decode_table2(unsafe { *table.add(b) }, instruction);
 	}
 
@@ -1676,6 +1690,7 @@ impl<'a> Decoder<'a> {
 						return;
 					}
 				};
+				// SAFETY: `0<=self.read_u8()<=0xFF` and `table` has exactly 256 elements
 				let handler = unsafe { *table.add(self.read_u8()) };
 				debug_assert!(handler.has_modrm);
 				let m = self.read_u8() as u32;
@@ -1786,6 +1801,7 @@ impl<'a> Decoder<'a> {
 	fn read_op_mem_16(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert!(self.state.address_size == OpSize::Size16);
 		debug_assert!(self.state.rm <= 7);
+		// SAFETY: `MEM_REGS_16.len() == 8` and `0<=self.state.rm<=7`
 		let (mut base_reg, index_reg) = unsafe { *MEM_REGS_16.get_unchecked(self.state.rm as usize) };
 		match self.state.mod_ {
 			0 => {

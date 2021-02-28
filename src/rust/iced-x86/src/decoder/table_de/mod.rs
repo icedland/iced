@@ -48,6 +48,7 @@ impl<'a> TableDeserializer<'a> {
 
 	pub(self) fn deserialize(&mut self) {
 		while self.reader.can_read() {
+			// SAFETY: generated (and also immutable) data is valid
 			let kind: SerializedDataKind = unsafe { mem::transmute(self.reader.read_u8() as u8) };
 			match kind {
 				SerializedDataKind::HandlerReference => {
@@ -68,6 +69,7 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	pub(self) fn read_op_code_handler_kind(&mut self) -> OpCodeHandlerKind {
+		// SAFETY: generated (and also immutable) data is valid
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
@@ -75,6 +77,7 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	pub(self) fn read_vex_op_code_handler_kind(&mut self) -> VexOpCodeHandlerKind {
+		// SAFETY: generated (and also immutable) data is valid
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
@@ -82,6 +85,7 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	pub(self) fn read_evex_op_code_handler_kind(&mut self) -> EvexOpCodeHandlerKind {
+		// SAFETY: generated (and also immutable) data is valid
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
@@ -94,6 +98,7 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	pub(self) fn read_register(&mut self) -> Register {
+		// SAFETY: generated (and also immutable) data is valid
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
@@ -119,6 +124,7 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	pub(self) fn read_tuple_type(&mut self) -> TupleType {
+		// SAFETY: generated (and also immutable) data is valid
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 

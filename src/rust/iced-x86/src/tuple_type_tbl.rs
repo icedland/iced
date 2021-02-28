@@ -56,6 +56,6 @@ static TUPLE_TYPE_TBL: [u8; 28] = [
 #[inline(always)]
 pub(crate) fn get_disp8n(tuple_type: TupleType, bcst: bool) -> u32 {
 	let index = ((tuple_type as usize) << 1) | (if bcst { 1 } else { 0 });
-	// Safe, size of table is num(TupleType)*2
+	// SAFETY: size of table is count(TupleType)*2
 	(unsafe { *TUPLE_TYPE_TBL.get_unchecked(index) }) as u32
 }

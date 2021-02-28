@@ -407,14 +407,7 @@ impl NasmFormatter {
 					NasmFormatter::format_keyword(&self.d.options, output, &self.d.str_.to);
 					output.write(" ", FormatterTextKind::Text);
 				}
-				NasmFormatter::format_register_internal(
-					&self.d,
-					output,
-					instruction,
-					operand,
-					instruction_operand,
-					op_info.op_register(operand) as u32,
-				);
+				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, op_info.op_register(operand));
 			}
 
 			InstrOpKind::NearBranch16 | InstrOpKind::NearBranch32 | InstrOpKind::NearBranch64 => {
@@ -1031,7 +1024,7 @@ impl NasmFormatter {
 		if operand == 0 && super::super::instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 			if instruction.has_op_mask() {
 				output.write("{", FormatterTextKind::Punctuation);
-				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
+				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask());
 				output.write("}", FormatterTextKind::Punctuation);
 			}
 			if instruction.zeroing_masking() {
@@ -1053,6 +1046,7 @@ impl NasmFormatter {
 			return;
 		}
 
+		// SAFETY: generated data is valid
 		let sex_info: SignExtendInfo =
 			unsafe { mem::transmute(((flags >> InstrOpInfoFlags::SIGN_EXTEND_INFO_SHIFT) & InstrOpInfoFlags::SIGN_EXTEND_INFO_MASK) as u8) };
 		let keyword = match sex_info {
@@ -1095,20 +1089,18 @@ impl NasmFormatter {
 	}
 
 	#[inline]
-	fn get_reg_str(d: &SelfData, reg_num: u32) -> &'static str {
-		debug_assert!((reg_num as usize) < d.all_registers.len());
-		let reg_str = &d.all_registers[reg_num as usize];
+	fn get_reg_str(d: &SelfData, reg: Register) -> &'static str {
+		debug_assert!((reg as usize) < d.all_registers.len());
+		let reg_str = &d.all_registers[reg as usize];
 		reg_str.get(d.options.uppercase_registers() || d.options.uppercase_all())
 	}
 
 	#[inline]
 	fn format_register_internal(
-		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
+		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg: Register,
 	) {
 		const_assert_eq!(Registers::EXTRA_REGISTERS, 0);
-		output.write_register(instruction, operand, instruction_operand, NasmFormatter::get_reg_str(d, reg_num), unsafe {
-			mem::transmute(reg_num as u8)
-		});
+		output.write_register(instruction, operand, instruction_operand, NasmFormatter::get_reg_str(d, reg), reg);
 	}
 
 	#[allow(clippy::too_many_arguments)]
@@ -1201,12 +1193,12 @@ impl NasmFormatter {
 		if self.d.options.always_show_segment_register()
 			|| (seg_override != Register::None && !notrack_prefix && show_segment_prefix(Register::None, instruction, &self.d.options))
 		{
-			NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg as u32);
+			NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg);
 			output.write(":", FormatterTextKind::Punctuation);
 		}
 
 		let mut need_plus = if base_reg != Register::None {
-			NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg as u32);
+			NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg);
 			true
 		} else {
 			false
@@ -1225,7 +1217,7 @@ impl NasmFormatter {
 			need_plus = true;
 
 			if !use_scale {
-				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
+				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg);
 			} else if self.d.options.scale_before_index() {
 				output.write_number(
 					instruction,
@@ -1243,9 +1235,9 @@ impl NasmFormatter {
 				if self.d.options.space_between_memory_mul_operators() {
 					output.write(" ", FormatterTextKind::Text);
 				}
-				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
+				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg);
 			} else {
-				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
+				NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg);
 				if self.d.options.space_between_memory_mul_operators() {
 					output.write(" ", FormatterTextKind::Text);
 				}
@@ -1545,7 +1537,7 @@ impl Formatter for NasmFormatter {
 	#[must_use]
 	#[inline]
 	fn format_register(&mut self, register: Register) -> &str {
-		NasmFormatter::get_reg_str(&self.d, register as u32)
+		NasmFormatter::get_reg_str(&self.d, register)
 	}
 
 	#[must_use]

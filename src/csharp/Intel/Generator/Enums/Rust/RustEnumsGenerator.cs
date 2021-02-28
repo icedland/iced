@@ -290,7 +290,7 @@ namespace Generator.Enums.Rust {
 								writer.WriteLine($"Some({enumTypeName}::{enumType.Values[0].Name(idConverter)})");
 							}
 							else {
-								writer.WriteLine("// Safe, all values 0-max are valid enum values");
+								writer.WriteLine("// SAFETY: all values 0-max are valid enum values");
 								writer.WriteLine($"let value: {enumTypeName} = unsafe {{ mem::transmute(index as {enumUnderlyingType}) }};");
 								writer.WriteLine("self.index = index + 1;");
 								writer.WriteLine("Some(value)");
@@ -361,7 +361,7 @@ namespace Generator.Enums.Rust {
 								if (enumType.Values.Length == 1)
 									writer.WriteLine($"Ok({enumTypeName}::{enumType.Values[0].Name(idConverter)})");
 								else {
-									writer.WriteLine("// Safe, all values 0-max are valid enum values");
+									writer.WriteLine("// SAFETY: all values 0-max are valid enum values");
 									writer.WriteLine($"Ok(unsafe {{ mem::transmute(value as {enumUnderlyingType}) }})");
 								}
 							}

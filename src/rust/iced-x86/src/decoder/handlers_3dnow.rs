@@ -296,6 +296,7 @@ impl OpCodeHandler_D3NOW {
 			decoder.read_op_mem(instruction);
 		}
 		let ib = decoder.read_u8();
+		// SAFETY: `CODE_VALUES.len() == 256` and `0<=ib<=0xFF`
 		let mut code = unsafe { *CODE_VALUES.get_unchecked(ib) };
 		match code {
 			Code::D3NOW_Pfrcpv_mm_mmm64 | Code::D3NOW_Pfrsqrtv_mm_mmm64 => {

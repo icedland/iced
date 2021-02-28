@@ -112,6 +112,8 @@ impl Instruction {
 	#[allow(trivial_casts)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn eq_all_bits(&self, other: &Self) -> bool {
+		// The compiler generated better code than if we compare all fields one at a time.
+		// SAFETY: see `slice::from_raw_parts()`
 		unsafe {
 			let a: *const u8 = self as *const Self as *const u8;
 			let b: *const u8 = other as *const Self as *const u8;
@@ -299,6 +301,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
+		// SAFETY: All Code values are valid indexes
 		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked((self.code_flags & CodeFlags::CODE_MASK) as usize) as u32 }
 	}
 
@@ -898,6 +901,7 @@ impl Instruction {
 		if self.is_broadcast() {
 			index += IcedConstants::CODE_ENUM_COUNT;
 		}
+		// SAFETY: SIZES.len() == count(Code)*2 and all Code values have usize values 0-max < count(Code) and max+1+count(Code) == SIZES.len()
 		unsafe { *instruction_memory_sizes::SIZES.get_unchecked(index) }
 	}
 
@@ -3375,8 +3379,10 @@ impl Instruction {
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
+		// SAFETY: TABLE.len() == count(Code)*2 and for all Code values c, c as usize < count(Code)
 		let flags2 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
 		let index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
+		// SAFETY: generated and valid index
 		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
@@ -3457,6 +3463,7 @@ impl Instruction {
 
 	#[must_use]
 	fn rflags_info(&self) -> usize {
+		// SAFETY: TABLE.len() == count(Code)*2 and for all Code values c, c as usize < count(Code)
 		let flags1 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2) };
 		let implied_access = (flags1 >> InfoFlags1::IMPLIED_ACCESS_SHIFT) & InfoFlags1::IMPLIED_ACCESS_MASK;
 		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 1 == ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32);
@@ -3547,6 +3554,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
+		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info()) as u32 }
 	}
 
@@ -3587,6 +3595,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
+		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info()) as u32 }
 	}
 
@@ -3627,6 +3636,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
+		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
@@ -3667,6 +3677,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
+		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info()) as u32 }
 	}
 
@@ -3707,6 +3718,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
+		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
@@ -3745,6 +3757,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
+		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info()) as u32 }
 	}
 

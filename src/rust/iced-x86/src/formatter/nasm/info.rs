@@ -36,8 +36,8 @@ impl<'a> InstrOpInfo<'a> {
 			| (((value as u32) & InstrOpInfoFlags::MEMORY_SIZE_MASK) << InstrOpInfoFlags::MEMORY_SIZE_SHIFT);
 	}
 
-	pub(super) fn op_register(&self, operand: u32) -> usize {
-		self.op_registers[operand as usize] as usize
+	pub(super) fn op_register(&self, operand: u32) -> Register {
+		unsafe { mem::transmute(self.op_registers[operand as usize]) }
 	}
 
 	pub(super) fn op_kind(&self, operand: u32) -> InstrOpKind {
