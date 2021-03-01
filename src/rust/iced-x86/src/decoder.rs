@@ -1050,17 +1050,17 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[must_use]
-	pub(self) fn read_u8(&mut self) -> usize {
+	fn read_u8(&mut self) -> usize {
 		mk_read_value! {self, u8, u8::from_le}
 	}
 
 	#[must_use]
-	pub(self) fn read_u16(&mut self) -> usize {
+	fn read_u16(&mut self) -> usize {
 		mk_read_value! {self, u16, u16::from_le}
 	}
 
 	#[must_use]
-	pub(self) fn read_u32(&mut self) -> usize {
+	fn read_u32(&mut self) -> usize {
 		mk_read_value! {self, u32, u32::from_le}
 	}
 
@@ -1351,7 +1351,7 @@ impl<'a> Decoder<'a> {
 
 	#[must_use]
 	#[inline]
-	pub(self) fn current_ip32(&self) -> u32 {
+	fn current_ip32(&self) -> u32 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
 		((self.data_ptr as usize - self.instr_start_data_ptr as usize) as u32).wrapping_add(self.ip as u32)
@@ -1359,7 +1359,7 @@ impl<'a> Decoder<'a> {
 
 	#[must_use]
 	#[inline]
-	pub(self) fn current_ip64(&self) -> u64 {
+	fn current_ip64(&self) -> u64 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
 		((self.data_ptr as usize - self.instr_start_data_ptr as usize) as u64).wrapping_add(self.ip)
@@ -1368,7 +1368,7 @@ impl<'a> Decoder<'a> {
 	// It's not possible to use 'as u32' on the left side in a match arm
 	const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
 	const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
-	pub(self) fn clear_mandatory_prefix(&mut self, instruction: &mut Instruction) {
+	fn clear_mandatory_prefix(&mut self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
 		match self.state.mandatory_prefix {
 			Decoder::PF3 => instruction_internal::internal_clear_has_repe_prefix(instruction),
@@ -1378,7 +1378,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	pub(self) fn set_xacquire_xrelease(&mut self, instruction: &mut Instruction, flags: u32) {
+	fn set_xacquire_xrelease(&mut self, instruction: &mut Instruction, flags: u32) {
 		if (flags & HandlerFlags::XACQUIRE_XRELEASE_NO_LOCK) != 0 || instruction.has_lock_prefix() {
 			self.set_xacquire_xrelease_core(instruction, flags);
 		}
@@ -1418,12 +1418,12 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline]
-	pub(self) fn set_invalid_instruction(&mut self) {
+	fn set_invalid_instruction(&mut self) {
 		self.state.flags |= StateFlags::IS_INVALID;
 	}
 
 	#[inline(always)]
-	pub(self) fn decode_table(&mut self, table: *const &OpCodeHandler, instruction: &mut Instruction) {
+	fn decode_table(&mut self, table: *const &OpCodeHandler, instruction: &mut Instruction) {
 		let b = self.read_u8();
 		// SAFETY: `0<=b<=0xFF` and `table` has exactly 256 elements
 		self.decode_table2(unsafe { *table.add(b) }, instruction);
@@ -1442,7 +1442,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	pub(self) fn read_modrm(&mut self) {
+	fn read_modrm(&mut self) {
 		let m = self.read_u8() as u32;
 		self.state.modrm = m;
 		self.state.mod_ = m >> 6;
@@ -1451,12 +1451,12 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg(feature = "no_vex")]
-	pub(self) fn vex2(&mut self, _instruction: &mut Instruction) {
+	fn vex2(&mut self, _instruction: &mut Instruction) {
 		self.set_invalid_instruction();
 	}
 
 	#[cfg(not(feature = "no_vex"))]
-	pub(self) fn vex2(&mut self, instruction: &mut Instruction) {
+	fn vex2(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1491,12 +1491,12 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg(feature = "no_vex")]
-	pub(self) fn vex3(&mut self, _instruction: &mut Instruction) {
+	fn vex3(&mut self, _instruction: &mut Instruction) {
 		self.set_invalid_instruction();
 	}
 
 	#[cfg(not(feature = "no_vex"))]
-	pub(self) fn vex3(&mut self, instruction: &mut Instruction) {
+	fn vex3(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1549,12 +1549,12 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg(feature = "no_xop")]
-	pub(self) fn xop(&mut self, _instruction: &mut Instruction) {
+	fn xop(&mut self, _instruction: &mut Instruction) {
 		self.set_invalid_instruction();
 	}
 
 	#[cfg(not(feature = "no_xop"))]
-	pub(self) fn xop(&mut self, instruction: &mut Instruction) {
+	fn xop(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1607,12 +1607,12 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg(feature = "no_evex")]
-	pub(self) fn evex_mvex(&mut self, _instruction: &mut Instruction) {
+	fn evex_mvex(&mut self, _instruction: &mut Instruction) {
 		self.set_invalid_instruction();
 	}
 
 	#[cfg(not(feature = "no_evex"))]
-	pub(self) fn evex_mvex(&mut self, instruction: &mut Instruction) {
+	fn evex_mvex(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1714,7 +1714,7 @@ impl<'a> Decoder<'a> {
 
 	#[must_use]
 	#[inline(always)]
-	pub(self) fn read_op_seg_reg(&mut self) -> u32 {
+	fn read_op_seg_reg(&mut self) -> u32 {
 		let reg = self.state.reg;
 		if reg < 6 {
 			Register::ES as u32 + reg
@@ -1725,7 +1725,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	pub(self) fn read_op_mem(&mut self, instruction: &mut Instruction) {
+	fn read_op_mem(&mut self, instruction: &mut Instruction) {
 		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX);
 		if self.state.address_size != OpSize::Size16 {
 			let _ = self.read_op_mem_32_or_64(instruction);
@@ -1736,7 +1736,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
-	pub(self) fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
+	fn read_op_mem_sib(&mut self, instruction: &mut Instruction) {
 		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX);
 		let is_valid = if self.state.address_size != OpSize::Size16 {
 			self.read_op_mem_32_or_64(instruction)
@@ -1753,7 +1753,7 @@ impl<'a> Decoder<'a> {
 	// all MPX instructions in 16/32-bit mode require 32-bit addressing
 	// (see SDM Vol 1, 17.5.1 Intel MPX and Operating Modes)
 	#[inline(always)]
-	pub(self) fn read_op_mem_mpx(&mut self, instruction: &mut Instruction) {
+	fn read_op_mem_mpx(&mut self, instruction: &mut Instruction) {
 		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX);
 		if self.is64_mode {
 			self.state.address_size = OpSize::Size64;
@@ -1770,7 +1770,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	#[cfg(not(feature = "no_evex"))]
-	pub(self) fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
+	fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::EVEX);
 		if self.state.address_size != OpSize::Size16 {
 			let index_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
@@ -1782,7 +1782,7 @@ impl<'a> Decoder<'a> {
 
 	#[inline(always)]
 	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
-	pub(self) fn read_op_mem_vsib(&mut self, instruction: &mut Instruction, vsib_index: Register, tuple_type: TupleType) {
+	fn read_op_mem_vsib(&mut self, instruction: &mut Instruction, vsib_index: Register, tuple_type: TupleType) {
 		let is_valid = if self.state.address_size != OpSize::Size16 {
 			self.read_op_mem_32_or_64_vsib(instruction, vsib_index, tuple_type, true)
 		} else {

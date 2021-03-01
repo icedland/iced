@@ -131,7 +131,7 @@ impl<'a> InstrOpInfo<'a> {
 		}
 	}
 
-	pub(self) fn new(mnemonic: &'a FormatterString, instruction: &Instruction, flags: u32) -> Self {
+	fn new(mnemonic: &'a FormatterString, instruction: &Instruction, flags: u32) -> Self {
 		let mut res = InstrOpInfo::default(mnemonic);
 
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);

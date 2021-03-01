@@ -98,20 +98,20 @@ pub struct Encoder {
 	eip: u32,
 	displ_addr: u32,
 	imm_addr: u32,
-	pub(self) immediate: u32,
+	immediate: u32,
 	// high 32 bits if it's a 64-bit immediate
 	// high 32 bits if it's an IP relative immediate (jcc,call target)
 	// high 32 bits if it's a 64-bit absolute address
-	pub(self) immediate_hi: u32,
+	immediate_hi: u32,
 	displ: u32,
 	// high 32 bits if it's an IP relative mem displ (target)
 	displ_hi: u32,
-	pub(self) op_code: u32,
-	pub(self) internal_vex_wig_lig: u32,
-	pub(self) internal_vex_lig: u32,
-	pub(self) internal_evex_wig: u32,
-	pub(self) internal_evex_lig: u32,
-	pub(self) prevent_vex2: u32,
+	op_code: u32,
+	internal_vex_wig_lig: u32,
+	internal_vex_lig: u32,
+	internal_evex_wig: u32,
+	internal_evex_lig: u32,
+	prevent_vex2: u32,
 	opsize16_flags: u32,
 	opsize32_flags: u32,
 	adrsize16_flags: u32,
@@ -119,9 +119,9 @@ pub struct Encoder {
 	// ***************************
 	// These fields must be 64-bit aligned.
 	// They are cleared in encode() and should be close so the compiler can optimize clearing them.
-	pub(self) encoder_flags: u32, // EncoderFlags
+	encoder_flags: u32, // EncoderFlags
 	displ_size: DisplSize,
-	pub(self) imm_size: ImmSize,
+	imm_size: ImmSize,
 	mod_rm: u8,
 	sib: u8,
 	// ***************************
@@ -1086,7 +1086,7 @@ impl Encoder {
 		}
 	}
 
-	pub(self) fn write_prefixes(&mut self, instruction: &Instruction, can_write_f3: bool) {
+	fn write_prefixes(&mut self, instruction: &Instruction, can_write_f3: bool) {
 		debug_assert_eq!(self.handler.is_declare_data, false);
 		let seg = instruction.segment_prefix();
 		if seg != Register::None {
