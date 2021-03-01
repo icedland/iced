@@ -10,8 +10,8 @@ pub(crate) mod rflags_table;
 mod tests;
 
 pub use self::factory::*;
-use super::iced_constants::IcedConstants;
-use super::*;
+use crate::iced_constants::IcedConstants;
+use crate::*;
 use alloc::vec::Vec;
 use core::fmt;
 

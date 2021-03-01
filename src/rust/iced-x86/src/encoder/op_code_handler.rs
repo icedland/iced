@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+use crate::encoder::enums::*;
+use crate::encoder::ops::*;
+use crate::encoder::ops_tables::*;
+use crate::encoder::*;
 #[cfg(not(feature = "no_evex"))]
-use super::super::tuple_type_tbl::get_disp8n;
-use super::super::*;
-use super::enums::*;
-use super::ops::*;
-use super::ops_tables::*;
-use super::*;
+use crate::tuple_type_tbl::get_disp8n;
+use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{i8, mem, u32};

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::test_utils::get_instruction_unit_tests_dir;
-use super::va_test_case::VirtualAddressTestCase;
-use super::va_test_parser::*;
+use crate::test::va_test_case::VirtualAddressTestCase;
+use crate::test::va_test_parser::*;
+use crate::test_utils::get_instruction_unit_tests_dir;
 use lazy_static::lazy_static;
 
 lazy_static! {

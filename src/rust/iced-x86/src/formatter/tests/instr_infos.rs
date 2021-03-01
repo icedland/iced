@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::code::Code;
-use super::super::test_utils::from_str_conv::{is_ignored_code, to_code, to_decoder_options};
-use super::super::test_utils::{get_default_ip, get_formatter_unit_tests_dir};
+use crate::code::Code;
+use crate::formatter::test_utils::from_str_conv::{is_ignored_code, to_code, to_decoder_options};
+use crate::formatter::test_utils::{get_default_ip, get_formatter_unit_tests_dir};
 use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;

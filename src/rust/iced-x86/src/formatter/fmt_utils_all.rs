@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::{Code, CodeSize, Instruction, Register};
+use crate::{Code, CodeSize, Instruction, Register};
 use static_assertions::const_assert_eq;
 
 #[must_use]

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::FormatterString;
+use crate::formatter::FormatterString;
 use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;

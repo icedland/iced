@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::iced_error::IcedError;
-use super::instr::*;
-use super::*;
+use crate::block_enc::instr::*;
+use crate::block_enc::*;
+use crate::iced_error::IcedError;
 use alloc::rc::Rc;
 use alloc::vec::Vec;
 use core::cell::RefCell;

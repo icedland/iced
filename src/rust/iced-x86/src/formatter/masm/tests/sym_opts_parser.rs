@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::test_utils::from_str_conv::*;
-use super::super::super::test_utils::get_default_ip;
-use super::sym_opts::*;
+use crate::formatter::masm::tests::sym_opts::*;
+use crate::formatter::test_utils::from_str_conv::*;
+use crate::formatter::test_utils::get_default_ip;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;

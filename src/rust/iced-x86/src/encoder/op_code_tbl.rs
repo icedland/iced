@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::iced_constants::IcedConstants;
-use super::super::{Code, OpCodeInfo};
-use super::encoder_data::{ENC_FLAGS1, ENC_FLAGS2, ENC_FLAGS3};
-use super::op_code_data::{OPC_FLAGS1, OPC_FLAGS2};
+use crate::encoder::encoder_data::{ENC_FLAGS1, ENC_FLAGS2, ENC_FLAGS3};
+use crate::encoder::op_code_data::{OPC_FLAGS1, OPC_FLAGS2};
+use crate::iced_constants::IcedConstants;
+use crate::{Code, OpCodeInfo};
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::mem;

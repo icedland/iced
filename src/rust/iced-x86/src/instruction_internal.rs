@@ -8,8 +8,8 @@
 // pub(crate) from Instruction's fields.
 
 #[cfg(feature = "encoder")]
-use super::iced_error::IcedError;
-use super::*;
+use crate::iced_error::IcedError;
+use crate::*;
 #[cfg(feature = "encoder")]
 use core::{i16, i32, i8, u8};
 use core::{u16, u32};

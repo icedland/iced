@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::enums::*;
-use super::enums_shared::MemorySizeOptions;
+use crate::formatter::enums::*;
+use crate::formatter::enums_shared::MemorySizeOptions;
 use alloc::string::String;
 use core::hash::{Hash, Hasher};
 

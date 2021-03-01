@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::{CC_a, CC_ae, CC_b, CC_be, CC_e, CC_g, CC_ge, CC_l, CC_le, CC_ne, CC_np, CC_p};
+use crate::{CC_a, CC_ae, CC_b, CC_be, CC_e, CC_g, CC_ge, CC_l, CC_le, CC_ne, CC_np, CC_p};
 use lazy_static::lazy_static;
 use std::collections::HashMap;
 

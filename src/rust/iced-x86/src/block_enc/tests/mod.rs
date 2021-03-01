@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::test_utils::*;
-use super::super::*;
+use crate::test_utils::*;
+use crate::*;
 use alloc::vec::Vec;
 use core::cmp::Ordering;
 use core::u32;

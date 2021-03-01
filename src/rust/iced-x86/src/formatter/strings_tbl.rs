@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::data_reader::DataReader;
-use super::strings_data::*;
+use crate::formatter::data_reader::DataReader;
+use crate::formatter::strings_data::*;
 use alloc::vec::Vec;
 
 // The returned array isn't cached since only one formatter is normally used

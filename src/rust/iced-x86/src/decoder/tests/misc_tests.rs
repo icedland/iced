@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::test_utils::from_str_conv::to_vec_u8;
-use super::super::super::test_utils::*;
-use super::super::super::*;
-use super::test_utils::decoder_tests;
+use crate::decoder::tests::test_utils::decoder_tests;
+use crate::test_utils::from_str_conv::to_vec_u8;
+use crate::test_utils::*;
+use crate::*;
 use alloc::vec::Vec;
 use std::collections::HashMap;
 

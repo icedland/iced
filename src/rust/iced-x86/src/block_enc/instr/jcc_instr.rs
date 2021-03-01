@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_error::IcedError;
-use super::super::*;
-use super::*;
+use crate::block_enc::instr::*;
+use crate::block_enc::*;
+use crate::iced_error::IcedError;
 use core::cell::RefCell;
 use core::{cmp, i32, i8, u32};
 

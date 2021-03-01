@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_constants::IcedConstants;
-use super::super::super::test_utils::from_str_conv::*;
-use super::super::super::*;
-use super::op_code_test_case::*;
+use crate::encoder::tests::op_code_test_case::*;
+use crate::iced_constants::IcedConstants;
+use crate::test_utils::from_str_conv::*;
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;

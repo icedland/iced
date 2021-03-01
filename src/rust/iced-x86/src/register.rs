@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::iced_constants::IcedConstants;
-use super::iced_error::IcedError;
+use crate::iced_constants::IcedConstants;
+use crate::iced_error::IcedError;
 use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::ops::{Add, AddAssign, Sub, SubAssign};
@@ -13,8 +13,8 @@ pub use self::info::*;
 
 #[cfg(feature = "instr_info")]
 mod info {
-	use super::super::iced_constants::IcedConstants;
 	use super::Register;
+	use crate::iced_constants::IcedConstants;
 
 	#[rustfmt::skip]
 	pub(super) static REGISTER_INFOS: &[RegisterInfo; IcedConstants::REGISTER_ENUM_COUNT] = &[

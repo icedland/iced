@@ -7,9 +7,9 @@ mod options;
 mod symres;
 
 use self::fmt_factory::*;
-use super::super::tests::formatter_test_fast;
+use crate::formatter::tests::formatter_test_fast;
 #[cfg(feature = "encoder")]
-use super::super::tests::formatter_test_nondec_fast;
+use crate::formatter::tests::formatter_test_nondec_fast;
 
 #[test]
 fn fmt_default_16() {

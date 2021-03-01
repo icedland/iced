@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::{Code, Instruction, Register};
-use super::enums::{FormatterFlowControl, PrefixKind};
-use super::enums_shared::FormatterTextKind;
-use super::fmt_utils_all::{show_rep_or_repe_prefix_bool, show_repne_prefix_bool, show_segment_prefix_bool};
-use super::{FormatterOptions, FormatterOutput};
+use crate::formatter::enums::{FormatterFlowControl, PrefixKind};
+use crate::formatter::enums_shared::FormatterTextKind;
+use crate::formatter::fmt_utils_all::{show_rep_or_repe_prefix_bool, show_repne_prefix_bool, show_segment_prefix_bool};
+use crate::formatter::{FormatterOptions, FormatterOutput};
+use crate::{Code, Instruction, Register};
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{cmp, mem};

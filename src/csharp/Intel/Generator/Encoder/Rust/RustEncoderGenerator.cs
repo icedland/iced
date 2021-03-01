@@ -81,7 +81,7 @@ namespace Generator.Encoder.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 
-				writer.WriteLine("use super::super::OpCodeOperandKind;");
+				writer.WriteLine("use crate::OpCodeOperandKind;");
 				Generate(writer, "LEGACY_OP_KINDS", null, legacy);
 				Generate(writer, "VEX_OP_KINDS", RustConstants.FeatureVex, vex);
 				Generate(writer, "XOP_OP_KINDS", RustConstants.FeatureXop, xop);
@@ -120,8 +120,8 @@ namespace Generator.Encoder.Rust {
 			var filename = generatorContext.Types.Dirs.GetRustFilename("encoder", "ops_tables.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine("use super::super::*;");
-				writer.WriteLine("use super::ops::*;");
+				writer.WriteLine("use crate::encoder::ops::*;");
+				writer.WriteLine("use crate::*;");
 				writer.WriteLine();
 
 				foreach (var kv in dict.OrderBy(a => a.Value.Name, StringComparer.Ordinal)) {

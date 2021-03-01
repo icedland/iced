@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_constants::IcedConstants;
-use super::super::super::*;
-use super::super::FormatterString;
-use super::enums::*;
-use super::fmt_utils::can_show_rounding_control;
-use super::get_mnemonic_cc;
-use super::mem_size_tbl::MEM_SIZE_TBL;
+use crate::formatter::nasm::enums::*;
+use crate::formatter::nasm::fmt_utils::can_show_rounding_control;
+use crate::formatter::nasm::get_mnemonic_cc;
+use crate::formatter::nasm::mem_size_tbl::MEM_SIZE_TBL;
+use crate::formatter::FormatterString;
+use crate::iced_constants::IcedConstants;
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{mem, u32};

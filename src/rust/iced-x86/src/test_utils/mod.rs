@@ -7,8 +7,8 @@ pub(crate) mod from_str_conv;
 pub(crate) mod section_file_reader;
 
 use self::decoder_constants::*;
-use super::iced_constants::IcedConstants;
-use super::Decoder;
+use crate::iced_constants::IcedConstants;
+use crate::Decoder;
 use core::cmp;
 use std::env;
 use std::path::PathBuf;

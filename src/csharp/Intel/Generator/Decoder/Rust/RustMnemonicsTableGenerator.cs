@@ -25,8 +25,8 @@ namespace Generator.Decoder.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(generatorContext.Types.Dirs.GetRustFilename("mnemonics.rs")))) {
 				writer.WriteFileHeader();
 
-				writer.WriteLine($"use super::iced_constants::{icedConstants.Name(idConverter)};");
-				writer.WriteLine($"use super::{genTypes[TypeIds.Mnemonic].Name(idConverter)};");
+				writer.WriteLine($"use crate::iced_constants::{icedConstants.Name(idConverter)};");
+				writer.WriteLine($"use crate::{genTypes[TypeIds.Mnemonic].Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(super) static TO_MNEMONIC: [{mnemonicName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] = [");

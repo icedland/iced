@@ -62,7 +62,7 @@ pub use self::num_fmt_opts::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use self::string_output::*;
 pub use self::symres::*;
-use super::*;
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{i16, i32};
@@ -657,7 +657,7 @@ fn to_owned<'a>(sym_res: Option<SymbolResult<'_>>, vec: &'a mut Vec<SymResTextPa
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn get_mnemonic_cc<'a>(options: &FormatterOptions, cc_index: u32, mnemonics: &'a [FormatterString]) -> &'a FormatterString {
-	use super::iced_constants::IcedConstants;
+	use crate::iced_constants::IcedConstants;
 	let index = match cc_index {
 		// o
 		0 => {

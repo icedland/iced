@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::FastFormatter;
+use crate::formatter::FastFormatter;
 
 #[test]
 fn verify_default_formatter_options() {

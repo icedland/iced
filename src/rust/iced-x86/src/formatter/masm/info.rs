@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_constants::IcedConstants;
-use super::super::super::*;
-use super::super::FormatterString;
-use super::enums::*;
-use super::fmt_utils::show_segment_prefix;
-use super::get_mnemonic_cc;
-use super::regs::*;
+use crate::formatter::masm::enums::*;
+use crate::formatter::masm::fmt_utils::show_segment_prefix;
+use crate::formatter::masm::get_mnemonic_cc;
+use crate::formatter::masm::regs::*;
+use crate::formatter::FormatterString;
+use crate::iced_constants::IcedConstants;
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{mem, u32};

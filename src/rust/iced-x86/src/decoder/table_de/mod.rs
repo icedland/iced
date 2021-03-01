@@ -16,12 +16,12 @@ mod legacy_reader;
 mod vex_reader;
 
 use self::enums::*;
-use super::super::data_reader::DataReader;
-use super::super::Register;
+use crate::data_reader::DataReader;
+use crate::decoder::handlers::is_null_instance_handler;
+use crate::decoder::handlers::OpCodeHandler;
+use crate::Register;
 #[cfg(not(feature = "no_evex"))]
-use super::super::TupleType;
-use super::handlers::is_null_instance_handler;
-use super::handlers::OpCodeHandler;
+use crate::TupleType;
 use alloc::vec::Vec;
 use core::mem;
 

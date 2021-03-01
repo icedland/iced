@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::*;
-use super::iced_constants::IcedConstants;
-use super::instruction_fmt::*;
-use super::op_code_fmt::*;
-use super::op_kind_tables::*;
+use crate::encoder::iced_constants::IcedConstants;
+use crate::encoder::instruction_fmt::*;
+use crate::encoder::op_code_fmt::*;
+use crate::encoder::op_kind_tables::*;
+use crate::*;
 use alloc::string::String;
 use core::{fmt, mem};
 

@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::handlers::OpCodeHandler;
-use super::super::handlers::*;
-use super::super::handlers_vex::*;
-use super::enums::*;
-use super::TableDeserializer;
+use crate::decoder::handlers::OpCodeHandler;
+use crate::decoder::handlers::*;
+use crate::decoder::handlers_vex::*;
+use crate::decoder::table_de::enums::*;
+use crate::decoder::table_de::TableDeserializer;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 

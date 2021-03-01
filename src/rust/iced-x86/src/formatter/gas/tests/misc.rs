@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::super::iced_constants::IcedConstants;
-use super::super::super::test_utils::from_str_conv::to_vec_u8;
-use super::super::super::test_utils::{create_decoder, get_formatter_unit_tests_dir};
-use super::super::super::tests::misc;
-use super::super::super::tests::mnemonic_opts_parser::MnemonicOptionsTestParser;
-use super::super::super::*;
-use super::super::info::InstrOpInfo;
-use super::super::regs::Registers;
-use super::fmt_factory;
+use crate::formatter::gas::info::InstrOpInfo;
+use crate::formatter::gas::regs::Registers;
+use crate::formatter::gas::tests::fmt_factory;
+use crate::formatter::test_utils::from_str_conv::to_vec_u8;
+use crate::formatter::test_utils::{create_decoder, get_formatter_unit_tests_dir};
+use crate::formatter::tests::misc;
+use crate::formatter::tests::mnemonic_opts_parser::MnemonicOptionsTestParser;
+use crate::formatter::*;
+use crate::iced_constants::IcedConstants;
 use alloc::string::String;
 use static_assertions::const_assert;
 

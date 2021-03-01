@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::test_utils::from_str_conv::*;
-use super::super::super::test_utils::section_file_reader::*;
-use super::super::super::*;
-use super::super::test_utils::*;
+use crate::info::test_utils::*;
+use crate::test_utils::from_str_conv::*;
+use crate::test_utils::section_file_reader::*;
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;

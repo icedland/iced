@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::*;
+use crate::formatter::*;
 use core::{cmp, u32};
 
 /// Gets initialized with the default options and can be overridden by a [`FormatterOptionsProvider`]

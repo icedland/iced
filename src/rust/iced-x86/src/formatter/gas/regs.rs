@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_constants::IcedConstants;
-use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
-use super::super::FormatterString;
+use crate::formatter::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
+use crate::formatter::FormatterString;
+use crate::iced_constants::IcedConstants;
 use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;

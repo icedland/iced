@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::iced_constants::IcedConstants;
-use super::super::Register;
+use crate::iced_constants::IcedConstants;
+use crate::Register;
 use std::panic;
 
 #[test]

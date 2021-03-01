@@ -3,9 +3,9 @@
 
 #![allow(clippy::useless_let_if_seq)]
 
-use super::super::*;
-use super::handlers::*;
-use super::*;
+use crate::decoder::handlers::*;
+use crate::decoder::*;
+use crate::*;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };

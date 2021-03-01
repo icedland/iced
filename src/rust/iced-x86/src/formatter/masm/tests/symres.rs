@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::test_utils::from_str_conv::to_vec_u8;
-use super::super::super::test_utils::{create_decoder, get_formatter_unit_tests_dir};
-use super::super::super::tests::sym_res::symbol_resolver_test;
-use super::super::super::*;
-use super::fmt_factory::create_resolver;
-use super::sym_opts::*;
-use super::sym_opts_parser::*;
+use crate::formatter::masm::tests::fmt_factory::create_resolver;
+use crate::formatter::masm::tests::sym_opts::*;
+use crate::formatter::masm::tests::sym_opts_parser::*;
+use crate::formatter::test_utils::from_str_conv::to_vec_u8;
+use crate::formatter::test_utils::{create_decoder, get_formatter_unit_tests_dir};
+use crate::formatter::tests::sym_res::symbol_resolver_test;
+use crate::formatter::*;
 use alloc::boxed::Box;
 use alloc::string::String;
 

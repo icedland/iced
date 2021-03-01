@@ -17,10 +17,10 @@ pub(crate) mod tests;
 
 use self::handlers::OpCodeHandler;
 use self::handlers_tables::TABLES;
-use super::iced_constants::IcedConstants;
-use super::iced_error::IcedError;
-use super::tuple_type_tbl::get_disp8n;
-use super::*;
+use crate::iced_constants::IcedConstants;
+use crate::iced_error::IcedError;
+use crate::tuple_type_tbl::get_disp8n;
+use crate::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};

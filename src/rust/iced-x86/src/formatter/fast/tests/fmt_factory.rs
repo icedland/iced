@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::FastFormatter;
-use super::super::super::SymbolResolver;
+use crate::formatter::FastFormatter;
+use crate::formatter::SymbolResolver;
 use alloc::boxed::Box;
 
 pub(super) fn create_default() -> Box<FastFormatter> {

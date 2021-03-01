@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_constants::IcedConstants;
 #[cfg(feature = "encoder")]
-use super::super::encoder::tests::non_decoded_tests;
-use super::super::test_utils::from_str_conv::*;
-use super::super::*;
-use super::instr_infos::*;
+use crate::formatter::encoder::tests::non_decoded_tests;
+use crate::formatter::test_utils::from_str_conv::*;
+use crate::formatter::tests::instr_infos::*;
+use crate::formatter::*;
+use crate::iced_constants::IcedConstants;
 use alloc::string::String;
 use std::fmt::Write;
 

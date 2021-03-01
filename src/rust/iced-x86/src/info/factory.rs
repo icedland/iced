@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::iced_constants::IcedConstants;
-use super::enums::*;
-use super::*;
+use crate::iced_constants::IcedConstants;
+use crate::info::enums::*;
+use crate::info::*;
 use core::{mem, u16, u32, u64};
 use static_assertions::const_assert_eq;
 

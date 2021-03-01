@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::*;
-use super::handlers::*;
-use super::*;
+use crate::decoder::handlers::*;
+use crate::decoder::*;
+use crate::*;
 
 #[cfg(not(feature = "no_d3now"))]
 static CODE_VALUES: [Code; 0x100] = [

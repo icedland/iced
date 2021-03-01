@@ -31,9 +31,9 @@ pub use self::mem_op::*;
 #[cfg(feature = "op_code_info")]
 pub use self::op_code::*;
 use self::op_code_handler::OpCodeHandler;
-use super::iced_constants::IcedConstants;
-use super::iced_error::IcedError;
-use super::*;
+use crate::iced_constants::IcedConstants;
+use crate::iced_error::IcedError;
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::{i16, i32, i8, mem, u32};

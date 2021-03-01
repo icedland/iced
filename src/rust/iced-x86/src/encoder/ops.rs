@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::*;
-use super::enums::*;
-use super::Encoder;
+use crate::encoder::enums::*;
+use crate::encoder::Encoder;
+use crate::*;
 use core::mem;
 
 pub(crate) trait Op {

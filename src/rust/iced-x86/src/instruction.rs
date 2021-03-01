@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::iced_constants::IcedConstants;
-use super::iced_error::IcedError;
+use crate::iced_constants::IcedConstants;
+use crate::iced_error::IcedError;
 #[cfg(feature = "instr_info")]
-use super::info::enums::*;
-use super::*;
+use crate::info::enums::*;
+use crate::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use core::fmt;
 use core::hash::{Hash, Hasher};

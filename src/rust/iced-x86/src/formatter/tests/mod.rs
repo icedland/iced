@@ -24,14 +24,14 @@ pub(super) mod sym_res_test_parser;
 
 use self::instr_infos::*;
 #[cfg(feature = "encoder")]
-use super::super::encoder::tests::non_decoded_tests;
-use super::super::test_utils::create_decoder;
-use super::super::test_utils::from_str_conv::to_vec_u8;
-use super::super::{Code, Decoder, Instruction};
+use crate::encoder::tests::non_decoded_tests;
 #[cfg(feature = "fast_fmt")]
-use super::FastFormatter;
+use crate::formatter::FastFormatter;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use super::Formatter;
+use crate::formatter::Formatter;
+use crate::test_utils::create_decoder;
+use crate::test_utils::from_str_conv::to_vec_u8;
+use crate::{Code, Decoder, Instruction};
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;

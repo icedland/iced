@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::tests::options::{test_format_file, test_format_file_all, test_format_file_common};
-use super::fmt_factory;
+use crate::formatter::gas::tests::fmt_factory;
+use crate::formatter::tests::options::{test_format_file, test_format_file_all, test_format_file_common};
 
 #[test]
 fn test_options_common() {

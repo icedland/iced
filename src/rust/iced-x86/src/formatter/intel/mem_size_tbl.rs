@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_constants::IcedConstants;
-use super::super::fmt_consts::*;
-use super::FormatterString;
+use crate::formatter::fmt_consts::*;
+use crate::formatter::intel::FormatterString;
+use crate::iced_constants::IcedConstants;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 

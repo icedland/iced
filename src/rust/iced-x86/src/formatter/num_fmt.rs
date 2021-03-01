@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::enums::*;
-use super::fmt_opts::*;
-use super::num_fmt_opts::*;
+use crate::formatter::enums::*;
+use crate::formatter::fmt_opts::*;
+use crate::formatter::num_fmt_opts::*;
 use alloc::string::String;
 
 struct NumberFormatterFlags;

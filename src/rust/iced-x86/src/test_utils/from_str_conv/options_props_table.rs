@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::formatter::tests::enums::OptionsProps;
+use crate::formatter::tests::enums::OptionsProps;
 use lazy_static::lazy_static;
 use std::collections::HashMap;
 

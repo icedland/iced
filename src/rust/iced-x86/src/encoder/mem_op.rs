@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::*;
+use crate::*;
 
 /// Memory operand passed to one of [`Instruction`]'s `with_*()` constructor methods
 ///

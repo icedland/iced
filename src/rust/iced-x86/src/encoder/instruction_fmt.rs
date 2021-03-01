@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::iced_constants::IcedConstants;
-use super::super::*;
-use super::mnemonic_str_tbl::TO_MNEMONIC_STR;
-use super::op_code::OpCodeInfo;
+use crate::encoder::mnemonic_str_tbl::TO_MNEMONIC_STR;
+use crate::encoder::op_code::OpCodeInfo;
+use crate::iced_constants::IcedConstants;
+use crate::*;
 use alloc::string::String;
 use core::char;
 use core::fmt::Write;

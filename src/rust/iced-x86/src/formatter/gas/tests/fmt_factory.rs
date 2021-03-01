@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::{Formatter, FormatterOptionsProvider, SymbolResolver};
-use super::super::GasFormatter;
+use crate::formatter::gas::GasFormatter;
+use crate::formatter::{Formatter, FormatterOptionsProvider, SymbolResolver};
 use alloc::boxed::Box;
 
 fn create_fmt() -> Box<GasFormatter> {

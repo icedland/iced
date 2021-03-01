@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::test_utils::from_str_conv::*;
-use super::super::test_utils::get_formatter_unit_tests_dir;
-use super::super::*;
+use crate::formatter::test_utils::from_str_conv::*;
+use crate::formatter::test_utils::get_formatter_unit_tests_dir;
+use crate::formatter::*;
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;

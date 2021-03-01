@@ -11,9 +11,9 @@ mod sym_opts_parser;
 mod symres;
 
 use self::fmt_factory::*;
-use super::super::tests::formatter_test;
+use crate::formatter::tests::formatter_test;
 #[cfg(feature = "encoder")]
-use super::super::tests::formatter_test_nondec;
+use crate::formatter::tests::formatter_test_nondec;
 
 #[test]
 fn fmt_memalways_16() {

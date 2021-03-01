@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::*;
+use crate::block_enc::tests::*;
 
 #[test]
 fn encode_zero_blocks() {

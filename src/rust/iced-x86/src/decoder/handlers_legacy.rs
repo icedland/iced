@@ -3,9 +3,9 @@
 
 #![allow(clippy::useless_let_if_seq)]
 
-use super::enums::*;
-use super::handlers::*;
-use super::*;
+use crate::decoder::enums::*;
+use crate::decoder::handlers::*;
+use crate::decoder::*;
 use core::u32;
 use static_assertions::const_assert_ne;
 

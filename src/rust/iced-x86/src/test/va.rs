@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::test_utils::from_str_conv::to_vec_u8;
-use super::super::test_utils::{create_decoder, get_default_ip};
-use super::va_test_cases::VA_TEST_CASES;
+use crate::test::va_test_cases::VA_TEST_CASES;
+use crate::test_utils::from_str_conv::to_vec_u8;
+use crate::test_utils::{create_decoder, get_default_ip};
 
 #[test]
 fn va_tests() {

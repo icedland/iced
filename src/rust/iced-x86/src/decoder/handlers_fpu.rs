@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::handlers::*;
-use super::*;
+use crate::decoder::handlers::*;
+use crate::decoder::*;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };

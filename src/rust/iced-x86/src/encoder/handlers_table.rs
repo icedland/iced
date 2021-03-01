@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::enums::EncodingKind;
-use super::super::iced_constants::IcedConstants;
-use super::super::*;
-use super::encoder_data::{ENC_FLAGS1, ENC_FLAGS2, ENC_FLAGS3};
-use super::enums::*;
-use super::op_code_handler::*;
+use crate::encoder::encoder_data::{ENC_FLAGS1, ENC_FLAGS2, ENC_FLAGS3};
+use crate::encoder::enums::*;
+use crate::encoder::op_code_handler::*;
+use crate::enums::EncodingKind;
+use crate::iced_constants::IcedConstants;
+use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::mem;

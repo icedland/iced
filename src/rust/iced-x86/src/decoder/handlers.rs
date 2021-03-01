@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::*;
-use super::*;
+use crate::decoder::*;
+use crate::*;
 use alloc::vec::Vec;
 
 // SAFETY:

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::data_reader::DataReader;
-use super::super::super::iced_constants::IcedConstants;
-use super::super::strings_tbl::get_strings_table_ref;
-use super::enums::*;
-use super::fmt_data::FORMATTER_TBL_DATA;
-use super::FmtTableData;
+use crate::data_reader::DataReader;
+use crate::formatter::fast::enums::*;
+use crate::formatter::fast::fmt_data::FORMATTER_TBL_DATA;
+use crate::formatter::fast::FmtTableData;
+use crate::formatter::strings_tbl::get_strings_table_ref;
+use crate::iced_constants::IcedConstants;
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;

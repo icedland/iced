@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::test_utils::from_str_conv::*;
-use super::enums::OptionsProps;
-use super::opt_value::OptionValue;
+use crate::formatter::tests::enums::OptionsProps;
+use crate::formatter::tests::opt_value::OptionValue;
+use crate::test_utils::from_str_conv::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 

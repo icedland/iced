@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::Register;
-use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
-use super::super::FormatterString;
+use crate::formatter::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
+use crate::formatter::FormatterString;
+use crate::Register;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;

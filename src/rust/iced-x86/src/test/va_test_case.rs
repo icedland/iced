@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::Register;
+use crate::Register;
 use alloc::string::String;
 use alloc::vec::Vec;
 

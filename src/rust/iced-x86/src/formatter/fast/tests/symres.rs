@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::tests::sym_res::symbol_resolver_test_fast;
-use super::fmt_factory::create_resolver;
+use crate::formatter::fast::tests::fmt_factory::create_resolver;
+use crate::formatter::tests::sym_res::symbol_resolver_test_fast;
 
 #[test]
 fn symres() {

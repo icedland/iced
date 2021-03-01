@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::iced_constants::IcedConstants;
-use super::iced_error::IcedError;
+use crate::iced_constants::IcedConstants;
+use crate::iced_error::IcedError;
 use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
@@ -12,8 +12,8 @@ pub use self::info::*;
 
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 mod info {
-	use super::super::iced_constants::IcedConstants;
 	use super::MemorySize;
+	use crate::iced_constants::IcedConstants;
 
 	#[rustfmt::skip]
 	pub(super) static MEMORY_SIZE_INFOS: &[MemorySizeInfo; IcedConstants::MEMORY_SIZE_ENUM_COUNT] = &[

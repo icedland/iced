@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::tests::number::number_tests;
-use super::fmt_factory::create_numbers;
+use crate::formatter::gas::tests::fmt_factory::create_numbers;
+use crate::formatter::tests::number::number_tests;
 
 #[test]
 fn test_numbers() {

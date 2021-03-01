@@ -59,8 +59,8 @@ use self::register_table::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 use self::tuple_type_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-use super::super::formatter::tests::enums::OptionsProps;
-use super::super::*;
+use crate::formatter::tests::enums::OptionsProps;
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]

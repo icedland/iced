@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::test_utils::from_str_conv::*;
-use super::super::DecoderOptions;
-use super::va_test_case::*;
+use crate::test::va_test_case::*;
+use crate::test_utils::from_str_conv::*;
+use crate::DecoderOptions;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;

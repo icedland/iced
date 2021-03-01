@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::*;
-use super::enums::OptionsProps;
+use crate::formatter::tests::enums::OptionsProps;
+use crate::*;
 use alloc::string::String;
 
 #[allow(non_camel_case_types)]

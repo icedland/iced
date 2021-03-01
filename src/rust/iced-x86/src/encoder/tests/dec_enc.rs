@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::decoder::tests::enums::DecoderTestOptions;
-use super::super::super::decoder::tests::test_utils::{code32_only, code64_only, decoder_tests, not_decoded32_only, not_decoded64_only};
-use super::super::super::iced_constants::IcedConstants;
-use super::super::super::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
-use super::super::super::*;
+use crate::decoder::tests::enums::DecoderTestOptions;
+use crate::decoder::tests::test_utils::{code32_only, code64_only, decoder_tests, not_decoded32_only, not_decoded64_only};
+use crate::iced_constants::IcedConstants;
+use crate::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
+use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter;

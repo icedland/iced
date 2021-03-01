@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::Instruction;
-use super::super::test_utils::get_formatter_unit_tests_dir;
-use super::super::*;
-use super::filter_removed_code_tests;
-use super::sym_res_test_case::*;
-use super::sym_res_test_parser::*;
+use crate::formatter::test_utils::get_formatter_unit_tests_dir;
+use crate::formatter::tests::filter_removed_code_tests;
+use crate::formatter::tests::sym_res_test_case::*;
+use crate::formatter::tests::sym_res_test_parser::*;
+use crate::formatter::*;
+use crate::Instruction;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;

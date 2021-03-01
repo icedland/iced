@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::test_utils::*;
-use super::decoder_mem_test_case::*;
-use super::decoder_test_case::*;
-use super::mem_test_parser::*;
-use super::test_parser::*;
+use crate::decoder::tests::decoder_mem_test_case::*;
+use crate::decoder::tests::decoder_test_case::*;
+use crate::decoder::tests::mem_test_parser::*;
+use crate::decoder::tests::test_parser::*;
+use crate::test_utils::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;

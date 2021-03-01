@@ -22,7 +22,7 @@ namespace Generator.Decoder.Rust {
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(generatorContext.Types.Dirs.GetRustFilename("instruction_op_counts.rs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"use super::iced_constants::{icedConstants.Name(idConverter)};");
+				writer.WriteLine($"use crate::iced_constants::{icedConstants.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(super) static OP_COUNT: [u8; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] = [");

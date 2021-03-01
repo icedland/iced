@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::tests::registers::register_tests;
-use super::fmt_factory;
+use crate::formatter::nasm::tests::fmt_factory;
+use crate::formatter::tests::registers::register_tests;
 
 #[test]
 fn test_regs() {

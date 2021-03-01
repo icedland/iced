@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::*;
-use super::op_code::OpCodeInfo;
+use crate::encoder::op_code::OpCodeInfo;
+use crate::*;
 use alloc::string::String;
 use core::fmt;
 use core::fmt::Write;

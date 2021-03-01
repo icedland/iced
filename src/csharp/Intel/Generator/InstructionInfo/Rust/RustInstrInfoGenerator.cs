@@ -89,7 +89,7 @@ namespace Generator.InstructionInfo.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				var cpuidFeatureTypeStr = genTypes[TypeIds.CpuidFeature].Name(idConverter);
-				writer.WriteLine($"use super::super::{cpuidFeatureTypeStr};");
+				writer.WriteLine($"use crate::{cpuidFeatureTypeStr};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(crate) static CPUID: [&[{cpuidFeatureTypeStr}]; {cpuidFeatures.Length}] = [");

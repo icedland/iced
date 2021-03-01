@@ -24,8 +24,8 @@ namespace Generator.Decoder.Rust {
 			var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(generatorContext.Types.Dirs.GetRustFilename("instruction_memory_sizes.rs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"use super::iced_constants::{icedConstants.Name(idConverter)};");
-				writer.WriteLine($"use super::{genTypes[TypeIds.MemorySize].Name(idConverter)};");
+				writer.WriteLine($"use crate::iced_constants::{icedConstants.Name(idConverter)};");
+				writer.WriteLine($"use crate::{genTypes[TypeIds.MemorySize].Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine("// 0 = memory size");
 				writer.WriteLine("// 1 = broadcast memory size");

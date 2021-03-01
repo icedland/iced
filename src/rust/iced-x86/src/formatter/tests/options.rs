@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::*;
-use super::super::test_utils::get_formatter_unit_tests_dir;
-use super::options_test_case_parser::OptionsTestParser;
-use super::opts_info::*;
-use super::{filter_removed_code_tests, opts_infos};
+use crate::formatter::test_utils::get_formatter_unit_tests_dir;
+use crate::formatter::tests::options_test_case_parser::OptionsTestParser;
+use crate::formatter::tests::opts_info::*;
+use crate::formatter::tests::{filter_removed_code_tests, opts_infos};
+use crate::*;
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;

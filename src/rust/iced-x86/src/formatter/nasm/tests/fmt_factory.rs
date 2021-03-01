@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::enums_shared::MemorySizeOptions;
-use super::super::super::NasmFormatter;
-use super::super::super::{Formatter, FormatterOptionsProvider, SymbolResolver};
+use crate::formatter::enums_shared::MemorySizeOptions;
+use crate::formatter::NasmFormatter;
+use crate::formatter::{Formatter, FormatterOptionsProvider, SymbolResolver};
 use alloc::boxed::Box;
 
 fn create_fmt() -> Box<NasmFormatter> {

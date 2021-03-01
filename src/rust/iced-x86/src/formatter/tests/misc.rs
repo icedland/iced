@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use super::super::super::iced_constants::IcedConstants;
-use super::super::decoder::tests::test_utils;
-use super::super::test_utils::create_decoder;
-use super::super::test_utils::from_str_conv::*;
-use super::super::*;
+use crate::formatter::decoder::tests::test_utils;
+use crate::formatter::test_utils::create_decoder;
+use crate::formatter::test_utils::from_str_conv::*;
+use crate::formatter::*;
+use crate::iced_constants::IcedConstants;
 use alloc::boxed::Box;
 use alloc::string::String;
 
