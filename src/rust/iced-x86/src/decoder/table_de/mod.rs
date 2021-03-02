@@ -15,10 +15,10 @@ mod legacy_reader;
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 mod vex_reader;
 
-use self::enums::*;
 use crate::data_reader::DataReader;
 use crate::decoder::handlers::is_null_instance_handler;
 use crate::decoder::handlers::OpCodeHandler;
+use crate::decoder::table_de::enums::*;
 use crate::Register;
 #[cfg(not(feature = "no_evex"))]
 use crate::TupleType;

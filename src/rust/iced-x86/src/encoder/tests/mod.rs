@@ -10,12 +10,12 @@ mod op_code_test_case;
 #[cfg(feature = "op_code_info")]
 mod op_code_test_case_parser;
 
-#[cfg(feature = "op_code_info")]
-use self::op_code_test_case::*;
-#[cfg(feature = "op_code_info")]
-use self::op_code_test_case_parser::OpCodeInfoTestParser;
 use crate::decoder::tests::test_utils::*;
 use crate::encoder::op_code_handler::InvalidHandler;
+#[cfg(feature = "op_code_info")]
+use crate::encoder::tests::op_code_test_case::*;
+#[cfg(feature = "op_code_info")]
+use crate::encoder::tests::op_code_test_case_parser::OpCodeInfoTestParser;
 use crate::iced_constants::IcedConstants;
 use crate::test_utils::from_str_conv::to_vec_u8;
 #[cfg(feature = "op_code_info")]

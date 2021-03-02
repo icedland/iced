@@ -6,7 +6,7 @@ mod misc;
 mod options;
 mod symres;
 
-use self::fmt_factory::*;
+use crate::formatter::fast::tests::fmt_factory::*;
 use crate::formatter::tests::formatter_test_fast;
 #[cfg(feature = "encoder")]
 use crate::formatter::tests::formatter_test_nondec_fast;

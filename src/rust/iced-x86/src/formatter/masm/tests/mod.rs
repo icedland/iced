@@ -10,7 +10,7 @@ mod sym_opts;
 mod sym_opts_parser;
 mod symres;
 
-use self::fmt_factory::*;
+use crate::formatter::masm::tests::fmt_factory::*;
 use crate::formatter::tests::formatter_test;
 #[cfg(feature = "encoder")]
 use crate::formatter::tests::formatter_test_nondec;

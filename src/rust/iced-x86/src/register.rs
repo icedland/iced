@@ -9,12 +9,12 @@ use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
 
 #[cfg(feature = "instr_info")]
-pub use self::info::*;
+pub use crate::register::info::*;
 
 #[cfg(feature = "instr_info")]
 mod info {
-	use super::Register;
 	use crate::iced_constants::IcedConstants;
+	use crate::Register;
 
 	#[rustfmt::skip]
 	pub(super) static REGISTER_INFOS: &[RegisterInfo; IcedConstants::REGISTER_ENUM_COUNT] = &[

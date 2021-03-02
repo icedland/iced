@@ -8,7 +8,7 @@ mod options;
 mod registers;
 mod symres;
 
-use self::fmt_factory::*;
+use crate::formatter::gas::tests::fmt_factory::*;
 use crate::formatter::tests::formatter_test;
 #[cfg(feature = "encoder")]
 use crate::formatter::tests::formatter_test_nondec;

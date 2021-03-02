@@ -15,8 +15,8 @@ mod table_de;
 #[cfg(test)]
 pub(crate) mod tests;
 
-use self::handlers::OpCodeHandler;
-use self::handlers_tables::TABLES;
+use crate::decoder::handlers::OpCodeHandler;
+use crate::decoder::handlers_tables::TABLES;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 use crate::tuple_type_tbl::get_disp8n;

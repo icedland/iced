@@ -1261,22 +1261,22 @@ pub(crate) mod test_utils;
 mod tuple_type_tbl;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
-pub use self::block_enc::*;
-pub use self::code::*;
+pub use crate::block_enc::*;
+pub use crate::code::*;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-pub use self::constant_offsets::*;
+pub use crate::constant_offsets::*;
 #[cfg(feature = "decoder")]
-pub use self::decoder::*;
+pub use crate::decoder::*;
 #[cfg(feature = "encoder")]
-pub use self::encoder::*;
-pub use self::enums::*;
+pub use crate::encoder::*;
+pub use crate::enums::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-pub use self::formatter::*;
-pub use self::iced_error::*;
-pub use self::iced_features::*;
+pub use crate::formatter::*;
+pub use crate::iced_error::*;
+pub use crate::iced_features::*;
 #[cfg(feature = "instr_info")]
-pub use self::info::*;
-pub use self::instruction::*;
-pub use self::memory_size::*;
-pub use self::mnemonic::*;
-pub use self::register::*;
+pub use crate::info::*;
+pub use crate::instruction::*;
+pub use crate::memory_size::*;
+pub use crate::mnemonic::*;
+pub use crate::register::*;

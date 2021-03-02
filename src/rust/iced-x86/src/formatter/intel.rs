@@ -10,16 +10,16 @@ mod regs;
 #[cfg(test)]
 mod tests;
 
-use self::enums::*;
-use self::fmt_tbl::ALL_INFOS;
-use self::info::*;
-use self::mem_size_tbl::Info;
-use self::mem_size_tbl::MEM_SIZE_TBL;
-use self::regs::*;
 use crate::formatter::fmt_consts::*;
 use crate::formatter::fmt_utils::*;
 use crate::formatter::fmt_utils_all::*;
 use crate::formatter::instruction_internal::get_address_size_in_bytes;
+use crate::formatter::intel::enums::*;
+use crate::formatter::intel::fmt_tbl::ALL_INFOS;
+use crate::formatter::intel::info::*;
+use crate::formatter::intel::mem_size_tbl::Info;
+use crate::formatter::intel::mem_size_tbl::MEM_SIZE_TBL;
+use crate::formatter::intel::regs::*;
 use crate::formatter::num_fmt::*;
 use crate::formatter::regs_tbl::REGS_TBL;
 use crate::formatter::*;

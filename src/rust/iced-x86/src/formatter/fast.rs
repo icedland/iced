@@ -8,9 +8,9 @@ mod mem_size_tbl;
 #[cfg(test)]
 mod tests;
 
-use self::enums::*;
-use self::fmt_tbl::FMT_DATA;
-use self::mem_size_tbl::MEM_SIZE_TBL;
+use crate::formatter::fast::enums::*;
+use crate::formatter::fast::fmt_tbl::FMT_DATA;
+use crate::formatter::fast::mem_size_tbl::MEM_SIZE_TBL;
 use crate::formatter::fmt_utils_all::*;
 use crate::formatter::instruction_internal::get_address_size_in_bytes;
 use crate::formatter::pseudo_ops::get_pseudo_ops;

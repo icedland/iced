@@ -10,9 +10,9 @@ mod test_cases;
 mod test_parser;
 pub(crate) mod test_utils;
 
-use self::decoder_mem_test_case::*;
-use self::decoder_test_case::*;
-use self::test_utils::*;
+use crate::decoder::tests::decoder_mem_test_case::*;
+use crate::decoder::tests::decoder_test_case::*;
+use crate::decoder::tests::test_utils::*;
 use crate::iced_constants::IcedConstants;
 use crate::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
 use crate::test_utils::*;

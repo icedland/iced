@@ -30,36 +30,36 @@ mod register_table;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod tuple_type_table;
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use self::cc_table::*;
-use self::code_table::*;
-#[cfg(feature = "instr_info")]
-use self::condition_code_table::*;
-#[cfg(feature = "instr_info")]
-use self::cpuid_feature_table::*;
-use self::decoder_error_table::*;
-#[cfg(any(feature = "decoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use self::decoder_options_table::*;
-#[cfg(feature = "instr_info")]
-use self::encoding_kind_table::*;
-#[cfg(feature = "instr_info")]
-use self::flow_control_table::*;
-use self::ignored_code_table::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-use self::memory_size_options_table::*;
-use self::memory_size_table::*;
-use self::mnemonic_table::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use self::number_base_table::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
-use self::op_code_operand_kind_table::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
-use self::options_props_table::*;
-use self::register_table::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
-use self::tuple_type_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use crate::formatter::tests::enums::OptionsProps;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use crate::test_utils::from_str_conv::cc_table::*;
+use crate::test_utils::from_str_conv::code_table::*;
+#[cfg(feature = "instr_info")]
+use crate::test_utils::from_str_conv::condition_code_table::*;
+#[cfg(feature = "instr_info")]
+use crate::test_utils::from_str_conv::cpuid_feature_table::*;
+use crate::test_utils::from_str_conv::decoder_error_table::*;
+#[cfg(any(feature = "decoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use crate::test_utils::from_str_conv::decoder_options_table::*;
+#[cfg(feature = "instr_info")]
+use crate::test_utils::from_str_conv::encoding_kind_table::*;
+#[cfg(feature = "instr_info")]
+use crate::test_utils::from_str_conv::flow_control_table::*;
+use crate::test_utils::from_str_conv::ignored_code_table::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+use crate::test_utils::from_str_conv::memory_size_options_table::*;
+use crate::test_utils::from_str_conv::memory_size_table::*;
+use crate::test_utils::from_str_conv::mnemonic_table::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use crate::test_utils::from_str_conv::number_base_table::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+use crate::test_utils::from_str_conv::op_code_operand_kind_table::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+use crate::test_utils::from_str_conv::options_props_table::*;
+use crate::test_utils::from_str_conv::register_table::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+use crate::test_utils::from_str_conv::tuple_type_table::*;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;

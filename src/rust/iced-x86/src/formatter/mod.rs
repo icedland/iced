@@ -39,29 +39,29 @@ mod symres;
 pub(crate) mod tests;
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub use self::enums::*;
-pub use self::enums_shared::*;
+pub use crate::formatter::enums::*;
+pub use crate::formatter::enums_shared::*;
 #[cfg(feature = "fast_fmt")]
-pub use self::fast::*;
+pub use crate::formatter::fast::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub use self::fmt_opt_provider::*;
+pub use crate::formatter::fmt_opt_provider::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub use self::fmt_opts::*;
+pub use crate::formatter::fmt_opts::*;
 #[cfg(feature = "gas")]
-pub use self::gas::*;
+pub use crate::formatter::gas::*;
 #[cfg(feature = "intel")]
-pub use self::intel::*;
+pub use crate::formatter::intel::*;
 #[cfg(feature = "masm")]
-pub use self::masm::*;
+pub use crate::formatter::masm::*;
 #[cfg(feature = "nasm")]
-pub use self::nasm::*;
+pub use crate::formatter::nasm::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use self::num_fmt::NumberFormatter;
+use crate::formatter::num_fmt::NumberFormatter;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub use self::num_fmt_opts::*;
+pub use crate::formatter::num_fmt_opts::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub use self::string_output::*;
-pub use self::symres::*;
+pub use crate::formatter::string_output::*;
+pub use crate::formatter::symres::*;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;

@@ -8,12 +8,12 @@ use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
-pub use self::info::*;
+pub use crate::memory_size::info::*;
 
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 mod info {
-	use super::MemorySize;
 	use crate::iced_constants::IcedConstants;
+	use crate::MemorySize;
 
 	#[rustfmt::skip]
 	pub(super) static MEMORY_SIZE_INFOS: &[MemorySizeInfo; IcedConstants::MEMORY_SIZE_ENUM_COUNT] = &[

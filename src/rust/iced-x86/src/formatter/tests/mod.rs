@@ -22,9 +22,9 @@ pub(super) mod sym_res;
 pub(super) mod sym_res_test_case;
 pub(super) mod sym_res_test_parser;
 
-use self::instr_infos::*;
 #[cfg(feature = "encoder")]
 use crate::encoder::tests::non_decoded_tests;
+use crate::formatter::tests::instr_infos::*;
 #[cfg(feature = "fast_fmt")]
 use crate::formatter::FastFormatter;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]

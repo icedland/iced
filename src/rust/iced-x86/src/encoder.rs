@@ -25,12 +25,12 @@ mod ops_tables;
 #[cfg(test)]
 pub(crate) mod tests;
 
-pub use self::enums::*;
-use self::handlers_table::*;
-pub use self::mem_op::*;
+pub use crate::encoder::enums::*;
+use crate::encoder::handlers_table::*;
+pub use crate::encoder::mem_op::*;
 #[cfg(feature = "op_code_info")]
-pub use self::op_code::*;
-use self::op_code_handler::OpCodeHandler;
+pub use crate::encoder::op_code::*;
+use crate::encoder::op_code_handler::OpCodeHandler;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 use crate::*;

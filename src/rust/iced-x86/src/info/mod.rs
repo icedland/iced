@@ -9,8 +9,8 @@ pub(crate) mod rflags_table;
 #[cfg(test)]
 mod tests;
 
-pub use self::factory::*;
 use crate::iced_constants::IcedConstants;
+pub use crate::info::factory::*;
 use crate::*;
 use alloc::vec::Vec;
 use core::fmt;
@@ -332,7 +332,7 @@ impl InstructionInfo {
 	#[must_use]
 	#[inline(always)]
 	fn new(options: u32) -> Self {
-		use self::enums::InstrInfoConstants;
+		use crate::info::enums::InstrInfoConstants;
 		Self {
 			used_registers: if (options & InstructionInfoOptions::NO_REGISTER_USAGE) == 0 {
 				Vec::with_capacity(InstrInfoConstants::DEFAULT_USED_REGISTER_COLL_CAPACITY)

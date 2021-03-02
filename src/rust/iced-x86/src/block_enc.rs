@@ -7,9 +7,9 @@ mod instr;
 #[cfg(test)]
 mod tests;
 
-use self::block::*;
-pub use self::enums::*;
-use self::instr::*;
+use crate::block_enc::block::*;
+pub use crate::block_enc::enums::*;
+use crate::block_enc::instr::*;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 use crate::*;
