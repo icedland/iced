@@ -4013,7 +4013,7 @@ impl OpCodeHandler_Reg_Ob {
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(instruction, this.reg);
-		decoder.displ_index = decoder.data_ptr as usize;
+		decoder.displ_index = decoder.data_ptr as u8;
 		if decoder.state.address_size == OpSize::Size64 {
 			super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
@@ -4059,7 +4059,7 @@ impl OpCodeHandler_Ob_Reg {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
-		decoder.displ_index = decoder.data_ptr as usize;
+		decoder.displ_index = decoder.data_ptr as u8;
 		if decoder.state.address_size == OpSize::Size64 {
 			super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
@@ -4108,7 +4108,7 @@ impl OpCodeHandler_Reg_Ov {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		decoder.displ_index = decoder.data_ptr as usize;
+		decoder.displ_index = decoder.data_ptr as u8;
 		if decoder.state.address_size == OpSize::Size64 {
 			super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
@@ -4170,7 +4170,7 @@ impl OpCodeHandler_Ov_Reg {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		decoder.displ_index = decoder.data_ptr as usize;
+		decoder.displ_index = decoder.data_ptr as u8;
 		if decoder.state.address_size == OpSize::Size64 {
 			super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;

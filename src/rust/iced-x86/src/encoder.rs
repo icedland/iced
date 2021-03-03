@@ -1092,6 +1092,11 @@ impl Encoder {
 		if seg != Register::None {
 			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
 			debug_assert!((seg as usize).wrapping_sub(Register::ES as usize) < SEGMENT_OVERRIDES.len());
+			const_assert_eq!(Register::ES as u32 + 1, Register::CS as u32);
+			const_assert_eq!(Register::ES as u32 + 2, Register::SS as u32);
+			const_assert_eq!(Register::ES as u32 + 3, Register::DS as u32);
+			const_assert_eq!(Register::ES as u32 + 4, Register::FS as u32);
+			const_assert_eq!(Register::ES as u32 + 5, Register::GS as u32);
 			// SAFETY: there are exactly 6 segment registers, which equals SEGMENT_OVERRIDES.len().
 			// The segment reg enum values are consecutive: ES,CS,SS,DS,FS,GS
 			self.write_byte_internal(unsafe { *SEGMENT_OVERRIDES.get_unchecked((seg as usize).wrapping_sub(Register::ES as usize)) } as u32);
