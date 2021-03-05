@@ -46,36 +46,10 @@ impl NumberBase {
 	/// Iterates over all `NumberBase` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = NumberBase> + ExactSizeIterator + FusedIterator {
-		NumberBaseIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::NUMBER_BASE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, NumberBase>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct NumberBaseIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for NumberBaseIterator {
-	type Item = NumberBase;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::NUMBER_BASE_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: NumberBase = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::NUMBER_BASE_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for NumberBaseIterator {}
-impl FusedIterator for NumberBaseIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_numberbase_values() {
@@ -198,36 +172,10 @@ impl PrefixKind {
 	/// Iterates over all `PrefixKind` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = PrefixKind> + ExactSizeIterator + FusedIterator {
-		PrefixKindIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::PREFIX_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, PrefixKind>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct PrefixKindIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for PrefixKindIterator {
-	type Item = PrefixKind;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::PREFIX_KIND_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: PrefixKind = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::PREFIX_KIND_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for PrefixKindIterator {}
-impl FusedIterator for PrefixKindIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_prefixkind_values() {
@@ -309,36 +257,10 @@ impl DecoratorKind {
 	/// Iterates over all `DecoratorKind` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = DecoratorKind> + ExactSizeIterator + FusedIterator {
-		DecoratorKindIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::DECORATOR_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, DecoratorKind>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct DecoratorKindIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for DecoratorKindIterator {
-	type Item = DecoratorKind;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::DECORATOR_KIND_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: DecoratorKind = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::DECORATOR_KIND_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for DecoratorKindIterator {}
-impl FusedIterator for DecoratorKindIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_decoratorkind_values() {
@@ -425,36 +347,10 @@ impl NumberKind {
 	/// Iterates over all `NumberKind` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = NumberKind> + ExactSizeIterator + FusedIterator {
-		NumberKindIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::NUMBER_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, NumberKind>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct NumberKindIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for NumberKindIterator {
-	type Item = NumberKind;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::NUMBER_KIND_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: NumberKind = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::NUMBER_KIND_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for NumberKindIterator {}
-impl FusedIterator for NumberKindIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_numberkind_values() {
@@ -571,36 +467,10 @@ impl CC_b {
 	/// Iterates over all `CC_b` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_b> + ExactSizeIterator + FusedIterator {
-		CC_bIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_B_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_b>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_bIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_bIterator {
-	type Item = CC_b;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_B_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_b = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_B_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_bIterator {}
-impl FusedIterator for CC_bIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_b_values() {
@@ -679,36 +549,10 @@ impl CC_ae {
 	/// Iterates over all `CC_ae` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_ae> + ExactSizeIterator + FusedIterator {
-		CC_aeIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_AE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_ae>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_aeIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_aeIterator {
-	type Item = CC_ae;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_AE_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_ae = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_AE_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_aeIterator {}
-impl FusedIterator for CC_aeIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_ae_values() {
@@ -784,36 +628,10 @@ impl CC_e {
 	/// Iterates over all `CC_e` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_e> + ExactSizeIterator + FusedIterator {
-		CC_eIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_E_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_e>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_eIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_eIterator {
-	type Item = CC_e;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_E_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_e = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_E_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_eIterator {}
-impl FusedIterator for CC_eIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_e_values() {
@@ -889,36 +707,10 @@ impl CC_ne {
 	/// Iterates over all `CC_ne` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_ne> + ExactSizeIterator + FusedIterator {
-		CC_neIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_NE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_ne>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_neIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_neIterator {
-	type Item = CC_ne;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_NE_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_ne = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_NE_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_neIterator {}
-impl FusedIterator for CC_neIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_ne_values() {
@@ -994,36 +786,10 @@ impl CC_be {
 	/// Iterates over all `CC_be` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_be> + ExactSizeIterator + FusedIterator {
-		CC_beIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_BE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_be>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_beIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_beIterator {
-	type Item = CC_be;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_BE_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_be = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_BE_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_beIterator {}
-impl FusedIterator for CC_beIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_be_values() {
@@ -1099,36 +865,10 @@ impl CC_a {
 	/// Iterates over all `CC_a` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_a> + ExactSizeIterator + FusedIterator {
-		CC_aIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_A_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_a>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_aIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_aIterator {
-	type Item = CC_a;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_A_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_a = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_A_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_aIterator {}
-impl FusedIterator for CC_aIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_a_values() {
@@ -1204,36 +944,10 @@ impl CC_p {
 	/// Iterates over all `CC_p` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_p> + ExactSizeIterator + FusedIterator {
-		CC_pIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_P_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_p>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_pIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_pIterator {
-	type Item = CC_p;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_P_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_p = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_P_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_pIterator {}
-impl FusedIterator for CC_pIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_p_values() {
@@ -1309,36 +1023,10 @@ impl CC_np {
 	/// Iterates over all `CC_np` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_np> + ExactSizeIterator + FusedIterator {
-		CC_npIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_NP_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_np>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_npIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_npIterator {
-	type Item = CC_np;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_NP_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_np = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_NP_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_npIterator {}
-impl FusedIterator for CC_npIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_np_values() {
@@ -1414,36 +1102,10 @@ impl CC_l {
 	/// Iterates over all `CC_l` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_l> + ExactSizeIterator + FusedIterator {
-		CC_lIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_L_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_l>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_lIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_lIterator {
-	type Item = CC_l;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_L_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_l = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_L_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_lIterator {}
-impl FusedIterator for CC_lIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_l_values() {
@@ -1519,36 +1181,10 @@ impl CC_ge {
 	/// Iterates over all `CC_ge` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_ge> + ExactSizeIterator + FusedIterator {
-		CC_geIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_GE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_ge>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_geIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_geIterator {
-	type Item = CC_ge;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_GE_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_ge = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_GE_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_geIterator {}
-impl FusedIterator for CC_geIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_ge_values() {
@@ -1624,36 +1260,10 @@ impl CC_le {
 	/// Iterates over all `CC_le` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_le> + ExactSizeIterator + FusedIterator {
-		CC_leIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_LE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_le>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_leIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_leIterator {
-	type Item = CC_le;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_LE_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_le = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_LE_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_leIterator {}
-impl FusedIterator for CC_leIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_le_values() {
@@ -1729,36 +1339,10 @@ impl CC_g {
 	/// Iterates over all `CC_g` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_g> + ExactSizeIterator + FusedIterator {
-		CC_gIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::CC_G_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_g>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct CC_gIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for CC_gIterator {
-	type Item = CC_g;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::CC_G_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: CC_g = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::CC_G_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for CC_gIterator {}
-impl FusedIterator for CC_gIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_cc_g_values() {

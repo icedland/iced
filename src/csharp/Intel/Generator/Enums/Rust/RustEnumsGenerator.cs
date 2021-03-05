@@ -261,64 +261,19 @@ namespace Generator.Enums.Rust {
 					writer.WriteLine($"/// Iterates over all `{enumTypeName}` enum values");
 					writer.WriteLine("#[inline]");
 					writer.WriteLine($"pub fn values() -> impl Iterator<Item = {enumTypeName}> + ExactSizeIterator + FusedIterator {{");
-					using (writer.Indent())
-						writer.WriteLine($"{enumIterType} {{ index: 0 }}");
-					writer.WriteLine("}");
-				}
-				writer.WriteLine("}");
-				if (feature is not null)
-					writer.WriteLine(feature);
-				writer.WriteLine(RustConstants.AttributeAllowNonCamelCaseTypes);
-				writer.WriteLine($"struct {enumIterType} {{");
-				using (writer.Indent())
-					writer.WriteLine("index: u32,");
-				writer.WriteLine("}");
-				if (feature is not null)
-					writer.WriteLine(feature);
-				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"impl Iterator for {enumIterType} {{");
-				using (writer.Indent()) {
-					writer.WriteLine($"type Item = {enumTypeName};");
-					writer.WriteLine("#[inline]");
-					writer.WriteLine("fn next(&mut self) -> Option<Self::Item> {");
 					using (writer.Indent()) {
-						writer.WriteLine("let index = self.index;");
-						writer.WriteLine($"if index < {icedConstValue} as u32 {{");
-						using (writer.Indent()) {
-							if (enumType.Values.Length == 1) {
-								writer.WriteLine("self.index = index + 1;");
-								writer.WriteLine($"Some({enumTypeName}::{enumType.Values[0].Name(idConverter)})");
-							}
-							else {
-								writer.WriteLine("// SAFETY: all values 0-max are valid enum values");
-								writer.WriteLine($"let value: {enumTypeName} = unsafe {{ mem::transmute(index as {enumUnderlyingType}) }};");
-								writer.WriteLine("self.index = index + 1;");
-								writer.WriteLine("Some(value)");
-							}
+						if (enumType.Values.Length == 1) {
+							writer.WriteLine($"static VALUES: [{enumTypeName}; 1] = [{enumTypeName}::{enumType.Values[0].Name(idConverter)}];");
+							writer.WriteLine($"VALUES.iter().copied()");
 						}
-						writer.WriteLine("} else {");
-						using (writer.Indent())
-							writer.WriteLine("None");
-						writer.WriteLine("}");
-					}
-					writer.WriteLine("}");
-					writer.WriteLine("#[inline]");
-					writer.WriteLine("fn size_hint(&self) -> (usize, Option<usize>) {");
-					using (writer.Indent()) {
-						writer.WriteLine($"let len = {icedConstValue} - self.index as usize;");
-						writer.WriteLine("(len, Some(len))");
+						else {
+							writer.WriteLine("// SAFETY: all values 0-max are valid enum values");
+							writer.WriteLine($"(0..{icedConstValue}).map(|x| unsafe {{ core::mem::transmute::<{enumUnderlyingType}, {enumTypeName}>(x as {enumUnderlyingType}) }})");
+						}
 					}
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				if (feature is not null)
-					writer.WriteLine(feature);
-				writer.WriteLine($"impl ExactSizeIterator for {enumIterType} {{}}");
-				if (feature is not null)
-					writer.WriteLine(feature);
-				writer.WriteLine($"impl FusedIterator for {enumIterType} {{}}");
-				if (feature is not null)
-					writer.WriteLine(feature);
 				writer.WriteLine("#[test]");
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"fn test_{enumTypeName.ToLowerInvariant()}_values() {{");

@@ -38,34 +38,10 @@ impl RelocKind {
 	/// Iterates over all `RelocKind` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = RelocKind> + ExactSizeIterator + FusedIterator {
-		RelocKindIterator { index: 0 }
+		static VALUES: [RelocKind; 1] = [RelocKind::Offset64];
+		VALUES.iter().copied()
 	}
 }
-#[allow(non_camel_case_types)]
-struct RelocKindIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for RelocKindIterator {
-	type Item = RelocKind;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::RELOC_KIND_ENUM_COUNT as u32 {
-			self.index = index + 1;
-			Some(RelocKind::Offset64)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::RELOC_KIND_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for RelocKindIterator {}
-impl FusedIterator for RelocKindIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_relockind_values() {

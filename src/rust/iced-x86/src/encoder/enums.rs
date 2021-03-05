@@ -606,36 +606,10 @@ impl RepPrefixKind {
 	/// Iterates over all `RepPrefixKind` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = RepPrefixKind> + ExactSizeIterator + FusedIterator {
-		RepPrefixKindIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::REP_PREFIX_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, RepPrefixKind>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct RepPrefixKindIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for RepPrefixKindIterator {
-	type Item = RepPrefixKind;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::REP_PREFIX_KIND_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: RepPrefixKind = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::REP_PREFIX_KIND_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for RepPrefixKindIterator {}
-impl FusedIterator for RepPrefixKindIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_repprefixkind_values() {

@@ -1451,36 +1451,10 @@ impl Register {
 	/// Iterates over all `Register` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = Register> + ExactSizeIterator + FusedIterator {
-		RegisterIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::REGISTER_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, Register>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct RegisterIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for RegisterIterator {
-	type Item = Register;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::REGISTER_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: Register = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::REGISTER_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for RegisterIterator {}
-impl FusedIterator for RegisterIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_register_values() {

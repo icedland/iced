@@ -109,36 +109,10 @@ impl DecoderError {
 	/// Iterates over all `DecoderError` enum values
 	#[inline]
 	pub fn values() -> impl Iterator<Item = DecoderError> + ExactSizeIterator + FusedIterator {
-		DecoderErrorIterator { index: 0 }
+		// SAFETY: all values 0-max are valid enum values
+		(0..IcedConstants::DECODER_ERROR_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, DecoderError>(x as u8) })
 	}
 }
-#[allow(non_camel_case_types)]
-struct DecoderErrorIterator {
-	index: u32,
-}
-#[rustfmt::skip]
-impl Iterator for DecoderErrorIterator {
-	type Item = DecoderError;
-	#[inline]
-	fn next(&mut self) -> Option<Self::Item> {
-		let index = self.index;
-		if index < IcedConstants::DECODER_ERROR_ENUM_COUNT as u32 {
-			// SAFETY: all values 0-max are valid enum values
-			let value: DecoderError = unsafe { mem::transmute(index as u8) };
-			self.index = index + 1;
-			Some(value)
-		} else {
-			None
-		}
-	}
-	#[inline]
-	fn size_hint(&self) -> (usize, Option<usize>) {
-		let len = IcedConstants::DECODER_ERROR_ENUM_COUNT - self.index as usize;
-		(len, Some(len))
-	}
-}
-impl ExactSizeIterator for DecoderErrorIterator {}
-impl FusedIterator for DecoderErrorIterator {}
 #[test]
 #[rustfmt::skip]
 fn test_decodererror_values() {
