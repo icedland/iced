@@ -538,6 +538,7 @@ impl EncodingKind {
 	}
 }
 #[test]
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 #[rustfmt::skip]
 fn test_encodingkind_values() {
 	let mut iter = EncodingKind::values();
@@ -661,6 +662,7 @@ impl TupleType {
 	}
 }
 #[test]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 #[rustfmt::skip]
 fn test_tupletype_values() {
 	let mut iter = TupleType::values();
@@ -772,6 +774,7 @@ impl FlowControl {
 	}
 }
 #[test]
+#[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 fn test_flowcontrol_values() {
 	let mut iter = FlowControl::values();
@@ -1188,6 +1191,7 @@ impl OpCodeOperandKind {
 	}
 }
 #[test]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
 fn test_opcodeoperandkind_values() {
 	let mut iter = OpCodeOperandKind::values();
@@ -1743,6 +1747,7 @@ impl CpuidFeature {
 	}
 }
 #[test]
+#[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 fn test_cpuidfeature_values() {
 	let mut iter = CpuidFeature::values();
@@ -1888,6 +1893,7 @@ impl OpAccess {
 	}
 }
 #[test]
+#[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 fn test_opaccess_values() {
 	let mut iter = OpAccess::values();
@@ -2019,6 +2025,7 @@ impl ConditionCode {
 	}
 }
 #[test]
+#[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 fn test_conditioncode_values() {
 	let mut iter = ConditionCode::values();
@@ -2113,6 +2120,7 @@ impl MandatoryPrefix {
 	}
 }
 #[test]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
 fn test_mandatoryprefix_values() {
 	let mut iter = MandatoryPrefix::values();
@@ -2214,6 +2222,7 @@ impl OpCodeTableKind {
 	}
 }
 #[test]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
 fn test_opcodetablekind_values() {
 	let mut iter = OpCodeTableKind::values();

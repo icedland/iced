@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::str;
 
 pub(crate) struct DataReader<'a> {
@@ -22,6 +22,11 @@ impl<'a> DataReader<'a> {
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 	pub(crate) fn set_index(&mut self, index: usize) {
 		self.index = index
+	}
+
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+	pub(crate) fn len_left(&self) -> usize {
+		self.data.len() - self.index
 	}
 
 	pub(crate) fn can_read(&self) -> bool {
@@ -50,12 +55,21 @@ impl<'a> DataReader<'a> {
 		}
 	}
 
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[allow(clippy::unwrap_used)]
 	pub(crate) fn read_ascii_str(&mut self) -> &'a str {
 		let len = self.read_u8();
 		let s = str::from_utf8(&self.data[self.index..self.index + len]).unwrap();
 		self.index += len;
 		s
+	}
+
+	#[cfg(feature = "fast_fmt")]
+	#[allow(trivial_casts)]
+	pub(crate) fn read_len_data(&mut self) -> *const u8 {
+		let len = &self.data[self.index];
+		let len_data = len as *const u8;
+		self.index += 1 + *len as usize;
+		len_data
 	}
 }

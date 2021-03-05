@@ -20,13 +20,30 @@ namespace Generator.Formatters.Rust {
 			foreach (var info in sortedInfos)
 				maxStringLength = Math.Max(maxStringLength, info.String.Length);
 
+			const int FastStringMnemonicSize = 20;
+			if (maxStringLength > FastStringMnemonicSize) {
+				// Requires updating fast.rs `FastStringMnemonic` to match the new aligned size
+				// eg. FastString24/etc depending on perf
+				throw new InvalidOperationException();
+			}
+
+			var last = sortedInfos[^1];
+			int extraPadding = FastStringMnemonicSize - last.String.Length;
+			if (extraPadding < 0)
+				throw new InvalidOperationException();
+
 			writer.WriteFileHeader();
 			writer.WriteLine($"pub(super) const STRINGS_COUNT: usize = {sortedInfos.Length};");
+			writer.WriteLine(RustConstants.AttributeAllowDeadCode);
+			writer.WriteLine($"pub(super) const MAX_STRING_LEN: usize = {maxStringLength};");
+			writer.WriteLine(RustConstants.AttributeAllowDeadCode);
+			writer.WriteLine($"pub(super) const VALID_STRING_LENGTH: usize = {FastStringMnemonicSize};");
+			writer.WriteLine($"pub(super) const PADDING_SIZE: usize = {extraPadding};");
 			writer.WriteLine();
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
-			writer.WriteLine($"pub(super) static STRINGS_TBL_DATA: [u8; {StringsTableSerializerUtils.GetByteCount(sortedInfos)}] = [");
+			writer.WriteLine($"pub(super) static STRINGS_TBL_DATA: [u8; {StringsTableSerializerUtils.GetByteCount(sortedInfos) + extraPadding}] = [");
 			using (writer.Indent())
-				StringsTableSerializerUtils.SerializeTable(writer, sortedInfos);
+				StringsTableSerializerUtils.SerializeTable(writer, sortedInfos, extraPadding, "Padding so it's possible to read FastStringMnemonic::SIZE bytes from the last value");
 			writer.WriteLine("];");
 		}
 	}

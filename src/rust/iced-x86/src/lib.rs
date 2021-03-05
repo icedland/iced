@@ -62,7 +62,7 @@
 //! - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 //! - `masm`: (✔️Enabled by default) Enables the masm formatter
 //! - `nasm`: (✔️Enabled by default) Enables the nasm formatter
-//! - `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` (masm syntax) which is ~1.9x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
+//! - `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` (masm syntax) which is ~2.6x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
 //! - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 //! - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 //! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
@@ -125,7 +125,7 @@
 //!     let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 //!
 //!     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
-//!     // There's also `FastFormatter` which is ~1.9x faster. Use it if formatting speed is more
+//!     // There's also `FastFormatter` which is ~2.6x faster. Use it if formatting speed is more
 //!     // important than being able to re-assemble formatted instructions.
 //!     let mut formatter = NasmFormatter::new();
 //!
@@ -1225,6 +1225,27 @@ compile_error!("`std` or `no_std` feature must be defined");
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;
+
+#[macro_use]
+mod iced_assert {
+	macro_rules! iced_assert {
+		($($expr:tt)*) => {{
+			// If it's a debug build, include the expression string
+			#[cfg(debug_assertions)]
+			{
+				assert!($($expr)*);
+			}
+
+			// If it's not a debug build, don't include the expression string
+			#[cfg(not(debug_assertions))]
+			{
+				if !($($expr)*) {
+					panic!();
+				}
+			}
+		}};
+	}
+}
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_enc;

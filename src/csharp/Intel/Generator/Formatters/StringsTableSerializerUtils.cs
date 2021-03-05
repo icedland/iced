@@ -13,7 +13,7 @@ namespace Generator.Formatters {
 			return count;
 		}
 
-		public static void SerializeTable(FileWriter writer, StringsTable.Info[] sortedInfos) {
+		public static void SerializeTable(FileWriter writer, StringsTable.Info[] sortedInfos, int extraPadding = -1, string fastStrMsg = "") {
 			foreach (var info in sortedInfos) {
 				var s = info.String;
 				if (s.Length > byte.MaxValue)
@@ -25,6 +25,18 @@ namespace Generator.Formatters {
 					writer.WriteByte((byte)c);
 				}
 				writer.WriteCommentLine(s);
+			}
+
+			// Include comment even if padding is 0
+			if (extraPadding >= 0) {
+				writer.WriteCommentLine(fastStrMsg);
+				if (extraPadding > 0) {
+					for (int i = 0; i < extraPadding; i++)
+						writer.WriteByte(0);
+					writer.WriteLine();
+				}
+				else
+					writer.WriteCommentLine("No padding needed");
 			}
 		}
 	}

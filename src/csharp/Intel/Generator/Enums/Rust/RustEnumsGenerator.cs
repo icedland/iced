@@ -275,6 +275,8 @@ namespace Generator.Enums.Rust {
 				}
 				writer.WriteLine("}");
 				writer.WriteLine("#[test]");
+				if (feature is not null)
+					writer.WriteLine(feature);
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"fn test_{enumTypeName.ToLowerInvariant()}_values() {{");
 				using (writer.Indent()) {

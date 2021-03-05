@@ -28,11 +28,13 @@ mod nasm;
 mod num_fmt;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod num_fmt_opts;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod pseudo_ops;
 mod regs_tbl;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod string_output;
 mod strings_data;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod strings_tbl;
 mod symres;
 #[cfg(test)]
@@ -96,17 +98,11 @@ impl FormatterString {
 		strings.into_iter().map(FormatterString::new).collect()
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	#[must_use]
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower.to_lowercase(), lower);
-		#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-		{
-			Self { lower: String::from(lower), upper: lower.to_uppercase() }
-		}
-		#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
-		{
-			Self { lower: String::from(lower) }
-		}
+		Self { lower: String::from(lower), upper: lower.to_uppercase() }
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
@@ -132,13 +128,6 @@ impl FormatterString {
 		} else {
 			&self.lower
 		}
-	}
-
-	#[cfg(feature = "fast_fmt")]
-	#[must_use]
-	#[inline]
-	fn lower(&self) -> &str {
-		&self.lower
 	}
 }
 

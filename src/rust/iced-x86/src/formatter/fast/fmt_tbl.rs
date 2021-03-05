@@ -4,23 +4,47 @@
 use crate::data_reader::DataReader;
 use crate::formatter::fast::enums::*;
 use crate::formatter::fast::fmt_data::FORMATTER_TBL_DATA;
-use crate::formatter::fast::FmtTableData;
-use crate::formatter::strings_tbl::get_strings_table_ref;
+use crate::formatter::fast::{FastStringMnemonic, FmtTableData};
+use crate::formatter::strings_data::*;
 use crate::iced_constants::IcedConstants;
 use alloc::boxed::Box;
-use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
+use static_assertions::{const_assert, const_assert_eq};
+
+// If this fails, change FastString20 to eg. FastString24 (multiple of 4 or 8 depending on what's best for PERF),
+// see fast.rs where FastString20 is created.
+const_assert!(MAX_STRING_LEN <= FastStringMnemonic::SIZE);
 
 lazy_static! {
 	pub(super) static ref FMT_DATA: FmtTableData = read();
 }
 
+#[allow(clippy::char_lit_as_u8)]
+fn get_strings_table() -> Vec<FastStringMnemonic> {
+	// If this fails, the generator was updated and now FastStringRegister must be changed
+	// to the correct type in fast.rs
+	const_assert_eq!(FastStringMnemonic::SIZE, VALID_STRING_LENGTH);
+
+	let mut reader = DataReader::new(&STRINGS_TBL_DATA);
+	let mut strings = Vec::with_capacity(STRINGS_COUNT);
+	for _ in 0..STRINGS_COUNT {
+		// It's safe to read FastStringMnemonic::SIZE bytes from the last string since the
+		// table includes extra padding. See const-assert above and the table.
+		let len_data = reader.read_len_data();
+		strings.push(FastStringMnemonic::new(len_data));
+	}
+	debug_assert_eq!(reader.len_left(), PADDING_SIZE);
+
+	strings
+}
+
+#[allow(clippy::char_lit_as_u8)]
 fn read() -> FmtTableData {
-	let mut mnemonics: Vec<&'static str> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
+	let mut mnemonics: Vec<FastStringMnemonic> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 	let mut flags: Vec<u8> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
-	let strings = get_strings_table_ref();
+	let strings = get_strings_table();
 	let mut prev_index = -1isize;
 	let mut prev_flags = FastFmtFlags::NONE as usize;
 	for _ in 0..IcedConstants::CODE_ENUM_COUNT {
@@ -33,17 +57,22 @@ fn read() -> FmtTableData {
 			current_index = -1;
 			prev_index = reader.index() as isize;
 		}
-		let mnemonic: &'static str = if (prev_flags & FastFmtFlags::HAS_VPREFIX as usize) == (f & FastFmtFlags::HAS_VPREFIX as usize)
+		let mnemonic: FastStringMnemonic = if (prev_flags & FastFmtFlags::HAS_VPREFIX as usize) == (f & FastFmtFlags::HAS_VPREFIX as usize)
 			&& (f & (FastFmtFlags::SAME_AS_PREV as usize)) != 0
 		{
 			mnemonics[mnemonics.len() - 1]
 		} else if (f & (FastFmtFlags::HAS_VPREFIX as usize)) != 0 {
-			let s = strings[reader.read_compressed_u32() as usize];
-			let mut res = String::with_capacity(s.len() + 1);
-			res.push('v');
-			res.push_str(s);
-			let res = Box::into_raw(Box::new(res));
-			unsafe { (*res).as_str() }
+			let old_str = strings[reader.read_compressed_u32() as usize];
+			let mut new_vec = Vec::with_capacity(old_str.len() + 1);
+			let new_len = 1 + old_str.len();
+			debug_assert!(new_len <= MAX_STRING_LEN);
+			debug_assert!(new_len <= FastStringMnemonic::SIZE);
+			new_vec.push(new_len as u8);
+			new_vec.push('v' as u8);
+			new_vec.extend(old_str.get_slice().iter().cloned().chain(core::iter::repeat(' ' as u8)).take(FastStringMnemonic::SIZE - 1));
+			debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
+			let len_data = Box::leak(Box::new(new_vec)).as_ptr();
+			FastStringMnemonic::new(len_data)
 		} else {
 			strings[reader.read_compressed_u32() as usize]
 		};

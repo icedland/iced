@@ -456,20 +456,23 @@ namespace Iced.Intel {
 			if (useHexPrefix)
 				output.AppendNotNull("0x");
 
-			int digits = 0;
+			int shift = 0;
 			for (ulong tmp = value; ;) {
-				digits++;
+				shift += 4;
 				tmp >>= 4;
 				if (tmp == 0)
 					break;
 			}
 
-			if (!useHexPrefix && (int)((value >> ((digits - 1) << 2)) & 0xF) > 9)
+			if (!useHexPrefix && (int)((value >> (shift - 4)) & 0xF) > 9)
 				output.Append('0');
 			var hexDigits = options.UppercaseHex ? "0123456789ABCDEF" : "0123456789abcdef";
-			for (int i = 0, indexShift = (digits - 1) << 2; i < digits; i++, indexShift -= 4) {
-				int digit = (int)(value >> indexShift) & 0xF;
+			for (; ; ) {
+				shift -= 4;
+				int digit = (int)(value >> shift) & 0xF;
 				output.Append(hexDigits[digit]);
+				if (shift == 0)
+					break;
 			}
 
 			if (!useHexPrefix)

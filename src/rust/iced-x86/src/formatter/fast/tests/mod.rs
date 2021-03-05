@@ -6,10 +6,11 @@ mod misc;
 mod options;
 mod symres;
 
-use crate::formatter::fast::tests::fmt_factory::*;
 use crate::formatter::tests::formatter_test_fast;
 #[cfg(feature = "encoder")]
 use crate::formatter::tests::formatter_test_nondec_fast;
+use crate::{formatter::fast::tests::fmt_factory::*, FastFormatter};
+use crate::{Code, Decoder, DecoderOptions};
 
 #[test]
 fn fmt_default_16() {
@@ -90,4 +91,51 @@ fn fmt_nondec_default_64() {
 #[cfg(feature = "encoder")]
 fn fmt_nondec_inverted_64() {
 	formatter_test_nondec_fast(64, "Fast", "NonDec_Inverted", create_inverted);
+}
+
+#[test]
+#[allow(clippy::char_lit_as_u8)]
+fn format_hex2() {
+	// mov rax,0000_0000_0000_0000h
+	let mut instr = Decoder::new(64, b"\x48\xB8\x00\x00\x00\x00\x00\x00\x00\x00", DecoderOptions::NONE).decode();
+	assert_eq!(instr.code(), Code::Mov_r64_imm64);
+
+	// Test formatting every value 00-FF in every nibble position + upper/lower + hex prefix/suffix.
+	// This test uses '0' for every 'x' or a random value.
+	//			00xxxxxxxxxxxxxx-FFxxxxxxxxxxxxxx
+	//			x00xxxxxxxxxxxxx-xFFxxxxxxxxxxxxx
+	//			xx00xxxxxxxxxxxx-xxFFxxxxxxxxxxxx
+	//			...
+	//			xxxxxxxxxxxxxx00-xxxxxxxxxxxxxxFF
+	let mut actual_instr = String::new();
+	for &or_value in &[0, 0x1234_5678_9ABC_DEF1, 0xFEDC_BA98_7654_321F] {
+		for &uppercase in &[false, true] {
+			for &hex_prefix in &[false, true] {
+				for hex_shift in 0..15 {
+					let hex_shift = hex_shift * 4;
+					for hex2_value in 0..0x100u64 {
+						let mut formatter = FastFormatter::new();
+						formatter.options_mut().set_uppercase_hex(uppercase);
+						formatter.options_mut().set_use_hex_prefix(hex_prefix);
+
+						let mask = 0xFFu64 << hex_shift;
+						let imm: u64 = (hex2_value << hex_shift) | (or_value & !mask);
+						assert_eq!((imm >> hex_shift) & 0xFF, hex2_value);
+						instr.set_immediate64(imm);
+
+						let expected_imm = format!("{:x}", imm);
+						let leading_zero = if !hex_prefix && expected_imm.as_bytes()[0] >= 'a' as u8 { "0" } else { "" };
+						let expected_imm = if uppercase { expected_imm.to_uppercase() } else { expected_imm };
+						let (prefix, suffix) = if hex_prefix { ("0x", "") } else { ("", "h") };
+
+						let expected_instr = format!("mov rax,{}{}{}{}", prefix, leading_zero, expected_imm, suffix);
+
+						actual_instr.clear();
+						formatter.format(&instr, &mut actual_instr);
+						assert_eq!(actual_instr, expected_instr);
+					}
+				}
+			}
+		}
+	}
 }

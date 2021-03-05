@@ -5,28 +5,326 @@ pub(super) mod enums;
 mod fmt_data;
 mod fmt_tbl;
 mod mem_size_tbl;
+mod pseudo_ops_fast;
+mod regs;
 #[cfg(test)]
 mod tests;
 
 use crate::formatter::fast::enums::*;
 use crate::formatter::fast::fmt_tbl::FMT_DATA;
 use crate::formatter::fast::mem_size_tbl::MEM_SIZE_TBL;
+use crate::formatter::fast::pseudo_ops_fast::get_pseudo_ops;
+use crate::formatter::fast::regs::REGS_TBL;
 use crate::formatter::fmt_utils_all::*;
 use crate::formatter::instruction_internal::get_address_size_in_bytes;
-use crate::formatter::pseudo_ops::get_pseudo_ops;
-use crate::formatter::regs_tbl::REGS_TBL;
 use crate::formatter::*;
+use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{mem, u16, u32, u8, usize};
-use static_assertions::const_assert_eq;
+use static_assertions::{const_assert, const_assert_eq};
 
-static SCALE_NUMBERS: [&str; 4] = ["*1", "*2", "*4", "*8"];
-static RC_STRINGS: [&str; 4] = ["{rn-sae}", "{rd-sae}", "{ru-sae}", "{rz-sae}"];
+// full fmt'd str = "prefixes mnemonic op0<decorators1>, op1, op2, op3, op4<decorators2>"
+// prefixes = "es xacquire xrelease lock notrack repe repne "
+// mnemonic = "prefetch_exclusive"
+// op sep = ", "
+// op = "fpustate108 ptr fs:[rax+zmm31*8+0x12345678]"
+//		- longest 'xxxx ptr' and longest memory operand
+// op = "0x123456789ABCDEF0"
+// op = "0x1234:0x12345678"
+// op = "zmm31"
+// op = "offset symbol"
+//		- symbol can have any length
+// <decorators1> = "{k3}{z}"
+// <decorators2> = "{rn-sae}"
+// symbol = any length
+// full = "es xacquire xrelease lock notrack repe repne prefetch_exclusive fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{k3}{z}, fpustate108 ptr fs:[rax+zmm31*8+0x12345678], fpustate108 ptr fs:[rax+zmm31*8+0x12345678], fpustate108 ptr fs:[rax+zmm31*8+0x12345678], fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{rn-sae}"
+//		- it's not possible to have 5 `fpustate108 ptr fs:[rax+zmm31*8+0x12345678]` operands
+//		  so we'll never get a formatted string this long if there's no symbol resolver.
+#[allow(dead_code)]
+const MAX_FMT_INSTR_LEN: usize = {
+	const MAX_PREFIXES_LEN: usize = "es xacquire xrelease lock notrack repe repne ".len();
+	const MAX_OPERAND_LEN: usize = "fpustate108 ptr fs:[rax+zmm31*8+0x12345678]".len();
+	const MAX_DECORATOR1_LEN: usize = "{k3}{z}".len();
+	const MAX_DECORATOR2_LEN: usize = "{rn-sae}".len();
+
+	MAX_PREFIXES_LEN
+	+ crate::formatter::strings_data::MAX_STRING_LEN
+	+ MAX_DECORATOR1_LEN
+	+ (IcedConstants::MAX_OP_COUNT * (2/*", "*/ + MAX_OPERAND_LEN)) - 1/*','*/
+	+ MAX_DECORATOR2_LEN
+};
+const_assert_eq!(
+	MAX_FMT_INSTR_LEN,
+	// Max mnemonic len
+	crate::formatter::strings_data::MAX_STRING_LEN
+		+ "es xacquire xrelease lock notrack repe repne  \
+			fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{k3}{z}, \
+			fpustate108 ptr fs:[rax+zmm31*8+0x12345678], \
+			fpustate108 ptr fs:[rax+zmm31*8+0x12345678], \
+			fpustate108 ptr fs:[rax+zmm31*8+0x12345678], \
+			fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{rn-sae}"
+			.len()
+);
+// Make sure it doesn't grow too much without us knowing about it (eg. if more operands are added)
+const_assert!(MAX_FMT_INSTR_LEN < 350);
+
+// Creates a fast string type. It contains one ptr to the len (u8) + valid utf8 string.
+// The utf8 string has enough bytes following it (eg. padding or the next fast str instance)
+// so it's possible to read up to Self::SIZE bytes without crashing or causing a UB.
+// Since the compiler knows that Self::SIZE is a constant, it can optimize the string copy,
+// eg. if Self::SIZE == 8, it can read one unaligned u64 and write one unaligned u64.
+macro_rules! mk_fast_str_ty {
+	($ty_name:ident, $size:literal) => {
+		#[repr(transparent)]
+		#[derive(Copy, Clone)]
+		struct $ty_name {
+			// offset 0: u8, length in bytes of utf8 string
+			// offset 1: [u8; SIZE] SIZE bytes can be read but only the first len() bytes are part of the string
+			len_data: *const u8,
+		}
+		impl $ty_name {
+			const SIZE: usize = $size;
+
+			#[allow(dead_code)]
+			fn new(len_data: *const u8) -> Self {
+				debug_assert!(unsafe { *len_data as usize <= <$ty_name>::SIZE });
+				Self { len_data }
+			}
+
+			fn len(self) -> usize {
+				unsafe { *self.len_data as usize }
+			}
+
+			fn utf8_data(self) -> *const u8 {
+				unsafe { self.len_data.add(1) }
+			}
+
+			#[allow(dead_code)]
+			fn get_slice(self) -> &'static [u8] {
+				unsafe { core::slice::from_raw_parts(self.utf8_data(), self.len()) }
+			}
+		}
+		// SAFETY: The ptr field points to a static immutable u8 array.
+		unsafe impl Send for $ty_name {}
+		unsafe impl Sync for $ty_name {}
+	};
+}
+// FastString2 isn't used since the code needs a 66h prefix (if target CPU is x86)
+mk_fast_str_ty! {FastString4, 4}
+mk_fast_str_ty! {FastString8, 8}
+mk_fast_str_ty! {FastString12, 12}
+mk_fast_str_ty! {FastString16, 16}
+mk_fast_str_ty! {FastString20, 20}
+
+type FastStringMnemonic = FastString20;
+type FastStringMemorySize = FastString16;
+type FastStringRegister = FastString8;
+
+// It doesn't seem to be possible to const-verify the arg (string literal) in a const fn so we create it with this macro
+macro_rules! mk_const_fast_str {
+	// $fast_ty = FastStringN where N is some integer
+	// $str = padded string. First byte is the string len and the rest is the utf8 data
+	//		  of $fast_ty::SIZE bytes padded with any bytes if needed
+	($fast_ty:tt, $str:literal) => {{
+		const STR: &str = $str;
+		const_assert!(STR.len() == 1 + <$fast_ty>::SIZE);
+		const_assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
+		//TODO: We can't verify that the data at offset 1 (len() bytes, not SIZE bytes) is valid utf8 in a const context
+		$fast_ty { len_data: STR.as_ptr() }
+	}};
+}
+
+macro_rules! write_fast_str {
+	// $dst = dest vector (from output.as_mut_vec())
+	// $dst_next_p = next ptr to write in $dst
+	// $source_ty = source fast string type
+	// $source = source fast string instance, must be the same type as $source_ty (compiler will give an error if it's not the same type)
+	($dst:ident, $dst_next_p:ident, $source_ty:ty, $source:ident) => {{
+		const DATA_LEN: usize = <$source_ty>::SIZE;
+		// Verify that there's enough bytes left. This should never fail, but let's keep it anyway, we only lose a few MB/s
+		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= DATA_LEN);
+		// SAFETY:
+		// - $source is a valid utf8 string and it points to DATA_LEN readable bytes
+		//   ($source is never from user code)
+		// - $source is not in $dst ($source is static)
+		// - $dst is writable with at least DATA_LEN bytes left (see assert above)
+		// - $dst is at a valid utf8 char boundary (we're appending bytes)
+		unsafe {
+			core::ptr::copy_nonoverlapping(<$source_ty>::utf8_data($source), $dst_next_p, DATA_LEN);
+		}
+		debug_assert!(<$source_ty>::len($source) <= DATA_LEN);
+		// SAFETY:
+		// - $source.len() <= DATA_LEN so the new ptr is valid
+		$dst_next_p = unsafe { $dst_next_p.add(<$source_ty>::len($source)) };
+	}};
+}
+
+#[rustfmt::skip]
+static HEX_GROUP2_UPPER: &str =
+   "000102030405060708090A0B0C0D0E0F\
+	101112131415161718191A1B1C1D1E1F\
+	202122232425262728292A2B2C2D2E2F\
+	303132333435363738393A3B3C3D3E3F\
+	404142434445464748494A4B4C4D4E4F\
+	505152535455565758595A5B5C5D5E5F\
+	606162636465666768696A6B6C6D6E6F\
+	707172737475767778797A7B7C7D7E7F\
+	808182838485868788898A8B8C8D8E8F\
+	909192939495969798999A9B9C9D9E9F\
+	A0A1A2A3A4A5A6A7A8A9AAABACADAEAF\
+	B0B1B2B3B4B5B6B7B8B9BABBBCBDBEBF\
+	C0C1C2C3C4C5C6C7C8C9CACBCCCDCECF\
+	D0D1D2D3D4D5D6D7D8D9DADBDCDDDEDF\
+	E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEF\
+	F0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF\
+	__"; // Padding so we can read 4 bytes at every index 0-0xFF inclusive
+
+macro_rules! write_fast_ascii_hex2 {
+	($dst:ident, $dst_next_p:ident, $value:ident, $lower_or_value:ident) => {{
+		const DATA_LEN: usize = 4;
+		const REAL_LEN: usize = 2;
+		// Verify that there's enough bytes left. This should never fail, but let's keep it anyway, we only lose a few MB/s
+		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= DATA_LEN);
+		// We'll read DATA_LEN (4) bytes so we must be able to access up to and including offset 0x201
+		debug_assert_eq!(HEX_GROUP2_UPPER.len(), 0xFF * REAL_LEN + DATA_LEN);
+		debug_assert!($value < 0x100);
+		// $lower_or_value == 0 if we should use upper case hex digits or 0x2020_2020 to use lowercase hex digits.
+		// If LE, we need xxxx2020 and if BE, we need 2020xxxx.
+		debug_assert!($lower_or_value == 0 || $lower_or_value == 0x2020_2020);
+		// SAFETY:
+		// - HEX_GROUP2_UPPER is a valid utf8 string and every valid 2-digit hex number
+		//	 0-0xFF can be used as an index * REAL_LEN (2) to read DATA_LEN (4) bytes.
+		// - $dst is writable with at least DATA_LEN bytes left (see assert above)
+		// - $dst is at a valid utf8 char boundary (we're appending bytes)
+		#[allow(trivial_numeric_casts)]
+		unsafe {
+			let src_ptr = HEX_GROUP2_UPPER.as_ptr().add(($value as usize) * REAL_LEN) as *const u32;
+			core::ptr::write_unaligned($dst_next_p as *mut u32, core::ptr::read_unaligned(src_ptr) | $lower_or_value);
+		}
+		const_assert!(REAL_LEN <= DATA_LEN);
+		// SAFETY:
+		// - REAL_LEN <= DATA_LEN so the new ptr is valid since there's at least DATA_LEN bytes available in $dst
+		$dst_next_p = unsafe { $dst_next_p.add(REAL_LEN) };
+	}};
+}
+
+macro_rules! write_fast_ascii_char {
+	// $dst = dest vector (from output.as_mut_vec())
+	// $dst_next_p = next ptr to write in $dst
+	// $ch = char to write (must be ASCII)
+	($dst:ident, $dst_next_p:ident, $ch:expr) => {{
+		const DATA_LEN: usize = 1;
+		// Verify that there's enough bytes left. This should never fail, but let's keep it anyway, we only lose a few MB/s
+		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= DATA_LEN);
+		#[allow(trivial_numeric_casts)]
+		{
+			debug_assert!($ch as u32 <= 0x7F);
+		}
+		// SAFETY:
+		// - $ch is ASCII (valid 1-byte utf8 char)
+		// - $dst is writable with at least DATA_LEN bytes left (see assert above)
+		// - $dst is at a valid utf8 char boundary (we're appending bytes)
+		#[allow(trivial_numeric_casts)]
+		unsafe {
+			*$dst_next_p = $ch as u8;
+		}
+		// SAFETY: There's at least one byte left so the new ptr is valid
+		$dst_next_p = unsafe { $dst_next_p.add(1) };
+	}};
+}
+
+macro_rules! write_fast_ascii_char_lit {
+	// $dst = dest vector (from output.as_mut_vec())
+	// $dst_next_p = next ptr to write in $dst
+	// $ch = char to write (must be ASCII)
+	($dst:ident, $dst_next_p:ident, $ch:tt) => {{
+		const_assert!($ch as u32 <= 0x7F);
+		write_fast_ascii_char!($dst, $dst_next_p, $ch);
+	}};
+}
+
+macro_rules! update_vec_len {
+	// $dst = dest vector (from output.as_mut_vec())
+	// $dst_next_p = next ptr to write in $dst
+	($dst:ident, $dst_next_p:ident) => {
+		// SAFETY:
+		// - we only write valid utf8 strings and ASCII chars to vec
+		// - We've written all chars up to but not including $dst_next_p so all visible data have been initialized
+		// - $dst_next_p points to a valid location inside the vec or at most 1 byte past the last valid byte
+		unsafe {
+			$dst.set_len($dst_next_p as usize - $dst.as_ptr() as usize);
+		}
+	};
+}
+
+macro_rules! use_dst_only_now {
+	// $dst = dest vector (from output.as_mut_vec())
+	// $dst_next_p = next ptr to write in $dst
+	($dst:ident, $dst_next_p:ident) => {
+		update_vec_len!($dst, $dst_next_p);
+		// Make sure we don't use it accidentally
+		#[allow(unused_variables)]
+		let $dst_next_p: () = ();
+	};
+}
+macro_rules! use_dst_next_p_now {
+	// $dst = dest vector (from output.as_mut_vec())
+	// $dst_next_p = next ptr to write in $dst
+	($dst:ident, $dst_next_p:ident) => {
+		// Need to make sure we have enough bytes available again because we could've
+		// written a very long symbol name.
+		$dst.reserve(MAX_FMT_INSTR_LEN);
+		// Restore variable
+		let mut $dst_next_p = unsafe { $dst.as_mut_ptr().add($dst.len()) };
+	};
+}
+
+// Macros to safely call the methods (make sure the return value is stored back in dst_next_p)
+macro_rules! call_format_register {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $reg:expr) => {
+		$dst_next_p = FastFormatter::format_register(&$slf.d, $dst, $dst_next_p, $reg);
+	};
+}
+macro_rules! call_format_number {
+	($dst:ident, $dst_next_p:ident, $imm:expr, $options:expr) => {
+		$dst_next_p = FastFormatter::format_number($dst, $dst_next_p, $imm, $options);
+	};
+}
+macro_rules! call_write_symbol {
+	($dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr, $options:expr) => {
+		$dst_next_p = FastFormatter::write_symbol($dst, $dst_next_p, $imm, $sym, $options);
+	};
+}
+macro_rules! call_write_symbol2 {
+	($dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr, $options:expr, $write_minus_if_signed:expr) => {
+		$dst_next_p = FastFormatter::write_symbol2($dst, $dst_next_p, $imm, $sym, $options, $write_minus_if_signed);
+	};
+}
+macro_rules! call_format_memory {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:expr, $seg_reg:expr, $base_reg:expr, $index_reg:expr, $scale:expr, $displ_size:expr, $displ:expr, $addr_size:expr $(,)?) => {
+		$dst_next_p =
+			$slf.format_memory($dst, $dst_next_p, $instruction, $operand, $seg_reg, $base_reg, $index_reg, $scale, $displ_size, $displ, $addr_size)
+	};
+}
+
+static SCALE_NUMBERS: [FastString4; 4] = [
+	mk_const_fast_str!(FastString4, "\x02*1  "),
+	mk_const_fast_str!(FastString4, "\x02*2  "),
+	mk_const_fast_str!(FastString4, "\x02*4  "),
+	mk_const_fast_str!(FastString4, "\x02*8  "),
+];
+static RC_STRINGS: [FastString8; 4] = [
+	mk_const_fast_str!(FastString8, "\x08{rn-sae}"),
+	mk_const_fast_str!(FastString8, "\x08{rd-sae}"),
+	mk_const_fast_str!(FastString8, "\x08{ru-sae}"),
+	mk_const_fast_str!(FastString8, "\x08{rz-sae}"),
+];
+static FAST_STR_OFFSET: FastString8 = mk_const_fast_str!(FastString8, "\x07offset  ");
 
 struct FmtTableData {
-	mnemonics: Vec<&'static str>,
+	mnemonics: Vec<FastStringMnemonic>,
 	flags: Vec<u8>, // FastFmtFlags
 }
 
@@ -312,7 +610,7 @@ impl FastFormatterOptions {
 /// Fast formatter with less formatting options and with a masm-like syntax.
 /// Use it if formatting speed is more important than being able to re-assemble formatted instructions.
 ///
-/// This formatter is 1.8-1.9x faster than the other formatters (the time includes decoding + formatting).
+/// This formatter is ~2.6x faster than the other formatters (the time includes decoding + formatting).
 ///
 /// # Examples
 ///
@@ -382,10 +680,10 @@ impl Default for FastFormatter {
 // Read-only data which is needed a couple of times due to borrow checker
 struct SelfData {
 	options: FastFormatterOptions,
-	all_registers: &'static [FormatterString],
-	code_mnemonics: &'static [&'static str],
+	all_registers: &'static [FastStringRegister],
+	code_mnemonics: &'static [FastStringMnemonic],
 	code_flags: &'static [u8],
-	all_memory_sizes: &'static [&'static str],
+	all_memory_sizes: &'static [FastStringMemorySize],
 }
 
 impl FastFormatter {
@@ -439,7 +737,17 @@ impl FastFormatter {
 	/// - `instruction`: Instruction
 	/// - `output`: Output
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[allow(clippy::let_unit_value)]
 	pub fn format(&mut self, instruction: &Instruction, output: &mut String) {
+		// SAFETY: We only write data that come from a `&str` or a `String` so the data is always valid utf8
+		let dst = unsafe { output.as_mut_vec() };
+		// The code assumes there's enough bytes (or it will panic) so reserve enough bytes here
+		dst.reserve(MAX_FMT_INSTR_LEN);
+		// SAFETY:
+		// - ptr is in bounds (after last valid byte)
+		// - it's reloaded when using 'dst' to write to the vector
+		let mut dst_next_p = unsafe { dst.as_mut_ptr().add(dst.len()) };
+
 		let code = instruction.code();
 
 		// SAFETY: all Code values are valid indexes
@@ -468,8 +776,8 @@ impl FastFormatter {
 					index = usize::MAX;
 				}
 			}
-			if let Some(pseudo_op_mnemonic) = pseudo_ops.get(index) {
-				mnemonic = pseudo_op_mnemonic.lower();
+			if let Some(&pseudo_op_mnemonic) = pseudo_ops.get(index) {
+				mnemonic = pseudo_op_mnemonic;
 				op_count -= 1;
 			}
 		}
@@ -479,29 +787,35 @@ impl FastFormatter {
 		if ((prefix_seg as u32) | super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg != Register::None && FastFormatter::show_segment_prefix(instruction, op_count) {
-				FastFormatter::format_register(&self.d, output, prefix_seg);
-				output.push(' ');
+				call_format_register!(self, dst, dst_next_p, prefix_seg);
+				write_fast_ascii_char_lit!(dst, dst_next_p, ' ');
 			}
 
 			if instruction.has_xacquire_prefix() {
-				output.push_str("xacquire ");
+				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "\x09xacquire    ");
+				write_fast_str!(dst, dst_next_p, FastString12, FAST_STR);
 			}
 			if instruction.has_xrelease_prefix() {
-				output.push_str("xrelease ");
+				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "\x09xrelease    ");
+				write_fast_str!(dst, dst_next_p, FastString12, FAST_STR);
 			}
 			if instruction.has_lock_prefix() {
-				output.push_str("lock ");
+				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05lock    ");
+				write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 			}
 			if has_notrack_prefix {
-				output.push_str("notrack ");
+				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x08notrack ");
+				write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 			}
 			if instruction.has_repe_prefix()
 				&& (FastFormatter::SHOW_USELESS_PREFIXES || show_rep_or_repe_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES))
 			{
 				if is_repe_or_repne_instruction(code) {
-					output.push_str("repe ");
+					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05repe    ");
+					write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 				} else {
-					output.push_str("rep ");
+					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04rep ");
+					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 				}
 			}
 			if instruction.has_repne_prefix() {
@@ -511,14 +825,16 @@ impl FastFormatter {
 					|| (Code::Jmp_rm16 <= code && code <= Code::Jmp_rm64)
 					|| code.is_jcc_short_or_near()
 				{
-					output.push_str("bnd ");
+					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04bnd ");
+					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 				} else if FastFormatter::SHOW_USELESS_PREFIXES || show_repne_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES) {
-					output.push_str("repne ");
+					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x06repne   ");
+					write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 				}
 			}
 		}
 
-		output.push_str(mnemonic);
+		write_fast_str!(dst, dst_next_p, FastStringMnemonic, mnemonic);
 
 		let is_declare_data;
 		let declare_data_kind = if (code as u32).wrapping_sub(Code::DeclareByte as u32) <= (Code::DeclareQword as u32 - Code::DeclareByte as u32) {
@@ -539,14 +855,15 @@ impl FastFormatter {
 		};
 
 		if op_count > 0 {
-			output.push(' ');
+			write_fast_ascii_char_lit!(dst, dst_next_p, ' ');
 
 			for operand in 0..op_count {
 				if operand > 0 {
 					if self.d.options.space_after_operand_separator() {
-						output.push_str(", ");
+						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02,   ");
+						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					} else {
-						output.push(',');
+						write_fast_ascii_char_lit!(dst, dst_next_p, ',');
 					}
 				}
 
@@ -557,7 +874,7 @@ impl FastFormatter {
 				let imm_size;
 				let op_kind = if is_declare_data { declare_data_kind } else { instruction.try_op_kind(operand).unwrap_or(OpKind::Register) };
 				match op_kind {
-					OpKind::Register => FastFormatter::format_register(&self.d, output, instruction.try_op_register(operand).unwrap_or_default()),
+					OpKind::Register => call_format_register!(self, dst, dst_next_p, instruction.try_op_register(operand).unwrap_or_default()),
 
 					OpKind::NearBranch16 | OpKind::NearBranch32 | OpKind::NearBranch64 => {
 						if op_kind == OpKind::NearBranch64 {
@@ -575,9 +892,9 @@ impl FastFormatter {
 						} else {
 							None
 						} {
-							FastFormatter::write_symbol(output, imm64, symbol, &self.d.options);
+							call_write_symbol!(dst, dst_next_p, imm64, symbol, &self.d.options);
 						} else {
-							FastFormatter::format_number(output, imm64, &self.d.options);
+							call_format_number!(dst, dst_next_p, imm64, &self.d.options);
 						}
 					}
 
@@ -602,16 +919,16 @@ impl FastFormatter {
 								None
 							};
 							if let Some(ref selector_symbol) = selector_symbol {
-								FastFormatter::write_symbol(output, instruction.far_branch_selector() as u64, selector_symbol, &self.d.options);
+								call_write_symbol!(dst, dst_next_p, instruction.far_branch_selector() as u64, selector_symbol, &self.d.options);
 							} else {
-								FastFormatter::format_number(output, instruction.far_branch_selector() as u64, &self.d.options);
+								call_format_number!(dst, dst_next_p, instruction.far_branch_selector() as u64, &self.d.options);
 							}
-							output.push(':');
-							FastFormatter::write_symbol(output, imm64, symbol, &self.d.options);
+							write_fast_ascii_char_lit!(dst, dst_next_p, ':');
+							call_write_symbol!(dst, dst_next_p, imm64, symbol, &self.d.options);
 						} else {
-							FastFormatter::format_number(output, instruction.far_branch_selector() as u64, &self.d.options);
-							output.push(':');
-							FastFormatter::format_number(output, imm64, &self.d.options);
+							call_format_number!(dst, dst_next_p, instruction.far_branch_selector() as u64, &self.d.options);
+							write_fast_ascii_char_lit!(dst, dst_next_p, ':');
+							call_format_number!(dst, dst_next_p, imm64, &self.d.options);
 						}
 					}
 
@@ -630,11 +947,11 @@ impl FastFormatter {
 							None
 						} {
 							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								output.push_str("offset ");
+								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
 							}
-							FastFormatter::write_symbol(output, imm8 as u64, symbol, &self.d.options);
+							call_write_symbol!(dst, dst_next_p, imm8 as u64, symbol, &self.d.options);
 						} else {
-							FastFormatter::format_number(output, imm8 as u64, &self.d.options);
+							call_format_number!(dst, dst_next_p, imm8 as u64, &self.d.options);
 						}
 					}
 
@@ -653,11 +970,11 @@ impl FastFormatter {
 							None
 						} {
 							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								output.push_str("offset ");
+								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
 							}
-							FastFormatter::write_symbol(output, imm16 as u64, symbol, &self.d.options);
+							call_write_symbol!(dst, dst_next_p, imm16 as u64, symbol, &self.d.options);
 						} else {
-							FastFormatter::format_number(output, imm16 as u64, &self.d.options);
+							call_format_number!(dst, dst_next_p, imm16 as u64, &self.d.options);
 						}
 					}
 
@@ -676,11 +993,11 @@ impl FastFormatter {
 							None
 						} {
 							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								output.push_str("offset ");
+								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
 							}
-							FastFormatter::write_symbol(output, imm32 as u64, symbol, &self.d.options);
+							call_write_symbol!(dst, dst_next_p, imm32 as u64, symbol, &self.d.options);
 						} else {
-							FastFormatter::format_number(output, imm32 as u64, &self.d.options);
+							call_format_number!(dst, dst_next_p, imm32 as u64, &self.d.options);
 						}
 					}
 
@@ -701,35 +1018,107 @@ impl FastFormatter {
 							None
 						} {
 							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								output.push_str("offset ");
+								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
 							}
-							FastFormatter::write_symbol(output, imm64, symbol, &self.d.options);
+							call_write_symbol!(dst, dst_next_p, imm64, symbol, &self.d.options);
 						} else {
-							FastFormatter::format_number(output, imm64, &self.d.options);
+							call_format_number!(dst, dst_next_p, imm64, &self.d.options);
 						}
 					}
 
-					OpKind::MemorySegSI => {
-						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::SI, Register::None, 0, 0, 0, 2)
+					OpKind::MemorySegSI => call_format_memory!(
+						self,
+						dst,
+						dst_next_p,
+						instruction,
+						operand,
+						instruction.memory_segment(),
+						Register::SI,
+						Register::None,
+						0,
+						0,
+						0,
+						2,
+					),
+					OpKind::MemorySegESI => call_format_memory!(
+						self,
+						dst,
+						dst_next_p,
+						instruction,
+						operand,
+						instruction.memory_segment(),
+						Register::ESI,
+						Register::None,
+						0,
+						0,
+						0,
+						4,
+					),
+					OpKind::MemorySegRSI => call_format_memory!(
+						self,
+						dst,
+						dst_next_p,
+						instruction,
+						operand,
+						instruction.memory_segment(),
+						Register::RSI,
+						Register::None,
+						0,
+						0,
+						0,
+						8,
+					),
+					OpKind::MemorySegDI => call_format_memory!(
+						self,
+						dst,
+						dst_next_p,
+						instruction,
+						operand,
+						instruction.memory_segment(),
+						Register::DI,
+						Register::None,
+						0,
+						0,
+						0,
+						2,
+					),
+					OpKind::MemorySegEDI => call_format_memory!(
+						self,
+						dst,
+						dst_next_p,
+						instruction,
+						operand,
+						instruction.memory_segment(),
+						Register::EDI,
+						Register::None,
+						0,
+						0,
+						0,
+						4,
+					),
+					OpKind::MemorySegRDI => call_format_memory!(
+						self,
+						dst,
+						dst_next_p,
+						instruction,
+						operand,
+						instruction.memory_segment(),
+						Register::RDI,
+						Register::None,
+						0,
+						0,
+						0,
+						8,
+					),
+					OpKind::MemoryESDI => {
+						call_format_memory!(self, dst, dst_next_p, instruction, operand, Register::ES, Register::DI, Register::None, 0, 0, 0, 2)
 					}
-					OpKind::MemorySegESI => {
-						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::ESI, Register::None, 0, 0, 0, 4)
+					OpKind::MemoryESEDI => {
+						call_format_memory!(self, dst, dst_next_p, instruction, operand, Register::ES, Register::EDI, Register::None, 0, 0, 0, 4)
 					}
-					OpKind::MemorySegRSI => {
-						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::RSI, Register::None, 0, 0, 0, 8)
+					OpKind::MemoryESRDI => {
+						call_format_memory!(self, dst, dst_next_p, instruction, operand, Register::ES, Register::RDI, Register::None, 0, 0, 0, 8)
 					}
-					OpKind::MemorySegDI => {
-						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::DI, Register::None, 0, 0, 0, 2)
-					}
-					OpKind::MemorySegEDI => {
-						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::EDI, Register::None, 0, 0, 0, 4)
-					}
-					OpKind::MemorySegRDI => {
-						self.format_memory(output, instruction, operand, instruction.memory_segment(), Register::RDI, Register::None, 0, 0, 0, 8)
-					}
-					OpKind::MemoryESDI => self.format_memory(output, instruction, operand, Register::ES, Register::DI, Register::None, 0, 0, 0, 2),
-					OpKind::MemoryESEDI => self.format_memory(output, instruction, operand, Register::ES, Register::EDI, Register::None, 0, 0, 0, 4),
-					OpKind::MemoryESRDI => self.format_memory(output, instruction, operand, Register::ES, Register::RDI, Register::None, 0, 0, 0, 8),
 					#[allow(deprecated)]
 					OpKind::Memory64 => {}
 
@@ -743,8 +1132,10 @@ impl FastFormatter {
 						if code == Code::Xlat_m8 {
 							index_reg = Register::None;
 						}
-						self.format_memory(
-							output,
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
 							instruction,
 							operand,
 							instruction.memory_segment(),
@@ -760,12 +1151,13 @@ impl FastFormatter {
 
 				if operand == 0 && super::super::instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 					if instruction.has_op_mask() {
-						output.push('{');
-						FastFormatter::format_register(&self.d, output, instruction.op_mask());
-						output.push('}');
+						write_fast_ascii_char_lit!(dst, dst_next_p, '{');
+						call_format_register!(self, dst, dst_next_p, instruction.op_mask());
+						write_fast_ascii_char_lit!(dst, dst_next_p, '}');
 					}
 					if instruction.zeroing_masking() {
-						output.push_str("{z}");
+						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x03{z} ");
+						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					}
 				}
 			}
@@ -777,13 +1169,17 @@ impl FastFormatter {
 					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					output.push_str(RC_STRINGS[rc as usize - 1]);
+					let fast_str = RC_STRINGS[rc as usize - 1];
+					write_fast_str!(dst, dst_next_p, FastString8, fast_str);
 				} else {
 					debug_assert!(instruction.suppress_all_exceptions());
-					output.push_str("{sae}");
+					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05{sae}   ");
+					write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 				}
 			}
 		}
+
+		update_vec_len!(dst, dst_next_p);
 	}
 
 	// Only one caller so inline it
@@ -827,64 +1223,127 @@ impl FastFormatter {
 	}
 
 	#[inline]
-	fn format_register(d: &SelfData, output: &mut String, register: Register) {
+	#[must_use]
+	fn format_register(d: &SelfData, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, register: Register) -> *mut u8 {
 		// SAFETY: all Register values are valid indexes
-		output.push_str(unsafe { d.all_registers.get_unchecked(register as usize) }.lower());
+		let reg_str = unsafe { *d.all_registers.get_unchecked(register as usize) };
+		write_fast_str!(dst, dst_next_p, FastStringRegister, reg_str);
+		dst_next_p
 	}
 
-	fn format_number(output: &mut String, value: u64, options: &FastFormatterOptions) {
+	#[must_use]
+	fn format_number(dst: &mut Vec<u8>, mut dst_next_p: *mut u8, value: u64, options: &FastFormatterOptions) -> *mut u8 {
 		if options.use_hex_prefix() {
-			output.push_str("0x");
+			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x020x  ");
+			write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 		}
 
-		let mut digits = 0;
-		let mut tmp = value;
-		loop {
-			digits += 1;
-			tmp >>= 4;
-			if tmp == 0 {
-				break;
+		if value < 0x10 {
+			if !options.use_hex_prefix() && (value > 9) {
+				write_fast_ascii_char_lit!(dst, dst_next_p, '0');
 			}
-		}
 
-		if !options.use_hex_prefix() && ((value >> ((digits - 1) << 2)) & 0xF) > 9 {
-			output.push('0');
-		}
-		let hex_high = if options.uppercase_hex() { 'A' as u32 - 10 } else { 'a' as u32 - 10 };
-		for i in 0..digits {
-			let index = digits - i - 1;
-			let digit = ((value >> (index << 2)) & 0xF) as u32;
-			let c: char = if digit > 9 { (digit + hex_high) as u8 as char } else { (digit + '0' as u32) as u8 as char };
-			output.push(c);
-		}
+			let hex_table = if options.uppercase_hex() { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
+			// SAFETY: 0<=value<=0xF and hex_table.len() == 0x10
+			let c = unsafe { *hex_table.get_unchecked(value as usize) };
+			write_fast_ascii_char!(dst, dst_next_p, c);
 
-		if !options.use_hex_prefix() {
-			output.push('h');
+			if !options.use_hex_prefix() {
+				write_fast_ascii_char_lit!(dst, dst_next_p, 'h');
+			}
+
+			dst_next_p
+		} else if value < 0x100 {
+			if !options.use_hex_prefix() && (value > 0x9F) {
+				write_fast_ascii_char_lit!(dst, dst_next_p, '0');
+			}
+
+			let lower_or_value = if options.uppercase_hex() { 0 } else { 0x2020_2020 };
+			write_fast_ascii_hex2!(dst, dst_next_p, value, lower_or_value);
+
+			if !options.use_hex_prefix() {
+				write_fast_ascii_char_lit!(dst, dst_next_p, 'h');
+			}
+
+			dst_next_p
+		} else {
+			let mut rshift = 0;
+			let mut tmp = value;
+			loop {
+				rshift += 4;
+				tmp >>= 4;
+				if tmp == 0 {
+					break;
+				}
+			}
+
+			if !options.use_hex_prefix() && ((value >> (rshift - 4)) & 0xF) > 9 {
+				write_fast_ascii_char_lit!(dst, dst_next_p, '0');
+			}
+
+			// If odd number of hex digits
+			if (rshift & 4) != 0 {
+				rshift -= 4;
+				let hex_table = if options.uppercase_hex() { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
+				let digit = ((value >> rshift) & 0xF) as usize;
+				// SAFETY: 0<=digit<=0xF and hex_table.len() == 0x10
+				let c = unsafe { *hex_table.get_unchecked(digit) };
+				write_fast_ascii_char!(dst, dst_next_p, c);
+			}
+
+			let lower_or_value = if options.uppercase_hex() { 0 } else { 0x2020_2020 };
+			// If we're here, value >= 0x100 so rshift >= 8
+			debug_assert!(rshift >= 8);
+			loop {
+				rshift -= 8;
+				let digit = ((value >> rshift) & 0xFF) as usize;
+				write_fast_ascii_hex2!(dst, dst_next_p, digit, lower_or_value);
+
+				if rshift == 0 {
+					break;
+				}
+			}
+
+			if !options.use_hex_prefix() {
+				write_fast_ascii_char_lit!(dst, dst_next_p, 'h');
+			}
+
+			dst_next_p
 		}
 	}
 
 	#[inline]
-	fn write_symbol(output: &mut String, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions) {
-		FastFormatter::write_symbol2(output, address, symbol, options, true);
+	#[must_use]
+	fn write_symbol(dst: &mut Vec<u8>, mut dst_next_p: *mut u8, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions) -> *mut u8 {
+		call_write_symbol2!(dst, dst_next_p, address, symbol, options, true);
+		dst_next_p
 	}
 
 	#[cold]
-	fn write_symbol2(output: &mut String, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions, write_minus_if_signed: bool) {
+	#[must_use]
+	fn write_symbol2(
+		dst: &mut Vec<u8>, mut dst_next_p: *mut u8, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions,
+		write_minus_if_signed: bool,
+	) -> *mut u8 {
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
 		if (symbol.flags & SymbolFlags::SIGNED) != 0 {
 			if write_minus_if_signed {
-				output.push('-');
+				write_fast_ascii_char_lit!(dst, dst_next_p, '-');
 			}
 			displ = displ.wrapping_neg();
 		}
 
+		// Write the symbol. The symbol can be any length and is a `&'a str` so we must
+		// write using `dst`. The macro will invalidate `dst_next_p` and will restore
+		// it after the match statement.
+		use_dst_only_now!(dst, dst_next_p);
 		match symbol.text {
 			SymResTextInfo::Text(ref part) => {
 				let s = match &part.text {
 					&SymResString::Str(s) => s,
 					&SymResString::String(ref s) => s.as_str(),
 				};
-				output.push_str(s);
+				dst.extend_from_slice(s.as_bytes());
 			}
 
 			SymResTextInfo::TextVec(v) => {
@@ -893,31 +1352,37 @@ impl FastFormatter {
 						&SymResString::Str(s) => s,
 						&SymResString::String(ref s) => s.as_str(),
 					};
-					output.push_str(s);
+					dst.extend_from_slice(s.as_bytes());
 				}
 			}
 		}
+		use_dst_next_p_now!(dst, dst_next_p);
 
 		if displ != 0 {
-			if displ < 0 {
-				output.push('-');
+			let c = if displ < 0 {
 				displ = displ.wrapping_neg();
+				'-'
 			} else {
-				output.push('+');
-			}
-			FastFormatter::format_number(output, displ as u64, options);
+				'+'
+			};
+			write_fast_ascii_char!(dst, dst_next_p, c);
+			call_format_number!(dst, dst_next_p, displ as u64, options);
 		}
 		if options.show_symbol_address() {
-			output.push_str(" (");
-			FastFormatter::format_number(output, address, options);
-			output.push(')');
+			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02 (  ");
+			write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
+			call_format_number!(dst, dst_next_p, address, options);
+			write_fast_ascii_char_lit!(dst, dst_next_p, ')');
 		}
+
+		dst_next_p
 	}
 
+	#[must_use]
 	fn format_memory(
-		&mut self, output: &mut String, instruction: &Instruction, operand: u32, seg_reg: Register, mut base_reg: Register, index_reg: Register,
-		scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
-	) {
+		&mut self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, instruction: &Instruction, operand: u32, seg_reg: Register, mut base_reg: Register,
+		index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
+	) -> *mut u8 {
 		debug_assert!((scale as usize) < SCALE_NUMBERS.len());
 		debug_assert!(get_address_size_in_bytes(base_reg, index_reg, displ_size, instruction.code_size()) == addr_size);
 
@@ -968,7 +1433,7 @@ impl FastFormatter {
 		if show_mem_size {
 			// SAFETY: all MemorySize values are valid indexes
 			let keywords = unsafe { *self.d.all_memory_sizes.get_unchecked(instruction.memory_size() as usize) };
-			output.push_str(keywords);
+			write_fast_str!(dst, dst_next_p, FastStringMemorySize, keywords);
 		}
 
 		let code_size = instruction.code_size();
@@ -983,13 +1448,13 @@ impl FastFormatter {
 				&& (FastFormatter::SHOW_USELESS_PREFIXES
 					|| show_segment_prefix_bool(Register::None, instruction, FastFormatter::SHOW_USELESS_PREFIXES)))
 		{
-			FastFormatter::format_register(&self.d, output, seg_reg);
-			output.push(':');
+			call_format_register!(self, dst, dst_next_p, seg_reg);
+			write_fast_ascii_char_lit!(dst, dst_next_p, ':');
 		}
-		output.push('[');
+		write_fast_ascii_char_lit!(dst, dst_next_p, '[');
 
 		let mut need_plus = if base_reg != Register::None {
-			FastFormatter::format_register(&self.d, output, base_reg);
+			call_format_register!(self, dst, dst_next_p, base_reg);
 			true
 		} else {
 			false
@@ -997,57 +1462,58 @@ impl FastFormatter {
 
 		if index_reg != Register::None {
 			if need_plus {
-				output.push('+');
+				write_fast_ascii_char_lit!(dst, dst_next_p, '+');
 			}
 			need_plus = true;
 
-			FastFormatter::format_register(&self.d, output, index_reg);
+			call_format_register!(self, dst, dst_next_p, index_reg);
 			if use_scale {
-				output.push_str(SCALE_NUMBERS[scale as usize]);
+				let scale_str = SCALE_NUMBERS[scale as usize];
+				write_fast_str!(dst, dst_next_p, FastString4, scale_str);
 			}
 		}
 
 		if let Some(ref symbol) = symbol {
 			if need_plus {
-				if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-					output.push('-');
-				} else {
-					output.push('+');
-				}
+				let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { '-' } else { '+' };
+				write_fast_ascii_char!(dst, dst_next_p, c);
 			} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-				output.push('-');
+				write_fast_ascii_char_lit!(dst, dst_next_p, '-');
 			}
 
-			FastFormatter::write_symbol2(output, abs_addr, symbol, &self.d.options, false);
+			call_write_symbol2!(dst, dst_next_p, abs_addr, symbol, &self.d.options, false);
 		} else if !need_plus || (displ_size != 0 && displ != 0) {
 			if need_plus {
-				if addr_size == 8 {
+				let c = if addr_size == 8 {
 					if displ < 0 {
 						displ = displ.wrapping_neg();
-						output.push('-');
+						'-'
 					} else {
-						output.push('+');
+						'+'
 					}
 				} else if addr_size == 4 {
 					if (displ as i32) < 0 {
 						displ = (displ as i32).wrapping_neg() as u32 as i64;
-						output.push('-');
+						'-'
 					} else {
-						output.push('+');
+						'+'
 					}
 				} else {
 					debug_assert_eq!(addr_size, 2);
 					if (displ as i16) < 0 {
 						displ = (displ as i16).wrapping_neg() as u16 as i64;
-						output.push('-');
+						'-'
 					} else {
-						output.push('+');
+						'+'
 					}
-				}
+				};
+				write_fast_ascii_char!(dst, dst_next_p, c);
 			}
-			FastFormatter::format_number(output, displ as u64, &self.d.options);
+			call_format_number!(dst, dst_next_p, displ as u64, &self.d.options);
 		}
 
-		output.push(']');
+		write_fast_ascii_char_lit!(dst, dst_next_p, ']');
+
+		dst_next_p
 	}
 }

@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+// Keep this file in sync with pseudo_ops_fast.rs
+
 use crate::formatter::enums_shared::PseudoOpsKind;
 use crate::formatter::FormatterString;
 use alloc::string::String;
