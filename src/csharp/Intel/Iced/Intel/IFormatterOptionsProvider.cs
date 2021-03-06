@@ -111,7 +111,7 @@ namespace Iced.Intel {
 		byte numberBaseByteValue;
 
 		/// <summary>
-		/// Use upper case hex digits
+		/// Use uppercase hex digits
 		/// </summary>
 		public bool UppercaseHex;
 

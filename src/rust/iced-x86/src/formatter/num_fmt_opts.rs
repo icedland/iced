@@ -19,7 +19,7 @@ pub struct NumberFormattingOptions<'a> {
 	pub digit_group_size: u8,
 	/// Number base
 	pub number_base: NumberBase,
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	pub uppercase_hex: bool,
 	/// Small hex numbers (-9 .. 9) are shown in decimal
 	pub small_hex_numbers_in_decimal: bool,

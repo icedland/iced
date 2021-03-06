@@ -190,7 +190,7 @@ macro_rules! write_fast_ascii_hex2 {
 		// We'll read DATA_LEN (4) bytes so we must be able to access up to and including offset 0x201
 		debug_assert_eq!(HEX_GROUP2_UPPER.len(), 0xFF * REAL_LEN + DATA_LEN);
 		debug_assert!($value < 0x100);
-		// $lower_or_value == 0 if we should use upper case hex digits or 0x2020_2020 to use lowercase hex digits.
+		// $lower_or_value == 0 if we should use uppercase hex digits or 0x2020_2020 to use lowercase hex digits.
 		// If LE, we need xxxx2020 and if BE, we need 2020xxxx.
 		debug_assert!($lower_or_value == 0 || $lower_or_value == 0x2020_2020);
 		// SAFETY:
@@ -544,7 +544,7 @@ impl FastFormatterOptions {
 		}
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -556,7 +556,7 @@ impl FastFormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_HEX) != 0
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------

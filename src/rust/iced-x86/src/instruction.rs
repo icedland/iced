@@ -1896,7 +1896,7 @@ impl Instruction {
 		Ok(())
 	}
 
-	/// Gets the op mask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
+	/// Gets the opmask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
 	///
 	/// [`Register::K1`]: enum.Register.html#variant.K1
 	/// [`Register::K7`]: enum.Register.html#variant.K7
@@ -1912,7 +1912,7 @@ impl Instruction {
 		}
 	}
 
-	/// Sets the op mask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
+	/// Sets the opmask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
 	///
 	/// [`Register::K1`]: enum.Register.html#variant.K1
 	/// [`Register::K7`]: enum.Register.html#variant.K7
@@ -1927,7 +1927,7 @@ impl Instruction {
 		self.code_flags = (self.code_flags & !(CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) | (r << CodeFlags::OP_MASK_SHIFT);
 	}
 
-	/// Checks if there's an op mask register ([`op_mask()`])
+	/// Checks if there's an opmask register ([`op_mask()`])
 	///
 	/// [`op_mask()`]: #method.op_mask
 	#[must_use]
@@ -1937,7 +1937,7 @@ impl Instruction {
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[must_use]
 	#[inline]
 	pub fn zeroing_masking(&self) -> bool {
@@ -1945,7 +1945,7 @@ impl Instruction {
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	///
 	/// # Arguments
 	///
@@ -1960,7 +1960,7 @@ impl Instruction {
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[must_use]
 	#[inline]
 	pub fn merging_masking(&self) -> bool {
@@ -1968,7 +1968,7 @@ impl Instruction {
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	///
 	/// # Arguments
 	///

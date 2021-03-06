@@ -140,7 +140,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Use upper case hex digits
+		/// Use uppercase hex digits
 		/// <br/>
 		/// Default: <see langword="true"/>
 		/// <br/>

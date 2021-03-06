@@ -1038,7 +1038,7 @@ impl Instruction {
 		self.instr.try_set_op_register(operand, to_register(new_value)?).map_err(to_value_error)
 	}
 
-	/// :class:`Register`: Gets the op mask register (:class:`Register.K1` - :class:`Register.K7`) or :class:`Register.NONE` if none (a :class:`Register` enum value)
+	/// :class:`Register`: Gets the opmask register (:class:`Register.K1` - :class:`Register.K7`) or :class:`Register.NONE` if none (a :class:`Register` enum value)
 	#[getter]
 	fn op_mask(&self) -> u32 {
 		self.instr.op_mask() as u32
@@ -1050,7 +1050,7 @@ impl Instruction {
 		Ok(())
 	}
 
-	/// bool: Checks if there's an op mask register (:class:`Instruction.op_mask`)
+	/// bool: Checks if there's an opmask register (:class:`Instruction.op_mask`)
 	#[getter]
 	fn has_op_mask(&self) -> bool {
 		self.instr.has_op_mask()
@@ -1058,7 +1058,7 @@ impl Instruction {
 
 	/// bool: ``True`` if zeroing-masking, ``False`` if merging-masking.
 	///
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[getter]
 	fn zeroing_masking(&self) -> bool {
 		self.instr.zeroing_masking()
@@ -1071,7 +1071,7 @@ impl Instruction {
 
 	/// bool: ``True`` if merging-masking, ``False`` if zeroing-masking.
 	///
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[getter]
 	fn merging_masking(&self) -> bool {
 		self.instr.merging_masking()

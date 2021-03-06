@@ -204,19 +204,19 @@ impl OpCodeInfo {
 		self.info.can_suppress_all_exceptions()
 	}
 
-	/// bool: (EVEX) ``True`` if an op mask register can be used
+	/// bool: (EVEX) ``True`` if an opmask register can be used
 	#[getter]
 	fn can_use_op_mask_register(&self) -> bool {
 		self.info.can_use_op_mask_register()
 	}
 
-	/// bool: (EVEX) ``True`` if a non-zero op mask register must be used
+	/// bool: (EVEX) ``True`` if a non-zero opmask register must be used
 	#[getter]
 	fn require_op_mask_register(&self) -> bool {
 		self.info.require_op_mask_register()
 	}
 
-	/// bool: (EVEX) ``True`` if the instruction supports zeroing masking (if one of the op mask registers ``K1``-``K7`` is used and destination operand is not a memory operand)
+	/// bool: (EVEX) ``True`` if the instruction supports zeroing masking (if one of the opmask registers ``K1``-``K7`` is used and destination operand is not a memory operand)
 	#[getter]
 	fn can_use_zeroing_masking(&self) -> bool {
 		self.info.can_use_zeroing_masking()
@@ -433,7 +433,7 @@ impl OpCodeInfo {
 		self.info.ignores_segment()
 	}
 
-	/// bool: ``True`` if the op mask register is read and written (instead of just read). This also implies that it can't be ``K0``.
+	/// bool: ``True`` if the opmask register is read and written (instead of just read). This also implies that it can't be ``K0``.
 	#[getter]
 	fn is_op_mask_read_write(&self) -> bool {
 		self.info.is_op_mask_read_write()

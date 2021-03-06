@@ -247,21 +247,21 @@ impl OpCodeInfo {
 		self.0.can_suppress_all_exceptions()
 	}
 
-	/// (EVEX) `true` if an op mask register can be used
+	/// (EVEX) `true` if an opmask register can be used
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "canUseOpMaskRegister")]
 	pub fn can_use_op_mask_register(&self) -> bool {
 		self.0.can_use_op_mask_register()
 	}
 
-	/// (EVEX) `true` if a non-zero op mask register must be used
+	/// (EVEX) `true` if a non-zero opmask register must be used
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "requireOpMaskRegister")]
 	pub fn require_op_mask_register(&self) -> bool {
 		self.0.require_op_mask_register()
 	}
 
-	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)
+	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the opmask registers `K1`-`K7` is used and destination operand is not a memory operand)
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "canUseZeroingMasking")]
 	pub fn can_use_zeroing_masking(&self) -> bool {
@@ -514,7 +514,7 @@ impl OpCodeInfo {
 		self.0.ignores_segment()
 	}
 
-	/// `true` if the op mask register is read and written (instead of just read). This also implies that it can't be `K0`.
+	/// `true` if the opmask register is read and written (instead of just read). This also implies that it can't be `K0`.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isOpMaskReadWrite")]
 	pub fn is_op_mask_read_write(&self) -> bool {

@@ -863,7 +863,7 @@ class FastFormatter:
 	@property
 	def uppercase_hex(self) -> bool:
 		"""
-		bool: Use upper case hex digits
+		bool: Use uppercase hex digits
 
 		```text
 		Default  Value    Example
@@ -1179,7 +1179,7 @@ class Formatter:
 	@property
 	def uppercase_prefixes(self) -> bool:
 		"""
-		bool: Prefixes are upper cased
+		bool: Prefixes are uppercased
 
 		```text
 		Default  Value    Example
@@ -1194,7 +1194,7 @@ class Formatter:
 	@property
 	def uppercase_mnemonics(self) -> bool:
 		"""
-		bool: Mnemonics are upper cased
+		bool: Mnemonics are uppercased
 
 		```text
 		Default  Value    Example
@@ -1209,7 +1209,7 @@ class Formatter:
 	@property
 	def uppercase_registers(self) -> bool:
 		"""
-		bool: Registers are upper cased
+		bool: Registers are uppercased
 
 		```text
 		Default  Value    Example
@@ -1224,7 +1224,7 @@ class Formatter:
 	@property
 	def uppercase_keywords(self) -> bool:
 		"""
-		bool: Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
+		bool: Keywords are uppercased (eg. `BYTE PTR`, `SHORT`)
 
 		```text
 		Default  Value    Example
@@ -1239,7 +1239,7 @@ class Formatter:
 	@property
 	def uppercase_decorators(self) -> bool:
 		"""
-		bool: Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
+		bool: Uppercase decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not opmask registers: `{k1}`)
 
 		```text
 		Default  Value    Example
@@ -1254,7 +1254,7 @@ class Formatter:
 	@property
 	def uppercase_all(self) -> bool:
 		"""
-		bool: Everything is upper cased, except numbers and their prefixes/suffixes
+		bool: Everything is uppercased, except numbers and their prefixes/suffixes
 
 		```text
 		Default  Value    Example
@@ -1590,7 +1590,7 @@ class Formatter:
 	@property
 	def uppercase_hex(self) -> bool:
 		"""
-		bool: Use upper case hex digits
+		bool: Use uppercase hex digits
 
 		```text
 		Default  Value    Example
@@ -2898,20 +2898,20 @@ class Instruction:
 		...
 	@property
 	def op_mask(self) -> Register:
-		"""`Register`: Gets the op mask register (`Register.K1` - `Register.K7`) or `Register.NONE` if none (a `Register` enum value)"""
+		"""`Register`: Gets the opmask register (`Register.K1` - `Register.K7`) or `Register.NONE` if none (a `Register` enum value)"""
 		...
 	@op_mask.setter
 	def op_mask(self, new_value: Register) -> None: ...
 	@property
 	def has_op_mask(self) -> bool:
-		"""bool: Checks if there's an op mask register (`Instruction.op_mask`)"""
+		"""bool: Checks if there's an opmask register (`Instruction.op_mask`)"""
 		...
 	@property
 	def zeroing_masking(self) -> bool:
 		"""
 		bool: `True` if zeroing-masking, `False` if merging-masking.
 
-		Only used by most EVEX encoded instructions that use op mask registers.
+		Only used by most EVEX encoded instructions that use opmask registers.
 		"""
 		...
 	@zeroing_masking.setter
@@ -2921,7 +2921,7 @@ class Instruction:
 		"""
 		bool: `True` if merging-masking, `False` if zeroing-masking.
 
-		Only used by most EVEX encoded instructions that use op mask registers.
+		Only used by most EVEX encoded instructions that use opmask registers.
 		"""
 		...
 	@merging_masking.setter
@@ -7341,15 +7341,15 @@ class OpCodeInfo:
 		...
 	@property
 	def can_use_op_mask_register(self) -> bool:
-		"""bool: (EVEX) `True` if an op mask register can be used"""
+		"""bool: (EVEX) `True` if an opmask register can be used"""
 		...
 	@property
 	def require_op_mask_register(self) -> bool:
-		"""bool: (EVEX) `True` if a non-zero op mask register must be used"""
+		"""bool: (EVEX) `True` if a non-zero opmask register must be used"""
 		...
 	@property
 	def can_use_zeroing_masking(self) -> bool:
-		"""bool: (EVEX) `True` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)"""
+		"""bool: (EVEX) `True` if the instruction supports zeroing masking (if one of the opmask registers `K1`-`K7` is used and destination operand is not a memory operand)"""
 		...
 	@property
 	def can_use_lock_prefix(self) -> bool:
@@ -7496,7 +7496,7 @@ class OpCodeInfo:
 		...
 	@property
 	def is_op_mask_read_write(self) -> bool:
-		"""bool: `True` if the op mask register is read and written (instead of just read). This also implies that it can't be `K0`."""
+		"""bool: `True` if the opmask register is read and written (instead of just read). This also implies that it can't be `K0`."""
 		...
 	@property
 	def real_mode(self) -> bool:

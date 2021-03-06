@@ -225,7 +225,7 @@ impl FormatterOptions {
 
 	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
 
-	/// Prefixes are upper cased
+	/// Prefixes are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -237,7 +237,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_PREFIXES) != 0
 	}
 
-	/// Prefixes are upper cased
+	/// Prefixes are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -256,7 +256,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Mnemonics are upper cased
+	/// Mnemonics are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -268,7 +268,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_MNEMONICS) != 0
 	}
 
-	/// Mnemonics are upper cased
+	/// Mnemonics are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -287,7 +287,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Registers are upper cased
+	/// Registers are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -299,7 +299,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_REGISTERS) != 0
 	}
 
-	/// Registers are upper cased
+	/// Registers are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -318,7 +318,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
+	/// Keywords are uppercased (eg. `BYTE PTR`, `SHORT`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -330,7 +330,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_KEYWORDS) != 0
 	}
 
-	/// Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
+	/// Keywords are uppercased (eg. `BYTE PTR`, `SHORT`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -349,7 +349,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
+	/// Uppercase decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not opmask registers: `{k1}`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -361,7 +361,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_DECORATORS) != 0
 	}
 
-	/// Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
+	/// Uppercase decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not opmask registers: `{k1}`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -380,7 +380,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Everything is upper cased, except numbers and their prefixes/suffixes
+	/// Everything is uppercased, except numbers and their prefixes/suffixes
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -392,7 +392,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_ALL) != 0
 	}
 
-	/// Everything is upper cased, except numbers and their prefixes/suffixes
+	/// Everything is uppercased, except numbers and their prefixes/suffixes
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1188,7 +1188,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1200,7 +1200,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::UPPERCASE_HEX) != 0
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------

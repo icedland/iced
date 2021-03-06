@@ -1932,7 +1932,7 @@ impl Instruction {
 		self.0.try_set_op_register(operand, register_to_iced(newValue)).map_err(to_js_error)
 	}
 
-	/// Gets the op mask register ([`Register.K1`] - [`Register.K7`]) or [`Register.None`] if none
+	/// Gets the opmask register ([`Register.K1`] - [`Register.K7`]) or [`Register.None`] if none
 	///
 	/// [`Register.K1`]: enum.Register.html#variant.K1
 	/// [`Register.K7`]: enum.Register.html#variant.K7
@@ -1943,7 +1943,7 @@ impl Instruction {
 		iced_to_register(self.0.op_mask())
 	}
 
-	/// Sets the op mask register ([`Register.K1`] - [`Register.K7`]) or [`Register.None`] if none
+	/// Sets the opmask register ([`Register.K1`] - [`Register.K7`]) or [`Register.None`] if none
 	///
 	/// [`Register.K1`]: enum.Register.html#variant.K1
 	/// [`Register.K7`]: enum.Register.html#variant.K7
@@ -1959,7 +1959,7 @@ impl Instruction {
 		self.0.set_op_mask(register_to_iced(newValue))
 	}
 
-	/// Checks if there's an op mask register ([`opMask`])
+	/// Checks if there's an opmask register ([`opMask`])
 	///
 	/// [`opMask`]: #method.op_mask
 	#[wasm_bindgen(getter)]
@@ -1969,7 +1969,7 @@ impl Instruction {
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "zeroingMasking")]
 	pub fn zeroing_masking(&self) -> bool {
@@ -1977,7 +1977,7 @@ impl Instruction {
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	///
 	/// # Arguments
 	///
@@ -1990,7 +1990,7 @@ impl Instruction {
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "mergingMasking")]
 	pub fn merging_masking(&self) -> bool {
@@ -1998,7 +1998,7 @@ impl Instruction {
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
-	/// Only used by most EVEX encoded instructions that use op mask registers.
+	/// Only used by most EVEX encoded instructions that use opmask registers.
 	///
 	/// # Arguments
 	///

@@ -545,21 +545,21 @@ impl OpCodeInfo {
 		(self.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
 
-	/// (EVEX) `true` if an op mask register can be used
+	/// (EVEX) `true` if an opmask register can be used
 	#[must_use]
 	#[inline]
 	pub fn can_use_op_mask_register(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::OP_MASK_REGISTER) != 0
 	}
 
-	/// (EVEX) `true` if a non-zero op mask register must be used
+	/// (EVEX) `true` if a non-zero opmask register must be used
 	#[must_use]
 	#[inline]
 	pub fn require_op_mask_register(&self) -> bool {
 		(self.enc_flags3 & EncFlags3::REQUIRE_OP_MASK_REGISTER) != 0
 	}
 
-	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)
+	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the opmask registers `K1`-`K7` is used and destination operand is not a memory operand)
 	#[must_use]
 	#[inline]
 	pub fn can_use_zeroing_masking(&self) -> bool {
@@ -812,7 +812,7 @@ impl OpCodeInfo {
 		(self.opc_flags1 & OpCodeInfoFlags1::IGNORES_SEGMENT) != 0
 	}
 
-	/// `true` if the op mask register is read and written (instead of just read). This also implies that it can't be `K0`.
+	/// `true` if the opmask register is read and written (instead of just read). This also implies that it can't be `K0`.
 	#[must_use]
 	#[inline]
 	pub fn is_op_mask_read_write(&self) -> bool {

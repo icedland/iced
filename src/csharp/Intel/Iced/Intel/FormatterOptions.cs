@@ -70,7 +70,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Prefixes are upper cased
+		/// Prefixes are uppercased
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -89,7 +89,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Mnemonics are upper cased
+		/// Mnemonics are uppercased
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -108,7 +108,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Registers are upper cased
+		/// Registers are uppercased
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -127,7 +127,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Keywords are upper cased (eg. <c>BYTE PTR</c>, <c>SHORT</c>)
+		/// Keywords are uppercased (eg. <c>BYTE PTR</c>, <c>SHORT</c>)
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -146,7 +146,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Upper case decorators, eg. <c>{z}</c>, <c>{sae}</c>, <c>{rd-sae}</c> (but not op mask registers: <c>{k1}</c>)
+		/// Uppercase decorators, eg. <c>{z}</c>, <c>{sae}</c>, <c>{rd-sae}</c> (but not opmask registers: <c>{k1}</c>)
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -165,7 +165,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Everything is upper cased, except numbers and their prefixes/suffixes
+		/// Everything is uppercased, except numbers and their prefixes/suffixes
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -489,7 +489,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Use upper case hex digits
+		/// Use uppercase hex digits
 		/// <br/>
 		/// Default: <see langword="true"/>
 		/// <br/>
@@ -1096,7 +1096,7 @@ namespace Iced.Intel {
 		CC_g cc_g = CC_g.g;
 
 		/// <summary>
-		/// Prefixes are upper cased
+		/// Prefixes are uppercased
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -1112,7 +1112,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Mnemonics are upper cased
+		/// Mnemonics are uppercased
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -1128,7 +1128,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Registers are upper cased
+		/// Registers are uppercased
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -1144,7 +1144,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Keywords are upper cased (eg. <c>BYTE PTR</c>, <c>SHORT</c>)
+		/// Keywords are uppercased (eg. <c>BYTE PTR</c>, <c>SHORT</c>)
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -1160,7 +1160,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Upper case decorators, eg. <c>{z}</c>, <c>{sae}</c>, <c>{rd-sae}</c> (but not op mask registers: <c>{k1}</c>)
+		/// Uppercase decorators, eg. <c>{z}</c>, <c>{sae}</c>, <c>{rd-sae}</c> (but not opmask registers: <c>{k1}</c>)
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -1176,7 +1176,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Everything is upper cased, except numbers and their prefixes/suffixes
+		/// Everything is uppercased, except numbers and their prefixes/suffixes
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -1192,7 +1192,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Use upper case hex digits
+		/// Use uppercase hex digits
 		/// <br/>
 		/// Default: <see langword="true"/>
 		/// <br/>

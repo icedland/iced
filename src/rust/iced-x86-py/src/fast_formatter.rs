@@ -164,7 +164,7 @@ impl FastFormatter {
 		self.formatter.options_mut().set_always_show_memory_size(new_value)
 	}
 
-	/// bool: Use upper case hex digits
+	/// bool: Use uppercase hex digits
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example

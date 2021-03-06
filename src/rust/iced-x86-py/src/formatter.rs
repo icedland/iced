@@ -329,7 +329,7 @@ impl Formatter {
 		self.formatter.format_u64(value)
 	}
 
-	/// bool: Prefixes are upper cased
+	/// bool: Prefixes are uppercased
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -347,7 +347,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_prefixes(new_value);
 	}
 
-	/// bool: Mnemonics are upper cased
+	/// bool: Mnemonics are uppercased
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -365,7 +365,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_mnemonics(new_value);
 	}
 
-	/// bool: Registers are upper cased
+	/// bool: Registers are uppercased
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -383,7 +383,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_registers(new_value);
 	}
 
-	/// bool: Keywords are upper cased (eg. ``BYTE PTR``, ``SHORT``)
+	/// bool: Keywords are uppercased (eg. ``BYTE PTR``, ``SHORT``)
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -401,7 +401,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_keywords(new_value);
 	}
 
-	/// bool: Upper case decorators, eg. ``{z}``, ``{sae}``, ``{rd-sae}`` (but not op mask registers: ``{k1}``)
+	/// bool: Uppercase decorators, eg. ``{z}``, ``{sae}``, ``{rd-sae}`` (but not opmask registers: ``{k1}``)
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -419,7 +419,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_decorators(new_value);
 	}
 
-	/// bool: Everything is upper cased, except numbers and their prefixes/suffixes
+	/// bool: Everything is uppercased, except numbers and their prefixes/suffixes
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -830,7 +830,7 @@ impl Formatter {
 		self.formatter.options_mut().set_leading_zeroes(new_value);
 	}
 
-	/// bool: Use upper case hex digits
+	/// bool: Use uppercase hex digits
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example

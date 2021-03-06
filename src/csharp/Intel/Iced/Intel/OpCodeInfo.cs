@@ -561,7 +561,7 @@ namespace Iced.Intel {
 		public bool IgnoresSegment => (opcFlags1 & OpCodeInfoFlags1.IgnoresSegment) != 0;
 
 		/// <summary>
-		/// <see langword="true"/> if the op mask register is read and written (instead of just read). This also implies that it can't be <c>K0</c>.
+		/// <see langword="true"/> if the opmask register is read and written (instead of just read). This also implies that it can't be <c>K0</c>.
 		/// </summary>
 		public bool IsOpMaskReadWrite => (opcFlags1 & OpCodeInfoFlags1.OpMaskReadWrite) != 0;
 

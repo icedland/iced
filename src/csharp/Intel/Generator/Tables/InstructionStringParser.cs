@@ -335,7 +335,7 @@ namespace Generator.Tables {
 						return false;
 					}
 					if (op.ToUpperInvariant() != op && op.ToLowerInvariant() != op) {
-						error = $"Implied operands must be lower case or upper case: `{op}`";
+						error = $"Implied operands must be lowercase or uppercase: `{op}`";
 						return false;
 					}
 					impliedOps.Add(new InstrStrImpliedOp(op));

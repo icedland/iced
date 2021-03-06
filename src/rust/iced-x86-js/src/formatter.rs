@@ -375,7 +375,7 @@ impl Formatter {
 
 	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
 
-	/// Prefixes are upper cased
+	/// Prefixes are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -387,7 +387,7 @@ impl Formatter {
 		self.formatter.options().uppercase_prefixes()
 	}
 
-	/// Prefixes are upper cased
+	/// Prefixes are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -403,7 +403,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_prefixes(value);
 	}
 
-	/// Mnemonics are upper cased
+	/// Mnemonics are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -415,7 +415,7 @@ impl Formatter {
 		self.formatter.options().uppercase_mnemonics()
 	}
 
-	/// Mnemonics are upper cased
+	/// Mnemonics are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -431,7 +431,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_mnemonics(value);
 	}
 
-	/// Registers are upper cased
+	/// Registers are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -443,7 +443,7 @@ impl Formatter {
 		self.formatter.options().uppercase_registers()
 	}
 
-	/// Registers are upper cased
+	/// Registers are uppercased
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -459,7 +459,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_registers(value);
 	}
 
-	/// Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
+	/// Keywords are uppercased (eg. `BYTE PTR`, `SHORT`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -471,7 +471,7 @@ impl Formatter {
 		self.formatter.options().uppercase_keywords()
 	}
 
-	/// Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
+	/// Keywords are uppercased (eg. `BYTE PTR`, `SHORT`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -487,7 +487,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_keywords(value);
 	}
 
-	/// Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
+	/// Uppercase decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not opmask registers: `{k1}`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -499,7 +499,7 @@ impl Formatter {
 		self.formatter.options().uppercase_decorators()
 	}
 
-	/// Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
+	/// Uppercase decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not opmask registers: `{k1}`)
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -515,7 +515,7 @@ impl Formatter {
 		self.formatter.options_mut().set_uppercase_decorators(value);
 	}
 
-	/// Everything is upper cased, except numbers and their prefixes/suffixes
+	/// Everything is uppercased, except numbers and their prefixes/suffixes
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -527,7 +527,7 @@ impl Formatter {
 		self.formatter.options().uppercase_all()
 	}
 
-	/// Everything is upper cased, except numbers and their prefixes/suffixes
+	/// Everything is uppercased, except numbers and their prefixes/suffixes
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1195,7 +1195,7 @@ impl Formatter {
 		self.formatter.options_mut().set_leading_zeroes(value);
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1207,7 +1207,7 @@ impl Formatter {
 		self.formatter.options().uppercase_hex()
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------

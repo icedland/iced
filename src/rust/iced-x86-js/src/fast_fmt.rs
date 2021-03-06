@@ -224,7 +224,7 @@ impl FastFormatter {
 		self.0.options_mut().set_always_show_memory_size(value)
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -236,7 +236,7 @@ impl FastFormatter {
 		self.0.options().uppercase_hex()
 	}
 
-	/// Use upper case hex digits
+	/// Use uppercase hex digits
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
