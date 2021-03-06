@@ -37,14 +37,14 @@ fn test_long_symbols() {
 
 	#[rustfmt::skip]
 	let test_cases: [(u32, &'static [u8]); IcedConstants::MAX_OP_COUNT] = [
-		// op0: push 0FFFFFFFFA412A55Ah
-		(0, b"\x68\x5A\xA5\x12\xA4"),
-		// op1: mov rax,3412A55A37261504h
-		(1, b"\x48\xB8\x04\x15\x26\x37\x5A\xA5\x12\x34"),
-		// op2: imul ecx,esi,3412A55Ah
-		(2, b"\x69\xCE\x5A\xA5\x12\x34"),
-		// op3: vgf2p8affineinvqb zmm2{k3},zmm6,[rax+40h],0A5h
-		(3, b"\x62\xF3\xCD\x4B\xCF\x50\x01\xA5"),
+		// mov [rax+12345678h],rcx
+		(0, b"\x48\x89\x88\x78\x56\x34\x12"),
+		// op1: mov rcx,[rax+12345678h]
+		(1, b"\x48\x8B\x88\x78\x56\x34\x12"),
+		// op2: imul ecx,[rsi+12345678h],9ABCDEF1h
+		(2, b"\x69\x8E\x78\x56\x34\x12\xF1\xDE\xBC\x9A"),
+		// op3: vpermil2ps xmm2,xmm6,xmm4,[rax+12345678h],1
+		(3, b"\xC4\xE3\xC9\x48\x90\x78\x56\x34\x12\x41"),
 		// op4: vpermil2ps xmm2,xmm6,[rax],xmm4,1
 		(4, b"\xC4\xE3\x49\x48\x10\x41"),
 	];
