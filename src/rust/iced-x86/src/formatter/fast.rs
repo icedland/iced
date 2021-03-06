@@ -136,6 +136,14 @@ macro_rules! mk_const_fast_str {
 	}};
 }
 
+macro_rules! verify_vec_bytes_left {
+	($dst:ident, $dst_next_p:ident, $num_bytes:expr) => {
+		// Verify that there's enough bytes left. This should never fail (because we've called
+		// `$dst.reserve(MAX_FMT_INSTR_LEN)`), but let's keep it anyway, we only lose a few MB/s
+		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= $num_bytes);
+	};
+}
+
 macro_rules! write_fast_str {
 	// $dst = dest vector (from output.as_mut_vec())
 	// $dst_next_p = next ptr to write in $dst
@@ -143,8 +151,7 @@ macro_rules! write_fast_str {
 	// $source = source fast string instance, must be the same type as $source_ty (compiler will give an error if it's not the same type)
 	($dst:ident, $dst_next_p:ident, $source_ty:ty, $source:ident) => {{
 		const DATA_LEN: usize = <$source_ty>::SIZE;
-		// Verify that there's enough bytes left. This should never fail, but let's keep it anyway, we only lose a few MB/s
-		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= DATA_LEN);
+		verify_vec_bytes_left!($dst, $dst_next_p, DATA_LEN);
 		// SAFETY:
 		// - $source is a valid utf8 string and it points to DATA_LEN readable bytes
 		//   ($source is never from user code)
@@ -181,12 +188,13 @@ static HEX_GROUP2_UPPER: &str =
 	F0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF\
 	__"; // Padding so we can read 4 bytes at every index 0-0xFF inclusive
 
-macro_rules! write_fast_ascii_hex2 {
-	($dst:ident, $dst_next_p:ident, $value:ident, $lower_or_value:ident) => {{
+macro_rules! write_fast_hex2_rw_4bytes {
+	($dst:ident, $dst_next_p:ident, $value:ident, $lower_or_value:ident, $check_limit:literal) => {{
 		const DATA_LEN: usize = 4;
 		const REAL_LEN: usize = 2;
-		// Verify that there's enough bytes left. This should never fail, but let's keep it anyway, we only lose a few MB/s
-		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= DATA_LEN);
+		if $check_limit {
+			verify_vec_bytes_left!($dst, $dst_next_p, DATA_LEN);
+		}
 		// We'll read DATA_LEN (4) bytes so we must be able to access up to and including offset 0x201
 		debug_assert_eq!(HEX_GROUP2_UPPER.len(), 0xFF * REAL_LEN + DATA_LEN);
 		debug_assert!($value < 0x100);
@@ -214,10 +222,11 @@ macro_rules! write_fast_ascii_char {
 	// $dst = dest vector (from output.as_mut_vec())
 	// $dst_next_p = next ptr to write in $dst
 	// $ch = char to write (must be ASCII)
-	($dst:ident, $dst_next_p:ident, $ch:expr) => {{
+	($dst:ident, $dst_next_p:ident, $ch:expr, $check_limit:literal) => {{
 		const DATA_LEN: usize = 1;
-		// Verify that there's enough bytes left. This should never fail, but let's keep it anyway, we only lose a few MB/s
-		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= DATA_LEN);
+		if $check_limit {
+			verify_vec_bytes_left!($dst, $dst_next_p, DATA_LEN);
+		}
 		#[allow(trivial_numeric_casts)]
 		{
 			debug_assert!($ch as u32 <= 0x7F);
@@ -239,9 +248,9 @@ macro_rules! write_fast_ascii_char_lit {
 	// $dst = dest vector (from output.as_mut_vec())
 	// $dst_next_p = next ptr to write in $dst
 	// $ch = char to write (must be ASCII)
-	($dst:ident, $dst_next_p:ident, $ch:tt) => {{
+	($dst:ident, $dst_next_p:ident, $ch:tt, $check_limit:literal) => {{
 		const_assert!($ch as u32 <= 0x7F);
-		write_fast_ascii_char!($dst, $dst_next_p, $ch);
+		write_fast_ascii_char!($dst, $dst_next_p, $ch, $check_limit);
 	}};
 }
 
@@ -739,7 +748,7 @@ impl FastFormatter {
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(clippy::let_unit_value)]
 	pub fn format(&mut self, instruction: &Instruction, output: &mut String) {
-		// SAFETY: We only write data that come from a `&str` or a `String` so the data is always valid utf8
+		// SAFETY: We only append data that come from a `&str`, a `String` or ASCII chars so the data is always valid utf8
 		let dst = unsafe { output.as_mut_vec() };
 		// The code assumes there's enough bytes (or it will panic) so reserve enough bytes here
 		dst.reserve(MAX_FMT_INSTR_LEN);
@@ -788,7 +797,7 @@ impl FastFormatter {
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg != Register::None && FastFormatter::show_segment_prefix(instruction, op_count) {
 				call_format_register!(self, dst, dst_next_p, prefix_seg);
-				write_fast_ascii_char_lit!(dst, dst_next_p, ' ');
+				write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 			}
 
 			if instruction.has_xacquire_prefix() {
@@ -855,7 +864,7 @@ impl FastFormatter {
 		};
 
 		if op_count > 0 {
-			write_fast_ascii_char_lit!(dst, dst_next_p, ' ');
+			write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 
 			for operand in 0..op_count {
 				if operand > 0 {
@@ -863,7 +872,7 @@ impl FastFormatter {
 						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02,   ");
 						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					} else {
-						write_fast_ascii_char_lit!(dst, dst_next_p, ',');
+						write_fast_ascii_char_lit!(dst, dst_next_p, ',', true);
 					}
 				}
 
@@ -923,11 +932,11 @@ impl FastFormatter {
 							} else {
 								call_format_number!(dst, dst_next_p, instruction.far_branch_selector() as u64, &self.d.options);
 							}
-							write_fast_ascii_char_lit!(dst, dst_next_p, ':');
+							write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
 							call_write_symbol!(dst, dst_next_p, imm64, symbol, &self.d.options);
 						} else {
 							call_format_number!(dst, dst_next_p, instruction.far_branch_selector() as u64, &self.d.options);
-							write_fast_ascii_char_lit!(dst, dst_next_p, ':');
+							write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
 							call_format_number!(dst, dst_next_p, imm64, &self.d.options);
 						}
 					}
@@ -1151,9 +1160,9 @@ impl FastFormatter {
 
 				if operand == 0 && super::super::instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 					if instruction.has_op_mask() {
-						write_fast_ascii_char_lit!(dst, dst_next_p, '{');
+						write_fast_ascii_char_lit!(dst, dst_next_p, '{', true);
 						call_format_register!(self, dst, dst_next_p, instruction.op_mask());
-						write_fast_ascii_char_lit!(dst, dst_next_p, '}');
+						write_fast_ascii_char_lit!(dst, dst_next_p, '}', true);
 					}
 					if instruction.zeroing_masking() {
 						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x03{z} ");
@@ -1233,82 +1242,112 @@ impl FastFormatter {
 
 	#[must_use]
 	fn format_number(dst: &mut Vec<u8>, mut dst_next_p: *mut u8, value: u64, options: &FastFormatterOptions) -> *mut u8 {
-		if options.use_hex_prefix() {
-			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x020x  ");
-			write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
+		macro_rules! format_number_impl {
+			($dst:ident, $dst_next_p:ident, $value:ident, $use_hex_prefix:literal, $uppercase_hex:literal) => {{
+				if $use_hex_prefix {
+					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x020x  ");
+					write_fast_str!($dst, $dst_next_p, FastString4, FAST_STR);
+				}
+
+				if $value < 0x10 {
+					if $use_hex_prefix {
+						let hex_table = if $uppercase_hex { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
+						// SAFETY: 0<=$value<=0xF and hex_table.len() == 0x10
+						let c = unsafe { *hex_table.get_unchecked($value as usize) };
+						write_fast_ascii_char!($dst, $dst_next_p, c, true);
+
+						$dst_next_p
+					} else {
+						// 1 (possible '0' prefix) + 1 (hex digit) + 1 ('h' suffix)
+						verify_vec_bytes_left!($dst, $dst_next_p, 1 + 1 + 1);
+						if $value > 9 {
+							write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
+						}
+
+						let hex_table = if $uppercase_hex { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
+						// SAFETY: 0<=$value<=0xF and hex_table.len() == 0x10
+						let c = unsafe { *hex_table.get_unchecked($value as usize) };
+						write_fast_ascii_char!($dst, $dst_next_p, c, false);
+						write_fast_ascii_char_lit!($dst, $dst_next_p, 'h', false);
+
+						$dst_next_p
+					}
+				} else if $value < 0x100 {
+					if $use_hex_prefix {
+						let lower_or_value = if $uppercase_hex { 0 } else { 0x2020_2020 };
+						write_fast_hex2_rw_4bytes!($dst, $dst_next_p, $value, lower_or_value, true);
+
+						$dst_next_p
+					} else {
+						// 1 (possible '0' prefix) + 2 (hex digits) + 2 since
+						// write_fast_hex2_rw_4bytes!() reads/writes 4 bytes and not 2.
+						// '+2' also includes the 'h' suffix.
+						verify_vec_bytes_left!($dst, $dst_next_p, 1 + 2 + 2);
+						if $value > 0x9F {
+							write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
+						}
+
+						let lower_or_value = if $uppercase_hex { 0 } else { 0x2020_2020 };
+						write_fast_hex2_rw_4bytes!($dst, $dst_next_p, $value, lower_or_value, false);
+						write_fast_ascii_char_lit!($dst, $dst_next_p, 'h', false);
+
+						$dst_next_p
+					}
+				} else {
+					let mut rshift = (((64 - u64::leading_zeros($value)) + 3) & !3) as usize;
+
+					// The first '1' is an optional '0' prefix.
+					// `rshift / 4` == number of hex digits to copy. The last `+ 2` is the extra padding needed
+					// since the write_fast_hex2_rw_4bytes!() macro reads and writes 4 bytes (2 hex digits + 2 bytes padding).
+					// '+2' also includes the 'h' suffix.
+					verify_vec_bytes_left!($dst, $dst_next_p, 1 + rshift / 4 + 2);
+
+					if !$use_hex_prefix && (($value >> (rshift - 4)) & 0xF) > 9 {
+						write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
+					}
+
+					// If odd number of hex digits
+					if (rshift & 4) != 0 {
+						rshift -= 4;
+						let hex_table = if $uppercase_hex { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
+						let digit = (($value >> rshift) & 0xF) as usize;
+						// SAFETY: 0<=digit<=0xF and hex_table.len() == 0x10
+						let c = unsafe { *hex_table.get_unchecked(digit) };
+						write_fast_ascii_char!($dst, $dst_next_p, c, false);
+					}
+
+					// If we're here, $value >= 0x100 so rshift >= 8
+					debug_assert!(rshift >= 8);
+					let lower_or_value = if $uppercase_hex { 0 } else { 0x2020_2020 };
+					loop {
+						rshift -= 8;
+						let digits2 = (($value >> rshift) & 0xFF) as usize;
+						write_fast_hex2_rw_4bytes!($dst, $dst_next_p, digits2, lower_or_value, false);
+
+						if rshift == 0 {
+							break;
+						}
+					}
+
+					if !$use_hex_prefix {
+						// We've verified that `dst` had `1 + rshift / 4 + 2` bytes left (see above).
+						// The last `+2` is the padding that needed to be there. That's where
+						// this 'h' gets written so we don't need to verify the vec len here
+						// because it has at least 2 more bytes left.
+						write_fast_ascii_char_lit!($dst, $dst_next_p, 'h', false);
+					}
+
+					$dst_next_p
+				}
+			}};
 		}
 
-		if value < 0x10 {
-			if !options.use_hex_prefix() && (value > 9) {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '0');
-			}
-
-			let hex_table = if options.uppercase_hex() { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
-			// SAFETY: 0<=value<=0xF and hex_table.len() == 0x10
-			let c = unsafe { *hex_table.get_unchecked(value as usize) };
-			write_fast_ascii_char!(dst, dst_next_p, c);
-
-			if !options.use_hex_prefix() {
-				write_fast_ascii_char_lit!(dst, dst_next_p, 'h');
-			}
-
-			dst_next_p
-		} else if value < 0x100 {
-			if !options.use_hex_prefix() && (value > 0x9F) {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '0');
-			}
-
-			let lower_or_value = if options.uppercase_hex() { 0 } else { 0x2020_2020 };
-			write_fast_ascii_hex2!(dst, dst_next_p, value, lower_or_value);
-
-			if !options.use_hex_prefix() {
-				write_fast_ascii_char_lit!(dst, dst_next_p, 'h');
-			}
-
-			dst_next_p
-		} else {
-			let mut rshift = 0;
-			let mut tmp = value;
-			loop {
-				rshift += 4;
-				tmp >>= 4;
-				if tmp == 0 {
-					break;
-				}
-			}
-
-			if !options.use_hex_prefix() && ((value >> (rshift - 4)) & 0xF) > 9 {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '0');
-			}
-
-			// If odd number of hex digits
-			if (rshift & 4) != 0 {
-				rshift -= 4;
-				let hex_table = if options.uppercase_hex() { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
-				let digit = ((value >> rshift) & 0xF) as usize;
-				// SAFETY: 0<=digit<=0xF and hex_table.len() == 0x10
-				let c = unsafe { *hex_table.get_unchecked(digit) };
-				write_fast_ascii_char!(dst, dst_next_p, c);
-			}
-
-			let lower_or_value = if options.uppercase_hex() { 0 } else { 0x2020_2020 };
-			// If we're here, value >= 0x100 so rshift >= 8
-			debug_assert!(rshift >= 8);
-			loop {
-				rshift -= 8;
-				let digit = ((value >> rshift) & 0xFF) as usize;
-				write_fast_ascii_hex2!(dst, dst_next_p, digit, lower_or_value);
-
-				if rshift == 0 {
-					break;
-				}
-			}
-
-			if !options.use_hex_prefix() {
-				write_fast_ascii_char_lit!(dst, dst_next_p, 'h');
-			}
-
-			dst_next_p
+		match options.options1 & (Flags1::UPPERCASE_HEX | Flags1::USE_HEX_PREFIX) {
+			// It's first because this is the default options
+			Flags1::UPPERCASE_HEX => format_number_impl!(dst, dst_next_p, value, false, true),
+			0 => format_number_impl!(dst, dst_next_p, value, false, false),
+			Flags1::USE_HEX_PREFIX => format_number_impl!(dst, dst_next_p, value, true, false),
+			_ => format_number_impl!(dst, dst_next_p, value, true, true),
 		}
 	}
 
@@ -1328,7 +1367,7 @@ impl FastFormatter {
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
 		if (symbol.flags & SymbolFlags::SIGNED) != 0 {
 			if write_minus_if_signed {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '-');
+				write_fast_ascii_char_lit!(dst, dst_next_p, '-', true);
 			}
 			displ = displ.wrapping_neg();
 		}
@@ -1365,14 +1404,14 @@ impl FastFormatter {
 			} else {
 				'+'
 			};
-			write_fast_ascii_char!(dst, dst_next_p, c);
+			write_fast_ascii_char!(dst, dst_next_p, c, true);
 			call_format_number!(dst, dst_next_p, displ as u64, options);
 		}
 		if options.show_symbol_address() {
 			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02 (  ");
 			write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 			call_format_number!(dst, dst_next_p, address, options);
-			write_fast_ascii_char_lit!(dst, dst_next_p, ')');
+			write_fast_ascii_char_lit!(dst, dst_next_p, ')', true);
 		}
 
 		dst_next_p
@@ -1449,9 +1488,9 @@ impl FastFormatter {
 					|| show_segment_prefix_bool(Register::None, instruction, FastFormatter::SHOW_USELESS_PREFIXES)))
 		{
 			call_format_register!(self, dst, dst_next_p, seg_reg);
-			write_fast_ascii_char_lit!(dst, dst_next_p, ':');
+			write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
 		}
-		write_fast_ascii_char_lit!(dst, dst_next_p, '[');
+		write_fast_ascii_char_lit!(dst, dst_next_p, '[', true);
 
 		let mut need_plus = if base_reg != Register::None {
 			call_format_register!(self, dst, dst_next_p, base_reg);
@@ -1462,7 +1501,7 @@ impl FastFormatter {
 
 		if index_reg != Register::None {
 			if need_plus {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '+');
+				write_fast_ascii_char_lit!(dst, dst_next_p, '+', true);
 			}
 			need_plus = true;
 
@@ -1476,9 +1515,9 @@ impl FastFormatter {
 		if let Some(ref symbol) = symbol {
 			if need_plus {
 				let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { '-' } else { '+' };
-				write_fast_ascii_char!(dst, dst_next_p, c);
+				write_fast_ascii_char!(dst, dst_next_p, c, true);
 			} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '-');
+				write_fast_ascii_char_lit!(dst, dst_next_p, '-', true);
 			}
 
 			call_write_symbol2!(dst, dst_next_p, abs_addr, symbol, &self.d.options, false);
@@ -1507,12 +1546,12 @@ impl FastFormatter {
 						'+'
 					}
 				};
-				write_fast_ascii_char!(dst, dst_next_p, c);
+				write_fast_ascii_char!(dst, dst_next_p, c, true);
 			}
 			call_format_number!(dst, dst_next_p, displ as u64, &self.d.options);
 		}
 
-		write_fast_ascii_char_lit!(dst, dst_next_p, ']');
+		write_fast_ascii_char_lit!(dst, dst_next_p, ']', true);
 
 		dst_next_p
 	}
