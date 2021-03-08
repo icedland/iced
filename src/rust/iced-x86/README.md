@@ -53,7 +53,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
-- `fast_fmt`: (✔️Enabled by default) Enables `FastFormatter` (masm syntax) which is ~2.6x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
+- `fast_fmt`: (✔️Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.1x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
 - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
@@ -71,6 +71,7 @@ If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the gener
 ## How-tos
 
 - [Disassemble (decode and format instructions)](#disassemble-decode-and-format-instructions)
+- [Disassemble as fast as possible](#disassemble-as-fast-as-possible)
 - [Create and encode instructions](#create-and-encode-instructions)
 - [Disassemble with a symbol resolver](#disassemble-with-a-symbol-resolver)
 - [Disassemble with colorized text](#disassemble-with-colorized-text)
@@ -82,7 +83,7 @@ If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the gener
 ## Disassemble (decode and format instructions)
 
 This example uses a [`Decoder`] and one of the [`Formatter`]s to decode and format the code,
-eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`], [`FastFormatter`].
+eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`], [`SpecializedFormatter<TraitOptions>`] (or [`FastFormatter`]).
 
 [`Decoder`]: https://docs.rs/iced-x86/1.10.3/iced_x86/struct.Decoder.html
 [`Formatter`]: https://docs.rs/iced-x86/1.10.3/iced_x86/trait.Formatter.html
@@ -90,7 +91,8 @@ eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`], 
 [`IntelFormatter`]: https://docs.rs/iced-x86/1.10.3/iced_x86/struct.IntelFormatter.html
 [`MasmFormatter`]: https://docs.rs/iced-x86/1.10.3/iced_x86/struct.MasmFormatter.html
 [`NasmFormatter`]: https://docs.rs/iced-x86/1.10.3/iced_x86/struct.NasmFormatter.html
-[`FastFormatter`]: https://docs.rs/iced-x86/1.10.3/iced_x86/struct.FastFormatter.html
+[`SpecializedFormatter<TraitOptions>`]: https://docs.rs/iced-x86/1.10.3/iced_x86/struct.SpecializedFormatter.html
+[`FastFormatter`]: https://docs.rs/iced-x86/1.10.3/iced_x86/type.FastFormatter.html
 
 ```rust
 use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
@@ -116,8 +118,8 @@ pub(crate) fn how_to_disassemble() {
     let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
-    // There's also `FastFormatter` which is ~2.6x faster. Use it if formatting speed is more
-    // important than being able to re-assemble formatted instructions.
+    // For fastest speed, see `SpecializedFormatter` which is ~3.1x faster. Use it if formatting
+    // speed is more important than being able to re-assemble formatted instructions.
     let mut formatter = NasmFormatter::new();
 
     // Change some options, there are many more
@@ -170,6 +172,49 @@ static EXAMPLE_CODE: &[u8] = &[
     0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
     0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF,
 ];
+```
+
+## Disassemble as fast as possible
+
+For fastest possible speed, you should *not* enable the `db` feature (or you should set [`SUPPORTS_DB_DW_DD_DQ`] to `false`)
+and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
+
+[`SUPPORTS_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.SUPPORTS_DB_DW_DD_DQ
+[`verify_output_has_enough_bytes_left()`]: trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
+
+```rust
+use iced_x86::{
+    Decoder, DecoderOptions, Instruction, SpecializedFormatter, SpecializedFormatterTraitOptions,
+};
+
+pub(crate) fn how_to_disassemble_really_fast() {
+    struct MySpecializedFormatterTraitOptions;
+    impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+        // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
+        const SUPPORTS_DB_DW_DD_DQ: bool = false;
+        // It reserves 300 bytes at the start of format() which is enough for all
+        // instructions. See the docs for more info.
+        unsafe fn verify_output_has_enough_bytes_left() -> bool {
+            false
+        }
+    }
+    type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+
+    // Assume this is a big slice and not just one instruction
+    let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+    let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+
+    let mut output = String::new();
+    let mut instruction = Instruction::default();
+    let mut formatter = MySpecializedFormatter::new();
+    while decoder.can_decode() {
+        decoder.decode_out(&mut instruction);
+        output.clear();
+        formatter.format(&instruction, &mut output);
+        // do something with 'output' here, eg.:
+        //     println!("{}", output);
+    }
+}
 ```
 
 ## Create and encode instructions

@@ -10,6 +10,8 @@ mod pseudo_ops_fast;
 mod regs;
 #[cfg(test)]
 mod tests;
+mod trait_options;
+mod trait_options_fast_fmt;
 
 use crate::formatter::fast::enums::*;
 use crate::formatter::fast::fmt_tbl::FMT_DATA;
@@ -17,6 +19,8 @@ use crate::formatter::fast::mem_size_tbl::MEM_SIZE_TBL;
 pub use crate::formatter::fast::options::*;
 use crate::formatter::fast::pseudo_ops_fast::get_pseudo_ops;
 use crate::formatter::fast::regs::REGS_TBL;
+pub use crate::formatter::fast::trait_options::*;
+pub use crate::formatter::fast::trait_options_fast_fmt::*;
 use crate::formatter::fmt_utils_all::*;
 use crate::formatter::instruction_internal::get_address_size_in_bytes;
 use crate::formatter::*;
@@ -24,6 +28,7 @@ use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
+use core::marker::PhantomData;
 use core::{mem, u16, u32, u8, usize};
 use static_assertions::{const_assert, const_assert_eq};
 
@@ -138,11 +143,14 @@ macro_rules! mk_const_fast_str {
 	}};
 }
 
-macro_rules! verify_vec_bytes_left {
+macro_rules! verify_output_has_enough_bytes_left {
 	($dst:ident, $dst_next_p:ident, $num_bytes:expr) => {
-		// Verify that there's enough bytes left. This should never fail (because we've called
-		// `$dst.reserve(MAX_FMT_INSTR_LEN)`), but let's keep it anyway, we only lose a few MB/s
-		iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= $num_bytes);
+		// SAFETY: This is an opt out feature so if this returns `false`, they know what they're doing.
+		if unsafe { TraitOptions::verify_output_has_enough_bytes_left() } {
+			// Verify that there's enough bytes left. This should never fail (because we've called
+			// `$dst.reserve(MAX_FMT_INSTR_LEN)`).
+			iced_assert!($dst.capacity() - ($dst_next_p as usize - $dst.as_ptr() as usize) >= $num_bytes);
+		}
 	};
 }
 
@@ -153,7 +161,7 @@ macro_rules! write_fast_str {
 	// $source = source fast string instance, must be the same type as $source_ty (compiler will give an error if it's not the same type)
 	($dst:ident, $dst_next_p:ident, $source_ty:ty, $source:ident) => {{
 		const DATA_LEN: usize = <$source_ty>::SIZE;
-		verify_vec_bytes_left!($dst, $dst_next_p, DATA_LEN);
+		verify_output_has_enough_bytes_left!($dst, $dst_next_p, DATA_LEN);
 		// SAFETY:
 		// - $source is a valid utf8 string and it points to DATA_LEN readable bytes
 		//   ($source is never from user code)
@@ -195,7 +203,7 @@ macro_rules! write_fast_hex2_rw_4bytes {
 		const DATA_LEN: usize = 4;
 		const REAL_LEN: usize = 2;
 		if $check_limit {
-			verify_vec_bytes_left!($dst, $dst_next_p, DATA_LEN);
+			verify_output_has_enough_bytes_left!($dst, $dst_next_p, DATA_LEN);
 		}
 		// We'll read DATA_LEN (4) bytes so we must be able to access up to and including offset 0x201
 		debug_assert_eq!(HEX_GROUP2_UPPER.len(), 0xFF * REAL_LEN + DATA_LEN);
@@ -227,7 +235,7 @@ macro_rules! write_fast_ascii_char {
 	($dst:ident, $dst_next_p:ident, $ch:expr, $check_limit:literal) => {{
 		const DATA_LEN: usize = 1;
 		if $check_limit {
-			verify_vec_bytes_left!($dst, $dst_next_p, DATA_LEN);
+			verify_output_has_enough_bytes_left!($dst, $dst_next_p, DATA_LEN);
 		}
 		#[allow(trivial_numeric_casts)]
 		{
@@ -295,22 +303,22 @@ macro_rules! use_dst_next_p_now {
 // Macros to safely call the methods (make sure the return value is stored back in dst_next_p)
 macro_rules! call_format_register {
 	($slf:ident, $dst:ident, $dst_next_p:ident, $reg:expr) => {
-		$dst_next_p = FastFormatter::format_register(&$slf.d, $dst, $dst_next_p, $reg);
+		$dst_next_p = $slf.format_register($dst, $dst_next_p, $reg);
 	};
 }
 macro_rules! call_format_number {
-	($dst:ident, $dst_next_p:ident, $imm:expr, $options:expr) => {
-		$dst_next_p = FastFormatter::format_number($dst, $dst_next_p, $imm, $options);
+	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr) => {
+		$dst_next_p = $slf.format_number($dst, $dst_next_p, $imm);
 	};
 }
 macro_rules! call_write_symbol {
-	($dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr, $options:expr) => {
-		$dst_next_p = FastFormatter::write_symbol($dst, $dst_next_p, $imm, $sym, $options);
+	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr) => {
+		$dst_next_p = $slf.write_symbol($dst, $dst_next_p, $imm, $sym);
 	};
 }
 macro_rules! call_write_symbol2 {
-	($dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr, $options:expr, $write_minus_if_signed:expr) => {
-		$dst_next_p = FastFormatter::write_symbol2($dst, $dst_next_p, $imm, $sym, $options, $write_minus_if_signed);
+	($slf:ident, $dst:ident, $dst_next_p:ident, $imm:expr, $sym:expr, $write_minus_if_signed:literal) => {
+		$dst_next_p = $slf.write_symbol2($dst, $dst_next_p, $imm, $sym, $write_minus_if_signed);
 	};
 }
 macro_rules! call_format_memory {
@@ -339,10 +347,18 @@ struct FmtTableData {
 	flags: Vec<u8>, // FastFmtFlags
 }
 
-/// Fast formatter with less formatting options and with a masm-like syntax.
+/// Fast specialized formatter with less formatting options and with a masm-like syntax.
 /// Use it if formatting speed is more important than being able to re-assemble formatted instructions.
 ///
-/// This formatter is ~2.6x faster than the other formatters (the time includes decoding + formatting).
+/// The `TraitOptions` generic parameter is a [`SpecializedFormatterTraitOptions`] trait. It can
+/// be used to hard code options so the compiler can create a smaller and faster formatter.
+/// See also [`FastFormatter`] which allows changing the options at runtime at the cost of
+/// being a little bit slower and using a little bit more code.
+///
+/// This formatter is ~3.1x faster than the gas/intel/masm/nasm formatters (the time includes decoding + formatting).
+///
+/// [`SpecializedFormatterTraitOptions`]: trait.SpecializedFormatterTraitOptions.html
+/// [`FastFormatter`]: type.FastFormatter.html
 ///
 /// # Examples
 ///
@@ -353,14 +369,73 @@ struct FmtTableData {
 /// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 /// let instr = decoder.decode();
 ///
+/// // If you like the default options, you can also use DefaultSpecializedFormatterTraitOptions
+/// // instead of impl the options trait.
+/// struct MySpecializedFormatterTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+///     fn space_after_operand_separator(_options: &FastFormatterOptions) -> bool {
+///         // We hard code the value to `true` which means it's not possible to
+///         // change this option at runtime, i.e., this will do nothing:
+///         //      formatter.options_mut().set_space_after_operand_separator(false);
+///         true
+///     }
+///     fn rip_relative_addresses(options: &FastFormatterOptions) -> bool {
+///         // Since we return the input, we can change this value at runtime, i.e.,
+///         // this works:
+///         //      formatter.options_mut().set_rip_relative_addresses(false);
+///         options.rip_relative_addresses()
+///     }
+/// }
+/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+///
 /// let mut output = String::new();
-/// let mut formatter = FastFormatter::new();
-/// formatter.options_mut().set_space_after_operand_separator(true);
+/// let mut formatter = MySpecializedFormatter::new();
 /// formatter.format(&instr, &mut output);
-/// assert_eq!(output, "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]");
+/// assert_eq!(output, "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+0x4]");
 /// ```
 ///
-/// Using a symbol resolver:
+/// # Fastest possible speed
+///
+/// For fastest possible speed, you should *not* enable the `db` feature (or you should set [`SUPPORTS_DB_DW_DD_DQ`] to `false`)
+/// and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
+///
+/// [`SUPPORTS_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.SUPPORTS_DB_DW_DD_DQ
+/// [`verify_output_has_enough_bytes_left()`]: trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
+///
+/// ```
+/// use iced_x86::*;
+///
+/// struct MySpecializedFormatterTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+///     // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
+///     const SUPPORTS_DB_DW_DD_DQ: bool = false;
+///     // It reserves 300 bytes at the start of format() which is enough for all
+///     // instructions. See the docs for more info.
+///     unsafe fn verify_output_has_enough_bytes_left() -> bool {
+///         false
+///     }
+/// }
+/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+///
+/// // Assume this is a big slice and not just one instruction
+/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+///
+/// let mut output = String::new();
+/// let mut instruction = Instruction::default();
+/// let mut formatter = MySpecializedFormatter::new();
+/// while decoder.can_decode() {
+///     decoder.decode_out(&mut instruction);
+///     output.clear();
+///     formatter.format(&instruction, &mut output);
+///     // do something with 'output' here, eg.:
+///     //     println!("{}", output);
+/// }
+/// ```
+///
+/// # Using a symbol resolver
+///
+/// The symbol resolver is disabled by default, but it's easy to enable it (or you can just use [`FastFormatter`])
 ///
 /// ```
 /// use iced_x86::*;
@@ -369,6 +444,12 @@ struct FmtTableData {
 /// let bytes = b"\x48\x8B\x8A\xA5\x5A\xA5\x5A";
 /// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 /// let instr = decoder.decode();
+///
+/// struct MySpecializedFormatterTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+///     const ENABLE_SYMBOL_RESOLVER: bool = true;
+/// }
+/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
 ///
 /// struct MySymbolResolver { map: HashMap<u64, String> }
 /// impl SymbolResolver for MySymbolResolver {
@@ -391,21 +472,22 @@ struct FmtTableData {
 ///
 /// let mut output = String::new();
 /// let resolver = Box::new(MySymbolResolver { map: sym_map });
-/// let mut formatter = FastFormatter::with_options(Some(resolver));
+/// let mut formatter = MySpecializedFormatter::try_with_options(Some(resolver)).unwrap();
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("mov rcx,[rdx+my_data]", output);
 /// ```
 #[allow(missing_debug_implementations)]
-pub struct FastFormatter {
+pub struct SpecializedFormatter<TraitOptions: SpecializedFormatterTraitOptions> {
 	d: SelfData,
 	symbol_resolver: Option<Box<dyn SymbolResolver>>,
+	_required_by_rustc: PhantomData<fn() -> TraitOptions>,
 }
 
-impl Default for FastFormatter {
+impl<TraitOptions: SpecializedFormatterTraitOptions> Default for SpecializedFormatter<TraitOptions> {
 	#[must_use]
 	#[inline]
 	fn default() -> Self {
-		FastFormatter::new()
+		SpecializedFormatter::<TraitOptions>::new()
 	}
 }
 
@@ -418,37 +500,73 @@ struct SelfData {
 	all_memory_sizes: &'static [FastStringMemorySize],
 }
 
-impl FastFormatter {
+impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitOptions> {
 	const SHOW_USELESS_PREFIXES: bool = true;
 
-	/// Creates a fast formatter
+	/// Creates a new instance of this formatter
 	#[must_use]
 	#[inline]
+	#[allow(clippy::unwrap_used)]
 	pub fn new() -> Self {
-		FastFormatter::with_options(None)
+		// This never panics
+		SpecializedFormatter::<TraitOptions>::try_with_options(None).unwrap()
 	}
 
-	/// Creates a fast formatter
+	/// Creates a new instance of this formatter
+	///
+	/// # Panics
+	///
+	/// Panics if [`TraitOptions::ENABLE_SYMBOL_RESOLVER`] is `false` and `symbol_resolver.is_some()`
+	///
+	/// [`TraitOptions::ENABLE_SYMBOL_RESOLVER`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_SYMBOL_RESOLVER
 	///
 	/// # Arguments
 	///
 	/// - `symbol_resolver`: Symbol resolver or `None`
 	#[must_use]
-	#[allow(clippy::missing_inline_in_public_items)]
+	#[inline]
+	#[deprecated(since = "1.11.0", note = "This method can panic, use try_with_options() instead.")]
+	#[allow(clippy::unwrap_used)]
 	pub fn with_options(symbol_resolver: Option<Box<dyn SymbolResolver>>) -> Self {
-		Self {
-			d: SelfData {
-				options: FastFormatterOptions::new(),
-				all_registers: &*REGS_TBL,
-				code_mnemonics: &FMT_DATA.mnemonics,
-				code_flags: &FMT_DATA.flags,
-				all_memory_sizes: &*MEM_SIZE_TBL,
-			},
-			symbol_resolver,
+		SpecializedFormatter::<TraitOptions>::try_with_options(symbol_resolver).unwrap()
+	}
+
+	/// Creates a new instance of this formatter
+	///
+	/// # Errors
+	///
+	/// Fails if [`TraitOptions::ENABLE_SYMBOL_RESOLVER`] is `false` and `symbol_resolver.is_some()`
+	///
+	/// [`TraitOptions::ENABLE_SYMBOL_RESOLVER`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_SYMBOL_RESOLVER
+	///
+	/// # Arguments
+	///
+	/// - `symbol_resolver`: Symbol resolver or `None`
+	#[allow(clippy::missing_inline_in_public_items)]
+	pub fn try_with_options(symbol_resolver: Option<Box<dyn SymbolResolver>>) -> Result<Self, IcedError> {
+		if !TraitOptions::ENABLE_SYMBOL_RESOLVER && symbol_resolver.is_some() {
+			Err(IcedError::new(concat!(stringify!(TraitOptions::ENABLE_SYMBOL_RESOLVER), " is disabled so symbol resolvers aren't supported")))
+		} else {
+			Ok(Self {
+				d: SelfData {
+					options: FastFormatterOptions::new(),
+					all_registers: &*REGS_TBL,
+					code_mnemonics: &FMT_DATA.mnemonics,
+					code_flags: &FMT_DATA.flags,
+					all_memory_sizes: &*MEM_SIZE_TBL,
+				},
+				symbol_resolver,
+				_required_by_rustc: PhantomData,
+			})
 		}
 	}
 
 	/// Gets the formatter options (immutable)
+	///
+	/// Note that the `TraitOptions` generic parameter can override any option and hard code them,
+	/// see [`SpecializedFormatterTraitOptions`]
+	///
+	/// [`SpecializedFormatterTraitOptions`]: trait.SpecializedFormatterTraitOptions.html
 	#[must_use]
 	#[inline]
 	pub fn options(&self) -> &FastFormatterOptions {
@@ -456,6 +574,11 @@ impl FastFormatter {
 	}
 
 	/// Gets the formatter options (mutable)
+	///
+	/// Note that the `TraitOptions` generic parameter can override any option and hard code them,
+	/// see [`SpecializedFormatterTraitOptions`]
+	///
+	/// [`SpecializedFormatterTraitOptions`]: trait.SpecializedFormatterTraitOptions.html
 	#[must_use]
 	#[inline]
 	pub fn options_mut(&mut self) -> &mut FastFormatterOptions {
@@ -484,33 +607,32 @@ impl FastFormatter {
 
 		// SAFETY: all Code values are valid indexes
 		let mut mnemonic = unsafe { *self.d.code_mnemonics.get_unchecked(code as usize) };
-		// SAFETY: all Code values are valid indexes
-		let flags = unsafe { *self.d.code_flags.get_unchecked(code as usize) };
 
 		let mut op_count = instruction.op_count();
-		let pseudo_ops_num = flags >> FastFmtFlags::PSEUDO_OPS_KIND_SHIFT;
-		if pseudo_ops_num != 0
-			&& self.d.options.use_pseudo_ops()
-			&& instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8
-		{
-			let mut index = instruction.immediate8() as usize;
-			// SAFETY: the generator generates only valid values (1-based)
-			let pseudo_ops_kind: PseudoOpsKind = unsafe { mem::transmute(pseudo_ops_num - 1) };
-			let pseudo_ops = get_pseudo_ops(pseudo_ops_kind);
-			if pseudo_ops_kind == PseudoOpsKind::pclmulqdq || pseudo_ops_kind == PseudoOpsKind::vpclmulqdq {
-				if index <= 1 {
-					// nothing
-				} else if index == 0x10 {
-					index = 2;
-				} else if index == 0x11 {
-					index = 3;
-				} else {
-					index = usize::MAX;
+		if TraitOptions::use_pseudo_ops(&self.d.options) {
+			// SAFETY: all Code values are valid indexes
+			let flags = unsafe { *self.d.code_flags.get_unchecked(code as usize) };
+			let pseudo_ops_num = flags >> FastFmtFlags::PSEUDO_OPS_KIND_SHIFT;
+			if pseudo_ops_num != 0 && instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8 {
+				let mut index = instruction.immediate8() as usize;
+				// SAFETY: the generator generates only valid values (1-based)
+				let pseudo_ops_kind: PseudoOpsKind = unsafe { mem::transmute(pseudo_ops_num - 1) };
+				let pseudo_ops = get_pseudo_ops(pseudo_ops_kind);
+				if pseudo_ops_kind == PseudoOpsKind::pclmulqdq || pseudo_ops_kind == PseudoOpsKind::vpclmulqdq {
+					if index <= 1 {
+						// nothing
+					} else if index == 0x10 {
+						index = 2;
+					} else if index == 0x11 {
+						index = 3;
+					} else {
+						index = usize::MAX;
+					}
 				}
-			}
-			if let Some(&pseudo_op_mnemonic) = pseudo_ops.get(index) {
-				mnemonic = pseudo_op_mnemonic;
-				op_count -= 1;
+				if let Some(&pseudo_op_mnemonic) = pseudo_ops.get(index) {
+					mnemonic = pseudo_op_mnemonic;
+					op_count -= 1;
+				}
 			}
 		}
 
@@ -518,7 +640,8 @@ impl FastFormatter {
 		const_assert_eq!(Register::None as u32, 0);
 		if ((prefix_seg as u32) | super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
-			if !has_notrack_prefix && prefix_seg != Register::None && FastFormatter::show_segment_prefix(instruction, op_count) {
+			if !has_notrack_prefix && prefix_seg != Register::None && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count)
+			{
 				call_format_register!(self, dst, dst_next_p, prefix_seg);
 				write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 			}
@@ -540,7 +663,8 @@ impl FastFormatter {
 				write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 			}
 			if instruction.has_repe_prefix()
-				&& (FastFormatter::SHOW_USELESS_PREFIXES || show_rep_or_repe_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES))
+				&& (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
+					|| show_rep_or_repe_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES))
 			{
 				if is_repe_or_repne_instruction(code) {
 					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05repe    ");
@@ -559,7 +683,9 @@ impl FastFormatter {
 				{
 					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04bnd ");
 					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
-				} else if FastFormatter::SHOW_USELESS_PREFIXES || show_repne_prefix_bool(code, FastFormatter::SHOW_USELESS_PREFIXES) {
+				} else if SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
+					|| show_repne_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)
+				{
 					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x06repne   ");
 					write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 				}
@@ -569,7 +695,10 @@ impl FastFormatter {
 		write_fast_str!(dst, dst_next_p, FastStringMnemonic, mnemonic);
 
 		let is_declare_data;
-		let declare_data_kind = if (code as u32).wrapping_sub(Code::DeclareByte as u32) <= (Code::DeclareQword as u32 - Code::DeclareByte as u32) {
+		let declare_data_kind = if !(cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ) {
+			is_declare_data = false;
+			OpKind::Register
+		} else if (code as u32).wrapping_sub(Code::DeclareByte as u32) <= (Code::DeclareQword as u32 - Code::DeclareByte as u32) {
 			op_count = instruction.declare_data_len() as u32;
 			is_declare_data = true;
 			match code {
@@ -591,7 +720,7 @@ impl FastFormatter {
 
 			for operand in 0..op_count {
 				if operand > 0 {
-					if self.d.options.space_after_operand_separator() {
+					if TraitOptions::space_after_operand_separator(&self.d.options) {
 						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02,   ");
 						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					} else {
@@ -604,7 +733,11 @@ impl FastFormatter {
 				let imm32;
 				let imm64;
 				let imm_size;
-				let op_kind = if is_declare_data { declare_data_kind } else { instruction.try_op_kind(operand).unwrap_or(OpKind::Register) };
+				let op_kind = if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
+					declare_data_kind
+				} else {
+					instruction.try_op_kind(operand).unwrap_or(OpKind::Register)
+				};
 				match op_kind {
 					OpKind::Register => call_format_register!(self, dst, dst_next_p, instruction.try_op_register(operand).unwrap_or_default()),
 
@@ -619,14 +752,24 @@ impl FastFormatter {
 							imm_size = 2;
 							imm64 = instruction.near_branch16() as u64;
 						}
-						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-							symbol_resolver.symbol(instruction, operand, Some(operand), imm64, imm_size)
+						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+							// PERF: Symbols should be rare when using fast fmt with a symbol resolver so clone
+							// the symbol (forced by borrowck).
+							// This results in slightly faster code when we do NOT support a symbol resolver since
+							// we don't need to pass in the options to various methods and can instead pass in &Self
+							// (i.e., use a method instead of a func).
+							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64, imm_size), &mut vec)
+							} else {
+								None
+							} {
+								call_write_symbol!(self, dst, dst_next_p, imm64, symbol);
+							} else {
+								call_format_number!(self, dst, dst_next_p, imm64);
+							}
 						} else {
-							None
-						} {
-							call_write_symbol!(dst, dst_next_p, imm64, symbol, &self.d.options);
-						} else {
-							call_format_number!(dst, dst_next_p, imm64, &self.d.options);
+							call_format_number!(self, dst, dst_next_p, imm64);
 						}
 					}
 
@@ -638,34 +781,45 @@ impl FastFormatter {
 							imm_size = 2;
 							imm64 = instruction.far_branch16() as u64;
 						}
-						let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
-						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-							to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64 as u32 as u64, imm_size), &mut vec)
-						} else {
-							None
-						} {
-							debug_assert!(operand + 1 == 1);
-							let selector_symbol = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-								symbol_resolver.symbol(instruction, operand + 1, Some(operand), instruction.far_branch_selector() as u64, 2)
+						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+							// See OpKind::NearBranch16 above for why we clone the symbols
+							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+							let mut vec2: Vec<SymResTextPart<'_>> = Vec::new();
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64 as u32 as u64, imm_size), &mut vec)
 							} else {
 								None
-							};
-							if let Some(ref selector_symbol) = selector_symbol {
-								call_write_symbol!(dst, dst_next_p, instruction.far_branch_selector() as u64, selector_symbol, &self.d.options);
+							} {
+								debug_assert!(operand + 1 == 1);
+								let selector_symbol = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+									to_owned(
+										symbol_resolver.symbol(instruction, operand + 1, Some(operand), instruction.far_branch_selector() as u64, 2),
+										&mut vec2,
+									)
+								} else {
+									None
+								};
+								if let Some(ref selector_symbol) = selector_symbol {
+									call_write_symbol!(self, dst, dst_next_p, instruction.far_branch_selector() as u64, selector_symbol);
+								} else {
+									call_format_number!(self, dst, dst_next_p, instruction.far_branch_selector() as u64);
+								}
+								write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
+								call_write_symbol!(self, dst, dst_next_p, imm64, symbol);
 							} else {
-								call_format_number!(dst, dst_next_p, instruction.far_branch_selector() as u64, &self.d.options);
+								call_format_number!(self, dst, dst_next_p, instruction.far_branch_selector() as u64);
+								write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
+								call_format_number!(self, dst, dst_next_p, imm64);
 							}
-							write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
-							call_write_symbol!(dst, dst_next_p, imm64, symbol, &self.d.options);
 						} else {
-							call_format_number!(dst, dst_next_p, instruction.far_branch_selector() as u64, &self.d.options);
+							call_format_number!(self, dst, dst_next_p, instruction.far_branch_selector() as u64);
 							write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
-							call_format_number!(dst, dst_next_p, imm64, &self.d.options);
+							call_format_number!(self, dst, dst_next_p, imm64);
 						}
 					}
 
 					OpKind::Immediate8 | OpKind::Immediate8_2nd => {
-						if is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
 							imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate8 {
 							imm8 = instruction.immediate8();
@@ -673,22 +827,28 @@ impl FastFormatter {
 							debug_assert_eq!(op_kind, OpKind::Immediate8_2nd);
 							imm8 = instruction.immediate8_2nd();
 						}
-						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-							symbol_resolver.symbol(instruction, operand, Some(operand), imm8 as u64, 1)
-						} else {
-							None
-						} {
-							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+							// See OpKind::NearBranch16 above for why we clone the symbols
+							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm8 as u64, 1), &mut vec)
+							} else {
+								None
+							} {
+								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
+									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+								}
+								call_write_symbol!(self, dst, dst_next_p, imm8 as u64, symbol);
+							} else {
+								call_format_number!(self, dst, dst_next_p, imm8 as u64);
 							}
-							call_write_symbol!(dst, dst_next_p, imm8 as u64, symbol, &self.d.options);
 						} else {
-							call_format_number!(dst, dst_next_p, imm8 as u64, &self.d.options);
+							call_format_number!(self, dst, dst_next_p, imm8 as u64);
 						}
 					}
 
 					OpKind::Immediate16 | OpKind::Immediate8to16 => {
-						if is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
 							imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate16 {
 							imm16 = instruction.immediate16();
@@ -696,22 +856,28 @@ impl FastFormatter {
 							debug_assert_eq!(op_kind, OpKind::Immediate8to16);
 							imm16 = instruction.immediate8to16() as u16;
 						}
-						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-							symbol_resolver.symbol(instruction, operand, Some(operand), imm16 as u64, 2)
-						} else {
-							None
-						} {
-							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+							// See OpKind::NearBranch16 above for why we clone the symbols
+							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm16 as u64, 2), &mut vec)
+							} else {
+								None
+							} {
+								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
+									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+								}
+								call_write_symbol!(self, dst, dst_next_p, imm16 as u64, symbol);
+							} else {
+								call_format_number!(self, dst, dst_next_p, imm16 as u64);
 							}
-							call_write_symbol!(dst, dst_next_p, imm16 as u64, symbol, &self.d.options);
 						} else {
-							call_format_number!(dst, dst_next_p, imm16 as u64, &self.d.options);
+							call_format_number!(self, dst, dst_next_p, imm16 as u64);
 						}
 					}
 
 					OpKind::Immediate32 | OpKind::Immediate8to32 => {
-						if is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
 							imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate32 {
 							imm32 = instruction.immediate32();
@@ -719,22 +885,28 @@ impl FastFormatter {
 							debug_assert_eq!(op_kind, OpKind::Immediate8to32);
 							imm32 = instruction.immediate8to32() as u32;
 						}
-						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-							symbol_resolver.symbol(instruction, operand, Some(operand), imm32 as u64, 4)
-						} else {
-							None
-						} {
-							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+							// See OpKind::NearBranch16 above for why we clone the symbols
+							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm32 as u64, 4), &mut vec)
+							} else {
+								None
+							} {
+								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
+									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+								}
+								call_write_symbol!(self, dst, dst_next_p, imm32 as u64, symbol);
+							} else {
+								call_format_number!(self, dst, dst_next_p, imm32 as u64);
 							}
-							call_write_symbol!(dst, dst_next_p, imm32 as u64, symbol, &self.d.options);
 						} else {
-							call_format_number!(dst, dst_next_p, imm32 as u64, &self.d.options);
+							call_format_number!(self, dst, dst_next_p, imm32 as u64);
 						}
 					}
 
 					OpKind::Immediate64 | OpKind::Immediate8to64 | OpKind::Immediate32to64 => {
-						if is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
 							imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate32to64 {
 							imm64 = instruction.immediate32to64() as u64;
@@ -744,17 +916,23 @@ impl FastFormatter {
 							debug_assert_eq!(op_kind, OpKind::Immediate64);
 							imm64 = instruction.immediate64();
 						}
-						if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-							symbol_resolver.symbol(instruction, operand, Some(operand), imm64, 8)
-						} else {
-							None
-						} {
-							if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-								write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+							// See OpKind::NearBranch16 above for why we clone the symbols
+							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64, 8), &mut vec)
+							} else {
+								None
+							} {
+								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
+									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+								}
+								call_write_symbol!(self, dst, dst_next_p, imm64, symbol);
+							} else {
+								call_format_number!(self, dst, dst_next_p, imm64);
 							}
-							call_write_symbol!(dst, dst_next_p, imm64, symbol, &self.d.options);
 						} else {
-							call_format_number!(dst, dst_next_p, imm64, &self.d.options);
+							call_format_number!(self, dst, dst_next_p, imm64);
 						}
 					}
 
@@ -951,22 +1129,22 @@ impl FastFormatter {
 			}
 		}
 
-		FastFormatter::SHOW_USELESS_PREFIXES
+		SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
 	}
 
 	#[inline]
 	#[must_use]
-	fn format_register(d: &SelfData, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, register: Register) -> *mut u8 {
+	fn format_register(&self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, register: Register) -> *mut u8 {
 		// SAFETY: all Register values are valid indexes
-		let reg_str = unsafe { *d.all_registers.get_unchecked(register as usize) };
+		let reg_str = unsafe { *self.d.all_registers.get_unchecked(register as usize) };
 		write_fast_str!(dst, dst_next_p, FastStringRegister, reg_str);
 		dst_next_p
 	}
 
 	#[must_use]
-	fn format_number(dst: &mut Vec<u8>, mut dst_next_p: *mut u8, value: u64, options: &FastFormatterOptions) -> *mut u8 {
+	fn format_number(&self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, value: u64) -> *mut u8 {
 		macro_rules! format_number_impl {
-			($dst:ident, $dst_next_p:ident, $value:ident, $use_hex_prefix:literal, $uppercase_hex:literal) => {{
+			($dst:ident, $dst_next_p:ident, $value:ident, $uppercase_hex:literal, $use_hex_prefix:literal) => {{
 				if $use_hex_prefix {
 					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x020x  ");
 					write_fast_str!($dst, $dst_next_p, FastString4, FAST_STR);
@@ -982,7 +1160,7 @@ impl FastFormatter {
 						$dst_next_p
 					} else {
 						// 1 (possible '0' prefix) + 1 (hex digit) + 1 ('h' suffix)
-						verify_vec_bytes_left!($dst, $dst_next_p, 1 + 1 + 1);
+						verify_output_has_enough_bytes_left!($dst, $dst_next_p, 1 + 1 + 1);
 						if $value > 9 {
 							write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
 						}
@@ -1005,7 +1183,7 @@ impl FastFormatter {
 						// 1 (possible '0' prefix) + 2 (hex digits) + 2 since
 						// write_fast_hex2_rw_4bytes!() reads/writes 4 bytes and not 2.
 						// '+2' also includes the 'h' suffix.
-						verify_vec_bytes_left!($dst, $dst_next_p, 1 + 2 + 2);
+						verify_output_has_enough_bytes_left!($dst, $dst_next_p, 1 + 2 + 2);
 						if $value > 0x9F {
 							write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
 						}
@@ -1017,13 +1195,13 @@ impl FastFormatter {
 						$dst_next_p
 					}
 				} else {
-					let mut rshift = (((64 - u64::leading_zeros($value)) + 3) & !3) as usize;
+					let mut rshift = ((64 - u64::leading_zeros($value) + 3) & !3) as usize;
 
 					// The first '1' is an optional '0' prefix.
 					// `rshift / 4` == number of hex digits to copy. The last `+ 2` is the extra padding needed
 					// since the write_fast_hex2_rw_4bytes!() macro reads and writes 4 bytes (2 hex digits + 2 bytes padding).
 					// '+2' also includes the 'h' suffix.
-					verify_vec_bytes_left!($dst, $dst_next_p, 1 + rshift / 4 + 2);
+					verify_output_has_enough_bytes_left!($dst, $dst_next_p, 1 + rshift / 4 + 2);
 
 					if !$use_hex_prefix && (($value >> (rshift - 4)) & 0xF) > 9 {
 						write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
@@ -1065,27 +1243,32 @@ impl FastFormatter {
 			}};
 		}
 
-		match options.options1 & (Flags1::UPPERCASE_HEX | Flags1::USE_HEX_PREFIX) {
-			// It's first because this is the default options
-			Flags1::UPPERCASE_HEX => format_number_impl!(dst, dst_next_p, value, false, true),
-			0 => format_number_impl!(dst, dst_next_p, value, false, false),
-			Flags1::USE_HEX_PREFIX => format_number_impl!(dst, dst_next_p, value, true, false),
-			_ => format_number_impl!(dst, dst_next_p, value, true, true),
+		if TraitOptions::uppercase_hex(&self.d.options) {
+			if TraitOptions::use_hex_prefix(&self.d.options) {
+				format_number_impl!(dst, dst_next_p, value, true, true)
+			} else {
+				format_number_impl!(dst, dst_next_p, value, true, false)
+			}
+		} else {
+			if TraitOptions::use_hex_prefix(&self.d.options) {
+				format_number_impl!(dst, dst_next_p, value, false, true)
+			} else {
+				format_number_impl!(dst, dst_next_p, value, false, false)
+			}
 		}
 	}
 
 	#[inline]
 	#[must_use]
-	fn write_symbol(dst: &mut Vec<u8>, mut dst_next_p: *mut u8, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions) -> *mut u8 {
-		call_write_symbol2!(dst, dst_next_p, address, symbol, options, true);
+	fn write_symbol(&self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, address: u64, symbol: &SymbolResult<'_>) -> *mut u8 {
+		call_write_symbol2!(self, dst, dst_next_p, address, symbol, true);
 		dst_next_p
 	}
 
 	#[cold]
 	#[must_use]
 	fn write_symbol2(
-		dst: &mut Vec<u8>, mut dst_next_p: *mut u8, address: u64, symbol: &SymbolResult<'_>, options: &FastFormatterOptions,
-		write_minus_if_signed: bool,
+		&self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, address: u64, symbol: &SymbolResult<'_>, write_minus_if_signed: bool,
 	) -> *mut u8 {
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
 		if (symbol.flags & SymbolFlags::SIGNED) != 0 {
@@ -1128,12 +1311,12 @@ impl FastFormatter {
 				'+'
 			};
 			write_fast_ascii_char!(dst, dst_next_p, c, true);
-			call_format_number!(dst, dst_next_p, displ as u64, options);
+			call_format_number!(self, dst, dst_next_p, displ as u64);
 		}
-		if options.show_symbol_address() {
+		if TraitOptions::show_symbol_address(&self.d.options) {
 			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02 (  ");
 			write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
-			call_format_number!(dst, dst_next_p, address, options);
+			call_format_number!(self, dst, dst_next_p, address);
 			write_fast_ascii_char_lit!(dst, dst_next_p, ')', true);
 		}
 
@@ -1151,7 +1334,7 @@ impl FastFormatter {
 		let abs_addr;
 		if base_reg == Register::RIP {
 			abs_addr = displ as u64;
-			if self.d.options.rip_relative_addresses() {
+			if TraitOptions::rip_relative_addresses(&self.d.options) {
 				displ = displ.wrapping_sub(instruction.next_ip() as i64);
 			} else {
 				debug_assert_eq!(index_reg, Register::None);
@@ -1160,7 +1343,7 @@ impl FastFormatter {
 			displ_size = 8;
 		} else if base_reg == Register::EIP {
 			abs_addr = displ as u32 as u64;
-			if self.d.options.rip_relative_addresses() {
+			if TraitOptions::rip_relative_addresses(&self.d.options) {
 				displ = (displ as u32).wrapping_sub(instruction.next_ip32()) as i32 as i64;
 			} else {
 				debug_assert_eq!(index_reg, Register::None);
@@ -1170,12 +1353,6 @@ impl FastFormatter {
 		} else {
 			abs_addr = displ as u64;
 		}
-
-		let symbol = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-			symbol_resolver.symbol(instruction, operand, Some(operand), abs_addr, addr_size)
-		} else {
-			None
-		};
 
 		let mut use_scale = scale != 0;
 		if !use_scale {
@@ -1188,10 +1365,11 @@ impl FastFormatter {
 			use_scale = false;
 		}
 
-		// SAFETY: all Code values are valid indexes
-		let flags = unsafe { *self.d.code_flags.get_unchecked(instruction.code() as usize) };
-		let show_mem_size =
-			(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || instruction.is_broadcast() || self.d.options.always_show_memory_size();
+		let show_mem_size = TraitOptions::always_show_memory_size(&self.d.options) || {
+			// SAFETY: all Code values are valid indexes
+			let flags = unsafe { *self.d.code_flags.get_unchecked(instruction.code() as usize) };
+			(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || instruction.is_broadcast()
+		};
 		if show_mem_size {
 			// SAFETY: all MemorySize values are valid indexes
 			let keywords = unsafe { *self.d.all_memory_sizes.get_unchecked(instruction.memory_size() as usize) };
@@ -1204,11 +1382,11 @@ impl FastFormatter {
 			&& is_notrack_prefix_branch(instruction.code())
 			&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
 				&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP));
-		if self.d.options.always_show_segment_register()
+		if TraitOptions::always_show_segment_register(&self.d.options)
 			|| (seg_override != Register::None
 				&& !notrack_prefix
-				&& (FastFormatter::SHOW_USELESS_PREFIXES
-					|| show_segment_prefix_bool(Register::None, instruction, FastFormatter::SHOW_USELESS_PREFIXES)))
+				&& (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
+					|| show_segment_prefix_bool(Register::None, instruction, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)))
 		{
 			call_format_register!(self, dst, dst_next_p, seg_reg);
 			write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
@@ -1235,43 +1413,61 @@ impl FastFormatter {
 			}
 		}
 
-		if let Some(ref symbol) = symbol {
-			if need_plus {
-				let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { '-' } else { '+' };
-				write_fast_ascii_char!(dst, dst_next_p, c, true);
-			} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '-', true);
-			}
+		macro_rules! else_block {
+			($slf:ident, $dst:ident, $dst_next_p:ident, $need_plus:ident, $displ_size:ident, $displ:ident, $addr_size:ident) => {
+				if !$need_plus || ($displ_size != 0 && $displ != 0) {
+					if $need_plus {
+						let c = if $addr_size == 8 {
+							if $displ < 0 {
+								$displ = $displ.wrapping_neg();
+								'-'
+							} else {
+								'+'
+							}
+						} else if $addr_size == 4 {
+							if ($displ as i32) < 0 {
+								$displ = ($displ as i32).wrapping_neg() as u32 as i64;
+								'-'
+							} else {
+								'+'
+							}
+						} else {
+							debug_assert_eq!($addr_size, 2);
+							if ($displ as i16) < 0 {
+								$displ = ($displ as i16).wrapping_neg() as u16 as i64;
+								'-'
+							} else {
+								'+'
+							}
+						};
+						write_fast_ascii_char!($dst, $dst_next_p, c, true);
+					}
+					call_format_number!($slf, $dst, $dst_next_p, $displ as u64);
+				}
+			};
+		}
 
-			call_write_symbol2!(dst, dst_next_p, abs_addr, symbol, &self.d.options, false);
-		} else if !need_plus || (displ_size != 0 && displ != 0) {
-			if need_plus {
-				let c = if addr_size == 8 {
-					if displ < 0 {
-						displ = displ.wrapping_neg();
-						'-'
-					} else {
-						'+'
-					}
-				} else if addr_size == 4 {
-					if (displ as i32) < 0 {
-						displ = (displ as i32).wrapping_neg() as u32 as i64;
-						'-'
-					} else {
-						'+'
-					}
-				} else {
-					debug_assert_eq!(addr_size, 2);
-					if (displ as i16) < 0 {
-						displ = (displ as i16).wrapping_neg() as u16 as i64;
-						'-'
-					} else {
-						'+'
-					}
-				};
-				write_fast_ascii_char!(dst, dst_next_p, c, true);
+		if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+			// See OpKind::NearBranch16 in format() for why we clone the symbols
+			let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+			if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+				to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), abs_addr, addr_size), &mut vec)
+			} else {
+				None
+			} {
+				if need_plus {
+					let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { '-' } else { '+' };
+					write_fast_ascii_char!(dst, dst_next_p, c, true);
+				} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
+					write_fast_ascii_char_lit!(dst, dst_next_p, '-', true);
+				}
+
+				call_write_symbol2!(self, dst, dst_next_p, abs_addr, symbol, false);
+			} else {
+				else_block!(self, dst, dst_next_p, need_plus, displ_size, displ, addr_size);
 			}
-			call_format_number!(dst, dst_next_p, displ as u64, &self.d.options);
+		} else {
+			else_block!(self, dst, dst_next_p, need_plus, displ_size, displ, addr_size);
 		}
 
 		write_fast_ascii_char_lit!(dst, dst_next_p, ']', true);
@@ -1279,3 +1475,75 @@ impl FastFormatter {
 		dst_next_p
 	}
 }
+
+/// Fast formatter with less formatting options and with a masm-like syntax.
+/// Use it if formatting speed is more important than being able to re-assemble formatted instructions.
+///
+/// This is a variant of [`SpecializedFormatter<TraitOptions>`] and allows changing the
+/// formatter options at runtime and the use of a symbol resolver. For fastest possible
+/// speed and smallest code, the options should be hard coded, so see [`SpecializedFormatter<TraitOptions>`].
+///
+/// This formatter is ~2.6x faster than the gas/intel/masm/nasm formatters (the time includes decoding + formatting).
+///
+/// [`SpecializedFormatter<TraitOptions>`]: struct.SpecializedFormatter.html
+///
+/// # Examples
+///
+/// ```
+/// use iced_x86::*;
+///
+/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+/// let instr = decoder.decode();
+///
+/// let mut output = String::new();
+/// let mut formatter = FastFormatter::new();
+/// formatter.options_mut().set_space_after_operand_separator(true);
+/// formatter.format(&instr, &mut output);
+/// assert_eq!(output, "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]");
+/// ```
+///
+/// Using a symbol resolver:
+///
+/// ```
+/// use iced_x86::*;
+/// use std::collections::HashMap;
+///
+/// let bytes = b"\x48\x8B\x8A\xA5\x5A\xA5\x5A";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+/// let instr = decoder.decode();
+///
+/// struct MySymbolResolver { map: HashMap<u64, String> }
+/// impl SymbolResolver for MySymbolResolver {
+///     fn symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>,
+///          address: u64, address_size: u32) -> Option<SymbolResult> {
+///         if let Some(symbol_string) = self.map.get(&address) {
+///             // The 'address' arg is the address of the symbol and doesn't have to be identical
+///             // to the 'address' arg passed to symbol(). If it's different from the input
+///             // address, the formatter will add +N or -N, eg. '[rax+symbol+123]'
+///             Some(SymbolResult::with_str(address, symbol_string.as_str()))
+///         } else {
+///             None
+///         }
+///     }
+/// }
+///
+/// // Hard code the symbols, it's just an example!😄
+/// let mut sym_map: HashMap<u64, String> = HashMap::new();
+/// sym_map.insert(0x5AA55AA5, String::from("my_data"));
+///
+/// let mut output = String::new();
+/// let resolver = Box::new(MySymbolResolver { map: sym_map });
+/// let mut formatter = FastFormatter::try_with_options(Some(resolver)).unwrap();
+/// formatter.format(&instr, &mut output);
+/// assert_eq!("mov rcx,[rdx+my_data]", output);
+/// ```
+pub type FastFormatter = SpecializedFormatter<DefaultFastFormatterTraitOptions>;
+
+/// Default [`SpecializedFormatter<TraitOptions>`] options. It doesn't override any `const` or `fn`
+///
+/// [`SpecializedFormatter<TraitOptions>`]: struct.SpecializedFormatter.html
+#[allow(missing_copy_implementations)]
+#[allow(missing_debug_implementations)]
+pub struct DefaultSpecializedFormatterTraitOptions;
+impl SpecializedFormatterTraitOptions for DefaultSpecializedFormatterTraitOptions {}

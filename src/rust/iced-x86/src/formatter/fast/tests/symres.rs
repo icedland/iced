@@ -55,7 +55,7 @@ fn test_long_symbols() {
 			// Don't re-use it, always create a new one
 			let mut output = String::new();
 			let resolver = LongSymbolResolver { symbol_result: core::iter::repeat('a').take(symbol_len).collect(), instruction_operand: op };
-			let mut formatter = FastFormatter::with_options(Some(Box::new(resolver)));
+			let mut formatter = FastFormatter::try_with_options(Some(Box::new(resolver))).unwrap();
 			formatter.format(&instr, &mut output);
 			assert!(output.len() >= symbol_len);
 		}

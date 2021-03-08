@@ -1,0 +1,224 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2018-present iced project and contributors
+
+use crate::formatter::fast::options::FastFormatterOptions;
+
+/// A trait that allows you to hard code some formatter options which can make
+/// the formatter faster and use less code.
+///
+/// The implementing struct can return hard coded values and/or return a value from the
+/// passed in options. If it returns the value from the passed in options, that option can
+/// be modified at runtime by calling `formatter.options_mut().set_<option>(new_value)`,
+/// else it's ignored and calling that method has no effect (except wasting CPU cycles).
+///
+/// Every `fn` must be a pure function and must return a value from the `options` input or
+/// a literal (`true` or `false`). Returning a literal is recommended since the compiler can
+/// remove unused formatter code.
+///
+/// # Fastest possible speed
+///
+/// For fastest possible speed, you should *not* enable the `db` feature (or you should set [`SUPPORTS_DB_DW_DD_DQ`] to `false`)
+/// and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
+///
+/// [`SUPPORTS_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.SUPPORTS_DB_DW_DD_DQ
+/// [`verify_output_has_enough_bytes_left()`]: trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
+///
+/// ```
+/// use iced_x86::*;
+///
+/// struct MySpecializedFormatterTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+///     // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
+///     const SUPPORTS_DB_DW_DD_DQ: bool = false;
+///     // It reserves 300 bytes at the start of format() which is enough for all
+///     // instructions. See the docs for more info.
+///     unsafe fn verify_output_has_enough_bytes_left() -> bool {
+///         false
+///     }
+/// }
+/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+///
+/// // Assume this is a big slice and not just one instruction
+/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+///
+/// let mut output = String::new();
+/// let mut instruction = Instruction::default();
+/// let mut formatter = MySpecializedFormatter::new();
+/// while decoder.can_decode() {
+///     decoder.decode_out(&mut instruction);
+///     output.clear();
+///     formatter.format(&instruction, &mut output);
+///     // do something with 'output' here, eg.:
+///     //     println!("{}", output);
+/// }
+/// ```
+///
+/// See [`SpecializedFormatter<TraitOptions>`] for more examples
+///
+/// [`SpecializedFormatter<TraitOptions>`]: struct.SpecializedFormatter.html
+pub trait SpecializedFormatterTraitOptions {
+	/// Enables support for a symbol resolver. This is disabled by default. If this
+	/// is disabled, you must not pass in a symbol resolver to the constructor.
+	///
+	/// For fastest speed, this should be *disabled*, not enabled.
+	const ENABLE_SYMBOL_RESOLVER: bool = false;
+
+	/// Enables support for formatting `db`, `dw`, `dd`, `dq`. This is enabled if
+	/// the `db` feature is enabled (unsafe, read the docs).
+	///
+	/// For fastest speed, this should be *disabled*, not enabled.
+	const SUPPORTS_DB_DW_DD_DQ: bool = cfg!(feature = "db");
+
+	/// The formatter makes sure that the `output` string has at least 300 bytes left at
+	/// the start of `format()` and also after appending symbols to `output`. This is enough
+	/// space for all formatted instructions.
+	///
+	/// *No formatted instruction will ever get close to being 300 bytes long!*
+	///
+	/// If this function returns `false`, the formatter won't verify that it has
+	/// enough bytes left when writing to the `output` string. Note that it will
+	/// always reserve at least 300 bytes at the start of `format()` and after
+	/// appending symbols.
+	///
+	/// For fastest speed, this method should return `false`. Default is `true`.
+	///
+	/// # Safety
+	///
+	/// See the above description.
+	#[must_use]
+	#[inline]
+	unsafe fn verify_output_has_enough_bytes_left() -> bool {
+		// It's not possible to create 'unsafe const' items so we use a fn here
+		true
+	}
+
+	/// Add a space after the operand separator
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// &nbsp; | `true` | `mov rax, rcx`
+	/// ✔️ | `false` | `mov rax,rcx`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn space_after_operand_separator(_options: &FastFormatterOptions) -> bool {
+		false
+	}
+
+	/// Show `RIP+displ` or the virtual address
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// ✔️ | `true` | `mov eax,[rip+12345678h]`
+	/// &nbsp; | `false` | `mov eax,[1029384756AFBECDh]`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn rip_relative_addresses(_options: &FastFormatterOptions) -> bool {
+		true
+	}
+
+	/// Use pseudo instructions
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// &nbsp; | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
+	/// ✔️ | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn use_pseudo_ops(_options: &FastFormatterOptions) -> bool {
+		false
+	}
+
+	/// Show the original value after the symbol name
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// &nbsp; | `true` | `mov eax,[myfield (12345678)]`
+	/// ✔️ | `false` | `mov eax,[myfield]`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn show_symbol_address(_options: &FastFormatterOptions) -> bool {
+		false
+	}
+
+	/// Always show the effective segment register. If the option is `false`, only show the segment register if
+	/// there's a segment override prefix.
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// &nbsp; | `true` | `mov eax,ds:[ecx]`
+	/// ✔️ | `false` | `mov eax,[ecx]`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn always_show_segment_register(_options: &FastFormatterOptions) -> bool {
+		false
+	}
+
+	/// Always show the size of memory operands
+	///
+	/// Default | Value | Example | Example
+	/// --------|-------|---------|--------
+	/// &nbsp; | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
+	/// ✔️ | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn always_show_memory_size(_options: &FastFormatterOptions) -> bool {
+		false
+	}
+
+	/// Use uppercase hex digits
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// ✔️ | `true` | `0xFF`
+	/// &nbsp; | `false` | `0xff`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn uppercase_hex(_options: &FastFormatterOptions) -> bool {
+		true
+	}
+
+	/// Use a hex prefix (`0x`) or a hex suffix (`h`)
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// ✔️ | `true` | `0x5A`
+	/// &nbsp; | `false` | `5Ah`
+	///
+	/// # Arguments
+	///
+	/// * `options`: Current formatter options
+	#[must_use]
+	#[inline]
+	fn use_hex_prefix(_options: &FastFormatterOptions) -> bool {
+		true
+	}
+}

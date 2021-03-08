@@ -1,23 +1,23 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-pub(super) struct Flags1;
+struct Flags1;
 impl Flags1 {
-	pub(super) const SPACE_AFTER_OPERAND_SEPARATOR: u32 = 0x0000_0001;
-	pub(super) const RIP_RELATIVE_ADDRESSES: u32 = 0x0000_0002;
-	pub(super) const USE_PSEUDO_OPS: u32 = 0x0000_0004;
-	pub(super) const SHOW_SYMBOL_ADDRESS: u32 = 0x0000_0008;
-	pub(super) const ALWAYS_SHOW_SEGMENT_REGISTER: u32 = 0x0000_0010;
-	pub(super) const ALWAYS_SHOW_MEMORY_SIZE: u32 = 0x0000_0020;
-	pub(super) const UPPERCASE_HEX: u32 = 0x0000_0040;
-	pub(super) const USE_HEX_PREFIX: u32 = 0x0000_0080;
+	const SPACE_AFTER_OPERAND_SEPARATOR: u32 = 0x0000_0001;
+	const RIP_RELATIVE_ADDRESSES: u32 = 0x0000_0002;
+	const USE_PSEUDO_OPS: u32 = 0x0000_0004;
+	const SHOW_SYMBOL_ADDRESS: u32 = 0x0000_0008;
+	const ALWAYS_SHOW_SEGMENT_REGISTER: u32 = 0x0000_0010;
+	const ALWAYS_SHOW_MEMORY_SIZE: u32 = 0x0000_0020;
+	const UPPERCASE_HEX: u32 = 0x0000_0040;
+	const USE_HEX_PREFIX: u32 = 0x0000_0080;
 }
 
 /// Fast formatter options
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
 #[allow(missing_copy_implementations)]
 pub struct FastFormatterOptions {
-	pub(super) options1: u32,
+	options1: u32,
 }
 
 impl FastFormatterOptions {
