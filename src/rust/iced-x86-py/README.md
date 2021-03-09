@@ -1,6 +1,6 @@
 iced-x86 disassembler Python bindings [![pypi](https://img.shields.io/pypi/v/iced-x86.svg)](https://pypi.org/project/iced-x86/) ![Python](https://img.shields.io/pypi/pyversions/iced-x86.svg) ![License](https://img.shields.io/pypi/l/iced-x86.svg)
 
-iced-x86 is a high performance and correct x86 (16/32/64-bit) disassembler for Python.
+iced-x86 is a blazing fast and correct x86 (16/32/64-bit) disassembler for Python.
 
 - ✔️Supports all Intel and AMD instructions
 - ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed

@@ -153,85 +153,85 @@ impl SymbolResolver for MySymbolResolver {
 
 #[test]
 fn test_no_symresolver_with_options_ok1() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = false;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 	#[allow(deprecated)]
-	let _ = MySpecializedFormatter::with_options(None);
+	let _ = MyFormatter::with_options(None);
 }
 
 #[test]
 fn test_no_symresolver_with_options_ok2() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = true;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 	#[allow(deprecated)]
-	let _ = MySpecializedFormatter::with_options(None);
+	let _ = MyFormatter::with_options(None);
 }
 
 #[test]
 #[should_panic]
 fn test_symresolver_with_options_err() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = false;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 	#[allow(deprecated)]
-	let _ = MySpecializedFormatter::with_options(Some(Box::new(MySymbolResolver {})));
+	let _ = MyFormatter::with_options(Some(Box::new(MySymbolResolver {})));
 }
 
 #[test]
 fn test_symresolver_with_options_ok() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = true;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 	#[allow(deprecated)]
-	let _ = MySpecializedFormatter::with_options(Some(Box::new(MySymbolResolver {})));
+	let _ = MyFormatter::with_options(Some(Box::new(MySymbolResolver {})));
 }
 
 #[test]
 fn test_no_symresolver_try_with_options_ok1() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = false;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
-	assert!(MySpecializedFormatter::try_with_options(None).is_ok());
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
+	assert!(MyFormatter::try_with_options(None).is_ok());
 }
 
 #[test]
 fn test_no_symresolver_try_with_options_ok2() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = true;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
-	assert!(MySpecializedFormatter::try_with_options(None).is_ok());
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
+	assert!(MyFormatter::try_with_options(None).is_ok());
 }
 
 #[test]
 fn test_symresolver_try_with_options_err() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = false;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
-	assert!(MySpecializedFormatter::try_with_options(Some(Box::new(MySymbolResolver {}))).is_err());
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
+	assert!(MyFormatter::try_with_options(Some(Box::new(MySymbolResolver {}))).is_err());
 }
 
 #[test]
 fn test_symresolver_try_with_options_ok() {
-	struct MySpecializedFormatterTraitOptions;
-	impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+	struct MyTraitOptions;
+	impl SpecializedFormatterTraitOptions for MyTraitOptions {
 		const ENABLE_SYMBOL_RESOLVER: bool = true;
 	}
-	type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
-	assert!(MySpecializedFormatter::try_with_options(Some(Box::new(MySymbolResolver {}))).is_ok());
+	type MyFormatter = SpecializedFormatter<MyTraitOptions>;
+	assert!(MyFormatter::try_with_options(Some(Box::new(MySymbolResolver {}))).is_ok());
 }

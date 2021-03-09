@@ -4,9 +4,7 @@ iced-x86
 [![Minimum rustc version](https://img.shields.io/badge/rustc-1.41.0+-yellow.svg)](#minimum-supported-rustc-version)
 ![License](https://img.shields.io/crates/l/iced-x86.svg)
 
-iced-x86 is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
-
-It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
+iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
 
 - ✔️Supports all Intel and AMD instructions
 - ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
@@ -53,7 +51,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
-- `fast_fmt`: (✔️Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.1x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
+- `fast_fmt`: (✔️Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.3x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
 - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
@@ -118,7 +116,7 @@ pub(crate) fn how_to_disassemble() {
     let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
     // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
-    // For fastest speed, see `SpecializedFormatter` which is ~3.1x faster. Use it if formatting
+    // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting
     // speed is more important than being able to re-assemble formatted instructions.
     let mut formatter = NasmFormatter::new();
 
@@ -176,11 +174,11 @@ static EXAMPLE_CODE: &[u8] = &[
 
 ## Disassemble as fast as possible
 
-For fastest possible speed, you should *not* enable the `db` feature (or you should set [`SUPPORTS_DB_DW_DD_DQ`] to `false`)
+For fastest possible disassembly, you should *not* enable the `db` feature (or you should set [`ENABLE_DB_DW_DD_DQ`] to `false`)
 and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
 
-[`SUPPORTS_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.SUPPORTS_DB_DW_DD_DQ
-[`verify_output_has_enough_bytes_left()`]: trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
+[`ENABLE_DB_DW_DD_DQ`]: https://docs.rs/iced-x86/trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_DB_DW_DD_DQ
+[`verify_output_has_enough_bytes_left()`]: https://docs.rs/iced-x86/trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
 
 ```rust
 use iced_x86::{
@@ -188,17 +186,17 @@ use iced_x86::{
 };
 
 pub(crate) fn how_to_disassemble_really_fast() {
-    struct MySpecializedFormatterTraitOptions;
-    impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+    struct MyTraitOptions;
+    impl SpecializedFormatterTraitOptions for MyTraitOptions {
         // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
-        const SUPPORTS_DB_DW_DD_DQ: bool = false;
+        const ENABLE_DB_DW_DD_DQ: bool = false;
         // It reserves 300 bytes at the start of format() which is enough for all
         // instructions. See the docs for more info.
         unsafe fn verify_output_has_enough_bytes_left() -> bool {
             false
         }
     }
-    type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+    type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 
     // Assume this is a big slice and not just one instruction
     let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
@@ -206,7 +204,7 @@ pub(crate) fn how_to_disassemble_really_fast() {
 
     let mut output = String::new();
     let mut instruction = Instruction::default();
-    let mut formatter = MySpecializedFormatter::new();
+    let mut formatter = MyFormatter::new();
     while decoder.can_decode() {
         decoder.decode_out(&mut instruction);
         output.clear();

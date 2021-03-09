@@ -355,7 +355,7 @@ struct FmtTableData {
 /// See also [`FastFormatter`] which allows changing the options at runtime at the cost of
 /// being a little bit slower and using a little bit more code.
 ///
-/// This formatter is ~3.1x faster than the gas/intel/masm/nasm formatters (the time includes decoding + formatting).
+/// This formatter is ~3.3x faster than the gas/intel/masm/nasm formatters (the time includes decoding + formatting).
 ///
 /// [`SpecializedFormatterTraitOptions`]: trait.SpecializedFormatterTraitOptions.html
 /// [`FastFormatter`]: type.FastFormatter.html
@@ -371,8 +371,8 @@ struct FmtTableData {
 ///
 /// // If you like the default options, you can also use DefaultSpecializedFormatterTraitOptions
 /// // instead of impl the options trait.
-/// struct MySpecializedFormatterTraitOptions;
-/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+/// struct MyTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MyTraitOptions {
 ///     fn space_after_operand_separator(_options: &FastFormatterOptions) -> bool {
 ///         // We hard code the value to `true` which means it's not possible to
 ///         // change this option at runtime, i.e., this will do nothing:
@@ -386,36 +386,36 @@ struct FmtTableData {
 ///         options.rip_relative_addresses()
 ///     }
 /// }
-/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+/// type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 ///
 /// let mut output = String::new();
-/// let mut formatter = MySpecializedFormatter::new();
+/// let mut formatter = MyFormatter::new();
 /// formatter.format(&instr, &mut output);
 /// assert_eq!(output, "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+0x4]");
 /// ```
 ///
-/// # Fastest possible speed
+/// # Fastest possible disassembly
 ///
-/// For fastest possible speed, you should *not* enable the `db` feature (or you should set [`SUPPORTS_DB_DW_DD_DQ`] to `false`)
+/// For fastest possible disassembly, you should *not* enable the `db` feature (or you should set [`ENABLE_DB_DW_DD_DQ`] to `false`)
 /// and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
 ///
-/// [`SUPPORTS_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.SUPPORTS_DB_DW_DD_DQ
+/// [`ENABLE_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_DB_DW_DD_DQ
 /// [`verify_output_has_enough_bytes_left()`]: trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
 ///
 /// ```
 /// use iced_x86::*;
 ///
-/// struct MySpecializedFormatterTraitOptions;
-/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+/// struct MyTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MyTraitOptions {
 ///     // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
-///     const SUPPORTS_DB_DW_DD_DQ: bool = false;
+///     const ENABLE_DB_DW_DD_DQ: bool = false;
 ///     // It reserves 300 bytes at the start of format() which is enough for all
 ///     // instructions. See the docs for more info.
 ///     unsafe fn verify_output_has_enough_bytes_left() -> bool {
 ///         false
 ///     }
 /// }
-/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+/// type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 ///
 /// // Assume this is a big slice and not just one instruction
 /// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
@@ -423,7 +423,7 @@ struct FmtTableData {
 ///
 /// let mut output = String::new();
 /// let mut instruction = Instruction::default();
-/// let mut formatter = MySpecializedFormatter::new();
+/// let mut formatter = MyFormatter::new();
 /// while decoder.can_decode() {
 ///     decoder.decode_out(&mut instruction);
 ///     output.clear();
@@ -445,11 +445,11 @@ struct FmtTableData {
 /// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 /// let instr = decoder.decode();
 ///
-/// struct MySpecializedFormatterTraitOptions;
-/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+/// struct MyTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MyTraitOptions {
 ///     const ENABLE_SYMBOL_RESOLVER: bool = true;
 /// }
-/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+/// type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 ///
 /// struct MySymbolResolver { map: HashMap<u64, String> }
 /// impl SymbolResolver for MySymbolResolver {
@@ -472,7 +472,7 @@ struct FmtTableData {
 ///
 /// let mut output = String::new();
 /// let resolver = Box::new(MySymbolResolver { map: sym_map });
-/// let mut formatter = MySpecializedFormatter::try_with_options(Some(resolver)).unwrap();
+/// let mut formatter = MyFormatter::try_with_options(Some(resolver)).unwrap();
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("mov rcx,[rdx+my_data]", output);
 /// ```
@@ -695,7 +695,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		write_fast_str!(dst, dst_next_p, FastStringMnemonic, mnemonic);
 
 		let is_declare_data;
-		let declare_data_kind = if !(cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ) {
+		let declare_data_kind = if !(cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ) {
 			is_declare_data = false;
 			OpKind::Register
 		} else if (code as u32).wrapping_sub(Code::DeclareByte as u32) <= (Code::DeclareQword as u32 - Code::DeclareByte as u32) {
@@ -733,7 +733,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				let imm32;
 				let imm64;
 				let imm_size;
-				let op_kind = if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
+				let op_kind = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 					declare_data_kind
 				} else {
 					instruction.try_op_kind(operand).unwrap_or(OpKind::Register)
@@ -819,7 +819,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					}
 
 					OpKind::Immediate8 | OpKind::Immediate8_2nd => {
-						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 							imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate8 {
 							imm8 = instruction.immediate8();
@@ -848,7 +848,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					}
 
 					OpKind::Immediate16 | OpKind::Immediate8to16 => {
-						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 							imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate16 {
 							imm16 = instruction.immediate16();
@@ -877,7 +877,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					}
 
 					OpKind::Immediate32 | OpKind::Immediate8to32 => {
-						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 							imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate32 {
 							imm32 = instruction.immediate32();
@@ -906,7 +906,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					}
 
 					OpKind::Immediate64 | OpKind::Immediate8to64 | OpKind::Immediate32to64 => {
-						if cfg!(feature = "db") && TraitOptions::SUPPORTS_DB_DW_DD_DQ && is_declare_data {
+						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 							imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
 						} else if op_kind == OpKind::Immediate32to64 {
 							imm64 = instruction.immediate32to64() as u64;
@@ -1245,14 +1245,18 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 		if TraitOptions::uppercase_hex(&self.d.options) {
 			if TraitOptions::use_hex_prefix(&self.d.options) {
+				// 0x12AB
 				format_number_impl!(dst, dst_next_p, value, true, true)
 			} else {
+				// 12ABh
 				format_number_impl!(dst, dst_next_p, value, true, false)
 			}
 		} else {
 			if TraitOptions::use_hex_prefix(&self.d.options) {
+				// 0x12ab
 				format_number_impl!(dst, dst_next_p, value, false, true)
 			} else {
+				// 12abh
 				format_number_impl!(dst, dst_next_p, value, false, false)
 			}
 		}
@@ -1483,7 +1487,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 /// formatter options at runtime and the use of a symbol resolver. For fastest possible
 /// speed and smallest code, the options should be hard coded, so see [`SpecializedFormatter<TraitOptions>`].
 ///
-/// This formatter is ~2.6x faster than the gas/intel/masm/nasm formatters (the time includes decoding + formatting).
+/// This formatter is ~2.8x faster than the gas/intel/masm/nasm formatters (the time includes decoding + formatting).
 ///
 /// [`SpecializedFormatter<TraitOptions>`]: struct.SpecializedFormatter.html
 ///
@@ -1503,7 +1507,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 /// assert_eq!(output, "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]");
 /// ```
 ///
-/// Using a symbol resolver:
+/// # Using a symbol resolver
 ///
 /// ```
 /// use iced_x86::*;

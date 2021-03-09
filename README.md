@@ -2,9 +2,7 @@
 
 <img align="right" width="160px" height="160px" src="logo.png">
 
-iced is a high performance and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler.
-
-It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
+iced is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler.
 
 - ✔️Supports all Intel and AMD instructions
 - ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed

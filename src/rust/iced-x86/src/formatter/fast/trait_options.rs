@@ -15,28 +15,28 @@ use crate::formatter::fast::options::FastFormatterOptions;
 /// a literal (`true` or `false`). Returning a literal is recommended since the compiler can
 /// remove unused formatter code.
 ///
-/// # Fastest possible speed
+/// # Fastest possible disassembly
 ///
-/// For fastest possible speed, you should *not* enable the `db` feature (or you should set [`SUPPORTS_DB_DW_DD_DQ`] to `false`)
+/// For fastest possible disassembly, you should *not* enable the `db` feature (or you should set [`ENABLE_DB_DW_DD_DQ`] to `false`)
 /// and you should also override the unsafe [`verify_output_has_enough_bytes_left()`] and return `false`.
 ///
-/// [`SUPPORTS_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.SUPPORTS_DB_DW_DD_DQ
+/// [`ENABLE_DB_DW_DD_DQ`]: trait.SpecializedFormatterTraitOptions.html#associatedconstant.ENABLE_DB_DW_DD_DQ
 /// [`verify_output_has_enough_bytes_left()`]: trait.SpecializedFormatterTraitOptions.html#method.verify_output_has_enough_bytes_left
 ///
 /// ```
 /// use iced_x86::*;
 ///
-/// struct MySpecializedFormatterTraitOptions;
-/// impl SpecializedFormatterTraitOptions for MySpecializedFormatterTraitOptions {
+/// struct MyTraitOptions;
+/// impl SpecializedFormatterTraitOptions for MyTraitOptions {
 ///     // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
-///     const SUPPORTS_DB_DW_DD_DQ: bool = false;
+///     const ENABLE_DB_DW_DD_DQ: bool = false;
 ///     // It reserves 300 bytes at the start of format() which is enough for all
 ///     // instructions. See the docs for more info.
 ///     unsafe fn verify_output_has_enough_bytes_left() -> bool {
 ///         false
 ///     }
 /// }
-/// type MySpecializedFormatter = SpecializedFormatter<MySpecializedFormatterTraitOptions>;
+/// type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 ///
 /// // Assume this is a big slice and not just one instruction
 /// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
@@ -44,7 +44,7 @@ use crate::formatter::fast::options::FastFormatterOptions;
 ///
 /// let mut output = String::new();
 /// let mut instruction = Instruction::default();
-/// let mut formatter = MySpecializedFormatter::new();
+/// let mut formatter = MyFormatter::new();
 /// while decoder.can_decode() {
 ///     decoder.decode_out(&mut instruction);
 ///     output.clear();
@@ -61,14 +61,14 @@ pub trait SpecializedFormatterTraitOptions {
 	/// Enables support for a symbol resolver. This is disabled by default. If this
 	/// is disabled, you must not pass in a symbol resolver to the constructor.
 	///
-	/// For fastest speed, this should be *disabled*, not enabled.
+	/// For fastest code, this should be *disabled*, not enabled.
 	const ENABLE_SYMBOL_RESOLVER: bool = false;
 
 	/// Enables support for formatting `db`, `dw`, `dd`, `dq`. This is enabled if
 	/// the `db` feature is enabled (unsafe, read the docs).
 	///
-	/// For fastest speed, this should be *disabled*, not enabled.
-	const SUPPORTS_DB_DW_DD_DQ: bool = cfg!(feature = "db");
+	/// For fastest code, this should be *disabled*, not enabled.
+	const ENABLE_DB_DW_DD_DQ: bool = cfg!(feature = "db");
 
 	/// The formatter makes sure that the `output` string has at least 300 bytes left at
 	/// the start of `format()` and also after appending symbols to `output`. This is enough
@@ -81,7 +81,7 @@ pub trait SpecializedFormatterTraitOptions {
 	/// always reserve at least 300 bytes at the start of `format()` and after
 	/// appending symbols.
 	///
-	/// For fastest speed, this method should return `false`. Default is `true`.
+	/// For fastest code, this method should return `false`. Default is `true`.
 	///
 	/// # Safety
 	///
@@ -130,7 +130,7 @@ pub trait SpecializedFormatterTraitOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// ✔️ | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// ✔️ | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
 	///
 	/// # Arguments
 	///

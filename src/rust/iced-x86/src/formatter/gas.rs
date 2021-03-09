@@ -47,7 +47,7 @@ use static_assertions::const_assert_eq;
 /// assert_eq!("VCVTNE2PS2BF16 4(%rax){1to16},%zmm6,%zmm2{%k5}{z}", output);
 /// ```
 ///
-/// Using a symbol resolver:
+/// # Using a symbol resolver
 ///
 /// ```
 /// use iced_x86::*;

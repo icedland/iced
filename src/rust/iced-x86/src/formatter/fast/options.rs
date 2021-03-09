@@ -96,7 +96,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
 	#[must_use]
 	#[inline]
 	pub fn use_pseudo_ops(&self) -> bool {
@@ -108,7 +108,7 @@ impl FastFormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
-	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
+	/// &nbsp; | `false` | `vcmpsd xmm2,xmm6,xmm3,5h`
 	///
 	/// # Arguments
 	///
