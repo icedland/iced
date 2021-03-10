@@ -10836,7 +10836,7 @@ END
 # Code: Wrmsr
 INSTRUCTION: 0F 30 | WRMSR | MSR
 	implied: r=eax;ecx;edx
-	# Not serializing if writing to some MSRs (Intel)
+	# Not serializing if writing to some MSRs (Intel, AMD)
 	flags: cpl0 serialize-intel serialize-amd intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
 END
 
