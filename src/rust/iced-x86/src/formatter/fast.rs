@@ -41,11 +41,11 @@ use static_assertions::{const_assert, const_assert_eq};
 // op = "0x123456789ABCDEF0"
 // op = "0x1234:0x12345678"
 // op = "zmm31"
-// op = "offset symbol"
+// op = "offset symbol (123456789ABCDEF0)"
 //		- symbol can have any length
 // <decorators1> = "{k3}{z}"
 // <decorators2> = "{rn-sae}"
-// symbol = any length
+// symbol = any length + optional address " (123456789ABCDEF0)"
 // full = "es xacquire xrelease lock notrack repe repne prefetch_exclusive fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{k3}{z}, fpustate108 ptr fs:[rax+zmm31*8+0x12345678], fpustate108 ptr fs:[rax+zmm31*8+0x12345678], fpustate108 ptr fs:[rax+zmm31*8+0x12345678], fpustate108 ptr fs:[rax+zmm31*8+0x12345678]{rn-sae}"
 //		- it's not possible to have 5 `fpustate108 ptr fs:[rax+zmm31*8+0x12345678]` operands
 //		  so we'll never get a formatted string this long if there's no symbol resolver.
@@ -321,10 +321,203 @@ macro_rules! call_write_symbol2 {
 		$dst_next_p = $slf.write_symbol2($dst, $dst_next_p, $imm, $sym, $write_minus_if_signed);
 	};
 }
+macro_rules! format_memory_else_block {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $need_plus:ident, $displ_size:ident, $displ:ident, $addr_size:ident) => {
+		if !$need_plus || ($displ_size != 0 && $displ != 0) {
+			if $need_plus {
+				let c = if $addr_size == 8 {
+					if $displ < 0 {
+						$displ = $displ.wrapping_neg();
+						'-'
+					} else {
+						'+'
+					}
+				} else if $addr_size == 4 {
+					if ($displ as i32) < 0 {
+						$displ = ($displ as i32).wrapping_neg() as u32 as i64;
+						'-'
+					} else {
+						'+'
+					}
+				} else {
+					debug_assert_eq!($addr_size, 2);
+					if ($displ as i16) < 0 {
+						$displ = ($displ as i16).wrapping_neg() as u16 as i64;
+						'-'
+					} else {
+						'+'
+					}
+				};
+				write_fast_ascii_char!($dst, $dst_next_p, c, true);
+			}
+			call_format_number!($slf, $dst, $dst_next_p, $displ as u64);
+		}
+	};
+}
+// Only one caller has variable args starting from $seg_reg so this is a macro. The compiler is able
+// to remove lots of code in all the other cases with literal macro args.
+macro_rules! format_memory_code {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:expr, $seg_reg:expr, $base_reg:expr, $index_reg:expr, $scale:expr, $displ_size:expr, $displ:expr, $addr_size:expr) => {
+		#[allow(trivial_numeric_casts)]
+		#[allow(trivial_numeric_casts)]
+		{
+			let mut base_reg = $base_reg;
+			let mut displ_size: u32 = $displ_size;
+			let mut displ: i64 = $displ;
+			debug_assert!(($scale as usize) < SCALE_NUMBERS.len());
+			debug_assert!(get_address_size_in_bytes(base_reg, $index_reg, displ_size, $instruction.code_size()) == $addr_size);
+
+			let abs_addr;
+			if base_reg == Register::RIP {
+				abs_addr = displ as u64;
+				if TraitOptions::rip_relative_addresses(&$slf.d.options) {
+					displ = displ.wrapping_sub($instruction.next_ip() as i64);
+				} else {
+					debug_assert_eq!($index_reg, Register::None);
+					base_reg = Register::None;
+				}
+				displ_size = 8;
+			} else if base_reg == Register::EIP {
+				abs_addr = displ as u32 as u64;
+				if TraitOptions::rip_relative_addresses(&$slf.d.options) {
+					displ = (displ as u32).wrapping_sub($instruction.next_ip32()) as i32 as i64;
+				} else {
+					debug_assert_eq!($index_reg, Register::None);
+					base_reg = Register::None;
+				}
+				displ_size = 4;
+			} else {
+				abs_addr = displ as u64;
+			}
+
+			let mut use_scale = $scale != 0;
+			if !use_scale {
+				// [rsi] = base reg, [rsi*1] = index reg
+				if base_reg == Register::None {
+					use_scale = true;
+				}
+			}
+			if $addr_size == 2 {
+				use_scale = false;
+			}
+
+			let show_mem_size = TraitOptions::always_show_memory_size(&$slf.d.options) || {
+				// SAFETY: all Code values are valid indexes
+				let flags = unsafe { *$slf.d.code_flags.get_unchecked($instruction.code() as usize) };
+				(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || $instruction.is_broadcast()
+			};
+			if show_mem_size {
+				// SAFETY: all MemorySize values are valid indexes
+				let keywords = unsafe { *$slf.d.all_memory_sizes.get_unchecked($instruction.memory_size() as usize) };
+				write_fast_str!($dst, $dst_next_p, FastStringMemorySize, keywords);
+			}
+
+			let code_size = $instruction.code_size();
+			let seg_override = $instruction.segment_prefix();
+			let notrack_prefix = seg_override == Register::DS
+				&& is_notrack_prefix_branch($instruction.code())
+				&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
+					&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP));
+			if TraitOptions::always_show_segment_register(&$slf.d.options)
+				|| (seg_override != Register::None
+					&& !notrack_prefix
+					&& (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
+						|| show_segment_prefix_bool(Register::None, $instruction, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)))
+			{
+				call_format_register!($slf, $dst, $dst_next_p, $seg_reg);
+				write_fast_ascii_char_lit!($dst, $dst_next_p, ':', true);
+			}
+			write_fast_ascii_char_lit!($dst, $dst_next_p, '[', true);
+
+			let mut need_plus = if base_reg != Register::None {
+				call_format_register!($slf, $dst, $dst_next_p, base_reg);
+				true
+			} else {
+				false
+			};
+
+			if $index_reg != Register::None {
+				if need_plus {
+					write_fast_ascii_char_lit!($dst, $dst_next_p, '+', true);
+				}
+				need_plus = true;
+
+				call_format_register!($slf, $dst, $dst_next_p, $index_reg);
+				if use_scale {
+					let scale_str = SCALE_NUMBERS[$scale as usize];
+					write_fast_str!($dst, $dst_next_p, FastString4, scale_str);
+				}
+			}
+
+			if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+				// See OpKind::NearBranch16 in format() for why we clone the symbols
+				let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+				if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = $slf.symbol_resolver {
+					to_owned(symbol_resolver.symbol($instruction, $operand, Some($operand), abs_addr, $addr_size), &mut vec)
+				} else {
+					None
+				} {
+					if need_plus {
+						let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { '-' } else { '+' };
+						write_fast_ascii_char!($dst, $dst_next_p, c, true);
+					} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
+						write_fast_ascii_char_lit!($dst, $dst_next_p, '-', true);
+					}
+
+					call_write_symbol2!($slf, $dst, $dst_next_p, abs_addr, symbol, false);
+				} else {
+					let addr_size = $addr_size;
+					format_memory_else_block!($slf, $dst, $dst_next_p, need_plus, displ_size, displ, addr_size);
+				}
+			} else {
+				let addr_size = $addr_size;
+				format_memory_else_block!($slf, $dst, $dst_next_p, need_plus, displ_size, displ, addr_size);
+			}
+
+			write_fast_ascii_char_lit!($dst, $dst_next_p, ']', true);
+		}
+	};
+}
 macro_rules! call_format_memory {
-	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:expr, $seg_reg:expr, $base_reg:expr, $index_reg:expr, $scale:expr, $displ_size:expr, $displ:expr, $addr_size:expr $(,)?) => {
-		$dst_next_p =
-			$slf.format_memory($dst, $dst_next_p, $instruction, $operand, $seg_reg, $base_reg, $index_reg, $scale, $displ_size, $displ, $addr_size)
+	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:ident, $seg_reg:expr, $base_reg:tt, $index_reg:tt, $scale:tt, $displ_size:tt, $displ:tt, $addr_size:tt $(,)?) => {
+		// This speeds up SpecializedFormatter but slows down FastFormatter so detect which
+		// formatter it is. Both paths are tested (same tests).
+		// This is fugly but the whole point of this formatter is to be fast which can result in ugly code.
+		#[allow(unused_parens)]
+		{
+			if TraitOptions::__IS_FAST_FORMATTER {
+				// Less code: call a method
+				$dst_next_p = $slf.format_memory(
+					$dst,
+					$dst_next_p,
+					$instruction,
+					$operand,
+					$seg_reg,
+					$base_reg,
+					$index_reg,
+					$scale,
+					$displ_size,
+					$displ,
+					$addr_size,
+				)
+			} else {
+				// The options are all most likely hard coded so inline and specialize the 'method call'
+				format_memory_code!(
+					$slf,
+					$dst,
+					$dst_next_p,
+					$instruction,
+					$operand,
+					$seg_reg,
+					$base_reg,
+					$index_reg,
+					$scale,
+					$displ_size,
+					$displ,
+					$addr_size
+				)
+			}
+		}
 	};
 }
 
@@ -738,20 +931,10 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				} else {
 					instruction.try_op_kind(operand).unwrap_or(OpKind::Register)
 				};
-				match op_kind {
-					OpKind::Register => call_format_register!(self, dst, dst_next_p, instruction.try_op_register(operand).unwrap_or_default()),
 
-					OpKind::NearBranch16 | OpKind::NearBranch32 | OpKind::NearBranch64 => {
-						if op_kind == OpKind::NearBranch64 {
-							imm_size = 8;
-							imm64 = instruction.near_branch64();
-						} else if op_kind == OpKind::NearBranch32 {
-							imm_size = 4;
-							imm64 = instruction.near_branch32() as u64;
-						} else {
-							imm_size = 2;
-							imm64 = instruction.near_branch16() as u64;
-						}
+				// Share as much code as possible so put these in macros
+				macro_rules! fmt_near_branch {
+					($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $imm_size:expr, $imm:ident) => {{
 						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
 							// PERF: Symbols should be rare when using fast fmt with a symbol resolver so clone
 							// the symbol (forced by borrowck).
@@ -759,280 +942,261 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 							// we don't need to pass in the options to various methods and can instead pass in &Self
 							// (i.e., use a method instead of a func).
 							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
-							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64, imm_size), &mut vec)
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = $slf.symbol_resolver {
+								to_owned(symbol_resolver.symbol($instruction, operand, Some(operand), $imm, $imm_size), &mut vec)
 							} else {
 								None
 							} {
-								call_write_symbol!(self, dst, dst_next_p, imm64, symbol);
+								call_write_symbol!($slf, $dst, $dst_next_p, $imm, symbol);
 							} else {
-								call_format_number!(self, dst, dst_next_p, imm64);
+								call_format_number!($slf, $dst, $dst_next_p, $imm);
 							}
 						} else {
-							call_format_number!(self, dst, dst_next_p, imm64);
+							call_format_number!($slf, $dst, $dst_next_p, $imm);
 						}
-					}
-
-					OpKind::FarBranch16 | OpKind::FarBranch32 => {
-						if op_kind == OpKind::FarBranch32 {
-							imm_size = 4;
-							imm64 = instruction.far_branch32() as u64;
+					}};
+				}
+				macro_rules! fmt_far_branch {
+					($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $op_kind:ident, $imm_size_ident:ident, $imm64:ident) => {{
+						if $op_kind == OpKind::FarBranch32 {
+							$imm_size_ident = 4;
+							$imm64 = $instruction.far_branch32() as u64;
 						} else {
-							imm_size = 2;
-							imm64 = instruction.far_branch16() as u64;
+							$imm_size_ident = 2;
+							$imm64 = $instruction.far_branch16() as u64;
 						}
 						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
-							// See OpKind::NearBranch16 above for why we clone the symbols
+							// See fmt_near_branch!() above for why we clone the symbols
 							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
 							let mut vec2: Vec<SymResTextPart<'_>> = Vec::new();
-							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64 as u32 as u64, imm_size), &mut vec)
+							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = $slf.symbol_resolver {
+								to_owned(
+									symbol_resolver.symbol($instruction, operand, Some(operand), $imm64 as u32 as u64, $imm_size_ident),
+									&mut vec,
+								)
 							} else {
 								None
 							} {
 								debug_assert!(operand + 1 == 1);
-								let selector_symbol = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
+								let selector_symbol = if let Some(ref mut symbol_resolver) = $slf.symbol_resolver {
 									to_owned(
-										symbol_resolver.symbol(instruction, operand + 1, Some(operand), instruction.far_branch_selector() as u64, 2),
+										symbol_resolver.symbol(
+											$instruction,
+											operand + 1,
+											Some(operand),
+											$instruction.far_branch_selector() as u64,
+											2,
+										),
 										&mut vec2,
 									)
 								} else {
 									None
 								};
 								if let Some(ref selector_symbol) = selector_symbol {
-									call_write_symbol!(self, dst, dst_next_p, instruction.far_branch_selector() as u64, selector_symbol);
+									call_write_symbol!($slf, $dst, $dst_next_p, $instruction.far_branch_selector() as u64, selector_symbol);
 								} else {
-									call_format_number!(self, dst, dst_next_p, instruction.far_branch_selector() as u64);
+									call_format_number!($slf, $dst, $dst_next_p, $instruction.far_branch_selector() as u64);
 								}
 								write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
-								call_write_symbol!(self, dst, dst_next_p, imm64, symbol);
+								call_write_symbol!($slf, $dst, $dst_next_p, $imm64, symbol);
 							} else {
-								call_format_number!(self, dst, dst_next_p, instruction.far_branch_selector() as u64);
+								call_format_number!($slf, $dst, $dst_next_p, $instruction.far_branch_selector() as u64);
 								write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
-								call_format_number!(self, dst, dst_next_p, imm64);
+								call_format_number!($slf, $dst, $dst_next_p, $imm64);
 							}
 						} else {
-							call_format_number!(self, dst, dst_next_p, instruction.far_branch_selector() as u64);
+							call_format_number!($slf, $dst, $dst_next_p, $instruction.far_branch_selector() as u64);
 							write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
-							call_format_number!(self, dst, dst_next_p, imm64);
+							call_format_number!($slf, $dst, $dst_next_p, $imm64);
 						}
-					}
-
-					OpKind::Immediate8 | OpKind::Immediate8_2nd => {
-						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-							imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
-						} else if op_kind == OpKind::Immediate8 {
-							imm8 = instruction.immediate8();
-						} else {
-							debug_assert_eq!(op_kind, OpKind::Immediate8_2nd);
-							imm8 = instruction.immediate8_2nd();
-						}
-						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
-							// See OpKind::NearBranch16 above for why we clone the symbols
-							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
-							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm8 as u64, 1), &mut vec)
-							} else {
-								None
-							} {
-								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
+					}};
+				}
+				macro_rules! fmt_imm {
+					($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $imm:ident, $imm_size:literal) => {
+						#[allow(trivial_numeric_casts)]
+						{
+							if TraitOptions::ENABLE_SYMBOL_RESOLVER {
+								// See fmt_near_branch!() above for why we clone the symbols
+								let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
+								if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = $slf.symbol_resolver {
+									to_owned(symbol_resolver.symbol($instruction, operand, Some(operand), $imm as u64, $imm_size), &mut vec)
+								} else {
+									None
+								} {
+									if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
+										write_fast_str!($dst, $dst_next_p, FastString8, FAST_STR_OFFSET);
+									}
+									call_write_symbol!($slf, $dst, $dst_next_p, $imm as u64, symbol);
+								} else {
+									call_format_number!($slf, $dst, $dst_next_p, $imm as u64);
 								}
-								call_write_symbol!(self, dst, dst_next_p, imm8 as u64, symbol);
 							} else {
-								call_format_number!(self, dst, dst_next_p, imm8 as u64);
+								call_format_number!($slf, $dst, $dst_next_p, $imm as u64);
 							}
-						} else {
-							call_format_number!(self, dst, dst_next_p, imm8 as u64);
 						}
-					}
-
-					OpKind::Immediate16 | OpKind::Immediate8to16 => {
-						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-							imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
-						} else if op_kind == OpKind::Immediate16 {
-							imm16 = instruction.immediate16();
-						} else {
-							debug_assert_eq!(op_kind, OpKind::Immediate8to16);
-							imm16 = instruction.immediate8to16() as u16;
-						}
-						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
-							// See OpKind::NearBranch16 above for why we clone the symbols
-							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
-							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm16 as u64, 2), &mut vec)
-							} else {
-								None
-							} {
-								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
-								}
-								call_write_symbol!(self, dst, dst_next_p, imm16 as u64, symbol);
-							} else {
-								call_format_number!(self, dst, dst_next_p, imm16 as u64);
-							}
-						} else {
-							call_format_number!(self, dst, dst_next_p, imm16 as u64);
-						}
-					}
-
-					OpKind::Immediate32 | OpKind::Immediate8to32 => {
-						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-							imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
-						} else if op_kind == OpKind::Immediate32 {
-							imm32 = instruction.immediate32();
-						} else {
-							debug_assert_eq!(op_kind, OpKind::Immediate8to32);
-							imm32 = instruction.immediate8to32() as u32;
-						}
-						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
-							// See OpKind::NearBranch16 above for why we clone the symbols
-							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
-							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm32 as u64, 4), &mut vec)
-							} else {
-								None
-							} {
-								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
-								}
-								call_write_symbol!(self, dst, dst_next_p, imm32 as u64, symbol);
-							} else {
-								call_format_number!(self, dst, dst_next_p, imm32 as u64);
-							}
-						} else {
-							call_format_number!(self, dst, dst_next_p, imm32 as u64);
-						}
-					}
-
-					OpKind::Immediate64 | OpKind::Immediate8to64 | OpKind::Immediate32to64 => {
-						if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
-							imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
-						} else if op_kind == OpKind::Immediate32to64 {
-							imm64 = instruction.immediate32to64() as u64;
-						} else if op_kind == OpKind::Immediate8to64 {
-							imm64 = instruction.immediate8to64() as u64;
-						} else {
-							debug_assert_eq!(op_kind, OpKind::Immediate64);
-							imm64 = instruction.immediate64();
-						}
-						if TraitOptions::ENABLE_SYMBOL_RESOLVER {
-							// See OpKind::NearBranch16 above for why we clone the symbols
-							let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
-							if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-								to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), imm64, 8), &mut vec)
-							} else {
-								None
-							} {
-								if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-									write_fast_str!(dst, dst_next_p, FastString8, FAST_STR_OFFSET);
-								}
-								call_write_symbol!(self, dst, dst_next_p, imm64, symbol);
-							} else {
-								call_format_number!(self, dst, dst_next_p, imm64);
-							}
-						} else {
-							call_format_number!(self, dst, dst_next_p, imm64);
-						}
-					}
-
-					OpKind::MemorySegSI => call_format_memory!(
-						self,
-						dst,
-						dst_next_p,
-						instruction,
-						operand,
-						instruction.memory_segment(),
-						Register::SI,
-						Register::None,
-						0,
-						0,
-						0,
-						2,
-					),
-					OpKind::MemorySegESI => call_format_memory!(
-						self,
-						dst,
-						dst_next_p,
-						instruction,
-						operand,
-						instruction.memory_segment(),
-						Register::ESI,
-						Register::None,
-						0,
-						0,
-						0,
-						4,
-					),
-					OpKind::MemorySegRSI => call_format_memory!(
-						self,
-						dst,
-						dst_next_p,
-						instruction,
-						operand,
-						instruction.memory_segment(),
-						Register::RSI,
-						Register::None,
-						0,
-						0,
-						0,
-						8,
-					),
-					OpKind::MemorySegDI => call_format_memory!(
-						self,
-						dst,
-						dst_next_p,
-						instruction,
-						operand,
-						instruction.memory_segment(),
-						Register::DI,
-						Register::None,
-						0,
-						0,
-						0,
-						2,
-					),
-					OpKind::MemorySegEDI => call_format_memory!(
-						self,
-						dst,
-						dst_next_p,
-						instruction,
-						operand,
-						instruction.memory_segment(),
-						Register::EDI,
-						Register::None,
-						0,
-						0,
-						0,
-						4,
-					),
-					OpKind::MemorySegRDI => call_format_memory!(
-						self,
-						dst,
-						dst_next_p,
-						instruction,
-						operand,
-						instruction.memory_segment(),
-						Register::RDI,
-						Register::None,
-						0,
-						0,
-						0,
-						8,
-					),
-					OpKind::MemoryESDI => {
-						call_format_memory!(self, dst, dst_next_p, instruction, operand, Register::ES, Register::DI, Register::None, 0, 0, 0, 2)
-					}
-					OpKind::MemoryESEDI => {
-						call_format_memory!(self, dst, dst_next_p, instruction, operand, Register::ES, Register::EDI, Register::None, 0, 0, 0, 4)
-					}
-					OpKind::MemoryESRDI => {
-						call_format_memory!(self, dst, dst_next_p, instruction, operand, Register::ES, Register::RDI, Register::None, 0, 0, 0, 8)
-					}
-					#[allow(deprecated)]
-					OpKind::Memory64 => {}
-
-					OpKind::Memory => {
+					};
+				}
+				macro_rules! fmt_register {
+					() => {{
+						call_format_register!(self, dst, dst_next_p, instruction.try_op_register(operand).unwrap_or_default())
+					}};
+				}
+				macro_rules! fmt_far_br_16_32 {
+					() => {{
+						fmt_far_branch!(self, dst, dst_next_p, instruction, op_kind, imm_size, imm64)
+					}};
+				}
+				macro_rules! fmt_memory_seg_si {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(instruction.memory_segment()),
+							(Register::SI),
+							(Register::None),
+							0,
+							0,
+							0,
+							2,
+						)
+					}};
+				}
+				macro_rules! fmt_memory_seg_esi {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(instruction.memory_segment()),
+							(Register::ESI),
+							(Register::None),
+							0,
+							0,
+							0,
+							4,
+						)
+					}};
+				}
+				macro_rules! fmt_memory_seg_rsi {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(instruction.memory_segment()),
+							(Register::RSI),
+							(Register::None),
+							0,
+							0,
+							0,
+							8,
+						)
+					}};
+				}
+				macro_rules! fmt_memory_seg_di {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(instruction.memory_segment()),
+							(Register::DI),
+							(Register::None),
+							0,
+							0,
+							0,
+							2,
+						)
+					}};
+				}
+				macro_rules! fmt_memory_seg_edi {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(instruction.memory_segment()),
+							(Register::EDI),
+							(Register::None),
+							0,
+							0,
+							0,
+							4,
+						)
+					}};
+				}
+				macro_rules! fmt_memory_seg_rdi {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(instruction.memory_segment()),
+							(Register::RDI),
+							(Register::None),
+							0,
+							0,
+							0,
+							8,
+						)
+					}};
+				}
+				macro_rules! fmt_memory_es_di {
+					() => {{
+						call_format_memory!(self, dst, dst_next_p, instruction, operand, (Register::ES), (Register::DI), (Register::None), 0, 0, 0, 2)
+					}};
+				}
+				macro_rules! fmt_memory_es_edi {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(Register::ES),
+							(Register::EDI),
+							(Register::None),
+							0,
+							0,
+							0,
+							4
+						)
+					}};
+				}
+				macro_rules! fmt_memory_es_rdi {
+					() => {{
+						call_format_memory!(
+							self,
+							dst,
+							dst_next_p,
+							instruction,
+							operand,
+							(Register::ES),
+							(Register::RDI),
+							(Register::None),
+							0,
+							0,
+							0,
+							8
+						)
+					}};
+				}
+				macro_rules! fmt_memory {
+					() => {{
 						let displ_size = instruction.memory_displ_size();
 						let base_reg = instruction.memory_base();
 						let mut index_reg = instruction.memory_index();
@@ -1048,14 +1212,198 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 							dst_next_p,
 							instruction,
 							operand,
-							instruction.memory_segment(),
+							(instruction.memory_segment()),
 							base_reg,
 							index_reg,
-							super::super::instruction_internal::internal_get_memory_index_scale(instruction),
+							(super::super::instruction_internal::internal_get_memory_index_scale(instruction)),
 							displ_size,
 							displ,
 							addr_size,
 						);
+					}};
+				}
+
+				// This speeds up SpecializedFormatter since every option is hard coded, but makes FastFormatter
+				// slower because every option is dynamic (more code). Detect FastFormatter and generate smaller
+				// and faster code. Both paths are tested (same tests).
+				// The whole point of this formatter is to be fast so unfortunately it can result in fugly code...
+				if TraitOptions::__IS_FAST_FORMATTER {
+					match op_kind {
+						OpKind::Register => fmt_register!(),
+
+						OpKind::NearBranch16 | OpKind::NearBranch32 | OpKind::NearBranch64 => {
+							if op_kind == OpKind::NearBranch64 {
+								imm_size = 8;
+								imm64 = instruction.near_branch64();
+							} else if op_kind == OpKind::NearBranch32 {
+								imm_size = 4;
+								imm64 = instruction.near_branch32() as u64;
+							} else {
+								imm_size = 2;
+								imm64 = instruction.near_branch16() as u64;
+							}
+							fmt_near_branch!(self, dst, dst_next_p, instruction, imm_size, imm64);
+						}
+
+						OpKind::FarBranch16 | OpKind::FarBranch32 => fmt_far_br_16_32!(),
+
+						OpKind::Immediate8 | OpKind::Immediate8_2nd => {
+							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
+							} else if op_kind == OpKind::Immediate8 {
+								imm8 = instruction.immediate8();
+							} else {
+								debug_assert_eq!(op_kind, OpKind::Immediate8_2nd);
+								imm8 = instruction.immediate8_2nd();
+							}
+							fmt_imm!(self, dst, dst_next_p, instruction, imm8, 1);
+						}
+
+						OpKind::Immediate16 | OpKind::Immediate8to16 => {
+							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
+							} else if op_kind == OpKind::Immediate16 {
+								imm16 = instruction.immediate16();
+							} else {
+								debug_assert_eq!(op_kind, OpKind::Immediate8to16);
+								imm16 = instruction.immediate8to16() as u16;
+							}
+							fmt_imm!(self, dst, dst_next_p, instruction, imm16, 2)
+						}
+
+						OpKind::Immediate32 | OpKind::Immediate8to32 => {
+							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
+							} else if op_kind == OpKind::Immediate32 {
+								imm32 = instruction.immediate32();
+							} else {
+								debug_assert_eq!(op_kind, OpKind::Immediate8to32);
+								imm32 = instruction.immediate8to32() as u32;
+							}
+							fmt_imm!(self, dst, dst_next_p, instruction, imm32, 4)
+						}
+
+						OpKind::Immediate64 | OpKind::Immediate8to64 | OpKind::Immediate32to64 => {
+							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
+							} else if op_kind == OpKind::Immediate32to64 {
+								imm64 = instruction.immediate32to64() as u64;
+							} else if op_kind == OpKind::Immediate8to64 {
+								imm64 = instruction.immediate8to64() as u64;
+							} else {
+								debug_assert_eq!(op_kind, OpKind::Immediate64);
+								imm64 = instruction.immediate64();
+							}
+							fmt_imm!(self, dst, dst_next_p, instruction, imm64, 8)
+						}
+
+						OpKind::MemorySegSI => fmt_memory_seg_si!(),
+						OpKind::MemorySegESI => fmt_memory_seg_esi!(),
+						OpKind::MemorySegRSI => fmt_memory_seg_rsi!(),
+						OpKind::MemorySegDI => fmt_memory_seg_di!(),
+						OpKind::MemorySegEDI => fmt_memory_seg_edi!(),
+						OpKind::MemorySegRDI => fmt_memory_seg_rdi!(),
+						OpKind::MemoryESDI => fmt_memory_es_di!(),
+						OpKind::MemoryESEDI => fmt_memory_es_edi!(),
+						OpKind::MemoryESRDI => fmt_memory_es_rdi!(),
+						#[allow(deprecated)]
+						OpKind::Memory64 => {}
+						OpKind::Memory => fmt_memory!(),
+					}
+				} else {
+					match op_kind {
+						OpKind::Register => fmt_register!(),
+
+						OpKind::NearBranch16 => {
+							imm64 = instruction.near_branch16() as u64;
+							fmt_near_branch!(self, dst, dst_next_p, instruction, 2, imm64);
+						}
+
+						OpKind::NearBranch32 => {
+							imm64 = instruction.near_branch32() as u64;
+							fmt_near_branch!(self, dst, dst_next_p, instruction, 4, imm64);
+						}
+
+						OpKind::NearBranch64 => {
+							imm64 = instruction.near_branch64();
+							fmt_near_branch!(self, dst, dst_next_p, instruction, 8, imm64);
+						}
+
+						OpKind::FarBranch16 | OpKind::FarBranch32 => fmt_far_br_16_32!(),
+
+						OpKind::Immediate8 => {
+							imm8 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default()
+							} else {
+								instruction.immediate8()
+							};
+							fmt_imm!(self, dst, dst_next_p, instruction, imm8, 1);
+						}
+
+						OpKind::Immediate8_2nd => {
+							imm8 = instruction.immediate8_2nd();
+							fmt_imm!(self, dst, dst_next_p, instruction, imm8, 1);
+						}
+
+						OpKind::Immediate16 => {
+							imm16 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								instruction.try_get_declare_word_value(operand as usize).unwrap_or_default()
+							} else {
+								instruction.immediate16()
+							};
+							fmt_imm!(self, dst, dst_next_p, instruction, imm16, 2)
+						}
+
+						OpKind::Immediate8to16 => {
+							imm16 = instruction.immediate8to16() as u16;
+							fmt_imm!(self, dst, dst_next_p, instruction, imm16, 2)
+						}
+
+						OpKind::Immediate32 => {
+							imm32 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default()
+							} else {
+								instruction.immediate32()
+							};
+							fmt_imm!(self, dst, dst_next_p, instruction, imm32, 4)
+						}
+
+						OpKind::Immediate8to32 => {
+							imm32 = instruction.immediate8to32() as u32;
+							fmt_imm!(self, dst, dst_next_p, instruction, imm32, 4)
+						}
+
+						OpKind::Immediate64 => {
+							imm64 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+								instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default()
+							} else {
+								instruction.immediate64()
+							};
+							fmt_imm!(self, dst, dst_next_p, instruction, imm64, 8)
+						}
+
+						OpKind::Immediate8to64 => {
+							imm64 = instruction.immediate8to64() as u64;
+							fmt_imm!(self, dst, dst_next_p, instruction, imm64, 8)
+						}
+
+						OpKind::Immediate32to64 => {
+							imm64 = instruction.immediate32to64() as u64;
+							fmt_imm!(self, dst, dst_next_p, instruction, imm64, 8)
+						}
+
+						OpKind::MemorySegSI => fmt_memory_seg_si!(),
+						OpKind::MemorySegESI => fmt_memory_seg_esi!(),
+						OpKind::MemorySegRSI => fmt_memory_seg_rsi!(),
+						OpKind::MemorySegDI => fmt_memory_seg_di!(),
+						OpKind::MemorySegEDI => fmt_memory_seg_edi!(),
+						OpKind::MemorySegRDI => fmt_memory_seg_rdi!(),
+						OpKind::MemoryESDI => fmt_memory_es_di!(),
+						OpKind::MemoryESEDI => fmt_memory_es_edi!(),
+						OpKind::MemoryESRDI => fmt_memory_es_rdi!(),
+						#[allow(deprecated)]
+						OpKind::Memory64 => {}
+						OpKind::Memory => fmt_memory!(),
 					}
 				}
 
@@ -1329,153 +1677,10 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 	#[must_use]
 	fn format_memory(
-		&mut self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, instruction: &Instruction, operand: u32, seg_reg: Register, mut base_reg: Register,
-		index_reg: Register, scale: u32, mut displ_size: u32, mut displ: i64, addr_size: u32,
+		&mut self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, instruction: &Instruction, operand: u32, seg_reg: Register, base_reg: Register,
+		index_reg: Register, scale: u32, displ_size: u32, displ: i64, addr_size: u32,
 	) -> *mut u8 {
-		debug_assert!((scale as usize) < SCALE_NUMBERS.len());
-		debug_assert!(get_address_size_in_bytes(base_reg, index_reg, displ_size, instruction.code_size()) == addr_size);
-
-		let abs_addr;
-		if base_reg == Register::RIP {
-			abs_addr = displ as u64;
-			if TraitOptions::rip_relative_addresses(&self.d.options) {
-				displ = displ.wrapping_sub(instruction.next_ip() as i64);
-			} else {
-				debug_assert_eq!(index_reg, Register::None);
-				base_reg = Register::None;
-			}
-			displ_size = 8;
-		} else if base_reg == Register::EIP {
-			abs_addr = displ as u32 as u64;
-			if TraitOptions::rip_relative_addresses(&self.d.options) {
-				displ = (displ as u32).wrapping_sub(instruction.next_ip32()) as i32 as i64;
-			} else {
-				debug_assert_eq!(index_reg, Register::None);
-				base_reg = Register::None;
-			}
-			displ_size = 4;
-		} else {
-			abs_addr = displ as u64;
-		}
-
-		let mut use_scale = scale != 0;
-		if !use_scale {
-			// [rsi] = base reg, [rsi*1] = index reg
-			if base_reg == Register::None {
-				use_scale = true;
-			}
-		}
-		if addr_size == 2 {
-			use_scale = false;
-		}
-
-		let show_mem_size = TraitOptions::always_show_memory_size(&self.d.options) || {
-			// SAFETY: all Code values are valid indexes
-			let flags = unsafe { *self.d.code_flags.get_unchecked(instruction.code() as usize) };
-			(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || instruction.is_broadcast()
-		};
-		if show_mem_size {
-			// SAFETY: all MemorySize values are valid indexes
-			let keywords = unsafe { *self.d.all_memory_sizes.get_unchecked(instruction.memory_size() as usize) };
-			write_fast_str!(dst, dst_next_p, FastStringMemorySize, keywords);
-		}
-
-		let code_size = instruction.code_size();
-		let seg_override = instruction.segment_prefix();
-		let notrack_prefix = seg_override == Register::DS
-			&& is_notrack_prefix_branch(instruction.code())
-			&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
-				&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP));
-		if TraitOptions::always_show_segment_register(&self.d.options)
-			|| (seg_override != Register::None
-				&& !notrack_prefix
-				&& (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
-					|| show_segment_prefix_bool(Register::None, instruction, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)))
-		{
-			call_format_register!(self, dst, dst_next_p, seg_reg);
-			write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
-		}
-		write_fast_ascii_char_lit!(dst, dst_next_p, '[', true);
-
-		let mut need_plus = if base_reg != Register::None {
-			call_format_register!(self, dst, dst_next_p, base_reg);
-			true
-		} else {
-			false
-		};
-
-		if index_reg != Register::None {
-			if need_plus {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '+', true);
-			}
-			need_plus = true;
-
-			call_format_register!(self, dst, dst_next_p, index_reg);
-			if use_scale {
-				let scale_str = SCALE_NUMBERS[scale as usize];
-				write_fast_str!(dst, dst_next_p, FastString4, scale_str);
-			}
-		}
-
-		macro_rules! else_block {
-			($slf:ident, $dst:ident, $dst_next_p:ident, $need_plus:ident, $displ_size:ident, $displ:ident, $addr_size:ident) => {
-				if !$need_plus || ($displ_size != 0 && $displ != 0) {
-					if $need_plus {
-						let c = if $addr_size == 8 {
-							if $displ < 0 {
-								$displ = $displ.wrapping_neg();
-								'-'
-							} else {
-								'+'
-							}
-						} else if $addr_size == 4 {
-							if ($displ as i32) < 0 {
-								$displ = ($displ as i32).wrapping_neg() as u32 as i64;
-								'-'
-							} else {
-								'+'
-							}
-						} else {
-							debug_assert_eq!($addr_size, 2);
-							if ($displ as i16) < 0 {
-								$displ = ($displ as i16).wrapping_neg() as u16 as i64;
-								'-'
-							} else {
-								'+'
-							}
-						};
-						write_fast_ascii_char!($dst, $dst_next_p, c, true);
-					}
-					call_format_number!($slf, $dst, $dst_next_p, $displ as u64);
-				}
-			};
-		}
-
-		if TraitOptions::ENABLE_SYMBOL_RESOLVER {
-			// See OpKind::NearBranch16 in format() for why we clone the symbols
-			let mut vec: Vec<SymResTextPart<'_>> = Vec::new();
-			if let Some(ref symbol) = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
-				to_owned(symbol_resolver.symbol(instruction, operand, Some(operand), abs_addr, addr_size), &mut vec)
-			} else {
-				None
-			} {
-				if need_plus {
-					let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { '-' } else { '+' };
-					write_fast_ascii_char!(dst, dst_next_p, c, true);
-				} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-					write_fast_ascii_char_lit!(dst, dst_next_p, '-', true);
-				}
-
-				call_write_symbol2!(self, dst, dst_next_p, abs_addr, symbol, false);
-			} else {
-				else_block!(self, dst, dst_next_p, need_plus, displ_size, displ, addr_size);
-			}
-		} else {
-			else_block!(self, dst, dst_next_p, need_plus, displ_size, displ, addr_size);
-		}
-
-		write_fast_ascii_char_lit!(dst, dst_next_p, ']', true);
-
+		format_memory_code!(self, dst, dst_next_p, instruction, operand, seg_reg, base_reg, index_reg, scale, displ_size, displ, addr_size);
 		dst_next_p
 	}
 }

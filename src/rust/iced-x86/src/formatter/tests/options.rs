@@ -5,7 +5,7 @@ use crate::formatter::test_utils::get_formatter_unit_tests_dir;
 use crate::formatter::tests::options_test_case_parser::OptionsTestParser;
 use crate::formatter::tests::opts_info::*;
 use crate::formatter::tests::{filter_removed_code_tests, opts_infos};
-use crate::*;
+use crate::{Formatter, SpecializedFormatter, SpecializedFormatterTraitOptions};
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
@@ -97,7 +97,9 @@ fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() 
 }
 
 #[cfg(feature = "fast_fmt")]
-pub(in super::super) fn test_format_file_common_fast(dir: &str, file_part: &str, fmt_factory: fn() -> Box<FastFormatter>) {
+pub(in super::super) fn test_format_file_common_fast<TraitOptions: SpecializedFormatterTraitOptions>(
+	dir: &str, file_part: &str, fmt_factory: fn() -> Box<SpecializedFormatter<TraitOptions>>,
+) {
 	let (all_infos, ignored): (&[OptionsInstructionInfo], &HashSet<u32>) = {
 		let infos = &*opts_infos::COMMON_INFOS;
 		(&infos.0, &infos.1)
@@ -107,14 +109,18 @@ pub(in super::super) fn test_format_file_common_fast(dir: &str, file_part: &str,
 }
 
 #[cfg(feature = "fast_fmt")]
-pub(in super::super) fn test_format_file_fast(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<FastFormatter>) {
+pub(in super::super) fn test_format_file_fast<TraitOptions: SpecializedFormatterTraitOptions>(
+	dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<SpecializedFormatter<TraitOptions>>,
+) {
 	let mut tmp_infos: Vec<OptionsInstructionInfo> = Vec::new();
 	let infos = read_infos(dir, file_part, options_file, &mut tmp_infos);
 	test_format_fast(infos, fmt_factory);
 }
 
 #[cfg(feature = "fast_fmt")]
-fn test_format_fast(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() -> Box<FastFormatter>) {
+fn test_format_fast<TraitOptions: SpecializedFormatterTraitOptions>(
+	infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() -> Box<SpecializedFormatter<TraitOptions>>,
+) {
 	for &(tc, ref formatted_string) in &infos {
 		let mut formatter = fmt_factory();
 		tc.initialize_options_fast(formatter.options_mut());

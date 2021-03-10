@@ -1,22 +1,30 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::formatter::fast::tests::fmt_factory;
-use crate::formatter::tests::options::{test_format_file_common_fast, test_format_file_fast};
 use crate::{
 	Decoder, DecoderOptions, DefaultFastFormatterTraitOptions, DefaultSpecializedFormatterTraitOptions, FastFormatterOptions, SpecializedFormatter,
 	SpecializedFormatterTraitOptions,
 };
 
-#[test]
-fn test_options_common() {
-	test_format_file_common_fast("Fast", "OptionsResult.Common", fmt_factory::create_options);
-}
+macro_rules! mk_tests {
+	($mod_name:ident, $create_options:path) => {
+		mod $mod_name {
+			use crate::formatter::tests::options::{test_format_file_common_fast, test_format_file_fast};
 
-#[test]
-fn test_options2() {
-	test_format_file_fast("Fast", "OptionsResult2", "Options2", fmt_factory::create_options);
+			#[test]
+			fn test_options_common() {
+				test_format_file_common_fast("Fast", "OptionsResult.Common", $create_options);
+			}
+
+			#[test]
+			fn test_options2() {
+				test_format_file_fast("Fast", "OptionsResult2", "Options2", $create_options);
+			}
+		}
+	};
 }
+mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_options}
+mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::not_fmt_factory::create_options}
 
 fn invert_options(options: &mut FastFormatterOptions) {
 	options.set_space_after_operand_separator(options.space_after_operand_separator() ^ true);
@@ -39,6 +47,7 @@ fn test_specialized_formatter_trait_options() {
 	let options = formatter.options_mut();
 
 	for _ in 0..2 {
+		assert_eq!(MyTraitOptions::__IS_FAST_FORMATTER, false);
 		assert_eq!(MyTraitOptions::ENABLE_SYMBOL_RESOLVER, false);
 		assert_eq!(MyTraitOptions::ENABLE_DB_DW_DD_DQ, cfg!(feature = "db"));
 		assert_eq!(unsafe { MyTraitOptions::verify_output_has_enough_bytes_left() }, true);
@@ -63,6 +72,7 @@ fn test_default_specialized_formatter_trait_options() {
 	let options = formatter.options_mut();
 
 	for _ in 0..2 {
+		assert_eq!(DefaultSpecializedFormatterTraitOptions::__IS_FAST_FORMATTER, false);
 		assert_eq!(DefaultSpecializedFormatterTraitOptions::ENABLE_SYMBOL_RESOLVER, false);
 		assert_eq!(DefaultSpecializedFormatterTraitOptions::ENABLE_DB_DW_DD_DQ, cfg!(feature = "db"));
 		assert_eq!(unsafe { DefaultSpecializedFormatterTraitOptions::verify_output_has_enough_bytes_left() }, true);
@@ -86,6 +96,7 @@ fn test_default_fast_formatter_trait_options() {
 	let mut formatter = MyFormatter::new();
 	let options = formatter.options_mut();
 
+	assert_eq!(DefaultFastFormatterTraitOptions::__IS_FAST_FORMATTER, true);
 	assert_eq!(DefaultFastFormatterTraitOptions::ENABLE_SYMBOL_RESOLVER, true);
 	assert_eq!(DefaultFastFormatterTraitOptions::ENABLE_DB_DW_DD_DQ, true);
 	assert_eq!(unsafe { DefaultFastFormatterTraitOptions::verify_output_has_enough_bytes_left() }, true);

@@ -5,8 +5,11 @@ use crate::formatter::test_utils::get_formatter_unit_tests_dir;
 use crate::formatter::tests::filter_removed_code_tests;
 use crate::formatter::tests::sym_res_test_case::*;
 use crate::formatter::tests::sym_res_test_parser::*;
-use crate::formatter::*;
 use crate::Instruction;
+use crate::{
+	Formatter, FormatterTextKind, SpecializedFormatter, SpecializedFormatterTraitOptions, SymResTextInfo, SymResTextPart, SymbolResolver,
+	SymbolResult,
+};
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
@@ -89,8 +92,8 @@ pub(in super::super) fn symbol_resolver_test(
 }
 
 #[cfg(feature = "fast_fmt")]
-pub(in super::super) fn symbol_resolver_test_fast(
-	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<dyn SymbolResolver>) -> Box<FastFormatter>,
+pub(in super::super) fn symbol_resolver_test_fast<TraitOptions: SpecializedFormatterTraitOptions>(
+	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<dyn SymbolResolver>) -> Box<SpecializedFormatter<TraitOptions>>,
 ) {
 	let (infos, formatted_lines) = get_infos_and_lines(dir, filename);
 	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {

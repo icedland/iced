@@ -58,6 +58,12 @@ use crate::formatter::fast::options::FastFormatterOptions;
 ///
 /// [`SpecializedFormatter<TraitOptions>`]: struct.SpecializedFormatter.html
 pub trait SpecializedFormatterTraitOptions {
+	// Not a public API.
+	// It's used by the formatter to detect FastFormatter so its speed doesn't regress
+	// when we optimize SpecializedFormatter with hard coded options.
+	#[doc(hidden)]
+	const __IS_FAST_FORMATTER: bool = false;
+
 	/// Enables support for a symbol resolver. This is disabled by default. If this
 	/// is disabled, you must not pass in a symbol resolver to the constructor.
 	///

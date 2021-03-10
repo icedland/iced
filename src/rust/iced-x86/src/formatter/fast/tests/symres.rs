@@ -1,18 +1,25 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use static_assertions::const_assert;
-
-use crate::formatter::fast::tests::fmt_factory::create_resolver;
 use crate::formatter::fast::MAX_FMT_INSTR_LEN;
-use crate::formatter::tests::sym_res::symbol_resolver_test_fast;
 use crate::iced_constants::IcedConstants;
 use crate::{Decoder, DecoderOptions, FastFormatter, Instruction, SymbolResolver, SymbolResult};
+use static_assertions::const_assert;
 
-#[test]
-fn symres() {
-	symbol_resolver_test_fast("Fast", "SymbolResolverTests", |symbol_resolver| create_resolver(symbol_resolver));
+macro_rules! mk_tests {
+	($mod_name:ident, $create_options:path) => {
+		mod $mod_name {
+			use crate::formatter::tests::sym_res::symbol_resolver_test_fast;
+
+			#[test]
+			fn symres() {
+				symbol_resolver_test_fast("Fast", "SymbolResolverTests", |symbol_resolver| $create_options(symbol_resolver));
+			}
+		}
+	};
 }
+mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_resolver}
+mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::not_fmt_factory::create_resolver}
 
 struct LongSymbolResolver {
 	symbol_result: String,
