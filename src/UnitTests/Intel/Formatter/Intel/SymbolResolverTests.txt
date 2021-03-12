@@ -37,6 +37,10 @@ mov ecx,symbol-0x123
 mov ecx,-symnext (0xfedcba98)
 mov ecx,symbol+0x123
 mov ecx,-symnext+0x123
+mov rcx,symbol-0x123
+mov rcx,-symnext (0xfffffffffedcba98)
+mov rcx,symbol+0x123
+mov rcx,-symnext+0x123
 mov rcx,symbol
 mov rcx,-symnext-0x123
 mov rcx,symbol-0x123

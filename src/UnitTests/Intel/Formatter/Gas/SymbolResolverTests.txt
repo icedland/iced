@@ -37,6 +37,10 @@ mov $symbol-0x123,%ecx
 mov $-symnext (0xfedcba98),%ecx
 mov $symbol+0x123,%ecx
 mov $-symnext+0x123,%ecx
+mov $symbol-0x123,%rcx
+mov $-symnext (0xfffffffffedcba98),%rcx
+mov $symbol+0x123,%rcx
+mov $-symnext+0x123,%rcx
 movabs $symbol,%rcx
 movabs $-symnext-0x123,%rcx
 movabs $symbol-0x123,%rcx

@@ -37,6 +37,10 @@ mov ecx,symbol-123h
 mov ecx,-symnext (0FEDCBA98h)
 mov ecx,offset symbol+123h
 mov ecx,offset -symnext+123h
+mov rcx,symbol-123h
+mov rcx,-symnext (0FFFFFFFFFEDCBA98h)
+mov rcx,offset symbol+123h
+mov rcx,offset -symnext+123h
 mov rcx,symbol
 mov rcx,-symnext-123h
 mov rcx,offset symbol-123h
