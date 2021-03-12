@@ -4,7 +4,6 @@
 mod fmt_factory;
 mod misc;
 mod not_fast_fmt;
-mod not_fmt_factory;
 mod options;
 mod symres;
 
@@ -103,8 +102,8 @@ macro_rules! mk_tests {
 	};
 }
 
-mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_default, crate::formatter::fast::tests::fmt_factory::create_inverted}
-mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::not_fmt_factory::create_default, crate::formatter::fast::tests::not_fmt_factory::create_inverted}
+mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_default::<crate::DefaultFastFormatterTraitOptions>, crate::formatter::fast::tests::fmt_factory::create_inverted::<crate::DefaultFastFormatterTraitOptions>}
+mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_default::<crate::formatter::fast::tests::not_fast_fmt::NotFastFormatterTraitOptions>, crate::formatter::fast::tests::fmt_factory::create_inverted::<crate::formatter::fast::tests::not_fast_fmt::NotFastFormatterTraitOptions>}
 
 #[test]
 #[allow(clippy::char_lit_as_u8)]

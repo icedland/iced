@@ -18,8 +18,8 @@ macro_rules! mk_tests {
 		}
 	};
 }
-mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_resolver}
-mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::not_fmt_factory::create_resolver}
+mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_resolver::<crate::DefaultFastFormatterTraitOptions>}
+mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_resolver::<crate::formatter::fast::tests::not_fast_fmt::NotFastFormatterTraitOptions>}
 
 struct LongSymbolResolver {
 	symbol_result: String,

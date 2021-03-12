@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::formatter::FastFormatter;
-use crate::formatter::SymbolResolver;
+use crate::formatter::{SpecializedFormatter, SpecializedFormatterTraitOptions, SymbolResolver};
 use alloc::boxed::Box;
 
-pub(super) fn create_default() -> Box<FastFormatter> {
-	Box::new(FastFormatter::new())
+pub(super) fn create_default<TraitOptions: SpecializedFormatterTraitOptions>() -> Box<SpecializedFormatter<TraitOptions>> {
+	Box::new(SpecializedFormatter::<TraitOptions>::new())
 }
 
-pub(super) fn create_inverted() -> Box<FastFormatter> {
-	let mut fmt = FastFormatter::new();
+pub(super) fn create_inverted<TraitOptions: SpecializedFormatterTraitOptions>() -> Box<SpecializedFormatter<TraitOptions>> {
+	let mut fmt = SpecializedFormatter::<TraitOptions>::new();
 
 	let opt = fmt.options().space_after_operand_separator() ^ true;
 	fmt.options_mut().set_space_after_operand_separator(opt);
@@ -39,14 +38,16 @@ pub(super) fn create_inverted() -> Box<FastFormatter> {
 	Box::new(fmt)
 }
 
-pub(super) fn create_options() -> Box<FastFormatter> {
-	let mut fmt = FastFormatter::new();
+pub(super) fn create_options<TraitOptions: SpecializedFormatterTraitOptions>() -> Box<SpecializedFormatter<TraitOptions>> {
+	let mut fmt = SpecializedFormatter::<TraitOptions>::new();
 	fmt.options_mut().set_rip_relative_addresses(true);
 	Box::new(fmt)
 }
 
-pub(super) fn create_resolver(symbol_resolver: Box<dyn SymbolResolver>) -> Box<FastFormatter> {
-	let mut fmt = FastFormatter::try_with_options(Some(symbol_resolver)).unwrap();
+pub(super) fn create_resolver<TraitOptions: SpecializedFormatterTraitOptions>(
+	symbol_resolver: Box<dyn SymbolResolver>,
+) -> Box<SpecializedFormatter<TraitOptions>> {
+	let mut fmt = SpecializedFormatter::<TraitOptions>::try_with_options(Some(symbol_resolver)).unwrap();
 	fmt.options_mut().set_rip_relative_addresses(true);
 	Box::new(fmt)
 }

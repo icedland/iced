@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::{DefaultFastFormatterTraitOptions, FastFormatterOptions, SpecializedFormatter, SpecializedFormatterTraitOptions};
+use crate::{DefaultFastFormatterTraitOptions, FastFormatterOptions, SpecializedFormatterTraitOptions};
 
 // Since SpecializedFormatterTraitOptions::__IS_FAST_FORMATTER exists, we have code
 // paths that aren't tested completely. We create a new FastFormatter with that const
@@ -40,5 +40,3 @@ impl SpecializedFormatterTraitOptions for NotFastFormatterTraitOptions {
 		DefaultFastFormatterTraitOptions::use_hex_prefix(options)
 	}
 }
-
-pub(super) type NotFastFormatter = SpecializedFormatter<NotFastFormatterTraitOptions>;

@@ -23,8 +23,8 @@ macro_rules! mk_tests {
 		}
 	};
 }
-mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_options}
-mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::not_fmt_factory::create_options}
+mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_options::<crate::DefaultFastFormatterTraitOptions>}
+mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_options::<crate::formatter::fast::tests::not_fast_fmt::NotFastFormatterTraitOptions>}
 
 fn invert_options(options: &mut FastFormatterOptions) {
 	options.set_space_after_operand_separator(options.space_after_operand_separator() ^ true);
