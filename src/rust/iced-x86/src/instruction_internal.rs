@@ -378,7 +378,7 @@ pub(crate) fn get_address_size_in_bytes(base_reg: Register, index_reg: Register,
 	if (Register::AX <= base_reg && base_reg <= Register::DI) || (Register::AX <= index_reg && index_reg <= Register::DI) {
 		return 2;
 	}
-	if displ_size == 2 || displ_size == 4 || displ_size == 8 {
+	if displ_size >= 2 {
 		return displ_size;
 	}
 

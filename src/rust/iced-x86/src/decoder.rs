@@ -1199,7 +1199,7 @@ impl<'a> Decoder<'a> {
 		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
 
 		let mut b = self.read_u8();
-		// SAFETY: `prefixes` is 256 bits in size (8 u32s) and `0<=b<=0xFF`, so this is safe
+		// SAFETY: `prefixes` is 256 bits in size (8 u32s) and `0<=b<=0xFF`
 		if (((*self.prefixes.add(b / 32)) >> (b & 31)) & 1) != 0 {
 			let mut default_ds_segment = Register::DS;
 			let mut rex_prefix: usize;
@@ -1277,7 +1277,7 @@ impl<'a> Decoder<'a> {
 					}
 				}
 				b = self.read_u8();
-				// SAFETY: `prefixes` is 256 bits in size (8 u32s) and `0<=b<=0xFF`, so this is safe
+				// SAFETY: `prefixes` is 256 bits in size (8 u32s) and `0<=b<=0xFF`
 				if (((*self.prefixes.add(b / 32)) >> (b & 31)) & 1) == 0 {
 					break;
 				}

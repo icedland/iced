@@ -119,11 +119,11 @@ macro_rules! mk_fast_str_ty {
 	};
 }
 // FastString2 isn't used since the code needs a 66h prefix (if target CPU is x86)
-mk_fast_str_ty! {FastString4, 4}
-mk_fast_str_ty! {FastString8, 8}
-mk_fast_str_ty! {FastString12, 12}
-mk_fast_str_ty! {FastString16, 16}
-mk_fast_str_ty! {FastString20, 20}
+mk_fast_str_ty! {FastString4, 4} // ld 4
+mk_fast_str_ty! {FastString8, 8} // ld 8
+mk_fast_str_ty! {FastString12, 12} // ld 8 + ld 4
+mk_fast_str_ty! {FastString16, 16} // ld 16
+mk_fast_str_ty! {FastString20, 20} // ld 16 + ld 4
 
 type FastStringMnemonic = FastString20;
 type FastStringMemorySize = FastString16;
@@ -138,7 +138,6 @@ macro_rules! mk_const_fast_str {
 		const STR: &str = $str;
 		const_assert!(STR.len() == 1 + <$fast_ty>::SIZE);
 		const_assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
-		//TODO: We can't verify that the data at offset 1 (len() bytes, not SIZE bytes) is valid utf8 in a const context
 		$fast_ty { len_data: STR.as_ptr() }
 	}};
 }
@@ -359,7 +358,6 @@ macro_rules! format_memory_else_block {
 macro_rules! format_memory_code {
 	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:expr, $seg_reg:expr, $base_reg:expr, $index_reg:expr, $scale:expr, $displ_size:expr, $displ:expr, $addr_size:expr) => {
 		#[allow(trivial_numeric_casts)]
-		#[allow(trivial_numeric_casts)]
 		{
 			let mut base_reg = $base_reg;
 			let mut displ_size: u32 = $displ_size;
@@ -390,17 +388,6 @@ macro_rules! format_memory_code {
 				abs_addr = displ as u64;
 			}
 
-			let mut use_scale = $scale != 0;
-			if !use_scale {
-				// [rsi] = base reg, [rsi*1] = index reg
-				if base_reg == Register::None {
-					use_scale = true;
-				}
-			}
-			if $addr_size == 2 {
-				use_scale = false;
-			}
-
 			let show_mem_size = TraitOptions::always_show_memory_size(&$slf.d.options) || {
 				// SAFETY: all Code values are valid indexes
 				let flags = unsafe { *$slf.d.code_flags.get_unchecked($instruction.code() as usize) };
@@ -412,17 +399,20 @@ macro_rules! format_memory_code {
 				write_fast_str!($dst, $dst_next_p, FastStringMemorySize, keywords);
 			}
 
-			let code_size = $instruction.code_size();
-			let seg_override = $instruction.segment_prefix();
-			let notrack_prefix = seg_override == Register::DS
-				&& is_notrack_prefix_branch($instruction.code())
-				&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
-					&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP));
+			let seg_override;
 			if TraitOptions::always_show_segment_register(&$slf.d.options)
-				|| (seg_override != Register::None
-					&& !notrack_prefix
-					&& (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
-						|| show_segment_prefix_bool(Register::None, $instruction, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)))
+				|| ({
+					seg_override = $instruction.segment_prefix();
+					seg_override != Register::None
+				} && !{
+					let notrack_prefix = seg_override == Register::DS && is_notrack_prefix_branch($instruction.code()) && {
+						let code_size = $instruction.code_size();
+						!((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
+							&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP))
+					};
+					notrack_prefix
+				} && (SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
+					|| show_segment_prefix_bool(Register::None, $instruction, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)))
 			{
 				call_format_register!($slf, $dst, $dst_next_p, $seg_reg);
 				write_fast_ascii_char_lit!($dst, $dst_next_p, ':', true);
@@ -443,8 +433,11 @@ macro_rules! format_memory_code {
 				need_plus = true;
 
 				call_format_register!($slf, $dst, $dst_next_p, $index_reg);
-				if use_scale {
-					let scale_str = SCALE_NUMBERS[$scale as usize];
+
+				// [rsi] = base reg, [rsi*1] = index reg
+				if $addr_size != 2 && ($scale != 0 || base_reg == Register::None) {
+					// SAFETY: $scale is 0-3 inclusive, within bounds
+					let scale_str = unsafe { *SCALE_NUMBERS.as_ptr().add($scale as usize) };
 					write_fast_str!($dst, $dst_next_p, FastString4, scale_str);
 				}
 			}
@@ -533,7 +526,6 @@ static RC_STRINGS: [FastString8; 4] = [
 	mk_const_fast_str!(FastString8, "\x08{ru-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{rz-sae}"),
 ];
-static FAST_STR_OFFSET: FastString8 = mk_const_fast_str!(FastString8, "\x07offset  ");
 
 struct FmtTableData {
 	mnemonics: Vec<FastStringMnemonic>,
@@ -1024,7 +1016,8 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 									None
 								} {
 									if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-										write_fast_str!($dst, $dst_next_p, FastString8, FAST_STR_OFFSET);
+										const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x07offset  ");
+										write_fast_str!($dst, $dst_next_p, FastString8, FAST_STR);
 									}
 									call_write_symbol!($slf, $dst, $dst_next_p, $imm as u64, symbol);
 								} else {

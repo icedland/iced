@@ -16,7 +16,6 @@ macro_rules! mk_const_fast_str {
 		const STR: &str = $str;
 		const_assert!(STR.len() == 1 + <$fast_ty>::SIZE);
 		const_assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
-		//TODO: We can't verify that the data at offset 1 (len() bytes, not SIZE bytes) is valid utf8 in a const context
 		$fast_ty { len_data: STR.as_ptr() }
 	}};
 }
