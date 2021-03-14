@@ -4326,4 +4326,9 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::Ccs_encrypt,// Ccs_encrypt_16
 	Mnemonic::Ccs_encrypt,// Ccs_encrypt_32
 	Mnemonic::Ccs_encrypt,// Ccs_encrypt_64
+	Mnemonic::Lkgs,// Lkgs_rm16
+	Mnemonic::Lkgs,// Lkgs_r32m16
+	Mnemonic::Lkgs,// Lkgs_r64m16
+	Mnemonic::Erets,// Erets
+	Mnemonic::Eretu,// Eretu
 ];

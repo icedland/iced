@@ -19245,3 +19245,19 @@ F3 0FA6 E8, Ccs_hash_64, Legacy, PADLOCK_GMI, crm=es:rdi;Unknown cwm=es:rdi;Unkn
 67 F3 0FA7 F0, Ccs_encrypt_32, Legacy, PADLOCK_GMI, crm=es:ebx;Unknown crm=es:esi;Unknown cwm=es:edi;Unknown cr=ebx;esi;edi cw=rsi;rdi r=ecx cw=rcx cr=eax
 # rep ccs_encrypt
 F3 0FA7 F0, Ccs_encrypt_64, Legacy, PADLOCK_GMI, crm=es:rbx;Unknown crm=es:rsi;Unknown cwm=es:rdi;Unknown cr=rbx;rsi;rdi cw=rsi;rdi rcw=rcx cr=rax
+# lkgs cx
+F2 66 0F00 F1, Lkgs_rm16, Legacy, LKGS, priv op0=r r=cx w=gs
+# lkgs word ptr [rax]
+F2 66 0F00 30, Lkgs_rm16, Legacy, LKGS, priv op0=r r=rax w=gs rm=ds:rax;UInt16
+# lkgs cx
+F2 0F00 F1, Lkgs_r32m16, Legacy, LKGS, priv op0=r r=cx w=gs
+# lkgs word ptr [rax]
+F2 0F00 30, Lkgs_r32m16, Legacy, LKGS, priv op0=r r=rax w=gs rm=ds:rax;UInt16
+# lkgs cx
+F2 48 0F00 F1, Lkgs_r64m16, Legacy, LKGS, priv op0=r r=cx w=gs
+# lkgs word ptr [rax]
+F2 48 0F00 30, Lkgs_r64m16, Legacy, LKGS, priv op0=r r=rax w=gs rm=ds:rax;UInt16
+# eretu
+F3 0F 01 CA, Eretu, Legacy, FRED, priv flow=Return fw=acopszidA w=cs;ss;rsp rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 stack=40
+# erets
+F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 stack=40

@@ -8624,6 +8624,7 @@ END
 
 # Code: Swapgs
 INSTRUCTION: 0F 01 F8 | SWAPGS | X64
+	# #UD if CR4.FRED=1
 	flags: 64 cpl0 serialize-amd tsx-impl-abort
 END
 
@@ -8834,6 +8835,7 @@ INSTRUCTION: 0F 07 | SYSRET | SYSCALL
 	rflags: w=oszacpdiA
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
 	# AMD: no-rm no-v86 or #GP(0)
+	# #UD if CR4.FRED=1
 	flags: cpl0 cflow=ret tsx-impl-abort
 	gas: suffix=l osz-suffix-3 16 32
 END
@@ -8843,6 +8845,7 @@ INSTRUCTION: o64 0F 07 | SYSRETQ | SYSCALL
 	implied: r=rcx;r11d w=cs;ss
 	rflags: w=oszacpdiA
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
+	# #UD if CR4.FRED=1
 	flags: 64 cpl0 cflow=ret tsx-impl-abort
 	nasm: mnemonic=sysret flags=o64
 END
@@ -10878,6 +10881,7 @@ INSTRUCTION: 0F 35 | SYSEXIT | SEP
 	code-mnemonic: sysexitd
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
 	# AMD: no-rm no-v86 or #GP(0)
+	# #UD if CR4.FRED=1
 	flags: cpl0 cflow=ret tsx-impl-abort
 END
 
@@ -10885,6 +10889,7 @@ END
 INSTRUCTION: o64 0F 35 | SYSEXITQ | SEP
 	implied: r=rcx;rdx w=rsp w=cs;ss
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
+	# #UD if CR4.FRED=1
 	flags: 64 cpl0 cflow=ret tsx-impl-abort
 	gas: mnemonic=sysexit flags=o64
 	nasm: mnemonic=sysexit flags=o64
@@ -29886,4 +29891,49 @@ INSTRUCTION: a64 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
 	gas: asz
 	intel: asz
 	nasm: asz
+END
+
+# Code: Lkgs_rm16
+INSTRUCTION: o16 F2 0F 00 /6 | LKGS r/m16 | LKGS
+	ops: r=rm | UInt16
+	implied: w=gs
+	flags: 64 cpl0
+	gas: reg16
+	masm: flags=force-size=default
+	nasm: osz-reg16
+END
+
+# Code: Lkgs_r32m16
+INSTRUCTION: o32 F2 0F 00 /6 | LKGS r32/m16 | LKGS
+	ops: r=rm | UInt16
+	implied: last-gpr-16 w=gs
+	flags: 64 cpl0
+	gas: reg16
+	masm: flags=force-size=default
+	nasm: osz-reg16
+END
+
+# Code: Lkgs_r64m16
+INSTRUCTION: F2 o64 0F 00 /6 | LKGS r64/m16 | LKGS
+	ops: r=rm | UInt16
+	implied: last-gpr-16 w=gs
+	flags: 64 cpl0
+	gas: reg16
+	masm: flags=force-size=default
+	nasm: osz-reg16
+END
+
+# Code: Eretu
+INSTRUCTION: F3 0F 01 CA | ERETU | FRED
+	# Also loads GS.base (but not GS (selector))
+	implied: pop=5x8 w=rsp;cs;ss
+	rflags: w=oszacpdiA
+	flags: 64 cpl0 sp=pop;40 cflow=ret 
+END
+
+# Code: Erets
+INSTRUCTION: F2 0F 01 CA | ERETS | FRED
+	implied: pop=5x8 w=rsp
+	rflags: w=oszacpdiA
+	flags: 64 cpl0 sp=pop;40 cflow=ret 
 END

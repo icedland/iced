@@ -6527,3 +6527,15 @@ CCS_ENCRYPT: int = 1628
 """
 <no docs>
 """
+LKGS: int = 1629
+"""
+<no docs>
+"""
+ERETS: int = 1630
+"""
+<no docs>
+"""
+ERETU: int = 1631
+"""
+<no docs>
+"""

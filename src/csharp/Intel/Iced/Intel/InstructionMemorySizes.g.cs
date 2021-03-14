@@ -4332,6 +4332,11 @@ namespace Iced.Intel {
 			0,// Ccs_encrypt_16
 			0,// Ccs_encrypt_32
 			0,// Ccs_encrypt_64
+			(byte)MemorySize.UInt16,// Lkgs_rm16
+			(byte)MemorySize.UInt16,// Lkgs_r32m16
+			(byte)MemorySize.UInt16,// Lkgs_r64m16
+			0,// Erets
+			0,// Eretu
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8650,6 +8655,11 @@ namespace Iced.Intel {
 			0,// Ccs_encrypt_16
 			0,// Ccs_encrypt_32
 			0,// Ccs_encrypt_64
+			0,// Lkgs_rm16
+			0,// Lkgs_r32m16
+			0,// Lkgs_r64m16
+			0,// Erets
+			0,// Eretu
 		};
 	}
 }

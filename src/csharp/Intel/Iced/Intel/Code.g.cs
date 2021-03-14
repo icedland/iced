@@ -34522,5 +34522,45 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Ccs_encrypt_64 = 4317,
+		/// <summary><c>LKGS r/m16</c><br/>
+		/// <br/>
+		/// <c>o16 F2 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Lkgs_rm16 = 4318,
+		/// <summary><c>LKGS r32/m16</c><br/>
+		/// <br/>
+		/// <c>o32 F2 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Lkgs_r32m16 = 4319,
+		/// <summary><c>LKGS r64/m16</c><br/>
+		/// <br/>
+		/// <c>F2 o64 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Lkgs_r64m16 = 4320,
+		/// <summary><c>ERETS</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 CA</c><br/>
+		/// <br/>
+		/// <c>FRED</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Erets = 4321,
+		/// <summary><c>ERETU</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 CA</c><br/>
+		/// <br/>
+		/// <c>FRED</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Eretu = 4322,
 	}
 }

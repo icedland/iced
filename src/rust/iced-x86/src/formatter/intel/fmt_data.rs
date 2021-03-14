@@ -16107,4 +16107,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// asz
 	0xCB, 0x0B,// 1483 = "ccs_encrypt"
 	0x40,// 0x40
+
+	// Lkgs_rm16
+	0x01,// Normal_1
+	0xCC, 0x0B,// 1484 = "lkgs"
+
+	// Lkgs_r32m16
+	0x00,// Previous
+
+	// Lkgs_r64m16
+	0x00,// Previous
+
+	// Erets
+	0x01,// Normal_1
+	0xCD, 0x0B,// 1485 = "erets"
+
+	// Eretu
+	0x01,// Normal_1
+	0xCE, 0x0B,// 1486 = "eretu"
 ];

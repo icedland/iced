@@ -8386,3 +8386,11 @@ rep ccs_hash
 addr32 rep ccs_hash
 rep ccs_encrypt
 addr32 rep ccs_encrypt
+lkgs %cx
+lkgs (%rax)
+lkgs %cx
+lkgs (%rax)
+lkgs %cx
+lkgs (%rax)
+eretu
+erets

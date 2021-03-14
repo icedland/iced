@@ -8386,3 +8386,11 @@ rep ccs_hash
 a32 rep ccs_hash
 rep ccs_encrypt
 a32 rep ccs_encrypt
+o16 lkgs cx
+o16 lkgs word [rax]
+lkgs cx
+lkgs word [rax]
+o64 lkgs cx
+o64 lkgs word [rax]
+eretu
+erets

@@ -1442,11 +1442,25 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 6 = 0x06
 				0x0C,// Options_DontReadModRM
-					0x02,// Invalid
+					0x11,// MandatoryPrefix
+						0x02,// Invalid
+						0x02,// Invalid
+						0x02,// Invalid
+						0x01,// Bitness_DontReadModRM
+							0x02,// Invalid
+							0x49,// Evw
+								0xDE, 0x21,// Lkgs_rm16
 					0x01,// Bitness_DontReadModRM
 						0x33,// Ev_3b
 							0x96, 0x06,// Jmpe_rm16
-						0x02,// Invalid
+						0x11,// MandatoryPrefix
+							0x02,// Invalid
+							0x02,// Invalid
+							0x02,// Invalid
+							0x01,// Bitness_DontReadModRM
+								0x02,// Invalid
+								0x49,// Evw
+									0xDE, 0x21,// Lkgs_rm16
 					0x80, 0x20,// Jmpe
 
 				// 7 = 0x07
@@ -1576,8 +1590,14 @@ namespace Iced.Intel.DecoderInternal {
 					0xA4,// Simple
 						0xB6, 0x06,// Clac
 					0x03,// Invalid_NoModRM
-					0x03,// Invalid_NoModRM
-					0x03,// Invalid_NoModRM
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xE2, 0x21,// Eretu
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xE1, 0x21,// Erets
 
 				// 11 = 0x0B
 				0x14,// MandatoryPrefix_NoModRM

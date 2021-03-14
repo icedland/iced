@@ -321,6 +321,10 @@ namespace Iced.Intel {
 		AVX_VNNI = 154,
 		/// <summary>CPUID.0C0000000H:EAX &gt;= 0C0000001H AND CPUID.0C0000001H:EDX.GMI[Bits 5:4] = 11B ([4] = exists, [5] = enabled)</summary>
 		PADLOCK_GMI = 155,
+		/// <summary>CPUID.(EAX=07H, ECX=01H):EAX.FRED[bit 17]</summary>
+		FRED = 156,
+		/// <summary>CPUID.(EAX=07H, ECX=01H):EAX.LKGS[bit 18]</summary>
+		LKGS = 157,
 	}
 }
 #endif

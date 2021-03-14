@@ -34534,9 +34534,49 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Ccs_encrypt_64 = 4317,
+	/// `LKGS r/m16`
+	///
+	/// `o16 F2 0F 00 /6`
+	///
+	/// `LKGS`
+	///
+	/// `64-bit`
+	Lkgs_rm16 = 4318,
+	/// `LKGS r32/m16`
+	///
+	/// `o32 F2 0F 00 /6`
+	///
+	/// `LKGS`
+	///
+	/// `64-bit`
+	Lkgs_r32m16 = 4319,
+	/// `LKGS r64/m16`
+	///
+	/// `F2 o64 0F 00 /6`
+	///
+	/// `LKGS`
+	///
+	/// `64-bit`
+	Lkgs_r64m16 = 4320,
+	/// `ERETS`
+	///
+	/// `F2 0F 01 CA`
+	///
+	/// `FRED`
+	///
+	/// `64-bit`
+	Erets = 4321,
+	/// `ERETU`
+	///
+	/// `F3 0F 01 CA`
+	///
+	/// `FRED`
+	///
+	/// `64-bit`
+	Eretu = 4322,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_CODE: [&str; 4318] = [
+static GEN_DEBUG_CODE: [&str; 4323] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -38855,6 +38895,11 @@ static GEN_DEBUG_CODE: [&str; 4318] = [
 	"Ccs_encrypt_16",
 	"Ccs_encrypt_32",
 	"Ccs_encrypt_64",
+	"Lkgs_rm16",
+	"Lkgs_r32m16",
+	"Lkgs_r64m16",
+	"Erets",
+	"Eretu",
 ];
 impl fmt::Debug for Code {
 	#[inline]

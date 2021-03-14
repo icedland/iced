@@ -4329,6 +4329,11 @@ pub enum Code {
 	Ccs_encrypt_16 = 4315,
 	Ccs_encrypt_32 = 4316,
 	Ccs_encrypt_64 = 4317,
+	Lkgs_rm16 = 4318,
+	Lkgs_r32m16 = 4319,
+	Lkgs_r64m16 = 4320,
+	Erets = 4321,
+	Eretu = 4322,
 }
 // GENERATOR-END: Enum
 

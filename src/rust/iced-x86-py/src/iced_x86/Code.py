@@ -43161,3 +43161,53 @@ CCS_ENCRYPT_64: int = 4317
 
 ``64-bit``
 """
+LKGS_RM16: int = 4318
+"""
+``LKGS r/m16``
+
+``o16 F2 0F 00 /6``
+
+``LKGS``
+
+``64-bit``
+"""
+LKGS_R32M16: int = 4319
+"""
+``LKGS r32/m16``
+
+``o32 F2 0F 00 /6``
+
+``LKGS``
+
+``64-bit``
+"""
+LKGS_R64M16: int = 4320
+"""
+``LKGS r64/m16``
+
+``F2 o64 0F 00 /6``
+
+``LKGS``
+
+``64-bit``
+"""
+ERETS: int = 4321
+"""
+``ERETS``
+
+``F2 0F 01 CA``
+
+``FRED``
+
+``64-bit``
+"""
+ERETU: int = 4322
+"""
+``ERETU``
+
+``F3 0F 01 CA``
+
+``FRED``
+
+``64-bit``
+"""

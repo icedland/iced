@@ -14747,6 +14747,24 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// Ccs_encrypt_64
 				0x02,// SameAsPrev
+
+				// Lkgs_rm16
+				0x00,// No flags set
+				0xCC, 0x0B,// 1484 = "lkgs"
+
+				// Lkgs_r32m16
+				0x02,// SameAsPrev
+
+				// Lkgs_r64m16
+				0x02,// SameAsPrev
+
+				// Erets
+				0x00,// No flags set
+				0xCD, 0x0B,// 1485 = "erets"
+
+				// Eretu
+				0x00,// No flags set
+				0xCE, 0x0B,// 1486 = "eretu"
 			};
 	}
 }

@@ -9722,6 +9722,34 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Enterd_imm16_imm8 : Code.Enterw_imm16_imm8;
 			AddInstruction(Instruction.Create(op, (uint)imm, (uint)imm1));
 		}
+		/// <summary>erets instruction.<br/>
+		/// <br/>
+		/// <c>ERETS</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 CA</c><br/>
+		/// <br/>
+		/// <c>FRED</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void erets() {
+			Code op;
+			op = Code.Erets;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>eretu instruction.<br/>
+		/// <br/>
+		/// <c>ERETU</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 CA</c><br/>
+		/// <br/>
+		/// <c>FRED</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void eretu() {
+			Code op;
+			op = Code.Eretu;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>extractps instruction.<br/>
 		/// <br/>
 		/// <c>EXTRACTPS r/m32, xmm1, imm8</c><br/>
@@ -17416,6 +17444,70 @@ namespace Iced.Intel {
 			if (Bitness == 64) {
 				op = Code.Lidt_m1664;
 			} else op = Bitness >= 32 ? Code.Lidt_m1632 : Code.Lidt_m1632_16;
+			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
+		}
+		/// <summary>lkgs instruction.<br/>
+		/// <br/>
+		/// <c>LKGS r/m16</c><br/>
+		/// <br/>
+		/// <c>o16 F2 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void lkgs(AssemblerRegister16 dst) {
+			Code op;
+			op = Code.Lkgs_rm16;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>lkgs instruction.<br/>
+		/// <br/>
+		/// <c>LKGS r32/m16</c><br/>
+		/// <br/>
+		/// <c>o32 F2 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void lkgs(AssemblerRegister32 dst) {
+			Code op;
+			op = Code.Lkgs_r32m16;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>lkgs instruction.<br/>
+		/// <br/>
+		/// <c>LKGS r64/m16</c><br/>
+		/// <br/>
+		/// <c>F2 o64 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void lkgs(AssemblerRegister64 dst) {
+			Code op;
+			op = Code.Lkgs_r64m16;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>lkgs instruction.<br/>
+		/// <br/>
+		/// <c>LKGS r32/m16</c><br/>
+		/// <br/>
+		/// <c>o32 F2 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <c>LKGS r/m16</c><br/>
+		/// <br/>
+		/// <c>o16 F2 0F 00 /6</c><br/>
+		/// <br/>
+		/// <c>LKGS</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void lkgs(AssemblerMemoryOperand dst) {
+			Code op;
+			op = Bitness >= 32 ? Code.Lkgs_r32m16 : Code.Lkgs_rm16;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>lldt instruction.<br/>

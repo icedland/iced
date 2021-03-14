@@ -16629,6 +16629,29 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x04,// asz
 				0xCB, 0x0B,// 1483 = "ccs_encrypt"
 				0x40,// 0x40
+
+				// Lkgs_rm16
+				0x2B,// os_mem_reg16
+				0xCC, 0x0B,// 1484 = "lkgs"
+				0x10,// 0x10
+
+				// Lkgs_r32m16
+				0x2B,// os_mem_reg16
+				0xCC, 0x0B,// 1484 = "lkgs"
+				0x20,// 0x20
+
+				// Lkgs_r64m16
+				0x2B,// os_mem_reg16
+				0xCC, 0x0B,// 1484 = "lkgs"
+				0x40,// 0x40
+
+				// Erets
+				0x01,// Normal_1
+				0xCD, 0x0B,// 1485 = "erets"
+
+				// Eretu
+				0x01,// Normal_1
+				0xCE, 0x0B,// 1486 = "eretu"
 			};
 	}
 }

@@ -139,6 +139,8 @@ namespace Iced.Intel {
 				case Code.Popad:
 					return 32;
 				case Code.Iretq:
+				case Code.Erets:
+				case Code.Eretu:
 					return 40;
 				case Code.Enterw_imm16_imm8:
 					return -(2 + (Immediate8_2nd & 0x1F) * 2 + Immediate16);

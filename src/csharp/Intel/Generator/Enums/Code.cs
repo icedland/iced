@@ -4329,6 +4329,11 @@ namespace Generator.Enums {
 		Ccs_encrypt_16,
 		Ccs_encrypt_32,
 		Ccs_encrypt_64,
+		Lkgs_rm16,
+		Lkgs_r32m16,
+		Lkgs_r64m16,
+		Erets,
+		Eretu,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

@@ -8386,3 +8386,11 @@ rep ccs_hash
 rep ccs_hash
 rep ccs_encrypt
 rep ccs_encrypt
+lkgs cx
+lkgs word ptr ds:[rax]
+lkgs ecx
+lkgs word ptr ds:[rax]
+lkgs rcx
+lkgs word ptr ds:[rax]
+eretu
+erets

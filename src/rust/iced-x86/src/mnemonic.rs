@@ -1644,9 +1644,12 @@ pub enum Mnemonic {
 	Hreset = 1626,
 	Ccs_hash = 1627,
 	Ccs_encrypt = 1628,
+	Lkgs = 1629,
+	Erets = 1630,
+	Eretu = 1631,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_MNEMONIC: [&str; 1629] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1632] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3276,6 +3279,9 @@ static GEN_DEBUG_MNEMONIC: [&str; 1629] = [
 	"Hreset",
 	"Ccs_hash",
 	"Ccs_encrypt",
+	"Lkgs",
+	"Erets",
+	"Eretu",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

@@ -32527,3 +32527,28 @@ F3 F2 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64
 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64 decopt=Xbts no_opt_disable_test
 0FA7 F0, INVALID, INVALID, 0, code=Ccs_encrypt_64 decopt=Cmpxchg486A no_opt_disable_test
 F3 4F 0FA7 F0, Ccs_encrypt_64, Ccs_encrypt, 0, rep enc=F30FA7F0
+
+66 F2 0F00 F1, Lkgs_rm16, Lkgs, 1, op0=r;cx
+F2 66 0F00 F1, Lkgs_rm16, Lkgs, 1, op0=r;cx enc=66F20F00F1
+66 F2 41 0F00 F1, Lkgs_rm16, Lkgs, 1, op0=r;r9w
+66 F2 0F00 30, Lkgs_rm16, Lkgs, 1, op0=m;ds;rax;;1;0;0;UInt16
+F2 66 46 0F00 F1, Lkgs_rm16, Lkgs, 1, op0=r;cx enc=66F20F00F1
+66 F2 0F00 F1, Lkgs_rm16, Lkgs, 1, op0=r;cx decopt=Jmpe no_opt_disable_test
+
+F2 0F00 F1, Lkgs_r32m16, Lkgs, 1, op0=r;ecx
+F2 41 0F00 F1, Lkgs_r32m16, Lkgs, 1, op0=r;r9d
+F2 0F00 30, Lkgs_r32m16, Lkgs, 1, op0=m;ds;rax;;1;0;0;UInt16
+F2 46 0F00 F1, Lkgs_r32m16, Lkgs, 1, op0=r;ecx enc=F20F00F1
+F2 0F00 F1, Lkgs_r32m16, Lkgs, 1, op0=r;ecx decopt=Jmpe no_opt_disable_test
+
+F2 48 0F00 F1, Lkgs_r64m16, Lkgs, 1, op0=r;rcx
+F2 49 0F00 F1, Lkgs_r64m16, Lkgs, 1, op0=r;r9
+F2 48 0F00 30, Lkgs_r64m16, Lkgs, 1, op0=m;ds;rax;;1;0;0;UInt16
+F2 4E 0F00 F1, Lkgs_r64m16, Lkgs, 1, op0=r;rcx enc=F2480F00F1
+F2 48 0F00 F1, Lkgs_r64m16, Lkgs, 1, op0=r;rcx decopt=Jmpe no_opt_disable_test
+
+F3 0F 01 CA, Eretu, Eretu, 0,
+F3 4F 0F 01 CA, Eretu, Eretu, 0, enc=F30F01CA
+
+F2 0F 01 CA, Erets, Erets, 0,
+F2 4F 0F 01 CA, Erets, Erets, 0, enc=F20F01CA

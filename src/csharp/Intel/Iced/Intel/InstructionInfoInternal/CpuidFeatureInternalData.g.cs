@@ -37,6 +37,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x00,
 				0x00,
 				0x08,
+				0x00,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -214,6 +215,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x99,// HRESET
 				0x9A,// AVX_VNNI
 				0x9B,// PADLOCK_GMI
+				0x9C,// FRED
+				0x9D,// LKGS
 			};
 	}
 }

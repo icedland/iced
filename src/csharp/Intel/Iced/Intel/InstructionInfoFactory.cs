@@ -1658,6 +1658,26 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
 				}
 				break;
+			case ImpliedAccess.t_gpr16_Wgs:
+				CommandLastGpr(instruction, flags, Register.AX);
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.GS, OpAccess.Write);
+				}
+				break;
+			case ImpliedAccess.t_Wrsp_pop5x8:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RSP, OpAccess.Write);
+				}
+				CommandPop(instruction, flags, 5, 8);
+				break;
+			case ImpliedAccess.t_Wrsp_Wcs_Wss_pop5x8:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RSP, OpAccess.Write);
+					AddRegister(flags, Register.CS, OpAccess.Write);
+					AddRegister(flags, Register.SS, OpAccess.Write);
+				}
+				CommandPop(instruction, flags, 5, 8);
+				break;
 			// GENERATOR-END: ImpliedAccessHandler
 
 			default:

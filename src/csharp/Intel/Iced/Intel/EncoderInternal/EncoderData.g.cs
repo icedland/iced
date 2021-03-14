@@ -13,7 +13,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] EncFlags3 = GetEncFlags3();
 
 		static uint[] GetEncFlags1() =>
-			new uint[4318] {
+			new uint[4323] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4332,10 +4332,15 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Ccs_encrypt_16
 				0x00000000,// Ccs_encrypt_32
 				0x00000000,// Ccs_encrypt_64
+				0x00000008,// Lkgs_rm16
+				0x00000009,// Lkgs_r32m16
+				0x0000000B,// Lkgs_r64m16
+				0x00000000,// Erets
+				0x00000000,// Eretu
 			};
 
 		static uint[] GetEncFlags2() =>
-			new uint[4318] {
+			new uint[4323] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -8654,10 +8659,15 @@ namespace Iced.Intel.EncoderInternal {
 				0x2013A7F0,// Ccs_encrypt_16
 				0x2013A7F0,// Ccs_encrypt_32
 				0x2013A7F0,// Ccs_encrypt_64
+				0x781A0000,// Lkgs_rm16
+				0x781A0000,// Lkgs_r32m16
+				0x781A0000,// Lkgs_r64m16
+				0x201B01CA,// Erets
+				0x201301CA,// Eretu
 			};
 
 		static uint[] GetEncFlags3() =>
-			new uint[4318] {
+			new uint[4323] {
 				0x00030000,// INVALID
 				0x00030000,// DeclareByte
 				0x00030000,// DeclareWord
@@ -12976,6 +12986,11 @@ namespace Iced.Intel.EncoderInternal {
 				0x00010020,// Ccs_encrypt_16
 				0x00030040,// Ccs_encrypt_32
 				0x00020060,// Ccs_encrypt_64
+				0x00020008,// Lkgs_rm16
+				0x00020010,// Lkgs_r32m16
+				0x00020018,// Lkgs_r64m16
+				0x00020000,// Erets
+				0x00020000,// Eretu
 			};
 	}
 }

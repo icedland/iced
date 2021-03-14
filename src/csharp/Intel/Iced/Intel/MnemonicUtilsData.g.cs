@@ -4326,6 +4326,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Ccs_encrypt,// Ccs_encrypt_16
 			(ushort)Mnemonic.Ccs_encrypt,// Ccs_encrypt_32
 			(ushort)Mnemonic.Ccs_encrypt,// Ccs_encrypt_64
+			(ushort)Mnemonic.Lkgs,// Lkgs_rm16
+			(ushort)Mnemonic.Lkgs,// Lkgs_r32m16
+			(ushort)Mnemonic.Lkgs,// Lkgs_r64m16
+			(ushort)Mnemonic.Erets,// Erets
+			(ushort)Mnemonic.Eretu,// Eretu
 		};
 	}
 }

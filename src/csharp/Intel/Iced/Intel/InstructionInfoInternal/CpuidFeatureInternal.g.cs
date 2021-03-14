@@ -184,6 +184,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		HRESET,
 		AVX_VNNI,
 		PADLOCK_GMI,
+		FRED,
+		LKGS,
 	}
 }
 #endif

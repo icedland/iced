@@ -3689,6 +3689,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void erets() {
+			TestAssembler(c => c.erets(), Instruction.Create(Code.Erets));
+		}
+
+		[Fact]
+		public void eretu() {
+			TestAssembler(c => c.eretu(), Instruction.Create(Code.Eretu));
+		}
+
+		[Fact]
 		public void extractps_reg32_regXMM_i() {
 			TestAssembler(c => c.extractps(edx, xmm3, -5), Instruction.Create(Code.Extractps_rm32_xmm_imm8, edx, xmm3, -5));
 		}
@@ -6145,6 +6155,28 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (Bitness == 64) */
 				TestAssembler(c => c.lidt(__[rcx]), Instruction.Create(Code.Lidt_m1664, __[rcx].ToMemoryOperand(Bitness)));
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
+		public void lkgs_reg16() {
+			TestAssembler(c => c.lkgs(dx), Instruction.Create(Code.Lkgs_rm16, dx));
+		}
+
+		[Fact]
+		public void lkgs_reg32() {
+			TestAssembler(c => c.lkgs(edx), Instruction.Create(Code.Lkgs_r32m16, edx));
+		}
+
+		[Fact]
+		public void lkgs_reg64() {
+			TestAssembler(c => c.lkgs(rdx), Instruction.Create(Code.Lkgs_r64m16, rdx));
+		}
+
+		[Fact]
+		public void lkgs_m() {
+			{ /* if (Bitness >= 32) */
+				TestAssembler(c => c.lkgs(__dword_ptr[rcx]), Instruction.Create(Code.Lkgs_r32m16, __dword_ptr[rcx].ToMemoryOperand(Bitness)));
+			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
 		[Fact]

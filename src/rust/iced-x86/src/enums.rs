@@ -1560,10 +1560,14 @@ pub enum CpuidFeature {
 	AVX_VNNI = 154,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.GMI\[Bits 5:4\] = 11B (\[4\] = exists, \[5\] = enabled)
 	PADLOCK_GMI = 155,
+	/// CPUID.(EAX=07H, ECX=01H):EAX.FRED\[bit 17\]
+	FRED = 156,
+	/// CPUID.(EAX=07H, ECX=01H):EAX.LKGS\[bit 18\]
+	LKGS = 157,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 156] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 158] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1720,6 +1724,8 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 156] = [
 	"HRESET",
 	"AVX_VNNI",
 	"PADLOCK_GMI",
+	"FRED",
+	"LKGS",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

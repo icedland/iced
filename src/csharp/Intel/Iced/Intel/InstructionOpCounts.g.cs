@@ -4330,6 +4330,11 @@ namespace Iced.Intel {
 			0,// Ccs_encrypt_16
 			0,// Ccs_encrypt_32
 			0,// Ccs_encrypt_64
+			1,// Lkgs_rm16
+			1,// Lkgs_r32m16
+			1,// Lkgs_r64m16
+			0,// Erets
+			0,// Eretu
 		};
 	}
 }
