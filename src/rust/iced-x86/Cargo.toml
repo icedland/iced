@@ -46,4 +46,4 @@ static_assertions = "1.1.0"
 lazy_static = { version = "1.4.0", optional = true }
 
 # if: no_std and block_encoder
-hashbrown = { version = "0.11.0", optional = true }
+hashbrown = { version = "0.9.1", optional = true }
