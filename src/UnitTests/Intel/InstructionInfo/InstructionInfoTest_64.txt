@@ -19249,11 +19249,11 @@ F3 0FA7 F0, Ccs_encrypt_64, Legacy, PADLOCK_GMI, crm=es:rbx;Unknown crm=es:rsi;U
 F2 66 0F00 F1, Lkgs_rm16, Legacy, LKGS, priv op0=r r=cx w=gs
 # lkgs word ptr [rax]
 F2 66 0F00 30, Lkgs_rm16, Legacy, LKGS, priv op0=r r=rax w=gs rm=ds:rax;UInt16
-# lkgs cx
+# lkgs ecx
 F2 0F00 F1, Lkgs_r32m16, Legacy, LKGS, priv op0=r r=cx w=gs
 # lkgs word ptr [rax]
 F2 0F00 30, Lkgs_r32m16, Legacy, LKGS, priv op0=r r=rax w=gs rm=ds:rax;UInt16
-# lkgs cx
+# lkgs rcx
 F2 48 0F00 F1, Lkgs_r64m16, Legacy, LKGS, priv op0=r r=cx w=gs
 # lkgs word ptr [rax]
 F2 48 0F00 30, Lkgs_r64m16, Legacy, LKGS, priv op0=r r=rax w=gs rm=ds:rax;UInt16
