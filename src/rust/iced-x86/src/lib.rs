@@ -4,7 +4,7 @@
 //! iced-x86
 //! [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 //! [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
-//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.41.0+-yellow.svg)](#minimum-supported-rustc-version)
+//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.41.0+-blue.svg)](#minimum-supported-rustc-version)
 //! ![License](https://img.shields.io/crates/l/iced-x86.svg)
 //!
 //! iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
