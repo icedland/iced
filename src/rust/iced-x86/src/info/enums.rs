@@ -481,8 +481,8 @@ pub(crate) enum ImpliedAccess {
 	t_CRmem_CRmem_CWmem_CReax_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx,
 	t_CRmem_CRmem_CWmem_CRrax_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx,
 	t_gpr16_Wgs,
-	t_Wrsp_pop5x8,
 	t_Wrsp_Wcs_Wss_pop5x8,
+	t_Wrsp_pop5x8,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
@@ -676,8 +676,8 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 191] = [
 	"t_CRmem_CRmem_CWmem_CReax_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx",
 	"t_CRmem_CRmem_CWmem_CRrax_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx",
 	"t_gpr16_Wgs",
-	"t_Wrsp_pop5x8",
 	"t_Wrsp_Wcs_Wss_pop5x8",
+	"t_Wrsp_pop5x8",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for ImpliedAccess {

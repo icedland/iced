@@ -4326,8 +4326,8 @@ pub(super) static ENC_FLAGS1: [u32; 4323] = [
 	0x0000_0008,// Lkgs_rm16
 	0x0000_0009,// Lkgs_r32m16
 	0x0000_000B,// Lkgs_r64m16
-	0x0000_0000,// Erets
 	0x0000_0000,// Eretu
+	0x0000_0000,// Erets
 ];
 #[rustfmt::skip]
 pub(super) static ENC_FLAGS2: [u32; 4323] = [
@@ -8652,8 +8652,8 @@ pub(super) static ENC_FLAGS2: [u32; 4323] = [
 	0x781A_0000,// Lkgs_rm16
 	0x781A_0000,// Lkgs_r32m16
 	0x781A_0000,// Lkgs_r64m16
-	0x201B_01CA,// Erets
 	0x2013_01CA,// Eretu
+	0x201B_01CA,// Erets
 ];
 #[rustfmt::skip]
 pub(super) static ENC_FLAGS3: [u32; 4323] = [
@@ -12978,6 +12978,6 @@ pub(super) static ENC_FLAGS3: [u32; 4323] = [
 	0x0002_0008,// Lkgs_rm16
 	0x0002_0010,// Lkgs_r32m16
 	0x0002_0018,// Lkgs_r64m16
-	0x0002_0000,// Erets
 	0x0002_0000,// Eretu
+	0x0002_0000,// Erets
 ];

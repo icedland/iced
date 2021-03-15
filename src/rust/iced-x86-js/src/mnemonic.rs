@@ -1641,8 +1641,8 @@ pub enum Mnemonic {
 	Ccs_hash = 1627,
 	Ccs_encrypt = 1628,
 	Lkgs = 1629,
-	Erets = 1630,
-	Eretu = 1631,
+	Eretu = 1630,
+	Erets = 1631,
 }
 // GENERATOR-END: Enum
 

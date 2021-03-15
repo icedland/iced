@@ -4331,8 +4331,8 @@ pub(super) static SIZES: [MemorySize; IcedConstants::CODE_ENUM_COUNT * 2] = [
 	MemorySize::UInt16,// Lkgs_rm16
 	MemorySize::UInt16,// Lkgs_r32m16
 	MemorySize::UInt16,// Lkgs_r64m16
-	MemorySize::Unknown,// Erets
 	MemorySize::Unknown,// Eretu
+	MemorySize::Unknown,// Erets
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8654,6 +8654,6 @@ pub(super) static SIZES: [MemorySize; IcedConstants::CODE_ENUM_COUNT * 2] = [
 	MemorySize::Unknown,// Lkgs_rm16
 	MemorySize::Unknown,// Lkgs_r32m16
 	MemorySize::Unknown,// Lkgs_r64m16
-	MemorySize::Unknown,// Erets
 	MemorySize::Unknown,// Eretu
+	MemorySize::Unknown,// Erets
 ];

@@ -4337,8 +4337,8 @@ namespace Iced.UnitTests.Intel {
 				{ "Lkgs_rm16", Code.Lkgs_rm16 },
 				{ "Lkgs_r32m16", Code.Lkgs_r32m16 },
 				{ "Lkgs_r64m16", Code.Lkgs_r64m16 },
-				{ "Erets", Code.Erets },
 				{ "Eretu", Code.Eretu },
+				{ "Erets", Code.Erets },
 			};
 			// GENERATOR-END: CodeHash
 	}

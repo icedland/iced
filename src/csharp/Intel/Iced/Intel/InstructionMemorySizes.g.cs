@@ -4335,8 +4335,8 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt16,// Lkgs_rm16
 			(byte)MemorySize.UInt16,// Lkgs_r32m16
 			(byte)MemorySize.UInt16,// Lkgs_r64m16
-			0,// Erets
 			0,// Eretu
+			0,// Erets
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8658,8 +8658,8 @@ namespace Iced.Intel {
 			0,// Lkgs_rm16
 			0,// Lkgs_r32m16
 			0,// Lkgs_r64m16
-			0,// Erets
 			0,// Eretu
+			0,// Erets
 		};
 	}
 }

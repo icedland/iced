@@ -1836,17 +1836,17 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::GS, OpAccess::Write);
 				}
 			}
-			ImpliedAccess::t_Wrsp_pop5x8 => {
-				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					Self::add_register(flags, info, Register::RSP, OpAccess::Write);
-				}
-				Self::command_pop(instruction, info, flags, 5, 8);
-			}
 			ImpliedAccess::t_Wrsp_Wcs_Wss_pop5x8 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::RSP, OpAccess::Write);
 					Self::add_register(flags, info, Register::CS, OpAccess::Write);
 					Self::add_register(flags, info, Register::SS, OpAccess::Write);
+				}
+				Self::command_pop(instruction, info, flags, 5, 8);
+			}
+			ImpliedAccess::t_Wrsp_pop5x8 => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RSP, OpAccess::Write);
 				}
 				Self::command_pop(instruction, info, flags, 5, 8);
 			}

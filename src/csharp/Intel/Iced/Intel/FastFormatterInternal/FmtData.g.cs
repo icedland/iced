@@ -14758,13 +14758,13 @@ namespace Iced.Intel.FastFormatterInternal {
 				// Lkgs_r64m16
 				0x02,// SameAsPrev
 
-				// Erets
-				0x00,// No flags set
-				0xCD, 0x0B,// 1485 = "erets"
-
 				// Eretu
 				0x00,// No flags set
-				0xCE, 0x0B,// 1486 = "eretu"
+				0xCD, 0x0B,// 1485 = "eretu"
+
+				// Erets
+				0x00,// No flags set
+				0xCE, 0x0B,// 1486 = "erets"
 			};
 	}
 }

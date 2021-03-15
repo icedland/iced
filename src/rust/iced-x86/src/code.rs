@@ -34558,14 +34558,6 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Lkgs_r64m16 = 4320,
-	/// `ERETS`
-	///
-	/// `F2 0F 01 CA`
-	///
-	/// `FRED`
-	///
-	/// `64-bit`
-	Erets = 4321,
 	/// `ERETU`
 	///
 	/// `F3 0F 01 CA`
@@ -34573,7 +34565,15 @@ pub enum Code {
 	/// `FRED`
 	///
 	/// `64-bit`
-	Eretu = 4322,
+	Eretu = 4321,
+	/// `ERETS`
+	///
+	/// `F2 0F 01 CA`
+	///
+	/// `FRED`
+	///
+	/// `64-bit`
+	Erets = 4322,
 }
 #[rustfmt::skip]
 static GEN_DEBUG_CODE: [&str; 4323] = [
@@ -38898,8 +38898,8 @@ static GEN_DEBUG_CODE: [&str; 4323] = [
 	"Lkgs_rm16",
 	"Lkgs_r32m16",
 	"Lkgs_r64m16",
-	"Erets",
 	"Eretu",
+	"Erets",
 ];
 impl fmt::Debug for Code {
 	#[inline]

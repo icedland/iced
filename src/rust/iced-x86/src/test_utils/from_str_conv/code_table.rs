@@ -4331,8 +4331,8 @@ lazy_static! {
 		let _ = h.insert("Lkgs_rm16", Code::Lkgs_rm16);
 		let _ = h.insert("Lkgs_r32m16", Code::Lkgs_r32m16);
 		let _ = h.insert("Lkgs_r64m16", Code::Lkgs_r64m16);
-		let _ = h.insert("Erets", Code::Erets);
 		let _ = h.insert("Eretu", Code::Eretu);
+		let _ = h.insert("Erets", Code::Erets);
 		// GENERATOR-END: CodeHash
 		h
 	};

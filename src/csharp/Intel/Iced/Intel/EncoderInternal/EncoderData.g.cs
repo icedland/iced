@@ -4335,8 +4335,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000008,// Lkgs_rm16
 				0x00000009,// Lkgs_r32m16
 				0x0000000B,// Lkgs_r64m16
-				0x00000000,// Erets
 				0x00000000,// Eretu
+				0x00000000,// Erets
 			};
 
 		static uint[] GetEncFlags2() =>
@@ -8662,8 +8662,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x781A0000,// Lkgs_rm16
 				0x781A0000,// Lkgs_r32m16
 				0x781A0000,// Lkgs_r64m16
-				0x201B01CA,// Erets
 				0x201301CA,// Eretu
+				0x201B01CA,// Erets
 			};
 
 		static uint[] GetEncFlags3() =>
@@ -12989,8 +12989,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x00020008,// Lkgs_rm16
 				0x00020010,// Lkgs_r32m16
 				0x00020018,// Lkgs_r64m16
-				0x00020000,// Erets
 				0x00020000,// Eretu
+				0x00020000,// Erets
 			};
 	}
 }

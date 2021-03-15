@@ -34546,14 +34546,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Lkgs_r64m16 = 4320,
-		/// <summary><c>ERETS</c><br/>
-		/// <br/>
-		/// <c>F2 0F 01 CA</c><br/>
-		/// <br/>
-		/// <c>FRED</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		Erets = 4321,
 		/// <summary><c>ERETU</c><br/>
 		/// <br/>
 		/// <c>F3 0F 01 CA</c><br/>
@@ -34561,6 +34553,14 @@ namespace Iced.Intel {
 		/// <c>FRED</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		Eretu = 4322,
+		Eretu = 4321,
+		/// <summary><c>ERETS</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 CA</c><br/>
+		/// <br/>
+		/// <c>FRED</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Erets = 4322,
 	}
 }

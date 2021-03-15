@@ -4330,8 +4330,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x09300004, 0xB1080000,// Lkgs_rm16
 			0x0BC00004, 0xB1080000,// Lkgs_r32m16
 			0x0BC00004, 0xB1080000,// Lkgs_r64m16
-			0x0BD6C000, 0xB04C0000,// Erets
-			0x0BE6C000, 0xB04C0000,// Eretu
+			0x0BD6C000, 0xB04C0000,// Eretu
+			0x0BE6C000, 0xB04C0000,// Erets
 		};
 	}
 }

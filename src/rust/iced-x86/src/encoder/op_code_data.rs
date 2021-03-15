@@ -4326,8 +4326,8 @@ pub(super) static OPC_FLAGS1: [u32; 4323] = [
 	0x0000_8001,// Lkgs_rm16
 	0x0000_8001,// Lkgs_r32m16
 	0x0000_8001,// Lkgs_r64m16
-	0x0002_8001,// Erets
 	0x0002_8001,// Eretu
+	0x0002_8001,// Erets
 ];
 #[rustfmt::skip]
 pub(super) static OPC_FLAGS2: [u32; 4323] = [
@@ -8652,6 +8652,6 @@ pub(super) static OPC_FLAGS2: [u32; 4323] = [
 	0x1400_3E70,// Lkgs_rm16
 	0x1400_3E70,// Lkgs_r32m16
 	0x1400_3E70,// Lkgs_r64m16
-	0x1400_3E70,// Erets
 	0x1400_3E70,// Eretu
+	0x1400_3E70,// Erets
 ];

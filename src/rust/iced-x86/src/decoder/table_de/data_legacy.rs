@@ -1584,11 +1584,11 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Bitness
 			0x03,// Invalid_NoModRM
 			0xA4,// Simple
-				0xE2, 0x21,// Eretu
+				0xE1, 0x21,// Eretu
 		0x00,// Bitness
 			0x03,// Invalid_NoModRM
 			0xA4,// Simple
-				0xE1, 0x21,// Erets
+				0xE2, 0x21,// Erets
 
 	// 11 = 0x0B
 	0x14,// MandatoryPrefix_NoModRM

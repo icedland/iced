@@ -4332,8 +4332,8 @@ pub enum Code {
 	Lkgs_rm16 = 4318,
 	Lkgs_r32m16 = 4319,
 	Lkgs_r64m16 = 4320,
-	Erets = 4321,
-	Eretu = 4322,
+	Eretu = 4321,
+	Erets = 4322,
 }
 // GENERATOR-END: Enum
 

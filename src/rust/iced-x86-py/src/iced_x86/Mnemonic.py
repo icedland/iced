@@ -6531,11 +6531,11 @@ LKGS: int = 1629
 """
 <no docs>
 """
-ERETS: int = 1630
+ERETU: int = 1630
 """
 <no docs>
 """
-ERETU: int = 1631
+ERETS: int = 1631
 """
 <no docs>
 """

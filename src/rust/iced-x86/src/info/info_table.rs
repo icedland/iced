@@ -4326,6 +4326,6 @@ pub(crate) static TABLE: [u32; 8646] = [
 	0x0930_0004, 0xB108_0000,// Lkgs_rm16
 	0x0BC0_0004, 0xB108_0000,// Lkgs_r32m16
 	0x0BC0_0004, 0xB108_0000,// Lkgs_r64m16
-	0x0BD6_C000, 0xB04C_0000,// Erets
-	0x0BE6_C000, 0xB04C_0000,// Eretu
+	0x0BD6_C000, 0xB04C_0000,// Eretu
+	0x0BE6_C000, 0xB04C_0000,// Erets
 ];

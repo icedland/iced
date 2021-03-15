@@ -16636,11 +16636,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xCC, 0x0B,// 1484 = "lkgs"
 	0x40,// 0x40
 
-	// Erets
-	0x01,// Normal_1
-	0xCD, 0x0B,// 1485 = "erets"
-
 	// Eretu
 	0x01,// Normal_1
-	0xCE, 0x0B,// 1486 = "eretu"
+	0xCD, 0x0B,// 1485 = "eretu"
+
+	// Erets
+	0x01,// Normal_1
+	0xCE, 0x0B,// 1486 = "erets"
 ];

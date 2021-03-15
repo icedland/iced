@@ -4333,8 +4333,8 @@ namespace Iced.Intel {
 			1,// Lkgs_rm16
 			1,// Lkgs_r32m16
 			1,// Lkgs_r64m16
-			0,// Erets
 			0,// Eretu
+			0,// Erets
 		};
 	}
 }

@@ -1634,7 +1634,7 @@ namespace Generator.Enums {
 		Ccs_hash,
 		Ccs_encrypt,
 		Lkgs,
-		Erets,
 		Eretu,
+		Erets,
 	}
 }

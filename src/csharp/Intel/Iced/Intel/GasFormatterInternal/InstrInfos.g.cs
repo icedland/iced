@@ -17979,13 +17979,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				// Lkgs_r64m16
 				0x00,// Previous
 
-				// Erets
-				0x01,// Normal_1
-				0xCD, 0x0B,// 1485 = "erets"
-
 				// Eretu
 				0x01,// Normal_1
-				0xCE, 0x0B,// 1486 = "eretu"
+				0xCD, 0x0B,// 1485 = "eretu"
+
+				// Erets
+				0x01,// Normal_1
+				0xCE, 0x0B,// 1486 = "erets"
 			};
 	}
 }

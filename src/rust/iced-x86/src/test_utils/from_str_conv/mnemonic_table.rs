@@ -1640,8 +1640,8 @@ lazy_static! {
 		let _ = h.insert("Ccs_hash", Mnemonic::Ccs_hash);
 		let _ = h.insert("Ccs_encrypt", Mnemonic::Ccs_encrypt);
 		let _ = h.insert("Lkgs", Mnemonic::Lkgs);
-		let _ = h.insert("Erets", Mnemonic::Erets);
 		let _ = h.insert("Eretu", Mnemonic::Eretu);
+		let _ = h.insert("Erets", Mnemonic::Erets);
 		// GENERATOR-END: MnemonicHash
 		h
 	};

@@ -4328,6 +4328,6 @@ pub(super) static OP_COUNT: [u8; IcedConstants::CODE_ENUM_COUNT] = [
 	1,// Lkgs_rm16
 	1,// Lkgs_r32m16
 	1,// Lkgs_r64m16
-	0,// Erets
 	0,// Eretu
+	0,// Erets
 ];

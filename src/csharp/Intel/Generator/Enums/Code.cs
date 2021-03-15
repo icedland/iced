@@ -4332,8 +4332,8 @@ namespace Generator.Enums {
 		Lkgs_rm16,
 		Lkgs_r32m16,
 		Lkgs_r64m16,
-		Erets,
 		Eretu,
+		Erets,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

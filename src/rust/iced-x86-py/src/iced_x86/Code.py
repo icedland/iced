@@ -43191,21 +43191,21 @@ LKGS_R64M16: int = 4320
 
 ``64-bit``
 """
-ERETS: int = 4321
+ERETU: int = 4321
 """
-``ERETS``
+``ERETU``
 
-``F2 0F 01 CA``
+``F3 0F 01 CA``
 
 ``FRED``
 
 ``64-bit``
 """
-ERETU: int = 4322
+ERETS: int = 4322
 """
-``ERETU``
+``ERETS``
 
-``F3 0F 01 CA``
+``F2 0F 01 CA``
 
 ``FRED``
 

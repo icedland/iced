@@ -1635,6 +1635,6 @@ pub(super) static TO_MNEMONIC_STR: [&str; 1632] = [
 	"ccs_hash",
 	"ccs_encrypt",
 	"lkgs",
-	"erets",
 	"eretu",
+	"erets",
 ];

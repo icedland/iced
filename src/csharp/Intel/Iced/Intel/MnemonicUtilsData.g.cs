@@ -4329,8 +4329,8 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Lkgs,// Lkgs_rm16
 			(ushort)Mnemonic.Lkgs,// Lkgs_r32m16
 			(ushort)Mnemonic.Lkgs,// Lkgs_r64m16
-			(ushort)Mnemonic.Erets,// Erets
 			(ushort)Mnemonic.Eretu,// Eretu
+			(ushort)Mnemonic.Erets,// Erets
 		};
 	}
 }

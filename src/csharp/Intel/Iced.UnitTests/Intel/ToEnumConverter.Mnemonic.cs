@@ -1644,8 +1644,8 @@ namespace Iced.UnitTests.Intel {
 				{ "Ccs_hash", Mnemonic.Ccs_hash },
 				{ "Ccs_encrypt", Mnemonic.Ccs_encrypt },
 				{ "Lkgs", Mnemonic.Lkgs },
-				{ "Erets", Mnemonic.Erets },
 				{ "Eretu", Mnemonic.Eretu },
+				{ "Erets", Mnemonic.Erets },
 			};
 			// GENERATOR-END: MnemonicHash
 	}

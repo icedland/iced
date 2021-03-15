@@ -4334,8 +4334,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x00008001,// Lkgs_rm16
 				0x00008001,// Lkgs_r32m16
 				0x00008001,// Lkgs_r64m16
-				0x00028001,// Erets
 				0x00028001,// Eretu
+				0x00028001,// Erets
 			};
 
 		static uint[] GetOpcFlags2() =>
@@ -8661,8 +8661,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x14003E70,// Lkgs_rm16
 				0x14003E70,// Lkgs_r32m16
 				0x14003E70,// Lkgs_r64m16
-				0x14003E70,// Erets
 				0x14003E70,// Eretu
+				0x14003E70,// Erets
 			};
 	}
 }
