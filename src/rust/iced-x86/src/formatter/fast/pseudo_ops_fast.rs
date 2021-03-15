@@ -169,7 +169,6 @@ lazy_static! {
 	};
 }
 
-#[allow(clippy::char_lit_as_u8)]
 fn create(cc: &[&str], size: usize, prefix: &str, suffix: &str) -> Vec<FastStringMnemonic> {
 	let mut strings = Vec::with_capacity(size);
 	for &cc_s in cc {
@@ -183,7 +182,7 @@ fn create(cc: &[&str], size: usize, prefix: &str, suffix: &str) -> Vec<FastStrin
 		new_vec.extend_from_slice(prefix.as_bytes());
 		new_vec.extend_from_slice(cc_s.as_bytes());
 		new_vec.extend_from_slice(suffix.as_bytes());
-		new_vec.extend(core::iter::repeat(' ' as u8).take(FastStringMnemonic::SIZE - (new_vec.len() - 1)));
+		new_vec.extend(core::iter::repeat(b' ').take(FastStringMnemonic::SIZE - (new_vec.len() - 1)));
 		debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
 		let len_data = Box::leak(Box::new(new_vec)).as_ptr();
 		strings.push(FastStringMnemonic::new(len_data));

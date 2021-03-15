@@ -20,7 +20,6 @@ lazy_static! {
 	pub(super) static ref FMT_DATA: FmtTableData = read();
 }
 
-#[allow(clippy::char_lit_as_u8)]
 fn get_strings_table() -> Vec<FastStringMnemonic> {
 	// If this fails, the generator was updated and now FastStringRegister must be changed
 	// to the correct type in fast.rs
@@ -39,7 +38,6 @@ fn get_strings_table() -> Vec<FastStringMnemonic> {
 	strings
 }
 
-#[allow(clippy::char_lit_as_u8)]
 fn read() -> FmtTableData {
 	let mut mnemonics: Vec<FastStringMnemonic> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 	let mut flags: Vec<u8> = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
@@ -68,8 +66,8 @@ fn read() -> FmtTableData {
 			debug_assert!(new_len <= MAX_STRING_LEN);
 			debug_assert!(new_len <= FastStringMnemonic::SIZE);
 			new_vec.push(new_len as u8);
-			new_vec.push('v' as u8);
-			new_vec.extend(old_str.get_slice().iter().cloned().chain(core::iter::repeat(' ' as u8)).take(FastStringMnemonic::SIZE - 1));
+			new_vec.push(b'v');
+			new_vec.extend(old_str.get_slice().iter().cloned().chain(core::iter::repeat(b' ')).take(FastStringMnemonic::SIZE - 1));
 			debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
 			let len_data = Box::leak(Box::new(new_vec)).as_ptr();
 			FastStringMnemonic::new(len_data)

@@ -106,7 +106,6 @@ mk_tests! {test_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_
 mk_tests! {test_not_fmt_factory, crate::formatter::fast::tests::fmt_factory::create_default::<crate::formatter::fast::tests::not_fast_fmt::NotFastFormatterTraitOptions>, crate::formatter::fast::tests::fmt_factory::create_inverted::<crate::formatter::fast::tests::not_fast_fmt::NotFastFormatterTraitOptions>}
 
 #[test]
-#[allow(clippy::char_lit_as_u8)]
 fn format_hex2() {
 	// mov rax,0000_0000_0000_0000h
 	let mut instr = Decoder::new(64, b"\x48\xB8\x00\x00\x00\x00\x00\x00\x00\x00", DecoderOptions::NONE).decode();
@@ -136,7 +135,7 @@ fn format_hex2() {
 						instr.set_immediate64(imm);
 
 						let expected_imm = format!("{:x}", imm);
-						let leading_zero = if !hex_prefix && expected_imm.as_bytes()[0] >= 'a' as u8 { "0" } else { "" };
+						let leading_zero = if !hex_prefix && expected_imm.as_bytes()[0] >= b'a' { "0" } else { "" };
 						let expected_imm = if uppercase { expected_imm.to_uppercase() } else { expected_imm };
 						let (prefix, suffix) = if hex_prefix { ("0x", "") } else { ("", "h") };
 

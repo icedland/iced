@@ -11,7 +11,6 @@ lazy_static! {
 	pub(super) static ref REGS_TBL: Vec<FastStringRegister> = create();
 }
 
-#[allow(clippy::char_lit_as_u8)]
 fn create() -> Vec<FastStringRegister> {
 	// If this fails, the generator was updated and now FastStringRegister must be changed
 	// to the correct type in fast.rs
