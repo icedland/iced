@@ -5,11 +5,12 @@ use crate::formatter::test_utils::get_formatter_unit_tests_dir;
 use crate::formatter::tests::filter_removed_code_tests;
 use crate::formatter::tests::sym_res_test_case::*;
 use crate::formatter::tests::sym_res_test_parser::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use crate::Formatter;
 use crate::Instruction;
-use crate::{
-	Formatter, FormatterTextKind, SpecializedFormatter, SpecializedFormatterTraitOptions, SymResTextInfo, SymResTextPart, SymbolResolver,
-	SymbolResult,
-};
+use crate::{FormatterTextKind, SymResTextInfo, SymResTextPart, SymbolResolver, SymbolResult};
+#[cfg(feature = "fast_fmt")]
+use crate::{SpecializedFormatter, SpecializedFormatterTraitOptions};
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;

@@ -5,7 +5,10 @@ use crate::formatter::test_utils::get_formatter_unit_tests_dir;
 use crate::formatter::tests::options_test_case_parser::OptionsTestParser;
 use crate::formatter::tests::opts_info::*;
 use crate::formatter::tests::{filter_removed_code_tests, opts_infos};
-use crate::{Formatter, SpecializedFormatter, SpecializedFormatterTraitOptions};
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use crate::Formatter;
+#[cfg(feature = "fast_fmt")]
+use crate::{SpecializedFormatter, SpecializedFormatterTraitOptions};
 use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
