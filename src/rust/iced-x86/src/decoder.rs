@@ -722,10 +722,6 @@ impl<'a> Decoder<'a> {
 			}
 			_ => return Err(IcedError::new("Invalid bitness")),
 		}
-		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> *const &'static OpCodeHandler {
-			debug_assert_eq!(handlers.len(), 0x100);
-			handlers.as_ptr()
-		}
 		let data_ptr_end = data.as_ptr() as usize + data.len();
 		if data_ptr_end < data.as_ptr() as usize || {
 			// Verify that max_data_ptr can never overflow and that data_ptr.add(N) can't overflow.
@@ -739,43 +735,27 @@ impl<'a> Decoder<'a> {
 
 		let tables = &*TABLES;
 
-		#[cfg(not(feature = "no_vex"))]
-		let handlers_vex_0fxx = get_handlers(&tables.handlers_vex_0fxx);
-		#[cfg(not(feature = "no_vex"))]
-		let handlers_vex_0f38xx = get_handlers(&tables.handlers_vex_0f38xx);
-		#[cfg(not(feature = "no_vex"))]
-		let handlers_vex_0f3axx = get_handlers(&tables.handlers_vex_0f3axx);
-		#[cfg(not(feature = "no_evex"))]
-		let handlers_evex_0fxx = get_handlers(&tables.handlers_evex_0fxx);
-		#[cfg(not(feature = "no_evex"))]
-		let handlers_evex_0f38xx = get_handlers(&tables.handlers_evex_0f38xx);
-		#[cfg(not(feature = "no_evex"))]
-		let handlers_evex_0f3axx = get_handlers(&tables.handlers_evex_0f3axx);
-		#[cfg(not(feature = "no_xop"))]
-		let handlers_xop8 = get_handlers(&tables.handlers_xop8);
-		#[cfg(not(feature = "no_xop"))]
-		let handlers_xop9 = get_handlers(&tables.handlers_xop9);
-		#[cfg(not(feature = "no_xop"))]
-		let handlers_xopa = get_handlers(&tables.handlers_xopa);
-
-		#[cfg(feature = "no_vex")]
-		let handlers_vex_0fxx = ();
-		#[cfg(feature = "no_vex")]
-		let handlers_vex_0f38xx = ();
-		#[cfg(feature = "no_vex")]
-		let handlers_vex_0f3axx = ();
-		#[cfg(feature = "no_evex")]
-		let handlers_evex_0fxx = ();
-		#[cfg(feature = "no_evex")]
-		let handlers_evex_0f38xx = ();
-		#[cfg(feature = "no_evex")]
-		let handlers_evex_0f3axx = ();
-		#[cfg(feature = "no_xop")]
-		let handlers_xop8 = ();
-		#[cfg(feature = "no_xop")]
-		let handlers_xop9 = ();
-		#[cfg(feature = "no_xop")]
-		let handlers_xopa = ();
+		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> *const &'static OpCodeHandler {
+			debug_assert_eq!(handlers.len(), 0x100);
+			handlers.as_ptr()
+		}
+		macro_rules! mk_handlers_local {
+			($name:ident, $feature:literal) => {
+				#[cfg(not(feature = $feature))]
+				let $name = get_handlers(&tables.$name);
+				#[cfg(feature = $feature)]
+				let $name = ();
+			};
+		}
+		mk_handlers_local!(handlers_vex_0fxx, "no_vex");
+		mk_handlers_local!(handlers_vex_0f38xx, "no_vex");
+		mk_handlers_local!(handlers_vex_0f3axx, "no_vex");
+		mk_handlers_local!(handlers_evex_0fxx, "no_evex");
+		mk_handlers_local!(handlers_evex_0f38xx, "no_evex");
+		mk_handlers_local!(handlers_evex_0f3axx, "no_evex");
+		mk_handlers_local!(handlers_xop8, "no_xop");
+		mk_handlers_local!(handlers_xop9, "no_xop");
+		mk_handlers_local!(handlers_xopa, "no_xop");
 
 		debug_assert_eq!(prefixes.len() * mem::size_of_val(&prefixes[0]) * 8, 256);
 		Ok(Decoder {
