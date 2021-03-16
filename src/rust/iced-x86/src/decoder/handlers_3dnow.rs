@@ -3,6 +3,8 @@
 
 use crate::decoder::handlers::*;
 use crate::decoder::*;
+#[cfg(not(feature = "no_d3now"))]
+use crate::instruction_internal;
 use crate::*;
 
 #[cfg(not(feature = "no_d3now"))]
@@ -285,14 +287,14 @@ impl OpCodeHandler_D3NOW {
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::MM0 as u32);
+		//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::MM0 as u32);
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(OpKind::Register as u32, 0);
-			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-			super::instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::MM0 as u32);
+			//instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
+			instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
-			super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
+			instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
 		let ib = decoder.read_u8();
@@ -306,7 +308,7 @@ impl OpCodeHandler_D3NOW {
 			}
 			_ => {}
 		}
-		super::instruction_internal::internal_set_code(instruction, code);
+		instruction_internal::internal_set_code(instruction, code);
 		if code == Code::INVALID {
 			decoder.set_invalid_instruction();
 		}

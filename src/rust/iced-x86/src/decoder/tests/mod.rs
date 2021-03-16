@@ -375,7 +375,7 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 
 	if cfg!(feature = "encoder") {
 		#[cfg(feature = "encoder")] // needed...
-		for info in super::super::encoder::tests::non_decoded_tests::get_tests() {
+		for info in crate::encoder::tests::non_decoded_tests::get_tests() {
 			tested[info.2.code() as usize] |= match info.0 {
 				16 => T16,
 				32 => T32,

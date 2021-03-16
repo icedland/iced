@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+use crate::formatter::nasm::enums::MemorySizeInfo as NasmMemorySizeInfo;
 use crate::formatter::nasm::enums::*;
 use crate::formatter::nasm::fmt_utils::can_show_rounding_control;
 use crate::formatter::nasm::get_mnemonic_cc;
@@ -1193,19 +1194,19 @@ impl InstrInfo for SimpleInstrInfo_movabs {
 		if instr_bitness == 0 {
 			instr_bitness = mem_size;
 		}
-		let mut mem_size_info = super::enums::MemorySizeInfo::None;
+		let mut mem_size_info = NasmMemorySizeInfo::None;
 		if instr_bitness == 64 {
 			if mem_size == 32 {
 				flags |= InstrOpInfoFlags::ADDR_SIZE32;
 			} else {
-				mem_size_info = super::enums::MemorySizeInfo::Qword;
+				mem_size_info = NasmMemorySizeInfo::Qword;
 			}
 		} else if instr_bitness != mem_size {
 			debug_assert!(mem_size == 16 || mem_size == 32);
 			if mem_size == 16 {
-				mem_size_info = super::enums::MemorySizeInfo::Word;
+				mem_size_info = NasmMemorySizeInfo::Word;
 			} else {
-				mem_size_info = super::enums::MemorySizeInfo::Dword;
+				mem_size_info = NasmMemorySizeInfo::Dword;
 			}
 		}
 		flags |= (mem_size_info as u32) << InstrOpInfoFlags::MEMORY_SIZE_INFO_SHIFT;

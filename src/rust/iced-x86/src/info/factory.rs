@@ -4,6 +4,7 @@
 use crate::iced_constants::IcedConstants;
 use crate::info::enums::*;
 use crate::info::*;
+use crate::instruction_internal;
 use core::{mem, u16, u32, u64};
 use static_assertions::const_assert_eq;
 
@@ -174,8 +175,8 @@ impl InstructionInfoFactory {
 
 		let index = (instruction.code() as usize) << 1;
 		// SAFETY: For all Code values c, c * 2 + 1 is a valid index into this table
-		let flags1 = unsafe { *super::info_table::TABLE.get_unchecked(index) };
-		let flags2 = unsafe { *super::info_table::TABLE.get_unchecked(index + 1) };
+		let flags1 = unsafe { *crate::info::info_table::TABLE.get_unchecked(index) };
+		let flags2 = unsafe { *crate::info::info_table::TABLE.get_unchecked(index + 1) };
 
 		// SAFETY: the transmutes on the generated data (flags1,flags2) are safe
 
@@ -271,7 +272,7 @@ impl InstructionInfoFactory {
 			OpInfo0::NoMemAccess => OpAccess::NoMemAccess,
 
 			OpInfo0::WriteMem_ReadWriteReg => {
-				if super::super::instruction_internal::internal_op0_is_not_reg_or_op1_is_not_reg(instruction) {
+				if instruction_internal::internal_op0_is_not_reg_or_op1_is_not_reg(instruction) {
 					OpAccess::Write
 				} else {
 					OpAccess::ReadWrite
@@ -398,7 +399,7 @@ impl InstructionInfoFactory {
 							(instruction.memory_index(), instruction.memory_index_scale())
 						};
 						if (flags & Flags::NO_MEMORY_USAGE) == 0 {
-							let addr_size_bytes = super::super::instruction_internal::get_address_size_in_bytes(
+							let addr_size_bytes = instruction_internal::get_address_size_in_bytes(
 								base_register,
 								index_register,
 								instruction.memory_displ_size(),
@@ -2041,7 +2042,7 @@ impl InstructionInfoFactory {
 			OpKind::MemoryESEDI => (CodeSize::Code32, Register::EDI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RDI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			info.op_accesses[0] = OpAccess::CondWrite;
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -2076,7 +2077,7 @@ impl InstructionInfoFactory {
 			OpKind::MemorySegESI => (CodeSize::Code32, Register::ESI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RSI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			info.op_accesses[0] = OpAccess::CondRead;
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -2129,7 +2130,7 @@ impl InstructionInfoFactory {
 			OpKind::MemoryESEDI => (CodeSize::Code32, Register::ESI, Register::EDI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RSI, Register::RDI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			info.op_accesses[0] = OpAccess::CondWrite;
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -2193,7 +2194,7 @@ impl InstructionInfoFactory {
 			OpKind::MemorySegESI => (CodeSize::Code32, Register::ESI, Register::EDI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RSI, Register::RDI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			info.op_accesses[0] = OpAccess::CondRead;
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -2255,7 +2256,7 @@ impl InstructionInfoFactory {
 			OpKind::MemoryESEDI => (CodeSize::Code32, Register::EDI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RDI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			info.op_accesses[0] = OpAccess::CondWrite;
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -2290,7 +2291,7 @@ impl InstructionInfoFactory {
 			OpKind::MemorySegESI => (CodeSize::Code32, Register::ESI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RSI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			info.op_accesses[0] = OpAccess::CondWrite;
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -2343,7 +2344,7 @@ impl InstructionInfoFactory {
 			OpKind::MemoryESEDI => (CodeSize::Code32, Register::EDI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RDI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			info.op_accesses[0] = OpAccess::CondRead;
 			info.op_accesses[1] = OpAccess::CondRead;
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -2378,7 +2379,7 @@ impl InstructionInfoFactory {
 			4 => (CodeSize::Code32, Register::EDI, Register::ECX),
 			_ => (CodeSize::Code64, Register::RDI, Register::RCX),
 		};
-		if super::super::instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
+		if instruction_internal::internal_has_repe_or_repne_prefix(instruction) {
 			if (flags & Flags::NO_MEMORY_USAGE) == 0 {
 				Self::add_memory(info, Register::ES, rdi, Register::None, 1, 0, MemorySize::Unknown, OpAccess::CondWrite, addr_size, 0);
 			}

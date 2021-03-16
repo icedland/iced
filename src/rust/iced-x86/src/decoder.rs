@@ -19,6 +19,7 @@ use crate::decoder::handlers::OpCodeHandler;
 use crate::decoder::handlers_tables::TABLES;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
+use crate::instruction_internal;
 use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use core::convert::TryFrom;
@@ -1236,17 +1237,17 @@ impl<'a> Decoder<'a> {
 						rex_prefix = 0;
 					}
 					0xF0 => {
-						super::instruction_internal::internal_set_has_lock_prefix(instruction);
+						instruction_internal::internal_set_has_lock_prefix(instruction);
 						self.state.flags |= StateFlags::LOCK;
 						rex_prefix = 0;
 					}
 					0xF2 => {
-						super::instruction_internal::internal_set_has_repne_prefix(instruction);
+						instruction_internal::internal_set_has_repne_prefix(instruction);
 						self.state.mandatory_prefix = MandatoryPrefixByte::PF2 as u32;
 						rex_prefix = 0;
 					}
 					0xF3 => {
-						super::instruction_internal::internal_set_has_repe_prefix(instruction);
+						instruction_internal::internal_set_has_repe_prefix(instruction);
 						self.state.mandatory_prefix = MandatoryPrefixByte::PF3 as u32;
 						rex_prefix = 0;
 					}
@@ -1280,12 +1281,12 @@ impl<'a> Decoder<'a> {
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
 		let instr_len = self.data_ptr as u32 - data_ptr as u32;
 		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32); // Could be 0 if there were no bytes available
-		super::instruction_internal::internal_set_len(instruction, instr_len);
+		instruction_internal::internal_set_len(instruction, instr_len);
 		let orig_ip = self.ip;
 		let ip = orig_ip.wrapping_add(instr_len as u64);
 		self.ip = ip;
 		instruction.set_next_ip(ip);
-		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
+		instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 
 		let mut flags = self.state.flags;
 		if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK | StateFlags::IP_REL)) != 0 {
@@ -1294,7 +1295,7 @@ impl<'a> Decoder<'a> {
 				if self.state.address_size == OpSize::Size64 {
 					instruction.set_memory_displacement64(addr);
 				} else {
-					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, addr as u32);
+					instruction_internal::internal_set_memory_displacement64_lo(instruction, addr as u32);
 				}
 			}
 
@@ -1303,7 +1304,7 @@ impl<'a> Decoder<'a> {
 			{
 				*instruction = Instruction::default();
 				const_assert_eq!(Code::INVALID as u32, 0);
-				//super::instruction_internal::internal_set_code(instruction, Code::INVALID);
+				//instruction_internal::internal_set_code(instruction, Code::INVALID);
 
 				if (flags & StateFlags::NO_MORE_BYTES) != 0 {
 					debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
@@ -1319,11 +1320,11 @@ impl<'a> Decoder<'a> {
 				self.state.flags = flags | StateFlags::IS_INVALID;
 
 				let instr_len = self.data_ptr as u32 - data_ptr as u32;
-				super::instruction_internal::internal_set_len(instruction, instr_len);
+				instruction_internal::internal_set_len(instruction, instr_len);
 				let ip = orig_ip.wrapping_add(instr_len as u64);
 				self.ip = ip;
 				instruction.set_next_ip(ip);
-				super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
+				instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 			}
 		}
 	}
@@ -1369,13 +1370,13 @@ impl<'a> Decoder<'a> {
 			Decoder::PF2 => {
 				if (flags & HandlerFlags::XACQUIRE) != 0 {
 					self.clear_mandatory_prefix_f2(instruction);
-					super::instruction_internal::internal_set_has_xacquire_prefix(instruction);
+					instruction_internal::internal_set_has_xacquire_prefix(instruction);
 				}
 			}
 			Decoder::PF3 => {
 				if (flags & HandlerFlags::XRELEASE) != 0 {
 					self.clear_mandatory_prefix_f3(instruction);
-					super::instruction_internal::internal_set_has_xrelease_prefix(instruction);
+					instruction_internal::internal_set_has_xrelease_prefix(instruction);
 				}
 			}
 			_ => {}
@@ -1386,14 +1387,14 @@ impl<'a> Decoder<'a> {
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
 		debug_assert_eq!(self.state.mandatory_prefix, MandatoryPrefixByte::PF3 as u32);
-		super::instruction_internal::internal_clear_has_repe_prefix(instruction);
+		instruction_internal::internal_clear_has_repe_prefix(instruction);
 	}
 
 	#[inline]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
 		debug_assert_eq!(self.state.mandatory_prefix, MandatoryPrefixByte::PF2 as u32);
-		super::instruction_internal::internal_clear_has_repne_prefix(instruction);
+		instruction_internal::internal_clear_has_repne_prefix(instruction);
 	}
 
 	#[inline]
@@ -1620,14 +1621,14 @@ impl<'a> Decoder<'a> {
 
 				let aaa = p2 & 7;
 				self.state.aaa = aaa;
-				super::instruction_internal::internal_set_op_mask(instruction, aaa);
+				instruction_internal::internal_set_op_mask(instruction, aaa);
 				if (p2 & 0x80) != 0 {
 					// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
 					if (aaa ^ self.invalid_check_mask) == u32::MAX {
 						self.set_invalid_instruction();
 					}
 					self.state.flags |= StateFlags::Z;
-					super::instruction_internal::internal_set_zeroing_masking(instruction);
+					instruction_internal::internal_set_zeroing_masking(instruction);
 				}
 
 				const_assert_eq!(StateFlags::B, 0x10);
@@ -1785,21 +1786,21 @@ impl<'a> Decoder<'a> {
 		match self.state.mod_ {
 			0 => {
 				if self.state.rm == 6 {
-					super::instruction_internal::internal_set_memory_displ_size(instruction, 2);
+					instruction_internal::internal_set_memory_displ_size(instruction, 2);
 					self.displ_index = self.data_ptr as u8;
-					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u16() as u32);
+					instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u16() as u32);
 					base_reg = Register::None;
 					debug_assert_eq!(index_reg, Register::None);
 				}
 			}
 			1 => {
-				super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
+				instruction_internal::internal_set_memory_displ_size(instruction, 1);
 				self.displ_index = self.data_ptr as u8;
 				let b = self.read_u8();
 				if tuple_type == TupleType::N1 {
-					super::instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u16 as u32);
+					instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u16 as u32);
 				} else {
-					super::instruction_internal::internal_set_memory_displacement64_lo(
+					instruction_internal::internal_set_memory_displacement64_lo(
 						instruction,
 						self.disp8n(tuple_type).wrapping_mul(b as i8 as u32) as u16 as u32,
 					);
@@ -1807,13 +1808,13 @@ impl<'a> Decoder<'a> {
 			}
 			_ => {
 				debug_assert_eq!(self.state.mod_, 2);
-				super::instruction_internal::internal_set_memory_displ_size(instruction, 2);
+				instruction_internal::internal_set_memory_displ_size(instruction, 2);
 				self.displ_index = self.data_ptr as u8;
-				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u16() as u32);
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u16() as u32);
 			}
 		}
-		super::instruction_internal::internal_set_memory_base(instruction, base_reg);
-		super::instruction_internal::internal_set_memory_index(instruction, index_reg);
+		instruction_internal::internal_set_memory_base(instruction, base_reg);
+		instruction_internal::internal_set_memory_index(instruction, index_reg);
 	}
 
 	#[must_use]
@@ -1846,20 +1847,20 @@ impl<'a> Decoder<'a> {
 						self.state.flags |= StateFlags::IP_REL;
 						if self.state.address_size == OpSize::Size64 {
 							instruction.set_memory_displacement64(d as i32 as u64);
-							super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
-							super::instruction_internal::internal_set_memory_base(instruction, Register::RIP);
+							instruction_internal::internal_set_memory_displ_size(instruction, 4);
+							instruction_internal::internal_set_memory_base(instruction, Register::RIP);
 						} else {
-							super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-							super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
-							super::instruction_internal::internal_set_memory_base(instruction, Register::EIP);
+							instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+							instruction_internal::internal_set_memory_displ_size(instruction, 3);
+							instruction_internal::internal_set_memory_base(instruction, Register::EIP);
 						}
 					} else {
 						if self.state.address_size == OpSize::Size64 {
 							instruction.set_memory_displacement64(d as i32 as u64);
-							super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+							instruction_internal::internal_set_memory_displ_size(instruction, 4);
 						} else {
-							super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-							super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+							instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+							instruction_internal::internal_set_memory_displ_size(instruction, 3);
 						}
 					}
 					return false;
@@ -1867,7 +1868,7 @@ impl<'a> Decoder<'a> {
 				_ => {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4 && self.state.rm != 5);
 					let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-					super::instruction_internal::internal_set_memory_base_u32(
+					instruction_internal::internal_set_memory_base_u32(
 						instruction,
 						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
 					);
@@ -1883,17 +1884,17 @@ impl<'a> Decoder<'a> {
 					displ = self.read_u8() as i8 as u32;
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
-					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
+					instruction_internal::internal_set_memory_displ_size(instruction, 1);
 					self.displ_index = self.data_ptr.wrapping_sub(1) as u8;
 					if self.state.address_size == OpSize::Size64 {
 						instruction.set_memory_displacement64(b as i8 as u64);
-						super::instruction_internal::internal_set_memory_base_u32(
+						instruction_internal::internal_set_memory_base_u32(
 							instruction,
 							self.state.extra_base_register_base + self.state.rm + Register::RAX as u32,
 						);
 					} else {
-						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u32);
-						super::instruction_internal::internal_set_memory_base_u32(
+						instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u32);
+						instruction_internal::internal_set_memory_base_u32(
 							instruction,
 							self.state.extra_base_register_base + self.state.rm + Register::EAX as u32,
 						);
@@ -1914,15 +1915,15 @@ impl<'a> Decoder<'a> {
 					let d = self.read_u32();
 					if self.state.address_size == OpSize::Size64 {
 						instruction.set_memory_displacement64(d as i32 as u64);
-						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
-						super::instruction_internal::internal_set_memory_base_u32(
+						instruction_internal::internal_set_memory_displ_size(instruction, 4);
+						instruction_internal::internal_set_memory_base_u32(
 							instruction,
 							self.state.extra_base_register_base + self.state.rm + Register::RAX as u32,
 						);
 					} else {
-						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
-						super::instruction_internal::internal_set_memory_base_u32(
+						instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+						instruction_internal::internal_set_memory_displ_size(instruction, 3);
+						instruction_internal::internal_set_memory_base_u32(
 							instruction,
 							self.state.extra_base_register_base + self.state.rm + Register::EAX as u32,
 						);
@@ -1935,10 +1936,10 @@ impl<'a> Decoder<'a> {
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base = sib & 7;
 
-		super::instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+		instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
-			super::instruction_internal::internal_set_memory_index_u32(instruction, index + base_reg as u32);
+			instruction_internal::internal_set_memory_index_u32(instruction, index + base_reg as u32);
 		}
 
 		if base == 5 && self.state.mod_ == 0 {
@@ -1946,18 +1947,18 @@ impl<'a> Decoder<'a> {
 			let d = self.read_u32();
 			if self.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(d as i32 as u64);
-				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+				instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			} else {
-				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			}
 		} else {
-			super::instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
-			super::instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
+			instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
+			instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
 			if self.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(displ as i32 as u64);
 			} else {
-				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, displ);
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, displ);
 			}
 		}
 		true
@@ -1985,24 +1986,24 @@ impl<'a> Decoder<'a> {
 					let d = self.read_u32();
 					if self.state.address_size == OpSize::Size64 {
 						instruction.set_memory_displacement64(d as i32 as u64);
-						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+						instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
-						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+						instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+						instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
 					if self.is64_mode {
 						self.state.flags |= StateFlags::IP_REL;
 						if self.state.address_size == OpSize::Size64 {
-							super::instruction_internal::internal_set_memory_base(instruction, Register::RIP);
+							instruction_internal::internal_set_memory_base(instruction, Register::RIP);
 						} else {
-							super::instruction_internal::internal_set_memory_base(instruction, Register::EIP);
+							instruction_internal::internal_set_memory_base(instruction, Register::EIP);
 						}
 					}
 					return false;
 				}
 				_ => {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4 && self.state.rm != 5);
-					super::instruction_internal::internal_set_memory_base_u32(
+					instruction_internal::internal_set_memory_base_u32(
 						instruction,
 						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
 					);
@@ -2023,7 +2024,7 @@ impl<'a> Decoder<'a> {
 					}
 				} else {
 					debug_assert!(self.state.rm <= 7 && self.state.rm != 4);
-					super::instruction_internal::internal_set_memory_displ_size(instruction, 1);
+					instruction_internal::internal_set_memory_displ_size(instruction, 1);
 					self.displ_index = self.data_ptr.wrapping_sub(1) as u8;
 					if self.state.address_size == OpSize::Size64 {
 						if tuple_type == TupleType::N1 {
@@ -2033,15 +2034,15 @@ impl<'a> Decoder<'a> {
 						}
 					} else {
 						if tuple_type == TupleType::N1 {
-							super::instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u32);
+							instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u32);
 						} else {
-							super::instruction_internal::internal_set_memory_displacement64_lo(
+							instruction_internal::internal_set_memory_displacement64_lo(
 								instruction,
 								self.disp8n(tuple_type).wrapping_mul(b as i8 as u32),
 							);
 						}
 					}
-					super::instruction_internal::internal_set_memory_base_u32(
+					instruction_internal::internal_set_memory_base_u32(
 						instruction,
 						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
 					);
@@ -2061,12 +2062,12 @@ impl<'a> Decoder<'a> {
 					let d = self.read_u32();
 					if self.state.address_size == OpSize::Size64 {
 						instruction.set_memory_displacement64(d as i32 as u64);
-						super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+						instruction_internal::internal_set_memory_displ_size(instruction, 4);
 					} else {
-						super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-						super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+						instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+						instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
-					super::instruction_internal::internal_set_memory_base_u32(
+					instruction_internal::internal_set_memory_base_u32(
 						instruction,
 						self.state.extra_base_register_base + self.state.rm + base_reg as u32,
 					);
@@ -2078,16 +2079,13 @@ impl<'a> Decoder<'a> {
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base = sib & 7;
 
-		super::instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+		instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
 		if !is_vsib {
 			if index != 4 {
-				super::instruction_internal::internal_set_memory_index_u32(instruction, index + index_reg as u32);
+				instruction_internal::internal_set_memory_index_u32(instruction, index + index_reg as u32);
 			}
 		} else {
-			super::instruction_internal::internal_set_memory_index_u32(
-				instruction,
-				index + self.state.extra_index_register_base_vsib + index_reg as u32,
-			);
+			instruction_internal::internal_set_memory_index_u32(instruction, index + self.state.extra_index_register_base_vsib + index_reg as u32);
 		}
 
 		if base == 5 && self.state.mod_ == 0 {
@@ -2095,18 +2093,18 @@ impl<'a> Decoder<'a> {
 			let d = self.read_u32();
 			if self.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(d as i32 as u64);
-				super::instruction_internal::internal_set_memory_displ_size(instruction, 4);
+				instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			} else {
-				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-				super::instruction_internal::internal_set_memory_displ_size(instruction, 3);
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			}
 		} else {
-			super::instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
-			super::instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
+			instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
+			instruction_internal::internal_set_memory_displ_size(instruction, displ_size_scale);
 			if self.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(displ as i32 as u64);
 			} else {
-				super::instruction_internal::internal_set_memory_displacement64_lo(instruction, displ);
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, displ);
 			}
 		}
 		true

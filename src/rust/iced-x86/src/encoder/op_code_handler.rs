@@ -636,7 +636,7 @@ impl EvexHandler {
 		b |= this.mask_w & encoder.internal_evex_wig;
 		encoder.write_byte_internal(b);
 
-		b = super::super::instruction_internal::internal_op_mask(instruction);
+		b = crate::instruction_internal::internal_op_mask(instruction);
 		if b != 0 {
 			if (this.base.enc_flags3 & EncFlags3::OP_MASK_REGISTER) == 0 {
 				encoder.set_error_message_str("The instruction doesn't support opmask registers");

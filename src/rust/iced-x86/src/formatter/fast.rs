@@ -22,14 +22,14 @@ use crate::formatter::fast::regs::REGS_TBL;
 pub use crate::formatter::fast::trait_options::*;
 pub use crate::formatter::fast::trait_options_fast_fmt::*;
 use crate::formatter::fmt_utils_all::*;
-use crate::formatter::instruction_internal::get_address_size_in_bytes;
+use crate::formatter::instruction_internal::{self, get_address_size_in_bytes};
 use crate::formatter::*;
 use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::marker::PhantomData;
-use core::{mem, u16, u32, u8, usize};
+use core::{mem, ptr, slice, u16, u32, u8, usize};
 use static_assertions::{const_assert, const_assert_eq};
 
 // full fmt'd str = "prefixes mnemonic op0<decorators1>, op1, op2, op3, op4<decorators2>"
@@ -110,7 +110,7 @@ macro_rules! mk_fast_str_ty {
 
 			#[allow(dead_code)]
 			fn get_slice(self) -> &'static [u8] {
-				unsafe { core::slice::from_raw_parts(self.utf8_data(), self.len()) }
+				unsafe { slice::from_raw_parts(self.utf8_data(), self.len()) }
 			}
 		}
 		// SAFETY: The ptr field points to a static immutable u8 array.
@@ -168,7 +168,7 @@ macro_rules! write_fast_str {
 		// - $dst is writable with at least DATA_LEN bytes left (see assert above)
 		// - $dst is at a valid utf8 char boundary (we're appending bytes)
 		unsafe {
-			core::ptr::copy_nonoverlapping(<$source_ty>::utf8_data($source), $dst_next_p, DATA_LEN);
+			ptr::copy_nonoverlapping(<$source_ty>::utf8_data($source), $dst_next_p, DATA_LEN);
 		}
 		debug_assert!(<$source_ty>::len($source) <= DATA_LEN);
 		// SAFETY:
@@ -218,7 +218,7 @@ macro_rules! write_fast_hex2_rw_4bytes {
 		#[allow(trivial_numeric_casts)]
 		unsafe {
 			let src_ptr = HEX_GROUP2_UPPER.as_ptr().add(($value as usize) * REAL_LEN) as *const u32;
-			core::ptr::write_unaligned($dst_next_p as *mut u32, core::ptr::read_unaligned(src_ptr) | $lower_or_value);
+			ptr::write_unaligned($dst_next_p as *mut u32, ptr::read_unaligned(src_ptr) | $lower_or_value);
 		}
 		const_assert!(REAL_LEN <= DATA_LEN);
 		// SAFETY:
@@ -823,7 +823,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 		let prefix_seg = instruction.segment_prefix();
 		const_assert_eq!(Register::None as u32, 0);
-		if ((prefix_seg as u32) | super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
+		if ((prefix_seg as u32) | instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg != Register::None && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count)
 			{
@@ -1208,7 +1208,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 							(instruction.memory_segment()),
 							base_reg,
 							index_reg,
-							(super::super::instruction_internal::internal_get_memory_index_scale(instruction)),
+							(instruction_internal::internal_get_memory_index_scale(instruction)),
 							displ_size,
 							displ,
 							addr_size,
@@ -1400,7 +1400,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					}
 				}
 
-				if operand == 0 && super::super::instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
+				if operand == 0 && instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 					if instruction.has_op_mask() {
 						write_fast_ascii_char_lit!(dst, dst_next_p, '{', true);
 						call_format_register!(self, dst, dst_next_p, instruction.op_mask());
@@ -1412,7 +1412,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					}
 				}
 			}
-			if super::super::instruction_internal::internal_has_rounding_control_or_sae(instruction) {
+			if instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 				let rc = instruction.rounding_control();
 				if rc != RoundingControl::None {
 					const_assert_eq!(RoundingControl::None as u32, 0);

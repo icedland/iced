@@ -505,7 +505,7 @@ impl InstructionInfo {
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_read() instead")]
 	pub fn rflags_read(&self) -> u32 {
 		// SAFETY: index is always valid
-		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -518,7 +518,7 @@ impl InstructionInfo {
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_written() instead")]
 	pub fn rflags_written(&self) -> u32 {
 		// SAFETY: index is always valid
-		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are always cleared by the CPU.
@@ -531,7 +531,7 @@ impl InstructionInfo {
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_cleared() instead")]
 	pub fn rflags_cleared(&self) -> u32 {
 		// SAFETY: index is always valid
-		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are always set by the CPU.
@@ -544,7 +544,7 @@ impl InstructionInfo {
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_set() instead")]
 	pub fn rflags_set(&self) -> u32 {
 		// SAFETY: index is always valid
-		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are undefined after executing the instruction.
@@ -557,7 +557,7 @@ impl InstructionInfo {
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_undefined() instead")]
 	pub fn rflags_undefined(&self) -> u32 {
 		// SAFETY: index is always valid
-		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
@@ -568,6 +568,6 @@ impl InstructionInfo {
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_modified() instead")]
 	pub fn rflags_modified(&self) -> u32 {
 		// SAFETY: index is always valid
-		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
 	}
 }

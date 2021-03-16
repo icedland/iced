@@ -628,13 +628,13 @@ pub trait Formatter: private::Sealed {
 mod private {
 	pub trait Sealed {}
 	#[cfg(feature = "gas")]
-	impl Sealed for super::gas::GasFormatter {}
+	impl Sealed for crate::GasFormatter {}
 	#[cfg(feature = "intel")]
-	impl Sealed for super::intel::IntelFormatter {}
+	impl Sealed for crate::IntelFormatter {}
 	#[cfg(feature = "masm")]
-	impl Sealed for super::masm::MasmFormatter {}
+	impl Sealed for crate::MasmFormatter {}
 	#[cfg(feature = "nasm")]
-	impl Sealed for super::nasm::NasmFormatter {}
+	impl Sealed for crate::NasmFormatter {}
 }
 
 fn to_owned<'a>(sym_res: Option<SymbolResult<'_>>, vec: &'a mut Vec<SymResTextPart<'a>>) -> Option<SymbolResult<'a>> {

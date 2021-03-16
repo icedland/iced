@@ -24,6 +24,7 @@ use crate::formatter::num_fmt::*;
 use crate::formatter::regs_tbl::REGS_TBL;
 use crate::formatter::*;
 use crate::iced_error::IcedError;
+use crate::instruction_internal;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
@@ -154,7 +155,7 @@ impl IntelFormatter {
 				| InstrOpInfoFlags::JCC_NOT_TAKEN
 				| InstrOpInfoFlags::JCC_TAKEN;
 			if ((prefix_seg as u32)
-				| super::super::instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)
+				| instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)
 				| ((op_info.flags as u32) & PREFIX_FLAGS))
 				!= 0
 			{
@@ -997,7 +998,7 @@ impl IntelFormatter {
 					instruction.memory_segment(),
 					base_reg,
 					index_reg,
-					super::super::instruction_internal::internal_get_memory_index_scale(instruction),
+					instruction_internal::internal_get_memory_index_scale(instruction),
 					displ_size,
 					displ,
 					addr_size,
@@ -1006,7 +1007,7 @@ impl IntelFormatter {
 			}
 		}
 
-		if operand == 0 && super::super::instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
+		if operand == 0 && instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 			if instruction.has_op_mask() && (op_info.flags & InstrOpInfoFlags::IGNORE_OP_MASK as u16) == 0 {
 				output.write("{", FormatterTextKind::Punctuation);
 				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
@@ -1024,7 +1025,7 @@ impl IntelFormatter {
 				);
 			}
 		}
-		if operand == 0 && super::super::instruction_internal::internal_has_rounding_control_or_sae(instruction) {
+		if operand == 0 && instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 			let rc = instruction.rounding_control();
 			if rc != RoundingControl::None && can_show_rounding_control(instruction, &self.d.options) {
 				const_assert_eq!(RoundingControl::None as u32, 0);

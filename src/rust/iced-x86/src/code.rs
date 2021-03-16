@@ -39012,7 +39012,7 @@ impl Code {
 		// SAFETY: size of table is count(Code)*2 so the index is valid
 		unsafe {
 			mem::transmute(
-				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK)
+				((*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK)
 					as u8,
 			)
 		}
@@ -39039,11 +39039,11 @@ impl Code {
 	pub fn cpuid_features(self) -> &'static [CpuidFeature] {
 		// SAFETY: size of table is count(Code)*2 so the index is valid
 		let index = unsafe {
-			((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
+			((*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
 				& InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize
 		};
 		// SAFETY: index is generated and always valid
-		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
+		unsafe { *crate::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
 	/// Gets control flow info
@@ -39062,7 +39062,7 @@ impl Code {
 		// SAFETY: size of table is count(Code)*2 so the index is valid
 		unsafe {
 			mem::transmute(
-				((*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::FLOW_CONTROL_SHIFT)
+				((*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::FLOW_CONTROL_SHIFT)
 					& InfoFlags2::FLOW_CONTROL_MASK) as u8,
 			)
 		}
@@ -39073,7 +39073,7 @@ impl Code {
 	#[inline]
 	pub fn is_privileged(self) -> bool {
 		// SAFETY: size of table is count(Code)*2 so the index is valid
-		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::PRIVILEGED) != 0 }
+		unsafe { (*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::PRIVILEGED) != 0 }
 	}
 
 	/// Checks if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
@@ -39093,7 +39093,7 @@ impl Code {
 	#[inline]
 	pub fn is_stack_instruction(self) -> bool {
 		// SAFETY: size of table is count(Code)*2 so the index is valid
-		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::STACK_INSTRUCTION) != 0 }
+		unsafe { (*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::STACK_INSTRUCTION) != 0 }
 	}
 
 	/// Checks if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
@@ -39101,7 +39101,7 @@ impl Code {
 	#[inline]
 	pub fn is_save_restore_instruction(self) -> bool {
 		// SAFETY: size of table is count(Code)*2 so the index is valid
-		unsafe { (*super::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::SAVE_RESTORE) != 0 }
+		unsafe { (*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::SAVE_RESTORE) != 0 }
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction

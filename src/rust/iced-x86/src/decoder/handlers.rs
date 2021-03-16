@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::decoder::*;
+use crate::instruction_internal;
 use crate::*;
 use alloc::vec::Vec;
 
@@ -73,7 +74,7 @@ impl OpCodeHandler_Simple {
 
 	fn decode(self_ptr: *const OpCodeHandler, _decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		super::instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction_internal::internal_set_code_u32(instruction, this.code);
 	}
 }
 

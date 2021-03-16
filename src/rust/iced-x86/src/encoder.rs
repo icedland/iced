@@ -33,6 +33,7 @@ pub use crate::encoder::op_code::*;
 use crate::encoder::op_code_handler::OpCodeHandler;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
+use crate::instruction_internal;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
@@ -791,7 +792,7 @@ impl Encoder {
 					CodeSize::Code16
 				};
 			}
-			let addr_size = super::instruction_internal::get_address_size_in_bytes(
+			let addr_size = instruction_internal::get_address_size_in_bytes(
 				instruction.memory_base(),
 				instruction.memory_index(),
 				instruction.memory_displ_size(),
@@ -999,7 +1000,7 @@ impl Encoder {
 			}
 			return;
 		}
-		let scale = super::instruction_internal::internal_get_memory_index_scale(instruction);
+		let scale = instruction_internal::internal_get_memory_index_scale(instruction);
 		if base == Register::None && index == Register::None {
 			if vsib_index_reg_lo != Register::None {
 				self.set_error_message(format!("Operand {}: VSIB addressing can't use an offset-only address", operand));
@@ -1110,10 +1111,10 @@ impl Encoder {
 		if (self.encoder_flags & EncoderFlags::P67) != 0 {
 			self.write_byte_internal(0x67);
 		}
-		if can_write_f3 && super::instruction_internal::internal_has_repe_prefix_has_xrelease_prefix(instruction) {
+		if can_write_f3 && instruction_internal::internal_has_repe_prefix_has_xrelease_prefix(instruction) {
 			self.write_byte_internal(0xF3);
 		}
-		if super::instruction_internal::internal_has_repne_prefix_has_xacquire_prefix(instruction) {
+		if instruction_internal::internal_has_repne_prefix_has_xacquire_prefix(instruction) {
 			self.write_byte_internal(0xF2);
 		}
 	}

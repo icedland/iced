@@ -5,6 +5,7 @@ use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 #[cfg(feature = "instr_info")]
 use crate::info::enums::*;
+use crate::instruction_internal;
 use crate::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
 use core::fmt;
@@ -2967,8 +2968,7 @@ impl Instruction {
 			OpKind::Memory => {
 				let base_reg = self.memory_base();
 				let index_reg = self.memory_index();
-				let addr_size =
-					super::instruction_internal::get_address_size_in_bytes(base_reg, index_reg, self.memory_displ_size(), self.code_size());
+				let addr_size = instruction_internal::get_address_size_in_bytes(base_reg, index_reg, self.memory_displ_size(), self.code_size());
 				let mut offset = self.memory_displacement64();
 				let offset_mask = match addr_size {
 					8 => u64::MAX,
@@ -2987,18 +2987,17 @@ impl Instruction {
 					if let Some(is_vsib64) = self.vsib() {
 						if is_vsib64 {
 							offset = offset.wrapping_add(
-								get_register_value(index_reg, element_index, 8)?
-									<< super::instruction_internal::internal_get_memory_index_scale(self),
+								get_register_value(index_reg, element_index, 8)? << instruction_internal::internal_get_memory_index_scale(self),
 							);
 						} else {
 							offset = offset.wrapping_add(
 								(get_register_value(index_reg, element_index, 4)? as i32 as u64)
-									<< super::instruction_internal::internal_get_memory_index_scale(self),
+									<< instruction_internal::internal_get_memory_index_scale(self),
 							);
 						}
 					} else {
-						offset = offset
-							.wrapping_add(get_register_value(index_reg, 0, 0)? << super::instruction_internal::internal_get_memory_index_scale(self));
+						offset =
+							offset.wrapping_add(get_register_value(index_reg, 0, 0)? << instruction_internal::internal_get_memory_index_scale(self));
 					}
 				}
 				offset &= offset_mask;
@@ -3382,10 +3381,10 @@ impl Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
 		// SAFETY: TABLE.len() == count(Code)*2 and for all Code values c, c as usize < count(Code)
-		let flags2 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
+		let flags2 = unsafe { *crate::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
 		let index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
 		// SAFETY: generated and valid index
-		unsafe { *super::info::cpuid_table::CPUID.get_unchecked(index) }
+		unsafe { *crate::info::cpuid_table::CPUID.get_unchecked(index) }
 	}
 
 	/// Control flow info
@@ -3466,7 +3465,7 @@ impl Instruction {
 	#[must_use]
 	fn rflags_info(&self) -> usize {
 		// SAFETY: TABLE.len() == count(Code)*2 and for all Code values c, c as usize < count(Code)
-		let flags1 = unsafe { *super::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2) };
+		let flags1 = unsafe { *crate::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2) };
 		let implied_access = (flags1 >> InfoFlags1::IMPLIED_ACCESS_SHIFT) & InfoFlags1::IMPLIED_ACCESS_MASK;
 		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 1 == ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32);
 		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 2 == ImpliedAccess::Shift_Ib_MASK1F as u32);
@@ -3557,7 +3556,7 @@ impl Instruction {
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
 		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info()) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -3598,7 +3597,7 @@ impl Instruction {
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
 		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info()) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are always cleared by the CPU.
@@ -3639,7 +3638,7 @@ impl Instruction {
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
 		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info()) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are always set by the CPU.
@@ -3680,7 +3679,7 @@ impl Instruction {
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
 		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info()) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are undefined after executing the instruction.
@@ -3721,7 +3720,7 @@ impl Instruction {
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
 		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info()) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
@@ -3760,7 +3759,7 @@ impl Instruction {
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
 		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info()) as u32 }
+		unsafe { *crate::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
@@ -3978,15 +3977,15 @@ impl Instruction {
 #[cfg(feature = "encoder")]
 impl Instruction {
 	fn init_memory_operand(instruction: &mut Instruction, memory: &MemoryOperand) {
-		super::instruction_internal::internal_set_memory_base(instruction, memory.base);
-		super::instruction_internal::internal_set_memory_index(instruction, memory.index);
+		instruction_internal::internal_set_memory_base(instruction, memory.base);
+		instruction_internal::internal_set_memory_index(instruction, memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
-		let addr_size = super::instruction_internal::get_address_size_in_bytes(memory.base, memory.index, memory.displ_size, CodeSize::Unknown);
+		let addr_size = instruction_internal::get_address_size_in_bytes(memory.base, memory.index, memory.displ_size, CodeSize::Unknown);
 		if addr_size == 8 {
 			instruction.set_memory_displacement64(memory.displacement as u64);
 		} else {
-			super::instruction_internal::internal_set_memory_displacement64_lo(instruction, memory.displacement as u32);
+			instruction_internal::internal_set_memory_displacement64_lo(instruction, memory.displacement as u32);
 		}
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
@@ -4004,7 +4003,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with(code: Code) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		debug_assert_eq!(instruction.op_count(), 0);
 		instruction
@@ -4021,11 +4020,11 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg(code: Code, register: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
 		debug_assert_eq!(instruction.op_count(), 1);
 		instruction
@@ -4045,9 +4044,9 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_i32(code: Code, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 1);
 		Ok(instruction)
@@ -4086,9 +4085,9 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_u32(code: Code, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 1);
 		Ok(instruction)
@@ -4124,9 +4123,9 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_mem(code: Code, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(instruction.op_count(), 1);
@@ -4145,15 +4144,15 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		instruction
@@ -4174,13 +4173,13 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_i32(code: Code, register: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4221,13 +4220,13 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_u32(code: Code, register: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4268,13 +4267,13 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_i64(code: Code, register: Register, immediate: i64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4315,13 +4314,13 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_u64(code: Code, register: Register, immediate: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4359,13 +4358,13 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(instruction.op_count(), 2);
@@ -4387,13 +4386,13 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_i32_reg(code: Code, immediate: i32, register: Register) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64)?;
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4434,13 +4433,13 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_u32_reg(code: Code, immediate: u32, register: Register) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64)?;
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4481,11 +4480,11 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate1 as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate1 as i64)?;
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate2 as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate2 as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4526,11 +4525,11 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate1 as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate1 as u64)?;
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate2 as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate2 as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4568,14 +4567,14 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register);
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		instruction
@@ -4596,12 +4595,12 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4642,12 +4641,12 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 2);
 		Ok(instruction)
@@ -4686,19 +4685,19 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		instruction
@@ -4720,17 +4719,17 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -4773,17 +4772,17 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -4823,17 +4822,17 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(instruction.op_count(), 3);
@@ -4856,15 +4855,15 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate1 as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate1 as i64)?;
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate2 as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate2 as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -4907,15 +4906,15 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate1 as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate1 as u64)?;
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate2 as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate2 as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -4955,18 +4954,18 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register2);
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		instruction
@@ -4988,16 +4987,16 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -5040,16 +5039,16 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -5089,18 +5088,18 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register2);
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		instruction
@@ -5122,16 +5121,16 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -5174,16 +5173,16 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 3);
 		Ok(instruction)
@@ -5224,23 +5223,23 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
+		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		instruction
@@ -5263,21 +5262,21 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
@@ -5322,21 +5321,21 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
@@ -5378,21 +5377,21 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		debug_assert_eq!(instruction.op_count(), 4);
@@ -5416,19 +5415,19 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate1 as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate1 as i64)?;
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate2 as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate2 as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
@@ -5473,19 +5472,19 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate1 as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate1 as u64)?;
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate2 as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate2 as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
@@ -5527,22 +5526,22 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Self {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		instruction
@@ -5565,20 +5564,20 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
@@ -5623,20 +5622,20 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 4);
 		Ok(instruction)
@@ -5682,25 +5681,25 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
+		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
@@ -5747,25 +5746,25 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
+		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
@@ -5812,24 +5811,24 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
@@ -5876,24 +5875,24 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
@@ -5940,24 +5939,24 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
+		instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64)?;
 
 		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
@@ -6004,24 +6003,24 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op0_register(&mut instruction, register1);
+		//instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op0_register(&mut instruction, register1);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
+		//instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
+		instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
+		//instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
+		instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
+		instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64)?;
 
 		debug_assert_eq!(instruction.op_count(), 5);
 		Ok(instruction)
@@ -6064,9 +6063,9 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_branch(code: Code, target: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_near_branch_op_kind(code, 0)?);
+		instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_near_branch_op_kind(code, 0)?);
 		instruction.set_near_branch64(target);
 
 		debug_assert_eq!(instruction.op_count(), 1);
@@ -6107,9 +6106,9 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_far_branch(code: Code, selector: u16, offset: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, code);
+		instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_far_branch_op_kind(code, 0)?);
+		instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_far_branch_op_kind(code, 0)?);
 		instruction.set_far_branch_selector(selector);
 		instruction.set_far_branch32(offset);
 
@@ -6154,20 +6153,20 @@ impl Instruction {
 
 		match bitness {
 			16 => {
-				super::instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel16);
-				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch32);
+				instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel16);
+				instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch32);
 				instruction.set_near_branch32(target as u32);
 			}
 
 			32 => {
-				super::instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel32);
-				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch32);
+				instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel32);
+				instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch32);
 				instruction.set_near_branch32(target as u32);
 			}
 
 			64 => {
-				super::instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel32);
-				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch64);
+				instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel32);
+				instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch64);
 				instruction.set_near_branch64(target);
 			}
 
@@ -6250,7 +6249,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, segment_prefix, rep_prefix)
+		instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `OUTSB` instruction
@@ -6288,7 +6287,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_outsb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP OUTSB` instruction
@@ -6326,7 +6325,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, segment_prefix, rep_prefix)
+		instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `OUTSW` instruction
@@ -6364,7 +6363,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_outsw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP OUTSW` instruction
@@ -6402,7 +6401,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, segment_prefix, rep_prefix)
+		instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `OUTSD` instruction
@@ -6440,7 +6439,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_outsd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP OUTSD` instruction
@@ -6478,7 +6477,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, segment_prefix, rep_prefix)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `LODSB` instruction
@@ -6516,7 +6515,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_lodsb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP LODSB` instruction
@@ -6554,7 +6553,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, segment_prefix, rep_prefix)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `LODSW` instruction
@@ -6592,7 +6591,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_lodsw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP LODSW` instruction
@@ -6630,7 +6629,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, segment_prefix, rep_prefix)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `LODSD` instruction
@@ -6668,7 +6667,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_lodsd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP LODSD` instruction
@@ -6706,7 +6705,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, segment_prefix, rep_prefix)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `LODSQ` instruction
@@ -6744,7 +6743,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_lodsq(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP LODSQ` instruction
@@ -6780,7 +6779,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, rep_prefix)
+		instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, rep_prefix)
 	}
 
 	/// Creates a `SCASB` instruction
@@ -6816,7 +6815,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_scasb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE SCASB` instruction
@@ -6849,7 +6848,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_scasb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repne)
+		instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE SCASB` instruction
@@ -6885,7 +6884,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, rep_prefix)
+		instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, rep_prefix)
 	}
 
 	/// Creates a `SCASW` instruction
@@ -6921,7 +6920,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_scasw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE SCASW` instruction
@@ -6954,7 +6953,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_scasw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repne)
+		instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE SCASW` instruction
@@ -6990,7 +6989,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, rep_prefix)
+		instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, rep_prefix)
 	}
 
 	/// Creates a `SCASD` instruction
@@ -7026,7 +7025,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_scasd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE SCASD` instruction
@@ -7059,7 +7058,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_scasd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repne)
+		instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE SCASD` instruction
@@ -7095,7 +7094,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, rep_prefix)
+		instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, rep_prefix)
 	}
 
 	/// Creates a `SCASQ` instruction
@@ -7131,7 +7130,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_scasq(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repe)
+		instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE SCASQ` instruction
@@ -7164,7 +7163,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_scasq(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repne)
+		instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE SCASQ` instruction
@@ -7200,7 +7199,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, rep_prefix)
+		instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, rep_prefix)
 	}
 
 	/// Creates a `INSB` instruction
@@ -7236,7 +7235,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_insb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP INSB` instruction
@@ -7272,7 +7271,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, rep_prefix)
+		instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, rep_prefix)
 	}
 
 	/// Creates a `INSW` instruction
@@ -7308,7 +7307,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_insw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP INSW` instruction
@@ -7344,7 +7343,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, rep_prefix)
+		instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, rep_prefix)
 	}
 
 	/// Creates a `INSD` instruction
@@ -7380,7 +7379,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_insd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP INSD` instruction
@@ -7416,7 +7415,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, rep_prefix)
+		instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, rep_prefix)
 	}
 
 	/// Creates a `STOSB` instruction
@@ -7452,7 +7451,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_stosb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP STOSB` instruction
@@ -7488,7 +7487,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, rep_prefix)
+		instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, rep_prefix)
 	}
 
 	/// Creates a `STOSW` instruction
@@ -7524,7 +7523,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_stosw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP STOSW` instruction
@@ -7560,7 +7559,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, rep_prefix)
+		instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, rep_prefix)
 	}
 
 	/// Creates a `STOSD` instruction
@@ -7596,7 +7595,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_stosd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP STOSD` instruction
@@ -7632,7 +7631,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, rep_prefix)
+		instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, rep_prefix)
 	}
 
 	/// Creates a `STOSQ` instruction
@@ -7668,7 +7667,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_stosq(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP STOSQ` instruction
@@ -7706,7 +7705,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `CMPSB` instruction
@@ -7744,7 +7743,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE CMPSB` instruction
@@ -7777,7 +7776,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repne)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE CMPSB` instruction
@@ -7815,7 +7814,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `CMPSW` instruction
@@ -7853,7 +7852,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE CMPSW` instruction
@@ -7886,7 +7885,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repne)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE CMPSW` instruction
@@ -7924,7 +7923,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `CMPSD` instruction
@@ -7962,7 +7961,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE CMPSD` instruction
@@ -7995,7 +7994,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repne)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE CMPSD` instruction
@@ -8033,7 +8032,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `CMPSQ` instruction
@@ -8071,7 +8070,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repe_cmpsq(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REPE CMPSQ` instruction
@@ -8104,7 +8103,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_repne_cmpsq(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repne)
+		instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repne)
 	}
 
 	/// Creates a `REPNE CMPSQ` instruction
@@ -8142,7 +8141,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `MOVSB` instruction
@@ -8180,7 +8179,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_movsb(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP MOVSB` instruction
@@ -8218,7 +8217,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `MOVSW` instruction
@@ -8256,7 +8255,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_movsw(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP MOVSW` instruction
@@ -8294,7 +8293,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `MOVSD` instruction
@@ -8332,7 +8331,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_movsd(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP MOVSD` instruction
@@ -8370,7 +8369,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, segment_prefix, rep_prefix)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, segment_prefix, rep_prefix)
 	}
 
 	/// Creates a `MOVSQ` instruction
@@ -8408,7 +8407,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_rep_movsq(address_size: u32) -> Result<Self, IcedError> {
-		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
+		instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
 	}
 
 	/// Creates a `REP MOVSQ` instruction
@@ -8446,7 +8445,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
-		super::instruction_internal::with_maskmov(Code::Maskmovq_rDI_mm_mm, address_size, register1, register2, segment_prefix)
+		instruction_internal::with_maskmov(Code::Maskmovq_rDI_mm_mm, address_size, register1, register2, segment_prefix)
 	}
 
 	/// Creates a `MASKMOVQ` instruction
@@ -8489,7 +8488,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
-		super::instruction_internal::with_maskmov(Code::Maskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
+		instruction_internal::with_maskmov(Code::Maskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
 	}
 
 	/// Creates a `MASKMOVDQU` instruction
@@ -8532,7 +8531,7 @@ impl Instruction {
 	#[inline]
 	#[rustfmt::skip]
 	pub fn try_with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Result<Self, IcedError> {
-		super::instruction_internal::with_maskmov(Code::VEX_Vmaskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
+		instruction_internal::with_maskmov(Code::VEX_Vmaskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
 	}
 
 	/// Creates a `VMASKMOVDQU` instruction
@@ -8571,8 +8570,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_1(b0: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 
@@ -8612,8 +8611,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_2(b0: u8, b1: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -8656,8 +8655,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -8703,8 +8702,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -8753,8 +8752,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 5);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 5);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -8806,8 +8805,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 6);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 6);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -8862,8 +8861,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 7);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 7);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -8921,8 +8920,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 8);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 8);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -8983,8 +8982,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 9);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 9);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9048,8 +9047,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 10);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 10);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9116,8 +9115,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 11);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 11);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9187,8 +9186,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 12);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 12);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9261,8 +9260,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 13);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 13);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9338,8 +9337,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 14);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 14);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9418,8 +9417,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 15);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 15);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9501,8 +9500,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 16);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 16);
 
 		instruction.try_set_declare_byte_value(0, b0)?;
 		instruction.try_set_declare_byte_value(1, b1)?;
@@ -9576,8 +9575,8 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {
 			instruction.try_set_declare_byte_value(i.0, *i.1)?;
@@ -9619,8 +9618,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_1(w0: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 
@@ -9660,8 +9659,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_2(w0: u16, w1: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
@@ -9704,8 +9703,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
@@ -9751,8 +9750,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
@@ -9801,8 +9800,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 5);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 5);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
@@ -9854,8 +9853,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 6);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 6);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
@@ -9910,8 +9909,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 7);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 7);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
@@ -9969,8 +9968,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 8);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 8);
 
 		instruction.try_set_declare_word_value(0, w0)?;
 		instruction.try_set_declare_word_value(1, w1)?;
@@ -10029,8 +10028,8 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 2);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 2);
 
 		for i in 0..data.len() / 2 {
 			let v = unsafe { u16::from_le(ptr::read_unaligned(data.get_unchecked(i * 2) as *const _ as *const u16)) };
@@ -10078,8 +10077,8 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {
 			instruction.try_set_declare_word_value(i.0, *i.1)?;
@@ -10121,8 +10120,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_1(d0: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.try_set_declare_dword_value(0, d0)?;
 
@@ -10162,8 +10161,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_2(d0: u32, d1: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.try_set_declare_dword_value(0, d0)?;
 		instruction.try_set_declare_dword_value(1, d1)?;
@@ -10206,8 +10205,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 3);
 
 		instruction.try_set_declare_dword_value(0, d0)?;
 		instruction.try_set_declare_dword_value(1, d1)?;
@@ -10253,8 +10252,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 4);
 
 		instruction.try_set_declare_dword_value(0, d0)?;
 		instruction.try_set_declare_dword_value(1, d1)?;
@@ -10305,8 +10304,8 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 4);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 4);
 
 		for i in 0..data.len() / 4 {
 			let v = unsafe { u32::from_le(ptr::read_unaligned(data.get_unchecked(i * 4) as *const _ as *const u32)) };
@@ -10354,8 +10353,8 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareDword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {
 			instruction.try_set_declare_dword_value(i.0, *i.1)?;
@@ -10397,8 +10396,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_qword_1(q0: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 1);
 
 		instruction.try_set_declare_qword_value(0, q0)?;
 
@@ -10438,8 +10437,8 @@ impl Instruction {
 	#[rustfmt::skip]
 	pub fn try_with_declare_qword_2(q0: u64, q1: u64) -> Result<Self, IcedError> {
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, 2);
 
 		instruction.try_set_declare_qword_value(0, q0)?;
 		instruction.try_set_declare_qword_value(1, q1)?;
@@ -10486,8 +10485,8 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 8);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 8);
 
 		for i in 0..data.len() / 8 {
 			let v = unsafe { u64::from_le(ptr::read_unaligned(data.get_unchecked(i * 8) as *const _ as *const u64)) };
@@ -10535,8 +10534,8 @@ impl Instruction {
 		}
 
 		let mut instruction = Self::default();
-		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
-		super::instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
+		instruction_internal::internal_set_code(&mut instruction, Code::DeclareQword);
+		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32);
 
 		for i in data.iter().enumerate() {
 			instruction.try_set_declare_qword_value(i.0, *i.1)?;

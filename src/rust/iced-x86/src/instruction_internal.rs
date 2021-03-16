@@ -544,7 +544,7 @@ pub(crate) fn initialize_unsigned_immediate(instruction: &mut Instruction, opera
 
 #[cfg(feature = "encoder")]
 fn get_immediate_op_kind(code: Code, operand: usize) -> Result<OpKind, IcedError> {
-	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
+	let operands = &crate::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
 	if let Some(op) = operands.get(operand) {
 		match op.immediate_op_kind() {
 			Some(op_kind) => {
@@ -580,7 +580,7 @@ fn get_immediate_op_kind(code: Code, operand: usize) -> Result<OpKind, IcedError
 
 #[cfg(feature = "encoder")]
 pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> Result<OpKind, IcedError> {
-	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
+	let operands = &crate::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
 	if let Some(op) = operands.get(operand) {
 		match op.near_branch_op_kind() {
 			Some(op_kind) => Ok(op_kind),
@@ -603,7 +603,7 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> Result<OpKi
 
 #[cfg(feature = "encoder")]
 pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> Result<OpKind, IcedError> {
-	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
+	let operands = &crate::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
 	if let Some(op) = operands.get(operand) {
 		match op.far_branch_op_kind() {
 			Some(op_kind) => Ok(op_kind),
