@@ -441,13 +441,13 @@ impl OpCodeHandler_MandatoryPrefix4 {
 				}
 				this.handler_f3
 			}
-			3 => {
+			_ => {
+				debug_assert_eq!(decoder.state.mandatory_prefix, 3);
 				if (this.flags & 8) != 0 {
 					decoder.clear_mandatory_prefix_f2(instruction);
 				}
 				this.handler_f2
 			}
-			_ => unreachable!(),
 		};
 		if handler.has_modrm && (this.flags & 0x10) != 0 {
 			decoder.read_modrm();

@@ -454,16 +454,10 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal ulong GetCurrentInstructionPointer64() => instructionPointer + state.instructionLength;
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ClearMandatoryPrefix(ref Instruction instruction) {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			switch (state.mandatoryPrefix) {
-			case MandatoryPrefixByte.PF3:
-				instruction.InternalClearHasRepePrefix();
-				break;
-			case MandatoryPrefixByte.PF2:
-				instruction.InternalClearHasRepnePrefix();
-				break;
-			}
+			instruction.InternalClearHasRepeRepnePrefix();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]

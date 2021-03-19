@@ -1345,16 +1345,10 @@ impl<'a> Decoder<'a> {
 		((self.data_ptr - self.instr_start_data_ptr) as u64).wrapping_add(self.ip)
 	}
 
-	// It's not possible to use 'as u32' on the left side in a match arm
-	const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
-	const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
+	#[inline]
 	fn clear_mandatory_prefix(&mut self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
-		match self.state.mandatory_prefix {
-			Decoder::PF3 => instruction_internal::internal_clear_has_repe_prefix(instruction),
-			Decoder::PF2 => instruction_internal::internal_clear_has_repne_prefix(instruction),
-			_ => {}
-		}
+		instruction_internal::internal_clear_has_repe_repne_prefix(instruction);
 	}
 
 	#[inline(always)]
@@ -1364,6 +1358,8 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
+	const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
+	const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
 	fn set_xacquire_xrelease_core(&mut self, instruction: &mut Instruction, flags: u32) {
 		debug_assert!(!((flags & HandlerFlags::XACQUIRE_XRELEASE_NO_LOCK) == 0 && !instruction.has_lock_prefix()));
 		match self.state.mandatory_prefix {

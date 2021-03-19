@@ -380,6 +380,8 @@ namespace Iced.Intel {
 		internal void InternalSetHasRepePrefix() => codeFlags = (codeFlags & ~(uint)CodeFlags.RepnePrefix) | (uint)CodeFlags.RepePrefix;
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void InternalClearHasRepePrefix() => codeFlags &= ~(uint)CodeFlags.RepePrefix;
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void InternalClearHasRepeRepnePrefix() => codeFlags &= ~((uint)CodeFlags.RepePrefix | (uint)CodeFlags.RepnePrefix);
 
 		/// <summary>
 		/// <see langword="true"/> if the instruction has the <c>REPNE</c> prefix (<c>F2</c>)

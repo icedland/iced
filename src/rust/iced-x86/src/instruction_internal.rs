@@ -94,6 +94,12 @@ pub(crate) fn internal_has_op_mask_or_zeroing_masking(this: &Instruction) -> boo
 
 #[cfg(feature = "decoder")]
 #[inline]
+pub(crate) fn internal_clear_has_repe_repne_prefix(this: &mut Instruction) {
+	this.code_flags &= !(CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)
+}
+
+#[cfg(feature = "decoder")]
+#[inline]
 pub(crate) fn internal_clear_has_repe_prefix(this: &mut Instruction) {
 	this.code_flags &= !CodeFlags::REPE_PREFIX
 }
