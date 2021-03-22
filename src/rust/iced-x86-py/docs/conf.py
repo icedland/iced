@@ -21,7 +21,7 @@ project = "iced-x86"
 copyright = "Copyright (C) 2018-present iced project and contributors"
 author = "iced project and contributors <https://github.com/icedland>"
 # The full version, including alpha/beta/rc tags
-release = "1.10.3"
+release = "1.11.0"
 
 
 # -- General configuration ---------------------------------------------------
