@@ -356,7 +356,8 @@ macro_rules! format_memory_else_block {
 // Only one caller has variable args starting from $seg_reg so this is a macro. The compiler is able
 // to remove lots of code in all the other cases with literal macro args.
 macro_rules! format_memory_code {
-	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:expr, $seg_reg:expr, $base_reg:expr, $index_reg:expr, $scale:expr, $displ_size:expr, $displ:expr, $addr_size:expr) => {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:expr, $seg_reg:expr, $base_reg:expr, $index_reg:expr,
+		$scale:expr, $displ_size:expr, $displ:expr, $addr_size:expr) => {
 		#[allow(trivial_numeric_casts)]
 		{
 			let mut base_reg = $base_reg;
@@ -472,7 +473,8 @@ macro_rules! format_memory_code {
 	};
 }
 macro_rules! call_format_memory {
-	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:ident, $seg_reg:expr, $base_reg:tt, $index_reg:tt, $scale:tt, $displ_size:tt, $displ:tt, $addr_size:tt $(,)?) => {
+	($slf:ident, $dst:ident, $dst_next_p:ident, $instruction:ident, $operand:ident, $seg_reg:expr, $base_reg:tt,
+		$index_reg:tt, $scale:tt, $displ_size:tt, $displ:tt, $addr_size:tt $(,)?) => {
 		// This speeds up SpecializedFormatter but slows down FastFormatter so detect which
 		// formatter it is. Both paths are tested (same tests).
 		// This is fugly but the whole point of this formatter is to be fast which can result in ugly code.
