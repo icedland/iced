@@ -620,6 +620,15 @@ struct FmtTableData {
 /// }
 /// ```
 ///
+/// Also add this to your `Cargo.toml` file:
+///
+/// ```toml
+/// [profile.release]
+/// codegen-units = 1
+/// lto = true
+/// opt-level = 3
+/// ```
+///
 /// # Using a symbol resolver
 ///
 /// The symbol resolver is disabled by default, but it's easy to enable it (or you can just use [`FastFormatter`])
@@ -1685,7 +1694,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 ///
 /// This is a variant of [`SpecializedFormatter<TraitOptions>`] and allows changing the
 /// formatter options at runtime and the use of a symbol resolver. For fastest possible
-/// speed and smallest code, the options should be hard coded, so see [`SpecializedFormatter<TraitOptions>`].
+/// disassembly and smallest code, the options should be hard coded, so see [`SpecializedFormatter<TraitOptions>`].
 ///
 /// This formatter is ~2.8x faster than the gas/intel/masm/nasm formatters (the time includes decoding + formatting).
 ///

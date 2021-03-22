@@ -10,8 +10,8 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 - ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - ✔️100% Rust code
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- ✔️The decoder is 4x+ faster than other similar libraries and doesn't allocate any memory
-- ✔️Small decoded instructions, only 40 bytes
+- ✔️Blazing fast: Decodes >200 MB/s and decode+format >110 MB/s ([see here](https://github.com/icedland/disas-bench/tree/7ccde32e77c802b22cbeabe2ddcf769130e658fb#results))
+- ✔️Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️Supports `#![no_std]` and `WebAssembly`
@@ -213,6 +213,15 @@ pub(crate) fn how_to_disassemble_really_fast() {
         //     println!("{}", output);
     }
 }
+```
+
+Also add this to your `Cargo.toml` file:
+
+```toml
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
 ```
 
 ## Create and encode instructions

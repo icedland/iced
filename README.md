@@ -8,17 +8,17 @@ iced is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disas
 - ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - ✔️Supports .NET, Rust, Python, JavaScript (WebAssembly)
 - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- ✔️The decoder is 4x+ faster than other similar libraries and doesn't allocate any memory
-- ✔️Small decoded instructions, only 40 bytes
-- ✔️High level Assembler (.NET) providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
+- ✔️Blazing fast: Decodes >200 MB/s and decode+format >110 MB/s (Rust, [see here](https://github.com/icedland/disas-bench/tree/7ccde32e77c802b22cbeabe2ddcf769130e658fb#results))
+- ✔️Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
+- ✔️.NET: High level Assembler providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - ✔️License: MIT
 
-# Examples and/or Build Instructions
+# Examples
 
-- .NET: [README](https://github.com/icedland/iced/blob/master/src/csharp/Intel/README.md)
 - Rust: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86/README.md)
+- .NET: [README](https://github.com/icedland/iced/blob/master/src/csharp/Intel/README.md)
 - Python: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86-py/README.md)
 - JavaScript + WebAssembly: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86-js/README.md)
 

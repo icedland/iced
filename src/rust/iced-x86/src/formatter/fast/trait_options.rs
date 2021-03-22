@@ -54,6 +54,15 @@ use crate::formatter::fast::options::FastFormatterOptions;
 /// }
 /// ```
 ///
+/// Also add this to your `Cargo.toml` file:
+///
+/// ```toml
+/// [profile.release]
+/// codegen-units = 1
+/// lto = true
+/// opt-level = 3
+/// ```
+///
 /// See [`SpecializedFormatter<TraitOptions>`] for more examples
 ///
 /// [`SpecializedFormatter<TraitOptions>`]: struct.SpecializedFormatter.html
