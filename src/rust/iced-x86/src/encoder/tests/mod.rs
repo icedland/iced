@@ -317,11 +317,12 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	let memory32 = MemoryOperand::with_base_displ_size(Register::ESI, 0x1234_5678, 1);
 	let memory64 = MemoryOperand::with_base_displ_size(Register::R14, 0x1234_5678, 1);
 
-	let mut tests: Vec<(u32, &'static str, u64, Instruction)> = Vec::new();
-
-	tests.push((16, "0F10 8C 3412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory16)));
-	tests.push((32, "0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory32)));
-	tests.push((64, "41 0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory64)));
+	#[allow(unused_mut)]
+	let mut tests: Vec<(u32, &'static str, u64, Instruction)> = vec![
+		(16, "0F10 8C 3412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory16)),
+		(32, "0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory32)),
+		(64, "41 0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory64)),
+	];
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	#[cfg(not(feature = "no_vex"))]

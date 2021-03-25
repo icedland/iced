@@ -473,7 +473,6 @@ impl Op for OpImm {
 		}
 		if instruction.immediate8() != self.value {
 			encoder.set_error_message(format!("Operand {}: Expected 0x{:02X}, actual: 0x{:02X}", operand, self.value, instruction.immediate8()));
-			return;
 		}
 	}
 

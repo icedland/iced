@@ -580,9 +580,7 @@ impl Encoder {
 
 			_ => unreachable!(),
 		}
-		if !self.verify_op_kind(operand, op_kind, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16)) {
-			return;
-		}
+		let _ = self.verify_op_kind(operand, op_kind, instruction.try_op_kind(operand).unwrap_or(OpKind::FarBranch16));
 	}
 
 	pub(super) fn add_far_branch(&mut self, instruction: &Instruction, operand: u32, size: u32) {
@@ -924,7 +922,6 @@ impl Encoder {
 				self.displ_size = DisplSize::Size2;
 			} else {
 				self.set_error_message(format!("Operand {}: Invalid displacement size: {}, must be 0, 1, or 2", operand, displ_size));
-				return;
 			}
 		}
 	}

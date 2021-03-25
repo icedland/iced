@@ -46,7 +46,7 @@ fn get_lines_ignore_comments(filename: &Path) -> Vec<String> {
 	let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 	BufReader::new(file)
 		.lines()
-		.map(|r| r.unwrap_or_else(|e| panic!(e.to_string())))
+		.map(|r| r.unwrap_or_else(|e| panic!("{}", e.to_string())))
 		.filter(|line| !line.is_empty() && !line.starts_with('#'))
 		.collect()
 }

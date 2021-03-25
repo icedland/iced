@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+#![allow(clippy::needless_question_mark)]
+
 #[cfg(any(all(feature = "encoder", feature = "instr_api"), feature = "instr_create"))]
 use crate::code::code_to_iced;
 #[cfg(feature = "instr_api")]
