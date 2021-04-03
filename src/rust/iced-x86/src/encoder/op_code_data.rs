@@ -8618,7 +8618,7 @@ pub(super) static OPC_FLAGS2: [u32; 4323] = [
 	0x1E80_3FFF,// Aesdecwide128kl_m384
 	0x1E80_3FFF,// Aesencwide256kl_m512
 	0x1E80_3FFF,// Aesdecwide256kl_m512
-	0x1E80_3E7B,// Loadiwkey_xmm_xmm
+	0x1E84_3E7B,// Loadiwkey_xmm_xmm
 	0x7E80_3FFF,// Aesenc128kl_xmm_m384
 	0x7E80_3FFF,// Aesdec128kl_xmm_m384
 	0x7E80_3FFF,// Aesenc256kl_xmm_m512

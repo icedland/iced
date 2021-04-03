@@ -29667,7 +29667,7 @@ INSTRUCTION: F3 0F 38 DC 11:rrr:bbb | LOADIWKEY xmm1, xmm2, <EAX>, <XMM0> | KL
 	implied: r=eax;xmm0
 	rflags: w=z 0=osacp
 	# All Key Locker instructions may cause a TSX abort
-	flags: cpl0 tsx-impl-abort
+	flags: cpl0 tsx-impl-abort intel-may-vm-exit
 END
 
 # Code: Aesenc128kl_xmm_m384

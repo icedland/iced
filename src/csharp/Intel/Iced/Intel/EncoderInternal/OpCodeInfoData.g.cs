@@ -8627,7 +8627,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E803FFF,// Aesdecwide128kl_m384
 				0x1E803FFF,// Aesencwide256kl_m512
 				0x1E803FFF,// Aesdecwide256kl_m512
-				0x1E803E7B,// Loadiwkey_xmm_xmm
+				0x1E843E7B,// Loadiwkey_xmm_xmm
 				0x7E803FFF,// Aesenc128kl_xmm_m384
 				0x7E803FFF,// Aesdec128kl_xmm_m384
 				0x7E803FFF,// Aesenc256kl_xmm_m512
