@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86-py"
-version = "1.11.0"
+version = "1.11.1"
 authors = ["iced project and contributors <https://github.com/icedland>"]
 edition = "2018"
 publish = false
@@ -19,7 +19,7 @@ features = ["macros", "extension-module", "abi3-py36"]
 
 [dependencies.iced-x86]
 # If building from sdist, it should use the exact same version as the sdist.
-version = "=1.11.0"
+version = "=1.11.1"
 # To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
 #	paths = ["/abs/path/to/iced/src/rust/iced-x86"]
 # or uncomment this line:
