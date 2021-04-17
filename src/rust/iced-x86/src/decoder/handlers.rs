@@ -4,6 +4,7 @@
 use crate::decoder::*;
 use crate::instruction_internal;
 use crate::*;
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::convert::TryInto;
 
