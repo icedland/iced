@@ -736,6 +736,7 @@ impl<'a> Decoder<'a> {
 
 		let tables = &*TABLES;
 
+		#[allow(clippy::unwrap_used)]
 		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> &'static [&'static OpCodeHandler; 0x100] {
 			TryFrom::try_from(handlers).unwrap()
 		}

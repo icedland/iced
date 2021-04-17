@@ -168,6 +168,7 @@ pub(super) struct OpCodeHandler_AnotherTable {
 }
 
 impl OpCodeHandler_AnotherTable {
+	#[allow(clippy::unwrap_used)]
 	pub(super) fn new(handlers: Vec<&'static OpCodeHandler>) -> Self {
 		let handlers = handlers.into_boxed_slice().try_into().ok().unwrap();
 		Self { decode: OpCodeHandler_AnotherTable::decode, has_modrm: false, handlers }
