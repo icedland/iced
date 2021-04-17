@@ -330,7 +330,7 @@ pub struct Decoder<'a> {
 	ip: u64,
 
 	// One of {&PREFIXES1632, &PREFIXES64} depending on bitness
-	prefixes: *const u32,
+	prefixes: &'static [u32; 8],
 	// Input data provided by the user. When there's no more bytes left to read we'll return a NoMoreBytes error
 	data: &'a [u8],
 	// Next bytes to read if there's enough bytes left to read.
@@ -354,25 +354,25 @@ pub struct Decoder<'a> {
 	instr_start_data_ptr: usize,
 
 	// These are verified to have exactly 0x100 elements, and they're static, so we don't need fat pointers (slices).
-	handlers_xx: *const &'static OpCodeHandler,
+	handlers_xx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_vex"))]
-	handlers_vex_0fxx: *const &'static OpCodeHandler,
+	handlers_vex_0fxx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_vex"))]
-	handlers_vex_0f38xx: *const &'static OpCodeHandler,
+	handlers_vex_0f38xx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_vex"))]
-	handlers_vex_0f3axx: *const &'static OpCodeHandler,
+	handlers_vex_0f3axx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_evex"))]
-	handlers_evex_0fxx: *const &'static OpCodeHandler,
+	handlers_evex_0fxx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_evex"))]
-	handlers_evex_0f38xx: *const &'static OpCodeHandler,
+	handlers_evex_0f38xx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_evex"))]
-	handlers_evex_0f3axx: *const &'static OpCodeHandler,
+	handlers_evex_0f3axx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_xop"))]
-	handlers_xop8: *const &'static OpCodeHandler,
+	handlers_xop8: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_xop"))]
-	handlers_xop9: *const &'static OpCodeHandler,
+	handlers_xop9: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_xop"))]
-	handlers_xopa: *const &'static OpCodeHandler,
+	handlers_xopa: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(feature = "no_vex")]
 	handlers_vex_0fxx: (),
 	#[cfg(feature = "no_vex")]
@@ -736,9 +736,8 @@ impl<'a> Decoder<'a> {
 
 		let tables = &*TABLES;
 
-		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> *const &'static OpCodeHandler {
-			debug_assert_eq!(handlers.len(), 0x100);
-			handlers.as_ptr()
+		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> &'static [&'static OpCodeHandler; 0x100] {
+			TryFrom::try_from(handlers).unwrap()
 		}
 		macro_rules! mk_handlers_local {
 			($name:ident, $feature:literal) => {
@@ -761,7 +760,7 @@ impl<'a> Decoder<'a> {
 		debug_assert_eq!(prefixes.len() * mem::size_of_val(&prefixes[0]) * 8, 256);
 		Ok(Decoder {
 			ip,
-			prefixes: prefixes.as_ptr(),
+			prefixes,
 			data,
 			data_ptr: data.as_ptr() as usize,
 			data_ptr_end,
@@ -1180,8 +1179,7 @@ impl<'a> Decoder<'a> {
 		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
 
 		let mut b = self.read_u8();
-		// SAFETY: `prefixes` is 256 bits in size (8 u32s) and `0<=b<=0xFF`
-		if (((*self.prefixes.add(b / 32)) >> (b & 31)) & 1) != 0 {
+		if (((self.prefixes[b / 32]) >> (b & 31)) & 1) != 0 {
 			let mut default_ds_segment = Register::DS;
 			let mut rex_prefix: usize;
 			loop {
@@ -1258,8 +1256,7 @@ impl<'a> Decoder<'a> {
 					}
 				}
 				b = self.read_u8();
-				// SAFETY: `prefixes` is 256 bits in size (8 u32s) and `0<=b<=0xFF`
-				if (((*self.prefixes.add(b / 32)) >> (b & 31)) & 1) == 0 {
+				if (((self.prefixes[b / 32]) >> (b & 31)) & 1) == 0 {
 					break;
 				}
 			}
@@ -1275,8 +1272,7 @@ impl<'a> Decoder<'a> {
 				self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 			}
 		}
-		// SAFETY: `0<=b<=0xFF` and `handlers` has exactly 256 elements
-		self.decode_table2(*self.handlers_xx.add(b), instruction);
+		self.decode_table2(self.handlers_xx[b], instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
 		let instr_len = self.data_ptr as u32 - data_ptr as u32;
@@ -1399,10 +1395,9 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	fn decode_table(&mut self, table: *const &OpCodeHandler, instruction: &mut Instruction) {
+	fn decode_table(&mut self, table: &[&OpCodeHandler; 0x100], instruction: &mut Instruction) {
 		let b = self.read_u8();
-		// SAFETY: `0<=b<=0xFF` and `table` has exactly 256 elements
-		self.decode_table2(unsafe { *table.add(b) }, instruction);
+		self.decode_table2(table[b], instruction);
 	}
 
 	#[inline(always)]
@@ -1666,8 +1661,7 @@ impl<'a> Decoder<'a> {
 						return;
 					}
 				};
-				// SAFETY: `0<=self.read_u8()<=0xFF` and `table` has exactly 256 elements
-				let handler = unsafe { *table.add(self.read_u8()) };
+				let handler = table[self.read_u8()];
 				debug_assert!(handler.has_modrm);
 				let m = self.read_u8() as u32;
 				self.state.modrm = m;
