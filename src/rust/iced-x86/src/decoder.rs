@@ -325,7 +325,10 @@ impl State {
 /// Decodes 16/32/64-bit x86 instructions
 #[allow(missing_debug_implementations)]
 #[allow(dead_code)]
-pub struct Decoder<'a> {
+pub struct Decoder<'a>
+where
+	Self: Send + Sync,
+{
 	// Current RIP value
 	ip: u64,
 
@@ -353,7 +356,6 @@ pub struct Decoder<'a> {
 	// Initialized to start of data (data_ptr) when decode() is called. Used to calculate current IP/offset (when decoding) if needed.
 	instr_start_data_ptr: usize,
 
-	// These are verified to have exactly 0x100 elements, and they're static, so we don't need fat pointers (slices).
 	handlers_xx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_vex"))]
 	handlers_vex_0fxx: &'static [&'static OpCodeHandler; 0x100],
