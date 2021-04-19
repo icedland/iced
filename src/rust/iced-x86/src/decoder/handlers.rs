@@ -4,6 +4,7 @@
 use crate::decoder::*;
 use crate::instruction_internal;
 use crate::*;
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 
 // SAFETY:
@@ -163,18 +164,24 @@ impl OpCodeHandler_Group {
 pub(super) struct OpCodeHandler_AnotherTable {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	handlers: Vec<&'static OpCodeHandler>,
+	handlers: Box<[&'static OpCodeHandler; 0x100]>,
 }
 
 impl OpCodeHandler_AnotherTable {
+	#[allow(clippy::unwrap_used)]
 	pub(super) fn new(handlers: Vec<&'static OpCodeHandler>) -> Self {
-		debug_assert_eq!(handlers.len(), 0x100);
+		let handlers = handlers.into_boxed_slice();
+		assert!(handlers.len() == 0x100);
+
+		// SAFETY: handlers size is verified to be 0x100
+		let handlers = unsafe { Box::from_raw(Box::into_raw(handlers) as *mut [_; 0x100]) };
+
 		Self { decode: OpCodeHandler_AnotherTable::decode, has_modrm: false, handlers }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		decoder.decode_table(this.handlers.as_ptr(), instruction);
+		decoder.decode_table(&this.handlers, instruction);
 	}
 }
 
