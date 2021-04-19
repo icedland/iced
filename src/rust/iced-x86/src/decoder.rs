@@ -740,7 +740,7 @@ impl<'a> Decoder<'a> {
 
 		#[allow(clippy::unwrap_used)]
 		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> &'static [&'static OpCodeHandler; 0x100] {
-			assert!(handlers.len() == 0x100);
+			debug_assert_eq!(handlers.len(), 0x100);
 			// SAFETY: handlers size is verified to be 0x100
 			unsafe { (handlers.as_ptr() as *const [_; 0x100]).as_ref() }.unwrap()
 		}

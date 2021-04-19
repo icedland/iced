@@ -171,7 +171,7 @@ impl OpCodeHandler_AnotherTable {
 	#[allow(clippy::unwrap_used)]
 	pub(super) fn new(handlers: Vec<&'static OpCodeHandler>) -> Self {
 		let handlers = handlers.into_boxed_slice();
-		assert!(handlers.len() == 0x100);
+		debug_assert_eq!(handlers.len(), 0x100);
 
 		// SAFETY: handlers size is verified to be 0x100
 		let handlers = unsafe { Box::from_raw(Box::into_raw(handlers) as *mut [_; 0x100]) };
