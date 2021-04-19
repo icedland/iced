@@ -6,7 +6,6 @@ use crate::instruction_internal;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
-use core::convert::TryInto;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };
@@ -171,7 +170,12 @@ pub(super) struct OpCodeHandler_AnotherTable {
 impl OpCodeHandler_AnotherTable {
 	#[allow(clippy::unwrap_used)]
 	pub(super) fn new(handlers: Vec<&'static OpCodeHandler>) -> Self {
-		let handlers = handlers.into_boxed_slice().try_into().ok().unwrap();
+		let handlers = handlers.into_boxed_slice();
+		assert!(handlers.len() == 0x100);
+
+		// SAFETY: handlers size is verified to be 0x100
+		let handlers = unsafe { Box::from_raw(Box::into_raw(handlers) as *mut [_; 0x100]) };
+
 		Self { decode: OpCodeHandler_AnotherTable::decode, has_modrm: false, handlers }
 	}
 

@@ -740,7 +740,9 @@ impl<'a> Decoder<'a> {
 
 		#[allow(clippy::unwrap_used)]
 		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> &'static [&'static OpCodeHandler; 0x100] {
-			TryFrom::try_from(handlers).unwrap()
+			assert!(handlers.len() == 0x100);
+			// SAFETY: handlers size is verified to be 0x100
+			unsafe { (handlers.as_ptr() as *const [_; 0x100]).as_ref() }.unwrap()
 		}
 		macro_rules! mk_handlers_local {
 			($name:ident, $feature:literal) => {
