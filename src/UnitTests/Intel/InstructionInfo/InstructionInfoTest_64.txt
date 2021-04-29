@@ -19242,9 +19242,9 @@ F3 0FA6 E8, Ccs_hash_64, Legacy, PADLOCK_GMI, crm=es:rdi;Unknown cwm=es:rdi;Unkn
 # rep ccs_hash
 67 F3 0FA6 E8, Ccs_hash_32, Legacy, PADLOCK_GMI, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=esi;edi cw=rsi r=eax;ecx cw=rax;rcx cr=ebx
 # rep ccs_encrypt
-67 F3 0FA7 F0, Ccs_encrypt_32, Legacy, PADLOCK_GMI, crm=es:ebx;Unknown crm=es:esi;Unknown cwm=es:edi;Unknown cr=ebx;esi;edi cw=rsi;rdi r=ecx cw=rcx cr=eax
+67 F3 0FA7 F0, Ccs_encrypt_32, Legacy, PADLOCK_GMI, crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cwm=es:edi;Unknown cr=edx;ebx;esi;edi cw=rsi;rdi r=ecx cw=rcx cr=eax
 # rep ccs_encrypt
-F3 0FA7 F0, Ccs_encrypt_64, Legacy, PADLOCK_GMI, crm=es:rbx;Unknown crm=es:rsi;Unknown cwm=es:rdi;Unknown cr=rbx;rsi;rdi cw=rsi;rdi rcw=rcx cr=rax
+F3 0FA7 F0, Ccs_encrypt_64, Legacy, PADLOCK_GMI, crm=es:rdx;Unknown crm=es:rbx;Unknown crm=es:rsi;Unknown cwm=es:rdi;Unknown cr=rdx;rbx;rsi;rdi cw=rsi;rdi rcw=rcx cr=rax
 # lkgs cx
 F2 66 0F00 F1, Lkgs_rm16, Legacy, LKGS, priv op0=r r=cx w=gs
 # lkgs word ptr [rax]

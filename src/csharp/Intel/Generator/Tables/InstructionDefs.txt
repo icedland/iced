@@ -29824,11 +29824,10 @@ INSTRUCTION: a16 F3 0F A6 E8 | CCS_HASH | PADLOCK_GMI
 	# Some Zhaoxin CPUs support GMI, eg. ZX-C+, KX, KH
 	# GMI = GuoMi Instruction
 
-	# AFAIK, no public documentation, so I used https://github.com/openssl/openssl/pull/8706
+	# https://github.com/ZXOpenSource/OpenSSL-ZX-GMI/blob/master/GMI%20User%20Manual%20V1.0.pdf
+	# OpenSSL PR: https://github.com/openssl/openssl/pull/8706
+
 	# SM3 instruction
-	# PR comment: gm5 ccs_hash
-	#TODO: I assume reg/mem access is the same as xsha{1,256} instructions
-	#TODO: I assume rBX isn't written, only read
 	implied: cr=[es:si=Unknown] crcw=[es:di=Unknown] cw=si rcw=ax;cx cr=bx
 	code-suffix: 16
 	flags: 16 32
@@ -29860,11 +29859,11 @@ END
 
 # Code: Ccs_encrypt_16
 INSTRUCTION: a16 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
-	# AFAIK, no public documentation, so I used https://github.com/openssl/openssl/pull/8706
+	# https://github.com/ZXOpenSource/OpenSSL-ZX-GMI/blob/master/GMI%20User%20Manual%20V1.0.pdf
+	# OpenSSL PR: https://github.com/openssl/openssl/pull/8706
+
 	# SM4 instruction
-	# PR comment: gx6 ccs_encrypt
-	#TODO: I assume rAX isn't written
-	implied: cr=[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di cr=ax
+	implied: cr=[es:dx=Unknown];[es:bx=Unknown];[es:si=Unknown] cw=[es:di=Unknown] rcw=cx cw=si;di cr=ax
 	code-suffix: 16
 	flags: 16 32
 	gas: asz
@@ -29875,7 +29874,7 @@ END
 # Code: Ccs_encrypt_32
 INSTRUCTION: a32 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
 	# See a16 version above for more info
-	implied: cr=[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi cr=eax
+	implied: cr=[es:edx=Unknown];[es:ebx=Unknown];[es:esi=Unknown] cw=[es:edi=Unknown] rcw=ecx cw=esi;edi cr=eax
 	code-suffix: 32
 	gas: asz
 	intel: asz
@@ -29885,7 +29884,7 @@ END
 # Code: Ccs_encrypt_64
 INSTRUCTION: a64 F3 0F A7 F0 | CCS_ENCRYPT | PADLOCK_GMI
 	# See a16 version above for more info
-	implied: cr=[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi cr=rax
+	implied: cr=[es:rdx=Unknown];[es:rbx=Unknown];[es:rsi=Unknown] cw=[es:rdi=Unknown] rcw=rcx cw=rsi;rdi cr=rax
 	code-suffix: 64
 	flags: 64
 	gas: asz

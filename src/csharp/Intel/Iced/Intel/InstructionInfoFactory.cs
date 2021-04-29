@@ -1604,14 +1604,16 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRax_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx:
+			case ImpliedAccess.t_CRmem_CRmem_CRmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.DX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
 					AddMemory(Register.ES, Register.BX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
 					AddMemory(Register.ES, Register.SI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code16, 0);
 					AddMemory(Register.ES, Register.DI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code16, 0);
 				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.AX, OpAccess.CondRead);
+					AddRegister(flags, Register.DX, OpAccess.CondRead);
 					AddRegister(flags, Register.BX, OpAccess.CondRead);
 					AddRegister(flags, Register.SI, OpAccess.CondRead);
 					AddRegister(flags, Register.DI, OpAccess.CondRead);
@@ -1622,14 +1624,16 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.CX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CWmem_CReax_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx:
+			case ImpliedAccess.t_CRmem_CRmem_CRmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.EDX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
 					AddMemory(Register.ES, Register.EBX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
 					AddMemory(Register.ES, Register.ESI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code32, 0);
 					AddMemory(Register.ES, Register.EDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code32, 0);
 				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.EAX, OpAccess.CondRead);
+					AddRegister(flags, Register.EDX, OpAccess.CondRead);
 					AddRegister(flags, Register.EBX, OpAccess.CondRead);
 					AddRegister(flags, Register.ESI, OpAccess.CondRead);
 					AddRegister(flags, Register.EDI, OpAccess.CondRead);
@@ -1640,14 +1644,16 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.ECX, OpAccess.ReadCondWrite);
 				}
 				break;
-			case ImpliedAccess.t_CRmem_CRmem_CWmem_CRrax_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx:
+			case ImpliedAccess.t_CRmem_CRmem_CRmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx:
 				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.RDX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
 					AddMemory(Register.ES, Register.RBX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
 					AddMemory(Register.ES, Register.RSI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
 					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code64, 0);
 				}
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.RAX, OpAccess.CondRead);
+					AddRegister(flags, Register.RDX, OpAccess.CondRead);
 					AddRegister(flags, Register.RBX, OpAccess.CondRead);
 					AddRegister(flags, Register.RSI, OpAccess.CondRead);
 					AddRegister(flags, Register.RDI, OpAccess.CondRead);

@@ -1970,6 +1970,6 @@ DF FC, Frinear, Legacy, CYRIX_FPU, fw=1 fu=023 rw=st0 decopt=Cyrix
 # rep ccs_hash
 F3 0FA6 E8, Ccs_hash_32, Legacy, PADLOCK_GMI, crm=es:edi;Unknown cwm=es:edi;Unknown crm=es:esi;Unknown cr=es cr=esi;edi cw=esi rcw=eax;ecx cr=ebx
 # rep ccs_encrypt
-67 F3 0FA7 F0, Ccs_encrypt_16, Legacy, PADLOCK_GMI, crm=es:bx;Unknown crm=es:si;Unknown cwm=es:di;Unknown cr=es cr=bx;si;di cw=si;di rcw=cx cr=ax
+67 F3 0FA7 F0, Ccs_encrypt_16, Legacy, PADLOCK_GMI, crm=es:dx;Unknown crm=es:bx;Unknown crm=es:si;Unknown cwm=es:di;Unknown cr=es cr=dx;bx;si;di cw=si;di rcw=cx cr=ax
 # rep ccs_encrypt
-F3 0FA7 F0, Ccs_encrypt_32, Legacy, PADLOCK_GMI, crm=es:ebx;Unknown crm=es:esi;Unknown cwm=es:edi;Unknown cr=es cr=ebx;esi;edi cw=esi;edi rcw=ecx cr=eax
+F3 0FA7 F0, Ccs_encrypt_32, Legacy, PADLOCK_GMI, crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cwm=es:edi;Unknown cr=es cr=edx;ebx;esi;edi cw=esi;edi rcw=ecx cr=eax

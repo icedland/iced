@@ -1774,14 +1774,16 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::RCX, OpAccess::ReadCondWrite);
 				}
 			}
-			ImpliedAccess::t_CRmem_CRmem_CWmem_CRax_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx => {
+			ImpliedAccess::t_CRmem_CRmem_CRmem_CWmem_CRax_CRdx_CRbx_CRsi_CRdi_CRes_CWsi_CWdi_RCWcx => {
 				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::ES, Register::DX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code16, 0);
 					Self::add_memory(info, Register::ES, Register::BX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code16, 0);
 					Self::add_memory(info, Register::ES, Register::SI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code16, 0);
 					Self::add_memory(info, Register::ES, Register::DI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondWrite, CodeSize::Code16, 0);
 				}
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::AX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::DX, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::BX, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::SI, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::DI, OpAccess::CondRead);
@@ -1793,14 +1795,16 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::CX, OpAccess::ReadCondWrite);
 				}
 			}
-			ImpliedAccess::t_CRmem_CRmem_CWmem_CReax_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx => {
+			ImpliedAccess::t_CRmem_CRmem_CRmem_CWmem_CReax_CRedx_CRebx_CResi_CRedi_CRes_CWesi_CWedi_RCWecx => {
 				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::ES, Register::EDX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code32, 0);
 					Self::add_memory(info, Register::ES, Register::EBX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code32, 0);
 					Self::add_memory(info, Register::ES, Register::ESI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code32, 0);
 					Self::add_memory(info, Register::ES, Register::EDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondWrite, CodeSize::Code32, 0);
 				}
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::EAX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::EDX, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::EBX, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::ESI, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::EDI, OpAccess::CondRead);
@@ -1812,14 +1816,16 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::ECX, OpAccess::ReadCondWrite);
 				}
 			}
-			ImpliedAccess::t_CRmem_CRmem_CWmem_CRrax_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx => {
+			ImpliedAccess::t_CRmem_CRmem_CRmem_CWmem_CRrax_CRrdx_CRrbx_CRrsi_CRrdi_CRes_CWrsi_CWrdi_RCWrcx => {
 				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::ES, Register::RDX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
 					Self::add_memory(info, Register::ES, Register::RBX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
 					Self::add_memory(info, Register::ES, Register::RSI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
 					Self::add_memory(info, Register::ES, Register::RDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondWrite, CodeSize::Code64, 0);
 				}
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::RAX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::RDX, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::RBX, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::RSI, OpAccess::CondRead);
 					Self::add_register(flags, info, Register::RDI, OpAccess::CondRead);
