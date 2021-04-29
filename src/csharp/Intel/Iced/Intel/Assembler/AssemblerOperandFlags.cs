@@ -9,7 +9,7 @@ namespace Iced.Intel {
 	/// Assembler operand flags.
 	/// </summary>
 	[Flags]
-	enum AssemblerOperandFlags {
+	public enum AssemblerOperandFlags {
 		/// <summary>
 		/// No flags.
 		/// </summary>

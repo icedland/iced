@@ -38,7 +38,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegister<#= r #>(Register value) {
+		public AssemblerRegister<#= r #>(Register value) {
 			if (!value.Is<#= isName #>()) throw new ArgumentException($"Invalid register {value}. Must be a <#= isName #> register", nameof(value));
 			Value = value;
 <# if (hasFlags) { #>
@@ -60,7 +60,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		internal AssemblerRegister<#= r #>(Register value, AssemblerOperandFlags flags) {
+		public AssemblerRegister<#= r #>(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
