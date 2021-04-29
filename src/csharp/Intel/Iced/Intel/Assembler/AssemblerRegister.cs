@@ -18,7 +18,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegister8(Register value) {
+		public AssemblerRegister8(Register value) {
 			if (!value.IsGPR8()) throw new ArgumentException($"Invalid register {value}. Must be a GPR8 register", nameof(value));
 			Value = value;
 		} 
@@ -72,7 +72,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegister16(Register value) {
+		public AssemblerRegister16(Register value) {
 			if (!value.IsGPR16()) throw new ArgumentException($"Invalid register {value}. Must be a GPR16 register", nameof(value));
 			Value = value;
 		} 
@@ -171,7 +171,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegister32(Register value) {
+		public AssemblerRegister32(Register value) {
 			if (!value.IsGPR32()) throw new ArgumentException($"Invalid register {value}. Must be a GPR32 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
@@ -187,7 +187,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		internal AssemblerRegister32(Register value, AssemblerOperandFlags flags) {
+		public AssemblerRegister32(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
@@ -378,7 +378,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegister64(Register value) {
+		public AssemblerRegister64(Register value) {
 			if (!value.IsGPR64()) throw new ArgumentException($"Invalid register {value}. Must be a GPR64 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
@@ -394,7 +394,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		internal AssemblerRegister64(Register value, AssemblerOperandFlags flags) {
+		public AssemblerRegister64(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
@@ -585,7 +585,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterMM(Register value) {
+		public AssemblerRegisterMM(Register value) {
 			if (!value.IsMM()) throw new ArgumentException($"Invalid register {value}. Must be a MM register", nameof(value));
 			Value = value;
 		} 
@@ -639,7 +639,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterXMM(Register value) {
+		public AssemblerRegisterXMM(Register value) {
 			if (!value.IsXMM()) throw new ArgumentException($"Invalid register {value}. Must be a XMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
@@ -655,7 +655,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		internal AssemblerRegisterXMM(Register value, AssemblerOperandFlags flags) {
+		public AssemblerRegisterXMM(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
@@ -803,7 +803,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterYMM(Register value) {
+		public AssemblerRegisterYMM(Register value) {
 			if (!value.IsYMM()) throw new ArgumentException($"Invalid register {value}. Must be a YMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
@@ -819,7 +819,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		internal AssemblerRegisterYMM(Register value, AssemblerOperandFlags flags) {
+		public AssemblerRegisterYMM(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
@@ -967,7 +967,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterZMM(Register value) {
+		public AssemblerRegisterZMM(Register value) {
 			if (!value.IsZMM()) throw new ArgumentException($"Invalid register {value}. Must be a ZMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
@@ -983,7 +983,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		internal AssemblerRegisterZMM(Register value, AssemblerOperandFlags flags) {
+		public AssemblerRegisterZMM(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
@@ -1131,7 +1131,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterK(Register value) {
+		public AssemblerRegisterK(Register value) {
 			if (!value.IsK()) throw new ArgumentException($"Invalid register {value}. Must be a K register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
@@ -1147,7 +1147,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		internal AssemblerRegisterK(Register value, AssemblerOperandFlags flags) {
+		public AssemblerRegisterK(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
@@ -1241,7 +1241,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterCR(Register value) {
+		public AssemblerRegisterCR(Register value) {
 			if (!value.IsCR()) throw new ArgumentException($"Invalid register {value}. Must be a CR register", nameof(value));
 			Value = value;
 		} 
@@ -1295,7 +1295,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterTR(Register value) {
+		public AssemblerRegisterTR(Register value) {
 			if (!value.IsTR()) throw new ArgumentException($"Invalid register {value}. Must be a TR register", nameof(value));
 			Value = value;
 		} 
@@ -1349,7 +1349,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterDR(Register value) {
+		public AssemblerRegisterDR(Register value) {
 			if (!value.IsDR()) throw new ArgumentException($"Invalid register {value}. Must be a DR register", nameof(value));
 			Value = value;
 		} 
@@ -1403,7 +1403,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterST(Register value) {
+		public AssemblerRegisterST(Register value) {
 			if (!value.IsST()) throw new ArgumentException($"Invalid register {value}. Must be a ST register", nameof(value));
 			Value = value;
 		} 
@@ -1457,7 +1457,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterTMM(Register value) {
+		public AssemblerRegisterTMM(Register value) {
 			if (!value.IsTMM()) throw new ArgumentException($"Invalid register {value}. Must be a TMM register", nameof(value));
 			Value = value;
 		} 
@@ -1511,7 +1511,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterSegment(Register value) {
+		public AssemblerRegisterSegment(Register value) {
 			if (!value.IsSegmentRegister()) throw new ArgumentException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
 			Value = value;
 		} 
@@ -1565,7 +1565,7 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		internal AssemblerRegisterBND(Register value) {
+		public AssemblerRegisterBND(Register value) {
 			if (!value.IsBND()) throw new ArgumentException($"Invalid register {value}. Must be a BND register", nameof(value));
 			Value = value;
 		} 
