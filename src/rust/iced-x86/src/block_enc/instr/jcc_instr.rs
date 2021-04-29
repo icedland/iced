@@ -101,7 +101,7 @@ impl JccInstr {
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(Rc::clone(&self.block));
+		let mut use_near = self.bitness != 64 || self.target_instr.is_in_block(self.block.clone());
 		if !use_near {
 			target_address = self.target_instr.address(self);
 			next_rip = self.ip.wrapping_add(self.near_instruction_size as u64);
@@ -118,7 +118,7 @@ impl JccInstr {
 		}
 
 		if self.pointer_data.is_none() {
-			self.pointer_data = Some(Rc::clone(&self.block).borrow_mut().alloc_pointer_location());
+			self.pointer_data = Some(self.block.clone().borrow_mut().alloc_pointer_location());
 		}
 		self.instr_kind = InstrKind::Long;
 		false
@@ -156,7 +156,7 @@ impl JccInstr {
 
 impl Instr for JccInstr {
 	fn block(&self) -> Rc<RefCell<Block>> {
-		Rc::clone(&self.block)
+		self.block.clone()
 	}
 
 	fn size(&self) -> u32 {

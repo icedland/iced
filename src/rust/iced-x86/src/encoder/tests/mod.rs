@@ -166,11 +166,11 @@ fn get_invalid_test_cases() -> Vec<(u32, Rc<DecoderTestInfo>)> {
 	for tc in encoder_tests(false, false) {
 		let tc = Rc::new(tc);
 		if code32_only().contains(&tc.code()) {
-			result.push((64, Rc::clone(&tc)));
+			result.push((64, tc.clone()));
 		}
 		if code64_only().contains(&tc.code()) {
-			result.push((16, Rc::clone(&tc)));
-			result.push((32, Rc::clone(&tc)));
+			result.push((16, tc.clone()));
+			result.push((32, tc.clone()));
 		}
 	}
 	result

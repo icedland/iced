@@ -51,7 +51,7 @@ pub(super) struct TargetInstr {
 impl TargetInstr {
 	#[inline]
 	pub(super) fn new_instr(instruction: Rc<RefCell<dyn Instr>>) -> Self {
-		Self { instruction: Some(Rc::clone(&instruction)), address: 0, is_owner: false }
+		Self { instruction: Some(instruction.clone()), address: 0, is_owner: false }
 	}
 
 	#[inline]

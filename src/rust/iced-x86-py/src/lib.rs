@@ -37,7 +37,6 @@
 #![allow(clippy::type_complexity)]
 #![allow(clippy::upper_case_acronyms)]
 #![allow(clippy::wrong_self_convention)]
-#![warn(clippy::clone_on_ref_ptr)]
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::debug_assert_with_mut_call)]
 #![warn(clippy::default_trait_access)]

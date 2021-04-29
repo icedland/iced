@@ -151,14 +151,14 @@ impl BlockEncoder {
 			let mut instrs = Vec::with_capacity(instructions.len());
 			let mut ip = instr_block.rip;
 			for instruction in instructions {
-				let instr = InstrUtils::create(&mut this, Rc::clone(&block), instruction);
+				let instr = InstrUtils::create(&mut this, block.clone(), instruction);
 				instr.borrow_mut().set_ip(ip);
-				instrs.push(Rc::clone(&instr));
+				instrs.push(instr.clone());
 				instr_count += 1;
 				debug_assert!(instr.borrow().size() != 0);
 				ip = ip.wrapping_add(instr.borrow().size() as u64);
 			}
-			this.blocks.push((Rc::clone(&block), instrs));
+			this.blocks.push((block.clone(), instrs));
 		}
 		// Optimize from low to high addresses
 		this.blocks.sort_unstable_by(|a, b| a.0.borrow().rip.cmp(&b.0.borrow().rip));
@@ -174,7 +174,7 @@ impl BlockEncoder {
 					}
 					this.has_multiple_zero_ip_instrs = true;
 				} else {
-					let _ = this.to_instr.insert(orig_ip, Rc::clone(instr));
+					let _ = this.to_instr.insert(orig_ip, instr.clone());
 				}
 			}
 		}
@@ -396,7 +396,7 @@ impl BlockEncoder {
 		if (address != 0 || !self.has_multiple_zero_ip_instrs) && instr.orig_ip() == address {
 			TargetInstr::new_owner()
 		} else {
-			self.to_instr.get(&address).map_or_else(|| TargetInstr::new_address(address), |instr| TargetInstr::new_instr(Rc::clone(instr)))
+			self.to_instr.get(&address).map_or_else(|| TargetInstr::new_address(address), |instr| TargetInstr::new_instr(instr.clone()))
 		}
 	}
 

@@ -28,7 +28,7 @@ impl SimpleInstr {
 
 impl Instr for SimpleInstr {
 	fn block(&self) -> Rc<RefCell<Block>> {
-		Rc::clone(&self.block)
+		self.block.clone()
 	}
 
 	fn size(&self) -> u32 {

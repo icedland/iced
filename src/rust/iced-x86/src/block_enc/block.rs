@@ -35,7 +35,7 @@ impl Block {
 
 	pub(super) fn alloc_pointer_location(&mut self) -> Rc<RefCell<BlockData>> {
 		let data = Rc::new(RefCell::new(BlockData { data: 0, address: 0, address_initd: false, is_valid: true }));
-		self.data_vec.push(Rc::clone(&data));
+		self.data_vec.push(data.clone());
 		data
 	}
 
@@ -54,7 +54,7 @@ impl Block {
 			}
 			data.borrow_mut().address = addr;
 			data.borrow_mut().address_initd = true;
-			self.valid_data.push(Rc::clone(data));
+			self.valid_data.push(data.clone());
 			addr = addr.wrapping_add(self.alignment);
 		}
 	}
