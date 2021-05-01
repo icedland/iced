@@ -107,9 +107,6 @@ pub(crate) struct Decoder {
 	decoder: iced_x86::Decoder<'static>,
 }
 
-// iced_x86::Decoder has read only pointer fields which are !Send
-unsafe impl Send for Decoder {}
-
 #[pymethods]
 impl Decoder {
 	#[new]
