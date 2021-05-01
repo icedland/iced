@@ -657,15 +657,16 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			readonly get => 1 << (int)(memoryFlags & (uint)MemoryFlags.ScaleMask);
 			set {
+				Static.Assert((uint)MemoryFlags.ScaleMask == 3 ? 0 : -1);
 				if (value == 1)
-					memoryFlags &= 0xFFFC;
+					memoryFlags &= (ushort)~MemoryFlags.ScaleMask;
 				else if (value == 2)
 					memoryFlags = (ushort)((memoryFlags & ~(uint)MemoryFlags.ScaleMask) | 1);
 				else if (value == 4)
 					memoryFlags = (ushort)((memoryFlags & ~(uint)MemoryFlags.ScaleMask) | 2);
 				else {
 					Debug.Assert(value == 8);
-					memoryFlags |= 3;
+					memoryFlags |= (ushort)MemoryFlags.ScaleMask;
 				}
 			}
 		}

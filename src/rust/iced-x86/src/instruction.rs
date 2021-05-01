@@ -924,13 +924,14 @@ impl Instruction {
 	/// * `new_value`: New value (1, 2, 4 or 8)
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_memory_index_scale(&mut self, new_value: u32) {
+		const_assert_eq!(MemoryFlags::SCALE_MASK, 3);
 		match new_value {
-			1 => self.memory_flags &= !3,
+			1 => self.memory_flags &= !(MemoryFlags::SCALE_MASK as u16),
 			2 => self.memory_flags = (self.memory_flags & !(MemoryFlags::SCALE_MASK as u16)) | 1,
 			4 => self.memory_flags = (self.memory_flags & !(MemoryFlags::SCALE_MASK as u16)) | 2,
 			_ => {
 				debug_assert_eq!(new_value, 8);
-				self.memory_flags |= 3;
+				self.memory_flags |= MemoryFlags::SCALE_MASK as u16;
 			}
 		}
 	}
