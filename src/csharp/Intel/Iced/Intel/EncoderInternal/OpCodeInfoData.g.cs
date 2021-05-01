@@ -881,7 +881,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Lsl_r16_rm16
 				0x00000000,// Lsl_r32_r32m16
 				0x00000000,// Lsl_r64_r64m16
-				0x01018001,// Loadallreset286
+				0x01018001,// Storeall
 				0x01018001,// Loadall286
 				0x00000000,// Syscall
 				0x00008001,// Clts
@@ -5208,7 +5208,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFA,// Lsl_r16_rm16
 				0x1E003FFA,// Lsl_r32_r32m16
 				0x14003FF0,// Lsl_r64_r64m16
-				0x0A003E7B,// Loadallreset286
+				0x0A003E7B,// Storeall
 				0x0A003E7B,// Loadall286
 				0x1E803E7F,// Syscall
 				0x1EA43E7B,// Clts

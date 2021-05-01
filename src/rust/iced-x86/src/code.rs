@@ -6934,14 +6934,14 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Lsl_r64_r64m16 = 867,
-	/// `LOADALL`
+	/// `STOREALL`
 	///
 	/// `0F 04`
 	///
 	/// `286`
 	///
 	/// `16/32-bit`
-	Loadallreset286 = 868,
+	Storeall = 868,
 	/// `LOADALL`
 	///
 	/// `0F 05`
@@ -35445,7 +35445,7 @@ static GEN_DEBUG_CODE: [&str; 4323] = [
 	"Lsl_r16_rm16",
 	"Lsl_r32_r32m16",
 	"Lsl_r64_r64m16",
-	"Loadallreset286",
+	"Storeall",
 	"Loadall286",
 	"Syscall",
 	"Clts",

@@ -44,7 +44,7 @@ namespace Iced.Intel {
 		internal const int MandatoryPrefixEnumCount = 5;
 		internal const int MemorySizeEnumCount = 141;
 		internal const int MemorySizeOptionsEnumCount = 4;
-		internal const int MnemonicEnumCount = 1632;
+		internal const int MnemonicEnumCount = 1633;
 		internal const int NumberBaseEnumCount = 4;
 		internal const int NumberKindEnumCount = 8;
 		internal const int OpAccessEnumCount = 8;

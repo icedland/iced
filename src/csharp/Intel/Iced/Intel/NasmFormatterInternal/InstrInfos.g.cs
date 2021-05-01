@@ -4009,9 +4009,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				// Lsl_r64_r64m16
 				0x00,// Previous
 
-				// Loadallreset286
+				// Storeall
 				0x01,// Normal_1
-				0xB1, 0x03,// 433 = "loadallreset286"
+				0xB1, 0x03,// 433 = "storeall"
 
 				// Loadall286
 				0x01,// Normal_1

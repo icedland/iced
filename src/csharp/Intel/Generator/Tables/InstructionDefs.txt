@@ -8781,15 +8781,13 @@ INSTRUCTION: o64 0F 03 /r | LSL r64, r64/m16 | X64
 	masm: flags=force-size=default
 END
 
-# Code: Loadallreset286
-INSTRUCTION: 0F 04 | LOADALL | INTEL286_ONLY
-	code-mnemonic: loadallreset286
+# Code: Storeall
+INSTRUCTION: 0F 04 | STOREALL | INTEL286_ONLY
+	# This one probably needs the F1h prefix (it was a prefix on 286)
+	#	https://www.vcfed.org/forum/forum/technical-support/vintage-computer-programming/71519-i-found-the-saveall-opcode
+	#	https://www.pcjs.org/documents/manuals/intel/80386/loadall/
+	code-mnemonic: storeall
 	flags: 16 32 dec-opt=Loadall286 cpl0 save-restore
-	fast: mnemonic=loadallreset286
-	gas: mnemonic=loadallreset286
-	intel: mnemonic=loadallreset286
-	masm: mnemonic=loadallreset286
-	nasm: mnemonic=loadallreset286
 END
 
 # Code: Loadall286

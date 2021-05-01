@@ -3085,9 +3085,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Lsl_r64_r64m16
 	0x02,// SameAsPrev
 
-	// Loadallreset286
+	// Storeall
 	0x00,// No flags set
-	0xB1, 0x03,// 433 = "loadallreset286"
+	0xB1, 0x03,// 433 = "storeall"
 
 	// Loadall286
 	0x00,// No flags set

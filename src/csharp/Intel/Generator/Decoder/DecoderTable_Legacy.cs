@@ -3691,7 +3691,7 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options3)],
 							invalid,
-							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Loadallreset286)] }, decoderOptionsEnum[nameof(DecoderOptions.Loadall286)]
+							new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Storeall)] }, decoderOptionsEnum[nameof(DecoderOptions.Loadall286)]
 						},
 						invalid,
 					},

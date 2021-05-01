@@ -873,7 +873,7 @@ pub(super) static ENC_FLAGS1: [u32; 4323] = [
 	0x0000_0412,// Lsl_r16_rm16
 	0x0000_0496,// Lsl_r32_r32m16
 	0x0000_059A,// Lsl_r64_r64m16
-	0x0000_0000,// Loadallreset286
+	0x0000_0000,// Storeall
 	0x0000_0000,// Loadall286
 	0x0000_0000,// Syscall
 	0x0000_0000,// Clts
@@ -5199,7 +5199,7 @@ pub(super) static ENC_FLAGS2: [u32; 4323] = [
 	0x0002_0003,// Lsl_r16_rm16
 	0x0002_0003,// Lsl_r32_r32m16
 	0x0002_0003,// Lsl_r64_r64m16
-	0x0002_0004,// Loadallreset286
+	0x0002_0004,// Storeall
 	0x0002_0005,// Loadall286
 	0x0002_0005,// Syscall
 	0x0002_0006,// Clts
@@ -9525,7 +9525,7 @@ pub(super) static ENC_FLAGS3: [u32; 4323] = [
 	0x0003_0008,// Lsl_r16_rm16
 	0x0003_0010,// Lsl_r32_r32m16
 	0x0002_0018,// Lsl_r64_r64m16
-	0x0001_0000,// Loadallreset286
+	0x0001_0000,// Storeall
 	0x0001_0000,// Loadall286
 	0x0003_0000,// Syscall
 	0x0003_0000,// Clts

@@ -588,7 +588,7 @@ DF E2, Fnstsg_AX, OldFpu
 66 0F00 30, Jmpe_rm16, Jmpe
 0F00 F2, Jmpe_rm32, Jmpe
 0F00 30, Jmpe_rm32, Jmpe
-0F04, Loadallreset286, Loadall286
+0F04, Storeall, Loadall286
 0F05, Loadall286, Loadall286
 0F07, Loadall386, Loadall386
 0F10 CE, Umov_rm8_r8, Umov

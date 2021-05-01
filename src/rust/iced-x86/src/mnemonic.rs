@@ -1647,9 +1647,10 @@ pub enum Mnemonic {
 	Lkgs = 1629,
 	Eretu = 1630,
 	Erets = 1631,
+	Storeall = 1632,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_MNEMONIC: [&str; 1632] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1633] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3282,6 +3283,7 @@ static GEN_DEBUG_MNEMONIC: [&str; 1632] = [
 	"Lkgs",
 	"Eretu",
 	"Erets",
+	"Storeall",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

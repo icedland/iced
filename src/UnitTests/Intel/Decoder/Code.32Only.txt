@@ -116,7 +116,7 @@ Vmsavew
 Invlpgaw
 Monitorxw
 Clzerow
-Loadallreset286
+Storeall
 Loadall286
 Loadall386
 Cl1invmb

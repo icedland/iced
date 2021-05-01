@@ -6922,14 +6922,14 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Lsl_r64_r64m16 = 867,
-		/// <summary><c>LOADALL</c><br/>
+		/// <summary><c>STOREALL</c><br/>
 		/// <br/>
 		/// <c>0F 04</c><br/>
 		/// <br/>
 		/// <c>286</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		Loadallreset286 = 868,
+		Storeall = 868,
 		/// <summary><c>LOADALL</c><br/>
 		/// <br/>
 		/// <c>0F 05</c><br/>

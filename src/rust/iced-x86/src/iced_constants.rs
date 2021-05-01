@@ -45,7 +45,7 @@ impl IcedConstants {
 	pub(crate) const MANDATORY_PREFIX_ENUM_COUNT: usize = 5;
 	pub(crate) const MEMORY_SIZE_ENUM_COUNT: usize = 141;
 	pub(crate) const MEMORY_SIZE_OPTIONS_ENUM_COUNT: usize = 4;
-	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1632;
+	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1633;
 	pub(crate) const NUMBER_BASE_ENUM_COUNT: usize = 4;
 	pub(crate) const NUMBER_KIND_ENUM_COUNT: usize = 8;
 	pub(crate) const OP_ACCESS_ENUM_COUNT: usize = 8;

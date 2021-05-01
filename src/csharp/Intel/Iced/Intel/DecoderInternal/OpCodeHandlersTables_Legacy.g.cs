@@ -4219,7 +4219,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x0A,// Options3
 						0x02,// Invalid
 						0xA4,// Simple
-							0xE4, 0x06,// Loadallreset286
+							0xE4, 0x06,// Storeall
 						0x80, 0x02,// Loadall286
 					0x02,// Invalid
 

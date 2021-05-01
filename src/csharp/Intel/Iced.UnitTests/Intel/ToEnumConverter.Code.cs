@@ -884,7 +884,7 @@ namespace Iced.UnitTests.Intel {
 				{ "Lsl_r16_rm16", Code.Lsl_r16_rm16 },
 				{ "Lsl_r32_r32m16", Code.Lsl_r32_r32m16 },
 				{ "Lsl_r64_r64m16", Code.Lsl_r64_r64m16 },
-				{ "Loadallreset286", Code.Loadallreset286 },
+				{ "Storeall", Code.Storeall },
 				{ "Loadall286", Code.Loadall286 },
 				{ "Syscall", Code.Syscall },
 				{ "Clts", Code.Clts },

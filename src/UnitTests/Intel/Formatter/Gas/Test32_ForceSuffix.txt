@@ -588,7 +588,7 @@ jmpew *cx
 jmpew *(eax)
 jmpel *edx
 jmpel *(eax)
-loadallreset286
+storeall
 loadall286
 loadall386
 umovb cl, dh

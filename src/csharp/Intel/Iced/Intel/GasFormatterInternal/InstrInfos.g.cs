@@ -4721,9 +4721,9 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xB0, 0x03,// 432 = "lsl"
 				0x71,// 'q'
 
-				// Loadallreset286
+				// Storeall
 				0x01,// Normal_1
-				0xB1, 0x03,// 433 = "loadallreset286"
+				0xB1, 0x03,// 433 = "storeall"
 
 				// Loadall286
 				0x01,// Normal_1

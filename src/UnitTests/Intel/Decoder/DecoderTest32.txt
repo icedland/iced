@@ -2690,8 +2690,8 @@ F3 0F01 FA, Mcommit, Mcommit, 0,
 0F03 CE, Lsl_r32_r32m16, Lsl, 2, op0=r;ecx op1=r;esi
 0F03 18, Lsl_r32_r32m16, Lsl, 2, op0=r;ebx op1=m;ds;eax;;1;0;0;UInt16
 
-0F04, Loadallreset286, Loadall, 0, decopt=Loadall286
-0F04, INVALID, INVALID, 0, code=Loadallreset286 err=NoMoreBytes
+0F04, Storeall, Storeall, 0, decopt=Loadall286
+0F04, INVALID, INVALID, 0, code=Storeall err=NoMoreBytes
 
 0F05, Loadall286, Loadall, 0, decopt=Loadall286
 

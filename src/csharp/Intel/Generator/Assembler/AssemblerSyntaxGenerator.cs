@@ -88,7 +88,7 @@ namespace Generator.Assembler {
 				Code.Cmpxchg486_rm32_r32,
 
 				Code.Loadall286,
-				Code.Loadallreset286,
+				Code.Storeall,
 
 				Code.Fstp_sti_DFD0,
 				Code.Fstp_sti_DFD8,

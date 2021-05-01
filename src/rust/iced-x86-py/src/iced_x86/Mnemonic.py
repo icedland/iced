@@ -6539,3 +6539,7 @@ ERETS: int = 1631
 """
 <no docs>
 """
+STOREALL: int = 1632
+"""
+<no docs>
+"""

@@ -875,7 +875,7 @@ pub(super) static OP_COUNT: [u8; IcedConstants::CODE_ENUM_COUNT] = [
 	2,// Lsl_r16_rm16
 	2,// Lsl_r32_r32m16
 	2,// Lsl_r64_r64m16
-	0,// Loadallreset286
+	0,// Storeall
 	0,// Loadall286
 	0,// Syscall
 	0,// Clts

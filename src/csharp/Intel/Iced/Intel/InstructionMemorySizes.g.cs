@@ -882,7 +882,7 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt16,// Lsl_r16_rm16
 			(byte)MemorySize.UInt16,// Lsl_r32_r32m16
 			(byte)MemorySize.UInt16,// Lsl_r64_r64m16
-			0,// Loadallreset286
+			0,// Storeall
 			0,// Loadall286
 			0,// Syscall
 			0,// Clts
@@ -5205,7 +5205,7 @@ namespace Iced.Intel {
 			0,// Lsl_r16_rm16
 			0,// Lsl_r32_r32m16
 			0,// Lsl_r64_r64m16
-			0,// Loadallreset286
+			0,// Storeall
 			0,// Loadall286
 			0,// Syscall
 			0,// Clts

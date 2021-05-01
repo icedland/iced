@@ -873,7 +873,7 @@ pub(super) static OPC_FLAGS1: [u32; 4323] = [
 	0x0000_0000,// Lsl_r16_rm16
 	0x0000_0000,// Lsl_r32_r32m16
 	0x0000_0000,// Lsl_r64_r64m16
-	0x0101_8001,// Loadallreset286
+	0x0101_8001,// Storeall
 	0x0101_8001,// Loadall286
 	0x0000_0000,// Syscall
 	0x0000_8001,// Clts
@@ -5199,7 +5199,7 @@ pub(super) static OPC_FLAGS2: [u32; 4323] = [
 	0x1E00_3FFA,// Lsl_r16_rm16
 	0x1E00_3FFA,// Lsl_r32_r32m16
 	0x1400_3FF0,// Lsl_r64_r64m16
-	0x0A00_3E7B,// Loadallreset286
+	0x0A00_3E7B,// Storeall
 	0x0A00_3E7B,// Loadall286
 	0x1E80_3E7F,// Syscall
 	0x1EA4_3E7B,// Clts

@@ -588,7 +588,7 @@ jmpe cx
 jmpe word ptr [eax]
 jmpe edx
 jmpe dword ptr [eax]
-loadallreset286
+storeall
 loadall286
 loadall386
 umov dh, cl

@@ -8661,9 +8661,9 @@ LSL_R64_R64M16: int = 867
 
 ``64-bit``
 """
-LOADALLRESET286: int = 868
+STOREALL: int = 868
 """
-``LOADALL``
+``STOREALL``
 
 ``0F 04``
 

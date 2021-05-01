@@ -1643,6 +1643,7 @@ pub enum Mnemonic {
 	Lkgs = 1629,
 	Eretu = 1630,
 	Erets = 1631,
+	Storeall = 1632,
 }
 // GENERATOR-END: Enum
 

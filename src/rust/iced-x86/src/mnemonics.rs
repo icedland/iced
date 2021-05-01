@@ -876,7 +876,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::Lsl,// Lsl_r16_rm16
 	Mnemonic::Lsl,// Lsl_r32_r32m16
 	Mnemonic::Lsl,// Lsl_r64_r64m16
-	Mnemonic::Loadall,// Loadallreset286
+	Mnemonic::Storeall,// Storeall
 	Mnemonic::Loadall,// Loadall286
 	Mnemonic::Syscall,// Syscall
 	Mnemonic::Clts,// Clts

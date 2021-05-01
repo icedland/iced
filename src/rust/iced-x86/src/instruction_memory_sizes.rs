@@ -878,7 +878,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::CODE_ENUM_COUNT * 2] = [
 	MemorySize::UInt16,// Lsl_r16_rm16
 	MemorySize::UInt16,// Lsl_r32_r32m16
 	MemorySize::UInt16,// Lsl_r64_r64m16
-	MemorySize::Unknown,// Loadallreset286
+	MemorySize::Unknown,// Storeall
 	MemorySize::Unknown,// Loadall286
 	MemorySize::Unknown,// Syscall
 	MemorySize::Unknown,// Clts
@@ -5201,7 +5201,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::CODE_ENUM_COUNT * 2] = [
 	MemorySize::Unknown,// Lsl_r16_rm16
 	MemorySize::Unknown,// Lsl_r32_r32m16
 	MemorySize::Unknown,// Lsl_r64_r64m16
-	MemorySize::Unknown,// Loadallreset286
+	MemorySize::Unknown,// Storeall
 	MemorySize::Unknown,// Loadall286
 	MemorySize::Unknown,// Syscall
 	MemorySize::Unknown,// Clts

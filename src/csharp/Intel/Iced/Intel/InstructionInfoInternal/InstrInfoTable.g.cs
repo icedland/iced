@@ -877,7 +877,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00096031, 0x03000000,// Lsl_r16_rm16
 			0x01696031, 0x05000000,// Lsl_r32_r32m16
 			0x01696031, 0x0C000000,// Lsl_r64_r64m16
-			0x00000000, 0x040A0000,// Loadallreset286
+			0x00000000, 0x040A0000,// Storeall
 			0x00000000, 0x040A0000,// Loadall286
 			0x06B24000, 0x83500000,// Syscall
 			0x05000000, 0x03080000,// Clts

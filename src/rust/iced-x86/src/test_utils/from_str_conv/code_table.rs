@@ -878,7 +878,7 @@ lazy_static! {
 		let _ = h.insert("Lsl_r16_rm16", Code::Lsl_r16_rm16);
 		let _ = h.insert("Lsl_r32_r32m16", Code::Lsl_r32_r32m16);
 		let _ = h.insert("Lsl_r64_r64m16", Code::Lsl_r64_r64m16);
-		let _ = h.insert("Loadallreset286", Code::Loadallreset286);
+		let _ = h.insert("Storeall", Code::Storeall);
 		let _ = h.insert("Loadall286", Code::Loadall286);
 		let _ = h.insert("Syscall", Code::Syscall);
 		let _ = h.insert("Clts", Code::Clts);

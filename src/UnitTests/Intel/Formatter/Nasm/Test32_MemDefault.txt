@@ -588,7 +588,7 @@ jmpe cx
 jmpe word [eax]
 jmpe edx
 jmpe dword [eax]
-loadallreset286
+storeall
 loadall286
 loadall
 umov dh,cl

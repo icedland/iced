@@ -1636,5 +1636,6 @@ namespace Generator.Enums {
 		Lkgs,
 		Eretu,
 		Erets,
+		Storeall,
 	}
 }

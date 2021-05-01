@@ -879,7 +879,7 @@ namespace Generator.Enums {
 		Lsl_r16_rm16,
 		Lsl_r32_r32m16,
 		Lsl_r64_r64m16,
-		Loadallreset286,
+		Storeall,
 		Loadall286,
 		Syscall,
 		Clts,

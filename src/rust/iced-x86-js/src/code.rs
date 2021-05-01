@@ -879,7 +879,7 @@ pub enum Code {
 	Lsl_r16_rm16 = 865,
 	Lsl_r32_r32m16 = 866,
 	Lsl_r64_r64m16 = 867,
-	Loadallreset286 = 868,
+	Storeall = 868,
 	Loadall286 = 869,
 	Syscall = 870,
 	Clts = 871,

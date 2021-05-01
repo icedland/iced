@@ -876,7 +876,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Lsl,// Lsl_r16_rm16
 			(ushort)Mnemonic.Lsl,// Lsl_r32_r32m16
 			(ushort)Mnemonic.Lsl,// Lsl_r64_r64m16
-			(ushort)Mnemonic.Loadall,// Loadallreset286
+			(ushort)Mnemonic.Storeall,// Storeall
 			(ushort)Mnemonic.Loadall,// Loadall286
 			(ushort)Mnemonic.Syscall,// Syscall
 			(ushort)Mnemonic.Clts,// Clts
