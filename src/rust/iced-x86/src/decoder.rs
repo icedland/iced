@@ -358,41 +358,18 @@ where
 
 	handlers_xx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_vex"))]
-	handlers_vex_0fxx: &'static [&'static OpCodeHandler; 0x100],
-	#[cfg(not(feature = "no_vex"))]
-	handlers_vex_0f38xx: &'static [&'static OpCodeHandler; 0x100],
-	#[cfg(not(feature = "no_vex"))]
-	handlers_vex_0f3axx: &'static [&'static OpCodeHandler; 0x100],
+	handlers_vex: [&'static [&'static OpCodeHandler; 0x100]; 3],
 	#[cfg(not(feature = "no_evex"))]
-	handlers_evex_0fxx: &'static [&'static OpCodeHandler; 0x100],
-	#[cfg(not(feature = "no_evex"))]
-	handlers_evex_0f38xx: &'static [&'static OpCodeHandler; 0x100],
-	#[cfg(not(feature = "no_evex"))]
-	handlers_evex_0f3axx: &'static [&'static OpCodeHandler; 0x100],
+	handlers_evex: [&'static [&'static OpCodeHandler; 0x100]; 3],
 	#[cfg(not(feature = "no_xop"))]
-	handlers_xop8: &'static [&'static OpCodeHandler; 0x100],
-	#[cfg(not(feature = "no_xop"))]
-	handlers_xop9: &'static [&'static OpCodeHandler; 0x100],
-	#[cfg(not(feature = "no_xop"))]
-	handlers_xopa: &'static [&'static OpCodeHandler; 0x100],
+	handlers_xop: [&'static [&'static OpCodeHandler; 0x100]; 3],
+
 	#[cfg(feature = "no_vex")]
-	handlers_vex_0fxx: (),
-	#[cfg(feature = "no_vex")]
-	handlers_vex_0f38xx: (),
-	#[cfg(feature = "no_vex")]
-	handlers_vex_0f3axx: (),
+	handlers_vex: [(); 3],
 	#[cfg(feature = "no_evex")]
-	handlers_evex_0fxx: (),
-	#[cfg(feature = "no_evex")]
-	handlers_evex_0f38xx: (),
-	#[cfg(feature = "no_evex")]
-	handlers_evex_0f3axx: (),
+	handlers_evex: [(); 3],
 	#[cfg(feature = "no_xop")]
-	handlers_xop8: (),
-	#[cfg(feature = "no_xop")]
-	handlers_xop9: (),
-	#[cfg(feature = "no_xop")]
-	handlers_xopa: (),
+	handlers_xop: [(); 3],
 
 	state: State,
 	// DecoderOptions
@@ -403,6 +380,8 @@ where
 	is64_mode_and_w: u32,
 	// 7 in 16/32-bit mode, 15 in 64-bit mode
 	reg15_mask: u32,
+	// 0 in 16/32-bit mode, 0E0h in 64-bit mode
+	mask_e0: u32,
 	bitness: u32,
 	default_operand_size: OpSize,
 	default_address_size: OpSize,
@@ -772,20 +751,15 @@ impl<'a> Decoder<'a> {
 			max_data_ptr: data.as_ptr() as usize,
 			instr_start_data_ptr: data.as_ptr() as usize,
 			handlers_xx: get_handlers(&tables.handlers_xx),
-			handlers_vex_0fxx,
-			handlers_vex_0f38xx,
-			handlers_vex_0f3axx,
-			handlers_evex_0fxx,
-			handlers_evex_0f38xx,
-			handlers_evex_0f3axx,
-			handlers_xop8,
-			handlers_xop9,
-			handlers_xopa,
+			handlers_vex: [handlers_vex_0fxx, handlers_vex_0f38xx, handlers_vex_0f3axx],
+			handlers_evex: [handlers_evex_0fxx, handlers_evex_0f38xx, handlers_evex_0f3axx],
+			handlers_xop: [handlers_xop8, handlers_xop9, handlers_xopa],
 			state: State::default(),
 			options,
 			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 { u32::MAX } else { 0 },
 			is64_mode_and_w: if is64_mode { StateFlags::W } else { 0 },
 			reg15_mask: if is64_mode { 0xF } else { 0x7 },
+			mask_e0: if is64_mode { 0xE0 } else { 0 },
 			bitness,
 			default_operand_size,
 			default_address_size,
@@ -1266,11 +1240,10 @@ impl<'a> Decoder<'a> {
 				}
 			}
 			if rex_prefix != 0 {
+				self.state.flags |= StateFlags::HAS_REX;
 				if (rex_prefix & 8) != 0 {
+					self.state.flags |= StateFlags::W;
 					self.state.operand_size = OpSize::Size64;
-					self.state.flags |= StateFlags::HAS_REX | StateFlags::W;
-				} else {
-					self.state.flags |= StateFlags::HAS_REX;
 				}
 				self.state.extra_register_base = (rex_prefix as u32 & 4) << 1;
 				self.state.extra_index_register_base = (rex_prefix as u32 & 2) << 2;
@@ -1446,7 +1419,6 @@ impl<'a> Decoder<'a> {
 		}
 
 		let mut b = self.state.modrm;
-		self.state.extra_register_base = ((b >> 4) ^ 8) & 8;
 
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
@@ -1458,12 +1430,15 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 		self.state.mandatory_prefix = b & 3;
 
+		b = !b;
+		self.state.extra_register_base = (b >> 4) & 8;
+
 		// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
-		b = (!b >> 3) & 0x0F;
+		b = (b >> 3) & 0x0F;
 		self.state.vvvv = b;
 		self.state.vvvv_invalid_check = b;
 
-		self.decode_table(self.handlers_vex_0fxx, instruction);
+		self.decode_table(self.handlers_vex[0], instruction);
 	}
 
 	#[cfg(feature = "no_vex")]
@@ -1483,7 +1458,6 @@ impl<'a> Decoder<'a> {
 			self.state.flags |= EncodingKind::VEX as u32;
 		}
 
-		let b1 = self.state.modrm;
 		let mut b2 = self.read_u8() as u32;
 
 		const_assert_eq!(StateFlags::W, 0x80);
@@ -1500,28 +1474,19 @@ impl<'a> Decoder<'a> {
 		self.state.mandatory_prefix = b2 & 3;
 
 		b2 = (!b2 >> 3) & 0x0F;
-		if self.is64_mode {
-			self.state.vvvv = b2;
-			self.state.vvvv_invalid_check = b2;
-			let b1x = !b1;
-			self.state.extra_register_base = (b1x >> 4) & 8;
-			self.state.extra_index_register_base = (b1x >> 3) & 8;
-			self.state.extra_base_register_base = (b1x >> 2) & 8;
-		} else {
-			self.state.vvvv_invalid_check = b2;
-			self.state.vvvv = b2 & 0x07;
-		}
+		self.state.vvvv_invalid_check = b2;
+		self.state.vvvv = b2 & self.reg15_mask;
+		let b1 = self.state.modrm;
+		let b1x = !b1 & self.mask_e0;
+		self.state.extra_register_base = (b1x >> 4) & 8;
+		self.state.extra_index_register_base = (b1x >> 3) & 8;
+		self.state.extra_base_register_base = (b1x >> 2) & 8;
 
-		let table = match b1 & 0x1F {
-			1 => self.handlers_vex_0fxx,
-			2 => self.handlers_vex_0f38xx,
-			3 => self.handlers_vex_0f3axx,
-			_ => {
-				self.set_invalid_instruction();
-				return;
-			}
-		};
-		self.decode_table(table, instruction);
+		if let Some(&table) = self.handlers_vex.get(((b1 & 0x1F) as usize).wrapping_sub(1)) {
+			self.decode_table(table, instruction);
+		} else {
+			self.set_invalid_instruction();
+		}
 	}
 
 	#[cfg(feature = "no_xop")]
@@ -1541,7 +1506,6 @@ impl<'a> Decoder<'a> {
 			self.state.flags |= EncodingKind::XOP as u32;
 		}
 
-		let b1 = self.state.modrm;
 		let mut b2 = self.read_u8() as u32;
 
 		const_assert_eq!(StateFlags::W, 0x80);
@@ -1558,28 +1522,19 @@ impl<'a> Decoder<'a> {
 		self.state.mandatory_prefix = b2 & 3;
 
 		b2 = (!b2 >> 3) & 0x0F;
-		if self.is64_mode {
-			self.state.vvvv = b2;
-			self.state.vvvv_invalid_check = b2;
-			let b1x = !b1;
-			self.state.extra_register_base = (b1x >> 4) & 8;
-			self.state.extra_index_register_base = (b1x >> 3) & 8;
-			self.state.extra_base_register_base = (b1x >> 2) & 8;
-		} else {
-			self.state.vvvv_invalid_check = b2;
-			self.state.vvvv = b2 & 0x07;
-		}
+		self.state.vvvv_invalid_check = b2;
+		self.state.vvvv = b2 & self.reg15_mask;
+		let b1 = self.state.modrm;
+		let b1x = !b1 & self.mask_e0;
+		self.state.extra_register_base = (b1x >> 4) & 8;
+		self.state.extra_index_register_base = (b1x >> 3) & 8;
+		self.state.extra_base_register_base = (b1x >> 2) & 8;
 
-		let table = match b1 & 0x1F {
-			8 => self.handlers_xop8,
-			9 => self.handlers_xop9,
-			10 => self.handlers_xopa,
-			_ => {
-				self.set_invalid_instruction();
-				return;
-			}
-		};
-		self.decode_table(table, instruction);
+		if let Some(&table) = self.handlers_xop.get(((b1 & 0x1F) as usize).wrapping_sub(8)) {
+			self.decode_table(table, instruction);
+		} else {
+			self.set_invalid_instruction();
+		}
 	}
 
 	#[cfg(feature = "no_evex")]
@@ -1595,11 +1550,11 @@ impl<'a> Decoder<'a> {
 		// Undo what decode_out() did if it got a REX prefix
 		self.state.flags &= !StateFlags::W;
 
-		let p0 = self.state.modrm;
 		let mut p1 = self.read_u16() as u32;
 		let p2 = p1 >> 8;
 		p1 = p1 as u8 as u32;
 
+		let p0 = self.state.modrm;
 		if (p1 & 4) != 0 {
 			if (p0 & 0x0C) == 0 {
 				if cfg!(debug_assertions) {
@@ -1657,28 +1612,23 @@ impl<'a> Decoder<'a> {
 					self.state.flags |= (!p2 & 8) << 3;
 				}
 
-				let table = match p0 & 3 {
-					1 => self.handlers_evex_0fxx,
-					2 => self.handlers_evex_0f38xx,
-					3 => self.handlers_evex_0f3axx,
-					_ => {
+				if let Some(&table) = self.handlers_evex.get(((p0 & 3) as usize).wrapping_sub(1)) {
+					let handler = table[self.read_u8()];
+					debug_assert!(handler.has_modrm);
+					let m = self.read_u8() as u32;
+					self.state.modrm = m;
+					self.state.mod_ = m >> 6;
+					self.state.reg = (m >> 3) & 7;
+					self.state.rm = m & 7;
+					// Invalid if LL=3 and no rc
+					const_assert!(StateFlags::B > 3);
+					if (((self.state.flags & StateFlags::B) | self.state.vector_length) & self.invalid_check_mask) == 3 {
 						self.set_invalid_instruction();
-						return;
 					}
-				};
-				let handler = table[self.read_u8()];
-				debug_assert!(handler.has_modrm);
-				let m = self.read_u8() as u32;
-				self.state.modrm = m;
-				self.state.mod_ = m >> 6;
-				self.state.reg = (m >> 3) & 7;
-				self.state.rm = m & 7;
-				// Invalid if LL=3 and no rc
-				const_assert!(StateFlags::B > 3);
-				if (((self.state.flags & StateFlags::B) | self.state.vector_length) & self.invalid_check_mask) == 3 {
+					(handler.decode)(handler, self, instruction);
+				} else {
 					self.set_invalid_instruction();
 				}
-				(handler.decode)(handler, self, instruction);
 			} else {
 				self.set_invalid_instruction();
 			}
