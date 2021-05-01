@@ -1162,76 +1162,80 @@ impl<'a> Decoder<'a> {
 			let mut default_ds_segment = Register::DS;
 			let mut rex_prefix: usize;
 			loop {
-				match b {
-					0x26 => {
-						if !self.is64_mode || default_ds_segment < Register::FS {
-							instruction.set_segment_prefix(Register::ES);
-							default_ds_segment = Register::ES;
+				// Test binary: xul.dll 64-bit
+				// 52.01% of all instructions have at least one prefix
+				// REX = 92.50%
+				//  66 =  4.41%
+				//  F3 =  1.80%
+				//  F2 =  0.65%
+				//  F0 =  0.51%
+				//  65 =  0.10%
+				if ((b as u32) >> 4) == 4 {
+					debug_assert!(self.is64_mode);
+					rex_prefix = b;
+				} else if b == 0x66 {
+					self.state.flags |= StateFlags::HAS66;
+					self.state.operand_size = self.default_inverted_operand_size;
+					if self.state.mandatory_prefix == MandatoryPrefixByte::None as u32 {
+						self.state.mandatory_prefix = MandatoryPrefixByte::P66 as u32;
+					}
+					rex_prefix = 0;
+				} else if b == 0xF3 {
+					instruction_internal::internal_set_has_repe_prefix(instruction);
+					self.state.mandatory_prefix = MandatoryPrefixByte::PF3 as u32;
+					rex_prefix = 0;
+				} else if b == 0xF2 {
+					instruction_internal::internal_set_has_repne_prefix(instruction);
+					self.state.mandatory_prefix = MandatoryPrefixByte::PF2 as u32;
+					rex_prefix = 0;
+				} else if b == 0xF0 {
+					instruction_internal::internal_set_has_lock_prefix(instruction);
+					self.state.flags |= StateFlags::LOCK;
+					rex_prefix = 0;
+				} else {
+					match b {
+						0x2E => {
+							if !self.is64_mode || default_ds_segment < Register::FS {
+								instruction.set_segment_prefix(Register::CS);
+								default_ds_segment = Register::CS;
+							}
+							rex_prefix = 0;
 						}
-						rex_prefix = 0;
-					}
-					0x2E => {
-						if !self.is64_mode || default_ds_segment < Register::FS {
-							instruction.set_segment_prefix(Register::CS);
-							default_ds_segment = Register::CS;
+						0x36 => {
+							if !self.is64_mode || default_ds_segment < Register::FS {
+								instruction.set_segment_prefix(Register::SS);
+								default_ds_segment = Register::SS;
+							}
+							rex_prefix = 0;
 						}
-						rex_prefix = 0;
-					}
-					0x36 => {
-						if !self.is64_mode || default_ds_segment < Register::FS {
-							instruction.set_segment_prefix(Register::SS);
-							default_ds_segment = Register::SS;
+						0x3E => {
+							if !self.is64_mode || default_ds_segment < Register::FS {
+								instruction.set_segment_prefix(Register::DS);
+								default_ds_segment = Register::DS;
+							}
+							rex_prefix = 0;
 						}
-						rex_prefix = 0;
-					}
-					0x3E => {
-						if !self.is64_mode || default_ds_segment < Register::FS {
-							instruction.set_segment_prefix(Register::DS);
-							default_ds_segment = Register::DS;
+						0x64 => {
+							instruction.set_segment_prefix(Register::FS);
+							default_ds_segment = Register::FS;
+							rex_prefix = 0;
 						}
-						rex_prefix = 0;
-					}
-					0x64 => {
-						instruction.set_segment_prefix(Register::FS);
-						default_ds_segment = Register::FS;
-						rex_prefix = 0;
-					}
-					0x65 => {
-						instruction.set_segment_prefix(Register::GS);
-						default_ds_segment = Register::GS;
-						rex_prefix = 0;
-					}
-					0x66 => {
-						self.state.flags |= StateFlags::HAS66;
-						self.state.operand_size = self.default_inverted_operand_size;
-						if self.state.mandatory_prefix == MandatoryPrefixByte::None as u32 {
-							self.state.mandatory_prefix = MandatoryPrefixByte::P66 as u32;
+						0x65 => {
+							instruction.set_segment_prefix(Register::GS);
+							default_ds_segment = Register::GS;
+							rex_prefix = 0;
 						}
-						rex_prefix = 0;
-					}
-					0x67 => {
-						self.state.address_size = self.default_inverted_address_size;
-						rex_prefix = 0;
-					}
-					0xF0 => {
-						instruction_internal::internal_set_has_lock_prefix(instruction);
-						self.state.flags |= StateFlags::LOCK;
-						rex_prefix = 0;
-					}
-					0xF2 => {
-						instruction_internal::internal_set_has_repne_prefix(instruction);
-						self.state.mandatory_prefix = MandatoryPrefixByte::PF2 as u32;
-						rex_prefix = 0;
-					}
-					0xF3 => {
-						instruction_internal::internal_set_has_repe_prefix(instruction);
-						self.state.mandatory_prefix = MandatoryPrefixByte::PF3 as u32;
-						rex_prefix = 0;
-					}
-					_ => {
-						debug_assert!(self.is64_mode);
-						debug_assert!(0x40 <= b && b <= 0x4F);
-						rex_prefix = b;
+						0x67 => {
+							self.state.address_size = self.default_inverted_address_size;
+							rex_prefix = 0;
+						}
+						_ => {
+							if !self.is64_mode || default_ds_segment < Register::FS {
+								instruction.set_segment_prefix(Register::ES);
+								default_ds_segment = Register::ES;
+							}
+							rex_prefix = 0;
+						}
 					}
 				}
 				b = self.read_u8();
