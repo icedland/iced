@@ -375,7 +375,7 @@ where
 	#[cfg(not(feature = "__internal_mem_vsib"))]
 	read_op_mem_fns: [fn(&mut Decoder<'a>, &mut Instruction) -> bool; 0x18],
 	#[cfg(feature = "__internal_mem_vsib")]
-	read_op_mem_fns: [(); 0x18],
+	read_op_mem_fns: (),
 
 	state: State,
 	// DecoderOptions
@@ -778,7 +778,7 @@ impl<'a> Decoder<'a> {
 			Decoder::read_op_mem_2,
 		];
 		#[cfg(feature = "__internal_mem_vsib")]
-		let read_op_mem_fns = [(); 0x18];
+		let read_op_mem_fns = ();
 
 		debug_assert_eq!(prefixes.len() * mem::size_of_val(&prefixes[0]) * 8, 256);
 		Ok(Decoder {
