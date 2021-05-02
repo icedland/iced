@@ -280,6 +280,7 @@ macro_rules! mk_read_value {
 }
 
 #[derive(Default)]
+#[allow(dead_code)]
 struct State {
 	modrm: u32, // 0-0xFF
 	mod_: u32,  // 0-3
