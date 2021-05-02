@@ -279,7 +279,7 @@ macro_rules! mk_read_value {
 	};
 }
 
-#[derive(Debug, Default)]
+#[derive(Default)]
 struct State {
 	modrm: u32, // 0-0xFF
 	mod_: u32,  // 0-3
