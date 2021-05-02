@@ -184,9 +184,9 @@ impl DecoderOptions {
 	pub const OLD_FPU: u32 = 0x0000_0040;
 	/// Decode `PCOMMIT`
 	pub const PCOMMIT: u32 = 0x0000_0080;
-	/// Decode 286 `LOADALL` (`0F04` and `0F05`)
+	/// Decode 286 `STOREALL`/`LOADALL` (`0F04` and `0F05`)
 	pub const LOADALL286: u32 = 0x0000_0100;
-	/// Decode `LOADALL386`
+	/// Decode 386 `LOADALL`
 	pub const LOADALL386: u32 = 0x0000_0200;
 	/// Decode `CL1INVMB`
 	pub const CL1INVMB: u32 = 0x0000_0400;

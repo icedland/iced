@@ -49,11 +49,11 @@ Decode ``PCOMMIT``
 """
 LOADALL286: int = 0x0000_0100
 """
-Decode 286 ``LOADALL`` (``0F04`` and ``0F05``)
+Decode 286 ``STOREALL``/``LOADALL`` (``0F04`` and ``0F05``)
 """
 LOADALL386: int = 0x0000_0200
 """
-Decode ``LOADALL386``
+Decode 386 ``LOADALL``
 """
 CL1INVMB: int = 0x0000_0400
 """

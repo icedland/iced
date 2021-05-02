@@ -22,9 +22,9 @@ namespace Generator.Enums.Decoder {
 		OldFpu					= 0x00000040,
 		[Comment("Decode #(c:PCOMMIT)#")]
 		Pcommit					= 0x00000080,
-		[Comment("Decode 286 #(c:LOADALL)# (#(c:0F04)# and #(c:0F05)#)")]
+		[Comment("Decode 286 #(c:STOREALL)#/#(c:LOADALL)# (#(c:0F04)# and #(c:0F05)#)")]
 		Loadall286				= 0x00000100,
-		[Comment("Decode #(c:LOADALL386)#")]
+		[Comment("Decode 386 #(c:LOADALL)#")]
 		Loadall386				= 0x00000200,
 		[Comment("Decode #(c:CL1INVMB)#")]
 		Cl1invmb				= 0x00000400,

@@ -32,9 +32,9 @@ pub enum DecoderOptions {
 	OldFpu = 0x0000_0040,
 	/// Decode `PCOMMIT`
 	Pcommit = 0x0000_0080,
-	/// Decode 286 `LOADALL` (`0F04` and `0F05`)
+	/// Decode 286 `STOREALL`/`LOADALL` (`0F04` and `0F05`)
 	Loadall286 = 0x0000_0100,
-	/// Decode `LOADALL386`
+	/// Decode 386 `LOADALL`
 	Loadall386 = 0x0000_0200,
 	/// Decode `CL1INVMB`
 	Cl1invmb = 0x0000_0400,
