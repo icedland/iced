@@ -1813,75 +1813,47 @@ impl<'a> Decoder<'a> {
 		self.read_op_mem_32_or_64_vsib(instruction, base_reg, TupleType::N1, false)
 	}
 
+	// Returns `true` if the SIB byte was read
+	// This is a specialized version of read_op_mem_32_or_64_vsib() which takes less arguments. Keep them in sync.
+	#[must_use]
 	#[cfg(not(feature = "__internal_mem_vsib"))]
-	fn read_op_mem_0_4(&mut self, instruction: &mut Instruction) -> bool {
-		let sib = self.read_u8() as u32;
-		instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
-		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
-		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-		if index != 4 {
-			instruction_internal::internal_set_memory_index_u32(instruction, index + base_reg as u32);
-		}
+	#[inline(always)]
+	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
+		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
 
-		let base = sib & 7;
-		if base == 5 {
-			self.displ_index = self.data_ptr as u8;
-			let d = self.read_u32();
-			if self.state.address_size == OpSize::Size64 {
-				instruction.set_memory_displacement64(d as i32 as u64);
-				instruction_internal::internal_set_memory_displ_size(instruction, 4);
-			} else {
-				instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-				instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			}
-		} else {
-			instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
-			instruction_internal::internal_set_memory_displ_size(instruction, 0);
-			if self.state.address_size == OpSize::Size64 {
-				instruction.set_memory_displacement64(0);
-			} else {
-				instruction_internal::internal_set_memory_displacement64_lo(instruction, 0);
-			}
-		}
-
-		true
+		let index = ((self.state.mod_ << 3) | self.state.rm) as usize;
+		debug_assert!(self.state.mod_ <= 2);
+		debug_assert!(self.state.rm <= 7);
+		debug_assert!(index < self.read_op_mem_fns.len());
+		// SAFETY: index is valid because modrm.mod = 0-2 (never 3 if we're here) so index will always be 0-10_111 (17h)
+		unsafe { (self.read_op_mem_fns.get_unchecked(index))(self, instruction) }
 	}
 
 	#[cfg(not(feature = "__internal_mem_vsib"))]
-	fn read_op_mem_0_5(&mut self, instruction: &mut Instruction) -> bool {
+	fn read_op_mem_1(&mut self, instruction: &mut Instruction) -> bool {
+		instruction_internal::internal_set_memory_displ_size(instruction, 1);
 		self.displ_index = self.data_ptr as u8;
-		let d = self.read_u32();
-		if self.is64_mode {
-			self.state.flags |= StateFlags::IP_REL;
-			if self.state.address_size == OpSize::Size64 {
-				instruction.set_memory_displacement64(d as i32 as u64);
-				instruction_internal::internal_set_memory_displ_size(instruction, 4);
-				instruction_internal::internal_set_memory_base(instruction, Register::RIP);
-			} else {
-				instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-				instruction_internal::internal_set_memory_displ_size(instruction, 3);
-				instruction_internal::internal_set_memory_base(instruction, Register::EIP);
-			}
+		let b = self.read_u8();
+		if self.state.address_size == OpSize::Size64 {
+			instruction.set_memory_displacement64(b as i8 as u64);
+			instruction_internal::internal_set_memory_base_u32(
+				instruction,
+				self.state.extra_base_register_base + self.state.rm + Register::RAX as u32,
+			);
 		} else {
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
-			instruction_internal::internal_set_memory_displ_size(instruction, 3);
+			instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u32);
+			instruction_internal::internal_set_memory_base_u32(
+				instruction,
+				self.state.extra_base_register_base + self.state.rm + Register::EAX as u32,
+			);
 		}
-
-		false
-	}
-
-	#[cfg(not(feature = "__internal_mem_vsib"))]
-	fn read_op_mem_0(&mut self, instruction: &mut Instruction) -> bool {
-		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-		instruction_internal::internal_set_memory_base_u32(instruction, self.state.extra_base_register_base + self.state.rm + base_reg as u32);
 
 		false
 	}
 
 	#[cfg(not(feature = "__internal_mem_vsib"))]
 	fn read_op_mem_1_4(&mut self, instruction: &mut Instruction) -> bool {
-		let b = self.read_u8();
-		let sib = b as u32;
+		let sib = self.read_u8() as u32;
 		self.displ_index = self.data_ptr as u8;
 		let displ = self.read_u8() as i8 as u32;
 
@@ -1904,22 +1876,31 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg(not(feature = "__internal_mem_vsib"))]
-	fn read_op_mem_1(&mut self, instruction: &mut Instruction) -> bool {
-		instruction_internal::internal_set_memory_displ_size(instruction, 1);
+	fn read_op_mem_0(&mut self, instruction: &mut Instruction) -> bool {
+		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
+		instruction_internal::internal_set_memory_base_u32(instruction, self.state.extra_base_register_base + self.state.rm + base_reg as u32);
+
+		false
+	}
+
+	#[cfg(not(feature = "__internal_mem_vsib"))]
+	fn read_op_mem_0_5(&mut self, instruction: &mut Instruction) -> bool {
 		self.displ_index = self.data_ptr as u8;
-		let b = self.read_u8();
-		if self.state.address_size == OpSize::Size64 {
-			instruction.set_memory_displacement64(b as i8 as u64);
-			instruction_internal::internal_set_memory_base_u32(
-				instruction,
-				self.state.extra_base_register_base + self.state.rm + Register::RAX as u32,
-			);
+		let d = self.read_u32();
+		if self.is64_mode {
+			self.state.flags |= StateFlags::IP_REL;
+			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(d as i32 as u64);
+				instruction_internal::internal_set_memory_displ_size(instruction, 4);
+				instruction_internal::internal_set_memory_base(instruction, Register::RIP);
+			} else {
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
+				instruction_internal::internal_set_memory_base(instruction, Register::EIP);
+			}
 		} else {
-			instruction_internal::internal_set_memory_displacement64_lo(instruction, b as i8 as u32);
-			instruction_internal::internal_set_memory_base_u32(
-				instruction,
-				self.state.extra_base_register_base + self.state.rm + Register::EAX as u32,
-			);
+			instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+			instruction_internal::internal_set_memory_displ_size(instruction, 3);
 		}
 
 		false
@@ -1973,20 +1954,38 @@ impl<'a> Decoder<'a> {
 		false
 	}
 
-	// Returns `true` if the SIB byte was read
-	// This is a specialized version of read_op_mem_32_or_64_vsib() which takes less arguments. Keep them in sync.
-	#[must_use]
 	#[cfg(not(feature = "__internal_mem_vsib"))]
-	#[inline(always)]
-	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
-		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
+	fn read_op_mem_0_4(&mut self, instruction: &mut Instruction) -> bool {
+		let sib = self.read_u8() as u32;
+		instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
+		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
+		if index != 4 {
+			instruction_internal::internal_set_memory_index_u32(instruction, index + base_reg as u32);
+		}
 
-		let index = ((self.state.mod_ << 3) | self.state.rm) as usize;
-		debug_assert!(self.state.mod_ <= 2);
-		debug_assert!(self.state.rm <= 7);
-		debug_assert!(index < self.read_op_mem_fns.len());
-		// SAFETY: index is valid because modrm.mod = 0-2 (never 3 if we're here) so index will always be 0-10_111 (17h)
-		unsafe { (self.read_op_mem_fns.get_unchecked(index))(self, instruction) }
+		let base = sib & 7;
+		if base == 5 {
+			self.displ_index = self.data_ptr as u8;
+			let d = self.read_u32();
+			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(d as i32 as u64);
+				instruction_internal::internal_set_memory_displ_size(instruction, 4);
+			} else {
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
+				instruction_internal::internal_set_memory_displ_size(instruction, 3);
+			}
+		} else {
+			instruction_internal::internal_set_memory_base_u32(instruction, base + self.state.extra_base_register_base + base_reg as u32);
+			instruction_internal::internal_set_memory_displ_size(instruction, 0);
+			if self.state.address_size == OpSize::Size64 {
+				instruction.set_memory_displacement64(0);
+			} else {
+				instruction_internal::internal_set_memory_displacement64_lo(instruction, 0);
+			}
+		}
+
+		true
 	}
 
 	// Returns `true` if the SIB byte was read
