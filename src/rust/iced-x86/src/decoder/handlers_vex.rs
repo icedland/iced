@@ -93,7 +93,7 @@ impl OpCodeHandler_VEX_VHEv {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
 			gpr = Register::RAX as u32;
 		} else {
@@ -139,7 +139,7 @@ impl OpCodeHandler_VEX_VHEvIb {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
 			gpr = Register::RAX as u32;
 		} else {
@@ -231,7 +231,7 @@ impl OpCodeHandler_VEX_VX_Ev {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -276,7 +276,7 @@ impl OpCodeHandler_VEX_Ev_VX {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -463,7 +463,7 @@ impl OpCodeHandler_VEX_RdRq {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -555,7 +555,7 @@ impl OpCodeHandler_VEX_VWIb {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
 		} else {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w0);
@@ -648,7 +648,7 @@ impl OpCodeHandler_VEX_Ed_V_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1404,7 +1404,7 @@ impl OpCodeHandler_VEX_Gv_W {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -1457,7 +1457,7 @@ impl OpCodeHandler_VEX_Gv_RX {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1502,7 +1502,7 @@ impl OpCodeHandler_VEX_Gv_GPR_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1587,7 +1587,7 @@ impl OpCodeHandler_VEX_Gv_Gv_Ev {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1629,7 +1629,7 @@ impl OpCodeHandler_VEX_Gv_Ev_Gv {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1671,7 +1671,7 @@ impl OpCodeHandler_VEX_Hv_Ev {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1709,7 +1709,7 @@ impl OpCodeHandler_VEX_Hv_Ed_Id {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -1758,7 +1758,7 @@ impl OpCodeHandler_VEX_GvM_VX_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1805,7 +1805,7 @@ impl OpCodeHandler_VEX_Gv_Ev_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -1849,7 +1849,7 @@ impl OpCodeHandler_VEX_Gv_Ev_Id {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {

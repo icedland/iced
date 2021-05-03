@@ -197,7 +197,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			OpCodeHandler handler;
-			if (decoder.is64Mode)
+			if (decoder.is64bMode)
 				handler = handler64;
 			else
 				handler = handler1632;
@@ -218,7 +218,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			OpCodeHandler handler;
-			if (decoder.is64Mode)
+			if (decoder.is64bMode)
 				handler = handler64;
 			else
 				handler = handler1632;
@@ -272,7 +272,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			var handler = defaultHandler;
 			var options = decoder.options;
-			if (!decoder.is64Mode && (decoder.options & infoOptions) != 0) {
+			if (!decoder.is64bMode && (decoder.options & infoOptions) != 0) {
 				foreach (var info in infos) {
 					if ((options & info.options) != 0) {
 						handler = info.handler;

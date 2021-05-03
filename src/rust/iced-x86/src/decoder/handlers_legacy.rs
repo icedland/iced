@@ -31,7 +31,7 @@ impl OpCodeHandler_VEX2 {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		if decoder.state.mod_ == 3 || decoder.is64_mode {
+		if decoder.state.mod_ == 3 || decoder.is64b_mode {
 			decoder.vex2(instruction);
 		} else {
 			let handler = this.handler_mem;
@@ -56,7 +56,7 @@ impl OpCodeHandler_VEX3 {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		if decoder.state.mod_ == 3 || decoder.is64_mode {
+		if decoder.state.mod_ == 3 || decoder.is64b_mode {
 			decoder.vex3(instruction);
 		} else {
 			let handler = this.handler_mem;
@@ -106,7 +106,7 @@ impl OpCodeHandler_EVEX {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		if decoder.state.mod_ == 3 || decoder.is64_mode {
+		if decoder.state.mod_ == 3 || decoder.is64b_mode {
 			decoder.evex_mvex(instruction);
 		} else {
 			let handler = this.handler_mem;
@@ -873,7 +873,7 @@ impl OpCodeHandler_Rv_32_64 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		let base_reg;
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			base_reg = Register::RAX;
 		} else {
@@ -996,7 +996,7 @@ impl OpCodeHandler_Evj {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -1180,7 +1180,7 @@ impl OpCodeHandler_Ms {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 		} else if decoder.state.operand_size == OpSize::Size32 {
 			instruction_internal::internal_set_code_u32(instruction, this.code32);
@@ -1517,7 +1517,7 @@ impl OpCodeHandler_R_C {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -1580,7 +1580,7 @@ impl OpCodeHandler_C_R {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
@@ -1644,7 +1644,7 @@ impl OpCodeHandler_Jb {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		decoder.state.flags |= StateFlags::BRANCH_IMM8;
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 				instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
@@ -1693,7 +1693,7 @@ impl OpCodeHandler_Jx {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		decoder.state.flags |= StateFlags::XBEGIN;
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size == OpSize::Size32 {
 				instruction_internal::internal_set_code_u32(instruction, this.code32);
 				instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
@@ -1741,7 +1741,7 @@ impl OpCodeHandler_Jz {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 				instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch64);
@@ -1794,7 +1794,7 @@ impl OpCodeHandler_Jb2 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		decoder.state.flags |= StateFlags::BRANCH_IMM8;
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				if decoder.state.address_size == OpSize::Size64 {
 					instruction_internal::internal_set_code_u32(instruction, this.code64_64);
@@ -1857,7 +1857,7 @@ impl OpCodeHandler_Jdisp {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		debug_assert!(!decoder.is64_mode);
+		debug_assert!(!decoder.is64b_mode);
 		if decoder.state.operand_size != OpSize::Size16 {
 			instruction_internal::internal_set_code_u32(instruction, this.code32);
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::NearBranch32);
@@ -1889,7 +1889,7 @@ impl OpCodeHandler_PushOpSizeReg {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -1926,7 +1926,7 @@ impl OpCodeHandler_PushEv {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -1943,7 +1943,7 @@ impl OpCodeHandler_PushEv {
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			let index = decoder.state.rm + decoder.state.extra_base_register_base;
-			if decoder.is64_mode {
+			if decoder.is64b_mode {
 				if decoder.state.operand_size != OpSize::Size16 {
 					instruction_internal::internal_set_op0_register_u32(instruction, index + Register::RAX as u32);
 				} else {
@@ -2025,7 +2025,7 @@ impl OpCodeHandler_Ev_Gv_32_64 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		let base_reg;
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			base_reg = Register::RAX;
 		} else {
@@ -2361,7 +2361,7 @@ impl OpCodeHandler_PushSimple2 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -2453,7 +2453,7 @@ impl OpCodeHandler_Simple3 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -2581,7 +2581,7 @@ impl OpCodeHandler_PushSimpleReg {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 				const_assert_eq!(OpKind::Register as u32, 0);
@@ -2913,7 +2913,7 @@ impl OpCodeHandler_PushIb2 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 				instruction_internal::internal_set_op0_kind(instruction, OpKind::Immediate8to64);
@@ -2955,7 +2955,7 @@ impl OpCodeHandler_PushIz {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 				instruction_internal::internal_set_op0_kind(instruction, OpKind::Immediate32to64);
@@ -3211,7 +3211,7 @@ impl OpCodeHandler_Gv_Ev_32_64 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		let base_reg;
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			base_reg = Register::RAX;
 		} else {
@@ -4224,7 +4224,7 @@ impl OpCodeHandler_BranchIw {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -4260,7 +4260,7 @@ impl OpCodeHandler_BranchSimple {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if (decoder.options & DecoderOptions::AMD) == 0 || decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -4294,7 +4294,7 @@ impl OpCodeHandler_Iw_Ib {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			if decoder.state.operand_size != OpSize::Size16 {
 				instruction_internal::internal_set_code_u32(instruction, this.code64);
 			} else {
@@ -5870,7 +5870,7 @@ impl OpCodeHandler_B_MIB {
 		debug_assert_ne!(decoder.state.mod_, 3);
 		instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
 		decoder.read_op_mem_mpx(instruction);
-		// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
+		// It can't be EIP since if it's MPX + 64-bit mode, the address size is always 64-bit
 		if decoder.invalid_check_mask != 0 && instruction.memory_base() == Register::RIP {
 			decoder.set_invalid_instruction();
 		}
@@ -5900,7 +5900,7 @@ impl OpCodeHandler_MIB_B {
 		debug_assert_ne!(decoder.state.mod_, 3);
 		instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 		decoder.read_op_mem_mpx(instruction);
-		// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
+		// It can't be EIP since if it's MPX + 64-bit mode, the address size is always 64-bit
 		if decoder.invalid_check_mask != 0 && instruction.memory_base() == Register::RIP {
 			decoder.set_invalid_instruction();
 		}
@@ -5930,7 +5930,7 @@ impl OpCodeHandler_B_BM {
 		if decoder.state.reg > 3 || (decoder.state.extra_register_base & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 		} else {
 			instruction_internal::internal_set_code_u32(instruction, this.code32);
@@ -5972,7 +5972,7 @@ impl OpCodeHandler_BM_B {
 		if decoder.state.reg > 3 || (decoder.state.extra_register_base & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 		} else {
 			instruction_internal::internal_set_code_u32(instruction, this.code32);
@@ -6016,7 +6016,7 @@ impl OpCodeHandler_B_Ev {
 			decoder.set_invalid_instruction();
 		}
 		let base_reg;
-		if decoder.is64_mode {
+		if decoder.is64b_mode {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			base_reg = Register::RAX;
 		} else {
@@ -6036,7 +6036,7 @@ impl OpCodeHandler_B_Ev {
 		} else {
 			instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem_mpx(instruction);
-			// It can't be EIP since if it's MPX + 64-bit, the address size is always 64-bit
+			// It can't be EIP since if it's MPX + 64-bit mode, the address size is always 64-bit
 			if (this.rip_rel_mask & decoder.invalid_check_mask) != 0 && instruction.memory_base() == Register::RIP {
 				decoder.set_invalid_instruction();
 			}

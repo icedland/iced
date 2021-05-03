@@ -296,7 +296,7 @@ struct State {
 	flags: u32, // StateFlags
 	mandatory_prefix: u32,
 	// ***************************
-	vvvv: u32,               // V`vvvv. Not stored in inverted form. If 16/32-bit, bits [4:3] are cleared
+	vvvv: u32,               // V`vvvv. Not stored in inverted form. If 16/32-bit mode, bits [4:3] are cleared
 	vvvv_invalid_check: u32, // vvvv bits, even in 16/32-bit mode.
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
@@ -382,8 +382,8 @@ where
 	options: u32,
 	// All 1s if we should check for invalid instructions, else 0
 	invalid_check_mask: u32,
-	// StateFlags::W if 64-bit, 0 if 16/32-bit
-	is64_mode_and_w: u32,
+	// StateFlags::W if 64-bit mode, 0 if 16/32-bit mode
+	is64b_mode_and_w: u32,
 	// 7 in 16/32-bit mode, 15 in 64-bit mode
 	reg15_mask: u32,
 	// 0 in 16/32-bit mode, 0E0h in 64-bit mode
@@ -393,7 +393,8 @@ where
 	default_address_size: OpSize,
 	default_inverted_operand_size: OpSize,
 	default_inverted_address_size: OpSize,
-	is64_mode: bool,
+	// true if 64-bit mode, false if 16/32-bit mode
+	is64b_mode: bool,
 	default_code_size: CodeSize,
 	// Offset of displacement in the instruction. Only used by get_constant_offsets() to return the offset of the displ
 	displ_index: u8,
@@ -674,7 +675,7 @@ impl<'a> Decoder<'a> {
 	#[allow(trivial_casts)]
 	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
 		let prefixes;
-		let is64_mode;
+		let is64b_mode;
 		let default_code_size;
 		let default_operand_size;
 		let default_inverted_operand_size;
@@ -682,7 +683,7 @@ impl<'a> Decoder<'a> {
 		let default_inverted_address_size;
 		match bitness {
 			64 => {
-				is64_mode = true;
+				is64b_mode = true;
 				default_code_size = CodeSize::Code64;
 				default_operand_size = OpSize::Size32;
 				default_inverted_operand_size = OpSize::Size16;
@@ -691,7 +692,7 @@ impl<'a> Decoder<'a> {
 				prefixes = &PREFIXES64;
 			}
 			32 => {
-				is64_mode = false;
+				is64b_mode = false;
 				default_code_size = CodeSize::Code32;
 				default_operand_size = OpSize::Size32;
 				default_inverted_operand_size = OpSize::Size16;
@@ -700,7 +701,7 @@ impl<'a> Decoder<'a> {
 				prefixes = &PREFIXES1632;
 			}
 			16 => {
-				is64_mode = false;
+				is64b_mode = false;
 				default_code_size = CodeSize::Code16;
 				default_operand_size = OpSize::Size16;
 				default_inverted_operand_size = OpSize::Size32;
@@ -797,15 +798,15 @@ impl<'a> Decoder<'a> {
 			state: State::default(),
 			options,
 			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 { u32::MAX } else { 0 },
-			is64_mode_and_w: if is64_mode { StateFlags::W } else { 0 },
-			reg15_mask: if is64_mode { 0xF } else { 0x7 },
-			mask_e0: if is64_mode { 0xE0 } else { 0 },
+			is64b_mode_and_w: if is64b_mode { StateFlags::W } else { 0 },
+			reg15_mask: if is64b_mode { 0xF } else { 0x7 },
+			mask_e0: if is64b_mode { 0xE0 } else { 0 },
 			bitness,
 			default_operand_size,
 			default_address_size,
 			default_inverted_operand_size,
 			default_inverted_address_size,
-			is64_mode,
+			is64b_mode,
 			default_code_size,
 			displ_index: 0,
 		})
@@ -1211,7 +1212,7 @@ impl<'a> Decoder<'a> {
 				//  F0 =  0.51%
 				//  65 =  0.10%
 				if ((b as u32) >> 4) == 4 {
-					debug_assert!(self.is64_mode);
+					debug_assert!(self.is64b_mode);
 					rex_prefix = b;
 				} else if b == 0x66 {
 					self.state.flags |= StateFlags::HAS66;
@@ -1235,21 +1236,21 @@ impl<'a> Decoder<'a> {
 				} else {
 					match b {
 						0x2E => {
-							if !self.is64_mode || default_ds_segment < Register::FS {
+							if !self.is64b_mode || default_ds_segment < Register::FS {
 								instruction.set_segment_prefix(Register::CS);
 								default_ds_segment = Register::CS;
 							}
 							rex_prefix = 0;
 						}
 						0x36 => {
-							if !self.is64_mode || default_ds_segment < Register::FS {
+							if !self.is64b_mode || default_ds_segment < Register::FS {
 								instruction.set_segment_prefix(Register::SS);
 								default_ds_segment = Register::SS;
 							}
 							rex_prefix = 0;
 						}
 						0x3E => {
-							if !self.is64_mode || default_ds_segment < Register::FS {
+							if !self.is64b_mode || default_ds_segment < Register::FS {
 								instruction.set_segment_prefix(Register::DS);
 								default_ds_segment = Register::DS;
 							}
@@ -1270,7 +1271,7 @@ impl<'a> Decoder<'a> {
 							rex_prefix = 0;
 						}
 						_ => {
-							if !self.is64_mode || default_ds_segment < Register::FS {
+							if !self.is64b_mode || default_ds_segment < Register::FS {
 								instruction.set_segment_prefix(Register::ES);
 								default_ds_segment = Register::ES;
 							}
@@ -1636,7 +1637,7 @@ impl<'a> Decoder<'a> {
 				self.state.vector_length = (p2 >> 5) & 3;
 
 				p1 = (!p1 >> 3) & 0x0F;
-				if self.is64_mode {
+				if self.is64b_mode {
 					let mut tmp = (!p2 & 8) << 1;
 					self.state.extra_index_register_base_vsib = tmp;
 					tmp += p1;
@@ -1724,7 +1725,7 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	fn read_op_mem_mpx(&mut self, instruction: &mut Instruction) {
 		debug_assert_ne!(self.state.encoding(), EncodingKind::EVEX);
-		if self.is64_mode {
+		if self.is64b_mode {
 			self.state.address_size = OpSize::Size64;
 			let _ = self.read_op_mem_32_or_64(instruction);
 		} else if self.state.address_size != OpSize::Size16 {
@@ -1887,7 +1888,7 @@ impl<'a> Decoder<'a> {
 	fn read_op_mem_0_5(&mut self, instruction: &mut Instruction) -> bool {
 		self.displ_index = self.data_ptr as u8;
 		let d = self.read_u32();
-		if self.is64_mode {
+		if self.is64b_mode {
 			self.state.flags |= StateFlags::IP_REL;
 			if self.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(d as i32 as u64);
@@ -2015,7 +2016,7 @@ impl<'a> Decoder<'a> {
 						instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
 						instruction_internal::internal_set_memory_displ_size(instruction, 3);
 					}
-					if self.is64_mode {
+					if self.is64b_mode {
 						self.state.flags |= StateFlags::IP_REL;
 						if self.state.address_size == OpSize::Size64 {
 							instruction_internal::internal_set_memory_base(instruction, Register::RIP);

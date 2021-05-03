@@ -108,7 +108,7 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 		}
 		let gpr;
 		let tuple_type;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
 			tuple_type = this.tuple_type_w1;
 			gpr = Register::RAX as u32;
@@ -172,7 +172,7 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
 			gpr = Register::RAX as u32;
 		} else {
@@ -194,7 +194,7 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 			instruction_internal::internal_set_op2_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
 			instruction_internal::internal_set_op2_kind(instruction, OpKind::Memory);
-			if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+			if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type_w1);
 			} else {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type_w0);
@@ -232,7 +232,7 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -245,7 +245,7 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 			instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+			if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type64);
 			} else {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type32);
@@ -1868,7 +1868,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 		{
 			decoder.set_invalid_instruction();
 		}
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
@@ -1941,7 +1941,7 @@ impl OpCodeHandler_EVEX_VX_Ev {
 		}
 		let gpr;
 		let tuple_type;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			tuple_type = this.tuple_type_w1;
 			gpr = Register::RAX as u32;
@@ -1994,7 +1994,7 @@ impl OpCodeHandler_EVEX_Ev_VX {
 		}
 		let gpr;
 		let tuple_type;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			tuple_type = this.tuple_type_w1;
 			gpr = Register::RAX as u32;
@@ -2048,7 +2048,7 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -2132,7 +2132,7 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			debug_assert_ne!(this.code64, Code::INVALID as u32);
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
@@ -2303,7 +2303,7 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 			decoder.set_invalid_instruction();
 		}
 		let gpr;
-		if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 			instruction_internal::internal_set_code_u32(instruction, this.code64);
 			gpr = Register::RAX as u32;
 		} else {
@@ -2316,7 +2316,7 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 			instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 		} else {
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			if (decoder.state.flags & decoder.is64_mode_and_w) != 0 {
+			if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type64);
 			} else {
 				decoder.read_op_mem_tuple_type(instruction, this.tuple_type32);

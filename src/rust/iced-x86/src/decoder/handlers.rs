@@ -277,7 +277,7 @@ impl OpCodeHandler_Bitness {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		let handler = if decoder.is64_mode { this.handler64 } else { this.handler1632 };
+		let handler = if decoder.is64b_mode { this.handler64 } else { this.handler1632 };
 		if handler.has_modrm {
 			decoder.read_modrm();
 		}
@@ -308,7 +308,7 @@ impl OpCodeHandler_Bitness_DontReadModRM {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		let handler = if decoder.is64_mode { this.handler64 } else { this.handler1632 };
+		let handler = if decoder.is64b_mode { this.handler64 } else { this.handler1632 };
 		(handler.decode)(handler, decoder, instruction);
 	}
 }
@@ -379,7 +379,7 @@ impl OpCodeHandler_Options1632 {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let mut handler = this.default_handler;
 		let options = decoder.options;
-		if !decoder.is64_mode && (decoder.options & this.info_options) != 0 {
+		if !decoder.is64b_mode && (decoder.options & this.info_options) != 0 {
 			for info in &this.infos {
 				if (options & info.1) != 0 {
 					handler = info.0;
