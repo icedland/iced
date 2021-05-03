@@ -295,9 +295,10 @@ struct State {
 	extra_index_register_base_vsib: u32,
 	flags: u32, // StateFlags
 	mandatory_prefix: u32,
-	// ***************************
+
 	vvvv: u32,               // V`vvvv. Not stored in inverted form. If 16/32-bit mode, bits [4:3] are cleared
 	vvvv_invalid_check: u32, // vvvv bits, even in 16/32-bit mode.
+	// ***************************
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX.XB << 3
@@ -1188,6 +1189,10 @@ impl<'a> Decoder<'a> {
 		self.state.extra_index_register_base_vsib = 0;
 		self.state.flags = 0;
 		self.state.mandatory_prefix = 0;
+		// These don't need to be cleared, but they're here so the compiler can re-use the
+		// same XMM reg to clear the previous 2 u32s (including these 2 u32s).
+		self.state.vvvv = 0;
+		self.state.vvvv_invalid_check = 0;
 
 		self.state.operand_size = self.default_operand_size;
 		self.state.address_size = self.default_address_size;
