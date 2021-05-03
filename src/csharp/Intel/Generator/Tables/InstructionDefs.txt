@@ -8317,7 +8317,8 @@ INSTRUCTION: NP 0F 01 C5 | PCONFIG | PCONFIG
 	implied: rw=eax cr;!64=ecx;edx;ebx cr;64=rcx;rdx;rbx cr;!64=ds
 	rflags: w=z 0=osacp
 	# May cause a TSX abort if VM exit
-	flags: cpl0 no-v86 intel-may-vm-exit tdx-non-root-ve tsx-impl-abort
+	# TDX #UD or #VE depending on feature enabling
+	flags: cpl0 no-v86 intel-may-vm-exit tdx-non-root-ud tdx-non-root-ve tsx-impl-abort
 END
 
 # This instruction is NP, the SDM is wrong
