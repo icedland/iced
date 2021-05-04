@@ -1867,9 +1867,10 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "__internal_mem_vsib"))]
 	fn read_op_mem_1_4(&mut self, instruction: &mut Instruction) -> bool {
+		instruction_internal::internal_set_memory_displ_size(instruction, 1);
+
+		self.displ_index = self.data_ptr.wrapping_add(1) as u8;
 		let sib = self.read_u16() as u32;
-		let displ = (sib >> 8) as i8 as u32;
-		self.displ_index = self.data_ptr.wrapping_sub(1) as u8;
 
 		instruction_internal::internal_set_memory_index_scale(instruction, (sib >> 6) & 3);
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
@@ -1879,7 +1880,7 @@ impl<'a> Decoder<'a> {
 		}
 
 		instruction_internal::internal_set_memory_base_u32(instruction, (sib & 7) + self.state.extra_base_register_base + base_reg as u32);
-		instruction_internal::internal_set_memory_displ_size(instruction, 1);
+		let displ = (sib >> 8) as i8 as u32;
 		if self.state.address_size == OpSize::Size64 {
 			instruction.set_memory_displacement64(displ as i32 as u64);
 		} else {
