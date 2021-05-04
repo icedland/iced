@@ -24,7 +24,7 @@ use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
-use core::{cmp, fmt, mem, ptr, u32};
+use core::{cmp, fmt, mem, ptr};
 use static_assertions::{const_assert, const_assert_eq};
 
 // 26,2E,36,3E,64,65,66,67,F0,F2,F3
@@ -257,17 +257,18 @@ impl StateFlags {
 // GENERATOR-END: StateFlags
 
 macro_rules! mk_read_value {
-	($slf:ident, $mem_ty:ty, $from_le:path) => {
+	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty) => {
 		const SIZE: usize = mem::size_of::<$mem_ty>();
 		const_assert!(SIZE >= 1);
 		const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
 		let data_ptr = $slf.data_ptr;
 		// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
+		#[allow(trivial_numeric_casts)]
 		if data_ptr + SIZE - 1 < $slf.max_data_ptr {
 			// SAFETY:
 			// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
 			// - ptr::read_unaligned: ptr is readable and data (u8 slice) is initialized
-			let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as usize;
+			let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as $ret_ty;
 			// - data_ptr + SIZE doesn't overflow (verified in ctor since SIZE <= MAX_READ_SIZE)
 			// - data_ptr + SIZE <= self.max_data_ptr (see `if` check above)
 			$slf.data_ptr = data_ptr + SIZE;
@@ -402,7 +403,7 @@ where
 }
 
 impl<'a> Decoder<'a> {
-	const MAX_READ_SIZE: usize = 4;
+	const MAX_READ_SIZE: usize = 8;
 
 	/// Creates a decoder
 	///
@@ -1047,17 +1048,22 @@ impl<'a> Decoder<'a> {
 
 	#[must_use]
 	fn read_u8(&mut self) -> usize {
-		mk_read_value! {self, u8, u8::from_le}
+		mk_read_value! {self, u8, u8::from_le, usize}
 	}
 
 	#[must_use]
 	fn read_u16(&mut self) -> usize {
-		mk_read_value! {self, u16, u16::from_le}
+		mk_read_value! {self, u16, u16::from_le, usize}
 	}
 
 	#[must_use]
 	fn read_u32(&mut self) -> usize {
-		mk_read_value! {self, u32, u32::from_le}
+		mk_read_value! {self, u32, u32::from_le, usize}
+	}
+
+	#[must_use]
+	fn read_u64(&mut self) -> u64 {
+		mk_read_value! {self, u64, u64::from_le, u64}
 	}
 
 	/// Gets the last decoder error. Unless you need to know the reason it failed,
@@ -1508,7 +1514,7 @@ impl<'a> Decoder<'a> {
 			self.state.flags |= EncodingKind::VEX as u32;
 		}
 
-		let mut b2 = self.read_u8() as u32;
+		let b2 = self.read_u16() as u32;
 
 		const_assert_eq!(StateFlags::W, 0x80);
 		self.state.flags |= b2 & 0x80;
@@ -1523,9 +1529,9 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 		self.state.mandatory_prefix = b2 & 3;
 
-		b2 = (!b2 >> 3) & 0x0F;
-		self.state.vvvv_invalid_check = b2;
-		self.state.vvvv = b2 & self.reg15_mask;
+		let b = (!b2 >> 3) & 0x0F;
+		self.state.vvvv_invalid_check = b;
+		self.state.vvvv = b & self.reg15_mask;
 		let b1 = self.state.modrm;
 		let b1x = !b1 & self.mask_e0;
 		self.state.extra_register_base = (b1x >> 4) & 8;
@@ -1533,7 +1539,8 @@ impl<'a> Decoder<'a> {
 		self.state.extra_base_register_base = (b1x >> 2) & 8;
 
 		if let Some(&table) = self.handlers_vex.get(((b1 & 0x1F) as usize).wrapping_sub(1)) {
-			self.decode_table(table, instruction);
+			// SAFETY: b >> 8 == 0..0xFF and within bounds
+			self.decode_table2(unsafe { table.get_unchecked((b2 >> 8) as usize) }, instruction);
 		} else {
 			self.set_invalid_instruction();
 		}
@@ -1556,7 +1563,7 @@ impl<'a> Decoder<'a> {
 			self.state.flags |= EncodingKind::XOP as u32;
 		}
 
-		let mut b2 = self.read_u8() as u32;
+		let b2 = self.read_u16() as u32;
 
 		const_assert_eq!(StateFlags::W, 0x80);
 		self.state.flags |= b2 & 0x80;
@@ -1571,9 +1578,9 @@ impl<'a> Decoder<'a> {
 		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
 		self.state.mandatory_prefix = b2 & 3;
 
-		b2 = (!b2 >> 3) & 0x0F;
-		self.state.vvvv_invalid_check = b2;
-		self.state.vvvv = b2 & self.reg15_mask;
+		let b = (!b2 >> 3) & 0x0F;
+		self.state.vvvv_invalid_check = b;
+		self.state.vvvv = b & self.reg15_mask;
 		let b1 = self.state.modrm;
 		let b1x = !b1 & self.mask_e0;
 		self.state.extra_register_base = (b1x >> 4) & 8;
@@ -1581,7 +1588,8 @@ impl<'a> Decoder<'a> {
 		self.state.extra_base_register_base = (b1x >> 2) & 8;
 
 		if let Some(&table) = self.handlers_xop.get(((b1 & 0x1F) as usize).wrapping_sub(8)) {
-			self.decode_table(table, instruction);
+			// SAFETY: b >> 8 == 0..0xFF and within bounds
+			self.decode_table2(unsafe { table.get_unchecked((b2 >> 8) as usize) }, instruction);
 		} else {
 			self.set_invalid_instruction();
 		}
@@ -1600,12 +1608,11 @@ impl<'a> Decoder<'a> {
 		// Undo what decode_out() did if it got a REX prefix
 		self.state.flags &= !StateFlags::W;
 
-		let mut p1 = self.read_u16() as u32;
-		let p2 = p1 >> 8;
-		p1 = p1 as u8 as u32;
+		let d = self.read_u32() as u32;
+		let p2 = d >> 8;
 
 		let p0 = self.state.modrm;
-		if (p1 & 4) != 0 {
+		if (d & 4) != 0 {
 			if (p0 & 0x0C) == 0 {
 				if cfg!(debug_assertions) {
 					self.state.flags |= EncodingKind::EVEX as u32;
@@ -1615,10 +1622,10 @@ impl<'a> Decoder<'a> {
 				const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
 				const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
 				const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
-				self.state.mandatory_prefix = p1 & 3;
+				self.state.mandatory_prefix = d & 3;
 
 				const_assert_eq!(StateFlags::W, 0x80);
-				self.state.flags |= p1 & 0x80;
+				self.state.flags |= d & 0x80;
 
 				let aaa = p2 & 7;
 				self.state.aaa = aaa;
@@ -1641,7 +1648,7 @@ impl<'a> Decoder<'a> {
 				const_assert_eq!(VectorLength::Unknown as u32, 3);
 				self.state.vector_length = (p2 >> 5) & 3;
 
-				p1 = (!p1 >> 3) & 0x0F;
+				let p1 = (!d >> 3) & 0x0F;
 				if self.is64b_mode {
 					let mut tmp = (!p2 & 8) << 1;
 					self.state.extra_index_register_base_vsib = tmp;
@@ -1663,9 +1670,10 @@ impl<'a> Decoder<'a> {
 				}
 
 				if let Some(&table) = self.handlers_evex.get(((p0 & 3) as usize).wrapping_sub(1)) {
-					let handler = table[self.read_u8()];
+					// SAFETY: table has exactly 0x100 elements
+					let handler = unsafe { *table.get_unchecked((d >> 16) as u8 as usize) };
 					debug_assert!(handler.has_modrm);
-					let m = self.read_u8() as u32;
+					let m = d >> 24;
 					self.state.modrm = m;
 					self.state.mod_ = m >> 6;
 					self.state.reg = (m >> 3) & 7;
