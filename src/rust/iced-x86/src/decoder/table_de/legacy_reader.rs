@@ -261,17 +261,18 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 
 		OpCodeHandlerKind::Ev_Gv_3a => {
 			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code, code + 1, code + 2, 0))) as *const OpCodeHandler
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code, code + 1, code + 2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_3b => {
 			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code, code + 1, Code::INVALID as u32, 0))) as *const OpCodeHandler
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code, code + 1, Code::INVALID as u32))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_4 => {
 			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code, code + 1, code + 2, deserializer.read_handler_flags()))) as *const OpCodeHandler
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_flags::new(code, code + 1, code + 2, deserializer.read_handler_flags())))
+				as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_CL => {

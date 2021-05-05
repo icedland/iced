@@ -542,14 +542,14 @@ impl OpCodeHandler_Ev_Iz {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32,
 			);
 		} else {
-			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem(instruction);
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
 			const_assert_eq!(HandlerFlags::LOCK, 8);
 			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
 			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem(instruction);
 		}
 		if decoder.state.operand_size == OpSize::Size32 {
 			instruction_internal::internal_set_code_u32(instruction, this.code32);
@@ -596,14 +596,14 @@ impl OpCodeHandler_Ev_Ib {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32,
 			);
 		} else {
-			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem(instruction);
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
 			const_assert_eq!(HandlerFlags::LOCK, 8);
 			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
 			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem(instruction);
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 		if decoder.state.operand_size == OpSize::Size32 {
@@ -648,14 +648,14 @@ impl OpCodeHandler_Ev_Ib2 {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32,
 			);
 		} else {
-			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem(instruction);
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
 			const_assert_eq!(HandlerFlags::LOCK, 8);
 			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
 			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem(instruction);
 		}
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 	}
@@ -1822,13 +1822,12 @@ impl OpCodeHandler_PushEv {
 pub(super) struct OpCodeHandler_Ev_Gv {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	flags: u32,
 	code: [u32; 3],
 }
 
 impl OpCodeHandler_Ev_Gv {
-	pub(super) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Ev_Gv::decode, has_modrm: true, flags, code: [code16, code32, code64] }
+	pub(super) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Gv::decode, has_modrm: true, code: [code16, code32, code64] }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1849,12 +1848,49 @@ impl OpCodeHandler_Ev_Gv {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32,
 			);
 		} else {
-			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
-				decoder.set_xacquire_xrelease(instruction, this.flags);
-			}
+			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem(instruction);
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_Ev_Gv_flags {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	flags: u32,
+	code: [u32; 3],
+}
+
+impl OpCodeHandler_Ev_Gv_flags {
+	pub(super) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
+		debug_assert!((flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0);
+		Self { decode: OpCodeHandler_Ev_Gv_flags::decode, has_modrm: true, flags, code: [code16, code32, code64] }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+		instruction_internal::internal_set_code_u32(instruction, this.code[decoder.state.operand_size as usize]);
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
+		instruction_internal::internal_set_op1_register_u32(
+			instruction,
+			(decoder.state.operand_size as u32) * 16 + decoder.state.reg + decoder.state.extra_register_base + Register::AX as u32,
+		);
+		if decoder.state.mod_ == 3 {
+			const_assert_eq!(OpKind::Register as u32, 0);
+			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
+			instruction_internal::internal_set_op0_register_u32(
+				instruction,
+				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32,
+			);
+		} else {
 			const_assert_eq!(HandlerFlags::LOCK, 8);
 			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
 			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.set_xacquire_xrelease(instruction, this.flags);
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -4134,14 +4170,14 @@ impl OpCodeHandler_Eb_Ib {
 			//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
 			instruction_internal::internal_set_op0_register_u32(instruction, index + Register::AL as u32);
 		} else {
-			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
-			decoder.read_op_mem(instruction);
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
 			const_assert_eq!(HandlerFlags::LOCK, 8);
 			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
 			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
+			decoder.read_op_mem(instruction);
 		}
 		instruction_internal::internal_set_op1_kind(instruction, OpKind::Immediate8);
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);

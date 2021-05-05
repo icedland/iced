@@ -259,3 +259,16 @@ F2 F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;
 67 01 0D 34125AA5, Add_rm32_r32, Add, 2, op0=m;ds;eip;;1;0xA55A123B;4;UInt32 op1=r;ecx co=0;0;0;0;3;4 ip=0
 67 01 0D 12345678, Add_rm32_r32, Add, 2, op0=m;ds;eip;;1;0x78563409;4;UInt32 op1=r;ecx co=0;0;0;0;3;4 ip=0xFFFFFFFFFFFFFFF0
 67 01 0D 12345678, Add_rm32_r32, Add, 2, op0=m;ds;eip;;1;0x78563409;4;UInt32 op1=r;ecx co=0;0;0;0;3;4 ip=0xFFFFFFF0
+
+# lock sub [rip-5AA5EDCCh],eax
+F0 29 05 34125AA5, Sub_rm32_r32, Sub, 2, op0=m;ds;rip;;1;0x7FFFFFFFA55A122B;8;UInt32 op1=r;eax lock co=0;0;0;0;3;4
+# lock cmp [rip-5AA5EDCCh],eax
+F0 39 05 34125AA5, INVALID, INVALID, 0, code=Cmp_rm32_r32
+# lock add dword ptr [rip-5AA5EDCCh],??BCDEF0h
+F0 81 05 34125AA5 F0DEBC, INVALID, INVALID, 0, code=Add_rm32_imm32 err=NoMoreBytes
+# add dword ptr [rip-5AA5EDCCh],??BCDEF0h
+81 05 34125AA5 F0DEBC, INVALID, INVALID, 0, code=Add_rm32_imm32 err=NoMoreBytes
+# lock mov cs,[rip-5AA5EDCCh]
+F0 8E 0D 34125AA5, INVALID, INVALID, 0, code=Mov_Sreg_r32m16
+# mov cs,[rip-5AA5EDCCh]
+8E 0D 34125AA5, INVALID, INVALID, 0, code=Mov_Sreg_r32m16

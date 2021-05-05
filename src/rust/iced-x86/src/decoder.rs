@@ -1358,6 +1358,11 @@ impl<'a> Decoder<'a> {
 				} else {
 					instruction_internal::internal_set_memory_displacement64_lo(instruction, addr as u32);
 				}
+
+				// RIP rel ops are common, but invalid/lock bits are usually never set, so exit early if possible
+				if (flags & (StateFlags::IS_INVALID | StateFlags::LOCK)) == 0 {
+					return;
+				}
 			}
 
 			if (flags & StateFlags::IS_INVALID) != 0
@@ -1431,10 +1436,8 @@ impl<'a> Decoder<'a> {
 				}
 			}
 			Decoder::PF3 => {
-				if (flags & HandlerFlags::XRELEASE) != 0 {
-					self.clear_mandatory_prefix_f3(instruction);
-					instruction_internal::internal_set_has_xrelease_prefix(instruction);
-				}
+				self.clear_mandatory_prefix_f3(instruction);
+				instruction_internal::internal_set_has_xrelease_prefix(instruction);
 			}
 			_ => {}
 		}
