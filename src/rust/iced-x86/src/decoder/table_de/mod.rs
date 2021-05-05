@@ -228,11 +228,11 @@ impl<'a> TableDeserializer<'a> {
 }
 
 #[must_use]
-pub(super) fn read_legacy() -> Vec<&'static OpCodeHandler> {
+pub(super) fn read_legacy() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::legacy_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_legacy::TBL_DATA, data_legacy::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
-	deserializer.table(data_legacy::ONE_BYTE_HANDLERS_INDEX)
+	(deserializer.table(data_legacy::ONE_BYTE_HANDLERS_INDEX), deserializer.table(data_legacy::TWO_BYTE_HANDLERS_0FXX_INDEX))
 }
 
 #[cfg(not(feature = "no_evex"))]

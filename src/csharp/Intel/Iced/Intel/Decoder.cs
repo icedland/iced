@@ -50,6 +50,7 @@ namespace Iced.Intel {
 		readonly uint[] prefixes;
 		readonly RegInfo2[] memRegs16;
 		readonly OpCodeHandler[] handlers_XX;
+		readonly OpCodeHandler[] handlers_0FXX;
 #if !NO_VEX
 		readonly OpCodeHandler[] handlers_VEX_0FXX;
 		readonly OpCodeHandler[] handlers_VEX_0F38XX;
@@ -114,14 +115,14 @@ namespace Iced.Intel {
 		/// </summary>
 		public int Bitness { get; }
 
-		// 26,2E,36,3E,64,65,66,67,F0,F2,F3
+		// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3
 		static readonly uint[] prefixes1632 = new uint[8] {
-			0x00000000, 0x40404040, 0x00000000, 0x000000F0,
+			0x00008000, 0x40404040, 0x00000000, 0x000000F0,
 			0x00000000, 0x00000000, 0x00000000, 0x000D0000,
 		};
-		// 26,2E,36,3E,64,65,66,67,F0,F2,F3 and 40-4F
+		// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3 and 40-4F
 		static readonly uint[] prefixes64 = new uint[8] {
-			0x00000000, 0x40404040, 0x0000FFFF, 0x000000F0,
+			0x00008000, 0x40404040, 0x0000FFFF, 0x000000F0,
 			0x00000000, 0x00000000, 0x00000000, 0x000D0000,
 		};
 
@@ -187,6 +188,7 @@ namespace Iced.Intel {
 			is64bMode_and_W = is64bMode ? (uint)StateFlags.W : 0;
 			reg15Mask = is64bMode ? 0xFU : 0x7;
 			handlers_XX = OpCodeHandlersTables_Legacy.OneByteHandlers;
+			handlers_0FXX = OpCodeHandlersTables_Legacy.TwoByteHandlers_0FXX;
 #if !NO_VEX
 			handlers_VEX_0FXX = OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
 			handlers_VEX_0F38XX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
@@ -318,6 +320,7 @@ namespace Iced.Intel {
 #endif
 			state.operandSize = defaultOperandSize;
 			state.addressSize = defaultAddressSize;
+			var table = handlers_XX;
 			var defaultDsSegment = (byte)Register.DS;
 			uint rexPrefix = 0;
 			uint b;
@@ -329,6 +332,11 @@ namespace Iced.Intel {
 				// Converting these prefixes to opcode handlers instead of a switch results in slightly worse perf
 				// with JIT32, and about the same speed with 64-bit RyuJIT.
 				switch (b) {
+				case 0x0F:
+					b = ReadByte();
+					table = handlers_0FXX;
+					goto afterPrefixLoop;
+
 				case 0x26:
 					if (!is64bMode || defaultDsSegment < (byte)Register.FS) {
 						instruction.SegmentPrefix = Register.ES;
@@ -411,6 +419,7 @@ namespace Iced.Intel {
 					break;
 				}
 			}
+afterPrefixLoop:
 			if (rexPrefix != 0) {
 				if ((rexPrefix & 8) != 0) {
 					state.operandSize = OpSize.Size64;
@@ -422,7 +431,7 @@ namespace Iced.Intel {
 				state.extraIndexRegisterBase = (rexPrefix & 2) << 2;
 				state.extraBaseRegisterBase = (rexPrefix & 1) << 3;
 			}
-			DecodeTable(handlers_XX[b], ref instruction);
+			DecodeTable(table[b], ref instruction);
 			var flags = state.flags;
 			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock)) != 0) {
 				if ((flags & StateFlags.IsInvalid) != 0 ||

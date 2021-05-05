@@ -58,10 +58,10 @@ static READ_OP_MEM_VSIB_FNS: [fn(&mut Decoder<'_>, &mut Instruction, Register, T
 	decoder_read_op_mem_vsib_2,
 ];
 
-// 26,2E,36,3E,64,65,66,67,F0,F2,F3
-static PREFIXES1632: [u32; 8] = [0x0000_0000, 0x4040_4040, 0x0000_0000, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
-// 26,2E,36,3E,64,65,66,67,F0,F2,F3 and 40-4F
-static PREFIXES64: [u32; 8] = [0x0000_0000, 0x4040_4040, 0x0000_FFFF, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
+// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3
+static PREFIXES1632: [u32; 8] = [0x0000_8000, 0x4040_4040, 0x0000_0000, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
+// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3 and 40-4F
+static PREFIXES64: [u32; 8] = [0x0000_8000, 0x4040_4040, 0x0000_FFFF, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
 
 static MEM_REGS_16: [(Register, Register); 8] = [
 	(Register::BX, Register::SI),
@@ -391,6 +391,7 @@ where
 	instr_start_data_ptr: usize,
 
 	handlers_xx: &'static [&'static OpCodeHandler; 0x100],
+	handlers_0fxx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_vex"))]
 	handlers_vex: [&'static [&'static OpCodeHandler; 0x100]; 3],
 	#[cfg(not(feature = "no_evex"))]
@@ -824,6 +825,7 @@ impl<'a> Decoder<'a> {
 			max_data_ptr: data.as_ptr() as usize,
 			instr_start_data_ptr: data.as_ptr() as usize,
 			handlers_xx: get_handlers(&tables.handlers_xx),
+			handlers_0fxx: get_handlers(&tables.handlers_0fxx),
 			handlers_vex: [handlers_vex_0fxx, handlers_vex_0f38xx, handlers_vex_0f3axx],
 			handlers_evex: [handlers_evex_0fxx, handlers_evex_0f38xx, handlers_evex_0f3axx],
 			handlers_xop: [handlers_xop8, handlers_xop9, handlers_xopa],
@@ -1240,10 +1242,11 @@ impl<'a> Decoder<'a> {
 		// The calculated usize is a valid pointer in `self.data` slice or at most 1 byte past the last valid byte.
 		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
 
+		let mut table = self.handlers_xx;
 		let mut b = self.read_u8();
 		if (((self.prefixes[b / 32]) >> (b & 31)) & 1) != 0 {
 			let mut default_ds_segment = Register::DS;
-			let mut rex_prefix: usize;
+			let mut rex_prefix: usize = 0;
 			loop {
 				// Test binary: xul.dll 64-bit
 				// 52.01% of all instructions have at least one prefix
@@ -1253,7 +1256,13 @@ impl<'a> Decoder<'a> {
 				//  F2 =  0.65%
 				//  F0 =  0.51%
 				//  65 =  0.10%
-				if ((b as u32) >> 4) == 4 {
+				// We need to check for 0Fh before REX prefix since the compiler generates worse
+				// code if we check it after the REX prefix.
+				if b == 0x0F {
+					b = self.read_u8();
+					table = self.handlers_0fxx;
+					break;
+				} else if ((b as u32) >> 4) == 4 {
 					debug_assert!(self.is64b_mode);
 					rex_prefix = b;
 				} else if b == 0x66 {
@@ -1337,7 +1346,7 @@ impl<'a> Decoder<'a> {
 				self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
 			}
 		}
-		self.decode_table2(self.handlers_xx[b], instruction);
+		self.decode_table2(table[b], instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
 		let instr_len = self.data_ptr as u32 - data_ptr as u32;

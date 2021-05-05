@@ -7,6 +7,7 @@ using Generator.Enums.Decoder;
 namespace Generator.Decoder {
 	static class DecoderTable_Legacy {
 		public const string OneByteHandlers = nameof(OneByteHandlers);
+		public const string TwoByteHandlers_0FXX = nameof(TwoByteHandlers_0FXX);
 
 		public static (string name, object?[] handlers)[] CreateHandlers(GenTypes genTypes) {
 			var legacyEnum = genTypes[TypeIds.OpCodeHandlerKind];
@@ -4865,7 +4866,7 @@ namespace Generator.Decoder {
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.PushOpSizeReg_4b)], codeEnum[nameof(Code.Pushw_CS)], codeEnum[nameof(Code.Pushd_CS)], registerEnum[nameof(Register.CS)] },
 						invalid,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "TwoByteHandlers_0FXX" },
+					invalid,
 
 					// 10
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Eb_Gb_2)], codeEnum[nameof(Code.Adc_rm8_r8)], new OrEnumValue(handlerFlagsEnum, nameof(HandlerFlags.Xacquire), nameof(HandlerFlags.Xrelease), nameof(HandlerFlags.Lock)) },
