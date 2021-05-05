@@ -2074,6 +2074,7 @@ F2 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xacqui
 66 67 4E 88 EC, Mov_rm8_r8, Mov, 2, op0=r;spl op1=r;r13l enc=4488EC
 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F3 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease
+F2 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh repne
 
 66 89 CE, Mov_rm16_r16, Mov, 2, op0=r;si op1=r;cx
 66 44 89 C5, Mov_rm16_r16, Mov, 2, op0=r;bp op1=r;r8w
@@ -2083,6 +2084,7 @@ F3 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease
 66 44 89 EC, Mov_rm16_r16, Mov, 2, op0=r;sp op1=r;r13w
 66 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
 66 F3 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx xrelease
+66 F2 89 18, Mov_rm16_r16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx repne
 66 42 89 CE, Mov_rm16_r16, Mov, 2, op0=r;si op1=r;cx enc=6689CE
 
 89 CE, Mov_rm32_r32, Mov, 2, op0=r;esi op1=r;ecx
@@ -2093,6 +2095,7 @@ F3 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease
 44 89 EC, Mov_rm32_r32, Mov, 2, op0=r;esp op1=r;r13d
 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
 F3 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xrelease
+F2 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx repne
 42 89 CE, Mov_rm32_r32, Mov, 2, op0=r;esi op1=r;ecx enc=89CE
 
 48 89 CE, Mov_rm64_r64, Mov, 2, op0=r;rsi op1=r;rcx
@@ -2103,6 +2106,7 @@ F3 89 18, Mov_rm32_r32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx xrelease
 4C 89 EC, Mov_rm64_r64, Mov, 2, op0=r;rsp op1=r;r13
 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
 F3 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xrelease
+F2 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx repne
 4A 89 CE, Mov_rm64_r64, Mov, 2, op0=r;rsi op1=r;rcx enc=4889CE
 
 8A CE, Mov_r8_rm8, Mov, 2, op0=r;cl op1=r;dh
@@ -3268,6 +3272,7 @@ C3, Retnq, Ret, 0, decopt=AMD no_opt_disable_test
 C6 00 5A, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=2;1;0;0;0;0
 F3 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 xrelease
+F2 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 repne
 44 C6 00 5A, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=3;1;0;0;0;0 enc=C6005A
 44 C6 00 A5, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0xA5 co=3;1;0;0;0;0 enc=C600A5
 C6 C1 5A, Mov_rm8_imm8, Mov, 2, op0=r;cl op1=i8;0x5A co=2;1;0;0;0;0
@@ -3285,6 +3290,7 @@ C6 F8 A5, Xabort_imm8, Xabort, 1, op0=i8;0xA5 co=2;1;0;0;0;0
 66 C7 00 5AA5, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0xA55A co=3;2;0;0;0;0
 66 C7 00 A55A, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=3;2;0;0;0;0
 66 F3 C7 00 A55A, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 xrelease
+66 F2 C7 00 A55A, Mov_rm16_imm16, Mov, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=i16;0x5AA5 co=4;2;0;0;0;0 repne
 66 C7 C1 5AA5, Mov_rm16_imm16, Mov, 2, op0=r;cx op1=i16;0xA55A co=3;2;0;0;0;0
 66 C7 C6 A55A, Mov_rm16_imm16, Mov, 2, op0=r;si op1=i16;0x5AA5 co=3;2;0;0;0;0
 66 41 C7 C1 5AA5, Mov_rm16_imm16, Mov, 2, op0=r;r9w op1=i16;0xA55A co=4;2;0;0;0;0
@@ -3294,6 +3300,7 @@ C6 F8 A5, Xabort_imm8, Xabort, 1, op0=i8;0xA5 co=2;1;0;0;0;0
 C7 00 5AA51234, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0x3412A55A co=2;4;0;0;0;0
 C7 00 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 F3 C7 00 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 xrelease
+F2 C7 00 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=i32;0xAB895AA5 co=3;4;0;0;0;0 repne
 C7 C1 5AA51234, Mov_rm32_imm32, Mov, 2, op0=r;ecx op1=i32;0x3412A55A co=2;4;0;0;0;0
 C7 C6 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=r;esi op1=i32;0xAB895AA5 co=2;4;0;0;0;0
 41 C7 C1 5AA51234, Mov_rm32_imm32, Mov, 2, op0=r;r9d op1=i32;0x3412A55A co=3;4;0;0;0;0
@@ -3303,6 +3310,7 @@ C7 C6 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=r;esi op1=i32;0xAB895AA5 co=2;4;0;0;
 48 C7 00 5AA51234, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 F3 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 xrelease
+F2 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32to64;0xFFFFFFFFAB895AA5 co=4;4;0;0;0;0 repne
 48 C7 C1 5AA51234, Mov_rm64_imm32, Mov, 2, op0=r;rcx op1=i32to64;0x3412A55A co=3;4;0;0;0;0
 48 C7 C6 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=r;rsi op1=i32to64;0xFFFFFFFFAB895AA5 co=3;4;0;0;0;0
 49 C7 C1 5AA51234, Mov_rm64_imm32, Mov, 2, op0=r;r9 op1=i32to64;0x3412A55A co=3;4;0;0;0;0
