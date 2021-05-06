@@ -637,6 +637,7 @@ mod private {
 	impl Sealed for crate::NasmFormatter {}
 }
 
+#[allow(clippy::manual_map)] // It's wrong
 fn to_owned<'a>(sym_res: Option<SymbolResult<'_>>, vec: &'a mut Vec<SymResTextPart<'a>>) -> Option<SymbolResult<'a>> {
 	match sym_res {
 		None => None,
