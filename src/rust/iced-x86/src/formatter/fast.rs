@@ -915,16 +915,8 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		if op_count > 0 {
 			write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 
-			for operand in 0..op_count {
-				if operand > 0 {
-					if TraitOptions::space_after_operand_separator(&self.d.options) {
-						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02,   ");
-						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
-					} else {
-						write_fast_ascii_char_lit!(dst, dst_next_p, ',', true);
-					}
-				}
-
+			let mut operand = 0;
+			loop {
 				let imm8;
 				let imm16;
 				let imm32;
@@ -1422,6 +1414,18 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x03{z} ");
 						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					}
+				}
+
+				operand += 1;
+				if operand >= op_count {
+					break;
+				}
+
+				if TraitOptions::space_after_operand_separator(&self.d.options) {
+					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02,   ");
+					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
+				} else {
+					write_fast_ascii_char_lit!(dst, dst_next_p, ',', true);
 				}
 			}
 			if instruction_internal::internal_has_rounding_control_or_sae(instruction) {
