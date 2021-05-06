@@ -691,13 +691,12 @@ impl Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpKind, IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
-		match operand {
-			0 => Ok(self.op0_kind()),
-			1 => Ok(self.op1_kind()),
-			2 => Ok(self.op2_kind()),
-			3 => Ok(self.op3_kind()),
-			4 => Ok(self.op4_kind()),
-			_ => Err(IcedError::new("Invalid operand")),
+		if operand <= 3 {
+			Ok(unsafe { mem::transmute(((self.op_kind_flags >> (OpKindFlags::OP1_KIND_SHIFT * operand)) & OpKindFlags::OP_KIND_MASK) as u8) })
+		} else if operand == 4 {
+			Ok(self.op4_kind())
+		} else {
+			Err(IcedError::new("Invalid operand"))
 		}
 	}
 
