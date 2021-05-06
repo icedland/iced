@@ -689,6 +689,8 @@ impl Instruction {
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpKind, IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		if operand <= 3 {
+			const_assert_eq!(OpKindFlags::OP1_KIND_SHIFT * 2, OpKindFlags::OP2_KIND_SHIFT);
+			const_assert_eq!(OpKindFlags::OP1_KIND_SHIFT * 3, OpKindFlags::OP3_KIND_SHIFT);
 			Ok(unsafe { mem::transmute(((self.op_kind_flags >> (OpKindFlags::OP1_KIND_SHIFT * operand)) & OpKindFlags::OP_KIND_MASK) as u8) })
 		} else if operand == 4 {
 			Ok(self.op4_kind())
