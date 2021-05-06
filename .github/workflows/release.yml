@@ -533,17 +533,7 @@ jobs:
           dotnet nuget push --help
           cargo publish --help
 
-      - name: Upload coverage report
-        if: github.ref == 'refs/heads/master'
-        shell: bash
-        continue-on-error: true
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://codecov.io/bash | bash -s -- -f "/tmp/artifacts/coverage.info/$COVERAGE_FILENAME"
-        env:
-          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
-
       - name: Upload to nuget.org
-        if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
           for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
@@ -551,7 +541,6 @@ jobs:
           done
 
       - name: Upload to crates.io
-        if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
           git reset .
@@ -563,7 +552,6 @@ jobs:
           cargo publish --color always --no-verify
 
       - name: Upload to pypi.org
-        if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
           python -m twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
