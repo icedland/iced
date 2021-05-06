@@ -24,7 +24,7 @@ use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
-use core::{cmp, fmt, mem, ptr};
+use core::{cmp, fmt, mem, ptr, u32};
 use static_assertions::{const_assert, const_assert_eq};
 
 #[rustfmt::skip]
@@ -295,18 +295,20 @@ macro_rules! mk_read_value {
 		let data_ptr = $slf.data_ptr;
 		// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
 		#[allow(trivial_numeric_casts)]
-		if data_ptr + SIZE - 1 < $slf.max_data_ptr {
-			// SAFETY:
-			// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
-			// - ptr::read_unaligned: ptr is readable and data (u8 slice) is initialized
-			let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as $ret_ty;
-			// - data_ptr + SIZE doesn't overflow (verified in ctor since SIZE <= MAX_READ_SIZE)
-			// - data_ptr + SIZE <= self.max_data_ptr (see `if` check above)
-			$slf.data_ptr = data_ptr + SIZE;
-			result
-		} else {
-			$slf.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
-			0
+		{
+			if data_ptr + SIZE - 1 < $slf.max_data_ptr {
+				// SAFETY:
+				// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
+				// - ptr::read_unaligned: ptr is readable and data (u8 slice) is initialized
+				let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as $ret_ty;
+				// - data_ptr + SIZE doesn't overflow (verified in ctor since SIZE <= MAX_READ_SIZE)
+				// - data_ptr + SIZE <= self.max_data_ptr (see `if` check above)
+				$slf.data_ptr = data_ptr + SIZE;
+				result
+			} else {
+				$slf.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+				0
+			}
 		}
 	};
 }
