@@ -273,51 +273,51 @@ pub(crate) fn internal_set_memory_index_u32(this: &mut Instruction, new_value: u
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_op0_register(this: &mut Instruction, new_value: Register) {
-	this.reg0 = new_value as u8;
+	this.regs[0] = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_op0_register_u32(this: &mut Instruction, new_value: u32) {
-	this.reg0 = new_value as u8;
+	this.regs[0] = new_value as u8;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_op1_register(this: &mut Instruction, new_value: Register) {
-	this.reg1 = new_value as u8;
+	this.regs[1] = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_op1_register_u32(this: &mut Instruction, new_value: u32) {
-	this.reg1 = new_value as u8;
+	this.regs[1] = new_value as u8;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_op2_register(this: &mut Instruction, new_value: Register) {
-	this.reg2 = new_value as u8;
+	this.regs[2] = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_op2_register_u32(this: &mut Instruction, new_value: u32) {
-	this.reg2 = new_value as u8;
+	this.regs[2] = new_value as u8;
 }
 
 #[allow(dead_code)]
 #[cfg(feature = "encoder")]
 #[inline]
 pub(crate) fn internal_set_op3_register(this: &mut Instruction, new_value: Register) {
-	this.reg3 = new_value as u8;
+	this.regs[3] = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 #[inline]
 pub(crate) fn internal_set_op3_register_u32(this: &mut Instruction, new_value: u32) {
-	this.reg3 = new_value as u8;
+	this.regs[3] = new_value as u8;
 }
 
 #[cfg(feature = "encoder")]
