@@ -1043,7 +1043,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				}
 				macro_rules! fmt_register {
 					() => {{
-						call_format_register!(self, dst, dst_next_p, instruction.try_op_register(operand).unwrap_or_default())
+						call_format_register!(self, dst, dst_next_p, instruction_internal::internal_op_register(instruction, operand))
 					}};
 				}
 				macro_rules! fmt_far_br_16_32 {

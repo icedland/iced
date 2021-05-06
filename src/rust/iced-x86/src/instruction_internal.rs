@@ -14,7 +14,7 @@ use crate::*;
 #[cfg(feature = "encoder")]
 use core::{i16, i32, i8, u8};
 use core::{u16, u32};
-#[cfg(feature = "encoder")]
+#[cfg(any(feature = "encoder", feature = "fast_fmt"))]
 use static_assertions::const_assert_eq;
 
 #[cfg(feature = "decoder")]
@@ -274,6 +274,20 @@ pub(crate) fn internal_set_memory_index_u32(this: &mut Instruction, new_value: u
 #[inline]
 pub(crate) fn internal_segment_prefix_raw(this: &Instruction) -> u32 {
 	(((this.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1)
+}
+
+#[cfg(feature = "fast_fmt")]
+#[inline]
+pub(crate) fn internal_op_register(this: &Instruction, operand: u32) -> Register {
+	use core::mem;
+
+	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+	if let Some(&reg) = this.regs.get(operand as usize) {
+		unsafe { mem::transmute(reg) }
+	} else {
+		debug_assert_eq!(operand, 4);
+		this.op4_register()
+	}
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
