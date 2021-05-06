@@ -1863,7 +1863,7 @@ impl<'a> Decoder<'a> {
 	#[cfg(feature = "__internal_mem_vsib")]
 	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
-		self.read_op_mem_32_or_64_vsib(instruction, base_reg, TupleType::N1, false)
+		decoder_read_op_mem_32_or_64_vsib(self, instruction, base_reg, TupleType::N1, false)
 	}
 
 	// Returns `true` if the SIB byte was read
