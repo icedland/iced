@@ -270,6 +270,12 @@ pub(crate) fn internal_set_memory_index_u32(this: &mut Instruction, new_value: u
 	this.mem_index_reg = new_value as u8;
 }
 
+#[cfg(feature = "fast_fmt")]
+#[inline]
+pub(crate) fn internal_segment_prefix_raw(this: &Instruction) -> u32 {
+	(((this.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1)
+}
+
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_op0_register(this: &mut Instruction, new_value: Register) {

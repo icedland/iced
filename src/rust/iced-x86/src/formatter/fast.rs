@@ -832,12 +832,13 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			}
 		}
 
-		let prefix_seg = instruction.segment_prefix();
+		let prefix_seg = instruction_internal::internal_segment_prefix_raw(instruction);
 		const_assert_eq!(Register::None as u32, 0);
-		if ((prefix_seg as u32) | instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction)) != 0 {
-			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(code);
-			if !has_notrack_prefix && prefix_seg != Register::None && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count)
-			{
+		if prefix_seg < 6 || instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction) != 0 {
+			const DS_REG: u32 = 3;
+			let has_notrack_prefix = prefix_seg == DS_REG && is_notrack_prefix_branch(code);
+			if !has_notrack_prefix && prefix_seg < 6 && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count) {
+				let prefix_seg = unsafe { mem::transmute((Register::ES as u32 + prefix_seg) as u8) };
 				call_format_register!(self, dst, dst_next_p, prefix_seg);
 				write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
 			}
