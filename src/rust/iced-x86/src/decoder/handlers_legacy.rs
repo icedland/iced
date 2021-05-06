@@ -523,11 +523,16 @@ pub(super) struct OpCodeHandler_Ev_Iz {
 	code16: u32,
 	code32: u32,
 	code64: u32,
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Ev_Iz {
 	pub(super) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Ev_Iz::decode, has_modrm: true, code16, code32, code64, flags }
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Ev_Iz::decode, has_modrm: true, flags, code16, code32, code64, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -545,9 +550,7 @@ impl OpCodeHandler_Ev_Iz {
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -576,11 +579,16 @@ pub(super) struct OpCodeHandler_Ev_Ib {
 	code16: u32,
 	code32: u32,
 	code64: u32,
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Ev_Ib {
 	pub(super) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Ev_Ib::decode, has_modrm: true, code16, code32, code64, flags }
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Ev_Ib::decode, has_modrm: true, flags, code16, code32, code64, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -599,9 +607,7 @@ impl OpCodeHandler_Ev_Ib {
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -626,11 +632,16 @@ pub(super) struct OpCodeHandler_Ev_Ib2 {
 	has_modrm: bool,
 	flags: u32,
 	code: [u32; 3],
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Ev_Ib2 {
 	pub(super) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Ev_Ib2::decode, has_modrm: true, code: [code16, code32, code64], flags }
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Ev_Ib2::decode, has_modrm: true, flags, code: [code16, code32, code64], state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -651,9 +662,7 @@ impl OpCodeHandler_Ev_Ib2 {
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -740,11 +749,16 @@ pub(super) struct OpCodeHandler_Ev {
 	has_modrm: bool,
 	flags: u32,
 	code: [u32; 3],
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Ev {
 	pub(super) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Ev::decode, has_modrm: true, flags, code: [code16, code32, code64] }
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Ev::decode, has_modrm: true, flags, code: [code16, code32, code64], state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -762,9 +776,7 @@ impl OpCodeHandler_Ev {
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -1861,12 +1873,18 @@ pub(super) struct OpCodeHandler_Ev_Gv_flags {
 	has_modrm: bool,
 	flags: u32,
 	code: [u32; 3],
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Ev_Gv_flags {
 	pub(super) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
 		debug_assert!((flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0);
-		Self { decode: OpCodeHandler_Ev_Gv_flags::decode, has_modrm: true, flags, code: [code16, code32, code64] }
+
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Ev_Gv_flags::decode, has_modrm: true, flags, code: [code16, code32, code64], state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1887,9 +1905,7 @@ impl OpCodeHandler_Ev_Gv_flags {
 				(decoder.state.operand_size as u32) * 16 + decoder.state.rm + decoder.state.extra_base_register_base + Register::AX as u32,
 			);
 		} else {
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			decoder.set_xacquire_xrelease(instruction, this.flags);
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
@@ -4150,11 +4166,16 @@ pub(super) struct OpCodeHandler_Eb_Ib {
 	has_modrm: bool,
 	flags: u32,
 	code: u32,
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Eb_Ib {
 	pub(super) fn new(code: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Eb_Ib::decode, has_modrm: true, code, flags }
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Eb_Ib::decode, has_modrm: true, flags, code, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4173,9 +4194,7 @@ impl OpCodeHandler_Eb_Ib {
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -4261,11 +4280,16 @@ pub(super) struct OpCodeHandler_Eb {
 	has_modrm: bool,
 	flags: u32,
 	code: u32,
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Eb {
 	pub(super) fn new(code: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Eb::decode, has_modrm: true, code, flags }
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Eb::decode, has_modrm: true, flags, code, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4284,9 +4308,7 @@ impl OpCodeHandler_Eb {
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -4300,11 +4322,16 @@ pub(super) struct OpCodeHandler_Eb_Gb {
 	has_modrm: bool,
 	flags: u32,
 	code: u32,
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_Eb_Gb {
 	pub(super) fn new(code: u32, flags: u32) -> Self {
-		Self { decode: OpCodeHandler_Eb_Gb::decode, has_modrm: true, code, flags }
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_Eb_Gb::decode, has_modrm: true, flags, code, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4330,9 +4357,7 @@ impl OpCodeHandler_Eb_Gb {
 			if (this.flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, this.flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (this.flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
@@ -4423,11 +4448,18 @@ pub(super) struct OpCodeHandler_M_REXW {
 	flags64: u32,
 	code32: u32,
 	code64: u32,
+	state_flags_or_value: u32,
 }
 
 impl OpCodeHandler_M_REXW {
 	pub(super) fn new(code32: u32, code64: u32, flags32: u32, flags64: u32) -> Self {
-		Self { decode: OpCodeHandler_M_REXW::decode, has_modrm: true, code32, code64, flags32, flags64 }
+		debug_assert_eq!(flags32 & HandlerFlags::LOCK, flags64 & HandlerFlags::LOCK);
+
+		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
+		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		let state_flags_or_value = (flags32 & HandlerFlags::LOCK) << (13 - 3);
+
+		Self { decode: OpCodeHandler_M_REXW::decode, has_modrm: true, flags32, flags64, code32, code64, state_flags_or_value }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -4450,9 +4482,7 @@ impl OpCodeHandler_M_REXW {
 			if (flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0 {
 				decoder.set_xacquire_xrelease(instruction, flags);
 			}
-			const_assert_eq!(HandlerFlags::LOCK, 8);
-			const_assert_eq!(StateFlags::ALLOW_LOCK, 0x0000_2000);
-			decoder.state.flags |= (flags & HandlerFlags::LOCK) << (13 - 3);
+			decoder.state.flags |= this.state_flags_or_value;
 			instruction_internal::internal_set_op0_kind(instruction, OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
