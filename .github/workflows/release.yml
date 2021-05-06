@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v1.8.0
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
@@ -73,7 +73,7 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v1.8.0
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
@@ -477,7 +477,7 @@ jobs:
         with:
           # codecov needs fetch-depth > 1 (or 0)
           fetch-depth: 2
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v1.8.0
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
       - uses: actions/setup-python@v2
