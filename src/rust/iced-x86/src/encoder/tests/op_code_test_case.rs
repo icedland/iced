@@ -7,6 +7,7 @@ use alloc::string::String;
 
 #[derive(Default)]
 pub(super) struct OpCodeInfoTestCase {
+	#[allow(dead_code)]
 	pub(super) line_number: u32,
 	pub(super) code: Code,
 	pub(super) mnemonic: Mnemonic,

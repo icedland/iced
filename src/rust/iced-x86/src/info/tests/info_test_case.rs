@@ -7,6 +7,7 @@ use alloc::vec::Vec;
 
 #[derive(Default)]
 pub(super) struct InstrInfoTestCase {
+	#[allow(dead_code)]
 	pub(super) line_number: u32,
 	pub(super) bitness: u32,
 	pub(super) hex_bytes: String,

@@ -204,7 +204,7 @@ lazy_static! {
 				// GENERATOR-END: BroadcastToKindMatch
 				_ => unreachable!(),
 			};
-			v.push(Info { keywords, bcst_to });
+			v.push(Info { bcst_to, keywords });
 		}
 		v
 	};

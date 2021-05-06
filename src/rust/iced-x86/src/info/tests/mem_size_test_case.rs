@@ -5,6 +5,7 @@ use crate::*;
 
 #[derive(Default)]
 pub(super) struct MemorySizeInfoTestCase {
+	#[allow(dead_code)]
 	pub(super) line_number: u32,
 	pub(super) memory_size: MemorySize,
 	pub(super) size: usize,

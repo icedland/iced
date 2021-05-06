@@ -5,6 +5,7 @@ use crate::*;
 
 #[derive(Default)]
 pub(super) struct RegisterInfoTestCase {
+	#[allow(dead_code)]
 	pub(super) line_number: u32,
 	pub(super) register: Register,
 	pub(super) number: usize,

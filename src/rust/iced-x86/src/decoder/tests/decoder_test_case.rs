@@ -7,6 +7,7 @@ use alloc::string::String;
 
 #[derive(Default)]
 pub(crate) struct DecoderTestCase {
+	#[allow(dead_code)]
 	pub(crate) line_number: u32,
 	pub(crate) test_options: u32,
 	pub(crate) decoder_error: DecoderError,
