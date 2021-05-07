@@ -1584,8 +1584,7 @@ impl<'a> Decoder<'a> {
 		self.state.extra_base_register_base = (b1x >> 2) & 8;
 
 		if let Some(&table) = self.handlers_vex.get(((b1 & 0x1F) as usize).wrapping_sub(1)) {
-			// SAFETY: b >> 8 == 0..0xFF and within bounds
-			self.decode_table2(unsafe { table.get_unchecked((b2 >> 8) as usize) }, instruction);
+			self.decode_table2(table[(b2 >> 8) as usize], instruction);
 		} else {
 			self.set_invalid_instruction();
 		}
@@ -1633,8 +1632,7 @@ impl<'a> Decoder<'a> {
 		self.state.extra_base_register_base = (b1x >> 2) & 8;
 
 		if let Some(&table) = self.handlers_xop.get(((b1 & 0x1F) as usize).wrapping_sub(8)) {
-			// SAFETY: b >> 8 == 0..0xFF and within bounds
-			self.decode_table2(unsafe { table.get_unchecked((b2 >> 8) as usize) }, instruction);
+			self.decode_table2(table[(b2 >> 8) as usize], instruction);
 		} else {
 			self.set_invalid_instruction();
 		}
@@ -1715,8 +1713,7 @@ impl<'a> Decoder<'a> {
 				}
 
 				if let Some(&table) = self.handlers_evex.get(((p0 & 3) as usize).wrapping_sub(1)) {
-					// SAFETY: table has exactly 0x100 elements
-					let handler = unsafe { *table.get_unchecked((d >> 16) as u8 as usize) };
+					let handler = table[(d >> 16) as u8 as usize];
 					debug_assert!(handler.has_modrm);
 					let m = d >> 24;
 					self.state.modrm = m;
