@@ -812,7 +812,7 @@ impl Default for MemorySize {
 impl MemorySize {
 	/// Iterates over all `MemorySize` enum values
 	#[inline]
-	pub fn values() -> impl Iterator<Item = MemorySize> + ExactSizeIterator + FusedIterator {
+	pub fn values() -> impl Iterator<Item = MemorySize> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
 		(0..IcedConstants::MEMORY_SIZE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, MemorySize>(x as u8) })
 	}

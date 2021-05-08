@@ -260,7 +260,7 @@ namespace Generator.Enums.Rust {
 				using (writer.Indent()) {
 					writer.WriteLine($"/// Iterates over all `{enumTypeName}` enum values");
 					writer.WriteLine("#[inline]");
-					writer.WriteLine($"pub fn values() -> impl Iterator<Item = {enumTypeName}> + ExactSizeIterator + FusedIterator {{");
+					writer.WriteLine($"pub fn values() -> impl Iterator<Item = {enumTypeName}> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {{");
 					using (writer.Indent()) {
 						if (enumType.Values.Length == 1) {
 							writer.WriteLine($"static VALUES: [{enumTypeName}; 1] = [{enumTypeName}::{enumType.Values[0].Name(idConverter)}];");

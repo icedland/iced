@@ -140,7 +140,7 @@ impl Default for DecoderError {
 impl DecoderError {
 	/// Iterates over all `DecoderError` enum values
 	#[inline]
-	pub fn values() -> impl Iterator<Item = DecoderError> + ExactSizeIterator + FusedIterator {
+	pub fn values() -> impl Iterator<Item = DecoderError> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
 		(0..IcedConstants::DECODER_ERROR_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, DecoderError>(x as u8) })
 	}

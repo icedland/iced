@@ -37,7 +37,7 @@ impl Default for RelocKind {
 impl RelocKind {
 	/// Iterates over all `RelocKind` enum values
 	#[inline]
-	pub fn values() -> impl Iterator<Item = RelocKind> + ExactSizeIterator + FusedIterator {
+	pub fn values() -> impl Iterator<Item = RelocKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		static VALUES: [RelocKind; 1] = [RelocKind::Offset64];
 		VALUES.iter().copied()
 	}

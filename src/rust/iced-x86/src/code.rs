@@ -38918,7 +38918,7 @@ impl Default for Code {
 impl Code {
 	/// Iterates over all `Code` enum values
 	#[inline]
-	pub fn values() -> impl Iterator<Item = Code> + ExactSizeIterator + FusedIterator {
+	pub fn values() -> impl Iterator<Item = Code> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
 		(0..IcedConstants::CODE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u16, Code>(x as u16) })
 	}

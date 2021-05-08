@@ -1450,7 +1450,7 @@ impl Default for Register {
 impl Register {
 	/// Iterates over all `Register` enum values
 	#[inline]
-	pub fn values() -> impl Iterator<Item = Register> + ExactSizeIterator + FusedIterator {
+	pub fn values() -> impl Iterator<Item = Register> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
 		(0..IcedConstants::REGISTER_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, Register>(x as u8) })
 	}
