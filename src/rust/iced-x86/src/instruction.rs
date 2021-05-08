@@ -80,11 +80,11 @@ pub struct Instruction {
 	pub(crate) next_rip: u64,
 	pub(crate) code_flags: u32,    // CodeFlags
 	pub(crate) op_kind_flags: u32, // OpKindFlags
-	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
-	pub(crate) immediate: u32,
 	// This is the high 32 bits if it's a 64-bit immediate/offset/target
 	pub(crate) mem_displ: u32,
 	pub(crate) mem_displ_hi: u32,
+	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
+	pub(crate) immediate: u32,
 	pub(crate) memory_flags: u16, // MemoryFlags
 	pub(crate) mem_base_reg: u8,  // Register
 	pub(crate) mem_index_reg: u8, // Register

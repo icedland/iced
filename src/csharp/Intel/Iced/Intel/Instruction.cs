@@ -69,11 +69,11 @@ namespace Iced.Intel {
 		ulong nextRip;
 		uint codeFlags;// CodeFlags
 		uint opKindFlags;// OpKindFlags
-		// If it's a 64-bit immediate/offset/target, the high 32 bits is in memDispl
-		uint immediate;
 		// This is the high 32 bits if it's a 64-bit immediate/offset/target
 		uint memDispl;
 		uint memDisplHi;
+		// If it's a 64-bit immediate/offset/target, the high 32 bits is in memDispl
+		uint immediate;
 		ushort memoryFlags;// MemoryFlags
 		byte memBaseReg;// Register
 		byte memIndexReg;// Register
