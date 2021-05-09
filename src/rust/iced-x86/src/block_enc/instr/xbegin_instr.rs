@@ -67,7 +67,7 @@ impl XbeginInstr {
 		}
 	}
 
-	fn try_optimize(&mut self) -> bool {
+	fn try_optimize(&mut self, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rel16 {
 			return false;
 		}
@@ -75,6 +75,7 @@ impl XbeginInstr {
 		let target_address = self.target_instr.address(self);
 		let next_rip = self.ip.wrapping_add(self.short_instruction_size as u64);
 		let diff = target_address.wrapping_sub(next_rip) as i64;
+        let diff = correct_diff(self.target_instr.is_in_block(self.block()), diff,  gained);
 		if i16::MIN as i64 <= diff && diff <= i16::MAX as i64 {
 			self.instr_kind = InstrKind::Rel16;
 			self.size = self.short_instruction_size;
@@ -110,11 +111,11 @@ impl Instr for XbeginInstr {
 
 	fn initialize(&mut self, block_encoder: &BlockEncoder) {
 		self.target_instr = block_encoder.get_target(self, self.instruction.near_branch_target());
-		let _ = self.try_optimize();
+		let _ = self.try_optimize(0);
 	}
 
-	fn optimize(&mut self) -> bool {
-		self.try_optimize()
+	fn optimize(&mut self, gained: u64) -> bool {
+		self.try_optimize(gained)
 	}
 
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {
