@@ -91,7 +91,7 @@ impl JccInstr {
 		let mut target_address = self.target_instr.address(self);
 		let mut next_rip = self.ip.wrapping_add(self.short_instruction_size as u64);
 		let mut diff = target_address.wrapping_sub(next_rip) as i64;
-        diff = correct_diff(self.target_instr.is_in_block(self.block()), diff,  gained);
+		diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
 		if i8::MIN as i64 <= diff && diff <= i8::MAX as i64 {
 			if let Some(ref pointer_data) = self.pointer_data {
 				pointer_data.borrow_mut().is_valid = false;
@@ -107,7 +107,7 @@ impl JccInstr {
 			target_address = self.target_instr.address(self);
 			next_rip = self.ip.wrapping_add(self.near_instruction_size as u64);
 			diff = target_address.wrapping_sub(next_rip) as i64;
-            diff = correct_diff(self.target_instr.is_in_block(self.block()), diff,  gained);
+			diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
 			use_near = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 		if use_near {

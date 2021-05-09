@@ -314,7 +314,7 @@ impl BlockEncoder {
 			let mut updated = false;
 			for info in &mut self.blocks {
 				let mut ip = info.0.borrow().rip;
-                let mut gained = 0;
+				let mut gained = 0;
 				for instr in &mut info.1 {
 					let mut instr = instr.borrow_mut();
 					instr.set_ip(ip);
@@ -325,7 +325,7 @@ impl BlockEncoder {
 							return Err(IcedError::new("Internal error"));
 						}
 						if instr_size < old_size {
-                            gained += (instr_size - old_size) as u64;
+							gained += (instr_size - old_size) as u64;
 							updated = true;
 						}
 					} else if instr.size() != old_size {

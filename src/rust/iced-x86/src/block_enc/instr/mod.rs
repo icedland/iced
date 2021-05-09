@@ -42,7 +42,11 @@ pub(super) trait Instr {
 }
 
 fn correct_diff(in_block: bool, diff: i64, gained: u64) -> i64 {
-    if in_block && diff > gained as i64 { diff - gained as i64 } else { diff }
+	if in_block && diff > gained as i64 {
+		diff - gained as i64
+	} else {
+		diff
+	}
 }
 
 #[derive(Default)]

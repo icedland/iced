@@ -65,7 +65,7 @@ impl IpRelMemOpInstr {
 		if !use_rip {
 			let next_rip = self.ip.wrapping_add(self.rip_instruction_size as u64);
 			let diff = target_address.wrapping_sub(next_rip) as i64;
-            let diff = correct_diff(self.target_instr.is_in_block(self.block()), diff,  gained);
+			let diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
 			use_rip = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 
