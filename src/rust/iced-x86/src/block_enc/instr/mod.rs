@@ -42,7 +42,8 @@ pub(super) trait Instr {
 }
 
 fn correct_diff(in_block: bool, diff: i64, gained: u64) -> i64 {
-	if in_block && diff >= gained as i64 {
+	if in_block && diff >= 0 {
+		debug_assert!(diff as u64 >= gained);
 		diff - gained as i64
 	} else {
 		diff
