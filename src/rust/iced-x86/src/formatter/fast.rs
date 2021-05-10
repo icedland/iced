@@ -835,7 +835,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		let prefix_seg = instruction_internal::internal_segment_prefix_raw(instruction);
 		const_assert_eq!(Register::None as u32, 0);
 		if prefix_seg < 6 || instruction_internal::internal_has_any_of_xacquire_xrelease_lock_rep_repne_prefix(instruction) != 0 {
-			const DS_REG: u32 = 3;
+			const DS_REG: u32 = Register::DS as u32 - Register::ES as u32;
 			let has_notrack_prefix = prefix_seg == DS_REG && is_notrack_prefix_branch(code);
 			if !has_notrack_prefix && prefix_seg < 6 && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count) {
 				let prefix_seg = unsafe { mem::transmute((Register::ES as u32 + prefix_seg) as u8) };
