@@ -49,7 +49,7 @@ impl Instr for SimpleInstr {
 
 	fn initialize(&mut self, _block_encoder: &BlockEncoder) {}
 
-	fn optimize(&mut self) -> bool {
+	fn optimize(&mut self, _gained: u64) -> bool {
 		false
 	}
 
