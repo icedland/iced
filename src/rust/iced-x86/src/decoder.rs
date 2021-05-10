@@ -160,6 +160,11 @@ fn test_decodererror_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<DecoderError> = DecoderError::values().collect();
+	let mut values2: Vec<DecoderError> = DecoderError::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for DecoderError {

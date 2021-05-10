@@ -65,6 +65,11 @@ fn test_codesize_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CodeSize> = CodeSize::values().collect();
+	let mut values2: Vec<CodeSize> = CodeSize::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CodeSize {
@@ -152,6 +157,11 @@ fn test_roundingcontrol_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<RoundingControl> = RoundingControl::values().collect();
+	let mut values2: Vec<RoundingControl> = RoundingControl::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for RoundingControl {
@@ -387,6 +397,11 @@ fn test_opkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<OpKind> = OpKind::values().collect();
+	let mut values2: Vec<OpKind> = OpKind::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for OpKind {
@@ -553,6 +568,11 @@ fn test_encodingkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<EncodingKind> = EncodingKind::values().collect();
+	let mut values2: Vec<EncodingKind> = EncodingKind::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 #[rustfmt::skip]
@@ -677,6 +697,11 @@ fn test_tupletype_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<TupleType> = TupleType::values().collect();
+	let mut values2: Vec<TupleType> = TupleType::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[rustfmt::skip]
@@ -789,6 +814,11 @@ fn test_flowcontrol_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<FlowControl> = FlowControl::values().collect();
+	let mut values2: Vec<FlowControl> = FlowControl::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
@@ -1206,6 +1236,11 @@ fn test_opcodeoperandkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<OpCodeOperandKind> = OpCodeOperandKind::values().collect();
+	let mut values2: Vec<OpCodeOperandKind> = OpCodeOperandKind::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
@@ -1768,6 +1803,11 @@ fn test_cpuidfeature_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CpuidFeature> = CpuidFeature::values().collect();
+	let mut values2: Vec<CpuidFeature> = CpuidFeature::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
@@ -1914,6 +1954,11 @@ fn test_opaccess_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<OpAccess> = OpAccess::values().collect();
+	let mut values2: Vec<OpAccess> = OpAccess::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
@@ -2046,6 +2091,11 @@ fn test_conditioncode_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<ConditionCode> = ConditionCode::values().collect();
+	let mut values2: Vec<ConditionCode> = ConditionCode::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
@@ -2141,6 +2191,11 @@ fn test_mandatoryprefix_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<MandatoryPrefix> = MandatoryPrefix::values().collect();
+	let mut values2: Vec<MandatoryPrefix> = MandatoryPrefix::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
@@ -2243,6 +2298,11 @@ fn test_opcodetablekind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<OpCodeTableKind> = OpCodeTableKind::values().collect();
+	let mut values2: Vec<OpCodeTableKind> = OpCodeTableKind::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]

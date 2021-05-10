@@ -3322,6 +3322,11 @@ fn test_mnemonic_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<Mnemonic> = Mnemonic::values().collect();
+	let mut values2: Vec<Mnemonic> = Mnemonic::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for Mnemonic {

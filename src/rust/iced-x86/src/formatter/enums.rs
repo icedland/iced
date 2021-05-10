@@ -65,6 +65,11 @@ fn test_numberbase_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<NumberBase> = NumberBase::values().collect();
+	let mut values2: Vec<NumberBase> = NumberBase::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for NumberBase {
@@ -191,6 +196,11 @@ fn test_prefixkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<PrefixKind> = PrefixKind::values().collect();
+	let mut values2: Vec<PrefixKind> = PrefixKind::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for PrefixKind {
@@ -276,6 +286,11 @@ fn test_decoratorkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<DecoratorKind> = DecoratorKind::values().collect();
+	let mut values2: Vec<DecoratorKind> = DecoratorKind::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for DecoratorKind {
@@ -366,6 +381,11 @@ fn test_numberkind_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<NumberKind> = NumberKind::values().collect();
+	let mut values2: Vec<NumberKind> = NumberKind::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for NumberKind {
@@ -486,6 +506,11 @@ fn test_cc_b_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_b> = CC_b::values().collect();
+	let mut values2: Vec<CC_b> = CC_b::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_b {
@@ -568,6 +593,11 @@ fn test_cc_ae_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_ae> = CC_ae::values().collect();
+	let mut values2: Vec<CC_ae> = CC_ae::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_ae {
@@ -647,6 +677,11 @@ fn test_cc_e_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_e> = CC_e::values().collect();
+	let mut values2: Vec<CC_e> = CC_e::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_e {
@@ -726,6 +761,11 @@ fn test_cc_ne_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_ne> = CC_ne::values().collect();
+	let mut values2: Vec<CC_ne> = CC_ne::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_ne {
@@ -805,6 +845,11 @@ fn test_cc_be_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_be> = CC_be::values().collect();
+	let mut values2: Vec<CC_be> = CC_be::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_be {
@@ -884,6 +929,11 @@ fn test_cc_a_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_a> = CC_a::values().collect();
+	let mut values2: Vec<CC_a> = CC_a::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_a {
@@ -963,6 +1013,11 @@ fn test_cc_p_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_p> = CC_p::values().collect();
+	let mut values2: Vec<CC_p> = CC_p::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_p {
@@ -1042,6 +1097,11 @@ fn test_cc_np_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_np> = CC_np::values().collect();
+	let mut values2: Vec<CC_np> = CC_np::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_np {
@@ -1121,6 +1181,11 @@ fn test_cc_l_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_l> = CC_l::values().collect();
+	let mut values2: Vec<CC_l> = CC_l::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_l {
@@ -1200,6 +1265,11 @@ fn test_cc_ge_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_ge> = CC_ge::values().collect();
+	let mut values2: Vec<CC_ge> = CC_ge::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_ge {
@@ -1279,6 +1349,11 @@ fn test_cc_le_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_le> = CC_le::values().collect();
+	let mut values2: Vec<CC_le> = CC_le::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_le {
@@ -1358,6 +1433,11 @@ fn test_cc_g_values() {
 	for (i, value) in values.into_iter().enumerate() {
 		assert_eq!(i, value as usize);
 	}
+
+	let values1: Vec<CC_g> = CC_g::values().collect();
+	let mut values2: Vec<CC_g> = CC_g::values().rev().collect();
+	values2.reverse();
+	assert_eq!(values1, values2);
 }
 #[rustfmt::skip]
 impl TryFrom<usize> for CC_g {

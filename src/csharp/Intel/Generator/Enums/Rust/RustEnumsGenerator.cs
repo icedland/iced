@@ -293,6 +293,11 @@ namespace Generator.Enums.Rust {
 					using (writer.Indent())
 						writer.WriteLine("assert_eq!(i, value as usize);");
 					writer.WriteLine("}");
+					writer.WriteLine();
+					writer.WriteLine($"let values1: Vec<{enumTypeName}> = {enumTypeName}::values().collect();");
+					writer.WriteLine($"let mut values2: Vec<{enumTypeName}> = {enumTypeName}::values().rev().collect();");
+					writer.WriteLine("values2.reverse();");
+					writer.WriteLine("assert_eq!(values1, values2);");
 				}
 				writer.WriteLine("}");
 
