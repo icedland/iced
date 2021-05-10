@@ -36,9 +36,17 @@ pub(super) trait Instr {
 	fn initialize(&mut self, block_encoder: &BlockEncoder);
 
 	/// Returns `true` if the instruction was updated to a shorter instruction, `false` if nothing changed
-	fn optimize(&mut self) -> bool;
+	fn optimize(&mut self, gained: u64) -> bool;
 
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError>;
+}
+
+fn correct_diff(in_block: bool, diff: i64, gained: u64) -> i64 {
+	if in_block && diff >= gained as i64 {
+		diff - gained as i64
+	} else {
+		diff
+	}
 }
 
 #[derive(Default)]

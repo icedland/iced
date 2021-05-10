@@ -54,7 +54,7 @@ impl IpRelMemOpInstr {
 		}
 	}
 
-	fn try_optimize(&mut self) -> bool {
+	fn try_optimize(&mut self, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rip || self.instr_kind == InstrKind::Eip {
 			return false;
 		}
@@ -65,6 +65,7 @@ impl IpRelMemOpInstr {
 		if !use_rip {
 			let next_rip = self.ip.wrapping_add(self.rip_instruction_size as u64);
 			let diff = target_address.wrapping_sub(next_rip) as i64;
+			let diff = correct_diff(self.target_instr.is_in_block(self.block()), diff, gained);
 			use_rip = i32::MIN as i64 <= diff && diff <= i32::MAX as i64;
 		}
 
@@ -109,11 +110,11 @@ impl Instr for IpRelMemOpInstr {
 
 	fn initialize(&mut self, block_encoder: &BlockEncoder) {
 		self.target_instr = block_encoder.get_target(self, self.instruction.ip_rel_memory_address());
-		let _ = self.try_optimize();
+		let _ = self.try_optimize(0);
 	}
 
-	fn optimize(&mut self) -> bool {
-		self.try_optimize()
+	fn optimize(&mut self, gained: u64) -> bool {
+		self.try_optimize(gained)
 	}
 
 	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), IcedError> {

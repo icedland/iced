@@ -314,16 +314,18 @@ impl BlockEncoder {
 			let mut updated = false;
 			for info in &mut self.blocks {
 				let mut ip = info.0.borrow().rip;
+				let mut gained = 0;
 				for instr in &mut info.1 {
 					let mut instr = instr.borrow_mut();
 					instr.set_ip(ip);
 					let old_size = instr.size();
-					if instr.optimize() {
+					if instr.optimize(gained) {
 						let instr_size = instr.size();
 						if instr_size > old_size {
 							return Err(IcedError::new("Internal error"));
 						}
 						if instr_size < old_size {
+							gained += (old_size - instr_size) as u64;
 							updated = true;
 						}
 					} else if instr.size() != old_size {
