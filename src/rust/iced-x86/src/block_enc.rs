@@ -325,7 +325,7 @@ impl BlockEncoder {
 							return Err(IcedError::new("Internal error"));
 						}
 						if instr_size < old_size {
-							gained += (instr_size - old_size) as u64;
+							gained += (old_size - instr_size) as u64;
 							updated = true;
 						}
 					} else if instr.size() != old_size {
