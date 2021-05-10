@@ -49,48 +49,51 @@ fn correct_diff(in_block: bool, diff: i64, gained: u64) -> i64 {
 	}
 }
 
-#[derive(Default)]
-pub(super) struct TargetInstr {
-	instruction: Option<Rc<RefCell<dyn Instr>>>,
-	address: u64,
-	is_owner: bool,
+pub(super) enum TargetInstr {
+	Uninitialized,
+	Instruction(Rc<RefCell<dyn Instr>>),
+	Address(u64),
+	IsOwner,
+}
+
+impl Default for TargetInstr {
+	fn default() -> Self {
+		Self::Uninitialized
+	}
 }
 
 impl TargetInstr {
 	#[inline]
 	pub(super) fn new_instr(instruction: Rc<RefCell<dyn Instr>>) -> Self {
-		Self { instruction: Some(instruction.clone()), address: 0, is_owner: false }
+		TargetInstr::Instruction(instruction)
 	}
 
 	#[inline]
 	pub(super) fn new_address(address: u64) -> Self {
-		Self { instruction: None, address, is_owner: false }
+		TargetInstr::Address(address)
 	}
 
 	#[inline]
 	pub(super) fn new_owner() -> Self {
-		Self { instruction: None, address: 0, is_owner: true }
+		TargetInstr::IsOwner
 	}
 
 	fn is_in_block(&self, block: Rc<RefCell<Block>>) -> bool {
-		if self.is_owner {
+		match self {
+			TargetInstr::Instruction(instr) => Rc::ptr_eq(&instr.borrow().block(), &block),
+			TargetInstr::Address(_) => false,
 			// The owner checks if the input block is part of its block, so return true
-			true
-		} else if let Some(ref instr) = self.instruction {
-			Rc::ptr_eq(&instr.borrow().block(), &block)
-		} else {
-			false
+			TargetInstr::IsOwner => true,
+			TargetInstr::Uninitialized => unreachable!(),
 		}
 	}
 
 	fn address(&self, owner: &dyn Instr) -> u64 {
-		if self.is_owner {
-			owner.ip()
-		} else {
-			match self.instruction {
-				Some(ref instr) => instr.borrow().ip(),
-				None => self.address,
-			}
+		match self {
+			TargetInstr::Instruction(instr) => instr.borrow().ip(),
+			TargetInstr::Address(address) => *address,
+			TargetInstr::IsOwner => owner.ip(),
+			TargetInstr::Uninitialized => unreachable!(),
 		}
 	}
 }
