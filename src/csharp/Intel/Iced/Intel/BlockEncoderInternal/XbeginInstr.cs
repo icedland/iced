@@ -53,18 +53,19 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public override void Initialize(BlockEncoder blockEncoder) {
 			targetInstr = blockEncoder.GetTarget(instruction.NearBranchTarget);
-			TryOptimize();
+			TryOptimize(0);
 		}
 
-		public override bool Optimize() => TryOptimize();
+		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
-		bool TryOptimize() {
+		bool TryOptimize(ulong gained) {
 			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Rel16)
 				return false;
 
 			var targetAddress = targetInstr.GetAddress();
 			var nextRip = IP + shortInstructionSize;
 			long diff = (long)(targetAddress - nextRip);
+			diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
 			if (short.MinValue <= diff && diff <= short.MaxValue) {
 				instrKind = InstrKind.Rel16;
 				Size = shortInstructionSize;

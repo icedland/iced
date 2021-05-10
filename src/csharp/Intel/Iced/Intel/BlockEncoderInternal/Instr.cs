@@ -3,6 +3,7 @@
 
 #if ENCODER && BLOCK_ENCODER
 using System;
+using System.Diagnostics;
 
 namespace Iced.Intel.BlockEncoderInternal {
 	abstract class Instr {
@@ -28,7 +29,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		/// Returns <see langword="true"/> if the instruction was updated to a shorter instruction, <see langword="false"/> if nothing changed
 		/// </summary>
 		/// <returns></returns>
-		public abstract bool Optimize();
+		public abstract bool Optimize(ulong gained);
 
 		public abstract string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction);
 
@@ -255,6 +256,15 @@ namespace Iced.Intel.BlockEncoderInternal {
 				Block.CodeWriter.WriteByte(0x90);
 			}
 			return null;
+		}
+
+		protected static long CorrectDiff(bool inBlock, long diff, ulong gained) {
+			if (inBlock && diff >= 0) {
+				Debug.Assert((ulong)diff >= gained);
+				return diff - (long)gained;
+			}
+			else
+				return diff;
 		}
 	}
 }
