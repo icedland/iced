@@ -47,7 +47,7 @@ impl NumberBase {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = NumberBase> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::NUMBER_BASE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, NumberBase>(x as u8) })
+		(0..IcedConstants::NUMBER_BASE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, NumberBase>(x as u8) })
 	}
 }
 #[test]
@@ -173,7 +173,7 @@ impl PrefixKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = PrefixKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::PREFIX_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, PrefixKind>(x as u8) })
+		(0..IcedConstants::PREFIX_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, PrefixKind>(x as u8) })
 	}
 }
 #[test]
@@ -258,7 +258,7 @@ impl DecoratorKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = DecoratorKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::DECORATOR_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, DecoratorKind>(x as u8) })
+		(0..IcedConstants::DECORATOR_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, DecoratorKind>(x as u8) })
 	}
 }
 #[test]
@@ -348,7 +348,7 @@ impl NumberKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = NumberKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::NUMBER_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, NumberKind>(x as u8) })
+		(0..IcedConstants::NUMBER_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, NumberKind>(x as u8) })
 	}
 }
 #[test]
@@ -468,7 +468,7 @@ impl CC_b {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_b> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_B_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_b>(x as u8) })
+		(0..IcedConstants::CC_B_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_b>(x as u8) })
 	}
 }
 #[test]
@@ -550,7 +550,7 @@ impl CC_ae {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_ae> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_AE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_ae>(x as u8) })
+		(0..IcedConstants::CC_AE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_ae>(x as u8) })
 	}
 }
 #[test]
@@ -629,7 +629,7 @@ impl CC_e {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_e> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_E_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_e>(x as u8) })
+		(0..IcedConstants::CC_E_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_e>(x as u8) })
 	}
 }
 #[test]
@@ -708,7 +708,7 @@ impl CC_ne {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_ne> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_NE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_ne>(x as u8) })
+		(0..IcedConstants::CC_NE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_ne>(x as u8) })
 	}
 }
 #[test]
@@ -787,7 +787,7 @@ impl CC_be {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_be> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_BE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_be>(x as u8) })
+		(0..IcedConstants::CC_BE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_be>(x as u8) })
 	}
 }
 #[test]
@@ -866,7 +866,7 @@ impl CC_a {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_a> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_A_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_a>(x as u8) })
+		(0..IcedConstants::CC_A_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_a>(x as u8) })
 	}
 }
 #[test]
@@ -945,7 +945,7 @@ impl CC_p {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_p> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_P_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_p>(x as u8) })
+		(0..IcedConstants::CC_P_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_p>(x as u8) })
 	}
 }
 #[test]
@@ -1024,7 +1024,7 @@ impl CC_np {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_np> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_NP_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_np>(x as u8) })
+		(0..IcedConstants::CC_NP_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_np>(x as u8) })
 	}
 }
 #[test]
@@ -1103,7 +1103,7 @@ impl CC_l {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_l> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_L_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_l>(x as u8) })
+		(0..IcedConstants::CC_L_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_l>(x as u8) })
 	}
 }
 #[test]
@@ -1182,7 +1182,7 @@ impl CC_ge {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_ge> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_GE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_ge>(x as u8) })
+		(0..IcedConstants::CC_GE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_ge>(x as u8) })
 	}
 }
 #[test]
@@ -1261,7 +1261,7 @@ impl CC_le {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_le> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_LE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_le>(x as u8) })
+		(0..IcedConstants::CC_LE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_le>(x as u8) })
 	}
 }
 #[test]
@@ -1340,7 +1340,7 @@ impl CC_g {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CC_g> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CC_G_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CC_g>(x as u8) })
+		(0..IcedConstants::CC_G_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CC_g>(x as u8) })
 	}
 }
 #[test]

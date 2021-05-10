@@ -268,7 +268,7 @@ namespace Generator.Enums.Rust {
 						}
 						else {
 							writer.WriteLine("// SAFETY: all values 0-max are valid enum values");
-							writer.WriteLine($"(0..{icedConstValue}).map(|x| unsafe {{ core::mem::transmute::<{enumUnderlyingType}, {enumTypeName}>(x as {enumUnderlyingType}) }})");
+							writer.WriteLine($"(0..{icedConstValue}).map(|x| unsafe {{ mem::transmute::<{enumUnderlyingType}, {enumTypeName}>(x as {enumUnderlyingType}) }})");
 						}
 					}
 					writer.WriteLine("}");

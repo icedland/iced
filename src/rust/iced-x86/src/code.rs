@@ -38920,7 +38920,7 @@ impl Code {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = Code> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CODE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u16, Code>(x as u16) })
+		(0..IcedConstants::CODE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u16, Code>(x as u16) })
 	}
 }
 #[test]

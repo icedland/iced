@@ -47,7 +47,7 @@ impl CodeSize {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CodeSize> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CODE_SIZE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CodeSize>(x as u8) })
+		(0..IcedConstants::CODE_SIZE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CodeSize>(x as u8) })
 	}
 }
 #[test]
@@ -134,7 +134,7 @@ impl RoundingControl {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = RoundingControl> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::ROUNDING_CONTROL_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, RoundingControl>(x as u8) })
+		(0..IcedConstants::ROUNDING_CONTROL_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, RoundingControl>(x as u8) })
 	}
 }
 #[test]
@@ -369,7 +369,7 @@ impl OpKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = OpKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::OP_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, OpKind>(x as u8) })
+		(0..IcedConstants::OP_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, OpKind>(x as u8) })
 	}
 }
 #[test]
@@ -534,7 +534,7 @@ impl EncodingKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = EncodingKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::ENCODING_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, EncodingKind>(x as u8) })
+		(0..IcedConstants::ENCODING_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, EncodingKind>(x as u8) })
 	}
 }
 #[test]
@@ -658,7 +658,7 @@ impl TupleType {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = TupleType> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::TUPLE_TYPE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, TupleType>(x as u8) })
+		(0..IcedConstants::TUPLE_TYPE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, TupleType>(x as u8) })
 	}
 }
 #[test]
@@ -770,7 +770,7 @@ impl FlowControl {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = FlowControl> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::FLOW_CONTROL_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, FlowControl>(x as u8) })
+		(0..IcedConstants::FLOW_CONTROL_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, FlowControl>(x as u8) })
 	}
 }
 #[test]
@@ -1187,7 +1187,7 @@ impl OpCodeOperandKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = OpCodeOperandKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::OP_CODE_OPERAND_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, OpCodeOperandKind>(x as u8) })
+		(0..IcedConstants::OP_CODE_OPERAND_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, OpCodeOperandKind>(x as u8) })
 	}
 }
 #[test]
@@ -1749,7 +1749,7 @@ impl CpuidFeature {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = CpuidFeature> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CPUID_FEATURE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, CpuidFeature>(x as u8) })
+		(0..IcedConstants::CPUID_FEATURE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, CpuidFeature>(x as u8) })
 	}
 }
 #[test]
@@ -1895,7 +1895,7 @@ impl OpAccess {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = OpAccess> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::OP_ACCESS_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, OpAccess>(x as u8) })
+		(0..IcedConstants::OP_ACCESS_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, OpAccess>(x as u8) })
 	}
 }
 #[test]
@@ -2027,7 +2027,7 @@ impl ConditionCode {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = ConditionCode> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::CONDITION_CODE_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, ConditionCode>(x as u8) })
+		(0..IcedConstants::CONDITION_CODE_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, ConditionCode>(x as u8) })
 	}
 }
 #[test]
@@ -2122,7 +2122,7 @@ impl MandatoryPrefix {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = MandatoryPrefix> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::MANDATORY_PREFIX_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, MandatoryPrefix>(x as u8) })
+		(0..IcedConstants::MANDATORY_PREFIX_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, MandatoryPrefix>(x as u8) })
 	}
 }
 #[test]
@@ -2224,7 +2224,7 @@ impl OpCodeTableKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = OpCodeTableKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::OP_CODE_TABLE_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, OpCodeTableKind>(x as u8) })
+		(0..IcedConstants::OP_CODE_TABLE_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, OpCodeTableKind>(x as u8) })
 	}
 }
 #[test]

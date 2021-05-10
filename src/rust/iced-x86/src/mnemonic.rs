@@ -3304,7 +3304,7 @@ impl Mnemonic {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = Mnemonic> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::MNEMONIC_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u16, Mnemonic>(x as u16) })
+		(0..IcedConstants::MNEMONIC_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u16, Mnemonic>(x as u16) })
 	}
 }
 #[test]

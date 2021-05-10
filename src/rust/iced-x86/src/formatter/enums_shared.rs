@@ -100,7 +100,7 @@ impl FormatterTextKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = FormatterTextKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, FormatterTextKind>(x as u8) })
+		(0..IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, FormatterTextKind>(x as u8) })
 	}
 }
 #[test]
@@ -245,7 +245,7 @@ impl MemorySizeOptions {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = MemorySizeOptions> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, MemorySizeOptions>(x as u8) })
+		(0..IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, MemorySizeOptions>(x as u8) })
 	}
 }
 #[test]

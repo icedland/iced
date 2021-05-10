@@ -607,7 +607,7 @@ impl RepPrefixKind {
 	#[inline]
 	pub fn values() -> impl Iterator<Item = RepPrefixKind> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
-		(0..IcedConstants::REP_PREFIX_KIND_ENUM_COUNT).map(|x| unsafe { core::mem::transmute::<u8, RepPrefixKind>(x as u8) })
+		(0..IcedConstants::REP_PREFIX_KIND_ENUM_COUNT).map(|x| unsafe { mem::transmute::<u8, RepPrefixKind>(x as u8) })
 	}
 }
 #[test]
