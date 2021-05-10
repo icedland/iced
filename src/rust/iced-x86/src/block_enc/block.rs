@@ -63,7 +63,7 @@ impl Block {
 		if self.valid_data.is_empty() {
 			return Ok(());
 		}
-		for _ in 0..self.valid_data_address_aligned - self.valid_data_address {
+		for _ in 0..self.valid_data_address_aligned.wrapping_sub(self.valid_data_address) {
 			self.encoder.write_byte_internal(0xCC);
 		}
 		match self.alignment {
