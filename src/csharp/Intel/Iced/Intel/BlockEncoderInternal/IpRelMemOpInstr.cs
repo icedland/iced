@@ -44,12 +44,12 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public override void Initialize(BlockEncoder blockEncoder) {
 			targetInstr = blockEncoder.GetTarget(instruction.IPRelativeMemoryAddress);
-			TryOptimize();
+			TryOptimize(0);
 		}
 
-		public override bool Optimize() => TryOptimize();
+		public override bool Optimize(ulong gained) => TryOptimize(gained);
 
-		bool TryOptimize() {
+		bool TryOptimize(ulong gained) {
 			if (instrKind == InstrKind.Unchanged || instrKind == InstrKind.Rip || instrKind == InstrKind.Eip)
 				return false;
 
@@ -59,6 +59,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			if (!useRip) {
 				var nextRip = IP + ripInstructionSize;
 				long diff = (long)(targetAddress - nextRip);
+				diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
 				useRip = int.MinValue <= diff && diff <= int.MaxValue;
 			}
 

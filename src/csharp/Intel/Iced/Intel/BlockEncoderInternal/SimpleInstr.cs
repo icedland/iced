@@ -16,7 +16,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 		}
 
 		public override void Initialize(BlockEncoder blockEncoder) { }
-		public override bool Optimize() => false;
+		public override bool Optimize(ulong gained) => false;
 
 		public override string? TryEncode(Encoder encoder, out ConstantOffsets constantOffsets, out bool isOriginalInstruction) {
 			isOriginalInstruction = true;
