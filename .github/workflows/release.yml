@@ -26,7 +26,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - uses: actions/setup-dotnet@v1.8.0
         with:
@@ -67,7 +67,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Install Rust
         shell: bash
@@ -98,7 +98,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Install Rust
         shell: bash
@@ -145,7 +145,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Install Rust
         shell: bash
@@ -201,7 +201,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Build manylinux i686
         shell: bash
@@ -227,7 +227,7 @@ jobs:
         os: [macos-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Install Rust
         shell: bash
@@ -311,7 +311,7 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Install Rust
         shell: bash
@@ -391,7 +391,7 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Install Rust
         shell: bash
@@ -473,7 +473,7 @@ jobs:
       - build-rust-python-windows-x86
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           # codecov needs fetch-depth > 1 (or 0)
           fetch-depth: 2
