@@ -623,6 +623,246 @@ vpcomuq $6,%xmm3,%xmm6,%xmm2
 vpcomuq $7,%xmm3,%xmm6,%xmm2
 vpcomuq $8,%xmm3,%xmm6,%xmm2
 
+vpcmpb $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpb $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpb $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpb $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpb $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpb $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpw $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpw $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpw $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpw $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpw $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpw $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpd $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpd $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpd $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpd $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpd $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpd $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpq $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpq $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpq $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpq $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpq $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpq $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpub $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpub $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpub $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpub $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpub $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpub $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpuw $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpuw $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpuw $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpuw $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpuw $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpuw $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpud $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpud $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpud $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpud $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpud $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpud $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpuq $0,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $1,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $2,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $3,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $4,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $5,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $6,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $7,%xmm3,%xmm6,%k2{%k3}
+vpcmpuq $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpuq $0,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $1,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $2,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $3,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $4,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $5,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $6,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $7,%ymm3,%ymm6,%k2{%k3}
+vpcmpuq $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpuq $0,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $1,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $2,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $3,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $4,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $5,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $6,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $7,%zmm3,%zmm6,%k2{%k3}
+vpcmpuq $8,%zmm3,%zmm6,%k2{%k3}
+
 faddp
 fcom
 fcomp
@@ -1230,6 +1470,246 @@ vpcomnequq %xmm3,%xmm6,%xmm2
 vpcomfalseuq %xmm3,%xmm6,%xmm2
 vpcomtrueuq %xmm3,%xmm6,%xmm2
 vpcomuq $8,%xmm3,%xmm6,%xmm2
+
+vpcmpeqb %xmm3,%xmm6,%k2{%k3}
+vpcmpltb %xmm3,%xmm6,%k2{%k3}
+vpcmpleb %xmm3,%xmm6,%k2{%k3}
+vpcmpfalseb %xmm3,%xmm6,%k2{%k3}
+vpcmpneqb %xmm3,%xmm6,%k2{%k3}
+vpcmpnltb %xmm3,%xmm6,%k2{%k3}
+vpcmpnleb %xmm3,%xmm6,%k2{%k3}
+vpcmptrueb %xmm3,%xmm6,%k2{%k3}
+vpcmpb $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpeqb %ymm3,%ymm6,%k2{%k3}
+vpcmpltb %ymm3,%ymm6,%k2{%k3}
+vpcmpleb %ymm3,%ymm6,%k2{%k3}
+vpcmpfalseb %ymm3,%ymm6,%k2{%k3}
+vpcmpneqb %ymm3,%ymm6,%k2{%k3}
+vpcmpnltb %ymm3,%ymm6,%k2{%k3}
+vpcmpnleb %ymm3,%ymm6,%k2{%k3}
+vpcmptrueb %ymm3,%ymm6,%k2{%k3}
+vpcmpb $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpeqb %zmm3,%zmm6,%k2{%k3}
+vpcmpltb %zmm3,%zmm6,%k2{%k3}
+vpcmpleb %zmm3,%zmm6,%k2{%k3}
+vpcmpfalseb %zmm3,%zmm6,%k2{%k3}
+vpcmpneqb %zmm3,%zmm6,%k2{%k3}
+vpcmpnltb %zmm3,%zmm6,%k2{%k3}
+vpcmpnleb %zmm3,%zmm6,%k2{%k3}
+vpcmptrueb %zmm3,%zmm6,%k2{%k3}
+vpcmpb $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpeqw %xmm3,%xmm6,%k2{%k3}
+vpcmpltw %xmm3,%xmm6,%k2{%k3}
+vpcmplew %xmm3,%xmm6,%k2{%k3}
+vpcmpfalsew %xmm3,%xmm6,%k2{%k3}
+vpcmpneqw %xmm3,%xmm6,%k2{%k3}
+vpcmpnltw %xmm3,%xmm6,%k2{%k3}
+vpcmpnlew %xmm3,%xmm6,%k2{%k3}
+vpcmptruew %xmm3,%xmm6,%k2{%k3}
+vpcmpw $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpeqw %ymm3,%ymm6,%k2{%k3}
+vpcmpltw %ymm3,%ymm6,%k2{%k3}
+vpcmplew %ymm3,%ymm6,%k2{%k3}
+vpcmpfalsew %ymm3,%ymm6,%k2{%k3}
+vpcmpneqw %ymm3,%ymm6,%k2{%k3}
+vpcmpnltw %ymm3,%ymm6,%k2{%k3}
+vpcmpnlew %ymm3,%ymm6,%k2{%k3}
+vpcmptruew %ymm3,%ymm6,%k2{%k3}
+vpcmpw $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpeqw %zmm3,%zmm6,%k2{%k3}
+vpcmpltw %zmm3,%zmm6,%k2{%k3}
+vpcmplew %zmm3,%zmm6,%k2{%k3}
+vpcmpfalsew %zmm3,%zmm6,%k2{%k3}
+vpcmpneqw %zmm3,%zmm6,%k2{%k3}
+vpcmpnltw %zmm3,%zmm6,%k2{%k3}
+vpcmpnlew %zmm3,%zmm6,%k2{%k3}
+vpcmptruew %zmm3,%zmm6,%k2{%k3}
+vpcmpw $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpeqd %xmm3,%xmm6,%k2{%k3}
+vpcmpltd %xmm3,%xmm6,%k2{%k3}
+vpcmpled %xmm3,%xmm6,%k2{%k3}
+vpcmpfalsed %xmm3,%xmm6,%k2{%k3}
+vpcmpneqd %xmm3,%xmm6,%k2{%k3}
+vpcmpnltd %xmm3,%xmm6,%k2{%k3}
+vpcmpnled %xmm3,%xmm6,%k2{%k3}
+vpcmptrued %xmm3,%xmm6,%k2{%k3}
+vpcmpd $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpeqd %ymm3,%ymm6,%k2{%k3}
+vpcmpltd %ymm3,%ymm6,%k2{%k3}
+vpcmpled %ymm3,%ymm6,%k2{%k3}
+vpcmpfalsed %ymm3,%ymm6,%k2{%k3}
+vpcmpneqd %ymm3,%ymm6,%k2{%k3}
+vpcmpnltd %ymm3,%ymm6,%k2{%k3}
+vpcmpnled %ymm3,%ymm6,%k2{%k3}
+vpcmptrued %ymm3,%ymm6,%k2{%k3}
+vpcmpd $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpeqd %zmm3,%zmm6,%k2{%k3}
+vpcmpltd %zmm3,%zmm6,%k2{%k3}
+vpcmpled %zmm3,%zmm6,%k2{%k3}
+vpcmpfalsed %zmm3,%zmm6,%k2{%k3}
+vpcmpneqd %zmm3,%zmm6,%k2{%k3}
+vpcmpnltd %zmm3,%zmm6,%k2{%k3}
+vpcmpnled %zmm3,%zmm6,%k2{%k3}
+vpcmptrued %zmm3,%zmm6,%k2{%k3}
+vpcmpd $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpeqq %xmm3,%xmm6,%k2{%k3}
+vpcmpltq %xmm3,%xmm6,%k2{%k3}
+vpcmpleq %xmm3,%xmm6,%k2{%k3}
+vpcmpfalseq %xmm3,%xmm6,%k2{%k3}
+vpcmpneqq %xmm3,%xmm6,%k2{%k3}
+vpcmpnltq %xmm3,%xmm6,%k2{%k3}
+vpcmpnleq %xmm3,%xmm6,%k2{%k3}
+vpcmptrueq %xmm3,%xmm6,%k2{%k3}
+vpcmpq $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpeqq %ymm3,%ymm6,%k2{%k3}
+vpcmpltq %ymm3,%ymm6,%k2{%k3}
+vpcmpleq %ymm3,%ymm6,%k2{%k3}
+vpcmpfalseq %ymm3,%ymm6,%k2{%k3}
+vpcmpneqq %ymm3,%ymm6,%k2{%k3}
+vpcmpnltq %ymm3,%ymm6,%k2{%k3}
+vpcmpnleq %ymm3,%ymm6,%k2{%k3}
+vpcmptrueq %ymm3,%ymm6,%k2{%k3}
+vpcmpq $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpeqq %zmm3,%zmm6,%k2{%k3}
+vpcmpltq %zmm3,%zmm6,%k2{%k3}
+vpcmpleq %zmm3,%zmm6,%k2{%k3}
+vpcmpfalseq %zmm3,%zmm6,%k2{%k3}
+vpcmpneqq %zmm3,%zmm6,%k2{%k3}
+vpcmpnltq %zmm3,%zmm6,%k2{%k3}
+vpcmpnleq %zmm3,%zmm6,%k2{%k3}
+vpcmptrueq %zmm3,%zmm6,%k2{%k3}
+vpcmpq $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpequb %xmm3,%xmm6,%k2{%k3}
+vpcmpltub %xmm3,%xmm6,%k2{%k3}
+vpcmpleub %xmm3,%xmm6,%k2{%k3}
+vpcmpfalseub %xmm3,%xmm6,%k2{%k3}
+vpcmpnequb %xmm3,%xmm6,%k2{%k3}
+vpcmpnltub %xmm3,%xmm6,%k2{%k3}
+vpcmpnleub %xmm3,%xmm6,%k2{%k3}
+vpcmptrueub %xmm3,%xmm6,%k2{%k3}
+vpcmpub $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpequb %ymm3,%ymm6,%k2{%k3}
+vpcmpltub %ymm3,%ymm6,%k2{%k3}
+vpcmpleub %ymm3,%ymm6,%k2{%k3}
+vpcmpfalseub %ymm3,%ymm6,%k2{%k3}
+vpcmpnequb %ymm3,%ymm6,%k2{%k3}
+vpcmpnltub %ymm3,%ymm6,%k2{%k3}
+vpcmpnleub %ymm3,%ymm6,%k2{%k3}
+vpcmptrueub %ymm3,%ymm6,%k2{%k3}
+vpcmpub $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpequb %zmm3,%zmm6,%k2{%k3}
+vpcmpltub %zmm3,%zmm6,%k2{%k3}
+vpcmpleub %zmm3,%zmm6,%k2{%k3}
+vpcmpfalseub %zmm3,%zmm6,%k2{%k3}
+vpcmpnequb %zmm3,%zmm6,%k2{%k3}
+vpcmpnltub %zmm3,%zmm6,%k2{%k3}
+vpcmpnleub %zmm3,%zmm6,%k2{%k3}
+vpcmptrueub %zmm3,%zmm6,%k2{%k3}
+vpcmpub $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpequw %xmm3,%xmm6,%k2{%k3}
+vpcmpltuw %xmm3,%xmm6,%k2{%k3}
+vpcmpleuw %xmm3,%xmm6,%k2{%k3}
+vpcmpfalseuw %xmm3,%xmm6,%k2{%k3}
+vpcmpnequw %xmm3,%xmm6,%k2{%k3}
+vpcmpnltuw %xmm3,%xmm6,%k2{%k3}
+vpcmpnleuw %xmm3,%xmm6,%k2{%k3}
+vpcmptrueuw %xmm3,%xmm6,%k2{%k3}
+vpcmpuw $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpequw %ymm3,%ymm6,%k2{%k3}
+vpcmpltuw %ymm3,%ymm6,%k2{%k3}
+vpcmpleuw %ymm3,%ymm6,%k2{%k3}
+vpcmpfalseuw %ymm3,%ymm6,%k2{%k3}
+vpcmpnequw %ymm3,%ymm6,%k2{%k3}
+vpcmpnltuw %ymm3,%ymm6,%k2{%k3}
+vpcmpnleuw %ymm3,%ymm6,%k2{%k3}
+vpcmptrueuw %ymm3,%ymm6,%k2{%k3}
+vpcmpuw $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpequw %zmm3,%zmm6,%k2{%k3}
+vpcmpltuw %zmm3,%zmm6,%k2{%k3}
+vpcmpleuw %zmm3,%zmm6,%k2{%k3}
+vpcmpfalseuw %zmm3,%zmm6,%k2{%k3}
+vpcmpnequw %zmm3,%zmm6,%k2{%k3}
+vpcmpnltuw %zmm3,%zmm6,%k2{%k3}
+vpcmpnleuw %zmm3,%zmm6,%k2{%k3}
+vpcmptrueuw %zmm3,%zmm6,%k2{%k3}
+vpcmpuw $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpequd %xmm3,%xmm6,%k2{%k3}
+vpcmpltud %xmm3,%xmm6,%k2{%k3}
+vpcmpleud %xmm3,%xmm6,%k2{%k3}
+vpcmpfalseud %xmm3,%xmm6,%k2{%k3}
+vpcmpnequd %xmm3,%xmm6,%k2{%k3}
+vpcmpnltud %xmm3,%xmm6,%k2{%k3}
+vpcmpnleud %xmm3,%xmm6,%k2{%k3}
+vpcmptrueud %xmm3,%xmm6,%k2{%k3}
+vpcmpud $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpequd %ymm3,%ymm6,%k2{%k3}
+vpcmpltud %ymm3,%ymm6,%k2{%k3}
+vpcmpleud %ymm3,%ymm6,%k2{%k3}
+vpcmpfalseud %ymm3,%ymm6,%k2{%k3}
+vpcmpnequd %ymm3,%ymm6,%k2{%k3}
+vpcmpnltud %ymm3,%ymm6,%k2{%k3}
+vpcmpnleud %ymm3,%ymm6,%k2{%k3}
+vpcmptrueud %ymm3,%ymm6,%k2{%k3}
+vpcmpud $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpequd %zmm3,%zmm6,%k2{%k3}
+vpcmpltud %zmm3,%zmm6,%k2{%k3}
+vpcmpleud %zmm3,%zmm6,%k2{%k3}
+vpcmpfalseud %zmm3,%zmm6,%k2{%k3}
+vpcmpnequd %zmm3,%zmm6,%k2{%k3}
+vpcmpnltud %zmm3,%zmm6,%k2{%k3}
+vpcmpnleud %zmm3,%zmm6,%k2{%k3}
+vpcmptrueud %zmm3,%zmm6,%k2{%k3}
+vpcmpud $8,%zmm3,%zmm6,%k2{%k3}
+
+vpcmpequq %xmm3,%xmm6,%k2{%k3}
+vpcmpltuq %xmm3,%xmm6,%k2{%k3}
+vpcmpleuq %xmm3,%xmm6,%k2{%k3}
+vpcmpfalseuq %xmm3,%xmm6,%k2{%k3}
+vpcmpnequq %xmm3,%xmm6,%k2{%k3}
+vpcmpnltuq %xmm3,%xmm6,%k2{%k3}
+vpcmpnleuq %xmm3,%xmm6,%k2{%k3}
+vpcmptrueuq %xmm3,%xmm6,%k2{%k3}
+vpcmpuq $8,%xmm3,%xmm6,%k2{%k3}
+
+vpcmpequq %ymm3,%ymm6,%k2{%k3}
+vpcmpltuq %ymm3,%ymm6,%k2{%k3}
+vpcmpleuq %ymm3,%ymm6,%k2{%k3}
+vpcmpfalseuq %ymm3,%ymm6,%k2{%k3}
+vpcmpnequq %ymm3,%ymm6,%k2{%k3}
+vpcmpnltuq %ymm3,%ymm6,%k2{%k3}
+vpcmpnleuq %ymm3,%ymm6,%k2{%k3}
+vpcmptrueuq %ymm3,%ymm6,%k2{%k3}
+vpcmpuq $8,%ymm3,%ymm6,%k2{%k3}
+
+vpcmpequq %zmm3,%zmm6,%k2{%k3}
+vpcmpltuq %zmm3,%zmm6,%k2{%k3}
+vpcmpleuq %zmm3,%zmm6,%k2{%k3}
+vpcmpfalseuq %zmm3,%zmm6,%k2{%k3}
+vpcmpnequq %zmm3,%zmm6,%k2{%k3}
+vpcmpnltuq %zmm3,%zmm6,%k2{%k3}
+vpcmpnleuq %zmm3,%zmm6,%k2{%k3}
+vpcmptrueuq %zmm3,%zmm6,%k2{%k3}
+vpcmpuq $8,%zmm3,%zmm6,%k2{%k3}
 
 imul $0xffff,%cx,%cx
 imul $0xffffffff,%ecx,%ecx

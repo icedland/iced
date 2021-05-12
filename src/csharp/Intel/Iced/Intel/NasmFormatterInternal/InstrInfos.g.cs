@@ -14748,8 +14748,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x02,// 0x2
 
 				// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xB8, 0x09,// 1208 = "vpcmpud"
+				0x18,// vpcmpud
 
 				// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 				0x80,// 'v', Previous
@@ -14758,8 +14759,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xB9, 0x09,// 1209 = "vpcmpuq"
+				0x19,// vpcmpuq
 
 				// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 				0x80,// 'v', Previous
@@ -14768,8 +14770,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xBA, 0x09,// 1210 = "vpcmpd"
+				0x14,// vpcmpd
 
 				// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 				0x80,// 'v', Previous
@@ -14778,8 +14781,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xBB, 0x09,// 1211 = "vpcmpq"
+				0x15,// vpcmpq
 
 				// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 				0x80,// 'v', Previous
@@ -14999,8 +15003,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0xD9, 0x09,// 1241 = "vextracti64x4"
 
 				// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xDA, 0x09,// 1242 = "vpcmpub"
+				0x16,// vpcmpub
 
 				// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 				0x80,// 'v', Previous
@@ -15009,8 +15014,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xDB, 0x09,// 1243 = "vpcmpuw"
+				0x17,// vpcmpuw
 
 				// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 				0x80,// 'v', Previous
@@ -15019,8 +15025,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xDC, 0x09,// 1244 = "vpcmpb"
+				0x12,// vpcmpb
 
 				// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 				0x80,// 'v', Previous
@@ -15029,8 +15036,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
-				0x81,// 'v', Normal_1
+				0xB0,// 'v', pops
 				0xDD, 0x09,// 1245 = "vpcmpw"
+				0x13,// vpcmpw
 
 				// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 				0x80,// 'v', Previous

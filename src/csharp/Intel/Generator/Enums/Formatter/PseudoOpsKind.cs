@@ -22,5 +22,13 @@ namespace Generator.Enums.Formatter {
 		vpcomuw,
 		vpcomud,
 		vpcomuq,
+		vpcmpb,
+		vpcmpw,
+		vpcmpd,
+		vpcmpq,
+		vpcmpub,
+		vpcmpuw,
+		vpcmpud,
+		vpcmpuq,
 	}
 }

@@ -41,6 +41,14 @@ pub(super) fn get_pseudo_ops(kind: PseudoOpsKind) -> &'static Vec<FastStringMnem
 		PseudoOpsKind::vpcomuw => &pseudo_ops.vpcomuw,
 		PseudoOpsKind::vpcomud => &pseudo_ops.vpcomud,
 		PseudoOpsKind::vpcomuq => &pseudo_ops.vpcomuq,
+		PseudoOpsKind::vpcmpb => &pseudo_ops.vpcmpb,
+		PseudoOpsKind::vpcmpw => &pseudo_ops.vpcmpw,
+		PseudoOpsKind::vpcmpd => &pseudo_ops.vpcmpd,
+		PseudoOpsKind::vpcmpq => &pseudo_ops.vpcmpq,
+		PseudoOpsKind::vpcmpub => &pseudo_ops.vpcmpub,
+		PseudoOpsKind::vpcmpuw => &pseudo_ops.vpcmpuw,
+		PseudoOpsKind::vpcmpud => &pseudo_ops.vpcmpud,
+		PseudoOpsKind::vpcmpuq => &pseudo_ops.vpcmpuq,
 	}
 }
 
@@ -63,6 +71,14 @@ struct PseudoOps {
 	vpcomuw: Vec<FastStringMnemonic>,
 	vpcomud: Vec<FastStringMnemonic>,
 	vpcomuq: Vec<FastStringMnemonic>,
+	vpcmpb: Vec<FastStringMnemonic>,
+	vpcmpw: Vec<FastStringMnemonic>,
+	vpcmpd: Vec<FastStringMnemonic>,
+	vpcmpq: Vec<FastStringMnemonic>,
+	vpcmpub: Vec<FastStringMnemonic>,
+	vpcmpuw: Vec<FastStringMnemonic>,
+	vpcmpud: Vec<FastStringMnemonic>,
+	vpcmpuq: Vec<FastStringMnemonic>,
 }
 
 lazy_static! {
@@ -146,6 +162,26 @@ lazy_static! {
 			mk_const_fast_str!(FastStringMnemonic, "\x0Dvpclmulhqhqdq       "),
 		];
 
+		#[rustfmt::skip]
+		let pcmpcc: [&'static str; 8] = [
+			"eq",
+			"lt",
+			"le",
+			"false",
+			"neq",
+			"nlt",
+			"nle",
+			"true",
+		];
+		let vpcmpb = create(&pcmpcc, 8, "vpcmp", "b");
+		let vpcmpw = create(&pcmpcc, 8, "vpcmp", "w");
+		let vpcmpd = create(&pcmpcc, 8, "vpcmp", "d");
+		let vpcmpq = create(&pcmpcc, 8, "vpcmp", "q");
+		let vpcmpub = create(&pcmpcc, 8, "vpcmp", "ub");
+		let vpcmpuw = create(&pcmpcc, 8, "vpcmp", "uw");
+		let vpcmpud = create(&pcmpcc, 8, "vpcmp", "ud");
+		let vpcmpuq = create(&pcmpcc, 8, "vpcmp", "uq");
+
 		PseudoOps {
 			cmpps,
 			vcmpps,
@@ -165,6 +201,14 @@ lazy_static! {
 			vpcomuw,
 			vpcomud,
 			vpcomuq,
+			vpcmpb,
+			vpcmpw,
+			vpcmpd,
+			vpcmpq,
+			vpcmpub,
+			vpcmpuw,
+			vpcmpud,
+			vpcmpuq,
 		}
 	};
 }

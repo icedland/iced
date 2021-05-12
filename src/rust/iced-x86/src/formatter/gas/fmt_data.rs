@@ -16023,8 +16023,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// 0x1
 
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xB8, 0x09,// 1208 = "vpcmpud"
+	0x18,// vpcmpud
+	0x00,// False
 
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -16033,8 +16035,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xB9, 0x09,// 1209 = "vpcmpuq"
+	0x19,// vpcmpuq
+	0x00,// False
 
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -16043,8 +16047,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xBA, 0x09,// 1210 = "vpcmpd"
+	0x14,// vpcmpd
+	0x00,// False
 
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -16053,8 +16059,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xBB, 0x09,// 1211 = "vpcmpq"
+	0x15,// vpcmpq
+	0x00,// False
 
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -16270,8 +16278,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xD9, 0x09,// 1241 = "vextracti64x4"
 
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xDA, 0x09,// 1242 = "vpcmpub"
+	0x16,// vpcmpub
+	0x00,// False
 
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -16280,8 +16290,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xDB, 0x09,// 1243 = "vpcmpuw"
+	0x17,// vpcmpuw
+	0x00,// False
 
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -16290,8 +16302,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xDC, 0x09,// 1244 = "vpcmpb"
+	0x12,// vpcmpb
+	0x00,// False
 
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -16300,8 +16314,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0xA8,// 'v', pops
 	0xDD, 0x09,// 1245 = "vpcmpw"
+	0x13,// vpcmpw
+	0x00,// False
 
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous

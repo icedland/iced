@@ -1278,7 +1278,15 @@ namespace IcedFuzzer.Core {
 				Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 or Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 or Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 or
 				Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8 or Code.XOP_Vpcomb_xmm_xmm_xmmm128_imm8 or Code.XOP_Vpcomw_xmm_xmm_xmmm128_imm8 or
 				Code.XOP_Vpcomd_xmm_xmm_xmmm128_imm8 or Code.XOP_Vpcomq_xmm_xmm_xmmm128_imm8 or Code.XOP_Vpcomub_xmm_xmm_xmmm128_imm8 or
-				Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8 or Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8 or Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8 => true,
+				Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8 or Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8 or Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8 or
+				Code.EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8 or Code.EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8 or Code.EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8 or
+				Code.EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8 or Code.EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8 or Code.EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8 or
+				Code.EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8 or Code.EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8 or Code.EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8 or
+				Code.EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8 or Code.EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8 or Code.EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8 or
+				Code.EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8 or Code.EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8 or Code.EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8 or
+				Code.EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8 or Code.EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8 or Code.EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8 or
+				Code.EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8 or Code.EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8 or Code.EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8 or
+				Code.EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8 or Code.EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8 or Code.EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8 => true,
 				_ => false,
 			};
 

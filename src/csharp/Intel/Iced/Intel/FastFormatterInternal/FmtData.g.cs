@@ -12940,44 +12940,44 @@ namespace Iced.Intel.FastFormatterInternal {
 				0x03,// HasVPrefix, SameAsPrev
 
 				// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
-				0x01,// HasVPrefix
+				0xC9,// HasVPrefix, vpcmpud
 				0xB8, 0x09,// 1208 = "vpcmpud"
 
 				// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xCB,// HasVPrefix, SameAsPrev, vpcmpud
 
 				// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xCB,// HasVPrefix, SameAsPrev, vpcmpud
 
 				// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
-				0x01,// HasVPrefix
+				0xD1,// HasVPrefix, vpcmpuq
 				0xB9, 0x09,// 1209 = "vpcmpuq"
 
 				// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xD3,// HasVPrefix, SameAsPrev, vpcmpuq
 
 				// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xD3,// HasVPrefix, SameAsPrev, vpcmpuq
 
 				// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
-				0x01,// HasVPrefix
+				0xA9,// HasVPrefix, vpcmpd
 				0xBA, 0x09,// 1210 = "vpcmpd"
 
 				// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xAB,// HasVPrefix, SameAsPrev, vpcmpd
 
 				// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xAB,// HasVPrefix, SameAsPrev, vpcmpd
 
 				// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
-				0x01,// HasVPrefix
+				0xB1,// HasVPrefix, vpcmpq
 				0xBB, 0x09,// 1211 = "vpcmpq"
 
 				// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xB3,// HasVPrefix, SameAsPrev, vpcmpq
 
 				// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xB3,// HasVPrefix, SameAsPrev, vpcmpq
 
 				// Pinsrb_xmm_r32m8_imm8
 				0x00,// No flags set
@@ -13179,44 +13179,44 @@ namespace Iced.Intel.FastFormatterInternal {
 				0xD9, 0x09,// 1241 = "vextracti64x4"
 
 				// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
-				0x01,// HasVPrefix
+				0xB9,// HasVPrefix, vpcmpub
 				0xDA, 0x09,// 1242 = "vpcmpub"
 
 				// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xBB,// HasVPrefix, SameAsPrev, vpcmpub
 
 				// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xBB,// HasVPrefix, SameAsPrev, vpcmpub
 
 				// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
-				0x01,// HasVPrefix
+				0xC1,// HasVPrefix, vpcmpuw
 				0xDB, 0x09,// 1243 = "vpcmpuw"
 
 				// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xC3,// HasVPrefix, SameAsPrev, vpcmpuw
 
 				// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xC3,// HasVPrefix, SameAsPrev, vpcmpuw
 
 				// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
-				0x01,// HasVPrefix
+				0x99,// HasVPrefix, vpcmpb
 				0xDC, 0x09,// 1244 = "vpcmpb"
 
 				// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0x9B,// HasVPrefix, SameAsPrev, vpcmpb
 
 				// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0x9B,// HasVPrefix, SameAsPrev, vpcmpb
 
 				// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
-				0x01,// HasVPrefix
+				0xA1,// HasVPrefix, vpcmpw
 				0xDD, 0x09,// 1245 = "vpcmpw"
 
 				// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xA3,// HasVPrefix, SameAsPrev, vpcmpw
 
 				// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
-				0x03,// HasVPrefix, SameAsPrev
+				0xA3,// HasVPrefix, SameAsPrev, vpcmpw
 
 				// Dpps_xmm_xmmm128_imm8
 				0x00,// No flags set

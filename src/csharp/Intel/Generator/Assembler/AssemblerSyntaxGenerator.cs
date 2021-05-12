@@ -1403,6 +1403,9 @@ namespace Generator.Assembler {
 				for (int i = 0; i < pseudoInfo.Length; i++) {
 					var (name, imm) = pseudoInfo[i];
 					var key = new GroupKey(name, signature);
+					// eg. EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32 vs EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
+					if (groups.ContainsKey(key))
+						continue;
 
 					var newGroup = new OpCodeInfoGroup(memDefs, defs, name, signature) {
 						Flags = OpCodeArgFlags.Pseudo,

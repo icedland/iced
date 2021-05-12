@@ -27,6 +27,14 @@ namespace Iced.Intel {
 				PseudoOpsKind.vpcomuw => vpcomuw_pseudo_ops,
 				PseudoOpsKind.vpcomud => vpcomud_pseudo_ops,
 				PseudoOpsKind.vpcomuq => vpcomuq_pseudo_ops,
+				PseudoOpsKind.vpcmpb => vpcmpb_pseudo_ops,
+				PseudoOpsKind.vpcmpw => vpcmpw_pseudo_ops,
+				PseudoOpsKind.vpcmpd => vpcmpd_pseudo_ops,
+				PseudoOpsKind.vpcmpq => vpcmpq_pseudo_ops,
+				PseudoOpsKind.vpcmpub => vpcmpub_pseudo_ops,
+				PseudoOpsKind.vpcmpuw => vpcmpuw_pseudo_ops,
+				PseudoOpsKind.vpcmpud => vpcmpud_pseudo_ops,
+				PseudoOpsKind.vpcmpuq => vpcmpuq_pseudo_ops,
 				_ => throw new ArgumentOutOfRangeException(nameof(kind)),
 			};
 
@@ -92,6 +100,25 @@ namespace Iced.Intel {
 			vpcomuw_pseudo_ops = Create(xopcc, 8, "vpcom", "uw");
 			vpcomud_pseudo_ops = Create(xopcc, 8, "vpcom", "ud");
 			vpcomuq_pseudo_ops = Create(xopcc, 8, "vpcom", "uq");
+
+			var pcmpcc = new string[8] {
+				"eq",
+				"lt",
+				"le",
+				"false",
+				"neq",
+				"nlt",
+				"nle",
+				"true",
+			};
+			vpcmpb_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "b");
+			vpcmpw_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "w");
+			vpcmpd_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "d");
+			vpcmpq_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "q");
+			vpcmpub_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "ub");
+			vpcmpuw_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "uw");
+			vpcmpud_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "ud");
+			vpcmpuq_pseudo_ops = Create(pcmpcc, 8, "vpcmp", "uq");
 		}
 
 		static FormatterString[] Create(string[] cc, int size, string prefix, string suffix) {
@@ -132,6 +159,15 @@ namespace Iced.Intel {
 		static readonly FormatterString[] vpcomuw_pseudo_ops;
 		static readonly FormatterString[] vpcomud_pseudo_ops;
 		static readonly FormatterString[] vpcomuq_pseudo_ops;
+
+		static readonly FormatterString[] vpcmpb_pseudo_ops;
+		static readonly FormatterString[] vpcmpw_pseudo_ops;
+		static readonly FormatterString[] vpcmpd_pseudo_ops;
+		static readonly FormatterString[] vpcmpq_pseudo_ops;
+		static readonly FormatterString[] vpcmpub_pseudo_ops;
+		static readonly FormatterString[] vpcmpuw_pseudo_ops;
+		static readonly FormatterString[] vpcmpud_pseudo_ops;
+		static readonly FormatterString[] vpcmpuq_pseudo_ops;
 	}
 }
 #endif

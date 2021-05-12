@@ -30,6 +30,14 @@ pub(super) fn get_pseudo_ops(kind: PseudoOpsKind) -> &'static Vec<FormatterStrin
 		PseudoOpsKind::vpcomuw => &pseudo_ops.vpcomuw,
 		PseudoOpsKind::vpcomud => &pseudo_ops.vpcomud,
 		PseudoOpsKind::vpcomuq => &pseudo_ops.vpcomuq,
+		PseudoOpsKind::vpcmpb => &pseudo_ops.vpcmpb,
+		PseudoOpsKind::vpcmpw => &pseudo_ops.vpcmpw,
+		PseudoOpsKind::vpcmpd => &pseudo_ops.vpcmpd,
+		PseudoOpsKind::vpcmpq => &pseudo_ops.vpcmpq,
+		PseudoOpsKind::vpcmpub => &pseudo_ops.vpcmpub,
+		PseudoOpsKind::vpcmpuw => &pseudo_ops.vpcmpuw,
+		PseudoOpsKind::vpcmpud => &pseudo_ops.vpcmpud,
+		PseudoOpsKind::vpcmpuq => &pseudo_ops.vpcmpuq,
 	}
 }
 
@@ -52,6 +60,14 @@ struct PseudoOps {
 	vpcomuw: Vec<FormatterString>,
 	vpcomud: Vec<FormatterString>,
 	vpcomuq: Vec<FormatterString>,
+	vpcmpb: Vec<FormatterString>,
+	vpcmpw: Vec<FormatterString>,
+	vpcmpd: Vec<FormatterString>,
+	vpcmpq: Vec<FormatterString>,
+	vpcmpub: Vec<FormatterString>,
+	vpcmpuw: Vec<FormatterString>,
+	vpcmpud: Vec<FormatterString>,
+	vpcmpuq: Vec<FormatterString>,
 }
 
 lazy_static! {
@@ -123,6 +139,26 @@ lazy_static! {
 		let vpcomuq = create(&mut sb, &xopcc, 8, "vpcom", "uq");
 
 		#[rustfmt::skip]
+		let pcmpcc: [&'static str; 8] = [
+			"eq",
+			"lt",
+			"le",
+			"false",
+			"neq",
+			"nlt",
+			"nle",
+			"true",
+		];
+		let vpcmpb = create(&mut sb, &pcmpcc, 8, "vpcmp", "b");
+		let vpcmpw = create(&mut sb, &pcmpcc, 8, "vpcmp", "w");
+		let vpcmpd = create(&mut sb, &pcmpcc, 8, "vpcmp", "d");
+		let vpcmpq = create(&mut sb, &pcmpcc, 8, "vpcmp", "q");
+		let vpcmpub = create(&mut sb, &pcmpcc, 8, "vpcmp", "ub");
+		let vpcmpuw = create(&mut sb, &pcmpcc, 8, "vpcmp", "uw");
+		let vpcmpud = create(&mut sb, &pcmpcc, 8, "vpcmp", "ud");
+		let vpcmpuq = create(&mut sb, &pcmpcc, 8, "vpcmp", "uq");
+
+		#[rustfmt::skip]
 		let pclmulqdq = vec![
 			FormatterString::new_str("pclmullqlqdq"),
 			FormatterString::new_str("pclmulhqlqdq"),
@@ -157,6 +193,14 @@ lazy_static! {
 			vpcomuw,
 			vpcomud,
 			vpcomuq,
+			vpcmpb,
+			vpcmpw,
+			vpcmpd,
+			vpcmpq,
+			vpcmpub,
+			vpcmpuw,
+			vpcmpud,
+			vpcmpuq,
 		}
 	};
 }

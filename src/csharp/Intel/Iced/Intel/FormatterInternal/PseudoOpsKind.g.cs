@@ -26,6 +26,14 @@ namespace Iced.Intel.FormatterInternal {
 		vpcomuw,
 		vpcomud,
 		vpcomuq,
+		vpcmpb,
+		vpcmpw,
+		vpcmpd,
+		vpcmpq,
+		vpcmpub,
+		vpcmpuw,
+		vpcmpud,
+		vpcmpuq,
 	}
 }
 #endif

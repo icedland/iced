@@ -76368,6 +76368,102 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
+		/// <summary>vpcmpequb instruction.</summary>
+		public void vpcmpequb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequb instruction.</summary>
+		public void vpcmpequb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequb instruction.</summary>
+		public void vpcmpequb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequb instruction.</summary>
+		public void vpcmpequb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequb instruction.</summary>
+		public void vpcmpequb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequb instruction.</summary>
+		public void vpcmpequb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequd instruction.</summary>
+		public void vpcmpequd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequd instruction.</summary>
+		public void vpcmpequd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequd instruction.</summary>
+		public void vpcmpequd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequd instruction.</summary>
+		public void vpcmpequd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequd instruction.</summary>
+		public void vpcmpequd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequd instruction.</summary>
+		public void vpcmpequd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequq instruction.</summary>
+		public void vpcmpequq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequq instruction.</summary>
+		public void vpcmpequq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequq instruction.</summary>
+		public void vpcmpequq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequq instruction.</summary>
+		public void vpcmpequq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequq instruction.</summary>
+		public void vpcmpequq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequq instruction.</summary>
+		public void vpcmpequq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequw instruction.</summary>
+		public void vpcmpequw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequw instruction.</summary>
+		public void vpcmpequw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequw instruction.</summary>
+		public void vpcmpequw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequw instruction.</summary>
+		public void vpcmpequw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequw instruction.</summary>
+		public void vpcmpequw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 0);
+		}
+		/// <summary>vpcmpequw instruction.</summary>
+		public void vpcmpequw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 0);
+		}
 		/// <summary>vpcmpeqw instruction.<br/>
 		/// <br/>
 		/// <c>VPCMPEQW k1 {k2}, xmm2, xmm3/m128</c><br/>
@@ -76731,6 +76827,198 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm));
+		}
+		/// <summary>vpcmpfalseb instruction.</summary>
+		public void vpcmpfalseb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpb(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseb instruction.</summary>
+		public void vpcmpfalseb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpb(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseb instruction.</summary>
+		public void vpcmpfalseb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpb(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseb instruction.</summary>
+		public void vpcmpfalseb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseb instruction.</summary>
+		public void vpcmpfalseb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseb instruction.</summary>
+		public void vpcmpfalseb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsed instruction.</summary>
+		public void vpcmpfalsed(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpd(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsed instruction.</summary>
+		public void vpcmpfalsed(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpd(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsed instruction.</summary>
+		public void vpcmpfalsed(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpd(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsed instruction.</summary>
+		public void vpcmpfalsed(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsed instruction.</summary>
+		public void vpcmpfalsed(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsed instruction.</summary>
+		public void vpcmpfalsed(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseq instruction.</summary>
+		public void vpcmpfalseq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseq instruction.</summary>
+		public void vpcmpfalseq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseq instruction.</summary>
+		public void vpcmpfalseq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseq instruction.</summary>
+		public void vpcmpfalseq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseq instruction.</summary>
+		public void vpcmpfalseq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseq instruction.</summary>
+		public void vpcmpfalseq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseub instruction.</summary>
+		public void vpcmpfalseub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseub instruction.</summary>
+		public void vpcmpfalseub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseub instruction.</summary>
+		public void vpcmpfalseub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseub instruction.</summary>
+		public void vpcmpfalseub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseub instruction.</summary>
+		public void vpcmpfalseub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseub instruction.</summary>
+		public void vpcmpfalseub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseud instruction.</summary>
+		public void vpcmpfalseud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseud instruction.</summary>
+		public void vpcmpfalseud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseud instruction.</summary>
+		public void vpcmpfalseud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseud instruction.</summary>
+		public void vpcmpfalseud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseud instruction.</summary>
+		public void vpcmpfalseud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseud instruction.</summary>
+		public void vpcmpfalseud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuq instruction.</summary>
+		public void vpcmpfalseuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuq instruction.</summary>
+		public void vpcmpfalseuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuq instruction.</summary>
+		public void vpcmpfalseuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuq instruction.</summary>
+		public void vpcmpfalseuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuq instruction.</summary>
+		public void vpcmpfalseuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuq instruction.</summary>
+		public void vpcmpfalseuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuw instruction.</summary>
+		public void vpcmpfalseuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuw instruction.</summary>
+		public void vpcmpfalseuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuw instruction.</summary>
+		public void vpcmpfalseuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuw instruction.</summary>
+		public void vpcmpfalseuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuw instruction.</summary>
+		public void vpcmpfalseuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalseuw instruction.</summary>
+		public void vpcmpfalseuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsew instruction.</summary>
+		public void vpcmpfalsew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsew instruction.</summary>
+		public void vpcmpfalsew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsew instruction.</summary>
+		public void vpcmpfalsew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsew instruction.</summary>
+		public void vpcmpfalsew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsew instruction.</summary>
+		public void vpcmpfalsew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 3);
+		}
+		/// <summary>vpcmpfalsew instruction.</summary>
+		public void vpcmpfalsew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 3);
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
 		/// <br/>
@@ -77404,6 +77692,966 @@ namespace Iced.Intel {
 			op = Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm));
 		}
+		/// <summary>vpcmpleb instruction.</summary>
+		public void vpcmpleb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpb(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleb instruction.</summary>
+		public void vpcmpleb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpb(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleb instruction.</summary>
+		public void vpcmpleb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpb(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleb instruction.</summary>
+		public void vpcmpleb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleb instruction.</summary>
+		public void vpcmpleb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleb instruction.</summary>
+		public void vpcmpleb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpled instruction.</summary>
+		public void vpcmpled(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpd(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpled instruction.</summary>
+		public void vpcmpled(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpd(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpled instruction.</summary>
+		public void vpcmpled(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpd(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpled instruction.</summary>
+		public void vpcmpled(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpled instruction.</summary>
+		public void vpcmpled(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpled instruction.</summary>
+		public void vpcmpled(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleq instruction.</summary>
+		public void vpcmpleq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleq instruction.</summary>
+		public void vpcmpleq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleq instruction.</summary>
+		public void vpcmpleq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleq instruction.</summary>
+		public void vpcmpleq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleq instruction.</summary>
+		public void vpcmpleq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleq instruction.</summary>
+		public void vpcmpleq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleub instruction.</summary>
+		public void vpcmpleub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleub instruction.</summary>
+		public void vpcmpleub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleub instruction.</summary>
+		public void vpcmpleub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleub instruction.</summary>
+		public void vpcmpleub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleub instruction.</summary>
+		public void vpcmpleub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleub instruction.</summary>
+		public void vpcmpleub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleud instruction.</summary>
+		public void vpcmpleud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleud instruction.</summary>
+		public void vpcmpleud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleud instruction.</summary>
+		public void vpcmpleud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleud instruction.</summary>
+		public void vpcmpleud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleud instruction.</summary>
+		public void vpcmpleud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleud instruction.</summary>
+		public void vpcmpleud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuq instruction.</summary>
+		public void vpcmpleuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuq instruction.</summary>
+		public void vpcmpleuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuq instruction.</summary>
+		public void vpcmpleuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuq instruction.</summary>
+		public void vpcmpleuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuq instruction.</summary>
+		public void vpcmpleuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuq instruction.</summary>
+		public void vpcmpleuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuw instruction.</summary>
+		public void vpcmpleuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuw instruction.</summary>
+		public void vpcmpleuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuw instruction.</summary>
+		public void vpcmpleuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuw instruction.</summary>
+		public void vpcmpleuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuw instruction.</summary>
+		public void vpcmpleuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpleuw instruction.</summary>
+		public void vpcmpleuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmplew instruction.</summary>
+		public void vpcmplew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmplew instruction.</summary>
+		public void vpcmplew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmplew instruction.</summary>
+		public void vpcmplew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmplew instruction.</summary>
+		public void vpcmplew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmplew instruction.</summary>
+		public void vpcmplew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmplew instruction.</summary>
+		public void vpcmplew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 2);
+		}
+		/// <summary>vpcmpltb instruction.</summary>
+		public void vpcmpltb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpb(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltb instruction.</summary>
+		public void vpcmpltb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpb(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltb instruction.</summary>
+		public void vpcmpltb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpb(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltb instruction.</summary>
+		public void vpcmpltb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltb instruction.</summary>
+		public void vpcmpltb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltb instruction.</summary>
+		public void vpcmpltb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltd instruction.</summary>
+		public void vpcmpltd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpd(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltd instruction.</summary>
+		public void vpcmpltd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpd(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltd instruction.</summary>
+		public void vpcmpltd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpd(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltd instruction.</summary>
+		public void vpcmpltd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltd instruction.</summary>
+		public void vpcmpltd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltd instruction.</summary>
+		public void vpcmpltd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltq instruction.</summary>
+		public void vpcmpltq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltq instruction.</summary>
+		public void vpcmpltq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltq instruction.</summary>
+		public void vpcmpltq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltq instruction.</summary>
+		public void vpcmpltq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltq instruction.</summary>
+		public void vpcmpltq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltq instruction.</summary>
+		public void vpcmpltq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltub instruction.</summary>
+		public void vpcmpltub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltub instruction.</summary>
+		public void vpcmpltub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltub instruction.</summary>
+		public void vpcmpltub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltub instruction.</summary>
+		public void vpcmpltub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltub instruction.</summary>
+		public void vpcmpltub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltub instruction.</summary>
+		public void vpcmpltub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltud instruction.</summary>
+		public void vpcmpltud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltud instruction.</summary>
+		public void vpcmpltud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltud instruction.</summary>
+		public void vpcmpltud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltud instruction.</summary>
+		public void vpcmpltud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltud instruction.</summary>
+		public void vpcmpltud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltud instruction.</summary>
+		public void vpcmpltud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuq instruction.</summary>
+		public void vpcmpltuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuq instruction.</summary>
+		public void vpcmpltuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuq instruction.</summary>
+		public void vpcmpltuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuq instruction.</summary>
+		public void vpcmpltuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuq instruction.</summary>
+		public void vpcmpltuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuq instruction.</summary>
+		public void vpcmpltuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuw instruction.</summary>
+		public void vpcmpltuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuw instruction.</summary>
+		public void vpcmpltuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuw instruction.</summary>
+		public void vpcmpltuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuw instruction.</summary>
+		public void vpcmpltuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuw instruction.</summary>
+		public void vpcmpltuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltuw instruction.</summary>
+		public void vpcmpltuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltw instruction.</summary>
+		public void vpcmpltw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltw instruction.</summary>
+		public void vpcmpltw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltw instruction.</summary>
+		public void vpcmpltw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltw instruction.</summary>
+		public void vpcmpltw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltw instruction.</summary>
+		public void vpcmpltw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpltw instruction.</summary>
+		public void vpcmpltw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 1);
+		}
+		/// <summary>vpcmpneqb instruction.</summary>
+		public void vpcmpneqb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpb(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqb instruction.</summary>
+		public void vpcmpneqb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpb(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqb instruction.</summary>
+		public void vpcmpneqb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpb(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqb instruction.</summary>
+		public void vpcmpneqb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqb instruction.</summary>
+		public void vpcmpneqb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqb instruction.</summary>
+		public void vpcmpneqb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqd instruction.</summary>
+		public void vpcmpneqd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpd(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqd instruction.</summary>
+		public void vpcmpneqd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpd(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqd instruction.</summary>
+		public void vpcmpneqd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpd(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqd instruction.</summary>
+		public void vpcmpneqd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqd instruction.</summary>
+		public void vpcmpneqd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqd instruction.</summary>
+		public void vpcmpneqd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqq instruction.</summary>
+		public void vpcmpneqq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqq instruction.</summary>
+		public void vpcmpneqq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqq instruction.</summary>
+		public void vpcmpneqq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqq instruction.</summary>
+		public void vpcmpneqq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqq instruction.</summary>
+		public void vpcmpneqq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqq instruction.</summary>
+		public void vpcmpneqq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequb instruction.</summary>
+		public void vpcmpnequb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequb instruction.</summary>
+		public void vpcmpnequb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequb instruction.</summary>
+		public void vpcmpnequb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequb instruction.</summary>
+		public void vpcmpnequb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequb instruction.</summary>
+		public void vpcmpnequb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequb instruction.</summary>
+		public void vpcmpnequb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequd instruction.</summary>
+		public void vpcmpnequd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequd instruction.</summary>
+		public void vpcmpnequd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequd instruction.</summary>
+		public void vpcmpnequd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequd instruction.</summary>
+		public void vpcmpnequd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequd instruction.</summary>
+		public void vpcmpnequd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequd instruction.</summary>
+		public void vpcmpnequd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequq instruction.</summary>
+		public void vpcmpnequq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequq instruction.</summary>
+		public void vpcmpnequq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequq instruction.</summary>
+		public void vpcmpnequq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequq instruction.</summary>
+		public void vpcmpnequq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequq instruction.</summary>
+		public void vpcmpnequq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequq instruction.</summary>
+		public void vpcmpnequq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequw instruction.</summary>
+		public void vpcmpnequw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequw instruction.</summary>
+		public void vpcmpnequw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequw instruction.</summary>
+		public void vpcmpnequw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequw instruction.</summary>
+		public void vpcmpnequw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequw instruction.</summary>
+		public void vpcmpnequw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnequw instruction.</summary>
+		public void vpcmpnequw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqw instruction.</summary>
+		public void vpcmpneqw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqw instruction.</summary>
+		public void vpcmpneqw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqw instruction.</summary>
+		public void vpcmpneqw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqw instruction.</summary>
+		public void vpcmpneqw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqw instruction.</summary>
+		public void vpcmpneqw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpneqw instruction.</summary>
+		public void vpcmpneqw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 4);
+		}
+		/// <summary>vpcmpnleb instruction.</summary>
+		public void vpcmpnleb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpb(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleb instruction.</summary>
+		public void vpcmpnleb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpb(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleb instruction.</summary>
+		public void vpcmpnleb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpb(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleb instruction.</summary>
+		public void vpcmpnleb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleb instruction.</summary>
+		public void vpcmpnleb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleb instruction.</summary>
+		public void vpcmpnleb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnled instruction.</summary>
+		public void vpcmpnled(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpd(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnled instruction.</summary>
+		public void vpcmpnled(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpd(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnled instruction.</summary>
+		public void vpcmpnled(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpd(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnled instruction.</summary>
+		public void vpcmpnled(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnled instruction.</summary>
+		public void vpcmpnled(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnled instruction.</summary>
+		public void vpcmpnled(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleq instruction.</summary>
+		public void vpcmpnleq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleq instruction.</summary>
+		public void vpcmpnleq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleq instruction.</summary>
+		public void vpcmpnleq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleq instruction.</summary>
+		public void vpcmpnleq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleq instruction.</summary>
+		public void vpcmpnleq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleq instruction.</summary>
+		public void vpcmpnleq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleub instruction.</summary>
+		public void vpcmpnleub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleub instruction.</summary>
+		public void vpcmpnleub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleub instruction.</summary>
+		public void vpcmpnleub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleub instruction.</summary>
+		public void vpcmpnleub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleub instruction.</summary>
+		public void vpcmpnleub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleub instruction.</summary>
+		public void vpcmpnleub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleud instruction.</summary>
+		public void vpcmpnleud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleud instruction.</summary>
+		public void vpcmpnleud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleud instruction.</summary>
+		public void vpcmpnleud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleud instruction.</summary>
+		public void vpcmpnleud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleud instruction.</summary>
+		public void vpcmpnleud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleud instruction.</summary>
+		public void vpcmpnleud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuq instruction.</summary>
+		public void vpcmpnleuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuq instruction.</summary>
+		public void vpcmpnleuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuq instruction.</summary>
+		public void vpcmpnleuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuq instruction.</summary>
+		public void vpcmpnleuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuq instruction.</summary>
+		public void vpcmpnleuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuq instruction.</summary>
+		public void vpcmpnleuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuw instruction.</summary>
+		public void vpcmpnleuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuw instruction.</summary>
+		public void vpcmpnleuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuw instruction.</summary>
+		public void vpcmpnleuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuw instruction.</summary>
+		public void vpcmpnleuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuw instruction.</summary>
+		public void vpcmpnleuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnleuw instruction.</summary>
+		public void vpcmpnleuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnlew instruction.</summary>
+		public void vpcmpnlew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnlew instruction.</summary>
+		public void vpcmpnlew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnlew instruction.</summary>
+		public void vpcmpnlew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnlew instruction.</summary>
+		public void vpcmpnlew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnlew instruction.</summary>
+		public void vpcmpnlew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnlew instruction.</summary>
+		public void vpcmpnlew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 6);
+		}
+		/// <summary>vpcmpnltb instruction.</summary>
+		public void vpcmpnltb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpb(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltb instruction.</summary>
+		public void vpcmpnltb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpb(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltb instruction.</summary>
+		public void vpcmpnltb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpb(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltb instruction.</summary>
+		public void vpcmpnltb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltb instruction.</summary>
+		public void vpcmpnltb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltb instruction.</summary>
+		public void vpcmpnltb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltd instruction.</summary>
+		public void vpcmpnltd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpd(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltd instruction.</summary>
+		public void vpcmpnltd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpd(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltd instruction.</summary>
+		public void vpcmpnltd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpd(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltd instruction.</summary>
+		public void vpcmpnltd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltd instruction.</summary>
+		public void vpcmpnltd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltd instruction.</summary>
+		public void vpcmpnltd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltq instruction.</summary>
+		public void vpcmpnltq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltq instruction.</summary>
+		public void vpcmpnltq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltq instruction.</summary>
+		public void vpcmpnltq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltq instruction.</summary>
+		public void vpcmpnltq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltq instruction.</summary>
+		public void vpcmpnltq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltq instruction.</summary>
+		public void vpcmpnltq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltub instruction.</summary>
+		public void vpcmpnltub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltub instruction.</summary>
+		public void vpcmpnltub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltub instruction.</summary>
+		public void vpcmpnltub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltub instruction.</summary>
+		public void vpcmpnltub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltub instruction.</summary>
+		public void vpcmpnltub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltub instruction.</summary>
+		public void vpcmpnltub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltud instruction.</summary>
+		public void vpcmpnltud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltud instruction.</summary>
+		public void vpcmpnltud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltud instruction.</summary>
+		public void vpcmpnltud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltud instruction.</summary>
+		public void vpcmpnltud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltud instruction.</summary>
+		public void vpcmpnltud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltud instruction.</summary>
+		public void vpcmpnltud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuq instruction.</summary>
+		public void vpcmpnltuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuq instruction.</summary>
+		public void vpcmpnltuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuq instruction.</summary>
+		public void vpcmpnltuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuq instruction.</summary>
+		public void vpcmpnltuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuq instruction.</summary>
+		public void vpcmpnltuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuq instruction.</summary>
+		public void vpcmpnltuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuw instruction.</summary>
+		public void vpcmpnltuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuw instruction.</summary>
+		public void vpcmpnltuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuw instruction.</summary>
+		public void vpcmpnltuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuw instruction.</summary>
+		public void vpcmpnltuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuw instruction.</summary>
+		public void vpcmpnltuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltuw instruction.</summary>
+		public void vpcmpnltuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltw instruction.</summary>
+		public void vpcmpnltw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltw instruction.</summary>
+		public void vpcmpnltw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltw instruction.</summary>
+		public void vpcmpnltw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltw instruction.</summary>
+		public void vpcmpnltw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltw instruction.</summary>
+		public void vpcmpnltw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 5);
+		}
+		/// <summary>vpcmpnltw instruction.</summary>
+		public void vpcmpnltw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 5);
+		}
 		/// <summary>vpcmpq instruction.<br/>
 		/// <br/>
 		/// <c>VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
@@ -77571,6 +78819,198 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
+		}
+		/// <summary>vpcmptrueb instruction.</summary>
+		public void vpcmptrueb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpb(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueb instruction.</summary>
+		public void vpcmptrueb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpb(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueb instruction.</summary>
+		public void vpcmptrueb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpb(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueb instruction.</summary>
+		public void vpcmptrueb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueb instruction.</summary>
+		public void vpcmptrueb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueb instruction.</summary>
+		public void vpcmptrueb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpb(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrued instruction.</summary>
+		public void vpcmptrued(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpd(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrued instruction.</summary>
+		public void vpcmptrued(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpd(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrued instruction.</summary>
+		public void vpcmptrued(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpd(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrued instruction.</summary>
+		public void vpcmptrued(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrued instruction.</summary>
+		public void vpcmptrued(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrued instruction.</summary>
+		public void vpcmptrued(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpd(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueq instruction.</summary>
+		public void vpcmptrueq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueq instruction.</summary>
+		public void vpcmptrueq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueq instruction.</summary>
+		public void vpcmptrueq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueq instruction.</summary>
+		public void vpcmptrueq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueq instruction.</summary>
+		public void vpcmptrueq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueq instruction.</summary>
+		public void vpcmptrueq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueub instruction.</summary>
+		public void vpcmptrueub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpub(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueub instruction.</summary>
+		public void vpcmptrueub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpub(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueub instruction.</summary>
+		public void vpcmptrueub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpub(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueub instruction.</summary>
+		public void vpcmptrueub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueub instruction.</summary>
+		public void vpcmptrueub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueub instruction.</summary>
+		public void vpcmptrueub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpub(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueud instruction.</summary>
+		public void vpcmptrueud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpud(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueud instruction.</summary>
+		public void vpcmptrueud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpud(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueud instruction.</summary>
+		public void vpcmptrueud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpud(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueud instruction.</summary>
+		public void vpcmptrueud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueud instruction.</summary>
+		public void vpcmptrueud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueud instruction.</summary>
+		public void vpcmptrueud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpud(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuq instruction.</summary>
+		public void vpcmptrueuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuq instruction.</summary>
+		public void vpcmptrueuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuq instruction.</summary>
+		public void vpcmptrueuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuq instruction.</summary>
+		public void vpcmptrueuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuq instruction.</summary>
+		public void vpcmptrueuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuq instruction.</summary>
+		public void vpcmptrueuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuq(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuw instruction.</summary>
+		public void vpcmptrueuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpuw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuw instruction.</summary>
+		public void vpcmptrueuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpuw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuw instruction.</summary>
+		public void vpcmptrueuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpuw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuw instruction.</summary>
+		public void vpcmptrueuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuw instruction.</summary>
+		public void vpcmptrueuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptrueuw instruction.</summary>
+		public void vpcmptrueuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpuw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptruew instruction.</summary>
+		public void vpcmptruew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			vpcmpw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptruew instruction.</summary>
+		public void vpcmptruew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			vpcmpw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptruew instruction.</summary>
+		public void vpcmptruew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			vpcmpw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptruew instruction.</summary>
+		public void vpcmptruew(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptruew instruction.</summary>
+		public void vpcmptruew(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 7);
+		}
+		/// <summary>vpcmptruew instruction.</summary>
+		public void vpcmptruew(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			vpcmpw(dst, src1, src2, 7);
 		}
 		/// <summary>vpcmpub instruction.<br/>
 		/// <br/>

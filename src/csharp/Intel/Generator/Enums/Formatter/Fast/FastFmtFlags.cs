@@ -38,13 +38,21 @@ namespace Generator.Enums.Formatter.Fast {
 		vpcomuw					= ((PseudoOpsKind.vpcomuw + 1) << PseudoOpsKindShift),
 		vpcomud					= ((PseudoOpsKind.vpcomud + 1) << PseudoOpsKindShift),
 		vpcomuq					= ((PseudoOpsKind.vpcomuq + 1) << PseudoOpsKindShift),
+		vpcmpb					= ((PseudoOpsKind.vpcmpb + 1) << PseudoOpsKindShift),
+		vpcmpw					= ((PseudoOpsKind.vpcmpw + 1) << PseudoOpsKindShift),
+		vpcmpd					= ((PseudoOpsKind.vpcmpd + 1) << PseudoOpsKindShift),
+		vpcmpq					= ((PseudoOpsKind.vpcmpq + 1) << PseudoOpsKindShift),
+		vpcmpub					= ((PseudoOpsKind.vpcmpub + 1) << PseudoOpsKindShift),
+		vpcmpuw					= ((PseudoOpsKind.vpcmpuw + 1) << PseudoOpsKindShift),
+		vpcmpud					= ((PseudoOpsKind.vpcmpud + 1) << PseudoOpsKindShift),
+		vpcmpuq					= ((PseudoOpsKind.vpcmpuq + 1) << PseudoOpsKindShift),
 	}
 
 	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class FastFmtFlagsEnum {
 		FastFmtFlagsEnum(GenTypes genTypes) {
 			var pseudoOpsKind = genTypes[TypeIds.PseudoOpsKind];
-			if (pseudoOpsKind.Values.Length != 18)
+			if (pseudoOpsKind.Values.Length != 26)
 				throw new InvalidOperationException("Update FastFmtFlags enum above with new values");
 		}
 	}

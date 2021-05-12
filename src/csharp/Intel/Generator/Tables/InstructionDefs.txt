@@ -26844,73 +26844,73 @@ END
 # Code: EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W0 1E /r ib | VPCMPUD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8 | AVX512VL AVX512F | N16b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt32 Broadcast128_UInt32
-	flags: implied-z
+	flags: pseudo=vpcmpud implied-z
 END
 
 # Code: EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W0 1E /r ib | VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8 | AVX512VL AVX512F | N32b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_UInt32 Broadcast256_UInt32
-	flags: implied-z
+	flags: pseudo=vpcmpud implied-z
 END
 
 # Code: EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W0 1E /r ib | VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8 | AVX512F | N64b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_UInt32 Broadcast512_UInt32
-	flags: implied-z
+	flags: pseudo=vpcmpud implied-z
 END
 
 # Code: EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W1 1E /r ib | VPCMPUQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8 | AVX512VL AVX512F | N16b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt64 Broadcast128_UInt64
-	flags: implied-z
+	flags: pseudo=vpcmpuq implied-z
 END
 
 # Code: EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W1 1E /r ib | VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8 | AVX512VL AVX512F | N32b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_UInt64 Broadcast256_UInt64
-	flags: implied-z
+	flags: pseudo=vpcmpuq implied-z
 END
 
 # Code: EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W1 1E /r ib | VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8 | AVX512F | N64b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_UInt64 Broadcast512_UInt64
-	flags: implied-z
+	flags: pseudo=vpcmpuq implied-z
 END
 
 # Code: EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W0 1F /r ib | VPCMPD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8 | AVX512VL AVX512F | N16b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int32 Broadcast128_Int32
-	flags: implied-z
+	flags: pseudo=vpcmpd implied-z
 END
 
 # Code: EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W0 1F /r ib | VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8 | AVX512VL AVX512F | N32b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Int32 Broadcast256_Int32
-	flags: implied-z
+	flags: pseudo=vpcmpd implied-z
 END
 
 # Code: EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W0 1F /r ib | VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8 | AVX512F | N64b4
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_Int32 Broadcast512_Int32
-	flags: implied-z
+	flags: pseudo=vpcmpd implied-z
 END
 
 # Code: EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W1 1F /r ib | VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8 | AVX512VL AVX512F | N16b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int64 Broadcast128_Int64
-	flags: implied-z
+	flags: pseudo=vpcmpq implied-z
 END
 
 # Code: EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W1 1F /r ib | VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8 | AVX512VL AVX512F | N32b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Int64 Broadcast256_Int64
-	flags: implied-z
+	flags: pseudo=vpcmpq implied-z
 END
 
 # Code: EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W1 1F /r ib | VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8 | AVX512F | N64b8
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_Int64 Broadcast512_Int64
-	flags: implied-z
+	flags: pseudo=vpcmpq implied-z
 END
 
 # Code: Pinsrb_xmm_r32m8_imm8
@@ -27242,73 +27242,73 @@ END
 # Code: EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W0 3E /r ib | VPCMPUB k1 {k2}, xmm2, xmm3/m128, imm8 | AVX512VL AVX512BW | N16
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt8
-	flags: implied-z
+	flags: pseudo=vpcmpub implied-z
 END
 
 # Code: EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W0 3E /r ib | VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8 | AVX512VL AVX512BW | N32
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_UInt8
-	flags: implied-z
+	flags: pseudo=vpcmpub implied-z
 END
 
 # Code: EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W0 3E /r ib | VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8 | AVX512BW | N64
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_UInt8
-	flags: implied-z
+	flags: pseudo=vpcmpub implied-z
 END
 
 # Code: EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W1 3E /r ib | VPCMPUW k1 {k2}, xmm2, xmm3/m128, imm8 | AVX512VL AVX512BW | N16
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_UInt16
-	flags: implied-z
+	flags: pseudo=vpcmpuw implied-z
 END
 
 # Code: EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W1 3E /r ib | VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8 | AVX512VL AVX512BW | N32
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_UInt16
-	flags: implied-z
+	flags: pseudo=vpcmpuw implied-z
 END
 
 # Code: EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W1 3E /r ib | VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8 | AVX512BW | N64
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_UInt16
-	flags: implied-z
+	flags: pseudo=vpcmpuw implied-z
 END
 
 # Code: EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W0 3F /r ib | VPCMPB k1 {k2}, xmm2, xmm3/m128, imm8 | AVX512VL AVX512BW | N16
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int8
-	flags: implied-z
+	flags: pseudo=vpcmpb implied-z
 END
 
 # Code: EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W0 3F /r ib | VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8 | AVX512VL AVX512BW | N32
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Int8
-	flags: implied-z
+	flags: pseudo=vpcmpb implied-z
 END
 
 # Code: EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W0 3F /r ib | VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8 | AVX512BW | N64
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_Int8
-	flags: implied-z
+	flags: pseudo=vpcmpb implied-z
 END
 
 # Code: EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W1 3F /r ib | VPCMPW k1 {k2}, xmm2, xmm3/m128, imm8 | AVX512VL AVX512BW | N16
 	ops: w=reg r=vvvv r=rm r=imm | Packed128_Int16
-	flags: implied-z
+	flags: pseudo=vpcmpw implied-z
 END
 
 # Code: EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 INSTRUCTION: EVEX.256.66.0F3A.W1 3F /r ib | VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8 | AVX512VL AVX512BW | N32
 	ops: w=reg r=vvvv r=rm r=imm | Packed256_Int16
-	flags: implied-z
+	flags: pseudo=vpcmpw implied-z
 END
 
 # Code: EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 INSTRUCTION: EVEX.512.66.0F3A.W1 3F /r ib | VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8 | AVX512BW | N64
 	ops: w=reg r=vvvv r=rm r=imm | Packed512_Int16
-	flags: implied-z
+	flags: pseudo=vpcmpw implied-z
 END
 
 # Code: Dpps_xmm_xmmm128_imm8
