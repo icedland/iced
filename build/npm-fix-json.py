@@ -1,7 +1,7 @@
 import sys
 import json
 
-iced_version = "1.11.2"
+iced_version = "1.11.3"
 
 if len(sys.argv) != 3:
 	raise ValueError(f"usage {sys.argv[0]} npm_package_json test_package_json")
