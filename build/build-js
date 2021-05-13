@@ -92,6 +92,7 @@ gen_release() {
 	curr_dir=$(pwd)
 	cd "$root_dir/src/rust/iced-x86-js"
 
+	rm -rf pkg/
 	wasm-pack build --mode force --target nodejs
 	mkdir pkg/tests
 	cp ../../../LICENSE.txt pkg
