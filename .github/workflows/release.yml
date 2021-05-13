@@ -121,6 +121,13 @@ jobs:
           fi
           ./build/build-js --no-set-rustflags $extra_args
 
+      - uses: actions/upload-artifact@v2
+        if: startsWith(matrix.os, 'ubuntu-')
+        with:
+          name: npm
+          path: src/rust/iced-x86-js/pkg/release/iced-x86-*.tgz
+          if-no-files-found: error
+
   #############################################################################
   #############################################################################
   #############################################################################
@@ -474,15 +481,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.3.4
-        with:
-          # codecov needs fetch-depth > 1 (or 0)
-          fetch-depth: 2
+
       - uses: actions/setup-dotnet@v1.8.0
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
       - uses: actions/setup-python@v2.2.2
         with:
           python-version: 3.x
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: ${{env.CI_NODE_MIN_VER}}
+          registry-url: "https://registry.npmjs.org"
 
       - uses: actions/download-artifact@v2
         with:
@@ -497,6 +506,10 @@ jobs:
           fi
           if [ -z "$(ls -A /tmp/artifacts/nupkg/Iced.*.nupkg)" ]; then
             echo "Missing nupkg files"
+            exit 1
+          fi
+          if [ -z "$(ls -A /tmp/artifacts/npm/iced-x86-*.tgz)" ]; then
+            echo "Missing npm files"
             exit 1
           fi
 
@@ -532,6 +545,7 @@ jobs:
           python -m twine check /tmp/py-dist/*
           dotnet nuget push --help
           cargo publish --help
+          npm publish --help
 
       - name: Upload to nuget.org
         shell: bash
@@ -555,3 +569,10 @@ jobs:
         shell: bash
         run: |
           python -m twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
+
+      - name: Upload to npmjs.com
+        shell: bash
+        run: |
+          npm publish /tmp/artifacts/npm/iced-x86-*.tgz
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
