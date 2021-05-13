@@ -272,3 +272,7 @@ F0 81 05 34125AA5 F0DEBC, INVALID, INVALID, 0, code=Add_rm32_imm32 err=NoMoreByt
 F0 8E 0D 34125AA5, INVALID, INVALID, 0, code=Mov_Sreg_r32m16
 # mov cs,[rip-5AA5EDCCh]
 8E 0D 34125AA5, INVALID, INVALID, 0, code=Mov_Sreg_r32m16
+
+# Decoder/encoder ip overflow test
+01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx ip=0xFFFFFFFFFFFFFFFE
+01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx ip=0xFFFFFFFFFFFFFFFF
