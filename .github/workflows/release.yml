@@ -530,14 +530,6 @@ jobs:
           fi
           rmdir /tmp/py-dist-tmp
 
-          # Windows x86 + x64, macOS x64, Linux (x86 + x64) * (manylinux1 + manylinux2010)
-          # 7 (wheels) + 1 (source code tar.gz file)
-          if [ $(ls -A /tmp/py-dist | wc -l) -ne 8 ]; then
-            ls -l /tmp/py-dist
-            echo "Found too many/few Python whl files (see above)"
-            exit 1
-          fi
-
       - name: Upload checks
         shell: bash
         run: |
