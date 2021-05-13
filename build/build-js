@@ -8,6 +8,11 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
+if [ "$is_windows" = "y" ]; then
+	python=python
+else
+	python=python3
+fi
 full_check=y
 set_rustflags=y
 
@@ -82,9 +87,34 @@ test_the_code() {
 	cd "$curr_dir"
 }
 
+gen_release() {
+	new_func "Generate npm bin"
+	curr_dir=$(pwd)
+	cd "$root_dir/src/rust/iced-x86-js"
+
+	wasm-pack build --mode force --target nodejs
+	mkdir pkg/tests
+	cp ../../../LICENSE.txt pkg
+	cp src/tests/*.js pkg/tests
+
+	cd pkg
+	npm_package_json="$root_dir/src/rust/iced-x86-js/pkg/package.json"
+	test_package_json="$root_dir/src/rust/iced-x86-js/src/tests/package.json"
+	$python "$root_dir/build/npm-fix-json.py" "$npm_package_json" "$test_package_json"
+	npm pack
+	mkdir -p release
+	cp iced-x86-*.tgz release/
+	cd release
+	npm publish iced-x86-*.tgz --dry-run
+	cd ../..
+
+	cd "$curr_dir"
+}
+
 while [ "$#" -gt 0 ]; do
 	case $1 in
 	--quick-check) full_check=n ;;
+	--python) shift; python=$1 ;;
 	--no-set-rustflags) set_rustflags=n ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
@@ -115,8 +145,11 @@ echo "npm version"
 npm --version
 echo "rustup show"
 rustup show
+echo "Python version"
+$python --version
 
 if [ "$full_check" = "y" ]; then
 	build_and_check
 fi
 test_the_code
+gen_release
