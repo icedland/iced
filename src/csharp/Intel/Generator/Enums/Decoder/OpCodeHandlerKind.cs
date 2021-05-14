@@ -210,5 +210,13 @@ namespace Generator.Enums.Decoder {
 		Sw_M,
 		Rq,
 		Gd_Rd,
+		PrefixEsCsSsDs,
+		PrefixFsGs,
+		Prefix66,
+		Prefix67,
+		PrefixF0,
+		PrefixF2,
+		PrefixF3,
+		PrefixREX,
 	}
 }

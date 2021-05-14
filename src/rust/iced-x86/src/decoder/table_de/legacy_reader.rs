@@ -914,6 +914,18 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 
 		OpCodeHandlerKind::Rq => Box::into_raw(Box::new(OpCodeHandler_Rq::new(deserializer.read_code()))) as *const OpCodeHandler,
 		OpCodeHandlerKind::Gd_Rd => Box::into_raw(Box::new(OpCodeHandler_Gd_Rd::new(deserializer.read_code()))) as *const OpCodeHandler,
+		OpCodeHandlerKind::PrefixEsCsSsDs => {
+			Box::into_raw(Box::new(OpCodeHandler_PrefixEsCsSsDs::new(deserializer.read_register()))) as *const OpCodeHandler
+		}
+		OpCodeHandlerKind::PrefixFsGs => Box::into_raw(Box::new(OpCodeHandler_PrefixFsGs::new(deserializer.read_register()))) as *const OpCodeHandler,
+		OpCodeHandlerKind::Prefix66 => Box::into_raw(Box::new(OpCodeHandler_Prefix66::new())) as *const OpCodeHandler,
+		OpCodeHandlerKind::Prefix67 => Box::into_raw(Box::new(OpCodeHandler_Prefix67::new())) as *const OpCodeHandler,
+		OpCodeHandlerKind::PrefixF0 => Box::into_raw(Box::new(OpCodeHandler_PrefixF0::new())) as *const OpCodeHandler,
+		OpCodeHandlerKind::PrefixF2 => Box::into_raw(Box::new(OpCodeHandler_PrefixF2::new())) as *const OpCodeHandler,
+		OpCodeHandlerKind::PrefixF3 => Box::into_raw(Box::new(OpCodeHandler_PrefixF3::new())) as *const OpCodeHandler,
+		OpCodeHandlerKind::PrefixREX => {
+			Box::into_raw(Box::new(OpCodeHandler_PrefixREX::new(deserializer.read_handler(), deserializer.read_u32()))) as *const OpCodeHandler
+		}
 	};
 	result.push(unsafe { &*elem });
 }

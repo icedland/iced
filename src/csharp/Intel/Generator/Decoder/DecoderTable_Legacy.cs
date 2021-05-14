@@ -7,7 +7,6 @@ using Generator.Enums.Decoder;
 namespace Generator.Decoder {
 	static class DecoderTable_Legacy {
 		public const string OneByteHandlers = nameof(OneByteHandlers);
-		public const string TwoByteHandlers_0FXX = nameof(TwoByteHandlers_0FXX);
 
 		public static (string name, object?[] handlers)[] CreateHandlers(GenTypes genTypes) {
 			var legacyEnum = genTypes[TypeIds.OpCodeHandlerKind];
@@ -4866,7 +4865,7 @@ namespace Generator.Decoder {
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.PushOpSizeReg_4b)], codeEnum[nameof(Code.Pushw_CS)], codeEnum[nameof(Code.Pushd_CS)], registerEnum[nameof(Register.CS)] },
 						invalid,
 					},
-					invalid,
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "TwoByteHandlers_0FXX" },
 
 					// 10
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Eb_Gb_2)], codeEnum[nameof(Code.Adc_rm8_r8)], new OrEnumValue(handlerFlagsEnum, nameof(HandlerFlags.Xacquire), nameof(HandlerFlags.Xrelease), nameof(HandlerFlags.Lock)) },
@@ -4907,7 +4906,7 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Gv_Ev_3a)], codeEnum[nameof(Code.And_r16_rm16)], codeEnum[nameof(Code.And_r32_rm32)], codeEnum[nameof(Code.And_r64_rm64)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.RegIb)], codeEnum[nameof(Code.And_AL_imm8)], registerEnum[nameof(Register.AL)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg_Iz)], codeEnum[nameof(Code.And_AX_imm16)], codeEnum[nameof(Code.And_EAX_imm32)], codeEnum[nameof(Code.And_RAX_imm32)] },
-					invalid,// ES:
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixEsCsSsDs)], registerEnum[nameof(Register.ES)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Daa)] },
 						invalid,
@@ -4920,7 +4919,7 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Gv_Ev_3a)], codeEnum[nameof(Code.Sub_r16_rm16)], codeEnum[nameof(Code.Sub_r32_rm32)], codeEnum[nameof(Code.Sub_r64_rm64)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.RegIb)], codeEnum[nameof(Code.Sub_AL_imm8)], registerEnum[nameof(Register.AL)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg_Iz)], codeEnum[nameof(Code.Sub_AX_imm16)], codeEnum[nameof(Code.Sub_EAX_imm32)], codeEnum[nameof(Code.Sub_RAX_imm32)] },
-					invalid,// CS:
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixEsCsSsDs)], registerEnum[nameof(Register.CS)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Das)] },
 						invalid,
@@ -4933,7 +4932,7 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Gv_Ev_3a)], codeEnum[nameof(Code.Xor_r16_rm16)], codeEnum[nameof(Code.Xor_r32_rm32)], codeEnum[nameof(Code.Xor_r64_rm64)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.RegIb)], codeEnum[nameof(Code.Xor_AL_imm8)], registerEnum[nameof(Register.AL)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg_Iz)], codeEnum[nameof(Code.Xor_AX_imm16)], codeEnum[nameof(Code.Xor_EAX_imm32)], codeEnum[nameof(Code.Xor_RAX_imm32)] },
-					invalid,// SS:
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixEsCsSsDs)], registerEnum[nameof(Register.SS)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Aaa)] },
 						invalid,
@@ -4946,78 +4945,78 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Gv_Ev_3a)], codeEnum[nameof(Code.Cmp_r16_rm16)], codeEnum[nameof(Code.Cmp_r32_rm32)], codeEnum[nameof(Code.Cmp_r64_rm64)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.RegIb)], codeEnum[nameof(Code.Cmp_AL_imm8)], registerEnum[nameof(Register.AL)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Reg_Iz)], codeEnum[nameof(Code.Cmp_AX_imm16)], codeEnum[nameof(Code.Cmp_EAX_imm32)], codeEnum[nameof(Code.Cmp_RAX_imm32)] },
-					invalid,// DS:
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixEsCsSsDs)], registerEnum[nameof(Register.DS)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Aas)] },
 						invalid,
 					},
 
 					// 40
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 0 },
-						invalid,
+						0,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 1 },
-						invalid,
+						1,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 2 },
-						invalid,
+						2,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 3 },
-						invalid,
+						3,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 4 },
-						invalid,
+						4,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 5 },
-						invalid,
+						5,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 6 },
-						invalid,
+						6,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Inc_r16)], 7 },
-						invalid,
+						7,
 					},
 
 					// 48
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 0 },
-						invalid,
+						8,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 1 },
-						invalid,
+						9,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 2 },
-						invalid,
+						0xA,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 3 },
-						invalid,
+						0xB,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 4 },
-						invalid,
+						0xC,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 5 },
-						invalid,
+						0xD,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 6 },
-						invalid,
+						0xE,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Bitness)],
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixREX)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.SimpleReg)], codeEnum[nameof(Code.Dec_r16)], 7 },
-						invalid,
+						0xF,
 					},
 
 					// 50
@@ -5054,10 +5053,10 @@ namespace Generator.Decoder {
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RvMw_Gw)], codeEnum[nameof(Code.Arpl_rm16_r16)], codeEnum[nameof(Code.Arpl_r32m16_r32)] },
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Gv_Ev2)], codeEnum[nameof(Code.Movsxd_r16_rm16)], codeEnum[nameof(Code.Movsxd_r32_rm32)], codeEnum[nameof(Code.Movsxd_r64_rm32)] },
 					},
-					invalid,// FS:
-					invalid,// GS:
-					invalid,// os
-					invalid,// as
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixFsGs)], registerEnum[nameof(Register.FS)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixFsGs)], registerEnum[nameof(Register.GS)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Prefix66)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Prefix67)] },
 
 					// 68
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PushIz)], codeEnum[nameof(Code.Push_imm16)], codeEnum[nameof(Code.Pushd_imm32)], codeEnum[nameof(Code.Pushq_imm32)] },
@@ -5263,10 +5262,10 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.DX_eAX)], codeEnum[nameof(Code.Out_DX_AX)], codeEnum[nameof(Code.Out_DX_EAX)] },
 
 					// F0
-					invalid,// lock
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixF0)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Int1)] },
-					invalid,// repne
-					invalid,// rep
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixF2)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.PrefixF3)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Hlt)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Cmc)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_F6" },

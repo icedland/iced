@@ -8,7 +8,6 @@ use lazy_static::lazy_static;
 
 pub(super) struct Tables {
 	pub(super) handlers_xx: Vec<&'static OpCodeHandler>,
-	pub(super) handlers_0fxx: Vec<&'static OpCodeHandler>,
 	#[cfg(not(feature = "no_vex"))]
 	pub(super) handlers_vex_0fxx: Vec<&'static OpCodeHandler>,
 	#[cfg(not(feature = "no_vex"))]
@@ -58,7 +57,7 @@ pub(super) struct Tables {
 
 lazy_static! {
 	pub(super) static ref TABLES: Tables = {
-		let (handlers_xx, handlers_0fxx) = read_legacy();
+		let handlers_xx = read_legacy();
 		#[cfg(not(feature = "no_vex"))]
 		let (handlers_vex_0fxx, handlers_vex_0f38xx, handlers_vex_0f3axx) = read_vex();
 		#[cfg(not(feature = "no_evex"))]
@@ -73,7 +72,6 @@ lazy_static! {
 		let (handlers_xop8, handlers_xop9, handlers_xopa) = ((), (), ());
 		Tables {
 			handlers_xx,
-			handlers_0fxx,
 			handlers_vex_0fxx,
 			handlers_vex_0f38xx,
 			handlers_vex_0f3axx,

@@ -218,10 +218,14 @@ F2 F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;
 65 64 01 18, Add_rm32_r32, Add, 2, op0=m;fs;rax;;1;0;0;UInt32 op1=r;ebx fs: enc=640118
 65 65 01 18, Add_rm32_r32, Add, 2, op0=m;gs;rax;;1;0;0;UInt32 op1=r;ebx gs: enc=650118
 
+# prefix: REX without W + 66
+66 40 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
+
 # prefix: REX.W overrides 66
 66 48 01 CE, Add_rm64_r64, Add, 2, op0=r;rsi op1=r;rcx enc=4801CE
 
 # prefix: double REX prefixes
+4F 40 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx enc=01CE
 4F 48 01 CE, Add_rm64_r64, Add, 2, op0=r;rsi op1=r;rcx enc=4801CE
 4F 4C 01 C5, Add_rm64_r64, Add, 2, op0=r;rbp op1=r;r8 enc=4C01C5
 4F 49 01 D6, Add_rm64_r64, Add, 2, op0=r;r14 op1=r;rdx enc=4901D6

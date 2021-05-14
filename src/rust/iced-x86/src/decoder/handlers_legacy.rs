@@ -117,6 +117,221 @@ impl OpCodeHandler_EVEX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(super) struct OpCodeHandler_PrefixEsCsSsDs {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	seg: Register,
+}
+
+impl OpCodeHandler_PrefixEsCsSsDs {
+	pub(super) fn new(seg: Register) -> Self {
+		debug_assert!(seg == Register::ES || seg == Register::CS || seg == Register::SS || seg == Register::DS);
+		Self { decode: OpCodeHandler_PrefixEsCsSsDs::decode, has_modrm: false, seg }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		if !decoder.is64b_mode || decoder.state.segment_prio == 0 {
+			instruction.set_segment_prefix(this.seg);
+		}
+
+		decoder.reset_rex_prefix_state();
+		decoder.call_opcode_handler_xx_table(instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_PrefixFsGs {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	seg: Register,
+}
+
+impl OpCodeHandler_PrefixFsGs {
+	pub(super) fn new(seg: Register) -> Self {
+		debug_assert!(seg == Register::FS || seg == Register::GS);
+		Self { decode: OpCodeHandler_PrefixFsGs::decode, has_modrm: false, seg }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		instruction.set_segment_prefix(this.seg);
+		decoder.state.segment_prio = 1;
+
+		decoder.reset_rex_prefix_state();
+		decoder.call_opcode_handler_xx_table(instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_Prefix66 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+}
+
+impl OpCodeHandler_Prefix66 {
+	pub(super) fn new() -> Self {
+		Self { decode: OpCodeHandler_Prefix66::decode, has_modrm: false }
+	}
+
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		decoder.state.flags |= StateFlags::HAS66;
+		decoder.state.operand_size = decoder.default_inverted_operand_size;
+		if decoder.state.mandatory_prefix == MandatoryPrefixByte::None as u32 {
+			decoder.state.mandatory_prefix = MandatoryPrefixByte::P66 as u32;
+		}
+
+		decoder.reset_rex_prefix_state();
+		decoder.call_opcode_handler_xx_table(instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_Prefix67 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+}
+
+impl OpCodeHandler_Prefix67 {
+	pub(super) fn new() -> Self {
+		Self { decode: OpCodeHandler_Prefix67::decode, has_modrm: false }
+	}
+
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		decoder.state.address_size = decoder.default_inverted_address_size;
+
+		decoder.reset_rex_prefix_state();
+		decoder.call_opcode_handler_xx_table(instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_PrefixF0 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+}
+
+impl OpCodeHandler_PrefixF0 {
+	pub(super) fn new() -> Self {
+		Self { decode: OpCodeHandler_PrefixF0::decode, has_modrm: false }
+	}
+
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		instruction_internal::internal_set_has_lock_prefix(instruction);
+		decoder.state.flags |= StateFlags::LOCK;
+
+		decoder.reset_rex_prefix_state();
+		decoder.call_opcode_handler_xx_table(instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_PrefixF2 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+}
+
+impl OpCodeHandler_PrefixF2 {
+	pub(super) fn new() -> Self {
+		Self { decode: OpCodeHandler_PrefixF2::decode, has_modrm: false }
+	}
+
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		instruction_internal::internal_set_has_repne_prefix(instruction);
+		decoder.state.mandatory_prefix = MandatoryPrefixByte::PF2 as u32;
+
+		decoder.reset_rex_prefix_state();
+		decoder.call_opcode_handler_xx_table(instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_PrefixF3 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+}
+
+impl OpCodeHandler_PrefixF3 {
+	pub(super) fn new() -> Self {
+		Self { decode: OpCodeHandler_PrefixF3::decode, has_modrm: false }
+	}
+
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		instruction_internal::internal_set_has_repe_prefix(instruction);
+		decoder.state.mandatory_prefix = MandatoryPrefixByte::PF3 as u32;
+
+		decoder.reset_rex_prefix_state();
+		decoder.call_opcode_handler_xx_table(instruction);
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_PrefixREX {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handler: &'static OpCodeHandler,
+	rex: u32,
+}
+
+impl OpCodeHandler_PrefixREX {
+	pub(super) fn new(handler: *const OpCodeHandler, rex: u32) -> Self {
+		debug_assert!(rex <= 0x0F);
+		let handler = unsafe { &*handler };
+		Self { decode: OpCodeHandler_PrefixREX::decode, has_modrm: false, handler, rex }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
+
+		if decoder.is64b_mode {
+			decoder.state.flags |= StateFlags::HAS_REX;
+			let b = this.rex;
+			if (b & 8) != 0 {
+				decoder.state.flags |= StateFlags::W;
+				decoder.state.operand_size = OpSize::Size64;
+			} else {
+				decoder.state.flags &= !StateFlags::W;
+				if (decoder.state.flags & StateFlags::HAS66) == 0 {
+					decoder.state.operand_size = decoder.default_operand_size;
+				} else {
+					decoder.state.operand_size = decoder.default_inverted_operand_size;
+				}
+			}
+			decoder.state.extra_register_base = (b & 4) << 1;
+			decoder.state.extra_index_register_base = (b & 2) << 2;
+			decoder.state.extra_base_register_base = (b & 1) << 3;
+
+			decoder.call_opcode_handler_xx_table(instruction);
+		} else {
+			(this.handler.decode)(this.handler, decoder, instruction)
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(super) struct OpCodeHandler_Reg {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,

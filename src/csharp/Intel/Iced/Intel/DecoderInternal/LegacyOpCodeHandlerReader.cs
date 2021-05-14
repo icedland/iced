@@ -941,6 +941,38 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_Gd_Rd(deserializer.ReadCode());
 				return 1;
 
+			case OpCodeHandlerKind.PrefixEsCsSsDs:
+				elem = new OpCodeHandler_PrefixEsCsSsDs(deserializer.ReadRegister());
+				return 1;
+
+			case OpCodeHandlerKind.PrefixFsGs:
+				elem = new OpCodeHandler_PrefixFsGs(deserializer.ReadRegister());
+				return 1;
+
+			case OpCodeHandlerKind.Prefix66:
+				elem = new OpCodeHandler_Prefix66();
+				return 1;
+
+			case OpCodeHandlerKind.Prefix67:
+				elem = new OpCodeHandler_Prefix67();
+				return 1;
+
+			case OpCodeHandlerKind.PrefixF0:
+				elem = new OpCodeHandler_PrefixF0();
+				return 1;
+
+			case OpCodeHandlerKind.PrefixF2:
+				elem = new OpCodeHandler_PrefixF2();
+				return 1;
+
+			case OpCodeHandlerKind.PrefixF3:
+				elem = new OpCodeHandler_PrefixF3();
+				return 1;
+
+			case OpCodeHandlerKind.PrefixREX:
+				elem = new OpCodeHandler_PrefixREX(deserializer.ReadHandler(), (uint)deserializer.ReadInt32());
+				return 1;
+
 			default:
 				throw new InvalidOperationException();
 			}

@@ -24,6 +24,7 @@ namespace Generator.Decoder {
 		readonly object[] invalidHandler;
 		readonly object[] invalidNoModrmHandler;
 		readonly List<string> removedNames;
+		readonly EnumValue[] prefixes;
 
 		public DecoderTableFilter(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues, (string name, object?[] handlers)[] infos, EncodingKind encoding) {
 			this.genTypes = genTypes;
@@ -42,6 +43,16 @@ namespace Generator.Decoder {
 				group8x64Kind = handlerKindType[nameof(OpCodeHandlerKind.Group8x64)];
 				group8x8Kind = handlerKindType[nameof(OpCodeHandlerKind.Group8x8)];
 				noModrmHandlers = new[] { handlerKindType[nameof(OpCodeHandlerKind.MandatoryPrefix_NoModRM)] };
+				prefixes = new[] {
+					handlerKindType[nameof(OpCodeHandlerKind.PrefixEsCsSsDs)],
+					handlerKindType[nameof(OpCodeHandlerKind.PrefixFsGs)],
+					handlerKindType[nameof(OpCodeHandlerKind.Prefix66)],
+					handlerKindType[nameof(OpCodeHandlerKind.Prefix67)],
+					handlerKindType[nameof(OpCodeHandlerKind.PrefixF0)],
+					handlerKindType[nameof(OpCodeHandlerKind.PrefixF2)],
+					handlerKindType[nameof(OpCodeHandlerKind.PrefixF3)],
+					handlerKindType[nameof(OpCodeHandlerKind.PrefixREX)],
+				};
 				break;
 
 			case EncodingKind.VEX:
@@ -58,6 +69,7 @@ namespace Generator.Decoder {
 					handlerKindType[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_NoModRM)],
 					handlerKindType[nameof(VexOpCodeHandlerKind.VectorLength_NoModRM)],
 				};
+				prefixes = Array.Empty<EnumValue>();
 				break;
 
 			case EncodingKind.EVEX:
@@ -70,6 +82,7 @@ namespace Generator.Decoder {
 				group8x64Kind = null;
 				group8x8Kind = null;
 				noModrmHandlers = Array.Empty<EnumValue>();
+				prefixes = Array.Empty<EnumValue>();
 				break;
 
 			case EncodingKind.D3NOW:
@@ -223,6 +236,10 @@ namespace Generator.Decoder {
 		bool CanReplaceHandlerWithInvalid(object?[] handler) {
 			if (handler[0] == invalid || handler[0] == invalid_NoModRM)
 				return false;
+			foreach (var prefix in prefixes) {
+				if (prefix == handler[0])
+					return false;
+			}
 			bool foundInvalidHandler = false;
 			bool otherArgs = false;
 			for (int i = 1; i < handler.Length; i++) {

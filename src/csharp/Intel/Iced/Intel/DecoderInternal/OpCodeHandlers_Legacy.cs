@@ -64,6 +64,152 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	sealed class OpCodeHandler_PrefixEsCsSsDs : OpCodeHandler {
+		readonly Register seg;
+
+		public OpCodeHandler_PrefixEsCsSsDs(Register seg) {
+			Debug.Assert(seg == Register.ES || seg == Register.CS || seg == Register.SS || seg == Register.DS);
+			this.seg = seg;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			if (!decoder.is64bMode || decoder.state.segmentPrio <= 0)
+				instruction.SegmentPrefix = seg;
+
+			decoder.ResetRexPrefixState();
+			decoder.CallOpCodeHandlerXXTable(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_PrefixFsGs : OpCodeHandler {
+		readonly Register seg;
+
+		public OpCodeHandler_PrefixFsGs(Register seg) {
+			Debug.Assert(seg == Register.FS || seg == Register.GS);
+			this.seg = seg;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			instruction.SegmentPrefix = seg;
+			decoder.state.segmentPrio = 1;
+
+			decoder.ResetRexPrefixState();
+			decoder.CallOpCodeHandlerXXTable(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_Prefix66 : OpCodeHandler {
+		public OpCodeHandler_Prefix66() { }
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			decoder.state.flags |= StateFlags.Has66;
+			decoder.state.operandSize = decoder.defaultInvertedOperandSize;
+			if (decoder.state.mandatoryPrefix == MandatoryPrefixByte.None)
+				decoder.state.mandatoryPrefix = MandatoryPrefixByte.P66;
+
+			decoder.ResetRexPrefixState();
+			decoder.CallOpCodeHandlerXXTable(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_Prefix67 : OpCodeHandler {
+		public OpCodeHandler_Prefix67() { }
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			decoder.state.addressSize = decoder.defaultInvertedAddressSize;
+
+			decoder.ResetRexPrefixState();
+			decoder.CallOpCodeHandlerXXTable(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_PrefixF0 : OpCodeHandler {
+		public OpCodeHandler_PrefixF0() { }
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			instruction.InternalSetHasLockPrefix();
+			decoder.state.flags |= StateFlags.Lock;
+
+			decoder.ResetRexPrefixState();
+			decoder.CallOpCodeHandlerXXTable(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_PrefixF2 : OpCodeHandler {
+		public OpCodeHandler_PrefixF2() { }
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			instruction.InternalSetHasRepnePrefix();
+			decoder.state.mandatoryPrefix = MandatoryPrefixByte.PF2;
+
+			decoder.ResetRexPrefixState();
+			decoder.CallOpCodeHandlerXXTable(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_PrefixF3 : OpCodeHandler {
+		public OpCodeHandler_PrefixF3() { }
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			instruction.InternalSetHasRepePrefix();
+			decoder.state.mandatoryPrefix = MandatoryPrefixByte.PF3;
+
+			decoder.ResetRexPrefixState();
+			decoder.CallOpCodeHandlerXXTable(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_PrefixREX : OpCodeHandler {
+		readonly OpCodeHandler handler;
+		readonly uint rex;
+
+		public OpCodeHandler_PrefixREX(OpCodeHandler handler, uint rex) {
+			Debug.Assert(rex <= 0x0F);
+			this.handler = handler ?? throw new InvalidOperationException();
+			this.rex = rex;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+
+			if (decoder.is64bMode) {
+				if ((rex & 8) != 0) {
+					decoder.state.operandSize = OpSize.Size64;
+					decoder.state.flags |= StateFlags.HasRex | StateFlags.W;
+				}
+				else {
+					decoder.state.flags |= StateFlags.HasRex;
+					decoder.state.flags &= ~StateFlags.W;
+					if ((decoder.state.flags & StateFlags.Has66) == 0)
+						decoder.state.operandSize = decoder.defaultOperandSize;
+					else
+						decoder.state.operandSize = decoder.defaultInvertedOperandSize;
+				}
+				decoder.state.extraRegisterBase = (rex & 4) << 1;
+				decoder.state.extraIndexRegisterBase = (rex & 2) << 2;
+				decoder.state.extraBaseRegisterBase = (rex & 1) << 3;
+
+				decoder.CallOpCodeHandlerXXTable(ref instruction);
+			}
+			else
+				handler.Decode(decoder, ref instruction);
+		}
+	}
+
 	sealed class OpCodeHandler_Reg : OpCodeHandler {
 		readonly Code code;
 		readonly Register reg;

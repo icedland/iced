@@ -244,9 +244,17 @@ pub(crate) enum OpCodeHandlerKind {
 	Sw_M,
 	Rq,
 	Gd_Rd,
+	PrefixEsCsSsDs,
+	PrefixFsGs,
+	Prefix66,
+	Prefix67,
+	PrefixF0,
+	PrefixF2,
+	PrefixF3,
+	PrefixREX,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 206] = [
+static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 214] = [
 	"Bitness",
 	"Bitness_DontReadModRM",
 	"Invalid",
@@ -453,6 +461,14 @@ static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 206] = [
 	"Sw_M",
 	"Rq",
 	"Gd_Rd",
+	"PrefixEsCsSsDs",
+	"PrefixFsGs",
+	"Prefix66",
+	"Prefix67",
+	"PrefixF0",
+	"PrefixF2",
+	"PrefixF3",
+	"PrefixREX",
 ];
 impl fmt::Debug for OpCodeHandlerKind {
 	#[inline]

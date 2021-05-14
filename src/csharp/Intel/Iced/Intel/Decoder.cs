@@ -47,10 +47,8 @@ namespace Iced.Intel {
 	public sealed class Decoder : IEnumerable<Instruction> {
 		ulong instructionPointer;
 		readonly CodeReader reader;
-		readonly uint[] prefixes;
 		readonly RegInfo2[] memRegs16;
 		readonly OpCodeHandler[] handlers_XX;
-		readonly OpCodeHandler[] handlers_0FXX;
 #if !NO_VEX
 		readonly OpCodeHandler[] handlers_VEX_0FXX;
 		readonly OpCodeHandler[] handlers_VEX_0F38XX;
@@ -72,11 +70,12 @@ namespace Iced.Intel {
 		internal readonly uint invalidCheckMask;// All 1s if we should check for invalid instructions, else 0
 		internal readonly uint is64bMode_and_W;// StateFlags.W if 64-bit mode, 0 if 16/32-bit mode
 		internal readonly uint reg15Mask;// 7 in 16/32-bit mode, 15 in 64-bit mode
+		readonly uint mask64b;
 		internal readonly CodeSize defaultCodeSize;
-		readonly OpSize defaultOperandSize;
+		internal readonly OpSize defaultOperandSize;
 		readonly OpSize defaultAddressSize;
-		readonly OpSize defaultInvertedOperandSize;
-		readonly OpSize defaultInvertedAddressSize;
+		internal readonly OpSize defaultInvertedOperandSize;
+		internal readonly OpSize defaultInvertedAddressSize;
 		internal readonly bool is64bMode;
 
 		internal struct State {
@@ -96,6 +95,8 @@ namespace Iced.Intel {
 			public uint vectorLength;
 			public OpSize operandSize;
 			public OpSize addressSize;
+			// 0=ES/CS/SS/DS, 1=FS/GS
+			public byte segmentPrio;
 			public readonly EncodingKind Encoding => (EncodingKind)(flags & StateFlags.EncodingMask);
 		}
 
@@ -114,17 +115,6 @@ namespace Iced.Intel {
 		/// Gets the bitness (16, 32 or 64)
 		/// </summary>
 		public int Bitness { get; }
-
-		// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3
-		static readonly uint[] prefixes1632 = new uint[8] {
-			0x00008000, 0x40404040, 0x00000000, 0x000000F0,
-			0x00000000, 0x00000000, 0x00000000, 0x000D0000,
-		};
-		// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3 and 40-4F
-		static readonly uint[] prefixes64 = new uint[8] {
-			0x00008000, 0x40404040, 0x0000FFFF, 0x000000F0,
-			0x00000000, 0x00000000, 0x00000000, 0x000D0000,
-		};
 
 		static Decoder() {
 			// Initialize cctors that are used by decoder related methods. It doesn't speed up
@@ -164,7 +154,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size64;
 				defaultInvertedAddressSize = OpSize.Size32;
-				prefixes = prefixes64;
+				mask64b = uint.MaxValue;
 			}
 			else if (bitness == 32) {
 				is64bMode = false;
@@ -173,7 +163,7 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size16;
 				defaultAddressSize = OpSize.Size32;
 				defaultInvertedAddressSize = OpSize.Size16;
-				prefixes = prefixes1632;
+				mask64b = 0;
 			}
 			else {
 				Debug.Assert(bitness == 16);
@@ -183,12 +173,11 @@ namespace Iced.Intel {
 				defaultInvertedOperandSize = OpSize.Size32;
 				defaultAddressSize = OpSize.Size16;
 				defaultInvertedAddressSize = OpSize.Size32;
-				prefixes = prefixes1632;
+				mask64b = 0;
 			}
 			is64bMode_and_W = is64bMode ? (uint)StateFlags.W : 0;
 			reg15Mask = is64bMode ? 0xFU : 0x7;
 			handlers_XX = OpCodeHandlersTables_Legacy.OneByteHandlers;
-			handlers_0FXX = OpCodeHandlersTables_Legacy.TwoByteHandlers_0FXX;
 #if !NO_VEX
 			handlers_VEX_0FXX = OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
 			handlers_VEX_0F38XX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
@@ -304,12 +293,6 @@ namespace Iced.Intel {
 		/// <param name="instruction">Decoded instruction</param>
 		public void Decode(out Instruction instruction) {
 			instruction = default;
-			// JIT32: it's 9% slower decoding instructions if we clear the whole 'state'
-			// 32-bit RyuJIT: not tested
-			// 64-bit RyuJIT: diff is too small to care about
-#if truex
-			state = default;
-#else
 			state.instructionLength = 0;
 			state.extraRegisterBase = 0;
 			state.extraIndexRegisterBase = 0;
@@ -317,121 +300,33 @@ namespace Iced.Intel {
 			state.extraIndexRegisterBaseVSIB = 0;
 			state.flags = 0;
 			state.mandatoryPrefix = 0;
-#endif
+			state.segmentPrio = 0;
+
 			state.operandSize = defaultOperandSize;
 			state.addressSize = defaultAddressSize;
-			var table = handlers_XX;
-			var defaultDsSegment = (byte)Register.DS;
-			uint rexPrefix = 0;
-			uint b;
-			for (;;) {
-				b = ReadByte();
-				// RyuJIT32: 2-5% faster, RyuJIT64: almost no improvement
-				if (((prefixes[(int)(b / 32)] >> ((int)b & 31)) & 1) == 0)
-					break;
-				// Converting these prefixes to opcode handlers instead of a switch results in slightly worse perf
-				// with JIT32, and about the same speed with 64-bit RyuJIT.
-				switch (b) {
-				case 0x0F:
-					b = ReadByte();
-					table = handlers_0FXX;
-					goto afterPrefixLoop;
-
-				case 0x26:
-					if (!is64bMode || defaultDsSegment < (byte)Register.FS) {
-						instruction.SegmentPrefix = Register.ES;
-						defaultDsSegment = (byte)Register.ES;
-					}
-					rexPrefix = 0;
-					break;
-
-				case 0x2E:
-					if (!is64bMode || defaultDsSegment < (byte)Register.FS) {
-						instruction.SegmentPrefix = Register.CS;
-						defaultDsSegment = (byte)Register.CS;
-					}
-					rexPrefix = 0;
-					break;
-
-				case 0x36:
-					if (!is64bMode || defaultDsSegment < (byte)Register.FS) {
-						instruction.SegmentPrefix = Register.SS;
-						defaultDsSegment = (byte)Register.SS;
-					}
-					rexPrefix = 0;
-					break;
-
-				case 0x3E:
-					if (!is64bMode || defaultDsSegment < (byte)Register.FS) {
-						instruction.SegmentPrefix = Register.DS;
-						defaultDsSegment = (byte)Register.DS;
-					}
-					rexPrefix = 0;
-					break;
-
-				case 0x64:
-					instruction.SegmentPrefix = Register.FS;
-					defaultDsSegment = (byte)Register.FS;
-					rexPrefix = 0;
-					break;
-
-				case 0x65:
-					instruction.SegmentPrefix = Register.GS;
-					defaultDsSegment = (byte)Register.GS;
-					rexPrefix = 0;
-					break;
-
-				case 0x66:
-					state.flags |= StateFlags.Has66;
-					state.operandSize = defaultInvertedOperandSize;
-					if (state.mandatoryPrefix == MandatoryPrefixByte.None)
-						state.mandatoryPrefix = MandatoryPrefixByte.P66;
-					rexPrefix = 0;
-					break;
-
-				case 0x67:
-					state.addressSize = defaultInvertedAddressSize;
-					rexPrefix = 0;
-					break;
-
-				case 0xF0:
-					instruction.InternalSetHasLockPrefix();
-					state.flags |= StateFlags.Lock;
-					rexPrefix = 0;
-					break;
-
-				case 0xF2:
-					instruction.InternalSetHasRepnePrefix();
-					state.mandatoryPrefix = MandatoryPrefixByte.PF2;
-					rexPrefix = 0;
-					break;
-
-				case 0xF3:
-					instruction.InternalSetHasRepePrefix();
-					state.mandatoryPrefix = MandatoryPrefixByte.PF3;
-					rexPrefix = 0;
-					break;
-
-				default:
-					Debug.Assert(is64bMode);
-					Debug.Assert(0x40 <= b && b <= 0x4F);
-					rexPrefix = b;
-					break;
-				}
-			}
-afterPrefixLoop:
-			if (rexPrefix != 0) {
-				if ((rexPrefix & 8) != 0) {
+			uint b = ReadByte();
+			// Test binary: xul.dll 64-bit
+			// 52.01% of all instructions have at least one prefix
+			// REX = 92.50%
+			//  66 =  4.41%
+			//  F3 =  1.80%
+			//  F2 =  0.65%
+			//  F0 =  0.51%
+			//  65 =  0.10%
+			if (((b >> 4) & mask64b) == 4) {
+				if ((b & 8) != 0) {
 					state.operandSize = OpSize.Size64;
 					state.flags |= StateFlags.HasRex | StateFlags.W;
 				}
 				else
 					state.flags |= StateFlags.HasRex;
-				state.extraRegisterBase = (rexPrefix & 4) << 1;
-				state.extraIndexRegisterBase = (rexPrefix & 2) << 2;
-				state.extraBaseRegisterBase = (rexPrefix & 1) << 3;
+				state.extraRegisterBase = (b & 4) << 1;
+				state.extraIndexRegisterBase = (b & 2) << 2;
+				state.extraBaseRegisterBase = (b & 1) << 3;
+
+				b = ReadByte();
 			}
-			DecodeTable(table[b], ref instruction);
+			DecodeTable(handlers_XX[b], ref instruction);
 			var flags = state.flags;
 			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock)) != 0) {
 				if ((flags & StateFlags.IsInvalid) != 0 ||
@@ -456,6 +351,24 @@ afterPrefixLoop:
 				else
 					instruction.InternalMemoryDisplacement64_lo = (uint)ip + instruction.MemoryDisplacement32;
 			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void ResetRexPrefixState() {
+			state.flags &= ~(StateFlags.HasRex | StateFlags.W);
+			if ((state.flags & StateFlags.Has66) == 0)
+				state.operandSize = defaultOperandSize;
+			else
+				state.operandSize = defaultInvertedOperandSize;
+			state.extraRegisterBase = 0;
+			state.extraIndexRegisterBase = 0;
+			state.extraBaseRegisterBase = 0;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal void CallOpCodeHandlerXXTable(ref Instruction instruction) {
+			var b = ReadByte();
+			DecodeTable(handlers_XX[b], ref instruction);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -33,7 +33,7 @@ namespace Generator.Decoder {
 		public static DecoderTableSerializerInfo Legacy(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.OpCodeHandlerKind];
 			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).Legacy,
-				new string[] { DecoderTable_Legacy.OneByteHandlers, DecoderTable_Legacy.TwoByteHandlers_0FXX },
+				new string[] { DecoderTable_Legacy.OneByteHandlers },
 				CSharpConstants.DecoderDefine,
 				enumType[nameof(OpCodeHandlerKind.Null)],
 				enumType[nameof(OpCodeHandlerKind.HandlerReference)],

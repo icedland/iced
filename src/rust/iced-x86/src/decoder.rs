@@ -58,11 +58,6 @@ static READ_OP_MEM_VSIB_FNS: [fn(&mut Decoder<'_>, &mut Instruction, Register, T
 	decoder_read_op_mem_vsib_2,
 ];
 
-// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3
-static PREFIXES1632: [u32; 8] = [0x0000_8000, 0x4040_4040, 0x0000_0000, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
-// 0F,26,2E,36,3E,64,65,66,67,F0,F2,F3 and 40-4F
-static PREFIXES64: [u32; 8] = [0x0000_8000, 0x4040_4040, 0x0000_FFFF, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
-
 static MEM_REGS_16: [(Register, Register); 8] = [
 	(Register::BX, Register::SI),
 	(Register::BX, Register::DI),
@@ -344,6 +339,7 @@ struct State {
 	vector_length: u32,
 	operand_size: OpSize,
 	address_size: OpSize,
+	segment_prio: u8, // 0=ES/CS/SS/DS, 1=FS/GS
 }
 
 impl State {
@@ -373,8 +369,6 @@ where
 	// Current RIP value
 	ip: u64,
 
-	// One of {&PREFIXES1632, &PREFIXES64} depending on bitness
-	prefixes: &'static [u32; 8],
 	// Input data provided by the user. When there's no more bytes left to read we'll return a NoMoreBytes error
 	data: &'a [u8],
 	// Next bytes to read if there's enough bytes left to read.
@@ -398,7 +392,6 @@ where
 	instr_start_data_ptr: usize,
 
 	handlers_xx: &'static [&'static OpCodeHandler; 0x100],
-	handlers_0fxx: &'static [&'static OpCodeHandler; 0x100],
 	#[cfg(not(feature = "no_vex"))]
 	handlers_vex: [&'static [&'static OpCodeHandler; 0x100]; 3],
 	#[cfg(not(feature = "no_evex"))]
@@ -429,6 +422,7 @@ where
 	reg15_mask: u32,
 	// 0 in 16/32-bit mode, 0E0h in 64-bit mode
 	mask_e0: u32,
+	mask_64b: u32,
 	bitness: u32,
 	default_operand_size: OpSize,
 	default_address_size: OpSize,
@@ -715,7 +709,6 @@ impl<'a> Decoder<'a> {
 	#[allow(clippy::let_unit_value)]
 	#[allow(trivial_casts)]
 	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
-		let prefixes;
 		let is64b_mode;
 		let default_code_size;
 		let default_operand_size;
@@ -730,7 +723,6 @@ impl<'a> Decoder<'a> {
 				default_inverted_operand_size = OpSize::Size16;
 				default_address_size = OpSize::Size64;
 				default_inverted_address_size = OpSize::Size32;
-				prefixes = &PREFIXES64;
 			}
 			32 => {
 				is64b_mode = false;
@@ -739,7 +731,6 @@ impl<'a> Decoder<'a> {
 				default_inverted_operand_size = OpSize::Size16;
 				default_address_size = OpSize::Size32;
 				default_inverted_address_size = OpSize::Size16;
-				prefixes = &PREFIXES1632;
 			}
 			16 => {
 				is64b_mode = false;
@@ -748,7 +739,6 @@ impl<'a> Decoder<'a> {
 				default_inverted_operand_size = OpSize::Size32;
 				default_address_size = OpSize::Size16;
 				default_inverted_address_size = OpSize::Size32;
-				prefixes = &PREFIXES1632;
 			}
 			_ => return Err(IcedError::new("Invalid bitness")),
 		}
@@ -822,17 +812,14 @@ impl<'a> Decoder<'a> {
 		#[cfg(feature = "__internal_mem_vsib")]
 		let read_op_mem_fns = ();
 
-		debug_assert_eq!(prefixes.len() * mem::size_of_val(&prefixes[0]) * 8, 256);
 		Ok(Decoder {
 			ip,
-			prefixes,
 			data,
 			data_ptr: data.as_ptr() as usize,
 			data_ptr_end,
 			max_data_ptr: data.as_ptr() as usize,
 			instr_start_data_ptr: data.as_ptr() as usize,
 			handlers_xx: get_handlers(&tables.handlers_xx),
-			handlers_0fxx: get_handlers(&tables.handlers_0fxx),
 			handlers_vex: [handlers_vex_0fxx, handlers_vex_0f38xx, handlers_vex_0f3axx],
 			handlers_evex: [handlers_evex_0fxx, handlers_evex_0f38xx, handlers_evex_0f3axx],
 			handlers_xop: [handlers_xop8, handlers_xop9, handlers_xopa],
@@ -843,6 +830,7 @@ impl<'a> Decoder<'a> {
 			is64b_mode_and_w: if is64b_mode { StateFlags::W } else { 0 },
 			reg15_mask: if is64b_mode { 0xF } else { 0x7 },
 			mask_e0: if is64b_mode { 0xE0 } else { 0 },
+			mask_64b: if is64b_mode { 0xFFFF_FFFF } else { 0 },
 			bitness,
 			default_operand_size,
 			default_address_size,
@@ -1243,117 +1231,36 @@ impl<'a> Decoder<'a> {
 		self.state.operand_size = self.default_operand_size;
 		self.state.address_size = self.default_address_size;
 
+		self.state.segment_prio = 0;
+
 		let data_ptr = self.data_ptr;
 		self.instr_start_data_ptr = data_ptr;
 		// The ctor has verified that the two expressions used in min() don't overflow and are >= data_ptr.
 		// The calculated usize is a valid pointer in `self.data` slice or at most 1 byte past the last valid byte.
 		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
 
-		let mut table = self.handlers_xx;
 		let mut b = self.read_u8();
-		if (((self.prefixes[b / 32]) >> (b & 31)) & 1) != 0 {
-			let mut default_ds_segment = Register::DS;
-			let mut rex_prefix: usize = 0;
-			loop {
-				// Test binary: xul.dll 64-bit
-				// 52.01% of all instructions have at least one prefix
-				// REX = 92.50%
-				//  66 =  4.41%
-				//  F3 =  1.80%
-				//  F2 =  0.65%
-				//  F0 =  0.51%
-				//  65 =  0.10%
-				// We need to check for 0Fh before REX prefix since the compiler generates worse
-				// code if we check it after the REX prefix.
-				if b == 0x0F {
-					b = self.read_u8();
-					table = self.handlers_0fxx;
-					break;
-				} else if ((b as u32) >> 4) == 4 {
-					debug_assert!(self.is64b_mode);
-					rex_prefix = b;
-				} else if b == 0x66 {
-					self.state.flags |= StateFlags::HAS66;
-					self.state.operand_size = self.default_inverted_operand_size;
-					if self.state.mandatory_prefix == MandatoryPrefixByte::None as u32 {
-						self.state.mandatory_prefix = MandatoryPrefixByte::P66 as u32;
-					}
-					rex_prefix = 0;
-				} else if b == 0xF3 {
-					instruction_internal::internal_set_has_repe_prefix(instruction);
-					self.state.mandatory_prefix = MandatoryPrefixByte::PF3 as u32;
-					rex_prefix = 0;
-				} else if b == 0xF2 {
-					instruction_internal::internal_set_has_repne_prefix(instruction);
-					self.state.mandatory_prefix = MandatoryPrefixByte::PF2 as u32;
-					rex_prefix = 0;
-				} else if b == 0xF0 {
-					instruction_internal::internal_set_has_lock_prefix(instruction);
-					self.state.flags |= StateFlags::LOCK;
-					rex_prefix = 0;
-				} else {
-					match b {
-						0x2E => {
-							if !self.is64b_mode || default_ds_segment < Register::FS {
-								instruction.set_segment_prefix(Register::CS);
-								default_ds_segment = Register::CS;
-							}
-							rex_prefix = 0;
-						}
-						0x36 => {
-							if !self.is64b_mode || default_ds_segment < Register::FS {
-								instruction.set_segment_prefix(Register::SS);
-								default_ds_segment = Register::SS;
-							}
-							rex_prefix = 0;
-						}
-						0x3E => {
-							if !self.is64b_mode || default_ds_segment < Register::FS {
-								instruction.set_segment_prefix(Register::DS);
-								default_ds_segment = Register::DS;
-							}
-							rex_prefix = 0;
-						}
-						0x64 => {
-							instruction.set_segment_prefix(Register::FS);
-							default_ds_segment = Register::FS;
-							rex_prefix = 0;
-						}
-						0x65 => {
-							instruction.set_segment_prefix(Register::GS);
-							default_ds_segment = Register::GS;
-							rex_prefix = 0;
-						}
-						0x67 => {
-							self.state.address_size = self.default_inverted_address_size;
-							rex_prefix = 0;
-						}
-						_ => {
-							if !self.is64b_mode || default_ds_segment < Register::FS {
-								instruction.set_segment_prefix(Register::ES);
-								default_ds_segment = Register::ES;
-							}
-							rex_prefix = 0;
-						}
-					}
-				}
-				b = self.read_u8();
-				if (((self.prefixes[b / 32]) >> (b & 31)) & 1) == 0 {
-					break;
-				}
+		// Test binary: xul.dll 64-bit
+		// 52.01% of all instructions have at least one prefix
+		// REX = 92.50%
+		//  66 =  4.41%
+		//  F3 =  1.80%
+		//  F2 =  0.65%
+		//  F0 =  0.51%
+		//  65 =  0.10%
+		if (((b as u32) >> 4) & self.mask_64b) == 4 {
+			debug_assert!(self.is64b_mode);
+			self.state.flags |= StateFlags::HAS_REX;
+			if (b & 8) != 0 {
+				self.state.flags |= StateFlags::W;
+				self.state.operand_size = OpSize::Size64;
 			}
-			if rex_prefix != 0 {
-				self.state.flags |= StateFlags::HAS_REX;
-				if (rex_prefix & 8) != 0 {
-					self.state.flags |= StateFlags::W;
-					self.state.operand_size = OpSize::Size64;
-				}
-				self.state.extra_register_base = (rex_prefix as u32 & 4) << 1;
-				self.state.extra_index_register_base = (rex_prefix as u32 & 2) << 2;
-				self.state.extra_base_register_base = (rex_prefix as u32 & 1) << 3;
-			}
+			self.state.extra_register_base = (b as u32 & 4) << 1;
+			self.state.extra_index_register_base = (b as u32 & 2) << 2;
+			self.state.extra_base_register_base = (b as u32 & 1) << 3;
+			b = self.read_u8();
 		}
-		self.decode_table2(table[b], instruction);
+		self.decode_table2(self.handlers_xx[b], instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
 		let instr_len = self.data_ptr as u32 - data_ptr as u32;
@@ -1409,6 +1316,25 @@ impl<'a> Decoder<'a> {
 				instruction_internal::internal_set_code_size(instruction, self.default_code_size);
 			}
 		}
+	}
+
+	#[inline(always)]
+	fn reset_rex_prefix_state(&mut self) {
+		self.state.flags &= !(StateFlags::HAS_REX | StateFlags::W);
+		if (self.state.flags & StateFlags::HAS66) == 0 {
+			self.state.operand_size = self.default_operand_size;
+		} else {
+			self.state.operand_size = self.default_inverted_operand_size;
+		}
+		self.state.extra_register_base = 0;
+		self.state.extra_index_register_base = 0;
+		self.state.extra_base_register_base = 0;
+	}
+
+	#[inline(always)]
+	fn call_opcode_handler_xx_table(&mut self, instruction: &mut Instruction) {
+		let b = self.read_u8();
+		self.decode_table2(self.handlers_xx[b], instruction);
 	}
 
 	#[must_use]
