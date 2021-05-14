@@ -314,9 +314,9 @@ impl OpCodeHandler_PrefixREX {
 			} else {
 				decoder.state.flags &= !StateFlags::W;
 				if (decoder.state.flags & StateFlags::HAS66) == 0 {
-					decoder.state.operand_size = decoder.default_operand_size;
+					decoder.state.operand_size = OpSize::Size32;
 				} else {
-					decoder.state.operand_size = decoder.default_inverted_operand_size;
+					decoder.state.operand_size = OpSize::Size16;
 				}
 			}
 			decoder.state.extra_register_base = (b & 4) << 1;

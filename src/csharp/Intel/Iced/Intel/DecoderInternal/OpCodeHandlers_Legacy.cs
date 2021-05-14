@@ -195,9 +195,9 @@ namespace Iced.Intel.DecoderInternal {
 					decoder.state.flags |= StateFlags.HasRex;
 					decoder.state.flags &= ~StateFlags.W;
 					if ((decoder.state.flags & StateFlags.Has66) == 0)
-						decoder.state.operandSize = decoder.defaultOperandSize;
+						decoder.state.operandSize = OpSize.Size32;
 					else
-						decoder.state.operandSize = decoder.defaultInvertedOperandSize;
+						decoder.state.operandSize = OpSize.Size16;
 				}
 				decoder.state.extraRegisterBase = (rex & 4) << 1;
 				decoder.state.extraIndexRegisterBase = (rex & 2) << 2;
