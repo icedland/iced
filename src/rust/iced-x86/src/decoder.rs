@@ -1657,10 +1657,8 @@ impl<'a> Decoder<'a> {
 		self.state.flags &= !StateFlags::W;
 
 		let d = self.read_u32() as u32;
-		let p2 = d >> 8;
-
-		let p0 = self.state.modrm;
 		if (d & 4) != 0 {
+			let p0 = self.state.modrm;
 			if (p0 & 0x0C) == 0 {
 				if cfg!(debug_assertions) {
 					self.state.flags |= EncodingKind::EVEX as u32;
@@ -1675,6 +1673,7 @@ impl<'a> Decoder<'a> {
 				const_assert_eq!(StateFlags::W, 0x80);
 				self.state.flags |= d & 0x80;
 
+				let p2 = d >> 8;
 				let aaa = p2 & 7;
 				self.state.aaa = aaa;
 				instruction_internal::internal_set_op_mask(instruction, aaa);
