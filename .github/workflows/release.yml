@@ -567,4 +567,4 @@ jobs:
         run: |
           npm publish /tmp/artifacts/npm/iced-x86-*.tgz
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
