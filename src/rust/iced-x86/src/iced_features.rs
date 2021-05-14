@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 /// Gets the available features
+#[doc(hidden)]
 #[allow(missing_copy_implementations)]
 #[allow(missing_debug_implementations)]
 pub struct IcedFeatures;

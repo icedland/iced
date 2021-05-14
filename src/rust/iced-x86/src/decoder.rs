@@ -1539,7 +1539,7 @@ impl<'a> Decoder<'a> {
 		b = !b;
 		self.state.extra_register_base = (b >> 4) & 8;
 
-		// Bit 6 can only be 1 if it's 16/32-bit mode, so we don't need to change the mask
+		// Bit 6 can only be 0 if it's 16/32-bit mode, so we don't need to change the mask
 		b = (b >> 3) & 0x0F;
 		self.state.vvvv = b;
 		self.state.vvvv_invalid_check = b;
