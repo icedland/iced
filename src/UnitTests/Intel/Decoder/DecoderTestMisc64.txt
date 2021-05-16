@@ -220,6 +220,8 @@ F2 F2 F2 64 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;fs;rax;;1;0;0;
 
 # prefix: REX without W + 66
 66 40 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
+66 47 40 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
+66 4F 40 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
 
 # prefix: REX.W overrides 66
 66 48 01 CE, Add_rm64_r64, Add, 2, op0=r;rsi op1=r;rcx enc=4801CE
