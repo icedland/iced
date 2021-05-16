@@ -13,7 +13,7 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 
 #[allow(trivial_casts)]
-pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<&'static OpCodeHandler>) {
+pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>) {
 	let code;
 	let reg;
 	let index;
@@ -31,7 +31,7 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		OpCodeHandlerKind::Invalid_NoModRM => &INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Invalid2 => {
-			result.push(unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) });
+			result.push((unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) }, INVALID_HANDLER.decode));
 			&INVALID_HANDLER as *const _ as *const OpCodeHandler
 		}
 
@@ -39,13 +39,14 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			let count = deserializer.read_u32();
 			let handler = deserializer.read_handler_or_null_instance();
 			for _ in 0..count {
-				result.push(unsafe { &*handler });
+				let handler = unsafe { &*handler.0 };
+				result.push((handler, handler.decode));
 			}
 			return;
 		}
 
 		OpCodeHandlerKind::Null => &NULL_HANDLER as *const _ as *const OpCodeHandler,
-		OpCodeHandlerKind::HandlerReference => deserializer.read_handler_reference(),
+		OpCodeHandlerKind::HandlerReference => deserializer.read_handler_reference().0,
 		OpCodeHandlerKind::ArrayReference => unreachable!(),
 
 		OpCodeHandlerKind::RM => {
@@ -927,5 +928,6 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			Box::into_raw(Box::new(OpCodeHandler_PrefixREX::new(deserializer.read_handler(), deserializer.read_u32()))) as *const OpCodeHandler
 		}
 	};
-	result.push(unsafe { &*elem });
+	let handler = unsafe { &*elem };
+	result.push((handler, handler.decode));
 }

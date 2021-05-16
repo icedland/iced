@@ -11,14 +11,14 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 
 #[allow(trivial_casts)]
-pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<&'static OpCodeHandler>) {
+pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>) {
 	let code;
 	let reg;
 	let elem: *const OpCodeHandler = match deserializer.read_evex_op_code_handler_kind() {
 		EvexOpCodeHandlerKind::Invalid => &INVALID_HANDLER as *const _ as *const OpCodeHandler,
 
 		EvexOpCodeHandlerKind::Invalid2 => {
-			result.push(unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) });
+			result.push((unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) }, INVALID_HANDLER.decode));
 			&INVALID_HANDLER as *const _ as *const OpCodeHandler
 		}
 
@@ -26,12 +26,13 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			let count = deserializer.read_u32();
 			let handler = deserializer.read_handler();
 			for _ in 0..count {
-				result.push(unsafe { &*handler });
+				let handler = unsafe { &*handler.0 };
+				result.push((handler, handler.decode));
 			}
 			return;
 		}
 
-		EvexOpCodeHandlerKind::HandlerReference => deserializer.read_handler_reference(),
+		EvexOpCodeHandlerKind::HandlerReference => deserializer.read_handler_reference().0,
 
 		EvexOpCodeHandlerKind::ArrayReference => unreachable!(),
 
@@ -517,5 +518,6 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			deserializer.read_tuple_type(),
 		))) as *const OpCodeHandler,
 	};
-	result.push(unsafe { &*elem });
+	let handler = unsafe { &*elem };
+	result.push((handler, handler.decode));
 }

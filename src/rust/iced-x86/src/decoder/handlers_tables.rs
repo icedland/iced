@@ -1,31 +1,31 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::decoder::handlers::OpCodeHandler;
+use crate::decoder::handlers::{OpCodeHandler, OpCodeHandlerDecodeFn};
 use crate::decoder::table_de::*;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 
 pub(super) struct Tables {
-	pub(super) handlers_xx: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_xx: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_vex"))]
-	pub(super) handlers_vex_0fxx: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_vex_0fxx: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_vex"))]
-	pub(super) handlers_vex_0f38xx: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_vex_0f38xx: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_vex"))]
-	pub(super) handlers_vex_0f3axx: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_vex_0f3axx: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_0fxx: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_evex_0fxx: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_0f38xx: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_evex_0f38xx: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_evex"))]
-	pub(super) handlers_evex_0f3axx: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_evex_0f3axx: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_xop"))]
-	pub(super) handlers_xop8: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_xop8: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_xop"))]
-	pub(super) handlers_xop9: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_xop9: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(not(feature = "no_xop"))]
-	pub(super) handlers_xopa: Vec<&'static OpCodeHandler>,
+	pub(super) handlers_xopa: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	#[cfg(feature = "no_vex")]
 	#[allow(dead_code)]
 	handlers_vex_0fxx: (),

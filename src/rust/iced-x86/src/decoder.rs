@@ -15,7 +15,7 @@ mod table_de;
 #[cfg(test)]
 pub(crate) mod tests;
 
-use crate::decoder::handlers::OpCodeHandler;
+use crate::decoder::handlers::{OpCodeHandler, OpCodeHandlerDecodeFn};
 use crate::decoder::handlers_tables::TABLES;
 use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
@@ -391,13 +391,13 @@ where
 	// Initialized to start of data (data_ptr) when decode() is called. Used to calculate current IP/offset (when decoding) if needed.
 	instr_start_data_ptr: usize,
 
-	handlers_xx: &'static [&'static OpCodeHandler; 0x100],
+	handlers_xx: &'static [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 0x100],
 	#[cfg(not(feature = "no_vex"))]
-	handlers_vex: [&'static [&'static OpCodeHandler; 0x100]; 3],
+	handlers_vex: [&'static [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 0x100]; 3],
 	#[cfg(not(feature = "no_evex"))]
-	handlers_evex: [&'static [&'static OpCodeHandler; 0x100]; 3],
+	handlers_evex: [&'static [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 0x100]; 3],
 	#[cfg(not(feature = "no_xop"))]
-	handlers_xop: [&'static [&'static OpCodeHandler; 0x100]; 3],
+	handlers_xop: [&'static [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 0x100]; 3],
 
 	#[cfg(feature = "no_vex")]
 	handlers_vex: [(); 3],
@@ -756,7 +756,9 @@ impl<'a> Decoder<'a> {
 		let tables = &*TABLES;
 
 		#[allow(clippy::unwrap_used)]
-		fn get_handlers(handlers: &'static [&'static OpCodeHandler]) -> &'static [&'static OpCodeHandler; 0x100] {
+		fn get_handlers(
+			handlers: &'static [(&'static OpCodeHandler, OpCodeHandlerDecodeFn)],
+		) -> &'static [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 0x100] {
 			debug_assert_eq!(handlers.len(), 0x100);
 			// SAFETY: handlers size is verified to be 0x100
 			unsafe { (handlers.as_ptr() as *const [_; 0x100]).as_ref() }.unwrap()
@@ -1405,13 +1407,13 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	fn decode_table(&mut self, table: &[&OpCodeHandler; 0x100], instruction: &mut Instruction) {
+	fn decode_table(&mut self, table: &[(&OpCodeHandler, OpCodeHandlerDecodeFn); 0x100], instruction: &mut Instruction) {
 		let b = self.read_u8();
 		self.decode_table2(table[b], instruction);
 	}
 
 	#[inline(always)]
-	fn decode_table2(&mut self, handler: &OpCodeHandler, instruction: &mut Instruction) {
+	fn decode_table2(&mut self, (handler, decode): (&OpCodeHandler, OpCodeHandlerDecodeFn), instruction: &mut Instruction) {
 		if handler.has_modrm {
 			let m = self.read_u8() as u32;
 			self.state.modrm = m;
@@ -1419,7 +1421,7 @@ impl<'a> Decoder<'a> {
 			self.state.reg = (m >> 3) & 7;
 			self.state.rm = m & 7;
 		}
-		(handler.decode)(handler, self, instruction);
+		(decode)(handler, self, instruction);
 	}
 
 	#[inline(always)]
@@ -1643,7 +1645,7 @@ impl<'a> Decoder<'a> {
 				}
 
 				if let Some(&table) = self.handlers_evex.get(((p0 & 3) as usize).wrapping_sub(1)) {
-					let handler = table[(d >> 16) as u8 as usize];
+					let (handler, decode) = table[(d >> 16) as u8 as usize];
 					debug_assert!(handler.has_modrm);
 					let m = d >> 24;
 					self.state.modrm = m;
@@ -1655,7 +1657,7 @@ impl<'a> Decoder<'a> {
 					if (((self.state.flags & StateFlags::B) | self.state.vector_length) & self.invalid_check_mask) == 3 {
 						self.set_invalid_instruction();
 					}
-					(handler.decode)(handler, self, instruction);
+					(decode)(handler, self, instruction);
 				} else {
 					self.set_invalid_instruction();
 				}
