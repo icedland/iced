@@ -250,8 +250,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn is_invalid(&self) -> bool {
-		const_assert_eq!(Code::INVALID as u32, 0);
-		(self.code_flags & CodeFlags::CODE_MASK) == 0
+		(self.code_flags & CodeFlags::CODE_MASK) == Code::INVALID as u32
 	}
 
 	/// Gets the instruction code, see also [`mnemonic()`]
