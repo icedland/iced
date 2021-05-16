@@ -1837,12 +1837,10 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "__internal_mem_vsib"))]
 	fn read_op_mem_1_4(&mut self, instruction: &mut Instruction) -> bool {
-		instruction_internal::internal_set_memory_displ_size(instruction, 1);
-
 		self.displ_index = self.data_ptr.wrapping_add(1) as u8;
 		let sib = self.read_u16() as u32;
 
-		instruction_internal::internal_set_memory_index_scale(instruction, (sib >> 6) & 3);
+		instruction.memory_flags |= (((sib >> 6) & 3) | (1 << MemoryFlags::DISPL_SIZE_SHIFT)) as u16;
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
