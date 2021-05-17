@@ -1581,8 +1581,8 @@ rdtsc
 rdmsr
 rdpmc
 sysenter
-sysexit
-rex.w sysexit
+sysexitl
+sysexitq
 getsec
 rex.w getsec
 cmovow si, cx

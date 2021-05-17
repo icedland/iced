@@ -10882,6 +10882,7 @@ INSTRUCTION: 0F 35 | SYSEXIT | SEP
 	# AMD: no-rm no-v86 or #GP(0)
 	# #UD if CR4.FRED=1
 	flags: cpl0 cflow=ret tsx-impl-abort
+	gas: suffix=l osz-suffix-3 16 32
 END
 
 # Code: Sysexitq
@@ -10890,7 +10891,6 @@ INSTRUCTION: o64 0F 35 | SYSEXITQ | SEP
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
 	# #UD if CR4.FRED=1
 	flags: 64 cpl0 cflow=ret tsx-impl-abort
-	gas: mnemonic=sysexit flags=o64
 	nasm: mnemonic=sysexit flags=o64
 END
 

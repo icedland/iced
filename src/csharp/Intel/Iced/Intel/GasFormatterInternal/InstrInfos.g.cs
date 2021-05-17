@@ -5893,13 +5893,14 @@ namespace Iced.Intel.GasFormatterInternal {
 				0xF9, 0x03,// 505 = "sysenter"
 
 				// Sysexitd
-				0x01,// Normal_1
+				0x14,// OpSize3
 				0xFA, 0x03,// 506 = "sysexit"
+				0x6C,// 'l'
+				0x30,// 0x30
 
 				// Sysexitq
-				0x03,// Normal_2b
-				0xFA, 0x03,// 506 = "sysexit"
-				0x06,// 0x6 = OpSize64
+				0x01,// Normal_1
+				0xFB, 0x03,// 507 = "sysexitq"
 
 				// Getsecd
 				0x01,// Normal_1
