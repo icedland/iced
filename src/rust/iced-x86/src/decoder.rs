@@ -333,6 +333,7 @@ struct State {
 	vvvv: u32,               // V`vvvv. Not stored in inverted form. If 16/32-bit mode, bits [4:3] are cleared
 	vvvv_invalid_check: u32, // vvvv bits, even in 16/32-bit mode.
 	// ***************************
+	mem_index: u32, // (mod << 3 | rm) and an index into the mem handler tables if mod <= 2
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX.XB << 3
@@ -1368,18 +1369,18 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
-	const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
 	fn set_xacquire_xrelease_core(&mut self, instruction: &mut Instruction, flags: u32) {
 		debug_assert!(!((flags & HandlerFlags::XACQUIRE_XRELEASE_NO_LOCK) == 0 && !instruction.has_lock_prefix()));
+		const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
+		const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
 		match self.state.mandatory_prefix {
-			Decoder::PF2 => {
+			PF2 => {
 				if (flags & HandlerFlags::XACQUIRE) != 0 {
 					self.clear_mandatory_prefix_f2(instruction);
 					instruction_internal::internal_set_has_xacquire_prefix(instruction);
 				}
 			}
-			Decoder::PF3 => {
+			PF3 => {
 				self.clear_mandatory_prefix_f3(instruction);
 				instruction_internal::internal_set_has_xrelease_prefix(instruction);
 			}
@@ -1417,9 +1418,10 @@ impl<'a> Decoder<'a> {
 		if handler.has_modrm {
 			let m = self.read_u8() as u32;
 			self.state.modrm = m;
-			self.state.mod_ = m >> 6;
 			self.state.reg = (m >> 3) & 7;
+			self.state.mod_ = m >> 6;
 			self.state.rm = m & 7;
+			self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
 		}
 		(decode)(handler, self, instruction);
 	}
@@ -1428,9 +1430,10 @@ impl<'a> Decoder<'a> {
 	fn read_modrm(&mut self) {
 		let m = self.read_u8() as u32;
 		self.state.modrm = m;
-		self.state.mod_ = m >> 6;
 		self.state.reg = (m >> 3) & 7;
+		self.state.mod_ = m >> 6;
 		self.state.rm = m & 7;
+		self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
 	}
 
 	#[cfg(feature = "no_vex")]
@@ -1649,9 +1652,10 @@ impl<'a> Decoder<'a> {
 					debug_assert!(handler.has_modrm);
 					let m = d >> 24;
 					self.state.modrm = m;
-					self.state.mod_ = m >> 6;
 					self.state.reg = (m >> 3) & 7;
+					self.state.mod_ = m >> 6;
 					self.state.rm = m & 7;
+					self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
 					// Invalid if LL=3 and no rc
 					const_assert!(StateFlags::B > 3);
 					if (((self.state.flags & StateFlags::B) | self.state.vector_length) & self.invalid_check_mask) == 3 {
@@ -1805,9 +1809,7 @@ impl<'a> Decoder<'a> {
 	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
 		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
 
-		let index = ((self.state.mod_ << 3) | self.state.rm) as usize;
-		debug_assert!(self.state.mod_ <= 2);
-		debug_assert!(self.state.rm <= 7);
+		let index = self.state.mem_index as usize;
 		debug_assert!(index < self.read_op_mem_fns.len());
 		// SAFETY: index is valid because modrm.mod = 0-2 (never 3 if we're here) so index will always be 0-10_111 (17h)
 		unsafe { (self.read_op_mem_fns.get_unchecked(index))(self, instruction) }
@@ -2133,9 +2135,7 @@ fn decoder_read_op_mem_32_or_64_vsib(
 ) -> bool {
 	debug_assert!(this.state.address_size == OpSize::Size32 || this.state.address_size == OpSize::Size64);
 
-	let index = ((this.state.mod_ << 3) | this.state.rm) as usize;
-	debug_assert!(this.state.mod_ <= 2);
-	debug_assert!(this.state.rm <= 7);
+	let index = this.state.mem_index as usize;
 	debug_assert!(index < READ_OP_MEM_VSIB_FNS.len());
 	// SAFETY: index is valid because modrm.mod = 0-2 (never 3 if we're here) so index will always be 0-10_111 (17h)
 	unsafe { (READ_OP_MEM_VSIB_FNS.get_unchecked(index))(this, instruction, index_reg, tuple_type, is_vsib) }
