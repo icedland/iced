@@ -29619,6 +29619,7 @@ END
 
 # Code: Seamcall
 INSTRUCTION: 66 0F 01 CF | SEAMCALL | TDX
+	implied: r=rax
 	rflags: w=c 0=oszap
 	# VMX instrs have tsx-impl-abort, it's probably the same for all TDX instructions
 	flags: 64 cpl0 cflow=call vmx=op intel-vm-exit no-in-smm no-in-seam tsx-impl-abort

@@ -4291,7 +4291,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000000, 0xA8580000,// Tdcall
 			0x0008C000, 0xA8580000,// Seamret
 			0x0B098000, 0xA8080000,// Seamops
-			0x00074000, 0xA8580000,// Seamcall
+			0x05C74000, 0xA8580000,// Seamcall
 			0x0B198004, 0xAB000000,// Aesencwide128kl_m384
 			0x0B198004, 0xAB000000,// Aesdecwide128kl_m384
 			0x0B198004, 0xAB000000,// Aesencwide256kl_m512

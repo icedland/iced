@@ -4287,7 +4287,7 @@ pub(crate) static TABLE: [u32; 8646] = [
 	0x0000_0000, 0xA858_0000,// Tdcall
 	0x0008_C000, 0xA858_0000,// Seamret
 	0x0B09_8000, 0xA808_0000,// Seamops
-	0x0007_4000, 0xA858_0000,// Seamcall
+	0x05C7_4000, 0xA858_0000,// Seamcall
 	0x0B19_8004, 0xAB00_0000,// Aesencwide128kl_m384
 	0x0B19_8004, 0xAB00_0000,// Aesdecwide128kl_m384
 	0x0B19_8004, 0xAB00_0000,// Aesencwide256kl_m512

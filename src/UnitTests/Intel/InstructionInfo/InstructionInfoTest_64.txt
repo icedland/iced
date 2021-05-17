@@ -19170,7 +19170,7 @@ C4E25B 5E D3, VEX_Tdpbssd_tmm_tmm_tmm, VEX, AMX_INT8, op0=rw op1=r op2=r rw=tmm2
 # seamops
 66 0F01 CE, Seamops, Legacy, TDX, priv fc=caops fw=z rw=rax cr=rcx;rdx;r8;r9
 # seamcall
-66 0F01 CF, Seamcall, Legacy, TDX, priv fc=zaops fw=c flow=Call
+66 0F01 CF, Seamcall, Legacy, TDX, priv fc=zaops fw=c flow=Call r=rax
 # aesencwide128kl [rax]
 F3 0F38 D8 00, Aesencwide128kl_m384, Legacy, AESKLE;WIDE_KL, fc=acops fw=z op0=r r=rax rm=ds:rax;KLHandleAes128 rw=xmm0;xmm1;xmm2;xmm3;xmm4;xmm5;xmm6;xmm7
 # aesdecwide128kl [rax]
