@@ -41,11 +41,11 @@ namespace Iced.Intel {
 		// to pass this value to the formatter and encoder methods.
 		ulong nextRip;
 		uint flags1;// InstrFlags1
+		// If it's a 64-bit immediate/offset/target, the high 32 bits is in memDispl
+		uint immediate;
 		// This is the high 32 bits if it's a 64-bit immediate/offset/target
 		uint memDispl;
 		uint memDisplHi;
-		// If it's a 64-bit immediate/offset/target, the high 32 bits is in memDispl
-		uint immediate;
 		ushort code;
 		byte memBaseReg;// Register
 		byte memIndexReg;// Register
@@ -74,9 +74,9 @@ namespace Iced.Intel {
 
 		static bool EqualsInternal(in Instruction a, in Instruction b) =>
 			((a.flags1 ^ b.flags1) & ~(uint)InstrFlags1.EqualsIgnoreMask) == 0 &&
+			a.immediate == b.immediate &&
 			a.memDispl == b.memDispl &&
 			a.memDisplHi == b.memDisplHi &&
-			a.immediate == b.immediate &&
 			a.code == b.code &&
 			a.memBaseReg == b.memBaseReg &&
 			a.memIndexReg == b.memIndexReg &&
@@ -97,9 +97,9 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public override readonly int GetHashCode() {
 			uint c = flags1 & ~(uint)InstrFlags1.EqualsIgnoreMask;
+			c ^= immediate;
 			c ^= memDispl;
 			c ^= memDisplHi;
-			c ^= immediate;
 			c ^= (uint)code << 8;
 			c ^= (uint)memBaseReg << 16;
 			c ^= (uint)memIndexReg << 24;
@@ -132,9 +132,9 @@ namespace Iced.Intel {
 		public static bool EqualsAllBits(in Instruction a, in Instruction b) =>
 			a.nextRip == b.nextRip &&
 			a.flags1 == b.flags1 &&
+			a.immediate == b.immediate &&
 			a.memDispl == b.memDispl &&
 			a.memDisplHi == b.memDisplHi &&
-			a.immediate == b.immediate &&
 			a.code == b.code &&
 			a.memBaseReg == b.memBaseReg &&
 			a.memIndexReg == b.memIndexReg &&

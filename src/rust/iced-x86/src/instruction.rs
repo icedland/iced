@@ -50,11 +50,11 @@ impl InstrFlags1 {
 pub struct Instruction {
 	pub(crate) next_rip: u64,
 	pub(crate) flags1: u32, // InstrFlags1
+	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
+	pub(crate) immediate: u32,
 	// This is the high 32 bits if it's a 64-bit immediate/offset/target
 	pub(crate) mem_displ: u32,
 	pub(crate) mem_displ_hi: u32,
-	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
-	pub(crate) immediate: u32,
 	pub(crate) code: u16,         // Code
 	pub(crate) mem_base_reg: u8,  // Register
 	pub(crate) mem_index_reg: u8, // Register
@@ -10545,9 +10545,9 @@ impl PartialEq<Instruction> for Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	fn eq(&self, other: &Self) -> bool {
 		((self.flags1 ^ other.flags1) & !InstrFlags1::EQUALS_IGNORE_MASK) == 0
+			&& self.immediate == other.immediate
 			&& self.mem_displ == other.mem_displ
 			&& self.mem_displ_hi == other.mem_displ_hi
-			&& self.immediate == other.immediate
 			&& self.code == other.code
 			&& self.mem_base_reg == other.mem_base_reg
 			&& self.mem_index_reg == other.mem_index_reg
@@ -10562,9 +10562,9 @@ impl Hash for Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	fn hash<H: Hasher>(&self, state: &mut H) {
 		state.write_u32(self.flags1 & !InstrFlags1::EQUALS_IGNORE_MASK);
+		state.write_u32(self.immediate);
 		state.write_u32(self.mem_displ);
 		state.write_u32(self.mem_displ_hi);
-		state.write_u32(self.immediate);
 		state.write_u16(self.code);
 		state.write_u8(self.mem_base_reg);
 		state.write_u8(self.mem_index_reg);
