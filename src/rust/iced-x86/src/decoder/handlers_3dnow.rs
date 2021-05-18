@@ -287,14 +287,14 @@ impl OpCodeHandler_D3NOW {
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		const_assert_eq!(OpKind::Register as u32, 0);
-		//instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
+		//instruction.set_op0_kind(OpKind::Register);
 		instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::MM0 as u32);
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(OpKind::Register as u32, 0);
-			//instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
+			//instruction.set_op1_kind(OpKind::Register);
 			instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::MM0 as u32);
 		} else {
-			instruction_internal::internal_set_op1_kind(instruction, OpKind::Memory);
+			instruction.set_op1_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
 		}
 		let ib = decoder.read_u8();
@@ -308,7 +308,7 @@ impl OpCodeHandler_D3NOW {
 			}
 			_ => {}
 		}
-		instruction_internal::internal_set_code(instruction, code);
+		instruction.set_code(code);
 		if code == Code::INVALID {
 			decoder.set_invalid_instruction();
 		}

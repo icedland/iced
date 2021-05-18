@@ -333,14 +333,14 @@ namespace Iced.Intel {
 					(((uint)(flags & (StateFlags.Lock | StateFlags.AllowLock)) & invalidCheckMask) == (uint)StateFlags.Lock)) {
 					instruction = default;
 					Static.Assert(Code.INVALID == 0 ? 0 : -1);
-					//instruction.InternalCode = Code.INVALID;
+					//instruction.Code = Code.INVALID;
 					state.flags = flags | StateFlags.IsInvalid;
 				}
 			}
 			instruction.InternalCodeSize = defaultCodeSize;
 			uint instrLen = state.instructionLength;
 			Debug.Assert(0 <= instrLen && instrLen <= IcedConstants.MaxInstructionLength);// Could be 0 if there were no bytes available
-			instruction.InternalLength = instrLen;
+			instruction.Length = (int)instrLen;
 			var ip = instructionPointer;
 			ip += instrLen;
 			instructionPointer = ip;
@@ -1112,7 +1112,7 @@ after_imm_loop:
 			public bool MoveNext() {
 				decoder.Decode(out instruction);
 				// If it has length 0, there was no more data
-				return instruction.HasNonZeroLength;
+				return instruction.Length != 0;
 			}
 
 			void IEnumerator.Reset() => throw new InvalidOperationException();

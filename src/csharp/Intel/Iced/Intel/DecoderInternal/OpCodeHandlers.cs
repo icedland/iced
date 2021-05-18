@@ -34,13 +34,13 @@ namespace Iced.Intel.DecoderInternal {
 	sealed class OpCodeHandler_Simple : OpCodeHandler {
 		readonly Code code;
 		public OpCodeHandler_Simple(Code code) => this.code = code;
-		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.InternalCode = code;
+		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.Code = code;
 	}
 
 	sealed class OpCodeHandler_Simple_ModRM : OpCodeHandlerModRM {
 		readonly Code code;
 		public OpCodeHandler_Simple_ModRM(Code code) => this.code = code;
-		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.InternalCode = code;
+		public override void Decode(Decoder decoder, ref Instruction instruction) => instruction.Code = code;
 	}
 
 	sealed class OpCodeHandler_Group8x8 : OpCodeHandlerModRM {

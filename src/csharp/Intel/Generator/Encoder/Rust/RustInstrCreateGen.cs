@@ -79,12 +79,12 @@ namespace Generator.Encoder.Rust {
 			if (args.Count == 0 || args[0].Type != MethodArgType.Code)
 				throw new InvalidOperationException();
 			var codeName = idConverter.Argument(args[0].Name);
-			writer.WriteLine($"instruction_internal::internal_set_code(&mut instruction, {codeName});");
+			writer.WriteLine($"instruction.set_code({codeName});");
 		}
 
 		void WriteInitializeInstruction(FileWriter writer, EnumValue code) {
 			writer.WriteLine("let mut instruction = Self::default();");
-			writer.WriteLine($"instruction_internal::internal_set_code(&mut instruction, {code.DeclaringType.Name(idConverter)}::{code.Name(idConverter)});");
+			writer.WriteLine($"instruction.set_code({code.DeclaringType.Name(idConverter)}::{code.Name(idConverter)});");
 		}
 
 		static void WriteMethodFooter(FileWriter writer, int opCount, TryMethodKind kind) {
@@ -234,12 +234,12 @@ namespace Generator.Encoder.Rust {
 				switch (arg.Type) {
 				case MethodArgType.Register:
 					ctx.Writer.WriteLine($"const_assert_eq!({opKindStr}::{registerStr} as u32, 0);");
-					ctx.Writer.WriteLine($"//instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{registerStr});");
-					ctx.Writer.WriteLine($"instruction_internal::internal_set_op{op}_register(&mut instruction, {idConverter.Argument(arg.Name)});");
+					ctx.Writer.WriteLine($"//instruction.set_op{op}_kind({opKindStr}::{registerStr});");
+					ctx.Writer.WriteLine($"instruction.set_op{op}_register({idConverter.Argument(arg.Name)});");
 					break;
 
 				case MethodArgType.Memory:
-					ctx.Writer.WriteLine($"instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{memoryStr});");
+					ctx.Writer.WriteLine($"instruction.set_op{op}_kind({opKindStr}::{memoryStr});");
 					ctx.Writer.WriteLine($"Instruction::init_memory_operand(&mut instruction, &{idConverter.Argument(arg.Name)});");
 					break;
 
@@ -291,7 +291,7 @@ namespace Generator.Encoder.Rust {
 		void GenCreateBranch(GenerateTryMethodContext ctx, TryMethodKind kind) {
 			WriteInitializeInstruction(ctx.Writer, ctx.Method);
 			ctx.Writer.WriteLine();
-			ctx.Writer.WriteLine($"instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_near_branch_op_kind({idConverter.Argument(ctx.Method.Args[0].Name)}, 0)?);");
+			ctx.Writer.WriteLine($"instruction.set_op0_kind(instruction_internal::get_near_branch_op_kind({idConverter.Argument(ctx.Method.Args[0].Name)}, 0)?);");
 			ctx.Writer.WriteLine($"instruction.set_near_branch64({idConverter.Argument(ctx.Method.Args[1].Name)});");
 		}
 
@@ -305,7 +305,7 @@ namespace Generator.Encoder.Rust {
 		void GenCreateFarBranch(GenerateTryMethodContext ctx, TryMethodKind kind) {
 			WriteInitializeInstruction(ctx.Writer, ctx.Method);
 			ctx.Writer.WriteLine();
-			ctx.Writer.WriteLine($"instruction_internal::internal_set_op0_kind(&mut instruction, instruction_internal::get_far_branch_op_kind({idConverter.Argument(ctx.Method.Args[0].Name)}, 0)?);");
+			ctx.Writer.WriteLine($"instruction.set_op0_kind(instruction_internal::get_far_branch_op_kind({idConverter.Argument(ctx.Method.Args[0].Name)}, 0)?);");
 			ctx.Writer.WriteLine($"instruction.set_far_branch_selector({idConverter.Argument(ctx.Method.Args[1].Name)});");
 			ctx.Writer.WriteLine($"instruction.set_far_branch32({idConverter.Argument(ctx.Method.Args[2].Name)});");
 		}
@@ -324,20 +324,20 @@ namespace Generator.Encoder.Rust {
 			ctx.Writer.WriteLine();
 			ctx.Writer.WriteLine($"match bitness {{");
 			ctx.Writer.WriteLine($"	16 => {{");
-			ctx.Writer.WriteLine($"		instruction_internal::internal_set_code(&mut instruction, {codeName}::{codeType[nameof(Code.Xbegin_rel16)].Name(idConverter)});");
-			ctx.Writer.WriteLine($"		instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_code({codeName}::{codeType[nameof(Code.Xbegin_rel16)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_op0_kind({opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
 			ctx.Writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(ctx.Method.Args[1].Name)} as u32);");
 			ctx.Writer.WriteLine($"	}}");
 			ctx.Writer.WriteLine();
 			ctx.Writer.WriteLine($"	32 => {{");
-			ctx.Writer.WriteLine($"		instruction_internal::internal_set_code(&mut instruction, {codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
-			ctx.Writer.WriteLine($"		instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_code({codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_op0_kind({opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
 			ctx.Writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(ctx.Method.Args[1].Name)} as u32);");
 			ctx.Writer.WriteLine($"	}}");
 			ctx.Writer.WriteLine();
 			ctx.Writer.WriteLine($"	64 => {{");
-			ctx.Writer.WriteLine($"		instruction_internal::internal_set_code(&mut instruction, {codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
-			ctx.Writer.WriteLine($"		instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_code({codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+			ctx.Writer.WriteLine($"		instruction.set_op0_kind({opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)});");
 			ctx.Writer.WriteLine($"		instruction.set_near_branch64({idConverter.Argument(ctx.Method.Args[1].Name)});");
 			ctx.Writer.WriteLine($"	}}");
 			ctx.Writer.WriteLine();

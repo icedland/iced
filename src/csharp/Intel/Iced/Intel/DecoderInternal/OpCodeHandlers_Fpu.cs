@@ -12,13 +12,13 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
+			instruction.Code = code;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = Register.ST0;
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = Register.ST0;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = Register.ST0 + (int)decoder.state.rm;
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = Register.ST0 + (int)decoder.state.rm;
 		}
 	}
 
@@ -29,13 +29,13 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
+			instruction.Code = code;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = Register.ST0 + (int)decoder.state.rm;
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = Register.ST0 + (int)decoder.state.rm;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.InternalOp1Kind = OpKind.Register;
-			instruction.InternalOp1Register = Register.ST0;
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = Register.ST0;
 		}
 	}
 
@@ -46,10 +46,10 @@ namespace Iced.Intel.DecoderInternal {
 
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
-			instruction.InternalCode = code;
+			instruction.Code = code;
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = Register.ST0 + (int)decoder.state.rm;
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = Register.ST0 + (int)decoder.state.rm;
 		}
 	}
 
@@ -71,11 +71,11 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			if (state.operandSize != OpSize.Size16)
-				instruction.InternalCode = code32;
+				instruction.Code = code32;
 			else
-				instruction.InternalCode = code16;
+				instruction.Code = code16;
 			Debug.Assert(state.mod != 3);
-			instruction.InternalOp0Kind = OpKind.Memory;
+			instruction.Op0Kind = OpKind.Memory;
 			decoder.ReadOpMem(ref instruction);
 		}
 	}

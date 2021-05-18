@@ -140,12 +140,12 @@ namespace Generator.Encoder.CSharp {
 			if (args.Count == 0 || args[0].Type != MethodArgType.Code)
 				throw new InvalidOperationException();
 			var codeName = idConverter.Argument(args[0].Name);
-			writer.WriteLine($"instruction.InternalCode = {codeName};");
+			writer.WriteLine($"instruction.Code = {codeName};");
 		}
 
 		void WriteInitializeInstruction(FileWriter writer, EnumValue code) {
 			writer.WriteLine("Instruction instruction = default;");
-			writer.WriteLine($"instruction.InternalCode = {code.DeclaringType.Name(idConverter)}.{code.Name(idConverter)};");
+			writer.WriteLine($"instruction.Code = {code.DeclaringType.Name(idConverter)}.{code.Name(idConverter)};");
 		}
 
 		static void WriteMethodFooter(FileWriter writer, int args) {
@@ -176,12 +176,12 @@ namespace Generator.Encoder.CSharp {
 					switch (arg.Type) {
 					case MethodArgType.Register:
 						writer.WriteLine($"Static.Assert({opKindStr}.{registerStr} == 0 ? 0 : -1);");
-						writer.WriteLine($"//instruction.InternalOp{op}Kind = {opKindStr}.{registerStr};");
-						writer.WriteLine($"instruction.InternalOp{op}Register = {idConverter.Argument(arg.Name)};");
+						writer.WriteLine($"//instruction.Op{op}Kind = {opKindStr}.{registerStr};");
+						writer.WriteLine($"instruction.Op{op}Register = {idConverter.Argument(arg.Name)};");
 						break;
 
 					case MethodArgType.Memory:
-						writer.WriteLine($"instruction.InternalOp{op}Kind = {opKindStr}.{memoryStr};");
+						writer.WriteLine($"instruction.Op{op}Kind = {opKindStr}.{memoryStr};");
 						writer.WriteLine($"InitMemoryOperand(ref instruction, {idConverter.Argument(arg.Name)});");
 						break;
 
@@ -231,7 +231,7 @@ namespace Generator.Encoder.CSharp {
 			using (writer.Indent()) {
 				WriteInitializeInstruction(writer, method);
 				writer.WriteLine();
-				writer.WriteLine($"instruction.InternalOp0Kind = GetNearBranchOpKind({idConverter.Argument(method.Args[0].Name)}, 0);");
+				writer.WriteLine($"instruction.Op0Kind = GetNearBranchOpKind({idConverter.Argument(method.Args[0].Name)}, 0);");
 				writer.WriteLine($"instruction.NearBranch64 = {idConverter.Argument(method.Args[1].Name)};");
 				WriteMethodFooter(writer, 1);
 			}
@@ -248,7 +248,7 @@ namespace Generator.Encoder.CSharp {
 			using (writer.Indent()) {
 				WriteInitializeInstruction(writer, method);
 				writer.WriteLine();
-				writer.WriteLine($"instruction.InternalOp0Kind = GetFarBranchOpKind({idConverter.Argument(method.Args[0].Name)}, 0);");
+				writer.WriteLine($"instruction.Op0Kind = GetFarBranchOpKind({idConverter.Argument(method.Args[0].Name)}, 0);");
 				writer.WriteLine($"instruction.FarBranchSelector = {idConverter.Argument(method.Args[1].Name)};");
 				writer.WriteLine($"instruction.FarBranch32 = {idConverter.Argument(method.Args[2].Name)};");
 				WriteMethodFooter(writer, 1);
@@ -271,24 +271,24 @@ namespace Generator.Encoder.CSharp {
 				writer.WriteLine($"switch ({bitnessName}) {{");
 				writer.WriteLine($"case 16:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.InternalCode = {codeName}.{codeType[nameof(Code.Xbegin_rel16)].Name(idConverter)};");
-					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Code = {codeName}.{codeType[nameof(Code.Xbegin_rel16)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Op0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
 					writer.WriteLine($"instruction.NearBranch32 = (uint){idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
 				writer.WriteLine();
 				writer.WriteLine($"case 32:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.InternalCode = {codeName}.{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
-					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Code = {codeName}.{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Op0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
 					writer.WriteLine($"instruction.NearBranch32 = (uint){idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
 				writer.WriteLine();
 				writer.WriteLine($"case 64:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.InternalCode = {codeName}.{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
-					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Code = {codeName}.{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.Op0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)};");
 					writer.WriteLine($"instruction.NearBranch64 = {idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}

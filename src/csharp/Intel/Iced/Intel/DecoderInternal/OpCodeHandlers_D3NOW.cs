@@ -50,15 +50,15 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
-			//instruction.InternalOp0Kind = OpKind.Register;
-			instruction.InternalOp0Register = (int)state.reg + Register.MM0;
+			//instruction.Op0Kind = OpKind.Register;
+			instruction.Op0Register = (int)state.reg + Register.MM0;
 			if (state.mod == 3) {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.InternalOp1Register = (int)state.rm + Register.MM0;
+				//instruction.Op1Kind = OpKind.Register;
+				instruction.Op1Register = (int)state.rm + Register.MM0;
 			}
 			else {
-				instruction.InternalOp1Kind = OpKind.Memory;
+				instruction.Op1Kind = OpKind.Memory;
 				decoder.ReadOpMem(ref instruction);
 			}
 			var code = codeValues[(int)decoder.ReadByte()];
@@ -69,7 +69,7 @@ namespace Iced.Intel.DecoderInternal {
 					code = Code.INVALID;
 				break;
 			}
-			instruction.InternalCode = code;
+			instruction.Code = code;
 			if (code == Code.INVALID)
 				decoder.SetInvalidInstruction();
 		}
