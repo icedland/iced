@@ -52,18 +52,18 @@ test_valid_invalid_instructions() {
 		echo "==== ${bitness}-bit: Generating valid/invalid files ===="
 		dotnet run -c:$configuration -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file"
 		echo "==== ${bitness}-bit: Testing valid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/Cargo.toml" -p iced-x86-fzgt -- -b $bitness -f "$valid_file"
+		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$valid_file"
 		echo "==== ${bitness}-bit: Testing invalid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/Cargo.toml" -p iced-x86-fzgt -- -b $bitness -f "$invalid_file" --invalid
+		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$invalid_file" --invalid
 	done
 
 	for bitness in 16 32 64; do
 		echo "==== ${bitness}-bit (AMD): Generating valid/invalid files ===="
 		dotnet run -c:$configuration -p "$root_dir/src/csharp/Intel/IcedFuzzer/IcedFuzzer/IcedFuzzer.csproj" -- -$bitness -oil "$invalid_file" -ovlc "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing valid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/Cargo.toml" -p iced-x86-fzgt -- -b $bitness -f "$valid_file" --amd
+		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$valid_file" --amd
 		echo "==== ${bitness}-bit (AMD): Testing invalid instructions ===="
-		cargo run --color always --release --manifest-path "$root_dir/src/rust/Cargo.toml" -p iced-x86-fzgt -- -b $bitness -f "$invalid_file" --invalid --amd
+		cargo run --color always --release --manifest-path "$root_dir/src/rust/iced-x86-fzgt/Cargo.toml" -- -b $bitness -f "$invalid_file" --invalid --amd
 	done
 
 	rm "$valid_file"

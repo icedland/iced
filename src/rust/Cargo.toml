@@ -4,11 +4,11 @@ exclude = [
     # Exclude it so it can override the [profile.release] section
     "iced-x86-js",
     "iced-x86-py",
+    "iced-x86-fzgt",
 ]
 
 members = [
     "iced-x86",
-    "iced-x86-fzgt",
 ]
 
 [profile.release]

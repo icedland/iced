@@ -12,3 +12,14 @@ structopt = "0.3.15"
 
 [dependencies.iced-x86]
 path = "../iced-x86"
+
+[workspace]
+# We can only override [profile.release] if this is the root workspace.
+# So make sure this is the root workspace.
+
+[profile.release]
+# Make sure we get notified of any debug_assert{,eq,ne} failures in release builds
+debug-assertions = true
+codegen-units = 1
+lto = true
+opt-level = 3
