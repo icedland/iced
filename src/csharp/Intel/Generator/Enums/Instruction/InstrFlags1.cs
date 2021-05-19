@@ -24,8 +24,8 @@ namespace Generator.Enums.Instruction {
 	[Enum(nameof(InstrFlags1), "InstrFlags1", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum InstrFlags1 : uint {
-		SegmentPrefixShift		= 5,
 		SegmentPrefixMask		= 7,
+		SegmentPrefixShift		= 5,
 		DataLengthMask			= 0xF,
 		DataLengthShift			= 8,
 		RoundingControlMask		= 7,

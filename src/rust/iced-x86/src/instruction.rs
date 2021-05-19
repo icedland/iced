@@ -21,8 +21,8 @@ use static_assertions::{const_assert, const_assert_eq};
 pub(crate) struct InstrFlags1;
 #[allow(dead_code)]
 impl InstrFlags1 {
-	pub(crate) const SEGMENT_PREFIX_SHIFT: u32 = 0x0000_0005;
 	pub(crate) const SEGMENT_PREFIX_MASK: u32 = 0x0000_0007;
+	pub(crate) const SEGMENT_PREFIX_SHIFT: u32 = 0x0000_0005;
 	pub(crate) const DATA_LENGTH_MASK: u32 = 0x0000_000F;
 	pub(crate) const DATA_LENGTH_SHIFT: u32 = 0x0000_0008;
 	pub(crate) const ROUNDING_CONTROL_MASK: u32 = 0x0000_0007;
