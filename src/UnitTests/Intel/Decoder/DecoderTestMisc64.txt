@@ -282,3 +282,7 @@ F0 8E 0D 34125AA5, INVALID, INVALID, 0, code=Mov_Sreg_r32m16
 # Decoder/encoder ip overflow test
 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx ip=0xFFFFFFFFFFFFFFFE
 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx ip=0xFFFFFFFFFFFFFFFF
+
+# Verify that the decoder clears extra_index_register_base_vsib in decode(). The order of these two test cases is important!
+62 D27D43 C6 4C 8E 01, EVEX_Vgatherpf0dps_vm32z_k1, Vgatherpf0dps, 1, op0=m;ds;r14;zmm17;4;4;1;Float32 k3 vsib32 co=0;0;0;0;7;1
+C4E209 90 4C A1 01, VEX_Vpgatherdd_xmm_vm32x_xmm, Vpgatherdd, 3, op0=r;xmm1 op1=m;ds;rcx;xmm4;4;1;1;Int32 op2=r;xmm14 vsib32 co=0;0;0;0;6;1

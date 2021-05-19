@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::decoder::tests::test_utils::decoder_tests;
+use crate::iced_constants::IcedConstants;
 use crate::test_utils::from_str_conv::to_vec_u8;
 use crate::test_utils::*;
 use crate::*;
@@ -58,7 +59,7 @@ fn decoder_try_new_succeeds_64() {
 
 #[test]
 fn decode_multiple_instrs_with_one_instance() {
-	let tests = decoder_tests(false, true);
+	let tests = decoder_tests(true, true);
 
 	let mut bytes_map16: HashMap<(u32, u32), Vec<u8>> = HashMap::new();
 	let mut bytes_map32: HashMap<(u32, u32), Vec<u8>> = HashMap::new();
@@ -112,13 +113,19 @@ fn decode_multiple_instrs_with_one_instance() {
 		decoder_all.decode_out(&mut instr2);
 		let co1 = decoder.get_constant_offsets(&instr1);
 		let co2 = decoder_all.get_constant_offsets(&instr2);
-		assert_eq!(instr2.code(), instr1.code());
 		if instr1.is_invalid() {
-			// decoder_all has a bigger buffer and can decode more bytes
+			// decoder_all has a bigger buffer and can decode more bytes.
+			// It sometimes happens that instr1 is invalid but the full buffer is a valid instruction.
+			// In that case, just ignore it.
 			decoder_all.try_set_position(position + bytes.len()).unwrap();
-			instr2.set_len(bytes.len());
-			instr2.set_next_ip(ip + bytes.len() as u64);
+			if !instr2.is_invalid() {
+				continue;
+			}
+			let len = bytes.len().min(IcedConstants::MAX_INSTRUCTION_LENGTH);
+			instr2.set_len(len);
+			instr2.set_next_ip(ip.wrapping_add(len as u64));
 		}
+		assert_eq!(instr1.code(), instr2.code());
 		assert!(instr1.eq_all_bits(&instr2));
 		assert!(instr2.eq_all_bits(&instr1));
 		super::verify_constant_offsets(&co1, &co2);
