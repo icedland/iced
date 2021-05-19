@@ -269,6 +269,13 @@ mod info {
 		RegisterInfo { register: Register::TMM5, base: Register::TMM0, full_register32: Register::TMM5, full_register: Register::TMM5, size: 1024 },
 		RegisterInfo { register: Register::TMM6, base: Register::TMM0, full_register32: Register::TMM6, full_register: Register::TMM6, size: 1024 },
 		RegisterInfo { register: Register::TMM7, base: Register::TMM0, full_register32: Register::TMM7, full_register: Register::TMM7, size: 1024 },
+		RegisterInfo { register: Register::DontUseF9, base: Register::DontUseF9, full_register32: Register::DontUseF9, full_register: Register::DontUseF9, size: 0 },
+		RegisterInfo { register: Register::DontUseFA, base: Register::DontUseF9, full_register32: Register::DontUseFA, full_register: Register::DontUseFA, size: 0 },
+		RegisterInfo { register: Register::DontUseFB, base: Register::DontUseF9, full_register32: Register::DontUseFB, full_register: Register::DontUseFB, size: 0 },
+		RegisterInfo { register: Register::DontUseFC, base: Register::DontUseF9, full_register32: Register::DontUseFC, full_register: Register::DontUseFC, size: 0 },
+		RegisterInfo { register: Register::DontUseFD, base: Register::DontUseF9, full_register32: Register::DontUseFD, full_register: Register::DontUseFD, size: 0 },
+		RegisterInfo { register: Register::DontUseFE, base: Register::DontUseF9, full_register32: Register::DontUseFE, full_register: Register::DontUseFE, size: 0 },
+		RegisterInfo { register: Register::DontUseFF, base: Register::DontUseF9, full_register32: Register::DontUseFF, full_register: Register::DontUseFF, size: 0 },
 		// GENERATOR-END: RegisterInfoTable
 	];
 
@@ -1180,9 +1187,16 @@ pub enum Register {
 	TMM5 = 246,
 	TMM6 = 247,
 	TMM7 = 248,
+	DontUseF9 = 249,
+	DontUseFA = 250,
+	DontUseFB = 251,
+	DontUseFC = 252,
+	DontUseFD = 253,
+	DontUseFE = 254,
+	DontUseFF = 255,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_REGISTER: [&str; 249] = [
+static GEN_DEBUG_REGISTER: [&str; 256] = [
 	"None",
 	"AL",
 	"CL",
@@ -1432,6 +1446,13 @@ static GEN_DEBUG_REGISTER: [&str; 249] = [
 	"TMM5",
 	"TMM6",
 	"TMM7",
+	"DontUseF9",
+	"DontUseFA",
+	"DontUseFB",
+	"DontUseFC",
+	"DontUseFD",
+	"DontUseFE",
+	"DontUseFF",
 ];
 impl fmt::Debug for Register {
 	#[inline]

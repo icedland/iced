@@ -258,6 +258,13 @@ namespace Iced.Intel {
 		TMM5 = 246,
 		TMM6 = 247,
 		TMM7 = 248,
+		DontUseF9 = 249,
+		DontUseFA = 250,
+		DontUseFB = 251,
+		DontUseFC = 252,
+		DontUseFD = 253,
+		DontUseFE = 254,
+		DontUseFF = 255,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

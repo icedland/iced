@@ -53,7 +53,7 @@ impl IcedConstants {
 	pub(crate) const OP_CODE_TABLE_KIND_ENUM_COUNT: usize = 7;
 	pub(crate) const OP_KIND_ENUM_COUNT: usize = 26;
 	pub(crate) const PREFIX_KIND_ENUM_COUNT: usize = 18;
-	pub(crate) const REGISTER_ENUM_COUNT: usize = 249;
+	pub(crate) const REGISTER_ENUM_COUNT: usize = 256;
 	pub(crate) const RELOC_KIND_ENUM_COUNT: usize = 1;
 	pub(crate) const REP_PREFIX_KIND_ENUM_COUNT: usize = 3;
 	pub(crate) const ROUNDING_CONTROL_ENUM_COUNT: usize = 5;

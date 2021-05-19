@@ -253,5 +253,13 @@ namespace Generator.Enums {
 		TMM5,
 		TMM6,
 		TMM7,
+
+		DontUseF9,
+		DontUseFA,
+		DontUseFB,
+		DontUseFC,
+		DontUseFD,
+		DontUseFE,
+		DontUseFF,
 	}
 }

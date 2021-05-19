@@ -52,7 +52,7 @@ namespace Iced.Intel {
 		internal const int OpCodeTableKindEnumCount = 7;
 		internal const int OpKindEnumCount = 26;
 		internal const int PrefixKindEnumCount = 18;
-		internal const int RegisterEnumCount = 249;
+		internal const int RegisterEnumCount = 256;
 		internal const int RelocKindEnumCount = 1;
 		internal const int RepPrefixKindEnumCount = 3;
 		internal const int RoundingControlEnumCount = 5;

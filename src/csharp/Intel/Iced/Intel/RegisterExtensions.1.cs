@@ -35,6 +35,7 @@ namespace Iced.Intel {
 				(byte)Register.MM0, (byte)Register.MM7, (byte)Register.MM0, 8, 0,
 				(byte)Register.TR0, (byte)Register.TR7, (byte)Register.TR0, 4, 0,
 				(byte)Register.TMM0, (byte)Register.TMM7, (byte)Register.TMM0, 0, 4,
+				(byte)Register.DontUseF9, (byte)Register.DontUseFF, (byte)Register.DontUseF9, 0, 0,
 			};
 
 			int i;

@@ -1007,3 +1007,31 @@ TMM7: int = 248
 """
 <no docs>
 """
+DONTUSEF9: int = 249
+"""
+<no docs>
+"""
+DONTUSEFA: int = 250
+"""
+<no docs>
+"""
+DONTUSEFB: int = 251
+"""
+<no docs>
+"""
+DONTUSEFC: int = 252
+"""
+<no docs>
+"""
+DONTUSEFD: int = 253
+"""
+<no docs>
+"""
+DONTUSEFE: int = 254
+"""
+<no docs>
+"""
+DONTUSEFF: int = 255
+"""
+<no docs>
+"""

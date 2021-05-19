@@ -354,9 +354,9 @@ namespace Generator.Enums.Rust {
 		}
 
 		static string GetUnderlyingTypeStr(EnumType enumType) {
-			if (enumType.Values.Length <= byte.MaxValue)
+			if (enumType.Values.Length <= byte.MaxValue + 1)
 				return "u8";
-			if (enumType.Values.Length <= ushort.MaxValue)
+			if (enumType.Values.Length <= ushort.MaxValue + 1)
 				return "u16";
 			return "u32";
 		}

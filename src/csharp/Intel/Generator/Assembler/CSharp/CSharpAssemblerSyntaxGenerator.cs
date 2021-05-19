@@ -54,6 +54,13 @@ namespace Generator.Assembler.CSharp {
 							case Register.None:
 							case Register.EIP:
 							case Register.RIP:
+							case Register.DontUseF9:
+							case Register.DontUseFA:
+							case Register.DontUseFB:
+							case Register.DontUseFC:
+							case Register.DontUseFD:
+							case Register.DontUseFE:
+							case Register.DontUseFF:
 								continue;
 							}
 

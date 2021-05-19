@@ -810,7 +810,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, int regNum) {
-			Static.Assert(Registers.ExtraRegisters == 1 ? 0 : -1);
+			Static.Assert(Registers.ExtraRegisters == 0 ? 0 : -1);
 			output.WriteRegister(instruction, operand, instructionOperand, ToRegisterString(regNum), regNum == Registers.Register_ST ? Register.ST0 : (Register)regNum);
 		}
 

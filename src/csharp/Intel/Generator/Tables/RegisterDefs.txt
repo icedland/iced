@@ -267,3 +267,12 @@ TMM4, TMM0, TMM4, TMM4, 1024, TMM, TMM, TMM4
 TMM5, TMM0, TMM5, TMM5, 1024, TMM, TMM, TMM5
 TMM6, TMM0, TMM6, TMM6, 1024, TMM, TMM, TMM6
 TMM7, TMM0, TMM7, TMM7, 1024, TMM, TMM, TMM7
+
+# Padding so the enum has at least 256 elements
+DontUseF9, DontUseF9, DontUseF9, DontUseF9, 0, None, None, st
+DontUseFA, DontUseF9, DontUseFA, DontUseFA, 0, None, None, ???
+DontUseFB, DontUseF9, DontUseFB, DontUseFB, 0, None, None, ???
+DontUseFC, DontUseF9, DontUseFC, DontUseFC, 0, None, None, ???
+DontUseFD, DontUseF9, DontUseFD, DontUseFD, 0, None, None, ???
+DontUseFE, DontUseF9, DontUseFE, DontUseFE, 0, None, None, ???
+DontUseFF, DontUseF9, DontUseFF, DontUseFF, 0, None, None, ???

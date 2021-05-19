@@ -1057,7 +1057,7 @@ impl MasmFormatter {
 	fn format_register_internal(
 		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
 	) {
-		const_assert_eq!(Registers::EXTRA_REGISTERS, 1);
+		const_assert_eq!(Registers::EXTRA_REGISTERS, 0);
 		output.write_register(
 			instruction,
 			operand,
