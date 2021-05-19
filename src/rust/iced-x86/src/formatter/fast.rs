@@ -177,9 +177,8 @@ macro_rules! write_fast_str {
 	}};
 }
 
-#[rustfmt::skip]
-static HEX_GROUP2_UPPER: &str =
-   "000102030405060708090A0B0C0D0E0F\
+static HEX_GROUP2_UPPER: &str = "\
+	000102030405060708090A0B0C0D0E0F\
 	101112131415161718191A1B1C1D1E1F\
 	202122232425262728292A2B2C2D2E2F\
 	303132333435363738393A3B3C3D3E3F\
@@ -478,7 +477,6 @@ macro_rules! call_format_memory {
 		// This speeds up SpecializedFormatter but slows down FastFormatter so detect which
 		// formatter it is. Both paths are tested (same tests).
 		// This is fugly but the whole point of this formatter is to be fast which can result in ugly code.
-		#[allow(unused_parens)]
 		{
 			if TraitOptions::__IS_FAST_FORMATTER {
 				// Less code: call a method
