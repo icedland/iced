@@ -10566,16 +10566,8 @@ impl Hash for Instruction {
 		state.write_u16(self.code);
 		state.write_u8(self.mem_base_reg);
 		state.write_u8(self.mem_index_reg);
-		debug_assert_eq!(self.regs.len(), 4);
-		state.write_u8(self.regs[0]);
-		state.write_u8(self.regs[1]);
-		state.write_u8(self.regs[2]);
-		state.write_u8(self.regs[3]);
-		debug_assert_eq!(self.op_kinds.len(), 4);
-		state.write_u8(self.op_kinds[0]);
-		state.write_u8(self.op_kinds[1]);
-		state.write_u8(self.op_kinds[2]);
-		state.write_u8(self.op_kinds[3]);
+		state.write(&self.regs);
+		state.write(&self.op_kinds);
 		state.write_u8(self.scale);
 		state.write_u8(self.displ_size);
 	}

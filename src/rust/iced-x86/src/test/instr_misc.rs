@@ -42,12 +42,12 @@ fn eq_and_hash_ignore_some_fields() {
 	instr2.set_len(5);
 	instr1.set_ip(0x9733_3795_FA7C_EAAB);
 	instr2.set_ip(0x9BE5_A3A0_7A66_FC05);
-	assert_eq!(instr2, instr1);
+	assert_eq!(instr1, instr2);
 	let mut hasher1 = DefaultHasher::new();
 	let mut hasher2 = DefaultHasher::new();
 	instr1.hash(&mut hasher1);
 	instr2.hash(&mut hasher2);
-	assert_eq!(hasher2.finish(), hasher1.finish());
+	assert_eq!(hasher1.finish(), hasher2.finish());
 }
 
 #[test]
