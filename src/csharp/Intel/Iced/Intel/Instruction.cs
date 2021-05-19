@@ -54,7 +54,7 @@ namespace Iced.Intel {
 		byte scale;
 		byte displSize;
 		byte len;
-		byte res0;
+		byte db;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -89,7 +89,8 @@ namespace Iced.Intel {
 			a.opKind2 == b.opKind2 &&
 			a.opKind3 == b.opKind3 &&
 			a.scale == b.scale &&
-			a.displSize == b.displSize;
+			a.displSize == b.displSize &&
+			a.db == b.db;
 
 		/// <summary>
 		/// Gets the hash code
@@ -113,6 +114,7 @@ namespace Iced.Intel {
 			c ^= (uint)opKind0 << 24;
 			c ^= scale;
 			c ^= (uint)displSize << 8;
+			c ^= (uint)db << 16;
 			return (int)c;
 		}
 
@@ -149,7 +151,7 @@ namespace Iced.Intel {
 			a.scale == b.scale &&
 			a.displSize == b.displSize &&
 			a.len == b.len &&
-			a.res0 == b.res0;
+			a.db == b.db;
 
 		/// <summary>
 		/// 16-bit IP of the instruction
@@ -1211,10 +1213,10 @@ namespace Iced.Intel {
 				memIndexReg = value;
 				break;
 			case 14:
-				scale = (byte)value;
+				displSize = (byte)value;
 				break;
 			case 15:
-				displSize = (byte)value;
+				db = (byte)value;
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1244,8 +1246,8 @@ namespace Iced.Intel {
 			case 11:	return (byte)(memDispl >> 24);
 			case 12:	return memBaseReg;
 			case 13:	return memIndexReg;
-			case 14:	return scale;
-			case 15:	return displSize;
+			case 14:	return displSize;
+			case 15:	return db;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1293,8 +1295,8 @@ namespace Iced.Intel {
 				memIndexReg = (byte)(value >> 8);
 				break;
 			case 7:
-				scale = (byte)value;
-				displSize = (byte)(value >> 8);
+				displSize = (byte)value;
+				db = (byte)(value >> 8);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1317,7 +1319,7 @@ namespace Iced.Intel {
 			case 4:	return (ushort)memDispl;
 			case 5:	return (ushort)(memDispl >> 16);
 			case 6:	return (ushort)((uint)memBaseReg | (uint)(memIndexReg << 8));
-			case 7:	return (ushort)((uint)scale | ((uint)displSize << 8));
+			case 7:	return (ushort)((uint)displSize | ((uint)db << 8));
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1355,8 +1357,8 @@ namespace Iced.Intel {
 			case 3:
 				memBaseReg = (byte)value;
 				memIndexReg = (byte)(value >> 8);
-				scale = (byte)(value >> 16);
-				displSize = (byte)(value >> 24);
+				displSize = (byte)(value >> 16);
+				db = (byte)(value >> 24);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1375,7 +1377,7 @@ namespace Iced.Intel {
 			case 0:	return (uint)reg0 | (uint)(reg1 << 8) | (uint)(reg2 << 16) | (uint)(reg3 << 24);
 			case 1:	return immediate;
 			case 2:	return memDispl;
-			case 3:	return (uint)memBaseReg | (uint)(memIndexReg << 8) | ((uint)scale << 16) | ((uint)displSize << 24);
+			case 3:	return (uint)memBaseReg | (uint)(memIndexReg << 8) | ((uint)displSize << 16) | ((uint)db << 24);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1412,8 +1414,8 @@ namespace Iced.Intel {
 				v = (uint)(value >> 32);
 				memBaseReg = (byte)v;
 				memIndexReg = (byte)(v >> 8);
-				scale = (byte)(v >> 16);
-				displSize = (byte)(v >> 24);
+				displSize = (byte)(v >> 16);
+				db = (byte)(v >> 24);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1430,7 +1432,7 @@ namespace Iced.Intel {
 		public readonly ulong GetDeclareQwordValue(int index) {
 			switch (index) {
 			case 0:	return (ulong)reg0 | (ulong)((uint)reg1 << 8) | (ulong)((uint)reg2 << 16) | (ulong)((uint)reg3 << 24) | ((ulong)immediate << 32);
-			case 1:	return (ulong)memDispl | ((ulong)memBaseReg << 32) | ((ulong)memIndexReg << 40) | ((ulong)scale << 48) | ((ulong)displSize << 56);
+			case 1:	return (ulong)memDispl | ((ulong)memBaseReg << 32) | ((ulong)memIndexReg << 40) | ((ulong)displSize << 48) | ((ulong)db << 56);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
