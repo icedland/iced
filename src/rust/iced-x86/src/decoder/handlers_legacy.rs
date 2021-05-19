@@ -530,13 +530,7 @@ impl OpCodeHandler_MandatoryPrefix {
 		debug_assert_eq!(handlers[1].0.has_modrm, has_modrm);
 		debug_assert_eq!(handlers[2].0.has_modrm, has_modrm);
 		debug_assert_eq!(handlers[3].0.has_modrm, has_modrm);
-		Self {
-			decode: OpCodeHandler_MandatoryPrefix::decode,
-			has_modrm,
-			handlers: unsafe {
-				[(&*handler.0, handler.1), (&*handler_66.0, handler_66.1), (&*handler_f3.0, handler_f3.1), (&*handler_f2.0, handler_f2.1)]
-			},
-		}
+		Self { decode: OpCodeHandler_MandatoryPrefix::decode, has_modrm, handlers }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
