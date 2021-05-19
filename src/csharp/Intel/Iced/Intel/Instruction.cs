@@ -1211,10 +1211,10 @@ namespace Iced.Intel {
 				memIndexReg = value;
 				break;
 			case 14:
-				opKind0 = (byte)value;
+				scale = (byte)value;
 				break;
 			case 15:
-				opKind1 = (byte)value;
+				displSize = (byte)value;
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1244,8 +1244,8 @@ namespace Iced.Intel {
 			case 11:	return (byte)(memDispl >> 24);
 			case 12:	return memBaseReg;
 			case 13:	return memIndexReg;
-			case 14:	return opKind0;
-			case 15:	return opKind1;
+			case 14:	return scale;
+			case 15:	return displSize;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1293,8 +1293,8 @@ namespace Iced.Intel {
 				memIndexReg = (byte)(value >> 8);
 				break;
 			case 7:
-				opKind0 = (byte)value;
-				opKind1 = (byte)(value >> 8);
+				scale = (byte)value;
+				displSize = (byte)(value >> 8);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1317,7 +1317,7 @@ namespace Iced.Intel {
 			case 4:	return (ushort)memDispl;
 			case 5:	return (ushort)(memDispl >> 16);
 			case 6:	return (ushort)((uint)memBaseReg | (uint)(memIndexReg << 8));
-			case 7:	return (ushort)((uint)opKind0 | ((uint)opKind1 << 8));
+			case 7:	return (ushort)((uint)scale | ((uint)displSize << 8));
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1355,8 +1355,8 @@ namespace Iced.Intel {
 			case 3:
 				memBaseReg = (byte)value;
 				memIndexReg = (byte)(value >> 8);
-				opKind0 = (byte)(value >> 16);
-				opKind1 = (byte)(value >> 24);
+				scale = (byte)(value >> 16);
+				displSize = (byte)(value >> 24);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1375,7 +1375,7 @@ namespace Iced.Intel {
 			case 0:	return (uint)reg0 | (uint)(reg1 << 8) | (uint)(reg2 << 16) | (uint)(reg3 << 24);
 			case 1:	return immediate;
 			case 2:	return memDispl;
-			case 3:	return (uint)memBaseReg | (uint)(memIndexReg << 8) | ((uint)opKind0 << 16) | ((uint)opKind1 << 24);
+			case 3:	return (uint)memBaseReg | (uint)(memIndexReg << 8) | ((uint)scale << 16) | ((uint)displSize << 24);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;
@@ -1412,8 +1412,8 @@ namespace Iced.Intel {
 				v = (uint)(value >> 32);
 				memBaseReg = (byte)v;
 				memIndexReg = (byte)(v >> 8);
-				opKind0 = (byte)(v >> 16);
-				opKind1 = (byte)(v >> 24);
+				scale = (byte)(v >> 16);
+				displSize = (byte)(v >> 24);
 				break;
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
@@ -1430,7 +1430,7 @@ namespace Iced.Intel {
 		public readonly ulong GetDeclareQwordValue(int index) {
 			switch (index) {
 			case 0:	return (ulong)reg0 | (ulong)((uint)reg1 << 8) | (ulong)((uint)reg2 << 16) | (ulong)((uint)reg3 << 24) | ((ulong)immediate << 32);
-			case 1:	return (ulong)memDispl | ((ulong)memBaseReg << 32) | ((ulong)memIndexReg << 40) | ((ulong)opKind0 << 48) | ((ulong)opKind1 << 56);
+			case 1:	return (ulong)memDispl | ((ulong)memBaseReg << 32) | ((ulong)memIndexReg << 40) | ((ulong)scale << 48) | ((ulong)displSize << 56);
 			default:
 				ThrowHelper.ThrowArgumentOutOfRangeException_index();
 				return 0;

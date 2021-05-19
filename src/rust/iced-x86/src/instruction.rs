@@ -2103,8 +2103,8 @@ impl Instruction {
 				11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u32) << 24),
 				12 => self.mem_base_reg = new_value,
 				13 => self.mem_index_reg = new_value,
-				14 => self.op_kinds[0] = new_value,
-				15 => self.op_kinds[1] = new_value,
+				14 => self.scale = new_value,
+				15 => self.displ_size = new_value,
 				_ => return Err(IcedError::new("Invalid index")),
 			}
 			Ok(())
@@ -2166,8 +2166,8 @@ impl Instruction {
 			11 => (self.mem_displ >> 24) as u8,
 			12 => self.mem_base_reg,
 			13 => self.mem_index_reg,
-			14 => self.op_kinds[0],
-			15 => self.op_kinds[1],
+			14 => self.scale,
+			15 => self.displ_size,
 			_ => return Err(IcedError::new("Invalid index")),
 		})
 	}
@@ -2276,8 +2276,8 @@ impl Instruction {
 					self.mem_index_reg = (new_value >> 8) as u8;
 				}
 				7 => {
-					self.op_kinds[0] = new_value as u8;
-					self.op_kinds[1] = (new_value >> 8) as u8;
+					self.scale = new_value as u8;
+					self.displ_size = (new_value >> 8) as u8;
 				}
 				_ => return Err(IcedError::new("Invalid index")),
 			}
@@ -2333,7 +2333,7 @@ impl Instruction {
 			4 => self.mem_displ as u16,
 			5 => (self.mem_displ >> 16) as u16,
 			6 => self.mem_base_reg as u16 | ((self.mem_index_reg as u16) << 8),
-			7 => ((self.op_kinds[1] as u16) << 8) | (self.op_kinds[0] as u16),
+			7 => ((self.displ_size as u16) << 8) | (self.scale as u16),
 			_ => return Err(IcedError::new("Invalid index")),
 		})
 	}
@@ -2436,8 +2436,8 @@ impl Instruction {
 				3 => {
 					self.mem_base_reg = new_value as u8;
 					self.mem_index_reg = (new_value >> 8) as u8;
-					self.op_kinds[0] = (new_value >> 16) as u8;
-					self.op_kinds[1] = (new_value >> 24) as u8;
+					self.scale = (new_value >> 16) as u8;
+					self.displ_size = (new_value >> 24) as u8;
 				}
 				_ => return Err(IcedError::new("Invalid index")),
 			}
@@ -2489,9 +2489,7 @@ impl Instruction {
 			0 => self.regs[0] as u32 | ((self.regs[1] as u32) << 8) | ((self.regs[2] as u32) << 16) | ((self.regs[3] as u32) << 24),
 			1 => self.immediate,
 			2 => self.mem_displ,
-			3 => {
-				self.mem_base_reg as u32 | ((self.mem_index_reg as u32) << 8) | ((self.op_kinds[0] as u32) << 16) | ((self.op_kinds[1] as u32) << 24)
-			}
+			3 => self.mem_base_reg as u32 | ((self.mem_index_reg as u32) << 8) | ((self.scale as u32) << 16) | ((self.displ_size as u32) << 24),
 			_ => return Err(IcedError::new("Invalid index")),
 		})
 	}
@@ -2594,8 +2592,8 @@ impl Instruction {
 					self.mem_displ = new_value as u32;
 					self.mem_base_reg = (new_value >> 32) as u8;
 					self.mem_index_reg = (new_value >> 40) as u8;
-					self.op_kinds[0] = (new_value >> 48) as u8;
-					self.op_kinds[1] = (new_value >> 56) as u8;
+					self.scale = (new_value >> 48) as u8;
+					self.displ_size = (new_value >> 56) as u8;
 				}
 				_ => return Err(IcedError::new("Invalid index")),
 			}
@@ -2655,8 +2653,8 @@ impl Instruction {
 				self.mem_displ as u64
 					| ((self.mem_base_reg as u64) << 32)
 					| ((self.mem_index_reg as u64) << 40)
-					| ((self.op_kinds[0] as u64) << 48)
-					| ((self.op_kinds[1] as u64) << 56)
+					| ((self.scale as u64) << 48)
+					| ((self.displ_size as u64) << 56)
 			}
 			_ => return Err(IcedError::new("Invalid index")),
 		})
