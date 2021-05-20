@@ -11,6 +11,8 @@ use crate::iced_constants::IcedConstants;
 #[cfg(feature = "encoder")]
 use crate::iced_error::IcedError;
 use crate::*;
+#[cfg(any(feature = "decoder", feature = "fast_fmt"))]
+use core::mem;
 use core::u32;
 #[cfg(feature = "encoder")]
 use core::{i16, i32, i8, u16, u8};
@@ -32,7 +34,8 @@ pub(crate) fn internal_set_code_size(this: &mut Instruction, new_value: CodeSize
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_code_u32(this: &mut Instruction, new_value: u32) {
-	this.code = new_value as u16;
+	debug_assert!(new_value < IcedConstants::CODE_ENUM_COUNT as u32);
+	this.code = unsafe { mem::transmute(new_value as CodeUnderlyingType) };
 }
 
 #[cfg(feature = "encoder")]
@@ -131,7 +134,8 @@ pub(crate) fn internal_clear_has_lock_prefix(this: &mut Instruction) {
 #[must_use]
 #[inline]
 pub(crate) fn internal_op0_is_not_reg_or_op1_is_not_reg(this: &Instruction) -> bool {
-	(this.op_kinds[0] | this.op_kinds[1]) != 0
+	const_assert_eq!(Register::None as u32, 0);
+	((this.op_kinds[0] as RegisterUnderlyingType) | (this.op_kinds[1] as RegisterUnderlyingType)) != 0
 }
 
 #[cfg(feature = "decoder")]
@@ -223,25 +227,27 @@ pub(crate) fn internal_set_far_branch_selector(this: &mut Instruction, new_value
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_memory_base(this: &mut Instruction, new_value: Register) {
-	this.mem_base_reg = new_value as u8;
+	this.mem_base_reg = new_value;
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_memory_base_u32(this: &mut Instruction, new_value: u32) {
-	this.mem_base_reg = new_value as u8;
+	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
+	this.mem_base_reg = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_memory_index(this: &mut Instruction, new_value: Register) {
-	this.mem_index_reg = new_value as u8;
+	this.mem_index_reg = new_value;
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_memory_index_u32(this: &mut Instruction, new_value: u32) {
-	this.mem_index_reg = new_value as u8;
+	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
+	this.mem_index_reg = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
 }
 
 #[cfg(feature = "fast_fmt")]
@@ -253,11 +259,9 @@ pub(crate) fn internal_segment_prefix_raw(this: &Instruction) -> u32 {
 #[cfg(feature = "fast_fmt")]
 #[inline]
 pub(crate) fn internal_op_register(this: &Instruction, operand: u32) -> Register {
-	use core::mem;
-
 	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 	if let Some(&reg) = this.regs.get(operand as usize) {
-		unsafe { mem::transmute(reg) }
+		reg
 	} else {
 		debug_assert_eq!(operand, 4);
 		this.op4_register()
@@ -266,27 +270,43 @@ pub(crate) fn internal_op_register(this: &Instruction, operand: u32) -> Register
 
 #[cfg(feature = "decoder")]
 #[inline]
+pub(crate) fn internal_set_op0_register(this: &mut Instruction, new_value: Register) {
+	this.regs[0] = new_value;
+}
+
+#[cfg(feature = "decoder")]
+#[inline]
 pub(crate) fn internal_set_op0_register_u32(this: &mut Instruction, new_value: u32) {
-	this.regs[0] = new_value as u8;
+	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
+	this.regs[0] = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
+}
+
+#[cfg(feature = "decoder")]
+#[inline]
+pub(crate) fn internal_set_op1_register(this: &mut Instruction, new_value: Register) {
+	this.regs[1] = new_value;
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_op1_register_u32(this: &mut Instruction, new_value: u32) {
-	this.regs[1] = new_value as u8;
+	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
+	this.regs[1] = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
 }
 
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_op2_register_u32(this: &mut Instruction, new_value: u32) {
-	this.regs[2] = new_value as u8;
+	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
+	this.regs[2] = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
 }
 
 #[cfg(feature = "decoder")]
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 #[inline]
 pub(crate) fn internal_set_op3_register_u32(this: &mut Instruction, new_value: u32) {
-	this.regs[3] = new_value as u8;
+	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
+	this.regs[3] = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
 }
 
 #[cfg(feature = "encoder")]

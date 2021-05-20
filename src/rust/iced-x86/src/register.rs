@@ -7,6 +7,7 @@ use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
+use static_assertions::const_assert;
 
 #[cfg(feature = "instr_info")]
 pub use crate::register::info::*;
@@ -1524,6 +1525,15 @@ fn test_register_try_from_usize() {
 	assert!(<Register as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
 // GENERATOR-END: Register
+
+impl Register {
+	#[allow(clippy::unwrap_used)]
+	pub(crate) fn from_u8(value: u8) -> Register {
+		const_assert!(IcedConstants::REGISTER_ENUM_COUNT >= 0x100);
+		// This can't panic since all `u8` values are Register variants
+		Register::try_from(value as usize).unwrap()
+	}
+}
 
 impl Register {
 	#[must_use]

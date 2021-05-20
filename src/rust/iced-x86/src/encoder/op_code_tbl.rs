@@ -7,16 +7,14 @@ use crate::iced_constants::IcedConstants;
 use crate::{Code, OpCodeInfo};
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::mem;
 use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(crate) static ref OP_CODE_INFO_TBL: Vec<OpCodeInfo> = {
 		let mut result = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 		let mut sb = String::new();
-		for i in 0..IcedConstants::CODE_ENUM_COUNT {
-			// SAFETY: All values 0-max are valid Code enum values
-			let code: Code = unsafe { mem::transmute(i as u16) };
+		for code in Code::values() {
+			let i = code as usize;
 			let enc_flags1 = ENC_FLAGS1[i];
 			let enc_flags2 = ENC_FLAGS2[i];
 			let enc_flags3 = ENC_FLAGS3[i];

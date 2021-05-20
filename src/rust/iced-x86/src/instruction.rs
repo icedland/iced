@@ -55,11 +55,11 @@ pub struct Instruction {
 	// This is the high 32 bits if it's a 64-bit immediate/offset/target
 	pub(crate) mem_displ: u32,
 	pub(crate) mem_displ_hi: u32,
-	pub(crate) code: u16,         // Code
-	pub(crate) mem_base_reg: u8,  // Register
-	pub(crate) mem_index_reg: u8, // Register
-	pub(crate) regs: [u8; 4],     // Register
-	pub(crate) op_kinds: [u8; 4], // OpKind
+	pub(crate) code: Code,
+	pub(crate) mem_base_reg: Register,
+	pub(crate) mem_index_reg: Register,
+	pub(crate) regs: [Register; 4],
+	pub(crate) op_kinds: [OpKind; 4],
 	pub(crate) scale: u8,
 	pub(crate) displ_size: u8,
 	pub(crate) len: u8,
@@ -223,7 +223,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn is_invalid(&self) -> bool {
-		self.code == Code::INVALID as u16
+		self.code == Code::INVALID
 	}
 
 	/// Gets the instruction code, see also [`mnemonic()`]
@@ -232,7 +232,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn code(&self) -> Code {
-		unsafe { mem::transmute(self.code) }
+		self.code
 	}
 
 	/// Sets the instruction code
@@ -242,7 +242,7 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_code(&mut self, new_value: Code) {
-		self.code = new_value as u16
+		self.code = new_value
 	}
 
 	/// Gets the mnemonic, see also [`code()`]
@@ -427,7 +427,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op0_kind(&self) -> OpKind {
-		unsafe { mem::transmute(self.op_kinds[0]) }
+		self.op_kinds[0]
 	}
 
 	/// Sets operand #0's kind if the operand exists (see [`op_count()`] and [`try_set_op_kind()`])
@@ -440,7 +440,7 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_op0_kind(&mut self, new_value: OpKind) {
-		self.op_kinds[0] = new_value as u8
+		self.op_kinds[0] = new_value
 	}
 
 	/// Gets operand #1's kind if the operand exists (see [`op_count()`] and [`try_op_kind()`])
@@ -450,7 +450,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op1_kind(&self) -> OpKind {
-		unsafe { mem::transmute(self.op_kinds[1]) }
+		self.op_kinds[1]
 	}
 
 	/// Sets operand #1's kind if the operand exists (see [`op_count()`] and [`try_set_op_kind()`])
@@ -463,7 +463,7 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_op1_kind(&mut self, new_value: OpKind) {
-		self.op_kinds[1] = new_value as u8
+		self.op_kinds[1] = new_value
 	}
 
 	/// Gets operand #2's kind if the operand exists (see [`op_count()`] and [`try_op_kind()`])
@@ -473,7 +473,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op2_kind(&self) -> OpKind {
-		unsafe { mem::transmute(self.op_kinds[2]) }
+		self.op_kinds[2]
 	}
 
 	/// Sets operand #2's kind if the operand exists (see [`op_count()`] and [`try_set_op_kind()`])
@@ -486,7 +486,7 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_op2_kind(&mut self, new_value: OpKind) {
-		self.op_kinds[2] = new_value as u8
+		self.op_kinds[2] = new_value
 	}
 
 	/// Gets operand #3's kind if the operand exists (see [`op_count()`] and [`try_op_kind()`])
@@ -496,7 +496,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op3_kind(&self) -> OpKind {
-		unsafe { mem::transmute(self.op_kinds[3]) }
+		self.op_kinds[3]
 	}
 
 	/// Sets operand #3's kind if the operand exists (see [`op_count()`] and [`try_set_op_kind()`])
@@ -509,7 +509,7 @@ impl Instruction {
 	/// * `new_value`: new value
 	#[inline]
 	pub fn set_op3_kind(&mut self, new_value: OpKind) {
-		self.op_kinds[3] = new_value as u8
+		self.op_kinds[3] = new_value
 	}
 
 	/// Gets operand #4's kind if the operand exists (see [`op_count()`] and [`try_op_kind()`])
@@ -657,7 +657,7 @@ impl Instruction {
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpKind, IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		if let Some(&op_kind) = self.op_kinds.get(operand as usize) {
-			Ok(unsafe { mem::transmute(op_kind) })
+			Ok(op_kind)
 		} else if operand == 4 {
 			Ok(self.op4_kind())
 		} else {
@@ -696,7 +696,7 @@ impl Instruction {
 	pub fn try_set_op_kind(&mut self, operand: u32, op_kind: OpKind) -> Result<(), IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		if let Some(field) = self.op_kinds.get_mut(operand as usize) {
-			*field = op_kind as u8;
+			*field = op_kind;
 			Ok(())
 		} else if operand == 4 {
 			self.try_set_op4_kind(op_kind)
@@ -729,7 +729,13 @@ impl Instruction {
 	#[inline]
 	pub fn segment_prefix(&self) -> Register {
 		let index = ((self.flags1 >> InstrFlags1::SEGMENT_PREFIX_SHIFT) & InstrFlags1::SEGMENT_PREFIX_MASK).wrapping_sub(1);
+		const_assert_eq!(Register::ES as u32 + 1, Register::CS as u32);
+		const_assert_eq!(Register::ES as u32 + 2, Register::SS as u32);
+		const_assert_eq!(Register::ES as u32 + 3, Register::DS as u32);
+		const_assert_eq!(Register::ES as u32 + 4, Register::FS as u32);
+		const_assert_eq!(Register::ES as u32 + 5, Register::GS as u32);
 		if index < 6 {
+			// SAFETY: ES+index is a valid enum variant, see above const_assert_eq!()'s
 			unsafe { mem::transmute((Register::ES as u32 + index) as u8) }
 		} else {
 			Register::None
@@ -1520,7 +1526,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn memory_base(&self) -> Register {
-		unsafe { mem::transmute(self.mem_base_reg) }
+		self.mem_base_reg
 	}
 
 	/// Sets the memory operand's base register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
@@ -1533,7 +1539,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_memory_base(&mut self, new_value: Register) {
-		self.mem_base_reg = new_value as u8;
+		self.mem_base_reg = new_value;
 	}
 
 	/// Gets the memory operand's index register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
@@ -1543,7 +1549,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn memory_index(&self) -> Register {
-		unsafe { mem::transmute(self.mem_index_reg) }
+		self.mem_index_reg
 	}
 
 	/// Sets the memory operand's index register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
@@ -1556,7 +1562,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_memory_index(&mut self, new_value: Register) {
-		self.mem_index_reg = new_value as u8;
+		self.mem_index_reg = new_value;
 	}
 
 	/// Gets operand #0's register value. Use this method if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1569,7 +1575,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op0_register(&self) -> Register {
-		unsafe { mem::transmute(self.regs[0]) }
+		self.regs[0]
 	}
 
 	/// Sets operand #0's register value. Use this method if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1585,7 +1591,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_op0_register(&mut self, new_value: Register) {
-		self.regs[0] = new_value as u8;
+		self.regs[0] = new_value;
 	}
 
 	/// Gets operand #1's register value. Use this method if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1598,7 +1604,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op1_register(&self) -> Register {
-		unsafe { mem::transmute(self.regs[1]) }
+		self.regs[1]
 	}
 
 	/// Sets operand #1's register value. Use this method if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1614,7 +1620,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_op1_register(&mut self, new_value: Register) {
-		self.regs[1] = new_value as u8;
+		self.regs[1] = new_value;
 	}
 
 	/// Gets operand #2's register value. Use this method if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1627,7 +1633,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op2_register(&self) -> Register {
-		unsafe { mem::transmute(self.regs[2]) }
+		self.regs[2]
 	}
 
 	/// Sets operand #2's register value. Use this method if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1643,7 +1649,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_op2_register(&mut self, new_value: Register) {
-		self.regs[2] = new_value as u8;
+		self.regs[2] = new_value;
 	}
 
 	/// Gets operand #3's register value. Use this method if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1656,7 +1662,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op3_register(&self) -> Register {
-		unsafe { mem::transmute(self.regs[3]) }
+		self.regs[3]
 	}
 
 	/// Sets operand #3's register value. Use this method if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1672,7 +1678,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[inline]
 	pub fn set_op3_register(&mut self, new_value: Register) {
-		self.regs[3] = new_value as u8;
+		self.regs[3] = new_value;
 	}
 
 	/// Gets operand #4's register value. Use this method if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`try_op_register()`]
@@ -1802,7 +1808,7 @@ impl Instruction {
 	pub fn try_op_register(&self, operand: u32) -> Result<Register, IcedError> {
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		if let Some(&reg) = self.regs.get(operand as usize) {
-			Ok(unsafe { mem::transmute(reg) })
+			Ok(reg)
 		} else if operand == 4 {
 			Ok(self.op4_register())
 		} else {
@@ -1869,6 +1875,15 @@ impl Instruction {
 		if r == 0 {
 			Register::None
 		} else {
+			const_assert_eq!(InstrFlags1::OP_MASK_MASK, 7);
+			const_assert_eq!(Register::K0 as u32 + 1, Register::K1 as u32);
+			const_assert_eq!(Register::K0 as u32 + 2, Register::K2 as u32);
+			const_assert_eq!(Register::K0 as u32 + 3, Register::K3 as u32);
+			const_assert_eq!(Register::K0 as u32 + 4, Register::K4 as u32);
+			const_assert_eq!(Register::K0 as u32 + 5, Register::K5 as u32);
+			const_assert_eq!(Register::K0 as u32 + 6, Register::K6 as u32);
+			const_assert_eq!(Register::K0 as u32 + 7, Register::K7 as u32);
+			// SAFETY: r+K0 is a valid Register variant since 1<=r<=7
 			unsafe { mem::transmute((r + Register::K0 as u32) as u8) }
 		}
 	}
@@ -2088,10 +2103,10 @@ impl Instruction {
 	pub fn try_set_declare_byte_value(&mut self, index: usize, new_value: u8) -> Result<(), IcedError> {
 		if cfg!(feature = "db") {
 			match index {
-				0 => self.regs[0] = new_value,
-				1 => self.regs[1] = new_value,
-				2 => self.regs[2] = new_value,
-				3 => self.regs[3] = new_value,
+				0 => self.regs[0] = Register::from_u8(new_value),
+				1 => self.regs[1] = Register::from_u8(new_value),
+				2 => self.regs[2] = Register::from_u8(new_value),
+				3 => self.regs[3] = Register::from_u8(new_value),
 				4 => self.immediate = (self.immediate & 0xFFFF_FF00) | new_value as u32,
 				5 => self.immediate = (self.immediate & 0xFFFF_00FF) | ((new_value as u32) << 8),
 				6 => self.immediate = (self.immediate & 0xFF00_FFFF) | ((new_value as u32) << 16),
@@ -2100,8 +2115,8 @@ impl Instruction {
 				9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u32) << 8),
 				10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u32) << 16),
 				11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u32) << 24),
-				12 => self.mem_base_reg = new_value,
-				13 => self.mem_index_reg = new_value,
+				12 => self.mem_base_reg = Register::from_u8(new_value),
+				13 => self.mem_index_reg = Register::from_u8(new_value),
 				14 => self.displ_size = new_value,
 				15 => self.db = new_value,
 				_ => return Err(IcedError::new("Invalid index")),
@@ -2151,10 +2166,10 @@ impl Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_get_declare_byte_value(&self, index: usize) -> Result<u8, IcedError> {
 		Ok(match index {
-			0 => self.regs[0],
-			1 => self.regs[1],
-			2 => self.regs[2],
-			3 => self.regs[3],
+			0 => self.regs[0] as u8,
+			1 => self.regs[1] as u8,
+			2 => self.regs[2] as u8,
+			3 => self.regs[3] as u8,
 			4 => self.immediate as u8,
 			5 => (self.immediate >> 8) as u8,
 			6 => (self.immediate >> 16) as u8,
@@ -2163,8 +2178,8 @@ impl Instruction {
 			9 => (self.mem_displ >> 8) as u8,
 			10 => (self.mem_displ >> 16) as u8,
 			11 => (self.mem_displ >> 24) as u8,
-			12 => self.mem_base_reg,
-			13 => self.mem_index_reg,
+			12 => self.mem_base_reg as u8,
+			13 => self.mem_index_reg as u8,
 			14 => self.displ_size,
 			15 => self.db,
 			_ => return Err(IcedError::new("Invalid index")),
@@ -2259,20 +2274,20 @@ impl Instruction {
 		if cfg!(feature = "db") {
 			match index {
 				0 => {
-					self.regs[0] = new_value as u8;
-					self.regs[1] = (new_value >> 8) as u8;
+					self.regs[0] = Register::from_u8(new_value as u8);
+					self.regs[1] = Register::from_u8((new_value >> 8) as u8);
 				}
 				1 => {
-					self.regs[2] = new_value as u8;
-					self.regs[3] = (new_value >> 8) as u8;
+					self.regs[2] = Register::from_u8(new_value as u8);
+					self.regs[3] = Register::from_u8((new_value >> 8) as u8);
 				}
 				2 => self.immediate = (self.immediate & 0xFFFF_0000) | new_value as u32,
 				3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
 				4 => self.mem_displ = (self.mem_displ & 0xFFFF_0000) | new_value as u32,
 				5 => self.mem_displ = self.mem_displ as u16 as u32 | (new_value as u32) << 16,
 				6 => {
-					self.mem_base_reg = new_value as u8;
-					self.mem_index_reg = (new_value >> 8) as u8;
+					self.mem_base_reg = Register::from_u8(new_value as u8);
+					self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
 				}
 				7 => {
 					self.displ_size = new_value as u8;
@@ -2425,16 +2440,16 @@ impl Instruction {
 		if cfg!(feature = "db") {
 			match index {
 				0 => {
-					self.regs[0] = new_value as u8;
-					self.regs[1] = (new_value >> 8) as u8;
-					self.regs[2] = (new_value >> 16) as u8;
-					self.regs[3] = (new_value >> 24) as u8;
+					self.regs[0] = Register::from_u8(new_value as u8);
+					self.regs[1] = Register::from_u8((new_value >> 8) as u8);
+					self.regs[2] = Register::from_u8((new_value >> 16) as u8);
+					self.regs[3] = Register::from_u8((new_value >> 24) as u8);
 				}
 				1 => self.immediate = new_value,
 				2 => self.mem_displ = new_value,
 				3 => {
-					self.mem_base_reg = new_value as u8;
-					self.mem_index_reg = (new_value >> 8) as u8;
+					self.mem_base_reg = Register::from_u8(new_value as u8);
+					self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
 					self.displ_size = (new_value >> 16) as u8;
 					self.db = (new_value >> 24) as u8;
 				}
@@ -2581,16 +2596,16 @@ impl Instruction {
 		if cfg!(feature = "db") {
 			match index {
 				0 => {
-					self.regs[0] = new_value as u8;
-					self.regs[1] = (new_value >> 8) as u8;
-					self.regs[2] = (new_value >> 16) as u8;
-					self.regs[3] = (new_value >> 24) as u8;
+					self.regs[0] = Register::from_u8(new_value as u8);
+					self.regs[1] = Register::from_u8((new_value >> 8) as u8);
+					self.regs[2] = Register::from_u8((new_value >> 16) as u8);
+					self.regs[3] = Register::from_u8((new_value >> 24) as u8);
 					self.immediate = (new_value >> 32) as u32;
 				}
 				1 => {
 					self.mem_displ = new_value as u32;
-					self.mem_base_reg = (new_value >> 32) as u8;
-					self.mem_index_reg = (new_value >> 40) as u8;
+					self.mem_base_reg = Register::from_u8((new_value >> 32) as u8);
+					self.mem_index_reg = Register::from_u8((new_value >> 40) as u8);
 					self.displ_size = (new_value >> 48) as u8;
 					self.db = (new_value >> 56) as u8;
 				}
@@ -10563,11 +10578,15 @@ impl Hash for Instruction {
 		state.write_u32(self.immediate);
 		state.write_u32(self.mem_displ);
 		state.write_u32(self.mem_displ_hi);
-		state.write_u16(self.code);
-		state.write_u8(self.mem_base_reg);
-		state.write_u8(self.mem_index_reg);
-		state.write(&self.regs);
-		state.write(&self.op_kinds);
+		state.write_u16(self.code as CodeUnderlyingType);
+		state.write_u8(self.mem_base_reg as RegisterUnderlyingType);
+		state.write_u8(self.mem_index_reg as RegisterUnderlyingType);
+		for &reg in &self.regs {
+			state.write_u8(reg as RegisterUnderlyingType);
+		}
+		for &op_kind in &self.op_kinds {
+			state.write_u8(op_kind as OpKindUnderlyingType);
+		}
 		state.write_u8(self.scale);
 		state.write_u8(self.displ_size);
 		state.write_u8(self.db);

@@ -29,7 +29,7 @@ impl OpCodeHandler_ST_STi {
 		instruction_internal::internal_set_code_u32(instruction, this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
-		instruction_internal::internal_set_op0_register_u32(instruction, Register::ST0 as u32);
+		instruction_internal::internal_set_op0_register(instruction, Register::ST0);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction_internal::internal_set_op1_register_u32(instruction, Register::ST0 as u32 + decoder.state.rm);
@@ -58,7 +58,7 @@ impl OpCodeHandler_STi_ST {
 		instruction_internal::internal_set_op0_register_u32(instruction, Register::ST0 as u32 + decoder.state.rm);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
-		instruction_internal::internal_set_op1_register_u32(instruction, Register::ST0 as u32);
+		instruction_internal::internal_set_op1_register(instruction, Register::ST0);
 	}
 }
 

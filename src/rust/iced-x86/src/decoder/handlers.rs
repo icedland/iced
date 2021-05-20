@@ -99,9 +99,12 @@ impl OpCodeHandler_Group8x8 {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert!(decoder.state.reg <= 7);
 		let (handler, decode) = if decoder.state.mod_ == 3 {
+			// SAFETY: reg <= 7 and table_high.len() == 8 (see ctor)
 			unsafe { *this.table_high.get_unchecked(decoder.state.reg as usize) }
 		} else {
+			// SAFETY: reg <= 7 and table_low.len() == 8 (see ctor)
 			unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) }
 		};
 		(decode)(handler, decoder, instruction);
@@ -130,13 +133,18 @@ impl OpCodeHandler_Group8x64 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		let (handler, decode) = if decoder.state.mod_ == 3 {
+			// SAFETY: table_high.len() == 0x40 (see ctor) and index <= 0x3F due to masking `modrm`
 			let (handler, decode) = unsafe { *this.table_high.get_unchecked((decoder.state.modrm & 0x3F) as usize) };
 			if handler as *const _ as *const u8 == &NULL_HANDLER as *const _ as *const u8 {
+				debug_assert!(decoder.state.reg <= 7);
+				// SAFETY: reg <= 7 and table_low.len() == 8 (see ctor)
 				unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) }
 			} else {
 				(handler, decode)
 			}
 		} else {
+			debug_assert!(decoder.state.reg <= 7);
+			// SAFETY: reg <= 7 and table_low.len() == 8 (see ctor)
 			unsafe { *this.table_low.get_unchecked(decoder.state.reg as usize) }
 		};
 		(decode)(handler, decoder, instruction);
@@ -159,6 +167,8 @@ impl OpCodeHandler_Group {
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert!(decoder.state.reg <= 7);
+		// SAFETY: group_handlers.len() == 8 (see ctor) and reg <= 7
 		let (handler, decode) = unsafe { *this.group_handlers.get_unchecked(decoder.state.reg as usize) };
 		(decode)(handler, decoder, instruction);
 	}

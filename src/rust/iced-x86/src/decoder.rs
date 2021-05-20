@@ -1680,6 +1680,11 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	fn read_op_seg_reg(&mut self) -> u32 {
 		let reg = self.state.reg;
+		const_assert_eq!(Register::ES as u32 + 1, Register::CS as u32);
+		const_assert_eq!(Register::ES as u32 + 2, Register::SS as u32);
+		const_assert_eq!(Register::ES as u32 + 3, Register::DS as u32);
+		const_assert_eq!(Register::ES as u32 + 4, Register::FS as u32);
+		const_assert_eq!(Register::ES as u32 + 5, Register::GS as u32);
 		if reg < 6 {
 			Register::ES as u32 + reg
 		} else {

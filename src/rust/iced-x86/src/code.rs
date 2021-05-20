@@ -39285,38 +39285,37 @@ impl Code {
 		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
 			// They're ordered, eg. je_16, je_32, je_64, jne_16, jne_32, jne_64
 			// if low 3, add 3, else if high 3, subtract 3.
-			//return (((int)((t / 3) << 31) >> 31) | 1) * 3 + code;
 			if ((t / 3) & 1) != 0 {
-				return unsafe { mem::transmute(self as u16 - 3) };
+				return unsafe { mem::transmute(self as CodeUnderlyingType - 3) };
 			}
-			return unsafe { mem::transmute(self as u16 + 3) };
+			return unsafe { mem::transmute(self as CodeUnderlyingType + 3) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
 		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
 			if ((t / 3) & 1) != 0 {
-				return unsafe { mem::transmute(self as u16 - 3) };
+				return unsafe { mem::transmute(self as CodeUnderlyingType - 3) };
 			}
-			return unsafe { mem::transmute(self as u16 + 3) };
+			return unsafe { mem::transmute(self as CodeUnderlyingType + 3) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Cmovo_r16_rm16 as u32);
 		if t <= (Code::Cmovg_r64_rm64 as u32 - Code::Cmovo_r16_rm16 as u32) {
 			if ((t / 3) & 1) != 0 {
-				return unsafe { mem::transmute(self as u16 - 3) };
+				return unsafe { mem::transmute(self as CodeUnderlyingType - 3) };
 			}
-			return unsafe { mem::transmute(self as u16 + 3) };
+			return unsafe { mem::transmute(self as CodeUnderlyingType + 3) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Seto_rm8 as u32);
 		if t <= (Code::Setg_rm8 as u32 - Code::Seto_rm8 as u32) {
-			return unsafe { mem::transmute(((t ^ 1) + Code::Seto_rm8 as u32) as u16) };
+			return unsafe { mem::transmute(((t ^ 1) + Code::Seto_rm8 as u32) as CodeUnderlyingType) };
 		}
 
 		const_assert_eq!(Code::Loopne_rel8_16_CX as u32 + 7, Code::Loope_rel8_16_CX as u32);
 		t = (self as u32).wrapping_sub(Code::Loopne_rel8_16_CX as u32);
 		if t <= (Code::Loope_rel8_64_RCX as u32 - Code::Loopne_rel8_16_CX as u32) {
-			return unsafe { mem::transmute((Code::Loopne_rel8_16_CX as u32 + (t + 7) % 14) as u16) };
+			return unsafe { mem::transmute((Code::Loopne_rel8_16_CX as u32 + (t + 7) % 14) as CodeUnderlyingType) };
 		}
 
 		self
@@ -39341,12 +39340,12 @@ impl Code {
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
 		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
-			return unsafe { mem::transmute((t + Code::Jo_rel8_16 as u32) as u16) };
+			return unsafe { mem::transmute((t + Code::Jo_rel8_16 as u32) as CodeUnderlyingType) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Jmp_rel16 as u32);
 		if t <= (Code::Jmp_rel32_64 as u32 - Code::Jmp_rel16 as u32) {
-			return unsafe { mem::transmute((t + Code::Jmp_rel8_16 as u32) as u16) };
+			return unsafe { mem::transmute((t + Code::Jmp_rel8_16 as u32) as CodeUnderlyingType) };
 		}
 
 		self
@@ -39371,12 +39370,12 @@ impl Code {
 
 		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
 		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
-			return unsafe { mem::transmute((t + Code::Jo_rel16 as u32) as u16) };
+			return unsafe { mem::transmute((t + Code::Jo_rel16 as u32) as CodeUnderlyingType) };
 		}
 
 		t = (self as u32).wrapping_sub(Code::Jmp_rel8_16 as u32);
 		if t <= (Code::Jmp_rel8_64 as u32 - Code::Jmp_rel8_16 as u32) {
-			return unsafe { mem::transmute((t + Code::Jmp_rel16 as u32) as u16) };
+			return unsafe { mem::transmute((t + Code::Jmp_rel16 as u32) as CodeUnderlyingType) };
 		}
 
 		self
