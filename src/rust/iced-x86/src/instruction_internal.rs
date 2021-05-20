@@ -610,7 +610,7 @@ static REG_TO_ADDR_SIZE: [u8; IcedConstants::REGISTER_ENUM_COUNT] = [
 	0, // TMM5
 	0, // TMM6
 	0, // TMM7
-	0, // DontUseF9
+	0, // DontUse0
 	0, // DontUseFA
 	0, // DontUseFB
 	0, // DontUseFC

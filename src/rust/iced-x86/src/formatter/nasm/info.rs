@@ -7,37 +7,13 @@ use crate::formatter::nasm::fmt_utils::can_show_rounding_control;
 use crate::formatter::nasm::get_mnemonic_cc;
 use crate::formatter::nasm::mem_size_tbl::MEM_SIZE_TBL;
 use crate::formatter::FormatterString;
+use crate::formatter::{r64_to_r32, r_to_r16};
 use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
-use core::convert::TryFrom;
 use core::{mem, u32};
 use static_assertions::const_assert_eq;
-
-fn r32_to_r16(reg: Register) -> Register {
-	if Register::EAX <= reg && reg <= Register::R15D {
-		Register::try_from((reg as u32 - Register::EAX as u32 + Register::AX as u32) as usize).unwrap_or(reg)
-	} else {
-		reg
-	}
-}
-
-fn r64_to_r16(reg: Register) -> Register {
-	if Register::RAX <= reg && reg <= Register::R15 {
-		Register::try_from((reg as u32 - Register::RAX as u32 + Register::AX as u32) as usize).unwrap_or(reg)
-	} else {
-		reg
-	}
-}
-
-fn r64_to_r32(reg: Register) -> Register {
-	if Register::RAX <= reg && reg <= Register::R15 {
-		Register::try_from((reg as u32 - Register::RAX as u32 + Register::EAX as u32) as usize).unwrap_or(reg)
-	} else {
-		reg
-	}
-}
 
 #[derive(Debug)]
 pub(super) struct InstrOpInfo<'a> {
@@ -959,10 +935,10 @@ impl InstrInfo for SimpleInstrInfo_os_mem_reg16 {
 			let reg_size = if Register::AX <= reg && reg <= Register::R15W {
 				16
 			} else if Register::EAX <= reg && reg <= Register::R15D {
-				reg = r32_to_r16(reg);
+				reg = r_to_r16(reg);
 				32
 			} else if Register::RAX <= reg && reg <= Register::R15 {
-				reg = r64_to_r16(reg);
+				reg = r_to_r16(reg);
 				64
 			} else {
 				0
@@ -1434,9 +1410,9 @@ impl InstrInfo for SimpleInstrInfo_Reg16 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		const FLAGS: u32 = InstrOpInfoFlags::NONE;
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
-		info.op_registers[0] = r32_to_r16(info.op_registers[0]);
-		info.op_registers[1] = r32_to_r16(info.op_registers[1]);
-		info.op_registers[2] = r32_to_r16(info.op_registers[2]);
+		info.op_registers[0] = r_to_r16(info.op_registers[0]);
+		info.op_registers[1] = r_to_r16(info.op_registers[1]);
+		info.op_registers[2] = r_to_r16(info.op_registers[2]);
 		info
 	}
 }

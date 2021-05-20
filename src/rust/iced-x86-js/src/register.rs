@@ -259,12 +259,40 @@ pub enum Register {
 	TMM5 = 246,
 	TMM6 = 247,
 	TMM7 = 248,
-	DontUseF9 = 249,
+	/// Don't use it!
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.12.0: Not part of the public API
+	DontUse0 = 249,
+	/// Don't use it!
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.12.0: Not part of the public API
 	DontUseFA = 250,
+	/// Don't use it!
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.12.0: Not part of the public API
 	DontUseFB = 251,
+	/// Don't use it!
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.12.0: Not part of the public API
 	DontUseFC = 252,
+	/// Don't use it!
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.12.0: Not part of the public API
 	DontUseFD = 253,
+	/// Don't use it!
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.12.0: Not part of the public API
 	DontUseFE = 254,
+	/// Don't use it!
+	///
+	/// ***************************************************
+	/// DEPRECATED since 1.12.0: Not part of the public API
 	DontUseFF = 255,
 }
 // GENERATOR-END: Enum

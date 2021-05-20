@@ -254,12 +254,22 @@ namespace Generator.Enums {
 		TMM6,
 		TMM7,
 
-		DontUseF9,
+		// The formatters use it as `st`. Should not be used by any other code.
+		[Deprecated("1.12.0", null, "Not part of the public API", false)]
+		DontUse0,
+
+		// Padding to >= 256 elems
+		[Deprecated("1.12.0", null, "Not part of the public API", false)]
 		DontUseFA,
+		[Deprecated("1.12.0", null, "Not part of the public API", false)]
 		DontUseFB,
+		[Deprecated("1.12.0", null, "Not part of the public API", false)]
 		DontUseFC,
+		[Deprecated("1.12.0", null, "Not part of the public API", false)]
 		DontUseFD,
+		[Deprecated("1.12.0", null, "Not part of the public API", false)]
 		DontUseFE,
+		[Deprecated("1.12.0", null, "Not part of the public API", false)]
 		DontUseFF,
 	}
 }

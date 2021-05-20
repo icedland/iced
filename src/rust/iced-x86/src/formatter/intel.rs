@@ -6,7 +6,6 @@ mod fmt_data;
 mod fmt_tbl;
 mod info;
 mod mem_size_tbl;
-mod regs;
 #[cfg(test)]
 mod tests;
 
@@ -19,7 +18,6 @@ use crate::formatter::intel::fmt_tbl::ALL_INFOS;
 use crate::formatter::intel::info::*;
 use crate::formatter::intel::mem_size_tbl::Info;
 use crate::formatter::intel::mem_size_tbl::MEM_SIZE_TBL;
-use crate::formatter::intel::regs::*;
 use crate::formatter::num_fmt::*;
 use crate::formatter::regs_tbl::REGS_TBL;
 use crate::formatter::*;
@@ -28,7 +26,7 @@ use crate::instruction_internal;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
-use core::{mem, u16, u32, u8};
+use core::{u16, u32, u8};
 use static_assertions::const_assert_eq;
 
 /// Intel formatter (same as Intel XED)
@@ -410,14 +408,9 @@ impl IntelFormatter {
 		let number_kind;
 		let op_kind = op_info.op_kind(operand);
 		match op_kind {
-			InstrOpKind::Register => IntelFormatter::format_register_internal(
-				&self.d,
-				output,
-				instruction,
-				operand,
-				instruction_operand,
-				op_info.op_register(operand) as u32,
-			),
+			InstrOpKind::Register => {
+				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, op_info.op_register(operand))
+			}
 
 			InstrOpKind::NearBranch16 | InstrOpKind::NearBranch32 | InstrOpKind::NearBranch64 => {
 				if op_kind == InstrOpKind::NearBranch64 {
@@ -1010,7 +1003,7 @@ impl IntelFormatter {
 		if operand == 0 && instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 			if instruction.has_op_mask() && (op_info.flags & InstrOpInfoFlags::IGNORE_OP_MASK as u16) == 0 {
 				output.write("{", FormatterTextKind::Punctuation);
-				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
+				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask());
 				output.write("}", FormatterTextKind::Punctuation);
 			}
 			if instruction.zeroing_masking() {
@@ -1084,28 +1077,19 @@ impl IntelFormatter {
 	}
 
 	#[inline]
-	fn get_reg_str(d: &SelfData, mut reg_num: u32) -> &'static str {
-		if d.options.prefer_st0() && reg_num == Registers::REGISTER_ST {
-			reg_num = Register::ST0 as u32;
+	fn get_reg_str(d: &SelfData, mut reg: Register) -> &'static str {
+		if d.options.prefer_st0() && reg == REGISTER_ST {
+			reg = Register::ST0;
 		}
-		debug_assert!((reg_num as usize) < d.all_registers.len());
-		let reg_str = &d.all_registers[reg_num as usize];
+		let reg_str = &d.all_registers[reg as usize];
 		reg_str.get(d.options.uppercase_registers() || d.options.uppercase_all())
 	}
 
 	#[inline]
 	fn format_register_internal(
-		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
+		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg: Register,
 	) {
-		const_assert_eq!(Registers::EXTRA_REGISTERS, 0);
-		output.write_register(
-			instruction,
-			operand,
-			instruction_operand,
-			IntelFormatter::get_reg_str(d, reg_num),
-			// SAFETY: either it's REGISTER_ST or it's a valid Register enum value, see Registers::EXTRA_REGISTERS == 1 above
-			if reg_num == Registers::REGISTER_ST { Register::ST0 } else { unsafe { mem::transmute(reg_num as u8) } },
-		);
+		output.write_register(instruction, operand, instruction_operand, IntelFormatter::get_reg_str(d, reg), reg);
 	}
 
 	#[allow(clippy::too_many_arguments)]
@@ -1174,7 +1158,7 @@ impl IntelFormatter {
 		if self.d.options.always_show_segment_register()
 			|| (seg_override != Register::None && !notrack_prefix && show_segment_prefix(Register::None, instruction, &self.d.options))
 		{
-			IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg as u32);
+			IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg);
 			output.write(":", FormatterTextKind::Punctuation);
 		}
 		output.write("[", FormatterTextKind::Punctuation);
@@ -1183,7 +1167,7 @@ impl IntelFormatter {
 		}
 
 		let mut need_plus = if base_reg != Register::None {
-			IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg as u32);
+			IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg);
 			true
 		} else {
 			false
@@ -1202,7 +1186,7 @@ impl IntelFormatter {
 			need_plus = true;
 
 			if !use_scale {
-				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
+				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg);
 			} else if self.d.options.scale_before_index() {
 				output.write_number(
 					instruction,
@@ -1220,9 +1204,9 @@ impl IntelFormatter {
 				if self.d.options.space_between_memory_mul_operators() {
 					output.write(" ", FormatterTextKind::Text);
 				}
-				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
+				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg);
 			} else {
-				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
+				IntelFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg);
 				if self.d.options.space_between_memory_mul_operators() {
 					output.write(" ", FormatterTextKind::Text);
 				}
@@ -1546,7 +1530,7 @@ impl Formatter for IntelFormatter {
 	#[must_use]
 	#[inline]
 	fn format_register(&mut self, register: Register) -> &str {
-		IntelFormatter::get_reg_str(&self.d, register as u32)
+		IntelFormatter::get_reg_str(&self.d, register)
 	}
 
 	#[must_use]

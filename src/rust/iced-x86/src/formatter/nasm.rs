@@ -28,7 +28,6 @@ use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{mem, u16, u32, u8};
-use static_assertions::const_assert_eq;
 
 /// Nasm formatter
 ///
@@ -1100,7 +1099,6 @@ impl NasmFormatter {
 	fn format_register_internal(
 		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg: Register,
 	) {
-		const_assert_eq!(Registers::EXTRA_REGISTERS, 0);
 		output.write_register(instruction, operand, instruction_operand, NasmFormatter::get_reg_str(d, reg), reg);
 	}
 

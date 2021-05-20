@@ -28,7 +28,6 @@ use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{mem, u16, u32, u8};
-use static_assertions::const_assert_eq;
 
 /// GNU assembler (AT&T) formatter
 ///
@@ -442,14 +441,9 @@ impl GasFormatter {
 		let number_kind;
 		let op_kind = op_info.op_kind(operand);
 		match op_kind {
-			InstrOpKind::Register => GasFormatter::format_register_internal(
-				&self.d,
-				output,
-				instruction,
-				operand,
-				instruction_operand,
-				op_info.op_register(operand) as u32,
-			),
+			InstrOpKind::Register => {
+				GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, op_info.op_register(operand))
+			}
 
 			InstrOpKind::NearBranch16 | InstrOpKind::NearBranch32 | InstrOpKind::NearBranch64 => {
 				if op_kind == InstrOpKind::NearBranch64 {
@@ -1012,7 +1006,7 @@ impl GasFormatter {
 		if operand + 1 == op_info.op_count as u32 && instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 			if instruction.has_op_mask() {
 				output.write("{", FormatterTextKind::Punctuation);
-				GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
+				GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, instruction.op_mask());
 				output.write("}", FormatterTextKind::Punctuation);
 			}
 			if instruction.zeroing_masking() {
@@ -1045,28 +1039,19 @@ impl GasFormatter {
 	}
 
 	#[inline]
-	fn get_reg_str(d: &SelfData, mut reg_num: u32) -> &'static str {
-		if d.options.prefer_st0() && reg_num == Registers::REGISTER_ST {
-			reg_num = Register::ST0 as u32;
+	fn get_reg_str(d: &SelfData, mut reg: Register) -> &'static str {
+		if d.options.prefer_st0() && reg == REGISTER_ST {
+			reg = Register::ST0;
 		}
-		debug_assert!((reg_num as usize) < GasFormatter::all_registers(d).len());
-		let reg_str = &GasFormatter::all_registers(d)[reg_num as usize];
+		let reg_str = &GasFormatter::all_registers(d)[reg as usize];
 		reg_str.get(d.options.uppercase_registers() || d.options.uppercase_all())
 	}
 
 	#[inline]
 	fn format_register_internal(
-		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
+		d: &SelfData, output: &mut dyn FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg: Register,
 	) {
-		const_assert_eq!(Registers::EXTRA_REGISTERS, 0);
-		output.write_register(
-			instruction,
-			operand,
-			instruction_operand,
-			GasFormatter::get_reg_str(d, reg_num),
-			// SAFETY: either it's REGISTER_ST or it's a valid Register enum value, see Registers::EXTRA_REGISTERS == 1 above
-			if reg_num == Registers::REGISTER_ST { Register::ST0 } else { unsafe { mem::transmute(reg_num as u8) } },
-		);
+		output.write_register(instruction, operand, instruction_operand, GasFormatter::get_reg_str(d, reg), reg);
 	}
 
 	#[allow(clippy::too_many_arguments)]
@@ -1127,7 +1112,7 @@ impl GasFormatter {
 		if self.d.options.always_show_segment_register()
 			|| (seg_override != Register::None && !notrack_prefix && show_segment_prefix(Register::None, instruction, &self.d.options))
 		{
-			GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg as u32);
+			GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg);
 			output.write(":", FormatterTextKind::Punctuation);
 		}
 
@@ -1215,10 +1200,10 @@ impl GasFormatter {
 			}
 
 			if base_reg != Register::None && index_reg == Register::None && !use_scale {
-				GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg as u32);
+				GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg);
 			} else {
 				if base_reg != Register::None {
-					GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg as u32);
+					GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, base_reg);
 				}
 
 				output.write(",", FormatterTextKind::Punctuation);
@@ -1227,7 +1212,7 @@ impl GasFormatter {
 				}
 
 				if index_reg != Register::None {
-					GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg as u32);
+					GasFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, index_reg);
 
 					if use_scale {
 						output.write(",", FormatterTextKind::Punctuation);
@@ -1371,7 +1356,7 @@ impl Formatter for GasFormatter {
 	#[must_use]
 	#[inline]
 	fn format_register(&mut self, register: Register) -> &str {
-		GasFormatter::get_reg_str(&self.d, register as u32)
+		GasFormatter::get_reg_str(&self.d, register)
 	}
 
 	#[must_use]

@@ -258,12 +258,33 @@ namespace Iced.Intel {
 		TMM5 = 246,
 		TMM6 = 247,
 		TMM7 = 248,
-		DontUseF9 = 249,
+		/// <summary>Don&apos;t use it!</summary>
+		[System.Obsolete("Not part of the public API", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		DontUse0 = 249,
+		/// <summary>Don&apos;t use it!</summary>
+		[System.Obsolete("Not part of the public API", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		DontUseFA = 250,
+		/// <summary>Don&apos;t use it!</summary>
+		[System.Obsolete("Not part of the public API", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		DontUseFB = 251,
+		/// <summary>Don&apos;t use it!</summary>
+		[System.Obsolete("Not part of the public API", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		DontUseFC = 252,
+		/// <summary>Don&apos;t use it!</summary>
+		[System.Obsolete("Not part of the public API", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		DontUseFD = 253,
+		/// <summary>Don&apos;t use it!</summary>
+		[System.Obsolete("Not part of the public API", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		DontUseFE = 254,
+		/// <summary>Don&apos;t use it!</summary>
+		[System.Obsolete("Not part of the public API", false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		DontUseFF = 255,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

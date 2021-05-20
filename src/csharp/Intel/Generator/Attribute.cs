@@ -10,15 +10,17 @@ namespace Generator {
 		public string Version { get; }
 		public string? NewName { get; }
 		public string? Description { get; }
-		public DeprecatedAttribute(string version, string? newName, string? description = null) {
+		public bool IsError { get; }
+		public DeprecatedAttribute(string version, string? newName, string? description = null, bool isError = true) {
 			Version = version;
 			NewName = newName;
 			Description = description;
+			IsError = isError;
 		}
 
 		public static DeprecatedInfo GetDeprecatedInfo(MemberInfo member) {
 			if (member.GetCustomAttribute(typeof(DeprecatedAttribute)) is DeprecatedAttribute ca)
-				return new DeprecatedInfo(ca.Version, ca.NewName, ca.Description);
+				return new DeprecatedInfo(ca.Version, ca.NewName, ca.Description, ca.IsError);
 			return default;
 		}
 	}
@@ -31,11 +33,13 @@ namespace Generator {
 		public readonly string VersionStr;
 		public readonly string? NewName;
 		public readonly string? Description;
-		public DeprecatedInfo(string version, string? newName, string? description) {
+		public readonly bool IsError;
+		public DeprecatedInfo(string version, string? newName, string? description, bool isError) {
 			Version = new Version(version);
 			VersionStr = version;
 			NewName = newName;
 			Description = description;
+			IsError = isError;
 		}
 	}
 

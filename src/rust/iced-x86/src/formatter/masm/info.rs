@@ -4,8 +4,8 @@
 use crate::formatter::masm::enums::*;
 use crate::formatter::masm::fmt_utils::show_segment_prefix;
 use crate::formatter::masm::get_mnemonic_cc;
-use crate::formatter::masm::regs::*;
 use crate::formatter::FormatterString;
+use crate::formatter::{r64_to_r32, r_to_r16, REGISTER_ST};
 use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::string::String;
@@ -19,7 +19,7 @@ pub(super) struct InstrOpInfo<'a> {
 	pub(super) flags: u16, // InstrOpInfoFlags
 	pub(super) op_count: u8,
 	op_kinds: [InstrOpKind; IcedConstants::MAX_OP_COUNT],
-	op_registers: [RegisterUnderlyingType; IcedConstants::MAX_OP_COUNT],
+	op_registers: [Register; IcedConstants::MAX_OP_COUNT],
 	op_indexes: [i8; IcedConstants::MAX_OP_COUNT],
 }
 
@@ -29,8 +29,8 @@ impl<'a> InstrOpInfo<'a> {
 		unsafe { mem::transmute(op_kind as u8) }
 	}
 
-	pub(super) fn op_register(&self, operand: u32) -> usize {
-		self.op_registers[operand as usize] as usize
+	pub(super) fn op_register(&self, operand: u32) -> Register {
+		self.op_registers[operand as usize]
 	}
 
 	pub(super) fn op_kind(&self, operand: u32) -> InstrOpKind {
@@ -119,7 +119,7 @@ impl<'a> InstrOpInfo<'a> {
 			flags: 0,
 			op_count: 0,
 			op_kinds: [InstrOpKind::default(); IcedConstants::MAX_OP_COUNT],
-			op_registers: [0; IcedConstants::MAX_OP_COUNT],
+			op_registers: [Register::None; IcedConstants::MAX_OP_COUNT],
 			op_indexes: [0; IcedConstants::MAX_OP_COUNT],
 		}
 	}
@@ -134,11 +134,11 @@ impl<'a> InstrOpInfo<'a> {
 		res.op_kinds[2] = InstrOpInfo::to_instr_op_kind(instruction.op2_kind());
 		res.op_kinds[3] = InstrOpInfo::to_instr_op_kind(instruction.op3_kind());
 		res.op_kinds[4] = InstrOpInfo::to_instr_op_kind(instruction.op4_kind());
-		res.op_registers[0] = instruction.op0_register() as RegisterUnderlyingType;
-		res.op_registers[1] = instruction.op1_register() as RegisterUnderlyingType;
-		res.op_registers[2] = instruction.op2_register() as RegisterUnderlyingType;
-		res.op_registers[3] = instruction.op3_register() as RegisterUnderlyingType;
-		res.op_registers[4] = instruction.op4_register() as RegisterUnderlyingType;
+		res.op_registers[0] = instruction.op0_register();
+		res.op_registers[1] = instruction.op1_register();
+		res.op_registers[2] = instruction.op2_register();
+		res.op_registers[3] = instruction.op3_register();
+		res.op_registers[4] = instruction.op4_register();
 		let op_count = instruction.op_count();
 		res.op_count = op_count as u8;
 		match op_count {
@@ -633,8 +633,8 @@ impl InstrInfo for SimpleInstrInfo_nop {
 			const_assert_eq!(InstrOpKind::Register as u32, 0);
 			//info.op_kinds[0] = InstrOpKind::Register;
 			//info.op_kinds[1] = InstrOpKind::Register;
-			info.op_registers[0] = self.register as RegisterUnderlyingType;
-			info.op_registers[1] = self.register as RegisterUnderlyingType;
+			info.op_registers[0] = self.register;
+			info.op_registers[1] = self.register;
 			info.op_indexes[0] = InstrInfoConstants::OP_ACCESS_NONE;
 			info.op_indexes[1] = InstrInfoConstants::OP_ACCESS_NONE;
 			info
@@ -664,7 +664,7 @@ impl InstrInfo for SimpleInstrInfo_STIG1 {
 			info.op_count = 1;
 			const_assert_eq!(InstrOpKind::Register as u32, 0);
 			//info.op_kinds[0] = InstrOpKind::Register;
-			info.op_registers[0] = instruction.op1_register() as RegisterUnderlyingType;
+			info.op_registers[0] = instruction.op1_register();
 			info.op_indexes[0] = 1;
 		}
 		info
@@ -692,8 +692,8 @@ impl InstrInfo for SimpleInstrInfo_STi_ST {
 			info = InstrOpInfo::default(&self.mnemonic);
 		} else {
 			info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
-			debug_assert_eq!(info.op_registers[1], Register::ST0 as u8);
-			info.op_registers[1] = Registers::REGISTER_ST as RegisterUnderlyingType;
+			debug_assert_eq!(info.op_registers[1], Register::ST0);
+			info.op_registers[1] = REGISTER_ST;
 		}
 		info
 	}
@@ -713,8 +713,8 @@ impl SimpleInstrInfo_ST_STi {
 impl InstrInfo for SimpleInstrInfo_ST_STi {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, InstrOpInfoFlags::NONE);
-		debug_assert_eq!(info.op_registers[0], Register::ST0 as u8);
-		info.op_registers[0] = Registers::REGISTER_ST as RegisterUnderlyingType;
+		debug_assert_eq!(info.op_registers[0], Register::ST0);
+		info.op_registers[0] = REGISTER_ST;
 		info
 	}
 }
@@ -738,11 +738,11 @@ impl InstrInfo for SimpleInstrInfo_monitor {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		info.op_count = 3;
 		info.op_kinds[0] = InstrOpKind::Register;
-		info.op_registers[0] = self.register1 as RegisterUnderlyingType;
+		info.op_registers[0] = self.register1;
 		info.op_kinds[1] = InstrOpKind::Register;
-		info.op_registers[1] = self.register2 as RegisterUnderlyingType;
+		info.op_registers[1] = self.register2;
 		info.op_kinds[2] = InstrOpKind::Register;
-		info.op_registers[2] = self.register3 as RegisterUnderlyingType;
+		info.op_registers[2] = self.register3;
 		info.op_indexes[0] = InstrInfoConstants::OP_ACCESS_READ;
 		info.op_indexes[1] = InstrInfoConstants::OP_ACCESS_READ;
 		info.op_indexes[2] = InstrInfoConstants::OP_ACCESS_READ;
@@ -778,16 +778,16 @@ impl InstrInfo for SimpleInstrInfo_mwait {
 
 		match instruction.code_size() {
 			CodeSize::Code16 => {
-				info.op_registers[0] = Register::AX as RegisterUnderlyingType;
-				info.op_registers[1] = Register::ECX as RegisterUnderlyingType;
+				info.op_registers[0] = Register::AX;
+				info.op_registers[1] = Register::ECX;
 			}
 			CodeSize::Code32 => {
-				info.op_registers[0] = Register::EAX as RegisterUnderlyingType;
-				info.op_registers[1] = Register::ECX as RegisterUnderlyingType;
+				info.op_registers[0] = Register::EAX;
+				info.op_registers[1] = Register::ECX;
 			}
 			CodeSize::Unknown | CodeSize::Code64 => {
-				info.op_registers[0] = Register::RAX as RegisterUnderlyingType;
-				info.op_registers[1] = Register::RCX as RegisterUnderlyingType;
+				info.op_registers[0] = Register::RAX;
+				info.op_registers[1] = Register::RCX;
 			}
 		}
 		info
@@ -818,19 +818,19 @@ impl InstrInfo for SimpleInstrInfo_mwaitx {
 
 		match instruction.code_size() {
 			CodeSize::Code16 => {
-				info.op_registers[0] = Register::AX as u8;
-				info.op_registers[1] = Register::ECX as u8;
-				info.op_registers[2] = Register::EBX as u8;
+				info.op_registers[0] = Register::AX;
+				info.op_registers[1] = Register::ECX;
+				info.op_registers[2] = Register::EBX;
 			}
 			CodeSize::Code32 => {
-				info.op_registers[0] = Register::EAX as u8;
-				info.op_registers[1] = Register::ECX as u8;
-				info.op_registers[2] = Register::EBX as u8;
+				info.op_registers[0] = Register::EAX;
+				info.op_registers[1] = Register::ECX;
+				info.op_registers[2] = Register::EBX;
 			}
 			CodeSize::Unknown | CodeSize::Code64 => {
-				info.op_registers[0] = Register::RAX as u8;
-				info.op_registers[1] = Register::RCX as u8;
-				info.op_registers[2] = Register::RBX as u8;
+				info.op_registers[0] = Register::RAX;
+				info.op_registers[1] = Register::RCX;
+				info.op_registers[2] = Register::RBX;
 			}
 		}
 		info
@@ -869,10 +869,10 @@ impl InstrInfo for SimpleInstrInfo_maskmovq {
 			info.op_count = 2;
 			info.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op1_kind());
 			info.op_indexes[0] = 1;
-			info.op_registers[0] = instruction.op1_register() as u8;
+			info.op_registers[0] = instruction.op1_register();
 			info.op_kinds[1] = InstrOpInfo::to_instr_op_kind(instruction.op2_kind());
 			info.op_indexes[1] = 2;
-			info.op_registers[1] = instruction.op2_register() as u8;
+			info.op_registers[1] = instruction.op2_register();
 		}
 		info
 	}
@@ -895,12 +895,12 @@ impl InstrInfo for SimpleInstrInfo_pblendvb {
 		debug_assert_eq!(instruction.op_count(), 2);
 		info.op_count = 3;
 		info.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op0_kind());
-		info.op_registers[0] = instruction.op0_register() as u8;
+		info.op_registers[0] = instruction.op0_register();
 		info.op_kinds[1] = InstrOpInfo::to_instr_op_kind(instruction.op1_kind());
 		info.op_indexes[1] = 1;
-		info.op_registers[1] = instruction.op1_register() as u8;
+		info.op_registers[1] = instruction.op1_register();
 		info.op_kinds[2] = InstrOpKind::Register;
-		info.op_registers[2] = Register::XMM0 as u8;
+		info.op_registers[2] = Register::XMM0;
 		info.op_indexes[2] = InstrInfoConstants::OP_ACCESS_READ;
 		info
 	}
@@ -924,9 +924,9 @@ impl InstrInfo for SimpleInstrInfo_reverse {
 		info.op_count = 2;
 		info.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op1_kind());
 		info.op_indexes[0] = 1;
-		info.op_registers[0] = instruction.op1_register() as u8;
+		info.op_registers[0] = instruction.op1_register();
 		info.op_kinds[1] = InstrOpInfo::to_instr_op_kind(instruction.op0_kind());
-		info.op_registers[1] = instruction.op0_register() as u8;
+		info.op_registers[1] = instruction.op0_register();
 		info
 	}
 }
@@ -1215,15 +1215,9 @@ impl SimpleInstrInfo_Reg16 {
 impl InstrInfo for SimpleInstrInfo_Reg16 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, self.flags);
-		if Register::EAX as u8 <= info.op_registers[0] && info.op_registers[0] <= Register::R15 as u8 {
-			info.op_registers[0] = (info.op_registers[0].wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
-		}
-		if Register::EAX as u8 <= info.op_registers[1] && info.op_registers[1] <= Register::R15 as u8 {
-			info.op_registers[1] = (info.op_registers[1].wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
-		}
-		if Register::EAX as u8 <= info.op_registers[2] && info.op_registers[2] <= Register::R15 as u8 {
-			info.op_registers[2] = (info.op_registers[2].wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
-		}
+		info.op_registers[0] = r_to_r16(info.op_registers[0]);
+		info.op_registers[1] = r_to_r16(info.op_registers[1]);
+		info.op_registers[2] = r_to_r16(info.op_registers[2]);
 		info
 	}
 }
@@ -1243,15 +1237,9 @@ impl SimpleInstrInfo_Reg32 {
 impl InstrInfo for SimpleInstrInfo_Reg32 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, self.flags);
-		if Register::RAX as u8 <= info.op_registers[0] && info.op_registers[0] <= Register::R15 as u8 {
-			info.op_registers[0] = info.op_registers[0].wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
-		}
-		if Register::RAX as u8 <= info.op_registers[1] && info.op_registers[1] <= Register::R15 as u8 {
-			info.op_registers[1] = info.op_registers[1].wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
-		}
-		if Register::RAX as u8 <= info.op_registers[2] && info.op_registers[2] <= Register::R15 as u8 {
-			info.op_registers[2] = info.op_registers[2].wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
-		}
+		info.op_registers[0] = r64_to_r32(info.op_registers[0]);
+		info.op_registers[1] = r64_to_r32(info.op_registers[1]);
+		info.op_registers[2] = r64_to_r32(info.op_registers[2]);
 		info
 	}
 }
@@ -1273,7 +1261,7 @@ impl InstrInfo for SimpleInstrInfo_reg {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		info.op_count = 1;
 		info.op_kinds[0] = InstrOpKind::Register;
-		info.op_registers[0] = self.register as u8;
+		info.op_registers[0] = self.register;
 		info.op_indexes[0] = InstrInfoConstants::OP_ACCESS_READ;
 		info
 	}
@@ -1297,13 +1285,13 @@ impl InstrInfo for SimpleInstrInfo_invlpga {
 		info.op_count = 2;
 		info.op_kinds[0] = InstrOpKind::Register;
 		info.op_kinds[1] = InstrOpKind::Register;
-		info.op_registers[1] = Register::ECX as u8;
+		info.op_registers[1] = Register::ECX;
 		info.op_indexes[0] = InstrInfoConstants::OP_ACCESS_READ;
 		info.op_indexes[1] = InstrInfoConstants::OP_ACCESS_READ;
 		match self.bitness {
-			16 => info.op_registers[0] = Register::AX as u8,
-			32 => info.op_registers[0] = Register::EAX as u8,
-			64 => info.op_registers[0] = Register::RAX as u8,
+			16 => info.op_registers[0] = Register::AX,
+			32 => info.op_registers[0] = Register::EAX,
+			64 => info.op_registers[0] = Register::RAX,
 			_ => unreachable!(),
 		}
 		info

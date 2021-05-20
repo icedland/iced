@@ -7,9 +7,9 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.GasFormatterInternal {
 	static class Registers {
-		// Should be 1 past the last real register (not including DontUseF9-DontUseFF)
-		public const int Register_ST = (int)Register.DontUseF9;
-		public const int ExtraRegisters = 0;
+#pragma warning disable CS0618 // Type or member is obsolete
+		public const Register Register_ST = Register.DontUse0;
+#pragma warning restore CS0618 // Type or member is obsolete
 		public static readonly FormatterString[] AllRegistersNaked = RegistersTable.GetRegisters();
 		public static readonly FormatterString[] AllRegisters = GetRegistersWithPrefix();
 		static FormatterString[] GetRegistersWithPrefix() {

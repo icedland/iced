@@ -35,7 +35,10 @@ namespace Iced.Intel {
 				(byte)Register.MM0, (byte)Register.MM7, (byte)Register.MM0, 8, 0,
 				(byte)Register.TR0, (byte)Register.TR7, (byte)Register.TR0, 4, 0,
 				(byte)Register.TMM0, (byte)Register.TMM7, (byte)Register.TMM0, 0, 4,
-				(byte)Register.DontUseF9, (byte)Register.DontUseFF, (byte)Register.DontUseF9, 0, 0,
+#pragma warning disable CS0618 // Type or member is obsolete
+				(byte)Register.DontUse0, (byte)Register.DontUse0, (byte)Register.DontUse0, 0, 0,
+				(byte)Register.DontUseFA, (byte)Register.DontUseFF, (byte)Register.DontUseFA, 0, 0,
+#pragma warning restore CS0618 // Type or member is obsolete
 			};
 
 			int i;

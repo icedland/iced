@@ -16,10 +16,10 @@ namespace Generator.Documentation.CSharp {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, newValue.Name(idConverter), value.DeprecatedInfo.Description);
+					WriteDeprecated(writer, newValue.Name(idConverter), value.DeprecatedInfo.Description, value.DeprecatedInfo.IsError, true);
 				}
 				else
-					WriteDeprecated(writer, null, value.DeprecatedInfo.Description);
+					WriteDeprecated(writer, null, value.DeprecatedInfo.Description, value.DeprecatedInfo.IsError, true);
 			}
 		}
 
@@ -27,14 +27,14 @@ namespace Generator.Documentation.CSharp {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, newValue.Name(idConverter), value.DeprecatedInfo.Description);
+					WriteDeprecated(writer, newValue.Name(idConverter), value.DeprecatedInfo.Description, value.DeprecatedInfo.IsError, true);
 				}
 				else
-					WriteDeprecated(writer, null, value.DeprecatedInfo.Description);
+					WriteDeprecated(writer, null, value.DeprecatedInfo.Description, value.DeprecatedInfo.IsError, true);
 			}
 		}
 
-		public void WriteDeprecated(FileWriter writer, string? newMember, string? description, bool isMember = true, bool isError = true) {
+		public void WriteDeprecated(FileWriter writer, string? newMember, string? description, bool isError, bool isMember) {
 			var errStr = isError ? "true" : "false";
 			string deprecStr;
 			if (description is not null)

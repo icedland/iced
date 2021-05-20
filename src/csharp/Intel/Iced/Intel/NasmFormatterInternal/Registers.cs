@@ -6,7 +6,6 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.NasmFormatterInternal {
 	static class Registers {
-		public const int ExtraRegisters = 0;
 		public static readonly FormatterString[] AllRegisters = GetRegisters();
 		static FormatterString[] GetRegisters() {
 			var registers = RegistersTable.GetRegisters();

@@ -785,7 +785,7 @@ namespace Iced.Intel {
 			if (operand + 1 == opInfo.OpCount && instruction.HasOpMask_or_ZeroingMasking) {
 				if (instruction.HasOpMask) {
 					output.Write("{", FormatterTextKind.Punctuation);
-					FormatRegister(output, instruction, operand, instructionOperand, (int)instruction.OpMask);
+					FormatRegister(output, instruction, operand, instructionOperand, instruction.OpMask);
 					output.Write("}", FormatterTextKind.Punctuation);
 				}
 				if (instruction.ZeroingMasking)
@@ -800,19 +800,17 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		string ToRegisterString(int regNum) {
-			Debug.Assert((uint)regNum < (uint)AllRegisters.Length);
-			if (options.PreferST0 && regNum == Registers.Register_ST)
-				regNum = (int)Register.ST0;
-			var regStr = AllRegisters[(int)regNum];
+		string ToRegisterString(Register reg) {
+			Debug.Assert((uint)reg < (uint)AllRegisters.Length);
+			if (options.PreferST0 && reg == Registers.Register_ST)
+				reg = Register.ST0;
+			var regStr = AllRegisters[(int)reg];
 			return regStr.Get(options.UppercaseRegisters || options.UppercaseAll);
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, int regNum) {
-			Static.Assert(Registers.ExtraRegisters == 0 ? 0 : -1);
-			output.WriteRegister(instruction, operand, instructionOperand, ToRegisterString(regNum), regNum == Registers.Register_ST ? Register.ST0 : (Register)regNum);
-		}
+		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register reg) =>
+			output.WriteRegister(instruction, operand, instructionOperand, ToRegisterString(reg), reg);
 
 		void FormatMemory(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register segReg, Register baseReg, Register indexReg, int scale, int displSize, long displ, int addrSize) {
 			Debug.Assert((uint)scale < (uint)scaleNumbers.Length);
@@ -868,7 +866,7 @@ namespace Iced.Intel {
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix && FormatterUtils.ShowSegmentPrefix(Register.None, instruction, options))) {
-				FormatRegister(output, instruction, operand, instructionOperand, (int)segReg);
+				FormatRegister(output, instruction, operand, instructionOperand, segReg);
 				output.Write(":", FormatterTextKind.Punctuation);
 			}
 
@@ -943,17 +941,17 @@ namespace Iced.Intel {
 					output.Write(" ", FormatterTextKind.Text);
 
 				if (baseReg != Register.None && indexReg == Register.None && !useScale)
-					FormatRegister(output, instruction, operand, instructionOperand, (int)baseReg);
+					FormatRegister(output, instruction, operand, instructionOperand, baseReg);
 				else {
 					if (baseReg != Register.None)
-						FormatRegister(output, instruction, operand, instructionOperand, (int)baseReg);
+						FormatRegister(output, instruction, operand, instructionOperand, baseReg);
 
 					output.Write(",", FormatterTextKind.Punctuation);
 					if (options.GasSpaceAfterMemoryOperandComma)
 						output.Write(" ", FormatterTextKind.Text);
 
 					if (indexReg != Register.None) {
-						FormatRegister(output, instruction, operand, instructionOperand, (int)indexReg);
+						FormatRegister(output, instruction, operand, instructionOperand, indexReg);
 
 						if (useScale) {
 							output.Write(",", FormatterTextKind.Punctuation);
@@ -982,7 +980,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public override string Format(Register register) => ToRegisterString((int)register);
+		public override string Format(Register register) => ToRegisterString(register);
 
 		/// <summary>
 		/// Formats a <see cref="sbyte"/>

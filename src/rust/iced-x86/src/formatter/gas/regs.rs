@@ -3,18 +3,9 @@
 
 use crate::formatter::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
 use crate::formatter::FormatterString;
-use crate::Register;
 use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
-
-pub(super) struct Registers;
-impl Registers {
-	// Should be 1 past the last real register (not including DontUseF9-DontUseFF)
-	pub(super) const REGISTER_ST: u32 = Register::DontUseF9 as u32;
-	#[allow(dead_code)]
-	pub(super) const EXTRA_REGISTERS: u32 = 0;
-}
 
 lazy_static! {
 	pub(super) static ref ALL_REGISTERS: Vec<FormatterString> = {

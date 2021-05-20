@@ -6,7 +6,6 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.FastFormatterInternal {
 	static class Registers {
-		public const int ExtraRegisters = 0;
 		public static readonly FormatterString[] AllRegisters = RegistersTable.GetRegisters();
 	}
 }
