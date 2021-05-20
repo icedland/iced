@@ -594,11 +594,10 @@ struct FmtTableData {
 /// impl SpecializedFormatterTraitOptions for MyTraitOptions {
 ///     // If you never create a db/dw/dd/dq 'instruction', we don't need this feature.
 ///     const ENABLE_DB_DW_DD_DQ: bool = false;
-///     // It reserves 300 bytes at the start of format() which is enough for all
-///     // instructions. See the docs for more info.
-///     unsafe fn verify_output_has_enough_bytes_left() -> bool {
-///         false
-///     }
+///     // For a few percent faster code, you can also override `verify_output_has_enough_bytes_left()` and return `false`
+///     // unsafe fn verify_output_has_enough_bytes_left() -> bool {
+///     //     false
+///     // }
 /// }
 /// type MyFormatter = SpecializedFormatter<MyTraitOptions>;
 ///
