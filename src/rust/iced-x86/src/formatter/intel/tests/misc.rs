@@ -1,17 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-use crate::formatter::intel::info::InstrOpInfo;
-use crate::formatter::intel::regs::Registers;
 use crate::formatter::intel::tests::fmt_factory;
 use crate::formatter::test_utils::from_str_conv::to_vec_u8;
 use crate::formatter::test_utils::{create_decoder, get_formatter_unit_tests_dir};
 use crate::formatter::tests::misc;
 use crate::formatter::tests::mnemonic_opts_parser::MnemonicOptionsTestParser;
 use crate::formatter::*;
-use crate::iced_constants::IcedConstants;
 use alloc::string::String;
-use static_assertions::const_assert;
 
 #[test]
 fn methods_panic_if_invalid_operand_or_instruction_operand() {
@@ -21,14 +17,6 @@ fn methods_panic_if_invalid_operand_or_instruction_operand() {
 #[test]
 fn test_op_index() {
 	misc::test_op_index(|| fmt_factory::create());
-}
-
-#[test]
-fn register_is_not_too_big() {
-	#[allow(dead_code)]
-	const MAX_VALUE: u32 = IcedConstants::REGISTER_ENUM_COUNT as u32 - 1 + Registers::EXTRA_REGISTERS;
-	const_assert!(MAX_VALUE < (1 << InstrOpInfo::TEST_REGISTER_BITS));
-	const_assert!(MAX_VALUE >= (1 << (InstrOpInfo::TEST_REGISTER_BITS - 1)));
 }
 
 #[test]

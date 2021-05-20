@@ -20,13 +20,15 @@ pub(super) struct InstrOpInfo<'a> {
 	pub(super) flags: u16, // InstrOpInfoFlags
 	pub(super) op_count: u8,
 	op_kinds: [InstrOpKind; IcedConstants::MAX_OP_COUNT],
-	op_registers: [u8; IcedConstants::MAX_OP_COUNT],
+	op_registers: [RegisterUnderlyingType; IcedConstants::MAX_OP_COUNT],
 	op_indexes: [i8; IcedConstants::MAX_OP_COUNT],
 }
 
 impl<'a> InstrOpInfo<'a> {
-	#[allow(dead_code)]
-	pub(super) const TEST_REGISTER_BITS: u32 = IcedConstants::REGISTER_BITS;
+	fn to_instr_op_kind(op_kind: OpKind) -> InstrOpKind {
+		// SAFETY: All OpKind values are valid InstrOpKind values
+		unsafe { mem::transmute(op_kind as u8) }
+	}
 
 	pub(super) fn op_register(&self, operand: u32) -> usize {
 		self.op_registers[operand as usize] as usize
@@ -128,20 +130,15 @@ impl<'a> InstrOpInfo<'a> {
 
 		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
 		res.flags = flags as u16;
-		res.op_kinds[0] = unsafe { mem::transmute(instruction.op0_kind() as u8) };
-		res.op_kinds[1] = unsafe { mem::transmute(instruction.op1_kind() as u8) };
-		res.op_kinds[2] = unsafe { mem::transmute(instruction.op2_kind() as u8) };
-		res.op_kinds[3] = unsafe { mem::transmute(instruction.op3_kind() as u8) };
-		res.op_kinds[4] = unsafe { mem::transmute(instruction.op4_kind() as u8) };
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
+		res.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op0_kind());
+		res.op_kinds[1] = InstrOpInfo::to_instr_op_kind(instruction.op1_kind());
+		res.op_kinds[2] = InstrOpInfo::to_instr_op_kind(instruction.op2_kind());
+		res.op_kinds[3] = InstrOpInfo::to_instr_op_kind(instruction.op3_kind());
+		res.op_kinds[4] = InstrOpInfo::to_instr_op_kind(instruction.op4_kind());
 		res.op_registers[0] = instruction.op0_register() as u8;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		res.op_registers[1] = instruction.op1_register() as u8;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		res.op_registers[2] = instruction.op2_register() as u8;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		res.op_registers[3] = instruction.op3_register() as u8;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		res.op_registers[4] = instruction.op4_register() as u8;
 		let op_count = instruction.op_count();
 		res.op_count = op_count as u8;
@@ -305,7 +302,7 @@ impl InstrInfo for SimpleInstrInfo_StringIg1 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		info.op_count = 1;
-		info.op_kinds[0] = unsafe { mem::transmute(instruction.op0_kind() as u8) };
+		info.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op0_kind());
 		info
 	}
 }
@@ -325,7 +322,7 @@ impl InstrInfo for SimpleInstrInfo_StringIg0 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		info.op_count = 1;
-		info.op_kinds[0] = unsafe { mem::transmute(instruction.op1_kind() as u8) };
+		info.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op1_kind());
 		info.op_indexes[0] = info.op_indexes[1];
 		info
 	}
@@ -356,9 +353,7 @@ impl InstrInfo for SimpleInstrInfo_nop {
 			const_assert_eq!(InstrOpKind::Register as u32, 0);
 			//info.op_kinds[0] = InstrOpKind::Register;
 			//info.op_kinds[1] = InstrOpKind::Register;
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[0] = self.register as u8;
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[1] = self.register as u8;
 			info.op_indexes[0] = InstrInfoConstants::OP_ACCESS_NONE;
 			info.op_indexes[1] = InstrInfoConstants::OP_ACCESS_NONE;
@@ -395,7 +390,6 @@ impl InstrInfo for SimpleInstrInfo_ST1 {
 		info.op_kinds[1] = info.op_kinds[0];
 		info.op_registers[1] = info.op_registers[0];
 		info.op_kinds[0] = InstrOpKind::Register;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		info.op_registers[0] = Registers::REGISTER_ST as u8;
 		info.op_indexes[1] = info.op_indexes[0];
 		info.op_indexes[0] = self.op0_access;
@@ -421,7 +415,6 @@ impl InstrInfo for SimpleInstrInfo_ST2 {
 		debug_assert_eq!(instruction.op_count(), 1);
 		info.op_count = 2;
 		info.op_kinds[1] = InstrOpKind::Register;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		info.op_registers[1] = Registers::REGISTER_ST as u8;
 		info.op_indexes[1] = InstrInfoConstants::OP_ACCESS_READ;
 		info
@@ -463,19 +456,16 @@ impl InstrInfo for SimpleInstrInfo_maskmovq {
 		let mut info = InstrOpInfo::default(&self.mnemonic);
 		info.flags = flags as u16;
 		info.op_count = 2;
-		info.op_kinds[0] = unsafe { mem::transmute(instruction.op1_kind() as u8) };
+		info.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op1_kind());
 		info.op_indexes[0] = 1;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		info.op_registers[0] = instruction.op1_register() as u8;
-		info.op_kinds[1] = unsafe { mem::transmute(instruction.op2_kind() as u8) };
+		info.op_kinds[1] = InstrOpInfo::to_instr_op_kind(instruction.op2_kind());
 		info.op_indexes[1] = 2;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		info.op_registers[1] = instruction.op2_register() as u8;
 		let seg_reg = instruction.segment_prefix();
 		if seg_reg != Register::None && show_segment_prefix(Register::None, instruction, options) {
 			info.op_count = 3;
 			info.op_kinds[2] = InstrOpKind::Register;
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[2] = seg_reg as u8;
 			info.op_indexes[2] = InstrInfoConstants::OP_ACCESS_READ;
 		}
@@ -729,7 +719,6 @@ impl InstrInfo for SimpleInstrInfo_opmask_op {
 			info.op_registers[2] = info.op_registers[1];
 			info.op_indexes[2] = 1;
 			info.op_kinds[1] = InstrOpKind::Register;
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[1] = kreg as u8;
 			info.op_indexes[1] = InstrInfoConstants::OP_ACCESS_READ;
 			info.flags |= InstrOpInfoFlags::IGNORE_OP_MASK as u16;
@@ -782,7 +771,6 @@ impl InstrInfo for SimpleInstrInfo_ST_STi {
 		} else {
 			info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
 			debug_assert_eq!(info.op_registers[0], Register::ST0 as u8);
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[0] = Registers::REGISTER_ST as u8;
 		}
 		info
@@ -811,7 +799,6 @@ impl InstrInfo for SimpleInstrInfo_STi_ST {
 		} else {
 			info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
 			debug_assert_eq!(info.op_registers[1], Register::ST0 as u8);
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[1] = Registers::REGISTER_ST as u8;
 		}
 		info
@@ -929,15 +916,12 @@ impl InstrInfo for SimpleInstrInfo_Reg16 {
 		const FLAGS: u32 = InstrOpInfoFlags::NONE;
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
 		if Register::EAX as u8 <= info.op_registers[0] && info.op_registers[0] <= Register::R15 as u8 {
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[0] = (info.op_registers[0].wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
 		}
 		if Register::EAX as u8 <= info.op_registers[1] && info.op_registers[1] <= Register::R15 as u8 {
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[1] = (info.op_registers[1].wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
 		}
 		if Register::EAX as u8 <= info.op_registers[2] && info.op_registers[2] <= Register::R15 as u8 {
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[2] = (info.op_registers[2].wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
 		}
 		info
@@ -960,15 +944,12 @@ impl InstrInfo for SimpleInstrInfo_Reg32 {
 		const FLAGS: u32 = InstrOpInfoFlags::NONE;
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
 		if Register::RAX as u8 <= info.op_registers[0] && info.op_registers[0] <= Register::R15 as u8 {
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[0] = info.op_registers[0].wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
 		}
 		if Register::RAX as u8 <= info.op_registers[1] && info.op_registers[1] <= Register::R15 as u8 {
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[1] = info.op_registers[1].wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
 		}
 		if Register::RAX as u8 <= info.op_registers[2] && info.op_registers[2] <= Register::R15 as u8 {
-			const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 			info.op_registers[2] = info.op_registers[2].wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
 		}
 		info
@@ -993,7 +974,6 @@ impl InstrInfo for SimpleInstrInfo_reg {
 		debug_assert_eq!(instruction.op_count(), 0);
 		info.op_count = 1;
 		info.op_kinds[0] = InstrOpKind::Register;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		info.op_registers[0] = self.register as u8;
 		if instruction.code() == Code::Skinit {
 			info.op_indexes[0] = InstrInfoConstants::OP_ACCESS_READ_WRITE;
@@ -1022,27 +1002,13 @@ impl InstrInfo for SimpleInstrInfo_invlpga {
 		info.op_count = 2;
 		info.op_kinds[0] = InstrOpKind::Register;
 		info.op_kinds[1] = InstrOpKind::Register;
-		const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
 		info.op_registers[1] = Register::ECX as u8;
 		info.op_indexes[0] = InstrInfoConstants::OP_ACCESS_READ;
 		info.op_indexes[1] = InstrInfoConstants::OP_ACCESS_READ;
-
 		match self.bitness {
-			16 => {
-				const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
-				info.op_registers[0] = Register::AX as u8;
-			}
-
-			32 => {
-				const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
-				info.op_registers[0] = Register::EAX as u8;
-			}
-
-			64 => {
-				const_assert_eq!(InstrOpInfo::TEST_REGISTER_BITS, 8);
-				info.op_registers[0] = Register::RAX as u8;
-			}
-
+			16 => info.op_registers[0] = Register::AX as u8,
+			32 => info.op_registers[0] = Register::EAX as u8,
+			64 => info.op_registers[0] = Register::RAX as u8,
 			_ => unreachable!(),
 		}
 		info
