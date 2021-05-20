@@ -3,6 +3,7 @@
 
 use crate::formatter::fast::FastStringMemorySize;
 use crate::iced_constants::IcedConstants;
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 use static_assertions::const_assert;

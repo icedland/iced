@@ -71,7 +71,7 @@ use core::{i16, i32};
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::{i8, u16, u32, u8};
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm"))]
 #[allow(deprecated)]
 const REGISTER_ST: Register = Register::DontUse0;
 

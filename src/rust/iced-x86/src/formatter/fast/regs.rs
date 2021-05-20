@@ -4,6 +4,7 @@
 use crate::formatter::fast::FastStringRegister;
 use crate::formatter::regs_tbl::*;
 use crate::iced_constants::IcedConstants;
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 use static_assertions::const_assert_eq;

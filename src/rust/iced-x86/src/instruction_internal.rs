@@ -11,12 +11,12 @@ use crate::iced_constants::IcedConstants;
 #[cfg(feature = "encoder")]
 use crate::iced_error::IcedError;
 use crate::*;
-#[cfg(any(feature = "decoder", feature = "fast_fmt"))]
+#[cfg(feature = "decoder")]
 use core::mem;
 use core::u32;
 #[cfg(feature = "encoder")]
 use core::{i16, i32, i8, u16, u8};
-#[cfg(any(feature = "encoder", feature = "fast_fmt"))]
+#[cfg(any(feature = "encoder", feature = "fast_fmt", feature = "instr_info"))]
 use static_assertions::const_assert_eq;
 
 #[cfg(feature = "decoder")]
