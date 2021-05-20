@@ -739,7 +739,7 @@ namespace Generator.Encoder.Rust {
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 2 {{");
 						using (writer.Indent()) {
-							writer.WriteLine($"let v = unsafe {{ u16::from_le(ptr::read_unaligned({dataName}.get_unchecked(i * 2) as *const _ as *const u16)) }};");
+							writer.WriteLine($"let v = ({dataName}[i * 2] as u16) | (({dataName}[i * 2 + 1] as u16) << 8);");
 							writer.WriteLine("instruction.try_set_declare_word_value(i, v)?;");
 						}
 						writer.WriteLine("}");
@@ -781,7 +781,7 @@ namespace Generator.Encoder.Rust {
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 4 {{");
 						using (writer.Indent()) {
-							writer.WriteLine($"let v = unsafe {{ u32::from_le(ptr::read_unaligned({dataName}.get_unchecked(i * 4) as *const _ as *const u32)) }};");
+							writer.WriteLine($"let v = ({dataName}[i * 4] as u32) | (({dataName}[i * 4 + 1] as u32) << 8) | (({dataName}[i * 4 + 2] as u32) << 16) | (({dataName}[i * 4 + 3] as u32) << 24);");
 							writer.WriteLine("instruction.try_set_declare_dword_value(i, v)?;");
 						}
 						writer.WriteLine("}");
@@ -823,7 +823,8 @@ namespace Generator.Encoder.Rust {
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 8 {{");
 						using (writer.Indent()) {
-							writer.WriteLine($"let v = unsafe {{ u64::from_le(ptr::read_unaligned({dataName}.get_unchecked(i * 8) as *const _ as *const u64)) }};");
+							writer.WriteLine($"let v = ({dataName}[i * 8] as u64) | (({dataName}[i * 8 + 1] as u64) << 8) | (({dataName}[i * 8 + 2] as u64) << 16) | (({dataName}[i * 8 + 3] as u64) << 24)");
+							writer.WriteLine($"\t| (({dataName}[i * 8 + 4] as u64) << 32) | (({dataName}[i * 8 + 5] as u64) << 40) | (({dataName}[i * 8 + 6] as u64) << 48) | (({dataName}[i * 8 + 7] as u64) << 56);");
 							writer.WriteLine("instruction.try_set_declare_qword_value(i, v)?;");
 						}
 						writer.WriteLine("}");

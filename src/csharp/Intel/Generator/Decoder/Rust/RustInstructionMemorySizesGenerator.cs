@@ -27,10 +27,8 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine($"use crate::iced_constants::{icedConstants.Name(idConverter)};");
 				writer.WriteLine($"use crate::{genTypes[TypeIds.MemorySize].Name(idConverter)};");
 				writer.WriteLine();
-				writer.WriteLine("// 0 = memory size");
-				writer.WriteLine("// 1 = broadcast memory size");
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(super) static SIZES: [{memSizeName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)} * 2] = [");
+				writer.WriteLine($"pub(super) static SIZES_NORMAL: [{memSizeName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] = [");
 				using (writer.Indent()) {
 					foreach (var def in defs) {
 						if (def.Memory.Value > byte.MaxValue)
@@ -38,6 +36,12 @@ namespace Generator.Decoder.Rust {
 						string value = $"{memSizeName}::{def.Memory.Name(idConverter)}";
 						writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 					}
+				}
+				writer.WriteLine("];");
+				writer.WriteLine();
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				writer.WriteLine($"pub(super) static SIZES_BCST: [{memSizeName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] = [");
+				using (writer.Indent()) {
 					foreach (var def in defs) {
 						if (def.MemoryBroadcast.Value > byte.MaxValue)
 							throw new InvalidOperationException();

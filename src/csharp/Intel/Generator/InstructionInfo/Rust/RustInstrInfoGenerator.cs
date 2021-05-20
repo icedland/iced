@@ -42,10 +42,10 @@ namespace Generator.InstructionInfo.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static TABLE: [u32; {infos.Length * 2}] = [");
+				writer.WriteLine($"pub(crate) static TABLE: [(u32, u32); {infos.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var info in infos)
-						writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)},// {info.def.Code.Name(idConverter)}");
+						writer.WriteLine($"({NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)}),// {info.def.Code.Name(idConverter)}");
 				}
 				writer.WriteLine("];");
 			}

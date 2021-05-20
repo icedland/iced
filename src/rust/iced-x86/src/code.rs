@@ -39017,13 +39017,8 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn encoding(self) -> EncodingKind {
-		// SAFETY: size of table is count(Code)*2 so the index is valid
-		unsafe {
-			mem::transmute(
-				((*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK)
-					as u8,
-			)
-		}
+		// SAFETY: The table is generated and only contains valid enum variants
+		unsafe { mem::transmute(((crate::info::info_table::TABLE[self as usize].1 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as u8) }
 	}
 
 	/// Gets the CPU or CPUID feature flags
@@ -39045,13 +39040,14 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn cpuid_features(self) -> &'static [CpuidFeature] {
-		// SAFETY: size of table is count(Code)*2 so the index is valid
-		let index = unsafe {
-			((*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
-				& InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize
+		// SAFETY: The table is generated and only contains valid enum variants
+		let index: CpuidFeatureInternal = unsafe {
+			mem::transmute(
+				((crate::info::info_table::TABLE[self as usize].1 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT)
+					& InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as u8,
+			)
 		};
-		// SAFETY: index is generated and always valid
-		unsafe { *crate::info::cpuid_table::CPUID.get_unchecked(index) }
+		crate::info::cpuid_table::CPUID[index as usize]
 	}
 
 	/// Gets control flow info
@@ -39067,11 +39063,10 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn flow_control(self) -> FlowControl {
-		// SAFETY: size of table is count(Code)*2 so the index is valid
+		// SAFETY: The table is generated and only contains valid enum variants
 		unsafe {
 			mem::transmute(
-				((*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) >> InfoFlags2::FLOW_CONTROL_SHIFT)
-					& InfoFlags2::FLOW_CONTROL_MASK) as u8,
+				((crate::info::info_table::TABLE[self as usize].1 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as u8,
 			)
 		}
 	}
@@ -39080,8 +39075,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn is_privileged(self) -> bool {
-		// SAFETY: size of table is count(Code)*2 so the index is valid
-		unsafe { (*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::PRIVILEGED) != 0 }
+		(crate::info::info_table::TABLE[self as usize].1 & InfoFlags2::PRIVILEGED) != 0
 	}
 
 	/// Checks if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
@@ -39100,16 +39094,14 @@ impl Code {
 	#[must_use]
 	#[inline]
 	pub fn is_stack_instruction(self) -> bool {
-		// SAFETY: size of table is count(Code)*2 so the index is valid
-		unsafe { (*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::STACK_INSTRUCTION) != 0 }
+		(crate::info::info_table::TABLE[self as usize].1 & InfoFlags2::STACK_INSTRUCTION) != 0
 	}
 
 	/// Checks if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	#[must_use]
 	#[inline]
 	pub fn is_save_restore_instruction(self) -> bool {
-		// SAFETY: size of table is count(Code)*2 so the index is valid
-		unsafe { (*crate::info::info_table::TABLE.get_unchecked((self as usize) * 2 + 1) & InfoFlags2::SAVE_RESTORE) != 0 }
+		(crate::info::info_table::TABLE[self as usize].1 & InfoFlags2::SAVE_RESTORE) != 0
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction

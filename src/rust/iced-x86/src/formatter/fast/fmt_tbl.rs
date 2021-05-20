@@ -85,5 +85,15 @@ fn read() -> FmtTableData {
 	}
 	debug_assert!(!reader.can_read());
 
+	let mnemonics = mnemonics.into_boxed_slice();
+	debug_assert_eq!(mnemonics.len(), IcedConstants::CODE_ENUM_COUNT);
+	// SAFETY: Size is verified above
+	let mnemonics = unsafe { Box::from_raw(Box::into_raw(mnemonics) as *mut [_; IcedConstants::CODE_ENUM_COUNT]) };
+
+	let flags = flags.into_boxed_slice();
+	debug_assert_eq!(flags.len(), IcedConstants::CODE_ENUM_COUNT);
+	// SAFETY: Size is verified above
+	let flags = unsafe { Box::from_raw(Box::into_raw(flags) as *mut [_; IcedConstants::CODE_ENUM_COUNT]) };
+
 	FmtTableData { mnemonics, flags }
 }

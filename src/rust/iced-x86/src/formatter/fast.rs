@@ -389,13 +389,11 @@ macro_rules! format_memory_code {
 			}
 
 			let show_mem_size = TraitOptions::always_show_memory_size(&$slf.d.options) || {
-				// SAFETY: all Code values are valid indexes
-				let flags = unsafe { *$slf.d.code_flags.get_unchecked($instruction.code() as usize) };
+				let flags = $slf.d.code_flags[$instruction.code() as usize];
 				(flags & (FastFmtFlags::FORCE_MEM_SIZE as u8)) != 0 || $instruction.is_broadcast()
 			};
 			if show_mem_size {
-				// SAFETY: all MemorySize values are valid indexes
-				let keywords = unsafe { *$slf.d.all_memory_sizes.get_unchecked($instruction.memory_size() as usize) };
+				let keywords = $slf.d.all_memory_sizes[$instruction.memory_size() as usize];
 				write_fast_str!($dst, $dst_next_p, FastStringMemorySize, keywords);
 			}
 
@@ -528,8 +526,8 @@ static RC_STRINGS: [FastString8; 4] = [
 ];
 
 struct FmtTableData {
-	mnemonics: Vec<FastStringMnemonic>,
-	flags: Vec<u8>, // FastFmtFlags
+	mnemonics: Box<[FastStringMnemonic; IcedConstants::CODE_ENUM_COUNT]>,
+	flags: Box<[u8; IcedConstants::CODE_ENUM_COUNT]>, // FastFmtFlags
 }
 
 /// Fast specialized formatter with less formatting options and with a masm-like syntax.
@@ -687,10 +685,10 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> Default for SpecializedForm
 // Read-only data which is needed a couple of times due to borrow checker
 struct SelfData {
 	options: FastFormatterOptions,
-	all_registers: &'static [FastStringRegister],
-	code_mnemonics: &'static [FastStringMnemonic],
-	code_flags: &'static [u8],
-	all_memory_sizes: &'static [FastStringMemorySize],
+	all_registers: &'static [FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT],
+	code_mnemonics: &'static [FastStringMnemonic; IcedConstants::CODE_ENUM_COUNT],
+	code_flags: &'static [u8; IcedConstants::CODE_ENUM_COUNT],
+	all_memory_sizes: &'static [FastStringMemorySize; IcedConstants::MEMORY_SIZE_ENUM_COUNT],
 }
 
 impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitOptions> {
@@ -797,14 +795,10 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		let mut dst_next_p = unsafe { dst.as_mut_ptr().add(dst.len()) };
 
 		let code = instruction.code();
-
-		// SAFETY: all Code values are valid indexes
-		let mut mnemonic = unsafe { *self.d.code_mnemonics.get_unchecked(code as usize) };
-
+		let mut mnemonic = self.d.code_mnemonics[code as usize];
 		let mut op_count = instruction.op_count();
 		if TraitOptions::use_pseudo_ops(&self.d.options) {
-			// SAFETY: all Code values are valid indexes
-			let flags = unsafe { *self.d.code_flags.get_unchecked(code as usize) };
+			let flags = self.d.code_flags[code as usize];
 			let pseudo_ops_num = flags >> FastFmtFlags::PSEUDO_OPS_KIND_SHIFT;
 			if pseudo_ops_num != 0 && instruction.try_op_kind(op_count - 1).unwrap_or(OpKind::FarBranch16) == OpKind::Immediate8 {
 				let mut index = instruction.immediate8() as usize;
@@ -1489,8 +1483,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 	#[inline]
 	#[must_use]
 	fn format_register(&self, dst: &mut Vec<u8>, mut dst_next_p: *mut u8, register: Register) -> *mut u8 {
-		// SAFETY: all Register values are valid indexes
-		let reg_str = unsafe { *self.d.all_registers.get_unchecked(register as usize) };
+		let reg_str = self.d.all_registers[register as usize];
 		write_fast_str!(dst, dst_next_p, FastStringRegister, reg_str);
 		dst_next_p
 	}

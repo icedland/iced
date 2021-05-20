@@ -3,19 +3,21 @@
 
 use crate::formatter::fast::FastStringRegister;
 use crate::formatter::regs_tbl::*;
+use crate::iced_constants::IcedConstants;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 use static_assertions::const_assert_eq;
 
 lazy_static! {
-	pub(super) static ref REGS_TBL: Vec<FastStringRegister> = create();
+	pub(super) static ref REGS_TBL: Box<[FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT]> = create();
 }
 
-fn create() -> Vec<FastStringRegister> {
+fn create() -> Box<[FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT]> {
 	// If this fails, the generator was updated and now FastStringRegister must be changed
 	// to the correct type in fast.rs
 	const_assert_eq!(FastStringRegister::SIZE, VALID_STRING_LENGTH);
 
+	const_assert_eq!(IcedConstants::REGISTER_ENUM_COUNT, STRINGS_COUNT);
 	let mut result = Vec::with_capacity(STRINGS_COUNT);
 	let mut data = &REGS_DATA[..];
 	for _ in 0..STRINGS_COUNT {
@@ -28,5 +30,9 @@ fn create() -> Vec<FastStringRegister> {
 		data = &data[1 + len..];
 	}
 	debug_assert!(data.len() == PADDING_SIZE);
-	result
+
+	let result = result.into_boxed_slice();
+	debug_assert_eq!(result.len(), IcedConstants::REGISTER_ENUM_COUNT);
+	// SAFETY: Size is verified above
+	unsafe { Box::from_raw(Box::into_raw(result) as *mut [_; IcedConstants::REGISTER_ENUM_COUNT]) }
 }

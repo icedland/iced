@@ -25,7 +25,7 @@ namespace Generator.Tables.Rust {
 		void WriteTable(FileWriter writer, TupleTypeInfo[] infos) {
 			var tupleTypeName = generatorContext.Types[TypeIds.TupleType].Name(idConverter);
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
-			writer.WriteLine($"static TUPLE_TYPE_TBL: [u8; {infos.Length * 2}] = [");
+			writer.WriteLine($"static TUPLE_TYPE_TBL: [(u8, u8); {infos.Length}] = [");
 			using (writer.Indent()) {
 				foreach (var info in infos) {
 					writer.WriteCommentLine($"{tupleTypeName}.{info.Value.Name(idConverter)}");
@@ -33,9 +33,9 @@ namespace Generator.Tables.Rust {
 						throw new InvalidOperationException();
 					if (info.Nbcst > byte.MaxValue)
 						throw new InvalidOperationException();
-					writer.Write($"0x{info.N:X2},");
+					writer.Write($"(0x{info.N:X2},");
 					writer.WriteCommentLine("N");
-					writer.Write($"0x{info.Nbcst:X2},");
+					writer.Write($"0x{info.Nbcst:X2}),");
 					writer.WriteCommentLine("Nbcst");
 				}
 			}

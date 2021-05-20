@@ -3,7 +3,6 @@
 
 use crate::encoder::mnemonic_str_tbl::TO_MNEMONIC_STR;
 use crate::encoder::op_code::OpCodeInfo;
-use crate::iced_constants::IcedConstants;
 use crate::*;
 use alloc::string::String;
 use core::char;
@@ -245,11 +244,12 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 	}
 
 	fn get_memory_size(&self, is_broadcast: bool) -> MemorySize {
-		let mut index = self.op_code.code() as usize;
+		let code = self.op_code.code();
 		if is_broadcast {
-			index += IcedConstants::CODE_ENUM_COUNT;
+			instruction_memory_sizes::SIZES_BCST[code as usize]
+		} else {
+			instruction_memory_sizes::SIZES_NORMAL[code as usize]
 		}
-		instruction_memory_sizes::SIZES[index]
 	}
 
 	pub(super) fn format(&mut self) -> String {

@@ -512,7 +512,7 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	pub fn memory_size(&self) -> MemorySize {
-		instruction_memory_sizes::SIZES[self.code() as usize]
+		instruction_memory_sizes::SIZES_NORMAL[self.code() as usize]
 	}
 
 	/// If it has a memory operand, gets the [`MemorySize`] (broadcast memory type)
@@ -521,7 +521,7 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	pub fn broadcast_memory_size(&self) -> MemorySize {
-		instruction_memory_sizes::SIZES[self.code() as usize + IcedConstants::CODE_ENUM_COUNT]
+		instruction_memory_sizes::SIZES_BCST[self.code() as usize]
 	}
 
 	/// (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)
@@ -1052,9 +1052,11 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	pub fn decoder_option(&self) -> u32 {
-		let index = ((self.opc_flags1 >> OpCodeInfoFlags1::DEC_OPTION_VALUE_SHIFT) & OpCodeInfoFlags1::DEC_OPTION_VALUE_MASK) as usize;
-		// SAFETY: index is generated (always valid)
-		unsafe { *TO_DECODER_OPTIONS.get_unchecked(index) }
+		// SAFETY: `opc_flags1` is generated and only contains valid enum variants
+		let dec_opt_value: DecOptionValue = unsafe {
+			mem::transmute(((self.opc_flags1 >> OpCodeInfoFlags1::DEC_OPTION_VALUE_SHIFT) & OpCodeInfoFlags1::DEC_OPTION_VALUE_MASK) as u8)
+		};
+		TO_DECODER_OPTIONS[dec_opt_value as usize]
 	}
 
 	/// Gets the opcode table
@@ -1149,8 +1151,7 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
-		// SAFETY: All Code values are valid indexes into this table
-		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked(self.code as usize) as u32 }
+		instruction_op_counts::OP_COUNT[self.code() as usize] as u32
 	}
 
 	/// Gets operand #0's opkind

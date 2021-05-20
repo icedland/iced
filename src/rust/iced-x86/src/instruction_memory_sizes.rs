@@ -6,10 +6,8 @@
 use crate::iced_constants::IcedConstants;
 use crate::MemorySize;
 
-// 0 = memory size
-// 1 = broadcast memory size
 #[rustfmt::skip]
-pub(super) static SIZES: [MemorySize; IcedConstants::CODE_ENUM_COUNT * 2] = [
+pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -4333,6 +4331,10 @@ pub(super) static SIZES: [MemorySize; IcedConstants::CODE_ENUM_COUNT * 2] = [
 	MemorySize::UInt16,// Lkgs_r64m16
 	MemorySize::Unknown,// Eretu
 	MemorySize::Unknown,// Erets
+];
+
+#[rustfmt::skip]
+pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord

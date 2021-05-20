@@ -10,6 +10,7 @@ pub(crate) mod rflags_table;
 mod tests;
 
 use crate::iced_constants::IcedConstants;
+use crate::info::enums::{CpuidFeatureInternal, RflagsInfo};
 pub use crate::info::factory::*;
 use crate::*;
 use alloc::vec::Vec;
@@ -320,8 +321,8 @@ impl IIFlags {
 pub struct InstructionInfo {
 	used_registers: Vec<UsedRegister>,
 	used_memory_locations: Vec<UsedMemory>,
-	cpuid_feature_internal: usize,
-	rflags_info: usize,
+	rflags_info: RflagsInfo,
+	cpuid_feature_internal: CpuidFeatureInternal,
 	flow_control: FlowControl,
 	op_accesses: [OpAccess; IcedConstants::MAX_OP_COUNT],
 	encoding: EncodingKind,
@@ -344,8 +345,8 @@ impl InstructionInfo {
 			} else {
 				Vec::new()
 			},
-			cpuid_feature_internal: 0,
-			rflags_info: 0,
+			cpuid_feature_internal: CpuidFeatureInternal::default(),
+			rflags_info: RflagsInfo::default(),
 			flow_control: FlowControl::default(),
 			op_accesses: [OpAccess::default(); IcedConstants::MAX_OP_COUNT],
 			encoding: EncodingKind::default(),
@@ -417,8 +418,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::cpuid_features() instead")]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
-		// SAFETY: index is always valid
-		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
+		self::cpuid_table::CPUID[self.cpuid_feature_internal as usize]
 	}
 
 	/// Control flow info
@@ -504,8 +504,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_read() instead")]
 	pub fn rflags_read(&self) -> u32 {
-		// SAFETY: index is always valid
-		unsafe { *crate::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
+		crate::info::rflags_table::FLAGS_READ[self.rflags_info as usize] as u32
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -517,8 +516,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_written() instead")]
 	pub fn rflags_written(&self) -> u32 {
-		// SAFETY: index is always valid
-		unsafe { *crate::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
+		crate::info::rflags_table::FLAGS_WRITTEN[self.rflags_info as usize] as u32
 	}
 
 	/// All flags that are always cleared by the CPU.
@@ -530,8 +528,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_cleared() instead")]
 	pub fn rflags_cleared(&self) -> u32 {
-		// SAFETY: index is always valid
-		unsafe { *crate::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
+		crate::info::rflags_table::FLAGS_CLEARED[self.rflags_info as usize] as u32
 	}
 
 	/// All flags that are always set by the CPU.
@@ -543,8 +540,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_set() instead")]
 	pub fn rflags_set(&self) -> u32 {
-		// SAFETY: index is always valid
-		unsafe { *crate::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
+		crate::info::rflags_table::FLAGS_SET[self.rflags_info as usize] as u32
 	}
 
 	/// All flags that are undefined after executing the instruction.
@@ -556,8 +552,7 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_undefined() instead")]
 	pub fn rflags_undefined(&self) -> u32 {
-		// SAFETY: index is always valid
-		unsafe { *crate::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
+		crate::info::rflags_table::FLAGS_UNDEFINED[self.rflags_info as usize] as u32
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
@@ -567,7 +562,6 @@ impl InstructionInfo {
 	#[inline]
 	#[deprecated(since = "1.11.0", note = "Use Instruction::rflags_modified() instead")]
 	pub fn rflags_modified(&self) -> u32 {
-		// SAFETY: index is always valid
-		unsafe { *crate::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
+		crate::info::rflags_table::FLAGS_MODIFIED[self.rflags_info as usize] as u32
 	}
 }

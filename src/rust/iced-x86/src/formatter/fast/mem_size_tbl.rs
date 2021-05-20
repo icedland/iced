@@ -178,7 +178,7 @@ const MAX_MEMORY_SIZE_STR_LEN: usize = 16;
 // GENERATOR-END: MemorySizes
 
 lazy_static! {
-	pub(super) static ref MEM_SIZE_TBL: Vec<FastStringMemorySize> = {
+	pub(super) static ref MEM_SIZE_TBL: Box<[FastStringMemorySize; IcedConstants::MEMORY_SIZE_ENUM_COUNT]> = {
 		// If this fails, update the FastStringMemorySize type in fast.rs
 		const_assert!(MAX_MEMORY_SIZE_STR_LEN <= FastStringMemorySize::SIZE);
 		const_assert!(MAX_MEMORY_SIZE_STR_LEN > FastStringMemorySize::SIZE - 4);
@@ -189,6 +189,9 @@ lazy_static! {
 			debug_assert!(keywords.len() == 1 + FastStringMemorySize::SIZE);
 			v.push(FastStringMemorySize::new(keywords.as_ptr()));
 		}
-		v
+		let v = v.into_boxed_slice();
+		debug_assert_eq!(v.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT);
+		// SAFETY: Size is verified above
+		unsafe { Box::from_raw(Box::into_raw(v) as *mut [_; IcedConstants::MEMORY_SIZE_ENUM_COUNT]) }
 	};
 }

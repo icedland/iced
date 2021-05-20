@@ -173,17 +173,15 @@ impl InstructionInfoFactory {
 		info.used_registers.clear();
 		info.used_memory_locations.clear();
 
-		let index = (instruction.code() as usize) << 1;
-		// SAFETY: For all Code values c, c * 2 + 1 is a valid index into this table
-		let flags1 = unsafe { *crate::info::info_table::TABLE.get_unchecked(index) };
-		let flags2 = unsafe { *crate::info::info_table::TABLE.get_unchecked(index + 1) };
+		let (flags1, flags2) = crate::info::info_table::TABLE[instruction.code() as usize];
 
-		// SAFETY: the transmutes on the generated data (flags1,flags2) are safe
+		// SAFETY: the transmutes on the generated data (flags1,flags2) are safe since we only generate valid enum variants
 
-		info.cpuid_feature_internal = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
+		info.cpuid_feature_internal =
+			unsafe { mem::transmute(((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as u8) };
 		info.flow_control = unsafe { mem::transmute(((flags2 >> InfoFlags2::FLOW_CONTROL_SHIFT) & InfoFlags2::FLOW_CONTROL_MASK) as u8) };
 		info.encoding = unsafe { mem::transmute(((flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK) as u8) };
-		info.rflags_info = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
+		info.rflags_info = unsafe { mem::transmute(((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as u8) };
 
 		const FLAGS_SHIFT: u32 = 12;
 		const_assert_eq!(InfoFlags2::SAVE_RESTORE >> FLAGS_SHIFT, IIFlags::SAVE_RESTORE as u32);
@@ -2555,23 +2553,23 @@ impl InstructionInfoFactory {
 
 	fn command_shift_mask_mod(instruction: &Instruction, info: &mut InstructionInfo, modulus: u32) {
 		match ((instruction.immediate8() as u32) & 0x1F) % modulus {
-			0 => info.rflags_info = RflagsInfo::None as usize,
-			1 => info.rflags_info = RflagsInfo::R_c_W_co as usize,
+			0 => info.rflags_info = RflagsInfo::None,
+			1 => info.rflags_info = RflagsInfo::R_c_W_co,
 			_ => {}
 		}
 	}
 
 	fn command_shift_mask(instruction: &Instruction, info: &mut InstructionInfo, mask: u32) {
 		match (instruction.immediate8() as u32) & mask {
-			0 => info.rflags_info = RflagsInfo::None as usize,
+			0 => info.rflags_info = RflagsInfo::None,
 			1 => {
-				if info.rflags_info == RflagsInfo::W_c_U_o as usize {
-					info.rflags_info = RflagsInfo::W_co as usize;
-				} else if info.rflags_info == RflagsInfo::R_c_W_c_U_o as usize {
-					info.rflags_info = RflagsInfo::R_c_W_co as usize;
+				if info.rflags_info == RflagsInfo::W_c_U_o {
+					info.rflags_info = RflagsInfo::W_co;
+				} else if info.rflags_info == RflagsInfo::R_c_W_c_U_o {
+					info.rflags_info = RflagsInfo::R_c_W_co;
 				} else {
-					debug_assert_eq!(info.rflags_info, RflagsInfo::W_cpsz_U_ao as usize);
-					info.rflags_info = RflagsInfo::W_copsz_U_a as usize;
+					debug_assert_eq!(info.rflags_info, RflagsInfo::W_cpsz_U_ao);
+					info.rflags_info = RflagsInfo::W_copsz_U_a;
 				}
 			}
 			_ => {}
@@ -2586,9 +2584,9 @@ impl InstructionInfoFactory {
 			info.op_accesses[0] = OpAccess::Write;
 			info.op_accesses[1] = OpAccess::None;
 			if instruction.mnemonic() == Mnemonic::Xor {
-				info.rflags_info = RflagsInfo::C_cos_S_pz_U_a as usize;
+				info.rflags_info = RflagsInfo::C_cos_S_pz_U_a;
 			} else {
-				info.rflags_info = RflagsInfo::C_acos_S_pz as usize;
+				info.rflags_info = RflagsInfo::C_acos_S_pz;
 			}
 			if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 				debug_assert!(info.used_registers.len() == 2 || info.used_registers.len() == 3);

@@ -92,7 +92,7 @@ static IMM_SIZES: [u32; 19] = [
 pub struct Encoder {
 	current_rip: u64,
 	buffer: Vec<u8>,
-	handler_table: &'static [&'static OpCodeHandler],
+	handler_table: &'static [&'static OpCodeHandler; IcedConstants::CODE_ENUM_COUNT],
 	handler: &'static OpCodeHandler,
 	error_message: String,
 	bitness: u32,
@@ -201,12 +201,12 @@ impl Encoder {
 		let adrsize16_flags = if bitness != 16 { EncoderFlags::P67 } else { 0 };
 		let adrsize32_flags = if bitness != 32 { EncoderFlags::P67 } else { 0 };
 
+		let handler_table = HANDLERS_TABLE.as_ref();
+
 		Ok(Self {
 			current_rip: 0,
-			// SAFETY: this is a valid index (len() == count(Code))
-			handler: unsafe { *HANDLERS_TABLE.get_unchecked(0) },
-			// Store it in an instance field since it's a lazy_static
-			handler_table: HANDLERS_TABLE.as_slice(),
+			handler: handler_table[0],
+			handler_table,
 			buffer: if capacity == 0 { Vec::new() } else { Vec::with_capacity(capacity) },
 			error_message: String::new(),
 			bitness,
@@ -280,8 +280,7 @@ impl Encoder {
 		// requires 3 instructions.
 		self.sib = 0;
 
-		// SAFETY: self.handler_table.len() == count(Code) so the index is always valid
-		let handler = unsafe { *self.handler_table.get_unchecked(instruction.code() as usize) };
+		let handler = self.handler_table[instruction.code() as usize];
 		self.handler = handler;
 		self.op_code = handler.op_code;
 		let group_index = handler.group_index;
@@ -333,9 +332,7 @@ impl Encoder {
 			if instruction.op_count() as usize != ops.len() {
 				self.set_error_message(format!("Expected {} operand(s) but the instruction has {} operand(s)", ops.len(), instruction.op_count()));
 			}
-			for i in 0..ops.len() {
-				// SAFETY: `i` is a valid index, see above for loop
-				let op = unsafe { *ops.get_unchecked(i) };
+			for (i, op) in ops.iter().cloned().enumerate() {
 				op.encode(self, instruction, i as u32);
 			}
 

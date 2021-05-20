@@ -11,8 +11,6 @@ use crate::*;
 use core::fmt;
 use core::hash::{Hash, Hasher};
 use core::iter::{ExactSizeIterator, FusedIterator};
-#[cfg(feature = "encoder")]
-use core::ptr;
 use core::{mem, slice, u16, u32, u64};
 use static_assertions::{const_assert, const_assert_eq};
 
@@ -271,8 +269,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn op_count(&self) -> u32 {
-		// SAFETY: All Code values are valid indexes
-		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked(self.code as usize) as u32 }
+		instruction_op_counts::OP_COUNT[self.code() as usize] as u32
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
@@ -865,12 +862,12 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn memory_size(&self) -> MemorySize {
-		let mut index = self.code() as usize;
-		if self.is_broadcast() {
-			index += IcedConstants::CODE_ENUM_COUNT;
+		let code = self.code();
+		if !self.is_broadcast() {
+			instruction_memory_sizes::SIZES_NORMAL[code as usize]
+		} else {
+			instruction_memory_sizes::SIZES_BCST[code as usize]
 		}
-		// SAFETY: SIZES.len() == count(Code)*2 and all Code values have usize values 0-max < count(Code) and max+1+count(Code) == SIZES.len()
-		unsafe { *instruction_memory_sizes::SIZES.get_unchecked(index) }
 	}
 
 	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind::Memory`]
@@ -3364,11 +3361,7 @@ impl Instruction {
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
-		// SAFETY: TABLE.len() == count(Code)*2 and for all Code values c, c as usize < count(Code)
-		let flags2 = unsafe { *crate::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2 + 1) };
-		let index = ((flags2 >> InfoFlags2::CPUID_FEATURE_INTERNAL_SHIFT) & InfoFlags2::CPUID_FEATURE_INTERNAL_MASK) as usize;
-		// SAFETY: generated and valid index
-		unsafe { *crate::info::cpuid_table::CPUID.get_unchecked(index) }
+		self.code().cpuid_features()
 	}
 
 	/// Control flow info
@@ -3447,15 +3440,15 @@ impl Instruction {
 	}
 
 	#[must_use]
-	fn rflags_info(&self) -> usize {
-		// SAFETY: TABLE.len() == count(Code)*2 and for all Code values c, c as usize < count(Code)
-		let flags1 = unsafe { *crate::info::info_table::TABLE.get_unchecked((self.code() as usize) * 2) };
+	fn rflags_info(&self) -> RflagsInfo {
+		let flags1 = crate::info::info_table::TABLE[self.code() as usize].0;
 		let implied_access = (flags1 >> InfoFlags1::IMPLIED_ACCESS_SHIFT) & InfoFlags1::IMPLIED_ACCESS_MASK;
 		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 1 == ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32);
 		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 2 == ImpliedAccess::Shift_Ib_MASK1F as u32);
 		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 3 == ImpliedAccess::Shift_Ib_MASK3F as u32);
 		const_assert!(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32 + 4 == ImpliedAccess::Clear_rflags as u32);
-		let result = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
+		// SAFETY: The table is generated and only contains valid enum variants
+		let result = unsafe { mem::transmute(((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as u8) };
 		let e = implied_access.wrapping_sub(ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32);
 		match e {
 			0 | 1 => {
@@ -3463,8 +3456,8 @@ impl Instruction {
 				const_assert_eq!(ImpliedAccess::Shift_Ib_MASK1FMOD11 as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 1);
 				let m = if e == 0 { 9 } else { 17 };
 				match (self.immediate8() & 0x1F) % m {
-					0 => return RflagsInfo::None as usize,
-					1 => return RflagsInfo::R_c_W_co as usize,
+					0 => return RflagsInfo::None,
+					1 => return RflagsInfo::R_c_W_co,
 					_ => {}
 				}
 			}
@@ -3473,15 +3466,15 @@ impl Instruction {
 				const_assert_eq!(ImpliedAccess::Shift_Ib_MASK3F as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 3);
 				let mask = if e == 2 { 0x1F } else { 0x3F };
 				match self.immediate8() & mask {
-					0 => return RflagsInfo::None as usize,
+					0 => return RflagsInfo::None,
 					1 => {
-						if result == RflagsInfo::W_c_U_o as usize {
-							return RflagsInfo::W_co as usize;
-						} else if result == RflagsInfo::R_c_W_c_U_o as usize {
-							return RflagsInfo::R_c_W_co as usize;
+						if result == RflagsInfo::W_c_U_o {
+							return RflagsInfo::W_co;
+						} else if result == RflagsInfo::R_c_W_c_U_o {
+							return RflagsInfo::R_c_W_co;
 						} else {
-							debug_assert_eq!(result, RflagsInfo::W_cpsz_U_ao as usize);
-							return RflagsInfo::W_copsz_U_a as usize;
+							debug_assert_eq!(result, RflagsInfo::W_cpsz_U_ao);
+							return RflagsInfo::W_copsz_U_a;
 						}
 					}
 					_ => {}
@@ -3491,9 +3484,9 @@ impl Instruction {
 				const_assert_eq!(ImpliedAccess::Clear_rflags as u32 - ImpliedAccess::Shift_Ib_MASK1FMOD9 as u32, 4);
 				if self.op0_register() == self.op1_register() && self.op0_kind() == OpKind::Register && self.op1_kind() == OpKind::Register {
 					if self.mnemonic() == Mnemonic::Xor {
-						return RflagsInfo::C_cos_S_pz_U_a as usize;
+						return RflagsInfo::C_cos_S_pz_U_a;
 					} else {
-						return RflagsInfo::C_acos_S_pz as usize;
+						return RflagsInfo::C_acos_S_pz;
 					}
 				}
 			}
@@ -3539,8 +3532,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_read(&self) -> u32 {
-		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *crate::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info()) as u32 }
+		crate::info::rflags_table::FLAGS_READ[self.rflags_info() as usize] as u32
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -3580,8 +3572,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_written(&self) -> u32 {
-		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *crate::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info()) as u32 }
+		crate::info::rflags_table::FLAGS_WRITTEN[self.rflags_info() as usize] as u32
 	}
 
 	/// All flags that are always cleared by the CPU.
@@ -3621,8 +3612,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
-		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *crate::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info()) as u32 }
+		crate::info::rflags_table::FLAGS_CLEARED[self.rflags_info() as usize] as u32
 	}
 
 	/// All flags that are always set by the CPU.
@@ -3662,8 +3652,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_set(&self) -> u32 {
-		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *crate::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info()) as u32 }
+		crate::info::rflags_table::FLAGS_SET[self.rflags_info() as usize] as u32
 	}
 
 	/// All flags that are undefined after executing the instruction.
@@ -3703,8 +3692,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
-		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *crate::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info()) as u32 }
+		crate::info::rflags_table::FLAGS_UNDEFINED[self.rflags_info() as usize] as u32
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
@@ -3742,8 +3730,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
-		// SAFETY: index is an RflagsInfo which is a valid index into this table. The index is generated and valid
-		unsafe { *crate::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info()) as u32 }
+		crate::info::rflags_table::FLAGS_MODIFIED[self.rflags_info() as usize] as u32
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
@@ -10016,7 +10003,7 @@ impl Instruction {
 		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 2);
 
 		for i in 0..data.len() / 2 {
-			let v = unsafe { u16::from_le(ptr::read_unaligned(data.get_unchecked(i * 2) as *const _ as *const u16)) };
+			let v = (data[i * 2] as u16) | ((data[i * 2 + 1] as u16) << 8);
 			instruction.try_set_declare_word_value(i, v)?;
 		}
 
@@ -10292,7 +10279,7 @@ impl Instruction {
 		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 4);
 
 		for i in 0..data.len() / 4 {
-			let v = unsafe { u32::from_le(ptr::read_unaligned(data.get_unchecked(i * 4) as *const _ as *const u32)) };
+			let v = (data[i * 4] as u32) | ((data[i * 4 + 1] as u32) << 8) | ((data[i * 4 + 2] as u32) << 16) | ((data[i * 4 + 3] as u32) << 24);
 			instruction.try_set_declare_dword_value(i, v)?;
 		}
 
@@ -10473,7 +10460,8 @@ impl Instruction {
 		instruction_internal::internal_set_declare_data_len(&mut instruction, data.len() as u32 / 8);
 
 		for i in 0..data.len() / 8 {
-			let v = unsafe { u64::from_le(ptr::read_unaligned(data.get_unchecked(i * 8) as *const _ as *const u64)) };
+			let v = (data[i * 8] as u64) | ((data[i * 8 + 1] as u64) << 8) | ((data[i * 8 + 2] as u64) << 16) | ((data[i * 8 + 3] as u64) << 24)
+				| ((data[i * 8 + 4] as u64) << 32) | ((data[i * 8 + 5] as u64) << 40) | ((data[i * 8 + 6] as u64) << 48) | ((data[i * 8 + 7] as u64) << 56);
 			instruction.try_set_declare_qword_value(i, v)?;
 		}
 

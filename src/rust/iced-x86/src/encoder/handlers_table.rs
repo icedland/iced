@@ -13,7 +13,7 @@ use core::mem;
 use lazy_static::lazy_static;
 
 lazy_static! {
-	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {
+	pub(crate) static ref HANDLERS_TABLE: Box<[&'static OpCodeHandler; IcedConstants::CODE_ENUM_COUNT]> = {
 		let mut v = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 		let invalid_handler = Box::into_raw(Box::new(InvalidHandler::new())) as *const OpCodeHandler;
 		for i in 0..IcedConstants::CODE_ENUM_COUNT {
@@ -51,6 +51,9 @@ lazy_static! {
 			};
 			v.push(unsafe { &*handler });
 		}
-		v
+		let v = v.into_boxed_slice();
+		debug_assert_eq!(v.len(), IcedConstants::CODE_ENUM_COUNT);
+		// SAFETY: Size is verified above
+		unsafe { Box::from_raw(Box::into_raw(v) as *mut [_; IcedConstants::CODE_ENUM_COUNT]) }
 	};
 }
