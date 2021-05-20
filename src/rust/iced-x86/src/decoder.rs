@@ -131,6 +131,9 @@ impl Default for DecoderError {
 		DecoderError::None
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type DecoderErrorUnderlyingType = u8;
 #[rustfmt::skip]
 impl DecoderError {
 	/// Iterates over all `DecoderError` enum values

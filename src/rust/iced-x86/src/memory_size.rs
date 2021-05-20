@@ -808,6 +808,9 @@ impl Default for MemorySize {
 		MemorySize::Unknown
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type MemorySizeUnderlyingType = u8;
 #[rustfmt::skip]
 impl MemorySize {
 	/// Iterates over all `MemorySize` enum values

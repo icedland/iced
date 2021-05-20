@@ -249,6 +249,12 @@ namespace Generator.Enums.Rust {
 				var icedConstValue = "IcedConstants::" + idConverter.Constant(IcedConstants.GetEnumCountName(enumType.TypeId));
 				var enumUnderlyingType = GetUnderlyingTypeStr(enumType);
 
+				if (feature is not null)
+					writer.WriteLine(feature);
+				writer.WriteLine(RustConstants.AttributeAllowNonCamelCaseTypes);
+				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
+				writer.WriteLine($"pub(crate) type {enumTypeName}UnderlyingType = {enumUnderlyingType};");
+
 				// Associated method: values()
 
 				if (feature is not null)
@@ -354,6 +360,8 @@ namespace Generator.Enums.Rust {
 		}
 
 		static string GetUnderlyingTypeStr(EnumType enumType) {
+			if (enumType.Values.Length <= 1)
+				return "()";
 			if (enumType.Values.Length <= byte.MaxValue + 1)
 				return "u8";
 			if (enumType.Values.Length <= ushort.MaxValue + 1)

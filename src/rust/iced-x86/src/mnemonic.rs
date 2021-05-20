@@ -3298,6 +3298,9 @@ impl Default for Mnemonic {
 		Mnemonic::INVALID
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type MnemonicUnderlyingType = u16;
 #[rustfmt::skip]
 impl Mnemonic {
 	/// Iterates over all `Mnemonic` enum values

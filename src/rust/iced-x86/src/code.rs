@@ -38914,6 +38914,9 @@ impl Default for Code {
 		Code::INVALID
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CodeUnderlyingType = u16;
 #[rustfmt::skip]
 impl Code {
 	/// Iterates over all `Code` enum values

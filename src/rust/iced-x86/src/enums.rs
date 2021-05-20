@@ -41,6 +41,9 @@ impl Default for CodeSize {
 		CodeSize::Unknown
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CodeSizeUnderlyingType = u8;
 #[rustfmt::skip]
 impl CodeSize {
 	/// Iterates over all `CodeSize` enum values
@@ -133,6 +136,9 @@ impl Default for RoundingControl {
 		RoundingControl::None
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type RoundingControlUnderlyingType = u8;
 #[rustfmt::skip]
 impl RoundingControl {
 	/// Iterates over all `RoundingControl` enum values
@@ -373,6 +379,9 @@ impl Default for OpKind {
 		OpKind::Register
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type OpKindUnderlyingType = u8;
 #[rustfmt::skip]
 impl OpKind {
 	/// Iterates over all `OpKind` enum values
@@ -543,6 +552,10 @@ impl Default for EncodingKind {
 	}
 }
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type EncodingKindUnderlyingType = u8;
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 #[rustfmt::skip]
 impl EncodingKind {
 	/// Iterates over all `EncodingKind` enum values
@@ -672,6 +685,10 @@ impl Default for TupleType {
 	}
 }
 #[cfg(any(feature = "decoder", feature = "encoder"))]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type TupleTypeUnderlyingType = u8;
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 #[rustfmt::skip]
 impl TupleType {
 	/// Iterates over all `TupleType` enum values
@@ -788,6 +805,10 @@ impl Default for FlowControl {
 		FlowControl::Next
 	}
 }
+#[cfg(feature = "instr_info")]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type FlowControlUnderlyingType = u8;
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 impl FlowControl {
@@ -1210,6 +1231,10 @@ impl Default for OpCodeOperandKind {
 		OpCodeOperandKind::None
 	}
 }
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type OpCodeOperandKindUnderlyingType = u8;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
 impl OpCodeOperandKind {
@@ -1778,6 +1803,10 @@ impl Default for CpuidFeature {
 	}
 }
 #[cfg(feature = "instr_info")]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CpuidFeatureUnderlyingType = u8;
+#[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 impl CpuidFeature {
 	/// Iterates over all `CpuidFeature` enum values
@@ -1929,6 +1958,10 @@ impl Default for OpAccess {
 	}
 }
 #[cfg(feature = "instr_info")]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type OpAccessUnderlyingType = u8;
+#[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 impl OpAccess {
 	/// Iterates over all `OpAccess` enum values
@@ -2066,6 +2099,10 @@ impl Default for ConditionCode {
 	}
 }
 #[cfg(feature = "instr_info")]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type ConditionCodeUnderlyingType = u8;
+#[cfg(feature = "instr_info")]
 #[rustfmt::skip]
 impl ConditionCode {
 	/// Iterates over all `ConditionCode` enum values
@@ -2165,6 +2202,10 @@ impl Default for MandatoryPrefix {
 		MandatoryPrefix::None
 	}
 }
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type MandatoryPrefixUnderlyingType = u8;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
 impl MandatoryPrefix {
@@ -2272,6 +2313,10 @@ impl Default for OpCodeTableKind {
 		OpCodeTableKind::Normal
 	}
 }
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type OpCodeTableKindUnderlyingType = u8;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
 impl OpCodeTableKind {

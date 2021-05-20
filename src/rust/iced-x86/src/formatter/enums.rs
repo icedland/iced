@@ -41,6 +41,9 @@ impl Default for NumberBase {
 		NumberBase::Hexadecimal
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type NumberBaseUnderlyingType = u8;
 #[rustfmt::skip]
 impl NumberBase {
 	/// Iterates over all `NumberBase` enum values
@@ -172,6 +175,9 @@ impl Default for PrefixKind {
 		PrefixKind::ES
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type PrefixKindUnderlyingType = u8;
 #[rustfmt::skip]
 impl PrefixKind {
 	/// Iterates over all `PrefixKind` enum values
@@ -262,6 +268,9 @@ impl Default for DecoratorKind {
 		DecoratorKind::Broadcast
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type DecoratorKindUnderlyingType = u8;
 #[rustfmt::skip]
 impl DecoratorKind {
 	/// Iterates over all `DecoratorKind` enum values
@@ -357,6 +366,9 @@ impl Default for NumberKind {
 		NumberKind::Int8
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type NumberKindUnderlyingType = u8;
 #[rustfmt::skip]
 impl NumberKind {
 	/// Iterates over all `NumberKind` enum values
@@ -482,6 +494,9 @@ impl Default for CC_b {
 		CC_b::b
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_bUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_b {
 	/// Iterates over all `CC_b` enum values
@@ -569,6 +584,9 @@ impl Default for CC_ae {
 		CC_ae::ae
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_aeUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_ae {
 	/// Iterates over all `CC_ae` enum values
@@ -653,6 +671,9 @@ impl Default for CC_e {
 		CC_e::e
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_eUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_e {
 	/// Iterates over all `CC_e` enum values
@@ -737,6 +758,9 @@ impl Default for CC_ne {
 		CC_ne::ne
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_neUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_ne {
 	/// Iterates over all `CC_ne` enum values
@@ -821,6 +845,9 @@ impl Default for CC_be {
 		CC_be::be
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_beUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_be {
 	/// Iterates over all `CC_be` enum values
@@ -905,6 +932,9 @@ impl Default for CC_a {
 		CC_a::a
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_aUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_a {
 	/// Iterates over all `CC_a` enum values
@@ -989,6 +1019,9 @@ impl Default for CC_p {
 		CC_p::p
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_pUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_p {
 	/// Iterates over all `CC_p` enum values
@@ -1073,6 +1106,9 @@ impl Default for CC_np {
 		CC_np::np
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_npUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_np {
 	/// Iterates over all `CC_np` enum values
@@ -1157,6 +1193,9 @@ impl Default for CC_l {
 		CC_l::l
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_lUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_l {
 	/// Iterates over all `CC_l` enum values
@@ -1241,6 +1280,9 @@ impl Default for CC_ge {
 		CC_ge::ge
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_geUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_ge {
 	/// Iterates over all `CC_ge` enum values
@@ -1325,6 +1367,9 @@ impl Default for CC_le {
 		CC_le::le
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_leUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_le {
 	/// Iterates over all `CC_le` enum values
@@ -1409,6 +1454,9 @@ impl Default for CC_g {
 		CC_g::g
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type CC_gUnderlyingType = u8;
 #[rustfmt::skip]
 impl CC_g {
 	/// Iterates over all `CC_g` enum values

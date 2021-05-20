@@ -94,6 +94,9 @@ impl Default for FormatterTextKind {
 		FormatterTextKind::Text
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type FormatterTextKindUnderlyingType = u8;
 #[rustfmt::skip]
 impl FormatterTextKind {
 	/// Iterates over all `FormatterTextKind` enum values
@@ -260,6 +263,9 @@ impl Default for MemorySizeOptions {
 		MemorySizeOptions::Default
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type MemorySizeOptionsUnderlyingType = u8;
 #[rustfmt::skip]
 impl MemorySizeOptions {
 	/// Iterates over all `MemorySizeOptions` enum values

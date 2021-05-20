@@ -601,6 +601,9 @@ impl Default for RepPrefixKind {
 		RepPrefixKind::None
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type RepPrefixKindUnderlyingType = u8;
 #[rustfmt::skip]
 impl RepPrefixKind {
 	/// Iterates over all `RepPrefixKind` enum values

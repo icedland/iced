@@ -33,6 +33,9 @@ impl Default for RelocKind {
 		RelocKind::Offset64
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type RelocKindUnderlyingType = ();
 #[rustfmt::skip]
 impl RelocKind {
 	/// Iterates over all `RelocKind` enum values

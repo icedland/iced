@@ -1467,6 +1467,9 @@ impl Default for Register {
 		Register::None
 	}
 }
+#[allow(non_camel_case_types)]
+#[allow(dead_code)]
+pub(crate) type RegisterUnderlyingType = u8;
 #[rustfmt::skip]
 impl Register {
 	/// Iterates over all `Register` enum values
