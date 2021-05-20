@@ -14,12 +14,11 @@ lazy_static! {
 		let mut result = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 		let mut sb = String::new();
 		for code in Code::values() {
-			let i = code as usize;
-			let enc_flags1 = ENC_FLAGS1[i];
-			let enc_flags2 = ENC_FLAGS2[i];
-			let enc_flags3 = ENC_FLAGS3[i];
-			let opc_flags1 = OPC_FLAGS1[i];
-			let opc_flags2 = OPC_FLAGS2[i];
+			let enc_flags1 = ENC_FLAGS1[code as usize];
+			let enc_flags2 = ENC_FLAGS2[code as usize];
+			let enc_flags3 = ENC_FLAGS3[code as usize];
+			let opc_flags1 = OPC_FLAGS1[code as usize];
+			let opc_flags2 = OPC_FLAGS2[code as usize];
 			result.push(OpCodeInfo::new(code, enc_flags1, enc_flags2, enc_flags3, opc_flags1, opc_flags2, &mut sb));
 		}
 		result

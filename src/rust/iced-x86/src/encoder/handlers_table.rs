@@ -16,14 +16,14 @@ lazy_static! {
 	pub(crate) static ref HANDLERS_TABLE: Box<[&'static OpCodeHandler; IcedConstants::CODE_ENUM_COUNT]> = {
 		let mut v = Vec::with_capacity(IcedConstants::CODE_ENUM_COUNT);
 		let invalid_handler = Box::into_raw(Box::new(InvalidHandler::new())) as *const OpCodeHandler;
-		for i in 0..IcedConstants::CODE_ENUM_COUNT {
-			let enc_flags1 = ENC_FLAGS1[i];
-			let enc_flags2 = ENC_FLAGS2[i];
-			let enc_flags3 = ENC_FLAGS3[i];
+		for code in Code::values() {
+			let enc_flags1 = ENC_FLAGS1[code as usize];
+			let enc_flags2 = ENC_FLAGS2[code as usize];
+			let enc_flags3 = ENC_FLAGS3[code as usize];
+			// SAFETY: The table is generated and only contains valid enum variants
 			let encoding: EncodingKind = unsafe { mem::transmute(((enc_flags3 >> EncFlags3::ENCODING_SHIFT) & EncFlags3::ENCODING_MASK) as u8) };
 			let handler = match encoding {
 				EncodingKind::Legacy => {
-					let code: Code = unsafe { mem::transmute(i as u16) };
 					if code == Code::INVALID {
 						invalid_handler
 					} else if code <= Code::DeclareQword {
