@@ -1277,11 +1277,12 @@ impl<'a> Decoder<'a> {
 		//  65 =  0.10%
 		if (((b as u32) >> 4) & self.mask_64b) == 4 {
 			debug_assert!(self.is64b_mode);
-			self.state.flags |= StateFlags::HAS_REX;
+			let mut flags = self.state.flags | StateFlags::HAS_REX;
 			if (b & 8) != 0 {
-				self.state.flags |= StateFlags::W;
+				flags |= StateFlags::W;
 				self.state.operand_size = OpSize::Size64;
 			}
+			self.state.flags = flags;
 			self.state.extra_register_base = (b as u32 & 4) << 1;
 			self.state.extra_index_register_base = (b as u32 & 2) << 2;
 			self.state.extra_base_register_base = (b as u32 & 1) << 3;
