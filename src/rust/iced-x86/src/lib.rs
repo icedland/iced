@@ -65,8 +65,8 @@
 //!
 //! If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
 //!
-//! [`BlockEncoder`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.BlockEncoder.html
-//! [`OpCodeInfo`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.OpCodeInfo.html
+//! [`BlockEncoder`]: struct.BlockEncoder.html
+//! [`OpCodeInfo`]: struct.OpCodeInfo.html
 //!
 //! ## How-tos
 //!
@@ -85,14 +85,14 @@
 //! This example uses a [`Decoder`] and one of the [`Formatter`]s to decode and format the code,
 //! eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`], [`SpecializedFormatter<TraitOptions>`] (or [`FastFormatter`]).
 //!
-//! [`Decoder`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.Decoder.html
-//! [`Formatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/trait.Formatter.html
-//! [`GasFormatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.GasFormatter.html
-//! [`IntelFormatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.IntelFormatter.html
-//! [`MasmFormatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.MasmFormatter.html
-//! [`NasmFormatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.NasmFormatter.html
-//! [`SpecializedFormatter<TraitOptions>`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.SpecializedFormatter.html
-//! [`FastFormatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/type.FastFormatter.html
+//! [`Decoder`]: struct.Decoder.html
+//! [`Formatter`]: trait.Formatter.html
+//! [`GasFormatter`]: struct.GasFormatter.html
+//! [`IntelFormatter`]: struct.IntelFormatter.html
+//! [`MasmFormatter`]: struct.MasmFormatter.html
+//! [`NasmFormatter`]: struct.NasmFormatter.html
+//! [`SpecializedFormatter<TraitOptions>`]: struct.SpecializedFormatter.html
+//! [`FastFormatter`]: type.FastFormatter.html
 //!
 //! ```rust
 //! use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
@@ -229,8 +229,8 @@
 //!
 //! This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
 //!
-//! [`BlockEncoder`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.BlockEncoder.html
-//! [`Instruction`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.Instruction.html
+//! [`BlockEncoder`]: struct.BlockEncoder.html
+//! [`Instruction`]: struct.Instruction.html
 //!
 //! ```rust
 //! use iced_x86::{
@@ -362,8 +362,8 @@
 //!
 //! Creates a custom [`SymbolResolver`] that is called by a [`Formatter`].
 //!
-//! [`SymbolResolver`]: https://docs.rs/iced-x86/1.11.3/iced_x86/trait.SymbolResolver.html
-//! [`Formatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/trait.Formatter.html
+//! [`SymbolResolver`]: trait.SymbolResolver.html
+//! [`Formatter`]: trait.Formatter.html
 //!
 //! ```rust
 //! use iced_x86::{
@@ -419,8 +419,8 @@
 //!
 //! This example will fail to compile unless you install the `colored` crate, see below.
 //!
-//! [`FormatterOutput`]: https://docs.rs/iced-x86/1.11.3/iced_x86/trait.FormatterOutput.html
-//! [`Formatter`]: https://docs.rs/iced-x86/1.11.3/iced_x86/trait.Formatter.html
+//! [`FormatterOutput`]: trait.FormatterOutput.html
+//! [`Formatter`]: trait.Formatter.html
 //!
 //! ```rust compile_fail
 //! // This example uses crate colored = "2.0.0"
@@ -683,8 +683,8 @@
 //! Shows how to get used registers/memory and other info. It uses [`Instruction`] methods
 //! and an [`InstructionInfoFactory`] to get this info.
 //!
-//! [`Instruction`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.Instruction.html
-//! [`InstructionInfoFactory`]: https://docs.rs/iced-x86/1.11.3/iced_x86/struct.InstructionInfoFactory.html
+//! [`Instruction`]: struct.Instruction.html
+//! [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
 //!
 //! ```rust
 //! use iced_x86::{
