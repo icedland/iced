@@ -215,10 +215,10 @@ impl OpCodeHandler_MandatoryPrefix2 {
 		has_modrm: bool, handler: (*const OpCodeHandler, OpCodeHandlerDecodeFn), handler_66: (*const OpCodeHandler, OpCodeHandlerDecodeFn),
 		handler_f3: (*const OpCodeHandler, OpCodeHandlerDecodeFn), handler_f2: (*const OpCodeHandler, OpCodeHandlerDecodeFn),
 	) -> Self {
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
 		debug_assert!(!is_null_instance_handler(handler.0));
 		debug_assert!(!is_null_instance_handler(handler_66.0));
 		debug_assert!(!is_null_instance_handler(handler_f3.0));

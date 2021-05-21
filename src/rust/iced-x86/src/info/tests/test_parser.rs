@@ -10,7 +10,7 @@ use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
-use core::{i16, i32, mem, u16, u32};
+use core::{i16, i32, u16, u32};
 use lazy_static::lazy_static;
 use static_assertions::const_assert_eq;
 use std::collections::HashMap;
@@ -71,7 +71,7 @@ impl IntoIterator for InstrInfoTestParser {
 		}
 
 		for i in 0..IcedConstants::VMM_COUNT {
-			let register = unsafe { mem::transmute((IcedConstants::VMM_FIRST as u32 + i) as u8) };
+			let register = IcedConstants::VMM_FIRST + i;
 			let _ = to_register.insert(format!("{}{}", MiscInstrInfoTestConstants::VMM_PREFIX, i), register);
 		}
 
@@ -384,8 +384,8 @@ impl IntoIter {
 				if last_reg < first_reg {
 					return Err(format!("Invalid register range: {}", reg_str));
 				}
-				for reg_num in (first_reg as u32)..((last_reg as u32) + 1) {
-					let reg = unsafe { mem::transmute(reg_num as u8) };
+				for index in 0..(last_reg as u32) - (first_reg as u32) + 1 {
+					let reg = first_reg + index;
 					tc.used_registers.push(UsedRegister::new(reg, access));
 				}
 			} else {

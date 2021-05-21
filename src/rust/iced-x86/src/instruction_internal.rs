@@ -161,7 +161,8 @@ pub(crate) fn internal_get_memory_index_scale(this: &Instruction) -> u32 {
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_memory_index_scale(this: &mut Instruction, new_value: u32) {
-	this.scale = new_value as u8
+	debug_assert!(new_value <= 3);
+	this.scale = unsafe { mem::transmute(new_value as u8) };
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]

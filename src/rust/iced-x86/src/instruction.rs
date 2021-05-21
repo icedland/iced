@@ -58,7 +58,7 @@ pub struct Instruction {
 	pub(crate) mem_index_reg: Register,
 	pub(crate) regs: [Register; 4],
 	pub(crate) op_kinds: [OpKind; 4],
-	pub(crate) scale: u8,
+	pub(crate) scale: InstrScale,
 	pub(crate) displ_size: u8,
 	pub(crate) len: u8,
 	db: u8,
@@ -877,7 +877,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn memory_index_scale(&self) -> u32 {
-		1 << self.scale
+		1 << (self.scale as u8)
 	}
 
 	/// Sets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind::Memory`]
@@ -890,12 +890,12 @@ impl Instruction {
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_memory_index_scale(&mut self, new_value: u32) {
 		match new_value {
-			1 => self.scale = 0,
-			2 => self.scale = 1,
-			4 => self.scale = 2,
+			1 => self.scale = InstrScale::Scale1,
+			2 => self.scale = InstrScale::Scale2,
+			4 => self.scale = InstrScale::Scale4,
 			_ => {
 				debug_assert_eq!(new_value, 8);
-				self.scale = 3;
+				self.scale = InstrScale::Scale8;
 			}
 		}
 	}
@@ -10412,7 +10412,7 @@ impl Hash for Instruction {
 		for &op_kind in &self.op_kinds {
 			state.write_u8(op_kind as OpKindUnderlyingType);
 		}
-		state.write_u8(self.scale);
+		state.write_u8(self.scale as u8);
 		state.write_u8(self.displ_size);
 		state.write_u8(self.db);
 	}

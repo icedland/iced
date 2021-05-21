@@ -185,8 +185,8 @@ impl OpCodeHandler_Prefix66 {
 
 		decoder.state.flags |= StateFlags::HAS66;
 		decoder.state.operand_size = decoder.default_inverted_operand_size;
-		if decoder.state.mandatory_prefix == MandatoryPrefixByte::None as u32 {
-			decoder.state.mandatory_prefix = MandatoryPrefixByte::P66 as u32;
+		if decoder.state.mandatory_prefix == DecoderMandatoryPrefix::PNP {
+			decoder.state.mandatory_prefix = DecoderMandatoryPrefix::P66;
 		}
 
 		decoder.reset_rex_prefix_state();
@@ -255,7 +255,7 @@ impl OpCodeHandler_PrefixF2 {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 
 		instruction_internal::internal_set_has_repne_prefix(instruction);
-		decoder.state.mandatory_prefix = MandatoryPrefixByte::PF2 as u32;
+		decoder.state.mandatory_prefix = DecoderMandatoryPrefix::PF2;
 
 		decoder.reset_rex_prefix_state();
 		decoder.call_opcode_handler_xx_table(instruction);
@@ -278,7 +278,7 @@ impl OpCodeHandler_PrefixF3 {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 
 		instruction_internal::internal_set_has_repe_prefix(instruction);
-		decoder.state.mandatory_prefix = MandatoryPrefixByte::PF3 as u32;
+		decoder.state.mandatory_prefix = DecoderMandatoryPrefix::PF3;
 
 		decoder.reset_rex_prefix_state();
 		decoder.call_opcode_handler_xx_table(instruction);
@@ -516,10 +516,10 @@ impl OpCodeHandler_MandatoryPrefix {
 		has_modrm: bool, handler: (*const OpCodeHandler, OpCodeHandlerDecodeFn), handler_66: (*const OpCodeHandler, OpCodeHandlerDecodeFn),
 		handler_f3: (*const OpCodeHandler, OpCodeHandlerDecodeFn), handler_f2: (*const OpCodeHandler, OpCodeHandlerDecodeFn),
 	) -> Self {
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
 		debug_assert!(!is_null_instance_handler(handler.0));
 		debug_assert!(!is_null_instance_handler(handler_66.0));
 		debug_assert!(!is_null_instance_handler(handler_f3.0));
@@ -537,7 +537,7 @@ impl OpCodeHandler_MandatoryPrefix {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		decoder.clear_mandatory_prefix(instruction);
-		let (handler, decode) = unsafe { *this.handlers.get_unchecked(decoder.state.mandatory_prefix as usize) };
+		let (handler, decode) = this.handlers[decoder.state.mandatory_prefix as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }
@@ -597,11 +597,11 @@ impl OpCodeHandler_MandatoryPrefix3 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		let (handler, decode, mandatory_prefix) = unsafe {
+		let (handler, decode, mandatory_prefix) = {
 			if decoder.state.mod_ == 3 {
-				*this.handlers_reg.get_unchecked(decoder.state.mandatory_prefix as usize)
+				this.handlers_reg[decoder.state.mandatory_prefix as usize]
 			} else {
-				*this.handlers_mem.get_unchecked(decoder.state.mandatory_prefix as usize)
+				this.handlers_mem[decoder.state.mandatory_prefix as usize]
 			}
 		};
 		if mandatory_prefix {
@@ -646,21 +646,22 @@ impl OpCodeHandler_MandatoryPrefix4 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
 		let (handler, decode) = match decoder.state.mandatory_prefix {
-			0 => this.handler_np,
-			1 => this.handler_66,
-			2 => {
+			DecoderMandatoryPrefix::PNP => this.handler_np,
+			DecoderMandatoryPrefix::P66 => this.handler_66,
+			DecoderMandatoryPrefix::PF3 => {
 				if (this.flags & 4) != 0 {
 					decoder.clear_mandatory_prefix_f3(instruction);
 				}
 				this.handler_f3
 			}
+			// The compiler generates worse code (indirect branch) unless I use `_` here
 			_ => {
-				debug_assert_eq!(decoder.state.mandatory_prefix, 3);
+				debug_assert_eq!(decoder.state.mandatory_prefix, DecoderMandatoryPrefix::PF2);
 				if (this.flags & 8) != 0 {
 					decoder.clear_mandatory_prefix_f2(instruction);
 				}
@@ -2739,7 +2740,7 @@ impl OpCodeHandler_Xchg_Reg_rAX {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 
-		if this.index == 0 && decoder.state.mandatory_prefix == MandatoryPrefixByte::PF3 as u32 && (decoder.options & DecoderOptions::NO_PAUSE) == 0 {
+		if this.index == 0 && decoder.state.mandatory_prefix == DecoderMandatoryPrefix::PF3 && (decoder.options & DecoderOptions::NO_PAUSE) == 0 {
 			decoder.clear_mandatory_prefix_f3(instruction);
 			instruction.set_code(Code::Pause);
 		} else {
@@ -6437,7 +6438,7 @@ impl OpCodeHandler_Wbinvd {
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		if (decoder.options & DecoderOptions::NO_WBNOINVD) != 0 || decoder.state.mandatory_prefix != MandatoryPrefixByte::PF3 as u32 {
+		if (decoder.options & DecoderOptions::NO_WBNOINVD) != 0 || decoder.state.mandatory_prefix != DecoderMandatoryPrefix::PF3 {
 			instruction.set_code(Code::Wbinvd);
 		} else {
 			decoder.clear_mandatory_prefix_f3(instruction);

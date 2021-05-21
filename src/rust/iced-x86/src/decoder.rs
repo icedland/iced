@@ -316,6 +316,23 @@ macro_rules! mk_read_value {
 	};
 }
 
+// This is `repr(u32)` since we need the decoder field near other fields that also get cleared in `decode()`.
+// It could fit in a `u8` but then it wouldn't be cleared at the same time as the other fields since the
+// compiler would move other `u32` fields above it to align the fields.
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+enum DecoderMandatoryPrefix {
+	PNP = 0,
+	P66 = 1,
+	PF3 = 2,
+	PF2 = 3,
+}
+impl Default for DecoderMandatoryPrefix {
+	fn default() -> Self {
+		DecoderMandatoryPrefix::PNP
+	}
+}
+
 #[derive(Default)]
 #[allow(dead_code)]
 struct State {
@@ -331,7 +348,7 @@ struct State {
 	extra_base_register_base: u32,  // B << 3
 	extra_index_register_base_vsib: u32,
 	flags: u32, // StateFlags
-	mandatory_prefix: u32,
+	mandatory_prefix: DecoderMandatoryPrefix,
 
 	vvvv: u32,               // V`vvvv. Not stored in inverted form. If 16/32-bit mode, bits [4:3] are cleared
 	vvvv_invalid_check: u32, // vvvv bits, even in 16/32-bit mode.
@@ -340,7 +357,7 @@ struct State {
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX.XB << 3
-	vector_length: u32,
+	vector_length: VectorLength,
 	operand_size: OpSize,
 	address_size: OpSize,
 	segment_prio: u8, // 0=ES/CS/SS/DS, 1=FS/GS
@@ -1232,7 +1249,7 @@ impl<'a> Decoder<'a> {
 		self.state.extra_base_register_base = 0;
 		self.state.extra_index_register_base_vsib = 0;
 		self.state.flags = 0;
-		self.state.mandatory_prefix = 0;
+		self.state.mandatory_prefix = DecoderMandatoryPrefix::default();
 		// These don't need to be cleared, but they're here so the compiler can re-use the
 		// same XMM reg to clear the previous 2 u32s (including these 2 u32s).
 		self.state.vvvv = 0;
@@ -1378,16 +1395,14 @@ impl<'a> Decoder<'a> {
 
 	fn set_xacquire_xrelease_core(&mut self, instruction: &mut Instruction, flags: u32) {
 		debug_assert!(!((flags & HandlerFlags::XACQUIRE_XRELEASE_NO_LOCK) == 0 && !instruction.has_lock_prefix()));
-		const PF3: u32 = MandatoryPrefixByte::PF3 as u32;
-		const PF2: u32 = MandatoryPrefixByte::PF2 as u32;
 		match self.state.mandatory_prefix {
-			PF2 => {
+			DecoderMandatoryPrefix::PF2 => {
 				if (flags & HandlerFlags::XACQUIRE) != 0 {
 					self.clear_mandatory_prefix_f2(instruction);
 					instruction_internal::internal_set_has_xacquire_prefix(instruction);
 				}
 			}
-			PF3 => {
+			DecoderMandatoryPrefix::PF3 => {
 				self.clear_mandatory_prefix_f3(instruction);
 				instruction_internal::internal_set_has_xrelease_prefix(instruction);
 			}
@@ -1398,14 +1413,14 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
-		debug_assert_eq!(self.state.mandatory_prefix, MandatoryPrefixByte::PF3 as u32);
+		debug_assert_eq!(self.state.mandatory_prefix, DecoderMandatoryPrefix::PF3);
 		instruction_internal::internal_clear_has_repe_prefix(instruction);
 	}
 
 	#[inline]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
-		debug_assert_eq!(self.state.mandatory_prefix, MandatoryPrefixByte::PF2 as u32);
+		debug_assert_eq!(self.state.mandatory_prefix, DecoderMandatoryPrefix::PF2);
 		instruction_internal::internal_clear_has_repne_prefix(instruction);
 	}
 
@@ -1450,7 +1465,8 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "no_vex"))]
 	fn vex2(&mut self, instruction: &mut Instruction) {
-		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
 		// Undo what decode_out() did if it got a REX prefix
@@ -1466,13 +1482,15 @@ impl<'a> Decoder<'a> {
 
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
-		self.state.vector_length = (b >> 2) & 1;
+		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const_assert_eq!() above
+		self.state.vector_length = unsafe { mem::transmute((b >> 2) & 1) };
 
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
-		self.state.mandatory_prefix = b & 3;
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+		// SAFETY: 0<=(b&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+		self.state.mandatory_prefix = unsafe { mem::transmute(b & 3) };
 
 		b = !b;
 		self.state.extra_register_base = (b >> 4) & 8;
@@ -1492,7 +1510,8 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "no_vex"))]
 	fn vex3(&mut self, instruction: &mut Instruction) {
-		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
 		// Undo what decode_out() did if it got a REX prefix
@@ -1509,13 +1528,15 @@ impl<'a> Decoder<'a> {
 
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
-		self.state.vector_length = (b2 >> 2) & 1;
+		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const_assert_eq!() above
+		self.state.vector_length = unsafe { mem::transmute((b2 >> 2) & 1) };
 
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
-		self.state.mandatory_prefix = b2 & 3;
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+		// SAFETY: 0<=(b2&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+		self.state.mandatory_prefix = unsafe { mem::transmute(b2 & 3) };
 
 		let b = (!b2 >> 3) & 0x0F;
 		self.state.vvvv_invalid_check = b;
@@ -1540,7 +1561,8 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "no_xop"))]
 	fn xop(&mut self, instruction: &mut Instruction) {
-		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
 		// Undo what decode_out() did if it got a REX prefix
@@ -1557,13 +1579,15 @@ impl<'a> Decoder<'a> {
 
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
-		self.state.vector_length = (b2 >> 2) & 1;
+		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const_assert_eq!() above
+		self.state.vector_length = unsafe { mem::transmute((b2 >> 2) & 1) };
 
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
-		self.state.mandatory_prefix = b2 & 3;
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+		// SAFETY: 0<=(b2&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+		self.state.mandatory_prefix = unsafe { mem::transmute(b2 & 3) };
 
 		let b = (!b2 >> 3) & 0x0F;
 		self.state.vvvv_invalid_check = b;
@@ -1588,7 +1612,8 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "no_evex"))]
 	fn evex_mvex(&mut self, instruction: &mut Instruction) {
-		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
+		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
 		// Undo what decode_out() did if it got a REX prefix
@@ -1602,11 +1627,12 @@ impl<'a> Decoder<'a> {
 					self.state.flags |= EncodingKind::EVEX as u32;
 				}
 
-				const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-				const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-				const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-				const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
-				self.state.mandatory_prefix = d & 3;
+				const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+				const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
+				const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
+				const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+				// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+				self.state.mandatory_prefix = unsafe { mem::transmute(d & 3) };
 
 				const_assert_eq!(StateFlags::W, 0x80);
 				self.state.flags |= d & 0x80;
@@ -1631,7 +1657,8 @@ impl<'a> Decoder<'a> {
 				const_assert_eq!(VectorLength::L256 as u32, 1);
 				const_assert_eq!(VectorLength::L512 as u32, 2);
 				const_assert_eq!(VectorLength::Unknown as u32, 3);
-				self.state.vector_length = (p2 >> 5) & 3;
+				// SAFETY: 0<=(n&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+				self.state.vector_length = unsafe { mem::transmute((p2 >> 5) & 3) };
 
 				let p1 = (!d >> 3) & 0x0F;
 				if self.is64b_mode {
@@ -1665,7 +1692,7 @@ impl<'a> Decoder<'a> {
 					self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
 					// Invalid if LL=3 and no rc
 					const_assert!(StateFlags::B > 3);
-					if (((self.state.flags & StateFlags::B) | self.state.vector_length) & self.invalid_check_mask) == 3 {
+					if (((self.state.flags & StateFlags::B) | (self.state.vector_length as u32)) & self.invalid_check_mask) == 3 {
 						self.set_invalid_instruction();
 					}
 					(decode)(handler, self, instruction);

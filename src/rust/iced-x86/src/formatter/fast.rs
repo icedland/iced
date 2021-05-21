@@ -362,7 +362,6 @@ macro_rules! format_memory_code {
 			let mut base_reg = $base_reg;
 			let mut displ_size: u32 = $displ_size;
 			let mut displ: i64 = $displ;
-			debug_assert!(($scale as usize) < SCALE_NUMBERS.len());
 			debug_assert!(get_address_size_in_bytes(base_reg, $index_reg, displ_size, $instruction.code_size()) == $addr_size);
 
 			let abs_addr;
@@ -434,8 +433,7 @@ macro_rules! format_memory_code {
 
 				// [rsi] = base reg, [rsi*1] = index reg
 				if $addr_size != 2 && ($scale != 0 || base_reg == Register::None) {
-					// SAFETY: $scale is 0-3 inclusive, within bounds
-					let scale_str = unsafe { *SCALE_NUMBERS.as_ptr().add($scale as usize) };
+					let scale_str = SCALE_NUMBERS[$scale as usize];
 					write_fast_str!($dst, $dst_next_p, FastString4, scale_str);
 				}
 			}

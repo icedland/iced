@@ -5,7 +5,6 @@ use crate::formatter::test_utils::get_formatter_unit_tests_dir;
 use crate::formatter::*;
 use crate::iced_constants::IcedConstants;
 use alloc::boxed::Box;
-use core::mem;
 
 pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Box<dyn Formatter>) {
 	let mut filename = get_formatter_unit_tests_dir();
@@ -13,8 +12,7 @@ pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: 
 	filename.push(format!("{}.txt", file_part));
 	let lines = super::get_lines_ignore_comments(filename.as_path());
 	assert_eq!(lines.len(), IcedConstants::REGISTER_ENUM_COUNT);
-	for (i, expected_register_string) in lines.into_iter().enumerate() {
-		let register: Register = unsafe { mem::transmute(i as u8) };
+	for (expected_register_string, register) in lines.into_iter().zip(Register::values()) {
 		{
 			let mut formatter = fmt_factory();
 			let actual_register_string = formatter.format_register(register);

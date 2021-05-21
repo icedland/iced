@@ -51,7 +51,7 @@ impl OpCodeHandler_VectorLength_EVEX {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		let (handler, decode) = unsafe { *this.handlers.get_unchecked(decoder.state.vector_length as usize) };
+		let (handler, decode) = this.handlers[decoder.state.vector_length as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }
@@ -94,11 +94,11 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		let mut index = decoder.state.vector_length as usize;
+		let mut index = decoder.state.vector_length;
 		if decoder.state.mod_ == 3 && (decoder.state.flags & StateFlags::B) != 0 {
-			index = VectorLength::L512 as usize;
+			index = VectorLength::L512;
 		}
-		let (handler, decode) = unsafe { *this.handlers.get_unchecked(index) };
+		let (handler, decode) = this.handlers[index as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }
@@ -156,7 +156,7 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-				instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
+				instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
 			}
 		} else {
 			if ((decoder.state.flags & StateFlags::B) & decoder.invalid_check_mask) != 0 {
@@ -329,7 +329,7 @@ impl OpCodeHandler_EVEX_VkHW_er {
 					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
+					instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
 				}
 			}
 		} else {
@@ -411,7 +411,7 @@ impl OpCodeHandler_EVEX_VkW_er {
 					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
+					instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
 				}
 			}
 		} else {
@@ -1919,7 +1919,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
 					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
 					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					instruction_internal::internal_set_rounding_control(instruction, decoder.state.vector_length + 1);
+					instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
 				}
 			}
 		} else {

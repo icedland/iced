@@ -381,15 +381,15 @@ fn get_registers(mut regs: Vec<Register>) -> Vec<Register> {
 	for reg in regs {
 		if Register::EAX <= reg && reg <= Register::R15D {
 			index = reg as u32 - Register::EAX as u32;
-			if hash.contains(&unsafe { mem::transmute((Register::RAX as u32 + index) as u8) }) {
+			if hash.contains(&(Register::RAX + index)) {
 				continue;
 			}
 		} else if Register::AX <= reg && reg <= Register::R15W {
 			index = reg as u32 - Register::AX as u32;
-			if hash.contains(&unsafe { mem::transmute((Register::RAX as u32 + index) as u8) }) {
+			if hash.contains(&(Register::RAX + index)) {
 				continue;
 			}
-			if hash.contains(&unsafe { mem::transmute((Register::EAX as u32 + index) as u8) }) {
+			if hash.contains(&(Register::EAX + index)) {
 				continue;
 			}
 		} else if Register::AL <= reg && reg <= Register::R15L {
@@ -397,26 +397,26 @@ fn get_registers(mut regs: Vec<Register>) -> Vec<Register> {
 			if Register::AH <= reg && reg <= Register::BH {
 				index -= 4;
 			}
-			if hash.contains(&unsafe { mem::transmute((Register::RAX as u32 + index) as u8) }) {
+			if hash.contains(&(Register::RAX + index)) {
 				continue;
 			}
-			if hash.contains(&unsafe { mem::transmute((Register::EAX as u32 + index) as u8) }) {
+			if hash.contains(&(Register::EAX + index)) {
 				continue;
 			}
-			if hash.contains(&unsafe { mem::transmute((Register::AX as u32 + index) as u8) }) {
+			if hash.contains(&(Register::AX + index)) {
 				continue;
 			}
 		} else if Register::YMM0 <= reg && reg <= IcedConstants::YMM_LAST {
 			index = reg as u32 - Register::YMM0 as u32;
-			if hash.contains(&unsafe { mem::transmute((Register::ZMM0 as u32 + index) as u8) }) {
+			if hash.contains(&(Register::ZMM0 + index)) {
 				continue;
 			}
 		} else if Register::XMM0 <= reg && reg <= IcedConstants::XMM_LAST {
 			index = reg as u32 - Register::XMM0 as u32;
-			if hash.contains(&unsafe { mem::transmute((Register::ZMM0 as u32 + index) as u8) }) {
+			if hash.contains(&(Register::ZMM0 + index)) {
 				continue;
 			}
-			if hash.contains(&unsafe { mem::transmute((Register::YMM0 as u32 + index) as u8) }) {
+			if hash.contains(&(Register::YMM0 + index)) {
 				continue;
 			}
 		}
