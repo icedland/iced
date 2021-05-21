@@ -347,12 +347,12 @@ namespace Iced.Intel {
 		/// <summary>
 		/// If it has a memory operand, gets the <see cref="MemorySize"/> (non-broadcast memory type)
 		/// </summary>
-		public MemorySize MemorySize => (MemorySize)InstructionMemorySizes.Sizes[(int)code];
+		public MemorySize MemorySize => (MemorySize)InstructionMemorySizes.SizesNormal[(int)code];
 
 		/// <summary>
 		/// If it has a memory operand, gets the <see cref="MemorySize"/> (broadcast memory type)
 		/// </summary>
-		public MemorySize BroadcastMemorySize => (MemorySize)InstructionMemorySizes.Sizes[(int)code + IcedConstants.CodeEnumCount];
+		public MemorySize BroadcastMemorySize => (MemorySize)InstructionMemorySizes.SizesBcst[(int)code];
 
 		/// <summary>
 		/// (EVEX) <see langword="true"/> if the instruction supports broadcasting (<c>EVEX.b</c> bit) (if it has a memory operand)

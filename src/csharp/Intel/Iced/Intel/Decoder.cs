@@ -120,7 +120,7 @@ namespace Iced.Intel {
 			// Initialize cctors that are used by decoder related methods. It doesn't speed up
 			// decoding much, but getting instruction info is a little faster.
 			_ = OpCodeHandler_Invalid.Instance;
-			_ = InstructionMemorySizes.Sizes;
+			_ = InstructionMemorySizes.SizesNormal;
 #if !NO_D3NOW
 			_ = OpCodeHandler_D3NOW.CodeValues;
 #endif

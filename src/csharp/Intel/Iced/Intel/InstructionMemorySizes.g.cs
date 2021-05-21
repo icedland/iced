@@ -7,12 +7,10 @@
 
 namespace Iced.Intel {
 	static class InstructionMemorySizes {
-		// 0 = memory size
-		// 1 = broadcast memory size
 #if HAS_SPAN
-		internal static System.ReadOnlySpan<byte> Sizes => new byte[IcedConstants.CodeEnumCount * 2] {
+		internal static System.ReadOnlySpan<byte> SizesNormal => new byte[IcedConstants.CodeEnumCount] {
 #else
-		internal static readonly byte[] Sizes = new byte[IcedConstants.CodeEnumCount * 2] {
+		internal static readonly byte[] SizesNormal = new byte[IcedConstants.CodeEnumCount] {
 #endif
 			0,// INVALID
 			0,// DeclareByte
@@ -4337,6 +4335,13 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt16,// Lkgs_r64m16
 			0,// Eretu
 			0,// Erets
+		};
+
+#if HAS_SPAN
+		internal static System.ReadOnlySpan<byte> SizesBcst => new byte[IcedConstants.CodeEnumCount] {
+#else
+		internal static readonly byte[] SizesBcst = new byte[IcedConstants.CodeEnumCount] {
+#endif
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord

@@ -604,8 +604,9 @@ namespace Iced.Intel {
 			get {
 				int index = (int)Code;
 				if (IsBroadcast)
-					index += IcedConstants.CodeEnumCount;
-				return (MemorySize)InstructionMemorySizes.Sizes[index];
+					return (MemorySize)InstructionMemorySizes.SizesBcst[index];
+				else
+					return (MemorySize)InstructionMemorySizes.SizesNormal[index];
 			}
 		}
 

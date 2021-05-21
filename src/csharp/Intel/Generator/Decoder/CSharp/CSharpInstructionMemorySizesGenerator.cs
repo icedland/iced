@@ -29,12 +29,10 @@ namespace Generator.Decoder.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine($"static class {ClassName} {{");
 					using (writer.Indent()) {
-						writer.WriteCommentLine("0 = memory size");
-						writer.WriteCommentLine("1 = broadcast memory size");
 						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-						writer.WriteLine($"internal static System.ReadOnlySpan<byte> Sizes => new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)} * 2] {{");
+						writer.WriteLine($"internal static System.ReadOnlySpan<byte> SizesNormal => new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] {{");
 						writer.WriteLineNoIndent("#else");
-						writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)} * 2] {{");
+						writer.WriteLine($"internal static readonly byte[] SizesNormal = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] {{");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							foreach (var def in defs) {
@@ -47,6 +45,15 @@ namespace Generator.Decoder.CSharp {
 									value = $"(byte){memSizeName}.{def.Memory.Name(idConverter)}";
 								writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
 							}
+						}
+						writer.WriteLine("};");
+						writer.WriteLine();
+						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
+						writer.WriteLine($"internal static System.ReadOnlySpan<byte> SizesBcst => new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] {{");
+						writer.WriteLineNoIndent("#else");
+						writer.WriteLine($"internal static readonly byte[] SizesBcst = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.GetEnumCountName(TypeIds.Code)].Name(idConverter)}] {{");
+						writer.WriteLineNoIndent("#endif");
+						using (writer.Indent()) {
 							foreach (var def in defs) {
 								if (def.MemoryBroadcast.Value > byte.MaxValue)
 									throw new InvalidOperationException();
