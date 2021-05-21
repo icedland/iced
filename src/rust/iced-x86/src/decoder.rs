@@ -1283,10 +1283,11 @@ impl<'a> Decoder<'a> {
 				self.state.operand_size = OpSize::Size64;
 			}
 			self.state.flags = flags;
-			self.state.extra_register_base = (b as u32 & 4) << 1;
-			self.state.extra_index_register_base = (b as u32 & 2) << 2;
-			self.state.extra_base_register_base = (b as u32 & 1) << 3;
+			let b2 = b;
 			b = self.read_u8();
+			self.state.extra_register_base = (b2 as u32 & 4) << 1;
+			self.state.extra_index_register_base = (b2 as u32 & 2) << 2;
+			self.state.extra_base_register_base = (b2 as u32 & 1) << 3;
 		}
 		self.decode_table2(self.handlers_xx[b], instruction);
 
