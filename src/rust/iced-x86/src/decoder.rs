@@ -1080,7 +1080,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(iter.next().is_none());
 	/// ```
 	///
-	/// For loop
+	/// `for` loop:
 	///
 	/// ```
 	/// use iced_x86::*;
