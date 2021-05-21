@@ -518,7 +518,13 @@ static SCALE_NUMBERS: [FastString4; 4] = [
 	mk_const_fast_str!(FastString4, "\x02*4  "),
 	mk_const_fast_str!(FastString4, "\x02*8  "),
 ];
-static RC_STRINGS: [FastString8; 4] = [
+const_assert_eq!(RoundingControl::None as u32, 0);
+const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+static RC_STRINGS: [FastString8; 5] = [
+	mk_const_fast_str!(FastString8, "\x08        "),
 	mk_const_fast_str!(FastString8, "\x08{rn-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{rd-sae}"),
 	mk_const_fast_str!(FastString8, "\x08{ru-sae}"),
@@ -1422,12 +1428,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			if instruction_internal::internal_has_rounding_control_or_sae(instruction) {
 				let rc = instruction.rounding_control();
 				if rc != RoundingControl::None {
-					const_assert_eq!(RoundingControl::None as u32, 0);
-					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
-					let fast_str = RC_STRINGS[rc as usize - 1];
+					let fast_str = RC_STRINGS[rc as usize];
 					write_fast_str!(dst, dst_next_p, FastString8, fast_str);
 				} else {
 					debug_assert!(instruction.suppress_all_exceptions());
