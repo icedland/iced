@@ -1081,21 +1081,25 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[must_use]
+	#[inline(always)]
 	fn read_u8(&mut self) -> usize {
 		mk_read_value! {self, u8, u8::from_le, usize}
 	}
 
 	#[must_use]
+	#[inline(always)]
 	fn read_u16(&mut self) -> usize {
 		mk_read_value! {self, u16, u16::from_le, usize}
 	}
 
 	#[must_use]
+	#[inline(always)]
 	fn read_u32(&mut self) -> usize {
 		mk_read_value! {self, u32, u32::from_le, usize}
 	}
 
 	#[must_use]
+	#[inline(always)]
 	fn read_u64(&mut self) -> u64 {
 		mk_read_value! {self, u64, u64::from_le, u64}
 	}
