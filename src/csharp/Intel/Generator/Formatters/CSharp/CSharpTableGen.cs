@@ -272,7 +272,6 @@ namespace Generator.Formatters.CSharp {
 					writer.WriteLine("};");
 				}
 				writer.WriteLine($"const int MaxStringLength = {maxLen};");
-				writer.WriteLine($"const int StringsCount = {registers.Length};");
 			});
 		}
 

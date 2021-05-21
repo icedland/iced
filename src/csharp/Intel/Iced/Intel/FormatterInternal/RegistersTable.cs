@@ -273,12 +273,11 @@ namespace Iced.Intel.FormatterInternal {
 				0x03, 0x3F, 0x3F, 0x3F,// ???
 			};
 		const int MaxStringLength = 5;
-		const int StringsCount = 256;
 		// GENERATOR-END: Registers
 
 		public static FormatterString[] GetRegisters() {
 			var reader = new DataReader(GetRegistersData(), MaxStringLength);
-			var strings = new FormatterString[StringsCount];
+			var strings = new FormatterString[IcedConstants.RegisterEnumCount];
 			for (int i = 0; i < strings.Length; i++)
 				strings[i] = new FormatterString(reader.ReadAsciiString());
 			if (reader.CanRead)

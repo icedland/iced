@@ -18,10 +18,9 @@ fn create() -> Box<[FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT]> {
 	// to the correct type in fast.rs
 	const_assert_eq!(FastStringRegister::SIZE, VALID_STRING_LENGTH);
 
-	const_assert_eq!(IcedConstants::REGISTER_ENUM_COUNT, STRINGS_COUNT);
-	let mut result = Vec::with_capacity(STRINGS_COUNT);
+	let mut result = Vec::with_capacity(IcedConstants::REGISTER_ENUM_COUNT);
 	let mut data = &REGS_DATA[..];
-	for _ in 0..STRINGS_COUNT {
+	for _ in 0..IcedConstants::REGISTER_ENUM_COUNT {
 		let len = data[0] as usize;
 
 		// It's safe to read FastStringRegister::SIZE bytes from the last string since the

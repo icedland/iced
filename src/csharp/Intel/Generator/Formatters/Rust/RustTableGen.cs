@@ -342,7 +342,6 @@ namespace Generator.Formatters.Rust {
 				}
 				writer.WriteLine("];");
 				writer.WriteLine($"pub(super) const MAX_STRING_LENGTH: usize = {maxLen};");
-				writer.WriteLine($"pub(super) const STRINGS_COUNT: usize = {registers.Length};");
 				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 				writer.WriteLine($"pub(super) const VALID_STRING_LENGTH: usize = {FastStringRegisterSize};");
 				writer.WriteLine($"pub(super) const PADDING_SIZE: usize = {extraPadding};");
