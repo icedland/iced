@@ -883,7 +883,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		write_fast_str!(dst, dst_next_p, FastStringMnemonic, mnemonic);
 
 		let is_declare_data;
-		let declare_data_kind = if !(cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ) {
+		let declare_data_kind = if !TraitOptions::ENABLE_DB_DW_DD_DQ {
 			is_declare_data = false;
 			OpKind::Register
 		} else if (code as u32).wrapping_sub(Code::DeclareByte as u32) <= (Code::DeclareQword as u32 - Code::DeclareByte as u32) {
@@ -913,7 +913,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				let imm32;
 				let imm64;
 				let imm_size;
-				let op_kind = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+				let op_kind = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 					declare_data_kind
 				} else {
 					instruction.try_op_kind(operand).unwrap_or(OpKind::Register)
@@ -1236,7 +1236,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						OpKind::FarBranch16 | OpKind::FarBranch32 => fmt_far_br_16_32!(),
 
 						OpKind::Immediate8 | OpKind::Immediate8_2nd => {
-							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								imm8 = instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default();
 							} else if op_kind == OpKind::Immediate8 {
 								imm8 = instruction.immediate8();
@@ -1248,7 +1248,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						}
 
 						OpKind::Immediate16 | OpKind::Immediate8to16 => {
-							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								imm16 = instruction.try_get_declare_word_value(operand as usize).unwrap_or_default();
 							} else if op_kind == OpKind::Immediate16 {
 								imm16 = instruction.immediate16();
@@ -1260,7 +1260,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						}
 
 						OpKind::Immediate32 | OpKind::Immediate8to32 => {
-							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								imm32 = instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default();
 							} else if op_kind == OpKind::Immediate32 {
 								imm32 = instruction.immediate32();
@@ -1272,7 +1272,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						}
 
 						OpKind::Immediate64 | OpKind::Immediate8to64 | OpKind::Immediate32to64 => {
-							if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								imm64 = instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default();
 							} else if op_kind == OpKind::Immediate32to64 {
 								imm64 = instruction.immediate32to64() as u64;
@@ -1320,7 +1320,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						OpKind::FarBranch16 | OpKind::FarBranch32 => fmt_far_br_16_32!(),
 
 						OpKind::Immediate8 => {
-							imm8 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							imm8 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								instruction.try_get_declare_byte_value(operand as usize).unwrap_or_default()
 							} else {
 								instruction.immediate8()
@@ -1334,7 +1334,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						}
 
 						OpKind::Immediate16 => {
-							imm16 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							imm16 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								instruction.try_get_declare_word_value(operand as usize).unwrap_or_default()
 							} else {
 								instruction.immediate16()
@@ -1348,7 +1348,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						}
 
 						OpKind::Immediate32 => {
-							imm32 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							imm32 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								instruction.try_get_declare_dword_value(operand as usize).unwrap_or_default()
 							} else {
 								instruction.immediate32()
@@ -1362,7 +1362,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						}
 
 						OpKind::Immediate64 => {
-							imm64 = if cfg!(feature = "db") && TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
+							imm64 = if TraitOptions::ENABLE_DB_DW_DD_DQ && is_declare_data {
 								instruction.try_get_declare_qword_value(operand as usize).unwrap_or_default()
 							} else {
 								instruction.immediate64()

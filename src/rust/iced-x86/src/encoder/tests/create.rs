@@ -9,94 +9,18 @@ use core::{i32, i64, u32, u64};
 use std::panic;
 
 #[test]
-#[cfg(not(feature = "db"))]
-#[should_panic]
-#[allow(deprecated)]
-fn db_panics() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareByte);
-	instr.set_declare_byte_value(0, 0);
-}
-
-#[test]
-#[cfg(not(feature = "db"))]
-#[should_panic]
-#[allow(deprecated)]
-fn dw_panics() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareWord);
-	instr.set_declare_word_value(0, 0);
-}
-
-#[test]
-#[cfg(not(feature = "db"))]
-#[should_panic]
-#[allow(deprecated)]
-fn dd_panics() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareDword);
-	instr.set_declare_dword_value(0, 0);
-}
-
-#[test]
-#[cfg(not(feature = "db"))]
-#[should_panic]
-#[allow(deprecated)]
-fn dq_panics() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareQword);
-	instr.set_declare_qword_value(0, 0);
-}
-
-#[test]
-#[cfg(not(feature = "db"))]
-fn db_fails() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareByte);
-	assert!(instr.try_set_declare_byte_value(0, 0).is_err());
-}
-
-#[test]
-#[cfg(not(feature = "db"))]
-fn dw_fails() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareWord);
-	assert!(instr.try_set_declare_word_value(0, 0).is_err());
-}
-
-#[test]
-#[cfg(not(feature = "db"))]
-fn dd_fails() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareDword);
-	assert!(instr.try_set_declare_dword_value(0, 0).is_err());
-}
-
-#[test]
-#[cfg(not(feature = "db"))]
-fn dq_fails() {
-	let mut instr = Instruction::default();
-	instr.set_code(Code::DeclareQword);
-	assert!(instr.try_set_declare_qword_value(0, 0).is_err());
-}
-
-#[test]
-#[cfg(feature = "db")]
 fn encoder_ignores_prefixes_if_declare_data() {
-	#[allow(deprecated)]
-	{
-		let instr = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
-		verify(&instr);
+	let instr = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
+	verify(&instr);
 
-		let instr = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
-		verify(&instr);
+	let instr = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
+	verify(&instr);
 
-		let instr = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
-		verify(&instr);
+	let instr = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
+	verify(&instr);
 
-		let instr = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
-		verify(&instr);
-	}
+	let instr = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
+	verify(&instr);
 
 	let instr = Instruction::try_with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08)
 		.unwrap();
@@ -130,7 +54,6 @@ fn encoder_ignores_prefixes_if_declare_data() {
 	}
 }
 
-#[cfg(feature = "db")]
 fn get_data(instr: &Instruction) -> Vec<u8> {
 	let length = instr.declare_data_len()
 		* match instr.code() {
@@ -148,8 +71,6 @@ fn get_data(instr: &Instruction) -> Vec<u8> {
 }
 
 #[test]
-#[cfg(feature = "db")]
-#[allow(deprecated)]
 fn declare_data_byte_order_is_same() {
 	let data = vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08];
 	let db = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
@@ -167,7 +88,6 @@ fn declare_data_byte_order_is_same() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_declare_data_byte_order_is_same() {
 	let data = vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08];
 	let db = Instruction::try_with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08)
@@ -186,7 +106,6 @@ fn try_declare_data_byte_order_is_same() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn declare_byte_can_get_set() {
 	let mut db = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
@@ -225,7 +144,6 @@ fn declare_byte_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_declare_byte_can_get_set() {
 	let mut db =
 		Instruction::try_with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08)
@@ -265,7 +183,6 @@ fn try_declare_byte_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn declare_word_can_get_set() {
 	let mut dw = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
@@ -288,7 +205,6 @@ fn declare_word_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_declare_word_can_get_set() {
 	let mut dw = Instruction::try_with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08).unwrap();
 	dw.try_set_declare_word_value(0, 0xE2C5).unwrap();
@@ -310,7 +226,6 @@ fn try_declare_word_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn declare_dword_can_get_set() {
 	let mut dd = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
@@ -325,7 +240,6 @@ fn declare_dword_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_declare_dword_can_get_set() {
 	let mut dd = Instruction::try_with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08).unwrap();
 	dd.try_set_declare_dword_value(0, 0xE2C5_FAB4).unwrap();
@@ -339,7 +253,6 @@ fn try_declare_dword_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn declare_qword_can_get_set() {
 	let mut dq = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
@@ -350,7 +263,6 @@ fn declare_qword_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_declare_qword_can_get_set() {
 	let mut dq = Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap();
 	dq.try_set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4).unwrap();
@@ -360,7 +272,6 @@ fn try_declare_qword_can_get_set() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn declare_data_does_not_use_other_properties() {
 	let data = [0xFFu8; 16];
 
@@ -410,8 +321,6 @@ fn declare_data_does_not_use_other_properties() {
 }
 
 #[test]
-#[cfg(feature = "db")]
-#[allow(deprecated)]
 fn with_declare_byte() {
 	let instr = Instruction::with_declare_byte_1(0x77);
 	assert_eq!(instr.code(), Code::DeclareByte);
@@ -495,7 +404,6 @@ fn with_declare_byte() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_byte() {
 	let instr = Instruction::try_with_declare_byte_1(0x77).unwrap();
 	assert_eq!(instr.code(), Code::DeclareByte);
@@ -581,8 +489,6 @@ fn try_with_declare_byte() {
 }
 
 #[test]
-#[cfg(feature = "db")]
-#[allow(deprecated)]
 fn with_declare_word() {
 	let instr = Instruction::with_declare_word_1(0x77A9);
 	assert_eq!(instr.code(), Code::DeclareWord);
@@ -626,7 +532,6 @@ fn with_declare_word() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_word() {
 	let instr = Instruction::try_with_declare_word_1(0x77A9).unwrap();
 	assert_eq!(instr.code(), Code::DeclareWord);
@@ -670,8 +575,6 @@ fn try_with_declare_word() {
 }
 
 #[test]
-#[cfg(feature = "db")]
-#[allow(deprecated)]
 fn with_declare_dword() {
 	let instr = Instruction::with_declare_dword_1(0x77A9_CE9D);
 	assert_eq!(instr.code(), Code::DeclareDword);
@@ -695,7 +598,6 @@ fn with_declare_dword() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_dword() {
 	let instr = Instruction::try_with_declare_dword_1(0x77A9_CE9D).unwrap();
 	assert_eq!(instr.code(), Code::DeclareDword);
@@ -719,8 +621,6 @@ fn try_with_declare_dword() {
 }
 
 #[test]
-#[cfg(feature = "db")]
-#[allow(deprecated)]
 fn with_declare_qword() {
 	let instr = Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C);
 	assert_eq!(instr.code(), Code::DeclareQword);
@@ -734,7 +634,6 @@ fn with_declare_qword() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_qword() {
 	let instr = Instruction::try_with_declare_qword_1(0x77A9_CE9D_5505_426C).unwrap();
 	assert_eq!(instr.code(), Code::DeclareQword);
@@ -748,7 +647,6 @@ fn try_with_declare_qword() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_byte_slice() {
 	#[rustfmt::skip]
@@ -777,7 +675,6 @@ fn with_declare_byte_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_byte_slice() {
 	#[rustfmt::skip]
 	let tests = vec![
@@ -805,7 +702,6 @@ fn try_with_declare_byte_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_word_slice() {
 	#[rustfmt::skip]
@@ -826,7 +722,6 @@ fn with_declare_word_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_word_slice() {
 	#[rustfmt::skip]
 	let tests = vec![
@@ -846,7 +741,6 @@ fn try_with_declare_word_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_dword_slice() {
 	#[rustfmt::skip]
@@ -863,7 +757,6 @@ fn with_declare_dword_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_dword_slice() {
 	#[rustfmt::skip]
 	let tests = vec![
@@ -879,7 +772,6 @@ fn try_with_declare_dword_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_qword_slice() {
 	#[rustfmt::skip]
@@ -894,7 +786,6 @@ fn with_declare_qword_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_qword_slice() {
 	#[rustfmt::skip]
 	let tests = vec![
@@ -908,7 +799,6 @@ fn try_with_declare_qword_slice() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_word_slice2() {
 	#[rustfmt::skip]
@@ -929,7 +819,6 @@ fn with_declare_word_slice2() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_word_slice2() {
 	#[rustfmt::skip]
 	let tests = vec![
@@ -949,7 +838,6 @@ fn try_with_declare_word_slice2() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_dword_slice2() {
 	#[rustfmt::skip]
@@ -966,7 +854,6 @@ fn with_declare_dword_slice2() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_dword_slice2() {
 	#[rustfmt::skip]
 	let tests = vec![
@@ -982,7 +869,6 @@ fn try_with_declare_dword_slice2() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_qword_slice2() {
 	#[rustfmt::skip]
@@ -997,7 +883,6 @@ fn with_declare_qword_slice2() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn try_with_declare_qword_slice2() {
 	#[rustfmt::skip]
 	let tests = vec![
@@ -1908,7 +1793,6 @@ fn with_test_core(tests: Vec<(u32, &str, u32, Instruction)>) {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn with_declare_xxx_panics_if_invalid_length() {
 	#[rustfmt::skip]
@@ -1975,7 +1859,6 @@ fn with_declare_xxx_panics_if_invalid_length() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn with_declare_xxx_fails_if_invalid_length() {
 	#[rustfmt::skip]
 	let tests: Vec<fn() -> Result<Instruction, IcedError>> = vec![
@@ -2286,7 +2169,6 @@ fn get_set_register_fails_if_invalid_input() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn set_declare_xxx_value_panics_if_invalid_input() {
 	{
@@ -2352,7 +2234,6 @@ fn set_declare_xxx_value_panics_if_invalid_input() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn set_declare_xxx_value_fails_if_invalid_input() {
 	{
 		let mut instr = Instruction::try_with_declare_byte(&[0; 1]).unwrap();
@@ -2393,7 +2274,6 @@ fn set_declare_xxx_value_fails_if_invalid_input() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 #[allow(deprecated)]
 fn get_declare_xxx_value_panics_if_invalid_input() {
 	{
@@ -2427,7 +2307,6 @@ fn get_declare_xxx_value_panics_if_invalid_input() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn get_declare_xxx_value_fails_if_invalid_input() {
 	{
 		let instr = Instruction::try_with_declare_byte(&[0; 1]).unwrap();
@@ -3195,7 +3074,6 @@ fn try_create_imm_works() {
 }
 
 #[test]
-#[cfg(feature = "db")]
 fn encode_invalid_len_dw_dd_dq() {
 	let mut encoder = Encoder::new(64);
 

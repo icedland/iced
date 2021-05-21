@@ -70,9 +70,6 @@ lazy_static! {
 			("9B DF E1", c16(Instruction::with_reg(Code::Fstdw_AX, Register::AX))),
 			("9B DF E2", c16(Instruction::with_reg(Code::Fstsg_AX, Register::AX))),
 		];
-		#[cfg(not(feature = "db"))]
-		let array_db: [(&'static str, Instruction); 0] = [];
-		#[cfg(feature = "db")]
 		#[rustfmt::skip]
 		let array_db = [
 			("77", c16(Instruction::try_with_declare_byte_1(0x77).unwrap())),
@@ -136,9 +133,6 @@ lazy_static! {
 			("9B DF E1", c32(Instruction::with_reg(Code::Fstdw_AX, Register::AX))),
 			("9B DF E2", c32(Instruction::with_reg(Code::Fstsg_AX, Register::AX))),
 		];
-		#[cfg(not(feature = "db"))]
-		let array_db: [(&'static str, Instruction); 0] = [];
-		#[cfg(feature = "db")]
 		#[rustfmt::skip]
 		let array_db = [
 			("77", c32(Instruction::try_with_declare_byte_1(0x77).unwrap())),
@@ -199,9 +193,6 @@ lazy_static! {
 			("9B 64 DD 38", c64(Instruction::with_mem(Code::Fstsw_m2byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::FS)))),
 			("9B DF E0", c64(Instruction::with_reg(Code::Fstsw_AX, Register::AX))),
 		];
-		#[cfg(not(feature = "db"))]
-		let array_db: [(&'static str, Instruction); 0] = [];
-		#[cfg(feature = "db")]
 		#[rustfmt::skip]
 		let array_db = [
 			("77", c64(Instruction::try_with_declare_byte_1(0x77).unwrap())),

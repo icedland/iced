@@ -87,7 +87,7 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 		}
 	}
 
-	#[cfg(all(feature = "encoder", feature = "db"))]
+	#[cfg(feature = "encoder")]
 	{
 		let db = Instruction::try_with_declare_byte(&[0; 8]).unwrap();
 		#[allow(deprecated)]
@@ -122,7 +122,7 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 		}
 	}
 
-	#[cfg(all(feature = "encoder", feature = "db"))]
+	#[cfg(feature = "encoder")]
 	{
 		let dw = Instruction::try_with_declare_word(&[0; 4]).unwrap();
 		#[allow(deprecated)]
@@ -157,7 +157,7 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 		}
 	}
 
-	#[cfg(all(feature = "encoder", feature = "db"))]
+	#[cfg(feature = "encoder")]
 	{
 		let dd = Instruction::try_with_declare_dword(&[8; 2]).unwrap();
 		#[allow(deprecated)]
@@ -192,7 +192,7 @@ pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(
 		}
 	}
 
-	#[cfg(all(feature = "encoder", feature = "db"))]
+	#[cfg(feature = "encoder")]
 	{
 		let dq = Instruction::try_with_declare_qword(&[0; 1]).unwrap();
 		#[allow(deprecated)]

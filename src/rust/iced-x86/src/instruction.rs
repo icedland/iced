@@ -756,6 +756,7 @@ impl Instruction {
 	/// * `new_value`: Segment register prefix
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_segment_prefix(&mut self, new_value: Register) {
+		debug_assert!(new_value == Register::None || (Register::ES <= new_value && new_value <= Register::GS));
 		let enc_value =
 			if new_value == Register::None { 0 } else { (((new_value as u32) - (Register::ES as u32)) + 1) & InstrFlags1::SEGMENT_PREFIX_MASK };
 		self.flags1 = (self.flags1 & !(InstrFlags1::SEGMENT_PREFIX_MASK << InstrFlags1::SEGMENT_PREFIX_SHIFT))
@@ -1896,6 +1897,7 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn set_op_mask(&mut self, new_value: Register) {
+		debug_assert!(new_value == Register::None || (Register::K1 <= new_value && new_value <= Register::K7));
 		let r = if new_value == Register::None { 0 } else { (new_value as u32 - Register::K0 as u32) & InstrFlags1::OP_MASK_MASK };
 		self.flags1 = (self.flags1 & !(InstrFlags1::OP_MASK_MASK << InstrFlags1::OP_MASK_SHIFT)) | (r << InstrFlags1::OP_MASK_SHIFT);
 	}
@@ -2009,6 +2011,7 @@ impl Instruction {
 	/// * `new_value`: New value: `db`: 1-16; `dw`: 1-8; `dd`: 1-4; `dq`: 1-2
 	#[inline]
 	pub fn set_declare_data_len(&mut self, new_value: usize) {
+		debug_assert!(1 <= new_value && new_value <= 0x10);
 		self.flags1 = (self.flags1 & !(InstrFlags1::DATA_LENGTH_MASK << InstrFlags1::DATA_LENGTH_SHIFT))
 			| ((((new_value as u32) - 1) & InstrFlags1::DATA_LENGTH_MASK) << InstrFlags1::DATA_LENGTH_SHIFT);
 	}
@@ -2023,7 +2026,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2046,7 +2048,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2067,7 +2068,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2090,7 +2090,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2098,30 +2097,26 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_byte_value(&mut self, index: usize, new_value: u8) -> Result<(), IcedError> {
-		if cfg!(feature = "db") {
-			match index {
-				0 => self.regs[0] = Register::from_u8(new_value),
-				1 => self.regs[1] = Register::from_u8(new_value),
-				2 => self.regs[2] = Register::from_u8(new_value),
-				3 => self.regs[3] = Register::from_u8(new_value),
-				4 => self.immediate = (self.immediate & 0xFFFF_FF00) | new_value as u32,
-				5 => self.immediate = (self.immediate & 0xFFFF_00FF) | ((new_value as u32) << 8),
-				6 => self.immediate = (self.immediate & 0xFF00_FFFF) | ((new_value as u32) << 16),
-				7 => self.immediate = (self.immediate & 0x00FF_FFFF) | ((new_value as u32) << 24),
-				8 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00) | new_value as u32,
-				9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u32) << 8),
-				10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u32) << 16),
-				11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u32) << 24),
-				12 => self.mem_base_reg = Register::from_u8(new_value),
-				13 => self.mem_index_reg = Register::from_u8(new_value),
-				14 => self.displ_size = new_value,
-				15 => self.db = new_value,
-				_ => return Err(IcedError::new("Invalid index")),
-			}
-			Ok(())
-		} else {
-			Err(IcedError::new("`db` feature wasn't enabled"))
+		match index {
+			0 => self.regs[0] = Register::from_u8(new_value),
+			1 => self.regs[1] = Register::from_u8(new_value),
+			2 => self.regs[2] = Register::from_u8(new_value),
+			3 => self.regs[3] = Register::from_u8(new_value),
+			4 => self.immediate = (self.immediate & 0xFFFF_FF00) | new_value as u32,
+			5 => self.immediate = (self.immediate & 0xFFFF_00FF) | ((new_value as u32) << 8),
+			6 => self.immediate = (self.immediate & 0xFF00_FFFF) | ((new_value as u32) << 16),
+			7 => self.immediate = (self.immediate & 0x00FF_FFFF) | ((new_value as u32) << 24),
+			8 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00) | new_value as u32,
+			9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u32) << 8),
+			10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u32) << 16),
+			11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u32) << 24),
+			12 => self.mem_base_reg = Register::from_u8(new_value),
+			13 => self.mem_index_reg = Register::from_u8(new_value),
+			14 => self.displ_size = new_value,
+			15 => self.db = new_value,
+			_ => return Err(IcedError::new("Invalid index")),
 		}
+		Ok(())
 	}
 
 	/// Gets a `db` value, see also [`declare_data_len()`].
@@ -2193,7 +2188,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2216,7 +2210,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2237,7 +2230,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2260,7 +2252,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2268,34 +2259,30 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_word_value(&mut self, index: usize, new_value: u16) -> Result<(), IcedError> {
-		if cfg!(feature = "db") {
-			match index {
-				0 => {
-					self.regs[0] = Register::from_u8(new_value as u8);
-					self.regs[1] = Register::from_u8((new_value >> 8) as u8);
-				}
-				1 => {
-					self.regs[2] = Register::from_u8(new_value as u8);
-					self.regs[3] = Register::from_u8((new_value >> 8) as u8);
-				}
-				2 => self.immediate = (self.immediate & 0xFFFF_0000) | new_value as u32,
-				3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
-				4 => self.mem_displ = (self.mem_displ & 0xFFFF_0000) | new_value as u32,
-				5 => self.mem_displ = self.mem_displ as u16 as u32 | (new_value as u32) << 16,
-				6 => {
-					self.mem_base_reg = Register::from_u8(new_value as u8);
-					self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
-				}
-				7 => {
-					self.displ_size = new_value as u8;
-					self.db = (new_value >> 8) as u8;
-				}
-				_ => return Err(IcedError::new("Invalid index")),
+		match index {
+			0 => {
+				self.regs[0] = Register::from_u8(new_value as u8);
+				self.regs[1] = Register::from_u8((new_value >> 8) as u8);
 			}
-			Ok(())
-		} else {
-			Err(IcedError::new("`db` feature wasn't enabled"))
+			1 => {
+				self.regs[2] = Register::from_u8(new_value as u8);
+				self.regs[3] = Register::from_u8((new_value >> 8) as u8);
+			}
+			2 => self.immediate = (self.immediate & 0xFFFF_0000) | new_value as u32,
+			3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
+			4 => self.mem_displ = (self.mem_displ & 0xFFFF_0000) | new_value as u32,
+			5 => self.mem_displ = self.mem_displ as u16 as u32 | (new_value as u32) << 16,
+			6 => {
+				self.mem_base_reg = Register::from_u8(new_value as u8);
+				self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
+			}
+			7 => {
+				self.displ_size = new_value as u8;
+				self.db = (new_value >> 8) as u8;
+			}
+			_ => return Err(IcedError::new("Invalid index")),
 		}
+		Ok(())
 	}
 
 	/// Gets a `dw` value, see also [`declare_data_len()`].
@@ -2359,7 +2346,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2382,7 +2368,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2403,7 +2388,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2426,7 +2410,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2434,28 +2417,24 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_dword_value(&mut self, index: usize, new_value: u32) -> Result<(), IcedError> {
-		if cfg!(feature = "db") {
-			match index {
-				0 => {
-					self.regs[0] = Register::from_u8(new_value as u8);
-					self.regs[1] = Register::from_u8((new_value >> 8) as u8);
-					self.regs[2] = Register::from_u8((new_value >> 16) as u8);
-					self.regs[3] = Register::from_u8((new_value >> 24) as u8);
-				}
-				1 => self.immediate = new_value,
-				2 => self.mem_displ = new_value,
-				3 => {
-					self.mem_base_reg = Register::from_u8(new_value as u8);
-					self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
-					self.displ_size = (new_value >> 16) as u8;
-					self.db = (new_value >> 24) as u8;
-				}
-				_ => return Err(IcedError::new("Invalid index")),
+		match index {
+			0 => {
+				self.regs[0] = Register::from_u8(new_value as u8);
+				self.regs[1] = Register::from_u8((new_value >> 8) as u8);
+				self.regs[2] = Register::from_u8((new_value >> 16) as u8);
+				self.regs[3] = Register::from_u8((new_value >> 24) as u8);
 			}
-			Ok(())
-		} else {
-			Err(IcedError::new("`db` feature wasn't enabled"))
+			1 => self.immediate = new_value,
+			2 => self.mem_displ = new_value,
+			3 => {
+				self.mem_base_reg = Register::from_u8(new_value as u8);
+				self.mem_index_reg = Register::from_u8((new_value >> 8) as u8);
+				self.displ_size = (new_value >> 16) as u8;
+				self.db = (new_value >> 24) as u8;
+			}
+			_ => return Err(IcedError::new("Invalid index")),
 		}
+		Ok(())
 	}
 
 	/// Gets a `dd` value, see also [`declare_data_len()`].
@@ -2515,7 +2494,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2538,7 +2516,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2559,7 +2536,6 @@ impl Instruction {
 	/// # Panics
 	///
 	/// - Panics if `index` is invalid
-	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2582,7 +2558,6 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if `index` is invalid
-	/// - Fails if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2590,28 +2565,24 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_set_declare_qword_value(&mut self, index: usize, new_value: u64) -> Result<(), IcedError> {
-		if cfg!(feature = "db") {
-			match index {
-				0 => {
-					self.regs[0] = Register::from_u8(new_value as u8);
-					self.regs[1] = Register::from_u8((new_value >> 8) as u8);
-					self.regs[2] = Register::from_u8((new_value >> 16) as u8);
-					self.regs[3] = Register::from_u8((new_value >> 24) as u8);
-					self.immediate = (new_value >> 32) as u32;
-				}
-				1 => {
-					self.mem_displ = new_value as u32;
-					self.mem_base_reg = Register::from_u8((new_value >> 32) as u8);
-					self.mem_index_reg = Register::from_u8((new_value >> 40) as u8);
-					self.displ_size = (new_value >> 48) as u8;
-					self.db = (new_value >> 56) as u8;
-				}
-				_ => return Err(IcedError::new("Invalid index")),
+		match index {
+			0 => {
+				self.regs[0] = Register::from_u8(new_value as u8);
+				self.regs[1] = Register::from_u8((new_value >> 8) as u8);
+				self.regs[2] = Register::from_u8((new_value >> 16) as u8);
+				self.regs[3] = Register::from_u8((new_value >> 24) as u8);
+				self.immediate = (new_value >> 32) as u32;
 			}
-			Ok(())
-		} else {
-			Err(IcedError::new("`db` feature wasn't enabled"))
+			1 => {
+				self.mem_displ = new_value as u32;
+				self.mem_base_reg = Register::from_u8((new_value >> 32) as u8);
+				self.mem_index_reg = Register::from_u8((new_value >> 40) as u8);
+				self.displ_size = (new_value >> 48) as u8;
+				self.db = (new_value >> 56) as u8;
+			}
+			_ => return Err(IcedError::new("Invalid index")),
 		}
+		Ok(())
 	}
 
 	/// Gets a `dq` value, see also [`declare_data_len()`].
@@ -8532,11 +8503,12 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_1(b0: u8) -> Result<Self, IcedError> {
@@ -8552,17 +8524,12 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_1() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_1(b0: u8) -> Self {
 		Instruction::try_with_declare_byte_1(b0).unwrap()
@@ -8572,12 +8539,13 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_2(b0: u8, b1: u8) -> Result<Self, IcedError> {
@@ -8594,18 +8562,13 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_2() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_2(b0: u8, b1: u8) -> Self {
 		Instruction::try_with_declare_byte_2(b0, b1).unwrap()
@@ -8615,13 +8578,14 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Result<Self, IcedError> {
@@ -8639,19 +8603,14 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_3() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Self {
 		Instruction::try_with_declare_byte_3(b0, b1, b2).unwrap()
@@ -8661,7 +8620,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -8669,6 +8628,7 @@ impl Instruction {
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Result<Self, IcedError> {
@@ -8687,20 +8647,15 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_4() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Self {
 		Instruction::try_with_declare_byte_4(b0, b1, b2, b3).unwrap()
@@ -8710,7 +8665,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -8719,6 +8674,7 @@ impl Instruction {
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Result<Self, IcedError> {
@@ -8738,10 +8694,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -8749,10 +8701,9 @@ impl Instruction {
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_5() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Self {
 		Instruction::try_with_declare_byte_5(b0, b1, b2, b3, b4).unwrap()
@@ -8762,7 +8713,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -8772,6 +8723,7 @@ impl Instruction {
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Result<Self, IcedError> {
@@ -8792,10 +8744,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -8804,10 +8752,9 @@ impl Instruction {
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_6() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Self {
 		Instruction::try_with_declare_byte_6(b0, b1, b2, b3, b4, b5).unwrap()
@@ -8817,7 +8764,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -8828,6 +8775,7 @@ impl Instruction {
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Result<Self, IcedError> {
@@ -8849,10 +8797,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -8862,10 +8806,9 @@ impl Instruction {
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_7() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Self {
 		Instruction::try_with_declare_byte_7(b0, b1, b2, b3, b4, b5, b6).unwrap()
@@ -8875,7 +8818,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -8887,6 +8830,7 @@ impl Instruction {
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Result<Self, IcedError> {
@@ -8909,10 +8853,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -8923,10 +8863,9 @@ impl Instruction {
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_8() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
 		Instruction::try_with_declare_byte_8(b0, b1, b2, b3, b4, b5, b6, b7).unwrap()
@@ -8936,7 +8875,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -8949,6 +8888,7 @@ impl Instruction {
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Result<Self, IcedError> {
@@ -8972,10 +8912,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -8987,10 +8923,9 @@ impl Instruction {
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_9() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
 		Instruction::try_with_declare_byte_9(b0, b1, b2, b3, b4, b5, b6, b7, b8).unwrap()
@@ -9000,7 +8935,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9014,6 +8949,7 @@ impl Instruction {
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Result<Self, IcedError> {
@@ -9038,10 +8974,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -9054,10 +8986,9 @@ impl Instruction {
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_10() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
 		Instruction::try_with_declare_byte_10(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9).unwrap()
@@ -9067,7 +8998,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9082,6 +9013,7 @@ impl Instruction {
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Result<Self, IcedError> {
@@ -9107,10 +9039,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -9124,10 +9052,9 @@ impl Instruction {
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_11() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
 		Instruction::try_with_declare_byte_11(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10).unwrap()
@@ -9137,7 +9064,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9153,6 +9080,7 @@ impl Instruction {
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Result<Self, IcedError> {
@@ -9179,10 +9107,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -9197,10 +9121,9 @@ impl Instruction {
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_12() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
 		Instruction::try_with_declare_byte_12(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11).unwrap()
@@ -9210,7 +9133,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9227,6 +9150,7 @@ impl Instruction {
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Result<Self, IcedError> {
@@ -9254,10 +9178,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -9273,10 +9193,9 @@ impl Instruction {
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_13() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
 		Instruction::try_with_declare_byte_13(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12).unwrap()
@@ -9286,7 +9205,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9304,6 +9223,7 @@ impl Instruction {
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Result<Self, IcedError> {
@@ -9332,10 +9252,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -9352,10 +9268,9 @@ impl Instruction {
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_14() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
 		Instruction::try_with_declare_byte_14(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13).unwrap()
@@ -9365,7 +9280,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9384,6 +9299,7 @@ impl Instruction {
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Result<Self, IcedError> {
@@ -9413,10 +9329,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -9434,10 +9346,9 @@ impl Instruction {
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_15() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
 		Instruction::try_with_declare_byte_15(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14).unwrap()
@@ -9447,7 +9358,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9467,6 +9378,7 @@ impl Instruction {
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
 	/// * `b15`: Byte 15
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Result<Self, IcedError> {
@@ -9497,10 +9409,6 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -9519,10 +9427,9 @@ impl Instruction {
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
 	/// * `b15`: Byte 15
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_byte_16() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
 		Instruction::try_with_declare_byte_16(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15).unwrap()
@@ -9532,8 +9439,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// - Fails if `data.len()` is not 1-16
-	/// - Fails if `db` feature wasn't enabled
+	/// Fails if `data.len()` is not 1-16
 	///
 	/// # Arguments
 	///
@@ -9561,8 +9467,7 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// - Panics if `data.len()` is not 1-16
-	/// - Panics if `db` feature wasn't enabled
+	/// Panics if `data.len()` is not 1-16
 	///
 	/// # Arguments
 	///
@@ -9580,11 +9485,12 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_1(w0: u16) -> Result<Self, IcedError> {
@@ -9600,17 +9506,12 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_1() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_1(w0: u16) -> Self {
 		Instruction::try_with_declare_word_1(w0).unwrap()
@@ -9620,12 +9521,13 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_2(w0: u16, w1: u16) -> Result<Self, IcedError> {
@@ -9642,18 +9544,13 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_2() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_2(w0: u16, w1: u16) -> Self {
 		Instruction::try_with_declare_word_2(w0, w1).unwrap()
@@ -9663,13 +9560,14 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Result<Self, IcedError> {
@@ -9687,19 +9585,14 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_3() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Self {
 		Instruction::try_with_declare_word_3(w0, w1, w2).unwrap()
@@ -9709,7 +9602,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9717,6 +9610,7 @@ impl Instruction {
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Result<Self, IcedError> {
@@ -9735,20 +9629,15 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_4() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Self {
 		Instruction::try_with_declare_word_4(w0, w1, w2, w3).unwrap()
@@ -9758,7 +9647,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9767,6 +9656,7 @@ impl Instruction {
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Result<Self, IcedError> {
@@ -9786,10 +9676,6 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
@@ -9797,10 +9683,9 @@ impl Instruction {
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_5() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Self {
 		Instruction::try_with_declare_word_5(w0, w1, w2, w3, w4).unwrap()
@@ -9810,7 +9695,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9820,6 +9705,7 @@ impl Instruction {
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Result<Self, IcedError> {
@@ -9840,10 +9726,6 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
@@ -9852,10 +9734,9 @@ impl Instruction {
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_6() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Self {
 		Instruction::try_with_declare_word_6(w0, w1, w2, w3, w4, w5).unwrap()
@@ -9865,7 +9746,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9876,6 +9757,7 @@ impl Instruction {
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Result<Self, IcedError> {
@@ -9897,10 +9779,6 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
@@ -9910,10 +9788,9 @@ impl Instruction {
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_7() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Self {
 		Instruction::try_with_declare_word_7(w0, w1, w2, w3, w4, w5, w6).unwrap()
@@ -9923,7 +9800,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -9935,6 +9812,7 @@ impl Instruction {
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
 	/// * `w7`: Word 7
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Result<Self, IcedError> {
@@ -9957,10 +9835,6 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
@@ -9971,10 +9845,9 @@ impl Instruction {
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
 	/// * `w7`: Word 7
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_word_8() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
 		Instruction::try_with_declare_word_8(w0, w1, w2, w3, w4, w5, w6, w7).unwrap()
@@ -9984,8 +9857,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// - Fails if `data.len()` is not 2-16 or not a multiple of 2
-	/// - Fails if `db` feature wasn't enabled
+	/// Fails if `data.len()` is not 2-16 or not a multiple of 2
 	///
 	/// # Arguments
 	///
@@ -10015,8 +9887,7 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// - Panics if `data.len()` is not 2-16 or not a multiple of 2
-	/// - Panics if `db` feature wasn't enabled
+	/// Panics if `data.len()` is not 2-16 or not a multiple of 2
 	///
 	/// # Arguments
 	///
@@ -10034,8 +9905,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// - Fails if `data.len()` is not 1-8
-	/// - Fails if `db` feature wasn't enabled
+	/// Fails if `data.len()` is not 1-8
 	///
 	/// # Arguments
 	///
@@ -10063,8 +9933,7 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// - Panics if `data.len()` is not 1-8
-	/// - Panics if `db` feature wasn't enabled
+	/// Panics if `data.len()` is not 1-8
 	///
 	/// # Arguments
 	///
@@ -10082,11 +9951,12 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_1(d0: u32) -> Result<Self, IcedError> {
@@ -10102,17 +9972,12 @@ impl Instruction {
 
 	/// Creates a `dd`/`.int` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_1() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_1(d0: u32) -> Self {
 		Instruction::try_with_declare_dword_1(d0).unwrap()
@@ -10122,12 +9987,13 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_2(d0: u32, d1: u32) -> Result<Self, IcedError> {
@@ -10144,18 +10010,13 @@ impl Instruction {
 
 	/// Creates a `dd`/`.int` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_2() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_2(d0: u32, d1: u32) -> Self {
 		Instruction::try_with_declare_dword_2(d0, d1).unwrap()
@@ -10165,13 +10026,14 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Result<Self, IcedError> {
@@ -10189,19 +10051,14 @@ impl Instruction {
 
 	/// Creates a `dd`/`.int` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_3() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Self {
 		Instruction::try_with_declare_dword_3(d0, d1, d2).unwrap()
@@ -10211,7 +10068,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
@@ -10219,6 +10076,7 @@ impl Instruction {
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
 	/// * `d3`: Dword 3
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Result<Self, IcedError> {
@@ -10237,20 +10095,15 @@ impl Instruction {
 
 	/// Creates a `dd`/`.int` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
 	/// * `d3`: Dword 3
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_dword_4() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Self {
 		Instruction::try_with_declare_dword_4(d0, d1, d2, d3).unwrap()
@@ -10260,8 +10113,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// - Fails if `data.len()` is not 4-16 or not a multiple of 4
-	/// - Fails if `db` feature wasn't enabled
+	/// Fails if `data.len()` is not 4-16 or not a multiple of 4
 	///
 	/// # Arguments
 	///
@@ -10291,8 +10143,7 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// - Panics if `data.len()` is not 4-16 or not a multiple of 4
-	/// - Panics if `db` feature wasn't enabled
+	/// Panics if `data.len()` is not 4-16 or not a multiple of 4
 	///
 	/// # Arguments
 	///
@@ -10310,8 +10161,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// - Fails if `data.len()` is not 1-4
-	/// - Fails if `db` feature wasn't enabled
+	/// Fails if `data.len()` is not 1-4
 	///
 	/// # Arguments
 	///
@@ -10339,8 +10189,7 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// - Panics if `data.len()` is not 1-4
-	/// - Panics if `db` feature wasn't enabled
+	/// Panics if `data.len()` is not 1-4
 	///
 	/// # Arguments
 	///
@@ -10358,11 +10207,12 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `q0`: Qword 0
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_qword_1(q0: u64) -> Result<Self, IcedError> {
@@ -10378,17 +10228,12 @@ impl Instruction {
 
 	/// Creates a `dq`/`.quad` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `q0`: Qword 0
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_1() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_qword_1(q0: u64) -> Self {
 		Instruction::try_with_declare_qword_1(q0).unwrap()
@@ -10398,12 +10243,13 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// Fails if `db` feature wasn't enabled
+	/// Fails NEVER!
 	///
 	/// # Arguments
 	///
 	/// * `q0`: Qword 0
 	/// * `q1`: Qword 1
+	#[doc(hidden)]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn try_with_declare_qword_2(q0: u64, q1: u64) -> Result<Self, IcedError> {
@@ -10420,18 +10266,13 @@ impl Instruction {
 
 	/// Creates a `dq`/`.quad` asm directive
 	///
-	/// # Panics
-	///
-	/// Panics if `db` feature wasn't enabled
-	///
 	/// # Arguments
 	///
 	/// * `q0`: Qword 0
 	/// * `q1`: Qword 1
-	#[deprecated(since = "1.10.0", note = "This method can panic, use try_with_declare_qword_2() instead")]
 	#[allow(clippy::unwrap_used)]
 	#[must_use]
-	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
 	#[rustfmt::skip]
 	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Self {
 		Instruction::try_with_declare_qword_2(q0, q1).unwrap()
@@ -10441,8 +10282,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// - Fails if `data.len()` is not 8-16 or not a multiple of 8
-	/// - Fails if `db` feature wasn't enabled
+	/// Fails if `data.len()` is not 8-16 or not a multiple of 8
 	///
 	/// # Arguments
 	///
@@ -10473,8 +10313,7 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// - Panics if `data.len()` is not 8-16 or not a multiple of 8
-	/// - Panics if `db` feature wasn't enabled
+	/// Panics if `data.len()` is not 8-16 or not a multiple of 8
 	///
 	/// # Arguments
 	///
@@ -10492,8 +10331,7 @@ impl Instruction {
 	///
 	/// # Errors
 	///
-	/// - Fails if `data.len()` is not 1-2
-	/// - Fails if `db` feature wasn't enabled
+	/// Fails if `data.len()` is not 1-2
 	///
 	/// # Arguments
 	///
@@ -10521,8 +10359,7 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// - Panics if `data.len()` is not 1-2
-	/// - Panics if `db` feature wasn't enabled
+	/// Panics if `data.len()` is not 1-2
 	///
 	/// # Arguments
 	///

@@ -78,11 +78,10 @@ pub trait SpecializedFormatterTraitOptions {
 	/// For fastest code, this should be *disabled*, not enabled.
 	const ENABLE_SYMBOL_RESOLVER: bool = false;
 
-	/// Enables support for formatting `db`, `dw`, `dd`, `dq`. This is enabled if
-	/// the `db` feature is enabled (unsafe, read the docs).
+	/// Enables support for formatting `db`, `dw`, `dd`, `dq`.
 	///
 	/// For fastest code, this should be *disabled*, not enabled.
-	const ENABLE_DB_DW_DD_DQ: bool = cfg!(feature = "db");
+	const ENABLE_DB_DW_DD_DQ: bool = false;
 
 	/// The formatter makes sure that the `output` string has at least 300 bytes left at
 	/// the start of `format()` and also after appending symbols to `output`. This is enough

@@ -18,6 +18,11 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// Set to `true` so symbol resolvers can be used
 	const ENABLE_SYMBOL_RESOLVER: bool = true;
 
+	/// Enables support for formatting `db`, `dw`, `dd`, `dq`.
+	///
+	/// For fastest code, this should be *disabled*, not enabled.
+	const ENABLE_DB_DW_DD_DQ: bool = true;
+
 	/// Add a space after the operand separator
 	///
 	/// Default | Value | Example

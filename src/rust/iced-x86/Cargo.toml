@@ -25,6 +25,7 @@ intel = []
 masm = []
 nasm = []
 fast_fmt = []
+# Not used anymore
 db = []
 std = ["lazy_static"]
 # no_std feature is needed since std and no_std require different deps

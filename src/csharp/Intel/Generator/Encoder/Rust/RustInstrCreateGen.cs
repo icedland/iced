@@ -128,9 +128,10 @@ namespace Generator.Encoder.Rust {
 			CanFail			= 1,
 			NoFooter		= 2,
 			TrivialCasts	= 4,
+			CanNotFail		= 8,
 		}
 		void GenerateTryMethods(FileWriter writer, CreateMethod method, int opCount, GenTryFlags flags, Action<GenerateTryMethodContext, TryMethodKind> genBody, Action<TryMethodKind>? writeError, string? methodName = null, RustDeprecatedInfo? deprecatedInfo = null) {
-			if (((flags & GenTryFlags.CanFail) != 0) != (writeError is not null))
+			if (((flags & (GenTryFlags.CanFail | GenTryFlags.CanNotFail)) != 0) != (writeError is not null))
 				throw new InvalidOperationException();
 			methodName ??= gen.GetCreateName(method, genNames);
 			var ctx = new GenerateTryMethodContext(writer, method, opCount, methodName);
@@ -139,7 +140,7 @@ namespace Generator.Encoder.Rust {
 			if (deprecatedInfo is RustDeprecatedInfo deprec)
 				deprecMsg = $"#[deprecated(since = \"{deprec.Version}\", note = \"{deprec.Message}\")]";
 
-			if ((flags & GenTryFlags.CanFail) != 0) {
+			if ((flags & (GenTryFlags.CanFail | GenTryFlags.CanNotFail)) != 0) {
 				if (writeError is null)
 					throw new InvalidOperationException();
 				const TryMethodKind kind = TryMethodKind.Result;
@@ -147,6 +148,8 @@ namespace Generator.Encoder.Rust {
 				WriteDocs(ctx.Writer, ctx.Method, kind, docsWriteError);
 				if (deprecMsg is not null)
 					ctx.Writer.WriteLine(deprecMsg);
+				if ((flags & GenTryFlags.CanNotFail) != 0)
+					ctx.Writer.WriteLine(RustConstants.DocHidden);
 				WriteMethod(ctx.Writer, ctx.Method, ctx.TryMethodName, kind, flags);
 				using (ctx.Writer.Indent()) {
 					genBody(ctx, kind);
@@ -169,14 +172,23 @@ namespace Generator.Encoder.Rust {
 				ctx.Writer.WriteLine("}");
 			}
 
-			if ((flags & GenTryFlags.CanFail) != 0) {
+			if ((flags & (GenTryFlags.CanFail | GenTryFlags.CanNotFail)) != 0) {
 				ctx.Writer.WriteLine();
 				if (writeError is null)
 					throw new InvalidOperationException();
-				const TryMethodKind kind = TryMethodKind.Panic;
-				Action docsWriteError = () => writeError(kind);
+				TryMethodKind kind;
+				Action? docsWriteError;
+				if ((flags & GenTryFlags.CanNotFail) != 0) {
+					kind = TryMethodKind.Normal;
+					docsWriteError = null;
+				}
+				else {
+					kind = TryMethodKind.Panic;
+					docsWriteError = () => writeError(kind);
+				}
 				WriteDocs(ctx.Writer, ctx.Method, kind, docsWriteError);
-				ctx.Writer.WriteLine($"#[deprecated(since = \"1.10.0\", note = \"This method can panic, use {ctx.TryMethodName}() instead\")]");
+				if ((flags & GenTryFlags.CanFail) != 0)
+					ctx.Writer.WriteLine($"#[deprecated(since = \"1.10.0\", note = \"This method can panic, use {ctx.TryMethodName}() instead\")]");
 				ctx.Writer.WriteLine(RustConstants.AttributeAllowUnwrapUsed);
 				WriteMethod(ctx.Writer, ctx.Method, ctx.MethodName, kind, GenTryFlags.None);
 				using (ctx.Writer.Indent()) {
@@ -652,7 +664,7 @@ namespace Generator.Encoder.Rust {
 
 			writer.WriteLine();
 			Action<TryMethodKind> writeError = kind => WriteDeclareDataError(writer, kind);
-			GenerateTryMethods(writer, method, 0, GenTryFlags.CanFail, (ctx, _) => GenCreateDeclareData(ctx, code, setValueName), writeError, methodName);
+			GenerateTryMethods(writer, method, 0, GenTryFlags.CanNotFail, (ctx, _) => GenCreateDeclareData(ctx, code, setValueName), writeError, methodName);
 		}
 
 		void GenCreateDeclareData(GenerateTryMethodContext ctx, EnumValue code, string setValueName) {
@@ -663,14 +675,12 @@ namespace Generator.Encoder.Rust {
 				ctx.Writer.WriteLine($"instruction.try_{setValueName}({i}, {idConverter.Argument(ctx.Method.Args[i].Name)})?;");
 		}
 
-		static string GetDbErrorMsg(TryMethodKind kind) => GetErrorString(kind, "if `db` feature wasn't enabled");
 		void WriteDeclareDataError(FileWriter writer, TryMethodKind kind) =>
-			docWriter.WriteLine(writer, GetDbErrorMsg(kind));
+			docWriter.WriteLine(writer, GetErrorString(kind, "NEVER!"));
 
 		void WriteDataError(FileWriter writer, TryMethodKind kind, CreateMethod method, string extra) {
-			var msg1 = GetErrorString(kind, $"if `{idConverter.Argument(method.Args[0].Name)}.len()` {extra}");
-			docWriter.WriteLine(writer, $"- {msg1}");
-			docWriter.WriteLine(writer, $"- {GetDbErrorMsg(kind)}");
+			var msg = GetErrorString(kind, $"if `{idConverter.Argument(method.Args[0].Name)}.len()` {extra}");
+			docWriter.WriteLine(writer, msg);
 		}
 
 		void GenCreateDeclareDataSlice(FileWriter writer, CreateMethod method, int elemSize, EnumValue code, string methodName, string setDeclValueName) {

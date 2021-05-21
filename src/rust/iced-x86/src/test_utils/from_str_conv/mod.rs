@@ -199,12 +199,6 @@ pub(crate) fn to_code(value: &str) -> Result<Code, String> {
 
 pub(crate) fn is_ignored_code(value: &str) -> bool {
 	let value = value.trim();
-	if !cfg!(feature = "db") {
-		match value {
-			"DeclareByte" | "DeclareWord" | "DeclareDword" | "DeclareQword" => return true,
-			_ => {}
-		}
-	}
 	if cfg!(feature = "no_vex") && value.starts_with("VEX_") {
 		return true;
 	}
