@@ -6,31 +6,31 @@ use crate::formatter::enums_shared::FormatterTextKind;
 use crate::formatter::fmt_utils_all::{show_rep_or_repe_prefix_bool, show_repne_prefix_bool, show_segment_prefix_bool};
 use crate::formatter::{FormatterOptions, FormatterOutput};
 use crate::{Code, Instruction, Register};
-use alloc::string::String;
-use alloc::vec::Vec;
 use core::{cmp, mem};
-use lazy_static::lazy_static;
 use static_assertions::const_assert_eq;
 
-lazy_static! {
-	static ref SPACES_TABLE: Vec<String> = create_strings(' ', 20);
-}
-lazy_static! {
-	static ref TABS_TABLE: Vec<String> = create_strings('\t', 6);
-}
-
-fn create_strings(c: char, cap: usize) -> Vec<String> {
-	let mut v = Vec::with_capacity(cap);
-	let mut s = String::with_capacity(cap);
-	for _ in 0..cap - 1 {
-		s.push(c);
-		v.push(s.clone());
-	}
-	s.push(c);
-	debug_assert_eq!(s.len(), cap);
-	v.push(s);
-	v
-}
+#[rustfmt::skip]
+static SPACES_TABLE: [&str; 12] = [
+	" ",
+	"  ",
+	"   ",
+	"    ",
+	"     ",
+	"      ",
+	"       ",
+	"        ",
+	"         ",
+	"          ",
+	"           ",
+	"            ",
+];
+#[rustfmt::skip]
+static TABS_TABLE: [&str; 4] = [
+	"\t",
+	"\t\t",
+	"\t\t\t",
+	"\t\t\t\t",
+];
 
 pub(super) fn add_tabs(output: &mut dyn FormatterOutput, mut column: u32, mut first_operand_char_index: u32, tab_size: u32) {
 	const MAX_FIRST_OPERAND_CHAR_INDEX: u32 = 256;
@@ -38,29 +38,29 @@ pub(super) fn add_tabs(output: &mut dyn FormatterOutput, mut column: u32, mut fi
 
 	if tab_size == 0 {
 		let chars_left = if first_operand_char_index <= column { 1 } else { first_operand_char_index - column };
-		add_strings(output, &*SPACES_TABLE, chars_left);
+		add_strings(output, &SPACES_TABLE[..], chars_left);
 	} else {
 		let end_col = if first_operand_char_index <= column { column + 1 } else { first_operand_char_index };
 		let end_col_rounded_down = end_col / tab_size * tab_size;
 		let added_tabs = end_col_rounded_down > column;
 		if added_tabs {
 			let tabs = (end_col_rounded_down - (column / tab_size * tab_size)) / tab_size;
-			add_strings(output, &*TABS_TABLE, tabs);
+			add_strings(output, &TABS_TABLE[..], tabs);
 			column = end_col_rounded_down;
 		}
 		if first_operand_char_index > column {
-			add_strings(output, &*SPACES_TABLE, first_operand_char_index - column);
+			add_strings(output, &SPACES_TABLE[..], first_operand_char_index - column);
 		} else if !added_tabs {
-			add_strings(output, &*SPACES_TABLE, 1);
+			add_strings(output, &SPACES_TABLE[..], 1);
 		}
 	}
 }
 
-fn add_strings(output: &mut dyn FormatterOutput, strings: &[String], count: u32) {
+fn add_strings(output: &mut dyn FormatterOutput, strings: &[&str], count: u32) {
 	let mut count = count as usize;
 	while count > 0 {
 		let n = cmp::min(count, strings.len());
-		output.write(&strings[n - 1], FormatterTextKind::Text);
+		output.write(strings[n - 1], FormatterTextKind::Text);
 		count -= n;
 	}
 }
