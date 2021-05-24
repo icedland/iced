@@ -187,10 +187,8 @@ impl OpCodeHandler_AnotherTable {
 	pub(super) fn new(handlers: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>) -> Self {
 		let handlers = handlers.into_boxed_slice();
 		debug_assert_eq!(handlers.len(), 0x100);
-
-		// SAFETY: handlers size is verified to be 0x100
+		// SAFETY: Size is verified above
 		let handlers = unsafe { Box::from_raw(Box::into_raw(handlers) as *mut [_; 0x100]) };
-
 		Self { decode: OpCodeHandler_AnotherTable::decode, has_modrm: false, handlers }
 	}
 

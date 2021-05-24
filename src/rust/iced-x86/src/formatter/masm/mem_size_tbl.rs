@@ -4,6 +4,7 @@
 use crate::formatter::fmt_consts::*;
 use crate::formatter::masm::FormatterString;
 use crate::iced_constants::IcedConstants;
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 
@@ -187,7 +188,7 @@ static MEM_SIZE_TBL_DATA: [u16; 141] = [
 // GENERATOR-END: MemorySizes
 
 lazy_static! {
-	pub(super) static ref MEM_SIZE_TBL: Vec<Info> = {
+	pub(super) static ref MEM_SIZE_TBL: Box<[Info; IcedConstants::MEMORY_SIZE_ENUM_COUNT]> = {
 		let mut v = Vec::with_capacity(IcedConstants::MEMORY_SIZE_ENUM_COUNT);
 		let ac = &*ARRAY_CONSTS;
 		for (i, &d) in MEM_SIZE_TBL_DATA.iter().enumerate() {
@@ -218,6 +219,9 @@ lazy_static! {
 			let size = SIZES[d as usize >> SIZE_KIND_SHIFT] as u32;
 			v.push(Info { keywords, size, is_broadcast: i >= IcedConstants::FIRST_BROADCAST_MEMORY_SIZE as usize });
 		}
-		v
+		let v = v.into_boxed_slice();
+		debug_assert_eq!(v.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT);
+		// SAFETY: Size is verified above
+		unsafe { Box::from_raw(Box::into_raw(v) as *mut [_; IcedConstants::MEMORY_SIZE_ENUM_COUNT]) }
 	};
 }

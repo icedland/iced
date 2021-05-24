@@ -22,6 +22,7 @@ use static_assertions::const_assert_eq;
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_len(this: &mut Instruction, len: u32) {
+	debug_assert!(len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32);
 	this.len = len as u8;
 }
 
@@ -322,6 +323,7 @@ pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
 #[cfg(not(feature = "no_evex"))]
 #[inline]
 pub(crate) fn internal_set_op_mask(this: &mut Instruction, new_value: u32) {
+	debug_assert!(new_value <= 7);
 	this.flags1 |= new_value << InstrFlags1::OP_MASK_SHIFT
 }
 
@@ -336,6 +338,7 @@ pub(crate) fn internal_set_zeroing_masking(this: &mut Instruction) {
 #[cfg(not(feature = "no_evex"))]
 #[inline]
 pub(crate) fn internal_set_rounding_control(this: &mut Instruction, new_value: u32) {
+	debug_assert!(new_value < IcedConstants::ROUNDING_CONTROL_ENUM_COUNT as u32);
 	this.flags1 |= new_value << InstrFlags1::ROUNDING_CONTROL_SHIFT;
 }
 
@@ -348,6 +351,7 @@ pub(crate) fn internal_has_rounding_control_or_sae(this: &Instruction) -> bool {
 #[cfg(feature = "encoder")]
 #[inline]
 pub(crate) fn internal_set_declare_data_len(this: &mut Instruction, new_value: u32) {
+	debug_assert!(new_value <= 0x10);
 	this.flags1 |= (new_value - 1) << InstrFlags1::DATA_LENGTH_SHIFT;
 }
 
@@ -682,7 +686,7 @@ pub(crate) fn initialize_signed_immediate(instruction: &mut Instruction, operand
 		}
 
 		OpKind::Immediate16 => {
-			// All short and all ushort values can be used
+			// All i16 and all u16 values can be used
 			if i16::MIN as i64 <= immediate && immediate <= u16::MAX as i64 {
 				internal_set_immediate16(instruction, immediate as u16 as u32);
 				return Ok(());
@@ -690,7 +694,7 @@ pub(crate) fn initialize_signed_immediate(instruction: &mut Instruction, operand
 		}
 
 		OpKind::Immediate32 => {
-			// All int and all uint values can be used
+			// All i32 and all u32 values can be used
 			if i32::MIN as i64 <= immediate && immediate <= u32::MAX as i64 {
 				instruction.set_immediate32(immediate as u32);
 				return Ok(());

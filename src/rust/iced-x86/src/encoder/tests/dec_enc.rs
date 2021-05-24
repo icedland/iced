@@ -577,7 +577,7 @@ fn test_evex_k1_z_bits() {
 					assert_eq!(instruction.code(), info.code());
 					assert_eq!(instruction.zeroing_masking(), (p2v.1 & 0x80) != 0);
 					if (p2v.1 & 7) != 0 {
-						let expected_reg: Register = unsafe { mem::transmute((Register::K0 as u32 + (p2v.1 & 7) as u32) as u8) };
+						let expected_reg = Register::K0 + ((p2v.1 & 7) as u32);
 						assert_eq!(instruction.op_mask(), expected_reg);
 					} else {
 						assert_eq!(instruction.op_mask(), Register::None);

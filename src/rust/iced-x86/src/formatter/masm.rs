@@ -21,6 +21,7 @@ use crate::formatter::masm::mem_size_tbl::MEM_SIZE_TBL;
 use crate::formatter::num_fmt::*;
 use crate::formatter::regs_tbl::REGS_TBL;
 use crate::formatter::*;
+use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 use crate::instruction_internal;
 use crate::*;
@@ -101,9 +102,9 @@ impl Default for MasmFormatter {
 // Read-only data which is needed a couple of times due to borrow checker
 struct SelfData {
 	options: FormatterOptions,
-	all_registers: &'static Vec<FormatterString>,
-	instr_infos: &'static Vec<Box<dyn InstrInfo + Sync + Send>>,
-	all_memory_sizes: &'static Vec<Info>,
+	all_registers: &'static [FormatterString; IcedConstants::REGISTER_ENUM_COUNT],
+	instr_infos: &'static [Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COUNT],
+	all_memory_sizes: &'static [Info; IcedConstants::MEMORY_SIZE_ENUM_COUNT],
 	str_: &'static FormatterConstants,
 	vec_: &'static FormatterArrayConstants,
 }

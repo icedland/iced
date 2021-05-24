@@ -4,6 +4,7 @@
 use crate::formatter::fmt_consts::*;
 use crate::formatter::gas::FormatterString;
 use crate::iced_constants::IcedConstants;
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 
@@ -51,7 +52,7 @@ static BCST_TO_DATA: [u8; 36] = [
 // GENERATOR-END: BcstTo
 
 lazy_static! {
-	pub(super) static ref MEM_SIZE_TBL: Vec<&'static FormatterString> = {
+	pub(super) static ref MEM_SIZE_TBL: Box<[&'static FormatterString; IcedConstants::MEMORY_SIZE_ENUM_COUNT]> = {
 		let mut v = Vec::with_capacity(IcedConstants::MEMORY_SIZE_ENUM_COUNT);
 		let c = &*FORMATTER_CONSTANTS;
 		for _ in 0..IcedConstants::FIRST_BROADCAST_MEMORY_SIZE as usize {
@@ -71,6 +72,9 @@ lazy_static! {
 			};
 			v.push(bcst_to);
 		}
-		v
+		let v = v.into_boxed_slice();
+		debug_assert_eq!(v.len(), IcedConstants::MEMORY_SIZE_ENUM_COUNT);
+		// SAFETY: Size is verified above
+		unsafe { Box::from_raw(Box::into_raw(v) as *mut [_; IcedConstants::MEMORY_SIZE_ENUM_COUNT]) }
 	};
 }

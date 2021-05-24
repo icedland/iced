@@ -22,6 +22,7 @@ use crate::formatter::instruction_internal::get_address_size_in_bytes;
 use crate::formatter::num_fmt::*;
 use crate::formatter::regs_tbl::REGS_TBL;
 use crate::formatter::*;
+use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 use crate::instruction_internal;
 use crate::*;
@@ -101,10 +102,10 @@ impl Default for GasFormatter {
 // Read-only data which is needed a couple of times due to borrow checker
 struct SelfData {
 	options: FormatterOptions,
-	all_registers: &'static Vec<FormatterString>,
-	all_registers_naked: &'static Vec<FormatterString>,
-	instr_infos: &'static Vec<Box<dyn InstrInfo + Sync + Send>>,
-	all_memory_sizes: &'static Vec<&'static FormatterString>,
+	all_registers: &'static [FormatterString; IcedConstants::REGISTER_ENUM_COUNT],
+	all_registers_naked: &'static [FormatterString; IcedConstants::REGISTER_ENUM_COUNT],
+	instr_infos: &'static [Box<dyn InstrInfo + Send + Sync>; IcedConstants::CODE_ENUM_COUNT],
+	all_memory_sizes: &'static [&'static FormatterString; IcedConstants::MEMORY_SIZE_ENUM_COUNT],
 	str_: &'static FormatterConstants,
 	vec_: &'static FormatterArrayConstants,
 }
@@ -144,7 +145,7 @@ impl GasFormatter {
 		}
 	}
 
-	fn all_registers(d: &SelfData) -> &'static Vec<FormatterString> {
+	fn all_registers(d: &SelfData) -> &'static [FormatterString; IcedConstants::REGISTER_ENUM_COUNT] {
 		if d.options.gas_naked_registers() {
 			d.all_registers_naked
 		} else {

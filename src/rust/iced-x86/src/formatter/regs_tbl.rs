@@ -3,6 +3,7 @@
 
 use crate::formatter::FormatterString;
 use crate::iced_constants::IcedConstants;
+use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
@@ -277,7 +278,7 @@ pub(super) const PADDING_SIZE: usize = 5;
 // GENERATOR-END: Registers
 
 lazy_static! {
-	pub(super) static ref REGS_TBL: Vec<FormatterString> = {
+	pub(super) static ref REGS_TBL: Box<[FormatterString; IcedConstants::REGISTER_ENUM_COUNT]> = {
 		let mut v = Vec::with_capacity(IcedConstants::REGISTER_ENUM_COUNT);
 		let mut s = String::with_capacity(MAX_STRING_LENGTH);
 		let mut data = &REGS_DATA[..];
@@ -292,6 +293,9 @@ lazy_static! {
 			s.clear();
 		}
 		debug_assert!(data.len() == PADDING_SIZE);
-		v
+		let v = v.into_boxed_slice();
+		debug_assert_eq!(v.len(), IcedConstants::REGISTER_ENUM_COUNT);
+		// SAFETY: Size is verified above
+		unsafe { Box::from_raw(Box::into_raw(v) as *mut [_; IcedConstants::REGISTER_ENUM_COUNT]) }
 	};
 }
