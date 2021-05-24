@@ -354,10 +354,10 @@ struct State {
 	vvvv_invalid_check: u32, // vvvv bits, even in 16/32-bit mode.
 	// ***************************
 	mem_index: u32, // (mod << 3 | rm) and an index into the mem handler tables if mod <= 2
+	vector_length: VectorLength,
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX.XB << 3
-	vector_length: VectorLength,
 	operand_size: OpSize,
 	address_size: OpSize,
 	segment_prio: u8, // 0=ES/CS/SS/DS, 1=FS/GS
