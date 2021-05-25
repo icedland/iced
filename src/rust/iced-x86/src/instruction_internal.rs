@@ -154,9 +154,8 @@ pub(crate) fn internal_get_memory_index_scale(this: &Instruction) -> u32 {
 
 #[cfg(feature = "decoder")]
 #[inline]
-pub(crate) fn internal_set_memory_index_scale(this: &mut Instruction, new_value: u32) {
-	debug_assert!(new_value <= 3);
-	this.scale = unsafe { mem::transmute(new_value as u8) };
+pub(crate) fn internal_set_memory_index_scale(this: &mut Instruction, new_value: InstrScale) {
+	this.scale = new_value;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
@@ -219,23 +218,11 @@ pub(crate) fn internal_set_far_branch_selector(this: &mut Instruction, new_value
 	this.mem_displ = new_value;
 }
 
-#[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
-pub(crate) fn internal_set_memory_base(this: &mut Instruction, new_value: Register) {
-	this.mem_base_reg = new_value;
-}
-
 #[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_memory_base_u32(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
 	this.mem_base_reg = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
-}
-
-#[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
-pub(crate) fn internal_set_memory_index(this: &mut Instruction, new_value: Register) {
-	this.mem_index_reg = new_value;
 }
 
 #[cfg(feature = "decoder")]
@@ -265,21 +252,9 @@ pub(crate) fn internal_op_register(this: &Instruction, operand: u32) -> Register
 
 #[cfg(feature = "decoder")]
 #[inline]
-pub(crate) fn internal_set_op0_register(this: &mut Instruction, new_value: Register) {
-	this.regs[0] = new_value;
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
 pub(crate) fn internal_set_op0_register_u32(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value < IcedConstants::REGISTER_ENUM_COUNT as u32);
 	this.regs[0] = unsafe { mem::transmute(new_value as RegisterUnderlyingType) };
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_set_op1_register(this: &mut Instruction, new_value: Register) {
-	this.regs[1] = new_value;
 }
 
 #[cfg(feature = "decoder")]

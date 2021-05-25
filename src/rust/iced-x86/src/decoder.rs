@@ -1834,8 +1834,8 @@ impl<'a> Decoder<'a> {
 				instruction_internal::internal_set_memory_displacement64_lo(instruction, self.read_u16() as u32);
 			}
 		}
-		instruction_internal::internal_set_memory_base(instruction, base_reg);
-		instruction_internal::internal_set_memory_index(instruction, index_reg);
+		instruction.set_memory_base(base_reg);
+		instruction.set_memory_index(index_reg);
 	}
 
 	#[must_use]
@@ -1888,7 +1888,12 @@ impl<'a> Decoder<'a> {
 		self.displ_index = self.data_ptr.wrapping_add(1) as u8;
 		let sib = self.read_u16() as u32;
 
-		instruction_internal::internal_set_memory_index_scale(instruction, (sib >> 6) & 3);
+		const_assert_eq!(InstrScale::Scale1 as u32, 0);
+		const_assert_eq!(InstrScale::Scale2 as u32, 1);
+		const_assert_eq!(InstrScale::Scale4 as u32, 2);
+		const_assert_eq!(InstrScale::Scale8 as u32, 3);
+		// SAFETY: 0-3 are valid variants
+		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as u8) });
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
@@ -1923,11 +1928,11 @@ impl<'a> Decoder<'a> {
 			if self.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(d as i32 as u64);
 				instruction_internal::internal_set_memory_displ_size(instruction, 4);
-				instruction_internal::internal_set_memory_base(instruction, Register::RIP);
+				instruction.set_memory_base(Register::RIP);
 			} else {
 				instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
 				instruction_internal::internal_set_memory_displ_size(instruction, 3);
-				instruction_internal::internal_set_memory_base(instruction, Register::EIP);
+				instruction.set_memory_base(Register::EIP);
 			}
 		} else {
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
@@ -1943,7 +1948,12 @@ impl<'a> Decoder<'a> {
 		self.displ_index = self.data_ptr as u8;
 		let displ = self.read_u32() as u32;
 
-		instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+		const_assert_eq!(InstrScale::Scale1 as u32, 0);
+		const_assert_eq!(InstrScale::Scale2 as u32, 1);
+		const_assert_eq!(InstrScale::Scale4 as u32, 2);
+		const_assert_eq!(InstrScale::Scale8 as u32, 3);
+		// SAFETY: 0-3 are valid variants
+		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
@@ -1988,7 +1998,12 @@ impl<'a> Decoder<'a> {
 	#[cfg(not(feature = "__internal_mem_vsib"))]
 	fn read_op_mem_0_4(&mut self, instruction: &mut Instruction) -> bool {
 		let sib = self.read_u8() as u32;
-		instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+		const_assert_eq!(InstrScale::Scale1 as u32, 0);
+		const_assert_eq!(InstrScale::Scale2 as u32, 1);
+		const_assert_eq!(InstrScale::Scale4 as u32, 2);
+		const_assert_eq!(InstrScale::Scale8 as u32, 3);
+		// SAFETY: 0-3 are valid variants
+		instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
 		let index = ((sib >> 3) & 7) + self.state.extra_index_register_base;
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		if index != 4 {
@@ -2222,7 +2237,12 @@ fn decoder_read_op_mem_vsib_1_4(
 		instruction_internal::internal_set_memory_index_u32(instruction, index + this.state.extra_index_register_base_vsib + index_reg as u32);
 	}
 
-	instruction_internal::internal_set_memory_index_scale(instruction, (sib >> 6) & 3);
+	const_assert_eq!(InstrScale::Scale1 as u32, 0);
+	const_assert_eq!(InstrScale::Scale2 as u32, 1);
+	const_assert_eq!(InstrScale::Scale4 as u32, 2);
+	const_assert_eq!(InstrScale::Scale8 as u32, 3);
+	// SAFETY: 0-3 are valid variants
+	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as u8) });
 	let base_reg = if this.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 	instruction_internal::internal_set_memory_base_u32(instruction, (sib & 7) + this.state.extra_base_register_base + base_reg as u32);
 
@@ -2258,11 +2278,11 @@ fn decoder_read_op_mem_vsib_0_5(
 		if this.state.address_size == OpSize::Size64 {
 			instruction.set_memory_displacement64(d as i32 as u64);
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
-			instruction_internal::internal_set_memory_base(instruction, Register::RIP);
+			instruction.set_memory_base(Register::RIP);
 		} else {
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
-			instruction_internal::internal_set_memory_base(instruction, Register::EIP);
+			instruction.set_memory_base(Register::EIP);
 		}
 	} else {
 		instruction_internal::internal_set_memory_displacement64_lo(instruction, d as u32);
@@ -2288,7 +2308,12 @@ fn decoder_read_op_mem_vsib_2_4(
 		instruction_internal::internal_set_memory_index_u32(instruction, index + this.state.extra_index_register_base_vsib + index_reg as u32);
 	}
 
-	instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+	const_assert_eq!(InstrScale::Scale1 as u32, 0);
+	const_assert_eq!(InstrScale::Scale2 as u32, 1);
+	const_assert_eq!(InstrScale::Scale4 as u32, 2);
+	const_assert_eq!(InstrScale::Scale8 as u32, 3);
+	// SAFETY: 0-3 are valid variants
+	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
 
 	let base_reg = if this.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 	instruction_internal::internal_set_memory_base_u32(instruction, (sib & 7) + this.state.extra_base_register_base + base_reg as u32);
@@ -2328,7 +2353,12 @@ fn decoder_read_op_mem_vsib_0_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, _tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
 	let sib = this.read_u8() as u32;
-	instruction_internal::internal_set_memory_index_scale(instruction, sib >> 6);
+	const_assert_eq!(InstrScale::Scale1 as u32, 0);
+	const_assert_eq!(InstrScale::Scale2 as u32, 1);
+	const_assert_eq!(InstrScale::Scale4 as u32, 2);
+	const_assert_eq!(InstrScale::Scale8 as u32, 3);
+	// SAFETY: 0-3 are valid variants
+	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as u8) });
 	let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
 	if !is_vsib {
 		if index != 4 {

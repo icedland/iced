@@ -3919,8 +3919,8 @@ impl Instruction {
 #[cfg(feature = "encoder")]
 impl Instruction {
 	fn init_memory_operand(instruction: &mut Instruction, memory: &MemoryOperand) {
-		instruction_internal::internal_set_memory_base(instruction, memory.base);
-		instruction_internal::internal_set_memory_index(instruction, memory.index);
+		instruction.set_memory_base(memory.base);
+		instruction.set_memory_index(memory.index);
 		instruction.set_memory_index_scale(memory.scale);
 		instruction.set_memory_displ_size(memory.displ_size);
 		let addr_size = instruction_internal::get_address_size_in_bytes(memory.base, memory.index, memory.displ_size, CodeSize::Unknown);
