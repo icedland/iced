@@ -3,12 +3,26 @@
 
 use crate::decoder::handlers::*;
 use crate::decoder::*;
-use crate::instruction_internal;
+use crate::iced_constants::IcedConstants;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };
 // The first arg (`self_ptr`) to decode() is always the handler itself, cast to a `*const OpCodeHandler`.
 // All handlers are `#[repr(C)]` structs so the OpCodeHandler fields are always at the same offsets.
+
+macro_rules! write_op0_reg {
+	($instruction:ident, $expr:expr) => {
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
+
+macro_rules! write_op1_reg {
+	($instruction:ident, $expr:expr) => {
+		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
+		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
+	};
+}
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -32,7 +46,7 @@ impl OpCodeHandler_ST_STi {
 		instruction.set_op0_register(Register::ST0);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
-		instruction_internal::internal_set_op1_register_u32(instruction, Register::ST0 as u32 + decoder.state.rm);
+		write_op1_reg!(instruction, Register::ST0 as u32 + decoder.state.rm);
 	}
 }
 
@@ -55,7 +69,7 @@ impl OpCodeHandler_STi_ST {
 		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
-		instruction_internal::internal_set_op0_register_u32(instruction, Register::ST0 as u32 + decoder.state.rm);
+		write_op0_reg!(instruction, Register::ST0 as u32 + decoder.state.rm);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(Register::ST0);
@@ -81,7 +95,7 @@ impl OpCodeHandler_STi {
 		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
-		instruction_internal::internal_set_op0_register_u32(instruction, Register::ST0 as u32 + decoder.state.rm);
+		write_op0_reg!(instruction, Register::ST0 as u32 + decoder.state.rm);
 	}
 }
 

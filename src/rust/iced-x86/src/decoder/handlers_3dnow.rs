@@ -3,8 +3,6 @@
 
 use crate::decoder::handlers::*;
 use crate::decoder::*;
-#[cfg(not(feature = "no_d3now"))]
-use crate::instruction_internal;
 use crate::*;
 
 #[cfg(not(feature = "no_d3now"))]
@@ -288,11 +286,11 @@ impl OpCodeHandler_D3NOW {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
-		instruction_internal::internal_set_op0_register_u32(instruction, decoder.state.reg + Register::MM0 as u32);
+		instruction.set_op0_register(unsafe { mem::transmute((decoder.state.reg + Register::MM0 as u32) as RegisterUnderlyingType) });
 		if decoder.state.mod_ == 3 {
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction.set_op1_kind(OpKind::Register);
-			instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.rm + Register::MM0 as u32);
+			instruction.set_op1_register(unsafe { mem::transmute((decoder.state.rm + Register::MM0 as u32) as RegisterUnderlyingType) });
 		} else {
 			instruction.set_op1_kind(OpKind::Memory);
 			decoder.read_op_mem(instruction);
