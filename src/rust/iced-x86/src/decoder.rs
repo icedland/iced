@@ -1480,6 +1480,9 @@ impl<'a> Decoder<'a> {
 			self.state.flags |= EncodingKind::VEX as u32;
 		}
 
+		let b = self.read_u8();
+		let (decode, handler) = self.handlers_vex[0][b];
+
 		let mut b = self.state.modrm;
 
 		const_assert_eq!(VectorLength::L128 as u32, 0);
@@ -1502,7 +1505,7 @@ impl<'a> Decoder<'a> {
 		self.state.vvvv = b;
 		self.state.vvvv_invalid_check = b;
 
-		self.decode_table(self.handlers_vex[0], instruction);
+		self.decode_table2((decode, handler), instruction);
 	}
 
 	#[cfg(feature = "no_vex")]
