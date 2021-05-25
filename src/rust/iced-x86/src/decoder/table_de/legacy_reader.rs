@@ -14,7 +14,6 @@ use alloc::vec::Vec;
 
 #[allow(trivial_casts)]
 pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>) {
-	let code;
 	let reg;
 	let index;
 	let elem: *const OpCodeHandler = match deserializer.read_op_code_handler_kind() {
@@ -150,57 +149,57 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		OpCodeHandlerKind::AL_DX => Box::into_raw(Box::new(OpCodeHandler_AL_DX::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Ap => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ap::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ap::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::B_BM => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_B_BM::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_B_BM::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::B_Ev => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_B_Ev::new(code, code + 1, deserializer.read_boolean()))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_B_Ev::new(code1, code2, deserializer.read_boolean()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::B_MIB => Box::into_raw(Box::new(OpCodeHandler_B_MIB::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::BM_B => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_BM_B::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_BM_B::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::BranchIw => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_BranchIw::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_BranchIw::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::BranchSimple => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_BranchSimple::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_BranchSimple::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::C_R_3a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_C_R::new(code, code + 1, deserializer.read_register()))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_C_R::new(code1, code2, deserializer.read_register()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::C_R_3b => {
-			Box::into_raw(Box::new(OpCodeHandler_C_R::new(deserializer.read_code(), Code::INVALID as u32, deserializer.read_register())))
+			Box::into_raw(Box::new(OpCodeHandler_C_R::new(deserializer.read_code(), Code::INVALID, deserializer.read_register())))
 				as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::DX_AL => Box::into_raw(Box::new(OpCodeHandler_DX_AL::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::DX_eAX => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_DX_eAX::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_DX_eAX::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::eAX_DX => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_eAX_DX::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_eAX_DX::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Eb_1 => Box::into_raw(Box::new(OpCodeHandler_Eb::new(deserializer.read_code(), 0))) as *const OpCodeHandler,
@@ -226,271 +225,270 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 
 		OpCodeHandlerKind::Ed_V_Ib => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ed_V_Ib::new(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ed_V_Ib::new(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ep => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ep::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ep::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_3a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev::new(code, code + 1, code + 2, 0))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev::new(code1, code2, code3, 0))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_3b => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev::new(code, code + 1, Code::INVALID as u32, 0))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ev::new(code1, code2, Code::INVALID, 0))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_4 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev::new(code, code + 1, code + 2, deserializer.read_handler_flags()))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev::new(code1, code2, code3, deserializer.read_handler_flags()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_CL => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_CL::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_CL::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_32_64 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_32_64::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_32_64::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_3a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_3b => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code, code + 1, Code::INVALID as u32))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv::new(code1, code2, Code::INVALID))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_4 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_flags::new(code, code + 1, code + 2, deserializer.read_handler_flags())))
-				as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_flags::new(code1, code2, code3, deserializer.read_handler_flags()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_CL => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_CL::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_CL::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_Ib => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_Ib::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_Ib::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Gv_REX => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_REX::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Gv_REX::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Ib_3 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib::new(code, code + 1, code + 2, 0))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib::new(code1, code2, code3, 0))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Ib_4 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib::new(code, code + 1, code + 2, deserializer.read_handler_flags()))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib::new(code1, code2, code3, deserializer.read_handler_flags()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Ib2_3 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib2::new(code, code + 1, code + 2, 0))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib2::new(code1, code2, code3, 0))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Ib2_4 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib2::new(code, code + 1, code + 2, deserializer.read_handler_flags()))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Ib2::new(code1, code2, code3, deserializer.read_handler_flags()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Iz_3 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Iz::new(code, code + 1, code + 2, 0))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Iz::new(code1, code2, code3, 0))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Iz_4 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Iz::new(code, code + 1, code + 2, deserializer.read_handler_flags()))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Iz::new(code1, code2, code3, deserializer.read_handler_flags()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_P => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_P::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_P::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_REXW_1a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_REXW::new(code, Code::INVALID as u32, deserializer.read_u32()))) as *const OpCodeHandler
+			let code = deserializer.read_code();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_REXW::new(code, Code::INVALID, deserializer.read_u32()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_REXW => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_REXW::new(code, code + 1, deserializer.read_u32()))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_REXW::new(code1, code2, deserializer.read_u32()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_Sw => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_Sw::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_Sw::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev_VX => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_VX::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_VX::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ev1 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ev_1::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ev_1::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Evj => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Evj::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Evj::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Evw => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Evw::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Evw::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ew => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ew::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ew::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gb_Eb => Box::into_raw(Box::new(OpCodeHandler_Gb_Eb::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Gdq_Ev => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gdq_Ev::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gdq_Ev::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Eb => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Eb::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Eb::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Eb_REX => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Eb_REX::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Eb_REX::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev_32_64 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_32_64::new(code, code + 1, deserializer.read_boolean(), deserializer.read_boolean())))
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_32_64::new(code1, code2, deserializer.read_boolean(), deserializer.read_boolean())))
 				as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev_3a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev_3b => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev::new(code, code + 1, Code::INVALID as u32))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev::new(code1, code2, Code::INVALID))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev_Ib => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_Ib::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_Ib::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev_Ib_REX => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_Ib_REX::new(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_Ib_REX::new(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev_Iz => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_Iz::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_Iz::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev_REX => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_REX::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev_REX::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev2::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev2::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ev3 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev3::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ev3::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ew => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ew::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ew::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_M => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_M::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_M::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_M_as => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_M_as::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_M_as::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Ma => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Ma::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Ma::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Mp_2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Mp::new(code, code + 1, Code::INVALID as u32))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Mp::new(code1, code2, Code::INVALID))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Mp_3 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Mp::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Mp::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_Mv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_Mv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_Mv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_N => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_N::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_N::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_N_Ib_REX => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_N_Ib_REX::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_N_Ib_REX::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_RX => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_RX::new(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_RX::new(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Gv_W => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Gv_W::new(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Gv_W::new(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::GvM_VX_Ib => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_GvM_VX_Ib::new(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_GvM_VX_Ib::new(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Ib => Box::into_raw(Box::new(OpCodeHandler_Ib::new(deserializer.read_code()))) as *const OpCodeHandler,
@@ -501,18 +499,18 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::IbReg2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_IbReg2::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_IbReg2::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Iw_Ib => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Iw_Ib::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Iw_Ib::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Jb => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Jb::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Jb::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Jb2 => Box::into_raw(Box::new(OpCodeHandler_Jb2::new(
@@ -526,35 +524,35 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Jdisp => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Jdisp::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Jdisp::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Jx => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Jx::new(code, code + 1, deserializer.read_code()))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Jx::new(code1, code2, deserializer.read_code()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Jz => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Jz::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Jz::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::M_1 => Box::into_raw(Box::new(OpCodeHandler_M::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::M_2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_M::new1(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_M::new1(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::M_REXW_2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_M_REXW::new(code, code + 1, 0, 0))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_M_REXW::new(code1, code2, 0, 0))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::M_REXW_4 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_M_REXW::new(code, code + 1, deserializer.read_handler_flags(), deserializer.read_handler_flags())))
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_M_REXW::new(code1, code2, deserializer.read_handler_flags(), deserializer.read_handler_flags())))
 				as *const OpCodeHandler
 		}
 
@@ -562,8 +560,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		OpCodeHandlerKind::Mf_1 => Box::into_raw(Box::new(OpCodeHandler_Mf::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Mf_2a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Mf::new1(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Mf::new1(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Mf_2b => {
@@ -574,8 +572,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		OpCodeHandlerKind::MP => Box::into_raw(Box::new(OpCodeHandler_MP::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Ms => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ms::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ms::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::MV => {
@@ -583,13 +581,13 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Mv_Gv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Mv_Gv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Mv_Gv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Mv_Gv_REXW => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Mv_Gv_REXW::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Mv_Gv_REXW::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::NIb => Box::into_raw(Box::new(OpCodeHandler_NIb::new(deserializer.read_code()))) as *const OpCodeHandler,
@@ -599,18 +597,18 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Ov_Reg => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Ov_Reg::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Ov_Reg::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::P_Ev => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_P_Ev::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_P_Ev::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::P_Ev_Ib => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_P_Ev_Ib::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_P_Ev_Ib::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::P_Q => Box::into_raw(Box::new(OpCodeHandler_P_Q::new(deserializer.read_code()))) as *const OpCodeHandler,
@@ -625,51 +623,51 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::PushEv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_PushEv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_PushEv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::PushIb2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_PushIb2::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_PushIb2::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::PushIz => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_PushIz::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_PushIz::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::PushOpSizeReg_4a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_PushOpSizeReg::new(code, code + 1, code + 2, deserializer.read_register()))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_PushOpSizeReg::new(code1, code2, code3, deserializer.read_register()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::PushOpSizeReg_4b => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_PushOpSizeReg::new(code, code + 1, Code::INVALID as u32, deserializer.read_register())))
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_PushOpSizeReg::new(code1, code2, Code::INVALID, deserializer.read_register())))
 				as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::PushSimple2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_PushSimple2::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_PushSimple2::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::PushSimpleReg => {
 			index = deserializer.read_u32();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_PushSimpleReg::new(index, code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_PushSimpleReg::new(index, code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Q_P => Box::into_raw(Box::new(OpCodeHandler_Q_P::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::R_C_3a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_R_C::new(code, code + 1, deserializer.read_register()))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_R_C::new(code1, code2, deserializer.read_register()))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::R_C_3b => {
-			Box::into_raw(Box::new(OpCodeHandler_R_C::new(deserializer.read_code(), Code::INVALID as u32, deserializer.read_register())))
+			Box::into_raw(Box::new(OpCodeHandler_R_C::new(deserializer.read_code(), Code::INVALID, deserializer.read_register())))
 				as *const OpCodeHandler
 		}
 
@@ -684,13 +682,13 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Reg_Ib2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Reg_Ib2::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Reg_Ib2::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Reg_Iz => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Reg_Iz::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Reg_Iz::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Reg_Ob => {
@@ -698,8 +696,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Reg_Ov => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Reg_Ov::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Reg_Ov::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Reg_Xb => {
@@ -707,13 +705,13 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Reg_Xv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Reg_Xv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Reg_Xv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Reg_Xv2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Reg_Xv2::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Reg_Xv2::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Reg_Yb => {
@@ -721,8 +719,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Reg_Yv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Reg_Yv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Reg_Yv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::RegIb => {
@@ -745,26 +743,26 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Rv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Rv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Rv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Rv_32_64 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Rv_32_64::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Rv_32_64::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::RvMw_Gw => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_RvMw_Gw::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_RvMw_Gw::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Simple => Box::into_raw(Box::new(OpCodeHandler_Simple::new(deserializer.read_code()))) as *const OpCodeHandler,
 		OpCodeHandlerKind::Simple_ModRM => Box::into_raw(Box::new(OpCodeHandler_Simple::new_modrm(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Simple2_3a => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Simple2::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Simple2::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Simple2_3b => {
@@ -773,34 +771,34 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		}
 
 		OpCodeHandlerKind::Simple2Iw => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Simple2Iw::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Simple2Iw::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Simple3 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Simple3::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Simple3::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Simple4 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Simple4::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Simple4::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Simple4b => {
-			code = deserializer.read_code();
+			let code1 = deserializer.read_code();
 			let code2 = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Simple4::new(code, code2))) as *const OpCodeHandler
+			Box::into_raw(Box::new(OpCodeHandler_Simple4::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Simple5 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Simple5::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Simple5::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Simple5_ModRM_as => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Simple5_ModRM_as::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Simple5_ModRM_as::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::SimpleReg => {
@@ -812,14 +810,14 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		OpCodeHandlerKind::STi_ST => Box::into_raw(Box::new(OpCodeHandler_STi_ST::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Sw_Ev => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Sw_Ev::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Sw_Ev::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::V_Ev => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_V_Ev::new(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_V_Ev::new(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::VM => {
@@ -853,19 +851,19 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 
 		OpCodeHandlerKind::VWIb_3 => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_VWIb::new1(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_VWIb::new1(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::VX_E_Ib => {
 			reg = deserializer.read_register();
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_VX_E_Ib::new(reg, code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_VX_E_Ib::new(reg, code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::VX_Ev => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_VX_Ev::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_VX_Ev::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Wbinvd => Box::into_raw(Box::new(OpCodeHandler_Wbinvd::new())) as *const OpCodeHandler,
@@ -878,8 +876,8 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		OpCodeHandlerKind::Xchg_Reg_rAX => Box::into_raw(Box::new(OpCodeHandler_Xchg_Reg_rAX::new(deserializer.read_u32()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Xv_Yv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Xv_Yv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Xv_Yv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Yb_Reg => {
@@ -889,27 +887,27 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		OpCodeHandlerKind::Yb_Xb => Box::into_raw(Box::new(OpCodeHandler_Yb_Xb::new(deserializer.read_code()))) as *const OpCodeHandler,
 
 		OpCodeHandlerKind::Yv_Reg => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Yv_Reg::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Yv_Reg::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Yv_Reg2 => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Yv_Reg2::new(code, code + 1))) as *const OpCodeHandler
+			let (code1, code2) = deserializer.read_code2();
+			Box::into_raw(Box::new(OpCodeHandler_Yv_Reg2::new(code1, code2))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Yv_Xv => {
-			code = deserializer.read_code();
-			Box::into_raw(Box::new(OpCodeHandler_Yv_Xv::new(code, code + 1, code + 2))) as *const OpCodeHandler
+			let (code1, code2, code3) = deserializer.read_code3();
+			Box::into_raw(Box::new(OpCodeHandler_Yv_Xv::new(code1, code2, code3))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::M_Sw => {
-			code = deserializer.read_code();
+			let code = deserializer.read_code();
 			Box::into_raw(Box::new(OpCodeHandler_M_Sw::new(code))) as *const OpCodeHandler
 		}
 
 		OpCodeHandlerKind::Sw_M => {
-			code = deserializer.read_code();
+			let code = deserializer.read_code();
 			Box::into_raw(Box::new(OpCodeHandler_Sw_M::new(code))) as *const OpCodeHandler
 		}
 

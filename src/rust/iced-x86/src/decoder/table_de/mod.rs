@@ -19,9 +19,10 @@ use crate::data_reader::DataReader;
 use crate::decoder::handlers::OpCodeHandler;
 use crate::decoder::handlers::{is_null_instance_handler, OpCodeHandlerDecodeFn};
 use crate::decoder::table_de::enums::*;
-use crate::Register;
+use crate::iced_constants::IcedConstants;
 #[cfg(not(feature = "no_evex"))]
 use crate::TupleType;
+use crate::{Code, Register};
 use alloc::vec::Vec;
 use core::mem;
 
@@ -92,15 +93,40 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[inline]
-	fn read_code(&mut self) -> u32 {
-		self.reader.read_compressed_u32()
+	fn read_code(&mut self) -> Code {
+		let v = self.reader.read_compressed_u32();
+		debug_assert!(v < IcedConstants::CODE_ENUM_COUNT as u32);
+		// SAFETY: generated (and also immutable) data is valid
+		unsafe { mem::transmute(v as u16) }
+	}
+
+	#[must_use]
+	#[inline]
+	fn read_code2(&mut self) -> (Code, Code) {
+		let v = self.reader.read_compressed_u32();
+		debug_assert!(v < IcedConstants::CODE_ENUM_COUNT as u32);
+		debug_assert!(v + 1 < IcedConstants::CODE_ENUM_COUNT as u32);
+		// SAFETY: generated (and also immutable) data is valid
+		(unsafe { mem::transmute(v as u16) }, unsafe { mem::transmute((v + 1) as u16) })
+	}
+
+	#[must_use]
+	#[inline]
+	fn read_code3(&mut self) -> (Code, Code, Code) {
+		let v = self.reader.read_compressed_u32();
+		debug_assert!(v < IcedConstants::CODE_ENUM_COUNT as u32);
+		debug_assert!(v + 2 < IcedConstants::CODE_ENUM_COUNT as u32);
+		// SAFETY: generated (and also immutable) data is valid
+		(unsafe { mem::transmute(v as u16) }, unsafe { mem::transmute((v + 1) as u16) }, unsafe { mem::transmute((v + 2) as u16) })
 	}
 
 	#[must_use]
 	#[inline]
 	fn read_register(&mut self) -> Register {
+		let v = self.reader.read_u8();
+		debug_assert!(v < IcedConstants::REGISTER_ENUM_COUNT);
 		// SAFETY: generated (and also immutable) data is valid
-		unsafe { mem::transmute(self.reader.read_u8() as u8) }
+		unsafe { mem::transmute(v as u8) }
 	}
 
 	#[must_use]
@@ -125,8 +151,10 @@ impl<'a> TableDeserializer<'a> {
 	#[must_use]
 	#[inline]
 	fn read_tuple_type(&mut self) -> TupleType {
+		let v = self.reader.read_u8();
+		debug_assert!(v < IcedConstants::TUPLE_TYPE_ENUM_COUNT);
 		// SAFETY: generated (and also immutable) data is valid
-		unsafe { mem::transmute(self.reader.read_u8() as u8) }
+		unsafe { mem::transmute(v as u8) }
 	}
 
 	#[must_use]

@@ -108,15 +108,15 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 pub(super) struct OpCodeHandler_EVEX_V_H_Ev_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code_w0: u32,
-	code_w1: u32,
+	code_w0: Code,
+	code_w1: Code,
 	base_reg: Register,
 	tuple_type_w0: TupleType,
 	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_er {
-	pub(super) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_V_H_Ev_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
 
@@ -129,11 +129,11 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 		let gpr;
 		let tuple_type;
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
+			instruction.set_code(this.code_w1);
 			tuple_type = this.tuple_type_w1;
 			gpr = Register::RAX as u32;
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code_w0);
+			instruction.set_code(this.code_w0);
 			tuple_type = this.tuple_type_w0;
 			gpr = Register::EAX as u32;
 		}
@@ -173,15 +173,15 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 pub(super) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code_w0: u32,
-	code_w1: u32,
+	code_w0: Code,
+	code_w1: Code,
 	base_reg: Register,
 	tuple_type_w0: TupleType,
 	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_Ib {
-	pub(super) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_V_H_Ev_Ib::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
 
@@ -193,10 +193,10 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 		}
 		let gpr;
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
+			instruction.set_code(this.code_w1);
 			gpr = Register::RAX as u32;
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code_w0);
+			instruction.set_code(this.code_w0);
 			gpr = Register::EAX as u32;
 		}
 		const_assert_eq!(OpKind::Register as u32, 0);
@@ -230,15 +230,15 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 pub(super) struct OpCodeHandler_EVEX_Ed_V_Ib {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code32: u32,
-	code64: u32,
+	code32: Code,
+	code64: Code,
 	base_reg: Register,
 	tuple_type32: TupleType,
 	tuple_type64: TupleType,
 }
 
 impl OpCodeHandler_EVEX_Ed_V_Ib {
-	pub(super) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code32: Code, code64: Code, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Ed_V_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
 
@@ -260,10 +260,10 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 		instruction.set_op2_kind(OpKind::Immediate8);
 		let gpr;
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code64);
+			instruction.set_code(this.code64);
 			gpr = Register::RAX as u32;
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code32);
+			instruction.set_code(this.code32);
 			gpr = Register::EAX as u32;
 		}
 		if decoder.state.mod_ == 3 {
@@ -287,7 +287,7 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 pub(super) struct OpCodeHandler_EVEX_VkHW_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 	only_sae: bool,
@@ -295,14 +295,14 @@ pub(super) struct OpCodeHandler_EVEX_VkHW_er {
 }
 
 impl OpCodeHandler_EVEX_VkHW_er {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHW_er::decode, has_modrm: true, base_reg, code, tuple_type, only_sae, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -351,7 +351,7 @@ impl OpCodeHandler_EVEX_VkHW_er {
 pub(super) struct OpCodeHandler_EVEX_VkW_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
@@ -360,7 +360,7 @@ pub(super) struct OpCodeHandler_EVEX_VkW_er {
 }
 
 impl OpCodeHandler_EVEX_VkW_er {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkW_er::decode,
 			has_modrm: true,
@@ -373,11 +373,11 @@ impl OpCodeHandler_EVEX_VkW_er {
 		}
 	}
 
-	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast: true }
 	}
 
-	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
+	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast }
 	}
 
@@ -387,7 +387,7 @@ impl OpCodeHandler_EVEX_VkW_er {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -433,14 +433,14 @@ impl OpCodeHandler_EVEX_VkW_er {
 pub(super) struct OpCodeHandler_EVEX_VkWIb_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VkWIb_er {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkWIb_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
@@ -450,7 +450,7 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction_internal::internal_set_op0_register_u32(
@@ -484,7 +484,7 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 pub(super) struct OpCodeHandler_EVEX_VkW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
@@ -492,11 +492,11 @@ pub(super) struct OpCodeHandler_EVEX_VkW {
 }
 
 impl OpCodeHandler_EVEX_VkW {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, can_broadcast }
 	}
 
@@ -506,7 +506,7 @@ impl OpCodeHandler_EVEX_VkW {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -544,14 +544,14 @@ pub(super) struct OpCodeHandler_EVEX_WkV {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
 	disallow_zeroing_masking: u32,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkV {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_WkV::decode,
 			has_modrm: true,
@@ -563,7 +563,7 @@ impl OpCodeHandler_EVEX_WkV {
 		}
 	}
 
-	pub(super) fn new1(base_reg: Register, code: u32, tuple_type: TupleType, allow_zeroing_masking: bool) -> Self {
+	pub(super) fn new1(base_reg: Register, code: Code, tuple_type: TupleType, allow_zeroing_masking: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_WkV::decode,
 			has_modrm: true,
@@ -575,7 +575,7 @@ impl OpCodeHandler_EVEX_WkV {
 		}
 	}
 
-	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkV::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, disallow_zeroing_masking: 0 }
 	}
 
@@ -585,7 +585,7 @@ impl OpCodeHandler_EVEX_WkV {
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
@@ -618,13 +618,13 @@ impl OpCodeHandler_EVEX_WkV {
 pub(super) struct OpCodeHandler_EVEX_VkM {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VkM {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkM::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
@@ -634,7 +634,7 @@ impl OpCodeHandler_EVEX_VkM {
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -656,7 +656,7 @@ impl OpCodeHandler_EVEX_VkM {
 pub(super) struct OpCodeHandler_EVEX_VkWIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
@@ -664,7 +664,7 @@ pub(super) struct OpCodeHandler_EVEX_VkWIb {
 }
 
 impl OpCodeHandler_EVEX_VkWIb {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
@@ -674,7 +674,7 @@ impl OpCodeHandler_EVEX_VkWIb {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -713,14 +713,14 @@ impl OpCodeHandler_EVEX_VkWIb {
 pub(super) struct OpCodeHandler_EVEX_WkVIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkVIb {
-	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkVIb::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
 	}
 
@@ -730,7 +730,7 @@ impl OpCodeHandler_EVEX_WkVIb {
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv_invalid_check) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction_internal::internal_set_op1_register_u32(
@@ -761,7 +761,7 @@ impl OpCodeHandler_EVEX_WkVIb {
 pub(super) struct OpCodeHandler_EVEX_HkWIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
@@ -769,14 +769,14 @@ pub(super) struct OpCodeHandler_EVEX_HkWIb {
 }
 
 impl OpCodeHandler_EVEX_HkWIb {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_HkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -812,21 +812,21 @@ impl OpCodeHandler_EVEX_HkWIb {
 pub(super) struct OpCodeHandler_EVEX_HWIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_HWIb {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_HWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
@@ -858,14 +858,14 @@ impl OpCodeHandler_EVEX_HWIb {
 pub(super) struct OpCodeHandler_EVEX_WkVIb_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkVIb_er {
-	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkVIb_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
 	}
 
@@ -875,7 +875,7 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 		if (decoder.state.vvvv_invalid_check & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
@@ -910,21 +910,21 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 pub(super) struct OpCodeHandler_EVEX_VW_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VW_er {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VW_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -960,14 +960,14 @@ impl OpCodeHandler_EVEX_VW_er {
 pub(super) struct OpCodeHandler_EVEX_VW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VW {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
@@ -980,7 +980,7 @@ impl OpCodeHandler_EVEX_VW {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1010,14 +1010,14 @@ impl OpCodeHandler_EVEX_VW {
 pub(super) struct OpCodeHandler_EVEX_WV {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WV {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WV::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
@@ -1030,7 +1030,7 @@ impl OpCodeHandler_EVEX_WV {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
@@ -1060,13 +1060,13 @@ impl OpCodeHandler_EVEX_WV {
 pub(super) struct OpCodeHandler_EVEX_VM {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VM {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VM::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
@@ -1079,7 +1079,7 @@ impl OpCodeHandler_EVEX_VM {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1101,12 +1101,12 @@ impl OpCodeHandler_EVEX_VM {
 pub(super) struct OpCodeHandler_EVEX_VK {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_VK {
-	pub(super) fn new(base_reg: Register, code: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VK::decode, has_modrm: true, base_reg, code }
 	}
 
@@ -1119,7 +1119,7 @@ impl OpCodeHandler_EVEX_VK {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1142,12 +1142,12 @@ impl OpCodeHandler_EVEX_VK {
 pub(super) struct OpCodeHandler_EVEX_KR {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_KR {
-	pub(super) fn new(base_reg: Register, code: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KR::decode, has_modrm: true, base_reg, code }
 	}
 
@@ -1164,7 +1164,7 @@ impl OpCodeHandler_EVEX_KR {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1187,14 +1187,14 @@ impl OpCodeHandler_EVEX_KR {
 pub(super) struct OpCodeHandler_EVEX_KkHWIb_sae {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkHWIb_sae {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkHWIb_sae::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
@@ -1207,7 +1207,7 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1246,7 +1246,7 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 pub(super) struct OpCodeHandler_EVEX_VkHW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	base_reg3: Register,
@@ -1255,7 +1255,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHW {
 }
 
 impl OpCodeHandler_EVEX_VkHW {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHW::decode,
 			has_modrm: true,
@@ -1268,14 +1268,16 @@ impl OpCodeHandler_EVEX_VkHW {
 		}
 	}
 
-	pub(super) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new1(
+		base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code, tuple_type: TupleType, can_broadcast: bool,
+	) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHW::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1315,21 +1317,21 @@ impl OpCodeHandler_EVEX_VkHW {
 pub(super) struct OpCodeHandler_EVEX_VkHM {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VkHM {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHM::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1357,7 +1359,7 @@ impl OpCodeHandler_EVEX_VkHM {
 pub(super) struct OpCodeHandler_EVEX_VkHWIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	base_reg3: Register,
@@ -1366,7 +1368,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHWIb {
 }
 
 impl OpCodeHandler_EVEX_VkHWIb {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHWIb::decode,
 			has_modrm: true,
@@ -1379,14 +1381,16 @@ impl OpCodeHandler_EVEX_VkHWIb {
 		}
 	}
 
-	pub(super) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new1(
+		base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code, tuple_type: TupleType, can_broadcast: bool,
+	) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHWIb::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1428,7 +1432,7 @@ impl OpCodeHandler_EVEX_VkHWIb {
 pub(super) struct OpCodeHandler_EVEX_VkHWIb_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	base_reg3: Register,
@@ -1437,7 +1441,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHWIb_er {
 }
 
 impl OpCodeHandler_EVEX_VkHWIb_er {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHWIb_er::decode,
 			has_modrm: true,
@@ -1453,7 +1457,7 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1495,21 +1499,21 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 pub(super) struct OpCodeHandler_EVEX_KkHW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkHW {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkHW::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1552,20 +1556,20 @@ impl OpCodeHandler_EVEX_KkHW {
 pub(super) struct OpCodeHandler_EVEX_KP1HW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_KP1HW {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KP1HW::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1604,21 +1608,21 @@ impl OpCodeHandler_EVEX_KP1HW {
 pub(super) struct OpCodeHandler_EVEX_KkHWIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkHWIb {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkHWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1663,19 +1667,19 @@ impl OpCodeHandler_EVEX_KkHWIb {
 pub(super) struct OpCodeHandler_EVEX_WkHV {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_WkHV {
-	pub(super) fn new(base_reg: Register, code: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkHV::decode, has_modrm: true, base_reg, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		debug_assert_eq!(decoder.state.mod_, 3);
 		const_assert_eq!(OpKind::Register as u32, 0);
@@ -1704,13 +1708,13 @@ impl OpCodeHandler_EVEX_WkHV {
 pub(super) struct OpCodeHandler_EVEX_VHWIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VHWIb {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VHWIb::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
@@ -1720,7 +1724,7 @@ impl OpCodeHandler_EVEX_VHWIb {
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1752,8 +1756,8 @@ impl OpCodeHandler_EVEX_VHWIb {
 pub(super) struct OpCodeHandler_EVEX_VHW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code_r: u32,
-	code_m: u32,
+	code_r: Code,
+	code_m: Code,
 	base_reg1: Register,
 	base_reg2: Register,
 	base_reg3: Register,
@@ -1761,7 +1765,7 @@ pub(super) struct OpCodeHandler_EVEX_VHW {
 }
 
 impl OpCodeHandler_EVEX_VHW {
-	pub(super) fn new(base_reg: Register, code_r: u32, code_m: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code_r: Code, code_m: Code, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VHW::decode,
 			has_modrm: true,
@@ -1774,7 +1778,7 @@ impl OpCodeHandler_EVEX_VHW {
 		}
 	}
 
-	pub(super) fn new2(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new2(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VHW::decode,
 			has_modrm: true,
@@ -1804,7 +1808,7 @@ impl OpCodeHandler_EVEX_VHW {
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction_internal::internal_set_op1_register_u32(instruction, decoder.state.vvvv + this.base_reg2 as u32);
 		if decoder.state.mod_ == 3 {
-			instruction_internal::internal_set_code_u32(instruction, this.code_r);
+			instruction.set_code(this.code_r);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction.set_op2_kind(OpKind::Register);
 			instruction_internal::internal_set_op2_register_u32(
@@ -1812,7 +1816,7 @@ impl OpCodeHandler_EVEX_VHW {
 				decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32,
 			);
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code_m);
+			instruction.set_code(this.code_m);
 			instruction.set_op2_kind(OpKind::Memory);
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
@@ -1824,13 +1828,13 @@ impl OpCodeHandler_EVEX_VHW {
 pub(super) struct OpCodeHandler_EVEX_VHM {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VHM {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VHM::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
@@ -1840,7 +1844,7 @@ impl OpCodeHandler_EVEX_VHM {
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);
@@ -1865,15 +1869,15 @@ impl OpCodeHandler_EVEX_VHM {
 pub(super) struct OpCodeHandler_EVEX_Gv_W_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code_w0: u32,
-	code_w1: u32,
+	code_w0: Code,
+	code_w1: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 	only_sae: bool,
 }
 
 impl OpCodeHandler_EVEX_Gv_W_er {
-	pub(super) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Gv_W_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type, only_sae }
 	}
 
@@ -1887,7 +1891,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 			decoder.set_invalid_instruction();
 		}
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code_w1);
+			instruction.set_code(this.code_w1);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction.set_op0_kind(OpKind::Register);
 			instruction_internal::internal_set_op0_register_u32(
@@ -1895,7 +1899,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 				decoder.state.reg + decoder.state.extra_register_base + Register::RAX as u32,
 			);
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code_w0);
+			instruction.set_code(this.code_w0);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction.set_op0_kind(OpKind::Register);
 			instruction_internal::internal_set_op0_register_u32(
@@ -1937,14 +1941,14 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 pub(super) struct OpCodeHandler_EVEX_VX_Ev {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code32: u32,
-	code64: u32,
+	code32: Code,
+	code64: Code,
 	tuple_type_w0: TupleType,
 	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VX_Ev {
-	pub(super) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(code32: Code, code64: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VX_Ev::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
 
@@ -1960,11 +1964,11 @@ impl OpCodeHandler_EVEX_VX_Ev {
 		let gpr;
 		let tuple_type;
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code64);
+			instruction.set_code(this.code64);
 			tuple_type = this.tuple_type_w1;
 			gpr = Register::RAX as u32;
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code32);
+			instruction.set_code(this.code32);
 			tuple_type = this.tuple_type_w0;
 			gpr = Register::EAX as u32;
 		}
@@ -1990,14 +1994,14 @@ impl OpCodeHandler_EVEX_VX_Ev {
 pub(super) struct OpCodeHandler_EVEX_Ev_VX {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code32: u32,
-	code64: u32,
+	code32: Code,
+	code64: Code,
 	tuple_type_w0: TupleType,
 	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_Ev_VX {
-	pub(super) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(code32: Code, code64: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Ev_VX::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
 
@@ -2013,11 +2017,11 @@ impl OpCodeHandler_EVEX_Ev_VX {
 		let gpr;
 		let tuple_type;
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code64);
+			instruction.set_code(this.code64);
 			tuple_type = this.tuple_type_w1;
 			gpr = Register::RAX as u32;
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code32);
+			instruction.set_code(this.code32);
 			tuple_type = this.tuple_type_w0;
 			gpr = Register::EAX as u32;
 		}
@@ -2043,13 +2047,13 @@ impl OpCodeHandler_EVEX_Ev_VX {
 pub(super) struct OpCodeHandler_EVEX_Ev_VX_Ib {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code32: u32,
-	code64: u32,
+	code32: Code,
+	code64: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_Ev_VX_Ib {
-	pub(super) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Ev_VX_Ib::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
@@ -2075,7 +2079,7 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 		instruction.set_op2_kind(OpKind::Immediate8);
 		instruction_internal::internal_set_immediate8(instruction, decoder.read_u8() as u32);
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code64);
+			instruction.set_code(this.code64);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction.set_op0_kind(OpKind::Register);
 			instruction_internal::internal_set_op0_register_u32(
@@ -2083,7 +2087,7 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 				decoder.state.reg + decoder.state.extra_register_base + Register::RAX as u32,
 			);
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code32);
+			instruction.set_code(this.code32);
 			const_assert_eq!(OpKind::Register as u32, 0);
 			//instruction.set_op0_kind(OpKind::Register);
 			instruction_internal::internal_set_op0_register_u32(
@@ -2099,13 +2103,13 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 pub(super) struct OpCodeHandler_EVEX_MV {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_MV {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_MV::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
@@ -2118,7 +2122,7 @@ impl OpCodeHandler_EVEX_MV {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction_internal::internal_set_op1_register_u32(
@@ -2139,13 +2143,13 @@ impl OpCodeHandler_EVEX_MV {
 pub(super) struct OpCodeHandler_EVEX_VkEv_REXW {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code32: u32,
-	code64: u32,
+	code32: Code,
+	code64: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_VkEv_REXW {
-	pub(super) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkEv_REXW::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
@@ -2157,11 +2161,11 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 		}
 		let gpr;
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			debug_assert_ne!(this.code64, Code::INVALID as u32);
-			instruction_internal::internal_set_code_u32(instruction, this.code64);
+			debug_assert_ne!(this.code64, Code::INVALID);
+			instruction.set_code(this.code64);
 			gpr = Register::RAX as u32;
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code32);
+			instruction.set_code(this.code32);
 			gpr = Register::EAX as u32;
 		}
 
@@ -2186,14 +2190,14 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 pub(super) struct OpCodeHandler_EVEX_Vk_VSIB {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	vsib_base: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_Vk_VSIB {
-	pub(super) fn new(base_reg: Register, vsib_base: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, vsib_base: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Vk_VSIB::decode, has_modrm: true, base_reg, vsib_base, code, tuple_type }
 	}
 
@@ -2205,7 +2209,7 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		let reg_num = decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex;
 		const_assert_eq!(OpKind::Register as u32, 0);
@@ -2230,14 +2234,14 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 pub(super) struct OpCodeHandler_EVEX_VSIB_k1_VX {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	vsib_index: Register,
 	base_reg: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1_VX {
-	pub(super) fn new(vsib_index: Register, base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(vsib_index: Register, base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VSIB_k1_VX::decode, has_modrm: true, vsib_index, base_reg, code, tuple_type }
 	}
 
@@ -2249,7 +2253,7 @@ impl OpCodeHandler_EVEX_VSIB_k1_VX {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op1_kind(OpKind::Register);
@@ -2271,13 +2275,13 @@ impl OpCodeHandler_EVEX_VSIB_k1_VX {
 pub(super) struct OpCodeHandler_EVEX_VSIB_k1 {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	vsib_index: Register,
 	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1 {
-	pub(super) fn new(vsib_index: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(vsib_index: Register, code: Code, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VSIB_k1::decode, has_modrm: true, vsib_index, code, tuple_type }
 	}
 
@@ -2289,7 +2293,7 @@ impl OpCodeHandler_EVEX_VSIB_k1 {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		if decoder.state.mod_ == 3 {
 			decoder.set_invalid_instruction();
@@ -2305,15 +2309,15 @@ impl OpCodeHandler_EVEX_VSIB_k1 {
 pub(super) struct OpCodeHandler_EVEX_GvM_VX_Ib {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code32: u32,
-	code64: u32,
+	code32: Code,
+	code64: Code,
 	base_reg: Register,
 	tuple_type32: TupleType,
 	tuple_type64: TupleType,
 }
 
 impl OpCodeHandler_EVEX_GvM_VX_Ib {
-	pub(super) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code32: Code, code64: Code, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_GvM_VX_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
 
@@ -2335,10 +2339,10 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 		instruction.set_op2_kind(OpKind::Immediate8);
 		let gpr;
 		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
-			instruction_internal::internal_set_code_u32(instruction, this.code64);
+			instruction.set_code(this.code64);
 			gpr = Register::RAX as u32;
 		} else {
-			instruction_internal::internal_set_code_u32(instruction, this.code32);
+			instruction.set_code(this.code32);
 			gpr = Register::EAX as u32;
 		}
 		if decoder.state.mod_ == 3 {
@@ -2362,14 +2366,14 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 pub(super) struct OpCodeHandler_EVEX_KkWIb {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
 	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkWIb {
-	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
@@ -2385,7 +2389,7 @@ impl OpCodeHandler_EVEX_KkWIb {
 		{
 			decoder.set_invalid_instruction();
 		}
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 
 		const_assert_eq!(OpKind::Register as u32, 0);
 		//instruction.set_op0_kind(OpKind::Register);

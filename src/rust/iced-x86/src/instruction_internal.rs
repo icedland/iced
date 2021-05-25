@@ -32,13 +32,6 @@ pub(crate) fn internal_set_code_size(this: &mut Instruction, new_value: CodeSize
 	this.flags1 |= (new_value as u32) << InstrFlags1::CODE_SIZE_SHIFT;
 }
 
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_set_code_u32(this: &mut Instruction, new_value: u32) {
-	debug_assert!(new_value < IcedConstants::CODE_ENUM_COUNT as u32);
-	this.code = unsafe { mem::transmute(new_value as CodeUnderlyingType) };
-}
-
 #[cfg(feature = "encoder")]
 #[must_use]
 #[inline]

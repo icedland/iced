@@ -2,7 +2,6 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::decoder::*;
-use crate::instruction_internal;
 use crate::*;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
@@ -61,21 +60,21 @@ impl OpCodeHandler_Invalid {
 pub(super) struct OpCodeHandler_Simple {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
-	code: u32,
+	code: Code,
 }
 
 impl OpCodeHandler_Simple {
-	pub(super) fn new(code: u32) -> Self {
+	pub(super) fn new(code: Code) -> Self {
 		Self { decode: OpCodeHandler_Simple::decode, has_modrm: false, code }
 	}
 
-	pub(super) fn new_modrm(code: u32) -> Self {
+	pub(super) fn new_modrm(code: Code) -> Self {
 		Self { decode: OpCodeHandler_Simple::decode, has_modrm: true, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, _decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
-		instruction_internal::internal_set_code_u32(instruction, this.code);
+		instruction.set_code(this.code);
 	}
 }
 
