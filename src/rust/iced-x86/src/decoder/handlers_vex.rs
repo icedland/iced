@@ -47,37 +47,37 @@ macro_rules! write_op3_reg {
 pub(super) struct OpCodeHandler_VectorLength_VEX {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,
-	handlers: [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 4],
+	handlers: [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 4],
 }
 
 impl OpCodeHandler_VectorLength_VEX {
 	#[allow(trivial_casts)]
 	pub(super) fn new(
-		has_modrm: bool, handler128: (*const OpCodeHandler, OpCodeHandlerDecodeFn), handler256: (*const OpCodeHandler, OpCodeHandlerDecodeFn),
+		has_modrm: bool, handler128: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
 	) -> Self {
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
 		const_assert_eq!(VectorLength::L512 as u32, 2);
 		const_assert_eq!(VectorLength::Unknown as u32, 3);
-		debug_assert!(!is_null_instance_handler(handler128.0));
-		debug_assert!(!is_null_instance_handler(handler256.0));
+		debug_assert!(!is_null_instance_handler(handler128.1));
+		debug_assert!(!is_null_instance_handler(handler256.1));
 		let handlers = unsafe {
 			[
-				(&*handler128.0, handler128.1),
-				(&*handler256.0, handler256.1),
-				(&*(&INVALID_HANDLER as *const _ as *const OpCodeHandler), INVALID_HANDLER.decode),
-				(&*(&INVALID_HANDLER as *const _ as *const OpCodeHandler), INVALID_HANDLER.decode),
+				(handler128.0, &*handler128.1),
+				(handler256.0, &*handler256.1),
+				(INVALID_HANDLER.decode, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)),
+				(INVALID_HANDLER.decode, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)),
 			]
 		};
-		debug_assert_eq!(handlers[0].0.has_modrm, has_modrm);
-		debug_assert_eq!(handlers[1].0.has_modrm, has_modrm);
+		debug_assert_eq!(handlers[0].1.has_modrm, has_modrm);
+		debug_assert_eq!(handlers[1].1.has_modrm, has_modrm);
 		Self { decode: OpCodeHandler_VectorLength_VEX::decode, has_modrm, handlers }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert!(decoder.state.encoding() == EncodingKind::VEX || decoder.state.encoding() == EncodingKind::XOP);
-		let (handler, decode) = this.handlers[decoder.state.vector_length as usize];
+		let (decode, handler) = this.handlers[decoder.state.vector_length as usize];
 		(decode)(handler, decoder, instruction);
 	}
 }

@@ -27,15 +27,15 @@ use alloc::vec::Vec;
 use core::mem;
 
 enum HandlerInfo {
-	Handler((*const OpCodeHandler, OpCodeHandlerDecodeFn)),
-	Handlers(Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>),
+	Handler((OpCodeHandlerDecodeFn, *const OpCodeHandler)),
+	Handlers(Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>),
 }
 
 struct TableDeserializer<'a> {
 	reader: DataReader<'a>,
-	handler_reader: fn(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>),
+	handler_reader: fn(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>),
 	id_to_handler: Vec<HandlerInfo>,
-	temp_vecs: Vec<Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>>,
+	temp_vecs: Vec<Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>>,
 }
 
 impl<'a> TableDeserializer<'a> {
@@ -43,7 +43,7 @@ impl<'a> TableDeserializer<'a> {
 	#[inline]
 	fn new(
 		data: &'a [u8], max_ids: usize,
-		handler_reader: fn(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>),
+		handler_reader: fn(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>),
 	) -> Self {
 		Self { reader: DataReader::new(data), handler_reader, id_to_handler: Vec::with_capacity(max_ids), temp_vecs: Vec::new() }
 	}
@@ -171,15 +171,15 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[inline]
-	fn read_handler(&mut self) -> (*const OpCodeHandler, OpCodeHandlerDecodeFn) {
+	fn read_handler(&mut self) -> (OpCodeHandlerDecodeFn, *const OpCodeHandler) {
 		let result = self.read_handler_or_null_instance();
-		debug_assert!(!is_null_instance_handler(result.0));
+		debug_assert!(!is_null_instance_handler(result.1));
 		result
 	}
 
 	#[must_use]
 	#[allow(clippy::unwrap_used)]
-	fn read_handler_or_null_instance(&mut self) -> (*const OpCodeHandler, OpCodeHandlerDecodeFn) {
+	fn read_handler_or_null_instance(&mut self) -> (OpCodeHandlerDecodeFn, *const OpCodeHandler) {
 		let mut tmp_vec = self.temp_vecs.pop().unwrap_or_else(|| Vec::with_capacity(1));
 		debug_assert!(tmp_vec.is_empty());
 		(self.handler_reader)(self, &mut tmp_vec);
@@ -191,8 +191,8 @@ impl<'a> TableDeserializer<'a> {
 	}
 
 	#[must_use]
-	fn read_handlers(&mut self, count: usize) -> Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)> {
-		let mut handlers: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)> = Vec::with_capacity(count);
+	fn read_handlers(&mut self, count: usize) -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
+		let mut handlers: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> = Vec::with_capacity(count);
 		let mut i = 0;
 		while handlers.len() < count {
 			let len = handlers.len();
@@ -212,7 +212,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::get_unwrap)]
-	fn read_handler_reference(&mut self) -> (*const OpCodeHandler, OpCodeHandlerDecodeFn) {
+	fn read_handler_reference(&mut self) -> (OpCodeHandlerDecodeFn, *const OpCodeHandler) {
 		let index = self.reader.read_u8();
 		if let &HandlerInfo::Handler(handler) = self.id_to_handler.get(index).unwrap() {
 			handler
@@ -223,7 +223,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::get_unwrap)]
-	fn read_array_reference(&mut self, kind: u32) -> Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)> {
+	fn read_array_reference(&mut self, kind: u32) -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
 		let read_kind = self.reader.read_u8() as u32;
 		debug_assert_eq!(read_kind, kind);
 		let index = self.reader.read_u8();
@@ -236,7 +236,7 @@ impl<'a> TableDeserializer<'a> {
 	}
 
 	#[must_use]
-	fn read_array_reference_no_clone(&mut self, kind: u32) -> Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)> {
+	fn read_array_reference_no_clone(&mut self, kind: u32) -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
 		let read_kind = self.reader.read_u8() as u32;
 		debug_assert_eq!(read_kind, kind);
 		let index = self.reader.read_u8();
@@ -245,7 +245,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::get_unwrap)]
-	fn table(&mut self, index: usize) -> Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)> {
+	fn table(&mut self, index: usize) -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
 		if let &mut HandlerInfo::Handlers(ref mut tmp) = self.id_to_handler.get_mut(index).unwrap() {
 			let handlers = mem::replace(tmp, Vec::new());
 			debug_assert!(!handlers.is_empty());
@@ -257,7 +257,7 @@ impl<'a> TableDeserializer<'a> {
 }
 
 #[must_use]
-pub(super) fn read_legacy() -> Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)> {
+pub(super) fn read_legacy() -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
 	let handler_reader = self::legacy_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_legacy::TBL_DATA, data_legacy::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
@@ -267,9 +267,9 @@ pub(super) fn read_legacy() -> Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeF
 #[cfg(not(feature = "no_evex"))]
 #[must_use]
 pub(super) fn read_evex() -> (
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 ) {
 	let handler_reader = self::evex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_evex::TBL_DATA, data_evex::MAX_ID_NAMES, handler_reader);
@@ -284,9 +284,9 @@ pub(super) fn read_evex() -> (
 #[cfg(not(feature = "no_vex"))]
 #[must_use]
 pub(super) fn read_vex() -> (
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 ) {
 	let handler_reader = self::vex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_vex::TBL_DATA, data_vex::MAX_ID_NAMES, handler_reader);
@@ -301,9 +301,9 @@ pub(super) fn read_vex() -> (
 #[cfg(not(feature = "no_xop"))]
 #[must_use]
 pub(super) fn read_xop() -> (
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
-	Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 ) {
 	let handler_reader = self::vex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_xop::TBL_DATA, data_xop::MAX_ID_NAMES, handler_reader);
