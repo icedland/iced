@@ -46,8 +46,8 @@ pub(super) struct OpCodeHandler_VectorLength_EVEX {
 impl OpCodeHandler_VectorLength_EVEX {
 	#[allow(trivial_casts)]
 	pub(super) fn new(
-		handler128: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
-		handler512: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
+		handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+		handler512: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
@@ -56,14 +56,7 @@ impl OpCodeHandler_VectorLength_EVEX {
 		debug_assert!(!is_null_instance_handler(handler128.1));
 		debug_assert!(!is_null_instance_handler(handler256.1));
 		debug_assert!(!is_null_instance_handler(handler512.1));
-		let handlers = unsafe {
-			[
-				(handler128.0, &*handler128.1),
-				(handler256.0, &*handler256.1),
-				(handler512.0, &*handler512.1),
-				(INVALID_HANDLER.decode, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)),
-			]
-		};
+		let handlers = [handler128, handler256, handler512, get_invalid_handler()];
 		debug_assert!(handlers[0].1.has_modrm);
 		debug_assert!(handlers[1].1.has_modrm);
 		debug_assert!(handlers[2].1.has_modrm);
@@ -89,8 +82,8 @@ pub(super) struct OpCodeHandler_VectorLength_EVEX_er {
 impl OpCodeHandler_VectorLength_EVEX_er {
 	#[allow(trivial_casts)]
 	pub(super) fn new(
-		handler128: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
-		handler512: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
+		handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+		handler512: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
@@ -99,14 +92,7 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		debug_assert!(!is_null_instance_handler(handler128.1));
 		debug_assert!(!is_null_instance_handler(handler256.1));
 		debug_assert!(!is_null_instance_handler(handler512.1));
-		let handlers = unsafe {
-			[
-				(handler128.0, &*handler128.1),
-				(handler256.0, &*handler256.1),
-				(handler512.0, &*handler512.1),
-				(INVALID_HANDLER.decode, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)),
-			]
-		};
+		let handlers = [handler128, handler256, handler512, get_invalid_handler()];
 		debug_assert!(handlers[0].1.has_modrm);
 		debug_assert!(handlers[1].1.has_modrm);
 		debug_assert!(handlers[2].1.has_modrm);

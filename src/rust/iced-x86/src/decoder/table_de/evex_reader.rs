@@ -14,19 +14,18 @@ use alloc::vec::Vec;
 pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) {
 	let reg;
 	let elem: *const OpCodeHandler = match deserializer.read_evex_op_code_handler_kind() {
-		EvexOpCodeHandlerKind::Invalid => &INVALID_HANDLER as *const _ as *const OpCodeHandler,
+		EvexOpCodeHandlerKind::Invalid => get_invalid_handler().1,
 
 		EvexOpCodeHandlerKind::Invalid2 => {
-			result.push((INVALID_HANDLER.decode, unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) }));
-			&INVALID_HANDLER as *const _ as *const OpCodeHandler
+			result.push(get_invalid_handler());
+			get_invalid_handler().1
 		}
 
 		EvexOpCodeHandlerKind::Dup => {
 			let count = deserializer.read_u32();
 			let handler = deserializer.read_handler();
 			for _ in 0..count {
-				let handler = unsafe { &*handler.1 };
-				result.push((handler.decode, handler));
+				result.push(handler);
 			}
 			return;
 		}

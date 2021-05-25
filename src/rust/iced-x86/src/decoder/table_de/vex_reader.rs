@@ -13,25 +13,24 @@ use alloc::vec::Vec;
 pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &mut Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>) {
 	let reg;
 	let elem: *const OpCodeHandler = match deserializer.read_vex_op_code_handler_kind() {
-		VexOpCodeHandlerKind::Invalid => &INVALID_HANDLER as *const _ as *const OpCodeHandler,
+		VexOpCodeHandlerKind::Invalid => get_invalid_handler().1,
 
 		VexOpCodeHandlerKind::Invalid2 => {
-			result.push((INVALID_HANDLER.decode, unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) }));
-			&INVALID_HANDLER as *const _ as *const OpCodeHandler
+			result.push(get_invalid_handler());
+			get_invalid_handler().1
 		}
 
 		VexOpCodeHandlerKind::Dup => {
 			let count = deserializer.read_u32();
 			let handler = deserializer.read_handler_or_null_instance();
 			for _ in 0..count {
-				let handler = unsafe { &*handler.1 };
-				result.push((handler.decode, handler));
+				result.push(handler);
 			}
 			return;
 		}
 
-		VexOpCodeHandlerKind::Null => &NULL_HANDLER as *const _ as *const OpCodeHandler,
-		VexOpCodeHandlerKind::Invalid_NoModRM => &INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler,
+		VexOpCodeHandlerKind::Null => get_null_handler().1,
+		VexOpCodeHandlerKind::Invalid_NoModRM => get_invalid_no_modrm_handler().1,
 
 		VexOpCodeHandlerKind::Bitness => {
 			Box::into_raw(Box::new(OpCodeHandler_Bitness::new(deserializer.read_handler(), deserializer.read_handler()))) as *const OpCodeHandler
@@ -66,9 +65,9 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 		VexOpCodeHandlerKind::MandatoryPrefix2_1 => Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix2::new(
 			true,
 			deserializer.read_handler(),
-			(INVALID_HANDLER.decode, &INVALID_HANDLER as *const _ as *const OpCodeHandler),
-			(INVALID_HANDLER.decode, &INVALID_HANDLER as *const _ as *const OpCodeHandler),
-			(INVALID_HANDLER.decode, &INVALID_HANDLER as *const _ as *const OpCodeHandler),
+			get_invalid_handler(),
+			get_invalid_handler(),
+			get_invalid_handler(),
 		))) as *const OpCodeHandler,
 
 		VexOpCodeHandlerKind::MandatoryPrefix2_4 => Box::into_raw(Box::new(OpCodeHandler_MandatoryPrefix2::new(

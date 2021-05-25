@@ -20,14 +20,14 @@ use crate::decoder::handlers::OpCodeHandler;
 use crate::decoder::handlers::{is_null_instance_handler, OpCodeHandlerDecodeFn};
 use crate::decoder::table_de::enums::*;
 use crate::iced_constants::IcedConstants;
+use crate::{Code, CodeUnderlyingType, Register, RegisterUnderlyingType};
 #[cfg(not(feature = "no_evex"))]
-use crate::TupleType;
-use crate::{Code, Register};
+use crate::{TupleType, TupleTypeUnderlyingType};
 use alloc::vec::Vec;
 use core::mem;
 
 enum HandlerInfo {
-	Handler((OpCodeHandlerDecodeFn, *const OpCodeHandler)),
+	Handler((OpCodeHandlerDecodeFn, &'static OpCodeHandler)),
 	Handlers(Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>),
 }
 
@@ -97,7 +97,7 @@ impl<'a> TableDeserializer<'a> {
 		let v = self.reader.read_compressed_u32();
 		debug_assert!(v < IcedConstants::CODE_ENUM_COUNT as u32);
 		// SAFETY: generated (and also immutable) data is valid
-		unsafe { mem::transmute(v as u16) }
+		unsafe { mem::transmute(v as CodeUnderlyingType) }
 	}
 
 	#[must_use]
@@ -107,7 +107,7 @@ impl<'a> TableDeserializer<'a> {
 		debug_assert!(v < IcedConstants::CODE_ENUM_COUNT as u32);
 		debug_assert!(v + 1 < IcedConstants::CODE_ENUM_COUNT as u32);
 		// SAFETY: generated (and also immutable) data is valid
-		(unsafe { mem::transmute(v as u16) }, unsafe { mem::transmute((v + 1) as u16) })
+		(unsafe { mem::transmute(v as CodeUnderlyingType) }, unsafe { mem::transmute((v + 1) as CodeUnderlyingType) })
 	}
 
 	#[must_use]
@@ -117,7 +117,9 @@ impl<'a> TableDeserializer<'a> {
 		debug_assert!(v < IcedConstants::CODE_ENUM_COUNT as u32);
 		debug_assert!(v + 2 < IcedConstants::CODE_ENUM_COUNT as u32);
 		// SAFETY: generated (and also immutable) data is valid
-		(unsafe { mem::transmute(v as u16) }, unsafe { mem::transmute((v + 1) as u16) }, unsafe { mem::transmute((v + 2) as u16) })
+		(unsafe { mem::transmute(v as CodeUnderlyingType) }, unsafe { mem::transmute((v + 1) as CodeUnderlyingType) }, unsafe {
+			mem::transmute((v + 2) as CodeUnderlyingType)
+		})
 	}
 
 	#[must_use]
@@ -126,7 +128,7 @@ impl<'a> TableDeserializer<'a> {
 		let v = self.reader.read_u8();
 		debug_assert!(v < IcedConstants::REGISTER_ENUM_COUNT);
 		// SAFETY: generated (and also immutable) data is valid
-		unsafe { mem::transmute(v as u8) }
+		unsafe { mem::transmute(v as RegisterUnderlyingType) }
 	}
 
 	#[must_use]
@@ -154,7 +156,7 @@ impl<'a> TableDeserializer<'a> {
 		let v = self.reader.read_u8();
 		debug_assert!(v < IcedConstants::TUPLE_TYPE_ENUM_COUNT);
 		// SAFETY: generated (and also immutable) data is valid
-		unsafe { mem::transmute(v as u8) }
+		unsafe { mem::transmute(v as TupleTypeUnderlyingType) }
 	}
 
 	#[must_use]
@@ -171,7 +173,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[inline]
-	fn read_handler(&mut self) -> (OpCodeHandlerDecodeFn, *const OpCodeHandler) {
+	fn read_handler(&mut self) -> (OpCodeHandlerDecodeFn, &'static OpCodeHandler) {
 		let result = self.read_handler_or_null_instance();
 		debug_assert!(!is_null_instance_handler(result.1));
 		result
@@ -179,7 +181,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::unwrap_used)]
-	fn read_handler_or_null_instance(&mut self) -> (OpCodeHandlerDecodeFn, *const OpCodeHandler) {
+	fn read_handler_or_null_instance(&mut self) -> (OpCodeHandlerDecodeFn, &'static OpCodeHandler) {
 		let mut tmp_vec = self.temp_vecs.pop().unwrap_or_else(|| Vec::with_capacity(1));
 		debug_assert!(tmp_vec.is_empty());
 		(self.handler_reader)(self, &mut tmp_vec);
@@ -187,7 +189,7 @@ impl<'a> TableDeserializer<'a> {
 		let result = tmp_vec.pop().unwrap();
 		debug_assert!(tmp_vec.is_empty());
 		self.temp_vecs.push(tmp_vec);
-		(result.0, result.1)
+		result
 	}
 
 	#[must_use]
@@ -212,7 +214,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::get_unwrap)]
-	fn read_handler_reference(&mut self) -> (OpCodeHandlerDecodeFn, *const OpCodeHandler) {
+	fn read_handler_reference(&mut self) -> (OpCodeHandlerDecodeFn, &'static OpCodeHandler) {
 		let index = self.reader.read_u8();
 		if let &HandlerInfo::Handler(handler) = self.id_to_handler.get(index).unwrap() {
 			handler

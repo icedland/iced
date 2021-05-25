@@ -46,9 +46,9 @@ pub(super) struct OpCodeHandler_VEX2 {
 }
 
 impl OpCodeHandler_VEX2 {
-	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, *const OpCodeHandler)) -> Self {
+	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
-		Self { has_modrm: true, decode: OpCodeHandler_VEX2::decode, handler_mem: (handler_mem.0, unsafe { &*handler_mem.1 }) }
+		Self { has_modrm: true, decode: OpCodeHandler_VEX2::decode, handler_mem }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -71,9 +71,9 @@ pub(super) struct OpCodeHandler_VEX3 {
 }
 
 impl OpCodeHandler_VEX3 {
-	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, *const OpCodeHandler)) -> Self {
+	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
-		Self { has_modrm: true, decode: OpCodeHandler_VEX3::decode, handler_mem: (handler_mem.0, unsafe { &*handler_mem.1 }) }
+		Self { has_modrm: true, decode: OpCodeHandler_VEX3::decode, handler_mem }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -96,9 +96,9 @@ pub(super) struct OpCodeHandler_XOP {
 }
 
 impl OpCodeHandler_XOP {
-	pub(super) fn new(handler_reg0: (OpCodeHandlerDecodeFn, *const OpCodeHandler)) -> Self {
+	pub(super) fn new(handler_reg0: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_reg0.1));
-		Self { has_modrm: true, decode: OpCodeHandler_XOP::decode, handler_reg0: (handler_reg0.0, unsafe { &*handler_reg0.1 }) }
+		Self { has_modrm: true, decode: OpCodeHandler_XOP::decode, handler_reg0 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -121,9 +121,9 @@ pub(super) struct OpCodeHandler_EVEX {
 }
 
 impl OpCodeHandler_EVEX {
-	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, *const OpCodeHandler)) -> Self {
+	pub(super) fn new(handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler)) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
-		Self { has_modrm: true, decode: OpCodeHandler_EVEX::decode, handler_mem: (handler_mem.0, unsafe { &*handler_mem.1 }) }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX::decode, handler_mem }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -317,9 +317,8 @@ pub(super) struct OpCodeHandler_PrefixREX {
 }
 
 impl OpCodeHandler_PrefixREX {
-	pub(super) fn new(handler: (OpCodeHandlerDecodeFn, *const OpCodeHandler), rex: u32) -> Self {
+	pub(super) fn new(handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), rex: u32) -> Self {
 		debug_assert!(rex <= 0x0F);
-		let handler = (handler.0, unsafe { &*handler.1 });
 		Self { has_modrm: false, decode: OpCodeHandler_PrefixREX::decode, handler, rex }
 	}
 
@@ -535,8 +534,8 @@ pub(super) struct OpCodeHandler_MandatoryPrefix {
 
 impl OpCodeHandler_MandatoryPrefix {
 	pub(super) fn new(
-		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
-		handler_f3: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
+		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
 		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
 		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
@@ -546,8 +545,7 @@ impl OpCodeHandler_MandatoryPrefix {
 		debug_assert!(!is_null_instance_handler(handler_66.1));
 		debug_assert!(!is_null_instance_handler(handler_f3.1));
 		debug_assert!(!is_null_instance_handler(handler_f2.1));
-		let handlers =
-			unsafe { [(handler.0, &*handler.1), (handler_66.0, &*handler_66.1), (handler_f3.0, &*handler_f3.1), (handler_f2.0, &*handler_f2.1)] };
+		let handlers = [handler, handler_66, handler_f3, handler_f2];
 		debug_assert_eq!(handlers[0].1.has_modrm, has_modrm);
 		debug_assert_eq!(handlers[1].1.has_modrm, has_modrm);
 		debug_assert_eq!(handlers[2].1.has_modrm, has_modrm);
@@ -576,10 +574,10 @@ pub(super) struct OpCodeHandler_MandatoryPrefix3 {
 impl OpCodeHandler_MandatoryPrefix3 {
 	#[allow(clippy::too_many_arguments)]
 	pub(super) fn new(
-		handler_reg: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler_mem: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
-		handler66_reg: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler66_mem: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
-		handlerf3_reg: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handlerf3_mem: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
-		handlerf2_reg: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handlerf2_mem: (OpCodeHandlerDecodeFn, *const OpCodeHandler), flags: u32,
+		handler_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+		handler66_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler66_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+		handlerf3_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handlerf3_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+		handlerf2_reg: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handlerf2_mem: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), flags: u32,
 	) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_reg.1));
 		debug_assert!(!is_null_instance_handler(handler_mem.1));
@@ -589,22 +587,18 @@ impl OpCodeHandler_MandatoryPrefix3 {
 		debug_assert!(!is_null_instance_handler(handlerf3_mem.1));
 		debug_assert!(!is_null_instance_handler(handlerf2_reg.1));
 		debug_assert!(!is_null_instance_handler(handlerf2_mem.1));
-		let handlers_reg = unsafe {
-			[
-				(handler_reg.0, &*handler_reg.1, (flags & LegacyHandlerFlags::HANDLER_REG) == 0),
-				(handler66_reg.0, &*handler66_reg.1, (flags & LegacyHandlerFlags::HANDLER_66_REG) == 0),
-				(handlerf3_reg.0, &*handlerf3_reg.1, (flags & LegacyHandlerFlags::HANDLER_F3_REG) == 0),
-				(handlerf2_reg.0, &*handlerf2_reg.1, (flags & LegacyHandlerFlags::HANDLER_F2_REG) == 0),
-			]
-		};
-		let handlers_mem = unsafe {
-			[
-				(handler_mem.0, &*handler_mem.1, (flags & LegacyHandlerFlags::HANDLER_MEM) == 0),
-				(handler66_mem.0, &*handler66_mem.1, (flags & LegacyHandlerFlags::HANDLER_66_MEM) == 0),
-				(handlerf3_mem.0, &*handlerf3_mem.1, (flags & LegacyHandlerFlags::HANDLER_F3_MEM) == 0),
-				(handlerf2_mem.0, &*handlerf2_mem.1, (flags & LegacyHandlerFlags::HANDLER_F2_MEM) == 0),
-			]
-		};
+		let handlers_reg = [
+			(handler_reg.0, &*handler_reg.1, (flags & LegacyHandlerFlags::HANDLER_REG) == 0),
+			(handler66_reg.0, &*handler66_reg.1, (flags & LegacyHandlerFlags::HANDLER_66_REG) == 0),
+			(handlerf3_reg.0, &*handlerf3_reg.1, (flags & LegacyHandlerFlags::HANDLER_F3_REG) == 0),
+			(handlerf2_reg.0, &*handlerf2_reg.1, (flags & LegacyHandlerFlags::HANDLER_F2_REG) == 0),
+		];
+		let handlers_mem = [
+			(handler_mem.0, &*handler_mem.1, (flags & LegacyHandlerFlags::HANDLER_MEM) == 0),
+			(handler66_mem.0, &*handler66_mem.1, (flags & LegacyHandlerFlags::HANDLER_66_MEM) == 0),
+			(handlerf3_mem.0, &*handlerf3_mem.1, (flags & LegacyHandlerFlags::HANDLER_F3_MEM) == 0),
+			(handlerf2_mem.0, &*handlerf2_mem.1, (flags & LegacyHandlerFlags::HANDLER_F2_MEM) == 0),
+		];
 		debug_assert!(handlers_reg[0].1.has_modrm);
 		debug_assert!(handlers_reg[1].1.has_modrm);
 		debug_assert!(handlers_reg[2].1.has_modrm);
@@ -647,22 +641,14 @@ pub(super) struct OpCodeHandler_MandatoryPrefix4 {
 
 impl OpCodeHandler_MandatoryPrefix4 {
 	pub(super) fn new(
-		handler_np: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
-		handler_f3: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, *const OpCodeHandler), flags: u32,
+		handler_np: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
+		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), flags: u32,
 	) -> Self {
 		debug_assert!(!is_null_instance_handler(handler_np.1));
 		debug_assert!(!is_null_instance_handler(handler_66.1));
 		debug_assert!(!is_null_instance_handler(handler_f3.1));
 		debug_assert!(!is_null_instance_handler(handler_f2.1));
-		Self {
-			decode: OpCodeHandler_MandatoryPrefix4::decode,
-			has_modrm: false,
-			handler_np: (handler_np.0, unsafe { &*handler_np.1 }),
-			handler_66: (handler_66.0, unsafe { &*handler_66.1 }),
-			handler_f3: (handler_f3.0, unsafe { &*handler_f3.1 }),
-			handler_f2: (handler_f2.0, unsafe { &*handler_f2.1 }),
-			flags,
-		}
+		Self { decode: OpCodeHandler_MandatoryPrefix4::decode, has_modrm: false, handler_np, handler_66, handler_f3, handler_f2, flags }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -737,16 +723,11 @@ pub(super) struct OpCodeHandler_Reservednop {
 
 impl OpCodeHandler_Reservednop {
 	pub(super) fn new(
-		reserved_nop_handler: (OpCodeHandlerDecodeFn, *const OpCodeHandler), other_handler: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
+		reserved_nop_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), other_handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
 		debug_assert!(!is_null_instance_handler(reserved_nop_handler.1));
 		debug_assert!(!is_null_instance_handler(other_handler.1));
-		Self {
-			decode: OpCodeHandler_Reservednop::decode,
-			has_modrm: true,
-			reserved_nop_handler: (reserved_nop_handler.0, unsafe { &*reserved_nop_handler.1 }),
-			other_handler: (other_handler.0, unsafe { &*other_handler.1 }),
-		}
+		Self { decode: OpCodeHandler_Reservednop::decode, has_modrm: true, reserved_nop_handler, other_handler }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {

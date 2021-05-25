@@ -53,7 +53,7 @@ pub(super) struct OpCodeHandler_VectorLength_VEX {
 impl OpCodeHandler_VectorLength_VEX {
 	#[allow(trivial_casts)]
 	pub(super) fn new(
-		has_modrm: bool, handler128: (OpCodeHandlerDecodeFn, *const OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, *const OpCodeHandler),
+		has_modrm: bool, handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> Self {
 		const_assert_eq!(VectorLength::L128 as u32, 0);
 		const_assert_eq!(VectorLength::L256 as u32, 1);
@@ -61,14 +61,7 @@ impl OpCodeHandler_VectorLength_VEX {
 		const_assert_eq!(VectorLength::Unknown as u32, 3);
 		debug_assert!(!is_null_instance_handler(handler128.1));
 		debug_assert!(!is_null_instance_handler(handler256.1));
-		let handlers = unsafe {
-			[
-				(handler128.0, &*handler128.1),
-				(handler256.0, &*handler256.1),
-				(INVALID_HANDLER.decode, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)),
-				(INVALID_HANDLER.decode, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)),
-			]
-		};
+		let handlers = [handler128, handler256, get_invalid_handler(), get_invalid_handler()];
 		debug_assert_eq!(handlers[0].1.has_modrm, has_modrm);
 		debug_assert_eq!(handlers[1].1.has_modrm, has_modrm);
 		Self { decode: OpCodeHandler_VectorLength_VEX::decode, has_modrm, handlers }

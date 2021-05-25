@@ -26,25 +26,24 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 				as *const OpCodeHandler
 		}
 
-		OpCodeHandlerKind::Invalid => &INVALID_HANDLER as *const _ as *const OpCodeHandler,
-		OpCodeHandlerKind::Invalid_NoModRM => &INVALID_NO_MODRM_HANDLER as *const _ as *const OpCodeHandler,
+		OpCodeHandlerKind::Invalid => get_invalid_handler().1,
+		OpCodeHandlerKind::Invalid_NoModRM => get_invalid_no_modrm_handler().1,
 
 		OpCodeHandlerKind::Invalid2 => {
-			result.push((INVALID_HANDLER.decode, unsafe { &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler) }));
-			&INVALID_HANDLER as *const _ as *const OpCodeHandler
+			result.push(get_invalid_handler());
+			get_invalid_handler().1
 		}
 
 		OpCodeHandlerKind::Dup => {
 			let count = deserializer.read_u32();
 			let handler = deserializer.read_handler_or_null_instance();
 			for _ in 0..count {
-				let handler = unsafe { &*handler.1 };
-				result.push((handler.decode, handler));
+				result.push(handler);
 			}
 			return;
 		}
 
-		OpCodeHandlerKind::Null => &NULL_HANDLER as *const _ as *const OpCodeHandler,
+		OpCodeHandlerKind::Null => get_null_handler().1,
 		OpCodeHandlerKind::HandlerReference => deserializer.read_handler_reference().1,
 		OpCodeHandlerKind::ArrayReference => unreachable!(),
 
