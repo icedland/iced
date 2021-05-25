@@ -271,15 +271,15 @@ static CODE_VALUES: [Code; 0x100] = [
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_D3NOW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 }
 
 #[cfg(not(feature = "no_d3now"))]
 impl OpCodeHandler_D3NOW {
 	pub(super) fn new() -> Self {
 		debug_assert_eq!(CODE_VALUES.len(), 0x100);
-		Self { decode: OpCodeHandler_D3NOW::decode, has_modrm: true }
+		Self { has_modrm: true, decode: OpCodeHandler_D3NOW::decode }
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -315,7 +315,7 @@ impl OpCodeHandler_D3NOW {
 #[cfg(feature = "no_d3now")]
 impl OpCodeHandler_D3NOW {
 	pub(super) fn new() -> Self {
-		Self { decode: OpCodeHandler_D3NOW::decode, has_modrm: true }
+		Self { has_modrm: true, decode: OpCodeHandler_D3NOW::decode }
 	}
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, _instruction: &mut Instruction) {

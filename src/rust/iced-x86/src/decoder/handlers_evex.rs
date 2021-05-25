@@ -38,8 +38,8 @@ macro_rules! write_op2_reg {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_VectorLength_EVEX {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	handlers: [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 4],
 }
 
@@ -67,7 +67,7 @@ impl OpCodeHandler_VectorLength_EVEX {
 		debug_assert!(handlers[0].0.has_modrm);
 		debug_assert!(handlers[1].0.has_modrm);
 		debug_assert!(handlers[2].0.has_modrm);
-		Self { decode: OpCodeHandler_VectorLength_EVEX::decode, has_modrm: true, handlers }
+		Self { has_modrm: true, decode: OpCodeHandler_VectorLength_EVEX::decode, handlers }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -81,8 +81,8 @@ impl OpCodeHandler_VectorLength_EVEX {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_VectorLength_EVEX_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	handlers: [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 4],
 }
 
@@ -110,7 +110,7 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		debug_assert!(handlers[0].0.has_modrm);
 		debug_assert!(handlers[1].0.has_modrm);
 		debug_assert!(handlers[2].0.has_modrm);
-		Self { decode: OpCodeHandler_VectorLength_EVEX_er::decode, has_modrm: true, handlers }
+		Self { has_modrm: true, decode: OpCodeHandler_VectorLength_EVEX_er::decode, handlers }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -128,8 +128,8 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_V_H_Ev_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code_w0: Code,
 	code_w1: Code,
 	base_reg: Register,
@@ -139,7 +139,7 @@ pub(super) struct OpCodeHandler_EVEX_V_H_Ev_er {
 
 impl OpCodeHandler_EVEX_V_H_Ev_er {
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_V_H_Ev_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_V_H_Ev_er::decode, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -193,8 +193,8 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code_w0: Code,
 	code_w1: Code,
 	base_reg: Register,
@@ -204,7 +204,7 @@ pub(super) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
 
 impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_V_H_Ev_Ib::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_V_H_Ev_Ib::decode, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -250,8 +250,8 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_Ed_V_Ib {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code32: Code,
 	code64: Code,
 	base_reg: Register,
@@ -261,7 +261,7 @@ pub(super) struct OpCodeHandler_EVEX_Ed_V_Ib {
 
 impl OpCodeHandler_EVEX_Ed_V_Ib {
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_Ed_V_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Ed_V_Ib::decode, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -307,8 +307,8 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkHW_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -318,7 +318,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHW_er {
 
 impl OpCodeHandler_EVEX_VkHW_er {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkHW_er::decode, has_modrm: true, base_reg, code, tuple_type, only_sae, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHW_er::decode, base_reg, code, tuple_type, only_sae, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -368,8 +368,8 @@ impl OpCodeHandler_EVEX_VkHW_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkW_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -393,11 +393,11 @@ impl OpCodeHandler_EVEX_VkW_er {
 	}
 
 	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, only_sae: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast: true }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW_er::decode, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast: true }
 	}
 
 	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW_er::decode, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -447,8 +447,8 @@ impl OpCodeHandler_EVEX_VkW_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkWIb_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -457,7 +457,7 @@ pub(super) struct OpCodeHandler_EVEX_VkWIb_er {
 
 impl OpCodeHandler_EVEX_VkWIb_er {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkWIb_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkWIb_er::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -495,8 +495,8 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -506,11 +506,11 @@ pub(super) struct OpCodeHandler_EVEX_VkW {
 
 impl OpCodeHandler_EVEX_VkW {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
 	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkW::decode, base_reg1, base_reg2, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -551,8 +551,8 @@ impl OpCodeHandler_EVEX_VkW {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_WkV {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	disallow_zeroing_masking: u32,
 	code: Code,
 	base_reg1: Register,
@@ -586,7 +586,7 @@ impl OpCodeHandler_EVEX_WkV {
 	}
 
 	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_WkV::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, disallow_zeroing_masking: 0 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkV::decode, base_reg1, base_reg2, code, tuple_type, disallow_zeroing_masking: 0 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -623,8 +623,8 @@ impl OpCodeHandler_EVEX_WkV {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkM {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -632,7 +632,7 @@ pub(super) struct OpCodeHandler_EVEX_VkM {
 
 impl OpCodeHandler_EVEX_VkM {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkM::decode, has_modrm: true, base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkM::decode, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -661,8 +661,8 @@ impl OpCodeHandler_EVEX_VkM {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkWIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -672,7 +672,7 @@ pub(super) struct OpCodeHandler_EVEX_VkWIb {
 
 impl OpCodeHandler_EVEX_VkWIb {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkWIb::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -715,8 +715,8 @@ impl OpCodeHandler_EVEX_VkWIb {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_WkVIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -725,7 +725,7 @@ pub(super) struct OpCodeHandler_EVEX_WkVIb {
 
 impl OpCodeHandler_EVEX_WkVIb {
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_WkVIb::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkVIb::decode, base_reg1, base_reg2, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -760,8 +760,8 @@ impl OpCodeHandler_EVEX_WkVIb {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_HkWIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -771,7 +771,7 @@ pub(super) struct OpCodeHandler_EVEX_HkWIb {
 
 impl OpCodeHandler_EVEX_HkWIb {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_HkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_HkWIb::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -808,8 +808,8 @@ impl OpCodeHandler_EVEX_HkWIb {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_HWIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -818,7 +818,7 @@ pub(super) struct OpCodeHandler_EVEX_HWIb {
 
 impl OpCodeHandler_EVEX_HWIb {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_HWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_HWIb::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -851,8 +851,8 @@ impl OpCodeHandler_EVEX_HWIb {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_WkVIb_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -861,7 +861,7 @@ pub(super) struct OpCodeHandler_EVEX_WkVIb_er {
 
 impl OpCodeHandler_EVEX_WkVIb_er {
 	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_WkVIb_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkVIb_er::decode, base_reg1, base_reg2, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -900,8 +900,8 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VW_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -910,7 +910,7 @@ pub(super) struct OpCodeHandler_EVEX_VW_er {
 
 impl OpCodeHandler_EVEX_VW_er {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VW_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VW_er::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -947,8 +947,8 @@ impl OpCodeHandler_EVEX_VW_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -957,7 +957,7 @@ pub(super) struct OpCodeHandler_EVEX_VW {
 
 impl OpCodeHandler_EVEX_VW {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VW::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -994,8 +994,8 @@ impl OpCodeHandler_EVEX_VW {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_WV {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -1004,7 +1004,7 @@ pub(super) struct OpCodeHandler_EVEX_WV {
 
 impl OpCodeHandler_EVEX_WV {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_WV::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WV::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1041,8 +1041,8 @@ impl OpCodeHandler_EVEX_WV {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VM {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -1050,7 +1050,7 @@ pub(super) struct OpCodeHandler_EVEX_VM {
 
 impl OpCodeHandler_EVEX_VM {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VM::decode, has_modrm: true, base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VM::decode, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1082,15 +1082,15 @@ impl OpCodeHandler_EVEX_VM {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VK {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_VK {
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VK::decode, has_modrm: true, base_reg, code }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VK::decode, base_reg, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1123,15 +1123,15 @@ impl OpCodeHandler_EVEX_VK {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_KR {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_KR {
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
-		Self { decode: OpCodeHandler_EVEX_KR::decode, has_modrm: true, base_reg, code }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KR::decode, base_reg, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1165,8 +1165,8 @@ impl OpCodeHandler_EVEX_KR {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_KkHWIb_sae {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -1175,7 +1175,7 @@ pub(super) struct OpCodeHandler_EVEX_KkHWIb_sae {
 
 impl OpCodeHandler_EVEX_KkHWIb_sae {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_KkHWIb_sae::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkHWIb_sae::decode, base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1221,8 +1221,8 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkHW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -1248,7 +1248,7 @@ impl OpCodeHandler_EVEX_VkHW {
 	pub(super) fn new1(
 		base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code, tuple_type: TupleType, can_broadcast: bool,
 	) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkHW::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHW::decode, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1289,8 +1289,8 @@ impl OpCodeHandler_EVEX_VkHW {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkHM {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -1299,7 +1299,7 @@ pub(super) struct OpCodeHandler_EVEX_VkHM {
 
 impl OpCodeHandler_EVEX_VkHM {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkHM::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHM::decode, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1331,8 +1331,8 @@ impl OpCodeHandler_EVEX_VkHM {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkHWIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -1358,7 +1358,7 @@ impl OpCodeHandler_EVEX_VkHWIb {
 	pub(super) fn new1(
 		base_reg1: Register, base_reg2: Register, base_reg3: Register, code: Code, tuple_type: TupleType, can_broadcast: bool,
 	) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkHWIb::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHWIb::decode, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1401,8 +1401,8 @@ impl OpCodeHandler_EVEX_VkHWIb {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkHWIb_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg1: Register,
 	base_reg2: Register,
@@ -1465,8 +1465,8 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_KkHW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -1475,7 +1475,7 @@ pub(super) struct OpCodeHandler_EVEX_KkHW {
 
 impl OpCodeHandler_EVEX_KkHW {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_KkHW::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkHW::decode, base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1519,8 +1519,8 @@ impl OpCodeHandler_EVEX_KkHW {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_KP1HW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -1528,7 +1528,7 @@ pub(super) struct OpCodeHandler_EVEX_KP1HW {
 
 impl OpCodeHandler_EVEX_KP1HW {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_KP1HW::decode, has_modrm: true, base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KP1HW::decode, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1568,8 +1568,8 @@ impl OpCodeHandler_EVEX_KP1HW {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_KkHWIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -1578,7 +1578,7 @@ pub(super) struct OpCodeHandler_EVEX_KkHWIb {
 
 impl OpCodeHandler_EVEX_KkHWIb {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_KkHWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkHWIb::decode, base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1624,15 +1624,15 @@ impl OpCodeHandler_EVEX_KkHWIb {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_WkHV {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_WkHV {
 	pub(super) fn new(base_reg: Register, code: Code) -> Self {
-		Self { decode: OpCodeHandler_EVEX_WkHV::decode, has_modrm: true, base_reg, code }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_WkHV::decode, base_reg, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1662,8 +1662,8 @@ impl OpCodeHandler_EVEX_WkHV {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VHWIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -1671,7 +1671,7 @@ pub(super) struct OpCodeHandler_EVEX_VHWIb {
 
 impl OpCodeHandler_EVEX_VHWIb {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VHWIb::decode, has_modrm: true, base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VHWIb::decode, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1707,8 +1707,8 @@ impl OpCodeHandler_EVEX_VHWIb {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VHW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code_r: Code,
 	code_m: Code,
 	base_reg1: Register,
@@ -1776,8 +1776,8 @@ impl OpCodeHandler_EVEX_VHW {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VHM {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -1785,7 +1785,7 @@ pub(super) struct OpCodeHandler_EVEX_VHM {
 
 impl OpCodeHandler_EVEX_VHM {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VHM::decode, has_modrm: true, base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VHM::decode, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1817,8 +1817,8 @@ impl OpCodeHandler_EVEX_VHM {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_Gv_W_er {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code_w0: Code,
 	code_w1: Code,
 	base_reg: Register,
@@ -1828,7 +1828,7 @@ pub(super) struct OpCodeHandler_EVEX_Gv_W_er {
 
 impl OpCodeHandler_EVEX_Gv_W_er {
 	pub(super) fn new(base_reg: Register, code_w0: Code, code_w1: Code, tuple_type: TupleType, only_sae: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_Gv_W_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type, only_sae }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Gv_W_er::decode, base_reg, code_w0, code_w1, tuple_type, only_sae }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1880,8 +1880,8 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VX_Ev {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code32: Code,
 	code64: Code,
 	tuple_type_w0: TupleType,
@@ -1890,7 +1890,7 @@ pub(super) struct OpCodeHandler_EVEX_VX_Ev {
 
 impl OpCodeHandler_EVEX_VX_Ev {
 	pub(super) fn new(code32: Code, code64: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VX_Ev::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VX_Ev::decode, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1933,8 +1933,8 @@ impl OpCodeHandler_EVEX_VX_Ev {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_Ev_VX {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code32: Code,
 	code64: Code,
 	tuple_type_w0: TupleType,
@@ -1943,7 +1943,7 @@ pub(super) struct OpCodeHandler_EVEX_Ev_VX {
 
 impl OpCodeHandler_EVEX_Ev_VX {
 	pub(super) fn new(code32: Code, code64: Code, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_Ev_VX::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Ev_VX::decode, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -1986,8 +1986,8 @@ impl OpCodeHandler_EVEX_Ev_VX {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_Ev_VX_Ib {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code32: Code,
 	code64: Code,
 	base_reg: Register,
@@ -1995,7 +1995,7 @@ pub(super) struct OpCodeHandler_EVEX_Ev_VX_Ib {
 
 impl OpCodeHandler_EVEX_Ev_VX_Ib {
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
-		Self { decode: OpCodeHandler_EVEX_Ev_VX_Ib::decode, has_modrm: true, base_reg, code32, code64 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Ev_VX_Ib::decode, base_reg, code32, code64 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -2033,8 +2033,8 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_MV {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -2042,7 +2042,7 @@ pub(super) struct OpCodeHandler_EVEX_MV {
 
 impl OpCodeHandler_EVEX_MV {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_MV::decode, has_modrm: true, base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_MV::decode, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -2073,8 +2073,8 @@ impl OpCodeHandler_EVEX_MV {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkEv_REXW {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code32: Code,
 	code64: Code,
 	base_reg: Register,
@@ -2082,7 +2082,7 @@ pub(super) struct OpCodeHandler_EVEX_VkEv_REXW {
 
 impl OpCodeHandler_EVEX_VkEv_REXW {
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VkEv_REXW::decode, has_modrm: true, base_reg, code32, code64 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkEv_REXW::decode, base_reg, code32, code64 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -2120,8 +2120,8 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_Vk_VSIB {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	vsib_base: Register,
@@ -2130,7 +2130,7 @@ pub(super) struct OpCodeHandler_EVEX_Vk_VSIB {
 
 impl OpCodeHandler_EVEX_Vk_VSIB {
 	pub(super) fn new(base_reg: Register, vsib_base: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_Vk_VSIB::decode, has_modrm: true, base_reg, vsib_base, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_Vk_VSIB::decode, base_reg, vsib_base, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -2164,8 +2164,8 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VSIB_k1_VX {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	vsib_index: Register,
 	base_reg: Register,
@@ -2174,7 +2174,7 @@ pub(super) struct OpCodeHandler_EVEX_VSIB_k1_VX {
 
 impl OpCodeHandler_EVEX_VSIB_k1_VX {
 	pub(super) fn new(vsib_index: Register, base_reg: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VSIB_k1_VX::decode, has_modrm: true, vsib_index, base_reg, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VSIB_k1_VX::decode, vsib_index, base_reg, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -2205,8 +2205,8 @@ impl OpCodeHandler_EVEX_VSIB_k1_VX {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VSIB_k1 {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	vsib_index: Register,
 	tuple_type: TupleType,
@@ -2214,7 +2214,7 @@ pub(super) struct OpCodeHandler_EVEX_VSIB_k1 {
 
 impl OpCodeHandler_EVEX_VSIB_k1 {
 	pub(super) fn new(vsib_index: Register, code: Code, tuple_type: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_VSIB_k1::decode, has_modrm: true, vsib_index, code, tuple_type }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VSIB_k1::decode, vsib_index, code, tuple_type }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -2239,8 +2239,8 @@ impl OpCodeHandler_EVEX_VSIB_k1 {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_GvM_VX_Ib {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code32: Code,
 	code64: Code,
 	base_reg: Register,
@@ -2250,7 +2250,7 @@ pub(super) struct OpCodeHandler_EVEX_GvM_VX_Ib {
 
 impl OpCodeHandler_EVEX_GvM_VX_Ib {
 	pub(super) fn new(base_reg: Register, code32: Code, code64: Code, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
-		Self { decode: OpCodeHandler_EVEX_GvM_VX_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_GvM_VX_Ib::decode, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -2296,8 +2296,8 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_KkWIb {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 	base_reg: Register,
 	tuple_type: TupleType,
@@ -2306,7 +2306,7 @@ pub(super) struct OpCodeHandler_EVEX_KkWIb {
 
 impl OpCodeHandler_EVEX_KkWIb {
 	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
-		Self { decode: OpCodeHandler_EVEX_KkWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_KkWIb::decode, base_reg, code, tuple_type, can_broadcast }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {

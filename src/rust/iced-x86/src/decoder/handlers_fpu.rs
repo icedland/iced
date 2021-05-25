@@ -27,14 +27,14 @@ macro_rules! write_op1_reg {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_ST_STi {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_ST_STi {
 	pub(super) fn new(code: Code) -> Self {
-		Self { decode: OpCodeHandler_ST_STi::decode, has_modrm: true, code }
+		Self { has_modrm: true, decode: OpCodeHandler_ST_STi::decode, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -53,14 +53,14 @@ impl OpCodeHandler_ST_STi {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_STi_ST {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_STi_ST {
 	pub(super) fn new(code: Code) -> Self {
-		Self { decode: OpCodeHandler_STi_ST::decode, has_modrm: true, code }
+		Self { has_modrm: true, decode: OpCodeHandler_STi_ST::decode, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -79,14 +79,14 @@ impl OpCodeHandler_STi_ST {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_STi {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_STi {
 	pub(super) fn new(code: Code) -> Self {
-		Self { decode: OpCodeHandler_STi::decode, has_modrm: true, code }
+		Self { has_modrm: true, decode: OpCodeHandler_STi::decode, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -102,19 +102,19 @@ impl OpCodeHandler_STi {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Mf {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code16: Code,
 	code32: Code,
 }
 
 impl OpCodeHandler_Mf {
 	pub(super) fn new(code: Code) -> Self {
-		Self { decode: OpCodeHandler_Mf::decode, has_modrm: true, code16: code, code32: code }
+		Self { has_modrm: true, decode: OpCodeHandler_Mf::decode, code16: code, code32: code }
 	}
 
 	pub(super) fn new1(code16: Code, code32: Code) -> Self {
-		Self { decode: OpCodeHandler_Mf::decode, has_modrm: true, code16, code32 }
+		Self { has_modrm: true, decode: OpCodeHandler_Mf::decode, code16, code32 }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {

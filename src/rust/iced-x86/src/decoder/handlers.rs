@@ -38,15 +38,15 @@ pub(super) static INVALID_NO_MODRM_HANDLER: OpCodeHandler_Invalid = OpCodeHandle
 
 #[repr(C)]
 pub(super) struct OpCodeHandler {
-	pub(super) decode: OpCodeHandlerDecodeFn,
 	pub(super) has_modrm: bool,
+	pub(super) decode: OpCodeHandlerDecodeFn,
 }
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Invalid {
-	pub(super) decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	pub(super) decode: OpCodeHandlerDecodeFn,
 }
 
 impl OpCodeHandler_Invalid {
@@ -58,18 +58,18 @@ impl OpCodeHandler_Invalid {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Simple {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	code: Code,
 }
 
 impl OpCodeHandler_Simple {
 	pub(super) fn new(code: Code) -> Self {
-		Self { decode: OpCodeHandler_Simple::decode, has_modrm: false, code }
+		Self { has_modrm: false, decode: OpCodeHandler_Simple::decode, code }
 	}
 
 	pub(super) fn new_modrm(code: Code) -> Self {
-		Self { decode: OpCodeHandler_Simple::decode, has_modrm: true, code }
+		Self { has_modrm: true, decode: OpCodeHandler_Simple::decode, code }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, _decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -81,8 +81,8 @@ impl OpCodeHandler_Simple {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group8x8 {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	table_low: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	table_high: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 }
@@ -93,7 +93,7 @@ impl OpCodeHandler_Group8x8 {
 	) -> Self {
 		debug_assert_eq!(table_low.len(), 8);
 		debug_assert_eq!(table_high.len(), 8);
-		Self { decode: OpCodeHandler_Group8x8::decode, has_modrm: true, table_low, table_high }
+		Self { has_modrm: true, decode: OpCodeHandler_Group8x8::decode, table_low, table_high }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -113,8 +113,8 @@ impl OpCodeHandler_Group8x8 {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group8x64 {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	table_low: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 	table_high: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 }
@@ -125,7 +125,7 @@ impl OpCodeHandler_Group8x64 {
 	) -> Self {
 		debug_assert_eq!(table_low.len(), 8);
 		debug_assert_eq!(table_high.len(), 0x40);
-		Self { decode: OpCodeHandler_Group8x64::decode, has_modrm: true, table_low, table_high }
+		Self { has_modrm: true, decode: OpCodeHandler_Group8x64::decode, table_low, table_high }
 	}
 
 	#[allow(trivial_casts)]
@@ -153,15 +153,15 @@ impl OpCodeHandler_Group8x64 {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Group {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	group_handlers: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>,
 }
 
 impl OpCodeHandler_Group {
 	pub(super) fn new(group_handlers: Vec<(&'static OpCodeHandler, OpCodeHandlerDecodeFn)>) -> Self {
 		debug_assert_eq!(group_handlers.len(), 8);
-		Self { decode: OpCodeHandler_Group::decode, has_modrm: true, group_handlers }
+		Self { has_modrm: true, decode: OpCodeHandler_Group::decode, group_handlers }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -176,8 +176,8 @@ impl OpCodeHandler_Group {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_AnotherTable {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	handlers: Box<[(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 0x100]>,
 }
 
@@ -188,7 +188,7 @@ impl OpCodeHandler_AnotherTable {
 		debug_assert_eq!(handlers.len(), 0x100);
 		// SAFETY: Size is verified above
 		let handlers = unsafe { Box::from_raw(Box::into_raw(handlers) as *mut [_; 0x100]) };
-		Self { decode: OpCodeHandler_AnotherTable::decode, has_modrm: false, handlers }
+		Self { has_modrm: false, decode: OpCodeHandler_AnotherTable::decode, handlers }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -201,8 +201,8 @@ impl OpCodeHandler_AnotherTable {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_MandatoryPrefix2 {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	handlers: [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 4],
 }
 
@@ -245,8 +245,8 @@ impl OpCodeHandler_MandatoryPrefix2 {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_W {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	handlers: [(&'static OpCodeHandler, OpCodeHandlerDecodeFn); 2],
 }
 
@@ -279,8 +279,8 @@ impl OpCodeHandler_W {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Bitness {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	handler1632: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 	handler64: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 }
@@ -310,8 +310,8 @@ impl OpCodeHandler_Bitness {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Bitness_DontReadModRM {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	handler1632: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 	handler64: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 }
@@ -338,8 +338,8 @@ impl OpCodeHandler_Bitness_DontReadModRM {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_RM {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	reg: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 	mem: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 }
@@ -348,7 +348,7 @@ impl OpCodeHandler_RM {
 	pub(super) fn new(reg: (*const OpCodeHandler, OpCodeHandlerDecodeFn), mem: (*const OpCodeHandler, OpCodeHandlerDecodeFn)) -> Self {
 		debug_assert!(!is_null_instance_handler(reg.0));
 		debug_assert!(!is_null_instance_handler(mem.0));
-		Self { decode: OpCodeHandler_RM::decode, has_modrm: true, reg: (unsafe { &*reg.0 }, reg.1), mem: (unsafe { &*mem.0 }, mem.1) }
+		Self { has_modrm: true, decode: OpCodeHandler_RM::decode, reg: (unsafe { &*reg.0 }, reg.1), mem: (unsafe { &*mem.0 }, mem.1) }
 	}
 
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
@@ -361,8 +361,8 @@ impl OpCodeHandler_RM {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Options1632 {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	default_handler: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 	infos: [(&'static OpCodeHandler, OpCodeHandlerDecodeFn, u32); 2],
 	info_options: u32,
@@ -426,8 +426,8 @@ impl OpCodeHandler_Options1632 {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Options {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	default_handler: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 	infos: [(&'static OpCodeHandler, OpCodeHandlerDecodeFn, u32); 2],
 	info_options: u32,
@@ -491,8 +491,8 @@ impl OpCodeHandler_Options {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_Options_DontReadModRM {
-	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
 	default_handler: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 	opt_handler: (&'static OpCodeHandler, OpCodeHandlerDecodeFn),
 	flags: u32,
