@@ -358,8 +358,8 @@ struct State {
 	aaa: u32,
 	extra_register_base_evex: u32,      // EVEX.R' << 4
 	extra_base_register_base_evex: u32, // EVEX.XB << 3
-	operand_size: OpSize,
 	address_size: OpSize,
+	operand_size: OpSize,
 	segment_prio: u8, // 0=ES/CS/SS/DS, 1=FS/GS
 }
 
@@ -445,10 +445,10 @@ where
 	mask_e0: u32,
 	mask_64b: u32,
 	bitness: u32,
-	default_operand_size: OpSize,
 	default_address_size: OpSize,
-	default_inverted_operand_size: OpSize,
+	default_operand_size: OpSize,
 	default_inverted_address_size: OpSize,
+	default_inverted_operand_size: OpSize,
 	// true if 64-bit mode, false if 16/32-bit mode
 	is64b_mode: bool,
 	default_code_size: CodeSize,
@@ -869,10 +869,10 @@ impl<'a> Decoder<'a> {
 			mask_e0: if is64b_mode { 0xE0 } else { 0 },
 			mask_64b: if is64b_mode { 0xFFFF_FFFF } else { 0 },
 			bitness,
-			default_operand_size,
 			default_address_size,
-			default_inverted_operand_size,
+			default_operand_size,
 			default_inverted_address_size,
+			default_inverted_operand_size,
 			is64b_mode,
 			default_code_size,
 			displ_index: 0,
@@ -1269,8 +1269,8 @@ impl<'a> Decoder<'a> {
 		self.state.vvvv = 0;
 		self.state.vvvv_invalid_check = 0;
 
-		self.state.operand_size = self.default_operand_size;
 		self.state.address_size = self.default_address_size;
+		self.state.operand_size = self.default_operand_size;
 
 		self.state.segment_prio = 0;
 
