@@ -103,7 +103,9 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
 		let mut index = decoder.state.vector_length;
-		if decoder.state.mod_ == 3 && (decoder.state.flags & StateFlags::B) != 0 {
+		const_assert!(StateFlags::B > 3);
+		debug_assert!(decoder.state.mod_ <= 3);
+		if ((decoder.state.flags & StateFlags::B) | decoder.state.mod_) == (StateFlags::B | 3) {
 			index = VectorLength::L512;
 		}
 		let (decode, handler) = this.handlers[index as usize];

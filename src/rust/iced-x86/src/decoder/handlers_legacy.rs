@@ -613,12 +613,10 @@ impl OpCodeHandler_MandatoryPrefix3 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
-		let (decode, handler, mandatory_prefix) = {
-			if decoder.state.mod_ == 3 {
-				this.handlers_reg[decoder.state.mandatory_prefix as usize]
-			} else {
-				this.handlers_mem[decoder.state.mandatory_prefix as usize]
-			}
+		let (decode, handler, mandatory_prefix) = if decoder.state.mod_ == 3 {
+			this.handlers_reg[decoder.state.mandatory_prefix as usize]
+		} else {
+			this.handlers_mem[decoder.state.mandatory_prefix as usize]
 		};
 		if mandatory_prefix {
 			decoder.clear_mandatory_prefix(instruction);
