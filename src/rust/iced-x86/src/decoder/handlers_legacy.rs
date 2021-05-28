@@ -253,7 +253,7 @@ impl OpCodeHandler_PrefixF0 {
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy);
 
-		instruction_internal::internal_set_has_lock_prefix(instruction);
+		instruction.set_has_lock_prefix(true);
 		decoder.state.flags |= StateFlags::LOCK;
 
 		decoder.reset_rex_prefix_state();
@@ -1594,7 +1594,7 @@ impl OpCodeHandler_R_C {
 		if this.base_reg == Register::CR0 && extra_register_base == 0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0
 		{
 			extra_register_base = 8;
-			instruction_internal::internal_clear_has_lock_prefix(instruction);
+			instruction.set_has_lock_prefix(false);
 			decoder.state.flags &= !StateFlags::LOCK;
 		}
 		const_assert_eq!(OpKind::Register as u32, 0);
@@ -1651,7 +1651,7 @@ impl OpCodeHandler_C_R {
 		if this.base_reg == Register::CR0 && extra_register_base == 0 && instruction.has_lock_prefix() && (decoder.options & DecoderOptions::AMD) != 0
 		{
 			extra_register_base = 8;
-			instruction_internal::internal_clear_has_lock_prefix(instruction);
+			instruction.set_has_lock_prefix(false);
 			decoder.state.flags &= !StateFlags::LOCK;
 		}
 		const_assert_eq!(OpKind::Register as u32, 0);

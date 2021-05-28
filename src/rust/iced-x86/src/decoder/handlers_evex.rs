@@ -329,7 +329,7 @@ impl OpCodeHandler_EVEX_VkHW_er {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.only_sae {
-					instruction_internal::internal_set_suppress_all_exceptions(instruction);
+					instruction.set_suppress_all_exceptions(true);
 				} else {
 					const_assert_eq!(RoundingControl::None as u32, 0);
 					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
@@ -343,7 +343,7 @@ impl OpCodeHandler_EVEX_VkHW_er {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -408,7 +408,7 @@ impl OpCodeHandler_EVEX_VkW_er {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.only_sae {
-					instruction_internal::internal_set_suppress_all_exceptions(instruction);
+					instruction.set_suppress_all_exceptions(true);
 				} else {
 					const_assert_eq!(RoundingControl::None as u32, 0);
 					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
@@ -422,7 +422,7 @@ impl OpCodeHandler_EVEX_VkW_er {
 			instruction.set_op1_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -467,12 +467,12 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 			//instruction.set_op1_kind(OpKind::Register);
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				instruction_internal::internal_set_suppress_all_exceptions(instruction);
+				instruction.set_suppress_all_exceptions(true);
 			}
 		} else {
 			instruction.set_op1_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				instruction_internal::internal_set_is_broadcast(instruction);
+				instruction.set_is_broadcast(true);
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
@@ -526,7 +526,7 @@ impl OpCodeHandler_EVEX_VkW {
 			instruction.set_op1_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -689,7 +689,7 @@ impl OpCodeHandler_EVEX_VkWIb {
 			instruction.set_op1_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -782,7 +782,7 @@ impl OpCodeHandler_EVEX_HkWIb {
 			instruction.set_op1_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -872,7 +872,7 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 			//instruction.set_op0_kind(OpKind::Register);
 			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg1 as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				instruction_internal::internal_set_suppress_all_exceptions(instruction);
+				instruction.set_suppress_all_exceptions(true);
 			}
 		} else {
 			instruction.set_op0_kind(OpKind::Memory);
@@ -920,7 +920,7 @@ impl OpCodeHandler_EVEX_VW_er {
 			//instruction.set_op1_kind(OpKind::Register);
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg2 as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				instruction_internal::internal_set_suppress_all_exceptions(instruction);
+				instruction.set_suppress_all_exceptions(true);
 			}
 		} else {
 			instruction.set_op1_kind(OpKind::Memory);
@@ -1189,13 +1189,13 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 			//instruction.set_op2_kind(OpKind::Register);
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				instruction_internal::internal_set_suppress_all_exceptions(instruction);
+				instruction.set_suppress_all_exceptions(true);
 			}
 		} else {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -1264,7 +1264,7 @@ impl OpCodeHandler_EVEX_VkHW {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -1375,7 +1375,7 @@ impl OpCodeHandler_EVEX_VkHWIb {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -1433,13 +1433,13 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 			//instruction.set_op2_kind(OpKind::Register);
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg3 as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				instruction_internal::internal_set_suppress_all_exceptions(instruction);
+				instruction.set_suppress_all_exceptions(true);
 			}
 		} else {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -1494,7 +1494,7 @@ impl OpCodeHandler_EVEX_KkHW {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -1546,7 +1546,7 @@ impl OpCodeHandler_EVEX_KP1HW {
 		} else {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				instruction_internal::internal_set_is_broadcast(instruction);
+				instruction.set_is_broadcast(true);
 			}
 			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
 		}
@@ -1591,7 +1591,7 @@ impl OpCodeHandler_EVEX_KkHWIb {
 			instruction.set_op2_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}
@@ -1845,7 +1845,7 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 			write_op1_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base_evex + this.base_reg as u32);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.only_sae {
-					instruction_internal::internal_set_suppress_all_exceptions(instruction);
+					instruction.set_suppress_all_exceptions(true);
 				} else {
 					const_assert_eq!(RoundingControl::None as u32, 0);
 					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
@@ -2326,7 +2326,7 @@ impl OpCodeHandler_EVEX_KkWIb {
 			instruction.set_op1_kind(OpKind::Memory);
 			if (decoder.state.flags & StateFlags::B) != 0 {
 				if this.can_broadcast {
-					instruction_internal::internal_set_is_broadcast(instruction);
+					instruction.set_is_broadcast(true);
 				} else if decoder.invalid_check_mask != 0 {
 					decoder.set_invalid_instruction();
 				}

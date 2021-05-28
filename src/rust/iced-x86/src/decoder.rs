@@ -1416,12 +1416,12 @@ impl<'a> Decoder<'a> {
 			DecoderMandatoryPrefix::PF2 => {
 				if (flags & HandlerFlags::XACQUIRE) != 0 {
 					self.clear_mandatory_prefix_f2(instruction);
-					instruction_internal::internal_set_has_xacquire_prefix(instruction);
+					instruction.set_has_xacquire_prefix(true);
 				}
 			}
 			DecoderMandatoryPrefix::PF3 => {
 				self.clear_mandatory_prefix_f3(instruction);
-				instruction_internal::internal_set_has_xrelease_prefix(instruction);
+				instruction.set_has_xrelease_prefix(true);
 			}
 			_ => {}
 		}
@@ -1431,14 +1431,14 @@ impl<'a> Decoder<'a> {
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
 		debug_assert_eq!(self.state.mandatory_prefix, DecoderMandatoryPrefix::PF3);
-		instruction_internal::internal_clear_has_repe_prefix(instruction);
+		instruction.set_has_repe_prefix(false);
 	}
 
 	#[inline]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(self.state.encoding(), EncodingKind::Legacy);
 		debug_assert_eq!(self.state.mandatory_prefix, DecoderMandatoryPrefix::PF2);
-		instruction_internal::internal_clear_has_repne_prefix(instruction);
+		instruction.set_has_repne_prefix(false);
 	}
 
 	#[inline]
@@ -1667,7 +1667,7 @@ impl<'a> Decoder<'a> {
 						self.set_invalid_instruction();
 					}
 					self.state.flags |= StateFlags::Z;
-					instruction_internal::internal_set_zeroing_masking(instruction);
+					instruction.set_zeroing_masking(true);
 				}
 
 				const_assert_eq!(StateFlags::B, 0x10);

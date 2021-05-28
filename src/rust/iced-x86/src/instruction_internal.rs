@@ -51,18 +51,6 @@ pub(crate) fn internal_has_repe_or_repne_prefix(this: &Instruction) -> bool {
 	(this.flags1 & (InstrFlags1::REPE_PREFIX | InstrFlags1::REPNE_PREFIX)) != 0
 }
 
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_set_has_xacquire_prefix(this: &mut Instruction) {
-	this.flags1 |= InstrFlags1::XACQUIRE_PREFIX
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_set_has_xrelease_prefix(this: &mut Instruction) {
-	this.flags1 |= InstrFlags1::XRELEASE_PREFIX
-}
-
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_has_repe_prefix(this: &mut Instruction) {
@@ -92,34 +80,10 @@ pub(crate) fn internal_clear_has_repe_repne_prefix(this: &mut Instruction) {
 	this.flags1 &= !(InstrFlags1::REPE_PREFIX | InstrFlags1::REPNE_PREFIX)
 }
 
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_clear_has_repe_prefix(this: &mut Instruction) {
-	this.flags1 &= !InstrFlags1::REPE_PREFIX
-}
-
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_has_repne_prefix(this: &mut Instruction) {
 	this.flags1 = (this.flags1 & !InstrFlags1::REPE_PREFIX) | InstrFlags1::REPNE_PREFIX
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_clear_has_repne_prefix(this: &mut Instruction) {
-	this.flags1 &= !InstrFlags1::REPNE_PREFIX
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_set_has_lock_prefix(this: &mut Instruction) {
-	this.flags1 |= InstrFlags1::LOCK_PREFIX
-}
-
-#[cfg(feature = "decoder")]
-#[inline]
-pub(crate) fn internal_clear_has_lock_prefix(this: &mut Instruction) {
-	this.flags1 &= !InstrFlags1::LOCK_PREFIX
 }
 
 #[cfg(feature = "instr_info")]
@@ -135,13 +99,6 @@ pub(crate) fn internal_op0_is_not_reg_or_op1_is_not_reg(this: &Instruction) -> b
 pub(crate) fn internal_set_memory_displ_size(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 4);
 	this.displ_size = new_value as u8;
-}
-
-#[cfg(feature = "decoder")]
-#[cfg(not(feature = "no_evex"))]
-#[inline]
-pub(crate) fn internal_set_is_broadcast(this: &mut Instruction) {
-	this.flags1 |= InstrFlags1::BROADCAST;
 }
 
 #[must_use]
@@ -253,13 +210,6 @@ pub(crate) fn internal_set_op_mask(this: &mut Instruction, new_value: u32) {
 #[cfg(feature = "decoder")]
 #[cfg(not(feature = "no_evex"))]
 #[inline]
-pub(crate) fn internal_set_zeroing_masking(this: &mut Instruction) {
-	this.flags1 |= InstrFlags1::ZEROING_MASKING;
-}
-
-#[cfg(feature = "decoder")]
-#[cfg(not(feature = "no_evex"))]
-#[inline]
 pub(crate) fn internal_set_rounding_control(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value < IcedConstants::ROUNDING_CONTROL_ENUM_COUNT as u32);
 	this.flags1 |= new_value << InstrFlags1::ROUNDING_CONTROL_SHIFT;
@@ -276,13 +226,6 @@ pub(crate) fn internal_has_rounding_control_or_sae(this: &Instruction) -> bool {
 pub(crate) fn internal_set_declare_data_len(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 0x10);
 	this.flags1 |= (new_value - 1) << InstrFlags1::DATA_LENGTH_SHIFT;
-}
-
-#[cfg(feature = "decoder")]
-#[cfg(not(feature = "no_evex"))]
-#[inline]
-pub(crate) fn internal_set_suppress_all_exceptions(this: &mut Instruction) {
-	this.flags1 |= InstrFlags1::SUPPRESS_ALL_EXCEPTIONS;
 }
 
 // GENERATOR-BEGIN: RegToAddrSize
