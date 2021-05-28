@@ -76,7 +76,7 @@ build_no_std() {
 	cd "$root_dir/src/rust/iced-x86"
 
 	echo "==== BUILD DEBUG ===="
-	cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt db"
+	cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt"
 
 	cd "$curr_dir"
 }
@@ -168,10 +168,10 @@ build_test_current_version() {
 	rustc --version
 
 	echo "==== CLIPPY RELEASE ===="
-	cargo clippy --color always --features "db" --release
+	cargo clippy --color always --release
 
 	echo "==== CLIPPY RELEASE --tests ===="
-	cargo clippy --color always --features "db" --release --tests
+	cargo clippy --color always --release --tests
 
 	echo "==== FORMAT CHECK ===="
 	cargo fmt -- --color always --check
@@ -180,20 +180,20 @@ build_test_current_version() {
 	cargo doc --color always
 
 	echo "==== BUILD RELEASE ===="
-	cargo build --color always --features "db" --release
+	cargo build --color always --release
 
 	echo "==== TEST RELEASE ===="
-	cargo test --color always --features "db" --release
+	cargo test --color always --release
 
 	# Make sure the two read-mem methods behave the same
 	echo "==== TEST RELEASE: std decoder __internal_mem_vsib ===="
 	cargo test --no-default-features --features "std decoder __internal_mem_vsib" --tests
 
 	echo "==== TEST DEBUG ===="
-	cargo test --color always --features "db" --tests
+	cargo test --color always --tests
 
 	echo "==== BUILD RELEASE wasm32-unknown-unknown ===="
-	cargo check --color always --features "db" --target wasm32-unknown-unknown --release
+	cargo check --color always --target wasm32-unknown-unknown --release
 
 	echo "==== PUBLISH DRY-RUN ===="
 	# It fails on Windows (GitHub CI) without this, claiming that some random number of Rust files are dirty.
@@ -214,10 +214,10 @@ build_test_msrv() {
 	echo "*** If this fails, install Rust $msrv"
 
 	echo "==== BUILD RELEASE ===="
-	cargo +$msrv build --color always --features "db" --release
+	cargo +$msrv build --color always --release
 
 	echo "==== TEST RELEASE ===="
-	cargo +$msrv test --color always --features "db" --release
+	cargo +$msrv test --color always --release
 
 	cd "$curr_dir"
 }

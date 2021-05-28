@@ -26,7 +26,7 @@ version = "=1.11.3"
 #path = "/abs/path/to/iced/src/rust/iced-x86"
 # Don't remove/modify the next line. Build scripts replace it with the real path
 #pathci
-features = ["db"]
+features = []
 
 [profile.release]
 codegen-units = 1
