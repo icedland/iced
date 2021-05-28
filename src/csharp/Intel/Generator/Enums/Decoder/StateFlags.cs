@@ -7,8 +7,8 @@ namespace Generator.Enums.Decoder {
 	[Enum("StateFlags", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum StateFlags : uint {
-		// Only used by Debug.Assert()
-		EncodingMask			= 7,
+		IpRel					= 0x00000001,
+		// Free bits
 		HasRex					= 0x00000008,
 		b						= 0x00000010,
 		z						= 0x00000020,
@@ -22,7 +22,10 @@ namespace Generator.Enums.Decoder {
 		AllowLock				= 0x00002000,
 		NoMoreBytes				= 0x00004000,
 		Has66					= 0x00008000,
-		IpRel					= 0x00010000,
+
+		// Only used by Debug.Assert()
+		EncodingMask			= 7,
+		EncodingShift			= 29,
 	}
 
 	[TypeGen(TypeGenOrders.NoDeps)]

@@ -272,7 +272,7 @@ impl HandlerFlags {
 pub(crate) struct StateFlags;
 #[allow(dead_code)]
 impl StateFlags {
-	pub(crate) const ENCODING_MASK: u32 = 0x0000_0007;
+	pub(crate) const IP_REL: u32 = 0x0000_0001;
 	pub(crate) const HAS_REX: u32 = 0x0000_0008;
 	pub(crate) const B: u32 = 0x0000_0010;
 	pub(crate) const Z: u32 = 0x0000_0020;
@@ -286,7 +286,8 @@ impl StateFlags {
 	pub(crate) const ALLOW_LOCK: u32 = 0x0000_2000;
 	pub(crate) const NO_MORE_BYTES: u32 = 0x0000_4000;
 	pub(crate) const HAS66: u32 = 0x0000_8000;
-	pub(crate) const IP_REL: u32 = 0x0001_0000;
+	pub(crate) const ENCODING_MASK: u32 = 0x0000_0007;
+	pub(crate) const ENCODING_SHIFT: u32 = 0x0000_001D;
 }
 // GENERATOR-END: StateFlags
 
@@ -369,7 +370,7 @@ impl State {
 	#[cfg(debug_assertions)]
 	fn encoding(&self) -> EncodingKind {
 		// SAFETY: It's always a valid enum value
-		unsafe { mem::transmute((self.flags & StateFlags::ENCODING_MASK) as u8) }
+		unsafe { mem::transmute(((self.flags >> StateFlags::ENCODING_SHIFT) & StateFlags::ENCODING_MASK) as u8) }
 	}
 	#[must_use]
 	#[inline(always)]
@@ -1491,7 +1492,7 @@ impl<'a> Decoder<'a> {
 		self.state.extra_base_register_base = 0;
 
 		if cfg!(debug_assertions) {
-			self.state.flags |= EncodingKind::VEX as u32;
+			self.state.flags |= (EncodingKind::VEX as u32) << StateFlags::ENCODING_SHIFT;
 		}
 
 		let b = self.read_u8();
@@ -1537,7 +1538,7 @@ impl<'a> Decoder<'a> {
 		self.state.flags &= !StateFlags::W;
 
 		if cfg!(debug_assertions) {
-			self.state.flags |= EncodingKind::VEX as u32;
+			self.state.flags |= (EncodingKind::VEX as u32) << StateFlags::ENCODING_SHIFT;
 		}
 
 		let b2 = self.read_u16() as u32;
@@ -1588,7 +1589,7 @@ impl<'a> Decoder<'a> {
 		self.state.flags &= !StateFlags::W;
 
 		if cfg!(debug_assertions) {
-			self.state.flags |= EncodingKind::XOP as u32;
+			self.state.flags |= (EncodingKind::XOP as u32) << StateFlags::ENCODING_SHIFT;
 		}
 
 		let b2 = self.read_u16() as u32;
@@ -1643,7 +1644,7 @@ impl<'a> Decoder<'a> {
 			let p0 = self.state.modrm;
 			if (p0 & 0x0C) == 0 {
 				if cfg!(debug_assertions) {
-					self.state.flags |= EncodingKind::EVEX as u32;
+					self.state.flags |= (EncodingKind::EVEX as u32) << StateFlags::ENCODING_SHIFT;
 				}
 
 				const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
