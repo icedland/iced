@@ -8,6 +8,12 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
+if [ "$OSTYPE" = "msys" ]; then
+	is_windows=y
+else
+	is_windows=n
+fi
+
 if [ "$is_windows" = "y" ]; then
 	python=python
 else
