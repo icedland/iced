@@ -13,7 +13,7 @@
 //! - ✔️Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 //! - ✔️100% Rust code
 //! - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-//! - ✔️Blazing fast: Decodes >200 MB/s and decode+format >110 MB/s ([see here](https://github.com/icedland/disas-bench/tree/7ccde32e77c802b22cbeabe2ddcf769130e658fb#results))
+//! - ✔️Blazing fast: Decodes >250 MB/s and decode+format >130 MB/s ([see here](https://github.com/icedland/disas-bench/tree/a865849deacfb6c33ee0e78f3a3ad7f4c82099f5#results))
 //! - ✔️Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
 //! - ✔️The encoder can be used to re-encode decoded instructions at any address
 //! - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
