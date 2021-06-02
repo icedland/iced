@@ -92,14 +92,18 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the 16-bit IP of the instruction
+	/// Gets the 16-bit IP of the instruction, see also [`next_ip16()`]
+	///
+	/// [`next_ip16()`]: #method.next_ip16
 	#[must_use]
 	#[inline]
 	pub fn ip16(&self) -> u16 {
 		(self.next_rip as u16).wrapping_sub(self.len() as u16)
 	}
 
-	/// Sets the 16-bit IP of the instruction
+	/// Sets the 16-bit IP of the instruction, see also [`set_next_ip16()`]
+	///
+	/// [`set_next_ip16()`]: #method.set_next_ip16
 	///
 	/// # Arguments
 	///
@@ -109,14 +113,18 @@ impl Instruction {
 		self.next_rip = (new_value as u64).wrapping_add(self.len() as u64);
 	}
 
-	/// Gets the 32-bit IP of the instruction
+	/// Gets the 32-bit IP of the instruction, see also [`next_ip32()`]
+	///
+	/// [`next_ip32()`]: #method.next_ip32
 	#[must_use]
 	#[inline]
 	pub fn ip32(&self) -> u32 {
 		(self.next_rip as u32).wrapping_sub(self.len() as u32)
 	}
 
-	/// Sets the 32-bit IP of the instruction
+	/// Sets the 32-bit IP of the instruction, see also [`set_next_ip32()`]
+	///
+	/// [`set_next_ip32()`]: #method.set_next_ip32
 	///
 	/// # Arguments
 	///
@@ -126,14 +134,18 @@ impl Instruction {
 		self.next_rip = (new_value as u64).wrapping_add(self.len() as u64);
 	}
 
-	/// Gets the 64-bit IP of the instruction
+	/// Gets the 64-bit IP of the instruction, see also [`next_ip()`]
+	///
+	/// [`next_ip()`]: #method.next_ip
 	#[must_use]
 	#[inline]
 	pub fn ip(&self) -> u64 {
 		self.next_rip.wrapping_sub(self.len() as u64)
 	}
 
-	/// Sets the 64-bit IP of the instruction
+	/// Sets the 64-bit IP of the instruction, see also [`set_next_ip()`]
+	///
+	/// [`set_next_ip()`]: #method.set_next_ip
 	///
 	/// # Arguments
 	///
@@ -143,14 +155,18 @@ impl Instruction {
 		self.next_rip = new_value.wrapping_add(self.len() as u64);
 	}
 
-	/// Gets the 16-bit IP of the next instruction
+	/// Gets the 16-bit IP of the next instruction, see also [`ip16()`]
+	///
+	/// [`ip16()`]: #method.ip16
 	#[must_use]
 	#[inline]
 	pub fn next_ip16(&self) -> u16 {
 		self.next_rip as u16
 	}
 
-	/// Sets the 16-bit IP of the next instruction
+	/// Sets the 16-bit IP of the next instruction, see also [`set_ip16()`]
+	///
+	/// [`set_ip16()`]: #method.set_ip16
 	///
 	/// # Arguments
 	///
@@ -160,14 +176,18 @@ impl Instruction {
 		self.next_rip = new_value as u64;
 	}
 
-	/// Gets the 32-bit IP of the next instruction
+	/// Gets the 32-bit IP of the next instruction, see also [`ip32()`]
+	///
+	/// [`ip32()`]: #method.ip32
 	#[must_use]
 	#[inline]
 	pub fn next_ip32(&self) -> u32 {
 		self.next_rip as u32
 	}
 
-	/// Sets the 32-bit IP of the next instruction
+	/// Sets the 32-bit IP of the next instruction, see also [`set_ip32()`]
+	///
+	/// [`set_ip32()`]: #method.set_ip32
 	///
 	/// # Arguments
 	///
@@ -177,14 +197,18 @@ impl Instruction {
 		self.next_rip = new_value as u64;
 	}
 
-	/// Gets the 64-bit IP of the next instruction
+	/// Gets the 64-bit IP of the next instruction, see also [`ip()`]
+	///
+	/// [`ip()`]: #method.ip
 	#[must_use]
 	#[inline]
 	pub fn next_ip(&self) -> u64 {
 		self.next_rip
 	}
 
-	/// Sets the 64-bit IP of the next instruction
+	/// Sets the 64-bit IP of the next instruction, see also [`set_ip()`]
+	///
+	/// [`set_ip()`]: #method.set_ip
 	///
 	/// # Arguments
 	///
