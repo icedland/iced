@@ -8293,16 +8293,16 @@ END
 # Code: Vmlaunch
 INSTRUCTION: NP 0F 01 C2 | VMLAUNCH | VMX
 	rflags: w=zc 0=osap
-	flags: cpl0 no-rm no-v86 no-cm cflow=call vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	# Continues from the next instruction on failure
+	flags: cpl0 no-rm no-v86 no-cm cflow=call vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 END
 
 # This instruction is NP, the SDM is wrong
 # Code: Vmresume
 INSTRUCTION: NP 0F 01 C3 | VMRESUME | VMX
 	rflags: w=zc 0=osap
-	flags: cpl0 no-rm no-v86 no-cm cflow=call vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 	# Continues from the next instruction on failure
+	flags: cpl0 no-rm no-v86 no-cm cflow=call vmx=op intel-vm-exit tdx-non-root-ud tsx-impl-abort
 END
 
 # This instruction is NP, the SDM is wrong
