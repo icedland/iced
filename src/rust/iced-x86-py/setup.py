@@ -24,7 +24,7 @@ py_limited_api = any(arg == "--py-limited-api" or arg.startswith("--py-limited-a
 
 setup(
 	name="iced-x86",
-	version="1.11.3",
+	version="1.12.0",
 	license="MIT",
 	author_email="wtfsck@protonmail.com",
 	author="wtfsck",
