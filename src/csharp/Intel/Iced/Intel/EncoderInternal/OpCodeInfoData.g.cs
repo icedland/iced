@@ -1961,7 +1961,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00020000,// Popw_FS
 				0x00020000,// Popd_FS
 				0x00020000,// Popq_FS
-				0x00000060,// Cpuid
+				0x000000E0,// Cpuid
 				0x00000000,// Bt_rm16_r16
 				0x00000000,// Bt_rm32_r32
 				0x00000000,// Bt_rm64_r64

@@ -8327,7 +8327,7 @@ INSTRUCTION: a16 NP 0F 01 C8 | MONITOR | MONITOR
 	# Memory isn't read but it performs the same mem checks as a 1-byte read
 	implied: r=seg;ax;ecx;edx
 	code-mnemonic: monitorw
-	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# Intel: MISC_FEATURES_ENABLES[1]=1 (MSR=140h) enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
 	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
 	flags: 16 32 may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: asz
@@ -8342,7 +8342,7 @@ INSTRUCTION: a32 NP 0F 01 C8 | MONITOR | MONITOR
 	# Memory isn't read but it performs the same mem checks as a 1-byte read
 	implied: r=seg;eax;ecx;edx
 	code-mnemonic: monitord
-	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# Intel: MISC_FEATURES_ENABLES[1]=1 (MSR=140h) enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
 	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
 	flags: may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: asz
@@ -8357,7 +8357,7 @@ INSTRUCTION: a64 NP 0F 01 C8 | MONITOR | MONITOR
 	# Memory isn't read but it performs the same mem checks as a 1-byte read
 	implied: r=seg;rax;ecx;edx
 	code-mnemonic: monitorq
-	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# Intel: MISC_FEATURES_ENABLES[1]=1 (MSR=140h) enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
 	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
 	flags: 64 may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	gas: asz
@@ -8370,7 +8370,7 @@ END
 # Code: Mwait
 INSTRUCTION: NP 0F 01 C9 | MWAIT | MONITOR
 	implied: r=eax;ecx
-	# Intel: MISC_FEATURE_ENABLES[1]=1 enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
+	# Intel: MISC_FEATURES_ENABLES[1]=1 (MSR=140h) enables it in CPL0-3 and v86 mode (Knights Landing CPUs only)
 	# AMD: C001_0015h[MonMwaitUserEn]=1 enables it in CPL0-3 and v86 mode
 	flags: may-require-cpl0 intel-may-vm-exit tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
 	masm: mwait
@@ -15740,7 +15740,9 @@ END
 # Code: Cpuid
 INSTRUCTION: 0F A2 | CPUID | CPUID
 	implied: rw=eax cr=ecx w=ecx;edx;ebx
-	flags: serialize-intel serialize-amd intel-vm-exit no-in-sgx tdx-non-root-may-gen-ex amd-may-vm-exit tsx-abort
+	# Some Intel CPUs support CPUID faulting when executing CPUID and CPL>0 and !SMM
+	# when enabled with MISC_FEATURES_ENABLES[0]=1 (MSR=140h)
+	flags: serialize-intel serialize-amd may-require-cpl0 intel-vm-exit no-in-sgx tdx-non-root-may-gen-ex amd-may-vm-exit tsx-abort
 END
 
 # Code: Bt_rm16_r16

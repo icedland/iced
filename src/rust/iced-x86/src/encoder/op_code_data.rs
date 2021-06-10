@@ -1953,7 +1953,7 @@ pub(super) static OPC_FLAGS1: [u32; 4323] = [
 	0x0002_0000,// Popw_FS
 	0x0002_0000,// Popd_FS
 	0x0002_0000,// Popq_FS
-	0x0000_0060,// Cpuid
+	0x0000_00E0,// Cpuid
 	0x0000_0000,// Bt_rm16_r16
 	0x0000_0000,// Bt_rm32_r32
 	0x0000_0000,// Bt_rm64_r64
