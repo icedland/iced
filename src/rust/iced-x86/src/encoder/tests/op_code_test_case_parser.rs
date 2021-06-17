@@ -592,15 +592,15 @@ impl IntoIter {
 	}
 
 	fn to_encoding(&self, value: &str) -> Result<EncodingKind, String> {
-		self.to_encoding_kind.get(value).cloned().ok_or_else(|| format!("Invalid encoding value: '{}'", value))
+		self.to_encoding_kind.get(value).copied().ok_or_else(|| format!("Invalid encoding value: '{}'", value))
 	}
 
 	fn to_mandatory_prefix(&self, value: &str) -> Result<MandatoryPrefix, String> {
-		self.to_mandatory_prefix.get(value).cloned().ok_or_else(|| format!("Invalid mandatory prefix value: '{}'", value))
+		self.to_mandatory_prefix.get(value).copied().ok_or_else(|| format!("Invalid mandatory prefix value: '{}'", value))
 	}
 
 	fn to_table(&self, value: &str) -> Result<OpCodeTableKind, String> {
-		self.to_op_code_table_kind.get(value).cloned().ok_or_else(|| format!("Invalid opcode table value: '{}'", value))
+		self.to_op_code_table_kind.get(value).copied().ok_or_else(|| format!("Invalid opcode table value: '{}'", value))
 	}
 
 	fn to_op_code(value: &str) -> Result<(u32, u32), String> {

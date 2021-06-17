@@ -103,7 +103,7 @@ lazy_static! {
 			("6C4205559DCEA977", c16(Instruction::try_with_declare_qword_1(0x77A9_CE9D_5505_426C).unwrap())),
 			("6C4205559DCEA977 08AA27344FFE3286", c16(Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap())),
 		];
-		array.iter().cloned().chain(array_db.iter().cloned()).collect()
+		array.iter().copied().chain(array_db.iter().copied()).collect()
 	};
 }
 
@@ -166,7 +166,7 @@ lazy_static! {
 			("6C4205559DCEA977", c32(Instruction::try_with_declare_qword_1(0x77A9_CE9D_5505_426C).unwrap())),
 			("6C4205559DCEA977 08AA27344FFE3286", c32(Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap())),
 		];
-		array.iter().cloned().chain(array_db.iter().cloned()).collect()
+		array.iter().copied().chain(array_db.iter().copied()).collect()
 	};
 }
 
@@ -226,6 +226,6 @@ lazy_static! {
 			("6C4205559DCEA977", c64(Instruction::try_with_declare_qword_1(0x77A9_CE9D_5505_426C).unwrap())),
 			("6C4205559DCEA977 08AA27344FFE3286", c64(Instruction::try_with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08).unwrap())),
 		];
-		array.iter().cloned().chain(array_db.iter().cloned()).collect()
+		array.iter().copied().chain(array_db.iter().copied()).collect()
 	};
 }

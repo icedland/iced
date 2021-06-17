@@ -182,7 +182,7 @@ impl BlockEncoder {
 			let _ = this.to_instr.remove(&0);
 		}
 
-		let mut tmp_blocks = mem::replace(&mut this.blocks, Vec::new());
+		let mut tmp_blocks = mem::take(&mut this.blocks);
 		for info in &mut tmp_blocks {
 			let mut ip = info.0.borrow().rip;
 			for instr in &mut info.1 {

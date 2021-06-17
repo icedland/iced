@@ -249,7 +249,7 @@ impl<'a> TableDeserializer<'a> {
 	#[allow(clippy::get_unwrap)]
 	fn table(&mut self, index: usize) -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
 		if let &mut HandlerInfo::Handlers(ref mut tmp) = self.id_to_handler.get_mut(index).unwrap() {
-			let handlers = mem::replace(tmp, Vec::new());
+			let handlers = mem::take(tmp);
 			debug_assert!(!handlers.is_empty());
 			handlers
 		} else {

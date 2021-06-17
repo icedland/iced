@@ -2709,8 +2709,8 @@ fn test_invalid_zero_opmask_reg() {
 #[test]
 #[allow(clippy::needless_range_loop)]
 fn verify_cpu_mode() {
-	let hash1632: HashSet<Code> = code32_only().iter().chain(not_decoded32_only().iter()).cloned().collect();
-	let hash64: HashSet<Code> = code64_only().iter().chain(not_decoded64_only().iter()).cloned().collect();
+	let hash1632: HashSet<Code> = code32_only().iter().chain(not_decoded32_only().iter()).copied().collect();
+	let hash64: HashSet<Code> = code64_only().iter().chain(not_decoded64_only().iter()).copied().collect();
 	let code_names = code_names();
 	for code in Code::values() {
 		if is_ignored_code(code_names[code as usize]) {

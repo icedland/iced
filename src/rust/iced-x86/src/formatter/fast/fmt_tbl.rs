@@ -67,7 +67,7 @@ fn read() -> FmtTableData {
 			debug_assert!(new_len <= FastStringMnemonic::SIZE);
 			new_vec.push(new_len as u8);
 			new_vec.push(b'v');
-			new_vec.extend(old_str.get_slice().iter().cloned().chain(core::iter::repeat(b' ')).take(FastStringMnemonic::SIZE - 1));
+			new_vec.extend(old_str.get_slice().iter().copied().chain(core::iter::repeat(b' ')).take(FastStringMnemonic::SIZE - 1));
 			debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
 			let len_data = Box::leak(Box::new(new_vec)).as_ptr();
 			FastStringMnemonic::new(len_data)

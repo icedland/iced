@@ -332,7 +332,7 @@ impl Encoder {
 			if instruction.op_count() as usize != ops.len() {
 				self.set_error_message(format!("Expected {} operand(s) but the instruction has {} operand(s)", ops.len(), instruction.op_count()));
 			}
-			for (i, op) in ops.iter().cloned().enumerate() {
+			for (i, op) in ops.iter().copied().enumerate() {
 				op.encode(self, instruction, i as u32);
 			}
 
@@ -366,7 +366,7 @@ impl Encoder {
 			self.set_error_message(format!("Instruction length > {} bytes", IcedConstants::MAX_INSTRUCTION_LENGTH));
 		}
 		if !self.error_message.is_empty() {
-			Err(IcedError::with_string(mem::replace(&mut self.error_message, String::new())))
+			Err(IcedError::with_string(mem::take(&mut self.error_message)))
 		} else {
 			Ok(instr_len)
 		}
@@ -1412,7 +1412,7 @@ impl Encoder {
 	#[must_use]
 	#[inline]
 	pub fn take_buffer(&mut self) -> Vec<u8> {
-		mem::replace(&mut self.buffer, Vec::new())
+		mem::take(&mut self.buffer)
 	}
 
 	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also [`take_buffer()`].

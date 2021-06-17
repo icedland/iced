@@ -3807,30 +3807,22 @@ impl OpCodeHandler_Reg_Ob {
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(this.reg);
 		decoder.displ_index = decoder.data_ptr as u8;
+		//instruction_internal::internal_set_memory_index_scale(instruction, 0);
+		//instruction.set_memory_base(Register::None);
+		//instruction.set_memory_index(Register::None);
+		instruction.set_op1_kind(OpKind::Memory);
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
 			let q = decoder.read_u64();
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
 			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op1_kind(OpKind::Memory);
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op1_kind(OpKind::Memory);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op1_kind(OpKind::Memory);
 		}
 	}
 }
@@ -3857,30 +3849,22 @@ impl OpCodeHandler_Ob_Reg {
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(this.reg);
 		decoder.displ_index = decoder.data_ptr as u8;
+		//instruction_internal::internal_set_memory_index_scale(instruction, 0);
+		//instruction.set_memory_base(Register::None);
+		//instruction.set_memory_index(Register::None);
+		instruction.set_op0_kind(OpKind::Memory);
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
 			let q = decoder.read_u64();
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
 			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op0_kind(OpKind::Memory);
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op0_kind(OpKind::Memory);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op0_kind(OpKind::Memory);
 		}
 	}
 }
@@ -3916,30 +3900,22 @@ impl OpCodeHandler_Reg_Ov {
 			//instruction.set_op0_kind(OpKind::Register);
 			instruction.set_op0_register(Register::AX);
 		}
+		//instruction_internal::internal_set_memory_index_scale(instruction, 0);
+		//instruction.set_memory_base(Register::None);
+		//instruction.set_memory_index(Register::None);
+		instruction.set_op1_kind(OpKind::Memory);
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
 			let q = decoder.read_u64();
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
 			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op1_kind(OpKind::Memory);
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op1_kind(OpKind::Memory);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op1_kind(OpKind::Memory);
 		}
 	}
 }
@@ -3975,30 +3951,22 @@ impl OpCodeHandler_Ov_Reg {
 			//instruction.set_op1_kind(OpKind::Register);
 			instruction.set_op1_register(Register::AX);
 		}
+		//instruction_internal::internal_set_memory_index_scale(instruction, 0);
+		//instruction.set_memory_base(Register::None);
+		//instruction.set_memory_index(Register::None);
+		instruction.set_op0_kind(OpKind::Memory);
 		if decoder.state.address_size == OpSize::Size64 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 4);
 			decoder.state.flags |= StateFlags::ADDR64;
 			let q = decoder.read_u64();
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, q as u32);
 			instruction_internal::internal_set_memory_displacement64_hi(instruction, (q >> 32) as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op0_kind(OpKind::Memory);
 		} else if decoder.state.address_size == OpSize::Size32 {
 			instruction_internal::internal_set_memory_displ_size(instruction, 3);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u32() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op0_kind(OpKind::Memory);
 		} else {
 			instruction_internal::internal_set_memory_displ_size(instruction, 2);
 			instruction_internal::internal_set_memory_displacement64_lo(instruction, decoder.read_u16() as u32);
-			//instruction_internal::internal_set_memory_index_scale(instruction, 0);
-			//instruction.set_memory_base(Register::None);
-			//instruction.set_memory_index(Register::None);
-			instruction.set_op0_kind(OpKind::Memory);
 		}
 	}
 }
