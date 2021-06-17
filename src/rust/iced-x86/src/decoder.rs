@@ -1712,6 +1712,7 @@ impl<'a> Decoder<'a> {
 					self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
 					// Invalid if LL=3 and no rc
 					const_assert!(StateFlags::B > 3);
+					debug_assert!(self.state.vector_length as u32 <= 3);
 					if (((self.state.flags & StateFlags::B) | (self.state.vector_length as u32)) & self.invalid_check_mask) == 3 {
 						self.set_invalid_instruction();
 					}
