@@ -297,9 +297,9 @@ macro_rules! mk_read_value {
 		const_assert!(SIZE >= 1);
 		const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
 		let data_ptr = $slf.data_ptr;
-		// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
 		#[allow(trivial_numeric_casts)]
 		{
+			// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
 			if data_ptr + SIZE - 1 < $slf.max_data_ptr {
 				// SAFETY:
 				// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
