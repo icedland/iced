@@ -134,15 +134,13 @@ jobs:
 
   # If the supported Python versions get updated (added/removed), do:
   # - Update .github/workflows/*.yml
-  #     - Search for eg. 3.6, 36 and 3\.6
-  #     - Update file count in `Verify downloads`
-  # - Update min ver in build/README.md and src/rust/iced-x86-py/README.md and any 36/3.6/etc refs
+  #     - Search for 3.6, 3\.6, 36, py36
+  # - Update version number check in build/ci-py-build-wheels.sh
+  # - Update py min ver in src/rust/iced-x86-py/README.md
   # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 36)
   # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py36" to min supported version)
   # - Update Python versions in src/rust/iced-x86-py/setup.py
-  #     - `python_requires` line
-  #     - `classifiers` array
-  # - src/rust/iced-x86-py/tox.ini
+  # - Update src/rust/iced-x86-py/tox.ini
 
   build-rust-python-linux-x64:
     name: Python (${{matrix.os}}) x64
