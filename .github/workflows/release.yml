@@ -142,6 +142,34 @@ jobs:
   # - Update Python versions in src/rust/iced-x86-py/setup.py
   # - Update src/rust/iced-x86-py/tox.ini
 
+  build-rust-python-linux-aarch64:
+    name: Python (${{matrix.os}}) aarch64
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: Build manylinux aarch64
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install qemu-user-static
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: py-dist-${{matrix.os}}-aarch64
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
   build-rust-python-linux-x64:
     name: Python (${{matrix.os}}) x64
     runs-on: ${{matrix.os}}
@@ -471,6 +499,7 @@ jobs:
       - build-dotnet
       - build-rust
       - build-rust-js-wasm
+      - build-rust-python-linux-aarch64
       - build-rust-python-linux-x64
       - build-rust-python-linux-x86
       - build-rust-python-macos-x64
