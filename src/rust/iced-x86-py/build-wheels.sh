@@ -31,22 +31,9 @@ for whl in orig-dist/*.whl; do
 done
 rm -rf orig-dist
 
-mkdir dist1
-mkdir dist2010
-if [ -n "$(ls -A dist/*manylinux1* 2>/dev/null)" ]; then
-	cp dist/*manylinux1* dist1/
-fi
-if [ -n "$(ls -A dist/*manylinux2010* 2>/dev/null)" ]; then
-	cp dist/*manylinux2010* dist2010/
-fi
-
 for PYBIN in /opt/python/cp{36,37,38,39}*/bin; do
 	"$PYBIN/python" -m pip install -U pytest
-	for dir in dist dist1 dist2010; do
-		if [ -n "$(ls -A "$dir/"* 2>/dev/null)" ]; then
-			"$PYBIN/python" -m pip install iced-x86 --no-index -f "$dir/" --only-binary :all:
-			"$PYBIN/python" -m pytest --color=yes --code-highlight=yes
-			"$PYBIN/python" -m pip uninstall -y iced-x86
-		fi
-	done
+	"$PYBIN/python" -m pip install iced-x86 --no-index -f dist/ --only-binary :all:
+	"$PYBIN/python" -m pytest --color=yes --code-highlight=yes
+	"$PYBIN/python" -m pip uninstall -y iced-x86
 done
