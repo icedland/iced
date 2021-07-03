@@ -17774,9 +17774,9 @@ F7 08 A55A89AB, Test_rm32_imm32_F7r1, Legacy, INTEL386, fc=oc fw=szp fu=a op0=r 
 # rstorssp qword ptr [rax]
 F3 0F01 28, Rstorssp_m64, Legacy, CET_SS, fw=c fc=aopsz op0=rw r=rax rwm=ds:rax;UInt64
 # pconfig
-0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops r=eax w=rax cr=rcx;rdx;rbx
+0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops r=eax w=rax cr=rcx;rdx;rbx cw=rcx;rdx;rbx
 # pconfig
-67 64 48 0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops r=eax w=rax cr=rcx;rdx;rbx
+67 64 48 0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops r=eax w=rax cr=rcx;rdx;rbx cw=rcx;rdx;rbx
 # setssbsy
 F3 0F01 E8, Setssbsy, Legacy, CET_SS, priv
 # saveprevssp

@@ -222,7 +222,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		t_RWcr0,
 		t_gpr16_RWcr0,
 		t_RCWeax_b64_t_CRrcx_CRrdx_CRrbx_CWrcx_CWrdx_CWrbx_f_CRecx_CRedx_CRebx_CRds_CWecx_CWedx_CWebx,
-		t_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds,
+		t_CWecx_CWedx_CWebx_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds,
 		t_Rax_Recx_Redx_Rseg,
 		t_Reax_Recx_Redx_Rseg,
 		t_Recx_Redx_Rrax_Rseg,

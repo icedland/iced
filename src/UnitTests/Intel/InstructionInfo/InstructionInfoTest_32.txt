@@ -1168,9 +1168,9 @@ F3 0F38F8 18, Enqcmds_r32_m512, Legacy, ENQCMD, priv fw=z fc=acops op0=r op1=r r
 # enqcmd ebx,[eax]
 F2 0F38F8 18, Enqcmd_r32_m512, Legacy, ENQCMD, fw=z fc=acops op0=r op1=r r=es;ebx r=ds r=eax rm=ds:eax;UInt512 wm=es:ebx;UInt512
 # pconfig
-0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops rw=eax cr=ecx;edx;ebx;ds
+0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops rw=eax cr=ecx;edx;ebx;ds cw=ecx;edx;ebx
 # pconfig
-67 64 0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops rw=eax cr=ecx;edx;ebx;ds
+67 64 0F01 C5, Pconfig, Legacy, PCONFIG, priv fw=z fc=acops rw=eax cr=ecx;edx;ebx;ds cw=ecx;edx;ebx
 # tpause ebp
 66 0FAE F5, Tpause_r32, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # umwait ebp

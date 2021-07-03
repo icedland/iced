@@ -739,8 +739,11 @@ namespace Iced.Intel {
 					}
 				}
 				break;
-			case ImpliedAccess.t_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds:
+			case ImpliedAccess.t_CWecx_CWedx_CWebx_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.ECX, OpAccess.CondWrite);
+					AddRegister(flags, Register.EDX, OpAccess.CondWrite);
+					AddRegister(flags, Register.EBX, OpAccess.CondWrite);
 					AddRegister(flags, Register.EAX, OpAccess.ReadWrite);
 				}
 				if ((flags & Flags.Is64Bit) != 0) {

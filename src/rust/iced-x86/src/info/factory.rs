@@ -877,8 +877,11 @@ impl InstructionInfoFactory {
 					}
 				}
 			}
-			ImpliedAccess::t_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds => {
+			ImpliedAccess::t_CWecx_CWedx_CWebx_RWeax_b64_t_CRrcx_CRrdx_CRrbx_f_CRecx_CRedx_CRebx_CRds => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::ECX, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::EDX, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::EBX, OpAccess::CondWrite);
 					Self::add_register(flags, info, Register::EAX, OpAccess::ReadWrite);
 				}
 				if (flags & Flags::IS_64BIT) != 0 {

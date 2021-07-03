@@ -8314,7 +8314,7 @@ END
 
 # Code: Pconfig
 INSTRUCTION: NP 0F 01 C5 | PCONFIG | PCONFIG
-	implied: rw=eax cr;!64=ecx;edx;ebx cr;64=rcx;rdx;rbx cr;!64=ds
+	implied: rw=eax cr;!64=ecx;edx;ebx cr;64=rcx;rdx;rbx cw=ecx;edx;ebx cr;!64=ds
 	rflags: w=z 0=osacp
 	# May cause a TSX abort if VM exit
 	# TDX #UD or #VE depending on feature enabling
