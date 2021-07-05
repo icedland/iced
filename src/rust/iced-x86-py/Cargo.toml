@@ -13,7 +13,7 @@ crate-type = ["cdylib"]
 static_assertions = "1.1.0"
 
 [dependencies.pyo3]
-version = "0.13.0"
+version = "0.14.1"
 default-features = false
 features = ["macros", "extension-module", "abi3-py36"]
 
