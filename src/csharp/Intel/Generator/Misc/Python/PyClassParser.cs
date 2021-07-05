@@ -171,7 +171,7 @@ namespace Generator.Misc.Python {
 					var expectedTextSig = GetExpectedTextSignature(ctor);
 					var textSigAttr = pyClass.Attributes.Attributes.First(a => a.Kind == AttributeKind.TextSignature);
 					if (textSigAttr.Text != expectedTextSig)
-						throw GetException($"Class {pyClass.Name}: #[text_signature] didn't match the expected value: {expectedTextSig}");
+						throw GetException($"Class {pyClass.Name}: #[pyo3(text_signature ...)] didn't match the expected value: {expectedTextSig}");
 
 					var argsAttr = pyClass.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
 					if (argsAttr is not null)
@@ -360,12 +360,12 @@ namespace Generator.Misc.Python {
 
 		static string GetExpectedTextSignature(PyMethod method) {
 			var sb = new StringBuilder();
-			sb.Append("#[text_signature = \"(");
+			sb.Append("#[pyo3(text_signature = \"(");
 			foreach (var arg in method.Arguments) {
 				sb.Append(arg.Name);
 				sb.Append(", ");
 			}
-			sb.Append("/)\"]");
+			sb.Append("/)\")]");
 			return sb.ToString();
 		}
 
@@ -478,11 +478,11 @@ namespace Generator.Misc.Python {
 			if (!(isSpecial || isGetter || isSetter || isCtor)) {
 				int count = method.Attributes.Attributes.Count(a => a.Kind == AttributeKind.TextSignature);
 				if (count != 1)
-					throw GetException("Expected exactly one #[text_signature] attribute");
+					throw GetException("Expected exactly one #[pyo3(text_signature ...)] attribute");
 				var expectedTextSig = GetExpectedTextSignature(method);
 				var textSigAttr = method.Attributes.Attributes.First(a => a.Kind == AttributeKind.TextSignature);
 				if (textSigAttr.Text != expectedTextSig)
-					throw GetException($"#[text_signature] didn't match the expected value: {expectedTextSig}");
+					throw GetException($"#[pyo3(text_signature ...)] didn't match the expected value: {expectedTextSig}");
 			}
 
 			if (isSetter) {
@@ -598,10 +598,14 @@ namespace Generator.Misc.Python {
 		RustAttribute ParseAttribute(string line) {
 			var attrLine = line.Trim();
 			var fullAttrLine = attrLine;
+			const string pyo3AttrPrefix = "#[pyo3(";
 			const string attrPrefix = "#[";
-			if (!attrLine.StartsWith(attrPrefix, StringComparison.Ordinal))
+			if (attrLine.StartsWith(pyo3AttrPrefix, StringComparison.Ordinal))
+				attrLine = attrLine[pyo3AttrPrefix.Length..];
+			else if (attrLine.StartsWith(attrPrefix, StringComparison.Ordinal))
+				attrLine = attrLine[attrPrefix.Length..];
+			else
 				throw GetException("Expected an attribute");
-			attrLine = attrLine[attrPrefix.Length..];
 			int index = attrLine.IndexOfAny(new[] { '(', ' ', '=', ']' });
 			if (index < 0)
 				throw GetException("Invalid attribute");

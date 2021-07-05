@@ -25,7 +25,7 @@ use pyo3::prelude::*;
 ///     disasm = formatter.format(instr)
 ///     assert disasm == "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]"
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(/)"]
+#[pyo3(text_signature = "(/)")]
 pub(crate) struct FastFormatter {
 	fmt_output: String,
 	formatter: iced_x86::FastFormatter,
@@ -47,7 +47,7 @@ impl FastFormatter {
 	///
 	/// Returns:
 	///     str: The formatted string
-	#[text_signature = "($self, instruction, /)"]
+	#[pyo3(text_signature = "($self, instruction, /)")]
 	fn format(&mut self, instruction: &Instruction) -> &str {
 		self.fmt_output.clear();
 		self.formatter.format(&instruction.instr, &mut self.fmt_output);

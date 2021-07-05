@@ -68,7 +68,6 @@
 #![warn(clippy::unused_self)]
 #![warn(clippy::unwrap_in_result)]
 #![warn(clippy::unwrap_used)]
-#![warn(clippy::used_underscore_binding)]
 #![warn(clippy::useless_let_if_seq)]
 #![warn(clippy::useless_transmute)]
 #![warn(clippy::zero_sized_map_values)]

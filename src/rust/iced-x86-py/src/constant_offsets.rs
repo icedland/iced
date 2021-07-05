@@ -12,7 +12,7 @@ use std::collections::hash_map::DefaultHasher;
 /// Call :class:`Decoder.get_constant_offsets` or :class:`Encoder.get_constant_offsets` to get the
 /// offsets of the constants after the instruction has been decoded/encoded.
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(/)"]
+#[pyo3(text_signature = "(/)")]
 #[derive(Copy, Clone)]
 pub(crate) struct ConstantOffsets {
 	pub(crate) offsets: iced_x86::ConstantOffsets,
@@ -83,7 +83,7 @@ impl ConstantOffsets {
 	///     ConstantOffsets: A copy of this instance
 	///
 	/// This is identical to :class:`ConstantOffsets.copy`
-	#[text_signature = "($self, /)"]
+	#[pyo3(text_signature = "($self, /)")]
 	fn __copy__(&self) -> Self {
 		*self
 	}
@@ -97,7 +97,7 @@ impl ConstantOffsets {
 	///     ConstantOffsets: A copy of this instance
 	///
 	/// This is identical to :class:`ConstantOffsets.copy`
-	#[text_signature = "($self, memo, /)"]
+	#[pyo3(text_signature = "($self, memo, /)")]
 	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
 		*self
 	}
@@ -106,7 +106,7 @@ impl ConstantOffsets {
 	///
 	/// Returns:
 	///     ConstantOffsets: A copy of this instance
-	#[text_signature = "($self, /)"]
+	#[pyo3(text_signature = "($self, /)")]
 	fn copy(&self) -> Self {
 		*self
 	}

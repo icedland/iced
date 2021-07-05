@@ -49,7 +49,7 @@ use pyo3::types::PyBytes;
 ///     # so the result should be identical to the original code.
 ///     assert data == raw_data
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(bitness, fix_branches, /)"]
+#[pyo3(text_signature = "(bitness, fix_branches, /)")]
 pub(crate) struct BlockEncoder {
 	instructions: Vec<iced_x86::Instruction>,
 	bitness: u32,
@@ -75,7 +75,7 @@ impl BlockEncoder {
 	///
 	/// Args:
 	///     `instruction` (Instruction): Next instruction to encode
-	#[text_signature = "($self, instruction, /)"]
+	#[pyo3(text_signature = "($self, instruction, /)")]
 	fn add(&mut self, instruction: &Instruction) {
 		self.instructions.push(instruction.instr);
 	}
@@ -84,7 +84,7 @@ impl BlockEncoder {
 	///
 	/// Args:
 	///     `instructions` (List[Instruction]): Next instructions to encode
-	#[text_signature = "($self, instructions, /)"]
+	#[pyo3(text_signature = "($self, instructions, /)")]
 	fn add_many(&mut self, instructions: Vec<Instruction>) {
 		self.instructions.extend(instructions.iter().map(|i| i.instr));
 	}
@@ -99,7 +99,7 @@ impl BlockEncoder {
 	///
 	/// Raises:
 	///     ValueError: If one or more instructions couldn't be encoded
-	#[text_signature = "($self, rip, /)"]
+	#[pyo3(text_signature = "($self, rip, /)")]
 	fn encode<'py>(&mut self, py: Python<'py>, rip: u64) -> PyResult<&'py PyBytes> {
 		let block = iced_x86::InstructionBlock::new(&self.instructions, rip);
 		iced_x86::BlockEncoder::encode(self.bitness, block, self.options)

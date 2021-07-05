@@ -18,7 +18,7 @@ use pyo3::prelude::*;
 ///     info = RegisterInfo(Register.GS)
 ///     assert info.number == 5
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(register, /)"]
+#[pyo3(text_signature = "(register, /)")]
 pub(crate) struct RegisterInfo {
 	pub(crate) info: &'static iced_x86::RegisterInfo,
 }

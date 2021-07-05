@@ -97,7 +97,7 @@ enum DecoderDataRef {
 ///     assert instr.code == Code.ADD_RM32_R32
 ///     assert instr.has_lock_prefix
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(bitness, data, options, ip, /)"]
+#[pyo3(text_signature = "(bitness, data, options, ip, /)")]
 pub(crate) struct Decoder {
 	// * If the decoder ctor was called with a `bytes` object, data_ref is PyObj(`bytes` object)
 	//   and the decoder holds a ref to its data.
@@ -291,7 +291,7 @@ impl Decoder {
 	///
 	///     assert instr.has_lock_prefix
 	///     assert instr.has_xrelease_prefix
-	#[text_signature = "($self, /)"]
+	#[pyo3(text_signature = "($self, /)")]
 	fn decode(&mut self) -> Instruction {
 		Instruction { instr: self.decoder.decode() }
 	}
@@ -337,7 +337,7 @@ impl Decoder {
 	///
 	///     assert instr.has_lock_prefix
 	///     assert instr.has_xrelease_prefix
-	#[text_signature = "($self, instruction, /)"]
+	#[pyo3(text_signature = "($self, instruction, /)")]
 	fn decode_out(&mut self, instruction: &mut Instruction) {
 		self.decoder.decode_out(&mut instruction.instr)
 	}
@@ -378,7 +378,7 @@ impl Decoder {
 	///     assert not co.has_immediate2
 	///     assert co.immediate_offset2 == 0
 	///     assert co.immediate_size2 == 0
-	#[text_signature = "($self, instruction, /)"]
+	#[pyo3(text_signature = "($self, instruction, /)")]
 	fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
 		ConstantOffsets { offsets: self.decoder.get_constant_offsets(&instruction.instr) }
 	}

@@ -157,12 +157,12 @@ namespace Generator.Encoder.Python {
 
 		void WriteTextSignature(in GenerateMethodContext ctx) {
 			sb.Clear();
-			sb.Append("#[text_signature = \"(");
+			sb.Append("#[pyo3(text_signature = \"(");
 			foreach (var argInfo in ctx.Info.ArgInfos) {
 				sb.Append(argInfo.PythonName);
 				sb.Append(", ");
 			}
-			sb.Append("/)\"]");
+			sb.Append("/)\")]");
 			ctx.Writer.WriteLine(sb.ToString());
 		}
 

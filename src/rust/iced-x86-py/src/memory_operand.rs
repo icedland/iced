@@ -20,7 +20,7 @@ use std::collections::hash_map::DefaultHasher;
 ///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcasted memory (EVEX instructions)
 ///     `seg` (:class:`Register`): (default = :class:`Register.NONE`) Segment override or :class:`Register.NONE`
 #[pyclass(module = "_iced_x86_py")]
-#[text_signature = "(base, index, scale, displ, displ_size, is_broadcast, seg, /)"]
+#[pyo3(text_signature = "(base, index, scale, displ, displ_size, is_broadcast, seg, /)")]
 #[derive(Copy, Clone)]
 pub(crate) struct MemoryOperand {
 	pub(crate) mem: iced_x86::MemoryOperand,
@@ -49,7 +49,7 @@ impl MemoryOperand {
 	///     MemoryOperand: A copy of this instance
 	///
 	/// This is identical to :class:`MemoryOperand.copy`
-	#[text_signature = "($self, /)"]
+	#[pyo3(text_signature = "($self, /)")]
 	fn __copy__(&self) -> Self {
 		*self
 	}
@@ -63,7 +63,7 @@ impl MemoryOperand {
 	///     MemoryOperand: A copy of this instance
 	///
 	/// This is identical to :class:`MemoryOperand.copy`
-	#[text_signature = "($self, memo, /)"]
+	#[pyo3(text_signature = "($self, memo, /)")]
 	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
 		*self
 	}
@@ -72,7 +72,7 @@ impl MemoryOperand {
 	///
 	/// Returns:
 	///     MemoryOperand: A copy of this instance
-	#[text_signature = "($self, /)"]
+	#[pyo3(text_signature = "($self, /)")]
 	fn copy(&self) -> Self {
 		*self
 	}
