@@ -102,6 +102,7 @@ namespace Generator.Assembler {
 				Code.VEX_Vmovsd_xmm_xmm_xmm_0F11,
 				Code.EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11,
 				Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11,
+				Code.EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11,
 
 				Code.DeclareByte,
 				Code.DeclareWord,

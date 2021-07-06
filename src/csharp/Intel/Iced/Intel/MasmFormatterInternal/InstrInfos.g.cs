@@ -3733,18 +3733,22 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// VEX_Vmovss_xmm_xmm_xmm
+				0x81,// 'v', Normal_1
+				0x25,// 37 = "vmovss"
+
+				// VEX_Vmovss_xmm_m32
 				0x82,// 'v', Normal_2
 				0x25,// 37 = "vmovss"
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
-				// VEX_Vmovss_xmm_m32
-				0x80,// 'v', Previous
-
 				// EVEX_Vmovss_xmm_k1z_xmm_xmm
-				0x80,// 'v', Previous
+				0x81,// 'v', Normal_1
+				0x25,// 37 = "vmovss"
 
 				// EVEX_Vmovss_xmm_k1z_m32
-				0x80,// 'v', Previous
+				0x82,// 'v', Normal_2
+				0x25,// 37 = "vmovss"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// Movsd_xmm_xmmm64
 				0x02,// Normal_2
@@ -3752,18 +3756,22 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// VEX_Vmovsd_xmm_xmm_xmm
+				0x81,// 'v', Normal_1
+				0x24,// 36 = "vmovsd"
+
+				// VEX_Vmovsd_xmm_m64
 				0x82,// 'v', Normal_2
 				0x24,// 36 = "vmovsd"
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
-				// VEX_Vmovsd_xmm_m64
-				0x80,// 'v', Previous
-
 				// EVEX_Vmovsd_xmm_k1z_xmm_xmm
-				0x80,// 'v', Previous
+				0x81,// 'v', Normal_1
+				0x24,// 36 = "vmovsd"
 
 				// EVEX_Vmovsd_xmm_k1z_m64
-				0x80,// 'v', Previous
+				0x82,// 'v', Normal_2
+				0x24,// 36 = "vmovsd"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// Movups_xmmm128_xmm
 				0x01,// Normal_1
@@ -3811,18 +3819,22 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// VEX_Vmovss_xmm_xmm_xmm_0F11
+				0x81,// 'v', Normal_1
+				0x25,// 37 = "vmovss"
+
+				// VEX_Vmovss_m32_xmm
 				0x82,// 'v', Normal_2
 				0x25,// 37 = "vmovss"
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
-				// VEX_Vmovss_m32_xmm
-				0x80,// 'v', Previous
-
 				// EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11
-				0x80,// 'v', Previous
+				0x81,// 'v', Normal_1
+				0x25,// 37 = "vmovss"
 
 				// EVEX_Vmovss_m32_k1_xmm
-				0x80,// 'v', Previous
+				0x82,// 'v', Normal_2
+				0x25,// 37 = "vmovss"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// Movsd_xmmm64_xmm
 				0x02,// Normal_2
@@ -3830,18 +3842,22 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// VEX_Vmovsd_xmm_xmm_xmm_0F11
+				0x81,// 'v', Normal_1
+				0x24,// 36 = "vmovsd"
+
+				// VEX_Vmovsd_m64_xmm
 				0x82,// 'v', Normal_2
 				0x24,// 36 = "vmovsd"
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
-				// VEX_Vmovsd_m64_xmm
-				0x80,// 'v', Previous
-
 				// EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11
-				0x80,// 'v', Previous
+				0x81,// 'v', Normal_1
+				0x24,// 36 = "vmovsd"
 
 				// EVEX_Vmovsd_m64_k1_xmm
-				0x80,// 'v', Previous
+				0x82,// 'v', Normal_2
+				0x24,// 36 = "vmovsd"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// Movhlps_xmm_xmm
 				0x01,// Normal_1
@@ -16207,6 +16223,884 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Erets
 				0x01,// Normal_1
 				0xCE, 0x0B,// 1486 = "erets"
+
+				// EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xCF, 0x0B,// 1487 = "vaddph"
+
+				// EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xD0, 0x0B,// 1488 = "vaddsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
+				0xA7,// 'v', pops_2
+				0xD1, 0x0B,// 1489 = "vcmpph"
+				0x1A,// vcmpph
+
+				// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
+				0x80,// 'v', Previous
+
+				// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
+				0xA8,// 'v', pops_3
+				0xD2, 0x0B,// 1490 = "vcmpsh"
+				0x1B,// vcmpsh
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcomish_xmm_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xD3, 0x0B,// 1491 = "vcomish"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+				0x82,// 'v', Normal_2
+				0xD4, 0x0B,// 1492 = "vcvtdq2ph"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
+				0x82,// 'v', Normal_2
+				0xD4, 0x0B,// 1492 = "vcvtdq2ph"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+				0x82,// 'v', Normal_2
+				0xD5, 0x0B,// 1493 = "vcvtpd2ph"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
+				0x82,// 'v', Normal_2
+				0xD6, 0x0B,// 1494 = "vcvtph2dq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
+				0x82,// 'v', Normal_2
+				0xD7, 0x0B,// 1495 = "vcvtph2pd"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
+				0x82,// 'v', Normal_2
+				0xD8, 0x0B,// 1496 = "vcvtph2psx"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
+				0x82,// 'v', Normal_2
+				0xD9, 0x0B,// 1497 = "vcvtph2qq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
+				0x82,// 'v', Normal_2
+				0xDA, 0x0B,// 1498 = "vcvtph2udq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
+				0x82,// 'v', Normal_2
+				0xDB, 0x0B,// 1499 = "vcvtph2uqq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
+				0x82,// 'v', Normal_2
+				0xDC, 0x0B,// 1500 = "vcvtph2uw"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
+				0x82,// 'v', Normal_2
+				0xDD, 0x0B,// 1501 = "vcvtph2w"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+				0x82,// 'v', Normal_2
+				0xDE, 0x0B,// 1502 = "vcvtps2phx"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
+				0x82,// 'v', Normal_2
+				0xDE, 0x0B,// 1502 = "vcvtps2phx"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+				0x82,// 'v', Normal_2
+				0xDF, 0x0B,// 1503 = "vcvtqq2ph"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
+				0x82,// 'v', Normal_2
+				0xE0, 0x0B,// 1504 = "vcvtsd2sh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xE1, 0x0B,// 1505 = "vcvtsh2sd"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtsh2si_r32_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xE2, 0x0B,// 1506 = "vcvtsh2si"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtsh2si_r64_xmmm16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xE3, 0x0B,// 1507 = "vcvtsh2ss"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtsh2usi_r32_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xE4, 0x0B,// 1508 = "vcvtsh2usi"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtsh2usi_r64_xmmm16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
+				0x82,// 'v', Normal_2
+				0xE5, 0x0B,// 1509 = "vcvtsi2sh"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
+				0x82,// 'v', Normal_2
+				0xE6, 0x0B,// 1510 = "vcvtss2sh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
+				0x82,// 'v', Normal_2
+				0xE7, 0x0B,// 1511 = "vcvttph2dq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
+				0x82,// 'v', Normal_2
+				0xE8, 0x0B,// 1512 = "vcvttph2qq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
+				0x82,// 'v', Normal_2
+				0xE9, 0x0B,// 1513 = "vcvttph2udq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
+				0x82,// 'v', Normal_2
+				0xEA, 0x0B,// 1514 = "vcvttph2uqq"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xEB, 0x0B,// 1515 = "vcvttph2uw"
+
+				// EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xEC, 0x0B,// 1516 = "vcvttph2w"
+
+				// EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttsh2si_r32_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xED, 0x0B,// 1517 = "vcvttsh2si"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvttsh2si_r64_xmmm16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvttsh2usi_r32_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xEE, 0x0B,// 1518 = "vcvttsh2usi"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvttsh2usi_r64_xmmm16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+				0x82,// 'v', Normal_2
+				0xEF, 0x0B,// 1519 = "vcvtudq2ph"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
+				0x82,// 'v', Normal_2
+				0xEF, 0x0B,// 1519 = "vcvtudq2ph"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+				0x82,// 'v', Normal_2
+				0xF0, 0x0B,// 1520 = "vcvtuqq2ph"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
+				0x82,// 'v', Normal_2
+				0xF1, 0x0B,// 1521 = "vcvtusi2sh"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
+				0x82,// 'v', Normal_2
+				0xF2, 0x0B,// 1522 = "vcvtuw2ph"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
+				0x82,// 'v', Normal_2
+				0xF3, 0x0B,// 1523 = "vcvtw2ph"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xF4, 0x0B,// 1524 = "vdivph"
+
+				// EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xF5, 0x0B,// 1525 = "vdivsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
+				0x81,// 'v', Normal_1
+				0xF6, 0x0B,// 1526 = "vfcmaddcph"
+
+				// EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
+				0x80,// 'v', Previous
+
+				// EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
+				0x81,// 'v', Normal_1
+				0xF7, 0x0B,// 1527 = "vfmaddcph"
+
+				// EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
+				0x81,// 'v', Normal_1
+				0xF8, 0x0B,// 1528 = "vfcmaddcsh"
+
+				// EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
+				0x81,// 'v', Normal_1
+				0xF9, 0x0B,// 1529 = "vfmaddcsh"
+
+				// EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
+				0x81,// 'v', Normal_1
+				0xFA, 0x0B,// 1530 = "vfcmulcph"
+
+				// EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
+				0x80,// 'v', Previous
+
+				// EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
+				0x81,// 'v', Normal_1
+				0xFB, 0x0B,// 1531 = "vfmulcph"
+
+				// EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
+				0x81,// 'v', Normal_1
+				0xFC, 0x0B,// 1532 = "vfcmulcsh"
+
+				// EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
+				0x81,// 'v', Normal_1
+				0xFD, 0x0B,// 1533 = "vfmulcsh"
+
+				// EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xFE, 0x0B,// 1534 = "vfmaddsub132ph"
+
+				// EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xFF, 0x0B,// 1535 = "vfmaddsub213ph"
+
+				// EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x80, 0x0C,// 1536 = "vfmaddsub231ph"
+
+				// EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x81, 0x0C,// 1537 = "vfmsubadd132ph"
+
+				// EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x82, 0x0C,// 1538 = "vfmsubadd213ph"
+
+				// EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x83, 0x0C,// 1539 = "vfmsubadd231ph"
+
+				// EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x84, 0x0C,// 1540 = "vfmadd132ph"
+
+				// EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x85, 0x0C,// 1541 = "vfmadd213ph"
+
+				// EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x86, 0x0C,// 1542 = "vfmadd231ph"
+
+				// EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x87, 0x0C,// 1543 = "vfnmadd132ph"
+
+				// EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x88, 0x0C,// 1544 = "vfnmadd213ph"
+
+				// EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x89, 0x0C,// 1545 = "vfnmadd231ph"
+
+				// EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x8A, 0x0C,// 1546 = "vfmadd132sh"
+
+				// EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x8B, 0x0C,// 1547 = "vfmadd213sh"
+
+				// EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x8C, 0x0C,// 1548 = "vfmadd231sh"
+
+				// EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x8D, 0x0C,// 1549 = "vfnmadd132sh"
+
+				// EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x8E, 0x0C,// 1550 = "vfnmadd213sh"
+
+				// EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x8F, 0x0C,// 1551 = "vfnmadd231sh"
+
+				// EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x90, 0x0C,// 1552 = "vfmsub132ph"
+
+				// EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x91, 0x0C,// 1553 = "vfmsub213ph"
+
+				// EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x92, 0x0C,// 1554 = "vfmsub231ph"
+
+				// EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x93, 0x0C,// 1555 = "vfnmsub132ph"
+
+				// EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x94, 0x0C,// 1556 = "vfnmsub213ph"
+
+				// EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x95, 0x0C,// 1557 = "vfnmsub231ph"
+
+				// EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x96, 0x0C,// 1558 = "vfmsub132sh"
+
+				// EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x97, 0x0C,// 1559 = "vfmsub213sh"
+
+				// EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x98, 0x0C,// 1560 = "vfmsub231sh"
+
+				// EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x99, 0x0C,// 1561 = "vfnmsub132sh"
+
+				// EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x9A, 0x0C,// 1562 = "vfnmsub213sh"
+
+				// EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
+				0x81,// 'v', Normal_1
+				0x9B, 0x0C,// 1563 = "vfnmsub231sh"
+
+				// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+				0x82,// 'v', Normal_2
+				0x9C, 0x0C,// 1564 = "vfpclassph"
+				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
+				0x80,// 'v', Previous
+
+				// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
+				0x80,// 'v', Previous
+
+				// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
+				0x82,// 'v', Normal_2
+				0x9D, 0x0C,// 1565 = "vfpclasssh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vgetexpph_xmm_k1z_xmmm128b16
+				0x81,// 'v', Normal_1
+				0x9E, 0x0C,// 1566 = "vgetexpph"
+
+				// EVEX_Vgetexpph_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
+				0x81,// 'v', Normal_1
+				0x9F, 0x0C,// 1567 = "vgetexpsh"
+
+				// EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
+				0x81,// 'v', Normal_1
+				0xA0, 0x0C,// 1568 = "vgetmantph"
+
+				// EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
+				0x80,// 'v', Previous
+
+				// EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x81,// 'v', Normal_1
+				0xA1, 0x0C,// 1569 = "vgetmantsh"
+
+				// EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xA2, 0x0C,// 1570 = "vmaxph"
+
+				// EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xA3, 0x0C,// 1571 = "vmaxsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xA4, 0x0C,// 1572 = "vminph"
+
+				// EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xA5, 0x0C,// 1573 = "vminsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vmovsh_xmm_k1z_m16
+				0x82,// 'v', Normal_2
+				0xA6, 0x0C,// 1574 = "vmovsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vmovsh_m16_k1_xmm
+				0x80,// 'v', Previous
+
+				// EVEX_Vmovsh_xmm_k1z_xmm_xmm
+				0x80,// 'v', Previous
+
+				// EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11
+				0x81,// 'v', Normal_1
+				0xA6, 0x0C,// 1574 = "vmovsh"
+
+				// EVEX_Vmovw_xmm_r32m16
+				0x82,// 'v', Normal_2
+				0xA7, 0x0C,// 1575 = "vmovw"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vmovw_xmm_r64m16
+				0x80,// 'v', Previous
+
+				// EVEX_Vmovw_r32m16_xmm
+				0x80,// 'v', Previous
+
+				// EVEX_Vmovw_r64m16_xmm
+				0x80,// 'v', Previous
+
+				// EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xA8, 0x0C,// 1576 = "vmulph"
+
+				// EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xA9, 0x0C,// 1577 = "vmulsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vrcpph_xmm_k1z_xmmm128b16
+				0x82,// 'v', Normal_2
+				0xAA, 0x0C,// 1578 = "vrcpph"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vrcpph_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vrcpph_zmm_k1z_zmmm512b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
+				0x82,// 'v', Normal_2
+				0xAB, 0x0C,// 1579 = "vrcpsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
+				0x81,// 'v', Normal_1
+				0xAC, 0x0C,// 1580 = "vreduceph"
+
+				// EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
+				0x80,// 'v', Previous
+
+				// EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x81,// 'v', Normal_1
+				0xAD, 0x0C,// 1581 = "vreducesh"
+
+				// EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
+				0x81,// 'v', Normal_1
+				0xAE, 0x0C,// 1582 = "vrndscaleph"
+
+				// EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
+				0x80,// 'v', Previous
+
+				// EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
+				0x80,// 'v', Previous
+
+				// EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x81,// 'v', Normal_1
+				0xAF, 0x0C,// 1583 = "vrndscalesh"
+
+				// EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
+				0x82,// 'v', Normal_2
+				0xB0, 0x0C,// 1584 = "vrsqrtph"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
+				0x82,// 'v', Normal_2
+				0xB1, 0x0C,// 1585 = "vrsqrtsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xB2, 0x0C,// 1586 = "vscalefph"
+
+				// EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xB3, 0x0C,// 1587 = "vscalefsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vsqrtph_xmm_k1z_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xB4, 0x0C,// 1588 = "vsqrtph"
+
+				// EVEX_Vsqrtph_ymm_k1z_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xB5, 0x0C,// 1589 = "vsqrtsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+				0x81,// 'v', Normal_1
+				0xB6, 0x0C,// 1590 = "vsubph"
+
+				// EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+				0x80,// 'v', Previous
+
+				// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+				0x80,// 'v', Previous
+
+				// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
+				0x82,// 'v', Normal_2
+				0xB7, 0x0C,// 1591 = "vsubsh"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// EVEX_Vucomish_xmm_xmmm16_sae
+				0x82,// 'v', Normal_2
+				0xB8, 0x0C,// 1592 = "vucomish"
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
 			};
 	}
 }

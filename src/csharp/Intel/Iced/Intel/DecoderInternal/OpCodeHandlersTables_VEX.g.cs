@@ -386,7 +386,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x07,// 7
 					0x46,// Null
 
-				// ThreeByteHandlers_0F38XX
+				// Handlers_0F38
 				0x01,// ArrayReference
 				0x80, 0x02,// 0x100
 				// 0 = 0x00
@@ -2432,7 +2432,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x08,// 8
 					0x00,// Invalid
 
-				// ThreeByteHandlers_0F3AXX
+				// Handlers_0F3A
 				0x01,// ArrayReference
 				0x80, 0x02,// 0x100
 				// 0 = 0x00
@@ -3498,7 +3498,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x0F,// 15
 					0x00,// Invalid
 
-				// TwoByteHandlers_0FXX
+				// Handlers_0F
 				0x01,// ArrayReference
 				0x80, 0x02,// 0x100
 				// 0 = 0x00
@@ -5582,9 +5582,9 @@ namespace Iced.Intel.DecoderInternal {
 				0x00,// Invalid
 			};
 		const int MaxIdNames = 14;
-		const uint ThreeByteHandlers_0F38XXIndex = 11;
-		const uint ThreeByteHandlers_0F3AXXIndex = 12;
-		const uint TwoByteHandlers_0FXXIndex = 13;
+		const uint Handlers_0FIndex = 13;
+		const uint Handlers_0F38Index = 11;
+		const uint Handlers_0F3AIndex = 12;
 	}
 }
 #endif

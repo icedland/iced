@@ -34,6 +34,8 @@ namespace Generator.Formatters {
 				PseudoOpsKind.vpcmpuw => vpcmpuw_pseudo_ops,
 				PseudoOpsKind.vpcmpud => vpcmpud_pseudo_ops,
 				PseudoOpsKind.vpcmpuq => vpcmpuq_pseudo_ops,
+				PseudoOpsKind.vcmpph => vcmpph_pseudo_ops,
+				PseudoOpsKind.vcmpsh => vcmpsh_pseudo_ops,
 				_ => throw new ArgumentOutOfRangeException(nameof(kind)),
 			};
 
@@ -80,6 +82,8 @@ namespace Generator.Formatters {
 			vcmpss_pseudo_ops = Create(cc, 32, "vcmp", "ss");
 			cmpsd_pseudo_ops = Create(cc, 8, "cmp", "sd");
 			vcmpsd_pseudo_ops = Create(cc, 32, "vcmp", "sd");
+			vcmpph_pseudo_ops = Create(cc, 32, "vcmp", "ph");
+			vcmpsh_pseudo_ops = Create(cc, 32, "vcmp", "sh");
 
 			var xopcc = new string[8] {
 				"lt",
@@ -135,6 +139,8 @@ namespace Generator.Formatters {
 		static readonly (string mnemonic, int imm)[] vcmpss_pseudo_ops;
 		static readonly (string mnemonic, int imm)[] cmpsd_pseudo_ops;
 		static readonly (string mnemonic, int imm)[] vcmpsd_pseudo_ops;
+		static readonly (string mnemonic, int imm)[] vcmpph_pseudo_ops;
+		static readonly (string mnemonic, int imm)[] vcmpsh_pseudo_ops;
 
 		static readonly (string mnemonic, int imm)[] pclmulqdq_pseudo_ops = new (string mnemonic, int imm)[4] {
 			("pclmullqlqdq", 0x00),

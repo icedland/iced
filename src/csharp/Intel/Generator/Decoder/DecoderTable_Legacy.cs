@@ -6,7 +6,7 @@ using Generator.Enums.Decoder;
 
 namespace Generator.Decoder {
 	static class DecoderTable_Legacy {
-		public const string OneByteHandlers = nameof(OneByteHandlers);
+		public const string Handlers_MAP0 = nameof(Handlers_MAP0);
 
 		public static (string name, object?[] handlers)[] CreateHandlers(GenTypes genTypes) {
 			var legacyEnum = genTypes[TypeIds.OpCodeHandlerKind];
@@ -2515,7 +2515,7 @@ namespace Generator.Decoder {
 					null,
 				}),
 
-				("ThreeByteHandlers_0F38XX",
+				("Handlers_0F38",
 				new object[0x100] {
 					// 00
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix)],
@@ -3223,7 +3223,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				("ThreeByteHandlers_0F3AXX",
+				("Handlers_0F3A",
 				new object[0x100] {
 					// 00
 					invalid,
@@ -3681,7 +3681,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				("TwoByteHandlers_0FXX",
+				("Handlers_0F",
 				new object[0x100] {
 					// 00
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_0F00" },
@@ -3959,7 +3959,7 @@ namespace Generator.Decoder {
 
 					// 38
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "ThreeByteHandlers_0F38XX" },
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "Handlers_0F38" },
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Smint)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_1)],
@@ -3967,7 +3967,7 @@ namespace Generator.Decoder {
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Dmint)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix_DMI)]
 					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options1632_2)],
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "ThreeByteHandlers_0F3AXX" },
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "Handlers_0F3A" },
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Rdm)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix_DMI)],
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Bb0_reset)] }, decoderOptionsEnum[nameof(DecoderOptions.Cyrix)],
 					},
@@ -4836,7 +4836,7 @@ namespace Generator.Decoder {
 					},
 				}),
 
-				(OneByteHandlers,
+				(Handlers_MAP0,
 				new object[0x100] {
 					// 00
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Eb_Gb_2)], codeEnum[nameof(Code.Add_rm8_r8)], new OrEnumValue(handlerFlagsEnum, nameof(HandlerFlags.Xacquire), nameof(HandlerFlags.Xrelease), nameof(HandlerFlags.Lock)) },
@@ -4865,7 +4865,7 @@ namespace Generator.Decoder {
 						new object[] { legacyEnum[nameof(OpCodeHandlerKind.PushOpSizeReg_4b)], codeEnum[nameof(Code.Pushw_CS)], codeEnum[nameof(Code.Pushd_CS)], registerEnum[nameof(Register.CS)] },
 						invalid,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "TwoByteHandlers_0FXX" },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.AnotherTable)], "Handlers_0F" },
 
 					// 10
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Eb_Gb_2)], codeEnum[nameof(Code.Adc_rm8_r8)], new OrEnumValue(handlerFlagsEnum, nameof(HandlerFlags.Xacquire), nameof(HandlerFlags.Xrelease), nameof(HandlerFlags.Lock)) },

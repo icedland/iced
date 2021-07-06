@@ -629,9 +629,24 @@ namespace IcedFuzzer.Core {
 	// It doesn't gen the same gpr in a reg op and a mem op, eg. `mov eax,[eax]`, but it
 	// does gen it if they're both reg ops, eg. `mov eax,eax`.
 	sealed class SameRegsFuzzerGen : FuzzerGen {
-		static FuzzerRegisterClass? GetUniqueOperandRegClass(FuzzerInstruction instr) {
-			if (!instr.RequiresUniqueRegNums)
-				return null;
+		static (FuzzerRegisterClass?, Func<int, int, bool>) GetUniqueOperandRegClass(FuzzerInstruction instr) {
+			int count = 0;
+			Func<int, int, bool> isInvalid = (_, _) => false;
+			if (instr.RequiresUniqueRegNums) {
+				count++;
+				// Always invalid
+				isInvalid = (_, _) => true;
+			}
+			if (instr.RequiresUniqueDestRegNum) {
+				count++;
+				// Invalid if dst equals src1 or src2
+				isInvalid = (op0Index, _) => op0Index == 0;
+			}
+			if (count > 1)
+				throw ThrowHelpers.Unreachable;
+			if (count == 0)
+				return (null, isInvalid);
+
 			const uint VEC_REG = 0x01;
 			const uint TMM_REG = 0x02;
 			uint regs = 0;
@@ -645,22 +660,23 @@ namespace IcedFuzzer.Core {
 					break;
 				}
 			}
-			return regs switch {
+			var regClass = regs switch {
 				VEC_REG => FuzzerRegisterClass.Vector,
 				TMM_REG => FuzzerRegisterClass.TMM,
 				_ => throw ThrowHelpers.Unreachable,
 			};
+			return (regClass, isInvalid);
 		}
 
 		public override IEnumerable<FuzzerGenResult> Generate(FuzzerGenContext context) {
-			var uniqueOpRegClass = GetUniqueOperandRegClass(context.Instruction);
+			var (uniqueOpRegClass, isInvalid) = GetUniqueOperandRegClass(context.Instruction);
 			var ops = context.Instruction.Operands;
-			for (int i = 0; i < ops.Length; i++) {
-				var op0 = ops[i];
+			for (int op0Index = 0; op0Index < ops.Length; op0Index++) {
+				var op0 = ops[op0Index];
 				if (!GetRegInfo(context, op0, out var op0RegInfo))
 					continue;
-				for (int j = i + 1; j < ops.Length; j++) {
-					var op1 = ops[j];
+				for (int op1Index = op0Index + 1; op1Index < ops.Length; op1Index++) {
+					var op1 = ops[op1Index];
 					if (!GetRegInfo(context, op1, out var op1RegInfo))
 						continue;
 					if (op0RegInfo.RegClass != op1RegInfo.RegClass)
@@ -695,10 +711,8 @@ namespace IcedFuzzer.Core {
 								isValid = false;
 							if (((op0RegNum == 0 && op0RegInfo.IsOpMask) || (op1RegNum == 0 && op1RegInfo.IsOpMask)) && context.Instruction.RequireOpMaskRegister)
 								isValid = false;
-							if (op0RegNum == op1RegNum) {
-								if (uniqueOpRegClass == op0RegInfo.RegClass)
-									isValid = false;
-							}
+							if (op0RegNum == op1RegNum && uniqueOpRegClass == op0RegInfo.RegClass && isInvalid(op0Index, op1Index))
+								isValid = false;
 							yield return new FuzzerGenResult(isValid);
 						}
 					}
@@ -1501,16 +1515,16 @@ namespace IcedFuzzer.Core {
 		}
 	}
 
-	// EVEX: Sets the reserved bits p0[3:2] to 01,10,11 and p1[2] to 0
+	// EVEX: Sets the reserved bits p0[3] to 1 and p1[2] to 0
 	sealed class InvalidReservedEvexBitsFuzzerGen : FuzzerGen {
 		public override IEnumerable<FuzzerGenResult> Generate(FuzzerGenContext context) {
 			if (context.Encoding != FuzzerEncodingKind.EVEX)
 				yield break;
 
-			for (uint r = 1; r <= 3; r++) {
+			for (uint r = 1; r <= 1; r++) {
 				var info = OpHelpers.InitializeInstruction(context);
 				Assert.True(info.IsValid);
-				info.EVEX_res3to2 = r;
+				info.EVEX_res3 = r;
 				context.Fuzzer.Write(info);
 				yield return new FuzzerGenResult(isValid: false);
 			}

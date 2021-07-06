@@ -285,6 +285,8 @@ namespace Generator.Tables {
 				case "0F":
 				case "0F38":
 				case "0F3A":
+				case "MAP5":
+				case "MAP6":
 				case "X8":
 				case "X9":
 				case "XA":
@@ -296,9 +298,11 @@ namespace Generator.Tables {
 						"0F" => OpCodeTableKind.T0F,
 						"0F38" => OpCodeTableKind.T0F38,
 						"0F3A" => OpCodeTableKind.T0F3A,
-						"X8" => OpCodeTableKind.XOP8,
-						"X9" => OpCodeTableKind.XOP9,
-						"XA" => OpCodeTableKind.XOPA,
+						"MAP5" => OpCodeTableKind.MAP5,
+						"MAP6" => OpCodeTableKind.MAP6,
+						"X8" => OpCodeTableKind.MAP8,
+						"X9" => OpCodeTableKind.MAP9,
+						"XA" => OpCodeTableKind.MAP10,
 						_ => throw new InvalidOperationException(),
 					};
 					break;
@@ -366,7 +370,7 @@ namespace Generator.Tables {
 			if (result.MandatoryPrefix == MandatoryPrefix.None)
 				result.MandatoryPrefix = MandatoryPrefix.PNP;
 			if (result.Table == OpCodeTableKind.Normal) {
-				error = "Missing table, eg. 0F, 0F38, 0F3A";
+				error = "Missing table, eg. 0F, 0F38, 0F3A, MAP5, MAP6";
 				return false;
 			}
 			if (result.LBit == OpCodeL.None) {
@@ -432,9 +436,11 @@ namespace Generator.Tables {
 				case OpCodeTableKind.T0F3A:
 					break;
 				case OpCodeTableKind.Normal:
-				case OpCodeTableKind.XOP8:
-				case OpCodeTableKind.XOP9:
-				case OpCodeTableKind.XOPA:
+				case OpCodeTableKind.MAP5:
+				case OpCodeTableKind.MAP6:
+				case OpCodeTableKind.MAP8:
+				case OpCodeTableKind.MAP9:
+				case OpCodeTableKind.MAP10:
 				default:
 					error = $"Invalid table: {result.Table}";
 					return false;
@@ -457,14 +463,16 @@ namespace Generator.Tables {
 					return false;
 				}
 				switch (result.Table) {
-				case OpCodeTableKind.XOP8:
-				case OpCodeTableKind.XOP9:
-				case OpCodeTableKind.XOPA:
+				case OpCodeTableKind.MAP8:
+				case OpCodeTableKind.MAP9:
+				case OpCodeTableKind.MAP10:
 					break;
 				case OpCodeTableKind.Normal:
 				case OpCodeTableKind.T0F:
 				case OpCodeTableKind.T0F38:
 				case OpCodeTableKind.T0F3A:
+				case OpCodeTableKind.MAP5:
+				case OpCodeTableKind.MAP6:
 				default:
 					error = $"Invalid table: {result.Table}";
 					return false;
@@ -490,11 +498,13 @@ namespace Generator.Tables {
 				case OpCodeTableKind.T0F:
 				case OpCodeTableKind.T0F38:
 				case OpCodeTableKind.T0F3A:
+				case OpCodeTableKind.MAP5:
+				case OpCodeTableKind.MAP6:
 					break;
 				case OpCodeTableKind.Normal:
-				case OpCodeTableKind.XOP8:
-				case OpCodeTableKind.XOP9:
-				case OpCodeTableKind.XOPA:
+				case OpCodeTableKind.MAP8:
+				case OpCodeTableKind.MAP9:
+				case OpCodeTableKind.MAP10:
 				default:
 					error = $"Invalid table: {result.Table}";
 					return false;

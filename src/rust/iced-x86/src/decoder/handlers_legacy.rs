@@ -160,7 +160,7 @@ impl OpCodeHandler_PrefixEsCsSsDs {
 		}
 
 		decoder.reset_rex_prefix_state();
-		decoder.call_opcode_handler_xx_table(instruction);
+		decoder.call_opcode_handlers_map0_table(instruction);
 	}
 }
 
@@ -186,7 +186,7 @@ impl OpCodeHandler_PrefixFsGs {
 		decoder.state.segment_prio = 1;
 
 		decoder.reset_rex_prefix_state();
-		decoder.call_opcode_handler_xx_table(instruction);
+		decoder.call_opcode_handlers_map0_table(instruction);
 	}
 }
 
@@ -212,7 +212,7 @@ impl OpCodeHandler_Prefix66 {
 		}
 
 		decoder.reset_rex_prefix_state();
-		decoder.call_opcode_handler_xx_table(instruction);
+		decoder.call_opcode_handlers_map0_table(instruction);
 	}
 }
 
@@ -234,7 +234,7 @@ impl OpCodeHandler_Prefix67 {
 		decoder.state.address_size = decoder.default_inverted_address_size;
 
 		decoder.reset_rex_prefix_state();
-		decoder.call_opcode_handler_xx_table(instruction);
+		decoder.call_opcode_handlers_map0_table(instruction);
 	}
 }
 
@@ -257,7 +257,7 @@ impl OpCodeHandler_PrefixF0 {
 		decoder.state.flags |= StateFlags::LOCK;
 
 		decoder.reset_rex_prefix_state();
-		decoder.call_opcode_handler_xx_table(instruction);
+		decoder.call_opcode_handlers_map0_table(instruction);
 	}
 }
 
@@ -280,7 +280,7 @@ impl OpCodeHandler_PrefixF2 {
 		decoder.state.mandatory_prefix = DecoderMandatoryPrefix::PF2;
 
 		decoder.reset_rex_prefix_state();
-		decoder.call_opcode_handler_xx_table(instruction);
+		decoder.call_opcode_handlers_map0_table(instruction);
 	}
 }
 
@@ -303,7 +303,7 @@ impl OpCodeHandler_PrefixF3 {
 		decoder.state.mandatory_prefix = DecoderMandatoryPrefix::PF3;
 
 		decoder.reset_rex_prefix_state();
-		decoder.call_opcode_handler_xx_table(instruction);
+		decoder.call_opcode_handlers_map0_table(instruction);
 	}
 }
 
@@ -344,7 +344,7 @@ impl OpCodeHandler_PrefixREX {
 			decoder.state.extra_index_register_base = (b & 2) << 2;
 			decoder.state.extra_base_register_base = (b & 1) << 3;
 
-			decoder.call_opcode_handler_xx_table(instruction);
+			decoder.call_opcode_handlers_map0_table(instruction);
 		} else {
 			let (decode, handler) = this.handler;
 			(decode)(handler, decoder, instruction)

@@ -6,9 +6,9 @@ using Generator.Enums.Decoder;
 
 namespace Generator.Decoder {
 	static class DecoderTable_VEX {
-		public const string ThreeByteHandlers_0F38XX = nameof(ThreeByteHandlers_0F38XX);
-		public const string ThreeByteHandlers_0F3AXX = nameof(ThreeByteHandlers_0F3AXX);
-		public const string TwoByteHandlers_0FXX = nameof(TwoByteHandlers_0FXX);
+		public const string Handlers_0F38 = nameof(Handlers_0F38);
+		public const string Handlers_0F3A = nameof(Handlers_0F3A);
+		public const string Handlers_0F = nameof(Handlers_0F);
 
 		public static (string name, object?[] handlers)[] CreateHandlers(GenTypes genTypes) {
 			var vexEnum = genTypes[TypeIds.VexOpCodeHandlerKind];
@@ -488,7 +488,7 @@ namespace Generator.Decoder {
 					null,
 				}),
 
-				(ThreeByteHandlers_0F38XX,
+				(Handlers_0F38,
 				new object[0x100] {
 					// 00
 					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_4)],
@@ -2108,7 +2108,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				(ThreeByteHandlers_0F3AXX,
+				(Handlers_0F3A,
 				new object[0x100] {
 					// 00
 					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_4)],
@@ -3116,7 +3116,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				(TwoByteHandlers_0FXX,
+				(Handlers_0F,
 				new object[0x100] {
 					// 00
 					invalid,

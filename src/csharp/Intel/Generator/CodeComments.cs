@@ -59,6 +59,7 @@ namespace Generator {
 			toCpuidName[cpuid[nameof(CpuidFeature.CYRIX_DMI)]] = "AMD Geode GX/LX";
 			toCpuidName[cpuid[nameof(CpuidFeature.CENTAUR_AIS)]] = "Centaur AIS";
 			toCpuidName[cpuid[nameof(CpuidFeature.AVX_VNNI)]] = "AVX-VNNI";
+			toCpuidName[cpuid[nameof(CpuidFeature.AVX512_FP16)]] = "AVX512-FP16";
 
 			var sb = new StringBuilder();
 			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs) {

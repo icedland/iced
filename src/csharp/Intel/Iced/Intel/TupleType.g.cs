@@ -37,6 +37,16 @@ namespace Iced.Intel {
 		N32b8 = 12,
 		/// <summary><c>N = b ? 8 : 64</c></summary>
 		N64b8 = 13,
+		/// <summary><c>N = b ? 2 : 4</c></summary>
+		N4b2 = 14,
+		/// <summary><c>N = b ? 2 : 8</c></summary>
+		N8b2 = 15,
+		/// <summary><c>N = b ? 2 : 16</c></summary>
+		N16b2 = 16,
+		/// <summary><c>N = b ? 2 : 32</c></summary>
+		N32b2 = 17,
+		/// <summary><c>N = b ? 2 : 64</c></summary>
+		N64b2 = 18,
 	}
 }
 #endif

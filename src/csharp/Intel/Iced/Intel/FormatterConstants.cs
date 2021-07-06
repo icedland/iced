@@ -35,6 +35,8 @@ namespace Iced.Intel {
 				PseudoOpsKind.vpcmpuw => vpcmpuw_pseudo_ops,
 				PseudoOpsKind.vpcmpud => vpcmpud_pseudo_ops,
 				PseudoOpsKind.vpcmpuq => vpcmpuq_pseudo_ops,
+				PseudoOpsKind.vcmpph => vcmpph_pseudo_ops,
+				PseudoOpsKind.vcmpsh => vcmpsh_pseudo_ops,
 				_ => throw new ArgumentOutOfRangeException(nameof(kind)),
 			};
 
@@ -81,6 +83,8 @@ namespace Iced.Intel {
 			vcmpss_pseudo_ops = Create(cc, 32, "vcmp", "ss");
 			cmpsd_pseudo_ops = Create(cc, 8, "cmp", "sd");
 			vcmpsd_pseudo_ops = Create(cc, 32, "vcmp", "sd");
+			vcmpph_pseudo_ops = Create(cc, 32, "vcmp", "ph");
+			vcmpsh_pseudo_ops = Create(cc, 32, "vcmp", "sh");
 
 			var xopcc = new string[8] {
 				"lt",
@@ -136,6 +140,8 @@ namespace Iced.Intel {
 		static readonly FormatterString[] vcmpss_pseudo_ops;
 		static readonly FormatterString[] cmpsd_pseudo_ops;
 		static readonly FormatterString[] vcmpsd_pseudo_ops;
+		static readonly FormatterString[] vcmpph_pseudo_ops;
+		static readonly FormatterString[] vcmpsh_pseudo_ops;
 
 		static readonly FormatterString[] pclmulqdq_pseudo_ops = new FormatterString[4] {
 			new FormatterString("pclmullqlqdq"),

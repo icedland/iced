@@ -33,6 +33,8 @@ namespace Iced.Intel.EncoderInternal {
 		ModRegRmString = 0x00100000,
 		DecOptionValueMask = 0x0000000F,
 		DecOptionValueShift = 0x00000015,
+		ForceOpSize64 = 0x40000000,
+		RequiresUniqueDestRegNum = 0x80000000,
 	}
 	// GENERATOR-END: OpCodeInfoFlags1
 

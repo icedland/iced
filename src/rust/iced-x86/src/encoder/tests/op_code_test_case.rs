@@ -66,6 +66,7 @@ pub(super) struct OpCodeInfoTestCase {
 	pub(super) no66: bool,
 	pub(super) nfx: bool,
 	pub(super) requires_unique_reg_nums: bool,
+	pub(super) requires_unique_dest_reg_num: bool,
 	pub(super) is_privileged: bool,
 	pub(super) is_save_restore: bool,
 	pub(super) is_stack_instruction: bool,

@@ -24,14 +24,16 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			{ "F3", MandatoryPrefix.PF3 },
 			{ "F2", MandatoryPrefix.PF2 },
 		};
-		internal static readonly Dictionary<string, OpCodeTableKind> ToOpCodeTableKind = new Dictionary<string, OpCodeTableKind>(7, StringComparer.Ordinal) {
+		internal static readonly Dictionary<string, OpCodeTableKind> ToOpCodeTableKind = new Dictionary<string, OpCodeTableKind>(9, StringComparer.Ordinal) {
 			{ "legacy", OpCodeTableKind.Normal },
 			{ "0F", OpCodeTableKind.T0F },
 			{ "0F38", OpCodeTableKind.T0F38 },
 			{ "0F3A", OpCodeTableKind.T0F3A },
-			{ "X8", OpCodeTableKind.XOP8 },
-			{ "X9", OpCodeTableKind.XOP9 },
-			{ "XA", OpCodeTableKind.XOPA },
+			{ "MAP5", OpCodeTableKind.MAP5 },
+			{ "MAP6", OpCodeTableKind.MAP6 },
+			{ "X8", OpCodeTableKind.MAP8 },
+			{ "X9", OpCodeTableKind.MAP9 },
+			{ "XA", OpCodeTableKind.MAP10 },
 		};
 		// GENERATOR-END: Dicts
 	}
@@ -145,6 +147,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		internal const string AmdDecoder16 = "amd16";
 		internal const string AmdDecoder32 = "amd32";
 		internal const string AmdDecoder64 = "amd64";
+		internal const string RequiresUniqueDestRegNum = "unique-dest-reg-num";
 	}
 	// GENERATOR-END: OpCodeInfoFlags
 }

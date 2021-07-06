@@ -76,9 +76,11 @@ namespace Generator.Tables {
 				(OpCodeInfoConstants.Table_0F, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F)]),
 				(OpCodeInfoConstants.Table_0F38, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F38)]),
 				(OpCodeInfoConstants.Table_0F3A, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.T0F3A)]),
-				(OpCodeInfoConstants.Table_XOP8, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOP8)]),
-				(OpCodeInfoConstants.Table_XOP9, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOP9)]),
-				(OpCodeInfoConstants.Table_XOPA, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.XOPA)]),
+				(OpCodeInfoConstants.Table_MAP5, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.MAP5)]),
+				(OpCodeInfoConstants.Table_MAP6, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.MAP6)]),
+				(OpCodeInfoConstants.Table_MAP8, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.MAP8)]),
+				(OpCodeInfoConstants.Table_MAP9, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.MAP9)]),
+				(OpCodeInfoConstants.Table_MAP10, genTypes[TypeIds.OpCodeTableKind][nameof(OpCodeTableKind.MAP10)]),
 			};
 	}
 

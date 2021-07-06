@@ -64,6 +64,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		public bool No66;
 		public bool NFx;
 		public bool RequiresUniqueRegNums;
+		public bool RequiresUniqueDestRegNum;
 		public bool IsPrivileged;
 		public bool IsSaveRestore;
 		public bool IsStackInstruction;

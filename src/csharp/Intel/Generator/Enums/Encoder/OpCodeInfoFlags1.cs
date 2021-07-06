@@ -33,7 +33,10 @@ namespace Generator.Enums.Encoder {
 		DecOptionValueShift		= 21,
 
 		// FREE FREE FREE FREE
-		// [31:25] = free
+		// [29:25] = free
 		// BITS BITS BITS BITS
+
+		ForceOpSize64			= 0x40000000,
+		RequiresUniqueDestRegNum= 0x80000000,
 	}
 }

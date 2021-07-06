@@ -114,9 +114,11 @@ namespace IcedFuzzer.Core {
 			if ((genFlags & InstrGenFlags.NoVEX) == 0) {
 				for (int i = 0; i < 2; i++) {
 					bool isModrmMemory = i != 0;
-					var (start, end) = (genFlags & InstrGenFlags.UnusedTables) != 0 ? (0, 0x1F) : (1, 3);
-					for (int table = start; table <= end; table++)
-						vex.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.VEX, table), isModrmMemory), CreateOpCodes(isModrmMemory));
+					for (int table = 0; table < 0x20; table++) {
+						bool usedTable = table == 1 || table == 2 || table == 3;
+						if (usedTable || (genFlags & InstrGenFlags.UnusedTables) != 0)
+							vex.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.VEX, table), isModrmMemory), CreateOpCodes(isModrmMemory));
+					}
 				}
 			}
 
@@ -124,9 +126,11 @@ namespace IcedFuzzer.Core {
 			if ((genFlags & InstrGenFlags.NoXOP) == 0) {
 				for (int i = 0; i < 2; i++) {
 					bool isModrmMemory = i != 0;
-					var (start, end) = (genFlags & InstrGenFlags.UnusedTables) != 0 ? (0, 0x1F) : (8, 0xA);
-					for (int table = start; table <= end; table++)
-						xop.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.XOP, table), isModrmMemory), CreateOpCodes(isModrmMemory));
+					for (int table = 0; table < 0x20; table++) {
+						bool usedTable = table == 8 || table == 9 || table == 10;
+						if (usedTable || (genFlags & InstrGenFlags.UnusedTables) != 0)
+							xop.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.XOP, table), isModrmMemory), CreateOpCodes(isModrmMemory));
+					}
 				}
 			}
 
@@ -134,9 +138,11 @@ namespace IcedFuzzer.Core {
 			if ((genFlags & InstrGenFlags.NoEVEX) == 0) {
 				for (int i = 0; i < 2; i++) {
 					bool isModrmMemory = i != 0;
-					var (start, end) = (genFlags & InstrGenFlags.UnusedTables) != 0 ? (0, 3) : (1, 3);
-					for (int table = start; table <= end; table++)
-						evex.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.EVEX, table), isModrmMemory), CreateOpCodes(isModrmMemory));
+					for (int table = 0; table < 8; table++) {
+						bool usedTable = table == 1 || table == 2 || table == 3 || table == 5 || table == 6;
+						if (usedTable || (genFlags & InstrGenFlags.UnusedTables) != 0)
+							evex.Add(new OpCodeKey(new FuzzerOpCodeTable(EncodingKind.EVEX, table), isModrmMemory), CreateOpCodes(isModrmMemory));
+					}
 				}
 			}
 

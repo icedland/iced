@@ -147,17 +147,17 @@ impl EncoderFlags {
 #[allow(non_camel_case_types)]
 #[allow(dead_code)]
 pub(crate) enum LegacyOpCodeTable {
-	Normal,
-	Table0F,
-	Table0F38,
-	Table0F3A,
+	MAP0,
+	MAP0F,
+	MAP0F38,
+	MAP0F3A,
 }
 #[rustfmt::skip]
 static GEN_DEBUG_LEGACY_OP_CODE_TABLE: [&str; 4] = [
-	"Normal",
-	"Table0F",
-	"Table0F38",
-	"Table0F3A",
+	"MAP0",
+	"MAP0F",
+	"MAP0F38",
+	"MAP0F3A",
 ];
 impl fmt::Debug for LegacyOpCodeTable {
 	#[inline]
@@ -169,7 +169,7 @@ impl Default for LegacyOpCodeTable {
 	#[must_use]
 	#[inline]
 	fn default() -> Self {
-		LegacyOpCodeTable::Normal
+		LegacyOpCodeTable::MAP0
 	}
 }
 // GENERATOR-END: LegacyOpCodeTable
@@ -181,16 +181,16 @@ impl Default for LegacyOpCodeTable {
 #[cfg(not(feature = "no_vex"))]
 #[allow(dead_code)]
 pub(crate) enum VexOpCodeTable {
-	Table0F = 1,
-	Table0F38,
-	Table0F3A,
+	MAP0F = 1,
+	MAP0F38,
+	MAP0F3A,
 }
 #[cfg(not(feature = "no_vex"))]
 #[rustfmt::skip]
 static GEN_DEBUG_VEX_OP_CODE_TABLE: [&str; 3] = [
-	"Table0F",
-	"Table0F38",
-	"Table0F3A",
+	"MAP0F",
+	"MAP0F38",
+	"MAP0F3A",
 ];
 #[cfg(not(feature = "no_vex"))]
 impl fmt::Debug for VexOpCodeTable {
@@ -204,7 +204,7 @@ impl Default for VexOpCodeTable {
 	#[must_use]
 	#[inline]
 	fn default() -> Self {
-		VexOpCodeTable::Table0F
+		VexOpCodeTable::MAP0F
 	}
 }
 // GENERATOR-END: VexOpCodeTable
@@ -216,16 +216,16 @@ impl Default for VexOpCodeTable {
 #[cfg(not(feature = "no_xop"))]
 #[allow(dead_code)]
 pub(crate) enum XopOpCodeTable {
-	XOP8,
-	XOP9,
-	XOPA,
+	MAP8,
+	MAP9,
+	MAP10,
 }
 #[cfg(not(feature = "no_xop"))]
 #[rustfmt::skip]
 static GEN_DEBUG_XOP_OP_CODE_TABLE: [&str; 3] = [
-	"XOP8",
-	"XOP9",
-	"XOPA",
+	"MAP8",
+	"MAP9",
+	"MAP10",
 ];
 #[cfg(not(feature = "no_xop"))]
 impl fmt::Debug for XopOpCodeTable {
@@ -239,7 +239,7 @@ impl Default for XopOpCodeTable {
 	#[must_use]
 	#[inline]
 	fn default() -> Self {
-		XopOpCodeTable::XOP8
+		XopOpCodeTable::MAP8
 	}
 }
 // GENERATOR-END: XopOpCodeTable
@@ -251,16 +251,20 @@ impl Default for XopOpCodeTable {
 #[cfg(not(feature = "no_evex"))]
 #[allow(dead_code)]
 pub(crate) enum EvexOpCodeTable {
-	Table0F = 1,
-	Table0F38,
-	Table0F3A,
+	MAP0F = 1,
+	MAP0F38,
+	MAP0F3A,
+	MAP5 = 5,
+	MAP6,
 }
 #[cfg(not(feature = "no_evex"))]
 #[rustfmt::skip]
-static GEN_DEBUG_EVEX_OP_CODE_TABLE: [&str; 3] = [
-	"Table0F",
-	"Table0F38",
-	"Table0F3A",
+static GEN_DEBUG_EVEX_OP_CODE_TABLE: [&str; 5] = [
+	"MAP0F",
+	"MAP0F38",
+	"MAP0F3A",
+	"MAP5",
+	"MAP6",
 ];
 #[cfg(not(feature = "no_evex"))]
 impl fmt::Debug for EvexOpCodeTable {
@@ -274,7 +278,7 @@ impl Default for EvexOpCodeTable {
 	#[must_use]
 	#[inline]
 	fn default() -> Self {
-		EvexOpCodeTable::Table0F
+		EvexOpCodeTable::MAP0F
 	}
 }
 // GENERATOR-END: EvexOpCodeTable
@@ -320,18 +324,17 @@ impl EncFlags2 {
 	pub(crate) const OP_CODE_SHIFT: u32 = 0x0000_0000;
 	pub(crate) const OP_CODE_IS2_BYTES: u32 = 0x0001_0000;
 	pub(crate) const TABLE_SHIFT: u32 = 0x0000_0011;
-	pub(crate) const TABLE_MASK: u32 = 0x0000_0003;
-	pub(crate) const MANDATORY_PREFIX_SHIFT: u32 = 0x0000_0013;
+	pub(crate) const TABLE_MASK: u32 = 0x0000_0007;
+	pub(crate) const MANDATORY_PREFIX_SHIFT: u32 = 0x0000_0014;
 	pub(crate) const MANDATORY_PREFIX_MASK: u32 = 0x0000_0003;
-	pub(crate) const WBIT_SHIFT: u32 = 0x0000_0015;
+	pub(crate) const WBIT_SHIFT: u32 = 0x0000_0016;
 	pub(crate) const WBIT_MASK: u32 = 0x0000_0003;
-	pub(crate) const LBIT_SHIFT: u32 = 0x0000_0017;
+	pub(crate) const LBIT_SHIFT: u32 = 0x0000_0018;
 	pub(crate) const LBIT_MASK: u32 = 0x0000_0007;
-	pub(crate) const GROUP_INDEX_SHIFT: u32 = 0x0000_001A;
+	pub(crate) const GROUP_INDEX_SHIFT: u32 = 0x0000_001B;
 	pub(crate) const GROUP_INDEX_MASK: u32 = 0x0000_0007;
-	pub(crate) const HAS_MANDATORY_PREFIX: u32 = 0x2000_0000;
-	pub(crate) const HAS_GROUP_INDEX: u32 = 0x4000_0000;
-	pub(crate) const HAS_RM_GROUP_INDEX: u32 = 0x8000_0000;
+	pub(crate) const HAS_MANDATORY_PREFIX: u32 = 0x4000_0000;
+	pub(crate) const HAS_GROUP_INDEX: u32 = 0x8000_0000;
 }
 // GENERATOR-END: EncFlags2
 
@@ -348,9 +351,9 @@ impl EncFlags3 {
 	pub(crate) const ADDRESS_SIZE_SHIFT: u32 = 0x0000_0005;
 	pub(crate) const ADDRESS_SIZE_MASK: u32 = 0x0000_0003;
 	pub(crate) const TUPLE_TYPE_SHIFT: u32 = 0x0000_0007;
-	pub(crate) const TUPLE_TYPE_MASK: u32 = 0x0000_000F;
+	pub(crate) const TUPLE_TYPE_MASK: u32 = 0x0000_001F;
 	pub(crate) const DEFAULT_OP_SIZE64: u32 = 0x0000_1000;
-	pub(crate) const FORCE_OP_SIZE64: u32 = 0x0000_2000;
+	pub(crate) const HAS_RM_GROUP_INDEX: u32 = 0x0000_2000;
 	pub(crate) const INTEL_FORCE_OP_SIZE64: u32 = 0x0000_4000;
 	pub(crate) const FWAIT: u32 = 0x0000_8000;
 	pub(crate) const BIT16OR32: u32 = 0x0001_0000;
@@ -403,6 +406,8 @@ impl OpCodeInfoFlags1 {
 	pub(crate) const MOD_REG_RM_STRING: u32 = 0x0010_0000;
 	pub(crate) const DEC_OPTION_VALUE_MASK: u32 = 0x0000_000F;
 	pub(crate) const DEC_OPTION_VALUE_SHIFT: u32 = 0x0000_0015;
+	pub(crate) const FORCE_OP_SIZE64: u32 = 0x4000_0000;
+	pub(crate) const REQUIRES_UNIQUE_DEST_REG_NUM: u32 = 0x8000_0000;
 }
 // GENERATOR-END: OpCodeInfoFlags1
 

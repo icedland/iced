@@ -58,6 +58,21 @@ namespace Iced.Intel {
 				// TupleType.N64b8
 				0x40,// N
 				0x08,// Nbcst
+				// TupleType.N4b2
+				0x04,// N
+				0x02,// Nbcst
+				// TupleType.N8b2
+				0x08,// N
+				0x02,// Nbcst
+				// TupleType.N16b2
+				0x10,// N
+				0x02,// Nbcst
+				// TupleType.N32b2
+				0x20,// N
+				0x02,// Nbcst
+				// TupleType.N64b2
+				0x40,// N
+				0x02,// Nbcst
 				// GENERATOR-END: TupleTypeTable
 			};
 

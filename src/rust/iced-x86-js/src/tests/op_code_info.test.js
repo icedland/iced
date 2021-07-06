@@ -70,6 +70,7 @@ test("OpCodeInfo", () => {
 	expect(info1.no66).toBe(false);
 	expect(info1.nfx).toBe(false);
 	expect(info1.requiresUniqueRegNums).toBe(false);
+	expect(info1.requiresUniqueDestRegNum).toBe(false);
 	expect(info1.isPrivileged).toBe(false);
 	expect(info1.isSaveRestore).toBe(false);
 	expect(info1.isStackInstruction).toBe(false);

@@ -83,6 +83,8 @@ namespace Iced.Intel.DecoderInternal {
 		WkVIb,
 		WkVIb_er,
 		WV,
+		VkHW_er_ur_3,
+		VkHW_er_ur_3b,
 	}
 }
 #endif

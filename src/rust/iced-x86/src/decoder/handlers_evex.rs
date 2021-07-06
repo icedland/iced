@@ -355,6 +355,67 @@ impl OpCodeHandler_EVEX_VkHW_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(super) struct OpCodeHandler_EVEX_VkHW_er_ur {
+	has_modrm: bool,
+	decode: OpCodeHandlerDecodeFn,
+	code: Code,
+	base_reg: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
+}
+
+impl OpCodeHandler_EVEX_VkHW_er_ur {
+	pub(super) fn new(base_reg: Register, code: Code, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { has_modrm: true, decode: OpCodeHandler_EVEX_VkHW_er_ur::decode, base_reg, code, tuple_type, can_broadcast }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX);
+		instruction.set_code(this.code);
+
+		let reg_num0 = decoder.state.reg + decoder.state.extra_register_base + decoder.state.extra_register_base_evex;
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op0_kind(OpKind::Register);
+		write_op0_reg!(instruction, reg_num0 + this.base_reg as u32);
+		const_assert_eq!(OpKind::Register as u32, 0);
+		//instruction.set_op1_kind(OpKind::Register);
+		write_op1_reg!(instruction, decoder.state.vvvv + this.base_reg as u32);
+		if decoder.state.mod_ == 3 {
+			let reg_num2 = decoder.state.rm + decoder.state.extra_base_register_base_evex;
+			const_assert_eq!(OpKind::Register as u32, 0);
+			//instruction.set_op2_kind(OpKind::Register);
+			write_op2_reg!(instruction, reg_num2 + this.base_reg as u32);
+			if decoder.invalid_check_mask != 0 && (reg_num0 == decoder.state.vvvv || reg_num0 == reg_num2) {
+				decoder.set_invalid_instruction();
+			}
+			if (decoder.state.flags & StateFlags::B) != 0 {
+				const_assert_eq!(RoundingControl::None as u32, 0);
+				const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
+				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
+				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
+				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+				instruction_internal::internal_set_rounding_control(instruction, (decoder.state.vector_length as u32) + 1);
+			}
+		} else {
+			if decoder.invalid_check_mask != 0 && reg_num0 == decoder.state.vvvv {
+				decoder.set_invalid_instruction();
+			}
+			instruction.set_op2_kind(OpKind::Memory);
+			if (decoder.state.flags & StateFlags::B) != 0 {
+				if this.can_broadcast {
+					instruction.set_is_broadcast(true);
+				} else if decoder.invalid_check_mask != 0 {
+					decoder.set_invalid_instruction();
+				}
+			}
+			decoder.read_op_mem_tuple_type(instruction, this.tuple_type);
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_VkW_er {
 	has_modrm: bool,
 	decode: OpCodeHandlerDecodeFn,

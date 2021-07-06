@@ -9,20 +9,24 @@
 namespace Iced.Intel {
 	/// <summary>Opcode table</summary>
 	public enum OpCodeTableKind {
-		/// <summary>Legacy encoding table</summary>
+		/// <summary>Legacy/<c>MAP0</c> table</summary>
 		Normal = 0,
-		/// <summary><c>0Fxx</c> table (legacy, VEX, EVEX)</summary>
+		/// <summary><c>0F</c>/<c>MAP1</c> table (legacy, VEX, EVEX)</summary>
 		T0F = 1,
-		/// <summary><c>0F38xx</c> table (legacy, VEX, EVEX)</summary>
+		/// <summary><c>0F38</c>/<c>MAP2</c> table (legacy, VEX, EVEX)</summary>
 		T0F38 = 2,
-		/// <summary><c>0F3Axx</c> table (legacy, VEX, EVEX)</summary>
+		/// <summary><c>0F3A</c>/<c>MAP3</c> table (legacy, VEX, EVEX)</summary>
 		T0F3A = 3,
-		/// <summary><c>XOP8</c> table (XOP)</summary>
-		XOP8 = 4,
-		/// <summary><c>XOP9</c> table (XOP)</summary>
-		XOP9 = 5,
-		/// <summary><c>XOPA</c> table (XOP)</summary>
-		XOPA = 6,
+		/// <summary><c>MAP5</c> table (EVEX)</summary>
+		MAP5 = 4,
+		/// <summary><c>MAP6</c> table (EVEX)</summary>
+		MAP6 = 5,
+		/// <summary><c>MAP8</c> table (XOP)</summary>
+		MAP8 = 6,
+		/// <summary><c>MAP9</c> table (XOP)</summary>
+		MAP9 = 7,
+		/// <summary><c>MAP10</c> table (XOP)</summary>
+		MAP10 = 8,
 	}
 }
 #endif

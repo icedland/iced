@@ -34562,5 +34562,1909 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Erets = 4322,
+		/// <summary><c>VADDPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16 = 4323,
+		/// <summary><c>VADDPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16 = 4324,
+		/// <summary><c>VADDPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er = 4325,
+		/// <summary><c>VADDSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er = 4326,
+		/// <summary><c>VCMPPH k1 {k2}, xmm2, xmm3/m128/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.0F3A.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8 = 4327,
+		/// <summary><c>VCMPPH k1 {k2}, ymm2, ymm3/m256/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.0F3A.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8 = 4328,
+		/// <summary><c>VCMPPH k1 {k2}, zmm2, zmm3/m512/m16bcst{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.0F3A.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae = 4329,
+		/// <summary><c>VCMPSH k1 {k2}, xmm2, xmm3/m16{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F3A.W0 C2 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae = 4330,
+		/// <summary><c>VCOMISH xmm1, xmm2/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.MAP5.W0 2F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcomish_xmm_xmmm16_sae = 4331,
+		/// <summary><c>VCVTDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32 = 4332,
+		/// <summary><c>VCVTDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32 = 4333,
+		/// <summary><c>VCVTDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er = 4334,
+		/// <summary><c>VCVTPD2PH xmm1 {k1}{z}, xmm2/m128/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64 = 4335,
+		/// <summary><c>VCVTPD2PH xmm1 {k1}{z}, ymm2/m256/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64 = 4336,
+		/// <summary><c>VCVTPD2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er = 4337,
+		/// <summary><c>VCVTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16 = 4338,
+		/// <summary><c>VCVTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16 = 4339,
+		/// <summary><c>VCVTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er = 4340,
+		/// <summary><c>VCVTPH2PD xmm1 {k1}{z}, xmm2/m32/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16 = 4341,
+		/// <summary><c>VCVTPH2PD ymm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16 = 4342,
+		/// <summary><c>VCVTPH2PD zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae = 4343,
+		/// <summary><c>VCVTPH2PSX xmm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16 = 4344,
+		/// <summary><c>VCVTPH2PSX ymm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16 = 4345,
+		/// <summary><c>VCVTPH2PSX zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae = 4346,
+		/// <summary><c>VCVTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16 = 4347,
+		/// <summary><c>VCVTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16 = 4348,
+		/// <summary><c>VCVTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er = 4349,
+		/// <summary><c>VCVTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16 = 4350,
+		/// <summary><c>VCVTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16 = 4351,
+		/// <summary><c>VCVTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er = 4352,
+		/// <summary><c>VCVTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16 = 4353,
+		/// <summary><c>VCVTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16 = 4354,
+		/// <summary><c>VCVTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er = 4355,
+		/// <summary><c>VCVTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16 = 4356,
+		/// <summary><c>VCVTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16 = 4357,
+		/// <summary><c>VCVTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er = 4358,
+		/// <summary><c>VCVTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2w_xmm_k1z_xmmm128b16 = 4359,
+		/// <summary><c>VCVTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2w_ymm_k1z_ymmm256b16 = 4360,
+		/// <summary><c>VCVTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er = 4361,
+		/// <summary><c>VCVTPS2PHX xmm1 {k1}{z}, xmm2/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 1D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32 = 4362,
+		/// <summary><c>VCVTPS2PHX xmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 1D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32 = 4363,
+		/// <summary><c>VCVTPS2PHX ymm1 {k1}{z}, zmm2/m512/m32bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 1D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er = 4364,
+		/// <summary><c>VCVTQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64 = 4365,
+		/// <summary><c>VCVTQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64 = 4366,
+		/// <summary><c>VCVTQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W1 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er = 4367,
+		/// <summary><c>VCVTSD2SH xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.MAP5.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er = 4368,
+		/// <summary><c>VCVTSH2SD xmm1 {k1}{z}, xmm2, xmm3/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae = 4369,
+		/// <summary><c>VCVTSH2SI r32, xmm1/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtsh2si_r32_xmmm16_er = 4370,
+		/// <summary><c>VCVTSH2SI r64, xmm1/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vcvtsh2si_r64_xmmm16_er = 4371,
+		/// <summary><c>VCVTSH2SS xmm1 {k1}{z}, xmm2, xmm3/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.MAP6.W0 13 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae = 4372,
+		/// <summary><c>VCVTSH2USI r32, xmm1/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtsh2usi_r32_xmmm16_er = 4373,
+		/// <summary><c>VCVTSH2USI r64, xmm1/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W1 79 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vcvtsh2usi_r64_xmmm16_er = 4374,
+		/// <summary><c>VCVTSI2SH xmm1, xmm2, r/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtsi2sh_xmm_xmm_rm32_er = 4375,
+		/// <summary><c>VCVTSI2SH xmm1, xmm2, r/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vcvtsi2sh_xmm_xmm_rm64_er = 4376,
+		/// <summary><c>VCVTSS2SH xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.MAP5.W0 1D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er = 4377,
+		/// <summary><c>VCVTTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F3.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16 = 4378,
+		/// <summary><c>VCVTTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F3.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16 = 4379,
+		/// <summary><c>VCVTTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F3.MAP5.W0 5B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae = 4380,
+		/// <summary><c>VCVTTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16 = 4381,
+		/// <summary><c>VCVTTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16 = 4382,
+		/// <summary><c>VCVTTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae = 4383,
+		/// <summary><c>VCVTTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16 = 4384,
+		/// <summary><c>VCVTTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16 = 4385,
+		/// <summary><c>VCVTTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae = 4386,
+		/// <summary><c>VCVTTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16 = 4387,
+		/// <summary><c>VCVTTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16 = 4388,
+		/// <summary><c>VCVTTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae = 4389,
+		/// <summary><c>VCVTTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16 = 4390,
+		/// <summary><c>VCVTTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16 = 4391,
+		/// <summary><c>VCVTTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae = 4392,
+		/// <summary><c>VCVTTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2w_xmm_k1z_xmmm128b16 = 4393,
+		/// <summary><c>VCVTTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP5.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2w_ymm_k1z_ymmm256b16 = 4394,
+		/// <summary><c>VCVTTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP5.W0 7C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae = 4395,
+		/// <summary><c>VCVTTSH2SI r32, xmm1/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttsh2si_r32_xmmm16_sae = 4396,
+		/// <summary><c>VCVTTSH2SI r64, xmm1/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vcvttsh2si_r64_xmmm16_sae = 4397,
+		/// <summary><c>VCVTTSH2USI r32, xmm1/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvttsh2usi_r32_xmmm16_sae = 4398,
+		/// <summary><c>VCVTTSH2USI r64, xmm1/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W1 78 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vcvttsh2usi_r64_xmmm16_sae = 4399,
+		/// <summary><c>VCVTUDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.MAP5.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32 = 4400,
+		/// <summary><c>VCVTUDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.MAP5.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32 = 4401,
+		/// <summary><c>VCVTUDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.MAP5.W0 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er = 4402,
+		/// <summary><c>VCVTUQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.MAP5.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64 = 4403,
+		/// <summary><c>VCVTUQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.MAP5.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64 = 4404,
+		/// <summary><c>VCVTUQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.MAP5.W1 7A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er = 4405,
+		/// <summary><c>VCVTUSI2SH xmm1, xmm2, r/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 7B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtusi2sh_xmm_xmm_rm32_er = 4406,
+		/// <summary><c>VCVTUSI2SH xmm1, xmm2, r/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W1 7B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vcvtusi2sh_xmm_xmm_rm64_er = 4407,
+		/// <summary><c>VCVTUW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16 = 4408,
+		/// <summary><c>VCVTUW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16 = 4409,
+		/// <summary><c>VCVTUW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er = 4410,
+		/// <summary><c>VCVTW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F3.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16 = 4411,
+		/// <summary><c>VCVTW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F3.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16 = 4412,
+		/// <summary><c>VCVTW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F3.MAP5.W0 7D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er = 4413,
+		/// <summary><c>VDIVPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16 = 4414,
+		/// <summary><c>VDIVPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16 = 4415,
+		/// <summary><c>VDIVPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er = 4416,
+		/// <summary><c>VDIVSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er = 4417,
+		/// <summary><c>VFCMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.MAP6.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32 = 4418,
+		/// <summary><c>VFCMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.MAP6.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32 = 4419,
+		/// <summary><c>VFCMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.MAP6.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er = 4420,
+		/// <summary><c>VFMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F3.MAP6.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32 = 4421,
+		/// <summary><c>VFMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F3.MAP6.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32 = 4422,
+		/// <summary><c>VFMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F3.MAP6.W0 56 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er = 4423,
+		/// <summary><c>VFCMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.MAP6.W0 57 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er = 4424,
+		/// <summary><c>VFMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP6.W0 57 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er = 4425,
+		/// <summary><c>VFCMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.MAP6.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32 = 4426,
+		/// <summary><c>VFCMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.MAP6.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32 = 4427,
+		/// <summary><c>VFCMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.MAP6.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er = 4428,
+		/// <summary><c>VFMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F3.MAP6.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32 = 4429,
+		/// <summary><c>VFMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F3.MAP6.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32 = 4430,
+		/// <summary><c>VFMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F3.MAP6.W0 D6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er = 4431,
+		/// <summary><c>VFCMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.MAP6.W0 D7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er = 4432,
+		/// <summary><c>VFMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP6.W0 D7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er = 4433,
+		/// <summary><c>VFMADDSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16 = 4434,
+		/// <summary><c>VFMADDSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16 = 4435,
+		/// <summary><c>VFMADDSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 96 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er = 4436,
+		/// <summary><c>VFMADDSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16 = 4437,
+		/// <summary><c>VFMADDSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16 = 4438,
+		/// <summary><c>VFMADDSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 A6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er = 4439,
+		/// <summary><c>VFMADDSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16 = 4440,
+		/// <summary><c>VFMADDSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16 = 4441,
+		/// <summary><c>VFMADDSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 B6 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er = 4442,
+		/// <summary><c>VFMSUBADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16 = 4443,
+		/// <summary><c>VFMSUBADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16 = 4444,
+		/// <summary><c>VFMSUBADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 97 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er = 4445,
+		/// <summary><c>VFMSUBADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16 = 4446,
+		/// <summary><c>VFMSUBADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16 = 4447,
+		/// <summary><c>VFMSUBADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 A7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er = 4448,
+		/// <summary><c>VFMSUBADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16 = 4449,
+		/// <summary><c>VFMSUBADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16 = 4450,
+		/// <summary><c>VFMSUBADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 B7 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er = 4451,
+		/// <summary><c>VFMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16 = 4452,
+		/// <summary><c>VFMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16 = 4453,
+		/// <summary><c>VFMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 98 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er = 4454,
+		/// <summary><c>VFMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16 = 4455,
+		/// <summary><c>VFMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16 = 4456,
+		/// <summary><c>VFMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 A8 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er = 4457,
+		/// <summary><c>VFMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16 = 4458,
+		/// <summary><c>VFMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16 = 4459,
+		/// <summary><c>VFMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 B8 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er = 4460,
+		/// <summary><c>VFNMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16 = 4461,
+		/// <summary><c>VFNMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16 = 4462,
+		/// <summary><c>VFNMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 9C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er = 4463,
+		/// <summary><c>VFNMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16 = 4464,
+		/// <summary><c>VFNMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16 = 4465,
+		/// <summary><c>VFNMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 AC /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er = 4466,
+		/// <summary><c>VFNMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16 = 4467,
+		/// <summary><c>VFNMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16 = 4468,
+		/// <summary><c>VFNMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 BC /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er = 4469,
+		/// <summary><c>VFMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 99 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er = 4470,
+		/// <summary><c>VFMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 A9 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er = 4471,
+		/// <summary><c>VFMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 B9 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er = 4472,
+		/// <summary><c>VFNMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 9D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er = 4473,
+		/// <summary><c>VFNMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 AD /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er = 4474,
+		/// <summary><c>VFNMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 BD /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er = 4475,
+		/// <summary><c>VFMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16 = 4476,
+		/// <summary><c>VFMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16 = 4477,
+		/// <summary><c>VFMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er = 4478,
+		/// <summary><c>VFMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16 = 4479,
+		/// <summary><c>VFMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16 = 4480,
+		/// <summary><c>VFMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er = 4481,
+		/// <summary><c>VFMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16 = 4482,
+		/// <summary><c>VFMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16 = 4483,
+		/// <summary><c>VFMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 BA /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er = 4484,
+		/// <summary><c>VFNMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16 = 4485,
+		/// <summary><c>VFNMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16 = 4486,
+		/// <summary><c>VFNMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 9E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er = 4487,
+		/// <summary><c>VFNMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16 = 4488,
+		/// <summary><c>VFNMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16 = 4489,
+		/// <summary><c>VFNMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 AE /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er = 4490,
+		/// <summary><c>VFNMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16 = 4491,
+		/// <summary><c>VFNMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16 = 4492,
+		/// <summary><c>VFNMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 BE /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er = 4493,
+		/// <summary><c>VFMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 9B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er = 4494,
+		/// <summary><c>VFMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 AB /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er = 4495,
+		/// <summary><c>VFMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 BB /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er = 4496,
+		/// <summary><c>VFNMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 9F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er = 4497,
+		/// <summary><c>VFNMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 AF /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er = 4498,
+		/// <summary><c>VFNMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 BF /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er = 4499,
+		/// <summary><c>VFPCLASSPH k1 {k2}, xmm2/m128/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.0F3A.W0 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8 = 4500,
+		/// <summary><c>VFPCLASSPH k1 {k2}, ymm2/m256/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.0F3A.W0 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8 = 4501,
+		/// <summary><c>VFPCLASSPH k1 {k2}, zmm2/m512/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.0F3A.W0 66 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8 = 4502,
+		/// <summary><c>VFPCLASSSH k1 {k2}, xmm2/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.0F3A.W0 67 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vfpclasssh_kr_k1_xmmm16_imm8 = 4503,
+		/// <summary><c>VGETEXPPH xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetexpph_xmm_k1z_xmmm128b16 = 4504,
+		/// <summary><c>VGETEXPPH ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetexpph_ymm_k1z_ymmm256b16 = 4505,
+		/// <summary><c>VGETEXPPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 42 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae = 4506,
+		/// <summary><c>VGETEXPSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 43 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae = 4507,
+		/// <summary><c>VGETMANTPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.0F3A.W0 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8 = 4508,
+		/// <summary><c>VGETMANTPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.0F3A.W0 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8 = 4509,
+		/// <summary><c>VGETMANTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.0F3A.W0 26 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae = 4510,
+		/// <summary><c>VGETMANTSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.0F3A.W0 27 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae = 4511,
+		/// <summary><c>VMAXPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16 = 4512,
+		/// <summary><c>VMAXPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16 = 4513,
+		/// <summary><c>VMAXPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae = 4514,
+		/// <summary><c>VMAXSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae = 4515,
+		/// <summary><c>VMINPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vminph_xmm_k1z_xmm_xmmm128b16 = 4516,
+		/// <summary><c>VMINPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vminph_ymm_k1z_ymm_ymmm256b16 = 4517,
+		/// <summary><c>VMINPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae = 4518,
+		/// <summary><c>VMINSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae = 4519,
+		/// <summary><c>VMOVSH xmm1 {k1}{z}, m16</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmovsh_xmm_k1z_m16 = 4520,
+		/// <summary><c>VMOVSH m16 {k1}, xmm1</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmovsh_m16_k1_xmm = 4521,
+		/// <summary><c>VMOVSH xmm1 {k1}{z}, xmm2, xmm3</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 10 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmovsh_xmm_k1z_xmm_xmm = 4522,
+		/// <summary><c>VMOVSH xmm1 {k1}{z}, xmm2, xmm3</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 11 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11 = 4523,
+		/// <summary><c>VMOVW xmm1, r32/m16</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 6E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmovw_xmm_r32m16 = 4524,
+		/// <summary><c>VMOVW xmm1, r64/m16</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W1 6E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vmovw_xmm_r64m16 = 4525,
+		/// <summary><c>VMOVW r32/m16, xmm1</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W0 7E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmovw_r32m16_xmm = 4526,
+		/// <summary><c>VMOVW r64/m16, xmm1</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP5.W1 7E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		EVEX_Vmovw_r64m16_xmm = 4527,
+		/// <summary><c>VMULPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16 = 4528,
+		/// <summary><c>VMULPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16 = 4529,
+		/// <summary><c>VMULPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er = 4530,
+		/// <summary><c>VMULSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er = 4531,
+		/// <summary><c>VRCPPH xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 4C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrcpph_xmm_k1z_xmmm128b16 = 4532,
+		/// <summary><c>VRCPPH ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 4C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrcpph_ymm_k1z_ymmm256b16 = 4533,
+		/// <summary><c>VRCPPH zmm1 {k1}{z}, zmm2/m512/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 4C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrcpph_zmm_k1z_zmmm512b16 = 4534,
+		/// <summary><c>VRCPSH xmm1 {k1}{z}, xmm2, xmm3/m16</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 4D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16 = 4535,
+		/// <summary><c>VREDUCEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.0F3A.W0 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8 = 4536,
+		/// <summary><c>VREDUCEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.0F3A.W0 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8 = 4537,
+		/// <summary><c>VREDUCEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.0F3A.W0 56 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae = 4538,
+		/// <summary><c>VREDUCESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.0F3A.W0 57 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae = 4539,
+		/// <summary><c>VRNDSCALEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.0F3A.W0 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8 = 4540,
+		/// <summary><c>VRNDSCALEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.0F3A.W0 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8 = 4541,
+		/// <summary><c>VRNDSCALEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.0F3A.W0 08 /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae = 4542,
+		/// <summary><c>VRNDSCALESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.0F3A.W0 0A /r ib</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae = 4543,
+		/// <summary><c>VRSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 4E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrsqrtph_xmm_k1z_xmmm128b16 = 4544,
+		/// <summary><c>VRSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 4E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrsqrtph_ymm_k1z_ymmm256b16 = 4545,
+		/// <summary><c>VRSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 4E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrsqrtph_zmm_k1z_zmmm512b16 = 4546,
+		/// <summary><c>VRSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 4F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16 = 4547,
+		/// <summary><c>VSCALEFPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.66.MAP6.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16 = 4548,
+		/// <summary><c>VSCALEFPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.66.MAP6.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16 = 4549,
+		/// <summary><c>VSCALEFPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.66.MAP6.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er = 4550,
+		/// <summary><c>VSCALEFSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.MAP6.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er = 4551,
+		/// <summary><c>VSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsqrtph_xmm_k1z_xmmm128b16 = 4552,
+		/// <summary><c>VSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsqrtph_ymm_k1z_ymmm256b16 = 4553,
+		/// <summary><c>VSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er = 4554,
+		/// <summary><c>VSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er = 4555,
+		/// <summary><c>VSUBPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.MAP5.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16 = 4556,
+		/// <summary><c>VSUBPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.MAP5.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16 = 4557,
+		/// <summary><c>VSUBPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.MAP5.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er = 4558,
+		/// <summary><c>VSUBSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.MAP5.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er = 4559,
+		/// <summary><c>VUCOMISH xmm1, xmm2/m16{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.MAP5.W0 2E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512-FP16</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		EVEX_Vucomish_xmm_xmmm16_sae = 4560,
 	}
 }

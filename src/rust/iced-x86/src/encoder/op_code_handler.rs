@@ -126,14 +126,14 @@ impl LegacyHandler {
 	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
-			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		// SAFETY: generated data is valid
 		let table: LegacyOpCodeTable = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) };
 		let (table_byte1, table_byte2) = match table {
-			LegacyOpCodeTable::Normal => (0, 0),
-			LegacyOpCodeTable::Table0F => (0x0F, 0),
-			LegacyOpCodeTable::Table0F38 => (0x0F, 0x38),
-			LegacyOpCodeTable::Table0F3A => (0x0F, 0x3A),
+			LegacyOpCodeTable::MAP0 => (0, 0),
+			LegacyOpCodeTable::MAP0F => (0x0F, 0),
+			LegacyOpCodeTable::MAP0F38 => (0x0F, 0x38),
+			LegacyOpCodeTable::MAP0F3A => (0x0F, 0x3A),
 		};
 		// SAFETY: generated data is valid
 		let mpb: MandatoryPrefixByte =
@@ -245,7 +245,7 @@ impl VexHandler {
 	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
-			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		// SAFETY: generated data is valid
 		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
 		let w1 = if wbit == WBit::W1 { u32::MAX } else { 0 };
@@ -333,14 +333,14 @@ impl VexHandler {
 		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
 
 		if (encoder.prevent_vex2
-			| this.w1 | this.table.wrapping_sub(VexOpCodeTable::Table0F as u32)
+			| this.w1 | this.table.wrapping_sub(VexOpCodeTable::MAP0F as u32)
 			| (encoder_flags & (EncoderFlags::X | EncoderFlags::B | EncoderFlags::W)))
 			!= 0
 		{
 			encoder.write_byte_internal(0xC4);
-			const_assert_eq!(VexOpCodeTable::Table0F as u32, 1);
-			const_assert_eq!(VexOpCodeTable::Table0F38 as u32, 2);
-			const_assert_eq!(VexOpCodeTable::Table0F3A as u32, 3);
+			const_assert_eq!(VexOpCodeTable::MAP0F as u32, 1);
+			const_assert_eq!(VexOpCodeTable::MAP0F38 as u32, 2);
+			const_assert_eq!(VexOpCodeTable::MAP0F3A as u32, 3);
 			let mut b2 = this.table;
 			const_assert_eq!(EncoderFlags::B, 1);
 			const_assert_eq!(EncoderFlags::X, 2);
@@ -370,12 +370,12 @@ pub(super) struct XopHandler {
 #[cfg(not(feature = "no_xop"))]
 impl XopHandler {
 	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
-		const_assert_eq!(XopOpCodeTable::XOP8 as u32, 0);
-		const_assert_eq!(XopOpCodeTable::XOP9 as u32, 1);
-		const_assert_eq!(XopOpCodeTable::XOPA as u32, 2);
+		const_assert_eq!(XopOpCodeTable::MAP8 as u32, 0);
+		const_assert_eq!(XopOpCodeTable::MAP9 as u32, 1);
+		const_assert_eq!(XopOpCodeTable::MAP10 as u32, 2);
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
-			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		// SAFETY: generated data is valid
 		let lbit: LBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::LBIT_SHIFT) & EncFlags2::LBIT_MASK) as u8) };
 		let mut last_byte = match lbit {
@@ -475,7 +475,7 @@ impl EvexHandler {
 	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
-			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
+			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
 		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
 		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
@@ -569,9 +569,11 @@ impl EvexHandler {
 
 		encoder.write_byte_internal(0x62);
 
-		const_assert_eq!(EvexOpCodeTable::Table0F as u32, 1);
-		const_assert_eq!(EvexOpCodeTable::Table0F38 as u32, 2);
-		const_assert_eq!(EvexOpCodeTable::Table0F3A as u32, 3);
+		const_assert_eq!(EvexOpCodeTable::MAP0F as u32, 1);
+		const_assert_eq!(EvexOpCodeTable::MAP0F38 as u32, 2);
+		const_assert_eq!(EvexOpCodeTable::MAP0F3A as u32, 3);
+		const_assert_eq!(EvexOpCodeTable::MAP5 as u32, 5);
+		const_assert_eq!(EvexOpCodeTable::MAP6 as u32, 6);
 		let mut b = this.table;
 		const_assert_eq!(EncoderFlags::B, 1);
 		const_assert_eq!(EncoderFlags::X, 2);

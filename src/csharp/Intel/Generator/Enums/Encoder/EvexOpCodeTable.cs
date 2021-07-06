@@ -4,8 +4,10 @@
 namespace Generator.Enums.Encoder {
 	[Enum("EvexOpCodeTable", NoInitialize = true)]
 	enum EvexOpCodeTable {
-		Table0F					= 1,
-		Table0F38				= 2,
-		Table0F3A				= 3,
+		MAP0F					= 1,
+		MAP0F38					= 2,
+		MAP0F3A					= 3,
+		MAP5					= 5,
+		MAP6					= 6,
 	}
 }

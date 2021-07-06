@@ -571,7 +571,7 @@ namespace IcedFuzzer.Core {
 
 			WritePrefixes(info);
 
-			Assert.True(info.r <= 1 && info.x <= 1 && info.b <= 1 && info.r2 <= 1 && info.EVEX_res3to2 <= 3 && info.mmmmm <= 3);
+			Assert.True(info.r <= 1 && info.x <= 1 && info.b <= 1 && info.r2 <= 1 && info.EVEX_res3 <= 1 && info.mmmmm <= 7);
 			Assert.True(info.w <= 1 && info.vvvv <= 0xF && info.EVEX_res10 <= 1);
 			Assert.True(info.z <= 1 && info.l <= 3 && info.bcst <= 1 && info.v2 <= 1 && info.aaa <= 7);
 
@@ -588,7 +588,7 @@ namespace IcedFuzzer.Core {
 			vvvv ^= 0xF;
 			v2 ^= 1;
 			writer.WriteByte(0x62);
-			writer.WriteByte((byte)((r << 7) | (x << 6) | (b << 5) | (r2 << 4) | (info.EVEX_res3to2 << 2) | info.mmmmm));
+			writer.WriteByte((byte)((r << 7) | (x << 6) | (b << 5) | (r2 << 4) | (info.EVEX_res3 << 3) | info.mmmmm));
 			writer.WriteByte((byte)((info.w << 7) | (vvvv << 3) | (info.EVEX_res10 << 2) | info.pp));
 			writer.WriteByte((byte)((info.z << 7) | (info.l << 5) | (info.bcst << 4) | (v2 << 3) | info.aaa));
 			WriteOpCode(info);

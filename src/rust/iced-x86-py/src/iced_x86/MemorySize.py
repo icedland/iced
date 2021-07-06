@@ -227,351 +227,427 @@ PACKED32_INT16: int = 53
 """
 : 32-bit location: 2 x ``i16``
 """
-PACKED32_BFLOAT16: int = 54
+PACKED32_FLOAT16: int = 54
+"""
+: 32-bit location: 2 x ``f16``
+"""
+PACKED32_BFLOAT16: int = 55
 """
 : 32-bit location: 2 x ``bfloat16``
 """
-PACKED64_UINT8: int = 55
+PACKED64_UINT8: int = 56
 """
 : 64-bit location: 8 x ``u8``
 """
-PACKED64_INT8: int = 56
+PACKED64_INT8: int = 57
 """
 : 64-bit location: 8 x ``i8``
 """
-PACKED64_UINT16: int = 57
+PACKED64_UINT16: int = 58
 """
 : 64-bit location: 4 x ``u16``
 """
-PACKED64_INT16: int = 58
+PACKED64_INT16: int = 59
 """
 : 64-bit location: 4 x ``i16``
 """
-PACKED64_UINT32: int = 59
+PACKED64_UINT32: int = 60
 """
 : 64-bit location: 2 x ``u32``
 """
-PACKED64_INT32: int = 60
+PACKED64_INT32: int = 61
 """
 : 64-bit location: 2 x ``i32``
 """
-PACKED64_FLOAT16: int = 61
+PACKED64_FLOAT16: int = 62
 """
 : 64-bit location: 4 x ``f16``
 """
-PACKED64_FLOAT32: int = 62
+PACKED64_FLOAT32: int = 63
 """
 : 64-bit location: 2 x ``f32``
 """
-PACKED128_UINT8: int = 63
+PACKED128_UINT8: int = 64
 """
 : 128-bit location: 16 x ``u8``
 """
-PACKED128_INT8: int = 64
+PACKED128_INT8: int = 65
 """
 : 128-bit location: 16 x ``i8``
 """
-PACKED128_UINT16: int = 65
+PACKED128_UINT16: int = 66
 """
 : 128-bit location: 8 x ``u16``
 """
-PACKED128_INT16: int = 66
+PACKED128_INT16: int = 67
 """
 : 128-bit location: 8 x ``i16``
 """
-PACKED128_UINT32: int = 67
+PACKED128_UINT32: int = 68
 """
 : 128-bit location: 4 x ``u32``
 """
-PACKED128_INT32: int = 68
+PACKED128_INT32: int = 69
 """
 : 128-bit location: 4 x ``i32``
 """
-PACKED128_UINT52: int = 69
+PACKED128_UINT52: int = 70
 """
 : 128-bit location: 2 x ``u52``
 """
-PACKED128_UINT64: int = 70
+PACKED128_UINT64: int = 71
 """
 : 128-bit location: 2 x ``u64``
 """
-PACKED128_INT64: int = 71
+PACKED128_INT64: int = 72
 """
 : 128-bit location: 2 x ``i64``
 """
-PACKED128_FLOAT16: int = 72
+PACKED128_FLOAT16: int = 73
 """
 : 128-bit location: 8 x ``f16``
 """
-PACKED128_FLOAT32: int = 73
+PACKED128_FLOAT32: int = 74
 """
 : 128-bit location: 4 x ``f32``
 """
-PACKED128_FLOAT64: int = 74
+PACKED128_FLOAT64: int = 75
 """
 : 128-bit location: 2 x ``f64``
 """
-PACKED128_2X_BFLOAT16: int = 75
+PACKED128_2X_FLOAT16: int = 76
+"""
+: 128-bit location: 4 x (2 x ``f16``)
+"""
+PACKED128_2X_BFLOAT16: int = 77
 """
 : 128-bit location: 4 x (2 x ``bfloat16``)
 """
-PACKED256_UINT8: int = 76
+PACKED256_UINT8: int = 78
 """
 : 256-bit location: 32 x ``u8``
 """
-PACKED256_INT8: int = 77
+PACKED256_INT8: int = 79
 """
 : 256-bit location: 32 x ``i8``
 """
-PACKED256_UINT16: int = 78
+PACKED256_UINT16: int = 80
 """
 : 256-bit location: 16 x ``u16``
 """
-PACKED256_INT16: int = 79
+PACKED256_INT16: int = 81
 """
 : 256-bit location: 16 x ``i16``
 """
-PACKED256_UINT32: int = 80
+PACKED256_UINT32: int = 82
 """
 : 256-bit location: 8 x ``u32``
 """
-PACKED256_INT32: int = 81
+PACKED256_INT32: int = 83
 """
 : 256-bit location: 8 x ``i32``
 """
-PACKED256_UINT52: int = 82
+PACKED256_UINT52: int = 84
 """
 : 256-bit location: 4 x ``u52``
 """
-PACKED256_UINT64: int = 83
+PACKED256_UINT64: int = 85
 """
 : 256-bit location: 4 x ``u64``
 """
-PACKED256_INT64: int = 84
+PACKED256_INT64: int = 86
 """
 : 256-bit location: 4 x ``i64``
 """
-PACKED256_UINT128: int = 85
+PACKED256_UINT128: int = 87
 """
 : 256-bit location: 2 x ``u128``
 """
-PACKED256_INT128: int = 86
+PACKED256_INT128: int = 88
 """
 : 256-bit location: 2 x ``i128``
 """
-PACKED256_FLOAT16: int = 87
+PACKED256_FLOAT16: int = 89
 """
 : 256-bit location: 16 x ``f16``
 """
-PACKED256_FLOAT32: int = 88
+PACKED256_FLOAT32: int = 90
 """
 : 256-bit location: 8 x ``f32``
 """
-PACKED256_FLOAT64: int = 89
+PACKED256_FLOAT64: int = 91
 """
 : 256-bit location: 4 x ``f64``
 """
-PACKED256_FLOAT128: int = 90
+PACKED256_FLOAT128: int = 92
 """
 : 256-bit location: 2 x ``f128``
 """
-PACKED256_2X_BFLOAT16: int = 91
+PACKED256_2X_FLOAT16: int = 93
+"""
+: 256-bit location: 8 x (2 x ``f16``)
+"""
+PACKED256_2X_BFLOAT16: int = 94
 """
 : 256-bit location: 8 x (2 x ``bfloat16``)
 """
-PACKED512_UINT8: int = 92
+PACKED512_UINT8: int = 95
 """
 : 512-bit location: 64 x ``u8``
 """
-PACKED512_INT8: int = 93
+PACKED512_INT8: int = 96
 """
 : 512-bit location: 64 x ``i8``
 """
-PACKED512_UINT16: int = 94
+PACKED512_UINT16: int = 97
 """
 : 512-bit location: 32 x ``u16``
 """
-PACKED512_INT16: int = 95
+PACKED512_INT16: int = 98
 """
 : 512-bit location: 32 x ``i16``
 """
-PACKED512_UINT32: int = 96
+PACKED512_UINT32: int = 99
 """
 : 512-bit location: 16 x ``u32``
 """
-PACKED512_INT32: int = 97
+PACKED512_INT32: int = 100
 """
 : 512-bit location: 16 x ``i32``
 """
-PACKED512_UINT52: int = 98
+PACKED512_UINT52: int = 101
 """
 : 512-bit location: 8 x ``u52``
 """
-PACKED512_UINT64: int = 99
+PACKED512_UINT64: int = 102
 """
 : 512-bit location: 8 x ``u64``
 """
-PACKED512_INT64: int = 100
+PACKED512_INT64: int = 103
 """
 : 512-bit location: 8 x ``i64``
 """
-PACKED512_UINT128: int = 101
+PACKED512_UINT128: int = 104
 """
 : 256-bit location: 4 x ``u128``
 """
-PACKED512_FLOAT32: int = 102
+PACKED512_FLOAT16: int = 105
+"""
+: 512-bit location: 32 x ``f16``
+"""
+PACKED512_FLOAT32: int = 106
 """
 : 512-bit location: 16 x ``f32``
 """
-PACKED512_FLOAT64: int = 103
+PACKED512_FLOAT64: int = 107
 """
 : 512-bit location: 8 x ``f64``
 """
-PACKED512_2X_BFLOAT16: int = 104
+PACKED512_2X_FLOAT16: int = 108
+"""
+: 512-bit location: 16 x (2 x ``f16``)
+"""
+PACKED512_2X_BFLOAT16: int = 109
 """
 : 512-bit location: 16 x (2 x ``bfloat16``)
 """
-BROADCAST64_UINT32: int = 105
+BROADCAST32_FLOAT16: int = 110
+"""
+Broadcast ``f16`` to 32-bits
+"""
+BROADCAST64_UINT32: int = 111
 """
 Broadcast ``u32`` to 64-bits
 """
-BROADCAST64_INT32: int = 106
+BROADCAST64_INT32: int = 112
 """
 Broadcast ``i32`` to 64-bits
 """
-BROADCAST64_FLOAT32: int = 107
+BROADCAST64_FLOAT16: int = 113
+"""
+Broadcast ``f16`` to 64-bits
+"""
+BROADCAST64_FLOAT32: int = 114
 """
 Broadcast ``f32`` to 64-bits
 """
-BROADCAST128_UINT32: int = 108
+BROADCAST128_INT16: int = 115
+"""
+Broadcast ``i16`` to 128-bits
+"""
+BROADCAST128_UINT16: int = 116
+"""
+Broadcast ``u16`` to 128-bits
+"""
+BROADCAST128_UINT32: int = 117
 """
 Broadcast ``u32`` to 128-bits
 """
-BROADCAST128_INT32: int = 109
+BROADCAST128_INT32: int = 118
 """
 Broadcast ``i32`` to 128-bits
 """
-BROADCAST128_UINT52: int = 110
+BROADCAST128_UINT52: int = 119
 """
 Broadcast ``u52`` to 128-bits
 """
-BROADCAST128_UINT64: int = 111
+BROADCAST128_UINT64: int = 120
 """
 Broadcast ``u64`` to 128-bits
 """
-BROADCAST128_INT64: int = 112
+BROADCAST128_INT64: int = 121
 """
 Broadcast ``i64`` to 128-bits
 """
-BROADCAST128_FLOAT32: int = 113
+BROADCAST128_FLOAT16: int = 122
+"""
+Broadcast ``f16`` to 128-bits
+"""
+BROADCAST128_FLOAT32: int = 123
 """
 Broadcast ``f32`` to 128-bits
 """
-BROADCAST128_FLOAT64: int = 114
+BROADCAST128_FLOAT64: int = 124
 """
 Broadcast ``f64`` to 128-bits
 """
-BROADCAST256_UINT32: int = 115
-"""
-Broadcast ``u32`` to 256-bits
-"""
-BROADCAST256_INT32: int = 116
-"""
-Broadcast ``i32`` to 256-bits
-"""
-BROADCAST256_UINT52: int = 117
-"""
-Broadcast ``u52`` to 256-bits
-"""
-BROADCAST256_UINT64: int = 118
-"""
-Broadcast ``u64`` to 256-bits
-"""
-BROADCAST256_INT64: int = 119
-"""
-Broadcast ``i64`` to 256-bits
-"""
-BROADCAST256_FLOAT32: int = 120
-"""
-Broadcast ``f32`` to 256-bits
-"""
-BROADCAST256_FLOAT64: int = 121
-"""
-Broadcast ``f64`` to 256-bits
-"""
-BROADCAST512_UINT32: int = 122
-"""
-Broadcast ``u32`` to 512-bits
-"""
-BROADCAST512_INT32: int = 123
-"""
-Broadcast ``i32`` to 512-bits
-"""
-BROADCAST512_UINT52: int = 124
-"""
-Broadcast ``u52`` to 512-bits
-"""
-BROADCAST512_UINT64: int = 125
-"""
-Broadcast ``u64`` to 512-bits
-"""
-BROADCAST512_INT64: int = 126
-"""
-Broadcast ``i64`` to 512-bits
-"""
-BROADCAST512_FLOAT32: int = 127
-"""
-Broadcast ``f32`` to 512-bits
-"""
-BROADCAST512_FLOAT64: int = 128
-"""
-Broadcast ``f64`` to 512-bits
-"""
-BROADCAST128_2X_INT16: int = 129
+BROADCAST128_2X_INT16: int = 125
 """
 Broadcast 2 x ``i16`` to 128-bits
 """
-BROADCAST256_2X_INT16: int = 130
-"""
-Broadcast 2 x ``i16`` to 256-bits
-"""
-BROADCAST512_2X_INT16: int = 131
-"""
-Broadcast 2 x ``i16`` to 512-bits
-"""
-BROADCAST128_2X_UINT32: int = 132
-"""
-Broadcast 2 x ``u32`` to 128-bits
-"""
-BROADCAST256_2X_UINT32: int = 133
-"""
-Broadcast 2 x ``u32`` to 256-bits
-"""
-BROADCAST512_2X_UINT32: int = 134
-"""
-Broadcast 2 x ``u32`` to 512-bits
-"""
-BROADCAST128_2X_INT32: int = 135
+BROADCAST128_2X_INT32: int = 126
 """
 Broadcast 2 x ``i32`` to 128-bits
 """
-BROADCAST256_2X_INT32: int = 136
+BROADCAST128_2X_UINT32: int = 127
 """
-Broadcast 2 x ``i32`` to 256-bits
+Broadcast 2 x ``u32`` to 128-bits
 """
-BROADCAST512_2X_INT32: int = 137
+BROADCAST128_2X_FLOAT16: int = 128
 """
-Broadcast 2 x ``i32`` to 512-bits
+Broadcast 2 x ``f16`` to 128-bits
 """
-BROADCAST128_2X_BFLOAT16: int = 138
+BROADCAST128_2X_BFLOAT16: int = 129
 """
 Broadcast 2 x ``bfloat16`` to 128-bits
 """
-BROADCAST256_2X_BFLOAT16: int = 139
+BROADCAST256_INT16: int = 130
+"""
+Broadcast ``i16`` to 256-bits
+"""
+BROADCAST256_UINT16: int = 131
+"""
+Broadcast ``u16`` to 256-bits
+"""
+BROADCAST256_UINT32: int = 132
+"""
+Broadcast ``u32`` to 256-bits
+"""
+BROADCAST256_INT32: int = 133
+"""
+Broadcast ``i32`` to 256-bits
+"""
+BROADCAST256_UINT52: int = 134
+"""
+Broadcast ``u52`` to 256-bits
+"""
+BROADCAST256_UINT64: int = 135
+"""
+Broadcast ``u64`` to 256-bits
+"""
+BROADCAST256_INT64: int = 136
+"""
+Broadcast ``i64`` to 256-bits
+"""
+BROADCAST256_FLOAT16: int = 137
+"""
+Broadcast ``f16`` to 256-bits
+"""
+BROADCAST256_FLOAT32: int = 138
+"""
+Broadcast ``f32`` to 256-bits
+"""
+BROADCAST256_FLOAT64: int = 139
+"""
+Broadcast ``f64`` to 256-bits
+"""
+BROADCAST256_2X_INT16: int = 140
+"""
+Broadcast 2 x ``i16`` to 256-bits
+"""
+BROADCAST256_2X_INT32: int = 141
+"""
+Broadcast 2 x ``i32`` to 256-bits
+"""
+BROADCAST256_2X_UINT32: int = 142
+"""
+Broadcast 2 x ``u32`` to 256-bits
+"""
+BROADCAST256_2X_FLOAT16: int = 143
+"""
+Broadcast 2 x ``f16`` to 256-bits
+"""
+BROADCAST256_2X_BFLOAT16: int = 144
 """
 Broadcast 2 x ``bfloat16`` to 256-bits
 """
-BROADCAST512_2X_BFLOAT16: int = 140
+BROADCAST512_INT16: int = 145
+"""
+Broadcast ``i16`` to 512-bits
+"""
+BROADCAST512_UINT16: int = 146
+"""
+Broadcast ``u16`` to 512-bits
+"""
+BROADCAST512_UINT32: int = 147
+"""
+Broadcast ``u32`` to 512-bits
+"""
+BROADCAST512_INT32: int = 148
+"""
+Broadcast ``i32`` to 512-bits
+"""
+BROADCAST512_UINT52: int = 149
+"""
+Broadcast ``u52`` to 512-bits
+"""
+BROADCAST512_UINT64: int = 150
+"""
+Broadcast ``u64`` to 512-bits
+"""
+BROADCAST512_INT64: int = 151
+"""
+Broadcast ``i64`` to 512-bits
+"""
+BROADCAST512_FLOAT16: int = 152
+"""
+Broadcast ``f16`` to 512-bits
+"""
+BROADCAST512_FLOAT32: int = 153
+"""
+Broadcast ``f32`` to 512-bits
+"""
+BROADCAST512_FLOAT64: int = 154
+"""
+Broadcast ``f64`` to 512-bits
+"""
+BROADCAST512_2X_FLOAT16: int = 155
+"""
+Broadcast 2 x ``f16`` to 512-bits
+"""
+BROADCAST512_2X_INT16: int = 156
+"""
+Broadcast 2 x ``i16`` to 512-bits
+"""
+BROADCAST512_2X_UINT32: int = 157
+"""
+Broadcast 2 x ``u32`` to 512-bits
+"""
+BROADCAST512_2X_INT32: int = 158
+"""
+Broadcast 2 x ``i32`` to 512-bits
+"""
+BROADCAST512_2X_BFLOAT16: int = 159
 """
 Broadcast 2 x ``bfloat16`` to 512-bits
 """

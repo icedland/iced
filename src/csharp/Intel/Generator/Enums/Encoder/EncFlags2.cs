@@ -18,20 +18,19 @@ namespace Generator.Enums.Encoder {
 		/// <see cref="EvexOpCodeTable"/>
 		/// </summary>
 		TableShift				= 17,
-		TableMask				= 3,
+		TableMask				= 7,
 		/// <summary><see cref="MandatoryPrefixByte"/></summary>
-		MandatoryPrefixShift	= 19,
+		MandatoryPrefixShift	= 20,
 		MandatoryPrefixMask		= 3,
 		/// <summary><see cref="WBit"/></summary>
-		WBitShift				= 21,
+		WBitShift				= 22,
 		WBitMask				= 3,
 		/// <summary><see cref="LBit"/></summary>
-		LBitShift				= 23,
+		LBitShift				= 24,
 		LBitMask				= 7,
-		GroupIndexShift			= 26,
+		GroupIndexShift			= 27,
 		GroupIndexMask			= 7,
-		HasMandatoryPrefix		= 0x20000000,
-		HasGroupIndex			= 0x40000000,
-		HasRmGroupIndex			= 0x80000000,
+		HasMandatoryPrefix		= 0x40000000,
+		HasGroupIndex			= 0x80000000,
 	}
 }

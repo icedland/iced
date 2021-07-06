@@ -198,6 +198,14 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_EVEX_VkHW_er(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), deserializer.ReadBoolean(), true);
 				return 1;
 
+			case EvexOpCodeHandlerKind.VkHW_er_ur_3:
+				elem = new OpCodeHandler_EVEX_VkHW_er_ur(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
+				return 1;
+
+			case EvexOpCodeHandlerKind.VkHW_er_ur_3b:
+				elem = new OpCodeHandler_EVEX_VkHW_er_ur(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), true);
+				return 1;
+
 			case EvexOpCodeHandlerKind.VkHWIb_3:
 				elem = new OpCodeHandler_EVEX_VkHWIb(deserializer.ReadRegister(), deserializer.ReadCode(), deserializer.ReadTupleType(), false);
 				return 1;

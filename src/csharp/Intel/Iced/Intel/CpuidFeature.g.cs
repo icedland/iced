@@ -325,6 +325,8 @@ namespace Iced.Intel {
 		FRED = 156,
 		/// <summary>CPUID.(EAX=07H, ECX=01H):EAX.LKGS[bit 18]</summary>
 		LKGS = 157,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AVX512-FP16[bit 23]</summary>
+		AVX512_FP16 = 158,
 	}
 }
 #endif

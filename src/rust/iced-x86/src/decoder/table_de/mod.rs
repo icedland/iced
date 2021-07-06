@@ -263,7 +263,7 @@ pub(super) fn read_legacy() -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandle
 	let handler_reader = self::legacy_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_legacy::TBL_DATA, data_legacy::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
-	deserializer.table(data_legacy::ONE_BYTE_HANDLERS_INDEX)
+	deserializer.table(data_legacy::HANDLERS_MAP0_INDEX)
 }
 
 #[cfg(not(feature = "no_evex"))]
@@ -272,14 +272,18 @@ pub(super) fn read_evex() -> (
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 ) {
 	let handler_reader = self::evex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_evex::TBL_DATA, data_evex::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
 	(
-		deserializer.table(data_evex::TWO_BYTE_HANDLERS_0FXX_INDEX),
-		deserializer.table(data_evex::THREE_BYTE_HANDLERS_0F38XX_INDEX),
-		deserializer.table(data_evex::THREE_BYTE_HANDLERS_0F3AXX_INDEX),
+		deserializer.table(data_evex::HANDLERS_0F_INDEX),
+		deserializer.table(data_evex::HANDLERS_0F38_INDEX),
+		deserializer.table(data_evex::HANDLERS_0F3A_INDEX),
+		deserializer.table(data_evex::HANDLERS_MAP5_INDEX),
+		deserializer.table(data_evex::HANDLERS_MAP6_INDEX),
 	)
 }
 
@@ -294,9 +298,9 @@ pub(super) fn read_vex() -> (
 	let mut deserializer = TableDeserializer::new(data_vex::TBL_DATA, data_vex::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
 	(
-		deserializer.table(data_vex::TWO_BYTE_HANDLERS_0FXX_INDEX),
-		deserializer.table(data_vex::THREE_BYTE_HANDLERS_0F38XX_INDEX),
-		deserializer.table(data_vex::THREE_BYTE_HANDLERS_0F3AXX_INDEX),
+		deserializer.table(data_vex::HANDLERS_0F_INDEX),
+		deserializer.table(data_vex::HANDLERS_0F38_INDEX),
+		deserializer.table(data_vex::HANDLERS_0F3A_INDEX),
 	)
 }
 
@@ -310,5 +314,9 @@ pub(super) fn read_xop() -> (
 	let handler_reader = self::vex_reader::read_handlers;
 	let mut deserializer = TableDeserializer::new(data_xop::TBL_DATA, data_xop::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
-	(deserializer.table(data_xop::XOP8_INDEX), deserializer.table(data_xop::XOP9_INDEX), deserializer.table(data_xop::XOPA_INDEX))
+	(
+		deserializer.table(data_xop::HANDLERS_MAP8_INDEX),
+		deserializer.table(data_xop::HANDLERS_MAP9_INDEX),
+		deserializer.table(data_xop::HANDLERS_MAP10_INDEX),
+	)
 }

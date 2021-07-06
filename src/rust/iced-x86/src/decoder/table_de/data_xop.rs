@@ -5,7 +5,7 @@
 
 #[rustfmt::skip]
 pub(super) static TBL_DATA: &[u8] = &[
-	// grp_XOP9_01
+	// grp_MAP9_01
 	0x01,// ArrayReference
 	0x08,// 0x8
 	// 0 = 0x00
@@ -60,7 +60,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0x94, 0x20,// XOP_T1mskc_r32_rm32
 			0x00,// Invalid
 
-	// grp_XOP9_02
+	// grp_MAP9_02
 	0x01,// ArrayReference
 	0x08,// 0x8
 	// 0 = 0x00
@@ -88,7 +88,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 7 = 0x07
 	0x00,// Invalid
 
-	// grp_XOP9_12
+	// grp_MAP9_12
 	0x01,// ArrayReference
 	0x08,// 0x8
 	// 0 = 0x00
@@ -110,7 +110,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// 6
 		0x00,// Invalid
 
-	// grp_XOPA_12
+	// grp_MAP10_12
 	0x01,// ArrayReference
 	0x08,// 0x8
 	// 0 = 0x00
@@ -132,7 +132,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// 6
 		0x00,// Invalid
 
-	// XOP8
+	// Handlers_MAP8
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -458,7 +458,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x10,// 16
 		0x00,// Invalid
 
-	// XOP9
+	// Handlers_MAP9
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -467,12 +467,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 1 = 0x01
 	0x08,// Group
 		0x06,// ArrayReference
-			0x00,// 0x0 = grp_XOP9_01
+			0x00,// 0x0 = grp_MAP9_01
 
 	// 2 = 0x02
 	0x08,// Group
 		0x06,// ArrayReference
-			0x01,// 0x1 = grp_XOP9_02
+			0x01,// 0x1 = grp_MAP9_02
 
 	// 3 = 0x03
 	0x02,// Dup
@@ -482,7 +482,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 18 = 0x12
 	0x08,// Group
 		0x06,// ArrayReference
-			0x02,// 0x2 = grp_XOP9_12
+			0x02,// 0x2 = grp_MAP9_12
 
 	// 19 = 0x13
 	0x02,// Dup
@@ -872,7 +872,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x1C,// 28
 		0x00,// Invalid
 
-	// XOPA
+	// Handlers_MAP10
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -893,7 +893,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 18 = 0x12
 	0x08,// Group
 		0x06,// ArrayReference
-			0x03,// 0x3 = grp_XOPA_12
+			0x03,// 0x3 = grp_MAP10_12
 
 	// 19 = 0x13
 	0x02,// Dup
@@ -901,6 +901,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Invalid
 ];
 pub(super) const MAX_ID_NAMES: usize = 7;
-pub(super) const XOP8_INDEX: usize = 4;
-pub(super) const XOP9_INDEX: usize = 5;
-pub(super) const XOPA_INDEX: usize = 6;
+pub(super) const HANDLERS_MAP8_INDEX: usize = 4;
+pub(super) const HANDLERS_MAP9_INDEX: usize = 5;
+pub(super) const HANDLERS_MAP10_INDEX: usize = 6;

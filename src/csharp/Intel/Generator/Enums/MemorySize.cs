@@ -112,6 +112,8 @@ namespace Generator.Enums {
 		Packed32_UInt16,
 		[Comment("32-bit location: 2 x #(t:i16)#")]
 		Packed32_Int16,
+		[Comment("32-bit location: 2 x #(t:f16)#")]
+		Packed32_Float16,
 		[Comment("32-bit location: 2 x #(t:bf16)#")]
 		Packed32_BFloat16,
 		[Comment("64-bit location: 8 x #(t:u8)#")]
@@ -154,6 +156,8 @@ namespace Generator.Enums {
 		Packed128_Float32,
 		[Comment("128-bit location: 2 x #(t:f64)#")]
 		Packed128_Float64,
+		[Comment("128-bit location: 4 x (2 x #(t:f16)#)")]
+		Packed128_2xFloat16,
 		[Comment("128-bit location: 4 x (2 x #(t:bf16)#)")]
 		Packed128_2xBFloat16,
 		[Comment("256-bit location: 32 x #(t:u8)#")]
@@ -186,6 +190,8 @@ namespace Generator.Enums {
 		Packed256_Float64,
 		[Comment("256-bit location: 2 x #(t:f128)#")]
 		Packed256_Float128,
+		[Comment("256-bit location: 8 x (2 x #(t:f16)#)")]
+		Packed256_2xFloat16,
 		[Comment("256-bit location: 8 x (2 x #(t:bf16)#)")]
 		Packed256_2xBFloat16,
 		[Comment("512-bit location: 64 x #(t:u8)#")]
@@ -208,18 +214,30 @@ namespace Generator.Enums {
 		Packed512_Int64,
 		[Comment("256-bit location: 4 x #(t:u128)#")]
 		Packed512_UInt128,
+		[Comment("512-bit location: 32 x #(t:f16)#")]
+		Packed512_Float16,
 		[Comment("512-bit location: 16 x #(t:f32)#")]
 		Packed512_Float32,
 		[Comment("512-bit location: 8 x #(t:f64)#")]
 		Packed512_Float64,
+		[Comment("512-bit location: 16 x (2 x #(t:f16)#)")]
+		Packed512_2xFloat16,
 		[Comment("512-bit location: 16 x (2 x #(t:bf16)#)")]
 		Packed512_2xBFloat16,
+		[Comment("Broadcast #(t:f16)# to 32-bits")]
+		Broadcast32_Float16,
 		[Comment("Broadcast #(t:u32)# to 64-bits")]
 		Broadcast64_UInt32,
 		[Comment("Broadcast #(t:i32)# to 64-bits")]
 		Broadcast64_Int32,
+		[Comment("Broadcast #(t:f16)# to 64-bits")]
+		Broadcast64_Float16,
 		[Comment("Broadcast #(t:f32)# to 64-bits")]
 		Broadcast64_Float32,
+		[Comment("Broadcast #(t:i16)# to 128-bits")]
+		Broadcast128_Int16,
+		[Comment("Broadcast #(t:u16)# to 128-bits")]
+		Broadcast128_UInt16,
 		[Comment("Broadcast #(t:u32)# to 128-bits")]
 		Broadcast128_UInt32,
 		[Comment("Broadcast #(t:i32)# to 128-bits")]
@@ -230,10 +248,26 @@ namespace Generator.Enums {
 		Broadcast128_UInt64,
 		[Comment("Broadcast #(t:i64)# to 128-bits")]
 		Broadcast128_Int64,
+		[Comment("Broadcast #(t:f16)# to 128-bits")]
+		Broadcast128_Float16,
 		[Comment("Broadcast #(t:f32)# to 128-bits")]
 		Broadcast128_Float32,
 		[Comment("Broadcast #(t:f64)# to 128-bits")]
 		Broadcast128_Float64,
+		[Comment("Broadcast 2 x #(t:i16)# to 128-bits")]
+		Broadcast128_2xInt16,
+		[Comment("Broadcast 2 x #(t:i32)# to 128-bits")]
+		Broadcast128_2xInt32,
+		[Comment("Broadcast 2 x #(t:u32)# to 128-bits")]
+		Broadcast128_2xUInt32,
+		[Comment("Broadcast 2 x #(t:f16)# to 128-bits")]
+		Broadcast128_2xFloat16,
+		[Comment("Broadcast 2 x #(t:bf16)# to 128-bits")]
+		Broadcast128_2xBFloat16,
+		[Comment("Broadcast #(t:i16)# to 256-bits")]
+		Broadcast256_Int16,
+		[Comment("Broadcast #(t:u16)# to 256-bits")]
+		Broadcast256_UInt16,
 		[Comment("Broadcast #(t:u32)# to 256-bits")]
 		Broadcast256_UInt32,
 		[Comment("Broadcast #(t:i32)# to 256-bits")]
@@ -244,10 +278,26 @@ namespace Generator.Enums {
 		Broadcast256_UInt64,
 		[Comment("Broadcast #(t:i64)# to 256-bits")]
 		Broadcast256_Int64,
+		[Comment("Broadcast #(t:f16)# to 256-bits")]
+		Broadcast256_Float16,
 		[Comment("Broadcast #(t:f32)# to 256-bits")]
 		Broadcast256_Float32,
 		[Comment("Broadcast #(t:f64)# to 256-bits")]
 		Broadcast256_Float64,
+		[Comment("Broadcast 2 x #(t:i16)# to 256-bits")]
+		Broadcast256_2xInt16,
+		[Comment("Broadcast 2 x #(t:i32)# to 256-bits")]
+		Broadcast256_2xInt32,
+		[Comment("Broadcast 2 x #(t:u32)# to 256-bits")]
+		Broadcast256_2xUInt32,
+		[Comment("Broadcast 2 x #(t:f16)# to 256-bits")]
+		Broadcast256_2xFloat16,
+		[Comment("Broadcast 2 x #(t:bf16)# to 256-bits")]
+		Broadcast256_2xBFloat16,
+		[Comment("Broadcast #(t:i16)# to 512-bits")]
+		Broadcast512_Int16,
+		[Comment("Broadcast #(t:u16)# to 512-bits")]
+		Broadcast512_UInt16,
 		[Comment("Broadcast #(t:u32)# to 512-bits")]
 		Broadcast512_UInt32,
 		[Comment("Broadcast #(t:i32)# to 512-bits")]
@@ -258,32 +308,20 @@ namespace Generator.Enums {
 		Broadcast512_UInt64,
 		[Comment("Broadcast #(t:i64)# to 512-bits")]
 		Broadcast512_Int64,
+		[Comment("Broadcast #(t:f16)# to 512-bits")]
+		Broadcast512_Float16,
 		[Comment("Broadcast #(t:f32)# to 512-bits")]
 		Broadcast512_Float32,
 		[Comment("Broadcast #(t:f64)# to 512-bits")]
 		Broadcast512_Float64,
-		[Comment("Broadcast 2 x #(t:i16)# to 128-bits")]
-		Broadcast128_2xInt16,
-		[Comment("Broadcast 2 x #(t:i16)# to 256-bits")]
-		Broadcast256_2xInt16,
+		[Comment("Broadcast 2 x #(t:f16)# to 512-bits")]
+		Broadcast512_2xFloat16,
 		[Comment("Broadcast 2 x #(t:i16)# to 512-bits")]
 		Broadcast512_2xInt16,
-		[Comment("Broadcast 2 x #(t:u32)# to 128-bits")]
-		Broadcast128_2xUInt32,
-		[Comment("Broadcast 2 x #(t:u32)# to 256-bits")]
-		Broadcast256_2xUInt32,
 		[Comment("Broadcast 2 x #(t:u32)# to 512-bits")]
 		Broadcast512_2xUInt32,
-		[Comment("Broadcast 2 x #(t:i32)# to 128-bits")]
-		Broadcast128_2xInt32,
-		[Comment("Broadcast 2 x #(t:i32)# to 256-bits")]
-		Broadcast256_2xInt32,
 		[Comment("Broadcast 2 x #(t:i32)# to 512-bits")]
 		Broadcast512_2xInt32,
-		[Comment("Broadcast 2 x #(t:bf16)# to 128-bits")]
-		Broadcast128_2xBFloat16,
-		[Comment("Broadcast 2 x #(t:bf16)# to 256-bits")]
-		Broadcast256_2xBFloat16,
 		[Comment("Broadcast 2 x #(t:bf16)# to 512-bits")]
 		Broadcast512_2xBFloat16,
 	}

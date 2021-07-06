@@ -130,15 +130,35 @@ Broadcast512_UInt64, 8, 8, UInt64, 1, bcst
 Broadcast512_Int64, 8, 8, Int64, 1, signed bcst
 Broadcast512_Float32, 4, 4, Float32, 1, signed bcst
 Broadcast512_Float64, 8, 8, Float64, 1, signed bcst
-Broadcast128_2xInt16, 4, 2, Int16, 2, packed signed bcst
-Broadcast256_2xInt16, 4, 2, Int16, 2, packed signed bcst
-Broadcast512_2xInt16, 4, 2, Int16, 2, packed signed bcst
-Broadcast128_2xUInt32, 8, 4, UInt32, 2, packed bcst
-Broadcast256_2xUInt32, 8, 4, UInt32, 2, packed bcst
-Broadcast512_2xUInt32, 8, 4, UInt32, 2, packed bcst
-Broadcast128_2xInt32, 8, 4, Int32, 2, packed signed bcst
-Broadcast256_2xInt32, 8, 4, Int32, 2, packed signed bcst
-Broadcast512_2xInt32, 8, 4, Int32, 2, packed signed bcst
-Broadcast128_2xBFloat16, 4, 2, BFloat16, 2, packed signed bcst
-Broadcast256_2xBFloat16, 4, 2, BFloat16, 2, packed signed bcst
-Broadcast512_2xBFloat16, 4, 2, BFloat16, 2, packed signed bcst
+Broadcast128_2xInt16, 4, 4, Packed32_Int16, 1, signed bcst
+Broadcast256_2xInt16, 4, 4, Packed32_Int16, 1, signed bcst
+Broadcast512_2xInt16, 4, 4, Packed32_Int16, 1, signed bcst
+Broadcast128_2xUInt32, 8, 8, Packed64_UInt32, 1, bcst
+Broadcast256_2xUInt32, 8, 8, Packed64_UInt32, 1, bcst
+Broadcast512_2xUInt32, 8, 8, Packed64_UInt32, 1, bcst
+Broadcast128_2xInt32, 8, 8, Packed64_Int32, 1, signed bcst
+Broadcast256_2xInt32, 8, 8, Packed64_Int32, 1, signed bcst
+Broadcast512_2xInt32, 8, 8, Packed64_Int32, 1, signed bcst
+Broadcast128_2xBFloat16, 4, 4, Packed32_BFloat16, 1, signed bcst
+Broadcast256_2xBFloat16, 4, 4, Packed32_BFloat16, 1, signed bcst
+Broadcast512_2xBFloat16, 4, 4, Packed32_BFloat16, 1, signed bcst
+Packed32_Float16, 4, 2, Float16, 2, packed signed
+Packed512_Float16, 64, 2, Float16, 32, packed signed
+Broadcast32_Float16, 2, 2, Float16, 1, signed bcst
+Broadcast64_Float16, 2, 2, Float16, 1, signed bcst
+Broadcast128_Float16, 2, 2, Float16, 1, signed bcst
+Broadcast256_Float16, 2, 2, Float16, 1, signed bcst
+Broadcast512_Float16, 2, 2, Float16, 1, signed bcst
+Broadcast128_Int16, 2, 2, Int16, 1, bcst
+Broadcast256_Int16, 2, 2, Int16, 1, bcst
+Broadcast512_Int16, 2, 2, Int16, 1, bcst
+Broadcast128_UInt16, 2, 2, UInt16, 1, bcst
+Broadcast256_UInt16, 2, 2, UInt16, 1, bcst
+Broadcast512_UInt16, 2, 2, UInt16, 1, bcst
+Packed128_2xFloat16, 16, 4, Packed32_Float16, 4, packed signed
+Packed256_2xFloat16, 32, 4, Packed32_Float16, 8, packed signed
+Packed512_2xFloat16, 64, 4, Packed32_Float16, 16, packed signed
+Broadcast128_2xFloat16, 4, 4, Packed32_Float16, 1, signed bcst
+Broadcast256_2xFloat16, 4, 4, Packed32_Float16, 1, signed bcst
+Broadcast512_2xFloat16, 4, 4, Packed32_Float16, 1, signed bcst
+

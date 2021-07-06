@@ -567,10 +567,12 @@ pub(crate) enum EvexOpCodeHandlerKind {
 	WkVIb,
 	WkVIb_er,
 	WV,
+	VkHW_er_ur_3,
+	VkHW_er_ur_3b,
 }
 #[cfg(not(feature = "no_evex"))]
 #[rustfmt::skip]
-static GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND: [&str; 75] = [
+static GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND: [&str; 77] = [
 	"Invalid",
 	"Invalid2",
 	"Dup",
@@ -646,6 +648,8 @@ static GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND: [&str; 75] = [
 	"WkVIb",
 	"WkVIb_er",
 	"WV",
+	"VkHW_er_ur_3",
+	"VkHW_er_ur_3b",
 ];
 #[cfg(not(feature = "no_evex"))]
 impl fmt::Debug for EvexOpCodeHandlerKind {

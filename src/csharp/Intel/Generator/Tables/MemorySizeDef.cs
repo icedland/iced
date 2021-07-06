@@ -12,6 +12,7 @@ namespace Generator.Tables {
 		b1to4,
 		b1to8,
 		b1to16,
+		b1to32,
 	}
 
 	[Enum("MemoryKeywords", "FastMemoryKeywords")]
@@ -34,6 +35,7 @@ namespace Generator.Tables {
 		ymmword_ptr,
 		zmmword_ptr,
 		mem384_ptr,
+		word_bcst,
 	}
 
 	[Enum("MemoryKeywords", "IntelMemoryKeywords")]
@@ -75,6 +77,7 @@ namespace Generator.Tables {
 		ymmword_ptr,
 		zmmword_ptr,
 		mem384_ptr,
+		word_bcst,
 	}
 
 	[Enum("MemoryKeywords", "NasmMemoryKeywords")]

@@ -453,3 +453,11 @@ Lkgs_r32m16
 Lkgs_r64m16
 Eretu
 Erets
+EVEX_Vcvtsh2si_r64_xmmm16_er
+EVEX_Vcvtsh2usi_r64_xmmm16_er
+EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
+EVEX_Vcvttsh2si_r64_xmmm16_sae
+EVEX_Vcvttsh2usi_r64_xmmm16_sae
+EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
+EVEX_Vmovw_xmm_r64m16
+EVEX_Vmovw_r64m16_xmm

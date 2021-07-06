@@ -113,6 +113,7 @@ namespace IcedFuzzer.Core {
 		IgnoresModBits					= 0x00100000,
 		ReservedNop						= 0x00200000,
 		DefaultOperandSize64			= 0x00400000,
+		RequiresUniqueDestRegNum		= 0x00800000,
 	}
 
 	[DebuggerDisplay("Mem={" + nameof(IsModrmMemory) + "} {" + nameof(MandatoryPrefix) + "} L{" + nameof(L) + ",d} W{" + nameof(W) + ",d} {" + nameof(Code) + "}")]
@@ -142,6 +143,7 @@ namespace IcedFuzzer.Core {
 		public bool IgnoresModBits => (Flags & FuzzerInstructionFlags.IgnoresModBits) != 0;
 		public bool IsReservedNop => (Flags & FuzzerInstructionFlags.ReservedNop) != 0;
 		public bool DefaultOperandSize64 => (Flags & FuzzerInstructionFlags.DefaultOperandSize64) != 0;
+		public bool RequiresUniqueDestRegNum => (Flags & FuzzerInstructionFlags.RequiresUniqueDestRegNum) != 0;
 
 		public readonly Code Code;
 		internal FuzzerInstructionFlags Flags;
@@ -212,6 +214,8 @@ namespace IcedFuzzer.Core {
 				flags |= FuzzerInstructionFlags.ReservedNop;
 			if (opc.DefaultOpSize64)
 				flags |= FuzzerInstructionFlags.DefaultOperandSize64;
+			if (opc.RequiresUniqueDestRegNum)
+				flags |= FuzzerInstructionFlags.RequiresUniqueDestRegNum;
 			switch (code) {
 			case Code.Xchg_r16_AX:
 			case Code.Xchg_r32_EAX:
@@ -348,12 +352,14 @@ namespace IcedFuzzer.Core {
 					OpCodeTableKind.T0F => new FuzzerOpCodeTable(encoding, 1),
 					OpCodeTableKind.T0F38 => new FuzzerOpCodeTable(encoding, 2),
 					OpCodeTableKind.T0F3A => new FuzzerOpCodeTable(encoding, 3),
+					OpCodeTableKind.MAP5 => new FuzzerOpCodeTable(encoding, 5),
+					OpCodeTableKind.MAP6 => new FuzzerOpCodeTable(encoding, 6),
 					_ => throw ThrowHelpers.Unreachable,
 				},
 				EncodingKind.XOP => table switch {
-					OpCodeTableKind.XOP8 => new FuzzerOpCodeTable(encoding, 8),
-					OpCodeTableKind.XOP9 => new FuzzerOpCodeTable(encoding, 9),
-					OpCodeTableKind.XOPA => new FuzzerOpCodeTable(encoding, 0xA),
+					OpCodeTableKind.MAP8 => new FuzzerOpCodeTable(encoding, 8),
+					OpCodeTableKind.MAP9 => new FuzzerOpCodeTable(encoding, 9),
+					OpCodeTableKind.MAP10 => new FuzzerOpCodeTable(encoding, 10),
 					_ => throw ThrowHelpers.Unreachable,
 				},
 				EncodingKind.D3NOW => table switch {

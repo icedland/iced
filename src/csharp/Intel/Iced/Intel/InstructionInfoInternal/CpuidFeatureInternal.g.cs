@@ -186,6 +186,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		PADLOCK_GMI,
 		FRED,
 		LKGS,
+		AVX512_FP16,
+		AVX512VL_and_AVX512_FP16,
 	}
 }
 #endif

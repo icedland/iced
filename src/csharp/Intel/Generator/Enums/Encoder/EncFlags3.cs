@@ -18,14 +18,10 @@ namespace Generator.Enums.Encoder {
 		AddressSizeMask			= 3,
 		/// <summary><see cref="TupleType"/></summary>
 		TupleTypeShift			= 7,
-		TupleTypeMask			= 0xF,
-
-		// FREE FREE FREE FREE
-		// [11] = free
-		// BITS BITS BITS BITS
+		TupleTypeMask			= 0x1F,
 
 		DefaultOpSize64			= 0x00001000,
-		ForceOpSize64			= 0x00002000,
+		HasRmGroupIndex			= 0x00002000,
 		IntelForceOpSize64		= 0x00004000,
 		Fwait					= 0x00008000,
 		Bit16or32				= 0x00010000,

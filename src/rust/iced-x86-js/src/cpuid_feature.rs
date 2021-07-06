@@ -332,5 +332,7 @@ pub enum CpuidFeature {
 	FRED = 156,
 	/// CPUID.(EAX=07H, ECX=01H):EAX.LKGS\[bit 18\]
 	LKGS = 157,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.AVX512-FP16\[bit 23\]
+	AVX512_FP16 = 158,
 }
 // GENERATOR-END: Enum

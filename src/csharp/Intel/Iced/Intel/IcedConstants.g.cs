@@ -17,8 +17,8 @@ namespace Iced.Intel {
 		internal const Register YMM_last = Register.YMM31;
 		internal const Register ZMM_last = Register.ZMM31;
 		internal const Register TMM_last = Register.TMM7;
-		internal const int MaxCpuidFeatureInternalValues = 178;
-		internal const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast64_UInt32;
+		internal const int MaxCpuidFeatureInternalValues = 180;
+		internal const MemorySize FirstBroadcastMemorySize = MemorySize.Broadcast32_Float16;
 		internal const int CC_a_EnumCount = 2;
 		internal const int CC_ae_EnumCount = 3;
 		internal const int CC_b_EnumCount = 3;
@@ -31,10 +31,10 @@ namespace Iced.Intel {
 		internal const int CC_ne_EnumCount = 2;
 		internal const int CC_np_EnumCount = 2;
 		internal const int CC_p_EnumCount = 2;
-		internal const int CodeEnumCount = 4323;
+		internal const int CodeEnumCount = 4561;
 		internal const int CodeSizeEnumCount = 4;
 		internal const int ConditionCodeEnumCount = 17;
-		internal const int CpuidFeatureEnumCount = 158;
+		internal const int CpuidFeatureEnumCount = 159;
 		internal const int DecoderErrorEnumCount = 3;
 		internal const int DecoratorKindEnumCount = 4;
 		internal const int EncodingKindEnumCount = 5;
@@ -42,20 +42,20 @@ namespace Iced.Intel {
 		internal const int FormatterSyntaxEnumCount = 4;
 		internal const int FormatterTextKindEnumCount = 16;
 		internal const int MandatoryPrefixEnumCount = 5;
-		internal const int MemorySizeEnumCount = 141;
+		internal const int MemorySizeEnumCount = 160;
 		internal const int MemorySizeOptionsEnumCount = 4;
-		internal const int MnemonicEnumCount = 1633;
+		internal const int MnemonicEnumCount = 1739;
 		internal const int NumberBaseEnumCount = 4;
 		internal const int NumberKindEnumCount = 8;
 		internal const int OpAccessEnumCount = 8;
 		internal const int OpCodeOperandKindEnumCount = 109;
-		internal const int OpCodeTableKindEnumCount = 7;
+		internal const int OpCodeTableKindEnumCount = 9;
 		internal const int OpKindEnumCount = 26;
 		internal const int PrefixKindEnumCount = 18;
 		internal const int RegisterEnumCount = 256;
 		internal const int RelocKindEnumCount = 1;
 		internal const int RepPrefixKindEnumCount = 3;
 		internal const int RoundingControlEnumCount = 5;
-		internal const int TupleTypeEnumCount = 14;
+		internal const int TupleTypeEnumCount = 19;
 	}
 }

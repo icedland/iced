@@ -43211,3 +43211,2383 @@ ERETS: int = 4322
 
 ``64-bit``
 """
+EVEX_VADDPH_XMM_K1Z_XMM_XMMM128B16: int = 4323
+"""
+``VADDPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 58 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VADDPH_YMM_K1Z_YMM_YMMM256B16: int = 4324
+"""
+``VADDPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 58 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VADDPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4325
+"""
+``VADDPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.MAP5.W0 58 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VADDSH_XMM_K1Z_XMM_XMMM16_ER: int = 4326
+"""
+``VADDSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W0 58 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCMPPH_KR_K1_XMM_XMMM128B16_IMM8: int = 4327
+"""
+``VCMPPH k1 {k2}, xmm2, xmm3/m128/m16bcst, imm8``
+
+``EVEX.128.0F3A.W0 C2 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCMPPH_KR_K1_YMM_YMMM256B16_IMM8: int = 4328
+"""
+``VCMPPH k1 {k2}, ymm2, ymm3/m256/m16bcst, imm8``
+
+``EVEX.256.0F3A.W0 C2 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCMPPH_KR_K1_ZMM_ZMMM512B16_IMM8_SAE: int = 4329
+"""
+``VCMPPH k1 {k2}, zmm2, zmm3/m512/m16bcst{sae}, imm8``
+
+``EVEX.512.0F3A.W0 C2 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCMPSH_KR_K1_XMM_XMMM16_IMM8_SAE: int = 4330
+"""
+``VCMPSH k1 {k2}, xmm2, xmm3/m16{sae}, imm8``
+
+``EVEX.LIG.F3.0F3A.W0 C2 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCOMISH_XMM_XMMM16_SAE: int = 4331
+"""
+``VCOMISH xmm1, xmm2/m16{sae}``
+
+``EVEX.LIG.MAP5.W0 2F /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTDQ2PH_XMM_K1Z_XMMM128B32: int = 4332
+"""
+``VCVTDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst``
+
+``EVEX.128.MAP5.W0 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTDQ2PH_XMM_K1Z_YMMM256B32: int = 4333
+"""
+``VCVTDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst``
+
+``EVEX.256.MAP5.W0 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTDQ2PH_YMM_K1Z_ZMMM512B32_ER: int = 4334
+"""
+``VCVTDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er}``
+
+``EVEX.512.MAP5.W0 5B /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPD2PH_XMM_K1Z_XMMM128B64: int = 4335
+"""
+``VCVTPD2PH xmm1 {k1}{z}, xmm2/m128/m64bcst``
+
+``EVEX.128.66.MAP5.W1 5A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPD2PH_XMM_K1Z_YMMM256B64: int = 4336
+"""
+``VCVTPD2PH xmm1 {k1}{z}, ymm2/m256/m64bcst``
+
+``EVEX.256.66.MAP5.W1 5A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPD2PH_XMM_K1Z_ZMMM512B64_ER: int = 4337
+"""
+``VCVTPD2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
+
+``EVEX.512.66.MAP5.W1 5A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2DQ_XMM_K1Z_XMMM64B16: int = 4338
+"""
+``VCVTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.128.66.MAP5.W0 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2DQ_YMM_K1Z_XMMM128B16: int = 4339
+"""
+``VCVTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.256.66.MAP5.W0 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2DQ_ZMM_K1Z_YMMM256B16_ER: int = 4340
+"""
+``VCVTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er}``
+
+``EVEX.512.66.MAP5.W0 5B /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2PD_XMM_K1Z_XMMM32B16: int = 4341
+"""
+``VCVTPH2PD xmm1 {k1}{z}, xmm2/m32/m16bcst``
+
+``EVEX.128.MAP5.W0 5A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2PD_YMM_K1Z_XMMM64B16: int = 4342
+"""
+``VCVTPH2PD ymm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.256.MAP5.W0 5A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2PD_ZMM_K1Z_XMMM128B16_SAE: int = 4343
+"""
+``VCVTPH2PD zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}``
+
+``EVEX.512.MAP5.W0 5A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2PSX_XMM_K1Z_XMMM64B16: int = 4344
+"""
+``VCVTPH2PSX xmm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.128.66.MAP6.W0 13 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2PSX_YMM_K1Z_XMMM128B16: int = 4345
+"""
+``VCVTPH2PSX ymm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.256.66.MAP6.W0 13 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2PSX_ZMM_K1Z_YMMM256B16_SAE: int = 4346
+"""
+``VCVTPH2PSX zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}``
+
+``EVEX.512.66.MAP6.W0 13 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2QQ_XMM_K1Z_XMMM32B16: int = 4347
+"""
+``VCVTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
+
+``EVEX.128.66.MAP5.W0 7B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2QQ_YMM_K1Z_XMMM64B16: int = 4348
+"""
+``VCVTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.256.66.MAP5.W0 7B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2QQ_ZMM_K1Z_XMMM128B16_ER: int = 4349
+"""
+``VCVTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er}``
+
+``EVEX.512.66.MAP5.W0 7B /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UDQ_XMM_K1Z_XMMM64B16: int = 4350
+"""
+``VCVTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.128.MAP5.W0 79 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UDQ_YMM_K1Z_XMMM128B16: int = 4351
+"""
+``VCVTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.256.MAP5.W0 79 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UDQ_ZMM_K1Z_YMMM256B16_ER: int = 4352
+"""
+``VCVTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er}``
+
+``EVEX.512.MAP5.W0 79 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UQQ_XMM_K1Z_XMMM32B16: int = 4353
+"""
+``VCVTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
+
+``EVEX.128.66.MAP5.W0 79 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UQQ_YMM_K1Z_XMMM64B16: int = 4354
+"""
+``VCVTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.256.66.MAP5.W0 79 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UQQ_ZMM_K1Z_XMMM128B16_ER: int = 4355
+"""
+``VCVTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er}``
+
+``EVEX.512.66.MAP5.W0 79 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UW_XMM_K1Z_XMMM128B16: int = 4356
+"""
+``VCVTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UW_YMM_K1Z_YMMM256B16: int = 4357
+"""
+``VCVTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2UW_ZMM_K1Z_ZMMM512B16_ER: int = 4358
+"""
+``VCVTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
+
+``EVEX.512.MAP5.W0 7D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2W_XMM_K1Z_XMMM128B16: int = 4359
+"""
+``VCVTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.66.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2W_YMM_K1Z_YMMM256B16: int = 4360
+"""
+``VCVTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.66.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPH2W_ZMM_K1Z_ZMMM512B16_ER: int = 4361
+"""
+``VCVTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP5.W0 7D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPS2PHX_XMM_K1Z_XMMM128B32: int = 4362
+"""
+``VCVTPS2PHX xmm1 {k1}{z}, xmm2/m128/m32bcst``
+
+``EVEX.128.66.MAP5.W0 1D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPS2PHX_XMM_K1Z_YMMM256B32: int = 4363
+"""
+``VCVTPS2PHX xmm1 {k1}{z}, ymm2/m256/m32bcst``
+
+``EVEX.256.66.MAP5.W0 1D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTPS2PHX_YMM_K1Z_ZMMM512B32_ER: int = 4364
+"""
+``VCVTPS2PHX ymm1 {k1}{z}, zmm2/m512/m32bcst{er}``
+
+``EVEX.512.66.MAP5.W0 1D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTQQ2PH_XMM_K1Z_XMMM128B64: int = 4365
+"""
+``VCVTQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst``
+
+``EVEX.128.MAP5.W1 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTQQ2PH_XMM_K1Z_YMMM256B64: int = 4366
+"""
+``VCVTQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst``
+
+``EVEX.256.MAP5.W1 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTQQ2PH_XMM_K1Z_ZMMM512B64_ER: int = 4367
+"""
+``VCVTQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
+
+``EVEX.512.MAP5.W1 5B /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTSD2SH_XMM_K1Z_XMM_XMMM64_ER: int = 4368
+"""
+``VCVTSD2SH xmm1 {k1}{z}, xmm2, xmm3/m64{er}``
+
+``EVEX.LIG.F2.MAP5.W1 5A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTSH2SD_XMM_K1Z_XMM_XMMM16_SAE: int = 4369
+"""
+``VCVTSH2SD xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
+
+``EVEX.LIG.F3.MAP5.W0 5A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTSH2SI_R32_XMMM16_ER: int = 4370
+"""
+``VCVTSH2SI r32, xmm1/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W0 2D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTSH2SI_R64_XMMM16_ER: int = 4371
+"""
+``VCVTSH2SI r64, xmm1/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W1 2D /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VCVTSH2SS_XMM_K1Z_XMM_XMMM16_SAE: int = 4372
+"""
+``VCVTSH2SS xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
+
+``EVEX.LIG.MAP6.W0 13 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTSH2USI_R32_XMMM16_ER: int = 4373
+"""
+``VCVTSH2USI r32, xmm1/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W0 79 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTSH2USI_R64_XMMM16_ER: int = 4374
+"""
+``VCVTSH2USI r64, xmm1/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W1 79 /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VCVTSI2SH_XMM_XMM_RM32_ER: int = 4375
+"""
+``VCVTSI2SH xmm1, xmm2, r/m32{er}``
+
+``EVEX.LIG.F3.MAP5.W0 2A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTSI2SH_XMM_XMM_RM64_ER: int = 4376
+"""
+``VCVTSI2SH xmm1, xmm2, r/m64{er}``
+
+``EVEX.LIG.F3.MAP5.W1 2A /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VCVTSS2SH_XMM_K1Z_XMM_XMMM32_ER: int = 4377
+"""
+``VCVTSS2SH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
+
+``EVEX.LIG.MAP5.W0 1D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2DQ_XMM_K1Z_XMMM64B16: int = 4378
+"""
+``VCVTTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.128.F3.MAP5.W0 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2DQ_YMM_K1Z_XMMM128B16: int = 4379
+"""
+``VCVTTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.256.F3.MAP5.W0 5B /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2DQ_ZMM_K1Z_YMMM256B16_SAE: int = 4380
+"""
+``VCVTTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}``
+
+``EVEX.512.F3.MAP5.W0 5B /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2QQ_XMM_K1Z_XMMM32B16: int = 4381
+"""
+``VCVTTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
+
+``EVEX.128.66.MAP5.W0 7A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2QQ_YMM_K1Z_XMMM64B16: int = 4382
+"""
+``VCVTTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.256.66.MAP5.W0 7A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2QQ_ZMM_K1Z_XMMM128B16_SAE: int = 4383
+"""
+``VCVTTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}``
+
+``EVEX.512.66.MAP5.W0 7A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UDQ_XMM_K1Z_XMMM64B16: int = 4384
+"""
+``VCVTTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.128.MAP5.W0 78 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UDQ_YMM_K1Z_XMMM128B16: int = 4385
+"""
+``VCVTTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.256.MAP5.W0 78 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UDQ_ZMM_K1Z_YMMM256B16_SAE: int = 4386
+"""
+``VCVTTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae}``
+
+``EVEX.512.MAP5.W0 78 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UQQ_XMM_K1Z_XMMM32B16: int = 4387
+"""
+``VCVTTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst``
+
+``EVEX.128.66.MAP5.W0 78 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UQQ_YMM_K1Z_XMMM64B16: int = 4388
+"""
+``VCVTTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst``
+
+``EVEX.256.66.MAP5.W0 78 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UQQ_ZMM_K1Z_XMMM128B16_SAE: int = 4389
+"""
+``VCVTTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae}``
+
+``EVEX.512.66.MAP5.W0 78 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UW_XMM_K1Z_XMMM128B16: int = 4390
+"""
+``VCVTTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 7C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UW_YMM_K1Z_YMMM256B16: int = 4391
+"""
+``VCVTTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 7C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2UW_ZMM_K1Z_ZMMM512B16_SAE: int = 4392
+"""
+``VCVTTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}``
+
+``EVEX.512.MAP5.W0 7C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2W_XMM_K1Z_XMMM128B16: int = 4393
+"""
+``VCVTTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.66.MAP5.W0 7C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2W_YMM_K1Z_YMMM256B16: int = 4394
+"""
+``VCVTTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.66.MAP5.W0 7C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTPH2W_ZMM_K1Z_ZMMM512B16_SAE: int = 4395
+"""
+``VCVTTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}``
+
+``EVEX.512.66.MAP5.W0 7C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTSH2SI_R32_XMMM16_SAE: int = 4396
+"""
+``VCVTTSH2SI r32, xmm1/m16{sae}``
+
+``EVEX.LIG.F3.MAP5.W0 2C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTSH2SI_R64_XMMM16_SAE: int = 4397
+"""
+``VCVTTSH2SI r64, xmm1/m16{sae}``
+
+``EVEX.LIG.F3.MAP5.W1 2C /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VCVTTSH2USI_R32_XMMM16_SAE: int = 4398
+"""
+``VCVTTSH2USI r32, xmm1/m16{sae}``
+
+``EVEX.LIG.F3.MAP5.W0 78 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTTSH2USI_R64_XMMM16_SAE: int = 4399
+"""
+``VCVTTSH2USI r64, xmm1/m16{sae}``
+
+``EVEX.LIG.F3.MAP5.W1 78 /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VCVTUDQ2PH_XMM_K1Z_XMMM128B32: int = 4400
+"""
+``VCVTUDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst``
+
+``EVEX.128.F2.MAP5.W0 7A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUDQ2PH_XMM_K1Z_YMMM256B32: int = 4401
+"""
+``VCVTUDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst``
+
+``EVEX.256.F2.MAP5.W0 7A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUDQ2PH_YMM_K1Z_ZMMM512B32_ER: int = 4402
+"""
+``VCVTUDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er}``
+
+``EVEX.512.F2.MAP5.W0 7A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUQQ2PH_XMM_K1Z_XMMM128B64: int = 4403
+"""
+``VCVTUQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst``
+
+``EVEX.128.F2.MAP5.W1 7A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUQQ2PH_XMM_K1Z_YMMM256B64: int = 4404
+"""
+``VCVTUQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst``
+
+``EVEX.256.F2.MAP5.W1 7A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUQQ2PH_XMM_K1Z_ZMMM512B64_ER: int = 4405
+"""
+``VCVTUQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er}``
+
+``EVEX.512.F2.MAP5.W1 7A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUSI2SH_XMM_XMM_RM32_ER: int = 4406
+"""
+``VCVTUSI2SH xmm1, xmm2, r/m32{er}``
+
+``EVEX.LIG.F3.MAP5.W0 7B /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUSI2SH_XMM_XMM_RM64_ER: int = 4407
+"""
+``VCVTUSI2SH xmm1, xmm2, r/m64{er}``
+
+``EVEX.LIG.F3.MAP5.W1 7B /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VCVTUW2PH_XMM_K1Z_XMMM128B16: int = 4408
+"""
+``VCVTUW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.F2.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUW2PH_YMM_K1Z_YMMM256B16: int = 4409
+"""
+``VCVTUW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.F2.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTUW2PH_ZMM_K1Z_ZMMM512B16_ER: int = 4410
+"""
+``VCVTUW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
+
+``EVEX.512.F2.MAP5.W0 7D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTW2PH_XMM_K1Z_XMMM128B16: int = 4411
+"""
+``VCVTW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.F3.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTW2PH_YMM_K1Z_YMMM256B16: int = 4412
+"""
+``VCVTW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.F3.MAP5.W0 7D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VCVTW2PH_ZMM_K1Z_ZMMM512B16_ER: int = 4413
+"""
+``VCVTW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
+
+``EVEX.512.F3.MAP5.W0 7D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VDIVPH_XMM_K1Z_XMM_XMMM128B16: int = 4414
+"""
+``VDIVPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 5E /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VDIVPH_YMM_K1Z_YMM_YMMM256B16: int = 4415
+"""
+``VDIVPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 5E /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VDIVPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4416
+"""
+``VDIVPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.MAP5.W0 5E /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VDIVSH_XMM_K1Z_XMM_XMMM16_ER: int = 4417
+"""
+``VDIVSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W0 5E /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMADDCPH_XMM_K1Z_XMM_XMMM128B32: int = 4418
+"""
+``VFCMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
+
+``EVEX.128.F2.MAP6.W0 56 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMADDCPH_YMM_K1Z_YMM_YMMM256B32: int = 4419
+"""
+``VFCMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
+
+``EVEX.256.F2.MAP6.W0 56 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4420
+"""
+``VFCMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
+
+``EVEX.512.F2.MAP6.W0 56 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDCPH_XMM_K1Z_XMM_XMMM128B32: int = 4421
+"""
+``VFMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
+
+``EVEX.128.F3.MAP6.W0 56 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDCPH_YMM_K1Z_YMM_YMMM256B32: int = 4422
+"""
+``VFMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
+
+``EVEX.256.F3.MAP6.W0 56 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4423
+"""
+``VFMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
+
+``EVEX.512.F3.MAP6.W0 56 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMADDCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4424
+"""
+``VFCMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
+
+``EVEX.LIG.F2.MAP6.W0 57 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4425
+"""
+``VFMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
+
+``EVEX.LIG.F3.MAP6.W0 57 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMULCPH_XMM_K1Z_XMM_XMMM128B32: int = 4426
+"""
+``VFCMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
+
+``EVEX.128.F2.MAP6.W0 D6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMULCPH_YMM_K1Z_YMM_YMMM256B32: int = 4427
+"""
+``VFCMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
+
+``EVEX.256.F2.MAP6.W0 D6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4428
+"""
+``VFCMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
+
+``EVEX.512.F2.MAP6.W0 D6 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMULCPH_XMM_K1Z_XMM_XMMM128B32: int = 4429
+"""
+``VFMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst``
+
+``EVEX.128.F3.MAP6.W0 D6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMULCPH_YMM_K1Z_YMM_YMMM256B32: int = 4430
+"""
+``VFMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst``
+
+``EVEX.256.F3.MAP6.W0 D6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMULCPH_ZMM_K1Z_ZMM_ZMMM512B32_ER: int = 4431
+"""
+``VFMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}``
+
+``EVEX.512.F3.MAP6.W0 D6 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFCMULCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4432
+"""
+``VFCMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
+
+``EVEX.LIG.F2.MAP6.W0 D7 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMULCSH_XMM_K1Z_XMM_XMMM32_ER: int = 4433
+"""
+``VFMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er}``
+
+``EVEX.LIG.F3.MAP6.W0 D7 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4434
+"""
+``VFMADDSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 96 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4435
+"""
+``VFMADDSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 96 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4436
+"""
+``VFMADDSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 96 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4437
+"""
+``VFMADDSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 A6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4438
+"""
+``VFMADDSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 A6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4439
+"""
+``VFMADDSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 A6 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4440
+"""
+``VFMADDSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 B6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4441
+"""
+``VFMADDSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 B6 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADDSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4442
+"""
+``VFMADDSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 B6 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4443
+"""
+``VFMSUBADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 97 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4444
+"""
+``VFMSUBADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 97 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4445
+"""
+``VFMSUBADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 97 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4446
+"""
+``VFMSUBADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 A7 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4447
+"""
+``VFMSUBADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 A7 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4448
+"""
+``VFMSUBADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 A7 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4449
+"""
+``VFMSUBADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 B7 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4450
+"""
+``VFMSUBADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 B7 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUBADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4451
+"""
+``VFMSUBADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 B7 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4452
+"""
+``VFMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 98 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4453
+"""
+``VFMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 98 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4454
+"""
+``VFMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 98 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4455
+"""
+``VFMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 A8 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4456
+"""
+``VFMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 A8 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4457
+"""
+``VFMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 A8 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4458
+"""
+``VFMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 B8 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4459
+"""
+``VFMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 B8 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4460
+"""
+``VFMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 B8 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD132PH_XMM_K1Z_XMM_XMMM128B16: int = 4461
+"""
+``VFNMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 9C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD132PH_YMM_K1Z_YMM_YMMM256B16: int = 4462
+"""
+``VFNMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 9C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4463
+"""
+``VFNMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 9C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD213PH_XMM_K1Z_XMM_XMMM128B16: int = 4464
+"""
+``VFNMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 AC /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD213PH_YMM_K1Z_YMM_YMMM256B16: int = 4465
+"""
+``VFNMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 AC /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4466
+"""
+``VFNMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 AC /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD231PH_XMM_K1Z_XMM_XMMM128B16: int = 4467
+"""
+``VFNMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 BC /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD231PH_YMM_K1Z_YMM_YMMM256B16: int = 4468
+"""
+``VFNMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 BC /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4469
+"""
+``VFNMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 BC /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4470
+"""
+``VFMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 99 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4471
+"""
+``VFMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 A9 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMADD231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4472
+"""
+``VFMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 B9 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4473
+"""
+``VFNMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 9D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4474
+"""
+``VFNMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 AD /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMADD231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4475
+"""
+``VFNMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 BD /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4476
+"""
+``VFMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 9A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4477
+"""
+``VFMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 9A /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4478
+"""
+``VFMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 9A /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4479
+"""
+``VFMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 AA /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4480
+"""
+``VFMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 AA /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4481
+"""
+``VFMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 AA /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4482
+"""
+``VFMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 BA /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4483
+"""
+``VFMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 BA /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4484
+"""
+``VFMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 BA /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB132PH_XMM_K1Z_XMM_XMMM128B16: int = 4485
+"""
+``VFNMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 9E /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB132PH_YMM_K1Z_YMM_YMMM256B16: int = 4486
+"""
+``VFNMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 9E /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB132PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4487
+"""
+``VFNMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 9E /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB213PH_XMM_K1Z_XMM_XMMM128B16: int = 4488
+"""
+``VFNMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 AE /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB213PH_YMM_K1Z_YMM_YMMM256B16: int = 4489
+"""
+``VFNMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 AE /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB213PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4490
+"""
+``VFNMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 AE /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB231PH_XMM_K1Z_XMM_XMMM128B16: int = 4491
+"""
+``VFNMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 BE /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB231PH_YMM_K1Z_YMM_YMMM256B16: int = 4492
+"""
+``VFNMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 BE /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB231PH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4493
+"""
+``VFNMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 BE /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4494
+"""
+``VFMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 9B /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4495
+"""
+``VFMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 AB /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4496
+"""
+``VFMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 BB /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB132SH_XMM_K1Z_XMM_XMMM16_ER: int = 4497
+"""
+``VFNMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 9F /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB213SH_XMM_K1Z_XMM_XMMM16_ER: int = 4498
+"""
+``VFNMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 AF /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFNMSUB231SH_XMM_K1Z_XMM_XMMM16_ER: int = 4499
+"""
+``VFNMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 BF /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFPCLASSPH_KR_K1_XMMM128B16_IMM8: int = 4500
+"""
+``VFPCLASSPH k1 {k2}, xmm2/m128/m16bcst, imm8``
+
+``EVEX.128.0F3A.W0 66 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFPCLASSPH_KR_K1_YMMM256B16_IMM8: int = 4501
+"""
+``VFPCLASSPH k1 {k2}, ymm2/m256/m16bcst, imm8``
+
+``EVEX.256.0F3A.W0 66 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFPCLASSPH_KR_K1_ZMMM512B16_IMM8: int = 4502
+"""
+``VFPCLASSPH k1 {k2}, zmm2/m512/m16bcst, imm8``
+
+``EVEX.512.0F3A.W0 66 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VFPCLASSSH_KR_K1_XMMM16_IMM8: int = 4503
+"""
+``VFPCLASSSH k1 {k2}, xmm2/m16, imm8``
+
+``EVEX.LIG.0F3A.W0 67 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETEXPPH_XMM_K1Z_XMMM128B16: int = 4504
+"""
+``VGETEXPPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 42 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETEXPPH_YMM_K1Z_YMMM256B16: int = 4505
+"""
+``VGETEXPPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 42 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETEXPPH_ZMM_K1Z_ZMMM512B16_SAE: int = 4506
+"""
+``VGETEXPPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}``
+
+``EVEX.512.66.MAP6.W0 42 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETEXPSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4507
+"""
+``VGETEXPSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
+
+``EVEX.LIG.66.MAP6.W0 43 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETMANTPH_XMM_K1Z_XMMM128B16_IMM8: int = 4508
+"""
+``VGETMANTPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8``
+
+``EVEX.128.0F3A.W0 26 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETMANTPH_YMM_K1Z_YMMM256B16_IMM8: int = 4509
+"""
+``VGETMANTPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8``
+
+``EVEX.256.0F3A.W0 26 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETMANTPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4510
+"""
+``VGETMANTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8``
+
+``EVEX.512.0F3A.W0 26 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VGETMANTSH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4511
+"""
+``VGETMANTSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8``
+
+``EVEX.LIG.0F3A.W0 27 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMAXPH_XMM_K1Z_XMM_XMMM128B16: int = 4512
+"""
+``VMAXPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 5F /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMAXPH_YMM_K1Z_YMM_YMMM256B16: int = 4513
+"""
+``VMAXPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 5F /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMAXPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: int = 4514
+"""
+``VMAXPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae}``
+
+``EVEX.512.MAP5.W0 5F /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMAXSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4515
+"""
+``VMAXSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
+
+``EVEX.LIG.F3.MAP5.W0 5F /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMINPH_XMM_K1Z_XMM_XMMM128B16: int = 4516
+"""
+``VMINPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 5D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMINPH_YMM_K1Z_YMM_YMMM256B16: int = 4517
+"""
+``VMINPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 5D /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMINPH_ZMM_K1Z_ZMM_ZMMM512B16_SAE: int = 4518
+"""
+``VMINPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae}``
+
+``EVEX.512.MAP5.W0 5D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMINSH_XMM_K1Z_XMM_XMMM16_SAE: int = 4519
+"""
+``VMINSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}``
+
+``EVEX.LIG.F3.MAP5.W0 5D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMOVSH_XMM_K1Z_M16: int = 4520
+"""
+``VMOVSH xmm1 {k1}{z}, m16``
+
+``EVEX.LIG.F3.MAP5.W0 10 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMOVSH_M16_K1_XMM: int = 4521
+"""
+``VMOVSH m16 {k1}, xmm1``
+
+``EVEX.LIG.F3.MAP5.W0 11 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMOVSH_XMM_K1Z_XMM_XMM: int = 4522
+"""
+``VMOVSH xmm1 {k1}{z}, xmm2, xmm3``
+
+``EVEX.LIG.F3.MAP5.W0 10 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMOVSH_XMM_K1Z_XMM_XMM_MAP5_11: int = 4523
+"""
+``VMOVSH xmm1 {k1}{z}, xmm2, xmm3``
+
+``EVEX.LIG.F3.MAP5.W0 11 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMOVW_XMM_R32M16: int = 4524
+"""
+``VMOVW xmm1, r32/m16``
+
+``EVEX.128.66.MAP5.W0 6E /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMOVW_XMM_R64M16: int = 4525
+"""
+``VMOVW xmm1, r64/m16``
+
+``EVEX.128.66.MAP5.W1 6E /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VMOVW_R32M16_XMM: int = 4526
+"""
+``VMOVW r32/m16, xmm1``
+
+``EVEX.128.66.MAP5.W0 7E /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMOVW_R64M16_XMM: int = 4527
+"""
+``VMOVW r64/m16, xmm1``
+
+``EVEX.128.66.MAP5.W1 7E /r``
+
+``AVX512-FP16``
+
+``64-bit``
+"""
+EVEX_VMULPH_XMM_K1Z_XMM_XMMM128B16: int = 4528
+"""
+``VMULPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 59 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMULPH_YMM_K1Z_YMM_YMMM256B16: int = 4529
+"""
+``VMULPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 59 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMULPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4530
+"""
+``VMULPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.MAP5.W0 59 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VMULSH_XMM_K1Z_XMM_XMMM16_ER: int = 4531
+"""
+``VMULSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W0 59 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRCPPH_XMM_K1Z_XMMM128B16: int = 4532
+"""
+``VRCPPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 4C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRCPPH_YMM_K1Z_YMMM256B16: int = 4533
+"""
+``VRCPPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 4C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRCPPH_ZMM_K1Z_ZMMM512B16: int = 4534
+"""
+``VRCPPH zmm1 {k1}{z}, zmm2/m512/m16bcst``
+
+``EVEX.512.66.MAP6.W0 4C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRCPSH_XMM_K1Z_XMM_XMMM16: int = 4535
+"""
+``VRCPSH xmm1 {k1}{z}, xmm2, xmm3/m16``
+
+``EVEX.LIG.66.MAP6.W0 4D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VREDUCEPH_XMM_K1Z_XMMM128B16_IMM8: int = 4536
+"""
+``VREDUCEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8``
+
+``EVEX.128.0F3A.W0 56 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VREDUCEPH_YMM_K1Z_YMMM256B16_IMM8: int = 4537
+"""
+``VREDUCEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8``
+
+``EVEX.256.0F3A.W0 56 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VREDUCEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4538
+"""
+``VREDUCEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8``
+
+``EVEX.512.0F3A.W0 56 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VREDUCESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4539
+"""
+``VREDUCESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8``
+
+``EVEX.LIG.0F3A.W0 57 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRNDSCALEPH_XMM_K1Z_XMMM128B16_IMM8: int = 4540
+"""
+``VRNDSCALEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8``
+
+``EVEX.128.0F3A.W0 08 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRNDSCALEPH_YMM_K1Z_YMMM256B16_IMM8: int = 4541
+"""
+``VRNDSCALEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8``
+
+``EVEX.256.0F3A.W0 08 /r ib``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRNDSCALEPH_ZMM_K1Z_ZMMM512B16_IMM8_SAE: int = 4542
+"""
+``VRNDSCALEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8``
+
+``EVEX.512.0F3A.W0 08 /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRNDSCALESH_XMM_K1Z_XMM_XMMM16_IMM8_SAE: int = 4543
+"""
+``VRNDSCALESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8``
+
+``EVEX.LIG.0F3A.W0 0A /r ib``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRSQRTPH_XMM_K1Z_XMMM128B16: int = 4544
+"""
+``VRSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 4E /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRSQRTPH_YMM_K1Z_YMMM256B16: int = 4545
+"""
+``VRSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 4E /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRSQRTPH_ZMM_K1Z_ZMMM512B16: int = 4546
+"""
+``VRSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst``
+
+``EVEX.512.66.MAP6.W0 4E /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VRSQRTSH_XMM_K1Z_XMM_XMMM16: int = 4547
+"""
+``VRSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16``
+
+``EVEX.LIG.66.MAP6.W0 4F /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSCALEFPH_XMM_K1Z_XMM_XMMM128B16: int = 4548
+"""
+``VSCALEFPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.66.MAP6.W0 2C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSCALEFPH_YMM_K1Z_YMM_YMMM256B16: int = 4549
+"""
+``VSCALEFPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.66.MAP6.W0 2C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSCALEFPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4550
+"""
+``VSCALEFPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.66.MAP6.W0 2C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSCALEFSH_XMM_K1Z_XMM_XMMM16_ER: int = 4551
+"""
+``VSCALEFSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.66.MAP6.W0 2D /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSQRTPH_XMM_K1Z_XMMM128B16: int = 4552
+"""
+``VSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 51 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSQRTPH_YMM_K1Z_YMMM256B16: int = 4553
+"""
+``VSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 51 /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSQRTPH_ZMM_K1Z_ZMMM512B16_ER: int = 4554
+"""
+``VSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{er}``
+
+``EVEX.512.MAP5.W0 51 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSQRTSH_XMM_K1Z_XMM_XMMM16_ER: int = 4555
+"""
+``VSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W0 51 /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSUBPH_XMM_K1Z_XMM_XMMM128B16: int = 4556
+"""
+``VSUBPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst``
+
+``EVEX.128.MAP5.W0 5C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSUBPH_YMM_K1Z_YMM_YMMM256B16: int = 4557
+"""
+``VSUBPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst``
+
+``EVEX.256.MAP5.W0 5C /r``
+
+``AVX512VL and AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSUBPH_ZMM_K1Z_ZMM_ZMMM512B16_ER: int = 4558
+"""
+``VSUBPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er}``
+
+``EVEX.512.MAP5.W0 5C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VSUBSH_XMM_K1Z_XMM_XMMM16_ER: int = 4559
+"""
+``VSUBSH xmm1 {k1}{z}, xmm2, xmm3/m16{er}``
+
+``EVEX.LIG.F3.MAP5.W0 5C /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""
+EVEX_VUCOMISH_XMM_XMMM16_SAE: int = 4560
+"""
+``VUCOMISH xmm1, xmm2/m16{sae}``
+
+``EVEX.LIG.MAP5.W0 2E /r``
+
+``AVX512-FP16``
+
+``16/32/64-bit``
+"""

@@ -8394,3 +8394,655 @@ lkgsw cx
 lkgsw (rax)
 eretu
 erets
+vaddph xmm3, xmm6, xmm2{k3}
+vaddph 0x10(rax), xmm6, xmm2{k3}
+vaddph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vaddph ymm3, ymm6, ymm2{k3}
+vaddph 0x20(rax), ymm6, ymm2{k3}
+vaddph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vaddph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vaddph 0x40(rax), zmm6, zmm2{k3}
+vaddph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vaddsh xmm3, xmm6, xmm2{k3}
+vaddsh 2(rax), xmm6, xmm2{k3}
+vcmpph $-0x5b, xmm3, xmm6, k2{k3}
+vcmpph $-0x5b, 0x10(rax), xmm6, k2{k3}
+vcmpph $-0x5b, 2(rax){1to8}, xmm6, k2{k5}
+vcmpph $-0x5b, ymm3, ymm6, k2{k3}
+vcmpph $-0x5b, 0x20(rax), ymm6, k2{k3}
+vcmpph $-0x5b, 2(rax){1to16}, ymm6, k2{k5}
+vcmpph $-0x5b, {sae}, zmm3, zmm6, k2{k3}
+vcmpph $-0x5b, 0x40(rax), zmm6, k2{k3}
+vcmpph $-0x5b, 2(rax){1to32}, zmm6, k2{k5}
+vcmpsh $-0x5b, xmm3, xmm6, k2{k3}
+vcmpsh $-0x5b, 2(rax), xmm6, k2{k3}
+vcomish xmm3, xmm2
+vcomish 2(rax), xmm2
+vcvtdq2phx xmm3, xmm2{k3}
+vcvtdq2phx 0x10(rax), xmm2
+vcvtdq2phx 4(rax){1to4}, xmm2{k3}{z}
+vcvtdq2phy ymm3, xmm2{k3}
+vcvtdq2phy 0x20(rax), xmm2
+vcvtdq2phy 4(rax){1to8}, xmm2{k3}{z}
+vcvtdq2ph zmm3, ymm2{k3}
+vcvtdq2ph 0x40(rax), ymm2
+vcvtdq2ph 4(rax){1to16}, ymm2{k3}{z}
+vcvtpd2phx xmm3, xmm2{k3}
+vcvtpd2phx 0x10(rax), xmm2
+vcvtpd2phx 8(rax){1to2}, xmm2{k3}{z}
+vcvtpd2phy ymm3, xmm2{k3}
+vcvtpd2phy 0x20(rax), xmm2
+vcvtpd2phy 8(rax){1to4}, xmm2{k3}{z}
+vcvtpd2phz zmm3, xmm2{k3}
+vcvtpd2phz 0x40(rax), xmm2
+vcvtpd2phz 8(rax){1to8}, xmm2{k3}{z}
+vcvtph2dq xmm3, xmm2{k3}
+vcvtph2dq 8(rax), xmm2
+vcvtph2dq 2(rax){1to4}, xmm2{k3}{z}
+vcvtph2dq xmm3, ymm2{k3}
+vcvtph2dq 0x10(rax), ymm2
+vcvtph2dq 2(rax){1to8}, ymm2{k3}{z}
+vcvtph2dq ymm3, zmm2{k3}
+vcvtph2dq 0x20(rax), zmm2
+vcvtph2dq 2(rax){1to16}, zmm2{k3}{z}
+vcvtph2pd xmm3, xmm2{k3}
+vcvtph2pd 4(rax), xmm2
+vcvtph2pd 2(rax){1to2}, xmm2{k3}{z}
+vcvtph2pd xmm3, ymm2{k3}
+vcvtph2pd 8(rax), ymm2
+vcvtph2pd 2(rax){1to4}, ymm2{k3}{z}
+vcvtph2pd xmm3, zmm2{k3}
+vcvtph2pd 0x10(rax), zmm2
+vcvtph2pd 2(rax){1to8}, zmm2{k3}{z}
+vcvtph2psx xmm3, xmm2{k3}
+vcvtph2psx 8(rax), xmm2
+vcvtph2psx 2(rax){1to4}, xmm2{k3}{z}
+vcvtph2psx xmm3, ymm2{k3}
+vcvtph2psx 0x10(rax), ymm2
+vcvtph2psx 2(rax){1to8}, ymm2{k3}{z}
+vcvtph2psx ymm3, zmm2{k3}
+vcvtph2psx 0x20(rax), zmm2
+vcvtph2psx 2(rax){1to16}, zmm2{k3}{z}
+vcvtph2qq xmm3, xmm2{k3}
+vcvtph2qq 4(rax), xmm2
+vcvtph2qq 2(rax){1to2}, xmm2{k3}{z}
+vcvtph2qq xmm3, ymm2{k3}
+vcvtph2qq 8(rax), ymm2
+vcvtph2qq 2(rax){1to4}, ymm2{k3}{z}
+vcvtph2qq xmm3, zmm2{k3}
+vcvtph2qq 0x10(rax), zmm2
+vcvtph2qq 2(rax){1to8}, zmm2{k3}{z}
+vcvtph2udq xmm3, xmm2{k3}
+vcvtph2udq 8(rax), xmm2
+vcvtph2udq 2(rax){1to4}, xmm2{k3}{z}
+vcvtph2udq xmm3, ymm2{k3}
+vcvtph2udq 0x10(rax), ymm2
+vcvtph2udq 2(rax){1to8}, ymm2{k3}{z}
+vcvtph2udq ymm3, zmm2{k3}
+vcvtph2udq 0x20(rax), zmm2
+vcvtph2udq 2(rax){1to16}, zmm2{k3}{z}
+vcvtph2uqq xmm3, xmm2{k3}
+vcvtph2uqq 4(rax), xmm2
+vcvtph2uqq 2(rax){1to2}, xmm2{k3}{z}
+vcvtph2uqq xmm3, ymm2{k3}
+vcvtph2uqq 8(rax), ymm2
+vcvtph2uqq 2(rax){1to4}, ymm2{k3}{z}
+vcvtph2uqq xmm3, zmm2{k3}
+vcvtph2uqq 0x10(rax), zmm2
+vcvtph2uqq 2(rax){1to8}, zmm2{k3}{z}
+vcvtph2uw xmm3, xmm2{k3}
+vcvtph2uw 0x10(rax), xmm2
+vcvtph2uw 2(rax){1to8}, xmm2{k3}{z}
+vcvtph2uw ymm3, ymm2{k3}
+vcvtph2uw 0x20(rax), ymm2
+vcvtph2uw 2(rax){1to16}, ymm2{k3}{z}
+vcvtph2uw zmm3, zmm2{k3}
+vcvtph2uw 0x40(rax), zmm2
+vcvtph2uw 2(rax){1to32}, zmm2{k3}{z}
+vcvtph2w xmm3, xmm2{k3}
+vcvtph2w 0x10(rax), xmm2
+vcvtph2w 2(rax){1to8}, xmm2{k3}{z}
+vcvtph2w ymm3, ymm2{k3}
+vcvtph2w 0x20(rax), ymm2
+vcvtph2w 2(rax){1to16}, ymm2{k3}{z}
+vcvtph2w zmm3, zmm2{k3}
+vcvtph2w 0x40(rax), zmm2
+vcvtph2w 2(rax){1to32}, zmm2{k3}{z}
+vcvtps2phxx xmm3, xmm2{k3}
+vcvtps2phxx 0x10(rax), xmm2
+vcvtps2phxx 4(rax){1to4}, xmm2{k3}{z}
+vcvtps2phxy ymm3, xmm2{k3}
+vcvtps2phxy 0x20(rax), xmm2
+vcvtps2phxy 4(rax){1to8}, xmm2{k3}{z}
+vcvtps2phx zmm3, ymm2{k3}
+vcvtps2phx 0x40(rax), ymm2
+vcvtps2phx 4(rax){1to16}, ymm2{k3}{z}
+vcvtqq2phx xmm3, xmm2{k3}
+vcvtqq2phx 0x10(rax), xmm2
+vcvtqq2phx 8(rax){1to2}, xmm2{k3}{z}
+vcvtqq2phy ymm3, xmm2{k3}
+vcvtqq2phy 0x20(rax), xmm2
+vcvtqq2phy 8(rax){1to4}, xmm2{k3}{z}
+vcvtqq2phz zmm3, xmm2{k3}
+vcvtqq2phz 0x40(rax), xmm2
+vcvtqq2phz 8(rax){1to8}, xmm2{k3}{z}
+vcvtsd2sh xmm3, xmm6, xmm2
+vcvtsd2sh 8(rax), xmm6, xmm2
+vcvtsh2sd xmm3, xmm6, xmm2
+vcvtsh2sd 2(rax), xmm6, xmm2
+vcvtsh2si xmm3, edx
+vcvtsh2si 2(rax), edx
+vcvtsh2si xmm3, rdx
+vcvtsh2si 2(rax), rdx
+vcvtsh2ss xmm3, xmm6, xmm2
+vcvtsh2ss 2(rax), xmm6, xmm2
+vcvtsh2usi xmm3, edx
+vcvtsh2usi 2(rax), edx
+vcvtsh2usi xmm3, rdx
+vcvtsh2usi 2(rax), rdx
+vcvtsi2shl ebx, xmm6, xmm2
+vcvtsi2shl 4(rax), xmm6, xmm2
+vcvtsi2shq rbx, xmm6, xmm2
+vcvtsi2shq 8(rax), xmm6, xmm2
+vcvtss2sh xmm3, xmm6, xmm2
+vcvtss2sh 4(rax), xmm6, xmm2
+vcvttph2dq xmm3, xmm2{k3}
+vcvttph2dq 8(rax), xmm2
+vcvttph2dq 2(rax){1to4}, xmm2{k3}{z}
+vcvttph2dq xmm3, ymm2{k3}
+vcvttph2dq 0x10(rax), ymm2
+vcvttph2dq 2(rax){1to8}, ymm2{k3}{z}
+vcvttph2dq ymm3, zmm2{k3}
+vcvttph2dq 0x20(rax), zmm2
+vcvttph2dq 2(rax){1to16}, zmm2{k3}{z}
+vcvttph2qq xmm3, xmm2{k3}
+vcvttph2qq 4(rax), xmm2
+vcvttph2qq 2(rax){1to2}, xmm2{k3}{z}
+vcvttph2qq xmm3, ymm2{k3}
+vcvttph2qq 8(rax), ymm2
+vcvttph2qq 2(rax){1to4}, ymm2{k3}{z}
+vcvttph2qq xmm3, zmm2{k3}
+vcvttph2qq 0x10(rax), zmm2
+vcvttph2qq 2(rax){1to8}, zmm2{k3}{z}
+vcvttph2udq xmm3, xmm2{k3}
+vcvttph2udq 8(rax), xmm2
+vcvttph2udq 2(rax){1to4}, xmm2{k3}{z}
+vcvttph2udq xmm3, ymm2{k3}
+vcvttph2udq 0x10(rax), ymm2
+vcvttph2udq 2(rax){1to8}, ymm2{k3}{z}
+vcvttph2udq ymm3, zmm2{k3}
+vcvttph2udq 0x20(rax), zmm2
+vcvttph2udq 2(rax){1to16}, zmm2{k3}{z}
+vcvttph2uqq xmm3, xmm2{k3}
+vcvttph2uqq 4(rax), xmm2
+vcvttph2uqq 2(rax){1to2}, xmm2{k3}{z}
+vcvttph2uqq xmm3, ymm2{k3}
+vcvttph2uqq 8(rax), ymm2
+vcvttph2uqq 2(rax){1to4}, ymm2{k3}{z}
+vcvttph2uqq xmm3, zmm2{k3}
+vcvttph2uqq 0x10(rax), zmm2
+vcvttph2uqq 2(rax){1to8}, zmm2{k3}{z}
+vcvttph2uw xmm3, xmm2{k3}
+vcvttph2uw 0x10(rax), xmm2
+vcvttph2uw 2(rax){1to8}, xmm2{k3}{z}
+vcvttph2uw ymm3, ymm2{k3}
+vcvttph2uw 0x20(rax), ymm2
+vcvttph2uw 2(rax){1to16}, ymm2{k3}{z}
+vcvttph2uw zmm3, zmm2{k3}
+vcvttph2uw 0x40(rax), zmm2
+vcvttph2uw 2(rax){1to32}, zmm2{k3}{z}
+vcvttph2w xmm3, xmm2{k3}
+vcvttph2w 0x10(rax), xmm2
+vcvttph2w 2(rax){1to8}, xmm2{k3}{z}
+vcvttph2w ymm3, ymm2{k3}
+vcvttph2w 0x20(rax), ymm2
+vcvttph2w 2(rax){1to16}, ymm2{k3}{z}
+vcvttph2w zmm3, zmm2{k3}
+vcvttph2w 0x40(rax), zmm2
+vcvttph2w 2(rax){1to32}, zmm2{k3}{z}
+vcvttsh2si xmm3, edx
+vcvttsh2si 2(rax), edx
+vcvttsh2si xmm3, rdx
+vcvttsh2si 2(rax), rdx
+vcvttsh2usi xmm3, edx
+vcvttsh2usi 2(rax), edx
+vcvttsh2usi xmm3, rdx
+vcvttsh2usi 2(rax), rdx
+vcvtudq2phx xmm3, xmm2{k3}
+vcvtudq2phx 0x10(rax), xmm2
+vcvtudq2phx 4(rax){1to4}, xmm2{k3}{z}
+vcvtudq2phy ymm3, xmm2{k3}
+vcvtudq2phy 0x20(rax), xmm2
+vcvtudq2phy 4(rax){1to8}, xmm2{k3}{z}
+vcvtudq2ph zmm3, ymm2{k3}
+vcvtudq2ph 0x40(rax), ymm2
+vcvtudq2ph 4(rax){1to16}, ymm2{k3}{z}
+vcvtuqq2phx xmm3, xmm2{k3}
+vcvtuqq2phx 0x10(rax), xmm2
+vcvtuqq2phx 8(rax){1to2}, xmm2{k3}{z}
+vcvtuqq2phy ymm3, xmm2{k3}
+vcvtuqq2phy 0x20(rax), xmm2
+vcvtuqq2phy 8(rax){1to4}, xmm2{k3}{z}
+vcvtuqq2phz zmm3, xmm2{k3}
+vcvtuqq2phz 0x40(rax), xmm2
+vcvtuqq2phz 8(rax){1to8}, xmm2{k3}{z}
+vcvtusi2shl ebx, xmm6, xmm2
+vcvtusi2shl 4(rax), xmm6, xmm2
+vcvtusi2shq rbx, xmm6, xmm2
+vcvtusi2shq 8(rax), xmm6, xmm2
+vcvtuw2ph xmm3, xmm2{k3}
+vcvtuw2ph 0x10(rax), xmm2
+vcvtuw2ph 2(rax){1to8}, xmm2{k3}{z}
+vcvtuw2ph ymm3, ymm2{k3}
+vcvtuw2ph 0x20(rax), ymm2
+vcvtuw2ph 2(rax){1to16}, ymm2{k3}{z}
+vcvtuw2ph zmm3, zmm2{k3}
+vcvtuw2ph 0x40(rax), zmm2
+vcvtuw2ph 2(rax){1to32}, zmm2{k3}{z}
+vcvtw2ph xmm3, xmm2{k3}
+vcvtw2ph 0x10(rax), xmm2
+vcvtw2ph 2(rax){1to8}, xmm2{k3}{z}
+vcvtw2ph ymm3, ymm2{k3}
+vcvtw2ph 0x20(rax), ymm2
+vcvtw2ph 2(rax){1to16}, ymm2{k3}{z}
+vcvtw2ph zmm3, zmm2{k3}
+vcvtw2ph 0x40(rax), zmm2
+vcvtw2ph 2(rax){1to32}, zmm2{k3}{z}
+vdivph xmm3, xmm6, xmm2{k3}
+vdivph 0x10(rax), xmm6, xmm2{k3}
+vdivph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vdivph ymm3, ymm6, ymm2{k3}
+vdivph 0x20(rax), ymm6, ymm2{k3}
+vdivph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vdivph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vdivph 0x40(rax), zmm6, zmm2{k3}
+vdivph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vdivsh xmm3, xmm6, xmm2{k3}
+vdivsh 2(rax), xmm6, xmm2{k3}
+vfcmaddcph xmm3, xmm6, xmm2{k3}
+vfcmaddcph 0x10(rax), xmm6, xmm2{k3}
+vfcmaddcph 4(rax){1to4}, xmm6, xmm2{k5}{z}
+vfcmaddcph ymm3, ymm6, ymm2{k3}
+vfcmaddcph 0x20(rax), ymm6, ymm2{k3}
+vfcmaddcph 4(rax){1to8}, ymm6, ymm2{k5}{z}
+vfcmaddcph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfcmaddcph 0x40(rax), zmm6, zmm2{k3}
+vfcmaddcph 4(rax){1to16}, zmm6, zmm2{k5}{z}
+vfmaddcph xmm3, xmm6, xmm2{k3}
+vfmaddcph 0x10(rax), xmm6, xmm2{k3}
+vfmaddcph 4(rax){1to4}, xmm6, xmm2{k5}{z}
+vfmaddcph ymm3, ymm6, ymm2{k3}
+vfmaddcph 0x20(rax), ymm6, ymm2{k3}
+vfmaddcph 4(rax){1to8}, ymm6, ymm2{k5}{z}
+vfmaddcph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmaddcph 0x40(rax), zmm6, zmm2{k3}
+vfmaddcph 4(rax){1to16}, zmm6, zmm2{k5}{z}
+vfcmaddcsh xmm3, xmm6, xmm2{k3}
+vfcmaddcsh 4(rax), xmm6, xmm2{k3}
+vfmaddcsh xmm3, xmm6, xmm2{k3}
+vfmaddcsh 4(rax), xmm6, xmm2{k3}
+vfcmulcph xmm3, xmm6, xmm2{k3}
+vfcmulcph 0x10(rax), xmm6, xmm2{k3}
+vfcmulcph 4(rax){1to4}, xmm6, xmm2{k5}{z}
+vfcmulcph ymm3, ymm6, ymm2{k3}
+vfcmulcph 0x20(rax), ymm6, ymm2{k3}
+vfcmulcph 4(rax){1to8}, ymm6, ymm2{k5}{z}
+vfcmulcph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfcmulcph 0x40(rax), zmm6, zmm2{k3}
+vfcmulcph 4(rax){1to16}, zmm6, zmm2{k5}{z}
+vfmulcph xmm3, xmm6, xmm2{k3}
+vfmulcph 0x10(rax), xmm6, xmm2{k3}
+vfmulcph 4(rax){1to4}, xmm6, xmm2{k5}{z}
+vfmulcph ymm3, ymm6, ymm2{k3}
+vfmulcph 0x20(rax), ymm6, ymm2{k3}
+vfmulcph 4(rax){1to8}, ymm6, ymm2{k5}{z}
+vfmulcph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmulcph 0x40(rax), zmm6, zmm2{k3}
+vfmulcph 4(rax){1to16}, zmm6, zmm2{k5}{z}
+vfcmulcsh xmm3, xmm6, xmm2{k3}
+vfcmulcsh 4(rax), xmm6, xmm2{k3}
+vfmulcsh xmm3, xmm6, xmm2{k3}
+vfmulcsh 4(rax), xmm6, xmm2{k3}
+vfmaddsub132ph xmm3, xmm6, xmm2{k3}{z}
+vfmaddsub132ph 0x10(rax), xmm6, xmm2{k3}
+vfmaddsub132ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmaddsub132ph ymm3, ymm6, ymm2{k3}{z}
+vfmaddsub132ph 0x20(rax), ymm6, ymm2{k3}
+vfmaddsub132ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmaddsub132ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmaddsub132ph 0x40(rax), zmm6, zmm2{k3}
+vfmaddsub132ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmaddsub213ph xmm3, xmm6, xmm2{k3}{z}
+vfmaddsub213ph 0x10(rax), xmm6, xmm2{k3}
+vfmaddsub213ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmaddsub213ph ymm3, ymm6, ymm2{k3}{z}
+vfmaddsub213ph 0x20(rax), ymm6, ymm2{k3}
+vfmaddsub213ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmaddsub213ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmaddsub213ph 0x40(rax), zmm6, zmm2{k3}
+vfmaddsub213ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmaddsub231ph xmm3, xmm6, xmm2{k3}{z}
+vfmaddsub231ph 0x10(rax), xmm6, xmm2{k3}
+vfmaddsub231ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmaddsub231ph ymm3, ymm6, ymm2{k3}{z}
+vfmaddsub231ph 0x20(rax), ymm6, ymm2{k3}
+vfmaddsub231ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmaddsub231ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmaddsub231ph 0x40(rax), zmm6, zmm2{k3}
+vfmaddsub231ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmsubadd132ph xmm3, xmm6, xmm2{k3}{z}
+vfmsubadd132ph 0x10(rax), xmm6, xmm2{k3}
+vfmsubadd132ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmsubadd132ph ymm3, ymm6, ymm2{k3}{z}
+vfmsubadd132ph 0x20(rax), ymm6, ymm2{k3}
+vfmsubadd132ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmsubadd132ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmsubadd132ph 0x40(rax), zmm6, zmm2{k3}
+vfmsubadd132ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmsubadd213ph xmm3, xmm6, xmm2{k3}{z}
+vfmsubadd213ph 0x10(rax), xmm6, xmm2{k3}
+vfmsubadd213ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmsubadd213ph ymm3, ymm6, ymm2{k3}{z}
+vfmsubadd213ph 0x20(rax), ymm6, ymm2{k3}
+vfmsubadd213ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmsubadd213ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmsubadd213ph 0x40(rax), zmm6, zmm2{k3}
+vfmsubadd213ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmsubadd231ph xmm3, xmm6, xmm2{k3}{z}
+vfmsubadd231ph 0x10(rax), xmm6, xmm2{k3}
+vfmsubadd231ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmsubadd231ph ymm3, ymm6, ymm2{k3}{z}
+vfmsubadd231ph 0x20(rax), ymm6, ymm2{k3}
+vfmsubadd231ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmsubadd231ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmsubadd231ph 0x40(rax), zmm6, zmm2{k3}
+vfmsubadd231ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmadd132ph xmm3, xmm6, xmm2{k3}{z}
+vfmadd132ph 0x10(rax), xmm6, xmm2{k3}
+vfmadd132ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmadd132ph ymm3, ymm6, ymm2{k3}{z}
+vfmadd132ph 0x20(rax), ymm6, ymm2{k3}
+vfmadd132ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmadd132ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmadd132ph 0x40(rax), zmm6, zmm2{k3}
+vfmadd132ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmadd213ph xmm3, xmm6, xmm2{k3}{z}
+vfmadd213ph 0x10(rax), xmm6, xmm2{k3}
+vfmadd213ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmadd213ph ymm3, ymm6, ymm2{k3}{z}
+vfmadd213ph 0x20(rax), ymm6, ymm2{k3}
+vfmadd213ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmadd213ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmadd213ph 0x40(rax), zmm6, zmm2{k3}
+vfmadd213ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmadd231ph xmm3, xmm6, xmm2{k3}{z}
+vfmadd231ph 0x10(rax), xmm6, xmm2{k3}
+vfmadd231ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmadd231ph ymm3, ymm6, ymm2{k3}{z}
+vfmadd231ph 0x20(rax), ymm6, ymm2{k3}
+vfmadd231ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmadd231ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmadd231ph 0x40(rax), zmm6, zmm2{k3}
+vfmadd231ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfnmadd132ph xmm3, xmm6, xmm2{k3}{z}
+vfnmadd132ph 0x10(rax), xmm6, xmm2{k3}
+vfnmadd132ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfnmadd132ph ymm3, ymm6, ymm2{k3}{z}
+vfnmadd132ph 0x20(rax), ymm6, ymm2{k3}
+vfnmadd132ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfnmadd132ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfnmadd132ph 0x40(rax), zmm6, zmm2{k3}
+vfnmadd132ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfnmadd213ph xmm3, xmm6, xmm2{k3}{z}
+vfnmadd213ph 0x10(rax), xmm6, xmm2{k3}
+vfnmadd213ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfnmadd213ph ymm3, ymm6, ymm2{k3}{z}
+vfnmadd213ph 0x20(rax), ymm6, ymm2{k3}
+vfnmadd213ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfnmadd213ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfnmadd213ph 0x40(rax), zmm6, zmm2{k3}
+vfnmadd213ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfnmadd231ph xmm3, xmm6, xmm2{k3}{z}
+vfnmadd231ph 0x10(rax), xmm6, xmm2{k3}
+vfnmadd231ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfnmadd231ph ymm3, ymm6, ymm2{k3}{z}
+vfnmadd231ph 0x20(rax), ymm6, ymm2{k3}
+vfnmadd231ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfnmadd231ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfnmadd231ph 0x40(rax), zmm6, zmm2{k3}
+vfnmadd231ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmadd132sh xmm3, xmm6, xmm2{k3}{z}
+vfmadd132sh 2(rax), xmm6, xmm2{k3}
+vfmadd213sh xmm3, xmm6, xmm2{k3}{z}
+vfmadd213sh 2(rax), xmm6, xmm2{k3}
+vfmadd231sh xmm3, xmm6, xmm2{k3}{z}
+vfmadd231sh 2(rax), xmm6, xmm2{k3}
+vfnmadd132sh xmm3, xmm6, xmm2{k3}{z}
+vfnmadd132sh 2(rax), xmm6, xmm2{k3}
+vfnmadd213sh xmm3, xmm6, xmm2{k3}{z}
+vfnmadd213sh 2(rax), xmm6, xmm2{k3}
+vfnmadd231sh xmm3, xmm6, xmm2{k3}{z}
+vfnmadd231sh 2(rax), xmm6, xmm2{k3}
+vfmsub132ph xmm3, xmm6, xmm2{k3}{z}
+vfmsub132ph 0x10(rax), xmm6, xmm2{k3}
+vfmsub132ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmsub132ph ymm3, ymm6, ymm2{k3}{z}
+vfmsub132ph 0x20(rax), ymm6, ymm2{k3}
+vfmsub132ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmsub132ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmsub132ph 0x40(rax), zmm6, zmm2{k3}
+vfmsub132ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmsub213ph xmm3, xmm6, xmm2{k3}{z}
+vfmsub213ph 0x10(rax), xmm6, xmm2{k3}
+vfmsub213ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmsub213ph ymm3, ymm6, ymm2{k3}{z}
+vfmsub213ph 0x20(rax), ymm6, ymm2{k3}
+vfmsub213ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmsub213ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmsub213ph 0x40(rax), zmm6, zmm2{k3}
+vfmsub213ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmsub231ph xmm3, xmm6, xmm2{k3}{z}
+vfmsub231ph 0x10(rax), xmm6, xmm2{k3}
+vfmsub231ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfmsub231ph ymm3, ymm6, ymm2{k3}{z}
+vfmsub231ph 0x20(rax), ymm6, ymm2{k3}
+vfmsub231ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfmsub231ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfmsub231ph 0x40(rax), zmm6, zmm2{k3}
+vfmsub231ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfnmsub132ph xmm3, xmm6, xmm2{k3}{z}
+vfnmsub132ph 0x10(rax), xmm6, xmm2{k3}
+vfnmsub132ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfnmsub132ph ymm3, ymm6, ymm2{k3}{z}
+vfnmsub132ph 0x20(rax), ymm6, ymm2{k3}
+vfnmsub132ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfnmsub132ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfnmsub132ph 0x40(rax), zmm6, zmm2{k3}
+vfnmsub132ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfnmsub213ph xmm3, xmm6, xmm2{k3}{z}
+vfnmsub213ph 0x10(rax), xmm6, xmm2{k3}
+vfnmsub213ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfnmsub213ph ymm3, ymm6, ymm2{k3}{z}
+vfnmsub213ph 0x20(rax), ymm6, ymm2{k3}
+vfnmsub213ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfnmsub213ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfnmsub213ph 0x40(rax), zmm6, zmm2{k3}
+vfnmsub213ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfnmsub231ph xmm3, xmm6, xmm2{k3}{z}
+vfnmsub231ph 0x10(rax), xmm6, xmm2{k3}
+vfnmsub231ph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vfnmsub231ph ymm3, ymm6, ymm2{k3}{z}
+vfnmsub231ph 0x20(rax), ymm6, ymm2{k3}
+vfnmsub231ph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vfnmsub231ph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vfnmsub231ph 0x40(rax), zmm6, zmm2{k3}
+vfnmsub231ph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vfmsub132sh xmm3, xmm6, xmm2{k3}{z}
+vfmsub132sh 2(rax), xmm6, xmm2{k3}
+vfmsub213sh xmm3, xmm6, xmm2{k3}{z}
+vfmsub213sh 2(rax), xmm6, xmm2{k3}
+vfmsub231sh xmm3, xmm6, xmm2{k3}{z}
+vfmsub231sh 2(rax), xmm6, xmm2{k3}
+vfnmsub132sh xmm3, xmm6, xmm2{k3}{z}
+vfnmsub132sh 2(rax), xmm6, xmm2{k3}
+vfnmsub213sh xmm3, xmm6, xmm2{k3}{z}
+vfnmsub213sh 2(rax), xmm6, xmm2{k3}
+vfnmsub231sh xmm3, xmm6, xmm2{k3}{z}
+vfnmsub231sh 2(rax), xmm6, xmm2{k3}
+vfpclassphx $-0x5b, xmm3, k2{k3}
+vfpclassphx $-0x5b, 0x10(rax), k2{k3}
+vfpclassphx $-0x5b, 2(rax){1to8}, k2{k5}
+vfpclassphy $-0x5b, ymm3, k2{k3}
+vfpclassphy $-0x5b, 0x20(rax), k2{k3}
+vfpclassphy $-0x5b, 2(rax){1to16}, k2{k5}
+vfpclassphz $-0x5b, zmm3, k2{k3}
+vfpclassphz $-0x5b, 0x40(rax), k2{k3}
+vfpclassphz $-0x5b, 2(rax){1to32}, k2{k5}
+vfpclasssh $-0x5b, xmm3, k2{k3}
+vfpclasssh $-0x5b, 2(rax), k2{k3}
+vgetexpph xmm3, xmm2{k3}
+vgetexpph 0x10(rax), xmm2
+vgetexpph 2(rax){1to8}, xmm2{k3}{z}
+vgetexpph ymm3, ymm2{k3}
+vgetexpph 0x20(rax), ymm2
+vgetexpph 2(rax){1to16}, ymm2{k3}{z}
+vgetexpph zmm3, zmm2{k3}
+vgetexpph 0x40(rax), zmm2
+vgetexpph 2(rax){1to32}, zmm2{k3}{z}
+vgetexpsh xmm3, xmm6, xmm2{k3}
+vgetexpsh 2(rax), xmm6, xmm2{k3}
+vgetmantph $-0x5b, xmm3, xmm2{k3}
+vgetmantph $-0x5b, 0x10(rax), xmm2
+vgetmantph $-0x5b, 2(rax){1to8}, xmm2{k3}{z}
+vgetmantph $-0x5b, ymm3, ymm2{k3}
+vgetmantph $-0x5b, 0x20(rax), ymm2
+vgetmantph $-0x5b, 2(rax){1to16}, ymm2{k3}{z}
+vgetmantph $-0x5b, zmm3, zmm2{k3}
+vgetmantph $-0x5b, 0x40(rax), zmm2
+vgetmantph $-0x5b, 2(rax){1to32}, zmm2{k3}{z}
+vgetmantsh $-0x5b, xmm3, xmm6, xmm2{k3}{z}
+vgetmantsh $-0x5b, 2(rax), xmm6, xmm2{k3}
+vmaxph xmm3, xmm6, xmm2{k3}
+vmaxph 0x10(rax), xmm6, xmm2{k3}
+vmaxph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vmaxph ymm3, ymm6, ymm2{k3}
+vmaxph 0x20(rax), ymm6, ymm2{k3}
+vmaxph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vmaxph {sae}, zmm3, zmm6, zmm2{k3}{z}
+vmaxph 0x40(rax), zmm6, zmm2{k3}
+vmaxph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vmaxsh xmm3, xmm6, xmm2{k3}
+vmaxsh 2(rax), xmm6, xmm2{k3}
+vminph xmm3, xmm6, xmm2{k3}
+vminph 0x10(rax), xmm6, xmm2{k3}
+vminph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vminph ymm3, ymm6, ymm2{k3}
+vminph 0x20(rax), ymm6, ymm2{k3}
+vminph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vminph {sae}, zmm3, zmm6, zmm2{k3}{z}
+vminph 0x40(rax), zmm6, zmm2{k3}
+vminph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vminsh xmm3, xmm6, xmm2{k3}
+vminsh 2(rax), xmm6, xmm2{k3}
+vmovsh 2(rax), xmm2
+vmovsh xmm2, 2(rax)
+vmovsh xmm3, xmm6, xmm2
+vmovsh xmm2, xmm6, xmm3
+vmovw ebx, xmm2
+vmovw 2(rax), xmm2
+vmovw rbx, xmm2
+vmovw 2(rax), xmm2
+vmovw xmm2, ebx
+vmovw xmm2, 2(rax)
+vmovw xmm2, rbx
+vmovw xmm2, 2(rax)
+vmulph xmm3, xmm6, xmm2{k3}
+vmulph 0x10(rax), xmm6, xmm2{k3}
+vmulph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vmulph ymm3, ymm6, ymm2{k3}
+vmulph 0x20(rax), ymm6, ymm2{k3}
+vmulph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vmulph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vmulph 0x40(rax), zmm6, zmm2{k3}
+vmulph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vmulsh xmm3, xmm6, xmm2{k3}
+vmulsh 2(rax), xmm6, xmm2{k3}
+vrcpph xmm3, xmm2{k3}{z}
+vrcpph 0x10(rax), xmm2{k3}
+vrcpph 2(rax){1to8}, xmm2{k5}{z}
+vrcpph ymm3, ymm2{k3}{z}
+vrcpph 0x20(rax), ymm2{k3}
+vrcpph 2(rax){1to16}, ymm2{k5}{z}
+vrcpph zmm3, zmm2{k3}{z}
+vrcpph 0x40(rax), zmm2{k3}
+vrcpph 2(rax){1to32}, zmm2{k5}{z}
+vrcpsh xmm3, xmm6, xmm2{k3}
+vrcpsh 2(rax), xmm6, xmm2{k3}
+vreduceph $-0x5b, xmm3, xmm2{k3}
+vreduceph $-0x5b, 0x10(rax), xmm2
+vreduceph $-0x5b, 2(rax){1to8}, xmm2{k3}{z}
+vreduceph $-0x5b, ymm3, ymm2{k3}
+vreduceph $-0x5b, 0x20(rax), ymm2
+vreduceph $-0x5b, 2(rax){1to16}, ymm2{k3}{z}
+vreduceph $-0x5b, zmm3, zmm2{k3}
+vreduceph $-0x5b, 0x40(rax), zmm2
+vreduceph $-0x5b, 2(rax){1to32}, zmm2{k3}{z}
+vreducesh $-0x5b, xmm3, xmm6, xmm2{k3}{z}
+vreducesh $-0x5b, 2(rax), xmm6, xmm2{k3}
+vrndscaleph $-0x5b, xmm3, xmm2{k3}
+vrndscaleph $-0x5b, 0x10(rax), xmm2
+vrndscaleph $-0x5b, 2(rax){1to8}, xmm2{k3}{z}
+vrndscaleph $-0x5b, ymm3, ymm2{k3}
+vrndscaleph $-0x5b, 0x20(rax), ymm2
+vrndscaleph $-0x5b, 2(rax){1to16}, ymm2{k3}{z}
+vrndscaleph $-0x5b, zmm3, zmm2{k3}
+vrndscaleph $-0x5b, 0x40(rax), zmm2
+vrndscaleph $-0x5b, 2(rax){1to32}, zmm2{k3}{z}
+vrndscalesh $-0x5b, xmm3, xmm6, xmm2{k3}{z}
+vrndscalesh $-0x5b, 2(rax), xmm6, xmm2{k3}
+vrsqrtph xmm3, xmm2{k3}{z}
+vrsqrtph 0x10(rax), xmm2{k3}
+vrsqrtph 2(rax){1to8}, xmm2{k5}{z}
+vrsqrtph ymm3, ymm2{k3}{z}
+vrsqrtph 0x20(rax), ymm2{k3}
+vrsqrtph 2(rax){1to16}, ymm2{k5}{z}
+vrsqrtph zmm3, zmm2{k3}{z}
+vrsqrtph 0x40(rax), zmm2{k3}
+vrsqrtph 2(rax){1to32}, zmm2{k5}{z}
+vrsqrtsh xmm3, xmm6, xmm2{k3}
+vrsqrtsh 2(rax), xmm6, xmm2{k3}
+vscalefph xmm3, xmm6, xmm2{k3}{z}
+vscalefph 0x10(rax), xmm6, xmm2{k3}
+vscalefph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vscalefph ymm3, ymm6, ymm2{k3}{z}
+vscalefph 0x20(rax), ymm6, ymm2{k3}
+vscalefph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vscalefph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vscalefph 0x40(rax), zmm6, zmm2{k3}
+vscalefph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vscalefsh xmm3, xmm6, xmm2{k3}
+vscalefsh 2(rax), xmm6, xmm2{k3}
+vsqrtph xmm3, xmm2{k3}
+vsqrtph 0x10(rax), xmm2{k3}
+vsqrtph 2(rax){1to8}, xmm2{k5}{z}
+vsqrtph ymm3, ymm2{k3}
+vsqrtph 0x20(rax), ymm2{k3}
+vsqrtph 2(rax){1to16}, ymm2{k5}{z}
+vsqrtph {ru-sae}, zmm3, zmm2{k3}{z}
+vsqrtph 0x40(rax), zmm2{k3}
+vsqrtph 2(rax){1to32}, zmm2{k5}{z}
+vsqrtsh xmm3, xmm6, xmm2{k3}
+vsqrtsh 2(rax), xmm6, xmm2{k3}
+vsubph xmm3, xmm6, xmm2{k3}
+vsubph 0x10(rax), xmm6, xmm2{k3}
+vsubph 2(rax){1to8}, xmm6, xmm2{k5}{z}
+vsubph ymm3, ymm6, ymm2{k3}
+vsubph 0x20(rax), ymm6, ymm2{k3}
+vsubph 2(rax){1to16}, ymm6, ymm2{k5}{z}
+vsubph {ru-sae}, zmm3, zmm6, zmm2{k3}{z}
+vsubph 0x40(rax), zmm6, zmm2{k3}
+vsubph 2(rax){1to32}, zmm6, zmm2{k5}{z}
+vsubsh xmm3, xmm6, xmm2{k3}
+vsubsh 2(rax), xmm6, xmm2{k3}
+vucomish xmm3, xmm2
+vucomish 2(rax), xmm2

@@ -33,7 +33,7 @@ namespace Generator.Decoder {
 		public static DecoderTableSerializerInfo Legacy(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.OpCodeHandlerKind];
 			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).Legacy,
-				new string[] { DecoderTable_Legacy.OneByteHandlers },
+				new string[] { DecoderTable_Legacy.Handlers_MAP0 },
 				CSharpConstants.DecoderDefine,
 				enumType[nameof(OpCodeHandlerKind.Null)],
 				enumType[nameof(OpCodeHandlerKind.HandlerReference)],
@@ -45,7 +45,7 @@ namespace Generator.Decoder {
 		public static DecoderTableSerializerInfo Vex(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.VexOpCodeHandlerKind];
 			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).VEX,
-				new string[] { DecoderTable_VEX.ThreeByteHandlers_0F38XX, DecoderTable_VEX.ThreeByteHandlers_0F3AXX, DecoderTable_VEX.TwoByteHandlers_0FXX },
+				new string[] { DecoderTable_VEX.Handlers_0F, DecoderTable_VEX.Handlers_0F38, DecoderTable_VEX.Handlers_0F3A },
 				CSharpConstants.DecoderVexDefine,
 				enumType[nameof(VexOpCodeHandlerKind.Null)],
 				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
@@ -57,7 +57,7 @@ namespace Generator.Decoder {
 		public static DecoderTableSerializerInfo Xop(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.VexOpCodeHandlerKind];
 			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).XOP,
-				new string[] { DecoderTable_XOP.XOP8, DecoderTable_XOP.XOP9, DecoderTable_XOP.XOPA },
+				new string[] { DecoderTable_XOP.Handlers_MAP8, DecoderTable_XOP.Handlers_MAP9, DecoderTable_XOP.Handlers_MAP10 },
 				CSharpConstants.DecoderXopDefine,
 				null,
 				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
@@ -69,7 +69,13 @@ namespace Generator.Decoder {
 		public static DecoderTableSerializerInfo Evex(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.EvexOpCodeHandlerKind];
 			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).EVEX,
-				new string[] { DecoderTable_EVEX.ThreeByteHandlers_0F38XX, DecoderTable_EVEX.ThreeByteHandlers_0F3AXX, DecoderTable_EVEX.TwoByteHandlers_0FXX },
+				new string[] {
+					DecoderTable_EVEX.Handlers_0F,
+					DecoderTable_EVEX.Handlers_0F38,
+					DecoderTable_EVEX.Handlers_0F3A,
+					DecoderTable_EVEX.Handlers_MAP5,
+					DecoderTable_EVEX.Handlers_MAP6,
+				},
 				CSharpConstants.DecoderEvexDefine,
 				null,
 				enumType[nameof(EvexOpCodeHandlerKind.HandlerReference)],

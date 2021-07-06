@@ -8394,3 +8394,655 @@ lkgs rcx
 lkgs word ptr [rax]
 eretu
 erets
+vaddph xmm2{k3}, xmm6, xmm3
+vaddph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vaddph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vaddph ymm2{k3}, ymm6, ymm3
+vaddph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vaddph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vaddph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vaddph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vaddph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vaddsh xmm2{k3}, xmm6, xmm3
+vaddsh xmm2{k3}, xmm6, word ptr [rax+2]
+vcmpph k2{k3}, xmm6, xmm3, -5Bh
+vcmpph k2{k3}, xmm6, xmmword ptr [rax+10h], -5Bh
+vcmpph k2{k5}, xmm6, word bcst [rax+2], -5Bh
+vcmpph k2{k3}, ymm6, ymm3, -5Bh
+vcmpph k2{k3}, ymm6, ymmword ptr [rax+20h], -5Bh
+vcmpph k2{k5}, ymm6, word bcst [rax+2], -5Bh
+vcmpph k2{k3}, zmm6, zmm3, -5Bh {sae}
+vcmpph k2{k3}, zmm6, zmmword ptr [rax+40h], -5Bh
+vcmpph k2{k5}, zmm6, word bcst [rax+2], -5Bh
+vcmpsh k2{k3}, xmm6, xmm3, -5Bh
+vcmpsh k2{k3}, xmm6, word ptr [rax+2], -5Bh
+vcomish xmm2, xmm3
+vcomish xmm2, word ptr [rax+2]
+vcvtdq2ph xmm2{k3}, xmm3
+vcvtdq2ph xmm2, xmmword ptr [rax+10h]
+vcvtdq2ph xmm2{k3}{z}, dword bcst [rax+4]
+vcvtdq2ph xmm2{k3}, ymm3
+vcvtdq2ph xmm2, ymmword ptr [rax+20h]
+vcvtdq2ph xmm2{k3}{z}, dword bcst [rax+4]
+vcvtdq2ph ymm2{k3}, zmm3
+vcvtdq2ph ymm2, zmmword ptr [rax+40h]
+vcvtdq2ph ymm2{k3}{z}, dword bcst [rax+4]
+vcvtpd2ph xmm2{k3}, xmm3
+vcvtpd2ph xmm2, xmmword ptr [rax+10h]
+vcvtpd2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtpd2ph xmm2{k3}, ymm3
+vcvtpd2ph xmm2, ymmword ptr [rax+20h]
+vcvtpd2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtpd2ph xmm2{k3}, zmm3
+vcvtpd2ph xmm2, zmmword ptr [rax+40h]
+vcvtpd2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtph2dq xmm2{k3}, xmm3
+vcvtph2dq xmm2, qword ptr [rax+8]
+vcvtph2dq xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2dq ymm2{k3}, xmm3
+vcvtph2dq ymm2, xmmword ptr [rax+10h]
+vcvtph2dq ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2dq zmm2{k3}, ymm3
+vcvtph2dq zmm2, ymmword ptr [rax+20h]
+vcvtph2dq zmm2{k3}{z}, word bcst [rax+2]
+vcvtph2pd xmm2{k3}, xmm3
+vcvtph2pd xmm2, dword ptr [rax+4]
+vcvtph2pd xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2pd ymm2{k3}, xmm3
+vcvtph2pd ymm2, qword ptr [rax+8]
+vcvtph2pd ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2pd zmm2{k3}, xmm3
+vcvtph2pd zmm2, xmmword ptr [rax+10h]
+vcvtph2pd zmm2{k3}{z}, word bcst [rax+2]
+vcvtph2psx xmm2{k3}, xmm3
+vcvtph2psx xmm2, qword ptr [rax+8]
+vcvtph2psx xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2psx ymm2{k3}, xmm3
+vcvtph2psx ymm2, xmmword ptr [rax+10h]
+vcvtph2psx ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2psx zmm2{k3}, ymm3
+vcvtph2psx zmm2, ymmword ptr [rax+20h]
+vcvtph2psx zmm2{k3}{z}, word bcst [rax+2]
+vcvtph2qq xmm2{k3}, xmm3
+vcvtph2qq xmm2, dword ptr [rax+4]
+vcvtph2qq xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2qq ymm2{k3}, xmm3
+vcvtph2qq ymm2, qword ptr [rax+8]
+vcvtph2qq ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2qq zmm2{k3}, xmm3
+vcvtph2qq zmm2, xmmword ptr [rax+10h]
+vcvtph2qq zmm2{k3}{z}, word bcst [rax+2]
+vcvtph2udq xmm2{k3}, xmm3
+vcvtph2udq xmm2, qword ptr [rax+8]
+vcvtph2udq xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2udq ymm2{k3}, xmm3
+vcvtph2udq ymm2, xmmword ptr [rax+10h]
+vcvtph2udq ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2udq zmm2{k3}, ymm3
+vcvtph2udq zmm2, ymmword ptr [rax+20h]
+vcvtph2udq zmm2{k3}{z}, word bcst [rax+2]
+vcvtph2uqq xmm2{k3}, xmm3
+vcvtph2uqq xmm2, dword ptr [rax+4]
+vcvtph2uqq xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2uqq ymm2{k3}, xmm3
+vcvtph2uqq ymm2, qword ptr [rax+8]
+vcvtph2uqq ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2uqq zmm2{k3}, xmm3
+vcvtph2uqq zmm2, xmmword ptr [rax+10h]
+vcvtph2uqq zmm2{k3}{z}, word bcst [rax+2]
+vcvtph2uw xmm2{k3}, xmm3
+vcvtph2uw xmm2, xmmword ptr [rax+10h]
+vcvtph2uw xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2uw ymm2{k3}, ymm3
+vcvtph2uw ymm2, ymmword ptr [rax+20h]
+vcvtph2uw ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2uw zmm2{k3}, zmm3
+vcvtph2uw zmm2, zmmword ptr [rax+40h]
+vcvtph2uw zmm2{k3}{z}, word bcst [rax+2]
+vcvtph2w xmm2{k3}, xmm3
+vcvtph2w xmm2, xmmword ptr [rax+10h]
+vcvtph2w xmm2{k3}{z}, word bcst [rax+2]
+vcvtph2w ymm2{k3}, ymm3
+vcvtph2w ymm2, ymmword ptr [rax+20h]
+vcvtph2w ymm2{k3}{z}, word bcst [rax+2]
+vcvtph2w zmm2{k3}, zmm3
+vcvtph2w zmm2, zmmword ptr [rax+40h]
+vcvtph2w zmm2{k3}{z}, word bcst [rax+2]
+vcvtps2phx xmm2{k3}, xmm3
+vcvtps2phx xmm2, xmmword ptr [rax+10h]
+vcvtps2phx xmm2{k3}{z}, dword bcst [rax+4]
+vcvtps2phx xmm2{k3}, ymm3
+vcvtps2phx xmm2, ymmword ptr [rax+20h]
+vcvtps2phx xmm2{k3}{z}, dword bcst [rax+4]
+vcvtps2phx ymm2{k3}, zmm3
+vcvtps2phx ymm2, zmmword ptr [rax+40h]
+vcvtps2phx ymm2{k3}{z}, dword bcst [rax+4]
+vcvtqq2ph xmm2{k3}, xmm3
+vcvtqq2ph xmm2, xmmword ptr [rax+10h]
+vcvtqq2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtqq2ph xmm2{k3}, ymm3
+vcvtqq2ph xmm2, ymmword ptr [rax+20h]
+vcvtqq2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtqq2ph xmm2{k3}, zmm3
+vcvtqq2ph xmm2, zmmword ptr [rax+40h]
+vcvtqq2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtsd2sh xmm2, xmm6, xmm3
+vcvtsd2sh xmm2, xmm6, qword ptr [rax+8]
+vcvtsh2sd xmm2, xmm6, xmm3
+vcvtsh2sd xmm2, xmm6, word ptr [rax+2]
+vcvtsh2si edx, xmm3
+vcvtsh2si edx, word ptr [rax+2]
+vcvtsh2si rdx, xmm3
+vcvtsh2si rdx, word ptr [rax+2]
+vcvtsh2ss xmm2, xmm6, xmm3
+vcvtsh2ss xmm2, xmm6, word ptr [rax+2]
+vcvtsh2usi edx, xmm3
+vcvtsh2usi edx, word ptr [rax+2]
+vcvtsh2usi rdx, xmm3
+vcvtsh2usi rdx, word ptr [rax+2]
+vcvtsi2sh xmm2, xmm6, ebx
+vcvtsi2sh xmm2, xmm6, dword ptr [rax+4]
+vcvtsi2sh xmm2, xmm6, rbx
+vcvtsi2sh xmm2, xmm6, qword ptr [rax+8]
+vcvtss2sh xmm2, xmm6, xmm3
+vcvtss2sh xmm2, xmm6, dword ptr [rax+4]
+vcvttph2dq xmm2{k3}, xmm3
+vcvttph2dq xmm2, qword ptr [rax+8]
+vcvttph2dq xmm2{k3}{z}, word bcst [rax+2]
+vcvttph2dq ymm2{k3}, xmm3
+vcvttph2dq ymm2, xmmword ptr [rax+10h]
+vcvttph2dq ymm2{k3}{z}, word bcst [rax+2]
+vcvttph2dq zmm2{k3}, ymm3
+vcvttph2dq zmm2, ymmword ptr [rax+20h]
+vcvttph2dq zmm2{k3}{z}, word bcst [rax+2]
+vcvttph2qq xmm2{k3}, xmm3
+vcvttph2qq xmm2, dword ptr [rax+4]
+vcvttph2qq xmm2{k3}{z}, word bcst [rax+2]
+vcvttph2qq ymm2{k3}, xmm3
+vcvttph2qq ymm2, qword ptr [rax+8]
+vcvttph2qq ymm2{k3}{z}, word bcst [rax+2]
+vcvttph2qq zmm2{k3}, xmm3
+vcvttph2qq zmm2, xmmword ptr [rax+10h]
+vcvttph2qq zmm2{k3}{z}, word bcst [rax+2]
+vcvttph2udq xmm2{k3}, xmm3
+vcvttph2udq xmm2, qword ptr [rax+8]
+vcvttph2udq xmm2{k3}{z}, word bcst [rax+2]
+vcvttph2udq ymm2{k3}, xmm3
+vcvttph2udq ymm2, xmmword ptr [rax+10h]
+vcvttph2udq ymm2{k3}{z}, word bcst [rax+2]
+vcvttph2udq zmm2{k3}, ymm3
+vcvttph2udq zmm2, ymmword ptr [rax+20h]
+vcvttph2udq zmm2{k3}{z}, word bcst [rax+2]
+vcvttph2uqq xmm2{k3}, xmm3
+vcvttph2uqq xmm2, dword ptr [rax+4]
+vcvttph2uqq xmm2{k3}{z}, word bcst [rax+2]
+vcvttph2uqq ymm2{k3}, xmm3
+vcvttph2uqq ymm2, qword ptr [rax+8]
+vcvttph2uqq ymm2{k3}{z}, word bcst [rax+2]
+vcvttph2uqq zmm2{k3}, xmm3
+vcvttph2uqq zmm2, xmmword ptr [rax+10h]
+vcvttph2uqq zmm2{k3}{z}, word bcst [rax+2]
+vcvttph2uw xmm2{k3}, xmm3
+vcvttph2uw xmm2, xmmword ptr [rax+10h]
+vcvttph2uw xmm2{k3}{z}, word bcst [rax+2]
+vcvttph2uw ymm2{k3}, ymm3
+vcvttph2uw ymm2, ymmword ptr [rax+20h]
+vcvttph2uw ymm2{k3}{z}, word bcst [rax+2]
+vcvttph2uw zmm2{k3}, zmm3
+vcvttph2uw zmm2, zmmword ptr [rax+40h]
+vcvttph2uw zmm2{k3}{z}, word bcst [rax+2]
+vcvttph2w xmm2{k3}, xmm3
+vcvttph2w xmm2, xmmword ptr [rax+10h]
+vcvttph2w xmm2{k3}{z}, word bcst [rax+2]
+vcvttph2w ymm2{k3}, ymm3
+vcvttph2w ymm2, ymmword ptr [rax+20h]
+vcvttph2w ymm2{k3}{z}, word bcst [rax+2]
+vcvttph2w zmm2{k3}, zmm3
+vcvttph2w zmm2, zmmword ptr [rax+40h]
+vcvttph2w zmm2{k3}{z}, word bcst [rax+2]
+vcvttsh2si edx, xmm3
+vcvttsh2si edx, word ptr [rax+2]
+vcvttsh2si rdx, xmm3
+vcvttsh2si rdx, word ptr [rax+2]
+vcvttsh2usi edx, xmm3
+vcvttsh2usi edx, word ptr [rax+2]
+vcvttsh2usi rdx, xmm3
+vcvttsh2usi rdx, word ptr [rax+2]
+vcvtudq2ph xmm2{k3}, xmm3
+vcvtudq2ph xmm2, xmmword ptr [rax+10h]
+vcvtudq2ph xmm2{k3}{z}, dword bcst [rax+4]
+vcvtudq2ph xmm2{k3}, ymm3
+vcvtudq2ph xmm2, ymmword ptr [rax+20h]
+vcvtudq2ph xmm2{k3}{z}, dword bcst [rax+4]
+vcvtudq2ph ymm2{k3}, zmm3
+vcvtudq2ph ymm2, zmmword ptr [rax+40h]
+vcvtudq2ph ymm2{k3}{z}, dword bcst [rax+4]
+vcvtuqq2ph xmm2{k3}, xmm3
+vcvtuqq2ph xmm2, xmmword ptr [rax+10h]
+vcvtuqq2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtuqq2ph xmm2{k3}, ymm3
+vcvtuqq2ph xmm2, ymmword ptr [rax+20h]
+vcvtuqq2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtuqq2ph xmm2{k3}, zmm3
+vcvtuqq2ph xmm2, zmmword ptr [rax+40h]
+vcvtuqq2ph xmm2{k3}{z}, qword bcst [rax+8]
+vcvtusi2sh xmm2, xmm6, ebx
+vcvtusi2sh xmm2, xmm6, dword ptr [rax+4]
+vcvtusi2sh xmm2, xmm6, rbx
+vcvtusi2sh xmm2, xmm6, qword ptr [rax+8]
+vcvtuw2ph xmm2{k3}, xmm3
+vcvtuw2ph xmm2, xmmword ptr [rax+10h]
+vcvtuw2ph xmm2{k3}{z}, word bcst [rax+2]
+vcvtuw2ph ymm2{k3}, ymm3
+vcvtuw2ph ymm2, ymmword ptr [rax+20h]
+vcvtuw2ph ymm2{k3}{z}, word bcst [rax+2]
+vcvtuw2ph zmm2{k3}, zmm3
+vcvtuw2ph zmm2, zmmword ptr [rax+40h]
+vcvtuw2ph zmm2{k3}{z}, word bcst [rax+2]
+vcvtw2ph xmm2{k3}, xmm3
+vcvtw2ph xmm2, xmmword ptr [rax+10h]
+vcvtw2ph xmm2{k3}{z}, word bcst [rax+2]
+vcvtw2ph ymm2{k3}, ymm3
+vcvtw2ph ymm2, ymmword ptr [rax+20h]
+vcvtw2ph ymm2{k3}{z}, word bcst [rax+2]
+vcvtw2ph zmm2{k3}, zmm3
+vcvtw2ph zmm2, zmmword ptr [rax+40h]
+vcvtw2ph zmm2{k3}{z}, word bcst [rax+2]
+vdivph xmm2{k3}, xmm6, xmm3
+vdivph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vdivph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vdivph ymm2{k3}, ymm6, ymm3
+vdivph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vdivph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vdivph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vdivph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vdivph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vdivsh xmm2{k3}, xmm6, xmm3
+vdivsh xmm2{k3}, xmm6, word ptr [rax+2]
+vfcmaddcph xmm2{k3}, xmm6, xmm3
+vfcmaddcph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfcmaddcph xmm2{k5}{z}, xmm6, dword bcst [rax+4]
+vfcmaddcph ymm2{k3}, ymm6, ymm3
+vfcmaddcph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfcmaddcph ymm2{k5}{z}, ymm6, dword bcst [rax+4]
+vfcmaddcph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfcmaddcph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfcmaddcph zmm2{k5}{z}, zmm6, dword bcst [rax+4]
+vfmaddcph xmm2{k3}, xmm6, xmm3
+vfmaddcph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmaddcph xmm2{k5}{z}, xmm6, dword bcst [rax+4]
+vfmaddcph ymm2{k3}, ymm6, ymm3
+vfmaddcph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmaddcph ymm2{k5}{z}, ymm6, dword bcst [rax+4]
+vfmaddcph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmaddcph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmaddcph zmm2{k5}{z}, zmm6, dword bcst [rax+4]
+vfcmaddcsh xmm2{k3}, xmm6, xmm3
+vfcmaddcsh xmm2{k3}, xmm6, dword ptr [rax+4]
+vfmaddcsh xmm2{k3}, xmm6, xmm3
+vfmaddcsh xmm2{k3}, xmm6, dword ptr [rax+4]
+vfcmulcph xmm2{k3}, xmm6, xmm3
+vfcmulcph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfcmulcph xmm2{k5}{z}, xmm6, dword bcst [rax+4]
+vfcmulcph ymm2{k3}, ymm6, ymm3
+vfcmulcph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfcmulcph ymm2{k5}{z}, ymm6, dword bcst [rax+4]
+vfcmulcph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfcmulcph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfcmulcph zmm2{k5}{z}, zmm6, dword bcst [rax+4]
+vfmulcph xmm2{k3}, xmm6, xmm3
+vfmulcph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmulcph xmm2{k5}{z}, xmm6, dword bcst [rax+4]
+vfmulcph ymm2{k3}, ymm6, ymm3
+vfmulcph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmulcph ymm2{k5}{z}, ymm6, dword bcst [rax+4]
+vfmulcph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmulcph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmulcph zmm2{k5}{z}, zmm6, dword bcst [rax+4]
+vfcmulcsh xmm2{k3}, xmm6, xmm3
+vfcmulcsh xmm2{k3}, xmm6, dword ptr [rax+4]
+vfmulcsh xmm2{k3}, xmm6, xmm3
+vfmulcsh xmm2{k3}, xmm6, dword ptr [rax+4]
+vfmaddsub132ph xmm2{k3}{z}, xmm6, xmm3
+vfmaddsub132ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmaddsub132ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmaddsub132ph ymm2{k3}{z}, ymm6, ymm3
+vfmaddsub132ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmaddsub132ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmaddsub132ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmaddsub132ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmaddsub132ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmaddsub213ph xmm2{k3}{z}, xmm6, xmm3
+vfmaddsub213ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmaddsub213ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmaddsub213ph ymm2{k3}{z}, ymm6, ymm3
+vfmaddsub213ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmaddsub213ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmaddsub213ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmaddsub213ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmaddsub213ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmaddsub231ph xmm2{k3}{z}, xmm6, xmm3
+vfmaddsub231ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmaddsub231ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmaddsub231ph ymm2{k3}{z}, ymm6, ymm3
+vfmaddsub231ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmaddsub231ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmaddsub231ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmaddsub231ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmaddsub231ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmsubadd132ph xmm2{k3}{z}, xmm6, xmm3
+vfmsubadd132ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmsubadd132ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmsubadd132ph ymm2{k3}{z}, ymm6, ymm3
+vfmsubadd132ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmsubadd132ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmsubadd132ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmsubadd132ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmsubadd132ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmsubadd213ph xmm2{k3}{z}, xmm6, xmm3
+vfmsubadd213ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmsubadd213ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmsubadd213ph ymm2{k3}{z}, ymm6, ymm3
+vfmsubadd213ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmsubadd213ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmsubadd213ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmsubadd213ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmsubadd213ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmsubadd231ph xmm2{k3}{z}, xmm6, xmm3
+vfmsubadd231ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmsubadd231ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmsubadd231ph ymm2{k3}{z}, ymm6, ymm3
+vfmsubadd231ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmsubadd231ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmsubadd231ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmsubadd231ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmsubadd231ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmadd132ph xmm2{k3}{z}, xmm6, xmm3
+vfmadd132ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmadd132ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmadd132ph ymm2{k3}{z}, ymm6, ymm3
+vfmadd132ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmadd132ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmadd132ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmadd132ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmadd132ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmadd213ph xmm2{k3}{z}, xmm6, xmm3
+vfmadd213ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmadd213ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmadd213ph ymm2{k3}{z}, ymm6, ymm3
+vfmadd213ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmadd213ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmadd213ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmadd213ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmadd213ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmadd231ph xmm2{k3}{z}, xmm6, xmm3
+vfmadd231ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmadd231ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmadd231ph ymm2{k3}{z}, ymm6, ymm3
+vfmadd231ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmadd231ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmadd231ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmadd231ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmadd231ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfnmadd132ph xmm2{k3}{z}, xmm6, xmm3
+vfnmadd132ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfnmadd132ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfnmadd132ph ymm2{k3}{z}, ymm6, ymm3
+vfnmadd132ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfnmadd132ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfnmadd132ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfnmadd132ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfnmadd132ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfnmadd213ph xmm2{k3}{z}, xmm6, xmm3
+vfnmadd213ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfnmadd213ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfnmadd213ph ymm2{k3}{z}, ymm6, ymm3
+vfnmadd213ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfnmadd213ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfnmadd213ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfnmadd213ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfnmadd213ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfnmadd231ph xmm2{k3}{z}, xmm6, xmm3
+vfnmadd231ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfnmadd231ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfnmadd231ph ymm2{k3}{z}, ymm6, ymm3
+vfnmadd231ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfnmadd231ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfnmadd231ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfnmadd231ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfnmadd231ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmadd132sh xmm2{k3}{z}, xmm6, xmm3
+vfmadd132sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfmadd213sh xmm2{k3}{z}, xmm6, xmm3
+vfmadd213sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfmadd231sh xmm2{k3}{z}, xmm6, xmm3
+vfmadd231sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfnmadd132sh xmm2{k3}{z}, xmm6, xmm3
+vfnmadd132sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfnmadd213sh xmm2{k3}{z}, xmm6, xmm3
+vfnmadd213sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfnmadd231sh xmm2{k3}{z}, xmm6, xmm3
+vfnmadd231sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfmsub132ph xmm2{k3}{z}, xmm6, xmm3
+vfmsub132ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmsub132ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmsub132ph ymm2{k3}{z}, ymm6, ymm3
+vfmsub132ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmsub132ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmsub132ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmsub132ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmsub132ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmsub213ph xmm2{k3}{z}, xmm6, xmm3
+vfmsub213ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmsub213ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmsub213ph ymm2{k3}{z}, ymm6, ymm3
+vfmsub213ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmsub213ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmsub213ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmsub213ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmsub213ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmsub231ph xmm2{k3}{z}, xmm6, xmm3
+vfmsub231ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfmsub231ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfmsub231ph ymm2{k3}{z}, ymm6, ymm3
+vfmsub231ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfmsub231ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfmsub231ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfmsub231ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfmsub231ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfnmsub132ph xmm2{k3}{z}, xmm6, xmm3
+vfnmsub132ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfnmsub132ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfnmsub132ph ymm2{k3}{z}, ymm6, ymm3
+vfnmsub132ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfnmsub132ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfnmsub132ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfnmsub132ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfnmsub132ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfnmsub213ph xmm2{k3}{z}, xmm6, xmm3
+vfnmsub213ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfnmsub213ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfnmsub213ph ymm2{k3}{z}, ymm6, ymm3
+vfnmsub213ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfnmsub213ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfnmsub213ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfnmsub213ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfnmsub213ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfnmsub231ph xmm2{k3}{z}, xmm6, xmm3
+vfnmsub231ph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vfnmsub231ph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vfnmsub231ph ymm2{k3}{z}, ymm6, ymm3
+vfnmsub231ph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vfnmsub231ph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vfnmsub231ph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vfnmsub231ph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vfnmsub231ph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vfmsub132sh xmm2{k3}{z}, xmm6, xmm3
+vfmsub132sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfmsub213sh xmm2{k3}{z}, xmm6, xmm3
+vfmsub213sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfmsub231sh xmm2{k3}{z}, xmm6, xmm3
+vfmsub231sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfnmsub132sh xmm2{k3}{z}, xmm6, xmm3
+vfnmsub132sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfnmsub213sh xmm2{k3}{z}, xmm6, xmm3
+vfnmsub213sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfnmsub231sh xmm2{k3}{z}, xmm6, xmm3
+vfnmsub231sh xmm2{k3}, xmm6, word ptr [rax+2]
+vfpclassph k2{k3}, xmm3, -5Bh
+vfpclassph k2{k3}, xmmword ptr [rax+10h], -5Bh
+vfpclassph k2{k5}, word bcst [rax+2], -5Bh
+vfpclassph k2{k3}, ymm3, -5Bh
+vfpclassph k2{k3}, ymmword ptr [rax+20h], -5Bh
+vfpclassph k2{k5}, word bcst [rax+2], -5Bh
+vfpclassph k2{k3}, zmm3, -5Bh
+vfpclassph k2{k3}, zmmword ptr [rax+40h], -5Bh
+vfpclassph k2{k5}, word bcst [rax+2], -5Bh
+vfpclasssh k2{k3}, xmm3, -5Bh
+vfpclasssh k2{k3}, word ptr [rax+2], -5Bh
+vgetexpph xmm2{k3}, xmm3
+vgetexpph xmm2, xmmword ptr [rax+10h]
+vgetexpph xmm2{k3}{z}, word bcst [rax+2]
+vgetexpph ymm2{k3}, ymm3
+vgetexpph ymm2, ymmword ptr [rax+20h]
+vgetexpph ymm2{k3}{z}, word bcst [rax+2]
+vgetexpph zmm2{k3}, zmm3
+vgetexpph zmm2, zmmword ptr [rax+40h]
+vgetexpph zmm2{k3}{z}, word bcst [rax+2]
+vgetexpsh xmm2{k3}, xmm6, xmm3
+vgetexpsh xmm2{k3}, xmm6, word ptr [rax+2]
+vgetmantph xmm2{k3}, xmm3, -5Bh
+vgetmantph xmm2, xmmword ptr [rax+10h], -5Bh
+vgetmantph xmm2{k3}{z}, word bcst [rax+2], -5Bh
+vgetmantph ymm2{k3}, ymm3, -5Bh
+vgetmantph ymm2, ymmword ptr [rax+20h], -5Bh
+vgetmantph ymm2{k3}{z}, word bcst [rax+2], -5Bh
+vgetmantph zmm2{k3}, zmm3, -5Bh
+vgetmantph zmm2, zmmword ptr [rax+40h], -5Bh
+vgetmantph zmm2{k3}{z}, word bcst [rax+2], -5Bh
+vgetmantsh xmm2{k3}{z}, xmm6, xmm3, -5Bh
+vgetmantsh xmm2{k3}, xmm6, word ptr [rax+2], -5Bh
+vmaxph xmm2{k3}, xmm6, xmm3
+vmaxph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vmaxph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vmaxph ymm2{k3}, ymm6, ymm3
+vmaxph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vmaxph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vmaxph zmm2{k3}{z}, zmm6, zmm3 {sae}
+vmaxph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vmaxph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vmaxsh xmm2{k3}, xmm6, xmm3
+vmaxsh xmm2{k3}, xmm6, word ptr [rax+2]
+vminph xmm2{k3}, xmm6, xmm3
+vminph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vminph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vminph ymm2{k3}, ymm6, ymm3
+vminph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vminph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vminph zmm2{k3}{z}, zmm6, zmm3 {sae}
+vminph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vminph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vminsh xmm2{k3}, xmm6, xmm3
+vminsh xmm2{k3}, xmm6, word ptr [rax+2]
+vmovsh xmm2, word ptr [rax+2]
+vmovsh word ptr [rax+2], xmm2
+vmovsh xmm2, xmm6, xmm3
+vmovsh xmm3, xmm6, xmm2
+vmovw xmm2, ebx
+vmovw xmm2, word ptr [rax+2]
+vmovw xmm2, rbx
+vmovw xmm2, word ptr [rax+2]
+vmovw ebx, xmm2
+vmovw word ptr [rax+2], xmm2
+vmovw rbx, xmm2
+vmovw word ptr [rax+2], xmm2
+vmulph xmm2{k3}, xmm6, xmm3
+vmulph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vmulph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vmulph ymm2{k3}, ymm6, ymm3
+vmulph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vmulph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vmulph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vmulph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vmulph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vmulsh xmm2{k3}, xmm6, xmm3
+vmulsh xmm2{k3}, xmm6, word ptr [rax+2]
+vrcpph xmm2{k3}{z}, xmm3
+vrcpph xmm2{k3}, xmmword ptr [rax+10h]
+vrcpph xmm2{k5}{z}, word bcst [rax+2]
+vrcpph ymm2{k3}{z}, ymm3
+vrcpph ymm2{k3}, ymmword ptr [rax+20h]
+vrcpph ymm2{k5}{z}, word bcst [rax+2]
+vrcpph zmm2{k3}{z}, zmm3
+vrcpph zmm2{k3}, zmmword ptr [rax+40h]
+vrcpph zmm2{k5}{z}, word bcst [rax+2]
+vrcpsh xmm2{k3}, xmm6, xmm3
+vrcpsh xmm2{k3}, xmm6, word ptr [rax+2]
+vreduceph xmm2{k3}, xmm3, -5Bh
+vreduceph xmm2, xmmword ptr [rax+10h], -5Bh
+vreduceph xmm2{k3}{z}, word bcst [rax+2], -5Bh
+vreduceph ymm2{k3}, ymm3, -5Bh
+vreduceph ymm2, ymmword ptr [rax+20h], -5Bh
+vreduceph ymm2{k3}{z}, word bcst [rax+2], -5Bh
+vreduceph zmm2{k3}, zmm3, -5Bh
+vreduceph zmm2, zmmword ptr [rax+40h], -5Bh
+vreduceph zmm2{k3}{z}, word bcst [rax+2], -5Bh
+vreducesh xmm2{k3}{z}, xmm6, xmm3, -5Bh
+vreducesh xmm2{k3}, xmm6, word ptr [rax+2], -5Bh
+vrndscaleph xmm2{k3}, xmm3, -5Bh
+vrndscaleph xmm2, xmmword ptr [rax+10h], -5Bh
+vrndscaleph xmm2{k3}{z}, word bcst [rax+2], -5Bh
+vrndscaleph ymm2{k3}, ymm3, -5Bh
+vrndscaleph ymm2, ymmword ptr [rax+20h], -5Bh
+vrndscaleph ymm2{k3}{z}, word bcst [rax+2], -5Bh
+vrndscaleph zmm2{k3}, zmm3, -5Bh
+vrndscaleph zmm2, zmmword ptr [rax+40h], -5Bh
+vrndscaleph zmm2{k3}{z}, word bcst [rax+2], -5Bh
+vrndscalesh xmm2{k3}{z}, xmm6, xmm3, -5Bh
+vrndscalesh xmm2{k3}, xmm6, word ptr [rax+2], -5Bh
+vrsqrtph xmm2{k3}{z}, xmm3
+vrsqrtph xmm2{k3}, xmmword ptr [rax+10h]
+vrsqrtph xmm2{k5}{z}, word bcst [rax+2]
+vrsqrtph ymm2{k3}{z}, ymm3
+vrsqrtph ymm2{k3}, ymmword ptr [rax+20h]
+vrsqrtph ymm2{k5}{z}, word bcst [rax+2]
+vrsqrtph zmm2{k3}{z}, zmm3
+vrsqrtph zmm2{k3}, zmmword ptr [rax+40h]
+vrsqrtph zmm2{k5}{z}, word bcst [rax+2]
+vrsqrtsh xmm2{k3}, xmm6, xmm3
+vrsqrtsh xmm2{k3}, xmm6, word ptr [rax+2]
+vscalefph xmm2{k3}{z}, xmm6, xmm3
+vscalefph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vscalefph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vscalefph ymm2{k3}{z}, ymm6, ymm3
+vscalefph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vscalefph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vscalefph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vscalefph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vscalefph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vscalefsh xmm2{k3}, xmm6, xmm3
+vscalefsh xmm2{k3}, xmm6, word ptr [rax+2]
+vsqrtph xmm2{k3}, xmm3
+vsqrtph xmm2{k3}, xmmword ptr [rax+10h]
+vsqrtph xmm2{k5}{z}, word bcst [rax+2]
+vsqrtph ymm2{k3}, ymm3
+vsqrtph ymm2{k3}, ymmword ptr [rax+20h]
+vsqrtph ymm2{k5}{z}, word bcst [rax+2]
+vsqrtph zmm2{k3}{z}, zmm3 {ru-sae}
+vsqrtph zmm2{k3}, zmmword ptr [rax+40h]
+vsqrtph zmm2{k5}{z}, word bcst [rax+2]
+vsqrtsh xmm2{k3}, xmm6, xmm3
+vsqrtsh xmm2{k3}, xmm6, word ptr [rax+2]
+vsubph xmm2{k3}, xmm6, xmm3
+vsubph xmm2{k3}, xmm6, xmmword ptr [rax+10h]
+vsubph xmm2{k5}{z}, xmm6, word bcst [rax+2]
+vsubph ymm2{k3}, ymm6, ymm3
+vsubph ymm2{k3}, ymm6, ymmword ptr [rax+20h]
+vsubph ymm2{k5}{z}, ymm6, word bcst [rax+2]
+vsubph zmm2{k3}{z}, zmm6, zmm3 {ru-sae}
+vsubph zmm2{k3}, zmm6, zmmword ptr [rax+40h]
+vsubph zmm2{k5}{z}, zmm6, word bcst [rax+2]
+vsubsh xmm2{k3}, xmm6, xmm3
+vsubsh xmm2{k3}, xmm6, word ptr [rax+2]
+vucomish xmm2, xmm3
+vucomish xmm2, word ptr [rax+2]

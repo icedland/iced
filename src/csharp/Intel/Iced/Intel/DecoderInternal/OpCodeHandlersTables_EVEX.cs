@@ -4,17 +4,21 @@
 #if DECODER && !NO_EVEX
 namespace Iced.Intel.DecoderInternal {
 	static partial class OpCodeHandlersTables_EVEX {
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F38XX;
-		internal static readonly OpCodeHandler[] ThreeByteHandlers_0F3AXX;
-		internal static readonly OpCodeHandler[] TwoByteHandlers_0FXX;
+		internal static readonly OpCodeHandler[] Handlers_0F;
+		internal static readonly OpCodeHandler[] Handlers_0F38;
+		internal static readonly OpCodeHandler[] Handlers_0F3A;
+		internal static readonly OpCodeHandler[] Handlers_MAP5;
+		internal static readonly OpCodeHandler[] Handlers_MAP6;
 
 		static OpCodeHandlersTables_EVEX() {
 			var handlerReader = new EvexOpCodeHandlerReader();
 			var deserializer = new TableDeserializer(handlerReader, MaxIdNames, GetSerializedTables());
 			deserializer.Deserialize();
-			ThreeByteHandlers_0F38XX = deserializer.GetTable(ThreeByteHandlers_0F38XXIndex);
-			ThreeByteHandlers_0F3AXX = deserializer.GetTable(ThreeByteHandlers_0F3AXXIndex);
-			TwoByteHandlers_0FXX = deserializer.GetTable(TwoByteHandlers_0FXXIndex);
+			Handlers_0F = deserializer.GetTable(Handlers_0FIndex);
+			Handlers_0F38 = deserializer.GetTable(Handlers_0F38Index);
+			Handlers_0F3A = deserializer.GetTable(Handlers_0F3AIndex);
+			Handlers_MAP5 = deserializer.GetTable(Handlers_MAP5Index);
+			Handlers_MAP6 = deserializer.GetTable(Handlers_MAP6Index);
 		}
 	}
 }

@@ -8394,3 +8394,655 @@ F2 48 0F00 F1, Lkgs_r64m16
 F2 48 0F00 30, Lkgs_r64m16
 F3 0F 01 CA, Eretu
 F2 0F 01 CA, Erets
+62 F54C0B 58 D3, EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
+62 F54C0B 58 50 01, EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
+62 F54C9D 58 50 01, EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
+62 F54C2B 58 D3, EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
+62 F54C2B 58 50 01, EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
+62 F54CBD 58 50 01, EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
+62 F54CDB 58 D3, EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
+62 F54C4B 58 50 01, EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
+62 F54CDD 58 50 01, EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
+62 F54E0B 58 D3, EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
+62 F54E0B 58 50 01, EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
+62 F34C0B C2 D3 A5, EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
+62 F34C0B C2 50 01 A5, EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
+62 F34C1D C2 50 01 A5, EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
+62 F34C2B C2 D3 A5, EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
+62 F34C2B C2 50 01 A5, EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
+62 F34C3D C2 50 01 A5, EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
+62 F34C5B C2 D3 A5, EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
+62 F34C4B C2 50 01 A5, EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
+62 F34C5D C2 50 01 A5, EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
+62 F34E0B C2 D3 A5, EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
+62 F34E0B C2 50 01 A5, EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
+62 F57C08 2F D3, EVEX_Vcomish_xmm_xmmm16_sae
+62 F57C08 2F 50 01, EVEX_Vcomish_xmm_xmmm16_sae
+62 F57C0B 5B D3, EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+62 F57C08 5B 50 01, EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+62 F57C9B 5B 50 01, EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+62 F57C2B 5B D3, EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
+62 F57C28 5B 50 01, EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
+62 F57CBB 5B 50 01, EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
+62 F57C4B 5B D3, EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
+62 F57C48 5B 50 01, EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
+62 F57CDB 5B 50 01, EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
+62 F5FD0B 5A D3, EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+62 F5FD08 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+62 F5FD9B 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+62 F5FD2B 5A D3, EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
+62 F5FD28 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
+62 F5FDBB 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
+62 F5FD4B 5A D3, EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
+62 F5FD48 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
+62 F5FDDB 5A 50 01, EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
+62 F57D0B 5B D3, EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
+62 F57D08 5B 50 01, EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
+62 F57D9B 5B 50 01, EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
+62 F57D2B 5B D3, EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
+62 F57D28 5B 50 01, EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
+62 F57DBB 5B 50 01, EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
+62 F57D4B 5B D3, EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
+62 F57D48 5B 50 01, EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
+62 F57DDB 5B 50 01, EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
+62 F57C0B 5A D3, EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
+62 F57C08 5A 50 01, EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
+62 F57C9B 5A 50 01, EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
+62 F57C2B 5A D3, EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
+62 F57C28 5A 50 01, EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
+62 F57CBB 5A 50 01, EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
+62 F57C4B 5A D3, EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
+62 F57C48 5A 50 01, EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
+62 F57CDB 5A 50 01, EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
+62 F67D0B 13 D3, EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
+62 F67D08 13 50 01, EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
+62 F67D9B 13 50 01, EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
+62 F67D2B 13 D3, EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
+62 F67D28 13 50 01, EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
+62 F67DBB 13 50 01, EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
+62 F67D4B 13 D3, EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
+62 F67D48 13 50 01, EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
+62 F67DDB 13 50 01, EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
+62 F57D0B 7B D3, EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
+62 F57D08 7B 50 01, EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
+62 F57D9B 7B 50 01, EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
+62 F57D2B 7B D3, EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
+62 F57D28 7B 50 01, EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
+62 F57DBB 7B 50 01, EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
+62 F57D4B 7B D3, EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
+62 F57D48 7B 50 01, EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
+62 F57DDB 7B 50 01, EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
+62 F57C0B 79 D3, EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
+62 F57C08 79 50 01, EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
+62 F57C9B 79 50 01, EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
+62 F57C2B 79 D3, EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
+62 F57C28 79 50 01, EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
+62 F57CBB 79 50 01, EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
+62 F57C4B 79 D3, EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
+62 F57C48 79 50 01, EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
+62 F57CDB 79 50 01, EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
+62 F57D0B 79 D3, EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
+62 F57D08 79 50 01, EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
+62 F57D9B 79 50 01, EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
+62 F57D2B 79 D3, EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
+62 F57D28 79 50 01, EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
+62 F57DBB 79 50 01, EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
+62 F57D4B 79 D3, EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
+62 F57D48 79 50 01, EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
+62 F57DDB 79 50 01, EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
+62 F57C0B 7D D3, EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
+62 F57C08 7D 50 01, EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
+62 F57C9B 7D 50 01, EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
+62 F57C2B 7D D3, EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
+62 F57C28 7D 50 01, EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
+62 F57CBB 7D 50 01, EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
+62 F57C4B 7D D3, EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
+62 F57C48 7D 50 01, EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
+62 F57CDB 7D 50 01, EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
+62 F57D0B 7D D3, EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
+62 F57D08 7D 50 01, EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
+62 F57D9B 7D 50 01, EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
+62 F57D2B 7D D3, EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
+62 F57D28 7D 50 01, EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
+62 F57DBB 7D 50 01, EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
+62 F57D4B 7D D3, EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
+62 F57D48 7D 50 01, EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
+62 F57DDB 7D 50 01, EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
+62 F57D0B 1D D3, EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+62 F57D08 1D 50 01, EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+62 F57D9B 1D 50 01, EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+62 F57D2B 1D D3, EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
+62 F57D28 1D 50 01, EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
+62 F57DBB 1D 50 01, EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
+62 F57D4B 1D D3, EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
+62 F57D48 1D 50 01, EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
+62 F57DDB 1D 50 01, EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
+62 F5FC0B 5B D3, EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+62 F5FC08 5B 50 01, EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+62 F5FC9B 5B 50 01, EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+62 F5FC2B 5B D3, EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
+62 F5FC28 5B 50 01, EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
+62 F5FCBB 5B 50 01, EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
+62 F5FC4B 5B D3, EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
+62 F5FC48 5B 50 01, EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
+62 F5FCDB 5B 50 01, EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
+62 F5CF08 5A D3, EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
+62 F5CF08 5A 50 01, EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
+62 F54E08 5A D3, EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
+62 F54E08 5A 50 01, EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
+62 F57E08 2D D3, EVEX_Vcvtsh2si_r32_xmmm16_er
+62 F57E08 2D 50 01, EVEX_Vcvtsh2si_r32_xmmm16_er
+62 F5FE08 2D D3, EVEX_Vcvtsh2si_r64_xmmm16_er
+62 F5FE08 2D 50 01, EVEX_Vcvtsh2si_r64_xmmm16_er
+62 F64C08 13 D3, EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
+62 F64C08 13 50 01, EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
+62 F57E08 79 D3, EVEX_Vcvtsh2usi_r32_xmmm16_er
+62 F57E08 79 50 01, EVEX_Vcvtsh2usi_r32_xmmm16_er
+62 F5FE08 79 D3, EVEX_Vcvtsh2usi_r64_xmmm16_er
+62 F5FE08 79 50 01, EVEX_Vcvtsh2usi_r64_xmmm16_er
+62 F54E08 2A D3, EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
+62 F54E08 2A 50 01, EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
+62 F5CE08 2A D3, EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
+62 F5CE08 2A 50 01, EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
+62 F54C08 1D D3, EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
+62 F54C08 1D 50 01, EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
+62 F57E0B 5B D3, EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
+62 F57E08 5B 50 01, EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
+62 F57E9B 5B 50 01, EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
+62 F57E2B 5B D3, EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
+62 F57E28 5B 50 01, EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
+62 F57EBB 5B 50 01, EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
+62 F57E4B 5B D3, EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
+62 F57E48 5B 50 01, EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
+62 F57EDB 5B 50 01, EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
+62 F57D0B 7A D3, EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
+62 F57D08 7A 50 01, EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
+62 F57D9B 7A 50 01, EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
+62 F57D2B 7A D3, EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
+62 F57D28 7A 50 01, EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
+62 F57DBB 7A 50 01, EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
+62 F57D4B 7A D3, EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
+62 F57D48 7A 50 01, EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
+62 F57DDB 7A 50 01, EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
+62 F57C0B 78 D3, EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
+62 F57C08 78 50 01, EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
+62 F57C9B 78 50 01, EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
+62 F57C2B 78 D3, EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
+62 F57C28 78 50 01, EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
+62 F57CBB 78 50 01, EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
+62 F57C4B 78 D3, EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
+62 F57C48 78 50 01, EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
+62 F57CDB 78 50 01, EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
+62 F57D0B 78 D3, EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
+62 F57D08 78 50 01, EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
+62 F57D9B 78 50 01, EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
+62 F57D2B 78 D3, EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
+62 F57D28 78 50 01, EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
+62 F57DBB 78 50 01, EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
+62 F57D4B 78 D3, EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
+62 F57D48 78 50 01, EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
+62 F57DDB 78 50 01, EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
+62 F57C0B 7C D3, EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
+62 F57C08 7C 50 01, EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
+62 F57C9B 7C 50 01, EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
+62 F57C2B 7C D3, EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
+62 F57C28 7C 50 01, EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
+62 F57CBB 7C 50 01, EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
+62 F57C4B 7C D3, EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
+62 F57C48 7C 50 01, EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
+62 F57CDB 7C 50 01, EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
+62 F57D0B 7C D3, EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
+62 F57D08 7C 50 01, EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
+62 F57D9B 7C 50 01, EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
+62 F57D2B 7C D3, EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
+62 F57D28 7C 50 01, EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
+62 F57DBB 7C 50 01, EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
+62 F57D4B 7C D3, EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
+62 F57D48 7C 50 01, EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
+62 F57DDB 7C 50 01, EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
+62 F57E08 2C D3, EVEX_Vcvttsh2si_r32_xmmm16_sae
+62 F57E08 2C 50 01, EVEX_Vcvttsh2si_r32_xmmm16_sae
+62 F5FE08 2C D3, EVEX_Vcvttsh2si_r64_xmmm16_sae
+62 F5FE08 2C 50 01, EVEX_Vcvttsh2si_r64_xmmm16_sae
+62 F57E08 78 D3, EVEX_Vcvttsh2usi_r32_xmmm16_sae
+62 F57E08 78 50 01, EVEX_Vcvttsh2usi_r32_xmmm16_sae
+62 F5FE08 78 D3, EVEX_Vcvttsh2usi_r64_xmmm16_sae
+62 F5FE08 78 50 01, EVEX_Vcvttsh2usi_r64_xmmm16_sae
+62 F57F0B 7A D3, EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+62 F57F08 7A 50 01, EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+62 F57F9B 7A 50 01, EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+62 F57F2B 7A D3, EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
+62 F57F28 7A 50 01, EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
+62 F57FBB 7A 50 01, EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
+62 F57F4B 7A D3, EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
+62 F57F48 7A 50 01, EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
+62 F57FDB 7A 50 01, EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
+62 F5FF0B 7A D3, EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+62 F5FF08 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+62 F5FF9B 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+62 F5FF2B 7A D3, EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
+62 F5FF28 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
+62 F5FFBB 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
+62 F5FF4B 7A D3, EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
+62 F5FF48 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
+62 F5FFDB 7A 50 01, EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
+62 F54E08 7B D3, EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
+62 F54E08 7B 50 01, EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
+62 F5CE08 7B D3, EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
+62 F5CE08 7B 50 01, EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
+62 F57F0B 7D D3, EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
+62 F57F08 7D 50 01, EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
+62 F57F9B 7D 50 01, EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
+62 F57F2B 7D D3, EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
+62 F57F28 7D 50 01, EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
+62 F57FBB 7D 50 01, EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
+62 F57F4B 7D D3, EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
+62 F57F48 7D 50 01, EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
+62 F57FDB 7D 50 01, EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
+62 F57E0B 7D D3, EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
+62 F57E08 7D 50 01, EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
+62 F57E9B 7D 50 01, EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
+62 F57E2B 7D D3, EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
+62 F57E28 7D 50 01, EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
+62 F57EBB 7D 50 01, EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
+62 F57E4B 7D D3, EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
+62 F57E48 7D 50 01, EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
+62 F57EDB 7D 50 01, EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
+62 F54C0B 5E D3, EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
+62 F54C0B 5E 50 01, EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
+62 F54C9D 5E 50 01, EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
+62 F54C2B 5E D3, EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
+62 F54C2B 5E 50 01, EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
+62 F54CBD 5E 50 01, EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
+62 F54CDB 5E D3, EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
+62 F54C4B 5E 50 01, EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
+62 F54CDD 5E 50 01, EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
+62 F54E0B 5E D3, EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
+62 F54E0B 5E 50 01, EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
+62 F64F0B 56 D3, EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
+62 F64F0B 56 50 01, EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
+62 F64F9D 56 50 01, EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
+62 F64F2B 56 D3, EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
+62 F64F2B 56 50 01, EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
+62 F64FBD 56 50 01, EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
+62 F64FDB 56 D3, EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64F4B 56 50 01, EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64FDD 56 50 01, EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64E0B 56 D3, EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
+62 F64E0B 56 50 01, EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
+62 F64E9D 56 50 01, EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
+62 F64E2B 56 D3, EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
+62 F64E2B 56 50 01, EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
+62 F64EBD 56 50 01, EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
+62 F64EDB 56 D3, EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64E4B 56 50 01, EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64EDD 56 50 01, EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64F0B 57 D3, EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
+62 F64F0B 57 50 01, EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
+62 F64E0B 57 D3, EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
+62 F64E0B 57 50 01, EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
+62 F64F0B D6 D3, EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
+62 F64F0B D6 50 01, EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
+62 F64F9D D6 50 01, EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
+62 F64F2B D6 D3, EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
+62 F64F2B D6 50 01, EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
+62 F64FBD D6 50 01, EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
+62 F64FDB D6 D3, EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64F4B D6 50 01, EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64FDD D6 50 01, EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64E0B D6 D3, EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
+62 F64E0B D6 50 01, EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
+62 F64E9D D6 50 01, EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
+62 F64E2B D6 D3, EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
+62 F64E2B D6 50 01, EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
+62 F64EBD D6 50 01, EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
+62 F64EDB D6 D3, EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64E4B D6 50 01, EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64EDD D6 50 01, EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
+62 F64F0B D7 D3, EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
+62 F64F0B D7 50 01, EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
+62 F64E0B D7 D3, EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
+62 F64E0B D7 50 01, EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
+62 F64D8B 96 D3, EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B 96 50 01, EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D 96 50 01, EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB 96 D3, EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B 96 50 01, EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD 96 50 01, EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB 96 D3, EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B 96 50 01, EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD 96 50 01, EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B A6 D3, EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B A6 50 01, EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D A6 50 01, EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB A6 D3, EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B A6 50 01, EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD A6 50 01, EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB A6 D3, EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B A6 50 01, EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD A6 50 01, EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B B6 D3, EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B B6 50 01, EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D B6 50 01, EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB B6 D3, EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B B6 50 01, EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD B6 50 01, EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB B6 D3, EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B B6 50 01, EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD B6 50 01, EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B 97 D3, EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B 97 50 01, EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D 97 50 01, EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB 97 D3, EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B 97 50 01, EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD 97 50 01, EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB 97 D3, EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B 97 50 01, EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD 97 50 01, EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B A7 D3, EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B A7 50 01, EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D A7 50 01, EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB A7 D3, EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B A7 50 01, EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD A7 50 01, EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB A7 D3, EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B A7 50 01, EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD A7 50 01, EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B B7 D3, EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B B7 50 01, EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D B7 50 01, EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB B7 D3, EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B B7 50 01, EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD B7 50 01, EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB B7 D3, EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B B7 50 01, EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD B7 50 01, EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B 98 D3, EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B 98 50 01, EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D 98 50 01, EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB 98 D3, EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B 98 50 01, EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD 98 50 01, EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB 98 D3, EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B 98 50 01, EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD 98 50 01, EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B A8 D3, EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B A8 50 01, EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D A8 50 01, EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB A8 D3, EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B A8 50 01, EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD A8 50 01, EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB A8 D3, EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B A8 50 01, EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD A8 50 01, EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B B8 D3, EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B B8 50 01, EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D B8 50 01, EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB B8 D3, EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B B8 50 01, EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD B8 50 01, EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB B8 D3, EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B B8 50 01, EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD B8 50 01, EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B 9C D3, EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B 9C 50 01, EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D 9C 50 01, EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB 9C D3, EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B 9C 50 01, EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD 9C 50 01, EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB 9C D3, EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B 9C 50 01, EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD 9C 50 01, EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B AC D3, EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B AC 50 01, EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D AC 50 01, EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB AC D3, EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B AC 50 01, EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD AC 50 01, EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB AC D3, EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B AC 50 01, EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD AC 50 01, EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B BC D3, EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B BC 50 01, EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D BC 50 01, EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB BC D3, EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B BC 50 01, EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD BC 50 01, EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB BC D3, EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B BC 50 01, EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD BC 50 01, EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B 99 D3, EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B 99 50 01, EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B A9 D3, EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B A9 50 01, EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B B9 D3, EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B B9 50 01, EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B 9D D3, EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B 9D 50 01, EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B AD D3, EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B AD 50 01, EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B BD D3, EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B BD 50 01, EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B 9A D3, EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B 9A 50 01, EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D 9A 50 01, EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB 9A D3, EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B 9A 50 01, EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD 9A 50 01, EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB 9A D3, EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B 9A 50 01, EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD 9A 50 01, EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B AA D3, EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B AA 50 01, EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D AA 50 01, EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB AA D3, EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B AA 50 01, EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD AA 50 01, EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB AA D3, EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B AA 50 01, EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD AA 50 01, EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B BA D3, EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B BA 50 01, EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D BA 50 01, EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB BA D3, EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B BA 50 01, EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD BA 50 01, EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB BA D3, EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B BA 50 01, EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD BA 50 01, EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B 9E D3, EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B 9E 50 01, EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D 9E 50 01, EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB 9E D3, EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B 9E 50 01, EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD 9E 50 01, EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB 9E D3, EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B 9E 50 01, EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD 9E 50 01, EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B AE D3, EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B AE 50 01, EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D AE 50 01, EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB AE D3, EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B AE 50 01, EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD AE 50 01, EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB AE D3, EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B AE 50 01, EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD AE 50 01, EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B BE D3, EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B BE 50 01, EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D BE 50 01, EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB BE D3, EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B BE 50 01, EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD BE 50 01, EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB BE D3, EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B BE 50 01, EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD BE 50 01, EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D8B 9B D3, EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B 9B 50 01, EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B AB D3, EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B AB 50 01, EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B BB D3, EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B BB 50 01, EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B 9F D3, EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B 9F 50 01, EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B AF D3, EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B AF 50 01, EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
+62 F64D8B BF D3, EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B BF 50 01, EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
+62 F37C0B 66 D3 A5, EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+62 F37C0B 66 50 01 A5, EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+62 F37C1D 66 50 01 A5, EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+62 F37C2B 66 D3 A5, EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
+62 F37C2B 66 50 01 A5, EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
+62 F37C3D 66 50 01 A5, EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
+62 F37C4B 66 D3 A5, EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
+62 F37C4B 66 50 01 A5, EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
+62 F37C5D 66 50 01 A5, EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
+62 F37C0B 67 D3 A5, EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
+62 F37C0B 67 50 01 A5, EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
+62 F67D0B 42 D3, EVEX_Vgetexpph_xmm_k1z_xmmm128b16
+62 F67D08 42 50 01, EVEX_Vgetexpph_xmm_k1z_xmmm128b16
+62 F67D9B 42 50 01, EVEX_Vgetexpph_xmm_k1z_xmmm128b16
+62 F67D2B 42 D3, EVEX_Vgetexpph_ymm_k1z_ymmm256b16
+62 F67D28 42 50 01, EVEX_Vgetexpph_ymm_k1z_ymmm256b16
+62 F67DBB 42 50 01, EVEX_Vgetexpph_ymm_k1z_ymmm256b16
+62 F67D4B 42 D3, EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
+62 F67D48 42 50 01, EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
+62 F67DDB 42 50 01, EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
+62 F64D0B 43 D3, EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
+62 F64D0B 43 50 01, EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
+62 F37C0B 26 D3 A5, EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
+62 F37C08 26 50 01 A5, EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
+62 F37C9B 26 50 01 A5, EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
+62 F37C2B 26 D3 A5, EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
+62 F37C28 26 50 01 A5, EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
+62 F37CBB 26 50 01 A5, EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
+62 F37C4B 26 D3 A5, EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
+62 F37C48 26 50 01 A5, EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
+62 F37CDB 26 50 01 A5, EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
+62 F34C8B 27 D3 A5, EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
+62 F34C0B 27 50 01 A5, EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
+62 F54C0B 5F D3, EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
+62 F54C0B 5F 50 01, EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
+62 F54C9D 5F 50 01, EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
+62 F54C2B 5F D3, EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
+62 F54C2B 5F 50 01, EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
+62 F54CBD 5F 50 01, EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
+62 F54CDB 5F D3, EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
+62 F54C4B 5F 50 01, EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
+62 F54CDD 5F 50 01, EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
+62 F54E0B 5F D3, EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
+62 F54E0B 5F 50 01, EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
+62 F54C0B 5D D3, EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
+62 F54C0B 5D 50 01, EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
+62 F54C9D 5D 50 01, EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
+62 F54C2B 5D D3, EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
+62 F54C2B 5D 50 01, EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
+62 F54CBD 5D 50 01, EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
+62 F54CDB 5D D3, EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
+62 F54C4B 5D 50 01, EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
+62 F54CDD 5D 50 01, EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
+62 F54E0B 5D D3, EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
+62 F54E0B 5D 50 01, EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
+62 F57E08 10 50 01, EVEX_Vmovsh_xmm_k1z_m16
+62 F57E08 11 50 01, EVEX_Vmovsh_m16_k1_xmm
+62 F54E08 10 D3, EVEX_Vmovsh_xmm_k1z_xmm_xmm
+62 F54E08 11 D3, EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11
+62 F57D08 6E D3, EVEX_Vmovw_xmm_r32m16
+62 F57D08 6E 50 01, EVEX_Vmovw_xmm_r32m16
+62 F5FD08 6E D3, EVEX_Vmovw_xmm_r64m16
+62 F5FD08 6E 50 01, EVEX_Vmovw_xmm_r64m16
+62 F57D08 7E D3, EVEX_Vmovw_r32m16_xmm
+62 F57D08 7E 50 01, EVEX_Vmovw_r32m16_xmm
+62 F5FD08 7E D3, EVEX_Vmovw_r64m16_xmm
+62 F5FD08 7E 50 01, EVEX_Vmovw_r64m16_xmm
+62 F54C0B 59 D3, EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
+62 F54C0B 59 50 01, EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
+62 F54C9D 59 50 01, EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
+62 F54C2B 59 D3, EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
+62 F54C2B 59 50 01, EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
+62 F54CBD 59 50 01, EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
+62 F54CDB 59 D3, EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
+62 F54C4B 59 50 01, EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
+62 F54CDD 59 50 01, EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
+62 F54E0B 59 D3, EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
+62 F54E0B 59 50 01, EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
+62 F67D8B 4C D3, EVEX_Vrcpph_xmm_k1z_xmmm128b16
+62 F67D0B 4C 50 01, EVEX_Vrcpph_xmm_k1z_xmmm128b16
+62 F67D9D 4C 50 01, EVEX_Vrcpph_xmm_k1z_xmmm128b16
+62 F67DAB 4C D3, EVEX_Vrcpph_ymm_k1z_ymmm256b16
+62 F67D2B 4C 50 01, EVEX_Vrcpph_ymm_k1z_ymmm256b16
+62 F67DBD 4C 50 01, EVEX_Vrcpph_ymm_k1z_ymmm256b16
+62 F67DCB 4C D3, EVEX_Vrcpph_zmm_k1z_zmmm512b16
+62 F67D4B 4C 50 01, EVEX_Vrcpph_zmm_k1z_zmmm512b16
+62 F67DDD 4C 50 01, EVEX_Vrcpph_zmm_k1z_zmmm512b16
+62 F64D0B 4D D3, EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
+62 F64D0B 4D 50 01, EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
+62 F37C0B 56 D3 A5, EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
+62 F37C08 56 50 01 A5, EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
+62 F37C9B 56 50 01 A5, EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
+62 F37C2B 56 D3 A5, EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
+62 F37C28 56 50 01 A5, EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
+62 F37CBB 56 50 01 A5, EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
+62 F37C4B 56 D3 A5, EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
+62 F37C48 56 50 01 A5, EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
+62 F37CDB 56 50 01 A5, EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
+62 F34C8B 57 D3 A5, EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
+62 F34C0B 57 50 01 A5, EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
+62 F37C0B 08 D3 A5, EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
+62 F37C08 08 50 01 A5, EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
+62 F37C9B 08 50 01 A5, EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
+62 F37C2B 08 D3 A5, EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
+62 F37C28 08 50 01 A5, EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
+62 F37CBB 08 50 01 A5, EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
+62 F37C4B 08 D3 A5, EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
+62 F37C48 08 50 01 A5, EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
+62 F37CDB 08 50 01 A5, EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
+62 F34C8B 0A D3 A5, EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
+62 F34C0B 0A 50 01 A5, EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
+62 F67D8B 4E D3, EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
+62 F67D0B 4E 50 01, EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
+62 F67D9D 4E 50 01, EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
+62 F67DAB 4E D3, EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
+62 F67D2B 4E 50 01, EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
+62 F67DBD 4E 50 01, EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
+62 F67DCB 4E D3, EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
+62 F67D4B 4E 50 01, EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
+62 F67DDD 4E 50 01, EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
+62 F64D0B 4F D3, EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
+62 F64D0B 4F 50 01, EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
+62 F64D8B 2C D3, EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
+62 F64D0B 2C 50 01, EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
+62 F64D9D 2C 50 01, EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
+62 F64DAB 2C D3, EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
+62 F64D2B 2C 50 01, EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
+62 F64DBD 2C 50 01, EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
+62 F64DDB 2C D3, EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D4B 2C 50 01, EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
+62 F64DDD 2C 50 01, EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
+62 F64D0B 2D D3, EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
+62 F64D0B 2D 50 01, EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
+62 F57C0B 51 D3, EVEX_Vsqrtph_xmm_k1z_xmmm128b16
+62 F57C0B 51 50 01, EVEX_Vsqrtph_xmm_k1z_xmmm128b16
+62 F57C9D 51 50 01, EVEX_Vsqrtph_xmm_k1z_xmmm128b16
+62 F57C2B 51 D3, EVEX_Vsqrtph_ymm_k1z_ymmm256b16
+62 F57C2B 51 50 01, EVEX_Vsqrtph_ymm_k1z_ymmm256b16
+62 F57CBD 51 50 01, EVEX_Vsqrtph_ymm_k1z_ymmm256b16
+62 F57CDB 51 D3, EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
+62 F57C4B 51 50 01, EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
+62 F57CDD 51 50 01, EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
+62 F54E0B 51 D3, EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
+62 F54E0B 51 50 01, EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
+62 F54C0B 5C D3, EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+62 F54C0B 5C 50 01, EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+62 F54C9D 5C 50 01, EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+62 F54C2B 5C D3, EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+62 F54C2B 5C 50 01, EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+62 F54CBD 5C 50 01, EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+62 F54CDB 5C D3, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+62 F54C4B 5C 50 01, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+62 F54CDD 5C 50 01, EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+62 F54E0B 5C D3, EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
+62 F54E0B 5C 50 01, EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
+62 F57C08 2E D3, EVEX_Vucomish_xmm_xmmm16_sae
+62 F57C08 2E 50 01, EVEX_Vucomish_xmm_xmmm16_sae

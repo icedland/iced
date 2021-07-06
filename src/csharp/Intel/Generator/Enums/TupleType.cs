@@ -32,5 +32,15 @@ namespace Generator.Enums {
 		N32b8,
 		[Comment("#(c:N = b ? 8 : 64)#")]
 		N64b8,
+		[Comment("#(c:N = b ? 2 : 4)#")]
+		N4b2,
+		[Comment("#(c:N = b ? 2 : 8)#")]
+		N8b2,
+		[Comment("#(c:N = b ? 2 : 16)#")]
+		N16b2,
+		[Comment("#(c:N = b ? 2 : 32)#")]
+		N32b2,
+		[Comment("#(c:N = b ? 2 : 64)#")]
+		N64b2,
 	}
 }

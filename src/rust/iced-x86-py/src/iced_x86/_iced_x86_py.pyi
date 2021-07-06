@@ -7479,6 +7479,13 @@ class OpCodeInfo:
 		"""
 		...
 	@property
+	def requires_unique_dest_reg_num(self) -> bool:
+		"""
+		bool: `True` if the destination register's reg-num must not be present in any other operand, eg.
+		`MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
+		"""
+		...
+	@property
 	def is_privileged(self) -> bool:
 		"""bool: `True` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)"""
 		...

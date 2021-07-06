@@ -486,6 +486,14 @@ impl OpCodeInfo {
 		self.0.requires_unique_reg_nums()
 	}
 
+	/// `true` if the destination register's reg-num must not be present in any other operand, eg.
+	/// `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "requiresUniqueDestRegNum")]
+	pub fn requires_unique_dest_reg_num(&self) -> bool {
+		self.0.requires_unique_dest_reg_num()
+	}
+
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isPrivileged")]

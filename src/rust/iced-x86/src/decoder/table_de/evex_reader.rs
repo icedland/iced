@@ -318,6 +318,20 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			true,
 		))) as *const OpCodeHandler,
 
+		EvexOpCodeHandlerKind::VkHW_er_ur_3 => Box::into_raw(Box::new(OpCodeHandler_EVEX_VkHW_er_ur::new(
+			deserializer.read_register(),
+			deserializer.read_code(),
+			deserializer.read_tuple_type(),
+			false,
+		))) as *const OpCodeHandler,
+
+		EvexOpCodeHandlerKind::VkHW_er_ur_3b => Box::into_raw(Box::new(OpCodeHandler_EVEX_VkHW_er_ur::new(
+			deserializer.read_register(),
+			deserializer.read_code(),
+			deserializer.read_tuple_type(),
+			true,
+		))) as *const OpCodeHandler,
+
 		EvexOpCodeHandlerKind::VkHWIb_3 => Box::into_raw(Box::new(OpCodeHandler_EVEX_VkHWIb::new(
 			deserializer.read_register(),
 			deserializer.read_code(),

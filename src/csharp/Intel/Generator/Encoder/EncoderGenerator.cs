@@ -145,6 +145,8 @@ namespace Generator.Encoder {
 					encFlags1 |= amdLockRegBit.Value;
 
 				var encFlags2 = EncFlags2.None;
+				var encFlags3 = EncFlags3.None;
+				var opcFlags1 = OpCodeInfoFlags1.None;
 				encFlags2 |= (EncFlags2)(def.OpCode << (int)EncFlags2.OpCodeShift);
 				switch (def.OpCodeLength) {
 				case 1:
@@ -188,11 +190,10 @@ namespace Generator.Encoder {
 				else if (def.RmGroupIndex >= 0) {
 					if ((uint)def.RmGroupIndex > (uint)EncFlags2.GroupIndexMask)
 						throw new InvalidOperationException();
-					encFlags2 |= EncFlags2.HasRmGroupIndex;
+					encFlags3 |= EncFlags3.HasRmGroupIndex;
 					encFlags2 |= (EncFlags2)((uint)def.RmGroupIndex << (int)EncFlags2.GroupIndexShift);
 				}
 
-				var encFlags3 = EncFlags3.None;
 				if ((uint)def.Encoding > (uint)EncFlags3.EncodingMask)
 					throw new InvalidOperationException();
 				encFlags3 |= (EncFlags3)((uint)def.Encoding << (int)EncFlags3.EncodingShift);
@@ -210,7 +211,7 @@ namespace Generator.Encoder {
 				encFlags3 |= (EncFlags3)((uint)def.TupleType << (int)EncFlags3.TupleTypeShift);
 
 				if ((def.Flags3 & InstructionDefFlags3.DefaultOpSize64) != 0) encFlags3 |= EncFlags3.DefaultOpSize64;
-				if ((def.Flags3 & InstructionDefFlags3.ForceOpSize64) != 0) encFlags3 |= EncFlags3.ForceOpSize64;
+				if ((def.Flags3 & InstructionDefFlags3.ForceOpSize64) != 0) opcFlags1 |= OpCodeInfoFlags1.ForceOpSize64;
 				if ((def.Flags3 & InstructionDefFlags3.IntelForceOpSize64) != 0) encFlags3 |= EncFlags3.IntelForceOpSize64;
 				if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0) encFlags3 |= EncFlags3.Fwait;
 				if ((def.Flags1 & (InstructionDefFlags1.Bit16 | InstructionDefFlags1.Bit32)) != 0) encFlags3 |= EncFlags3.Bit16or32;
@@ -230,7 +231,6 @@ namespace Generator.Encoder {
 				if ((def.Flags1 & InstructionDefFlags1.ZeroingMasking) != 0) encFlags3 |= EncFlags3.ZeroingMasking;
 				if ((def.Flags1 & InstructionDefFlags1.RequireOpMaskRegister) != 0) encFlags3 |= EncFlags3.RequireOpMaskRegister;
 
-				var opcFlags1 = OpCodeInfoFlags1.None;
 				const InstructionDefFlags1 CplBits =
 					InstructionDefFlags1.Cpl0 | InstructionDefFlags1.Cpl1 | InstructionDefFlags1.Cpl2 | InstructionDefFlags1.Cpl3;
 				opcFlags1 |= (def.Flags1 & CplBits) switch {
@@ -252,6 +252,7 @@ namespace Generator.Encoder {
 				if ((def.Flags1 & InstructionDefFlags1.No66) != 0) opcFlags1 |= OpCodeInfoFlags1.No66;
 				if ((def.Flags1 & InstructionDefFlags1.NFx) != 0) opcFlags1 |= OpCodeInfoFlags1.NFx;
 				if ((def.Flags1 & InstructionDefFlags1.RequiresUniqueRegNums) != 0) opcFlags1 |= OpCodeInfoFlags1.RequiresUniqueRegNums;
+				if ((def.Flags3 & InstructionDefFlags3.RequiresUniqueDestRegNum) != 0) opcFlags1 |= OpCodeInfoFlags1.RequiresUniqueDestRegNum;
 				if ((def.Flags3 & InstructionDefFlags3.Privileged) != 0) opcFlags1 |= OpCodeInfoFlags1.Privileged;
 				if ((def.Flags1 & InstructionDefFlags1.SaveRestore) != 0) opcFlags1 |= OpCodeInfoFlags1.SaveRestore;
 				if ((def.Flags1 & InstructionDefFlags1.StackInstruction) != 0) opcFlags1 |= OpCodeInfoFlags1.StackInstruction;
@@ -353,34 +354,36 @@ namespace Generator.Encoder {
 
 		static LegacyOpCodeTable GetLegacyTable(OpCodeTableKind table) =>
 			table switch {
-				OpCodeTableKind.Normal => LegacyOpCodeTable.Normal,
-				OpCodeTableKind.T0F => LegacyOpCodeTable.Table0F,
-				OpCodeTableKind.T0F38 => LegacyOpCodeTable.Table0F38,
-				OpCodeTableKind.T0F3A => LegacyOpCodeTable.Table0F3A,
+				OpCodeTableKind.Normal => LegacyOpCodeTable.MAP0,
+				OpCodeTableKind.T0F => LegacyOpCodeTable.MAP0F,
+				OpCodeTableKind.T0F38 => LegacyOpCodeTable.MAP0F38,
+				OpCodeTableKind.T0F3A => LegacyOpCodeTable.MAP0F3A,
 				_ => throw new InvalidOperationException(),
 			};
 
 		static VexOpCodeTable GetVexTable(OpCodeTableKind table) =>
 			table switch {
-				OpCodeTableKind.T0F => VexOpCodeTable.Table0F,
-				OpCodeTableKind.T0F38 => VexOpCodeTable.Table0F38,
-				OpCodeTableKind.T0F3A => VexOpCodeTable.Table0F3A,
+				OpCodeTableKind.T0F => VexOpCodeTable.MAP0F,
+				OpCodeTableKind.T0F38 => VexOpCodeTable.MAP0F38,
+				OpCodeTableKind.T0F3A => VexOpCodeTable.MAP0F3A,
 				_ => throw new InvalidOperationException(),
 			};
 
 		static EvexOpCodeTable GetEvexTable(OpCodeTableKind table) =>
 			table switch {
-				OpCodeTableKind.T0F => EvexOpCodeTable.Table0F,
-				OpCodeTableKind.T0F38 => EvexOpCodeTable.Table0F38,
-				OpCodeTableKind.T0F3A => EvexOpCodeTable.Table0F3A,
+				OpCodeTableKind.T0F => EvexOpCodeTable.MAP0F,
+				OpCodeTableKind.T0F38 => EvexOpCodeTable.MAP0F38,
+				OpCodeTableKind.T0F3A => EvexOpCodeTable.MAP0F3A,
+				OpCodeTableKind.MAP5 => EvexOpCodeTable.MAP5,
+				OpCodeTableKind.MAP6 => EvexOpCodeTable.MAP6,
 				_ => throw new InvalidOperationException(),
 			};
 
 		static XopOpCodeTable GetXopTable(OpCodeTableKind table) =>
 			table switch {
-				OpCodeTableKind.XOP8 => XopOpCodeTable.XOP8,
-				OpCodeTableKind.XOP9 => XopOpCodeTable.XOP9,
-				OpCodeTableKind.XOPA => XopOpCodeTable.XOPA,
+				OpCodeTableKind.MAP8 => XopOpCodeTable.MAP8,
+				OpCodeTableKind.MAP9 => XopOpCodeTable.MAP9,
+				OpCodeTableKind.MAP10 => XopOpCodeTable.MAP10,
 				_ => throw new InvalidOperationException(),
 			};
 

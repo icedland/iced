@@ -295,8 +295,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					continue;
 				var bytes = HexUtils.ToByteArray(info.HexBytes);
 				int evexIndex = GetEvexIndex(bytes);
-				for (int i = 1; i <= 3; i++) {
-					bytes[evexIndex + 1] = (byte)((bytes[evexIndex + 1] & ~0x0C) | (i << 2));
+				for (int i = 1; i <= 1; i++) {
+					bytes[evexIndex + 1] = (byte)((bytes[evexIndex + 1] & ~8) | (i << 3));
 					{
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out var instruction);
@@ -726,6 +726,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				case TupleType.N16b8:
 				case TupleType.N32b8:
 				case TupleType.N64b8:
+				case TupleType.N4b2:
+				case TupleType.N8b2:
+				case TupleType.N16b2:
+				case TupleType.N32b2:
+				case TupleType.N64b2:
 					expectedBcst = true;
 					break;
 				default:
@@ -2804,9 +2809,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					var vexIndex = GetVexXopIndex(hexBytes);
 					for (int i = 0; i < 32; i++) {
 						switch (i) {
-						case 8:// XOP8
-						case 9:// XOP9
-						case 0xA:// XOPA
+						case 8:// MAP8
+						case 9:// MAP9
+						case 10:// MAP10
 							continue;
 						}
 						hexBytes[vexIndex + 1] = (byte)((hexBytes[vexIndex + 1] & 0xE0) | i);

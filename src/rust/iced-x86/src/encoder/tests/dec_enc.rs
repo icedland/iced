@@ -279,8 +279,8 @@ fn test_evex_reserved_bits() {
 		}
 		let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 		let evex_index = get_evex_index(&bytes);
-		for i in 1..4 {
-			bytes[evex_index + 1] = (bytes[evex_index + 1] & !0x0C) | (i << 2) as u8;
+		for i in 1..2 {
+			bytes[evex_index + 1] = (bytes[evex_index + 1] & !8) | (i << 3) as u8;
 			{
 				let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 				let instruction = decoder.decode();
@@ -695,7 +695,18 @@ fn verify_tuple_type_bcst() {
 		}
 		let op_code = code.op_code();
 		let expected_bcst = match op_code.tuple_type() {
-			TupleType::N8b4 | TupleType::N16b4 | TupleType::N32b4 | TupleType::N64b4 | TupleType::N16b8 | TupleType::N32b8 | TupleType::N64b8 => true,
+			TupleType::N8b4
+			| TupleType::N16b4
+			| TupleType::N32b4
+			| TupleType::N64b4
+			| TupleType::N16b8
+			| TupleType::N32b8
+			| TupleType::N64b8
+			| TupleType::N4b2
+			| TupleType::N8b2
+			| TupleType::N16b2
+			| TupleType::N32b2
+			| TupleType::N64b2 => true,
 			_ => false,
 		};
 		assert_eq!(op_code.can_broadcast(), expected_bcst);
@@ -2810,7 +2821,7 @@ fn verify_invalid_table_encoding() {
 			let vex_index = get_vex_xop_index(&hex_bytes);
 			for i in 0..32 {
 				match i {
-					8 | 9 | 0xA => continue,
+					8 | 9 | 10 => continue,
 					_ => {}
 				}
 				hex_bytes[vex_index + 1] = (hex_bytes[vex_index + 1] & 0xE0) | i;

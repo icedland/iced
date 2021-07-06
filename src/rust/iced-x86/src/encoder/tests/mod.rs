@@ -891,6 +891,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	assert_eq!(info.no66(), tc.no66);
 	assert_eq!(info.nfx(), tc.nfx);
 	assert_eq!(info.requires_unique_reg_nums(), tc.requires_unique_reg_nums);
+	assert_eq!(info.requires_unique_dest_reg_num(), tc.requires_unique_dest_reg_num);
 	assert_eq!(info.is_privileged(), tc.is_privileged);
 	assert_eq!(info.is_save_restore(), tc.is_save_restore);
 	assert_eq!(info.is_stack_instruction(), tc.is_stack_instruction);

@@ -3122,7 +3122,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x3F,// 63
 		0x06,// Null
 
-	// ThreeByteHandlers_0F38XX
+	// Handlers_0F38
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -3877,7 +3877,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x04,// 4
 		0x02,// Invalid
 
-	// ThreeByteHandlers_0F3AXX
+	// Handlers_0F3A
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -4182,7 +4182,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0F,// 15
 		0x02,// Invalid
 
-	// TwoByteHandlers_0FXX
+	// Handlers_0F
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -4727,7 +4727,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC8,// Options1632_1
 		0x0D,// AnotherTable
 			0x08,// ArrayReference
-				0x50,// 0x50 = ThreeByteHandlers_0F38XX
+				0x50,// 0x50 = Handlers_0F38
 		0xA4,// Simple
 			0x90, 0x21,// Smint
 		0x80, 0x80, 0x40,// Cyrix
@@ -4743,7 +4743,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0xC9,// Options1632_2
 		0x0D,// AnotherTable
 			0x08,// ArrayReference
-				0x51,// 0x51 = ThreeByteHandlers_0F3AXX
+				0x51,// 0x51 = Handlers_0F3A
 		0xA4,// Simple
 			0x92, 0x21,// Rdm
 		0x80, 0x80, 0x80, 0x02,// Cyrix_DMI
@@ -6390,7 +6390,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0xFD, 0x20,// Ud0
 		0x02,// AMD
 
-	// OneByteHandlers
+	// Handlers_MAP0
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -6471,7 +6471,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 15 = 0x0F
 	0x0D,// AnotherTable
 		0x08,// ArrayReference
-			0x52,// 0x52 = TwoByteHandlers_0FXX
+			0x52,// 0x52 = Handlers_0F
 
 	// 16 = 0x10
 	0x2C,// Eb_Gb_2
@@ -7653,4 +7653,4 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x1E,// 0x1E = handlers_Grp_FF
 ];
 pub(super) const MAX_ID_NAMES: usize = 84;
-pub(super) const ONE_BYTE_HANDLERS_INDEX: usize = 83;
+pub(super) const HANDLERS_MAP0_INDEX: usize = 83;

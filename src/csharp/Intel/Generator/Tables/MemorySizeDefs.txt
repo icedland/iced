@@ -130,15 +130,34 @@
 8, Broadcast512_Int64, Int64, b1to8, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
 4, Broadcast512_Float32, Float32, b1to16, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
 8, Broadcast512_Float64, Float64, b1to8, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
-4, Broadcast128_2xInt16, Int16, b1to4, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
-4, Broadcast256_2xInt16, Int16, b1to8, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
-4, Broadcast512_2xInt16, Int16, b1to16, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
-8, Broadcast128_2xUInt32, UInt32, b1to2, qword_bcst, qword_ptr, qword_bcst, qword, bcst
-8, Broadcast256_2xUInt32, UInt32, b1to4, qword_bcst, qword_ptr, qword_bcst, qword, bcst
-8, Broadcast512_2xUInt32, UInt32, b1to8, qword_bcst, qword_ptr, qword_bcst, qword, bcst
-8, Broadcast128_2xInt32, Int32, b1to2, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
-8, Broadcast256_2xInt32, Int32, b1to4, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
-8, Broadcast512_2xInt32, Int32, b1to8, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
-4, Broadcast128_2xBFloat16, BFloat16, b1to4, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
-4, Broadcast256_2xBFloat16, BFloat16, b1to8, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
-4, Broadcast512_2xBFloat16, BFloat16, b1to16, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Broadcast128_2xInt16, Packed32_Int16, b1to4, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Broadcast256_2xInt16, Packed32_Int16, b1to8, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Broadcast512_2xInt16, Packed32_Int16, b1to16, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+8, Broadcast128_2xUInt32, Packed64_UInt32, b1to2, qword_bcst, qword_ptr, qword_bcst, qword, bcst
+8, Broadcast256_2xUInt32, Packed64_UInt32, b1to4, qword_bcst, qword_ptr, qword_bcst, qword, bcst
+8, Broadcast512_2xUInt32, Packed64_UInt32, b1to8, qword_bcst, qword_ptr, qword_bcst, qword, bcst
+8, Broadcast128_2xInt32, Packed64_Int32, b1to2, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
+8, Broadcast256_2xInt32, Packed64_Int32, b1to4, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
+8, Broadcast512_2xInt32, Packed64_Int32, b1to8, qword_bcst, qword_ptr, qword_bcst, qword, signed bcst
+4, Broadcast128_2xBFloat16, Packed32_BFloat16, b1to4, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Broadcast256_2xBFloat16, Packed32_BFloat16, b1to8, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Broadcast512_2xBFloat16, Packed32_BFloat16, b1to16, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Packed32_Float16, Float16, None, dword_ptr, dword_ptr, dword_ptr, dword, signed
+64, Packed512_Float16, Float16, None, zmmword_ptr, zmmword_ptr, zmmword_ptr, zword, signed
+2, Broadcast32_Float16, Float16, b1to2, word_bcst, word_ptr, word_bcst, word, signed bcst
+2, Broadcast64_Float16, Float16, b1to4, word_bcst, word_ptr, word_bcst, word, signed bcst
+2, Broadcast128_Float16, Float16, b1to8, word_bcst, word_ptr, word_bcst, word, signed bcst
+2, Broadcast256_Float16, Float16, b1to16, word_bcst, word_ptr, word_bcst, word, signed bcst
+2, Broadcast512_Float16, Float16, b1to32, word_bcst, word_ptr, word_bcst, word, signed bcst
+2, Broadcast128_Int16, Int16, b1to8, word_bcst, word_ptr, word_bcst, word, bcst
+2, Broadcast256_Int16, Int16, b1to16, word_bcst, word_ptr, word_bcst, word, bcst
+2, Broadcast512_Int16, Int16, b1to32, word_bcst, word_ptr, word_bcst, word, bcst
+2, Broadcast128_UInt16, UInt16, b1to8, word_bcst, word_ptr, word_bcst, word, bcst
+2, Broadcast256_UInt16, UInt16, b1to16, word_bcst, word_ptr, word_bcst, word, bcst
+2, Broadcast512_UInt16, UInt16, b1to32, word_bcst, word_ptr, word_bcst, word, bcst
+16, Packed128_2xFloat16, Packed32_Float16, None, xmmword_ptr, xmmword_ptr, xmmword_ptr, oword, signed
+32, Packed256_2xFloat16, Packed32_Float16, None, ymmword_ptr, ymmword_ptr, ymmword_ptr, yword, signed
+64, Packed512_2xFloat16, Packed32_Float16, None, zmmword_ptr, zmmword_ptr, zmmword_ptr, zword, signed
+4, Broadcast128_2xFloat16, Packed32_Float16, b1to4, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Broadcast256_2xFloat16, Packed32_Float16, b1to8, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst
+4, Broadcast512_2xFloat16, Packed32_Float16, b1to16, dword_bcst, dword_ptr, dword_bcst, dword, signed bcst

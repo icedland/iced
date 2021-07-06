@@ -184,9 +184,11 @@ pub(crate) enum PseudoOpsKind {
 	vpcmpuw,
 	vpcmpud,
 	vpcmpuq,
+	vcmpph,
+	vcmpsh,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_PSEUDO_OPS_KIND: [&str; 26] = [
+static GEN_DEBUG_PSEUDO_OPS_KIND: [&str; 28] = [
 	"cmpps",
 	"vcmpps",
 	"cmppd",
@@ -213,6 +215,8 @@ static GEN_DEBUG_PSEUDO_OPS_KIND: [&str; 26] = [
 	"vpcmpuw",
 	"vpcmpud",
 	"vpcmpuq",
+	"vcmpph",
+	"vcmpsh",
 ];
 impl fmt::Debug for PseudoOpsKind {
 	#[inline]

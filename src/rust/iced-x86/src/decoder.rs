@@ -413,18 +413,18 @@ where
 	// Initialized to start of data (data_ptr) when decode() is called. Used to calculate current IP/offset (when decoding) if needed.
 	instr_start_data_ptr: usize,
 
-	handlers_xx: &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100],
+	handlers_map0: &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100],
 	#[cfg(not(feature = "no_vex"))]
 	handlers_vex: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 3],
 	#[cfg(not(feature = "no_evex"))]
-	handlers_evex: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 3],
+	handlers_evex: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 6],
 	#[cfg(not(feature = "no_xop"))]
 	handlers_xop: [&'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100]; 3],
 
 	#[cfg(feature = "no_vex")]
 	handlers_vex: [(); 3],
 	#[cfg(feature = "no_evex")]
-	handlers_evex: [(); 3],
+	handlers_evex: [(); 6],
 	#[cfg(feature = "no_xop")]
 	handlers_xop: [(); 3],
 
@@ -801,21 +801,27 @@ impl<'a> Decoder<'a> {
 		}
 		macro_rules! mk_handlers_local {
 			($name:ident, $feature:literal) => {
+				mk_handlers_local!($name, $name, $feature);
+			};
+			($name:ident, $field_name:ident, $feature:literal) => {
 				#[cfg(not(feature = $feature))]
-				let $name = get_handlers(&tables.$name);
+				let $name = get_handlers(&tables.$field_name);
 				#[cfg(feature = $feature)]
 				let $name = ();
 			};
 		}
-		mk_handlers_local!(handlers_vex_0fxx, "no_vex");
-		mk_handlers_local!(handlers_vex_0f38xx, "no_vex");
-		mk_handlers_local!(handlers_vex_0f3axx, "no_vex");
-		mk_handlers_local!(handlers_evex_0fxx, "no_evex");
-		mk_handlers_local!(handlers_evex_0f38xx, "no_evex");
-		mk_handlers_local!(handlers_evex_0f3axx, "no_evex");
-		mk_handlers_local!(handlers_xop8, "no_xop");
-		mk_handlers_local!(handlers_xop9, "no_xop");
-		mk_handlers_local!(handlers_xopa, "no_xop");
+		mk_handlers_local!(handlers_vex_0f, "no_vex");
+		mk_handlers_local!(handlers_vex_0f38, "no_vex");
+		mk_handlers_local!(handlers_vex_0f3a, "no_vex");
+		mk_handlers_local!(handlers_evex_0f, "no_evex");
+		mk_handlers_local!(handlers_evex_0f38, "no_evex");
+		mk_handlers_local!(handlers_evex_0f3a, "no_evex");
+		mk_handlers_local!(handlers_evex_map4, invalid_map, "no_evex");
+		mk_handlers_local!(handlers_evex_map5, "no_evex");
+		mk_handlers_local!(handlers_evex_map6, "no_evex");
+		mk_handlers_local!(handlers_xop_map8, "no_xop");
+		mk_handlers_local!(handlers_xop_map9, "no_xop");
+		mk_handlers_local!(handlers_xop_map10, "no_xop");
 
 		#[rustfmt::skip]
 		#[cfg(not(feature = "__internal_mem_vsib"))]
@@ -857,10 +863,10 @@ impl<'a> Decoder<'a> {
 			data_ptr_end,
 			max_data_ptr: data.as_ptr() as usize,
 			instr_start_data_ptr: data.as_ptr() as usize,
-			handlers_xx: get_handlers(&tables.handlers_xx),
-			handlers_vex: [handlers_vex_0fxx, handlers_vex_0f38xx, handlers_vex_0f3axx],
-			handlers_evex: [handlers_evex_0fxx, handlers_evex_0f38xx, handlers_evex_0f3axx],
-			handlers_xop: [handlers_xop8, handlers_xop9, handlers_xopa],
+			handlers_map0: get_handlers(&tables.handlers_map0),
+			handlers_vex: [handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a],
+			handlers_evex: [handlers_evex_0f, handlers_evex_0f38, handlers_evex_0f3a, handlers_evex_map4, handlers_evex_map5, handlers_evex_map6],
+			handlers_xop: [handlers_xop_map8, handlers_xop_map9, handlers_xop_map10],
 			read_op_mem_fns,
 			state: State::default(),
 			options,
@@ -1304,7 +1310,7 @@ impl<'a> Decoder<'a> {
 			self.state.extra_index_register_base = (b2 as u32 & 2) << 2;
 			self.state.extra_base_register_base = (b2 as u32 & 1) << 3;
 		}
-		self.decode_table2(self.handlers_xx[b], instruction);
+		self.decode_table2(self.handlers_map0[b], instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
 		let instr_len = self.data_ptr as u32 - data_ptr as u32;
@@ -1376,9 +1382,9 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
-	fn call_opcode_handler_xx_table(&mut self, instruction: &mut Instruction) {
+	fn call_opcode_handlers_map0_table(&mut self, instruction: &mut Instruction) {
 		let b = self.read_u8();
-		self.decode_table2(self.handlers_xx[b], instruction);
+		self.decode_table2(self.handlers_map0[b], instruction);
 	}
 
 	#[must_use]
@@ -1642,7 +1648,7 @@ impl<'a> Decoder<'a> {
 		let d = self.read_u32() as u32;
 		if (d & 4) != 0 {
 			let p0 = self.state.modrm;
-			if (p0 & 0x0C) == 0 {
+			if (p0 & 8) == 0 {
 				if cfg!(debug_assertions) {
 					self.state.flags |= (EncodingKind::EVEX as u32) << StateFlags::ENCODING_SHIFT;
 				}
@@ -1701,7 +1707,7 @@ impl<'a> Decoder<'a> {
 					self.state.flags |= (!p2 & 8) << 3;
 				}
 
-				if let Some(&table) = self.handlers_evex.get(((p0 & 3) as usize).wrapping_sub(1)) {
+				if let Some(&table) = self.handlers_evex.get(((p0 & 7) as usize).wrapping_sub(1)) {
 					let (decode, handler) = table[(d >> 16) as u8 as usize];
 					debug_assert!(handler.has_modrm);
 					let m = d >> 24;

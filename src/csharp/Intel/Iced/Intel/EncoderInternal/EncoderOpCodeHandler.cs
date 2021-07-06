@@ -24,7 +24,7 @@ namespace Iced.Intel.EncoderInternal {
 			OpCode = GetOpCode(encFlags2);
 			Is2ByteOpCode = (encFlags2 & EncFlags2.OpCodeIs2Bytes) != 0;
 			GroupIndex = (encFlags2 & EncFlags2.HasGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7);
-			RmGroupIndex = (encFlags2 & EncFlags2.HasRmGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7);
+			RmGroupIndex = (encFlags3 & EncFlags3.HasRmGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7);
 			IsDeclareData = isDeclareData;
 			OpSize = (CodeSize)(((uint)encFlags3 >> (int)EncFlags3.OperandSizeShift) & (uint)EncFlags3.OperandSizeMask);
 			AddrSize = (CodeSize)(((uint)encFlags3 >> (int)EncFlags3.AddressSizeShift) & (uint)EncFlags3.AddressSizeMask);
@@ -95,22 +95,22 @@ namespace Iced.Intel.EncoderInternal {
 		public LegacyHandler(EncFlags1 encFlags1, EncFlags2 encFlags2, EncFlags3 encFlags3)
 			: base(encFlags2, encFlags3, false, null, CreateOps(encFlags1)) {
 			switch ((LegacyOpCodeTable)(((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask)) {
-			case LegacyOpCodeTable.Normal:
+			case LegacyOpCodeTable.MAP0:
 				tableByte1 = 0;
 				tableByte2 = 0;
 				break;
 
-			case LegacyOpCodeTable.Table0F:
+			case LegacyOpCodeTable.MAP0F:
 				tableByte1 = 0x0F;
 				tableByte2 = 0;
 				break;
 
-			case LegacyOpCodeTable.Table0F38:
+			case LegacyOpCodeTable.MAP0F38:
 				tableByte1 = 0x0F;
 				tableByte2 = 0x38;
 				break;
 
-			case LegacyOpCodeTable.Table0F3A:
+			case LegacyOpCodeTable.MAP0F3A:
 				tableByte1 = 0x0F;
 				tableByte2 = 0x3A;
 				break;
@@ -226,11 +226,11 @@ namespace Iced.Intel.EncoderInternal {
 			uint b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
-			if ((encoder.Internal_PreventVEX2 | W1 | (table - (uint)VexOpCodeTable.Table0F) | (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W))) != 0) {
+			if ((encoder.Internal_PreventVEX2 | W1 | (table - (uint)VexOpCodeTable.MAP0F) | (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W))) != 0) {
 				encoder.WriteByteInternal(0xC4);
-				Static.Assert((int)VexOpCodeTable.Table0F == 1 ? 0 : -1);
-				Static.Assert((int)VexOpCodeTable.Table0F38 == 2 ? 0 : -1);
-				Static.Assert((int)VexOpCodeTable.Table0F3A == 3 ? 0 : -1);
+				Static.Assert((int)VexOpCodeTable.MAP0F == 1 ? 0 : -1);
+				Static.Assert((int)VexOpCodeTable.MAP0F38 == 2 ? 0 : -1);
+				Static.Assert((int)VexOpCodeTable.MAP0F3A == 3 ? 0 : -1);
 				uint b2 = table;
 				Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
 				Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);
@@ -280,9 +280,9 @@ namespace Iced.Intel.EncoderInternal {
 
 		public XopHandler(EncFlags1 encFlags1, EncFlags2 encFlags2, EncFlags3 encFlags3)
 			: base(encFlags2, encFlags3, false, null, CreateOps(encFlags1)) {
-			Static.Assert((int)XopOpCodeTable.XOP8 == 0 ? 0 : -1);
-			Static.Assert((int)XopOpCodeTable.XOP9 == 1 ? 0 : -1);
-			Static.Assert((int)XopOpCodeTable.XOPA == 2 ? 0 : -1);
+			Static.Assert((int)XopOpCodeTable.MAP8 == 0 ? 0 : -1);
+			Static.Assert((int)XopOpCodeTable.MAP9 == 1 ? 0 : -1);
+			Static.Assert((int)XopOpCodeTable.MAP10 == 2 ? 0 : -1);
 			table = 8 + (((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask);
 			Debug.Assert(table == 8 || table == 9 || table == 10);
 			switch ((LBit)(((uint)encFlags2 >> (int)EncFlags2.LBitShift) & (int)EncFlags2.LBitMask)) {
@@ -413,9 +413,11 @@ namespace Iced.Intel.EncoderInternal {
 
 			encoder.WriteByteInternal(0x62);
 
-			Static.Assert((int)EvexOpCodeTable.Table0F == 1 ? 0 : -1);
-			Static.Assert((int)EvexOpCodeTable.Table0F38 == 2 ? 0 : -1);
-			Static.Assert((int)EvexOpCodeTable.Table0F3A == 3 ? 0 : -1);
+			Static.Assert((int)EvexOpCodeTable.MAP0F == 1 ? 0 : -1);
+			Static.Assert((int)EvexOpCodeTable.MAP0F38 == 2 ? 0 : -1);
+			Static.Assert((int)EvexOpCodeTable.MAP0F3A == 3 ? 0 : -1);
+			Static.Assert((int)EvexOpCodeTable.MAP5 == 5 ? 0 : -1);
+			Static.Assert((int)EvexOpCodeTable.MAP6 == 6 ? 0 : -1);
 			uint b = table;
 			Static.Assert((int)EncoderFlags.B == 1 ? 0 : -1);
 			Static.Assert((int)EncoderFlags.X == 2 ? 0 : -1);

@@ -6543,3 +6543,427 @@ STOREALL: int = 1632
 """
 <no docs>
 """
+VADDPH: int = 1633
+"""
+<no docs>
+"""
+VADDSH: int = 1634
+"""
+<no docs>
+"""
+VCMPPH: int = 1635
+"""
+<no docs>
+"""
+VCMPSH: int = 1636
+"""
+<no docs>
+"""
+VCOMISH: int = 1637
+"""
+<no docs>
+"""
+VCVTDQ2PH: int = 1638
+"""
+<no docs>
+"""
+VCVTPD2PH: int = 1639
+"""
+<no docs>
+"""
+VCVTPH2DQ: int = 1640
+"""
+<no docs>
+"""
+VCVTPH2PD: int = 1641
+"""
+<no docs>
+"""
+VCVTPH2PSX: int = 1642
+"""
+<no docs>
+"""
+VCVTPH2QQ: int = 1643
+"""
+<no docs>
+"""
+VCVTPH2UDQ: int = 1644
+"""
+<no docs>
+"""
+VCVTPH2UQQ: int = 1645
+"""
+<no docs>
+"""
+VCVTPH2UW: int = 1646
+"""
+<no docs>
+"""
+VCVTPH2W: int = 1647
+"""
+<no docs>
+"""
+VCVTPS2PHX: int = 1648
+"""
+<no docs>
+"""
+VCVTQQ2PH: int = 1649
+"""
+<no docs>
+"""
+VCVTSD2SH: int = 1650
+"""
+<no docs>
+"""
+VCVTSH2SD: int = 1651
+"""
+<no docs>
+"""
+VCVTSH2SI: int = 1652
+"""
+<no docs>
+"""
+VCVTSH2SS: int = 1653
+"""
+<no docs>
+"""
+VCVTSH2USI: int = 1654
+"""
+<no docs>
+"""
+VCVTSI2SH: int = 1655
+"""
+<no docs>
+"""
+VCVTSS2SH: int = 1656
+"""
+<no docs>
+"""
+VCVTTPH2DQ: int = 1657
+"""
+<no docs>
+"""
+VCVTTPH2QQ: int = 1658
+"""
+<no docs>
+"""
+VCVTTPH2UDQ: int = 1659
+"""
+<no docs>
+"""
+VCVTTPH2UQQ: int = 1660
+"""
+<no docs>
+"""
+VCVTTPH2UW: int = 1661
+"""
+<no docs>
+"""
+VCVTTPH2W: int = 1662
+"""
+<no docs>
+"""
+VCVTTSH2SI: int = 1663
+"""
+<no docs>
+"""
+VCVTTSH2USI: int = 1664
+"""
+<no docs>
+"""
+VCVTUDQ2PH: int = 1665
+"""
+<no docs>
+"""
+VCVTUQQ2PH: int = 1666
+"""
+<no docs>
+"""
+VCVTUSI2SH: int = 1667
+"""
+<no docs>
+"""
+VCVTUW2PH: int = 1668
+"""
+<no docs>
+"""
+VCVTW2PH: int = 1669
+"""
+<no docs>
+"""
+VDIVPH: int = 1670
+"""
+<no docs>
+"""
+VDIVSH: int = 1671
+"""
+<no docs>
+"""
+VFCMADDCPH: int = 1672
+"""
+<no docs>
+"""
+VFMADDCPH: int = 1673
+"""
+<no docs>
+"""
+VFCMADDCSH: int = 1674
+"""
+<no docs>
+"""
+VFMADDCSH: int = 1675
+"""
+<no docs>
+"""
+VFCMULCPH: int = 1676
+"""
+<no docs>
+"""
+VFMULCPH: int = 1677
+"""
+<no docs>
+"""
+VFCMULCSH: int = 1678
+"""
+<no docs>
+"""
+VFMULCSH: int = 1679
+"""
+<no docs>
+"""
+VFMADDSUB132PH: int = 1680
+"""
+<no docs>
+"""
+VFMADDSUB213PH: int = 1681
+"""
+<no docs>
+"""
+VFMADDSUB231PH: int = 1682
+"""
+<no docs>
+"""
+VFMSUBADD132PH: int = 1683
+"""
+<no docs>
+"""
+VFMSUBADD213PH: int = 1684
+"""
+<no docs>
+"""
+VFMSUBADD231PH: int = 1685
+"""
+<no docs>
+"""
+VFMADD132PH: int = 1686
+"""
+<no docs>
+"""
+VFMADD213PH: int = 1687
+"""
+<no docs>
+"""
+VFMADD231PH: int = 1688
+"""
+<no docs>
+"""
+VFNMADD132PH: int = 1689
+"""
+<no docs>
+"""
+VFNMADD213PH: int = 1690
+"""
+<no docs>
+"""
+VFNMADD231PH: int = 1691
+"""
+<no docs>
+"""
+VFMADD132SH: int = 1692
+"""
+<no docs>
+"""
+VFMADD213SH: int = 1693
+"""
+<no docs>
+"""
+VFMADD231SH: int = 1694
+"""
+<no docs>
+"""
+VFNMADD132SH: int = 1695
+"""
+<no docs>
+"""
+VFNMADD213SH: int = 1696
+"""
+<no docs>
+"""
+VFNMADD231SH: int = 1697
+"""
+<no docs>
+"""
+VFMSUB132PH: int = 1698
+"""
+<no docs>
+"""
+VFMSUB213PH: int = 1699
+"""
+<no docs>
+"""
+VFMSUB231PH: int = 1700
+"""
+<no docs>
+"""
+VFNMSUB132PH: int = 1701
+"""
+<no docs>
+"""
+VFNMSUB213PH: int = 1702
+"""
+<no docs>
+"""
+VFNMSUB231PH: int = 1703
+"""
+<no docs>
+"""
+VFMSUB132SH: int = 1704
+"""
+<no docs>
+"""
+VFMSUB213SH: int = 1705
+"""
+<no docs>
+"""
+VFMSUB231SH: int = 1706
+"""
+<no docs>
+"""
+VFNMSUB132SH: int = 1707
+"""
+<no docs>
+"""
+VFNMSUB213SH: int = 1708
+"""
+<no docs>
+"""
+VFNMSUB231SH: int = 1709
+"""
+<no docs>
+"""
+VFPCLASSPH: int = 1710
+"""
+<no docs>
+"""
+VFPCLASSSH: int = 1711
+"""
+<no docs>
+"""
+VGETEXPPH: int = 1712
+"""
+<no docs>
+"""
+VGETEXPSH: int = 1713
+"""
+<no docs>
+"""
+VGETMANTPH: int = 1714
+"""
+<no docs>
+"""
+VGETMANTSH: int = 1715
+"""
+<no docs>
+"""
+VMAXPH: int = 1716
+"""
+<no docs>
+"""
+VMAXSH: int = 1717
+"""
+<no docs>
+"""
+VMINPH: int = 1718
+"""
+<no docs>
+"""
+VMINSH: int = 1719
+"""
+<no docs>
+"""
+VMOVSH: int = 1720
+"""
+<no docs>
+"""
+VMOVW: int = 1721
+"""
+<no docs>
+"""
+VMULPH: int = 1722
+"""
+<no docs>
+"""
+VMULSH: int = 1723
+"""
+<no docs>
+"""
+VRCPPH: int = 1724
+"""
+<no docs>
+"""
+VRCPSH: int = 1725
+"""
+<no docs>
+"""
+VREDUCEPH: int = 1726
+"""
+<no docs>
+"""
+VREDUCESH: int = 1727
+"""
+<no docs>
+"""
+VRNDSCALEPH: int = 1728
+"""
+<no docs>
+"""
+VRNDSCALESH: int = 1729
+"""
+<no docs>
+"""
+VRSQRTPH: int = 1730
+"""
+<no docs>
+"""
+VRSQRTSH: int = 1731
+"""
+<no docs>
+"""
+VSCALEFPH: int = 1732
+"""
+<no docs>
+"""
+VSCALEFSH: int = 1733
+"""
+<no docs>
+"""
+VSQRTPH: int = 1734
+"""
+<no docs>
+"""
+VSQRTSH: int = 1735
+"""
+<no docs>
+"""
+VSUBPH: int = 1736
+"""
+<no docs>
+"""
+VSUBSH: int = 1737
+"""
+<no docs>
+"""
+VUCOMISH: int = 1738
+"""
+<no docs>
+"""

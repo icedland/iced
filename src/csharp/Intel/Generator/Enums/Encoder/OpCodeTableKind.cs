@@ -4,25 +4,31 @@
 namespace Generator.Enums.Encoder {
 	[Enum("OpCodeTableKind", Documentation = "Opcode table", Public = true)]
 	enum OpCodeTableKind {
-		[Comment("Legacy encoding table")]
+		[Comment("Legacy/#(c:MAP0)# table")]
 		Normal,
 
-		[Comment("#(c:0Fxx)# table (legacy, VEX, EVEX)")]
+		[Comment("#(c:0F)#/#(c:MAP1)# table (legacy, VEX, EVEX)")]
 		T0F,
 
-		[Comment("#(c:0F38xx)# table (legacy, VEX, EVEX)")]
+		[Comment("#(c:0F38)#/#(c:MAP2)# table (legacy, VEX, EVEX)")]
 		T0F38,
 
-		[Comment("#(c:0F3Axx)# table (legacy, VEX, EVEX)")]
+		[Comment("#(c:0F3A)#/#(c:MAP3)# table (legacy, VEX, EVEX)")]
 		T0F3A,
 
-		[Comment("#(c:XOP8)# table (XOP)")]
-		XOP8,
+		[Comment("#(c:MAP5)# table (EVEX)")]
+		MAP5,
 
-		[Comment("#(c:XOP9)# table (XOP)")]
-		XOP9,
+		[Comment("#(c:MAP6)# table (EVEX)")]
+		MAP6,
 
-		[Comment("#(c:XOPA)# table (XOP)")]
-		XOPA,
+		[Comment("#(c:MAP8)# table (XOP)")]
+		MAP8,
+
+		[Comment("#(c:MAP9)# table (XOP)")]
+		MAP9,
+
+		[Comment("#(c:MAP10)# table (XOP)")]
+		MAP10,
 	}
 }

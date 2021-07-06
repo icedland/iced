@@ -9,20 +9,24 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
 pub enum OpCodeTableKind {
-	/// Legacy encoding table
+	/// Legacy/`MAP0` table
 	Normal = 0,
-	/// `0Fxx` table (legacy, VEX, EVEX)
+	/// `0F`/`MAP1` table (legacy, VEX, EVEX)
 	T0F = 1,
-	/// `0F38xx` table (legacy, VEX, EVEX)
+	/// `0F38`/`MAP2` table (legacy, VEX, EVEX)
 	T0F38 = 2,
-	/// `0F3Axx` table (legacy, VEX, EVEX)
+	/// `0F3A`/`MAP3` table (legacy, VEX, EVEX)
 	T0F3A = 3,
-	/// `XOP8` table (XOP)
-	XOP8 = 4,
-	/// `XOP9` table (XOP)
-	XOP9 = 5,
-	/// `XOPA` table (XOP)
-	XOPA = 6,
+	/// `MAP5` table (EVEX)
+	MAP5 = 4,
+	/// `MAP6` table (EVEX)
+	MAP6 = 5,
+	/// `MAP8` table (XOP)
+	MAP8 = 6,
+	/// `MAP9` table (XOP)
+	MAP9 = 7,
+	/// `MAP10` table (XOP)
+	MAP10 = 8,
 }
 // GENERATOR-END: Enum
 

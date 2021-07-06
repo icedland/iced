@@ -37,7 +37,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x00,
 				0x00,
 				0x08,
-				0x00,
+				0x08,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -217,6 +217,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x9B,// PADLOCK_GMI
 				0x9C,// FRED
 				0x9D,// LKGS
+				0x9E,// AVX512_FP16
+				0x21, 0x9E,// AVX512VL_and_AVX512_FP16
 			};
 	}
 }

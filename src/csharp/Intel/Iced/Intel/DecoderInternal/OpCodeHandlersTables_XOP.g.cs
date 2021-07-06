@@ -14,7 +14,7 @@ namespace Iced.Intel.DecoderInternal {
 		static byte[] GetSerializedTables() =>
 #endif
 			new byte[] {
-				// grp_XOP9_01
+				// grp_MAP9_01
 				0x01,// ArrayReference
 				0x08,// 0x8
 				// 0 = 0x00
@@ -69,7 +69,7 @@ namespace Iced.Intel.DecoderInternal {
 							0x94, 0x20,// XOP_T1mskc_r32_rm32
 						0x00,// Invalid
 
-				// grp_XOP9_02
+				// grp_MAP9_02
 				0x01,// ArrayReference
 				0x08,// 0x8
 				// 0 = 0x00
@@ -97,7 +97,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 7 = 0x07
 				0x00,// Invalid
 
-				// grp_XOP9_12
+				// grp_MAP9_12
 				0x01,// ArrayReference
 				0x08,// 0x8
 				// 0 = 0x00
@@ -119,7 +119,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x06,// 6
 					0x00,// Invalid
 
-				// grp_XOPA_12
+				// grp_MAP10_12
 				0x01,// ArrayReference
 				0x08,// 0x8
 				// 0 = 0x00
@@ -141,7 +141,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x06,// 6
 					0x00,// Invalid
 
-				// XOP8
+				// Handlers_MAP8
 				0x01,// ArrayReference
 				0x80, 0x02,// 0x100
 				// 0 = 0x00
@@ -467,7 +467,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x10,// 16
 					0x00,// Invalid
 
-				// XOP9
+				// Handlers_MAP9
 				0x01,// ArrayReference
 				0x80, 0x02,// 0x100
 				// 0 = 0x00
@@ -476,12 +476,12 @@ namespace Iced.Intel.DecoderInternal {
 				// 1 = 0x01
 				0x08,// Group
 					0x06,// ArrayReference
-						0x00,// 0x0 = grp_XOP9_01
+						0x00,// 0x0 = grp_MAP9_01
 
 				// 2 = 0x02
 				0x08,// Group
 					0x06,// ArrayReference
-						0x01,// 0x1 = grp_XOP9_02
+						0x01,// 0x1 = grp_MAP9_02
 
 				// 3 = 0x03
 				0x02,// Dup
@@ -491,7 +491,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 18 = 0x12
 				0x08,// Group
 					0x06,// ArrayReference
-						0x02,// 0x2 = grp_XOP9_12
+						0x02,// 0x2 = grp_MAP9_12
 
 				// 19 = 0x13
 				0x02,// Dup
@@ -881,7 +881,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x1C,// 28
 					0x00,// Invalid
 
-				// XOPA
+				// Handlers_MAP10
 				0x01,// ArrayReference
 				0x80, 0x02,// 0x100
 				// 0 = 0x00
@@ -902,7 +902,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 18 = 0x12
 				0x08,// Group
 					0x06,// ArrayReference
-						0x03,// 0x3 = grp_XOPA_12
+						0x03,// 0x3 = grp_MAP10_12
 
 				// 19 = 0x13
 				0x02,// Dup
@@ -910,9 +910,9 @@ namespace Iced.Intel.DecoderInternal {
 					0x00,// Invalid
 			};
 		const int MaxIdNames = 7;
-		const uint XOP8Index = 4;
-		const uint XOP9Index = 5;
-		const uint XOPAIndex = 6;
+		const uint Handlers_MAP8Index = 4;
+		const uint Handlers_MAP9Index = 5;
+		const uint Handlers_MAP10Index = 6;
 	}
 }
 #endif

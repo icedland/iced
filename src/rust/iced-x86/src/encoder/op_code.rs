@@ -139,7 +139,7 @@ impl OpCodeInfo {
 		};
 		group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i8 };
 		rm_group_index =
-			if (enc_flags2 & EncFlags2::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i8 };
+			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i8 };
 		tuple_type = unsafe { mem::transmute(((enc_flags3 >> EncFlags3::TUPLE_TYPE_SHIFT) & EncFlags3::TUPLE_TYPE_MASK) as u8) };
 
 		#[cfg(not(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"))))]
@@ -198,10 +198,10 @@ impl OpCodeInfo {
 				op4_kind = OpCodeOperandKind::None;
 
 				table = match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) } {
-					LegacyOpCodeTable::Normal => OpCodeTableKind::Normal,
-					LegacyOpCodeTable::Table0F => OpCodeTableKind::T0F,
-					LegacyOpCodeTable::Table0F38 => OpCodeTableKind::T0F38,
-					LegacyOpCodeTable::Table0F3A => OpCodeTableKind::T0F3A,
+					LegacyOpCodeTable::MAP0 => OpCodeTableKind::Normal,
+					LegacyOpCodeTable::MAP0F => OpCodeTableKind::T0F,
+					LegacyOpCodeTable::MAP0F38 => OpCodeTableKind::T0F38,
+					LegacyOpCodeTable::MAP0F3A => OpCodeTableKind::T0F3A,
 				};
 			}
 
@@ -225,9 +225,9 @@ impl OpCodeInfo {
 				op4_kind = VEX_OP_KINDS[((enc_flags1 >> EncFlags1::VEX_OP4_SHIFT) & EncFlags1::VEX_OP_MASK) as usize];
 
 				table = match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) } {
-					VexOpCodeTable::Table0F => OpCodeTableKind::T0F,
-					VexOpCodeTable::Table0F38 => OpCodeTableKind::T0F38,
-					VexOpCodeTable::Table0F3A => OpCodeTableKind::T0F3A,
+					VexOpCodeTable::MAP0F => OpCodeTableKind::T0F,
+					VexOpCodeTable::MAP0F38 => OpCodeTableKind::T0F38,
+					VexOpCodeTable::MAP0F3A => OpCodeTableKind::T0F3A,
 				};
 			}
 
@@ -251,9 +251,11 @@ impl OpCodeInfo {
 				op4_kind = OpCodeOperandKind::None;
 
 				table = match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) } {
-					EvexOpCodeTable::Table0F => OpCodeTableKind::T0F,
-					EvexOpCodeTable::Table0F38 => OpCodeTableKind::T0F38,
-					EvexOpCodeTable::Table0F3A => OpCodeTableKind::T0F3A,
+					EvexOpCodeTable::MAP0F => OpCodeTableKind::T0F,
+					EvexOpCodeTable::MAP0F38 => OpCodeTableKind::T0F38,
+					EvexOpCodeTable::MAP0F3A => OpCodeTableKind::T0F3A,
+					EvexOpCodeTable::MAP5 => OpCodeTableKind::MAP5,
+					EvexOpCodeTable::MAP6 => OpCodeTableKind::MAP6,
 				};
 			}
 
@@ -277,9 +279,9 @@ impl OpCodeInfo {
 				op4_kind = OpCodeOperandKind::None;
 
 				table = match unsafe { mem::transmute(((enc_flags2 >> EncFlags2::TABLE_SHIFT) & EncFlags2::TABLE_MASK) as u8) } {
-					XopOpCodeTable::XOP8 => OpCodeTableKind::XOP8,
-					XopOpCodeTable::XOP9 => OpCodeTableKind::XOP9,
-					XopOpCodeTable::XOPA => OpCodeTableKind::XOPA,
+					XopOpCodeTable::MAP8 => OpCodeTableKind::MAP8,
+					XopOpCodeTable::MAP9 => OpCodeTableKind::MAP9,
+					XopOpCodeTable::MAP10 => OpCodeTableKind::MAP10,
 				};
 			}
 
@@ -647,7 +649,7 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	pub fn force_op_size64(&self) -> bool {
-		(self.enc_flags3 & EncFlags3::FORCE_OP_SIZE64) != 0
+		(self.opc_flags1 & OpCodeInfoFlags1::FORCE_OP_SIZE64) != 0
 	}
 
 	/// `true` if the Intel decoder forces 64-bit operand size. A `66` prefix is ignored.
@@ -782,6 +784,14 @@ impl OpCodeInfo {
 	#[inline]
 	pub fn requires_unique_reg_nums(&self) -> bool {
 		(self.opc_flags1 & OpCodeInfoFlags1::REQUIRES_UNIQUE_REG_NUMS) != 0
+	}
+
+	/// `true` if the destination register's reg-num must not be present in any other operand, eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]`
+	/// is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
+	#[must_use]
+	#[inline]
+	pub fn requires_unique_dest_reg_num(&self) -> bool {
+		(self.opc_flags1 & OpCodeInfoFlags1::REQUIRES_UNIQUE_DEST_REG_NUM) != 0
 	}
 
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)

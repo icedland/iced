@@ -17,9 +17,11 @@ namespace Generator.Constants.Encoder {
 		public const string Table_0F = "0F";
 		public const string Table_0F38 = "0F38";
 		public const string Table_0F3A = "0F3A";
-		public const string Table_XOP8 = "X8";
-		public const string Table_XOP9 = "X9";
-		public const string Table_XOPA = "XA";
+		public const string Table_MAP5 = "MAP5";
+		public const string Table_MAP6 = "MAP6";
+		public const string Table_MAP8 = "X8";
+		public const string Table_MAP9 = "X9";
+		public const string Table_MAP10 = "XA";
 	}
 
 	static class OpCodeInfoKeywords {
@@ -118,6 +120,7 @@ namespace Generator.Constants.Encoder {
 		public const string AmdDecoder16 = "amd16";
 		public const string AmdDecoder32 = "amd32";
 		public const string AmdDecoder64 = "amd64";
+		public const string RequiresUniqueDestRegNum = "unique-dest-reg-num";
 	}
 
 	static class OpCodeInfoKeywordKeys {

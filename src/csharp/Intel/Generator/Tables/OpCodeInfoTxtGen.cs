@@ -66,9 +66,11 @@ namespace Generator.Tables {
 				OpCodeTableKind.T0F => OpCodeInfoConstants.Table_0F,
 				OpCodeTableKind.T0F38 => OpCodeInfoConstants.Table_0F38,
 				OpCodeTableKind.T0F3A => OpCodeInfoConstants.Table_0F3A,
-				OpCodeTableKind.XOP8 => OpCodeInfoConstants.Table_XOP8,
-				OpCodeTableKind.XOP9 => OpCodeInfoConstants.Table_XOP9,
-				OpCodeTableKind.XOPA => OpCodeInfoConstants.Table_XOPA,
+				OpCodeTableKind.MAP5 => OpCodeInfoConstants.Table_MAP5,
+				OpCodeTableKind.MAP6 => OpCodeInfoConstants.Table_MAP6,
+				OpCodeTableKind.MAP8 => OpCodeInfoConstants.Table_MAP8,
+				OpCodeTableKind.MAP9 => OpCodeInfoConstants.Table_MAP9,
+				OpCodeTableKind.MAP10 => OpCodeInfoConstants.Table_MAP10,
 				_ => throw new InvalidOperationException(),
 			};
 			writer.Write(sep);
@@ -288,6 +290,7 @@ namespace Generator.Tables {
 			if ((def.Flags3 & InstructionDefFlags3.NonTemporal) != 0) W(OpCodeInfoKeywords.NonTemporal);
 			if ((def.Flags3 & InstructionDefFlags3.FpuNoWait) != 0) W(OpCodeInfoKeywords.FpuNoWait);
 			if ((def.Flags3 & InstructionDefFlags3.Privileged) != 0) W(OpCodeInfoKeywords.Privileged);
+			if ((def.Flags3 & InstructionDefFlags3.RequiresUniqueDestRegNum) != 0) W(OpCodeInfoKeywords.RequiresUniqueDestRegNum);
 
 			writer.WriteLine();
 		}

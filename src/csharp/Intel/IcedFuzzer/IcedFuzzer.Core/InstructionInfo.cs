@@ -169,7 +169,7 @@ namespace IcedFuzzer.Core {
 		public readonly UsedBits UsedBits => usedBits;
 		UsedBits usedBits;
 		public WritePrefix[] WritePrefixes;
-		public uint EVEX_res3to2;
+		public uint EVEX_res3;
 		public uint EVEX_res10;
 		public uint modrm;
 		public uint sib;
@@ -213,7 +213,7 @@ namespace IcedFuzzer.Core {
 			bf_bcst = 0;
 			bf_v2 = 0;
 			bf_aaa = 0;
-			EVEX_res3to2 = 0;
+			EVEX_res3 = 0;
 			EVEX_res10 = 1;
 			w = instruction.W;
 			l = instruction.L;

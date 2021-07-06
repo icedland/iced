@@ -92,7 +92,7 @@ namespace Iced.Intel {
 				_ => throw new InvalidOperationException(),
 			};
 			groupIndex = (sbyte)((encFlags2 & EncFlags2.HasGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7));
-			rmGroupIndex = (sbyte)((encFlags2 & EncFlags2.HasRmGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7));
+			rmGroupIndex = (sbyte)((encFlags3 & EncFlags3.HasRmGroupIndex) == 0 ? -1 : (int)(((uint)encFlags2 >> (int)EncFlags2.GroupIndexShift) & 7));
 			tupleType = (byte)(((uint)encFlags3 >> (int)EncFlags3.TupleTypeShift) & (uint)EncFlags3.TupleTypeMask);
 
 			LKind lkind;
@@ -168,10 +168,10 @@ namespace Iced.Intel {
 				op3Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.Legacy_Op3Shift) & (uint)EncFlags1.Legacy_OpMask)];
 
 				table = (LegacyOpCodeTable)(((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask) switch {
-					LegacyOpCodeTable.Normal => (byte)OpCodeTableKind.Normal,
-					LegacyOpCodeTable.Table0F => (byte)OpCodeTableKind.T0F,
-					LegacyOpCodeTable.Table0F38 => (byte)OpCodeTableKind.T0F38,
-					LegacyOpCodeTable.Table0F3A => (byte)OpCodeTableKind.T0F3A,
+					LegacyOpCodeTable.MAP0 => (byte)OpCodeTableKind.Normal,
+					LegacyOpCodeTable.MAP0F => (byte)OpCodeTableKind.T0F,
+					LegacyOpCodeTable.MAP0F38 => (byte)OpCodeTableKind.T0F38,
+					LegacyOpCodeTable.MAP0F3A => (byte)OpCodeTableKind.T0F3A,
 					_ => throw new InvalidOperationException(),
 				};
 				break;
@@ -186,9 +186,9 @@ namespace Iced.Intel {
 				op4Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.VEX_Op4Shift) & (uint)EncFlags1.VEX_OpMask)];
 
 				table = (VexOpCodeTable)(((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask) switch {
-					VexOpCodeTable.Table0F => (byte)OpCodeTableKind.T0F,
-					VexOpCodeTable.Table0F38 => (byte)OpCodeTableKind.T0F38,
-					VexOpCodeTable.Table0F3A => (byte)OpCodeTableKind.T0F3A,
+					VexOpCodeTable.MAP0F => (byte)OpCodeTableKind.T0F,
+					VexOpCodeTable.MAP0F38 => (byte)OpCodeTableKind.T0F38,
+					VexOpCodeTable.MAP0F3A => (byte)OpCodeTableKind.T0F3A,
 					_ => throw new InvalidOperationException(),
 				};
 				break;
@@ -208,9 +208,11 @@ namespace Iced.Intel {
 				op3Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.EVEX_Op3Shift) & (uint)EncFlags1.EVEX_OpMask)];
 
 				table = (EvexOpCodeTable)(((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask) switch {
-					EvexOpCodeTable.Table0F => (byte)OpCodeTableKind.T0F,
-					EvexOpCodeTable.Table0F38 => (byte)OpCodeTableKind.T0F38,
-					EvexOpCodeTable.Table0F3A => (byte)OpCodeTableKind.T0F3A,
+					EvexOpCodeTable.MAP0F => (byte)OpCodeTableKind.T0F,
+					EvexOpCodeTable.MAP0F38 => (byte)OpCodeTableKind.T0F38,
+					EvexOpCodeTable.MAP0F3A => (byte)OpCodeTableKind.T0F3A,
+					EvexOpCodeTable.MAP5 => (byte)OpCodeTableKind.MAP5,
+					EvexOpCodeTable.MAP6 => (byte)OpCodeTableKind.MAP6,
 					_ => throw new InvalidOperationException(),
 				};
 				break;
@@ -229,9 +231,9 @@ namespace Iced.Intel {
 				op3Kind = opKinds[(int)(((uint)encFlags1 >> (int)EncFlags1.XOP_Op3Shift) & (uint)EncFlags1.XOP_OpMask)];
 
 				table = (XopOpCodeTable)(((uint)encFlags2 >> (int)EncFlags2.TableShift) & (uint)EncFlags2.TableMask) switch {
-					XopOpCodeTable.XOP8 => (byte)OpCodeTableKind.XOP8,
-					XopOpCodeTable.XOP9 => (byte)OpCodeTableKind.XOP9,
-					XopOpCodeTable.XOPA => (byte)OpCodeTableKind.XOPA,
+					XopOpCodeTable.MAP8 => (byte)OpCodeTableKind.MAP8,
+					XopOpCodeTable.MAP9 => (byte)OpCodeTableKind.MAP9,
+					XopOpCodeTable.MAP10 => (byte)OpCodeTableKind.MAP10,
 					_ => throw new InvalidOperationException(),
 				};
 				break;
@@ -442,7 +444,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// <see langword="true"/> if the operand size is always 64 in 64-bit mode. A <c>66</c> prefix is ignored.
 		/// </summary>
-		public bool ForceOpSize64 => (encFlags3 & EncFlags3.ForceOpSize64) != 0;
+		public bool ForceOpSize64 => (opcFlags1 & OpCodeInfoFlags1.ForceOpSize64) != 0;
 
 		/// <summary>
 		/// <see langword="true"/> if the Intel decoder forces 64-bit operand size. A <c>66</c> prefix is ignored.
@@ -539,6 +541,12 @@ namespace Iced.Intel {
 		/// eg. <c>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</c> is invalid. Registers = <c>XMM</c>/<c>YMM</c>/<c>ZMM</c>/<c>TMM</c>.
 		/// </summary>
 		public bool RequiresUniqueRegNums => (opcFlags1 & OpCodeInfoFlags1.RequiresUniqueRegNums) != 0;
+
+		/// <summary>
+		/// <see langword="true"/> if the destination register's reg-num must not be present in any other operand, eg. <c>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</c>
+		/// is invalid. Registers = <c>XMM</c>/<c>YMM</c>/<c>ZMM</c>/<c>TMM</c>.
+		/// </summary>
+		public bool RequiresUniqueDestRegNum => (opcFlags1 & OpCodeInfoFlags1.RequiresUniqueDestRegNum) != 0;
 
 		/// <summary>
 		/// <see langword="true"/> if it's a privileged instruction (all CPL=0 instructions (except <c>VMCALL</c>) and IOPL instructions <c>IN</c>, <c>INS</c>, <c>OUT</c>, <c>OUTS</c>, <c>CLI</c>, <c>STI</c>)

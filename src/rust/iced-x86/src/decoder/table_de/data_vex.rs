@@ -377,7 +377,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x07,// 7
 		0x46,// Null
 
-	// ThreeByteHandlers_0F38XX
+	// Handlers_0F38
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -2423,7 +2423,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x08,// 8
 		0x00,// Invalid
 
-	// ThreeByteHandlers_0F3AXX
+	// Handlers_0F3A
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -3489,7 +3489,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0F,// 15
 		0x00,// Invalid
 
-	// TwoByteHandlers_0FXX
+	// Handlers_0F
 	0x01,// ArrayReference
 	0x80, 0x02,// 0x100
 	// 0 = 0x00
@@ -5573,6 +5573,6 @@ pub(super) static TBL_DATA: &[u8] = &[
 	0x00,// Invalid
 ];
 pub(super) const MAX_ID_NAMES: usize = 14;
-pub(super) const THREE_BYTE_HANDLERS_0F38XX_INDEX: usize = 11;
-pub(super) const THREE_BYTE_HANDLERS_0F3AXX_INDEX: usize = 12;
-pub(super) const TWO_BYTE_HANDLERS_0FXX_INDEX: usize = 13;
+pub(super) const HANDLERS_0F_INDEX: usize = 13;
+pub(super) const HANDLERS_0F38_INDEX: usize = 11;
+pub(super) const HANDLERS_0F3A_INDEX: usize = 12;

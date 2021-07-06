@@ -9046,7 +9046,6 @@ END
 # Code: VEX_Vmovss_xmm_xmm_xmm
 INSTRUCTION: VEX.LIG.F3.0F.WIG 10 /r | VMOVSS xmm1, xmm2, xmm3 | AVX
 	ops: w=reg r=vvvv r=rm
-	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovss_xmm_m32
@@ -9058,7 +9057,6 @@ END
 # Code: EVEX_Vmovss_xmm_k1z_xmm_xmm
 INSTRUCTION: EVEX.LIG.F3.0F.W0 10 /r | VMOVSS xmm1 {k1}{z}, xmm2, xmm3 | AVX512F
 	ops: w=reg r=vvvv r=rm
-	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovss_xmm_k1z_m32
@@ -9076,7 +9074,6 @@ END
 # Code: VEX_Vmovsd_xmm_xmm_xmm
 INSTRUCTION: VEX.LIG.F2.0F.WIG 10 /r | VMOVSD xmm1, xmm2, xmm3 | AVX
 	ops: w=reg r=vvvv r=rm
-	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovsd_xmm_m64
@@ -9088,7 +9085,6 @@ END
 # Code: EVEX_Vmovsd_xmm_k1z_xmm_xmm
 INSTRUCTION: EVEX.LIG.F2.0F.W1 10 /r | VMOVSD xmm1 {k1}{z}, xmm2, xmm3 | AVX512F
 	ops: w=reg r=vvvv r=rm
-	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovsd_xmm_k1z_m64
@@ -9167,7 +9163,6 @@ END
 INSTRUCTION: VEX.LIG.F3.0F.WIG 11 /r | VMOVSS xmm1, xmm2, xmm3 | AVX
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
-	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovss_m32_xmm
@@ -9180,7 +9175,6 @@ END
 INSTRUCTION: EVEX.LIG.F3.0F.W0 11 /r | VMOVSS xmm1 {k1}{z}, xmm2, xmm3 | AVX512F
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
-	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovss_m32_k1_xmm
@@ -9199,7 +9193,6 @@ END
 INSTRUCTION: VEX.LIG.F2.0F.WIG 11 /r | VMOVSD xmm1, xmm2, xmm3 | AVX
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
-	masm: flags=force-size=default
 END
 
 # Code: VEX_Vmovsd_m64_xmm
@@ -9212,7 +9205,6 @@ END
 INSTRUCTION: EVEX.LIG.F2.0F.W1 11 /r | VMOVSD xmm1 {k1}{z}, xmm2, xmm3 | AVX512F
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
-	masm: flags=force-size=default
 END
 
 # Code: EVEX_Vmovsd_m64_k1_xmm
@@ -29929,12 +29921,1444 @@ INSTRUCTION: F3 0F 01 CA | ERETU | FRED
 	# Also loads GS.base (but not GS (selector))
 	implied: pop=5x8 w=rsp;cs;ss
 	rflags: w=oszacpdiA
-	flags: 64 cpl0 sp=pop;40 cflow=ret 
+	flags: 64 cpl0 sp=pop;40 cflow=ret
 END
 
 # Code: Erets
 INSTRUCTION: F2 0F 01 CA | ERETS | FRED
 	implied: pop=5x8 w=rsp
 	rflags: w=oszacpdiA
-	flags: 64 cpl0 sp=pop;40 cflow=ret 
+	flags: 64 cpl0 sp=pop;40 cflow=ret
+END
+
+# Code: EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 58 /r | VADDPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 58 /r | VADDPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.MAP5.W0 58 /r | VADDPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 58 /r | VADDSH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
+INSTRUCTION: EVEX.128.0F3A.W0 C2 /r ib | VCMPPH k1 {k2}, xmm2, xmm3/m128/m16bcst, imm8 | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm r=imm | Packed128_Float16 Broadcast128_Float16
+	flags: pseudo=vcmpph implied-z
+END
+
+# Code: EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
+INSTRUCTION: EVEX.256.0F3A.W0 C2 /r ib | VCMPPH k1 {k2}, ymm2, ymm3/m256/m16bcst, imm8 | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm r=imm | Packed256_Float16 Broadcast256_Float16
+	flags: pseudo=vcmpph implied-z
+END
+
+# Code: EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
+INSTRUCTION: EVEX.512.0F3A.W0 C2 /r ib | VCMPPH k1 {k2}, zmm2, zmm3/m512/m16bcst{sae}, imm8 | AVX512_FP16 | N64b2
+	ops: w=reg r=vvvv r=rm r=imm | Packed512_Float16 Broadcast512_Float16
+	flags: pseudo=vcmpph implied-z
+END
+
+# Code: EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
+INSTRUCTION: EVEX.LIG.F3.0F3A.W0 C2 /r ib | VCMPSH k1 {k2}, xmm2, xmm3/m16{sae}, imm8 | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm r=imm | Float16
+	flags: pseudo=vcmpsh implied-z
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcomish_xmm_xmmm16_sae
+INSTRUCTION: EVEX.LIG.MAP5.W0 2F /r | VCOMISH xmm1, xmm2/m16{sae} | AVX512_FP16 | N2
+	ops: r=reg r=rm | Float16
+	rflags: w=zcp 0=osa
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+INSTRUCTION: EVEX.128.MAP5.W0 5B /r | VCVTDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst | AVX512VL AVX512_FP16 | N16b4
+	ops: w=reg r=rm | Packed128_Int32 Broadcast128_Int32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
+INSTRUCTION: EVEX.256.MAP5.W0 5B /r | VCVTDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst | AVX512VL AVX512_FP16 | N32b4
+	ops: w=reg r=rm | Packed256_Int32 Broadcast256_Int32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
+INSTRUCTION: EVEX.512.MAP5.W0 5B /r | VCVTDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er} | AVX512_FP16 | N64b4
+	ops: w=reg r=rm | Packed512_Int32 Broadcast512_Int32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+INSTRUCTION: EVEX.128.66.MAP5.W1 5A /r | VCVTPD2PH xmm1 {k1}{z}, xmm2/m128/m64bcst | AVX512VL AVX512_FP16 | N16b8
+	ops: w=reg r=rm | Packed128_Float64 Broadcast128_Float64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
+INSTRUCTION: EVEX.256.66.MAP5.W1 5A /r | VCVTPD2PH xmm1 {k1}{z}, ymm2/m256/m64bcst | AVX512VL AVX512_FP16 | N32b8
+	ops: w=reg r=rm | Packed256_Float64 Broadcast256_Float64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
+INSTRUCTION: EVEX.512.66.MAP5.W1 5A /r | VCVTPD2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er} | AVX512_FP16 | N64b8
+	ops: w=reg r=rm | Packed512_Float64 Broadcast512_Float64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=z
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
+INSTRUCTION: EVEX.128.66.MAP5.W0 5B /r | VCVTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
+INSTRUCTION: EVEX.256.66.MAP5.W0 5B /r | VCVTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
+INSTRUCTION: EVEX.512.66.MAP5.W0 5B /r | VCVTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er} | AVX512_FP16 | N32b2
+	ops: wvmm=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
+INSTRUCTION: EVEX.128.MAP5.W0 5A /r | VCVTPH2PD xmm1 {k1}{z}, xmm2/m32/m16bcst | AVX512VL AVX512_FP16 | N4b2
+	ops: w=reg r=rm | Packed32_Float16 Broadcast32_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
+INSTRUCTION: EVEX.256.MAP5.W0 5A /r | VCVTPH2PD ymm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
+INSTRUCTION: EVEX.512.MAP5.W0 5A /r | VCVTPH2PD zmm1 {k1}{z}, xmm2/m128/m16bcst{sae} | AVX512_FP16 | N16b2
+	ops: wvmm=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 13 /r | VCVTPH2PSX xmm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 13 /r | VCVTPH2PSX ymm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
+INSTRUCTION: EVEX.512.66.MAP6.W0 13 /r | VCVTPH2PSX zmm1 {k1}{z}, ymm2/m256/m16bcst{sae} | AVX512_FP16 | N32b2
+	ops: wvmm=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
+INSTRUCTION: EVEX.128.66.MAP5.W0 7B /r | VCVTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst | AVX512VL AVX512_FP16 | N4b2
+	ops: w=reg r=rm | Packed32_Float16 Broadcast32_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
+INSTRUCTION: EVEX.256.66.MAP5.W0 7B /r | VCVTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
+INSTRUCTION: EVEX.512.66.MAP5.W0 7B /r | VCVTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er} | AVX512_FP16 | N16b2
+	ops: wvmm=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
+INSTRUCTION: EVEX.128.MAP5.W0 79 /r | VCVTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
+INSTRUCTION: EVEX.256.MAP5.W0 79 /r | VCVTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
+INSTRUCTION: EVEX.512.MAP5.W0 79 /r | VCVTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{er} | AVX512_FP16 | N32b2
+	ops: wvmm=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
+INSTRUCTION: EVEX.128.66.MAP5.W0 79 /r | VCVTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst | AVX512VL AVX512_FP16 | N4b2
+	ops: w=reg r=rm | Packed32_Float16 Broadcast32_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
+INSTRUCTION: EVEX.256.66.MAP5.W0 79 /r | VCVTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16| N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
+INSTRUCTION: EVEX.512.66.MAP5.W0 79 /r | VCVTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{er} | AVX512_FP16 | N16b2
+	ops: wvmm=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 7D /r | VCVTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 7D /r | VCVTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
+INSTRUCTION: EVEX.512.MAP5.W0 7D /r | VCVTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP5.W0 7D /r | VCVTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP5.W0 7D /r | VCVTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP5.W0 7D /r | VCVTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+INSTRUCTION: EVEX.128.66.MAP5.W0 1D /r | VCVTPS2PHX xmm1 {k1}{z}, xmm2/m128/m32bcst | AVX512VL AVX512_FP16 | N16b4
+	ops: w=reg r=rm | Packed128_Float32 Broadcast128_Float32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
+INSTRUCTION: EVEX.256.66.MAP5.W0 1D /r | VCVTPS2PHX xmm1 {k1}{z}, ymm2/m256/m32bcst | AVX512VL AVX512_FP16 | N32b4
+	ops: w=reg r=rm | Packed256_Float32 Broadcast256_Float32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
+INSTRUCTION: EVEX.512.66.MAP5.W0 1D /r | VCVTPS2PHX ymm1 {k1}{z}, zmm2/m512/m32bcst{er} | AVX512_FP16 | N64b4
+	ops: w=reg r=rm | Packed512_Float32 Broadcast512_Float32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+INSTRUCTION: EVEX.128.MAP5.W1 5B /r | VCVTQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst | AVX512VL AVX512_FP16 | N16b8
+	ops: w=reg r=rm | Packed128_Int64 Broadcast128_Int64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
+INSTRUCTION: EVEX.256.MAP5.W1 5B /r | VCVTQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst | AVX512VL AVX512_FP16 | N32b8
+	ops: w=reg r=rm | Packed256_Int64 Broadcast256_Int64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
+INSTRUCTION: EVEX.512.MAP5.W1 5B /r | VCVTQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er} | AVX512_FP16 | N64b8
+	ops: w=reg r=rm | Packed512_Int64 Broadcast512_Int64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=z
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
+INSTRUCTION: EVEX.LIG.F2.MAP5.W1 5A /r | VCVTSD2SH xmm1 {k1}{z}, xmm2, xmm3/m64{er} | AVX512_FP16 | N8
+	ops: w=reg r=vvvv r=rm | Float64
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 5A /r | VCVTSH2SD xmm1 {k1}{z}, xmm2, xmm3/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtsh2si_r32_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 2D /r | VCVTSH2SI r32, xmm1/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: wig32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtsh2si_r64_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W1 2D /r | VCVTSH2SI r64, xmm1/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: 64
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
+INSTRUCTION: EVEX.LIG.MAP6.W0 13 /r | VCVTSH2SS xmm1 {k1}{z}, xmm2, xmm3/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtsh2usi_r32_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 79 /r | VCVTSH2USI r32, xmm1/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: wig32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtsh2usi_r64_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W1 79 /r | VCVTSH2USI r64, xmm1/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: 64
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 2A /r | VCVTSI2SH xmm1, xmm2, r/m32{er} | AVX512_FP16 | N4
+	ops: w=reg r=vvvv r=rm | Int32
+	flags: wig32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=l
+	intel: flags=force-size=always
+	masm: flags=force-size=always
+	nasm: flags=force-size=always
+END
+
+# Code: EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W1 2A /r | VCVTSI2SH xmm1, xmm2, r/m64{er} | AVX512_FP16 | N8
+	ops: w=reg r=vvvv r=rm | Int64
+	flags: 64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=q
+	intel: flags=force-size=always
+	masm: flags=force-size=always
+	nasm: flags=force-size=always
+END
+
+# Code: EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
+INSTRUCTION: EVEX.LIG.MAP5.W0 1D /r | VCVTSS2SH xmm1 {k1}{z}, xmm2, xmm3/m32{er} | AVX512_FP16 | N4
+	ops: w=reg r=vvvv r=rm | Float32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
+INSTRUCTION: EVEX.128.F3.MAP5.W0 5B /r | VCVTTPH2DQ xmm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
+INSTRUCTION: EVEX.256.F3.MAP5.W0 5B /r | VCVTTPH2DQ ymm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
+INSTRUCTION: EVEX.512.F3.MAP5.W0 5B /r | VCVTTPH2DQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae} | AVX512_FP16 | N32b2
+	ops: wvmm=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
+INSTRUCTION: EVEX.128.66.MAP5.W0 7A /r | VCVTTPH2QQ xmm1 {k1}{z}, xmm2/m32/m16bcst | AVX512VL AVX512_FP16 | N4b2
+	ops: w=reg r=rm | Packed32_Float16 Broadcast32_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
+INSTRUCTION: EVEX.256.66.MAP5.W0 7A /r | VCVTTPH2QQ ymm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
+INSTRUCTION: EVEX.512.66.MAP5.W0 7A /r | VCVTTPH2QQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae} | AVX512_FP16 | N16b2
+	ops: wvmm=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
+INSTRUCTION: EVEX.128.MAP5.W0 78 /r | VCVTTPH2UDQ xmm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
+INSTRUCTION: EVEX.256.MAP5.W0 78 /r | VCVTTPH2UDQ ymm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
+INSTRUCTION: EVEX.512.MAP5.W0 78 /r | VCVTTPH2UDQ zmm1 {k1}{z}, ymm2/m256/m16bcst{sae} | AVX512_FP16 | N32b2
+	ops: wvmm=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
+INSTRUCTION: EVEX.128.66.MAP5.W0 78 /r | VCVTTPH2UQQ xmm1 {k1}{z}, xmm2/m32/m16bcst | AVX512VL AVX512_FP16 | N4b2
+	ops: w=reg r=rm | Packed32_Float16 Broadcast32_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
+INSTRUCTION: EVEX.256.66.MAP5.W0 78 /r | VCVTTPH2UQQ ymm1 {k1}{z}, xmm2/m64/m16bcst | AVX512VL AVX512_FP16 | N8b2
+	ops: w=reg r=rm | Packed64_Float16 Broadcast64_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
+INSTRUCTION: EVEX.512.66.MAP5.W0 78 /r | VCVTTPH2UQQ zmm1 {k1}{z}, xmm2/m128/m16bcst{sae} | AVX512_FP16 | N16b2
+	ops: wvmm=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 7C /r | VCVTTPH2UW xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 7C /r | VCVTTPH2UW ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
+INSTRUCTION: EVEX.512.MAP5.W0 7C /r | VCVTTPH2UW zmm1 {k1}{z}, zmm2/m512/m16bcst{sae} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP5.W0 7C /r | VCVTTPH2W xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP5.W0 7C /r | VCVTTPH2W ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
+INSTRUCTION: EVEX.512.66.MAP5.W0 7C /r | VCVTTPH2W zmm1 {k1}{z}, zmm2/m512/m16bcst{sae} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vcvttsh2si_r32_xmmm16_sae
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 2C /r | VCVTTSH2SI r32, xmm1/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: wig32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttsh2si_r64_xmmm16_sae
+INSTRUCTION: EVEX.LIG.F3.MAP5.W1 2C /r | VCVTTSH2SI r64, xmm1/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: 64
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttsh2usi_r32_xmmm16_sae
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 78 /r | VCVTTSH2USI r32, xmm1/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: wig32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvttsh2usi_r64_xmmm16_sae
+INSTRUCTION: EVEX.LIG.F3.MAP5.W1 78 /r | VCVTTSH2USI r64, xmm1/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	flags: 64
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+INSTRUCTION: EVEX.128.F2.MAP5.W0 7A /r | VCVTUDQ2PH xmm1 {k1}{z}, xmm2/m128/m32bcst | AVX512VL AVX512_FP16 | N16b4
+	ops: w=reg r=rm | Packed128_UInt32 Broadcast128_UInt32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
+INSTRUCTION: EVEX.256.F2.MAP5.W0 7A /r | VCVTUDQ2PH xmm1 {k1}{z}, ymm2/m256/m32bcst | AVX512VL AVX512_FP16 | N32b4
+	ops: w=reg r=rm | Packed256_UInt32 Broadcast256_UInt32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
+INSTRUCTION: EVEX.512.F2.MAP5.W0 7A /r | VCVTUDQ2PH ymm1 {k1}{z}, zmm2/m512/m32bcst{er} | AVX512_FP16 | N64b4
+	ops: w=reg r=rm | Packed512_UInt32 Broadcast512_UInt32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+INSTRUCTION: EVEX.128.F2.MAP5.W1 7A /r | VCVTUQQ2PH xmm1 {k1}{z}, xmm2/m128/m64bcst | AVX512VL AVX512_FP16 | N16b8
+	ops: w=reg r=rm | Packed128_UInt64 Broadcast128_UInt64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
+INSTRUCTION: EVEX.256.F2.MAP5.W1 7A /r | VCVTUQQ2PH xmm1 {k1}{z}, ymm2/m256/m64bcst | AVX512VL AVX512_FP16 | N32b8
+	ops: w=reg r=rm | Packed256_UInt64 Broadcast256_UInt64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
+INSTRUCTION: EVEX.512.F2.MAP5.W1 7A /r | VCVTUQQ2PH xmm1 {k1}{z}, zmm2/m512/m64bcst{er} | AVX512_FP16 | N64b8
+	ops: w=reg r=rm | Packed512_UInt64 Broadcast512_UInt64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=z
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 7B /r | VCVTUSI2SH xmm1, xmm2, r/m32{er} | AVX512_FP16 | N4
+	ops: w=reg r=vvvv r=rm | UInt32
+	flags: wig32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=l
+	intel: flags=force-size=always
+	masm: flags=force-size=always
+	nasm: flags=force-size=always
+END
+
+# Code: EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W1 7B /r | VCVTUSI2SH xmm1, xmm2, r/m64{er} | AVX512_FP16 | N8
+	ops: w=reg r=vvvv r=rm | UInt64
+	flags: 64
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=q
+	intel: flags=force-size=always
+	masm: flags=force-size=always
+	nasm: flags=force-size=always
+END
+
+# Code: EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.F2.MAP5.W0 7D /r | VCVTUW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_UInt16 Broadcast128_UInt16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.F2.MAP5.W0 7D /r | VCVTUW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_UInt16 Broadcast256_UInt16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
+INSTRUCTION: EVEX.512.F2.MAP5.W0 7D /r | VCVTUW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_UInt16 Broadcast512_UInt16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.F3.MAP5.W0 7D /r | VCVTW2PH xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Int16 Broadcast128_Int16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.F3.MAP5.W0 7D /r | VCVTW2PH ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Int16 Broadcast256_Int16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
+INSTRUCTION: EVEX.512.F3.MAP5.W0 7D /r | VCVTW2PH zmm1 {k1}{z}, zmm2/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Int16 Broadcast512_Int16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 5E /r | VDIVPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 5E /r | VDIVPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.MAP5.W0 5E /r | VDIVPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 5E /r | VDIVSH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
+INSTRUCTION: EVEX.128.F2.MAP6.W0 56 /r | VFCMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst | AVX512VL AVX512_FP16 | N16b4
+	ops: rw=reg r=vvvv r=rm | Packed128_2xFloat16 Broadcast128_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
+INSTRUCTION: EVEX.256.F2.MAP6.W0 56 /r | VFCMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst | AVX512VL AVX512_FP16 | N32b4
+	ops: rw=reg r=vvvv r=rm | Packed256_2xFloat16 Broadcast256_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
+INSTRUCTION: EVEX.512.F2.MAP6.W0 56 /r | VFCMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er} | AVX512_FP16 | N64b4
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_2xFloat16 Broadcast512_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
+INSTRUCTION: EVEX.128.F3.MAP6.W0 56 /r | VFMADDCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst | AVX512VL AVX512_FP16 | N16b4
+	ops: rw=reg r=vvvv r=rm | Packed128_2xFloat16 Broadcast128_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
+INSTRUCTION: EVEX.256.F3.MAP6.W0 56 /r | VFMADDCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst | AVX512VL AVX512_FP16 | N32b4
+	ops: rw=reg r=vvvv r=rm | Packed256_2xFloat16 Broadcast256_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
+INSTRUCTION: EVEX.512.F3.MAP6.W0 56 /r | VFMADDCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er} | AVX512_FP16 | N64b4
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_2xFloat16 Broadcast512_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
+INSTRUCTION: EVEX.LIG.F2.MAP6.W0 57 /r | VFCMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er} | AVX512_FP16 | N4
+	ops: rw=reg r=vvvv r=rm | Packed32_Float16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
+INSTRUCTION: EVEX.LIG.F3.MAP6.W0 57 /r | VFMADDCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er} | AVX512_FP16 | N4
+	ops: rw=reg r=vvvv r=rm | Packed32_Float16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
+INSTRUCTION: EVEX.128.F2.MAP6.W0 D6 /r | VFCMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst | AVX512VL AVX512_FP16 | N16b4
+	ops: w=reg r=vvvv r=rm | Packed128_2xFloat16 Broadcast128_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
+INSTRUCTION: EVEX.256.F2.MAP6.W0 D6 /r | VFCMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst | AVX512VL AVX512_FP16 | N32b4
+	ops: w=reg r=vvvv r=rm | Packed256_2xFloat16 Broadcast256_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
+INSTRUCTION: EVEX.512.F2.MAP6.W0 D6 /r | VFCMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er} | AVX512_FP16 | N64b4
+	ops: wvmm=reg r=vvvv r=rm | Packed512_2xFloat16 Broadcast512_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
+INSTRUCTION: EVEX.128.F3.MAP6.W0 D6 /r | VFMULCPH xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst | AVX512VL AVX512_FP16 | N16b4
+	ops: w=reg r=vvvv r=rm | Packed128_2xFloat16 Broadcast128_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
+INSTRUCTION: EVEX.256.F3.MAP6.W0 D6 /r | VFMULCPH ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst | AVX512VL AVX512_FP16 | N32b4
+	ops: w=reg r=vvvv r=rm | Packed256_2xFloat16 Broadcast256_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
+INSTRUCTION: EVEX.512.F3.MAP6.W0 D6 /r | VFMULCPH zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er} | AVX512_FP16 | N64b4
+	ops: wvmm=reg r=vvvv r=rm | Packed512_2xFloat16 Broadcast512_2xFloat16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
+INSTRUCTION: EVEX.LIG.F2.MAP6.W0 D7 /r | VFCMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er} | AVX512_FP16 | N4
+	ops: w=reg r=vvvv r=rm | Packed32_Float16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
+INSTRUCTION: EVEX.LIG.F3.MAP6.W0 D7 /r | VFMULCSH xmm1 {k1}{z}, xmm2, xmm3/m32{er} | AVX512_FP16 | N4
+	ops: w=reg r=vvvv r=rm | Packed32_Float16
+	flags: unique-dest-reg-num
+END
+
+# Code: EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 96 /r | VFMADDSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 96 /r | VFMADDSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 96 /r | VFMADDSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 A6 /r | VFMADDSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 A6 /r | VFMADDSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 A6 /r | VFMADDSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 B6 /r | VFMADDSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 B6 /r | VFMADDSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 B6 /r | VFMADDSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 97 /r | VFMSUBADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 97 /r | VFMSUBADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 97 /r | VFMSUBADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 A7 /r | VFMSUBADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 A7 /r | VFMSUBADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 A7 /r | VFMSUBADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 B7 /r | VFMSUBADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 B7 /r | VFMSUBADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 B7 /r | VFMSUBADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 98 /r | VFMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 98 /r | VFMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 98 /r | VFMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 A8 /r | VFMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 A8 /r | VFMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 A8 /r | VFMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 B8 /r | VFMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 B8 /r | VFMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 B8 /r | VFMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 9C /r | VFNMADD132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 9C /r | VFNMADD132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 9C /r | VFNMADD132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 AC /r | VFNMADD213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 AC /r | VFNMADD213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 AC /r | VFNMADD213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 BC /r | VFNMADD231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 BC /r | VFNMADD231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 BC /r | VFNMADD231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 99 /r | VFMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 A9 /r | VFMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 B9 /r | VFMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 9D /r | VFNMADD132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 AD /r | VFNMADD213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 BD /r | VFNMADD231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 9A /r | VFMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 9A /r | VFMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 9A /r | VFMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 AA /r | VFMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 AA /r | VFMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 AA /r | VFMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 BA /r | VFMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 BA /r | VFMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 BA /r | VFMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 9E /r | VFNMSUB132PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 9E /r | VFNMSUB132PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 9E /r | VFNMSUB132PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 AE /r | VFNMSUB213PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 AE /r | VFNMSUB213PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 AE /r | VFNMSUB213PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 BE /r | VFNMSUB231PH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: rw=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 BE /r | VFNMSUB231PH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: rw=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 BE /r | VFNMSUB231PH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: rwvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 9B /r | VFMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 AB /r | VFMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 BB /r | VFMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 9F /r | VFNMSUB132SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 AF /r | VFNMSUB213SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 BF /r | VFNMSUB231SH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: rw=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+INSTRUCTION: EVEX.128.0F3A.W0 66 /r ib | VFPCLASSPH k1 {k2}, xmm2/m128/m16bcst, imm8 | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm r=imm | Packed128_Float16 Broadcast128_Float16
+	flags: implied-z
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
+INSTRUCTION: EVEX.256.0F3A.W0 66 /r ib | VFPCLASSPH k1 {k2}, ymm2/m256/m16bcst, imm8 | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm r=imm | Packed256_Float16 Broadcast256_Float16
+	flags: implied-z
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
+INSTRUCTION: EVEX.512.0F3A.W0 66 /r ib | VFPCLASSPH k1 {k2}, zmm2/m512/m16bcst, imm8 | AVX512_FP16 | N64b2
+	ops: w=reg r=rm r=imm | Packed512_Float16 Broadcast512_Float16
+	flags: implied-z
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=z
+	intel: flags=force-size=always bcst
+	masm: flags=force-size=always
+	nasm: flags=force-size=always bcst
+END
+
+# Code: EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
+INSTRUCTION: EVEX.LIG.0F3A.W0 67 /r ib | VFPCLASSSH k1 {k2}, xmm2/m16, imm8 | AVX512_FP16 | N2
+	ops: w=reg r=rm r=imm | Float16
+	flags: implied-z
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vgetexpph_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 42 /r | VGETEXPPH xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vgetexpph_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 42 /r | VGETEXPPH ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
+INSTRUCTION: EVEX.512.66.MAP6.W0 42 /r | VGETEXPPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 43 /r | VGETEXPSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+END
+
+# Code: EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
+INSTRUCTION: EVEX.128.0F3A.W0 26 /r ib | VGETMANTPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8 | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm r=imm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
+INSTRUCTION: EVEX.256.0F3A.W0 26 /r ib | VGETMANTPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8 | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm r=imm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
+INSTRUCTION: EVEX.512.0F3A.W0 26 /r ib | VGETMANTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8 | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm r=imm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
+INSTRUCTION: EVEX.LIG.0F3A.W0 27 /r ib | VGETMANTSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8 | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm r=imm | Float16
+END
+
+# Code: EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 5F /r | VMAXPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 5F /r | VMAXPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
+INSTRUCTION: EVEX.512.MAP5.W0 5F /r | VMAXPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 5F /r | VMAXSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 5D /r | VMINPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 5D /r | VMINPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
+INSTRUCTION: EVEX.512.MAP5.W0 5D /r | VMINPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{sae} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 5D /r | VMINSH xmm1 {k1}{z}, xmm2, xmm3/m16{sae} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmovsh_xmm_k1z_m16
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 10 /r | VMOVSH xmm1 {k1}{z}, m16 | AVX512_FP16 | N2
+	ops: w=reg r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmovsh_m16_k1_xmm
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 11 /r | VMOVSH m16 {k1}, xmm1 | AVX512_FP16 | N2
+	ops: w=rm r=reg | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmovsh_xmm_k1z_xmm_xmm
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 10 /r | VMOVSH xmm1 {k1}{z}, xmm2, xmm3 | AVX512_FP16
+	ops: w=reg r=vvvv r=rm
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 11 /r | VMOVSH xmm1 {k1}{z}, xmm2, xmm3 | AVX512_FP16
+	ops: w=rm r=vvvv r=reg
+	code-suffix: MAP5_11
+END
+
+# Code: EVEX_Vmovw_xmm_r32m16
+INSTRUCTION: EVEX.128.66.MAP5.W0 6E /r | VMOVW xmm1, r32/m16 | AVX512_FP16 | N2
+	ops: w=reg r=rm | UInt16
+	implied: last-gpr-16
+	flags: wig32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmovw_xmm_r64m16
+INSTRUCTION: EVEX.128.66.MAP5.W1 6E /r | VMOVW xmm1, r64/m16 | AVX512_FP16 | N2
+	ops: w=reg r=rm | UInt16
+	implied: last-gpr-16
+	flags: 64
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmovw_r32m16_xmm
+INSTRUCTION: EVEX.128.66.MAP5.W0 7E /r | VMOVW r32/m16, xmm1 | AVX512_FP16 | N2
+	ops: w=rm r=reg | UInt16
+	flags: wig32
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmovw_r64m16_xmm
+INSTRUCTION: EVEX.128.66.MAP5.W1 7E /r | VMOVW r64/m16, xmm1 | AVX512_FP16 | N2
+	ops: w=rm r=reg | UInt16
+	flags: 64
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 59 /r | VMULPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 59 /r | VMULPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.MAP5.W0 59 /r | VMULPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 59 /r | VMULSH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vrcpph_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 4C /r | VRCPPH xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vrcpph_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 4C /r | VRCPPH ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vrcpph_zmm_k1z_zmmm512b16
+INSTRUCTION: EVEX.512.66.MAP6.W0 4C /r | VRCPPH zmm1 {k1}{z}, zmm2/m512/m16bcst | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 4D /r | VRCPSH xmm1 {k1}{z}, xmm2, xmm3/m16 | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
+INSTRUCTION: EVEX.128.0F3A.W0 56 /r ib | VREDUCEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8 | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm r=imm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
+INSTRUCTION: EVEX.256.0F3A.W0 56 /r ib | VREDUCEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8 | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm r=imm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
+INSTRUCTION: EVEX.512.0F3A.W0 56 /r ib | VREDUCEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8 | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm r=imm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
+INSTRUCTION: EVEX.LIG.0F3A.W0 57 /r ib | VREDUCESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8 | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm r=imm | Float16
+END
+
+# Code: EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
+INSTRUCTION: EVEX.128.0F3A.W0 08 /r ib | VRNDSCALEPH xmm1 {k1}{z}, xmm2/m128/m16bcst, imm8 | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm r=imm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
+INSTRUCTION: EVEX.256.0F3A.W0 08 /r ib | VRNDSCALEPH ymm1 {k1}{z}, ymm2/m256/m16bcst, imm8 | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm r=imm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
+INSTRUCTION: EVEX.512.0F3A.W0 08 /r ib | VRNDSCALEPH zmm1 {k1}{z}, zmm2/m512/m16bcst{sae}, imm8 | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm r=imm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
+INSTRUCTION: EVEX.LIG.0F3A.W0 0A /r ib | VRNDSCALESH xmm1 {k1}{z}, xmm2, xmm3/m16{sae}, imm8 | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm r=imm | Float16
+END
+
+# Code: EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 4E /r | VRSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 4E /r | VRSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
+INSTRUCTION: EVEX.512.66.MAP6.W0 4E /r | VRSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 4F /r | VRSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16 | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.66.MAP6.W0 2C /r | VSCALEFPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.66.MAP6.W0 2C /r | VSCALEFPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.66.MAP6.W0 2C /r | VSCALEFPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.66.MAP6.W0 2D /r | VSCALEFSH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vsqrtph_xmm_k1z_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 51 /r | VSQRTPH xmm1 {k1}{z}, xmm2/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=rm | Packed128_Float16 Broadcast128_Float16
+END
+
+# Code: EVEX_Vsqrtph_ymm_k1z_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 51 /r | VSQRTPH ymm1 {k1}{z}, ymm2/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=rm | Packed256_Float16 Broadcast256_Float16
+END
+
+# Code: EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
+INSTRUCTION: EVEX.512.MAP5.W0 51 /r | VSQRTPH zmm1 {k1}{z}, zmm2/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=rm | Packed512_Float16 Broadcast512_Float16
+END
+
+# Code: EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 51 /r | VSQRTSH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+INSTRUCTION: EVEX.128.MAP5.W0 5C /r | VSUBPH xmm1 {k1}{z}, xmm2, xmm3/m128/m16bcst | AVX512VL AVX512_FP16 | N16b2
+	ops: w=reg r=vvvv r=rm | Packed128_Float16 Broadcast128_Float16
+	implied: zero-reg-reg-regmem
+END
+
+# Code: EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+INSTRUCTION: EVEX.256.MAP5.W0 5C /r | VSUBPH ymm1 {k1}{z}, ymm2, ymm3/m256/m16bcst | AVX512VL AVX512_FP16 | N32b2
+	ops: w=reg r=vvvv r=rm | Packed256_Float16 Broadcast256_Float16
+	implied: zero-reg-reg-regmem
+END
+
+# Code: EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+INSTRUCTION: EVEX.512.MAP5.W0 5C /r | VSUBPH zmm1 {k1}{z}, zmm2, zmm3/m512/m16bcst{er} | AVX512_FP16 | N64b2
+	ops: wvmm=reg r=vvvv r=rm | Packed512_Float16 Broadcast512_Float16
+	implied: zero-reg-reg-regmem
+END
+
+# Code: EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
+INSTRUCTION: EVEX.LIG.F3.MAP5.W0 5C /r | VSUBSH xmm1 {k1}{z}, xmm2, xmm3/m16{er} | AVX512_FP16 | N2
+	ops: w=reg r=vvvv r=rm | Float16
+	masm: flags=force-size=default
+END
+
+# Code: EVEX_Vucomish_xmm_xmmm16_sae
+INSTRUCTION: EVEX.LIG.MAP5.W0 2E /r | VUCOMISH xmm1, xmm2/m16{sae} | AVX512_FP16 | N2
+	ops: r=reg r=rm | Float16
+	rflags: w=zcp 0=osa
+	masm: flags=force-size=default
 END

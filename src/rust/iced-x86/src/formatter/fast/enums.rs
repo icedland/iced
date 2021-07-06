@@ -37,5 +37,7 @@ impl FastFmtFlags {
 	pub(crate) const VPCMPUW: u32 = 0x0000_00C0;
 	pub(crate) const VPCMPUD: u32 = 0x0000_00C8;
 	pub(crate) const VPCMPUQ: u32 = 0x0000_00D0;
+	pub(crate) const VCMPPH: u32 = 0x0000_00D8;
+	pub(crate) const VCMPSH: u32 = 0x0000_00E0;
 }
 // GENERATOR-END: FastFmtFlags

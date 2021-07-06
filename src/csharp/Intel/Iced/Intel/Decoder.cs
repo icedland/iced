@@ -49,21 +49,23 @@ namespace Iced.Intel {
 		ulong instructionPointer;
 		readonly CodeReader reader;
 		readonly RegInfo2[] memRegs16;
-		readonly OpCodeHandler[] handlers_XX;
+		readonly OpCodeHandler[] handlers_MAP0;
 #if !NO_VEX
-		readonly OpCodeHandler[] handlers_VEX_0FXX;
-		readonly OpCodeHandler[] handlers_VEX_0F38XX;
-		readonly OpCodeHandler[] handlers_VEX_0F3AXX;
+		readonly OpCodeHandler[] handlers_VEX_0F;
+		readonly OpCodeHandler[] handlers_VEX_0F38;
+		readonly OpCodeHandler[] handlers_VEX_0F3A;
 #endif
 #if !NO_EVEX
-		readonly OpCodeHandler[] handlers_EVEX_0FXX;
-		readonly OpCodeHandler[] handlers_EVEX_0F38XX;
-		readonly OpCodeHandler[] handlers_EVEX_0F3AXX;
+		readonly OpCodeHandler[] handlers_EVEX_0F;
+		readonly OpCodeHandler[] handlers_EVEX_0F38;
+		readonly OpCodeHandler[] handlers_EVEX_0F3A;
+		readonly OpCodeHandler[] handlers_EVEX_MAP5;
+		readonly OpCodeHandler[] handlers_EVEX_MAP6;
 #endif
 #if !NO_XOP
-		readonly OpCodeHandler[] handlers_XOP8;
-		readonly OpCodeHandler[] handlers_XOP9;
-		readonly OpCodeHandler[] handlers_XOPA;
+		readonly OpCodeHandler[] handlers_XOP_MAP8;
+		readonly OpCodeHandler[] handlers_XOP_MAP9;
+		readonly OpCodeHandler[] handlers_XOP_MAP10;
 #endif
 		internal State state;
 		internal uint displIndex;
@@ -178,21 +180,23 @@ namespace Iced.Intel {
 			}
 			is64bMode_and_W = is64bMode ? (uint)StateFlags.W : 0;
 			reg15Mask = is64bMode ? 0xFU : 0x7;
-			handlers_XX = OpCodeHandlersTables_Legacy.OneByteHandlers;
+			handlers_MAP0 = OpCodeHandlersTables_Legacy.Handlers_MAP0;
 #if !NO_VEX
-			handlers_VEX_0FXX = OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
-			handlers_VEX_0F38XX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
-			handlers_VEX_0F3AXX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX;
+			handlers_VEX_0F = OpCodeHandlersTables_VEX.Handlers_0F;
+			handlers_VEX_0F38 = OpCodeHandlersTables_VEX.Handlers_0F38;
+			handlers_VEX_0F3A = OpCodeHandlersTables_VEX.Handlers_0F3A;
 #endif
 #if !NO_EVEX
-			handlers_EVEX_0FXX = OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX;
-			handlers_EVEX_0F38XX = OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX;
-			handlers_EVEX_0F3AXX = OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX;
+			handlers_EVEX_0F = OpCodeHandlersTables_EVEX.Handlers_0F;
+			handlers_EVEX_0F38 = OpCodeHandlersTables_EVEX.Handlers_0F38;
+			handlers_EVEX_0F3A = OpCodeHandlersTables_EVEX.Handlers_0F3A;
+			handlers_EVEX_MAP5 = OpCodeHandlersTables_EVEX.Handlers_MAP5;
+			handlers_EVEX_MAP6 = OpCodeHandlersTables_EVEX.Handlers_MAP6;
 #endif
 #if !NO_XOP
-			handlers_XOP8 = OpCodeHandlersTables_XOP.XOP8;
-			handlers_XOP9 = OpCodeHandlersTables_XOP.XOP9;
-			handlers_XOPA = OpCodeHandlersTables_XOP.XOPA;
+			handlers_XOP_MAP8 = OpCodeHandlersTables_XOP.Handlers_MAP8;
+			handlers_XOP_MAP9 = OpCodeHandlersTables_XOP.Handlers_MAP9;
+			handlers_XOP_MAP10 = OpCodeHandlersTables_XOP.Handlers_MAP10;
 #endif
 		}
 
@@ -306,14 +310,6 @@ namespace Iced.Intel {
 			state.operandSize = defaultOperandSize;
 			state.addressSize = defaultAddressSize;
 			uint b = ReadByte();
-			// Test binary: xul.dll 64-bit
-			// 52.01% of all instructions have at least one prefix
-			// REX = 92.50%
-			//  66 =  4.41%
-			//  F3 =  1.80%
-			//  F2 =  0.65%
-			//  F0 =  0.51%
-			//  65 =  0.10%
 			if (((b >> 4) & mask64b) == 4) {
 				if ((b & 8) != 0) {
 					state.operandSize = OpSize.Size64;
@@ -327,7 +323,7 @@ namespace Iced.Intel {
 
 				b = ReadByte();
 			}
-			DecodeTable(handlers_XX[b], ref instruction);
+			DecodeTable(handlers_MAP0[b], ref instruction);
 			var flags = state.flags;
 			if ((flags & (StateFlags.IsInvalid | StateFlags.Lock)) != 0) {
 				if ((flags & StateFlags.IsInvalid) != 0 ||
@@ -369,7 +365,7 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void CallOpCodeHandlerXXTable(ref Instruction instruction) {
 			var b = ReadByte();
-			DecodeTable(handlers_XX[b], ref instruction);
+			DecodeTable(handlers_MAP0[b], ref instruction);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -481,7 +477,7 @@ namespace Iced.Intel {
 			state.vvvv = b;
 			state.vvvv_invalidCheck = b;
 
-			DecodeTable(handlers_VEX_0FXX, ref instruction);
+			DecodeTable(handlers_VEX_0F, ref instruction);
 #endif
 		}
 
@@ -529,11 +525,11 @@ namespace Iced.Intel {
 
 			int table = (int)(b1 & 0x1F);
 			if (table == 1)
-				DecodeTable(handlers_VEX_0FXX, ref instruction);
+				DecodeTable(handlers_VEX_0F, ref instruction);
 			else if (table == 2)
-				DecodeTable(handlers_VEX_0F38XX, ref instruction);
+				DecodeTable(handlers_VEX_0F38, ref instruction);
 			else if (table == 3)
-				DecodeTable(handlers_VEX_0F3AXX, ref instruction);
+				DecodeTable(handlers_VEX_0F3A, ref instruction);
 			else
 				SetInvalidInstruction();
 #endif
@@ -583,11 +579,11 @@ namespace Iced.Intel {
 
 			int table = (int)(b1 & 0x1F);
 			if (table == 8)
-				DecodeTable(handlers_XOP8, ref instruction);
+				DecodeTable(handlers_XOP_MAP8, ref instruction);
 			else if (table == 9)
-				DecodeTable(handlers_XOP9, ref instruction);
+				DecodeTable(handlers_XOP_MAP9, ref instruction);
 			else if (table == 10)
-				DecodeTable(handlers_XOPA, ref instruction);
+				DecodeTable(handlers_XOP_MAP10, ref instruction);
 			else
 				SetInvalidInstruction();
 #endif
@@ -607,7 +603,7 @@ namespace Iced.Intel {
 			uint p2 = ReadByte();
 
 			if ((p1 & 4) != 0) {
-				if ((p0 & 0x0C) == 0) {
+				if ((p0 & 8) == 0) {
 #if DEBUG
 					state.flags |= (StateFlags)((uint)EncodingKind.EVEX << (int)StateFlags.EncodingShift);
 #endif
@@ -663,15 +659,14 @@ namespace Iced.Intel {
 						state.flags |= (StateFlags)((~p2 & 8) << 3);
 					}
 
-					int table = (int)(p0 & 3);
 					OpCodeHandler[] handlers;
-					if (table == 1)
-						handlers = handlers_EVEX_0FXX;
-					else if (table == 2)
-						handlers = handlers_EVEX_0F38XX;
-					else if (table == 3)
-						handlers = handlers_EVEX_0F3AXX;
-					else {
+					switch ((int)(p0 & 7)) {
+					case 1: handlers = handlers_EVEX_0F; break;
+					case 2: handlers = handlers_EVEX_0F38; break;
+					case 3: handlers = handlers_EVEX_0F3A; break;
+					case 5: handlers = handlers_EVEX_MAP5; break;
+					case 6: handlers = handlers_EVEX_MAP6; break;
+					default:
 						SetInvalidInstruction();
 						return;
 					}

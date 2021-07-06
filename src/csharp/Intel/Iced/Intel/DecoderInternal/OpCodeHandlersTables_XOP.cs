@@ -4,17 +4,17 @@
 #if DECODER && !NO_XOP
 namespace Iced.Intel.DecoderInternal {
 	static partial class OpCodeHandlersTables_XOP {
-		internal static readonly OpCodeHandler[] XOP8;
-		internal static readonly OpCodeHandler[] XOP9;
-		internal static readonly OpCodeHandler[] XOPA;
+		internal static readonly OpCodeHandler[] Handlers_MAP8;
+		internal static readonly OpCodeHandler[] Handlers_MAP9;
+		internal static readonly OpCodeHandler[] Handlers_MAP10;
 
 		static OpCodeHandlersTables_XOP() {
 			var handlerReader = new VexOpCodeHandlerReader();
 			var deserializer = new TableDeserializer(handlerReader, MaxIdNames, GetSerializedTables());
 			deserializer.Deserialize();
-			XOP8 = deserializer.GetTable(XOP8Index);
-			XOP9 = deserializer.GetTable(XOP9Index);
-			XOPA = deserializer.GetTable(XOPAIndex);
+			Handlers_MAP8 = deserializer.GetTable(Handlers_MAP8Index);
+			Handlers_MAP9 = deserializer.GetTable(Handlers_MAP9Index);
+			Handlers_MAP10 = deserializer.GetTable(Handlers_MAP10Index);
 		}
 	}
 }

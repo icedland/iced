@@ -105,15 +105,23 @@ namespace Iced.Intel.EncoderInternal {
 				AppendOpCode(0x0F3A, 2, sep);
 				break;
 
-			case OpCodeTableKind.XOP8:
+			case OpCodeTableKind.MAP5:
+				sb.Append("MAP5");
+				break;
+
+			case OpCodeTableKind.MAP6:
+				sb.Append("MAP6");
+				break;
+
+			case OpCodeTableKind.MAP8:
 				sb.Append("X8");
 				break;
 
-			case OpCodeTableKind.XOP9:
+			case OpCodeTableKind.MAP9:
 				sb.Append("X9");
 				break;
 
-			case OpCodeTableKind.XOPA:
+			case OpCodeTableKind.MAP10:
 				sb.Append("XA");
 				break;
 

@@ -643,3 +643,7 @@ LKGS: int = 157
 """
 : CPUID.(EAX=07H, ECX=01H):EAX.LKGS[bit 18]
 """
+AVX512_FP16: int = 158
+"""
+: CPUID.(EAX=07H, ECX=0H):EDX.AVX512-FP16[bit 23]
+"""

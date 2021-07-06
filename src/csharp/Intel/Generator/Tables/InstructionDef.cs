@@ -369,6 +369,11 @@ namespace Generator.Tables {
 		/// Set if it's a conditional write to FPU <c>TOP</c> bits
 		/// </summary>
 		IsFpuCondWriteTop		= 0x00200000,
+		/// <summary>
+		/// The destination register's reg-num must not be present in any other operand, eg. <c>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</c>
+		/// is invalid. Registers = <c>XMM</c>/<c>YMM</c>/<c>ZMM</c>/<c>TMM</c>.
+		/// </summary>
+		RequiresUniqueDestRegNum	= 0x00400000,
 	}
 
 	enum VmxMode {

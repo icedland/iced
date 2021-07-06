@@ -651,10 +651,20 @@ pub enum TupleType {
 	N32b8 = 12,
 	/// `N = b ? 8 : 64`
 	N64b8 = 13,
+	/// `N = b ? 2 : 4`
+	N4b2 = 14,
+	/// `N = b ? 2 : 8`
+	N8b2 = 15,
+	/// `N = b ? 2 : 16`
+	N16b2 = 16,
+	/// `N = b ? 2 : 32`
+	N32b2 = 17,
+	/// `N = b ? 2 : 64`
+	N64b2 = 18,
 }
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[rustfmt::skip]
-static GEN_DEBUG_TUPLE_TYPE: [&str; 14] = [
+static GEN_DEBUG_TUPLE_TYPE: [&str; 19] = [
 	"N1",
 	"N2",
 	"N4",
@@ -669,6 +679,11 @@ static GEN_DEBUG_TUPLE_TYPE: [&str; 14] = [
 	"N16b8",
 	"N32b8",
 	"N64b8",
+	"N4b2",
+	"N8b2",
+	"N16b2",
+	"N32b2",
+	"N64b2",
 ];
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl fmt::Debug for TupleType {
@@ -1625,10 +1640,12 @@ pub enum CpuidFeature {
 	FRED = 156,
 	/// CPUID.(EAX=07H, ECX=01H):EAX.LKGS\[bit 18\]
 	LKGS = 157,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.AVX512-FP16\[bit 23\]
+	AVX512_FP16 = 158,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 158] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 159] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1787,6 +1804,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 158] = [
 	"PADLOCK_GMI",
 	"FRED",
 	"LKGS",
+	"AVX512_FP16",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {
@@ -2273,31 +2291,37 @@ fn test_mandatoryprefix_try_from_usize() {
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
 pub enum OpCodeTableKind {
-	/// Legacy encoding table
+	/// Legacy/`MAP0` table
 	Normal = 0,
-	/// `0Fxx` table (legacy, VEX, EVEX)
+	/// `0F`/`MAP1` table (legacy, VEX, EVEX)
 	T0F = 1,
-	/// `0F38xx` table (legacy, VEX, EVEX)
+	/// `0F38`/`MAP2` table (legacy, VEX, EVEX)
 	T0F38 = 2,
-	/// `0F3Axx` table (legacy, VEX, EVEX)
+	/// `0F3A`/`MAP3` table (legacy, VEX, EVEX)
 	T0F3A = 3,
-	/// `XOP8` table (XOP)
-	XOP8 = 4,
-	/// `XOP9` table (XOP)
-	XOP9 = 5,
-	/// `XOPA` table (XOP)
-	XOPA = 6,
+	/// `MAP5` table (EVEX)
+	MAP5 = 4,
+	/// `MAP6` table (EVEX)
+	MAP6 = 5,
+	/// `MAP8` table (XOP)
+	MAP8 = 6,
+	/// `MAP9` table (XOP)
+	MAP9 = 7,
+	/// `MAP10` table (XOP)
+	MAP10 = 8,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
-static GEN_DEBUG_OP_CODE_TABLE_KIND: [&str; 7] = [
+static GEN_DEBUG_OP_CODE_TABLE_KIND: [&str; 9] = [
 	"Normal",
 	"T0F",
 	"T0F38",
 	"T0F3A",
-	"XOP8",
-	"XOP9",
-	"XOPA",
+	"MAP5",
+	"MAP6",
+	"MAP8",
+	"MAP9",
+	"MAP10",
 ];
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for OpCodeTableKind {

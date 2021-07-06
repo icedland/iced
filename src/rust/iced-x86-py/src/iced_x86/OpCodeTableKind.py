@@ -13,29 +13,37 @@ Opcode table
 
 NORMAL: int = 0
 """
-Legacy encoding table
+Legacy/``MAP0`` table
 """
 T0F: int = 1
 """
-``0Fxx`` table (legacy, VEX, EVEX)
+``0F``/``MAP1`` table (legacy, VEX, EVEX)
 """
 T0F38: int = 2
 """
-``0F38xx`` table (legacy, VEX, EVEX)
+``0F38``/``MAP2`` table (legacy, VEX, EVEX)
 """
 T0F3A: int = 3
 """
-``0F3Axx`` table (legacy, VEX, EVEX)
+``0F3A``/``MAP3`` table (legacy, VEX, EVEX)
 """
-XOP8: int = 4
+MAP5: int = 4
 """
-``XOP8`` table (XOP)
+``MAP5`` table (EVEX)
 """
-XOP9: int = 5
+MAP6: int = 5
 """
-``XOP9`` table (XOP)
+``MAP6`` table (EVEX)
 """
-XOPA: int = 6
+MAP8: int = 6
 """
-``XOPA`` table (XOP)
+``MAP8`` table (XOP)
+"""
+MAP9: int = 7
+"""
+``MAP9`` table (XOP)
+"""
+MAP10: int = 8
+"""
+``MAP10`` table (XOP)
 """

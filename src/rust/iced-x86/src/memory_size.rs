@@ -73,6 +73,7 @@ mod info {
 		MemorySizeInfo { size: 4, element_size: 1, memory_size: MemorySize::Packed32_Int8, element_type: MemorySize::Int8, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Packed32_UInt16, element_type: MemorySize::UInt16, is_signed: false, is_broadcast: false },
 		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Packed32_Int16, element_type: MemorySize::Int16, is_signed: true, is_broadcast: false },
+		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Packed32_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Packed32_BFloat16, element_type: MemorySize::BFloat16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 8, element_size: 1, memory_size: MemorySize::Packed64_UInt8, element_type: MemorySize::UInt8, is_signed: false, is_broadcast: false },
 		MemorySizeInfo { size: 8, element_size: 1, memory_size: MemorySize::Packed64_Int8, element_type: MemorySize::Int8, is_signed: true, is_broadcast: false },
@@ -94,6 +95,7 @@ mod info {
 		MemorySizeInfo { size: 16, element_size: 2, memory_size: MemorySize::Packed128_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 16, element_size: 4, memory_size: MemorySize::Packed128_Float32, element_type: MemorySize::Float32, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 16, element_size: 8, memory_size: MemorySize::Packed128_Float64, element_type: MemorySize::Float64, is_signed: true, is_broadcast: false },
+		MemorySizeInfo { size: 16, element_size: 4, memory_size: MemorySize::Packed128_2xFloat16, element_type: MemorySize::Packed32_Float16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 16, element_size: 4, memory_size: MemorySize::Packed128_2xBFloat16, element_type: MemorySize::Packed32_BFloat16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 32, element_size: 1, memory_size: MemorySize::Packed256_UInt8, element_type: MemorySize::UInt8, is_signed: false, is_broadcast: false },
 		MemorySizeInfo { size: 32, element_size: 1, memory_size: MemorySize::Packed256_Int8, element_type: MemorySize::Int8, is_signed: true, is_broadcast: false },
@@ -110,6 +112,7 @@ mod info {
 		MemorySizeInfo { size: 32, element_size: 4, memory_size: MemorySize::Packed256_Float32, element_type: MemorySize::Float32, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 32, element_size: 8, memory_size: MemorySize::Packed256_Float64, element_type: MemorySize::Float64, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 32, element_size: 16, memory_size: MemorySize::Packed256_Float128, element_type: MemorySize::Float128, is_signed: true, is_broadcast: false },
+		MemorySizeInfo { size: 32, element_size: 4, memory_size: MemorySize::Packed256_2xFloat16, element_type: MemorySize::Packed32_Float16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 32, element_size: 4, memory_size: MemorySize::Packed256_2xBFloat16, element_type: MemorySize::Packed32_BFloat16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 64, element_size: 1, memory_size: MemorySize::Packed512_UInt8, element_type: MemorySize::UInt8, is_signed: false, is_broadcast: false },
 		MemorySizeInfo { size: 64, element_size: 1, memory_size: MemorySize::Packed512_Int8, element_type: MemorySize::Int8, is_signed: true, is_broadcast: false },
@@ -121,45 +124,61 @@ mod info {
 		MemorySizeInfo { size: 64, element_size: 8, memory_size: MemorySize::Packed512_UInt64, element_type: MemorySize::UInt64, is_signed: false, is_broadcast: false },
 		MemorySizeInfo { size: 64, element_size: 8, memory_size: MemorySize::Packed512_Int64, element_type: MemorySize::Int64, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 64, element_size: 16, memory_size: MemorySize::Packed512_UInt128, element_type: MemorySize::UInt128, is_signed: false, is_broadcast: false },
+		MemorySizeInfo { size: 64, element_size: 2, memory_size: MemorySize::Packed512_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 64, element_size: 4, memory_size: MemorySize::Packed512_Float32, element_type: MemorySize::Float32, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 64, element_size: 8, memory_size: MemorySize::Packed512_Float64, element_type: MemorySize::Float64, is_signed: true, is_broadcast: false },
+		MemorySizeInfo { size: 64, element_size: 4, memory_size: MemorySize::Packed512_2xFloat16, element_type: MemorySize::Packed32_Float16, is_signed: true, is_broadcast: false },
 		MemorySizeInfo { size: 64, element_size: 4, memory_size: MemorySize::Packed512_2xBFloat16, element_type: MemorySize::Packed32_BFloat16, is_signed: true, is_broadcast: false },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast32_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast64_UInt32, element_type: MemorySize::UInt32, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast64_Int32, element_type: MemorySize::Int32, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast64_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast64_Float32, element_type: MemorySize::Float32, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast128_Int16, element_type: MemorySize::Int16, is_signed: false, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast128_UInt16, element_type: MemorySize::UInt16, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast128_UInt32, element_type: MemorySize::UInt32, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast128_Int32, element_type: MemorySize::Int32, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast128_UInt52, element_type: MemorySize::UInt52, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast128_UInt64, element_type: MemorySize::UInt64, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast128_Int64, element_type: MemorySize::Int64, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast128_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast128_Float32, element_type: MemorySize::Float32, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast128_Float64, element_type: MemorySize::Float64, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast128_2xInt16, element_type: MemorySize::Packed32_Int16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast128_2xInt32, element_type: MemorySize::Packed64_Int32, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast128_2xUInt32, element_type: MemorySize::Packed64_UInt32, is_signed: false, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast128_2xFloat16, element_type: MemorySize::Packed32_Float16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast128_2xBFloat16, element_type: MemorySize::Packed32_BFloat16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast256_Int16, element_type: MemorySize::Int16, is_signed: false, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast256_UInt16, element_type: MemorySize::UInt16, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast256_UInt32, element_type: MemorySize::UInt32, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast256_Int32, element_type: MemorySize::Int32, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast256_UInt52, element_type: MemorySize::UInt52, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast256_UInt64, element_type: MemorySize::UInt64, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast256_Int64, element_type: MemorySize::Int64, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast256_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast256_Float32, element_type: MemorySize::Float32, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast256_Float64, element_type: MemorySize::Float64, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast256_2xInt16, element_type: MemorySize::Packed32_Int16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast256_2xInt32, element_type: MemorySize::Packed64_Int32, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast256_2xUInt32, element_type: MemorySize::Packed64_UInt32, is_signed: false, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast256_2xFloat16, element_type: MemorySize::Packed32_Float16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast256_2xBFloat16, element_type: MemorySize::Packed32_BFloat16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast512_Int16, element_type: MemorySize::Int16, is_signed: false, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast512_UInt16, element_type: MemorySize::UInt16, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast512_UInt32, element_type: MemorySize::UInt32, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast512_Int32, element_type: MemorySize::Int32, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast512_UInt52, element_type: MemorySize::UInt52, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast512_UInt64, element_type: MemorySize::UInt64, is_signed: false, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast512_Int64, element_type: MemorySize::Int64, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 2, element_size: 2, memory_size: MemorySize::Broadcast512_Float16, element_type: MemorySize::Float16, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast512_Float32, element_type: MemorySize::Float32, is_signed: true, is_broadcast: true },
 		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast512_Float64, element_type: MemorySize::Float64, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Broadcast128_2xInt16, element_type: MemorySize::Int16, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Broadcast256_2xInt16, element_type: MemorySize::Int16, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Broadcast512_2xInt16, element_type: MemorySize::Int16, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 8, element_size: 4, memory_size: MemorySize::Broadcast128_2xUInt32, element_type: MemorySize::UInt32, is_signed: false, is_broadcast: true },
-		MemorySizeInfo { size: 8, element_size: 4, memory_size: MemorySize::Broadcast256_2xUInt32, element_type: MemorySize::UInt32, is_signed: false, is_broadcast: true },
-		MemorySizeInfo { size: 8, element_size: 4, memory_size: MemorySize::Broadcast512_2xUInt32, element_type: MemorySize::UInt32, is_signed: false, is_broadcast: true },
-		MemorySizeInfo { size: 8, element_size: 4, memory_size: MemorySize::Broadcast128_2xInt32, element_type: MemorySize::Int32, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 8, element_size: 4, memory_size: MemorySize::Broadcast256_2xInt32, element_type: MemorySize::Int32, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 8, element_size: 4, memory_size: MemorySize::Broadcast512_2xInt32, element_type: MemorySize::Int32, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Broadcast128_2xBFloat16, element_type: MemorySize::BFloat16, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Broadcast256_2xBFloat16, element_type: MemorySize::BFloat16, is_signed: true, is_broadcast: true },
-		MemorySizeInfo { size: 4, element_size: 2, memory_size: MemorySize::Broadcast512_2xBFloat16, element_type: MemorySize::BFloat16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast512_2xFloat16, element_type: MemorySize::Packed32_Float16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast512_2xInt16, element_type: MemorySize::Packed32_Int16, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast512_2xUInt32, element_type: MemorySize::Packed64_UInt32, is_signed: false, is_broadcast: true },
+		MemorySizeInfo { size: 8, element_size: 8, memory_size: MemorySize::Broadcast512_2xInt32, element_type: MemorySize::Packed64_Int32, is_signed: true, is_broadcast: true },
+		MemorySizeInfo { size: 4, element_size: 4, memory_size: MemorySize::Broadcast512_2xBFloat16, element_type: MemorySize::Packed32_BFloat16, is_signed: true, is_broadcast: true },
 		// GENERATOR-END: MemorySizeInfoTable
 	];
 
@@ -476,183 +495,221 @@ pub enum MemorySize {
 	Packed32_UInt16 = 52,
 	/// 32-bit location: 2 x `i16`
 	Packed32_Int16 = 53,
+	/// 32-bit location: 2 x `f16`
+	Packed32_Float16 = 54,
 	/// 32-bit location: 2 x `bfloat16`
-	Packed32_BFloat16 = 54,
+	Packed32_BFloat16 = 55,
 	/// 64-bit location: 8 x `u8`
-	Packed64_UInt8 = 55,
+	Packed64_UInt8 = 56,
 	/// 64-bit location: 8 x `i8`
-	Packed64_Int8 = 56,
+	Packed64_Int8 = 57,
 	/// 64-bit location: 4 x `u16`
-	Packed64_UInt16 = 57,
+	Packed64_UInt16 = 58,
 	/// 64-bit location: 4 x `i16`
-	Packed64_Int16 = 58,
+	Packed64_Int16 = 59,
 	/// 64-bit location: 2 x `u32`
-	Packed64_UInt32 = 59,
+	Packed64_UInt32 = 60,
 	/// 64-bit location: 2 x `i32`
-	Packed64_Int32 = 60,
+	Packed64_Int32 = 61,
 	/// 64-bit location: 4 x `f16`
-	Packed64_Float16 = 61,
+	Packed64_Float16 = 62,
 	/// 64-bit location: 2 x `f32`
-	Packed64_Float32 = 62,
+	Packed64_Float32 = 63,
 	/// 128-bit location: 16 x `u8`
-	Packed128_UInt8 = 63,
+	Packed128_UInt8 = 64,
 	/// 128-bit location: 16 x `i8`
-	Packed128_Int8 = 64,
+	Packed128_Int8 = 65,
 	/// 128-bit location: 8 x `u16`
-	Packed128_UInt16 = 65,
+	Packed128_UInt16 = 66,
 	/// 128-bit location: 8 x `i16`
-	Packed128_Int16 = 66,
+	Packed128_Int16 = 67,
 	/// 128-bit location: 4 x `u32`
-	Packed128_UInt32 = 67,
+	Packed128_UInt32 = 68,
 	/// 128-bit location: 4 x `i32`
-	Packed128_Int32 = 68,
+	Packed128_Int32 = 69,
 	/// 128-bit location: 2 x `u52`
-	Packed128_UInt52 = 69,
+	Packed128_UInt52 = 70,
 	/// 128-bit location: 2 x `u64`
-	Packed128_UInt64 = 70,
+	Packed128_UInt64 = 71,
 	/// 128-bit location: 2 x `i64`
-	Packed128_Int64 = 71,
+	Packed128_Int64 = 72,
 	/// 128-bit location: 8 x `f16`
-	Packed128_Float16 = 72,
+	Packed128_Float16 = 73,
 	/// 128-bit location: 4 x `f32`
-	Packed128_Float32 = 73,
+	Packed128_Float32 = 74,
 	/// 128-bit location: 2 x `f64`
-	Packed128_Float64 = 74,
+	Packed128_Float64 = 75,
+	/// 128-bit location: 4 x (2 x `f16`)
+	Packed128_2xFloat16 = 76,
 	/// 128-bit location: 4 x (2 x `bfloat16`)
-	Packed128_2xBFloat16 = 75,
+	Packed128_2xBFloat16 = 77,
 	/// 256-bit location: 32 x `u8`
-	Packed256_UInt8 = 76,
+	Packed256_UInt8 = 78,
 	/// 256-bit location: 32 x `i8`
-	Packed256_Int8 = 77,
+	Packed256_Int8 = 79,
 	/// 256-bit location: 16 x `u16`
-	Packed256_UInt16 = 78,
+	Packed256_UInt16 = 80,
 	/// 256-bit location: 16 x `i16`
-	Packed256_Int16 = 79,
+	Packed256_Int16 = 81,
 	/// 256-bit location: 8 x `u32`
-	Packed256_UInt32 = 80,
+	Packed256_UInt32 = 82,
 	/// 256-bit location: 8 x `i32`
-	Packed256_Int32 = 81,
+	Packed256_Int32 = 83,
 	/// 256-bit location: 4 x `u52`
-	Packed256_UInt52 = 82,
+	Packed256_UInt52 = 84,
 	/// 256-bit location: 4 x `u64`
-	Packed256_UInt64 = 83,
+	Packed256_UInt64 = 85,
 	/// 256-bit location: 4 x `i64`
-	Packed256_Int64 = 84,
+	Packed256_Int64 = 86,
 	/// 256-bit location: 2 x `u128`
-	Packed256_UInt128 = 85,
+	Packed256_UInt128 = 87,
 	/// 256-bit location: 2 x `i128`
-	Packed256_Int128 = 86,
+	Packed256_Int128 = 88,
 	/// 256-bit location: 16 x `f16`
-	Packed256_Float16 = 87,
+	Packed256_Float16 = 89,
 	/// 256-bit location: 8 x `f32`
-	Packed256_Float32 = 88,
+	Packed256_Float32 = 90,
 	/// 256-bit location: 4 x `f64`
-	Packed256_Float64 = 89,
+	Packed256_Float64 = 91,
 	/// 256-bit location: 2 x `f128`
-	Packed256_Float128 = 90,
+	Packed256_Float128 = 92,
+	/// 256-bit location: 8 x (2 x `f16`)
+	Packed256_2xFloat16 = 93,
 	/// 256-bit location: 8 x (2 x `bfloat16`)
-	Packed256_2xBFloat16 = 91,
+	Packed256_2xBFloat16 = 94,
 	/// 512-bit location: 64 x `u8`
-	Packed512_UInt8 = 92,
+	Packed512_UInt8 = 95,
 	/// 512-bit location: 64 x `i8`
-	Packed512_Int8 = 93,
+	Packed512_Int8 = 96,
 	/// 512-bit location: 32 x `u16`
-	Packed512_UInt16 = 94,
+	Packed512_UInt16 = 97,
 	/// 512-bit location: 32 x `i16`
-	Packed512_Int16 = 95,
+	Packed512_Int16 = 98,
 	/// 512-bit location: 16 x `u32`
-	Packed512_UInt32 = 96,
+	Packed512_UInt32 = 99,
 	/// 512-bit location: 16 x `i32`
-	Packed512_Int32 = 97,
+	Packed512_Int32 = 100,
 	/// 512-bit location: 8 x `u52`
-	Packed512_UInt52 = 98,
+	Packed512_UInt52 = 101,
 	/// 512-bit location: 8 x `u64`
-	Packed512_UInt64 = 99,
+	Packed512_UInt64 = 102,
 	/// 512-bit location: 8 x `i64`
-	Packed512_Int64 = 100,
+	Packed512_Int64 = 103,
 	/// 256-bit location: 4 x `u128`
-	Packed512_UInt128 = 101,
+	Packed512_UInt128 = 104,
+	/// 512-bit location: 32 x `f16`
+	Packed512_Float16 = 105,
 	/// 512-bit location: 16 x `f32`
-	Packed512_Float32 = 102,
+	Packed512_Float32 = 106,
 	/// 512-bit location: 8 x `f64`
-	Packed512_Float64 = 103,
+	Packed512_Float64 = 107,
+	/// 512-bit location: 16 x (2 x `f16`)
+	Packed512_2xFloat16 = 108,
 	/// 512-bit location: 16 x (2 x `bfloat16`)
-	Packed512_2xBFloat16 = 104,
+	Packed512_2xBFloat16 = 109,
+	/// Broadcast `f16` to 32-bits
+	Broadcast32_Float16 = 110,
 	/// Broadcast `u32` to 64-bits
-	Broadcast64_UInt32 = 105,
+	Broadcast64_UInt32 = 111,
 	/// Broadcast `i32` to 64-bits
-	Broadcast64_Int32 = 106,
+	Broadcast64_Int32 = 112,
+	/// Broadcast `f16` to 64-bits
+	Broadcast64_Float16 = 113,
 	/// Broadcast `f32` to 64-bits
-	Broadcast64_Float32 = 107,
+	Broadcast64_Float32 = 114,
+	/// Broadcast `i16` to 128-bits
+	Broadcast128_Int16 = 115,
+	/// Broadcast `u16` to 128-bits
+	Broadcast128_UInt16 = 116,
 	/// Broadcast `u32` to 128-bits
-	Broadcast128_UInt32 = 108,
+	Broadcast128_UInt32 = 117,
 	/// Broadcast `i32` to 128-bits
-	Broadcast128_Int32 = 109,
+	Broadcast128_Int32 = 118,
 	/// Broadcast `u52` to 128-bits
-	Broadcast128_UInt52 = 110,
+	Broadcast128_UInt52 = 119,
 	/// Broadcast `u64` to 128-bits
-	Broadcast128_UInt64 = 111,
+	Broadcast128_UInt64 = 120,
 	/// Broadcast `i64` to 128-bits
-	Broadcast128_Int64 = 112,
+	Broadcast128_Int64 = 121,
+	/// Broadcast `f16` to 128-bits
+	Broadcast128_Float16 = 122,
 	/// Broadcast `f32` to 128-bits
-	Broadcast128_Float32 = 113,
+	Broadcast128_Float32 = 123,
 	/// Broadcast `f64` to 128-bits
-	Broadcast128_Float64 = 114,
-	/// Broadcast `u32` to 256-bits
-	Broadcast256_UInt32 = 115,
-	/// Broadcast `i32` to 256-bits
-	Broadcast256_Int32 = 116,
-	/// Broadcast `u52` to 256-bits
-	Broadcast256_UInt52 = 117,
-	/// Broadcast `u64` to 256-bits
-	Broadcast256_UInt64 = 118,
-	/// Broadcast `i64` to 256-bits
-	Broadcast256_Int64 = 119,
-	/// Broadcast `f32` to 256-bits
-	Broadcast256_Float32 = 120,
-	/// Broadcast `f64` to 256-bits
-	Broadcast256_Float64 = 121,
-	/// Broadcast `u32` to 512-bits
-	Broadcast512_UInt32 = 122,
-	/// Broadcast `i32` to 512-bits
-	Broadcast512_Int32 = 123,
-	/// Broadcast `u52` to 512-bits
-	Broadcast512_UInt52 = 124,
-	/// Broadcast `u64` to 512-bits
-	Broadcast512_UInt64 = 125,
-	/// Broadcast `i64` to 512-bits
-	Broadcast512_Int64 = 126,
-	/// Broadcast `f32` to 512-bits
-	Broadcast512_Float32 = 127,
-	/// Broadcast `f64` to 512-bits
-	Broadcast512_Float64 = 128,
+	Broadcast128_Float64 = 124,
 	/// Broadcast 2 x `i16` to 128-bits
-	Broadcast128_2xInt16 = 129,
-	/// Broadcast 2 x `i16` to 256-bits
-	Broadcast256_2xInt16 = 130,
-	/// Broadcast 2 x `i16` to 512-bits
-	Broadcast512_2xInt16 = 131,
-	/// Broadcast 2 x `u32` to 128-bits
-	Broadcast128_2xUInt32 = 132,
-	/// Broadcast 2 x `u32` to 256-bits
-	Broadcast256_2xUInt32 = 133,
-	/// Broadcast 2 x `u32` to 512-bits
-	Broadcast512_2xUInt32 = 134,
+	Broadcast128_2xInt16 = 125,
 	/// Broadcast 2 x `i32` to 128-bits
-	Broadcast128_2xInt32 = 135,
-	/// Broadcast 2 x `i32` to 256-bits
-	Broadcast256_2xInt32 = 136,
-	/// Broadcast 2 x `i32` to 512-bits
-	Broadcast512_2xInt32 = 137,
+	Broadcast128_2xInt32 = 126,
+	/// Broadcast 2 x `u32` to 128-bits
+	Broadcast128_2xUInt32 = 127,
+	/// Broadcast 2 x `f16` to 128-bits
+	Broadcast128_2xFloat16 = 128,
 	/// Broadcast 2 x `bfloat16` to 128-bits
-	Broadcast128_2xBFloat16 = 138,
+	Broadcast128_2xBFloat16 = 129,
+	/// Broadcast `i16` to 256-bits
+	Broadcast256_Int16 = 130,
+	/// Broadcast `u16` to 256-bits
+	Broadcast256_UInt16 = 131,
+	/// Broadcast `u32` to 256-bits
+	Broadcast256_UInt32 = 132,
+	/// Broadcast `i32` to 256-bits
+	Broadcast256_Int32 = 133,
+	/// Broadcast `u52` to 256-bits
+	Broadcast256_UInt52 = 134,
+	/// Broadcast `u64` to 256-bits
+	Broadcast256_UInt64 = 135,
+	/// Broadcast `i64` to 256-bits
+	Broadcast256_Int64 = 136,
+	/// Broadcast `f16` to 256-bits
+	Broadcast256_Float16 = 137,
+	/// Broadcast `f32` to 256-bits
+	Broadcast256_Float32 = 138,
+	/// Broadcast `f64` to 256-bits
+	Broadcast256_Float64 = 139,
+	/// Broadcast 2 x `i16` to 256-bits
+	Broadcast256_2xInt16 = 140,
+	/// Broadcast 2 x `i32` to 256-bits
+	Broadcast256_2xInt32 = 141,
+	/// Broadcast 2 x `u32` to 256-bits
+	Broadcast256_2xUInt32 = 142,
+	/// Broadcast 2 x `f16` to 256-bits
+	Broadcast256_2xFloat16 = 143,
 	/// Broadcast 2 x `bfloat16` to 256-bits
-	Broadcast256_2xBFloat16 = 139,
+	Broadcast256_2xBFloat16 = 144,
+	/// Broadcast `i16` to 512-bits
+	Broadcast512_Int16 = 145,
+	/// Broadcast `u16` to 512-bits
+	Broadcast512_UInt16 = 146,
+	/// Broadcast `u32` to 512-bits
+	Broadcast512_UInt32 = 147,
+	/// Broadcast `i32` to 512-bits
+	Broadcast512_Int32 = 148,
+	/// Broadcast `u52` to 512-bits
+	Broadcast512_UInt52 = 149,
+	/// Broadcast `u64` to 512-bits
+	Broadcast512_UInt64 = 150,
+	/// Broadcast `i64` to 512-bits
+	Broadcast512_Int64 = 151,
+	/// Broadcast `f16` to 512-bits
+	Broadcast512_Float16 = 152,
+	/// Broadcast `f32` to 512-bits
+	Broadcast512_Float32 = 153,
+	/// Broadcast `f64` to 512-bits
+	Broadcast512_Float64 = 154,
+	/// Broadcast 2 x `f16` to 512-bits
+	Broadcast512_2xFloat16 = 155,
+	/// Broadcast 2 x `i16` to 512-bits
+	Broadcast512_2xInt16 = 156,
+	/// Broadcast 2 x `u32` to 512-bits
+	Broadcast512_2xUInt32 = 157,
+	/// Broadcast 2 x `i32` to 512-bits
+	Broadcast512_2xInt32 = 158,
 	/// Broadcast 2 x `bfloat16` to 512-bits
-	Broadcast512_2xBFloat16 = 140,
+	Broadcast512_2xBFloat16 = 159,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_MEMORY_SIZE: [&str; 141] = [
+static GEN_DEBUG_MEMORY_SIZE: [&str; 160] = [
 	"Unknown",
 	"UInt8",
 	"UInt16",
@@ -707,6 +764,7 @@ static GEN_DEBUG_MEMORY_SIZE: [&str; 141] = [
 	"Packed32_Int8",
 	"Packed32_UInt16",
 	"Packed32_Int16",
+	"Packed32_Float16",
 	"Packed32_BFloat16",
 	"Packed64_UInt8",
 	"Packed64_Int8",
@@ -728,6 +786,7 @@ static GEN_DEBUG_MEMORY_SIZE: [&str; 141] = [
 	"Packed128_Float16",
 	"Packed128_Float32",
 	"Packed128_Float64",
+	"Packed128_2xFloat16",
 	"Packed128_2xBFloat16",
 	"Packed256_UInt8",
 	"Packed256_Int8",
@@ -744,6 +803,7 @@ static GEN_DEBUG_MEMORY_SIZE: [&str; 141] = [
 	"Packed256_Float32",
 	"Packed256_Float64",
 	"Packed256_Float128",
+	"Packed256_2xFloat16",
 	"Packed256_2xBFloat16",
 	"Packed512_UInt8",
 	"Packed512_Int8",
@@ -755,44 +815,60 @@ static GEN_DEBUG_MEMORY_SIZE: [&str; 141] = [
 	"Packed512_UInt64",
 	"Packed512_Int64",
 	"Packed512_UInt128",
+	"Packed512_Float16",
 	"Packed512_Float32",
 	"Packed512_Float64",
+	"Packed512_2xFloat16",
 	"Packed512_2xBFloat16",
+	"Broadcast32_Float16",
 	"Broadcast64_UInt32",
 	"Broadcast64_Int32",
+	"Broadcast64_Float16",
 	"Broadcast64_Float32",
+	"Broadcast128_Int16",
+	"Broadcast128_UInt16",
 	"Broadcast128_UInt32",
 	"Broadcast128_Int32",
 	"Broadcast128_UInt52",
 	"Broadcast128_UInt64",
 	"Broadcast128_Int64",
+	"Broadcast128_Float16",
 	"Broadcast128_Float32",
 	"Broadcast128_Float64",
+	"Broadcast128_2xInt16",
+	"Broadcast128_2xInt32",
+	"Broadcast128_2xUInt32",
+	"Broadcast128_2xFloat16",
+	"Broadcast128_2xBFloat16",
+	"Broadcast256_Int16",
+	"Broadcast256_UInt16",
 	"Broadcast256_UInt32",
 	"Broadcast256_Int32",
 	"Broadcast256_UInt52",
 	"Broadcast256_UInt64",
 	"Broadcast256_Int64",
+	"Broadcast256_Float16",
 	"Broadcast256_Float32",
 	"Broadcast256_Float64",
+	"Broadcast256_2xInt16",
+	"Broadcast256_2xInt32",
+	"Broadcast256_2xUInt32",
+	"Broadcast256_2xFloat16",
+	"Broadcast256_2xBFloat16",
+	"Broadcast512_Int16",
+	"Broadcast512_UInt16",
 	"Broadcast512_UInt32",
 	"Broadcast512_Int32",
 	"Broadcast512_UInt52",
 	"Broadcast512_UInt64",
 	"Broadcast512_Int64",
+	"Broadcast512_Float16",
 	"Broadcast512_Float32",
 	"Broadcast512_Float64",
-	"Broadcast128_2xInt16",
-	"Broadcast256_2xInt16",
+	"Broadcast512_2xFloat16",
 	"Broadcast512_2xInt16",
-	"Broadcast128_2xUInt32",
-	"Broadcast256_2xUInt32",
 	"Broadcast512_2xUInt32",
-	"Broadcast128_2xInt32",
-	"Broadcast256_2xInt32",
 	"Broadcast512_2xInt32",
-	"Broadcast128_2xBFloat16",
-	"Broadcast256_2xBFloat16",
 	"Broadcast512_2xBFloat16",
 ];
 impl fmt::Debug for MemorySize {

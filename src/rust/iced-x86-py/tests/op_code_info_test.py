@@ -62,6 +62,7 @@ def test_props():
 	assert not idef.no66
 	assert not idef.nfx
 	assert not idef.requires_unique_reg_nums
+	assert not idef.requires_unique_dest_reg_num
 	assert not idef.is_privileged
 	assert not idef.is_save_restore
 	assert not idef.is_stack_instruction

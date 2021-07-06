@@ -500,6 +500,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						tc.AmdDecoder64 = true;
 						break;
 
+					case OpCodeInfoFlags.RequiresUniqueDestRegNum:
+						tc.RequiresUniqueDestRegNum = true;
+						break;
+
 					default:
 						throw new InvalidOperationException($"Invalid key: '{key}'");
 					}

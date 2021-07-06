@@ -12,7 +12,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] OpcFlags2 = GetOpcFlags2();
 
 		static uint[] GetOpcFlags1() =>
-			new uint[4323] {
+			new uint[4561] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -807,16 +807,16 @@ namespace Iced.Intel.EncoderInternal {
 				0x00E00000,// Jmpe_rm32
 				0x00000080,// Sgdt_m1632_16
 				0x00000080,// Sgdt_m1632
-				0x00000080,// Sgdt_m1664
+				0x40000080,// Sgdt_m1664
 				0x00000080,// Sidt_m1632_16
 				0x00000080,// Sidt_m1632
-				0x00000080,// Sidt_m1664
+				0x40000080,// Sidt_m1664
 				0x00008061,// Lgdt_m1632_16
 				0x00008061,// Lgdt_m1632
-				0x00008061,// Lgdt_m1664
+				0x40008061,// Lgdt_m1664
 				0x00008061,// Lidt_m1632_16
 				0x00008061,// Lidt_m1632
-				0x00008061,// Lidt_m1664
+				0x40008061,// Lidt_m1664
 				0x00000080,// Smsw_rm16
 				0x00000080,// Smsw_r32m16
 				0x00000080,// Smsw_r64m16
@@ -1073,13 +1073,13 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000008,// Nop_rm32
 				0x00000008,// Nop_rm64
 				0x00008801,// Mov_r32_cr
-				0x00008801,// Mov_r64_cr
+				0x40008801,// Mov_r64_cr
 				0x00008801,// Mov_r32_dr
-				0x00008801,// Mov_r64_dr
+				0x40008801,// Mov_r64_dr
 				0x00008861,// Mov_cr_r32
-				0x00008861,// Mov_cr_r64
+				0x40008861,// Mov_cr_r64
 				0x00008861,// Mov_dr_r32
-				0x00008861,// Mov_dr_r64
+				0x40008861,// Mov_dr_r64
 				0x01408801,// Mov_r32_tr
 				0x01408801,// Mov_tr_r32
 				0x00000000,// Movaps_xmm_xmmm128
@@ -4315,7 +4315,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Testui
 				0x00000000,// Clui
 				0x00000000,// Stui
-				0x00000000,// Senduipi_r64
+				0x40000000,// Senduipi_r64
 				0x00008001,// Hreset_imm8
 				0x00000000,// VEX_Vpdpbusd_xmm_xmm_xmmm128
 				0x00000000,// VEX_Vpdpbusd_ymm_ymm_ymmm256
@@ -4336,10 +4336,248 @@ namespace Iced.Intel.EncoderInternal {
 				0x00008001,// Lkgs_r64m16
 				0x00028001,// Eretu
 				0x00028001,// Erets
+				0x00000000,// EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
+				0x00000000,// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
+				0x00000000,// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
+				0x00000000,// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
+				0x00000000,// EVEX_Vcomish_xmm_xmmm16_sae
+				0x00000000,// EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+				0x00000000,// EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
+				0x00000000,// EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
+				0x00000000,// EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+				0x00000000,// EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
+				0x00000000,// EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
+				0x00000000,// EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
+				0x00000000,// EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
+				0x00000000,// EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
+				0x00000000,// EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
+				0x00000000,// EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
+				0x00000000,// EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
+				0x00000000,// EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
+				0x00000000,// EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
+				0x00000000,// EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
+				0x00000000,// EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
+				0x00000000,// EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
+				0x00000000,// EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+				0x00000000,// EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
+				0x00000000,// EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
+				0x00000000,// EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+				0x00000000,// EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
+				0x00000000,// EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
+				0x00000000,// EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
+				0x00000000,// EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
+				0x00000000,// EVEX_Vcvtsh2si_r32_xmmm16_er
+				0x00000000,// EVEX_Vcvtsh2si_r64_xmmm16_er
+				0x00000000,// EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
+				0x00000000,// EVEX_Vcvtsh2usi_r32_xmmm16_er
+				0x00000000,// EVEX_Vcvtsh2usi_r64_xmmm16_er
+				0x00000000,// EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
+				0x00000000,// EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
+				0x00000000,// EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
+				0x00000000,// EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
+				0x00000000,// EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
+				0x00000000,// EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
+				0x00000000,// EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
+				0x00000000,// EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
+				0x00000000,// EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
+				0x00000000,// EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
+				0x00000000,// EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
+				0x00000000,// EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
+				0x00000000,// EVEX_Vcvttsh2si_r32_xmmm16_sae
+				0x00000000,// EVEX_Vcvttsh2si_r64_xmmm16_sae
+				0x00000000,// EVEX_Vcvttsh2usi_r32_xmmm16_sae
+				0x00000000,// EVEX_Vcvttsh2usi_r64_xmmm16_sae
+				0x00000000,// EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+				0x00000000,// EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
+				0x00000000,// EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
+				0x00000000,// EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+				0x00000000,// EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
+				0x00000000,// EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
+				0x00000000,// EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
+				0x00000000,// EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
+				0x00000000,// EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
+				0x00000000,// EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
+				0x00000000,// EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
+				0x80000000,// EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
+				0x80000000,// EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
+				0x80000000,// EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80000000,// EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
+				0x80000000,// EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
+				0x80000000,// EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80000000,// EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
+				0x80000000,// EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
+				0x80000000,// EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
+				0x80000000,// EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
+				0x80000000,// EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80000000,// EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
+				0x80000000,// EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
+				0x80000000,// EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
+				0x80000000,// EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
+				0x80000000,// EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
+				0x00000000,// EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+				0x00000000,// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
+				0x00000000,// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
+				0x00000000,// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
+				0x00000000,// EVEX_Vgetexpph_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vgetexpph_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
+				0x00000000,// EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
+				0x00000000,// EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
+				0x00000000,// EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
+				0x00000000,// EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
+				0x00000000,// EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x00000000,// EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
+				0x00000000,// EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
+				0x00000000,// EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
+				0x00000000,// EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
+				0x00000000,// EVEX_Vmovsh_xmm_k1z_m16
+				0x00000000,// EVEX_Vmovsh_m16_k1_xmm
+				0x00000000,// EVEX_Vmovsh_xmm_k1z_xmm_xmm
+				0x00000000,// EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11
+				0x00000000,// EVEX_Vmovw_xmm_r32m16
+				0x00000000,// EVEX_Vmovw_xmm_r64m16
+				0x00000000,// EVEX_Vmovw_r32m16_xmm
+				0x00000000,// EVEX_Vmovw_r64m16_xmm
+				0x00000000,// EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vrcpph_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vrcpph_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vrcpph_zmm_k1z_zmmm512b16
+				0x00000000,// EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
+				0x00000000,// EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
+				0x00000000,// EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
+				0x00000000,// EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
+				0x00000000,// EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x00000000,// EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
+				0x00000000,// EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
+				0x00000000,// EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
+				0x00000000,// EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x00000000,// EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
+				0x00000000,// EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
+				0x00000000,// EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vsqrtph_xmm_k1z_xmmm128b16
+				0x00000000,// EVEX_Vsqrtph_ymm_k1z_ymmm256b16
+				0x00000000,// EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
+				0x00000000,// EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+				0x00000000,// EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+				0x00000000,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+				0x00000000,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
+				0x00000000,// EVEX_Vucomish_xmm_xmmm16_sae
 			};
 
 		static uint[] GetOpcFlags2() =>
-			new uint[4323] {
+			new uint[4561] {
 				0x1E003FFF,// INVALID
 				0x1E003FFF,// DeclareByte
 				0x1E003FFF,// DeclareWord
@@ -8663,6 +8901,244 @@ namespace Iced.Intel.EncoderInternal {
 				0x14003E70,// Lkgs_r64m16
 				0x14003E70,// Eretu
 				0x14003E70,// Erets
+				0x1E003FFA,// EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
+				0x1E003FFA,// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
+				0x1E003FFA,// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
+				0x1E003FFA,// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
+				0x1E003FFA,// EVEX_Vcomish_xmm_xmmm16_sae
+				0x1E003FFA,// EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
+				0x1E003FFA,// EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
+				0x1E003FFA,// EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
+				0x1E003FFA,// EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
+				0x1E003FFA,// EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
+				0x1E003FFA,// EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
+				0x1E003FFA,// EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
+				0x1E003FFA,// EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
+				0x1E003FFA,// EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
+				0x1E003FFA,// EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
+				0x1E003FFA,// EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
+				0x1E003FFA,// EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
+				0x1E003FFA,// EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
+				0x1E003FFA,// EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
+				0x1E003FFA,// EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
+				0x1E003FFA,// EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
+				0x1E003FFA,// EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
+				0x1E003FFA,// EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
+				0x1E003FFA,// EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
+				0x1E003FFA,// EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
+				0x1E003FFA,// EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
+				0x1E003FFA,// EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
+				0x1E003FFA,// EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
+				0x1E003FFA,// EVEX_Vcvtsh2si_r32_xmmm16_er
+				0x14003FF0,// EVEX_Vcvtsh2si_r64_xmmm16_er
+				0x1E003FFA,// EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
+				0x1E003FFA,// EVEX_Vcvtsh2usi_r32_xmmm16_er
+				0x14003FF0,// EVEX_Vcvtsh2usi_r64_xmmm16_er
+				0x1E003FFA,// EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
+				0x14003FF0,// EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
+				0x1E003FFA,// EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
+				0x1E003FFA,// EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
+				0x1E003FFA,// EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
+				0x1E003FFA,// EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
+				0x1E003FFA,// EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
+				0x1E003FFA,// EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
+				0x1E003FFA,// EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
+				0x1E003FFA,// EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
+				0x1E003FFA,// EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
+				0x1E003FFA,// EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
+				0x1E003FFA,// EVEX_Vcvttsh2si_r32_xmmm16_sae
+				0x14003FF0,// EVEX_Vcvttsh2si_r64_xmmm16_sae
+				0x1E003FFA,// EVEX_Vcvttsh2usi_r32_xmmm16_sae
+				0x14003FF0,// EVEX_Vcvttsh2usi_r64_xmmm16_sae
+				0x1E003FFA,// EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
+				0x1E003FFA,// EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
+				0x1E003FFA,// EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
+				0x1E003FFA,// EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
+				0x1E003FFA,// EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
+				0x1E003FFA,// EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
+				0x1E003FFA,// EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
+				0x14003FF0,// EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
+				0x1E003FFA,// EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
+				0x1E003FFA,// EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
+				0x1E003FFA,// EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
+				0x1E003FFA,// EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
+				0x1E003FFA,// EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
+				0x1E003FFA,// EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
+				0x1E003FFA,// EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
+				0x1E003FFA,// EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
+				0x1E003FFA,// EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
+				0x1E003FFA,// EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
+				0x1E003FFA,// EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
+				0x1E003FFA,// EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
+				0x1E003FFA,// EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
+				0x1E003FFA,// EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
+				0x1E003FFA,// EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
+				0x1E003FFA,// EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
+				0x1E003FFA,// EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
+				0x1E003FFA,// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
+				0x1E003FFA,// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
+				0x1E003FFA,// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
+				0x1E003FFA,// EVEX_Vgetexpph_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vgetexpph_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
+				0x1E003FFA,// EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
+				0x1E003FFA,// EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
+				0x1E003FFA,// EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
+				0x1E003FFA,// EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
+				0x1E003FFA,// EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x1E003FFA,// EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
+				0x1E003FFA,// EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
+				0x1E003FFA,// EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
+				0x1E003FFA,// EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
+				0x1E003FFA,// EVEX_Vmovsh_xmm_k1z_m16
+				0x1E003FFA,// EVEX_Vmovsh_m16_k1_xmm
+				0x1E003FFA,// EVEX_Vmovsh_xmm_k1z_xmm_xmm
+				0x1E003FFA,// EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11
+				0x1E003FFA,// EVEX_Vmovw_xmm_r32m16
+				0x14003FF0,// EVEX_Vmovw_xmm_r64m16
+				0x1E003FFA,// EVEX_Vmovw_r32m16_xmm
+				0x14003FF0,// EVEX_Vmovw_r64m16_xmm
+				0x1E003FFA,// EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vrcpph_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vrcpph_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vrcpph_zmm_k1z_zmmm512b16
+				0x1E003FFA,// EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
+				0x1E003FFA,// EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
+				0x1E003FFA,// EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
+				0x1E003FFA,// EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
+				0x1E003FFA,// EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x1E003FFA,// EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
+				0x1E003FFA,// EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
+				0x1E003FFA,// EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
+				0x1E003FFA,// EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
+				0x1E003FFA,// EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
+				0x1E003FFA,// EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
+				0x1E003FFA,// EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vsqrtph_xmm_k1z_xmmm128b16
+				0x1E003FFA,// EVEX_Vsqrtph_ymm_k1z_ymmm256b16
+				0x1E003FFA,// EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
+				0x1E003FFA,// EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
+				0x1E003FFA,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
+				0x1E003FFA,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
+				0x1E003FFA,// EVEX_Vucomish_xmm_xmmm16_sae
 			};
 	}
 }

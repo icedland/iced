@@ -44,6 +44,11 @@ namespace Generator.Tables {
 				new TupleTypeInfo(tupleType[nameof(TupleType.N16b8)], 16, 8),
 				new TupleTypeInfo(tupleType[nameof(TupleType.N32b8)], 32, 8),
 				new TupleTypeInfo(tupleType[nameof(TupleType.N64b8)], 64, 8),
+				new TupleTypeInfo(tupleType[nameof(TupleType.N4b2)], 4, 2),
+				new TupleTypeInfo(tupleType[nameof(TupleType.N8b2)], 8, 2),
+				new TupleTypeInfo(tupleType[nameof(TupleType.N16b2)], 16, 2),
+				new TupleTypeInfo(tupleType[nameof(TupleType.N32b2)], 32, 2),
+				new TupleTypeInfo(tupleType[nameof(TupleType.N64b2)], 64, 2),
 			}.ToArray();
 			if (result.Length != tupleType.Values.Length)
 				throw new InvalidOperationException();

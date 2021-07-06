@@ -86,6 +86,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(tc.No66, info.No66);
 			Assert.Equal(tc.NFx, info.NFx);
 			Assert.Equal(tc.RequiresUniqueRegNums, info.RequiresUniqueRegNums);
+			Assert.Equal(tc.RequiresUniqueDestRegNum, info.RequiresUniqueDestRegNum);
 			Assert.Equal(tc.IsPrivileged, info.IsPrivileged);
 			Assert.Equal(tc.IsSaveRestore, info.IsSaveRestore);
 			Assert.Equal(tc.IsStackInstruction, info.IsStackInstruction);

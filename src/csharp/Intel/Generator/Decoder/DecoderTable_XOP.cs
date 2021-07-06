@@ -6,9 +6,9 @@ using Generator.Enums.Decoder;
 
 namespace Generator.Decoder {
 	static class DecoderTable_XOP {
-		public const string XOP8 = nameof(XOP8);
-		public const string XOP9 = nameof(XOP9);
-		public const string XOPA = nameof(XOPA);
+		public const string Handlers_MAP8 = nameof(Handlers_MAP8);
+		public const string Handlers_MAP9 = nameof(Handlers_MAP9);
+		public const string Handlers_MAP10 = nameof(Handlers_MAP10);
 
 		public static (string name, object?[] handlers)[] CreateHandlers(GenTypes genTypes) {
 			var vexEnum = genTypes[TypeIds.VexOpCodeHandlerKind];
@@ -17,7 +17,7 @@ namespace Generator.Decoder {
 
 			var invalid = new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Invalid)] };
 			var handlers = new (string name, object?[] handlers)[] {
-				("grp_XOP9_01",
+				("grp_MAP9_01",
 				new object[8] {
 					invalid,
 					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_1)],
@@ -64,7 +64,7 @@ namespace Generator.Decoder {
 					},
 				}),
 
-				("grp_XOP9_02",
+				("grp_MAP9_02",
 				new object[8] {
 					invalid,
 					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_1)],
@@ -86,7 +86,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				("grp_XOP9_12",
+				("grp_MAP9_12",
 				new object[8] {
 					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_1)],
 						new object[] { vexEnum[nameof(VexOpCodeHandlerKind.VectorLength)],
@@ -108,7 +108,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				("grp_XOPA_12",
+				("grp_MAP10_12",
 				new object[8] {
 					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.MandatoryPrefix2_1)],
 						new object[] { vexEnum[nameof(VexOpCodeHandlerKind.VectorLength)],
@@ -130,7 +130,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				(XOP8,
+				(Handlers_MAP8,
 				new object[0x100] {
 					// 00
 					invalid,
@@ -667,12 +667,12 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				(XOP9,
+				(Handlers_MAP9,
 				new object[0x100] {
 					// 00
 					invalid,
-					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_XOP9_01" },
-					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_XOP9_02" },
+					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_MAP9_01" },
+					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_MAP9_02" },
 					invalid,
 					invalid,
 					invalid,
@@ -692,7 +692,7 @@ namespace Generator.Decoder {
 					// 10
 					invalid,
 					invalid,
-					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_XOP9_12" },
+					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_MAP9_12" },
 					invalid,
 					invalid,
 					invalid,
@@ -1244,7 +1244,7 @@ namespace Generator.Decoder {
 					invalid,
 				}),
 
-				(XOPA,
+				(Handlers_MAP10,
 				new object[0x100] {
 					// 00
 					invalid,
@@ -1274,7 +1274,7 @@ namespace Generator.Decoder {
 						}
 					},
 					invalid,
-					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_XOPA_12" },
+					new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Group)], "grp_MAP10_12" },
 					invalid,
 					invalid,
 					invalid,

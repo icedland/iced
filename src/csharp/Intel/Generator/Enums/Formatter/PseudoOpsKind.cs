@@ -30,5 +30,7 @@ namespace Generator.Enums.Formatter {
 		vpcmpuw,
 		vpcmpud,
 		vpcmpuq,
+		vcmpph,
+		vcmpsh,
 	}
 }

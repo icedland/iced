@@ -115,9 +115,11 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			OpCodeTableKind::T0F => self.append_op_code(0x0F, 1, sep),
 			OpCodeTableKind::T0F38 => self.append_op_code(0x0F38, 2, sep),
 			OpCodeTableKind::T0F3A => self.append_op_code(0x0F3A, 2, sep),
-			OpCodeTableKind::XOP8 => self.sb.push_str("X8"),
-			OpCodeTableKind::XOP9 => self.sb.push_str("X9"),
-			OpCodeTableKind::XOPA => self.sb.push_str("XA"),
+			OpCodeTableKind::MAP5 => self.sb.push_str("MAP5"),
+			OpCodeTableKind::MAP6 => self.sb.push_str("MAP6"),
+			OpCodeTableKind::MAP8 => self.sb.push_str("X8"),
+			OpCodeTableKind::MAP9 => self.sb.push_str("X9"),
+			OpCodeTableKind::MAP10 => self.sb.push_str("XA"),
 		}
 	}
 

@@ -277,6 +277,62 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	sealed class OpCodeHandler_EVEX_VkHW_er_ur : OpCodeHandlerModRM {
+		readonly Register baseReg;
+		readonly Code code;
+		readonly TupleType tupleType;
+		readonly bool canBroadcast;
+
+		public OpCodeHandler_EVEX_VkHW_er_ur(Register baseReg, Code code, TupleType tupleType, bool canBroadcast) {
+			this.baseReg = baseReg;
+			this.code = code;
+			this.tupleType = tupleType;
+			this.canBroadcast = canBroadcast;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			ref var state = ref decoder.state;
+			Debug.Assert(state.Encoding == EncodingKind.EVEX);
+			instruction.Code = code;
+
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op0Kind = OpKind.Register;
+			int regNum0 = (int)(state.reg + state.extraRegisterBase + state.extraRegisterBaseEVEX);
+			instruction.Op0Register = regNum0 + baseReg;
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)state.vvvv + baseReg;
+			if (state.mod == 3) {
+				Static.Assert(OpKind.Register == 0 ? 0 : -1);
+				//instruction.Op2Kind = OpKind.Register;
+				int regNum2 = (int)(state.rm + state.extraBaseRegisterBaseEVEX);
+				instruction.Op2Register = regNum2 + baseReg;
+				if (decoder.invalidCheckMask != 0 && (regNum0 == (int)state.vvvv || regNum0 == regNum2))
+					decoder.SetInvalidInstruction();
+				if ((state.flags & StateFlags.b) != 0) {
+					Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundUp == 3 ? 0 : -1);
+					Static.Assert((int)RoundingControl.RoundTowardZero == 4 ? 0 : -1);
+					instruction.InternalRoundingControl = state.vectorLength + 1;
+				}
+			}
+			else {
+				if (decoder.invalidCheckMask != 0 && regNum0 == (int)state.vvvv)
+					decoder.SetInvalidInstruction();
+				instruction.Op2Kind = OpKind.Memory;
+				if ((state.flags & StateFlags.b) != 0) {
+					if (canBroadcast)
+						instruction.InternalSetIsBroadcast();
+					else if (decoder.invalidCheckMask != 0)
+						decoder.SetInvalidInstruction();
+				}
+				decoder.ReadOpMem(ref instruction, tupleType);
+			}
+		}
+	}
+
 	sealed class OpCodeHandler_EVEX_VkW_er : OpCodeHandlerModRM {
 		readonly Register baseReg1;
 		readonly Register baseReg2;
