@@ -4367,7 +4367,6 @@ namespace Generator.Enums {
 		EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16,
 		EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16,
 		EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er,
-
 		EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16,
 		EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16,
 		EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er,
