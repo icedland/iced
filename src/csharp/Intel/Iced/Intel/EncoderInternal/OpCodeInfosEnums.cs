@@ -31,7 +31,7 @@ namespace Iced.Intel.EncoderInternal {
 		IgnoresSegment = 0x00040000,
 		OpMaskReadWrite = 0x00080000,
 		ModRegRmString = 0x00100000,
-		DecOptionValueMask = 0x0000000F,
+		DecOptionValueMask = 0x0000001F,
 		DecOptionValueShift = 0x00000015,
 		ForceOpSize64 = 0x40000000,
 		RequiresUniqueDestRegNum = 0x80000000,

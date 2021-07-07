@@ -36,9 +36,8 @@ namespace Generator.Enums.Decoder {
 		NoPause					= 0x00002000,
 		[Comment("Don't decode #(c:WBNOINVD)#, decode #(c:WBINVD)# instead")]
 		NoWbnoinvd				= 0x00004000,
-		[Comment("Don't decode #(c:LOCK MOV CR0)# as #(c:MOV CR8)# (AMD)")]
-		[Deprecated("1.11.0", null, "This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.")]
-		NoLockMovCR				= 0x00008000,
+		[Comment("Decode undocumented Intel #(c:RDUDBG)# and #(c:WRUDBG)# instructions")]
+		Udbg					= 0x00008000,
 		[Comment("Don't decode #(c:TZCNT)#, decode #(c:BSF)# instead")]
 		NoMPFX_0FBC				= 0x00010000,
 		[Comment("Don't decode #(c:LZCNT)#, decode #(c:BSR)# instead")]

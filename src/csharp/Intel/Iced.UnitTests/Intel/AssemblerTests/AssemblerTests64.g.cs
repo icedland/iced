@@ -11541,6 +11541,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void rdudbg() {
+			TestAssembler(c => c.rdudbg(), Instruction.Create(Code.Rdudbg));
+		}
+
+		[Fact]
 		public void reservednop_0f0d_reg16_reg16() {
 			TestAssembler(c => c.reservednop_0f0d(dx, bx), Instruction.Create(Code.Reservednop_rm16_r16_0F0D, dx, bx));
 		}
@@ -60316,6 +60321,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void wrssq_m_reg64() {
 			TestAssembler(c => c.wrssq(__[rcx], rbx), Instruction.Create(Code.Wrssq_m64_r64, __[rcx].ToMemoryOperand(Bitness), rbx));
+		}
+
+		[Fact]
+		public void wrudbg() {
+			TestAssembler(c => c.wrudbg(), Instruction.Create(Code.Wrudbg));
 		}
 
 		[Fact]

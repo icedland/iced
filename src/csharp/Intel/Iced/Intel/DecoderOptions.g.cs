@@ -44,10 +44,8 @@ namespace Iced.Intel {
 		NoPause = 0x00002000,
 		/// <summary>Don&apos;t decode <c>WBNOINVD</c>, decode <c>WBINVD</c> instead</summary>
 		NoWbnoinvd = 0x00004000,
-		/// <summary>Don&apos;t decode <c>LOCK MOV CR0</c> as <c>MOV CR8</c> (AMD)</summary>
-		[System.Obsolete("This value isn't used by iced. LOCK MOV CR is only decoded if AMD is set.", true)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		NoLockMovCR = 0x00008000,
+		/// <summary>Decode undocumented Intel <c>RDUDBG</c> and <c>WRUDBG</c> instructions</summary>
+		Udbg = 0x00008000,
 		/// <summary>Don&apos;t decode <c>TZCNT</c>, decode <c>BSF</c> instead</summary>
 		NoMPFX_0FBC = 0x00010000,
 		/// <summary>Don&apos;t decode <c>LZCNT</c>, decode <c>BSR</c> instead</summary>

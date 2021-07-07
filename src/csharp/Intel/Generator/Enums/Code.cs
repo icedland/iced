@@ -4572,6 +4572,8 @@ namespace Generator.Enums {
 		EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er,
 		EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er,
 		EVEX_Vucomish_xmm_xmmm16_sae,
+		Rdudbg,
+		Wrudbg,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

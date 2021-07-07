@@ -1743,5 +1743,7 @@ namespace Generator.Enums {
 		Vsubph,
 		Vsubsh,
 		Vucomish,
+		Rdudbg,
+		Wrudbg,
 	}
 }

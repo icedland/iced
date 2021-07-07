@@ -4572,6 +4572,8 @@ pub enum Code {
 	EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er = 4558,
 	EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er = 4559,
 	EVEX_Vucomish_xmm_xmmm16_sae = 4560,
+	Rdudbg = 4561,
+	Wrudbg = 4562,
 }
 // GENERATOR-END: Enum
 

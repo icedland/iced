@@ -19029,4 +19029,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x97,// 'v', sae
 	0xB8, 0x0C,// 1592 = "vucomish"
 	0x00,// 0x0
+
+	// Rdudbg
+	0x01,// Normal_1
+	0xB9, 0x0C,// 1593 = "rdudbg"
+
+	// Wrudbg
+	0x01,// Normal_1
+	0xBA, 0x0C,// 1594 = "wrudbg"
 ];

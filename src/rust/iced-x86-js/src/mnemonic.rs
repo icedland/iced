@@ -1750,6 +1750,8 @@ pub enum Mnemonic {
 	Vsubph = 1736,
 	Vsubsh = 1737,
 	Vucomish = 1738,
+	Rdudbg = 1739,
+	Wrudbg = 1740,
 }
 // GENERATOR-END: Enum
 

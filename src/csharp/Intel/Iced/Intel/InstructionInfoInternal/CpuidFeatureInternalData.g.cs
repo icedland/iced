@@ -219,6 +219,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x9D,// LKGS
 				0x9E,// AVX512_FP16
 				0x21, 0x9E,// AVX512VL_and_AVX512_FP16
+				0x9F,// UDBG
 			};
 	}
 }

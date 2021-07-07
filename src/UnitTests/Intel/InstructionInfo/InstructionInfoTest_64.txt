@@ -20665,3 +20665,7 @@ F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp rm=
 62 F57C08 2E D3, EVEX_Vucomish_xmm_xmmm16_sae, EVEX, AVX512_FP16, fw=zpc fc=oas op0=r op1=r r=xmm2 r=xmm3
 # vucomish xmm2,word ptr [rax+2]
 62 F57C08 2E 50 01, EVEX_Vucomish_xmm_xmmm16_sae, EVEX, AVX512_FP16, fw=zpc fc=oas op0=r op1=r r=xmm2 r=rax rm=ds:rax+0x2;Float16
+# rdudbg
+0F0E, Rdudbg, Legacy, UDBG, r=rax;rcx w=rdx;rbx decopt=Udbg
+# wrudbg
+0F0F, Wrudbg, Legacy, UDBG, r=rax;rcx;rdx cr=rbx cw=rdx;rbx decopt=Udbg

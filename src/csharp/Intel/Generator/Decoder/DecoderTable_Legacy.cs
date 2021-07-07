@@ -3948,8 +3948,14 @@ namespace Generator.Decoder {
 						"reservedNop_0F0D",
 						"grp0F0D"
 					},
-					new object[] { Simple, code[nameof(Code.Femms)] },
-					new object[] { D3NOW },
+					new object[] { Options3,
+						new object[] { Simple, code[nameof(Code.Femms)] },
+						new object[] { Simple, code[nameof(Code.Rdudbg)] }, options[nameof(DecoderOptions.Udbg)]
+					},
+					new object[] { Options3,
+						new object[] { D3NOW },
+						new object[] { Simple, code[nameof(Code.Wrudbg)] }, options[nameof(DecoderOptions.Udbg)]
+					},
 
 					// 10
 					new object[] { Bitness,

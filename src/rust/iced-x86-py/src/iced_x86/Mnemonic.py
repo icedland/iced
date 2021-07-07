@@ -6967,3 +6967,11 @@ VUCOMISH: int = 1738
 """
 <no docs>
 """
+RDUDBG: int = 1739
+"""
+<no docs>
+"""
+WRUDBG: int = 1740
+"""
+<no docs>
+"""

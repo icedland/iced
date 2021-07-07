@@ -1858,6 +1858,24 @@ impl InstructionInfoFactory {
 				}
 				Self::command_pop(instruction, info, flags, 5, 8);
 			}
+			ImpliedAccess::t_Rrax_Rrcx_Wrdx_Wrbx => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RDX, OpAccess::Write);
+					Self::add_register(flags, info, Register::RBX, OpAccess::Write);
+				}
+			}
+			ImpliedAccess::t_Rrax_Rrcx_Rrdx_CRrbx_CWrdx_CWrbx => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RDX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RBX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::RDX, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::RBX, OpAccess::CondWrite);
+				}
+			}
 			// GENERATOR-END: ImpliedAccessHandler
 		}
 	}

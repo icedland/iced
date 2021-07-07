@@ -36478,9 +36478,25 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	EVEX_Vucomish_xmm_xmmm16_sae = 4560,
+	/// `RDUDBG`
+	///
+	/// `0F 0E`
+	///
+	/// `UDBG`
+	///
+	/// `16/32/64-bit`
+	Rdudbg = 4561,
+	/// `WRUDBG`
+	///
+	/// `0F 0F`
+	///
+	/// `UDBG`
+	///
+	/// `16/32/64-bit`
+	Wrudbg = 4562,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_CODE: [&str; 4561] = [
+static GEN_DEBUG_CODE: [&str; 4563] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -41042,6 +41058,8 @@ static GEN_DEBUG_CODE: [&str; 4561] = [
 	"EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er",
 	"EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er",
 	"EVEX_Vucomish_xmm_xmmm16_sae",
+	"Rdudbg",
+	"Wrudbg",
 ];
 impl fmt::Debug for Code {
 	#[inline]

@@ -22,5 +22,6 @@ namespace Generator.Enums.Encoder {
 		Pcommit,
 		Umov,
 		Xbts,
+		Udbg,
 	}
 }

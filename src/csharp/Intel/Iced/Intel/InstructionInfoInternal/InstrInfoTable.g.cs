@@ -8,7 +8,7 @@
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[9122] {
+		internal static readonly uint[] Data = new uint[9126] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -4570,6 +4570,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x074000B8, 0xB2000002,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 			0x000000B7, 0xB2000002,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 			0x00084034, 0xB2000002,// EVEX_Vucomish_xmm_xmmm16_sae
+			0x0BF00000, 0xB4000000,// Rdudbg
+			0x0C000000, 0xB4000000,// Wrudbg
 		};
 	}
 }

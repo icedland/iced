@@ -23903,3 +23903,7 @@ F3 67 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=67F30FA7F0
 62 F57C18 2E D3, EVEX_Vucomish_xmm_xmmm16_sae, Vucomish, 2, op0=r;xmm2 op1=r;xmm3 sae
 62 D57C08 2E 50 01, EVEX_Vucomish_xmm_xmmm16_sae, Vucomish, 2, op0=r;xmm2 op1=m;ds;bx;si;1;2;1;Float16 co=0;0;0;0;6;1 enc=62F57C082E5001
 62 E57C08 2E 50 01, EVEX_Vucomish_xmm_xmmm16_sae, Vucomish, 2, op0=r;xmm2 op1=m;ds;bx;si;1;2;1;Float16 co=0;0;0;0;6;1 enc=62F57C082E5001
+
+0F0E, Rdudbg, Rdudbg, 0, decopt=Udbg
+
+0F0F, Wrudbg, Wrudbg, 0, decopt=Udbg

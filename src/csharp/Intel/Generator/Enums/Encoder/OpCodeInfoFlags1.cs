@@ -29,11 +29,11 @@ namespace Generator.Enums.Encoder {
 		OpMaskReadWrite			= 0x00080000,
 		ModRegRmString			= 0x00100000,
 		/// <summary><see cref="DecOptionValue"/></summary>
-		DecOptionValueMask		= 0xF,
+		DecOptionValueMask		= 0x1F,
 		DecOptionValueShift		= 21,
 
 		// FREE FREE FREE FREE
-		// [29:25] = free
+		// [29:24] = free
 		// BITS BITS BITS BITS
 
 		ForceOpSize64			= 0x40000000,

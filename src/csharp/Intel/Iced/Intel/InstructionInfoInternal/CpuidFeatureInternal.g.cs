@@ -188,6 +188,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		LKGS,
 		AVX512_FP16,
 		AVX512VL_and_AVX512_FP16,
+		UDBG,
 	}
 }
 #endif

@@ -1642,10 +1642,12 @@ pub enum CpuidFeature {
 	LKGS = 157,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.AVX512-FP16\[bit 23\]
 	AVX512_FP16 = 158,
+	/// Undocumented Intel `RDUDBG` and `WRUDBG` instructions
+	UDBG = 159,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 159] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 160] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1805,6 +1807,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 159] = [
 	"FRED",
 	"LKGS",
 	"AVX512_FP16",
+	"UDBG",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

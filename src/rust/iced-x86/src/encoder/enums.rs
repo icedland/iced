@@ -404,7 +404,7 @@ impl OpCodeInfoFlags1 {
 	pub(crate) const IGNORES_SEGMENT: u32 = 0x0004_0000;
 	pub(crate) const OP_MASK_READ_WRITE: u32 = 0x0008_0000;
 	pub(crate) const MOD_REG_RM_STRING: u32 = 0x0010_0000;
-	pub(crate) const DEC_OPTION_VALUE_MASK: u32 = 0x0000_000F;
+	pub(crate) const DEC_OPTION_VALUE_MASK: u32 = 0x0000_001F;
 	pub(crate) const DEC_OPTION_VALUE_SHIFT: u32 = 0x0000_0015;
 	pub(crate) const FORCE_OP_SIZE64: u32 = 0x4000_0000;
 	pub(crate) const REQUIRES_UNIQUE_DEST_REG_NUM: u32 = 0x8000_0000;
@@ -476,10 +476,11 @@ pub(crate) enum DecOptionValue {
 	Pcommit,
 	Umov,
 	Xbts,
+	Udbg,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[rustfmt::skip]
-static GEN_DEBUG_DEC_OPTION_VALUE: [&str; 16] = [
+static GEN_DEBUG_DEC_OPTION_VALUE: [&str; 17] = [
 	"None",
 	"ALTINST",
 	"Cl1invmb",
@@ -496,6 +497,7 @@ static GEN_DEBUG_DEC_OPTION_VALUE: [&str; 16] = [
 	"Pcommit",
 	"Umov",
 	"Xbts",
+	"Udbg",
 ];
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for DecOptionValue {

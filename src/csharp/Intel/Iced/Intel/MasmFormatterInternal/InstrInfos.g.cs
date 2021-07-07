@@ -17101,6 +17101,14 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x82,// 'v', Normal_2
 				0xB8, 0x0C,// 1592 = "vucomish"
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
+
+				// Rdudbg
+				0x01,// Normal_1
+				0xB9, 0x0C,// 1593 = "rdudbg"
+
+				// Wrudbg
+				0x01,// Normal_1
+				0xBA, 0x0C,// 1594 = "wrudbg"
 			};
 	}
 }

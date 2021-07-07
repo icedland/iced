@@ -12,7 +12,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] OpcFlags2 = GetOpcFlags2();
 
 		static uint[] GetOpcFlags1() =>
-			new uint[4561] {
+			new uint[4563] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4574,10 +4574,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 				0x00000000,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 				0x00000000,// EVEX_Vucomish_xmm_xmmm16_sae
+				0x02000000,// Rdudbg
+				0x02000000,// Wrudbg
 			};
 
 		static uint[] GetOpcFlags2() =>
-			new uint[4561] {
+			new uint[4563] {
 				0x1E003FFF,// INVALID
 				0x1E003FFF,// DeclareByte
 				0x1E003FFF,// DeclareWord
@@ -9139,6 +9141,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x1E003FFA,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 				0x1E003FFA,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 				0x1E003FFA,// EVEX_Vucomish_xmm_xmmm16_sae
+				0x1E003FFF,// Rdudbg
+				0x1E003FFF,// Wrudbg
 			};
 	}
 }

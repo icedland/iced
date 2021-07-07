@@ -45591,3 +45591,23 @@ EVEX_VUCOMISH_XMM_XMMM16_SAE: int = 4560
 
 ``16/32/64-bit``
 """
+RDUDBG: int = 4561
+"""
+``RDUDBG``
+
+``0F 0E``
+
+``UDBG``
+
+``16/32/64-bit``
+"""
+WRUDBG: int = 4562
+"""
+``WRUDBG``
+
+``0F 0F``
+
+``UDBG``
+
+``16/32/64-bit``
+"""

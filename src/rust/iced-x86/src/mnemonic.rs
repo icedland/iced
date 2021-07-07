@@ -1754,9 +1754,11 @@ pub enum Mnemonic {
 	Vsubph = 1736,
 	Vsubsh = 1737,
 	Vucomish = 1738,
+	Rdudbg = 1739,
+	Wrudbg = 1740,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_MNEMONIC: [&str; 1739] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1741] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3496,6 +3498,8 @@ static GEN_DEBUG_MNEMONIC: [&str; 1739] = [
 	"Vsubph",
 	"Vsubsh",
 	"Vucomish",
+	"Rdudbg",
+	"Wrudbg",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

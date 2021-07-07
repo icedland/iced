@@ -9046,3 +9046,5 @@ vsubsh xmm2{k3},xmm6,xmm3
 vsubsh xmm2{k3},xmm6,[rax+2h]
 vucomish xmm2,xmm3
 vucomish xmm2,[rax+2h]
+rdudbg
+wrudbg

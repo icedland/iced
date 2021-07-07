@@ -327,6 +327,8 @@ namespace Iced.Intel {
 		LKGS = 157,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AVX512-FP16[bit 23]</summary>
 		AVX512_FP16 = 158,
+		/// <summary>Undocumented Intel <c>RDUDBG</c> and <c>WRUDBG</c> instructions</summary>
+		UDBG = 159,
 	}
 }
 #endif

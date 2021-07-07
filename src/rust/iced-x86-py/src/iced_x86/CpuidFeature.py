@@ -647,3 +647,7 @@ AVX512_FP16: int = 158
 """
 : CPUID.(EAX=07H, ECX=0H):EDX.AVX512-FP16[bit 23]
 """
+UDBG: int = 159
+"""
+Undocumented Intel ``RDUDBG`` and ``WRUDBG`` instructions
+"""

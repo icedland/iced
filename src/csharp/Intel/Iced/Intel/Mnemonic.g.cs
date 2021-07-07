@@ -1748,6 +1748,8 @@ namespace Iced.Intel {
 		Vsubph = 1736,
 		Vsubsh = 1737,
 		Vucomish = 1738,
+		Rdudbg = 1739,
+		Wrudbg = 1740,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

@@ -32750,6 +32750,20 @@ namespace Iced.Intel {
 			op = Code.Rdtscp;
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>rdudbg instruction.<br/>
+		/// <br/>
+		/// <c>RDUDBG</c><br/>
+		/// <br/>
+		/// <c>0F 0E</c><br/>
+		/// <br/>
+		/// <c>UDBG</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void rdudbg() {
+			Code op;
+			op = Code.Rdudbg;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>reservednop_0f0d instruction.<br/>
 		/// <br/>
 		/// <c>RESERVEDNOP r/m16, r16</c><br/>
@@ -120411,6 +120425,20 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Wrssq_m64_r64;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
+		}
+		/// <summary>wrudbg instruction.<br/>
+		/// <br/>
+		/// <c>WRUDBG</c><br/>
+		/// <br/>
+		/// <c>0F 0F</c><br/>
+		/// <br/>
+		/// <c>UDBG</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void wrudbg() {
+			Code op;
+			op = Code.Wrudbg;
+			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>wrussd instruction.<br/>
 		/// <br/>

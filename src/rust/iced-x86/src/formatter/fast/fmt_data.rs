@@ -15576,4 +15576,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// EVEX_Vucomish_xmm_xmmm16_sae
 	0x01,// HasVPrefix
 	0xB8, 0x0C,// 1592 = "vucomish"
+
+	// Rdudbg
+	0x00,// No flags set
+	0xB9, 0x0C,// 1593 = "rdudbg"
+
+	// Wrudbg
+	0x00,// No flags set
+	0xBA, 0x0C,// 1594 = "wrudbg"
 ];

@@ -36466,5 +36466,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		EVEX_Vucomish_xmm_xmmm16_sae = 4560,
+		/// <summary><c>RDUDBG</c><br/>
+		/// <br/>
+		/// <c>0F 0E</c><br/>
+		/// <br/>
+		/// <c>UDBG</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Rdudbg = 4561,
+		/// <summary><c>WRUDBG</c><br/>
+		/// <br/>
+		/// <c>0F 0F</c><br/>
+		/// <br/>
+		/// <c>UDBG</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Wrudbg = 4562,
 	}
 }

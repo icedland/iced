@@ -26,6 +26,7 @@ lazy_static! {
 		let _ = h.insert("Jmpe", DecoderOptions::JMPE);
 		let _ = h.insert("NoPause", DecoderOptions::NO_PAUSE);
 		let _ = h.insert("NoWbnoinvd", DecoderOptions::NO_WBNOINVD);
+		let _ = h.insert("Udbg", DecoderOptions::UDBG);
 		let _ = h.insert("NoMPFX_0FBC", DecoderOptions::NO_MPFX_0FBC);
 		let _ = h.insert("NoMPFX_0FBD", DecoderOptions::NO_MPFX_0FBD);
 		let _ = h.insert("NoLahfSahf64", DecoderOptions::NO_LAHF_SAHF_64);

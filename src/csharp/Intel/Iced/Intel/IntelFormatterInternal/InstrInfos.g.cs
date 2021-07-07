@@ -16976,6 +16976,14 @@ namespace Iced.Intel.IntelFormatterInternal {
 				// EVEX_Vucomish_xmm_xmmm16_sae
 				0x81,// 'v', Normal_1
 				0xB8, 0x0C,// 1592 = "vucomish"
+
+				// Rdudbg
+				0x01,// Normal_1
+				0xB9, 0x0C,// 1593 = "rdudbg"
+
+				// Wrudbg
+				0x01,// Normal_1
+				0xBA, 0x0C,// 1594 = "wrudbg"
 			};
 	}
 }

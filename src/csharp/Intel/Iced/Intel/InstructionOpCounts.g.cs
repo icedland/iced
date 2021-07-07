@@ -4573,6 +4573,8 @@ namespace Iced.Intel {
 			3,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 			3,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 			2,// EVEX_Vucomish_xmm_xmmm16_sae
+			0,// Rdudbg
+			0,// Wrudbg
 		};
 	}
 }

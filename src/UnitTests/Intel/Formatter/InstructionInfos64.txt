@@ -9046,3 +9046,5 @@ F2 0F 01 CA, Erets
 62 F54E0B 5C 50 01, EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 62 F57C08 2E D3, EVEX_Vucomish_xmm_xmmm16_sae
 62 F57C08 2E 50 01, EVEX_Vucomish_xmm_xmmm16_sae
+0F0E, Rdudbg, Udbg
+0F0F, Wrudbg, Udbg

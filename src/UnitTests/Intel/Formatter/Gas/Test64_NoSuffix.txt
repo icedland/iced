@@ -9046,3 +9046,5 @@ vsubsh %xmm3,%xmm6,%xmm2{%k3}
 vsubsh 2(%rax),%xmm6,%xmm2{%k3}
 vucomish %xmm3,%xmm2
 vucomish 2(%rax),%xmm2
+rdudbg
+wrudbg

@@ -4573,6 +4573,8 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed512_Float16,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 			(byte)MemorySize.Float16,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 			(byte)MemorySize.Float16,// EVEX_Vucomish_xmm_xmmm16_sae
+			0,// Rdudbg
+			0,// Wrudbg
 		};
 
 #if HAS_SPAN
@@ -9141,6 +9143,8 @@ namespace Iced.Intel {
 			(byte)MemorySize.Broadcast512_Float16,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 			0,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 			0,// EVEX_Vucomish_xmm_xmmm16_sae
+			0,// Rdudbg
+			0,// Wrudbg
 		};
 	}
 }

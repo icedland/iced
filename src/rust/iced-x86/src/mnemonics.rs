@@ -4569,4 +4569,6 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::Vsubph,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 	Mnemonic::Vsubsh,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 	Mnemonic::Vucomish,// EVEX_Vucomish_xmm_xmmm16_sae
+	Mnemonic::Rdudbg,// Rdudbg
+	Mnemonic::Wrudbg,// Wrudbg
 ];

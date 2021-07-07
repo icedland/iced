@@ -1687,6 +1687,24 @@ namespace Iced.Intel {
 				}
 				CommandPop(instruction, flags, 5, 8);
 				break;
+			case ImpliedAccess.t_Rrax_Rrcx_Wrdx_Wrbx:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.Read);
+					AddRegister(flags, Register.RCX, OpAccess.Read);
+					AddRegister(flags, Register.RDX, OpAccess.Write);
+					AddRegister(flags, Register.RBX, OpAccess.Write);
+				}
+				break;
+			case ImpliedAccess.t_Rrax_Rrcx_Rrdx_CRrbx_CWrdx_CWrbx:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.Read);
+					AddRegister(flags, Register.RCX, OpAccess.Read);
+					AddRegister(flags, Register.RDX, OpAccess.Read);
+					AddRegister(flags, Register.RBX, OpAccess.CondRead);
+					AddRegister(flags, Register.RDX, OpAccess.CondWrite);
+					AddRegister(flags, Register.RBX, OpAccess.CondWrite);
+				}
+				break;
 			// GENERATOR-END: ImpliedAccessHandler
 
 			default:
