@@ -1257,6 +1257,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	// SAFETY: `instruction` must be non-null, writable and aligned (`ptr::write()`) and not aliased
+	#[allow(clippy::useless_let_if_seq)]
 	unsafe fn decode_out_ptr(&mut self, instruction: *mut Instruction) {
 		// SAFETY:
 		// - the instruction has only primitive integer types, nothing needs to be dropped
