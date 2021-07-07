@@ -391,8 +391,6 @@ where
 	// Current RIP value
 	ip: u64,
 
-	// Input data provided by the user. When there's no more bytes left to read we'll return a NoMoreBytes error
-	data: &'a [u8],
 	// Next bytes to read if there's enough bytes left to read.
 	// This can be 1 byte past the last byte of `data`.
 	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
@@ -455,6 +453,9 @@ where
 	default_code_size: CodeSize,
 	// Offset of displacement in the instruction. Only used by get_constant_offsets() to return the offset of the displ
 	displ_index: u8,
+
+	// Input data provided by the user. When there's no more bytes left to read we'll return a NoMoreBytes error
+	data: &'a [u8],
 }
 
 macro_rules! write_base_reg {
@@ -858,7 +859,6 @@ impl<'a> Decoder<'a> {
 
 		Ok(Decoder {
 			ip,
-			data,
 			data_ptr: data.as_ptr() as usize,
 			data_ptr_end,
 			max_data_ptr: data.as_ptr() as usize,
@@ -883,6 +883,7 @@ impl<'a> Decoder<'a> {
 			is64b_mode,
 			default_code_size,
 			displ_index: 0,
+			data,
 		})
 	}
 
