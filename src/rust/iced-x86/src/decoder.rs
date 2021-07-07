@@ -1288,7 +1288,7 @@ impl<'a> Decoder<'a> {
 		// The calculated usize is a valid pointer in `self.data` slice or at most 1 byte past the last valid byte.
 		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
 
-		let mut b = self.read_u8();
+		let b = self.read_u8();
 		// Test binary: xul.dll 64-bit
 		// 52.01% of all instructions have at least one prefix
 		// REX = 92.50%
@@ -1297,7 +1297,8 @@ impl<'a> Decoder<'a> {
 		//  F2 =  0.65%
 		//  F0 =  0.51%
 		//  65 =  0.10%
-		if (((b as u32) >> 4) & self.mask_64b) == 4 {
+		let mut handler = self.handlers_map0[b];
+		if (((b as u32) & 0xF0) & self.mask_64b) == 0x40 {
 			debug_assert!(self.is64b_mode);
 			let mut flags = self.state.flags | StateFlags::HAS_REX;
 			if (b & 8) != 0 {
@@ -1305,13 +1306,12 @@ impl<'a> Decoder<'a> {
 				self.state.operand_size = OpSize::Size64;
 			}
 			self.state.flags = flags;
-			let b2 = b;
-			b = self.read_u8();
-			self.state.extra_register_base = (b2 as u32 & 4) << 1;
-			self.state.extra_index_register_base = (b2 as u32 & 2) << 2;
-			self.state.extra_base_register_base = (b2 as u32 & 1) << 3;
+			self.state.extra_register_base = (b as u32 & 4) << 1;
+			self.state.extra_index_register_base = (b as u32 & 2) << 2;
+			self.state.extra_base_register_base = (b as u32 & 1) << 3;
+			handler = self.handlers_map0[self.read_u8()];
 		}
-		self.decode_table2(self.handlers_map0[b], instruction);
+		self.decode_table2(handler, instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
 		let instr_len = self.data_ptr as u32 - data_ptr as u32;
