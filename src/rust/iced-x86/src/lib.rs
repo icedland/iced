@@ -28,14 +28,14 @@
 //!
 //! ```toml
 //! [dependencies]
-//! iced-x86 = "1.12.0"
+//! iced-x86 = "1.13.0"
 //! ```
 //!
 //! Or to customize which features to use:
 //!
 //! ```toml
 //! [dependencies.iced-x86]
-//! version = "1.12.0"
+//! version = "1.13.0"
 //! default-features = false
 //! # See below for all features
 //! features = ["std", "decoder", "masm"]
@@ -1171,7 +1171,7 @@
 //! Bumping the minimum supported version of `rustc` is considered a minor breaking change. The minor version of iced-x86 will be incremented.
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/icedland/iced/master/logo.png")]
-#![doc(html_root_url = "https://docs.rs/iced-x86/1.12.0")]
+#![doc(html_root_url = "https://docs.rs/iced-x86/1.13.0")]
 #![allow(unknown_lints)]
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
