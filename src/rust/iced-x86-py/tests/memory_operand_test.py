@@ -5,6 +5,12 @@ import copy
 import pytest
 from iced_x86 import *
 
+def test_ctor_signed_and_unsigned_displ():
+	m1 = MemoryOperand(displ=-1)
+	m2 = MemoryOperand.ctor_u64(displ=0xFFFF_FFFF_FFFF_FFFF)
+	assert m1 == m2
+	MemoryOperand.ctor_u64(displ=0xFFFF_FFFF)
+
 def test_eq_ne_hash():
 	mem1 = MemoryOperand()
 	mem2 = MemoryOperand(Register.NONE, Register.NONE, 1, 0, 0, False, Register.NONE)

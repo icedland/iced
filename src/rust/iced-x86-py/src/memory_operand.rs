@@ -11,11 +11,13 @@ use std::collections::hash_map::DefaultHasher;
 
 /// Memory operand passed to one of :class:`Instruction`'s `create*()` constructor methods
 ///
+/// See also ``MemoryOperand.ctor_u64()`` if you need to pass in a ``u64`` ``displ`` argument value.
+///
 /// Args:
 ///     `base` (:class:`Register`): (default = :class:`Register.NONE`) Base register or :class:`Register.NONE`
 ///     `index` (:class:`Register`): (default = :class:`Register.NONE`) Index register or :class:`Register.NONE`
 ///     `scale` (int): (default = ``1``) Index register scale (1, 2, 4, or 8)
-///     `displ` (int): (``i32``) (default = ``0``) Memory displacement
+///     `displ` (int): (``i64``) (default = ``0``) Memory displacement
 ///     `displ_size` (int): (default = ``0``) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 ///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcasted memory (EVEX instructions)
 ///     `seg` (:class:`Register`): (default = :class:`Register.NONE`) Segment override or :class:`Register.NONE`
@@ -41,6 +43,28 @@ impl MemoryOperand {
 		Ok(Self {
 			mem: iced_x86::MemoryOperand::new(to_register(base)?, to_register(index)?, scale, displ, displ_size, is_broadcast, to_register(seg)?),
 		})
+	}
+
+	/// Memory operand passed to one of :class:`Instruction`'s `create*()` constructor methods
+	///
+	/// The only difference between this method and the constructor is that this method takes a ``u64`` ``displ`` argument instead of an ``i64``.
+	///
+	/// Args:
+	///     `base` (:class:`Register`): (default = :class:`Register.NONE`) Base register or :class:`Register.NONE`
+	///     `index` (:class:`Register`): (default = :class:`Register.NONE`) Index register or :class:`Register.NONE`
+	///     `scale` (int): (default = ``1``) Index register scale (1, 2, 4, or 8)
+	///     `displ` (int): (``u64``) (default = ``0``) Memory displacement
+	///     `displ_size` (int): (default = ``0``) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
+	///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcasted memory (EVEX instructions)
+	///     `seg` (:class:`Register`): (default = :class:`Register.NONE`) Segment override or :class:`Register.NONE`
+	///
+	/// Returns:
+	///     MemoryOperand: A new instance
+	#[pyo3(text_signature = "(base, index, scale, displ, displ_size, is_broadcast, seg, /)")]
+	#[args(base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0)]
+	#[staticmethod]
+	fn ctor_u64(base: u32, index: u32, scale: u32, displ: u64, displ_size: u32, is_broadcast: bool, seg: u32) -> PyResult<Self> {
+		MemoryOperand::new(base, index, scale, displ as i64, displ_size, is_broadcast, seg)
 	}
 
 	/// Returns a copy of this instance.

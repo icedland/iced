@@ -6732,17 +6732,41 @@ class MemoryOperand:
 	"""
 	Memory operand passed to one of `Instruction`'s `create*()` constructor methods
 
+	See also `MemoryOperand.ctor_u64()` if you need to pass in a `u64` `displ` argument value.
+
 	### Args:
 
 	- `base` (`Register`): (default = `Register.NONE`) Base register or `Register.NONE`
 	- `index` (`Register`): (default = `Register.NONE`) Index register or `Register.NONE`
 	- `scale` (int): (default = `1`) Index register scale (1, 2, 4, or 8)
-	- `displ` (int): (`i32`) (default = `0`) Memory displacement
+	- `displ` (int): (`i64`) (default = `0`) Memory displacement
 	- `displ_size` (int): (default = `0`) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	- `is_broadcast` (bool): (default = `False`) `True` if it's broadcasted memory (EVEX instructions)
 	- `seg` (`Register`): (default = `Register.NONE`) Segment override or `Register.NONE`
 	"""
 	def __init__(self, base: Register = Register.NONE, index: Register = Register.NONE, scale: int = 1, displ: int = 0, displ_size: int = 0, is_broadcast: bool = False, seg: Register = Register.NONE) -> None: ...
+	@staticmethod
+	def ctor_u64(base: Register = Register.NONE, index: Register = Register.NONE, scale: int = 1, displ: int = 0, displ_size: int = 0, is_broadcast: bool = False, seg: Register = Register.NONE) -> MemoryOperand:
+		"""
+		Memory operand passed to one of `Instruction`'s `create*()` constructor methods
+
+		The only difference between this method and the constructor is that this method takes a `u64` `displ` argument instead of an `i64`.
+
+		### Args:
+
+		- `base` (`Register`): (default = `Register.NONE`) Base register or `Register.NONE`
+		- `index` (`Register`): (default = `Register.NONE`) Index register or `Register.NONE`
+		- `scale` (int): (default = `1`) Index register scale (1, 2, 4, or 8)
+		- `displ` (int): (`u64`) (default = `0`) Memory displacement
+		- `displ_size` (int): (default = `0`) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
+		- `is_broadcast` (bool): (default = `False`) `True` if it's broadcasted memory (EVEX instructions)
+		- `seg` (`Register`): (default = `Register.NONE`) Segment override or `Register.NONE`
+
+		### Returns:
+
+		- MemoryOperand: A new instance
+		"""
+		...
 	def __copy__(self) -> MemoryOperand:
 		"""
 		Returns a copy of this instance.
