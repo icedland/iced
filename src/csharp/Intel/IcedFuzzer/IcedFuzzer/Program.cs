@@ -18,6 +18,7 @@ namespace IcedFuzzer {
 		public bool IncludeValidInstructions = true;
 		public bool IncludeInvalidInstructions = true;
 		public bool IncludeValidCodeValue = false;
+		public bool UselessPrefixes = true;
 		public readonly FilterOptions Filter = new FilterOptions();
 		public string? InvalidFilename = null;
 		public string? ValidFilename = null;
@@ -134,6 +135,8 @@ namespace IcedFuzzer {
 					fuzzerOptions |= FuzzerOptions.NoVerifyInstrs;
 				if (!options.OpCodeInfoOptions.Filter.WasRemoved(CpuidFeature.MPX))
 					fuzzerOptions |= FuzzerOptions.HasMPX;
+				if (options.UselessPrefixes)
+					fuzzerOptions |= FuzzerOptions.UselessPrefixes;
 				foreach (var instr in instructions) {
 					switch (instr.Code) {
 					case Code.Pause:
@@ -239,7 +242,7 @@ namespace IcedFuzzer {
 			Console.WriteLine($"--no-3dnow                No 3DNow! instructions (implies --no-geode-3dnow)");
 			Console.WriteLine($"--no-geode-3dnow          No AMD Geode GX/LX 3DNow! instructions");
 			Console.WriteLine($"--no-padlock              No Centaur (VIA) PadLock instructions");
-			Console.WriteLine($"--no-unused-tables        Don't gen unused VEX/EVEX/XOP opcode tables (eg. EVEX.mm=00). Smaller output files.");
+			Console.WriteLine($"--no-unused-tables        Don't gen unused VEX/EVEX/XOP opcode tables (eg. EVEX.mmm=000). Smaller output files.");
 			Console.WriteLine($"--include-cpuid names     Only include instructions with these CPUID names, {sep}-separated");
 			Console.WriteLine($"--exclude-cpuid names     Exclude instructions with these CPUID names, {sep}-separated");
 			Console.WriteLine($"--include-code names      Only include instructions with these Code names, {sep}-separated");
@@ -253,6 +256,10 @@ namespace IcedFuzzer {
 			Console.WriteLine($"--gen-exclude-cpuid names Gen: Exclude instructions with these CPUID names, {sep}-separated");
 			Console.WriteLine($"--gen-include-code names  Gen: Only include instructions with these Code names, {sep}-separated");
 			Console.WriteLine($"--gen-exclude-code names  Gen: Exclude instructions with these Code names, {sep}-separated");
+			Console.WriteLine();
+			Console.WriteLine($"Fuzzer options");
+			Console.WriteLine();
+			Console.WriteLine($"--no-useless-prefixes     Don't generate useless prefixes");
 			Console.WriteLine();
 			Console.WriteLine($"Output files:");
 			Console.WriteLine();
@@ -405,6 +412,10 @@ namespace IcedFuzzer {
 
 				case "--no-valid-instr":
 					options.IncludeValidInstructions = false;
+					break;
+
+				case "--no-useless-prefixes":
+					options.UselessPrefixes = false;
 					break;
 
 				case "-oil":

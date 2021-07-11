@@ -48,6 +48,7 @@ namespace IcedFuzzer.Core {
 		NoTZCNT					= 0x00000008,
 		NoLZCNT					= 0x00000010,
 		HasMPX					= 0x00000020,
+		UselessPrefixes			= 0x00000040,
 	}
 
 	public sealed class Fuzzer {
@@ -58,6 +59,8 @@ namespace IcedFuzzer.Core {
 		readonly int bitness;
 		readonly FuzzerOptions options;
 		readonly CpuDecoder cpuDecoder;
+
+		internal bool UselessPrefixes => (options & FuzzerOptions.UselessPrefixes) != 0;
 
 		public Fuzzer(int bitness, FuzzerOptions options, CpuDecoder cpuDecoder) {
 			writer = new CodeWriter();

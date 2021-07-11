@@ -58,6 +58,7 @@ namespace IcedFuzzer.Core {
 		public FuzzerInstruction Instruction { get; }
 		public FuzzerEncodingKind Encoding { get; }
 		public UsedRegs UsedRegs { get; }
+		public bool UselessPrefixes => Fuzzer.UselessPrefixes;
 		uint immIndex;
 		uint nonZeroImmIndex;
 
@@ -374,6 +375,9 @@ namespace IcedFuzzer.Core {
 		};
 
 		public override IEnumerable<FuzzerGenResult> Generate(FuzzerGenContext context) {
+			if (!context.UselessPrefixes)
+				yield break;
+
 			bool canUseMPREX;
 			MandatoryPrefix realMP;
 			switch (context.Encoding) {
@@ -604,6 +608,9 @@ namespace IcedFuzzer.Core {
 		}
 
 		public override IEnumerable<FuzzerGenResult> Generate(FuzzerGenContext context) {
+			if (!context.UselessPrefixes)
+				yield break;
+
 			int instrLength = GetInstructionLength(context);
 			const int maxLength = 15;
 			int prefixes = instrLength <= maxLength ? maxLength - instrLength : 0;
@@ -694,8 +701,11 @@ namespace IcedFuzzer.Core {
 							context.UsedRegs.Add(op1RegInfo.RegClass, op1RegNum);
 
 							var info = InstructionInfo.Create(context);
-							if (rexCount == 1)
+							if (rexCount == 1) {
+								if (!context.UselessPrefixes && ((op0RegInfo.IsGPR8 && op0RegNum < 4) || (op1RegInfo.IsGPR8 && op1RegNum < 4)))
+									continue;
 								info.Flags |= EncodedInfoFlags.HasREX;
+							}
 							foreach (var op in ops) {
 								if (op == op0)
 									op0RegInfo.InitializeOperand(ref info, regNum);
@@ -899,8 +909,11 @@ namespace IcedFuzzer.Core {
 							context.UsedRegs.Clear();
 							context.UsedRegs.Add(regInfo, regOp, regNum);
 							var info = InstructionInfo.Create(context);
-							if (forceREX)
+							if (forceREX) {
+								if (!context.UselessPrefixes && regOp.Register == FuzzerRegisterKind.GPR8 && (i & 0xF) < 4)
+									continue;
 								info.Flags |= EncodedInfoFlags.HasREX;
+							}
 							if (useLockPrefix && (regOp.Register == FuzzerRegisterKind.CR || regOp.Register == FuzzerRegisterKind.DR || regOp.Register == FuzzerRegisterKind.TR)) {
 								Assert.True(regOp.RegLocation == FuzzerOperandRegLocation.ModrmRegBits);
 								Assert.True(context.Encoding == FuzzerEncodingKind.Legacy);
@@ -929,8 +942,11 @@ namespace IcedFuzzer.Core {
 							}
 							Assert.True(info.IsValid);
 
-							if (setIgnoredBits)
+							if (setIgnoredBits) {
+								if (!context.UselessPrefixes)
+									continue;
 								info.SetUnusedBits();
+							}
 
 							context.Fuzzer.Write(info);
 							bool isValid = regInfo.IsValid(context.Instruction, regOp.Register, regNum);
@@ -1098,8 +1114,10 @@ namespace IcedFuzzer.Core {
 				foreach (var mem in memInfo) {
 					if (TryGen(context, memOp, mem, addrSize, prefix67, 0, 0, setIgnoredBits: false, out var result))
 						yield return result;
-					if (TryGen(context, memOp, mem, addrSize, prefix67, 0, 0, setIgnoredBits: true, out result))
-						yield return result;
+					if (context.UselessPrefixes) {
+						if (TryGen(context, memOp, mem, addrSize, prefix67, 0, 0, setIgnoredBits: true, out result))
+							yield return result;
+					}
 
 					// Base reg bit: B. Start from 1 since we've already tested 0.
 					for (uint @base = 1; @base < baseCount; @base++) {
@@ -1233,8 +1251,11 @@ namespace IcedFuzzer.Core {
 									OpHelpers.InitializeOperand(context, op, ref info);
 							}
 							Assert.True(info.IsValid);
-							if (setIgnoredBits)
+							if (setIgnoredBits) {
+								if (!context.UselessPrefixes)
+									continue;
 								info.SetUnusedBits();
+							}
 							bool isValid = true;
 							Assert.True(isValid);
 							Assert.True(!setIgnoredBits || isValid, "Must be a valid instruction when testing ignored bits!");
@@ -1263,8 +1284,11 @@ namespace IcedFuzzer.Core {
 						info.addressSizePrefix = 0x67;
 					}
 					Assert.True(info.IsValid);
-					if (setIgnoredBits)
+					if (setIgnoredBits) {
+						if (!context.UselessPrefixes)
+							continue;
 						info.SetUnusedBits();
+					}
 					bool isValid = true;
 					Assert.True(isValid);
 					Assert.True(!setIgnoredBits || isValid, "Must be a valid instruction when testing ignored bits!");
@@ -1335,8 +1359,11 @@ namespace IcedFuzzer.Core {
 						bool setIgnoredBits = j == 1;
 						var info = OpHelpers.InitializeInstruction(context);
 						Assert.True(info.IsValid);
-						if (setIgnoredBits)
+						if (setIgnoredBits) {
+							if (!context.UselessPrefixes)
+								continue;
 							info.SetUnusedBits();
+						}
 						bool isValid = true;
 						Assert.True(isValid);
 						Assert.True(!setIgnoredBits || isValid, "Must be a valid instruction when testing ignored bits!");
@@ -1359,8 +1386,11 @@ namespace IcedFuzzer.Core {
 				bool setIgnoredBits = i == 1;
 				var info = InstructionInfo.Create(context);
 				Assert.True(info.IsValid);
-				if (setIgnoredBits)
+				if (setIgnoredBits) {
+					if (!context.UselessPrefixes)
+						continue;
 					info.SetUnusedBits();
+				}
 				bool isValid = true;
 				Assert.True(isValid);
 				Assert.True(!setIgnoredBits || isValid, "Must be a valid instruction when testing ignored bits!");
