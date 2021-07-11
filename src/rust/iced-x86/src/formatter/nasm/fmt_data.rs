@@ -16712,7 +16712,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
-	0x80,// 'v', Previous
+	0x8D,// 'v', er_3
+	0xD5, 0x0B,// 1493 = "vcvtpd2ph"
+	0x02,// 0x2
+	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
 	0x81,// 'v', Normal_1
@@ -16832,7 +16835,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
-	0x80,// 'v', Previous
+	0x8D,// 'v', er_3
+	0xDF, 0x0B,// 1503 = "vcvtqq2ph"
+	0x02,// 0x2
+	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
@@ -16989,7 +16995,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
-	0x80,// 'v', Previous
+	0x8D,// 'v', er_3
+	0xF0, 0x0B,// 1520 = "vcvtuqq2ph"
+	0x02,// 0x2
+	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
 	0x8D,// 'v', er_3

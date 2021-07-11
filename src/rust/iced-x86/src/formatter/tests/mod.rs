@@ -268,3 +268,147 @@ fn filter_removed_code_tests(strings: Vec<String>, ignored: &HashSet<u32>) -> Ve
 		strings.into_iter().enumerate().filter(|a| !ignored.contains(&(a.0 as u32))).map(|a| a.1).collect()
 	}
 }
+
+#[cfg(any(feature = "fast_fmt", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[test]
+fn verify_sae_er() {
+	#[cfg(feature = "fast_fmt")]
+	let (mut fast, mut fast_output) = {
+		let fast = crate::FastFormatter::new();
+		let fast_output = String::new();
+		(fast, fast_output)
+	};
+
+	#[cfg(feature = "gas")]
+	let (mut gas, mut gas_output) = {
+		let mut gas = crate::GasFormatter::new();
+		let gas_output = String::new();
+		gas.options_mut().set_show_useless_prefixes(true);
+		(gas, gas_output)
+	};
+
+	#[cfg(feature = "intel")]
+	let (mut intel, mut intel_output) = {
+		let mut intel = crate::IntelFormatter::new();
+		let intel_output = String::new();
+		intel.options_mut().set_show_useless_prefixes(true);
+		(intel, intel_output)
+	};
+
+	#[cfg(feature = "masm")]
+	let (mut masm, mut masm_output) = {
+		let mut masm = crate::MasmFormatter::new();
+		let masm_output = String::new();
+		masm.options_mut().set_show_useless_prefixes(true);
+		(masm, masm_output)
+	};
+
+	#[cfg(feature = "nasm")]
+	let (mut nasm, mut nasm_output) = {
+		let mut nasm = crate::NasmFormatter::new();
+		let nasm_output = String::new();
+		nasm.options_mut().set_show_useless_prefixes(true);
+		(nasm, nasm_output)
+	};
+
+	const FL_SAE: u8 = 0x01;
+	const FL_RN_SAE: u8 = 0x02;
+	const FL_RD_SAE: u8 = 0x04;
+	const FL_RU_SAE: u8 = 0x08;
+	const FL_RZ_SAE: u8 = 0x10;
+
+	let mut instr = Instruction::default();
+	let mut flags_result = Vec::with_capacity(5);
+	let mut all_output = Vec::new();
+	let test_cases = crate::decoder::tests::test_utils::decoder_tests(true, false);
+	for tc in test_cases {
+		all_output.clear();
+		flags_result.clear();
+		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
+		let mut decoder = create_decoder(tc.bitness(), &bytes, tc.ip(), tc.decoder_options()).0;
+		decoder.decode_out(&mut instr);
+
+		let mut expected_flags = if instr.suppress_all_exceptions() { FL_SAE } else { 0 };
+		expected_flags |= match instr.rounding_control() {
+			crate::RoundingControl::None => 0,
+			crate::RoundingControl::RoundToNearest => FL_RN_SAE,
+			crate::RoundingControl::RoundDown => FL_RD_SAE,
+			crate::RoundingControl::RoundUp => FL_RU_SAE,
+			crate::RoundingControl::RoundTowardZero => FL_RZ_SAE,
+		};
+
+		fn get_flags(disasm: &str, values: &[(&str, u8)]) -> u8 {
+			let mut result = 0;
+			for &(s, f) in values {
+				if disasm.contains(s) {
+					result |= f;
+				}
+			}
+			result
+		}
+
+		#[cfg(feature = "fast_fmt")]
+		{
+			fast_output.clear();
+			fast.format(&instr, &mut fast_output);
+			let flags = get_flags(
+				&fast_output,
+				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+			);
+			flags_result.push(flags);
+			all_output.push(format!(" fast: {} {}", flags, fast_output));
+		}
+
+		#[cfg(feature = "gas")]
+		{
+			gas_output.clear();
+			gas.format(&instr, &mut gas_output);
+			let flags = get_flags(
+				&gas_output,
+				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+			);
+			flags_result.push(flags);
+			all_output.push(format!("  gas: {} {}", flags, gas_output));
+		}
+
+		#[cfg(feature = "intel")]
+		{
+			intel_output.clear();
+			intel.format(&instr, &mut intel_output);
+			let flags = get_flags(
+				&intel_output,
+				&[("{sae}", FL_SAE), ("{rne-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+			);
+			flags_result.push(flags);
+			all_output.push(format!("intel: {} {}", flags, intel_output));
+		}
+
+		#[cfg(feature = "masm")]
+		{
+			masm_output.clear();
+			masm.format(&instr, &mut masm_output);
+			let flags = get_flags(
+				&masm_output,
+				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+			);
+			flags_result.push(flags);
+			all_output.push(format!(" masm: {} {}", flags, masm_output));
+		}
+
+		#[cfg(feature = "nasm")]
+		{
+			nasm_output.clear();
+			nasm.format(&instr, &mut nasm_output);
+			let flags = get_flags(
+				&nasm_output,
+				&[("{sae}", FL_SAE), ("{rn-sae}", FL_RN_SAE), ("{rd-sae}", FL_RD_SAE), ("{ru-sae}", FL_RU_SAE), ("{rz-sae}", FL_RZ_SAE)],
+			);
+			flags_result.push(flags);
+			all_output.push(format!(" nasm: {} {}", flags, nasm_output));
+		}
+
+		if !flags_result.iter().all(|&f| f == expected_flags) {
+			panic!("\nMissing/extra {{sae}} and/or {{er}}\nexpected: {}\n{}\n", expected_flags, all_output.join("\n"));
+		}
+	}
+}

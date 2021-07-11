@@ -8435,7 +8435,7 @@ vcvtpd2ph xmm2,yword [rax+0x20]
 vcvtpd2ph xmm2{k3}{z},[rax+8]{1to4}
 vcvtpd2ph xmm2{k3},zmm3
 vcvtpd2ph xmm2,zword [rax+0x40]
-vcvtpd2ph xmm2{k3}{z},[rax+8]{1to8}
+vcvtpd2ph xmm2{k3}{z},qword [rax+8]{1to8}
 vcvtph2dq xmm2{k3},xmm3
 vcvtph2dq xmm2,[rax+8]
 vcvtph2dq xmm2{k3}{z},[rax+2]{1to4}
@@ -8525,7 +8525,7 @@ vcvtqq2ph xmm2,yword [rax+0x20]
 vcvtqq2ph xmm2{k3}{z},[rax+8]{1to4}
 vcvtqq2ph xmm2{k3},zmm3
 vcvtqq2ph xmm2,zword [rax+0x40]
-vcvtqq2ph xmm2{k3}{z},[rax+8]{1to8}
+vcvtqq2ph xmm2{k3}{z},qword [rax+8]{1to8}
 vcvtsd2sh xmm2,xmm6,xmm3
 vcvtsd2sh xmm2,xmm6,[rax+8]
 vcvtsh2sd xmm2,xmm6,xmm3
@@ -8625,7 +8625,7 @@ vcvtuqq2ph xmm2,yword [rax+0x20]
 vcvtuqq2ph xmm2{k3}{z},[rax+8]{1to4}
 vcvtuqq2ph xmm2{k3},zmm3
 vcvtuqq2ph xmm2,zword [rax+0x40]
-vcvtuqq2ph xmm2{k3}{z},[rax+8]{1to8}
+vcvtuqq2ph xmm2{k3}{z},qword [rax+8]{1to8}
 vcvtusi2sh xmm2,xmm6,ebx
 vcvtusi2sh xmm2,xmm6,dword [rax+4]
 vcvtusi2sh xmm2,xmm6,rbx
