@@ -63,8 +63,10 @@ namespace IcedFuzzer {
 						Console.WriteLine($"Bitness: {options.OpCodeInfoOptions.Bitness}");
 					var info = Gen(options, infos);
 					if (!options.Quiet) {
-						Console.WriteLine($"  valid: {info.totValid,8} instrs: {(double)info.totBytesValid / 1024 / 1024,6:0.##} MB");
-						Console.WriteLine($"invalid: {info.totInvalid,8} instrs: {(double)info.totBytesInvalid / 1024 / 1024,6:0.##} MB");
+						if (info.gendValid)
+							Console.WriteLine($"  valid: {info.totValid,8} instrs: {(double)info.totBytesValid / 1024 / 1024,6:0.##} MB");
+						if (info.gendInvalid)
+							Console.WriteLine($"invalid: {info.totInvalid,8} instrs: {(double)info.totBytesInvalid / 1024 / 1024,6:0.##} MB");
 					}
 				}
 				return 0;
@@ -88,7 +90,7 @@ namespace IcedFuzzer {
 		static OpCodeInfo[] GetOpCodeInfos(Options options) =>
 			OpCodeInfoProvider.GetOpCodeInfos(options.OpCodeInfoOptions);
 
-		static (uint totValid, ulong totBytesValid, uint totInvalid, ulong totBytesInvalid) Gen(Options options, OpCodeInfo[] infos) {
+		static (uint totValid, ulong totBytesValid, uint totInvalid, ulong totBytesInvalid, bool gendValid, bool gendInvalid) Gen(Options options, OpCodeInfo[] infos) {
 			var genFlags = InstrGenFlags.None;
 			if (options.UnusedTables)
 				genFlags |= InstrGenFlags.UnusedTables;
@@ -115,11 +117,16 @@ namespace IcedFuzzer {
 			BinaryWriter? validWriter = null;
 			BinaryWriter? invalidWriter = null;
 			var data2 = new byte[2];
+			bool gendValid = false, gendInvalid = false;
 			try {
-				if (options.ValidFilename is not null)
+				if (options.ValidFilename is not null) {
 					CreateFile(ref validStream, ref validWriter, options.ValidFilename);
-				if (options.InvalidFilename is not null)
+					gendValid = true;
+				}
+				if (options.InvalidFilename is not null) {
 					CreateFile(ref invalidStream, ref invalidWriter, options.InvalidFilename);
+					gendInvalid = true;
+				}
 
 				var fuzzerOptions = FuzzerOptions.NoPAUSE | FuzzerOptions.NoWBNOINVD |
 					FuzzerOptions.NoTZCNT | FuzzerOptions.NoLZCNT;
@@ -187,7 +194,7 @@ namespace IcedFuzzer {
 						writer.Write(info.EncodedData, 0, info.EncodedDataLength);
 					}
 				}
-				return (totValid, totBytesValid, totInvalid, totBytesInvalid);
+				return (totValid, totBytesValid, totInvalid, totBytesInvalid, gendValid, gendInvalid);
 			}
 			finally {
 				validWriter?.Dispose();
