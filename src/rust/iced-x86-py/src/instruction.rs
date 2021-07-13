@@ -11,7 +11,10 @@ use pyo3::class::PySequenceProtocol;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::PyObjectProtocol;
+use pyo3::types::{PyBytes, PyTuple};
 use std::collections::hash_map::DefaultHasher;
+
+use bincode::{deserialize, serialize};
 
 /// A 16/32/64-bit x86 instruction. Created by :class:`Decoder` or by ``Instruction.create*()`` methods.
 ///
@@ -164,6 +167,20 @@ impl Instruction {
 	#[new]
 	pub(crate) fn new() -> Self {
 		Self { instr: iced_x86::Instruction::default() }
+	}
+
+	pub fn __setstate__(&mut self, py: Python, state: PyObject) -> PyResult<()> {
+		match state.extract::<&PyBytes>(py) {
+			Ok(s) => {
+				self.instr = deserialize(s.as_bytes()).unwrap();
+				Ok(())
+			}
+			Err(e) => Err(e),
+		}
+	}
+
+	pub fn __getstate__(&self, py: Python) -> PyResult<PyObject> {
+		Ok(PyBytes::new(py, &serialize(&self.instr).unwrap()).to_object(py))
 	}
 
 	/// Returns a copy of this instance.
