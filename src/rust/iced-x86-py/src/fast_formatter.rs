@@ -24,7 +24,7 @@ use pyo3::prelude::*;
 ///     formatter.space_after_operand_separator = True
 ///     disasm = formatter.format(instr)
 ///     assert disasm == "vcvtne2ps2bf16 zmm2{k5}{z}, zmm6, dword bcst [rax+4h]"
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(/)")]
 pub(crate) struct FastFormatter {
 	fmt_output: String,

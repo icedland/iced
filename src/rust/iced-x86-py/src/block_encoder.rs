@@ -48,7 +48,7 @@ use pyo3::types::PyBytes;
 ///     # It has no IP-relative instructions (eg. branches or [rip+xxx] ops)
 ///     # so the result should be identical to the original code.
 ///     assert data == raw_data
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(bitness, fix_branches, /)")]
 pub(crate) struct BlockEncoder {
 	instructions: Vec<iced_x86::Instruction>,

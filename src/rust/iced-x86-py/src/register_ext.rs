@@ -6,7 +6,7 @@ use crate::register_info::RegisterInfo;
 use pyo3::prelude::*;
 
 /// :class:`Register` enum extension methods, see also :class:`RegisterInfo`
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(/)")]
 pub(crate) struct RegisterExt {}
 
