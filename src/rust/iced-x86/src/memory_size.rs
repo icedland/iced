@@ -386,6 +386,7 @@ mod info {
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
 #[allow(non_camel_case_types)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum MemorySize {
 	/// Unknown size or the instruction doesn't reference any memory (eg. `LEA`)
 	Unknown = 0,

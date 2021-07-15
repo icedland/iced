@@ -12,6 +12,7 @@ use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 /// Relocation kind
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum RelocKind {
 	/// 64-bit offset. Only used if it's 64-bit code.
 	Offset64 = 0,

@@ -13,6 +13,7 @@ use core::{fmt, mem};
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
 #[allow(non_camel_case_types)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 #[allow(missing_docs)]
 pub enum Mnemonic {
 	INVALID = 0,

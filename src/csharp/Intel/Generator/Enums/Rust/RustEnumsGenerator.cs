@@ -176,6 +176,8 @@ namespace Generator.Enums.Rust {
 			var enumTypeName = enumType.Name(idConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
+			if (enumType.IsPublic)
+				writer.WriteLine("#[cfg_attr(feature = \"__internal_serde\", derive(Serialize, Deserialize))]");
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
 			if (!enumType.IsPublic)

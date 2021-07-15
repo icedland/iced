@@ -104,6 +104,7 @@ impl Default for OpSize {
 /// Decoder error
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum DecoderError {
 	/// No error. The last decoded instruction is a valid instruction
 	None = 0,

@@ -642,6 +642,7 @@ impl Default for LBit {
 /// `REP`/`REPE`/`REPNE` prefix
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum RepPrefixKind {
 	/// No `REP`/`REPE`/`REPNE` prefix
 	None = 0,
