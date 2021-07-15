@@ -456,7 +456,7 @@ namespace Generator.Misc.Python {
 
 			bool isSpecial = name.StartsWith("__", StringComparison.Ordinal) &&
 				name.EndsWith("__", StringComparison.Ordinal) &&
-				name != "__copy__" && name != "__deepcopy__";
+				name != "__copy__" && name != "__deepcopy__" && name != "__getstate__";
 
 			fullLine = ParseMethodArgsAndRetType(fullLine, line, isInstanceMethod, isSpecial || name == "__deepcopy__", out var args, out var rustReturnType);
 			if (!TryCreateDocComments(DocComments, out var docComments, out var error))
