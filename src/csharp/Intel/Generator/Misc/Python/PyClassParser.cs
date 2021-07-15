@@ -294,7 +294,7 @@ namespace Generator.Misc.Python {
 						if (args.Count != 0)
 							throw GetException("`self` must be the first arg");
 						foundThis = true;
-						arg = new PyMethodArg(selfArgName, argInfo, isSelf: true);
+						arg = new PyMethodArg(selfArgName, argInfo, isSelf: true, isPython: false);
 						break;
 					default:
 						index = argInfo.IndexOf(':');
@@ -320,9 +320,13 @@ namespace Generator.Misc.Python {
 							name = selfArgName;
 							isSelf = true;
 						}
+						bool isPython = false;
+						if (rustType == "Python") {
+							isPython = true;
+						}
 						if (name.Contains(' ', StringComparison.Ordinal))
 							throw GetException("Name has a space");
-						arg = new PyMethodArg(name, rustType, isSelf);
+						arg = new PyMethodArg(name, rustType, isSelf, isPython);
 						break;
 					}
 					args.Add(arg);
@@ -362,8 +366,10 @@ namespace Generator.Misc.Python {
 			var sb = new StringBuilder();
 			sb.Append("#[pyo3(text_signature = \"(");
 			foreach (var arg in method.Arguments) {
-				sb.Append(arg.Name);
-				sb.Append(", ");
+				if (!arg.IsPython) {
+					sb.Append(arg.Name);
+					sb.Append(", ");
+				}
 			}
 			sb.Append("/)\")]");
 			return sb.ToString();
@@ -403,14 +409,15 @@ namespace Generator.Misc.Python {
 			else {
 				int argsSectionLength = argsSection?.Args.Length ?? 0;
 				int hasThis = arguments.Count != 0 && arguments[0].IsSelf ? 1 : 0;
-				int expectedMethodArgs = arguments.Count - hasThis;
+				int hasPython = arguments.Count > hasThis && arguments[hasThis].IsPython ? 1 : 0;
+				int expectedMethodArgs = arguments.Count - hasThis - hasPython;
 				if (argsSectionLength != expectedMethodArgs) {
 					error = $"Expected `Args:` section with {expectedMethodArgs} but found {argsSectionLength} documented args";
 					return false;
 				}
-				for (int i = hasThis; i < arguments.Count; i++) {
+				for (int i = hasThis + hasPython; i < arguments.Count; i++) {
 					var methodArg = arguments[i].Name;
-					var argsArg = argsSection!.Args[i - hasThis].Name;
+					var argsArg = argsSection!.Args[i - hasThis - hasPython].Name;
 					if (methodArg != argsArg) {
 						error = $"`Args:` section not sorted or using the wrong name. Expected `{methodArg}` but found `{argsArg}`";
 						return false;
@@ -550,8 +557,8 @@ namespace Generator.Misc.Python {
 							_ => throw new InvalidOperationException(),
 						};
 						var newArgs = new List<PyMethodArg> {
-							new PyMethodArg(selfArgName, "&self", isSelf: true),
-							new PyMethodArg("other", "&PyAny", isSelf: false),
+							new PyMethodArg(selfArgName, "&self", isSelf: true, isPython: false),
+							new PyMethodArg("other", "&PyAny", isSelf: false, isPython: false),
 						};
 						yield return new PyMethod(opName, method.DocComments, method.Attributes, newArgs, "bool");
 					}

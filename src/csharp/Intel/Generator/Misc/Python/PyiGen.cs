@@ -48,12 +48,13 @@ namespace Generator.Misc.Python {
 					if (docs is null)
 						continue;
 					int hasThis = method.Arguments.Count != 0 && method.Arguments[0].IsSelf ? 1 : 0;
-					if (docs.Args.Length != (method.Arguments.Count - hasThis))
+					int hasPython = method.Arguments.Count > hasThis && method.Arguments[hasThis].IsPython ? 1 : 0;
+					if (docs.Args.Length != (method.Arguments.Count - hasThis - hasPython))
 						throw new InvalidOperationException();
 					argToEnumType.Clear();
 					for (int i = 0; i < docs.Args.Length; i++) {
 						var docArg = docs.Args[i];
-						if (docArg.Name != method.Arguments[hasThis + i].Name)
+						if (docArg.Name != method.Arguments[hasThis + hasPython + i].Name)
 							throw new InvalidOperationException();
 						if (!ParseUtils.TryConvertSphinxTypeToTypeName(docArg.SphinxType, out var typeName))
 							continue;
@@ -211,6 +212,7 @@ namespace Generator.Misc.Python {
 			}
 			var argsDocs = docComments.Sections.OfType<ArgsDocCommentSection>().FirstOrDefault();
 			int hasThis = method.Arguments.Count != 0 && method.Arguments[0].IsSelf ? 1 : 0;
+			int hasPython = method.Arguments.Count > hasThis && method.Arguments[hasThis].IsPython ? 1 : 0;
 
 			Dictionary<string, string> toDefaultValue;
 			var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
@@ -220,7 +222,7 @@ namespace Generator.Misc.Python {
 				toDefaultValue = ParseUtils.GetArgsNameValues(argsAttr.Text).ToDictionary(a => a.name, a => a.value, StringComparer.Ordinal);
 
 			for (int i = 0; i < method.Arguments.Count; i++) {
-				if (argsDocs is not null && argsDocs.Args.Length != method.Arguments.Count - hasThis)
+				if (argsDocs is not null && argsDocs.Args.Length != method.Arguments.Count - hasThis - hasPython)
 					throw new InvalidOperationException();
 				var methodArg = method.Arguments[i];
 				if (argCount > 0)
@@ -228,12 +230,15 @@ namespace Generator.Misc.Python {
 				argCount++;
 				if (methodArg.IsSelf)
 					writer.Write("self");
-				else {
+				else if (methodArg.IsPython) {
+					writer.Write(methodArg.Name);
+					writer.Write(": Python");
+				} else {
 					writer.Write(methodArg.Name);
 
 					string docsSphinxType;
 					if (argsDocs is not null) {
-						var docsArg = argsDocs.Args[i - hasThis];
+						var docsArg = argsDocs.Args[i - hasThis - hasPython];
 						if (docsArg.Name != methodArg.Name)
 							throw new InvalidOperationException();
 						docsSphinxType = docsArg.SphinxType;
