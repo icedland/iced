@@ -169,7 +169,12 @@ impl Instruction {
 		Self { instr: iced_x86::Instruction::default() }
 	}
 
-	pub fn __setstate__(&mut self, py: Python, state: PyObject) -> PyResult<()> {
+	/// Set the internal state with the given unpickled state.
+	///
+	/// Args:
+	///     state (Any): unpickled state
+	#[pyo3(text_signature = "($self, state, /)")]
+	fn __setstate__(&mut self, py: Python, state: PyObject) -> PyResult<()> {
 		match state.extract::<&PyBytes>(py) {
 			Ok(s) => {
 				self.instr = deserialize(s.as_bytes()).unwrap();
@@ -179,8 +184,14 @@ impl Instruction {
 		}
 	}
 
-	pub fn __getstate__(&self, py: Python) -> PyResult<PyObject> {
-		Ok(PyBytes::new(py, &serialize(&self.instr).unwrap()).to_object(py))
+	/// Get the unpickled state corresponding to the instruction.
+	///
+	/// Returns:
+	///     int: (``bytes``) The unpickled state
+	#[pyo3(text_signature = "($self, /)")]
+	fn __getstate__(&self, py: Python) -> PyResult<PyObject> {
+		let state = PyBytes::new(py, &serialize(&self.instr).unwrap()).to_object(py);
+		Ok(state)
 	}
 
 	/// Returns a copy of this instance.

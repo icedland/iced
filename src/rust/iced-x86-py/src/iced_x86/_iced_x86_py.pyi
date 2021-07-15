@@ -2206,6 +2206,24 @@ class Instruction:
 	```
 	"""
 	def __init__(self) -> None: ...
+	def __setstate__(self, py: Python, state: Any) -> None:
+		"""
+		Set the internal state with the given unpickled state.
+
+		### Args:
+
+		- `state` (Any): unpickled state
+		"""
+		...
+	def __getstate__(self, py: Python) -> int:
+		"""
+		Get the unpickled state corresponding to the instruction.
+
+		### Returns:
+
+		- int: (`bytes`) The unpickled state
+		"""
+		...
 	def __copy__(self) -> Instruction:
 		"""
 		Returns a copy of this instance.
