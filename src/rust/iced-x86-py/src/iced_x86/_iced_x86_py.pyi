@@ -2206,7 +2206,7 @@ class Instruction:
 	```
 	"""
 	def __init__(self) -> None: ...
-	def __setstate__(self, py: Python, state: Any) -> None:
+	def __setstate__(self, state: Any) -> None:
 		"""
 		Set the internal state with the given unpickled state.
 
@@ -2215,7 +2215,7 @@ class Instruction:
 		- `state` (Any): unpickled state
 		"""
 		...
-	def __getstate__(self, py: Python) -> int:
+	def __getstate__(self) -> int:
 		"""
 		Get the unpickled state corresponding to the instruction.
 
