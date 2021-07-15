@@ -27,7 +27,7 @@ version = "=1.13.0"
 #path = "/abs/path/to/iced/src/rust/iced-x86"
 # Don't remove/modify the next line. Build scripts replace it with the real path
 #pathci
-features = ["serde"]
+features = ["__internal_serde"]
 
 [profile.release]
 codegen-units = 1

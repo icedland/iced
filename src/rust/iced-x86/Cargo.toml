@@ -37,6 +37,7 @@ no_xop = []
 no_d3now = []
 # Don't use
 __internal_mem_vsib = []
+__internal_serde = ["serde"]
 
 [dependencies]
 # if: always
