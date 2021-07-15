@@ -16,7 +16,7 @@ namespace Generator.Enums.Rust {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly RustDocCommentWriter docWriter;
-		readonly DeprecatedWriter deprecatedWriter;
+		readonly RustDeprecatedWriter deprecatedWriter;
 		readonly RustConstantsWriter constantsWriter;
 
 		sealed class PartialEnumFileInfo {
