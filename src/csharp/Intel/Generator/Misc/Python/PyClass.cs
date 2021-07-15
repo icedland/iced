@@ -153,13 +153,11 @@ namespace Generator.Misc.Python {
 		public readonly string Name;
 		public readonly string RustType;
 		public readonly bool IsSelf;
-		public readonly bool IsPython;
 
-		public PyMethodArg(string name, string rustType, bool isSelf, bool isPython) {
+		public PyMethodArg(string name, string rustType, bool isSelf) {
 			Name = name;
 			RustType = rustType;
 			IsSelf = isSelf;
-			IsPython = isPython;
 		}
 	}
 
