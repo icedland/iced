@@ -181,4 +181,4 @@ def test_invalid_bitness(bitness):
 
 def test_op_code_raise():
 	with pytest.raises(ValueError):
-		OpCodeInfo(10000)
+		OpCodeInfo(100000)

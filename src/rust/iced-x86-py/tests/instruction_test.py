@@ -937,6 +937,7 @@ def test_format():
 
 	instr = decoder.decode()
 	assert f"{instr}" == "add rax,0FFFFFFFF82345AA5h"
+	assert f"{instr:}" == "add rax,0FFFFFFFF82345AA5h"
 	assert f"{instr:f}" == "add rax,0FFFFFFFF82345AA5h"
 	assert f"{instr:g}" == "add $0xFFFFFFFF82345AA5,%rax"
 	assert f"{instr:i}" == "add rax,0FFFFFFFF82345AA5h"
