@@ -13,7 +13,6 @@ use pyo3::prelude::*;
 use pyo3::PyObjectProtocol;
 use pyo3::types::{PyBytes, PyTuple};
 use std::collections::hash_map::DefaultHasher;
-
 use bincode::{deserialize, serialize};
 
 /// A 16/32/64-bit x86 instruction. Created by :class:`Decoder` or by ``Instruction.create*()`` methods.

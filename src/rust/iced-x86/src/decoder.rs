@@ -26,7 +26,6 @@ use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};
 use static_assertions::{const_assert, const_assert_eq};
-
 #[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
 

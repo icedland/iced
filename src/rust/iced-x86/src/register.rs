@@ -8,7 +8,6 @@ use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
 use static_assertions::const_assert;
-
 #[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
 

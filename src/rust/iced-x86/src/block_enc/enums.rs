@@ -6,7 +6,6 @@ use crate::block_enc::iced_error::IcedError;
 use core::convert::TryFrom;
 use core::fmt;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
-
 #[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
 

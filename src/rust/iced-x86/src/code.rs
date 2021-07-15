@@ -12,7 +12,6 @@ use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 use static_assertions::const_assert_eq;
-
 #[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
 
