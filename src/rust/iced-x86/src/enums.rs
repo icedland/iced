@@ -7,6 +7,7 @@ use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
+#[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
 
 // GENERATOR-BEGIN: CodeSize
@@ -2418,7 +2419,8 @@ fn test_opcodetablekind_try_from_usize() {
 }
 // GENERATOR-END: OpCodeTableKind
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub(crate) enum InstrScale {
 	Scale1 = 0,
 	Scale2 = 1,

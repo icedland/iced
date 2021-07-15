@@ -14,6 +14,7 @@ use core::iter::{ExactSizeIterator, FusedIterator};
 use core::{mem, slice, u16, u32, u64};
 use static_assertions::{const_assert, const_assert_eq};
 
+#[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
 
 // GENERATOR-BEGIN: InstrFlags1
@@ -46,7 +47,8 @@ impl InstrFlags1 {
 /// A 16/32/64-bit x86 instruction. Created by [`Decoder`] or by `Instruction::with*()` methods.
 ///
 /// [`Decoder`]: struct.Decoder.html
-#[derive(Debug, Default, Copy, Clone, Serialize, Deserialize)]
+#[derive(Debug, Default, Copy, Clone)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub struct Instruction {
 	pub(crate) next_rip: u64,
 	pub(crate) flags1: u32, // InstrFlags1

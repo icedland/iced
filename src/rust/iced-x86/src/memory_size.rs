@@ -7,6 +7,9 @@ use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
+#[cfg(feature = "__internal_serde")]
+use serde::{Deserialize, Serialize};
+
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 pub use crate::memory_size::info::*;
 

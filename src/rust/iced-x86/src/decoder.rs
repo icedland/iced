@@ -27,6 +27,9 @@ use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};
 use static_assertions::{const_assert, const_assert_eq};
 
+#[cfg(feature = "__internal_serde")]
+use serde::{Deserialize, Serialize};
+
 #[rustfmt::skip]
 #[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 static READ_OP_MEM_VSIB_FNS: [fn(&mut Decoder<'_>, &mut Instruction, Register, TupleType, bool) -> bool; 0x18] = [
