@@ -5,15 +5,15 @@ use crate::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rep_p
 use crate::memory_operand::MemoryOperand;
 use crate::op_code_info::OpCodeInfo;
 use crate::utils::{get_temporary_byte_array_ref, to_value_error};
+use bincode::{deserialize, serialize};
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::class::PySequenceProtocol;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
-use pyo3::PyObjectProtocol;
 use pyo3::types::{PyBytes, PyTuple};
+use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
-use bincode::{deserialize, serialize};
 
 /// A 16/32/64-bit x86 instruction. Created by :class:`Decoder` or by ``Instruction.create*()`` methods.
 ///

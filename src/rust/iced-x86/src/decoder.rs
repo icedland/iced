@@ -25,9 +25,9 @@ use crate::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};
-use static_assertions::{const_assert, const_assert_eq};
 #[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
+use static_assertions::{const_assert, const_assert_eq};
 
 #[rustfmt::skip]
 #[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]

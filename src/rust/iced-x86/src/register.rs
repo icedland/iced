@@ -7,9 +7,9 @@ use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
-use static_assertions::const_assert;
 #[cfg(feature = "__internal_serde")]
 use serde::{Deserialize, Serialize};
+use static_assertions::const_assert;
 
 #[cfg(feature = "instr_info")]
 pub use crate::register::info::*;
