@@ -1193,25 +1193,25 @@ pub enum Register {
 	TMM6 = 247,
 	TMM7 = 248,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUse0 = 249,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFA = 250,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFB = 251,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFC = 252,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFD = 253,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFE = 254,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFF = 255,
 }
 #[rustfmt::skip]

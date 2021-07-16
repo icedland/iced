@@ -190,7 +190,7 @@ namespace Generator.Enums.Rust {
 				uint expectedValue = 0;
 				foreach (var value in enumValues) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
-					deprecatedWriter.WriteDeprecated(writer, value);
+					deprecatedWriter.WriteDeprecated(writer, value, "__internal_serde");
 					if (expectedValue != value.Value || enumType.IsPublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
