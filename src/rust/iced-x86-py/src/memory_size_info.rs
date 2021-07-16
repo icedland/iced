@@ -17,7 +17,7 @@ use pyo3::prelude::*;
 ///
 ///     info = MemorySizeInfo(MemorySize.PACKED256_UINT16);
 ///     assert info.size == 32
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(memory_size, /)")]
 pub(crate) struct MemorySizeInfo {
 	pub(crate) info: &'static iced_x86::MemorySizeInfo,

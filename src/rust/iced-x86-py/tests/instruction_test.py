@@ -2,6 +2,7 @@
 # Copyright (C) 2018-present iced project and contributors
 
 import copy
+import pickle
 import pytest
 from iced_x86 import *
 
@@ -1206,3 +1207,11 @@ def test_fpu_stack_increment_info():
 	assert info.increment == 1
 	assert not info.conditional
 	assert info.writes_top
+
+def test_pickle():
+	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41" b"\xC4\xE3\x49\x48\x10\x42", ip=0x1234_5678_9ABC_DEF1)
+	instr = decoder.decode()
+	dump = pickle.dumps(instr)
+	instr2 = pickle.loads(dump)
+
+	assert instr == instr2

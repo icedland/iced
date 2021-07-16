@@ -46,7 +46,7 @@ pub(crate) enum FormatterSyntax {
 ///     formatter.uppercase_mnemonics = True
 ///     disasm = formatter.format(instr)
 ///     assert disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]"
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(syntax, /)")]
 pub(crate) struct Formatter {
 	fmt_output: String,

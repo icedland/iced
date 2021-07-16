@@ -7,6 +7,8 @@ use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::ops::{Add, AddAssign, Sub, SubAssign};
 use core::{fmt, mem};
+#[cfg(feature = "__internal_serde")]
+use serde::{Deserialize, Serialize};
 use static_assertions::const_assert;
 
 #[cfg(feature = "instr_info")]
@@ -938,6 +940,7 @@ impl Register {
 /// A register
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 #[allow(missing_docs)]
 pub enum Register {
 	None = 0,
@@ -1190,25 +1193,25 @@ pub enum Register {
 	TMM6 = 247,
 	TMM7 = 248,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUse0 = 249,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFA = 250,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFB = 251,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFC = 252,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFD = 253,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFE = 254,
 	/// Don't use it!
-	#[deprecated(since = "1.12.0", note = "Not part of the public API")]
+	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFF = 255,
 }
 #[rustfmt::skip]

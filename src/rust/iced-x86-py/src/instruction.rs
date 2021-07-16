@@ -5,11 +5,13 @@ use crate::enum_utils::{to_code, to_code_size, to_op_kind, to_register, to_rep_p
 use crate::memory_operand::MemoryOperand;
 use crate::op_code_info::OpCodeInfo;
 use crate::utils::{get_temporary_byte_array_ref, to_value_error};
+use bincode::{deserialize, serialize};
 use core::hash::{Hash, Hasher};
 use pyo3::class::basic::CompareOp;
 use pyo3::class::PySequenceProtocol;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
+use pyo3::types::PyBytes;
 use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 
@@ -152,7 +154,7 @@ use std::collections::hash_map::DefaultHasher;
 /// M      Always show the memory size (eg. ``BYTE PTR``) even when not needed
 /// _      Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (ignored by fast fmt)
 /// ====== =============================================================================
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(/)")]
 #[derive(Copy, Clone)]
 pub(crate) struct Instruction {
@@ -164,6 +166,31 @@ impl Instruction {
 	#[new]
 	pub(crate) fn new() -> Self {
 		Self { instr: iced_x86::Instruction::default() }
+	}
+
+	/// Set the internal state with the given unpickled state.
+	///
+	/// Args:
+	///     state (Any): unpickled state
+	#[pyo3(text_signature = "($self, state, /)")]
+	fn __setstate__(&mut self, py: Python<'_>, state: PyObject) -> PyResult<()> {
+		match state.extract::<&PyBytes>(py) {
+			Ok(s) => {
+				self.instr = deserialize(s.as_bytes()).map_err(to_value_error)?;
+				Ok(())
+			}
+			Err(e) => Err(e),
+		}
+	}
+
+	/// Get the unpickled state corresponding to the instruction.
+	///
+	/// Returns:
+	///     int: (``bytes``) The unpickled state
+	#[pyo3(text_signature = "($self, /)")]
+	fn __getstate__(&self, py: Python<'_>) -> PyResult<PyObject> {
+		let state = PyBytes::new(py, &serialize(&self.instr).map_err(to_value_error)?).to_object(py);
+		Ok(state)
 	}
 
 	/// Returns a copy of this instance.
@@ -4989,7 +5016,7 @@ impl Instruction {
 ///     `increment` (int): (``i32``) Used if `writes_top` is ``True``. Value added to ``TOP``.
 ///     `conditional` (bool): ``True`` if it's a conditional push/pop (eg. ``FPTAN`` or ``FSINCOS``)
 ///     `writes_top` (bool): ``True`` if ``TOP`` is written (it's a conditional/unconditional push/pop, ``FNSAVE``, ``FLDENV``, etc)
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(increment, conditional, writes_top, /)")]
 pub(crate) struct FpuStackIncrementInfo {
 	info: iced_x86::FpuStackIncrementInfo,

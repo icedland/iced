@@ -6,7 +6,7 @@ use crate::memory_size_info::MemorySizeInfo;
 use pyo3::prelude::*;
 
 /// :class:`MemorySize` enum extension methods, see also :class:`MemorySizeInfo`
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(/)")]
 pub(crate) struct MemorySizeExt {}
 

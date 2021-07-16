@@ -158,7 +158,7 @@ namespace Generator.Misc.Python {
 			var classes = GetClasses();
 			foreach (var pyClass in classes) {
 				var pyClassAttr = pyClass.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.PyClass);
-				const string expectedPyClassAttr = "#[pyclass(module = \"_iced_x86_py\")]";
+				const string expectedPyClassAttr = "#[pyclass(module = \"iced_x86._iced_x86_py\")]";
 				if (pyClassAttr?.Text != expectedPyClassAttr)
 					throw GetException($"Class {pyClass.Name}: Expected this #[pyclass] attribute: {expectedPyClassAttr}");
 
@@ -449,7 +449,7 @@ namespace Generator.Misc.Python {
 
 			bool isSpecial = name.StartsWith("__", StringComparison.Ordinal) &&
 				name.EndsWith("__", StringComparison.Ordinal) &&
-				name != "__copy__" && name != "__deepcopy__";
+				name != "__copy__" && name != "__deepcopy__" && name != "__getstate__";
 
 			fullLine = ParseMethodArgsAndRetType(fullLine, line, isInstanceMethod, isSpecial || name == "__deepcopy__", out var args, out var rustReturnType);
 			if (!TryCreateDocComments(DocComments, out var docComments, out var error))

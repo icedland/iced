@@ -10,7 +10,7 @@ use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 
 /// A register used by an instruction
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[derive(Copy, Clone)]
 pub(crate) struct UsedRegister {
 	info: iced_x86::UsedRegister,
@@ -83,7 +83,7 @@ impl PyObjectProtocol for UsedRegister {
 }
 
 /// A memory location used by an instruction
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[derive(Copy, Clone)]
 pub(crate) struct UsedMemory {
 	info: iced_x86::UsedMemory,
@@ -204,7 +204,7 @@ impl PyObjectProtocol for UsedMemory {
 }
 
 /// Contains accessed registers and memory locations
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 pub(crate) struct InstructionInfo {
 	info: iced_x86::InstructionInfo,
 }
@@ -337,7 +337,7 @@ impl InstructionInfo {
 ///     Used register: reg=RDI access=READ
 ///     Used register: reg=R12 access=READ
 ///     Used register: reg=ESI access=READ
-#[pyclass(module = "_iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py")]
 #[pyo3(text_signature = "(/)")]
 pub(crate) struct InstructionInfoFactory {
 	info: iced_x86::InstructionInfoFactory,

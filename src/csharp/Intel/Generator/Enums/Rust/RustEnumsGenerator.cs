@@ -176,6 +176,8 @@ namespace Generator.Enums.Rust {
 			var enumTypeName = enumType.Name(idConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
+			if (enumType.IsPublic)
+				writer.WriteLine("#[cfg_attr(feature = \"__internal_serde\", derive(Serialize, Deserialize))]");
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
 			if (!enumType.IsPublic)
@@ -188,7 +190,7 @@ namespace Generator.Enums.Rust {
 				uint expectedValue = 0;
 				foreach (var value in enumValues) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
-					deprecatedWriter.WriteDeprecated(writer, value);
+					deprecatedWriter.WriteDeprecated(writer, value, "__internal_serde");
 					if (expectedValue != value.Value || enumType.IsPublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
