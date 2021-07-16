@@ -4,6 +4,7 @@
 use pyo3::exceptions::{PyTypeError, PyValueError};
 use pyo3::prelude::*;
 use pyo3::types::{PyByteArray, PyBytes};
+use std::fmt::Display;
 
 /// Gets a ref to the bytes or an error. It assumes the input data is not modified
 /// if it's mutable (eg. if it's a `bytearray`)
@@ -19,6 +20,6 @@ pub(crate) unsafe fn get_temporary_byte_array_ref(data: &PyAny) -> PyResult<&[u8
 }
 
 #[inline(never)]
-pub(crate) fn to_value_error(error: iced_x86::IcedError) -> PyErr {
+pub(crate) fn to_value_error<S: Display>(error: S) -> PyErr {
 	PyValueError::new_err(format!("{}", error))
 }

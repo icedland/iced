@@ -176,7 +176,7 @@ impl Instruction {
 	fn __setstate__(&mut self, py: Python<'_>, state: PyObject) -> PyResult<()> {
 		match state.extract::<&PyBytes>(py) {
 			Ok(s) => {
-				self.instr = deserialize(s.as_bytes()).unwrap();
+				self.instr = deserialize(s.as_bytes()).map_err(to_value_error)?;
 				Ok(())
 			}
 			Err(e) => Err(e),
@@ -189,7 +189,7 @@ impl Instruction {
 	///     int: (``bytes``) The unpickled state
 	#[pyo3(text_signature = "($self, /)")]
 	fn __getstate__(&self, py: Python<'_>) -> PyResult<PyObject> {
-		let state = PyBytes::new(py, &serialize(&self.instr).unwrap()).to_object(py);
+		let state = PyBytes::new(py, &serialize(&self.instr).map_err(to_value_error)?).to_object(py);
 		Ok(state)
 	}
 
