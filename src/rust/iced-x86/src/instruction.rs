@@ -12,8 +12,6 @@ use core::fmt;
 use core::hash::{Hash, Hasher};
 use core::iter::{ExactSizeIterator, FusedIterator};
 use core::{mem, slice, u16, u32, u64};
-#[cfg(feature = "__internal_serde")]
-use serde::{Deserialize, Serialize};
 use static_assertions::{const_assert, const_assert_eq};
 
 // GENERATOR-BEGIN: InstrFlags1
@@ -47,7 +45,6 @@ impl InstrFlags1 {
 ///
 /// [`Decoder`]: struct.Decoder.html
 #[derive(Debug, Default, Copy, Clone)]
-#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub struct Instruction {
 	pub(crate) next_rip: u64,
 	pub(crate) flags1: u32, // InstrFlags1
@@ -10542,3 +10539,295 @@ impl Iterator for OpKindIterator {
 
 impl ExactSizeIterator for OpKindIterator {}
 impl FusedIterator for OpKindIterator {}
+
+// All the enums have generated ser/de implementations without using the proc-macro. This is the only one left
+// that is needed to completely remove serde proc-macro.
+#[cfg(feature = "__internal_serde")]
+const _: () = {
+	use core::convert::TryFrom;
+	use core::marker::PhantomData;
+	#[cfg(not(feature = "std"))]
+	use hashbrown::HashMap;
+	use lazy_static::lazy_static;
+	use serde::de;
+	use serde::ser::SerializeStruct;
+	use serde::{Deserialize, Deserializer, Serialize, Serializer};
+	#[cfg(feature = "std")]
+	use std::collections::HashMap;
+	#[allow(non_camel_case_types)]
+	#[derive(Copy, Clone)]
+	enum StructField {
+		next_rip,
+		flags1,
+		immediate,
+		mem_displ,
+		mem_displ_hi,
+		code,
+		mem_base_reg,
+		mem_index_reg,
+		regs,
+		op_kinds,
+		scale,
+		displ_size,
+		len,
+		db,
+	}
+	const NUM_STRUCT_FIELDS: usize = StructField::db as usize + 1;
+	const FIELDS: &[&str] = &[
+		"next_rip",
+		"flags1",
+		"immediate",
+		"mem_displ",
+		"mem_displ_hi",
+		"code",
+		"mem_base_reg",
+		"mem_index_reg",
+		"regs",
+		"op_kinds",
+		"scale",
+		"displ_size",
+		"len",
+		"db",
+	];
+	const_assert_eq!(FIELDS.len(), NUM_STRUCT_FIELDS);
+	impl StructField {
+		#[inline]
+		fn values() -> impl Iterator<Item = StructField> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
+			// SAFETY: all values 0-max are valid enum values
+			(0..NUM_STRUCT_FIELDS).map(|x| unsafe { mem::transmute::<u8, StructField>(x as u8) })
+		}
+	}
+	lazy_static! {
+		static ref NAME_TO_FIELD: HashMap<&'static [u8], StructField> = FIELDS.iter().map(|&s| s.as_bytes()).zip(StructField::values()).collect();
+	}
+	impl TryFrom<usize> for StructField {
+		type Error = &'static str;
+		#[inline]
+		fn try_from(value: usize) -> Result<Self, Self::Error> {
+			if value < NUM_STRUCT_FIELDS {
+				// SAFETY: all values 0-max are valid enum values
+				Ok(unsafe { mem::transmute(value as u8) })
+			} else {
+				Err("Invalid struct field")
+			}
+		}
+	}
+	impl Serialize for Instruction {
+		#[allow(clippy::missing_inline_in_public_items)]
+		fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+		where
+			S: Serializer,
+		{
+			let mut serde_state = serializer.serialize_struct("Instruction", NUM_STRUCT_FIELDS)?;
+			let mut fields = 0;
+			macro_rules! serialize {
+				($field:ident) => {
+					serde_state.serialize_field(stringify!($field), &self.$field)?;
+					fields += 1;
+				};
+			}
+			serialize!(next_rip);
+			serialize!(flags1);
+			serialize!(immediate);
+			serialize!(mem_displ);
+			serialize!(mem_displ_hi);
+			serialize!(code);
+			serialize!(mem_base_reg);
+			serialize!(mem_index_reg);
+			serialize!(regs);
+			serialize!(op_kinds);
+			serialize!(scale);
+			serialize!(displ_size);
+			serialize!(len);
+			serialize!(db);
+			debug_assert_eq!(fields, NUM_STRUCT_FIELDS);
+			serde_state.end()
+		}
+	}
+	impl<'de> Deserialize<'de> for Instruction {
+		#[inline]
+		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+		where
+			D: Deserializer<'de>,
+		{
+			struct StructFieldVisitor;
+			impl<'de> de::Visitor<'de> for StructFieldVisitor {
+				type Value = StructField;
+				#[inline]
+				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+					formatter.write_str("field identifier")
+				}
+				#[inline]
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
+				where
+					E: de::Error,
+				{
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <StructField as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
+					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid Instruction field value"))
+				}
+				#[inline]
+				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+				where
+					E: de::Error,
+				{
+					StructFieldVisitor::deserialize_name(v.as_bytes())
+				}
+				#[inline]
+				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
+				where
+					E: de::Error,
+				{
+					StructFieldVisitor::deserialize_name(v)
+				}
+			}
+			impl StructFieldVisitor {
+				#[inline]
+				fn deserialize_name<E>(v: &[u8]) -> Result<StructField, E>
+				where
+					E: de::Error,
+				{
+					if let Some(&value) = NAME_TO_FIELD.get(v) {
+						Ok(value)
+					} else {
+						Err(de::Error::unknown_field(&String::from_utf8_lossy(v), &["Instruction fields"][..]))
+					}
+				}
+			}
+			impl<'de> Deserialize<'de> for StructField {
+				#[inline]
+				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+				where
+					D: Deserializer<'de>,
+				{
+					deserializer.deserialize_identifier(StructFieldVisitor)
+				}
+			}
+			struct Visitor<'de> {
+				marker: PhantomData<Instruction>,
+				lifetime: PhantomData<&'de ()>,
+			}
+			impl<'de> de::Visitor<'de> for Visitor<'de> {
+				type Value = Instruction;
+				#[inline]
+				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+					formatter.write_str("struct Instruction")
+				}
+				#[allow(clippy::missing_inline_in_public_items)]
+				#[allow(clippy::eval_order_dependence)]
+				fn visit_seq<A>(self, mut seq: A) -> Result<Self::Value, A::Error>
+				where
+					A: de::SeqAccess<'de>,
+				{
+					let mut fields = 0;
+					macro_rules! next_element {
+						($field_name:ident : $field_ty:ty) => {{
+							fields += 1;
+							match seq.next_element::<$field_ty>()? {
+								Some(value) => value,
+								None => return Err(de::Error::invalid_length(fields, &"struct Instruction with all its fields")),
+							}
+						}};
+					}
+					let instruction = Instruction {
+						next_rip: next_element!(next_rip: u64),
+						flags1: next_element!(flags1: u32),
+						immediate: next_element!(immediate: u32),
+						mem_displ: next_element!(mem_displ: u32),
+						mem_displ_hi: next_element!(mem_displ_hi: u32),
+						code: next_element!(code: Code),
+						mem_base_reg: next_element!(mem_base_reg: Register),
+						mem_index_reg: next_element!(mem_index_reg: Register),
+						regs: next_element!(regs: [Register; 4]),
+						op_kinds: next_element!(op_kinds: [OpKind; 4]),
+						scale: next_element!(scale: InstrScale),
+						displ_size: next_element!(displ_size: u8),
+						len: next_element!(len: u8),
+						db: next_element!(db: u8),
+					};
+					debug_assert_eq!(fields, NUM_STRUCT_FIELDS);
+					Ok(instruction)
+				}
+				#[allow(clippy::missing_inline_in_public_items)]
+				#[allow(clippy::eval_order_dependence)]
+				fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+				where
+					A: de::MapAccess<'de>,
+				{
+					let mut next_rip: Option<u64> = None;
+					let mut flags1: Option<u32> = None;
+					let mut immediate: Option<u32> = None;
+					let mut mem_displ: Option<u32> = None;
+					let mut mem_displ_hi: Option<u32> = None;
+					let mut code: Option<Code> = None;
+					let mut mem_base_reg: Option<Register> = None;
+					let mut mem_index_reg: Option<Register> = None;
+					let mut regs: Option<[Register; 4]> = None;
+					let mut op_kinds: Option<[OpKind; 4]> = None;
+					let mut scale: Option<InstrScale> = None;
+					let mut displ_size: Option<u8> = None;
+					let mut len: Option<u8> = None;
+					let mut db: Option<u8> = None;
+					while let Some(field) = map.next_key::<StructField>()? {
+						macro_rules! unpack {
+							($field:ident : $field_ty:ty) => {{
+								if $field.is_some() {
+									return Err(<A::Error as de::Error>::duplicate_field(stringify!($field)));
+								}
+								$field = Some(map.next_value::<$field_ty>()?);
+							}};
+						}
+						match field {
+							StructField::next_rip => unpack!(next_rip: u64),
+							StructField::flags1 => unpack!(flags1: u32),
+							StructField::immediate => unpack!(immediate: u32),
+							StructField::mem_displ => unpack!(mem_displ: u32),
+							StructField::mem_displ_hi => unpack!(mem_displ_hi: u32),
+							StructField::code => unpack!(code: Code),
+							StructField::mem_base_reg => unpack!(mem_base_reg: Register),
+							StructField::mem_index_reg => unpack!(mem_index_reg: Register),
+							StructField::regs => unpack!(regs: [Register; 4]),
+							StructField::op_kinds => unpack!(op_kinds: [OpKind; 4]),
+							StructField::scale => unpack!(scale: InstrScale),
+							StructField::displ_size => unpack!(displ_size: u8),
+							StructField::len => unpack!(len: u8),
+							StructField::db => unpack!(db: u8),
+						}
+					}
+					let mut fields = 0;
+					macro_rules! unpack_field {
+						($field:ident) => {{
+							fields += 1;
+							match $field {
+								Some(value) => value,
+								None => return Err(<A::Error as de::Error>::missing_field(stringify!($field))),
+							}
+						}};
+					}
+					let instruction = Instruction {
+						next_rip: unpack_field!(next_rip),
+						flags1: unpack_field!(flags1),
+						immediate: unpack_field!(immediate),
+						mem_displ: unpack_field!(mem_displ),
+						mem_displ_hi: unpack_field!(mem_displ_hi),
+						code: unpack_field!(code),
+						mem_base_reg: unpack_field!(mem_base_reg),
+						mem_index_reg: unpack_field!(mem_index_reg),
+						regs: unpack_field!(regs),
+						op_kinds: unpack_field!(op_kinds),
+						scale: unpack_field!(scale),
+						displ_size: unpack_field!(displ_size),
+						len: unpack_field!(len),
+						db: unpack_field!(db),
+					};
+					debug_assert_eq!(fields, NUM_STRUCT_FIELDS);
+					Ok(instruction)
+				}
+			}
+			deserializer.deserialize_struct("Instruction", FIELDS, Visitor { marker: PhantomData::<Instruction>, lifetime: PhantomData })
+		}
+	}
+};

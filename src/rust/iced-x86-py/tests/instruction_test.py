@@ -1208,10 +1208,24 @@ def test_fpu_stack_increment_info():
 	assert not info.conditional
 	assert info.writes_top
 
-def test_pickle():
-	decoder = Decoder(64, b"\xC4\xE3\x49\x48\x10\x41", ip=0x1234_5678_9ABC_DEF1)
+@pytest.mark.parametrize("bitness, data", [
+	(32, b"\xC4\xE3\x49\x48\x10\x41"),
+	(64, b"\x62\x92\x7D\x01\xA0\xB4\xF4\x34\x12\x5A\xA5"),
+	(64, b"\xC4\xE3\x49\x48\xD3\x40"),
+])
+def test_pickle(bitness, data):
+	decoder = Decoder(bitness, data, ip=0x1234_5678_9ABC_DEF1)
 	instr = decoder.decode()
+	assert not instr.is_invalid
+	assert not decoder.can_decode
+
 	dump = pickle.dumps(instr)
 	instr2 = pickle.loads(dump)
+	assert instr.eq_all_bits(instr2)
 
+def test_pickle_db():
+	instr = Instruction.create_declare_byte(b"\x9E\x75\x1F\x88\xE7\x24\x11\xEB\x96\x4D\x17\x08\x2E\x83\x5B\xA5")
+	assert instr.declare_data_len == 16
+	dump = pickle.dumps(instr)
+	instr2 = pickle.loads(dump)
 	assert instr.eq_all_bits(instr2)

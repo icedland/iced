@@ -276,6 +276,8 @@ namespace Generator.Enums.Rust {
 				using (writer.Indent()) {
 					writer.WriteLine($"/// Iterates over all `{enumTypeName}` enum values");
 					writer.WriteLine("#[inline]");
+					if (!enumType.IsPublic)
+						writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 					writer.WriteLine($"{pub}fn values() -> impl Iterator<Item = {enumTypeName}> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {{");
 					using (writer.Indent()) {
 						if (enumType.Values.Length == 1) {

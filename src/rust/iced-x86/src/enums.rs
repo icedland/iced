@@ -3867,6 +3867,7 @@ pub(crate) type InstrScaleUnderlyingType = u8;
 impl InstrScale {
 	/// Iterates over all `InstrScale` enum values
 	#[inline]
+	#[allow(dead_code)]
 	pub(crate) fn values() -> impl Iterator<Item = InstrScale> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
 		// SAFETY: all values 0-max are valid enum values
 		(0..4).map(|x| unsafe { mem::transmute::<u8, InstrScale>(x as u8) })
