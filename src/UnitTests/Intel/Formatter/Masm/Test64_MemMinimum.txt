@@ -8950,11 +8950,11 @@ vmovsh xmm2, xmm6, xmm3
 vmovsh xmm3, xmm6, xmm2
 vmovw xmm2, ebx
 vmovw xmm2, [rax+2]
-vmovw xmm2, rbx
+vmovw xmm2, ebx
 vmovw xmm2, [rax+2]
 vmovw ebx, xmm2
 vmovw [rax+2], xmm2
-vmovw rbx, xmm2
+vmovw ebx, xmm2
 vmovw [rax+2], xmm2
 vmulph xmm2{k3}, xmm6, xmm3
 vmulph xmm2{k3}, xmm6, [rax+10h]

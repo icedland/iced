@@ -8950,11 +8950,11 @@ vmovsh %xmm3,%xmm6,%xmm2
 vmovsh %xmm2,%xmm6,%xmm3
 vmovw %ebx,%xmm2
 vmovw 2(%rax),%xmm2
-vmovw %rbx,%xmm2
+vmovw %ebx,%xmm2
 vmovw 2(%rax),%xmm2
 vmovw %xmm2,%ebx
 vmovw %xmm2,2(%rax)
-vmovw %xmm2,%rbx
+vmovw %xmm2,%ebx
 vmovw %xmm2,2(%rax)
 vmulph %xmm3,%xmm6,%xmm2{%k3}
 vmulph 0x10(%rax),%xmm6,%xmm2{%k3}

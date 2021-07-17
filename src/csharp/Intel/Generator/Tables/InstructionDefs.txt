@@ -31156,7 +31156,10 @@ INSTRUCTION: EVEX.128.66.MAP5.W0 6E /r | VMOVW xmm1, r32/m16 | AVX512_FP16 | N2
 	ops: w=reg r=rm | UInt16
 	implied: last-gpr-16
 	flags: wig32
-	masm: flags=force-size=default
+	gas: reg32
+	intel: reg32
+	masm: flags=force-size=default reg32
+	nasm: reg32
 END
 
 # Code: EVEX_Vmovw_xmm_r64m16
@@ -31164,21 +31167,30 @@ INSTRUCTION: EVEX.128.66.MAP5.W1 6E /r | VMOVW xmm1, r64/m16 | AVX512_FP16 | N2
 	ops: w=reg r=rm | UInt16
 	implied: last-gpr-16
 	flags: 64
-	masm: flags=force-size=default
+	gas: reg32
+	intel: reg32
+	masm: flags=force-size=default reg32
+	nasm: reg32
 END
 
 # Code: EVEX_Vmovw_r32m16_xmm
 INSTRUCTION: EVEX.128.66.MAP5.W0 7E /r | VMOVW r32/m16, xmm1 | AVX512_FP16 | N2
 	ops: w=rm r=reg | UInt16
 	flags: wig32
-	masm: flags=force-size=default
+	gas: reg32
+	intel: reg32
+	masm: flags=force-size=default reg32
+	nasm: reg32
 END
 
 # Code: EVEX_Vmovw_r64m16_xmm
 INSTRUCTION: EVEX.128.66.MAP5.W1 7E /r | VMOVW r64/m16, xmm1 | AVX512_FP16 | N2
 	ops: w=rm r=reg | UInt16
 	flags: 64
-	masm: flags=force-size=default
+	gas: reg32
+	intel: reg32
+	masm: flags=force-size=default reg32
+	nasm: reg32
 END
 
 # Code: EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16

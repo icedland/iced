@@ -18883,7 +18883,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovw_xmm_r32m16
-	0x81,// 'v', Normal_1
+	0xAA,// 'v', Reg32
 	0xA7, 0x0C,// 1575 = "vmovw"
 
 	// EVEX_Vmovw_xmm_r64m16

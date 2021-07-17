@@ -16964,7 +16964,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0xA6, 0x0C,// 1574 = "vmovsh"
 
 				// EVEX_Vmovw_xmm_r32m16
-				0x82,// 'v', Normal_2
+				0xAC,// 'v', Reg32
 				0xA7, 0x0C,// 1575 = "vmovw"
 				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
