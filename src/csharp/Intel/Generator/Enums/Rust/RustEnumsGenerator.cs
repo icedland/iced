@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Generator.Constants;
 using Generator.Constants.Rust;
-using Generator.Documentation;
 using Generator.Documentation.Rust;
 using Generator.IO;
 
@@ -86,6 +85,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.OpCodeTableKind, new PartialEnumFileInfo("OpCodeTableKind", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureOpCodeInfo, RustConstants.AttributeNonExhaustive }));
 			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("RoundingControl", dirs.GetRustFilename("enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("OpKind", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.InstrScale, new PartialEnumFileInfo("InstrScale", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.InstrFlags1, new PartialEnumFileInfo("InstrFlags1", dirs.GetRustFilename("instruction.rs")));
 			toPartialFileInfo.Add(TypeIds.VectorLength, new PartialEnumFileInfo("VectorLength", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureDecoderOrEncoder, RustConstants.AttrReprU32 }));
 			toPartialFileInfo.Add(TypeIds.MandatoryPrefixByte, new PartialEnumFileInfo("MandatoryPrefixByte", dirs.GetRustFilename("enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureEncoder }));
@@ -172,12 +172,12 @@ namespace Generator.Enums.Rust {
 		}
 
 		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
+			// Some private enums are known by the serializer/deserializer so they need extra code generated that all public enums also get
+			bool isSerializePublic = enumType.TypeId == TypeIds.InstrScale;
 			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 			var enumTypeName = enumType.Name(idConverter);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
-			if (enumType.IsPublic)
-				writer.WriteLine("#[cfg_attr(feature = \"__internal_serde\", derive(Serialize, Deserialize))]");
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
 			if (!enumType.IsPublic)
@@ -191,7 +191,7 @@ namespace Generator.Enums.Rust {
 				foreach (var value in enumValues) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					deprecatedWriter.WriteDeprecated(writer, value, "__internal_serde");
-					if (expectedValue != value.Value || enumType.IsPublic)
+					if (expectedValue != value.Value || enumType.IsPublic || isSerializePublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
 						writer.WriteLine($"{value.Name(idConverter)},");
@@ -246,9 +246,19 @@ namespace Generator.Enums.Rust {
 			}
 			writer.WriteLine("}");
 
-			if (enumType.IsPublic) {
+			if (enumType.IsPublic || isSerializePublic) {
+				// Verify what we assume in the following code (base 0, no holes)
+				for (int i = 0; i < enumType.Values.Length; i++) {
+					if ((uint)i != enumType.Values[i].Value)
+						throw new InvalidOperationException();
+				}
+
 				var enumIterType = $"{enumTypeName}Iterator";
-				var icedConstValue = "IcedConstants::" + idConverter.Constant(IcedConstants.GetEnumCountName(enumType.TypeId));
+				string icedConstValue;
+				if (enumType.IsPublic)
+					icedConstValue = "IcedConstants::" + idConverter.Constant(IcedConstants.GetEnumCountName(enumType.TypeId));
+				else
+					icedConstValue = enumType.Values.Length.ToString();
 				var enumUnderlyingType = GetUnderlyingTypeStr(enumType);
 
 				if (feature is not null)
@@ -266,7 +276,7 @@ namespace Generator.Enums.Rust {
 				using (writer.Indent()) {
 					writer.WriteLine($"/// Iterates over all `{enumTypeName}` enum values");
 					writer.WriteLine("#[inline]");
-					writer.WriteLine($"pub fn values() -> impl Iterator<Item = {enumTypeName}> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {{");
+					writer.WriteLine($"{pub}fn values() -> impl Iterator<Item = {enumTypeName}> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {{");
 					using (writer.Indent()) {
 						if (enumType.Values.Length == 1) {
 							writer.WriteLine($"static VALUES: [{enumTypeName}; 1] = [{enumTypeName}::{enumType.Values[0].Name(idConverter)}];");
@@ -358,6 +368,180 @@ namespace Generator.Enums.Rust {
 					}
 					writer.WriteLine("}");
 				}
+
+				// Generate serialization/deserialization code. We don't let serde do that since it generates highly inefficient
+				// code for all fieldless enums. That results in horrible compilation times when compiling the Python wheel:
+				// serde: 3:23m; this code: 1:36m; saving almost 2m of compilation time.
+				// It also results in a smaller binary. The runtime perf is likely better too (did not test) due to more efficient code.
+				writer.WriteLine("#[cfg(feature = \"__internal_serde\")]");
+				if (feature is not null)
+					writer.WriteLine(feature);
+				writer.WriteLine("#[rustfmt::skip]");
+				writer.WriteLine("#[allow(clippy::zero_sized_map_values)]");
+				writer.WriteLine("const _: () = {");
+				using (writer.Indent()) {
+					writer.WriteLine("use core::marker::PhantomData;");
+					writer.WriteLine("#[cfg(not(feature = \"std\"))]");
+					writer.WriteLine("use hashbrown::HashMap;");
+					writer.WriteLine("use lazy_static::lazy_static;");
+					writer.WriteLine("use serde::de::{self, VariantAccess};");
+					writer.WriteLine("use serde::{Deserialize, Deserializer, Serialize, Serializer};");
+					writer.WriteLine("#[cfg(feature = \"std\")]");
+					writer.WriteLine("use std::collections::HashMap;");
+					writer.WriteLine("lazy_static! {");
+					using (writer.Indent())
+						writer.WriteLine($"static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = {arrayName}.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();");
+					writer.WriteLine("}");
+					writer.WriteLine($"type EnumType = {enumTypeName};");
+					writer.WriteLine("impl Serialize for EnumType {");
+					using (writer.Indent()) {
+						writer.WriteLine("#[inline]");
+						writer.WriteLine("fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>");
+						writer.WriteLine("where");
+						using (writer.Indent())
+							writer.WriteLine("S: Serializer,");
+						writer.WriteLine("{");
+						using (writer.Indent())
+							writer.WriteLine($"serializer.serialize_unit_variant(\"{enumTypeName}\", *self as u32, {arrayName}[*self as usize])");
+						writer.WriteLine("}");
+					}
+					writer.WriteLine("}");
+					writer.WriteLine("impl<'de> Deserialize<'de> for EnumType {");
+					using (writer.Indent()) {
+						writer.WriteLine("#[inline]");
+						writer.WriteLine("fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>");
+						writer.WriteLine("where");
+						using (writer.Indent())
+							writer.WriteLine("D: Deserializer<'de>,");
+						writer.WriteLine("{");
+						using (writer.Indent()) {
+							if (enumType.Values.Length > 1)
+								writer.WriteLine("#[repr(transparent)]");
+							writer.WriteLine("struct EnumValue(EnumType);");
+							writer.WriteLine("struct EnumValueVisitor;");
+							writer.WriteLine("impl<'de> de::Visitor<'de> for EnumValueVisitor {");
+							using (writer.Indent()) {
+								writer.WriteLine("type Value = EnumValue;");
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {");
+								using (writer.Indent())
+									writer.WriteLine("formatter.write_str(\"variant identifier\")");
+								writer.WriteLine("}");
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>");
+								writer.WriteLine("where");
+								using (writer.Indent())
+									writer.WriteLine("E: de::Error,");
+								writer.WriteLine("{");
+								using (writer.Indent()) {
+									writer.WriteLine("if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {");
+									using (writer.Indent()) {
+										writer.WriteLine("if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {");
+										using (writer.Indent())
+											writer.WriteLine("return Ok(EnumValue(value));");
+										writer.WriteLine("}");
+									}
+									writer.WriteLine("}");
+									writer.WriteLine($"Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &\"Invalid {enumTypeName} variant value\"))");
+								}
+								writer.WriteLine("}");
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>");
+								writer.WriteLine("where");
+								using (writer.Indent())
+									writer.WriteLine("E: de::Error,");
+								writer.WriteLine("{");
+								using (writer.Indent())
+									writer.WriteLine("EnumValueVisitor::deserialize_name(v.as_bytes())");
+								writer.WriteLine("}");
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>");
+								writer.WriteLine("where");
+								using (writer.Indent())
+									writer.WriteLine("E: de::Error,");
+								writer.WriteLine("{");
+								using (writer.Indent())
+									writer.WriteLine("EnumValueVisitor::deserialize_name(v)");
+								writer.WriteLine("}");
+							}
+							writer.WriteLine("}");
+							writer.WriteLine("impl EnumValueVisitor {");
+							using (writer.Indent()) {
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>");
+								writer.WriteLine("where");
+								using (writer.Indent())
+									writer.WriteLine("E: de::Error,");
+								writer.WriteLine("{");
+								using (writer.Indent()) {
+									writer.WriteLine("if let Some(&value) = NAME_TO_ENUM.get(v) {");
+									using (writer.Indent())
+										writer.WriteLine("Ok(EnumValue(value))");
+									writer.WriteLine("} else {");
+									using (writer.Indent())
+										writer.WriteLine($"Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &[\"{enumTypeName} enum variants\"][..]))");
+									writer.WriteLine("}");
+								}
+								writer.WriteLine("}");
+							}
+							writer.WriteLine("}");
+							writer.WriteLine("impl<'de> Deserialize<'de> for EnumValue {");
+							using (writer.Indent()) {
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>");
+								writer.WriteLine("where");
+								using (writer.Indent())
+									writer.WriteLine("D: Deserializer<'de>,");
+								writer.WriteLine("{");
+								using (writer.Indent())
+									writer.WriteLine("deserializer.deserialize_identifier(EnumValueVisitor)");
+								writer.WriteLine("}");
+							}
+							writer.WriteLine("}");
+							writer.WriteLine("struct Visitor<'de> {");
+							using (writer.Indent()) {
+								writer.WriteLine("marker: PhantomData<EnumType>,");
+								writer.WriteLine("lifetime: PhantomData<&'de ()>,");
+							}
+							writer.WriteLine("}");
+							writer.WriteLine("impl<'de> de::Visitor<'de> for Visitor<'de> {");
+							using (writer.Indent()) {
+								writer.WriteLine("type Value = EnumType;");
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {");
+								using (writer.Indent())
+									writer.WriteLine($"formatter.write_str(\"enum {enumTypeName}\")");
+								writer.WriteLine("}");
+								writer.WriteLine("#[inline]");
+								writer.WriteLine("fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>");
+								writer.WriteLine("where");
+								using (writer.Indent())
+									writer.WriteLine("A: de::EnumAccess<'de>,");
+								writer.WriteLine("{");
+								using (writer.Indent()) {
+									writer.WriteLine("let (field, variant): (EnumValue, _) = match data.variant() {");
+									using (writer.Indent()) {
+										writer.WriteLine("Ok(res) => res,");
+										writer.WriteLine("Err(err) => return Err(err),");
+									}
+									writer.WriteLine("};");
+									writer.WriteLine("match variant.unit_variant() {");
+									using (writer.Indent()) {
+										writer.WriteLine("Ok(_) => Ok(field.0),");
+										writer.WriteLine("Err(err) => Err(err),");
+									}
+									writer.WriteLine("}");
+								}
+								writer.WriteLine("}");
+							}
+							writer.WriteLine("}");
+							writer.WriteLine($"deserializer.deserialize_enum(\"{enumTypeName}\", &{arrayName}[..], Visitor {{ marker: PhantomData::<EnumType>, lifetime: PhantomData }})");
+						}
+						writer.WriteLine("}");
+					}
+					writer.WriteLine("}");
+				}
+				writer.WriteLine("};");
 			}
 		}
 

@@ -10,8 +10,6 @@ use crate::*;
 use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
-#[cfg(feature = "__internal_serde")]
-use serde::{Deserialize, Serialize};
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 use static_assertions::const_assert_eq;
 
@@ -21,7 +19,6 @@ use static_assertions::const_assert_eq;
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
 #[allow(non_camel_case_types)]
-#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum Code {
 	/// It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.
 	INVALID = 0,
@@ -41133,6 +41130,124 @@ fn test_code_try_from_usize() {
 	assert!(<Code as TryFrom<usize>>::try_from(IcedConstants::CODE_ENUM_COUNT).is_err());
 	assert!(<Code as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
+#[cfg(feature = "__internal_serde")]
+#[rustfmt::skip]
+#[allow(clippy::zero_sized_map_values)]
+const _: () = {
+	use core::marker::PhantomData;
+	#[cfg(not(feature = "std"))]
+	use hashbrown::HashMap;
+	use lazy_static::lazy_static;
+	use serde::de::{self, VariantAccess};
+	use serde::{Deserialize, Deserializer, Serialize, Serializer};
+	#[cfg(feature = "std")]
+	use std::collections::HashMap;
+	lazy_static! {
+		static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = GEN_DEBUG_CODE.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();
+	}
+	type EnumType = Code;
+	impl Serialize for EnumType {
+		#[inline]
+		fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+		where
+			S: Serializer,
+		{
+			serializer.serialize_unit_variant("Code", *self as u32, GEN_DEBUG_CODE[*self as usize])
+		}
+	}
+	impl<'de> Deserialize<'de> for EnumType {
+		#[inline]
+		fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+		where
+			D: Deserializer<'de>,
+		{
+			#[repr(transparent)]
+			struct EnumValue(EnumType);
+			struct EnumValueVisitor;
+			impl<'de> de::Visitor<'de> for EnumValueVisitor {
+				type Value = EnumValue;
+				#[inline]
+				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+					formatter.write_str("variant identifier")
+				}
+				#[inline]
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
+				where
+					E: de::Error,
+				{
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(EnumValue(value));
+						}
+					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid Code variant value"))
+				}
+				#[inline]
+				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+				where
+					E: de::Error,
+				{
+					EnumValueVisitor::deserialize_name(v.as_bytes())
+				}
+				#[inline]
+				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
+				where
+					E: de::Error,
+				{
+					EnumValueVisitor::deserialize_name(v)
+				}
+			}
+			impl EnumValueVisitor {
+				#[inline]
+				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
+				where
+					E: de::Error,
+				{
+					if let Some(&value) = NAME_TO_ENUM.get(v) {
+						Ok(EnumValue(value))
+					} else {
+						Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["Code enum variants"][..]))
+					}
+				}
+			}
+			impl<'de> Deserialize<'de> for EnumValue {
+				#[inline]
+				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+				where
+					D: Deserializer<'de>,
+				{
+					deserializer.deserialize_identifier(EnumValueVisitor)
+				}
+			}
+			struct Visitor<'de> {
+				marker: PhantomData<EnumType>,
+				lifetime: PhantomData<&'de ()>,
+			}
+			impl<'de> de::Visitor<'de> for Visitor<'de> {
+				type Value = EnumType;
+				#[inline]
+				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+					formatter.write_str("enum Code")
+				}
+				#[inline]
+				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				where
+					A: de::EnumAccess<'de>,
+				{
+					let (field, variant): (EnumValue, _) = match data.variant() {
+						Ok(res) => res,
+						Err(err) => return Err(err),
+					};
+					match variant.unit_variant() {
+						Ok(_) => Ok(field.0),
+						Err(err) => Err(err),
+					}
+				}
+			}
+			deserializer.deserialize_enum("Code", &GEN_DEBUG_CODE[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+		}
+	}
+};
 // GENERATOR-END: Code
 
 impl Code {

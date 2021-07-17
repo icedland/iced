@@ -77,6 +77,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.FormatterSyntax],
 				genTypes[TypeIds.RoundingControl],
 				genTypes[TypeIds.OpKind],
+				genTypes[TypeIds.InstrScale],
 				genTypes[TypeIds.InstrFlags1],
 				genTypes[TypeIds.VectorLength],
 				genTypes[TypeIds.MandatoryPrefixByte],

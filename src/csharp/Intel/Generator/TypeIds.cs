@@ -68,6 +68,7 @@ namespace Generator {
 		public static readonly TypeId FastFmtFlags = new TypeId(nameof(FastFmtFlags));
 		public static readonly TypeId RoundingControl = new TypeId(nameof(RoundingControl));
 		public static readonly TypeId OpKind = new TypeId(nameof(OpKind));
+		public static readonly TypeId InstrScale = new TypeId(nameof(InstrScale));
 		public static readonly TypeId InstrFlags1 = new TypeId(nameof(InstrFlags1));
 		public static readonly TypeId VectorLength = new TypeId(nameof(VectorLength));
 		public static readonly TypeId MandatoryPrefixByte = new TypeId(nameof(MandatoryPrefixByte));
