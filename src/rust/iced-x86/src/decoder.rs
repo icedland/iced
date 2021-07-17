@@ -25,6 +25,8 @@ use crate::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};
+#[cfg(feature = "__internal_serde")]
+use serde::{Deserialize, Serialize};
 use static_assertions::{const_assert, const_assert_eq};
 
 #[rustfmt::skip]
@@ -104,6 +106,7 @@ impl Default for OpSize {
 /// Decoder error
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum DecoderError {
 	/// No error. The last decoded instruction is a valid instruction
 	None = 0,

@@ -37,6 +37,7 @@ no_xop = []
 no_d3now = []
 # Don't use
 __internal_mem_vsib = []
+__internal_serde = ["serde"]
 
 [dependencies]
 # if: always
@@ -49,3 +50,4 @@ lazy_static = { version = "1.4.0", optional = true }
 # if: no_std and block_encoder
 # 0.11.0 requires MSRV 1.49.0 but we support 1.41.0
 hashbrown = { version = ">=0.9.0, <100.0.0", optional = true }
+serde = { version = "^1.0", optional = true, features = ["derive"] }

@@ -6,6 +6,8 @@ use crate::iced_error::IcedError;
 use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
+#[cfg(feature = "__internal_serde")]
+use serde::{Deserialize, Serialize};
 
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 pub use crate::memory_size::info::*;
@@ -386,6 +388,7 @@ mod info {
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
 #[allow(non_camel_case_types)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum MemorySize {
 	/// Unknown size or the instruction doesn't reference any memory (eg. `LEA`)
 	Unknown = 0,

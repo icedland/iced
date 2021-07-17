@@ -10,6 +10,8 @@ use crate::*;
 use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
+#[cfg(feature = "__internal_serde")]
+use serde::{Deserialize, Serialize};
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 use static_assertions::const_assert_eq;
 
@@ -19,6 +21,7 @@ use static_assertions::const_assert_eq;
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(not(feature = "exhaustive_enums"), non_exhaustive)]
 #[allow(non_camel_case_types)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub enum Code {
 	/// It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.
 	INVALID = 0,

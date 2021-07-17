@@ -12,6 +12,8 @@ use core::fmt;
 use core::hash::{Hash, Hasher};
 use core::iter::{ExactSizeIterator, FusedIterator};
 use core::{mem, slice, u16, u32, u64};
+#[cfg(feature = "__internal_serde")]
+use serde::{Deserialize, Serialize};
 use static_assertions::{const_assert, const_assert_eq};
 
 // GENERATOR-BEGIN: InstrFlags1
@@ -45,6 +47,7 @@ impl InstrFlags1 {
 ///
 /// [`Decoder`]: struct.Decoder.html
 #[derive(Debug, Default, Copy, Clone)]
+#[cfg_attr(feature = "__internal_serde", derive(Serialize, Deserialize))]
 pub struct Instruction {
 	pub(crate) next_rip: u64,
 	pub(crate) flags1: u32, // InstrFlags1
