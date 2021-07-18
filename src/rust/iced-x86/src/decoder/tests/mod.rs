@@ -6,6 +6,8 @@ mod decoder_test_case;
 pub(crate) mod enums;
 mod mem_test_parser;
 mod misc_tests;
+#[cfg(feature = "__internal_serde")]
+mod serde_tests;
 mod test_cases;
 mod test_parser;
 pub(crate) mod test_utils;
