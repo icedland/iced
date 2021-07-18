@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Generator.Constants;
 using Generator.Constants.Rust;
+using Generator.Documentation;
 using Generator.Documentation.Rust;
 using Generator.IO;
 
@@ -15,7 +16,7 @@ namespace Generator.Enums.Rust {
 		readonly IdentifierConverter idConverter;
 		readonly Dictionary<TypeId, PartialEnumFileInfo?> toPartialFileInfo;
 		readonly RustDocCommentWriter docWriter;
-		readonly RustDeprecatedWriter deprecatedWriter;
+		readonly DeprecatedWriter deprecatedWriter;
 		readonly RustConstantsWriter constantsWriter;
 
 		sealed class PartialEnumFileInfo {
@@ -190,7 +191,7 @@ namespace Generator.Enums.Rust {
 				uint expectedValue = 0;
 				foreach (var value in enumValues) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
-					deprecatedWriter.WriteDeprecated(writer, value, "serde");
+					deprecatedWriter.WriteDeprecated(writer, value);
 					if (expectedValue != value.Value || enumType.IsPublic || isSerializePublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else

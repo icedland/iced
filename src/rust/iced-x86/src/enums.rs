@@ -553,7 +553,7 @@ pub enum OpKind {
 	/// DEPRECATED. Use [`Memory`]
 	///
 	/// [`Memory`]: enum.OpKind.html#variant.Memory
-	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.11.0", note = "Don't use it!"))]
+	#[deprecated(since = "1.11.0", note = "Don't use it!")]
 	Memory64 = 24,
 	/// Memory operand.
 	///

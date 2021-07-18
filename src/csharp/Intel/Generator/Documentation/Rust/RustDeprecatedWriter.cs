@@ -12,35 +12,29 @@ namespace Generator.Documentation.Rust {
 		public RustDeprecatedWriter(IdentifierConverter idConverter) =>
 			this.idConverter = idConverter;
 
-		public override void WriteDeprecated(FileWriter writer, EnumValue value) =>
-			WriteDeprecated(writer, value, null);
-
-		public void WriteDeprecated(FileWriter writer, EnumValue value, string? notDeprecFeature) {
+		public override void WriteDeprecated(FileWriter writer, EnumValue value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter), value.DeprecatedInfo.Description, notDeprecFeature);
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter), value.DeprecatedInfo.Description);
 				}
 				else
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null, value.DeprecatedInfo.Description, notDeprecFeature);
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null, value.DeprecatedInfo.Description);
 			}
 		}
 
-		public override void WriteDeprecated(FileWriter writer, Constant value) =>
-			WriteDeprecated(writer, value, null);
-
-		public void WriteDeprecated(FileWriter writer, Constant value, string? notDeprecFeature) {
+		public override void WriteDeprecated(FileWriter writer, Constant value) {
 			if (value.DeprecatedInfo.IsDeprecated) {
 				if (value.DeprecatedInfo.NewName is not null) {
 					var newValue = value.DeclaringType[value.DeprecatedInfo.NewName];
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter), value.DeprecatedInfo.Description, notDeprecFeature);
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, newValue.Name(idConverter), value.DeprecatedInfo.Description);
 				}
 				else
-					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null, value.DeprecatedInfo.Description, notDeprecFeature);
+					WriteDeprecated(writer, value.DeprecatedInfo.VersionStr, null, value.DeprecatedInfo.Description);
 			}
 		}
 
-		static void WriteDeprecated(FileWriter writer, string version, string? newName, string? description, string? notDeprecFeature) {
+		static void WriteDeprecated(FileWriter writer, string version, string? newName, string? description) {
 			string extra;
 			if (description is not null)
 				extra = description;
@@ -48,11 +42,7 @@ namespace Generator.Documentation.Rust {
 				extra = $"Use {newName} instead";
 			else
 				extra = "Don't use it!";
-			var deprecatedAttr = $"deprecated(since = \"{version}\", note = \"{extra}\")";
-			if (notDeprecFeature is not null)
-				writer.WriteLine($"#[cfg_attr(not(feature = \"{notDeprecFeature}\"), {deprecatedAttr})]");
-			else
-				writer.WriteLine($"#[{deprecatedAttr}]");
+			writer.WriteLine($"#[deprecated(since = \"{version}\", note = \"{extra}\")]");
 		}
 	}
 }
