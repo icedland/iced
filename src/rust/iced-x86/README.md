@@ -52,6 +52,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
 - `fast_fmt`: (✔️Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.3x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
+- `serde`: Enables serialization support ([`Instruction`]). Not guaranteed to work if different versions of iced was used to serialize and deserialize it.
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
@@ -64,6 +65,7 @@ If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the gener
 
 [`BlockEncoder`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.BlockEncoder.html
 [`OpCodeInfo`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.OpCodeInfo.html
+[`Instruction`]: https://docs.rs/iced-x86/1.13.0/iced_x86/struct.Instruction.html
 
 ## How-tos
 

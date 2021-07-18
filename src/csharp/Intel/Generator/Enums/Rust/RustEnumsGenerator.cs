@@ -190,7 +190,7 @@ namespace Generator.Enums.Rust {
 				uint expectedValue = 0;
 				foreach (var value in enumValues) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
-					deprecatedWriter.WriteDeprecated(writer, value, "__internal_serde");
+					deprecatedWriter.WriteDeprecated(writer, value, "serde");
 					if (expectedValue != value.Value || enumType.IsPublic || isSerializePublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
@@ -375,13 +375,14 @@ namespace Generator.Enums.Rust {
 				// code for all fieldless enums. That results in horrible compilation times when compiling the Python wheel:
 				// serde: 3:23m; this code: 1:36m; saving almost 2m of compilation time.
 				// It also results in a smaller binary. The runtime perf is likely better too (did not test) due to more efficient code.
-				writer.WriteLine("#[cfg(feature = \"__internal_serde\")]");
+				writer.WriteLine("#[cfg(feature = \"serde\")]");
 				if (feature is not null)
 					writer.WriteLine(feature);
 				writer.WriteLine("#[rustfmt::skip]");
 				writer.WriteLine("#[allow(clippy::zero_sized_map_values)]");
 				writer.WriteLine("const _: () = {");
 				using (writer.Indent()) {
+					writer.WriteLine("use alloc::string::String;");
 					writer.WriteLine("use core::marker::PhantomData;");
 					writer.WriteLine("#[cfg(not(feature = \"std\"))]");
 					writer.WriteLine("use hashbrown::HashMap;");

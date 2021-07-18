@@ -150,10 +150,11 @@ fn test_formattertextkind_try_from_usize() {
 	assert!(<FormatterTextKind as TryFrom<usize>>::try_from(IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT).is_err());
 	assert!(<FormatterTextKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -441,10 +442,11 @@ fn test_memorysizeoptions_try_from_usize() {
 	assert!(<MemorySizeOptions as TryFrom<usize>>::try_from(IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT).is_err());
 	assert!(<MemorySizeOptions as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;

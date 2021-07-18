@@ -88,10 +88,11 @@ fn test_relockind_try_from_usize() {
 	assert!(<RelocKind as TryFrom<usize>>::try_from(IcedConstants::RELOC_KIND_ENUM_COUNT).is_err());
 	assert!(<RelocKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;

@@ -7,7 +7,7 @@ use crate::iced_error::IcedError;
 use crate::info::enums::*;
 use crate::instruction_internal;
 use crate::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt", feature = "serde"))]
 use core::fmt;
 use core::hash::{Hash, Hasher};
 use core::iter::{ExactSizeIterator, FusedIterator};
@@ -10542,8 +10542,10 @@ impl FusedIterator for OpKindIterator {}
 
 // All the enums have generated ser/de implementations without using the proc-macro. This is the only one left
 // that is needed to completely remove serde proc-macro.
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 const _: () = {
+	#[cfg(not(feature = "std"))]
+	use alloc::string::String;
 	use core::convert::TryFrom;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]

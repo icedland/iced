@@ -55,6 +55,7 @@
 //! - `masm`: (✔️Enabled by default) Enables the masm formatter
 //! - `nasm`: (✔️Enabled by default) Enables the nasm formatter
 //! - `fast_fmt`: (✔️Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.3x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
+//! - `serde`: Enables serialization support ([`Instruction`]). Not guaranteed to work if different versions of iced was used to serialize and deserialize it.
 //! - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 //! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
 //! - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
@@ -67,6 +68,7 @@
 //!
 //! [`BlockEncoder`]: struct.BlockEncoder.html
 //! [`OpCodeInfo`]: struct.OpCodeInfo.html
+//! [`Instruction`]: struct.Instruction.html
 //!
 //! ## How-tos
 //!
@@ -1268,6 +1270,8 @@ compile_error!("`std` or `no_std` feature must be defined");
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;
+#[cfg(feature = "serde")]
+extern crate serde_crate as serde;
 
 #[macro_use]
 mod iced_assert {

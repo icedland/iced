@@ -1190,25 +1190,25 @@ pub enum Register {
 	TMM6 = 247,
 	TMM7 = 248,
 	/// Don't use it!
-	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
+	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUse0 = 249,
 	/// Don't use it!
-	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
+	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFA = 250,
 	/// Don't use it!
-	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
+	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFB = 251,
 	/// Don't use it!
-	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
+	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFC = 252,
 	/// Don't use it!
-	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
+	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFD = 253,
 	/// Don't use it!
-	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
+	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFE = 254,
 	/// Don't use it!
-	#[cfg_attr(not(feature = "__internal_serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
+	#[cfg_attr(not(feature = "serde"), deprecated(since = "1.12.0", note = "Not part of the public API"))]
 	DontUseFF = 255,
 }
 #[rustfmt::skip]
@@ -1539,10 +1539,11 @@ fn test_register_try_from_usize() {
 	assert!(<Register as TryFrom<usize>>::try_from(IcedConstants::REGISTER_ENUM_COUNT).is_err());
 	assert!(<Register as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;

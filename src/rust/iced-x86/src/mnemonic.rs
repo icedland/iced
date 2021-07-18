@@ -3570,10 +3570,11 @@ fn test_mnemonic_try_from_usize() {
 	assert!(<Mnemonic as TryFrom<usize>>::try_from(IcedConstants::MNEMONIC_ENUM_COUNT).is_err());
 	assert!(<Mnemonic as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;

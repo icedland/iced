@@ -76,7 +76,7 @@ build_no_std() {
 	cd "$root_dir/src/rust/iced-x86"
 
 	echo "==== BUILD DEBUG ===="
-	cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt"
+	cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm fast_fmt serde"
 
 	cd "$curr_dir"
 }
@@ -96,7 +96,8 @@ build_features() {
 		"std intel" \
 		"std masm" \
 		"std nasm" \
-		"std fast_fmt"
+		"std fast_fmt" \
+		"std serde"
 	for features in "$@"; do
 		echo "==== $features ===="
 		cargo check --color always --release --no-default-features --features "$features"
@@ -123,7 +124,8 @@ build_features() {
 		"no_std intel" \
 		"no_std masm" \
 		"no_std nasm" \
-		"no_std fast_fmt"
+		"no_std fast_fmt" \
+		"no_std serde"
 	for features in "$@"; do
 		echo "==== $features ===="
 		cargo check --color always --release --no-default-features --features "$features"
@@ -139,7 +141,8 @@ build_features() {
 		"std decoder intel" \
 		"std decoder masm" \
 		"std decoder nasm" \
-		"std decoder fast_fmt"
+		"std decoder fast_fmt" \
+		"std decoder serde"
 	for features in "$@"; do
 		echo "==== TEST $features ===="
 		cargo check --color always --release --tests --no-default-features --features "$features"
@@ -168,10 +171,10 @@ build_test_current_version() {
 	rustc --version
 
 	echo "==== CLIPPY RELEASE ===="
-	cargo clippy --color always --release
+	cargo clippy --color always --release --features serde
 
 	echo "==== CLIPPY RELEASE --tests ===="
-	cargo clippy --color always --release --tests
+	cargo clippy --color always --release --features serde --tests
 
 	echo "==== FORMAT CHECK ===="
 	cargo fmt -- --color always --check
@@ -180,27 +183,27 @@ build_test_current_version() {
 	cargo doc --color always
 
 	echo "==== BUILD RELEASE ===="
-	cargo build --color always --release
+	cargo build --color always --release --features serde
 
 	echo "==== TEST RELEASE ===="
-	cargo test --color always --release
+	cargo test --color always --release --features serde
 
 	# Make sure the two read-mem methods behave the same
 	echo "==== TEST DEBUG: std decoder __internal_mem_vsib ===="
 	cargo test --color always --no-default-features --features "std decoder __internal_mem_vsib" --tests
 
 	echo "==== TEST DEBUG ===="
-	cargo test --color always --tests
+	cargo test --color always --tests --features serde
 
 	echo "==== BUILD RELEASE wasm32-unknown-unknown ===="
-	cargo check --color always --target wasm32-unknown-unknown --release
+	cargo check --color always --target wasm32-unknown-unknown --release --features serde
 
 	echo "==== PUBLISH DRY-RUN ===="
 	# It fails on Windows (GitHub CI) without this, claiming that some random number of Rust files are dirty.
 	# Redirect to /dev/null so it won't hang (waiting for us to scroll) if it finds modified lines
 	git status > /dev/null
 	git diff > /dev/null
-	cargo publish --color always --dry-run
+	cargo publish --color always --features serde --dry-run
 
 	cd "$curr_dir"
 }
@@ -214,10 +217,10 @@ build_test_msrv() {
 	echo "*** If this fails, install Rust $msrv"
 
 	echo "==== BUILD RELEASE ===="
-	cargo +$msrv build --color always --release
+	cargo +$msrv build --color always --release --features serde
 
 	echo "==== TEST RELEASE ===="
-	cargo +$msrv test --color always --release
+	cargo +$msrv test --color always --release --features serde
 
 	cd "$curr_dir"
 }

@@ -97,10 +97,11 @@ fn test_numberbase_try_from_usize() {
 	assert!(<NumberBase as TryFrom<usize>>::try_from(IcedConstants::NUMBER_BASE_ENUM_COUNT).is_err());
 	assert!(<NumberBase as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -349,10 +350,11 @@ fn test_prefixkind_try_from_usize() {
 	assert!(<PrefixKind as TryFrom<usize>>::try_from(IcedConstants::PREFIX_KIND_ENUM_COUNT).is_err());
 	assert!(<PrefixKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -560,10 +562,11 @@ fn test_decoratorkind_try_from_usize() {
 	assert!(<DecoratorKind as TryFrom<usize>>::try_from(IcedConstants::DECORATOR_KIND_ENUM_COUNT).is_err());
 	assert!(<DecoratorKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -776,10 +779,11 @@ fn test_numberkind_try_from_usize() {
 	assert!(<NumberKind as TryFrom<usize>>::try_from(IcedConstants::NUMBER_KIND_ENUM_COUNT).is_err());
 	assert!(<NumberKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -1022,10 +1026,11 @@ fn test_cc_b_try_from_usize() {
 	assert!(<CC_b as TryFrom<usize>>::try_from(IcedConstants::CC_B_ENUM_COUNT).is_err());
 	assert!(<CC_b as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -1230,10 +1235,11 @@ fn test_cc_ae_try_from_usize() {
 	assert!(<CC_ae as TryFrom<usize>>::try_from(IcedConstants::CC_AE_ENUM_COUNT).is_err());
 	assert!(<CC_ae as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -1435,10 +1441,11 @@ fn test_cc_e_try_from_usize() {
 	assert!(<CC_e as TryFrom<usize>>::try_from(IcedConstants::CC_E_ENUM_COUNT).is_err());
 	assert!(<CC_e as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -1640,10 +1647,11 @@ fn test_cc_ne_try_from_usize() {
 	assert!(<CC_ne as TryFrom<usize>>::try_from(IcedConstants::CC_NE_ENUM_COUNT).is_err());
 	assert!(<CC_ne as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -1845,10 +1853,11 @@ fn test_cc_be_try_from_usize() {
 	assert!(<CC_be as TryFrom<usize>>::try_from(IcedConstants::CC_BE_ENUM_COUNT).is_err());
 	assert!(<CC_be as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -2050,10 +2059,11 @@ fn test_cc_a_try_from_usize() {
 	assert!(<CC_a as TryFrom<usize>>::try_from(IcedConstants::CC_A_ENUM_COUNT).is_err());
 	assert!(<CC_a as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -2255,10 +2265,11 @@ fn test_cc_p_try_from_usize() {
 	assert!(<CC_p as TryFrom<usize>>::try_from(IcedConstants::CC_P_ENUM_COUNT).is_err());
 	assert!(<CC_p as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -2460,10 +2471,11 @@ fn test_cc_np_try_from_usize() {
 	assert!(<CC_np as TryFrom<usize>>::try_from(IcedConstants::CC_NP_ENUM_COUNT).is_err());
 	assert!(<CC_np as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -2665,10 +2677,11 @@ fn test_cc_l_try_from_usize() {
 	assert!(<CC_l as TryFrom<usize>>::try_from(IcedConstants::CC_L_ENUM_COUNT).is_err());
 	assert!(<CC_l as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -2870,10 +2883,11 @@ fn test_cc_ge_try_from_usize() {
 	assert!(<CC_ge as TryFrom<usize>>::try_from(IcedConstants::CC_GE_ENUM_COUNT).is_err());
 	assert!(<CC_ge as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -3075,10 +3089,11 @@ fn test_cc_le_try_from_usize() {
 	assert!(<CC_le as TryFrom<usize>>::try_from(IcedConstants::CC_LE_ENUM_COUNT).is_err());
 	assert!(<CC_le as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
@@ -3280,10 +3295,11 @@ fn test_cc_g_try_from_usize() {
 	assert!(<CC_g as TryFrom<usize>>::try_from(IcedConstants::CC_G_ENUM_COUNT).is_err());
 	assert!(<CC_g as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
 }
-#[cfg(feature = "__internal_serde")]
+#[cfg(feature = "serde")]
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
+	use alloc::string::String;
 	use core::marker::PhantomData;
 	#[cfg(not(feature = "std"))]
 	use hashbrown::HashMap;
