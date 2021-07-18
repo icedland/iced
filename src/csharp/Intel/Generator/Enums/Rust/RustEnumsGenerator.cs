@@ -522,12 +522,7 @@ namespace Generator.Enums.Rust {
 									writer.WriteLine("A: de::EnumAccess<'de>,");
 								writer.WriteLine("{");
 								using (writer.Indent()) {
-									writer.WriteLine("let (field, variant): (EnumValue, _) = match data.variant() {");
-									using (writer.Indent()) {
-										writer.WriteLine("Ok(res) => res,");
-										writer.WriteLine("Err(err) => return Err(err),");
-									}
-									writer.WriteLine("};");
+									writer.WriteLine("let (field, variant): (EnumValue, _) = data.variant()?;");
 									writer.WriteLine("match variant.unit_variant() {");
 									using (writer.Indent()) {
 										writer.WriteLine("Ok(_) => Ok(field.0),");

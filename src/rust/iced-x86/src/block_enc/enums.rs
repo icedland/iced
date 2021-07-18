@@ -192,10 +192,7 @@ const _: () = {
 				where
 					A: de::EnumAccess<'de>,
 				{
-					let (field, variant): (EnumValue, _) = match data.variant() {
-						Ok(res) => res,
-						Err(err) => return Err(err),
-					};
+					let (field, variant): (EnumValue, _) = data.variant()?;
 					match variant.unit_variant() {
 						Ok(_) => Ok(field.0),
 						Err(err) => Err(err),
