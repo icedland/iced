@@ -10573,7 +10573,7 @@ const _: () = {
 		db,
 	}
 	const NUM_STRUCT_FIELDS: usize = StructField::db as usize + 1;
-	const FIELDS: &[&str] = &[
+	const FIELDS: [&str; NUM_STRUCT_FIELDS] = [
 		"next_rip",
 		"flags1",
 		"immediate",
@@ -10589,7 +10589,6 @@ const _: () = {
 		"len",
 		"db",
 	];
-	const_assert_eq!(FIELDS.len(), NUM_STRUCT_FIELDS);
 	impl StructField {
 		#[inline]
 		fn values() -> impl Iterator<Item = StructField> + DoubleEndedIterator + ExactSizeIterator + FusedIterator {
@@ -10827,7 +10826,7 @@ const _: () = {
 					Ok(instruction)
 				}
 			}
-			deserializer.deserialize_struct("Instruction", FIELDS, Visitor { marker: PhantomData::<Instruction>, lifetime: PhantomData })
+			deserializer.deserialize_struct("Instruction", &FIELDS[..], Visitor { marker: PhantomData::<Instruction>, lifetime: PhantomData })
 		}
 	}
 };
