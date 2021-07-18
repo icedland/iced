@@ -1229,3 +1229,21 @@ def test_pickle_db():
 	dump = pickle.dumps(instr)
 	instr2 = pickle.loads(dump)
 	assert instr.eq_all_bits(instr2)
+
+def test_unpickle_bytearray():
+	decoder = Decoder(64, b"\x62\x92\x7D\x01\xA0\xB4\xF4\x34\x12\x5A\xA5", ip=0x1234_5678_9ABC_DEF1)
+	instr = decoder.decode()
+	dump = pickle.dumps(instr)
+	instr2 = pickle.loads(bytearray(dump))
+	assert instr.eq_all_bits(instr2)
+
+def test_pickle_invalid_data():
+	with pytest.raises(EOFError):
+		pickle.loads(b"")
+	instr = Instruction.create(Code.AAA)
+	data = pickle.dumps(instr)
+	invalid_data = bytearray([0xFF for b in data])
+	with pytest.raises(pickle.UnpicklingError):
+		pickle.loads(invalid_data)
+	with pytest.raises(pickle.UnpicklingError):
+		pickle.loads(bytes(invalid_data))
