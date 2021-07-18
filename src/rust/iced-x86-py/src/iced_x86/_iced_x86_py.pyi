@@ -2215,13 +2215,13 @@ class Instruction:
 		- `state` (Any): unpickled state
 		"""
 		...
-	def __getstate__(self) -> int:
+	def __getstate__(self) -> bytes:
 		"""
 		Get the unpickled state corresponding to the instruction.
 
 		### Returns:
 
-		- int: (`bytes`) The unpickled state
+		- bytes: The unpickled state
 		"""
 		...
 	def __copy__(self) -> Instruction:

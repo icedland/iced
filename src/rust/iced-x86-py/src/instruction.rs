@@ -186,7 +186,7 @@ impl Instruction {
 	/// Get the unpickled state corresponding to the instruction.
 	///
 	/// Returns:
-	///     int: (``bytes``) The unpickled state
+	///     bytes: The unpickled state
 	#[pyo3(text_signature = "($self, /)")]
 	fn __getstate__(&self, py: Python<'_>) -> PyResult<PyObject> {
 		let state = PyBytes::new(py, &serialize(&self.instr).map_err(to_value_error)?).to_object(py);
