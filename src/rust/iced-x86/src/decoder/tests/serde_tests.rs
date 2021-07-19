@@ -42,6 +42,8 @@ fn test_serde_json() {
 fn test_bincode() {
 	test_serde(|instruction| {
 		let ser_bytes = bincode::serialize(instruction).unwrap();
+		#[cfg(not(feature = "__internal_flip"))]
+		assert_eq!(ser_bytes.len(), INSTRUCTION_TOTAL_SIZE);
 		bincode::deserialize(&ser_bytes).unwrap()
 	});
 }

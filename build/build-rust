@@ -189,8 +189,9 @@ build_test_current_version() {
 	cargo test --color always --release --features serde
 
 	# Make sure the two read-mem methods behave the same
-	echo "==== TEST DEBUG: std decoder __internal_mem_vsib ===="
-	cargo test --color always --no-default-features --features "std decoder __internal_mem_vsib" --tests
+	# Also test serde code. It needs encoder to also test 'db x,y,z', see serde tests
+	echo "==== TEST DEBUG: std decoder encoder serde __internal_flip ===="
+	cargo test --color always --tests --no-default-features --features "std decoder encoder serde __internal_flip"
 
 	echo "==== TEST DEBUG ===="
 	cargo test --color always --tests --features serde

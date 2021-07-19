@@ -37,7 +37,7 @@ no_xop = []
 no_d3now = []
 serde = ["serde_crate"]
 # Don't use
-__internal_mem_vsib = []
+__internal_flip = []
 
 [dependencies]
 # if: always

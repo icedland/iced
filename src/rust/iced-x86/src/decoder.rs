@@ -28,7 +28,7 @@ use core::{cmp, fmt, mem, ptr, u32};
 use static_assertions::{const_assert, const_assert_eq};
 
 #[rustfmt::skip]
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 static READ_OP_MEM_VSIB_FNS: [fn(&mut Decoder<'_>, &mut Instruction, Register, TupleType, bool) -> bool; 0x18] = [
 	decoder_read_op_mem_vsib_0,
 	decoder_read_op_mem_vsib_0,
@@ -541,9 +541,9 @@ where
 	#[cfg(feature = "no_xop")]
 	handlers_xop: [(); 3],
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	read_op_mem_fns: [fn(&mut Decoder<'a>, &mut Instruction) -> bool; 0x18],
-	#[cfg(feature = "__internal_mem_vsib")]
+	#[cfg(feature = "__internal_flip")]
 	read_op_mem_fns: (),
 
 	state: State,
@@ -940,7 +940,7 @@ impl<'a> Decoder<'a> {
 		mk_handlers_local!(handlers_xop_map10, "no_xop");
 
 		#[rustfmt::skip]
-		#[cfg(not(feature = "__internal_mem_vsib"))]
+		#[cfg(not(feature = "__internal_flip"))]
 		let read_op_mem_fns = [
 			Decoder::read_op_mem_0,
 			Decoder::read_op_mem_0,
@@ -969,7 +969,7 @@ impl<'a> Decoder<'a> {
 			Decoder::read_op_mem_2,
 			Decoder::read_op_mem_2,
 		];
-		#[cfg(feature = "__internal_mem_vsib")]
+		#[cfg(feature = "__internal_flip")]
 		let read_op_mem_fns = ();
 
 		Ok(Decoder {
@@ -1978,7 +1978,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[must_use]
-	#[cfg(feature = "__internal_mem_vsib")]
+	#[cfg(feature = "__internal_flip")]
 	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		decoder_read_op_mem_32_or_64_vsib(self, instruction, base_reg, TupleType::N1, false)
@@ -1987,7 +1987,7 @@ impl<'a> Decoder<'a> {
 	// Returns `true` if the SIB byte was read
 	// This is a specialized version of read_op_mem_32_or_64_vsib() which takes less arguments. Keep them in sync.
 	#[must_use]
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	#[inline(always)]
 	fn read_op_mem_32_or_64(&mut self, instruction: &mut Instruction) -> bool {
 		debug_assert!(self.state.address_size == OpSize::Size32 || self.state.address_size == OpSize::Size64);
@@ -1998,7 +1998,7 @@ impl<'a> Decoder<'a> {
 		unsafe { (self.read_op_mem_fns.get_unchecked(index))(self, instruction) }
 	}
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_1(&mut self, instruction: &mut Instruction) -> bool {
 		instruction_internal::internal_set_memory_displ_size(instruction, 1);
 		self.displ_index = self.data_ptr as u8;
@@ -2014,7 +2014,7 @@ impl<'a> Decoder<'a> {
 		false
 	}
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_1_4(&mut self, instruction: &mut Instruction) -> bool {
 		instruction_internal::internal_set_memory_displ_size(instruction, 1);
 
@@ -2044,7 +2044,7 @@ impl<'a> Decoder<'a> {
 		true
 	}
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_0(&mut self, instruction: &mut Instruction) -> bool {
 		let base_reg = if self.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 		write_base_reg!(instruction, self.state.extra_base_register_base + self.state.rm + base_reg as u32);
@@ -2052,7 +2052,7 @@ impl<'a> Decoder<'a> {
 		false
 	}
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_0_5(&mut self, instruction: &mut Instruction) -> bool {
 		self.displ_index = self.data_ptr as u8;
 		let d = self.read_u32();
@@ -2075,7 +2075,7 @@ impl<'a> Decoder<'a> {
 		false
 	}
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_2_4(&mut self, instruction: &mut Instruction) -> bool {
 		let sib = self.read_u8() as u32;
 		self.displ_index = self.data_ptr as u8;
@@ -2105,7 +2105,7 @@ impl<'a> Decoder<'a> {
 		true
 	}
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_2(&mut self, instruction: &mut Instruction) -> bool {
 		self.displ_index = self.data_ptr as u8;
 		let d = self.read_u32();
@@ -2122,7 +2122,7 @@ impl<'a> Decoder<'a> {
 		false
 	}
 
-	#[cfg(not(feature = "__internal_mem_vsib"))]
+	#[cfg(not(feature = "__internal_flip"))]
 	fn read_op_mem_0_4(&mut self, instruction: &mut Instruction) -> bool {
 		let sib = self.read_u8() as u32;
 		const_assert_eq!(InstrScale::Scale1 as u32, 0);
@@ -2316,7 +2316,7 @@ impl<'a> Decoder<'a> {
 // Returns `true` if the SIB byte was read
 // Same as read_op_mem_32_or_64() except it works with vsib memory operands. Keep them in sync.
 #[must_use]
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 #[inline(always)]
 fn decoder_read_op_mem_32_or_64_vsib(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, tuple_type: TupleType, is_vsib: bool,
@@ -2329,7 +2329,7 @@ fn decoder_read_op_mem_32_or_64_vsib(
 	unsafe { (READ_OP_MEM_VSIB_FNS.get_unchecked(index))(this, instruction, index_reg, tuple_type, is_vsib) }
 }
 
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 fn decoder_read_op_mem_vsib_1(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2347,7 +2347,7 @@ fn decoder_read_op_mem_vsib_1(
 	false
 }
 
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 fn decoder_read_op_mem_vsib_1_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
@@ -2384,7 +2384,7 @@ fn decoder_read_op_mem_vsib_1_4(
 	true
 }
 
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 fn decoder_read_op_mem_vsib_0(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, _tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2394,7 +2394,7 @@ fn decoder_read_op_mem_vsib_0(
 	false
 }
 
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 fn decoder_read_op_mem_vsib_0_5(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, _tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2419,7 +2419,7 @@ fn decoder_read_op_mem_vsib_0_5(
 	false
 }
 
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 fn decoder_read_op_mem_vsib_2_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, _tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
@@ -2456,7 +2456,7 @@ fn decoder_read_op_mem_vsib_2_4(
 	true
 }
 
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 fn decoder_read_op_mem_vsib_2(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, _tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
@@ -2475,7 +2475,7 @@ fn decoder_read_op_mem_vsib_2(
 	false
 }
 
-#[cfg(any(feature = "__internal_mem_vsib", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
+#[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 fn decoder_read_op_mem_vsib_0_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, _tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
