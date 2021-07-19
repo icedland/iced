@@ -39,26 +39,8 @@ fn test_serde_json() {
 }
 
 #[test]
-#[cfg(feature = "encoder")]
-fn test_serde_json_db() {
-	test_serde_db(|instruction| {
-		let ser_str = serde_json::to_string(instruction).unwrap();
-		serde_json::from_str(&ser_str).unwrap()
-	});
-}
-
-#[test]
 fn test_bincode() {
 	test_serde(|instruction| {
-		let ser_bytes = bincode::serialize(instruction).unwrap();
-		bincode::deserialize(&ser_bytes).unwrap()
-	});
-}
-
-#[test]
-#[cfg(feature = "encoder")]
-fn test_bincode_db() {
-	test_serde_db(|instruction| {
 		let ser_bytes = bincode::serialize(instruction).unwrap();
 		bincode::deserialize(&ser_bytes).unwrap()
 	});
@@ -80,11 +62,10 @@ fn test_serde<F: Fn(&Instruction) -> Instruction>(f: F) {
 			assert!(instr.eq_all_bits(&de_instr));
 		}
 	}
-}
-
-#[cfg(feature = "encoder")]
-fn test_serde_db<F: Fn(&Instruction) -> Instruction>(f: F) {
-	let instr = Instruction::try_with_declare_byte(b"\x03\x73\x27\x80\xE7\x49\x11\xEB\xB2\xFA\x13\xC8\x87\x42\xF7\x4B").unwrap();
-	let de_instr = f(&instr);
-	assert!(instr.eq_all_bits(&de_instr));
+	#[cfg(feature = "encoder")]
+	{
+		let instr = Instruction::try_with_declare_byte(b"\x03\x73\x27\x80\xE7\x49\x11\xEB\xB2\xFA\x13\xC8\x87\x42\xF7\x4B").unwrap();
+		let de_instr = f(&instr);
+		assert!(instr.eq_all_bits(&de_instr));
+	}
 }
