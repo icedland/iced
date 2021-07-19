@@ -446,7 +446,7 @@ namespace Generator.Enums.Rust {
 										writer.WriteLine("}");
 									}
 									writer.WriteLine("}");
-									writer.WriteLine($"Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &\"Invalid {enumTypeName} variant value\"))");
+									writer.WriteLine($"Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &\"a valid {enumTypeName} variant value\"))");
 								}
 								writer.WriteLine("}");
 								writer.WriteLine("#[inline]");

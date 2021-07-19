@@ -201,7 +201,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid FormatterTextKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid FormatterTextKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -490,7 +490,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid MemorySizeOptions variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid MemorySizeOptions variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>

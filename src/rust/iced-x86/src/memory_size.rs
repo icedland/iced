@@ -991,7 +991,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid MemorySize variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid MemorySize variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>

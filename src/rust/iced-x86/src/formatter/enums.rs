@@ -148,7 +148,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid NumberBase variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid NumberBase variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -398,7 +398,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid PrefixKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid PrefixKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -607,7 +607,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid DecoratorKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid DecoratorKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -821,7 +821,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid NumberKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid NumberKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1065,7 +1065,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_b variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_b variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1271,7 +1271,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_ae variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ae variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1474,7 +1474,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_e variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_e variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1677,7 +1677,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_ne variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ne variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1880,7 +1880,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_be variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_be variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -2083,7 +2083,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_a variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_a variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -2286,7 +2286,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_p variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_p variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -2489,7 +2489,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_np variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_np variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -2692,7 +2692,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_l variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_l variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -2895,7 +2895,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_ge variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ge variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -3098,7 +3098,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_le variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_le variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -3301,7 +3301,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CC_g variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_g variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>

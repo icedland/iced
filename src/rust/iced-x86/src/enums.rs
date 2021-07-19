@@ -148,7 +148,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CodeSize variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CodeSize variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -359,7 +359,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid RoundingControl variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid RoundingControl variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -718,7 +718,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid OpKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid OpKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1013,7 +1013,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid EncodingKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid EncodingKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1278,7 +1278,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid TupleType variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid TupleType variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -1516,7 +1516,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid FlowControl variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid FlowControl variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -2059,7 +2059,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid OpCodeOperandKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid OpCodeOperandKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -2753,7 +2753,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid CpuidFeature variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CpuidFeature variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -3025,7 +3025,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid OpAccess variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid OpAccess variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -3283,7 +3283,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid ConditionCode variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid ConditionCode variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -3504,7 +3504,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid MandatoryPrefix variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid MandatoryPrefix variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -3738,7 +3738,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid OpCodeTableKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid OpCodeTableKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -3944,7 +3944,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid InstrScale variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid InstrScale variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>

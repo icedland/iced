@@ -776,7 +776,7 @@ const _: () = {
 							return Ok(EnumValue(value));
 						}
 					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"Invalid RepPrefixKind variant value"))
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid RepPrefixKind variant value"))
 				}
 				#[inline]
 				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
