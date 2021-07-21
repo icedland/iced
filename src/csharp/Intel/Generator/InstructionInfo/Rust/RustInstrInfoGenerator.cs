@@ -375,6 +375,11 @@ namespace Generator.InstructionInfo.Rust {
 			GenerateTable(defs, "TileStrideIndexTable", filename);
 		}
 
+		protected override void GenerateIsStringOpTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = genTypes.Dirs.GetRustFilename("code.rs");
+			GenerateTable(defs, "IsStringOpTable", filename);
+		}
+
 		protected override void GenerateFpuStackIncrementInfoTable((FpuStackInfo info, InstructionDef[] defs)[] tdefs) {
 			var filename = genTypes.Dirs.GetRustFilename("instruction.rs");
 			new FileUpdater(TargetLanguage.Rust, "FpuStackIncrementInfoTable", filename).Generate(writer => {
