@@ -47,7 +47,7 @@ static_assertions = "1.1.0"
 # It's not really optional, std or no_std must be used and they both require it.
 lazy_static = { version = "1.4.0", optional = true }
 
-# if: no_std and block_encoder
+# if: no_std and (block_encoder or serde)
 # 0.11.0 requires MSRV 1.49.0 but we support 1.41.0
 hashbrown = { version = ">=0.9.0, <100.0.0", optional = true }
 
