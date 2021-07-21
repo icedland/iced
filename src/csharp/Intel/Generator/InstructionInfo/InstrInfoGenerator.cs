@@ -21,6 +21,7 @@ namespace Generator.InstructionInfo {
 		protected abstract void GenerateIgnoresSegmentTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateIgnoresIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateTileStrideIndexTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
+		protected abstract void GenerateIsStringOpTable((EncodingKind encoding, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateFpuStackIncrementInfoTable((FpuStackInfo info, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateStackPointerIncrementTable((EncodingKind encoding, StackInfo info, InstructionDef[] defs)[] defs);
 		protected abstract void GenerateCore();
@@ -80,6 +81,7 @@ namespace Generator.InstructionInfo {
 			GenerateIgnoresSegmentTable(GetDefs(defs.Where(a => (a.Flags1 & InstructionDefFlags1.IgnoresSegment) != 0)));
 			GenerateIgnoresIndexTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.IgnoresIndex) != 0)));
 			GenerateTileStrideIndexTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.TileStrideIndex) != 0)));
+			GenerateIsStringOpTable(GetDefs(defs.Where(a => (a.Flags3 & InstructionDefFlags3.IsStringOp) != 0)));
 
 			var fpuDefs = defs.
 				Where(a => a.FpuStackIncrement != 0 || (a.Flags3 & (InstructionDefFlags3.IsFpuCondWriteTop | InstructionDefFlags3.WritesFpuTop)) != 0).

@@ -3434,6 +3434,13 @@ impl Instruction {
 		self.code().is_save_restore_instruction()
 	}
 
+	/// `true` if it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc.
+	#[must_use]
+	#[inline]
+	pub fn is_string_instruction(&self) -> bool {
+		self.code().is_string_op()
+	}
+
 	#[must_use]
 	fn rflags_info(&self) -> RflagsInfo {
 		let flags1 = crate::info::info_table::TABLE[self.code() as usize].0;

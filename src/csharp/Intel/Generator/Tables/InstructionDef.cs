@@ -374,6 +374,11 @@ namespace Generator.Tables {
 		/// is invalid. Registers = <c>XMM</c>/<c>YMM</c>/<c>ZMM</c>/<c>TMM</c>.
 		/// </summary>
 		RequiresUniqueDestRegNum	= 0x00400000,
+		/// <summary>
+		///	Set if the instruction is in the "string instructions" family,
+		/// e.g. <c>LODS</c>, <c>STOS</c>
+		/// </summary>
+		IsStringOp              = 0x00800000,
 	}
 
 	enum VmxMode {

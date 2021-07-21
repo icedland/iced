@@ -1331,7 +1331,7 @@ INSTRUCTION: 6C | INSB [m8], [DX] | INTEL186
 	ops: w=es-rdi r=r:dx | UInt8
 	implied: ins
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort is-string-op
 	gas: mnemonic=ins flags=force-suffix suffix=b
 	masm: mnemonic=ins asz-string-yd b
 	nasm: asz-string
@@ -1342,7 +1342,7 @@ INSTRUCTION: o16 6D | INSW [m16], [DX] | INTEL186
 	ops: w=es-rdi r=r:dx | UInt16
 	implied: ins
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort is-string-op
 	gas: mnemonic=ins flags=force-suffix suffix=w
 	masm: mnemonic=ins asz-string-yd w
 	nasm: asz-string
@@ -1353,7 +1353,7 @@ INSTRUCTION: o32 6D | INSD [m32], [DX] | INTEL386
 	ops: w=es-rdi r=r:dx | UInt32
 	implied: ins
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort is-string-op
 	gas: mnemonic=ins flags=force-suffix suffix=l
 	masm: mnemonic=ins asz-string-yd d
 	nasm: asz-string
@@ -1364,7 +1364,7 @@ INSTRUCTION: 6E | OUTSB [DX], [m8] | INTEL186
 	ops: r=r:dx r=seg-rsi | UInt8
 	implied: outs
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort is-string-op
 	gas: mnemonic=outs flags=force-suffix suffix=b
 	masm: mnemonic=outs asz-string-dx b
 	nasm: asz-string
@@ -1375,7 +1375,7 @@ INSTRUCTION: o16 6F | OUTSW [DX], [m16] | INTEL186
 	ops: r=r:dx r=seg-rsi | UInt16
 	implied: outs
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort is-string-op
 	gas: mnemonic=outs flags=force-suffix suffix=w
 	masm: mnemonic=outs asz-string-dx w
 	nasm: asz-string
@@ -1386,7 +1386,7 @@ INSTRUCTION: o32 6F | OUTSD [DX], [m32] | INTEL386
 	ops: r=r:dx r=seg-rsi | UInt32
 	implied: outs
 	rflags: r=d
-	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort
+	flags: io privileged rep intel-may-vm-exit no-in-sgx tdx-non-root-ve amd-may-vm-exit tsx-impl-abort is-string-op
 	gas: mnemonic=outs flags=force-suffix suffix=l
 	masm: mnemonic=outs asz-string-dx d
 	nasm: asz-string
@@ -3036,7 +3036,7 @@ INSTRUCTION: A4 | MOVSB [m8], [m8] | INTEL8086
 	ops: w=es-rdi r=seg-rsi | UInt8
 	implied: movs
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=movs flags=force-suffix suffix=b
 	masm: mnemonic=movs asz-string-yx b
 	nasm: asz-string
@@ -3047,7 +3047,7 @@ INSTRUCTION: o16 A5 | MOVSW [m16], [m16] | INTEL8086
 	ops: w=es-rdi r=seg-rsi | UInt16
 	implied: movs
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=movs flags=force-suffix suffix=w
 	masm: mnemonic=movs asz-string-yx w
 	nasm: asz-string
@@ -3058,7 +3058,7 @@ INSTRUCTION: o32 A5 | MOVSD [m32], [m32] | INTEL386
 	ops: w=es-rdi r=seg-rsi | UInt32
 	implied: movs
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=movs flags=force-suffix suffix=l
 	masm: mnemonic=movs asz-string-yx d
 	nasm: asz-string
@@ -3069,7 +3069,7 @@ INSTRUCTION: o64 A5 | MOVSQ [m64], [m64] | X64
 	ops: w=es-rdi r=seg-rsi | UInt64
 	implied: movs
 	rflags: r=d
-	flags: 64 rep
+	flags: 64 rep is-string-op
 	gas: mnemonic=movs flags=force-suffix suffix=q
 	masm: mnemonic=movs asz-string-yx q
 	nasm: asz-string
@@ -3080,7 +3080,7 @@ INSTRUCTION: A6 | CMPSB [m8], [m8] | INTEL8086
 	ops: r=seg-rsi r=es-rdi | UInt8
 	implied: cmps
 	rflags: r=d w=oszacp
-	flags: repe repne
+	flags: repe repne is-string-op
 	gas: mnemonic=cmps flags=force-suffix suffix=b
 	masm: mnemonic=cmps asz-string-xy b
 	nasm: asz-string
@@ -3091,7 +3091,7 @@ INSTRUCTION: o16 A7 | CMPSW [m16], [m16] | INTEL8086
 	ops: r=seg-rsi r=es-rdi | UInt16
 	implied: cmps
 	rflags: r=d w=oszacp
-	flags: repe repne
+	flags: repe repne is-string-op
 	gas: mnemonic=cmps flags=force-suffix suffix=w
 	masm: mnemonic=cmps asz-string-xy w
 	nasm: asz-string
@@ -3102,7 +3102,7 @@ INSTRUCTION: o32 A7 | CMPSD [m32], [m32] | INTEL386
 	ops: r=seg-rsi r=es-rdi | UInt32
 	implied: cmps
 	rflags: r=d w=oszacp
-	flags: repe repne
+	flags: repe repne is-string-op
 	gas: mnemonic=cmps flags=force-suffix suffix=l
 	masm: mnemonic=cmps asz-string-xy d
 	nasm: asz-string
@@ -3113,7 +3113,7 @@ INSTRUCTION: o64 A7 | CMPSQ [m64], [m64] | X64
 	ops: r=seg-rsi r=es-rdi | UInt64
 	implied: cmps
 	rflags: r=d w=oszacp
-	flags: 64 repe repne
+	flags: 64 repe repne is-string-op
 	gas: mnemonic=cmps flags=force-suffix suffix=q
 	masm: mnemonic=cmps asz-string-xy q
 	nasm: asz-string
@@ -3154,7 +3154,7 @@ INSTRUCTION: AA | STOSB [m8], [AL] | INTEL8086
 	ops: w=es-rdi r=r:al | UInt8
 	implied: stos
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=stos suffix=b
 	intel: ignore-last
 	masm: mnemonic=stos asz-string-ya b
@@ -3166,7 +3166,7 @@ INSTRUCTION: o16 AB | STOSW [m16], [AX] | INTEL8086
 	ops: w=es-rdi r=r:ax | UInt16
 	implied: stos
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=stos suffix=w
 	intel: ignore-last
 	masm: mnemonic=stos asz-string-ya w
@@ -3178,7 +3178,7 @@ INSTRUCTION: o32 AB | STOSD [m32], [EAX] | INTEL386
 	ops: w=es-rdi r=r:eax | UInt32
 	implied: stos
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=stos suffix=l
 	intel: ignore-last
 	masm: mnemonic=stos asz-string-ya d
@@ -3190,7 +3190,7 @@ INSTRUCTION: o64 AB | STOSQ [m64], [RAX] | X64
 	ops: w=es-rdi r=r:rax | UInt64
 	implied: stos
 	rflags: r=d
-	flags: 64 rep
+	flags: 64 rep is-string-op
 	gas: mnemonic=stos suffix=q
 	intel: ignore-last
 	masm: mnemonic=stos asz-string-ya q
@@ -3202,7 +3202,7 @@ INSTRUCTION: AC | LODSB [AL], [m8] | INTEL8086
 	ops: w=r:al r=seg-rsi | UInt8
 	implied: lods
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=lods suffix=b
 	intel: ignore-first
 	masm: mnemonic=lods asz-string-ax b
@@ -3214,7 +3214,7 @@ INSTRUCTION: o16 AD | LODSW [AX], [m16] | INTEL8086
 	ops: w=r:ax r=seg-rsi | UInt16
 	implied: lods
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=lods suffix=w
 	intel: ignore-first
 	masm: mnemonic=lods asz-string-ax w
@@ -3226,7 +3226,7 @@ INSTRUCTION: o32 AD | LODSD [EAX], [m32] | INTEL386
 	ops: w=r:eax r=seg-rsi | UInt32
 	implied: lods
 	rflags: r=d
-	flags: rep
+	flags: rep is-string-op
 	gas: mnemonic=lods suffix=l
 	intel: ignore-first
 	masm: mnemonic=lods asz-string-ax d
@@ -3238,7 +3238,7 @@ INSTRUCTION: o64 AD | LODSQ [RAX], [m64] | X64
 	ops: w=r:rax r=seg-rsi | UInt64
 	implied: lods
 	rflags: r=d
-	flags: 64 rep
+	flags: 64 rep is-string-op
 	gas: mnemonic=lods suffix=q
 	intel: ignore-first
 	masm: mnemonic=lods asz-string-ax q
@@ -3250,7 +3250,7 @@ INSTRUCTION: AE | SCASB [AL], [m8] | INTEL8086
 	ops: r=r:al r=es-rdi | UInt8
 	implied: scas
 	rflags: r=d w=oszacp
-	flags: repe repne
+	flags: repe repne is-string-op
 	gas: mnemonic=scas suffix=b
 	intel: ignore-first
 	masm: mnemonic=scas asz-string-ay b
@@ -3262,7 +3262,7 @@ INSTRUCTION: o16 AF | SCASW [AX], [m16] | INTEL8086
 	ops: r=r:ax r=es-rdi | UInt16
 	implied: scas
 	rflags: r=d w=oszacp
-	flags: repe repne
+	flags: repe repne is-string-op
 	gas: mnemonic=scas suffix=w
 	intel: ignore-first
 	masm: mnemonic=scas asz-string-ay w
@@ -3274,7 +3274,7 @@ INSTRUCTION: o32 AF | SCASD [EAX], [m32] | INTEL386
 	ops: r=r:eax r=es-rdi | UInt32
 	implied: scas
 	rflags: r=d w=oszacp
-	flags: repe repne
+	flags: repe repne is-string-op
 	gas: mnemonic=scas suffix=l
 	intel: ignore-first
 	masm: mnemonic=scas asz-string-ay d
@@ -3286,7 +3286,7 @@ INSTRUCTION: o64 AF | SCASQ [RAX], [m64] | X64
 	ops: r=r:rax r=es-rdi | UInt64
 	implied: scas
 	rflags: r=d w=oszacp
-	flags: 64 repe repne
+	flags: 64 repe repne is-string-op
 	gas: mnemonic=scas suffix=q
 	intel: ignore-first
 	masm: mnemonic=scas asz-string-ay q

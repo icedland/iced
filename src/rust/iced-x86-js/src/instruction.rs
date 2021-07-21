@@ -2369,6 +2369,13 @@ impl Instruction {
 		self.0.is_save_restore_instruction()
 	}
 
+	/// `true` if it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc.
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "isStringInstruction")]
+	pub fn is_string_instruction(&self) -> bool {
+		self.0.is_string_instruction()
+	}
+
 	/// All flags that are read by the CPU when executing the instruction.
 	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///

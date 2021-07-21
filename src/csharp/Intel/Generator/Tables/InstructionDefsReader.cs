@@ -575,6 +575,7 @@ namespace Generator.Tables {
 						case "ignores-index": state.Flags3 |= InstructionDefFlags3.IgnoresIndex; break;
 						case "tile-stride-index": state.Flags3 |= InstructionDefFlags3.TileStrideIndex; break;
 						case "unique-dest-reg-num": state.Flags3 |= InstructionDefFlags3.RequiresUniqueDestRegNum; break;
+						case "is-string-op": state.Flags3 |= InstructionDefFlags3.IsStringOp; break;
 
 						case "vmx":
 							if (state.VmxMode != VmxMode.None) {

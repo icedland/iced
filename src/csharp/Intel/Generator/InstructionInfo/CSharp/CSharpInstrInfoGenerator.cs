@@ -420,6 +420,11 @@ namespace Generator.InstructionInfo.CSharp {
 			GenerateTable(defs, "TileStrideIndexTable", filename);
 		}
 
+		protected override void GenerateIsStringOpTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "CodeExtensions.cs");
+			GenerateTable(defs, "IsStringOpTable", filename);
+		}
+
 		protected override void GenerateFpuStackIncrementInfoTable((FpuStackInfo info, InstructionDef[] defs)[] tdefs) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.Info.cs");
 			new FileUpdater(TargetLanguage.CSharp, "FpuStackIncrementInfoTable", filename).Generate(writer => {
