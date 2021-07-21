@@ -3434,7 +3434,7 @@ impl Instruction {
 		self.code().is_save_restore_instruction()
 	}
 
-	/// `true` is it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc.
+	/// `true` if it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc.
 	#[must_use]
 	#[inline]
 	pub fn is_string_instruction(&self) -> bool {
