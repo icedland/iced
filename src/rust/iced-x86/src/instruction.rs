@@ -50,7 +50,6 @@ pub struct Instruction {
 	pub(crate) flags1: u32, // InstrFlags1
 	// If it's a 64-bit immediate/offset/target, the high 32 bits is in mem_displ
 	pub(crate) immediate: u32,
-	// This is the high 32 bits if it's a 64-bit immediate/offset/target
 	pub(crate) mem_displ: u32,
 	pub(crate) mem_displ_hi: u32,
 	pub(crate) code: Code,
