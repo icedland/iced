@@ -1625,6 +1625,12 @@ impl Instruction {
 		self.instr.is_save_restore_instruction()
 	}
 
+	/// bool: ``True`` if it's a "string" instruction, such as ``MOVS``, ``LODS``, ``SCAS``, etc.
+	#[getter]
+	fn is_string_instruction(&self) -> bool {
+		self.instr.is_string_instruction()
+	}
+
 	/// :class:`RflagsBits`: All flags that are read by the CPU when executing the instruction.
 	///
 	/// This method returns a :class:`RflagsBits` value. See also :class:`Instruction.rflags_modified`.
