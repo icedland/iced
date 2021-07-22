@@ -421,7 +421,7 @@ namespace Generator.InstructionInfo.CSharp {
 		}
 
 		protected override void GenerateIsStringOpTable((EncodingKind encoding, InstructionDef[] defs)[] defs) {
-			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "CodeExtensions.cs");
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "InstructionInfoExtensions.1.cs");
 			GenerateTable(defs, "IsStringOpTable", filename);
 		}
 

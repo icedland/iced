@@ -169,6 +169,20 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 
 		[Fact]
+		void Verify_StringInstr() {
+			var stringInstr = MiscTestsData.StringInstr;
+
+			for (int i = 0; i < IcedConstants.CodeEnumCount; i++) {
+				var code = (Code)i;
+				Instruction instruction = default;
+				instruction.Code = code;
+
+				Assert.Equal(stringInstr.Contains(code), code.IsStringInstruction());
+				Assert.Equal(code.IsStringInstruction(), instruction.IsStringInstruction);
+			}
+		}
+
+		[Fact]
 		void Verify_ConditionCode_values_are_in_correct_order() {
 			Static.Assert((int)ConditionCode.None == 0 ? 0 : -1);
 			Static.Assert((int)ConditionCode.o == 1 ? 0 : -1);

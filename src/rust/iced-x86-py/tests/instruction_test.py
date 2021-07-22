@@ -911,6 +911,14 @@ def test_condition_code():
 	instr.negate_condition_code()
 	assert instr.condition_code == ConditionCode.NO
 
+def test_string_instruction():
+	decoder = Decoder(64, b"\xA4\x90")
+	instr1 = decoder.decode()
+	instr2 = decoder.decode()
+
+	assert instr1.is_string_instruction
+	assert not instr2.is_string_instruction
+
 def test_short_near_br():
 	instr = Decoder(64, b"\x70\x00").decode()
 

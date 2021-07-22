@@ -382,3 +382,31 @@ Loope_rel8_32_ECX, Loopne_rel8_32_ECX, e
 Loope_rel8_64_ECX, Loopne_rel8_64_ECX, e
 Loope_rel8_16_RCX, Loopne_rel8_16_RCX, e
 Loope_rel8_64_RCX, Loopne_rel8_64_RCX, e
+
+[string]
+Insb_m8_DX
+Insw_m16_DX
+Insd_m32_DX
+Outsb_DX_m8
+Outsw_DX_m16
+Outsd_DX_m32
+Movsb_m8_m8
+Movsw_m16_m16
+Movsd_m32_m32
+Movsq_m64_m64
+Cmpsb_m8_m8
+Cmpsw_m16_m16
+Cmpsd_m32_m32
+Cmpsq_m64_m64
+Stosb_m8_AL
+Stosw_m16_AX
+Stosd_m32_EAX
+Stosq_m64_RAX
+Lodsb_AL_m8
+Lodsw_AX_m16
+Lodsd_EAX_m32
+Lodsq_RAX_m64
+Scasb_AL_m8
+Scasw_AX_m16
+Scasd_EAX_m32
+Scasq_RAX_m64

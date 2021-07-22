@@ -3437,7 +3437,7 @@ impl Instruction {
 	#[must_use]
 	#[inline]
 	pub fn is_string_instruction(&self) -> bool {
-		self.code().is_string_op()
+		self.code().is_string_instruction()
 	}
 
 	#[must_use]

@@ -373,12 +373,11 @@ namespace Generator.Tables {
 		/// The destination register's reg-num must not be present in any other operand, eg. <c>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</c>
 		/// is invalid. Registers = <c>XMM</c>/<c>YMM</c>/<c>ZMM</c>/<c>TMM</c>.
 		/// </summary>
-		RequiresUniqueDestRegNum	= 0x00400000,
+		RequiresUniqueDestRegNum= 0x00400000,
 		/// <summary>
-		///	Set if the instruction is in the "string instructions" family,
-		/// e.g. <c>LODS</c>, <c>STOS</c>
+		/// Set if the instruction is in the "string instructions" family, e.g. <c>LODS</c>, <c>STOS</c>
 		/// </summary>
-		IsStringOp              = 0x00800000,
+		IsStringOp				= 0x00800000,
 	}
 
 	enum VmxMode {

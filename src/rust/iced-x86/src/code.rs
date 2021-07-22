@@ -41522,7 +41522,7 @@ impl Code {
 	/// `STOS`, etc.
 	#[must_use]
 	#[inline]
-	pub fn is_string_op(self) -> bool {
+	pub fn is_string_instruction(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
 			// GENERATOR-BEGIN: IsStringOpTable

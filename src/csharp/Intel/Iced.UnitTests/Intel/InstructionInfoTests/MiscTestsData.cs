@@ -32,6 +32,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string SetccInfo = "setcc-info";
 		internal const string CmovccInfo = "cmovcc-info";
 		internal const string LoopccInfo = "loopcc-info";
+		internal const string StringInstruction = "string";
 	}
 	// GENERATOR-END: MiscSectionNames
 
@@ -52,6 +53,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public static readonly HashSet<Code> Loop;
 		public static readonly HashSet<Code> Jrcxz;
 		public static readonly HashSet<Code> Xbegin;
+		public static readonly HashSet<Code> StringInstr;
 		public static readonly (Code jmpShort, Code jmpNear)[] JmpInfos;
 		public static readonly (Code jcc, Code negated, Code jccNear, ConditionCode cc)[] JccShortInfos;
 		public static readonly (Code jcc, Code negated, Code jccShort, ConditionCode cc)[] JccNearInfos;
@@ -76,6 +78,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var loop = new HashSet<Code>();
 			var jrcxz = new HashSet<Code>();
 			var xbegin = new HashSet<Code>();
+			var stringInstr = new HashSet<Code>();
 			var jmpInfos = new List<(Code jmpShort, Code jmpNear)>();
 			var jccShortInfos = new List<(Code jcc, Code negated, Code jccNear, ConditionCode cc)>();
 			var jccNearInfos = new List<(Code jcc, Code negated, Code jccShort, ConditionCode cc)>();
@@ -100,6 +103,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				(MiscSectionNames.Loop, (_, line) => AddCode(loop, line)),
 				(MiscSectionNames.Jrcxz, (_, line) => AddCode(jrcxz, line)),
 				(MiscSectionNames.Xbegin, (_, line) => AddCode(xbegin, line)),
+				(MiscSectionNames.StringInstruction, (_, line) => AddCode(stringInstr, line)),
 				(MiscSectionNames.JmpInfo, (_, line) => AddJmpInfo(jmpInfos, line)),
 				(MiscSectionNames.JccShortInfo, (_, line) => AddJccInfo(jccShortInfos, line)),
 				(MiscSectionNames.JccNearInfo, (_, line) => AddJccInfo(jccNearInfos, line)),
@@ -126,6 +130,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Loop = loop;
 			Jrcxz = jrcxz;
 			Xbegin = xbegin;
+			StringInstr = stringInstr;
 			JmpInfos = jmpInfos.ToArray();
 			JccShortInfos = jccShortInfos.ToArray();
 			JccNearInfos = jccNearInfos.ToArray();

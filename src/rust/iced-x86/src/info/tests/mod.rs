@@ -709,6 +709,20 @@ fn verify_condition_code() {
 }
 
 #[test]
+fn verify_string_instr() {
+	let data = &*MISC_TESTS_DATA;
+	let string = &data.string;
+
+	for code in Code::values() {
+		let mut instr = Instruction::default();
+		instr.set_code(code);
+
+		assert_eq!(code.is_string_instruction(), string.contains(&code));
+		assert_eq!(instr.is_string_instruction(), code.is_string_instruction());
+	}
+}
+
+#[test]
 fn verify_condition_code_values_are_in_correct_order() {
 	const_assert_eq!(ConditionCode::None as u32, 0);
 	const_assert_eq!(ConditionCode::o as u32, 1);

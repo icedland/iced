@@ -25,5 +25,6 @@ namespace Generator.Constants.InstructionInfo {
 		public const string SetccInfo = "setcc-info";
 		public const string CmovccInfo = "cmovcc-info";
 		public const string LoopccInfo = "loopcc-info";
+		public const string StringInstruction = "string";
 	}
 }

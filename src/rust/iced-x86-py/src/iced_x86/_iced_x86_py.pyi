@@ -3454,6 +3454,10 @@ class Instruction:
 		"""bool: `True` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc)."""
 		...
 	@property
+	def is_string_instruction(self) -> bool:
+		"""bool: `True` if it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc."""
+		...
+	@property
 	def rflags_read(self) -> RflagsBits:
 		"""
 		`RflagsBits`: All flags that are read by the CPU when executing the instruction.

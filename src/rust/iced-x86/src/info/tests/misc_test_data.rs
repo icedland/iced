@@ -37,6 +37,7 @@ impl MiscSectionNames {
 	pub(crate) const SETCC_INFO: &'static str = "setcc-info";
 	pub(crate) const CMOVCC_INFO: &'static str = "cmovcc-info";
 	pub(crate) const LOOPCC_INFO: &'static str = "loopcc-info";
+	pub(crate) const STRING_INSTRUCTION: &'static str = "string";
 }
 // GENERATOR-END: MiscSectionNames
 
@@ -64,6 +65,7 @@ impl MiscSectionNameIds {
 	const SETCC_INFO: u32 = 19;
 	const CMOVCC_INFO: u32 = 20;
 	const LOOPCC_INFO: u32 = 21;
+	const STRING_INSTRUCTION: u32 = 22;
 }
 
 pub(super) struct MiscTestsData {
@@ -83,6 +85,7 @@ pub(super) struct MiscTestsData {
 	pub(super) loop_: HashSet<Code>,
 	pub(super) jrcxz: HashSet<Code>,
 	pub(super) xbegin: HashSet<Code>,
+	pub(super) string: HashSet<Code>,
 	pub(super) jmp_infos: Vec<(Code, Code)>,
 	pub(super) jcc_short_infos: Vec<(Code, Code, Code, ConditionCode)>,
 	pub(super) jcc_near_infos: Vec<(Code, Code, Code, ConditionCode)>,
@@ -123,6 +126,7 @@ impl MiscTestsDataReader {
 				loop_: HashSet::new(),
 				jrcxz: HashSet::new(),
 				xbegin: HashSet::new(),
+				string: HashSet::new(),
 				jmp_infos: Vec::new(),
 				jcc_short_infos: Vec::new(),
 				jcc_near_infos: Vec::new(),
@@ -157,6 +161,7 @@ impl MiscTestsDataReader {
 			(MiscSectionNames::SETCC_INFO, MiscSectionNameIds::SETCC_INFO),
 			(MiscSectionNames::CMOVCC_INFO, MiscSectionNameIds::CMOVCC_INFO),
 			(MiscSectionNames::LOOPCC_INFO, MiscSectionNameIds::LOOPCC_INFO),
+			(MiscSectionNames::STRING_INSTRUCTION, MiscSectionNameIds::STRING_INSTRUCTION),
 		];
 		let mut reader = SectionFileReader::new(infos);
 		let mut path = get_instr_info_unit_tests_dir();
@@ -233,6 +238,7 @@ impl SectionFileLineHandler for MiscTestsDataReader {
 			MiscSectionNameIds::SETCC_INFO => Self::add_instr_cc_info(&mut self.data.setcc_infos, line),
 			MiscSectionNameIds::CMOVCC_INFO => Self::add_instr_cc_info(&mut self.data.cmovcc_infos, line),
 			MiscSectionNameIds::LOOPCC_INFO => Self::add_instr_cc_info(&mut self.data.loopcc_infos, line),
+			MiscSectionNameIds::STRING_INSTRUCTION => Self::add_code(&mut self.data.string, line),
 			_ => unreachable!(),
 		}
 	}

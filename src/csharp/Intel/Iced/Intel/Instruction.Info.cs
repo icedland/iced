@@ -578,6 +578,15 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get => Code.ConditionCode();
 		}
+
+		/// <summary>
+		/// Checks if it's a string instruction such as <c>MOVS</c>, <c>LODS</c>, <c>STOS</c>, etc.
+		/// </summary>
+		/// <returns></returns>
+		public readonly bool IsStringInstruction {
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.IsStringInstruction();
+		}
 	}
 }
 #endif

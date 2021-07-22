@@ -100,6 +100,7 @@ test("Instruction props", () => {
 	expect(instr.isCallNearIndirect).toBe(false);
 	expect(instr.isCallFarIndirect).toBe(false);
 	expect(instr.conditionCode).toBe(ConditionCode.None);
+	expect(instr.isStringInstruction).toBe(false);
 
 	const instr2 = instr.clone();
 	expect(instr).not.toBe(instr2);
