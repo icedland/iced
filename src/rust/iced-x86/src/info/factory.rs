@@ -1858,22 +1858,22 @@ impl InstructionInfoFactory {
 				}
 				Self::command_pop(instruction, info, flags, 5, 8);
 			}
-			ImpliedAccess::t_Rrax_Rrcx_Wrdx_Wrbx => {
+			ImpliedAccess::t_Reax_Recx_Wedx_Webx => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
-					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
-					Self::add_register(flags, info, Register::RDX, OpAccess::Write);
-					Self::add_register(flags, info, Register::RBX, OpAccess::Write);
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EDX, OpAccess::Write);
+					Self::add_register(flags, info, Register::EBX, OpAccess::Write);
 				}
 			}
-			ImpliedAccess::t_Rrax_Rrcx_Rrdx_CRrbx_CWrdx_CWrbx => {
+			ImpliedAccess::t_Reax_Recx_Redx_CRebx_CWedx_CWebx => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
-					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
-					Self::add_register(flags, info, Register::RDX, OpAccess::Read);
-					Self::add_register(flags, info, Register::RBX, OpAccess::CondRead);
-					Self::add_register(flags, info, Register::RDX, OpAccess::CondWrite);
-					Self::add_register(flags, info, Register::RBX, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EDX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EBX, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::EDX, OpAccess::CondWrite);
+					Self::add_register(flags, info, Register::EBX, OpAccess::CondWrite);
 				}
 			}
 			// GENERATOR-END: ImpliedAccessHandler

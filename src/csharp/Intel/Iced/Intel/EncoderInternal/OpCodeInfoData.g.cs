@@ -4574,8 +4574,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 				0x00000000,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 				0x00000000,// EVEX_Vucomish_xmm_xmmm16_sae
-				0x02000000,// Rdudbg
-				0x02000000,// Wrudbg
+				0x02008000,// Rdudbg
+				0x02008000,// Wrudbg
 			};
 
 		static uint[] GetOpcFlags2() =>

@@ -1973,3 +1973,7 @@ F3 0FA6 E8, Ccs_hash_32, Legacy, PADLOCK_GMI, crm=es:edi;Unknown cwm=es:edi;Unkn
 67 F3 0FA7 F0, Ccs_encrypt_16, Legacy, PADLOCK_GMI, crm=es:dx;Unknown crm=es:bx;Unknown crm=es:si;Unknown cwm=es:di;Unknown cr=es cr=dx;bx;si;di cw=si;di rcw=cx cr=ax
 # rep ccs_encrypt
 F3 0FA7 F0, Ccs_encrypt_32, Legacy, PADLOCK_GMI, crm=es:edx;Unknown crm=es:ebx;Unknown crm=es:esi;Unknown cwm=es:edi;Unknown cr=es cr=edx;ebx;esi;edi cw=esi;edi rcw=ecx cr=eax
+# rdudbg
+0F0E, Rdudbg, Legacy, UDBG, priv r=eax;ecx w=edx;ebx decopt=Udbg
+# wrudbg
+0F0F, Wrudbg, Legacy, UDBG, priv r=eax;ecx;edx cr=ebx cw=edx;ebx decopt=Udbg

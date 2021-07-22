@@ -330,8 +330,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		t_gpr16_Wgs,
 		t_Wrsp_Wcs_Wss_pop5x8,
 		t_Wrsp_pop5x8,
-		t_Rrax_Rrcx_Wrdx_Wrbx,
-		t_Rrax_Rrcx_Rrdx_CRrbx_CWrdx_CWrbx,
+		t_Reax_Recx_Wedx_Webx,
+		t_Reax_Recx_Redx_CRebx_CWedx_CWebx,
 	}
 	// GENERATOR-END: ImpliedAccess
 

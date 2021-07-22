@@ -31378,14 +31378,13 @@ END
 # Code: Rdudbg
 INSTRUCTION: 0F 0E | RDUDBG | UDBG
 	# https://raw.githubusercontent.com/chip-red-pill/udbgInstr/main/paper/undocumented_x86_insts_for_uarch_control.pdf
-	#TODO: Can it execute in 32-bit mode (since regs are 64-bit)
-	implied: r=rax;rcx w=rdx;rbx
-	#TODO: is it cpl0?
-	flags: dec-opt=Udbg
+	implied: r=eax;ecx w=edx;ebx
+	# Doesn't seem to require CPL0 to execute but it does require a special CPU mode to execute so they're privileged
+	flags: dec-opt=Udbg privileged 
 END
 
 # Code: Wrudbg
 INSTRUCTION: 0F 0F | WRUDBG | UDBG
-	implied: r=rax;rcx;rdx cr=rbx cw=rdx;rbx
-	flags: dec-opt=Udbg
+	implied: r=eax;ecx;edx cr=ebx cw=edx;ebx
+	flags: dec-opt=Udbg privileged 
 END

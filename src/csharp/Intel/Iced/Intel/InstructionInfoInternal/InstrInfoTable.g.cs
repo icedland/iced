@@ -4570,8 +4570,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x074000B8, 0xB2000002,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 			0x000000B7, 0xB2000002,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 			0x00084034, 0xB2000002,// EVEX_Vucomish_xmm_xmmm16_sae
-			0x0BF00000, 0xB4000000,// Rdudbg
-			0x0C000000, 0xB4000000,// Wrudbg
+			0x0BF00000, 0xB4080000,// Rdudbg
+			0x0C000000, 0xB4080000,// Wrudbg
 		};
 	}
 }

@@ -4566,8 +4566,8 @@ pub(super) static OPC_FLAGS1: [u32; 4563] = [
 	0x0000_0000,// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
 	0x0000_0000,// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
 	0x0000_0000,// EVEX_Vucomish_xmm_xmmm16_sae
-	0x0200_0000,// Rdudbg
-	0x0200_0000,// Wrudbg
+	0x0200_8000,// Rdudbg
+	0x0200_8000,// Wrudbg
 ];
 #[rustfmt::skip]
 pub(super) static OPC_FLAGS2: [u32; 4563] = [

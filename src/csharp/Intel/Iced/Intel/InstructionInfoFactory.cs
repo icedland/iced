@@ -1687,22 +1687,22 @@ namespace Iced.Intel {
 				}
 				CommandPop(instruction, flags, 5, 8);
 				break;
-			case ImpliedAccess.t_Rrax_Rrcx_Wrdx_Wrbx:
+			case ImpliedAccess.t_Reax_Recx_Wedx_Webx:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, Register.RAX, OpAccess.Read);
-					AddRegister(flags, Register.RCX, OpAccess.Read);
-					AddRegister(flags, Register.RDX, OpAccess.Write);
-					AddRegister(flags, Register.RBX, OpAccess.Write);
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+					AddRegister(flags, Register.ECX, OpAccess.Read);
+					AddRegister(flags, Register.EDX, OpAccess.Write);
+					AddRegister(flags, Register.EBX, OpAccess.Write);
 				}
 				break;
-			case ImpliedAccess.t_Rrax_Rrcx_Rrdx_CRrbx_CWrdx_CWrbx:
+			case ImpliedAccess.t_Reax_Recx_Redx_CRebx_CWedx_CWebx:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					AddRegister(flags, Register.RAX, OpAccess.Read);
-					AddRegister(flags, Register.RCX, OpAccess.Read);
-					AddRegister(flags, Register.RDX, OpAccess.Read);
-					AddRegister(flags, Register.RBX, OpAccess.CondRead);
-					AddRegister(flags, Register.RDX, OpAccess.CondWrite);
-					AddRegister(flags, Register.RBX, OpAccess.CondWrite);
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+					AddRegister(flags, Register.ECX, OpAccess.Read);
+					AddRegister(flags, Register.EDX, OpAccess.Read);
+					AddRegister(flags, Register.EBX, OpAccess.CondRead);
+					AddRegister(flags, Register.EDX, OpAccess.CondWrite);
+					AddRegister(flags, Register.EBX, OpAccess.CondWrite);
 				}
 				break;
 			// GENERATOR-END: ImpliedAccessHandler
