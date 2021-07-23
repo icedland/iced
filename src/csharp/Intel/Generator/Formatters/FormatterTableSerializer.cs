@@ -67,7 +67,7 @@ namespace Generator.Formatters {
 				if (isSame)
 					ctorKind = previousCtorKind;
 
-				uint si = stringsTable.GetIndex(def.Mnemonic, ignoreVPrefix: true, out bool hasVPrefix);
+				uint si = stringsTable.GetIndex(def.Mnemonic, optimize: true, out bool hasVPrefix);
 				if (ctorKind.Value > 0x7F)
 					throw new InvalidOperationException();
 				writer.WriteByte((byte)(ctorKind.Value | (hasVPrefix ? 0x80U : 0)));
@@ -83,7 +83,7 @@ namespace Generator.Formatters {
 				foreach (var arg in def.Args) {
 					switch (arg) {
 					case string s:
-						si = stringsTable.GetIndex(s, ignoreVPrefix: true, out hasVPrefix);
+						si = stringsTable.GetIndex(s, optimize: true, out hasVPrefix);
 						if (hasVPrefix)
 							throw new InvalidOperationException();
 						writer.WriteCompressedUInt32(si);

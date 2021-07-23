@@ -4313,24 +4313,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Verr_rm16
-	0xA1,// 'v', Reg16
+	0x21,// Reg16
 	0x80, 0x03,// 384 = "verr"
 
 	// Verr_r32m16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Verr_r64m16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Verw_rm16
-	0xA1,// 'v', Reg16
+	0x21,// Reg16
 	0x81, 0x03,// 385 = "verw"
 
 	// Verw_r32m16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Verw_r64m16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Jmpe_rm16
 	0x05,// Normal_3
@@ -4466,19 +4466,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x8B, 0x03,// 395 = "enclv"
 
 	// Vmcall
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8C, 0x03,// 396 = "vmcall"
 
 	// Vmlaunch
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8D, 0x03,// 397 = "vmlaunch"
 
 	// Vmresume
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8E, 0x03,// 398 = "vmresume"
 
 	// Vmxoff
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8F, 0x03,// 399 = "vmxoff"
 
 	// Pconfig
@@ -4525,7 +4525,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x97, 0x03,// 407 = "xsetbv"
 
 	// Vmfunc
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x98, 0x03,// 408 = "vmfunc"
 
 	// Xend
@@ -4541,51 +4541,51 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x9B, 0x03,// 411 = "enclu"
 
 	// Vmrunw
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9C, 0x03,// 412 = "vmrun"
 	0x10,// 0x10
 
 	// Vmrund
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9C, 0x03,// 412 = "vmrun"
 	0x20,// 0x20
 
 	// Vmrunq
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9C, 0x03,// 412 = "vmrun"
 	0x40,// 0x40
 
 	// Vmmcall
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9D, 0x03,// 413 = "vmmcall"
 
 	// Vmloadw
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9E, 0x03,// 414 = "vmload"
 	0x10,// 0x10
 
 	// Vmloadd
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9E, 0x03,// 414 = "vmload"
 	0x20,// 0x20
 
 	// Vmloadq
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9E, 0x03,// 414 = "vmload"
 	0x40,// 0x40
 
 	// Vmsavew
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9F, 0x03,// 415 = "vmsave"
 	0x10,// 0x10
 
 	// Vmsaved
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9F, 0x03,// 415 = "vmsave"
 	0x20,// 0x20
 
 	// Vmsaveq
-	0x87,// 'v', asz
+	0x07,// asz
 	0x9F, 0x03,// 415 = "vmsave"
 	0x40,// 0x40
 
@@ -6903,19 +6903,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// 0x0
 
 	// EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xD9, 0x04,// 601 = "vcvtqq2ps"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xD9, 0x04,// 601 = "vcvtqq2ps"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD9, 0x04,// 601 = "vcvtqq2ps"
 	0x00,// 0x0
 
@@ -7607,24 +7607,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqa32_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEF, 0x04,// 623 = "vmovdqa32"
 
 	// EVEX_Vmovdqa32_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqa32_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqa64_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF0, 0x04,// 624 = "vmovdqa64"
 
 	// EVEX_Vmovdqa64_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqa64_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Movdqu_xmm_xmmm128
 	0x01,// Normal_1
@@ -7638,44 +7638,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqu32_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF2, 0x04,// 626 = "vmovdqu32"
 
 	// EVEX_Vmovdqu32_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu32_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu64_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF3, 0x04,// 627 = "vmovdqu64"
 
 	// EVEX_Vmovdqu64_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu64_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu8_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF4, 0x04,// 628 = "vmovdqu8"
 
 	// EVEX_Vmovdqu8_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu8_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu16_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF5, 0x04,// 629 = "vmovdqu16"
 
 	// EVEX_Vmovdqu16_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu16_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pshufw_mm_mmm64_imm8
 	0x01,// Normal_1
@@ -7811,44 +7811,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vprord_xmm_k1z_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFA, 0x04,// 634 = "vprord"
 
 	// EVEX_Vprord_ymm_k1z_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprord_zmm_k1z_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFB, 0x04,// 635 = "vprorq"
 
 	// EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprold_xmm_k1z_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFC, 0x04,// 636 = "vprold"
 
 	// EVEX_Vprold_ymm_k1z_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprold_zmm_k1z_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFD, 0x04,// 637 = "vprolq"
 
 	// EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Psrld_mm_imm8
 	0x01,// Normal_1
@@ -7897,14 +7897,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFE, 0x04,// 638 = "vpsraq"
 
 	// EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pslld_mm_imm8
 	0x01,// Normal_1
@@ -8089,49 +8089,49 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x81, 0x05,// 641 = "emms"
 
 	// VEX_Vzeroupper
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x82, 0x05,// 642 = "vzeroupper"
 
 	// VEX_Vzeroall
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x83, 0x05,// 643 = "vzeroall"
 
 	// Vmread_rm32_r32
-	0x82,// 'v', Normal_2a
+	0x02,// Normal_2a
 	0x84, 0x05,// 644 = "vmread"
 	0x6C,// 'l'
 
 	// Vmread_rm64_r64
-	0x82,// 'v', Normal_2a
+	0x02,// Normal_2a
 	0x84, 0x05,// 644 = "vmread"
 	0x71,// 'q'
 
 	// EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x85, 0x05,// 645 = "vcvttps2udq"
 
 	// EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x85, 0x05,// 645 = "vcvttps2udq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x86, 0x05,// 646 = "vcvttpd2udq"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x86, 0x05,// 646 = "vcvttpd2udq"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x86, 0x05,// 646 = "vcvttpd2udq"
 	0x00,// 0x0
 
@@ -8140,85 +8140,85 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x87, 0x05,// 647 = "extrq"
 
 	// EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x88, 0x05,// 648 = "vcvttps2uqq"
 
 	// EVEX_Vcvttps2uqq_ymm_k1z_xmmm128b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x88, 0x05,// 648 = "vcvttps2uqq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x89, 0x05,// 649 = "vcvttpd2uqq"
 
 	// EVEX_Vcvttpd2uqq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x89, 0x05,// 649 = "vcvttpd2uqq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttss2usi_r32_xmmm32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x8A, 0x05,// 650 = "vcvttss2usi"
 	0x00,// 0x0
 
 	// EVEX_Vcvttss2usi_r64_xmmm32_sae
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Insertq_xmm_xmm_imm8_imm8
 	0x01,// Normal_1
 	0x8B, 0x05,// 651 = "insertq"
 
 	// EVEX_Vcvttsd2usi_r32_xmmm64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x8C, 0x05,// 652 = "vcvttsd2usi"
 	0x00,// 0x0
 
 	// EVEX_Vcvttsd2usi_r64_xmmm64_sae
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Vmwrite_r32_rm32
-	0x82,// 'v', Normal_2a
+	0x02,// Normal_2a
 	0x8D, 0x05,// 653 = "vmwrite"
 	0x6C,// 'l'
 
 	// Vmwrite_r64_rm64
-	0x82,// 'v', Normal_2a
+	0x02,// Normal_2a
 	0x8D, 0x05,// 653 = "vmwrite"
 	0x71,// 'q'
 
 	// EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8E, 0x05,// 654 = "vcvtps2udq"
 
 	// EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8E, 0x05,// 654 = "vcvtps2udq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x8F, 0x05,// 655 = "vcvtpd2udq"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x8F, 0x05,// 655 = "vcvtpd2udq"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8F, 0x05,// 655 = "vcvtpd2udq"
 	0x00,// 0x0
 
@@ -8227,173 +8227,173 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x87, 0x05,// 647 = "extrq"
 
 	// EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x90, 0x05,// 656 = "vcvtps2uqq"
 
 	// EVEX_Vcvtps2uqq_ymm_k1z_xmmm128b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x90, 0x05,// 656 = "vcvtps2uqq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x91, 0x05,// 657 = "vcvtpd2uqq"
 
 	// EVEX_Vcvtpd2uqq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x91, 0x05,// 657 = "vcvtpd2uqq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtss2usi_r32_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x92, 0x05,// 658 = "vcvtss2usi"
 	0x00,// 0x0
 
 	// EVEX_Vcvtss2usi_r64_xmmm32_er
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Insertq_xmm_xmm
 	0x01,// Normal_1
 	0x8B, 0x05,// 651 = "insertq"
 
 	// EVEX_Vcvtsd2usi_r32_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x93, 0x05,// 659 = "vcvtsd2usi"
 	0x00,// 0x0
 
 	// EVEX_Vcvtsd2usi_r64_xmmm64_er
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttps2qq_xmm_k1z_xmmm64b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x94, 0x05,// 660 = "vcvttps2qq"
 
 	// EVEX_Vcvttps2qq_ymm_k1z_xmmm128b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x94, 0x05,// 660 = "vcvttps2qq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x95, 0x05,// 661 = "vcvttpd2qq"
 
 	// EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x95, 0x05,// 661 = "vcvttpd2qq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x96, 0x05,// 662 = "vcvtudq2pd"
 
 	// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x96, 0x05,// 662 = "vcvtudq2pd"
 	0x00,// 0x0
 
 	// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x97, 0x05,// 663 = "vcvtuqq2pd"
 
 	// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x97, 0x05,// 663 = "vcvtuqq2pd"
 	0x00,// 0x0
 
 	// EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x98, 0x05,// 664 = "vcvtudq2ps"
 
 	// EVEX_Vcvtudq2ps_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x98, 0x05,// 664 = "vcvtudq2ps"
 	0x00,// 0x0
 
 	// EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x99, 0x05,// 665 = "vcvtuqq2ps"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x99, 0x05,// 665 = "vcvtuqq2ps"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x99, 0x05,// 665 = "vcvtuqq2ps"
 	0x00,// 0x0
 
 	// EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9A, 0x05,// 666 = "vcvtps2qq"
 
 	// EVEX_Vcvtps2qq_ymm_k1z_xmmm128b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9A, 0x05,// 666 = "vcvtps2qq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9B, 0x05,// 667 = "vcvtpd2qq"
 
 	// EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9B, 0x05,// 667 = "vcvtpd2qq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0x9C, 0x05,// 668 = "vcvtusi2ss"
 	0x6C,// 'l'
 	0x01,// 0x1
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0x9C, 0x05,// 668 = "vcvtusi2ss"
 	0x71,// 'q'
 	0x01,// 0x1
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0x9D, 0x05,// 669 = "vcvtusi2sd"
 	0x6C,// 'l'
 	0x01,// 0x1
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0x9D, 0x05,// 669 = "vcvtusi2sd"
 	0x71,// 'q'
 	0x01,// 0x1
@@ -8502,24 +8502,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqa32_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEF, 0x04,// 623 = "vmovdqa32"
 
 	// EVEX_Vmovdqa32_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqa32_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqa64_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF0, 0x04,// 624 = "vmovdqa64"
 
 	// EVEX_Vmovdqa64_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqa64_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Movdqu_xmmm128_xmm
 	0x01,// Normal_1
@@ -8533,44 +8533,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqu32_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF2, 0x04,// 626 = "vmovdqu32"
 
 	// EVEX_Vmovdqu32_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu32_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu64_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF3, 0x04,// 627 = "vmovdqu64"
 
 	// EVEX_Vmovdqu64_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu64_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu8_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF4, 0x04,// 628 = "vmovdqu8"
 
 	// EVEX_Vmovdqu8_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu8_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu16_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF5, 0x04,// 629 = "vmovdqu16"
 
 	// EVEX_Vmovdqu16_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovdqu16_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Jo_rel16
 	0x1B,// os_jcc_1
@@ -10264,15 +10264,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA2, 0x06,// 802 = "xsaves64"
 
 	// Vmptrld_m64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA3, 0x06,// 803 = "vmptrld"
 
 	// Vmclear_m64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA4, 0x06,// 804 = "vmclear"
 
 	// Vmxon_m64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA5, 0x06,// 805 = "vmxon"
 
 	// Rdrand_r16
@@ -10286,7 +10286,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Vmptrst_m64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA7, 0x06,// 807 = "vmptrst"
 
 	// Rdseed_r16
@@ -10587,24 +10587,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpandd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB0, 0x06,// 816 = "vpandd"
 
 	// EVEX_Vpandd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpandd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpandq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB1, 0x06,// 817 = "vpandq"
 
 	// EVEX_Vpandq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpandq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Paddusb_mm_mmm64
 	0x01,// Normal_1
@@ -10690,24 +10690,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpandnd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB3, 0x06,// 819 = "vpandnd"
 
 	// EVEX_Vpandnd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpandnd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpandnq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB4, 0x06,// 820 = "vpandnq"
 
 	// EVEX_Vpandnq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpandnq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pavgb_mm_mmm64
 	0x01,// Normal_1
@@ -10779,14 +10779,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpsraq_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFE, 0x04,// 638 = "vpsraq"
 
 	// EVEX_Vpsraq_ymm_k1z_ymm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsraq_zmm_k1z_zmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pavgw_mm_mmm64
 	0x01,// Normal_1
@@ -10913,14 +10913,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// 0x0
 
 	// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB7, 0x06,// 823 = "vcvtqq2pd"
 
 	// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB7, 0x06,// 823 = "vcvtqq2pd"
 	0x00,// 0x0
 
@@ -11065,24 +11065,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpord_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBC, 0x06,// 828 = "vpord"
 
 	// EVEX_Vpord_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpord_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vporq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBD, 0x06,// 829 = "vporq"
 
 	// EVEX_Vporq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vporq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Paddsb_mm_mmm64
 	0x01,// Normal_1
@@ -11168,24 +11168,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpxord_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBF, 0x06,// 831 = "vpxord"
 
 	// EVEX_Vpxord_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpxord_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpxorq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC0, 0x06,// 832 = "vpxorq"
 
 	// EVEX_Vpxorq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpxorq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Lddqu_xmm_m128
 	0x01,// Normal_1
@@ -11720,227 +11720,227 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vpermilps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x26,// 38 = "vpermilps"
 
 	// VEX_Vpermilps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilps_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermilpd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x27,// 39 = "vpermilpd"
 
 	// VEX_Vpermilpd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilpd_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vtestps_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCE, 0x06,// 846 = "vtestps"
 
 	// VEX_Vtestps_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vtestpd_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCF, 0x06,// 847 = "vtestpd"
 
 	// VEX_Vtestpd_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pblendvb_xmm_xmmm128
 	0x26,// pblendvb
 	0xD0, 0x06,// 848 = "pblendvb"
 
 	// EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD1, 0x06,// 849 = "vpsrlvw"
 
 	// EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsrlvw_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovuswb_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD2, 0x06,// 850 = "vpmovuswb"
 
 	// EVEX_Vpmovuswb_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovuswb_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsravw_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD3, 0x06,// 851 = "vpsravw"
 
 	// EVEX_Vpsravw_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsravw_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusdb_xmmm32_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD4, 0x06,// 852 = "vpmovusdb"
 
 	// EVEX_Vpmovusdb_xmmm64_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusdb_xmmm128_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsllvw_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD5, 0x06,// 853 = "vpsllvw"
 
 	// EVEX_Vpsllvw_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsllvw_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusqb_xmmm16_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD6, 0x06,// 854 = "vpmovusqb"
 
 	// EVEX_Vpmovusqb_xmmm32_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusqb_xmmm64_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vcvtph2ps_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD7, 0x06,// 855 = "vcvtph2ps"
 
 	// VEX_Vcvtph2ps_ymm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2ps_xmm_k1z_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2ps_ymm_k1z_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xD7, 0x06,// 855 = "vcvtph2ps"
 	0x00,// 0x0
 
 	// EVEX_Vpmovusdw_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD8, 0x06,// 856 = "vpmovusdw"
 
 	// EVEX_Vpmovusdw_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusdw_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Blendvps_xmm_xmmm128
 	0x26,// pblendvb
 	0xD9, 0x06,// 857 = "blendvps"
 
 	// EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDA, 0x06,// 858 = "vprorvd"
 
 	// EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprorvd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprorvq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDB, 0x06,// 859 = "vprorvq"
 
 	// EVEX_Vprorvq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprorvq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusqw_xmmm32_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDC, 0x06,// 860 = "vpmovusqw"
 
 	// EVEX_Vpmovusqw_xmmm64_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusqw_xmmm128_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Blendvpd_xmm_xmmm128
 	0x26,// pblendvb
 	0xDD, 0x06,// 861 = "blendvpd"
 
 	// EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDE, 0x06,// 862 = "vprolvd"
 
 	// EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprolvd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprolvq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDF, 0x06,// 863 = "vprolvq"
 
 	// EVEX_Vprolvq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vprolvq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusqd_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE0, 0x06,// 864 = "vpmovusqd"
 
 	// EVEX_Vpmovusqd_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovusqd_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermps_ymm_ymm_ymmm256
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE1, 0x06,// 865 = "vpermps"
 
 	// EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermps_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermpd_ymm_k1z_ymm_ymmm256b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE2, 0x06,// 866 = "vpermpd"
 
 	// EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Ptest_xmm_xmmm128
 	0x01,// Normal_1
@@ -11954,63 +11954,63 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vbroadcastss_xmm_m32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x65,// 101 = "vbroadcastss"
 
 	// VEX_Vbroadcastss_ymm_m32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcastss_xmm_k1z_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcastss_ymm_k1z_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vbroadcastsd_ymm_m64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE4, 0x06,// 868 = "vbroadcastsd"
 
 	// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE5, 0x06,// 869 = "vbroadcastf32x2"
 
 	// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE4, 0x06,// 868 = "vbroadcastsd"
 
 	// EVEX_Vbroadcastsd_zmm_k1z_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vbroadcastf128_ymm_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE6, 0x06,// 870 = "vbroadcastf128"
 
 	// EVEX_Vbroadcastf32x4_ymm_k1z_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE7, 0x06,// 871 = "vbroadcastf32x4"
 
 	// EVEX_Vbroadcastf32x4_zmm_k1z_m128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcastf64x2_ymm_k1z_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE8, 0x06,// 872 = "vbroadcastf64x2"
 
 	// EVEX_Vbroadcastf64x2_zmm_k1z_m128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcastf32x8_zmm_k1z_m256
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE9, 0x06,// 873 = "vbroadcastf32x8"
 
 	// EVEX_Vbroadcastf64x4_zmm_k1z_m256
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEA, 0x06,// 874 = "vbroadcastf64x4"
 
 	// Pabsb_mm_mmm64
@@ -12083,14 +12083,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpabsq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEB, 0x06,// 875 = "vpabsq"
 
 	// EVEX_Vpabsq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpabsq_zmm_k1z_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovsxbw_xmm_xmmm64
 	0x01,// Normal_1
@@ -12113,14 +12113,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovswb_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xED, 0x06,// 877 = "vpmovswb"
 
 	// EVEX_Vpmovswb_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovswb_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovsxbd_xmm_xmmm32
 	0x01,// Normal_1
@@ -12143,14 +12143,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovsdb_xmmm32_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEF, 0x06,// 879 = "vpmovsdb"
 
 	// EVEX_Vpmovsdb_xmmm64_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovsdb_xmmm128_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovsxbq_xmm_xmmm16
 	0x01,// Normal_1
@@ -12173,14 +12173,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovsqb_xmmm16_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF1, 0x06,// 881 = "vpmovsqb"
 
 	// EVEX_Vpmovsqb_xmmm32_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovsqb_xmmm64_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovsxwd_xmm_xmmm64
 	0x01,// Normal_1
@@ -12203,14 +12203,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovsdw_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF3, 0x06,// 883 = "vpmovsdw"
 
 	// EVEX_Vpmovsdw_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovsdw_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovsxwq_xmm_xmmm32
 	0x01,// Normal_1
@@ -12233,14 +12233,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovsqw_xmmm32_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF5, 0x06,// 885 = "vpmovsqw"
 
 	// EVEX_Vpmovsqw_xmmm64_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovsqw_xmmm128_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovsxdq_xmm_xmmm64
 	0x01,// Normal_1
@@ -12263,94 +12263,94 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovsqd_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF7, 0x06,// 887 = "vpmovsqd"
 
 	// EVEX_Vpmovsqd_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovsqd_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmb_kr_k1_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF8, 0x06,// 888 = "vptestmb"
 
 	// EVEX_Vptestmb_kr_k1_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmb_kr_k1_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmw_kr_k1_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF9, 0x06,// 889 = "vptestmw"
 
 	// EVEX_Vptestmw_kr_k1_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmw_kr_k1_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFA, 0x06,// 890 = "vptestnmb"
 
 	// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFB, 0x06,// 891 = "vptestnmw"
 
 	// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFC, 0x06,// 892 = "vptestmd"
 
 	// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFD, 0x06,// 893 = "vptestmq"
 
 	// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFE, 0x06,// 894 = "vptestnmd"
 
 	// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFF, 0x06,// 895 = "vptestnmq"
 
 	// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmuldq_xmm_xmmm128
 	0x01,// Normal_1
@@ -12373,24 +12373,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovm2b_xmm_kr
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x81, 0x07,// 897 = "vpmovm2b"
 
 	// EVEX_Vpmovm2b_ymm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovm2b_zmm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovm2w_xmm_kr
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x82, 0x07,// 898 = "vpmovm2w"
 
 	// EVEX_Vpmovm2w_ymm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovm2w_zmm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pcmpeqq_xmm_xmmm128
 	0x01,// Normal_1
@@ -12413,24 +12413,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovb2m_kr_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x84, 0x07,// 900 = "vpmovb2m"
 
 	// EVEX_Vpmovb2m_kr_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovb2m_kr_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovw2m_kr_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x85, 0x07,// 901 = "vpmovw2m"
 
 	// EVEX_Vpmovw2m_kr_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovw2m_kr_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Movntdqa_xmm_m128
 	0x01,// Normal_1
@@ -12453,14 +12453,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpbroadcastmb2q_xmm_kr
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x87, 0x07,// 903 = "vpbroadcastmb2q"
 
 	// EVEX_Vpbroadcastmb2q_ymm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastmb2q_zmm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Packusdw_xmm_xmmm128
 	0x01,// Normal_1
@@ -12483,66 +12483,66 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vmaskmovps_xmm_xmm_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x89, 0x07,// 905 = "vmaskmovps"
 
 	// VEX_Vmaskmovps_ymm_ymm_m256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscalefps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8A, 0x07,// 906 = "vscalefps"
 
 	// EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8A, 0x07,// 906 = "vscalefps"
 	0x00,// 0x0
 
 	// EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8B, 0x07,// 907 = "vscalefpd"
 
 	// EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8B, 0x07,// 907 = "vscalefpd"
 	0x00,// 0x0
 
 	// VEX_Vmaskmovpd_xmm_xmm_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8C, 0x07,// 908 = "vmaskmovpd"
 
 	// VEX_Vmaskmovpd_ymm_ymm_m256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8D, 0x07,// 909 = "vscalefss"
 	0x00,// 0x0
 
 	// EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8E, 0x07,// 910 = "vscalefsd"
 	0x00,// 0x0
 
 	// VEX_Vmaskmovps_m128_xmm_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x89, 0x07,// 905 = "vmaskmovps"
 
 	// VEX_Vmaskmovps_m256_ymm_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vmaskmovpd_m128_xmm_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8C, 0x07,// 908 = "vmaskmovpd"
 
 	// VEX_Vmaskmovpd_m256_ymm_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovzxbw_xmm_xmmm64
 	0x01,// Normal_1
@@ -12565,14 +12565,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovwb_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x90, 0x07,// 912 = "vpmovwb"
 
 	// EVEX_Vpmovwb_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovwb_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovzxbd_xmm_xmmm32
 	0x01,// Normal_1
@@ -12595,14 +12595,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovdb_xmmm32_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x92, 0x07,// 914 = "vpmovdb"
 
 	// EVEX_Vpmovdb_xmmm64_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovdb_xmmm128_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovzxbq_xmm_xmmm16
 	0x01,// Normal_1
@@ -12625,14 +12625,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovqb_xmmm16_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x94, 0x07,// 916 = "vpmovqb"
 
 	// EVEX_Vpmovqb_xmmm32_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovqb_xmmm64_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovzxwd_xmm_xmmm64
 	0x01,// Normal_1
@@ -12655,14 +12655,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovdw_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x96, 0x07,// 918 = "vpmovdw"
 
 	// EVEX_Vpmovdw_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovdw_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovzxwq_xmm_xmmm32
 	0x01,// Normal_1
@@ -12685,14 +12685,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovqw_xmmm32_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x98, 0x07,// 920 = "vpmovqw"
 
 	// EVEX_Vpmovqw_xmmm64_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovqw_xmmm128_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmovzxdq_xmm_xmmm64
 	0x01,// Normal_1
@@ -12715,31 +12715,31 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovqd_xmmm64_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9A, 0x07,// 922 = "vpmovqd"
 
 	// EVEX_Vpmovqd_xmmm128_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovqd_ymmm256_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermd_ymm_ymm_ymmm256
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9B, 0x07,// 923 = "vpermd"
 
 	// EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermq_ymm_k1z_ymm_ymmm256b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9C, 0x07,// 924 = "vpermq"
 
 	// EVEX_Vpermq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pcmpgtq_xmm_xmmm128
 	0x01,// Normal_1
@@ -12782,24 +12782,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmovm2d_xmm_kr
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9F, 0x07,// 927 = "vpmovm2d"
 
 	// EVEX_Vpmovm2d_ymm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovm2d_zmm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovm2q_xmm_kr
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA0, 0x07,// 928 = "vpmovm2q"
 
 	// EVEX_Vpmovm2q_ymm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovm2q_zmm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pminsd_xmm_xmmm128
 	0x01,// Normal_1
@@ -12822,34 +12822,34 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA2, 0x07,// 930 = "vpminsq"
 
 	// EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovd2m_kr_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA3, 0x07,// 931 = "vpmovd2m"
 
 	// EVEX_Vpmovd2m_kr_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovd2m_kr_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovq2m_kr_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA4, 0x07,// 932 = "vpmovq2m"
 
 	// EVEX_Vpmovq2m_kr_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmovq2m_kr_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pminuw_xmm_xmmm128
 	0x01,// Normal_1
@@ -12872,14 +12872,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpbroadcastmw2d_xmm_kr
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA6, 0x07,// 934 = "vpbroadcastmw2d"
 
 	// EVEX_Vpbroadcastmw2d_ymm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastmw2d_zmm_kr
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pminud_xmm_xmmm128
 	0x01,// Normal_1
@@ -12902,14 +12902,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpminuq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA8, 0x07,// 936 = "vpminuq"
 
 	// EVEX_Vpminuq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpminuq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmaxsb_xmm_xmmm128
 	0x01,// Normal_1
@@ -12952,14 +12952,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmaxsq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAB, 0x07,// 939 = "vpmaxsq"
 
 	// EVEX_Vpmaxsq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmaxsq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmaxuw_xmm_xmmm128
 	0x01,// Normal_1
@@ -13002,14 +13002,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmaxuq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAE, 0x07,// 942 = "vpmaxuq"
 
 	// EVEX_Vpmaxuq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmaxuq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pmulld_xmm_xmmm128
 	0x01,// Normal_1
@@ -13032,14 +13032,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vpmullq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB0, 0x07,// 944 = "vpmullq"
 
 	// EVEX_Vpmullq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmullq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Phminposuw_xmm_xmmm128
 	0x01,// Normal_1
@@ -13050,773 +13050,773 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xB1, 0x07,// 945 = "vphminposuw"
 
 	// EVEX_Vgetexpps_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB2, 0x07,// 946 = "vgetexpps"
 
 	// EVEX_Vgetexpps_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xB2, 0x07,// 946 = "vgetexpps"
 	0x00,// 0x0
 
 	// EVEX_Vgetexppd_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB3, 0x07,// 947 = "vgetexppd"
 
 	// EVEX_Vgetexppd_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xB3, 0x07,// 947 = "vgetexppd"
 	0x00,// 0x0
 
 	// EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xB4, 0x07,// 948 = "vgetexpss"
 	0x00,// 0x0
 
 	// EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xB5, 0x07,// 949 = "vgetexpsd"
 	0x00,// 0x0
 
 	// EVEX_Vplzcntd_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB6, 0x07,// 950 = "vplzcntd"
 
 	// EVEX_Vplzcntd_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vplzcntd_zmm_k1z_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vplzcntq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB7, 0x07,// 951 = "vplzcntq"
 
 	// EVEX_Vplzcntq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vplzcntq_zmm_k1z_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpsrlvd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB8, 0x07,// 952 = "vpsrlvd"
 
 	// VEX_Vpsrlvd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpsrlvq_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB9, 0x07,// 953 = "vpsrlvq"
 
 	// VEX_Vpsrlvq_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB8, 0x07,// 952 = "vpsrlvd"
 
 	// EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsrlvd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB9, 0x07,// 953 = "vpsrlvq"
 
 	// EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsrlvq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpsravd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBA, 0x07,// 954 = "vpsravd"
 
 	// VEX_Vpsravd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsravd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsravq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBB, 0x07,// 955 = "vpsravq"
 
 	// EVEX_Vpsravq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsravq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpsllvd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBC, 0x07,// 956 = "vpsllvd"
 
 	// VEX_Vpsllvd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpsllvq_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBD, 0x07,// 957 = "vpsllvq"
 
 	// VEX_Vpsllvq_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBC, 0x07,// 956 = "vpsllvd"
 
 	// EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsllvd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBD, 0x07,// 957 = "vpsllvq"
 
 	// EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpsllvq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrcp14ps_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBE, 0x07,// 958 = "vrcp14ps"
 
 	// EVEX_Vrcp14ps_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrcp14ps_zmm_k1z_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrcp14pd_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBF, 0x07,// 959 = "vrcp14pd"
 
 	// EVEX_Vrcp14pd_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrcp14pd_zmm_k1z_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC0, 0x07,// 960 = "vrcp14ss"
 
 	// EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC1, 0x07,// 961 = "vrcp14sd"
 
 	// EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC2, 0x07,// 962 = "vrsqrt14ps"
 
 	// EVEX_Vrsqrt14ps_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrsqrt14ps_zmm_k1z_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrsqrt14pd_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC3, 0x07,// 963 = "vrsqrt14pd"
 
 	// EVEX_Vrsqrt14pd_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC4, 0x07,// 964 = "vrsqrt14ss"
 
 	// EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC5, 0x07,// 965 = "vrsqrt14sd"
 
 	// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC6, 0x07,// 966 = "vpdpbusd"
 
 	// EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC7, 0x07,// 967 = "vpdpbusds"
 
 	// EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC8, 0x07,// 968 = "vpdpwssd"
 
 	// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC9, 0x07,// 969 = "vdpbf16ps"
 
 	// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCA, 0x07,// 970 = "vp4dpwssd"
 
 	// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCB, 0x07,// 971 = "vpdpwssds"
 
 	// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCC, 0x07,// 972 = "vp4dpwssds"
 
 	// EVEX_Vpopcntb_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCD, 0x07,// 973 = "vpopcntb"
 
 	// EVEX_Vpopcntb_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpopcntb_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpopcntw_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCE, 0x07,// 974 = "vpopcntw"
 
 	// EVEX_Vpopcntw_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpopcntw_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpopcntd_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCF, 0x07,// 975 = "vpopcntd"
 
 	// EVEX_Vpopcntd_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpopcntd_zmm_k1z_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpopcntq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD0, 0x07,// 976 = "vpopcntq"
 
 	// EVEX_Vpopcntq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpopcntq_zmm_k1z_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpbroadcastd_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x31,// 49 = "vpbroadcastd"
 
 	// VEX_Vpbroadcastd_ymm_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastd_xmm_k1z_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastd_ymm_k1z_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastd_zmm_k1z_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpbroadcastq_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x32,// 50 = "vpbroadcastq"
 
 	// VEX_Vpbroadcastq_ymm_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcasti32x2_xmm_k1z_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD1, 0x07,// 977 = "vbroadcasti32x2"
 
 	// EVEX_Vbroadcasti32x2_ymm_k1z_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcasti32x2_zmm_k1z_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastq_xmm_k1z_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x32,// 50 = "vpbroadcastq"
 
 	// EVEX_Vpbroadcastq_ymm_k1z_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastq_zmm_k1z_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vbroadcasti128_ymm_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD2, 0x07,// 978 = "vbroadcasti128"
 
 	// EVEX_Vbroadcasti32x4_ymm_k1z_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD3, 0x07,// 979 = "vbroadcasti32x4"
 
 	// EVEX_Vbroadcasti32x4_zmm_k1z_m128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcasti64x2_ymm_k1z_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD4, 0x07,// 980 = "vbroadcasti64x2"
 
 	// EVEX_Vbroadcasti64x2_zmm_k1z_m128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vbroadcasti32x8_zmm_k1z_m256
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD5, 0x07,// 981 = "vbroadcasti32x8"
 
 	// EVEX_Vbroadcasti64x4_zmm_k1z_m256
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD6, 0x07,// 982 = "vbroadcasti64x4"
 
 	// EVEX_Vpexpandb_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD7, 0x07,// 983 = "vpexpandb"
 
 	// EVEX_Vpexpandb_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpexpandb_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpexpandw_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD8, 0x07,// 984 = "vpexpandw"
 
 	// EVEX_Vpexpandw_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpexpandw_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressb_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD9, 0x07,// 985 = "vpcompressb"
 
 	// EVEX_Vpcompressb_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressb_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressw_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDA, 0x07,// 986 = "vpcompressw"
 
 	// EVEX_Vpcompressw_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressw_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDB, 0x07,// 987 = "vpblendmd"
 
 	// EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDC, 0x07,// 988 = "vpblendmq"
 
 	// EVEX_Vpblendmq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vblendmps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDD, 0x07,// 989 = "vblendmps"
 
 	// EVEX_Vblendmps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vblendmps_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDE, 0x07,// 990 = "vblendmpd"
 
 	// EVEX_Vblendmpd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vblendmpd_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmb_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDF, 0x07,// 991 = "vpblendmb"
 
 	// EVEX_Vpblendmb_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE0, 0x07,// 992 = "vpblendmw"
 
 	// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE1, 0x07,// 993 = "vp2intersectd"
 
 	// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE2, 0x07,// 994 = "vp2intersectq"
 
 	// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE3, 0x07,// 995 = "vpshldvw"
 
 	// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE4, 0x07,// 996 = "vpshldvd"
 
 	// EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE5, 0x07,// 997 = "vpshldvq"
 
 	// EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE6, 0x07,// 998 = "vpshrdvw"
 
 	// EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xE7, 0x07,// 999 = "vcvtneps2bf16"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xE7, 0x07,// 999 = "vcvtneps2bf16"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE7, 0x07,// 999 = "vcvtneps2bf16"
 
 	// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE8, 0x07,// 1000 = "vcvtne2ps2bf16"
 
 	// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE9, 0x07,// 1001 = "vpshrdvd"
 
 	// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEA, 0x07,// 1002 = "vpshrdvq"
 
 	// EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEB, 0x07,// 1003 = "vpermi2b"
 
 	// EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2w_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEC, 0x07,// 1004 = "vpermi2w"
 
 	// EVEX_Vpermi2w_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2w_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2d_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xED, 0x07,// 1005 = "vpermi2d"
 
 	// EVEX_Vpermi2d_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2d_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2q_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEE, 0x07,// 1006 = "vpermi2q"
 
 	// EVEX_Vpermi2q_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2q_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEF, 0x07,// 1007 = "vpermi2ps"
 
 	// EVEX_Vpermi2ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2ps_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF0, 0x07,// 1008 = "vpermi2pd"
 
 	// EVEX_Vpermi2pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermi2pd_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpbroadcastb_xmm_xmmm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x33,// 51 = "vpbroadcastb"
 
 	// VEX_Vpbroadcastb_ymm_xmmm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastb_xmm_k1z_xmmm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastb_ymm_k1z_xmmm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastb_zmm_k1z_xmmm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpbroadcastw_xmm_xmmm16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x34,// 52 = "vpbroadcastw"
 
 	// VEX_Vpbroadcastw_ymm_xmmm16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastw_xmm_k1z_xmmm16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastw_ymm_k1z_xmmm16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastw_zmm_k1z_xmmm16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastb_xmm_k1z_r32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x33,// 51 = "vpbroadcastb"
 
 	// EVEX_Vpbroadcastb_ymm_k1z_r32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastb_zmm_k1z_r32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastw_xmm_k1z_r32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x34,// 52 = "vpbroadcastw"
 
 	// EVEX_Vpbroadcastw_ymm_k1z_r32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastw_zmm_k1z_r32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastd_xmm_k1z_r32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x31,// 49 = "vpbroadcastd"
 
 	// EVEX_Vpbroadcastd_ymm_k1z_r32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastd_zmm_k1z_r32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastq_xmm_k1z_r64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x32,// 50 = "vpbroadcastq"
 
 	// EVEX_Vpbroadcastq_ymm_k1z_r64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpbroadcastq_zmm_k1z_r64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2b_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF1, 0x07,// 1009 = "vpermt2b"
 
 	// EVEX_Vpermt2b_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2b_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2w_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF2, 0x07,// 1010 = "vpermt2w"
 
 	// EVEX_Vpermt2w_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2w_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2d_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF3, 0x07,// 1011 = "vpermt2d"
 
 	// EVEX_Vpermt2d_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2d_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2q_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF4, 0x07,// 1012 = "vpermt2q"
 
 	// EVEX_Vpermt2q_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2q_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF5, 0x07,// 1013 = "vpermt2ps"
 
 	// EVEX_Vpermt2ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2ps_zmm_k1z_zmm_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF6, 0x07,// 1014 = "vpermt2pd"
 
 	// EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Invept_r32_m128
 	0x01,// Normal_1
@@ -13840,1387 +13840,1387 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFA, 0x07,// 1018 = "vpmultishiftqb"
 
 	// EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vexpandps_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFB, 0x07,// 1019 = "vexpandps"
 
 	// EVEX_Vexpandps_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vexpandps_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vexpandpd_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFC, 0x07,// 1020 = "vexpandpd"
 
 	// EVEX_Vexpandpd_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vexpandpd_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpexpandd_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFD, 0x07,// 1021 = "vpexpandd"
 
 	// EVEX_Vpexpandd_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpexpandd_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpexpandq_xmm_k1z_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFE, 0x07,// 1022 = "vpexpandq"
 
 	// EVEX_Vpexpandq_ymm_k1z_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpexpandq_zmm_k1z_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcompressps_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFF, 0x07,// 1023 = "vcompressps"
 
 	// EVEX_Vcompressps_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcompressps_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcompresspd_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x80, 0x08,// 1024 = "vcompresspd"
 
 	// EVEX_Vcompresspd_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcompresspd_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressd_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x81, 0x08,// 1025 = "vpcompressd"
 
 	// EVEX_Vpcompressd_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressd_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressq_xmmm128_k1z_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x82, 0x08,// 1026 = "vpcompressq"
 
 	// EVEX_Vpcompressq_ymmm256_k1z_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcompressq_zmmm512_k1z_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpmaskmovd_xmm_xmm_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x83, 0x08,// 1027 = "vpmaskmovd"
 
 	// VEX_Vpmaskmovd_ymm_ymm_m256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpmaskmovq_xmm_xmm_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x84, 0x08,// 1028 = "vpmaskmovq"
 
 	// VEX_Vpmaskmovq_ymm_ymm_m256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermb_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x85, 0x08,// 1029 = "vpermb"
 
 	// EVEX_Vpermb_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermb_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermw_xmm_k1z_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x86, 0x08,// 1030 = "vpermw"
 
 	// EVEX_Vpermw_ymm_k1z_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermw_zmm_k1z_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpmaskmovd_m128_xmm_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x83, 0x08,// 1027 = "vpmaskmovd"
 
 	// VEX_Vpmaskmovd_m256_ymm_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpmaskmovq_m128_xmm_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x84, 0x08,// 1028 = "vpmaskmovq"
 
 	// VEX_Vpmaskmovq_m256_ymm_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x87, 0x08,// 1031 = "vpshufbitqmb"
 
 	// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpgatherdd_xmm_vm32x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x88, 0x08,// 1032 = "vpgatherdd"
 
 	// VEX_Vpgatherdd_ymm_vm32y_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpgatherdq_xmm_vm32x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x89, 0x08,// 1033 = "vpgatherdq"
 
 	// VEX_Vpgatherdq_ymm_vm32x_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherdd_xmm_k1_vm32x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x88, 0x08,// 1032 = "vpgatherdd"
 
 	// EVEX_Vpgatherdd_ymm_k1_vm32y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherdd_zmm_k1_vm32z
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherdq_xmm_k1_vm32x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x89, 0x08,// 1033 = "vpgatherdq"
 
 	// EVEX_Vpgatherdq_ymm_k1_vm32x
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherdq_zmm_k1_vm32y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpgatherqd_xmm_vm64x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8A, 0x08,// 1034 = "vpgatherqd"
 
 	// VEX_Vpgatherqd_xmm_vm64y_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpgatherqq_xmm_vm64x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8B, 0x08,// 1035 = "vpgatherqq"
 
 	// VEX_Vpgatherqq_ymm_vm64y_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8A, 0x08,// 1034 = "vpgatherqd"
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherqd_ymm_k1_vm64z
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherqq_xmm_k1_vm64x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8B, 0x08,// 1035 = "vpgatherqq"
 
 	// EVEX_Vpgatherqq_ymm_k1_vm64y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpgatherqq_zmm_k1_vm64z
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vgatherdps_xmm_vm32x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8C, 0x08,// 1036 = "vgatherdps"
 
 	// VEX_Vgatherdps_ymm_vm32y_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vgatherdpd_xmm_vm32x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8D, 0x08,// 1037 = "vgatherdpd"
 
 	// VEX_Vgatherdpd_ymm_vm32x_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherdps_xmm_k1_vm32x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8C, 0x08,// 1036 = "vgatherdps"
 
 	// EVEX_Vgatherdps_ymm_k1_vm32y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherdps_zmm_k1_vm32z
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherdpd_xmm_k1_vm32x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8D, 0x08,// 1037 = "vgatherdpd"
 
 	// EVEX_Vgatherdpd_ymm_k1_vm32x
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherdpd_zmm_k1_vm32y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vgatherqps_xmm_vm64x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8E, 0x08,// 1038 = "vgatherqps"
 
 	// VEX_Vgatherqps_xmm_vm64y_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vgatherqpd_xmm_vm64x_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8F, 0x08,// 1039 = "vgatherqpd"
 
 	// VEX_Vgatherqpd_ymm_vm64y_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherqps_xmm_k1_vm64x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8E, 0x08,// 1038 = "vgatherqps"
 
 	// EVEX_Vgatherqps_xmm_k1_vm64y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherqps_ymm_k1_vm64z
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherqpd_xmm_k1_vm64x
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8F, 0x08,// 1039 = "vgatherqpd"
 
 	// EVEX_Vgatherqpd_ymm_k1_vm64y
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherqpd_zmm_k1_vm64z
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsub132ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x90, 0x08,// 1040 = "vfmaddsub132ps"
 
 	// VEX_Vfmaddsub132ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsub132pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x91, 0x08,// 1041 = "vfmaddsub132pd"
 
 	// VEX_Vfmaddsub132pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x90, 0x08,// 1040 = "vfmaddsub132ps"
 
 	// EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x90, 0x08,// 1040 = "vfmaddsub132ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x91, 0x08,// 1041 = "vfmaddsub132pd"
 
 	// EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x91, 0x08,// 1041 = "vfmaddsub132pd"
 	0x00,// 0x0
 
 	// VEX_Vfmsubadd132ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x92, 0x08,// 1042 = "vfmsubadd132ps"
 
 	// VEX_Vfmsubadd132ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubadd132pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x93, 0x08,// 1043 = "vfmsubadd132pd"
 
 	// VEX_Vfmsubadd132pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x92, 0x08,// 1042 = "vfmsubadd132ps"
 
 	// EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x92, 0x08,// 1042 = "vfmsubadd132ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x93, 0x08,// 1043 = "vfmsubadd132pd"
 
 	// EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x93, 0x08,// 1043 = "vfmsubadd132pd"
 	0x00,// 0x0
 
 	// VEX_Vfmadd132ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x94, 0x08,// 1044 = "vfmadd132ps"
 
 	// VEX_Vfmadd132ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmadd132pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x95, 0x08,// 1045 = "vfmadd132pd"
 
 	// VEX_Vfmadd132pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x94, 0x08,// 1044 = "vfmadd132ps"
 
 	// EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x94, 0x08,// 1044 = "vfmadd132ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x95, 0x08,// 1045 = "vfmadd132pd"
 
 	// EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x95, 0x08,// 1045 = "vfmadd132pd"
 	0x00,// 0x0
 
 	// VEX_Vfmadd132ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x96, 0x08,// 1046 = "vfmadd132ss"
 
 	// VEX_Vfmadd132sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x97, 0x08,// 1047 = "vfmadd132sd"
 
 	// EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x96, 0x08,// 1046 = "vfmadd132ss"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x97, 0x08,// 1047 = "vfmadd132sd"
 	0x00,// 0x0
 
 	// VEX_Vfmsub132ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x98, 0x08,// 1048 = "vfmsub132ps"
 
 	// VEX_Vfmsub132ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsub132pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x99, 0x08,// 1049 = "vfmsub132pd"
 
 	// VEX_Vfmsub132pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x98, 0x08,// 1048 = "vfmsub132ps"
 
 	// EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x98, 0x08,// 1048 = "vfmsub132ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x99, 0x08,// 1049 = "vfmsub132pd"
 
 	// EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x99, 0x08,// 1049 = "vfmsub132pd"
 	0x00,// 0x0
 
 	// EVEX_V4fmaddps_zmm_k1z_zmmp3_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9A, 0x08,// 1050 = "v4fmaddps"
 
 	// VEX_Vfmsub132ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9B, 0x08,// 1051 = "vfmsub132ss"
 
 	// VEX_Vfmsub132sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9C, 0x08,// 1052 = "vfmsub132sd"
 
 	// EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9B, 0x08,// 1051 = "vfmsub132ss"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9C, 0x08,// 1052 = "vfmsub132sd"
 	0x00,// 0x0
 
 	// EVEX_V4fmaddss_xmm_k1z_xmmp3_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9D, 0x08,// 1053 = "v4fmaddss"
 
 	// VEX_Vfnmadd132ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9E, 0x08,// 1054 = "vfnmadd132ps"
 
 	// VEX_Vfnmadd132ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmadd132pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9F, 0x08,// 1055 = "vfnmadd132pd"
 
 	// VEX_Vfnmadd132pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9E, 0x08,// 1054 = "vfnmadd132ps"
 
 	// EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9E, 0x08,// 1054 = "vfnmadd132ps"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9F, 0x08,// 1055 = "vfnmadd132pd"
 
 	// EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9F, 0x08,// 1055 = "vfnmadd132pd"
 	0x00,// 0x0
 
 	// VEX_Vfnmadd132ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA0, 0x08,// 1056 = "vfnmadd132ss"
 
 	// VEX_Vfnmadd132sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA1, 0x08,// 1057 = "vfnmadd132sd"
 
 	// EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA0, 0x08,// 1056 = "vfnmadd132ss"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA1, 0x08,// 1057 = "vfnmadd132sd"
 	0x00,// 0x0
 
 	// VEX_Vfnmsub132ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA2, 0x08,// 1058 = "vfnmsub132ps"
 
 	// VEX_Vfnmsub132ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsub132pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA3, 0x08,// 1059 = "vfnmsub132pd"
 
 	// VEX_Vfnmsub132pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA2, 0x08,// 1058 = "vfnmsub132ps"
 
 	// EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA2, 0x08,// 1058 = "vfnmsub132ps"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA3, 0x08,// 1059 = "vfnmsub132pd"
 
 	// EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA3, 0x08,// 1059 = "vfnmsub132pd"
 	0x00,// 0x0
 
 	// VEX_Vfnmsub132ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA4, 0x08,// 1060 = "vfnmsub132ss"
 
 	// VEX_Vfnmsub132sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA5, 0x08,// 1061 = "vfnmsub132sd"
 
 	// EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA4, 0x08,// 1060 = "vfnmsub132ss"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA5, 0x08,// 1061 = "vfnmsub132sd"
 	0x00,// 0x0
 
 	// EVEX_Vpscatterdd_vm32x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA6, 0x08,// 1062 = "vpscatterdd"
 
 	// EVEX_Vpscatterdd_vm32y_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpscatterdd_vm32z_k1_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpscatterdq_vm32x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA7, 0x08,// 1063 = "vpscatterdq"
 
 	// EVEX_Vpscatterdq_vm32x_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpscatterdq_vm32y_k1_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpscatterqd_vm64x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA8, 0x08,// 1064 = "vpscatterqd"
 
 	// EVEX_Vpscatterqd_vm64y_k1_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpscatterqd_vm64z_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpscatterqq_vm64x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA9, 0x08,// 1065 = "vpscatterqq"
 
 	// EVEX_Vpscatterqq_vm64y_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpscatterqq_vm64z_k1_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterdps_vm32x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAA, 0x08,// 1066 = "vscatterdps"
 
 	// EVEX_Vscatterdps_vm32y_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterdps_vm32z_k1_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterdpd_vm32x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAB, 0x08,// 1067 = "vscatterdpd"
 
 	// EVEX_Vscatterdpd_vm32x_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterdpd_vm32y_k1_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterqps_vm64x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAC, 0x08,// 1068 = "vscatterqps"
 
 	// EVEX_Vscatterqps_vm64y_k1_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterqps_vm64z_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterqpd_vm64x_k1_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAD, 0x08,// 1069 = "vscatterqpd"
 
 	// EVEX_Vscatterqpd_vm64y_k1_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscatterqpd_vm64z_k1_zmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsub213ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAE, 0x08,// 1070 = "vfmaddsub213ps"
 
 	// VEX_Vfmaddsub213ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsub213pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAF, 0x08,// 1071 = "vfmaddsub213pd"
 
 	// VEX_Vfmaddsub213pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAE, 0x08,// 1070 = "vfmaddsub213ps"
 
 	// EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xAE, 0x08,// 1070 = "vfmaddsub213ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAF, 0x08,// 1071 = "vfmaddsub213pd"
 
 	// EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xAF, 0x08,// 1071 = "vfmaddsub213pd"
 	0x00,// 0x0
 
 	// VEX_Vfmsubadd213ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB0, 0x08,// 1072 = "vfmsubadd213ps"
 
 	// VEX_Vfmsubadd213ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubadd213pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB1, 0x08,// 1073 = "vfmsubadd213pd"
 
 	// VEX_Vfmsubadd213pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB0, 0x08,// 1072 = "vfmsubadd213ps"
 
 	// EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB0, 0x08,// 1072 = "vfmsubadd213ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB1, 0x08,// 1073 = "vfmsubadd213pd"
 
 	// EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB1, 0x08,// 1073 = "vfmsubadd213pd"
 	0x00,// 0x0
 
 	// VEX_Vfmadd213ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB2, 0x08,// 1074 = "vfmadd213ps"
 
 	// VEX_Vfmadd213ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmadd213pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB3, 0x08,// 1075 = "vfmadd213pd"
 
 	// VEX_Vfmadd213pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB2, 0x08,// 1074 = "vfmadd213ps"
 
 	// EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB2, 0x08,// 1074 = "vfmadd213ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB3, 0x08,// 1075 = "vfmadd213pd"
 
 	// EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB3, 0x08,// 1075 = "vfmadd213pd"
 	0x00,// 0x0
 
 	// VEX_Vfmadd213ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB4, 0x08,// 1076 = "vfmadd213ss"
 
 	// VEX_Vfmadd213sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB5, 0x08,// 1077 = "vfmadd213sd"
 
 	// EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB4, 0x08,// 1076 = "vfmadd213ss"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB5, 0x08,// 1077 = "vfmadd213sd"
 	0x00,// 0x0
 
 	// VEX_Vfmsub213ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB6, 0x08,// 1078 = "vfmsub213ps"
 
 	// VEX_Vfmsub213ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsub213pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB7, 0x08,// 1079 = "vfmsub213pd"
 
 	// VEX_Vfmsub213pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB6, 0x08,// 1078 = "vfmsub213ps"
 
 	// EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB6, 0x08,// 1078 = "vfmsub213ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB7, 0x08,// 1079 = "vfmsub213pd"
 
 	// EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB7, 0x08,// 1079 = "vfmsub213pd"
 	0x00,// 0x0
 
 	// EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB8, 0x08,// 1080 = "v4fnmaddps"
 
 	// VEX_Vfmsub213ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB9, 0x08,// 1081 = "vfmsub213ss"
 
 	// VEX_Vfmsub213sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBA, 0x08,// 1082 = "vfmsub213sd"
 
 	// EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB9, 0x08,// 1081 = "vfmsub213ss"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xBA, 0x08,// 1082 = "vfmsub213sd"
 	0x00,// 0x0
 
 	// EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBB, 0x08,// 1083 = "v4fnmaddss"
 
 	// VEX_Vfnmadd213ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBC, 0x08,// 1084 = "vfnmadd213ps"
 
 	// VEX_Vfnmadd213ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmadd213pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBD, 0x08,// 1085 = "vfnmadd213pd"
 
 	// VEX_Vfnmadd213pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBC, 0x08,// 1084 = "vfnmadd213ps"
 
 	// EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xBC, 0x08,// 1084 = "vfnmadd213ps"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBD, 0x08,// 1085 = "vfnmadd213pd"
 
 	// EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xBD, 0x08,// 1085 = "vfnmadd213pd"
 	0x00,// 0x0
 
 	// VEX_Vfnmadd213ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBE, 0x08,// 1086 = "vfnmadd213ss"
 
 	// VEX_Vfnmadd213sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xBF, 0x08,// 1087 = "vfnmadd213sd"
 
 	// EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xBE, 0x08,// 1086 = "vfnmadd213ss"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xBF, 0x08,// 1087 = "vfnmadd213sd"
 	0x00,// 0x0
 
 	// VEX_Vfnmsub213ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC0, 0x08,// 1088 = "vfnmsub213ps"
 
 	// VEX_Vfnmsub213ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsub213pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC1, 0x08,// 1089 = "vfnmsub213pd"
 
 	// VEX_Vfnmsub213pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC0, 0x08,// 1088 = "vfnmsub213ps"
 
 	// EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC0, 0x08,// 1088 = "vfnmsub213ps"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC1, 0x08,// 1089 = "vfnmsub213pd"
 
 	// EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC1, 0x08,// 1089 = "vfnmsub213pd"
 	0x00,// 0x0
 
 	// VEX_Vfnmsub213ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC2, 0x08,// 1090 = "vfnmsub213ss"
 
 	// VEX_Vfnmsub213sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC3, 0x08,// 1091 = "vfnmsub213sd"
 
 	// EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC2, 0x08,// 1090 = "vfnmsub213ss"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC3, 0x08,// 1091 = "vfnmsub213sd"
 	0x00,// 0x0
 
 	// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC4, 0x08,// 1092 = "vpmadd52luq"
 
 	// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmadd52luq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC5, 0x08,// 1093 = "vpmadd52huq"
 
 	// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpmadd52huq_zmm_k1z_zmm_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsub231ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC6, 0x08,// 1094 = "vfmaddsub231ps"
 
 	// VEX_Vfmaddsub231ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsub231pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC7, 0x08,// 1095 = "vfmaddsub231pd"
 
 	// VEX_Vfmaddsub231pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC6, 0x08,// 1094 = "vfmaddsub231ps"
 
 	// EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC6, 0x08,// 1094 = "vfmaddsub231ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC7, 0x08,// 1095 = "vfmaddsub231pd"
 
 	// EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC7, 0x08,// 1095 = "vfmaddsub231pd"
 	0x00,// 0x0
 
 	// VEX_Vfmsubadd231ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC8, 0x08,// 1096 = "vfmsubadd231ps"
 
 	// VEX_Vfmsubadd231ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubadd231pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC9, 0x08,// 1097 = "vfmsubadd231pd"
 
 	// VEX_Vfmsubadd231pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC8, 0x08,// 1096 = "vfmsubadd231ps"
 
 	// EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC8, 0x08,// 1096 = "vfmsubadd231ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC9, 0x08,// 1097 = "vfmsubadd231pd"
 
 	// EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xC9, 0x08,// 1097 = "vfmsubadd231pd"
 	0x00,// 0x0
 
 	// VEX_Vfmadd231ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCA, 0x08,// 1098 = "vfmadd231ps"
 
 	// VEX_Vfmadd231ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmadd231pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCB, 0x08,// 1099 = "vfmadd231pd"
 
 	// VEX_Vfmadd231pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCA, 0x08,// 1098 = "vfmadd231ps"
 
 	// EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xCA, 0x08,// 1098 = "vfmadd231ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCB, 0x08,// 1099 = "vfmadd231pd"
 
 	// EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xCB, 0x08,// 1099 = "vfmadd231pd"
 	0x00,// 0x0
 
 	// VEX_Vfmadd231ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCC, 0x08,// 1100 = "vfmadd231ss"
 
 	// VEX_Vfmadd231sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCD, 0x08,// 1101 = "vfmadd231sd"
 
 	// EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xCC, 0x08,// 1100 = "vfmadd231ss"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xCD, 0x08,// 1101 = "vfmadd231sd"
 	0x00,// 0x0
 
 	// VEX_Vfmsub231ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCE, 0x08,// 1102 = "vfmsub231ps"
 
 	// VEX_Vfmsub231ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsub231pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCF, 0x08,// 1103 = "vfmsub231pd"
 
 	// VEX_Vfmsub231pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCE, 0x08,// 1102 = "vfmsub231ps"
 
 	// EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xCE, 0x08,// 1102 = "vfmsub231ps"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCF, 0x08,// 1103 = "vfmsub231pd"
 
 	// EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xCF, 0x08,// 1103 = "vfmsub231pd"
 	0x00,// 0x0
 
 	// VEX_Vfmsub231ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD0, 0x08,// 1104 = "vfmsub231ss"
 
 	// VEX_Vfmsub231sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD1, 0x08,// 1105 = "vfmsub231sd"
 
 	// EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD0, 0x08,// 1104 = "vfmsub231ss"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD1, 0x08,// 1105 = "vfmsub231sd"
 	0x00,// 0x0
 
 	// VEX_Vfnmadd231ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD2, 0x08,// 1106 = "vfnmadd231ps"
 
 	// VEX_Vfnmadd231ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmadd231pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD3, 0x08,// 1107 = "vfnmadd231pd"
 
 	// VEX_Vfnmadd231pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD2, 0x08,// 1106 = "vfnmadd231ps"
 
 	// EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD2, 0x08,// 1106 = "vfnmadd231ps"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD3, 0x08,// 1107 = "vfnmadd231pd"
 
 	// EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD3, 0x08,// 1107 = "vfnmadd231pd"
 	0x00,// 0x0
 
 	// VEX_Vfnmadd231ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD4, 0x08,// 1108 = "vfnmadd231ss"
 
 	// VEX_Vfnmadd231sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD5, 0x08,// 1109 = "vfnmadd231sd"
 
 	// EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD4, 0x08,// 1108 = "vfnmadd231ss"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD5, 0x08,// 1109 = "vfnmadd231sd"
 	0x00,// 0x0
 
 	// VEX_Vfnmsub231ps_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD6, 0x08,// 1110 = "vfnmsub231ps"
 
 	// VEX_Vfnmsub231ps_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsub231pd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD7, 0x08,// 1111 = "vfnmsub231pd"
 
 	// VEX_Vfnmsub231pd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD6, 0x08,// 1110 = "vfnmsub231ps"
 
 	// EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD6, 0x08,// 1110 = "vfnmsub231ps"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD7, 0x08,// 1111 = "vfnmsub231pd"
 
 	// EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD7, 0x08,// 1111 = "vfnmsub231pd"
 	0x00,// 0x0
 
 	// VEX_Vfnmsub231ss_xmm_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD8, 0x08,// 1112 = "vfnmsub231ss"
 
 	// VEX_Vfnmsub231sd_xmm_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD9, 0x08,// 1113 = "vfnmsub231sd"
 
 	// EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD8, 0x08,// 1112 = "vfnmsub231ss"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD9, 0x08,// 1113 = "vfnmsub231sd"
 	0x00,// 0x0
 
 	// EVEX_Vpconflictd_xmm_k1z_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDA, 0x08,// 1114 = "vpconflictd"
 
 	// EVEX_Vpconflictd_ymm_k1z_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpconflictd_zmm_k1z_zmmm512b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpconflictq_xmm_k1z_xmmm128b64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDB, 0x08,// 1115 = "vpconflictq"
 
 	// EVEX_Vpconflictq_ymm_k1z_ymmm256b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpconflictq_zmm_k1z_zmmm512b64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgatherpf0dps_vm32z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDC, 0x08,// 1116 = "vgatherpf0dps"
 
 	// EVEX_Vgatherpf0dpd_vm32y_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDD, 0x08,// 1117 = "vgatherpf0dpd"
 
 	// EVEX_Vgatherpf1dps_vm32z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDE, 0x08,// 1118 = "vgatherpf1dps"
 
 	// EVEX_Vgatherpf1dpd_vm32y_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDF, 0x08,// 1119 = "vgatherpf1dpd"
 
 	// EVEX_Vscatterpf0dps_vm32z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE0, 0x08,// 1120 = "vscatterpf0dps"
 
 	// EVEX_Vscatterpf0dpd_vm32y_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE1, 0x08,// 1121 = "vscatterpf0dpd"
 
 	// EVEX_Vscatterpf1dps_vm32z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE2, 0x08,// 1122 = "vscatterpf1dps"
 
 	// EVEX_Vscatterpf1dpd_vm32y_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE3, 0x08,// 1123 = "vscatterpf1dpd"
 
 	// EVEX_Vgatherpf0qps_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE4, 0x08,// 1124 = "vgatherpf0qps"
 
 	// EVEX_Vgatherpf0qpd_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE5, 0x08,// 1125 = "vgatherpf0qpd"
 
 	// EVEX_Vgatherpf1qps_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE6, 0x08,// 1126 = "vgatherpf1qps"
 
 	// EVEX_Vgatherpf1qpd_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE7, 0x08,// 1127 = "vgatherpf1qpd"
 
 	// EVEX_Vscatterpf0qps_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE8, 0x08,// 1128 = "vscatterpf0qps"
 
 	// EVEX_Vscatterpf0qpd_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE9, 0x08,// 1129 = "vscatterpf0qpd"
 
 	// EVEX_Vscatterpf1qps_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEA, 0x08,// 1130 = "vscatterpf1qps"
 
 	// EVEX_Vscatterpf1qpd_vm64z_k1
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEB, 0x08,// 1131 = "vscatterpf1qpd"
 
 	// Sha1nexte_xmm_xmmm128
@@ -15228,12 +15228,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xEC, 0x08,// 1132 = "sha1nexte"
 
 	// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xED, 0x08,// 1133 = "vexp2ps"
 	0x00,// 0x0
 
 	// EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEE, 0x08,// 1134 = "vexp2pd"
 	0x00,// 0x0
 
@@ -15246,12 +15246,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF0, 0x08,// 1136 = "sha1msg2"
 
 	// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF1, 0x08,// 1137 = "vrcp28ps"
 	0x00,// 0x0
 
 	// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF2, 0x08,// 1138 = "vrcp28pd"
 	0x00,// 0x0
 
@@ -15260,12 +15260,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF3, 0x08,// 1139 = "sha256rnds2"
 
 	// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF4, 0x08,// 1140 = "vrcp28ss"
 	0x00,// 0x0
 
 	// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF5, 0x08,// 1141 = "vrcp28sd"
 	0x00,// 0x0
 
@@ -15274,12 +15274,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF6, 0x08,// 1142 = "sha256msg1"
 
 	// EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF7, 0x08,// 1143 = "vrsqrt28ps"
 	0x00,// 0x0
 
 	// EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF8, 0x08,// 1144 = "vrsqrt28pd"
 	0x00,// 0x0
 
@@ -15288,12 +15288,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF9, 0x08,// 1145 = "sha256msg2"
 
 	// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xFA, 0x08,// 1146 = "vrsqrt28ss"
 	0x00,// 0x0
 
 	// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xFB, 0x08,// 1147 = "vrsqrt28sd"
 	0x00,// 0x0
 
@@ -15659,86 +15659,86 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// VEX_Vpermq_ymm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9C, 0x07,// 924 = "vpermq"
 
 	// EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermpd_ymm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE2, 0x06,// 866 = "vpermpd"
 
 	// EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpblendd_xmm_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9A, 0x09,// 1178 = "vpblendd"
 
 	// VEX_Vpblendd_ymm_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9B, 0x09,// 1179 = "valignd"
 
 	// EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9C, 0x09,// 1180 = "valignq"
 
 	// EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermilps_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x26,// 38 = "vpermilps"
 
 	// VEX_Vpermilps_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermilpd_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x27,// 39 = "vpermilpd"
 
 	// VEX_Vpermilpd_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vperm2f128_ymm_ymm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9D, 0x09,// 1181 = "vperm2f128"
 
 	// Roundps_xmm_xmmm128_imm8
@@ -15753,14 +15753,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9F, 0x09,// 1183 = "vrndscaleps"
 
 	// EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x9F, 0x09,// 1183 = "vrndscaleps"
 	0x01,// 0x1
 
@@ -15776,14 +15776,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA1, 0x09,// 1185 = "vrndscalepd"
 
 	// EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA1, 0x09,// 1185 = "vrndscalepd"
 	0x01,// 0x1
 
@@ -15796,7 +15796,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA2, 0x09,// 1186 = "vroundss"
 
 	// EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA3, 0x09,// 1187 = "vrndscaless"
 	0x01,// 0x1
 
@@ -15809,7 +15809,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA4, 0x09,// 1188 = "vroundsd"
 
 	// EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA5, 0x09,// 1189 = "vrndscalesd"
 	0x01,// 0x1
 
@@ -15954,122 +15954,122 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAD, 0x09,// 1197 = "vinsertf128"
 
 	// EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAE, 0x09,// 1198 = "vinsertf32x4"
 
 	// EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAF, 0x09,// 1199 = "vinsertf64x2"
 
 	// EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vextractf128_xmmm128_ymm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB0, 0x09,// 1200 = "vextractf128"
 
 	// EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB1, 0x09,// 1201 = "vextractf32x4"
 
 	// EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB2, 0x09,// 1202 = "vextractf64x2"
 
 	// EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB3, 0x09,// 1203 = "vinsertf32x8"
 
 	// EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB4, 0x09,// 1204 = "vinsertf64x4"
 
 	// EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB5, 0x09,// 1205 = "vextractf32x8"
 
 	// EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB6, 0x09,// 1206 = "vextractf64x4"
 
 	// VEX_Vcvtps2ph_xmmm64_xmm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB7, 0x09,// 1207 = "vcvtps2ph"
 
 	// VEX_Vcvtps2ph_xmmm128_ymm_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xB7, 0x09,// 1207 = "vcvtps2ph"
 	0x01,// 0x1
 
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB8, 0x09,// 1208 = "vpcmpud"
 	0x18,// vpcmpud
 	0x00,// False
 
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB9, 0x09,// 1209 = "vpcmpuq"
 	0x19,// vpcmpuq
 	0x00,// False
 
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xBA, 0x09,// 1210 = "vpcmpd"
 	0x14,// vpcmpd
 	0x00,// False
 
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xBB, 0x09,// 1211 = "vpcmpq"
 	0x15,// vpcmpq
 	0x00,// False
 
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pinsrb_xmm_r32m8_imm8
 	0x01,// Normal_1
@@ -16127,70 +16127,70 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xBF, 0x09,// 1215 = "vpinsrq"
 
 	// EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC0, 0x09,// 1216 = "vshuff32x4"
 
 	// EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC1, 0x09,// 1217 = "vshuff64x2"
 
 	// EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC2, 0x09,// 1218 = "vpternlogd"
 
 	// EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC3, 0x09,// 1219 = "vpternlogq"
 
 	// EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC4, 0x09,// 1220 = "vgetmantps"
 
 	// EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xC4, 0x09,// 1220 = "vgetmantps"
 	0x01,// 0x1
 
 	// EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC5, 0x09,// 1221 = "vgetmantpd"
 
 	// EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xC5, 0x09,// 1221 = "vgetmantpd"
 	0x01,// 0x1
 
 	// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xC6, 0x09,// 1222 = "vgetmantss"
 	0x01,// 0x1
 
 	// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xC7, 0x09,// 1223 = "vgetmantsd"
 	0x01,// 0x1
 
@@ -16227,104 +16227,104 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xCF, 0x09,// 1231 = "kshiftlq"
 
 	// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD0, 0x09,// 1232 = "vinserti128"
 
 	// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD1, 0x09,// 1233 = "vinserti32x4"
 
 	// EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD2, 0x09,// 1234 = "vinserti64x2"
 
 	// EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vextracti128_xmmm128_ymm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD3, 0x09,// 1235 = "vextracti128"
 
 	// EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD4, 0x09,// 1236 = "vextracti32x4"
 
 	// EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD5, 0x09,// 1237 = "vextracti64x2"
 
 	// EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD6, 0x09,// 1238 = "vinserti32x8"
 
 	// EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD7, 0x09,// 1239 = "vinserti64x4"
 
 	// EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD8, 0x09,// 1240 = "vextracti32x8"
 
 	// EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD9, 0x09,// 1241 = "vextracti64x4"
 
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xDA, 0x09,// 1242 = "vpcmpub"
 	0x16,// vpcmpub
 	0x00,// False
 
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xDB, 0x09,// 1243 = "vpcmpuw"
 	0x17,// vpcmpuw
 	0x00,// False
 
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xDC, 0x09,// 1244 = "vpcmpb"
 	0x12,// vpcmpb
 	0x00,// False
 
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xDD, 0x09,// 1245 = "vpcmpw"
 	0x13,// vpcmpw
 	0x00,// False
 
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Dpps_xmm_xmmm128_imm8
 	0x01,// Normal_1
@@ -16357,28 +16357,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE1, 0x09,// 1249 = "vdbpsadbw"
 
 	// EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE2, 0x09,// 1250 = "vshufi32x4"
 
 	// EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE3, 0x09,// 1251 = "vshufi64x2"
 
 	// EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pclmulqdq_xmm_xmmm128_imm8
 	0x27,// pclmulqdq
@@ -16403,34 +16403,34 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE5, 0x09,// 1253 = "vperm2i128"
 
 	// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE6, 0x09,// 1254 = "vpermil2ps"
 
 	// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE7, 0x09,// 1255 = "vpermil2pd"
 
 	// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
@@ -16454,158 +16454,158 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE8, 0x09,// 1256 = "vrangeps"
 
 	// EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xE8, 0x09,// 1256 = "vrangeps"
 	0x01,// 0x1
 
 	// EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE9, 0x09,// 1257 = "vrangepd"
 
 	// EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xE9, 0x09,// 1257 = "vrangepd"
 	0x01,// 0x1
 
 	// EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEA, 0x09,// 1258 = "vrangess"
 	0x01,// 0x1
 
 	// EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEB, 0x09,// 1259 = "vrangesd"
 	0x01,// 0x1
 
 	// EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEC, 0x09,// 1260 = "vfixupimmps"
 
 	// EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEC, 0x09,// 1260 = "vfixupimmps"
 	0x01,// 0x1
 
 	// EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xED, 0x09,// 1261 = "vfixupimmpd"
 
 	// EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xED, 0x09,// 1261 = "vfixupimmpd"
 	0x01,// 0x1
 
 	// EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEE, 0x09,// 1262 = "vfixupimmss"
 	0x01,// 0x1
 
 	// EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEF, 0x09,// 1263 = "vfixupimmsd"
 	0x01,// 0x1
 
 	// EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF0, 0x09,// 1264 = "vreduceps"
 
 	// EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF0, 0x09,// 1264 = "vreduceps"
 	0x01,// 0x1
 
 	// EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF1, 0x09,// 1265 = "vreducepd"
 
 	// EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF1, 0x09,// 1265 = "vreducepd"
 	0x01,// 0x1
 
 	// EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF2, 0x09,// 1266 = "vreducess"
 	0x01,// 0x1
 
 	// EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xF3, 0x09,// 1267 = "vreducesd"
 	0x01,// 0x1
 
 	// VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF4, 0x09,// 1268 = "vfmaddsubps"
 
 	// VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF5, 0x09,// 1269 = "vfmaddsubpd"
 
 	// VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF6, 0x09,// 1270 = "vfmsubaddps"
 
 	// VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF7, 0x09,// 1271 = "vfmsubaddpd"
 
 	// VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Pcmpestrm_xmm_xmmm128_imm8
 	0x01,// Normal_1
@@ -16660,268 +16660,268 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xFD, 0x09,// 1277 = "vpcmpistri"
 
 	// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xFE, 0x09,// 1278 = "vfpclassps"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xFE, 0x09,// 1278 = "vfpclassps"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xFE, 0x09,// 1278 = "vfpclassps"
 	0x7A,// 'z'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xFF, 0x09,// 1279 = "vfpclasspd"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xFF, 0x09,// 1279 = "vfpclasspd"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xFF, 0x09,// 1279 = "vfpclasspd"
 	0x7A,// 'z'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x80, 0x0A,// 1280 = "vfpclassss"
 
 	// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x81, 0x0A,// 1281 = "vfpclasssd"
 
 	// VEX_Vfmaddps_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x82, 0x0A,// 1282 = "vfmaddps"
 
 	// VEX_Vfmaddps_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddps_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddps_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x83, 0x0A,// 1283 = "vfmaddpd"
 
 	// VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddss_xmm_xmm_xmmm32_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x84, 0x0A,// 1284 = "vfmaddss"
 
 	// VEX_Vfmaddss_xmm_xmm_xmm_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x85, 0x0A,// 1285 = "vfmaddsd"
 
 	// VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubps_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x86, 0x0A,// 1286 = "vfmsubps"
 
 	// VEX_Vfmsubps_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubps_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubps_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x87, 0x0A,// 1287 = "vfmsubpd"
 
 	// VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubss_xmm_xmm_xmmm32_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x88, 0x0A,// 1288 = "vfmsubss"
 
 	// VEX_Vfmsubss_xmm_xmm_xmm_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x89, 0x0A,// 1289 = "vfmsubsd"
 
 	// VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8A, 0x0A,// 1290 = "vpshldw"
 
 	// EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8B, 0x0A,// 1291 = "vpshldd"
 
 	// EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8C, 0x0A,// 1292 = "vpshldq"
 
 	// EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8D, 0x0A,// 1293 = "vpshrdw"
 
 	// EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8E, 0x0A,// 1294 = "vpshrdd"
 
 	// EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x8F, 0x0A,// 1295 = "vpshrdq"
 
 	// EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x90, 0x0A,// 1296 = "vfnmaddps"
 
 	// VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x91, 0x0A,// 1297 = "vfnmaddpd"
 
 	// VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x92, 0x0A,// 1298 = "vfnmaddss"
 
 	// VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x93, 0x0A,// 1299 = "vfnmaddsd"
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x94, 0x0A,// 1300 = "vfnmsubps"
 
 	// VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x95, 0x0A,// 1301 = "vfnmsubpd"
 
 	// VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x96, 0x0A,// 1302 = "vfnmsubss"
 
 	// VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x97, 0x0A,// 1303 = "vfnmsubsd"
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Sha1rnds4_xmm_xmmm128_imm8
 	0x01,// Normal_1
@@ -16986,133 +16986,133 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// XOP_Vpmacssww_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9D, 0x0A,// 1309 = "vpmacssww"
 
 	// XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9E, 0x0A,// 1310 = "vpmacsswd"
 
 	// XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9F, 0x0A,// 1311 = "vpmacssdql"
 
 	// XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA0, 0x0A,// 1312 = "vpmacssdd"
 
 	// XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA1, 0x0A,// 1313 = "vpmacssdqh"
 
 	// XOP_Vpmacsww_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA2, 0x0A,// 1314 = "vpmacsww"
 
 	// XOP_Vpmacswd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA3, 0x0A,// 1315 = "vpmacswd"
 
 	// XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA4, 0x0A,// 1316 = "vpmacsdql"
 
 	// XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA5, 0x0A,// 1317 = "vpmacsdd"
 
 	// XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA6, 0x0A,// 1318 = "vpmacsdqh"
 
 	// XOP_Vpcmov_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA7, 0x0A,// 1319 = "vpcmov"
 
 	// XOP_Vpcmov_ymm_ymm_ymmm256_ymm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpcmov_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpcmov_ymm_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpperm_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA8, 0x0A,// 1320 = "vpperm"
 
 	// XOP_Vpperm_xmm_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA9, 0x0A,// 1321 = "vpmadcsswd"
 
 	// XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAA, 0x0A,// 1322 = "vpmadcswd"
 
 	// XOP_Vprotb_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAB, 0x0A,// 1323 = "vprotb"
 
 	// XOP_Vprotw_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAC, 0x0A,// 1324 = "vprotw"
 
 	// XOP_Vprotd_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAD, 0x0A,// 1325 = "vprotd"
 
 	// XOP_Vprotq_xmm_xmmm128_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAE, 0x0A,// 1326 = "vprotq"
 
 	// XOP_Vpcomb_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xAF, 0x0A,// 1327 = "vpcomb"
 	0x0A,// vpcomb
 	0x00,// False
 
 	// XOP_Vpcomw_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB0, 0x0A,// 1328 = "vpcomw"
 	0x0B,// vpcomw
 	0x00,// False
 
 	// XOP_Vpcomd_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB1, 0x0A,// 1329 = "vpcomd"
 	0x0C,// vpcomd
 	0x00,// False
 
 	// XOP_Vpcomq_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB2, 0x0A,// 1330 = "vpcomq"
 	0x0D,// vpcomq
 	0x00,// False
 
 	// XOP_Vpcomub_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB3, 0x0A,// 1331 = "vpcomub"
 	0x0E,// vpcomub
 	0x00,// False
 
 	// XOP_Vpcomuw_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB4, 0x0A,// 1332 = "vpcomuw"
 	0x0F,// vpcomuw
 	0x00,// False
 
 	// XOP_Vpcomud_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB5, 0x0A,// 1333 = "vpcomud"
 	0x10,// vpcomud
 	0x00,// False
 
 	// XOP_Vpcomuq_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xB6, 0x0A,// 1334 = "vpcomuq"
 	0x11,// vpcomuq
 	0x00,// False
@@ -17222,169 +17222,169 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// XOP_Vfrczps_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC2, 0x0A,// 1346 = "vfrczps"
 
 	// XOP_Vfrczps_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vfrczpd_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC3, 0x0A,// 1347 = "vfrczpd"
 
 	// XOP_Vfrczpd_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vfrczss_xmm_xmmm32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC4, 0x0A,// 1348 = "vfrczss"
 
 	// XOP_Vfrczsd_xmm_xmmm64
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC5, 0x0A,// 1349 = "vfrczsd"
 
 	// XOP_Vprotb_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAB, 0x0A,// 1323 = "vprotb"
 
 	// XOP_Vprotb_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vprotw_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAC, 0x0A,// 1324 = "vprotw"
 
 	// XOP_Vprotw_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vprotd_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAD, 0x0A,// 1325 = "vprotd"
 
 	// XOP_Vprotd_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vprotq_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAE, 0x0A,// 1326 = "vprotq"
 
 	// XOP_Vprotq_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshlb_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC6, 0x0A,// 1350 = "vpshlb"
 
 	// XOP_Vpshlb_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshlw_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC7, 0x0A,// 1351 = "vpshlw"
 
 	// XOP_Vpshlw_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshld_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC8, 0x0A,// 1352 = "vpshld"
 
 	// XOP_Vpshld_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshlq_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC9, 0x0A,// 1353 = "vpshlq"
 
 	// XOP_Vpshlq_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshab_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCA, 0x0A,// 1354 = "vpshab"
 
 	// XOP_Vpshab_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshaw_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCB, 0x0A,// 1355 = "vpshaw"
 
 	// XOP_Vpshaw_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshad_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCC, 0x0A,// 1356 = "vpshad"
 
 	// XOP_Vpshad_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vpshaq_xmm_xmmm128_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCD, 0x0A,// 1357 = "vpshaq"
 
 	// XOP_Vpshaq_xmm_xmm_xmmm128
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// XOP_Vphaddbw_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCE, 0x0A,// 1358 = "vphaddbw"
 
 	// XOP_Vphaddbd_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCF, 0x0A,// 1359 = "vphaddbd"
 
 	// XOP_Vphaddbq_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD0, 0x0A,// 1360 = "vphaddbq"
 
 	// XOP_Vphaddwd_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD1, 0x0A,// 1361 = "vphaddwd"
 
 	// XOP_Vphaddwq_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD2, 0x0A,// 1362 = "vphaddwq"
 
 	// XOP_Vphadddq_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD3, 0x0A,// 1363 = "vphadddq"
 
 	// XOP_Vphaddubw_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD4, 0x0A,// 1364 = "vphaddubw"
 
 	// XOP_Vphaddubd_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD5, 0x0A,// 1365 = "vphaddubd"
 
 	// XOP_Vphaddubq_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD6, 0x0A,// 1366 = "vphaddubq"
 
 	// XOP_Vphadduwd_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD7, 0x0A,// 1367 = "vphadduwd"
 
 	// XOP_Vphadduwq_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD8, 0x0A,// 1368 = "vphadduwq"
 
 	// XOP_Vphaddudq_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD9, 0x0A,// 1369 = "vphaddudq"
 
 	// XOP_Vphsubbw_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDA, 0x0A,// 1370 = "vphsubbw"
 
 	// XOP_Vphsubwd_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDB, 0x0A,// 1371 = "vphsubwd"
 
 	// XOP_Vphsubdq_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDC, 0x0A,// 1372 = "vphsubdq"
 
 	// XOP_Bextr_r32_rm32_imm32
@@ -17595,7 +17595,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xC4, 0x06,// 836 = "ud0"
 
 	// Vmgexit
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x84, 0x0B,// 1412 = "vmgexit"
 
 	// Getsecq
@@ -17881,18 +17881,18 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xC3, 0x0B,// 1475 = "encodekey256"
 
 	// VEX_Vbroadcastss_xmm_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x65,// 101 = "vbroadcastss"
 
 	// VEX_Vbroadcastss_ymm_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vbroadcastsd_ymm_xmm
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE4, 0x06,// 868 = "vbroadcastsd"
 
 	// Vmgexit_F2
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x84, 0x0B,// 1412 = "vmgexit"
 
 	// Uiret
@@ -17920,32 +17920,32 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xC9, 0x0B,// 1481 = "hreset"
 
 	// VEX_Vpdpbusd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC6, 0x07,// 966 = "vpdpbusd"
 
 	// VEX_Vpdpbusd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpdpbusds_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC7, 0x07,// 967 = "vpdpbusds"
 
 	// VEX_Vpdpbusds_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpdpwssd_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xC8, 0x07,// 968 = "vpdpwssd"
 
 	// VEX_Vpdpwssd_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// VEX_Vpdpwssds_xmm_xmm_xmmm128
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCB, 0x07,// 971 = "vpdpwssds"
 
 	// VEX_Vpdpwssds_ymm_ymm_ymmm256
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// Ccs_hash_16
 	0x07,// asz
@@ -17996,1037 +17996,1037 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xCE, 0x0B,// 1486 = "erets"
 
 	// EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xCF, 0x0B,// 1487 = "vaddph"
 
 	// EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xCF, 0x0B,// 1487 = "vaddph"
 	0x00,// 0x0
 
 	// EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD0, 0x0B,// 1488 = "vaddsh"
 	0x00,// 0x0
 
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xD1, 0x0B,// 1489 = "vcmpph"
 	0x1A,// vcmpph
 	0x00,// False
 
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xD1, 0x0B,// 1489 = "vcmpph"
 	0x1A,// vcmpph
 	0x01,// True
 
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
-	0xA8,// 'v', pops
+	0x28,// pops
 	0xD2, 0x0B,// 1490 = "vcmpsh"
 	0x1B,// vcmpsh
 	0x01,// True
 
 	// EVEX_Vcomish_xmm_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xD3, 0x0B,// 1491 = "vcomish"
 	0x00,// 0x0
 
 	// EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xD4, 0x0B,// 1492 = "vcvtdq2ph"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xD4, 0x0B,// 1492 = "vcvtdq2ph"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD4, 0x0B,// 1492 = "vcvtdq2ph"
 	0x00,// 0x0
 
 	// EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xD5, 0x0B,// 1493 = "vcvtpd2ph"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xD5, 0x0B,// 1493 = "vcvtpd2ph"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0xD5, 0x0B,// 1493 = "vcvtpd2ph"
 	0x7A,// 'z'
 	0x00,// 0x0
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD6, 0x0B,// 1494 = "vcvtph2dq"
 
 	// EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD6, 0x0B,// 1494 = "vcvtph2dq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD7, 0x0B,// 1495 = "vcvtph2pd"
 
 	// EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xD7, 0x0B,// 1495 = "vcvtph2pd"
 	0x00,// 0x0
 
 	// EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD8, 0x0B,// 1496 = "vcvtph2psx"
 
 	// EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xD8, 0x0B,// 1496 = "vcvtph2psx"
 	0x00,// 0x0
 
 	// EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xD9, 0x0B,// 1497 = "vcvtph2qq"
 
 	// EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xD9, 0x0B,// 1497 = "vcvtph2qq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDA, 0x0B,// 1498 = "vcvtph2udq"
 
 	// EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xDA, 0x0B,// 1498 = "vcvtph2udq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDB, 0x0B,// 1499 = "vcvtph2uqq"
 
 	// EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xDB, 0x0B,// 1499 = "vcvtph2uqq"
 	0x00,// 0x0
 
 	// EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDC, 0x0B,// 1500 = "vcvtph2uw"
 
 	// EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xDC, 0x0B,// 1500 = "vcvtph2uw"
 	0x00,// 0x0
 
 	// EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xDD, 0x0B,// 1501 = "vcvtph2w"
 
 	// EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xDD, 0x0B,// 1501 = "vcvtph2w"
 	0x00,// 0x0
 
 	// EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xDE, 0x0B,// 1502 = "vcvtps2phx"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xDE, 0x0B,// 1502 = "vcvtps2phx"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xDE, 0x0B,// 1502 = "vcvtps2phx"
 	0x00,// 0x0
 
 	// EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xDF, 0x0B,// 1503 = "vcvtqq2ph"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xDF, 0x0B,// 1503 = "vcvtqq2ph"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0xDF, 0x0B,// 1503 = "vcvtqq2ph"
 	0x7A,// 'z'
 	0x00,// 0x0
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xE0, 0x0B,// 1504 = "vcvtsd2sh"
 	0x00,// 0x0
 
 	// EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xE1, 0x0B,// 1505 = "vcvtsh2sd"
 	0x00,// 0x0
 
 	// EVEX_Vcvtsh2si_r32_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xE2, 0x0B,// 1506 = "vcvtsh2si"
 	0x00,// 0x0
 
 	// EVEX_Vcvtsh2si_r64_xmmm16_er
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xE3, 0x0B,// 1507 = "vcvtsh2ss"
 	0x00,// 0x0
 
 	// EVEX_Vcvtsh2usi_r32_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xE4, 0x0B,// 1508 = "vcvtsh2usi"
 	0x00,// 0x0
 
 	// EVEX_Vcvtsh2usi_r64_xmmm16_er
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0xE5, 0x0B,// 1509 = "vcvtsi2sh"
 	0x6C,// 'l'
 	0x01,// 0x1
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0xE5, 0x0B,// 1509 = "vcvtsi2sh"
 	0x71,// 'q'
 	0x01,// 0x1
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xE6, 0x0B,// 1510 = "vcvtss2sh"
 	0x00,// 0x0
 
 	// EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE7, 0x0B,// 1511 = "vcvttph2dq"
 
 	// EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xE7, 0x0B,// 1511 = "vcvttph2dq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE8, 0x0B,// 1512 = "vcvttph2qq"
 
 	// EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xE8, 0x0B,// 1512 = "vcvttph2qq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xE9, 0x0B,// 1513 = "vcvttph2udq"
 
 	// EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xE9, 0x0B,// 1513 = "vcvttph2udq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEA, 0x0B,// 1514 = "vcvttph2uqq"
 
 	// EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEA, 0x0B,// 1514 = "vcvttph2uqq"
 	0x00,// 0x0
 
 	// EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEB, 0x0B,// 1515 = "vcvttph2uw"
 
 	// EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEB, 0x0B,// 1515 = "vcvttph2uw"
 	0x00,// 0x0
 
 	// EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xEC, 0x0B,// 1516 = "vcvttph2w"
 
 	// EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEC, 0x0B,// 1516 = "vcvttph2w"
 	0x00,// 0x0
 
 	// EVEX_Vcvttsh2si_r32_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xED, 0x0B,// 1517 = "vcvttsh2si"
 	0x00,// 0x0
 
 	// EVEX_Vcvttsh2si_r64_xmmm16_sae
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvttsh2usi_r32_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xEE, 0x0B,// 1518 = "vcvttsh2usi"
 	0x00,// 0x0
 
 	// EVEX_Vcvttsh2usi_r64_xmmm16_sae
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xEF, 0x0B,// 1519 = "vcvtudq2ph"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xEF, 0x0B,// 1519 = "vcvtudq2ph"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xEF, 0x0B,// 1519 = "vcvtudq2ph"
 	0x00,// 0x0
 
 	// EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xF0, 0x0B,// 1520 = "vcvtuqq2ph"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0xF0, 0x0B,// 1520 = "vcvtuqq2ph"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0xF0, 0x0B,// 1520 = "vcvtuqq2ph"
 	0x7A,// 'z'
 	0x00,// 0x0
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0xF1, 0x0B,// 1521 = "vcvtusi2sh"
 	0x6C,// 'l'
 	0x01,// 0x1
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
-	0x8C,// 'v', er_4
+	0x0C,// er_4
 	0xF1, 0x0B,// 1521 = "vcvtusi2sh"
 	0x71,// 'q'
 	0x01,// 0x1
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF2, 0x0B,// 1522 = "vcvtuw2ph"
 
 	// EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF2, 0x0B,// 1522 = "vcvtuw2ph"
 	0x00,// 0x0
 
 	// EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF3, 0x0B,// 1523 = "vcvtw2ph"
 
 	// EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF3, 0x0B,// 1523 = "vcvtw2ph"
 	0x00,// 0x0
 
 	// EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF4, 0x0B,// 1524 = "vdivph"
 
 	// EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF4, 0x0B,// 1524 = "vdivph"
 	0x00,// 0x0
 
 	// EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF5, 0x0B,// 1525 = "vdivsh"
 	0x00,// 0x0
 
 	// EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF6, 0x0B,// 1526 = "vfcmaddcph"
 
 	// EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF6, 0x0B,// 1526 = "vfcmaddcph"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xF7, 0x0B,// 1527 = "vfmaddcph"
 
 	// EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF7, 0x0B,// 1527 = "vfmaddcph"
 	0x00,// 0x0
 
 	// EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF8, 0x0B,// 1528 = "vfcmaddcsh"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xF9, 0x0B,// 1529 = "vfmaddcsh"
 	0x00,// 0x0
 
 	// EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFA, 0x0B,// 1530 = "vfcmulcph"
 
 	// EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xFA, 0x0B,// 1530 = "vfcmulcph"
 	0x00,// 0x0
 
 	// EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFB, 0x0B,// 1531 = "vfmulcph"
 
 	// EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xFB, 0x0B,// 1531 = "vfmulcph"
 	0x00,// 0x0
 
 	// EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xFC, 0x0B,// 1532 = "vfcmulcsh"
 	0x00,// 0x0
 
 	// EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xFD, 0x0B,// 1533 = "vfmulcsh"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFE, 0x0B,// 1534 = "vfmaddsub132ph"
 
 	// EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xFE, 0x0B,// 1534 = "vfmaddsub132ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xFF, 0x0B,// 1535 = "vfmaddsub213ph"
 
 	// EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xFF, 0x0B,// 1535 = "vfmaddsub213ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x80, 0x0C,// 1536 = "vfmaddsub231ph"
 
 	// EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x80, 0x0C,// 1536 = "vfmaddsub231ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x81, 0x0C,// 1537 = "vfmsubadd132ph"
 
 	// EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x81, 0x0C,// 1537 = "vfmsubadd132ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x82, 0x0C,// 1538 = "vfmsubadd213ph"
 
 	// EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x82, 0x0C,// 1538 = "vfmsubadd213ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x83, 0x0C,// 1539 = "vfmsubadd231ph"
 
 	// EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x83, 0x0C,// 1539 = "vfmsubadd231ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x84, 0x0C,// 1540 = "vfmadd132ph"
 
 	// EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x84, 0x0C,// 1540 = "vfmadd132ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x85, 0x0C,// 1541 = "vfmadd213ph"
 
 	// EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x85, 0x0C,// 1541 = "vfmadd213ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x86, 0x0C,// 1542 = "vfmadd231ph"
 
 	// EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x86, 0x0C,// 1542 = "vfmadd231ph"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x87, 0x0C,// 1543 = "vfnmadd132ph"
 
 	// EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x87, 0x0C,// 1543 = "vfnmadd132ph"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x88, 0x0C,// 1544 = "vfnmadd213ph"
 
 	// EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x88, 0x0C,// 1544 = "vfnmadd213ph"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x89, 0x0C,// 1545 = "vfnmadd231ph"
 
 	// EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x89, 0x0C,// 1545 = "vfnmadd231ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8A, 0x0C,// 1546 = "vfmadd132sh"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8B, 0x0C,// 1547 = "vfmadd213sh"
 	0x00,// 0x0
 
 	// EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8C, 0x0C,// 1548 = "vfmadd231sh"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8D, 0x0C,// 1549 = "vfnmadd132sh"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8E, 0x0C,// 1550 = "vfnmadd213sh"
 	0x00,// 0x0
 
 	// EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x8F, 0x0C,// 1551 = "vfnmadd231sh"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x90, 0x0C,// 1552 = "vfmsub132ph"
 
 	// EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x90, 0x0C,// 1552 = "vfmsub132ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x91, 0x0C,// 1553 = "vfmsub213ph"
 
 	// EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x91, 0x0C,// 1553 = "vfmsub213ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x92, 0x0C,// 1554 = "vfmsub231ph"
 
 	// EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x92, 0x0C,// 1554 = "vfmsub231ph"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x93, 0x0C,// 1555 = "vfnmsub132ph"
 
 	// EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x93, 0x0C,// 1555 = "vfnmsub132ph"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x94, 0x0C,// 1556 = "vfnmsub213ph"
 
 	// EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x94, 0x0C,// 1556 = "vfnmsub213ph"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x95, 0x0C,// 1557 = "vfnmsub231ph"
 
 	// EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x95, 0x0C,// 1557 = "vfnmsub231ph"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x96, 0x0C,// 1558 = "vfmsub132sh"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x97, 0x0C,// 1559 = "vfmsub213sh"
 	0x00,// 0x0
 
 	// EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x98, 0x0C,// 1560 = "vfmsub231sh"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x99, 0x0C,// 1561 = "vfnmsub132sh"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9A, 0x0C,// 1562 = "vfnmsub213sh"
 	0x00,// 0x0
 
 	// EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0x9B, 0x0C,// 1563 = "vfnmsub231sh"
 	0x00,// 0x0
 
 	// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x9C, 0x0C,// 1564 = "vfpclassph"
 	0x78,// 'x'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x9C, 0x0C,// 1564 = "vfpclassph"
 	0x79,// 'y'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
-	0x85,// 'v', Normal_3
+	0x05,// Normal_3
 	0x9C, 0x0C,// 1564 = "vfpclassph"
 	0x7A,// 'z'
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9D, 0x0C,// 1565 = "vfpclasssh"
 
 	// EVEX_Vgetexpph_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0x9E, 0x0C,// 1566 = "vgetexpph"
 
 	// EVEX_Vgetexpph_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x9E, 0x0C,// 1566 = "vgetexpph"
 	0x00,// 0x0
 
 	// EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0x9F, 0x0C,// 1567 = "vgetexpsh"
 	0x00,// 0x0
 
 	// EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA0, 0x0C,// 1568 = "vgetmantph"
 
 	// EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA0, 0x0C,// 1568 = "vgetmantph"
 	0x01,// 0x1
 
 	// EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA1, 0x0C,// 1569 = "vgetmantsh"
 	0x01,// 0x1
 
 	// EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA2, 0x0C,// 1570 = "vmaxph"
 
 	// EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA2, 0x0C,// 1570 = "vmaxph"
 	0x00,// 0x0
 
 	// EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA3, 0x0C,// 1571 = "vmaxsh"
 	0x00,// 0x0
 
 	// EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA4, 0x0C,// 1572 = "vminph"
 
 	// EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA4, 0x0C,// 1572 = "vminph"
 	0x00,// 0x0
 
 	// EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xA5, 0x0C,// 1573 = "vminsh"
 	0x00,// 0x0
 
 	// EVEX_Vmovsh_xmm_k1z_m16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA6, 0x0C,// 1574 = "vmovsh"
 
 	// EVEX_Vmovsh_m16_k1_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovsh_xmm_k1z_xmm_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovw_xmm_r32m16
-	0xAA,// 'v', Reg32
+	0x2A,// Reg32
 	0xA7, 0x0C,// 1575 = "vmovw"
 
 	// EVEX_Vmovw_xmm_r64m16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovw_r32m16_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmovw_r64m16_xmm
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xA8, 0x0C,// 1576 = "vmulph"
 
 	// EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA8, 0x0C,// 1576 = "vmulph"
 	0x00,// 0x0
 
 	// EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xA9, 0x0C,// 1577 = "vmulsh"
 	0x00,// 0x0
 
 	// EVEX_Vrcpph_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAA, 0x0C,// 1578 = "vrcpph"
 
 	// EVEX_Vrcpph_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrcpph_zmm_k1z_zmmm512b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAB, 0x0C,// 1579 = "vrcpsh"
 
 	// EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAC, 0x0C,// 1580 = "vreduceph"
 
 	// EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xAC, 0x0C,// 1580 = "vreduceph"
 	0x01,// 0x1
 
 	// EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xAD, 0x0C,// 1581 = "vreducesh"
 	0x01,// 0x1
 
 	// EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xAE, 0x0C,// 1582 = "vrndscaleph"
 
 	// EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xAE, 0x0C,// 1582 = "vrndscaleph"
 	0x01,// 0x1
 
 	// EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xAF, 0x0C,// 1583 = "vrndscalesh"
 	0x01,// 0x1
 
 	// EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB0, 0x0C,// 1584 = "vrsqrtph"
 
 	// EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB1, 0x0C,// 1585 = "vrsqrtsh"
 
 	// EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB2, 0x0C,// 1586 = "vscalefph"
 
 	// EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB2, 0x0C,// 1586 = "vscalefph"
 	0x00,// 0x0
 
 	// EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB3, 0x0C,// 1587 = "vscalefsh"
 	0x00,// 0x0
 
 	// EVEX_Vsqrtph_xmm_k1z_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB4, 0x0C,// 1588 = "vsqrtph"
 
 	// EVEX_Vsqrtph_ymm_k1z_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB4, 0x0C,// 1588 = "vsqrtph"
 	0x00,// 0x0
 
 	// EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB5, 0x0C,// 1589 = "vsqrtsh"
 	0x00,// 0x0
 
 	// EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
-	0x81,// 'v', Normal_1
+	0x01,// Normal_1
 	0xB6, 0x0C,// 1590 = "vsubph"
 
 	// EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
-	0x80,// 'v', Previous
+	0x00,// Previous
 
 	// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB6, 0x0C,// 1590 = "vsubph"
 	0x00,// 0x0
 
 	// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
-	0x8B,// 'v', er_2
+	0x0B,// er_2
 	0xB7, 0x0C,// 1591 = "vsubsh"
 	0x00,// 0x0
 
 	// EVEX_Vucomish_xmm_xmmm16_sae
-	0x97,// 'v', sae
+	0x17,// sae
 	0xB8, 0x0C,// 1592 = "vucomish"
 	0x00,// 0x0
 

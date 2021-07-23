@@ -2785,24 +2785,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// Verr_rm16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x80, 0x03,// 384 = "verr"
 
 	// Verr_r32m16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Verr_r64m16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Verw_rm16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x81, 0x03,// 385 = "verw"
 
 	// Verw_r32m16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Verw_r64m16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Jmpe_rm16
 	0x04,// ForceMemSize
@@ -2884,19 +2884,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x8B, 0x03,// 395 = "enclv"
 
 	// Vmcall
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x03,// 396 = "vmcall"
 
 	// Vmlaunch
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8D, 0x03,// 397 = "vmlaunch"
 
 	// Vmresume
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8E, 0x03,// 398 = "vmresume"
 
 	// Vmxoff
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8F, 0x03,// 399 = "vmxoff"
 
 	// Pconfig
@@ -2938,7 +2938,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x97, 0x03,// 407 = "xsetbv"
 
 	// Vmfunc
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x98, 0x03,// 408 = "vmfunc"
 
 	// Xend
@@ -2954,38 +2954,38 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x9B, 0x03,// 411 = "enclu"
 
 	// Vmrunw
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9C, 0x03,// 412 = "vmrun"
 
 	// Vmrund
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Vmrunq
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Vmmcall
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9D, 0x03,// 413 = "vmmcall"
 
 	// Vmloadw
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9E, 0x03,// 414 = "vmload"
 
 	// Vmloadd
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Vmloadq
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Vmsavew
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9F, 0x03,// 415 = "vmsave"
 
 	// Vmsaved
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Vmsaveq
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Stgi
 	0x00,// No flags set
@@ -4851,14 +4851,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xD9, 0x04,// 601 = "vcvtqq2ps"
 
 	// EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Cvtps2dq_xmm_xmmm128
 	0x00,// No flags set
@@ -5478,24 +5478,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vmovdqa32_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEF, 0x04,// 623 = "vmovdqa32"
 
 	// EVEX_Vmovdqa32_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqa32_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqa64_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF0, 0x04,// 624 = "vmovdqa64"
 
 	// EVEX_Vmovdqa64_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqa64_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Movdqu_xmm_xmmm128
 	0x00,// No flags set
@@ -5508,44 +5508,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vmovdqu32_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF2, 0x04,// 626 = "vmovdqu32"
 
 	// EVEX_Vmovdqu32_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu32_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu64_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF3, 0x04,// 627 = "vmovdqu64"
 
 	// EVEX_Vmovdqu64_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu64_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu8_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF4, 0x04,// 628 = "vmovdqu8"
 
 	// EVEX_Vmovdqu8_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu8_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu16_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF5, 0x04,// 629 = "vmovdqu16"
 
 	// EVEX_Vmovdqu16_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu16_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pshufw_mm_mmm64_imm8
 	0x00,// No flags set
@@ -5675,44 +5675,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vprord_xmm_k1z_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFA, 0x04,// 634 = "vprord"
 
 	// EVEX_Vprord_ymm_k1z_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprord_zmm_k1z_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFB, 0x04,// 635 = "vprorq"
 
 	// EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprold_xmm_k1z_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFC, 0x04,// 636 = "vprold"
 
 	// EVEX_Vprold_ymm_k1z_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprold_zmm_k1z_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFD, 0x04,// 637 = "vprolq"
 
 	// EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Psrld_mm_imm8
 	0x00,// No flags set
@@ -5759,14 +5759,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFE, 0x04,// 638 = "vpsraq"
 
 	// EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pslld_mm_imm8
 	0x00,// No flags set
@@ -5943,244 +5943,244 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x81, 0x05,// 641 = "emms"
 
 	// VEX_Vzeroupper
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x82, 0x05,// 642 = "vzeroupper"
 
 	// VEX_Vzeroall
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x83, 0x05,// 643 = "vzeroall"
 
 	// Vmread_rm32_r32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x05,// 644 = "vmread"
 
 	// Vmread_rm64_r64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x85, 0x05,// 645 = "vcvttps2udq"
 
 	// EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0x86, 0x05,// 646 = "vcvttpd2udq"
 
 	// EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Extrq_xmm_imm8_imm8
 	0x00,// No flags set
 	0x87, 0x05,// 647 = "extrq"
 
 	// EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x88, 0x05,// 648 = "vcvttps2uqq"
 
 	// EVEX_Vcvttps2uqq_ymm_k1z_xmmm128b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x89, 0x05,// 649 = "vcvttpd2uqq"
 
 	// EVEX_Vcvttpd2uqq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttss2usi_r32_xmmm32_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8A, 0x05,// 650 = "vcvttss2usi"
 
 	// EVEX_Vcvttss2usi_r64_xmmm32_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Insertq_xmm_xmm_imm8_imm8
 	0x00,// No flags set
 	0x8B, 0x05,// 651 = "insertq"
 
 	// EVEX_Vcvttsd2usi_r32_xmmm64_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x05,// 652 = "vcvttsd2usi"
 
 	// EVEX_Vcvttsd2usi_r64_xmmm64_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Vmwrite_r32_rm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8D, 0x05,// 653 = "vmwrite"
 
 	// Vmwrite_r64_rm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8E, 0x05,// 654 = "vcvtps2udq"
 
 	// EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0x8F, 0x05,// 655 = "vcvtpd2udq"
 
 	// EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Extrq_xmm_xmm
 	0x00,// No flags set
 	0x87, 0x05,// 647 = "extrq"
 
 	// EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x90, 0x05,// 656 = "vcvtps2uqq"
 
 	// EVEX_Vcvtps2uqq_ymm_k1z_xmmm128b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x91, 0x05,// 657 = "vcvtpd2uqq"
 
 	// EVEX_Vcvtpd2uqq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtss2usi_r32_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x92, 0x05,// 658 = "vcvtss2usi"
 
 	// EVEX_Vcvtss2usi_r64_xmmm32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Insertq_xmm_xmm
 	0x00,// No flags set
 	0x8B, 0x05,// 651 = "insertq"
 
 	// EVEX_Vcvtsd2usi_r32_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x93, 0x05,// 659 = "vcvtsd2usi"
 
 	// EVEX_Vcvtsd2usi_r64_xmmm64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttps2qq_xmm_k1z_xmmm64b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x94, 0x05,// 660 = "vcvttps2qq"
 
 	// EVEX_Vcvttps2qq_ymm_k1z_xmmm128b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x95, 0x05,// 661 = "vcvttpd2qq"
 
 	// EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x96, 0x05,// 662 = "vcvtudq2pd"
 
 	// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x97, 0x05,// 663 = "vcvtuqq2pd"
 
 	// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x98, 0x05,// 664 = "vcvtudq2ps"
 
 	// EVEX_Vcvtudq2ps_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0x99, 0x05,// 665 = "vcvtuqq2ps"
 
 	// EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9A, 0x05,// 666 = "vcvtps2qq"
 
 	// EVEX_Vcvtps2qq_ymm_k1z_xmmm128b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9B, 0x05,// 667 = "vcvtpd2qq"
 
 	// EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0x9C, 0x05,// 668 = "vcvtusi2ss"
 
 	// EVEX_Vcvtusi2ss_xmm_xmm_rm64_er
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0x9D, 0x05,// 669 = "vcvtusi2sd"
 
 	// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// Haddpd_xmm_xmmm128
 	0x00,// No flags set
@@ -6277,24 +6277,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vmovdqa32_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEF, 0x04,// 623 = "vmovdqa32"
 
 	// EVEX_Vmovdqa32_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqa32_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqa64_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF0, 0x04,// 624 = "vmovdqa64"
 
 	// EVEX_Vmovdqa64_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqa64_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Movdqu_xmmm128_xmm
 	0x00,// No flags set
@@ -6307,44 +6307,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vmovdqu32_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF2, 0x04,// 626 = "vmovdqu32"
 
 	// EVEX_Vmovdqu32_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu32_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu64_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF3, 0x04,// 627 = "vmovdqu64"
 
 	// EVEX_Vmovdqu64_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu64_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu8_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF4, 0x04,// 628 = "vmovdqu8"
 
 	// EVEX_Vmovdqu8_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu8_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu16_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF5, 0x04,// 629 = "vmovdqu16"
 
 	// EVEX_Vmovdqu16_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovdqu16_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Jo_rel16
 	0x00,// No flags set
@@ -7520,15 +7520,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xA2, 0x06,// 802 = "xsaves64"
 
 	// Vmptrld_m64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA3, 0x06,// 803 = "vmptrld"
 
 	// Vmclear_m64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA4, 0x06,// 804 = "vmclear"
 
 	// Vmxon_m64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA5, 0x06,// 805 = "vmxon"
 
 	// Rdrand_r16
@@ -7542,7 +7542,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// Vmptrst_m64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA7, 0x06,// 807 = "vmptrst"
 
 	// Rdseed_r16
@@ -7825,24 +7825,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpandd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB0, 0x06,// 816 = "vpandd"
 
 	// EVEX_Vpandd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpandd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpandq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB1, 0x06,// 817 = "vpandq"
 
 	// EVEX_Vpandq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpandq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Paddusb_mm_mmm64
 	0x00,// No flags set
@@ -7924,24 +7924,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpandnd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB3, 0x06,// 819 = "vpandnd"
 
 	// EVEX_Vpandnd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpandnd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpandnq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB4, 0x06,// 820 = "vpandnq"
 
 	// EVEX_Vpandnq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpandnq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pavgb_mm_mmm64
 	0x00,// No flags set
@@ -8010,14 +8010,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpsraq_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFE, 0x04,// 638 = "vpsraq"
 
 	// EVEX_Vpsraq_ymm_k1z_ymm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsraq_zmm_k1z_zmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pavgw_mm_mmm64
 	0x00,// No flags set
@@ -8124,14 +8124,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB7, 0x06,// 823 = "vcvtqq2pd"
 
 	// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Cvtpd2dq_xmm_xmmm128
 	0x00,// No flags set
@@ -8255,24 +8255,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpord_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBC, 0x06,// 828 = "vpord"
 
 	// EVEX_Vpord_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpord_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vporq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBD, 0x06,// 829 = "vporq"
 
 	// EVEX_Vporq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vporq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Paddsb_mm_mmm64
 	0x00,// No flags set
@@ -8354,24 +8354,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpxord_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBF, 0x06,// 831 = "vpxord"
 
 	// EVEX_Vpxord_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpxord_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpxorq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC0, 0x06,// 832 = "vpxorq"
 
 	// EVEX_Vpxorq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpxorq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Lddqu_xmm_m128
 	0x00,// No flags set
@@ -8874,225 +8874,225 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// VEX_Vpermilps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x26,// 38 = "vpermilps"
 
 	// VEX_Vpermilps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilps_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermilpd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x27,// 39 = "vpermilpd"
 
 	// VEX_Vpermilpd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilpd_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vtestps_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCE, 0x06,// 846 = "vtestps"
 
 	// VEX_Vtestps_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vtestpd_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCF, 0x06,// 847 = "vtestpd"
 
 	// VEX_Vtestpd_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pblendvb_xmm_xmmm128
 	0x00,// No flags set
 	0xD0, 0x06,// 848 = "pblendvb"
 
 	// EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD1, 0x06,// 849 = "vpsrlvw"
 
 	// EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsrlvw_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovuswb_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD2, 0x06,// 850 = "vpmovuswb"
 
 	// EVEX_Vpmovuswb_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovuswb_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsravw_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD3, 0x06,// 851 = "vpsravw"
 
 	// EVEX_Vpsravw_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsravw_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusdb_xmmm32_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD4, 0x06,// 852 = "vpmovusdb"
 
 	// EVEX_Vpmovusdb_xmmm64_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusdb_xmmm128_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsllvw_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD5, 0x06,// 853 = "vpsllvw"
 
 	// EVEX_Vpsllvw_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsllvw_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusqb_xmmm16_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD6, 0x06,// 854 = "vpmovusqb"
 
 	// EVEX_Vpmovusqb_xmmm32_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusqb_xmmm64_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vcvtph2ps_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD7, 0x06,// 855 = "vcvtph2ps"
 
 	// VEX_Vcvtph2ps_ymm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2ps_xmm_k1z_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2ps_ymm_k1z_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusdw_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD8, 0x06,// 856 = "vpmovusdw"
 
 	// EVEX_Vpmovusdw_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusdw_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Blendvps_xmm_xmmm128
 	0x00,// No flags set
 	0xD9, 0x06,// 857 = "blendvps"
 
 	// EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDA, 0x06,// 858 = "vprorvd"
 
 	// EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprorvd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprorvq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDB, 0x06,// 859 = "vprorvq"
 
 	// EVEX_Vprorvq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprorvq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusqw_xmmm32_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDC, 0x06,// 860 = "vpmovusqw"
 
 	// EVEX_Vpmovusqw_xmmm64_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusqw_xmmm128_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Blendvpd_xmm_xmmm128
 	0x00,// No flags set
 	0xDD, 0x06,// 861 = "blendvpd"
 
 	// EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDE, 0x06,// 862 = "vprolvd"
 
 	// EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprolvd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprolvq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDF, 0x06,// 863 = "vprolvq"
 
 	// EVEX_Vprolvq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vprolvq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusqd_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE0, 0x06,// 864 = "vpmovusqd"
 
 	// EVEX_Vpmovusqd_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovusqd_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermps_ymm_ymm_ymmm256
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE1, 0x06,// 865 = "vpermps"
 
 	// EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermps_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermpd_ymm_k1z_ymm_ymmm256b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE2, 0x06,// 866 = "vpermpd"
 
 	// EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Ptest_xmm_xmmm128
 	0x00,// No flags set
@@ -9105,63 +9105,63 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// VEX_Vbroadcastss_xmm_m32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x65,// 101 = "vbroadcastss"
 
 	// VEX_Vbroadcastss_ymm_m32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcastss_xmm_k1z_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcastss_ymm_k1z_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcastss_zmm_k1z_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vbroadcastsd_ymm_m64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE4, 0x06,// 868 = "vbroadcastsd"
 
 	// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE5, 0x06,// 869 = "vbroadcastf32x2"
 
 	// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE4, 0x06,// 868 = "vbroadcastsd"
 
 	// EVEX_Vbroadcastsd_zmm_k1z_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vbroadcastf128_ymm_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE6, 0x06,// 870 = "vbroadcastf128"
 
 	// EVEX_Vbroadcastf32x4_ymm_k1z_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE7, 0x06,// 871 = "vbroadcastf32x4"
 
 	// EVEX_Vbroadcastf32x4_zmm_k1z_m128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcastf64x2_ymm_k1z_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE8, 0x06,// 872 = "vbroadcastf64x2"
 
 	// EVEX_Vbroadcastf64x2_zmm_k1z_m128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcastf32x8_zmm_k1z_m256
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE9, 0x06,// 873 = "vbroadcastf32x8"
 
 	// EVEX_Vbroadcastf64x4_zmm_k1z_m256
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEA, 0x06,// 874 = "vbroadcastf64x4"
 
 	// Pabsb_mm_mmm64
@@ -9231,14 +9231,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpabsq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEB, 0x06,// 875 = "vpabsq"
 
 	// EVEX_Vpabsq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpabsq_zmm_k1z_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovsxbw_xmm_xmmm64
 	0x00,// No flags set
@@ -9260,14 +9260,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovswb_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xED, 0x06,// 877 = "vpmovswb"
 
 	// EVEX_Vpmovswb_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovswb_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovsxbd_xmm_xmmm32
 	0x00,// No flags set
@@ -9289,14 +9289,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovsdb_xmmm32_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEF, 0x06,// 879 = "vpmovsdb"
 
 	// EVEX_Vpmovsdb_xmmm64_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovsdb_xmmm128_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovsxbq_xmm_xmmm16
 	0x00,// No flags set
@@ -9318,14 +9318,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovsqb_xmmm16_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF1, 0x06,// 881 = "vpmovsqb"
 
 	// EVEX_Vpmovsqb_xmmm32_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovsqb_xmmm64_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovsxwd_xmm_xmmm64
 	0x00,// No flags set
@@ -9347,14 +9347,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovsdw_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF3, 0x06,// 883 = "vpmovsdw"
 
 	// EVEX_Vpmovsdw_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovsdw_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovsxwq_xmm_xmmm32
 	0x00,// No flags set
@@ -9376,14 +9376,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovsqw_xmmm32_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF5, 0x06,// 885 = "vpmovsqw"
 
 	// EVEX_Vpmovsqw_xmmm64_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovsqw_xmmm128_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovsxdq_xmm_xmmm64
 	0x00,// No flags set
@@ -9405,94 +9405,94 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovsqd_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF7, 0x06,// 887 = "vpmovsqd"
 
 	// EVEX_Vpmovsqd_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovsqd_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmb_kr_k1_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF8, 0x06,// 888 = "vptestmb"
 
 	// EVEX_Vptestmb_kr_k1_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmb_kr_k1_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmw_kr_k1_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF9, 0x06,// 889 = "vptestmw"
 
 	// EVEX_Vptestmw_kr_k1_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmw_kr_k1_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFA, 0x06,// 890 = "vptestnmb"
 
 	// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFB, 0x06,// 891 = "vptestnmw"
 
 	// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFC, 0x06,// 892 = "vptestmd"
 
 	// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFD, 0x06,// 893 = "vptestmq"
 
 	// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFE, 0x06,// 894 = "vptestnmd"
 
 	// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFF, 0x06,// 895 = "vptestnmq"
 
 	// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmuldq_xmm_xmmm128
 	0x00,// No flags set
@@ -9514,24 +9514,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovm2b_xmm_kr
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x81, 0x07,// 897 = "vpmovm2b"
 
 	// EVEX_Vpmovm2b_ymm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovm2b_zmm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovm2w_xmm_kr
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x82, 0x07,// 898 = "vpmovm2w"
 
 	// EVEX_Vpmovm2w_ymm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovm2w_zmm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pcmpeqq_xmm_xmmm128
 	0x00,// No flags set
@@ -9553,24 +9553,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovb2m_kr_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x07,// 900 = "vpmovb2m"
 
 	// EVEX_Vpmovb2m_kr_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovb2m_kr_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovw2m_kr_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x85, 0x07,// 901 = "vpmovw2m"
 
 	// EVEX_Vpmovw2m_kr_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovw2m_kr_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Movntdqa_xmm_m128
 	0x00,// No flags set
@@ -9592,14 +9592,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpbroadcastmb2q_xmm_kr
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x87, 0x07,// 903 = "vpbroadcastmb2q"
 
 	// EVEX_Vpbroadcastmb2q_ymm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastmb2q_zmm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Packusdw_xmm_xmmm128
 	0x00,// No flags set
@@ -9621,60 +9621,60 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// VEX_Vmaskmovps_xmm_xmm_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x89, 0x07,// 905 = "vmaskmovps"
 
 	// VEX_Vmaskmovps_ymm_ymm_m256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscalefps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8A, 0x07,// 906 = "vscalefps"
 
 	// EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8B, 0x07,// 907 = "vscalefpd"
 
 	// EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vmaskmovpd_xmm_xmm_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x07,// 908 = "vmaskmovpd"
 
 	// VEX_Vmaskmovpd_ymm_ymm_m256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8D, 0x07,// 909 = "vscalefss"
 
 	// EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8E, 0x07,// 910 = "vscalefsd"
 
 	// VEX_Vmaskmovps_m128_xmm_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x89, 0x07,// 905 = "vmaskmovps"
 
 	// VEX_Vmaskmovps_m256_ymm_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vmaskmovpd_m128_xmm_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x07,// 908 = "vmaskmovpd"
 
 	// VEX_Vmaskmovpd_m256_ymm_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovzxbw_xmm_xmmm64
 	0x00,// No flags set
@@ -9696,14 +9696,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovwb_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x90, 0x07,// 912 = "vpmovwb"
 
 	// EVEX_Vpmovwb_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovwb_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovzxbd_xmm_xmmm32
 	0x00,// No flags set
@@ -9725,14 +9725,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovdb_xmmm32_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x92, 0x07,// 914 = "vpmovdb"
 
 	// EVEX_Vpmovdb_xmmm64_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovdb_xmmm128_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovzxbq_xmm_xmmm16
 	0x00,// No flags set
@@ -9754,14 +9754,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovqb_xmmm16_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x94, 0x07,// 916 = "vpmovqb"
 
 	// EVEX_Vpmovqb_xmmm32_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovqb_xmmm64_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovzxwd_xmm_xmmm64
 	0x00,// No flags set
@@ -9783,14 +9783,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovdw_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x96, 0x07,// 918 = "vpmovdw"
 
 	// EVEX_Vpmovdw_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovdw_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovzxwq_xmm_xmmm32
 	0x00,// No flags set
@@ -9812,14 +9812,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovqw_xmmm32_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x98, 0x07,// 920 = "vpmovqw"
 
 	// EVEX_Vpmovqw_xmmm64_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovqw_xmmm128_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmovzxdq_xmm_xmmm64
 	0x00,// No flags set
@@ -9841,31 +9841,31 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovqd_xmmm64_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9A, 0x07,// 922 = "vpmovqd"
 
 	// EVEX_Vpmovqd_xmmm128_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovqd_ymmm256_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermd_ymm_ymm_ymmm256
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9B, 0x07,// 923 = "vpermd"
 
 	// EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermq_ymm_k1z_ymm_ymmm256b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9C, 0x07,// 924 = "vpermq"
 
 	// EVEX_Vpermq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pcmpgtq_xmm_xmmm128
 	0x00,// No flags set
@@ -9906,24 +9906,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmovm2d_xmm_kr
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9F, 0x07,// 927 = "vpmovm2d"
 
 	// EVEX_Vpmovm2d_ymm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovm2d_zmm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovm2q_xmm_kr
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA0, 0x07,// 928 = "vpmovm2q"
 
 	// EVEX_Vpmovm2q_ymm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovm2q_zmm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pminsd_xmm_xmmm128
 	0x00,// No flags set
@@ -9945,34 +9945,34 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA2, 0x07,// 930 = "vpminsq"
 
 	// EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovd2m_kr_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA3, 0x07,// 931 = "vpmovd2m"
 
 	// EVEX_Vpmovd2m_kr_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovd2m_kr_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovq2m_kr_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA4, 0x07,// 932 = "vpmovq2m"
 
 	// EVEX_Vpmovq2m_kr_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmovq2m_kr_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pminuw_xmm_xmmm128
 	0x00,// No flags set
@@ -9994,14 +9994,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpbroadcastmw2d_xmm_kr
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA6, 0x07,// 934 = "vpbroadcastmw2d"
 
 	// EVEX_Vpbroadcastmw2d_ymm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastmw2d_zmm_kr
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pminud_xmm_xmmm128
 	0x00,// No flags set
@@ -10023,14 +10023,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpminuq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA8, 0x07,// 936 = "vpminuq"
 
 	// EVEX_Vpminuq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpminuq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmaxsb_xmm_xmmm128
 	0x00,// No flags set
@@ -10071,14 +10071,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmaxsq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAB, 0x07,// 939 = "vpmaxsq"
 
 	// EVEX_Vpmaxsq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmaxsq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmaxuw_xmm_xmmm128
 	0x00,// No flags set
@@ -10119,14 +10119,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmaxuq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAE, 0x07,// 942 = "vpmaxuq"
 
 	// EVEX_Vpmaxuq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmaxuq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pmulld_xmm_xmmm128
 	0x00,// No flags set
@@ -10148,14 +10148,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vpmullq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB0, 0x07,// 944 = "vpmullq"
 
 	// EVEX_Vpmullq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmullq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Phminposuw_xmm_xmmm128
 	0x00,// No flags set
@@ -10165,761 +10165,761 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vgetexpps_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB2, 0x07,// 946 = "vgetexpps"
 
 	// EVEX_Vgetexpps_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetexppd_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB3, 0x07,// 947 = "vgetexppd"
 
 	// EVEX_Vgetexppd_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB4, 0x07,// 948 = "vgetexpss"
 
 	// EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB5, 0x07,// 949 = "vgetexpsd"
 
 	// EVEX_Vplzcntd_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB6, 0x07,// 950 = "vplzcntd"
 
 	// EVEX_Vplzcntd_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vplzcntd_zmm_k1z_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vplzcntq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB7, 0x07,// 951 = "vplzcntq"
 
 	// EVEX_Vplzcntq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vplzcntq_zmm_k1z_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpsrlvd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB8, 0x07,// 952 = "vpsrlvd"
 
 	// VEX_Vpsrlvd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpsrlvq_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB9, 0x07,// 953 = "vpsrlvq"
 
 	// VEX_Vpsrlvq_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB8, 0x07,// 952 = "vpsrlvd"
 
 	// EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsrlvd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB9, 0x07,// 953 = "vpsrlvq"
 
 	// EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsrlvq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpsravd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBA, 0x07,// 954 = "vpsravd"
 
 	// VEX_Vpsravd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsravd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsravq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBB, 0x07,// 955 = "vpsravq"
 
 	// EVEX_Vpsravq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsravq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpsllvd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBC, 0x07,// 956 = "vpsllvd"
 
 	// VEX_Vpsllvd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpsllvq_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBD, 0x07,// 957 = "vpsllvq"
 
 	// VEX_Vpsllvq_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBC, 0x07,// 956 = "vpsllvd"
 
 	// EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsllvd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBD, 0x07,// 957 = "vpsllvq"
 
 	// EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpsllvq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrcp14ps_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBE, 0x07,// 958 = "vrcp14ps"
 
 	// EVEX_Vrcp14ps_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrcp14ps_zmm_k1z_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrcp14pd_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBF, 0x07,// 959 = "vrcp14pd"
 
 	// EVEX_Vrcp14pd_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrcp14pd_zmm_k1z_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC0, 0x07,// 960 = "vrcp14ss"
 
 	// EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC1, 0x07,// 961 = "vrcp14sd"
 
 	// EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC2, 0x07,// 962 = "vrsqrt14ps"
 
 	// EVEX_Vrsqrt14ps_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrsqrt14ps_zmm_k1z_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrsqrt14pd_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC3, 0x07,// 963 = "vrsqrt14pd"
 
 	// EVEX_Vrsqrt14pd_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC4, 0x07,// 964 = "vrsqrt14ss"
 
 	// EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC5, 0x07,// 965 = "vrsqrt14sd"
 
 	// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC6, 0x07,// 966 = "vpdpbusd"
 
 	// EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC7, 0x07,// 967 = "vpdpbusds"
 
 	// EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC8, 0x07,// 968 = "vpdpwssd"
 
 	// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC9, 0x07,// 969 = "vdpbf16ps"
 
 	// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCA, 0x07,// 970 = "vp4dpwssd"
 
 	// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCB, 0x07,// 971 = "vpdpwssds"
 
 	// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCC, 0x07,// 972 = "vp4dpwssds"
 
 	// EVEX_Vpopcntb_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCD, 0x07,// 973 = "vpopcntb"
 
 	// EVEX_Vpopcntb_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpopcntb_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpopcntw_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCE, 0x07,// 974 = "vpopcntw"
 
 	// EVEX_Vpopcntw_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpopcntw_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpopcntd_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCF, 0x07,// 975 = "vpopcntd"
 
 	// EVEX_Vpopcntd_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpopcntd_zmm_k1z_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpopcntq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD0, 0x07,// 976 = "vpopcntq"
 
 	// EVEX_Vpopcntq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpopcntq_zmm_k1z_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpbroadcastd_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x31,// 49 = "vpbroadcastd"
 
 	// VEX_Vpbroadcastd_ymm_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastd_xmm_k1z_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastd_ymm_k1z_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastd_zmm_k1z_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpbroadcastq_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x32,// 50 = "vpbroadcastq"
 
 	// VEX_Vpbroadcastq_ymm_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcasti32x2_xmm_k1z_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD1, 0x07,// 977 = "vbroadcasti32x2"
 
 	// EVEX_Vbroadcasti32x2_ymm_k1z_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcasti32x2_zmm_k1z_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastq_xmm_k1z_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x32,// 50 = "vpbroadcastq"
 
 	// EVEX_Vpbroadcastq_ymm_k1z_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastq_zmm_k1z_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vbroadcasti128_ymm_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD2, 0x07,// 978 = "vbroadcasti128"
 
 	// EVEX_Vbroadcasti32x4_ymm_k1z_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD3, 0x07,// 979 = "vbroadcasti32x4"
 
 	// EVEX_Vbroadcasti32x4_zmm_k1z_m128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcasti64x2_ymm_k1z_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD4, 0x07,// 980 = "vbroadcasti64x2"
 
 	// EVEX_Vbroadcasti64x2_zmm_k1z_m128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vbroadcasti32x8_zmm_k1z_m256
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD5, 0x07,// 981 = "vbroadcasti32x8"
 
 	// EVEX_Vbroadcasti64x4_zmm_k1z_m256
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD6, 0x07,// 982 = "vbroadcasti64x4"
 
 	// EVEX_Vpexpandb_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD7, 0x07,// 983 = "vpexpandb"
 
 	// EVEX_Vpexpandb_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpexpandb_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpexpandw_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD8, 0x07,// 984 = "vpexpandw"
 
 	// EVEX_Vpexpandw_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpexpandw_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressb_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD9, 0x07,// 985 = "vpcompressb"
 
 	// EVEX_Vpcompressb_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressb_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressw_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDA, 0x07,// 986 = "vpcompressw"
 
 	// EVEX_Vpcompressw_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressw_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDB, 0x07,// 987 = "vpblendmd"
 
 	// EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDC, 0x07,// 988 = "vpblendmq"
 
 	// EVEX_Vpblendmq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vblendmps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDD, 0x07,// 989 = "vblendmps"
 
 	// EVEX_Vblendmps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vblendmps_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDE, 0x07,// 990 = "vblendmpd"
 
 	// EVEX_Vblendmpd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vblendmpd_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmb_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDF, 0x07,// 991 = "vpblendmb"
 
 	// EVEX_Vpblendmb_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE0, 0x07,// 992 = "vpblendmw"
 
 	// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE1, 0x07,// 993 = "vp2intersectd"
 
 	// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vp2intersectd_kp1_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE2, 0x07,// 994 = "vp2intersectq"
 
 	// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vp2intersectq_kp1_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE3, 0x07,// 995 = "vpshldvw"
 
 	// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE4, 0x07,// 996 = "vpshldvd"
 
 	// EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE5, 0x07,// 997 = "vpshldvq"
 
 	// EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE6, 0x07,// 998 = "vpshrdvw"
 
 	// EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xE7, 0x07,// 999 = "vcvtneps2bf16"
 
 	// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE8, 0x07,// 1000 = "vcvtne2ps2bf16"
 
 	// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE9, 0x07,// 1001 = "vpshrdvd"
 
 	// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEA, 0x07,// 1002 = "vpshrdvq"
 
 	// EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEB, 0x07,// 1003 = "vpermi2b"
 
 	// EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2w_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEC, 0x07,// 1004 = "vpermi2w"
 
 	// EVEX_Vpermi2w_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2w_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2d_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xED, 0x07,// 1005 = "vpermi2d"
 
 	// EVEX_Vpermi2d_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2d_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2q_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEE, 0x07,// 1006 = "vpermi2q"
 
 	// EVEX_Vpermi2q_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2q_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEF, 0x07,// 1007 = "vpermi2ps"
 
 	// EVEX_Vpermi2ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2ps_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF0, 0x07,// 1008 = "vpermi2pd"
 
 	// EVEX_Vpermi2pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermi2pd_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpbroadcastb_xmm_xmmm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x33,// 51 = "vpbroadcastb"
 
 	// VEX_Vpbroadcastb_ymm_xmmm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastb_xmm_k1z_xmmm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastb_ymm_k1z_xmmm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastb_zmm_k1z_xmmm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpbroadcastw_xmm_xmmm16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x34,// 52 = "vpbroadcastw"
 
 	// VEX_Vpbroadcastw_ymm_xmmm16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastw_xmm_k1z_xmmm16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastw_ymm_k1z_xmmm16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastw_zmm_k1z_xmmm16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastb_xmm_k1z_r32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x33,// 51 = "vpbroadcastb"
 
 	// EVEX_Vpbroadcastb_ymm_k1z_r32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastb_zmm_k1z_r32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastw_xmm_k1z_r32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x34,// 52 = "vpbroadcastw"
 
 	// EVEX_Vpbroadcastw_ymm_k1z_r32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastw_zmm_k1z_r32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastd_xmm_k1z_r32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x31,// 49 = "vpbroadcastd"
 
 	// EVEX_Vpbroadcastd_ymm_k1z_r32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastd_zmm_k1z_r32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastq_xmm_k1z_r64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x32,// 50 = "vpbroadcastq"
 
 	// EVEX_Vpbroadcastq_ymm_k1z_r64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpbroadcastq_zmm_k1z_r64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2b_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF1, 0x07,// 1009 = "vpermt2b"
 
 	// EVEX_Vpermt2b_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2b_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2w_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF2, 0x07,// 1010 = "vpermt2w"
 
 	// EVEX_Vpermt2w_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2w_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2d_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF3, 0x07,// 1011 = "vpermt2d"
 
 	// EVEX_Vpermt2d_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2d_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2q_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF4, 0x07,// 1012 = "vpermt2q"
 
 	// EVEX_Vpermt2q_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2q_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF5, 0x07,// 1013 = "vpermt2ps"
 
 	// EVEX_Vpermt2ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2ps_zmm_k1z_zmm_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF6, 0x07,// 1014 = "vpermt2pd"
 
 	// EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Invept_r32_m128
 	0x00,// No flags set
@@ -10943,1291 +10943,1291 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFA, 0x07,// 1018 = "vpmultishiftqb"
 
 	// EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vexpandps_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFB, 0x07,// 1019 = "vexpandps"
 
 	// EVEX_Vexpandps_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vexpandps_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vexpandpd_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFC, 0x07,// 1020 = "vexpandpd"
 
 	// EVEX_Vexpandpd_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vexpandpd_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpexpandd_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFD, 0x07,// 1021 = "vpexpandd"
 
 	// EVEX_Vpexpandd_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpexpandd_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpexpandq_xmm_k1z_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFE, 0x07,// 1022 = "vpexpandq"
 
 	// EVEX_Vpexpandq_ymm_k1z_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpexpandq_zmm_k1z_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcompressps_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFF, 0x07,// 1023 = "vcompressps"
 
 	// EVEX_Vcompressps_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcompressps_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcompresspd_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x80, 0x08,// 1024 = "vcompresspd"
 
 	// EVEX_Vcompresspd_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcompresspd_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressd_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x81, 0x08,// 1025 = "vpcompressd"
 
 	// EVEX_Vpcompressd_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressd_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressq_xmmm128_k1z_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x82, 0x08,// 1026 = "vpcompressq"
 
 	// EVEX_Vpcompressq_ymmm256_k1z_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcompressq_zmmm512_k1z_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpmaskmovd_xmm_xmm_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x83, 0x08,// 1027 = "vpmaskmovd"
 
 	// VEX_Vpmaskmovd_ymm_ymm_m256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpmaskmovq_xmm_xmm_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x08,// 1028 = "vpmaskmovq"
 
 	// VEX_Vpmaskmovq_ymm_ymm_m256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermb_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x85, 0x08,// 1029 = "vpermb"
 
 	// EVEX_Vpermb_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermb_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermw_xmm_k1z_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x86, 0x08,// 1030 = "vpermw"
 
 	// EVEX_Vpermw_ymm_k1z_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermw_zmm_k1z_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpmaskmovd_m128_xmm_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x83, 0x08,// 1027 = "vpmaskmovd"
 
 	// VEX_Vpmaskmovd_m256_ymm_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpmaskmovq_m128_xmm_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x08,// 1028 = "vpmaskmovq"
 
 	// VEX_Vpmaskmovq_m256_ymm_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x87, 0x08,// 1031 = "vpshufbitqmb"
 
 	// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpgatherdd_xmm_vm32x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x88, 0x08,// 1032 = "vpgatherdd"
 
 	// VEX_Vpgatherdd_ymm_vm32y_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpgatherdq_xmm_vm32x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x89, 0x08,// 1033 = "vpgatherdq"
 
 	// VEX_Vpgatherdq_ymm_vm32x_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherdd_xmm_k1_vm32x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x88, 0x08,// 1032 = "vpgatherdd"
 
 	// EVEX_Vpgatherdd_ymm_k1_vm32y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherdd_zmm_k1_vm32z
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherdq_xmm_k1_vm32x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x89, 0x08,// 1033 = "vpgatherdq"
 
 	// EVEX_Vpgatherdq_ymm_k1_vm32x
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherdq_zmm_k1_vm32y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpgatherqd_xmm_vm64x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8A, 0x08,// 1034 = "vpgatherqd"
 
 	// VEX_Vpgatherqd_xmm_vm64y_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpgatherqq_xmm_vm64x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8B, 0x08,// 1035 = "vpgatherqq"
 
 	// VEX_Vpgatherqq_ymm_vm64y_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8A, 0x08,// 1034 = "vpgatherqd"
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherqd_ymm_k1_vm64z
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherqq_xmm_k1_vm64x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8B, 0x08,// 1035 = "vpgatherqq"
 
 	// EVEX_Vpgatherqq_ymm_k1_vm64y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpgatherqq_zmm_k1_vm64z
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vgatherdps_xmm_vm32x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x08,// 1036 = "vgatherdps"
 
 	// VEX_Vgatherdps_ymm_vm32y_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vgatherdpd_xmm_vm32x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8D, 0x08,// 1037 = "vgatherdpd"
 
 	// VEX_Vgatherdpd_ymm_vm32x_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherdps_xmm_k1_vm32x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x08,// 1036 = "vgatherdps"
 
 	// EVEX_Vgatherdps_ymm_k1_vm32y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherdps_zmm_k1_vm32z
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherdpd_xmm_k1_vm32x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8D, 0x08,// 1037 = "vgatherdpd"
 
 	// EVEX_Vgatherdpd_ymm_k1_vm32x
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherdpd_zmm_k1_vm32y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vgatherqps_xmm_vm64x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8E, 0x08,// 1038 = "vgatherqps"
 
 	// VEX_Vgatherqps_xmm_vm64y_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vgatherqpd_xmm_vm64x_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8F, 0x08,// 1039 = "vgatherqpd"
 
 	// VEX_Vgatherqpd_ymm_vm64y_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherqps_xmm_k1_vm64x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8E, 0x08,// 1038 = "vgatherqps"
 
 	// EVEX_Vgatherqps_xmm_k1_vm64y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherqps_ymm_k1_vm64z
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherqpd_xmm_k1_vm64x
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8F, 0x08,// 1039 = "vgatherqpd"
 
 	// EVEX_Vgatherqpd_ymm_k1_vm64y
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherqpd_zmm_k1_vm64z
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsub132ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x90, 0x08,// 1040 = "vfmaddsub132ps"
 
 	// VEX_Vfmaddsub132ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsub132pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x91, 0x08,// 1041 = "vfmaddsub132pd"
 
 	// VEX_Vfmaddsub132pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x90, 0x08,// 1040 = "vfmaddsub132ps"
 
 	// EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x91, 0x08,// 1041 = "vfmaddsub132pd"
 
 	// EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubadd132ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x92, 0x08,// 1042 = "vfmsubadd132ps"
 
 	// VEX_Vfmsubadd132ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubadd132pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x93, 0x08,// 1043 = "vfmsubadd132pd"
 
 	// VEX_Vfmsubadd132pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x92, 0x08,// 1042 = "vfmsubadd132ps"
 
 	// EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x93, 0x08,// 1043 = "vfmsubadd132pd"
 
 	// EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd132ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x94, 0x08,// 1044 = "vfmadd132ps"
 
 	// VEX_Vfmadd132ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd132pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x95, 0x08,// 1045 = "vfmadd132pd"
 
 	// VEX_Vfmadd132pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x94, 0x08,// 1044 = "vfmadd132ps"
 
 	// EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x95, 0x08,// 1045 = "vfmadd132pd"
 
 	// EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd132ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x96, 0x08,// 1046 = "vfmadd132ss"
 
 	// VEX_Vfmadd132sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x97, 0x08,// 1047 = "vfmadd132sd"
 
 	// EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x96, 0x08,// 1046 = "vfmadd132ss"
 
 	// EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x97, 0x08,// 1047 = "vfmadd132sd"
 
 	// VEX_Vfmsub132ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x98, 0x08,// 1048 = "vfmsub132ps"
 
 	// VEX_Vfmsub132ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsub132pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x99, 0x08,// 1049 = "vfmsub132pd"
 
 	// VEX_Vfmsub132pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x98, 0x08,// 1048 = "vfmsub132ps"
 
 	// EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x99, 0x08,// 1049 = "vfmsub132pd"
 
 	// EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_V4fmaddps_zmm_k1z_zmmp3_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9A, 0x08,// 1050 = "v4fmaddps"
 
 	// VEX_Vfmsub132ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9B, 0x08,// 1051 = "vfmsub132ss"
 
 	// VEX_Vfmsub132sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9C, 0x08,// 1052 = "vfmsub132sd"
 
 	// EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9B, 0x08,// 1051 = "vfmsub132ss"
 
 	// EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9C, 0x08,// 1052 = "vfmsub132sd"
 
 	// EVEX_V4fmaddss_xmm_k1z_xmmp3_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9D, 0x08,// 1053 = "v4fmaddss"
 
 	// VEX_Vfnmadd132ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9E, 0x08,// 1054 = "vfnmadd132ps"
 
 	// VEX_Vfnmadd132ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmadd132pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9F, 0x08,// 1055 = "vfnmadd132pd"
 
 	// VEX_Vfnmadd132pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9E, 0x08,// 1054 = "vfnmadd132ps"
 
 	// EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9F, 0x08,// 1055 = "vfnmadd132pd"
 
 	// EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmadd132ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA0, 0x08,// 1056 = "vfnmadd132ss"
 
 	// VEX_Vfnmadd132sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA1, 0x08,// 1057 = "vfnmadd132sd"
 
 	// EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA0, 0x08,// 1056 = "vfnmadd132ss"
 
 	// EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA1, 0x08,// 1057 = "vfnmadd132sd"
 
 	// VEX_Vfnmsub132ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA2, 0x08,// 1058 = "vfnmsub132ps"
 
 	// VEX_Vfnmsub132ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsub132pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA3, 0x08,// 1059 = "vfnmsub132pd"
 
 	// VEX_Vfnmsub132pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA2, 0x08,// 1058 = "vfnmsub132ps"
 
 	// EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA3, 0x08,// 1059 = "vfnmsub132pd"
 
 	// EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsub132ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA4, 0x08,// 1060 = "vfnmsub132ss"
 
 	// VEX_Vfnmsub132sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA5, 0x08,// 1061 = "vfnmsub132sd"
 
 	// EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA4, 0x08,// 1060 = "vfnmsub132ss"
 
 	// EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA5, 0x08,// 1061 = "vfnmsub132sd"
 
 	// EVEX_Vpscatterdd_vm32x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA6, 0x08,// 1062 = "vpscatterdd"
 
 	// EVEX_Vpscatterdd_vm32y_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpscatterdd_vm32z_k1_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpscatterdq_vm32x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA7, 0x08,// 1063 = "vpscatterdq"
 
 	// EVEX_Vpscatterdq_vm32x_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpscatterdq_vm32y_k1_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpscatterqd_vm64x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA8, 0x08,// 1064 = "vpscatterqd"
 
 	// EVEX_Vpscatterqd_vm64y_k1_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpscatterqd_vm64z_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpscatterqq_vm64x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA9, 0x08,// 1065 = "vpscatterqq"
 
 	// EVEX_Vpscatterqq_vm64y_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpscatterqq_vm64z_k1_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterdps_vm32x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAA, 0x08,// 1066 = "vscatterdps"
 
 	// EVEX_Vscatterdps_vm32y_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterdps_vm32z_k1_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterdpd_vm32x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAB, 0x08,// 1067 = "vscatterdpd"
 
 	// EVEX_Vscatterdpd_vm32x_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterdpd_vm32y_k1_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterqps_vm64x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAC, 0x08,// 1068 = "vscatterqps"
 
 	// EVEX_Vscatterqps_vm64y_k1_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterqps_vm64z_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterqpd_vm64x_k1_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAD, 0x08,// 1069 = "vscatterqpd"
 
 	// EVEX_Vscatterqpd_vm64y_k1_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscatterqpd_vm64z_k1_zmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsub213ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAE, 0x08,// 1070 = "vfmaddsub213ps"
 
 	// VEX_Vfmaddsub213ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsub213pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAF, 0x08,// 1071 = "vfmaddsub213pd"
 
 	// VEX_Vfmaddsub213pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAE, 0x08,// 1070 = "vfmaddsub213ps"
 
 	// EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAF, 0x08,// 1071 = "vfmaddsub213pd"
 
 	// EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubadd213ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB0, 0x08,// 1072 = "vfmsubadd213ps"
 
 	// VEX_Vfmsubadd213ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubadd213pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB1, 0x08,// 1073 = "vfmsubadd213pd"
 
 	// VEX_Vfmsubadd213pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB0, 0x08,// 1072 = "vfmsubadd213ps"
 
 	// EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB1, 0x08,// 1073 = "vfmsubadd213pd"
 
 	// EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd213ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB2, 0x08,// 1074 = "vfmadd213ps"
 
 	// VEX_Vfmadd213ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd213pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB3, 0x08,// 1075 = "vfmadd213pd"
 
 	// VEX_Vfmadd213pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB2, 0x08,// 1074 = "vfmadd213ps"
 
 	// EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB3, 0x08,// 1075 = "vfmadd213pd"
 
 	// EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd213ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB4, 0x08,// 1076 = "vfmadd213ss"
 
 	// VEX_Vfmadd213sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB5, 0x08,// 1077 = "vfmadd213sd"
 
 	// EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB4, 0x08,// 1076 = "vfmadd213ss"
 
 	// EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB5, 0x08,// 1077 = "vfmadd213sd"
 
 	// VEX_Vfmsub213ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB6, 0x08,// 1078 = "vfmsub213ps"
 
 	// VEX_Vfmsub213ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsub213pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB7, 0x08,// 1079 = "vfmsub213pd"
 
 	// VEX_Vfmsub213pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB6, 0x08,// 1078 = "vfmsub213ps"
 
 	// EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB7, 0x08,// 1079 = "vfmsub213pd"
 
 	// EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB8, 0x08,// 1080 = "v4fnmaddps"
 
 	// VEX_Vfmsub213ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB9, 0x08,// 1081 = "vfmsub213ss"
 
 	// VEX_Vfmsub213sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBA, 0x08,// 1082 = "vfmsub213sd"
 
 	// EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB9, 0x08,// 1081 = "vfmsub213ss"
 
 	// EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBA, 0x08,// 1082 = "vfmsub213sd"
 
 	// EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBB, 0x08,// 1083 = "v4fnmaddss"
 
 	// VEX_Vfnmadd213ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBC, 0x08,// 1084 = "vfnmadd213ps"
 
 	// VEX_Vfnmadd213ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmadd213pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBD, 0x08,// 1085 = "vfnmadd213pd"
 
 	// VEX_Vfnmadd213pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBC, 0x08,// 1084 = "vfnmadd213ps"
 
 	// EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBD, 0x08,// 1085 = "vfnmadd213pd"
 
 	// EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmadd213ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBE, 0x08,// 1086 = "vfnmadd213ss"
 
 	// VEX_Vfnmadd213sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBF, 0x08,// 1087 = "vfnmadd213sd"
 
 	// EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBE, 0x08,// 1086 = "vfnmadd213ss"
 
 	// EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xBF, 0x08,// 1087 = "vfnmadd213sd"
 
 	// VEX_Vfnmsub213ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC0, 0x08,// 1088 = "vfnmsub213ps"
 
 	// VEX_Vfnmsub213ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsub213pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC1, 0x08,// 1089 = "vfnmsub213pd"
 
 	// VEX_Vfnmsub213pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC0, 0x08,// 1088 = "vfnmsub213ps"
 
 	// EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC1, 0x08,// 1089 = "vfnmsub213pd"
 
 	// EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsub213ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC2, 0x08,// 1090 = "vfnmsub213ss"
 
 	// VEX_Vfnmsub213sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC3, 0x08,// 1091 = "vfnmsub213sd"
 
 	// EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC2, 0x08,// 1090 = "vfnmsub213ss"
 
 	// EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC3, 0x08,// 1091 = "vfnmsub213sd"
 
 	// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC4, 0x08,// 1092 = "vpmadd52luq"
 
 	// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmadd52luq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC5, 0x08,// 1093 = "vpmadd52huq"
 
 	// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpmadd52huq_zmm_k1z_zmm_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsub231ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC6, 0x08,// 1094 = "vfmaddsub231ps"
 
 	// VEX_Vfmaddsub231ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsub231pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC7, 0x08,// 1095 = "vfmaddsub231pd"
 
 	// VEX_Vfmaddsub231pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC6, 0x08,// 1094 = "vfmaddsub231ps"
 
 	// EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC7, 0x08,// 1095 = "vfmaddsub231pd"
 
 	// EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubadd231ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC8, 0x08,// 1096 = "vfmsubadd231ps"
 
 	// VEX_Vfmsubadd231ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubadd231pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC9, 0x08,// 1097 = "vfmsubadd231pd"
 
 	// VEX_Vfmsubadd231pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC8, 0x08,// 1096 = "vfmsubadd231ps"
 
 	// EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC9, 0x08,// 1097 = "vfmsubadd231pd"
 
 	// EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd231ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCA, 0x08,// 1098 = "vfmadd231ps"
 
 	// VEX_Vfmadd231ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd231pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCB, 0x08,// 1099 = "vfmadd231pd"
 
 	// VEX_Vfmadd231pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCA, 0x08,// 1098 = "vfmadd231ps"
 
 	// EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCB, 0x08,// 1099 = "vfmadd231pd"
 
 	// EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmadd231ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCC, 0x08,// 1100 = "vfmadd231ss"
 
 	// VEX_Vfmadd231sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCD, 0x08,// 1101 = "vfmadd231sd"
 
 	// EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCC, 0x08,// 1100 = "vfmadd231ss"
 
 	// EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCD, 0x08,// 1101 = "vfmadd231sd"
 
 	// VEX_Vfmsub231ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCE, 0x08,// 1102 = "vfmsub231ps"
 
 	// VEX_Vfmsub231ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsub231pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCF, 0x08,// 1103 = "vfmsub231pd"
 
 	// VEX_Vfmsub231pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCE, 0x08,// 1102 = "vfmsub231ps"
 
 	// EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCF, 0x08,// 1103 = "vfmsub231pd"
 
 	// EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsub231ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD0, 0x08,// 1104 = "vfmsub231ss"
 
 	// VEX_Vfmsub231sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD1, 0x08,// 1105 = "vfmsub231sd"
 
 	// EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD0, 0x08,// 1104 = "vfmsub231ss"
 
 	// EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD1, 0x08,// 1105 = "vfmsub231sd"
 
 	// VEX_Vfnmadd231ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD2, 0x08,// 1106 = "vfnmadd231ps"
 
 	// VEX_Vfnmadd231ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmadd231pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD3, 0x08,// 1107 = "vfnmadd231pd"
 
 	// VEX_Vfnmadd231pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD2, 0x08,// 1106 = "vfnmadd231ps"
 
 	// EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD3, 0x08,// 1107 = "vfnmadd231pd"
 
 	// EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmadd231ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD4, 0x08,// 1108 = "vfnmadd231ss"
 
 	// VEX_Vfnmadd231sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD5, 0x08,// 1109 = "vfnmadd231sd"
 
 	// EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD4, 0x08,// 1108 = "vfnmadd231ss"
 
 	// EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD5, 0x08,// 1109 = "vfnmadd231sd"
 
 	// VEX_Vfnmsub231ps_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD6, 0x08,// 1110 = "vfnmsub231ps"
 
 	// VEX_Vfnmsub231ps_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsub231pd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD7, 0x08,// 1111 = "vfnmsub231pd"
 
 	// VEX_Vfnmsub231pd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD6, 0x08,// 1110 = "vfnmsub231ps"
 
 	// EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD7, 0x08,// 1111 = "vfnmsub231pd"
 
 	// EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsub231ss_xmm_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD8, 0x08,// 1112 = "vfnmsub231ss"
 
 	// VEX_Vfnmsub231sd_xmm_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD9, 0x08,// 1113 = "vfnmsub231sd"
 
 	// EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD8, 0x08,// 1112 = "vfnmsub231ss"
 
 	// EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD9, 0x08,// 1113 = "vfnmsub231sd"
 
 	// EVEX_Vpconflictd_xmm_k1z_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDA, 0x08,// 1114 = "vpconflictd"
 
 	// EVEX_Vpconflictd_ymm_k1z_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpconflictd_zmm_k1z_zmmm512b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpconflictq_xmm_k1z_xmmm128b64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDB, 0x08,// 1115 = "vpconflictq"
 
 	// EVEX_Vpconflictq_ymm_k1z_ymmm256b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpconflictq_zmm_k1z_zmmm512b64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgatherpf0dps_vm32z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDC, 0x08,// 1116 = "vgatherpf0dps"
 
 	// EVEX_Vgatherpf0dpd_vm32y_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDD, 0x08,// 1117 = "vgatherpf0dpd"
 
 	// EVEX_Vgatherpf1dps_vm32z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDE, 0x08,// 1118 = "vgatherpf1dps"
 
 	// EVEX_Vgatherpf1dpd_vm32y_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDF, 0x08,// 1119 = "vgatherpf1dpd"
 
 	// EVEX_Vscatterpf0dps_vm32z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE0, 0x08,// 1120 = "vscatterpf0dps"
 
 	// EVEX_Vscatterpf0dpd_vm32y_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE1, 0x08,// 1121 = "vscatterpf0dpd"
 
 	// EVEX_Vscatterpf1dps_vm32z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE2, 0x08,// 1122 = "vscatterpf1dps"
 
 	// EVEX_Vscatterpf1dpd_vm32y_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE3, 0x08,// 1123 = "vscatterpf1dpd"
 
 	// EVEX_Vgatherpf0qps_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE4, 0x08,// 1124 = "vgatherpf0qps"
 
 	// EVEX_Vgatherpf0qpd_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE5, 0x08,// 1125 = "vgatherpf0qpd"
 
 	// EVEX_Vgatherpf1qps_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE6, 0x08,// 1126 = "vgatherpf1qps"
 
 	// EVEX_Vgatherpf1qpd_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE7, 0x08,// 1127 = "vgatherpf1qpd"
 
 	// EVEX_Vscatterpf0qps_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE8, 0x08,// 1128 = "vscatterpf0qps"
 
 	// EVEX_Vscatterpf0qpd_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE9, 0x08,// 1129 = "vscatterpf0qpd"
 
 	// EVEX_Vscatterpf1qps_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEA, 0x08,// 1130 = "vscatterpf1qps"
 
 	// EVEX_Vscatterpf1qpd_vm64z_k1
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEB, 0x08,// 1131 = "vscatterpf1qpd"
 
 	// Sha1nexte_xmm_xmmm128
@@ -12235,11 +12235,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xEC, 0x08,// 1132 = "sha1nexte"
 
 	// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xED, 0x08,// 1133 = "vexp2ps"
 
 	// EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEE, 0x08,// 1134 = "vexp2pd"
 
 	// Sha1msg1_xmm_xmmm128
@@ -12251,11 +12251,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF0, 0x08,// 1136 = "sha1msg2"
 
 	// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF1, 0x08,// 1137 = "vrcp28ps"
 
 	// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF2, 0x08,// 1138 = "vrcp28pd"
 
 	// Sha256rnds2_xmm_xmmm128
@@ -12263,11 +12263,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF3, 0x08,// 1139 = "sha256rnds2"
 
 	// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF4, 0x08,// 1140 = "vrcp28ss"
 
 	// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF5, 0x08,// 1141 = "vrcp28sd"
 
 	// Sha256msg1_xmm_xmmm128
@@ -12275,11 +12275,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF6, 0x08,// 1142 = "sha256msg1"
 
 	// EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF7, 0x08,// 1143 = "vrsqrt28ps"
 
 	// EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF8, 0x08,// 1144 = "vrsqrt28pd"
 
 	// Sha256msg2_xmm_xmmm128
@@ -12287,11 +12287,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xF9, 0x08,// 1145 = "sha256msg2"
 
 	// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFA, 0x08,// 1146 = "vrsqrt28ss"
 
 	// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFB, 0x08,// 1147 = "vrsqrt28sd"
 
 	// Gf2p8mulb_xmm_xmmm128
@@ -12585,86 +12585,86 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// VEX_Vpermq_ymm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9C, 0x07,// 924 = "vpermq"
 
 	// EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermpd_ymm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE2, 0x06,// 866 = "vpermpd"
 
 	// EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpblendd_xmm_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9A, 0x09,// 1178 = "vpblendd"
 
 	// VEX_Vpblendd_ymm_ymm_ymmm256_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9B, 0x09,// 1179 = "valignd"
 
 	// EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9C, 0x09,// 1180 = "valignq"
 
 	// EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermilps_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x26,// 38 = "vpermilps"
 
 	// VEX_Vpermilps_ymm_ymmm256_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermilpd_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x27,// 39 = "vpermilpd"
 
 	// VEX_Vpermilpd_ymm_ymmm256_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vperm2f128_ymm_ymm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9D, 0x09,// 1181 = "vperm2f128"
 
 	// Roundps_xmm_xmmm128_imm8
@@ -12678,14 +12678,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9F, 0x09,// 1183 = "vrndscaleps"
 
 	// EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Roundpd_xmm_xmmm128_imm8
 	0x00,// No flags set
@@ -12698,14 +12698,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA1, 0x09,// 1185 = "vrndscalepd"
 
 	// EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Roundss_xmm_xmmm32_imm8
 	0x00,// No flags set
@@ -12715,7 +12715,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA3, 0x09,// 1187 = "vrndscaless"
 
 	// Roundsd_xmm_xmmm64_imm8
@@ -12726,7 +12726,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA5, 0x09,// 1189 = "vrndscalesd"
 
 	// Blendps_xmm_xmmm128_imm8
@@ -12863,112 +12863,112 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAD, 0x09,// 1197 = "vinsertf128"
 
 	// EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAE, 0x09,// 1198 = "vinsertf32x4"
 
 	// EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAF, 0x09,// 1199 = "vinsertf64x2"
 
 	// EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vextractf128_xmmm128_ymm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB0, 0x09,// 1200 = "vextractf128"
 
 	// EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB1, 0x09,// 1201 = "vextractf32x4"
 
 	// EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB2, 0x09,// 1202 = "vextractf64x2"
 
 	// EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB3, 0x09,// 1203 = "vinsertf32x8"
 
 	// EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB4, 0x09,// 1204 = "vinsertf64x4"
 
 	// EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB5, 0x09,// 1205 = "vextractf32x8"
 
 	// EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB6, 0x09,// 1206 = "vextractf64x4"
 
 	// VEX_Vcvtps2ph_xmmm64_xmm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB7, 0x09,// 1207 = "vcvtps2ph"
 
 	// VEX_Vcvtps2ph_xmmm128_ymm_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
-	0xC9,// HasVPrefix, vpcmpud
+	0xC8,// vpcmpud
 	0xB8, 0x09,// 1208 = "vpcmpud"
 
 	// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
-	0xCB,// HasVPrefix, SameAsPrev, vpcmpud
+	0xCA,// SameAsPrev, vpcmpud
 
 	// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
-	0xCB,// HasVPrefix, SameAsPrev, vpcmpud
+	0xCA,// SameAsPrev, vpcmpud
 
 	// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
-	0xD1,// HasVPrefix, vpcmpuq
+	0xD0,// vpcmpuq
 	0xB9, 0x09,// 1209 = "vpcmpuq"
 
 	// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
-	0xD3,// HasVPrefix, SameAsPrev, vpcmpuq
+	0xD2,// SameAsPrev, vpcmpuq
 
 	// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
-	0xD3,// HasVPrefix, SameAsPrev, vpcmpuq
+	0xD2,// SameAsPrev, vpcmpuq
 
 	// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
-	0xA9,// HasVPrefix, vpcmpd
+	0xA8,// vpcmpd
 	0xBA, 0x09,// 1210 = "vpcmpd"
 
 	// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
-	0xAB,// HasVPrefix, SameAsPrev, vpcmpd
+	0xAA,// SameAsPrev, vpcmpd
 
 	// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
-	0xAB,// HasVPrefix, SameAsPrev, vpcmpd
+	0xAA,// SameAsPrev, vpcmpd
 
 	// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
-	0xB1,// HasVPrefix, vpcmpq
+	0xB0,// vpcmpq
 	0xBB, 0x09,// 1211 = "vpcmpq"
 
 	// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
-	0xB3,// HasVPrefix, SameAsPrev, vpcmpq
+	0xB2,// SameAsPrev, vpcmpq
 
 	// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
-	0xB3,// HasVPrefix, SameAsPrev, vpcmpq
+	0xB2,// SameAsPrev, vpcmpq
 
 	// Pinsrb_xmm_r32m8_imm8
 	0x00,// No flags set
@@ -13024,65 +13024,65 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xBF, 0x09,// 1215 = "vpinsrq"
 
 	// EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC0, 0x09,// 1216 = "vshuff32x4"
 
 	// EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC1, 0x09,// 1217 = "vshuff64x2"
 
 	// EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC2, 0x09,// 1218 = "vpternlogd"
 
 	// EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC3, 0x09,// 1219 = "vpternlogq"
 
 	// EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC4, 0x09,// 1220 = "vgetmantps"
 
 	// EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC5, 0x09,// 1221 = "vgetmantpd"
 
 	// EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC6, 0x09,// 1222 = "vgetmantss"
 
 	// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC7, 0x09,// 1223 = "vgetmantsd"
 
 	// VEX_Kshiftrb_kr_kr_imm8
@@ -13118,96 +13118,96 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xCF, 0x09,// 1231 = "kshiftlq"
 
 	// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD0, 0x09,// 1232 = "vinserti128"
 
 	// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD1, 0x09,// 1233 = "vinserti32x4"
 
 	// EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD2, 0x09,// 1234 = "vinserti64x2"
 
 	// EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vextracti128_xmmm128_ymm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD3, 0x09,// 1235 = "vextracti128"
 
 	// EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD4, 0x09,// 1236 = "vextracti32x4"
 
 	// EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD5, 0x09,// 1237 = "vextracti64x2"
 
 	// EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD6, 0x09,// 1238 = "vinserti32x8"
 
 	// EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD7, 0x09,// 1239 = "vinserti64x4"
 
 	// EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD8, 0x09,// 1240 = "vextracti32x8"
 
 	// EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD9, 0x09,// 1241 = "vextracti64x4"
 
 	// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
-	0xB9,// HasVPrefix, vpcmpub
+	0xB8,// vpcmpub
 	0xDA, 0x09,// 1242 = "vpcmpub"
 
 	// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
-	0xBB,// HasVPrefix, SameAsPrev, vpcmpub
+	0xBA,// SameAsPrev, vpcmpub
 
 	// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
-	0xBB,// HasVPrefix, SameAsPrev, vpcmpub
+	0xBA,// SameAsPrev, vpcmpub
 
 	// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
-	0xC1,// HasVPrefix, vpcmpuw
+	0xC0,// vpcmpuw
 	0xDB, 0x09,// 1243 = "vpcmpuw"
 
 	// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
-	0xC3,// HasVPrefix, SameAsPrev, vpcmpuw
+	0xC2,// SameAsPrev, vpcmpuw
 
 	// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
-	0xC3,// HasVPrefix, SameAsPrev, vpcmpuw
+	0xC2,// SameAsPrev, vpcmpuw
 
 	// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
-	0x99,// HasVPrefix, vpcmpb
+	0x98,// vpcmpb
 	0xDC, 0x09,// 1244 = "vpcmpb"
 
 	// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
-	0x9B,// HasVPrefix, SameAsPrev, vpcmpb
+	0x9A,// SameAsPrev, vpcmpb
 
 	// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
-	0x9B,// HasVPrefix, SameAsPrev, vpcmpb
+	0x9A,// SameAsPrev, vpcmpb
 
 	// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
-	0xA1,// HasVPrefix, vpcmpw
+	0xA0,// vpcmpw
 	0xDD, 0x09,// 1245 = "vpcmpw"
 
 	// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
-	0xA3,// HasVPrefix, SameAsPrev, vpcmpw
+	0xA2,// SameAsPrev, vpcmpw
 
 	// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
-	0xA3,// HasVPrefix, SameAsPrev, vpcmpw
+	0xA2,// SameAsPrev, vpcmpw
 
 	// Dpps_xmm_xmmm128_imm8
 	0x00,// No flags set
@@ -13237,28 +13237,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE1, 0x09,// 1249 = "vdbpsadbw"
 
 	// EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE2, 0x09,// 1250 = "vshufi32x4"
 
 	// EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE3, 0x09,// 1251 = "vshufi64x2"
 
 	// EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pclmulqdq_xmm_xmmm128_imm8
 	0x48,// pclmulqdq
@@ -13280,34 +13280,34 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x53,// HasVPrefix, SameAsPrev, vpclmulqdq
 
 	// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE5, 0x09,// 1253 = "vperm2i128"
 
 	// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm4
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE6, 0x09,// 1254 = "vpermil2ps"
 
 	// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm4
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm4
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm4
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm4
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE7, 0x09,// 1255 = "vpermil2pd"
 
 	// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm4
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm4
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm4
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x01,// HasVPrefix
@@ -13331,140 +13331,140 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE8, 0x09,// 1256 = "vrangeps"
 
 	// EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE9, 0x09,// 1257 = "vrangepd"
 
 	// EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEA, 0x09,// 1258 = "vrangess"
 
 	// EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEB, 0x09,// 1259 = "vrangesd"
 
 	// EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEC, 0x09,// 1260 = "vfixupimmps"
 
 	// EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xED, 0x09,// 1261 = "vfixupimmpd"
 
 	// EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEE, 0x09,// 1262 = "vfixupimmss"
 
 	// EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEF, 0x09,// 1263 = "vfixupimmsd"
 
 	// EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF0, 0x09,// 1264 = "vreduceps"
 
 	// EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF1, 0x09,// 1265 = "vreducepd"
 
 	// EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF2, 0x09,// 1266 = "vreducess"
 
 	// EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF3, 0x09,// 1267 = "vreducesd"
 
 	// VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF4, 0x09,// 1268 = "vfmaddsubps"
 
 	// VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF5, 0x09,// 1269 = "vfmaddsubpd"
 
 	// VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF6, 0x09,// 1270 = "vfmsubaddps"
 
 	// VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF7, 0x09,// 1271 = "vfmsubaddpd"
 
 	// VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Pcmpestrm_xmm_xmmm128_imm8
 	0x00,// No flags set
@@ -13513,252 +13513,252 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x03,// HasVPrefix, SameAsPrev
 
 	// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xFE, 0x09,// 1278 = "vfpclassps"
 
 	// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xFF, 0x09,// 1279 = "vfpclasspd"
 
 	// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x80, 0x0A,// 1280 = "vfpclassss"
 
 	// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x81, 0x0A,// 1281 = "vfpclasssd"
 
 	// VEX_Vfmaddps_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x82, 0x0A,// 1282 = "vfmaddps"
 
 	// VEX_Vfmaddps_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddps_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddps_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x83, 0x0A,// 1283 = "vfmaddpd"
 
 	// VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddss_xmm_xmm_xmmm32_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x0A,// 1284 = "vfmaddss"
 
 	// VEX_Vfmaddss_xmm_xmm_xmm_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x85, 0x0A,// 1285 = "vfmaddsd"
 
 	// VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubps_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x86, 0x0A,// 1286 = "vfmsubps"
 
 	// VEX_Vfmsubps_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubps_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubps_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x87, 0x0A,// 1287 = "vfmsubpd"
 
 	// VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubss_xmm_xmm_xmmm32_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x88, 0x0A,// 1288 = "vfmsubss"
 
 	// VEX_Vfmsubss_xmm_xmm_xmm_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x89, 0x0A,// 1289 = "vfmsubsd"
 
 	// VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8A, 0x0A,// 1290 = "vpshldw"
 
 	// EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8B, 0x0A,// 1291 = "vpshldd"
 
 	// EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x0A,// 1292 = "vpshldq"
 
 	// EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8D, 0x0A,// 1293 = "vpshrdw"
 
 	// EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8E, 0x0A,// 1294 = "vpshrdd"
 
 	// EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8F, 0x0A,// 1295 = "vpshrdq"
 
 	// EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x90, 0x0A,// 1296 = "vfnmaddps"
 
 	// VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x91, 0x0A,// 1297 = "vfnmaddpd"
 
 	// VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x92, 0x0A,// 1298 = "vfnmaddss"
 
 	// VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x93, 0x0A,// 1299 = "vfnmaddsd"
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x94, 0x0A,// 1300 = "vfnmsubps"
 
 	// VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x95, 0x0A,// 1301 = "vfnmsubpd"
 
 	// VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x96, 0x0A,// 1302 = "vfnmsubss"
 
 	// VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x97, 0x0A,// 1303 = "vfnmsubsd"
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Sha1rnds4_xmm_xmmm128_imm8
 	0x00,// No flags set
@@ -13817,119 +13817,119 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// XOP_Vpmacssww_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9D, 0x0A,// 1309 = "vpmacssww"
 
 	// XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9E, 0x0A,// 1310 = "vpmacsswd"
 
 	// XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9F, 0x0A,// 1311 = "vpmacssdql"
 
 	// XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA0, 0x0A,// 1312 = "vpmacssdd"
 
 	// XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA1, 0x0A,// 1313 = "vpmacssdqh"
 
 	// XOP_Vpmacsww_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA2, 0x0A,// 1314 = "vpmacsww"
 
 	// XOP_Vpmacswd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA3, 0x0A,// 1315 = "vpmacswd"
 
 	// XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA4, 0x0A,// 1316 = "vpmacsdql"
 
 	// XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA5, 0x0A,// 1317 = "vpmacsdd"
 
 	// XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA6, 0x0A,// 1318 = "vpmacsdqh"
 
 	// XOP_Vpcmov_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA7, 0x0A,// 1319 = "vpcmov"
 
 	// XOP_Vpcmov_ymm_ymm_ymmm256_ymm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpcmov_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpcmov_ymm_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpperm_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA8, 0x0A,// 1320 = "vpperm"
 
 	// XOP_Vpperm_xmm_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA9, 0x0A,// 1321 = "vpmadcsswd"
 
 	// XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAA, 0x0A,// 1322 = "vpmadcswd"
 
 	// XOP_Vprotb_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAB, 0x0A,// 1323 = "vprotb"
 
 	// XOP_Vprotw_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAC, 0x0A,// 1324 = "vprotw"
 
 	// XOP_Vprotd_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAD, 0x0A,// 1325 = "vprotd"
 
 	// XOP_Vprotq_xmm_xmmm128_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAE, 0x0A,// 1326 = "vprotq"
 
 	// XOP_Vpcomb_xmm_xmm_xmmm128_imm8
-	0x59,// HasVPrefix, vpcomb
+	0x58,// vpcomb
 	0xAF, 0x0A,// 1327 = "vpcomb"
 
 	// XOP_Vpcomw_xmm_xmm_xmmm128_imm8
-	0x61,// HasVPrefix, vpcomw
+	0x60,// vpcomw
 	0xB0, 0x0A,// 1328 = "vpcomw"
 
 	// XOP_Vpcomd_xmm_xmm_xmmm128_imm8
-	0x69,// HasVPrefix, vpcomd
+	0x68,// vpcomd
 	0xB1, 0x0A,// 1329 = "vpcomd"
 
 	// XOP_Vpcomq_xmm_xmm_xmmm128_imm8
-	0x71,// HasVPrefix, vpcomq
+	0x70,// vpcomq
 	0xB2, 0x0A,// 1330 = "vpcomq"
 
 	// XOP_Vpcomub_xmm_xmm_xmmm128_imm8
-	0x79,// HasVPrefix, vpcomub
+	0x78,// vpcomub
 	0xB3, 0x0A,// 1331 = "vpcomub"
 
 	// XOP_Vpcomuw_xmm_xmm_xmmm128_imm8
-	0x81,// HasVPrefix, vpcomuw
+	0x80,// vpcomuw
 	0xB4, 0x0A,// 1332 = "vpcomuw"
 
 	// XOP_Vpcomud_xmm_xmm_xmmm128_imm8
-	0x89,// HasVPrefix, vpcomud
+	0x88,// vpcomud
 	0xB5, 0x0A,// 1333 = "vpcomud"
 
 	// XOP_Vpcomuq_xmm_xmm_xmmm128_imm8
-	0x91,// HasVPrefix, vpcomuq
+	0x90,// vpcomuq
 	0xB6, 0x0A,// 1334 = "vpcomuq"
 
 	// XOP_Blcfill_r32_rm32
@@ -14010,169 +14010,169 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x02,// SameAsPrev
 
 	// XOP_Vfrczps_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC2, 0x0A,// 1346 = "vfrczps"
 
 	// XOP_Vfrczps_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vfrczpd_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC3, 0x0A,// 1347 = "vfrczpd"
 
 	// XOP_Vfrczpd_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vfrczss_xmm_xmmm32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC4, 0x0A,// 1348 = "vfrczss"
 
 	// XOP_Vfrczsd_xmm_xmmm64
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC5, 0x0A,// 1349 = "vfrczsd"
 
 	// XOP_Vprotb_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAB, 0x0A,// 1323 = "vprotb"
 
 	// XOP_Vprotb_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vprotw_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAC, 0x0A,// 1324 = "vprotw"
 
 	// XOP_Vprotw_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vprotd_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAD, 0x0A,// 1325 = "vprotd"
 
 	// XOP_Vprotd_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vprotq_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAE, 0x0A,// 1326 = "vprotq"
 
 	// XOP_Vprotq_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshlb_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC6, 0x0A,// 1350 = "vpshlb"
 
 	// XOP_Vpshlb_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshlw_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC7, 0x0A,// 1351 = "vpshlw"
 
 	// XOP_Vpshlw_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshld_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC8, 0x0A,// 1352 = "vpshld"
 
 	// XOP_Vpshld_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshlq_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC9, 0x0A,// 1353 = "vpshlq"
 
 	// XOP_Vpshlq_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshab_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCA, 0x0A,// 1354 = "vpshab"
 
 	// XOP_Vpshab_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshaw_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCB, 0x0A,// 1355 = "vpshaw"
 
 	// XOP_Vpshaw_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshad_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCC, 0x0A,// 1356 = "vpshad"
 
 	// XOP_Vpshad_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vpshaq_xmm_xmmm128_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCD, 0x0A,// 1357 = "vpshaq"
 
 	// XOP_Vpshaq_xmm_xmm_xmmm128
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// XOP_Vphaddbw_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCE, 0x0A,// 1358 = "vphaddbw"
 
 	// XOP_Vphaddbd_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCF, 0x0A,// 1359 = "vphaddbd"
 
 	// XOP_Vphaddbq_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD0, 0x0A,// 1360 = "vphaddbq"
 
 	// XOP_Vphaddwd_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD1, 0x0A,// 1361 = "vphaddwd"
 
 	// XOP_Vphaddwq_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD2, 0x0A,// 1362 = "vphaddwq"
 
 	// XOP_Vphadddq_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD3, 0x0A,// 1363 = "vphadddq"
 
 	// XOP_Vphaddubw_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD4, 0x0A,// 1364 = "vphaddubw"
 
 	// XOP_Vphaddubd_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD5, 0x0A,// 1365 = "vphaddubd"
 
 	// XOP_Vphaddubq_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD6, 0x0A,// 1366 = "vphaddubq"
 
 	// XOP_Vphadduwd_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD7, 0x0A,// 1367 = "vphadduwd"
 
 	// XOP_Vphadduwq_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD8, 0x0A,// 1368 = "vphadduwq"
 
 	// XOP_Vphaddudq_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD9, 0x0A,// 1369 = "vphaddudq"
 
 	// XOP_Vphsubbw_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDA, 0x0A,// 1370 = "vphsubbw"
 
 	// XOP_Vphsubwd_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDB, 0x0A,// 1371 = "vphsubwd"
 
 	// XOP_Vphsubdq_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDC, 0x0A,// 1372 = "vphsubdq"
 
 	// XOP_Bextr_r32_rm32_imm32
@@ -14370,7 +14370,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xC4, 0x06,// 836 = "ud0"
 
 	// Vmgexit
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x0B,// 1412 = "vmgexit"
 
 	// Getsecq
@@ -14653,18 +14653,18 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xC3, 0x0B,// 1475 = "encodekey256"
 
 	// VEX_Vbroadcastss_xmm_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x65,// 101 = "vbroadcastss"
 
 	// VEX_Vbroadcastss_ymm_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vbroadcastsd_ymm_xmm
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE4, 0x06,// 868 = "vbroadcastsd"
 
 	// Vmgexit_F2
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x0B,// 1412 = "vmgexit"
 
 	// Uiret
@@ -14692,32 +14692,32 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xC9, 0x0B,// 1481 = "hreset"
 
 	// VEX_Vpdpbusd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC6, 0x07,// 966 = "vpdpbusd"
 
 	// VEX_Vpdpbusd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpdpbusds_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC7, 0x07,// 967 = "vpdpbusds"
 
 	// VEX_Vpdpbusds_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpdpwssd_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xC8, 0x07,// 968 = "vpdpwssd"
 
 	// VEX_Vpdpwssd_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// VEX_Vpdpwssds_xmm_xmm_xmmm128
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCB, 0x07,// 971 = "vpdpwssds"
 
 	// VEX_Vpdpwssds_ymm_ymm_ymmm256
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// Ccs_hash_16
 	0x00,// No flags set
@@ -14758,823 +14758,823 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0xCE, 0x0B,// 1486 = "erets"
 
 	// EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xCF, 0x0B,// 1487 = "vaddph"
 
 	// EVEX_Vaddph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vaddph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vaddsh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD0, 0x0B,// 1488 = "vaddsh"
 
 	// EVEX_Vcmpph_kr_k1_xmm_xmmm128b16_imm8
-	0xD9,// HasVPrefix, vcmpph
+	0xD8,// vcmpph
 	0xD1, 0x0B,// 1489 = "vcmpph"
 
 	// EVEX_Vcmpph_kr_k1_ymm_ymmm256b16_imm8
-	0xDB,// HasVPrefix, SameAsPrev, vcmpph
+	0xDA,// SameAsPrev, vcmpph
 
 	// EVEX_Vcmpph_kr_k1_zmm_zmmm512b16_imm8_sae
-	0xDB,// HasVPrefix, SameAsPrev, vcmpph
+	0xDA,// SameAsPrev, vcmpph
 
 	// EVEX_Vcmpsh_kr_k1_xmm_xmmm16_imm8_sae
-	0xE1,// HasVPrefix, vcmpsh
+	0xE0,// vcmpsh
 	0xD2, 0x0B,// 1490 = "vcmpsh"
 
 	// EVEX_Vcomish_xmm_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD3, 0x0B,// 1491 = "vcomish"
 
 	// EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xD4, 0x0B,// 1492 = "vcvtdq2ph"
 
 	// EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtdq2ph_ymm_k1z_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xD5, 0x0B,// 1493 = "vcvtpd2ph"
 
 	// EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtph2dq_xmm_k1z_xmmm64b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD6, 0x0B,// 1494 = "vcvtph2dq"
 
 	// EVEX_Vcvtph2dq_ymm_k1z_xmmm128b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2dq_zmm_k1z_ymmm256b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2pd_xmm_k1z_xmmm32b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD7, 0x0B,// 1495 = "vcvtph2pd"
 
 	// EVEX_Vcvtph2pd_ymm_k1z_xmmm64b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2pd_zmm_k1z_xmmm128b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2psx_xmm_k1z_xmmm64b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD8, 0x0B,// 1496 = "vcvtph2psx"
 
 	// EVEX_Vcvtph2psx_ymm_k1z_xmmm128b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2psx_zmm_k1z_ymmm256b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2qq_xmm_k1z_xmmm32b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xD9, 0x0B,// 1497 = "vcvtph2qq"
 
 	// EVEX_Vcvtph2qq_ymm_k1z_xmmm64b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2qq_zmm_k1z_xmmm128b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2udq_xmm_k1z_xmmm64b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDA, 0x0B,// 1498 = "vcvtph2udq"
 
 	// EVEX_Vcvtph2udq_ymm_k1z_xmmm128b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2udq_zmm_k1z_ymmm256b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2uqq_xmm_k1z_xmmm32b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDB, 0x0B,// 1499 = "vcvtph2uqq"
 
 	// EVEX_Vcvtph2uqq_ymm_k1z_xmmm64b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2uqq_zmm_k1z_xmmm128b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2uw_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDC, 0x0B,// 1500 = "vcvtph2uw"
 
 	// EVEX_Vcvtph2uw_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2uw_zmm_k1z_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2w_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xDD, 0x0B,// 1501 = "vcvtph2w"
 
 	// EVEX_Vcvtph2w_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtph2w_zmm_k1z_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xDE, 0x0B,// 1502 = "vcvtps2phx"
 
 	// EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtps2phx_ymm_k1z_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xDF, 0x0B,// 1503 = "vcvtqq2ph"
 
 	// EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtsd2sh_xmm_k1z_xmm_xmmm64_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE0, 0x0B,// 1504 = "vcvtsd2sh"
 
 	// EVEX_Vcvtsh2sd_xmm_k1z_xmm_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE1, 0x0B,// 1505 = "vcvtsh2sd"
 
 	// EVEX_Vcvtsh2si_r32_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE2, 0x0B,// 1506 = "vcvtsh2si"
 
 	// EVEX_Vcvtsh2si_r64_xmmm16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtsh2ss_xmm_k1z_xmm_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE3, 0x0B,// 1507 = "vcvtsh2ss"
 
 	// EVEX_Vcvtsh2usi_r32_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE4, 0x0B,// 1508 = "vcvtsh2usi"
 
 	// EVEX_Vcvtsh2usi_r64_xmmm16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtsi2sh_xmm_xmm_rm32_er
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xE5, 0x0B,// 1509 = "vcvtsi2sh"
 
 	// EVEX_Vcvtsi2sh_xmm_xmm_rm64_er
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtss2sh_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE6, 0x0B,// 1510 = "vcvtss2sh"
 
 	// EVEX_Vcvttph2dq_xmm_k1z_xmmm64b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE7, 0x0B,// 1511 = "vcvttph2dq"
 
 	// EVEX_Vcvttph2dq_ymm_k1z_xmmm128b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2dq_zmm_k1z_ymmm256b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2qq_xmm_k1z_xmmm32b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE8, 0x0B,// 1512 = "vcvttph2qq"
 
 	// EVEX_Vcvttph2qq_ymm_k1z_xmmm64b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2qq_zmm_k1z_xmmm128b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2udq_xmm_k1z_xmmm64b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xE9, 0x0B,// 1513 = "vcvttph2udq"
 
 	// EVEX_Vcvttph2udq_ymm_k1z_xmmm128b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2udq_zmm_k1z_ymmm256b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2uqq_xmm_k1z_xmmm32b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEA, 0x0B,// 1514 = "vcvttph2uqq"
 
 	// EVEX_Vcvttph2uqq_ymm_k1z_xmmm64b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2uqq_zmm_k1z_xmmm128b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2uw_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEB, 0x0B,// 1515 = "vcvttph2uw"
 
 	// EVEX_Vcvttph2uw_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2uw_zmm_k1z_zmmm512b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2w_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEC, 0x0B,// 1516 = "vcvttph2w"
 
 	// EVEX_Vcvttph2w_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttph2w_zmm_k1z_zmmm512b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttsh2si_r32_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xED, 0x0B,// 1517 = "vcvttsh2si"
 
 	// EVEX_Vcvttsh2si_r64_xmmm16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvttsh2usi_r32_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xEE, 0x0B,// 1518 = "vcvttsh2usi"
 
 	// EVEX_Vcvttsh2usi_r64_xmmm16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xEF, 0x0B,// 1519 = "vcvtudq2ph"
 
 	// EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtudq2ph_ymm_k1z_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xF0, 0x0B,// 1520 = "vcvtuqq2ph"
 
 	// EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtusi2sh_xmm_xmm_rm32_er
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0xF1, 0x0B,// 1521 = "vcvtusi2sh"
 
 	// EVEX_Vcvtusi2sh_xmm_xmm_rm64_er
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vcvtuw2ph_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF2, 0x0B,// 1522 = "vcvtuw2ph"
 
 	// EVEX_Vcvtuw2ph_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtuw2ph_zmm_k1z_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtw2ph_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF3, 0x0B,// 1523 = "vcvtw2ph"
 
 	// EVEX_Vcvtw2ph_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vcvtw2ph_zmm_k1z_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vdivph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF4, 0x0B,// 1524 = "vdivph"
 
 	// EVEX_Vdivph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vdivph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vdivsh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF5, 0x0B,// 1525 = "vdivsh"
 
 	// EVEX_Vfcmaddcph_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF6, 0x0B,// 1526 = "vfcmaddcph"
 
 	// EVEX_Vfcmaddcph_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfcmaddcph_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddcph_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF7, 0x0B,// 1527 = "vfmaddcph"
 
 	// EVEX_Vfmaddcph_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddcph_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfcmaddcsh_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF8, 0x0B,// 1528 = "vfcmaddcsh"
 
 	// EVEX_Vfmaddcsh_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xF9, 0x0B,// 1529 = "vfmaddcsh"
 
 	// EVEX_Vfcmulcph_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFA, 0x0B,// 1530 = "vfcmulcph"
 
 	// EVEX_Vfcmulcph_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfcmulcph_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmulcph_xmm_k1z_xmm_xmmm128b32
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFB, 0x0B,// 1531 = "vfmulcph"
 
 	// EVEX_Vfmulcph_ymm_k1z_ymm_ymmm256b32
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmulcph_zmm_k1z_zmm_zmmm512b32_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfcmulcsh_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFC, 0x0B,// 1532 = "vfcmulcsh"
 
 	// EVEX_Vfmulcsh_xmm_k1z_xmm_xmmm32_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFD, 0x0B,// 1533 = "vfmulcsh"
 
 	// EVEX_Vfmaddsub132ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFE, 0x0B,// 1534 = "vfmaddsub132ph"
 
 	// EVEX_Vfmaddsub132ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub213ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xFF, 0x0B,// 1535 = "vfmaddsub213ph"
 
 	// EVEX_Vfmaddsub213ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub231ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x80, 0x0C,// 1536 = "vfmaddsub231ph"
 
 	// EVEX_Vfmaddsub231ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmaddsub231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd132ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x81, 0x0C,// 1537 = "vfmsubadd132ph"
 
 	// EVEX_Vfmsubadd132ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd213ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x82, 0x0C,// 1538 = "vfmsubadd213ph"
 
 	// EVEX_Vfmsubadd213ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd231ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x83, 0x0C,// 1539 = "vfmsubadd231ph"
 
 	// EVEX_Vfmsubadd231ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsubadd231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd132ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x84, 0x0C,// 1540 = "vfmadd132ph"
 
 	// EVEX_Vfmadd132ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd213ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x85, 0x0C,// 1541 = "vfmadd213ph"
 
 	// EVEX_Vfmadd213ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd231ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x86, 0x0C,// 1542 = "vfmadd231ph"
 
 	// EVEX_Vfmadd231ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd132ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x87, 0x0C,// 1543 = "vfnmadd132ph"
 
 	// EVEX_Vfnmadd132ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd213ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x88, 0x0C,// 1544 = "vfnmadd213ph"
 
 	// EVEX_Vfnmadd213ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd231ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x89, 0x0C,// 1545 = "vfnmadd231ph"
 
 	// EVEX_Vfnmadd231ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmadd231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmadd132sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8A, 0x0C,// 1546 = "vfmadd132sh"
 
 	// EVEX_Vfmadd213sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8B, 0x0C,// 1547 = "vfmadd213sh"
 
 	// EVEX_Vfmadd231sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8C, 0x0C,// 1548 = "vfmadd231sh"
 
 	// EVEX_Vfnmadd132sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8D, 0x0C,// 1549 = "vfnmadd132sh"
 
 	// EVEX_Vfnmadd213sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8E, 0x0C,// 1550 = "vfnmadd213sh"
 
 	// EVEX_Vfnmadd231sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x8F, 0x0C,// 1551 = "vfnmadd231sh"
 
 	// EVEX_Vfmsub132ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x90, 0x0C,// 1552 = "vfmsub132ph"
 
 	// EVEX_Vfmsub132ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub213ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x91, 0x0C,// 1553 = "vfmsub213ph"
 
 	// EVEX_Vfmsub213ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub231ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x92, 0x0C,// 1554 = "vfmsub231ph"
 
 	// EVEX_Vfmsub231ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub132ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x93, 0x0C,// 1555 = "vfnmsub132ph"
 
 	// EVEX_Vfnmsub132ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub132ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub213ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x94, 0x0C,// 1556 = "vfnmsub213ph"
 
 	// EVEX_Vfnmsub213ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub213ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub231ph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x95, 0x0C,// 1557 = "vfnmsub231ph"
 
 	// EVEX_Vfnmsub231ph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfnmsub231ph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vfmsub132sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x96, 0x0C,// 1558 = "vfmsub132sh"
 
 	// EVEX_Vfmsub213sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x97, 0x0C,// 1559 = "vfmsub213sh"
 
 	// EVEX_Vfmsub231sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x98, 0x0C,// 1560 = "vfmsub231sh"
 
 	// EVEX_Vfnmsub132sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x99, 0x0C,// 1561 = "vfnmsub132sh"
 
 	// EVEX_Vfnmsub213sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9A, 0x0C,// 1562 = "vfnmsub213sh"
 
 	// EVEX_Vfnmsub231sh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9B, 0x0C,// 1563 = "vfnmsub231sh"
 
 	// EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8
-	0x05,// HasVPrefix, ForceMemSize
+	0x04,// ForceMemSize
 	0x9C, 0x0C,// 1564 = "vfpclassph"
 
 	// EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8
-	0x07,// HasVPrefix, SameAsPrev, ForceMemSize
+	0x06,// SameAsPrev, ForceMemSize
 
 	// EVEX_Vfpclasssh_kr_k1_xmmm16_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9D, 0x0C,// 1565 = "vfpclasssh"
 
 	// EVEX_Vgetexpph_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9E, 0x0C,// 1566 = "vgetexpph"
 
 	// EVEX_Vgetexpph_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetexpph_zmm_k1z_zmmm512b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetexpsh_xmm_k1z_xmm_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0x9F, 0x0C,// 1567 = "vgetexpsh"
 
 	// EVEX_Vgetmantph_xmm_k1z_xmmm128b16_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA0, 0x0C,// 1568 = "vgetmantph"
 
 	// EVEX_Vgetmantph_ymm_k1z_ymmm256b16_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetmantph_zmm_k1z_zmmm512b16_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vgetmantsh_xmm_k1z_xmm_xmmm16_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA1, 0x0C,// 1569 = "vgetmantsh"
 
 	// EVEX_Vmaxph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA2, 0x0C,// 1570 = "vmaxph"
 
 	// EVEX_Vmaxph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmaxph_zmm_k1z_zmm_zmmm512b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmaxsh_xmm_k1z_xmm_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA3, 0x0C,// 1571 = "vmaxsh"
 
 	// EVEX_Vminph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA4, 0x0C,// 1572 = "vminph"
 
 	// EVEX_Vminph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vminph_zmm_k1z_zmm_zmmm512b16_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vminsh_xmm_k1z_xmm_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA5, 0x0C,// 1573 = "vminsh"
 
 	// EVEX_Vmovsh_xmm_k1z_m16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA6, 0x0C,// 1574 = "vmovsh"
 
 	// EVEX_Vmovsh_m16_k1_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovsh_xmm_k1z_xmm_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovsh_xmm_k1z_xmm_xmm_MAP5_11
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovw_xmm_r32m16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA7, 0x0C,// 1575 = "vmovw"
 
 	// EVEX_Vmovw_xmm_r64m16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovw_r32m16_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmovw_r64m16_xmm
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmulph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA8, 0x0C,// 1576 = "vmulph"
 
 	// EVEX_Vmulph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmulph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vmulsh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xA9, 0x0C,// 1577 = "vmulsh"
 
 	// EVEX_Vrcpph_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAA, 0x0C,// 1578 = "vrcpph"
 
 	// EVEX_Vrcpph_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrcpph_zmm_k1z_zmmm512b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrcpsh_xmm_k1z_xmm_xmmm16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAB, 0x0C,// 1579 = "vrcpsh"
 
 	// EVEX_Vreduceph_xmm_k1z_xmmm128b16_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAC, 0x0C,// 1580 = "vreduceph"
 
 	// EVEX_Vreduceph_ymm_k1z_ymmm256b16_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vreduceph_zmm_k1z_zmmm512b16_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vreducesh_xmm_k1z_xmm_xmmm16_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAD, 0x0C,// 1581 = "vreducesh"
 
 	// EVEX_Vrndscaleph_xmm_k1z_xmmm128b16_imm8
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAE, 0x0C,// 1582 = "vrndscaleph"
 
 	// EVEX_Vrndscaleph_ymm_k1z_ymmm256b16_imm8
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrndscaleph_zmm_k1z_zmmm512b16_imm8_sae
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrndscalesh_xmm_k1z_xmm_xmmm16_imm8_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xAF, 0x0C,// 1583 = "vrndscalesh"
 
 	// EVEX_Vrsqrtph_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB0, 0x0C,// 1584 = "vrsqrtph"
 
 	// EVEX_Vrsqrtph_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrsqrtph_zmm_k1z_zmmm512b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vrsqrtsh_xmm_k1z_xmm_xmmm16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB1, 0x0C,// 1585 = "vrsqrtsh"
 
 	// EVEX_Vscalefph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB2, 0x0C,// 1586 = "vscalefph"
 
 	// EVEX_Vscalefph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscalefph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vscalefsh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB3, 0x0C,// 1587 = "vscalefsh"
 
 	// EVEX_Vsqrtph_xmm_k1z_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB4, 0x0C,// 1588 = "vsqrtph"
 
 	// EVEX_Vsqrtph_ymm_k1z_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vsqrtph_zmm_k1z_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vsqrtsh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB5, 0x0C,// 1589 = "vsqrtsh"
 
 	// EVEX_Vsubph_xmm_k1z_xmm_xmmm128b16
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB6, 0x0C,// 1590 = "vsubph"
 
 	// EVEX_Vsubph_ymm_k1z_ymm_ymmm256b16
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vsubph_zmm_k1z_zmm_zmmm512b16_er
-	0x03,// HasVPrefix, SameAsPrev
+	0x02,// SameAsPrev
 
 	// EVEX_Vsubsh_xmm_k1z_xmm_xmmm16_er
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB7, 0x0C,// 1591 = "vsubsh"
 
 	// EVEX_Vucomish_xmm_xmmm16_sae
-	0x01,// HasVPrefix
+	0x00,// No flags set
 	0xB8, 0x0C,// 1592 = "vucomish"
 
 	// Rdudbg

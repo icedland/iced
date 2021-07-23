@@ -10,6 +10,7 @@ using System.Linq;
 namespace Generator.Formatters {
 	sealed class StringsTable {
 		readonly Dictionary<string, Info> strings;
+		readonly List<(uint code, string s, bool optimize)> addedStrings;
 		Info[]? sortedInfos;
 		bool isFrozen;
 
@@ -29,13 +30,42 @@ namespace Generator.Formatters {
 			}
 		}
 
-		public StringsTable() =>
+		public StringsTable() {
 			strings = new Dictionary<string, Info>(StringComparer.Ordinal);
+			addedStrings = new List<(uint code, string s, bool optimize)>();
+		}
 
 		public void Freeze() {
 			if (isFrozen)
 				throw new InvalidOperationException();
 			isFrozen = true;
+
+			// If the string can be optimized (i.e., it's the first string (== mnemonic string) and not a possible 2nd string),
+			// and if it starts with 'v' and there already exists a string without the 'v', then we can set the 'v' flag and
+			// just store the non-v string.
+			void AddString(uint code, string s) {
+				if (!strings.TryGetValue(s, out var info))
+					strings.Add(s, info = new Info(s, code));
+				info.Count++;
+			}
+			bool CanOptimize(string s, bool optimize) => optimize && s.StartsWith("v", StringComparison.Ordinal);
+			foreach (var (code, s, optimize) in addedStrings) {
+				if (CanOptimize(s, optimize))
+					continue;
+				AddString(code, s);
+			}
+			foreach (var (code, tmp, optimize) in addedStrings) {
+				var s = tmp;
+				if (!CanOptimize(s, optimize))
+					continue;
+				Debug.Assert(s.StartsWith("v", StringComparison.Ordinal));
+				var optimizedString = s[1..];
+				// If the smaller string doesn't exist, there's no need to store it. It will just lead to an extra allocation at runtime.
+				if (strings.ContainsKey(optimizedString))
+					AddString(code, optimizedString);
+				else
+					AddString(code, s);
+			}
 
 			var infos = strings.Values.ToArray();
 			const int N = 1;
@@ -82,28 +112,32 @@ namespace Generator.Formatters {
 			}
 		}
 
-		public void Add(uint code, string s, bool ignoreVPrefix) {
+		public void Add(uint code, string s, bool optimize) {
 			if (isFrozen)
 				throw new InvalidOperationException();
-			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal))
-				s = s[1..];
-			if (!strings.TryGetValue(s, out var info))
-				strings.Add(s, info = new Info(s, code));
-			info.Count++;
+			addedStrings.Add((code, s, optimize));
 		}
 
-		public uint GetIndex(string s, bool ignoreVPrefix, out bool hasVPrefix) {
+		public uint GetIndex(string s, bool optimize, out bool hasVPrefix) {
 			if (!isFrozen)
 				throw new InvalidOperationException();
-			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal)) {
-				s = s[1..];
-				hasVPrefix = true;
-			}
-			else
+
+			if (strings.TryGetValue(s, out var info)) {
 				hasVPrefix = false;
-			if (!strings.TryGetValue(s, out var info))
-				throw new ArgumentException();
-			return info.Index;
+				return info.Index;
+			}
+
+			if (optimize) {
+				if (s.StartsWith("v", StringComparison.Ordinal)) {
+					var optimizedString = s[1..];
+					if (strings.TryGetValue(optimizedString, out info)) {
+						hasVPrefix = true;
+						return info.Index;
+					}
+				}
+			}
+
+			throw new ArgumentException();
 		}
 	}
 }

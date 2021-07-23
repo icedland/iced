@@ -63,7 +63,7 @@ namespace Generator.Formatters {
 				writer.WriteCommentLine(code.ToStringValue(idConverter));
 
 				var mnemonic = def.Mnemonic;
-				uint mnemonicStringIndex = stringsTable.GetIndex(mnemonic, ignoreVPrefix: true, out var hasVPrefix);
+				uint mnemonicStringIndex = stringsTable.GetIndex(mnemonic, optimize: true, out var hasVPrefix);
 				var flags = def.Flags;
 				if (hasVPrefix)
 					flagsValues.Add(hasVPrefixEnum);
