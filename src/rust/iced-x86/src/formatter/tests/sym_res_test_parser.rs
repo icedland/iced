@@ -143,6 +143,6 @@ impl IntoIter<'_> {
 		}
 
 		let decoder_options = OptionValue::get_decoder_options(&options);
-		Ok(Some(SymbolResolverTestCase { bitness, hex_bytes, ip, decoder_options, code, options, line_number, symbol_results }))
+		Ok(Some(SymbolResolverTestCase { bitness, hex_bytes, ip, decoder_options, line_number, code, options, symbol_results }))
 	}
 }
