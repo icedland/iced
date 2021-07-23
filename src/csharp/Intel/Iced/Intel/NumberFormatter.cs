@@ -213,6 +213,11 @@ namespace Iced.Intel {
 		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
 		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
 
+		public string FormatDisplUInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(formatterOptions, options, value, 8, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatDisplUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatDisplUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatDisplUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
+
 		public string FormatUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
 		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
 		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));

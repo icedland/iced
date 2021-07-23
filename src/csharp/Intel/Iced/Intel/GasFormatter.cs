@@ -883,8 +883,7 @@ namespace Iced.Intel {
 							displ = -displ;
 						}
 						if (numberOptions.DisplacementLeadingZeroes) {
-							Debug.Assert(displSize <= 8);
-							displSize = 8;
+							displSize = 4;
 						}
 					}
 					else if (addrSize == 4) {
@@ -893,7 +892,6 @@ namespace Iced.Intel {
 							displ = (uint)-(int)displ;
 						}
 						if (numberOptions.DisplacementLeadingZeroes) {
-							Debug.Assert(displSize <= 4);
 							displSize = 4;
 						}
 					}
@@ -904,7 +902,6 @@ namespace Iced.Intel {
 							displ = (ushort)-(short)displ;
 						}
 						if (numberOptions.DisplacementLeadingZeroes) {
-							Debug.Assert(displSize <= 2);
 							displSize = 2;
 						}
 					}
@@ -915,19 +912,19 @@ namespace Iced.Intel {
 				NumberKind displKind;
 				string s;
 				if (displSize <= 1 && (ulong)displ <= byte.MaxValue) {
-					s = numberFormatter.FormatUInt8(options, numberOptions, (byte)displ);
+					s = numberFormatter.FormatDisplUInt8(options, numberOptions, (byte)displ);
 					displKind = isSigned ? NumberKind.Int8 : NumberKind.UInt8;
 				}
 				else if (displSize <= 2 && (ulong)displ <= ushort.MaxValue) {
-					s = numberFormatter.FormatUInt16(options, numberOptions, (ushort)displ);
+					s = numberFormatter.FormatDisplUInt16(options, numberOptions, (ushort)displ);
 					displKind = isSigned ? NumberKind.Int16 : NumberKind.UInt16;
 				}
 				else if (displSize <= 4 && (ulong)displ <= uint.MaxValue) {
-					s = numberFormatter.FormatUInt32(options, numberOptions, (uint)displ);
+					s = numberFormatter.FormatDisplUInt32(options, numberOptions, (uint)displ);
 					displKind = isSigned ? NumberKind.Int32 : NumberKind.UInt32;
 				}
 				else if (displSize <= 8) {
-					s = numberFormatter.FormatUInt64(options, numberOptions, (ulong)displ);
+					s = numberFormatter.FormatDisplUInt64(options, numberOptions, (ulong)displ);
 					displKind = isSigned ? NumberKind.Int64 : NumberKind.UInt64;
 				}
 				else

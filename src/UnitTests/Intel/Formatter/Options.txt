@@ -526,6 +526,56 @@
 64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
 64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
 
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+
 16, 8A 06 FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
 16, 8A 06 FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
 32, 8A 05 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
@@ -539,6 +589,46 @@
 32, 8A 05 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
 64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
 64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+
+16, 8A 06 FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 06 FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+
+16, 8A 06 0000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 06 0000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 05 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 05 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
 
 16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
 16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
@@ -578,6 +668,19 @@
 64, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
 64, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
 64, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+
+16, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
 
 64, D8 C3, Fadd_st0_sti, PreferST0=false
 64, D8 CB, Fmul_st0_sti, PreferST0=false

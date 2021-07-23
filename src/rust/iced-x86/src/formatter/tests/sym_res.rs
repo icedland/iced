@@ -81,6 +81,7 @@ pub(in super::super) fn symbol_resolver_test(
 			info.ip,
 			info.code,
 			info.decoder_options,
+			info.line_number,
 			formatted_line.as_str(),
 			formatter.as_mut(),
 			|decoder| {
@@ -109,6 +110,7 @@ pub(in super::super) fn symbol_resolver_test_fast<TraitOptions: SpecializedForma
 			info.ip,
 			info.code,
 			info.decoder_options,
+			info.line_number,
 			formatted_line.as_str(),
 			formatter.as_mut(),
 			|decoder| {

@@ -71,7 +71,7 @@ impl Iterator for IntoIter<'_> {
 						continue;
 					}
 					self.test_case_number += 1;
-					self.read_next_test_case(line)
+					self.read_next_test_case(line, self.line_number)
 				}
 				Err(err) => Err(err.to_string()),
 			};
@@ -91,7 +91,7 @@ impl Iterator for IntoIter<'_> {
 }
 
 impl IntoIter<'_> {
-	fn read_next_test_case(&self, line: String) -> Result<Option<SymbolResolverTestCase>, String> {
+	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<Option<SymbolResolverTestCase>, String> {
 		let elems: Vec<_> = line.split(',').collect();
 		const SYM_RES_INDEX: usize = 4;
 		if elems.len() < SYM_RES_INDEX {
@@ -143,6 +143,6 @@ impl IntoIter<'_> {
 		}
 
 		let decoder_options = OptionValue::get_decoder_options(&options);
-		Ok(Some(SymbolResolverTestCase { bitness, hex_bytes, ip, decoder_options, code, options, symbol_results }))
+		Ok(Some(SymbolResolverTestCase { bitness, hex_bytes, ip, decoder_options, code, options, line_number, symbol_results }))
 	}
 }

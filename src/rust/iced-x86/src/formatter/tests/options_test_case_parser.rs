@@ -81,7 +81,7 @@ impl Iterator for IntoIter<'_> {
 }
 
 impl IntoIter<'_> {
-	fn read_next_test_case(line: String, _line_number: u32) -> Result<Option<OptionsInstructionInfo>, String> {
+	fn read_next_test_case(line: String, line_number: u32) -> Result<Option<OptionsInstructionInfo>, String> {
 		let elems: Vec<_> = line.split(',').collect();
 		if elems.len() != 4 {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));
@@ -106,6 +106,6 @@ impl IntoIter<'_> {
 		}
 
 		let decoder_options = OptionValue::get_decoder_options(&properties);
-		Ok(Some(OptionsInstructionInfo { bitness, hex_bytes: String::from(hex_bytes), ip, decoder_options, code, vec: properties }))
+		Ok(Some(OptionsInstructionInfo { bitness, hex_bytes: String::from(hex_bytes), ip, decoder_options, line_number, code, vec: properties }))
 	}
 }

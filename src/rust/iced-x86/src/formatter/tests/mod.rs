@@ -214,7 +214,8 @@ fn format_test_instruction_fast_core<TraitOptions: SpecializedFormatterTraitOpti
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn simple_format_test<F: Fn(&mut Decoder<'_>)>(
-	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut dyn Formatter, init_decoder: F,
+	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, line_number: u32, formatted_string: &str,
+	formatter: &mut dyn Formatter, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
 	let mut decoder = create_decoder(bitness, &bytes, ip, decoder_options).0;
@@ -233,12 +234,12 @@ fn simple_format_test<F: Fn(&mut Decoder<'_>)>(
 
 	let mut output = String::new();
 	formatter.format(&instruction, &mut output);
-	assert_eq!(output, formatted_string);
+	assert_eq!(output, formatted_string, "line {}", line_number);
 }
 
 #[cfg(feature = "fast_fmt")]
 fn simple_format_test_fast<TraitOptions: SpecializedFormatterTraitOptions, F: Fn(&mut Decoder<'_>)>(
-	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, formatted_string: &str,
+	bitness: u32, hex_bytes: &str, ip: u64, code: Code, decoder_options: u32, line_number: u32, formatted_string: &str,
 	formatter: &mut SpecializedFormatter<TraitOptions>, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
@@ -258,7 +259,7 @@ fn simple_format_test_fast<TraitOptions: SpecializedFormatterTraitOptions, F: Fn
 
 	let mut output = String::new();
 	formatter.format(&instruction, &mut output);
-	assert_eq!(output, formatted_string);
+	assert_eq!(output, formatted_string, "line {}", line_number);
 }
 
 fn filter_removed_code_tests(strings: Vec<String>, ignored: &HashSet<u32>) -> Vec<String> {

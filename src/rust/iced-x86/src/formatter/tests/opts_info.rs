@@ -12,6 +12,7 @@ pub(super) struct OptionsInstructionInfo {
 	pub(super) hex_bytes: String,
 	pub(super) ip: u64,
 	pub(super) decoder_options: u32,
+	pub(super) line_number: u32,
 	pub(super) code: Code,
 	pub(super) vec: Vec<(OptionsProps, OptionValue)>,
 }

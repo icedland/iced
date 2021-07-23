@@ -1141,8 +1141,7 @@ impl GasFormatter {
 						displ = displ.wrapping_neg();
 					}
 					if number_options.displacement_leading_zeroes {
-						debug_assert!(displ_size <= 8);
-						displ_size = 8;
+						displ_size = 4;
 					}
 				} else if addr_size == 4 {
 					if number_options.signed_number && (displ as i32) < 0 {
@@ -1150,7 +1149,6 @@ impl GasFormatter {
 						displ = (displ as i32).wrapping_neg() as u32 as i64;
 					}
 					if number_options.displacement_leading_zeroes {
-						debug_assert!(displ_size <= 4);
 						displ_size = 4;
 					}
 				} else {
@@ -1160,7 +1158,6 @@ impl GasFormatter {
 						displ = (displ as i16).wrapping_neg() as u16 as i64;
 					}
 					if number_options.displacement_leading_zeroes {
-						debug_assert!(displ_size <= 2);
 						displ_size = 2;
 					}
 				}
@@ -1170,22 +1167,22 @@ impl GasFormatter {
 
 			let (s, displ_kind) = if displ_size <= 1 && displ as u64 <= u8::MAX as u64 {
 				(
-					self.number_formatter.format_u8(&self.d.options, &number_options, displ as u8),
+					self.number_formatter.format_displ_u8(&self.d.options, &number_options, displ as u8),
 					if is_signed { NumberKind::Int8 } else { NumberKind::UInt8 },
 				)
 			} else if displ_size <= 2 && displ as u64 <= u16::MAX as u64 {
 				(
-					self.number_formatter.format_u16(&self.d.options, &number_options, displ as u16),
+					self.number_formatter.format_displ_u16(&self.d.options, &number_options, displ as u16),
 					if is_signed { NumberKind::Int16 } else { NumberKind::UInt16 },
 				)
 			} else if displ_size <= 4 && displ as u64 <= u32::MAX as u64 {
 				(
-					self.number_formatter.format_u32(&self.d.options, &number_options, displ as u32),
+					self.number_formatter.format_displ_u32(&self.d.options, &number_options, displ as u32),
 					if is_signed { NumberKind::Int32 } else { NumberKind::UInt32 },
 				)
 			} else if displ_size <= 8 {
 				(
-					self.number_formatter.format_u64(&self.d.options, &number_options, displ as u64),
+					self.number_formatter.format_displ_u64(&self.d.options, &number_options, displ as u64),
 					if is_signed { NumberKind::Int64 } else { NumberKind::UInt64 },
 				)
 			} else {

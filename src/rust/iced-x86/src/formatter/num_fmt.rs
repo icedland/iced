@@ -293,6 +293,54 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
+	pub fn format_displ_u8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u8) -> &str {
+		self.format_unsigned_integer(
+			formatter_options,
+			options,
+			value as u64,
+			8,
+			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+		)
+	}
+
+	#[must_use]
+	#[inline]
+	pub fn format_displ_u16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u16) -> &str {
+		self.format_unsigned_integer(
+			formatter_options,
+			options,
+			value as u64,
+			16,
+			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+		)
+	}
+
+	#[must_use]
+	#[inline]
+	pub fn format_displ_u32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u32) -> &str {
+		self.format_unsigned_integer(
+			formatter_options,
+			options,
+			value as u64,
+			32,
+			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+		)
+	}
+
+	#[must_use]
+	#[inline]
+	pub fn format_displ_u64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u64) -> &str {
+		self.format_unsigned_integer(
+			formatter_options,
+			options,
+			value,
+			64,
+			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+		)
+	}
+
+	#[must_use]
+	#[inline]
 	pub fn format_u16_zeroes(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u16, leading_zeroes: bool,
 	) -> &str {

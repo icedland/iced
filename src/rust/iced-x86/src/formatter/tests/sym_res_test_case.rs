@@ -12,6 +12,7 @@ pub(super) struct SymbolResolverTestCase {
 	pub(super) hex_bytes: String,
 	pub(super) ip: u64,
 	pub(super) decoder_options: u32,
+	pub(super) line_number: u32,
 	pub(super) code: Code,
 	pub(super) options: Vec<(OptionsProps, OptionValue)>,
 	pub(super) symbol_results: Vec<SymbolResultTestCase>,
