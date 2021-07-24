@@ -325,17 +325,15 @@ namespace Generator.Assembler {
 				_ => kind,
 			};
 
-		int? GetSpecialArgEncodingInstruction(InstructionDef def) =>
-			GetOrigCodeValue(def.Code) switch {
-				Code.Outsb_DX_m8 or Code.Outsw_DX_m16 or Code.Outsd_DX_m32 or Code.Lodsb_AL_m8 or Code.Lodsw_AX_m16 or Code.Lodsd_EAX_m32 or
-				Code.Lodsq_RAX_m64 or Code.Scasb_AL_m8 or Code.Scasw_AX_m16 or Code.Scasd_EAX_m32 or Code.Scasq_RAX_m64 or Code.Insb_m8_DX or
-				Code.Insw_m16_DX or Code.Insd_m32_DX or Code.Stosb_m8_AL or Code.Stosw_m16_AX or Code.Stosd_m32_EAX or Code.Stosq_m64_RAX or
-				Code.Cmpsb_m8_m8 or Code.Cmpsw_m16_m16 or Code.Cmpsd_m32_m32 or Code.Cmpsq_m64_m64 or Code.Movsb_m8_m8 or Code.Movsw_m16_m16 or
-				Code.Movsd_m32_m32 or Code.Movsq_m64_m64 => 2,
+		int? GetSpecialArgEncodingInstruction(InstructionDef def) {
+			if ((def.Flags3 & InstructionDefFlags3.IsStringOp) != 0)
+				return def.OpCount;
+			return GetOrigCodeValue(def.Code) switch {
 				Code.Maskmovq_rDI_mm_mm or Code.Maskmovdqu_rDI_xmm_xmm or Code.VEX_Vmaskmovdqu_rDI_xmm_xmm => 1,
 				Code.Xbegin_rel16 or Code.Xbegin_rel32 => 0,
 				_ => null,
 			};
+		}
 
 		OpCodeNode BuildSelectorGraph(OpCodeInfoGroup group) {
 			// In case of one opcode, we don't need to perform any disambiguation
