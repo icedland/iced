@@ -23,12 +23,47 @@ namespace Generator.Assembler {
 		readonly Dictionary<EnumValue, string> mapOpCodeToNewName;
 		readonly EnumValue? codeInt3;
 		readonly Dictionary<EnumValue, Code> toOrigCodeValue;
+		readonly HashSet<EnumValue> ambiguousBcst;
 		int stackDepth;
 
 		protected Code GetOrigCodeValue(EnumValue value) {
 			if (value.DeclaringType.TypeId != TypeIds.Code)
 				throw new InvalidOperationException();
 			return toOrigCodeValue[value];
+		}
+
+		sealed class AmbiguousBcstInstr : IEquatable<AmbiguousBcstInstr > {
+			public readonly EnumValue Code;
+			readonly EnumValue mnemonic;
+			readonly uint bcstMemSize;
+			readonly OpCodeOperandKindDef[] operands;
+			public AmbiguousBcstInstr(InstructionDef def, uint bcstMemSize) {
+				Code = def.Code;
+				mnemonic = def.Mnemonic;
+				this.bcstMemSize = bcstMemSize;
+				operands = def.OpKindDefs.Where(a => !a.Memory).ToArray();
+			}
+
+			public override bool Equals(object? obj) => obj is AmbiguousBcstInstr other && Equals(other);
+			public bool Equals(AmbiguousBcstInstr? other) {
+				if (other is null)
+					return false;
+				if (mnemonic != other.mnemonic || bcstMemSize != other.bcstMemSize)
+					return false;
+				if (operands.Length != other.operands.Length)
+					return false;
+				for (int i = 0; i < operands.Length; i++) {
+					if (operands[i] != other.operands[i])
+						return false;
+				}
+				return true;
+			}
+			public override int GetHashCode() {
+				int hc = HashCode.Combine(mnemonic, bcstMemSize);
+				foreach (var op in operands)
+					hc = HashCode.Combine(hc, op);
+				return hc;
+			}
 		}
 
 		protected AssemblerSyntaxGenerator(GenTypes genTypes) {
@@ -47,6 +82,17 @@ namespace Generator.Assembler {
 			discardOpCodes = defs.Where(a => (a.Flags3 & InstructionDefFlags3.AsmIgnore) != 0).Select(a => a.Code).ToHashSet();
 			mapOpCodeToNewName = defs.Where(a => a.AsmMnemonic is not null).
 				Select(a => (code: a.Code, name: a.AsmMnemonic!)).ToDictionary(a => a.code, a => a.name);
+
+			var ambigDict = new Dictionary<AmbiguousBcstInstr, List<AmbiguousBcstInstr>>();
+			foreach (var def in defs) {
+				if ((def.Flags1 & InstructionDefFlags1.Broadcast) == 0)
+					continue;
+				var key = new AmbiguousBcstInstr(def, memDefs[(int)def.MemoryBroadcast.Value].Size);
+				if (!ambigDict.TryGetValue(key, out var list))
+					ambigDict.Add(key, list = new List<AmbiguousBcstInstr>());
+				list.Add(key);
+			}
+			ambiguousBcst = ambigDict.Where(a => a.Value.Count >= 2).SelectMany(a => a.Value).Select(a => a.Code).ToHashSet();
 		}
 
 		protected const InstructionDefFlags1 BitnessMaskFlags = InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16;
@@ -1522,40 +1568,8 @@ namespace Generator.Assembler {
 			return false;
 		}
 
-		bool IsAmbiguousBroadcast(InstructionDef def) {
-			switch (GetOrigCodeValue(def.Code)) {
-			case Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64:
-			case Code.EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64:
-			case Code.EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64:
-			case Code.EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64:
-			case Code.EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64:
-			case Code.EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64:
-			case Code.EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64:
-			case Code.EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64:
-			case Code.EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64:
-			case Code.EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64:
-			case Code.EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64:
-			case Code.EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64:
-			case Code.EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64:
-			case Code.EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64:
-			case Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32:
-			case Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32:
-			case Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8:
-			case Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8:
-			case Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8:
-			case Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8:
-			case Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8:
-			case Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8:
-				return true;
-			}
-			return false;
-		}
-
 		string RenameAmbiguousBroadcasts(string name, InstructionDef def) {
-			if ((def.Flags1 & InstructionDefFlags1.Broadcast) == 0)
-				return name;
-
-			if (IsAmbiguousBroadcast(def)) {
+			if (ambiguousBcst.Contains(def.Code)) {
 				for (int i = 0; i < def.OpKindDefs.Length; i++) {
 					var opKindDef = def.OpKindDefs[i];
 					if (opKindDef.OperandEncoding == OperandEncoding.RegMemModrmRm) {
@@ -1563,6 +1577,7 @@ namespace Generator.Assembler {
 						case Register.XMM0: return $"{name}x";
 						case Register.YMM0: return $"{name}y";
 						case Register.ZMM0: return $"{name}z";
+						default: throw new InvalidOperationException();
 						}
 					}
 				}

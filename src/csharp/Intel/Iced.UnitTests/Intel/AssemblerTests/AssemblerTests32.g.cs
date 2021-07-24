@@ -23474,6 +23474,20 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 #endif
 
+#if !NO_EVEX
+		[Fact]
+		public void vcvtdq2phx_regXMM_m() {
+			TestAssembler(c => c.vcvtdq2phx(xmm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtdq2ph_xmm_k1z_xmmm128b32, xmm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtdq2phy_regXMM_m() {
+			TestAssembler(c => c.vcvtdq2phy(xmm2.k1, __ymmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtdq2ph_xmm_k1z_ymmm256b32, xmm2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
 #if !NO_VEX && !NO_EVEX
 		[Fact]
 		public void vcvtdq2ps_regXMM_regXMM() {
@@ -23738,6 +23752,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.vcvtpd2ph(xmm2.k1, __byte_ptr[edx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64, xmm2.k1, __byte_ptr[edx].ToMemoryOperand(Bitness))));
 				});
 			}
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtpd2phx_regXMM_m() {
+			TestAssembler(c => c.vcvtpd2phx(xmm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtpd2ph_xmm_k1z_xmmm128b64, xmm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtpd2phy_regXMM_m() {
+			TestAssembler(c => c.vcvtpd2phy(xmm2.k1, __ymmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtpd2ph_xmm_k1z_ymmm256b64, xmm2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtpd2phz_regXMM_m() {
+			TestAssembler(c => c.vcvtpd2phz(xmm2.k1, __zmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtpd2ph_xmm_k1z_zmmm512b64_er, xmm2.k1, __zmmword_ptr[ecx].ToMemoryOperand(Bitness))));
 		}
 #endif
 
@@ -24597,6 +24632,20 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 #if !NO_EVEX
 		[Fact]
+		public void vcvtps2phxx_regXMM_m() {
+			TestAssembler(c => c.vcvtps2phxx(xmm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtps2phx_xmm_k1z_xmmm128b32, xmm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtps2phxy_regXMM_m() {
+			TestAssembler(c => c.vcvtps2phxy(xmm2.k1, __ymmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtps2phx_xmm_k1z_ymmm256b32, xmm2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
 		public void vcvtps2qq_regXMM_regXMM() {
 			TestAssembler(c => c.vcvtps2qq(xmm2.k1, xmm3), ApplyK1(Instruction.Create(Code.EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32, xmm2.k1, xmm3)));
 		}
@@ -24801,6 +24850,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.vcvtqq2ph(xmm2.k1, __byte_ptr[edx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64, xmm2.k1, __byte_ptr[edx].ToMemoryOperand(Bitness))));
 				});
 			}
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtqq2phx_regXMM_m() {
+			TestAssembler(c => c.vcvtqq2phx(xmm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtqq2ph_xmm_k1z_xmmm128b64, xmm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtqq2phy_regXMM_m() {
+			TestAssembler(c => c.vcvtqq2phy(xmm2.k1, __ymmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtqq2ph_xmm_k1z_ymmm256b64, xmm2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtqq2phz_regXMM_m() {
+			TestAssembler(c => c.vcvtqq2phz(xmm2.k1, __zmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtqq2ph_xmm_k1z_zmmm512b64_er, xmm2.k1, __zmmword_ptr[ecx].ToMemoryOperand(Bitness))));
 		}
 #endif
 
@@ -25971,6 +26041,20 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 #if !NO_EVEX
 		[Fact]
+		public void vcvtudq2phx_regXMM_m() {
+			TestAssembler(c => c.vcvtudq2phx(xmm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtudq2ph_xmm_k1z_xmmm128b32, xmm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtudq2phy_regXMM_m() {
+			TestAssembler(c => c.vcvtudq2phy(xmm2.k1, __ymmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtudq2ph_xmm_k1z_ymmm256b32, xmm2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
 		public void vcvtudq2ps_regXMM_regXMM() {
 			TestAssembler(c => c.vcvtudq2ps(xmm2.k1, xmm3), ApplyK1(Instruction.Create(Code.EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32, xmm2.k1, xmm3)));
 		}
@@ -26091,6 +26175,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					TestAssembler(c => c.vcvtuqq2ph(xmm2.k1, __byte_ptr[edx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64, xmm2.k1, __byte_ptr[edx].ToMemoryOperand(Bitness))));
 				});
 			}
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtuqq2phx_regXMM_m() {
+			TestAssembler(c => c.vcvtuqq2phx(xmm2.k1, __xmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtuqq2ph_xmm_k1z_xmmm128b64, xmm2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtuqq2phy_regXMM_m() {
+			TestAssembler(c => c.vcvtuqq2phy(xmm2.k1, __ymmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtuqq2ph_xmm_k1z_ymmm256b64, xmm2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness))));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vcvtuqq2phz_regXMM_m() {
+			TestAssembler(c => c.vcvtuqq2phz(xmm2.k1, __zmmword_ptr[ecx]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtuqq2ph_xmm_k1z_zmmm512b64_er, xmm2.k1, __zmmword_ptr[ecx].ToMemoryOperand(Bitness))));
 		}
 #endif
 
@@ -31916,6 +32021,48 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{
 				// Already tested by signed version
 			}
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vfpclassphx_regK_m_i() {
+			TestAssembler(c => c.vfpclassphx(k2.k1, __xmmword_ptr[ecx], -5), ApplyK1(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, k2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness), -5)));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vfpclassphx_regK_m_u() {
+			TestAssembler(c => c.vfpclassphx(k2.k1, __xmmword_ptr[ecx], (byte)127), ApplyK1(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_xmmm128b16_imm8, k2.k1, __xmmword_ptr[ecx].ToMemoryOperand(Bitness), (uint)(byte)127)));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vfpclassphy_regK_m_i() {
+			TestAssembler(c => c.vfpclassphy(k2.k1, __ymmword_ptr[ecx], -5), ApplyK1(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8, k2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness), -5)));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vfpclassphy_regK_m_u() {
+			TestAssembler(c => c.vfpclassphy(k2.k1, __ymmword_ptr[ecx], (byte)127), ApplyK1(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_ymmm256b16_imm8, k2.k1, __ymmword_ptr[ecx].ToMemoryOperand(Bitness), (uint)(byte)127)));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vfpclassphz_regK_m_i() {
+			TestAssembler(c => c.vfpclassphz(k2.k1, __zmmword_ptr[ecx], -5), ApplyK1(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8, k2.k1, __zmmword_ptr[ecx].ToMemoryOperand(Bitness), -5)));
+		}
+#endif
+
+#if !NO_EVEX
+		[Fact]
+		public void vfpclassphz_regK_m_u() {
+			TestAssembler(c => c.vfpclassphz(k2.k1, __zmmword_ptr[ecx], (byte)127), ApplyK1(Instruction.Create(Code.EVEX_Vfpclassph_kr_k1_zmmm512b16_imm8, k2.k1, __zmmword_ptr[ecx].ToMemoryOperand(Bitness), (uint)(byte)127)));
 		}
 #endif
 
