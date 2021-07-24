@@ -378,6 +378,10 @@ namespace Generator.Tables {
 		/// Set if the instruction is in the "string instructions" family, e.g. <c>LODS</c>, <c>STOS</c>
 		/// </summary>
 		IsStringOp				= 0x00800000,
+		/// <summary>
+		/// Code assembler ignores this instruction, eg. because it's a dupe
+		/// </summary>
+		AsmIgnore				= 0x01000000,
 	}
 
 	enum VmxMode {

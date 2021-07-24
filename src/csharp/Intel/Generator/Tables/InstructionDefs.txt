@@ -4,7 +4,7 @@
 # Code: INVALID
 INSTRUCTION: <invalid> | <invalid> | INTEL8086
 	mnemonic: INVALID
-	flags: no-instr cflow=ex
+	flags: no-instr cflow=ex asm-ig
 	fast: mnemonic=(bad)
 	gas: mnemonic=(bad)
 	intel: mnemonic=(bad)
@@ -16,7 +16,7 @@ END
 INSTRUCTION: <db> | <db> | INTEL8086
 	mnemonic: db
 	code-mnemonic: DeclareByte
-	flags: no-instr cflow=ex
+	flags: no-instr cflow=ex asm-ig
 	gas: mnemonic=.byte decl
 	intel: decl
 	masm: decl
@@ -27,7 +27,7 @@ END
 INSTRUCTION: <dw> | <dw> | INTEL8086
 	mnemonic: dw
 	code-mnemonic: DeclareWord
-	flags: no-instr cflow=ex
+	flags: no-instr cflow=ex asm-ig
 	gas: mnemonic=.word decl
 	intel: decl
 	masm: decl
@@ -38,7 +38,7 @@ END
 INSTRUCTION: <dd> | <dd> | INTEL8086
 	mnemonic: dd
 	code-mnemonic: DeclareDword
-	flags: no-instr cflow=ex
+	flags: no-instr cflow=ex asm-ig
 	gas: mnemonic=.int decl
 	intel: decl
 	masm: decl
@@ -49,7 +49,7 @@ END
 INSTRUCTION: <dq> | <dq> | INTEL8086
 	mnemonic: dq
 	code-mnemonic: DeclareQword
-	flags: no-instr cflow=ex
+	flags: no-instr cflow=ex asm-ig
 	gas: mnemonic=.quad decl
 	intel: decl
 	masm: decl
@@ -315,7 +315,7 @@ INSTRUCTION: o16 0F | POP CS | INTEL8086_ONLY
 	ops: w=r:cs
 	implied: pop=1x2
 	code-mnemonic: popw
-	flags: 16 sp=pop;2
+	flags: 16 sp=pop;2 asm-ig
 	gas: suffix=w
 	intel: osz
 	masm: osz-suffix-1
@@ -2162,7 +2162,7 @@ INSTRUCTION: 82 /0 ib | ADD r/m8, imm8 | INTEL8086
 	ops: rw=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: w=oszacp
-	flags: 16 32 lock xacquire xrelease
+	flags: 16 32 lock xacquire xrelease asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2175,7 +2175,7 @@ INSTRUCTION: 82 /1 ib | OR r/m8, imm8 | INTEL8086
 	ops: rw=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: u=a w=szp 0=oc
-	flags: 16 32 lock xacquire xrelease
+	flags: 16 32 lock xacquire xrelease asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2188,7 +2188,7 @@ INSTRUCTION: 82 /2 ib | ADC r/m8, imm8 | INTEL8086
 	ops: rw=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: r=c w=oszacp
-	flags: 16 32 lock xacquire xrelease
+	flags: 16 32 lock xacquire xrelease asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2201,7 +2201,7 @@ INSTRUCTION: 82 /3 ib | SBB r/m8, imm8 | INTEL8086
 	ops: rw=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: r=c w=oszacp
-	flags: 16 32 lock xacquire xrelease
+	flags: 16 32 lock xacquire xrelease asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2214,7 +2214,7 @@ INSTRUCTION: 82 /4 ib | AND r/m8, imm8 | INTEL8086
 	ops: rw=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: u=a w=szp 0=oc
-	flags: 16 32 lock xacquire xrelease
+	flags: 16 32 lock xacquire xrelease asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2227,7 +2227,7 @@ INSTRUCTION: 82 /5 ib | SUB r/m8, imm8 | INTEL8086
 	ops: rw=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: w=oszacp
-	flags: 16 32 lock xacquire xrelease
+	flags: 16 32 lock xacquire xrelease asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2240,7 +2240,7 @@ INSTRUCTION: 82 /6 ib | XOR r/m8, imm8 | INTEL8086
 	ops: rw=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: u=a w=szp 0=oc
-	flags: 16 32 lock xacquire xrelease
+	flags: 16 32 lock xacquire xrelease asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2253,7 +2253,7 @@ INSTRUCTION: 82 /7 ib | CMP r/m8, imm8 | INTEL8086
 	ops: r=rm r=imm | UInt8
 	code-suffix: 82
 	rflags: w=oszacp
-	flags: 16 32
+	flags: 16 32 asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -2798,7 +2798,7 @@ END
 # Code: Nopq
 INSTRUCTION: o64 90 | NOP | INTEL8086
 	code-mnemonic: nopq
-	flags: 64 nop
+	flags: 64 nop asm-ig
 	gas: nop
 	intel: nop
 	masm: nop
@@ -2873,7 +2873,7 @@ INSTRUCTION: o16 9A cd | CALL ptr16:16 | INTEL8086
 	ops: r=br-far
 	implied: push=2x2
 	# VM exit if task switch
-	flags: 16 32 sp=push;4 br=call-far cflow=call intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=push;4 br=call-far cflow=call intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort asm-ig
 	gas: mnemonic=lcall suffix=w osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -2884,7 +2884,7 @@ INSTRUCTION: o32 9A cp | CALL ptr16:32 | INTEL386
 	ops: r=br-far
 	implied: push=2x4
 	# VM exit if task switch
-	flags: 16 32 sp=push;8 br=call-far cflow=call intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=push;8 br=call-far cflow=call intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort asm-ig
 	gas: mnemonic=lcall suffix=l osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -4829,6 +4829,7 @@ INSTRUCTION: D7 | XLATB [m8] | INTEL8086
 	ops: r=seg-rbx-al | UInt8
 	implied: rw=al
 	code-mnemonic: xlat
+	flags: asm-ig
 	fast: mnemonic=xlat
 	gas: mnemonic=xlat flags=ignore-index suffix=b
 	intel: mnemonic=xlat flags=ignore-index
@@ -5919,7 +5920,7 @@ INSTRUCTION: DC D0+i | FCOM [ST(0)], ST(i) | FPU
 	ops: r=r:st0 r=opcode
 	code-suffix: DCD0
 	rflags: 0=1 w=023
-	flags: tsx-impl-abort
+	flags: tsx-impl-abort asm-ig
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -5931,7 +5932,7 @@ INSTRUCTION: DC D8+i | FCOMP [ST(0)], ST(i) | FPU
 	ops: r=r:st0 r=opcode
 	code-suffix: DCD8
 	rflags: 0=1 w=023
-	flags: fpu-pop=1 tsx-impl-abort
+	flags: fpu-pop=1 tsx-impl-abort asm-ig
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6151,7 +6152,7 @@ INSTRUCTION: DD C8+i | FXCH [ST(0)], ST(i) | FPU
 	ops: rw=r:st0 rw=opcode
 	code-suffix: DDC8
 	rflags: 0=1 u=023
-	flags: tsx-impl-abort
+	flags: tsx-impl-abort asm-ig
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6337,7 +6338,7 @@ INSTRUCTION: DE D0+i | FCOMP [ST(0)], ST(i) | FPU
 	ops: r=r:st0 r=opcode
 	code-suffix: DED0
 	rflags: 0=1 w=023
-	flags: fpu-pop=1 tsx-impl-abort
+	flags: fpu-pop=1 tsx-impl-abort asm-ig
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6514,7 +6515,7 @@ INSTRUCTION: DF C8+i | FXCH [ST(0)], ST(i) | FPU
 	ops: rw=r:st0 rw=opcode
 	code-suffix: DFC8
 	rflags: 0=1 u=023
-	flags: tsx-impl-abort
+	flags: tsx-impl-abort asm-ig
 	gas: st1-ignore-st1 pseudo
 	intel: st1 pseudo
 	masm: st1-ignore-st1 pseudo
@@ -6527,7 +6528,7 @@ INSTRUCTION: DF D0+i | FSTP ST(i) | FPU
 	implied: r=st0
 	code-suffix: DFD0
 	rflags: w=1 u=023
-	flags: fpu-pop=1 tsx-impl-abort
+	flags: fpu-pop=1 tsx-impl-abort asm-ig
 	intel: add-st2
 END
 
@@ -6537,7 +6538,7 @@ INSTRUCTION: DF D8+i | FSTP ST(i) | FPU
 	implied: r=st0
 	code-suffix: DFD8
 	rflags: w=1 u=023
-	flags: fpu-pop=1 tsx-impl-abort
+	flags: fpu-pop=1 tsx-impl-abort asm-ig
 	intel: add-st2
 END
 
@@ -6612,7 +6613,7 @@ INSTRUCTION: a16 o32 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=cx
 	code-suffix: 32_CX
 	rflags: r=z
-	flags: 16 32 cc=ne br=loop cflow=br-cond
+	flags: 16 32 cc=ne br=loop cflow=br-cond asm-ig
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6625,7 +6626,7 @@ INSTRUCTION: a32 o16 E0 cb | LOOPNE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 16_ECX
 	rflags: r=z
-	flags: cc=ne br=loop no-intel-dec64 cflow=br-cond
+	flags: cc=ne br=loop no-intel-dec64 cflow=br-cond asm-ig
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6651,7 +6652,7 @@ INSTRUCTION: a32 o64 E0 cb | LOOPNE rel8 | X64
 	implied: rw=ecx
 	code-suffix: 64_ECX
 	rflags: r=z
-	flags: 64 cc=ne br=loop cflow=br-cond intel-fo64 do64
+	flags: 64 cc=ne br=loop cflow=br-cond intel-fo64 do64 asm-ig
 	fast: mnemonic=loopned
 	gas: suffix=l loop
 	intel: loop
@@ -6665,7 +6666,7 @@ INSTRUCTION: a64 o16 E0 cb | LOOPNE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 16_RCX
 	rflags: r=z
-	flags: 64 cc=ne br=loop cflow=br-cond no-intel-dec
+	flags: 64 cc=ne br=loop cflow=br-cond no-intel-dec asm-ig
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6704,7 +6705,7 @@ INSTRUCTION: a16 o32 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=cx
 	code-suffix: 32_CX
 	rflags: r=z
-	flags: 16 32 cc=e br=loop cflow=br-cond
+	flags: 16 32 cc=e br=loop cflow=br-cond asm-ig
 	gas: suffix=w loop
 	intel: loop
 	masm: loop2
@@ -6717,7 +6718,7 @@ INSTRUCTION: a32 o16 E1 cb | LOOPE rel8 | INTEL386
 	implied: rw=ecx
 	code-suffix: 16_ECX
 	rflags: r=z
-	flags: cc=e br=loop cflow=br-cond no-intel-dec64
+	flags: cc=e br=loop cflow=br-cond no-intel-dec64 asm-ig
 	gas: suffix=l loop
 	intel: loop
 	masm: loop2
@@ -6743,7 +6744,7 @@ INSTRUCTION: a32 o64 E1 cb | LOOPE rel8 | X64
 	implied: rw=ecx
 	code-suffix: 64_ECX
 	rflags: r=z
-	flags: 64 cc=e br=loop cflow=br-cond intel-fo64 do64
+	flags: 64 cc=e br=loop cflow=br-cond intel-fo64 do64 asm-ig
 	fast: mnemonic=looped
 	gas: suffix=l loop
 	intel: loop
@@ -6757,7 +6758,7 @@ INSTRUCTION: a64 o16 E1 cb | LOOPE rel8 | X64
 	implied: rw=rcx
 	code-suffix: 16_RCX
 	rflags: r=z
-	flags: 64 cc=e br=loop cflow=br-cond no-intel-dec
+	flags: 64 cc=e br=loop cflow=br-cond no-intel-dec asm-ig
 	gas: suffix=q loop
 	intel: loop
 	masm: loop1
@@ -6794,7 +6795,7 @@ INSTRUCTION: a16 o32 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br
 	implied: rw=cx
 	code-suffix: 32_CX
-	flags: 16 32 br=loop cflow=br-cond
+	flags: 16 32 br=loop cflow=br-cond asm-ig
 	gas: suffix=w loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -6806,7 +6807,7 @@ INSTRUCTION: a32 o16 E2 cb | LOOP rel8 | INTEL386
 	ops: r=br
 	implied: rw=ecx
 	code-suffix: 16_ECX
-	flags: br=loop cflow=br-cond no-intel-dec64
+	flags: br=loop cflow=br-cond no-intel-dec64 asm-ig
 	gas: suffix=l loop
 	intel: loop
 	masm: osz-suffix-1-loop
@@ -6830,7 +6831,7 @@ INSTRUCTION: a32 o64 E2 cb | LOOP rel8 | X64
 	ops: r=br
 	implied: rw=ecx
 	code-suffix: 64_ECX
-	flags: 64 br=loop cflow=br-cond intel-fo64 do64
+	flags: 64 br=loop cflow=br-cond intel-fo64 do64 asm-ig
 	fast: mnemonic=loopd
 	gas: suffix=l loop
 	intel: loop
@@ -6843,7 +6844,7 @@ INSTRUCTION: a64 o16 E2 cb | LOOP rel8 | X64
 	ops: r=br
 	implied: rw=rcx
 	code-suffix: 16_RCX
-	flags: 64 br=loop cflow=br-cond no-intel-dec
+	flags: 64 br=loop cflow=br-cond no-intel-dec asm-ig
 	gas: suffix=q loop
 	intel: loop
 	nasm: loop
@@ -6876,7 +6877,7 @@ INSTRUCTION: a16 o32 E3 cb | JCXZ rel8 | INTEL386
 	ops: r=br
 	implied: r=cx
 	code-suffix: 32
-	flags: 16 32 br=jrcxz cflow=br-cond
+	flags: 16 32 br=jrcxz cflow=br-cond asm-ig
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -6887,7 +6888,7 @@ INSTRUCTION: a32 o16 E3 cb | JECXZ rel8 | INTEL386
 	ops: r=br
 	implied: r=ecx
 	code-suffix: 16
-	flags: br=jrcxz cflow=br-cond no-intel-dec64
+	flags: br=jrcxz cflow=br-cond no-intel-dec64 asm-ig
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -6909,7 +6910,7 @@ INSTRUCTION: a32 o64 E3 cb | JECXZ rel8 | X64
 	ops: r=br
 	implied: r=ecx
 	code-suffix: 64
-	flags: 64 br=jrcxz cflow=br-cond intel-fo64 do64
+	flags: 64 br=jrcxz cflow=br-cond intel-fo64 do64 asm-ig
 	gas: osz
 	intel: osz
 	nasm: osz
@@ -6920,7 +6921,7 @@ INSTRUCTION: a64 o16 E3 cb | JRCXZ rel8 | X64
 	ops: r=br
 	implied: r=rcx
 	code-suffix: 16
-	flags: 64 br=jrcxz cflow=br-cond no-intel-dec
+	flags: 64 br=jrcxz cflow=br-cond no-intel-dec asm-ig
 	gas: flags=osz-is-byte-directive osz
 	intel: osz
 	nasm: osz
@@ -7050,7 +7051,7 @@ END
 INSTRUCTION: o16 EA cd | JMP ptr16:16 | INTEL8086
 	ops: r=br-far
 	# VM exit if task switch
-	flags: 16 32 br=jmp-far cflow=br intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 br=jmp-far cflow=br intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort asm-ig
 	gas: mnemonic=ljmp suffix=w osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -7060,7 +7061,7 @@ END
 INSTRUCTION: o32 EA cp | JMP ptr16:32 | INTEL386
 	ops: r=br-far
 	# VM exit if task switch
-	flags: 16 32 br=jmp-far cflow=br intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 br=jmp-far cflow=br intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort asm-ig
 	gas: mnemonic=ljmp suffix=l osz-suffix-4
 	intel: flags=far osz
 	nasm: far
@@ -7170,6 +7171,7 @@ INSTRUCTION: F6 /1 ib | TEST r/m8, imm8 | INTEL8086
 	ops: r=rm r=imm | UInt8
 	code-suffix: F6r1
 	rflags: u=a w=szp 0=oc
+	flags: asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=b
 	intel: flags=force-size=always
@@ -7287,6 +7289,7 @@ INSTRUCTION: o16 F7 /1 iw | TEST r/m16, imm16 | INTEL8086
 	ops: r=rm r=imm | UInt16
 	code-suffix: F7r1
 	rflags: u=a w=szp 0=oc
+	flags: asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=w
 	intel: flags=force-size=always
@@ -7299,6 +7302,7 @@ INSTRUCTION: o32 F7 /1 id | TEST r/m32, imm32 | INTEL386
 	ops: r=rm r=imm | UInt32
 	code-suffix: F7r1
 	rflags: u=a w=szp 0=oc
+	flags: asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=l
 	intel: flags=force-size=always
@@ -7311,7 +7315,7 @@ INSTRUCTION: o64 F7 /1 id | TEST r/m64, imm32 | X64
 	ops: r=rm r=imm;64 | UInt64
 	code-suffix: F7r1
 	rflags: u=a w=szp 0=oc
-	flags: 64
+	flags: 64 asm-ig
 	fast: flags=force-size=always
 	gas: flags=force-mem-suffix suffix=q
 	intel: flags=force-size=always
@@ -8788,13 +8792,13 @@ INSTRUCTION: 0F 04 | STOREALL | INTEL286_ONLY
 	#	https://www.vcfed.org/forum/forum/technical-support/vintage-computer-programming/71519-i-found-the-saveall-opcode
 	#	https://www.pcjs.org/documents/manuals/intel/80386/loadall/
 	code-mnemonic: storeall
-	flags: 16 32 dec-opt=Loadall286 cpl0 save-restore
+	flags: 16 32 dec-opt=Loadall286 cpl0 save-restore asm-ig
 END
 
 # Code: Loadall286
 INSTRUCTION: 0F 05 | LOADALL | INTEL286_ONLY
 	code-mnemonic: loadall286
-	flags: 16 32 dec-opt=Loadall286 cpl0 save-restore
+	flags: 16 32 dec-opt=Loadall286 cpl0 save-restore asm-ig
 	fast: mnemonic=loadall286
 	gas: mnemonic=loadall286
 	intel: mnemonic=loadall286
@@ -9163,6 +9167,7 @@ END
 INSTRUCTION: VEX.LIG.F3.0F.WIG 11 /r | VMOVSS xmm1, xmm2, xmm3 | AVX
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
+	flags: asm-ig
 END
 
 # Code: VEX_Vmovss_m32_xmm
@@ -9175,6 +9180,7 @@ END
 INSTRUCTION: EVEX.LIG.F3.0F.W0 11 /r | VMOVSS xmm1 {k1}{z}, xmm2, xmm3 | AVX512F
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
+	flags: asm-ig
 END
 
 # Code: EVEX_Vmovss_m32_k1_xmm
@@ -9193,6 +9199,7 @@ END
 INSTRUCTION: VEX.LIG.F2.0F.WIG 11 /r | VMOVSD xmm1, xmm2, xmm3 | AVX
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
+	flags: asm-ig
 END
 
 # Code: VEX_Vmovsd_m64_xmm
@@ -9205,6 +9212,7 @@ END
 INSTRUCTION: EVEX.LIG.F2.0F.W1 11 /r | VMOVSD xmm1 {k1}{z}, xmm2, xmm3 | AVX512F
 	ops: w=rm r=vvvv r=reg
 	code-suffix: 0F11
+	flags: asm-ig
 END
 
 # Code: EVEX_Vmovsd_m64_k1_xmm
@@ -16106,7 +16114,7 @@ INSTRUCTION: 0F A6 /r | CMPXCHG r/m8, r8 | INTEL486_A_ONLY
 	implied: rcw=al
 	code-mnemonic: cmpxchg486
 	rflags: w=oszacp
-	flags: 16 32 dec-opt=Cmpxchg486A
+	flags: 16 32 dec-opt=Cmpxchg486A asm-ig
 	fast: mnemonic=cmpxchg486
 	gas: mnemonic=cmpxchg486 suffix=b
 	intel: mnemonic=cmpxchg486
@@ -16120,7 +16128,7 @@ INSTRUCTION: o16 0F A7 /r | CMPXCHG r/m16, r16 | INTEL486_A_ONLY
 	implied: rcw=ax
 	code-mnemonic: cmpxchg486
 	rflags: w=oszacp
-	flags: 16 32 dec-opt=Cmpxchg486A
+	flags: 16 32 dec-opt=Cmpxchg486A asm-ig
 	fast: mnemonic=cmpxchg486
 	gas: mnemonic=cmpxchg486 suffix=w
 	intel: mnemonic=cmpxchg486
@@ -16134,7 +16142,7 @@ INSTRUCTION: o32 0F A7 /r | CMPXCHG r/m32, r32 | INTEL486_A_ONLY
 	implied: rcw=eax
 	code-mnemonic: cmpxchg486
 	rflags: w=oszacp
-	flags: 16 32 dec-opt=Cmpxchg486A
+	flags: 16 32 dec-opt=Cmpxchg486A asm-ig
 	fast: mnemonic=cmpxchg486
 	gas: mnemonic=cmpxchg486 suffix=l
 	intel: mnemonic=cmpxchg486
@@ -16577,36 +16585,43 @@ END
 # Code: Lfence_E9
 INSTRUCTION: NP 0F AE E9 | LFENCE | SSE2
 	code-suffix: E9
+	flags: asm-ig
 END
 
 # Code: Lfence_EA
 INSTRUCTION: NP 0F AE EA | LFENCE | SSE2
 	code-suffix: EA
+	flags: asm-ig
 END
 
 # Code: Lfence_EB
 INSTRUCTION: NP 0F AE EB | LFENCE | SSE2
 	code-suffix: EB
+	flags: asm-ig
 END
 
 # Code: Lfence_EC
 INSTRUCTION: NP 0F AE EC | LFENCE | SSE2
 	code-suffix: EC
+	flags: asm-ig
 END
 
 # Code: Lfence_ED
 INSTRUCTION: NP 0F AE ED | LFENCE | SSE2
 	code-suffix: ED
+	flags: asm-ig
 END
 
 # Code: Lfence_EE
 INSTRUCTION: NP 0F AE EE | LFENCE | SSE2
 	code-suffix: EE
+	flags: asm-ig
 END
 
 # Code: Lfence_EF
 INSTRUCTION: NP 0F AE EF | LFENCE | SSE2
 	code-suffix: EF
+	flags: asm-ig
 END
 
 # Code: Mfence
@@ -16617,43 +16632,43 @@ END
 # Code: Mfence_F1
 INSTRUCTION: NP 0F AE F1 | MFENCE | SSE2
 	code-suffix: F1
-	flags: serialize-amd
+	flags: serialize-amd asm-ig
 END
 
 # Code: Mfence_F2
 INSTRUCTION: NP 0F AE F2 | MFENCE | SSE2
 	code-suffix: F2
-	flags: serialize-amd
+	flags: serialize-amd asm-ig
 END
 
 # Code: Mfence_F3
 INSTRUCTION: NP 0F AE F3 | MFENCE | SSE2
 	code-suffix: F3
-	flags: serialize-amd
+	flags: serialize-amd asm-ig
 END
 
 # Code: Mfence_F4
 INSTRUCTION: NP 0F AE F4 | MFENCE | SSE2
 	code-suffix: F4
-	flags: serialize-amd
+	flags: serialize-amd asm-ig
 END
 
 # Code: Mfence_F5
 INSTRUCTION: NP 0F AE F5 | MFENCE | SSE2
 	code-suffix: F5
-	flags: serialize-amd
+	flags: serialize-amd asm-ig
 END
 
 # Code: Mfence_F6
 INSTRUCTION: NP 0F AE F6 | MFENCE | SSE2
 	code-suffix: F6
-	flags: serialize-amd
+	flags: serialize-amd asm-ig
 END
 
 # Code: Mfence_F7
 INSTRUCTION: NP 0F AE F7 | MFENCE | SSE2
 	code-suffix: F7
-	flags: serialize-amd
+	flags: serialize-amd asm-ig
 END
 
 # Code: Sfence
@@ -16663,36 +16678,43 @@ END
 # Code: Sfence_F9
 INSTRUCTION: NP 0F AE F9 | SFENCE | SSE
 	code-suffix: F9
+	flags: asm-ig
 END
 
 # Code: Sfence_FA
 INSTRUCTION: NP 0F AE FA | SFENCE | SSE
 	code-suffix: FA
+	flags: asm-ig
 END
 
 # Code: Sfence_FB
 INSTRUCTION: NP 0F AE FB | SFENCE | SSE
 	code-suffix: FB
+	flags: asm-ig
 END
 
 # Code: Sfence_FC
 INSTRUCTION: NP 0F AE FC | SFENCE | SSE
 	code-suffix: FC
+	flags: asm-ig
 END
 
 # Code: Sfence_FD
 INSTRUCTION: NP 0F AE FD | SFENCE | SSE
 	code-suffix: FD
+	flags: asm-ig
 END
 
 # Code: Sfence_FE
 INSTRUCTION: NP 0F AE FE | SFENCE | SSE
 	code-suffix: FE
+	flags: asm-ig
 END
 
 # Code: Sfence_FF
 INSTRUCTION: NP 0F AE FF | SFENCE | SSE
 	code-suffix: FF
+	flags: asm-ig
 END
 
 # Code: Pcommit
@@ -29155,7 +29177,7 @@ END
 INSTRUCTION: 0F 0D /3 | PREFETCHW m8 | PREFETCHW
 	ops: nma=rm | UInt8
 	code-mnemonic: prefetchreserved3
-	flags: prefetch
+	flags: prefetch asm-ig
 	nasm: flags=mem-size=ignore
 END
 
@@ -29163,7 +29185,7 @@ END
 INSTRUCTION: 0F 0D /4 | PREFETCH m8 | PREFETCHW
 	ops: nma=rm | UInt8
 	code-mnemonic: prefetchreserved4
-	flags: prefetch
+	flags: prefetch asm-ig
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
@@ -29172,7 +29194,7 @@ END
 INSTRUCTION: 0F 0D /5 | PREFETCH m8 | PREFETCHW
 	ops: nma=rm | UInt8
 	code-mnemonic: prefetchreserved5
-	flags: prefetch
+	flags: prefetch asm-ig
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
@@ -29181,7 +29203,7 @@ END
 INSTRUCTION: 0F 0D /6 | PREFETCH m8 | PREFETCHW
 	ops: nma=rm | UInt8
 	code-mnemonic: prefetchreserved6
-	flags: prefetch
+	flags: prefetch asm-ig
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
@@ -29190,7 +29212,7 @@ END
 INSTRUCTION: 0F 0D /7 | PREFETCH m8 | PREFETCHW
 	ops: nma=rm | UInt8
 	code-mnemonic: prefetchreserved7
-	flags: prefetch
+	flags: prefetch asm-ig
 	intel: mnemonic=prefetch_reserved
 	nasm: flags=mem-size=ignore
 END
@@ -29210,7 +29232,7 @@ END
 INSTRUCTION: F2 0F 01 D9 | VMGEXIT | SEV_ES
 	code-suffix: F2
 	# This is VMGEXIT iff in guest mode and SEV-ES is active, else it's VMMCALL.
-	flags: cflow=call amd-vm-exit
+	flags: cflow=call amd-vm-exit asm-ig
 END
 
 # Code: VEX_Ldtilecfg_m512
@@ -29497,7 +29519,7 @@ INSTRUCTION: D9 D7 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9D7
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Cyrix_D9E2
@@ -29505,7 +29527,7 @@ INSTRUCTION: D9 E2 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9E2
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Ftstp
@@ -29513,7 +29535,7 @@ INSTRUCTION: D9 E6 | FTSTP | CYRIX_FPU
 	implied: r=st0
 	# Assume it uses the same flags as FTST
 	rflags: 0=1 w=023
-	flags: 16 32 dec-opt=Cyrix fpu-pop=1
+	flags: 16 32 dec-opt=Cyrix fpu-pop=1 asm-ig
 END
 
 # Code: Cyrix_D9E7
@@ -29521,7 +29543,7 @@ INSTRUCTION: D9 E7 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: D9E7
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Frint2
@@ -29529,7 +29551,7 @@ INSTRUCTION: DB FC | FRINT2 | CYRIX_FPU
 	implied: rw=st0
 	# Assume it uses the same flags as FRNDINT
 	rflags: w=1 u=023
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Frichop
@@ -29537,7 +29559,7 @@ INSTRUCTION: DD FC | FRICHOP | CYRIX_FPU
 	implied: rw=st0
 	# Assume it uses the same flags as FRNDINT
 	rflags: w=1 u=023
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Cyrix_DED8
@@ -29545,7 +29567,7 @@ INSTRUCTION: DE D8 | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DED8
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Cyrix_DEDA
@@ -29553,7 +29575,7 @@ INSTRUCTION: DE DA | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDA
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Cyrix_DEDC
@@ -29561,7 +29583,7 @@ INSTRUCTION: DE DC | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDC
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Cyrix_DEDD
@@ -29569,7 +29591,7 @@ INSTRUCTION: DE DD | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDD
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Cyrix_DEDE
@@ -29577,7 +29599,7 @@ INSTRUCTION: DE DE | UNDOC | CYRIX_FPU
 	code-mnemonic: cyrix
 	code-suffix: DEDE
 	rflags: u=0123
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Frinear
@@ -29585,7 +29607,7 @@ INSTRUCTION: DF FC | FRINEAR | CYRIX_FPU
 	implied: rw=st0
 	# Assume it uses the same flags as FRNDINT
 	rflags: w=1 u=023
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm-ig
 END
 
 # Code: Tdcall
@@ -31149,6 +31171,7 @@ END
 INSTRUCTION: EVEX.LIG.F3.MAP5.W0 11 /r | VMOVSH xmm1 {k1}{z}, xmm2, xmm3 | AVX512_FP16
 	ops: w=rm r=vvvv r=reg
 	code-suffix: MAP5_11
+	flags: asm-ig
 END
 
 # Code: EVEX_Vmovw_xmm_r32m16

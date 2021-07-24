@@ -784,6 +784,10 @@ namespace Generator.Tables {
 							state.AsmMnemonic = newValue;
 							break;
 
+						case "asm-ig":
+							state.Flags3 |= InstructionDefFlags3.AsmIgnore;
+							break;
+
 						default:
 							Error(lineIndex, $"Unknown flags value `{value}`");
 							return false;
@@ -1688,6 +1692,12 @@ namespace Generator.Tables {
 					error = $"Unknown key `{key}`";
 					return false;
 				}
+			}
+
+			var garbage = parser.GetRest();
+			if (garbage.Length > 0) {
+				error = $"Extra args: `{string.Join(' ', garbage)}`";
+				return false;
 			}
 
 			state = result;
