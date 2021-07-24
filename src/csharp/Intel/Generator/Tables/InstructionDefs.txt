@@ -13432,7 +13432,7 @@ END
 # Code: Movq_mm_rm64
 INSTRUCTION: NP o64 0F 6E /r | MOVQ mm, r/m64 | MMX
 	ops: w=reg r=rm | UInt64
-	flags: 64 tsx-impl-abort
+	flags: 64 tsx-impl-abort asm-ig-mem
 END
 
 # Code: Movd_xmm_rm32
@@ -13444,7 +13444,7 @@ END
 # Code: Movq_xmm_rm64
 INSTRUCTION: 66 o64 0F 6E /r | MOVQ xmm, r/m64 | SSE2
 	ops: w=reg r=rm | UInt64
-	flags: 64
+	flags: 64 asm-ig-mem
 	masm: flags=force-size=default
 END
 
@@ -13458,7 +13458,7 @@ END
 # Code: VEX_Vmovq_xmm_rm64
 INSTRUCTION: VEX.128.66.0F.W1 6E /r | VMOVQ xmm1, r/m64 | AVX
 	ops: w=reg r=rm | UInt64
-	flags: 64
+	flags: 64 asm-ig-mem
 	masm: flags=force-size=default
 END
 
@@ -13472,7 +13472,7 @@ END
 # Code: EVEX_Vmovq_xmm_rm64
 INSTRUCTION: EVEX.128.66.0F.W1 6E /r | VMOVQ xmm1, r/m64 | AVX512F | N8
 	ops: w=reg r=rm | UInt64
-	flags: 64
+	flags: 64 asm-ig-mem
 	masm: flags=force-size=default
 END
 
@@ -14788,7 +14788,7 @@ END
 # Code: Movq_rm64_mm
 INSTRUCTION: NP o64 0F 7E /r | MOVQ r/m64, mm | MMX
 	ops: w=rm r=reg | UInt64
-	flags: 64 tsx-impl-abort
+	flags: 64 tsx-impl-abort asm-ig-mem
 END
 
 # Code: Movd_rm32_xmm
@@ -14800,7 +14800,7 @@ END
 # Code: Movq_rm64_xmm
 INSTRUCTION: 66 o64 0F 7E /r | MOVQ r/m64, xmm | SSE2
 	ops: w=rm r=reg | UInt64
-	flags: 64
+	flags: 64 asm-ig-mem
 	masm: flags=force-size=default
 END
 
@@ -14814,7 +14814,7 @@ END
 # Code: VEX_Vmovq_rm64_xmm
 INSTRUCTION: VEX.128.66.0F.W1 7E /r | VMOVQ r/m64, xmm1 | AVX
 	ops: w=rm r=reg | UInt64
-	flags: 64
+	flags: 64 asm-ig-mem
 	masm: flags=force-size=default
 END
 
@@ -14828,7 +14828,7 @@ END
 # Code: EVEX_Vmovq_rm64_xmm
 INSTRUCTION: EVEX.128.66.0F.W1 7E /r | VMOVQ r/m64, xmm1 | AVX512F | N8
 	ops: w=rm r=reg | UInt64
-	flags: 64
+	flags: 64 asm-ig-mem
 	masm: flags=force-size=default
 END
 
@@ -17537,7 +17537,7 @@ END
 INSTRUCTION: VEX.128.66.0F.W1 C4 /r ib | VPINSRW xmm1, xmm2, r64/m16, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | UInt16
 	implied: last-gpr-16
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default reg32
 	nasm: reg32
@@ -17555,7 +17555,7 @@ END
 INSTRUCTION: EVEX.128.66.0F.W1 C4 /r ib | VPINSRW xmm1, xmm2, r64/m16, imm8 | AVX512BW | N2
 	ops: w=reg r=vvvv r=rm r=imm | UInt16
 	implied: last-gpr-16
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default reg32
 	nasm: reg32
@@ -26581,7 +26581,7 @@ END
 # Code: Pextrb_r64m8_xmm_imm8
 INSTRUCTION: 66 o64 0F 3A 14 /r ib | PEXTRB r64/m8, xmm2, imm8 | SSE4_1
 	ops: w=rm r=reg r=imm | UInt8
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default
 END
@@ -26596,7 +26596,7 @@ END
 # Code: VEX_Vpextrb_r64m8_xmm_imm8
 INSTRUCTION: VEX.128.66.0F3A.W1 14 /r ib | VPEXTRB r64/m8, xmm2, imm8 | AVX
 	ops: w=rm r=reg r=imm | UInt8
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default
 END
@@ -26611,7 +26611,7 @@ END
 # Code: EVEX_Vpextrb_r64m8_xmm_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W1 14 /r ib | VPEXTRB r64/m8, xmm2, imm8 | AVX512BW | N1
 	ops: w=rm r=reg r=imm | UInt8
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default
 END
@@ -26640,7 +26640,7 @@ END
 # Code: VEX_Vpextrw_r64m16_xmm_imm8
 INSTRUCTION: VEX.128.66.0F3A.W1 15 /r ib | VPEXTRW r64/m16, xmm2, imm8 | AVX
 	ops: w=rm r=reg r=imm | UInt16
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default
 END
@@ -26655,7 +26655,7 @@ END
 # Code: EVEX_Vpextrw_r64m16_xmm_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W1 15 /r ib | VPEXTRW r64/m16, xmm2, imm8 | AVX512BW | N2
 	ops: w=rm r=reg r=imm | UInt16
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default
 END
@@ -26710,7 +26710,7 @@ END
 # Code: Extractps_r64m32_xmm_imm8
 INSTRUCTION: 66 o64 0F 3A 17 /r ib | EXTRACTPS r64/m32, xmm1, imm8 | SSE4_1
 	ops: w=rm r=reg r=imm | Float32
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=always reg32
 END
@@ -26725,7 +26725,7 @@ END
 # Code: VEX_Vextractps_r64m32_xmm_imm8
 INSTRUCTION: VEX.128.66.0F3A.W1 17 /r ib | VEXTRACTPS r64/m32, xmm1, imm8 | AVX
 	ops: w=rm r=reg r=imm | Float32
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=always reg32
 END
@@ -26740,7 +26740,7 @@ END
 # Code: EVEX_Vextractps_r64m32_xmm_imm8
 INSTRUCTION: EVEX.128.66.0F3A.W1 17 /r ib | VEXTRACTPS r64/m32, xmm1, imm8 | AVX512F | N4
 	ops: w=rm r=reg r=imm | Float32
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=always reg32
 END
@@ -26940,7 +26940,7 @@ END
 INSTRUCTION: 66 o64 0F 3A 20 /r ib | PINSRB xmm1, r64/m8, imm8 | SSE4_1
 	ops: rw=reg r=rm r=imm | UInt8
 	implied: last-gpr-8
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default
 	nasm: reg32
@@ -26958,7 +26958,7 @@ END
 INSTRUCTION: VEX.128.66.0F3A.W1 20 /r ib | VPINSRB xmm1, xmm2, r64/m8, imm8 | AVX
 	ops: w=reg r=vvvv r=rm r=imm | UInt8
 	implied: last-gpr-8
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default reg32
 	nasm: reg32
@@ -26976,7 +26976,7 @@ END
 INSTRUCTION: EVEX.128.66.0F3A.W1 20 /r ib | VPINSRB xmm1, xmm2, r64/m8, imm8 | AVX512BW | N1
 	ops: w=reg r=vvvv r=rm r=imm | UInt8
 	implied: last-gpr-8
-	flags: 64
+	flags: 64 asm-ig-mem
 	intel: reg32
 	masm: flags=force-size=default reg32
 	nasm: reg32

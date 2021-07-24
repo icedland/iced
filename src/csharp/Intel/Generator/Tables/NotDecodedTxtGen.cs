@@ -22,7 +22,7 @@ namespace Generator.Tables {
 			var notDecoded32 = new List<InstructionDef>();
 			var notDecoded64 = new List<InstructionDef>();
 			foreach (var def in defs) {
-				if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0 || (Code)def.Code.Value == Code.Popw_CS) {
+				if ((def.Flags1 & InstructionDefFlags1.Fwait) != 0 || def.Code.RawName == nameof(Code.Popw_CS)) {
 					int bits = 0;
 					if ((def.Flags2 & (InstructionDefFlags2.IntelDecoder16 | InstructionDefFlags2.AmdDecoder16 | InstructionDefFlags2.IntelDecoder32 | InstructionDefFlags2.AmdDecoder32)) == 0)
 						bits |= 16 | 32;

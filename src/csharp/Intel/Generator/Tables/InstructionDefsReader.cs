@@ -788,6 +788,10 @@ namespace Generator.Tables {
 							state.Flags3 |= InstructionDefFlags3.AsmIgnore;
 							break;
 
+						case "asm-ig-mem":
+							state.Flags3 |= InstructionDefFlags3.AsmIgnoreMemory;
+							break;
+
 						default:
 							Error(lineIndex, $"Unknown flags value `{value}`");
 							return false;

@@ -683,39 +683,11 @@ namespace Generator.Assembler {
 		}
 
 		bool ShouldDiscardDuplicatedOpCode(Signature signature, InstructionDef def) {
-			bool testDiscard = false;
-			for (int i = 0; i < signature.ArgCount; i++) {
-				var kind = signature.GetArgKind(i);
-				if (kind == ArgKind.Memory) {
-					testDiscard = true;
-					break;
-				}
-			}
-
-			if (testDiscard) {
-				switch (GetOrigCodeValue(def.Code)) {
-				case Code.Pextrb_r64m8_xmm_imm8:             // => Pextrb_r32m8_xmm_imm8
-				case Code.Extractps_r64m32_xmm_imm8:         // => Extractps_rm32_xmm_imm8	
-				case Code.Pinsrb_xmm_r64m8_imm8:             // => Pinsrb_xmm_r32m8_imm8
-				case Code.Movq_rm64_xmm:                     // => Movq_xmmm64_xmm
-				case Code.Movq_rm64_mm:                      // => Movq_mmm64_mm
-				case Code.Movq_xmm_rm64:                     // => Movq_xmm_rm64
-				case Code.Movq_mm_rm64:                      // => Movq_mm_rm64					
-				case Code.EVEX_Vextractps_r64m32_xmm_imm8:   // => EVEX_Vextractps_rm32_xmm_imm8
-				case Code.EVEX_Vmovq_rm64_xmm:               // => EVEX_Vmovq_xmmm64_xmm
-				case Code.EVEX_Vmovq_xmm_rm64:               // => EVEX_Vmovq_xmm_xmmm64
-				case Code.EVEX_Vpextrb_r64m8_xmm_imm8:       // => EVEX_Vpextrb_r32m8_xmm_imm8
-				case Code.EVEX_Vpextrw_r64m16_xmm_imm8:      // => EVEX_Vpextrw_r32m16_xmm_imm8
-				case Code.EVEX_Vpinsrb_xmm_xmm_r64m8_imm8:   // => EVEX_Vpinsrb_xmm_xmm_r32m8_imm8
-				case Code.EVEX_Vpinsrw_xmm_xmm_r64m16_imm8:  // => EVEX_Vpinsrw_xmm_xmm_r32m16_imm8
-				case Code.VEX_Vextractps_r64m32_xmm_imm8:    // => VEX_Vextractps_rm32_xmm_imm8
-				case Code.VEX_Vmovq_rm64_xmm:                // => VEX_Vmovq_xmmm64_xmm
-				case Code.VEX_Vmovq_xmm_rm64:                // => VEX_Vmovq_xmm_xmmm64
-				case Code.VEX_Vpextrb_r64m8_xmm_imm8:        // => VEX_Vpextrb_r32m8_xmm_imm8
-				case Code.VEX_Vpextrw_r64m16_xmm_imm8:       // => VEX_Vpextrw_r32m16_xmm_imm8
-				case Code.VEX_Vpinsrb_xmm_xmm_r64m8_imm8:    // => VEX_Vpinsrb_xmm_xmm_r32m8_imm8
-				case Code.VEX_Vpinsrw_xmm_xmm_r64m16_imm8:   // => VEX_Vpinsrw_xmm_xmm_r32m16_imm8
-					return true;
+			if ((def.Flags3 & InstructionDefFlags3.AsmIgnoreMemory) != 0) {
+				for (int i = 0; i < signature.ArgCount; i++) {
+					var kind = signature.GetArgKind(i);
+					if (kind == ArgKind.Memory)
+						return true;
 				}
 			}
 

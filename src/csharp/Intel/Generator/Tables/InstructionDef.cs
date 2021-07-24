@@ -382,6 +382,10 @@ namespace Generator.Tables {
 		/// Code assembler ignores this instruction, eg. because it's a dupe
 		/// </summary>
 		AsmIgnore				= 0x01000000,
+		/// <summary>
+		/// Code assembler ignores it when generating memory operand methods
+		/// </summary>
+		AsmIgnoreMemory			= 0x02000000,
 	}
 
 	enum VmxMode {
