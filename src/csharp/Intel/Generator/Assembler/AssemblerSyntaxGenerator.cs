@@ -388,61 +388,78 @@ namespace Generator.Assembler {
 
 					int argIndex = 0;
 					for (var i = 0; i < opcodes.Count; i++) {
-						var opCodeInfo = opcodes[i];
-						// Special case, we want to disambiguate on the register and moffs
-						switch (GetOrigCodeValue(opCodeInfo.Code)) {
-						case Code.Mov_moffs64_RAX:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_RAX;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
-							argIndex = 0;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						case Code.Mov_moffs32_EAX:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_EAX;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_EAX;
-							argIndex = 0;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						case Code.Mov_moffs16_AX:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_AX;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_AX;
-							argIndex = 0;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						case Code.Mov_moffs8_AL:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_AL;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_AL;
-							argIndex = 0;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						case Code.Mov_RAX_moffs64:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_RAX;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
-							argIndex = 1;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						case Code.Mov_EAX_moffs32:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_EAX;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_EAX;
-							argIndex = 1;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						case Code.Mov_AX_moffs16:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_AX;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_AX;
-							argIndex = 1;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						case Code.Mov_AL_moffs8:
-							memOffs64Selector = OpCodeSelectorKind.MemOffs64_AL;
-							memOffsSelector = OpCodeSelectorKind.MemOffs_AL;
-							argIndex = 1;
-							opCodesRAXMOffs.Add(opCodeInfo);
-							break;
-						default:
-							newOpCodes.Add(opCodeInfo);
-							break;
+						var def = opcodes[i];
+						bool handled = false;
+						if (def.OpKindDefs.Length == 2) {
+							switch ((def.OpKindDefs[0].OperandEncoding, def.OpKindDefs[1].OperandEncoding)) {
+							case (OperandEncoding.MemOffset, OperandEncoding.ImpliedRegister):
+								switch (def.OpKindDefs[1].Register) {
+								case Register.AL:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_AL;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_AL;
+									argIndex = 0;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								case Register.AX:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_AX;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_AX;
+									argIndex = 0;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								case Register.EAX:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_EAX;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_EAX;
+									argIndex = 0;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								case Register.RAX:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_RAX;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
+									argIndex = 0;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								}
+								break;
+							case (OperandEncoding.ImpliedRegister, OperandEncoding.MemOffset):
+								switch (def.OpKindDefs[0].Register) {
+								case Register.AL:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_AL;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_AL;
+									argIndex = 1;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								case Register.AX:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_AX;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_AX;
+									argIndex = 1;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								case Register.EAX:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_EAX;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_EAX;
+									argIndex = 1;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								case Register.RAX:
+									memOffs64Selector = OpCodeSelectorKind.MemOffs64_RAX;
+									memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
+									argIndex = 1;
+									opCodesRAXMOffs.Add(def);
+									handled = true;
+									break;
+								}
+								break;
+							}
 						}
+						if (!handled)
+							newOpCodes.Add(def);
 					}
 
 					if (opCodesRAXMOffs.Count > 0) {
