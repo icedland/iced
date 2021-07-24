@@ -4026,7 +4026,7 @@ END
 # Code: Int3
 INSTRUCTION: CC | INT3 | INTEL8086
 	# #BP always causes transactional aborts
-	flags: cflow=int intel-vm-exit amd-may-vm-exit tsx-abort
+	flags: cflow=int intel-vm-exit amd-may-vm-exit tsx-abort asm=int3
 	masm: mnemonic=int int3
 END
 

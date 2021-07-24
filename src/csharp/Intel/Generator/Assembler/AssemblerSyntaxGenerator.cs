@@ -21,7 +21,6 @@ namespace Generator.Assembler {
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groupsWithPseudo;
 		readonly HashSet<EnumValue> discardOpCodes;
 		readonly Dictionary<EnumValue, string> mapOpCodeToNewName;
-		readonly EnumValue? codeInt3;
 		readonly Dictionary<EnumValue, Code> toOrigCodeValue;
 		readonly HashSet<EnumValue> ambiguousBcst;
 		int stackDepth;
@@ -73,7 +72,6 @@ namespace Generator.Assembler {
 			memDefs = genTypes.GetObject<MemorySizeDefs>(TypeIds.MemorySizeDefs).Defs;
 			groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
 			groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
-			codeInt3 = genTypes.GetKeptCodeValues(Code.Int3).FirstOrDefault();
 			var origCode = genTypes.GetObject<EnumValue[]>(TypeIds.OrigCodeValues);
 			toOrigCodeValue = new Dictionary<EnumValue, Code>(origCode.Length);
 			for (int i = 0; i < origCode.Length; i++)
@@ -112,7 +110,6 @@ namespace Generator.Assembler {
 
 				string memoName = def.Mnemonic.RawName;
 				var name = mapOpCodeToNewName.TryGetValue(codeValue, out var nameOpt) ? nameOpt : memoName.ToLowerInvariant();
-				if (codeValue == codeInt3) name = "int3";
 
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
