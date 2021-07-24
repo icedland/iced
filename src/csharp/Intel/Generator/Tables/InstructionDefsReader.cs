@@ -73,6 +73,7 @@ namespace Generator.Tables {
 			"cflow",
 			"dec-opt",
 			"pseudo",
+			"asm",
 		};
 
 		readonly struct OpKindKey : IEquatable<OpKindKey> {
@@ -775,6 +776,14 @@ namespace Generator.Tables {
 							}
 							break;
 
+						case "asm":
+							if (state.AsmMnemonic is not null) {
+								Error(lineIndex, $"Duplicate {newKey}");
+								return false;
+							}
+							state.AsmMnemonic = newValue;
+							break;
+
 						default:
 							Error(lineIndex, $"Unknown flags value `{value}`");
 							return false;
@@ -1433,7 +1442,8 @@ namespace Generator.Tables {
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
 				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.StackInfo, state.FpuStackIncrement,
 				state.RflagsRead, state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet, state.Cpuid, state.OpAccess,
-				fastDef, gasDef, intelDef, masmDef, nasmDef);
+				fastDef, gasDef, intelDef, masmDef, nasmDef,
+				state.AsmMnemonic);
 			defLineIndex = state.LineIndex;
 			return true;
 		}
@@ -3482,6 +3492,7 @@ namespace Generator.Tables {
 		public IntelState? Intel;
 		public MasmState? Masm;
 		public NasmState? Nasm;
+		public string? AsmMnemonic;
 
 		public InstructionDefState(int lineIndex, string opCodeStr, string instrStr, EnumValue[] cpuid, EnumValue tupleType, EnumValue encoding) {
 			LineIndex = lineIndex;

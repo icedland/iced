@@ -1089,7 +1089,7 @@ END
 INSTRUCTION: o16 60 | PUSHA | INTEL186
 	implied: pusha=2
 	code-mnemonic: pushaw
-	flags: 16 32 sp=push;16
+	flags: 16 32 sp=push;16 asm=pusha
 	gas: osz-suffix-1
 	masm: osz-suffix-1
 	nasm: osz-suffix-1
@@ -1098,7 +1098,7 @@ END
 # Code: Pushad
 INSTRUCTION: o32 60 | PUSHAD | INTEL386
 	implied: pusha=4
-	flags: 16 32 sp=push;32
+	flags: 16 32 sp=push;32 asm=pushad
 	gas: mnemonic=pusha osz-suffix-1
 	masm: mnemonic=pusha osz-suffix-1
 	nasm: mnemonic=pusha osz-suffix-1
@@ -1108,7 +1108,7 @@ END
 INSTRUCTION: o16 61 | POPA | INTEL186
 	implied: popa=2
 	code-mnemonic: popaw
-	flags: 16 32 sp=pop;16
+	flags: 16 32 sp=pop;16 asm=popa
 	gas: osz-suffix-1
 	masm: osz-suffix-1
 	nasm: osz-suffix-1
@@ -1117,7 +1117,7 @@ END
 # Code: Popad
 INSTRUCTION: o32 61 | POPAD | INTEL386
 	implied: popa=4
-	flags: 16 32 sp=pop;32
+	flags: 16 32 sp=pop;32 asm=popad
 	gas: mnemonic=popa osz-suffix-1
 	masm: mnemonic=popa osz-suffix-1
 	nasm: mnemonic=popa osz-suffix-1
@@ -2902,7 +2902,7 @@ INSTRUCTION: o16 9C | PUSHF | INTEL8086
 	implied: push=1x2
 	code-mnemonic: pushfw
 	rflags: r=oszacpdi
-	flags: sp=push;2 amd-may-vm-exit
+	flags: sp=push;2 amd-may-vm-exit asm=pushf
 	gas: osz-suffix-1
 	nasm: osz-suffix-1
 END
@@ -2911,7 +2911,7 @@ END
 INSTRUCTION: o32 9C | PUSHFD | INTEL386
 	implied: push=1x4
 	rflags: r=oszacpdiA
-	flags: 16 32 sp=push;4 amd-may-vm-exit
+	flags: 16 32 sp=push;4 amd-may-vm-exit asm=pushfd
 	gas: mnemonic=pushf osz-suffix-1
 	nasm: mnemonic=pushf osz-suffix-1
 END
@@ -2920,7 +2920,7 @@ END
 INSTRUCTION: o64 9C | PUSHFQ | X64
 	implied: push=1x8
 	rflags: r=oszacpdiA
-	flags: 64 sp=push;8 do64 amd-may-vm-exit
+	flags: 64 sp=push;8 do64 amd-may-vm-exit asm=pushfq
 	gas: mnemonic=pushf osz-suffix-1
 	nasm: mnemonic=pushf osz-suffix-1
 END
@@ -2930,7 +2930,7 @@ INSTRUCTION: o16 9D | POPF | INTEL8086
 	implied: pop=1x2
 	code-mnemonic: popfw
 	rflags: w=oszacpdi
-	flags: sp=pop;2 amd-may-vm-exit tsx-impl-abort
+	flags: sp=pop;2 amd-may-vm-exit tsx-impl-abort asm=popf
 	gas: osz-suffix-1
 	nasm: osz-suffix-1
 END
@@ -2939,7 +2939,7 @@ END
 INSTRUCTION: o32 9D | POPFD | INTEL386
 	implied: pop=1x4
 	rflags: w=oszacpdiA
-	flags: 16 32 sp=pop;4 amd-may-vm-exit tsx-impl-abort
+	flags: 16 32 sp=pop;4 amd-may-vm-exit tsx-impl-abort asm=popfd
 	gas: mnemonic=popf osz-suffix-1
 	nasm: mnemonic=popf osz-suffix-1
 END
@@ -2948,7 +2948,7 @@ END
 INSTRUCTION: o64 9D | POPFQ | X64
 	implied: pop=1x8
 	rflags: w=oszacpdiA
-	flags: 64 sp=pop;8 do64 amd-may-vm-exit tsx-impl-abort
+	flags: 64 sp=pop;8 do64 amd-may-vm-exit tsx-impl-abort asm=popfq
 	gas: mnemonic=popf osz-suffix-1
 	nasm: mnemonic=popf osz-suffix-1
 END
@@ -4050,7 +4050,7 @@ INSTRUCTION: o16 CF | IRET | INTEL8086
 	code-mnemonic: iretw
 	rflags: w=oszacpdi
 	# VM exit if task switch
-	flags: sp=iret;2 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=iret;2 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort asm=iret
 	gas: suffix=w osz-suffix-3 16
 	nasm: osz-suffix-3
 END
@@ -4060,7 +4060,7 @@ INSTRUCTION: o32 CF | IRETD | INTEL386
 	implied: pop;!64=3x4 pop;64=5x4 w;64=ss
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: sp=iret;4 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: sp=iret;4 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort asm=iretd
 	gas: mnemonic=iret suffix=l osz-suffix-3 32
 	nasm: mnemonic=iret osz-suffix-3
 END
@@ -4070,7 +4070,7 @@ INSTRUCTION: o64 CF | IRETQ | X64
 	implied: pop=5x8 w=ss
 	rflags: w=oszacpdiA
 	# VM exit if task switch
-	flags: 64 sp=pop;40 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort
+	flags: 64 sp=pop;40 cflow=ret serialize-intel serialize-amd intel-may-vm-exit no-in-sgx amd-may-vm-exit tsx-impl-abort asm=iretq
 	gas: mnemonic=iret suffix=q osz-suffix-3 0
 	nasm: mnemonic=iret osz-suffix-3
 END
@@ -8835,7 +8835,7 @@ INSTRUCTION: 0F 07 | SYSRET | SYSCALL
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
 	# AMD: no-rm no-v86 or #GP(0)
 	# #UD if CR4.FRED=1
-	flags: cpl0 cflow=ret tsx-impl-abort
+	flags: cpl0 cflow=ret tsx-impl-abort asm=sysret
 	gas: suffix=l osz-suffix-3 16 32
 END
 
@@ -8845,7 +8845,7 @@ INSTRUCTION: o64 0F 07 | SYSRETQ | SYSCALL
 	rflags: w=oszacpdiA
 	# Not supported by Intel in 64-bit mode but the Intel decoder should still decode it.
 	# #UD if CR4.FRED=1
-	flags: 64 cpl0 cflow=ret tsx-impl-abort
+	flags: 64 cpl0 cflow=ret tsx-impl-abort asm=sysretq
 	nasm: mnemonic=sysret flags=o64
 END
 
@@ -8878,7 +8878,7 @@ END
 INSTRUCTION: o16 0F 0D /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F0D
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f0d
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -8890,7 +8890,7 @@ END
 INSTRUCTION: o32 0F 0D /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F0D
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f0d
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -8902,7 +8902,7 @@ END
 INSTRUCTION: o64 0F 0D /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F0D
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f0d
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9617,7 +9617,7 @@ END
 INSTRUCTION: o16 0F 18 /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F18
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f18
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9629,7 +9629,7 @@ END
 INSTRUCTION: o32 0F 18 /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F18
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f18
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9641,7 +9641,7 @@ END
 INSTRUCTION: o64 0F 18 /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F18
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f18
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9653,7 +9653,7 @@ END
 INSTRUCTION: o16 0F 19 /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F19
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f19
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9665,7 +9665,7 @@ END
 INSTRUCTION: o32 0F 19 /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F19
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f19
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9677,7 +9677,7 @@ END
 INSTRUCTION: o64 0F 19 /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F19
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f19
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9689,7 +9689,7 @@ END
 INSTRUCTION: o16 0F 1A /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F1A
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1a
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9701,7 +9701,7 @@ END
 INSTRUCTION: o32 0F 1A /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F1A
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1a
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9713,7 +9713,7 @@ END
 INSTRUCTION: o64 0F 1A /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F1A
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f1a
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9725,7 +9725,7 @@ END
 INSTRUCTION: o16 0F 1B /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F1B
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1b
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9737,7 +9737,7 @@ END
 INSTRUCTION: o32 0F 1B /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F1B
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1b
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9749,7 +9749,7 @@ END
 INSTRUCTION: o64 0F 1B /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F1B
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f1b
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9761,7 +9761,7 @@ END
 INSTRUCTION: o16 0F 1C /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F1C
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1c
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9773,7 +9773,7 @@ END
 INSTRUCTION: o32 0F 1C /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F1C
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1c
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9785,7 +9785,7 @@ END
 INSTRUCTION: o64 0F 1C /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F1C
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f1c
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9797,7 +9797,7 @@ END
 INSTRUCTION: o16 0F 1D /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F1D
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1d
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9809,7 +9809,7 @@ END
 INSTRUCTION: o32 0F 1D /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F1D
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1d
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9821,7 +9821,7 @@ END
 INSTRUCTION: o64 0F 1D /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F1D
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f1d
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9833,7 +9833,7 @@ END
 INSTRUCTION: o16 0F 1E /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F1E
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1e
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9845,7 +9845,7 @@ END
 INSTRUCTION: o32 0F 1E /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F1E
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1e
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9857,7 +9857,7 @@ END
 INSTRUCTION: o64 0F 1E /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F1E
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f1e
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -9869,7 +9869,7 @@ END
 INSTRUCTION: o16 0F 1F /r | RESERVEDNOP r/m16, r16 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt16
 	code-suffix: 0F1F
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1f
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=w
 	intel: mnemonic=nop
@@ -9881,7 +9881,7 @@ END
 INSTRUCTION: o32 0F 1F /r | RESERVEDNOP r/m32, r32 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt32
 	code-suffix: 0F1F
-	flags: nop res-nop
+	flags: nop res-nop asm=reservednop_0f1f
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=l
 	intel: mnemonic=nop
@@ -9893,7 +9893,7 @@ END
 INSTRUCTION: o64 0F 1F /r | RESERVEDNOP r/m64, r64 | MULTIBYTENOP
 	ops: n=rm n=reg | UInt64
 	code-suffix: 0F1F
-	flags: 64 nop res-nop
+	flags: 64 nop res-nop asm=reservednop_0f1f
 	fast: mnemonic=nop
 	gas: mnemonic=nop suffix=q
 	intel: mnemonic=nop
@@ -10873,7 +10873,7 @@ INSTRUCTION: 0F 35 | SYSEXIT | SEP
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
 	# AMD: no-rm no-v86 or #GP(0)
 	# #UD if CR4.FRED=1
-	flags: cpl0 cflow=ret tsx-impl-abort
+	flags: cpl0 cflow=ret tsx-impl-abort asm=sysexit
 	gas: suffix=l osz-suffix-3 16 32
 END
 
@@ -10882,7 +10882,7 @@ INSTRUCTION: o64 0F 35 | SYSEXITQ | SEP
 	implied: r=rcx;rdx w=rsp w=cs;ss
 	# Not supported by AMD in 64-bit mode but the AMD decoder should still decode it.
 	# #UD if CR4.FRED=1
-	flags: 64 cpl0 cflow=ret tsx-impl-abort
+	flags: 64 cpl0 cflow=ret tsx-impl-abort asm=sysexitq
 	nasm: mnemonic=sysexit flags=o64
 END
 
@@ -10896,7 +10896,7 @@ END
 # Code: Getsecq
 INSTRUCTION: NP o64 0F 37 | GETSECQ | SMX
 	implied: r=eax
-	flags: 64 save-restore may-require-cpl0 intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort
+	flags: 64 save-restore may-require-cpl0 intel-vm-exit no-in-sgx tdx-non-root-ud tsx-impl-abort asm=getsecq
 	gas: mnemonic=getsec flags=o64
 	nasm: mnemonic=getsec flags=o64
 END
@@ -29378,7 +29378,7 @@ END
 # Code: Smint_0F7E
 INSTRUCTION: 0F 7E | SMINT | CYRIX_SMINT_0F7E
 	code-suffix: 0F7E
-	flags: 16 32 dec-opt=Cyrix_SMINT_0F7E cpl0 cflow=int
+	flags: 16 32 dec-opt=Cyrix_SMINT_0F7E cpl0 cflow=int asm=smint_0f7e
 	nasm: mnemonic=smintold
 END
 
@@ -29453,7 +29453,7 @@ END
 # Code: Pmulhrw_mm_mmm64
 INSTRUCTION: 0F 59 /r | PMULHRW mm, mm/m64 | CYRIX_EMMI
 	ops: rw=reg r=rm | Packed64_Int16
-	flags: 16 32 dec-opt=Cyrix
+	flags: 16 32 dec-opt=Cyrix asm=pmulhrw_cyrix
 	nasm: mnemonic=pmulhrwc
 END
 

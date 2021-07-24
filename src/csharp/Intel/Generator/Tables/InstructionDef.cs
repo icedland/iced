@@ -549,6 +549,8 @@ namespace Generator.Tables {
 		public readonly FmtInstructionDef Masm;
 		public readonly FmtInstructionDef Nasm;
 
+		public readonly string? AsmMnemonic;
+
 		public InstructionDef(EnumValue code, string opCodeString, string instructionString, EnumValue mnemonic,
 			EnumValue mem, EnumValue bcst, EnumValue decoderOption, InstructionDefFlags1 flags1, InstructionDefFlags2 flags2,
 			InstructionDefFlags3 flags3, InstrStrFmtOption instrStrFmtOption, InstructionStringFlags instrStrFlags,
@@ -559,7 +561,8 @@ namespace Generator.Tables {
 			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
 			RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
 			EnumValue[] cpuid, OpInfo[] opInfo,
-			FastFmtInstructionDef fast, FmtInstructionDef gas, FmtInstructionDef intel, FmtInstructionDef masm, FmtInstructionDef nasm) {
+			FastFmtInstructionDef fast, FmtInstructionDef gas, FmtInstructionDef intel, FmtInstructionDef masm, FmtInstructionDef nasm,
+			string? asmMnemonic) {
 			Code = code;
 			OpCodeString = opCodeString;
 			InstructionString = instructionString;
@@ -610,6 +613,8 @@ namespace Generator.Tables {
 			Intel = intel;
 			Masm = masm;
 			Nasm = nasm;
+
+			AsmMnemonic = asmMnemonic;
 		}
 
 		internal void SetImpliedAccess(ImpliedAccessesDef value) {
