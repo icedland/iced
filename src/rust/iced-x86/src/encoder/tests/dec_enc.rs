@@ -3021,7 +3021,7 @@ fn disable_decoder_option_disables_instruction() {
 		if (info.decoder_options() & NO_OPTIONS) != 0 {
 			continue;
 		}
-		if !is_power_of_two(info.decoder_options()) {
+		if !info.decoder_options().is_power_of_two() {
 			continue;
 		}
 		if info.decoder_options() == DecoderOptions::FORCE_RESERVED_NOP {
@@ -3043,9 +3043,5 @@ fn disable_decoder_option_disables_instruction() {
 			let instruction = decoder.decode();
 			assert_ne!(instruction.code(), info.code());
 		}
-	}
-
-	fn is_power_of_two(v: u32) -> bool {
-		v != 0 && (v & (v - 1)) == 0
 	}
 }
