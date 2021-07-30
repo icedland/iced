@@ -4,7 +4,6 @@
 // This requires Rust 1.54.0 or later. The double cfg_attr is required so older versions can compile it.
 #![cfg_attr(doc, cfg_attr(doc, doc = include_str!("../README.md")))]
 #![cfg_attr(not(doc), doc = "Run cargo doc to see the docs (needs Rust 1.54.0 or later)")]
-
 #![doc(html_logo_url = "https://raw.githubusercontent.com/icedland/iced/master/logo.png")]
 #![doc(html_root_url = "https://docs.rs/iced-x86/1.13.0")]
 #![allow(unknown_lints)]
@@ -80,6 +79,7 @@
 #![cfg_attr(not(test), warn(clippy::expect_used))]
 #![cfg_attr(not(test), warn(clippy::unwrap_used))]
 #![cfg_attr(not(feature = "std"), no_std)]
+#![doc(test(attr(deny(warnings))))]
 
 // This should be the only place in the source code that uses no_std
 #[cfg(all(feature = "std", feature = "no_std"))]

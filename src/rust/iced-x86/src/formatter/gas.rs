@@ -60,8 +60,8 @@ use core::{mem, u16, u32, u8};
 ///
 /// struct MySymbolResolver { map: HashMap<u64, String> }
 /// impl SymbolResolver for MySymbolResolver {
-///     fn symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>,
-///          address: u64, address_size: u32) -> Option<SymbolResult> {
+///     fn symbol(&mut self, _instruction: &Instruction, _operand: u32, _instruction_operand: Option<u32>,
+///          address: u64, _address_size: u32) -> Option<SymbolResult> {
 ///         if let Some(symbol_string) = self.map.get(&address) {
 ///             // The 'address' arg is the address of the symbol and doesn't have to be identical
 ///             // to the 'address' arg passed to symbol(). If it's different from the input

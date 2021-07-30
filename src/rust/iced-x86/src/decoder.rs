@@ -1071,6 +1071,7 @@ impl<'a> Decoder<'a> {
 	/// # Examples
 	///
 	/// ```
+	/// # #![allow(deprecated)]
 	/// use iced_x86::*;
 	///
 	/// // nop and pause

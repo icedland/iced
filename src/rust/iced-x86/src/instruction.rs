@@ -622,6 +622,7 @@ impl Instruction {
 	/// # Examples
 	///
 	/// ```
+	/// # #![allow(deprecated)]
 	/// use iced_x86::*;
 	///
 	/// // add [rax],ebx
@@ -671,7 +672,7 @@ impl Instruction {
 	/// assert_eq!(instr.memory_base(), Register::RAX);
 	/// assert_eq!(instr.memory_index(), Register::None);
 	/// assert_eq!(instr.try_op_kind(1).unwrap(), OpKind::Register);
-	/// assert_eq!(instr.op_register(1), Register::EBX);
+	/// assert_eq!(instr.try_op_register(1).unwrap(), Register::EBX);
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	pub fn try_op_kind(&self, operand: u32) -> Result<OpKind, IcedError> {
@@ -1778,6 +1779,7 @@ impl Instruction {
 	/// # Examples
 	///
 	/// ```
+	/// # #![allow(deprecated)]
 	/// use iced_x86::*;
 	///
 	/// // add [rax],ebx
@@ -1821,8 +1823,8 @@ impl Instruction {
 	/// let instr = decoder.decode();
 	///
 	/// assert_eq!(instr.op_count(), 2);
-	/// assert_eq!(instr.op_kind(0), OpKind::Memory);
-	/// assert_eq!(instr.op_kind(1), OpKind::Register);
+	/// assert_eq!(instr.try_op_kind(0).unwrap(), OpKind::Memory);
+	/// assert_eq!(instr.try_op_kind(1).unwrap(), OpKind::Register);
 	/// assert_eq!(instr.try_op_register(1).unwrap(), Register::EBX);
 	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
@@ -2886,7 +2888,7 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// let va = instr.try_virtual_address(0, 0, |register, element_index, element_size| {
+	/// let va = instr.try_virtual_address(0, 0, |register, _element_index, _element_size| {
 	///     match register {
 	///         // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
 	///         Register::DS => Some(0x0000_0000_0000_0000),
@@ -3008,6 +3010,7 @@ impl Instruction {
 	/// # Examples
 	///
 	/// ```
+	/// # #![allow(deprecated)]
 	/// use iced_x86::*;
 	///
 	/// // add [rdi+r12*8-5AA5EDCCh],esi
@@ -3015,7 +3018,7 @@ impl Instruction {
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// let instr = decoder.decode();
 	///
-	/// let va = instr.virtual_address(0, 0, |register, element_index, element_size| {
+	/// let va = instr.virtual_address(0, 0, |register, _element_index, _element_size| {
 	///     match register {
 	///         // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
 	///         Register::DS => 0x0000_0000_0000_0000,

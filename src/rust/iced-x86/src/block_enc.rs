@@ -228,7 +228,7 @@ impl BlockEncoder {
 	/// // add dh,cl
 	/// // sbb r9d,ebx
 	/// let bytes = b"\x75\xFC\x00\xCE\x41\x19\xD9";
-	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
+	/// let decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
 	/// let instructions: Vec<_> = decoder.into_iter().collect();
 	///
 	/// // orig_rip + 8
@@ -280,12 +280,12 @@ impl BlockEncoder {
 	/// // add dh,cl
 	/// // sbb r9d,ebx
 	/// let bytes = b"\x75\xFC\x00\xCE\x41\x19\xD9";
-	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
+	/// let decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
 	/// let instructions1: Vec<_> = decoder.into_iter().collect();
 	///
 	/// // je short $
 	/// let bytes = b"\x75\xFE";
-	/// let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
+	/// let decoder = Decoder::with_ip(64, bytes, 0x1234_5678, DecoderOptions::NONE);
 	/// let instructions2: Vec<_> = decoder.into_iter().collect();
 	///
 	/// // orig_rip + 8
@@ -294,12 +294,11 @@ impl BlockEncoder {
 	/// let block2 = InstructionBlock::new(&instructions2, 0x8000_4000_2000_1000);
 	/// let bytes = match BlockEncoder::encode_slice(64, &[block1, block2], BlockEncoderOptions::NONE) {
 	///     Err(err) => panic!("Failed: {}", err),
-	///     Ok(result) => {
-	///         assert_eq!(result.len(), 2);
-	///         assert_eq!(result[0].code_buffer, vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9]);
-	///         assert_eq!(result[1].code_buffer, vec![0x75, 0xFE]);
-	///     }
+	///     Ok(result) => result,
 	/// };
+	/// assert_eq!(bytes.len(), 2);
+	/// assert_eq!(bytes[0].code_buffer, vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9]);
+	/// assert_eq!(bytes[1].code_buffer, vec![0x75, 0xFE]);
 	/// ```
 	///
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html

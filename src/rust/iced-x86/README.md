@@ -112,6 +112,7 @@ This method produces the following output:
 00007FFAC46ACDD9 488D05787C0400       lea       rax,[rel 7FFA`C46F`4A58h]
 00007FFAC46ACDE0 33FF                 xor       edi,edi
 */
+#[allow(dead_code)]
 pub(crate) fn how_to_disassemble() {
     let bytes = EXAMPLE_CODE;
     let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
@@ -186,6 +187,7 @@ use iced_x86::{
     Decoder, DecoderOptions, Instruction, SpecializedFormatter, SpecializedFormatterTraitOptions,
 };
 
+#[allow(dead_code)]
 pub(crate) fn how_to_disassemble_really_fast() {
     struct MyTraitOptions;
     impl SpecializedFormatterTraitOptions for MyTraitOptions {
@@ -237,6 +239,7 @@ use iced_x86::{
     Instruction, InstructionBlock, MemoryOperand, Register,
 };
 
+#[allow(dead_code)]
 pub(crate) fn how_to_encode_instructions() {
     let bitness = 64;
 
@@ -299,7 +302,7 @@ pub(crate) fn how_to_encode_instructions() {
     ));
     instructions.push(Instruction::with(Code::Nopd));
     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
-    instructions.push(add_label(data1, Instruction::with_declare_byte(raw_data)));
+    instructions.push(add_label(data1, Instruction::try_with_declare_byte(raw_data).unwrap()));
 
     // Use BlockEncoder to encode a block of instructions. This block can contain any
     // number of branches and any number of instructions. It does support encoding more
@@ -390,6 +393,7 @@ impl SymbolResolver for MySymbolResolver {
     }
 }
 
+#[allow(dead_code)]
 pub(crate) fn how_to_resolve_symbols() {
     let bytes = b"\x48\x8B\x8A\xA5\x5A\xA5\x5A";
     let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
@@ -447,6 +451,7 @@ impl FormatterOutput for MyFormatterOutput {
     }
 }
 
+#[allow(dead_code)]
 pub(crate) fn how_to_colorize_text() {
     let bytes = EXAMPLE_CODE;
     let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, bytes, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
@@ -546,6 +551,7 @@ Moved code:
 00007FFAC48ACDAF push rdi
 00007FFAC48ACDB0 jmp 00007FFAC46ACDB0h
 */
+#[allow(dead_code)]
 pub(crate) fn how_to_move_code() {
     let example_code = EXAMPLE_CODE.to_vec();
     println!("Original code:");
@@ -898,6 +904,7 @@ This method produces the following output:
     Op1: r32_or_mem
     Used reg: RDI:Write
 */
+#[allow(dead_code)]
 pub(crate) fn how_to_get_instruction_info() {
     let mut decoder = Decoder::with_ip(EXAMPLE_CODE_BITNESS, EXAMPLE_CODE, EXAMPLE_CODE_RIP, DecoderOptions::NONE);
 
@@ -1074,6 +1081,7 @@ static EXAMPLE_CODE: &[u8] = &[
 ```rust
 use iced_x86::{Decoder, DecoderOptions, Register};
 
+#[allow(dead_code)]
 pub(crate) fn how_to_get_virtual_address() {
     // add [rdi+r12*8-5AA5EDCCh],esi
     let bytes = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5";
@@ -1110,6 +1118,7 @@ This method produces the following output:
 731E0A17 frinear
 731E0A19 altinst
 */
+#[allow(dead_code)]
 pub(crate) fn how_to_disassemble_old_instrs() {
     #[rustfmt::skip]
     let bytes = &[
