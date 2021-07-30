@@ -465,25 +465,25 @@ impl NasmFormatter {
 						options_provider.operand_options(instruction, operand, instruction_operand, &mut operand_options, &mut number_options);
 					}
 					let s = if op_kind == InstrOpKind::NearBranch32 {
-						self.number_formatter.format_u32_zeroes(
+						self.number_formatter.format_u32_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.near_branch32(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					} else if op_kind == InstrOpKind::NearBranch64 {
-						self.number_formatter.format_u64_zeroes(
+						self.number_formatter.format_u64_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.near_branch64(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					} else {
-						self.number_formatter.format_u16_zeroes(
+						self.number_formatter.format_u16_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.near_branch16(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					};
 					output.write_number(
@@ -544,11 +544,11 @@ impl NasmFormatter {
 							self.d.options.show_symbol_address(),
 						);
 					} else {
-						let s = self.number_formatter.format_u16_zeroes(
+						let s = self.number_formatter.format_u16_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.far_branch_selector(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						);
 						output.write_number(
 							instruction,
@@ -580,11 +580,11 @@ impl NasmFormatter {
 					if let Some(ref mut options_provider) = self.options_provider {
 						options_provider.operand_options(instruction, operand, instruction_operand, &mut operand_options, &mut number_options);
 					}
-					let s = self.number_formatter.format_u16_zeroes(
+					let s = self.number_formatter.format_u16_zeros(
 						&self.d.options,
 						&number_options,
 						instruction.far_branch_selector(),
-						number_options.leading_zeroes,
+						number_options.leading_zeros,
 					);
 					output.write_number(
 						instruction,
@@ -597,18 +597,18 @@ impl NasmFormatter {
 					);
 					output.write(":", FormatterTextKind::Punctuation);
 					let s = if op_kind == InstrOpKind::FarBranch32 {
-						self.number_formatter.format_u32_zeroes(
+						self.number_formatter.format_u32_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.far_branch32(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					} else {
-						self.number_formatter.format_u16_zeroes(
+						self.number_formatter.format_u16_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.far_branch16(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					};
 					output.write_number(
@@ -1305,7 +1305,7 @@ impl NasmFormatter {
 					} else {
 						output.write("+", FormatterTextKind::Operator);
 					}
-					if number_options.displacement_leading_zeroes {
+					if number_options.displacement_leading_zeros {
 						displ_size = 4;
 					}
 				} else if addr_size == 4 {
@@ -1317,7 +1317,7 @@ impl NasmFormatter {
 					} else {
 						output.write("+", FormatterTextKind::Operator);
 					}
-					if number_options.displacement_leading_zeroes {
+					if number_options.displacement_leading_zeros {
 						displ_size = 4;
 					}
 				} else {
@@ -1330,7 +1330,7 @@ impl NasmFormatter {
 					} else {
 						output.write("+", FormatterTextKind::Operator);
 					}
-					if number_options.displacement_leading_zeroes {
+					if number_options.displacement_leading_zeros {
 						displ_size = 2;
 					}
 				}

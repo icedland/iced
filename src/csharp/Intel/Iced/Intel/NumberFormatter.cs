@@ -11,7 +11,7 @@ namespace Iced.Intel {
 	enum NumberFormatterFlags {
 		None						= 0,
 		AddMinusSign				= 0x00000001,
-		LeadingZeroes				= 0x00000002,
+		LeadingZeros				= 0x00000002,
 		SmallHexNumbersInDecimal	= 0x00000004,
 	}
 
@@ -163,17 +163,17 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static NumberFormatterFlags GetFlags(bool leadingZeroes, bool smallHexNumbersInDecimal) {
+		static NumberFormatterFlags GetFlags(bool leadingZeros, bool smallHexNumbersInDecimal) {
 			var flags = NumberFormatterFlags.None;
-			if (leadingZeroes)
-				flags |= NumberFormatterFlags.LeadingZeroes;
+			if (leadingZeros)
+				flags |= NumberFormatterFlags.LeadingZeros;
 			if (smallHexNumbersInDecimal)
 				flags |= NumberFormatterFlags.SmallHexNumbersInDecimal;
 			return flags;
 		}
 
 		public string FormatInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, sbyte value) {
-			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			var flags = GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal);
 			if (value < 0) {
 				flags |= NumberFormatterFlags.AddMinusSign;
 				value = (sbyte)-value;
@@ -182,7 +182,7 @@ namespace Iced.Intel {
 		}
 
 		public string FormatInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, short value) {
-			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			var flags = GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal);
 			if (value < 0) {
 				flags |= NumberFormatterFlags.AddMinusSign;
 				value = (short)-value;
@@ -191,7 +191,7 @@ namespace Iced.Intel {
 		}
 
 		public string FormatInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, int value) {
-			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			var flags = GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal);
 			if (value < 0) {
 				flags |= NumberFormatterFlags.AddMinusSign;
 				value = -value;
@@ -200,7 +200,7 @@ namespace Iced.Intel {
 		}
 
 		public string FormatInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, long value) {
-			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			var flags = GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal);
 			if (value < 0) {
 				flags |= NumberFormatterFlags.AddMinusSign;
 				value = -value;
@@ -208,19 +208,19 @@ namespace Iced.Intel {
 			return FormatUnsignedInteger(formatterOptions, options, (ulong)value, 64, flags);
 		}
 
-		public string FormatUInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(formatterOptions, options, value, 8, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatUInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(formatterOptions, options, value, 8, GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(options.LeadingZeros, options.SmallHexNumbersInDecimal));
 
-		public string FormatDisplUInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(formatterOptions, options, value, 8, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatDisplUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatDisplUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatDisplUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(options.DisplacementLeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatDisplUInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(formatterOptions, options, value, 8, GetFlags(options.DisplacementLeadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatDisplUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(options.DisplacementLeadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatDisplUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(options.DisplacementLeadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatDisplUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(options.DisplacementLeadingZeros, options.SmallHexNumbersInDecimal));
 
-		public string FormatUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
-		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value, bool leadingZeros) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(leadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value, bool leadingZeros) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(leadingZeros, options.SmallHexNumbersInDecimal));
+		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value, bool leadingZeros) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(leadingZeros, options.SmallHexNumbersInDecimal));
 
 		static readonly string[] smallDecimalValues = new string[(int)SmallPositiveNumber + 1] {
 			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -244,7 +244,7 @@ namespace Iced.Intel {
 				else {
 					if (!string.IsNullOrEmpty(options.Prefix))
 						sb.Append(options.Prefix);
-					ToHexadecimal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? (valueSize + 3) >> 2 : 0, options.UppercaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(options.Prefix));
+					ToHexadecimal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeros) != 0 ? (valueSize + 3) >> 2 : 0, options.UppercaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(options.Prefix));
 					suffix = options.Suffix;
 				}
 				break;
@@ -257,14 +257,14 @@ namespace Iced.Intel {
 				break;
 
 			case NumberBase.Octal:
-				ToOctal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? (valueSize + 2) / 3 : 0, options.Prefix);
+				ToOctal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeros) != 0 ? (valueSize + 2) / 3 : 0, options.Prefix);
 				suffix = options.Suffix;
 				break;
 
 			case NumberBase.Binary:
 				if (!string.IsNullOrEmpty(options.Prefix))
 					sb.Append(options.Prefix);
-				ToBinary(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? valueSize : 0);
+				ToBinary(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeros) != 0 ? valueSize : 0);
 				suffix = options.Suffix;
 				break;
 

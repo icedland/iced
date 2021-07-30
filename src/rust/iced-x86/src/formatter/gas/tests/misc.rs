@@ -51,14 +51,17 @@ fn verify_default_formatter_options() {
 	assert_eq!(options.binary_suffix(), "");
 	assert_eq!(options.binary_digit_group_size(), 4);
 	assert_eq!(options.digit_separator(), "");
+	assert!(!options.leading_zeros());
 	assert!(!options.leading_zeroes());
 	assert!(options.uppercase_hex());
 	assert!(options.small_hex_numbers_in_decimal());
 	assert!(options.add_leading_zero_to_hex_numbers());
 	assert_eq!(options.number_base(), NumberBase::Hexadecimal);
+	assert!(options.branch_leading_zeros());
 	assert!(options.branch_leading_zeroes());
 	assert!(!options.signed_immediate_operands());
 	assert!(options.signed_memory_displacements());
+	assert!(!options.displacement_leading_zeros());
 	assert!(!options.displacement_leading_zeroes());
 	assert_eq!(options.memory_size_options(), MemorySizeOptions::Default);
 	assert!(!options.rip_relative_addresses());

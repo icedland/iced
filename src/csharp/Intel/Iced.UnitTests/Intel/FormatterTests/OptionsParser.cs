@@ -18,12 +18,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			case OptionsProps.AddLeadingZeroToHexNumbers:
 			case OptionsProps.AlwaysShowScale:
 			case OptionsProps.AlwaysShowSegmentRegister:
-			case OptionsProps.BranchLeadingZeroes:
-			case OptionsProps.DisplacementLeadingZeroes:
+			case OptionsProps.BranchLeadingZeros:
+			case OptionsProps.DisplacementLeadingZeros:
 			case OptionsProps.GasNakedRegisters:
 			case OptionsProps.GasShowMnemonicSizeSuffix:
 			case OptionsProps.GasSpaceAfterMemoryOperandComma:
-			case OptionsProps.LeadingZeroes:
+			case OptionsProps.LeadingZeros:
 			case OptionsProps.MasmAddDsPrefix32:
 			case OptionsProps.NasmShowSignExtendedImmediateSize:
 			case OptionsProps.PreferST0:

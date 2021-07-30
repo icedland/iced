@@ -121,7 +121,7 @@ namespace Iced.Intel {
 				}
 				if (spacesBetweenOp)
 					Write(" ", FormatterTextKind.Text);
-				var s = numberFormatter.FormatUInt64(options, numberOptions, (ulong)displ, leadingZeroes: false);
+				var s = numberFormatter.FormatUInt64(options, numberOptions, (ulong)displ, leadingZeros: false);
 				WriteNumber(instruction, operand, instructionOperand, s, origDispl, numberKind, FormatterTextKind.Number);
 			}
 			if (showSymbolAddress) {
@@ -129,15 +129,15 @@ namespace Iced.Intel {
 				Write("(", FormatterTextKind.Punctuation);
 				string s;
 				if (address <= ushort.MaxValue) {
-					s = numberFormatter.FormatUInt16(options, numberOptions, (ushort)address, leadingZeroes: true);
+					s = numberFormatter.FormatUInt16(options, numberOptions, (ushort)address, leadingZeros: true);
 					numberKind = NumberKind.UInt16;
 				}
 				else if (address <= uint.MaxValue) {
-					s = numberFormatter.FormatUInt32(options, numberOptions, (uint)address, leadingZeroes: true);
+					s = numberFormatter.FormatUInt32(options, numberOptions, (uint)address, leadingZeros: true);
 					numberKind = NumberKind.UInt32;
 				}
 				else {
-					s = numberFormatter.FormatUInt64(options, numberOptions, address, leadingZeroes: true);
+					s = numberFormatter.FormatUInt64(options, numberOptions, address, leadingZeros: true);
 					numberKind = NumberKind.UInt64;
 				}
 				WriteNumber(instruction, operand, instructionOperand, s, address, numberKind, FormatterTextKind.Number);

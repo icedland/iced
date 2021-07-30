@@ -26,14 +26,14 @@ namespace Iced.Intel {
 			AlwaysShowScale					= 0x00000800,
 			AlwaysShowSegmentRegister		= 0x00001000,
 			ShowZeroDisplacements			= 0x00002000,
-			LeadingZeroes					= 0x00004000,
+			LeadingZeros					= 0x00004000,
 			UppercaseHex					= 0x00008000,
 			SmallHexNumbersInDecimal		= 0x00010000,
 			AddLeadingZeroToHexNumbers		= 0x00020000,
-			BranchLeadingZeroes				= 0x00040000,
+			BranchLeadingZeros				= 0x00040000,
 			SignedImmediateOperands			= 0x00080000,
 			SignedMemoryDisplacements		= 0x00100000,
-			DisplacementLeadingZeroes		= 0x00200000,
+			DisplacementLeadingZeros		= 0x00200000,
 			RipRelativeAddresses			= 0x00400000,
 			ShowBranchSize					= 0x00800000,
 			UsePseudoOps					= 0x01000000,
@@ -62,7 +62,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public FormatterOptions() {
 			flags1 = Flags1.UppercaseHex | Flags1.SmallHexNumbersInDecimal |
-				Flags1.AddLeadingZeroToHexNumbers | Flags1.BranchLeadingZeroes |
+				Flags1.AddLeadingZeroToHexNumbers | Flags1.BranchLeadingZeros |
 				Flags1.SignedMemoryDisplacements | Flags1.ShowBranchSize |
 				Flags1.UsePseudoOps | Flags1.MasmAddDsPrefix32 |
 				Flags1.MasmSymbolDisplInBrackets | Flags1.MasmDisplInBrackets;
@@ -468,9 +468,9 @@ namespace Iced.Intel {
 		public string? DigitSeparator { get; set; }
 
 		/// <summary>
-		/// Add leading zeroes to hexadecimal/octal/binary numbers.
-		/// This option has no effect on branch targets and displacements, use <see cref="BranchLeadingZeroes"/>
-		/// and <see cref="DisplacementLeadingZeroes"/>.
+		/// Add leading zeros to hexadecimal/octal/binary numbers.
+		/// This option has no effect on branch targets and displacements, use <see cref="BranchLeadingZeros"/>
+		/// and <see cref="DisplacementLeadingZeros"/>.
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -478,14 +478,31 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>0xA</c>/<c>0Ah</c>
 		/// </summary>
-		public bool LeadingZeroes {
-			get => (flags1 & Flags1.LeadingZeroes) != 0;
+		public bool LeadingZeros {
+			get => (flags1 & Flags1.LeadingZeros) != 0;
 			set {
 				if (value)
-					flags1 |= Flags1.LeadingZeroes;
+					flags1 |= Flags1.LeadingZeros;
 				else
-					flags1 &= ~Flags1.LeadingZeroes;
+					flags1 &= ~Flags1.LeadingZeros;
 			}
+		}
+
+		/// <summary>
+		/// Add leading zeros to hexadecimal/octal/binary numbers.
+		/// This option has no effect on branch targets and displacements, use <see cref="BranchLeadingZeros"/>
+		/// and <see cref="DisplacementLeadingZeros"/>.
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>0x0000000A</c>/<c>0000000Ah</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>0xA</c>/<c>0Ah</c>
+		/// </summary>
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool LeadingZeroes {
+			get => LeadingZeros;
+			set => LeadingZeros = value;
 		}
 
 		/// <summary>
@@ -561,7 +578,7 @@ namespace Iced.Intel {
 		NumberBase numberBase = NumberBase.Hexadecimal;
 
 		/// <summary>
-		/// Add leading zeroes to branch offsets. Used by <c>CALL NEAR</c>, <c>CALL FAR</c>, <c>JMP NEAR</c>, <c>JMP FAR</c>, <c>Jcc</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>XBEGIN</c>
+		/// Add leading zeros to branch offsets. Used by <c>CALL NEAR</c>, <c>CALL FAR</c>, <c>JMP NEAR</c>, <c>JMP FAR</c>, <c>Jcc</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>XBEGIN</c>
 		/// <br/>
 		/// Default: <see langword="true"/>
 		/// <br/>
@@ -569,14 +586,29 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>je 123h</c>
 		/// </summary>
-		public bool BranchLeadingZeroes {
-			get => (flags1 & Flags1.BranchLeadingZeroes) != 0;
+		public bool BranchLeadingZeros {
+			get => (flags1 & Flags1.BranchLeadingZeros) != 0;
 			set {
 				if (value)
-					flags1 |= Flags1.BranchLeadingZeroes;
+					flags1 |= Flags1.BranchLeadingZeros;
 				else
-					flags1 &= ~Flags1.BranchLeadingZeroes;
+					flags1 &= ~Flags1.BranchLeadingZeros;
 			}
+		}
+
+		/// <summary>
+		/// Add leading zeros to branch offsets. Used by <c>CALL NEAR</c>, <c>CALL FAR</c>, <c>JMP NEAR</c>, <c>JMP FAR</c>, <c>Jcc</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>XBEGIN</c>
+		/// <br/>
+		/// Default: <see langword="true"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>je 00000123h</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>je 123h</c>
+		/// </summary>
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool BranchLeadingZeroes {
+			get => BranchLeadingZeros;
+			set => BranchLeadingZeros = value;
 		}
 
 		/// <summary>
@@ -618,7 +650,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Add leading zeroes to displacements
+		/// Add leading zeros to displacements
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -626,18 +658,18 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov al,[eax+12h]</c>
 		/// </summary>
-		public bool DisplacementLeadingZeroes {
-			get => (flags1 & Flags1.DisplacementLeadingZeroes) != 0;
+		public bool DisplacementLeadingZeros {
+			get => (flags1 & Flags1.DisplacementLeadingZeros) != 0;
 			set {
 				if (value)
-					flags1 |= Flags1.DisplacementLeadingZeroes;
+					flags1 |= Flags1.DisplacementLeadingZeros;
 				else
-					flags1 &= ~Flags1.DisplacementLeadingZeroes;
+					flags1 &= ~Flags1.DisplacementLeadingZeros;
 			}
 		}
 
 		/// <summary>
-		/// Add leading zeroes to displacements
+		/// Add leading zeros to displacements
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -645,11 +677,26 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov al,[eax+12h]</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool DisplacementLeadingZeroes {
+			get => DisplacementLeadingZeros;
+			set => DisplacementLeadingZeros = value;
+		}
+
+		/// <summary>
+		/// Add leading zeros to displacements
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>mov al,[eax+00000012h]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov al,[eax+12h]</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeros) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool SignExtendMemoryDisplacements {
-			get => DisplacementLeadingZeroes;
-			set => DisplacementLeadingZeroes = value;
+			get => DisplacementLeadingZeros;
+			set => DisplacementLeadingZeros = value;
 		}
 
 		/// <summary>

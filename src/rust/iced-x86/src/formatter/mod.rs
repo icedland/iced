@@ -354,7 +354,7 @@ impl FormatterOutputMethods {
 			if spaces_between_op {
 				output.write(" ", FormatterTextKind::Text);
 			}
-			let s = number_formatter.format_u64_zeroes(options, number_options, displ as u64, false);
+			let s = number_formatter.format_u64_zeros(options, number_options, displ as u64, false);
 			output.write_number(instruction, operand, instruction_operand, s, orig_displ, number_kind, FormatterTextKind::Number);
 		}
 		if show_symbol_address {
@@ -362,13 +362,13 @@ impl FormatterOutputMethods {
 			output.write("(", FormatterTextKind::Punctuation);
 			let s = if address <= u16::MAX as u64 {
 				number_kind = NumberKind::UInt16;
-				number_formatter.format_u16_zeroes(options, number_options, address as u16, true)
+				number_formatter.format_u16_zeros(options, number_options, address as u16, true)
 			} else if address <= u32::MAX as u64 {
 				number_kind = NumberKind::UInt32;
-				number_formatter.format_u32_zeroes(options, number_options, address as u32, true)
+				number_formatter.format_u32_zeros(options, number_options, address as u32, true)
 			} else {
 				number_kind = NumberKind::UInt64;
-				number_formatter.format_u64_zeroes(options, number_options, address, true)
+				number_formatter.format_u64_zeros(options, number_options, address, true)
 			};
 			output.write_number(instruction, operand, instruction_operand, s, address, number_kind, FormatterTextKind::Number);
 			output.write(")", FormatterTextKind::Punctuation);

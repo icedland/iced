@@ -37,15 +37,15 @@ def test_default_options():
 	assert formatter.binary_suffix == "b"
 	assert formatter.binary_digit_group_size == 4
 	assert formatter.digit_separator == ""
-	assert not formatter.leading_zeroes
+	assert not formatter.leading_zeros
 	assert formatter.uppercase_hex
 	assert formatter.small_hex_numbers_in_decimal
 	assert formatter.add_leading_zero_to_hex_numbers
 	assert formatter.number_base == 16
-	assert formatter.branch_leading_zeroes
+	assert formatter.branch_leading_zeros
 	assert not formatter.signed_immediate_operands
 	assert formatter.signed_memory_displacements
-	assert not formatter.displacement_leading_zeroes
+	assert not formatter.displacement_leading_zeros
 	assert formatter.memory_size_options == MemorySizeOptions.DEFAULT
 	assert not formatter.rip_relative_addresses
 	assert formatter.show_branch_size

@@ -63,14 +63,14 @@ impl Flags1 {
 	const ALWAYS_SHOW_SCALE: u32 = 0x0000_0800;
 	const ALWAYS_SHOW_SEGMENT_REGISTER: u32 = 0x0000_1000;
 	const SHOW_ZERO_DISPLACEMENTS: u32 = 0x0000_2000;
-	const LEADING_ZEROES: u32 = 0x0000_4000;
+	const LEADING_ZEROS: u32 = 0x0000_4000;
 	const UPPERCASE_HEX: u32 = 0x0000_8000;
 	const SMALL_HEX_NUMBERS_IN_DECIMAL: u32 = 0x0001_0000;
 	const ADD_LEADING_ZERO_TO_HEX_NUMBERS: u32 = 0x0002_0000;
-	const BRANCH_LEADING_ZEROES: u32 = 0x0004_0000;
+	const BRANCH_LEADING_ZEROS: u32 = 0x0004_0000;
 	const SIGNED_IMMEDIATE_OPERANDS: u32 = 0x0008_0000;
 	const SIGNED_MEMORY_DISPLACEMENTS: u32 = 0x0010_0000;
-	const DISPLACEMENT_LEADING_ZEROES: u32 = 0x0020_0000;
+	const DISPLACEMENT_LEADING_ZEROS: u32 = 0x0020_0000;
 	const RIP_RELATIVE_ADDRESSES: u32 = 0x0040_0000;
 	const SHOW_BRANCH_SIZE: u32 = 0x0080_0000;
 	const USE_PSEUDO_OPS: u32 = 0x0100_0000;
@@ -148,7 +148,7 @@ impl FormatterOptions {
 			options1: Flags1::UPPERCASE_HEX
 				| Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL
 				| Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS
-				| Flags1::BRANCH_LEADING_ZEROES
+				| Flags1::BRANCH_LEADING_ZEROS
 				| Flags1::SIGNED_MEMORY_DISPLACEMENTS
 				| Flags1::SHOW_BRANCH_SIZE
 				| Flags1::USE_PSEUDO_OPS
@@ -1147,45 +1147,58 @@ impl FormatterOptions {
 		self.digit_separator = FormatterOptionString::String(value)
 	}
 
-	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeroes`]
-	/// and [`displacement_leading_zeroes`].
+	/// Add leading zeros to hexadecimal/octal/binary numbers.
+	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeros`]
+	/// and [`displacement_leading_zeros`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branch_leading_zeroes`]: #method.branch_leading_zeroes
-	/// [`displacement_leading_zeroes`]: #method.displacement_leading_zeroes
+	/// [`branch_leading_zeros`]: #method.branch_leading_zeros
+	/// [`displacement_leading_zeros`]: #method.displacement_leading_zeros
 	#[must_use]
 	#[inline]
-	pub fn leading_zeroes(&self) -> bool {
-		(self.options1 & Flags1::LEADING_ZEROES) != 0
+	pub fn leading_zeros(&self) -> bool {
+		(self.options1 & Flags1::LEADING_ZEROS) != 0
 	}
 
-	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeroes`]
-	/// and [`displacement_leading_zeroes`].
+	/// Add leading zeros to hexadecimal/octal/binary numbers.
+	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeros`]
+	/// and [`displacement_leading_zeros`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branch_leading_zeroes`]: #method.branch_leading_zeroes
-	/// [`displacement_leading_zeroes`]: #method.displacement_leading_zeroes
+	/// [`branch_leading_zeros`]: #method.branch_leading_zeros
+	/// [`displacement_leading_zeros`]: #method.displacement_leading_zeros
 	///
 	/// # Arguments
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_leading_zeroes(&mut self, value: bool) {
+	pub fn set_leading_zeros(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::LEADING_ZEROES;
+			self.options1 |= Flags1::LEADING_ZEROS;
 		} else {
-			self.options1 &= !Flags1::LEADING_ZEROES;
+			self.options1 &= !Flags1::LEADING_ZEROS;
 		}
+	}
+
+	#[must_use]
+	#[inline]
+	#[doc(hidden)]
+	pub fn leading_zeroes(&self) -> bool {
+		self.leading_zeros()
+	}
+
+	#[inline]
+	#[doc(hidden)]
+	pub fn set_leading_zeroes(&mut self, value: bool) {
+		self.set_leading_zeros(value);
 	}
 
 	/// Use uppercase hex digits
@@ -1306,7 +1319,7 @@ impl FormatterOptions {
 		self.number_base = value
 	}
 
-	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
+	/// Add leading zeros to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1314,11 +1327,11 @@ impl FormatterOptions {
 	/// &nbsp; | `false` | `je 123h`
 	#[must_use]
 	#[inline]
-	pub fn branch_leading_zeroes(&self) -> bool {
-		(self.options1 & Flags1::BRANCH_LEADING_ZEROES) != 0
+	pub fn branch_leading_zeros(&self) -> bool {
+		(self.options1 & Flags1::BRANCH_LEADING_ZEROS) != 0
 	}
 
-	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
+	/// Add leading zeros to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1329,12 +1342,25 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_branch_leading_zeroes(&mut self, value: bool) {
+	pub fn set_branch_leading_zeros(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::BRANCH_LEADING_ZEROES;
+			self.options1 |= Flags1::BRANCH_LEADING_ZEROS;
 		} else {
-			self.options1 &= !Flags1::BRANCH_LEADING_ZEROES;
+			self.options1 &= !Flags1::BRANCH_LEADING_ZEROS;
 		}
+	}
+
+	#[must_use]
+	#[inline]
+	#[doc(hidden)]
+	pub fn branch_leading_zeroes(&self) -> bool {
+		self.branch_leading_zeros()
+	}
+
+	#[inline]
+	#[doc(hidden)]
+	pub fn set_branch_leading_zeroes(&mut self, value: bool) {
+		self.set_branch_leading_zeros(value);
 	}
 
 	/// Show immediate operands as signed numbers
@@ -1399,7 +1425,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Add leading zeroes to displacements
+	/// Add leading zeros to displacements
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1407,11 +1433,11 @@ impl FormatterOptions {
 	/// ✔️ | `false` | `mov al,[eax+12h]`
 	#[must_use]
 	#[inline]
-	pub fn displacement_leading_zeroes(&self) -> bool {
-		(self.options1 & Flags1::DISPLACEMENT_LEADING_ZEROES) != 0
+	pub fn displacement_leading_zeros(&self) -> bool {
+		(self.options1 & Flags1::DISPLACEMENT_LEADING_ZEROS) != 0
 	}
 
-	/// Add leading zeroes to displacements
+	/// Add leading zeros to displacements
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1422,12 +1448,25 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_displacement_leading_zeroes(&mut self, value: bool) {
+	pub fn set_displacement_leading_zeros(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::DISPLACEMENT_LEADING_ZEROES;
+			self.options1 |= Flags1::DISPLACEMENT_LEADING_ZEROS;
 		} else {
-			self.options1 &= !Flags1::DISPLACEMENT_LEADING_ZEROES;
+			self.options1 &= !Flags1::DISPLACEMENT_LEADING_ZEROS;
 		}
+	}
+
+	#[must_use]
+	#[inline]
+	#[doc(hidden)]
+	pub fn displacement_leading_zeroes(&self) -> bool {
+		self.displacement_leading_zeros()
+	}
+
+	#[inline]
+	#[doc(hidden)]
+	pub fn set_displacement_leading_zeroes(&mut self, value: bool) {
+		self.set_displacement_leading_zeros(value);
 	}
 
 	/// Options that control if the memory size (eg. `DWORD PTR`) is shown or not.

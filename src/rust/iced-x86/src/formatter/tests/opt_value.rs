@@ -225,12 +225,12 @@ impl OptionValue {
 			OptionsProps::BinaryDigitGroupSize => options.set_binary_digit_group_size(self.to_i32_as_u32()),
 			OptionsProps::BinaryPrefix => options.set_binary_prefix_string(self.to_str()),
 			OptionsProps::BinarySuffix => options.set_binary_suffix_string(self.to_str()),
-			OptionsProps::BranchLeadingZeroes => options.set_branch_leading_zeroes(self.to_bool()),
+			OptionsProps::BranchLeadingZeros => options.set_branch_leading_zeros(self.to_bool()),
 			OptionsProps::DecimalDigitGroupSize => options.set_decimal_digit_group_size(self.to_i32_as_u32()),
 			OptionsProps::DecimalPrefix => options.set_decimal_prefix_string(self.to_str()),
 			OptionsProps::DecimalSuffix => options.set_decimal_suffix_string(self.to_str()),
 			OptionsProps::DigitSeparator => options.set_digit_separator_string(self.to_str()),
-			OptionsProps::DisplacementLeadingZeroes => options.set_displacement_leading_zeroes(self.to_bool()),
+			OptionsProps::DisplacementLeadingZeros => options.set_displacement_leading_zeros(self.to_bool()),
 			OptionsProps::FirstOperandCharIndex => options.set_first_operand_char_index(self.to_i32_as_u32()),
 			OptionsProps::GasNakedRegisters => options.set_gas_naked_registers(self.to_bool()),
 			OptionsProps::GasShowMnemonicSizeSuffix => options.set_gas_show_mnemonic_size_suffix(self.to_bool()),
@@ -238,7 +238,7 @@ impl OptionValue {
 			OptionsProps::HexDigitGroupSize => options.set_hex_digit_group_size(self.to_i32_as_u32()),
 			OptionsProps::HexPrefix => options.set_hex_prefix_string(self.to_str()),
 			OptionsProps::HexSuffix => options.set_hex_suffix_string(self.to_str()),
-			OptionsProps::LeadingZeroes => options.set_leading_zeroes(self.to_bool()),
+			OptionsProps::LeadingZeros => options.set_leading_zeros(self.to_bool()),
 			OptionsProps::MasmAddDsPrefix32 => options.set_masm_add_ds_prefix32(self.to_bool()),
 			OptionsProps::MemorySizeOptions => options.set_memory_size_options(self.to_memory_size_options()),
 			OptionsProps::NasmShowSignExtendedImmediateSize => options.set_nasm_show_sign_extended_immediate_size(self.to_bool()),
@@ -293,18 +293,18 @@ impl OptionValue {
 			| OptionsProps::BinaryDigitGroupSize
 			| OptionsProps::BinaryPrefix
 			| OptionsProps::BinarySuffix
-			| OptionsProps::BranchLeadingZeroes
+			| OptionsProps::BranchLeadingZeros
 			| OptionsProps::DecimalDigitGroupSize
 			| OptionsProps::DecimalPrefix
 			| OptionsProps::DecimalSuffix
 			| OptionsProps::DigitSeparator
-			| OptionsProps::DisplacementLeadingZeroes
+			| OptionsProps::DisplacementLeadingZeros
 			| OptionsProps::FirstOperandCharIndex
 			| OptionsProps::GasNakedRegisters
 			| OptionsProps::GasShowMnemonicSizeSuffix
 			| OptionsProps::GasSpaceAfterMemoryOperandComma
 			| OptionsProps::HexDigitGroupSize
-			| OptionsProps::LeadingZeroes
+			| OptionsProps::LeadingZeros
 			| OptionsProps::MasmAddDsPrefix32
 			| OptionsProps::NasmShowSignExtendedImmediateSize
 			| OptionsProps::NumberBase

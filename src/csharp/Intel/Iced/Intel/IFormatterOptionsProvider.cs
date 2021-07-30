@@ -126,9 +126,9 @@ namespace Iced.Intel {
 		public bool AddLeadingZeroToHexNumbers;
 
 		/// <summary>
-		/// If <see langword="true"/>, add leading zeroes to numbers, eg. '1h' vs '00000001h'
+		/// If <see langword="true"/>, add leading zeros to numbers, eg. '1h' vs '00000001h'
 		/// </summary>
-		public bool LeadingZeroes;
+		public bool LeadingZeros;
 
 		/// <summary>
 		/// If <see langword="true"/>, the number is signed, and if <see langword="false"/> it's an unsigned number
@@ -136,9 +136,9 @@ namespace Iced.Intel {
 		public bool SignedNumber;
 
 		/// <summary>
-		/// Add leading zeroes to displacements
+		/// Add leading zeros to displacements
 		/// </summary>
-		public bool DisplacementLeadingZeroes;
+		public bool DisplacementLeadingZeros;
 
 		/// <summary>
 		/// Creates options used when formatting immediate values
@@ -154,7 +154,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static NumberFormattingOptions CreateImmediateInternal(FormatterOptions options) =>
-			new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedImmediateOperands, false);
+			new NumberFormattingOptions(options, options.LeadingZeros, options.SignedImmediateOperands, false);
 
 		/// <summary>
 		/// Creates options used when formatting displacements
@@ -170,7 +170,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static NumberFormattingOptions CreateDisplacementInternal(FormatterOptions options) =>
-			new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedMemoryDisplacements, options.DisplacementLeadingZeroes);
+			new NumberFormattingOptions(options, options.LeadingZeros, options.SignedMemoryDisplacements, options.DisplacementLeadingZeros);
 
 		/// <summary>
 		/// Creates options used when formatting branch operands
@@ -186,21 +186,21 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static NumberFormattingOptions CreateBranchInternal(FormatterOptions options) =>
-			new NumberFormattingOptions(options, options.BranchLeadingZeroes, false, false);
+			new NumberFormattingOptions(options, options.BranchLeadingZeros, false, false);
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="options">Formatter options to use</param>
-		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. <c>1h</c> vs <c>00000001h</c></param>
+		/// <param name="leadingZeros">Add leading zeros to numbers, eg. <c>1h</c> vs <c>00000001h</c></param>
 		/// <param name="signedNumber">Signed numbers if <see langword="true"/>, and unsigned numbers if <see langword="false"/></param>
-		/// <param name="displacementLeadingZeroes">Add leading zeroes to displacements</param>
-		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool displacementLeadingZeroes) {
+		/// <param name="displacementLeadingZeros">Add leading zeros to displacements</param>
+		public NumberFormattingOptions(FormatterOptions options, bool leadingZeros, bool signedNumber, bool displacementLeadingZeros) {
 			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();
-			LeadingZeroes = leadingZeroes;
+			LeadingZeros = leadingZeros;
 			SignedNumber = signedNumber;
-			DisplacementLeadingZeroes = displacementLeadingZeroes;
+			DisplacementLeadingZeros = displacementLeadingZeros;
 			numberBaseByteValue = (byte)options.NumberBase;
 			DigitSeparator = options.DigitSeparator;
 			UppercaseHex = options.UppercaseHex;

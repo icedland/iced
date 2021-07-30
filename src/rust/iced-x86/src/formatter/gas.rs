@@ -485,25 +485,25 @@ impl GasFormatter {
 				} else {
 					flow_control = get_flow_control(instruction);
 					let s = if op_kind == InstrOpKind::NearBranch32 {
-						self.number_formatter.format_u32_zeroes(
+						self.number_formatter.format_u32_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.near_branch32(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					} else if op_kind == InstrOpKind::NearBranch64 {
-						self.number_formatter.format_u64_zeroes(
+						self.number_formatter.format_u64_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.near_branch64(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					} else {
-						self.number_formatter.format_u16_zeroes(
+						self.number_formatter.format_u16_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.near_branch16(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					};
 					output.write_number(
@@ -560,11 +560,11 @@ impl GasFormatter {
 							self.d.options.show_symbol_address(),
 						);
 					} else {
-						let s = self.number_formatter.format_u16_zeroes(
+						let s = self.number_formatter.format_u16_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.far_branch_selector(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						);
 						output.write_number(
 							instruction,
@@ -595,11 +595,11 @@ impl GasFormatter {
 					);
 				} else {
 					flow_control = get_flow_control(instruction);
-					let s = self.number_formatter.format_u16_zeroes(
+					let s = self.number_formatter.format_u16_zeros(
 						&self.d.options,
 						&number_options,
 						instruction.far_branch_selector(),
-						number_options.leading_zeroes,
+						number_options.leading_zeros,
 					);
 					output.write(GasFormatter::IMMEDIATE_VALUE_PREFIX, FormatterTextKind::Operator);
 					output.write_number(
@@ -616,18 +616,18 @@ impl GasFormatter {
 						output.write(" ", FormatterTextKind::Text);
 					}
 					let s = if op_kind == InstrOpKind::FarBranch32 {
-						self.number_formatter.format_u32_zeroes(
+						self.number_formatter.format_u32_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.far_branch32(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					} else {
-						self.number_formatter.format_u16_zeroes(
+						self.number_formatter.format_u16_zeros(
 							&self.d.options,
 							&number_options,
 							instruction.far_branch16(),
-							number_options.leading_zeroes,
+							number_options.leading_zeros,
 						)
 					};
 					output.write(GasFormatter::IMMEDIATE_VALUE_PREFIX, FormatterTextKind::Operator);
@@ -1140,7 +1140,7 @@ impl GasFormatter {
 						output.write("-", FormatterTextKind::Operator);
 						displ = displ.wrapping_neg();
 					}
-					if number_options.displacement_leading_zeroes {
+					if number_options.displacement_leading_zeros {
 						displ_size = 4;
 					}
 				} else if addr_size == 4 {
@@ -1148,7 +1148,7 @@ impl GasFormatter {
 						output.write("-", FormatterTextKind::Operator);
 						displ = (displ as i32).wrapping_neg() as u32 as i64;
 					}
-					if number_options.displacement_leading_zeroes {
+					if number_options.displacement_leading_zeros {
 						displ_size = 4;
 					}
 				} else {
@@ -1157,7 +1157,7 @@ impl GasFormatter {
 						output.write("-", FormatterTextKind::Operator);
 						displ = (displ as i16).wrapping_neg() as u16 as i64;
 					}
-					if number_options.displacement_leading_zeroes {
+					if number_options.displacement_leading_zeros {
 						displ_size = 2;
 					}
 				}

@@ -16,12 +16,12 @@ lazy_static! {
 		let _ = h.insert("BinaryDigitGroupSize", OptionsProps::BinaryDigitGroupSize);
 		let _ = h.insert("BinaryPrefix", OptionsProps::BinaryPrefix);
 		let _ = h.insert("BinarySuffix", OptionsProps::BinarySuffix);
-		let _ = h.insert("BranchLeadingZeroes", OptionsProps::BranchLeadingZeroes);
+		let _ = h.insert("BranchLeadingZeros", OptionsProps::BranchLeadingZeros);
 		let _ = h.insert("DecimalDigitGroupSize", OptionsProps::DecimalDigitGroupSize);
 		let _ = h.insert("DecimalPrefix", OptionsProps::DecimalPrefix);
 		let _ = h.insert("DecimalSuffix", OptionsProps::DecimalSuffix);
 		let _ = h.insert("DigitSeparator", OptionsProps::DigitSeparator);
-		let _ = h.insert("DisplacementLeadingZeroes", OptionsProps::DisplacementLeadingZeroes);
+		let _ = h.insert("DisplacementLeadingZeros", OptionsProps::DisplacementLeadingZeros);
 		let _ = h.insert("FirstOperandCharIndex", OptionsProps::FirstOperandCharIndex);
 		let _ = h.insert("GasNakedRegisters", OptionsProps::GasNakedRegisters);
 		let _ = h.insert("GasShowMnemonicSizeSuffix", OptionsProps::GasShowMnemonicSizeSuffix);
@@ -30,7 +30,7 @@ lazy_static! {
 		let _ = h.insert("HexPrefix", OptionsProps::HexPrefix);
 		let _ = h.insert("HexSuffix", OptionsProps::HexSuffix);
 		let _ = h.insert("IP", OptionsProps::IP);
-		let _ = h.insert("LeadingZeroes", OptionsProps::LeadingZeroes);
+		let _ = h.insert("LeadingZeros", OptionsProps::LeadingZeros);
 		let _ = h.insert("MasmAddDsPrefix32", OptionsProps::MasmAddDsPrefix32);
 		let _ = h.insert("MemorySizeOptions", OptionsProps::MemorySizeOptions);
 		let _ = h.insert("NasmShowSignExtendedImmediateSize", OptionsProps::NasmShowSignExtendedImmediateSize);

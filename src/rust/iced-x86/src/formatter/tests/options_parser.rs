@@ -18,12 +18,12 @@ pub(super) fn parse_option(key_value: &str) -> Result<(OptionsProps, OptionValue
 		OptionsProps::AddLeadingZeroToHexNumbers
 		| OptionsProps::AlwaysShowScale
 		| OptionsProps::AlwaysShowSegmentRegister
-		| OptionsProps::BranchLeadingZeroes
-		| OptionsProps::DisplacementLeadingZeroes
+		| OptionsProps::BranchLeadingZeros
+		| OptionsProps::DisplacementLeadingZeros
 		| OptionsProps::GasNakedRegisters
 		| OptionsProps::GasShowMnemonicSizeSuffix
 		| OptionsProps::GasSpaceAfterMemoryOperandComma
-		| OptionsProps::LeadingZeroes
+		| OptionsProps::LeadingZeros
 		| OptionsProps::MasmAddDsPrefix32
 		| OptionsProps::NasmShowSignExtendedImmediateSize
 		| OptionsProps::PreferST0

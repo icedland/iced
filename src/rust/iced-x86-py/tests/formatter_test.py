@@ -90,15 +90,15 @@ def test_options_props(syntax):
 	formatter.binary_suffix = "B"
 	formatter.binary_digit_group_size = 8
 	formatter.digit_separator = "`"
-	formatter.leading_zeroes = True
+	formatter.leading_zeros = True
 	formatter.uppercase_hex = False
 	formatter.small_hex_numbers_in_decimal = False
 	formatter.add_leading_zero_to_hex_numbers = False
 	formatter.number_base = 8
-	formatter.branch_leading_zeroes = False
+	formatter.branch_leading_zeros = False
 	formatter.signed_immediate_operands = True
 	formatter.signed_memory_displacements = False
-	formatter.displacement_leading_zeroes = True
+	formatter.displacement_leading_zeros = True
 	formatter.memory_size_options = MemorySizeOptions.NEVER
 	formatter.rip_relative_addresses = True
 	formatter.show_branch_size = False
@@ -155,15 +155,15 @@ def test_options_props(syntax):
 	assert formatter.binary_suffix == "B"
 	assert formatter.binary_digit_group_size == 8
 	assert formatter.digit_separator == "`"
-	assert formatter.leading_zeroes
+	assert formatter.leading_zeros
 	assert not formatter.uppercase_hex
 	assert not formatter.small_hex_numbers_in_decimal
 	assert not formatter.add_leading_zero_to_hex_numbers
 	assert formatter.number_base == 8
-	assert not formatter.branch_leading_zeroes
+	assert not formatter.branch_leading_zeros
 	assert formatter.signed_immediate_operands
 	assert not formatter.signed_memory_displacements
-	assert formatter.displacement_leading_zeroes
+	assert formatter.displacement_leading_zeros
 	assert formatter.memory_size_options == MemorySizeOptions.NEVER
 	assert formatter.rip_relative_addresses
 	assert not formatter.show_branch_size

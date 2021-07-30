@@ -1157,42 +1157,42 @@ impl Formatter {
 		self.formatter.options_mut().set_digit_separator_string(value);
 	}
 
-	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets and displacements, use [`branchLeadingZeroes`]
-	/// and [`displacementLeadingZeroes`].
+	/// Add leading zeros to hexadecimal/octal/binary numbers.
+	/// This option has no effect on branch targets and displacements, use [`branchLeadingZeros`]
+	/// and [`displacementLeadingZeros`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branchLeadingZeroes`]: #method.branch_leading_zeroes
-	/// [`displacementLeadingZeroes`]: #method.displacement_leading_zeroes
+	/// [`branchLeadingZeros`]: #method.branch_leading_zeros
+	/// [`displacementLeadingZeros`]: #method.displacement_leading_zeros
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "leadingZeroes")]
-	pub fn leading_zeroes(&self) -> bool {
-		self.formatter.options().leading_zeroes()
+	#[wasm_bindgen(js_name = "leadingZeros")]
+	pub fn leading_zeros(&self) -> bool {
+		self.formatter.options().leading_zeros()
 	}
 
-	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets and displacements, use [`branchLeadingZeroes`]
-	/// and [`displacementLeadingZeroes`].
+	/// Add leading zeros to hexadecimal/octal/binary numbers.
+	/// This option has no effect on branch targets and displacements, use [`branchLeadingZeros`]
+	/// and [`displacementLeadingZeros`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branchLeadingZeroes`]: #method.branch_leading_zeroes
-	/// [`displacementLeadingZeroes`]: #method.displacement_leading_zeroes
+	/// [`branchLeadingZeros`]: #method.branch_leading_zeros
+	/// [`displacementLeadingZeros`]: #method.displacement_leading_zeros
 	///
 	/// # Arguments
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "leadingZeroes")]
-	pub fn set_leading_zeroes(&mut self, value: bool) {
-		self.formatter.options_mut().set_leading_zeroes(value);
+	#[wasm_bindgen(js_name = "leadingZeros")]
+	pub fn set_leading_zeros(&mut self, value: bool) {
+		self.formatter.options_mut().set_leading_zeros(value);
 	}
 
 	/// Use uppercase hex digits
@@ -1318,19 +1318,19 @@ impl Formatter {
 		Ok(())
 	}
 
-	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
+	/// Add leading zeros to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `true` | `je 00000123h`
 	/// &nbsp; | `false` | `je 123h`
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "branchLeadingZeroes")]
-	pub fn branch_leading_zeroes(&self) -> bool {
-		self.formatter.options().branch_leading_zeroes()
+	#[wasm_bindgen(js_name = "branchLeadingZeros")]
+	pub fn branch_leading_zeros(&self) -> bool {
+		self.formatter.options().branch_leading_zeros()
 	}
 
-	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
+	/// Add leading zeros to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1341,9 +1341,9 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "branchLeadingZeroes")]
-	pub fn set_branch_leading_zeroes(&mut self, value: bool) {
-		self.formatter.options_mut().set_branch_leading_zeroes(value);
+	#[wasm_bindgen(js_name = "branchLeadingZeros")]
+	pub fn set_branch_leading_zeros(&mut self, value: bool) {
+		self.formatter.options_mut().set_branch_leading_zeros(value);
 	}
 
 	/// Show immediate operands as signed numbers
@@ -1402,19 +1402,19 @@ impl Formatter {
 		self.formatter.options_mut().set_signed_memory_displacements(value);
 	}
 
-	/// Add leading zeroes to displacements
+	/// Add leading zeros to displacements
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// &nbsp; | `true` | `mov al,[eax+00000012h]`
 	/// ✔️ | `false` | `mov al,[eax+12h]`
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "displacementLeadingZeroes")]
-	pub fn displacement_leading_zeroes(&self) -> bool {
-		self.formatter.options().displacement_leading_zeroes()
+	#[wasm_bindgen(js_name = "displacementLeadingZeros")]
+	pub fn displacement_leading_zeros(&self) -> bool {
+		self.formatter.options().displacement_leading_zeros()
 	}
 
-	/// Add leading zeroes to displacements
+	/// Add leading zeros to displacements
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1425,9 +1425,9 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	#[wasm_bindgen(js_name = "displacementLeadingZeroes")]
-	pub fn set_displacement_leading_zeroes(&mut self, value: bool) {
-		self.formatter.options_mut().set_displacement_leading_zeroes(value);
+	#[wasm_bindgen(js_name = "displacementLeadingZeros")]
+	pub fn set_displacement_leading_zeros(&mut self, value: bool) {
+		self.formatter.options_mut().set_displacement_leading_zeros(value);
 	}
 
 	/// Options (a [`MemorySizeOptions`] flags value) that control if the memory size (eg. `DWORD PTR`) is shown or not.

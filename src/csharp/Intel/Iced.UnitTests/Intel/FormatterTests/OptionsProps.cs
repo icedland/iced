@@ -16,12 +16,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		BinaryDigitGroupSize,
 		BinaryPrefix,
 		BinarySuffix,
-		BranchLeadingZeroes,
+		BranchLeadingZeros,
 		DecimalDigitGroupSize,
 		DecimalPrefix,
 		DecimalSuffix,
 		DigitSeparator,
-		DisplacementLeadingZeroes,
+		DisplacementLeadingZeros,
 		FirstOperandCharIndex,
 		GasNakedRegisters,
 		GasShowMnemonicSizeSuffix,
@@ -30,7 +30,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		HexPrefix,
 		HexSuffix,
 		IP,
-		LeadingZeroes,
+		LeadingZeros,
 		MasmAddDsPrefix32,
 		MemorySizeOptions,
 		NasmShowSignExtendedImmediateSize,
@@ -96,12 +96,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			case OptionsProps.BinaryDigitGroupSize: options.BinaryDigitGroupSize = (int)value; break;
 			case OptionsProps.BinaryPrefix: options.BinaryPrefix = (string)value; break;
 			case OptionsProps.BinarySuffix: options.BinarySuffix = (string)value; break;
-			case OptionsProps.BranchLeadingZeroes: options.BranchLeadingZeroes = (bool)value; break;
+			case OptionsProps.BranchLeadingZeros: options.BranchLeadingZeros = (bool)value; break;
 			case OptionsProps.DecimalDigitGroupSize: options.DecimalDigitGroupSize = (int)value; break;
 			case OptionsProps.DecimalPrefix: options.DecimalPrefix = (string)value; break;
 			case OptionsProps.DecimalSuffix: options.DecimalSuffix = (string)value; break;
 			case OptionsProps.DigitSeparator: options.DigitSeparator = (string)value; break;
-			case OptionsProps.DisplacementLeadingZeroes: options.DisplacementLeadingZeroes = (bool)value; break;
+			case OptionsProps.DisplacementLeadingZeros: options.DisplacementLeadingZeros = (bool)value; break;
 			case OptionsProps.FirstOperandCharIndex: options.FirstOperandCharIndex = (int)value; break;
 			case OptionsProps.GasNakedRegisters: options.GasNakedRegisters = (bool)value; break;
 			case OptionsProps.GasShowMnemonicSizeSuffix: options.GasShowMnemonicSizeSuffix = (bool)value; break;
@@ -109,7 +109,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			case OptionsProps.HexDigitGroupSize: options.HexDigitGroupSize = (int)value; break;
 			case OptionsProps.HexPrefix: options.HexPrefix = (string)value; break;
 			case OptionsProps.HexSuffix: options.HexSuffix = (string)value; break;
-			case OptionsProps.LeadingZeroes: options.LeadingZeroes = (bool)value; break;
+			case OptionsProps.LeadingZeros: options.LeadingZeros = (bool)value; break;
 			case OptionsProps.MasmAddDsPrefix32: options.MasmAddDsPrefix32 = (bool)value; break;
 			case OptionsProps.MemorySizeOptions: options.MemorySizeOptions = (MemorySizeOptions)value; break;
 			case OptionsProps.NasmShowSignExtendedImmediateSize: options.NasmShowSignExtendedImmediateSize = (bool)value; break;
@@ -173,18 +173,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			case OptionsProps.BinaryDigitGroupSize:
 			case OptionsProps.BinaryPrefix:
 			case OptionsProps.BinarySuffix:
-			case OptionsProps.BranchLeadingZeroes:
+			case OptionsProps.BranchLeadingZeros:
 			case OptionsProps.DecimalDigitGroupSize:
 			case OptionsProps.DecimalPrefix:
 			case OptionsProps.DecimalSuffix:
 			case OptionsProps.DigitSeparator:
-			case OptionsProps.DisplacementLeadingZeroes:
+			case OptionsProps.DisplacementLeadingZeros:
 			case OptionsProps.FirstOperandCharIndex:
 			case OptionsProps.GasNakedRegisters:
 			case OptionsProps.GasShowMnemonicSizeSuffix:
 			case OptionsProps.GasSpaceAfterMemoryOperandComma:
 			case OptionsProps.HexDigitGroupSize:
-			case OptionsProps.LeadingZeroes:
+			case OptionsProps.LeadingZeros:
 			case OptionsProps.MasmAddDsPrefix32:
 			case OptionsProps.NasmShowSignExtendedImmediateSize:
 			case OptionsProps.NumberBase:

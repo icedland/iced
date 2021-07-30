@@ -263,14 +263,17 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Null(options.BinarySuffix);
 			Assert.Equal(4, options.BinaryDigitGroupSize);
 			Assert.Null(options.DigitSeparator);
+			Assert.False(options.LeadingZeros);
 			Assert.False(options.LeadingZeroes);
 			Assert.True(options.UppercaseHex);
 			Assert.True(options.SmallHexNumbersInDecimal);
 			Assert.True(options.AddLeadingZeroToHexNumbers);
 			Assert.Equal(NumberBase.Hexadecimal, options.NumberBase);
+			Assert.True(options.BranchLeadingZeros);
 			Assert.True(options.BranchLeadingZeroes);
 			Assert.False(options.SignedImmediateOperands);
 			Assert.True(options.SignedMemoryDisplacements);
+			Assert.False(options.DisplacementLeadingZeros);
 			Assert.False(options.DisplacementLeadingZeroes);
 			Assert.Equal(MemorySizeOptions.Default, options.MemorySizeOptions);
 			Assert.False(options.RipRelativeAddresses);

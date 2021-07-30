@@ -10,7 +10,7 @@ struct NumberFormatterFlags;
 impl NumberFormatterFlags {
 	const NONE: u32 = 0;
 	const ADD_MINUS_SIGN: u32 = 0x0000_0001;
-	const LEADING_ZEROES: u32 = 0x0000_0002;
+	const LEADING_ZEROS: u32 = 0x0000_0002;
 	const SMALL_HEX_NUMBERS_IN_DECIMAL: u32 = 0x0000_0004;
 }
 
@@ -188,10 +188,10 @@ impl NumberFormatter {
 
 	#[must_use]
 	#[inline]
-	fn get_flags(leading_zeroes: bool, small_hex_numbers_in_decimal: bool) -> u32 {
+	fn get_flags(leading_zeros: bool, small_hex_numbers_in_decimal: bool) -> u32 {
 		let mut flags = NumberFormatterFlags::NONE;
-		if leading_zeroes {
-			flags |= NumberFormatterFlags::LEADING_ZEROES;
+		if leading_zeros {
+			flags |= NumberFormatterFlags::LEADING_ZEROS;
 		}
 		if small_hex_numbers_in_decimal {
 			flags |= NumberFormatterFlags::SMALL_HEX_NUMBERS_IN_DECIMAL;
@@ -202,7 +202,7 @@ impl NumberFormatter {
 	#[must_use]
 	#[inline]
 	pub fn format_i8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i8) -> &str {
-		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
+		let mut flags = NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
 			value = 0i8.wrapping_sub(value);
@@ -213,7 +213,7 @@ impl NumberFormatter {
 	#[must_use]
 	#[inline]
 	pub fn format_i16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i16) -> &str {
-		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
+		let mut flags = NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
 			value = 0i16.wrapping_sub(value);
@@ -224,7 +224,7 @@ impl NumberFormatter {
 	#[must_use]
 	#[inline]
 	pub fn format_i32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i32) -> &str {
-		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
+		let mut flags = NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
 			value = 0i32.wrapping_sub(value);
@@ -235,7 +235,7 @@ impl NumberFormatter {
 	#[must_use]
 	#[inline]
 	pub fn format_i64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, mut value: i64) -> &str {
-		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
+		let mut flags = NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
 			value = 0i64.wrapping_sub(value);
@@ -251,7 +251,7 @@ impl NumberFormatter {
 			options,
 			value as u64,
 			8,
-			NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -263,7 +263,7 @@ impl NumberFormatter {
 			options,
 			value as u64,
 			16,
-			NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -275,7 +275,7 @@ impl NumberFormatter {
 			options,
 			value as u64,
 			32,
-			NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -287,7 +287,7 @@ impl NumberFormatter {
 			options,
 			value,
 			64,
-			NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -299,7 +299,7 @@ impl NumberFormatter {
 			options,
 			value as u64,
 			8,
-			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.displacement_leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -311,7 +311,7 @@ impl NumberFormatter {
 			options,
 			value as u64,
 			16,
-			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.displacement_leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -323,7 +323,7 @@ impl NumberFormatter {
 			options,
 			value as u64,
 			32,
-			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.displacement_leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -335,49 +335,49 @@ impl NumberFormatter {
 			options,
 			value,
 			64,
-			NumberFormatter::get_flags(options.displacement_leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(options.displacement_leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
 	#[must_use]
 	#[inline]
-	pub fn format_u16_zeroes(
-		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u16, leading_zeroes: bool,
+	pub fn format_u16_zeros(
+		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u16, leading_zeros: bool,
 	) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
 			options,
 			value as u64,
 			16,
-			NumberFormatter::get_flags(leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
 	#[must_use]
 	#[inline]
-	pub fn format_u32_zeroes(
-		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u32, leading_zeroes: bool,
+	pub fn format_u32_zeros(
+		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u32, leading_zeros: bool,
 	) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
 			options,
 			value as u64,
 			32,
-			NumberFormatter::get_flags(leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
 	#[must_use]
 	#[inline]
-	pub fn format_u64_zeroes(
-		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u64, leading_zeroes: bool,
+	pub fn format_u64_zeros(
+		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions<'_>, value: u64, leading_zeros: bool,
 	) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
 			options,
 			value,
 			64,
-			NumberFormatter::get_flags(leading_zeroes, options.small_hex_numbers_in_decimal),
+			NumberFormatter::get_flags(leading_zeros, options.small_hex_numbers_in_decimal),
 		)
 	}
 
@@ -403,7 +403,7 @@ impl NumberFormatter {
 						value,
 						options.digit_group_size as u32,
 						options.digit_separator,
-						if (flags & NumberFormatterFlags::LEADING_ZEROES) != 0 { (value_size + 3) >> 2 } else { 0 },
+						if (flags & NumberFormatterFlags::LEADING_ZEROS) != 0 { (value_size + 3) >> 2 } else { 0 },
 						options.uppercase_hex,
 						options.add_leading_zero_to_hex_numbers && options.prefix.is_empty(),
 					);
@@ -423,7 +423,7 @@ impl NumberFormatter {
 					value,
 					options.digit_group_size as u32,
 					options.digit_separator,
-					if (flags & NumberFormatterFlags::LEADING_ZEROES) != 0 { (value_size + 2) / 3 } else { 0 },
+					if (flags & NumberFormatterFlags::LEADING_ZEROS) != 0 { (value_size + 2) / 3 } else { 0 },
 					options.prefix,
 				);
 				suffix = options.suffix;
@@ -436,7 +436,7 @@ impl NumberFormatter {
 					value,
 					options.digit_group_size as u32,
 					options.digit_separator,
-					if (flags & NumberFormatterFlags::LEADING_ZEROES) != 0 { value_size } else { 0 },
+					if (flags & NumberFormatterFlags::LEADING_ZEROS) != 0 { value_size } else { 0 },
 				);
 				suffix = options.suffix;
 			}

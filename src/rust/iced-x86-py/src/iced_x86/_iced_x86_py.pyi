@@ -1570,12 +1570,12 @@ class Formatter:
 	@digit_separator.setter
 	def digit_separator(self, new_value: str) -> None: ...
 	@property
-	def leading_zeroes(self) -> bool:
+	def leading_zeros(self) -> bool:
 		"""
-		bool: Add leading zeroes to hexadecimal/octal/binary numbers.
+		bool: Add leading zeros to hexadecimal/octal/binary numbers.
 
-		This option has no effect on branch targets and displacements, use `Formatter.branch_leading_zeroes`
-		and `Formatter.displacement_leading_zeroes`.
+		This option has no effect on branch targets and displacements, use `Formatter.branch_leading_zeros`
+		and `Formatter.displacement_leading_zeros`.
 
 		```text
 		Default  Value    Example
@@ -1585,8 +1585,8 @@ class Formatter:
 		```
 		"""
 		...
-	@leading_zeroes.setter
-	def leading_zeroes(self, new_value: bool) -> None: ...
+	@leading_zeros.setter
+	def leading_zeros(self, new_value: bool) -> None: ...
 	@property
 	def uppercase_hex(self) -> bool:
 		"""
@@ -1647,9 +1647,9 @@ class Formatter:
 	@number_base.setter
 	def number_base(self, new_value: int) -> None: ...
 	@property
-	def branch_leading_zeroes(self) -> bool:
+	def branch_leading_zeros(self) -> bool:
 		"""
-		bool: Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
+		bool: Add leading zeros to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
 
 		```text
 		Default  Value    Example
@@ -1659,8 +1659,8 @@ class Formatter:
 		```
 		"""
 		...
-	@branch_leading_zeroes.setter
-	def branch_leading_zeroes(self, new_value: bool) -> None: ...
+	@branch_leading_zeros.setter
+	def branch_leading_zeros(self, new_value: bool) -> None: ...
 	@property
 	def signed_immediate_operands(self) -> bool:
 		"""
@@ -1692,9 +1692,9 @@ class Formatter:
 	@signed_memory_displacements.setter
 	def signed_memory_displacements(self, new_value: bool) -> None: ...
 	@property
-	def displacement_leading_zeroes(self) -> bool:
+	def displacement_leading_zeros(self) -> bool:
 		"""
-		bool: Add leading zeroes to displacements
+		bool: Add leading zeros to displacements
 
 		```text
 		Default  Value    Example
@@ -1704,8 +1704,8 @@ class Formatter:
 		```
 		"""
 		...
-	@displacement_leading_zeroes.setter
-	def displacement_leading_zeroes(self, new_value: bool) -> None: ...
+	@displacement_leading_zeros.setter
+	def displacement_leading_zeros(self, new_value: bool) -> None: ...
 	@property
 	def memory_size_options(self) -> MemorySizeOptions:
 		"""

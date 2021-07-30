@@ -25,12 +25,12 @@ pub struct NumberFormattingOptions<'a> {
 	pub small_hex_numbers_in_decimal: bool,
 	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	pub add_leading_zero_to_hex_numbers: bool,
-	/// If `true`, add leading zeroes to numbers, eg. `1h` vs `00000001h`
-	pub leading_zeroes: bool,
+	/// If `true`, add leading zeros to numbers, eg. `1h` vs `00000001h`
+	pub leading_zeros: bool,
 	/// If `true`, the number is signed, and if `false` it's an unsigned number
 	pub signed_number: bool,
-	/// Add leading zeroes to displacements
-	pub displacement_leading_zeroes: bool,
+	/// Add leading zeros to displacements
+	pub displacement_leading_zeros: bool,
 }
 
 impl<'a> NumberFormattingOptions<'a> {
@@ -42,7 +42,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	#[inline]
 	#[must_use]
 	pub fn with_immediate(options: &'a FormatterOptions) -> Self {
-		NumberFormattingOptions::new(options, options.leading_zeroes(), options.signed_immediate_operands(), false)
+		NumberFormattingOptions::new(options, options.leading_zeros(), options.signed_immediate_operands(), false)
 	}
 
 	/// Creates options used when formatting displacements
@@ -53,7 +53,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	#[inline]
 	#[must_use]
 	pub fn with_displacement(options: &'a FormatterOptions) -> Self {
-		NumberFormattingOptions::new(options, options.leading_zeroes(), options.signed_memory_displacements(), options.displacement_leading_zeroes())
+		NumberFormattingOptions::new(options, options.leading_zeros(), options.signed_memory_displacements(), options.displacement_leading_zeros())
 	}
 
 	/// Creates options used when formatting branch operands
@@ -64,7 +64,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	#[inline]
 	#[must_use]
 	pub fn with_branch(options: &'a FormatterOptions) -> Self {
-		NumberFormattingOptions::new(options, options.branch_leading_zeroes(), false, false)
+		NumberFormattingOptions::new(options, options.branch_leading_zeros(), false, false)
 	}
 
 	/// Constructor
@@ -72,13 +72,13 @@ impl<'a> NumberFormattingOptions<'a> {
 	/// # Arguments
 	///
 	/// * `options`: Formatter options to use
-	/// * `leading_zeroes`: Add leading zeroes to numbers, eg. `1h` vs `00000001h`
+	/// * `leading_zeros`: Add leading zeros to numbers, eg. `1h` vs `00000001h`
 	/// * `signed_number`: Signed numbers if `true`, and unsigned numbers if `false`
-	/// * `displacement_leading_zeroes`: Add leading zeroes to displacements
+	/// * `displacement_leading_zeros`: Add leading zeros to displacements
 	#[inline]
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
-	pub fn new(options: &'a FormatterOptions, leading_zeroes: bool, signed_number: bool, displacement_leading_zeroes: bool) -> Self {
+	pub fn new(options: &'a FormatterOptions, leading_zeros: bool, signed_number: bool, displacement_leading_zeros: bool) -> Self {
 		let (digit_group_size, prefix, suffix) = match options.number_base() {
 			NumberBase::Hexadecimal => (options.hex_digit_group_size(), options.hex_prefix(), options.hex_suffix()),
 			NumberBase::Decimal => (options.decimal_digit_group_size(), options.decimal_prefix(), options.decimal_suffix()),
@@ -94,9 +94,9 @@ impl<'a> NumberFormattingOptions<'a> {
 			uppercase_hex: options.uppercase_hex(),
 			small_hex_numbers_in_decimal: options.small_hex_numbers_in_decimal(),
 			add_leading_zero_to_hex_numbers: options.add_leading_zero_to_hex_numbers(),
-			leading_zeroes,
+			leading_zeros,
 			signed_number,
-			displacement_leading_zeroes,
+			displacement_leading_zeros,
 		}
 	}
 }

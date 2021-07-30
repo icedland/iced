@@ -440,11 +440,11 @@ namespace Iced.Intel {
 					flowControl = FormatterUtils.GetFlowControl(instruction);
 					FormatFlowControl(output, flowControl, operandOptions);
 					if (opKind == InstrOpKind.NearBranch32)
-						s = numberFormatter.FormatUInt32(options, numberOptions, instruction.NearBranch32, numberOptions.LeadingZeroes);
+						s = numberFormatter.FormatUInt32(options, numberOptions, instruction.NearBranch32, numberOptions.LeadingZeros);
 					else if (opKind == InstrOpKind.NearBranch64)
-						s = numberFormatter.FormatUInt64(options, numberOptions, instruction.NearBranch64, numberOptions.LeadingZeroes);
+						s = numberFormatter.FormatUInt64(options, numberOptions, instruction.NearBranch64, numberOptions.LeadingZeros);
 					else
-						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.NearBranch16, numberOptions.LeadingZeroes);
+						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.NearBranch16, numberOptions.LeadingZeros);
 					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterUtils.IsCall(flowControl) ? FormatterTextKind.FunctionAddress : FormatterTextKind.LabelAddress);
 				}
 				break;
@@ -468,7 +468,7 @@ namespace Iced.Intel {
 					FormatFlowControl(output, FormatterUtils.GetFlowControl(instruction), operandOptions);
 					Debug.Assert(operand + 1 == 1);
 					if (!symbolResolver.TryGetSymbol(instruction, operand + 1, instructionOperand, instruction.FarBranchSelector, 2, out var selectorSymbol)) {
-						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeroes);
+						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeros);
 						output.WriteNumber(instruction, operand, instructionOperand, s, instruction.FarBranchSelector, NumberKind.UInt16, FormatterTextKind.SelectorValue);
 					}
 					else
@@ -479,13 +479,13 @@ namespace Iced.Intel {
 				else {
 					flowControl = FormatterUtils.GetFlowControl(instruction);
 					FormatFlowControl(output, flowControl, operandOptions);
-					s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeroes);
+					s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeros);
 					output.WriteNumber(instruction, operand, instructionOperand, s, instruction.FarBranchSelector, NumberKind.UInt16, FormatterTextKind.SelectorValue);
 					output.Write(":", FormatterTextKind.Punctuation);
 					if (opKind == InstrOpKind.FarBranch32)
-						s = numberFormatter.FormatUInt32(options, numberOptions, instruction.FarBranch32, numberOptions.LeadingZeroes);
+						s = numberFormatter.FormatUInt32(options, numberOptions, instruction.FarBranch32, numberOptions.LeadingZeros);
 					else
-						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranch16, numberOptions.LeadingZeroes);
+						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranch16, numberOptions.LeadingZeros);
 					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterUtils.IsCall(flowControl) ? FormatterTextKind.FunctionAddress : FormatterTextKind.LabelAddress);
 				}
 				break;
@@ -906,7 +906,7 @@ namespace Iced.Intel {
 						}
 						else
 							output.Write("+", FormatterTextKind.Operator);
-						if (numberOptions.DisplacementLeadingZeroes) {
+						if (numberOptions.DisplacementLeadingZeros) {
 							displSize = 4;
 						}
 					}
@@ -919,7 +919,7 @@ namespace Iced.Intel {
 						}
 						else
 							output.Write("+", FormatterTextKind.Operator);
-						if (numberOptions.DisplacementLeadingZeroes) {
+						if (numberOptions.DisplacementLeadingZeros) {
 							displSize = 4;
 						}
 					}
@@ -933,7 +933,7 @@ namespace Iced.Intel {
 						}
 						else
 							output.Write("+", FormatterTextKind.Operator);
-						if (numberOptions.DisplacementLeadingZeroes) {
+						if (numberOptions.DisplacementLeadingZeros) {
 							displSize = 2;
 						}
 					}

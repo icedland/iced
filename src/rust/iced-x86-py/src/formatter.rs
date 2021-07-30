@@ -809,10 +809,10 @@ impl Formatter {
 		self.formatter.options_mut().set_digit_separator_string(new_value);
 	}
 
-	/// bool: Add leading zeroes to hexadecimal/octal/binary numbers.
+	/// bool: Add leading zeros to hexadecimal/octal/binary numbers.
 	///
-	/// This option has no effect on branch targets and displacements, use :class:`Formatter.branch_leading_zeroes`
-	/// and :class:`Formatter.displacement_leading_zeroes`.
+	/// This option has no effect on branch targets and displacements, use :class:`Formatter.branch_leading_zeros`
+	/// and :class:`Formatter.displacement_leading_zeros`.
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -821,13 +821,13 @@ impl Formatter {
 	/// ✔️          ``False``   ``0xA``/``0Ah``
 	/// =========== ========== ================================================
 	#[getter]
-	fn leading_zeroes(&self) -> bool {
-		self.formatter.options().leading_zeroes()
+	fn leading_zeros(&self) -> bool {
+		self.formatter.options().leading_zeros()
 	}
 
 	#[setter]
-	fn set_leading_zeroes(&mut self, new_value: bool) {
-		self.formatter.options_mut().set_leading_zeroes(new_value);
+	fn set_leading_zeros(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_leading_zeros(new_value);
 	}
 
 	/// bool: Use uppercase hex digits
@@ -913,7 +913,7 @@ impl Formatter {
 		Ok(())
 	}
 
-	/// bool: Add leading zeroes to branch offsets. Used by ``CALL NEAR``, ``CALL FAR``, ``JMP NEAR``, ``JMP FAR``, ``Jcc``, ``LOOP``, ``LOOPcc``, ``XBEGIN``
+	/// bool: Add leading zeros to branch offsets. Used by ``CALL NEAR``, ``CALL FAR``, ``JMP NEAR``, ``JMP FAR``, ``Jcc``, ``LOOP``, ``LOOPcc``, ``XBEGIN``
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -922,13 +922,13 @@ impl Formatter {
 	/// \           ``False``   ``je 123h``
 	/// =========== ========== ================================================
 	#[getter]
-	fn branch_leading_zeroes(&self) -> bool {
-		self.formatter.options().branch_leading_zeroes()
+	fn branch_leading_zeros(&self) -> bool {
+		self.formatter.options().branch_leading_zeros()
 	}
 
 	#[setter]
-	fn set_branch_leading_zeroes(&mut self, new_value: bool) {
-		self.formatter.options_mut().set_branch_leading_zeroes(new_value);
+	fn set_branch_leading_zeros(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_branch_leading_zeros(new_value);
 	}
 
 	/// bool: Show immediate operands as signed numbers
@@ -967,7 +967,7 @@ impl Formatter {
 		self.formatter.options_mut().set_signed_memory_displacements(new_value);
 	}
 
-	/// bool: Add leading zeroes to displacements
+	/// bool: Add leading zeros to displacements
 	///
 	/// =========== ========== ================================================
 	/// Default     Value      Example
@@ -976,13 +976,13 @@ impl Formatter {
 	/// ✔️          ``False``   ``mov al,[eax+12h]``
 	/// =========== ========== ================================================
 	#[getter]
-	fn displacement_leading_zeroes(&self) -> bool {
-		self.formatter.options().displacement_leading_zeroes()
+	fn displacement_leading_zeros(&self) -> bool {
+		self.formatter.options().displacement_leading_zeros()
 	}
 
 	#[setter]
-	fn set_displacement_leading_zeroes(&mut self, new_value: bool) {
-		self.formatter.options_mut().set_displacement_leading_zeroes(new_value);
+	fn set_displacement_leading_zeros(&mut self, new_value: bool) {
+		self.formatter.options_mut().set_displacement_leading_zeros(new_value);
 	}
 
 	/// :class:`MemorySizeOptions`: Options that control if the memory size (eg. ``DWORD PTR``) is shown or not.
