@@ -90,10 +90,22 @@ namespace Generator.Tables {
 		/// </summary>
 		public readonly int SizeBits;
 
-		public ParsedInstructionOperand(ParsedInstructionOperandFlags flags, Register register, int sizeBits) {
+		/// <summary>
+		/// Memory size in bits
+		/// </summary>
+		public readonly int MemSizeBits;
+
+		/// <summary>
+		/// Memory broadcast size in bits
+		/// </summary>
+		public readonly int MemSize2Bits;
+
+		public ParsedInstructionOperand(ParsedInstructionOperandFlags flags, Register register, int sizeBits, int memSizeBits, int memSize2Bits) {
 			Flags = flags;
 			Register = register;
 			SizeBits = sizeBits;
+			MemSizeBits = memSizeBits;
+			MemSize2Bits = memSize2Bits;
 		}
 	}
 

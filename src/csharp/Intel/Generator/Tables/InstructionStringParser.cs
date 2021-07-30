@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,41 @@ namespace Generator.Tables {
 			var opsStr = instrStr[index..].Trim();
 			operands = opsStr == string.Empty ? Array.Empty<string>() : opsStr.Split(',').Select(a => a.Trim()).ToArray();
 			instrFlags = ParsedInstructionFlags.None;
+		}
+
+		public bool TryParseMemorySize(string s, out int value) {
+			Debug.Assert(s.StartsWith("m", StringComparison.Ordinal));
+			var s2 = s.AsSpan()["m".Length..];
+			if (s2.EndsWith("bcst", StringComparison.Ordinal))
+				s2 = s2[..^"bcst".Length];
+			if (s2.EndsWith("byte", StringComparison.Ordinal))
+				s2 = s2[..^"byte".Length];
+			if (s2.EndsWith("int", StringComparison.Ordinal))
+				s2 = s2[..^"int".Length];
+			if (s2.EndsWith("fp", StringComparison.Ordinal))
+				s2 = s2[..^"fp".Length];
+			if (s2.EndsWith("bcd", StringComparison.Ordinal))
+				s2 = s2[..^"bcd".Length];
+
+			switch (s2.ToString()) {
+			case "16&16":
+			case "16:16":
+				value = 32;
+				return true;
+			case "16&32":
+			case "16:32":
+				value = 48;
+				return true;
+			case "16&64":
+			case "16:64":
+				value = 80;
+				return true;
+			case "32&32":
+				value = 64;
+				return true;
+			}
+
+			return int.TryParse(s2, out value);
 		}
 
 		public bool TryParse(out ParsedInstructionResult result, [NotNullWhen(false)] out string? error) {
@@ -100,6 +136,8 @@ namespace Generator.Tables {
 				}
 				var register = Register.None;
 				int sizeBits = 0;
+				int memSizeBits = 0;
+				int memSize2Bits = 0;
 				switch (firstPart) {
 				case "bnd":
 				case "bnd1":
@@ -235,6 +273,7 @@ namespace Generator.Tables {
 				case "moffs32":
 				case "moffs64":
 					opFlags |= ParsedInstructionOperandFlags.MemoryOffset | ParsedInstructionOperandFlags.Memory;
+					memSizeBits = int.Parse(firstPart.AsSpan()["moffs".Length..]);
 					break;
 
 				case "vm32x":
@@ -271,6 +310,8 @@ namespace Generator.Tables {
 					}
 					else if (firstPart.StartsWith("m", StringComparison.Ordinal) && firstPart.Length >= 2 && char.IsDigit(firstPart[1])) {
 						opFlags |= ParsedInstructionOperandFlags.Memory;
+						if (!TryParseMemorySize(firstPart, out memSizeBits))
+							throw new InvalidOperationException($"Invalid memory size: {firstPart}");
 						break;
 					}
 					else if (firstPart.ToUpperInvariant() == firstPart) {
@@ -288,8 +329,11 @@ namespace Generator.Tables {
 
 				if (opParts.Length >= 2) {
 					var part = opParts[1];
-					if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1]))
+					if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1])) {
 						opFlags |= ParsedInstructionOperandFlags.Memory;
+						if (!TryParseMemorySize(part, out memSizeBits))
+							throw new InvalidOperationException($"Invalid memory size: {part}");
+					}
 					else {
 						error = $"Unknown value: `{part}`";
 						return false;
@@ -298,8 +342,11 @@ namespace Generator.Tables {
 
 				if (opParts.Length >= 3) {
 					var part = opParts[2];
-					if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1]) && part.EndsWith("bcst", StringComparison.Ordinal))
+					if (part.StartsWith("m", StringComparison.Ordinal) && part.Length >= 2 && char.IsDigit(part[1]) && part.EndsWith("bcst", StringComparison.Ordinal)) {
 						opFlags |= ParsedInstructionOperandFlags.Broadcast;
+						if (!TryParseMemorySize(part, out memSize2Bits))
+							throw new InvalidOperationException($"Invalid memory size: {part}");
+					}
 					else {
 						error = $"Unknown value: `{part}`";
 						return false;
@@ -311,7 +358,7 @@ namespace Generator.Tables {
 					return false;
 				}
 
-				parsedOps.Add(new ParsedInstructionOperand(opFlags, register, sizeBits));
+				parsedOps.Add(new ParsedInstructionOperand(opFlags, register, sizeBits, memSizeBits, memSize2Bits));
 			}
 
 			var impliedOps = new List<InstrStrImpliedOp>();
