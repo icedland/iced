@@ -2746,7 +2746,7 @@ fn verify_cpu_mode() {
 
 #[test]
 fn verify_can_only_decode_in_correct_mode() {
-	let extra_bytes: String = iter::repeat('0').take((IcedConstants::MAX_INSTRUCTION_LENGTH - 1) * 2).collect();
+	let extra_bytes = "0".repeat((IcedConstants::MAX_INSTRUCTION_LENGTH - 1) * 2);
 	for info in decoder_tests(false, false) {
 		let op_code = info.code().op_code();
 		let new_hex_bytes = format!("{}{}", info.hex_bytes(), extra_bytes);
@@ -2901,7 +2901,7 @@ fn verify_invalid_pp_field() {
 
 #[test]
 fn verify_regonly_or_regmemonly_mod_bits() {
-	let extra_bytes: String = iter::repeat('0').take((IcedConstants::MAX_INSTRUCTION_LENGTH - 1) * 2).collect();
+	let extra_bytes = "0".repeat((IcedConstants::MAX_INSTRUCTION_LENGTH - 1) * 2);
 	for info in decoder_tests(false, false) {
 		let op_code = info.code().op_code();
 		if !is_reg_only_or_reg_mem_only_mod_rm(op_code) {
@@ -3007,7 +3007,7 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 
 #[test]
 fn disable_decoder_option_disables_instruction() {
-	let extra_bytes: String = iter::repeat('0').take((IcedConstants::MAX_INSTRUCTION_LENGTH - 1) * 2).collect();
+	let extra_bytes = "0".repeat((IcedConstants::MAX_INSTRUCTION_LENGTH - 1) * 2);
 	for info in decoder_tests(false, false) {
 		if info.decoder_options() == DecoderOptions::NONE {
 			continue;
