@@ -12,6 +12,10 @@ namespace Iced.Intel {
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __ = new AssemblerMemoryOperandFactory(MemoryOperandSize.None);
 		/// <summary>
+		/// Gets an un-sized bcst memory operand.
+		/// </summary>
+		public static readonly AssemblerMemoryOperandFactory __bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.None, Register.None, AssemblerOperandFlags.Broadcast);
+		/// <summary>
 		/// Gets a 8-bit / byte ptr memory operand.
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __byte_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.BytePtr);
@@ -19,6 +23,10 @@ namespace Iced.Intel {
 		/// Gets a 16-bit / word ptr memory operand.
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __word_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.WordPtr);
+		/// <summary>
+		/// Gets a 16-bit / word bcst memory operand.
+		/// </summary>
+		public static readonly AssemblerMemoryOperandFactory __word_bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.WordPtr, Register.None, AssemblerOperandFlags.Broadcast);
 		/// <summary>
 		/// Gets a 32-bit / dword ptr memory operand.
 		/// </summary>
