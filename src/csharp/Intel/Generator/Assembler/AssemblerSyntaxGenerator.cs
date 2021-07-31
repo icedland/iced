@@ -284,7 +284,7 @@ namespace Generator.Assembler {
 		}
 
 		ArgKind GetArgKind(OpCodeOperandKindDef def, bool isRegMem) {
-			var (reg, rm) = (RegisterKind)regDefs[(int)def.Register].RegisterKind.Value switch {
+			var (reg, rm) = regDefs[(int)def.Register].GetRegisterKind() switch {
 				RegisterKind.GPR8 => (ArgKind.Register8, ArgKind.Register8Memory),
 				RegisterKind.GPR16 => (ArgKind.Register16, ArgKind.Register16Memory),
 				RegisterKind.GPR32 => (ArgKind.Register32, ArgKind.Register32Memory),
@@ -1517,7 +1517,7 @@ namespace Generator.Assembler {
 			};
 
 		protected static string GetRegisterSuffix(RegisterDef def) =>
-			(RegisterKind)def.RegisterKind.Value switch {
+			def.GetRegisterKind() switch {
 				RegisterKind.GPR8 => "8",
 				RegisterKind.GPR16 => "16",
 				RegisterKind.GPR32 => "32",

@@ -69,7 +69,7 @@ namespace Generator.Assembler.CSharp {
 							var regDef = regDefs[(int)register.Value];
 							var registerName = regDef.Name;
 							// st(0) -> st0 etc
-							if ((Register)regDef.BaseRegister.Value == Register.ST0)
+							if (regDef.GetRegisterKind() == RegisterKind.ST)
 								registerName = regDef.Register.RawName;
 							var assemblerRegisterName = registerName.ToLowerInvariant();
 							var registerTypeName = $"AssemblerRegister{GetRegisterSuffix(regDef)}";
@@ -796,7 +796,7 @@ namespace Generator.Assembler.CSharp {
 
 			case OperandEncoding.ImpliedRegister:
 				var regDef = regDefs[(int)def.Register];
-				return ((Register)regDef.BaseRegister.Value == Register.ST0 ? regDef.Register.RawName : regDef.Name).ToLowerInvariant();
+				return (regDef.GetRegisterKind() == RegisterKind.ST ? regDef.Register.RawName : regDef.Name).ToLowerInvariant();
 
 			case OperandEncoding.RegImm:
 			case OperandEncoding.RegOpCode:

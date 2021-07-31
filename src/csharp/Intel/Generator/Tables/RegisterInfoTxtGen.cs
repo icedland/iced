@@ -44,7 +44,7 @@ namespace Generator.Tables {
 					writer.Write(sep);
 					writer.Write(def.Size.ToString());
 
-					switch ((RegisterKind)def.RegisterKind.Value) {
+					switch (def.GetRegisterKind()) {
 					case RegisterKind.None:
 						writer.Write(sepNoSpace);
 						break;

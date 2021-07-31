@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+using System;
 using Generator.Enums;
 
 namespace Generator.Tables {
@@ -62,8 +63,13 @@ namespace Generator.Tables {
 			RegisterClass = registerClass;
 			RegisterKind = registerKind;
 			Size = size;
+			if (register.Value < baseRegister.Value)
+				throw new InvalidOperationException();
 			Index = register.Value - baseRegister.Value;
 			Name = name;
 		}
+
+		public Tables.RegisterKind GetRegisterKind() => (Tables.RegisterKind)RegisterKind.Value;
+		public Tables.RegisterClass GetRegisterClass() => (Tables.RegisterClass)RegisterClass.Value;
 	}
 }

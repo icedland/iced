@@ -749,7 +749,7 @@ namespace Generator.Tables {
 				addressSize = GetAddressSize(index);
 			bool isVecIndexReg = index is ImplAccRegister register &&
 				register.Kind == ImplAccRegisterKind.Register &&
-				(RegisterClass)toRegisterDef[register.Register!].RegisterClass.Value == RegisterClass.Vector;
+				toRegisterDef[register.Register!].GetRegisterClass() == RegisterClass.Vector;
 			if (vsibSize != 0) {
 				if (!isVecIndexReg) {
 					error = "Missing vector index register";
@@ -774,7 +774,7 @@ namespace Generator.Tables {
 				case ImplAccRegisterKind.Register:
 					var regEnum = reg.Register ?? throw new InvalidOperationException();
 					var regDef = toRegisterDef[regEnum];
-					switch ((RegisterKind)regDef.RegisterKind.Value) {
+					switch (regDef.GetRegisterKind()) {
 					case RegisterKind.GPR16:
 						return CodeSize.Code16;
 					case RegisterKind.GPR32:
