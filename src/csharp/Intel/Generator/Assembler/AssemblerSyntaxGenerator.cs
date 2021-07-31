@@ -95,11 +95,11 @@ namespace Generator.Assembler {
 
 		protected const InstructionDefFlags1 BitnessMaskFlags = InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16;
 
-		protected abstract void GenerateRegisters(EnumType registers);
+		protected abstract void GenerateRegisters();
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
 
 		public void Generate() {
-			GenerateRegisters(genTypes[TypeIds.Register]);
+			GenerateRegisters();
 			GenerateOpCodes();
 		}
 

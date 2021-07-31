@@ -40,7 +40,7 @@ namespace Generator.Assembler.CSharp {
 			memoryOperandSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
 		}
 
-		protected override void GenerateRegisters(EnumType registers) {
+		protected override void GenerateRegisters() {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -51,29 +51,20 @@ namespace Generator.Assembler.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine("public static partial class AssemblerRegisters {");
 					using (writer.Indent()) {
-						foreach (var register in registers.Values) {
-							switch ((Register)register.Value) {
-							case Register.None:
-							case Register.EIP:
-							case Register.RIP:
-							case Register.DontUse0:
-							case Register.DontUseFA:
-							case Register.DontUseFB:
-							case Register.DontUseFC:
-							case Register.DontUseFD:
-							case Register.DontUseFE:
-							case Register.DontUseFF:
+						foreach (var regDef in regDefs) {
+							switch (regDef.GetRegisterKind()) {
+							case RegisterKind.None:
+							case RegisterKind.IP:
 								continue;
 							}
 
-							var regDef = regDefs[(int)register.Value];
 							var registerName = regDef.Name;
 							// st(0) -> st0 etc
 							if (regDef.GetRegisterKind() == RegisterKind.ST)
 								registerName = regDef.Register.RawName;
 							var assemblerRegisterName = registerName.ToLowerInvariant();
 							var registerTypeName = $"AssemblerRegister{GetRegisterSuffix(regDef)}";
-							writer.WriteLine($"public static readonly {registerTypeName} {assemblerRegisterName} = new {registerTypeName}({register.DeclaringType.Name(idConverter)}.{register.Name(idConverter)});");
+							writer.WriteLine($"public static readonly {registerTypeName} {assemblerRegisterName} = new {registerTypeName}({regDef.Register.DeclaringType.Name(idConverter)}.{regDef.Register.Name(idConverter)});");
 						}
 					}
 					writer.WriteLine("}");
