@@ -14,39 +14,39 @@ namespace Iced.Intel {
 		/// <summary>
 		/// A 8-bit / byte pointer.
 		/// </summary>
-		BytePtr,
+		Byte,
 		/// <summary>
 		/// A 16-bit / word pointer.
 		/// </summary>
-		WordPtr,
+		Word,
 		/// <summary>
 		/// A 32-bit / double-word pointer.
 		/// </summary>
-		DwordPtr,
+		Dword,
 		/// <summary>
 		/// A 64-bit / quad word pointer.
 		/// </summary>
-		QwordPtr,
+		Qword,
 		/// <summary>
 		/// A 80-bit / tword pointer.
 		/// </summary>
-		TwordPtr,
+		Tword,
 		/// <summary>
 		/// A 16-bit segment + 32-bit address.
 		/// </summary>
-		FwordPtr,
+		Fword,
 		/// <summary>
 		/// A 128-bit / xmm pointer.
 		/// </summary>
-		OwordPtr,
+		Xword,
 		/// <summary>
 		/// A 256-bit / ymm pointer.
 		/// </summary>
-		YwordPtr,
+		Yword,
 		/// <summary>
 		/// A 512-bit / zmm pointer.
 		/// </summary>
-		ZwordPtr,
+		Zword,
 	}
 }
 #endif

@@ -384,42 +384,42 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{
 				var m = __word_ptr[eax];
 				Assert.Equal(new MemoryOperand(Register.EAX, Register.None, 1, 0, 0), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.WordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Word, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __dword_ptr[eax];
 				Assert.Equal(new MemoryOperand(Register.EAX, Register.None, 1, 0, 0), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.DwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Dword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __qword_ptr[eax];
 				Assert.Equal(new MemoryOperand(Register.EAX, Register.None, 1, 0, 0), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.QwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Qword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __xmmword_ptr[eax];
 				Assert.Equal(new MemoryOperand(Register.EAX, Register.None, 1, 0, 0), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.OwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Xword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __ymmword_ptr[eax];
 				Assert.Equal(new MemoryOperand(Register.EAX, Register.None, 1, 0, 0), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.YwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Yword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __zmmword_ptr[eax];
 				Assert.Equal(new MemoryOperand(Register.EAX, Register.None, 1, 0, 0), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.ZwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Zword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
@@ -482,28 +482,28 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{
 				var m = __dword_bcst[rsi + rdi * 2 + 124];
 				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 124, 1, true, Register.None), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.DwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Dword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.Broadcast, m.Flags);
 			}
 
 			{
 				var m = __dword_bcst[rsi + rdi * 2 - 124];
 				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, -124, 1, true, Register.None), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.DwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Dword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.Broadcast, m.Flags);
 			}
 
 			{
 				var m = __dword_bcst[(rsi + rdi * 2 - 124) + 1];
 				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, -123, 1, true, Register.None), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.DwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Dword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.Broadcast, m.Flags);
 			}
 
 			{
 				var m = __dword_bcst[(rsi + rdi * 2 - 124) - 1];
 				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, -125, 1, true, Register.None), m.ToMemoryOperand(64));
-				Assert.Equal(MemoryOperandSize.DwordPtr, m.Size);
+				Assert.Equal(MemoryOperandSize.Dword, m.Size);
 				Assert.Equal(AssemblerOperandFlags.Broadcast, m.Flags);
 			}
 
