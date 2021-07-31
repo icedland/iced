@@ -602,6 +602,281 @@ namespace Iced.Intel {
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	[EditorBrowsable(EditorBrowsableState.Never)]
+	public readonly partial struct AssemblerRegisterSegment : IEquatable<AssemblerRegisterSegment> {
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		public AssemblerRegisterSegment(Register value) {
+			if (!value.IsSegmentRegister()) throw new ArgumentException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
+			Value = value;
+		}
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegisterSegment"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegisterSegment</param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegisterSegment reg) {
+			return reg.Value;
+		}
+
+		/// <inheritdoc />
+		public bool Equals(AssemblerRegisterSegment other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegisterSegment other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegisterSegment"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegisterSegment left, AssemblerRegisterSegment right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegisterSegment"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegisterSegment left, AssemblerRegisterSegment right) => !left.Equals(right);
+	}
+
+	/// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public readonly partial struct AssemblerRegisterCR : IEquatable<AssemblerRegisterCR> {
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		public AssemblerRegisterCR(Register value) {
+			if (!value.IsCR()) throw new ArgumentException($"Invalid register {value}. Must be a CR register", nameof(value));
+			Value = value;
+		}
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegisterCR"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegisterCR</param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegisterCR reg) {
+			return reg.Value;
+		}
+
+		/// <inheritdoc />
+		public bool Equals(AssemblerRegisterCR other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegisterCR other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegisterCR"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegisterCR left, AssemblerRegisterCR right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegisterCR"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegisterCR left, AssemblerRegisterCR right) => !left.Equals(right);
+	}
+
+	/// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public readonly partial struct AssemblerRegisterDR : IEquatable<AssemblerRegisterDR> {
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		public AssemblerRegisterDR(Register value) {
+			if (!value.IsDR()) throw new ArgumentException($"Invalid register {value}. Must be a DR register", nameof(value));
+			Value = value;
+		}
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegisterDR"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegisterDR</param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegisterDR reg) {
+			return reg.Value;
+		}
+
+		/// <inheritdoc />
+		public bool Equals(AssemblerRegisterDR other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegisterDR other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegisterDR"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegisterDR left, AssemblerRegisterDR right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegisterDR"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegisterDR left, AssemblerRegisterDR right) => !left.Equals(right);
+	}
+
+	/// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public readonly partial struct AssemblerRegisterTR : IEquatable<AssemblerRegisterTR> {
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		public AssemblerRegisterTR(Register value) {
+			if (!value.IsTR()) throw new ArgumentException($"Invalid register {value}. Must be a TR register", nameof(value));
+			Value = value;
+		}
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegisterTR"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegisterTR</param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegisterTR reg) {
+			return reg.Value;
+		}
+
+		/// <inheritdoc />
+		public bool Equals(AssemblerRegisterTR other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegisterTR other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegisterTR"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegisterTR left, AssemblerRegisterTR right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegisterTR"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegisterTR left, AssemblerRegisterTR right) => !left.Equals(right);
+	}
+
+	/// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public readonly partial struct AssemblerRegisterST : IEquatable<AssemblerRegisterST> {
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		public AssemblerRegisterST(Register value) {
+			if (!value.IsST()) throw new ArgumentException($"Invalid register {value}. Must be a ST register", nameof(value));
+			Value = value;
+		}
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegisterST"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegisterST</param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegisterST reg) {
+			return reg.Value;
+		}
+
+		/// <inheritdoc />
+		public bool Equals(AssemblerRegisterST other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegisterST other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegisterST"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegisterST left, AssemblerRegisterST right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegisterST"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegisterST left, AssemblerRegisterST right) => !left.Equals(right);
+	}
+
+	/// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterMM : IEquatable<AssemblerRegisterMM> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1155,6 +1430,61 @@ namespace Iced.Intel {
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	[EditorBrowsable(EditorBrowsableState.Never)]
+	public readonly partial struct AssemblerRegisterTMM : IEquatable<AssemblerRegisterTMM> {
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		public AssemblerRegisterTMM(Register value) {
+			if (!value.IsTMM()) throw new ArgumentException($"Invalid register {value}. Must be a TMM register", nameof(value));
+			Value = value;
+		}
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegisterTMM"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegisterTMM</param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegisterTMM reg) {
+			return reg.Value;
+		}
+
+		/// <inheritdoc />
+		public bool Equals(AssemblerRegisterTMM other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegisterTMM other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegisterTMM"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegisterTMM left, AssemblerRegisterTMM right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegisterTMM"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegisterTMM left, AssemblerRegisterTMM right) => !left.Equals(right);
+	}
+
+	/// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterK : IEquatable<AssemblerRegisterK> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1259,336 +1589,6 @@ namespace Iced.Intel {
 		/// <param name="right">Register</param>
 		/// <returns></returns>
 		public static bool operator !=(AssemblerRegisterK left, AssemblerRegisterK right) => !left.Equals(right);
-	}
-
-	/// <summary>
-	/// An assembler register used with <see cref="Assembler"/>.
-	/// </summary>
-	[DebuggerDisplay("{" + nameof(Value) + "}")]
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public readonly partial struct AssemblerRegisterCR : IEquatable<AssemblerRegisterCR> {
-		/// <summary>
-		/// Creates a new instance.
-		/// </summary>
-		/// <param name="value">A Register</param>
-		public AssemblerRegisterCR(Register value) {
-			if (!value.IsCR()) throw new ArgumentException($"Invalid register {value}. Must be a CR register", nameof(value));
-			Value = value;
-		}
-
-		/// <summary>
-		/// The register value.
-		/// </summary>
-		public readonly Register Value;
-
-		/// <summary>
-		/// Converts a <see cref="AssemblerRegisterCR"/> to a <see cref="Register"/>.
-		/// </summary>
-		/// <param name="reg">AssemblerRegisterCR</param>
-		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterCR reg) {
-			return reg.Value;
-		}
-
-		/// <inheritdoc />
-		public bool Equals(AssemblerRegisterCR other) => Value == other.Value;
-
-		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
-
-		/// <inheritdoc />
-		public override bool Equals(object? obj) => obj is AssemblerRegisterCR other && Equals(other);
-
-		/// <summary>
-		/// Equality operator for <see cref="AssemblerRegisterCR"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator ==(AssemblerRegisterCR left, AssemblerRegisterCR right) => left.Equals(right);
-
-		/// <summary>
-		/// Inequality operator for <see cref="AssemblerRegisterCR"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator !=(AssemblerRegisterCR left, AssemblerRegisterCR right) => !left.Equals(right);
-	}
-
-	/// <summary>
-	/// An assembler register used with <see cref="Assembler"/>.
-	/// </summary>
-	[DebuggerDisplay("{" + nameof(Value) + "}")]
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public readonly partial struct AssemblerRegisterTR : IEquatable<AssemblerRegisterTR> {
-		/// <summary>
-		/// Creates a new instance.
-		/// </summary>
-		/// <param name="value">A Register</param>
-		public AssemblerRegisterTR(Register value) {
-			if (!value.IsTR()) throw new ArgumentException($"Invalid register {value}. Must be a TR register", nameof(value));
-			Value = value;
-		}
-
-		/// <summary>
-		/// The register value.
-		/// </summary>
-		public readonly Register Value;
-
-		/// <summary>
-		/// Converts a <see cref="AssemblerRegisterTR"/> to a <see cref="Register"/>.
-		/// </summary>
-		/// <param name="reg">AssemblerRegisterTR</param>
-		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterTR reg) {
-			return reg.Value;
-		}
-
-		/// <inheritdoc />
-		public bool Equals(AssemblerRegisterTR other) => Value == other.Value;
-
-		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
-
-		/// <inheritdoc />
-		public override bool Equals(object? obj) => obj is AssemblerRegisterTR other && Equals(other);
-
-		/// <summary>
-		/// Equality operator for <see cref="AssemblerRegisterTR"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator ==(AssemblerRegisterTR left, AssemblerRegisterTR right) => left.Equals(right);
-
-		/// <summary>
-		/// Inequality operator for <see cref="AssemblerRegisterTR"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator !=(AssemblerRegisterTR left, AssemblerRegisterTR right) => !left.Equals(right);
-	}
-
-	/// <summary>
-	/// An assembler register used with <see cref="Assembler"/>.
-	/// </summary>
-	[DebuggerDisplay("{" + nameof(Value) + "}")]
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public readonly partial struct AssemblerRegisterDR : IEquatable<AssemblerRegisterDR> {
-		/// <summary>
-		/// Creates a new instance.
-		/// </summary>
-		/// <param name="value">A Register</param>
-		public AssemblerRegisterDR(Register value) {
-			if (!value.IsDR()) throw new ArgumentException($"Invalid register {value}. Must be a DR register", nameof(value));
-			Value = value;
-		}
-
-		/// <summary>
-		/// The register value.
-		/// </summary>
-		public readonly Register Value;
-
-		/// <summary>
-		/// Converts a <see cref="AssemblerRegisterDR"/> to a <see cref="Register"/>.
-		/// </summary>
-		/// <param name="reg">AssemblerRegisterDR</param>
-		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterDR reg) {
-			return reg.Value;
-		}
-
-		/// <inheritdoc />
-		public bool Equals(AssemblerRegisterDR other) => Value == other.Value;
-
-		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
-
-		/// <inheritdoc />
-		public override bool Equals(object? obj) => obj is AssemblerRegisterDR other && Equals(other);
-
-		/// <summary>
-		/// Equality operator for <see cref="AssemblerRegisterDR"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator ==(AssemblerRegisterDR left, AssemblerRegisterDR right) => left.Equals(right);
-
-		/// <summary>
-		/// Inequality operator for <see cref="AssemblerRegisterDR"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator !=(AssemblerRegisterDR left, AssemblerRegisterDR right) => !left.Equals(right);
-	}
-
-	/// <summary>
-	/// An assembler register used with <see cref="Assembler"/>.
-	/// </summary>
-	[DebuggerDisplay("{" + nameof(Value) + "}")]
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public readonly partial struct AssemblerRegisterST : IEquatable<AssemblerRegisterST> {
-		/// <summary>
-		/// Creates a new instance.
-		/// </summary>
-		/// <param name="value">A Register</param>
-		public AssemblerRegisterST(Register value) {
-			if (!value.IsST()) throw new ArgumentException($"Invalid register {value}. Must be a ST register", nameof(value));
-			Value = value;
-		}
-
-		/// <summary>
-		/// The register value.
-		/// </summary>
-		public readonly Register Value;
-
-		/// <summary>
-		/// Converts a <see cref="AssemblerRegisterST"/> to a <see cref="Register"/>.
-		/// </summary>
-		/// <param name="reg">AssemblerRegisterST</param>
-		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterST reg) {
-			return reg.Value;
-		}
-
-		/// <inheritdoc />
-		public bool Equals(AssemblerRegisterST other) => Value == other.Value;
-
-		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
-
-		/// <inheritdoc />
-		public override bool Equals(object? obj) => obj is AssemblerRegisterST other && Equals(other);
-
-		/// <summary>
-		/// Equality operator for <see cref="AssemblerRegisterST"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator ==(AssemblerRegisterST left, AssemblerRegisterST right) => left.Equals(right);
-
-		/// <summary>
-		/// Inequality operator for <see cref="AssemblerRegisterST"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator !=(AssemblerRegisterST left, AssemblerRegisterST right) => !left.Equals(right);
-	}
-
-	/// <summary>
-	/// An assembler register used with <see cref="Assembler"/>.
-	/// </summary>
-	[DebuggerDisplay("{" + nameof(Value) + "}")]
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public readonly partial struct AssemblerRegisterTMM : IEquatable<AssemblerRegisterTMM> {
-		/// <summary>
-		/// Creates a new instance.
-		/// </summary>
-		/// <param name="value">A Register</param>
-		public AssemblerRegisterTMM(Register value) {
-			if (!value.IsTMM()) throw new ArgumentException($"Invalid register {value}. Must be a TMM register", nameof(value));
-			Value = value;
-		}
-
-		/// <summary>
-		/// The register value.
-		/// </summary>
-		public readonly Register Value;
-
-		/// <summary>
-		/// Converts a <see cref="AssemblerRegisterTMM"/> to a <see cref="Register"/>.
-		/// </summary>
-		/// <param name="reg">AssemblerRegisterTMM</param>
-		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterTMM reg) {
-			return reg.Value;
-		}
-
-		/// <inheritdoc />
-		public bool Equals(AssemblerRegisterTMM other) => Value == other.Value;
-
-		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
-
-		/// <inheritdoc />
-		public override bool Equals(object? obj) => obj is AssemblerRegisterTMM other && Equals(other);
-
-		/// <summary>
-		/// Equality operator for <see cref="AssemblerRegisterTMM"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator ==(AssemblerRegisterTMM left, AssemblerRegisterTMM right) => left.Equals(right);
-
-		/// <summary>
-		/// Inequality operator for <see cref="AssemblerRegisterTMM"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator !=(AssemblerRegisterTMM left, AssemblerRegisterTMM right) => !left.Equals(right);
-	}
-
-	/// <summary>
-	/// An assembler register used with <see cref="Assembler"/>.
-	/// </summary>
-	[DebuggerDisplay("{" + nameof(Value) + "}")]
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public readonly partial struct AssemblerRegisterSegment : IEquatable<AssemblerRegisterSegment> {
-		/// <summary>
-		/// Creates a new instance.
-		/// </summary>
-		/// <param name="value">A Register</param>
-		public AssemblerRegisterSegment(Register value) {
-			if (!value.IsSegmentRegister()) throw new ArgumentException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
-			Value = value;
-		}
-
-		/// <summary>
-		/// The register value.
-		/// </summary>
-		public readonly Register Value;
-
-		/// <summary>
-		/// Converts a <see cref="AssemblerRegisterSegment"/> to a <see cref="Register"/>.
-		/// </summary>
-		/// <param name="reg">AssemblerRegisterSegment</param>
-		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterSegment reg) {
-			return reg.Value;
-		}
-
-		/// <inheritdoc />
-		public bool Equals(AssemblerRegisterSegment other) => Value == other.Value;
-
-		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
-
-		/// <inheritdoc />
-		public override bool Equals(object? obj) => obj is AssemblerRegisterSegment other && Equals(other);
-
-		/// <summary>
-		/// Equality operator for <see cref="AssemblerRegisterSegment"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator ==(AssemblerRegisterSegment left, AssemblerRegisterSegment right) => left.Equals(right);
-
-		/// <summary>
-		/// Inequality operator for <see cref="AssemblerRegisterSegment"/>
-		/// </summary>
-		/// <param name="left">Register</param>
-		/// <param name="right">Register</param>
-		/// <returns></returns>
-		public static bool operator !=(AssemblerRegisterSegment left, AssemblerRegisterSegment right) => !left.Equals(right);
 	}
 
 	/// <summary>
