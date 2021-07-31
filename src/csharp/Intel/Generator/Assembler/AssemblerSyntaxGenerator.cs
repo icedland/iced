@@ -31,7 +31,7 @@ namespace Generator.Assembler {
 			return toOrigCodeValue[value];
 		}
 
-		sealed class AmbiguousBcstInstr : IEquatable<AmbiguousBcstInstr > {
+		sealed class AmbiguousBcstInstr : IEquatable<AmbiguousBcstInstr> {
 			public readonly EnumValue Code;
 			readonly EnumValue mnemonic;
 			readonly uint bcstMemSize;
@@ -95,12 +95,52 @@ namespace Generator.Assembler {
 
 		protected const InstructionDefFlags1 BitnessMaskFlags = InstructionDefFlags1.Bit64 | InstructionDefFlags1.Bit32 | InstructionDefFlags1.Bit16;
 
+		protected sealed class RegisterClassInfo {
+			public readonly RegisterKind Kind;
+			public bool IsGPR16_32_64 => Kind == RegisterKind.GPR16 || Kind == RegisterKind.GPR32 || Kind == RegisterKind.GPR64;
+			public bool IsGPR32_64 => Kind == RegisterKind.GPR32 || Kind == RegisterKind.GPR64;
+			public bool IsVector => Kind == RegisterKind.XMM || Kind == RegisterKind.YMM || Kind == RegisterKind.ZMM;
+			public bool HasSaeOrEr => IsGPR32_64 || IsVector;
+			public bool NeedsState => IsVector || HasSaeOrEr || Kind == RegisterKind.K;
+			public RegisterClassInfo(RegisterKind kind) => Kind = kind;
+		}
+
 		protected abstract void GenerateRegisters();
+		protected abstract void GenerateRegisterClasses(RegisterClassInfo[] infos);
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
 
 		public void Generate() {
 			GenerateRegisters();
+			GenerateRegisterClasses(GetRegisterClassInfos());
 			GenerateOpCodes();
+		}
+
+		static RegisterClassInfo[] GetRegisterClassInfos() {
+			var infos = new RegisterClassInfo[] {
+				new(RegisterKind.GPR8),
+				new(RegisterKind.GPR16),
+				new(RegisterKind.GPR32),
+				new(RegisterKind.GPR64),
+				new(RegisterKind.MM),
+				new(RegisterKind.XMM),
+				new(RegisterKind.YMM),
+				new(RegisterKind.ZMM),
+				new(RegisterKind.K),
+				new(RegisterKind.CR),
+				new(RegisterKind.TR),
+				new(RegisterKind.DR),
+				new(RegisterKind.ST),
+				new(RegisterKind.TMM),
+				new(RegisterKind.Segment),
+				new(RegisterKind.BND),
+			};
+
+			var allKinds = Enum.GetValues<RegisterKind>();
+			// Ignored: None, IP
+			if (allKinds.Length - 2 != infos.Length)
+				throw new InvalidOperationException("New register kinds must be initialized");
+
+			return infos;
 		}
 
 		void GenerateOpCodes() {
@@ -955,7 +995,7 @@ namespace Generator.Assembler {
 				var codeBitnessFlags = code.Flags1 & BitnessMaskFlags;
 				var codeEvexFlags = code.Encoding == EncodingKind.VEX ? OpCodeArgFlags.HasVex : code.Encoding == EncodingKind.EVEX ? OpCodeArgFlags.HasEvex : OpCodeArgFlags.Default;
 
-				if (isValid && 
+				if (isValid &&
 					(signatures.Add(registerSignature) ||
 					((bitnessFlags & codeBitnessFlags) != codeBitnessFlags) ||
 					(codeEvexFlags != OpCodeArgFlags.Default && (vexOrEvexFlags & codeEvexFlags) == 0) ||
@@ -1514,28 +1554,6 @@ namespace Generator.Assembler {
 				OpCodeSelectorKind.EvexBroadcastZ => (OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast, OpCodeArgFlags.Default),
 				OpCodeSelectorKind.BranchShort => (OpCodeArgFlags.HasBranchShort, OpCodeArgFlags.HasBranchNear),
 				_ => (OpCodeArgFlags.Default, OpCodeArgFlags.Default),
-			};
-
-		protected static string GetRegisterSuffix(RegisterDef def) =>
-			def.GetRegisterKind() switch {
-				RegisterKind.GPR8 => "8",
-				RegisterKind.GPR16 => "16",
-				RegisterKind.GPR32 => "32",
-				RegisterKind.GPR64 => "64",
-				RegisterKind.IP => "IP",
-				RegisterKind.Segment => "Segment",
-				RegisterKind.ST => "ST",
-				RegisterKind.CR => "CR",
-				RegisterKind.DR => "DR",
-				RegisterKind.TR => "TR",
-				RegisterKind.BND => "BND",
-				RegisterKind.K => "K",
-				RegisterKind.MM => "MM",
-				RegisterKind.XMM => "XMM",
-				RegisterKind.YMM => "YMM",
-				RegisterKind.ZMM => "ZMM",
-				RegisterKind.TMM => "TMM",
-				_ => throw new InvalidOperationException(),
 			};
 
 		bool IsR64M16(InstructionDef def) {

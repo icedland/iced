@@ -19,8 +19,8 @@ namespace Generator {
 			return (mask, bits);
 		}
 
-		public static (uint mask, uint bits) GetMaskBits<T>() where T : Enum {
-			var max = ((T[])Enum.GetValues(typeof(T))).Select(a => Convert.ToUInt32(a)).Max();
+		public static (uint mask, uint bits) GetMaskBits<T>() where T : struct, Enum {
+			var max = Enum.GetValues<T>().Select(a => Convert.ToUInt32(a)).Max();
 			return GetMaskBits(max);
 		}
 
@@ -29,7 +29,7 @@ namespace Generator {
 				throw new InvalidOperationException();
 		}
 
-		public static void VerifyMask<T>(uint mask) where T : Enum {
+		public static void VerifyMask<T>(uint mask) where T : struct, Enum {
 			if (GetMaskBits<T>().mask != mask)
 				throw new InvalidOperationException();
 		}

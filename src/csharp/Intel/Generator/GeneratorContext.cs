@@ -62,7 +62,7 @@ namespace Generator {
 		public GeneratorDirs(string baseDir) {
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
 			GeneratorDir = GetAndVerifyPath(baseDir, "csharp", "Intel", "Generator");
-			langDirs = new string[Enum.GetValues(typeof(TargetLanguage)).Length];
+			langDirs = new string[Enum.GetValues<TargetLanguage>().Length];
 			for (int i = 0; i < langDirs.Length; i++) {
 				string path = (TargetLanguage)i switch {
 					TargetLanguage.Other => string.Empty,

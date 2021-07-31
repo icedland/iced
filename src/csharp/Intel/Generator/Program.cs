@@ -93,7 +93,7 @@ namespace Generator {
 		}
 
 		static IEnumerable<GeneratorInfo> Filter(List<GeneratorInfo> genInfos, CommandLineOptions options) {
-			var okLang = new bool[Enum.GetValues(typeof(TargetLanguage)).Length];
+			var okLang = new bool[Enum.GetValues<TargetLanguage>().Length];
 			if (options.Languages.Count == 0) {
 				for (int i = 0; i < okLang.Length; i++)
 					okLang[i] = true;
@@ -159,7 +159,7 @@ Options:
 		}
 
 		static bool TryParseCommandLine(string[] args, [NotNullWhen(true)] out CommandLineOptions? options, [NotNullWhen(false)] out string? error) {
-			if (Enum.GetValues(typeof(TargetLanguage)).Length != 5)
+			if (Enum.GetValues<TargetLanguage>().Length != 5)
 				throw new InvalidOperationException("Enum updated, update help message and this method");
 			options = new CommandLineOptions();
 			for (int i = 0; i < args.Length; i++) {
