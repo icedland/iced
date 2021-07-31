@@ -152,5 +152,6 @@ namespace Generator {
 		public static readonly TypeId CC_ge = new TypeId(nameof(CC_ge));
 		public static readonly TypeId CC_le = new TypeId(nameof(CC_le));
 		public static readonly TypeId CC_g = new TypeId(nameof(CC_g));
+		public static readonly TypeId CodeAsmMemoryOperandSize = new TypeId(nameof(CodeAsmMemoryOperandSize));
 	}
 }

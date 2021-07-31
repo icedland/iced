@@ -97,6 +97,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.OpCodeTableKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.OpCodeTableKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.OpCodeInfoDefine));
 			toFullFileInfo.Add(TypeIds.FormatterTextKind, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.FormatterTextKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
 			toFullFileInfo.Add(TypeIds.MemorySizeOptions, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, nameof(TypeIds.MemorySizeOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
+			toFullFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, new FullEnumFileInfo(CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "MemoryOperandSize.g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.CodeAssemblerDefine));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo?>();
 			toPartialFileInfo.Add(TypeIds.InstrFlags1, new PartialEnumFileInfo("InstrFlags1", CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Instruction.cs"), "uint"));

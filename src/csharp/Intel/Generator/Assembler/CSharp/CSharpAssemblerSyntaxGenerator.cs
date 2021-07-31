@@ -17,6 +17,7 @@ namespace Generator.Assembler.CSharp {
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		readonly IdentifierConverter idConverter;
 		readonly CSharpDocCommentWriter docWriter;
+		readonly EnumType memoryOperandSizeType;
 
 		static readonly List<(string, int, string[], string)> declareDataList = new List<(string, int, string[], string)> {
 			("db", 1, new[] { "byte", "sbyte" }, "CreateDeclareByte"),
@@ -36,6 +37,7 @@ namespace Generator.Assembler.CSharp {
 			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
+			memoryOperandSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
 		}
 
 		protected override void GenerateRegisters(EnumType registers) {
@@ -950,7 +952,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		static string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind, int index) {
+		string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind, int index) {
 			var regName = arg.Name;
 			var otherRegName = arg.Name == "src" ? "dst" : "src";
 			return selectorKind switch {
@@ -1009,16 +1011,16 @@ namespace Generator.Assembler.CSharp {
 				OpCodeSelectorKind.RegisterYMM => $"{regName}.IsYMM()",
 				OpCodeSelectorKind.RegisterZMM => $"{regName}.IsZMM()",
 				OpCodeSelectorKind.RegisterTMM => $"{regName}.IsTMM()",
-				OpCodeSelectorKind.Memory8 => $"{regName}.Size == MemoryOperandSize.Byte",
-				OpCodeSelectorKind.Memory16 => $"{regName}.Size == MemoryOperandSize.Word",
-				OpCodeSelectorKind.Memory32 => $"{regName}.Size == MemoryOperandSize.Dword",
-				OpCodeSelectorKind.Memory48 => $"{regName}.Size == MemoryOperandSize.Fword",
-				OpCodeSelectorKind.Memory64 => $"{regName}.Size == MemoryOperandSize.Qword",
-				OpCodeSelectorKind.Memory80 => $"{regName}.Size == MemoryOperandSize.Tword",
-				OpCodeSelectorKind.MemoryMM => $"{regName}.Size == MemoryOperandSize.Qword",
-				OpCodeSelectorKind.MemoryXMM => $"{regName}.Size == MemoryOperandSize.Xword",
-				OpCodeSelectorKind.MemoryYMM => $"{regName}.Size == MemoryOperandSize.Yword",
-				OpCodeSelectorKind.MemoryZMM => $"{regName}.Size == MemoryOperandSize.Zword",
+				OpCodeSelectorKind.Memory8 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Byte))}",
+				OpCodeSelectorKind.Memory16 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Word))}",
+				OpCodeSelectorKind.Memory32 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Dword))}",
+				OpCodeSelectorKind.Memory48 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Fword))}",
+				OpCodeSelectorKind.Memory64 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
+				OpCodeSelectorKind.Memory80 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Tword))}",
+				OpCodeSelectorKind.MemoryMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
+				OpCodeSelectorKind.MemoryXMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Xword))}",
+				OpCodeSelectorKind.MemoryYMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Yword))}",
+				OpCodeSelectorKind.MemoryZMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Zword))}",
 				OpCodeSelectorKind.MemoryIndex32Xmm => $"{regName}.Index.IsXMM()",
 				OpCodeSelectorKind.MemoryIndex64Xmm => $"{regName}.Index.IsXMM()",
 				OpCodeSelectorKind.MemoryIndex32Ymm => $"{regName}.Index.IsYMM()",
@@ -1028,6 +1030,9 @@ namespace Generator.Assembler.CSharp {
 				_ => $"invalid_selector_{selectorKind}_for_arg_{regName}",
 			};
 		}
+
+		string GetMemOpSizeString(string fieldName) =>
+			$"{memoryOperandSizeType.Name(idConverter)}.{memoryOperandSizeType[fieldName].Name(idConverter)}";
 
 		static string? GetInvalidArgValue(int bitness, OpCodeSelectorKind selectorKind, int argIndex) =>
 			selectorKind switch {

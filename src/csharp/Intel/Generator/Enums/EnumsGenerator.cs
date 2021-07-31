@@ -111,6 +111,7 @@ namespace Generator.Enums {
 				genTypes[TypeIds.OpCodeInfoFlags2],
 				genTypes[TypeIds.DecOptionValue],
 				genTypes[TypeIds.InstrStrFmtOption],
+				genTypes[TypeIds.CodeAsmMemoryOperandSize],
 			};
 
 			foreach (var enumType in allEnums)
