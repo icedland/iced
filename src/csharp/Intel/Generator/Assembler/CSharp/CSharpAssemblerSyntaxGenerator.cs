@@ -154,7 +154,9 @@ namespace Generator.Assembler.CSharp {
 							writer.WriteLine("/// <param name=\"value\">A Register</param>");
 							writer.WriteLine($"public {className}({registerTypeName} value) {{");
 							using (writer.Indent()) {
-								writer.WriteLine($"if (!value.Is{isName}()) throw new ArgumentException($\"Invalid register {{value}}. Must be a {isName} register\", nameof(value));");
+								writer.WriteLine($"if (!value.Is{isName}())");
+								using (writer.Indent())
+									writer.WriteLine($"throw new ArgumentOutOfRangeException($\"Invalid register {{value}}. Must be a {isName} register\", nameof(value));");
 								writer.WriteLine("Value = value;");
 								if (reg.NeedsState)
 									writer.WriteLine("Flags = AssemblerOperandFlags.None;");
@@ -229,10 +231,7 @@ namespace Generator.Assembler.CSharp {
 							writer.WriteLine("/// </summary>");
 							writer.WriteLine($"/// <param name=\"reg\">{className}</param>");
 							writer.WriteLine("/// <returns></returns>");
-							writer.WriteLine($"public static implicit operator {registerTypeName}({className} reg) {{");
-							using (writer.Indent())
-								writer.WriteLine("return reg.Value;");
-							writer.WriteLine("}");
+							writer.WriteLine($"public static implicit operator {registerTypeName}({className} reg) => reg.Value;");
 							if (reg.IsGPR16_32_64) {
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
@@ -241,10 +240,9 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <param name=\"left\">The base register.</param>");
 								writer.WriteLine("/// <param name=\"right\">The index register</param>");
 								writer.WriteLine("/// <returns></returns>");
-								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, {className} right) {{");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, {className} right) =>");
 								using (writer.Indent())
-									writer.WriteLine($"return new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
-								writer.WriteLine("}");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
 								if (reg.IsGPR32_64) {
 									foreach (var mm in new[] { "XMM", "YMM", "ZMM" }) {
 										writer.WriteLine();
@@ -254,10 +252,9 @@ namespace Generator.Assembler.CSharp {
 										writer.WriteLine("/// <param name=\"left\">The base register.</param>");
 										writer.WriteLine("/// <param name=\"right\">The index register</param>");
 										writer.WriteLine("/// <returns></returns>");
-										writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, AssemblerRegister{mm} right) {{");
+										writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, AssemblerRegister{mm} right) =>");
 										using (writer.Indent())
-											writer.WriteLine($"return new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
-										writer.WriteLine("}");
+											writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, right, 1, 0, AssemblerOperandFlags.None);");
 									}
 								}
 							}
@@ -269,10 +266,9 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <param name=\"left\">The base register</param>");
 								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
 								writer.WriteLine("/// <returns></returns>");
-								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, int displacement) {{");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, int displacement) =>");
 								using (writer.Indent())
-									writer.WriteLine($"return new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, {registerTypeName}.{regNoneName}, 1, displacement, AssemblerOperandFlags.None);");
-								writer.WriteLine("}");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, {registerTypeName}.{regNoneName}, 1, displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
 								writer.WriteLine("/// Subtracts a register (base) with a displacement and return a memory operand.");
@@ -280,10 +276,9 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <param name=\"left\">The base register</param>");
 								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
 								writer.WriteLine("/// <returns></returns>");
-								writer.WriteLine($"public static AssemblerMemoryOperand operator -({className} left, int displacement) {{");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator -({className} left, int displacement) =>");
 								using (writer.Indent())
-									writer.WriteLine($"return new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, {registerTypeName}.{regNoneName}, 1, -displacement, AssemblerOperandFlags.None);");
-								writer.WriteLine("}");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, left, {registerTypeName}.{regNoneName}, 1, -displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
 								writer.WriteLine("/// Multiplies an index register by a scale and return a memory operand.");
@@ -291,10 +286,9 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <param name=\"left\">The base register</param>");
 								writer.WriteLine("/// <param name=\"scale\">The scale</param>");
 								writer.WriteLine("/// <returns></returns>");
-								writer.WriteLine($"public static AssemblerMemoryOperand operator *({className} left, int scale) {{");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator *({className} left, int scale) =>");
 								using (writer.Indent())
-									writer.WriteLine($"return new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, {registerTypeName}.{regNoneName}, left, scale, 0, AssemblerOperandFlags.None);");
-								writer.WriteLine("}");
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpTypeName}.{memOpNoneName}, {registerTypeName}.{regNoneName}, {registerTypeName}.{regNoneName}, left, scale, 0, AssemblerOperandFlags.None);");
 							}
 							if (reg.NeedsState) {
 								writer.WriteLine();
@@ -302,7 +296,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine($"public bool Equals({className} other) => Value == other.Value && Flags == other.Flags;");
 								writer.WriteLine();
 								writer.WriteLine("/// <inheritdoc />");
-								writer.WriteLine("public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;");
+								writer.WriteLine("public override int GetHashCode() => ((int)Value * 397) ^ (int)Flags;");
 							}
 							else {
 								writer.WriteLine();
@@ -310,7 +304,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine($"public bool Equals({className} other) => Value == other.Value;");
 								writer.WriteLine();
 								writer.WriteLine("/// <inheritdoc />");
-								writer.WriteLine("public override int GetHashCode() => (int) Value;");
+								writer.WriteLine("public override int GetHashCode() => (int)Value;");
 							}
 							writer.WriteLine();
 							writer.WriteLine("/// <inheritdoc />");

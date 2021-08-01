@@ -22,7 +22,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister8(Register value) {
-			if (!value.IsGPR8()) throw new ArgumentException($"Invalid register {value}. Must be a GPR8 register", nameof(value));
+			if (!value.IsGPR8())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a GPR8 register", nameof(value));
 			Value = value;
 		}
 
@@ -36,15 +37,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegister8</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegister8 reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegister8 reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegister8 other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegister8 other && Equals(other);
@@ -77,7 +76,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister16(Register value) {
-			if (!value.IsGPR16()) throw new ArgumentException($"Invalid register {value}. Must be a GPR16 register", nameof(value));
+			if (!value.IsGPR16())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a GPR16 register", nameof(value));
 			Value = value;
 		}
 
@@ -91,9 +91,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegister16</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegister16 reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegister16 reg) => reg.Value;
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -101,9 +99,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegister16 right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegister16 right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
@@ -111,9 +108,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Subtracts a register (base) with a displacement and return a memory operand.
@@ -121,9 +117,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegister16 left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator -(AssemblerRegister16 left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Multiplies an index register by a scale and return a memory operand.
@@ -131,15 +126,14 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="scale">The scale</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator *(AssemblerRegister16 left, int scale) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator *(AssemblerRegister16 left, int scale) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegister16 other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegister16 other && Equals(other);
@@ -180,7 +174,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister32(Register value) {
-			if (!value.IsGPR32()) throw new ArgumentException($"Invalid register {value}. Must be a GPR32 register", nameof(value));
+			if (!value.IsGPR32())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a GPR32 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		}
@@ -275,9 +270,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegister32</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegister32 reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegister32 reg) => reg.Value;
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -285,9 +278,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegister32 right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegister32 right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -295,9 +287,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterXMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterXMM right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -305,9 +296,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterYMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterYMM right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -315,9 +305,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterZMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterZMM right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
@@ -325,9 +314,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Subtracts a register (base) with a displacement and return a memory operand.
@@ -335,9 +323,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegister32 left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator -(AssemblerRegister32 left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Multiplies an index register by a scale and return a memory operand.
@@ -345,15 +332,14 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="scale">The scale</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator *(AssemblerRegister32 left, int scale) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator *(AssemblerRegister32 left, int scale) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegister32 other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
+		public override int GetHashCode() => ((int)Value * 397) ^ (int)Flags;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegister32 other && Equals(other);
@@ -394,7 +380,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister64(Register value) {
-			if (!value.IsGPR64()) throw new ArgumentException($"Invalid register {value}. Must be a GPR64 register", nameof(value));
+			if (!value.IsGPR64())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a GPR64 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		}
@@ -489,9 +476,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegister64</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegister64 reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegister64 reg) => reg.Value;
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -499,9 +484,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegister64 right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegister64 right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -509,9 +493,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterXMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterXMM right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -519,9 +502,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterYMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterYMM right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -529,9 +511,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterZMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterZMM right) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
@@ -539,9 +520,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Subtracts a register (base) with a displacement and return a memory operand.
@@ -549,9 +529,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegister64 left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator -(AssemblerRegister64 left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Multiplies an index register by a scale and return a memory operand.
@@ -559,15 +538,14 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="scale">The scale</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator *(AssemblerRegister64 left, int scale) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator *(AssemblerRegister64 left, int scale) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegister64 other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
+		public override int GetHashCode() => ((int)Value * 397) ^ (int)Flags;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegister64 other && Equals(other);
@@ -608,7 +586,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterSegment(Register value) {
-			if (!value.IsSegmentRegister()) throw new ArgumentException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
+			if (!value.IsSegmentRegister())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
 			Value = value;
 		}
 
@@ -622,15 +601,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterSegment</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterSegment reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterSegment reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterSegment other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterSegment other && Equals(other);
@@ -663,7 +640,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterCR(Register value) {
-			if (!value.IsCR()) throw new ArgumentException($"Invalid register {value}. Must be a CR register", nameof(value));
+			if (!value.IsCR())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a CR register", nameof(value));
 			Value = value;
 		}
 
@@ -677,15 +655,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterCR</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterCR reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterCR reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterCR other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterCR other && Equals(other);
@@ -718,7 +694,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterDR(Register value) {
-			if (!value.IsDR()) throw new ArgumentException($"Invalid register {value}. Must be a DR register", nameof(value));
+			if (!value.IsDR())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a DR register", nameof(value));
 			Value = value;
 		}
 
@@ -732,15 +709,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterDR</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterDR reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterDR reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterDR other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterDR other && Equals(other);
@@ -773,7 +748,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterTR(Register value) {
-			if (!value.IsTR()) throw new ArgumentException($"Invalid register {value}. Must be a TR register", nameof(value));
+			if (!value.IsTR())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a TR register", nameof(value));
 			Value = value;
 		}
 
@@ -787,15 +763,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterTR</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterTR reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterTR reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterTR other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterTR other && Equals(other);
@@ -828,7 +802,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterST(Register value) {
-			if (!value.IsST()) throw new ArgumentException($"Invalid register {value}. Must be a ST register", nameof(value));
+			if (!value.IsST())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a ST register", nameof(value));
 			Value = value;
 		}
 
@@ -842,15 +817,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterST</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterST reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterST reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterST other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterST other && Equals(other);
@@ -883,7 +856,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterMM(Register value) {
-			if (!value.IsMM()) throw new ArgumentException($"Invalid register {value}. Must be a MM register", nameof(value));
+			if (!value.IsMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a MM register", nameof(value));
 			Value = value;
 		}
 
@@ -897,15 +871,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterMM</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterMM reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterMM reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterMM other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterMM other && Equals(other);
@@ -938,7 +910,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterXMM(Register value) {
-			if (!value.IsXMM()) throw new ArgumentException($"Invalid register {value}. Must be a XMM register", nameof(value));
+			if (!value.IsXMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a XMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		}
@@ -1033,9 +1006,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterXMM</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterXMM reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterXMM reg) => reg.Value;
 
 		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
@@ -1043,9 +1014,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegisterXMM left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegisterXMM left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Subtracts a register (base) with a displacement and return a memory operand.
@@ -1053,9 +1023,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegisterXMM left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator -(AssemblerRegisterXMM left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Multiplies an index register by a scale and return a memory operand.
@@ -1063,15 +1032,14 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="scale">The scale</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator *(AssemblerRegisterXMM left, int scale) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator *(AssemblerRegisterXMM left, int scale) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterXMM other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
+		public override int GetHashCode() => ((int)Value * 397) ^ (int)Flags;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterXMM other && Equals(other);
@@ -1104,7 +1072,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterYMM(Register value) {
-			if (!value.IsYMM()) throw new ArgumentException($"Invalid register {value}. Must be a YMM register", nameof(value));
+			if (!value.IsYMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a YMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		}
@@ -1199,9 +1168,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterYMM</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterYMM reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterYMM reg) => reg.Value;
 
 		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
@@ -1209,9 +1176,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegisterYMM left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegisterYMM left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Subtracts a register (base) with a displacement and return a memory operand.
@@ -1219,9 +1185,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegisterYMM left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator -(AssemblerRegisterYMM left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Multiplies an index register by a scale and return a memory operand.
@@ -1229,15 +1194,14 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="scale">The scale</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator *(AssemblerRegisterYMM left, int scale) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator *(AssemblerRegisterYMM left, int scale) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterYMM other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
+		public override int GetHashCode() => ((int)Value * 397) ^ (int)Flags;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterYMM other && Equals(other);
@@ -1270,7 +1234,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterZMM(Register value) {
-			if (!value.IsZMM()) throw new ArgumentException($"Invalid register {value}. Must be a ZMM register", nameof(value));
+			if (!value.IsZMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a ZMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		}
@@ -1365,9 +1330,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterZMM</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterZMM reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterZMM reg) => reg.Value;
 
 		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
@@ -1375,9 +1338,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegisterZMM left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator +(AssemblerRegisterZMM left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Subtracts a register (base) with a displacement and return a memory operand.
@@ -1385,9 +1347,8 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator -(AssemblerRegisterZMM left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator -(AssemblerRegisterZMM left, int displacement) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
 		/// Multiplies an index register by a scale and return a memory operand.
@@ -1395,15 +1356,14 @@ namespace Iced.Intel {
 		/// <param name="left">The base register</param>
 		/// <param name="scale">The scale</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator *(AssemblerRegisterZMM left, int scale) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
-		}
+		public static AssemblerMemoryOperand operator *(AssemblerRegisterZMM left, int scale) =>
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterZMM other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
+		public override int GetHashCode() => ((int)Value * 397) ^ (int)Flags;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterZMM other && Equals(other);
@@ -1436,7 +1396,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterTMM(Register value) {
-			if (!value.IsTMM()) throw new ArgumentException($"Invalid register {value}. Must be a TMM register", nameof(value));
+			if (!value.IsTMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a TMM register", nameof(value));
 			Value = value;
 		}
 
@@ -1450,15 +1411,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterTMM</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterTMM reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterTMM reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterTMM other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterTMM other && Equals(other);
@@ -1491,7 +1450,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterK(Register value) {
-			if (!value.IsK()) throw new ArgumentException($"Invalid register {value}. Must be a K register", nameof(value));
+			if (!value.IsK())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a K register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		}
@@ -1561,15 +1521,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterK</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterK reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterK reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterK other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
+		public override int GetHashCode() => ((int)Value * 397) ^ (int)Flags;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterK other && Equals(other);
@@ -1602,7 +1560,8 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterBND(Register value) {
-			if (!value.IsBND()) throw new ArgumentException($"Invalid register {value}. Must be a BND register", nameof(value));
+			if (!value.IsBND())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a BND register", nameof(value));
 			Value = value;
 		}
 
@@ -1616,15 +1575,13 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="reg">AssemblerRegisterBND</param>
 		/// <returns></returns>
-		public static implicit operator Register(AssemblerRegisterBND reg) {
-			return reg.Value;
-		}
+		public static implicit operator Register(AssemblerRegisterBND reg) => reg.Value;
 
 		/// <inheritdoc />
 		public bool Equals(AssemblerRegisterBND other) => Value == other.Value;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => (int)Value;
 
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegisterBND other && Equals(other);
