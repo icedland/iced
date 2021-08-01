@@ -1813,7 +1813,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void call_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				TestAssembler(c => c.call(__tword_ptr[rdx]), Instruction.Create(Code.Call_m1664, __tword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.call(__qword_ptr[rdx]), Instruction.Create(Code.Call_rm64, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
@@ -4170,7 +4170,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fld_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				TestAssembler(c => c.fld(__tword_ptr[rdx]), Instruction.Create(Code.Fld_m80fp, __tword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.fld(__qword_ptr[rdx]), Instruction.Create(Code.Fld_m64fp, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
@@ -4418,7 +4418,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fstp_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				TestAssembler(c => c.fstp(__tword_ptr[rdx]), Instruction.Create(Code.Fstp_m80fp, __tword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.fstp(__qword_ptr[rdx]), Instruction.Create(Code.Fstp_m64fp, __qword_ptr[rdx].ToMemoryOperand(Bitness)));
@@ -5306,7 +5306,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jmp_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				TestAssembler(c => c.jmp(__tword_ptr[rdx]), Instruction.Create(Code.Jmp_m1664, __tword_ptr[rdx].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.jmp(__qword_ptr[rdx]), Instruction.Create(Code.Jmp_rm64, __qword_ptr[rdx].ToMemoryOperand(Bitness)));

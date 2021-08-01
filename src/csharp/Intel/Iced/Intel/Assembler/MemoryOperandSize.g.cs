@@ -13,7 +13,7 @@ namespace Iced.Intel {
 		Word,
 		Dword,
 		Qword,
-		Tword,
+		Tbyte,
 		Fword,
 		Xword,
 		Yword,

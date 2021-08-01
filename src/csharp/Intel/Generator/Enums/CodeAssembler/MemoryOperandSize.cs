@@ -9,7 +9,7 @@ namespace Generator.Enums {
 		Word,
 		Dword,
 		Qword,
-		Tword,
+		Tbyte,
 		Fword,
 		Xword,
 		Yword,

@@ -1509,7 +1509,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void call_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				{
 					// Skipping Call_m1664 - Not supported for Bit16
 				}
@@ -3585,7 +3585,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fld_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				TestAssembler(c => c.fld(__tword_ptr[di]), Instruction.Create(Code.Fld_m80fp, __tword_ptr[di].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.fld(__qword_ptr[di]), Instruction.Create(Code.Fld_m64fp, __qword_ptr[di].ToMemoryOperand(Bitness)));
@@ -3847,7 +3847,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fstp_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				TestAssembler(c => c.fstp(__tword_ptr[di]), Instruction.Create(Code.Fstp_m80fp, __tword_ptr[di].ToMemoryOperand(Bitness)));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.Qword) */
 				TestAssembler(c => c.fstp(__qword_ptr[di]), Instruction.Create(Code.Fstp_m64fp, __qword_ptr[di].ToMemoryOperand(Bitness)));
@@ -4718,7 +4718,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jmp_m() {
-			{ /* if (dst.Size == MemoryOperandSize.Tword) */
+			{ /* if (dst.Size == MemoryOperandSize.Tbyte) */
 				{
 					// Skipping Jmp_m1664 - Not supported for Bit16
 				}

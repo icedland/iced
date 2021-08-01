@@ -4989,7 +4989,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void call(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.Tword) {
+			if (dst.Size == MemoryOperandSize.Tbyte) {
 				op = Code.Call_m1664;
 			} else if (dst.Size == MemoryOperandSize.Qword) {
 				op = Code.Call_rm64;
@@ -10923,7 +10923,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fld(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.Tword) {
+			if (dst.Size == MemoryOperandSize.Tbyte) {
 				op = Code.Fld_m80fp;
 			} else if (dst.Size == MemoryOperandSize.Qword) {
 				op = Code.Fld_m64fp;
@@ -11661,7 +11661,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.Tword) {
+			if (dst.Size == MemoryOperandSize.Tbyte) {
 				op = Code.Fstp_m80fp;
 			} else if (dst.Size == MemoryOperandSize.Qword) {
 				op = Code.Fstp_m64fp;
@@ -14881,7 +14881,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void jmp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.Tword) {
+			if (dst.Size == MemoryOperandSize.Tbyte) {
 				op = Code.Jmp_m1664;
 			} else if (dst.Size == MemoryOperandSize.Qword) {
 				op = Code.Jmp_rm64;

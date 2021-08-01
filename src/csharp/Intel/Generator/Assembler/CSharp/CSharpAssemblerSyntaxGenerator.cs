@@ -346,6 +346,51 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
+		protected override void GenerateMemorySizeFunctions(MemorySizeFuncInfo[] infos) {
+			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "AssemblerRegisters2.g.cs");
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLineNoIndent($"#if {CSharpConstants.CodeAssemblerDefine}");
+
+				var memOpSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
+				var memOpSizeTypeStr = memOpSizeType.Name(idConverter);
+				var regType = genTypes[TypeIds.Register];
+				var regNoneStr = $"{regType.Name(idConverter)}.{regType[nameof(Register.None)].Name(idConverter)}";
+
+				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
+				using (writer.Indent()) {
+					writer.WriteLine("/// <summary>");
+					writer.WriteLine("/// Registers used for <see cref=\"Assembler\"/>. ");
+					writer.WriteLine("/// </summary>");
+					writer.WriteLine("public static partial class AssemblerRegisters {");
+					using (writer.Indent()) {
+						for (int i = 0; i < infos.Length; i++) {
+							var info = infos[i];
+							var (name, desc) = info.Kind switch {
+								MemorySizeFnKind.Ptr => (string.Empty, "no"),
+								MemorySizeFnKind.Bcst => ("bcst", "no"),
+								_ => (info.Name.Replace(' ', '_'), AOrAn(info.Kind, $"<c>{info.Name.ToUpperInvariant()}</c>")),
+							};
+							var bcstDesc = info.IsBroadcast ? "broadcasted " : string.Empty;
+
+							if (i != 0)
+								writer.WriteLine();
+							writer.WriteLine("/// <summary>");
+							writer.WriteLine($"/// Gets a {bcstDesc}memory operand with {desc} size hint");
+							writer.WriteLine("/// </summary>");
+							var enumValueStr = memOpSizeType[info.Size.ToString()].Name(idConverter);
+							if (info.IsBroadcast)
+								writer.WriteLine($"public static readonly AssemblerMemoryOperandFactory __{name} = new AssemblerMemoryOperandFactory({memOpSizeTypeStr}.{enumValueStr}, {regNoneStr}, AssemblerOperandFlags.Broadcast);");
+							else
+								writer.WriteLine($"public static readonly AssemblerMemoryOperandFactory __{name} = new AssemblerMemoryOperandFactory({memOpSizeTypeStr}.{enumValueStr});");
+						}
+					}
+					writer.WriteLine("}");
+				}
+				writer.WriteLine("}");
+				writer.WriteLineNoIndent("#endif");
+			}
+		}
 		protected override void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
 			GenerateCode(groups);
 			GenerateTests(groups);
@@ -1279,7 +1324,7 @@ namespace Generator.Assembler.CSharp {
 				OpCodeSelectorKind.Memory32 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Dword))}",
 				OpCodeSelectorKind.Memory48 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Fword))}",
 				OpCodeSelectorKind.Memory64 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
-				OpCodeSelectorKind.Memory80 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Tword))}",
+				OpCodeSelectorKind.Memory80 => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Tbyte))}",
 				OpCodeSelectorKind.MemoryMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Qword))}",
 				OpCodeSelectorKind.MemoryXMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Xword))}",
 				OpCodeSelectorKind.MemoryYMM => $"{regName}.Size == {GetMemOpSizeString(nameof(MemoryOperandSize.Yword))}",

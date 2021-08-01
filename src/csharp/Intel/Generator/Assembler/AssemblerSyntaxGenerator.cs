@@ -105,13 +105,104 @@ namespace Generator.Assembler {
 			public RegisterClassInfo(RegisterKind kind) => Kind = kind;
 		}
 
+		protected enum MemorySizeFnKind {
+			Ptr,
+			BytePtr,
+			WordPtr,
+			DwordPtr,
+			QwordPtr,
+			MmwordPtr,
+			TbytePtr,
+			TwordPtr,
+			FwordPtr,
+			OwordPtr,
+			XmmwordPtr,
+			YmmwordPtr,
+			ZmmwordPtr,
+
+			Bcst,
+			WordBcst,
+			DwordBcst,
+			QwordBcst,
+		}
+		protected sealed class MemorySizeFuncInfo {
+			public readonly MemorySizeFnKind Kind;
+			public readonly MemoryOperandSize Size;
+			public readonly bool IsBroadcast;
+			// eg. { "word", "ptr" }
+			public readonly string[] NameParts;
+			// eg. "word ptr"
+			public readonly string Name;
+
+			public MemorySizeFuncInfo(MemorySizeFnKind kind) {
+				Kind = kind;
+
+				var (name, size) = kind switch {
+					MemorySizeFnKind.Ptr => ("ptr", MemoryOperandSize.None),
+					MemorySizeFnKind.BytePtr => ("byte ptr", MemoryOperandSize.Byte),
+					MemorySizeFnKind.WordPtr => ("word ptr", MemoryOperandSize.Word),
+					MemorySizeFnKind.DwordPtr => ("dword ptr", MemoryOperandSize.Dword),
+					MemorySizeFnKind.QwordPtr => ("qword ptr", MemoryOperandSize.Qword),
+					MemorySizeFnKind.MmwordPtr => ("mmword ptr", MemoryOperandSize.Qword),
+					MemorySizeFnKind.TbytePtr => ("tbyte ptr", MemoryOperandSize.Tbyte),
+					MemorySizeFnKind.TwordPtr => ("tword ptr", MemoryOperandSize.Tbyte),
+					MemorySizeFnKind.FwordPtr => ("fword ptr", MemoryOperandSize.Fword),
+					MemorySizeFnKind.OwordPtr => ("oword ptr", MemoryOperandSize.Xword),
+					MemorySizeFnKind.XmmwordPtr => ("xmmword ptr", MemoryOperandSize.Xword),
+					MemorySizeFnKind.YmmwordPtr => ("ymmword ptr", MemoryOperandSize.Yword),
+					MemorySizeFnKind.ZmmwordPtr => ("zmmword ptr", MemoryOperandSize.Zword),
+					MemorySizeFnKind.Bcst => ("bcst", MemoryOperandSize.None),
+					MemorySizeFnKind.WordBcst => ("word bcst", MemoryOperandSize.Word),
+					MemorySizeFnKind.DwordBcst => ("dword bcst", MemoryOperandSize.Dword),
+					MemorySizeFnKind.QwordBcst => ("qword bcst", MemoryOperandSize.Qword),
+					_ => throw new InvalidOperationException(),
+				};
+
+				Size = size;
+				Name = name;
+				NameParts = name.Split(' ');
+				IsBroadcast = NameParts[^1] == "bcst";
+			}
+		}
+
+		protected static string AOrAn(MemorySizeFnKind kind, string s) {
+			switch (kind) {
+			case MemorySizeFnKind.MmwordPtr:
+			case MemorySizeFnKind.FwordPtr:
+			case MemorySizeFnKind.OwordPtr:
+			case MemorySizeFnKind.XmmwordPtr:
+				return $"an {s}";
+
+			case MemorySizeFnKind.Ptr:
+			case MemorySizeFnKind.BytePtr:
+			case MemorySizeFnKind.WordPtr:
+			case MemorySizeFnKind.DwordPtr:
+			case MemorySizeFnKind.QwordPtr:
+			case MemorySizeFnKind.TbytePtr:
+			case MemorySizeFnKind.TwordPtr:
+			case MemorySizeFnKind.YmmwordPtr:
+			case MemorySizeFnKind.ZmmwordPtr:
+			case MemorySizeFnKind.Bcst:
+			case MemorySizeFnKind.WordBcst:
+			case MemorySizeFnKind.DwordBcst:
+			case MemorySizeFnKind.QwordBcst:
+				return $"a {s}";
+
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+
+
 		protected abstract void GenerateRegisters();
 		protected abstract void GenerateRegisterClasses(RegisterClassInfo[] infos);
+		protected abstract void GenerateMemorySizeFunctions(MemorySizeFuncInfo[] infos);
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
 
 		public void Generate() {
 			GenerateRegisters();
 			GenerateRegisterClasses(GetRegisterClassInfos());
+			GenerateMemorySizeFunctions(GetMemorySizeFunctions());
 			GenerateOpCodes();
 		}
 
@@ -141,6 +232,12 @@ namespace Generator.Assembler {
 				throw new InvalidOperationException("New register kinds must be initialized");
 
 			return infos;
+		}
+
+		static MemorySizeFuncInfo[] GetMemorySizeFunctions() {
+			var infos = Enum.GetValues<MemorySizeFnKind>().Select(a => new MemorySizeFuncInfo(a)).ToArray();
+			Array.Sort(infos, (a, b) => a.Kind.CompareTo(b.Kind));
+			return infos.ToArray();
 		}
 
 		void GenerateOpCodes() {
