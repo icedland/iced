@@ -166,7 +166,7 @@ namespace Iced.Intel {
 		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister16 register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
+		public AssemblerMemoryOperand this[AssemblerRegister16 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
 	}
 
 	/// <summary>
@@ -380,7 +380,7 @@ namespace Iced.Intel {
 		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister32 register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
+		public AssemblerMemoryOperand this[AssemblerRegister32 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
 	}
 
 	/// <summary>
@@ -594,7 +594,7 @@ namespace Iced.Intel {
 		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister64 register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
+		public AssemblerMemoryOperand this[AssemblerRegister64 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
 	}
 
 	/// <summary>

@@ -341,7 +341,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)");
 								writer.WriteLine("/// </summary>");
 								writer.WriteLine("/// <param name=\"register\">Size of this memory operand.</param>");
-								writer.WriteLine($"public AssemblerMemoryOperand this[{className} register] => new AssemblerMemoryOperand(Size, Prefix, register, {registerTypeName}.{regNoneName}, 1, 0, Flags);");
+								writer.WriteLine($"public AssemblerMemoryOperand this[{className} register] => new AssemblerMemoryOperand(Size, Segment, register, {registerTypeName}.{regNoneName}, 1, 0, Flags);");
 							}
 							writer.WriteLine("}");
 						}

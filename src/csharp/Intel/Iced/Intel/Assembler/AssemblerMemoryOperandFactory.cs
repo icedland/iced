@@ -15,7 +15,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="size">Size of this memory operand.</param>
 		internal AssemblerMemoryOperandFactory(MemoryOperandSize size) {
-			Prefix = Register.None;
+			Segment = Register.None;
 			Size = size;
 			Flags = AssemblerOperandFlags.None;
 		}
@@ -24,11 +24,11 @@ namespace Iced.Intel {
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="size">Size of this memory operand.</param>
-		/// <param name="prefix">Register prefix</param>
+		/// <param name="segment">Segment register</param>
 		/// <param name="flags">Flags</param>
-		internal AssemblerMemoryOperandFactory(MemoryOperandSize size, Register prefix, AssemblerOperandFlags flags) {
+		internal AssemblerMemoryOperandFactory(MemoryOperandSize size, Register segment, AssemblerOperandFlags flags) {
 			Size = size;
-			Prefix = prefix;
+			Segment = segment;
 			Flags = flags;
 		}
 
@@ -38,9 +38,9 @@ namespace Iced.Intel {
 		internal readonly MemoryOperandSize Size;
 
 		/// <summary>
-		/// Prefix register.
+		/// Segment register.
 		/// </summary>
-		internal readonly Register Prefix;
+		internal readonly Register Segment;
 
 		/// <summary>
 		/// Gets the mask associated with this operand.
@@ -81,24 +81,24 @@ namespace Iced.Intel {
 		/// Specify the content of the memory operand (Base + Index * Scale + Displacement).
 		/// </summary>
 		/// <param name="operand">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerMemoryOperand operand] => new AssemblerMemoryOperand(Size, Prefix, operand.Base, operand.Index, operand.Scale, operand.Displacement, Flags);
+		public AssemblerMemoryOperand this[AssemblerMemoryOperand operand] => new AssemblerMemoryOperand(Size, Segment, operand.Base, operand.Index, operand.Scale, operand.Displacement, Flags);
 
 		/// <summary>
 		/// Specify a long offset displacement.
 		/// </summary>
 		/// <param name="offset">Offset of this memory operand.</param>
-		public AssemblerMemoryOperand this[long offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, offset, Flags);
+		public AssemblerMemoryOperand this[long offset] => new AssemblerMemoryOperand(Size, Segment, Register.None, Register.None, 1, offset, Flags);
 
 		/// <summary>
 		/// Specify a ulong offset displacement.
 		/// </summary>
 		/// <param name="offset">Offset of this memory operand.</param>
-		public AssemblerMemoryOperand this[ulong offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, (long)offset, Flags);
+		public AssemblerMemoryOperand this[ulong offset] => new AssemblerMemoryOperand(Size, Segment, Register.None, Register.None, 1, (long)offset, Flags);
 
 		/// <summary>
 		/// Specify a memory operand with a label.
 		/// </summary>
-		public AssemblerMemoryOperand this[Label label] => new AssemblerMemoryOperand(Size, Prefix, Register.RIP, Register.None, 1, (long)label.Id, Flags);
+		public AssemblerMemoryOperand this[Label label] => new AssemblerMemoryOperand(Size, Segment, Register.RIP, Register.None, 1, (long)label.Id, Flags);
 	}
 }
 #endif
