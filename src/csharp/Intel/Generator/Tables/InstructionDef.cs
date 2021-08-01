@@ -547,6 +547,7 @@ namespace Generator.Tables {
 		public readonly RflagsBits RflagsSet;
 		public EnumValue? RflagsInfo { get; internal set; }
 		public readonly EnumValue[] Cpuid;
+		public readonly string[] CpuidFeatureStrings;
 		public EnumValue? CpuidInternal { get; internal set; }
 		public readonly OpInfo[] OpInfo;
 		public readonly EnumValue[] OpInfoEnum;
@@ -568,7 +569,7 @@ namespace Generator.Tables {
 			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
 			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
 			RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
-			EnumValue[] cpuid, OpInfo[] opInfo,
+			EnumValue[] cpuid, string[] cpuidFeatureStrings, OpInfo[] opInfo,
 			FastFmtInstructionDef fast, FmtInstructionDef gas, FmtInstructionDef intel, FmtInstructionDef masm, FmtInstructionDef nasm,
 			string? asmMnemonic) {
 			Code = code;
@@ -612,6 +613,7 @@ namespace Generator.Tables {
 			RflagsSet = set;
 			RflagsInfo = null;
 			Cpuid = cpuid;
+			CpuidFeatureStrings = cpuidFeatureStrings;
 			CpuidInternal = null;
 			OpInfo = opInfo;
 			OpInfoEnum = new EnumValue[opInfo.Length];
