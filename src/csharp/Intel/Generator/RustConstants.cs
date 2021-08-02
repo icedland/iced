@@ -10,6 +10,7 @@ namespace Generator {
 
 		public const string AttrReprU32 = "#[repr(u32)]";
 		public const string AttributeNoRustFmt = "#[rustfmt::skip]";
+		public const string AttributeNoRustFmtModule = "#![rustfmt::skip]";
 		public const string AttributeCopyClone = "#[derive(Copy, Clone)]";
 		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";

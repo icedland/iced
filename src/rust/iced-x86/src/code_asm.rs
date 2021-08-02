@@ -4,8 +4,11 @@
 //! TODO:
 
 mod errors;
+mod op_state;
+mod reg;
 
 pub use crate::code_asm::errors::*;
+pub use crate::code_asm::reg::*;
 
 mod private {
 	pub trait Sealed {}

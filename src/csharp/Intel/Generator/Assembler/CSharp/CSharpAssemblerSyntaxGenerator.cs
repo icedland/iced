@@ -109,6 +109,10 @@ namespace Generator.Assembler.CSharp {
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
+					var regNoneName = genTypes[TypeIds.Register][nameof(Register.None)].Name(idConverter);
+					var registerTypeName = genTypes[TypeIds.Register].Name(idConverter);
+					var memOpNoneName = genTypes[TypeIds.CodeAsmMemoryOperandSize][nameof(MemoryOperandSize.None)].Name(idConverter);
+					var memOpTypeName = genTypes[TypeIds.CodeAsmMemoryOperandSize].Name(idConverter);
 					for (int i = 0; i < infos.Length; i++) {
 						var reg = infos[i];
 						var className = $"AssemblerRegister{GetRegisterSuffix(reg.Kind)}";
@@ -133,11 +137,6 @@ namespace Generator.Assembler.CSharp {
 							RegisterKind.TMM => "TMM",
 							_ => throw new InvalidOperationException(),
 						};
-
-						var regNoneName = genTypes[TypeIds.Register][nameof(Register.None)].Name(idConverter);
-						var registerTypeName = genTypes[TypeIds.Register].Name(idConverter);
-						var memOpNoneName = genTypes[TypeIds.CodeAsmMemoryOperandSize][nameof(MemoryOperandSize.None)].Name(idConverter);
-						var memOpTypeName = genTypes[TypeIds.CodeAsmMemoryOperandSize].Name(idConverter);
 
 						if (i != 0)
 							writer.WriteLine();
