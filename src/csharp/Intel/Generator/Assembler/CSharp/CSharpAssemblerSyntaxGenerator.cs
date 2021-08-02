@@ -63,7 +63,7 @@ namespace Generator.Assembler.CSharp {
 				_ => throw new InvalidOperationException(),
 			};
 
-		protected override void GenerateRegisters() {
+		protected override void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups) {
 			var filename = CSharpConstants.GetFilename(genTypes, CSharpConstants.IcedNamespace, "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -74,20 +74,10 @@ namespace Generator.Assembler.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine("public static partial class AssemblerRegisters {");
 					using (writer.Indent()) {
-						foreach (var regDef in regDefs) {
-							switch (regDef.GetRegisterKind()) {
-							case RegisterKind.None:
-							case RegisterKind.IP:
-								continue;
-							}
-
-							var registerName = regDef.Name;
-							// st(0) -> st0 etc
-							if (regDef.GetRegisterKind() == RegisterKind.ST)
-								registerName = regDef.Register.RawName;
-							var assemblerRegisterName = registerName.ToLowerInvariant();
+						foreach (var regDef in regGroups.SelectMany(a => a.regs)) {
+							var asmRegName = GetAsmRegisterName(regDef);
 							var registerTypeName = $"AssemblerRegister{GetRegisterSuffix(regDef)}";
-							writer.WriteLine($"public static readonly {registerTypeName} {assemblerRegisterName} = new {registerTypeName}({regDef.Register.DeclaringType.Name(idConverter)}.{regDef.Register.Name(idConverter)});");
+							writer.WriteLine($"public static readonly {registerTypeName} {asmRegName} = new {registerTypeName}({regDef.Register.DeclaringType.Name(idConverter)}.{regDef.Register.Name(idConverter)});");
 						}
 					}
 					writer.WriteLine("}");

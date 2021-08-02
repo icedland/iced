@@ -193,14 +193,21 @@ namespace Generator.Assembler {
 			}
 		}
 
+		protected static string GetAsmRegisterName(RegisterDef regDef) {
+			var registerName = regDef.Name;
+			// st(0) -> st0 etc
+			if (regDef.GetRegisterKind() == RegisterKind.ST)
+				registerName = regDef.Register.RawName;
+			return registerName.ToLowerInvariant();
+		}
 
-		protected abstract void GenerateRegisters();
+		protected abstract void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups);
 		protected abstract void GenerateRegisterClasses(RegisterClassInfo[] infos);
 		protected abstract void GenerateMemorySizeFunctions(MemorySizeFuncInfo[] infos);
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
 
 		public void Generate() {
-			GenerateRegisters();
+			GenerateRegisters(GetRegisterGroups());
 			GenerateRegisterClasses(GetRegisterClassInfos());
 			GenerateMemorySizeFunctions(GetMemorySizeFunctions());
 			GenerateOpCodes();
@@ -232,6 +239,25 @@ namespace Generator.Assembler {
 				throw new InvalidOperationException("New register kinds must be initialized");
 
 			return infos;
+		}
+
+		(RegisterKind kind, RegisterDef[] regs)[] GetRegisterGroups() {
+			bool IgnoreRegister(RegisterKind kind) {
+				return kind switch {
+					RegisterKind.None or RegisterKind.IP => true,
+					_ => false,
+				};
+			}
+
+			var regGroups = regDefs.
+				Where(a => !IgnoreRegister(a.GetRegisterKind())).
+				GroupBy(a => a.GetRegisterKind()).Select(a => (kind: a.Key, regs: a.ToArray())).ToList();
+			regGroups.Sort((a, b) => a.CompareTo(b));
+			// Ignore: None, IP
+			if (regGroups.Count != genTypes[TypeIds.RegisterKind].Values.Length - 2)
+				throw new InvalidOperationException();
+
+			return regGroups.ToArray();
 		}
 
 		static MemorySizeFuncInfo[] GetMemorySizeFunctions() {

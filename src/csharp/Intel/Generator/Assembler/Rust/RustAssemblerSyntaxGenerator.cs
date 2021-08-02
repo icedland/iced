@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.IO;
 using Generator.Tables;
 
@@ -16,8 +17,66 @@ namespace Generator.Assembler.Rust {
 			idConverter = RustIdentifierConverter.Create();
 		}
 
-		protected override void GenerateRegisters() {
-			//TODO:
+		protected override void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups) {
+			var filename = genTypes.Dirs.GetRustFilename("code_asm", "registers.rs");
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
+				writer.WriteFileHeader();
+				writer.WriteLine("//! This module contains all registers that can be used.");
+				writer.WriteLine("//!");
+				writer.WriteLine("//! All register identifiers (eg. `eax`, `cr8`) are part of the public API but the");
+				writer.WriteLine("//! register *types* are *not*! They're an implementation detail.");
+				writer.WriteLine("//!");
+				writer.WriteLine("//! To use the registers, you must import everything from the module:");
+				writer.WriteLine("//!");
+				writer.WriteLine("//! ```");
+				writer.WriteLine("//! # #![allow(unused_imports)]");
+				writer.WriteLine("//! use iced_x86::code_asm::*;");
+				writer.WriteLine("//! ```");
+				writer.WriteLine("//!");
+				writer.WriteLine("//! or import them from this module:");
+				writer.WriteLine("//!");
+				writer.WriteLine("//! ```");
+				writer.WriteLine("//! # #![allow(unused_imports)]");
+				writer.WriteLine("//! use iced_x86::code_asm::registers::*;");
+				writer.WriteLine("//! ```");
+				writer.WriteLine("//!");
+				writer.WriteLine("//! or only the registers you need:");
+				writer.WriteLine("//!");
+				writer.WriteLine("//! ```");
+				writer.WriteLine("//! # #![allow(unused_imports)]");
+				writer.WriteLine("//! use iced_x86::code_asm::registers::gpr32::*;");
+				writer.WriteLine("//! use iced_x86::code_asm::registers::gpr64::*;");
+				writer.WriteLine("//! use iced_x86::code_asm::registers::xmm::*;");
+				writer.WriteLine("//! ```");
+
+				var registerTypeName = genTypes[TypeIds.Register].Name(idConverter);
+				foreach (var (kind, regs) in regGroups) {
+					Array.Sort(regs, (a, b) => a.Register.Value.CompareTo(b.Register.Value));
+
+					var (structName, modName, doc) = GetAsmRegisterInfo(kind);
+					writer.WriteLine();
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"pub mod {modName} {{");
+					using (writer.Indent()) {
+						writer.WriteLine($"//! {doc}");
+						writer.WriteLine("#![allow(non_upper_case_globals)]");
+						writer.WriteLine("#![allow(missing_docs)]");
+						writer.WriteLine($"use crate::code_asm::reg::{structName};");
+						writer.WriteLine($"use crate::{registerTypeName};");
+						foreach (var regDef in regs) {
+							var asmRegName = GetAsmRegisterName(regDef);
+							writer.WriteLine($"pub const {asmRegName}: {structName} = {structName}::new({registerTypeName}::{regDef.Register.Name(idConverter)});");
+						}
+					}
+					writer.WriteLine("}");
+				}
+
+				writer.WriteLine();
+				foreach (var (kind, regs) in regGroups.OrderBy(a => GetAsmRegisterInfo(a.kind).modName, StringComparer.Ordinal)) {
+					var modName = GetAsmRegisterInfo(kind).modName;
+					writer.WriteLine($"pub use self::{modName}::*;");
+				}
+			}
 		}
 
 		static (string structName, string modName, string doc) GetAsmRegisterInfo(RegisterKind kind) {
@@ -54,8 +113,6 @@ namespace Generator.Assembler.Rust {
 
 				var registerTypeName = genTypes[TypeIds.Register].Name(idConverter);
 
-				writer.WriteLine(RustConstants.AttributeNoRustFmtModule);
-				writer.WriteLine();
 				writer.WriteLine("use crate::code_asm::op_state::CodeAsmOpState;");
 				writer.WriteLine($"use crate::{registerTypeName};");
 				foreach (var reg in infos) {
@@ -88,6 +145,7 @@ namespace Generator.Assembler.Rust {
 					writer.WriteLine($"/// use iced_x86::code_asm::registers::{modName}::*;");
 					writer.WriteLine("/// ```");
 					writer.WriteLine("#[derive(Debug, Copy, Clone, Eq, PartialEq)]");
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					if (!reg.NeedsState)
 						writer.WriteLine("#[repr(transparent)]");
 					writer.WriteLine($"pub struct {structName} {{");
@@ -98,6 +156,7 @@ namespace Generator.Assembler.Rust {
 					}
 					writer.WriteLine("}");
 					writer.WriteLine();
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"impl {structName} {{");
 					using (writer.Indent()) {
 						writer.WriteLine($"pub(crate) const fn new(register: {registerTypeName}) -> Self {{");
@@ -111,6 +170,7 @@ namespace Generator.Assembler.Rust {
 					}
 					writer.WriteLine("}");
 					writer.WriteLine();
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"impl From<{structName}> for {registerTypeName} {{");
 					using (writer.Indent()) {
 						writer.WriteLine("#[inline]");

@@ -6,9 +6,11 @@
 mod errors;
 mod op_state;
 mod reg;
+pub mod registers;
 
 pub use crate::code_asm::errors::*;
 pub use crate::code_asm::reg::*;
+pub use crate::code_asm::registers::*;
 
 mod private {
 	pub trait Sealed {}
