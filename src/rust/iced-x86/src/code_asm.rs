@@ -4,11 +4,13 @@
 //! TODO:
 
 mod errors;
+mod mem;
 mod op_state;
 mod reg;
 pub mod registers;
 
 pub use crate::code_asm::errors::*;
+pub use crate::code_asm::mem::*;
 pub use crate::code_asm::reg::*;
 pub use crate::code_asm::registers::*;
 

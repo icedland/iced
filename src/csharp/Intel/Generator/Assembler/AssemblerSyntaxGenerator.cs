@@ -163,33 +163,42 @@ namespace Generator.Assembler {
 				NameParts = name.Split(' ');
 				IsBroadcast = NameParts[^1] == "bcst";
 			}
-		}
 
-		protected static string AOrAn(MemorySizeFnKind kind, string s) {
-			switch (kind) {
-			case MemorySizeFnKind.MmwordPtr:
-			case MemorySizeFnKind.FwordPtr:
-			case MemorySizeFnKind.OwordPtr:
-			case MemorySizeFnKind.XmmwordPtr:
-				return $"an {s}";
+			public string GetMethodDocs(string verb, Func<string, string> toCodeStr) {
+				var desc = Kind switch {
+					MemorySizeFnKind.Ptr or MemorySizeFnKind.Bcst => "no",
+					_ => AOrAn(Kind, toCodeStr(Name.ToUpperInvariant())),
+				};
+				var bcstDesc = IsBroadcast ? "broadcasted " : string.Empty;
+				return $"{verb} a {bcstDesc}memory operand with {desc} size hint";
+			}
 
-			case MemorySizeFnKind.Ptr:
-			case MemorySizeFnKind.BytePtr:
-			case MemorySizeFnKind.WordPtr:
-			case MemorySizeFnKind.DwordPtr:
-			case MemorySizeFnKind.QwordPtr:
-			case MemorySizeFnKind.TbytePtr:
-			case MemorySizeFnKind.TwordPtr:
-			case MemorySizeFnKind.YmmwordPtr:
-			case MemorySizeFnKind.ZmmwordPtr:
-			case MemorySizeFnKind.Bcst:
-			case MemorySizeFnKind.WordBcst:
-			case MemorySizeFnKind.DwordBcst:
-			case MemorySizeFnKind.QwordBcst:
-				return $"a {s}";
+			static string AOrAn(MemorySizeFnKind kind, string s) {
+				switch (kind) {
+				case MemorySizeFnKind.MmwordPtr:
+				case MemorySizeFnKind.FwordPtr:
+				case MemorySizeFnKind.OwordPtr:
+				case MemorySizeFnKind.XmmwordPtr:
+					return $"an {s}";
 
-			default:
-				throw new InvalidOperationException();
+				case MemorySizeFnKind.Ptr:
+				case MemorySizeFnKind.BytePtr:
+				case MemorySizeFnKind.WordPtr:
+				case MemorySizeFnKind.DwordPtr:
+				case MemorySizeFnKind.QwordPtr:
+				case MemorySizeFnKind.TbytePtr:
+				case MemorySizeFnKind.TwordPtr:
+				case MemorySizeFnKind.YmmwordPtr:
+				case MemorySizeFnKind.ZmmwordPtr:
+				case MemorySizeFnKind.Bcst:
+				case MemorySizeFnKind.WordBcst:
+				case MemorySizeFnKind.DwordBcst:
+				case MemorySizeFnKind.QwordBcst:
+					return $"a {s}";
+
+				default:
+					throw new InvalidOperationException();
+				}
 			}
 		}
 

@@ -355,17 +355,16 @@ namespace Generator.Assembler.CSharp {
 					using (writer.Indent()) {
 						for (int i = 0; i < infos.Length; i++) {
 							var info = infos[i];
-							var (name, desc) = info.Kind switch {
-								MemorySizeFnKind.Ptr => (string.Empty, "no"),
-								MemorySizeFnKind.Bcst => ("bcst", "no"),
-								_ => (info.Name.Replace(' ', '_'), AOrAn(info.Kind, $"<c>{info.Name.ToUpperInvariant()}</c>")),
+							var doc = info.GetMethodDocs("Gets", s => $"<c>{s}</c>");
+							var name = info.Kind switch {
+								MemorySizeFnKind.Ptr => string.Empty,
+								_ => info.Name.Replace(' ', '_'),
 							};
-							var bcstDesc = info.IsBroadcast ? "broadcasted " : string.Empty;
 
 							if (i != 0)
 								writer.WriteLine();
 							writer.WriteLine("/// <summary>");
-							writer.WriteLine($"/// Gets a {bcstDesc}memory operand with {desc} size hint");
+							writer.WriteLine($"/// {doc}");
 							writer.WriteLine("/// </summary>");
 							var enumValueStr = memOpSizeType[info.Size.ToString()].Name(idConverter);
 							if (info.IsBroadcast)
@@ -380,6 +379,7 @@ namespace Generator.Assembler.CSharp {
 				writer.WriteLineNoIndent("#endif");
 			}
 		}
+
 		protected override void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
 			GenerateCode(groups);
 			GenerateTests(groups);

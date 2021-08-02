@@ -185,7 +185,60 @@ namespace Generator.Assembler.Rust {
 		}
 
 		protected override void GenerateMemorySizeFunctions(MemorySizeFuncInfo[] infos) {
-			//TODO:
+			string GetFuncName(MemorySizeFuncInfo info) => info.Name.Replace(' ', '_');
+			var filename = genTypes.Dirs.GetRustFilename("code_asm", "mem.rs");
+
+			new FileUpdater(TargetLanguage.Rust, "AsmMemoryOperandPtrMethods", filename).Generate(writer => {
+				var memOpSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
+				var memOpSizeTypeStr = memOpSizeType.Name(idConverter);
+				for (int i = 0; i < infos.Length; i++) {
+					var info = infos[i];
+					var fnName = GetFuncName(info);
+					var calledFnName = info.IsBroadcast ? "bcst" : "ptr";
+
+					if (i != 0)
+						writer.WriteLine();
+					writer.WriteLine(RustConstants.AttributeInline);
+					writer.WriteLine(RustConstants.AttributeMustUse);
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"pub(crate) fn {fnName}(mut self) -> Self {{");
+					using (writer.Indent()) {
+						var enumValueStr = memOpSizeType[info.Size.ToString()].Name(idConverter);
+						writer.WriteLine($"self.state.{calledFnName}({memOpSizeTypeStr}::{enumValueStr});");
+						writer.WriteLine("self");
+					}
+					writer.WriteLine("}");
+				}
+			});
+
+			new FileUpdater(TargetLanguage.Rust, "GlobalPtrMethods", filename).Generate(writer => {
+				for (int i = 0; i < infos.Length; i++) {
+					var info = infos[i];
+					var fnName = GetFuncName(info);
+					var doc = info.GetMethodDocs("Creates", s => $"`{s}`");
+
+					if (i != 0)
+						writer.WriteLine();
+					writer.WriteLine($"/// {doc}");
+					writer.WriteLine("///");
+					writer.WriteLine("/// # Examples");
+					writer.WriteLine("///");
+					writer.WriteLine("/// ```");
+					writer.WriteLine("/// use iced_x86::code_asm::*;");
+					writer.WriteLine("///");
+					writer.WriteLine($"/// let _ = {fnName}(rax);");
+					writer.WriteLine($"/// let _ = {fnName}(0x1234_5678).fs();");
+					writer.WriteLine($"/// let _ = {fnName}(rdx * 4 + rcx - 123);");
+					writer.WriteLine("/// ```");
+					writer.WriteLine(RustConstants.AttributeInline);
+					writer.WriteLine(RustConstants.AttributeMustUse);
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
+					writer.WriteLine($"pub fn {fnName}<M: Into<__AsmMemoryOperand>>(mem: M) -> __AsmMemoryOperand {{");
+					using (writer.Indent())
+						writer.WriteLine($"mem.into().{fnName}()");
+					writer.WriteLine("}");
+				}
+			});
 		}
 
 		protected override void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
