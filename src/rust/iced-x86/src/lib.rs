@@ -130,6 +130,8 @@ mod iced_assert {
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_enc;
 mod code;
+#[cfg(feature = "code_asm")]
+pub mod code_asm;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 mod constant_offsets;
 #[cfg(any(feature = "decoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm", feature = "fast_fmt"))]

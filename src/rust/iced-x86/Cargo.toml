@@ -36,6 +36,7 @@ no_evex = []
 no_xop = []
 no_d3now = []
 serde = ["serde_crate"]
+code_asm = ["block_encoder"]
 # Don't use
 __internal_flip = []
 
